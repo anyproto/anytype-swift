@@ -2,6 +2,9 @@ import Foundation
 import BlocksModels
 
 protocol RelationsServiceProtocol {
-    func addFeaturedRelations(objectId: BlockId, relationIds: [String])
-    func removeFeaturedRelations(objectId: BlockId, relationIds: [String])
+    func addFeaturedRelation(relationKey: String)
+    func removeFeaturedRelation(relationKey: String)
+    func removeRelation(relationKey: String)
+    
+    func addRelationOption(relationKey: String, optionText: String) -> String?
 }

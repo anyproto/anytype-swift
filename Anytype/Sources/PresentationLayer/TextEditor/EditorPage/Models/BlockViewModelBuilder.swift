@@ -8,7 +8,6 @@ final class BlockViewModelBuilder {
     private let handler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
-    private let contextualMenuHandler: DefaultContextualMenuHandler
     private let pageService = PageService()
 
     init(
@@ -21,10 +20,6 @@ final class BlockViewModelBuilder {
         self.handler = handler
         self.router = router
         self.delegate = delegate
-        self.contextualMenuHandler = DefaultContextualMenuHandler(
-            handler: handler,
-            router: router
-        )
     }
 
     func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
@@ -45,7 +40,6 @@ final class BlockViewModelBuilder {
                     block: block,
                     content: content,
                     detailsStorage: document.detailsStorage,
-                    contextualMenuHandler: contextualMenuHandler,
                     becomeFirstResponder: { [weak self] model in
                         self?.delegate.becomeFirstResponder(blockId: model.information.id)
                     },
@@ -69,12 +63,11 @@ final class BlockViewModelBuilder {
                     upperBlock: previousBlock,
                     content: content,
                     isCheckable: isCheckable,
-                    contextualMenuHandler: contextualMenuHandler,
                     blockDelegate: delegate,
                     actionHandler: handler,
                     detailsStorage: document.detailsStorage,
-                    showPage: { [weak self] pageId in
-                        self?.router.showPage(with: pageId)
+                    showPage: { [weak self] data in
+                        self?.router.showPage(data: data)
                     },
                     openURL: { [weak self] url in
                         self?.router.openUrl(url)
@@ -88,7 +81,6 @@ final class BlockViewModelBuilder {
                     indentationLevel: block.indentationLevel,
                     information: block.information,
                     fileData: content,
-                    contextualMenuHandler: contextualMenuHandler,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
@@ -103,7 +95,6 @@ final class BlockViewModelBuilder {
                     information: block.information,
                     fileData: content,
                     indentationLevel: block.indentationLevel,
-                    contextualMenuHandler: contextualMenuHandler,
                     showIconPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .images, blockId: blockId)
                     }
@@ -117,7 +108,6 @@ final class BlockViewModelBuilder {
                     indentationLevel: block.indentationLevel,
                     information: block.information,
                     fileData: content,
-                    contextualMenuHandler: contextualMenuHandler,
                     showVideoPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .videos, blockId: blockId)
                     },
@@ -130,7 +120,6 @@ final class BlockViewModelBuilder {
                     indentationLevel: block.indentationLevel,
                     information: block.information,
                     fileData: content,
-                    contextualMenuHandler: contextualMenuHandler,
                     showAudioPicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId, types: [.audio])
                     },
@@ -143,17 +132,13 @@ final class BlockViewModelBuilder {
             return DividerBlockViewModel(
                 content: content,
                 information: block.information,
-                indentationLevel: block.indentationLevel,
-                handler: contextualMenuHandler
+                indentationLevel: block.indentationLevel
             )
         case let .bookmark(data):
             return BlockBookmarkViewModel(
                 indentationLevel: block.indentationLevel,
                 information: block.information,
                 bookmarkData: data,
-                handleContextualMenu: { [weak self] action, info in
-                    self?.contextualMenuHandler.handle(action: action, info: info)
-                },
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },
@@ -168,34 +153,51 @@ final class BlockViewModelBuilder {
                 information: block.information,
                 content: content,
                 details: details,
-                contextualMenuHandler: contextualMenuHandler,
-                openLink: { [weak self] blockId in
-                    self?.router.showPage(with: blockId)
+                openLink: { [weak self] data in
+                    self?.router.showPage(data: data)
                 }
             )
-        case .smartblock, .layout: return nil
         case .featuredRelations:
             guard let objectType = document.objectDetails?.objectType else { return nil }
             
             return FeaturedRelationsBlockViewModel(
                 information: block.information,
+                featuredRelation: document.parsedRelations.featuredRelationsForEditor(type: objectType),
                 type: objectType.name
-            ) { [weak self] in
+            ) { [weak self] relation in
                 guard let self = self else { return }
-                
-                guard
-                    !self.document.objectRestrictions.objectRestriction.contains(.typechange)
-                else {
-                    return
-                }
-                
-                self.router.showTypesSearch(
-                    onSelect: { [weak self] id in
-                        self?.handler.setObjectTypeUrl(id)
+
+                // TODO: reimplement when relation edit will be ready
+
+                if relation.id == BundledRelationKey.type.rawValue {
+                    guard
+                        !self.document.objectRestrictions.objectRestriction.contains(.typechange)
+                    else {
+                        return
                     }
-                )
+
+                    self.router.showTypesSearch(
+                        onSelect: { [weak self] id in
+                            self?.handler.setObjectTypeUrl(id)
+                        }
+                    )
+                }
             }
+        case let .relation(content):
+            let relation = document.parsedRelations.all.first {
+                $0.id == content.key
+            }
+
+            guard let relation = relation else {
+                return nil
+            }
+
+            return RelationBlockViewModel(
+                information: block.information,
+                indentationLevel: block.indentationLevel,
+                relation: relation)
             
+        case .smartblock, .layout, .dataView: return nil
         case .unsupported:
             guard block.parent?.information.content.type != .layout(.header) else {
                 return nil

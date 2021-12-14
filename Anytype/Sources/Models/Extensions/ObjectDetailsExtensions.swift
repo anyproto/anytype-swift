@@ -2,13 +2,13 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
-extension RelationValuesProvider {
+extension BundledRelationsValueProvider {
     
     // MARK: - Icon
     
     var icon: ObjectIconType? {
         switch layout {
-        case .basic:
+        case .basic, .set:
             return basicIcon
         case .profile:
             return profileIcon.flatMap { ObjectIconType.profile($0) }
@@ -77,8 +77,20 @@ extension RelationValuesProvider {
     
     var objectType: ObjectType {
         let type = ObjectTypeProvider.objectType(url: type)
-        anytypeAssert(type != nil, "Cannot parse type :\(String(describing: type)))")
+        anytypeAssert(
+            type != nil,
+            "Cannot parse type :\(String(describing: type)))",
+            domain: .objectDetails
+        )
         return type ?? ObjectTypeProvider.defaultObjectType
     }
     
+    var editorViewType: EditorViewType {
+        switch layout {
+        case .basic, .profile, .todo, .note:
+            return .page
+        case .set:
+            return .set
+        }
+    }
 }

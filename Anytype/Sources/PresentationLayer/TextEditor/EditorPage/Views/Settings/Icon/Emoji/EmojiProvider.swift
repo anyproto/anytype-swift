@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 
 final class EmojiProvider {
@@ -18,7 +19,9 @@ final class EmojiProvider {
         
         let filteredGroups: [EmojiGroup] = emojiGroups.compactMap { group in
             let filteredEmoji: [Emoji] = group.emojis.filter { emoji in
-                emoji.name.lowercased().range(of: lowercasedKeyword).isNotNil
+                emoji.searchTerms.first { searchTerm in
+                    searchTerm.lowercased().range(of: lowercasedKeyword).isNotNil
+                }.isNotNil
             }
             
             guard !filteredEmoji.isEmpty else { return nil }
@@ -43,58 +46,40 @@ final class EmojiProvider {
 private extension EmojiProvider{
     
     func loadEmojiGroups() -> [EmojiGroup] {
+        // source https://github.com/github/gemoji/blob/master/db/emoji.json
         guard let asset = NSDataAsset(name: "Emoji/EmojiData") else {
             fatalError("Missing data asset: EmojiData")
         }
-
-        guard
-            let json = try? JSONSerialization.jsonObject(
-                with: asset.data,
-                options: .allowFragments
-            )
-        else {
-            return []
-        }
-
-        guard let categories = json as? [[String : Any]] else {
-            return []
-        }
-
-        let emojiGroups: [EmojiGroup] = categories.compactMap { dictionary in
-            guard
-                let title = dictionary["title"] as? String,
-                let rawEmojis = dictionary["emojis"] as? [Any]
-            else {
-                return nil
-            }
-            
-            let emojis: [Emoji] = rawEmojis.compactMap { emojiUnicode in
-                let emoji: String? = {
-                    if let emoji = emojiUnicode as? String {
-                        return emoji
-                    }
-                    else if let subEmojis = emojiUnicode as? [String], let emoji = subEmojis.first {
-                        return emoji
-                    }
-                    
-                    return nil
-                }()
-                
-                guard let emojiSymbol = emoji else { return nil }
-                
-                return Emoji(
-                    unicode: emojiSymbol,
-                    name: emojiSymbol.unicodeScalars.first?.properties.name ?? ""
-                )
-            }
-            
-            return EmojiGroup(
-                name: title,
-                emojis: emojis
-            )
-        }
         
-        return emojiGroups
+        let emojis = try! JSONDecoder().decode([Emoji].self, from: asset.data)
+        
+        var groups = [EmojiGroup]()
+        
+        emojis.forEach { emoji in
+            guard emojiSupproted(emoji) else { return }
+            
+            guard let index = groups.firstIndex(where: { $0.name == emoji.category }) else {
+                groups.append(EmojiGroup(name: emoji.category, emojis: [emoji]))
+                return
+            }
+            groups[index] = groups[index].updated(emoji: emoji)
+        }
+
+        return groups
     }
 
+    func emojiSupproted(_ emoji: Emoji) -> Bool {
+        guard emoji.unicode_version.isNotEmpty else {
+            return true // some data is missing for old emojis
+        }
+        
+        let majorVersion = emoji.unicode_version.split(separator: ".").first.flatMap { String($0) } ?? emoji.unicode_version
+        guard let intVersion = Int(majorVersion) else {
+            anytypeAssertionFailure("Cannot parse emoji version:\(emoji.unicode_version)", domain: .iconEmoji)
+            return false
+        }
+        
+        let supportedEmojiVersion = 12
+        return intVersion <= supportedEmojiVersion
+    }
 }

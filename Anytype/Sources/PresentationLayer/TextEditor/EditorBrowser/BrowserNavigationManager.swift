@@ -80,12 +80,14 @@ final class BrowserNavigationManager {
     private func movingForwardAction(index: Int) {
         openedPages.append(closedPages[index])
         closedPages = Array(closedPages[0 ..< index])
+        cachedChildrenCount += 1
     }
     
     private func movingBackAction(index: Int) {
         let newClosedPages = openedPages[(index + 1)..<openedPages.count].reversed()
         closedPages.append(contentsOf: newClosedPages)
         openedPages = Array(openedPages[0...index])
+        cachedChildrenCount = index + 1
     }
     
     private func forwardAction(page: BrowserPage) {
@@ -96,7 +98,7 @@ final class BrowserNavigationManager {
     
     private func closeAction() {
         guard let closedBlockId = openedPages.popLast() else {
-            anytypeAssertionFailure("Empty opened pages list")
+            anytypeAssertionFailure("Empty opened pages list", domain: .editorBrowser)
             return
         }
         closedPages.append(closedBlockId)

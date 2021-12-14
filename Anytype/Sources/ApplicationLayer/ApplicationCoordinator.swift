@@ -74,7 +74,7 @@ private extension ApplicationCoordinator {
     }
 
     func login() {
-        let userId = UserDefaultsConfig.usersIdKey // TODO: Remove static
+        let userId = UserDefaultsConfig.usersId // TODO: Remove static
         guard userId.isEmpty == false else {
             showAuthScreen()
             return
@@ -105,6 +105,7 @@ private extension ApplicationCoordinator {
 extension ApplicationCoordinator: WindowHolder {
     
     func startNewRootView<ViewType: View>(_ view: ViewType) {
+        window.makeKeyAndVisible()
         let rootNavigationController = createNavigationController()
         rootNavigationController.setViewControllers(
             [UIHostingController(rootView: view)],
@@ -114,7 +115,6 @@ extension ApplicationCoordinator: WindowHolder {
         
         
         window.rootViewController = rootNavigationController
-        window.makeKeyAndVisible()
     }
     
     func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {

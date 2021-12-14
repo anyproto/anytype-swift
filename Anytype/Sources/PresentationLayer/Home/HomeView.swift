@@ -3,39 +3,40 @@ import Amplitude
 import AnytypeCore
 
 struct HomeView: View {
-    @ObservedObject var viewModel: HomeViewModel
+    @ObservedObject var model: HomeViewModel
     
     @StateObject private var settingsModel = SettingsViewModel(authService: ServiceLocator.shared.authService())
     @StateObject private var accountData = AccountInfoDataAccessor()
     
     @State var bottomSheetState = HomeBottomSheetViewState.closed
     @State private var showSettings = false
+    @State private var showKeychainAlert = UserDefaultsConfig.showKeychainAlert
 
     var body: some View {
         navigationView
             .environment(\.font, .defaultAnytype)
-            .environmentObject(viewModel)
+            .environmentObject(model)
             .environmentObject(settingsModel)
             .environmentObject(accountData)
             .onAppear {
                 Amplitude.instance().logEvent(AmplitudeEventsName.dashboardPage)
 
-                viewModel.viewLoaded()
+                model.viewLoaded()
                 
-                UserDefaultsConfig.storeOpenedPageId(nil)
+                UserDefaultsConfig.storeOpenedScreenData(nil)
             }
     }
     
     private var navigationView: some View {
         contentView
         .edgesIgnoringSafeArea(.all)
-        .coordinateSpace(name: viewModel.bottomSheetCoordinateSpaceName)
+        .coordinateSpace(name: model.bottomSheetCoordinateSpaceName)
 
         .toolbar {
             ToolbarItem {
                 Button(action: {
                     UISelectionFeedbackGenerator().selectionChanged()
-                    withAnimation(.ripple) {
+                    withAnimation(.fastSpring) {
                         showSettings.toggle()
                         if showSettings {
                             // Analytics
@@ -51,34 +52,45 @@ struct HomeView: View {
             SettingsView().padding(8)
         }
 
-        .bottomFloater(isPresented: $viewModel.showDeletionAlert) {
+        .bottomFloater(isPresented: $model.showDeletionAlert) {
             DashboardDeletionAlert().padding(8)
         }
-        .animation(.ripple, value: viewModel.showDeletionAlert)
+        .animation(.fastSpring, value: model.showDeletionAlert)
 
         .bottomFloater(isPresented: $settingsModel.loggingOut) {
             DashboardLogoutAlert().padding(8)
         }
-        .animation(.ripple, value: settingsModel.loggingOut)
+        .animation(.fastSpring, value: settingsModel.loggingOut)
         
         .bottomFloater(isPresented: $settingsModel.other) {
             OtherSettingsView()
         }
-        .animation(.ripple, value: settingsModel.other)
+        .animation(.fastSpring, value: settingsModel.other)
         
         .bottomFloater(isPresented: $settingsModel.clearCacheAlert) {
             DashboardClearCacheAlert().padding(8)
         }
-        .animation(.ripple, value: settingsModel.clearCacheAlert)
+        .animation(.fastSpring, value: settingsModel.clearCacheAlert)
         
-        .sheet(isPresented: $viewModel.showSearch) {
+        .bottomFloater(isPresented: $showKeychainAlert) {
+            DashboardKeychainReminderAlert().padding(8)
+        }
+        .animation(.fastSpring, value: showKeychainAlert)
+        .onChange(of: showKeychainAlert) { UserDefaultsConfig.showKeychainAlert = $0 }
+        
+        .bottomFloater(isPresented: $model.loadingAlertData.showAlert) {
+            DashboardLoadingAlert(text: model.loadingAlertData.text).padding(8)
+        }
+        .animation(.fastSpring, value: model.loadingAlertData.showAlert)
+        
+        .sheet(isPresented: $model.showSearch) {
             HomeSearchView()
-                .environmentObject(viewModel)
+                .environmentObject(model)
         }
         
         .snackbar(
-            isShowing: $viewModel.snackBarData.showSnackBar,
-            text: AnytypeText(viewModel.snackBarData.text, style: .uxCalloutRegular, color: .textPrimary)
+            isShowing: $model.snackBarData.showSnackBar,
+            text: AnytypeText(model.snackBarData.text, style: .uxCalloutRegular, color: .textPrimary)
         )
         
         .navigationBarTitleDisplayMode(.inline)
@@ -102,18 +114,16 @@ struct HomeView: View {
     }
     
     private var newPageNavigation: some View {
-        Group {
-            NavigationLink(
-                destination: viewModel.createBrowser(),
-                isActive: $viewModel.openedPageData.showingNewPage,
-                label: { EmptyView() }
-            )
-        }
+        NavigationLink(
+            destination: model.createBrowser(),
+            isActive: $model.openedPageData.showing,
+            label: { EmptyView() }
+        )
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(viewModel: HomeViewModel())
+        HomeView(model: HomeViewModel())
     }
 }

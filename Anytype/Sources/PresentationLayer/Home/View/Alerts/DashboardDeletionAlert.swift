@@ -11,9 +11,7 @@ struct DashboardDeletionAlert: View {
                 model.showDeletionAlert = false
             },
             rightButtonData: StandardButtonData(text: "Delete", style: .destructive) {
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
                 model.deleteConfirmation()
-                model.showDeletionAlert = false
             }
         )
     }

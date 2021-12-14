@@ -27,7 +27,6 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     let information: BlockInformation
     let fileData: BlockFile
 
-    let contextualMenuHandler: DefaultContextualMenuHandler
     let showAudioPicker: (BlockId) -> ()
     let downloadAudio: (FileId) -> ()
 
@@ -40,14 +39,12 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         indentationLevel: Int,
         information: BlockInformation,
         fileData: BlockFile,
-        contextualMenuHandler: DefaultContextualMenuHandler,
         showAudioPicker: @escaping (BlockId) -> (),
         downloadAudio: @escaping (FileId) -> ()
     ) {
         self.indentationLevel = indentationLevel
         self.information = information
         self.fileData = fileData
-        self.contextualMenuHandler = contextualMenuHandler
         self.showAudioPicker = showAudioPicker
         self.downloadAudio = downloadAudio
 
@@ -62,21 +59,6 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             showAudioPicker(blockId)
         case .uploading, .done:
             return
-        }
-    }
-
-    func makeContextualMenu() -> [ContextualMenu] {
-        BlockFileContextualMenuBuilder.contextualMenu(fileData: fileData)
-    }
-
-    func handle(action: ContextualMenu) {
-        switch action {
-        case .replace:
-            showAudioPicker(blockId)
-        case .download:
-            downloadAudio(fileData.metadata.hash)
-        default:
-            contextualMenuHandler.handle(action: action, info: information)
         }
     }
 

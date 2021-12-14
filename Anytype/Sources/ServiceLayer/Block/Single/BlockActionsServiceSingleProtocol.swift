@@ -9,4 +9,11 @@ protocol BlockActionsServiceSingleProtocol {
     func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> MiddlewareResponse?
     func close(contextId: BlockId, blockId: BlockId)
     func open(contextId: BlockId, blockId: BlockId) -> MiddlewareResponse?
+    func move(
+        contextId: BlockId,
+        blockIds: [String],
+        targetContextID: BlockId,
+        dropTargetID: String,
+        position: BlockPosition
+    )
 }

@@ -62,11 +62,11 @@ final class BlockDelegateImpl: BlockDelegate {
     
     func textDidChange() {
         guard let changeType = changeType else {
-            anytypeAssertionFailure("No change type in textDidChange")
+            anytypeAssertionFailure("No change type in textDidChange", domain: .blockDelegate)
             return
         }
         guard let data = data else {
-            anytypeAssertionFailure("No data in textDidChange")
+            anytypeAssertionFailure("No data in textDidChange", domain: .blockDelegate)
             return
         }
 

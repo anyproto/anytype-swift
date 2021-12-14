@@ -29,8 +29,14 @@ final class HomeCellDataBuilder {
     }
     
     private func blockToPageLink(_ blockModel: BlockModelProtocol) -> HomePageLink? {
-        guard case .link(let link) = blockModel.information.content else { return nil }
-
+        guard case .link(let link) = blockModel.information.content else {
+            anytypeAssertionFailure(
+                "Not link type in home screen dashboard: \(blockModel.information.content)",
+                domain: .homeView
+            )
+            return nil
+        }
+        
         let details = document.detailsStorage.get(id: link.targetBlockID)
         return HomePageLink(
             blockId: blockModel.information.id,
@@ -51,6 +57,7 @@ final class HomeCellDataBuilder {
             isLoading: pageLink.isLoading,
             isArchived: pageLink.isArchived,
             isDeleted: pageLink.isDeleted,
+            viewType: pageLink.details?.editorViewType ?? .page,
             selected: false
         )
     }
@@ -65,6 +72,7 @@ final class HomeCellDataBuilder {
             isLoading: false,
             isArchived: newDetails.isArchived,
             isDeleted: newDetails.isDeleted,
+            viewType: newDetails.editorViewType,
             selected: false
         )
     }

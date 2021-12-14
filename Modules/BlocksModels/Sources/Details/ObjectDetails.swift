@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 import SwiftProtobuf
 
-public struct ObjectDetails: Hashable, RelationValuesProvider {
+public struct ObjectDetails: Hashable, BundledRelationsValueProvider {
     
     public let id: String
     public let values: [String: Google_Protobuf_Value]
@@ -12,18 +12,20 @@ public struct ObjectDetails: Hashable, RelationValuesProvider {
         self.values = values
     }
     
-    public func updated(by rawDetails: [String: Google_Protobuf_Value]) -> ObjectDetails {
+    public static let empty = ObjectDetails(id: "", values: [:])
+}
+
+public extension ObjectDetails {
+    
+    func updated(by rawDetails: [String: Google_Protobuf_Value]) -> ObjectDetails {
         guard !rawDetails.isEmpty else { return self }
         
         let newValues = self.values.merging(rawDetails) { (_, new) in new }
         
-        return ObjectDetails(
-            id: self.id,
-            values: newValues
-        )
+        return ObjectDetails(id: self.id, values: newValues)
     }
     
-    public func removed(keys: [String]) -> ObjectDetails {
+    func removed(keys: [String]) -> ObjectDetails {
         guard keys.isNotEmpty else { return self }
         
         var currentValues = self.values
@@ -32,10 +34,7 @@ public struct ObjectDetails: Hashable, RelationValuesProvider {
             currentValues.removeValue(forKey: $0)
         }
         
-        return ObjectDetails(
-            id: self.id,
-            values: currentValues
-        )
+        return ObjectDetails(id: self.id, values: currentValues)
     }
     
 }

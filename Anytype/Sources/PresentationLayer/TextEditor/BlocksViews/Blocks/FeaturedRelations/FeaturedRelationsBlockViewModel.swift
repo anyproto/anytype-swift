@@ -1,11 +1,3 @@
-//
-//  FeaturedRelationsBlockViewModel.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 25.10.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import BlocksModels
@@ -17,7 +9,8 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let indentationLevel: Int = 0
     let information: BlockInformation
     let type: String
-    let onTypeTap: () -> Void
+    var featuredRelations: [Relation]
+    let onRelationTap: (Relation) -> Void
     
     var hashable: AnyHashable {
         [
@@ -29,29 +22,24 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     
     init(
         information: BlockInformation,
+        featuredRelation: [Relation],
         type: String,
-        onTypeTap: @escaping () -> Void
+        onRelationTap: @escaping (Relation) -> Void
     ) {
         self.information = information
+        self.featuredRelations = featuredRelation
         self.type = type
-        self.onTypeTap = onTypeTap
+        self.onRelationTap = onRelationTap
     }
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
         FeaturedRelationsBlockContentConfiguration(
+            featuredRelations: featuredRelations,
             type: type,
-            alignment: information.alignment.asNSTextAlignment
+            alignment: information.alignment.asNSTextAlignment,
+            onRelationTap: onRelationTap
         )
     }
     
-    func didSelectRowInTableView() {
-        onTypeTap()
-    }
-    
-    func makeContextualMenu() -> [ContextualMenu] {
-        []
-    }
-    
-    func handle(action: ContextualMenu) {}
-    
+    func didSelectRowInTableView() {}
 }

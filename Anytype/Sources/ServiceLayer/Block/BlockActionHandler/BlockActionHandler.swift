@@ -4,6 +4,7 @@ import Combine
 import AnytypeCore
 
 final class BlockActionHandler: BlockActionHandlerProtocol {
+    weak var blockSelectionHandler: BlockSelectionHandler?
     private let document: BaseDocumentProtocol
     
     private let service: BlockActionServiceProtocol
@@ -194,7 +195,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func addBlock(_ type: BlockContentType, blockId: BlockId) {
         switch type {
         case .smartblock(.page):
-            anytypeAssertionFailure("Use createPage func instead")
+            anytypeAssertionFailure("Use createPage func instead", domain: .blockActionsService)
             _ = service.createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
         default:
             guard
@@ -216,5 +217,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                 shouldSetFocusOnUpdate: shouldSetFocusOnUpdate
             )
         }
+    }
+
+    func selectBlock(blockInformation: BlockInformation) {
+        blockSelectionHandler?.didSelectEditingState(on: blockInformation)
     }
 }

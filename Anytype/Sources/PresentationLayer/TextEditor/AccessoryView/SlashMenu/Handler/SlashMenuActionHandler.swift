@@ -32,7 +32,7 @@ final class SlashMenuActionHandler {
                 }
             case .objectType(let object):
                 actionHandler.createPage(targetId: blockId, type: .dynamic(object.id))
-                    .flatMap { router.showPage(with: $0) }
+                    .flatMap { router.showPage(data: EditorScreenData(pageId: $0, type: .page)) }
             }
         case .relations:
             break

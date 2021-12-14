@@ -8,7 +8,9 @@ import AnytypeCore
 
 final class EditorPageViewModel: EditorPageViewModelProtocol {
     weak private(set) var viewInput: EditorPageViewInput?
-    
+
+    let blocksStateManager: EditorPageBlocksStateManagerProtocol
+
     let document: BaseDocumentProtocol
     let modelsHolder: BlockViewModelsHolder
     let blockDelegate: BlockDelegate
@@ -48,7 +50,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         actionHandler: BlockActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
         headerBuilder: ObjectHeaderBuilder,
-        blockActionsService: BlockActionsServiceSingle
+        blockActionsService: BlockActionsServiceSingle,
+        blocksStateManager: EditorPageBlocksStateManagerProtocol
     ) {
         self.objectSettingsViewModel = objectSettinsViewModel
         self.viewInput = viewInput
@@ -61,7 +64,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
         self.headerBuilder = headerBuilder
         self.blockActionsService = blockActionsService
-        
+        self.blocksStateManager = blocksStateManager
+
         setupSubscriptions()
     }
 
@@ -87,8 +91,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private func handleUpdate(updateResult: EventsListenerUpdate) {
         switch updateResult {
+
         case .general:
             performGeneralUpdate()
+
         case let .details(id):
             guard id == document.objectId else {
                 // TODO: - call blocks update with new details to update mentions/links
@@ -103,9 +109,21 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             objectSettingsViewModel.update(
                 objectDetailsStorage: document.detailsStorage,
                 objectRestrictions: document.objectRestrictions,
-                objectRelations: document.relationsStorage.relations
+                parsedRelations: document.parsedRelations
             )
             updateHeaderIfNeeded(header: header, details: details)
+
+            let featuredRelationsBlock = modelsHolder.models.first { blockModel in
+                if case .featuredRelations = blockModel.content {
+                    return true
+                }
+                return false
+            }
+            if let featuredRelationsBlockViewModel = featuredRelationsBlock as? FeaturedRelationsBlockViewModel {
+                updateViewModelsWithStructs(Set([featuredRelationsBlockViewModel.blockId]))
+                viewInput?.update(blocks: modelsHolder.models)
+            }
+
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
                 return
@@ -115,6 +133,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             updateMarkupViewModel(updatedIds)
             
             viewInput?.update(blocks: modelsHolder.models)
+
         case .syncStatus(let status):
             viewInput?.update(syncStatus: status)
         }
@@ -136,7 +155,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private func handleDeletionState() {
         guard let details = document.objectDetails else {
-            anytypeAssertionFailure("No detais for general update")
+            anytypeAssertionFailure("No detais for general update", domain: .editorPage)
             return
         }
         
@@ -166,7 +185,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             guard
                 let newModel = blockBuilder.build(newRecord, previousBlock: upperBlock)
             else {
-                anytypeAssertionFailure("Could not build model from record: \(newRecord)")
+                anytypeAssertionFailure(
+                    "Could not build model from record: \(newRecord)",
+                    domain: .editorPage
+                )
                 return
             }
 
@@ -197,7 +219,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
         guard let currentInformation = document.blocksContainer.model(id: blockId)?.information else {
             wholeBlockMarkupViewModel.removeInformationAndDismiss()
-            anytypeAssertionFailure("Could not find object with id: \(blockId)")
+            anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .editorPage)
             return
         }
         guard case .text = currentInformation.content else {
@@ -214,11 +236,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         let header = headerBuilder.objectHeader(details: details)
         updateHeaderIfNeeded(header: header, details: details)
         viewInput?.update(blocks: modelsHolder.models)
-        
+
         objectSettingsViewModel.update(
             objectDetailsStorage: document.detailsStorage,
             objectRestrictions: document.objectRestrictions,
-            objectRelations: document.relationsStorage.relations
+            parsedRelations: document.parsedRelations
         )
     }
 
@@ -251,13 +273,13 @@ extension EditorPageViewModel {
 // MARK: - Selection Handling
 
 extension EditorPageViewModel {
-    func didSelectBlock(at index: IndexPath) {
-        element(at: index)?.didSelectRowInTableView()
+    func didSelectBlock(at indexPath: IndexPath) {
+        element(at: indexPath)?.didSelectRowInTableView()
     }
 
-    private func element(at: IndexPath) -> BlockViewModelProtocol? {
+    func element(at: IndexPath) -> BlockViewModelProtocol? {
         guard modelsHolder.models.indices.contains(at.row) else {
-            anytypeAssertionFailure("Row doesn't exist")
+            anytypeAssertionFailure("Row doesn't exist", domain: .editorPage)
             return nil
         }
         return modelsHolder.models[at.row]

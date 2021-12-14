@@ -9,6 +9,8 @@ extension BlockContent {
         case .link(_): return ".link"
         case .layout(_): return ".layout"
         case .featuredRelations: return ".featuredRelations"
+        case .relation: return ".relation"
+        case .dataView: return ".dataView"
         case .unsupported: return "unsupported"
         }
     }

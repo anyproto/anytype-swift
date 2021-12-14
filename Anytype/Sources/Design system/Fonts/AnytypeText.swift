@@ -20,7 +20,11 @@ struct AnytypeText: View {
         size: CGFloat,
         weight: Font.Weight
     ) {
-        anytypeAssert(name != .plex, "Custom plex font requires custom line spacing implementation")
+        anytypeAssert(
+            name != .plex,
+            "Custom plex font requires custom line spacing implementation",
+            domain: .anytypeText
+        )
         let font = AnytypeFontBuilder.font(name: name, size: size, weight: weight)
         
         textView = Text(text).font(font).eraseToAnyView()

@@ -2,10 +2,11 @@ import Foundation
 import SwiftUI
 import Combine
 import os
+import AnytypeCore
 
 struct EditorViewRepresentable: UIViewControllerRepresentable {
     
-    let blockId: String
+    let data: EditorScreenData
     let model: HomeViewModel
     
     // MARK: - UIViewControllerRepresentable
@@ -13,7 +14,7 @@ struct EditorViewRepresentable: UIViewControllerRepresentable {
     func makeUIViewController(
         context: UIViewControllerRepresentableContext<EditorViewRepresentable>
     ) -> EditorBrowserController {
-        let browser = EditorAssembly().buildEditorBrowser(blockId: blockId)
+        let browser = EditorBrowserAssembly().buildEditorBrowser(data: data)
         model.editorBrowser = browser
         return browser
     }

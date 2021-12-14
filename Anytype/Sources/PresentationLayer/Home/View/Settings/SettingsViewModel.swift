@@ -1,6 +1,7 @@
 import SwiftUI
 import ProtobufMessages
 import AnytypeCore
+import Combine
 
 final class SettingsViewModel: ObservableObject {
     @Published var loggingOut = false
@@ -31,13 +32,20 @@ final class SettingsViewModel: ObservableObject {
         windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
     }
     
-    func clearCache() -> Bool {
-        let result = Anytype_Rpc.FileList.Offload.Service.invoke(onlyIds: [], includeNotPinned: false)
-        switch result {
-        case .failure:
-            return false
-        case .success:
-            return true
-        }
+    private var clearCacheSubscription: AnyCancellable?
+    func clearCache(completion: @escaping (Bool) -> ()) {
+        clearCacheSubscription = Anytype_Rpc.FileList.Offload.Service.invoke(
+            onlyIds: [], includeNotPinned: false, queue: DispatchQueue.global(qos: .userInitiated)
+        )
+            .receiveOnMain()
+            .sinkWithResult { result in
+                switch result {
+                case .failure(let error):
+                    anytypeAssertionFailure("Clear cache error: \(error)", domain: .clearCache)
+                    completion(false)
+                case .success:
+                    completion(true)
+                }
+            }
     }
 }

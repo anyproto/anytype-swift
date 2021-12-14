@@ -84,7 +84,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
     }
     
     func setNavigationBarHidden(_ hidden: Bool) {
-        controller?.navigationController?.setNavigationBarHidden(hidden, animated: false)
+        controller?.navigationController?.navigationBar.alpha = hidden ? 0 : 1
         fakeNavigationBarBackgroundView.isHidden = hidden
     }
 }

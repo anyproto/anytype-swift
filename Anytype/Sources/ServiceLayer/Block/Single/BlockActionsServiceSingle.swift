@@ -21,7 +21,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
     func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> MiddlewareResponse? {
         guard let blockInformation = BlockInformationConverter.convert(information: info) else {
-            anytypeAssertionFailure("addActionBlockIsNotParsed")
+            anytypeAssertionFailure("addActionBlockIsNotParsed", domain: .blockActionsService)
             return nil
         }
 
@@ -33,7 +33,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
     func replace(contextId: BlockId, blockId: BlockId, info: BlockInformation) -> MiddlewareResponse? {
         guard let block = BlockInformationConverter.convert(information: info) else {
-            anytypeAssertionFailure("replace action parsing error")
+            anytypeAssertionFailure("replace action parsing error", domain: .blockActionsService)
             return nil
         }
         
@@ -57,10 +57,32 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
     func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) -> MiddlewareResponse? {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockListDuplicate)
-        
+
         return Anytype_Rpc.BlockList.Duplicate.Service
             .invoke(contextID: contextId, targetID: targetId, blockIds: blockIds, position: position.asMiddleware)
             .map { MiddlewareResponse($0.event) }
             .getValue()
+    }
+
+    func move(
+        contextId: BlockId,
+        blockIds: [String],
+        targetContextID: BlockId,
+        dropTargetID: String,
+        position: BlockPosition
+    ) {
+        let event = Anytype_Rpc.BlockList.Move.Service
+            .invoke(
+                contextID: contextId,
+                blockIds: blockIds,
+                targetContextID: targetContextID,
+                dropTargetID: dropTargetID,
+                position: position.asMiddleware
+            ).map { EventsBunch(event: $0.event) }
+            .getValue()
+
+        guard let event = event else { return }
+
+        event.send()
     }
 }

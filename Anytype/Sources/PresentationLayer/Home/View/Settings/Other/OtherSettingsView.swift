@@ -11,9 +11,8 @@ struct OtherSettingsView: View {
             AnytypeText("Other settings".localized, style: .uxTitle1Semibold, color: .textPrimary)
             Spacer.fixedHeight(12)
             defaultType
-            #if !RELEASE
+            iconPicker
             clearCache
-            #endif
             Spacer.fixedHeight(12)
         }
         .background(Color.background)
@@ -21,7 +20,7 @@ struct OtherSettingsView: View {
         .padding(.horizontal, 8)
     }
     
-    var defaultType: some View {
+    private var defaultType: some View {
         Button(action: { model.defaultType = true }) {
             HStack(spacing: 0) {
                 AnytypeText("Default object type".localized, style: .uxBodyRegular, color: .textPrimary)
@@ -33,6 +32,42 @@ struct OtherSettingsView: View {
             .padding(.vertical, 14)
             .modifier(DividerModifier())
             .padding(.horizontal, 20)
+        }
+    }
+    
+    private var iconPicker: some View {
+        VStack(alignment: .leading) {
+            AnytypeText("App icon".localized, style: .uxBodyRegular, color: .textPrimary).padding(.bottom, 6)
+            HStack(spacing: 20) {
+                ForEach(AppIcon.allCases, id: \.self) { icon in
+                    appIcon(icon)
+                }
+                Spacer()
+            }
+        }
+        .padding(.vertical, 14)
+        .modifier(DividerModifier())
+        .padding(.horizontal, 20)
+    }
+    
+    private func appIcon(_ icon: AppIcon) -> some View {
+        VStack(alignment: .center) {
+            Button {
+                AppIconManager.shared.setIcon(icon)
+                UISelectionFeedbackGenerator().selectionChanged()
+                
+            } label: {
+                icon.preview.resizable()
+                    .frame(width: 60, height: 60)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 8)
+                            .stroke(
+                                AppIconManager.shared.currentIcon == icon ? Color.pureAmber : Color.grayscale10,
+                                lineWidth: 3
+                            )
+                    )
+            }
+            AnytypeText(icon.description, style: .uxCalloutRegular, color: AppIconManager.shared.currentIcon == icon ? .textPrimary : .textSecondary)
         }
     }
     

@@ -1,8 +1,13 @@
 import Foundation
 import BlocksModels
 
+protocol BlockSelectionHandler: AnyObject {
+    func didSelectEditingState(on block: BlockInformation)
+}
+
 protocol BlockActionHandlerProtocol: AnyObject {
-    
+    var blockSelectionHandler: BlockSelectionHandler? { get set }
+
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     @discardableResult
     func turnIntoPage(blockId: BlockId) -> BlockId?
@@ -33,4 +38,5 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
+    func selectBlock(blockInformation: BlockInformation)
 }

@@ -1,12 +1,17 @@
 
 import Foundation
 
+protocol ComparableDisplayData {
+    var title: String? { get }
+    var subtitle: String? { get }
+}
+
 struct SlashMenuComparator {
     private let predicate: (String) -> Bool
     private let result: SlashMenuItemFilterMatch
     
-    static func match(data: SlashMenuItemDisplayData, string: String) -> SlashMenuItemFilterMatch? {
-        let lowecasedTitle = data.title.lowercased()
+    static func match(data: ComparableDisplayData, string: String) -> SlashMenuItemFilterMatch? {
+        let lowecasedTitle = data.title?.lowercased()
         let subtitle = data.subtitle?.lowercased()
         let comparators = [
             SlashMenuComparator(
@@ -14,7 +19,7 @@ struct SlashMenuComparator {
                 result: .fullTitle
             ),
             SlashMenuComparator(
-                predicate: { lowecasedTitle.contains($0) },
+                predicate: { lowecasedTitle?.contains($0) ?? false },
                 result: .titleSubstring
             ),
             SlashMenuComparator(

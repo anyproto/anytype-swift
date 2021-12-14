@@ -1,5 +1,6 @@
 import AnytypeCore
 import BlocksModels
+import UIKit
 
 extension HomeViewModel {
     var isSelectionMode: Bool { binCellData.filter { $0.selected }.isNotEmpty }
@@ -15,7 +16,7 @@ extension HomeViewModel {
     
     func select(data: HomeCellData) {
         guard let index = binCellData.firstIndex(where: { $0.id == data.id }) else {
-            anytypeAssertionFailure("No page in bin for data: \(data)")
+            anytypeAssertionFailure("No page in bin for data: \(data)", domain: .homeView)
             return
         }
         
@@ -33,8 +34,20 @@ extension HomeViewModel {
     }
     
     func deleteConfirmation() {
-        objectActionsService.delete(objectIds: selectedPageIds)
-        selectAll(false)
-        updateBinTab()
+        loadingAlertData = .init(text: "Deleting in progress", showAlert: true)
+        
+        objectActionsService.delete(objectIds: selectedPageIds) { [weak self] success in
+            self?.loadingAlertData = .empty
+            
+            if success {
+                UINotificationFeedbackGenerator().notificationOccurred(.success)
+                self?.showDeletionAlert = false
+                self?.selectAll(false)
+                self?.updateBinTab()
+            } else {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                self?.snackBarData = .init(text: "Deletion error".localized, showSnackBar: true)
+            }
+        }
     }
 }

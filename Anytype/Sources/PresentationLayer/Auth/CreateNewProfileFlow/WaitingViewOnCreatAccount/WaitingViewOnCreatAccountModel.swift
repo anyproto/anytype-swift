@@ -49,7 +49,7 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
                     self.error = "Sign up error".localized
                     self.showError = true
                 case .success:
-                    self.loginStateService.setupStateAfterLoginOrAuth()
+                    self.loginStateService.setupStateAfterRegistration()
                     windowHolder?.startNewRootView(self.homeViewAssembly.createHomeView())
                 }
             }

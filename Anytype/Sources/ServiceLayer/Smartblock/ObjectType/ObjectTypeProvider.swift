@@ -18,8 +18,10 @@ protocol ObjectTypeProviderProtocol {
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     static var supportedTypeUrls: [String] {
-        objectTypes(smartblockTypes: [.page, .profilePage, .anytypeProfile])
-            .map { $0.url } +
+        var smartblockTypes: [Anytype_Model_SmartBlockType] = [.page, .profilePage, .anytypeProfile]
+        if FeatureFlags.sets { smartblockTypes.append(.set)}
+        
+        return objectTypes(smartblockTypes: smartblockTypes).map { $0.url } +
         [ObjectTemplateType.BundledType.note.rawValue]
     }
     
@@ -36,7 +38,9 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     static func isSupported(typeUrl: String?) -> Bool {
-        typeUrl != ObjectTemplateType.BundledType.set.rawValue
+        if FeatureFlags.sets { return true }
+        
+        return typeUrl != ObjectTemplateType.BundledType.set.rawValue
     }
     
     static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType] {

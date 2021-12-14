@@ -14,14 +14,23 @@ final class BaseDocument: BaseDocumentProtocol {
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     private let eventsListener: EventsListener
     private let updateSubject = PassthroughSubject<EventsListenerUpdate, Never>()
+    private let relationBuilder = RelationsBuilder()
     
     let objectId: BlockId
 
     let blocksContainer: BlockContainerModelProtocol = BlockContainer()
     let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
-    let relationsStorage: RelationsStorageProtocol = RelationsStorage()
+    let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
     
     private(set) var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
+
+    var parsedRelations: ParsedRelations {
+        relationBuilder.buildRelations(
+            using: relationsStorage.relations,
+            objectId: objectId,
+            detailsStorage: detailsStorage
+        )
+    }
         
     init(objectId: BlockId) {
         self.objectId = objectId
@@ -107,12 +116,10 @@ final class BaseDocument: BaseDocumentProtocol {
 
         TreeBlockBuilder.buildBlocksTree(from: parsedBlocks, with: rootId, in: blocksContainer)
 
-        parsedDetails.forEach {
-            detailsStorage.add(details: $0, id: $0.id)
-        }
+        parsedDetails.forEach { detailsStorage.add(details: $0) }
         
         relationsStorage.set(
-            relations: objectShowEvent.relations.map { Relation(middlewareRelation: $0) }
+            relations: objectShowEvent.relations.map { RelationMetadata(middlewareRelation: $0) }
         )
         
         objectRestrictions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareResctrictions: objectShowEvent.restrictions)

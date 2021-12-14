@@ -12,6 +12,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            viewType: .page,
             selected: false
         ),
         HomeCellData(
@@ -23,6 +24,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            viewType: .page,
             selected: true
         ),
         HomeCellData(
@@ -34,6 +36,7 @@ struct HomeCellDataMock {
             isLoading: true,
             isArchived: true,
             isDeleted: false,
+            viewType: .page,
             selected: true
         ),
         HomeCellData(
@@ -45,6 +48,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            viewType: .page,
             selected: false
         ),
         HomeCellData(
@@ -56,6 +60,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            viewType: .page,
             selected: false
         ),
         HomeCellData(
@@ -67,6 +72,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            viewType: .page,
             selected: false
         ),
         
@@ -79,6 +85,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            viewType: .page,
             selected: false
         ),
         
@@ -91,6 +98,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            viewType: .page,
             selected: true
         ),
         
@@ -103,6 +111,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            viewType: .page,
             selected: false
         ),
         
@@ -115,6 +124,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: true,
+            viewType: .page,
             selected: false
         )
     ]

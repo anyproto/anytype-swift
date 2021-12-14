@@ -6,8 +6,8 @@ final class PageService {
     func createPage(name: String) -> BlockId? {
         let details = Google_Protobuf_Struct(
             fields: [
-                RelationKey.name.rawValue: name.protobufValue,
-                RelationKey.type.rawValue: ObjectTypeProvider.defaultObjectType.url.protobufValue
+                BundledRelationKey.name.rawValue: name.protobufValue,
+                BundledRelationKey.type.rawValue: ObjectTypeProvider.defaultObjectType.url.protobufValue
             ]
         )
         

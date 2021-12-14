@@ -16,24 +16,8 @@ struct BlockFileViewModel: BlockViewModelProtocol {
     let information: BlockInformation
     let fileData: BlockFile
     
-    let contextualMenuHandler: DefaultContextualMenuHandler
     let showFilePicker: (BlockId) -> ()
     let downloadFile: (FileId) -> ()
-    
-    func makeContextualMenu() -> [ContextualMenu] {
-        BlockFileContextualMenuBuilder.contextualMenu(fileData: fileData)
-    }
-    
-    func handle(action: ContextualMenu) {
-        switch action {
-        case .replace:
-            showFilePicker(blockId)
-        case .download:
-            downloadFile(fileData.metadata.hash)
-        default:
-            contextualMenuHandler.handle(action: action, info: information)
-        }
-    }
     
     func didSelectRowInTableView() {
         switch fileData.state {

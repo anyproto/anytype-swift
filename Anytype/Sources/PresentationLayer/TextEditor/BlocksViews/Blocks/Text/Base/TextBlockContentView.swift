@@ -3,12 +3,11 @@ import Combine
 import BlocksModels
 
 
-final class TextBlockContentView: UIView & UIContentView {
+final class TextBlockContentView: BaseBlockView<TextBlockContentConfiguration> {
     
     // MARK: - Views
     
     private let backgroundColorView = UIView()
-    private let selectionView = TextBlockSelectionView()
     private let contentView = UIView()
     private(set) lazy var textView = CustomTextView()
     private(set) lazy var createEmptyBlockButton = EmptyToggleButtonBuilder.create { [weak self] in
@@ -25,36 +24,25 @@ final class TextBlockContentView: UIView & UIContentView {
     
     private var topContentConstraint: NSLayoutConstraint?
     private var bottomContentnConstraint: NSLayoutConstraint?
-    
-    private(set) var currentConfiguration: TextBlockContentConfiguration
-    
-    var configuration: UIContentConfiguration {
-        get { currentConfiguration }
-        set {
-            guard let configuration = newValue as? TextBlockContentConfiguration else { return }
-            guard configuration != currentConfiguration else { return }
-            
-            currentConfiguration = configuration
-            applyNewConfiguration()
-        }
-    }
 
     private var focusSubscription: AnyCancellable?
-
-    // MARK: - Initializers
     
-    init(configuration: TextBlockContentConfiguration) {
-        self.currentConfiguration = configuration
+    override func setupSubviews() {
+        super.setupSubviews()
 
-        super.init(frame: .zero)
-        
         setupLayout()
+    }
+
+    override func update(with configuration: TextBlockContentConfiguration) {
+        super.update(with: configuration)
+
         applyNewConfiguration()
     }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+
+    override func update(with state: UICellConfigurationState) {
+        super.update(with: state)
+
+        textView.textView.isUserInteractionEnabled = state.isEditing
     }
 
     // MARK: - Setup views
@@ -62,7 +50,7 @@ final class TextBlockContentView: UIView & UIContentView {
     private func setupLayout() {
         contentStackView.addArrangedSubview(TextBlockIconView(viewType: .empty))
         contentStackView.addArrangedSubview(textView)
-        
+
         contentView.addSubview(contentStackView) {
             topContentConstraint = $0.top.equal(to: contentView.topAnchor)
             bottomContentnConstraint = $0.bottom.equal(to: contentView.bottomAnchor)
@@ -73,17 +61,14 @@ final class TextBlockContentView: UIView & UIContentView {
         backgroundColorView.addSubview(contentView) {
             $0.pinToSuperview(insets: TextBlockLayout.contentInset)
         }
-        backgroundColorView.addSubview(selectionView) {
-            $0.pinToSuperview(insets: TextBlockLayout.selectionViewInset)
-        }
-        
+
         createEmptyBlockButton.layoutUsing.anchors {
             $0.height.equal(to: 26)
         }
-        
+
         mainStackView.addArrangedSubview(backgroundColorView)
         mainStackView.addArrangedSubview(createEmptyBlockButton)
-        
+
         addSubview(mainStackView) {
             topMainConstraint = $0.top.equal(to: topAnchor)
             bottomMainConstraint = $0.bottom.equal(to: bottomAnchor)
@@ -103,14 +88,13 @@ final class TextBlockContentView: UIView & UIContentView {
         TextBlockTextViewStyler.applyStyle(textView: textView, configuration: currentConfiguration, restrictions: restrictions)
 
         updateAllConstraint(blockTextStyle: currentConfiguration.content.contentType)
-
+        
         textView.delegate = self
         
         let displayPlaceholder = currentConfiguration.content.contentType == .toggle && currentConfiguration.shouldDisplayPlaceholder
         createEmptyBlockButton.isHidden = !displayPlaceholder
 
         backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
-        selectionView.updateStyle(isSelected: currentConfiguration.isSelected)
 
         focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
@@ -118,14 +102,8 @@ final class TextBlockContentView: UIView & UIContentView {
     }
     
     private func updateAllConstraint(blockTextStyle: BlockText.Style) {
-        var mainInset = TextBlockLayout.mainInset(textBlockStyle: blockTextStyle)
+        let mainInset = TextBlockLayout.mainInset(textBlockStyle: blockTextStyle)
         let contentInset = TextBlockLayout.contentInset(textBlockStyle: blockTextStyle)
-
-        // Update top indentaion if current block not in the header and upper block is in the header block
-        if currentConfiguration.block.parent?.information.content.type != .layout(.header),
-           currentConfiguration.upperBlock?.parent?.information.content.type == .layout(.header) {
-            mainInset = TextBlockLayout.mainInsetForBlockAfterHeader
-        }
         
         topMainConstraint?.constant = mainInset.top
         bottomMainConstraint?.constant = mainInset.bottom

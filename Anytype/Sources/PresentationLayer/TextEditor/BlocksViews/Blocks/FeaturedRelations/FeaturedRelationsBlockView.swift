@@ -1,48 +1,28 @@
 import Foundation
 import UIKit
+import SwiftUI
 
-final class FeaturedRelationsBlockView: UIView, UIContentView {
-        
+final class FeaturedRelationsBlockView: BaseBlockView<FeaturedRelationsBlockContentConfiguration> {
+
     // MARK: - Views
-    
-    private let typeLabel: AnytypeLabel = {
-        let label = AnytypeLabel(style: .relation2Regular)
-        label.textColor = .textSecondary
-        return label
+
+    private lazy var relationsView: UIView = {
+        return UIView()
     }()
+
+    private var relationFlowViewModel: FlowRelationsViewModel?
     
-    // MARK: - Private variables
-    
-    private var appliedConfiguration: FeaturedRelationsBlockContentConfiguration!
-    
-    // MARK: - Internal variables
-    
-    var configuration: UIContentConfiguration {
-        get { self.appliedConfiguration }
-        set {
-            guard
-                let configuration = newValue as? FeaturedRelationsBlockContentConfiguration,
-                appliedConfiguration != configuration
-            else {
-                return
-            }
-            
-            apply(configuration)
-        }
-    }
-    
-    // MARK: - Initializers
-    
-    init(configuration: FeaturedRelationsBlockContentConfiguration) {
-        super.init(frame: .zero)
-        
-        setupLayout()
+    // MARK: - BaseBlockView
+
+    override func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
+        super.update(with: configuration)
+
         apply(configuration)
     }
 
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func setupSubviews() {
+        super.setupSubviews()
+        setupLayout()
     }
     
 }
@@ -50,24 +30,28 @@ final class FeaturedRelationsBlockView: UIView, UIContentView {
 private extension FeaturedRelationsBlockView  {
     
     func setupLayout() {
-        addSubview(typeLabel) {
-            $0.pinToSuperview(
-                insets: UIEdgeInsets(
-                    top: Constants.verticalSpacing,
-                    left: Constants.horizontalSpacing,
-                    bottom: -Constants.verticalSpacing,
-                    right: -Constants.horizontalSpacing
-                )
-            )
+        let relationFlowViewModel = FlowRelationsViewModel(
+            relations: currentConfiguration.featuredRelations,
+            onRelationTap: currentConfiguration.onRelationTap
+        )
+        self.relationFlowViewModel = relationFlowViewModel
+        relationFlowViewModel.relations = currentConfiguration.featuredRelations
+        relationFlowViewModel.alignment = currentConfiguration.alignment.asSwiftUI
+
+        let relationsView = FlowRelationsView(viewModel: relationFlowViewModel).asUIView()
+
+        addSubview(relationsView) {
+            $0.leading.equal(to: leadingAnchor, constant: Constants.horizontalSpacing)
+            $0.top.equal(to: topAnchor, constant: Constants.verticalSpacing)
+            $0.bottom.equal(to: bottomAnchor, constant: -Constants.verticalSpacing)
+            $0.trailing.equal(to: trailingAnchor, constant: -Constants.horizontalSpacing)
         }
     }
     
     func apply(_ configuration: FeaturedRelationsBlockContentConfiguration) {
-        appliedConfiguration = configuration
-        typeLabel.setText(configuration.type)
-        typeLabel.textAlignment = configuration.alignment
+        relationFlowViewModel?.relations = configuration.featuredRelations
+        relationFlowViewModel?.alignment = configuration.alignment.asSwiftUI
     }
-    
 }
 
 private extension FeaturedRelationsBlockView {

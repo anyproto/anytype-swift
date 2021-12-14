@@ -2,7 +2,6 @@ import UIKit
 import BlocksModels
 
 protocol BlockViewModelProtocol:
-    ContextualMenuHandler,
     HashableProvier,
     ContentConfigurationProvider,
     BlockDataProvider
@@ -12,11 +11,6 @@ protocol BlockViewModelProtocol:
     /// Block that upper than current.
     /// Upper block can has other parent (i.e. has different level) but must be followed by the current block.
     var upperBlock: BlockModelProtocol? { get }
-}
-
-protocol ContextualMenuHandler {
-    func makeContextualMenu() -> [ContextualMenu]
-    func handle(action: ContextualMenu)
 }
 
 protocol HashableProvier {
@@ -36,36 +30,4 @@ protocol BlockDataProvider {
 extension BlockDataProvider {
     var blockId: BlockId { information.id }
     var content: BlockContent { information.content }
-}
-
-extension BlockViewModelProtocol {
-    func contextMenuConfiguration() -> UIContextMenuConfiguration? {
-        let menuItems = makeContextualMenu()
-        guard !menuItems.isEmpty else {
-            return nil
-        }
-        
-        return UIContextMenuConfiguration(identifier: nil, previewProvider: nil) { _ -> UIMenu? in
-            UIMenu(
-                children: menuItems.map { menuItem -> UIAction in
-                    UIAction(
-                        title: menuItem.title,
-                        image: menuItem.image,
-                        identifier: menuItem.identifier,
-                        state: .off
-                    ) { action in
-                        guard
-                            let identifier = ContextualMenu(rawValue: action.identifier.rawValue)
-                        else { return }
-                        
-                        // System must restore first responder after dismissing ContextMenu
-                        // before handling action
-                        DispatchQueue.main.async {
-                            handle(action: identifier)
-                        }
-                    }
-                }
-            )
-        }
-    }
 }

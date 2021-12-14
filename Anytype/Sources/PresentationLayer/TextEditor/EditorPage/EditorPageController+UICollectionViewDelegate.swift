@@ -10,18 +10,28 @@ extension EditorPageController: UICollectionViewDelegate {
         _ collectionView: UICollectionView,
         didSelectItemAt indexPath: IndexPath
     ) {
-        viewModel.didSelectBlock(at: indexPath)
-        collectionView.deselectItem(at: indexPath, animated: false)
+        if collectionView.isEditing {
+            viewModel.didSelectBlock(at: indexPath)
+            collectionView.deselectItem(at: indexPath, animated: false)
+        } else {
+            collectionView.indexPathsForSelectedItems.map(
+                viewModel.blocksStateManager.didUpdateSelectedIndexPaths
+            )
+        }
     }
     
     func collectionView(
         _ collectionView: UICollectionView,
         didDeselectItemAt indexPath: IndexPath
     ) {
-        return
+        collectionView.indexPathsForSelectedItems.map(
+            viewModel.blocksStateManager.didUpdateSelectedIndexPaths
+        )
     }
     
     func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
+        guard dividerCursorController.movingMode != .drum  else { return false }
+
         if dataSource.snapshot().sectionIdentifiers[indexPath.section] == .header {
                     return false
                 }
@@ -36,29 +46,16 @@ extension EditorPageController: UICollectionViewDelegate {
         
         switch item {
         case let .block(block):
-            if case .text = block.content { return false }
-            return true
+            if case .text = block.content, collectionView.isEditing { return false }
+
+            return viewModel.blocksStateManager.canSelectBlock(at: indexPath)
         case .header:
             return false
         }
     }
 
-    func collectionView(
-        _ collectionView: UICollectionView,
-        contextMenuConfigurationForItemAt indexPath: IndexPath,
-        point: CGPoint
-    ) -> UIContextMenuConfiguration? {
-        guard let item = dataSource.itemIdentifier(for: indexPath) else { return nil }
-
-        switch item {
-        case let .block(block):
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.popupActionMenu)
-            
-            return block.contextMenuConfiguration()
-        case .header:
-                    return nil
-        }
+    func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
+        return collectionView.isEditing
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -67,5 +64,4 @@ extension EditorPageController: UICollectionViewDelegate {
             object: scrollView.contentOffset.y
         )
     }
-    
 }

@@ -18,11 +18,17 @@ struct BlockInformationCreator {
     
     func createBlockInformation(from newData: Anytype_Event.Block.Set.Text) -> BlockInformation? {
         guard let blockModel = blocksContainer.model(id: newData.id) else {
-            anytypeAssertionFailure("Block model with id \(newData.id) not found in container")
+            anytypeAssertionFailure(
+                "Block model with id \(newData.id) not found in container",
+                domain: .blockInformationCreator
+            )
             return nil
         }
         guard case let .text(oldText) = blockModel.information.content else {
-            anytypeAssertionFailure("Block model doesn't support text:\n \(blockModel.information)")
+            anytypeAssertionFailure(
+                "Block model doesn't support text:\n \(blockModel.information)",
+                domain: .blockInformationCreator
+            )
             return nil
         }
 
@@ -40,8 +46,8 @@ struct BlockInformationCreator {
             color: color ?? ""
         )
         
-        guard var textContent = ContentTextConverter().textContent(middleContent) else {
-            anytypeAssertionFailure("We cannot block content from: \(middleContent)")
+        guard var textContent = middleContent.textContent else {
+            anytypeAssertionFailure("We cannot block content from: \(middleContent)", domain: .blockInformationCreator)
             return nil
         }
 
@@ -57,7 +63,10 @@ struct BlockInformationCreator {
     
     func createBlockInformation(newAlignmentData: Anytype_Event.Block.Set.Align) -> BlockInformation? {
         guard let blockModel = blocksContainer.model(id: newAlignmentData.id) else {
-            anytypeAssertionFailure("Block model with id \(newAlignmentData.id) not found in container")
+            anytypeAssertionFailure(
+                "Block model with id \(newAlignmentData.id) not found in container",
+                domain: .blockInformationCreator
+            )
             return nil
         }
         guard let alignment = newAlignmentData.align.asBlockModel else { return nil }

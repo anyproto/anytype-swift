@@ -7,14 +7,14 @@ final class MiddlewareEventConverter {
     private let updater: BlockUpdater
     private let blocksContainer: BlockContainerModelProtocol
     private let detailsStorage: ObjectDetailsStorageProtocol
-    private let relationStorage: RelationsStorageProtocol
+    private let relationStorage: RelationsMetadataStorageProtocol
     
     private let informationCreator: BlockInformationCreator
     
     init(
         blocksContainer: BlockContainerModelProtocol,
         detailsStorage: ObjectDetailsStorageProtocol,
-        relationStorage: RelationsStorageProtocol,
+        relationStorage: RelationsMetadataStorageProtocol,
         informationCreator: BlockInformationCreator
     ) {
         self.updater = BlockUpdater(blocksContainer)
@@ -72,7 +72,10 @@ final class MiddlewareEventConverter {
             let blockId = value.id
             let alignment = value.align
             guard let modelAlignment = alignment.asBlockModel else {
-                anytypeAssertionFailure("We cannot parse alignment: \(value)")
+                anytypeAssertionFailure(
+                    "We cannot parse alignment: \(value)",
+                    domain: .middlewareEventConverter
+                )
                 return .general
             }
             
@@ -82,6 +85,16 @@ final class MiddlewareEventConverter {
             })
             return .blocks(blockIds: [blockId])
         
+        case let .objectDetailsSet(value):
+            guard value.hasDetails else { return .general }
+            
+            let id = value.id
+            
+            let details = ObjectDetails(id: id, values: value.details.fields)
+            detailsStorage.add(details: details)
+            
+            return .details(id: id)
+            
         case let .objectDetailsAmend(amend):
             guard amend.details.isNotEmpty else { return nil }
             
@@ -92,7 +105,7 @@ final class MiddlewareEventConverter {
             }
             
             let updatedDetails = currentDetails.updated(by: amend.details.asDetailsDictionary)
-            detailsStorage.add(details: updatedDetails, id: id)
+            detailsStorage.add(details: updatedDetails)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
@@ -115,7 +128,7 @@ final class MiddlewareEventConverter {
             }
             
             let updatedDetails = currentDetails.removed(keys: payload.keys)
-            detailsStorage.add(details: updatedDetails, id: id)
+            detailsStorage.add(details: updatedDetails)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
@@ -125,28 +138,9 @@ final class MiddlewareEventConverter {
             
             return .details(id: id)
             
-        case let .objectDetailsSet(value):
-            guard value.hasDetails else {
-                return .general
-            }
-            
-            let id = value.id
-            
-            let details = ObjectDetails(
-                id: id,
-                values: value.details.fields
-            )
-            
-            detailsStorage.add(
-                details: details,
-                id: id
-            )
-            
-            return .details(id: id)
-            
         case .objectRelationsSet(let set):
             relationStorage.set(
-                relations: set.relations.map { Relation(middlewareRelation: $0) }
+                relations: set.relations.map { RelationMetadata(middlewareRelation: $0) }
             )
             
             // TODO: - add relations update
@@ -154,7 +148,7 @@ final class MiddlewareEventConverter {
             
         case .objectRelationsAmend(let amend):
             relationStorage.amend(
-                relations: amend.relations.map { Relation(middlewareRelation: $0) }
+                relations: amend.relations.map { RelationMetadata(middlewareRelation: $0) }
             )
             
             // TODO: - add relations update
@@ -185,7 +179,7 @@ final class MiddlewareEventConverter {
                     }
 
                     if newData.hasState {
-                        if let state = BlockFileStateConverter.asModel(newData.state.value) {
+                        if let state = newData.state.value.asModel {
                             fileData.state = state
                         }
                     }
@@ -243,7 +237,7 @@ final class MiddlewareEventConverter {
                     }
 
                     if newUpdate.hasType {
-                        if let type = BlocksModelsParserBookmarkTypeEnumConverter.asModel(newUpdate.type.value) {
+                        if let type = newUpdate.type.value.asModel {
                             value.type = type
                         }
                     }
@@ -295,11 +289,17 @@ final class MiddlewareEventConverter {
     
     private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventsListenerUpdate {
         guard var blockModel = blocksContainer.model(id: newData.id) else {
-            anytypeAssertionFailure("Block model with id \(newData.id) not found in container")
+            anytypeAssertionFailure(
+                "Block model with id \(newData.id) not found in container",
+                domain: .middlewareEventConverter
+            )
             return .general
         }
         guard case let .text(oldText) = blockModel.information.content else {
-            anytypeAssertionFailure("Block model doesn't support text:\n \(blockModel.information)")
+            anytypeAssertionFailure(
+                "Block model doesn't support text:\n \(blockModel.information)",
+                domain: .middlewareEventConverter
+            )
             return .general
         }
         

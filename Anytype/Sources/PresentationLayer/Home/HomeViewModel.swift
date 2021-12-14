@@ -15,11 +15,13 @@ final class HomeViewModel: ObservableObject {
     @Published var historyCellData: [HomeCellData] = []
     @Published var binCellData: [HomeCellData] = []
     @Published var sharedCellData: [HomeCellData] = []
+    @Published var setsCellData: [HomeCellData] = []
     
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
     @Published var showDeletionAlert = false
-    @Published var snackBarData = SnackBarData(text: "", showSnackBar: false)
+    @Published var snackBarData = SnackBarData.empty
+    @Published var loadingAlertData = LoadingAlertData.empty
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
@@ -77,6 +79,12 @@ final class HomeViewModel: ObservableObject {
             favoritesCellData = cellDataBuilder.buildFavoritesData()
         }
     }
+    func updateSetsTab() {
+        guard let searchResults = searchService.searchSets() else { return }
+        withAnimation(animationsEnabled ? .spring() : nil) {
+            setsCellData = cellDataBuilder.buildCellData(searchResults)
+        }
+    }
     
     // MARK: - Private methods
     private func setupQuickActionsSubscription() {
@@ -114,11 +122,12 @@ final class HomeViewModel: ObservableObject {
         updateHistoryTab()
         updateFavoritesTab()
         updateSharedTab()
+        updateSetsTab()
     }
     
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
         guard let newDetails = document.detailsStorage.get(id: blockId) else {
-            anytypeAssertionFailure("Could not find object with id: \(blockId)")
+            anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .homeView)
             return
         }
 
@@ -142,21 +151,23 @@ extension HomeViewModel {
     func createAndShowNewPage() {
         guard let blockId = createNewPage() else { return }
         
-        showPage(pageId: blockId)
+        showPage(pageId: blockId, viewType: .page)
     }
     
-    func showPage(pageId: BlockId) {
-        if openedPageData.showingNewPage {
-            editorBrowser?.showPage(pageId: pageId)
+    func showPage(pageId: BlockId, viewType: EditorViewType) {
+        let data = EditorScreenData(pageId: pageId, type: viewType)
+        
+        if openedPageData.showing {
+            editorBrowser?.showPage(data: data)
         } else {
             animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
-            openedPageData.pageId = pageId
-            openedPageData.showingNewPage = true
+            openedPageData.data = data
+            openedPageData.showing = true
         }
     }
     
     func createBrowser() -> some View {
-        EditorAssembly().editor(blockId: openedPageData.pageId, model: self)
+        EditorBrowserAssembly().editor(data: openedPageData.data, model: self)
             .eraseToAnyView()
             .edgesIgnoringSafeArea(.all)
     }
@@ -165,7 +176,7 @@ extension HomeViewModel {
         guard let newBlockId = dashboardService.createNewPage() else { return nil }
 
         if newBlockId.isEmpty {
-            anytypeAssertionFailure("No new block id in create new page response")
+            anytypeAssertionFailure("No new block id in create new page response", domain: .homeView)
             return nil
         }
         

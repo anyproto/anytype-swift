@@ -5,7 +5,7 @@ extension View {
         return self.popup(
             isPresented: isPresented,
             type: .floater(verticalPadding: 42),
-            animation: .ripple,
+            animation: .fastSpring,
             closeOnTap: false,
             closeOnTapOutside: true,
             backgroundOverlayColor: Color.black.opacity(0.25),

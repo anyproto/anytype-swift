@@ -20,6 +20,8 @@ final class ObjectSettingsViewModel: ObservableObject {
             return ObjectSetting.allCases.filter { $0 != .icon }
         case .note:
             return [.layout]
+        case .set:
+            return ObjectSetting.allCases
         }
     }
 
@@ -28,16 +30,17 @@ final class ObjectSettingsViewModel: ObservableObject {
     let iconPickerViewModel: ObjectIconPickerViewModel
     let coverPickerViewModel: ObjectCoverPickerViewModel
     let layoutPickerViewModel: ObjectLayoutPickerViewModel
-    let relationsViewModel: ObjectRelationsViewModel
+    let relationsViewModel: RelationsListViewModel
     
     private let objectId: String
-    private let objectDetailsService: ObjectDetailsService
+    private let objectDetailsService: DetailsService
     
     init(
         objectId: String,
         detailsStorage: ObjectDetailsStorageProtocol,
-        objectDetailsService: ObjectDetailsService,
-        popScreenAction: @escaping () -> ()
+        objectDetailsService: DetailsService,
+        popScreenAction: @escaping () -> (),
+        onRelationValueEditingTap: @escaping (String) -> ()
     ) {
         self.objectId = objectId
         self.objectDetailsService = objectDetailsService
@@ -55,7 +58,11 @@ final class ObjectSettingsViewModel: ObservableObject {
             detailsService: objectDetailsService
         )
         
-        self.relationsViewModel = ObjectRelationsViewModel(objectId: objectId)
+        self.relationsViewModel = RelationsListViewModel(
+            relationsService: RelationsService(objectId: objectId),
+            detailsService: DetailsService(objectId: objectId),
+            onValueEditingTap: onRelationValueEditingTap
+        )
 
         self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId, popScreenAction: popScreenAction)
     }
@@ -63,17 +70,15 @@ final class ObjectSettingsViewModel: ObservableObject {
     func update(
         objectDetailsStorage: ObjectDetailsStorageProtocol,
         objectRestrictions: ObjectRestrictions,
-        objectRelations: [Relation]
+        parsedRelations: ParsedRelations
     ) {
         if let details = objectDetailsStorage.get(id: objectId) {
             objectActionsViewModel.details = details
             self.details = details
             iconPickerViewModel.details = details
             layoutPickerViewModel.details = details
-            relationsViewModel.update(
-                with: objectRelations,
-                detailsStorage: objectDetailsStorage
-            )
+
+            relationsViewModel.update(with: parsedRelations)
         }
         objectActionsViewModel.objectRestrictions = objectRestrictions
     }

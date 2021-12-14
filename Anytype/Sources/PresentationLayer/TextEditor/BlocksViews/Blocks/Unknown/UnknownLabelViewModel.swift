@@ -18,15 +18,7 @@ struct UnknownLabelViewModel: BlockViewModelProtocol {
     init(information: BlockInformation) {
         self.information = information
     }
-    
-    func makeContextualMenu() -> [ContextualMenu] {
-        []
-    }
-    
-    func handle(action: ContextualMenu) {
-        anytypeAssertionFailure("Handling of contextual menu items not supported")
-    }
-    
+
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         var contentConfiguration = UIListContentConfiguration.cell()
         contentConfiguration.text = "\(information.content.identifier) -> \(information.id)"

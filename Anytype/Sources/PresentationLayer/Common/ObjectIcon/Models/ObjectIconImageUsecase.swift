@@ -14,12 +14,14 @@ enum ObjectIconImageUsecase: Equatable {
     case dashboardSearch
     case mention(ObjectIconImageMentionType)
     case editorAccessorySearch
+    
+    case setRow
 }
 
 extension ObjectIconImageUsecase {
     var backgroundColor: UIColor {
         switch self {
-        case .openedObjectNavigationBar, .mention:
+        case .openedObjectNavigationBar, .mention, .setRow:
             return .clear
         default:
             return UIColor.grayscale10

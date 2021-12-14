@@ -11,6 +11,7 @@ struct LoginView: View {
             bottomSheet
         }
         .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
         
         .ifLet(viewModel.error) { view, error in
             view.errorToast(isShowing: $viewModel.showError, errorText: error)
@@ -77,6 +78,7 @@ struct LoginView: View {
                 .autocapitalization(.none)
                 .frame(height: 124)
                 .textContentType(.password)
+                .disableAutocorrection(true)
         }
     }
     

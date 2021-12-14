@@ -16,7 +16,9 @@ extension UIImage {
             static let delete = createImage("TextEditor/BlocksOption/delete")
             static let duplicate = createImage("TextEditor/BlocksOption/duplicate")
             static let moveTo = createImage("TextEditor/BlocksOption/move_to")
+            static let move = createImage("TextEditor/BlocksOption/move")
             static let turnInto = createImage("TextEditor/BlocksOption/turn_into_object")
+            static let download = createImage("TextEditor/BlocksOption/download")
         }
 
         static let bigGhost = createImage("TextEditor/bigGhost")
@@ -96,7 +98,7 @@ extension UIImage {
     
     static func createImage(_ name: String) -> UIImage {
         guard let image = UIImage(named: name) else {
-            anytypeAssertionFailure("No image named: \(name)")
+            anytypeAssertionFailure("No image named: \(name)", domain: .imageCreation)
             return UIImage()
         }
         

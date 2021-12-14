@@ -141,7 +141,6 @@ public extension UIView {
 
 extension View {
     func asUIView() -> UIView {
-        let hostingController = UIHostingController(rootView: self)
-        return hostingController.view
+        UIHostingController(rootView: self).view
     }
 }

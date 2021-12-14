@@ -2,7 +2,7 @@ import Combine
 import BlocksModels
 import UIKit
 
-struct TextBlockContentConfiguration: UIContentConfiguration {
+struct TextBlockContentConfiguration: BlockConfigurationProtocol {
     
     let blockDelegate: BlockDelegate
     
@@ -19,12 +19,11 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     let actionHandler: BlockActionHandlerProtocol
     let detailsStorage: ObjectDetailsStorageProtocol
-    let showPage: (String) -> Void
+    let showPage: (EditorScreenData) -> Void
     let openURL: (URL) -> Void
         
     let pressingEnterTimeChecker = TimeChecker()
-    
-    private(set) var isSelected: Bool = false
+    var currentConfigurationState: UICellConfigurationState?
     
     init(
         blockDelegate: BlockDelegate,
@@ -33,7 +32,7 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
         upperBlock: BlockModelProtocol?,
         isCheckable: Bool,
         actionHandler: BlockActionHandlerProtocol,
-        showPage: @escaping (String) -> Void,
+        showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
         focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
         detailsStorage: ObjectDetailsStorageProtocol
@@ -57,20 +56,13 @@ struct TextBlockContentConfiguration: UIContentConfiguration {
     func makeContentView() -> UIView & UIContentView {
         TextBlockContentView(configuration: self)
     }
-    
-    func updated(for state: UIConfigurationState) -> TextBlockContentConfiguration {
-        guard let state = state as? UICellConfigurationState else { return self }
-        var updatedConfig = self
-        updatedConfig.isSelected = state.isSelected
-        return updatedConfig
-    }
 }
 
 extension TextBlockContentConfiguration: Hashable {
     
     static func == (lhs: TextBlockContentConfiguration, rhs: TextBlockContentConfiguration) -> Bool {
         lhs.information == rhs.information &&
-        lhs.isSelected == rhs.isSelected &&
+        lhs.currentConfigurationState == rhs.currentConfigurationState &&
         lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder &&
         lhs.isCheckable == rhs.isCheckable
     }
@@ -80,8 +72,8 @@ extension TextBlockContentConfiguration: Hashable {
         hasher.combine(information.alignment)
         hasher.combine(information.backgroundColor)
         hasher.combine(information.content)
-        hasher.combine(isSelected)
         hasher.combine(shouldDisplayPlaceholder)
         hasher.combine(isCheckable)
+        hasher.combine(currentConfigurationState)
     }
 }

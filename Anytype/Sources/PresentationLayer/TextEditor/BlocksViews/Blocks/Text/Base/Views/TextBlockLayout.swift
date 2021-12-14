@@ -3,7 +3,6 @@ import BlocksModels
 
 enum TextBlockLayout {
     static let contentInset: UIEdgeInsets = .init(top: 0, left: 20, bottom: 0, right: -20)
-    static let selectionViewInset: UIEdgeInsets = .init(top: 0, left: 8, bottom: 0, right: -8)
 
     static func mainInset(textBlockStyle: BlockText.Style) -> NSDirectionalEdgeInsets {
         switch textBlockStyle {

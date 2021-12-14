@@ -20,7 +20,8 @@ final class UIKitAnytypeText: Hashable {
         textModifier = MarkStyleModifier(attributedString: newAttrString, anytypeFont: style)
 
         // setup line height
-        let paragraphStyle = NSMutableParagraphStyle()
+        let paragraphStyle = (attributedString.attribute(.paragraphStyle, at: 0, effectiveRange: nil) as? NSMutableParagraphStyle) ?? NSMutableParagraphStyle()
+
         paragraphStyle.lineSpacing = style.lineSpacing
 
         let range = NSMakeRange(0, newAttrString.length)

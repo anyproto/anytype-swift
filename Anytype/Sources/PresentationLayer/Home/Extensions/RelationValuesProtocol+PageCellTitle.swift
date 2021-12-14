@@ -1,7 +1,7 @@
 import Foundation
 import BlocksModels
 
-extension RelationValuesProvider {
+extension BundledRelationsValueProvider {
     
     var pageCellTitle: HomeCellData.Title {
         switch layout {

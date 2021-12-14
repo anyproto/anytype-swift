@@ -2,6 +2,9 @@ import SwiftUI
 import AnytypeCore
 
 extension Image {
+    static let appIcon = createImage("AppIcon")
+    static let oldSchoolAppIcon = Image(uiImage: UIImage(imageLiteralResourceName: "oldSchool")) 
+    static let artAppIcon = Image(uiImage: UIImage(imageLiteralResourceName: "art"))
     static let logo = createImage("logo")
     static let splashLogo = createImage("splashLogo")
     static let arrow = createImage("arrowForward")
@@ -11,6 +14,7 @@ extension Image {
     static let noImage = Image("no_image")
     
     static let ghost = createImage(ImageName.ghost)
+    static let optionChecked = createImage("option_checked")
 }
 
 extension Image {
@@ -65,8 +69,6 @@ extension Image {
         static let note = createImage("layout_settings_note")
         static let profile = createImage("layout_settings_profile")
         static let todo = createImage("layout_settings_todo")
-        
-        static let checkmark = Image("layout_settings_checkmark")
     }
 
     enum System {
@@ -79,7 +81,18 @@ extension Image {
         static let checkboxChecked = createImage("relation_checkbox_checked")
         static let checkboxUnchecked = createImage("relation_checkbox_unchecked")
         static let addToFeatured = createImage("relation_add_to_featured")
-        static let removeFromFeatured = createImage("relations_remove_from_featured")
+        static let removeFromFeatured = createImage("relation_remove_from_featured")
+        static let locked = createImage("relation_locked")
+        
+        static let createOption = createImage(ImageName.slashMenu.relations.addRelation)
+        
+        enum Icons {
+            enum Small {
+                static let phone = createImage("relation_small_phone_icon")
+                static let email = createImage("relation_small_email_icon")
+                static let goToURL = createImage("relation_small_go_to_url_icon")
+            }
+        }
     }
 }
 
@@ -87,7 +100,7 @@ private extension Image {
     
     private static func createImage(_ name: String) -> Image {
         guard let image = UIImage(named: name) else {
-            anytypeAssertionFailure("No image named: \(name)")
+            anytypeAssertionFailure("No image named: \(name)", domain: .imageCreation)
             return .noImage
         }
         
@@ -96,7 +109,7 @@ private extension Image {
     
     private static func createSystemImage(_ name: String) -> Image {
         guard let image = UIImage(systemName: name) else {
-            anytypeAssertionFailure("No system image named: \(name)")
+            anytypeAssertionFailure("No system image named: \(name)", domain: .imageCreation)
             return .noImage
         }
         

@@ -47,7 +47,10 @@ final class BlockActionService: BlockActionServiceProtocol {
 
         let content = info.content
         guard case let .text(blockText) = content else {
-            anytypeAssertionFailure("We have unsupported content type: \(content)")
+            anytypeAssertionFailure(
+                "We have unsupported content type: \(content)",
+                domain: .blockActionsService
+            )
             return
         }
 
@@ -153,7 +156,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     func setObjectTypeUrl(_ objectTypeUrl: String) {
         pageService.setObjectType(objectId: documentId, objectTypeUrl: objectTypeUrl)
     }
-    
+
     private func setFocus(model: BlockDataProvider) {
         if case let .text(text) = model.information.content {
             let event = LocalEvent.setFocus(blockId: model.blockId, position: .at(text.endOfTextRangeWithMention))

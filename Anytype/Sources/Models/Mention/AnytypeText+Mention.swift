@@ -14,7 +14,7 @@ extension AnytypeFont {
         case .callout:
             return .callout
         default:
-            anytypeAssertionFailure("Not supported mention for forn \(self)")
+            anytypeAssertionFailure("Not supported mention for forn \(self)", domain: .anytypeText)
             return .body
         }
     }

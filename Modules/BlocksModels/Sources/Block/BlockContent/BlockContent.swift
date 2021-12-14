@@ -10,6 +10,8 @@ public enum BlockContent: Hashable, CustomStringConvertible {
     case link(BlockLink)
     case layout(BlockLayout)
     case featuredRelations
+    case relation(BlockRelation)
+    case dataView(BlockDataview)
     case unsupported
     
     public var type: BlockContentType {
@@ -30,6 +32,10 @@ public enum BlockContent: Hashable, CustomStringConvertible {
             return .layout(layout.style)
         case .featuredRelations:
             return .featuredRelations
+        case .relation:
+            return .relation
+        case .dataView:
+            return .dataView
         case .unsupported:
             return .text(.text)
         }
@@ -53,6 +59,10 @@ public enum BlockContent: Hashable, CustomStringConvertible {
             return "layout"
         case .featuredRelations:
             return "featuredRelations"
+        case .relation:
+            return "relationBlock"
+        case .dataView:
+            return "dataView"
         case .unsupported:
             return "unknown"
         }

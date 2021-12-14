@@ -19,7 +19,7 @@ struct ObjectSettingsContainerView: View {
             .popup(
                 isPresented: $mainViewPresented,
                 type: .floater(verticalPadding: 42),
-                animation: .ripple,
+                animation: .fastSpring,
                 closeOnTap: false,
                 closeOnTapOutside: true,
                 backgroundOverlayColor: Color.black.opacity(0.25),
@@ -54,7 +54,7 @@ struct ObjectSettingsContainerView: View {
             .sheet(
                 isPresented: $isRelationsViewPresented
             ) {
-                ObjectRelationsView(viewModel: viewModel.relationsViewModel)
+                RelationsListView(viewModel: viewModel.relationsViewModel)
             }
             .popup(
                 isPresented: $isLayoutPickerPresented,
@@ -80,7 +80,7 @@ struct ObjectSettingsContainerView: View {
             .onAppear {
                 Amplitude.instance().logEvent(AmplitudeEventsName.popupDocumentMenu)
                 
-                withAnimation(.ripple) {
+                withAnimation(.fastSpring) {
                     mainViewPresented = true
                 }
             }
@@ -93,8 +93,9 @@ struct ObjectSettingsContainerView_Previews: PreviewProvider {
             viewModel: ObjectSettingsViewModel(
                 objectId: "dummyPageId",
                 detailsStorage: ObjectDetailsStorage(),
-                objectDetailsService: ObjectDetailsService(objectId: ""),
-                popScreenAction: {}
+                objectDetailsService: DetailsService(objectId: ""),
+                popScreenAction: {},
+                onRelationValueEditingTap: { _ in }
             )
         )
     }

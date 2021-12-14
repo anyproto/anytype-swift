@@ -74,6 +74,10 @@ class AnytypeLabel: UIView {
 
     // MARK: - Public methods
 
+    func setLineBreakMode(_ lineBreakMode: NSLineBreakMode) {
+        label.lineBreakMode = lineBreakMode
+    }
+
     func setText(_ text: String, style: AnytypeFont) {
         self.style = style
         anytypeText = UIKitAnytypeText(text: text, style: style)
