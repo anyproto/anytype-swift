@@ -11,10 +11,14 @@ class BasePipeline
     CleanupDependenciesDirectoryWorker.new(dependenciesDirectory).work
 
     puts "Moving files from  #{artifactsDirectory} to #{dependenciesDirectory}"
-    CopyLibraryArtifactsWorker.new(artifactsDirectory, dependenciesDirectory).work
+    lib = File.join(artifactsDirectory, "Lib.xcframework")
+    FileUtils.cp_r(lib, dependenciesDirectory)
+    protobuf = File.join(artifactsDirectory, Constants::PROTOBUF_DIRECTORY_NAME)
+    FileUtils.cp_r(protobuf, dependenciesDirectory)    
     
     puts "Copying protobuf files from Dependencies to ProtobufMessages"
-    CopyProtobufFilesWorker.new(dependenciesDirectory).work
+    directory = File.join([dependenciesDirectory, Constants::PROTOBUF_DIRECTORY_NAME])
+    FileUtils.cp_r(directory, Constants::PROTOBUF_MESSAGES_DIR)
 
     puts "Generating swift from protobuf"
     codegen_runner = File.expand_path("#{__dir__}../codegen/anytype_swift_codegen_runner.rb")

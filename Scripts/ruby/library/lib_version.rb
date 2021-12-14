@@ -1,6 +1,6 @@
 require_relative "../constants"
 
-class LibraryVersion
+class LibraryFile
 	def self.set(version)
 		validate_library_file_path()
 		validate(version)
