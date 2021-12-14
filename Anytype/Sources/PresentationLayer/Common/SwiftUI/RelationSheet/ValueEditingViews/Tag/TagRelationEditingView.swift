@@ -6,15 +6,13 @@ struct TagRelationEditingView: View {
     
     @ObservedObject var viewModel: TagRelationEditingViewModel
     
-    @State private var contentHeight: CGFloat = 0.0
-    @State private var sheetViewHeight: CGFloat = 0.0
+    @Environment(\.editMode) private var editMode: Binding<EditMode>?
     
     var body: some View {
         content
             .modifier(
-                RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.onDismiss)
+                RelationSheetModifier(isPresented: $viewModel.isPresented, title: nil, dismissCallback: viewModel.onDismiss)
             )
-            .background(FrameCatcher { sheetViewHeight = $0.height - 100 })
     }
     
     private var content: some View {
@@ -22,7 +20,13 @@ struct TagRelationEditingView: View {
             if viewModel.selectedTags.isEmpty {
                 emptyView
             } else {
-                tagsList
+                NavigationView {
+                    tagsList
+                        .navigationBarTitle(viewModel.relationName, displayMode: .inline)
+                        .toolbar {
+                            ToolbarItem(placement: .navigationBarLeading) { editButton }
+                        }
+                }
             }
         }
     }
@@ -36,19 +40,37 @@ struct TagRelationEditingView: View {
     }
     
     private var tagsList: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                ForEach(viewModel.selectedTags) { tag in
-                    TagRelationRowView(tag: tag) {}
-                }
+        List {
+            ForEach(viewModel.selectedTags) { tag in
+                TagRelationRowView(tag: tag) {}
             }
-            .padding(.horizontal, 20)
-            .background(FrameCatcher { contentHeight = $0.height })
+            .onMove { source, destination in
+                debugPrint("source \(source)/ destination \(destination)")
+            }
+            .onDelete { deletion in
+                debugPrint("deletion \(deletion)")
+            }
         }
         .padding(.bottom, 20)
-        .if(contentHeight.isLessThanOrEqualTo(sheetViewHeight)) {
-            $0.frame(height: contentHeight).disabled(true)
+        .listStyle(.plain)
+    }
+        
+    private var editButton: some View {
+        Button {
+            withAnimation(.fastSpring) {
+                self.editMode?.wrappedValue.toggle()
+            }
+        } label: {
+            AnytypeText(self.editMode?.wrappedValue == .active ? "Done" : "Edit", style: .uxBodyRegular, color: .buttonActive)
         }
+        
+    }
+}
+
+extension EditMode {
+
+    mutating func toggle() {
+        self = self == .active ? .inactive : .active
     }
 }
 
@@ -68,12 +90,40 @@ struct TagRelationEditingView_Previews: PreviewProvider {
                             textColor: .darkAmber,
                             backgroundColor: .lightAmber,
                             scope: .local
+                        ),
+                        Relation.Tag.Option(
+                            id: "id3",
+                            text: "text3",
+                            textColor: .darkAmber,
+                            backgroundColor: .lightAmber,
+                            scope: .local
+                        ),
+                        Relation.Tag.Option(
+                            id: "id2",
+                            text: "text2",
+                            textColor: .darkAmber,
+                            backgroundColor: .lightAmber,
+                            scope: .local
                         )
                     ],
                     allTags: [
                         Relation.Tag.Option(
                             id: "id",
                             text: "text",
+                            textColor: .darkAmber,
+                            backgroundColor: .lightAmber,
+                            scope: .local
+                        ),
+                        Relation.Tag.Option(
+                            id: "id3",
+                            text: "text3",
+                            textColor: .darkAmber,
+                            backgroundColor: .lightAmber,
+                            scope: .local
+                        ),
+                        Relation.Tag.Option(
+                            id: "id2",
+                            text: "text2",
                             textColor: .darkAmber,
                             backgroundColor: .lightAmber,
                             scope: .local
