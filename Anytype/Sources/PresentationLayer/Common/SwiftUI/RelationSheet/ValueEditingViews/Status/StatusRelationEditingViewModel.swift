@@ -51,7 +51,7 @@ extension StatusRelationEditingViewModel {
     func addOption(text: String) {
         let optionId = relationsService.addRelationOption(relationKey: relationKey, optionText: text)
         guard let optionId = optionId else { return}
-
+        
         detailsService.updateDetails([
             DetailsUpdate(key: relationKey, value: optionId.protobufValue)
         ])
@@ -61,18 +61,16 @@ extension StatusRelationEditingViewModel {
         }
     }
     
-}
-
-extension StatusRelationEditingViewModel: RelationEditingViewModelProtocol {
-    
-    func viewWillDisappear() {}
-    
     func saveValue() {
         detailsService.updateDetails([
             DetailsUpdate(key: relationKey, value: selectedStatus?.id.protobufValue ?? nil)
         ])
+        
     }
-    
+}
+
+extension StatusRelationEditingViewModel: RelationEditingViewModelProtocol {
+  
     func makeView() -> AnyView {
         AnyView(StatusRelationEditingView(viewModel: self))
     }

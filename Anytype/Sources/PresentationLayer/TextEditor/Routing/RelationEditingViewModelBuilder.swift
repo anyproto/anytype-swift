@@ -70,6 +70,12 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 detailsService: DetailsService(objectId: objectId),
                 relationsService: RelationsService(objectId: objectId)
             )
+        case .tag(let tag):
+            return TagRelationEditingViewModel(
+                relationTag: tag,
+                detailsService: DetailsService(objectId: objectId),
+                relationsService: RelationsService(objectId: objectId)
+            )
         default:
             return nil
         }
