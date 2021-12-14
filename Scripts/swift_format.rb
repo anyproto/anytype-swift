@@ -11,7 +11,7 @@ module SwiftFormat
   class FormatWorker
     attr_accessor :tool,:configuration_path, :input_path
     def initialize(tool, configuration_path, input_path)
-      self.tool_path = tool_path
+      self.tool = tool
       self.configuration_path = configuration_path
       self.input_path = input_path
     end
