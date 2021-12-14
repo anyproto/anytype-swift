@@ -1,9 +1,3 @@
-# OutputFilePath <- f (filePath, transform)
-# CommentsHeaderFilePath <- f (filePath)
-# ImportsFilePath <- f (filePath, transform)
-# TemplateFilePath <- f(filePath, transform) # only for specific transforms.
-
-
 class CodegenDefaultOptionsGenerator
   def self.defaultOptions
     options = {
