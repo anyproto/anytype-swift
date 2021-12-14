@@ -20,7 +20,7 @@ struct HomeCell: View {
         .padding(padding)
         .frame(height: 126)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.background)
+        .background(Color.backgroundDashboard)
         .redacted(reason: isRedacted ? .placeholder : [])
         .cornerRadius(16)
         

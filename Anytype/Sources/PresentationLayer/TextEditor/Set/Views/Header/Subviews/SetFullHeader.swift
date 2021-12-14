@@ -14,7 +14,7 @@ struct SetFullHeader: View {
             VStack {
                 header.ignoresSafeArea(edges: .top)
             }
-            .background(Color.background)
+            .background(Color.backgroundPrimary)
             Spacer()
         }
     }
@@ -88,7 +88,7 @@ struct SetFullHeader: View {
                             .background(Color.red)
                 }
             case .none:
-                Color.background
+                Color.backgroundPrimary
                     .if(model.details.icon.isNotNil) {
                         $0.frame(height: bigCover)
                     } else: {

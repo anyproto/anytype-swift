@@ -16,7 +16,7 @@ struct FloaterAlertView: View {
             buttons
         }
         .padding(.horizontal, 20)
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
         .cornerRadius(16)
     }
     

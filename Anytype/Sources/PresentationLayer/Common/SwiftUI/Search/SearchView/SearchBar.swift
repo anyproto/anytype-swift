@@ -16,7 +16,7 @@ struct SearchBar: View {
         .padding(8)
         .padding(.horizontal, 25)
         .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-        .background(Color.grayscale10)
+        .background(Color.backgroundSelected)
         .cornerRadius(10)
         .overlay(overlay)
         .padding(.horizontal, 16)

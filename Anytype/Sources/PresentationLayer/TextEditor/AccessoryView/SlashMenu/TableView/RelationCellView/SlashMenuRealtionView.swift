@@ -73,7 +73,7 @@ struct EnhancedRelationView: View {
     var body: some View {
         GeometryReader { _ in
             RelationNameValueView(viewModel: viewModel)
-                .background(viewModel.isHighlighted ? Color.buttonSecondaryPressed : Color.background)
+                .background(viewModel.isHighlighted ? Color.buttonSecondaryPressed : Color.backgroundPrimary)
         }
     }
 }

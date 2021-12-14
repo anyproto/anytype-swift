@@ -15,7 +15,7 @@ struct OtherSettingsView: View {
             clearCache
             Spacer.fixedHeight(12)
         }
-        .background(Color.background)
+        .background(Color.backgroundSecondary)
         .cornerRadius(16)
         .padding(.horizontal, 8)
     }

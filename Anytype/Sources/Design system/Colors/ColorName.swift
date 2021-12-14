@@ -4,7 +4,7 @@ enum ColorName {
     static let divider = "divider"
     static let dividerSecondary = "dividerSecondary"
     static let stroke = "stroke"
-    
+
     static let buttonInactive = "buttonInactive"
     static let buttonSelected = "buttonSelected"
     static let buttonSecondaryPressed = "buttonSecondaryPressed"

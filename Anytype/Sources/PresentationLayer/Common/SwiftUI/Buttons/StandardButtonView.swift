@@ -26,7 +26,7 @@ enum StandardButtonStyle {
             }
         case .primary, .destructive:
             if disabled {
-                return .white
+                return .textPrimary
             } else {
                 return .buttonPrimartText
             }

@@ -5,9 +5,9 @@ extension UIColor {
     static var highlighterColor: UIColor {
         .init(red: 255.0/255.0, green: 181.0/255.0, blue: 34.0/255.0, alpha: 1)
     }
-    
+
     static let stroke = color(name: ColorName.stroke)
-    
+
     static let divider = color(name: ColorName.divider)
     static let dividerSecondary = color(name: ColorName.dividerSecondary)
     
@@ -15,11 +15,6 @@ extension UIColor {
     static let buttonInactive = color(name: ColorName.buttonInactive)
     static let buttonSelected = color(name: ColorName.buttonSelected)
     static var buttonSecondaryPressed = color(name: ColorName.buttonSecondaryPressed)
-
-    // MARK: - Color for background
-
-    static let backgroundPrimary = UIColor.grayscaleWhite
-
     
     /// Color that can be used in case if we couldn't parse color from middleware
     static let defaultColor = grayscale90
@@ -35,6 +30,11 @@ extension UIColor {
 }
 
 extension UIColor: AnytypeColorProtocol {
+    // MARK: - Stroke colors
+
+    static var strokePrimary: UIColor = AnytypeColor.strokePrimary.asUIColor
+    static var strokeSecondary: UIColor = AnytypeColor.strokeSecondary.asUIColor
+    static var strokeTertiary: UIColor = AnytypeColor.strokeTertiary.asUIColor
     
     // MARK: - Pure colors
 
@@ -80,6 +80,13 @@ extension UIColor: AnytypeColorProtocol {
     static let textPrimary: UIColor = AnytypeColor.textPrimary.asUIColor
     static let textSecondary: UIColor = AnytypeColor.textSecondary.asUIColor
     static let textTertiary: UIColor = AnytypeColor.textTertiary.asUIColor
+
+    // MARK: - Background colors
+    static let backgroundPrimary: UIColor = AnytypeColor.backgroundPrimary.asUIColor
+    static let backgroundSecondary: UIColor = AnytypeColor.backgroundSecondary.asUIColor
+    static var backgroundBlurred: UIColor = AnytypeColor.backgroundBlurred.asUIColor
+    static let backgroundSelected: UIColor = AnytypeColor.backgroundSelected.asUIColor
+    static var backgroundDashboard: UIColor = AnytypeColor.backgroundDashboard.asUIColor
     
     // MARK: - Grayscale
     

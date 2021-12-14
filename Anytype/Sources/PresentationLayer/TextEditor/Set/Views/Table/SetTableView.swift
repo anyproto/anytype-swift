@@ -62,7 +62,7 @@ struct SetTableView: View {
                     .environmentObject(model)
                 SetTableViewHeader()
             }
-            .background(Color.background)
+            .background(Color.backgroundPrimary)
         }
     }
 }

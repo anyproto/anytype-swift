@@ -7,12 +7,19 @@ import Kingfisher
 final class ObjectIconImageView: UIView {
     
     private let painter: ObjectIconImagePainterProtocol = ObjectIconImagePainter.shared
+    private var currentModel: ObjectIconImageModel?
     let imageView = UIImageView()
     
     init() {
         super.init(frame: .zero)
         
         setupView()
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        currentModel.map(configure(model:))
     }
     
     @available(*, unavailable)
@@ -49,9 +56,11 @@ extension ObjectIconImageView: ConfigurableView {
         case .image(let image):
             imageView.image = image
         }
+
+        currentModel = model
     }
     
-    func handleObjectIconType(_ type: ObjectIconType, model: Model) {
+    private func handleObjectIconType(_ type: ObjectIconType, model: Model) {
         switch type {
         case .basic(let id):
             downloadImage(imageId: id, model: model)

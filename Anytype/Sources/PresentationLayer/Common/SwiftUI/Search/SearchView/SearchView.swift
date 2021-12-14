@@ -16,6 +16,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             SearchBar(text: $searchText, focused: true)
             content
         }
+        .background(Color.backgroundSecondary)
         .onChange(of: searchText) { search(text: $0) }
         .onAppear { search(text: searchText) }
     }

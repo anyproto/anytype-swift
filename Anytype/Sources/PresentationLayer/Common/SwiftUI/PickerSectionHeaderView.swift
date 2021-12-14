@@ -12,7 +12,7 @@ struct PickerSectionHeaderView: View {
         .frame(maxWidth: .infinity)
         .padding(.top, 18)
         .padding(.bottom, 12)
-        .background(Color.background)
+        .background(Color.backgroundSecondary)
     }
 }
 

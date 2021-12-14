@@ -68,7 +68,9 @@ struct HomeProfileView: View {
     private var buttons: some View {
         HStack(spacing: 20) {
             Button(action: model.startSearch) {
-                HomeProfileViewButtonImage(image: Image.main.search)
+                HomeProfileViewButtonImage(image: Image.main.search.renderingMode(.template)
+                                            .foregroundColor(.textPrimary))
+
             }
             Button(action: {
                 model.snackBarData = .init(text: "Store is available in desktop app", showSnackBar: true)
@@ -78,7 +80,9 @@ struct HomeProfileView: View {
                 )
             }
             Button(action: model.createAndShowNewPage) {
-                HomeProfileViewButtonImage(image: Image.main.draft)
+                HomeProfileViewButtonImage(image: Image.main.draft.renderingMode(.template)
+                                            .foregroundColor(.textPrimary))
+
             }
         }
     }
