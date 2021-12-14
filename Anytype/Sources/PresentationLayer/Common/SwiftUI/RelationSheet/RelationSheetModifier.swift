@@ -67,3 +67,11 @@ struct RelationSheetModifier: ViewModifier {
         isPresented ? 0 : sheetHeight
     }
 }
+
+struct RelationSheetModifier_Previews: PreviewProvider {
+    static var previews: some View {
+        AnytypeText("text", style: .body, color: .red)
+            .modifier(RelationSheetModifier(isPresented: .constant(true), title: "tiel", dismissCallback: nil))
+    }
+}
+
