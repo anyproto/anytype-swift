@@ -7,7 +7,6 @@ class PipelineStarter
     unless options[:artifactsPath].empty?
       puts "Install library from path #{options[:artifactsPath]}"
       install_library_from_path(options[:artifactsPath])
-      return
     else
       install_library_from_remote()
     end
