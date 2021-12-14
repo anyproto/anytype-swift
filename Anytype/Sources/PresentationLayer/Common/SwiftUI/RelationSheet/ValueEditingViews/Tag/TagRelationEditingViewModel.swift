@@ -41,6 +41,8 @@ final class TagRelationEditingViewModel: ObservableObject {
             switch $0 {
             case .remove(let indexSet):
                 selectedTags.remove(atOffsets: indexSet)
+            case .move(let source, let destination):
+                selectedTags.move(fromOffsets: source, toOffset: destination)
             }
         }
         
