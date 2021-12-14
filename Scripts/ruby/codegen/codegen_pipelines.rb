@@ -35,18 +35,6 @@ class ApplyTransformsPipeline
   end
 end
 
-class CompoundPipeline
-  def self.start(options)
-    case options[:command]
-    when ListTransformsCommand then ListTransformsPipeline.start(options)
-    when ApplyTransformsCommand then ApplyTransformsPipeline.start(options)
-    else
-      puts "I don't recognize this command: #{options[:command]}"
-      return
-    end
-  end
-end
-
 class CodegenPipeline
   def self.start(toolPath, transform, filePath)
     if Dir.exists? toolPath

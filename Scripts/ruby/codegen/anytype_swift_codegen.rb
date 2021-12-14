@@ -13,30 +13,7 @@ require_relative 'codegen_options_parser'
 class Main
   def self.work(arguments)
     options = CodegenOptionsParser.parse_options(arguments)
-    exec(options)
-  end
-
-  def self.required_keys
-    [:toolPath, :filePath] # but not by all options.
-  end
-  def self.valid_options?(options)
-    # true
-    case options[:command]
-    when ListTransformsCommand then true
-    else
-      (required_keys - options.keys).empty?
-    end
-  end
-
-  def self.exec(options = {})
-    unless valid_options? options
-      puts "options are not valid!"
-      puts "options are: #{options}"
-      puts "missing options: #{required_keys}"
-      exit(1)
-    end
-
-    CompoundPipeline.start(options)
+    ApplyTransformsPipeline.start(options)
   end
 end
 
