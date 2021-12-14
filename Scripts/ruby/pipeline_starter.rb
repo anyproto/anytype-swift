@@ -1,5 +1,6 @@
 require_relative 'pipelines/base_pipeline'
 require_relative 'pipelines/version_provider'
+require_relative 'library/lib_version'
 
 class PipelineStarter
   def self.start(options)
@@ -7,21 +8,10 @@ class PipelineStarter
     BasePipeline.work(version, options)
     
     if options[:latest]
-      update_version(version, options)
+      LibraryVersion.set(version)
     end 
 
     puts "Done 💫"
     `afplay /System/Library/Sounds/Glass.aiff`
-  end
-
-  def self.update_version(version, options)
-    filePath = Constants::LIBRARY_FILE_PATH
-    result = { Constants::LOCKFILE_VERSION_KEY => version}.to_yaml
-    result = result.gsub(/^---\s+/, '')
-    result = result.gsub(/:/, ': ~>')
-    File.open(filePath, 'w') do |file_handler|
-      file_handler.write(result)
-      puts "Updated library file"
-    end
   end
 end
