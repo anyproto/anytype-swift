@@ -6,11 +6,15 @@ struct TagRelationEditingView: View {
     
     @ObservedObject var viewModel: TagRelationEditingViewModel
     
-    @State private var tagsListContentHeight: CGFloat = 0.0
+    @State private var contentHeight: CGFloat = 0.0
+    @State private var sheetViewHeight: CGFloat = 0.0
     
     var body: some View {
         content
-            .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.onDismiss))
+            .modifier(
+                RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.onDismiss)
+            )
+            .background(FrameCatcher { sheetViewHeight = $0.height - 100 })
     }
     
     private var content: some View {
@@ -33,12 +37,17 @@ struct TagRelationEditingView: View {
     
     private var tagsList: some View {
         ScrollView {
-            LazyVStack(spacing: 0) {
+            VStack(spacing: 0) {
                 ForEach(viewModel.selectedTags) { tag in
                     TagRelationRowView(tag: tag) {}
                 }
             }
             .padding(.horizontal, 20)
+            .background(FrameCatcher { contentHeight = $0.height })
+        }
+        .padding(.bottom, 20)
+        .if(contentHeight.isLessThanOrEqualTo(sheetViewHeight)) {
+            $0.frame(height: contentHeight).disabled(true)
         }
     }
 }
