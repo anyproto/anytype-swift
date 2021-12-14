@@ -6,7 +6,6 @@ require 'json'
 require_relative '../library/shell_executor'
 require_relative '../workers_hub'
 require_relative '../pipeline_starter'
-require_relative '../commands'
 
 module AnytypeSwiftCodegenRunner
 
@@ -18,7 +17,7 @@ module AnytypeSwiftCodegenRunner
       self.filePath = filePath
     end
 
-    def wrok
+    def work
       action = "ruby #{tool} --transform #{transform} --filePath #{filePath}"
       ShellExecutor.run_command_line action
     end
@@ -40,11 +39,10 @@ end
 
 module AnytypeSwiftCodegenRunner
   module Configuration
-    BaseCommand = Commands::BaseCommand
     module Commands
-      class CodegenCommand < BaseCommand
+      class CodegenCommand
       end
-      class CodegenListCommand < BaseCommand
+      class CodegenListCommand
         attr_accessor :list
         def initialize(options)
           self.list = options
@@ -129,9 +127,6 @@ class Matrix
     def initialize(transform, filePath)
       self.transform = transform
       self.filePath = filePath
-    end
-    def to_json(*args)
-      "transform: #{transform} to file: #{filePath}"
     end
 
     def options
@@ -258,17 +253,13 @@ class MainWork
   end
 
   def parse_options(arguments)
-    # we could also add names for commands to separate them.
-    # thus, we could add 'generate init' and 'generate services'
-    # add dispatch for first words.
     options = {}
     OptionParser.new do |opts|
       opts.banner = "Usage: #{$0} [options]"
       opts.on('--toolPath', '--toolPath PATH', 'Path to anytype codegen script.') {|v| options[:toolPath] = v}
-      opts.on('--filter', '--filter NAME', 'Generate only filtered files.') {|v| options[:filteredFile] = v}
-      # help
-      opts.on('-h', '--help', 'Help option') { self.help_message(opts); exit(0)}
+      opts.on('-h', '--help', 'Help') { self.help_message(opts); exit(0)}
     end.parse!(arguments)
+
     DefaultOptionsGenerator.populate(arguments, options)
   end
 end
