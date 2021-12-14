@@ -14,8 +14,9 @@ class BasePipeline
     puts "Library is downloaded at #{downloadFilePath}"
 
     temporaryDirectory = Dir.mktmpdir
+    unarchiveAction = "tar -zxf #{downloadFilePath} -C #{temporaryDirectory}"
+    ShellExecutor.run_command_line unarchiveAction
 
-    UncompressFileToTemporaryDirectoryWorker.new(downloadFilePath, temporaryDirectory).work
     puts "Librart unarchived to directory #{temporaryDirectory}"
 
     ourDirectory = Constants::DEPENDENCIES_DIR_PATH
@@ -26,9 +27,9 @@ class BasePipeline
     CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker.new(temporaryDirectory, ourDirectory).work
 
     puts "Cleaning up Downloaded files"
-    RemoveDirectoryWorker.new(downloadFilePath).work
-    RemoveDirectoryWorker.new(temporaryDirectory).work
-
+    FileUtils.remove_entry downloadFilePath
+    FileUtils.remove_entry temporaryDirectory
+    
     if options[:runsOnCI] == false
       puts "Moving protobuf files from Dependencies to our project directory"
       CopyProtobufFilesWorker.new(ourDirectory).work
