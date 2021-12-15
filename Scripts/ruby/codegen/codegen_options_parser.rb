@@ -14,9 +14,6 @@ class CodegenOptionsParser
     ---------------
     Usage:
     ---------------
-    # or if you want Siri Voice, set environment variable SIRI_VOICE=1
-    SIRI_VOICE=1 ruby #{$0} <parameters>
-
     DefaultConfiguration: #{JSON.pretty_generate(CodegenDefaultOptionsGenerator.defaultOptions)}
 
     1. Parameters
