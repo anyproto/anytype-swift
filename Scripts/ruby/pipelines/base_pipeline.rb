@@ -4,6 +4,8 @@ require_relative '../constants'
 
 require_relative 'download_middleware'
 
+require_relative '../codegen/anytype_swift_codegen_runner'
+
 class BasePipeline
   def self.work(artifactsDirectory)
     dependenciesDirectory = Constants::DEPENDENCIES_DIR_PATH
@@ -21,7 +23,6 @@ class BasePipeline
     FileUtils.cp_r(directory, Constants::PROTOBUF_MESSAGES_DIR)
 
     puts "Generating swift from protobuf"
-    codegen_runner = File.expand_path("#{__dir__}../codegen/anytype_swift_codegen_runner.rb")
-    "ruby #{codegen_runner}"
+    CodegenRunner.work()
   end
 end
