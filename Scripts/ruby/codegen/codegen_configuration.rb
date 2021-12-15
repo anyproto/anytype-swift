@@ -10,38 +10,15 @@ end
 
 
 
-
-####
 class ApplyTransformsCommand
-  module SwiftCodegenCLIOptions
-    module GenerateOptions
-      AVAILABLE_VARIANTS = [
-        ErrorAdoption = 'e',
-        RequestAndResponse = 'rr',
-        MemberwiseInitializer = 'mwi',
-        ServiceWithRequestAndResponse = 'swrr',
-      ]
-    end
-  end
-  # Our representation of swift-codegen utility options
   module CodegenCLIScopes
-    AVAILABLE_VARIANTS = [
-      Initializers = 'inits',
-      Services = 'services',
-      ErrorProtocol = 'error_protocol'
-    ]
     def self.swift_codegen_option(scope)
+      puts scope 
+      exit 0
       case scope
       when ErrorProtocol then SwiftCodegenCLIOptions::GenerateOptions::ErrorAdoption
       when Initializers then SwiftCodegenCLIOptions::GenerateOptions::MemberwiseInitializer
       when Services then SwiftCodegenCLIOptions::GenerateOptions::ServiceWithRequestAndResponse
-      end
-    end
-    def self.codegen_option_from_swift(option)
-      case option
-      when SwiftCodegenCLIOptions::GenerateOptions::ErrorAdoption then ErrorProtocol
-      when SwiftCodegenCLIOptions::GenerateOptions::MemberwiseInitializer then Initializers
-      when SwiftCodegenCLIOptions::GenerateOptions::ServiceWithRequestAndResponse then Services
       end
     end
     def self.suffix(scope, key)
@@ -79,8 +56,5 @@ class ApplyTransformsCommand
   end
   def suffix_for_file(key)
     CodegenCLIScopes.suffix(self.our_transform, key)
-  end
-  def self.available_transforms
-    CodegenCLIScopes::AVAILABLE_VARIANTS
   end
 end
