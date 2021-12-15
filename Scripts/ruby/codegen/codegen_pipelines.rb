@@ -1,4 +1,5 @@
 require_relative 'codegen_workers_2'
+require_relative 'codegen_workers'
 
 class ApplyTransformsPipeline
   def self.start(options)

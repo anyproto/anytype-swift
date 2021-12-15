@@ -25,34 +25,31 @@ class CodegenDefaultOptionsGenerator
 
   def self.generateFilePaths(options)
     command = options[:command]
-    unless command.tool_transform.nil?
-      our_transform = command.our_transform
-      tool_transform = command.tool_transform
-      result = {
-        transform: tool_transform,
-        filePath: options[:filePath],
-      }
-      keys = [:outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath]
-      for k in keys
-        directoryPath = k == :outputFilePath ? Pathname.new(options[:filePath]).dirname.to_s : options[:templatesDirectoryPath]
-        value = self.appended_suffix(command.suffix_for_file(k), options[:filePath], directoryPath)
-        unless value.nil?
-          result[k] = value
-        end
+    result = {
+      filePath: options[:filePath],
+    }
+
+    keys = [:outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath]
+    for k in keys
+      directoryPath = k == :outputFilePath ? Pathname.new(options[:filePath]).dirname.to_s : options[:templatesDirectoryPath]
+      value = self.appended_suffix(command.suffix_for_file(k), options[:filePath], directoryPath)
+      unless value.nil?
+        result[k] = value
       end
-      result
     end
+
+    result
   end
 
-  def self.generate(arguments, options)
+  def self.generate(options)
     result = defaultOptions.merge options
     result = generateFilePaths(result).merge result
-    fixOptions(result)
+    result
   end
   
-  def self.populate(arguments, options)
-    new_options = generate(arguments, options)
+  def self.populate(options)
+    new_options = generate(options)
     new_options = new_options.merge(options)
-    fixOptions(new_options)
+    new_options
   end
 end

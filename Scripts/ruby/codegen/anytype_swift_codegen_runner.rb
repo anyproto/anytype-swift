@@ -7,6 +7,7 @@ require_relative '../library/shell_executor'
 require_relative '../pipeline_starter'
 require_relative 'codegen_config'
 require_relative 'codegen_pipelines'
+require_relative 'anytype_swift_codegen'
 
 class CodegenRunner
   def self.run
@@ -17,10 +18,9 @@ class CodegenRunner
     }
 
     CodegenConfig.make_all.map(&:options).each{ |value|
-      tool = options[:toolPath]
       transform = value[:transform]
       filePath = value[:filePath]
-      ShellExecutor.run_command_line "ruby #{tool} --transform #{transform} --filePath #{filePath}"
+      Codegen.run(transform, filePath)
     }
 
     FormatDirectoryPipeline.start(options)
