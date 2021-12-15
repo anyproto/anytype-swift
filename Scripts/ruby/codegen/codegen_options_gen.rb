@@ -4,13 +4,13 @@ class CodegenDefaultOptionsGenerator
       # commands
       command: "None",
       # tools
-      toolPath: "#{__dir__}/../Tools/anytype-swift-codegen",
+      toolPath: "#{__dir__}/../../../Tools/anytype-swift-codegen",
       # templates
-      templatesDirectoryPath: "#{__dir__}/../Templates/Middleware",
+      templatesDirectoryPath: "#{__dir__}/../../../Templates/Middleware",
       # comments header
-      commentsHeaderFilePath: "#{__dir__}/../Templates/Middleware/commands+HeaderComments.pb.swift",
+      commentsHeaderFilePath: "#{__dir__}/../../../Templates/Middleware/commands+HeaderComments.pb.swift",
       # service file path
-      serviceFilePath: "#{__dir__}/../Dependencies/Middleware/protobuf/protos/service.proto",
+      serviceFilePath: "#{__dir__}/../../../Dependencies/Middleware/protobuf/protos/service.proto",
     }
   end
 

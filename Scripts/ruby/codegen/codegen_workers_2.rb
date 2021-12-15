@@ -19,7 +19,7 @@ class FormatWorker
     self.filePath = filePath
   end
 
-  def action
+  def work
     action = "ruby #{tool} --inputFilePath #{filePath}"
     ShellExecutor.run_command_line action
   end

@@ -1,5 +1,5 @@
 class CodegenConfig
-  ProtobufDirectory = "#{__dir__}/../Modules/ProtobufMessages/Sources/"
+  ProtobufDirectory = "#{__dir__}/../../../Modules/ProtobufMessages/Sources/"
   CommandsFilePath = ProtobufDirectory + "commands.pb.swift"
   ModelsFilePath = ProtobufDirectory + "models.pb.swift"
   EventsFilePath = ProtobufDirectory + "events.pb.swift"
