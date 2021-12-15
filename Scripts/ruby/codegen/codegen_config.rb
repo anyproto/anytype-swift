@@ -10,22 +10,22 @@ class CodegenConfig
   end
 
   def self.make_error_protocols_for_commands
-    new("error_protocol", CodegenConfig::CommandsFilePath)
+    new("errorAdoption", CodegenConfig::CommandsFilePath)
   end
   def self.make_services_for_commands
-    new("services", CodegenConfig::CommandsFilePath)
+    new("serviceWithRequestAndResponse", CodegenConfig::CommandsFilePath)
   end
   def self.make_inits_for_commands
-    new("inits", CodegenConfig::CommandsFilePath)
+    new("memberwiseInitializer", CodegenConfig::CommandsFilePath)
   end
   def self.make_inits_for_models
-    new("inits", CodegenConfig::ModelsFilePath)
+    new("memberwiseInitializer", CodegenConfig::ModelsFilePath)
   end
   def self.make_inits_for_events
-    new("inits", CodegenConfig::EventsFilePath)
+    new("memberwiseInitializer", CodegenConfig::EventsFilePath)
   end
   def self.make_inits_for_localstore
-    new("inits", CodegenConfig::LocalstoreFilePath)
+    new("memberwiseInitializer", CodegenConfig::LocalstoreFilePath)
   end
 
   attr_accessor :transform, :filePath

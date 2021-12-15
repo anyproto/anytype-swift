@@ -11,24 +11,11 @@ class Codegen
   def self.run(transform, path)
     options = {}
     options[:command] = ApplyTransformsCommand.new(transform)
-    options[:transform] = map_transform(transform)
+    options[:transform] = transform
     options[:filePath] = path
 
     options = CodegenDefaultOptionsGenerator.populate(options)
 
     ApplyTransformsPipeline.start(options)
-  end
-
-  private_class_method def self.map_transform(transform)
-    if transform == "services"
-      return "serviceWithRequestAndResponse"
-    elsif transform == "inits"
-      return "memberwiseInitializer"
-    elsif transform == "error_protocol"
-      return "errorAdoption"
-    end
-    
-    puts "Unrecognized transform #{transform}"
-    exit 1     
   end
 end
