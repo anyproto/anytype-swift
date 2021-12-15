@@ -1,5 +1,5 @@
-require_relative 'codegen_workers_2'
 require_relative 'codegen_workers'
+require_relative '../swift_format'
 
 class ApplyTransformsPipeline
   def self.start(options)
@@ -31,14 +31,15 @@ class FormatDirectoryPipeline
     if Dir.exists? options[:toolPath]
       TravelerWorker.new(options[:toolPath]).work
     end
+
     directory = options[:outputDirectory]
     Dir.entries(directory).map{ |f|
       File.join(directory, f)
     }
     .select{ |f|
       File.file?(f) && File.extname(f) == '.swift'
-    }.each{ |f|
-      FormatWorker.new(options[:formatToolPath], f).work
+    }.each{ |filePath|
+      SwiftFormatRunner.run(filePath)
     }
   end
 end

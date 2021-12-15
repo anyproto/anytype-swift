@@ -13,8 +13,7 @@ class CodegenRunner
   def self.run
     options = {
         toolPath: File.expand_path("#{__dir__}/anytype_swift_codegen.rb"),
-        outputDirectory: File.expand_path(CodegenConfig::ProtobufDirectory),
-        formatToolPath: File.expand_path("#{__dir__}/../../swift_format.rb")
+        outputDirectory: File.expand_path(CodegenConfig::ProtobufDirectory)
     }
 
     CodegenConfig.make_all.map(&:options).each{ |value|
