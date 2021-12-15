@@ -16,6 +16,8 @@ final class TagRelationEditingViewModel: ObservableObject {
     private let detailsService: DetailsServiceProtocol
     private let relationsService: RelationsServiceProtocol
     
+    private var editingActions: [TagRelationEditingAction] = []
+    
     init(
         relationTag: Relation.Tag,
         detailsService: DetailsServiceProtocol,
@@ -30,6 +32,23 @@ final class TagRelationEditingViewModel: ObservableObject {
         self.relationsService = relationsService
     }
     
+    func postponeEditingAction(_ action: TagRelationEditingAction) {
+        editingActions.append(action)
+    }
+    
+    func applyEditingActions() {
+        editingActions.forEach {
+            switch $0 {
+            case .remove(let indexSet):
+                selectedTags.remove(atOffsets: indexSet)
+            }
+        }
+        
+        detailsService.updateDetails([DetailsUpdate(key: relationKey, value: selectedTags.map { $0.id }.protobufValue)])
+        
+        editingActions = []
+    }
+
 }
 
 extension TagRelationEditingViewModel: RelationEditingViewModelProtocol {
