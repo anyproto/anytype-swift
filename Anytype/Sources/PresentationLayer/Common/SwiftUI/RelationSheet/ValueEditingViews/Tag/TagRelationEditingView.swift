@@ -45,7 +45,7 @@ struct TagRelationEditingView: View {
                 TagRelationRowView(tag: tag) {}
             }
             .onMove { source, destination in
-                debugPrint("source \(source)/ destination \(destination)")
+                viewModel.postponeEditingAction(.move(source, destination))
             }
             .onDelete { viewModel.postponeEditingAction(.remove($0)) }
         }
