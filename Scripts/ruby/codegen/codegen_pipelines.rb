@@ -3,10 +3,6 @@ require_relative '../swift_format'
 
 class ApplyTransformsPipeline
   def self.start(options)
-    if Dir.exists? options[:toolPath]
-      TravelerWorker.new(options[:toolPath]).work
-    end
-
     extracted_options_keys = [:filePath, :transform, :outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath, :serviceFilePath]
 
     sliced_options = {}
@@ -27,12 +23,7 @@ class ApplyTransformsPipeline
 end
 
 class FormatDirectoryPipeline
-  def self.start(options)
-    if Dir.exists? options[:toolPath]
-      TravelerWorker.new(options[:toolPath]).work
-    end
-
-    directory = options[:outputDirectory]
+  def self.start(directory)
     Dir.entries(directory).map{ |f|
       File.join(directory, f)
     }

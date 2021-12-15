@@ -34,9 +34,6 @@ end
 module SwiftFormat::Pipeline
   class FormatPipeline
     def self.start(options)
-      if Dir.exists? options[:toolPath]
-        SwiftFormat::TravelerWorker.new(options[:toolPath]).work
-      end
       SwiftFormat::FormatWorker.new(options[:toolPath], options[:configurationFilePath], options[:inputFilePath]).work
     end
   end
