@@ -1,15 +1,5 @@
 require_relative 'codegen_workers_2'
 
-class ListTransformsPipeline
-  def self.start(options)
-    if Dir.exists? options[:toolPath]
-      TravelerWorker.new(options[:toolPath]).work
-    end
-    puts "Look at available trasnforms!"
-    puts ListTransformsWorker.new(options[:toolPath]).work
-  end
-end
-
 class ApplyTransformsPipeline
   def self.start(options)
     if Dir.exists? options[:toolPath]
@@ -32,15 +22,6 @@ class ApplyTransformsPipeline
 
     ApplyTransformsWorker.new(options[:toolPath], sliced_options).work
     puts "Congratulations! You have just generated new protobuf files!"
-  end
-end
-
-class CodegenPipeline
-  def self.start(toolPath, transform, filePath)
-    if Dir.exists? toolPath
-      TravelerWorker.new(toolPath).work
-    end
-    CodegenWorker.new(toolPath, transform, filePath).work
   end
 end
 
