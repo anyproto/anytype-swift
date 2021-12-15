@@ -23,6 +23,29 @@ class CodegenRunner
       ApplyTransformsPipeline.start(options)
     }
 
-    FormatDirectoryPipeline.start(File.expand_path(CodegenConfig::ProtobufDirectory))
+    runFortatting()
   end
-end
+
+  private_class_method def self.runFortatting()
+    directory = CodegenConfig::ProtobufDirectory
+
+    Dir.entries(directory)
+      .map{ |fileName|
+        File.join(directory, fileName)
+      }
+      .select{ |file|
+        File.file?(file) && File.extname(file) == '.swift'
+      }.each{ |filePath|
+        runSwiftFormat(filePath)
+      }
+  end
+
+  private_class_method def self.runSwiftFormat(input_path)
+      configuration_path = File.expand_path("#{__dir__}/../../../Tools/swift-format-configuration.json")
+      tool = File.expand_path("#{__dir__}/../../../Tools/swift-format")
+
+      action = "#{tool} -i --configuration #{configuration_path} #{input_path}"
+      
+      ShellExecutor.run_command_line action
+    end
+  end

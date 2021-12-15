@@ -1,5 +1,4 @@
 require_relative 'codegen_workers'
-require_relative '../swift_format'
 
 class ApplyTransformsPipeline
   def self.start(options)
@@ -19,18 +18,5 @@ class ApplyTransformsPipeline
 
     ApplyTransformsWorker.new(sliced_options).work
     puts "Congratulations! You have just generated new protobuf files!"
-  end
-end
-
-class FormatDirectoryPipeline
-  def self.start(directory)
-    Dir.entries(directory).map{ |f|
-      File.join(directory, f)
-    }
-    .select{ |f|
-      File.file?(f) && File.extname(f) == '.swift'
-    }.each{ |filePath|
-      SwiftFormatRunner.run(filePath)
-    }
   end
 end
