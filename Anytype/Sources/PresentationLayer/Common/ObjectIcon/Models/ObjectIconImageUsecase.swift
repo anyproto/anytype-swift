@@ -24,7 +24,7 @@ extension ObjectIconImageUsecase {
         case .openedObjectNavigationBar, .mention, .setRow:
             return .clear
         default:
-            return UIColor.backgroundSelected
+            return UIColor.systemGray.withAlphaComponent(0.1)
         }
     }
 }

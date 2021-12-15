@@ -31,7 +31,7 @@ private struct BlocksOptionItemView: View {
         VStack(spacing: 5) {
             Image(uiImage: image)
                 .frame(width: 52, height: 52)
-                .background(Color.grayscale10)
+                .background(Color.backgroundSelected)
                 .cornerRadius(10.5)
             AnytypeText(title, style: .caption2Regular, color: .textSecondary)
         }
