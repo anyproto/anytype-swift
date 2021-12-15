@@ -1,19 +1,28 @@
 require_relative "../constants"
 
-class LibraryVersion
+class LibraryFile
 	def self.set(version)
+		validate_library_file_path()
 		validate(version)
 	    File.open(Constants::LIBRARY_FILE_PATH, 'w') do |file_handler|
 	      file_handler.write(version)
-	      puts "Updated library file"
+	      puts "Updated version #{version} in library file"
 	    end
 	end
 
 	def self.get
-		filePath = Constants::LIBRARY_FILE_PATH
-    	version = File.read(filePath)
+		validate_library_file_path()
+    	version = File.read(Constants::LIBRARY_FILE_PATH)
     	validate(version)
+    	puts "Version in the library file: #{version}"
     	return version
+	end
+
+	private_class_method def self.validate_library_file_path
+	    unless File.exists? Constants::LIBRARY_FILE_PATH
+	      puts "I can't find library file at #{libraryFilePath}."
+	      exit 1
+	    end
 	end
 
 	private_class_method def self.validate(version) 

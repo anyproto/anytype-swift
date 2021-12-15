@@ -1,16 +1,6 @@
-require_relative '../pipeline_starter'
+require_relative 'codegen_workers_2'
 
-class ListTransformsPipeline < BasePipeline
-  def self.start(options)
-    if Dir.exists? options[:toolPath]
-      TravelerWorker.new(options[:toolPath]).work
-    end
-    puts "Look at available trasnforms!"
-    puts ListTransformsWorker.new(options[:toolPath]).work
-  end
-end
-
-class ApplyTransformsPipeline < BasePipeline
+class ApplyTransformsPipeline
   def self.start(options)
     if Dir.exists? options[:toolPath]
       TravelerWorker.new(options[:toolPath]).work
@@ -35,22 +25,19 @@ class ApplyTransformsPipeline < BasePipeline
   end
 end
 
-class CompoundPipeline < BasePipeline
+class FormatDirectoryPipeline
   def self.start(options)
-    case options[:command]
-    when ListTransformsCommand then ListTransformsPipeline.start(options)
-    when ApplyTransformsCommand then ApplyTransformsPipeline.start(options)
-    else
-      puts "I don't recognize this command: #{options[:command]}"
-      finalize
-      return
+    if Dir.exists? options[:toolPath]
+      TravelerWorker.new(options[:toolPath]).work
     end
-    finalize
-  end
-end
-
-module AnytypeSwiftCodegenPipeline
-  def self.start(options)
-    CompoundPipeline.start(options)
+    directory = options[:outputDirectory]
+    Dir.entries(directory).map{ |f|
+      File.join(directory, f)
+    }
+    .select{ |f|
+      File.file?(f) && File.extname(f) == '.swift'
+    }.each{ |f|
+      FormatWorker.new(options[:formatToolPath], f).work
+    }
   end
 end

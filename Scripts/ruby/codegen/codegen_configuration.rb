@@ -1,22 +1,10 @@
-require_relative '../commands'
-
-
-class ListTransformsCommand < Commands::BaseCommand
-end
-
-class ApplyTransformsCommand < Commands::BaseCommand
+class ApplyTransformsCommand
   attr_accessor :transform
   def initialize(transform)
     self.transform = transform
   end
   def to_s
     "#{self.class.name} our_transform: #{self.our_transform} and tool_transform: #{self.tool_transform}"
-  end
-  def to_json(*args)
-    self.to_s
-  end
-  def inspect
-    self.to_s
   end
 end
 

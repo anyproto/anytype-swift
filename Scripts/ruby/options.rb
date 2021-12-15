@@ -11,9 +11,9 @@ class Options
     OptionParser.new do |opts|
       opts.on('-h', '--help', 'Show help') { help_message(opts); exit(0) }
       opts.on('-l', '--latest', 'Update to the latest version') {|v| options[:latest] = true }
+      opts.on('--artifacts-path [PATH]', 'Custom artifacts: protobuf and xcframework') {|v| options[:artifactsPath] = v }
 
       opts.on('--token', '--token [TOKEN]', 'Token to access repository') {|v| options[:token] = v}
-      opts.on('--on-ci', 'Run on CI') { |v| options[:runsOnCI] = true }
 
     end.parse!(args)
 
@@ -23,7 +23,7 @@ class Options
   private_class_method def self.default_options
     {
       latest: false,
-      runsOnCI: false,
+      artifactsPath: "",
       token: ENV['ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN'] || '',
     }
   end

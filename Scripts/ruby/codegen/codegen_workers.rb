@@ -1,17 +1,6 @@
 require_relative '../workers_hub'
 require_relative '../library/shell_executor'
 
-class ListTransformsWorker
-  attr_accessor :tool
-  def initialize(tool, options)
-    self.tool = tool
-  end
-
-  def work
-    ShellExecutor.run_command_line "#{tool} generate -l"
-  end
-end
-
 class ApplyTransformsWorker
   attr_accessor :tool, :options
 
