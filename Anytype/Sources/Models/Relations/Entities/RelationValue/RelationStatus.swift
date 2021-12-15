@@ -17,7 +17,7 @@ extension Relation {
 
 extension Relation.Status {
     
-    struct Option: Hashable, Identifiable {
+    struct Option: Hashable, Identifiable, RelationValueOptionProtocol {
         let id: String
         let text: String
         let color: AnytypeColor
