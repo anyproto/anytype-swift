@@ -247,7 +247,9 @@ private extension RelationsBuilder {
                 return tagId.isEmpty ? nil : tagId
             }
             
-            return tags.filter { selectedTagIds.contains($0.id) }
+            return selectedTagIds.compactMap { id in
+                tags.first { $0.id == id }
+            }
         }()
         
         return .tag(
