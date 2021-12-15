@@ -1,6 +1,3 @@
-class ListTransformsCommand
-end
-
 class ApplyTransformsCommand
   attr_accessor :transform
   def initialize(transform)

@@ -9,7 +9,7 @@ require_relative 'codegen_config'
 require_relative 'codegen_pipelines'
 
 class CodegenRunner
-  def self.work
+  def self.run
     options = {
         toolPath: File.expand_path("#{__dir__}/anytype_swift_codegen.rb"),
         outputDirectory: File.expand_path(CodegenConfig::ProtobufDirectory),
@@ -17,7 +17,10 @@ class CodegenRunner
     }
 
     CodegenConfig.make_all.map(&:options).each{ |value|
-      CodegenPipeline.start(options[:toolPath], value[:transform], value[:filePath])
+      tool = options[:toolPath]
+      transform = value[:transform]
+      filePath = value[:filePath]
+      ShellExecutor.run_command_line "ruby #{tool} --transform #{transform} --filePath #{filePath}"
     }
 
     FormatDirectoryPipeline.start(options)
