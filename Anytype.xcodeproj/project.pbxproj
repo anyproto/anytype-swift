@@ -2579,9 +2579,7 @@
 				12461BF62767649E00D47708 /* TagRelationEditingViewModel.swift */,
 				12461BF827677F0600D47708 /* TagRelationRowView.swift */,
 				12FAAE6E2768D9040047F198 /* TagRelationEditingAction.swift */,
-				12FAAE732769E3BB0047F198 /* TagRelationOptionSearchView.swift */,
-				12636CE6276A01340084D35D /* TagRelationOptionSearchViewModel.swift */,
-				12636CF7276A109D0084D35D /* RelationTagOptionSearchRowView.swift */,
+				12636CF9276A211D0084D35D /* TagOptionSearch */,
 			);
 			path = Tag;
 			sourceTree = "<group>";
@@ -2750,6 +2748,16 @@
 				12636CF5276A0DC70084D35D /* RelationValueOptionCreateButton.swift */,
 			);
 			path = CommonViews;
+			sourceTree = "<group>";
+		};
+		12636CF9276A211D0084D35D /* TagOptionSearch */ = {
+			isa = PBXGroup;
+			children = (
+				12FAAE732769E3BB0047F198 /* TagRelationOptionSearchView.swift */,
+				12636CE6276A01340084D35D /* TagRelationOptionSearchViewModel.swift */,
+				12636CF7276A109D0084D35D /* RelationTagOptionSearchRowView.swift */,
+			);
+			path = TagOptionSearch;
 			sourceTree = "<group>";
 		};
 		126F3D52273D2BB800AEF39A /* Entities */ = {
