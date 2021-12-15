@@ -25,6 +25,7 @@ struct TagRelationEditingView: View {
                         .navigationBarTitle(viewModel.relationName, displayMode: .inline)
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) { editButton }
+                            ToolbarItem(placement: .navigationBarTrailing) { addButton }
                         }
                 }
             }
@@ -64,7 +65,15 @@ struct TagRelationEditingView: View {
         } label: {
             AnytypeText(self.editMode?.wrappedValue == .active ? "Done" : "Edit", style: .uxBodyRegular, color: .buttonActive)
         }
-        
+    }
+    
+    private var addButton: some View {
+        Button {
+            debugPrint("add")
+        } label: {
+            Image.Relations.newRelationOption.frame(width: 24, height: 24)
+        }
+
     }
 }
 

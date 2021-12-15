@@ -85,6 +85,7 @@ extension Image {
         static let locked = createImage("relation_locked")
         
         static let createOption = createImage(ImageName.slashMenu.relations.addRelation)
+        static let newRelationOption = createImage("relation_new")
         
         enum Icons {
             enum Small {
