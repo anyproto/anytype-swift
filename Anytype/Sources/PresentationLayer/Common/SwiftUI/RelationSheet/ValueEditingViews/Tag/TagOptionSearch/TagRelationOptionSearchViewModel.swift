@@ -44,6 +44,10 @@ extension TagRelationOptionSearchViewModel {
         }
     }
     
+    func didTapAddSelectedTags() {
+        addTagsAction(selectedTagIds)
+    }
+    
     func createOption(text: String) {
         let optionId = relationsService.addRelationOption(relationKey: relationKey, optionText: text)
         guard let optionId = optionId else { return}

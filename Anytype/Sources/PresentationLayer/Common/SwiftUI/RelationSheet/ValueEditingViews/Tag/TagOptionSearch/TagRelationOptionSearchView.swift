@@ -11,8 +11,10 @@ struct TagRelationOptionSearchView: View {
         VStack(spacing: 0) {
             DragIndicator(bottomPadding: 0)
             SearchBar(text: $searchText, focused: false)
+                .padding(.vertical, 4)
+                .modifier(DividerModifier(spacing: 0))
             tagsList
-            Spacer.fixedHeight(20)
+            addButton
         }
         .onChange(of: searchText) { viewModel.filterTagSections(text: $0)}
     }
@@ -36,7 +38,9 @@ struct TagRelationOptionSearchView: View {
                 }
             }
             .padding(.horizontal, 20)
+            .padding(.bottom, 10)
         }
+        .modifier(DividerModifier(spacing: 0))
     }
 
     private func row(_ tag: Relation.Tag.Option) -> some View {
@@ -47,6 +51,30 @@ struct TagRelationOptionSearchView: View {
             viewModel.didTapOnTag(tag)
         }
     }
+    
+    private var addButton: some View {
+        StandardButton(disabled: viewModel.selectedTagIds.isEmpty, text: "Add".localized, style: .primary) {
+            viewModel.didTapAddSelectedTags()
+            presentationMode.wrappedValue.dismiss()
+        }
+        .if(viewModel.selectedTagIds.isNotEmpty) {
+            $0.overlay(
+                HStack(spacing: 0) {
+                    Spacer()
+                    AnytypeText("\(viewModel.selectedTagIds.count)", style: .relation1Regular, color: .grayscaleWhite)
+                        .frame(minWidth: 15, minHeight: 15)
+                        .padding(5)
+                        .background(Color.darkAmber)
+                        .clipShape(
+                            Circle()
+                        )
+                    Spacer.fixedWidth(12)
+                }
+            )
+        }
+        .padding(.vertical, 10)
+        .padding(.horizontal, 20)
+    }
 }
 
 struct TagRelationOptionSearchView_Previews: PreviewProvider {
@@ -54,7 +82,29 @@ struct TagRelationOptionSearchView_Previews: PreviewProvider {
         TagRelationOptionSearchView(
             viewModel: TagRelationOptionSearchViewModel(
                 relationKey: "",
-                availableTags: [],
+                availableTags: [
+                    Relation.Tag.Option(
+                        id: "id",
+                        text: "text",
+                        textColor: .darkAmber,
+                        backgroundColor: .lightAmber,
+                        scope: .local
+                    ),
+                    Relation.Tag.Option(
+                        id: "id3",
+                        text: "text3",
+                        textColor: .darkAmber,
+                        backgroundColor: .lightAmber,
+                        scope: .local
+                    ),
+                    Relation.Tag.Option(
+                        id: "id2",
+                        text: "text2",
+                        textColor: .darkAmber,
+                        backgroundColor: .lightAmber,
+                        scope: .local
+                    )
+                ],
                 detailsService: DetailsService(objectId: ""),
                 relationsService: RelationsService(objectId: "")
             ) { _ in }
