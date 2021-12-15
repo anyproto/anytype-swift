@@ -61,8 +61,17 @@ extension TagRelationEditingViewModel {
             availableTags: allTags.filter { !selectedTags.contains($0) },
             detailsService: detailsService,
             relationsService: relationsService
-        ) { newTagIds in
+        ) { [ weak self] newTagIds in
+            guard let self = self else { return }
             
+            let selectedTagIds = self.selectedTags.map { $0.id }
+            let newValue = selectedTagIds + newTagIds
+            self.detailsService.updateDetails(
+                [
+                    DetailsUpdate(key: self.relationKey, value: newValue.protobufValue)
+                ]
+            )
+            self.isPresented = false
         }
     }
     

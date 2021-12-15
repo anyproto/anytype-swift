@@ -45,14 +45,10 @@ extension TagRelationOptionSearchViewModel {
     }
     
     func createOption(text: String) {
-//        let optionId = relationsService.addRelationOption(relationKey: relationKey, optionText: text)
-//        guard let optionId = optionId else { return}
-//        
-////        detailsService.updateDetails(
-////            [DetailsUpdate(key: relationKey, value: optionId.protobufValue)
-////        ])
-//        
-//        addTagsAction([optionId])
+        let optionId = relationsService.addRelationOption(relationKey: relationKey, optionText: text)
+        guard let optionId = optionId else { return}
+
+        addTagsAction([optionId])
     }
     
 }
