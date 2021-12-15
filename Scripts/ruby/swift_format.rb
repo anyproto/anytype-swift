@@ -9,13 +9,13 @@ require_relative 'pipeline_starter'
 
 module SwiftFormat
   class FormatWorker
-    attr_accessor :tool,:configuration_path, :input_path
-    def initialize(tool, configuration_path, input_path)
-      self.tool = tool
+    attr_accessor :configuration_path, :input_path
+    def initialize(configuration_path, input_path)
       self.configuration_path = configuration_path
       self.input_path = input_path
     end
     def work
+      tool =File.expand_path("#{__dir__}/../../Tools/swift-format")
       action = "#{tool} -i --configuration #{configuration_path} #{input_path}"
       ShellExecutor.run_command_line action
     end
@@ -34,7 +34,7 @@ end
 module SwiftFormat::Pipeline
   class FormatPipeline
     def self.start(options)
-      SwiftFormat::FormatWorker.new(options[:toolPath], options[:configurationFilePath], options[:inputFilePath]).work
+      SwiftFormat::FormatWorker.new(options[:configurationFilePath], options[:inputFilePath]).work
     end
   end
 end
@@ -60,8 +60,7 @@ class SwiftFormatRunner
   def self.run(inputFilePath)
     defaultOptions = {
       command: SwiftFormat::Configuration::Commands::FormatCommand.new,
-      configurationFilePath: File.expand_path("#{__dir__}/../../Tools/swift-format-configuration.json"),
-      toolPath: File.expand_path("#{__dir__}/../../Tools/swift-format")
+      configurationFilePath: File.expand_path("#{__dir__}/../../Tools/swift-format-configuration.json")
     }
 
     options = {}
