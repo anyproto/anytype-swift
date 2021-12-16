@@ -12,35 +12,24 @@ require_relative 'codegen_options_gen'
 
 class CodegenRunner
   def self.run
-    codegenFiles().each{ |value|
-      options = {}
-      options[:transform] = value[:transform]
-      options[:filePath] = value[:filePath]
-
+    codegenOptions().each { |options|
       options = CodegenDefaultOptionsGenerator.populate(options)
-
       ApplyTransformsPipeline.start(options)
     }
 
-    runFortatting()
+    formatFiles()
   end
 
-  private_class_method def self.runFortatting()
-    directory = CodegenConfig::ProtobufDirectory
-    files = DirHelper.allFiles(CodegenConfig::ProtobufDirectory, "swift")
-    files.each{ |path| runSwiftFormat(path) }
+  private_class_method def self.formatFiles()
+    DirHelper.allFiles(CodegenConfig::ProtobufDirectory, "swift")
+      .each { |path|
+        action = "#{CodegenConfig::SwiftFormatPath} -i --configuration #{CodegenConfig::SwiftFormatConfigPath} #{path}"
+        ShellExecutor.run_command_line action
+     }
   end
 
-  private_class_method def self.runSwiftFormat(input_path)
-      configuration_path = File.expand_path("#{__dir__}/../../../Tools/swift-format-configuration.json")
-      swift_format = File.expand_path("#{__dir__}/../../../Tools/swift-format")
-
-      action = "#{swift_format} -i --configuration #{configuration_path} #{input_path}"
-      
-      ShellExecutor.run_command_line action
-  end
-
-  def self.codegenFiles()
+  # names of transforms stored in https://github.com/anytypeio/anytype-swift-codegen
+  private_class_method def self.codegenOptions()
     [
       { transform: "memberwiseInitializer", filePath: CodegenConfig::ModelsFilePath }, 
       { transform: "memberwiseInitializer", filePath: CodegenConfig::EventsFilePath },
