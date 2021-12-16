@@ -32,7 +32,7 @@ struct SetMinimizedHeader: View {
                 .padding(.horizontal)
             }
             .frame(width: width, height: minimizedHeaderHeight)
-            .background(Color.background)
+            .background(Color.backgroundPrimary)
             .opacity(headerOpacity)
             .background(FrameCatcher { headerMinimizedSize = $0.size })
         }

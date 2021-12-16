@@ -43,7 +43,7 @@ struct LoginView: View {
             }
             .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
         }
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
         .cornerRadius(16.0)
     }
     

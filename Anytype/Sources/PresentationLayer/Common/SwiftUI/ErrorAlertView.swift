@@ -20,7 +20,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                     
                     
                     VStack(spacing: 0) {
-                        Divider().background(Color.background)
+                        Divider().background(Color.backgroundPrimary)
                         Button(action: {
                             isShowing.toggle()
                             onOkPressed()

@@ -46,6 +46,18 @@ protocol AnytypeColorProtocol {
     static var textPrimary: T { get }
     static var textSecondary: T { get }
     static var textTertiary: T { get }
+
+    // MARK: - Background colors
+    static var backgroundPrimary: T { get }
+    static var backgroundSecondary: T { get }
+    static var backgroundBlurred: T { get }
+    static var backgroundSelected: T { get }
+    static var backgroundDashboard: T { get }
+
+    // MARK: - Stroke
+    static var strokePrimary: T { get }
+    static var strokeSecondary: T { get }
+    static var strokeTertiary: T { get }
     
     // MARK: - Grayscale
     

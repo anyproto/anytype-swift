@@ -21,7 +21,6 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
         }
         .frame(height: 68)
         .padding(.horizontal, 16)
-        .background(Color.background)
     }
     
     private var text: some View {

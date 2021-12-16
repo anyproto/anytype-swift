@@ -14,7 +14,7 @@ struct SettingsView: View {
                     .padding()
             }
         }
-        .background(Color.background)
+        .background(Color.backgroundSecondary)
         .cornerRadius(16)
         
         .sheet(isPresented: $viewModel.defaultType) {

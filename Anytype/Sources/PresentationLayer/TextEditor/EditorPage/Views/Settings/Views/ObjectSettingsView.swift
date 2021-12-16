@@ -16,7 +16,7 @@ struct ObjectSettingsView: View {
             DragIndicator(bottomPadding: 0)
             settings
         }
-        .background(Color.background)
+        .background(Color.backgroundSecondary)
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
     }

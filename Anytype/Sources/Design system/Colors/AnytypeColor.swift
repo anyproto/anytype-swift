@@ -48,6 +48,18 @@ enum AnytypeColor: String {
     case textPrimary
     case textSecondary
     case textTertiary
+
+    // MARK: - Background
+    case backgroundPrimary
+    case backgroundSecondary
+    case backgroundBlurred
+    case backgroundSelected
+    case backgroundDashboard
+
+    // MARK: - Stroke
+    case strokePrimary
+    case strokeSecondary
+    case strokeTertiary
     
     // MARK: - Grayscale
     
@@ -57,7 +69,6 @@ enum AnytypeColor: String {
     case grayscale50
     case grayscale30
     case grayscale10
-    
 }
 
 extension AnytypeColor {

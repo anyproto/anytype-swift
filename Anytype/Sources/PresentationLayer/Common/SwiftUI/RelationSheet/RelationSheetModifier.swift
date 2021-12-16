@@ -57,7 +57,7 @@ struct RelationSheetModifier: ViewModifier {
             
             Spacer.fixedHeight(20)
         }
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
         .background(FrameCatcher { sheetHeight = $0.height })
         .cornerRadius(16, corners: [.topLeft, .topRight])
         .offset(x: 0, y: currentOffset)

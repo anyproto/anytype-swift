@@ -2,10 +2,6 @@ import SwiftUI
 
 // https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Android---main---draft?node-id=3681%3A1219
 extension Color {
-    
-    static let background = Color.grayscaleWhite
-    
-    static let divider = Color(ColorName.divider)
     static let dividerSecondary = Color(ColorName.dividerSecondary)
 
     static let stroke = Color(ColorName.stroke)
@@ -14,7 +10,7 @@ extension Color {
     static let buttonPrimary = pureAmber
     static let buttonPrimartText = white
     
-    static let buttonSecondary = white
+    static let buttonSecondary = backgroundPrimary
     static let buttonSecondaryBorder = stroke
     static let buttonSecondaryText = textPrimary
     
@@ -28,6 +24,12 @@ extension Color {
 }
 
 extension Color: AnytypeColorProtocol {
+    // MARK: - Stroke colors
+
+    static var strokePrimary: Color = AnytypeColor.strokePrimary.asColor
+    static var strokeSecondary: Color = AnytypeColor.strokeSecondary.asColor
+    static var strokeTertiary: Color = AnytypeColor.strokeTertiary.asColor
+
     
     // MARK: - Pure colors
 
@@ -73,6 +75,13 @@ extension Color: AnytypeColorProtocol {
     static let textPrimary: Color = AnytypeColor.textPrimary.asColor
     static let textSecondary: Color = AnytypeColor.textSecondary.asColor
     static let textTertiary: Color = AnytypeColor.textTertiary.asColor
+
+    //
+    static let backgroundPrimary: Color = AnytypeColor.backgroundPrimary.asColor
+    static let backgroundSecondary: Color = AnytypeColor.backgroundSecondary.asColor
+    static let backgroundBlurred: Color = AnytypeColor.backgroundBlurred.asColor
+    static let backgroundSelected: Color = AnytypeColor.backgroundSelected.asColor
+    static let backgroundDashboard: Color = AnytypeColor.backgroundDashboard.asColor
     
     // MARK: - Grayscale
     
@@ -81,6 +90,5 @@ extension Color: AnytypeColorProtocol {
     static let grayscale70: Color = AnytypeColor.grayscale70.asColor
     static let grayscale50: Color = AnytypeColor.grayscale50.asColor
     static let grayscale30: Color = AnytypeColor.grayscale30.asColor
-    static let grayscale10: Color = AnytypeColor.grayscale10.asColor
-    
+    static let grayscale10: Color = Color(UIColor.systemGray.withAlphaComponent(0.1))
 }
