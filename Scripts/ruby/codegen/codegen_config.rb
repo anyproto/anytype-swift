@@ -9,4 +9,5 @@ class CodegenConfig
   SwiftFormatPath = File.expand_path("#{__dir__}/../../../Tools/swift-format")
 
   CodegenTemplatesPath = File.expand_path("#{__dir__}/../../../Templates/Middleware")
+  CodegenPath = File.expand_path("#{__dir__}/../../../Tools/anytype-swift-codegen")
 end
