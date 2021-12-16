@@ -16,7 +16,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = scene as? UIWindowScene else {
             return
         }
-        
+
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         let window = UIWindow(windowScene: windowScene)
         self.window = window
@@ -24,6 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let applicationCoordinator = ServiceLocator.shared.applicationCoordinator(window: window)
         applicationCoordinator.start()
         windowHolder = applicationCoordinator
+
+        window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
