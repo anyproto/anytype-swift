@@ -5,7 +5,7 @@ struct WallpaperPickerView: View {
     @EnvironmentObject var model: SettingsViewModel
     
     var body: some View {
-        Group {
+        VStack {
             DragIndicator()
             AnytypeText(
                 "Change wallpaper".localized,

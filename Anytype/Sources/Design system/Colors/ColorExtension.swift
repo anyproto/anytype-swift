@@ -90,6 +90,5 @@ extension Color: AnytypeColorProtocol {
     static let grayscale70: Color = AnytypeColor.grayscale70.asColor
     static let grayscale50: Color = AnytypeColor.grayscale50.asColor
     static let grayscale30: Color = AnytypeColor.grayscale30.asColor
-    static let grayscale10: Color = AnytypeColor.grayscale10.asColor
-    
+    static let grayscale10: Color = Color(UIColor.systemGray.withAlphaComponent(0.1))
 }
