@@ -3,7 +3,7 @@ import AnytypeCore
 
 struct OtherSettingsView: View {
     @EnvironmentObject private var model: SettingsViewModel
-    
+
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -11,6 +11,7 @@ struct OtherSettingsView: View {
             AnytypeText("Other settings".localized, style: .uxTitle1Semibold, color: .textPrimary)
             Spacer.fixedHeight(12)
             defaultType
+            appearanceType
             iconPicker
             clearCache
             Spacer.fixedHeight(12)
@@ -19,7 +20,34 @@ struct OtherSettingsView: View {
         .cornerRadius(16)
         .padding(.horizontal, 8)
     }
-    
+
+    private var appearanceType: some View {
+        HStack() {
+            ForEach(UIUserInterfaceStyle.allCases) { style in
+                Button {
+                    model.changeUserInterfaceStyle(style)
+                } label: {
+                    VStack {
+                        AnytypeText(
+                            style.title.localized,
+                            style: .button1Regular,
+                            color: .textPrimary
+                        )
+                            .frame(maxWidth: .infinity)
+                            .padding(.bottom, 8)
+                        (model.currentStyle == style
+                            ? Image.Relations.checkboxChecked
+                            : Image.Relations.checkboxUnchecked)
+                            .frame(width: 10, height: 10, alignment: .center)
+                    }
+                }
+            }
+        }
+        .padding(.vertical, 14)
+        .modifier(DividerModifier())
+        .padding(.horizontal, 20)
+    }
+
     private var defaultType: some View {
         Button(action: { model.defaultType = true }) {
             HStack(spacing: 0) {
@@ -34,7 +62,7 @@ struct OtherSettingsView: View {
             .padding(.horizontal, 20)
         }
     }
-    
+
     private var iconPicker: some View {
         VStack(alignment: .leading) {
             AnytypeText("App icon".localized, style: .uxBodyRegular, color: .textPrimary).padding(.bottom, 6)
@@ -49,13 +77,13 @@ struct OtherSettingsView: View {
         .modifier(DividerModifier())
         .padding(.horizontal, 20)
     }
-    
+
     private func appIcon(_ icon: AppIcon) -> some View {
         VStack(alignment: .center) {
             Button {
                 AppIconManager.shared.setIcon(icon)
                 UISelectionFeedbackGenerator().selectionChanged()
-                
+
             } label: {
                 icon.preview.resizable()
                     .frame(width: 60, height: 60)
@@ -70,7 +98,7 @@ struct OtherSettingsView: View {
             AnytypeText(icon.description, style: .uxCalloutRegular, color: AppIconManager.shared.currentIcon == icon ? .textPrimary : .textSecondary)
         }
     }
-    
+
     var clearCache: some View {
         Button(action: { model.clearCacheAlert = true }) {
             HStack(spacing: 0) {

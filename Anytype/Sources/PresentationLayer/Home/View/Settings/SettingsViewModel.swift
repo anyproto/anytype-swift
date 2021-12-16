@@ -14,6 +14,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var clearCacheSuccessful = false
     @Published var about = false
     @Published var debugMenu = false
+    @Published var currentStyle = UserDefaultsConfig.userInterfaceStyle
     
     @Published var wallpaper: BackgroundType = UserDefaultsConfig.wallpaper {
         didSet {
@@ -47,5 +48,30 @@ final class SettingsViewModel: ObservableObject {
                     completion(true)
                 }
             }
+    }
+
+    func changeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
+        currentStyle = style
+        UserDefaultsConfig.userInterfaceStyle = style
+        UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = style
+    }
+}
+
+extension UIUserInterfaceStyle: Identifiable {
+    public var id: Int { rawValue }
+
+    static var allCases: [UIUserInterfaceStyle] { [.unspecified, .light, .dark] }
+
+    var title: String {
+        switch self {
+        case .light:
+            return "Light"
+        case .dark:
+            return "Dark"
+        case .unspecified:
+            fallthrough
+        @unknown default:
+            return "System"
+        }
     }
 }

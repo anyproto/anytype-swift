@@ -101,4 +101,12 @@ struct UserDefaultsConfig {
     
     @UserDefault("UserData.ShowKeychainAlert", defaultValue: false)
     static var showKeychainAlert: Bool
+
+    @UserDefault("UserData.UserInterfaceStyle", defaultValue: UIUserInterfaceStyle.unspecified.rawValue)
+    private static var _userInterfaceStyleRawValue: Int
+
+    static var userInterfaceStyle: UIUserInterfaceStyle {
+        get { UIUserInterfaceStyle(rawValue: _userInterfaceStyleRawValue) ?? .unspecified }
+        set { _userInterfaceStyleRawValue = newValue.rawValue }
+    }
 }
