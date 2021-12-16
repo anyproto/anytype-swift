@@ -17,6 +17,7 @@ class BasePipeline
     FileUtils.cp_r(lib, dependenciesDirectory)
     protobuf = File.join(artifactsDirectory, Constants::PROTOBUF_DIRECTORY_NAME)
     FileUtils.cp_r(protobuf, dependenciesDirectory)    
+    remove_gitignore(dependenciesDirectory)
     
     puts "Copying protobuf files from Dependencies to ProtobufMessages"
     directory = File.join([dependenciesDirectory, Constants::PROTOBUF_DIRECTORY_NAME])
@@ -24,5 +25,13 @@ class BasePipeline
 
     puts "Generating swift from protobuf"
     CodegenRunner.run()
+  end
+
+  # Remove when fixed on the middlewere side
+  private_class_method def self.remove_gitignore(dependenciesDirectory)
+    gitignore_path = "#{dependenciesDirectory}/protobuf/.gitignore"
+    if File.file?(gitignore_path)
+      FileUtils.rm(gitignore_path)
+    end
   end
 end
