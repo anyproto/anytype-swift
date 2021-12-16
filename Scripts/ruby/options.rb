@@ -1,4 +1,5 @@
 require 'optparse'
+require_relative 'library/colorize'
 
 class Options
   def self.parsed(args)
@@ -29,14 +30,13 @@ class Options
   end
 
   private_class_method def self.help_message(options)
-    puts <<-__HELP__
+    puts """
 
     #{options.help}
 
     You can store token in environments ~/.zshrc
-    key: ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN
-
-    __HELP__
+    key: #{"ANYTYPE_IOS_MIDDLEWARE_ACCESS_TOKEN".red}
+    """
   end
 
 end
