@@ -2,7 +2,6 @@ class CodegenDefaultOptionsGenerator
   def self.defaultOptions
     options = {
       command: "None",
-      toolPath: File.expand_path("#{__dir__}/../../../Tools/anytype-swift-codegen"),
       templatesDirectoryPath: File.expand_path("#{__dir__}/../../../Templates/Middleware"),
       commentsHeaderFilePath: File.expand_path("#{__dir__}/../../../Templates/Middleware/commands+HeaderComments.pb.swift"),
       serviceFilePath: File.expand_path("#{__dir__}/../../../Dependencies/Middleware/protobuf/protos/service.proto"),
