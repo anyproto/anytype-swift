@@ -1,7 +1,8 @@
+require_relative 'codegen_config'
+
 class CodegenDefaultOptionsGenerator
   def self.defaultOptions
     options = {
-      templatesDirectoryPath: File.expand_path("#{__dir__}/../../../Templates/Middleware"),
       commentsHeaderFilePath: File.expand_path("#{__dir__}/../../../Templates/Middleware/commands+HeaderComments.pb.swift"),
       serviceFilePath: File.expand_path("#{__dir__}/../../../Dependencies/Middleware/protobuf/protos/service.proto"),
     }
@@ -32,7 +33,7 @@ class CodegenDefaultOptionsGenerator
       if path == :outputFilePath
         directoryPath = Pathname.new(options[:filePath]).dirname.to_s
       else 
-        directoryPath = options[:templatesDirectoryPath]
+        directoryPath = CodegenConfig::CodegenTemplatesPath
       end
 
 

@@ -5,15 +5,9 @@ class CodegenConfig
   EventsFilePath = ProtobufDirectory + "events.pb.swift"
   LocalstoreFilePath = ProtobufDirectory + "localstore.pb.swift"
 
-  def self.make_all
-    [
-      { transform: "memberwiseInitializer", filePath: CodegenConfig::ModelsFilePath }, 
-      { transform: "memberwiseInitializer", filePath: CodegenConfig::EventsFilePath },
-      { transform: "memberwiseInitializer", filePath: CodegenConfig::LocalstoreFilePath },
+  SwiftFormatConfigPath = File.expand_path("#{__dir__}/../../../Tools/swift-format-configuration.json")
+  SwiftFormatPath = File.expand_path("#{__dir__}/../../../Tools/swift-format")
 
-      { transform: "memberwiseInitializer", filePath: CodegenConfig::CommandsFilePath },
-      { transform: "errorAdoption", filePath: CodegenConfig::CommandsFilePath }, 
-      { transform: "serviceWithRequestAndResponse", filePath: CodegenConfig::CommandsFilePath }
-    ]
-  end
+  CodegenTemplatesPath = File.expand_path("#{__dir__}/../../../Templates/Middleware")
+  CodegenPath = File.expand_path("#{__dir__}/../../../Tools/anytype-swift-codegen")
 end
