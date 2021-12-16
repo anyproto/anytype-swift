@@ -1,7 +1,6 @@
 class CodegenDefaultOptionsGenerator
   def self.defaultOptions
     options = {
-      command: "None",
       templatesDirectoryPath: File.expand_path("#{__dir__}/../../../Templates/Middleware"),
       commentsHeaderFilePath: File.expand_path("#{__dir__}/../../../Templates/Middleware/commands+HeaderComments.pb.swift"),
       serviceFilePath: File.expand_path("#{__dir__}/../../../Dependencies/Middleware/protobuf/protos/service.proto"),
@@ -23,21 +22,55 @@ class CodegenDefaultOptionsGenerator
   end
 
   def self.generateFilePaths(options)
-    command = options[:command]
     result = {
       filePath: options[:filePath],
     }
 
-    keys = [:outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath]
-    for k in keys
-      directoryPath = k == :outputFilePath ? Pathname.new(options[:filePath]).dirname.to_s : options[:templatesDirectoryPath]
-      value = self.appended_suffix(command.suffix_for_file(k), options[:filePath], directoryPath)
+    paths = [:outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath]
+    for path in paths
+
+      if path == :outputFilePath
+        directoryPath = Pathname.new(options[:filePath]).dirname.to_s
+      else 
+        directoryPath = options[:templatesDirectoryPath]
+      end
+
+
+      suffix = suffix(options[:transform], path)
+
+      value = self.appended_suffix(suffix, options[:filePath], directoryPath)
       unless value.nil?
-        result[k] = value
+        result[path] = value
       end
     end
 
     result
+  end
+
+  def self.suffix(transform, key)
+    case transform
+      when "memberwiseInitializer" then
+        case key
+          when :outputFilePath then "+Initializers"
+          when :templateFilePath then nil #"+Initializers+Template"
+          when :commentsHeaderFilePath then "+CommentsHeader"
+          when :importsFilePath then "+Initializers+Import"
+        end
+      when "serviceWithRequestAndResponse" then
+        case key
+          when :outputFilePath then "+Service"
+          when :templateFilePath then "+Service+Template"
+          when :commentsHeaderFilePath then "+CommentsHeader"
+          when :importsFilePath then "+Service+Import"
+        end
+      when "errorAdoption" then
+        case key
+          when :outputFilePath then "+ErrorAdoption"
+          when :templateFilePath then nil
+          when :commentsHeaderFilePath then "+CommentsHeader"
+          when :importsFilePath then nil
+        end
+    end
   end
 
   def self.generate(options)
