@@ -14,21 +14,21 @@ class ApplyTransformsCommand
   module CodegenCLIScopes
     def self.suffix(scope, key)
       case scope
-        when "inits" then
+        when "memberwiseInitializer" then
           case key
             when :outputFilePath then "+Initializers"
             when :templateFilePath then nil #"+Initializers+Template"
             when :commentsHeaderFilePath then "+CommentsHeader"
             when :importsFilePath then "+Initializers+Import"
           end
-        when "services" then
+        when "serviceWithRequestAndResponse" then
           case key
             when :outputFilePath then "+Service"
             when :templateFilePath then "+Service+Template"
             when :commentsHeaderFilePath then "+CommentsHeader"
             when :importsFilePath then "+Service+Import"
           end
-        when "error_protocol" then
+        when "errorAdoption" then
           case key
             when :outputFilePath then "+ErrorAdoption"
             when :templateFilePath then nil

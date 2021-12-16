@@ -7,22 +7,45 @@ require_relative '../library/shell_executor'
 require_relative '../pipeline_starter'
 require_relative 'codegen_config'
 require_relative 'codegen_pipelines'
-require_relative 'anytype_swift_codegen'
+require_relative 'codegen_options_gen'
+require_relative 'codegen_configuration'
 
 class CodegenRunner
   def self.run
-    options = {
-        toolPath: File.expand_path("#{__dir__}/anytype_swift_codegen.rb"),
-        outputDirectory: File.expand_path(CodegenConfig::ProtobufDirectory),
-        formatToolPath: File.expand_path("#{__dir__}/../../swift_format.rb")
-    }
-
     CodegenConfig.make_all.map(&:options).each{ |value|
-      transform = value[:transform]
-      filePath = value[:filePath]
-      Codegen.run(transform, filePath)
+      options = {}
+      options[:command] = ApplyTransformsCommand.new(value[:transform])
+      options[:transform] = value[:transform]
+      options[:filePath] = value[:filePath]
+
+      options = CodegenDefaultOptionsGenerator.populate(options)
+
+      ApplyTransformsPipeline.start(options)
     }
 
-    FormatDirectoryPipeline.start(options)
+    runFortatting()
   end
-end
+
+  private_class_method def self.runFortatting()
+    directory = CodegenConfig::ProtobufDirectory
+
+    Dir.entries(directory)
+      .map{ |fileName|
+        File.join(directory, fileName)
+      }
+      .select{ |file|
+        File.file?(file) && File.extname(file) == '.swift'
+      }.each{ |filePath|
+        runSwiftFormat(filePath)
+      }
+  end
+
+  private_class_method def self.runSwiftFormat(input_path)
+      configuration_path = File.expand_path("#{__dir__}/../../../Tools/swift-format-configuration.json")
+      tool = File.expand_path("#{__dir__}/../../../Tools/swift-format")
+
+      action = "#{tool} -i --configuration #{configuration_path} #{input_path}"
+      
+      ShellExecutor.run_command_line action
+    end
+  end
