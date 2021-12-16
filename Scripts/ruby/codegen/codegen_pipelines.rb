@@ -10,7 +10,7 @@ class ApplyTransformsPipeline
     }
     
     action = "#{CodegenConfig::CodegenPath} generate #{args}"
-    ShellExecutor.run_command_line action
+    ShellExecutor.run_command_line_silent action
   end
 
   private_class_method def self.extract_codegen_options(options)

@@ -3635,6 +3635,8 @@ message Rpc {
             bool zip = 4;
             // include all nested
             bool includeNested = 5;
+            // include all files
+            bool includeFiles = 6;
         }
 
         message Response {
