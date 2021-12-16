@@ -91,6 +91,7 @@ struct OtherSettingsView: View {
             } label: {
                 icon.preview.resizable()
                     .frame(width: 60, height: 60)
+                    .cornerRadius(8)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(
