@@ -14,7 +14,12 @@ final class SettingsViewModel: ObservableObject {
     @Published var clearCacheSuccessful = false
     @Published var about = false
     @Published var debugMenu = false
-    @Published var currentStyle = UserDefaultsConfig.userInterfaceStyle
+    @Published var currentStyle = UserDefaultsConfig.userInterfaceStyle {
+        didSet {
+            UserDefaultsConfig.userInterfaceStyle = currentStyle
+            UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = currentStyle
+        }
+    }
     
     @Published var wallpaper: BackgroundType = UserDefaultsConfig.wallpaper {
         didSet {
@@ -48,12 +53,6 @@ final class SettingsViewModel: ObservableObject {
                     completion(true)
                 }
             }
-    }
-
-    func changeUserInterfaceStyle(_ style: UIUserInterfaceStyle) {
-        currentStyle = style
-        UserDefaultsConfig.userInterfaceStyle = style
-        UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = style
     }
 }
 
