@@ -1710,6 +1710,28 @@ extension Anytype_Rpc.BlockList.Set.Fields.Response.Error {
   }
 }
 
+extension Anytype_Rpc.BlockList.Set.File.Style.Request {
+  public init(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.File.Style) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+    self.style = style
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.File.Style.Response {
+  public init(error: Anytype_Rpc.BlockList.Set.File.Style.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.File.Style.Response.Error {
+  public init(code: Anytype_Rpc.BlockList.Set.File.Style.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.BlockList.Set.Text.Color.Request {
   public init(contextID: String, blockIds: [String], color: String) {
     self.contextID = contextID
@@ -1821,7 +1843,7 @@ extension Anytype_Rpc.CloneTemplate.Response.Error {
 extension Anytype_Rpc.Config.Get.Response {
   public init(
     error: Anytype_Rpc.Config.Get.Response.Error, homeBlockID: String, archiveBlockID: String, profileBlockID: String, marketplaceTypeID: String, marketplaceRelationID: String,
-    marketplaceTemplateID: String, gatewayURL: String
+    marketplaceTemplateID: String, deviceID: String, gatewayURL: String
   ) {
     self.error = error
     self.homeBlockID = homeBlockID
@@ -1830,6 +1852,7 @@ extension Anytype_Rpc.Config.Get.Response {
     self.marketplaceTypeID = marketplaceTypeID
     self.marketplaceRelationID = marketplaceRelationID
     self.marketplaceTemplateID = marketplaceTemplateID
+    self.deviceID = deviceID
     self.gatewayURL = gatewayURL
   }
 }
@@ -1977,18 +2000,20 @@ extension Anytype_Rpc.DownloadFile.Response.Error {
 }
 
 extension Anytype_Rpc.Export.Request {
-  public init(path: String, docIds: [String], format: Anytype_Rpc.Export.Format, zip: Bool) {
+  public init(path: String, docIds: [String], format: Anytype_Rpc.Export.Format, zip: Bool, includeNested: Bool) {
     self.path = path
     self.docIds = docIds
     self.format = format
     self.zip = zip
+    self.includeNested = includeNested
   }
 }
 
 extension Anytype_Rpc.Export.Response {
-  public init(error: Anytype_Rpc.Export.Response.Error, path: String, event: Anytype_ResponseEvent) {
+  public init(error: Anytype_Rpc.Export.Response.Error, path: String, succeed: Int32, event: Anytype_ResponseEvent) {
     self.error = error
     self.path = path
+    self.succeed = succeed
     self.event = event
   }
 }
@@ -2038,6 +2063,28 @@ extension Anytype_Rpc.ExportTemplates.Response {
 
 extension Anytype_Rpc.ExportTemplates.Response.Error {
   public init(code: Anytype_Rpc.ExportTemplates.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.ExportWorkspace.Request {
+  public init(path: String, workspaceID: String) {
+    self.path = path
+    self.workspaceID = workspaceID
+  }
+}
+
+extension Anytype_Rpc.ExportWorkspace.Response {
+  public init(error: Anytype_Rpc.ExportWorkspace.Response.Error, path: String, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.path = path
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.ExportWorkspace.Response.Error {
+  public init(code: Anytype_Rpc.ExportWorkspace.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -2300,6 +2347,25 @@ extension Anytype_Rpc.MakeTemplateByObjectType.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Metrics.SetParameters.Request {
+  public init(platform: String) {
+    self.platform = platform
+  }
+}
+
+extension Anytype_Rpc.Metrics.SetParameters.Response {
+  public init(error: Anytype_Rpc.Metrics.SetParameters.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Metrics.SetParameters.Response.Error {
+  public init(code: Anytype_Rpc.Metrics.SetParameters.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Request {
   public init(objectID: String, context: Anytype_Rpc.Navigation.Context) {
     self.objectID = objectID
@@ -2407,7 +2473,7 @@ extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error {
 }
 
 extension Anytype_Rpc.Object.Graph.Edge {
-  public init(source: String, target: String, name: String, type: Anytype_Rpc.Object.Graph.Edge.TypeEnum, description_p: String, iconImage: String, iconEmoji: String) {
+  public init(source: String, target: String, name: String, type: Anytype_Rpc.Object.Graph.Edge.TypeEnum, description_p: String, iconImage: String, iconEmoji: String, hidden: Bool) {
     self.source = source
     self.target = target
     self.name = name
@@ -2415,11 +2481,12 @@ extension Anytype_Rpc.Object.Graph.Edge {
     self.description_p = description_p
     self.iconImage = iconImage
     self.iconEmoji = iconEmoji
+    self.hidden = hidden
   }
 }
 
 extension Anytype_Rpc.Object.Graph.Node {
-  public init(id: String, type: String, name: String, layout: Int32, description_p: String, iconImage: String, iconEmoji: String, done: Bool, relationFormat: Int32) {
+  public init(id: String, type: String, name: String, layout: Int32, description_p: String, iconImage: String, iconEmoji: String, done: Bool, relationFormat: Int32, snippet: String) {
     self.id = id
     self.type = type
     self.name = name
@@ -2429,6 +2496,7 @@ extension Anytype_Rpc.Object.Graph.Node {
     self.iconEmoji = iconEmoji
     self.done = done
     self.relationFormat = relationFormat
+    self.snippet = snippet
   }
 }
 
@@ -3017,11 +3085,12 @@ extension Anytype_Rpc.Shutdown.Response.Error {
 }
 
 extension Anytype_Rpc.UploadFile.Request {
-  public init(url: String, localPath: String, type: Anytype_Model_Block.Content.File.TypeEnum, disableEncryption: Bool) {
+  public init(url: String, localPath: String, type: Anytype_Model_Block.Content.File.TypeEnum, disableEncryption: Bool, style: Anytype_Model_Block.Content.File.Style) {
     self.url = url
     self.localPath = localPath
     self.type = type
     self.disableEncryption = disableEncryption
+    self.style = style
   }
 }
 

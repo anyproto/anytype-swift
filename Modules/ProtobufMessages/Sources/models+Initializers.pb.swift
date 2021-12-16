@@ -126,7 +126,10 @@ extension Anytype_Model_Block.Content.Div {
 }
 
 extension Anytype_Model_Block.Content.File {
-  public init(hash: String, name: String, type: Anytype_Model_Block.Content.File.TypeEnum, mime: String, size: Int64, addedAt: Int64, state: Anytype_Model_Block.Content.File.State) {
+  public init(
+    hash: String, name: String, type: Anytype_Model_Block.Content.File.TypeEnum, mime: String, size: Int64, addedAt: Int64, state: Anytype_Model_Block.Content.File.State,
+    style: Anytype_Model_Block.Content.File.Style
+  ) {
     self.hash = hash
     self.name = name
     self.type = type
@@ -134,6 +137,7 @@ extension Anytype_Model_Block.Content.File {
     self.size = size
     self.addedAt = addedAt
     self.state = state
+    self.style = style
   }
 }
 

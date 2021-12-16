@@ -54,7 +54,8 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
             url: "",
             localPath: localPath,
             type: FileContentType.image.asMiddleware,
-            disableEncryption: false // Deprecated
+            disableEncryption: false,
+            style: .auto
         )
             .getValue()
             .flatMap { Hash($0.hash) }
