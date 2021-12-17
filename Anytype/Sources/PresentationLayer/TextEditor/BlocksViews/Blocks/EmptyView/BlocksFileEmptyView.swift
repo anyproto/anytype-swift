@@ -69,7 +69,7 @@ class BlocksFileEmptyView: BaseBlockView<BlocksFileEmptyViewConfiguration> {
     private let label: UILabel = {
         let label = UILabel()
         label.font = .bodyRegular
-        label.textColor = .buttonActive
+        label.textColor = .grayscale50
         return label
     }()
     

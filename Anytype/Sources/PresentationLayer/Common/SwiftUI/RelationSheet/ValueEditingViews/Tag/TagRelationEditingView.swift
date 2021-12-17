@@ -68,7 +68,7 @@ struct TagRelationEditingView: View {
                 self.editMode?.wrappedValue.toggle()
             }
         } label: {
-            AnytypeText(self.editMode?.wrappedValue == .active ? "Done" : "Edit", style: .uxBodyRegular, color: .buttonActive)
+            AnytypeText(self.editMode?.wrappedValue == .active ? "Done" : "Edit", style: .uxBodyRegular, color: .grayscale50)
         }
     }
     
