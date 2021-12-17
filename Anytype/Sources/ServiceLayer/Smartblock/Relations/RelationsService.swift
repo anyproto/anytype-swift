@@ -51,7 +51,8 @@ extension RelationsService: RelationsServiceProtocol {
                 color: MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue,
                 scope: .local
             )
-        ).getValue()
+        )
+            .getValue()
         
         guard let response = response else { return nil }
         
