@@ -95,7 +95,7 @@ class ColorView: UIView {
         }, configuration: config)
 
         let styleCollectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-        styleCollectionView.backgroundColor = .white
+        styleCollectionView.backgroundColor = .clear
         styleCollectionView.isScrollEnabled = false
         styleCollectionView.delegate = self
         styleCollectionView.allowsMultipleSelection = true
@@ -159,6 +159,7 @@ class ColorView: UIView {
         addSubview(backdropView)
         addSubview(containerView)
         containerView.addSubview(styleCollectionView)
+        containerView.backgroundColor = .backgroundSecondary
 
         setupLayout()
     }

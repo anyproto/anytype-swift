@@ -70,7 +70,7 @@ final class StyleViewController: UIViewController {
 
         let styleCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         styleCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        styleCollectionView.backgroundColor = .white
+        styleCollectionView.backgroundColor = .backgroundSecondary
         styleCollectionView.alwaysBounceVertical = false
         styleCollectionView.alwaysBounceHorizontal = true
         styleCollectionView.delegate = self
@@ -168,7 +168,7 @@ final class StyleViewController: UIViewController {
     // MARK: - Setup views
 
     private func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundSecondary
 
         containerStackView.addArrangedSubview(listStackView)
         containerStackView.addArrangedSubview(otherStyleStackView)
