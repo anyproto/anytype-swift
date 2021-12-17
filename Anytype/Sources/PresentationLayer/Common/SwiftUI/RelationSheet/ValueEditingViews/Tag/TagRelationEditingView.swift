@@ -8,11 +8,16 @@ struct TagRelationEditingView: View {
     
     @Environment(\.editMode) private var editMode: Binding<EditMode>?
     
+    @State private var isSearchOpen: Bool = false
+    
     var body: some View {
         content
             .modifier(
                 RelationSheetModifier(isPresented: $viewModel.isPresented, title: nil, dismissCallback: viewModel.onDismiss)
             )
+            .sheet(isPresented: $isSearchOpen) {
+                TagRelationOptionSearchView(viewModel: viewModel.searchViewModel)
+            }
     }
     
     private var content: some View {
@@ -25,6 +30,7 @@ struct TagRelationEditingView: View {
                         .navigationBarTitle(viewModel.relationName, displayMode: .inline)
                         .toolbar {
                             ToolbarItem(placement: .navigationBarLeading) { editButton }
+                            ToolbarItem(placement: .navigationBarTrailing) { addButton }
                         }
                 }
             }
@@ -42,7 +48,7 @@ struct TagRelationEditingView: View {
     private var tagsList: some View {
         List {
             ForEach(viewModel.selectedTags) { tag in
-                TagRelationRowView(tag: tag) {}
+                TagRelationRowView(tag: tag)
             }
             .onMove { source, destination in
                 viewModel.postponeEditingAction(.move(source, destination))
@@ -64,7 +70,15 @@ struct TagRelationEditingView: View {
         } label: {
             AnytypeText(self.editMode?.wrappedValue == .active ? "Done" : "Edit", style: .uxBodyRegular, color: .buttonActive)
         }
-        
+    }
+    
+    private var addButton: some View {
+        Button {
+            isSearchOpen = true
+        } label: {
+            Image.Relations.createOption.frame(width: 24, height: 24)
+        }
+
     }
 }
 

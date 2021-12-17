@@ -18,7 +18,7 @@ struct StatusRelationEditingView: View {
     private var statusesList: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                if viewModel.statusSections.isEmpty {
+                if searchText.isNotEmpty {
                     createStatusButton
                 }
                 

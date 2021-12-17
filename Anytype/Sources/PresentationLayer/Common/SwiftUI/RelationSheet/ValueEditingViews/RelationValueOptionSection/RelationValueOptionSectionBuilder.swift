@@ -1,9 +1,9 @@
 import Foundation
 import BlocksModels
 
-final class RelationValueStatusSectionBuilder {
-    
-    static func sections(from options: [Relation.Status.Option], filterText: String?) -> [RelationValueStatusSection] {
+final class RelationValueOptionSectionBuilder<Option: RelationValueOptionProtocol> {
+ 
+    static func sections(from options: [Option], filterText: String?) -> [RelationValueOptionSection<Option>] {
         let filter: (Bool, String) -> Bool = { scopeFilter, optionText in
             if let text = filterText, text.isNotEmpty {
                 return scopeFilter && optionText.lowercased().contains(text.lowercased())
@@ -15,37 +15,28 @@ final class RelationValueStatusSectionBuilder {
         let localOptions = options.filter { filter($0.scope == .local, $0.text) }
         let otherOptions = options.filter { filter($0.scope != .local, $0.text) }
         
-        var sections: [RelationValueStatusSection] = []
+        var sections: [RelationValueOptionSection<Option>] = []
         if localOptions.isNotEmpty {
             sections.append(
-                RelationValueStatusSection(
-                    id: Constants.localStatusSectionID,
+                RelationValueOptionSection<Option>(
+                    id: "localOptionsSectionID",
                     title: "In this object".localized,
-                    statuses: localOptions
+                    options: localOptions
                 )
             )
         }
         
         if otherOptions.isNotEmpty {
             sections.append(
-                RelationValueStatusSection(
-                    id: Constants.otherStatusSectionID,
+                RelationValueOptionSection<Option>(
+                    id: "otherOptionsSectionID",
                     title: "Everywhere".localized,
-                    statuses: otherOptions
+                    options: otherOptions
                 )
             )
         }
         
         return sections
-    }
-    
-}
-
-private extension RelationValueStatusSectionBuilder {
-    
-    enum Constants {
-        static let localStatusSectionID = "localStatusSectionID"
-        static let otherStatusSectionID = "otherStatusSectionID"
     }
     
 }
