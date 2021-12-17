@@ -27,7 +27,25 @@
 		</dict>
 	</dict>
 	<key>CFBundleIcons~ipad</key>
-	<dict/>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>art</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>art</string>
+				</array>
+			</dict>
+			<key>oldSchool</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>oldSchool</string>
+				</array>
+			</dict>
+		</dict>
+	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
