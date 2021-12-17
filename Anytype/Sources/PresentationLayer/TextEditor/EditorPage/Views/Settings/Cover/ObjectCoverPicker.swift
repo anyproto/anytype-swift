@@ -98,7 +98,7 @@ struct ObjectCoverPicker: View {
             AnytypeText(
                 tab.title,
                 style: .uxBodyRegular,
-                color: selectedTab == tab ? Color.buttonSelected : Color.buttonActive
+                color: selectedTab == tab ? Color.buttonSelected : Color.grayscale50
             )
         }
         .frame(maxWidth: .infinity)
