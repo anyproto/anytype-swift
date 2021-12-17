@@ -6,7 +6,13 @@ final class DateRelationEditingViewModel: ObservableObject {
     
     var dismissHandler: (() -> Void)?
     
-    @Published var isPresented: Bool = false
+    @Published var isPresented: Bool = false {
+        didSet {
+            guard isPresented == false else { return }
+            
+            saveValue()
+        }
+    }
     @Published var selectedValue: DateRelationEditingValue = .noDate
     @Published var date: Date
     
@@ -33,11 +39,7 @@ final class DateRelationEditingViewModel: ObservableObject {
 }
 
 extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
-    
-    func viewWillDisappear() {
-        saveValue()
-    }
-    
+
     func saveValue() {
         let value: Google_Protobuf_Value = {
             switch selectedValue {
