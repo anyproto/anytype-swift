@@ -295,7 +295,7 @@ extension Anytype_Event.Block.Fill.Fields {
 extension Anytype_Event.Block.Fill.File {
   public init(
     id: String, type: Anytype_Event.Block.Fill.File.TypeMessage, state: Anytype_Event.Block.Fill.File.State, mime: Anytype_Event.Block.Fill.File.Mime, hash: Anytype_Event.Block.Fill.File.Hash,
-    name: Anytype_Event.Block.Fill.File.Name, size: Anytype_Event.Block.Fill.File.Size
+    name: Anytype_Event.Block.Fill.File.Name, size: Anytype_Event.Block.Fill.File.Size, style: Anytype_Event.Block.Fill.File.Style
   ) {
     self.id = id
     self.type = type
@@ -304,6 +304,7 @@ extension Anytype_Event.Block.Fill.File {
     self.hash = hash
     self.name = name
     self.size = size
+    self.style = style
   }
 }
 
@@ -333,6 +334,12 @@ extension Anytype_Event.Block.Fill.File.Size {
 
 extension Anytype_Event.Block.Fill.File.State {
   public init(value: Anytype_Model_Block.Content.File.State) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.File.Style {
+  public init(value: Anytype_Model_Block.Content.File.Style) {
     self.value = value
   }
 }
@@ -528,7 +535,7 @@ extension Anytype_Event.Block.Set.Fields {
 extension Anytype_Event.Block.Set.File {
   public init(
     id: String, type: Anytype_Event.Block.Set.File.TypeMessage, state: Anytype_Event.Block.Set.File.State, mime: Anytype_Event.Block.Set.File.Mime, hash: Anytype_Event.Block.Set.File.Hash,
-    name: Anytype_Event.Block.Set.File.Name, size: Anytype_Event.Block.Set.File.Size
+    name: Anytype_Event.Block.Set.File.Name, size: Anytype_Event.Block.Set.File.Size, style: Anytype_Event.Block.Set.File.Style
   ) {
     self.id = id
     self.type = type
@@ -537,6 +544,7 @@ extension Anytype_Event.Block.Set.File {
     self.hash = hash
     self.name = name
     self.size = size
+    self.style = style
   }
 }
 
@@ -566,6 +574,12 @@ extension Anytype_Event.Block.Set.File.Size {
 
 extension Anytype_Event.Block.Set.File.State {
   public init(value: Anytype_Model_Block.Content.File.State) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.File.Style {
+  public init(value: Anytype_Model_Block.Content.File.Style) {
     self.value = value
   }
 }

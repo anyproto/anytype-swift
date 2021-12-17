@@ -53,6 +53,30 @@ final class TagRelationEditingViewModel: ObservableObject {
 
 }
 
+extension TagRelationEditingViewModel {
+    
+    var searchViewModel: TagRelationOptionSearchViewModel {
+        TagRelationOptionSearchViewModel(
+            relationKey: relationKey,
+            availableTags: allTags.filter { !selectedTags.contains($0) },
+            detailsService: detailsService,
+            relationsService: relationsService
+        ) { [ weak self] newTagIds in
+            guard let self = self else { return }
+            
+            let selectedTagIds = self.selectedTags.map { $0.id }
+            let newValue = selectedTagIds + newTagIds
+            self.detailsService.updateDetails(
+                [
+                    DetailsUpdate(key: self.relationKey, value: newValue.protobufValue)
+                ]
+            )
+            self.isPresented = false
+        }
+    }
+    
+}
+
 extension TagRelationEditingViewModel: RelationEditingViewModelProtocol {
   
     func makeView() -> AnyView {

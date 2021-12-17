@@ -8,7 +8,7 @@ final class StatusRelationEditingViewModel: ObservableObject {
     
     @Published var isPresented: Bool = false
     @Published var selectedStatus: Relation.Status.Option?
-    @Published var statusSections: [RelationValueStatusSection]
+    @Published var statusSections: [RelationValueOptionSection<Relation.Status.Option>]
     
     let relationName: String
     
@@ -28,10 +28,7 @@ final class StatusRelationEditingViewModel: ObservableObject {
         self.relationKey = relationKey
         self.relationName = relationName
         self.relationOptions = relationOptions
-        self.statusSections = RelationValueStatusSectionBuilder.sections(
-            from: relationOptions,
-            filterText: nil
-        )
+        self.statusSections = RelationValueOptionSectionBuilder.sections(from: relationOptions, filterText: nil)
         self.selectedStatus = selectedStatus
         self.detailsService = detailsService
         self.relationsService = relationsService
@@ -42,10 +39,7 @@ final class StatusRelationEditingViewModel: ObservableObject {
 extension StatusRelationEditingViewModel {
     
     func filterStatusSections(text: String) {
-        self.statusSections = RelationValueStatusSectionBuilder.sections(
-            from: relationOptions,
-            filterText: text
-        )
+        self.statusSections = RelationValueOptionSectionBuilder.sections(from: relationOptions, filterText: text)
     }
     
     func addOption(text: String) {

@@ -22,26 +22,30 @@ struct OtherSettingsView: View {
     }
 
     private var appearanceType: some View {
-        HStack() {
-            ForEach(UIUserInterfaceStyle.allCases) { style in
-                Button {
-                    model.changeUserInterfaceStyle(style)
-                } label: {
-                    VStack {
-                        AnytypeText(
-                            style.title.localized,
-                            style: .button1Regular,
-                            color: .textPrimary
-                        )
-                            .frame(maxWidth: .infinity)
-                            .padding(.bottom, 8)
-                        (model.currentStyle == style
-                            ? Image.Relations.checkboxChecked
-                            : Image.Relations.checkboxUnchecked)
-                            .frame(width: 10, height: 10, alignment: .center)
+        VStack(alignment: .leading) {
+            AnytypeText("Appearance".localized, style: .uxBodyRegular, color: .textPrimary)
+                .frame(alignment: .leading)
+            HStack() {
+                ForEach(UIUserInterfaceStyle.allCases) { style in
+                    Button {
+                        model.currentStyle = style
+                    } label: {
+                        VStack {
+                            (model.currentStyle == style
+                             ? Image.Relations.checkboxChecked
+                             : Image.Relations.checkboxUnchecked)
+                                .frame(width: 10, height: 10, alignment: .center)
+                                .padding(.bottom, 8)
+                            AnytypeText(
+                                style.title.localized,
+                                style: .button1Regular,
+                                color: .textPrimary
+                            ).frame(maxWidth: .infinity)
+                        }
                     }
                 }
             }
+            .padding(.top, 16)
         }
         .padding(.vertical, 14)
         .modifier(DividerModifier())
@@ -87,6 +91,7 @@ struct OtherSettingsView: View {
             } label: {
                 icon.preview.resizable()
                     .frame(width: 60, height: 60)
+                    .cornerRadius(8)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(

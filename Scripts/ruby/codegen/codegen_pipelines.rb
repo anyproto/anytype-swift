@@ -1,43 +1,36 @@
-require_relative 'codegen_workers_2'
+require_relative '../library/shell_executor'
+require_relative 'codegen_config'
+
 
 class ApplyTransformsPipeline
   def self.start(options)
-    if Dir.exists? options[:toolPath]
-      TravelerWorker.new(options[:toolPath]).work
-    end
+    args = ""
+    extract_codegen_options(options).each {|key, value|
+      args += " --#{key.to_s} #{value}"
+    }
+    
+    action = "#{CodegenConfig::CodegenPath} generate #{args}"
+    ShellExecutor.run_command_line_silent action
+  end
 
-    extracted_options_keys = [:filePath, :transform, :outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath, :serviceFilePath]
+  private_class_method def self.extract_codegen_options(options)
+    extracted_options = [
+      :filePath,
+      :transform,
+      :outputFilePath,
+      :templateFilePath,
+      :commentsHeaderFilePath,
+      :importsFilePath,
+      :serviceFilePath
+    ]
 
     sliced_options = {}
-    extracted_options_keys.each {|k|
-      value = options[k]
-      unless value.nil?
-        sliced_options[k] = value
+    extracted_options.each {|key|
+      unless options[key].nil?
+        sliced_options[key] = options[key]
       end
     }
 
-    puts "You want to generate something?"
-    puts "sliced_options are: #{sliced_options}"
-    puts "Lets go!"
-
-    ApplyTransformsWorker.new(options[:toolPath], sliced_options).work
-    puts "Congratulations! You have just generated new protobuf files!"
-  end
-end
-
-class FormatDirectoryPipeline
-  def self.start(options)
-    if Dir.exists? options[:toolPath]
-      TravelerWorker.new(options[:toolPath]).work
-    end
-    directory = options[:outputDirectory]
-    Dir.entries(directory).map{ |f|
-      File.join(directory, f)
-    }
-    .select{ |f|
-      File.file?(f) && File.extname(f) == '.swift'
-    }.each{ |f|
-      FormatWorker.new(options[:formatToolPath], f).work
-    }
+    return sliced_options
   end
 end

@@ -1,21 +1,11 @@
+require_relative 'codegen_config'
+
 class CodegenDefaultOptionsGenerator
   def self.defaultOptions
     options = {
-      # commands
-      command: "None",
-      # tools
-      toolPath: "#{__dir__}/../../../Tools/anytype-swift-codegen",
-      # templates
-      templatesDirectoryPath: "#{__dir__}/../../../Templates/Middleware",
-      # comments header
-      commentsHeaderFilePath: "#{__dir__}/../../../Templates/Middleware/commands+HeaderComments.pb.swift",
-      # service file path
-      serviceFilePath: "#{__dir__}/../../../Dependencies/Middleware/protobuf/protos/service.proto",
+      commentsHeaderFilePath: File.expand_path("#{__dir__}/../../../Templates/Middleware/commands+HeaderComments.pb.swift"),
+      serviceFilePath: File.expand_path("#{__dir__}/../../../Dependencies/Middleware/protobuf/protos/service.proto"),
     }
-  end
-
-  def self.available_transforms
-    ApplyTransformsCommand.available_transforms
   end
 
   def self.appended_suffix(suffix, inputFilePath, directoryPath)
@@ -33,59 +23,66 @@ class CodegenDefaultOptionsGenerator
   end
 
   def self.generateFilePaths(options)
-    if options[:command].is_a? ApplyTransformsCommand
-      command = options[:command]
-      unless command.tool_transform.nil?
-        our_transform = command.our_transform
-        tool_transform = command.tool_transform
-        result = {
-          transform: tool_transform,
-          filePath: options[:filePath],
-        }
-        keys = [:outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath]
-        for k in keys
-          directoryPath = k == :outputFilePath ? Pathname.new(options[:filePath]).dirname.to_s : options[:templatesDirectoryPath]
-          value = self.appended_suffix(command.suffix_for_file(k), options[:filePath], directoryPath)
-          unless value.nil?
-            result[k] = value
-          end
+    result = {
+      filePath: options[:filePath],
+    }
+
+    paths = [:outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath]
+    for path in paths
+
+      if path == :outputFilePath
+        directoryPath = Pathname.new(options[:filePath]).dirname.to_s
+      else 
+        directoryPath = CodegenConfig::CodegenTemplatesPath
+      end
+
+
+      suffix = suffix(options[:transform], path)
+
+      value = self.appended_suffix(suffix, options[:filePath], directoryPath)
+      unless value.nil?
+        result[path] = value
+      end
+    end
+
+    result
+  end
+
+  def self.suffix(transform, key)
+    case transform
+      when "memberwiseInitializer" then
+        case key
+          when :outputFilePath then "+Initializers"
+          when :templateFilePath then nil #"+Initializers+Template"
+          when :commentsHeaderFilePath then "+CommentsHeader"
+          when :importsFilePath then "+Initializers+Import"
         end
-        result
-      end
+      when "serviceWithRequestAndResponse" then
+        case key
+          when :outputFilePath then "+Service"
+          when :templateFilePath then "+Service+Template"
+          when :commentsHeaderFilePath then "+CommentsHeader"
+          when :importsFilePath then "+Service+Import"
+        end
+      when "errorAdoption" then
+        case key
+          when :outputFilePath then "+ErrorAdoption"
+          when :templateFilePath then nil
+          when :commentsHeaderFilePath then "+CommentsHeader"
+          when :importsFilePath then nil
+        end
     end
   end
 
-  def self.filePathOptions
-    [
-      :toolPath,
-      :filePath,
-      :outputFilePath,
-      :templateFilePath,
-      :commentsHeaderFilePath,
-      :importsFilePath,
-      :serviceFilePath
-    ]
-  end
-
-  def self.fixOptions(options)
-    result_options = options
-    filePathOptions.each do |v|
-      unless result_options[v].nil?
-        result_options[v] = File.expand_path(result_options[v])
-      end
-    end
-    result_options
-  end
-
-  def self.generate(arguments, options)
+  def self.generate(options)
     result = defaultOptions.merge options
     result = generateFilePaths(result).merge result
-    fixOptions(result)
+    result
   end
   
-  def self.populate(arguments, options)
-    new_options = self.generate(arguments, options)
+  def self.populate(options)
+    new_options = generate(options)
     new_options = new_options.merge(options)
-    fixOptions(new_options)
+    new_options
   end
 end
