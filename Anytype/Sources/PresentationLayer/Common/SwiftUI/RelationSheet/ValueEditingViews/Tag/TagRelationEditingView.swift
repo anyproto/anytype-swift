@@ -145,7 +145,6 @@ struct TagRelationEditingView_Previews: PreviewProvider {
                         )
                     ]
                 ),
-                detailsService: DetailsService(objectId: ""),
                 relationsService: RelationsService(objectId: "")
             )
         )

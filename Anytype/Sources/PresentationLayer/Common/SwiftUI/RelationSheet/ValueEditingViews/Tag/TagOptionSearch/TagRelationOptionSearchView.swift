@@ -105,7 +105,6 @@ struct TagRelationOptionSearchView_Previews: PreviewProvider {
                         scope: .local
                     )
                 ],
-                detailsService: DetailsService(objectId: ""),
                 relationsService: RelationsService(objectId: "")
             ) { _ in }
         )
