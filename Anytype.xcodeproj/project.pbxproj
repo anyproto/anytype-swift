@@ -605,7 +605,6 @@
 		5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */; };
 		532D1D592768FABC00A1E4D8 /* NewRelationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D1D582768FABC00A1E4D8 /* NewRelationCell.swift */; };
 		532D1D5B2768FAE600A1E4D8 /* SearchNewRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D1D5A2768FAE600A1E4D8 /* SearchNewRelationView.swift */; };
-		532D1D5D2768FB1600A1E4D8 /* SearchNewRelationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D1D5C2768FB1600A1E4D8 /* SearchNewRelationBar.swift */; };
 		532D1D6127691FA100A1E4D8 /* SearchNewRelationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D1D6027691FA100A1E4D8 /* SearchNewRelationViewModel.swift */; };
 		5333421C262E249100238121 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 5333421B262E249100238121 /* FloatingPanel */; };
 		533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856AF263B22B8005A06A9 /* MarkupViewController.swift */; };
@@ -657,6 +656,7 @@
 		53BC39A3261B7934004D7EB6 /* CodeBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A2261B7934004D7EB6 /* CodeBlockView.swift */; };
 		53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */; };
 		53C9F69226C166AF00209CA1 /* TitleBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9F69126C166AF00209CA1 /* TitleBlockRestrictions.swift */; };
+		53CECF9B276CD0CF002E0FE9 /* RelationsServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53CECF9A276CD0CF002E0FE9 /* RelationsServiceMock.swift */; };
 		53D6EE2E265D7DD600C47263 /* EditorViewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D6EE2D265D7DD600C47263 /* EditorViewListCell.swift */; };
 		53D6EE44265E4D9700C47263 /* EditorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D6EE43265E4D9700C47263 /* EditorRouter.swift */; };
 		53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */; };
@@ -1446,7 +1446,6 @@
 		5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtension.swift; sourceTree = "<group>"; };
 		532D1D582768FABC00A1E4D8 /* NewRelationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationCell.swift; sourceTree = "<group>"; };
 		532D1D5A2768FAE600A1E4D8 /* SearchNewRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationView.swift; sourceTree = "<group>"; };
-		532D1D5C2768FB1600A1E4D8 /* SearchNewRelationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationBar.swift; sourceTree = "<group>"; };
 		532D1D6027691FA100A1E4D8 /* SearchNewRelationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationViewModel.swift; sourceTree = "<group>"; };
 		533856AF263B22B8005A06A9 /* MarkupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewController.swift; sourceTree = "<group>"; };
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
@@ -1496,6 +1495,7 @@
 		53BC39A2261B7934004D7EB6 /* CodeBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockView.swift; sourceTree = "<group>"; };
 		53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		53C9F69126C166AF00209CA1 /* TitleBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBlockRestrictions.swift; sourceTree = "<group>"; };
+		53CECF9A276CD0CF002E0FE9 /* RelationsServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsServiceMock.swift; sourceTree = "<group>"; };
 		53D6EE2D265D7DD600C47263 /* EditorViewListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewListCell.swift; sourceTree = "<group>"; };
 		53D6EE43265E4D9700C47263 /* EditorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorRouter.swift; sourceTree = "<group>"; };
 		53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorViewController.swift; sourceTree = "<group>"; };
@@ -2740,6 +2740,7 @@
 			children = (
 				126F3D8B273E4E6A00AEF39A /* RelationsServiceProtocol.swift */,
 				126F3D89273E4E4F00AEF39A /* RelationsService.swift */,
+				53CECF9A276CD0CF002E0FE9 /* RelationsServiceMock.swift */,
 				12B0FF53274F4CEE00CA35FE /* Editing */,
 			);
 			path = Relations;
@@ -4514,15 +4515,14 @@
 			path = TextStyleView;
 			sourceTree = "<group>";
 		};
-		532D1D542768FA6E00A1E4D8 /* NewRelationView */ = {
+		532D1D542768FA6E00A1E4D8 /* AddingNewRelationView */ = {
 			isa = PBXGroup;
 			children = (
 				532D1D582768FABC00A1E4D8 /* NewRelationCell.swift */,
 				532D1D5A2768FAE600A1E4D8 /* SearchNewRelationView.swift */,
-				532D1D5C2768FB1600A1E4D8 /* SearchNewRelationBar.swift */,
 				532D1D6027691FA100A1E4D8 /* SearchNewRelationViewModel.swift */,
 			);
-			path = NewRelationView;
+			path = AddingNewRelationView;
 			sourceTree = "<group>";
 		};
 		533856AC263B2285005A06A9 /* TextAttributesView */ = {
@@ -4594,7 +4594,7 @@
 		535E02AB274FF05600E1AF8C /* Relations */ = {
 			isa = PBXGroup;
 			children = (
-				532D1D542768FA6E00A1E4D8 /* NewRelationView */,
+				532D1D542768FA6E00A1E4D8 /* AddingNewRelationView */,
 				535E02AE27501FC600E1AF8C /* RelationViewProvider */,
 				535F79862746CCD60050A1B8 /* FlowRelationsView */,
 			);
@@ -5386,6 +5386,7 @@
 				126F3D8C273E4E6A00AEF39A /* RelationsServiceProtocol.swift in Sources */,
 				EAADB1BA2678FE01004B0AF2 /* CGSizeExtension.swift in Sources */,
 				3D16841326DD672E008B9DFF /* BlockLinkConverter.swift in Sources */,
+				53CECF9B276CD0CF002E0FE9 /* RelationsServiceMock.swift in Sources */,
 				3D17023F2715D0D80079B65B /* EditorSyncStatusItem.swift in Sources */,
 				12EEC36E26A0903F00C3C4B1 /* EmojiGridView.swift in Sources */,
 				123FDB0726C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift in Sources */,
@@ -5783,7 +5784,6 @@
 				3D28A470271DAC9F009A0D48 /* HomeTabsHeader.swift in Sources */,
 				120F7D44267CD1AC00327734 /* ObjectCoverPicker.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
-				532D1D5D2768FB1600A1E4D8 /* SearchNewRelationBar.swift in Sources */,
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
 				12F14CD52758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift in Sources */,
 				12CAF32326D53878001E56B2 /* ObjectIconImagePainterProtocol.swift in Sources */,
