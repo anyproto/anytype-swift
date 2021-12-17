@@ -1,7 +1,7 @@
 import Foundation
 
-struct RelationValueOptionSection<V: RelationValueOptionProtocol>: Hashable, Identifiable {
+struct RelationValueOptionSection<Option: RelationValueOptionProtocol>: Hashable, Identifiable {
     let id: String
     let title: String
-    let options: [V]
+    let options: [Option]
 }
