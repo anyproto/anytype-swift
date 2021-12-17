@@ -4,7 +4,13 @@ import SwiftUI
 
 final class TextRelationEditingViewModel: ObservableObject {
     
-    @Published var isPresented: Bool = false
+    @Published var isPresented: Bool = false {
+        didSet {
+            guard isPresented == false else { return }
+            
+            saveValue()
+        }
+    }
     
     @Published var value: String = "" {
         didSet {
@@ -57,10 +63,6 @@ final class TextRelationEditingViewModel: ObservableObject {
 }
 
 extension TextRelationEditingViewModel: RelationEditingViewModelProtocol {
-    
-    func viewWillDisappear() {
-        saveValue()
-    }
     
     func saveValue() {
         service.save(value: value, forKey: relationKey)
