@@ -46,7 +46,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         position: BlockPosition,
         templateId: String
     ) -> BlockId? {
-        let protobufDetails = details.map { $0.asDetailsUpdate }.reduce([String: Google_Protobuf_Value]()) { result, detail in
+        
+        let protobufDetails = details.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
             result[detail.key] = detail.value
             return result
@@ -79,12 +80,12 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
 
     // MARK: - ObjectActionsService / SetDetails
     
-    func updateDetails(contextID: BlockId, updates: [DetailsUpdate]) {
+    func updateBundledDetails(contextID: BlockId, details: [BundledDetails]) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
 
         Anytype_Rpc.Block.Set.Details.Service.invoke(
             contextID: contextID,
-            details: updates.map {
+            details: details.map {
                 Anytype_Rpc.Block.Set.Details.Detail(
                     key: $0.key,
                     value: $0.value
