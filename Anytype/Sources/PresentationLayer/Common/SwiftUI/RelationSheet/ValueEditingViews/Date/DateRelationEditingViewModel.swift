@@ -4,7 +4,7 @@ import SwiftProtobuf
 
 final class DateRelationEditingViewModel: ObservableObject {
     
-    var onDismiss: (() -> Void)?
+    var dismissHandler: (() -> Void)?
     
     @Published var isPresented: Bool = false
     @Published var selectedValue: DateRelationEditingValue = .noDate

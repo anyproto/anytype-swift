@@ -4,7 +4,7 @@ import BlocksModels
 
 final class StatusRelationEditingViewModel: ObservableObject {
 
-    var onDismiss: (() -> Void)?
+    var dismissHandler: (() -> Void)?
     
     @Published var isPresented: Bool = false
     @Published var selectedStatus: Relation.Status.Option?

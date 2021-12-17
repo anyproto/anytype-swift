@@ -14,7 +14,7 @@ final class TextRelationEditingViewModel: ObservableObject {
     
     @Published var isActionButtonEnabled: Bool = false
     
-    var onDismiss: (() -> Void)?
+    var dismissHandler: (() -> Void)?
     
     let valueType: TextRelationValueType
     

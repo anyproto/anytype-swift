@@ -3,7 +3,7 @@ import SwiftUI
 
 final class TagRelationEditingViewModel: ObservableObject {
     
-    var onDismiss: (() -> Void)?
+    var dismissHandler: (() -> Void)?
     
     @Published var isPresented: Bool = false
     @Published var selectedTags: [Relation.Tag.Option]
