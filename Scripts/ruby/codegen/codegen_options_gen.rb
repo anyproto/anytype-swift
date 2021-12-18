@@ -1,3 +1,5 @@
+require 'pathname'
+
 require_relative 'codegen_config'
 
 class CodegenDefaultOptionsGenerator
@@ -17,32 +19,29 @@ class CodegenDefaultOptionsGenerator
         the_name = components.first
         the_extname = components.drop(1).join(".")
         result_name = directoryPath + "/" + the_name + suffix + ".#{the_extname}"
+
         result_name
       end
     end
   end
 
-  def self.generateFilePaths(options)
+  private_class_method def self.generateFilePaths(transform, filePath)
     result = {
-      filePath: options[:filePath],
+      filePath: filePath,
     }
 
     paths = [:outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath]
+    
     for path in paths
-
       if path == :outputFilePath
-        directoryPath = Pathname.new(options[:filePath]).dirname.to_s
+        directoryPath = Pathname.new(filePath).dirname.to_s
       else 
         directoryPath = CodegenConfig::CodegenTemplatesPath
       end
 
 
-      suffix = suffix(options[:transform], path)
-
-      value = self.appended_suffix(suffix, options[:filePath], directoryPath)
-      unless value.nil?
-        result[path] = value
-      end
+      suffix = suffix(transform, path)
+      result[path] = appended_suffix(suffix, filePath, directoryPath)
     end
 
     result
@@ -76,7 +75,7 @@ class CodegenDefaultOptionsGenerator
 
   def self.generate(options)
     result = defaultOptions.merge options
-    result = generateFilePaths(result).merge result
+    result = generateFilePaths(result[:transform], result[:filePath]).merge result
     result
   end
   

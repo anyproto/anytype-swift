@@ -4,7 +4,8 @@ require_relative '../constants'
 
 require_relative 'download_middleware'
 
-require_relative '../codegen/anytype_swift_codegen_runner'
+require_relative '../codegen/codegen_runner'
+require_relative '../codegen/file_formatter'
 
 class BasePipeline
   def self.work(artifactsDirectory)
@@ -25,6 +26,9 @@ class BasePipeline
 
     puts "Generating swift from protobuf"
     CodegenRunner.run()
+
+    puts "Running swift format"
+    FileFormatter.formatFiles()
   end
 
   # Remove when fixed on the middlewere side
