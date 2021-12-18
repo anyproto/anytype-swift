@@ -13,6 +13,7 @@ public enum ErrorDomain: String {
     
     case treeBlockBuilder
     case localEventConverter
+    case localEventConverterSetFocus
     case middlewareEventConverter
     case objectDetails
     case relationsBuilder

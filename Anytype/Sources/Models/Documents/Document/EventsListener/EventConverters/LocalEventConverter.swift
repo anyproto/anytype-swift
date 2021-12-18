@@ -80,7 +80,7 @@ final class LocalEventConverter {
     
     private func setFocus(blockId: BlockId, position: BlockFocusPosition) {
         guard var model = blocksContainer.model(id: blockId) else {
-            anytypeAssertionFailure("setFocus. We can't find model by id \(blockId)", domain: .localEventConverter)
+            anytypeAssertionFailure("SetFocus: No model with id \(blockId)", domain: .localEventConverterSetFocus)
             return
         }
         model.isFirstResponder = true
