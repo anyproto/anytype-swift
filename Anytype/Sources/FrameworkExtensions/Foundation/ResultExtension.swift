@@ -1,12 +1,12 @@
 import AnytypeCore
 
 extension Result {
-    func getValue() -> Success? {
+    func getValue(domain: ErrorDomain) -> Success? {
         switch self {
         case .success(let success):
             return success
         case .failure(let error):
-            anytypeAssertionFailure(error.localizedDescription, domain: .resultGetValue)
+            anytypeAssertionFailure(error.localizedDescription, domain: domain)
             return nil
         }
     }

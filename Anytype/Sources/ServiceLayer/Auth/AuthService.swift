@@ -34,7 +34,7 @@ final class AuthService: AuthServiceProtocol {
             .mapError { _ in AuthServiceError.createWalletError }
             .map { $0.mnemonic }
         
-        if let mnemonic = result.getValue() {
+        if let mnemonic = result.getValue(domain: .authService) {
             Amplitude.instance().logEvent(AmplitudeEventsName.walletCreate)
             AnytypeLogger.create("Services.AuthService").debugPrivate("seed:", arg: mnemonic)
             try? seedService.saveSeed(mnemonic)
@@ -47,7 +47,7 @@ final class AuthService: AuthServiceProtocol {
         let result = Anytype_Rpc.Account.Create.Service
             .invoke(name: name, avatar: .avatarLocalPath(imagePath), alphaInviteCode: alphaInviteCode)
         
-        if let response = result.getValue() {
+        if let response = result.getValue(domain: .authService) {
             AccountConfigurationProvider.shared.config = .init(config: response.config)
             
             let accountId = response.account.id

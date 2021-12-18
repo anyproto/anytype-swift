@@ -12,7 +12,6 @@ public enum ErrorDomain: String {
     case clearCache
     
     case defaultCompletion
-    case resultGetValue
     
     case treeBlockBuilder
     case localEventConverter
@@ -54,6 +53,13 @@ public enum ErrorDomain: String {
     case keyboardListner
     case textLayout
     case textConverter
+    case searchService
+    case bookmarkService
+    case pageService
+    case textService
+    case relationsService
+    case blockListService
+    case authService
     
     case homeView
     

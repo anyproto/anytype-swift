@@ -58,7 +58,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
                 contextID: contextId, details: protobufStruct, templateID: templateId,
                 targetID: targetId, position: position.asMiddleware, fields: .init()
             )
-            .getValue()
+            .getValue(domain: .objectActionsService)
         
         guard let response = response else { return nil}
         EventsBunch(event: response.event).send()
@@ -73,7 +73,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             contextID: contextID,
             layout: selectedLayout
         ).map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .objectActionsService)?
             .send()
     }
 
@@ -92,7 +92,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             }
         )
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .objectActionsService)?
             .send()
     }
 
@@ -101,7 +101,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         return Anytype_Rpc.BlockList.ConvertChildrenToPages.Service
             .invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType)
             .map { $0.linkIds }
-            .getValue()
+            .getValue(domain: .objectActionsService)
     }
     
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) {
@@ -111,7 +111,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
                 dropTargetID: dropPositionblockId, position: position
             )
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .objectActionsService)?
             .send()
     }
     
@@ -121,7 +121,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             objectTypeURL: objectTypeUrl
         )
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .objectActionsService)?
             .send()
     }
     
