@@ -1,35 +1,47 @@
-require 'optparse'
-require 'shellwords'
-require 'pathname'
-require 'json'
-
 require_relative '../library/shell_executor'
-require_relative '../library/dir_helper'
-require_relative '../pipeline_starter'
 require_relative 'codegen_config'
-require_relative 'codegen_pipelines'
 require_relative 'codegen_options_gen'
 
+
 class CodegenRunner
-  def self.run
-    puts "Running codegen"
+  def self.run()
     codegenOptions().each { |options|
       options = CodegenDefaultOptionsGenerator.populate(options)
       puts "Running codegen #{options[:transform]} for file: #{options[:filePath]}"
-      ApplyTransformsPipeline.start(options)
+      start(options)
     }
-
-    formatFiles()
   end
 
-  private_class_method def self.formatFiles()
-    puts "Running swift format"
-    DirHelper.allFiles(CodegenConfig::ProtobufDirectory, "swift")
-      .each { |path|
-        puts "Running swift format for file #{path}"
-        action = "#{CodegenConfig::SwiftFormatPath} -i --configuration #{CodegenConfig::SwiftFormatConfigPath} #{path}"
-        ShellExecutor.run_command_line_silent action
-     }
+
+  def self.start(options)
+    args = ""
+    extract_codegen_options(options).each {|key, value|
+      args += " --#{key.to_s} #{value}"
+    }
+    
+    action = "#{CodegenConfig::CodegenPath} generate #{args}"
+    ShellExecutor.run_command_line_silent action
+  end
+
+  private_class_method def self.extract_codegen_options(options)
+    extracted_options = [
+      :filePath,
+      :transform,
+      :outputFilePath,
+      :templateFilePath,
+      :commentsHeaderFilePath,
+      :importsFilePath,
+      :serviceFilePath
+    ]
+
+    sliced_options = {}
+    extracted_options.each {|key|
+      unless options[key].nil?
+        sliced_options[key] = options[key]
+      end
+    }
+
+    return sliced_options
   end
 
   # names of transforms stored in https://github.com/anytypeio/anytype-swift-codegen
