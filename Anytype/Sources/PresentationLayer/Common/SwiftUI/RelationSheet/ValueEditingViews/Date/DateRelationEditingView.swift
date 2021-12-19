@@ -33,7 +33,7 @@ struct DateRelationEditingView_Previews: PreviewProvider {
                 relationKey: "",
                 relationName: "",
                 value: nil,
-                service: DetailsService(objectId: "")
+                service: RelationsService(objectId: "")
             )
         )
     }

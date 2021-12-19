@@ -9,7 +9,7 @@ protocol ObjectActionsServiceProtocol {
     func setArchive(objectIds: [BlockId], _ isArchived: Bool)
     func setFavorite(objectId: BlockId, _ isFavorite: Bool)
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]?
-    func updateDetails(contextID: BlockId, updates: [DetailsUpdate])
+    func updateBundledDetails(contextID: BlockId, details: [BundledDetails])
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position)
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)

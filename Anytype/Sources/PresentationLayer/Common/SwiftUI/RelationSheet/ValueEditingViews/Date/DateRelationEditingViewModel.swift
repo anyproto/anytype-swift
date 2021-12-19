@@ -20,13 +20,13 @@ final class DateRelationEditingViewModel: ObservableObject {
     
     let relationName: String
     private let relationKey: String
-    private let service: DetailsServiceProtocol
+    private let service: RelationsServiceProtocol
     
     init(
         relationKey: String,
         relationName: String,
         value: DateRelationValue?,
-        service: DetailsServiceProtocol
+        service: RelationsServiceProtocol
     ) {
         self.relationKey = relationKey
         self.relationName = relationName
@@ -56,7 +56,7 @@ extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
             }
         }()
         
-        service.updateDetails([ DetailsUpdate(key: relationKey, value: value) ])
+        service.updateRelation(relationKey: relationKey, value: value)
     }
     
     func makeView() -> AnyView {

@@ -60,7 +60,6 @@ struct StatusRelationEditingView_Previews: PreviewProvider {
                 relationName: "",
                 relationOptions: [],
                 selectedStatus: nil,
-                detailsService: DetailsService(objectId: ""),
                 relationsService: RelationsService(objectId: "")
             )
         )

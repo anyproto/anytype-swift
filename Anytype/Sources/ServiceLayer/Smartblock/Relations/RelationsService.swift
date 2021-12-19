@@ -1,6 +1,7 @@
 import Foundation
 import ProtobufMessages
 import BlocksModels
+import SwiftProtobuf
 
 final class RelationsService {
     
@@ -30,6 +31,21 @@ extension RelationsService: RelationsServiceProtocol {
         ).map { EventsBunch(event: $0.event) }
         .getValue()?
         .send()
+    }
+    
+    func updateRelation(relationKey: String, value: Google_Protobuf_Value) {
+        Anytype_Rpc.Block.Set.Details.Service.invoke(
+            contextID: objectId,
+            details: [
+                Anytype_Rpc.Block.Set.Details.Detail(
+                    key: relationKey,
+                    value: value
+                )
+            ]
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue()?
+            .send()
     }
     
     func removeRelation(relationKey: String) {

@@ -60,7 +60,6 @@ final class ObjectSettingsViewModel: ObservableObject {
         
         self.relationsViewModel = RelationsListViewModel(
             relationsService: RelationsService(objectId: objectId),
-            detailsService: DetailsService(objectId: objectId),
             onValueEditingTap: onRelationValueEditingTap
         )
 
