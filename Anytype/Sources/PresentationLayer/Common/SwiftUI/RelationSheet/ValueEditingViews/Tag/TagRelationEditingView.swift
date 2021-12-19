@@ -1,7 +1,5 @@
 import SwiftUI
 
-// TODO: - add button / edit button
-
 struct TagRelationEditingView: View {
     
     @ObservedObject var viewModel: TagRelationEditingViewModel
