@@ -8,7 +8,19 @@ extension Relation {
         let isFeatured: Bool
         let isEditable: Bool
         
-        let value: [ObjectRelationValue]
+        let selectedObjects: [Option]
+    }
+    
+}
+
+extension Relation.Object {
+
+    struct Option: Hashable, Identifiable {
+        let id: String
+        
+        let icon: ObjectIconImage
+        let title: String
+        let type: String
     }
     
 }

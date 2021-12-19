@@ -16,7 +16,7 @@ struct RelationValueView: View {
             case .date(let date):
                 TextRelationView(value: date.value?.text, hint: relation.hint, style: style)
             case .object(let object):
-                ObjectRelationView(value: object.value, hint: relation.hint, style: style)
+                ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
             case .checkbox(let checkbox):
                 CheckboxRelationView(isChecked: checkbox.value)
             case .url(let text):
