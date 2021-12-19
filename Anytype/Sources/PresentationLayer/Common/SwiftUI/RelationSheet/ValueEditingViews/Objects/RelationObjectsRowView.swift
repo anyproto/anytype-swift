@@ -14,8 +14,7 @@ struct RelationObjectsRowView: View {
             text
             Spacer()
         }
-        .frame(height: 68)
-        .padding(.horizontal, 16)
+        .frame(height: 64)
     }
     
     private var text: some View {

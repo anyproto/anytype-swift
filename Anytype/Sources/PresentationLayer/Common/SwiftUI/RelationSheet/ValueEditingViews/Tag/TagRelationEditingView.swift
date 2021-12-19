@@ -76,7 +76,6 @@ struct TagRelationEditingView: View {
         } label: {
             Image.Relations.createOption.frame(width: 24, height: 24)
         }
-
     }
 }
 
