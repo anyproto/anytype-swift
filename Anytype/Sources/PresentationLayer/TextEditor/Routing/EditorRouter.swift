@@ -266,7 +266,7 @@ final class EditorRouter: EditorRouterProtocol {
         controller.view.backgroundColor = .clear
         controller.view.isOpaque = false
         
-        contentViewModel.onDismiss = { [weak controller] in
+        contentViewModel.dismissHandler = { [weak controller] in
             controller?.dismiss(animated: false)
         }
         

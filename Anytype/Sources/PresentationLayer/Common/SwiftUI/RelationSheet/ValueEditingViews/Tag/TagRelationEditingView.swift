@@ -13,7 +13,7 @@ struct TagRelationEditingView: View {
     var body: some View {
         content
             .modifier(
-                RelationSheetModifier(isPresented: $viewModel.isPresented, title: nil, dismissCallback: viewModel.onDismiss)
+                RelationSheetModifier(isPresented: $viewModel.isPresented, title: nil, dismissCallback: viewModel.dismissHandler)
             )
             .sheet(isPresented: $isSearchOpen) {
                 TagRelationOptionSearchView(viewModel: viewModel.searchViewModel)
