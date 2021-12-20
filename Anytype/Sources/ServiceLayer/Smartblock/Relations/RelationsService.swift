@@ -66,9 +66,7 @@ extension RelationsService: RelationsServiceProtocol {
 
         guard let response = response else { return nil }
 
-        return response.relations.map {
-            return RelationMetadata(middlewareRelation: $0)
-        }
+        return response.relations.map { RelationMetadata(middlewareRelation: $0) }
     }
     
 }
