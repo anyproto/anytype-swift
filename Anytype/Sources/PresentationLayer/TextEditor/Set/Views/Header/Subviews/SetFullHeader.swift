@@ -10,13 +10,7 @@ struct SetFullHeader: View {
     private let smallCover: CGFloat = 150
     
     var body: some View {
-        VStack {
-            VStack {
-                header.ignoresSafeArea(edges: .top)
-            }
-            .background(Color.backgroundPrimary)
-            Spacer()
-        }
+        header
     }
     
     private var header: some View {

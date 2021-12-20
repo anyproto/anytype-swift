@@ -6,6 +6,7 @@ struct SetTableView: View {
     var headerMinimizedSize: CGSize
 
     @State private var initialOffset = CGPoint.zero
+    @State private var initialHorizontalOffset = CGPoint.zero
 
     @EnvironmentObject private var model: EditorSetViewModel
 
@@ -21,9 +22,7 @@ struct SetTableView: View {
                     showsIndicators: false,
                     offsetChanged: { offset.y = $0.y }
                 ) {
-                    SetFullHeader()
-                        .offset(x: xOffset, y: 0)
-                        .background(FrameCatcher { tableHeaderSize = $0.size })
+                    Spacer.fixedHeight(tableHeaderSize.height)
                     LazyVStack(
                         alignment: .leading,
                         spacing: 0,
@@ -45,7 +44,16 @@ struct SetTableView: View {
                     }
                     .padding(.top, -headerMinimizedSize.height)
                 }
+                // Initial scroll offset
+                .offset(x: 0, y: -8)
             }
+            .overlay(
+                SetFullHeader()
+                    .offset(x: 0, y: offset.y)
+                    .background(FrameCatcher { tableHeaderSize = $0.size })
+                    .frame(width: fullWidth)
+                , alignment: .topLeading
+            )
         }
     }
 
@@ -56,7 +64,7 @@ struct SetTableView: View {
     private var compoundHeader: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(headerMinimizedSize.height)
-            Group {
+            VStack {
                 SetHeaderSettings()
                     .offset(x: xOffset, y: 0)
                     .environmentObject(model)
