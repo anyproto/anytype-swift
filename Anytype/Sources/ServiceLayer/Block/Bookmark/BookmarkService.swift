@@ -6,7 +6,7 @@ class BookmarkService: BookmarkServiceProtocol {
         Anytype_Rpc.Block.Bookmark.Fetch.Service
             .invoke(contextID: contextID, blockID: blockID, url: url)
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .bookmarkService)?
             .send()
     }
 }

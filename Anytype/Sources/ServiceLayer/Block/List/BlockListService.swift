@@ -12,7 +12,7 @@ class BlockListService: BlockListServiceProtocol {
         Anytype_Rpc.BlockList.Set.Text.Color.Service
             .invoke(contextID: contextId, blockIds: blockIds, color: color.rawValue)
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .blockListService)?
             .send()
     }
     
@@ -21,7 +21,7 @@ class BlockListService: BlockListServiceProtocol {
         Anytype_Rpc.BlockList.Set.Fields.Service
             .invoke(contextID: contextId, blockFields: middleFields)
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .blockListService)?
             .send()
     }
 
@@ -30,7 +30,7 @@ class BlockListService: BlockListServiceProtocol {
         Anytype_Rpc.BlockList.Set.BackgroundColor.Service
             .invoke(contextID: contextId, blockIds: blockIds, color: color.rawValue)
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .blockListService)?
             .send()
     }
 
@@ -39,7 +39,7 @@ class BlockListService: BlockListServiceProtocol {
         Anytype_Rpc.BlockList.Set.Align.Service
             .invoke(contextID: contextId, blockIds: blockIds, align: alignment.asMiddleware)
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .blockListService)?
             .send()
     }
 
@@ -48,7 +48,7 @@ class BlockListService: BlockListServiceProtocol {
         Anytype_Rpc.BlockList.Set.Div.Style.Service
             .invoke(contextID: contextId, blockIds: blockIds, style: style.asMiddleware)
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .blockListService)?
             .send()
     }
     
@@ -61,7 +61,7 @@ class BlockListService: BlockListServiceProtocol {
             position: .bottom
         )
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .blockListService)?
             .send()
     }
 }

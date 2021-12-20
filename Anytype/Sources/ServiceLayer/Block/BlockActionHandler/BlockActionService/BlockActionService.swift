@@ -202,7 +202,7 @@ extension BlockActionService {
             contextID: self.documentId,
             blockID: blockId
         )
-            .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath") { serviceSuccess in
+            .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath", domain: .blockActionsService) { serviceSuccess in
                 serviceSuccess.asEventsBunch.send()
         }.store(in: &self.subscriptions)
     }

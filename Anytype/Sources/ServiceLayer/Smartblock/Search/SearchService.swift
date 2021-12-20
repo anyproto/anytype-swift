@@ -128,7 +128,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             objectTypeFilter: [],
             keys: [],
             ignoreWorkspace: false
-        ).getValue() else { return nil }
+        ).getValue(domain: .searchService) else { return nil }
             
         let details: [SearchData] = response.records.compactMap { search in
             let idValue = search.fields["id"]

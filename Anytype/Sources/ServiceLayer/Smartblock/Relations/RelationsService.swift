@@ -20,7 +20,7 @@ extension RelationsService: RelationsServiceProtocol {
             contextID: objectId,
             relations: [relationKey]
         ).map { EventsBunch(event: $0.event) }
-        .getValue()?
+        .getValue(domain: .relationsService)?
         .send()
     }
     
@@ -29,7 +29,7 @@ extension RelationsService: RelationsServiceProtocol {
             contextID: objectId,
             relations: [relationKey]
         ).map { EventsBunch(event: $0.event) }
-        .getValue()?
+        .getValue(domain: .relationsService)?
         .send()
     }
     
@@ -53,7 +53,7 @@ extension RelationsService: RelationsServiceProtocol {
             contextID: objectId,
             relationKey: relationKey
         ).map { EventsBunch(event: $0.event) }
-        .getValue()?
+        .getValue(domain: .relationsService)?
         .send()
     }
     
@@ -68,7 +68,7 @@ extension RelationsService: RelationsServiceProtocol {
                 scope: .local
             )
         )
-            .getValue()
+            .getValue(domain: .relationsService)
         
         guard let response = response else { return nil }
         

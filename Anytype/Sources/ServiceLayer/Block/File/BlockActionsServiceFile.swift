@@ -22,7 +22,7 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
         // Analytics
         Amplitude.instance().logEvent(AmplitudeEventsName.blockUpload)
         
-        _ = result.getValue()
+        _ = result.getValue(domain: .blockActionsService)
     }
     
     /// NOTE: `Upload` action will return message with event `blockSetFile.state == .uploading`.
@@ -57,7 +57,7 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
             disableEncryption: false,
             style: .auto
         )
-            .getValue()
+            .getValue(domain: .blockActionsService)
             .flatMap { Hash($0.hash) }
     }
     
