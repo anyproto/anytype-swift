@@ -123,7 +123,7 @@ final class EditorPageController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView.isEditing = editing
-        browserViewInput?.setNavigationViewHidden(!editing, animated: false)
+        browserViewInput?.multiselectActive(!editing)
     }
     
     private var controllerForNavigationItems: UIViewController? {
