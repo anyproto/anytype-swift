@@ -2583,12 +2583,20 @@
 				122898B8276F0E7E004B81B8 /* RelationObjectsEditingView.swift */,
 				122898BA276F10A3004B81B8 /* RelationObjectsEditingViewModel.swift */,
 				122898BC276F112D004B81B8 /* RelationObjectsRowView.swift */,
+				123883A62770A1CB00A71682 /* RelationObjectsSearch */,
+			);
+			path = Objects;
+			sourceTree = "<group>";
+		};
+		123883A62770A1CB00A71682 /* RelationObjectsSearch */ = {
+			isa = PBXGroup;
+			children = (
 				1238839B2770890100A71682 /* RelationObjectsSearchView.swift */,
 				123883A02770895800A71682 /* RelationObjectsSearchViewModel.swift */,
 				123883A227708E6F00A71682 /* RelationObjectsSearchData.swift */,
 				123883A42770923C00A71682 /* RelationObjectsSearchRowView.swift */,
 			);
-			path = Objects;
+			path = RelationObjectsSearch;
 			sourceTree = "<group>";
 		};
 		12426A1D26DCECB000693B1F /* ImageBuilder */ = {
