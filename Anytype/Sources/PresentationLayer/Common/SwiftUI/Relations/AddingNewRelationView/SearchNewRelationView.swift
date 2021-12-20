@@ -106,7 +106,7 @@ struct SearchNewRelationView_Previews: PreviewProvider {
     static var previews: some View {
         SearchNewRelationView(
             viewModel: SearchNewRelationViewModel(
-                relationService: RelationsServiceMock(),
+                relationService: RelationsService(objectId: ""),
                 onSelect: { _ in
             })
         )
