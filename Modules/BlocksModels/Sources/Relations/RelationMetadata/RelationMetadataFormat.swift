@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 public extension RelationMetadata {
     
@@ -56,5 +57,38 @@ extension RelationMetadata.Format {
         case .unrecognized(let value): return value
         }
     }
-    
+}
+
+public extension RelationMetadata.Format {
+
+    var iconName: String {
+        switch self {
+        case .longText:
+            return "longTextType"
+        case .shortText:
+            return "shortTextType"
+        case .number:
+            return "numberType"
+        case .status:
+            return "statusType"
+        case .date:
+            return "dateType"
+        case .file:
+            return "fileType"
+        case .checkbox:
+            return "checkboxType"
+        case .url:
+            return "urlType"
+        case .email:
+            return "emailType"
+        case .phone:
+            return "phoneType"
+        case .tag:
+            return "tagType"
+        case .object:
+            return "objectType"
+        case .unrecognized(_):
+            return "unrecognizedType"
+        }
+    }
 }

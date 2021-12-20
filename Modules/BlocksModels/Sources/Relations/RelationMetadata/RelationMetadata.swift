@@ -36,7 +36,6 @@ public struct RelationMetadata: Hashable {
         self.objectTypes = objectTypes
         self.scope = scope
     }
-    
 }
 
 extension RelationMetadata: Identifiable {
@@ -44,7 +43,6 @@ extension RelationMetadata: Identifiable {
     public var id: String {
         return key
     }
-    
 }
 
 public extension RelationMetadata {
@@ -62,5 +60,4 @@ public extension RelationMetadata {
         self.objectTypes = middlewareRelation.objectTypes
         self.scope = Scope(rawValue: middlewareRelation.scope.rawValue)
     }
-    
 }
