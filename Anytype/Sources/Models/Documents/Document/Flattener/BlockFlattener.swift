@@ -166,8 +166,8 @@ private extension BlockFlattener {
         in blocksContainer: BlockContainerModelProtocol,
         options: BlockFlattenerOptions
     ) -> [BlockId] {
-        var result: Array<BlockId> = .init()
-        let stack: DataStructures.Stack<BlockId> = .init()
+        var result = Array<BlockId>()
+        let stack = Stack<BlockId>()
         stack.push(model.information.id)
         var isInRootModel = true
         
