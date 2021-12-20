@@ -133,6 +133,7 @@ final class MarkupsViewController: UIViewController {
         containerStackView.addArrangedSubview(topStackView)
         containerStackView.addArrangedSubview(middleStackView)
         containerStackView.addArrangedSubview(bottomStackView)
+        containerView.backgroundColor = .backgroundSecondary
 
         topStackView.addArrangedSubview(boldButton)
         topStackView.addArrangedSubview(italicButton)
