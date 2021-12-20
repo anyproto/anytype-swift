@@ -12,7 +12,5 @@ class Stack<T> {
     func pop() -> T? {
         guard !isEmpty else { return nil }
         return list.removeLast()
-    }
-    
-    
+    }    
 }

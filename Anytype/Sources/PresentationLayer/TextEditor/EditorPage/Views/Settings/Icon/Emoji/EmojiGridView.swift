@@ -3,7 +3,7 @@ import SwiftUI
 
 struct EmojiGridView: View {
     
-    let onEmojiSelect: (Emoji) -> ()
+    let onEmojiSelect: (EmojiData) -> ()
     
     @State private var searchText = ""
     

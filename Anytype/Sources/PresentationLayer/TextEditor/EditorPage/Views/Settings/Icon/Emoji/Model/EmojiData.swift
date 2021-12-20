@@ -1,4 +1,4 @@
-struct Emoji: Codable, Hashable {
+struct EmojiData: Codable, Hashable {
     let emoji: String
     let description: String
     let category: String

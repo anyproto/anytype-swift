@@ -1,10 +1,11 @@
 import ProtobufMessages
 import BlocksModels
+import AnytypeCore
 
 struct ObjectType: Equatable, Hashable {
     let url: String
     let name: String
-    let iconEmoji: IconEmoji
+    let iconEmoji: Emoji
     let description: String
     
     let hidden: Bool
@@ -13,7 +14,6 @@ struct ObjectType: Equatable, Hashable {
     
     let types: [Anytype_Model_SmartBlockType]
 
-//    TODO
 //    let relations
 //    let layout
     
@@ -36,7 +36,7 @@ extension ObjectType {
         self.init(
             url: model.url,
             name: model.name,
-            iconEmoji: IconEmoji(model.iconEmoji) ?? IconEmoji.default,
+            iconEmoji: Emoji(model.iconEmoji) ?? Emoji.default,
             description: model.description_p,
             hidden: model.hidden,
             readonly: model.readonly,

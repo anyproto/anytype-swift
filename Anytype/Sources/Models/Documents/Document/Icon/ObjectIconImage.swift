@@ -6,6 +6,6 @@ enum ObjectIconImage: Hashable {
     case todo(Bool)
     case placeholder(Character?)
     case staticImage(String)
-    // TODO: Align ImageSource, ObjectIconImage
+    #warning("Align ImageSource, ObjectIconImage")
     case image(UIImage)
 }
