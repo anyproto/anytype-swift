@@ -22,6 +22,7 @@ final class DividerCursorController {
         didSet {
             switch movingMode {
             case .none:
+                lastIndexPath = nil
                 moveCursorView.removeFromSuperview()
             case .dragNdrop, .drum:
                 placeDividerCursor()
@@ -137,7 +138,8 @@ final class DividerCursorController {
 
         let cellPointPercentage = cellPoint.y / cell.bounds.size.height
 
-        if 0.33...0.66 ~= cellPointPercentage,
+        if movingMode == .drum,
+           0.33...0.66 ~= cellPointPercentage,
            movingManager.canMoveItemsToObject(at: indexPath) {
             objectSelectionState(at: indexPath)
             return
