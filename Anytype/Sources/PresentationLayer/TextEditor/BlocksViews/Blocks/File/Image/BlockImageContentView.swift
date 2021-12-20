@@ -30,7 +30,7 @@ final class BlockImageContentView: BaseBlockView<BlockImageConfiguration> {
     
     func setupUIElements() {
         addGestureRecognizer(tapGesture)
-        // TODO: Support image alignments
+        #warning("Support image alignments")
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
