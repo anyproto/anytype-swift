@@ -50,9 +50,9 @@ private extension RelationBlockView {
                     .background(Color.buttonSecondaryPressed)
                     .cornerRadius(2)
                     .fixedSize(horizontal: false, vertical: true)
-                    .background(FrameCatcher { height = $0.size.height })
+                    .readSize { height = $0.height }
             }
-            .background(FrameCatcher { width = $0.size.width })
+            .readSize { width = $0.width }
         }
     }
 }

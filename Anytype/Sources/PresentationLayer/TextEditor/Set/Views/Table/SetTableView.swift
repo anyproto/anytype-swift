@@ -23,7 +23,7 @@ struct SetTableView: View {
                 ) {
                     SetFullHeader()
                         .offset(x: xOffset, y: 0)
-                        .background(FrameCatcher { tableHeaderSize = $0.size })
+                        .readSize { tableHeaderSize = $0 }
                     LazyVStack(
                         alignment: .leading,
                         spacing: 0,

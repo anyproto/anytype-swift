@@ -50,7 +50,7 @@ struct SetFullHeader: View {
             )
                 .padding(.horizontal, 20)
         }
-        .background( FrameCatcher { width = $0.size.width } )
+        .readSize { width = $0.width }
     }
     
     private let iconBackgroundPadding: CGFloat = 4
