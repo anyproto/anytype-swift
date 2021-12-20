@@ -6,11 +6,16 @@ struct RelationObjectsEditingView: View {
     
     @Environment(\.editMode) private var editMode: Binding<EditMode>?
     
+    @State private var isSearchPresented: Bool = false
+    
     var body: some View {
         content
             .modifier(
                 RelationSheetModifier(isPresented: $viewModel.isPresented, title: nil, dismissCallback: viewModel.dismissHandler)
             )
+            .sheet(isPresented: $isSearchPresented) {
+                RelationObjectsSearchView(viewModel: viewModel.relationObjectsSearchViewModel)
+            }
     }
     
     private var content: some View {
@@ -67,7 +72,7 @@ struct RelationObjectsEditingView: View {
     
     private var addButton: some View {
         Button {
-//            isSearchOpen = true
+            isSearchPresented = true
         } label: {
             Image.Relations.createOption.frame(width: 24, height: 24)
         }

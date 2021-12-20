@@ -7,10 +7,14 @@ struct RelationObjectsSearchData: Hashable, Identifiable {
     let title: String
     let subtitle: String
     
+}
+
+extension RelationObjectsSearchData {
+    
     init(searchData: SearchData) {
         self.id = searchData.id
         
-        let title = searchData.name
+        let title = searchData.title
         self.iconImage = {
             if searchData.layout == .todo {
                 return .todo(searchData.isDone)

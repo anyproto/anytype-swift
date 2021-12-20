@@ -8,7 +8,7 @@ struct RelationObjectsRowView: View {
         HStack(alignment: .center, spacing: 0) {
             SwiftUIObjectIconImageView(
                 iconImage: object.icon,
-                usecase: .editorSearchExpandedIcons
+                usecase: .dashboardSearch
             ).frame(width: 48, height: 48)
             Spacer.fixedWidth(12)
             text

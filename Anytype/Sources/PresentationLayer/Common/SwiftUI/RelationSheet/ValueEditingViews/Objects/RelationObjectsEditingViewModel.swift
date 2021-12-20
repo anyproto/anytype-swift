@@ -50,6 +50,12 @@ extension RelationObjectsEditingViewModel {
         
         editingActions = []
     }
+    
+    var relationObjectsSearchViewModel: RelationObjectsSearchViewModel {
+        RelationObjectsSearchViewModel(
+            excludeObjectIds: selectedObjects.map { $0.id }
+        )
+    }
 }
 
 extension RelationObjectsEditingViewModel: RelationEditingViewModelProtocol {
