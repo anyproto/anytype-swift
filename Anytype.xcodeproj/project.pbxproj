@@ -605,7 +605,6 @@
 		5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */; };
 		532D1D592768FABC00A1E4D8 /* NewRelationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D1D582768FABC00A1E4D8 /* NewRelationCell.swift */; };
 		532D1D5B2768FAE600A1E4D8 /* SearchNewRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D1D5A2768FAE600A1E4D8 /* SearchNewRelationView.swift */; };
-		532D1D5D2768FB1600A1E4D8 /* SearchNewRelationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D1D5C2768FB1600A1E4D8 /* SearchNewRelationBar.swift */; };
 		532D1D6127691FA100A1E4D8 /* SearchNewRelationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D1D6027691FA100A1E4D8 /* SearchNewRelationViewModel.swift */; };
 		5333421C262E249100238121 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 5333421B262E249100238121 /* FloatingPanel */; };
 		533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856AF263B22B8005A06A9 /* MarkupViewController.swift */; };
@@ -1446,7 +1445,6 @@
 		5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtension.swift; sourceTree = "<group>"; };
 		532D1D582768FABC00A1E4D8 /* NewRelationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationCell.swift; sourceTree = "<group>"; };
 		532D1D5A2768FAE600A1E4D8 /* SearchNewRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationView.swift; sourceTree = "<group>"; };
-		532D1D5C2768FB1600A1E4D8 /* SearchNewRelationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationBar.swift; sourceTree = "<group>"; };
 		532D1D6027691FA100A1E4D8 /* SearchNewRelationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationViewModel.swift; sourceTree = "<group>"; };
 		533856AF263B22B8005A06A9 /* MarkupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewController.swift; sourceTree = "<group>"; };
 		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
@@ -4514,15 +4512,14 @@
 			path = TextStyleView;
 			sourceTree = "<group>";
 		};
-		532D1D542768FA6E00A1E4D8 /* NewRelationView */ = {
+		532D1D542768FA6E00A1E4D8 /* AddingNewRelationView */ = {
 			isa = PBXGroup;
 			children = (
 				532D1D582768FABC00A1E4D8 /* NewRelationCell.swift */,
 				532D1D5A2768FAE600A1E4D8 /* SearchNewRelationView.swift */,
-				532D1D5C2768FB1600A1E4D8 /* SearchNewRelationBar.swift */,
 				532D1D6027691FA100A1E4D8 /* SearchNewRelationViewModel.swift */,
 			);
-			path = NewRelationView;
+			path = AddingNewRelationView;
 			sourceTree = "<group>";
 		};
 		533856AC263B2285005A06A9 /* TextAttributesView */ = {
@@ -4594,7 +4591,7 @@
 		535E02AB274FF05600E1AF8C /* Relations */ = {
 			isa = PBXGroup;
 			children = (
-				532D1D542768FA6E00A1E4D8 /* NewRelationView */,
+				532D1D542768FA6E00A1E4D8 /* AddingNewRelationView */,
 				535E02AE27501FC600E1AF8C /* RelationViewProvider */,
 				535F79862746CCD60050A1B8 /* FlowRelationsView */,
 			);
@@ -5783,7 +5780,6 @@
 				3D28A470271DAC9F009A0D48 /* HomeTabsHeader.swift in Sources */,
 				120F7D44267CD1AC00327734 /* ObjectCoverPicker.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
-				532D1D5D2768FB1600A1E4D8 /* SearchNewRelationBar.swift in Sources */,
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
 				12F14CD52758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift in Sources */,
 				12CAF32326D53878001E56B2 /* ObjectIconImagePainterProtocol.swift in Sources */,

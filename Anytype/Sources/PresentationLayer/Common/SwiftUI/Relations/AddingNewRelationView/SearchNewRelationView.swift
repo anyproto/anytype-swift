@@ -11,11 +11,11 @@ struct SearchNewRelationView: View {
     var body: some View {
         VStack() {
             DragIndicator(bottomPadding: 0)
-            SearchBar(text: $searchText, focused: true)
+            SearchBar(text: $searchText, focused: true, placeholder: "Find a relation")
             content
         }
         .onChange(of: searchText) { search(text: $0) }
-        .onAppear { search(text: searchText) }
+        .onAppear { search(text: "") }
     }
 
     private var content: some View {
@@ -35,7 +35,16 @@ struct SearchNewRelationView: View {
                     switch section {
                     case .createNewRelation:
                         Section {
-                            
+                            Button(
+                                action: {
+                                    presentationMode.wrappedValue.dismiss()
+                                }
+                            ) {
+                                NewRelationCell(cellKind: .createNew)
+                                    .padding([.leading, .trailing], 20)
+                            }
+                            .frame(maxWidth: .infinity)
+                            .modifier(DividerModifier(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading))
                         }
                     case let .addFromLibriry(relationsMetaData):
                         Section(content: {
@@ -46,10 +55,11 @@ struct SearchNewRelationView: View {
                                         viewModel.onSelect(relationMetadata)
                                     }
                                 ) {
-                                    NewRelationCell(realtionMetadata: relationMetadata)
+                                    NewRelationCell(cellKind: .relation(realtionMetadata: relationMetadata))
+                                        .padding([.leading, .trailing], 20)
                                 }
                                 .frame(maxWidth: .infinity)
-                                .modifier(DividerModifier(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading))
+                                .modifier(DividerModifier(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading))
                             }
                         }, header: {
                             VStack(alignment: .leading, spacing: 0) {
@@ -92,9 +102,12 @@ struct SearchNewRelationView: View {
 }
 
 struct SearchNewRelationView_Previews: PreviewProvider {
+
     static var previews: some View {
         SearchNewRelationView(
-            viewModel: SearchNewRelationViewModel(onSelect: { _ in
+            viewModel: SearchNewRelationViewModel(
+                relationService: RelationsService(objectId: ""),
+                onSelect: { _ in
             })
         )
     }

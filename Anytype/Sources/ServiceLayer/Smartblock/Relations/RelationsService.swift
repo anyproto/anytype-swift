@@ -59,5 +59,14 @@ extension RelationsService: RelationsServiceProtocol {
         
         return response.option.id
     }
+
+    func availableRelations() -> [RelationMetadata]? {
+        let response = Anytype_Rpc.Object.RelationListAvailable.Service.invoke(contextID: objectId)
+            .getValue()
+
+        guard let response = response else { return nil }
+
+        return response.relations.map { RelationMetadata(middlewareRelation: $0) }
+    }
     
 }
