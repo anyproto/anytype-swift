@@ -6,7 +6,6 @@ struct SetTableView: View {
     var headerMinimizedSize: CGSize
 
     @State private var initialOffset = CGPoint.zero
-    @State private var initialHorizontalOffset = CGPoint.zero
 
     @EnvironmentObject private var model: EditorSetViewModel
 
