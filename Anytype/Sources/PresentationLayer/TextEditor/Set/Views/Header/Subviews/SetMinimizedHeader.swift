@@ -34,7 +34,7 @@ struct SetMinimizedHeader: View {
             .frame(width: width, height: minimizedHeaderHeight)
             .background(Color.backgroundPrimary)
             .opacity(headerOpacity)
-            .background(FrameCatcher { headerMinimizedSize = $0.size })
+            .readSize { headerMinimizedSize = $0 }
         }
     }
 

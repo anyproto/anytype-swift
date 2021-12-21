@@ -32,9 +32,9 @@ struct RelationNameValueView: View {
                 }
             }
             .frame(maxWidth: .infinity, minHeight: 34, alignment: .center)
-            .background(FrameCatcher { height = $0.size.height })
+            .readSize { height = $0.height }
         }
-        .background(FrameCatcher { width = $0.size.width })
+        .readSize { width = $0.width }
     }
     
     private var nameWidth: CGFloat { width * 0.4 }

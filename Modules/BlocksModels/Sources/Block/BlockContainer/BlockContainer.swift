@@ -131,8 +131,5 @@ public final class BlockContainer: BlockContainerModelProtocol {
         } : childrenIds
 
         parent.information.childrenIds = existedIds
-        /// TODO: Set children their new parentId if needed?
-        /// Actually, yes, but not now.
-        /// Do it later.
     }    
 }

@@ -160,7 +160,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         UIView.animate(
             withDuration: animated ? 0.3 : 0,
             delay: 0,
-            options: UIView.AnimationOptions.curveEaseInOut,
+            options: .curveEaseInOut,
             animations: { [weak self] in
                 self?.view.layoutIfNeeded()
             }, completion: nil

@@ -1,11 +1,3 @@
-//
-//  CharacterExtensions.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 14.05.2021.
-//  Copyright © 2021 AnyType. All rights reserved.
-//
-
 extension Character {
     /// A simple emoji is one scalar and presented to the user as an Emoji
     var isSimpleEmoji: Bool {
@@ -19,7 +11,7 @@ extension Character {
         unicodeScalars.count > 1 && unicodeScalars.first?.properties.isEmoji ?? false
     }
 
-    var isEmoji: Bool {
+    public var isEmoji: Bool {
         isSimpleEmoji || isCombinedIntoEmoji
     }
     

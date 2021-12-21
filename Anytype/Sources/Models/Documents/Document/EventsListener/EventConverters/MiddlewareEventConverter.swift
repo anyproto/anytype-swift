@@ -143,7 +143,7 @@ final class MiddlewareEventConverter {
                 relations: set.relations.map { RelationMetadata(middlewareRelation: $0) }
             )
             
-            // TODO: - add relations update
+            #warning("TODO: add relations update")
             return .general
             
         case .objectRelationsAmend(let amend):
@@ -151,13 +151,13 @@ final class MiddlewareEventConverter {
                 relations: amend.relations.map { RelationMetadata(middlewareRelation: $0) }
             )
             
-            // TODO: - add relations update
+            #warning("TODO: add relations update")
             return .general
             
         case .objectRelationsRemove(let remove):
             relationStorage.remove(relationKeys: remove.keys)
             
-            // TODO: - add relations update
+            #warning("TODO: add relations update")
             return .general
             
         case let .blockSetFile(newData):

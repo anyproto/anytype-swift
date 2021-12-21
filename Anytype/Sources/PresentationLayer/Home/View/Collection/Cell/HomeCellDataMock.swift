@@ -1,12 +1,14 @@
-import UIKit
+#if !RELEASE
 
-// TODO: add #if DEBUG
+import UIKit
+import AnytypeCore
+
 struct HomeCellDataMock {
     static let data = [
         HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .emoji(IconEmoji("📘")!),
+            icon: .emoji(Emoji("📘")!),
             title: .default(title: "Ubik"),
             type: "Book",
             isLoading: false,
@@ -42,7 +44,7 @@ struct HomeCellDataMock {
         HomeCellData(
             id: "\(UUID())",
             destinationId: "destinationId",
-            icon: .emoji(IconEmoji("🤡")!),
+            icon: .emoji(Emoji("🤡")!),
             title: .todo(title: "DO IT!", isChecked: false),
             type: "Task",
             isLoading: false,
@@ -129,3 +131,4 @@ struct HomeCellDataMock {
         )
     ]
 }
+#endif
