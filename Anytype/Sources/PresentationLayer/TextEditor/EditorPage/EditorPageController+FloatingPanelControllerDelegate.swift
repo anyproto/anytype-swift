@@ -53,7 +53,7 @@ extension EditorPageController: FloatingPanelControllerDelegate {
         guard let closestItemAttributes = collectionView.layoutAttributesForItem(at: closestItem)  else { return }
 
         let yOffset = closestItemAttributes.frame.maxY - collectionView.bounds.height + fpc.surfaceView.bounds.height + fpc.surfaceView.layoutMargins.bottom
-        collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+        collectionView.setContentOffset(CGPoint(x: 0.0, y: yOffset), animated: true)
         collectionView.contentInset.bottom = fpc.surfaceView.bounds.height
     }
 

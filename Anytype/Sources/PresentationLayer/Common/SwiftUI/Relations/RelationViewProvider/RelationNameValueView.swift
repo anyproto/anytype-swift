@@ -21,7 +21,7 @@ struct RelationNameValueView: View {
     var body: some View {
         HStack(spacing: 8) {
             name
-                .frame(width: width * 0.4, alignment: .topLeading)
+                .frame(width: nameWidth, alignment: .topLeading)
             Spacer.fixedWidth(8)
 
             Group {
@@ -36,6 +36,8 @@ struct RelationNameValueView: View {
         }
         .background(FrameCatcher { width = $0.size.width })
     }
+    
+    private var nameWidth: CGFloat { width * 0.4 }
 
     private var name: some View {
         AnytypeText(viewModel.relation.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
