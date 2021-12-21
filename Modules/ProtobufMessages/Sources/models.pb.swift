@@ -1230,7 +1230,7 @@ public struct Anytype_Model_Block {
         /// Relation used for cover in gallery
         public var coverRelationKey: String = String()
 
-        /// Hide icon near name 
+        /// Hide icon near name
         public var hideIcon: Bool = false
 
         /// Gallery card size

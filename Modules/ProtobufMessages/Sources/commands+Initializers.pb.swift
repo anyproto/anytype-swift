@@ -2000,12 +2000,13 @@ extension Anytype_Rpc.DownloadFile.Response.Error {
 }
 
 extension Anytype_Rpc.Export.Request {
-  public init(path: String, docIds: [String], format: Anytype_Rpc.Export.Format, zip: Bool, includeNested: Bool) {
+  public init(path: String, docIds: [String], format: Anytype_Rpc.Export.Format, zip: Bool, includeNested: Bool, includeFiles: Bool) {
     self.path = path
     self.docIds = docIds
     self.format = format
     self.zip = zip
     self.includeNested = includeNested
+    self.includeFiles = includeFiles
   }
 }
 
