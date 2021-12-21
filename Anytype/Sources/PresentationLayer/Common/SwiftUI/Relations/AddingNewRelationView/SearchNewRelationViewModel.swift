@@ -19,13 +19,18 @@ enum SearchNewRelationSectionType: Hashable, Identifiable {
 
 class SearchNewRelationViewModel: ObservableObject, Dismissible {
     let relationService: RelationsServiceProtocol
+    let objectRelationsIds: Set<String> // Used for exclude relations that already has in object
     @Published var searchData: [SearchNewRelationSectionType] = [.createNewRelation]
     var onSelect: (RelationMetadata) -> ()
     var onDismiss: () -> () = {}
 
-    init(relationService: RelationsServiceProtocol, onSelect: @escaping (RelationMetadata) -> ()) {
+    init(relationService: RelationsServiceProtocol,
+         objectRelations: ParsedRelations,
+         onSelect: @escaping (RelationMetadata) -> ()) {
         self.relationService = relationService
         self.onSelect = onSelect
+
+        objectRelationsIds = Set(objectRelations.all.map { $0.id })
     }
 
     func search(text: String) {
@@ -49,8 +54,13 @@ class SearchNewRelationViewModel: ObservableObject, Dismissible {
 
     func obtainAvailbaleRelationList() -> [SearchNewRelationSectionType] {
         let relatonsMetadata = relationService.availableRelations()?.filter {
-            !$0.isHidden
+            !$0.isHidden && !objectRelationsIds.contains($0.id)
         } ?? []
         return [.createNewRelation, .addFromLibriry(relatonsMetadata)]
+    }
+
+    func addRelation(_ relation: RelationMetadata) {
+        relationService.addRelation(relation: relation)
+        onSelect(relation)
     }
 }

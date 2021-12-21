@@ -51,8 +51,8 @@ struct SearchNewRelationView: View {
                             ForEach(relationsMetaData) { relationMetadata in
                                 Button(
                                     action: {
+                                        viewModel.addRelation(relationMetadata)
                                         presentationMode.wrappedValue.dismiss()
-                                        viewModel.onSelect(relationMetadata)
                                     }
                                 ) {
                                     NewRelationCell(cellKind: .relation(realtionMetadata: relationMetadata))
@@ -107,6 +107,7 @@ struct SearchNewRelationView_Previews: PreviewProvider {
         SearchNewRelationView(
             viewModel: SearchNewRelationViewModel(
                 relationService: RelationsService(objectId: ""),
+                objectRelations: ParsedRelations(featuredRelations: [], otherRelations: []),
                 onSelect: { _ in
             })
         )
