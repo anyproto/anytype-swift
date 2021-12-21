@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 final class RelationObjectsEditingViewModel: ObservableObject {
     
@@ -22,6 +23,39 @@ final class RelationObjectsEditingViewModel: ObservableObject {
         self.relationKey = relationObject.id
 
         self.relationsService = relationsService
+    }
+    
+}
+
+extension RelationObjectsEditingViewModel {
+    
+    func postponeEditingAction(_ action: TagRelationEditingAction) {
+        editingActions.append(action)
+    }
+    
+    func applyEditingActions() {
+        editingActions.forEach {
+            switch $0 {
+            case .remove(let indexSet):
+                selectedObjects.remove(atOffsets: indexSet)
+            case .move(let source, let destination):
+                selectedObjects.move(fromOffsets: source, toOffset: destination)
+            }
+        }
+        
+        relationsService.updateRelation(
+            relationKey: relationKey,
+            value: selectedObjects.map { $0.id }.protobufValue
+        )
+        
+        editingActions = []
+    }
+}
+
+extension RelationObjectsEditingViewModel: RelationEditingViewModelProtocol {
+    
+    func makeView() -> AnyView {
+        AnyView(RelationObjectsEditingView(viewModel: self))
     }
     
 }
