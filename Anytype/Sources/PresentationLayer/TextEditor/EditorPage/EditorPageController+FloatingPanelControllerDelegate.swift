@@ -7,8 +7,8 @@ import BlocksModels
 extension EditorPageController: FloatingPanelControllerDelegate {
     
     func floatingPanelDidRemove(_ fpc: FloatingPanelController) {
-        UIView.animate(withDuration: CATransaction.animationDuration()) {
-            self.collectionView.contentInset.bottom = 0
+        UIView.animate(withDuration: CATransaction.animationDuration()) { [unowned self] in
+            insetsHelper?.restoreEditingOffset()
         }
 
         guard let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first else { return }

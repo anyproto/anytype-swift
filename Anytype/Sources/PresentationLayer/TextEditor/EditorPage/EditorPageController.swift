@@ -31,7 +31,7 @@ final class EditorPageController: UIViewController {
         return collectionView
     }()
     
-    private var insetsHelper: ScrollViewContentInsetsHelper?
+    private(set) var insetsHelper: ScrollViewContentInsetsHelper?
     private var firstResponderHelper: FirstResponderHelper?
     private var contentOffset: CGPoint = .zero
     lazy var dividerCursorController = DividerCursorController(

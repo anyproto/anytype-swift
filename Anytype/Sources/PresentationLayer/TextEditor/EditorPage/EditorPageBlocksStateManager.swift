@@ -274,6 +274,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                let url = UrlResolver.resolvedUrl(.file(id: blockFile.metadata.hash)) {
                 router.saveFile(fileURL: url)
             }
+        case .style:
+            editingState = .editing
+            elements.first.map { router.showStyleMenu(information: $0.information) }
+
+            return
         }
 
         editingState = .editing
