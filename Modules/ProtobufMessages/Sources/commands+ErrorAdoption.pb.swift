@@ -128,6 +128,9 @@ extension Anytype_Rpc.Object.RelationOptionDelete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.RelationListAvailable.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Search.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Graph.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.IdsSubscribe.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetLayout.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetIsArchived.Response.Error: Swift.Error {}

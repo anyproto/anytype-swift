@@ -141,6 +141,9 @@ service ClientCommands {
 
     rpc ObjectGraph (anytype.Rpc.Object.Graph.Request) returns (anytype.Rpc.Object.Graph.Response);
     rpc ObjectSearch (anytype.Rpc.Object.Search.Request) returns (anytype.Rpc.Object.Search.Response);
+    rpc ObjectSearchSubscribe (anytype.Rpc.Object.SearchSubscribe.Request) returns (anytype.Rpc.Object.SearchSubscribe.Response);
+    rpc ObjectIdsSubscribe (anytype.Rpc.Object.IdsSubscribe.Request) returns (anytype.Rpc.Object.IdsSubscribe.Response);
+    rpc ObjectSearchUnsubscribe (anytype.Rpc.Object.SearchUnsubscribe.Request) returns (anytype.Rpc.Object.SearchUnsubscribe.Response);
     rpc ObjectRelationAdd (anytype.Rpc.Object.RelationAdd.Request) returns (anytype.Rpc.Object.RelationAdd.Response);
     rpc ObjectRelationUpdate (anytype.Rpc.Object.RelationUpdate.Request) returns (anytype.Rpc.Object.RelationUpdate.Response);
     rpc ObjectRelationDelete (anytype.Rpc.Object.RelationDelete.Request) returns (anytype.Rpc.Object.RelationDelete.Response);
