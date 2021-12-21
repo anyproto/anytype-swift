@@ -2,6 +2,7 @@ import UIKit
 import Combine
 import BlocksModels
 import SwiftUI
+import AnytypeCore
 
 protocol TypeListItemProvider: AnyObject {
     var typesPublisher: AnyPublisher<[HorizonalTypeListViewModel.Item], Never> { get }
@@ -34,7 +35,7 @@ final class HorizonalTypeListViewModel: ObservableObject {
 
 extension HorizonalTypeListViewModel.Item {
     init(from searchData: SearchData, handler: @escaping () -> Void) {
-        let emoji = IconEmoji(searchData.iconEmoji).map { ObjectIconImage.icon(.emoji($0)) } ??  ObjectIconImage.image(UIImage())
+        let emoji = Emoji(searchData.iconEmoji).map { ObjectIconImage.icon(.emoji($0)) } ??  ObjectIconImage.image(UIImage())
 
         self.init(
             id: searchData.id,

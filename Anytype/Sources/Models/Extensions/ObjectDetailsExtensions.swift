@@ -22,7 +22,7 @@ extension BundledRelationsValueProvider {
             return ObjectIconType.basic(iconImageHash.value)
         }
         
-        if let iconEmoji = IconEmoji(self.iconEmoji) {
+        if let iconEmoji = Emoji(self.iconEmoji) {
             return ObjectIconType.emoji(iconEmoji)
         }
         

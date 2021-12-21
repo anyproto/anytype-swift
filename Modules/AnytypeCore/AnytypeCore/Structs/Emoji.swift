@@ -1,14 +1,10 @@
-import AnytypeCore
-
-// TODO: - Move to AnytypeCore
-// TODO: - Rename to `Emoji` or `Emojik` :)
-struct IconEmoji: Hashable {
+public struct Emoji: Hashable {
     
-    let value: String
+    public let value: String
     
     // MARK: - Initializer
     
-    init?(_ value: String?) {
+    public init?(_ value: String?) {
         guard let value = value?.trimmed, value.isNotEmpty else {
             return nil
         }
@@ -21,5 +17,5 @@ struct IconEmoji: Hashable {
         self.value = value
     }
     
-    static let `default` = IconEmoji("⚪️")!
+    public static let `default` = Emoji("📄")!
 }

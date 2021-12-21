@@ -229,7 +229,7 @@ final class StyleViewController: UIViewController {
             highlightedButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.quote))
         }
         if .code != self.style {
-            // TODO: add restrictions when callout block will be introduced
+            #warning("add restrictions when callout block will be introduced")
             calloutButton.setImage(UIImage(named: "StyleBottomSheet/calloutInactive"))
             calloutButton.isEnabled = false
         }

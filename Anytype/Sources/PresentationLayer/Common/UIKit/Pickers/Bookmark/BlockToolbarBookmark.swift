@@ -37,18 +37,9 @@ enum BlockToolbarBookmark {
     }
 }
 
-// MARK: View
-/// TODO: Refactor later.
-extension BlockToolbarBookmark {
-    struct Layout {
-        var webViewHeight: CGFloat = 300
-    }
-}
-
 extension BlockToolbarBookmark {
     struct InputView: View {
         @ObservedObject var model: ViewModel
-        var layout: Layout = .init()
         
         func view(preferredWebViewHeight: CGFloat) -> some View {
             VStack(alignment: .center) {
