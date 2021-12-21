@@ -6621,11 +6621,13 @@ extension Anytype_Rpc.Export {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(path: String, docIds: [String], format: Anytype_Rpc.Export.Format, zip: Bool, includeNested: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(path: path, docIds: docIds, format: format, zip: zip, includeNested: includeNested), on: queue)
+    public static func invoke(path: String, docIds: [String], format: Anytype_Rpc.Export.Format, zip: Bool, includeNested: Bool, includeFiles: Bool, queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(parameters: .init(path: path, docIds: docIds, format: format, zip: zip, includeNested: includeNested, includeFiles: includeFiles), on: queue)
     }
-    public static func invoke(path: String, docIds: [String], format: Anytype_Rpc.Export.Format, zip: Bool, includeNested: Bool) -> Result<Response, Error> {
-      self.result(.init(path: path, docIds: docIds, format: format, zip: zip, includeNested: includeNested))
+    public static func invoke(path: String, docIds: [String], format: Anytype_Rpc.Export.Format, zip: Bool, includeNested: Bool, includeFiles: Bool) -> Result<Response, Error> {
+      self.result(.init(path: path, docIds: docIds, format: format, zip: zip, includeNested: includeNested, includeFiles: includeFiles))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
