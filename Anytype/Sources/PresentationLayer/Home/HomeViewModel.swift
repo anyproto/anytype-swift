@@ -45,15 +45,19 @@ final class HomeViewModel: ObservableObject {
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(updateResult: $0)
         }.store(in: &cancellables)
-        document.open()
         setupQuickActionsSubscription()
     }
 
     // MARK: - View output
 
-    func viewLoaded() {
+    func onAppear() {
+        document.open()
         reloadItems()
         animationsEnabled = true
+    }
+    
+    func onDisappear() {
+        document.close()
     }
 
     func updateBinTab() {

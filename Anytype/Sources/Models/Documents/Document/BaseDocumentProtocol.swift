@@ -14,4 +14,5 @@ protocol BaseDocumentProtocol: AnyObject {
 
     @discardableResult
     func open() -> Bool
+    func close()
 }
