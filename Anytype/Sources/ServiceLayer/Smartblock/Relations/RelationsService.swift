@@ -44,7 +44,7 @@ extension RelationsService: RelationsServiceProtocol {
             ]
         )
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .relationsService)?
             .send()
     }
     
@@ -79,7 +79,7 @@ extension RelationsService: RelationsServiceProtocol {
 
     func availableRelations() -> [RelationMetadata]? {
         let response = Anytype_Rpc.Object.RelationListAvailable.Service.invoke(contextID: objectId)
-            .getValue()
+            .getValue(domain: .relationsService)
 
         guard let response = response else { return nil }
 
