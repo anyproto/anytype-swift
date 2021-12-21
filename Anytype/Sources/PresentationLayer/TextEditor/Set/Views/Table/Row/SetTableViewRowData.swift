@@ -33,7 +33,7 @@ struct SetTableViewRowData: Identifiable {
         self.relations = colums.compactMap { colum in
             let relation = allRelations.first { $0.id == colum.key }
             guard let relation = relation else {
-                anytypeAssertionFailure("No relation: \(colum) found in \(title)", domain: .editorSet)
+//                anytypeAssertionFailure("No relblockContaineration: \(colum) found in \(title)", domain: .editorSet)
                 return nil
             }
             

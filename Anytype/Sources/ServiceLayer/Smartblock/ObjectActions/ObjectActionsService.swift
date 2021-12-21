@@ -46,7 +46,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         position: BlockPosition,
         templateId: String
     ) -> BlockId? {
-        let protobufDetails = details.map { $0.asDetailsUpdate }.reduce([String: Google_Protobuf_Value]()) { result, detail in
+        
+        let protobufDetails = details.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
             result[detail.key] = detail.value
             return result
@@ -58,7 +59,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
                 contextID: contextId, details: protobufStruct, templateID: templateId,
                 targetID: targetId, position: position.asMiddleware, fields: .init()
             )
-            .getValue()
+            .getValue(domain: .objectActionsService)
         
         guard let response = response else { return nil}
         EventsBunch(event: response.event).send()
@@ -73,18 +74,18 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             contextID: contextID,
             layout: selectedLayout
         ).map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .objectActionsService)?
             .send()
     }
 
     // MARK: - ObjectActionsService / SetDetails
     
-    func updateDetails(contextID: BlockId, updates: [DetailsUpdate]) {
+    func updateBundledDetails(contextID: BlockId, details: [BundledDetails]) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
 
         Anytype_Rpc.Block.Set.Details.Service.invoke(
             contextID: contextID,
-            details: updates.map {
+            details: details.map {
                 Anytype_Rpc.Block.Set.Details.Detail(
                     key: $0.key,
                     value: $0.value
@@ -92,7 +93,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             }
         )
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .objectActionsService)?
             .send()
     }
 
@@ -101,7 +102,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         return Anytype_Rpc.BlockList.ConvertChildrenToPages.Service
             .invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType)
             .map { $0.linkIds }
-            .getValue()
+            .getValue(domain: .objectActionsService)
     }
     
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) {
@@ -111,7 +112,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
                 dropTargetID: dropPositionblockId, position: position
             )
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .objectActionsService)?
             .send()
     }
     
@@ -121,7 +122,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             objectTypeURL: objectTypeUrl
         )
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .objectActionsService)?
             .send()
     }
     

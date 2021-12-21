@@ -1,6 +1,7 @@
 import Foundation
 import ProtobufMessages
 import BlocksModels
+import SwiftProtobuf
 
 final class RelationsService {
     
@@ -19,7 +20,7 @@ extension RelationsService: RelationsServiceProtocol {
             contextID: objectId,
             relations: [relationKey]
         ).map { EventsBunch(event: $0.event) }
-        .getValue()?
+        .getValue(domain: .relationsService)?
         .send()
     }
     
@@ -28,8 +29,23 @@ extension RelationsService: RelationsServiceProtocol {
             contextID: objectId,
             relations: [relationKey]
         ).map { EventsBunch(event: $0.event) }
-        .getValue()?
+        .getValue(domain: .relationsService)?
         .send()
+    }
+    
+    func updateRelation(relationKey: String, value: Google_Protobuf_Value) {
+        Anytype_Rpc.Block.Set.Details.Service.invoke(
+            contextID: objectId,
+            details: [
+                Anytype_Rpc.Block.Set.Details.Detail(
+                    key: relationKey,
+                    value: value
+                )
+            ]
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .relationsService)?
+            .send()
     }
     
     func removeRelation(relationKey: String) {
@@ -37,7 +53,7 @@ extension RelationsService: RelationsServiceProtocol {
             contextID: objectId,
             relationKey: relationKey
         ).map { EventsBunch(event: $0.event) }
-        .getValue()?
+        .getValue(domain: .relationsService)?
         .send()
     }
     
@@ -52,13 +68,22 @@ extension RelationsService: RelationsServiceProtocol {
                 scope: .local
             )
         )
-            .getValue()
+            .getValue(domain: .relationsService)
         
         guard let response = response else { return nil }
         
         EventsBunch(event: response.event).send()
         
         return response.option.id
+    }
+
+    func availableRelations() -> [RelationMetadata]? {
+        let response = Anytype_Rpc.Object.RelationListAvailable.Service.invoke(contextID: objectId)
+            .getValue(domain: .relationsService)
+
+        guard let response = response else { return nil }
+
+        return response.relations.map { RelationMetadata(middlewareRelation: $0) }
     }
     
 }

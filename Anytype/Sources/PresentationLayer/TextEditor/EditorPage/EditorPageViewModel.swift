@@ -219,7 +219,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
         guard let currentInformation = document.blocksContainer.model(id: blockId)?.information else {
             wholeBlockMarkupViewModel.removeInformationAndDismiss()
-            anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .editorPage)
+            AnytypeLogger(category: "Editor page view model").debug("Could not find object with id: \(blockId)")
             return
         }
         guard case .text = currentInformation.content else {

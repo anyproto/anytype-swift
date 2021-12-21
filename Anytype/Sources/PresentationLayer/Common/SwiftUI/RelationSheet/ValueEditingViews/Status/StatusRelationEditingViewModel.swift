@@ -4,7 +4,7 @@ import BlocksModels
 
 final class StatusRelationEditingViewModel: ObservableObject {
 
-    var onDismiss: (() -> Void)?
+    var dismissHandler: (() -> Void)?
     
     @Published var isPresented: Bool = false
     @Published var selectedStatus: Relation.Status.Option?
@@ -14,7 +14,6 @@ final class StatusRelationEditingViewModel: ObservableObject {
     
     private let relationOptions: [Relation.Status.Option]
     private let relationKey: String
-    private let detailsService: DetailsServiceProtocol
     private let relationsService: RelationsServiceProtocol
     
     init(
@@ -22,7 +21,6 @@ final class StatusRelationEditingViewModel: ObservableObject {
         relationName: String,
         relationOptions: [Relation.Status.Option],
         selectedStatus: Relation.Status.Option?,
-        detailsService: DetailsServiceProtocol,
         relationsService: RelationsServiceProtocol
     ) {
         self.relationKey = relationKey
@@ -30,7 +28,6 @@ final class StatusRelationEditingViewModel: ObservableObject {
         self.relationOptions = relationOptions
         self.statusSections = RelationValueOptionSectionBuilder.sections(from: relationOptions, filterText: nil)
         self.selectedStatus = selectedStatus
-        self.detailsService = detailsService
         self.relationsService = relationsService
     }
     
@@ -46,20 +43,14 @@ extension StatusRelationEditingViewModel {
         let optionId = relationsService.addRelationOption(relationKey: relationKey, optionText: text)
         guard let optionId = optionId else { return}
         
-        detailsService.updateDetails([
-            DetailsUpdate(key: relationKey, value: optionId.protobufValue)
-        ])
-        
+        relationsService.updateRelation(relationKey: relationKey, value: optionId.protobufValue)
         withAnimation {
             isPresented = false
         }
     }
     
     func saveValue() {
-        detailsService.updateDetails([
-            DetailsUpdate(key: relationKey, value: selectedStatus?.id.protobufValue ?? nil)
-        ])
-        
+        relationsService.updateRelation(relationKey: relationKey, value: selectedStatus?.id.protobufValue ?? nil)
     }
 }
 

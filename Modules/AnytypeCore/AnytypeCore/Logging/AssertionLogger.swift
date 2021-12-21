@@ -11,11 +11,9 @@ public enum ErrorDomain: String {
     case camera
     case clearCache
     
-    case defaultCompletion
-    case resultGetValue
-    
     case treeBlockBuilder
     case localEventConverter
+    case localEventConverterSetFocus
     case middlewareEventConverter
     case objectDetails
     case relationsBuilder
@@ -34,6 +32,7 @@ public enum ErrorDomain: String {
     case editorBrowser
     case editorPage
     case editorSet
+    case loadingController
     
     case markStyleModifier
     case markupChanger
@@ -54,8 +53,16 @@ public enum ErrorDomain: String {
     case keyboardListner
     case textLayout
     case textConverter
+    case searchService
+    case bookmarkService
+    case pageService
+    case textService
+    case relationsService
+    case blockListService
+    case authService
     
     case homeView
+
     
     case iconPicker
     

@@ -11,7 +11,7 @@ struct StatusRelationEditingView: View {
             statusesList
             Spacer.fixedHeight(20)
         }
-        .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.onDismiss))
+        .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.dismissHandler))
         .onChange(of: searchText) { viewModel.filterStatusSections(text: $0) }
     }
     
@@ -60,7 +60,6 @@ struct StatusRelationEditingView_Previews: PreviewProvider {
                 relationName: "",
                 relationOptions: [],
                 selectedStatus: nil,
-                detailsService: DetailsService(objectId: ""),
                 relationsService: RelationsService(objectId: "")
             )
         )

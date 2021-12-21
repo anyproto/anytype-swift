@@ -9,12 +9,13 @@ public struct Emoji: Hashable {
             return nil
         }
         
-        guard value.isSingleEmoji else {
-            anytypeAssertionFailure("Not a single emoji: \(value)", domain: .iconEmoji)
+        let emoji = value.first { $0.isEmoji }
+        guard let emoji = emoji else {
+            anytypeAssertionFailure("Not an emoji: \(value)", domain: .iconEmoji)
             return nil
         }
         
-        self.value = value
+        self.value = String(emoji)
     }
     
     public static let `default` = Emoji("📄")!

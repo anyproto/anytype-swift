@@ -3,7 +3,7 @@ import SwiftUI
 
 protocol RelationEditingViewModelProtocol {
     
-    var onDismiss: (() -> Void)? { get set }
+    var dismissHandler: (() -> Void)? { get set }
         
     @ViewBuilder
     func makeView() -> AnyView

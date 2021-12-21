@@ -13,7 +13,6 @@ import SwiftProtobuf
 protocol DetailsServiceProtocol {
         
     func updateBundledDetails(_ bundledDpdates: [BundledDetails])
-    func updateDetails(_ updates: [DetailsUpdate])
     func setLayout(_ detailsLayout: DetailsLayout)
     
 }

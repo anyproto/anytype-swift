@@ -22,7 +22,9 @@ class BasePipeline
     
     puts "Copying protobuf files from Dependencies to ProtobufMessages"
     directory = File.join([dependenciesDirectory, Constants::PROTOBUF_DIRECTORY_NAME])
-    FileUtils.cp_r(directory, Constants::PROTOBUF_MESSAGES_DIR)
+    DirHelper.allFiles(directory, "swift").each { |file|
+      FileUtils.cp(file, Constants::PROTOBUF_MESSAGES_DIR)
+    }
 
     puts "Generating swift from protobuf"
     CodegenRunner.run()

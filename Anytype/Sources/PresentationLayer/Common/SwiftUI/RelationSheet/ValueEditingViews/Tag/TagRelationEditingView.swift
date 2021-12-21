@@ -1,7 +1,5 @@
 import SwiftUI
 
-#warning("add button / edit button")
-
 struct TagRelationEditingView: View {
     
     @ObservedObject var viewModel: TagRelationEditingViewModel
@@ -13,7 +11,7 @@ struct TagRelationEditingView: View {
     var body: some View {
         content
             .modifier(
-                RelationSheetModifier(isPresented: $viewModel.isPresented, title: nil, dismissCallback: viewModel.onDismiss)
+                RelationSheetModifier(isPresented: $viewModel.isPresented, title: nil, dismissCallback: viewModel.dismissHandler)
             )
             .sheet(isPresented: $isSearchOpen) {
                 TagRelationOptionSearchView(viewModel: viewModel.searchViewModel)
@@ -78,7 +76,6 @@ struct TagRelationEditingView: View {
         } label: {
             Image.Relations.createOption.frame(width: 24, height: 24)
         }
-
     }
 }
 
@@ -145,7 +142,6 @@ struct TagRelationEditingView_Previews: PreviewProvider {
                         )
                     ]
                 ),
-                detailsService: DetailsService(objectId: ""),
                 relationsService: RelationsService(objectId: "")
             )
         )

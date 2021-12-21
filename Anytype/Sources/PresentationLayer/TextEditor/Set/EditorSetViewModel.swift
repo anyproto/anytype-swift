@@ -103,7 +103,7 @@ final class EditorSetViewModel: ObservableObject {
         
         guard let response = Anytype_Rpc.Block.Dataview.ViewSetActive.Service.invoke(
             contextID: document.objectId, blockID: dataViewId, viewID: activeView.id, offset: 0, limit: 300
-        ).getValue() else { return }
+        ).getValue(domain: .editorSet) else { return }
         
         let data = response.event.messages.compactMap { message -> Anytype_Event.Block.Dataview.RecordsSet? in
             switch message.value! {

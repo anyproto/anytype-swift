@@ -4,10 +4,10 @@ import BlocksModels
 final class TextRelationEditingService {
     
     let valueType: TextRelationValueType
-    private let service: DetailsService
+    private let service: RelationsServiceProtocol
     
     init(objectId: BlockId, valueType: TextRelationValueType) {
-        self.service = DetailsService(objectId: objectId)
+        self.service = RelationsService(objectId: objectId)
         self.valueType = valueType
     }
     
@@ -18,7 +18,7 @@ extension TextRelationEditingService: TextRelationEditingServiceProtocol {
     func save(value: String, forKey key: String) {
         switch valueType {
         case .text, .phone, .email, .url:
-            service.updateDetails([DetailsUpdate(key: key, value: value.protobufValue)])
+            service.updateRelation(relationKey: key, value: value.protobufValue)
             
         case .number:
             let filterredString = value.components(
@@ -27,7 +27,7 @@ extension TextRelationEditingService: TextRelationEditingServiceProtocol {
                 .joined()
             
             guard let number = Double(filterredString) else { return }
-            service.updateDetails([DetailsUpdate(key: key, value: number.protobufValue)])
+            service.updateRelation(relationKey: key, value: number.protobufValue)
         }
     }
     

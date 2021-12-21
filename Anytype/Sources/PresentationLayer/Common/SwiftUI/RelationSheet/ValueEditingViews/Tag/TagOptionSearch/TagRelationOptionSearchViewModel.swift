@@ -8,19 +8,16 @@ final class TagRelationOptionSearchViewModel: ObservableObject {
     private let relationKey: String
     private let availableTags: [Relation.Tag.Option]
     private let addTagsAction: ([String]) -> Void
-    private let detailsService: DetailsServiceProtocol
     private let relationsService: RelationsServiceProtocol
     
     init(
         relationKey: String,
         availableTags: [Relation.Tag.Option],
-        detailsService: DetailsServiceProtocol,
         relationsService: RelationsServiceProtocol,
         addTagsAction: @escaping ([String]) -> Void
     ) {
         self.relationKey = relationKey
         self.availableTags = availableTags
-        self.detailsService = detailsService
         self.relationsService = relationsService
         self.addTagsAction = addTagsAction
         

@@ -46,7 +46,7 @@ final class LoadingViewController: UIViewController {
         loadData.progressPublisher
             .map { $0.percentComplete }
             .receiveOnMain()
-            .sinkWithDefaultCompletion("Loading progress") { [weak self] progress in
+            .sinkWithDefaultCompletion("Loading progress", domain: .loadingController) { [weak self] progress in
                 self?.progressView.progress = progress
             }.store(in: &subscriptions)
         
@@ -54,7 +54,7 @@ final class LoadingViewController: UIViewController {
             .map { $0.fileURL }
             .safelyUnwrapOptionals()
             .receiveOnMain()
-            .sinkWithDefaultCompletion("Load File") { [weak self] url in
+            .sinkWithDefaultCompletion("Load File", domain: .loadingController) { [weak self] url in
                 self?.dismiss(animated: true) {
                     self?.loadingCompletion(url)
                 }

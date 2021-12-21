@@ -13,7 +13,7 @@ final class TextService: TextServiceProtocol {
         let event = Anytype_Rpc.Block.Set.Text.Text.Service
             .invoke(contextID: contextId, blockID: blockId, text: middlewareString.text, marks: middlewareString.marks)
             .map { EventsBunch(event: $0.event) }
-            .getValue()
+            .getValue(domain: .textService)
         
         guard let event = event else {
             return false
@@ -28,7 +28,7 @@ final class TextService: TextServiceProtocol {
         Anytype_Rpc.Block.Set.Text.Style.Service
             .invoke(contextID: contextId, blockID: blockId, style: style.asMiddleware)
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .textService)?
             .send()
     }
     
@@ -36,7 +36,7 @@ final class TextService: TextServiceProtocol {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSplit)
         let response = Anytype_Rpc.Block.Split.Service
             .invoke(contextID: contextId, blockID: blockId, range: range.asMiddleware, style: style.asMiddleware, mode: mode)
-            .getValue()
+            .getValue(domain: .textService)
         
         guard let response = response else {
             return nil
@@ -51,7 +51,7 @@ final class TextService: TextServiceProtocol {
         let events = Anytype_Rpc.Block.Merge.Service
             .invoke(contextID: contextId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
             .map { EventsBunch(event: $0.event) }
-            .getValue()
+            .getValue(domain: .textService)
             
         guard let events = events else { return false }
         events.send()
@@ -63,7 +63,7 @@ final class TextService: TextServiceProtocol {
         Anytype_Rpc.Block.Set.Text.Checked.Service
             .invoke(contextID: contextId, blockID: blockId, checked: newValue)
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .textService)?
             .send()
     }
     

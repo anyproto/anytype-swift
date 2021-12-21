@@ -4,9 +4,15 @@ import SwiftProtobuf
 
 final class DateRelationEditingViewModel: ObservableObject {
     
-    var onDismiss: (() -> Void)?
+    var dismissHandler: (() -> Void)?
     
-    @Published var isPresented: Bool = false
+    @Published var isPresented: Bool = false {
+        didSet {
+            guard isPresented == false else { return }
+            
+            saveValue()
+        }
+    }
     @Published var selectedValue: DateRelationEditingValue = .noDate
     @Published var date: Date
     
@@ -14,13 +20,13 @@ final class DateRelationEditingViewModel: ObservableObject {
     
     let relationName: String
     private let relationKey: String
-    private let service: DetailsServiceProtocol
+    private let service: RelationsServiceProtocol
     
     init(
         relationKey: String,
         relationName: String,
         value: DateRelationValue?,
-        service: DetailsServiceProtocol
+        service: RelationsServiceProtocol
     ) {
         self.relationKey = relationKey
         self.relationName = relationName
@@ -33,11 +39,7 @@ final class DateRelationEditingViewModel: ObservableObject {
 }
 
 extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
-    
-    func viewWillDisappear() {
-        saveValue()
-    }
-    
+
     func saveValue() {
         let value: Google_Protobuf_Value = {
             switch selectedValue {
@@ -54,7 +56,7 @@ extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
             }
         }()
         
-        service.updateDetails([ DetailsUpdate(key: relationKey, value: value) ])
+        service.updateRelation(relationKey: relationKey, value: value)
     }
     
     func makeView() -> AnyView {

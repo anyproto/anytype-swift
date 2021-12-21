@@ -1,16 +1,16 @@
 import SwiftUI
 
 struct SearchBar: View {
-    
     @Binding var text: String
     let focused: Bool
-        
+    var placeholder: String = "Search"
+
     var body: some View {
         Group {
             if focused {
-                AutofocusedTextField(title: "Search".localized, text: $text)
+                AutofocusedTextField(title: placeholder.localized, text: $text)
             } else {
-                TextField("Search".localized, text: $text)
+                TextField(placeholder.localized, text: $text)
             }
         }
         .padding(8)

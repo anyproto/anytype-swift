@@ -15025,6 +15025,9 @@ public struct Anytype_Rpc {
       /// include all nested
       public var includeNested: Bool = false
 
+      /// include all files
+      public var includeFiles: Bool = false
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
@@ -39501,6 +39504,7 @@ extension Anytype_Rpc.Export.Request: SwiftProtobuf.Message, SwiftProtobuf._Mess
     3: .same(proto: "format"),
     4: .same(proto: "zip"),
     5: .same(proto: "includeNested"),
+    6: .same(proto: "includeFiles"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -39514,6 +39518,7 @@ extension Anytype_Rpc.Export.Request: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 3: try { try decoder.decodeSingularEnumField(value: &self.format) }()
       case 4: try { try decoder.decodeSingularBoolField(value: &self.zip) }()
       case 5: try { try decoder.decodeSingularBoolField(value: &self.includeNested) }()
+      case 6: try { try decoder.decodeSingularBoolField(value: &self.includeFiles) }()
       default: break
       }
     }
@@ -39535,6 +39540,9 @@ extension Anytype_Rpc.Export.Request: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if self.includeNested != false {
       try visitor.visitSingularBoolField(value: self.includeNested, fieldNumber: 5)
     }
+    if self.includeFiles != false {
+      try visitor.visitSingularBoolField(value: self.includeFiles, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -39544,6 +39552,7 @@ extension Anytype_Rpc.Export.Request: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.format != rhs.format {return false}
     if lhs.zip != rhs.zip {return false}
     if lhs.includeNested != rhs.includeNested {return false}
+    if lhs.includeFiles != rhs.includeFiles {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
