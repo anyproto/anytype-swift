@@ -21,9 +21,12 @@ struct HomeView: View {
             .onAppear {
                 Amplitude.instance().logEvent(AmplitudeEventsName.dashboardPage)
 
-                model.viewLoaded()
+                model.onAppear()
                 
                 UserDefaultsConfig.storeOpenedScreenData(nil)
+            }
+            .onDisappear {
+                model.onDisappear()
             }
     }
     
