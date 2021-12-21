@@ -89,7 +89,7 @@ final class EditorPageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel.viewLoaded()
+        viewModel.viewDidLoad()
         bindViewModel()
         setEditing(true, animated: false)
         collectionView.allowsSelectionDuringEditing = true
@@ -97,6 +97,7 @@ final class EditorPageController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
         
         navigationBarHelper.handleViewWillAppear(controllerForNavigationItems, collectionView)
         
@@ -109,11 +110,13 @@ final class EditorPageController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.viewAppeared()
+        viewModel.viewDidAppear()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        viewModel.viewWillDisappear()
         
         navigationBarHelper.handleViewWillDisappear()
         insetsHelper = nil
