@@ -108,7 +108,7 @@ struct ObjectBasicIconPicker: View {
         .frame(maxWidth: .infinity)
     }
     
-    private func handleSelectedEmoji(_ emoji: Emoji) {
+    private func handleSelectedEmoji(_ emoji: EmojiData) {
         viewModel.setEmoji(emoji.emoji)
         dismiss()
     }

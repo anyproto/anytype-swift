@@ -18,7 +18,7 @@ struct TextRelationEditingView: View {
                 .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                 .opacity(0)
                 .padding(6)
-                .background(FrameCatcher { height = $0.height })
+                .readSize { height = $0.height }
             
             if(viewModel.value.isEmpty) {
                 AnytypeText(viewModel.valueType.placeholder, style: .uxBodyRegular, color: .textTertiary)

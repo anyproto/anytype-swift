@@ -1,9 +1,11 @@
+import AnytypeCore
+
 enum ObjectIconType: Hashable {
     
     case basic(String)
     case profile(Profile)
     
-    case emoji(IconEmoji)
+    case emoji(Emoji)
     
 }
 
