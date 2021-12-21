@@ -61,7 +61,7 @@ struct RelationObjectsEditingView: View {
                 editMode?.wrappedValue.toggle()
             }
         } label: {
-            AnytypeText(editMode?.wrappedValue == .active ? "Done" : "Edit", style: .uxBodyRegular, color: .grayscale50)
+            AnytypeText(editMode?.wrappedValue == .active ? "Done".localized : "Edit".localized, style: .uxBodyRegular, color: .grayscale50)
         }
     }
     
