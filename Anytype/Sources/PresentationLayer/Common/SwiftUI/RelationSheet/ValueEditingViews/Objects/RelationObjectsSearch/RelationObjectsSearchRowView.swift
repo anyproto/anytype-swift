@@ -3,8 +3,18 @@ import SwiftUI
 struct RelationObjectsSearchRowView: View {
     
     let data: RelationObjectsSearchData
+    let isSelected: Bool
+    let onTap: () -> ()
     
     var body: some View {
+        Button {
+            onTap()
+        } label: {
+            content
+        }
+    }
+    
+    private var content: some View {
         HStack(alignment: .center, spacing: 0) {
             SwiftUIObjectIconImageView(
                 iconImage: data.iconImage,
@@ -13,6 +23,10 @@ struct RelationObjectsSearchRowView: View {
             Spacer.fixedWidth(12)
             text
             Spacer()
+            
+            if isSelected {
+                Image.optionChecked.foregroundColor(.textSecondary)
+            }
         }
         .frame(height: 64)
         .padding(.horizontal, 20)
@@ -38,7 +52,8 @@ struct RelationObjectsSearchRowView_Previews: PreviewProvider {
                 iconImage: .todo(true),
                 title: "title",
                 subtitle: "subtitle"
-            )
-        )
+            ),
+            isSelected: true
+        ) {}
     }
 }

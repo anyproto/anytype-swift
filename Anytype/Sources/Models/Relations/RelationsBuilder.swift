@@ -302,7 +302,7 @@ private extension RelationsBuilder {
                     id: objectDetail.id,
                     icon: icon,
                     title: name,
-                    type: objectDetail.type
+                    type: objectDetail.objectType.name
                 )
             }
             
@@ -369,7 +369,7 @@ private extension RelationsBuilder {
                     id: objectDetail.id,
                     icon: icon,
                     title: fileName,
-                    type: objectDetail.type
+                    type: objectDetail.objectType.name
                 )
             }
             

@@ -54,7 +54,17 @@ extension RelationObjectsEditingViewModel {
     var relationObjectsSearchViewModel: RelationObjectsSearchViewModel {
         RelationObjectsSearchViewModel(
             excludeObjectIds: selectedObjects.map { $0.id }
-        )
+        ) { [ weak self] newObjectIds in
+            guard let self = self else { return }
+            
+            let selectedObjectIds = self.selectedObjects.map { $0.id }
+            let newValue = selectedObjectIds + newObjectIds
+            self.relationsService.updateRelation(
+                relationKey: self.relationKey,
+                value: newValue.protobufValue
+            )
+            self.isPresented = false
+        }
     }
 }
 
