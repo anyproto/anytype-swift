@@ -107,7 +107,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             let header = headerBuilder.objectHeader(details: details)
 
             objectSettingsViewModel.update(
-                objectDetailsStorage: document.detailsStorage,
                 objectRestrictions: document.objectRestrictions,
                 parsedRelations: document.parsedRelations
             )
@@ -238,7 +237,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         viewInput?.update(blocks: modelsHolder.models)
 
         objectSettingsViewModel.update(
-            objectDetailsStorage: document.detailsStorage,
             objectRestrictions: document.objectRestrictions,
             parsedRelations: document.parsedRelations
         )

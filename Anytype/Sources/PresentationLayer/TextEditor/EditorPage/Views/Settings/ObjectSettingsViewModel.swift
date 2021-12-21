@@ -37,7 +37,6 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     init(
         objectId: String,
-        detailsStorage: ObjectDetailsStorageProtocol,
         objectDetailsService: DetailsService,
         popScreenAction: @escaping () -> (),
         onRelationValueEditingTap: @escaping (String) -> ()
@@ -67,11 +66,10 @@ final class ObjectSettingsViewModel: ObservableObject {
     }
     
     func update(
-        objectDetailsStorage: ObjectDetailsStorageProtocol,
         objectRestrictions: ObjectRestrictions,
         parsedRelations: ParsedRelations
     ) {
-        if let details = objectDetailsStorage.get(id: objectId) {
+        if let details = ObjectDetailsStorage.shared.get(id: objectId) {
             objectActionsViewModel.details = details
             self.details = details
             iconPickerViewModel.details = details

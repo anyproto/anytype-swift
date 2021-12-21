@@ -32,10 +32,9 @@ final class RelationsBuilder {
     
     func parsedRelations(
         relationMetadatas: [RelationMetadata],
-        objectId: BlockId,
-        detailsStorage: ObjectDetailsStorageProtocol
+        objectId: BlockId
     ) -> ParsedRelations {
-        guard let objectDetails = detailsStorage.get(id: objectId) else {
+        guard let objectDetails = ObjectDetailsStorage.shared.get(id: objectId) else {
             return .empty
         }
         
@@ -47,8 +46,7 @@ final class RelationsBuilder {
             
             let value = relation(
                 relationMetadata: relationMetadata,
-                details: objectDetails,
-                detailsStorage: detailsStorage
+                details: objectDetails
             )
             
             if value.isFeatured {
@@ -67,7 +65,7 @@ final class RelationsBuilder {
 
 private extension RelationsBuilder {
     
-    func relation(relationMetadata: RelationMetadata, details: ObjectDetails, detailsStorage: ObjectDetailsStorageProtocol) -> Relation {
+    func relation(relationMetadata: RelationMetadata, details: ObjectDetails) -> Relation {
         switch relationMetadata.format {
         case .longText:
             return textRelation(metadata: relationMetadata, details: details)
@@ -80,7 +78,7 @@ private extension RelationsBuilder {
         case .date:
             return dateRelation(metadata: relationMetadata, details: details)
         case .file:
-            return fileRelation(metadata: relationMetadata, details: details, detailsStorage: detailsStorage)
+            return fileRelation(metadata: relationMetadata, details: details)
         case .checkbox:
             return checkboxRelation(metadata: relationMetadata, details: details)
         case .url:
@@ -92,7 +90,7 @@ private extension RelationsBuilder {
         case .tag:
             return tagRelation(metadata: relationMetadata, details: details)
         case .object:
-            return objectRelation(metadata: relationMetadata, details: details, detailsStorage: detailsStorage)
+            return objectRelation(metadata: relationMetadata, details: details)
         case .unrecognized:
             return .text(
                 Relation.Text(
@@ -266,8 +264,7 @@ private extension RelationsBuilder {
     
     func objectRelation(
         metadata: RelationMetadata,
-        details: ObjectDetails,
-        detailsStorage: ObjectDetailsStorageProtocol
+        details: ObjectDetails
     ) -> Relation {
         let objectOptions: [Relation.Object.Option] = {
             let value = details.values[metadata.key]
@@ -284,7 +281,7 @@ private extension RelationsBuilder {
             let objectDetails: [ObjectDetails] = values.compactMap {
                 let objectId = $0.stringValue
                 guard objectId.isNotEmpty else { return nil }
-                let objectDetails = detailsStorage.get(id: objectId)
+                let objectDetails = ObjectDetailsStorage.shared.get(id: objectId)
                 return objectDetails
             }
 
@@ -322,8 +319,7 @@ private extension RelationsBuilder {
     
     func fileRelation(
         metadata: RelationMetadata,
-        details: ObjectDetails,
-        detailsStorage: ObjectDetailsStorageProtocol
+        details: ObjectDetails
     ) -> Relation {
         let objectOptions: [Relation.Object.Option] = {
             let value = details.values[metadata.key]
@@ -333,7 +329,7 @@ private extension RelationsBuilder {
                 let objectId = $0.stringValue
                 guard objectId.isNotEmpty else { return nil }
                 
-                let objectDetails = detailsStorage.get(id: objectId)
+                let objectDetails = ObjectDetailsStorage.shared.get(id: objectId)
                 return objectDetails
             }
 

@@ -39,7 +39,6 @@ final class BlockViewModelBuilder {
                 return CodeBlockViewModel(
                     block: block,
                     content: content,
-                    detailsStorage: document.detailsStorage,
                     becomeFirstResponder: { [weak self] model in
                         self?.delegate.becomeFirstResponder(blockId: model.information.id)
                     },
@@ -65,7 +64,6 @@ final class BlockViewModelBuilder {
                     isCheckable: isCheckable,
                     blockDelegate: delegate,
                     actionHandler: handler,
-                    detailsStorage: document.detailsStorage,
                     showPage: { [weak self] data in
                         self?.router.showPage(data: data)
                     },
@@ -147,7 +145,7 @@ final class BlockViewModelBuilder {
                 }
             )
         case let .link(content):
-            let details = document.detailsStorage.get(id: content.targetBlockID)
+            let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID)
             return BlockLinkViewModel(
                 indentationLevel: block.indentationLevel,
                 information: block.information,

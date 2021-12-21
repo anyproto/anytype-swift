@@ -65,7 +65,7 @@ final class EditorRouter: EditorRouterProtocol {
     }
 
     func showPage(data: EditorScreenData) {
-        if let details = document.detailsStorage.get(id: data.pageId)  {
+        if let details = ObjectDetailsStorage.shared.get(id: data.pageId)  {
             guard ObjectTypeProvider.isSupported(typeUrl: details.type) else {
                 showUnsupportedTypeAlert(typeUrl: details.type)
                 return
