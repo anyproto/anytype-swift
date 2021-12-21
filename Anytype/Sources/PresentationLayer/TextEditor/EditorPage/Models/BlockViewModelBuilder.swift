@@ -167,7 +167,7 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                // TODO: reimplement when relation edit will be ready
+                #warning("reimplement when relation edit will be ready")
 
                 if relation.id == BundledRelationKey.type.rawValue {
                     guard
