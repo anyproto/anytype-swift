@@ -6,6 +6,7 @@ struct SearchNewRelationView: View {
     @Environment(\.presentationMode) var presentationMode
 
     @State private var searchText = ""
+    @State private var showCreateNewRelation: Bool = false
     @StateObject var viewModel: SearchNewRelationViewModel
 
     var body: some View {
@@ -16,6 +17,11 @@ struct SearchNewRelationView: View {
         }
         .onChange(of: searchText) { search(text: $0) }
         .onAppear { search(text: "") }
+        .onReceive(viewModel.$shouldDismiss) { shouldDismiss in
+            if shouldDismiss {
+                presentationMode.wrappedValue.dismiss()
+            }
+        }
     }
 
     private var content: some View {
@@ -37,7 +43,7 @@ struct SearchNewRelationView: View {
                         Section {
                             Button(
                                 action: {
-                                    presentationMode.wrappedValue.dismiss()
+                                    showCreateNewRelation = true
                                 }
                             ) {
                                 NewRelationCell(cellKind: .createNew)
@@ -45,6 +51,9 @@ struct SearchNewRelationView: View {
                             }
                             .frame(maxWidth: .infinity)
                             .modifier(DividerModifier(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading))
+                            .sheet(isPresented: $showCreateNewRelation) {
+                                CreateNewRelationView(viewModel: viewModel.createNewRelationViewModel)
+                            }
                         }
                     case let .addFromLibriry(relationsMetaData):
                         Section(content: {
