@@ -1,4 +1,5 @@
 import Foundation
+import BlocksModels
 
 struct RelationObjectsSearchData: Hashable, Identifiable {
     let id: String
@@ -6,24 +7,23 @@ struct RelationObjectsSearchData: Hashable, Identifiable {
     let iconImage: ObjectIconImage
     let title: String
     let subtitle: String
-    
 }
 
 extension RelationObjectsSearchData {
     
-    init(searchData: SearchData) {
-        self.id = searchData.id
+    init(details: ObjectDetails) {
+        self.id = details.id
         
-        let title = searchData.title
+        let title = details.title
         self.iconImage = {
-            if searchData.layout == .todo {
-                return .todo(searchData.isDone)
+            if details.layout == .todo {
+                return .todo(details.isDone)
             } else {
-                return searchData.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
+                return details.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
             }
         }()
         self.title = title
-        self.subtitle = searchData.objectType.name
+        self.subtitle = details.objectType.name
     }
     
 }

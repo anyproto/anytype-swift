@@ -35,7 +35,7 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
     var onDismiss: () -> () = {}
 
     func search(text: String) {
-        let result: [SearchData]? = {
+        let result: [ObjectDetails]? = {
             switch searchKind {
             case .objects:
                 return service.search(text: text)
@@ -46,8 +46,8 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
                 )
             }
         }()
-        let objectsSearchData = result?.compactMap { searchData in
-            ObjectSearchData(searchKind: searchKind, searchData: searchData)
+        let objectsSearchData = result?.compactMap { details in
+            ObjectSearchData(searchKind: searchKind, details: details)
         }
 
         guard let objectsSearchData = objectsSearchData, objectsSearchData.isNotEmpty else {
@@ -71,7 +71,7 @@ struct ObjectSearchData: SearchDataProtocol {
     let id = UUID()
 
     let searchKind: SearchKind
-    private let searchData: SearchData
+    private let details: ObjectDetails
 
     let blockId: BlockId
     let searchTitle: String
@@ -101,27 +101,27 @@ struct ObjectSearchData: SearchDataProtocol {
     }
 
     var iconImage: ObjectIconImage {
-        let layout = searchData.layout
+        let layout = details.layout
         if layout == .todo {
-            return .todo(searchData.isDone)
+            return .todo(details.isDone)
         } else {
-            return searchData.icon.flatMap { .icon($0) } ?? .placeholder(searchTitle.first)
+            return details.icon.flatMap { .icon($0) } ?? .placeholder(searchTitle.first)
         }
     }
 
     var callout: String {
-        searchData.objectType.name
+        details.objectType.name
     }
     
     var viewType: EditorViewType {
-        searchData.editorViewType
+        details.editorViewType
     }
 
-    init(searchKind: SearchKind, searchData: SearchData) {
-        self.searchData = searchData
+    init(searchKind: SearchKind, details: ObjectDetails) {
+        self.details = details
         self.searchKind = searchKind
-        self.searchTitle = searchData.title
-        self.description = searchData.description
-        self.blockId = searchData.id
+        self.searchTitle = details.title
+        self.description = details.description
+        self.blockId = details.id
     }
 }

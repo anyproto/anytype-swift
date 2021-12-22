@@ -26,7 +26,7 @@ extension RelationObjectsSearchViewModel {
             return
         }
 
-        objects = result.map { RelationObjectsSearchData(searchData: $0) }
+        objects = result.map { RelationObjectsSearchData(details: $0) }
     }
     
     func didTapOnObject(_ object: RelationObjectsSearchData) {
