@@ -69,16 +69,8 @@ extension RelationOptionsViewModel {
     private var objectsSearchViewModel: RelationObjectsSearchViewModel {
         RelationObjectsSearchViewModel(
             excludeObjectIds: selectedOptions.map { $0.id }
-        ) { [weak self] newObjectIds in
-            guard let self = self else { return }
-            
-            let selectedObjectIds = self.selectedOptions.map { $0.id }
-            let newValue = selectedObjectIds + newObjectIds
-            self.relationsService.updateRelation(
-                relationKey: self.relationKey,
-                value: newValue.protobufValue
-            )
-            self.isPresented = false
+        ) { [weak self] ids in
+            self?.handleNewOptionIds(ids)
         }
     }
     
@@ -89,20 +81,21 @@ extension RelationOptionsViewModel {
                 !selectedOptions.contains { $0.id == tag.id }
             },
             relationsService: relationsService
-        ) { [weak self] newTagIds in
-            guard let self = self else { return }
-            
-            let selectedTagIds = self.selectedOptions.map { $0.id }
-            let newValue = selectedTagIds + newTagIds
-            self.relationsService.updateRelation(
-                relationKey: self.relationKey,
-                value: newValue.protobufValue
-            )
-            self.isPresented = false
+        ) { [weak self] ids in
+            self?.handleNewOptionIds(ids)
         }
     }
     
-    
+    private func handleNewOptionIds(_ ids: [String]) {
+        let newSelectedOptionsIds = selectedOptions.map { $0.id } + ids
+        
+        relationsService.updateRelation(
+            relationKey: relationKey,
+            value: newSelectedOptionsIds.protobufValue
+        )
+        
+        isPresented = false
+    }
     
 }
 
