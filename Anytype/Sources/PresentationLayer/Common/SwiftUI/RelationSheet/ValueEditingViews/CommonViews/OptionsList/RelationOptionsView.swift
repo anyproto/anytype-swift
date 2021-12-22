@@ -117,6 +117,13 @@ private extension RelationOptionsView {
     
 }
 
+private extension EditMode {
+
+    mutating func toggle() {
+        self = self == .active ? .inactive : .active
+    }
+}
+
 //struct RelationOptionsView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        RelationOptionsView()
