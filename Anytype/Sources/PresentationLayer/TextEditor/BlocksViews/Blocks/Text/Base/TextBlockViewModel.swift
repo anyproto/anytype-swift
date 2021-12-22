@@ -21,7 +21,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     private let actionHandler: BlockActionHandlerProtocol
     private let focusSubject = PassthroughSubject<BlockFocusPosition, Never>()
-    private let detailsStorage: ObjectDetailsStorageProtocol
     
     var hashable: AnyHashable {
         [
@@ -39,7 +38,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         isCheckable: Bool,
         blockDelegate: BlockDelegate,
         actionHandler: BlockActionHandlerProtocol,
-        detailsStorage: ObjectDetailsStorageProtocol,
         showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void
     ) {
@@ -54,7 +52,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.toggled = block.isToggled
         self.information = block.information
         self.indentationLevel = block.indentationLevel
-        self.detailsStorage = detailsStorage
     }
     
     func set(focus: BlockFocusPosition) {
@@ -73,8 +70,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             actionHandler: actionHandler,
             showPage: showPage,
             openURL: openURL,
-            focusPublisher: focusSubject.eraseToAnyPublisher(),
-            detailsStorage: detailsStorage
+            focusPublisher: focusSubject.eraseToAnyPublisher()
         )
     }
 }

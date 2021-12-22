@@ -18,7 +18,6 @@ struct TextBlockContentConfiguration: BlockConfigurationProtocol {
     
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     let actionHandler: BlockActionHandlerProtocol
-    let detailsStorage: ObjectDetailsStorageProtocol
     let showPage: (EditorScreenData) -> Void
     let openURL: (URL) -> Void
         
@@ -34,8 +33,7 @@ struct TextBlockContentConfiguration: BlockConfigurationProtocol {
         actionHandler: BlockActionHandlerProtocol,
         showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
-        focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
-        detailsStorage: ObjectDetailsStorageProtocol
+        focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     ) {
         self.blockDelegate = blockDelegate
         self.block = block
@@ -47,9 +45,8 @@ struct TextBlockContentConfiguration: BlockConfigurationProtocol {
         self.focusPublisher = focusPublisher
         self.information = block.information
         self.isCheckable = isCheckable
-        self.detailsStorage = detailsStorage
         
-        self.text = content.anytypeText(using: detailsStorage)
+        self.text = content.anytypeText
         shouldDisplayPlaceholder = block.isToggled && block.information.childrenIds.isEmpty
     }
     

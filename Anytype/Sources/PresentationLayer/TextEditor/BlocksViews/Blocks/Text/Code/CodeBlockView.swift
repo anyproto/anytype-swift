@@ -46,7 +46,7 @@ final class CodeBlockView: BaseBlockView<CodeBlockContentConfiguration> {
     private func applyNewConfiguration() {
         codeSelectButton.setText(currentConfiguration.codeLanguage.rawValue)
         textStorage.language = currentConfiguration.codeLanguage.rawValue
-        textStorage.highlightr.highlight(currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage).attrString.string).flatMap {
+        textStorage.highlightr.highlight(currentConfiguration.content.anytypeText.attrString.string).flatMap {
             textStorage.setAttributedString($0)
         }
         
