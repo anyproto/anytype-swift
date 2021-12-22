@@ -6,20 +6,17 @@ import SwiftProtobuf
 final class MiddlewareEventConverter {
     private let updater: BlockUpdater
     private let blocksContainer: BlockContainerModelProtocol
-    private let detailsStorage: ObjectDetailsStorageProtocol
     private let relationStorage: RelationsMetadataStorageProtocol
     
     private let informationCreator: BlockInformationCreator
     
     init(
         blocksContainer: BlockContainerModelProtocol,
-        detailsStorage: ObjectDetailsStorageProtocol,
         relationStorage: RelationsMetadataStorageProtocol,
         informationCreator: BlockInformationCreator
     ) {
         self.updater = BlockUpdater(blocksContainer)
         self.blocksContainer = blocksContainer
-        self.detailsStorage = detailsStorage
         self.relationStorage = relationStorage
         self.informationCreator = informationCreator
     }
@@ -91,7 +88,7 @@ final class MiddlewareEventConverter {
             let id = value.id
             
             let details = ObjectDetails(id: id, values: value.details.fields)
-            detailsStorage.add(details: details)
+            ObjectDetailsStorage.shared.add(details: details)
             
             return .details(id: id)
             
@@ -100,12 +97,12 @@ final class MiddlewareEventConverter {
             
             let id = amend.id
             
-            guard let currentDetails = detailsStorage.get(id: id) else {
+            guard let currentDetails = ObjectDetailsStorage.shared.get(id: id) else {
                 return nil
             }
             
             let updatedDetails = currentDetails.updated(by: amend.details.asDetailsDictionary)
-            detailsStorage.add(details: updatedDetails)
+            ObjectDetailsStorage.shared.add(details: updatedDetails)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
@@ -123,12 +120,12 @@ final class MiddlewareEventConverter {
         case let .objectDetailsUnset(payload):
             let id = payload.id
             
-            guard let currentDetails = detailsStorage.get(id: id) else {
+            guard let currentDetails = ObjectDetailsStorage.shared.get(id: id) else {
                 return nil
             }
             
             let updatedDetails = currentDetails.removed(keys: payload.keys)
-            detailsStorage.add(details: updatedDetails)
+            ObjectDetailsStorage.shared.add(details: updatedDetails)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark

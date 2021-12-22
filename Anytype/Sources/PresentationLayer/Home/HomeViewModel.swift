@@ -130,7 +130,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
-        guard let newDetails = document.detailsStorage.get(id: blockId) else {
+        guard let newDetails = ObjectDetailsStorage.shared.get(id: blockId) else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .homeView)
             return
         }

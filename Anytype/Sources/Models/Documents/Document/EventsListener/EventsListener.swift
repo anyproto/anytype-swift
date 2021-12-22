@@ -27,7 +27,6 @@ final class EventsListener: EventsListenerProtocol {
     init(
         objectId: BlockId,
         blocksContainer: BlockContainerModelProtocol,
-        detailsStorage: ObjectDetailsStorageProtocol,
         relationStorage: RelationsMetadataStorageProtocol
     ) {
         self.objectId = objectId
@@ -39,18 +38,15 @@ final class EventsListener: EventsListenerProtocol {
         )
         self.middlewareConverter = MiddlewareEventConverter(
             blocksContainer: blocksContainer,
-            detailsStorage: detailsStorage,
             relationStorage: relationStorage,
             informationCreator: informationCreator
         )
         self.localConverter = LocalEventConverter(
-            blocksContainer: blocksContainer,
-            detailsStorage: detailsStorage
+            blocksContainer: blocksContainer
         )
         self.mentionMarkupEventProvider = MentionMarkupEventProvider(
             objectId: objectId,
-            blocksContainer: blocksContainer,
-            detailsStorage: detailsStorage
+            blocksContainer: blocksContainer
         )
     }
     

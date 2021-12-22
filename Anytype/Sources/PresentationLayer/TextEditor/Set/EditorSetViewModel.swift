@@ -20,8 +20,7 @@ final class EditorSetViewModel: ObservableObject {
         records.map {
             let relations = relationsBuilder.parsedRelations(
                 relationMetadatas: dataView.activeViewRelations,
-                objectId: $0.id,
-                detailsStorage: detailsStorage
+                objectId: $0.id
             ).all
             
             let sortedRelations = colums.compactMap { colum in
@@ -52,7 +51,6 @@ final class EditorSetViewModel: ObservableObject {
     private let relationsBuilder = RelationsBuilder(scope: .type)
     
     @Published private var records: [ObjectDetails] = []
-    private var detailsStorage = ObjectDetailsStorage()
     private var subscription: AnyCancellable?
     
     init(document: BaseDocument) {
@@ -123,7 +121,7 @@ final class EditorSetViewModel: ObservableObject {
             return ObjectDetails(id: id, values: record.fields)
         }
         
-        records.forEach { detailsStorage.add(details: $0) }
+        records.forEach { ObjectDetailsStorage.shared.add(details: $0) }
     }
     
     private func extractDataViewFromDocument() -> BlockDataview? {

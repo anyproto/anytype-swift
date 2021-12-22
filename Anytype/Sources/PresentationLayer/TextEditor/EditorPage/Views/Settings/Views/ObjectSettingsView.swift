@@ -96,7 +96,6 @@ struct ObjectSettingsView_Previews: PreviewProvider {
             .environmentObject(
                 ObjectSettingsViewModel(
                     objectId: "dummyPageId",
-                    detailsStorage: ObjectDetailsStorage(),
                     objectDetailsService: DetailsService(objectId: ""),
                     popScreenAction: {},
                     onRelationValueEditingTap: { _ in }

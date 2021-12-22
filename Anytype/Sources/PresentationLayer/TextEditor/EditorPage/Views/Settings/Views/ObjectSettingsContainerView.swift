@@ -92,7 +92,6 @@ struct ObjectSettingsContainerView_Previews: PreviewProvider {
         ObjectSettingsContainerView(
             viewModel: ObjectSettingsViewModel(
                 objectId: "dummyPageId",
-                detailsStorage: ObjectDetailsStorage(),
                 objectDetailsService: DetailsService(objectId: ""),
                 popScreenAction: {},
                 onRelationValueEditingTap: { _ in }
