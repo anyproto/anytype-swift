@@ -14,7 +14,7 @@ final class RelationOptionsViewModel: ObservableObject {
     private let type: RelationOptionsType
     private let relationKey: String
     private let relationsService: RelationsServiceProtocol
-    private var editingActions: [TagRelationEditingAction] = []
+    private var editingActions: [RelationOptionEditingAction] = []
     
     init(
         type: RelationOptionsType,
@@ -35,8 +35,7 @@ final class RelationOptionsViewModel: ObservableObject {
 
 extension RelationOptionsViewModel {
     
-    #warning("TODO: rename TagRelationEditingAction")
-    func postponeEditingAction(_ action: TagRelationEditingAction) {
+    func postponeEditingAction(_ action: RelationOptionEditingAction) {
         editingActions.append(action)
     }
     

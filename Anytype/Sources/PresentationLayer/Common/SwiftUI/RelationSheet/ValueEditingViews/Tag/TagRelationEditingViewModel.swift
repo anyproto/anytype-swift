@@ -15,7 +15,7 @@ final class TagRelationEditingViewModel: ObservableObject {
     
     private let relationsService: RelationsServiceProtocol
     
-    private var editingActions: [TagRelationEditingAction] = []
+    private var editingActions: [RelationOptionEditingAction] = []
     
     init(
         relationTag: Relation.Tag,
@@ -29,7 +29,7 @@ final class TagRelationEditingViewModel: ObservableObject {
         self.relationsService = relationsService
     }
     
-    func postponeEditingAction(_ action: TagRelationEditingAction) {
+    func postponeEditingAction(_ action: RelationOptionEditingAction) {
         editingActions.append(action)
     }
     
