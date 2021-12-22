@@ -18,17 +18,25 @@ final class FirstResponderHelper {
     }
     
     private func textViewDidBeginEditing(with notification: Notification) {
-        guard let textView = notification.object as? UITextView,
-              let window = textView.window,
-              let textViewFrame = textView.superview?.convert(textView.frame, to: window),
-              let keyboardFrame = keyboardFrame else {
+        guard
+            let textView = notification.object as? UITextView,
+            let window = textView.window,
+            let textViewFrame = textView.superview?.convert(textView.frame, to: window),
+            let keyboardFrame = keyboardFrame
+        else {
             return
         }
-        let distance = textViewFrame.maxY - keyboardFrame.minY
+        
+        let distance: CGFloat = textViewFrame.maxY - keyboardFrame.minY
         guard distance > -Constants.minSpacingAboveKeyboard else { return }
         UIView.animate(withDuration: CATransaction.animationDuration()) { [weak self] in
-            self?.scrollView?.contentOffset.y += distance + Constants.minSpacingAboveKeyboard
+            self?.adjustScrollViewContentOffsetY(distance: distance)
         }
+    }
+    
+    private func adjustScrollViewContentOffsetY(distance: CGFloat) {
+        let newDistance: CGFloat = distance + Constants.minSpacingAboveKeyboard
+        scrollView?.contentOffset.y += newDistance
     }
     
     private func keyboardWillShowNotification(with notification: Notification) {

@@ -25,8 +25,8 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
 
         let result = service.search(text: text)
 
-        var objectData = result?.compactMap { searchData in
-            LinkToObjectSearchData(searchData: searchData)
+        var objectData = result?.compactMap { details in
+            LinkToObjectSearchData(details: details)
         }
 
         if text.isNotEmpty {
@@ -92,20 +92,20 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         }
     }
     
-    init(searchData: SearchData) {
-        self.searchKind = .object(searchData.id)
-        self.searchTitle = searchData.title
-        self.description = searchData.description
-        self.viewType = searchData.editorViewType
+    init(details: ObjectDetails) {
+        self.searchKind = .object(details.id)
+        self.searchTitle = details.title
+        self.description = details.description
+        self.viewType = details.editorViewType
 
-        let layout = searchData.layout
+        let layout = details.layout
         if layout == .todo {
-            self.iconImage =  .todo(searchData.isDone)
+            self.iconImage =  .todo(details.isDone)
         } else {
-            self.iconImage = searchData.icon.flatMap { .icon($0) } ?? .placeholder(searchTitle.first)
+            self.iconImage = details.icon.flatMap { .icon($0) } ?? .placeholder(searchTitle.first)
         }
 
-        callout = searchData.objectType.name
+        callout = details.objectType.name
     }
 
     init(searchKind: LinkToObjectSearchViewModel.SearchKind, searchTitle: String, iconImage: ObjectIconImage) {

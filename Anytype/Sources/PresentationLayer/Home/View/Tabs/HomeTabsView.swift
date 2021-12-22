@@ -14,6 +14,8 @@ extension HomeTabsView {
 }
 
 struct HomeTabsView: View {
+    private let cornerRadius: CGFloat = 16
+
     @EnvironmentObject var model: HomeViewModel
     @State private var tabSelection = UserDefaultsConfig.selectedTab
     
@@ -24,6 +26,7 @@ struct HomeTabsView: View {
     var body: some View {
         VStack(spacing: 0) {
             HomeTabsHeader(tabSelection: $tabSelection, onTabSelection: onTabSelection)
+                .cornerRadius(cornerRadius, corners: [.topLeft, .topRight])
                 .highPriorityGesture(
                     DragGesture(coordinateSpace: .named(model.bottomSheetCoordinateSpaceName))
                         .onChanged { gesture in

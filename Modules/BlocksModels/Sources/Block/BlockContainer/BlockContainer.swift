@@ -38,11 +38,7 @@ public final class BlockContainer: BlockContainerModelProtocol {
         }
     }
 
-    public func add(_ block: BlockModelProtocol) {        
-        if models[block.information.id] != nil {
-            anytypeAssertionFailure("We shouldn't replace block by add operation. Skipping...", domain: .blockContainer)
-            return
-        }
+    public func add(_ block: BlockModelProtocol) {
         models[block.information.id] = block
     }
 

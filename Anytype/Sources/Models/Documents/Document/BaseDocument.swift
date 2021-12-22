@@ -62,6 +62,10 @@ final class BaseDocument: BaseDocumentProtocol {
         return true
     }
     
+    func close(){
+        blockActionsService.close(contextId: objectId, blockId: objectId)
+    }
+    
     var objectDetails: ObjectDetails? {
         detailsStorage.get(id: objectId)
     }
