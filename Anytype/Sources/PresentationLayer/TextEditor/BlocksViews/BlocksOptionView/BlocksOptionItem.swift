@@ -1,6 +1,7 @@
 import UIKit
 
 enum BlocksOptionItem: CaseIterable, Comparable {
+    case style
     case download
     case delete
     case addBlockBelow
@@ -15,6 +16,8 @@ extension BlocksOptionItem {
 
     var image: UIImage {
         switch self {
+        case .style:
+            return UIImage.edititngToolbar.style
         case .delete:
             return BlockOptionImage.delete
         case .addBlockBelow:
@@ -34,6 +37,8 @@ extension BlocksOptionItem {
 
     var title: String {
         switch self {
+        case .style:
+            return "Style".localized
         case .delete:
             return "Delete".localized
         case .addBlockBelow:
