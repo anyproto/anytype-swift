@@ -70,8 +70,11 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 relationsService: RelationsService(objectId: objectId)
             )
         case .tag(let tag):
-            return TagRelationEditingViewModel(
-                relationTag: tag,
+            return RelationOptionsViewModel(
+                type: .tags(tag.allTags),
+                title: tag.name,
+                relationKey: tag.id,
+                selectedOptions: tag.selectedTags,
                 relationsService: RelationsService(objectId: objectId)
             )
         case .object(let object):
