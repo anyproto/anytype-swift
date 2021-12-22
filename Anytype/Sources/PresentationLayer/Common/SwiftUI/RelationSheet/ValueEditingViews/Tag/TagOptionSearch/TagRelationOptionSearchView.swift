@@ -23,7 +23,7 @@ struct TagRelationOptionSearchView: View {
         ScrollView {
             LazyVStack(spacing: 0) {
                 if searchText.isNotEmpty {
-                    RelationValueOptionCreateButton(text: searchText) {
+                    RelationOptionCreateButton(text: searchText) {
                         viewModel.createOption(text: searchText)
                         presentationMode.wrappedValue.dismiss()
                     }
@@ -31,7 +31,7 @@ struct TagRelationOptionSearchView: View {
 
                 ForEach(viewModel.sections) { section in
                     Section(
-                        header: RelationValueOptionSectionHeaderView(title: section.title)
+                        header: RelationOptionsSectionHeaderView(title: section.title)
                     ) {
                         ForEach(section.options) { row($0) }
                     }

@@ -1,9 +1,9 @@
 import Foundation
 import BlocksModels
 
-final class RelationValueOptionSectionBuilder<Option: RelationValueOptionProtocol> {
+final class RelationOptionsSectionBuilder<Option: RelationSectionedOptionProtocol> {
  
-    static func sections(from options: [Option], filterText: String?) -> [RelationValueOptionSection<Option>] {
+    static func sections(from options: [Option], filterText: String?) -> [RelationOptionsSection<Option>] {
         let filter: (Bool, String) -> Bool = { scopeFilter, optionText in
             if let text = filterText, text.isNotEmpty {
                 return scopeFilter && optionText.lowercased().contains(text.lowercased())
@@ -15,10 +15,10 @@ final class RelationValueOptionSectionBuilder<Option: RelationValueOptionProtoco
         let localOptions = options.filter { filter($0.scope == .local, $0.text) }
         let otherOptions = options.filter { filter($0.scope != .local, $0.text) }
         
-        var sections: [RelationValueOptionSection<Option>] = []
+        var sections: [RelationOptionsSection<Option>] = []
         if localOptions.isNotEmpty {
             sections.append(
-                RelationValueOptionSection<Option>(
+                RelationOptionsSection<Option>(
                     id: "localOptionsSectionID",
                     title: "In this object".localized,
                     options: localOptions
@@ -28,7 +28,7 @@ final class RelationValueOptionSectionBuilder<Option: RelationValueOptionProtoco
         
         if otherOptions.isNotEmpty {
             sections.append(
-                RelationValueOptionSection<Option>(
+                RelationOptionsSection<Option>(
                     id: "otherOptionsSectionID",
                     title: "Everywhere".localized,
                     options: otherOptions

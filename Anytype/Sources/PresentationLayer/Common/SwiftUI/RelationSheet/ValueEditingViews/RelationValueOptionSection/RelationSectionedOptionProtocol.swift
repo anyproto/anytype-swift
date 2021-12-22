@@ -1,7 +1,9 @@
 import Foundation
 import BlocksModels
 
-protocol RelationValueOptionProtocol: Hashable {
+protocol RelationSectionedOptionProtocol: Hashable {
+    
     var text: String { get }
     var scope: RelationMetadata.Option.Scope { get }
+    
 }
