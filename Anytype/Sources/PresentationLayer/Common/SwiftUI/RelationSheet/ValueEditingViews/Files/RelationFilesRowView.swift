@@ -17,7 +17,7 @@ struct RelationFilesRowView: View {
             
             Spacer()
         }
-        .frame(height: 48)
+        .frame(height: 44)
     }
     
 }
