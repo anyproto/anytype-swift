@@ -3,13 +3,23 @@ import BlocksModels
 import AnytypeCore
 
 protocol SubscriptionServiceProtocol {
-    func toggleHistorySubscription(_ turnOn: Bool) -> [ObjectDetails]?
-    func toggleArchiveSubscription(_ turnOn: Bool) -> [ObjectDetails]?
-    func toggleSharedSubscription(_ turnOn: Bool) -> [ObjectDetails]?
+    func toggleSubscription(id: SubscriptionId, _ turnOn: Bool) -> [ObjectDetails]?
 }
 
 final class SubscriptionService: SubscriptionServiceProtocol {
-    func toggleHistorySubscription(_ turnOn: Bool) -> [ObjectDetails]? {
+    func toggleSubscription(id: SubscriptionId, _ turnOn: Bool) -> [ObjectDetails]? {
+        switch id {
+        case .history:
+            return toggleHistorySubscription(turnOn)
+        case .archive:
+            return toggleArchiveSubscription(turnOn)
+        case .shared:
+            return toggleSharedSubscription(turnOn)
+        }
+    }
+    
+    // MARK: - Private
+    private func toggleHistorySubscription(_ turnOn: Bool) -> [ObjectDetails]? {
         guard turnOn else {
             _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.history.rawValue])
             return nil
@@ -27,7 +37,7 @@ final class SubscriptionService: SubscriptionServiceProtocol {
         return makeRequest(subId: SubscriptionId.history.rawValue, filters: filters, sort: sort)
     }
     
-    func toggleArchiveSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
+    private func toggleArchiveSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
         guard turnOn else {
             _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.archive.rawValue])
             return nil
@@ -46,7 +56,7 @@ final class SubscriptionService: SubscriptionServiceProtocol {
         return makeRequest(subId: SubscriptionId.archive.rawValue, filters: filters, sort: sort)
     }
     
-    func toggleSharedSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
+    private func toggleSharedSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
         guard turnOn else {
             _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.shared.rawValue])
             return nil
@@ -62,8 +72,6 @@ final class SubscriptionService: SubscriptionServiceProtocol {
         return makeRequest(subId: SubscriptionId.shared.rawValue, filters: filters, sort: sort)
     }
 
-    
-    // MARK: - Private
     private let homeDetailsKeys = ["id", "icon", "iconImage", "iconEmoji", "name", "snippet", "description", "type", "layout", "isArchived", "isDeleted", "isDone" ]
     private func makeRequest(
         subId: String,

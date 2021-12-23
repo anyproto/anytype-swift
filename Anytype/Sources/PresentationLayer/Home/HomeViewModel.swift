@@ -71,14 +71,15 @@ final class HomeViewModel: ObservableObject {
     }
 
     func updateBinTab() {
-        SubscriptionsStorage.shared.toggleArchiveSubscription(true)
+        SubscriptionsStorage.shared.toggleSubscription(id: .archive, true)
     }
     func updateHistoryTab() {
-        SubscriptionsStorage.shared.toggleHistorySubscription(true)
+        SubscriptionsStorage.shared.toggleSubscription(id: .history, true)
     }
     func updateSharedTab() {
-        SubscriptionsStorage.shared.toggleSharedSubscription(true)
+        SubscriptionsStorage.shared.toggleSubscription(id: .shared, true)
     }
+    
     func updateFavoritesTab() {
         withAnimation(animationsEnabled ? .spring() : nil) {
             favoritesCellData = cellDataBuilder.buildFavoritesData()
