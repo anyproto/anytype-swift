@@ -18,7 +18,6 @@ struct RelationOptionsView: View {
 //            }
     }
     
-    #warning("TODO: Custom nav bar")
     private var content: some View {
         Group {
             if viewModel.selectedOptions.isEmpty {
