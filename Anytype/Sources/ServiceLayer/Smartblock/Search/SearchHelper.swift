@@ -21,6 +21,16 @@ class SearchHelper {
         return filter
     }
     
+    static func isDeletedFilter(isDeleted: Bool) -> Anytype_Model_Block.Content.Dataview.Filter {
+        var filter = Anytype_Model_Block.Content.Dataview.Filter()
+        filter.condition = .equal
+        filter.value = isDeleted.protobufValue
+        filter.relationKey = BundledRelationKey.isDeleted.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     static func notHiddenFilter() -> Anytype_Model_Block.Content.Dataview.Filter {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .equal
@@ -36,6 +46,16 @@ class SearchHelper {
         filter.condition = .in
         filter.value = typeUrls.protobufValue
         filter.relationKey = BundledRelationKey.type.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func layoutFilter(layouts: [Int]) -> Anytype_Model_Block.Content.Dataview.Filter {
+        var filter = Anytype_Model_Block.Content.Dataview.Filter()
+        filter.condition = .in
+        filter.value = layouts.protobufValue
+        filter.relationKey = BundledRelationKey.layout.rawValue
         filter.operator = .and
         
         return filter
