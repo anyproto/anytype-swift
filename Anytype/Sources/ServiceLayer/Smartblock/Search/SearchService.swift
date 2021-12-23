@@ -3,12 +3,12 @@ import Combine
 import BlocksModels
 
 protocol SearchServiceProtocol {
-    func search(text: String) -> [SearchData]?
-    func searchArchivedPages() -> [SearchData]?
-    func searchHistoryPages() -> [SearchData]?
-    func searchSharedPages() -> [SearchData]?
-    func searchSets() -> [SearchData]?
-    func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [SearchData]?
+    func search(text: String) -> [ObjectDetails]?
+    func searchArchivedPages() -> [ObjectDetails]?
+    func searchHistoryPages() -> [ObjectDetails]?
+    func searchSharedPages() -> [ObjectDetails]?
+    func searchSets() -> [ObjectDetails]?
+    func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -19,7 +19,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     
     // MARK: - SearchServiceProtocol
     
-    func search(text: String) -> [SearchData]? {
+    func search(text: String) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastOpenedDate,
             type: .desc
@@ -33,7 +33,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
     }
     
-    func searchArchivedPages() -> [SearchData]? {
+    func searchArchivedPages() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -47,7 +47,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return makeRequest(filters: filters, sorts: [sort], fullText: "")
     }
     
-    func searchHistoryPages() -> [SearchData]? {
+    func searchHistoryPages() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -60,7 +60,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return makeRequest(filters: filters, sorts: [sort], fullText: "")
     }
     
-    func searchSharedPages() -> [SearchData]? {
+    func searchSharedPages() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -75,7 +75,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
     }
     
-    func searchSets() -> [SearchData]? {
+    func searchSets() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -88,7 +88,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return makeRequest(filters: filters, sorts: [sort], fullText: "")
     }
     
-    func searchObjectTypes(text: String, filteringTypeUrl: String? = nil) -> [SearchData]? {
+    func searchObjectTypes(text: String, filteringTypeUrl: String? = nil) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -118,7 +118,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filters: [Anytype_Model_Block.Content.Dataview.Filter],
         sorts: [Anytype_Model_Block.Content.Dataview.Sort],
         fullText: String
-    ) -> [SearchData]? {
+    ) -> [ObjectDetails]? {
         guard let response = Anytype_Rpc.Object.Search.Service.invoke(
             filters: filters,
             sorts: sorts,
@@ -130,13 +130,13 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             ignoreWorkspace: false
         ).getValue(domain: .searchService) else { return nil }
             
-        let details: [SearchData] = response.records.compactMap { search in
+        let details: [ObjectDetails] = response.records.compactMap { search in
             let idValue = search.fields["id"]
             let idString = idValue?.unwrapedListValue.stringValue
             
             guard let id = idString, id.isNotEmpty else { return nil }
             
-            return SearchData(id: id, values: search.fields)
+            return ObjectDetails(id: id, values: search.fields)
         }
             
         return details

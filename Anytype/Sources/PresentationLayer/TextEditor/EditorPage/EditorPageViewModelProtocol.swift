@@ -12,8 +12,10 @@ protocol EditorPageViewModelProtocol {
     var modelsHolder: BlockViewModelsHolder { get }
     var actionHandler: BlockActionHandlerProtocol { get }
     
-    func viewLoaded()
-    func viewAppeared()
+    func viewDidLoad()
+    func viewWillAppear()
+    func viewDidAppear()
+    func viewWillDisappear()
 
     func didSelectBlock(at indexPath: IndexPath)
 

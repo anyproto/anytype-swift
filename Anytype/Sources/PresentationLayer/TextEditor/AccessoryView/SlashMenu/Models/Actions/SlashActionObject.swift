@@ -1,4 +1,6 @@
+import BlocksModels
+
 enum SlashActionObject {
     case linkTo
-    case objectType(SearchData)
+    case objectType(ObjectDetails)
 }

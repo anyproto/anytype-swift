@@ -5,7 +5,6 @@ struct CodeBlockContentConfiguration: BlockConfigurationProtocol {
     let content: BlockText
     let backgroundColor: MiddlewareColor?
     let codeLanguage: CodeLanguage
-    let detailsStorage: ObjectDetailsStorageProtocol
     let becomeFirstResponder: () -> ()
     let textDidChange: (UITextView) -> ()
     let showCodeSelection: () -> ()

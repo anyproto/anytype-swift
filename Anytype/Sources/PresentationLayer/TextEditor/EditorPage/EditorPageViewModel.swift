@@ -107,7 +107,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             let header = headerBuilder.objectHeader(details: details)
 
             objectSettingsViewModel.update(
-                objectDetailsStorage: document.detailsStorage,
                 objectRestrictions: document.objectRestrictions,
                 parsedRelations: document.parsedRelations
             )
@@ -238,7 +237,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         viewInput?.update(blocks: modelsHolder.models)
 
         objectSettingsViewModel.update(
-            objectDetailsStorage: document.detailsStorage,
             objectRestrictions: document.objectRestrictions,
             parsedRelations: document.parsedRelations
         )
@@ -256,17 +254,23 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 // MARK: - View output
 
 extension EditorPageViewModel {
-    func viewLoaded() {
+    func viewDidLoad() {
+        Amplitude.instance().logDocumentShow(document.objectId)
+    }
+    
+    func viewWillAppear() {
         guard document.open() else {
             router.goBack()
             return
         }
-        
-        Amplitude.instance().logDocumentShow(document.objectId)
     }
 
-    func viewAppeared() {
+    func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.models, type: document.objectDetails?.type)
+    }
+    
+    func viewWillDisappear() {
+        document.close()
     }
 }
 

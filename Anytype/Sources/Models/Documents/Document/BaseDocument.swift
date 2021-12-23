@@ -19,7 +19,6 @@ final class BaseDocument: BaseDocumentProtocol {
     let objectId: BlockId
 
     let blocksContainer: BlockContainerModelProtocol = BlockContainer()
-    let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
     let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
     
     private(set) var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
@@ -27,8 +26,7 @@ final class BaseDocument: BaseDocumentProtocol {
     var parsedRelations: ParsedRelations {
         relationBuilder.parsedRelations(
             relationMetadatas: relationsStorage.relations,
-            objectId: objectId,
-            detailsStorage: detailsStorage
+            objectId: objectId
         )
     }
         
@@ -38,7 +36,6 @@ final class BaseDocument: BaseDocumentProtocol {
         self.eventsListener = EventsListener(
             objectId: objectId,
             blocksContainer: blocksContainer,
-            detailsStorage: detailsStorage,
             relationStorage: relationsStorage
         )
         
@@ -62,8 +59,12 @@ final class BaseDocument: BaseDocumentProtocol {
         return true
     }
     
+    func close(){
+        blockActionsService.close(contextId: objectId, blockId: objectId)
+    }
+    
     var objectDetails: ObjectDetails? {
-        detailsStorage.get(id: objectId)
+        ObjectDetailsStorage.shared.get(id: objectId)
     }
     
     // Looks like this code runs on main thread.
@@ -116,7 +117,7 @@ final class BaseDocument: BaseDocumentProtocol {
 
         TreeBlockBuilder.buildBlocksTree(from: parsedBlocks, with: rootId, in: blocksContainer)
 
-        parsedDetails.forEach { detailsStorage.add(details: $0) }
+        parsedDetails.forEach { ObjectDetailsStorage.shared.add(details: $0) }
         
         relationsStorage.set(
             relations: objectShowEvent.relations.map { RelationMetadata(middlewareRelation: $0) }

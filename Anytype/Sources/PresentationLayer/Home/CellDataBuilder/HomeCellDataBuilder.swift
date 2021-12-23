@@ -9,7 +9,7 @@ final class HomeCellDataBuilder {
         self.document = document
     }
     
-    func buildCellData(_ searchResults: [SearchData]) -> [HomeCellData] {
+    func buildCellData(_ searchResults: [ObjectDetails]) -> [HomeCellData] {
         searchResults.map { HomeCellData.create(searchResult: $0) }
     }
     
@@ -37,7 +37,7 @@ final class HomeCellDataBuilder {
             return nil
         }
         
-        let details = document.detailsStorage.get(id: link.targetBlockID)
+        let details = ObjectDetailsStorage.shared.get(id: link.targetBlockID)
         return HomePageLink(
             blockId: blockModel.information.id,
             targetBlockId: link.targetBlockID,

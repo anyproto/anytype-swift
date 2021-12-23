@@ -4,15 +4,12 @@ import AnytypeCore
 
 final class LocalEventConverter {
     private let blocksContainer: BlockContainerModelProtocol
-    private let detailsStorage: ObjectDetailsStorageProtocol
     private let blockValidator = BlockValidator()
     
     init(
-        blocksContainer: BlockContainerModelProtocol,
-        detailsStorage: ObjectDetailsStorageProtocol
+        blocksContainer: BlockContainerModelProtocol
     ) {
         self.blocksContainer = blocksContainer
-        self.detailsStorage = detailsStorage
     }
     
     func convert(_ event: LocalEvent) -> EventsListenerUpdate? {
