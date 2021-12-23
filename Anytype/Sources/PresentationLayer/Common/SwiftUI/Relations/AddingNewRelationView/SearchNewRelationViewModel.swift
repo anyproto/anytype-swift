@@ -31,14 +31,14 @@ class SearchNewRelationViewModel: ObservableObject, Dismissible {
     @Published var searchData: [SearchNewRelationSectionType] = [.createNewRelation]
     @Published var shouldDismiss: Bool = false
 
-    lazy var createNewRelationViewModel: CreateNewRelationViewModel = {
+    var createNewRelationViewModel: CreateNewRelationViewModel {
         CreateNewRelationViewModel(
-            relationService: relationService,
+            relationService: self.relationService,
             onSelect: { [weak self] in
                 self?.shouldDismiss = true
                 self?.onSelect($0)
             })
-    }()
+    }
 
     // MARK: - Init
 

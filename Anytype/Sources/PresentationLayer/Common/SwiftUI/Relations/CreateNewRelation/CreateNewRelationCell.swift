@@ -8,11 +8,9 @@ struct CreateNewRelationCell: View {
     let isSelected: Bool
 
     var body: some View {
-        HStack(alignment: .center, spacing: 0) {
+        HStack(alignment: .center, spacing: 12) {
             Image(format.iconName)
                 .frame(width: 24, height: 24)
-
-            Spacer.fixedWidth(12)
 
             AnytypeText(format.name, style: .uxBodyRegular, color: .textPrimary)
                 .lineLimit(1)
