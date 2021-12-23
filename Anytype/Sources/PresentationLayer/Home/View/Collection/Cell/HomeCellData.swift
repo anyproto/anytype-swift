@@ -16,17 +16,17 @@ struct HomeCellData: Identifiable {
     
     var selected: Bool
     
-    static func create(searchResult: ObjectDetails) -> HomeCellData {
+    static func create(details: ObjectDetails) -> HomeCellData {
         HomeCellData(
-            id: searchResult.id,
-            destinationId: searchResult.id,
-            icon: searchResult.icon,
-            title: searchResult.pageCellTitle,
-            type: searchResult.objectType.name,
+            id: details.id,
+            destinationId: details.id,
+            icon: details.icon,
+            title: details.pageCellTitle,
+            type: details.objectType.name,
             isLoading: false,
-            isArchived: searchResult.isArchived,
-            isDeleted: searchResult.isDeleted,
-            viewType: searchResult.editorViewType,
+            isArchived: details.isArchived,
+            isDeleted: details.isDeleted,
+            viewType: details.editorViewType,
             selected: false
         )
     }

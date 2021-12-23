@@ -12,7 +12,10 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.filter { !$0.isArchived && !$0.isDeleted }
     }
     
-    @Published var historyCellData: [HomeCellData] = []
+    var historyCellData: [HomeCellData] {
+        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.history)
+    }
+    
     @Published var binCellData: [HomeCellData] = []
     @Published var sharedCellData: [HomeCellData] = []
     @Published var setsCellData: [HomeCellData] = []
@@ -67,10 +70,7 @@ final class HomeViewModel: ObservableObject {
         }
     }
     func updateHistoryTab() {
-        guard let searchResults = searchService.searchHistoryPages() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            historyCellData = cellDataBuilder.buildCellData(searchResults)
-        }
+        SubscriptionsStorage.shared.toggleHistorySubscription(true)
     }
     func updateSharedTab() {
         guard let searchResults = searchService.searchSharedPages() else { return }

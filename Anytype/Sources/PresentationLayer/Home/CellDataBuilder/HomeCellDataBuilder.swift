@@ -10,7 +10,7 @@ final class HomeCellDataBuilder {
     }
     
     func buildCellData(_ searchResults: [ObjectDetails]) -> [HomeCellData] {
-        searchResults.map { HomeCellData.create(searchResult: $0) }
+        searchResults.map { HomeCellData.create(details: $0) }
     }
     
     func buildFavoritesData() -> [HomeCellData] {
