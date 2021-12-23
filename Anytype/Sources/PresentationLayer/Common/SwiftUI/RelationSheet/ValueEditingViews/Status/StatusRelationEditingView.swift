@@ -19,14 +19,14 @@ struct StatusRelationEditingView: View {
         ScrollView {
             LazyVStack(spacing: 0) {
                 if searchText.isNotEmpty {
-                    RelationValueOptionCreateButton(text: searchText) {
+                    RelationOptionCreateButton(text: searchText) {
                         viewModel.addOption(text: searchText)
                     }
                 }
                 
                 ForEach(viewModel.statusSections) { section in
                     Section(
-                        header: RelationValueOptionSectionHeaderView(title: section.title)
+                        header: RelationOptionsSectionHeaderView(title: section.title)
                     ) {
                         ForEach(section.options) { statusRow($0) }
                     }

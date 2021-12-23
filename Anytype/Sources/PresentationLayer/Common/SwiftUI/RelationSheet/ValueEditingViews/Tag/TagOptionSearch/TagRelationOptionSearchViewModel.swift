@@ -3,7 +3,7 @@ import Foundation
 final class TagRelationOptionSearchViewModel: ObservableObject {
     
     @Published var selectedTagIds: [String] = []
-    @Published var sections: [RelationValueOptionSection<Relation.Tag.Option>]
+    @Published var sections: [RelationOptionsSection<Relation.Tag.Option>]
     
     private let relationKey: String
     private let availableTags: [Relation.Tag.Option]
@@ -21,7 +21,7 @@ final class TagRelationOptionSearchViewModel: ObservableObject {
         self.relationsService = relationsService
         self.addTagsAction = addTagsAction
         
-        self.sections = RelationValueOptionSectionBuilder.sections(from: availableTags, filterText: nil)
+        self.sections = RelationOptionsSectionBuilder.sections(from: availableTags, filterText: nil)
     }
     
 }
@@ -29,7 +29,7 @@ final class TagRelationOptionSearchViewModel: ObservableObject {
 extension TagRelationOptionSearchViewModel {
     
     func filterTagSections(text: String) {
-        self.sections = RelationValueOptionSectionBuilder.sections(from: availableTags, filterText: text)
+        self.sections = RelationOptionsSectionBuilder.sections(from: availableTags, filterText: text)
     }
     
     func didTapOnTag(_ tag: Relation.Tag.Option) {

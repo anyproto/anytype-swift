@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RelationValueOptionSectionHeaderView: View {
+struct RelationOptionsSectionHeaderView: View {
     let title: String
     
     var body: some View {
@@ -13,6 +13,6 @@ struct RelationValueOptionSectionHeaderView: View {
 
 struct RelationValueOptionSectionHeaderView_Previews: PreviewProvider {
     static var previews: some View {
-        RelationValueOptionSectionHeaderView(title: "title")
+        RelationOptionsSectionHeaderView(title: "title")
     }
 }
