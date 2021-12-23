@@ -1,4 +1,5 @@
 import Foundation
+import SwiftUI
 
 extension Relation {
     
@@ -15,12 +16,16 @@ extension Relation {
 
 extension Relation.Object {
 
-    struct Option: Hashable, Identifiable {
+    struct Option: Hashable, Identifiable, RelationOptionProtocol {
         let id: String
         
         let icon: ObjectIconImage
         let title: String
         let type: String
+        
+        func makeView() -> AnyView {
+            AnyView(RelationObjectsRowView(object: self))
+        }
     }
     
 }
