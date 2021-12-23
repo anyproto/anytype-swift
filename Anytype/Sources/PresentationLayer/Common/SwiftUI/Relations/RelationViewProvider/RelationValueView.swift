@@ -28,7 +28,7 @@ struct RelationValueView: View {
             case .tag(let tag):
                 TagRelationView(tags: tag.selectedTags, hint: relation.hint, style: style)
             case .file(let file):
-                EmptyView()
+                FileRelationView(options: file.files, hint: relation.hint, style: style)
             case .unknown(let unknown):
                 RelationsListRowPlaceholderView(hint: unknown.value, type: style.placeholderType)
             }

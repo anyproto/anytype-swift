@@ -63,6 +63,8 @@ extension RelationOptionsViewModel {
             return AnyView(RelationObjectsSearchView(viewModel: objectsSearchViewModel))
         case .tags(let allTags):
             return AnyView(TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags)))
+        case .files:
+            return AnyView(EmptyView())
         }
     }
     
