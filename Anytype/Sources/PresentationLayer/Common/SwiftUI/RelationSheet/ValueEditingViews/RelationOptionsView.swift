@@ -13,9 +13,7 @@ struct RelationOptionsView: View {
             .modifier(
                 RelationSheetModifier(isPresented: $viewModel.isPresented, title: nil, dismissCallback: viewModel.dismissHandler)
             )
-//            .sheet(isPresented: $isSearchPresented) {
-//                RelationObjectsSearchView(viewModel: viewModel.relationObjectsSearchViewModel)
-//            }
+            .sheet(isPresented: $isSearchPresented) { viewModel.makeSearchView() }
     }
     
     private var content: some View {
