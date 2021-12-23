@@ -85,6 +85,14 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 selectedOptions: object.selectedObjects,
                 relationsService: RelationsService(objectId: objectId)
             )
+        case .file(let file):
+            return RelationOptionsViewModel(
+                type: .files,
+                title: file.name,
+                relationKey: file.id,
+                selectedOptions: file.files,
+                relationsService: RelationsService(objectId: objectId)
+            )
         default:
             return nil
         }

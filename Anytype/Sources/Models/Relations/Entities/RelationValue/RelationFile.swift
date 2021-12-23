@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import SwiftUI
 
 extension Relation {
     
@@ -16,11 +17,16 @@ extension Relation {
 
 extension Relation.File {
     
-    struct Option: Hashable, Identifiable {
+    struct Option: Hashable, Identifiable, RelationOptionProtocol {
+        
         let id: String
         
         let icon: ObjectIconImage
         let title: String
+        
+        func makeView() -> AnyView {
+            AnyView(RelationFilesRowView(file: self))
+        }
     }
     
 }
