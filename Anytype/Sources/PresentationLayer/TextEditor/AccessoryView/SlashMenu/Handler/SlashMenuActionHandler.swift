@@ -37,9 +37,9 @@ final class SlashMenuActionHandler {
         case let .relations(action):
             switch action {
             case .newRealtion:
-                router.showAdditinNewRelationView {
+                router.showAdditinNewRelationView { [weak self] relation in
+                    self?.actionHandler.addBlock(.relation(key: relation.id), blockId: blockId)
                 }
-                break
             case .relation(let relation):
                 actionHandler.addBlock(.relation(key: relation.id), blockId: blockId)
             }

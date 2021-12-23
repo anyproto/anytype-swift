@@ -1,5 +1,8 @@
 import BlocksModels
 import CoreGraphics
+import Combine
+
+// MARK: - Section model
 
 enum SearchNewRelationSectionType: Hashable, Identifiable {
     case createNewRelation
@@ -17,16 +20,38 @@ enum SearchNewRelationSectionType: Hashable, Identifiable {
     }
 }
 
+// MARK: - View model
+
 class SearchNewRelationViewModel: ObservableObject, Dismissible {
     let relationService: RelationsServiceProtocol
-    @Published var searchData: [SearchNewRelationSectionType] = [.createNewRelation]
+    let usedObjectRelationsIds: Set<String> // Used for exclude relations that already has in object
     var onSelect: (RelationMetadata) -> ()
     var onDismiss: () -> () = {}
 
-    init(relationService: RelationsServiceProtocol, onSelect: @escaping (RelationMetadata) -> ()) {
+    @Published var searchData: [SearchNewRelationSectionType] = [.createNewRelation]
+    @Published var shouldDismiss: Bool = false
+
+    var createNewRelationViewModel: CreateNewRelationViewModel {
+        CreateNewRelationViewModel(
+            relationService: self.relationService,
+            onSelect: { [weak self] in
+                self?.shouldDismiss = true
+                self?.onSelect($0)
+            })
+    }
+
+    // MARK: - Init
+
+    init(relationService: RelationsServiceProtocol,
+         objectRelations: ParsedRelations,
+         onSelect: @escaping (RelationMetadata) -> ()) {
         self.relationService = relationService
         self.onSelect = onSelect
+
+        usedObjectRelationsIds = Set(objectRelations.all.map { $0.id })
     }
+
+    // MARK: - View model methods
 
     func search(text: String) {
         let newSearchData = obtainAvailbaleRelationList()
@@ -49,8 +74,14 @@ class SearchNewRelationViewModel: ObservableObject, Dismissible {
 
     func obtainAvailbaleRelationList() -> [SearchNewRelationSectionType] {
         let relatonsMetadata = relationService.availableRelations()?.filter {
-            !$0.isHidden
+            !$0.isHidden && !usedObjectRelationsIds.contains($0.id)
         } ?? []
         return [.createNewRelation, .addFromLibriry(relatonsMetadata)]
+    }
+
+    func addRelation(_ relation: RelationMetadata) {
+        if let createdRelation = relationService.addRelation(relation) {
+            onSelect(createdRelation)
+        }
     }
 }

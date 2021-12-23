@@ -3,7 +3,7 @@ import SwiftUI
 
 public extension RelationMetadata {
     
-    enum Format: Hashable {
+    enum Format: Hashable, CaseIterable {
         case longText
         case shortText
         case number
@@ -16,7 +16,7 @@ public extension RelationMetadata {
         case phone
         case tag
         case object
-        case unrecognized(Int)
+        case unrecognized
     }
 }
 
@@ -36,7 +36,7 @@ extension RelationMetadata.Format {
         case 9: self = .phone
         case 11: self = .tag
         case 100: self = .object
-        default: self = .unrecognized(rawValue)
+        default: self = .unrecognized
         }
     }
     
@@ -54,7 +54,7 @@ extension RelationMetadata.Format {
         case .phone: return 9
         case .tag: return 11
         case .object: return 100
-        case .unrecognized(let value): return value
+        case .unrecognized: return -1
         }
     }
 }
@@ -64,31 +64,69 @@ public extension RelationMetadata.Format {
     var iconName: String {
         switch self {
         case .longText:
-            return "longTextType"
+            return "format/text"
         case .shortText:
-            return "shortTextType"
+            return "format/text"
         case .number:
-            return "numberType"
+            return "format/number"
         case .status:
-            return "statusType"
+            return "format/status"
         case .date:
-            return "dateType"
+            return "format/date"
         case .file:
-            return "fileType"
+            return "format/attachment"
         case .checkbox:
-            return "checkboxType"
+            return "format/checkbox"
         case .url:
-            return "urlType"
+            return "format/url"
         case .email:
-            return "emailType"
+            return "format/email"
         case .phone:
-            return "phoneType"
+            return "format/phone"
         case .tag:
-            return "tagType"
+            return "format/tag"
         case .object:
-            return "objectType"
-        case .unrecognized(_):
-            return "unrecognizedType"
+            return "format/object"
+        case .unrecognized:
+            return "format/unknown"
         }
+    }
+
+    var name: String {
+        switch self {
+        case .longText:
+            return "Text"
+        case .shortText:
+            return "Text"
+        case .number:
+            return "Numbers"
+        case .status:
+            return "Status"
+        case .date:
+            return "Date"
+        case .file:
+            return "File & Media"
+        case .checkbox:
+            return "Checkbox"
+        case .url:
+            return "URL"
+        case .email:
+            return "Email"
+        case .phone:
+            return "Phone number"
+        case .tag:
+            return "Tag"
+        case .object:
+            return "Object"
+        case .unrecognized:
+            return "Unknown"
+        }
+    }
+}
+
+extension RelationMetadata.Format: Identifiable {
+
+    public var id: Self {
+        return self
     }
 }
