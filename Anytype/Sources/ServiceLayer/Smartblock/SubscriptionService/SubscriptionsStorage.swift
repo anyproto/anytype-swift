@@ -8,6 +8,7 @@ final class SubscriptionsStorage {
     public static let shared = SubscriptionsStorage()
     
     @Published var history: [ObjectDetails] = []
+    @Published var archive: [ObjectDetails] = []
     
     private var subscription: AnyCancellable?
     private let service: SubscriptionServiceProtocol = SubscriptionService()
@@ -20,6 +21,12 @@ final class SubscriptionsStorage {
         let details = service.toggleHistorySubscription(turnOn) ?? []
         details.forEach { ObjectDetailsStorage.shared.add(details: $0) }
         history = details
+    }
+    
+    func toggleArchiveSubscription(_ turnOn: Bool) {
+        let details = service.toggleArchiveSubscription(turnOn) ?? []
+        details.forEach { ObjectDetailsStorage.shared.add(details: $0) }
+        archive = details
     }
     
     // MARK: - Private
@@ -78,11 +85,18 @@ final class SubscriptionsStorage {
             switch subId {
             case .history:
                 guard let index = history.firstIndex(where: { $0.id == details.id }) else {
-                    anytypeAssertionFailure("No object for update: \(details)", domain: .subscriptionStorage)
+                    anytypeAssertionFailure("No object in history for update: \(details)", domain: .subscriptionStorage)
                     return
                 }
                 
                 history[index] = details
+            case .archive:
+                guard let index = archive.firstIndex(where: { $0.id == details.id }) else {
+                    anytypeAssertionFailure("No object in archive for update: \(details)", domain: .subscriptionStorage)
+                    return
+                }
+                
+                archive[index] = details
             }
         }
     }

@@ -14,8 +14,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
-            viewType: .page,
-            selected: false
+            viewType: .page
         ),
         HomeCellData(
             id: "\(UUID())",
@@ -26,8 +25,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
-            viewType: .page,
-            selected: true
+            viewType: .page
         ),
         HomeCellData(
             id: "\(UUID())",
@@ -38,8 +36,7 @@ struct HomeCellDataMock {
             isLoading: true,
             isArchived: true,
             isDeleted: false,
-            viewType: .page,
-            selected: true
+            viewType: .page
         ),
         HomeCellData(
             id: "\(UUID())",
@@ -50,8 +47,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
-            viewType: .page,
-            selected: false
+            viewType: .page
         ),
         HomeCellData(
             id: "\(UUID())",
@@ -62,8 +58,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
-            viewType: .page,
-            selected: false
+            viewType: .page
         ),
         HomeCellData(
             id: "\(UUID())",
@@ -74,8 +69,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
-            viewType: .page,
-            selected: false
+            viewType: .page
         ),
         
         HomeCellData(
@@ -87,8 +81,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
-            viewType: .page,
-            selected: false
+            viewType: .page
         ),
         
         HomeCellData(
@@ -100,8 +93,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
-            viewType: .page,
-            selected: true
+            viewType: .page
         ),
         
         HomeCellData(
@@ -113,8 +105,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
-            viewType: .page,
-            selected: false
+            viewType: .page
         ),
         
         HomeCellData(
@@ -126,8 +117,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: true,
-            viewType: .page,
-            selected: false
+            viewType: .page
         )
     ]
 }

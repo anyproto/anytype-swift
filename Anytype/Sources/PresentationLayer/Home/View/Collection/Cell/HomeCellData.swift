@@ -14,8 +14,6 @@ struct HomeCellData: Identifiable {
     let isDeleted: Bool
     let viewType: EditorViewType
     
-    var selected: Bool
-    
     static func create(details: ObjectDetails) -> HomeCellData {
         HomeCellData(
             id: details.id,
@@ -26,8 +24,7 @@ struct HomeCellData: Identifiable {
             isLoading: false,
             isArchived: details.isArchived,
             isDeleted: details.isDeleted,
-            viewType: details.editorViewType,
-            selected: false
+            viewType: details.editorViewType
         )
     }
 }

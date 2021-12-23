@@ -15,10 +15,13 @@ final class HomeViewModel: ObservableObject {
     var historyCellData: [HomeCellData] {
         cellDataBuilder.buildCellData(SubscriptionsStorage.shared.history)
     }
+    var binCellData: [HomeCellData] {
+        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.archive)
+    }
     
-    @Published var binCellData: [HomeCellData] = []
     @Published var sharedCellData: [HomeCellData] = []
     @Published var setsCellData: [HomeCellData] = []
+    @Published var selectedPageIds: Set<BlockId> = []
     
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
@@ -64,10 +67,7 @@ final class HomeViewModel: ObservableObject {
     }
 
     func updateBinTab() {
-        guard let searchResults = searchService.searchArchivedPages() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            binCellData = cellDataBuilder.buildCellData(searchResults)
-        }
+        SubscriptionsStorage.shared.toggleArchiveSubscription(true)
     }
     func updateHistoryTab() {
         SubscriptionsStorage.shared.toggleHistorySubscription(true)

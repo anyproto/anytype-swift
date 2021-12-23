@@ -4,6 +4,7 @@ import AnytypeCore
 
 protocol SubscriptionServiceProtocol {
     func toggleHistorySubscription(_ turnOn: Bool) -> [ObjectDetails]?
+    func toggleArchiveSubscription(_ turnOn: Bool) -> [ObjectDetails]?
 }
 
 final class SubscriptionService: SubscriptionServiceProtocol {
@@ -23,6 +24,25 @@ final class SubscriptionService: SubscriptionServiceProtocol {
         )
         
         return makeRequest(subId: SubscriptionId.history.rawValue, filters: filters, sort: sort)
+    }
+    
+    func toggleArchiveSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
+        guard turnOn else {
+            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.archive.rawValue])
+            return nil
+        }
+        
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.lastModifiedDate,
+            type: .desc
+        )
+        
+        let filters = buildFilters(
+            isArchived: true,
+            typeUrls: ObjectTypeProvider.supportedTypeUrls
+        )
+        
+        return makeRequest(subId: SubscriptionId.archive.rawValue, filters: filters, sort: sort)
     }
     
     let homeDetailsKeys = ["id", "icon", "iconImage", "iconEmoji", "name", "snippet", "description", "type", "layout", "isArchived", "isDeleted", "isDone" ]

@@ -57,8 +57,7 @@ final class HomeCellDataBuilder {
             isLoading: pageLink.isLoading,
             isArchived: pageLink.isArchived,
             isDeleted: pageLink.isDeleted,
-            viewType: pageLink.details?.editorViewType ?? .page,
-            selected: false
+            viewType: pageLink.details?.editorViewType ?? .page
         )
     }
     
@@ -72,8 +71,7 @@ final class HomeCellDataBuilder {
             isLoading: false,
             isArchived: newDetails.isArchived,
             isDeleted: newDetails.isDeleted,
-            viewType: newDetails.editorViewType,
-            selected: false
+            viewType: newDetails.editorViewType
         )
     }
 }
