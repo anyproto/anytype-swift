@@ -47,6 +47,7 @@ final class HomeViewModel: ObservableObject {
     
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
+    private var subscriptionStorageSubscription: AnyCancellable?
     
     init() {
         let homeBlockId = configurationService.configuration().homeBlockID
@@ -54,7 +55,7 @@ final class HomeViewModel: ObservableObject {
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(updateResult: $0)
         }.store(in: &cancellables)
-        setupQuickActionsSubscription()
+        setupSubscriptions()
     }
 
     // MARK: - View output
@@ -91,7 +92,16 @@ final class HomeViewModel: ObservableObject {
     }
     
     // MARK: - Private methods
-    private func setupQuickActionsSubscription() {
+    private func setupSubscriptions() {
+        subscriptionStorageSubscription = SubscriptionsStorage.shared.objectWillChange
+            .receiveOnMain()
+            .sink { [weak self] in
+                guard let self = self else { return }
+                withAnimation(self.animationsEnabled ? .spring() : nil) {
+                    self.objectWillChange.send()
+                }
+            }
+        
         // visual delay on application launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { [weak self] action in

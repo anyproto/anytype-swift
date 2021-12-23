@@ -3,7 +3,7 @@ import Combine
 import AnytypeCore
 
 
-final class SubscriptionsStorage {
+final class SubscriptionsStorage: ObservableObject {
     
     public static let shared = SubscriptionsStorage()
     
