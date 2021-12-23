@@ -19,7 +19,10 @@ final class HomeViewModel: ObservableObject {
         cellDataBuilder.buildCellData(SubscriptionsStorage.shared.archive)
     }
     
-    @Published var sharedCellData: [HomeCellData] = []
+    var sharedCellData: [HomeCellData] {
+        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.shared)
+    }
+    
     @Published var setsCellData: [HomeCellData] = []
     @Published var selectedPageIds: Set<BlockId> = []
     
@@ -73,10 +76,7 @@ final class HomeViewModel: ObservableObject {
         SubscriptionsStorage.shared.toggleHistorySubscription(true)
     }
     func updateSharedTab() {
-        guard let searchResults = searchService.searchSharedPages() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            sharedCellData = cellDataBuilder.buildCellData(searchResults)
-        }
+        SubscriptionsStorage.shared.toggleSharedSubscription(true)
     }
     func updateFavoritesTab() {
         withAnimation(animationsEnabled ? .spring() : nil) {

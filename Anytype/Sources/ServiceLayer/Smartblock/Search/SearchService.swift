@@ -4,7 +4,6 @@ import BlocksModels
 
 protocol SearchServiceProtocol {
     func search(text: String) -> [ObjectDetails]?
-    func searchSharedPages() -> [ObjectDetails]?
     func searchSets() -> [ObjectDetails]?
     func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
 }
@@ -30,22 +29,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
     }
-    
-    func searchSharedPages() -> [ObjectDetails]? {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
-            type: .desc
-        )
-        var filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.supportedTypeUrls)
-        filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
         
-        return makeRequest(
-            filters: filters,
-            sorts: [sort],
-            fullText: ""
-        )
-    }
-    
     func searchSets() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,

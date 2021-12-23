@@ -5,6 +5,7 @@ import AnytypeCore
 protocol SubscriptionServiceProtocol {
     func toggleHistorySubscription(_ turnOn: Bool) -> [ObjectDetails]?
     func toggleArchiveSubscription(_ turnOn: Bool) -> [ObjectDetails]?
+    func toggleSharedSubscription(_ turnOn: Bool) -> [ObjectDetails]?
 }
 
 final class SubscriptionService: SubscriptionServiceProtocol {
@@ -45,7 +46,25 @@ final class SubscriptionService: SubscriptionServiceProtocol {
         return makeRequest(subId: SubscriptionId.archive.rawValue, filters: filters, sort: sort)
     }
     
-    let homeDetailsKeys = ["id", "icon", "iconImage", "iconEmoji", "name", "snippet", "description", "type", "layout", "isArchived", "isDeleted", "isDone" ]
+    func toggleSharedSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
+        guard turnOn else {
+            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.shared.rawValue])
+            return nil
+        }
+        
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.lastModifiedDate,
+            type: .desc
+        )
+        var filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.supportedTypeUrls)
+        filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
+        
+        return makeRequest(subId: SubscriptionId.shared.rawValue, filters: filters, sort: sort)
+    }
+
+    
+    // MARK: - Private
+    private let homeDetailsKeys = ["id", "icon", "iconImage", "iconEmoji", "name", "snippet", "description", "type", "layout", "isArchived", "isDeleted", "isDone" ]
     private func makeRequest(
         subId: String,
         filters: [Anytype_Model_Block.Content.Dataview.Filter],
