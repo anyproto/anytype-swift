@@ -10,6 +10,7 @@ final class SubscriptionsStorage: ObservableObject {
     @Published var history: [ObjectDetails] = []
     @Published var archive: [ObjectDetails] = []
     @Published var shared: [ObjectDetails] = []
+    @Published var sets: [ObjectDetails] = []
     
     private var subscription: AnyCancellable?
     private let service: SubscriptionServiceProtocol = SubscriptionService()
@@ -26,6 +27,10 @@ final class SubscriptionsStorage: ObservableObject {
     
     // MARK: - Private
     
+    private var objectIds: [String] {
+        SubscriptionId.allCases.map { $0.rawValue } + [""]
+    }
+    
     private func setup() {
         subscription = NotificationCenter.Publisher(
             center: .default,
@@ -33,7 +38,9 @@ final class SubscriptionsStorage: ObservableObject {
             object: nil
         )
             .compactMap { $0.object as? EventsBunch }
-            .filter { $0.objectId == "" }
+            .filter { [weak self] in
+                self?.objectIds.contains($0.objectId) ?? false
+            }
             .sink { [weak self] events in
                 self?.handle(events: events)
             }
@@ -54,6 +61,29 @@ final class SubscriptionsStorage: ObservableObject {
                 ObjectDetailsStorage.shared.add(details: updatedDetails)
                 
                 update(details: updatedDetails, rawSubIds: data.subIds)
+            case .subscriptionPosition(let position):
+                guard let subId = SubscriptionId(rawValue: events.objectId) else {
+                    anytypeAssertionFailure("Unsupported object id \(events.objectId) in subscriptionPosition", domain: .subscriptionStorage)
+                    break
+                }
+                
+                guard let index = indexInCollection(id: subId, blockId: position.id) else {
+                    anytypeAssertionFailure("No object in \(subId) for id \(position.id)", domain: .subscriptionStorage)
+                    break
+                }
+                
+                let insertIndex: Int
+                if position.afterID == "" {
+                    insertIndex = 0
+                } else {
+                    guard let afterIndex = indexInCollection(id: subId, blockId: position.afterID) else {
+                        anytypeAssertionFailure("No object in \(subId) for afterId \(position.afterID)", domain: .subscriptionStorage)
+                        return
+                    }
+                    
+                    insertIndex = afterIndex + 1
+                }
+                moveElementInCollection(id: subId, from: index, to: insertIndex)
             case .accountConfigUpdate:
                 break
             default:
@@ -93,6 +123,8 @@ final class SubscriptionsStorage: ObservableObject {
             archive = details
         case .shared:
             shared = details
+        case .sets:
+            sets = details
         }
     }
     
@@ -104,6 +136,8 @@ final class SubscriptionsStorage: ObservableObject {
             return archive.firstIndex(where: { $0.id == blockId })
         case .shared:
             return shared.firstIndex(where: { $0.id == blockId })
+        case .sets:
+            return sets.firstIndex(where: { $0.id == blockId })
         }
     }
     
@@ -115,6 +149,21 @@ final class SubscriptionsStorage: ObservableObject {
             archive[index] = details
         case .shared:
             shared[index] = details
+        case .sets:
+            sets[index] = details
+        }
+    }
+    
+    private func moveElementInCollection(id: SubscriptionId, from index: Int, to insertIndex: Int) {
+        switch id {
+        case .history:
+            history.moveElement(from: index, to: insertIndex)
+        case .archive:
+            archive.moveElement(from: index, to: insertIndex)
+        case .shared:
+            shared.moveElement(from: index, to: insertIndex)
+        case .sets:
+            sets.moveElement(from: index, to: insertIndex)
         }
     }
 }

@@ -15,6 +15,8 @@ final class SubscriptionService: SubscriptionServiceProtocol {
             return toggleArchiveSubscription(turnOn)
         case .shared:
             return toggleSharedSubscription(turnOn)
+        case .sets:
+            return toggleSetsSubscription(turnOn)
         }
     }
     
@@ -70,6 +72,19 @@ final class SubscriptionService: SubscriptionServiceProtocol {
         filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
         
         return makeRequest(subId: SubscriptionId.shared.rawValue, filters: filters, sort: sort)
+    }
+    
+    private func toggleSetsSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.lastModifiedDate,
+            type: .desc
+        )
+        let filters = buildFilters(
+            isArchived: false,
+            typeUrls: ObjectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.url }
+        )
+        
+        return makeRequest(subId: SubscriptionId.sets.rawValue, filters: filters, sort: sort)
     }
 
     private let homeDetailsKeys = ["id", "icon", "iconImage", "iconEmoji", "name", "snippet", "description", "type", "layout", "isArchived", "isDeleted", "isDone" ]

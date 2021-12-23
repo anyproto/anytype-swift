@@ -18,14 +18,14 @@ final class HomeViewModel: ObservableObject {
     var binCellData: [HomeCellData] {
         cellDataBuilder.buildCellData(SubscriptionsStorage.shared.archive)
     }
-    
     var sharedCellData: [HomeCellData] {
         cellDataBuilder.buildCellData(SubscriptionsStorage.shared.shared)
     }
+    var setsCellData: [HomeCellData] {
+        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.sets)
+    }
     
-    @Published var setsCellData: [HomeCellData] = []
     @Published var selectedPageIds: Set<BlockId> = []
-    
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
     @Published var showDeletionAlert = false
@@ -86,10 +86,7 @@ final class HomeViewModel: ObservableObject {
         }
     }
     func updateSetsTab() {
-        guard let searchResults = searchService.searchSets() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            setsCellData = cellDataBuilder.buildCellData(searchResults)
-        }
+        SubscriptionsStorage.shared.toggleSubscription(id: .sets, true)
     }
     
     // MARK: - Private methods
