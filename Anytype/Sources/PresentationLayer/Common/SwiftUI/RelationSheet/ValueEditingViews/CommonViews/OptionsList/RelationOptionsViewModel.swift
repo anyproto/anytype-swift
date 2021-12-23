@@ -64,7 +64,7 @@ extension RelationOptionsViewModel {
         case .tags(let allTags):
             return AnyView(TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags)))
         case .files:
-            return AnyView(EmptyView())
+            return AnyView(RelationFilesSearchView(viewModel: filesSearchViewModel))
         }
     }
     
@@ -84,6 +84,12 @@ extension RelationOptionsViewModel {
             },
             relationsService: relationsService
         ) { [weak self] ids in
+            self?.handleNewOptionIds(ids)
+        }
+    }
+    
+    private var filesSearchViewModel: RelationFilesSearchViewModel {
+        RelationFilesSearchViewModel(excludeObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
             self?.handleNewOptionIds(ids)
         }
     }

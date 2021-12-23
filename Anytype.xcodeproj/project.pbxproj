@@ -311,6 +311,8 @@
 		12EB9B2C27743D1700BA732F /* RelationFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9B2B27743D1700BA732F /* RelationFile.swift */; };
 		12EB9B31277442BC00BA732F /* FileRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9B30277442BC00BA732F /* FileRelationView.swift */; };
 		12EB9B342774437300BA732F /* RelationFilesRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9B332774437300BA732F /* RelationFilesRowView.swift */; };
+		12EB9B372774766900BA732F /* RelationFilesSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9B362774766900BA732F /* RelationFilesSearchViewModel.swift */; };
+		12EB9B3B2774773C00BA732F /* RelationFilesSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9B3A2774773C00BA732F /* RelationFilesSearchView.swift */; };
 		12EEC36B26A0903F00C3C4B1 /* EmojiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36726A0903F00C3C4B1 /* EmojiData.swift */; };
 		12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */; };
 		12EEC36D26A0903F00C3C4B1 /* EmojiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36926A0903F00C3C4B1 /* EmojiGroup.swift */; };
@@ -1164,6 +1166,8 @@
 		12EB9B2B27743D1700BA732F /* RelationFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFile.swift; sourceTree = "<group>"; };
 		12EB9B30277442BC00BA732F /* FileRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileRelationView.swift; sourceTree = "<group>"; };
 		12EB9B332774437300BA732F /* RelationFilesRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFilesRowView.swift; sourceTree = "<group>"; };
+		12EB9B362774766900BA732F /* RelationFilesSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFilesSearchViewModel.swift; sourceTree = "<group>"; };
+		12EB9B3A2774773C00BA732F /* RelationFilesSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFilesSearchView.swift; sourceTree = "<group>"; };
 		12EEC36726A0903F00C3C4B1 /* EmojiData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiData.swift; sourceTree = "<group>"; };
 		12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiProvider.swift; sourceTree = "<group>"; };
 		12EEC36926A0903F00C3C4B1 /* EmojiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiGroup.swift; sourceTree = "<group>"; };
@@ -3225,9 +3229,19 @@
 		12EB9B322774435E00BA732F /* Files */ = {
 			isa = PBXGroup;
 			children = (
+				12EB9B352774761000BA732F /* RelationFilesSearch */,
 				12EB9B332774437300BA732F /* RelationFilesRowView.swift */,
 			);
 			path = Files;
+			sourceTree = "<group>";
+		};
+		12EB9B352774761000BA732F /* RelationFilesSearch */ = {
+			isa = PBXGroup;
+			children = (
+				12EB9B362774766900BA732F /* RelationFilesSearchViewModel.swift */,
+				12EB9B3A2774773C00BA732F /* RelationFilesSearchView.swift */,
+			);
+			path = RelationFilesSearch;
 			sourceTree = "<group>";
 		};
 		12F14CE32758EFE000B976B5 /* Status */ = {
@@ -5671,6 +5685,7 @@
 				EA6BAF46260C8E420062273F /* ToggleFlattener.swift in Sources */,
 				125B6EBE26F235F400BCD7D6 /* EditorSearchCellConfiguration.swift in Sources */,
 				3D5A41482702E4E400F1F6A1 /* SlashMenuCellDataBuilder.swift in Sources */,
+				12EB9B3B2774773C00BA732F /* RelationFilesSearchView.swift in Sources */,
 				124AF82C26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift in Sources */,
 				12E014D4266FCA7A008036B0 /* WindowHolder.swift in Sources */,
 				3D07ED72261F4B5A00C007E2 /* DividerBlockView.swift in Sources */,
@@ -5868,6 +5883,7 @@
 				A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */,
 				3DAE1C84273E69AD009A72F3 /* Range+Mention.swift in Sources */,
 				12636CE7276A01340084D35D /* TagRelationOptionSearchViewModel.swift in Sources */,
+				12EB9B372774766900BA732F /* RelationFilesSearchViewModel.swift in Sources */,
 				3DB1CA6E272C0C19000D2779 /* WallpaperColorsGridView.swift in Sources */,
 				120AC2602747B59200330D7B /* RelationEditingViewModelProtocol.swift in Sources */,
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
