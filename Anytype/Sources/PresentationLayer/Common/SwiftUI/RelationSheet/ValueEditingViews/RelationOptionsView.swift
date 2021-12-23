@@ -24,14 +24,9 @@ struct RelationOptionsView: View {
             if viewModel.selectedOptions.isEmpty {
                 emptyView
             } else {
-                NavigationView {
+                VStack(spacing: 0) {
+                    navigationBarView
                     optionsList
-                        .navigationBarTitle(viewModel.title, displayMode: .inline)
-                        .toolbar {
-                            ToolbarItem(placement: .navigationBarLeading) { editButton }
-                            ToolbarItem(placement: .navigationBarTrailing) { addButton }
-                        }
-                        
                 }
             }
         }
@@ -59,33 +54,70 @@ struct RelationOptionsView: View {
         .listStyle(.plain)
     }
     
-    private var editButton: some View {
-        Group {
-            if viewModel.selectedOptions.isEmpty {
-                EmptyView()
-            } else {
-                Button {
-                    withAnimation(.fastSpring) {
-                        if let value = editMode?.wrappedValue, value == .active {
-                            viewModel.applyEditingActions()
-                        }
-                        editMode?.wrappedValue.toggle()
-                    }
-                } label: {
-                    AnytypeText(editMode?.wrappedValue == .active ? "Done".localized : "Edit".localized, style: .uxBodyRegular, color: .grayscale50)
-                }
-            }
+}
+
+// MARK: - NavigationBarView
+
+private extension RelationOptionsView {
+    
+    var navigationBarView: some View {
+        HStack(alignment: .center, spacing: 0) {
+            leadingNavigationBarView
+            
+            AnytypeText(viewModel.title, style: .uxTitle1Semibold, color: .textPrimary)
+                .lineLimit(1)
+                .frame(maxWidth: .infinity)
+            
+            trailingNavigationBarView
         }
+        .frame(height: 48)
+        .padding(.horizontal, 16)
         
     }
     
-    private var addButton: some View {
+    var leadingNavigationBarView: some View {
+        HStack(spacing: 0) {
+            editButton
+                .if(viewModel.selectedOptions.isEmpty) {
+                    $0.hidden()
+                }
+            Spacer()
+        }
+        .frame(maxWidth: .infinity)
+    }
+    
+    var editButton: some View {
+        Button {
+            withAnimation(.fastSpring) {
+                if let value = editMode?.wrappedValue, value == .active {
+                    viewModel.applyEditingActions()
+                }
+                editMode?.wrappedValue.toggle()
+            }
+        } label: {
+            AnytypeText(editMode?.wrappedValue == .active ? "Done".localized : "Edit".localized, style: .uxBodyRegular, color: .grayscale50)
+        }
+    }
+    
+    var trailingNavigationBarView: some View {
+        HStack(spacing: 0) {
+            Spacer()
+            addButton
+                .if(editMode?.wrappedValue == .active) {
+                    $0.hidden()
+                }
+        }
+        .frame(maxWidth: .infinity)
+    }
+    
+    var addButton: some View {
         Button {
             isSearchPresented = true
         } label: {
             Image.Relations.createOption.frame(width: 24, height: 24)
-        }.disabled(editMode?.wrappedValue == .active)
+        }
     }
+    
 }
 
 //struct RelationOptionsView_Previews: PreviewProvider {
