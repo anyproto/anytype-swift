@@ -57,22 +57,35 @@ extension RelationOptionsViewModel {
         editingActions = []
     }
     
-    func makeSearchView() -> AnyView {
+    @ViewBuilder
+    func makeSearchView() -> some View {
         switch type {
         case .objects:
-            return AnyView(RelationObjectsSearchView(viewModel: objectsSearchViewModel))
+            RelationOptionsSearchView(
+                viewModel: RelationOptionsSearchViewModel(
+                    excludeOptionIds: selectedOptions.map { $0.id },
+                    searchAction: { service, text in
+                        return service.search(text: text)
+                    },
+                    addOptionsAction: { [weak self] ids in
+                        self?.handleNewOptionIds(ids)
+                    }
+                )
+            )
         case .tags(let allTags):
-            return AnyView(TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags)))
+            TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
         case .files:
-            return AnyView(RelationFilesSearchView(viewModel: filesSearchViewModel))
-        }
-    }
-    
-    private var objectsSearchViewModel: RelationObjectsSearchViewModel {
-        RelationObjectsSearchViewModel(
-            excludeObjectIds: selectedOptions.map { $0.id }
-        ) { [weak self] ids in
-            self?.handleNewOptionIds(ids)
+            RelationOptionsSearchView(
+                viewModel: RelationOptionsSearchViewModel(
+                    excludeOptionIds: selectedOptions.map { $0.id },
+                    searchAction: { service, text in
+                        return service.searchFiles(text: text)
+                    },
+                    addOptionsAction: { [weak self] ids in
+                        self?.handleNewOptionIds(ids)
+                    }
+                )
+            )
         }
     }
     
@@ -84,12 +97,6 @@ extension RelationOptionsViewModel {
             },
             relationsService: relationsService
         ) { [weak self] ids in
-            self?.handleNewOptionIds(ids)
-        }
-    }
-    
-    private var filesSearchViewModel: RelationFilesSearchViewModel {
-        RelationFilesSearchViewModel(excludeObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
             self?.handleNewOptionIds(ids)
         }
     }

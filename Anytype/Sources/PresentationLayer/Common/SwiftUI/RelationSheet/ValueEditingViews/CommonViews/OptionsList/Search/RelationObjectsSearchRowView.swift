@@ -2,7 +2,7 @@ import SwiftUI
 
 struct RelationObjectsSearchRowView: View {
     
-    let data: RelationObjectsSearchData
+    let data: RelationOptionsSearchData
     let isSelected: Bool
     let onTap: () -> ()
     
@@ -47,7 +47,7 @@ struct RelationObjectsSearchRowView: View {
 struct RelationObjectsSearchRowView_Previews: PreviewProvider {
     static var previews: some View {
         RelationObjectsSearchRowView(
-            data: RelationObjectsSearchData(
+            data: RelationOptionsSearchData(
                 id: "id",
                 iconImage: .todo(true),
                 title: "title",
