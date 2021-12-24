@@ -1,5 +1,6 @@
-enum SubscriptionId: String {
-    case history
-    case archive
-    case shared
+enum SubscriptionId: String, CaseIterable {
+    case history = "SubscriptionId.History"
+    case archive = "SubscriptionId.Archive"
+    case shared = "SubscriptionId.Shared"
+    case sets = "SubscriptionId.Sets"
 }
