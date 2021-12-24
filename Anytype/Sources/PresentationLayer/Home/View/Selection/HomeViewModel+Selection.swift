@@ -8,12 +8,10 @@ extension HomeViewModel {
     var numberOfSelectedPages: Int { selectedPageIds.count }
     
     func selectAll(_ select: Bool) {
-        binCellData.forEach { data in
-            if select {
-                selectedPageIds.update(with: data.id)
-            } else {
-                selectedPageIds.remove(data.id)
-            }
+        if select {
+            binCellData.forEach { selectedPageIds.update(with: $0.id) }
+        } else {
+            selectedPageIds = []
         }
     }
     
@@ -33,7 +31,6 @@ extension HomeViewModel {
     func restoreSelected() {
         objectActionsService.setArchive(objectIds: Array(selectedPageIds), false)
         selectAll(false)
-        updateBinTab()
     }
     
     func deleteSelected() {
@@ -50,7 +47,6 @@ extension HomeViewModel {
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
                 self?.showDeletionAlert = false
                 self?.selectAll(false)
-                self?.updateBinTab()
             } else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
                 self?.snackBarData = .init(text: "Deletion error".localized, showSnackBar: true)

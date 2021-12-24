@@ -5,6 +5,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 import SwiftUI
+import Amplitude
 
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [HomeCellData] = []
@@ -62,31 +63,33 @@ final class HomeViewModel: ObservableObject {
 
     func onAppear() {
         document.open()
-        reloadItems()
         animationsEnabled = true
     }
     
     func onDisappear() {
+        SubscriptionsStorage.shared.toggleSubscriptions(ids: HomeTabsView.Tab.allCases.compactMap(\.subscriptionId), false)
         document.close()
     }
-
-    func updateBinTab() {
-        SubscriptionsStorage.shared.toggleSubscription(id: .archive, true)
-    }
-    func updateHistoryTab() {
-        SubscriptionsStorage.shared.toggleSubscription(id: .history, true)
-    }
-    func updateSharedTab() {
-        SubscriptionsStorage.shared.toggleSubscription(id: .shared, true)
+    
+    func onTabChange(tab: HomeTabsView.Tab) {
+        var subscriptions = HomeTabsView.Tab.allCases.compactMap(\.subscriptionId)
+        tab.subscriptionId.flatMap { subId in
+            subscriptions.removeAllOccurrences(of: subId)
+            SubscriptionsStorage.shared.toggleSubscription(id: subId, true)
+        }
+        SubscriptionsStorage.shared.toggleSubscriptions(ids: subscriptions, false)
+        
+        Amplitude.instance().logEvent(tab.amplitudeEventName)
+        
+        if tab == .favourites {
+            updateFavoritesTab()
+        }
     }
     
     func updateFavoritesTab() {
         withAnimation(animationsEnabled ? .spring() : nil) {
             favoritesCellData = cellDataBuilder.buildFavoritesData()
         }
-    }
-    func updateSetsTab() {
-        SubscriptionsStorage.shared.toggleSubscription(id: .sets, true)
     }
     
     // MARK: - Private methods
@@ -118,7 +121,7 @@ final class HomeViewModel: ObservableObject {
         withAnimation(animationsEnabled ? .spring() : nil) {
             switch updateResult {
             case .general:
-                reloadItems()
+                updateFavoritesTab()
             case .blocks(let blockIds):
                 blockIds.forEach { updateFavoritesCellWithTargetId($0) }
             case .details(let detailId):
@@ -129,14 +132,6 @@ final class HomeViewModel: ObservableObject {
         }
     }
 
-    private func reloadItems() {
-        updateBinTab()
-        updateHistoryTab()
-        updateFavoritesTab()
-        updateSharedTab()
-        updateSetsTab()
-    }
-    
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
         guard let newDetails = ObjectDetailsStorage.shared.get(id: blockId) else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .homeView)

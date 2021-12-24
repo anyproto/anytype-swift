@@ -18,7 +18,9 @@ final class SubscriptionsStorage: ObservableObject {
     private init() {
         setup()
     }
-    
+    func toggleSubscriptions(ids: [SubscriptionId], _ turnOn: Bool) {
+        ids.forEach { toggleSubscription(id: $0, turnOn) }
+    }
     func toggleSubscription(id: SubscriptionId, _ turnOn: Bool) {
         let details = service.toggleSubscription(id: id, turnOn) ?? []
         details.forEach { ObjectDetailsStorage.shared.add(details: $0) }
@@ -52,10 +54,7 @@ final class SubscriptionsStorage: ObservableObject {
         for event in events.middlewareEvents {
             switch event.value {
             case .objectDetailsAmend(let data):
-                guard let currentDetails = ObjectDetailsStorage.shared.get(id: data.id) else {
-                    anytypeAssertionFailure("No details found for ammend: \(data)", domain: .subscriptionStorage)
-                    break
-                }
+                let currentDetails = ObjectDetailsStorage.shared.get(id: data.id) ?? ObjectDetails.empty
                 
                 let updatedDetails = currentDetails.updated(by: data.details.asDetailsDictionary)
                 ObjectDetailsStorage.shared.add(details: updatedDetails)
@@ -84,6 +83,21 @@ final class SubscriptionsStorage: ObservableObject {
                     insertIndex = afterIndex + 1
                 }
                 moveElementInCollection(id: subId, from: index, to: insertIndex)
+            case .subscriptionRemove(let remove):
+                guard let subId = SubscriptionId(rawValue: events.objectId) else {
+                    anytypeAssertionFailure("Unsupported object id \(events.objectId) in subscriptionRemove", domain: .subscriptionStorage)
+                    break
+                }
+                
+                guard let index = indexInCollection(id: subId, blockId: remove.id) else {
+                    anytypeAssertionFailure("No object in \(subId) for id \(remove.id)", domain: .subscriptionStorage)
+                    break
+                }
+                removeElementInCollection(id: subId, at: index)
+            case .objectRemove:
+                break // unsupported (Not supported in middleware converter also)
+            case .subscriptionCounters:
+                break // unsupported for now. Used for pagination
             case .accountConfigUpdate:
                 break
             default:
@@ -108,8 +122,7 @@ final class SubscriptionsStorage: ObservableObject {
     private func update(details: ObjectDetails, ids: [SubscriptionId]) {
         for id in ids {
             guard let index = indexInCollection(id: id, blockId: details.id) else {
-                anytypeAssertionFailure("No object in \(id.rawValue) for update: \(details)", domain: .subscriptionStorage)
-                return
+                return // May be possible on ammend for new object
             }
             updateCollection(id: id, details: details, index: index)
         }
@@ -164,6 +177,19 @@ final class SubscriptionsStorage: ObservableObject {
             shared.moveElement(from: index, to: insertIndex)
         case .sets:
             sets.moveElement(from: index, to: insertIndex)
+        }
+    }
+    
+    private func removeElementInCollection(id: SubscriptionId, at index: Int) {
+        switch id {
+        case .history:
+            history.remove(at: index)
+        case .archive:
+            archive.remove(at: index)
+        case .shared:
+            shared.remove(at: index)
+        case .sets:
+            sets.remove(at: index)
         }
     }
 }
