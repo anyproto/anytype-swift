@@ -4,9 +4,6 @@ import BlocksModels
 
 protocol SearchServiceProtocol {
     func search(text: String) -> [ObjectDetails]?
-    func searchArchivedPages() -> [ObjectDetails]?
-    func searchSharedPages() -> [ObjectDetails]?
-    func searchSets() -> [ObjectDetails]?
     func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
 }
 
@@ -30,48 +27,6 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
         
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
-    }
-    
-    func searchArchivedPages() -> [ObjectDetails]? {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
-            type: .desc
-        )
-        
-        let filters = buildFilters(
-            isArchived: true,
-            typeUrls: ObjectTypeProvider.supportedTypeUrls
-        )
-        
-        return makeRequest(filters: filters, sorts: [sort], fullText: "")
-    }
-    
-    func searchSharedPages() -> [ObjectDetails]? {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
-            type: .desc
-        )
-        var filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.supportedTypeUrls)
-        filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
-        
-        return makeRequest(
-            filters: filters,
-            sorts: [sort],
-            fullText: ""
-        )
-    }
-    
-    func searchSets() -> [ObjectDetails]? {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
-            type: .desc
-        )
-        let filters = buildFilters(
-            isArchived: false,
-            typeUrls: ObjectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.url }
-        )
-        
-        return makeRequest(filters: filters, sorts: [sort], fullText: "")
     }
     
     func searchObjectTypes(text: String, filteringTypeUrl: String? = nil) -> [ObjectDetails]? {
