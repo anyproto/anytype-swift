@@ -4,7 +4,6 @@ import BlocksModels
 
 protocol SearchServiceProtocol {
     func search(text: String) -> [ObjectDetails]?
-    func searchSets() -> [ObjectDetails]?
     func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
 }
 
@@ -28,19 +27,6 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
         
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
-    }
-        
-    func searchSets() -> [ObjectDetails]? {
-        let sort = SearchHelper.sort(
-            relation: BundledRelationKey.lastModifiedDate,
-            type: .desc
-        )
-        let filters = buildFilters(
-            isArchived: false,
-            typeUrls: ObjectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.url }
-        )
-        
-        return makeRequest(filters: filters, sorts: [sort], fullText: "")
     }
     
     func searchObjectTypes(text: String, filteringTypeUrl: String? = nil) -> [ObjectDetails]? {
