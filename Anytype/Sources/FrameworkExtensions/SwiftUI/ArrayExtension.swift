@@ -21,5 +21,10 @@ extension Array {
         let element = remove(at: from)
         insert(element, at: to)
     }
-    
+}
+
+extension Array where Element: Equatable {
+    mutating func removeAllOccurrences(of element: Element) {
+        self = filter { $0 != element }
+    }
 }
