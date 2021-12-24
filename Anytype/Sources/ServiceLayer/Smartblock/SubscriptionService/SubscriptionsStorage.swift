@@ -54,10 +54,7 @@ final class SubscriptionsStorage: ObservableObject {
         for event in events.middlewareEvents {
             switch event.value {
             case .objectDetailsAmend(let data):
-                guard let currentDetails = ObjectDetailsStorage.shared.get(id: data.id) else {
-                    anytypeAssertionFailure("No details found for ammend: \(data)", domain: .subscriptionStorage)
-                    break
-                }
+                let currentDetails = ObjectDetailsStorage.shared.get(id: data.id) ?? ObjectDetails.empty
                 
                 let updatedDetails = currentDetails.updated(by: data.details.asDetailsDictionary)
                 ObjectDetailsStorage.shared.add(details: updatedDetails)
@@ -125,8 +122,7 @@ final class SubscriptionsStorage: ObservableObject {
     private func update(details: ObjectDetails, ids: [SubscriptionId]) {
         for id in ids {
             guard let index = indexInCollection(id: id, blockId: details.id) else {
-                anytypeAssertionFailure("No object in \(id.rawValue) for update: \(details)", domain: .subscriptionStorage)
-                return
+                return // May be possible on ammend for new object
             }
             updateCollection(id: id, details: details, index: index)
         }

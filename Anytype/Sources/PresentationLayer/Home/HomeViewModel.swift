@@ -67,8 +67,8 @@ final class HomeViewModel: ObservableObject {
     }
     
     func onDisappear() {
-        document.close()
         SubscriptionsStorage.shared.toggleSubscriptions(ids: HomeTabsView.Tab.allCases.compactMap(\.subscriptionId), false)
+        document.close()
     }
     
     func onTabChange(tab: HomeTabsView.Tab) {
