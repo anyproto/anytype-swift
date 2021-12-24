@@ -60,6 +60,8 @@ public enum ErrorDomain: String {
     case relationsService
     case blockListService
     case authService
+    case subscriptionService
+    case subscriptionStorage
     
     case homeView
 

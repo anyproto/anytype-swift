@@ -315,7 +315,7 @@ final class MiddlewareEventConverter {
     }
 }
 
-private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyValue {
+public extension Array where Element == Anytype_Event.Object.Details.Amend.KeyValue {
 
     var asDetailsDictionary: [String: Google_Protobuf_Value] {
         reduce(
