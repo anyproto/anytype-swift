@@ -18,11 +18,14 @@ final class HomeViewModel: ObservableObject {
     var binCellData: [HomeCellData] {
         cellDataBuilder.buildCellData(SubscriptionsStorage.shared.archive)
     }
+    var sharedCellData: [HomeCellData] {
+        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.shared)
+    }
+    var setsCellData: [HomeCellData] {
+        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.sets)
+    }
     
-    @Published var sharedCellData: [HomeCellData] = []
-    @Published var setsCellData: [HomeCellData] = []
     @Published var selectedPageIds: Set<BlockId> = []
-    
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
     @Published var showDeletionAlert = false
@@ -44,6 +47,7 @@ final class HomeViewModel: ObservableObject {
     
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
+    private var subscriptionStorageSubscription: AnyCancellable?
     
     init() {
         let homeBlockId = configurationService.configuration().homeBlockID
@@ -51,7 +55,7 @@ final class HomeViewModel: ObservableObject {
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(updateResult: $0)
         }.store(in: &cancellables)
-        setupQuickActionsSubscription()
+        setupSubscriptions()
     }
 
     // MARK: - View output
@@ -67,31 +71,35 @@ final class HomeViewModel: ObservableObject {
     }
 
     func updateBinTab() {
-        SubscriptionsStorage.shared.toggleArchiveSubscription(true)
+        SubscriptionsStorage.shared.toggleSubscription(id: .archive, true)
     }
     func updateHistoryTab() {
-        SubscriptionsStorage.shared.toggleHistorySubscription(true)
+        SubscriptionsStorage.shared.toggleSubscription(id: .history, true)
     }
     func updateSharedTab() {
-        guard let searchResults = searchService.searchSharedPages() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            sharedCellData = cellDataBuilder.buildCellData(searchResults)
-        }
+        SubscriptionsStorage.shared.toggleSubscription(id: .shared, true)
     }
+    
     func updateFavoritesTab() {
         withAnimation(animationsEnabled ? .spring() : nil) {
             favoritesCellData = cellDataBuilder.buildFavoritesData()
         }
     }
     func updateSetsTab() {
-        guard let searchResults = searchService.searchSets() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            setsCellData = cellDataBuilder.buildCellData(searchResults)
-        }
+        SubscriptionsStorage.shared.toggleSubscription(id: .sets, true)
     }
     
     // MARK: - Private methods
-    private func setupQuickActionsSubscription() {
+    private func setupSubscriptions() {
+        subscriptionStorageSubscription = SubscriptionsStorage.shared.objectWillChange
+            .receiveOnMain()
+            .sink { [weak self] in
+                guard let self = self else { return }
+                withAnimation(self.animationsEnabled ? .spring() : nil) {
+                    self.objectWillChange.send()
+                }
+            }
+        
         // visual delay on application launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { [weak self] action in
