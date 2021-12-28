@@ -62,7 +62,11 @@ final class DividerCursorController {
         setupSubscription()
     }
 
-    func adjustDivider(at indexPath: IndexPath) {
+    func adjustDivider(at point: CGPoint) {
+        adjustDividerCursorPosition(at: point)
+    }
+
+    private func adjustDivider(at indexPath: IndexPath) {
         let newOrigin: CGFloat
 
         if let cell = collectionView.cellForItem(at: indexPath) {
@@ -74,7 +78,6 @@ final class DividerCursorController {
             let convertedCellOrigin = view.convert(cell.frame.origin, from: collectionView)
             newOrigin = cell.frame.height + convertedCellOrigin.y - 2
         } else {
-            anytypeAssertionFailure("unexpected case for adjusting divider", domain: .editorPage)
             return
         }
 
@@ -107,9 +110,10 @@ final class DividerCursorController {
         case .none:
             return
         case .dragNdrop:
-            lastIndexPath.map(adjustDivider(at:))
+            break
         case .drum:
-            adjustDividerCursorPosition()
+            let point = collectionView.convert(view.center, from: view)
+            adjustDividerCursorPosition(at: point)
         }
     }
 
@@ -120,26 +124,24 @@ final class DividerCursorController {
         }
 
         view.addSubview(moveCursorView)
-        adjustDividerCursorPosition()
+        let point = collectionView.convert(view.center, from: view)
+        adjustDividerCursorPosition(at: point)
     }
 
-    private func adjustDividerCursorPosition() {
-        let point = collectionView.convert(view.center, from: view)
-
+    private func adjustDividerCursorPosition(at point: CGPoint) {
         guard let indexPath = collectionView.indexPathForItem(at: point),
               let cell = collectionView.cellForItem(at: indexPath) else {
                   lastIndexPath.map(adjustDivider(at:))
                   return
               }
 
-        let cellPoint = cell.convert(view.center, from: view)
+        let cellPoint = cell.convert(point, from: collectionView)
         let cellMidY = cell.bounds.midY
         let isPointAboveMidY = cellPoint.y < cellMidY
 
         let cellPointPercentage = cellPoint.y / cell.bounds.size.height
 
-        if movingMode == .drum,
-           0.33...0.66 ~= cellPointPercentage,
+        if 0.33...0.66 ~= cellPointPercentage,
            movingManager.canMoveItemsToObject(at: indexPath) {
             objectSelectionState(at: indexPath)
             return

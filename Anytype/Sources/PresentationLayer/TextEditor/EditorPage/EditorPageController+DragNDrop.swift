@@ -21,6 +21,7 @@ extension EditorPageController: UICollectionViewDragDelegate {
 
     func collectionView(_ collectionView: UICollectionView, dragSessionDidEnd session: UIDragSession) {
         dividerCursorController.movingMode = .none
+        collectionView.deselectAllSelectedItems()
     }
 }
 
@@ -53,7 +54,10 @@ extension EditorPageController: UICollectionViewDropDelegate {
             return UICollectionViewDropProposal(operation: .forbidden)
         }
 
-        dividerCursorController.adjustDivider(at: indexPath)
+        collectionView.performUsingPresentationValues {
+            let location = session.location(in: collectionView)
+            dividerCursorController.adjustDivider(at: location)
+        }
 
         return UICollectionViewDropProposal(
             operation: .move,
@@ -82,9 +86,8 @@ extension EditorPageController: UICollectionViewDropDelegate {
             return
         }
 
-        viewModel.blocksStateManager.moveItem(
-            at: sourceIndexPath,
-            to: desiredIndexPath(using: destinationIndexPath)
-        )
+        viewModel.blocksStateManager.moveItem(at: sourceIndexPath)
+
+        collectionView.deselectAllSelectedItems()
     }
 }
