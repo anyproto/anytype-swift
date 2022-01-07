@@ -2,6 +2,7 @@ import SwiftUI
 import ProtobufMessages
 import AnytypeCore
 import Combine
+import Amplitude
 
 final class SettingsViewModel: ObservableObject {
     @Published var loggingOut = false
@@ -51,6 +52,8 @@ final class SettingsViewModel: ObservableObject {
                     completion(false)
                 case .success:
                     completion(true)
+
+                    Amplitude.instance().logEvent(AmplitudeEventsName.fileCacheCleared)
                 }
             }
     }

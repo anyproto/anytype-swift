@@ -155,6 +155,7 @@ struct HomeTabsView: View {
     private func onTabSelection() {
         model.selectAll(false)
         model.onTabChange(tab: tabSelection)
+        Amplitude.instance().logHomeTabSelection(tabSelection)
     }
 }
 
