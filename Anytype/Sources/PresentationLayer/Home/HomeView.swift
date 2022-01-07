@@ -100,6 +100,9 @@ struct HomeView: View {
         .sheet(isPresented: $model.showSearch) {
             HomeSearchView()
                 .environmentObject(model)
+                .onChange(of: model.showSearch) { showSearch in
+                    Amplitude.instance().logEvent(AmplitudeEventsName.searchShow)
+                }
         }
         
         .snackbar(

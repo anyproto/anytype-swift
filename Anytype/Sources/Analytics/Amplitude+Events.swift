@@ -95,4 +95,16 @@ extension Amplitude {
         logEvent(AmplitudeEventsName.selectTheme,
                  withEventProperties: [AmplitudeEventsPropertiesKey.type: userInterfaceStyle.title])
     }
+
+    func logSearchQuery(_ context: AmplitudeEventsSearchContext, length: Int) {
+        logEvent(AmplitudeEventsName.searchQuery,
+                 withEventProperties: [AmplitudeEventsPropertiesKey.route: context.rawValue,
+                                       AmplitudeEventsPropertiesKey.length: length])
+    }
+
+    func logSearchResult(index: Int, length: Int) {
+        logEvent(AmplitudeEventsName.searchQuery,
+                 withEventProperties: [AmplitudeEventsPropertiesKey.index: index,
+                                       AmplitudeEventsPropertiesKey.length: length])
+    }
 }

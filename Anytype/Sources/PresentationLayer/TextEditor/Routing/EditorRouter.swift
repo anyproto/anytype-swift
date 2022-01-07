@@ -207,7 +207,7 @@ final class EditorRouter: EditorRouterProtocol {
         let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
             onSelect(data.blockId)
         }
-        let moveToView = SearchView(title: "Move to".localized, viewModel: viewModel)
+        let moveToView = SearchView(title: "Move to".localized, context: .moveTo, viewModel: viewModel)
         
         presentSwuftUIView(view: moveToView, model: viewModel)
     }
@@ -216,7 +216,7 @@ final class EditorRouter: EditorRouterProtocol {
         let viewModel = LinkToObjectSearchViewModel { data in
             onSelect(data.searchKind)
         }
-        let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
+        let linkToView = SearchView(title: "Link to".localized, context: .markupLinkTo, viewModel: viewModel)
 
         presentSwuftUIView(view: linkToView, model: viewModel)
     }
@@ -225,7 +225,7 @@ final class EditorRouter: EditorRouterProtocol {
         let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
             onSelect(data.blockId)
         }
-        let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
+        let linkToView = SearchView(title: "Link to".localized, context: .linkTo, viewModel: viewModel)
         
         presentSwuftUIView(view: linkToView, model: viewModel)
     }
@@ -234,7 +234,7 @@ final class EditorRouter: EditorRouterProtocol {
         let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
             onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
-        let searchView = SearchView(title: nil, viewModel: viewModel)
+        let searchView = SearchView(title: nil, context: .searchInObject, viewModel: viewModel)
         
         presentSwuftUIView(view: searchView, model: viewModel)
     }
@@ -244,7 +244,7 @@ final class EditorRouter: EditorRouterProtocol {
         let viewModel = ObjectSearchViewModel(searchKind: objectKind) { data in
             onSelect(data.blockId)
         }
-        let searchView = SearchView(title: "Change type".localized, viewModel: viewModel)
+        let searchView = SearchView(title: "Change type".localized, context: .changeObjectType, viewModel: viewModel)
 
         presentSwuftUIView(view: searchView, model: viewModel)
     }

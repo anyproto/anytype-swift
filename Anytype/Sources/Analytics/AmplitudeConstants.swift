@@ -40,6 +40,8 @@ enum AmplitudeEventsName {
     static let restoreFromBin = "RestoreFromBin"
     static let objectListDelete = "RemoveCompletely"
     static let defaultObjectTypeChange = "DefaultTypeChange"
+    static let searchQuery = "SearchQuery"
+    static let searchResult = "SearchResult"
 
     // App settings events
     static let selectTheme = "ThemeSet"
@@ -89,7 +91,12 @@ enum AmplitudeEventsName {
     static let keychainPhraseScreenShow = "ScreenKeychain"
     static let keychainPhraseCopy = "KeychainCopy"
 
+    static let searchShow = "ScreenSearch"
     static let showAboutScreen = "Show About Screen"
+
+    // Navigation events
+    static let goBack = "HistoryBack"
+    static let goForward = "HistoryForward"
 
     // Popup events
     static let popupSlashMenu = "PopupSlashMenu"
@@ -122,6 +129,20 @@ enum AmplitudeEventsKeychainContext: String {
     case signup = "FirstSession"
 }
 
+// MARK: - Search context
+
+enum AmplitudeEventsSearchContext: String {
+    case home = "home"
+    case defaultType = "defaultType"
+    case moveTo = "moveTo"
+    case searchInObject = "searchInObject"
+    case mention = "mention"
+    case linkTo = "linkTo"
+    case markupLinkTo = "markupLinkTo"
+    case changeObjectType = "changeObjectType"
+    case relation = "relation"
+}
+
 // MARK: - Properties key
 
 enum AmplitudeEventsPropertiesKey {
@@ -136,4 +157,6 @@ enum AmplitudeEventsPropertiesKey {
 
     static let type = "type"
     static let objectType = "objectType"
+    static let length = "length"
+    static let index = "index"
 }
