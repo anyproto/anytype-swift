@@ -54,7 +54,7 @@ final class SubscriptionsStorage: ObservableObject {
         for event in events.middlewareEvents {
             switch event.value {
             case .objectDetailsAmend(let data):
-                let currentDetails = ObjectDetailsStorage.shared.get(id: data.id) ?? ObjectDetails.empty
+                let currentDetails = ObjectDetailsStorage.shared.get(id: data.id) ?? ObjectDetails.empty(id: data.id)
                 
                 let updatedDetails = currentDetails.updated(by: data.details.asDetailsDictionary)
                 ObjectDetailsStorage.shared.add(details: updatedDetails)
@@ -83,6 +83,27 @@ final class SubscriptionsStorage: ObservableObject {
                     insertIndex = afterIndex + 1
                 }
                 moveElementInCollection(id: subId, from: index, to: insertIndex)
+            case .subscriptionAdd(let data):
+                guard let subId = SubscriptionId(rawValue: events.objectId) else {
+                    anytypeAssertionFailure("Unsupported object id \(events.objectId) in subscriptionRemove", domain: .subscriptionStorage)
+                    break
+                }
+                
+                guard let details = ObjectDetailsStorage.shared.get(id: data.id) else {
+                    anytypeAssertionFailure("No details found for id \(data.id)", domain: .subscriptionStorage)
+                    return
+                }
+                
+                guard data.afterID != "" else {
+                    addElementInCollection(id: subId, details: details, at: 0)
+                    return
+                }
+                
+                guard let index = indexInCollection(id: subId, blockId: data.afterID) else {
+                    anytypeAssertionFailure("No object in \(subId) for id \(data.id)", domain: .subscriptionStorage)
+                    break
+                }
+                addElementInCollection(id: subId, details: details, at: index)
             case .subscriptionRemove(let remove):
                 guard let subId = SubscriptionId(rawValue: events.objectId) else {
                     anytypeAssertionFailure("Unsupported object id \(events.objectId) in subscriptionRemove", domain: .subscriptionStorage)
@@ -107,9 +128,11 @@ final class SubscriptionsStorage: ObservableObject {
     }
     
     private func update(details: ObjectDetails, rawSubIds: [String]) {
-        let ids: [SubscriptionId] = rawSubIds.compactMap {
-            guard let id = SubscriptionId(rawValue: $0) else {
-                anytypeAssertionFailure("Unrecognized subscription: \($0)", domain: .subscriptionStorage)
+        let ids: [SubscriptionId] = rawSubIds.compactMap { rawId in
+            guard let id = SubscriptionId(rawValue: rawId) else {
+                if !rawId.hasSuffix("/dep") {
+                    anytypeAssertionFailure("Unrecognized subscription: \(rawId)", domain: .subscriptionStorage)
+                }
                 return nil
             }
             
@@ -177,6 +200,19 @@ final class SubscriptionsStorage: ObservableObject {
             shared.moveElement(from: index, to: insertIndex)
         case .sets:
             sets.moveElement(from: index, to: insertIndex)
+        }
+    }
+    
+    private func addElementInCollection(id: SubscriptionId, details: ObjectDetails, at index: Int) {
+        switch id {
+        case .history:
+            history.insert(details, at: index)
+        case .archive:
+            archive.insert(details, at: index)
+        case .shared:
+            shared.insert(details, at: index)
+        case .sets:
+            sets.insert(details, at: index)
         }
     }
     
