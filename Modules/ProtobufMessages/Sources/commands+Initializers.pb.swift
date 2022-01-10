@@ -2524,6 +2524,31 @@ extension Anytype_Rpc.Object.Graph.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Object.IdsSubscribe.Request {
+  public init(subID: String, ids: [String], keys: [String], ignoreWorkspace: String) {
+    self.subID = subID
+    self.ids = ids
+    self.keys = keys
+    self.ignoreWorkspace = ignoreWorkspace
+  }
+}
+
+extension Anytype_Rpc.Object.IdsSubscribe.Response {
+  public init(error: Anytype_Rpc.Object.IdsSubscribe.Response.Error, records: [SwiftProtobuf.Google_Protobuf_Struct], dependencies: [SwiftProtobuf.Google_Protobuf_Struct], subID: String) {
+    self.error = error
+    self.records = records
+    self.dependencies = dependencies
+    self.subID = subID
+  }
+}
+
+extension Anytype_Rpc.Object.IdsSubscribe.Response.Error {
+  public init(code: Anytype_Rpc.Object.IdsSubscribe.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Object.RelationAdd.Request {
   public init(contextID: String, relation: Anytype_Model_Relation) {
     self.contextID = contextID
@@ -2681,7 +2706,7 @@ extension Anytype_Rpc.Object.RelationUpdate.Response.Error {
 extension Anytype_Rpc.Object.Search.Request {
   public init(
     filters: [Anytype_Model_Block.Content.Dataview.Filter], sorts: [Anytype_Model_Block.Content.Dataview.Sort], fullText: String, offset: Int32, limit: Int32, objectTypeFilter: [String],
-    keys: [String], ignoreWorkspace: Bool
+    keys: [String]
   ) {
     self.filters = filters
     self.sorts = sorts
@@ -2690,7 +2715,6 @@ extension Anytype_Rpc.Object.Search.Request {
     self.limit = limit
     self.objectTypeFilter = objectTypeFilter
     self.keys = keys
-    self.ignoreWorkspace = ignoreWorkspace
   }
 }
 
@@ -2703,6 +2727,64 @@ extension Anytype_Rpc.Object.Search.Response {
 
 extension Anytype_Rpc.Object.Search.Response.Error {
   public init(code: Anytype_Rpc.Object.Search.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.SearchSubscribe.Request {
+  public init(
+    subID: String, filters: [Anytype_Model_Block.Content.Dataview.Filter], sorts: [Anytype_Model_Block.Content.Dataview.Sort], fullText: String, limit: Int32, offset: Int32, keys: [String],
+    afterID: String, beforeID: String, source: [String], ignoreWorkspace: String
+  ) {
+    self.subID = subID
+    self.filters = filters
+    self.sorts = sorts
+    self.fullText = fullText
+    self.limit = limit
+    self.offset = offset
+    self.keys = keys
+    self.afterID = afterID
+    self.beforeID = beforeID
+    self.source = source
+    self.ignoreWorkspace = ignoreWorkspace
+  }
+}
+
+extension Anytype_Rpc.Object.SearchSubscribe.Response {
+  public init(
+    error: Anytype_Rpc.Object.SearchSubscribe.Response.Error, records: [SwiftProtobuf.Google_Protobuf_Struct], dependencies: [SwiftProtobuf.Google_Protobuf_Struct], subID: String,
+    counters: Anytype_Event.Object.Subscription.Counters
+  ) {
+    self.error = error
+    self.records = records
+    self.dependencies = dependencies
+    self.subID = subID
+    self.counters = counters
+  }
+}
+
+extension Anytype_Rpc.Object.SearchSubscribe.Response.Error {
+  public init(code: Anytype_Rpc.Object.SearchSubscribe.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.SearchUnsubscribe.Request {
+  public init(subIds: [String]) {
+    self.subIds = subIds
+  }
+}
+
+extension Anytype_Rpc.Object.SearchUnsubscribe.Response {
+  public init(error: Anytype_Rpc.Object.SearchUnsubscribe.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error {
+  public init(code: Anytype_Rpc.Object.SearchUnsubscribe.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -2807,6 +2889,26 @@ extension Anytype_Rpc.Object.ToSet.Response {
 
 extension Anytype_Rpc.Object.ToSet.Response.Error {
   public init(code: Anytype_Rpc.Object.ToSet.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.ObjectDuplicate.Request {
+  public init(contextID: String) {
+    self.contextID = contextID
+  }
+}
+
+extension Anytype_Rpc.ObjectDuplicate.Response {
+  public init(error: Anytype_Rpc.ObjectDuplicate.Response.Error, id: String) {
+    self.error = error
+    self.id = id
+  }
+}
+
+extension Anytype_Rpc.ObjectDuplicate.Response.Error {
+  public init(code: Anytype_Rpc.ObjectDuplicate.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
