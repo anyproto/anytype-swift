@@ -31,10 +31,11 @@ final class SubscriptionService: SubscriptionServiceProtocol {
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
         )
-        let filters = buildFilters(
+        var filters = buildFilters(
             isArchived: false,
             typeUrls: ObjectTypeProvider.supportedTypeUrls
         )
+        filters.append(SearchHelper.lastOpenedDateNotNilFilter())
         
         return makeRequest(subId: SubscriptionId.history.rawValue, filters: filters, sort: sort)
     }
@@ -87,7 +88,9 @@ final class SubscriptionService: SubscriptionServiceProtocol {
         return makeRequest(subId: SubscriptionId.sets.rawValue, filters: filters, sort: sort)
     }
 
-    private let homeDetailsKeys = ["id", "icon", "iconImage", "iconEmoji", "name", "snippet", "description", "type", "layout", "isArchived", "isDeleted", "isDone" ]
+    private let homeDetailsKeys: [BundledRelationKey] = [
+        .id, .iconEmoji, .iconImage, .name, .snippet, .description, .type, .layout, .isArchived, .isDeleted, .done
+    ]
     private func makeRequest(
         subId: String,
         filters: [Anytype_Model_Block.Content.Dataview.Filter],
@@ -100,7 +103,7 @@ final class SubscriptionService: SubscriptionServiceProtocol {
             fullText: "",
             limit: 100,
             offset: 0,
-            keys: homeDetailsKeys,
+            keys: homeDetailsKeys.map { $0.rawValue },
             afterID: "",
             beforeID: "",
             source: [],

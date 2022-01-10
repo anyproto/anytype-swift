@@ -31,6 +31,7 @@ final class SubscriptionsStorage: ObservableObject {
     }
     
     // MARK: - Private
+    private let dependencySubscriptionSuffix = "/dep"
     
     private var objectIds: [String] {
         SubscriptionId.allCases.map { $0.rawValue } + [""]
@@ -133,7 +134,7 @@ final class SubscriptionsStorage: ObservableObject {
     private func update(details: ObjectDetails, rawSubIds: [String]) {
         let ids: [SubscriptionId] = rawSubIds.compactMap { rawId in
             guard let id = SubscriptionId(rawValue: rawId) else {
-                if !rawId.hasSuffix("/dep") {
+                if !rawId.hasSuffix(dependencySubscriptionSuffix) {
                     anytypeAssertionFailure("Unrecognized subscription: \(rawId)", domain: .subscriptionStorage)
                 }
                 return nil
