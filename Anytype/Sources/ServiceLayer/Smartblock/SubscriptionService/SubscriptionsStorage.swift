@@ -14,16 +14,19 @@ final class SubscriptionsStorage: ObservableObject {
     
     private var subscription: AnyCancellable?
     private let service: SubscriptionServiceProtocol = SubscriptionService()
+    private let detailsStorage = ObjectDetailsStorage.shared
     
     private init() {
         setup()
     }
+    
     func toggleSubscriptions(ids: [SubscriptionId], _ turnOn: Bool) {
         ids.forEach { toggleSubscription(id: $0, turnOn) }
     }
+    
     func toggleSubscription(id: SubscriptionId, _ turnOn: Bool) {
         let details = service.toggleSubscription(id: id, turnOn) ?? []
-        details.forEach { ObjectDetailsStorage.shared.add(details: $0) }
+        details.forEach { detailsStorage.add(details: $0) }
         assignCollection(id: id, details: details)
     }
     
@@ -54,10 +57,10 @@ final class SubscriptionsStorage: ObservableObject {
         for event in events.middlewareEvents {
             switch event.value {
             case .objectDetailsAmend(let data):
-                let currentDetails = ObjectDetailsStorage.shared.get(id: data.id) ?? ObjectDetails.empty(id: data.id)
+                let currentDetails = detailsStorage.get(id: data.id) ?? ObjectDetails.empty(id: data.id)
                 
                 let updatedDetails = currentDetails.updated(by: data.details.asDetailsDictionary)
-                ObjectDetailsStorage.shared.add(details: updatedDetails)
+                detailsStorage.add(details: updatedDetails)
                 
                 update(details: updatedDetails, rawSubIds: data.subIds)
             case .subscriptionPosition(let position):
@@ -89,7 +92,7 @@ final class SubscriptionsStorage: ObservableObject {
                     break
                 }
                 
-                guard let details = ObjectDetailsStorage.shared.get(id: data.id) else {
+                guard let details = detailsStorage.get(id: data.id) else {
                     anytypeAssertionFailure("No details found for id \(data.id)", domain: .subscriptionStorage)
                     return
                 }

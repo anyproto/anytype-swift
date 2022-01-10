@@ -7,18 +7,21 @@ final class MiddlewareEventConverter {
     private let updater: BlockUpdater
     private let blocksContainer: BlockContainerModelProtocol
     private let relationStorage: RelationsMetadataStorageProtocol
+    private let detailsStorage: ObjectDetailsStorage
     
     private let informationCreator: BlockInformationCreator
     
     init(
         blocksContainer: BlockContainerModelProtocol,
         relationStorage: RelationsMetadataStorageProtocol,
-        informationCreator: BlockInformationCreator
+        informationCreator: BlockInformationCreator,
+        detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared
     ) {
         self.updater = BlockUpdater(blocksContainer)
         self.blocksContainer = blocksContainer
         self.relationStorage = relationStorage
         self.informationCreator = informationCreator
+        self.detailsStorage = detailsStorage
     }
     
     func convert(_ event: Anytype_Event.Message.OneOf_Value) -> EventsListenerUpdate? {
@@ -88,17 +91,17 @@ final class MiddlewareEventConverter {
             let id = value.id
             
             let details = ObjectDetails(id: id, values: value.details.fields)
-            ObjectDetailsStorage.shared.add(details: details)
+            detailsStorage.add(details: details)
             
             return .details(id: id)
             
         case let .objectDetailsAmend(amend):
             guard amend.details.isNotEmpty else { return nil }
             
-            let currentDetails = ObjectDetailsStorage.shared.get(id: amend.id) ?? ObjectDetails.empty(id: amend.id)
+            let currentDetails = detailsStorage.get(id: amend.id) ?? ObjectDetails.empty(id: amend.id)
             
             let updatedDetails = currentDetails.updated(by: amend.details.asDetailsDictionary)
-            ObjectDetailsStorage.shared.add(details: updatedDetails)
+            detailsStorage.add(details: updatedDetails)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
@@ -116,12 +119,12 @@ final class MiddlewareEventConverter {
         case let .objectDetailsUnset(payload):
             let id = payload.id
             
-            guard let currentDetails = ObjectDetailsStorage.shared.get(id: id) else {
+            guard let currentDetails = detailsStorage.get(id: id) else {
                 return nil
             }
             
             let updatedDetails = currentDetails.removed(keys: payload.keys)
-            ObjectDetailsStorage.shared.add(details: updatedDetails)
+            detailsStorage.add(details: updatedDetails)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
