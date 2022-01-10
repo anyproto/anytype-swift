@@ -95,7 +95,7 @@ final class MiddlewareEventConverter {
         case let .objectDetailsAmend(amend):
             guard amend.details.isNotEmpty else { return nil }
             
-            let currentDetails = ObjectDetailsStorage.shared.get(id: amend.id) ?? ObjectDetails.empty
+            let currentDetails = ObjectDetailsStorage.shared.get(id: amend.id) ?? ObjectDetails.empty(id: amend.id)
             
             let updatedDetails = currentDetails.updated(by: amend.details.asDetailsDictionary)
             ObjectDetailsStorage.shared.add(details: updatedDetails)
