@@ -11,6 +11,7 @@ struct HomeView: View {
     @State var bottomSheetState = HomeBottomSheetViewState.closed
     @State private var showSettings = false
     @State private var showKeychainAlert = UserDefaultsConfig.showKeychainAlert
+    @State private var isFirstLaunchAfterRegistration = ServiceLocator.shared.loginStateService().isFirstLaunchAfterRegistration
 
     var body: some View {
         navigationView
@@ -19,7 +20,7 @@ struct HomeView: View {
             .environmentObject(settingsModel)
             .environmentObject(accountData)
             .onAppear {
-                Amplitude.instance().logEvent(AmplitudeEventsName.dashboardPage)
+                Amplitude.instance().logEvent(AmplitudeEventsName.homeShow)
 
                 model.onAppear()
                 
@@ -42,8 +43,7 @@ struct HomeView: View {
                     withAnimation(.fastSpring) {
                         showSettings.toggle()
                         if showSettings {
-                            // Analytics
-                            Amplitude.instance().logEvent(AmplitudeEventsName.popupSettings)
+                            Amplitude.instance().logEvent(AmplitudeEventsName.settingsShow)
                         }
                     }
                 }) {
@@ -74,12 +74,23 @@ struct HomeView: View {
             DashboardClearCacheAlert().padding(8)
         }
         .animation(.fastSpring, value: settingsModel.clearCacheAlert)
+        .onChange(of: settingsModel.clearCacheAlert) { showClearCacheAlert in
+            if showClearCacheAlert {
+                Amplitude.instance().logEvent(AmplitudeEventsName.clearFileCacheAlertShow)
+            }
+        }
         
         .bottomFloater(isPresented: $showKeychainAlert) {
-            DashboardKeychainReminderAlert().padding(8)
+            DashboardKeychainReminderAlert(shownInContext: isFirstLaunchAfterRegistration ? .signup : .settings).padding(8)
         }
         .animation(.fastSpring, value: showKeychainAlert)
-        .onChange(of: showKeychainAlert) { UserDefaultsConfig.showKeychainAlert = $0 }
+        .onChange(of: showKeychainAlert) {
+            UserDefaultsConfig.showKeychainAlert = $0
+
+            if isFirstLaunchAfterRegistration {
+                Amplitude.instance().logKeychainPhraseShow(.signup)
+            }
+        }
         
         .bottomFloater(isPresented: $model.loadingAlertData.showAlert) {
             DashboardLoadingAlert(text: model.loadingAlertData.text).padding(8)
@@ -89,6 +100,9 @@ struct HomeView: View {
         .sheet(isPresented: $model.showSearch) {
             HomeSearchView()
                 .environmentObject(model)
+                .onChange(of: model.showSearch) { showSearch in
+                    Amplitude.instance().logEvent(AmplitudeEventsName.searchShow)
+                }
         }
         
         .snackbar(

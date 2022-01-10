@@ -22,7 +22,7 @@ final class AuthService: AuthServiceProtocol {
     }
 
     func logout() {
-        Amplitude.instance().logEvent(AmplitudeEventsName.accountStop)
+        Amplitude.instance().logEvent(AmplitudeEventsName.logout)
         
         _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: false)
         
@@ -35,7 +35,6 @@ final class AuthService: AuthServiceProtocol {
             .map { $0.mnemonic }
         
         if let mnemonic = result.getValue(domain: .authService) {
-            Amplitude.instance().logEvent(AmplitudeEventsName.walletCreate)
             AnytypeLogger.create("Services.AuthService").debugPrivate("seed:", arg: mnemonic)
             try? seedService.saveSeed(mnemonic)
         }
@@ -66,8 +65,6 @@ final class AuthService: AuthServiceProtocol {
             .mapError { _ in AuthServiceError.recoverWalletError }
             .map { _ in Void() }
 
-        Amplitude.instance().logEvent(AmplitudeEventsName.walletRecover)
-
         return result
     }
 
@@ -75,7 +72,6 @@ final class AuthService: AuthServiceProtocol {
         let result = Anytype_Rpc.Account.Recover.Service.invoke()
         switch result {
         case .success:
-            Amplitude.instance().logEvent(AmplitudeEventsName.accountRecover)
             return nil
         case .failure:
             return AuthServiceError.recoverAccountError

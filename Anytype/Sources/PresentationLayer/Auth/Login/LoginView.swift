@@ -1,4 +1,5 @@
 import SwiftUI
+import Amplitude
 
 struct LoginView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -21,6 +22,9 @@ struct LoginView: View {
         }
         .sheet(isPresented: $viewModel.showQrCodeView) {
             QRCodeScannerView(qrCode: self.$viewModel.entropy, error: self.$viewModel.error)
+        }
+        .onAppear {
+            Amplitude.instance().logEvent(AmplitudeEventsName.loginScreenShow)
         }
     }
     

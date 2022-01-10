@@ -9,6 +9,7 @@ import AnytypeCore
 
 final class ObjectActionsService: ObjectActionsServiceProtocol {
     private var deleteSubscription: AnyCancellable?
+
     func delete(objectIds: [BlockId], completion: @escaping (Bool) -> ()) {
         Amplitude.instance().logDeletion(count: objectIds.count)
         
@@ -32,10 +33,14 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) {
         _ = Anytype_Rpc.ObjectList.Set.IsArchived.Service.invoke(objectIds: objectIds, isArchived: isArchived)
+
+        Amplitude.instance().logMoveToBin(isArchived)
     }
 
     func setFavorite(objectId: BlockId, _ isFavorite: Bool) {
         _ = Anytype_Rpc.Object.SetIsFavorite.Service.invoke(contextID: objectId, isFavorite: isFavorite)
+
+        Amplitude.instance().logAddToFavorites(isFavorite)
     }
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.

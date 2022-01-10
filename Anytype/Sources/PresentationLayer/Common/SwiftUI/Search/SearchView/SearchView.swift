@@ -1,11 +1,13 @@
 import SwiftUI
 import BlocksModels
-
+import Amplitude
 
 struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
     @Environment(\.presentationMode) var presentationMode
 
     let title: String?
+    let context: AmplitudeEventsSearchContext
+
     @State private var searchText = ""
     @StateObject var viewModel: SearchViewModel
     
@@ -17,7 +19,11 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             content
         }
         .background(Color.backgroundSecondary)
-        .onChange(of: searchText) { search(text: $0) }
+        .onChange(of: searchText) {
+            search(text: $0)
+
+            Amplitude.instance().logSearchQuery(context, length: searchText.count)
+        }
         .onAppear { search(text: searchText) }
     }
     
@@ -48,12 +54,16 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             LazyVStack(spacing: 0) {
                 ForEach(viewModel.searchData) { section in
                     Section(content: {
-                        ForEach(section.searchData) { searchData in
+                        ForEach(section.searchData.indices, id: \.self) { index in
+                            let searchData = section.searchData[index]
+                            
                             Button(
                                 action: {
                                     presentationMode.wrappedValue.dismiss()
                                     viewModel.onDismiss()
                                     viewModel.onSelect(searchData)
+
+                                    Amplitude.instance().logSearchResult(index: index, length: searchText.count)
                                 }
                             ) {
                                 SearchCell(
@@ -112,7 +122,7 @@ struct HomeSearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView(
             title: "FOoo",
-            viewModel: ObjectSearchViewModel(searchKind: .objects, onSelect: { _ in
+            context: .home, viewModel: ObjectSearchViewModel(searchKind: .objects, onSelect: { _ in
             })
         )
     }

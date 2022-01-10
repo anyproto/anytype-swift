@@ -79,8 +79,6 @@ final class HomeViewModel: ObservableObject {
         }
         SubscriptionsStorage.shared.toggleSubscriptions(ids: subscriptions, false)
         
-        Amplitude.instance().logEvent(tab.amplitudeEventName)
-        
         if tab == .favourites {
             updateFavoritesTab()
         }

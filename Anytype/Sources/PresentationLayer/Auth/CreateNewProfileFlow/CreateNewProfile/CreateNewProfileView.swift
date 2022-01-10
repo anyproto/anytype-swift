@@ -1,5 +1,5 @@
 import SwiftUI
-
+import Amplitude
 
 struct CreateNewProfileView: View {
     @State private var showImagePicker: Bool = false
@@ -19,9 +19,11 @@ struct CreateNewProfileView: View {
         }
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
-        
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(image: $signUpData.image)
+        }
+        .onAppear {
+            Amplitude.instance().logEvent(AmplitudeEventsName.authScreenShow)
         }
     }
     

@@ -1,6 +1,6 @@
 import SwiftUI
 import BlocksModels
-
+import Amplitude
 
 struct SearchNewRelationView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -57,11 +57,13 @@ struct SearchNewRelationView: View {
                         }
                     case let .addFromLibriry(relationsMetaData):
                         Section(content: {
-                            ForEach(relationsMetaData) { relationMetadata in
+                            ForEach(relationsMetaData.indices, id: \.self) { index in
+                                let relationMetadata = relationsMetaData[index]
                                 Button(
                                     action: {
                                         viewModel.addRelation(relationMetadata)
                                         presentationMode.wrappedValue.dismiss()
+                                        Amplitude.instance().logSearchResult(index: index, length: searchText.count)
                                     }
                                 ) {
                                     NewRelationCell(cellKind: .relation(realtionMetadata: relationMetadata))

@@ -1,6 +1,8 @@
 import SwiftUI
+import Amplitude
 
 struct SettingsSectionView: View {
+
     @EnvironmentObject var viewModel: SettingsViewModel
 
     var body: some View {
@@ -20,7 +22,11 @@ struct SettingsSectionView: View {
                 pressed: $viewModel.keychain
             )
             .sheet(isPresented: $viewModel.keychain) {
-                KeychainPhraseView()
+                if viewModel.loggingOut {
+                    KeychainPhraseView(shownInContext: .logout)
+                } else {
+                    KeychainPhraseView(shownInContext: .settings)
+                }
             }
             
 //            SettingsSectionItemView(
@@ -34,6 +40,11 @@ struct SettingsSectionView: View {
                 icon: .settings.other,
                 pressed: $viewModel.other
             )
+            .onChange(of: viewModel.other) { showOtherSettings in
+                if showOtherSettings {
+                    Amplitude.instance().logEvent(AmplitudeEventsName.otherSettingsShow)
+                }
+            }
             
             SettingsSectionItemView(
                 name: "About",
