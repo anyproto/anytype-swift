@@ -34,3 +34,13 @@ public extension Array where Element == String {
         )
     }
 }
+
+public extension Array where Element == Int {
+    var protobufValue: Google_Protobuf_Value {
+        Google_Protobuf_Value(
+            listValue: Google_Protobuf_ListValue(
+                values: self.map { $0.protobufValue }
+            )
+        )
+    }
+}

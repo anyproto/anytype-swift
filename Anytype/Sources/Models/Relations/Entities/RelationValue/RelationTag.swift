@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import SwiftUI
 
 extension Relation {
     
@@ -17,12 +18,16 @@ extension Relation {
 
 extension Relation.Tag {
     
-    struct Option: Hashable, Identifiable, RelationValueOptionProtocol {
+    struct Option: Hashable, Identifiable, RelationSectionedOptionProtocol, RelationOptionProtocol {
         let id: String
         let text: String
         let textColor: AnytypeColor
         let backgroundColor: AnytypeColor
         let scope: RelationMetadata.Option.Scope
+        
+        func makeView() -> AnyView {
+            AnyView(TagRelationRowView(tag: self))
+        }
     }
     
 }

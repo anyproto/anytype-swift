@@ -3932,6 +3932,31 @@ message Rpc {
         }
     }
 
+    message ObjectDuplicate {
+        message Request {
+            // id of template block for cloning
+            string contextId = 1;
+        }
+
+        message Response {
+            Error error = 1;
+            // created template id
+            string id = 2;
+
+            message Error {
+                Code code = 1;
+                string description = 2;
+
+                enum Code {
+                    NULL = 0;
+                    UNKNOWN_ERROR = 1;
+                    BAD_INPUT = 2;
+                    // ...
+                }
+            }
+        }
+    }
+
     message ApplyTemplate {
         message Request {
             string contextId = 1;

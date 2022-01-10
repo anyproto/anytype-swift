@@ -61,7 +61,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: value.value,
                 service: RelationsService(objectId: "")
             )
-        case .status(let status):            
+        case .status(let status):
             return StatusRelationEditingViewModel(
                 relationKey: relation.id,
                 relationName: relation.name,
@@ -70,13 +70,27 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 relationsService: RelationsService(objectId: objectId)
             )
         case .tag(let tag):
-            return TagRelationEditingViewModel(
-                relationTag: tag,
+            return RelationOptionsViewModel(
+                type: .tags(tag.allTags),
+                title: tag.name,
+                relationKey: tag.id,
+                selectedOptions: tag.selectedTags,
                 relationsService: RelationsService(objectId: objectId)
             )
         case .object(let object):
-            return RelationObjectsEditingViewModel(
-                relationObject: object,
+            return RelationOptionsViewModel(
+                type: .objects,
+                title: object.name,
+                relationKey: object.id,
+                selectedOptions: object.selectedObjects,
+                relationsService: RelationsService(objectId: objectId)
+            )
+        case .file(let file):
+            return RelationOptionsViewModel(
+                type: .files,
+                title: file.name,
+                relationKey: file.id,
+                selectedOptions: file.files,
                 relationsService: RelationsService(objectId: objectId)
             )
         default:

@@ -1,10 +1,10 @@
 import SwiftUI
 
-struct RelationObjectsSearchView: View {
+struct RelationOptionsSearchView: View {
     
     @Environment(\.presentationMode) private var presentationMode
     
-    @ObservedObject var viewModel: RelationObjectsSearchViewModel
+    @ObservedObject var viewModel: RelationOptionsSearchViewModel
     
     @State private var searchText = ""
     
@@ -22,7 +22,7 @@ struct RelationObjectsSearchView: View {
     
     private var content: some View {
         Group {
-            if viewModel.objects.isEmpty {
+            if viewModel.options.isEmpty {
                 emptyState
             } else {
                 searchResults
@@ -33,12 +33,12 @@ struct RelationObjectsSearchView: View {
     private var searchResults: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                ForEach(viewModel.objects) { object in
+                ForEach(viewModel.options) { option in
                     RelationObjectsSearchRowView(
-                        data: object,
-                        isSelected: viewModel.selectedObjectIds.contains(object.id)
+                        data: option,
+                        isSelected: viewModel.selectedOptionIds.contains(option.id)
                     ) {
-                        viewModel.didTapOnObject(object)
+                        viewModel.didTapOnOption(option)
                     }
                 }
             }
@@ -68,15 +68,15 @@ struct RelationObjectsSearchView: View {
     }
     
     private var addButton: some View {
-        StandardButton(disabled: viewModel.selectedObjectIds.isEmpty, text: "Add".localized, style: .primary) {
-            viewModel.didTapAddSelectedObjects()
+        StandardButton(disabled: viewModel.selectedOptionIds.isEmpty, text: "Add".localized, style: .primary) {
+            viewModel.didTapAddSelectedOptions()
             presentationMode.wrappedValue.dismiss()
         }
-        .if(viewModel.selectedObjectIds.isNotEmpty) {
+        .if(viewModel.selectedOptionIds.isNotEmpty) {
             $0.overlay(
                 HStack(spacing: 0) {
                     Spacer()
-                    AnytypeText("\(viewModel.selectedObjectIds.count)", style: .relation1Regular, color: .grayscaleWhite)
+                    AnytypeText("\(viewModel.selectedOptionIds.count)", style: .relation1Regular, color: .grayscaleWhite)
                         .frame(minWidth: 15, minHeight: 15)
                         .padding(5)
                         .background(Color.darkAmber)
@@ -92,8 +92,8 @@ struct RelationObjectsSearchView: View {
     }
 }
 
-//struct RelationObjectsSearchView_Previews: PreviewProvider {
+//struct RelationOptionsSearchView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        RelationObjectsSearchView()
+//        RelationOptionsSearchView()
 //    }
 //}

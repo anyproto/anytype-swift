@@ -5,6 +5,7 @@ import BlocksModels
 protocol SearchServiceProtocol {
     func search(text: String) -> [ObjectDetails]?
     func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
+    func searchFiles(text: String) -> [ObjectDetails]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -53,6 +54,21 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
                 ObjectTemplateType.BundledType.task.rawValue
             ]
         ) { $0.id }
+    }
+    
+    func searchFiles(text: String) -> [ObjectDetails]? {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+        
+        let filters = [
+            SearchHelper.notHiddenFilter(),
+            SearchHelper.isDeletedFilter(isDeleted: false),
+            SearchHelper.layoutFilter(layouts: [DetailsLayout.fileLayout, DetailsLayout.imageLayout])
+        ]
+        
+        return makeRequest(filters: filters, sorts: [sort], fullText: text)
     }
     
     private func makeRequest(

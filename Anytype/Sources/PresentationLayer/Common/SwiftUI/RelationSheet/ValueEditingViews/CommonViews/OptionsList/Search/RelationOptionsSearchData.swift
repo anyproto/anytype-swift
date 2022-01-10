@@ -1,7 +1,7 @@
 import Foundation
 import BlocksModels
 
-struct RelationObjectsSearchData: Hashable, Identifiable {
+struct RelationOptionsSearchData: Hashable, Identifiable {
     let id: String
     
     let iconImage: ObjectIconImage
@@ -9,7 +9,7 @@ struct RelationObjectsSearchData: Hashable, Identifiable {
     let subtitle: String
 }
 
-extension RelationObjectsSearchData {
+extension RelationOptionsSearchData {
     
     init(details: ObjectDetails) {
         self.id = details.id

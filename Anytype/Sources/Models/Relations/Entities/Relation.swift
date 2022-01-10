@@ -12,6 +12,7 @@ enum Relation: Hashable, Identifiable {
     case email(Text)
     case phone(Text)
     case tag(Tag)
+    case file(File)
     case unknown(Unknown)
 }
 
@@ -31,6 +32,7 @@ extension Relation: RelationProtocol {
         case .email(let text): return text.id
         case .phone(let text): return text.id
         case .tag(let tag): return tag.id
+        case .file(let file): return file.id
         case .unknown(let unknown): return unknown.id
         }
     }
@@ -47,6 +49,7 @@ extension Relation: RelationProtocol {
         case .email(let text): return text.name
         case .phone(let text): return text.name
         case .tag(let tag): return tag.name
+        case .file(let file): return file.name
         case .unknown(let unknown): return unknown.name
         }
     }
@@ -63,6 +66,7 @@ extension Relation: RelationProtocol {
         case .email(let text): return text.isEditable
         case .phone(let text): return text.isEditable
         case .tag(let tag): return tag.isEditable
+        case .file(let file): return file.isEditable
         case .unknown(let unknown): return unknown.isEditable
         }
     }
@@ -79,6 +83,7 @@ extension Relation: RelationProtocol {
         case .email(let text): return text.isFeatured
         case .phone(let text): return text.isFeatured
         case .tag(let tag): return tag.isFeatured
+        case .file(let file): return file.isFeatured
         case .unknown(let unknown): return unknown.isFeatured
         }
     }
@@ -100,6 +105,7 @@ extension Relation {
         case .phone: return "Enter phone".localized
         case .status: return "Select status".localized
         case .tag: return "Select tags".localized
+        case .file: return "Select files".localized
         case .checkbox: return ""
         case .unknown: return "Enter value".localized
         }

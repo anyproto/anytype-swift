@@ -147,6 +147,7 @@ extension Anytype_Rpc.ExportLocalstore.Response.Error: Swift.Error {}
 extension Anytype_Rpc.MakeTemplate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.MakeTemplateByObjectType.Response.Error: Swift.Error {}
 extension Anytype_Rpc.CloneTemplate.Response.Error: Swift.Error {}
+extension Anytype_Rpc.ObjectDuplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ApplyTemplate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Debug.Sync.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Debug.Thread.Response.Error: Swift.Error {}

@@ -98,7 +98,7 @@ final class EditorSetViewModel: ObservableObject {
             anytypeAssertionFailure("Empty active view", domain: .editorSet)
             return
         }
-        
+
         guard let response = Anytype_Rpc.Block.Dataview.ViewSetActive.Service.invoke(
             contextID: document.objectId, blockID: dataViewId, viewID: activeView.id, offset: 0, limit: 300
         ).getValue(domain: .editorSet) else { return }

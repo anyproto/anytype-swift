@@ -321,7 +321,7 @@ private extension RelationsBuilder {
         metadata: RelationMetadata,
         details: ObjectDetails
     ) -> Relation {
-        let objectOptions: [Relation.Object.Option] = {
+        let fileOptions: [Relation.File.Option] = {
             let value = details.values[metadata.key]
             guard let value = value else { return [] }
             
@@ -333,7 +333,7 @@ private extension RelationsBuilder {
                 return objectDetails
             }
 
-            let objectOptions: [Relation.Object.Option] = objectDetails.map { objectDetail in
+            let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
                 let fileName: String = {
                     let name = objectDetail.name
                     let fileExt = objectDetail.values[BundledRelationKey.fileExt.rawValue]
@@ -361,24 +361,23 @@ private extension RelationsBuilder {
                     return .image(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
                 }()
                 
-                return Relation.Object.Option(
+                return Relation.File.Option(
                     id: objectDetail.id,
                     icon: icon,
-                    title: fileName,
-                    type: objectDetail.objectType.name
+                    title: fileName
                 )
             }
             
             return objectOptions
         }()
         
-        return .object(
-            Relation.Object(
+        return .file(
+            Relation.File(
                 id: metadata.id,
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
-                selectedObjects: objectOptions
+                files: fileOptions
             )
         )
     }

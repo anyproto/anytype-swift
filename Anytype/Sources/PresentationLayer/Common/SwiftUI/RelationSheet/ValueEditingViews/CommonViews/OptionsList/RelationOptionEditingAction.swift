@@ -1,6 +1,6 @@
 import Foundation
 
-enum TagRelationEditingAction {
+enum RelationOptionEditingAction {
     case remove(IndexSet)
     case move(IndexSet, Int)
 }

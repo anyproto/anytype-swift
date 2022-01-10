@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct RelationValueOptionCreateButton: View {
+struct RelationOptionCreateButton: View {
     let text: String
     let action: () -> Void
     
@@ -22,6 +22,6 @@ struct RelationValueOptionCreateButton: View {
 
 struct RelationValueOptionCreateButton_Previews: PreviewProvider {
     static var previews: some View {
-        RelationValueOptionCreateButton(text: "tetet") {}
+        RelationOptionCreateButton(text: "tetet") {}
     }
 }

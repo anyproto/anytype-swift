@@ -2894,6 +2894,26 @@ extension Anytype_Rpc.Object.ToSet.Response.Error {
   }
 }
 
+extension Anytype_Rpc.ObjectDuplicate.Request {
+  public init(contextID: String) {
+    self.contextID = contextID
+  }
+}
+
+extension Anytype_Rpc.ObjectDuplicate.Response {
+  public init(error: Anytype_Rpc.ObjectDuplicate.Response.Error, id: String) {
+    self.error = error
+    self.id = id
+  }
+}
+
+extension Anytype_Rpc.ObjectDuplicate.Response.Error {
+  public init(code: Anytype_Rpc.ObjectDuplicate.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.ObjectList.Delete.Request {
   public init(objectIds: [String]) {
     self.objectIds = objectIds

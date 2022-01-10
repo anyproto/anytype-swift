@@ -47,6 +47,18 @@ extension RelationsService: RelationsServiceProtocol {
             .getValue(domain: .relationsService)?
             .send()
     }
+
+    func addRelation(_ relation: RelationMetadata) -> RelationMetadata? {
+        let response = Anytype_Rpc.Object.RelationAdd.Service.invoke(contextID: objectId,
+                                                                     relation: relation.middlewareModel)
+            .getValue(domain: .relationsService)
+
+        guard let response = response else { return nil }
+
+        EventsBunch(event: response.event).send()
+
+        return RelationMetadata(middlewareRelation: response.relation)
+    }
     
     func removeRelation(relationKey: String) {
         Anytype_Rpc.Object.RelationDelete.Service.invoke(

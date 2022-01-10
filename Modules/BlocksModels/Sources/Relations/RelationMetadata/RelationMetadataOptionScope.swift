@@ -30,5 +30,4 @@ extension RelationMetadata.Option.Scope {
         case .unrecognized(let i): return i
         }
     }
-    
 }

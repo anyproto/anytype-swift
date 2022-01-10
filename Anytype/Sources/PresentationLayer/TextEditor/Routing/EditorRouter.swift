@@ -32,7 +32,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectId: BlockId, relation: Relation)
-    func showAdditinNewRelationView(onSelect: @escaping () -> Void)
+    func showAdditinNewRelationView(onSelect: @escaping (RelationMetadata) -> Void)
 
     func goBack()
 
@@ -276,10 +276,13 @@ final class EditorRouter: EditorRouterProtocol {
         viewController.topPresentedController.present(controller, animated: false)
     }
 
-    func showAdditinNewRelationView(onSelect: @escaping () -> Void) {
+    func showAdditinNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
         let relationService = RelationsService(objectId: document.objectId)
-        let viewModel = SearchNewRelationViewModel(relationService: relationService) { relationMetadata in
-        }
+        
+        let viewModel = SearchNewRelationViewModel(
+            relationService: relationService,
+            objectRelations: document.parsedRelations,
+            onSelect: onSelect)
 
         let view = SearchNewRelationView(viewModel: viewModel)
         presentSwuftUIView(view: view, model: viewModel)
