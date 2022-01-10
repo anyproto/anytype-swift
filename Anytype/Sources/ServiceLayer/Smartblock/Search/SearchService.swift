@@ -142,8 +142,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             offset: 0,
             limit: 100,
             objectTypeFilter: [],
-            keys: [],
-            ignoreWorkspace: false
+            keys: []
         ).getValue(domain: .searchService) else { return nil }
             
         let details: [ObjectDetails] = response.records.compactMap { search in

@@ -707,9 +707,10 @@ extension Anytype_Event.Message {
 }
 
 extension Anytype_Event.Object.Details.Amend {
-  public init(id: String, details: [Anytype_Event.Object.Details.Amend.KeyValue]) {
+  public init(id: String, details: [Anytype_Event.Object.Details.Amend.KeyValue], subIds: [String]) {
     self.id = id
     self.details = details
+    self.subIds = subIds
   }
 }
 
@@ -721,16 +722,18 @@ extension Anytype_Event.Object.Details.Amend.KeyValue {
 }
 
 extension Anytype_Event.Object.Details.Set {
-  public init(id: String, details: SwiftProtobuf.Google_Protobuf_Struct) {
+  public init(id: String, details: SwiftProtobuf.Google_Protobuf_Struct, subIds: [String]) {
     self.id = id
     self.details = details
+    self.subIds = subIds
   }
 }
 
 extension Anytype_Event.Object.Details.Unset {
-  public init(id: String, keys: [String]) {
+  public init(id: String, keys: [String], subIds: [String]) {
     self.id = id
     self.keys = keys
+    self.subIds = subIds
   }
 }
 
@@ -795,6 +798,34 @@ extension Anytype_Event.Object.Show.RelationWithValuePerObject {
   public init(objectID: String, relations: [Anytype_Model_RelationWithValue]) {
     self.objectID = objectID
     self.relations = relations
+  }
+}
+
+extension Anytype_Event.Object.Subscription.Add {
+  public init(id: String, afterID: String) {
+    self.id = id
+    self.afterID = afterID
+  }
+}
+
+extension Anytype_Event.Object.Subscription.Counters {
+  public init(total: Int64, nextCount: Int64, prevCount: Int64) {
+    self.total = total
+    self.nextCount = nextCount
+    self.prevCount = prevCount
+  }
+}
+
+extension Anytype_Event.Object.Subscription.Position {
+  public init(id: String, afterID: String) {
+    self.id = id
+    self.afterID = afterID
+  }
+}
+
+extension Anytype_Event.Object.Subscription.Remove {
+  public init(id: String) {
+    self.id = id
   }
 }
 
