@@ -40,7 +40,7 @@ extension Amplitude {
     }
 
     func logHomeTabSelection(_ selectedTab: HomeTabsView.Tab) {
-        var anayliticsName = ""
+        let anayliticsName: String
 
         switch selectedTab {
         case .favourites:

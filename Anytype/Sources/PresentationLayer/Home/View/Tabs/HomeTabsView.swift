@@ -25,21 +25,6 @@ extension HomeTabsView {
                 return .archive
             }
         }
-        
-        var amplitudeEventName: String {
-            switch self {
-            case .favourites:
-                return AmplitudeEventsName.favoritesTabSelected
-            case .history:
-                return AmplitudeEventsName.recentTabSelected
-            case .bin:
-                return AmplitudeEventsName.archiveTabSelected
-            case .shared:
-                return AmplitudeEventsName.sharedTabSelected
-            case .sets:
-                return AmplitudeEventsName.setsTabSelected
-            }
-        }
     }
 }
 
