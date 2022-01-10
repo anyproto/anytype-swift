@@ -5,6 +5,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 import SwiftUI
+import Amplitude
 
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [HomeCellData] = []
@@ -12,11 +13,20 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.filter { !$0.isArchived && !$0.isDeleted }
     }
     
-    @Published var historyCellData: [HomeCellData] = []
-    @Published var binCellData: [HomeCellData] = []
-    @Published var sharedCellData: [HomeCellData] = []
-    @Published var setsCellData: [HomeCellData] = []
+    var historyCellData: [HomeCellData] {
+        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.history)
+    }
+    var binCellData: [HomeCellData] {
+        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.archive)
+    }
+    var sharedCellData: [HomeCellData] {
+        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.shared)
+    }
+    var setsCellData: [HomeCellData] {
+        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.sets)
+    }
     
+    @Published var selectedPageIds: Set<BlockId> = []
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
     @Published var showDeletionAlert = false
@@ -38,6 +48,7 @@ final class HomeViewModel: ObservableObject {
     
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
+    private var subscriptionStorageSubscription: AnyCancellable?
     
     init() {
         let homeBlockId = configurationService.configuration().homeBlockID
@@ -45,53 +56,53 @@ final class HomeViewModel: ObservableObject {
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(updateResult: $0)
         }.store(in: &cancellables)
-        setupQuickActionsSubscription()
+        setupSubscriptions()
     }
 
     // MARK: - View output
 
     func onAppear() {
         document.open()
-        reloadItems()
         animationsEnabled = true
     }
     
     func onDisappear() {
+        SubscriptionsStorage.shared.toggleSubscriptions(ids: HomeTabsView.Tab.allCases.compactMap(\.subscriptionId), false)
         document.close()
     }
-
-    func updateBinTab() {
-        guard let searchResults = searchService.searchArchivedPages() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            binCellData = cellDataBuilder.buildCellData(searchResults)
+    
+    func onTabChange(tab: HomeTabsView.Tab) {
+        var subscriptions = HomeTabsView.Tab.allCases.compactMap(\.subscriptionId)
+        tab.subscriptionId.flatMap { subId in
+            subscriptions.removeAllOccurrences(of: subId)
+            SubscriptionsStorage.shared.toggleSubscription(id: subId, true)
+        }
+        SubscriptionsStorage.shared.toggleSubscriptions(ids: subscriptions, false)
+        
+        Amplitude.instance().logEvent(tab.amplitudeEventName)
+        
+        if tab == .favourites {
+            updateFavoritesTab()
         }
     }
-    func updateHistoryTab() {
-        guard let searchResults = searchService.searchHistoryPages() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            historyCellData = cellDataBuilder.buildCellData(searchResults)
-        }
-    }
-    func updateSharedTab() {
-        guard let searchResults = searchService.searchSharedPages() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            sharedCellData = cellDataBuilder.buildCellData(searchResults)
-        }
-    }
+    
     func updateFavoritesTab() {
         withAnimation(animationsEnabled ? .spring() : nil) {
             favoritesCellData = cellDataBuilder.buildFavoritesData()
         }
     }
-    func updateSetsTab() {
-        guard let searchResults = searchService.searchSets() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            setsCellData = cellDataBuilder.buildCellData(searchResults)
-        }
-    }
     
     // MARK: - Private methods
-    private func setupQuickActionsSubscription() {
+    private func setupSubscriptions() {
+        subscriptionStorageSubscription = SubscriptionsStorage.shared.objectWillChange
+            .receiveOnMain()
+            .sink { [weak self] in
+                guard let self = self else { return }
+                withAnimation(self.animationsEnabled ? .spring() : nil) {
+                    self.objectWillChange.send()
+                }
+            }
+        
         // visual delay on application launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { [weak self] action in
@@ -110,7 +121,7 @@ final class HomeViewModel: ObservableObject {
         withAnimation(animationsEnabled ? .spring() : nil) {
             switch updateResult {
             case .general:
-                reloadItems()
+                updateFavoritesTab()
             case .blocks(let blockIds):
                 blockIds.forEach { updateFavoritesCellWithTargetId($0) }
             case .details(let detailId):
@@ -121,14 +132,6 @@ final class HomeViewModel: ObservableObject {
         }
     }
 
-    private func reloadItems() {
-        updateBinTab()
-        updateHistoryTab()
-        updateFavoritesTab()
-        updateSharedTab()
-        updateSetsTab()
-    }
-    
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
         guard let newDetails = ObjectDetailsStorage.shared.get(id: blockId) else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .homeView)

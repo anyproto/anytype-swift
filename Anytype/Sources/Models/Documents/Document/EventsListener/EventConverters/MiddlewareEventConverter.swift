@@ -95,11 +95,7 @@ final class MiddlewareEventConverter {
         case let .objectDetailsAmend(amend):
             guard amend.details.isNotEmpty else { return nil }
             
-            let id = amend.id
-            
-            guard let currentDetails = ObjectDetailsStorage.shared.get(id: id) else {
-                return nil
-            }
+            let currentDetails = ObjectDetailsStorage.shared.get(id: amend.id) ?? ObjectDetails.empty(id: amend.id)
             
             let updatedDetails = currentDetails.updated(by: amend.details.asDetailsDictionary)
             ObjectDetailsStorage.shared.add(details: updatedDetails)
@@ -115,7 +111,7 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            return .details(id: id)
+            return .details(id: amend.id)
             
         case let .objectDetailsUnset(payload):
             let id = payload.id
@@ -315,7 +311,7 @@ final class MiddlewareEventConverter {
     }
 }
 
-private extension Array where Element == Anytype_Event.Object.Details.Amend.KeyValue {
+public extension Array where Element == Anytype_Event.Object.Details.Amend.KeyValue {
 
     var asDetailsDictionary: [String: Google_Protobuf_Value] {
         reduce(

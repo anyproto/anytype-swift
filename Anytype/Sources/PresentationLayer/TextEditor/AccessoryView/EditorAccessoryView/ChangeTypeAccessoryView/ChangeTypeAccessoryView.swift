@@ -57,7 +57,7 @@ class ChangeTypeAccessoryView: UIView {
         stackView.addArrangedSubview(changeTypeView)
 
         let changeTypeAction = UIAction { [weak viewModel] _ in
-            viewModel?.toogleChangeTypeState()
+            viewModel?.toggleChangeTypeState()
         }
         changeButton.addAction(changeTypeAction, for: .touchUpInside)
     }

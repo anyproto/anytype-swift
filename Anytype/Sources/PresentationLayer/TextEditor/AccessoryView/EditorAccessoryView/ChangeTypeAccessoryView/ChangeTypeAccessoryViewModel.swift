@@ -34,7 +34,7 @@ final class ChangeTypeAccessoryViewModel {
         UIApplication.shared.hideKeyboard()
     }
 
-    func toogleChangeTypeState() {
+    func toggleChangeTypeState() {
         isTypesViewVisible.toggle()
     }
 
