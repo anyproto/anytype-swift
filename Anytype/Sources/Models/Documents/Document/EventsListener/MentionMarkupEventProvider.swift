@@ -6,13 +6,16 @@ final class MentionMarkupEventProvider {
     
     private let objectId: BlockId
     private let blocksContainer: BlockContainerModelProtocol
+    private let detailsStorage: ObjectDetailsStorage
         
     init(
         objectId: BlockId,
-        blocksContainer: BlockContainerModelProtocol
+        blocksContainer: BlockContainerModelProtocol,
+        detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared
     ) {
         self.objectId = objectId
         self.blocksContainer = blocksContainer
+        self.detailsStorage = detailsStorage
     }
     
     func updateMentionsEvent() -> EventsListenerUpdate {
@@ -43,7 +46,7 @@ final class MentionMarkupEventProvider {
             let mentionName = string[mentionRange]
             
             let mentionBlockId = mark.param
-            let details = ObjectDetailsStorage.shared.get(id: mentionBlockId)
+            let details = detailsStorage.get(id: mentionBlockId)
             
             guard let mentionNameInDetails = details?.mentionTitle else { return nil }
             

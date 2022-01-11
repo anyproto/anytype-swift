@@ -6,9 +6,11 @@ import UIKit
 final class RelationsBuilder {
     
     private let scope: RelationMetadata.Scope
+    private let storage: ObjectDetailsStorage
     
-    init(scope: RelationMetadata.Scope = .object) {
+    init(scope: RelationMetadata.Scope = .object, storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
         self.scope = scope
+        self.storage = storage
     }
 
     // MARK: - Private variables
@@ -34,7 +36,7 @@ final class RelationsBuilder {
         relationMetadatas: [RelationMetadata],
         objectId: BlockId
     ) -> ParsedRelations {
-        guard let objectDetails = ObjectDetailsStorage.shared.get(id: objectId) else {
+        guard let objectDetails = storage.get(id: objectId) else {
             return .empty
         }
         
@@ -281,7 +283,7 @@ private extension RelationsBuilder {
             let objectDetails: [ObjectDetails] = values.compactMap {
                 let objectId = $0.stringValue
                 guard objectId.isNotEmpty else { return nil }
-                let objectDetails = ObjectDetailsStorage.shared.get(id: objectId)
+                let objectDetails = storage.get(id: objectId)
                 return objectDetails
             }
 
@@ -329,7 +331,7 @@ private extension RelationsBuilder {
                 let objectId = $0.stringValue
                 guard objectId.isNotEmpty else { return nil }
                 
-                let objectDetails = ObjectDetailsStorage.shared.get(id: objectId)
+                let objectDetails = storage.get(id: objectId)
                 return objectDetails
             }
 
