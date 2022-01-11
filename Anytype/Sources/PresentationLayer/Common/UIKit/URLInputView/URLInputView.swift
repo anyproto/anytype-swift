@@ -32,7 +32,7 @@ final class URLInputView: UIView {
         button.setAttributedTitle(NSAttributedString(
                                     string: "Done".localized,
                                     attributes: [.font: UIFont.uxBodyRegular,
-                                                 .foregroundColor: UIColor.BlockBackground.amber]),
+                                                 .foregroundColor: UIColor.Background.amber]),
                                   for: .disabled)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         button.setContentCompressionResistancePriority(.required, for: .horizontal)

@@ -87,21 +87,21 @@ struct TagRelationOptionSearchView_Previews: PreviewProvider {
                         id: "id",
                         text: "text",
                         textColor: UIColor.Text.amber,
-                        backgroundColor: UIColor.BlockBackground.amber,
+                        backgroundColor: UIColor.Background.amber,
                         scope: .local
                     ),
                     Relation.Tag.Option(
                         id: "id3",
                         text: "text3",
                         textColor: UIColor.Text.amber,
-                        backgroundColor: UIColor.BlockBackground.amber,
+                        backgroundColor: UIColor.Background.amber,
                         scope: .local
                     ),
                     Relation.Tag.Option(
                         id: "id2",
                         text: "text2",
                         textColor: UIColor.Text.amber,
-                        backgroundColor: UIColor.BlockBackground.amber,
+                        backgroundColor: UIColor.Background.amber,
                         scope: .local
                     )
                 ],

@@ -41,7 +41,7 @@ class DividerBlockView: UIView {
         
         self.lineView = {
             let view = UIView()
-            view.backgroundColor = UIColor.BlockBackground.grey
+            view.backgroundColor = UIColor.Background.grey
             view.translatesAutoresizingMaskIntoConstraints = false
             return view
         }()

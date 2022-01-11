@@ -1,18 +1,18 @@
 import UIKit
 
 extension UIColor {
-    enum BlockBackground: ComponentColor {
+    enum Background: ComponentColor {
       typealias T = UIColor
-      internal static let amber = UIColor(asset: Asset.BlockBackground.amber)
-      internal static let blue = UIColor(asset: Asset.BlockBackground.blue)
-      internal static let green = UIColor(asset: Asset.BlockBackground.green)
-      internal static let grey = UIColor(asset: Asset.BlockBackground.grey)
-      internal static let pink = UIColor(asset: Asset.BlockBackground.pink)
-      internal static let purple = UIColor(asset: Asset.BlockBackground.purple)
-      internal static let red = UIColor(asset: Asset.BlockBackground.red)
-      internal static let sky = UIColor(asset: Asset.BlockBackground.sky)
-      internal static let teal = UIColor(asset: Asset.BlockBackground.teal)
-      internal static let yellow = UIColor(asset: Asset.BlockBackground.yellow)
+      internal static let amber = UIColor(asset: Asset.Background.amber)
+      internal static let blue = UIColor(asset: Asset.Background.blue)
+      internal static let green = UIColor(asset: Asset.Background.green)
+      internal static let grey = UIColor(asset: Asset.Background.grey)
+      internal static let pink = UIColor(asset: Asset.Background.pink)
+      internal static let purple = UIColor(asset: Asset.Background.purple)
+      internal static let red = UIColor(asset: Asset.Background.red)
+      internal static let sky = UIColor(asset: Asset.Background.sky)
+      internal static let teal = UIColor(asset: Asset.Background.teal)
+      internal static let yellow = UIColor(asset: Asset.Background.yellow)
     }
     enum System: ComponentColor {
       typealias T = UIColor

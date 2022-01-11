@@ -1,18 +1,18 @@
 import SwiftUI
 
 extension Color {
-    enum BlockBackground: ComponentColor {
+    enum Background: ComponentColor {
       typealias T = Color
-      internal static let amber = Color(asset: Asset.BlockBackground.amber)
-      internal static let blue = Color(asset: Asset.BlockBackground.blue)
-      internal static let green = Color(asset: Asset.BlockBackground.green)
-      internal static let grey = Color(asset: Asset.BlockBackground.grey)
-      internal static let pink = Color(asset: Asset.BlockBackground.pink)
-      internal static let purple = Color(asset: Asset.BlockBackground.purple)
-      internal static let red = Color(asset: Asset.BlockBackground.red)
-      internal static let sky = Color(asset: Asset.BlockBackground.sky)
-      internal static let teal = Color(asset: Asset.BlockBackground.teal)
-      internal static let yellow = Color(asset: Asset.BlockBackground.yellow)
+      internal static let amber = Color(asset: Asset.Background.amber)
+      internal static let blue = Color(asset: Asset.Background.blue)
+      internal static let green = Color(asset: Asset.Background.green)
+      internal static let grey = Color(asset: Asset.Background.grey)
+      internal static let pink = Color(asset: Asset.Background.pink)
+      internal static let purple = Color(asset: Asset.Background.purple)
+      internal static let red = Color(asset: Asset.Background.red)
+      internal static let sky = Color(asset: Asset.Background.sky)
+      internal static let teal = Color(asset: Asset.Background.teal)
+      internal static let yellow = Color(asset: Asset.Background.yellow)
     }
     enum System: ComponentColor {
       typealias T = Color

@@ -19,17 +19,17 @@ internal typealias AssetColorTypeAlias = ColorAsset.Color
 
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 internal enum Asset {
-  internal enum BlockBackground {
-    static let amber = ColorAsset(name: "BlockBackground/amber")
-    static let blue = ColorAsset(name: "BlockBackground/blue")
-    static let green = ColorAsset(name: "BlockBackground/green")
-    static let grey = ColorAsset(name: "BlockBackground/grey")
-    static let pink = ColorAsset(name: "BlockBackground/pink")
-    static let purple = ColorAsset(name: "BlockBackground/purple")
-    static let red = ColorAsset(name: "BlockBackground/red")
-    static let sky = ColorAsset(name: "BlockBackground/sky")
-    static let teal = ColorAsset(name: "BlockBackground/teal")
-    static let yellow = ColorAsset(name: "BlockBackground/yellow")
+  internal enum Background {
+    static let amber = ColorAsset(name: "Background/amber")
+    static let blue = ColorAsset(name: "Background/blue")
+    static let green = ColorAsset(name: "Background/green")
+    static let grey = ColorAsset(name: "Background/grey")
+    static let pink = ColorAsset(name: "Background/pink")
+    static let purple = ColorAsset(name: "Background/purple")
+    static let red = ColorAsset(name: "Background/red")
+    static let sky = ColorAsset(name: "Background/sky")
+    static let teal = ColorAsset(name: "Background/teal")
+    static let yellow = ColorAsset(name: "Background/yellow")
   }
   internal enum System {
     static let amber = ColorAsset(name: "System/amber")

@@ -40,7 +40,7 @@ extension Relation.Tag.Option {
         self.textColor = MiddlewareColor(rawValue: option.color)
             .map { UIColor.Text.uiColor(from: $0) } ?? .grayscale90
         self.backgroundColor = MiddlewareColor(rawValue: option.color)
-            .map { UIColor.BlockBackground.uiColor(from: $0) } ?? .grayscaleWhite
+            .map { UIColor.Background.uiColor(from: $0) } ?? .grayscaleWhite
         self.scope = option.scope
     }
     

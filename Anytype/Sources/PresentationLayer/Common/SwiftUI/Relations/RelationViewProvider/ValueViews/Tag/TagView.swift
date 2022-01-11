@@ -37,7 +37,7 @@ struct TagView_Previews: PreviewProvider {
             tag: Relation.Tag.Option(
                 id: "id",
                 text: "text",
-                textColor: UIColor.BlockBackground.amber,
+                textColor: UIColor.Background.amber,
                 backgroundColor: UIColor.Text.amber,
                 scope: .local
             ),

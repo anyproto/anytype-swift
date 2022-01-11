@@ -48,7 +48,7 @@ final class BottomSheetsFactory {
         }
         let askBackgroundColor: () -> UIColor? = {
             return blockModel.information.backgroundColor.map {
-                UIColor.BlockBackground.uiColor(from: $0)
+                UIColor.Background.uiColor(from: $0)
             }
         }
 

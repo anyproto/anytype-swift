@@ -16,14 +16,14 @@ enum BlockBackgroundColor: CaseIterable {
     case green
     
     var color : UIColor {
-        typealias ColorComponent = UIColor.BlockBackground
+        typealias ColorComponent = UIColor.Background
         switch self {
         case .default:
             return .backgroundPrimary
         case .lemon:
             return ColorComponent.yellow
         case .amber:
-            return UIColor.BlockBackground.amber
+            return UIColor.Background.amber
         case .red:
             return ColorComponent.red
         case .pink:
