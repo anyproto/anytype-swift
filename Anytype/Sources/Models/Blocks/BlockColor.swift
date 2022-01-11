@@ -15,7 +15,7 @@ enum BlockColor: CaseIterable {
     case green
     
     var color: UIColor {
-        typealias Component = UIColor.TagBackground
+        typealias Component = UIColor.BlockBackground
         switch self {
         case .amber:
             return Component.amber
