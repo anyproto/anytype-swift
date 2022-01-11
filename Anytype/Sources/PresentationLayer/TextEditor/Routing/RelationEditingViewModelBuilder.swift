@@ -30,28 +30,31 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 service: TextRelationEditingService(objectId: objectId, valueType: .number),
                 delegate: delegate
             )
-        case .phone(let string):
-            return TextRelationEditingViewModel(
-                relationKey: relation.id,
-                relationName: relation.name,
-                relationValue: string.value,
-                service: TextRelationEditingService(objectId: objectId, valueType: .phone),
+        case .phone(let phone):
+            return ActionableTextRelationEditingViewModel(
+                type: .phone,
+                value: phone.value ?? "",
+                title: phone.name,
+                relationKey: phone.id,
+                service:  RelationsService(objectId: objectId),
                 delegate: delegate
             )
-        case .email(let string):
-            return TextRelationEditingViewModel(
-                relationKey: relation.id,
-                relationName: relation.name,
-                relationValue: string.value,
-                service: TextRelationEditingService(objectId: objectId, valueType: .email),
+        case .email(let email):
+            return ActionableTextRelationEditingViewModel(
+                type: .email,
+                value: email.value ?? "",
+                title: email.name,
+                relationKey: email.id,
+                service:  RelationsService(objectId: objectId),
                 delegate: delegate
             )
-        case .url(let string):
-            return TextRelationEditingViewModel(
-                relationKey: relation.id,
-                relationName: relation.name,
-                relationValue: string.value,
-                service: TextRelationEditingService(objectId: objectId, valueType: .url),
+        case .url(let url):
+            return ActionableTextRelationEditingViewModel(
+                type: .url,
+                value: url.value ?? "",
+                title: url.name,
+                relationKey: url.id,
+                service:  RelationsService(objectId: objectId),
                 delegate: delegate
             )
         case .date(let value):
@@ -59,7 +62,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 relationKey: relation.id,
                 relationName: relation.name,
                 value: value.value,
-                service: RelationsService(objectId: "")
+                service: RelationsService(objectId: objectId)
             )
         case .status(let status):
             return StatusRelationEditingViewModel(
