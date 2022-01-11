@@ -15,6 +15,7 @@ final class BaseDocument: BaseDocumentProtocol {
     private let eventsListener: EventsListener
     private let updateSubject = PassthroughSubject<EventsListenerUpdate, Never>()
     private let relationBuilder = RelationsBuilder()
+    private let detailsStorage = ObjectDetailsStorage.shared
     
     let objectId: BlockId
 
@@ -64,7 +65,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     var objectDetails: ObjectDetails? {
-        ObjectDetailsStorage.shared.get(id: objectId)
+        detailsStorage.get(id: objectId)
     }
     
     // Looks like this code runs on main thread.
@@ -117,7 +118,7 @@ final class BaseDocument: BaseDocumentProtocol {
 
         TreeBlockBuilder.buildBlocksTree(from: parsedBlocks, with: rootId, in: blocksContainer)
 
-        parsedDetails.forEach { ObjectDetailsStorage.shared.add(details: $0) }
+        parsedDetails.forEach { detailsStorage.add(details: $0) }
         
         relationsStorage.set(
             relations: objectShowEvent.relations.map { RelationMetadata(middlewareRelation: $0) }

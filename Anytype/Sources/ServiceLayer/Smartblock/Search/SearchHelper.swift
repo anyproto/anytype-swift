@@ -41,6 +41,16 @@ class SearchHelper {
         return filter
     }
     
+    static func lastOpenedDateNotNilFilter() -> Anytype_Model_Block.Content.Dataview.Filter {
+        var filter = Anytype_Model_Block.Content.Dataview.Filter()
+        filter.condition = .notEmpty
+        filter.value = nil
+        filter.relationKey = BundledRelationKey.lastOpenedDate.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     static func typeFilter(typeUrls: [String]) -> Anytype_Model_Block.Content.Dataview.Filter {
         var filter = Anytype_Model_Block.Content.Dataview.Filter()
         filter.condition = .in

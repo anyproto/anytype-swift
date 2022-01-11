@@ -1,49 +1,55 @@
 import AnytypeCore
 import BlocksModels
 import UIKit
+import Amplitude
 
 extension HomeViewModel {
-    var isSelectionMode: Bool { binCellData.filter { $0.selected }.isNotEmpty }
-    var isAllSelected: Bool { binCellData.first { !$0.selected }.isNil }
-    var selectedPageIds: [BlockId] { binCellData.filter { $0.selected }.map { $0.id } }
-    var numberOfSelectedPages: Int { binCellData.filter { $0.selected }.count }
+    var isSelectionMode: Bool { selectedPageIds.isNotEmpty }
+    var isAllSelected: Bool { selectedPageIds.count == binCellData.count }
+    var numberOfSelectedPages: Int { selectedPageIds.count }
     
     func selectAll(_ select: Bool) {
-        binCellData.indices.forEach { index in
-            binCellData[index].selected = select
+        if select {
+            binCellData.forEach { selectedPageIds.update(with: $0.id) }
+        } else {
+            selectedPageIds = []
         }
     }
     
     func select(data: HomeCellData) {
-        guard let index = binCellData.firstIndex(where: { $0.id == data.id }) else {
+        guard binCellData.contains(where: { $0.id == data.id }) else {
             anytypeAssertionFailure("No page in bin for data: \(data)", domain: .homeView)
             return
         }
         
-        binCellData[index].selected.toggle()
+        if selectedPageIds.contains(data.id) {
+            selectedPageIds.remove(data.id)
+        } else {
+            selectedPageIds.update(with: data.id)
+        }
     }
     
     func restoreSelected() {
-        objectActionsService.setArchive(objectIds: selectedPageIds, false)
+        objectActionsService.setArchive(objectIds: Array(selectedPageIds), false)
         selectAll(false)
-        updateBinTab()
     }
     
     func deleteSelected() {
         showDeletionAlert = true
+
+        Amplitude.instance().logEvent(AmplitudeEventsName.deletionWarningShow)
     }
     
     func deleteConfirmation() {
         loadingAlertData = .init(text: "Deleting in progress", showAlert: true)
         
-        objectActionsService.delete(objectIds: selectedPageIds) { [weak self] success in
+        objectActionsService.delete(objectIds: Array(selectedPageIds)) { [weak self] success in
             self?.loadingAlertData = .empty
             
             if success {
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
                 self?.showDeletionAlert = false
                 self?.selectAll(false)
-                self?.updateBinTab()
             } else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
                 self?.snackBarData = .init(text: "Deletion error".localized, showSnackBar: true)

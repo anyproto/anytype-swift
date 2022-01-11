@@ -16,6 +16,8 @@
 				<array>
 					<string>art</string>
 				</array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
 			</dict>
 			<key>oldSchool</key>
 			<dict>
@@ -23,6 +25,8 @@
 				<array>
 					<string>oldSchool</string>
 				</array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
 			</dict>
 		</dict>
 	</dict>
@@ -36,6 +40,8 @@
 				<array>
 					<string>art</string>
 				</array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
 			</dict>
 			<key>oldSchool</key>
 			<dict>
@@ -43,6 +49,8 @@
 				<array>
 					<string>oldSchool</string>
 				</array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
 			</dict>
 		</dict>
 	</dict>
@@ -57,7 +65,7 @@
 	<key>CFBundleShortVersionString</key>
 	<string>0.8.0</string>
 	<key>CFBundleVersion</key>
-	<string>25</string>
+	<string>26</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>

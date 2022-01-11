@@ -107,7 +107,7 @@ struct OtherSettingsView: View {
     var clearCache: some View {
         Button(action: { model.clearCacheAlert = true }) {
             HStack(spacing: 0) {
-                AnytypeText("Clear file cache", style: .uxBodyRegular, color: Color.System.red)
+                AnytypeText("Clear file cache".localized, style: .uxBodyRegular, color: Color.System.red)
                 Spacer()
             }
             .padding(EdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20))

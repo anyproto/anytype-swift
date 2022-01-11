@@ -1,6 +1,7 @@
 import BlocksModels
 import AnytypeCore
 import UIKit
+import Amplitude
 
 extension BrowserNavigationManager {
     private enum State {
@@ -22,6 +23,9 @@ final class BrowserNavigationManager {
         guard case .default = state else { return false }
         
         state = .movingForwardOnce
+
+        Amplitude.instance().logEvent(AmplitudeEventsName.goForward)
+
         return true
     }
     
@@ -31,6 +35,8 @@ final class BrowserNavigationManager {
         guard let index = closedPages.firstIndex(of: page) else {
             throw BrowserNavigationManagerError.moveForward(page: page)
         }
+
+        Amplitude.instance().logEvent(AmplitudeEventsName.goForward)
         
         state = .movingForward(index: index)
     }
@@ -39,6 +45,8 @@ final class BrowserNavigationManager {
         guard let index = openedPages.firstIndex(of: page) else {
             throw BrowserNavigationManagerError.moveBack(page: page)
         }
+
+        Amplitude.instance().logEvent(AmplitudeEventsName.goBack)
 
         state = .movingBack(index: index)
     }

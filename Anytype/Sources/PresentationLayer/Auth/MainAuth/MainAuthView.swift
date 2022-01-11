@@ -1,4 +1,5 @@
 import SwiftUI
+import Amplitude
 
 
 struct MainAuthView: View {
@@ -61,6 +62,9 @@ struct MainAuthView: View {
                     userAnalyticsConsent = true
                 }
             }
+        }
+        .onAppear {
+            Amplitude.instance().logEvent(AmplitudeEventsName.disclaimerShow)
         }
     }
     
