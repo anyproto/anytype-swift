@@ -2,24 +2,17 @@ import BlocksModels
 import Combine
 import AnytypeCore
 
-enum SubscriptionUpdate {
-    case initialData([ObjectDetails])
-    case update(ObjectDetails)
-    case remove(BlockId)
-    case add(ObjectDetails, after: BlockId?)
-    case move(from: BlockId, after: BlockId?)
-}
-typealias SubscriptionCallback = (SubscriptionId, SubscriptionUpdate) -> ()
-
-
-final class SubscriptionsStorage: ObservableObject {
+final class SubscriptionsService: SubscriptionsServiceProtocol {
     private var subscription: AnyCancellable?
-    private let service: SubscriptionServiceProtocol = SubscriptionService()
-    private let detailsStorage = ObjectDetailsStorage.shared
+    private let toggler: SubscriptionTogglerProtocol
+    private let storage: ObjectDetailsStorage
     
     private var turnedOnSubs = [SubscriptionId: SubscriptionCallback]()
     
-    init() {
+    init(toggler: SubscriptionTogglerProtocol, storage: ObjectDetailsStorage) {
+        self.toggler = toggler
+        self.storage = storage
+        
         setup()
     }
     
@@ -29,7 +22,7 @@ final class SubscriptionsStorage: ObservableObject {
     
     func stopAllSubscriptions() {
         turnedOnSubs.keys.forEach { subId in
-            _ = service.toggleSubscription(id: subId, false)
+            _ = toggler.toggleSubscription(id: subId, false)
             turnedOnSubs[subId] = nil
         }
     }
@@ -43,8 +36,8 @@ final class SubscriptionsStorage: ObservableObject {
         
         turnedOnSubs[id] = update
         
-        let details = service.toggleSubscription(id: id, turnOn) ?? []
-        details.forEach { detailsStorage.add(details: $0) }
+        let details = toggler.toggleSubscription(id: id, turnOn) ?? []
+        details.forEach { storage.add(details: $0) }
         
         update(id, .initialData(details))
     }
@@ -100,10 +93,10 @@ final class SubscriptionsStorage: ObservableObject {
         for event in events.middlewareEvents {
             switch event.value {
             case .objectDetailsAmend(let data):
-                let currentDetails = detailsStorage.get(id: data.id) ?? ObjectDetails.empty(id: data.id)
+                let currentDetails = storage.get(id: data.id) ?? ObjectDetails.empty(id: data.id)
                 
                 let updatedDetails = currentDetails.updated(by: data.details.asDetailsDictionary)
-                detailsStorage.add(details: updatedDetails)
+                storage.add(details: updatedDetails)
                 
                 update(details: updatedDetails, rawSubIds: data.subIds)
             case .subscriptionPosition(let position):
@@ -120,7 +113,7 @@ final class SubscriptionsStorage: ObservableObject {
                     break
                 }
                 
-                guard let details = detailsStorage.get(id: data.id) else {
+                guard let details = storage.get(id: data.id) else {
                     anytypeAssertionFailure("No details found for id \(data.id)", domain: .subscriptionStorage)
                     return
                 }

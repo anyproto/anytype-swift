@@ -2,11 +2,11 @@ import ProtobufMessages
 import BlocksModels
 import AnytypeCore
 
-protocol SubscriptionServiceProtocol {
+protocol SubscriptionTogglerProtocol {
     func toggleSubscription(id: SubscriptionId, _ turnOn: Bool) -> [ObjectDetails]?
 }
 
-final class SubscriptionService: SubscriptionServiceProtocol {
+final class SubscriptionToggler: SubscriptionTogglerProtocol {
     func toggleSubscription(id: SubscriptionId, _ turnOn: Bool) -> [ObjectDetails]? {
         switch id {
         case .history:

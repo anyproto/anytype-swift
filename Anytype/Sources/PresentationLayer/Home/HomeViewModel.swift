@@ -29,7 +29,7 @@ final class HomeViewModel: ObservableObject {
     let searchService = ServiceLocator.shared.searchService()
     private let configurationService = MiddlewareConfigurationService.shared
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
-    private let subscriptionStorage: SubscriptionsStorage = ServiceLocator.shared.subscriptionStorage()
+    private let subscriptionService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
     
     let document: BaseDocumentProtocol
     lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
@@ -59,14 +59,14 @@ final class HomeViewModel: ObservableObject {
     }
     
     func onDisappear() {
-        subscriptionStorage.stopAllSubscriptions()
+        subscriptionService.stopAllSubscriptions()
         document.close()
     }
     
     func onTabChange(tab: HomeTabsView.Tab) {
-        subscriptionStorage.stopAllSubscriptions()
+        subscriptionService.stopAllSubscriptions()
         tab.subscriptionId.flatMap { subId in
-            subscriptionStorage.toggleSubscription(id: subId, turnOn: true) { [weak self] in
+            subscriptionService.toggleSubscription(id: subId, turnOn: true) { [weak self] in
                 self?.onSubscriptionUpdate(id: $0, $1)
             }
         }
