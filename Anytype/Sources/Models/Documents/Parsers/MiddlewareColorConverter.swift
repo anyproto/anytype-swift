@@ -4,7 +4,7 @@ import BlocksModels
 extension ComponentColor where T: UIColor {
     static func uiColor(from middlewareColor: MiddlewareColor) -> UIColor {
         switch middlewareColor {
-        case .default: return UIColor.backgroundPrimary
+        case .default: return `default`
         case .grey: return grey
         case .yellow: return yellow
         case .orange: return amber
