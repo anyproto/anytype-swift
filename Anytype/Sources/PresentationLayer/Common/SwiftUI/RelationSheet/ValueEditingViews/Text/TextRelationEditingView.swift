@@ -6,50 +6,29 @@ struct TextRelationEditingView: View {
     @State private var height: CGFloat = 0
     
     var body: some View {
-        textEditingView
+        textView
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
             .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.dismissHandler))
     }
     
-    private var textEditingView: some View {
-        ZStack(alignment: .leading) {
-            Text(viewModel.value)
-                .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-                .opacity(0)
-                .padding(6)
-                .readSize { height = $0.height }
+    private var textView: some View {
+        HStack(spacing: 8) {
+            RelationTextView(text: $viewModel.value, placeholder: viewModel.valueType.placeholder, keyboardType: viewModel.valueType.keyboardType)
             
-            if(viewModel.value.isEmpty) {
-                AnytypeText(viewModel.valueType.placeholder, style: .uxBodyRegular, color: .textTertiary)
-                    .padding(6)
-            }
-            
-            HStack(spacing: 8) {
-                textView
-                
-                if let icon = viewModel.valueType.icon, viewModel.value.isNotEmpty, viewModel.isActionButtonEnabled {
-                    Button {
-                        viewModel.performAction()
-                    } label: {
-                        icon
-                            .frame(width: 36, height: 36)
-                            .clipShape(Circle())
-                            .overlay(
-                                Circle().stroke(Color.grayscale30, lineWidth: 1)
-                            )
-                    }
+            if let icon = viewModel.valueType.icon, viewModel.value.isNotEmpty, viewModel.isActionButtonEnabled {
+                Button {
+                    viewModel.performAction()
+                } label: {
+                    icon
+                        .frame(width: 36, height: 36)
+                        .clipShape(Circle())
+                        .overlay(
+                            Circle().stroke(Color.grayscale30, lineWidth: 1)
+                        )
                 }
             }
         }
-    }
-    
-    private var textView: some View {
-        AutofocusedTextEditor(text: $viewModel.value, keyboardType: viewModel.valueType.keyboardType)
-            .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-            .foregroundColor(.grayscale90)
-            .opacity(viewModel.value.isEmpty ? 0.25 : 1)
-            .frame(maxHeight: max(40, height))
     }
     
 }
