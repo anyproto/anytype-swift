@@ -6,7 +6,7 @@ final class TextBlockTextViewStyler {
         updateText(textView: textView, configuration: configuration)
         updateCustomTextViewOptions(textView: textView, configuration: configuration, restrictions: restrictions)
         
-        textView.textView.tertiaryColor = configuration.content.color?.color(background: false)
+        textView.textView.tertiaryColor = configuration.content.color.map { UIColor.Text.uiColor(from: $0) }
         textView.textView.textAlignment = configuration.information.alignment.asNSTextAlignment
         
         textView.textView.selectedColor = nil

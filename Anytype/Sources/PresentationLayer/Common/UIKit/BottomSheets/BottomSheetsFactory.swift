@@ -42,10 +42,14 @@ final class BottomSheetsFactory {
 
         let askColor: () -> UIColor? = {
             guard case let .text(textContent) = blockModel.information.content else { return nil }
-            return textContent.color?.color(background: false)
+            return textContent.color.map {
+                UIColor.Text.uiColor(from: $0)
+            }
         }
         let askBackgroundColor: () -> UIColor? = {
-            return blockModel.information.backgroundColor?.color(background: true)
+            return blockModel.information.backgroundColor.map {
+                UIColor.Background.uiColor(from: $0)
+            }
         }
 
         let restrictions = BlockRestrictionsBuilder.build(content: blockModel.information.content)

@@ -5,15 +5,15 @@ struct TagView: View {
     let guidlines: Guidlines
     
     var body: some View {
-        AnytypeText(tag.text, style: .relation2Regular, color: tag.textColor.asColor)
+        AnytypeText(tag.text, style: .relation2Regular, color: tag.textColor.suColor)
             .lineLimit(1)
             .padding(.horizontal, guidlines.textPadding)
-            .background(tag.backgroundColor.asColor)
+            .background(tag.backgroundColor.suColor)
             .cornerRadius(guidlines.cornerRadius)
             .overlay(
                 RoundedRectangle(cornerRadius: guidlines.cornerRadius)
                     .stroke(
-                        tag.backgroundColor == .grayscaleWhite ? AnytypeColor.grayscale30.asColor : tag.backgroundColor.asColor,
+                        tag.backgroundColor == .grayscaleWhite ? Color.grayscale30 : tag.backgroundColor.suColor,
                         lineWidth: 1
                     )
             )
@@ -37,8 +37,8 @@ struct TagView_Previews: PreviewProvider {
             tag: Relation.Tag.Option(
                 id: "id",
                 text: "text",
-                textColor: .lightAmber,
-                backgroundColor: .darkAmber,
+                textColor: UIColor.Background.amber,
+                backgroundColor: UIColor.Text.amber,
                 scope: .local
             ),
             guidlines: RelationStyle.set.tagViewGuidlines

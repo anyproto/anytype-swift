@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import UIKit
 
 extension Relation {
     
@@ -20,7 +21,7 @@ extension Relation.Status {
     struct Option: Hashable, Identifiable, RelationSectionedOptionProtocol {
         let id: String
         let text: String
-        let color: AnytypeColor
+        let color: UIColor
         let scope: RelationMetadata.Option.Scope
     }
     
@@ -30,11 +31,10 @@ extension Relation.Status.Option {
     
     init(option: RelationMetadata.Option) {
         let middlewareColor = MiddlewareColor(rawValue: option.color)
-        let anytypeColor: AnytypeColor = middlewareColor?.asDarkColor ?? .grayscale90
         
         self.id = option.id
         self.text = option.text
-        self.color = anytypeColor
+        self.color = middlewareColor.map { UIColor.Text.uiColor(from: $0) } ?? .grayscale90
         self.scope = option.scope
     }
     

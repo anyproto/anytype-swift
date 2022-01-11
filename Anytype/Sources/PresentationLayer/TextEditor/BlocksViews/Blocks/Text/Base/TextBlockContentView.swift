@@ -94,7 +94,7 @@ final class TextBlockContentView: BaseBlockView<TextBlockContentConfiguration> {
         let displayPlaceholder = currentConfiguration.content.contentType == .toggle && currentConfiguration.shouldDisplayPlaceholder
         createEmptyBlockButton.isHidden = !displayPlaceholder
 
-        backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor?.color(background: true)
+        backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor.map { UIColor.Background.uiColor(from: $0) }
 
         focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)

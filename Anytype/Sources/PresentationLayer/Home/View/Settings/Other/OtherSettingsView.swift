@@ -95,7 +95,7 @@ struct OtherSettingsView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(
-                                AppIconManager.shared.currentIcon == icon ? Color.pureAmber : Color.grayscale10,
+                                AppIconManager.shared.currentIcon == icon ? Color.System.amber : Color.grayscale10,
                                 lineWidth: 3
                             )
                     )
@@ -107,7 +107,7 @@ struct OtherSettingsView: View {
     var clearCache: some View {
         Button(action: { model.clearCacheAlert = true }) {
             HStack(spacing: 0) {
-                AnytypeText("Clear file cache".localized, style: .uxBodyRegular, color: .pureRed)
+                AnytypeText("Clear file cache".localized, style: .uxBodyRegular, color: Color.System.red)
                 Spacer()
             }
             .padding(EdgeInsets(top: 14, leading: 20, bottom: 14, trailing: 20))
@@ -118,7 +118,7 @@ struct OtherSettingsView: View {
 struct OtherSettingsView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Color.pureBlue
+            Color.System.blue
             OtherSettingsView()
         }
     }

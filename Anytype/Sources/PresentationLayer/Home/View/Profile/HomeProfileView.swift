@@ -104,6 +104,6 @@ struct HomeProfileView_Previews: PreviewProvider {
         HomeProfileView()
             .environmentObject(AccountInfoDataAccessor())
             .environmentObject(HomeViewModel())
-            .background(Color.pureBlue)
+            .background(Color.System.blue)
     }
 }

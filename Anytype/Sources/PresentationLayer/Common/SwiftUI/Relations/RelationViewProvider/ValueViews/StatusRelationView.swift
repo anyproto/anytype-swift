@@ -7,7 +7,7 @@ struct StatusRelationView: View {
     
     var body: some View {
         if let statusOption = statusOption {
-            AnytypeText(statusOption.text, style: style.font, color: statusOption.color.asColor)
+            AnytypeText(statusOption.text, style: style.font, color: statusOption.color.suColor)
                 .lineLimit(1)
         } else {
             RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
@@ -21,7 +21,7 @@ struct StatusRelationView_Previews: PreviewProvider {
             statusOption: Relation.Status.Option(
                 id: "id",
                 text: "text",
-                color: AnytypeColor.darkAmber,
+                color: UIColor.Text.amber,
                 scope: .local
             ),
             hint: "hint",

@@ -49,7 +49,7 @@ class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIConten
         isUserInteractionEnabled = state.isEditing
 
         if state.isMoving {
-            backgroundColor = AnytypeColor.lightBlue.asUIColor
+            backgroundColor = UIColor.Background.blue
         } else {
             backgroundColor = .clear
         }

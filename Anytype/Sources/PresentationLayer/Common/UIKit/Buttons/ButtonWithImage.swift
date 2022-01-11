@@ -107,7 +107,7 @@ final class ButtonWithImage: UIControl, CustomizableHitTestAreaView {
 
         label.font = .uxCalloutRegular
         label.isHidden = true
-        label.textColor = MiddlewareColor.grey.color(background: false)
+        label.textColor = UIColor.Text.uiColor(from: MiddlewareColor.grey)
         label.isUserInteractionEnabled = false
         label.textAlignment = .center
 

@@ -158,7 +158,7 @@ private final class SelectionNavigationView: UIView {
             leftButtonTap?()
         })
         leftButton.setTitle("Done".localized, for: .normal)
-        leftButton.setTitleColor(.pureAmber, for: .normal)
+        leftButton.setTitleColor(UIColor.System.amber, for: .normal)
         leftButton.addAction(leftButtonAction, for: .touchUpInside)
 
         addSubview(leftButton) {

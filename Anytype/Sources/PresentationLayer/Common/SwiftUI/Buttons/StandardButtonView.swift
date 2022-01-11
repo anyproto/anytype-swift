@@ -10,9 +10,9 @@ enum StandardButtonStyle {
         case .secondary:
             return .backgroundPrimary
         case .primary:
-            return disabled ? .stroke : .pureAmber
+            return disabled ? .stroke : Color.System.amber
         case .destructive:
-            return disabled ? .stroke : .pureRed
+            return disabled ? .stroke : Color.System.red
         }
     }
     
@@ -25,11 +25,7 @@ enum StandardButtonStyle {
                 return .textPrimary
             }
         case .primary, .destructive:
-            if disabled {
-                return .textPrimary
-            } else {
-                return .white
-            }
+            return .white
         }
     }
     

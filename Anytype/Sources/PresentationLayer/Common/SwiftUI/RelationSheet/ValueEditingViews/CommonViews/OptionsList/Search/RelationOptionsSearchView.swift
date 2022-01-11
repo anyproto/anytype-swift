@@ -79,7 +79,7 @@ struct RelationOptionsSearchView: View {
                     AnytypeText("\(viewModel.selectedOptionIds.count)", style: .relation1Regular, color: .grayscaleWhite)
                         .frame(minWidth: 15, minHeight: 15)
                         .padding(5)
-                        .background(Color.darkAmber)
+                        .background(Color.Text.amber)
                         .clipShape(
                             Circle()
                         )

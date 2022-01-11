@@ -21,8 +21,8 @@ extension Relation.Tag {
     struct Option: Hashable, Identifiable, RelationSectionedOptionProtocol, RelationOptionProtocol {
         let id: String
         let text: String
-        let textColor: AnytypeColor
-        let backgroundColor: AnytypeColor
+        let textColor: UIColor
+        let backgroundColor: UIColor
         let scope: RelationMetadata.Option.Scope
         
         func makeView() -> AnyView {
@@ -37,8 +37,10 @@ extension Relation.Tag.Option {
     init(option: RelationMetadata.Option) {
         self.id = option.id
         self.text = option.text
-        self.textColor = MiddlewareColor(rawValue: option.color)?.asDarkColor ?? .grayscale90
-        self.backgroundColor = MiddlewareColor(rawValue: option.color)?.asLightColor ?? .grayscaleWhite
+        self.textColor = MiddlewareColor(rawValue: option.color)
+            .map { UIColor.Text.uiColor(from: $0) } ?? .grayscale90
+        self.backgroundColor = MiddlewareColor(rawValue: option.color)
+            .map { UIColor.Background.uiColor(from: $0) } ?? .grayscaleWhite
         self.scope = option.scope
     }
     
