@@ -14,21 +14,21 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
     
     func buildViewModel(objectId: BlockId, relation: Relation) -> RelationEditingViewModelProtocol? {
         switch relation {
-        case .text(let string):
+        case .text(let text):
             return TextRelationEditingViewModel(
-                relationKey: relation.id,
-                relationName: relation.name,
-                relationValue: string.value,
-                service: TextRelationEditingService(objectId: objectId, valueType: .text),
-                delegate: delegate
+                type: .text,
+                title: text.name,
+                value: text.value ?? "",
+                relationKey: text.id,
+                service: RelationsService(objectId: objectId)
             )
-        case .number(let string):
+        case .number(let number):
             return TextRelationEditingViewModel(
-                relationKey: relation.id,
-                relationName: relation.name,
-                relationValue: string.value,
-                service: TextRelationEditingService(objectId: objectId, valueType: .number),
-                delegate: delegate
+                type: .number,
+                title: number.name,
+                value: number.value ?? "",
+                relationKey: number.id,
+                service: RelationsService(objectId: objectId)
             )
         case .phone(let phone):
             return ActionableTextRelationEditingViewModel(
