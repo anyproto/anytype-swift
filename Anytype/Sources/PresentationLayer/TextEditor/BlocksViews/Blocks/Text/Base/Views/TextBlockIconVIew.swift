@@ -84,8 +84,7 @@ final class TextBlockIconView: UIView {
             })
             toggleView.addAction(action, for: .touchUpInside)
         case .bulleted:
-            let bulletedView = createBulletedView()
-            currentView = bulletedView
+            currentView = createBulletedView()
         case .quote:
             let quoteView = createQuoteView()
             currentView = quoteView
@@ -164,11 +163,13 @@ extension TextBlockIconView {
         return numberedView
     }
 
-    private func createBulletedView() -> UIImageView {
-        let bulletedView = UIImageView(image: .init(imageLiteralResourceName: Constants.Bulleted.dotImageName))
-        bulletedView.contentMode = .scaleAspectFit
+    private func createBulletedView() -> UIView {
+        let label = UILabel()
+        label.text = "•"
+        label.font = .systemFont(ofSize: 30)
+        label.textColor = .textPrimary
 
-        addSubview(bulletedView) {
+        addSubview(label) {
             $0.centerY.equal(to: centerYAnchor)
             $0.centerX.equal(to: centerXAnchor)
         }
@@ -176,7 +177,7 @@ extension TextBlockIconView {
             $0.width.equal(to: Constants.size.width)
             $0.height.equal(to: Constants.size.height)
         }
-        return bulletedView
+        return label
     }
 
     private func createQuoteView() -> UIView {
@@ -211,7 +212,6 @@ private extension TextBlockIconView {
         enum Bulleted {
             static let size: CGFloat = 6
             static let dotTopOffset: CGFloat = 11
-            static let dotImageName: String = "TextEditor/Text/Bullet"
         }
 
         enum TitleCheckbox {
