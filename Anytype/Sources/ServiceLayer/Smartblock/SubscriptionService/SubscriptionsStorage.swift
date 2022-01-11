@@ -2,34 +2,69 @@ import BlocksModels
 import Combine
 import AnytypeCore
 
+enum SubscriptionUpdate {
+    case initialData([ObjectDetails])
+    case update(ObjectDetails)
+    case remove(BlockId)
+    case add(ObjectDetails, after: BlockId?)
+    case move(from: BlockId, after: BlockId?)
+}
+typealias SubscriptionCallback = (SubscriptionId, SubscriptionUpdate) -> ()
+
 
 final class SubscriptionsStorage: ObservableObject {
-    
-    public static let shared = SubscriptionsStorage()
-    
-    @Published var history: [ObjectDetails] = []
-    @Published var archive: [ObjectDetails] = []
-    @Published var shared: [ObjectDetails] = []
-    @Published var sets: [ObjectDetails] = []
-    
     private var subscription: AnyCancellable?
     private let service: SubscriptionServiceProtocol = SubscriptionService()
     private let detailsStorage = ObjectDetailsStorage.shared
     
-    private init() {
+    private var turnedOnSubs = [SubscriptionId: SubscriptionCallback]()
+    
+    init() {
         setup()
     }
     
-    func toggleSubscriptions(ids: [SubscriptionId], _ turnOn: Bool) {
-        ids.forEach { toggleSubscription(id: $0, turnOn) }
+    deinit {
+        stopAllSubscriptions()
     }
     
-    func toggleSubscription(id: SubscriptionId, _ turnOn: Bool) {
+    func stopAllSubscriptions() {
+        turnedOnSubs.keys.forEach { subId in
+            _ = service.toggleSubscription(id: subId, false)
+            turnedOnSubs[subId] = nil
+        }
+    }
+    
+    func toggleSubscriptions(ids: [SubscriptionId], turnOn: Bool, update: @escaping SubscriptionCallback) {
+        ids.forEach { toggleSubscription(id: $0, turnOn: turnOn, update: update) }
+    }
+    
+    func toggleSubscription(id: SubscriptionId, turnOn: Bool, update: @escaping SubscriptionCallback) {
+        guard validateSubscription(id: id, turnOn: turnOn) else { return }
+        
+        turnedOnSubs[id] = update
+        
         let details = service.toggleSubscription(id: id, turnOn) ?? []
         details.forEach { detailsStorage.add(details: $0) }
-        assignCollection(id: id, details: details)
+        
+        update(id, .initialData(details))
     }
     
+    private func validateSubscription(id: SubscriptionId, turnOn: Bool) -> Bool {
+        if turnOn {
+            guard turnedOnSubs[id].isNil else {
+                anytypeAssertionFailure("Subscription: \(id) turned on second time", domain: .subscriptionStorage)
+                return false
+            }
+        } else {
+            guard turnedOnSubs[id].isNotNil else {
+                anytypeAssertionFailure("Tryed to turn off not active subscription: \(id)", domain: .subscriptionStorage)
+                return false
+            }
+        }
+        
+        return true
+    }
+ 
     // MARK: - Private
     private let dependencySubscriptionSuffix = "/dep"
     
@@ -44,8 +79,15 @@ final class SubscriptionsStorage: ObservableObject {
             object: nil
         )
             .compactMap { $0.object as? EventsBunch }
-            .filter { [weak self] in
-                self?.objectIds.contains($0.objectId) ?? false
+            .filter { [weak self] event in
+                guard let self = self else { return false }
+                guard event.objectId.isNotEmpty else { return true } // Empty object id in generic subscription
+                
+                guard let subscription = SubscriptionId(rawValue: event.objectId) else {
+                    return false
+                }
+                
+                return self.turnedOnSubs.keys.contains(subscription)
             }
             .sink { [weak self] events in
                 self?.handle(events: events)
@@ -70,23 +112,8 @@ final class SubscriptionsStorage: ObservableObject {
                     break
                 }
                 
-                guard let index = indexInCollection(id: subId, blockId: position.id) else {
-                    anytypeAssertionFailure("No object in \(subId) for id \(position.id)", domain: .subscriptionStorage)
-                    break
-                }
-                
-                let insertIndex: Int
-                if position.afterID == "" {
-                    insertIndex = 0
-                } else {
-                    guard let afterIndex = indexInCollection(id: subId, blockId: position.afterID) else {
-                        anytypeAssertionFailure("No object in \(subId) for afterId \(position.afterID)", domain: .subscriptionStorage)
-                        return
-                    }
-                    
-                    insertIndex = afterIndex + 1
-                }
-                moveElementInCollection(id: subId, from: index, to: insertIndex)
+                guard let action = turnedOnSubs[subId] else { return }
+                action(subId, .move(from: position.id, after: position.afterID.isNotEmpty ? position.afterID : nil))
             case .subscriptionAdd(let data):
                 guard let subId = SubscriptionId(rawValue: events.objectId) else {
                     anytypeAssertionFailure("Unsupported object id \(events.objectId) in subscriptionRemove", domain: .subscriptionStorage)
@@ -98,27 +125,16 @@ final class SubscriptionsStorage: ObservableObject {
                     return
                 }
                 
-                guard data.afterID != "" else {
-                    addElementInCollection(id: subId, details: details, at: 0)
-                    return
-                }
-                
-                guard let index = indexInCollection(id: subId, blockId: data.afterID) else {
-                    anytypeAssertionFailure("No object in \(subId) for id \(data.id)", domain: .subscriptionStorage)
-                    break
-                }
-                addElementInCollection(id: subId, details: details, at: index)
+                guard let action = turnedOnSubs[subId] else { return }
+                action(subId, .add(details, after: data.afterID.isNotEmpty ? data.afterID : nil))
             case .subscriptionRemove(let remove):
                 guard let subId = SubscriptionId(rawValue: events.objectId) else {
                     anytypeAssertionFailure("Unsupported object id \(events.objectId) in subscriptionRemove", domain: .subscriptionStorage)
                     break
                 }
                 
-                guard let index = indexInCollection(id: subId, blockId: remove.id) else {
-                    anytypeAssertionFailure("No object in \(subId) for id \(remove.id)", domain: .subscriptionStorage)
-                    break
-                }
-                removeElementInCollection(id: subId, at: index)
+                guard let action = turnedOnSubs[subId] else { return }
+                action(subId, .remove(remove.id))
             case .objectRemove:
                 break // unsupported (Not supported in middleware converter also)
             case .subscriptionCounters:
@@ -143,93 +159,9 @@ final class SubscriptionsStorage: ObservableObject {
             return id
         }
         
-        update(details: details, ids: ids)
-    }
-    
-    private func update(details: ObjectDetails, ids: [SubscriptionId]) {
         for id in ids {
-            guard let index = indexInCollection(id: id, blockId: details.id) else {
-                return // May be possible on ammend for new object
-            }
-            updateCollection(id: id, details: details, index: index)
-        }
-    }
-    
-    private func assignCollection(id: SubscriptionId, details: [ObjectDetails]) {
-        switch id {
-        case .history:
-            history = details
-        case .archive:
-            archive = details
-        case .shared:
-            shared = details
-        case .sets:
-            sets = details
-        }
-    }
-    
-    private func indexInCollection(id: SubscriptionId, blockId: BlockId) -> Int? {
-        switch id {
-        case .history:
-            return history.firstIndex(where: { $0.id == blockId })
-        case .archive:
-            return archive.firstIndex(where: { $0.id == blockId })
-        case .shared:
-            return shared.firstIndex(where: { $0.id == blockId })
-        case .sets:
-            return sets.firstIndex(where: { $0.id == blockId })
-        }
-    }
-    
-    private func updateCollection(id: SubscriptionId, details: ObjectDetails, index: Int) {
-        switch id {
-        case .history:
-            history[index] = details
-        case .archive:
-            archive[index] = details
-        case .shared:
-            shared[index] = details
-        case .sets:
-            sets[index] = details
-        }
-    }
-    
-    private func moveElementInCollection(id: SubscriptionId, from index: Int, to insertIndex: Int) {
-        switch id {
-        case .history:
-            history.moveElement(from: index, to: insertIndex)
-        case .archive:
-            archive.moveElement(from: index, to: insertIndex)
-        case .shared:
-            shared.moveElement(from: index, to: insertIndex)
-        case .sets:
-            sets.moveElement(from: index, to: insertIndex)
-        }
-    }
-    
-    private func addElementInCollection(id: SubscriptionId, details: ObjectDetails, at index: Int) {
-        switch id {
-        case .history:
-            history.insert(details, at: index)
-        case .archive:
-            archive.insert(details, at: index)
-        case .shared:
-            shared.insert(details, at: index)
-        case .sets:
-            sets.insert(details, at: index)
-        }
-    }
-    
-    private func removeElementInCollection(id: SubscriptionId, at index: Int) {
-        switch id {
-        case .history:
-            history.remove(at: index)
-        case .archive:
-            archive.remove(at: index)
-        case .shared:
-            shared.remove(at: index)
-        case .sets:
-            sets.remove(at: index)
+            guard let action = turnedOnSubs[id] else { continue }
+            action(id, .update(details))
         }
     }
 }

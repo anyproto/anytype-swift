@@ -49,6 +49,10 @@ final class ServiceLocator {
         SearchService()
     }
     
+    func subscriptionStorage() -> SubscriptionsStorage {
+        SubscriptionsStorage()
+    }
+    
     // MARK: - Coodrdinators
     
     func applicationCoordinator(window: UIWindow) -> ApplicationCoordinator {
