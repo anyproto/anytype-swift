@@ -35,8 +35,8 @@ struct RelationTagOptionSearchRowView_Previews: PreviewProvider {
             tag: Relation.Tag.Option(
                 id: "id",
                 text: "text",
-                textColor: .darkAmber,
-                backgroundColor: .lightAmber,
+                textColor: UIColor.Text.amber,
+                backgroundColor: UIColor.BlockBackground.amber,
                 scope: .local
             ),
             isSelected: false) {}

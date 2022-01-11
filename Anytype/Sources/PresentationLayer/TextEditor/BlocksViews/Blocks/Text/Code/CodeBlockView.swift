@@ -50,7 +50,9 @@ final class CodeBlockView: BaseBlockView<CodeBlockContentConfiguration> {
             textStorage.setAttributedString($0)
         }
         
-        let backgroundColor = currentConfiguration.backgroundColor?.color(background: true) ?? AnytypeColor.lightColdGray.asUIColor
+        let backgroundColor = currentConfiguration.backgroundColor.map {
+            UIColor.BlockBackground.uiColor(from: $0)
+        } ?? UIColor.BlockBackground.grey
         contentView.backgroundColor = backgroundColor
         textView.backgroundColor = backgroundColor
     }

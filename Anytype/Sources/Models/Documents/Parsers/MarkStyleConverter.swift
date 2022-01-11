@@ -1,6 +1,7 @@
 import BlocksModels
 import ProtobufMessages
 import AnytypeCore
+import UIKit
 
 enum MarkStyleActionConverter {
     
@@ -20,16 +21,16 @@ enum MarkStyleActionConverter {
             return .link(URL(string: tuple.value))
 
         case .textColor:
-            guard let color = MiddlewareColor(rawValue: tuple.value)?.color(background: false) else {
+            guard let middlewareColor = MiddlewareColor(rawValue: tuple.value) else {
                 return nil
             }
-            return .textColor(color)
+            return .textColor(UIColor.Text.uiColor(from: middlewareColor))
 
         case .backgroundColor:
-            guard let color = MiddlewareColor(rawValue: tuple.value)?.color(background: true) else {
+            guard let middlewareColor = MiddlewareColor(rawValue: tuple.value) else {
                 return nil
             }
-            return .backgroundColor(color)
+            return .backgroundColor(UIColor.BlockBackground.uiColor(from: middlewareColor))
 
         case .mention:
             guard let details = ObjectDetailsStorage.shared.get(id: tuple.value) else {

@@ -20,7 +20,7 @@ struct StatusRelationRowView: View {
             onTap()
         } label: {
             HStack(spacing: 0) {
-                AnytypeText(status.text, style: .relation1Regular, color: status.color.asColor)
+                AnytypeText(status.text, style: .relation1Regular, color: status.color.suColor)
                 Spacer()
                 
                 if isSelected {
@@ -34,6 +34,10 @@ struct StatusRelationRowView: View {
 
 struct StatusRelationRowView_Previews: PreviewProvider {
     static var previews: some View {
-        StatusRelationRowView(status: Relation.Status.Option(id: "", text: "text", color: .pureTeal, scope: .local), isSelected: true, onTap: {})
+        StatusRelationRowView(
+            status: Relation.Status.Option(id: "", text: "text", color: UIColor.System.teal, scope: .local),
+            isSelected: true,
+            onTap: {}
+        )
     }
 }

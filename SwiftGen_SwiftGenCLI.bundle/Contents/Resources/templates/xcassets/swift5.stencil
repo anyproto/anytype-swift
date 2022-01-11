@@ -85,6 +85,8 @@
     {% filter indent:2 %}{% call casesBlock asset.items %}{% endfilter %}
   }
   {% elif asset.items %}
+
+  // MARK: - {{asset.name}}
   {% call casesBlock asset.items %}
   {% endif %}
   {% endfor %}
@@ -103,15 +105,9 @@
 {% endmacro %}
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 {{accessModifier}} enum {{enumName}} {
-  {% if catalogs.count > 1 or param.forceFileNameEnum %}
   {% for catalog in catalogs %}
-  {{accessModifier}} enum {{catalog.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
-    {% filter indent:2 %}{% call enumBlock catalog.assets %}{% endfilter %}
-  }
+  {% call enumBlock catalog.assets %}
   {% endfor %}
-  {% else %}
-  {% call enumBlock catalogs.first.assets %}
-  {% endif %}
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

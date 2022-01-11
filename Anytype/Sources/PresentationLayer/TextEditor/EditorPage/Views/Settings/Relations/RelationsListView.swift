@@ -105,29 +105,29 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                         Relation.Tag.Option(
                                             id: "id1",
                                             text: "text1",
-                                            textColor: .darkTeal,
+                                            textColor: UIColor.Text.teal,
                                             backgroundColor: .grayscaleWhite,
                                             scope: .local
                                         ),
                                         Relation.Tag.Option(
                                             id: "id2",
                                             text: "text2",
-                                            textColor: .darkRed,
-                                            backgroundColor: .lightRed,
+                                            textColor: UIColor.Text.red,
+                                            backgroundColor: UIColor.BlockBackground.red,
                                             scope: .local
                                         ),
                                         Relation.Tag.Option(
                                             id: "id3",
                                             text: "text3",
-                                            textColor: .darkTeal,
-                                            backgroundColor: .lightTeal,
+                                            textColor: UIColor.Text.teal,
+                                            backgroundColor: UIColor.BlockBackground.teal,
                                             scope: .local
                                         ),
                                         Relation.Tag.Option(
                                             id: "id4",
                                             text: "text4",
-                                            textColor: .darkRed,
-                                            backgroundColor: .lightRed,
+                                            textColor: UIColor.Text.red,
+                                            backgroundColor: UIColor.BlockBackground.red,
                                             scope: .local
                                         )
                                     ],
@@ -135,29 +135,29 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                         Relation.Tag.Option(
                                             id: "id1",
                                             text: "text1",
-                                            textColor: .darkTeal,
+                                            textColor: UIColor.Text.teal,
                                             backgroundColor: .grayscaleWhite,
                                             scope: .local
                                         ),
                                         Relation.Tag.Option(
                                             id: "id2",
                                             text: "text2",
-                                            textColor: .darkRed,
-                                            backgroundColor: .lightRed,
+                                            textColor: UIColor.Text.red,
+                                            backgroundColor: UIColor.BlockBackground.red,
                                             scope: .local
                                         ),
                                         Relation.Tag.Option(
                                             id: "id3",
                                             text: "text3",
-                                            textColor: .darkTeal,
-                                            backgroundColor: .lightTeal,
+                                            textColor: UIColor.Text.teal,
+                                            backgroundColor: UIColor.BlockBackground.teal,
                                             scope: .local
                                         ),
                                         Relation.Tag.Option(
                                             id: "id4",
                                             text: "text4",
-                                            textColor: .darkRed,
-                                            backgroundColor: .lightRed,
+                                            textColor: UIColor.Text.red,
+                                            backgroundColor: UIColor.BlockBackground.red,
                                             scope: .local
                                         )
                                     ]

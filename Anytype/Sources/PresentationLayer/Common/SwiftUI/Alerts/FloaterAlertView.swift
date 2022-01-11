@@ -33,7 +33,7 @@ struct FloaterAlertView: View {
 struct FloaterAlertView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Color.pureBlue
+            Color.System.blue
             FloaterAlertView(
                 title: "Are you sure you want to delete 3 objects?",
                 description: "These objects will be deleted irrevocably. You can’t undo this action.",

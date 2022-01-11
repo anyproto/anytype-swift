@@ -52,7 +52,7 @@ struct ObjectBasicIconPicker: View {
                 viewModel.removeIcon()
                 dismiss()
             } label: {
-                AnytypeText("Remove".localized, style: .uxBodyRegular, color: .pureRed)
+                AnytypeText("Remove".localized, style: .uxBodyRegular, color: Color.System.red)
             }
         }
     }

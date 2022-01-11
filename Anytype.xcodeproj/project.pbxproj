@@ -221,7 +221,6 @@
 		127EABB32735204E00C731F2 /* CoverConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB22735204E00C731F2 /* CoverConstants.swift */; };
 		127EABB72735254500C731F2 /* StatusRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB62735254500C731F2 /* StatusRelationView.swift */; };
 		127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */; };
-		127EABF22739391600C731F2 /* MiddlewareColor+RelationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF12739391600C731F2 /* MiddlewareColor+RelationExtensions.swift */; };
 		127EABF42739440200C731F2 /* TagRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF32739440200C731F2 /* TagRelationView.swift */; };
 		127EABF92739587400C731F2 /* ObjectRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF82739587400C731F2 /* ObjectRelationView.swift */; };
 		127EAC0C273A353A00C731F2 /* Relation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EAC0B273A353A00C731F2 /* Relation.swift */; };
@@ -411,7 +410,7 @@
 		3D4C3ADF26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C3ADE26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift */; };
 		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
 		3D540C7B2625C9DE00A07BD8 /* EditorBrowserAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C7A2625C9DE00A07BD8 /* EditorBrowserAssembly.swift */; };
-		3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* Colors.xcassets */; };
+		3D568FB5266A287400DC7881 /* SystemColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* SystemColors.xcassets */; };
 		3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC0266A5D8600DC7881 /* ColorName.swift */; };
 		3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */; };
 		3D56F2122706E1BA007BC15E /* SlashMenuComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56F2112706E1BA007BC15E /* SlashMenuComparator.swift */; };
@@ -728,8 +727,6 @@
 		C9C536A9276C75F4003CD3F3 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C536A5276C75F4003CD3F3 /* Assets.swift */; };
 		C9C536AB276C86DD003CD3F3 /* UIColor+Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C536AA276C86DD003CD3F3 /* UIColor+Assets.swift */; };
 		C9C536AD276C9040003CD3F3 /* Color+Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C536AC276C9040003CD3F3 /* Color+Assets.swift */; };
-		C9C536AF276C918C003CD3F3 /* AnytypeColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C536AE276C918C003CD3F3 /* AnytypeColor.swift */; };
-		C9C89784276CA1A600EB7585 /* AnytypeColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C89783276CA1A600EB7585 /* AnytypeColorExtension.swift */; };
 		C9D57023278C474E00F6DBB8 /* ComponentColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9D57022278C474E00F6DBB8 /* ComponentColors.xcassets */; };
 		EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */; };
 		EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */; };
@@ -1075,7 +1072,6 @@
 		127EABB22735204E00C731F2 /* CoverConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverConstants.swift; sourceTree = "<group>"; };
 		127EABB62735254500C731F2 /* StatusRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationView.swift; sourceTree = "<group>"; };
 		127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeColorProtocol.swift; sourceTree = "<group>"; };
-		127EABF12739391600C731F2 /* MiddlewareColor+RelationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MiddlewareColor+RelationExtensions.swift"; sourceTree = "<group>"; };
 		127EABF32739440200C731F2 /* TagRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationView.swift; sourceTree = "<group>"; };
 		127EABF82739587400C731F2 /* ObjectRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationView.swift; sourceTree = "<group>"; };
 		127EAC0B273A353A00C731F2 /* Relation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Relation.swift; sourceTree = "<group>"; };
@@ -1264,7 +1260,7 @@
 		3D4C3ADE26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlocksFileEmptyViewConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/EmptyView/BlocksFileEmptyViewConfiguration.swift; sourceTree = SOURCE_ROOT; };
 		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3D540C7A2625C9DE00A07BD8 /* EditorBrowserAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserAssembly.swift; sourceTree = "<group>"; };
-		3D568FB4266A287400DC7881 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = Anytype/Resources/Colors.xcassets; sourceTree = SOURCE_ROOT; };
+		3D568FB4266A287400DC7881 /* SystemColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SystemColors.xcassets; sourceTree = "<group>"; };
 		3D568FC0266A5D8600DC7881 /* ColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorName.swift; path = "Anytype/Sources/Design system/Colors/ColorName.swift"; sourceTree = SOURCE_ROOT; };
 		3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Convenience.swift"; path = "Anytype/Sources/FrameworkExtensions/UIKit/UIColor+Convenience.swift"; sourceTree = SOURCE_ROOT; };
 		3D56F2112706E1BA007BC15E /* SlashMenuComparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuComparator.swift; sourceTree = "<group>"; };
@@ -1580,8 +1576,6 @@
 		C9C536A5276C75F4003CD3F3 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		C9C536AA276C86DD003CD3F3 /* UIColor+Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Assets.swift"; sourceTree = "<group>"; };
 		C9C536AC276C9040003CD3F3 /* Color+Assets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Assets.swift"; sourceTree = "<group>"; };
-		C9C536AE276C918C003CD3F3 /* AnytypeColor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypeColor.swift; sourceTree = "<group>"; };
-		C9C89783276CA1A600EB7585 /* AnytypeColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeColorExtension.swift; sourceTree = "<group>"; };
 		C9D57022278C474E00F6DBB8 /* ComponentColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ComponentColors.xcassets; sourceTree = "<group>"; };
 		EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowInsetsProvider.swift; sourceTree = "<group>"; };
 		EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRestrictions.swift; sourceTree = "<group>"; };
@@ -1925,7 +1919,7 @@
 			isa = PBXGroup;
 			children = (
 				12B0FF72274FDB1D00CA35FE /* App Icons */,
-				3D568FB4266A287400DC7881 /* Colors.xcassets */,
+				3D568FB4266A287400DC7881 /* SystemColors.xcassets */,
 				C9D57022278C474E00F6DBB8 /* ComponentColors.xcassets */,
 				0303ED0422D8EDAD005C552B /* Assets.xcassets */,
 				0A996BD323F038CB000FDC9C /* Plists */,
@@ -2633,7 +2627,6 @@
 				1220670727314E210051A331 /* RelationsListViewModel.swift */,
 				124E2BC1273020F500A2D534 /* RelationsListView.swift */,
 				127EAC10273A375000C731F2 /* RelationsListRowView */,
-				1289F5B12733F37700656EC2 /* Extensions */,
 			);
 			path = Relations;
 			sourceTree = "<group>";
@@ -2940,14 +2933,6 @@
 				12EB9B30277442BC00BA732F /* FileRelationView.swift */,
 			);
 			path = ValueViews;
-			sourceTree = "<group>";
-		};
-		1289F5B12733F37700656EC2 /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				127EABF12739391600C731F2 /* MiddlewareColor+RelationExtensions.swift */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		12A52E2526CAA156000F0333 /* ViewAnimator */ = {
@@ -4666,7 +4651,6 @@
 				3D568FC0266A5D8600DC7881 /* ColorName.swift */,
 				039F6D79239591C80097560A /* Gradients.swift */,
 				127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */,
-				C9C89783276CA1A600EB7585 /* AnytypeColorExtension.swift */,
 			);
 			path = Colors;
 			sourceTree = "<group>";
@@ -5002,7 +4986,6 @@
 				C9C536A5276C75F4003CD3F3 /* Assets.swift */,
 				C9C536AA276C86DD003CD3F3 /* UIColor+Assets.swift */,
 				C9C536AC276C9040003CD3F3 /* Color+Assets.swift */,
-				C9C536AE276C918C003CD3F3 /* AnytypeColor.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -5332,7 +5315,7 @@
 				C9D57023278C474E00F6DBB8 /* ComponentColors.xcassets in Resources */,
 				EAA7E20426B5D57700F7A81B /* IBMPlexMono-Regular.ttf in Resources */,
 				53178879260A29FC004F9F68 /* Inter.ttf in Resources */,
-				3D568FB5266A287400DC7881 /* Colors.xcassets in Resources */,
+				3D568FB5266A287400DC7881 /* SystemColors.xcassets in Resources */,
 				0AAC96682340C288006CE58C /* Localizable.strings in Resources */,
 				EAA7E20326B5D57500F7A81B /* IBMPlexMono-Bold.ttf in Resources */,
 				03A46A40231417D6009AC10C /* InfoPlist.strings in Resources */,
@@ -5619,7 +5602,6 @@
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,
 				534FFA6A277231AB00C51056 /* CreateNewRelationCell.swift in Sources */,
 				3DE0CFD526F8593D003A606A /* SlashActionFilterMatch.swift in Sources */,
-				127EABF22739391600C731F2 /* MiddlewareColor+RelationExtensions.swift in Sources */,
 				3DA7AD842712CF8400EA45F6 /* NSRange+Zero.swift in Sources */,
 				EAC5728D2621D38A00F25949 /* UIApplicationExtension.swift in Sources */,
 				1289F59C2733622C00656EC2 /* RelationsListRowView.swift in Sources */,
@@ -5829,7 +5811,6 @@
 				1255DF842702098300870B95 /* MediaFileUploadingOperation.swift in Sources */,
 				038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */,
 				3D93852026FB0B74001C137F /* PageService.swift in Sources */,
-				C9C536AF276C918C003CD3F3 /* AnytypeColor.swift in Sources */,
 				3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */,
 				0A78328324BDEAE700A1B6F6 /* AttributedTextConverter.swift in Sources */,
 				3D93D56C270C9E3400614E29 /* LoadingViewController.swift in Sources */,
@@ -6027,7 +6008,6 @@
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
 				3D16843626DE8BDF008B9DFF /* Application+FirstResponder.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
-				C9C89784276CA1A600EB7585 /* AnytypeColorExtension.swift in Sources */,
 				535E02AA274FE5BE00E1AF8C /* RelationBlockView.swift in Sources */,
 				3DB3EC81275654BC002781DA /* SingleAxisGeometryReader.swift in Sources */,
 				3D93D57A270CBF7100614E29 /* BrowserNavigationManager.swift in Sources */,

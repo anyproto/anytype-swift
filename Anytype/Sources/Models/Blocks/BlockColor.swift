@@ -15,29 +15,30 @@ enum BlockColor: CaseIterable {
     case green
     
     var color: UIColor {
+        typealias Component = UIColor.TagBackground
         switch self {
         case .amber:
-            return .pureAmber
+            return Component.amber
         case .black:
             return .textPrimary
         case .lemon:
-            return .pureLemon
+            return Component.yellow
         case .red:
-            return .pureRed
+            return Component.red
         case .pink:
-            return .purePink
+            return Component.pink
         case .purple:
-            return .purePurple
+            return Component.purple
         case .blue:
-            return .pureUltramarine
+            return Component.blue
         case .sky:
-            return .pureBlue
+            return Component.sky
         case .teal:
-            return .pureTeal
+            return Component.teal
         case .green:
-            return .pureGreen
+            return Component.green
         case .gray:
-            return .darkGray
+            return Component.grey
         }
     }
     

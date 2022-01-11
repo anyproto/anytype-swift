@@ -11,49 +11,29 @@ import UIKit
 {% set accessModifier %}{% if param.publicAccess %}public{% else %}internal{% endif %}{% endset %}
 {% macro enumBlock assets %}
   {% call casesBlock assets %}
-  {% if param.allValues %}
-
-  {% if resourceCount.color > 0 %}
-  {{accessModifier}} static let allColors: [{{colorType}}] = [
-    {% filter indent:2 %}{% call allValuesBlock assets "color" "" %}{% endfilter %}
-  ]
-  {% endif %}
-  // swiftlint:enable trailing_comma
-  {% endif %}
 {% endmacro %}
 {% macro casesBlock assets %}
   {% for asset in assets %}
   {% if asset.type == "color" %}
-  {{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = UIColor(asset: Asset.{{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}})
-  {% elif asset.items %}
-  // MARK: - {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}}
-  {% call casesBlock asset.items %}
-
+  {{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = UIColor(asset: Asset.{{asset.value|replace:'/','.'}})
+  {% elif asset.items and catalName == "SystemColors" %}
   
-  {% endif %}
-  {% endfor %}
-{% endmacro %}
-{% macro allValuesBlock assets filter prefix %}
-  {% for asset in assets %}
-  {% if asset.type == filter %}
-  {{prefix}}{{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}},
-  {% elif asset.items and ( forceNamespaces == "true" or asset.isNamespaced == "true" ) %}
-  {% set prefix2 %}{{prefix}}{{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}.{% endset %}
-  {% call allValuesBlock asset.items filter prefix2 %}
+
+  // MARK: - {{asset.name}}
+  {% call casesBlock asset.items %}
   {% elif asset.items %}
-  {% call allValuesBlock asset.items filter prefix %}
+  enum {{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}}: ComponentColor {
+  {% filter indent:2 %}
+  typealias T = UIColor
+  {% call casesBlock asset.items %}{% endfilter %}
+  }
   {% endif %}
   {% endfor %}
 {% endmacro %}
 extension UIColor {
-  {% if catalogs.count > 1 or param.forceFileNameEnum %}
   {% for catalog in catalogs %}
-  {{accessModifier}} enum {{catalog.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
-    {% filter indent:2 %}{% call enumBlock catalog.assets %}{% endfilter %}
-  }
+  {% set catalName %}{{catalog.name}}{% endset %}
+  {% filter indent:2 %}{% call enumBlock catalog.assets %}{% endfilter %}
   {% endfor %}
-  {% else %}
-  {% call enumBlock catalogs.first.assets %}
-  {% endif %}
 }
 {% endif %}

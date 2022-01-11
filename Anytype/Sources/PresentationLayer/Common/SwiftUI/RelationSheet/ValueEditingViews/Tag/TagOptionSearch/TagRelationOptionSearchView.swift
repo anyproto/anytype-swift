@@ -64,7 +64,7 @@ struct TagRelationOptionSearchView: View {
                     AnytypeText("\(viewModel.selectedTagIds.count)", style: .relation1Regular, color: .grayscaleWhite)
                         .frame(minWidth: 15, minHeight: 15)
                         .padding(5)
-                        .background(Color.darkAmber)
+                        .background(Color.System.amber)
                         .clipShape(
                             Circle()
                         )
@@ -86,22 +86,22 @@ struct TagRelationOptionSearchView_Previews: PreviewProvider {
                     Relation.Tag.Option(
                         id: "id",
                         text: "text",
-                        textColor: .darkAmber,
-                        backgroundColor: .lightAmber,
+                        textColor: UIColor.Text.amber,
+                        backgroundColor: UIColor.BlockBackground.amber,
                         scope: .local
                     ),
                     Relation.Tag.Option(
                         id: "id3",
                         text: "text3",
-                        textColor: .darkAmber,
-                        backgroundColor: .lightAmber,
+                        textColor: UIColor.Text.amber,
+                        backgroundColor: UIColor.BlockBackground.amber,
                         scope: .local
                     ),
                     Relation.Tag.Option(
                         id: "id2",
                         text: "text2",
-                        textColor: .darkAmber,
-                        backgroundColor: .lightAmber,
+                        textColor: UIColor.Text.amber,
+                        backgroundColor: UIColor.BlockBackground.amber,
                         scope: .local
                     )
                 ],
