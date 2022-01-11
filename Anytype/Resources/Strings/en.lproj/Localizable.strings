@@ -140,7 +140,9 @@
 "OrganizeEverythingDescription" = "With Anytype you can write notes and documents, manage tasks and save important content from the web.";
 "Sign up" = "Sign up";
 "Login" = "Login";
-"Login with keychain" = "Login with keychain";
+"Login with phrase" = "Login with phrase";
+"Enter phrase" = "Enter phrase";
+"Restore secret phrase from keychain" = "Restore secret phrase from keychain";
 "or Type your keychain phrase" = "or Type your keychain phrase";
 "Choose pin code" = "Choose pin code";
 "Do it later" = "Do it later";
