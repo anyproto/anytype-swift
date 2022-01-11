@@ -337,6 +337,8 @@
 		12FD9D27276717B200991886 /* RelationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD9D26276717B200991886 /* RelationObject.swift */; };
 		12FD9D29276717CF00991886 /* RelationTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD9D28276717CF00991886 /* RelationTag.swift */; };
 		12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD9D2A2767180A00991886 /* RelationUnknown.swift */; };
+		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
+		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
 		3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */; };
 		3D07ED34261DD62700C007E2 /* BlocksModelsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */; };
 		3D07ED41261DDB9B00C007E2 /* BlockFileStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D07ED40261DDB9B00C007E2 /* BlockFileStateConverter.swift */; };
@@ -1196,6 +1198,8 @@
 		12FD9D26276717B200991886 /* RelationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationObject.swift; sourceTree = "<group>"; };
 		12FD9D28276717CF00991886 /* RelationTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationTag.swift; sourceTree = "<group>"; };
 		12FD9D2A2767180A00991886 /* RelationUnknown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationUnknown.swift; sourceTree = "<group>"; };
+		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
+		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
 		3D07ECE8261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+UIGestureRecognizerDelegate.swift"; sourceTree = "<group>"; };
 		3D07ED33261DD62700C007E2 /* BlocksModelsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksModelsConverter.swift; sourceTree = "<group>"; };
 		3D07ED40261DDB9B00C007E2 /* BlockFileStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFileStateConverter.swift; sourceTree = "<group>"; };
@@ -3260,6 +3264,16 @@
 			path = MediaFileUploadingWorker;
 			sourceTree = "<group>";
 		};
+		3D00F1D3278D7CCF00863D7C /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				538F1727272C126F009528E7 /* SearchViewModelProtocol.swift */,
+				3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */,
+				3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		3D07ECCF261B4FF700C007E2 /* List */ = {
 			isa = PBXGroup;
 			children = (
@@ -3812,6 +3826,7 @@
 		3D5A41762704541900F1F6A1 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				3D00F1D3278D7CCF00863D7C /* Model */,
 				538F172A272C2F1E009528E7 /* SearchView */,
 				538F172C272C2F74009528E7 /* ObjectSearchViewModel.swift */,
 				538AE50E272C57300071DB0D /* LinkToObjectSearchViewModel.swift */,
@@ -4751,7 +4766,6 @@
 			children = (
 				3D5A417B2704543300F1F6A1 /* Cell */,
 				3D5A41772704541900F1F6A1 /* SearchView.swift */,
-				538F1727272C126F009528E7 /* SearchViewModelProtocol.swift */,
 				3D5A41782704541900F1F6A1 /* SearchBar.swift */,
 			);
 			path = SearchView;
@@ -5708,6 +5722,7 @@
 				3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */,
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
+				3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */,
 				EA0261362625D12000AE6D86 /* BlockRestrictionsBuilder.swift in Sources */,
 				3D44984D26D54A64005A3E06 /* BindableGestureRecognizer.swift in Sources */,
 				120AC25E2747B56000330D7B /* TextRelationEditingViewModel.swift in Sources */,
@@ -6158,6 +6173,7 @@
 				EA3D1E4F26CFC0E5001A31D9 /* TextViewAttributeSelectionInteraction.swift in Sources */,
 				0A74E4FB23A90E8C00B6C406 /* AuthService.swift in Sources */,
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,
+				3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */,
 				12CAF34E26D64440001E56B2 /* TodoIconImageGuideline.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
 				C9367AB7273153D2007D687A /* BlocksSelectionOverlayView.swift in Sources */,
