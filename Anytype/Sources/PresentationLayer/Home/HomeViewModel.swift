@@ -13,18 +13,10 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.filter { !$0.isArchived && !$0.isDeleted }
     }
     
-    var historyCellData: [HomeCellData] {
-        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.history)
-    }
-    var binCellData: [HomeCellData] {
-        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.archive)
-    }
-    var sharedCellData: [HomeCellData] {
-        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.shared)
-    }
-    var setsCellData: [HomeCellData] {
-        cellDataBuilder.buildCellData(SubscriptionsStorage.shared.sets)
-    }
+    @Published var historyCellData = [HomeCellData]()
+    @Published var binCellData = [HomeCellData]()
+    @Published var sharedCellData = [HomeCellData]()
+    @Published var setsCellData = [HomeCellData]()
     
     @Published var selectedPageIds: Set<BlockId> = []
     @Published var openedPageData = OpenedPageData.cached
@@ -37,18 +29,18 @@ final class HomeViewModel: ObservableObject {
     let searchService = ServiceLocator.shared.searchService()
     private let configurationService = MiddlewareConfigurationService.shared
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
+    private let subscriptionService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
     
     let document: BaseDocumentProtocol
-    private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
+    lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     private lazy var cancellables = [AnyCancellable]()
     
     
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
-    private var animationsEnabled = true
+    private(set) var animationsEnabled = true
     
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
-    private var subscriptionStorageSubscription: AnyCancellable?
     
     init() {
         let homeBlockId = configurationService.configuration().homeBlockID
@@ -67,17 +59,17 @@ final class HomeViewModel: ObservableObject {
     }
     
     func onDisappear() {
-        SubscriptionsStorage.shared.toggleSubscriptions(ids: HomeTabsView.Tab.allCases.compactMap(\.subscriptionId), false)
+        subscriptionService.stopAllSubscriptions()
         document.close()
     }
     
     func onTabChange(tab: HomeTabsView.Tab) {
-        var subscriptions = HomeTabsView.Tab.allCases.compactMap(\.subscriptionId)
+        subscriptionService.stopAllSubscriptions()
         tab.subscriptionId.flatMap { subId in
-            subscriptions.removeAllOccurrences(of: subId)
-            SubscriptionsStorage.shared.toggleSubscription(id: subId, true)
+            subscriptionService.toggleSubscription(id: subId, turnOn: true) { [weak self] in
+                self?.onSubscriptionUpdate(id: $0, $1)
+            }
         }
-        SubscriptionsStorage.shared.toggleSubscriptions(ids: subscriptions, false)
         
         if tab == .favourites {
             updateFavoritesTab()
@@ -92,15 +84,6 @@ final class HomeViewModel: ObservableObject {
     
     // MARK: - Private methods
     private func setupSubscriptions() {
-        subscriptionStorageSubscription = SubscriptionsStorage.shared.objectWillChange
-            .receiveOnMain()
-            .sink { [weak self] in
-                guard let self = self else { return }
-                withAnimation(self.animationsEnabled ? .spring() : nil) {
-                    self.objectWillChange.send()
-                }
-            }
-        
         // visual delay on application launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { [weak self] action in
