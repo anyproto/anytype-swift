@@ -3,7 +3,6 @@ import Amplitude
 
 
 struct HomeProfileView: View {
-    @EnvironmentObject var accountData: AccountInfoDataAccessor
     @EnvironmentObject var model: HomeViewModel
     
     private let topPaddingRatio: CGFloat = 0.16
@@ -24,38 +23,31 @@ struct HomeProfileView: View {
                 slogan(containerHeight: geometry.size.height)
             }
             .frame(width: geometry.size.width, height: geometry.size.height)
-            .animation(.default, value: accountData.profileBlockId)
         }
     }
     
     var hiText: some View {
-        AnytypeText("Hi, \(accountData.name ?? "")", style: .title, color: .white)
+        AnytypeText("Hi, \(model.profileData.name)", style: .title, color: .white)
             .padding(.horizontal)
             .transition(.opacity)
     }
     
     private var avatar: some View {
-        Group {
-            if let blockId = accountData.profileBlockId {
-                Button(action: {
-                    Amplitude.instance().logEvent(AmplitudeEventsName.profilePage)
-                    model.showPage(pageId: blockId, viewType: .page)
-                }){ userIcon }
-            } else {
-                userIcon
-            }
-        }
+        Button(action: {
+            Amplitude.instance().logEvent(AmplitudeEventsName.profilePage)
+            model.showPage(pageId: model.profileData.blockId, viewType: .page)
+        }){ userIcon }
     }
     
     private var userIcon: some View {
         let iconType: UserIconView.IconType = {
-            if let imageId = accountData.avatarId {
+            if let imageId = model.profileData.avatarId {
                 return UserIconView.IconType.image(
                     .middleware(
                         ImageID(id: imageId, width: UserIconView.Constants.size.width.asImageWidth)
                     )
                 )
-            } else if let firstCharacter = accountData.name?.first {
+            } else if let firstCharacter = model.profileData.name.first {
                 return UserIconView.IconType.placeholder(firstCharacter)
             } else {
                 return UserIconView.IconType.placeholder(nil)
@@ -102,7 +94,6 @@ struct HomeProfileView: View {
 struct HomeProfileView_Previews: PreviewProvider {
     static var previews: some View {
         HomeProfileView()
-            .environmentObject(AccountInfoDataAccessor())
             .environmentObject(HomeViewModel())
             .background(Color.pureBlue)
     }

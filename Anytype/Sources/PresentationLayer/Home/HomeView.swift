@@ -6,7 +6,6 @@ struct HomeView: View {
     @ObservedObject var model: HomeViewModel
     
     @StateObject private var settingsModel = SettingsViewModel(authService: ServiceLocator.shared.authService())
-    @StateObject private var accountData = AccountInfoDataAccessor()
     
     @State var bottomSheetState = HomeBottomSheetViewState.closed
     @State private var showSettings = false
@@ -18,7 +17,6 @@ struct HomeView: View {
             .environment(\.font, .defaultAnytype)
             .environmentObject(model)
             .environmentObject(settingsModel)
-            .environmentObject(accountData)
             .onAppear {
                 Amplitude.instance().logEvent(AmplitudeEventsName.homeShow)
 

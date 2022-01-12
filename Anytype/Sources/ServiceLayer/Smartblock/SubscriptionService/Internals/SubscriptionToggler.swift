@@ -18,16 +18,21 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         case .sets:
             return toggleSetsSubscription(turnOn)
         case .profile(id: let profileId):
-            return toggleIdSubscription(blockId: profileId)
+            return toggleIdSubscription(turnOn, blockId: profileId)
         }
     }
     
     // MARK: - Private
-    private func toggleIdSubscription(blockId: BlockId) -> [ObjectDetails]? {
+    private func toggleIdSubscription(_ turnOn: Bool, blockId: BlockId) -> [ObjectDetails]? {
+        guard turnOn else {
+            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.profile(id: blockId).identifier])
+            return nil
+        }
+        
         let response = Anytype_Rpc.Object.IdsSubscribe.Service.invoke(
             subID: SubscriptionId.profile(id: blockId).identifier,
             ids: [blockId],
-            keys: [BundledRelationKey.name.rawValue, BundledRelationKey.iconImage.rawValue],
+            keys: [BundledRelationKey.id.rawValue, BundledRelationKey.name.rawValue, BundledRelationKey.iconImage.rawValue],
             ignoreWorkspace: ""
         )
         

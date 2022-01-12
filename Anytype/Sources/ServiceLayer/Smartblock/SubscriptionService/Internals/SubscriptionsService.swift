@@ -27,35 +27,31 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         }
     }
     
-    func toggleSubscriptions(ids: [SubscriptionId], turnOn: Bool, update: @escaping SubscriptionCallback) {
-        ids.forEach { toggleSubscription(id: $0, turnOn: turnOn, update: update) }
+    func stopSubscriptions(ids: [SubscriptionId]) {
+        ids.forEach { stopSubscription(id: $0) }
     }
     
-    func toggleSubscription(id: SubscriptionId, turnOn: Bool, update: @escaping SubscriptionCallback) {
-        guard validateSubscription(id: id, turnOn: turnOn) else { return }
+    func stopSubscription(id: SubscriptionId) {
+        _ = toggler.toggleSubscription(id: id, false)
+        turnedOnSubs[id] = nil
+    }
+    
+    func startSubscriptions(ids: [SubscriptionId], update: @escaping SubscriptionCallback) {
+        ids.forEach { startSubscription(id: $0, update: update) }
+    }
+    
+    func startSubscription(id: SubscriptionId, update: @escaping SubscriptionCallback) {
+        guard turnedOnSubs[id].isNil else {
+            anytypeAssertionFailure("Subscription: \(id) started on second time", domain: .subscriptionStorage)
+            return
+        }
         
         turnedOnSubs[id] = update
         
-        let details = toggler.toggleSubscription(id: id, turnOn) ?? []
+        let details = toggler.toggleSubscription(id: id, true) ?? []
         details.forEach { storage.add(details: $0) }
         
         update(id, .initialData(details))
-    }
-    
-    private func validateSubscription(id: SubscriptionId, turnOn: Bool) -> Bool {
-        if turnOn {
-            guard turnedOnSubs[id].isNil else {
-                anytypeAssertionFailure("Subscription: \(id) turned on second time", domain: .subscriptionStorage)
-                return false
-            }
-        } else {
-            guard turnedOnSubs[id].isNotNil else {
-                anytypeAssertionFailure("Tryed to turn off not active subscription: \(id)", domain: .subscriptionStorage)
-                return false
-            }
-        }
-        
-        return true
     }
  
     // MARK: - Private
@@ -78,6 +74,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 
                 return self.turnedOnSubs.keys.contains(subscription)
             }
+            .receiveOnMain()
             .sink { [weak self] events in
                 self?.handle(events: events)
             }

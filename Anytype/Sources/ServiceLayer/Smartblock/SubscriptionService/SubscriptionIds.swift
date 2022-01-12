@@ -15,6 +15,7 @@ enum SubscriptionId: Hashable {
     private static let sharedId = "SubscriptionId.Shared"
     private static let setsId = "SubscriptionId.Sets"
     private static let profileId = "SubscriptionId.Profile"
+    private static let idSeparator = "|||"
     
     var identifier: String {
         switch self {
@@ -27,27 +28,27 @@ enum SubscriptionId: Hashable {
         case .sets:
             return Self.setsId
         case .profile(let id):
-            return "\(Self.profileId).\(id)"
+            return "\(Self.profileId)\(Self.idSeparator)\(id)"
         }
     }
     
     init?(identifier: String) {
-        if identifier == Self.historyId {
+        switch identifier {
+        case Self.historyId:
             self = .history
-        } else if identifier == Self.archiveId {
+        case Self.archiveId:
             self = .archive
-        } else if identifier == Self.setsId {
+        case Self.setsId:
             self = .sets
-        } else if identifier == Self.sharedId {
+        case Self.sharedId:
             self = .shared
+        default:
+            let profileComponents = identifier.components(separatedBy: Self.idSeparator)
+            if profileComponents.count == 2 {
+                self = .profile(id: profileComponents[1])
+            } else {
+                return nil
+            }
         }
-        
-        let profileComponents = identifier.components(separatedBy: Self.profileId)
-        if profileComponents.count == 2 {
-            self = .profile(id: profileComponents[1])
-        }
-        
-        
-        return nil
     }
 }
