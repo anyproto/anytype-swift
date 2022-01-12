@@ -55,6 +55,11 @@ struct ObjectSettingsContainerView: View {
                 isPresented: $isRelationsViewPresented
             ) {
                 RelationsListView(viewModel: viewModel.relationsViewModel)
+                    .onChange(of: isRelationsViewPresented) { isRelationsViewPresented in
+                        if isRelationsViewPresented {
+                            Amplitude.instance().logEvent(AmplitudeEventsName.objectRelationShow)
+                        }
+                    }
             }
             .popup(
                 isPresented: $isLayoutPickerPresented,
@@ -68,7 +73,6 @@ struct ObjectSettingsContainerView: View {
                 }
             )
             .onChange(of: isLayoutPickerPresented) { showLayoutSettings in
-                // Analytics
                 if showLayoutSettings {
                     Amplitude.instance().logEvent(AmplitudeEventsName.popupChooseLayout)
                 }

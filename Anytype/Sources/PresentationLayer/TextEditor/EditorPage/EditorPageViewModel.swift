@@ -255,7 +255,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
 extension EditorPageViewModel {
     func viewDidLoad() {
-        Amplitude.instance().logDocumentShow(document.objectId)
+        if let objectDetails = document.objectDetails {
+            Amplitude.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
+        }
     }
     
     func viewWillAppear() {

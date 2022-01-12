@@ -27,6 +27,7 @@ class BlockListService: BlockListServiceProtocol {
 
     func setBackgroundColor(contextId: BlockId, blockIds: [BlockId], color: MiddlewareColor) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetBackgroundColor)
+
         Anytype_Rpc.BlockList.Set.BackgroundColor.Service
             .invoke(contextID: contextId, blockIds: blockIds, color: color.rawValue)
             .map { EventsBunch(event: $0.event) }
@@ -35,7 +36,8 @@ class BlockListService: BlockListServiceProtocol {
     }
 
     func setAlign(contextId: BlockId, blockIds: [BlockId], alignment: LayoutAlignment) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetAlign)
+        Amplitude.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
+
         Anytype_Rpc.BlockList.Set.Align.Service
             .invoke(contextID: contextId, blockIds: blockIds, align: alignment.asMiddleware)
             .map { EventsBunch(event: $0.event) }
@@ -45,6 +47,7 @@ class BlockListService: BlockListServiceProtocol {
 
     func setDivStyle(contextId: BlockId, blockIds: [BlockId], style: BlockDivider.Style) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetDivStyle)
+
         Anytype_Rpc.BlockList.Set.Div.Style.Service
             .invoke(contextID: contextId, blockIds: blockIds, style: style.asMiddleware)
             .map { EventsBunch(event: $0.event) }
