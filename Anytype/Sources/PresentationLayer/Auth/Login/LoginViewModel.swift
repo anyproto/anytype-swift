@@ -5,12 +5,11 @@ import LocalAuthentication
 class LoginViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
     private lazy var cameraPermissionVerifier = CameraPermissionVerifier()
-    private let seedService: SeedService
+    private let seedService: SeedServiceProtocol
 
     @Published var seed: String = ""
     @Published var showQrCodeView: Bool = false
     @Published var openSettingsURL = false
-    @Published var canRestoreFromKeychain: Bool
     @Published var error: String? {
         didSet {
             showError = false
@@ -28,10 +27,11 @@ class LoginViewModel: ObservableObject {
         }
     }
     @Published var showSelectProfile = false
+    let canRestoreFromKeychain: Bool
 
     private var subscriptions = [AnyCancellable]()
 
-    init(seedService: SeedService = SeedService(keychainStore: KeychainStore())) {
+    init(seedService: SeedServiceProtocol = ServiceLocator.shared.seedService()) {
         self.canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
         self.seedService = seedService
     }
