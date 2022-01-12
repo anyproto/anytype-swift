@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import BlocksModels
 
 
 final class ServiceLocator {
@@ -49,8 +50,19 @@ final class ServiceLocator {
         SearchService()
     }
     
-    func subscriptionStorage() -> SubscriptionsStorage {
-        SubscriptionsStorage()
+    func subscriptionService() -> SubscriptionsServiceProtocol {
+        SubscriptionsService(
+            toggler: subscriptionToggler(),
+            storage: detailsStorage()
+        )
+    }
+    
+    private func subscriptionToggler() -> SubscriptionTogglerProtocol {
+        SubscriptionToggler()
+    }
+    
+    private func detailsStorage() -> ObjectDetailsStorage {
+        ObjectDetailsStorage.shared
     }
     
     // MARK: - Coodrdinators
