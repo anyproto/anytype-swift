@@ -4,6 +4,8 @@ import SwiftUI
 
 final class TextRelationEditingViewModel: ObservableObject {
     
+    var dismissHandler: (() -> Void)?
+    
     @Published var isPresented: Bool = false {
         didSet {
             guard isPresented == false else { return }
@@ -12,52 +14,45 @@ final class TextRelationEditingViewModel: ObservableObject {
         }
     }
     
-    @Published var value: String = "" {
-        didSet {
-            updateActionButtonState()
+    @Published var value: String = ""
+    
+    let title: String
+    
+    private let type: TextRelationEditingViewType
+    private let relationKey: String
+    private let service: RelationsServiceProtocol
+    
+    init(
+        type: TextRelationEditingViewType,
+        title: String,
+        value: String,
+        relationKey: String,
+        service: RelationsServiceProtocol
+    ) {
+        self.title = title
+        self.value = value
+        
+        self.type = type
+        self.relationKey = relationKey
+        self.service = service
+    }
+    
+}
+
+extension TextRelationEditingViewModel {
+    
+    var keyboardType: UIKeyboardType {
+        switch type {
+        case .text: return .default
+        case .number: return .decimalPad
         }
     }
     
-    @Published var isActionButtonEnabled: Bool = false
-    
-    var dismissHandler: (() -> Void)?
-    
-    let valueType: TextRelationValueType
-    
-    let relationName: String
-    
-    private let relationKey: String
-
-    private let service: TextRelationEditingServiceProtocol
-    private weak var delegate: TextRelationEditingViewModelDelegate?
-    
-    init(
-        relationKey: String,
-        relationName: String,
-        relationValue: String?,
-        service: TextRelationEditingServiceProtocol,
-        delegate: TextRelationEditingViewModelDelegate?
-    ) {
-        self.relationKey = relationKey
-        self.relationName = relationName
-        self.value = relationValue ?? ""
-        
-        self.service = service
-        self.valueType = service.valueType
-        
-        self.delegate = delegate
-        
-        updateActionButtonState()
-    }
-    
-    func performAction() {
-        guard
-            let url = urlToOpen,
-            let delegate = delegate,
-            delegate.canOpenUrl(url)
-        else { return }
-        
-        delegate.openUrl(url)
+    var placeholder: String {
+        switch type {
+        case .text: return "Add text".localized
+        case .number: return "Add number".localized
+        }
     }
     
 }
@@ -65,43 +60,22 @@ final class TextRelationEditingViewModel: ObservableObject {
 extension TextRelationEditingViewModel: RelationEditingViewModelProtocol {
     
     func saveValue() {
-        service.save(value: value, forKey: relationKey)
+        switch type {
+        case .text:
+            service.updateRelation(relationKey: relationKey, value: value.protobufValue)
+        case .number:
+            let filterredString = value.components(
+                separatedBy:CharacterSet(charactersIn: "0123456789.").inverted
+            )
+                .joined()
+            
+            guard let number = Double(filterredString) else { return }
+            service.updateRelation(relationKey: relationKey, value: number.protobufValue)
+        }
     }
     
     func makeView() -> AnyView {
         AnyView(TextRelationEditingView(viewModel: self))
-    }
-    
-}
-
-private extension TextRelationEditingViewModel {
-    
-    func updateActionButtonState() {
-        guard value.isNotEmpty else {
-            isActionButtonEnabled = false
-            return
-        }
-        
-        switch valueType {
-        case .text: return
-        case .number: return
-        case .phone:
-            isActionButtonEnabled = value.isValidPhone()
-        case .email:
-            isActionButtonEnabled = value.isValidEmail()
-        case .url:
-            isActionButtonEnabled = value.isValidURL()
-        }
-    }
-    
-    var urlToOpen: URL? {
-        switch valueType {
-        case .text: return nil
-        case .number: return nil
-        case .phone: return URL(string: "tel:\(value)")
-        case .email: return URL(string: "mailto:\(value)")
-        case .url: return URL(string: value)
-        }
     }
     
 }
