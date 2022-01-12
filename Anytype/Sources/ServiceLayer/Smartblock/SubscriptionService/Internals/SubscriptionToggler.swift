@@ -114,14 +114,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             return nil
         }
         
-        return result.records.map(\.fields).compactMap { fields in
-            guard let id = fields["id"]?.stringValue else {
-                anytypeAssertionFailure("Empty id in sybscription data \(fields)", domain: .subscriptionService)
-                return nil
-            }
-            
-            return ObjectDetails(id: id, values: fields)
-        }
+        return result.records.asDetais
     }
     
     private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [Anytype_Model_Block.Content.Dataview.Filter] {
