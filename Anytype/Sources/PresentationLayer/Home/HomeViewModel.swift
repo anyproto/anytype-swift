@@ -93,6 +93,8 @@ final class HomeViewModel: ObservableObject {
             sharedCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
         case .sets:
             setsCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
+        default:
+            anytypeAssertionFailure("Unsupported subscription: \(id)", domain: .homeView)
         }
     }
     
