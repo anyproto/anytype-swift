@@ -22,6 +22,13 @@ final class TextRelationEditingViewModel: ObservableObject {
     private let relationKey: String
     private let service: RelationsServiceProtocol
     
+    private let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ""
+        return formatter
+    }()
+    
     init(
         type: TextRelationEditingViewType,
         title: String,
@@ -64,12 +71,7 @@ extension TextRelationEditingViewModel: RelationEditingViewModelProtocol {
         case .text:
             service.updateRelation(relationKey: relationKey, value: value.protobufValue)
         case .number:
-            let filterredString = value.components(
-                separatedBy:CharacterSet(charactersIn: "0123456789.").inverted
-            )
-                .joined()
-            
-            guard let number = Double(filterredString) else { return }
+            guard let number = numberFormatter.number(from: value)?.doubleValue else { return }
             service.updateRelation(relationKey: relationKey, value: number.protobufValue)
         }
     }
