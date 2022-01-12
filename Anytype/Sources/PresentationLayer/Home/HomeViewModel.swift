@@ -37,7 +37,6 @@ final class HomeViewModel: ObservableObject {
     
     
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
-    private(set) var animationsEnabled = true
     
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
@@ -55,7 +54,6 @@ final class HomeViewModel: ObservableObject {
 
     func onAppear() {
         document.open()
-        animationsEnabled = true
     }
     
     func onDisappear() {
@@ -66,8 +64,8 @@ final class HomeViewModel: ObservableObject {
     func onTabChange(tab: HomeTabsView.Tab) {
         subscriptionService.stopAllSubscriptions()
         tab.subscriptionId.flatMap { subId in
-            subscriptionService.toggleSubscription(id: subId, turnOn: true) { [weak self] in
-                self?.onSubscriptionUpdate(id: $0, $1)
+            subscriptionService.toggleSubscription(id: subId, turnOn: true) { [weak self] id, update in
+                self?.onSubscriptionUpdate(id: id, update)
             }
         }
         
@@ -76,8 +74,30 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
+    func onSubscriptionUpdate(id: SubscriptionId, _ update: SubscriptionUpdate) {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            withAnimation(update.isInitialData ? nil : .spring()) {
+                self.updateCollections(id: id, update)
+            }
+        }
+    }
+    
+    private func updateCollections(id: SubscriptionId, _ update: SubscriptionUpdate) {
+        switch id {
+        case .history:
+            historyCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
+        case .archive:
+            binCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
+        case .shared:
+            sharedCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
+        case .sets:
+            setsCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
+        }
+    }
+    
     func updateFavoritesTab() {
-        withAnimation(animationsEnabled ? .spring() : nil) {
+        withAnimation(.spring()) {
             favoritesCellData = cellDataBuilder.buildFavoritesData()
         }
     }
@@ -99,7 +119,7 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func onDashboardChange(updateResult: EventsListenerUpdate) {
-        withAnimation(animationsEnabled ? .spring() : nil) {
+        withAnimation(.spring()) {
             switch updateResult {
             case .general:
                 updateFavoritesTab()
@@ -148,7 +168,6 @@ extension HomeViewModel {
         if openedPageData.showing {
             editorBrowser?.showPage(data: data)
         } else {
-            animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
             openedPageData.data = data
             openedPageData.showing = true
         }
