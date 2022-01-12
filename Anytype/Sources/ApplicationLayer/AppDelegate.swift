@@ -3,13 +3,15 @@ import UIKit
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     /// receive events from middleware and broadcast throught notification center
-    private let eventListener = MiddlewareEventsListener()
+    private lazy var eventListener = MiddlewareEventsListener()
     private let configurator = AppConfigurator()
 
     func application(
         _ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
         configurator.configure()
+
+        _ = eventListener
 
         return true
     }
