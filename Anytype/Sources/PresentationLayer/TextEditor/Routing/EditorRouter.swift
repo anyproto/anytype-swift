@@ -16,7 +16,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showFilePicker(model: Picker.ViewModel)
     func showImagePicker(model: MediaPickerViewModel)
     
-    func saveFile(fileURL: URL)
+    func saveFile(fileURL: URL, type: FileContentType)
     
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
     
@@ -118,8 +118,8 @@ final class EditorRouter: EditorRouterProtocol {
         viewController?.present(vc, animated: true, completion: nil)
     }
     
-    func saveFile(fileURL: URL) {
-        fileRouter.saveFile(fileURL: fileURL)
+    func saveFile(fileURL: URL, type: FileContentType) {
+        fileRouter.saveFile(fileURL: fileURL, type: type)
     }
     
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void) {

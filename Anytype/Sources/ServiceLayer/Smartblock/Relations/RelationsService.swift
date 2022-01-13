@@ -51,9 +51,10 @@ extension RelationsService: RelationsServiceProtocol {
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .relationsService)?
             .send()
+        Amplitude.instance().logEvent(AmplitudeEventsName.changeRelationValue)
     }
 
-    func addRelation(_ relation: RelationMetadata) -> RelationMetadata? {
+    func addRelation(_ relation: RelationMetadata, isNew: Bool) -> RelationMetadata? {
         let response = Anytype_Rpc.Object.RelationAdd.Service.invoke(contextID: objectId,
                                                                      relation: relation.middlewareModel)
             .getValue(domain: .relationsService)
@@ -61,6 +62,8 @@ extension RelationsService: RelationsServiceProtocol {
         guard let response = response else { return nil }
 
         EventsBunch(event: response.event).send()
+
+        Amplitude.instance().logAddRelation(format: relation.format, isNew: isNew)
 
         return RelationMetadata(middlewareRelation: response.relation)
     }
@@ -72,6 +75,8 @@ extension RelationsService: RelationsServiceProtocol {
         ).map { EventsBunch(event: $0.event) }
         .getValue(domain: .relationsService)?
         .send()
+        
+        Amplitude.instance().logEvent(AmplitudeEventsName.deleteRelation)
     }
     
     func addRelationOption(relationKey: String, optionText: String) -> String? {

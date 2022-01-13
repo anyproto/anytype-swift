@@ -36,14 +36,7 @@ final class MarkupAccessoryView: UIView {
 
         let colorView = ColorView(color: color,
                                   backgroundColor: backgroundColor) { [weak self] item in
-            guard let self = self else { return }
-
-            switch item {
-            case let .text(color):
-                self.viewModel.actionHandler.changeTextStyle(.textColor(color.color), range: self.viewModel.range, blockId: self.viewModel.blockId)
-            case let .background(color):
-                self.viewModel.actionHandler.changeTextStyle(.backgroundColor(color.color), range: self.viewModel.range, blockId: self.viewModel.blockId)
-            }
+            self?.viewModel.handleSelectedColorItem(item)
         } viewDidClose: { [weak self] in
             self?.viewModel.showColorView = false
         }

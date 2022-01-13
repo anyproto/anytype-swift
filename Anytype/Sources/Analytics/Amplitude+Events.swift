@@ -26,10 +26,16 @@ extension Amplitude {
     
     func logSetStyle(_ style: BlockText.Style) {
         logEvent(
-            AmplitudeEventsName.blockSetTextStyle,
+            AmplitudeEventsName.changeBlockStyle,
             withEventProperties: [AmplitudeEventsPropertiesKey.blockStyle: String(describing: style)]
         )
-        
+    }
+
+    func logSetMarkup(_ markupType: MarkupType) {
+        logEvent(
+            AmplitudeEventsName.changeBlockStyle,
+            withEventProperties: [AmplitudeEventsPropertiesKey.type: markupType.description]
+        )
     }
 
     func logHomeTabSelection(_ selectedTab: HomeTabsView.Tab) {
@@ -127,5 +133,32 @@ extension Amplitude {
             logEvent(AmplitudeEventsName.setLayoutAlign,
                      withEventProperties: [AmplitudeEventsPropertiesKey.align: alignment.name])
         }
+    }
+
+    func logCreateBlock(type: String, style: String) {
+        logEvent(AmplitudeEventsName.blockCreate,
+                 withEventProperties: [AmplitudeEventsPropertiesKey.type: type,
+                                       AmplitudeEventsPropertiesKey.blockStyle: style])
+    }
+
+    func logUploadMedia(type: FileContentType) {
+        logEvent(AmplitudeEventsName.blockUpload,
+                 withEventProperties: [AmplitudeEventsPropertiesKey.type: type.rawValue])
+    }
+
+    func logDownloadMedia(type: FileContentType) {
+        logEvent(AmplitudeEventsName.downloadFile,
+                 withEventProperties: [AmplitudeEventsPropertiesKey.type: type.rawValue])
+    }
+
+    func logReorderBlock(count: Int) {
+        logEvent(AmplitudeEventsName.reorderBlock,
+                 withEventProperties: [AmplitudeEventsPropertiesKey.count: count])
+    }
+
+    func logAddRelation(format: RelationMetadata.Format, isNew: Bool) {
+        let eventName = isNew ? AmplitudeEventsName.createRelation : AmplitudeEventsName.addExistingRelation
+        logEvent(eventName,
+                 withEventProperties: [AmplitudeEventsPropertiesKey.format: format.name])
     }
 }

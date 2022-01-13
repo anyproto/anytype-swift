@@ -8,7 +8,7 @@ protocol RelationsServiceProtocol {
     
     func updateRelation(relationKey: String, value: Google_Protobuf_Value)
 
-    func addRelation(_ relation: RelationMetadata) -> RelationMetadata?
+    func addRelation(_ relation: RelationMetadata, isNew: Bool) -> RelationMetadata?
     func removeRelation(relationKey: String)
     func addRelationOption(relationKey: String, optionText: String) -> String?
     func availableRelations() -> [RelationMetadata]?

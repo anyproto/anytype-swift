@@ -14,25 +14,39 @@ enum AmplitudeEventsName {
     static let logout = "LogOut"
 
     // Block events
-    static let blockCreate = "BlockCreate"
+    static let blockCreate = "CreateBlock"
     static let blockBookmarkFetch = "BlockBookmarkFetch"
-    static let blockListDuplicate = "BlockListDuplicate"
-    static let blockListSetAlign = "BlockListSetAlign"
-    static let blockListSetBackgroundColor = "BlockListSetBackgroundColor"
-    static let blockListSetDivStyle = "BlockListSetDivStyle"
+
     static let blockMerge = "BlockMerge"
+    static let blockDelete = "DeleteBlock"
+
+    static let blockListDuplicate = "DuplicateBlock"
+    static let blockListSetAlign = "ChangeBlockAlign"
+    static let blockListSetBackgroundColor = "ChangeBlockBackground"
     static let blockSetDetails = "BlockSetDetails"
     static let blockSetTextChecked = "BlockSetTextChecked"
-    static let blockSetTextStyle = "BlockSetTextStyle"
-    static let blockSetTextText = "BlockSetTextText"
-    static let blockSplit = "BlockSplit"
-    static let blockUnlink = "BlockUnlink"
-    static let blockUpload = "BlockUpload"
-    static let downloadFile = "DownloadFile"
+    static let blockUpload = "UploadMedia"
+    static let downloadFile = "DownloadMedia"
+
+    static let blockSetTextText = "Writing"
+    static let changeBlockStyle = "ChangeBlockStyle"
+    static let changeTextStyle = "ChangeTextStyle"
 
     static let pageCreate = "PageCreate"
     static let blockCreatePage = "BlockCreatePage"
+
+    static let blockListSetDivStyle = "BlockListSetDivStyle"
     static let blockListConvertChildrenToPages = "BlockListConvertChildrenToPages"
+
+    static let reorderBlock = "ReorderBlock"
+
+    // Relation events
+    static let addExistingRelation = "AddExistingRelation"
+    static let createRelation = "CreateRelation"
+    static let changeRelationValue = "ChangeRelationValue"
+    static let deleteRelationValue = "DeleteRelationValue"
+    static let deleteRelation = "DeleteRelation"
+
 
     // Object events
     static let addToFavorites = "AddToFavorites"
@@ -172,4 +186,5 @@ enum AmplitudeEventsPropertiesKey {
     static let index = "index"
     static let layout = "layout"
     static let align = "align"
+    static let format = "format"
 }
