@@ -24,13 +24,6 @@ extension Amplitude {
         )
     }
     
-    func logDocumentShow(_ objectId: BlockId) {
-        logEvent(
-            AmplitudeEventsName.documentPage,
-            withEventProperties: [AmplitudeEventsPropertiesKey.documentId: objectId]
-        )
-    }
-    
     func logSetStyle(_ style: BlockText.Style) {
         logEvent(
             AmplitudeEventsName.blockSetTextStyle,
@@ -86,7 +79,7 @@ extension Amplitude {
                  withEventProperties: [AmplitudeEventsPropertiesKey.type: context.rawValue])
     }
 
-    func logObjectTypeChange(_ type: String) {
+    func logDefaultObjectTypeChange(_ type: String) {
         logEvent(AmplitudeEventsName.defaultObjectTypeChange,
                  withEventProperties: [AmplitudeEventsPropertiesKey.objectType: type])
     }
@@ -106,5 +99,33 @@ extension Amplitude {
         logEvent(AmplitudeEventsName.searchQuery,
                  withEventProperties: [AmplitudeEventsPropertiesKey.index: index,
                                        AmplitudeEventsPropertiesKey.length: length])
+    }
+
+    func logShowObject(type: String, layout: DetailsLayout) {
+        logEvent(
+            AmplitudeEventsName.showObject,
+            withEventProperties: [AmplitudeEventsPropertiesKey.type: type,
+                                  AmplitudeEventsPropertiesKey.layout: layout.rawValue]
+        )
+    }
+
+    func logObjectTypeChange(_ type: String) {
+        logEvent(AmplitudeEventsName.objectTypeChange,
+                 withEventProperties: [AmplitudeEventsPropertiesKey.objectType: type])
+    }
+
+    func logLayoutChange(_ layout: DetailsLayout) {
+        logEvent(AmplitudeEventsName.changeLayout,
+                 withEventProperties: [AmplitudeEventsPropertiesKey.layout: layout.rawValue])
+    }
+
+    func logSetAlignment(_ alignment: LayoutAlignment, isBlock: Bool) {
+        if isBlock {
+            logEvent(AmplitudeEventsName.blockListSetAlign,
+                     withEventProperties: [AmplitudeEventsPropertiesKey.align: alignment.name])
+        } else {
+            logEvent(AmplitudeEventsName.setLayoutAlign,
+                     withEventProperties: [AmplitudeEventsPropertiesKey.align: alignment.name])
+        }
     }
 }

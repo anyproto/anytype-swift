@@ -126,7 +126,10 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             contextID: objectId,
             objectTypeURL: objectTypeUrl
         )
-            .map { EventsBunch(event: $0.event) }
+            .map { (result) -> EventsBunch in
+                Amplitude.instance().logObjectTypeChange(objectTypeUrl)
+                return EventsBunch(event: result.event)
+            }
             .getValue(domain: .objectActionsService)?
             .send()
     }

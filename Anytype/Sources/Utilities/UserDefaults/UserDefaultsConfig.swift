@@ -78,7 +78,7 @@ struct UserDefaultsConfig {
     @UserDefault("UserData.DefaultObjectType", defaultValue: "")
     static var defaultObjectType: String {
         didSet {
-            Amplitude.instance().logObjectTypeChange(defaultObjectType)
+            Amplitude.instance().logDefaultObjectTypeChange(defaultObjectType)
         }
     }
     

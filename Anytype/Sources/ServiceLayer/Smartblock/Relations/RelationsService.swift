@@ -2,6 +2,7 @@ import Foundation
 import ProtobufMessages
 import BlocksModels
 import SwiftProtobuf
+import Amplitude
 
 final class RelationsService {
     
@@ -16,6 +17,8 @@ final class RelationsService {
 extension RelationsService: RelationsServiceProtocol {
     
     func addFeaturedRelation(relationKey: String) {
+        Amplitude.instance().logEvent(AmplitudeEventsName.addFeatureRelation)
+
         Anytype_Rpc.Object.FeaturedRelation.Add.Service.invoke(
             contextID: objectId,
             relations: [relationKey]
@@ -25,6 +28,8 @@ extension RelationsService: RelationsServiceProtocol {
     }
     
     func removeFeaturedRelation(relationKey: String) {
+        Amplitude.instance().logEvent(AmplitudeEventsName.removeFeatureRelation)
+
         Anytype_Rpc.Object.FeaturedRelation.Remove.Service.invoke(
             contextID: objectId,
             relations: [relationKey]

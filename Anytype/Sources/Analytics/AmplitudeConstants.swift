@@ -17,8 +17,6 @@ enum AmplitudeEventsName {
     static let blockCreate = "BlockCreate"
     static let blockBookmarkFetch = "BlockBookmarkFetch"
     static let blockListDuplicate = "BlockListDuplicate"
-    static let blockCreatePage = "BlockCreatePage"
-    static let blockListConvertChildrenToPages = "BlockListConvertChildrenToPages"
     static let blockListSetAlign = "BlockListSetAlign"
     static let blockListSetBackgroundColor = "BlockListSetBackgroundColor"
     static let blockListSetDivStyle = "BlockListSetDivStyle"
@@ -31,7 +29,10 @@ enum AmplitudeEventsName {
     static let blockUnlink = "BlockUnlink"
     static let blockUpload = "BlockUpload"
     static let downloadFile = "DownloadFile"
+
     static let pageCreate = "PageCreate"
+    static let blockCreatePage = "BlockCreatePage"
+    static let blockListConvertChildrenToPages = "BlockListConvertChildrenToPages"
 
     // Object events
     static let addToFavorites = "AddToFavorites"
@@ -40,8 +41,20 @@ enum AmplitudeEventsName {
     static let restoreFromBin = "RestoreFromBin"
     static let objectListDelete = "RemoveCompletely"
     static let defaultObjectTypeChange = "DefaultTypeChange"
+    static let objectTypeChange = "ChangeObjectType"
     static let searchQuery = "SearchQuery"
     static let searchResult = "SearchResult"
+    static let showObject = "ScreenObject"
+    static let setLayoutAlign = "SetLayoutAlign"
+    static let setIcon = "SetIcon"
+    static let removeIcon = "RemoveIcon"
+    static let setCover = "SetCover"
+    static let removeCover = "RemoveCover"
+    static let addFeatureRelation = "Feature relation"
+    static let removeFeatureRelation = "Unfeature relation"
+
+    // Details events
+    static let changeLayout = "ChangeLayout"
 
     // App settings events
     static let selectTheme = "ThemeSet"
@@ -59,8 +72,6 @@ enum AmplitudeEventsName {
 
     // Emoji picker events
     static let buttonRandomEmoji = "ButtonRandomEmoji"
-    static let buttonRemoveEmoji = "ButtonRemoveEmoji"
-    static let buttonUploadPhoto = "ButtonUploadPhoto"
 
     // Settings object events
     static let buttonCoverInObjectSettings = "ButtonCoverInObjectSettings"
@@ -73,7 +84,6 @@ enum AmplitudeEventsName {
     static let reorderObjects = "ReorderObjects" // reorder in favorite tab
 
     static let profilePage = "Page: Profile"
-    static let documentPage = "Page: Document"
 
     // Screen show events
     static let disclaimerShow = "ScreenDisclaimer"
@@ -93,6 +103,7 @@ enum AmplitudeEventsName {
 
     static let searchShow = "ScreenSearch"
     static let showAboutScreen = "Show About Screen"
+    static let objectRelationShow = "ScreenObjectRelation"
 
     // Navigation events
     static let goBack = "HistoryBack"
@@ -159,4 +170,6 @@ enum AmplitudeEventsPropertiesKey {
     static let objectType = "objectType"
     static let length = "length"
     static let index = "index"
+    static let layout = "layout"
+    static let align = "align"
 }

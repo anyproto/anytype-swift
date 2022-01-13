@@ -9,6 +9,7 @@
 import Foundation
 import BlocksModels
 import Combine
+import Amplitude
 
 final class ObjectCoverPickerViewModel: ObservableObject {
     
@@ -32,12 +33,14 @@ final class ObjectCoverPickerViewModel: ObservableObject {
 extension ObjectCoverPickerViewModel {
     
     func setColor(_ colorName: String) {
+        Amplitude.instance().logEvent(AmplitudeEventsName.setCover)
         detailsService.updateBundledDetails(
             [.coverType(CoverType.color), .coverId(colorName)]
         )
     }
     
     func setGradient(_ gradientName: String) {
+        Amplitude.instance().logEvent(AmplitudeEventsName.setCover)
         detailsService.updateBundledDetails(
             [.coverType(CoverType.gradient), .coverId(gradientName)]
         )
@@ -45,6 +48,7 @@ extension ObjectCoverPickerViewModel {
     
     
     func uploadImage(from itemProvider: NSItemProvider) {
+        Amplitude.instance().logEvent(AmplitudeEventsName.setCover)
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: ObjectHeaderImageUploadingWorker(
@@ -56,6 +60,7 @@ extension ObjectCoverPickerViewModel {
     }
     
     func removeCover() {
+        Amplitude.instance().logEvent(AmplitudeEventsName.removeCover)
         detailsService.updateBundledDetails(
             [.coverType(CoverType.none), .coverId("")]
         )
