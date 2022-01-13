@@ -25,6 +25,8 @@ final class HomeViewModel: ObservableObject {
     @Published var snackBarData = SnackBarData.empty
     @Published var loadingAlertData = LoadingAlertData.empty
     
+    @Published private(set) var profileData = HomeProfileData()
+    
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
     private let configurationService = MiddlewareConfigurationService.shared
@@ -34,7 +36,6 @@ final class HomeViewModel: ObservableObject {
     let document: BaseDocumentProtocol
     lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     private lazy var cancellables = [AnyCancellable]()
-    
     
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
     
@@ -54,6 +55,13 @@ final class HomeViewModel: ObservableObject {
 
     func onAppear() {
         document.open()
+        subscriptionService.startSubscription(
+            id: .profile(id: MiddlewareConfigurationService.shared.configuration().profileBlockId)
+        ) { [weak self] id, update in
+            withAnimation {
+                self?.onProfileUpdate(update: update)
+            }
+        }
     }
     
     func onDisappear() {
@@ -62,10 +70,12 @@ final class HomeViewModel: ObservableObject {
     }
     
     func onTabChange(tab: HomeTabsView.Tab) {
-        subscriptionService.stopAllSubscriptions()
+        subscriptionService.stopSubscriptions(ids: [.shared, .sets, .archive, .history])
         tab.subscriptionId.flatMap { subId in
-            subscriptionService.toggleSubscription(id: subId, turnOn: true) { [weak self] id, update in
-                self?.onSubscriptionUpdate(id: id, update)
+            subscriptionService.startSubscription(id: subId) { [weak self] id, update in
+                withAnimation(update.isInitialData ? nil : .spring()) {
+                    self?.updateCollections(id: id, update)
+                }
             }
         }
         
@@ -74,12 +84,18 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    func onSubscriptionUpdate(id: SubscriptionId, _ update: SubscriptionUpdate) {
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
-            withAnimation(update.isInitialData ? nil : .spring()) {
-                self.updateCollections(id: id, update)
+    private func onProfileUpdate(update: SubscriptionUpdate) {
+        switch update {
+        case .initialData(let array):
+            guard let details = array.first else {
+                anytypeAssertionFailure("Emppty data for profile subscription", domain: .homeView)
+                return
             }
+            profileData.update(details: details)
+        case .update(let details):
+            profileData.update(details: details)
+        default:
+            anytypeAssertionFailure("Usupported update \(update) for profile suscription", domain: .homeView)
         }
     }
     
@@ -93,6 +109,8 @@ final class HomeViewModel: ObservableObject {
             sharedCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
         case .sets:
             setsCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
+        default:
+            anytypeAssertionFailure("Unsupported subscription: \(id)", domain: .homeView)
         }
     }
     

@@ -17,13 +17,35 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             return toggleSharedSubscription(turnOn)
         case .sets:
             return toggleSetsSubscription(turnOn)
+        case .profile(id: let profileId):
+            return toggleIdSubscription(turnOn, blockId: profileId)
         }
     }
     
     // MARK: - Private
+    private func toggleIdSubscription(_ turnOn: Bool, blockId: BlockId) -> [ObjectDetails]? {
+        guard turnOn else {
+            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.profile(id: blockId).identifier])
+            return nil
+        }
+        
+        let response = Anytype_Rpc.Object.IdsSubscribe.Service.invoke(
+            subID: SubscriptionId.profile(id: blockId).identifier,
+            ids: [blockId],
+            keys: [BundledRelationKey.id.rawValue, BundledRelationKey.name.rawValue, BundledRelationKey.iconImage.rawValue],
+            ignoreWorkspace: ""
+        )
+        
+        guard let result = response.getValue(domain: .subscriptionService) else {
+            return nil
+        }
+        
+        return result.records.asDetais
+    }
+    
     private func toggleHistorySubscription(_ turnOn: Bool) -> [ObjectDetails]? {
         guard turnOn else {
-            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.history.rawValue])
+            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.history.identifier])
             return nil
         }
         
@@ -37,12 +59,12 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         )
         filters.append(SearchHelper.lastOpenedDateNotNilFilter())
         
-        return makeRequest(subId: SubscriptionId.history.rawValue, filters: filters, sort: sort)
+        return makeRequest(subId: .history, filters: filters, sort: sort)
     }
     
     private func toggleArchiveSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
         guard turnOn else {
-            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.archive.rawValue])
+            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.archive.identifier])
             return nil
         }
         
@@ -56,12 +78,12 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             typeUrls: ObjectTypeProvider.supportedTypeUrls
         )
         
-        return makeRequest(subId: SubscriptionId.archive.rawValue, filters: filters, sort: sort)
+        return makeRequest(subId: .archive, filters: filters, sort: sort)
     }
     
     private func toggleSharedSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
         guard turnOn else {
-            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.shared.rawValue])
+            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.shared.identifier])
             return nil
         }
         
@@ -72,7 +94,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         var filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.supportedTypeUrls)
         filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
         
-        return makeRequest(subId: SubscriptionId.shared.rawValue, filters: filters, sort: sort)
+        return makeRequest(subId: .shared, filters: filters, sort: sort)
     }
     
     private func toggleSetsSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
@@ -85,19 +107,19 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             typeUrls: ObjectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.url }
         )
         
-        return makeRequest(subId: SubscriptionId.sets.rawValue, filters: filters, sort: sort)
+        return makeRequest(subId: .sets, filters: filters, sort: sort)
     }
 
     private let homeDetailsKeys: [BundledRelationKey] = [
         .id, .iconEmoji, .iconImage, .name, .snippet, .description, .type, .layout, .isArchived, .isDeleted, .done
     ]
     private func makeRequest(
-        subId: String,
+        subId: SubscriptionId,
         filters: [Anytype_Model_Block.Content.Dataview.Filter],
         sort: Anytype_Model_Block.Content.Dataview.Sort
     ) -> [ObjectDetails]? {
         let response = Anytype_Rpc.Object.SearchSubscribe.Service.invoke(
-            subID: subId,
+            subID: subId.identifier,
             filters: filters,
             sorts: [sort],
             fullText: "",
