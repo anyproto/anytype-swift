@@ -1,13 +1,17 @@
 import BlocksModels
 import AnytypeCore
 
-extension Array where Element == HomeCellData {
-    mutating func applySubscriptionUpdate(_ update: SubscriptionUpdate, builder: HomeCellDataBuilder) {
+protocol IdProvider {
+    var id: BlockId { get }
+}
+
+extension Array where Element: IdProvider {
+    mutating func applySubscriptionUpdate(_ update: SubscriptionUpdate, transform: (ObjectDetails) -> (Element)) {
         switch update {
         case .initialData(let data):
-            self = builder.buildCellData(data)
+            self = data.map { transform($0) }
         case .update(let data):
-            let newData = builder.buildCellData(data)
+            let newData = transform(data)
             guard let index = indexInCollection(blockId: newData.id, assert: false) else { return }
             self[index] = newData
         case .remove(let blockId):
@@ -15,8 +19,7 @@ extension Array where Element == HomeCellData {
             self.remove(at: index)
         case let .add(details, afterId):
             guard let index = indexInCollection(afterId: afterId) else { return }
-            let newData = builder.buildCellData(details)
-            self.insert(newData, at: index)
+            self.insert(transform(details), at: index)
         case let .move(from, after):
             guard let index = indexInCollection(blockId: from) else { break }
             guard let insertIndex = indexInCollection(afterId: after) else { break }

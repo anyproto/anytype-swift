@@ -102,13 +102,13 @@ final class HomeViewModel: ObservableObject {
     private func updateCollections(id: SubscriptionId, _ update: SubscriptionUpdate) {
         switch id {
         case .history:
-            historyCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
+            historyCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
         case .archive:
-            binCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
+            binCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
         case .shared:
-            sharedCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
+            sharedCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
         case .sets:
-            setsCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
+            setsCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
         default:
             anytypeAssertionFailure("Unsupported subscription: \(id)", domain: .homeView)
         }
