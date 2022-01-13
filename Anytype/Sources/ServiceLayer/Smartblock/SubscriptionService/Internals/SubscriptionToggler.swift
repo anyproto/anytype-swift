@@ -3,34 +3,34 @@ import BlocksModels
 import AnytypeCore
 
 protocol SubscriptionTogglerProtocol {
-    func toggleSubscription(id: SubscriptionId, _ turnOn: Bool) -> [ObjectDetails]?
+    func startSubscription(id: SubscriptionData) -> [ObjectDetails]?
+    func stopSubscription(id: SubscriptionId)
 }
 
 final class SubscriptionToggler: SubscriptionTogglerProtocol {
-    func toggleSubscription(id: SubscriptionId, _ turnOn: Bool) -> [ObjectDetails]? {
+    func startSubscription(id: SubscriptionData) -> [ObjectDetails]? {
         switch id {
         case .history:
-            return toggleHistorySubscription(turnOn)
+            return startHistorySubscription()
         case .archive:
-            return toggleArchiveSubscription(turnOn)
+            return startArchiveSubscription()
         case .shared:
-            return toggleSharedSubscription(turnOn)
+            return startSharedSubscription()
         case .sets:
-            return toggleSetsSubscription(turnOn)
+            return startSetsSubscription()
         case .profile(id: let profileId):
-            return toggleIdSubscription(turnOn, blockId: profileId)
+            return startProfileSubscription(blockId: profileId)
         }
     }
     
+    func stopSubscription(id: SubscriptionId) {
+        _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [id.rawValue])
+    }
+    
     // MARK: - Private
-    private func toggleIdSubscription(_ turnOn: Bool, blockId: BlockId) -> [ObjectDetails]? {
-        guard turnOn else {
-            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.profile(id: blockId).identifier])
-            return nil
-        }
-        
+    private func startProfileSubscription(blockId: BlockId) -> [ObjectDetails]? {
         let response = Anytype_Rpc.Object.IdsSubscribe.Service.invoke(
-            subID: SubscriptionId.profile(id: blockId).identifier,
+            subID: SubscriptionId.profile.rawValue,
             ids: [blockId],
             keys: [BundledRelationKey.id.rawValue, BundledRelationKey.name.rawValue, BundledRelationKey.iconImage.rawValue],
             ignoreWorkspace: ""
@@ -43,12 +43,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         return result.records.asDetais
     }
     
-    private func toggleHistorySubscription(_ turnOn: Bool) -> [ObjectDetails]? {
-        guard turnOn else {
-            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.history.identifier])
-            return nil
-        }
-        
+    private func startHistorySubscription() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -62,12 +57,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         return makeRequest(subId: .history, filters: filters, sort: sort)
     }
     
-    private func toggleArchiveSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
-        guard turnOn else {
-            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.archive.identifier])
-            return nil
-        }
-        
+    private func startArchiveSubscription() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -81,12 +71,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         return makeRequest(subId: .archive, filters: filters, sort: sort)
     }
     
-    private func toggleSharedSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
-        guard turnOn else {
-            _ = Anytype_Rpc.Object.SearchUnsubscribe.Service.invoke(subIds: [SubscriptionId.shared.identifier])
-            return nil
-        }
-        
+    private func startSharedSubscription() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -97,7 +82,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         return makeRequest(subId: .shared, filters: filters, sort: sort)
     }
     
-    private func toggleSetsSubscription(_ turnOn: Bool) -> [ObjectDetails]? {
+    private func startSetsSubscription() -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -114,12 +99,12 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         .id, .iconEmoji, .iconImage, .name, .snippet, .description, .type, .layout, .isArchived, .isDeleted, .done
     ]
     private func makeRequest(
-        subId: SubscriptionId,
+        subId: SubscriptionData,
         filters: [Anytype_Model_Block.Content.Dataview.Filter],
         sort: Anytype_Model_Block.Content.Dataview.Sort
     ) -> [ObjectDetails]? {
         let response = Anytype_Rpc.Object.SearchSubscribe.Service.invoke(
-            subID: subId.identifier,
+            subID: subId.identifier.rawValue,
             filters: filters,
             sorts: [sort],
             fullText: "",

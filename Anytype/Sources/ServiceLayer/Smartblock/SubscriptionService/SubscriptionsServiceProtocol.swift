@@ -19,8 +19,8 @@ enum SubscriptionUpdate {
 
 typealias SubscriptionCallback = (SubscriptionId, SubscriptionUpdate) -> ()
 protocol SubscriptionsServiceProtocol {
-    func startSubscriptions(ids: [SubscriptionId], update: @escaping SubscriptionCallback)
-    func startSubscription(id: SubscriptionId, update: @escaping SubscriptionCallback)
+    func startSubscriptions(ids: [SubscriptionData], update: @escaping SubscriptionCallback)
+    func startSubscription(id: SubscriptionData, update: @escaping SubscriptionCallback)
     
     func stopSubscriptions(ids: [SubscriptionId])
     func stopSubscription(id: SubscriptionId)

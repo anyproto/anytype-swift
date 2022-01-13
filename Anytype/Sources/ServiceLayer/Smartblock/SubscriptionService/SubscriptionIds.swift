@@ -1,7 +1,8 @@
 import BlocksModels
 import Kingfisher
 
-enum SubscriptionId: Hashable {
+
+enum SubscriptionData: Hashable {
     case history
     case archive
     case shared
@@ -9,46 +10,27 @@ enum SubscriptionId: Hashable {
     
     case profile(id: BlockId)
     
-    
-    private static let historyId = "SubscriptionId.History"
-    private static let archiveId = "SubscriptionId.Archive"
-    private static let sharedId = "SubscriptionId.Shared"
-    private static let setsId = "SubscriptionId.Sets"
-    private static let profileId = "SubscriptionId.Profile"
-    private static let idSeparator = "|||"
-    
-    var identifier: String {
+    var identifier: SubscriptionId {
         switch self {
         case .history:
-            return Self.historyId
+            return .history
         case .archive:
-            return Self.archiveId
+            return .archive
         case .shared:
-            return Self.sharedId
+            return .shared
         case .sets:
-            return Self.setsId
-        case .profile(let id):
-            return "\(Self.profileId)\(Self.idSeparator)\(id)"
+            return .sets
+        case .profile:
+            return .profile
         }
     }
-    
-    init?(identifier: String) {
-        switch identifier {
-        case Self.historyId:
-            self = .history
-        case Self.archiveId:
-            self = .archive
-        case Self.setsId:
-            self = .sets
-        case Self.sharedId:
-            self = .shared
-        default:
-            let profileComponents = identifier.components(separatedBy: Self.idSeparator)
-            if profileComponents.count == 2 {
-                self = .profile(id: profileComponents[1])
-            } else {
-                return nil
-            }
-        }
-    }
+}
+
+enum SubscriptionId: String {
+    case history = "SubscriptionId.History"
+    case archive = "SubscriptionId.Archive"
+    case shared = "SubscriptionId.Shared"
+    case sets = "SubscriptionId.Sets"
+
+    case profile = "SubscriptionId.Profile"
 }

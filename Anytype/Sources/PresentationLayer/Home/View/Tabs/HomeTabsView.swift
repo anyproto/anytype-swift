@@ -11,7 +11,7 @@ extension HomeTabsView {
         case shared
         case bin
         
-        var subscriptionId: SubscriptionId? {
+        var subscriptionId: SubscriptionData? {
             switch self {
             case .favourites:
                 return nil
