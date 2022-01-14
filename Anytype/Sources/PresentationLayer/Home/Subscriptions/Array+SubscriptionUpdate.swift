@@ -5,6 +5,14 @@ protocol IdProvider {
     var id: BlockId { get }
 }
 
+extension ObjectDetails: IdProvider { }
+
+extension Array where Element == ObjectDetails {
+    mutating func applySubscriptionUpdate(_ update: SubscriptionUpdate) {
+        applySubscriptionUpdate(update) { $0 }
+    }
+}
+
 extension Array where Element: IdProvider {
     mutating func applySubscriptionUpdate(_ update: SubscriptionUpdate, transform: (ObjectDetails) -> (Element)) {
         switch update {

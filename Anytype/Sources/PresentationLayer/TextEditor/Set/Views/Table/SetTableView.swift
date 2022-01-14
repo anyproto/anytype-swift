@@ -32,6 +32,7 @@ struct SetTableView: View {
                                 SetTableViewRow(data: row, initialOffset: initialOffset.x, xOffset: offset.x)
                             }
                         }
+                        Rectangle().frame(height: 40).foregroundColor(.backgroundPrimary)
                     }
                     .frame(minWidth: fullWidth)
                     .onAppear {

@@ -16,13 +16,13 @@ extension HomeTabsView {
             case .favourites:
                 return nil
             case .sets:
-                return .sets
+                return .setsTab
             case .shared:
-                return .shared
+                return .sharedTab
             case .history:
-                return .history
+                return .historyTab
             case .bin:
-                return .archive
+                return .archiveTab
             }
         }
     }

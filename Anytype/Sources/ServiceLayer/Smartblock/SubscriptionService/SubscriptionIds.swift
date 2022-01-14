@@ -3,34 +3,39 @@ import Kingfisher
 
 
 enum SubscriptionData: Hashable {
-    case history
-    case archive
-    case shared
-    case sets
+    case historyTab
+    case archiveTab
+    case sharedTab
+    case setsTab
     
     case profile(id: BlockId)
+    case set(source: [String], sorts: [DataviewSort], filters: [DataviewFilter], relations: [DataviewViewRelation])
     
     var identifier: SubscriptionId {
         switch self {
-        case .history:
-            return .history
-        case .archive:
-            return .archive
-        case .shared:
-            return .shared
-        case .sets:
-            return .sets
+        case .historyTab:
+            return .historyTab
+        case .archiveTab:
+            return .archiveTab
+        case .sharedTab:
+            return .sharedTab
+        case .setsTab:
+            return .setsTab
         case .profile:
             return .profile
+        case .set:
+            return .set
         }
     }
 }
 
 enum SubscriptionId: String {
-    case history = "SubscriptionId.History"
-    case archive = "SubscriptionId.Archive"
-    case shared = "SubscriptionId.Shared"
-    case sets = "SubscriptionId.Sets"
+    case historyTab = "SubscriptionId.HistoryTab"
+    case archiveTab = "SubscriptionId.ArchiveTab"
+    case sharedTab = "SubscriptionId.SharedTab"
+    case setsTab = "SubscriptionId.SetsTab"
 
     case profile = "SubscriptionId.Profile"
+    
+    case set = "SubscriptionId.Set"
 }

@@ -33,22 +33,22 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         turnedOnSubs[id] = nil
     }
     
-    func startSubscriptions(ids: [SubscriptionData], update: @escaping SubscriptionCallback) {
-        ids.forEach { startSubscription(id: $0, update: update) }
+    func startSubscriptions(data: [SubscriptionData], update: @escaping SubscriptionCallback) {
+        data.forEach { startSubscription(data: $0, update: update) }
     }
     
-    func startSubscription(id: SubscriptionData, update: @escaping SubscriptionCallback) {
-        guard turnedOnSubs[id.identifier].isNil else {
-            anytypeAssertionFailure("Subscription: \(id) started on second time", domain: .subscriptionStorage)
+    func startSubscription(data: SubscriptionData, update: @escaping SubscriptionCallback) {
+        guard turnedOnSubs[data.identifier].isNil else {
+            anytypeAssertionFailure("Subscription: \(data) started on second time", domain: .subscriptionStorage)
             return
         }
         
-        turnedOnSubs[id.identifier] = update
+        turnedOnSubs[data.identifier] = update
         
-        let details = toggler.startSubscription(id: id) ?? []
+        let details = toggler.startSubscription(data: data) ?? []
         details.forEach { storage.add(details: $0) }
         
-        update(id.identifier, .initialData(details))
+        update(data.identifier, .initialData(details))
     }
  
     // MARK: - Private
