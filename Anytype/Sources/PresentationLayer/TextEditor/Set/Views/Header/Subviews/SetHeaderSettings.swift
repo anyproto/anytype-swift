@@ -7,7 +7,7 @@ struct SetHeaderSettings: View {
     
     var body: some View {
         HStack {
-            AnytypeText(model.dataView.activeView?.name ?? "Untitled".localized, style: .heading, color: .textPrimary)
+            AnytypeText(model.activeView.name, style: .heading, color: .textPrimary)
                 .padding()
             Image.arrow.rotationEffect(.degrees(90))
             Spacer()
