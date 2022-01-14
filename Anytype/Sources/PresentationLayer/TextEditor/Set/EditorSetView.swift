@@ -23,6 +23,13 @@ struct EditorSetView: View {
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)
         .environmentObject(model)
+        
+        .onAppear {
+            model.onAppear()
+        }
+        .onDisappear {
+            model.onDisappear()
+        }
     }
 }
 

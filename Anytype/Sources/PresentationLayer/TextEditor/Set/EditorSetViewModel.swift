@@ -63,8 +63,6 @@ final class EditorSetViewModel: ObservableObject {
         
         if !document.open() { router.goBack() }
         if !setupDataview() { router.goBack() }
-        
-        setupSubscriptions()
     }
     
     private func onDataChange(_ data: EventsListenerUpdate) {
@@ -72,7 +70,11 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onAppear() {
-        
+        setupSubscriptions()
+    }
+    
+    func onDisappear() {
+        subscriptionService.stopAllSubscriptions()
     }
     
     private func setupDataview() -> Bool {
