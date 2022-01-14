@@ -4213,6 +4213,7 @@
 		3DA6DBCF27457D9700516E75 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				3D8D41B8274287A900F8EBF3 /* EditorSetHostingController.swift */,
 				3D1B5F76274CF553007D97AE /* Table */,
 				3D1B5F6B274CF0FB007D97AE /* Header */,
 			);
@@ -4252,7 +4253,6 @@
 			children = (
 				3DA6DBCF27457D9700516E75 /* Views */,
 				3DAE1CAF273EA208009A72F3 /* EditorSetView.swift */,
-				3D8D41B8274287A900F8EBF3 /* EditorSetHostingController.swift */,
 				3D8D41BA274297FF00F8EBF3 /* EditorSetViewModel.swift */,
 			);
 			path = Set;

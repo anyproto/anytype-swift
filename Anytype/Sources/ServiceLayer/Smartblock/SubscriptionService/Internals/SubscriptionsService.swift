@@ -21,10 +21,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     func stopAllSubscriptions() {
-        turnedOnSubs.keys.forEach { subId in
-            _ = toggler.toggleSubscription(id: subId, false)
-            turnedOnSubs[subId] = nil
-        }
+        turnedOnSubs.keys.forEach { stopSubscription(id: $0) }
     }
     
     func stopSubscriptions(ids: [SubscriptionId]) {
@@ -32,26 +29,26 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     }
     
     func stopSubscription(id: SubscriptionId) {
-        _ = toggler.toggleSubscription(id: id, false)
+        _ = toggler.stopSubscription(id: id)
         turnedOnSubs[id] = nil
     }
     
-    func startSubscriptions(ids: [SubscriptionId], update: @escaping SubscriptionCallback) {
-        ids.forEach { startSubscription(id: $0, update: update) }
+    func startSubscriptions(data: [SubscriptionData], update: @escaping SubscriptionCallback) {
+        data.forEach { startSubscription(data: $0, update: update) }
     }
     
-    func startSubscription(id: SubscriptionId, update: @escaping SubscriptionCallback) {
-        guard turnedOnSubs[id].isNil else {
-            anytypeAssertionFailure("Subscription: \(id) started on second time", domain: .subscriptionStorage)
+    func startSubscription(data: SubscriptionData, update: @escaping SubscriptionCallback) {
+        guard turnedOnSubs[data.identifier].isNil else {
+            anytypeAssertionFailure("Subscription: \(data) started on second time", domain: .subscriptionStorage)
             return
         }
         
-        turnedOnSubs[id] = update
+        turnedOnSubs[data.identifier] = update
         
-        let details = toggler.toggleSubscription(id: id, true) ?? []
+        let details = toggler.startSubscription(data: data) ?? []
         details.forEach { storage.add(details: $0) }
         
-        update(id, .initialData(details))
+        update(data.identifier, .initialData(details))
     }
  
     // MARK: - Private
@@ -68,7 +65,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 guard let self = self else { return false }
                 guard event.objectId.isNotEmpty else { return true } // Empty object id in generic subscription
                 
-                guard let subscription = SubscriptionId(identifier: event.objectId) else {
+                guard let subscription = SubscriptionId(rawValue: event.objectId) else {
                     return false
                 }
                 
@@ -93,7 +90,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 
                 update(details: updatedDetails, rawSubIds: data.subIds)
             case .subscriptionPosition(let position):
-                guard let subId = SubscriptionId(identifier: events.objectId) else {
+                guard let subId = SubscriptionId(rawValue: events.objectId) else {
                     anytypeAssertionFailure("Unsupported object id \(events.objectId) in subscriptionPosition", domain: .subscriptionStorage)
                     break
                 }
@@ -101,7 +98,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 guard let action = turnedOnSubs[subId] else { return }
                 action(subId, .move(from: position.id, after: position.afterID.isNotEmpty ? position.afterID : nil))
             case .subscriptionAdd(let data):
-                guard let subId = SubscriptionId(identifier: events.objectId) else {
+                guard let subId = SubscriptionId(rawValue: events.objectId) else {
                     anytypeAssertionFailure("Unsupported object id \(events.objectId) in subscriptionRemove", domain: .subscriptionStorage)
                     break
                 }
@@ -114,7 +111,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 guard let action = turnedOnSubs[subId] else { return }
                 action(subId, .add(details, after: data.afterID.isNotEmpty ? data.afterID : nil))
             case .subscriptionRemove(let remove):
-                guard let subId = SubscriptionId(identifier: events.objectId) else {
+                guard let subId = SubscriptionId(rawValue: events.objectId) else {
                     anytypeAssertionFailure("Unsupported object id \(events.objectId) in subscriptionRemove", domain: .subscriptionStorage)
                     break
                 }
@@ -135,7 +132,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     
     private func update(details: ObjectDetails, rawSubIds: [String]) {
         let ids: [SubscriptionId] = rawSubIds.compactMap { rawId in
-            guard let id = SubscriptionId(identifier: rawId) else {
+            guard let id = SubscriptionId(rawValue: rawId) else {
                 if !rawId.hasSuffix(dependencySubscriptionSuffix) {
                     anytypeAssertionFailure("Unrecognized subscription: \(rawId)", domain: .subscriptionStorage)
                 }

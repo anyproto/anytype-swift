@@ -53,6 +53,8 @@ final class EditorSetViewModel: ObservableObject {
     @Published private var records: [ObjectDetails] = []
     private var subscription: AnyCancellable?
     
+    private let subscriptionService = ServiceLocator.shared.subscriptionService()
+    
     init(document: BaseDocument) {
         self.document = document
         subscription = document.updatePublisher.sink { [weak self] in
@@ -61,8 +63,6 @@ final class EditorSetViewModel: ObservableObject {
         
         if !document.open() { router.goBack() }
         if !setupDataview() { router.goBack() }
-        
-        magic()
     }
     
     private func onDataChange(_ data: EventsListenerUpdate) {
@@ -70,7 +70,11 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onAppear() {
-        
+        setupSubscriptions()
+    }
+    
+    func onDisappear() {
+        subscriptionService.stopAllSubscriptions()
     }
     
     private func setupDataview() -> Bool {
@@ -93,35 +97,22 @@ final class EditorSetViewModel: ObservableObject {
         return true
     }
     
-    private func magic() {
+    private func setupSubscriptions() {
         guard let activeView = dataView.activeView else {
             anytypeAssertionFailure("Empty active view", domain: .editorSet)
             return
         }
 
-        guard let response = Anytype_Rpc.Block.Dataview.ViewSetActive.Service.invoke(
-            contextID: document.objectId, blockID: dataViewId, viewID: activeView.id, offset: 0, limit: 300
-        ).getValue(domain: .editorSet) else { return }
-        
-        let data = response.event.messages.compactMap { message -> Anytype_Event.Block.Dataview.RecordsSet? in
-            switch message.value! {
-            case .blockDataviewRecordsSet(let data):
-                return data
-            default:
-                return nil
-            }
-        }.first!
-        
-        self.records = data.records.compactMap { record -> ObjectDetails? in
-            let idValue = record.fields["id"]
-            let idString = idValue?.unwrapedListValue.stringValue
-                
-            guard let id = idString, id.isNotEmpty else { return nil }
-            
-            return ObjectDetails(id: id, values: record.fields)
+        subscriptionService.startSubscription(
+            data: .set(
+                source: dataView.source,
+                sorts: activeView.sorts,
+                filters: activeView.filters,
+                relations: activeView.relations
+            )
+        ) { [weak self] subId, update in
+            self?.records.applySubscriptionUpdate(update)
         }
-        
-        records.forEach { ObjectDetailsStorage.shared.add(details: $0) }
     }
     
     private func extractDataViewFromDocument() -> BlockDataview? {

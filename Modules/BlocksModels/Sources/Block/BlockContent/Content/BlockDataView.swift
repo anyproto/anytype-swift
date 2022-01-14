@@ -1,4 +1,9 @@
 import AnytypeCore
+import ProtobufMessages
+
+public typealias DataviewSort = Anytype_Model_Block.Content.Dataview.Sort
+public typealias DataviewFilter = Anytype_Model_Block.Content.Dataview.Filter
+
 public enum DataviewViewType: Hashable {
     case table
     case list
@@ -23,17 +28,23 @@ public struct DataviewView: Hashable {
     public let type: DataviewViewType
     
     public let relations: [DataviewViewRelation]
+    public let sorts: [DataviewSort]
+    public let filters: [DataviewFilter]
 
     public init(
         id: BlockId,
         name: String,
         type: DataviewViewType,
-        relations: [DataviewViewRelation]
+        relations: [DataviewViewRelation],
+        sorts: [DataviewSort],
+        filters: [DataviewFilter]
     ) {
         self.id = id
         self.name = name
         self.type = type
         self.relations = relations
+        self.sorts = sorts
+        self.filters = filters
     }
 }
 
