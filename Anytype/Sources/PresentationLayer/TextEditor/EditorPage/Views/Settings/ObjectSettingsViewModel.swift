@@ -2,8 +2,12 @@ import Foundation
 import Combine
 import BlocksModels
 
-final class ObjectSettingsViewModel: ObservableObject {
-    var dismissHandler: () -> Void = {}
+final class ObjectSettingsViewModel: ObservableObject, Dismissible {
+    var onDismiss: () -> Void = {} {
+        didSet {
+            objectActionsViewModel.dismissSheet = onDismiss
+        }
+    }
     
     @Published private(set) var details: ObjectDetails = ObjectDetails(id: "", values: [:])
     var settings: [ObjectSetting] {
@@ -78,10 +82,5 @@ final class ObjectSettingsViewModel: ObservableObject {
             relationsViewModel.update(with: parsedRelations)
         }
         objectActionsViewModel.objectRestrictions = objectRestrictions
-    }
-    
-    func configure(dismissHandler: @escaping () -> Void) {
-        self.dismissHandler = dismissHandler
-        objectActionsViewModel.dismissSheet = dismissHandler
     }
 }

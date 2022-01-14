@@ -1,9 +1,9 @@
 import Foundation
 import SwiftUI
 
-protocol RelationEditingViewModelProtocol {
+protocol RelationEditingViewModelProtocol: Dismissible {
     
-    var dismissHandler: (() -> Void)? { get set }
+    var onDismiss: () -> Void { get set }
         
     @ViewBuilder
     func makeView() -> AnyView
