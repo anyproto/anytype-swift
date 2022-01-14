@@ -3,8 +3,8 @@ import UIKit
 import Combine
 import BlocksModels
 
-struct HomeCellData: Identifiable {
-    let id: String
+struct HomeCellData: Identifiable, IdProvider {
+    let id: BlockId
     let destinationId: String
     let icon: ObjectIconType?
     let title: Title

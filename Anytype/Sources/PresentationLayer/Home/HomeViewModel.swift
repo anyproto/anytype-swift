@@ -56,7 +56,7 @@ final class HomeViewModel: ObservableObject {
     func onAppear() {
         document.open()
         subscriptionService.startSubscription(
-            id: .profile(id: MiddlewareConfigurationService.shared.configuration().profileBlockId)
+            data: .profile(id: MiddlewareConfigurationService.shared.configuration().profileBlockId)
         ) { [weak self] id, update in
             withAnimation {
                 self?.onProfileUpdate(update: update)
@@ -70,9 +70,9 @@ final class HomeViewModel: ObservableObject {
     }
     
     func onTabChange(tab: HomeTabsView.Tab) {
-        subscriptionService.stopSubscriptions(ids: [.shared, .sets, .archive, .history])
+        subscriptionService.stopSubscriptions(ids: [.sharedTab, .setsTab, .archiveTab, .historyTab])
         tab.subscriptionId.flatMap { subId in
-            subscriptionService.startSubscription(id: subId) { [weak self] id, update in
+            subscriptionService.startSubscription(data: subId) { [weak self] id, update in
                 withAnimation(update.isInitialData ? nil : .spring()) {
                     self?.updateCollections(id: id, update)
                 }
@@ -101,14 +101,14 @@ final class HomeViewModel: ObservableObject {
     
     private func updateCollections(id: SubscriptionId, _ update: SubscriptionUpdate) {
         switch id {
-        case .history:
-            historyCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
-        case .archive:
-            binCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
-        case .shared:
-            sharedCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
-        case .sets:
-            setsCellData.applySubscriptionUpdate(update, builder: cellDataBuilder)
+        case .historyTab:
+            historyCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
+        case .archiveTab:
+            binCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
+        case .sharedTab:
+            sharedCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
+        case .setsTab:
+            setsCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
         default:
             anytypeAssertionFailure("Unsupported subscription: \(id)", domain: .homeView)
         }

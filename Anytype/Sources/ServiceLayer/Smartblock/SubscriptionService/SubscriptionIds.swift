@@ -1,54 +1,41 @@
 import BlocksModels
 import Kingfisher
 
-enum SubscriptionId: Hashable {
-    case history
-    case archive
-    case shared
-    case sets
+
+enum SubscriptionData: Hashable {
+    case historyTab
+    case archiveTab
+    case sharedTab
+    case setsTab
     
     case profile(id: BlockId)
+    case set(source: [String], sorts: [DataviewSort], filters: [DataviewFilter], relations: [DataviewViewRelation])
     
-    
-    private static let historyId = "SubscriptionId.History"
-    private static let archiveId = "SubscriptionId.Archive"
-    private static let sharedId = "SubscriptionId.Shared"
-    private static let setsId = "SubscriptionId.Sets"
-    private static let profileId = "SubscriptionId.Profile"
-    private static let idSeparator = "|||"
-    
-    var identifier: String {
+    var identifier: SubscriptionId {
         switch self {
-        case .history:
-            return Self.historyId
-        case .archive:
-            return Self.archiveId
-        case .shared:
-            return Self.sharedId
-        case .sets:
-            return Self.setsId
-        case .profile(let id):
-            return "\(Self.profileId)\(Self.idSeparator)\(id)"
+        case .historyTab:
+            return .historyTab
+        case .archiveTab:
+            return .archiveTab
+        case .sharedTab:
+            return .sharedTab
+        case .setsTab:
+            return .setsTab
+        case .profile:
+            return .profile
+        case .set:
+            return .set
         }
     }
+}
+
+enum SubscriptionId: String {
+    case historyTab = "SubscriptionId.HistoryTab"
+    case archiveTab = "SubscriptionId.ArchiveTab"
+    case sharedTab = "SubscriptionId.SharedTab"
+    case setsTab = "SubscriptionId.SetsTab"
+
+    case profile = "SubscriptionId.Profile"
     
-    init?(identifier: String) {
-        switch identifier {
-        case Self.historyId:
-            self = .history
-        case Self.archiveId:
-            self = .archive
-        case Self.setsId:
-            self = .sets
-        case Self.sharedId:
-            self = .shared
-        default:
-            let profileComponents = identifier.components(separatedBy: Self.idSeparator)
-            if profileComponents.count == 2 {
-                self = .profile(id: profileComponents[1])
-            } else {
-                return nil
-            }
-        }
-    }
+    case set = "SubscriptionId.Set"
 }

@@ -72,8 +72,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
     }
     
     private func makeRequest(
-        filters: [Anytype_Model_Block.Content.Dataview.Filter],
-        sorts: [Anytype_Model_Block.Content.Dataview.Sort],
+        filters: [DataviewFilter],
+        sorts: [DataviewSort],
         fullText: String
     ) -> [ObjectDetails]? {
         guard let response = Anytype_Rpc.Object.Search.Service.invoke(
@@ -98,7 +98,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return details
     }
     
-    private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [Anytype_Model_Block.Content.Dataview.Filter] {
+    private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {
         [
             SearchHelper.notHiddenFilter(),
             
