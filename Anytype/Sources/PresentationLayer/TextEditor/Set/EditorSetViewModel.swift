@@ -2,6 +2,7 @@ import Combine
 import BlocksModels
 import AnytypeCore
 import ProtobufMessages
+import SwiftUI
 
 final class EditorSetViewModel: ObservableObject {
     @Published private(set) var dataView = BlockDataview.empty
@@ -75,7 +76,14 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func onDataChange(_ data: EventsListenerUpdate) {
-        objectWillChange.send()
+        withAnimation {
+            switch data {
+            case .general, .syncStatus, .blocks, .details:
+                objectWillChange.send()
+            case .dataview(let view):
+                self.activeView = view
+            }
+        }
     }
     
     private func setupDataview() -> Bool {

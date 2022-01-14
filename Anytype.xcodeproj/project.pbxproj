@@ -3456,19 +3456,11 @@
 		3D1B5F6B274CF0FB007D97AE /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				3D1B5F75274CF2FA007D97AE /* Subviews */,
-			);
-			path = Header;
-			sourceTree = "<group>";
-		};
-		3D1B5F75274CF2FA007D97AE /* Subviews */ = {
-			isa = PBXGroup;
-			children = (
 				3D1B5F6F274CF12C007D97AE /* SetFullHeader.swift */,
 				3D1B5F71274CF24B007D97AE /* SetHeaderSettings.swift */,
 				3D1B5F73274CF2F5007D97AE /* SetMinimizedHeader.swift */,
 			);
-			path = Subviews;
+			path = Header;
 			sourceTree = "<group>";
 		};
 		3D1B5F76274CF553007D97AE /* Table */ = {
