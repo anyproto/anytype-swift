@@ -298,7 +298,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
             if case let .file(blockFile) = elements.first?.content,
                let url = UrlResolver.resolvedUrl(.file(id: blockFile.metadata.hash)) {
-                router.saveFile(fileURL: url)
+                router.saveFile(fileURL: url, type: blockFile.contentType)
             }
         case .style:
             editingState = .editing

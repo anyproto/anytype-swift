@@ -83,7 +83,7 @@ final class BlockViewModelBuilder {
                         self?.showFilePicker(blockId: blockId)
                     },
                     downloadFile: { [weak self] fileId in
-                        self?.saveFile(fileId: fileId)
+                        self?.saveFile(fileId: fileId, type: .file)
                     }
                 )
             case .none:
@@ -110,7 +110,7 @@ final class BlockViewModelBuilder {
                         self?.showMediaPicker(type: .videos, blockId: blockId)
                     },
                     downloadVideo: { [weak self] fileId in
-                        self?.saveFile(fileId: fileId)
+                        self?.saveFile(fileId: fileId, type: .video)
                     }
                 )
             case .audio:
@@ -122,7 +122,7 @@ final class BlockViewModelBuilder {
                         self?.showFilePicker(blockId: blockId, types: [.audio])
                     },
                     downloadAudio: { [weak self] fileId in
-                        self?.saveFile(fileId: fileId)
+                        self?.saveFile(fileId: fileId, type: .audio)
                     }
                 )
             }
@@ -231,10 +231,10 @@ final class BlockViewModelBuilder {
         router.showFilePicker(model: model)
     }
     
-    private func saveFile(fileId: FileId) {
+    private func saveFile(fileId: FileId, type: FileContentType) {
         guard let url = UrlResolver.resolvedUrl(.file(id: fileId)) else { return }
         
-        router.saveFile(fileURL: url)
+        router.saveFile(fileURL: url, type: type)
     }
     
     private func showBookmarkBar(info: BlockInformation) {

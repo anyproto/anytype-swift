@@ -33,7 +33,9 @@ final class TextService: TextServiceProtocol {
     }
     
     func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId? {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockSplit)
+        let textContentType = BlockContent.text(BlockText(contentType: style)).description
+        Amplitude.instance().logCreateBlock(type: textContentType, style: String(describing: style))
+
         let response = Anytype_Rpc.Block.Split.Service
             .invoke(contextID: contextId, blockID: blockId, range: range.asMiddleware, style: style.asMiddleware, mode: mode)
             .getValue(domain: .textService)
@@ -47,7 +49,6 @@ final class TextService: TextServiceProtocol {
     }
 
     func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> Bool {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockMerge)
         let events = Anytype_Rpc.Block.Merge.Service
             .invoke(contextID: contextId, firstBlockID: firstBlockId, secondBlockID: secondBlockId)
             .map { EventsBunch(event: $0.event) }

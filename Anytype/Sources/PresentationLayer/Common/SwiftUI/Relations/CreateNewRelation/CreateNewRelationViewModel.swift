@@ -29,7 +29,7 @@ class CreateNewRelationViewModel: ObservableObject, Dismissible {
             objectTypes: [],
             scope: .object)
 
-        if let relation = relationService.addRelation(relationMetatdata) {
+        if let relation = relationService.createRelation(relationMetatdata) {
             onSelect(relation)
         }
     }
