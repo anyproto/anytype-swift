@@ -3,7 +3,7 @@ import SwiftUI
 
 final class RelationOptionsViewModel: ObservableObject {
     
-    var dismissHandler: (() -> Void)?
+    var onDismiss: () -> Void = {}
     
     @Published var isPresented: Bool = false
     @Published var selectedOptions: [RelationOptionProtocol] = []

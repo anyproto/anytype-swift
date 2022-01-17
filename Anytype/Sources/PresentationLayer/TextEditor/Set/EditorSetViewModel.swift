@@ -114,7 +114,9 @@ final class EditorSetViewModel: ObservableObject {
                 relations: activeView.relations
             )
         ) { [weak self] subId, update in
-            self?.records.applySubscriptionUpdate(update)
+            withAnimation {
+                self?.records.applySubscriptionUpdate(update)
+            }
         }
     }
 }

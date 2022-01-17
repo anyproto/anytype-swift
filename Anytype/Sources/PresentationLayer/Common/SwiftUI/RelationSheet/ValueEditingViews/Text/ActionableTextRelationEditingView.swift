@@ -9,7 +9,7 @@ struct ActionableTextRelationEditingView: View {
         textView
             .padding(.horizontal, 20)
             .padding(.vertical, 12)
-            .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.title, dismissCallback: viewModel.dismissHandler))
+            .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.title, dismissCallback: viewModel.onDismiss))
     }
     
     private var textView: some View {
