@@ -11,10 +11,11 @@ struct SetHeaderSettings: View {
                 model.showViewPicker = true
             }
         }) {
-            HStack {
+            HStack(spacing: 0) {
+                Spacer.fixedWidth(20)
                 AnytypeText(model.activeView.name, style: .heading, color: .textPrimary)
-                    .padding()
-                Image.arrow.rotationEffect(.degrees(90))
+                Spacer.fixedWidth(5)
+                Image.arrowDown
                 Spacer()
             }
             .frame(height: settingsHeight)

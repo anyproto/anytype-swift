@@ -8,7 +8,9 @@ extension Image {
     static let artAppIcon = Image(uiImage: UIImage(imageLiteralResourceName: "art"))
     static let logo = createImage("logo")
     static let splashLogo = createImage("splashLogo")
+    
     static let arrow = createImage("arrowForward")
+    static let arrowDown = createImage("arrowDown")
     
     static let checked = createImage("TextEditor/Text/checked")
     
