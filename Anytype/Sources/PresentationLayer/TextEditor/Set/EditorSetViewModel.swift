@@ -2,16 +2,15 @@ import Combine
 import BlocksModels
 import AnytypeCore
 import ProtobufMessages
+import SwiftUI
 
 final class EditorSetViewModel: ObservableObject {
-    private var dataViewId: BlockId = ""
-    private var cachedDataView = BlockDataview.empty
-    var dataView: BlockDataview {
-        extractDataViewFromDocument() ?? cachedDataView
-    }
+    @Published private(set) var dataView = BlockDataview.empty
+    @Published private(set) var activeView = DataviewView.empty
+    @Published private var records: [ObjectDetails] = []
     
     var colums: [SetColumData] {
-        dataView.activeViewRelations
+        dataView.relationsMetadataForView(activeView)
             .filter { $0.isHidden == false }
             .map { SetColumData(key: $0.key, value: $0.name) }
     }
@@ -19,7 +18,7 @@ final class EditorSetViewModel: ObservableObject {
     var rows: [SetTableViewRowData] {
         records.map {
             let relations = relationsBuilder.parsedRelations(
-                relationMetadatas: dataView.activeViewRelations,
+                relationMetadatas: dataView.relationsMetadataForView(activeView),
                 objectId: $0.id
             ).all
             
@@ -39,7 +38,6 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
  
-    let document: BaseDocument
     var details: ObjectDetails {
         document.objectDetails ?? .empty
     }
@@ -47,26 +45,16 @@ final class EditorSetViewModel: ObservableObject {
         document.parsedRelations.featuredRelationsForEditor(type: details.objectType)
     }
     
+    let document: BaseDocument
     var router: EditorRouterProtocol!
+    
     private let relationsBuilder = RelationsBuilder(scope: .type)
-    
-    @Published private var records: [ObjectDetails] = []
     private var subscription: AnyCancellable?
-    
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
     
     init(document: BaseDocument) {
         self.document = document
-        subscription = document.updatePublisher.sink { [weak self] in
-            self?.onDataChange($0)
-        }
-        
-        if !document.open() { router.goBack() }
-        if !setupDataview() { router.goBack() }
-    }
-    
-    private func onDataChange(_ data: EventsListenerUpdate) {
-        objectWillChange.send()
+        setup()
     }
     
     func onAppear() {
@@ -77,32 +65,47 @@ final class EditorSetViewModel: ObservableObject {
         subscriptionService.stopAllSubscriptions()
     }
     
+    // MARK: - Private
+    private func setup() {
+        subscription = document.updatePublisher.sink { [weak self] in
+            self?.onDataChange($0)
+        }
+        
+        if !document.open() { router.goBack() }
+        if !setupDataview() { router.goBack() }
+    }
+    
+    private func onDataChange(_ data: EventsListenerUpdate) {
+        withAnimation {
+            switch data {
+            case .general, .syncStatus, .blocks, .details:
+                objectWillChange.send()
+            case .dataview(let view):
+                self.activeView = view
+            }
+        }
+    }
+    
     private func setupDataview() -> Bool {
-        let dataViews = document.flattenBlocks.compactMap { block -> (id: BlockId, data: BlockDataview)? in
+        let dataViews = document.flattenBlocks.compactMap { block -> BlockDataview? in
             if case .dataView(let data) = block.information.content {
-                return (block.information.id, data)
+                return data
             }
             return nil
         }
         
-        guard let dataView = dataViews.first else {
-            if dataViews.isEmpty { anytypeAssertionFailure("No dataview block in Set", domain: .editorSet) }
-            else { anytypeAssertionFailure("More then one dataview block in Set", domain: .editorSet) }
-            return false
-        }
+        anytypeAssert(dataViews.count == 1, "\(dataViews.count) dataviews instead of 1 in set", domain: .editorSet)
+        guard let dataView = dataViews.first else { return false }
+        anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
+        guard let activeView = dataView.views.first else { return false }
         
-        self.dataViewId = dataView.id
-        self.cachedDataView = dataView.data
-        
+        self.dataView = dataView
+        self.activeView = activeView
+
         return true
     }
     
     private func setupSubscriptions() {
-        guard let activeView = dataView.activeView else {
-            anytypeAssertionFailure("Empty active view", domain: .editorSet)
-            return
-        }
-
         subscriptionService.startSubscription(
             data: .set(
                 source: dataView.source,
@@ -111,20 +114,9 @@ final class EditorSetViewModel: ObservableObject {
                 relations: activeView.relations
             )
         ) { [weak self] subId, update in
-            self?.records.applySubscriptionUpdate(update)
-        }
-    }
-    
-    private func extractDataViewFromDocument() -> BlockDataview? {
-        document.flattenBlocks
-            .filter { $0.information.id == dataViewId }
-            .compactMap { block in
-                if case .dataView(let data) = block.information.content {
-                    return data
-                }
-                
-                return nil
+            withAnimation {
+                self?.records.applySubscriptionUpdate(update)
             }
-            .first
+        }
     }
 }

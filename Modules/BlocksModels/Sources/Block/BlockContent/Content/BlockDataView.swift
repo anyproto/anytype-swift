@@ -46,6 +46,10 @@ public struct DataviewView: Hashable {
         self.sorts = sorts
         self.filters = filters
     }
+    
+    public static var empty: DataviewView {
+        DataviewView(id: "", name: "", type: .list, relations: [], sorts: [], filters: [])
+    }
 }
 
 
@@ -53,24 +57,6 @@ public struct BlockDataview: Hashable {
     public let source: [String]
     public let views: [DataviewView]
     public let relations: [RelationMetadata]
-    
-    public var activeView: DataviewView? {
-        views.first
-    }
-    
-    public var activeViewRelations: [RelationMetadata] {
-        guard let activeView = activeView else {
-            anytypeAssertionFailure("No active view", domain: .editorSet)
-            return []
-        }
-
-        return activeView.relations
-            .filter { $0.isVisible }
-            .map(\.key)
-            .compactMap { key in
-                relations.first { $0.key == key }
-            }
-    }
     
     public init(
         source: [String],
@@ -84,5 +70,17 @@ public struct BlockDataview: Hashable {
     
     public static var empty: BlockDataview {
         BlockDataview(source: [], views: [], relations: [])
+    }
+}
+
+
+extension BlockDataview {
+    public func relationsMetadataForView(_ view: DataviewView) -> [RelationMetadata] {
+        return view.relations
+            .filter { $0.isVisible }
+            .map(\.key)
+            .compactMap { key in
+                relations.first { $0.key == key }
+            }
     }
 }

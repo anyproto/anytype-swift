@@ -16,7 +16,7 @@ struct SetFullHeader: View {
     private var header: some View {
         VStack(alignment: .leading, spacing: 0) {
             cover
-                .ifLet(model.document.objectDetails?.objectIconImage) { view, icon in
+                .ifLet(model.details.objectIconImage) { view, icon in
                     view.overlay(iconView(icon: icon), alignment: .bottomLeading)
                 }
             
