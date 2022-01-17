@@ -10,6 +10,7 @@ struct TextBlockContentConfiguration: BlockConfigurationProtocol {
     let information: BlockInformation
     let content: BlockText
     let text: UIKitAnytypeText
+    let isFirstResponder: Bool
     
     let upperBlock: BlockModelProtocol?
     
@@ -47,6 +48,7 @@ struct TextBlockContentConfiguration: BlockConfigurationProtocol {
         self.isCheckable = isCheckable
         
         self.text = content.anytypeText
+        self.isFirstResponder = block.isFirstResponder
         shouldDisplayPlaceholder = block.isToggled && block.information.childrenIds.isEmpty
     }
     
@@ -61,7 +63,8 @@ extension TextBlockContentConfiguration: Hashable {
         lhs.information == rhs.information &&
         lhs.currentConfigurationState == rhs.currentConfigurationState &&
         lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder &&
-        lhs.isCheckable == rhs.isCheckable
+        lhs.isCheckable == rhs.isCheckable &&
+        lhs.isFirstResponder == rhs.isFirstResponder
     }
     
     func hash(into hasher: inout Hasher) {
@@ -72,5 +75,6 @@ extension TextBlockContentConfiguration: Hashable {
         hasher.combine(shouldDisplayPlaceholder)
         hasher.combine(isCheckable)
         hasher.combine(currentConfigurationState)
+        hasher.combine(isFirstResponder)
     }
 }
