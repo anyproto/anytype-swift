@@ -79,7 +79,6 @@ struct SetFullHeader: View {
                             .placeholder{ Color.grayscale30 }
                             .frame(width: width, height: bigCover)
                             .aspectRatio(contentMode: .fill)
-                            .background(Color.red)
                 }
             case .none:
                 Color.backgroundPrimary

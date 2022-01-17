@@ -17,6 +17,7 @@
 		3D43FD8026B0573A0094D4C0 /* UserDefaultWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FD7F26B0573A0094D4C0 /* UserDefaultWrapper.swift */; };
 		3D43FDAE26B188F80094D4C0 /* MetadataProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDAD26B188F80094D4C0 /* MetadataProvider.swift */; };
 		3D43FDC626B1E8680094D4C0 /* UIViewController+TopPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D43FDC526B1E8680094D4C0 /* UIViewController+TopPresentationController.swift */; };
+		3D513F1427958290007850D5 /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D513F1327958290007850D5 /* Localization.swift */; };
 		3D53F03626B30116001A6EEE /* GoogleProtobufValueExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53F03526B30116001A6EEE /* GoogleProtobufValueExtensions.swift */; };
 		3D53F03826B30356001A6EEE /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53F03726B30356001A6EEE /* Logger.swift */; };
 		3D6E9A40270F1B8C001B0A07 /* ContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A3F270F1B8C001B0A07 /* ContainerExtension.swift */; };
@@ -45,6 +46,7 @@
 		3D43FD7F26B0573A0094D4C0 /* UserDefaultWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDefaultWrapper.swift; sourceTree = "<group>"; };
 		3D43FDAD26B188F80094D4C0 /* MetadataProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetadataProvider.swift; sourceTree = "<group>"; };
 		3D43FDC526B1E8680094D4C0 /* UIViewController+TopPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+TopPresentationController.swift"; sourceTree = "<group>"; };
+		3D513F1327958290007850D5 /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
 		3D53F03526B30116001A6EEE /* GoogleProtobufValueExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoogleProtobufValueExtensions.swift; sourceTree = "<group>"; };
 		3D53F03726B30356001A6EEE /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		3D6E9A3F270F1B8C001B0A07 /* ContainerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerExtension.swift; sourceTree = "<group>"; };
@@ -203,6 +205,7 @@
 		3DFE7F3A26E229230093EECB /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				3D513F1327958290007850D5 /* Localization.swift */,
 				3DE6BCB02770CE120036F4C5 /* CharacterExtensions.swift */,
 				3DFE7F3B26E2294F0093EECB /* OptionalExtension.swift */,
 				3DFE7F4026E22B530093EECB /* StringExtension.swift */,
@@ -306,6 +309,7 @@
 				3D43FDC626B1E8680094D4C0 /* UIViewController+TopPresentationController.swift in Sources */,
 				C91AFEF9270B560E005F9386 /* LogEventStorage.swift in Sources */,
 				C91AFEED270B4F4F005F9386 /* AssertionLogger.swift in Sources */,
+				3D513F1427958290007850D5 /* Localization.swift in Sources */,
 				53F5A3EE274C5E7100D132AB /* FeatureFlagsStorage.swift in Sources */,
 				3DA4B0F226AF41940000F243 /* Asserts.swift in Sources */,
 				3DFE7F3C26E2294F0093EECB /* OptionalExtension.swift in Sources */,

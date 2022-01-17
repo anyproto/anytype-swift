@@ -8,6 +8,17 @@ struct EditorSetView: View {
     @State private var offset = CGPoint.zero
 
     var body: some View {
+        content
+            .environmentObject(model)
+            .onAppear {
+                model.onAppear()
+            }
+            .onDisappear {
+                model.onDisappear()
+            }
+    }
+    
+    private var content: some View {
         ZStack {
             SetTableView(
                 tableHeaderSize: $tableHeaderSize,
@@ -22,14 +33,12 @@ struct EditorSetView: View {
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)
-        .environmentObject(model)
         
-        .onAppear {
-            model.onAppear()
+        .bottomFloater(isPresented: $model.showViewPicker) {
+            EditorSetViewPicker()
+                .cornerRadius(16, corners: [.topLeft, .topRight])
         }
-        .onDisappear {
-            model.onDisappear()
-        }
+        .animation(.spring(), value: model.showViewPicker)
     }
 }
 
