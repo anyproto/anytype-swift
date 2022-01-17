@@ -33,12 +33,10 @@ struct EditorSetView: View {
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)
-        
         .bottomFloater(isPresented: $model.showViewPicker) {
             EditorSetViewPicker()
                 .cornerRadius(16, corners: [.topLeft, .topRight])
         }
-        .animation(.spring(), value: model.showViewPicker)
     }
 }
 

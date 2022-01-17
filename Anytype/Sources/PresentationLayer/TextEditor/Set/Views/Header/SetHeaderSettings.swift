@@ -6,7 +6,11 @@ struct SetHeaderSettings: View {
     @EnvironmentObject private var model: EditorSetViewModel
     
     var body: some View {
-        Button(action: { model.showViewPicker = true }) {
+        Button(action: {
+            withAnimation {
+                model.showViewPicker = true
+            }
+        }) {
             HStack {
                 AnytypeText(model.activeView.name, style: .heading, color: .textPrimary)
                     .padding()
