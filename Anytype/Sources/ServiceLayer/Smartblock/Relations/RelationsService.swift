@@ -54,7 +54,15 @@ extension RelationsService: RelationsServiceProtocol {
         Amplitude.instance().logEvent(AmplitudeEventsName.changeRelationValue)
     }
 
-    func addRelation(_ relation: RelationMetadata, isNew: Bool) -> RelationMetadata? {
+    func createRelation(_ relation: RelationMetadata) -> RelationMetadata? {
+        addRelation(relation, isNew: true)
+    }
+
+    func addRelation(_ relation: RelationMetadata) -> RelationMetadata? {
+        addRelation(relation, isNew: false)
+    }
+
+    private func addRelation(_ relation: RelationMetadata, isNew: Bool) -> RelationMetadata? {
         let response = Anytype_Rpc.Object.RelationAdd.Service.invoke(contextID: objectId,
                                                                      relation: relation.middlewareModel)
             .getValue(domain: .relationsService)

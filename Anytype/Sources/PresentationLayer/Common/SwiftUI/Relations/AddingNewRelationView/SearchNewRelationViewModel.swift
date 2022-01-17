@@ -84,7 +84,7 @@ class SearchNewRelationViewModel: ObservableObject, Dismissible {
     }
 
     func addRelation(_ relation: RelationMetadata) {
-        if let createdRelation = relationService.addRelation(relation, isNew: false) {
+        if let createdRelation = relationService.addRelation(relation) {
             onSelect(createdRelation)
         }
     }
