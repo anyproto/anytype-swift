@@ -5,8 +5,6 @@ struct SetTableView: View {
     @Binding var offset: CGPoint
     var headerMinimizedSize: CGSize
 
-    @State private var initialOffset = CGPoint.zero
-
     @EnvironmentObject private var model: EditorSetViewModel
 
     var body: some View {
@@ -29,7 +27,7 @@ struct SetTableView: View {
                     ) {
                         Section(header: compoundHeader) {
                             ForEach(model.rows) { row in
-                                SetTableViewRow(data: row, initialOffset: initialOffset.x, xOffset: offset.x)
+                                SetTableViewRow(data: row, xOffset: xOffset)
                             }
                         }
                         Rectangle().frame(height: 40).foregroundColor(.backgroundPrimary)
@@ -39,7 +37,6 @@ struct SetTableView: View {
                         DispatchQueue.main.async {
                             // initial y offset is 0 for some reason
                             offset = CGPoint(x: offset.x, y: 0)
-                            initialOffset = offset
                         }
                     }
                     .padding(.top, -headerMinimizedSize.height)
@@ -58,7 +55,7 @@ struct SetTableView: View {
     }
 
     private var xOffset: CGFloat {
-        initialOffset.x >= offset.x ? initialOffset.x - offset.x : 0
+        max(-offset.x, 0)
     }
 
     private var compoundHeader: some View {
@@ -69,8 +66,8 @@ struct SetTableView: View {
                     .offset(x: xOffset, y: 0)
                     .environmentObject(model)
                 SetTableViewHeader()
+                    .background(Color.white)
             }
-            .background(Color.backgroundPrimary)
         }
     }
 }

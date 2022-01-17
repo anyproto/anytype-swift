@@ -29,14 +29,16 @@ struct OffsetAwareScrollView<Content: View>: View {
     
     var body: some View {
         ScrollView(axes, showsIndicators: showsIndicators) {
-            GeometryReader { geometry in
-                Color.clear.preference(
-                    key: ScrollOffsetPreferenceKey.self,
-                    value: geometry.frame(in: .named(coordinateSpaceName)).origin
-                )
-            }.frame(width: 0, height: 0)
-            .onPreferenceChange(ScrollOffsetPreferenceKey.self, perform: offsetChanged)
-            content
+            VStack(alignment: .leading) {
+                GeometryReader { geometry in
+                    Color.clear.preference(
+                        key: ScrollOffsetPreferenceKey.self,
+                        value: geometry.frame(in: .named(coordinateSpaceName)).origin
+                    )
+                }.frame(width: 0, height: 0)
+                .onPreferenceChange(ScrollOffsetPreferenceKey.self, perform: offsetChanged)
+                content
+            }
         }
         .coordinateSpace(name: coordinateSpaceName)
     }
