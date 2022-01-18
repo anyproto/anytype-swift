@@ -10,7 +10,6 @@ struct DateRelationEditingView: View {
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
-        .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.dismissHandler))
     }
     
     private var valueList: some View {

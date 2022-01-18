@@ -253,7 +253,27 @@ final class EditorRouter: EditorRouterProtocol {
         let relation = document.parsedRelations.all.first { $0.id == key }
         guard let relation = relation else { return }
         
-        showRelationValueEditingView(objectId: document.objectId, relation: relation)
+        switch relation {
+        case .date:
+            showRelationEditingViewAsFloatinPanel(objectId: document.objectId, relation: relation)
+        default:
+            showRelationValueEditingView(objectId: document.objectId, relation: relation)
+        }
+    }
+    
+    func showRelationEditingViewAsFloatinPanel(objectId: BlockId, relation: Relation) {
+        guard relation.isEditable else { return }
+        guard let viewController = viewController else { return }
+        
+        let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation)
+        guard let contentViewModel = contentViewModel else { return }
+        
+        let contentController = UIHostingController(rootView: contentViewModel.makeView())
+        
+        let fpc = AnytypeFloatingPanelController(contentViewController: contentController)
+        fpc.layout = FixedHeightFloatingPanelLayout(height: 300)
+        
+        viewController.topPresentedController.present(fpc, animated: true, completion: nil)
     }
     
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
