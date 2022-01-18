@@ -89,8 +89,10 @@ final class EditorSetViewModel: ObservableObject {
         switch data {
         case .general, .syncStatus, .blocks, .details:
             objectWillChange.send()
-        case .dataview(let view):
-            dataView = dataView.updatedWithView(view)
+        case .dataview(let data):
+            withAnimation(data.shouldAnimate ? .default : nil) {
+                dataView = dataView.updated(data)
+            }
         }
     }
     
