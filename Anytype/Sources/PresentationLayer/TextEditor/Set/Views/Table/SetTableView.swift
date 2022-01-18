@@ -66,9 +66,9 @@ struct SetTableView: View {
                     .offset(x: xOffset, y: 0)
                     .environmentObject(model)
                 SetTableViewHeader()
-                    .background(Color.white)
             }
         }
+        .background(Color.backgroundPrimary)
     }
 }
 
