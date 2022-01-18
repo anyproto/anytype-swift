@@ -6,7 +6,11 @@ import SwiftUI
 
 final class EditorSetViewModel: ObservableObject {
     @Published private(set) var dataView = BlockDataview.empty
-    @Published var activeViewId: BlockId = ""
+    @Published var activeViewId: BlockId = "" {
+        didSet {
+            setupSubscriptions()
+        }
+    }
     @Published private var records: [ObjectDetails] = []
     
     @Published var showViewPicker = false
@@ -82,13 +86,11 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func onDataChange(_ data: EventsListenerUpdate) {
-        withAnimation {
-            switch data {
-            case .general, .syncStatus, .blocks, .details:
-                objectWillChange.send()
-            case .dataview(let view):
-                dataView = dataView.updatedWithView(view)
-            }
+        switch data {
+        case .general, .syncStatus, .blocks, .details:
+            objectWillChange.send()
+        case .dataview(let view):
+            dataView = dataView.updatedWithView(view)
         }
     }
     
@@ -112,6 +114,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func setupSubscriptions() {
+        subscriptionService.stopAllSubscriptions()
         subscriptionService.startSubscription(
             data: .set(
                 source: dataView.source,
@@ -120,9 +123,7 @@ final class EditorSetViewModel: ObservableObject {
                 relations: activeView.relations
             )
         ) { [weak self] subId, update in
-            withAnimation {
-                self?.records.applySubscriptionUpdate(update)
-            }
+            self?.records.applySubscriptionUpdate(update)
         }
     }
 }

@@ -30,7 +30,9 @@ struct EditorSetViewPicker: View {
                 if view.isSupported {
                     Button(action: {
                         model.activeViewId = view.id
-                        model.showViewPicker = false
+                        withAnimation {
+                            model.showViewPicker = false
+                        }
                     }) {
                         AnytypeText(view.name, style: .uxBodyRegular, color: .textPrimary)
                         Spacer(minLength: 5)
