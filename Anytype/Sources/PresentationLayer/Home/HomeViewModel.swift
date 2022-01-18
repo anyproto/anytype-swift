@@ -25,7 +25,7 @@ final class HomeViewModel: ObservableObject {
     @Published var snackBarData = SnackBarData.empty
     @Published var loadingAlertData = LoadingAlertData.empty
     
-    @Published private(set) var profileData = HomeProfileData()
+    @Published private(set) var profileData = HomeProfileData.empty
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
@@ -91,9 +91,9 @@ final class HomeViewModel: ObservableObject {
                 anytypeAssertionFailure("Emppty data for profile subscription", domain: .homeView)
                 return
             }
-            profileData.update(details: details)
+            profileData = HomeProfileData(details: details)
         case .update(let details):
-            profileData.update(details: details)
+            profileData = HomeProfileData(details: details)
         default:
             anytypeAssertionFailure("Usupported update \(update) for profile suscription", domain: .homeView)
         }
