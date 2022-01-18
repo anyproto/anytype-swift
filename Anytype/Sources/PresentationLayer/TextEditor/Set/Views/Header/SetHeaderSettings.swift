@@ -7,7 +7,7 @@ struct SetHeaderSettings: View {
     
     var body: some View {
         Button(action: {
-            withAnimation {
+            withAnimation(.fastSpring) {
                 model.showViewPicker = true
             }
         }) {
