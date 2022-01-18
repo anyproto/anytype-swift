@@ -3,7 +3,7 @@ extension DataviewUpdate {
         switch self {
         case .set:
             return false // Visual glitches on colums change
-        case .order:
+        case .order, .delete:
             return true
         }
     }
