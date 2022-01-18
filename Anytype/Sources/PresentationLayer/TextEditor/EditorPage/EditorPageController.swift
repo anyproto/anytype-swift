@@ -248,12 +248,6 @@ extension EditorPageController: EditorPageViewInput {
         deletedScreen.isHidden = !show
         if show { UIApplication.shared.hideKeyboard() }
     }
-    
-    private func updateView() {
-        UIView.performWithoutAnimation {
-            dataSource.refresh(animatingDifferences: true)
-        }
-    }
 }
 
 // MARK: - Private extension

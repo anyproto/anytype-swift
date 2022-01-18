@@ -23,10 +23,8 @@ final class BlockViewModelBuilder {
     }
 
     func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
-        var previousBlock: BlockModelProtocol?
-        return blocks.compactMap { block -> BlockViewModelProtocol? in
-            let blockViewModel = build(block, previousBlock: previousBlock)
-            previousBlock = block
+        blocks.compactMap { block -> BlockViewModelProtocol? in
+            let blockViewModel = build(block, previousBlock: nil)
             return blockViewModel
         }
     }
@@ -59,7 +57,7 @@ final class BlockViewModelBuilder {
                 let isCheckable = content.contentType == .title ? document.objectDetails?.layout == .todo : false
                 return TextBlockViewModel(
                     block: block,
-                    upperBlock: previousBlock,
+                    upperBlock: nil,
                     content: content,
                     isCheckable: isCheckable,
                     blockDelegate: delegate,
