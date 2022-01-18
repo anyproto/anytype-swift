@@ -6,8 +6,18 @@ import SwiftUI
 
 final class EditorSetViewModel: ObservableObject {
     @Published private(set) var dataView = BlockDataview.empty
-    @Published private(set) var activeView = DataviewView.empty
+    @Published var activeViewId: BlockId = "" {
+        didSet {
+            setupSubscriptions()
+        }
+    }
     @Published private var records: [ObjectDetails] = []
+    
+    @Published var showViewPicker = false
+    
+    var activeView: DataviewView {
+        dataView.views.first { $0.id == activeViewId } ?? .empty
+    }
     
     var colums: [SetColumData] {
         dataView.relationsMetadataForView(activeView)
@@ -76,13 +86,11 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func onDataChange(_ data: EventsListenerUpdate) {
-        withAnimation {
-            switch data {
-            case .general, .syncStatus, .blocks, .details:
-                objectWillChange.send()
-            case .dataview(let view):
-                self.activeView = view
-            }
+        switch data {
+        case .general, .syncStatus, .blocks, .details:
+            objectWillChange.send()
+        case .dataview(let view):
+            dataView = dataView.updatedWithView(view)
         }
     }
     
@@ -97,15 +105,16 @@ final class EditorSetViewModel: ObservableObject {
         anytypeAssert(dataViews.count == 1, "\(dataViews.count) dataviews instead of 1 in set", domain: .editorSet)
         guard let dataView = dataViews.first else { return false }
         anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
-        guard let activeView = dataView.views.first else { return false }
+        guard let activeView = dataView.views.first(where: { $0.isSupported }) else { return false }
         
         self.dataView = dataView
-        self.activeView = activeView
+        self.activeViewId = activeView.id
 
         return true
     }
     
     private func setupSubscriptions() {
+        subscriptionService.stopAllSubscriptions()
         subscriptionService.startSubscription(
             data: .set(
                 source: dataView.source,
@@ -114,9 +123,7 @@ final class EditorSetViewModel: ObservableObject {
                 relations: activeView.relations
             )
         ) { [weak self] subId, update in
-            withAnimation {
-                self?.records.applySubscriptionUpdate(update)
-            }
+            self?.records.applySubscriptionUpdate(update)
         }
     }
 }

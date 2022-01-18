@@ -9,6 +9,19 @@ public enum DataviewViewType: Hashable {
     case list
     case gallery
     case kanban
+    
+    public var name: String {
+        switch self {
+        case .table:
+            return "table".localized
+        case .list:
+            return "list".localized
+        case .gallery:
+            return "gallery".localized
+        case .kanban:
+            return "kanban".localized
+        }
+    }
 }
 
 public struct DataviewViewRelation: Hashable {
@@ -21,7 +34,7 @@ public struct DataviewViewRelation: Hashable {
     }
 }
 
-public struct DataviewView: Hashable {
+public struct DataviewView: Hashable, Identifiable {
     public let id: BlockId
     public let name: String
 
@@ -50,6 +63,10 @@ public struct DataviewView: Hashable {
     public static var empty: DataviewView {
         DataviewView(id: "", name: "", type: .list, relations: [], sorts: [], filters: [])
     }
+    
+    public var isSupported: Bool {
+        type == .table
+    }
 }
 
 
@@ -70,6 +87,14 @@ public struct BlockDataview: Hashable {
     
     public static var empty: BlockDataview {
         BlockDataview(source: [], views: [], relations: [])
+    }
+    
+    public func updatedWithView(_ view: DataviewView) -> BlockDataview {
+        guard let index = views.firstIndex(where: { $0.id == view.id }) else { return self }
+        var newViews = views
+        newViews[index] = view
+        
+        return BlockDataview(source: source, views: newViews, relations: relations)
     }
 }
 
