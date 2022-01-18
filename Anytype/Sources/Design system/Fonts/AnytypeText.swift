@@ -34,7 +34,7 @@ struct AnytypeText: View {
         textView
     }
     
-    static func buildText(_ text: String, style: AnytypeFont) -> Text {
+    private static func buildText(_ text: String, style: AnytypeFont) -> Text {
         let font = AnytypeFontBuilder.font(anytypeFont: style)
         
         return Text(text).font(font)

@@ -14,7 +14,9 @@ enum RelationPlaceholderType {
 extension RelationStyle {
     var font: AnytypeFont {
         switch self {
-        case .regular, .set:
+        case .regular:
+            return .relation1Regular
+        case .set:
             return .relation2Regular
         case .featuredRelationBlock:
             return .relation1Regular
