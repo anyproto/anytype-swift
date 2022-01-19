@@ -178,8 +178,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             for blockId in blockIds {
                 if model.blockId == blockId {
                     guard let model = document.blocksContainer.model(id: blockId),
-                          let upperBlock = modelsHolder.models[safe: offset]?.upperBlock,
-                          let newViewModel = blockBuilder.build(model, previousBlock: upperBlock) else {
+                          let newViewModel = blockBuilder.build(model, previousBlock: nil) else {
                               continue
                           }
 
