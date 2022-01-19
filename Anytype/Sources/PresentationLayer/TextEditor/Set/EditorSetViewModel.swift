@@ -5,7 +5,7 @@ import ProtobufMessages
 import SwiftUI
 
 final class EditorSetViewModel: ObservableObject {
-    @Published private(set) var dataView = BlockDataview.empty
+    @Published var dataView = BlockDataview.empty
     @Published var activeViewId: BlockId = "" {
         didSet {
             setupSubscriptions()
@@ -90,9 +90,7 @@ final class EditorSetViewModel: ObservableObject {
         case .general, .syncStatus, .blocks, .details:
             objectWillChange.send()
         case .dataview(let data):
-            withAnimation(data.shouldAnimate ? .default : nil) {
-                dataView = dataView.updated(data)
-            }
+            update(data)
         }
     }
     

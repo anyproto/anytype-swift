@@ -4,6 +4,7 @@ import AnytypeCore
 enum DataviewUpdate: Hashable {
     case set(view: DataviewView)
     case order(ids: [BlockId])
+    case delete(id: BlockId)
 }
 
 enum EventsListenerUpdate: Hashable {

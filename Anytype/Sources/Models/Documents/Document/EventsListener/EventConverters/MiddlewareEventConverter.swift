@@ -285,6 +285,8 @@ final class MiddlewareEventConverter {
             return .dataview(.set(view: view))
         case .blockDataviewViewOrder(let data):
             return .dataview(.order(ids: data.viewIds))
+        case .blockDataviewViewDelete(let data):
+            return .dataview(.delete(id: data.viewID))
         default:
             anytypeAssertionFailure("Unsupported event: \(event)", domain: .middlewareEventConverter)
             return nil
