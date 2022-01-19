@@ -311,7 +311,7 @@
 		12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4055264AE455007B5074 /* LayoutDimension.swift */; };
 		12DE4063264AE4C8007B5074 /* UIViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */; };
 		12E014D4266FCA7A008036B0 /* WindowHolder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E014D3266FCA7A008036B0 /* WindowHolder.swift */; };
-		12E05EEF2796A9C10037B667 /* AnytypeFloatingPanelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E05EEE2796A9C10037B667 /* AnytypeFloatingPanelController.swift */; };
+		12E05EEF2796A9C10037B667 /* RelationEditingViewPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E05EEE2796A9C10037B667 /* RelationEditingViewPopup.swift */; };
 		12E05EF12796ADA90037B667 /* FixedHeightFloatingPanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E05EF02796ADA90037B667 /* FixedHeightFloatingPanelLayout.swift */; };
 		12E15B89270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E15B88270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift */; };
 		12EB9AF12771CD6600BA732F /* RelationOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9AF02771CD6600BA732F /* RelationOptionsViewModel.swift */; };
@@ -1180,7 +1180,7 @@
 		12DE4055264AE455007B5074 /* LayoutDimension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LayoutDimension.swift; sourceTree = "<group>"; };
 		12DE4062264AE4C8007B5074 /* UIViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewExtensions.swift; sourceTree = "<group>"; };
 		12E014D3266FCA7A008036B0 /* WindowHolder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowHolder.swift; sourceTree = "<group>"; };
-		12E05EEE2796A9C10037B667 /* AnytypeFloatingPanelController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeFloatingPanelController.swift; sourceTree = "<group>"; };
+		12E05EEE2796A9C10037B667 /* RelationEditingViewPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEditingViewPopup.swift; sourceTree = "<group>"; };
 		12E05EF02796ADA90037B667 /* FixedHeightFloatingPanelLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FixedHeightFloatingPanelLayout.swift; sourceTree = "<group>"; };
 		12E15B88270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionHandlerProtocol.swift; sourceTree = "<group>"; };
 		12EB9AF02771CD6600BA732F /* RelationOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsViewModel.swift; sourceTree = "<group>"; };
@@ -3223,7 +3223,7 @@
 			isa = PBXGroup;
 			children = (
 				12E05EF02796ADA90037B667 /* FixedHeightFloatingPanelLayout.swift */,
-				12E05EEE2796A9C10037B667 /* AnytypeFloatingPanelController.swift */,
+				12E05EEE2796A9C10037B667 /* RelationEditingViewPopup.swift */,
 				12136D2B2796C5EC00262FE7 /* RelationOptionsFloatingPanelLayout.swift */,
 				12136D3E27980C0900262FE7 /* KeyboardFloatingPanelLayoutUpdater.swift */,
 			);
@@ -6211,7 +6211,7 @@
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
 				3DB1C9F3272835DA000D2779 /* OtherSettingsView.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorBrowserAssembly.swift in Sources */,
-				12E05EEF2796A9C10037B667 /* AnytypeFloatingPanelController.swift in Sources */,
+				12E05EEF2796A9C10037B667 /* RelationEditingViewPopup.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

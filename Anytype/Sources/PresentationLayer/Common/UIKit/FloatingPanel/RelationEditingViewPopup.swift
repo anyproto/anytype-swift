@@ -1,5 +1,5 @@
 //
-//  AnytypeFloatingPanelController.swift
+//  RelationEditingViewPopup.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 18.01.2022.
@@ -10,8 +10,8 @@ import Foundation
 import FloatingPanel
 import UIKit
 
-#warning("TODO R: conver to RelationsFloatingOanelController init with ViewModel + subscribe for content update in order to update floatingpanel layout")
-final class AnytypeFloatingPanelController: FloatingPanelController {
+#warning("TODO R: init with ViewModel + subscribe for content update in order to update floatingpanel layout")
+final class RelationEditingViewPopup: FloatingPanelController {
     
     var keyboardFloatingPanelLayoutUpdater: KeyboardFloatingPanelLayoutUpdater?
     
