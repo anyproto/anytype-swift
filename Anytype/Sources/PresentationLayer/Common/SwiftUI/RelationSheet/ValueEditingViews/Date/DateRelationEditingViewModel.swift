@@ -4,7 +4,7 @@ import SwiftProtobuf
 
 final class DateRelationEditingViewModel: ObservableObject {
     
-    var dismissHandler: (() -> Void)?
+    var onDismiss: () -> Void = {}
 
     @Published var selectedValue: DateRelationEditingValue {
         didSet {
