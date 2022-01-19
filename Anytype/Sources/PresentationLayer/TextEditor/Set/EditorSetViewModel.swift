@@ -5,7 +5,7 @@ import ProtobufMessages
 import SwiftUI
 
 final class EditorSetViewModel: ObservableObject {
-    @Published private(set) var dataView = BlockDataview.empty
+    @Published var dataView = BlockDataview.empty
     @Published var activeViewId: BlockId = "" {
         didSet {
             setupSubscriptions()
@@ -89,8 +89,8 @@ final class EditorSetViewModel: ObservableObject {
         switch data {
         case .general, .syncStatus, .blocks, .details:
             objectWillChange.send()
-        case .dataview(let view):
-            dataView = dataView.updatedWithView(view)
+        case .dataview(let data):
+            update(data)
         }
     }
     
