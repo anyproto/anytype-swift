@@ -2,7 +2,7 @@ import Foundation
 import FloatingPanel
 import CoreGraphics
 
-class FixedHeightFloatingPanelLayout: FloatingPanelLayout {
+final class FixedHeightPopupLayout: FloatingPanelLayout {
     
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .full

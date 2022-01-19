@@ -11,9 +11,10 @@ struct TextRelationEditingView: View {
                 .frame(height: 48, alignment: .center)
             
             RelationTextView(text: $viewModel.value, placeholder: viewModel.placeholder, keyboardType: viewModel.keyboardType)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 12)
+                
+            Spacer.fixedHeight(20)
         }
+        .padding(.vertical, 12)
     }
     
 }

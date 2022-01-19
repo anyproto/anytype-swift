@@ -1,19 +1,11 @@
-//
-//  AnytypeFloatingPanelController.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 18.01.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import Foundation
 import FloatingPanel
 import UIKit
 
-#warning("TODO R: conver to RelationsFloatingOanelController init with ViewModel + subscribe for content update in order to update floatingpanel layout")
-final class AnytypeFloatingPanelController: FloatingPanelController {
+#warning("TODO R: init with ViewModel + subscribe for content update in order to update floatingpanel layout")
+final class RelationEditingViewPopup: FloatingPanelController {
     
-    var keyboardFloatingPanelLayoutUpdater: KeyboardFloatingPanelLayoutUpdater?
+    var keyboardPopupLayoutUpdater: KeyboardPopupLayoutUpdater?
     
     init(contentViewController: UIViewController) {
         super.init(delegate: nil)
