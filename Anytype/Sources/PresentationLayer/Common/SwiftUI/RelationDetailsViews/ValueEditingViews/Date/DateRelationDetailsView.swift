@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct DateRelationEditingView: View {
+struct DateRelationDetailsView: View {
     
-    @ObservedObject var viewModel: DateRelationEditingViewModel
+    @ObservedObject var viewModel: DateRelationDetailsViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -16,7 +16,7 @@ struct DateRelationEditingView: View {
     
     private var valueList: some View {
         ForEach(viewModel.values, id: \.self) { value in
-            DateRelationRowView(
+            DateRelationDetailsRowView(
                 value: value,
                 isSelected: value == viewModel.selectedValue,
                 date: $viewModel.date
@@ -29,8 +29,8 @@ struct DateRelationEditingView: View {
 
 struct DateRelationEditingView_Previews: PreviewProvider {
     static var previews: some View {
-        DateRelationEditingView(
-            viewModel: DateRelationEditingViewModel(
+        DateRelationDetailsView(
+            viewModel: DateRelationDetailsViewModel(
                 relationKey: "",
                 relationName: "",
                 value: nil,

@@ -2,7 +2,7 @@ import Foundation
 import SwiftUI
 import BlocksModels
 
-final class StatusRelationEditingViewModel: ObservableObject {
+final class StatusRelationDetailsViewModel: ObservableObject {
 
     var onDismiss: () -> Void = {}
     
@@ -33,7 +33,7 @@ final class StatusRelationEditingViewModel: ObservableObject {
     
 }
 
-extension StatusRelationEditingViewModel {
+extension StatusRelationDetailsViewModel {
     
     func filterStatusSections(text: String) {
         self.statusSections = RelationOptionsSectionBuilder.sections(from: relationOptions, filterText: text)
@@ -54,10 +54,10 @@ extension StatusRelationEditingViewModel {
     }
 }
 
-extension StatusRelationEditingViewModel: RelationEditingViewModelProtocol {
+extension StatusRelationDetailsViewModel: RelationEditingViewModelProtocol {
   
     func makeView() -> AnyView {
-        AnyView(StatusRelationEditingView(viewModel: self))
+        AnyView(StatusRelationDetailsView(viewModel: self))
     }
     
 }

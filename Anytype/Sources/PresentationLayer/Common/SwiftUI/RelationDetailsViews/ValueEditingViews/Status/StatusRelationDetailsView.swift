@@ -1,9 +1,9 @@
 import SwiftUI
 
 #warning("TODO R: update design")
-struct StatusRelationEditingView: View {
+struct StatusRelationDetailsView: View {
     
-    @ObservedObject var viewModel: StatusRelationEditingViewModel
+    @ObservedObject var viewModel: StatusRelationDetailsViewModel
     @State private var searchText = ""
     
     var body: some View {
@@ -37,7 +37,7 @@ struct StatusRelationEditingView: View {
     }
     
     private func statusRow(_ status: Relation.Status.Option) -> some View {
-        StatusRelationRowView(
+        StatusRelationDetailsRowView(
             status: status,
             isSelected: status == viewModel.selectedStatus
         ) {
@@ -54,8 +54,8 @@ struct StatusRelationEditingView: View {
 
 struct StatusRelationEditingView_Previews: PreviewProvider {
     static var previews: some View {
-        StatusRelationEditingView(
-            viewModel: StatusRelationEditingViewModel(
+        StatusRelationDetailsView(
+            viewModel: StatusRelationDetailsViewModel(
                 relationKey: "",
                 relationName: "",
                 relationOptions: [],

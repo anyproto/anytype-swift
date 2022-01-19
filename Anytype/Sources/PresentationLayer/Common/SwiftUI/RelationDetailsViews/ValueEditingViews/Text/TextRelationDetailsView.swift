@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct TextRelationEditingView: View {
+struct TextRelationDetailsView: View {
             
-    @ObservedObject var viewModel: TextRelationEditingViewModel
+    @ObservedObject var viewModel: TextRelationDetailsViewModel
     @State private var height: CGFloat = 0
     
     var body: some View {
@@ -21,8 +21,8 @@ struct TextRelationEditingView: View {
 
 struct RelationTextValueEditingView_Previews: PreviewProvider {
     static var previews: some View {
-        TextRelationEditingView(
-            viewModel: TextRelationEditingViewModel(
+        TextRelationDetailsView(
+            viewModel: TextRelationDetailsViewModel(
                 type: .number,
                 title: "title",
                 value: "vale",

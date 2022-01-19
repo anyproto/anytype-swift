@@ -2,11 +2,11 @@ import Foundation
 import SwiftUI
 import SwiftProtobuf
 
-final class DateRelationEditingViewModel: ObservableObject {
+final class DateRelationDetailsViewModel: ObservableObject {
     
     var onDismiss: () -> Void = {}
 
-    @Published var selectedValue: DateRelationEditingValue {
+    @Published var selectedValue: DateRelationDetailsValue {
         didSet {
             saveValue()
         }
@@ -18,7 +18,7 @@ final class DateRelationEditingViewModel: ObservableObject {
         }
     }
     
-    let values = DateRelationEditingValue.allCases
+    let values = DateRelationDetailsValue.allCases
     
     let relationName: String
     private let relationKey: String
@@ -39,7 +39,7 @@ final class DateRelationEditingViewModel: ObservableObject {
     
 }
 
-extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
+extension DateRelationDetailsViewModel: RelationEditingViewModelProtocol {
 
     func saveValue() {
         let value: Google_Protobuf_Value = {
@@ -61,15 +61,15 @@ extension DateRelationEditingViewModel: RelationEditingViewModelProtocol {
     }
     
     func makeView() -> AnyView {
-        AnyView(DateRelationEditingView(viewModel: self))
+        AnyView(DateRelationDetailsView(viewModel: self))
     }
      
 }
 
 private extension DateRelationValue {
     
-    var dateRelationEditingValue: DateRelationEditingValue {
-        var value = DateRelationEditingValue.noDate
+    var dateRelationEditingValue: DateRelationDetailsValue {
+        var value = DateRelationDetailsValue.noDate
         
         if Calendar.current.isDateInToday(self.date) {
             value = .today

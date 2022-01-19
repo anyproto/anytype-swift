@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 import SwiftUI
 
-final class TextRelationEditingViewModel: ObservableObject {
+final class TextRelationDetailsViewModel: ObservableObject {
     
     var onDismiss: () -> Void = {}
     
@@ -46,7 +46,7 @@ final class TextRelationEditingViewModel: ObservableObject {
     
 }
 
-extension TextRelationEditingViewModel {
+extension TextRelationDetailsViewModel {
     
     var keyboardType: UIKeyboardType {
         switch type {
@@ -64,7 +64,7 @@ extension TextRelationEditingViewModel {
     
 }
 
-extension TextRelationEditingViewModel: RelationEditingViewModelProtocol {
+extension TextRelationDetailsViewModel: RelationEditingViewModelProtocol {
     
     func saveValue() {
         switch type {
@@ -77,7 +77,7 @@ extension TextRelationEditingViewModel: RelationEditingViewModelProtocol {
     }
     
     func makeView() -> AnyView {
-        AnyView(TextRelationEditingView(viewModel: self))
+        AnyView(TextRelationDetailsView(viewModel: self))
     }
     
 }

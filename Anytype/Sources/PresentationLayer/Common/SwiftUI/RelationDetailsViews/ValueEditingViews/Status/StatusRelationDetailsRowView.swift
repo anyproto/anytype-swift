@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct StatusRelationRowView: View {
+struct StatusRelationDetailsRowView: View {
     
     let status: Relation.Status.Option
     let isSelected: Bool
@@ -34,7 +34,7 @@ struct StatusRelationRowView: View {
 
 struct StatusRelationRowView_Previews: PreviewProvider {
     static var previews: some View {
-        StatusRelationRowView(
+        StatusRelationDetailsRowView(
             status: Relation.Status.Option(id: "", text: "text", color: UIColor.System.teal, scope: .local),
             isSelected: true,
             onTap: {}
