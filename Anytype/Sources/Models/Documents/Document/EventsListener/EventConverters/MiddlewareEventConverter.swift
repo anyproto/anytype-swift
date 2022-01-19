@@ -315,16 +315,15 @@ final class MiddlewareEventConverter {
                     return dataView
                 }
                 
-                var activeViewId: BlockId?
+                var dataView = dataView
                 if dataView.views[index].id == dataView.activeViewId {
-                    if let newId = dataView.views.findNextSupportedView(mainIndex: index)?.id {
-                        activeViewId = newId
-                    }
+                    let newId = dataView.views.findNextSupportedView(mainIndex: index)?.id ?? ""
+                    dataView = dataView.updated(activeViewId: newId)
                 }
                 
                 var newViews = dataView.views
                 newViews.remove(at: index)
-                return dataView.updated(activeViewId: activeViewId ?? "")
+                return dataView.updated(views: newViews)
             }
             
             return .general
