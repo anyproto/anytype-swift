@@ -145,6 +145,7 @@ final class EditorPageController: UIViewController {
                 setEditing(false, animated: true)
                 blockIds.forEach(selectBlock)
                 blocksSelectionOverlayView.isHidden = false
+                navigationBarHelper.canChangeSyncStatusAppearance = false
                 navigationBarHelper.setNavigationBarHidden(true)
             case .editing:
                 collectionView.deselectAllMovingItems()
@@ -152,6 +153,7 @@ final class EditorPageController: UIViewController {
                 setEditing(true, animated: true)
                 blocksSelectionOverlayView.isHidden = true
                 navigationBarHelper.setNavigationBarHidden(false)
+                navigationBarHelper.canChangeSyncStatusAppearance = true
             case .moving(let indexPaths):
                 dividerCursorController.movingMode = .drum
                 setEditing(false, animated: true)
