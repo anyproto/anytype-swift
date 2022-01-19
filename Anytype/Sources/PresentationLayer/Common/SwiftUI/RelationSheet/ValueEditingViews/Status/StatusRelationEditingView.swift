@@ -1,5 +1,6 @@
 import SwiftUI
 
+#warning("TODO R: update design")
 struct StatusRelationEditingView: View {
     
     @ObservedObject var viewModel: StatusRelationEditingViewModel

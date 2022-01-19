@@ -10,9 +10,6 @@ struct RelationOptionsView: View {
     
     var body: some View {
         content
-            .modifier(
-                RelationSheetModifier(isPresented: $viewModel.isPresented, title: nil, dismissCallback: viewModel.dismissHandler)
-            )
             .sheet(isPresented: $isSearchPresented) { viewModel.makeSearchView() }
     }
     
