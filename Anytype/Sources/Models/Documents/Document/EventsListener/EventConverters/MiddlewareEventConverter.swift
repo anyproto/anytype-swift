@@ -4,7 +4,6 @@ import AnytypeCore
 import SwiftProtobuf
 
 final class MiddlewareEventConverter {
-    private let updater: BlockUpdater
     private let blocksContainer: BlockContainerModelProtocol
     private let relationStorage: RelationsMetadataStorageProtocol
     private let detailsStorage: ObjectDetailsStorage
@@ -17,7 +16,6 @@ final class MiddlewareEventConverter {
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared
     ) {
-        self.updater = BlockUpdater(blocksContainer)
         self.blocksContainer = blocksContainer
         self.relationStorage = relationStorage
         self.informationCreator = informationCreator
@@ -29,7 +27,7 @@ final class MiddlewareEventConverter {
         case let .threadStatus(status):
             return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
         case let .blockSetFields(fields):
-            updater.update(entry: fields.id) { block in
+            blocksContainer.update(blockId: fields.id) { block in
                 var block = block
 
                 block.information = block.information.updated(with: fields.fields.toFieldTypeMap())
@@ -40,7 +38,7 @@ final class MiddlewareEventConverter {
                 .compactMap(BlockInformationConverter.convert(block:))
                 .map(BlockModel.init)
                 .forEach { block in
-                    updater.insert(block: block)
+                    blocksContainer.add(block)
                 }
             // Because blockAdd message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
@@ -54,13 +52,14 @@ final class MiddlewareEventConverter {
             // and it is easier to create update from those message
             return nil
     
-        case let .blockSetChildrenIds(value):
-            updater.set(children: value.childrenIds, parent: value.id)
+        case let .blockSetChildrenIds(data):
+            blocksContainer
+                .replace(childrenIds: data.childrenIds, parentId: data.id, shouldSkipGuardAgainstMissingIds: true )
             return .general
         case let .blockSetText(newData):
             return blockSetTextUpdate(newData)
         case let .blockSetBackgroundColor(updateData):
-            updater.update(entry: updateData.id, update: { block in
+            blocksContainer.update(blockId: updateData.id, update: { block in
                 var block = block
                 block.information = block.information.updated(
                     with: MiddlewareColor(rawValue: updateData.backgroundColor)
@@ -79,7 +78,7 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            updater.update(entry: blockId, update: { (value) in
+            blocksContainer.update(blockId: blockId, update: { (value) in
                 var value = value
                 value.information.alignment = modelAlignment
             })
@@ -161,7 +160,7 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            updater.update(entry: newData.id, update: { block in
+            blocksContainer.update(blockId: newData.id, update: { block in
                 var block = block
                 
                 switch block.information.content {
@@ -206,7 +205,7 @@ final class MiddlewareEventConverter {
             let blockId = value.id
             let newUpdate = value
             
-            updater.update(entry: blockId, update: { (value) in
+            blocksContainer.update(blockId: blockId, update: { (value) in
                 var block = value
                 switch value.information.content {
                 case let .bookmark(value):
@@ -253,7 +252,7 @@ final class MiddlewareEventConverter {
             let blockId = value.id
             let newUpdate = value
             
-            updater.update(entry: blockId, update: { (value) in
+            blocksContainer.update(blockId: blockId, update: { (value) in
                 var block = value
                 switch value.information.content {
                 case let .divider(value):

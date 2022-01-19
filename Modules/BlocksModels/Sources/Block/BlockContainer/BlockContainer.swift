@@ -90,6 +90,15 @@ public final class BlockContainer: BlockContainerModelProtocol {
         self.insert(childId: child, parentId: parentId, at: newIndex)
     }
     
+    public func update(blockId: BlockId, update: @escaping (BlockModelProtocol) -> ()) {
+        guard let entry = model(id: blockId) else {
+            anytypeAssertionFailure("No block with id \(blockId)", domain: .blockContainer)
+            return
+        }
+        
+        update(entry)
+    }
+    
     // MARK: - Children / Replace
     /// If you would like to change children in parent, you should call this method.
     ///

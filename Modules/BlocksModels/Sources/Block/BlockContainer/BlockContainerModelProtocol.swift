@@ -11,4 +11,6 @@ public protocol BlockContainerModelProtocol: AnyObject {
     func add(child: BlockId, beforeChild: BlockId)
     func add(child: BlockId, afterChild: BlockId)
     func replace(childrenIds: [BlockId], parentId: BlockId, shouldSkipGuardAgainstMissingIds: Bool)
+    
+    func update(blockId: BlockId, update: @escaping (BlockModelProtocol) -> ())
 }

@@ -20,7 +20,6 @@ public enum ErrorDomain: String {
     
     case blockInformationCreator
     case blockContainer
-    case blockUpdater
     case blockDelegate
     case blocksConverter
     
