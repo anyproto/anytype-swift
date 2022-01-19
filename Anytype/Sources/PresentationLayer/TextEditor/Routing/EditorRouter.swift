@@ -43,6 +43,7 @@ protocol AttachmentRouterProtocol {
 }
 
 final class EditorRouter: EditorRouterProtocol {
+    
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let fileRouter: FileRouter
@@ -239,15 +240,10 @@ final class EditorRouter: EditorRouterProtocol {
         let relation = document.parsedRelations.all.first { $0.id == key }
         guard let relation = relation else { return }
         
-        switch relation {
-        case .date, .file, .status, .object, .tag, .text:
-            showRelationEditingViewAsFloatinPanel(objectId: document.objectId, relation: relation)
-        default:
-            showRelationValueEditingView(objectId: document.objectId, relation: relation)
-        }
+        showRelationValueEditingView(objectId: document.objectId, relation: relation)
     }
     
-    func showRelationEditingViewAsFloatinPanel(objectId: BlockId, relation: Relation) {
+    func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
         guard relation.isEditable else { return }
         guard let viewController = viewController else { return }
         
@@ -265,9 +261,11 @@ final class EditorRouter: EditorRouterProtocol {
             fpc.layout = FixedHeightPopupLayout(height: height)
             fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
         case .number:
-            break
+            let height: CGFloat = 138
+            fpc.layout = FixedHeightPopupLayout(height: height)
+            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
         case .status:
-            fpc.layout = FixedHeightPopupLayout(height: 188)
+            fpc.layout = RelationOptionsPopupLayout()
         case .date:
             fpc.layout = FixedHeightPopupLayout(height: 330)
         case .object(let object):
@@ -275,11 +273,17 @@ final class EditorRouter: EditorRouterProtocol {
         case .checkbox:
             break
         case .url:
-            break
+            let height: CGFloat = 138
+            fpc.layout = FixedHeightPopupLayout(height: height)
+            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
         case .email:
-            break
+            let height: CGFloat = 138
+            fpc.layout = FixedHeightPopupLayout(height: height)
+            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
         case .phone:
-            break
+            let height: CGFloat = 138
+            fpc.layout = FixedHeightPopupLayout(height: height)
+            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
         case .tag(let tag):
             fpc.layout =  tag.selectedTags.isEmpty ? FixedHeightPopupLayout(height: 188) : RelationOptionsPopupLayout()
             break
@@ -290,13 +294,6 @@ final class EditorRouter: EditorRouterProtocol {
         }
         
         viewController.topPresentedController.present(fpc, animated: true, completion: nil)
-    }
-    
-    func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
-        guard relation.isEditable else { return }
-        guard let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation) else { return }
-        
-        presentOverCurrentContextSwuftUIView(view: contentViewModel.makeView(), model: contentViewModel)
     }
 
     func showAdditinNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {

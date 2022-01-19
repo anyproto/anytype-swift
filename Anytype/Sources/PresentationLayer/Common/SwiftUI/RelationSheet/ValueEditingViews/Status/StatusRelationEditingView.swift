@@ -12,7 +12,6 @@ struct StatusRelationEditingView: View {
             statusesList
             Spacer.fixedHeight(20)
         }
-        .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.onDismiss))
         .onChange(of: searchText) { viewModel.filterStatusSections(text: $0) }
     }
     

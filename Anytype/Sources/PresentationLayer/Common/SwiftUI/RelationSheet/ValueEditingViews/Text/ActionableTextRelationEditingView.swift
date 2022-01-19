@@ -6,10 +6,15 @@ struct ActionableTextRelationEditingView: View {
     @State private var height: CGFloat = 0
     
     var body: some View {
-        textView
-            .padding(.horizontal, 20)
-            .padding(.vertical, 12)
-            .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.title, dismissCallback: viewModel.onDismiss))
+        VStack(spacing: 0) {
+            AnytypeText(viewModel.title, style: .uxTitle1Semibold, color: .textPrimary)
+                .frame(height: 48, alignment: .center)
+            
+            textView
+                
+            Spacer.fixedHeight(20)
+        }
+        .padding(.vertical, 12)
     }
     
     private var textView: some View {
