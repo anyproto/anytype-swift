@@ -12,13 +12,9 @@ extension EditorSetViewModel {
     private func updateModel(_ update: DataviewUpdate) {
         switch update {
         case .set(let view):
-            guard let index = dataView.views.firstIndex(where: { $0.id == view.id }) else {
-                anytypeAssertionFailure("Not found view in set action with id: \(view.id)", domain: .dataviewConverter)
-                return
-            }
-            
+            let index = dataView.views.firstIndex(where: { $0.id == view.id }) ?? dataView.views.count
             var newViews = dataView.views
-            newViews[index] = view
+            newViews.insert(view, at: index)
             self.dataView = BlockDataview(source: dataView.source, views: newViews, relations: dataView.relations)
         case .order(let ids):
             let newViews = ids.compactMap { id -> DataviewView? in
