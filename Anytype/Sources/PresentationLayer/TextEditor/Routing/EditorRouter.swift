@@ -271,7 +271,7 @@ final class EditorRouter: EditorRouterProtocol {
         let contentController = UIHostingController(rootView: contentViewModel.makeView())
         
         let fpc = AnytypeFloatingPanelController(contentViewController: contentController)
-        fpc.layout = FixedHeightFloatingPanelLayout(height: 300)
+        fpc.layout = FixedHeightFloatingPanelLayout(height: 330)
         
         viewController.topPresentedController.present(fpc, animated: true, completion: nil)
     }

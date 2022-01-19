@@ -6,6 +6,8 @@ struct DateRelationEditingView: View {
     
     var body: some View {
         VStack(spacing: 0) {
+            AnytypeText(viewModel.relationName, style: .uxTitle1Semibold, color: .textPrimary)
+                .frame(height: 48, alignment: .center)
             valueList
             Spacer.fixedHeight(20)
         }
