@@ -90,13 +90,28 @@ public final class BlockContainer: BlockContainerModelProtocol {
         self.insert(childId: child, parentId: parentId, at: newIndex)
     }
     
-    public func update(blockId: BlockId, update: @escaping (BlockModelProtocol) -> ()) {
+    public func update(blockId: BlockId, update updateAction: @escaping (BlockModelProtocol) -> ()) {
         guard let entry = model(id: blockId) else {
             anytypeAssertionFailure("No block with id \(blockId)", domain: .blockContainer)
             return
         }
         
-        update(entry)
+        updateAction(entry)
+    }
+    
+    public func updateDataview(blockId: BlockId, update updateAction: @escaping (BlockDataview) -> (BlockDataview)) {
+        update(blockId: blockId) { block in
+            var block = block
+            guard case let .dataView(dataView) = block.information.content else {
+                anytypeAssertionFailure(
+                    "\(block.information.content) not a dataview in \(block.information)",
+                    domain: .blockContainer
+                )
+                return
+            }
+            
+            block.information.content = .dataView(updateAction(dataView))
+        }
     }
     
     // MARK: - Children / Replace
