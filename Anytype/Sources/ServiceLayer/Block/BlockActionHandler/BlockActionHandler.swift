@@ -68,7 +68,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func toggle(blockId: BlockId) {
-        EventsBunch(objectId: document.objectId, localEvents: [.setToggled(blockId: blockId)])
+        EventsBunch(contextId: document.objectId, localEvents: [.setToggled(blockId: blockId)])
             .send()
     }
     
@@ -156,7 +156,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
         EventsBunch(
-            objectId: document.objectId,
+            contextId: document.objectId,
             localEvents: [.setLoadingState(blockId: blockId)]
         ).send()
         
@@ -173,7 +173,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func uploadFileAt(localPath: String, blockId: BlockId) {
         EventsBunch(
-            objectId: document.objectId,
+            contextId: document.objectId,
             localEvents: [.setLoadingState(blockId: blockId)]
         ).send()
         

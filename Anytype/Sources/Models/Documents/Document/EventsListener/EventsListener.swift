@@ -59,7 +59,7 @@ final class EventsListener: EventsListenerProtocol {
             object: nil
         )
             .compactMap { $0.object as? EventsBunch }
-            .filter { $0.objectId == self.objectId }
+            .filter { $0.contextId == self.objectId }
             .sink { [weak self] events in
                 self?.handle(events: events)
             }
