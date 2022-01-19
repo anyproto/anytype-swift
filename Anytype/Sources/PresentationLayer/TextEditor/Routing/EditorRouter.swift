@@ -16,7 +16,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showFilePicker(model: Picker.ViewModel)
     func showImagePicker(model: MediaPickerViewModel)
     
-    func saveFile(fileURL: URL)
+    func saveFile(fileURL: URL, type: FileContentType)
     
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
     
@@ -118,8 +118,8 @@ final class EditorRouter: EditorRouterProtocol {
         viewController?.present(vc, animated: true, completion: nil)
     }
     
-    func saveFile(fileURL: URL) {
-        fileRouter.saveFile(fileURL: fileURL)
+    func saveFile(fileURL: URL, type: FileContentType) {
+        fileRouter.saveFile(fileURL: fileURL, type: type)
     }
     
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void) {
@@ -173,22 +173,8 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showSettings(viewModel: ObjectSettingsViewModel) {
-        guard let viewController = rootController else {
-            return
-        }
-        
         let rootView = ObjectSettingsContainerView(viewModel: viewModel)
-        let controller = UIHostingController(rootView: rootView)
-        controller.modalPresentationStyle = .overCurrentContext
-        
-        controller.view.backgroundColor = .clear
-        controller.view.isOpaque = false
-        
-        rootView.viewModel.configure { [weak controller] in
-            controller?.dismiss(animated: false)
-        }
-        
-        viewController.present(controller, animated: false)
+        presentOverCurrentContextSwuftUIView(view: rootView, model: rootView.viewModel)
     }
     
     func showCoverPicker(viewModel: ObjectCoverPickerViewModel) {
@@ -278,22 +264,9 @@ final class EditorRouter: EditorRouterProtocol {
     
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
         guard relation.isEditable else { return }
-        guard let viewController = viewController else { return }
+        guard let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation) else { return }
         
-        let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation)
-        guard var contentViewModel = contentViewModel else { return }
-        
-        let controller = UIHostingController(rootView: contentViewModel.makeView())
-        controller.modalPresentationStyle = .overCurrentContext
-        
-        controller.view.backgroundColor = .clear
-        controller.view.isOpaque = false
-        
-        contentViewModel.dismissHandler = { [weak controller] in
-            controller?.dismiss(animated: false)
-        }
-        
-        viewController.topPresentedController.present(controller, animated: false)
+        presentOverCurrentContextSwuftUIView(view: contentViewModel.makeView(), model: contentViewModel)
     }
 
     func showAdditinNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
@@ -312,12 +285,28 @@ final class EditorRouter: EditorRouterProtocol {
         rootController?.pop()
     }
     
-    private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
+    func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = viewController else { return }
         
         let controller = UIHostingController(rootView: view)
         model.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
         viewController.present(controller, animated: true)
+    }
+    
+    func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
+        guard let viewController = rootController else { return }
+        
+        let controller = UIHostingController(rootView: view)
+        controller.modalPresentationStyle = .overCurrentContext
+        
+        controller.view.backgroundColor = .clear
+        controller.view.isOpaque = false
+        
+        model.onDismiss = { [weak controller] in
+            controller?.dismiss(animated: false)
+        }
+        
+        viewController.topPresentedController.present(controller, animated: false)
     }
     
     private func showURLInputViewController(

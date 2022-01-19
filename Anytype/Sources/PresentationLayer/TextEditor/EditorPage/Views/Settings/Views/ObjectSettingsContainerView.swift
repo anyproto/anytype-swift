@@ -27,7 +27,7 @@ struct ObjectSettingsContainerView: View {
                     guard !isLayoutPickerPresented else { return }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        viewModel.dismissHandler()
+                        viewModel.onDismiss()
                     }
                 },
                 view: {

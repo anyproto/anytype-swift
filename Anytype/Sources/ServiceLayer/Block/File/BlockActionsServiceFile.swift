@@ -18,10 +18,6 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
             filePath: filePath,
             url: ""
         )
-        
-        // Analytics
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockUpload)
-        
         _ = result.getValue(domain: .blockActionsService)
     }
     
@@ -40,12 +36,6 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
             .map(\.event)
             .map(MiddlewareResponse.init)
             .subscribe(on: DispatchQueue.global())
-            .handleEvents(
-                receiveSubscription: { _ in
-                    // Analytics
-                    Amplitude.instance().logEvent(AmplitudeEventsName.blockUpload)
-                }
-            )
             .eraseToAnyPublisher()
     }
     

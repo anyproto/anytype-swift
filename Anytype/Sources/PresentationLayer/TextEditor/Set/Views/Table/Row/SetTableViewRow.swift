@@ -3,7 +3,6 @@ import SwiftUI
 
 struct SetTableViewRow: View {
     let data: SetTableViewRowData
-    let initialOffset: CGFloat
     let xOffset: CGFloat
     
     @EnvironmentObject private var model: EditorSetViewModel
@@ -33,7 +32,7 @@ struct SetTableViewRow: View {
             }
             .padding(.horizontal, 16)
         }
-        .offset(x: initialOffset >= xOffset ? initialOffset - xOffset : 0, y: 0)
+        .offset(x: xOffset, y: 0)
     }
     
     private var cells: some View {
@@ -65,7 +64,6 @@ struct SetTableViewRow_Previews: PreviewProvider {
     static var previews: some View {
         SetTableViewRow(
             data: SetTableViewRowData(id: "", type: .page, title: "Title", icon: .placeholder("f"), allRelations: [], colums: []),
-            initialOffset: 0,
             xOffset: 0
         )
     }

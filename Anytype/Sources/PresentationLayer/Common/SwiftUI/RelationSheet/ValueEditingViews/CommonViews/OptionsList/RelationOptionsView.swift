@@ -11,20 +11,18 @@ struct RelationOptionsView: View {
     var body: some View {
         content
             .modifier(
-                RelationSheetModifier(isPresented: $viewModel.isPresented, title: nil, dismissCallback: viewModel.dismissHandler)
+                RelationSheetModifier(isPresented: $viewModel.isPresented, title: nil, dismissCallback: viewModel.onDismiss)
             )
             .sheet(isPresented: $isSearchPresented) { viewModel.makeSearchView() }
     }
     
     private var content: some View {
-        Group {
+        VStack(spacing: 0) {
+            navigationBarView
             if viewModel.selectedOptions.isEmpty {
                 emptyView
             } else {
-                VStack(spacing: 0) {
-                    navigationBarView
-                    optionsList
-                }
+                optionsList
             }
         }
     }

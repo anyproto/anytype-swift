@@ -422,7 +422,7 @@
 		3D471E1F26C3B60200457DE5 /* BlockLinkState+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E1E26C3B60200457DE5 /* BlockLinkState+Icon.swift */; };
 		3D471E3D26C69D2100457DE5 /* HomeSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E3C26C69D2100457DE5 /* HomeSearchView.swift */; };
 		3D4C3ADF26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4C3ADE26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift */; };
-		3D5321E0262445B200F0D4FF /* Localization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5321DD262445B200F0D4FF /* Localization.swift */; };
+		3D513F0F27956E2B007850D5 /* EditorSetViewPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D513F0E27956E2B007850D5 /* EditorSetViewPicker.swift */; };
 		3D540C7B2625C9DE00A07BD8 /* EditorBrowserAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C7A2625C9DE00A07BD8 /* EditorBrowserAssembly.swift */; };
 		3D568FB5266A287400DC7881 /* SystemColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* SystemColors.xcassets */; };
 		3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC0266A5D8600DC7881 /* ColorName.swift */; };
@@ -1288,7 +1288,7 @@
 		3D471E1E26C3B60200457DE5 /* BlockLinkState+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockLinkState+Icon.swift"; sourceTree = "<group>"; };
 		3D471E3C26C69D2100457DE5 /* HomeSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchView.swift; sourceTree = "<group>"; };
 		3D4C3ADE26AB6F9A007893B7 /* BlocksFileEmptyViewConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlocksFileEmptyViewConfiguration.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/EmptyView/BlocksFileEmptyViewConfiguration.swift; sourceTree = SOURCE_ROOT; };
-		3D5321DD262445B200F0D4FF /* Localization.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Localization.swift; sourceTree = "<group>"; };
+		3D513F0E27956E2B007850D5 /* EditorSetViewPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewPicker.swift; sourceTree = "<group>"; };
 		3D540C7A2625C9DE00A07BD8 /* EditorBrowserAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserAssembly.swift; sourceTree = "<group>"; };
 		3D568FB4266A287400DC7881 /* SystemColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SystemColors.xcassets; sourceTree = "<group>"; };
 		3D568FC0266A5D8600DC7881 /* ColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorName.swift; path = "Anytype/Sources/Design system/Colors/ColorName.swift"; sourceTree = SOURCE_ROOT; };
@@ -1915,7 +1915,6 @@
 				12426A2426DCF95F00693B1F /* KFProcessorBuilder.swift */,
 				12426A2926DCFA1300693B1F /* KFScalingType.swift */,
 				12DE403B264AD14E007B5074 /* Extensions */,
-				3D5321DD262445B200F0D4FF /* Localization.swift */,
 				03746CF822DE506200380AA1 /* Constants.swift */,
 				03A90DF123A04C71000E3EFE /* CustomEnvironments.swift */,
 				EA0BF07925D5CC1900B2A747 /* TimeChecker.swift */,
@@ -3469,19 +3468,11 @@
 		3D1B5F6B274CF0FB007D97AE /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				3D1B5F75274CF2FA007D97AE /* Subviews */,
-			);
-			path = Header;
-			sourceTree = "<group>";
-		};
-		3D1B5F75274CF2FA007D97AE /* Subviews */ = {
-			isa = PBXGroup;
-			children = (
 				3D1B5F6F274CF12C007D97AE /* SetFullHeader.swift */,
 				3D1B5F71274CF24B007D97AE /* SetHeaderSettings.swift */,
 				3D1B5F73274CF2F5007D97AE /* SetMinimizedHeader.swift */,
 			);
-			path = Subviews;
+			path = Header;
 			sourceTree = "<group>";
 		};
 		3D1B5F76274CF553007D97AE /* Table */ = {
@@ -4219,6 +4210,7 @@
 				3D8D41B8274287A900F8EBF3 /* EditorSetHostingController.swift */,
 				3D1B5F76274CF553007D97AE /* Table */,
 				3D1B5F6B274CF0FB007D97AE /* Header */,
+				3D513F0E27956E2B007850D5 /* EditorSetViewPicker.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5721,6 +5713,7 @@
 				125B6ED226F235F400BCD7D6 /* SlashMenuViewModel.swift in Sources */,
 				3DB92F85264BF69900E83276 /* View+CornerRadius.swift in Sources */,
 				530A542A269FB8FF009016AE /* AmplitudeConstants.swift in Sources */,
+				3D513F0F27956E2B007850D5 /* EditorSetViewPicker.swift in Sources */,
 				12A7B6C426C3E47200544037 /* CoverGradient.swift in Sources */,
 				C91AFEFC270B6618005F9386 /* EventsLogView.swift in Sources */,
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
@@ -6029,7 +6022,6 @@
 				3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */,
 				3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */,
 				12636CEE276A04BC0084D35D /* RelationOptionsSectionBuilder.swift in Sources */,
-				3D5321E0262445B200F0D4FF /* Localization.swift in Sources */,
 				1280E20F265C1B7900E5AEEE /* ImageCornersGuideline.swift in Sources */,
 				53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */,
 				120EB4E126E8EE2E003A0C2B /* ObjectHeaderCoverView.swift in Sources */,
@@ -6400,7 +6392,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = YES;
@@ -6433,7 +6425,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = YES;
@@ -6570,7 +6562,7 @@
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 29;
+				CURRENT_PROJECT_VERSION = 31;
 				DEVELOPMENT_ASSET_PATHS = "Anytype/Resources/Preview\\ Content";
 				DEVELOPMENT_TEAM = 6SFR4648FW;
 				ENABLE_BITCODE = YES;

@@ -9,6 +9,7 @@
 import BlocksModels
 import SwiftUI
 import Combine
+import Amplitude
 
 struct MarkupItem: Identifiable, Equatable {
     let id = UUID()
@@ -86,6 +87,15 @@ final class MarkupAccessoryViewModel: ObservableObject {
             return .buttonSelected
         case .notApplied:
             return .grayscale50
+        }
+    }
+
+    func handleSelectedColorItem(_ colorItem: ColorView.ColorItem) {
+        switch colorItem {
+        case let .text(color):
+            actionHandler.changeTextStyle(.textColor(color.color), range: range, blockId: blockId)
+        case let .background(color):
+            actionHandler.changeTextStyle(.backgroundColor(color.color), range: range, blockId: blockId)
         }
     }
 

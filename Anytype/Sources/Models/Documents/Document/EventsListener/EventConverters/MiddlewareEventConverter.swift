@@ -279,7 +279,12 @@ final class MiddlewareEventConverter {
         case .accountConfigUpdate(let config):
             AccountConfigurationProvider.shared.config = .init(config: config.config)
             return nil
-        default: return nil
+        case .blockDataviewViewSet(let data):
+            guard let view = data.view.asModel else { return nil }
+            return .dataview(view: view)
+        default:
+            anytypeAssertionFailure("Unsupported event: \(event)", domain: .middlewareEventConverter)
+            return nil
         }
     }
     
