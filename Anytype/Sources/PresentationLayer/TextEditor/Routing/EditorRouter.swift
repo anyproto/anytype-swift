@@ -261,7 +261,7 @@ final class EditorRouter: EditorRouterProtocol {
         let fpc = AnytypeFloatingPanelController(contentViewController: contentController)
         switch relation {
         case .text:
-            let height: CGFloat = 188
+            let height: CGFloat = 138
             fpc.layout = FixedHeightFloatingPanelLayout(height: height)
             fpc.keyboardFloatingPanelLayoutUpdater = KeyboardFloatingPanelLayoutUpdater(initialPanelHeight: height, fpc: fpc)
         case .number:
