@@ -3,7 +3,7 @@ import FloatingPanel
 import UIKit
 
 #warning("TODO R: init with ViewModel + subscribe for content update in order to update floatingpanel layout")
-final class RelationEditingViewPopup: FloatingPanelController {
+final class RelationDetailsViewPopup: FloatingPanelController {
     
     var keyboardPopupLayoutUpdater: KeyboardPopupLayoutUpdater?
     
@@ -14,10 +14,10 @@ final class RelationEditingViewPopup: FloatingPanelController {
         self.isRemovalInteractionEnabled = true
         self.backdropView.dismissalTapGestureRecognizer.isEnabled = true
         
-        self.surfaceView.grabberHandlePadding = 8.0
+        self.surfaceView.grabberHandlePadding = 6.0
         self.surfaceView.grabberHandle.backgroundColor = .stroke
-        self.surfaceView.grabberHandleSize = .init(width: 48.0, height: 5.0)
-        self.surfaceView.contentPadding = .init(top: 22, left: 0, bottom: 0, right: 0)
+        self.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
+        self.surfaceView.contentPadding = .init(top: RelationDetailsViewPopup.grabberHeight, left: 0, bottom: 0, right: 0)
         self.contentMode = .static
         
         let appearance = SurfaceAppearance()
@@ -41,5 +41,11 @@ final class RelationEditingViewPopup: FloatingPanelController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
+}
+
+extension RelationDetailsViewPopup {
+    
+    static let grabberHeight: CGFloat = 16
     
 }

@@ -254,7 +254,7 @@ final class EditorRouter: EditorRouterProtocol {
         
         #warning("TODO R: move to relation floating panel factory")
         #warning("TODO R: make explicit work with hrabber height")
-        let fpc = RelationEditingViewPopup(contentViewController: contentController)
+        let fpc = RelationDetailsViewPopup(contentViewController: contentController)
         switch relation {
         case .text:
             let height: CGFloat = 138
