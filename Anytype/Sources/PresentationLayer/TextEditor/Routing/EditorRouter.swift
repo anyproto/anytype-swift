@@ -240,7 +240,7 @@ final class EditorRouter: EditorRouterProtocol {
         guard let relation = relation else { return }
         
         switch relation {
-        case .date, .file, .status, .object, .tag:
+        case .date, .file, .status, .object, .tag, .text:
             showRelationEditingViewAsFloatinPanel(objectId: document.objectId, relation: relation)
         default:
             showRelationValueEditingView(objectId: document.objectId, relation: relation)
@@ -261,7 +261,9 @@ final class EditorRouter: EditorRouterProtocol {
         let fpc = AnytypeFloatingPanelController(contentViewController: contentController)
         switch relation {
         case .text:
-            break
+            let height: CGFloat = 188
+            fpc.layout = FixedHeightFloatingPanelLayout(height: height)
+            fpc.keyboardFloatingPanelLayoutUpdater = KeyboardFloatingPanelLayoutUpdater(initialPanelHeight: height, fpc: fpc)
         case .number:
             break
         case .status:

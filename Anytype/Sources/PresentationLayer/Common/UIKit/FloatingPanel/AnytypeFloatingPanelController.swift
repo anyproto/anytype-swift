@@ -13,6 +13,8 @@ import UIKit
 #warning("TODO R: conver to RelationsFloatingOanelController init with ViewModel + subscribe for content update in order to update floatingpanel layout")
 final class AnytypeFloatingPanelController: FloatingPanelController {
     
+    var keyboardFloatingPanelLayoutUpdater: KeyboardFloatingPanelLayoutUpdater?
+    
     init(contentViewController: UIViewController) {
         super.init(delegate: nil)
         
