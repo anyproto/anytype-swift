@@ -1,4 +1,5 @@
 import PhotosUI
+import BlocksModels
 
 /// Content type to display in picker from gallery
 ///
@@ -18,6 +19,17 @@ enum MediaPickerContentType {
             return .videos
         case .audio:
             return .videos
+        }
+    }
+
+    var asFileBlockContentType: FileContentType {
+        switch self {
+        case .images:
+            return .image
+        case .videos:
+            return .video
+        case .audio:
+            return .audio
         }
     }
     

@@ -25,7 +25,8 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             return nil
         }
 
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockCreate)
+        Amplitude.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
+
         return Anytype_Rpc.Block.Create.Service.invoke(contextID: contextId, targetID: targetId, block: blockInformation, position: position.asMiddleware)
             .map { MiddlewareResponse($0.event) }
             .getValue(domain: .blockActionsService)
@@ -44,7 +45,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     func delete(contextId: BlockId, blockIds: [BlockId]) -> Bool {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockUnlink)
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockDelete)
         let event = Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextId, blockIds: blockIds)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockActionsService)
@@ -84,5 +85,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         guard let event = event else { return }
 
         event.send()
+
+        Amplitude.instance().logReorderBlock(count: blockIds.count)
     }
 }

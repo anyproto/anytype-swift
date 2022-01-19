@@ -2,6 +2,7 @@ import UIKit
 import BlocksModels
 import Combine
 import AnytypeCore
+import Amplitude
 
 final class BlockActionHandler: BlockActionHandlerProtocol {
     weak var blockSelectionHandler: BlockSelectionHandler?
@@ -107,13 +108,16 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId) {
         guard let newText = markupChanger.toggleMarkup(attribute, blockId: blockId, range: range) else { return }
-        
+
+        Amplitude.instance().logSetMarkup(attribute)
+
         changeText(newText, blockId: blockId)
     }
     
     func setLink(url: URL?, range: NSRange, blockId: BlockId) {
         let newText: NSAttributedString?
         if let url = url {
+            Amplitude.instance().logSetMarkup(MarkupType.link(url))
             newText = markupChanger.setMarkup(.link(url), blockId: blockId, range: range)
         } else {
             newText = markupChanger.removeMarkup(.link(nil), blockId: blockId, range: range)
@@ -126,6 +130,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId) {
         let newText: NSAttributedString?
         if let linkBlockId = linkBlockId {
+            Amplitude.instance().logSetMarkup(MarkupType.linkToObject(blockId))
             newText = markupChanger.setMarkup(.linkToObject(linkBlockId), blockId: blockId, range: range)
         } else {
             newText = markupChanger.removeMarkup(.linkToObject(nil), blockId: blockId, range: range)
@@ -169,9 +174,13 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             )
         )
         fileUploadingDemon.addOperation(operation)
+
+        Amplitude.instance().logUploadMedia(type: type.asFileBlockContentType)
     }
     
     func uploadFileAt(localPath: String, blockId: BlockId) {
+        Amplitude.instance().logUploadMedia(type: .file)
+
         EventsBunch(
             objectId: document.objectId,
             localEvents: [.setLoadingState(blockId: blockId)]

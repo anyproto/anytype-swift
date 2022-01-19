@@ -14,14 +14,12 @@ struct RelationOptionsView: View {
     }
     
     private var content: some View {
-        Group {
+        VStack(spacing: 0) {
+            navigationBarView
             if viewModel.selectedOptions.isEmpty {
                 emptyView
             } else {
-                VStack(spacing: 0) {
-                    navigationBarView
-                    optionsList
-                }
+                optionsList
             }
         }
     }

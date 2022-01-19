@@ -135,6 +135,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         case .syncStatus(let status):
             viewInput?.update(syncStatus: status)
+        case .dataview:
+            anytypeAssertionFailure("Dataview update in editor: \(document.objectDetails)", domain: .editorPage)
         }
     }
     

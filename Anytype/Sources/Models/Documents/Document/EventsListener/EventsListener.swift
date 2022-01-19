@@ -71,7 +71,7 @@ final class EventsListener: EventsListenerProtocol {
         let markupUpdates = [mentionMarkupEventProvider.updateMentionsEvent()].compactMap { $0 }
         let updates = middlewareUpdates + localUpdates + markupUpdates
         
-        updates.merged.forEach { update in
+        updates.forEach { update in
             if update.hasUpdate {
                 IndentationBuilder.build(
                     container: blocksContainer,

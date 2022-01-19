@@ -4,7 +4,7 @@ import SwiftUI
 
 final class ActionableTextRelationEditingViewModel: ObservableObject {
     
-    var dismissHandler: (() -> Void)?
+    var onDismiss: () -> Void = {}
     
     @Published var isPresented: Bool = false {
         didSet {
