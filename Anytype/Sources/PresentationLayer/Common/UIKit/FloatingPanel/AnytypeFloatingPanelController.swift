@@ -10,6 +10,7 @@ import Foundation
 import FloatingPanel
 import UIKit
 
+#warning("TODO R: conver to RelationsFloatingOanelController init with ViewModel + subscribe for content update in order to update floatingpanel layout")
 final class AnytypeFloatingPanelController: FloatingPanelController {
     
     init(contentViewController: UIViewController) {
@@ -19,7 +20,7 @@ final class AnytypeFloatingPanelController: FloatingPanelController {
         self.isRemovalInteractionEnabled = true
         self.backdropView.dismissalTapGestureRecognizer.isEnabled = true
         
-        self.surfaceView.grabberHandlePadding = 6.0
+        self.surfaceView.grabberHandlePadding = 8.0
         self.surfaceView.grabberHandle.backgroundColor = .stroke
         self.surfaceView.grabberHandleSize = .init(width: 48.0, height: 5.0)
         self.surfaceView.contentPadding = .init(top: 22, left: 0, bottom: 0, right: 0)
@@ -37,6 +38,10 @@ final class AnytypeFloatingPanelController: FloatingPanelController {
         appearance.shadows = [shadow]
 
         self.surfaceView.appearance = appearance
+        
+        #if DEBUG
+        self.surfaceView.backgroundColor = .red
+        #endif
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -240,7 +240,7 @@ final class EditorRouter: EditorRouterProtocol {
         guard let relation = relation else { return }
         
         switch relation {
-        case .date:
+        case .date, .file, .status, .object, .tag:
             showRelationEditingViewAsFloatinPanel(objectId: document.objectId, relation: relation)
         default:
             showRelationValueEditingView(objectId: document.objectId, relation: relation)
@@ -256,8 +256,36 @@ final class EditorRouter: EditorRouterProtocol {
         
         let contentController = UIHostingController(rootView: contentViewModel.makeView())
         
+        #warning("TODO R: move to relation floating panel factory")
+        #warning("TODO R: make explicit work with hrabber height")
         let fpc = AnytypeFloatingPanelController(contentViewController: contentController)
-        fpc.layout = FixedHeightFloatingPanelLayout(height: 330)
+        switch relation {
+        case .text:
+            break
+        case .number:
+            break
+        case .status:
+            fpc.layout = FixedHeightFloatingPanelLayout(height: 188)
+        case .date:
+            fpc.layout = FixedHeightFloatingPanelLayout(height: 330)
+        case .object(let object):
+            fpc.layout = object.selectedObjects.isEmpty ? FixedHeightFloatingPanelLayout(height: 188) : RelationOptionsFloatingPanelLayout()
+        case .checkbox:
+            break
+        case .url:
+            break
+        case .email:
+            break
+        case .phone:
+            break
+        case .tag(let tag):
+            fpc.layout =  tag.selectedTags.isEmpty ? FixedHeightFloatingPanelLayout(height: 188) : RelationOptionsFloatingPanelLayout()
+            break
+        case .file(let file):
+            fpc.layout = file.files.isEmpty ? FixedHeightFloatingPanelLayout(height: 188) :  RelationOptionsFloatingPanelLayout()
+        case .unknown:
+            break
+        }
         
         viewController.topPresentedController.present(fpc, animated: true, completion: nil)
     }
