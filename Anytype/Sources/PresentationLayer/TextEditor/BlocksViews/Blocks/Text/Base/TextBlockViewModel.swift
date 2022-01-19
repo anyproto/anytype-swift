@@ -13,6 +13,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let content: BlockText
     private let isCheckable: Bool
     private let toggled: Bool
+    private let isFirstResponder: Bool
 
     private let blockDelegate: BlockDelegate
     
@@ -27,7 +28,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             indentationLevel,
             information,
             isCheckable,
-            toggled
+            toggled,
+            isFirstResponder
         ] as [AnyHashable]
     }
     
@@ -52,6 +54,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.toggled = block.isToggled
         self.information = block.information
         self.indentationLevel = block.indentationLevel
+        self.isFirstResponder = block.isFirstResponder
     }
     
     func set(focus: BlockFocusPosition) {
