@@ -30,7 +30,7 @@ struct EditorSetViewPicker: View {
                 if view.isSupported {
                     Button(action: {
                         model.activeViewId = view.id
-                        withAnimation {
+                        withAnimation(.fastSpring) {
                             model.showViewPicker = false
                         }
                     }) {

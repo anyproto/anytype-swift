@@ -88,14 +88,6 @@ public struct BlockDataview: Hashable {
     public static var empty: BlockDataview {
         BlockDataview(source: [], views: [], relations: [])
     }
-    
-    public func updatedWithView(_ view: DataviewView) -> BlockDataview {
-        guard let index = views.firstIndex(where: { $0.id == view.id }) else { return self }
-        var newViews = views
-        newViews[index] = view
-        
-        return BlockDataview(source: source, views: newViews, relations: relations)
-    }
 }
 
 
