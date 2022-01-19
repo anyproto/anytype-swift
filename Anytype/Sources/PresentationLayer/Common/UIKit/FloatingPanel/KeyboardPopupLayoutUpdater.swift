@@ -1,17 +1,9 @@
-//
-//  KeyboardFloatingPanelLayoutUpdater.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 19.01.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import Foundation
 import CoreGraphics
 import FloatingPanel
 import UIKit
 
-final class KeyboardFloatingPanelLayoutUpdater {
+final class KeyboardPopupLayoutUpdater {
     
     private var keyboardListener: KeyboardEventsListnerHelper?
     
@@ -22,14 +14,14 @@ final class KeyboardFloatingPanelLayoutUpdater {
                 let fpc = fpc
             else { return }
             
-            fpc.layout = FixedHeightFloatingPanelLayout(height: initialPanelHeight + keyboardRect.height)
+            fpc.layout = FixedHeightPopupLayout(height: initialPanelHeight + keyboardRect.height)
             fpc.invalidateLayout()
         }
         
         let willHideAction: KeyboardEventsListnerHelper.Action = { [weak fpc] _ in
             guard let fpc = fpc else { return }
             
-            fpc.layout = FixedHeightFloatingPanelLayout(height: initialPanelHeight)
+            fpc.layout = FixedHeightPopupLayout(height: initialPanelHeight)
             fpc.invalidateLayout()
         }
         

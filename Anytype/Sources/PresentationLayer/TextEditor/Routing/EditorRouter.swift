@@ -262,16 +262,16 @@ final class EditorRouter: EditorRouterProtocol {
         switch relation {
         case .text:
             let height: CGFloat = 138
-            fpc.layout = FixedHeightFloatingPanelLayout(height: height)
-            fpc.keyboardFloatingPanelLayoutUpdater = KeyboardFloatingPanelLayoutUpdater(initialPanelHeight: height, fpc: fpc)
+            fpc.layout = FixedHeightPopupLayout(height: height)
+            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
         case .number:
             break
         case .status:
-            fpc.layout = FixedHeightFloatingPanelLayout(height: 188)
+            fpc.layout = FixedHeightPopupLayout(height: 188)
         case .date:
-            fpc.layout = FixedHeightFloatingPanelLayout(height: 330)
+            fpc.layout = FixedHeightPopupLayout(height: 330)
         case .object(let object):
-            fpc.layout = object.selectedObjects.isEmpty ? FixedHeightFloatingPanelLayout(height: 188) : RelationOptionsFloatingPanelLayout()
+            fpc.layout = object.selectedObjects.isEmpty ? FixedHeightPopupLayout(height: 188) : RelationOptionsPopupLayout()
         case .checkbox:
             break
         case .url:
@@ -281,10 +281,10 @@ final class EditorRouter: EditorRouterProtocol {
         case .phone:
             break
         case .tag(let tag):
-            fpc.layout =  tag.selectedTags.isEmpty ? FixedHeightFloatingPanelLayout(height: 188) : RelationOptionsFloatingPanelLayout()
+            fpc.layout =  tag.selectedTags.isEmpty ? FixedHeightPopupLayout(height: 188) : RelationOptionsPopupLayout()
             break
         case .file(let file):
-            fpc.layout = file.files.isEmpty ? FixedHeightFloatingPanelLayout(height: 188) :  RelationOptionsFloatingPanelLayout()
+            fpc.layout = file.files.isEmpty ? FixedHeightPopupLayout(height: 188) :  RelationOptionsPopupLayout()
         case .unknown:
             break
         }

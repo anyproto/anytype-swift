@@ -2,7 +2,7 @@ import Foundation
 import FloatingPanel
 import CoreGraphics
 
-class RelationOptionsFloatingPanelLayout: FloatingPanelLayout {
+final class RelationOptionsPopupLayout: FloatingPanelLayout {
     
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .half
