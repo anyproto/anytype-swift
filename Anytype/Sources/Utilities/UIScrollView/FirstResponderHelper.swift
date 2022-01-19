@@ -21,13 +21,16 @@ final class FirstResponderHelper {
         guard
             let textView = notification.object as? UITextView,
             let window = textView.window,
-            let textViewFrame = textView.superview?.convert(textView.frame, to: window),
+            let selectedRange = textView.caretPosition,
             let keyboardFrame = keyboardFrame
         else {
             return
         }
-        
-        let distance: CGFloat = textViewFrame.maxY - keyboardFrame.minY
+
+        let cursorPosition = textView.caretRect(for: selectedRange)
+        let globalCaretframe = textView.convert(cursorPosition, to: window)
+        let distance: CGFloat = globalCaretframe.maxY - keyboardFrame.minY
+
         guard distance > -Constants.minSpacingAboveKeyboard else { return }
         UIView.animate(withDuration: CATransaction.animationDuration()) { [weak self] in
             self?.adjustScrollViewContentOffsetY(distance: distance)

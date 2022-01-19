@@ -119,8 +119,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
                 return false
             }
             if let featuredRelationsBlockViewModel = featuredRelationsBlock as? FeaturedRelationsBlockViewModel {
-                updateViewModelsWithStructs(Set([featuredRelationsBlockViewModel.blockId]))
-                viewInput?.update(blocks: modelsHolder.models)
+                let diffrerence = difference(with: Set([featuredRelationsBlockViewModel.blockId]))
+                modelsHolder.applyDifference(difference: diffrerence)
+                viewInput?.update(changes: diffrerence, allModels: modelsHolder.models)
             }
 
         case let .blocks(updatedIds):
@@ -128,10 +129,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
                 return
             }
             
-            updateViewModelsWithStructs(updatedIds)
+            let diffrerence = difference(with: updatedIds)
             updateMarkupViewModel(updatedIds)
-            
-            viewInput?.update(blocks: modelsHolder.models)
+
+            modelsHolder.applyDifference(difference: diffrerence)
+            viewInput?.update(changes: diffrerence, allModels: modelsHolder.models)
 
         case .syncStatus(let status):
             viewInput?.update(syncStatus: status)
@@ -165,36 +167,28 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             router.goBack()
         }
     }
-    
-    private func updateViewModelsWithStructs(_ blockIds: Set<BlockId>) {
-        for blockId in blockIds {
-            guard let newRecord = document.blocksContainer.model(id: blockId) else {
-                AnytypeLogger(category: "Editor page view model").debug("Could not find object with id: \(blockId)")
-                return
-            }
 
-            let viewModelIndex = modelsHolder.models.firstIndex {
-                $0.blockId == blockId
-            }
 
-            guard let viewModelIndex = viewModelIndex else {
-                return
-            }
+    private func difference(
+        with blockIds: Set<BlockId>
+    ) -> CollectionDifference<BlockViewModelProtocol> {
+        var currentModels = modelsHolder.models
+        
+        for (offset, model) in modelsHolder.models.enumerated() {
+            for blockId in blockIds {
+                if model.blockId == blockId {
+                    guard let model = document.blocksContainer.model(id: blockId),
+                          let newViewModel = blockBuilder.build(model, previousBlock: nil) else {
+                              continue
+                          }
 
-            let upperBlock = modelsHolder.models[viewModelIndex].upperBlock
-            
-            guard
-                let newModel = blockBuilder.build(newRecord, previousBlock: upperBlock)
-            else {
-                anytypeAssertionFailure(
-                    "Could not build model from record: \(newRecord)",
-                    domain: .editorPage
-                )
-                return
-            }
 
-            modelsHolder.models[viewModelIndex] = newModel
+                    currentModels[offset] = newViewModel
+                }
+            }
         }
+
+        return modelsHolder.difference(between: currentModels)
     }
     
     private func updateMarkupViewModel(_ updatedBlockIds: Set<BlockId>) {
@@ -231,12 +225,18 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
 
     private func handleGeneralUpdate(with models: [BlockViewModelProtocol]) {
-        modelsHolder.apply(newModels: models)
+        let difference = modelsHolder.difference(between: models)
+        if !difference.isEmpty {
+            modelsHolder.applyDifference(difference: difference)
+        } else {
+            modelsHolder.models = models
+        }
+
         
         let details = document.objectDetails
         let header = headerBuilder.objectHeader(details: details)
         updateHeaderIfNeeded(header: header, details: details)
-        viewInput?.update(blocks: modelsHolder.models)
+        viewInput?.update(changes: difference, allModels: modelsHolder.models)
 
         objectSettingsViewModel.update(
             objectRestrictions: document.objectRestrictions,

@@ -5,7 +5,10 @@ import BlocksModels
 protocol EditorPageViewInput: AnyObject {
     
     func update(header: ObjectHeader, details: ObjectDetails?)
-    func update(blocks: [BlockViewModelProtocol])
+    func update(
+        changes: CollectionDifference<BlockViewModelProtocol>,
+        allModels: [BlockViewModelProtocol]
+    )
     func update(syncStatus: SyncStatus)
         
     func showDeletedScreen(_ show: Bool)

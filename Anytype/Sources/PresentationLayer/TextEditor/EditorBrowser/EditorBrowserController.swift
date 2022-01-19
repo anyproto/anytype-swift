@@ -136,7 +136,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     
     private var scrollDirectionBottom = false
     func onScroll(bottom: Bool) {
-        guard !isMultiselectActive else { return }
+        guard !isMultiselectActive, scrollDirectionBottom != bottom else { return }
         scrollDirectionBottom = bottom
         updateNavigationVisibility(animated: true)
     }

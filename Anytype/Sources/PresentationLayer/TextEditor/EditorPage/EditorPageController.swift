@@ -26,7 +26,7 @@ final class EditorPageController: UIViewController {
         )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
-        collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.contentInsetAdjustmentBehavior = .always
 
         return collectionView
     }()
@@ -188,32 +188,33 @@ extension EditorPageController: EditorPageViewInput {
     func update(syncStatus: SyncStatus) {
         navigationBarHelper.updateSyncStatus(syncStatus)
     }
-    
-    func update(blocks: [BlockViewModelProtocol]) {
+
+    func update(
+        changes: CollectionDifference<BlockViewModelProtocol>,
+        allModels: [BlockViewModelProtocol]
+    ) {
         var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
-        blocksSnapshot.append(blocks.map { EditorItem.block($0) })
-        
-        let sectionSnapshot = self.dataSource.snapshot(for: .main)
+        blocksSnapshot.append(allModels.map { EditorItem.block($0) })
 
-        sectionSnapshot.visibleItems.forEach { item in
-            switch item {
-            case let .block(block):
-                let blockForUpdate = blocks.first { $0.blockId == block.blockId }
+        var changedIndexes = [BlockId]()
+        for change in changes.insertions {
+            changedIndexes.append(change.element.blockId)
 
-                guard let blockForUpdate = blockForUpdate else { return }
-                guard let indexPath = self.dataSource.indexPath(for: item) else { return }
-                guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+            guard let viewModel = allModels[safe: change.offset],
+                  let item = blocksSnapshot.items[safe: change.offset],
+                  blocksSnapshot.isVisible(item) else { continue }
 
-                cell.contentConfiguration = blockForUpdate.makeContentConfiguration(maxWidth: cell.bounds.width)
-                cell.indentationLevel = blockForUpdate.indentationLevel
-            case .header:
-                return
-            }
+            guard let indexPath = dataSource.indexPath(for: item) else { continue }
+            guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+
+
+            cell.contentConfiguration = viewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.indentationLevel = viewModel.indentationLevel
         }
-        
+
         applyBlocksSectionSnapshot(blocksSnapshot)
     }
-    
+
     func selectBlock(blockId: BlockId) {
         let item = dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
@@ -246,12 +247,6 @@ extension EditorPageController: EditorPageViewInput {
         navigationBarHelper.setNavigationBarHidden(show)
         deletedScreen.isHidden = !show
         if show { UIApplication.shared.hideKeyboard() }
-    }
-    
-    private func updateView() {
-        UIView.performWithoutAnimation {
-            dataSource.refresh(animatingDifferences: true)
-        }
     }
 }
 
@@ -418,7 +413,7 @@ private extension EditorPageController {
     
     func applyBlocksSectionSnapshot(_ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>) {
         let selectedCells = collectionView.indexPathsForSelectedItems
-        
+
         UIView.performWithoutAnimation { [weak self] in
             guard let self = self else { return }
 

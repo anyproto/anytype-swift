@@ -34,12 +34,15 @@ final class BlockViewModelsHolder {
 
 extension BlockViewModelsHolder {
     
-    func apply(newModels: [BlockViewModelProtocol]) {
-        let difference = newModels.difference(
+    func difference(between newModels: [BlockViewModelProtocol]) -> CollectionDifference<BlockViewModelProtocol> {
+        if models.isEmpty { return .init([])! }
+
+        return newModels.difference(
             from: models
         ) { $0.hashable == $1.hashable }
-        
-        
+    }
+
+    func applyDifference(difference: CollectionDifference<BlockViewModelProtocol>) {
         if !difference.isEmpty, let result = models.applying(difference) {
             models = result
         }
