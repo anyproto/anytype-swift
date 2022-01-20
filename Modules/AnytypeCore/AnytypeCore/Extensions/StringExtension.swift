@@ -7,4 +7,8 @@ public extension String {
     var trimmed: String {
         trimmingCharacters(in: .whitespacesAndNewlines)
     }
+    
+    var replacedNewlinesWithSpaces: String {
+        String(components(separatedBy: .newlines).joined(separator: " "))
+    }
 }

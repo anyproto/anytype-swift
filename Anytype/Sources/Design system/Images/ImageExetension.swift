@@ -86,6 +86,7 @@ extension Image {
         static let addToFeatured = createImage("relation_add_to_featured")
         static let removeFromFeatured = createImage("relation_remove_from_featured")
         static let locked = createImage("relation_locked")
+        static let lockedSmall = createImage("relation_locked_small")
         
         static let createOption = createImage("relation_new")
         
