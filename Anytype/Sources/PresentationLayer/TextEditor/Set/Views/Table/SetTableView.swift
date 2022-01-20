@@ -25,12 +25,7 @@ struct SetTableView: View {
                         spacing: 0,
                         pinnedViews: [.sectionHeaders]
                     ) {
-                        Section(header: compoundHeader) {
-                            ForEach(model.rows) { row in
-                                SetTableViewRow(data: row, xOffset: xOffset)
-                            }
-                        }
-                        Rectangle().frame(height: 40).foregroundColor(.backgroundPrimary)
+                        content
                     }
                     .frame(minWidth: fullWidth)
                     .onAppear {
@@ -51,6 +46,21 @@ struct SetTableView: View {
                     .frame(width: fullWidth)
                 , alignment: .topLeading
             )
+        }
+    }
+    
+    private var content: some View {
+        Group {
+            if model.isEmpty {
+                EmptyView()
+            } else {
+                Section(header: compoundHeader) {
+                    ForEach(model.rows) { row in
+                        SetTableViewRow(data: row, xOffset: xOffset)
+                    }
+                }
+                Rectangle().frame(height: 40).foregroundColor(.backgroundPrimary)
+            }
         }
     }
 

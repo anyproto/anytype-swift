@@ -554,6 +554,7 @@
 		3DB981222750E2BA00ECC882 /* Comparable+Clamped.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */; };
 		3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */; };
 		3DBED66D266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */; };
+		3DC2D2C3279817B100437E04 /* Document+Dataview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC2D2C2279817B100437E04 /* Document+Dataview.swift */; };
 		3DC7862D265D251900498993 /* MiddlewareEventsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */; };
 		3DC78636265D443F00498993 /* MiddlewareEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78635265D443F00498993 /* MiddlewareEventConverter.swift */; };
 		3DC78638265D571500498993 /* LocalEventConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC78637265D571500498993 /* LocalEventConverter.swift */; };
@@ -568,8 +569,7 @@
 		3DCEE135273C18FC00BC5565 /* BeginingOfTextMarkdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE134273C18FC00BC5565 /* BeginingOfTextMarkdown.swift */; };
 		3DCEE13A273C1F8B00BC5565 /* InlineMarkdownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE139273C1F8B00BC5565 /* InlineMarkdownTests.swift */; };
 		3DCEE13C273C1FAD00BC5565 /* TextViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */; };
-		3DCFDE362796C36A006C7D02 /* Dataview+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFDE352796C36A006C7D02 /* Dataview+Update.swift */; };
-		3DCFDE382796C41C006C7D02 /* DataviewUpdate+Animation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFDE372796C41C006C7D02 /* DataviewUpdate+Animation.swift */; };
+		3DCFDE362796C36A006C7D02 /* EditorSetViewModel+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DCFDE352796C36A006C7D02 /* EditorSetViewModel+Update.swift */; };
 		3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DD2FC432620802900C65466 /* AuthAssembly.swift */; };
 		3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */; };
 		3DDC6A64262707CB004F5EA4 /* BlockLinkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DDC6A63262707CB004F5EA4 /* BlockLinkView.swift */; };
@@ -1420,6 +1420,7 @@
 		3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Comparable+Clamped.swift"; sourceTree = "<group>"; };
 		3DBE2403262F04AA0065E9B6 /* Binding+OnChange.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+OnChange.swift"; sourceTree = "<group>"; };
 		3DBED66C266F697E00B9E9AB /* ServiceSuccess+NewBlockId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "ServiceSuccess+NewBlockId.swift"; path = "Anytype/Sources/PresentationLayer/Home/Extensions/ServiceSuccess+NewBlockId.swift"; sourceTree = SOURCE_ROOT; };
+		3DC2D2C2279817B100437E04 /* Document+Dataview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Document+Dataview.swift"; sourceTree = "<group>"; };
 		3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareEventsListener.swift; sourceTree = "<group>"; };
 		3DC78635265D443F00498993 /* MiddlewareEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareEventConverter.swift; sourceTree = "<group>"; };
 		3DC78637265D571500498993 /* LocalEventConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalEventConverter.swift; sourceTree = "<group>"; };
@@ -1434,8 +1435,7 @@
 		3DCEE134273C18FC00BC5565 /* BeginingOfTextMarkdown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeginingOfTextMarkdown.swift; sourceTree = "<group>"; };
 		3DCEE139273C1F8B00BC5565 /* InlineMarkdownTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InlineMarkdownTests.swift; path = AnyTypeTests/Markdown/InlineMarkdownTests.swift; sourceTree = SOURCE_ROOT; };
 		3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TextViewExtension.swift; path = AnyTypeTests/Markdown/Mocks/TextViewExtension.swift; sourceTree = SOURCE_ROOT; };
-		3DCFDE352796C36A006C7D02 /* Dataview+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Dataview+Update.swift"; sourceTree = "<group>"; };
-		3DCFDE372796C41C006C7D02 /* DataviewUpdate+Animation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewUpdate+Animation.swift"; sourceTree = "<group>"; };
+		3DCFDE352796C36A006C7D02 /* EditorSetViewModel+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorSetViewModel+Update.swift"; sourceTree = "<group>"; };
 		3DD2FC432620802900C65466 /* AuthAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthAssembly.swift; sourceTree = "<group>"; };
 		3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkState.swift; sourceTree = "<group>"; };
 		3DDC6A63262707CB004F5EA4 /* BlockLinkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkView.swift; sourceTree = "<group>"; };
@@ -4240,6 +4240,7 @@
 				3DA6DBCF27457D9700516E75 /* Views */,
 				3DAE1CAF273EA208009A72F3 /* EditorSetView.swift */,
 				3D8D41BA274297FF00F8EBF3 /* EditorSetViewModel.swift */,
+				3DCFDE352796C36A006C7D02 /* EditorSetViewModel+Update.swift */,
 			);
 			path = Set;
 			sourceTree = "<group>";
@@ -4465,8 +4466,7 @@
 		3DCFDE312796C360006C7D02 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3DCFDE352796C36A006C7D02 /* Dataview+Update.swift */,
-				3DCFDE372796C41C006C7D02 /* DataviewUpdate+Animation.swift */,
+				3DC2D2C2279817B100437E04 /* Document+Dataview.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5608,7 +5608,7 @@
 				03B55546230AD13A0070FDF3 /* ActivityIndicator.swift in Sources */,
 				3D2F9C18271EAE4D0043C326 /* SearchService.swift in Sources */,
 				53FF7C4526F7523B00A5A592 /* AudioProgressSlider.swift in Sources */,
-				3DCFDE362796C36A006C7D02 /* Dataview+Update.swift in Sources */,
+				3DCFDE362796C36A006C7D02 /* EditorSetViewModel+Update.swift in Sources */,
 				120F7D46267CD2BA00327734 /* InlineNavigationBar.swift in Sources */,
 				3D1B5F64274C002A007D97AE /* SetColumData.swift in Sources */,
 				53BC39A3261B7934004D7EB6 /* CodeBlockView.swift in Sources */,
@@ -6054,6 +6054,7 @@
 				1219538F278D873F00D53653 /* ActionableTextRelationEditingView.swift in Sources */,
 				120E816F269F26F8006FE84E /* ObjectSettingsContainerView.swift in Sources */,
 				EA57F3DA26B84AA9007D4292 /* MarkupRange.swift in Sources */,
+				3DC2D2C3279817B100437E04 /* Document+Dataview.swift in Sources */,
 				3D5A416B2703170300F1F6A1 /* BlockBackgroundColor.swift in Sources */,
 				0A0965E525BEF5B000C004BD /* FileRouter.swift in Sources */,
 				C965247F2720781C00254057 /* HorizonalTypeListView.swift in Sources */,
@@ -6110,7 +6111,6 @@
 				0ACC357625C851650003CF3A /* BlockViewModelBuilder.swift in Sources */,
 				12FD9D1F2767172A00991886 /* RelationText.swift in Sources */,
 				3D471E1F26C3B60200457DE5 /* BlockLinkState+Icon.swift in Sources */,
-				3DCFDE382796C41C006C7D02 /* DataviewUpdate+Animation.swift in Sources */,
 				3DFD1B3926EA5AE600F893FC /* ObjectIconImageModel.swift in Sources */,
 				3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */,
 				0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */,

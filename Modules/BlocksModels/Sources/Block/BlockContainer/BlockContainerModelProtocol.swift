@@ -13,4 +13,5 @@ public protocol BlockContainerModelProtocol: AnyObject {
     func replace(childrenIds: [BlockId], parentId: BlockId, shouldSkipGuardAgainstMissingIds: Bool)
     
     func update(blockId: BlockId, update: @escaping (BlockModelProtocol) -> ())
+    func updateDataview(blockId: BlockId, update: @escaping (BlockDataview) -> (BlockDataview))
 }

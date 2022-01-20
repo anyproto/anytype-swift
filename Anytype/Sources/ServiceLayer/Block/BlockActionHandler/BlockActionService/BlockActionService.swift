@@ -75,7 +75,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         ) else { return }
             
         EventsBunch(
-            objectId: documentId,
+            contextId: documentId,
             localEvents: [ .setFocus(blockId: blockId, position: .beginning) ]
         ).send()
     }
@@ -89,7 +89,7 @@ final class BlockActionService: BlockActionServiceProtocol {
                 position: .bottom
             )
             .flatMap {
-                EventsBunch(objectId: documentId, middlewareEvents: $0.messages).send()
+                EventsBunch(contextId: documentId, middlewareEvents: $0.messages).send()
             }
     }
 
@@ -160,7 +160,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private func setFocus(model: BlockDataProvider) {
         if case let .text(text) = model.information.content {
             let event = LocalEvent.setFocus(blockId: model.blockId, position: .at(text.endOfTextRangeWithMention))
-            EventsBunch(objectId: documentId, localEvents: [event]).send()
+            EventsBunch(contextId: documentId, localEvents: [event]).send()
         }
     }
 }

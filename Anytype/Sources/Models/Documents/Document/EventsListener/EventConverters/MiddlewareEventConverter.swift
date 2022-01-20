@@ -278,14 +278,75 @@ final class MiddlewareEventConverter {
         case .accountConfigUpdate(let config):
             AccountConfigurationProvider.shared.config = .init(config: config.config)
             return nil
+            
         //MARK: - Dataview
         case .blockDataviewViewSet(let data):
             guard let view = data.view.asModel else { return nil }
-            return .dataview(.set(view: view))
+            
+            blocksContainer.updateDataview(blockId: data.id) { dataView in
+                var newViews = dataView.views
+                if let index = dataView.views.firstIndex(where: { $0.id == view.id }) {
+                    newViews[index] = view
+                } else {
+                    newViews.insert(view, at: dataView.views.count)
+                }
+                
+                return dataView.updated(views: newViews)
+            }
+            
+            return .general
         case .blockDataviewViewOrder(let data):
-            return .dataview(.order(ids: data.viewIds))
+            blocksContainer.updateDataview(blockId: data.id) { dataView in
+                let newViews = data.viewIds.compactMap { id -> DataviewView? in
+                    guard let view = dataView.views.first(where: { $0.id == id }) else {
+                        anytypeAssertionFailure("Not found view in order with id: \(id)", domain: .middlewareEventConverter)
+                        return nil
+                    }
+                    return view
+                }
+                
+                return dataView.updated(views: newViews)
+            }
+            return .general
         case .blockDataviewViewDelete(let data):
-            return .dataview(.delete(id: data.viewID))
+            blocksContainer.updateDataview(blockId: data.id) { dataView in
+                guard let index = dataView.views.firstIndex(where: { $0.id == data.viewID }) else {
+                    anytypeAssertionFailure("Not found view in delete with id: \(data.viewID)", domain: .middlewareEventConverter)
+                    return dataView
+                }
+                
+                var dataView = dataView
+                if dataView.views[index].id == dataView.activeViewId {
+                    let newId = dataView.views.findNextSupportedView(mainIndex: index)?.id ?? ""
+                    dataView = dataView.updated(activeViewId: newId)
+                }
+                
+                var newViews = dataView.views
+                newViews.remove(at: index)
+                return dataView.updated(views: newViews)
+            }
+            
+            return .general
+        case .blockDataviewSourceSet(let data):
+            blocksContainer.updateDataview(blockId: data.id) { dataView in
+                return dataView.updated(source: data.source)
+            }
+            
+            return .general
+        case .blockDataviewRelationDelete(let data):
+            blocksContainer.updateDataview(blockId: data.id) { dataView in
+                guard let index = dataView.relations.firstIndex(where: { $0.key == data.relationKey }) else {
+                    anytypeAssertionFailure("Not found key \(data.relationKey) in dataview: \(dataView)", domain: .middlewareEventConverter)
+                    return dataView
+                }
+                
+                var newRelations = dataView.relations
+                newRelations.remove(at: index)
+                
+                return dataView.updated(relations: newRelations)
+            }
+            
+            return .general
         default:
             anytypeAssertionFailure("Unsupported event: \(event)", domain: .middlewareEventConverter)
             return nil

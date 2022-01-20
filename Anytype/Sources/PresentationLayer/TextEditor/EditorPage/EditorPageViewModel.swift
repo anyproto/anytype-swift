@@ -33,7 +33,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
 
         EventsBunch(
-            objectId: MiddlewareConfigurationService.shared.configuration().homeBlockID,
+            contextId: MiddlewareConfigurationService.shared.configuration().homeBlockID,
             localEvents: [.documentClosed(blockId: document.objectId)]
         ).send()
     }
@@ -135,8 +135,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         case .syncStatus(let status):
             viewInput?.update(syncStatus: status)
-        case .dataview:
-            anytypeAssertionFailure("Dataview update in editor: \(document.objectDetails)", domain: .editorPage)
         }
     }
     
