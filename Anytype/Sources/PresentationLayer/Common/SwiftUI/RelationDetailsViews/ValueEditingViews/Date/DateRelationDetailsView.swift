@@ -6,12 +6,15 @@ struct DateRelationDetailsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            AnytypeText(viewModel.relationName, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(viewModel.title, style: .uxTitle1Semibold, color: .textPrimary)
                 .frame(height: 48, alignment: .center)
             valueList
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
+        .readSize { size in
+            viewModel.onViewHeightUpdate?(size.height)
+        }
     }
     
     private var valueList: some View {
@@ -31,9 +34,8 @@ struct DateRelationEditingView_Previews: PreviewProvider {
     static var previews: some View {
         DateRelationDetailsView(
             viewModel: DateRelationDetailsViewModel(
-                relationKey: "",
-                relationName: "",
                 value: nil,
+                relation: .date(Relation.Date(id: "", name: "name", isFeatured: false, isEditable: false, value: nil)),
                 service: RelationsService(objectId: "")
             )
         )
