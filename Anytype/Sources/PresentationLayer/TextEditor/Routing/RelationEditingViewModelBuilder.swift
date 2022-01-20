@@ -16,19 +16,17 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         switch relation {
         case .text(let text):
             return TextRelationDetailsViewModel(
-                type: .text,
-                title: text.name,
                 value: text.value ?? "",
-                relationKey: text.id,
-                service: RelationsService(objectId: objectId)
+                type: .text,
+                relation: relation,
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId))
             )
         case .number(let number):
             return TextRelationDetailsViewModel(
-                type: .number,
-                title: number.name,
                 value: number.value ?? "",
-                relationKey: number.id,
-                service: RelationsService(objectId: objectId)
+                type: .number,
+                relation: relation,
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId))
             )
         case .phone(let phone):
             return ActionableTextRelationEditingViewModel(

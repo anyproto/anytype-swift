@@ -1,83 +1,58 @@
 import Foundation
 import BlocksModels
 import SwiftUI
+import Combine
 
 final class TextRelationDetailsViewModel: ObservableObject {
     
-    var onDismiss: () -> Void = {}
+    var heightPublisher: Published<CGFloat>.Publisher { $height }
+    @Published var height: CGFloat = 0
     
-    @Published var isPresented: Bool = false {
-        didSet {
-            guard isPresented == false else { return }
-            
-            saveValue()
-        }
-    }
+    var onDismiss: () -> Void = {}
     
     @Published var value: String = ""
     
-    let title: String
+    let type: TextRelationEditingViewType
     
-    private let type: TextRelationEditingViewType
-    private let relationKey: String
-    private let service: RelationsServiceProtocol
-    
-    private let numberFormatter: NumberFormatter = {
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        formatter.groupingSeparator = ""
-        return formatter
-    }()
+    private let relation: Relation
+    private let service: TextRelationDetailsServiceProtocol
+        
+    private var cancellable: AnyCancellable?
     
     init(
-        type: TextRelationEditingViewType,
-        title: String,
         value: String,
-        relationKey: String,
-        service: RelationsServiceProtocol
+        type: TextRelationEditingViewType,
+        relation: Relation,
+        service: TextRelationDetailsServiceProtocol
     ) {
-        self.title = title
         self.value = value
-        
         self.type = type
-        self.relationKey = relationKey
+        self.relation = relation
         self.service = service
+        
+        cancellable = self.$value
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .sink { [weak self] _ in
+                self?.saveValue()
+            }
+    }
+    
+    var title: String {
+        relation.name
     }
     
 }
 
-extension TextRelationDetailsViewModel {
-    
-    var keyboardType: UIKeyboardType {
-        switch type {
-        case .text: return .default
-        case .number: return .decimalPad
-        }
-    }
-    
-    var placeholder: String {
-        switch type {
-        case .text: return "Add text".localized
-        case .number: return "Add number".localized
-        }
-    }
-    
-}
+extension TextRelationDetailsViewModel: RelationDetailsViewModelProtocol {}
 
 extension TextRelationDetailsViewModel: RelationEditingViewModelProtocol {
     
     func saveValue() {
-        switch type {
-        case .text:
-            service.updateRelation(relationKey: relationKey, value: value.protobufValue)
-        case .number:
-            guard let number = numberFormatter.number(from: value)?.doubleValue else { return }
-            service.updateRelation(relationKey: relationKey, value: number.protobufValue)
-        }
+        service.saveRelation(value: value, key: relation.id, textType: type)
     }
     
     func makeView() -> AnyView {
-        AnyView(TextRelationDetailsView(viewModel: self))
+        TextRelationDetailsView(viewModel: self).eraseToAnyView()
     }
     
 }

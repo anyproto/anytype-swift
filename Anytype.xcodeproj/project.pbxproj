@@ -135,6 +135,8 @@
 		12136D3F27980C0900262FE7 /* KeyboardPopupLayoutUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D3E27980C0900262FE7 /* KeyboardPopupLayoutUpdater.swift */; };
 		12136D5027991AF500262FE7 /* RelationDetailsViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D4F27991AF500262FE7 /* RelationDetailsViewModelProtocol.swift */; };
 		12136D522799520400262FE7 /* RelationDetailsViewPopupBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D512799520400262FE7 /* RelationDetailsViewPopupBehavior.swift */; };
+		12136D5627996F3400262FE7 /* TextRelationDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D5527996F3400262FE7 /* TextRelationDetailsService.swift */; };
+		12136D5827996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D5727996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift */; };
 		1215E8A926A82DFD0089AF7E /* UrlResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8A826A82DFD0089AF7E /* UrlResolver.swift */; };
 		1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8B026A860D20089AF7E /* AppConfigurator.swift */; };
 		1215E8B426A860ED0089AF7E /* AppConfiguratorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8B326A860ED0089AF7E /* AppConfiguratorProtocol.swift */; };
@@ -1012,6 +1014,8 @@
 		12136D3E27980C0900262FE7 /* KeyboardPopupLayoutUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardPopupLayoutUpdater.swift; sourceTree = "<group>"; };
 		12136D4F27991AF500262FE7 /* RelationDetailsViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailsViewModelProtocol.swift; sourceTree = "<group>"; };
 		12136D512799520400262FE7 /* RelationDetailsViewPopupBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailsViewPopupBehavior.swift; sourceTree = "<group>"; };
+		12136D5527996F3400262FE7 /* TextRelationDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsService.swift; sourceTree = "<group>"; };
+		12136D5727996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsServiceProtocol.swift; sourceTree = "<group>"; };
 		1215E8A826A82DFD0089AF7E /* UrlResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UrlResolver.swift; sourceTree = "<group>"; };
 		1215E8B026A860D20089AF7E /* AppConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigurator.swift; sourceTree = "<group>"; };
 		1215E8B326A860ED0089AF7E /* AppConfiguratorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguratorProtocol.swift; sourceTree = "<group>"; };
@@ -2962,6 +2966,8 @@
 				1219538E278D873F00D53653 /* ActionableTextRelationEditingView.swift */,
 				12195390278D879400D53653 /* ActionableTextRelationEditingViewModel.swift */,
 				12195392278D8B1800D53653 /* ActionableTextRelationEditingViewType.swift */,
+				12136D5527996F3400262FE7 /* TextRelationDetailsService.swift */,
+				12136D5727996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -5537,6 +5543,7 @@
 				0A0965FB25BEF5B000C004BD /* EditorPageController.swift in Sources */,
 				12FD9D252767179A00991886 /* RelationDate.swift in Sources */,
 				3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */,
+				12136D5827996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift in Sources */,
 				3D932D4326317E3A00C7D1EA /* HomeCell.swift in Sources */,
 				12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */,
 				3DE6926D273147E300A4CD4E /* URLInputAccessoryViewModel.swift in Sources */,
@@ -5811,6 +5818,7 @@
 				EAC5FD512657DC97006BB24E /* KeyboardState.swift in Sources */,
 				C917DF0E271772BD0085185D /* ImageViewerViewController.swift in Sources */,
 				1215E8BB26A8654C0089AF7E /* AnalyticsConfigurator.swift in Sources */,
+				12136D5627996F3400262FE7 /* TextRelationDetailsService.swift in Sources */,
 				EA0261332625D0E100AE6D86 /* ListBlockRestrictions.swift in Sources */,
 				034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */,
 				3D409BC026309CE100E588A7 /* HomeViewModel.swift in Sources */,
