@@ -1,7 +1,7 @@
 import UIKit
 
 private enum Constants {
-    static let selectionViewInset: UIEdgeInsets = .init(top: 2, left: 8, bottom: -2, right: -8)
+    static let selectionViewInset: UIEdgeInsets = .init(top: 0, left: 8, bottom: -2, right: -8)
 }
 
 class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIContentView {
