@@ -102,8 +102,9 @@ final class BlockActionService: BlockActionServiceProtocol {
             position: position,
             templateId: ""
         ) else { return nil }
-        
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
+
+        #warning("replace with CreateObject")
+//        Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
 
         return newBlockId
     }
@@ -176,7 +177,6 @@ private extension BlockActionService {
 
 extension BlockActionService {
     func bookmarkFetch(blockId: BlockId, url: String) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockBookmarkFetch)
         bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url)
     }
 }

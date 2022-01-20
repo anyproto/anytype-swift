@@ -34,7 +34,6 @@ struct HomeProfileView: View {
     
     private var avatar: some View {
         Button(action: {
-            Amplitude.instance().logEvent(AmplitudeEventsName.profilePage)
             model.showPage(pageId: model.profileData.blockId, viewType: .page)
         }){ userIcon }
     }

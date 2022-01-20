@@ -46,8 +46,6 @@ class BlockListService: BlockListServiceProtocol {
     }
 
     func setDivStyle(contextId: BlockId, blockIds: [BlockId], style: BlockDivider.Style) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetDivStyle)
-
         Anytype_Rpc.BlockList.Set.Div.Style.Service
             .invoke(contextID: contextId, blockIds: blockIds, style: style.asMiddleware)
             .map { EventsBunch(event: $0.event) }

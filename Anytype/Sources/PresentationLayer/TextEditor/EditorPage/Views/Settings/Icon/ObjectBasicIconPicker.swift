@@ -21,10 +21,6 @@ struct ObjectBasicIconPicker: View {
             tabBarView
         }
         .ignoresSafeArea(.keyboard)
-        .onAppear {
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.popupChooseEmojiMenu)
-        }
     }
     
     private var emojiTabView: some View {
@@ -96,9 +92,6 @@ struct ObjectBasicIconPicker: View {
     
     private var randomEmojiButtonView: some View {
         Button {
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.buttonRandomEmoji)
-
             EmojiProvider.shared.randomEmoji().flatMap {
                 handleSelectedEmoji($0)
             }

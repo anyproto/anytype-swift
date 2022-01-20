@@ -32,18 +32,5 @@ extension CursorModeAccessoryView {
                 return .editingMode
             }
         }
-
-        var analyticsEvent: String {
-            switch self {
-            case .mention:
-                return AmplitudeEventsName.buttonMentionMenu
-            case .slash:
-                return AmplitudeEventsName.buttonSlashMenu
-            case .style:
-                return AmplitudeEventsName.buttonStyleMenu
-            case .actions:
-                return ""
-            }
-        }
     }
 }
