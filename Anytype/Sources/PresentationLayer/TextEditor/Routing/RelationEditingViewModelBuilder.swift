@@ -15,7 +15,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
     func buildViewModel(objectId: BlockId, relation: Relation) -> RelationEditingViewModelProtocol? {
         switch relation {
         case .text(let text):
-            return TextRelationEditingViewModel(
+            return TextRelationDetailsViewModel(
                 type: .text,
                 title: text.name,
                 value: text.value ?? "",
@@ -23,7 +23,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 service: RelationsService(objectId: objectId)
             )
         case .number(let number):
-            return TextRelationEditingViewModel(
+            return TextRelationDetailsViewModel(
                 type: .number,
                 title: number.name,
                 value: number.value ?? "",
@@ -58,14 +58,14 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 delegate: delegate
             )
         case .date(let value):
-            return DateRelationEditingViewModel(
+            return DateRelationDetailsViewModel(
                 relationKey: relation.id,
                 relationName: relation.name,
                 value: value.value,
                 service: RelationsService(objectId: objectId)
             )
         case .status(let status):
-            return StatusRelationEditingViewModel(
+            return StatusRelationDetailsViewModel(
                 relationKey: relation.id,
                 relationName: relation.name,
                 relationOptions: status.allOptions,

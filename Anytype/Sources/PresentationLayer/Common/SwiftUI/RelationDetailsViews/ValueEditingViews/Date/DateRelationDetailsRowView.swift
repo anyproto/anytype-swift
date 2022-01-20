@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct DateRelationRowView: View {
+struct DateRelationDetailsRowView: View {
     
-    let value: DateRelationEditingValue
+    let value: DateRelationDetailsValue
     let isSelected: Bool
     @Binding var date: Date
     let onTap: () -> ()
@@ -43,7 +43,7 @@ struct DateRelationRowView: View {
 
 struct DateRelationRowView_Previews: PreviewProvider {
     static var previews: some View {
-        DateRelationRowView(value: .exactDay, isSelected: true, date: .constant(Date()), onTap: {})
+        DateRelationDetailsRowView(value: .exactDay, isSelected: true, date: .constant(Date()), onTap: {})
             .background(Color.purple.opacity(0.2))
     }
 }
