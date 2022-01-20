@@ -7,39 +7,70 @@ final class RelationDetailsViewPopup: FloatingPanelController {
     
     var keyboardPopupLayoutUpdater: KeyboardPopupLayoutUpdater?
     
+    // MARK: - Initializers
+    
     init(contentViewController: UIViewController) {
         super.init(delegate: nil)
+        setup()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setup()
+    }
+    
+}
+
+// MARK: - Private extension
+
+private extension RelationDetailsViewPopup {
+    
+    func setup() {
+        setupGestures()
+        setupSurfaceView()
         
-        self.set(contentViewController: contentViewController)
-        self.isRemovalInteractionEnabled = true
-        self.backdropView.dismissalTapGestureRecognizer.isEnabled = true
+        contentMode = .static
         
-        self.surfaceView.grabberHandlePadding = 6.0
-        self.surfaceView.grabberHandle.backgroundColor = .stroke
-        self.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
-        self.surfaceView.contentPadding = .init(top: RelationDetailsViewPopup.grabberHeight, left: 0, bottom: 0, right: 0)
-        self.contentMode = .static
+        set(contentViewController: contentViewController)
+    }
+    
+    func setupGestures() {
+        isRemovalInteractionEnabled = true
+        backdropView.dismissalTapGestureRecognizer.isEnabled = true
+    }
+    
+    func setupSurfaceView() {
+        surfaceView.appearance = makeAppearance()
         
+        surfaceView.grabberHandlePadding = 6.0
+        surfaceView.grabberHandleSize = CGSize(width: 48.0, height: 4.0)
+        surfaceView.grabberHandle.backgroundColor = .stroke
+        
+        surfaceView.contentPadding = UIEdgeInsets(top: RelationDetailsViewPopup.grabberHeight, left: 0, bottom: 0, right: 0)
+
+        #if DEBUG
+        surfaceView.backgroundColor = .red
+        #endif
+    }
+    
+    func makeAppearance() -> SurfaceAppearance {
         let appearance = SurfaceAppearance()
         appearance.cornerRadius = 16.0
         appearance.cornerCurve = .continuous
-        // Define shadows
+        
+        appearance.shadows = [makeShadow()]
+        
+        return appearance
+    }
+    
+    func makeShadow() -> SurfaceAppearance.Shadow {
         let shadow = SurfaceAppearance.Shadow()
         shadow.color = UIColor.grayscale90.withAlphaComponent(0.25)
         shadow.offset = CGSize(width: 0, height: 0)
         shadow.radius = 40
         shadow.opacity = 1
-        appearance.shadows = [shadow]
-
-        self.surfaceView.appearance = appearance
         
-        #if DEBUG
-        self.surfaceView.backgroundColor = .red
-        #endif
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        return shadow
     }
     
 }
