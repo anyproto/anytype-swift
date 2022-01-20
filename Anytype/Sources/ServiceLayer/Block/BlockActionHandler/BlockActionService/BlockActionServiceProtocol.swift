@@ -15,7 +15,7 @@ protocol BlockActionServiceProtocol {
     
     func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId?
     
-    func split(info: BlockInformation, position: Int, newBlockContentType: BlockText.Style)
+    func split(info: BlockInformation, position: Int, newBlockContentType: BlockText.Style, attributedString: NSAttributedString)
     
     func bookmarkFetch(blockId: BlockId, url: String)
     

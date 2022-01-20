@@ -14,12 +14,11 @@ final class TextService: TextServiceProtocol {
             .invoke(contextID: contextId, blockID: blockId, text: middlewareString.text, marks: middlewareString.marks)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .textService)
-        
-        guard let event = event else {
-            return false
-        }
+//        guard let event = event else {
+//            return false
+//        }
 
-        event.send()
+//        event.send()
         return true
     }
     

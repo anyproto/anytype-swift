@@ -190,27 +190,31 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func update(
-        changes: CollectionDifference<BlockViewModelProtocol>,
+        changes: CollectionDifference<BlockViewModelProtocol>?,
         allModels: [BlockViewModelProtocol]
     ) {
         var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         blocksSnapshot.append(allModels.map { EditorItem.block($0) })
 
         var changedIndexes = [BlockId]()
-        for change in changes.insertions {
-            changedIndexes.append(change.element.blockId)
 
-            guard let viewModel = allModels[safe: change.offset],
-                  let item = blocksSnapshot.items[safe: change.offset],
-                  blocksSnapshot.isVisible(item) else { continue }
+        if let changes = changes {
+            for change in changes.insertions {
+                changedIndexes.append(change.element.blockId)
 
-            guard let indexPath = dataSource.indexPath(for: item) else { continue }
-            guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+                guard let viewModel = allModels[safe: change.offset],
+                      let item = blocksSnapshot.items[safe: change.offset],
+                      blocksSnapshot.isVisible(item) else { continue }
+
+                guard let indexPath = dataSource.indexPath(for: item) else { continue }
+                guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
 
 
-            cell.contentConfiguration = viewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationLevel = viewModel.indentationLevel
+                cell.contentConfiguration = viewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
+                cell.indentationLevel = viewModel.indentationLevel
+            }
         }
+
 
         applyBlocksSectionSnapshot(blocksSnapshot)
     }
@@ -242,7 +246,15 @@ extension EditorPageController: EditorPageViewInput {
     func textBlockDidBeginEditing() {
         collectionView.setContentOffset(contentOffset, animated: false)
     }
-    
+
+    func textBlockDidChangeFrame() {
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+
+    func textBlockDidChangeText() {
+        // For future changes
+    }
+
     func showDeletedScreen(_ show: Bool) {
         navigationBarHelper.setNavigationBarHidden(show)
         deletedScreen.isHidden = !show

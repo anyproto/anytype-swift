@@ -42,17 +42,13 @@ final class BlockActionService: BlockActionServiceProtocol {
         event.send()
     }
 
-    func split(info: BlockInformation, position: Int, newBlockContentType: BlockText.Style) {
+    func split(
+        info: BlockInformation,
+        position: Int,
+        newBlockContentType: BlockText.Style,
+        attributedString: NSAttributedString
+    ) {
         let blockId = info.id
-
-        let content = info.content
-        guard case let .text(blockText) = content else {
-            anytypeAssertionFailure(
-                "We have unsupported content type: \(content)",
-                domain: .blockActionsService
-            )
-            return
-        }
 
         let range = NSRange(location: position, length: 0)
         let documentId = self.documentId
@@ -63,9 +59,9 @@ final class BlockActionService: BlockActionServiceProtocol {
         guard textService.setText(
             contextId: documentId,
             blockId: blockId,
-            middlewareString: MiddlewareString(text: blockText.text, marks: blockText.marks)
+            middlewareString: AttributedTextConverter.asMiddleware(attributedText: attributedString)
         ) else { return }
-            
+
         guard let blockId = textService.split(
             contextId: documentId,
             blockId: blockId,
@@ -73,11 +69,9 @@ final class BlockActionService: BlockActionServiceProtocol {
             style: newBlockContentType,
             mode: mode
         ) else { return }
-            
-        EventsBunch(
-            contextId: documentId,
-            localEvents: [ .setFocus(blockId: blockId, position: .beginning) ]
-        ).send()
+
+        UserSession.shared.firstResponderId.value = blockId
+        UserSession.shared.focus.value = .beginning
     }
 
     func duplicate(blockId: BlockId) {        

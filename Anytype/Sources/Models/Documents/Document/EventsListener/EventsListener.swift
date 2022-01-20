@@ -69,8 +69,13 @@ final class EventsListener: EventsListenerProtocol {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) }
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) }
         let markupUpdates = [mentionMarkupEventProvider.updateMentionsEvent()].compactMap { $0 }
-        let updates = middlewareUpdates + localUpdates + markupUpdates
-        
+        let dataSourceUpdates = events.dataSourceEvents.compactMap { localConverter.convert($0) }
+        let updates = middlewareUpdates + markupUpdates + localUpdates + dataSourceUpdates
+
+        if dataSourceUpdates.isNotEmpty {
+            print("HELLOW")
+        }
+
         updates.forEach { update in
             if update.hasUpdate {
                 IndentationBuilder.build(
@@ -82,5 +87,4 @@ final class EventsListener: EventsListenerProtocol {
             onUpdateReceive?(update)
         }
     }
-    
 }

@@ -27,6 +27,10 @@ extension TextBlockContentView: CustomTextViewDelegate {
     func changeText(text: NSAttributedString) {
         handler.changeText(text, info: currentConfiguration.information)
         blockDelegate.textDidChange()
+
+        if textView.textView.isLayoutNeeded {
+            blockDelegate.textBlockSetNeedsLayout()
+        }
     }
     
     func changeTextStyle(attribute: MarkupType, range: NSRange) {
@@ -43,11 +47,11 @@ extension TextBlockContentView: CustomTextViewDelegate {
             // from the same block, it will leads to wrong order of blocks in array,
             // adding a delay makes impossible to press enter very often
             if currentConfiguration.pressingEnterTimeChecker.exceedsTimeInterval() {
-                handler.handleKeyboardAction(action, info: currentConfiguration.information)
+                handler.handleKeyboardAction(action, info: currentConfiguration.information, attributedText: textView.textView.attributedText)
             }
             return false
         case .deleteOnEmptyContent, .deleteAtTheBeginingOfContent:
-            handler.handleKeyboardAction(action, info: currentConfiguration.information)
+            handler.handleKeyboardAction(action, info: currentConfiguration.information, attributedText: textView.textView.attributedText)
             return true
         }
     }

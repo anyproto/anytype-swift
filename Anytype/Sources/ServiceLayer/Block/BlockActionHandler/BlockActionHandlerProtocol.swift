@@ -34,7 +34,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func changeCaretPosition(range: NSRange)
     func changeText(_ text: NSAttributedString, blockId: BlockId)
     func changeText(_ text: NSAttributedString, info: BlockInformation)
-    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation)
+    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation, attributedText: NSAttributedString)
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
