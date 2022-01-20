@@ -26,7 +26,7 @@ final class TextBlockActionHandler {
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
 
         EventsBunch(
-            objectId: contextId,
+            contextId: contextId,
             localEvents: [.setText(blockId: info.id, text: middlewareString)]
         ).send()
 

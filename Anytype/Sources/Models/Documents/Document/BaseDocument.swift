@@ -56,7 +56,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
         handleObjectShowResponse(response: result)
         
-        EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
+        EventsBunch(contextId: objectId, middlewareEvents: result.messages).send()
         return true
     }
     

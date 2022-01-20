@@ -63,9 +63,9 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
             .compactMap { $0.object as? EventsBunch }
             .filter { [weak self] event in
                 guard let self = self else { return false }
-                guard event.objectId.isNotEmpty else { return true } // Empty object id in generic subscription
+                guard event.contextId.isNotEmpty else { return true } // Empty object id in generic subscription
                 
-                guard let subscription = SubscriptionId(rawValue: event.objectId) else {
+                guard let subscription = SubscriptionId(rawValue: event.contextId) else {
                     return false
                 }
                 
@@ -90,16 +90,16 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 
                 update(details: updatedDetails, rawSubIds: data.subIds)
             case .subscriptionPosition(let position):
-                guard let subId = SubscriptionId(rawValue: events.objectId) else {
-                    anytypeAssertionFailure("Unsupported object id \(events.objectId) in subscriptionPosition", domain: .subscriptionStorage)
+                guard let subId = SubscriptionId(rawValue: events.contextId) else {
+                    anytypeAssertionFailure("Unsupported object id \(events.contextId) in subscriptionPosition", domain: .subscriptionStorage)
                     break
                 }
                 
                 guard let action = turnedOnSubs[subId] else { return }
                 action(subId, .move(from: position.id, after: position.afterID.isNotEmpty ? position.afterID : nil))
             case .subscriptionAdd(let data):
-                guard let subId = SubscriptionId(rawValue: events.objectId) else {
-                    anytypeAssertionFailure("Unsupported object id \(events.objectId) in subscriptionRemove", domain: .subscriptionStorage)
+                guard let subId = SubscriptionId(rawValue: events.contextId) else {
+                    anytypeAssertionFailure("Unsupported object id \(events.contextId) in subscriptionRemove", domain: .subscriptionStorage)
                     break
                 }
                 
@@ -111,8 +111,8 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 guard let action = turnedOnSubs[subId] else { return }
                 action(subId, .add(details, after: data.afterID.isNotEmpty ? data.afterID : nil))
             case .subscriptionRemove(let remove):
-                guard let subId = SubscriptionId(rawValue: events.objectId) else {
-                    anytypeAssertionFailure("Unsupported object id \(events.objectId) in subscriptionRemove", domain: .subscriptionStorage)
+                guard let subId = SubscriptionId(rawValue: events.contextId) else {
+                    anytypeAssertionFailure("Unsupported object id \(events.contextId) in subscriptionRemove", domain: .subscriptionStorage)
                     break
                 }
                 
