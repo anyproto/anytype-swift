@@ -2,7 +2,7 @@ import ProtobufMessages
 import BlocksModels
 
 struct EventsBunch {
-    let objectId: BlockId
+    let contextId: BlockId
     
     let middlewareEvents: [Anytype_Event.Message]
     let localEvents: [LocalEvent]
@@ -15,32 +15,32 @@ struct EventsBunch {
 
 extension EventsBunch {
     
-    init(objectId: BlockId, middlewareEvents: [Anytype_Event.Message]) {
-        self.objectId = objectId
+    init(contextId: BlockId, middlewareEvents: [Anytype_Event.Message]) {
+        self.contextId = contextId
         self.middlewareEvents = middlewareEvents
         self.localEvents = []
     }
     
-    init(objectId: BlockId, localEvents: [LocalEvent]) {
-        self.objectId = objectId
+    init(contextId: BlockId, localEvents: [LocalEvent]) {
+        self.contextId = contextId
         self.middlewareEvents = []
         self.localEvents = localEvents
     }
     
     init(event: Anytype_Event) {
-        self.init(objectId: event.contextID, middlewareEvents: event.messages)
+        self.init(contextId: event.contextID, middlewareEvents: event.messages)
     }
     
     init(event: Anytype_ResponseEvent) {
-        self.init(objectId: event.contextID, middlewareEvents: event.messages)
+        self.init(contextId: event.contextID, middlewareEvents: event.messages)
     }
 }
 
 extension EventsBunch {
-    
+
     func enrichedWith(localEvents: [LocalEvent]) -> EventsBunch {
         EventsBunch(
-            objectId: self.objectId,
+            contextId: self.contextId,
             middlewareEvents: self.middlewareEvents,
             localEvents: self.localEvents + localEvents
         )

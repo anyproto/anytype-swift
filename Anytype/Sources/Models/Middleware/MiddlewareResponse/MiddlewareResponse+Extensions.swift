@@ -5,7 +5,7 @@ extension MiddlewareResponse {
     
     var asEventsBunch: EventsBunch {
         EventsBunch(
-            objectId: self.contextId,
+            contextId: self.contextId,
             middlewareEvents: self.messages
         )
     }
@@ -21,7 +21,7 @@ extension MiddlewareResponse {
         } ?? []
         
         return EventsBunch(
-            objectId: self.contextId,
+            contextId: self.contextId,
             middlewareEvents: self.messages,
             localEvents: localEvents
         )

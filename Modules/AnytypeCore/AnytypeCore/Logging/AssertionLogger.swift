@@ -20,7 +20,6 @@ public enum ErrorDomain: String {
     
     case blockInformationCreator
     case blockContainer
-    case blockUpdater
     case blockDelegate
     case blocksConverter
     
@@ -32,7 +31,6 @@ public enum ErrorDomain: String {
     case editorBrowser
     case editorPage
     case editorSet
-    case dataviewConverter
     case loadingController
     
     case markStyleModifier
