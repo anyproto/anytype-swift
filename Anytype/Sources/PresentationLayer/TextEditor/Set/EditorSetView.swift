@@ -19,20 +19,24 @@ struct EditorSetView: View {
     }
     
     private var content: some View {
-        ZStack {
-            SetTableView(
-                tableHeaderSize: $tableHeaderSize,
-                offset: $offset,
-                headerMinimizedSize: headerMinimizedSize
-            )
-            SetMinimizedHeader(
-                headerSize: tableHeaderSize,
-                tableViewOffset: offset,
-                headerMinimizedSize: $headerMinimizedSize
-            )
+        VStack(spacing: 0) {
+            ZStack {
+                SetTableView(
+                    tableHeaderSize: $tableHeaderSize,
+                    offset: $offset,
+                    headerMinimizedSize: headerMinimizedSize
+                )
+                SetMinimizedHeader(
+                    headerSize: tableHeaderSize,
+                    tableViewOffset: offset,
+                    headerMinimizedSize: $headerMinimizedSize
+                )
+            }
+            EditorSetPaginationView()
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)
+        
         .bottomFloater(isPresented: $model.showViewPicker) {
             EditorSetViewPicker()
                 .cornerRadius(16, corners: [.topLeft, .topRight])
