@@ -66,7 +66,7 @@ extension DateRelationDetailsViewModel: RelationEditingViewModelProtocol {
     }
     
     func makeView() -> AnyView {
-        AnyView(DateRelationDetailsView(viewModel: self))
+        DateRelationDetailsView(viewModel: self).eraseToAnyView()
     }
      
 }
