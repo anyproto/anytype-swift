@@ -4,8 +4,11 @@ import SwiftProtobuf
 
 final class DateRelationDetailsViewModel: ObservableObject {
     
+    var heightPublisher: Published<CGFloat>.Publisher { $height }
+    
     var onDismiss: () -> Void = {}
-    var onViewHeightUpdate: ((CGFloat) -> Void)?
+    
+    @Published var height: CGFloat = 0
     
     @Published var selectedValue: DateRelationDetailsValue {
         didSet {

@@ -248,50 +248,56 @@ final class EditorRouter: EditorRouterProtocol {
         guard let viewController = viewController else { return }
         
         let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation)
-        guard let contentViewModel = contentViewModel else { return }
+        guard
+            let contentViewModel = contentViewModel,
+            let vm = contentViewModel as? RelationDetailsViewModelProtocol
+        else { return }
         
-        let contentController = UIHostingController(rootView: contentViewModel.makeView())
+        let fpc = RelationDetailsViewPopup(viewModel: vm)
+//        fpc.layout = FixedHeightPopupLayout(height: 330)
         
+//        let contentController = UIHostingController(rootView: contentViewModel.makeView())
+//
         #warning("TODO R: move to relation floating panel factory")
         #warning("TODO R: make explicit work with hrabber height")
-        let fpc = RelationDetailsViewPopup(contentViewController: contentController)
-        switch relation {
-        case .text:
-            let height: CGFloat = 138
-            fpc.layout = FixedHeightPopupLayout(height: height)
-            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
-        case .number:
-            let height: CGFloat = 138
-            fpc.layout = FixedHeightPopupLayout(height: height)
-            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
-        case .status:
-            fpc.layout = RelationOptionsPopupLayout()
-        case .date:
-            fpc.layout = FixedHeightPopupLayout(height: 330)
-        case .object(let object):
-            fpc.layout = object.selectedObjects.isEmpty ? FixedHeightPopupLayout(height: 188) : RelationOptionsPopupLayout()
-        case .checkbox:
-            break
-        case .url:
-            let height: CGFloat = 138
-            fpc.layout = FixedHeightPopupLayout(height: height)
-            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
-        case .email:
-            let height: CGFloat = 138
-            fpc.layout = FixedHeightPopupLayout(height: height)
-            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
-        case .phone:
-            let height: CGFloat = 138
-            fpc.layout = FixedHeightPopupLayout(height: height)
-            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
-        case .tag(let tag):
-            fpc.layout =  tag.selectedTags.isEmpty ? FixedHeightPopupLayout(height: 188) : RelationOptionsPopupLayout()
-            break
-        case .file(let file):
-            fpc.layout = file.files.isEmpty ? FixedHeightPopupLayout(height: 188) :  RelationOptionsPopupLayout()
-        case .unknown:
-            break
-        }
+//        let fpc = RelationDetailsViewPopup(contentViewController: contentController)
+//        switch relation {
+//        case .text:
+//            let height: CGFloat = 138
+//            fpc.layout = FixedHeightPopupLayout(height: height)
+//            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
+//        case .number:
+//            let height: CGFloat = 138
+//            fpc.layout = FixedHeightPopupLayout(height: height)
+//            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
+//        case .status:
+//            fpc.layout = RelationOptionsPopupLayout()
+//        case .date:
+//            fpc.layout = FixedHeightPopupLayout(height: 330)
+//        case .object(let object):
+//            fpc.layout = object.selectedObjects.isEmpty ? FixedHeightPopupLayout(height: 188) : RelationOptionsPopupLayout()
+//        case .checkbox:
+//            break
+//        case .url:
+//            let height: CGFloat = 138
+//            fpc.layout = FixedHeightPopupLayout(height: height)
+//            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
+//        case .email:
+//            let height: CGFloat = 138
+//            fpc.layout = FixedHeightPopupLayout(height: height)
+//            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
+//        case .phone:
+//            let height: CGFloat = 138
+//            fpc.layout = FixedHeightPopupLayout(height: height)
+//            fpc.keyboardPopupLayoutUpdater = KeyboardPopupLayoutUpdater(initialPanelHeight: height, fpc: fpc)
+//        case .tag(let tag):
+//            fpc.layout =  tag.selectedTags.isEmpty ? FixedHeightPopupLayout(height: 188) : RelationOptionsPopupLayout()
+//            break
+//        case .file(let file):
+//            fpc.layout = file.files.isEmpty ? FixedHeightPopupLayout(height: 188) :  RelationOptionsPopupLayout()
+//        case .unknown:
+//            break
+//        }
         
         viewController.topPresentedController.present(fpc, animated: true, completion: nil)
     }

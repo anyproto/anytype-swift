@@ -13,7 +13,7 @@ struct DateRelationDetailsView: View {
         }
         .padding(.horizontal, 20)
         .readSize { size in
-            viewModel.onViewHeightUpdate?(size.height)
+            viewModel.height = size.height
         }
     }
     

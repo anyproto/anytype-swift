@@ -1,37 +1,66 @@
 import Foundation
 import FloatingPanel
 import UIKit
+import SwiftUI
+import Combine
 
 #warning("TODO R: init with ViewModel + subscribe for content update in order to update floatingpanel layout")
 final class RelationDetailsViewPopup: FloatingPanelController {
     
     var keyboardPopupLayoutUpdater: KeyboardPopupLayoutUpdater?
     
+    private let viewModel: RelationDetailsViewModelProtocol
+    private var cancellables: Set<AnyCancellable> = []
+    
     // MARK: - Initializers
     
-    init(contentViewController: UIViewController) {
+    init(viewModel: RelationDetailsViewModelProtocol) {
+        self.viewModel = viewModel
+        
         super.init(delegate: nil)
+        
         setup()
+        
+        set(contentViewController: UIHostingController(rootView: viewModel.makeView()))
     }
     
+    @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        setup()
+        fatalError("init(coder:) has not been implemented")
     }
-    
+
 }
 
 // MARK: - Private extension
 
 private extension RelationDetailsViewPopup {
     
+    func updatePopupLayout(viewHeight: CGFloat) {
+        layout = FixedHeightPopupLayout(height: viewHeight + Self.grabberHeight)
+        invalidateLayout()
+    }
+    
+}
+
+private extension RelationDetailsViewPopup {
+    
     func setup() {
+        setupFloatingPanelController()
+        
+        viewModel.heightPublisher
+            .receiveOnMain()
+            .sink { [weak self] height in
+                self?.updatePopupLayout(viewHeight: height)
+            }
+            .store(in: &cancellables)
+    }
+    
+    func setupFloatingPanelController() {
         setupGestures()
         setupSurfaceView()
         
+        behavior = RelationDetailsViewPopupBehavior()
         contentMode = .static
-        
-        set(contentViewController: contentViewController)
     }
     
     func setupGestures() {

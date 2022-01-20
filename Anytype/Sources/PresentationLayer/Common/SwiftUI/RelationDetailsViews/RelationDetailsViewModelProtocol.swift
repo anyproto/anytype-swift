@@ -3,7 +3,7 @@ import SwiftUI
 
 protocol RelationDetailsViewModelProtocol {
     
-    var onViewHeightUpdate: ((CGFloat) -> Void)? { get set }
+    var heightPublisher: Published<CGFloat>.Publisher { get }
         
     @ViewBuilder func makeView() -> AnyView
     
