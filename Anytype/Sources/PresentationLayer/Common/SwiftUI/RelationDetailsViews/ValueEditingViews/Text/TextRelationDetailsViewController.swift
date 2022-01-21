@@ -29,6 +29,17 @@ final class TextRelationDetailsViewController: UIViewController {
         setupView()
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        viewModel.height = textView.intrinsicContentSize.height + 48// + view.safeAreaInsets.bottom
+    }
+    
 }
 
 private extension TextRelationDetailsViewController {
@@ -47,7 +58,7 @@ private extension TextRelationDetailsViewController {
         textView.isScrollEnabled = false
         textView.font = AnytypeFont.uxBodyRegular.uiKitFont
         textView.textColor = UIColor.grayscale90
-        
+
         return textView
     }
     
@@ -74,6 +85,8 @@ private extension TextRelationDetailsViewController {
             )
         )
         
+        textView.contentInsetAdjustmentBehavior = .never
+        
         textView.delegate = self
     }
     
@@ -95,6 +108,7 @@ extension TextRelationDetailsViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         viewModel.value = textView.text
+        viewModel.height = textView.intrinsicContentSize.height + 48 //+ view.safeAreaInsets.bottom
     }
     
 }

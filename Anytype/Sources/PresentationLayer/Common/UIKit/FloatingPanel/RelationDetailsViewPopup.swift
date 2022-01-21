@@ -35,8 +35,8 @@ final class RelationDetailsViewPopup: FloatingPanelController {
 
 private extension RelationDetailsViewPopup {
     
-    func updatePopupLayout(viewHeight: CGFloat) {
-        layout = FixedHeightPopupLayout(height: viewHeight + Self.grabberHeight)
+    func updateLayout(_ layout: FloatingPanelLayout) {
+        self.layout = layout//FixedHeightPopupLayout(height: viewHeight + Self.grabberHeight)
         invalidateLayout()
     }
     
@@ -47,10 +47,10 @@ private extension RelationDetailsViewPopup {
     func setup() {
         setupFloatingPanelController()
         
-        viewModel.heightPublisher
+        viewModel.layoutPublisher
             .receiveOnMain()
-            .sink { [weak self] height in
-                self?.updatePopupLayout(viewHeight: height)
+            .sink { [weak self] layout in
+                self?.updateLayout(layout)
             }
             .store(in: &cancellables)
     }

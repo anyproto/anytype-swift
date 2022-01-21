@@ -1,14 +1,24 @@
 import Foundation
 import SwiftUI
 import SwiftProtobuf
+import FloatingPanel
+import Combine
 
 final class DateRelationDetailsViewModel: ObservableObject {
     
-    var heightPublisher: Published<CGFloat>.Publisher { $height }
+    var layoutPublisher: Published<FloatingPanelLayout>.Publisher {
+        $layout
+    }
+    
+    @Published private var layout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0)
     
     var onDismiss: () -> Void = {}
     
-    @Published var height: CGFloat = 0
+    @Published var height: CGFloat = 0 {
+        didSet {
+            layout = FixedHeightPopupLayout(height: height)
+        }
+    }
     
     @Published var selectedValue: DateRelationDetailsValue {
         didSet {
@@ -46,11 +56,11 @@ final class DateRelationDetailsViewModel: ObservableObject {
 }
 
 extension DateRelationDetailsViewModel: RelationDetailsViewModelProtocol {
-    
+
     func makeViewController() -> UIViewController {
         UIHostingController(rootView: makeView())
     }
-    
+
 }
 
 extension DateRelationDetailsViewModel: RelationEditingViewModelProtocol {

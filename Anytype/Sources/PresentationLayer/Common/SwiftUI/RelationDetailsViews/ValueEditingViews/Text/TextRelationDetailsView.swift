@@ -13,9 +13,6 @@ struct TextRelationDetailsView: View {
                 
             Spacer.fixedHeight(20)
         }
-        .readSize { size in
-            viewModel.height = size.height
-        }
         .padding(.vertical, 12)
     }
     
