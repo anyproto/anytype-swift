@@ -45,7 +45,13 @@ final class DateRelationDetailsViewModel: ObservableObject {
     
 }
 
-extension DateRelationDetailsViewModel: RelationDetailsViewModelProtocol {}
+extension DateRelationDetailsViewModel: RelationDetailsViewModelProtocol {
+    
+    func makeViewController() -> UIViewController {
+        UIHostingController(rootView: makeView())
+    }
+    
+}
 
 extension DateRelationDetailsViewModel: RelationEditingViewModelProtocol {
 
