@@ -21,7 +21,7 @@ final class EditorSetViewModel: ObservableObject {
     var colums: [SetColumData] {
         dataView.relationsMetadataForView(activeView)
             .filter { $0.isHidden == false }
-            .map { SetColumData(key: $0.key, value: $0.name) }
+            .map { SetColumData(metadata: $0) }
     }
     
     var rows: [SetTableViewRowData] {

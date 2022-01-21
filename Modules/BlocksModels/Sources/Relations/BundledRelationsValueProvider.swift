@@ -33,7 +33,7 @@ public extension BundledRelationsValueProvider {
     }
 
     var snippet: String {
-        stringValue(with: .snippet)
+        stringValue(with: .snippet).replacedNewlinesWithSpaces
     }
     
     var iconEmoji: String {
