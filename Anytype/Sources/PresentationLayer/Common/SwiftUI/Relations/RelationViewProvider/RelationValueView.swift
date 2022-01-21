@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct RelationValueView: View {
     let relation: Relation
@@ -8,6 +9,8 @@ struct RelationValueView: View {
     var body: some View {
         if action.isNotNil {
             Button {
+                guard FeatureFlags.relationsEditing else { return }
+                
                 action?(relation)
             } label: {
                 relationView
