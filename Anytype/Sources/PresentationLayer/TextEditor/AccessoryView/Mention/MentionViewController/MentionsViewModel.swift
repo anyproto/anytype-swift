@@ -39,7 +39,7 @@ final class MentionsViewModel {
         onSelect(mention)
         view?.dismiss()
 
-        Amplitude.instance().logSearchResult(index: index, length: mentionService.filterString.count)
+        Amplitude.instance().logSearchResult(index: index + 1, length: mentionService.filterString.count)
     }
     
     func didSelectCreateNewMention() {

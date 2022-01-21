@@ -56,7 +56,7 @@ class SearchNewRelationViewModel: ObservableObject, Dismissible {
     // MARK: - View model methods
 
     func search(text: String) {
-        Amplitude.instance().logSearchQuery(.relation, length: text.count)
+        Amplitude.instance().logSearchQuery(.menuSearch, length: text.count)
         
         let newSearchData = obtainAvailbaleRelationList()
 

@@ -15,10 +15,6 @@ struct ObjectProfileIconPicker: View {
             tabBarView
         }
         .ignoresSafeArea(.keyboard)
-        .onAppear {
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.popupProfileIconMenu)
-        }
     }
     
     private var mediaPickerView: some View {

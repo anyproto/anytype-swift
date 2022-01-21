@@ -41,8 +41,6 @@ final class SlashMenuView: DismissableInputAccessoryView {
     }
     
     override func didShow(from textView: UITextView) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.popupSlashMenu)
-        
         viewModel.didShowMenuView(from: textView)
     }
     
