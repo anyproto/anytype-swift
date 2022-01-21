@@ -23,7 +23,7 @@ final class SlashMenuRealtionView: UIView, UIContentView {
 
     init(configuration: SlashMenuRealtionContentConfiguration) {
         self.currentConfiguration = configuration
-        self.realtionViewModel = RelationNameValueViewModel(relation: configuration.relation)
+        self.realtionViewModel = RelationNameValueViewModel(relation: configuration.relation, action: nil)
 
         super.init(frame: .zero)
 

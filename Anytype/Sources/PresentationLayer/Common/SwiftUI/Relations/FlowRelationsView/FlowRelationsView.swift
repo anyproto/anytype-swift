@@ -8,18 +8,16 @@ struct FlowRelationsView: View {
             items: viewModel.relations,
             alignment: viewModel.alignment,
             cell: { item, index in
-                Button {
-                    viewModel.onRelationTap(item)
-                } label: {
-                    HStack(spacing: 6) {
-                        RelationValueView(relation: item, style: .featuredRelationBlock(allowMultiLine: false))
+                HStack(spacing: 6) {
+                    RelationValueView(relation: item, style: .featuredRelationBlock(allowMultiLine: false)) { relation in
+                        viewModel.onRelationTap(relation)
+                    }
 
-                        if viewModel.relations.count - 1 > index {
-                            Image(systemName: "circle.fill")
-                                .resizable()
-                                .foregroundColor(.textSecondary)
-                                .frame(width: 3, height: 3)
-                        }
+                    if viewModel.relations.count - 1 > index {
+                        Image(systemName: "circle.fill")
+                            .resizable()
+                            .foregroundColor(.textSecondary)
+                            .frame(width: 3, height: 3)
                     }
                 }
             }
