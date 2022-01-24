@@ -4,8 +4,12 @@ import SwiftProtobuf
 
 final class DateRelationDetailsViewModel: ObservableObject {
     
+    var heightPublisher: Published<CGFloat>.Publisher { $height }
+    
     var onDismiss: () -> Void = {}
-
+    
+    @Published var height: CGFloat = 0
+    
     @Published var selectedValue: DateRelationDetailsValue {
         didSet {
             saveValue()
@@ -20,24 +24,28 @@ final class DateRelationDetailsViewModel: ObservableObject {
     
     let values = DateRelationDetailsValue.allCases
     
-    let relationName: String
-    private let relationKey: String
+    private let relation: Relation
     private let service: RelationsServiceProtocol
     
     init(
-        relationKey: String,
-        relationName: String,
         value: DateRelationValue?,
+        relation: Relation,
         service: RelationsServiceProtocol
     ) {
         self.selectedValue = value?.dateRelationEditingValue ?? .noDate
-        self.relationKey = relationKey
-        self.relationName = relationName
         self.date = value?.date ?? Date()
+        
+        self.relation = relation
         self.service = service
     }
     
+    var title: String {
+        relation.name
+    }
+    
 }
+
+extension DateRelationDetailsViewModel: RelationDetailsViewModelProtocol {}
 
 extension DateRelationDetailsViewModel: RelationEditingViewModelProtocol {
 
@@ -57,11 +65,11 @@ extension DateRelationDetailsViewModel: RelationEditingViewModelProtocol {
             }
         }()
         
-        service.updateRelation(relationKey: relationKey, value: value)
+        service.updateRelation(relationKey: relation.id, value: value)
     }
     
     func makeView() -> AnyView {
-        AnyView(DateRelationDetailsView(viewModel: self))
+        DateRelationDetailsView(viewModel: self).eraseToAnyView()
     }
      
 }

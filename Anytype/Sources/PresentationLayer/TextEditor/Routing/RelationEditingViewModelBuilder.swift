@@ -59,9 +59,8 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .date(let value):
             return DateRelationDetailsViewModel(
-                relationKey: relation.id,
-                relationName: relation.name,
                 value: value.value,
+                relation: relation,
                 service: RelationsService(objectId: objectId)
             )
         case .status(let status):
