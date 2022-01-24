@@ -1,10 +1,26 @@
 import SwiftUI
+import AnytypeCore
 
 struct RelationValueView: View {
     let relation: Relation
     let style: RelationStyle
-    
+    let action: ((_ relation: Relation) -> Void)?
+
     var body: some View {
+        if action.isNotNil {
+            Button {
+                guard FeatureFlags.relationsEditing else { return }
+                
+                action?(relation)
+            } label: {
+                relationView
+            }
+        } else {
+            relationView
+        }
+    }
+
+    private var relationView: some View {
         Group {
             switch relation {
             case .text(let text):

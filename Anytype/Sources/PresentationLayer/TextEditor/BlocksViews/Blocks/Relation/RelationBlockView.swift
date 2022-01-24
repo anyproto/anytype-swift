@@ -4,6 +4,7 @@ import SwiftUI
 final class RelationBlockView: BaseBlockView<RelationBlockContentConfiguration>, ObservableObject {
     @Published var heightConstraint: NSLayoutConstraint!
     @Published var relation: Relation?
+    @Published var actionOnValue: ((_ relation: Relation) -> Void)?
 
     // MARK: - Views
 
@@ -17,6 +18,8 @@ final class RelationBlockView: BaseBlockView<RelationBlockContentConfiguration>,
         super.update(with: configuration)
 
         relation = configuration.relation
+        actionOnValue = configuration.actionOnValue
+
     }
 
     override func setupSubviews() {
@@ -30,7 +33,9 @@ final class RelationBlockView: BaseBlockView<RelationBlockContentConfiguration>,
     func setupLayout() {
         let relationsView = relationView.asUIView()
 
-        addSubview(relationsView) {
+        insertSubview(relationsView, at: 0)
+
+        relationsView.layoutUsing.anchors {
             heightConstraint = $0.height.equal(to: 32)
             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 20, bottom: -2, right: -20))
         }
@@ -52,7 +57,9 @@ private extension RelationBlockView {
                         .frame(width: width * 0.4, height:  height, alignment: .topLeading)
                         .background(Color.buttonSecondaryPressed)
                         .cornerRadius(2)
-                    RelationValueView(relation: relation, style: .regular(allowMultiLine: true))
+                    RelationValueView(relation: relation, style: .regular(allowMultiLine: true)) { relation in
+                        delegate.actionOnValue?(relation)
+                    }
                         .padding([.top], 5)
                         .if(height > LayoutConstants.minHeight) {
                             $0.padding(.bottom, 13)

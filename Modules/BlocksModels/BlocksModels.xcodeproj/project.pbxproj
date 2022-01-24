@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		0A6D538925D9C99F002F3F82 /* BlocksModels.h in Headers */ = {isa = PBXBuildFile; fileRef = 0A6D536825D9C99E002F3F82 /* BlocksModels.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0A6D538C25D9C99F002F3F82 /* IndentationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536C25D9C99E002F3F82 /* IndentationBuilder.swift */; };
-		0A6D538F25D9C99F002F3F82 /* BlockUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D536F25D9C99E002F3F82 /* BlockUpdater.swift */; };
 		0A6D539225D9C99F002F3F82 /* BlockContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537225D9C99E002F3F82 /* BlockContent.swift */; };
 		0A6D539425D9C99F002F3F82 /* BlockInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537425D9C99E002F3F82 /* BlockInformation.swift */; };
 		0A6D539825D9C99F002F3F82 /* BlockModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537825D9C99E002F3F82 /* BlockModelProtocol.swift */; };
@@ -65,7 +64,6 @@
 		0A6D536825D9C99E002F3F82 /* BlocksModels.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BlocksModels.h; sourceTree = "<group>"; };
 		0A6D536925D9C99E002F3F82 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0A6D536C25D9C99E002F3F82 /* IndentationBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = IndentationBuilder.swift; sourceTree = "<group>"; };
-		0A6D536F25D9C99E002F3F82 /* BlockUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockUpdater.swift; sourceTree = "<group>"; };
 		0A6D537225D9C99E002F3F82 /* BlockContent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockContent.swift; sourceTree = "<group>"; };
 		0A6D537425D9C99E002F3F82 /* BlockInformation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockInformation.swift; sourceTree = "<group>"; };
 		0A6D537825D9C99E002F3F82 /* BlockModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModelProtocol.swift; sourceTree = "<group>"; };
@@ -324,7 +322,6 @@
 				0A6D536C25D9C99E002F3F82 /* IndentationBuilder.swift */,
 				0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */,
 				0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */,
-				0A6D536F25D9C99E002F3F82 /* BlockUpdater.swift */,
 				EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */,
 			);
 			path = Block;
@@ -485,7 +482,6 @@
 				3D3A184927353B21000D0842 /* BlockInformationExstension.swift in Sources */,
 				3DB7DCAB2639DC7100635E4C /* BlockContainer.swift in Sources */,
 				3D22B2192687804000C78C28 /* BlockFile.swift in Sources */,
-				0A6D538F25D9C99F002F3F82 /* BlockUpdater.swift in Sources */,
 				3D22B220268781C300C78C28 /* BlockContentLayout.swift in Sources */,
 				531605C8272191EF0057B7C1 /* ObjectRestrictions.swift in Sources */,
 				0A6D539825D9C99F002F3F82 /* BlockModelProtocol.swift in Sources */,

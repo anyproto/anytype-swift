@@ -50,8 +50,6 @@ class CursorModeAccessoryView: UIView {
 
         items.forEach { item in
             addBarButtonItem(image: item.image) { [weak self] _ in
-                // Analytics
-                Amplitude.instance().logEvent(item.analyticsEvent)
                 UISelectionFeedbackGenerator().selectionChanged()
 
                 self?.viewModel.handle(item.action)
@@ -59,10 +57,7 @@ class CursorModeAccessoryView: UIView {
         }
 
         addBarButtonItem(title: "Done".localized) { [weak self] _ in
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.buttonHideKeyboard)
             UISelectionFeedbackGenerator().selectionChanged()
-
             self?.viewModel.handle(.keyboardDismiss)
         }
     }

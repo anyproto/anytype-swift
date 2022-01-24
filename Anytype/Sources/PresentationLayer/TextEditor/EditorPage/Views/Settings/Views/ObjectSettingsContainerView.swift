@@ -73,17 +73,11 @@ struct ObjectSettingsContainerView: View {
                 }
             )
             .onChange(of: isLayoutPickerPresented) { showLayoutSettings in
-                if showLayoutSettings {
-                    Amplitude.instance().logEvent(AmplitudeEventsName.popupChooseLayout)
-                }
-
                 withAnimation() {
                     mainViewPresented = !showLayoutSettings
                 }
             }
             .onAppear {
-                Amplitude.instance().logEvent(AmplitudeEventsName.popupDocumentMenu)
-                
                 withAnimation(.fastSpring) {
                     mainViewPresented = true
                 }

@@ -86,8 +86,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     // MARK: - ObjectActionsService / SetDetails
     
     func updateBundledDetails(contextID: BlockId, details: [BundledDetails]) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
-
         Anytype_Rpc.Block.Set.Details.Service.invoke(
             contextID: contextID,
             details: details.map {
@@ -103,7 +101,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockListConvertChildrenToPages)
         return Anytype_Rpc.BlockList.ConvertChildrenToPages.Service
             .invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType)
             .map { $0.linkIds }

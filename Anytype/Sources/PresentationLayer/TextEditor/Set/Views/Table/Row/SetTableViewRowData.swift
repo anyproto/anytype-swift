@@ -1,14 +1,6 @@
 import BlocksModels
 import AnytypeCore
 
-//struct SetRowRelation: Identifiable {
-//    var id: String { key }
-//
-//    let key: String
-//    let value: Relation
-//    let metadata: RelationMetadata?
-//}
-
 struct SetTableViewRowData: Identifiable {
     let id: BlockId
     let title: String

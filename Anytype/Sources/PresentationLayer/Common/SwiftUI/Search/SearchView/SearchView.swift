@@ -63,7 +63,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
                                     viewModel.onDismiss()
                                     viewModel.onSelect(searchData)
 
-                                    Amplitude.instance().logSearchResult(index: index, length: searchText.count)
+                                    Amplitude.instance().logSearchResult(index: index + 1, length: searchText.count)
                                 }
                             ) {
                                 SearchCell(
@@ -122,7 +122,7 @@ struct HomeSearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView(
             title: "FOoo",
-            context: .home, viewModel: ObjectSearchViewModel(searchKind: .objects, onSelect: { _ in
+            context: .general, viewModel: ObjectSearchViewModel(searchKind: .objects, onSelect: { _ in
             })
         )
     }

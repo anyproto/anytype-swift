@@ -163,8 +163,6 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                #warning("reimplement when relation edit will be ready")
-
                 if relation.id == BundledRelationKey.type.rawValue {
                     guard
                         !self.document.objectRestrictions.objectRestriction.contains(.typechange)
@@ -177,6 +175,8 @@ final class BlockViewModelBuilder {
                             self?.handler.setObjectTypeUrl(id)
                         }
                     )
+                } else {
+                    self.router.showRelationValueEditingView(key: relation.id)
                 }
             }
         case let .relation(content):
@@ -191,7 +191,9 @@ final class BlockViewModelBuilder {
             return RelationBlockViewModel(
                 information: block.information,
                 indentationLevel: block.indentationLevel,
-                relation: relation)
+                relation: relation) { [weak self] relation in
+                    self?.router.showRelationValueEditingView(key: relation.id)
+                }
             
         case .smartblock, .layout, .dataView: return nil
         case .unsupported:

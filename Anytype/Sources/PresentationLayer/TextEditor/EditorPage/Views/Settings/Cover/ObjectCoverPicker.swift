@@ -22,10 +22,6 @@ struct ObjectCoverPicker: View {
             
             tabHeaders
         }
-        .onAppear {
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.popupChooseCover)
-        }
     }
     
     private var galleryTabView: some View {

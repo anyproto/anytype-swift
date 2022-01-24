@@ -23,11 +23,6 @@ final class MentionView: DismissableInputAccessoryView {
         mentionsController?.viewModel.setFilterString("")
     }
 
-    override func didShow(from textView: UITextView) {
-        // Analytics
-        Amplitude.instance().logEvent(AmplitudeEventsName.popupMentionMenu)
-    }
-    
     private func addMentionsController(to controller: UIViewController) {
         let mentionsController = MentionAssembly().controller(
             onMentionSelect: { [weak self] mentionObject in

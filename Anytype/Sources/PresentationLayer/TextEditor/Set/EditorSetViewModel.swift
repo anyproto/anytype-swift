@@ -6,23 +6,22 @@ import SwiftUI
 
 final class EditorSetViewModel: ObservableObject {
     @Published var dataView = BlockDataview.empty
-    @Published var activeViewId: BlockId = "" {
-        didSet {
-            setupSubscriptions()
-        }
-    }
     @Published private var records: [ObjectDetails] = []
     
     @Published var showViewPicker = false
     
+    var isEmpty: Bool {
+        dataView.views.filter { $0.isSupported }.isEmpty
+    }
+    
     var activeView: DataviewView {
-        dataView.views.first { $0.id == activeViewId } ?? .empty
+        dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
     }
     
     var colums: [SetColumData] {
         dataView.relationsMetadataForView(activeView)
             .filter { $0.isHidden == false }
-            .map { SetColumData(key: $0.key, value: $0.name) }
+            .map { SetColumData(metadata: $0) }
     }
     
     var rows: [SetTableViewRowData] {
@@ -82,39 +81,53 @@ final class EditorSetViewModel: ObservableObject {
         }
         
         if !document.open() { router.goBack() }
-        if !setupDataview() { router.goBack() }
+        setupDataview()
     }
     
     private func onDataChange(_ data: EventsListenerUpdate) {
         switch data {
-        case .general, .syncStatus, .blocks, .details:
+        case .general:
             objectWillChange.send()
-        case .dataview(let data):
-            update(data)
+            setupDataview()
+        case .syncStatus, .blocks, .details:
+            objectWillChange.send()
         }
     }
     
-    private func setupDataview() -> Bool {
-        let dataViews = document.flattenBlocks.compactMap { block -> BlockDataview? in
-            if case .dataView(let data) = block.information.content {
-                return data
+    func setupDataview() {
+        anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
+        document.dataviews.first.flatMap { dataView in
+            anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
+        }
+        
+        self.dataView = document.dataviews.first ?? .empty
+        
+        updateActiveViewId()
+        setupSubscriptions()
+    }
+    
+    func updateActiveViewId(_ id: BlockId) {
+        document.blocksContainer.updateDataview(blockId: "dataview") { dataView in
+            dataView.updated(activeViewId: id)
+        }
+        
+        setupDataview()
+    }
+    
+    private func updateActiveViewId() {
+        if let activeViewId = dataView.views.first(where: { $0.isSupported })?.id {
+            if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
+                self.dataView.activeViewId = activeViewId
             }
-            return nil
+        } else {
+            dataView.activeViewId = ""
         }
-        
-        anytypeAssert(dataViews.count == 1, "\(dataViews.count) dataviews instead of 1 in set", domain: .editorSet)
-        guard let dataView = dataViews.first else { return false }
-        anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
-        guard let activeView = dataView.views.first(where: { $0.isSupported }) else { return false }
-        
-        self.dataView = dataView
-        self.activeViewId = activeView.id
-
-        return true
     }
     
-    private func setupSubscriptions() {
+    func setupSubscriptions() {
         subscriptionService.stopAllSubscriptions()
+        guard !isEmpty else { return }
+        
         subscriptionService.startSubscription(
             data: .set(
                 source: dataView.source,

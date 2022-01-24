@@ -75,7 +75,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         ) else { return }
             
         EventsBunch(
-            objectId: documentId,
+            contextId: documentId,
             localEvents: [ .setFocus(blockId: blockId, position: .beginning) ]
         ).send()
     }
@@ -89,7 +89,7 @@ final class BlockActionService: BlockActionServiceProtocol {
                 position: .bottom
             )
             .flatMap {
-                EventsBunch(objectId: documentId, middlewareEvents: $0.messages).send()
+                EventsBunch(contextId: documentId, middlewareEvents: $0.messages).send()
             }
     }
 
@@ -102,8 +102,9 @@ final class BlockActionService: BlockActionServiceProtocol {
             position: position,
             templateId: ""
         ) else { return nil }
-        
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
+
+        #warning("replace with CreateObject")
+//        Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
 
         return newBlockId
     }
@@ -160,7 +161,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private func setFocus(model: BlockDataProvider) {
         if case let .text(text) = model.information.content {
             let event = LocalEvent.setFocus(blockId: model.blockId, position: .at(text.endOfTextRangeWithMention))
-            EventsBunch(objectId: documentId, localEvents: [event]).send()
+            EventsBunch(contextId: documentId, localEvents: [event]).send()
         }
     }
 }
@@ -176,7 +177,6 @@ private extension BlockActionService {
 
 extension BlockActionService {
     func bookmarkFetch(blockId: BlockId, url: String) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockBookmarkFetch)
         bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url)
     }
 }
