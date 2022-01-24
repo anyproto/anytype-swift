@@ -14,7 +14,9 @@ struct RelationTextView: View {
                 .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                 .opacity(0)
                 .padding(6)
-                .readSize { height = $0.height }
+                .readSize {
+                    height = $0.height
+                }
             
             if(text.isEmpty) {
                 AnytypeText(placeholder, style: .uxBodyRegular, color: .textTertiary)
