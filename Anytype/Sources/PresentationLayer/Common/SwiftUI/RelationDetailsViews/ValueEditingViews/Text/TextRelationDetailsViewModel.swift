@@ -2,15 +2,22 @@ import Foundation
 import BlocksModels
 import SwiftUI
 import Combine
+import FloatingPanel
 
 final class TextRelationDetailsViewModel: ObservableObject {
     
-    var heightPublisher: Published<CGFloat>.Publisher { $height }
-    @Published var height: CGFloat = 0
+    var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
+    @Published private var layout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0)//TextRelationDetailsPopupLayout()
     
     var onDismiss: () -> Void = {}
     
     @Published var value: String = ""
+    
+    @Published var height: CGFloat = 0 {
+        didSet {
+            layout = FixedHeightPopupLayout(height: height)
+        }
+    }
     
     let type: TextRelationEditingViewType
     

@@ -1,9 +1,10 @@
 import Foundation
 import UIKit.UIViewController
+import FloatingPanel
 
 protocol RelationDetailsViewModelProtocol {
     
-    var heightPublisher: Published<CGFloat>.Publisher { get }
+    var layoutPublisher: Published<FloatingPanelLayout>.Publisher { get }
         
     func makeViewController() -> UIViewController
     
