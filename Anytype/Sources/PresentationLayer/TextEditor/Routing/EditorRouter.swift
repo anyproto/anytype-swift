@@ -368,7 +368,7 @@ extension EditorRouter: AttachmentRouterProtocol {
     }
 }
 
-extension EditorRouter: TextRelationEditingViewModelDelegate {
+extension EditorRouter: TextRelationActionButtonViewModelDelegate {
     
     func canOpenUrl(_ url: URL) -> Bool {
         UIApplication.shared.canOpenURL(url.urlByAddingHttpIfSchemeIsEmpty())

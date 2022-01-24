@@ -23,7 +23,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
         }
     }
     
-    let type: TextRelationEditingViewType
+    let type: TextRelationDetailsViewType
     
     let actionButtonViewModel: TextRelationActionButtonViewModel?
     
@@ -37,7 +37,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
     init(
         value: String,
-        type: TextRelationEditingViewType,
+        type: TextRelationDetailsViewType,
         relation: Relation,
         service: TextRelationDetailsServiceProtocol,
         actionButtonViewModel: TextRelationActionButtonViewModel?
@@ -77,7 +77,7 @@ extension TextRelationDetailsViewModel: RelationEditingViewModelProtocol {
     }
     
     func makeView() -> AnyView {
-        TextRelationDetailsView(viewModel: self).eraseToAnyView()
+        EmptyView().eraseToAnyView()
     }
     
 }
