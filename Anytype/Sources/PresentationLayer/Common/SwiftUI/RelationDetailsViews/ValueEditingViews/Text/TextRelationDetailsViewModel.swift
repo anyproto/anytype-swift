@@ -43,7 +43,12 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
 }
 
-extension TextRelationDetailsViewModel: RelationDetailsViewModelProtocol {}
+extension TextRelationDetailsViewModel: RelationDetailsViewModelProtocol {
+    
+    func makeViewController() -> UIViewController {
+        TextRelationDetailsViewController(viewModel: self)
+    }
+}
 
 extension TextRelationDetailsViewModel: RelationEditingViewModelProtocol {
     

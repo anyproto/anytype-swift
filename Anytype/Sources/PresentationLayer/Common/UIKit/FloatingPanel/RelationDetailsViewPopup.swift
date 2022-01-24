@@ -21,7 +21,7 @@ final class RelationDetailsViewPopup: FloatingPanelController {
         
         setup()
         
-        set(contentViewController: UIHostingController(rootView: viewModel.makeView()))
+        set(contentViewController: viewModel.makeViewController())
     }
     
     @available(*, unavailable)

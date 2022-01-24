@@ -1,10 +1,10 @@
 import Foundation
-import SwiftUI
+import UIKit.UIViewController
 
 protocol RelationDetailsViewModelProtocol {
     
     var heightPublisher: Published<CGFloat>.Publisher { get }
         
-    @ViewBuilder func makeView() -> AnyView
+    func makeViewController() -> UIViewController
     
 }
