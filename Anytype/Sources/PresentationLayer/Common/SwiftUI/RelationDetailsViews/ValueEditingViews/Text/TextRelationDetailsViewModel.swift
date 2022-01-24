@@ -11,7 +11,11 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
     var onDismiss: () -> Void = {}
     
-    @Published var value: String = ""
+    @Published var value: String = "" {
+        didSet {
+            actionButtonViewModel?.text = value
+        }
+    }
     
     @Published var height: CGFloat = 0 {
         didSet {
@@ -20,6 +24,8 @@ final class TextRelationDetailsViewModel: ObservableObject {
     }
     
     let type: TextRelationEditingViewType
+    
+    let actionButtonViewModel: TextRelationActionButtonViewModel?
     
     private let relation: Relation
     private let service: TextRelationDetailsServiceProtocol
@@ -37,6 +43,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
     ) {
         self.value = value
         self.type = type
+        self.actionButtonViewModel = TextRelationActionButtonViewModel(type: type)
         self.relation = relation
         self.service = service
         

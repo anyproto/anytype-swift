@@ -160,6 +160,7 @@
 		122FFD43272BA7420069129A /* ObjectHeaderFilledState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 122FFD42272BA7420069129A /* ObjectHeaderFilledState.swift */; };
 		123883A327708E6F00A71682 /* RelationOptionsSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123883A227708E6F00A71682 /* RelationOptionsSearchData.swift */; };
 		123883A52770923C00A71682 /* RelationObjectsSearchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123883A42770923C00A71682 /* RelationObjectsSearchRowView.swift */; };
+		123949E7279EC1D40080E1CF /* TextRelationActionButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123949E6279EC1D40080E1CF /* TextRelationActionButtonViewModel.swift */; };
 		123FDACE26C1361B00F6F44B /* ObjectHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDACD26C1361B00F6F44B /* ObjectHeader.swift */; };
 		123FDAD026C1505700F6F44B /* EditorPageController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDACF26C1505700F6F44B /* EditorPageController+UICollectionViewDelegate.swift */; };
 		123FDAD226C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDAD126C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift */; };
@@ -1040,6 +1041,7 @@
 		122FFD42272BA7420069129A /* ObjectHeaderFilledState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderFilledState.swift; sourceTree = "<group>"; };
 		123883A227708E6F00A71682 /* RelationOptionsSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsSearchData.swift; sourceTree = "<group>"; };
 		123883A42770923C00A71682 /* RelationObjectsSearchRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationObjectsSearchRowView.swift; sourceTree = "<group>"; };
+		123949E6279EC1D40080E1CF /* TextRelationActionButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationActionButtonViewModel.swift; sourceTree = "<group>"; };
 		123FDACD26C1361B00F6F44B /* ObjectHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeader.swift; sourceTree = "<group>"; };
 		123FDACF26C1505700F6F44B /* EditorPageController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorPageController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		123FDAD126C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorPageController+FloatingPanelControllerDelegate.swift"; sourceTree = "<group>"; };
@@ -2973,6 +2975,7 @@
 				12136D5527996F3400262FE7 /* TextRelationDetailsService.swift */,
 				12136D5727996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift */,
 				12136D592799A2BC00262FE7 /* TextRelationDetailsViewController.swift */,
+				123949E6279EC1D40080E1CF /* TextRelationActionButtonViewModel.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -5677,6 +5680,7 @@
 				125B6EC726F235F400BCD7D6 /* MentionDisplayData.swift in Sources */,
 				C96149522718189000360840 /* GalleryViewController.swift in Sources */,
 				0A2ADCE42496C09A00FA135D /* BlockActionsServiceSingleProtocol.swift in Sources */,
+				123949E7279EC1D40080E1CF /* TextRelationActionButtonViewModel.swift in Sources */,
 				03074B88239514E2009FA7D0 /* MainAuthView.swift in Sources */,
 				53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */,
 				039F669C23C7FDC300DBE36A /* TimingTimer.swift in Sources */,

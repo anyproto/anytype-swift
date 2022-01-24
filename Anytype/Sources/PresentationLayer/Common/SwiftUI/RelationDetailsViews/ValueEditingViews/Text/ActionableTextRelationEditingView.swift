@@ -21,18 +21,18 @@ struct ActionableTextRelationEditingView: View {
         HStack(spacing: 8) {
             RelationTextView(text: $viewModel.value, placeholder: viewModel.placeholder, keyboardType: viewModel.keyboardType)
             
-            if let icon = viewModel.icon, viewModel.value.isNotEmpty, viewModel.isActionButtonEnabled {
-                Button {
-                    viewModel.performAction()
-                } label: {
-                    icon
-                        .frame(width: 36, height: 36)
-                        .clipShape(Circle())
-                        .overlay(
-                            Circle().stroke(Color.grayscale30, lineWidth: 1)
-                        )
-                }
-            }
+//            if let icon = viewModel.icon, viewModel.value.isNotEmpty, viewModel.isActionButtonEnabled {
+//                Button {
+//                    viewModel.performAction()
+//                } label: {
+//                    icon
+//                        .frame(width: 36, height: 36)
+//                        .clipShape(Circle())
+//                        .overlay(
+//                            Circle().stroke(Color.grayscale30, lineWidth: 1)
+//                        )
+//                }
+//            }
         }
     }
     

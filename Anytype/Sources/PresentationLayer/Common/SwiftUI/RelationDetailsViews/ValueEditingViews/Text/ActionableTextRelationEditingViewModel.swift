@@ -65,7 +65,7 @@ extension ActionableTextRelationEditingViewModel {
     
     var keyboardType: UIKeyboardType { type.keyboardType }
     var placeholder: String { type.placeholder }
-    var icon: Image { type.icon }
+//    var icon: Image { type.icon }
     
 }
 
@@ -130,12 +130,12 @@ private extension ActionableTextRelationEditingViewType {
         }
     }
     
-    var icon: Image {
-        switch self {
-        case .phone: return Image.Relations.Icons.Small.phone
-        case .email: return Image.Relations.Icons.Small.email
-        case .url: return Image.Relations.Icons.Small.goToURL
-        }
-    }
+//    var icon: Image {
+//        switch self {
+//        case .phone: return Image.Relations.Icons.Small.phone
+//        case .email: return Image.Relations.Icons.Small.email
+//        case .url: return Image.Relations.Icons.Small.goToURL
+//        }
+//    }
     
 }
