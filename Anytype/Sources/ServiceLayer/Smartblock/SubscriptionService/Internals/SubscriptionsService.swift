@@ -124,6 +124,8 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 break // unsupported for now. Used for pagination
             case .accountConfigUpdate:
                 break
+            case .accountDetails:
+                break
             default:
                 anytypeAssertionFailure("Unupported event \(event)", domain: .subscriptionStorage)
             }
