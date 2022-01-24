@@ -39,11 +39,12 @@ final class TextRelationDetailsViewModel: ObservableObject {
         value: String,
         type: TextRelationEditingViewType,
         relation: Relation,
-        service: TextRelationDetailsServiceProtocol
+        service: TextRelationDetailsServiceProtocol,
+        actionButtonViewModel: TextRelationActionButtonViewModel?
     ) {
         self.value = value
         self.type = type
-        self.actionButtonViewModel = TextRelationActionButtonViewModel(type: type)
+        self.actionButtonViewModel = actionButtonViewModel
         self.relation = relation
         self.service = service
         

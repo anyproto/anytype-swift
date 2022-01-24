@@ -20,47 +20,40 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 value: text.value ?? "",
                 type: .text,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectId))
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                actionButtonViewModel: nil
             )
         case .number(let number):
             return TextRelationDetailsViewModel(
                 value: number.value ?? "",
                 type: .number,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectId))
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                actionButtonViewModel: nil
             )
         case .phone(let phone):
-            return ActionableTextRelationEditingViewModel(
-                type: .phone,
+            return TextRelationDetailsViewModel(
                 value: phone.value ?? "",
-                title: phone.name,
-                relationKey: phone.id,
-                service:  RelationsService(objectId: objectId),
-                delegate: delegate
+                type: .phone,
+                relation: relation,
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                actionButtonViewModel: TextRelationActionButtonViewModel(type: .phone, delegate: delegate)
             )
         case .email(let email):
             return TextRelationDetailsViewModel(
                 value: email.value ?? "",
                 type: .email,
                 relation: relation,
-                service: TextRelationDetailsService(service: RelationsService(objectId: objectId))
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                actionButtonViewModel: TextRelationActionButtonViewModel(type: .email, delegate: delegate)
             )
-//            return ActionableTextRelationEditingViewModel(
-//                type: .email,
-//                value: email.value ?? "",
-//                title: email.name,
-//                relationKey: email.id,
-//                service:  RelationsService(objectId: objectId),
-//                delegate: delegate
-//            )
         case .url(let url):
-            return ActionableTextRelationEditingViewModel(
-                type: .url,
+            return TextRelationDetailsViewModel(
                 value: url.value ?? "",
-                title: url.name,
-                relationKey: url.id,
-                service:  RelationsService(objectId: objectId),
-                delegate: delegate
+                type: .url,
+                relation: relation,
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                actionButtonViewModel: TextRelationActionButtonViewModel(type: .url, delegate: delegate)
             )
         case .date(let value):
             return DateRelationDetailsViewModel(

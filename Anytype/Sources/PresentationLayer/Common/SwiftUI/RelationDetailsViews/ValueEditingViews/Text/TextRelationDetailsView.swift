@@ -18,16 +18,16 @@ struct TextRelationDetailsView: View {
     
 }
 
-struct RelationTextValueEditingView_Previews: PreviewProvider {
-    static var previews: some View {
-        TextRelationDetailsView(
-            viewModel: TextRelationDetailsViewModel(
-                value: "vale",
-                type: .number,
-                relation: .text(Relation.Text(id: "id", name: "name", isFeatured: false, isEditable: true, value: "value")),
-                service: TextRelationDetailsService(service: RelationsService(objectId: ""))
-            )
-        )
-            .background(Color.red)
-    }
-}
+//struct RelationTextValueEditingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TextRelationDetailsView(
+//            viewModel: TextRelationDetailsViewModel(
+//                value: "vale",
+//                type: .number,
+//                relation: .text(Relation.Text(id: "id", name: "name", isFeatured: false, isEditable: true, value: "value")),
+//                service: TextRelationDetailsService(service: RelationsService(objectId: ""))
+//            )
+//        )
+//            .background(Color.red)
+//    }
+//}
