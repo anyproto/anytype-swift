@@ -63,7 +63,7 @@ struct SearchNewRelationView: View {
                                     action: {
                                         viewModel.addRelation(relationMetadata)
                                         presentationMode.wrappedValue.dismiss()
-                                        Amplitude.instance().logSearchResult(index: index, length: searchText.count)
+                                        Amplitude.instance().logSearchResult(index: index + 1, length: searchText.count)
                                     }
                                 ) {
                                     NewRelationCell(cellKind: .relation(realtionMetadata: relationMetadata))

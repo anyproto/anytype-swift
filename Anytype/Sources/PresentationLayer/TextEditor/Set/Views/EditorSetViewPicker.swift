@@ -29,7 +29,7 @@ struct EditorSetViewPicker: View {
             HStack(spacing: 0) {
                 if view.isSupported {
                     Button(action: {
-                        model.activeViewId = view.id
+                        model.updateActiveViewId(view.id)
                         withAnimation(.fastSpring) {
                             model.showViewPicker = false
                         }

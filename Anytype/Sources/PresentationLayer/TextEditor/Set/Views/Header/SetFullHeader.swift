@@ -38,7 +38,7 @@ struct SetFullHeader: View {
                 viewModel: FlowRelationsViewModel(
                     relations: model.featuredRelations,
                     onRelationTap: { relation in
-                        
+                        model.router.showRelationValueEditingView(key: relation.id)
                     }
                 )
             )

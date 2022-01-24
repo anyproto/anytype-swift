@@ -13,7 +13,6 @@ struct DashboardLogoutAlert: View {
                 model.loggingOut = false
             },
             rightButtonData: StandardButtonData(text: "Log out".localized, style: .destructive) {
-                Amplitude.instance().logEvent(AmplitudeEventsName.buttonProfileLogOut)
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
                 model.logout()
             }

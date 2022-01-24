@@ -60,7 +60,6 @@ final class TextService: TextServiceProtocol {
     }
     
     func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextChecked)
         Anytype_Rpc.Block.Set.Text.Checked.Service
             .invoke(contextID: contextId, blockID: blockId, checked: newValue)
             .map { EventsBunch(event: $0.event) }

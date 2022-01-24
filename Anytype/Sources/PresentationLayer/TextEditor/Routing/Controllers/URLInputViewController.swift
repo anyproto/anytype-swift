@@ -35,9 +35,6 @@ final class URLInputViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        // Analytics
-        Amplitude.instance().logEvent(AmplitudeEventsName.popupBookmarkMenu)
-
         becomeFirstResponder()
         urlInputView?.textField.becomeFirstResponder()
     }

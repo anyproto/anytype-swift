@@ -15,28 +15,17 @@ enum AmplitudeEventsName {
 
     // Block events
     static let blockCreate = "CreateBlock"
-    static let blockBookmarkFetch = "BlockBookmarkFetch"
-
-    static let blockMerge = "BlockMerge"
     static let blockDelete = "DeleteBlock"
 
     static let blockListDuplicate = "DuplicateBlock"
     static let blockListSetAlign = "ChangeBlockAlign"
     static let blockListSetBackgroundColor = "ChangeBlockBackground"
-    static let blockSetDetails = "BlockSetDetails"
-    static let blockSetTextChecked = "BlockSetTextChecked"
     static let blockUpload = "UploadMedia"
     static let downloadFile = "DownloadMedia"
 
     static let blockSetTextText = "Writing"
     static let changeBlockStyle = "ChangeBlockStyle"
     static let changeTextStyle = "ChangeTextStyle"
-
-    static let pageCreate = "PageCreate"
-    static let blockCreatePage = "BlockCreatePage"
-
-    static let blockListSetDivStyle = "BlockListSetDivStyle"
-    static let blockListConvertChildrenToPages = "BlockListConvertChildrenToPages"
 
     static let reorderBlock = "ReorderBlock"
 
@@ -64,8 +53,8 @@ enum AmplitudeEventsName {
     static let removeIcon = "RemoveIcon"
     static let setCover = "SetCover"
     static let removeCover = "RemoveCover"
-    static let addFeatureRelation = "Feature relation"
-    static let removeFeatureRelation = "Unfeature relation"
+    static let addFeatureRelation = "FeatureRelation"
+    static let removeFeatureRelation = "UnfeatureRelation"
 
     // Details events
     static let changeLayout = "ChangeLayout"
@@ -75,29 +64,9 @@ enum AmplitudeEventsName {
     static let clearFileCacheAlertShow = "ScreenFileOffloadWarning"
     static let fileCacheCleared = "FileOffload"
 
-    // Events in editing accessory view
-    static let buttonSlashMenu = "ButtonSlashMenu"
-    static let buttonStyleMenu = "ButtonStyleMenu"
-    static let buttonMentionMenu = "ButtonMentionMenu"
-    static let buttonHideKeyboard = "ButtonHideKeyboard"
-
-    // Profile events
-    static let buttonProfileLogOut = "ButtonProfileLogOut"
-
-    // Emoji picker events
-    static let buttonRandomEmoji = "ButtonRandomEmoji"
-
-    // Settings object events
-    static let buttonCoverInObjectSettings = "ButtonCoverInObjectSettings"
-    static let buttonIconInObjectSettings = "ButtonIconInObjectSettings"
-    static let buttonLayoutInObjectSettings = "ButtonLayoutInObjectSettings"
-    static let buttonRelationsInObjectSettings = "ButtonRelationsInObjectSettings"
-
     // Dashboard view events
     static let selectHomeTab = "SelectHomeTab"
     static let reorderObjects = "ReorderObjects" // reorder in favorite tab
-
-    static let profilePage = "Page: Profile"
 
     // Screen show events
     static let disclaimerShow = "ScreenDisclaimer"
@@ -116,24 +85,11 @@ enum AmplitudeEventsName {
     static let keychainPhraseCopy = "KeychainCopy"
 
     static let searchShow = "ScreenSearch"
-    static let showAboutScreen = "Show About Screen"
     static let objectRelationShow = "ScreenObjectRelation"
 
     // Navigation events
     static let goBack = "HistoryBack"
     static let goForward = "HistoryForward"
-
-    // Popup events
-    static let popupSlashMenu = "PopupSlashMenu"
-    static let popupActionMenu = "PopupActionMenu"
-    static let popupBookmarkMenu = "PopupBookmarkMenu"
-    static let popupDocumentMenu = "PopupDocumentMenu"
-    static let popupChooseEmojiMenu = "PopupChooseEmojiMenu"
-    static let popupChooseLayout = "PopupChooseLayout"
-    static let popupChooseCover = "PopupChooseCover"
-    static let popupStyleMenu = "PopupStyleMenu"
-    static let popupMentionMenu = "PopupMentionMenu"
-    static let popupProfileIconMenu = "PopupProfileIconMenu"
 }
 
 // MARK: - Home tab names
@@ -157,15 +113,10 @@ enum AmplitudeEventsKeychainContext: String {
 // MARK: - Search context
 
 enum AmplitudeEventsSearchContext: String {
-    case home = "home"
-    case defaultType = "defaultType"
-    case moveTo = "moveTo"
-    case searchInObject = "searchInObject"
-    case mention = "mention"
-    case linkTo = "linkTo"
-    case markupLinkTo = "markupLinkTo"
-    case changeObjectType = "changeObjectType"
-    case relation = "relation"
+    /// General search
+    case general = "ScreenSearch"
+    case mention = "MenuMention"
+    case menuSearch = "MenuSearch"
 }
 
 // MARK: - Properties key

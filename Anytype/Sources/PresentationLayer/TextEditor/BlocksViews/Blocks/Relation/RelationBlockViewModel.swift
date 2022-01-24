@@ -8,13 +8,15 @@ class RelationBlockViewModel: BlockViewModelProtocol {
     var upperBlock: BlockModelProtocol?
 
     var relation: Relation
+    var actionOnValue: ((_ relation: Relation) -> Void)?
 
     // MARK: - init
 
-    init(information: BlockInformation, indentationLevel: Int, relation: Relation) {
+    init(information: BlockInformation, indentationLevel: Int, relation: Relation, actionOnValue: ((_ relation: Relation) -> Void)?) {
         self.information = information
         self.indentationLevel = indentationLevel
         self.relation = relation
+        self.actionOnValue = actionOnValue
     }
 
     // MARK: - BlockViewModelProtocol methods
@@ -30,7 +32,7 @@ class RelationBlockViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView() {}
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        RelationBlockContentConfiguration(relation: relation)
+        RelationBlockContentConfiguration(relation: relation, actionOnValue: actionOnValue)
     }
     
 }
