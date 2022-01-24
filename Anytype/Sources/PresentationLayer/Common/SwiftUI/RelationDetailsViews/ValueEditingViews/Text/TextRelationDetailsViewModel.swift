@@ -7,7 +7,7 @@ import FloatingPanel
 final class TextRelationDetailsViewModel: ObservableObject {
     
     var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
-    @Published private var layout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0)//TextRelationDetailsPopupLayout()
+    @Published private var layout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0)
     
     var onDismiss: () -> Void = {}
     
