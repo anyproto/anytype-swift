@@ -15,7 +15,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
     @Published var height: CGFloat = 0 {
         didSet {
-            layout = FixedHeightPopupLayout(height: height)
+            layout = FixedHeightPopupLayout(height: height + keyboardHeight)
         }
     }
     
@@ -25,6 +25,9 @@ final class TextRelationDetailsViewModel: ObservableObject {
     private let service: TextRelationDetailsServiceProtocol
         
     private var cancellable: AnyCancellable?
+    
+    private var keyboardListener: KeyboardEventsListnerHelper?
+    private var keyboardHeight: CGFloat = 0
     
     init(
         value: String,
@@ -42,6 +45,8 @@ final class TextRelationDetailsViewModel: ObservableObject {
             .sink { [weak self] _ in
                 self?.saveValue()
             }
+        
+        setupKeyboardListener()
     }
     
     var title: String {
@@ -65,6 +70,35 @@ extension TextRelationDetailsViewModel: RelationEditingViewModelProtocol {
     
     func makeView() -> AnyView {
         TextRelationDetailsView(viewModel: self).eraseToAnyView()
+    }
+    
+}
+
+private extension TextRelationDetailsViewModel {
+    
+    func setupKeyboardListener() {
+        let showAction: KeyboardEventsListnerHelper.Action = { [weak self] notification in
+            guard
+                let keyboardRect = notification.localKeyboardRect(for: UIResponder.keyboardFrameEndUserInfoKey)
+            else { return }
+            
+            self?.adjustViewHeightBy(keyboardHeight: keyboardRect.height)
+        }
+
+        let willHideAction: KeyboardEventsListnerHelper.Action = { [weak self] _ in
+            self?.adjustViewHeightBy(keyboardHeight: 0)
+        }
+
+        self.keyboardListener = KeyboardEventsListnerHelper(
+            willShowAction: showAction,
+            willChangeFrame: showAction,
+            willHideAction: willHideAction
+        )
+    }
+    
+    func adjustViewHeightBy(keyboardHeight: CGFloat) {
+        self.keyboardHeight = keyboardHeight
+        layout = FixedHeightPopupLayout(height: height + keyboardHeight)
     }
     
 }
