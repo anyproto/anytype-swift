@@ -64,7 +64,7 @@ struct RelationsListRowView: View {
     
     private var valueView: some View {
         HStack(spacing: 0) {
-            RelationValueView(relation: relation, style: .regular(allowMultiLine: false))
+            RelationValueView(relation: relation, style: .regular(allowMultiLine: false), action: nil)
             Spacer()
         }
     }

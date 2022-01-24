@@ -4,8 +4,11 @@ class RelationNameValueViewModel: ObservableObject {
     @Published var relation: Relation
     @Published var isHighlighted: Bool = false
 
-    init(relation: Relation) {
+    var action: ((_ relation: Relation) -> Void)?
+
+    init(relation: Relation, action: ((_ relation: Relation) -> Void)?) {
         self.relation = relation
+        self.action = action
     }
 }
 
@@ -53,7 +56,7 @@ struct RelationNameValueView: View {
 
     private var valueView: some View {
         HStack(spacing: 0) {
-            RelationValueView(relation: viewModel.relation, style: .regular(allowMultiLine: false))
+            RelationValueView(relation: viewModel.relation, style: .regular(allowMultiLine: false), action: viewModel.action)
             Spacer()
         }
     }
