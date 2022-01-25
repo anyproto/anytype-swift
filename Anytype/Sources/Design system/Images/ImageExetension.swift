@@ -89,14 +89,6 @@ extension Image {
         static let lockedSmall = createImage("relation_locked_small")
         
         static let createOption = createImage("relation_new")
-        
-        enum Icons {
-            enum Small {
-                static let phone = createImage("relation_small_phone_icon")
-                static let email = createImage("relation_small_email_icon")
-                static let goToURL = createImage("relation_small_go_to_url_icon")
-            }
-        }
     }
 }
 

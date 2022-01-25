@@ -6,13 +6,18 @@ final class TextRelationDetailsViewController: UIViewController {
 
     private let titleLabel = makeTitleLabel()
     private let textView = makeTextView()
+    private let actionButton = UIButton(type: .custom)
     
     private let viewModel: TextRelationDetailsViewModel
+    
+    private var textViewTrailingConstraint: NSLayoutConstraint?
+    private var actionButtonLeadingConstraint: NSLayoutConstraint?
     
     // MARK: - Initializers
     
     init(viewModel: TextRelationDetailsViewModel) {
         self.viewModel = viewModel
+        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -69,6 +74,7 @@ private extension TextRelationDetailsViewController {
     func setupView() {
         titleLabel.text = viewModel.title
         setupTextView()
+        setupActionButton()
         setupLayout()
         
         if FeatureFlags.rainbowCells {
@@ -89,20 +95,53 @@ private extension TextRelationDetailsViewController {
             )
         )
         
-        textView.contentInsetAdjustmentBehavior = .never
-        
         textView.delegate = self
+    }
+    
+    func setupActionButton() {
+        guard let actionButtonViewModel = viewModel.actionButtonViewModel else {
+            actionButton.isHidden = true
+            return
+        }
+        
+        actionButton.adjustsImageWhenHighlighted = false
+        actionButton.setImage(actionButtonViewModel.icon.withRenderingMode(.alwaysTemplate), for: .normal)
+        actionButton.tintColor = .grayscale50
+        
+        actionButton.addAction(
+            UIAction(
+                handler: { [weak self] _ in
+                    self?.viewModel.actionButtonViewModel?.performAction()
+                }
+            ),
+            for: .touchUpInside
+        )
+        actionButton.layer.cornerRadius = Constants.actionButtonSize.width / 2.0
+        actionButton.layer.borderColor = UIColor.grayscale30.cgColor
+        actionButton.layer.borderWidth = 1
+        
+        actionButton.isHidden = !actionButtonViewModel.isActionAvailable
     }
     
     func setupLayout() {
         view.addSubview(titleLabel) {
-            $0.pinToSuperview(excluding: [.bottom])
             $0.height.equal(to: Constants.titleLabelHeight)
+            $0.pinToSuperview(excluding: [.bottom])
         }
         
         view.addSubview(textView) {
             $0.top.equal(to: titleLabel.bottomAnchor)
-            $0.pinToSuperview(excluding: [.top])
+            $0.bottom.equal(to: view.bottomAnchor)
+            $0.leading.equal(to: view.leadingAnchor)
+            self.textViewTrailingConstraint =  $0.trailing.equal(to: view.trailingAnchor)
+        }
+        
+        view.addSubview(actionButton) {
+            $0.top.equal(to: titleLabel.bottomAnchor)
+//            $0.bottom.equal(to: view.bottomAnchor)
+            $0.trailing.equal(to: view.trailingAnchor)
+            self.actionButtonLeadingConstraint = $0.leading.equal(to: textView.trailingAnchor, activate: false)
+            $0.size(Constants.actionButtonSize)
         }
     }
     
@@ -114,6 +153,16 @@ extension TextRelationDetailsViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         viewModel.value = textView.text
+        if viewModel.actionButtonViewModel?.isActionAvailable ?? false {
+            textViewTrailingConstraint?.isActive = false
+            actionButtonLeadingConstraint?.isActive = true
+            actionButton.isHidden = false
+        } else {
+            textViewTrailingConstraint?.isActive = true
+            actionButtonLeadingConstraint?.isActive = false
+            actionButton.isHidden = true
+        }
+//        actionButton.isHidden = !(viewModel.actionButtonViewModel?.isActionAvailable ?? false)
         handleHeightUpdate()
     }
     
@@ -125,6 +174,7 @@ private extension TextRelationDetailsViewController {
     
     enum Constants {
         static let titleLabelHeight: CGFloat = 48
+        static let actionButtonSize: CGSize = CGSize(width: 36, height: 36)
     }
     
 }

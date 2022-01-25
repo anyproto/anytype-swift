@@ -39,14 +39,20 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 delegate: delegate
             )
         case .email(let email):
-            return ActionableTextRelationEditingViewModel(
-                type: .email,
+            return TextRelationDetailsViewModel(
                 value: email.value ?? "",
-                title: email.name,
-                relationKey: email.id,
-                service:  RelationsService(objectId: objectId),
-                delegate: delegate
+                type: .email,
+                relation: relation,
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId))
             )
+//            return ActionableTextRelationEditingViewModel(
+//                type: .email,
+//                value: email.value ?? "",
+//                title: email.name,
+//                relationKey: email.id,
+//                service:  RelationsService(objectId: objectId),
+//                delegate: delegate
+//            )
         case .url(let url):
             return ActionableTextRelationEditingViewModel(
                 type: .url,

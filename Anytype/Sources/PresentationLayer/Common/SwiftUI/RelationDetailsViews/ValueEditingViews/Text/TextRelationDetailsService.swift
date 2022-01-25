@@ -30,6 +30,9 @@ extension TextRelationDetailsService: TextRelationDetailsServiceProtocol {
         case .number:
             guard let number = numberFormatter.number(from: value)?.doubleValue else { return }
             service.updateRelation(relationKey: key, value: number.protobufValue)
+        case .phone, .email, .url:
+            let value = value.replacingOccurrences(of: " ", with: "")
+            service.updateRelation(relationKey: key, value: value.protobufValue)
         }
     }
     
