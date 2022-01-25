@@ -400,7 +400,7 @@ private extension EditorPageController {
         cell.contentView.isUserInteractionEnabled = true
         
         cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
-        if FeatureFlags.rainbowCells {
+        if FeatureFlags.rainbowViews {
             cell.fillSubviewsWithRandomColors(recursively: false)
         }
     }

@@ -77,7 +77,7 @@ private extension TextRelationDetailsViewController {
         setupActionButton()
         setupLayout()
         
-        if FeatureFlags.rainbowCells {
+        if FeatureFlags.rainbowViews {
             view.fillSubviewsWithRandomColors()
         }
     }
