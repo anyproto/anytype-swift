@@ -9,17 +9,26 @@ final class TextRelationActionButtonViewModel {
     
     private let type: SupportedTextType
     
+    private weak var delegate: TextRelationEditingViewModelDelegate?
+    
     // MARK: - Initializers
     
-    init?(type: TextRelationEditingViewType) {
+    init?(type: TextRelationEditingViewType, delegate: TextRelationEditingViewModelDelegate?) {
         guard let supportedType = SupportedTextType(type: type) else {
             return nil
         }
         
         self.type = supportedType
+        self.delegate = delegate
     }
     
     var isActionAvailable: Bool {
+        guard
+            let url = urlToOpen,
+            let delegate = delegate,
+            delegate.canOpenUrl(url)
+        else { return false }
+        
         switch type {
         case .phone:
             return text.isValidPhone()
@@ -31,7 +40,17 @@ final class TextRelationActionButtonViewModel {
     }
     
     func performAction() {
+        guard let url = urlToOpen else { return }
         
+        delegate?.openUrl(url)
+    }
+    
+    private var urlToOpen: URL? {
+        switch type {
+        case .phone: return URL(string: "tel:\(text)")
+        case .email: return URL(string: "mailto:\(text)")
+        case .url: return URL(string: text)
+        }
     }
     
 }
