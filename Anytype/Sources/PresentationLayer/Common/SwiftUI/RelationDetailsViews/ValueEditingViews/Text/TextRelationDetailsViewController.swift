@@ -29,18 +29,22 @@ final class TextRelationDetailsViewController: UIViewController {
         setupView()
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        viewModel.height = textView.intrinsicContentSize.height + 48// + view.safeAreaInsets.bottom
+        handleHeightUpdate()
     }
     
 }
+
+private extension TextRelationDetailsViewController {
+    
+    func handleHeightUpdate() {
+        viewModel.height = textView.intrinsicContentSize.height + Constants.titleLabelHeight
+    }
+    
+}
+
+// MARK: - Initial setup
 
 private extension TextRelationDetailsViewController {
     
@@ -93,7 +97,7 @@ private extension TextRelationDetailsViewController {
     func setupLayout() {
         view.addSubview(titleLabel) {
             $0.pinToSuperview(excluding: [.bottom])
-            $0.height.equal(to: 48)
+            $0.height.equal(to: Constants.titleLabelHeight)
         }
         
         view.addSubview(textView) {
@@ -104,11 +108,23 @@ private extension TextRelationDetailsViewController {
     
 }
 
+// MARK: - UITextViewDelegate
+
 extension TextRelationDetailsViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         viewModel.value = textView.text
-        viewModel.height = textView.intrinsicContentSize.height + 48 //+ view.safeAreaInsets.bottom
+        handleHeightUpdate()
+    }
+    
+}
+
+// MARK: - Private extension
+
+private extension TextRelationDetailsViewController {
+    
+    enum Constants {
+        static let titleLabelHeight: CGFloat = 48
     }
     
 }
