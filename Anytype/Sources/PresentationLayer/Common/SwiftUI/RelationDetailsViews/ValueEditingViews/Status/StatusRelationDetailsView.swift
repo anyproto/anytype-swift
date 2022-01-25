@@ -1,6 +1,5 @@
 import SwiftUI
 
-#warning("TODO R: update design")
 struct StatusRelationDetailsView: View {
     
     @ObservedObject var viewModel: StatusRelationDetailsViewModel
@@ -12,7 +11,7 @@ struct StatusRelationDetailsView: View {
             statusesList
             Spacer.fixedHeight(20)
         }
-        .onChange(of: searchText) { viewModel.filterStatusSections(text: $0) }
+        .onChange(of: searchText) { viewModel.filterStatuses(text: $0) }
     }
     
     private var statusesList: some View {
@@ -24,11 +23,13 @@ struct StatusRelationDetailsView: View {
                     }
                 }
                 
-                ForEach(viewModel.statusSections) { section in
+                ForEach(viewModel.sections) { section in
                     Section(
                         header: RelationOptionsSectionHeaderView(title: section.title)
                     ) {
-                        ForEach(section.options) { statusRow($0) }
+                        ForEach(section.options) {
+                            StatusRelationDetailsRowView(selectedStatus: $viewModel.selectedStatus, status: $0)
+                        }
                     }
                 }
             }
@@ -36,32 +37,18 @@ struct StatusRelationDetailsView: View {
         }
     }
     
-    private func statusRow(_ status: Relation.Status.Option) -> some View {
-        StatusRelationDetailsRowView(
-            status: status,
-            isSelected: status == viewModel.selectedStatus
-        ) {
-            if viewModel.selectedStatus == status {
-                viewModel.selectedStatus = nil
-            } else {
-                viewModel.selectedStatus = status
-            }
-            
-            viewModel.saveValue()
-        }
-    }
 }
 
-struct StatusRelationEditingView_Previews: PreviewProvider {
-    static var previews: some View {
-        StatusRelationDetailsView(
-            viewModel: StatusRelationDetailsViewModel(
-                relationKey: "",
-                relationName: "",
-                relationOptions: [],
-                selectedStatus: nil,
-                relationsService: RelationsService(objectId: "")
-            )
-        )
-    }
-}
+//struct StatusRelationEditingView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StatusRelationDetailsView(
+//            viewModel: StatusRelationDetailsViewModel(
+//                relationKey: "",
+//                relationName: "",
+//                relationOptions: [],
+//                selectedStatus: nil,
+//                relationsService: RelationsService(objectId: "")
+//            )
+//        )
+//    }
+//}

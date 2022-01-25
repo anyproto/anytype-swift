@@ -2,9 +2,8 @@ import SwiftUI
 
 struct StatusRelationDetailsRowView: View {
     
+    @Binding var selectedStatus: Relation.Status.Option?
     let status: Relation.Status.Option
-    let isSelected: Bool
-    let onTap: () -> ()
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -17,13 +16,13 @@ struct StatusRelationDetailsRowView: View {
     
     private var content: some View {
         Button {
-            onTap()
+            selectedStatus = selectedStatus == status ? nil : status
         } label: {
             HStack(spacing: 0) {
                 AnytypeText(status.text, style: .relation1Regular, color: status.color.suColor)
                 Spacer()
                 
-                if isSelected {
+                if selectedStatus == status {
                     Image.optionChecked.foregroundColor(.textSecondary)
                 }
             }
@@ -32,12 +31,12 @@ struct StatusRelationDetailsRowView: View {
     }
 }
 
-struct StatusRelationRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        StatusRelationDetailsRowView(
-            status: Relation.Status.Option(id: "", text: "text", color: UIColor.System.teal, scope: .local),
-            isSelected: true,
-            onTap: {}
-        )
-    }
-}
+//struct StatusRelationRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        StatusRelationDetailsRowView(
+//            status: Relation.Status.Option(id: "", text: "text", color: UIColor.System.teal, scope: .local),
+//            isSelected: true,
+//            onTap: {}
+//        )
+//    }
+//}

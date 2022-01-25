@@ -1,57 +1,81 @@
 import Foundation
 import SwiftUI
 import BlocksModels
+import FloatingPanel
 
 final class StatusRelationDetailsViewModel: ObservableObject {
 
+    var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
+    @Published private var layout: FloatingPanelLayout = RelationOptionsPopupLayout()
+    
     var onDismiss: () -> Void = {}
     
     @Published var isPresented: Bool = false
-    @Published var selectedStatus: Relation.Status.Option?
-    @Published var statusSections: [RelationOptionsSection<Relation.Status.Option>]
+
+    @Published var selectedStatus: Relation.Status.Option? {
+        didSet {
+            saveValue()
+        }
+    }
     
-    let relationName: String
+    @Published var sections: [RelationOptionsSection<Relation.Status.Option>]
     
-    private let relationOptions: [Relation.Status.Option]
-    private let relationKey: String
-    private let relationsService: RelationsServiceProtocol
+    private let allStatuses: [Relation.Status.Option]
+    
+    private let relation: Relation
+    private let service: RelationsServiceProtocol
     
     init(
-        relationKey: String,
-        relationName: String,
-        relationOptions: [Relation.Status.Option],
         selectedStatus: Relation.Status.Option?,
-        relationsService: RelationsServiceProtocol
+        allStatuses: [Relation.Status.Option],
+        relation: Relation,
+        service: RelationsServiceProtocol
     ) {
-        self.relationKey = relationKey
-        self.relationName = relationName
-        self.relationOptions = relationOptions
-        self.statusSections = RelationOptionsSectionBuilder.sections(from: relationOptions, filterText: nil)
         self.selectedStatus = selectedStatus
-        self.relationsService = relationsService
+        self.allStatuses = allStatuses
+        
+        self.relation = relation
+        self.service = service
+        
+        self.sections = RelationOptionsSectionBuilder.sections(from: allStatuses)
     }
     
 }
 
 extension StatusRelationDetailsViewModel {
     
-    func filterStatusSections(text: String) {
-        self.statusSections = RelationOptionsSectionBuilder.sections(from: relationOptions, filterText: text)
+    func filterStatuses(text: String) {
+        let filteredStatuses: [Relation.Status.Option] = allStatuses.filter {
+            guard $0.text.isNotEmpty else { return false }
+            
+            return $0.text.lowercased().contains(text.lowercased())
+        }
+        
+        self.sections = RelationOptionsSectionBuilder.sections(from: filteredStatuses)
     }
     
     func addOption(text: String) {
-        let optionId = relationsService.addRelationOption(relationKey: relationKey, optionText: text)
+        let optionId = service.addRelationOption(relationKey: relation.id, optionText: text)
         guard let optionId = optionId else { return}
         
-        relationsService.updateRelation(relationKey: relationKey, value: optionId.protobufValue)
+        service.updateRelation(relationKey: relation.id, value: optionId.protobufValue)
         withAnimation {
             isPresented = false
         }
     }
     
     func saveValue() {
-        relationsService.updateRelation(relationKey: relationKey, value: selectedStatus?.id.protobufValue ?? nil)
+        service.updateRelation(relationKey: relation.id, value: selectedStatus?.id.protobufValue ?? nil)
     }
+    
+}
+
+extension StatusRelationDetailsViewModel: RelationDetailsViewModelProtocol {
+    
+    func makeViewController() -> UIViewController {
+        UIHostingController(rootView: StatusRelationDetailsView(viewModel: self))
+    }
+    
 }
 
 extension StatusRelationDetailsViewModel: RelationEditingViewModelProtocol {

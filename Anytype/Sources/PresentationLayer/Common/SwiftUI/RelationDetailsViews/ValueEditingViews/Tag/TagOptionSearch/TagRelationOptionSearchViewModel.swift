@@ -21,7 +21,8 @@ final class TagRelationOptionSearchViewModel: ObservableObject {
         self.relationsService = relationsService
         self.addTagsAction = addTagsAction
         
-        self.sections = RelationOptionsSectionBuilder.sections(from: availableTags, filterText: nil)
+        self.sections = []
+//        self.sections = RelationOptionsSectionBuilder.sections(from: availableTags, filterText: nil)
     }
     
 }
@@ -29,7 +30,8 @@ final class TagRelationOptionSearchViewModel: ObservableObject {
 extension TagRelationOptionSearchViewModel {
     
     func filterTagSections(text: String) {
-        self.sections = RelationOptionsSectionBuilder.sections(from: availableTags, filterText: text)
+        self.sections = []
+//        self.sections = RelationOptionsSectionBuilder.sections(from: availableTags, filterText: text)
     }
     
     func didTapOnTag(_ tag: Relation.Tag.Option) {
