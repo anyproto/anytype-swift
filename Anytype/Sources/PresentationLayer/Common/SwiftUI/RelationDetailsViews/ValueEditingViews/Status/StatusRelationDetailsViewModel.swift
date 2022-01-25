@@ -6,7 +6,7 @@ import FloatingPanel
 final class StatusRelationDetailsViewModel: ObservableObject {
 
     var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
-    @Published private var layout: FloatingPanelLayout = RelationOptionsPopupLayout()
+    @Published private var layout: FloatingPanelLayout = FullScreenHeightPopupLayout()
     
     var onDismiss: () -> Void = {}
     
