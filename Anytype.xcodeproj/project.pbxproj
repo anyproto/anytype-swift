@@ -144,7 +144,6 @@
 		1215E8B926A862350089AF7E /* ImageCacheExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8B826A862350089AF7E /* ImageCacheExtension.swift */; };
 		1215E8BB26A8654C0089AF7E /* AnalyticsConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8BA26A8654C0089AF7E /* AnalyticsConfigurator.swift */; };
 		1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8C026A86CAC0089AF7E /* ImageSource.swift */; };
-		1219538A278D835100D53653 /* RelationTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12195389278D835100D53653 /* RelationTextView.swift */; };
 		12195395278DA46E00D53653 /* TextRelationDetailsViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12195394278DA46D00D53653 /* TextRelationDetailsViewType.swift */; };
 		1219F971269350A5009DE4D4 /* ObjectIconType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1219F970269350A5009DE4D4 /* ObjectIconType.swift */; };
 		1220670827314E210051A331 /* RelationsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1220670727314E210051A331 /* RelationsListViewModel.swift */; };
@@ -1021,7 +1020,6 @@
 		1215E8B826A862350089AF7E /* ImageCacheExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacheExtension.swift; sourceTree = "<group>"; };
 		1215E8BA26A8654C0089AF7E /* AnalyticsConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalyticsConfigurator.swift; sourceTree = "<group>"; };
 		1215E8C026A86CAC0089AF7E /* ImageSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSource.swift; sourceTree = "<group>"; };
-		12195389278D835100D53653 /* RelationTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationTextView.swift; sourceTree = "<group>"; };
 		12195394278DA46D00D53653 /* TextRelationDetailsViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsViewType.swift; sourceTree = "<group>"; };
 		1219F970269350A5009DE4D4 /* ObjectIconType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconType.swift; sourceTree = "<group>"; };
 		1220670727314E210051A331 /* RelationsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListViewModel.swift; sourceTree = "<group>"; };
@@ -2808,9 +2806,9 @@
 		12636CF1276A076F0084D35D /* RelationOptionSection */ = {
 			isa = PBXGroup;
 			children = (
-				12636CEF276A069D0084D35D /* RelationScopedOptionProtocol.swift */,
 				12636CEB276A04260084D35D /* RelationOptionsSection.swift */,
 				12636CED276A04BC0084D35D /* RelationOptionsSectionBuilder.swift */,
+				12636CEF276A069D0084D35D /* RelationScopedOptionProtocol.swift */,
 			);
 			path = RelationOptionSection;
 			sourceTree = "<group>";
@@ -2821,7 +2819,6 @@
 				12EB9B1827735C2900BA732F /* OptionsList */,
 				12636CF2276A0CF00084D35D /* RelationOptionsSectionHeaderView.swift */,
 				12636CF5276A0DC70084D35D /* RelationOptionCreateButton.swift */,
-				12195389278D835100D53653 /* RelationTextView.swift */,
 			);
 			path = CommonViews;
 			sourceTree = "<group>";
@@ -5963,7 +5960,6 @@
 				120E817F26A026F5006FE84E /* ObjectSettingRow.swift in Sources */,
 				3D38CC9626D632C500E4F7BF /* ObjectHeaderBuilder.swift in Sources */,
 				C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */,
-				1219538A278D835100D53653 /* RelationTextView.swift in Sources */,
 				12C2A5602754E13000311854 /* DateRelationDetailsView.swift in Sources */,
 				12EEC36B26A0903F00C3C4B1 /* EmojiData.swift in Sources */,
 				12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */,
