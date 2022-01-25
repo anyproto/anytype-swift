@@ -10,6 +10,8 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     
     var onDismiss: () -> Void = {}
     
+    var closePopupAction: (() -> Void)?
+    
     @Published var isPresented: Bool = false
 
     @Published var selectedStatus: Relation.Status.Option? {
@@ -64,13 +66,13 @@ extension StatusRelationDetailsViewModel {
         guard let optionId = optionId else { return}
         
         service.updateRelation(relationKey: relation.id, value: optionId.protobufValue)
-        withAnimation {
-            isPresented = false
-        }
+        
+        closePopupAction?()
     }
     
     func saveValue() {
         service.updateRelation(relationKey: relation.id, value: selectedStatus?.id.protobufValue ?? nil)
+        closePopupAction?()
     }
     
 }

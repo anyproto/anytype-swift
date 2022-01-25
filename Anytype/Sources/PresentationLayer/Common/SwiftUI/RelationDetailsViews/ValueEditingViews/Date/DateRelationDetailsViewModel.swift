@@ -12,6 +12,8 @@ final class DateRelationDetailsViewModel: ObservableObject {
     
     @Published private var layout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0)
     
+    var closePopupAction: (() -> Void)?
+    
     var onDismiss: () -> Void = {}
     
     @Published var height: CGFloat = 0 {
@@ -56,7 +58,7 @@ final class DateRelationDetailsViewModel: ObservableObject {
 }
 
 extension DateRelationDetailsViewModel: RelationDetailsViewModelProtocol {
-
+    
     func makeViewController() -> UIViewController {
         UIHostingController(rootView: makeView())
     }

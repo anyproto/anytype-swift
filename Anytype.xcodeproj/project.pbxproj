@@ -2947,7 +2947,6 @@
 			isa = PBXGroup;
 			children = (
 				12887F3C274BC20200228330 /* ValueEditingViews */,
-				12136D4F27991AF500262FE7 /* RelationDetailsViewModelProtocol.swift */,
 			);
 			path = RelationDetailsViews;
 			sourceTree = "<group>";
@@ -2955,6 +2954,7 @@
 		12887F3C274BC20200228330 /* ValueEditingViews */ = {
 			isa = PBXGroup;
 			children = (
+				12136D4F27991AF500262FE7 /* RelationDetailsViewModelProtocol.swift */,
 				12EB9B322774435E00BA732F /* Files */,
 				120AC25F2747B59200330D7B /* RelationEditingViewModelProtocol.swift */,
 				122898B7276F0E45004B81B8 /* Objects */,
