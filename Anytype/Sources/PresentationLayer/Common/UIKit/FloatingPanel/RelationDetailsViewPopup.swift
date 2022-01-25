@@ -3,6 +3,7 @@ import FloatingPanel
 import UIKit
 import SwiftUI
 import Combine
+import AnytypeCore
 
 #warning("TODO R: init with ViewModel + subscribe for content update in order to update floatingpanel layout")
 final class RelationDetailsViewPopup: FloatingPanelController {
@@ -77,9 +78,9 @@ private extension RelationDetailsViewPopup {
         
         surfaceView.contentPadding = UIEdgeInsets(top: RelationDetailsViewPopup.grabberHeight, left: 0, bottom: 0, right: 0)
 
-        #if DEBUG
-        surfaceView.backgroundColor = .red
-        #endif
+        if FeatureFlags.rainbowViews {
+            surfaceView.backgroundColor = .red
+        }
     }
     
     func makeAppearance() -> SurfaceAppearance {
