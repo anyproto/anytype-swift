@@ -33,6 +33,19 @@ final class TextBlockActionHandler {
         service.setText(contextId: contextId, blockId: info.id, middlewareString: middlewareString)
     }
 
+    func changeTextForced(info: BlockInformation, text: NSAttributedString) {
+        guard case .text = info.content else { return }
+
+        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
+
+        EventsBunch(
+            contextId: contextId,
+            localEvents: [.setText(blockId: info.id, text: middlewareString)]
+        ).send()
+
+        service.setTextForced(contextId: contextId, blockId: info.id, middlewareString: middlewareString)
+    }
+
     func handleKeyboardAction(
         info: BlockInformation,
         action: CustomTextView.KeyboardAction,

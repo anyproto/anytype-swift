@@ -27,8 +27,10 @@ protocol BlockActionServiceProtocol {
     func duplicate(blockId: BlockId)
     
     func setFields(contextID: BlockId, blockFields: [BlockFields])
+
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
     @discardableResult
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool
     func merge(secondBlockId: BlockId)
     
     func setObjectTypeUrl(_ objectTypeUrl: String)

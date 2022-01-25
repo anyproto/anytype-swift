@@ -69,7 +69,7 @@ final class LocalEventConverter {
         blockModel.information.content = .text(textContent)
         blockModel.information = blockValidator.validated(information: blockModel.information)
         
-        return .dataSourceUpdate
+        return .blocks(blockIds: [blockId])
     }
     
     private func setFocus(blockId: BlockId, position: BlockFocusPosition) {

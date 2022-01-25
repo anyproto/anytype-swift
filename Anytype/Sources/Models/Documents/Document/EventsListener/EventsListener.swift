@@ -70,10 +70,11 @@ final class EventsListener: EventsListenerProtocol {
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) }
         let markupUpdates = [mentionMarkupEventProvider.updateMentionsEvent()].compactMap { $0 }
         let dataSourceUpdates = events.dataSourceEvents.compactMap { localConverter.convert($0) }
-        let updates = middlewareUpdates + markupUpdates + localUpdates + dataSourceUpdates
+
+        var updates = middlewareUpdates + markupUpdates + localUpdates
 
         if dataSourceUpdates.isNotEmpty {
-            print("HELLOW")
+            updates.append(.dataSourceUpdate)
         }
 
         updates.forEach { update in

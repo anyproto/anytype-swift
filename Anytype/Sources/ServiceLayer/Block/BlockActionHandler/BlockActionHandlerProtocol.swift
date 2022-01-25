@@ -32,7 +32,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId?
     func setObjectTypeUrl(_ objectTypeUrl: String)
     func changeCaretPosition(range: NSRange)
-    func changeText(_ text: NSAttributedString, blockId: BlockId)
+    func changeTextForced(_ text: NSAttributedString, blockId: BlockId)
     func changeText(_ text: NSAttributedString, info: BlockInformation)
     func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation, attributedText: NSAttributedString)
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)

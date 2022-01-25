@@ -22,4 +22,6 @@ protocol EditorPageViewInput: AnyObject {
 
     /// Tells the delegate when editing of the text block will begin
     func textBlockWillBeginEditing()
+
+    func blockDidFinishEditing(blockId: BlockId)
 }

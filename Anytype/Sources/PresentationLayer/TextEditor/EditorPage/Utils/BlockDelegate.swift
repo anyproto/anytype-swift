@@ -55,7 +55,10 @@ final class BlockDelegateImpl: BlockDelegate {
     }
     
     func didEndEditing() {
+        data.map { viewInput?.blockDidFinishEditing(blockId: $0.info.id) }
         accessoryState.didEndEditing()
+
+        data = nil
     }
     
     func textWillChange(changeType: TextChangeType) {

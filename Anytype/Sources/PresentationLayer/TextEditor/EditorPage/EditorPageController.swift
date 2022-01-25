@@ -206,31 +206,20 @@ extension EditorPageController: EditorPageViewInput {
                       let item = blocksSnapshot.items[safe: change.offset],
                       blocksSnapshot.isVisible(item) else { continue }
 
-                guard let indexPath = dataSource.indexPath(for: item) else { continue }
-                guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
-
-
-                cell.contentConfiguration = viewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
-                cell.indentationLevel = viewModel.indentationLevel
+                reloadCell(for: item, using: viewModel)
             }
         }
-
 
         applyBlocksSectionSnapshot(blocksSnapshot)
     }
 
     func selectBlock(blockId: BlockId) {
-        let item = dataSource.snapshot().itemIdentifiers.first {
-            switch $0 {
-            case let .block(block):
-                return block.information.id == blockId
-            case .header:
-                return false
-            }
-        }
-        
-        if let item = item {
-            let indexPath = dataSource.indexPath(for: item)
+        if let item = dataSourceItem(for: blockId),
+            let indexPath = dataSource.indexPath(for: item) {
+            reloadCell(
+                for: item,
+                using: viewModel.modelsHolder.contentProvider(for: item)
+            )
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         }
 
@@ -259,6 +248,15 @@ extension EditorPageController: EditorPageViewInput {
         navigationBarHelper.setNavigationBarHidden(show)
         deletedScreen.isHidden = !show
         if show { UIApplication.shared.hideKeyboard() }
+    }
+
+    func blockDidFinishEditing(blockId: BlockId) {
+        guard let dataSourceItem = dataSourceItem(for: blockId),
+              let contentProvider = viewModel.modelsHolder.contentProvider(for: blockId) else {
+                  return
+              }
+
+        reloadCell(for: dataSourceItem, using: contentProvider)
     }
 }
 
@@ -311,6 +309,28 @@ private extension EditorPageController {
         blocksSelectionOverlayView.isHidden = true
 
         deletedScreen.isHidden = true
+    }
+
+    func reloadCell(
+        for item: EditorItem,
+        using contentProvider: ContentConfigurationProvider?
+    ) {
+        guard let indexPath = dataSource.indexPath(for: item),
+              let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+
+        cell.contentConfiguration = contentProvider?.makeContentConfiguration(maxWidth: cell.bounds.width)
+        cell.indentationLevel = contentProvider?.indentationLevel ?? 0
+    }
+
+    func dataSourceItem(for blockId: BlockId) -> EditorItem? {
+        dataSource.snapshot().itemIdentifiers.first {
+            switch $0 {
+            case let .block(block):
+                return block.information.id == blockId
+            case .header:
+                return false
+            }
+        }
     }
     
     @objc
