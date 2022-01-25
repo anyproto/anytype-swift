@@ -45,6 +45,11 @@ final class StatusRelationDetailsViewModel: ObservableObject {
 extension StatusRelationDetailsViewModel {
     
     func filterStatuses(text: String) {
+        guard text.isNotEmpty else {
+            self.sections = RelationOptionsSectionBuilder.sections(from: allStatuses)
+            return
+        }
+        
         let filteredStatuses: [Relation.Status.Option] = allStatuses.filter {
             guard $0.text.isNotEmpty else { return false }
             
