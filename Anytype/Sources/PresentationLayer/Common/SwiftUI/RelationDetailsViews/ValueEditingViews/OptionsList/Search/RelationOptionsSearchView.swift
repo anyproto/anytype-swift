@@ -30,23 +30,6 @@ struct RelationOptionsSearchView: View {
         }
     }
     
-    private var searchResults: some View {
-        ScrollView {
-            LazyVStack(spacing: 0) {
-                ForEach(viewModel.searchResults) { option in
-                    RelationObjectsSearchRowView(
-                        data: option,
-                        isSelected: viewModel.selectedOptionIds.contains(option.id)
-                    ) {
-                        viewModel.didTapOnOption(option)
-                    }
-                }
-            }
-            .padding(.bottom, 10)
-        }
-        .modifier(DividerModifier(spacing: 0))
-    }
-    
     private var emptyState: some View {
         VStack(alignment: .center) {
             Spacer()
@@ -65,6 +48,18 @@ struct RelationOptionsSearchView: View {
             Spacer()
         }
         .padding(.horizontal)
+    }
+    
+    private var searchResults: some View {
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                ForEach(viewModel.searchResults) {
+                    RelationObjectsSearchRowView(data: $0, selectedIds: $viewModel.selectedOptionIds)
+                }
+            }
+            .padding(.bottom, 10)
+        }
+        .modifier(DividerModifier(spacing: 0))
     }
     
     private var addButton: some View {

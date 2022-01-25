@@ -1,14 +1,17 @@
 import SwiftUI
 
 struct RelationObjectsSearchRowView: View {
-    
+
     let data: RelationOptionsSearchData
-    let isSelected: Bool
-    let onTap: () -> ()
+    @Binding var selectedIds: [String]
     
     var body: some View {
         Button {
-            onTap()
+            if selectedIds.contains(data.id) {
+                selectedIds.removeAll { $0 == data.id }
+            } else {
+                selectedIds.append(data.id)
+            }
         } label: {
             content
         }
@@ -24,7 +27,7 @@ struct RelationObjectsSearchRowView: View {
             text
             Spacer()
             
-            if isSelected {
+            if selectedIds.contains(data.id) {
                 Image.optionChecked.foregroundColor(.textSecondary)
             }
         }
@@ -44,16 +47,16 @@ struct RelationObjectsSearchRowView: View {
     }
 }
 
-struct RelationObjectsSearchRowView_Previews: PreviewProvider {
-    static var previews: some View {
-        RelationObjectsSearchRowView(
-            data: RelationOptionsSearchData(
-                id: "id",
-                iconImage: .todo(true),
-                title: "title",
-                subtitle: "subtitle"
-            ),
-            isSelected: true
-        ) {}
-    }
-}
+//struct RelationObjectsSearchRowView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        RelationObjectsSearchRowView(
+//            data: RelationOptionsSearchData(
+//                id: "id",
+//                iconImage: .todo(true),
+//                title: "title",
+//                subtitle: "subtitle"
+//            ),
+//            isSelected: true
+//        ) {}
+//    }
+//}

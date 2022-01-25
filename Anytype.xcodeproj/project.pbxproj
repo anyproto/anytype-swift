@@ -2651,6 +2651,15 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		12394A0027A01BCB0080E1CF /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				123949FB27A017110080E1CF /* RelationOptionsSearchType.swift */,
+				123883A227708E6F00A71682 /* RelationOptionsSearchData.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
 		12426A1D26DCECB000693B1F /* ImageBuilder */ = {
 			isa = PBXGroup;
 			children = (
@@ -3284,11 +3293,10 @@
 		12EB9B3F27747C1200BA732F /* Search */ = {
 			isa = PBXGroup;
 			children = (
-				123883A227708E6F00A71682 /* RelationOptionsSearchData.swift */,
-				123883A42770923C00A71682 /* RelationObjectsSearchRowView.swift */,
+				12394A0027A01BCB0080E1CF /* Entities */,
 				12C5377B27747D4A00396990 /* RelationOptionsSearchView.swift */,
 				12C5378027747D7500396990 /* RelationOptionsSearchViewModel.swift */,
-				123949FB27A017110080E1CF /* RelationOptionsSearchType.swift */,
+				123883A42770923C00A71682 /* RelationObjectsSearchRowView.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";

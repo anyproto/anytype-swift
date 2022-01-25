@@ -47,15 +47,6 @@ extension RelationOptionsSearchViewModel {
         searchResults = result.map { RelationOptionsSearchData(details: $0) }
     }
     
-    func didTapOnOption(_ object: RelationOptionsSearchData) {
-        let id = object.id
-        if selectedOptionIds.contains(id) {
-            selectedOptionIds = selectedOptionIds.filter { $0 != id }
-        } else {
-            selectedOptionIds.append(id)
-        }
-    }
-    
     func didTapAddSelectedOptions() {
         addOptionsAction(selectedOptionIds)
     }
