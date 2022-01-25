@@ -2639,6 +2639,16 @@
 			path = Entities;
 			sourceTree = "<group>";
 		};
+		123949F127A00A250080E1CF /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				12461BF32767646D00D47708 /* Tag */,
+				122898B7276F0E45004B81B8 /* Objects */,
+				12EB9B322774435E00BA732F /* Files */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		12426A1D26DCECB000693B1F /* ImageBuilder */ = {
 			isa = PBXGroup;
 			children = (
@@ -2813,14 +2823,13 @@
 			path = RelationOptionSection;
 			sourceTree = "<group>";
 		};
-		12636CF4276A0DAB0084D35D /* CommonViews */ = {
+		12636CF4276A0DAB0084D35D /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
-				12EB9B1827735C2900BA732F /* OptionsList */,
 				12636CF2276A0CF00084D35D /* RelationOptionsSectionHeaderView.swift */,
 				12636CF5276A0DC70084D35D /* RelationOptionCreateButton.swift */,
 			);
-			path = CommonViews;
+			path = Subviews;
 			sourceTree = "<group>";
 		};
 		12636CF9276A211D0084D35D /* TagOptionSearch */ = {
@@ -2952,15 +2961,13 @@
 			isa = PBXGroup;
 			children = (
 				12136D4F27991AF500262FE7 /* RelationDetailsViewModelProtocol.swift */,
-				12EB9B322774435E00BA732F /* Files */,
 				120AC25F2747B59200330D7B /* RelationEditingViewModelProtocol.swift */,
-				122898B7276F0E45004B81B8 /* Objects */,
-				123949EC279FCC780080E1CF /* Entities */,
-				12461BF32767646D00D47708 /* Tag */,
 				12887F3D274BC25100228330 /* Text */,
 				12C2A58C27576B9D00311854 /* Date */,
 				12F14CE32758EFE000B976B5 /* Status */,
-				12636CF4276A0DAB0084D35D /* CommonViews */,
+				12EB9B1827735C2900BA732F /* OptionsList */,
+				12636CF4276A0DAB0084D35D /* Subviews */,
+				123949EC279FCC780080E1CF /* Entities */,
 			);
 			path = ValueEditingViews;
 			sourceTree = "<group>";
@@ -3253,6 +3260,7 @@
 		12EB9B1827735C2900BA732F /* OptionsList */ = {
 			isa = PBXGroup;
 			children = (
+				123949F127A00A250080E1CF /* Views */,
 				12EB9B3F27747C1200BA732F /* Search */,
 				12EB9B162773394500BA732F /* RelationOptionProtocol.swift */,
 				12FAAE6E2768D9040047F198 /* RelationOptionEditingAction.swift */,
