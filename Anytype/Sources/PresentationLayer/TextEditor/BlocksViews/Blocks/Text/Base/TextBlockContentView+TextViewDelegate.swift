@@ -26,11 +26,12 @@ extension TextBlockContentView: CustomTextViewDelegate {
     
     func changeText(text: NSAttributedString) {
         handler.changeText(text, info: currentConfiguration.information)
-        blockDelegate.textDidChange()
 
         if textView.textView.isLayoutNeeded {
             blockDelegate.textBlockSetNeedsLayout()
         }
+        
+        blockDelegate.textDidChange()
     }
     
     func changeTextStyle(attribute: MarkupType, range: NSRange) {

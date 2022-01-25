@@ -237,7 +237,10 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func textBlockDidChangeFrame() {
-        collectionView.collectionViewLayout.invalidateLayout()
+        // Can be skipped now. But need to clarify if every iOS version is adapted for automatic layout invalidation.
+//        UIView.animate(withDuration: 0.3) {
+//            self.collectionView.collectionViewLayout.invalidateLayout()
+//        }
     }
 
     func textBlockDidChangeText() {

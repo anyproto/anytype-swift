@@ -22,7 +22,6 @@ final class BlockDelegateImpl: BlockDelegate {
     
     weak private var viewInput: EditorPageViewInput?
 
-    var modelsHolder: BlockViewModelsHolder?
     private let accessoryState: AccessoryViewStateManager
     private let markdownListener: MarkdownListener
     
