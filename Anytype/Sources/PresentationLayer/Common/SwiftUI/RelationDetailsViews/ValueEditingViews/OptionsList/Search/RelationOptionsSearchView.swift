@@ -22,7 +22,7 @@ struct RelationOptionsSearchView: View {
     
     private var content: some View {
         Group {
-            if viewModel.options.isEmpty {
+            if viewModel.searchResults.isEmpty {
                 emptyState
             } else {
                 searchResults
@@ -33,7 +33,7 @@ struct RelationOptionsSearchView: View {
     private var searchResults: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                ForEach(viewModel.options) { option in
+                ForEach(viewModel.searchResults) { option in
                     RelationObjectsSearchRowView(
                         data: option,
                         isSelected: viewModel.selectedOptionIds.contains(option.id)

@@ -61,28 +61,22 @@ extension RelationOptionsViewModel {
         case .objects:
             RelationOptionsSearchView(
                 viewModel: RelationOptionsSearchViewModel(
-                    excludeOptionIds: selectedOptions.map { $0.id },
-                    searchAction: { service, text in
-                        return service.search(text: text)
-                    },
-                    addOptionsAction: { [weak self] ids in
-                        self?.handleNewOptionIds(ids)
-                    }
-                )
+                    type: .objects,
+                    excludedIds: selectedOptions.map { $0.id }
+                ) { [weak self] ids in
+                    self?.handleNewOptionIds(ids)
+                }
             )
         case .tags(let allTags):
             TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
         case .files:
             RelationOptionsSearchView(
                 viewModel: RelationOptionsSearchViewModel(
-                    excludeOptionIds: selectedOptions.map { $0.id },
-                    searchAction: { service, text in
-                        return service.searchFiles(text: text)
-                    },
-                    addOptionsAction: { [weak self] ids in
-                        self?.handleNewOptionIds(ids)
-                    }
-                )
+                    type: .files,
+                    excludedIds: selectedOptions.map { $0.id }
+                ) { [weak self] ids in
+                    self?.handleNewOptionIds(ids)
+                }
             )
         }
     }
