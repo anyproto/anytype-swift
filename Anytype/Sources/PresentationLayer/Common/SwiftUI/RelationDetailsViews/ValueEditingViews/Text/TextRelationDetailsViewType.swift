@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-enum TextRelationEditingViewType {
+enum TextRelationDetailsViewType {
     
     case text
     case number
@@ -11,7 +11,7 @@ enum TextRelationEditingViewType {
     
 }
 
-extension TextRelationEditingViewType {
+extension TextRelationDetailsViewType {
     
     var keyboardType: UIKeyboardType {
         switch self {

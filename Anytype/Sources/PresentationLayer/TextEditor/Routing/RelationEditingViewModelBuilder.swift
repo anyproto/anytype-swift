@@ -3,9 +3,9 @@ import BlocksModels
 #warning("TODO R: - return VC instead of ViewModel")
 final class RelationEditingViewModelBuilder {
     
-    private weak var delegate: TextRelationEditingViewModelDelegate?
+    private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
-    init(delegate: TextRelationEditingViewModelDelegate?) {
+    init(delegate: TextRelationActionButtonViewModelDelegate?) {
         self.delegate = delegate
     }
     

@@ -23,7 +23,7 @@ final class TextRelationDetailsService {
 
 extension TextRelationDetailsService: TextRelationDetailsServiceProtocol {
     
-    func saveRelation(value: String, key: String, textType: TextRelationEditingViewType) {
+    func saveRelation(value: String, key: String, textType: TextRelationDetailsViewType) {
         switch textType {
         case .text:
             service.updateRelation(relationKey: key, value: value.protobufValue)

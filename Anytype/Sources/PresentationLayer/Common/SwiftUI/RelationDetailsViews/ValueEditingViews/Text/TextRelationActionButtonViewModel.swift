@@ -9,11 +9,11 @@ final class TextRelationActionButtonViewModel {
     
     private let type: SupportedTextType
     
-    private weak var delegate: TextRelationEditingViewModelDelegate?
+    private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
     // MARK: - Initializers
     
-    init?(type: TextRelationEditingViewType, delegate: TextRelationEditingViewModelDelegate?) {
+    init?(type: TextRelationDetailsViewType, delegate: TextRelationActionButtonViewModelDelegate?) {
         guard let supportedType = SupportedTextType(type: type) else {
             return nil
         }
@@ -62,7 +62,7 @@ private extension TextRelationActionButtonViewModel {
         case email
         case url
         
-        init?(type: TextRelationEditingViewType) {
+        init?(type: TextRelationDetailsViewType) {
             switch type {
             case .text, .number:
                 return nil
