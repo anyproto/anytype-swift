@@ -7,9 +7,7 @@ import AnytypeCore
 
 #warning("TODO R: init with ViewModel + subscribe for content update in order to update floatingpanel layout")
 final class RelationDetailsViewPopup: FloatingPanelController {
-    
-    var keyboardPopupLayoutUpdater: KeyboardPopupLayoutUpdater?
-    
+        
     private let viewModel: RelationDetailsViewModelProtocol
     private var cancellables: Set<AnyCancellable> = []
     
