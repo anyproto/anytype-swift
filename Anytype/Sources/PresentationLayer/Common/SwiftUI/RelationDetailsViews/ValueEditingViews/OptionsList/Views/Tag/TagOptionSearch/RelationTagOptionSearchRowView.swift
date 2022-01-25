@@ -3,8 +3,7 @@ import SwiftUI
 struct RelationTagOptionSearchRowView: View {
     
     let tag: Relation.Tag.Option
-    let isSelected: Bool
-    let onTap: () -> ()
+    @Binding var selectedTagIds: [String]
     
     var body: some View {
         content
@@ -14,13 +13,17 @@ struct RelationTagOptionSearchRowView: View {
     
     private var content: some View {
         Button {
-            onTap()
+            if selectedTagIds.contains(tag.id) {
+                selectedTagIds.removeAll { $0 == tag.id }
+            } else {
+                selectedTagIds.append(tag.id)
+            }
         } label: {
             HStack(spacing: 0) {
                 TagView(tag: tag, guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines)
                 Spacer()
                 
-                if isSelected {
+                if selectedTagIds.contains(tag.id) {
                     Image.optionChecked.foregroundColor(.textSecondary)
                 }
             }
@@ -39,6 +42,6 @@ struct RelationTagOptionSearchRowView_Previews: PreviewProvider {
                 backgroundColor: UIColor.Background.amber,
                 scope: .local
             ),
-            isSelected: false) {}
+            selectedTagIds: .constant([""]))
     }
 }

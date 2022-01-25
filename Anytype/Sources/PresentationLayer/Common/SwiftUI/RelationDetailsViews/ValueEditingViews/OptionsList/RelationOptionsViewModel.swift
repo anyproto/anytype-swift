@@ -82,12 +82,14 @@ extension RelationOptionsViewModel {
     }
     
     private func searchViewModel(allTags: [Relation.Tag.Option]) -> TagRelationOptionSearchViewModel {
-        TagRelationOptionSearchViewModel(
-            relationKey: relation.id,
-            availableTags: allTags.filter { tag in
-                !selectedOptions.contains { $0.id == tag.id }
-            },
-            relationsService: service
+        let availableTags = allTags.filter { tag in
+            !selectedOptions.contains { $0.id == tag.id }
+        }
+        
+        return TagRelationOptionSearchViewModel(
+            availableTags: availableTags,
+            relation: relation,
+            service: service
         ) { [weak self] ids in
             self?.handleNewOptionIds(ids)
         }

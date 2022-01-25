@@ -16,7 +16,7 @@ struct TagRelationOptionSearchView: View {
             tagsList
             addButton
         }
-        .onChange(of: searchText) { viewModel.filterTagSections(text: $0)}
+        .onChange(of: searchText) { viewModel.filterTag(text: $0)}
     }
     
     private var tagsList: some View {
@@ -33,7 +33,9 @@ struct TagRelationOptionSearchView: View {
                     Section(
                         header: RelationOptionsSectionHeaderView(title: section.title)
                     ) {
-                        ForEach(section.options) { row($0) }
+                        ForEach(section.options) {
+                            RelationTagOptionSearchRowView(tag: $0, selectedTagIds: $viewModel.selectedTagIds)
+                        }
                     }
                 }
             }
@@ -41,16 +43,7 @@ struct TagRelationOptionSearchView: View {
             .padding(.bottom, 10)
         }
         .modifier(DividerModifier(spacing: 0))
-    }
-
-    private func row(_ tag: Relation.Tag.Option) -> some View {
-        RelationTagOptionSearchRowView(
-            tag: tag,
-            isSelected: viewModel.selectedTagIds.contains(tag.id)
-        ) {
-            viewModel.didTapOnTag(tag)
-        }
-    }
+    }        
     
     private var addButton: some View {
         StandardButton(disabled: viewModel.selectedTagIds.isEmpty, text: "Add".localized, style: .primary) {
@@ -77,36 +70,36 @@ struct TagRelationOptionSearchView: View {
     }
 }
 
-struct TagRelationOptionSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        TagRelationOptionSearchView(
-            viewModel: TagRelationOptionSearchViewModel(
-                relationKey: "",
-                availableTags: [
-                    Relation.Tag.Option(
-                        id: "id",
-                        text: "text",
-                        textColor: UIColor.Text.amber,
-                        backgroundColor: UIColor.Background.amber,
-                        scope: .local
-                    ),
-                    Relation.Tag.Option(
-                        id: "id3",
-                        text: "text3",
-                        textColor: UIColor.Text.amber,
-                        backgroundColor: UIColor.Background.amber,
-                        scope: .local
-                    ),
-                    Relation.Tag.Option(
-                        id: "id2",
-                        text: "text2",
-                        textColor: UIColor.Text.amber,
-                        backgroundColor: UIColor.Background.amber,
-                        scope: .local
-                    )
-                ],
-                relationsService: RelationsService(objectId: "")
-            ) { _ in }
-        )
-    }
-}
+//struct TagRelationOptionSearchView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        TagRelationOptionSearchView(
+//            viewModel: TagRelationOptionSearchViewModel(
+//                relationKey: "",
+//                availableTags: [
+//                    Relation.Tag.Option(
+//                        id: "id",
+//                        text: "text",
+//                        textColor: UIColor.Text.amber,
+//                        backgroundColor: UIColor.Background.amber,
+//                        scope: .local
+//                    ),
+//                    Relation.Tag.Option(
+//                        id: "id3",
+//                        text: "text3",
+//                        textColor: UIColor.Text.amber,
+//                        backgroundColor: UIColor.Background.amber,
+//                        scope: .local
+//                    ),
+//                    Relation.Tag.Option(
+//                        id: "id2",
+//                        text: "text2",
+//                        textColor: UIColor.Text.amber,
+//                        backgroundColor: UIColor.Background.amber,
+//                        scope: .local
+//                    )
+//                ],
+//                relationsService: RelationsService(objectId: "")
+//            ) { _ in }
+//        )
+//    }
+//}

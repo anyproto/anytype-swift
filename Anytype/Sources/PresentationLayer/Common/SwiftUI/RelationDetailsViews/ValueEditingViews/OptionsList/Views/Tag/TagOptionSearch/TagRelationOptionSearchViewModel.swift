@@ -5,42 +5,43 @@ final class TagRelationOptionSearchViewModel: ObservableObject {
     @Published var selectedTagIds: [String] = []
     @Published var sections: [RelationOptionsSection<Relation.Tag.Option>]
     
-    private let relationKey: String
     private let availableTags: [Relation.Tag.Option]
+    private let relation: Relation
+    private let service: RelationsServiceProtocol
     private let addTagsAction: ([String]) -> Void
-    private let relationsService: RelationsServiceProtocol
     
     init(
-        relationKey: String,
         availableTags: [Relation.Tag.Option],
-        relationsService: RelationsServiceProtocol,
+        relation: Relation,
+        service: RelationsServiceProtocol,
         addTagsAction: @escaping ([String]) -> Void
     ) {
-        self.relationKey = relationKey
         self.availableTags = availableTags
-        self.relationsService = relationsService
+        self.relation = relation
+        self.service = service
+        
         self.addTagsAction = addTagsAction
         
-        self.sections = []
-//        self.sections = RelationOptionsSectionBuilder.sections(from: availableTags, filterText: nil)
+        self.sections = RelationOptionsSectionBuilder.sections(from: availableTags)
     }
     
 }
 
 extension TagRelationOptionSearchViewModel {
     
-    func filterTagSections(text: String) {
-        self.sections = []
-//        self.sections = RelationOptionsSectionBuilder.sections(from: availableTags, filterText: text)
-    }
-    
-    func didTapOnTag(_ tag: Relation.Tag.Option) {
-        let id = tag.id
-        if selectedTagIds.contains(id) {
-            selectedTagIds = selectedTagIds.filter { $0 != id }
-        } else {
-            selectedTagIds.append(id)
+    func filterTag(text: String) {
+        guard text.isNotEmpty else {
+            self.sections = RelationOptionsSectionBuilder.sections(from: availableTags)
+            return
         }
+        
+        let filteredTags: [Relation.Tag.Option] = availableTags.filter {
+            guard $0.text.isNotEmpty else { return false }
+            
+            return $0.text.lowercased().contains(text.lowercased())
+        }
+        
+        self.sections = RelationOptionsSectionBuilder.sections(from: filteredTags)
     }
     
     func didTapAddSelectedTags() {
@@ -48,7 +49,7 @@ extension TagRelationOptionSearchViewModel {
     }
     
     func createOption(text: String) {
-        let optionId = relationsService.addRelationOption(relationKey: relationKey, optionText: text)
+        let optionId = service.addRelationOption(relationKey: relation.id, optionText: text)
         guard let optionId = optionId else { return}
 
         addTagsAction([optionId])
