@@ -63,11 +63,10 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .status(let status):
             return StatusRelationDetailsViewModel(
-                relationKey: relation.id,
-                relationName: relation.name,
-                relationOptions: status.allOptions,
                 selectedStatus: status.value,
-                relationsService: RelationsService(objectId: objectId)
+                allStatuses: status.allOptions,
+                relation: relation,
+                service: RelationsService(objectId: objectId)
             )
         case .tag(let tag):
             return RelationOptionsViewModel(

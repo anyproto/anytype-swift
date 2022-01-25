@@ -1,21 +1,22 @@
 import Foundation
 import BlocksModels
 
-final class RelationOptionsSectionBuilder<Option: RelationSectionedOptionProtocol> {
+final class RelationOptionsSectionBuilder<Option: RelationScopedOptionProtocol> {
  
-    static func sections(from options: [Option], filterText: String?) -> [RelationOptionsSection<Option>] {
-        let filter: (Bool, String) -> Bool = { scopeFilter, optionText in
-            if let text = filterText, text.isNotEmpty {
-                return scopeFilter && optionText.lowercased().contains(text.lowercased())
+    static func sections(from options: [Option]) -> [RelationOptionsSection<Option>] {
+        var localOptions: [Option] = []
+        var otherOptions: [Option] = []
+        
+        options.forEach {
+            if $0.scope == .local {
+                localOptions.append($0)
+            } else {
+                otherOptions.append($0)
             }
-            
-            return scopeFilter
         }
         
-        let localOptions = options.filter { filter($0.scope == .local, $0.text) }
-        let otherOptions = options.filter { filter($0.scope != .local, $0.text) }
-        
         var sections: [RelationOptionsSection<Option>] = []
+        
         if localOptions.isNotEmpty {
             sections.append(
                 RelationOptionsSection<Option>(
