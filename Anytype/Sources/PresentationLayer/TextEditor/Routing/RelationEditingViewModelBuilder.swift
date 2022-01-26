@@ -71,26 +71,23 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         case .tag(let tag):
             return RelationOptionsViewModel(
                 type: .tags(tag.allTags),
-                title: tag.name,
-                relationKey: tag.id,
                 selectedOptions: tag.selectedTags,
-                relationsService: RelationsService(objectId: objectId)
+                relation: relation,
+                service: RelationsService(objectId: objectId)
             )
         case .object(let object):
             return RelationOptionsViewModel(
                 type: .objects,
-                title: object.name,
-                relationKey: object.id,
                 selectedOptions: object.selectedObjects,
-                relationsService: RelationsService(objectId: objectId)
+                relation: relation,
+                service: RelationsService(objectId: objectId)
             )
         case .file(let file):
             return RelationOptionsViewModel(
                 type: .files,
-                title: file.name,
-                relationKey: file.id,
                 selectedOptions: file.files,
-                relationsService: RelationsService(objectId: objectId)
+                relation: relation,
+                service: RelationsService(objectId: objectId)
             )
         default:
             return nil

@@ -8,28 +8,26 @@ final class RelationOptionsViewModel: ObservableObject {
     @Published var isPresented: Bool = false
     @Published var selectedOptions: [RelationOptionProtocol] = []
     
-    let title: String
-    let emptyPlaceholder: String
-    
     private let type: RelationOptionsType
-    private let relationKey: String
-    private let relationsService: RelationsServiceProtocol
+    private let relation: Relation
+    private let service: RelationsServiceProtocol
     private var editingActions: [RelationOptionEditingAction] = []
     
     init(
         type: RelationOptionsType,
-        title: String,
-        relationKey: String,
         selectedOptions: [RelationOptionProtocol],
-        relationsService: RelationsServiceProtocol
+        relation: Relation,
+        service: RelationsServiceProtocol
     ) {
         self.type = type
-        self.title = title
-        self.emptyPlaceholder = type.placeholder
-        self.relationKey = relationKey
         self.selectedOptions = selectedOptions
-        self.relationsService = relationsService
+        self.relation = relation
+        self.service = service
     }
+    
+    var title: String { relation.name }
+    
+    var emptyPlaceholder: String { type.placeholder }
     
 }
 
@@ -49,8 +47,8 @@ extension RelationOptionsViewModel {
             }
         }
         
-        relationsService.updateRelation(
-            relationKey: relationKey,
+        service.updateRelation(
+            relationKey: relation.id,
             value: selectedOptions.map { $0.id }.protobufValue
         )
         
@@ -63,39 +61,35 @@ extension RelationOptionsViewModel {
         case .objects:
             RelationOptionsSearchView(
                 viewModel: RelationOptionsSearchViewModel(
-                    excludeOptionIds: selectedOptions.map { $0.id },
-                    searchAction: { service, text in
-                        return service.search(text: text)
-                    },
-                    addOptionsAction: { [weak self] ids in
-                        self?.handleNewOptionIds(ids)
-                    }
-                )
+                    type: .objects,
+                    excludedIds: selectedOptions.map { $0.id }
+                ) { [weak self] ids in
+                    self?.handleNewOptionIds(ids)
+                }
             )
         case .tags(let allTags):
             TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
         case .files:
             RelationOptionsSearchView(
                 viewModel: RelationOptionsSearchViewModel(
-                    excludeOptionIds: selectedOptions.map { $0.id },
-                    searchAction: { service, text in
-                        return service.searchFiles(text: text)
-                    },
-                    addOptionsAction: { [weak self] ids in
-                        self?.handleNewOptionIds(ids)
-                    }
-                )
+                    type: .files,
+                    excludedIds: selectedOptions.map { $0.id }
+                ) { [weak self] ids in
+                    self?.handleNewOptionIds(ids)
+                }
             )
         }
     }
     
     private func searchViewModel(allTags: [Relation.Tag.Option]) -> TagRelationOptionSearchViewModel {
-        TagRelationOptionSearchViewModel(
-            relationKey: relationKey,
-            availableTags: allTags.filter { tag in
-                !selectedOptions.contains { $0.id == tag.id }
-            },
-            relationsService: relationsService
+        let availableTags = allTags.filter { tag in
+            !selectedOptions.contains { $0.id == tag.id }
+        }
+        
+        return TagRelationOptionSearchViewModel(
+            availableTags: availableTags,
+            relation: relation,
+            service: service
         ) { [weak self] ids in
             self?.handleNewOptionIds(ids)
         }
@@ -104,8 +98,8 @@ extension RelationOptionsViewModel {
     private func handleNewOptionIds(_ ids: [String]) {
         let newSelectedOptionsIds = selectedOptions.map { $0.id } + ids
         
-        relationsService.updateRelation(
-            relationKey: relationKey,
+        service.updateRelation(
+            relationKey: relation.id,
             value: newSelectedOptionsIds.protobufValue
         )
         
