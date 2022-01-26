@@ -8,7 +8,7 @@ import AnytypeCore
 #warning("TODO R: init with ViewModel + subscribe for content update in order to update floatingpanel layout")
 final class RelationDetailsViewPopup: FloatingPanelController {
         
-    private let viewModel: RelationDetailsViewModelProtocol
+    private var viewModel: RelationDetailsViewModelProtocol
     private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Initializers
@@ -17,6 +17,10 @@ final class RelationDetailsViewPopup: FloatingPanelController {
         self.viewModel = viewModel
         
         super.init(delegate: nil)
+        
+        self.viewModel.closePopupAction = { [weak self] in
+            self?.closePopup()
+        }
         
         setup()
         
@@ -37,6 +41,12 @@ private extension RelationDetailsViewPopup {
     func updateLayout(_ layout: FloatingPanelLayout) {
         self.layout = layout//FixedHeightPopupLayout(height: viewHeight + Self.grabberHeight)
         invalidateLayout()
+    }
+    
+    func closePopup() {
+        hide(animated: true) {
+            self.removePanelFromParent(animated: false, completion: nil)
+        }
     }
     
 }

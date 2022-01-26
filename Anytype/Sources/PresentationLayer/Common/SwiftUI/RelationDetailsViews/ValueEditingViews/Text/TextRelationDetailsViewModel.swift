@@ -11,6 +11,8 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
     var onDismiss: () -> Void = {}
     
+    var closePopupAction: (() -> Void)?
+    
     @Published var value: String = "" {
         didSet {
             actionButtonViewModel?.text = value

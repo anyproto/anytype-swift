@@ -6,9 +6,11 @@ import FloatingPanel
 final class StatusRelationDetailsViewModel: ObservableObject {
 
     var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
-    @Published private var layout: FloatingPanelLayout = RelationOptionsPopupLayout()
+    @Published private var layout: FloatingPanelLayout = FullScreenHeightPopupLayout()
     
     var onDismiss: () -> Void = {}
+    
+    var closePopupAction: (() -> Void)?
     
     @Published var isPresented: Bool = false
 
@@ -45,6 +47,11 @@ final class StatusRelationDetailsViewModel: ObservableObject {
 extension StatusRelationDetailsViewModel {
     
     func filterStatuses(text: String) {
+        guard text.isNotEmpty else {
+            self.sections = RelationOptionsSectionBuilder.sections(from: allStatuses)
+            return
+        }
+        
         let filteredStatuses: [Relation.Status.Option] = allStatuses.filter {
             guard $0.text.isNotEmpty else { return false }
             
@@ -59,13 +66,13 @@ extension StatusRelationDetailsViewModel {
         guard let optionId = optionId else { return}
         
         service.updateRelation(relationKey: relation.id, value: optionId.protobufValue)
-        withAnimation {
-            isPresented = false
-        }
+        
+        closePopupAction?()
     }
     
     func saveValue() {
         service.updateRelation(relationKey: relation.id, value: selectedStatus?.id.protobufValue ?? nil)
+        closePopupAction?()
     }
     
 }
