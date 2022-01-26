@@ -134,9 +134,15 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             modelsHolder.applyDifference(difference: diffrerence)
             viewInput?.update(changes: diffrerence, allModels: modelsHolder.models)
-
         case .syncStatus(let status):
             viewInput?.update(syncStatus: status)
+        case .dataSourceUpdate:
+            let models = document.flattenBlocks
+
+            let blocksViewModels = blockBuilder.build(models)
+            modelsHolder.models = blocksViewModels
+
+            viewInput?.update(changes: nil, allModels: blocksViewModels)
         }
     }
     

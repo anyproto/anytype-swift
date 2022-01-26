@@ -6,9 +6,7 @@ final class LocalEventConverter {
     private let blocksContainer: BlockContainerModelProtocol
     private let blockValidator = BlockValidator()
     
-    init(
-        blocksContainer: BlockContainerModelProtocol
-    ) {
+    init(blocksContainer: BlockContainerModelProtocol) {
         self.blocksContainer = blocksContainer
     }
     
@@ -17,7 +15,6 @@ final class LocalEventConverter {
         case let .setFocus(blockId, position):
             setFocus(blockId: blockId, position: position)
             return .general // https://app.clickup.com/t/1r67hcc
-//            return .blocks(blockIds: [blockId])
         case .setToggled, .documentClosed:
             return .general
         case let .setText(blockId: blockId, text: text):

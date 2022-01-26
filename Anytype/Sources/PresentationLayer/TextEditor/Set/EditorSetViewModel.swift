@@ -89,7 +89,7 @@ final class EditorSetViewModel: ObservableObject {
         case .general:
             objectWillChange.send()
             setupDataview()
-        case .syncStatus, .blocks, .details:
+        case .syncStatus, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
         }
     }
