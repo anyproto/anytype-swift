@@ -1,5 +1,5 @@
 extension EditorSetViewModel {
-    func changePage(_ page: Int) {
+    func changePage(_ page: Int64) {
         update(data: paginationHelper.changePage(page, data: pagitationData))
     }
     
@@ -7,12 +7,12 @@ extension EditorSetViewModel {
         update(data: paginationHelper.updatePageCount(count, data: pagitationData))
     }
     
-    func goForwardPage() {
-        update(data: paginationHelper.goForwardPage(data: pagitationData))
+    func goForwardRow() {
+        update(data: paginationHelper.goForwardRow(data: pagitationData))
     }
     
-    func goBackwardPage() {
-        update(data: paginationHelper.goBackwardPage(data: pagitationData))
+    func goBackwardRow() {
+        update(data: paginationHelper.goBackwardRow(data: pagitationData))
     }
     
     private func update(data: EditorSetPaginationHelperData?) {

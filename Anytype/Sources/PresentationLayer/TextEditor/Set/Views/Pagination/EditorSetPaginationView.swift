@@ -27,7 +27,7 @@ struct EditorSetPaginationView: View {
         }
     }
     
-    private func pagesButton(_ counter: Int) -> some View {
+    private func pagesButton(_ counter: Int64) -> some View {
         Button(action: {
             model.changePage(counter)
         }) {
@@ -43,7 +43,7 @@ struct EditorSetPaginationView: View {
     private var backArror: some View {
         Group {
             if model.pagitationData.canGoBackward {
-                Button(action: { model.goBackwardPage() }) {
+                Button(action: { model.goBackwardRow() }) {
                     Image.set.back
                 }
             } else {
@@ -55,7 +55,7 @@ struct EditorSetPaginationView: View {
     private var forwardArror: some View {
         Group {
             if model.pagitationData.canGoForward {
-                Button(action: { model.goForwardPage() }) {
+                Button(action: { model.goForwardRow() }) {
                     Image.set.forward
                 }
             } else {
