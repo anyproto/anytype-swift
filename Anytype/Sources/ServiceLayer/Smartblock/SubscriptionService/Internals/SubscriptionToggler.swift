@@ -2,26 +2,28 @@ import ProtobufMessages
 import BlocksModels
 import AnytypeCore
 
+typealias SubscriptionTogglerResult = (details: [ObjectDetails], pageCount: Int64)
+
 protocol SubscriptionTogglerProtocol {
-    func startSubscription(data: SubscriptionData) -> [ObjectDetails]?
+    func startSubscription(data: SubscriptionData) -> SubscriptionTogglerResult?
     func stopSubscription(id: SubscriptionId)
 }
 
 final class SubscriptionToggler: SubscriptionTogglerProtocol {
-    func startSubscription(data: SubscriptionData) -> [ObjectDetails]? {
+    func startSubscription(data: SubscriptionData) -> SubscriptionTogglerResult? {
         switch data {
         case .historyTab:
-            return startHistorySubscription()
+            return startHistoryTabSubscription()
         case .archiveTab:
-            return startArchiveSubscription()
+            return startArchiveTabSubscription()
         case .sharedTab:
-            return startSharedSubscription()
+            return startSharedTabSubscription()
         case .setsTab:
-            return startSetsSubscription()
+            return startSetsTabSubscription()
         case .profile(id: let profileId):
             return startProfileSubscription(blockId: profileId)
-        case let .set(source: source, sorts: sorts, filters: filterts, relations: relations):
-            return startSetSubscription(source: source, sorts: sorts, filters: filterts, relations: relations)
+        case let .set(data):
+            return startSetSubscription(data: data)
         }
     }
     
@@ -30,7 +32,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     }
     
     // MARK: - Private
-    private func startProfileSubscription(blockId: BlockId) -> [ObjectDetails]? {
+    private func startProfileSubscription(blockId: BlockId) -> SubscriptionTogglerResult? {
         let response = Anytype_Rpc.Object.IdsSubscribe.Service.invoke(
             subID: SubscriptionId.profile.rawValue,
             ids: [blockId],
@@ -42,22 +44,17 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             return nil
         }
         
-        return result.records.asDetais
+        return (details: result.records.asDetais, pageCount: 1)
     }
     
-    private func startSetSubscription(
-        source: [String],
-        sorts: [DataviewSort],
-        filters: [DataviewFilter],
-        relations: [DataviewViewRelation]
-    ) -> [ObjectDetails]? {
-        var keys = relations.map { $0.key }
+    private func startSetSubscription(data: SetSubsriptionData) -> SubscriptionTogglerResult? {
+        var keys = data.relations.map { $0.key }
         keys.append(contentsOf: homeDetailsKeys.map { $0.rawValue} )
         
-        return makeRequest(subId: .set, filters: filters, sorts: sorts, source: source, keys: keys)
+        return makeRequest(subId: .set, filters: data.filters, sorts: data.sorts, source: data.source, keys: keys, pageNumber: data.currentPage)
     }
     
-    private func startHistorySubscription() -> [ObjectDetails]? {
+    private func startHistoryTabSubscription() -> SubscriptionTogglerResult? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -71,7 +68,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         return makeRequest(subId: .historyTab, filters: filters, sorts: [sort])
     }
     
-    private func startArchiveSubscription() -> [ObjectDetails]? {
+    private func startArchiveTabSubscription() -> SubscriptionTogglerResult? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -85,7 +82,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         return makeRequest(subId: .archiveTab, filters: filters, sorts: [sort])
     }
     
-    private func startSharedSubscription() -> [ObjectDetails]? {
+    private func startSharedTabSubscription() -> SubscriptionTogglerResult? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -96,7 +93,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         return makeRequest(subId: .sharedTab, filters: filters, sorts: [sort])
     }
     
-    private func startSetsSubscription() -> [ObjectDetails]? {
+    private func startSetsTabSubscription() -> SubscriptionTogglerResult? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
@@ -117,15 +114,17 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         filters: [DataviewFilter],
         sorts: [DataviewSort],
         source: [String] = [],
-        keys: [String]? = nil
-    ) -> [ObjectDetails]? {
+        keys: [String]? = nil,
+        pageNumber: Int = 1
+    ) -> SubscriptionTogglerResult? {
+        let offset = Int64(pageNumber - 1) * Constants.numberOfRowsPerPageInSubscriptions
         let response = Anytype_Rpc.Object.SearchSubscribe.Service.invoke(
             subID: subId.rawValue,
             filters: filters,
             sorts: sorts,
             fullText: "",
-            limit: 50,
-            offset: 0,
+            limit: Int32(Constants.numberOfRowsPerPageInSubscriptions),
+            offset: Int32(offset),
             keys: keys ?? homeDetailsKeys.map { $0.rawValue },
             afterID: "",
             beforeID: "",
@@ -137,7 +136,12 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             return nil
         }
         
-        return result.records.asDetais
+        // Returns 1 if count < numberOfRowsPerPageInSubscriptions
+        // And returns 1 if count = numberOfRowsPerPageInSubscriptions
+        let closestNumberToRowsPerPage = Int64(Constants.numberOfRowsPerPageInSubscriptions) - 1
+        let pageCount = (result.counters.total + closestNumberToRowsPerPage) / Int64(Constants.numberOfRowsPerPageInSubscriptions)
+        
+        return (details: result.records.asDetais, pageCount: pageCount)
     }
     
     private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {
