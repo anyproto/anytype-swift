@@ -36,7 +36,7 @@ extension RelationOptionsSearchViewModel {
                 results = service.searchFiles(text: text)
             }
             
-            return results?.filter { excludedIds.contains($0.id) }
+            return results?.filter { !excludedIds.contains($0.id) }
         }()
         
         guard let result = result, result.isNotEmpty else {
