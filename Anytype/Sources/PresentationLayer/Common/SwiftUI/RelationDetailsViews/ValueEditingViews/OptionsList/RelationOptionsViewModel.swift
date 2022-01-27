@@ -1,9 +1,14 @@
 import Foundation
 import SwiftUI
+import FloatingPanel
 
 final class RelationOptionsViewModel: ObservableObject {
     
     var onDismiss: () -> Void = {}
+    var closePopupAction: (() -> Void)?
+    
+    var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
+    @Published private var layout: FloatingPanelLayout = RelationOptionsPopupLayout()
     
     @Published var isPresented: Bool = false
     @Published var selectedOptions: [RelationOptionProtocol] = []
@@ -103,7 +108,15 @@ extension RelationOptionsViewModel {
             value: newSelectedOptionsIds.protobufValue
         )
         
-        isPresented = false
+        closePopupAction?()
+    }
+    
+}
+
+extension RelationOptionsViewModel: RelationDetailsViewModelProtocol {
+    
+    func makeViewController() -> UIViewController {
+        UIHostingController(rootView: RelationOptionsView(viewModel: self))
     }
     
 }
