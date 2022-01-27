@@ -288,7 +288,7 @@ private extension RelationsBuilder {
             }
 
             let objectOptions: [Relation.Object.Option] = objectDetails.map { objectDetail in
-                let name = objectDetail.name
+                let name = objectDetail.title
                 let icon: ObjectIconImage = {
                     if let objectIcon = objectDetail.objectIconImage {
                         return objectIcon
