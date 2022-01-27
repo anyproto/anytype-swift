@@ -28,7 +28,7 @@ struct RelationTextView: View {
     private var textView: some View {
         AutofocusedTextEditor(text: $text, keyboardType: keyboardType)
             .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-            .foregroundColor(.grayscale90)
+            .foregroundColor(.textPrimary)
             .opacity(text.isEmpty ? 0.25 : 1)
             .frame(maxHeight: max(40, height))
     }

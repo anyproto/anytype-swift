@@ -78,7 +78,7 @@ final class TextBlockLayoutManager: NSLayoutManager {
             let rectRelatvieToFontHeight = CGRect(origin: rect.origin, size: .init(width: rect.width, height: font.lineHeight))
             let textRect = rectRelatvieToFontHeight.offsetBy(dx: origin.x, dy: origin.y)
 
-            UIColor.grayscale50.setFill()
+            UIColor.buttonActive.setFill()
             let lineHeight: CGFloat = 1
 
             // When size of the uitextview was reduced using negative textContainerInset values, underline should be moved upper to be visible.

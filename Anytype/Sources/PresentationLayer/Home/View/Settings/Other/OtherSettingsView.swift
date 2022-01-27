@@ -22,24 +22,29 @@ struct OtherSettingsView: View {
     }
 
     private var appearanceType: some View {
-        VStack(alignment: .leading) {
-            AnytypeText("Appearance".localized, style: .uxBodyRegular, color: .textPrimary)
-                .frame(alignment: .leading)
+        VStack(alignment: .center) {
+            AnytypeText("Appearance".localized, style: .caption1Medium, color: .textSecondary)
+                .frame(alignment: .center)
             HStack() {
                 ForEach(UIUserInterfaceStyle.allCases) { style in
                     Button {
                         model.currentStyle = style
                     } label: {
                         VStack {
-                            (model.currentStyle == style
-                             ? Image.Relations.checkboxChecked
-                             : Image.Relations.checkboxUnchecked)
-                                .frame(width: 10, height: 10, alignment: .center)
+                            Image(uiImage: style.image)
+                                .frame(width: 60, height: 60, alignment: .center)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 16).stroke(
+                                        model.currentStyle == style ? Color.System.amber : Color.clear,
+                                        lineWidth: 2
+                                    )
+                                )
                                 .padding(.bottom, 8)
+
                             AnytypeText(
                                 style.title.localized,
-                                style: .button1Regular,
-                                color: .textPrimary
+                                style: .caption2Regular,
+                                color: .textSecondary
                             ).frame(maxWidth: .infinity)
                         }
                     }
@@ -95,7 +100,7 @@ struct OtherSettingsView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
                             .stroke(
-                                AppIconManager.shared.currentIcon == icon ? Color.System.amber : Color.grayscale10,
+                                AppIconManager.shared.currentIcon == icon ? Color.System.amber : Color.strokeTertiary,
                                 lineWidth: 3
                             )
                     )

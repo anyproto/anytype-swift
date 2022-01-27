@@ -53,34 +53,6 @@ final class ImageName {
             static let right = "slash_menu_alignment_right"
         }
         
-        enum background_color {
-            static let amber = "slash_menu_background_color_amber"
-            static let ultramarine = "slash_menu_background_color_ultramarine"
-            static let teal = "slash_menu_background_color_teal"
-            static let red = "slash_menu_background_color_red"
-            static let purple = "slash_menu_background_color_purple"
-            static let pink = "slash_menu_background_color_pink"
-            static let lemon = "slash_menu_background_color_lemon"
-            static let green = "slash_menu_background_color_green"
-            static let gray = "slash_menu_background_color_coldgray"
-            static let clear = "slash_menu_background_color_clear"
-            static let blue = "slash_menu_background_color_blue"
-        }
-        
-        enum color {
-            static let amber = "slash_menu_color_amber"
-            static let blue = "slash_menu_color_ultramarine"
-            static let teal = "slash_menu_color_teal"
-            static let red = "slash_menu_color_red"
-            static let purple = "slash_menu_color_purple"
-            static let pink = "slash_menu_color_pink"
-            static let lemon = "slash_menu_color_lemon"
-            static let green = "slash_menu_color_green"
-            static let gray = "slash_menu_color_coldgray"
-            static let black = "slash_menu_color_black"
-            static let sky = "slash_menu_color_sky"
-        }
-        
         enum media {
             static let bookmark = "slash_menu_media_bookmark"
             static let code = "slash_menu_media_code"

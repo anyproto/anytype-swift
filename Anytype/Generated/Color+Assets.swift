@@ -58,32 +58,26 @@ extension Color {
       internal static let yellow = Color(asset: Asset.Text.yellow)
     }
     // MARK: - Backgound
-    internal static let backgroundBlurred = Color(asset: Asset.backgroundBlurred)
     internal static let backgroundDashboard = Color(asset: Asset.backgroundDashboard)
     internal static let backgroundPrimary = Color(asset: Asset.backgroundPrimary)
     internal static let backgroundSecondary = Color(asset: Asset.backgroundSecondary)
     internal static let backgroundSelected = Color(asset: Asset.backgroundSelected)
-    // MARK: - Custom
-    internal static let divider = Color(asset: Asset.divider)
-    internal static let dividerSecondary = Color(asset: Asset.dividerSecondary)
-    internal static let stroke = Color(asset: Asset.stroke)
-    internal static let toastBackground = Color(asset: Asset.toastBackground)
-    // MARK: - Grayscale
-    internal static let grayscale10 = Color(asset: Asset.grayscale10)
-    internal static let grayscale30 = Color(asset: Asset.grayscale30)
-    internal static let grayscale50 = Color(asset: Asset.grayscale50)
-    internal static let grayscale70 = Color(asset: Asset.grayscale70)
-    internal static let grayscale90 = Color(asset: Asset.grayscale90)
-    internal static let grayscaleWhite = Color(asset: Asset.grayscaleWhite)
+    // MARK: - Button
+    internal static let buttonAccent = Color(asset: Asset.buttonAccent)
+    internal static let buttonActive = Color(asset: Asset.buttonActive)
+    internal static let buttonInactive = Color(asset: Asset.buttonInactive)
+    internal static let buttonSelected = Color(asset: Asset.buttonSelected)
+    internal static let buttonWhite = Color(asset: Asset.buttonWhite)
+    // MARK: - Shadow
+    internal static let shadowPrimary = Color(asset: Asset.shadowPrimary)
     // MARK: - Stroke
     internal static let strokePrimary = Color(asset: Asset.strokePrimary)
     internal static let strokeSecondary = Color(asset: Asset.strokeSecondary)
     internal static let strokeTertiary = Color(asset: Asset.strokeTertiary)
+    internal static let strokeTransperent = Color(asset: Asset.strokeTransperent)
     // MARK: - Text
     internal static let textPrimary = Color(asset: Asset.textPrimary)
     internal static let textSecondary = Color(asset: Asset.textSecondary)
     internal static let textTertiary = Color(asset: Asset.textTertiary)
-    internal static let buttonInactive = Color(asset: Asset.buttonInactive)
-    internal static let buttonSecondaryPressed = Color(asset: Asset.buttonSecondaryPressed)
-    internal static let buttonSelected = Color(asset: Asset.buttonSelected)
+    internal static let textWhite = Color(asset: Asset.textWhite)
 }

@@ -24,7 +24,7 @@ struct ActionableTextRelationEditingView: View {
                         .frame(width: 36, height: 36)
                         .clipShape(Circle())
                         .overlay(
-                            Circle().stroke(Color.grayscale30, lineWidth: 1)
+                            Circle().stroke(Color.strokePrimary, lineWidth: 1)
                         )
                 }
             }

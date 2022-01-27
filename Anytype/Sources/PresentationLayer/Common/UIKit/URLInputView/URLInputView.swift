@@ -15,7 +15,7 @@ final class URLInputView: UIView {
             string: "Paste or type URL".localized,
             attributes: [
                 .font: UIFont.uxBodyRegular,
-                .foregroundColor: UIColor.grayscale50
+                .foregroundColor: UIColor.textSecondary
             ]
         )
         return textField
@@ -100,7 +100,7 @@ final class URLInputView: UIView {
     private func addTopLine() {
         let line = UIView()
         line.translatesAutoresizingMaskIntoConstraints = false
-        line.backgroundColor = .grayscale10
+        line.backgroundColor = .strokeTertiary
         addSubview(line)
         line.layoutUsing.anchors {
             $0.top.equal(to: topAnchor)

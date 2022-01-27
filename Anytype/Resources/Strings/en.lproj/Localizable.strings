@@ -1,6 +1,8 @@
 // style menu
 "A" = "A";
 
+"Callout" = "Callout";
+
 "Create pin code" = "Create pin code";
 "Verify pin code" = "Verify pin code";
 "Create a pin code description" = "The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code";

@@ -8,7 +8,7 @@ struct DragIndicator: View {
             HStack {
                 Spacer()
                 RoundedRectangle(cornerRadius: 6)
-                    .fill(Color.stroke)
+                    .fill(Color.strokePrimary)
                     .frame(width: 48, height: 5)
                 Spacer()
             }

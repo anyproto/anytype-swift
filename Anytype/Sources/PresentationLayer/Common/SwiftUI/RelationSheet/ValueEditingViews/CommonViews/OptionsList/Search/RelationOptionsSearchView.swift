@@ -76,7 +76,7 @@ struct RelationOptionsSearchView: View {
             $0.overlay(
                 HStack(spacing: 0) {
                     Spacer()
-                    AnytypeText("\(viewModel.selectedOptionIds.count)", style: .relation1Regular, color: .grayscaleWhite)
+                    AnytypeText("\(viewModel.selectedOptionIds.count)", style: .relation1Regular, color: .textPrimary)
                         .frame(minWidth: 15, minHeight: 15)
                         .padding(5)
                         .background(Color.Text.amber)

@@ -57,6 +57,6 @@ enum MarkupType: Equatable, Hashable, CaseIterable {
     }
 
     static var allCases: [MarkupType] {
-        return [.bold, italic, .keyboard, .strikethrough, .underscored, .textColor(.grayscale90), .backgroundColor(.grayscale90), .link(nil), .linkToObject(nil), .mention(MentionData.noDetails(blockId: ""))]
+        return [.bold, italic, .keyboard, .strikethrough, .underscored, .textColor(.textSecondary), .backgroundColor(.textSecondary), .link(nil), .linkToObject(nil), .mention(MentionData.noDetails(blockId: ""))]
     }
 }

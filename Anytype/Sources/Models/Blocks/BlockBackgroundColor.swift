@@ -19,11 +19,11 @@ enum BlockBackgroundColor: CaseIterable {
         typealias ColorComponent = UIColor.Background
         switch self {
         case .default:
-            return .backgroundPrimary
+            return ColorComponent.default
         case .lemon:
             return ColorComponent.yellow
         case .amber:
-            return UIColor.Background.amber
+            return ColorComponent.amber
         case .red:
             return ColorComponent.red
         case .pink:
@@ -46,7 +46,7 @@ enum BlockBackgroundColor: CaseIterable {
     var title: String {
         switch self {
         case .lemon:
-            return "Lemon background".localized
+            return "Yellow background".localized
         case .default:
             return "Default background".localized
         case .amber:
@@ -70,31 +70,13 @@ enum BlockBackgroundColor: CaseIterable {
         }
     }
     
-    var iconName: String {
-        switch self {
-        case .lemon:
-            return ImageName.slashMenu.background_color.lemon
-        case .default:
-            return ImageName.slashMenu.background_color.clear
-        case .amber:
-            return ImageName.slashMenu.background_color.amber
-        case .red:
-            return ImageName.slashMenu.background_color.red
-        case .pink:
-            return ImageName.slashMenu.background_color.pink
-        case .purple:
-            return ImageName.slashMenu.background_color.purple
-        case .sky:
-            return ImageName.slashMenu.background_color.ultramarine
-        case .blue:
-            return ImageName.slashMenu.background_color.blue
-        case .teal:
-            return ImageName.slashMenu.background_color.teal
-        case .green:
-            return ImageName.slashMenu.background_color.green
-        case .gray:
-            return ImageName.slashMenu.background_color.gray
-        }
+    var image: UIImage {
+        UIImage.circleImage(
+            size: .init(width: 25, height: 25),
+            fillColor: color,
+            borderColor: .strokePrimary,
+            borderWidth: 2
+        )
     }
 
     var middleware: MiddlewareColor {

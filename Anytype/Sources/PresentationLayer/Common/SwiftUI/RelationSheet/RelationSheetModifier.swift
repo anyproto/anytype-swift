@@ -35,7 +35,7 @@ struct RelationSheetModifier: ViewModifier {
     }
     
     private var background: some View {
-        Color.grayscale90.opacity(backgroundOpacity)
+        Color.strokePrimary.opacity(backgroundOpacity)
             .onTapGesture {
                 withAnimation(.fastSpring) {
                     backgroundOpacity = 0.0

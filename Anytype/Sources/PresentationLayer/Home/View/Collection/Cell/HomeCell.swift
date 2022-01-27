@@ -87,7 +87,7 @@ struct HomeCell: View {
                 RoundedRectangle(
                     cornerRadius: Constants.iconCornerRadius
                 )
-                    .foregroundColor(Color.grayscale10)
+                    .foregroundColor(Color.strokeTertiary)
                     .frame(
                         width: Constants.iconSize.width,
                         height: Constants.iconSize.height

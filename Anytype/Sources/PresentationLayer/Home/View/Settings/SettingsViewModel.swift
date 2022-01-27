@@ -62,7 +62,7 @@ final class SettingsViewModel: ObservableObject {
 extension UIUserInterfaceStyle: Identifiable {
     public var id: Int { rawValue }
 
-    static var allCases: [UIUserInterfaceStyle] { [.unspecified, .light, .dark] }
+    static var allCases: [UIUserInterfaceStyle] { [.light, .dark, .unspecified,] }
 
     var title: String {
         switch self {
@@ -74,6 +74,19 @@ extension UIUserInterfaceStyle: Identifiable {
             fallthrough
         @unknown default:
             return "System"
+        }
+    }
+
+    var image: UIImage {
+        switch self {
+        case .light:
+            return UIImage(imageLiteralResourceName: "theme_light")
+        case .dark:
+            return UIImage(imageLiteralResourceName: "theme_dark")
+        case .unspecified:
+            fallthrough
+        @unknown default:
+            return UIImage(imageLiteralResourceName: "theme_system")
         }
     }
 }

@@ -10,12 +10,8 @@ struct EditorBarItemState: Equatable {
         return 1.0 - percentOfNavigationAppearance
     }
     
-    var iconColor: UIColor {
-        backgroundAlpha.isLess(than: 0.5) ? .textSecondary : .backgroundPrimary
-    }
-    
     var textColor: UIColor {
-        if haveBackground { return .backgroundPrimary }
+        if haveBackground { return .textWhite }
         return .textPrimary.withAlphaComponent(1 - percentOfNavigationAppearance)
     }
     

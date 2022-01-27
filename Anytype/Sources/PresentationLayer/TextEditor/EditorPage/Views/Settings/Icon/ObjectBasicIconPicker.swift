@@ -85,7 +85,7 @@ struct ObjectBasicIconPicker: View {
             }
             
         } label: {
-            AnytypeText(tab.title, style: .uxBodyRegular, color: selectedTab == tab ? Color.buttonSelected : Color.grayscale50)
+            AnytypeText(tab.title, style: .uxBodyRegular, color: selectedTab == tab ? Color.buttonSelected : Color.buttonActive)
         }
         .frame(maxWidth: .infinity)
     }
@@ -96,7 +96,7 @@ struct ObjectBasicIconPicker: View {
                 handleSelectedEmoji($0)
             }
         } label: {
-            AnytypeText("Random".localized, style: .uxBodyRegular, color: .grayscale50)
+            AnytypeText("Random".localized, style: .uxBodyRegular, color: .buttonActive)
         }
         .frame(maxWidth: .infinity)
     }

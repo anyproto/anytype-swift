@@ -19,7 +19,7 @@ final class BottomSheetsFactory {
         appearance.cornerRadius = 16.0
         // Define shadows
         let shadow = SurfaceAppearance.Shadow()
-        shadow.color = UIColor.grayscale90.withAlphaComponent(0.25)
+        shadow.color = UIColor.shadowPrimary
         shadow.offset = CGSize(width: 0, height: 0)
         shadow.radius = 40
         shadow.opacity = 1
@@ -29,7 +29,7 @@ final class BottomSheetsFactory {
 
         fpc.surfaceView.containerMargins = .init(top: 0, left: 10.0, bottom: parentViewController.view.safeAreaInsets.bottom + 6, right: 10.0)
         fpc.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
-        fpc.surfaceView.grabberHandle.barColor = .grayscale30
+        fpc.surfaceView.grabberHandle.barColor = .strokePrimary
         fpc.surfaceView.appearance = appearance
         fpc.isRemovalInteractionEnabled = true
         fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
@@ -86,7 +86,7 @@ final class BottomSheetsFactory {
         parentViewController.embedChild(markupsViewController)
 
         markupsViewController.view.pinAllEdges(to: parentViewController.view)
-        markupsViewController.containerView.layoutUsing.anchors {
+        markupsViewController.containerShadowView.layoutUsing.anchors {
             $0.width.equal(to: 260)
             $0.height.equal(to: 176)
             $0.trailing.equal(to: styleView.trailingAnchor, constant: -10)

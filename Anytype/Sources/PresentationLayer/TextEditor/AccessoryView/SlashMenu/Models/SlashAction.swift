@@ -21,11 +21,11 @@ enum SlashAction {
                 )
         case let .background(color):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .staticImage(color.iconName), title: color.title)
+                SlashMenuItemDisplayData(iconData: .image(color.image), title: color.title)
             )
         case let .color(color):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .staticImage(color.iconName), title: color.title)
+                SlashMenuItemDisplayData(iconData: .image(color.image), title: color.title)
             )
         case let .media(media):
             return .titleSubtitleDisplayData(

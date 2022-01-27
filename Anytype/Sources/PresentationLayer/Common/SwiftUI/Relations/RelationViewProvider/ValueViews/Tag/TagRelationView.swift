@@ -51,7 +51,7 @@ struct TagRelationView: View {
         return AnytypeText(leftTagsCount, style: .relation2Regular, color: .textSecondary)
             .lineLimit(1)
             .frame(width: 24, height: 19)
-            .background(Color.grayscale10)
+            .background(Color.strokeTertiary)
             .cornerRadius(3)
     }
 }
@@ -77,7 +77,7 @@ struct TagRelationView_Previews: PreviewProvider {
     static var previews: some View {
         TagRelationView(
             tags: [
-                Relation.Tag.Option(id: "id1", text: "text1", textColor: UIColor.Text.teal, backgroundColor: .grayscaleWhite, scope: .local),
+                Relation.Tag.Option(id: "id1", text: "text1", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.default, scope: .local),
                 Relation.Tag.Option(id: "id2", text: "text2", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red, scope: .local),
                 Relation.Tag.Option(id: "id3", text: "text3", textColor: UIColor.Text.teal, backgroundColor: UIColor.Background.teal, scope: .local),
                 Relation.Tag.Option(id: "id4", text: "text4", textColor: UIColor.Text.red, backgroundColor: UIColor.Background.red, scope: .local),
