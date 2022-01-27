@@ -1,3 +1,4 @@
+import AnytypeCore
 struct EditorSetPaginationHelperData {
     let data: EditorSetPaginationData
     let shoudUpdateSubscription: Bool
@@ -9,8 +10,9 @@ struct EditorSetPaginationHelperData {
 }
 
 final class EditorSetPaginationHelper {
+    private let numberOfPagesPerRow: Int64 = 5
     
-    func changePage(_ page: Int, data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
+    func changePage(_ page: Int64, data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
         guard page != data.selectedPage else { return nil }
         guard page <= data.pageCount else { return nil }
         return EditorSetPaginationHelperData(
@@ -19,33 +21,12 @@ final class EditorSetPaginationHelper {
         )
     }
     
-    func updatePageCount(_ count: Int64, data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
-        var data = data
-        let isLastPage = data.visiblePages.last.flatMap { $0 == data.pageCount } ?? true
-        if isLastPage {
-            var newVisiblePages = [Int]()
-            for page in (count - (count % 5) + 1)...count {
-                newVisiblePages.append(Int(page))
-            }
-            
-            data = data.updated(visiblePages: newVisiblePages)
-        }
-        
-        data = data.updated(pageCount: count)
-        
-        guard data.selectedPage >= data.pageCount else {
-            return changePage(Int(data.pageCount), data: data)
-        }
-        
-        return EditorSetPaginationHelperData(data: data)
-    }
-    
-    func goForwardPage(data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
+    func goForwardRow(data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
         guard data.canGoForward else { return nil }
         guard let lastVisiblePage = data.visiblePages.last else { return nil }
         
-        var newVisiblePages = [Int]()
-        for page in (lastVisiblePage + 1)...(lastVisiblePage + 5) {
+        var newVisiblePages = [Int64]()
+        for page in (lastVisiblePage + 1)...(lastVisiblePage + numberOfPagesPerRow) {
             guard page <= data.pageCount else { continue }
             newVisiblePages.append(page)
         }
@@ -54,17 +35,68 @@ final class EditorSetPaginationHelper {
         return EditorSetPaginationHelperData(data: data)
     }
     
-    func goBackwardPage(data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
+    func goBackwardRow(data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
         guard data.canGoBackward else { return nil }
         guard let firstVisiblePage = data.visiblePages.first else { return nil }
         
-        var newVisiblePages = [Int]()
-        for page in (firstVisiblePage - 5)...(firstVisiblePage - 1) {
+        var newVisiblePages = [Int64]()
+        for page in (firstVisiblePage - numberOfPagesPerRow)...(firstVisiblePage - 1) {
             guard page >= 1 else { continue }
             newVisiblePages.append(page)
         }
         
         let data = data.updated(visiblePages: newVisiblePages)
         return EditorSetPaginationHelperData(data: data)
+    }
+    
+    func updatePageCount(_ count: Int64, data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
+        var data = data
+        data = updateVisiblePagesPage(count: count, data: data)
+        data = data.updated(pageCount: count)
+        
+        let noNeedToChangeCurrentPage = data.selectedPage <= data.pageCount
+        guard noNeedToChangeCurrentPage else {
+            return changePage(data.pageCount, data: data)
+        }
+        
+        return EditorSetPaginationHelperData(data: data)
+    }
+    
+    private func updateVisiblePagesPage(count: Int64, data: EditorSetPaginationData) -> EditorSetPaginationData {
+        guard let lastPage = data.visiblePages.last else {
+            anytypeAssertionFailure("Empty pagination data", domain: .editorSetPagination)
+            return data
+        }
+        
+        if lastPage <= count {
+            guard data.visiblePages.count < numberOfPagesPerRow else { return data }
+            return addPages(count: count, data: data, lastPage: lastPage)
+        } else {
+            return removePages(count: count, data: data)
+        }
+    }
+    
+    func addPages(count: Int64, data: EditorSetPaginationData, lastPage: Int64) -> EditorSetPaginationData {
+        var newVisiblePages = [Int64]()
+        let numberOfPagesToTheClosestNumberDivisibleByFive = lastPage % numberOfPagesPerRow == 0 ? numberOfPagesPerRow : lastPage % numberOfPagesPerRow
+        let lowerBound = lastPage - numberOfPagesToTheClosestNumberDivisibleByFive + 1
+        
+        let upperBound = min(count, lowerBound + numberOfPagesPerRow - 1)
+        for page in lowerBound...upperBound {
+            newVisiblePages.append(page)
+        }
+        
+        return data.updated(visiblePages: newVisiblePages)
+    }
+    
+    func removePages(count: Int64, data: EditorSetPaginationData) -> EditorSetPaginationData {
+        var newVisiblePages = [Int64]()
+        let numberOfPagesToTheClosestNumberDivisibleByFive = count % numberOfPagesPerRow == 0 ? numberOfPagesPerRow : count % numberOfPagesPerRow
+        let lowerBound = count - numberOfPagesToTheClosestNumberDivisibleByFive + 1
+        for page in lowerBound...count {
+            newVisiblePages.append(page)
+        }
+        
+        return data.updated(visiblePages: newVisiblePages)
     }
 }

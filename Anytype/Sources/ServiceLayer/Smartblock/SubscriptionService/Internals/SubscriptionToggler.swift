@@ -115,7 +115,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         sorts: [DataviewSort],
         source: [String] = [],
         keys: [String]? = nil,
-        pageNumber: Int = 1
+        pageNumber: Int64 = 1
     ) -> SubscriptionTogglerResult? {
         let offset = Int64(pageNumber - 1) * Constants.numberOfRowsPerPageInSubscriptions
         let response = Anytype_Rpc.Object.SearchSubscribe.Service.invoke(
