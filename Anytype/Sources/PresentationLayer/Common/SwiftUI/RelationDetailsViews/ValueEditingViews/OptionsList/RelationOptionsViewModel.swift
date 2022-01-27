@@ -27,6 +27,8 @@ final class RelationOptionsViewModel: ObservableObject {
         self.selectedOptions = selectedOptions
         self.relation = relation
         self.service = service
+        
+        self.updateLayout()
     }
     
     var title: String { relation.name }
@@ -43,6 +45,8 @@ extension RelationOptionsViewModel {
             relationKey: relation.id,
             value: selectedOptions.map { $0.id }.protobufValue
         )
+        
+        updateLayout()
     }
     
     func move(source: IndexSet, destination: Int) {
@@ -102,6 +106,10 @@ extension RelationOptionsViewModel {
         )
         
         closePopupAction?()
+    }
+    
+    private func updateLayout() {
+        layout = selectedOptions.isNotEmpty ? RelationOptionsPopupLayout() : FixedHeightPopupLayout(height: 166)
     }
     
 }

@@ -40,7 +40,9 @@ private extension RelationDetailsViewPopup {
     
     func updateLayout(_ layout: FloatingPanelLayout) {
         self.layout = layout//FixedHeightPopupLayout(height: viewHeight + Self.grabberHeight)
-        invalidateLayout()
+        UIView.animate(withDuration: 0.3) {
+            self.invalidateLayout()
+        }
     }
     
     func closePopup() {
