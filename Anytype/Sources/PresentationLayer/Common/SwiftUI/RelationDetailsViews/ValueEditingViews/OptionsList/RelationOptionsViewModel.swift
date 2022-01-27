@@ -16,7 +16,6 @@ final class RelationOptionsViewModel: ObservableObject {
     private let type: RelationOptionsType
     private let relation: Relation
     private let service: RelationsServiceProtocol
-    private var editingActions: [RelationOptionEditingAction] = []
     
     init(
         type: RelationOptionsType,
@@ -38,26 +37,20 @@ final class RelationOptionsViewModel: ObservableObject {
 
 extension RelationOptionsViewModel {
     
-    func postponeEditingAction(_ action: RelationOptionEditingAction) {
-        editingActions.append(action)
-    }
-    
-    func applyEditingActions() {
-        editingActions.forEach {
-            switch $0 {
-            case .remove(let indexSet):
-                selectedOptions.remove(atOffsets: indexSet)
-            case .move(let source, let destination):
-                selectedOptions.move(fromOffsets: source, toOffset: destination)
-            }
-        }
-        
+    func delete(_ indexSet: IndexSet) {
+        selectedOptions.remove(atOffsets: indexSet)
         service.updateRelation(
             relationKey: relation.id,
             value: selectedOptions.map { $0.id }.protobufValue
         )
-        
-        editingActions = []
+    }
+    
+    func move(source: IndexSet, destination: Int) {
+        selectedOptions.move(fromOffsets: source, toOffset: destination)
+        service.updateRelation(
+            relationKey: relation.id,
+            value: selectedOptions.map { $0.id }.protobufValue
+        )
     }
     
     @ViewBuilder

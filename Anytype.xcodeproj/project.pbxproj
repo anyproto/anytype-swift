@@ -334,7 +334,6 @@
 		12F3E767270C6F1F002EE52F /* BlockMediaUploadingWorker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F3E766270C6F1F002EE52F /* BlockMediaUploadingWorker.swift */; };
 		12F6072826D7DF0D00876C92 /* ObjectIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F6072726D7DF0D00876C92 /* ObjectIconImageView.swift */; };
 		12F6072D26D7F6E500876C92 /* SwiftUIObjectIconImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F6072C26D7F6E500876C92 /* SwiftUIObjectIconImageView.swift */; };
-		12FAAE6F2768D9040047F198 /* RelationOptionEditingAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FAAE6E2768D9040047F198 /* RelationOptionEditingAction.swift */; };
 		12FAAE742769E3BB0047F198 /* TagRelationOptionSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FAAE732769E3BB0047F198 /* TagRelationOptionSearchView.swift */; };
 		12FD9D1D2767168800991886 /* RelationProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD9D1C2767168800991886 /* RelationProtocol.swift */; };
 		12FD9D1F2767172A00991886 /* RelationText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD9D1E2767172A00991886 /* RelationText.swift */; };
@@ -1210,7 +1209,6 @@
 		12F3E766270C6F1F002EE52F /* BlockMediaUploadingWorker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMediaUploadingWorker.swift; sourceTree = "<group>"; };
 		12F6072726D7DF0D00876C92 /* ObjectIconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageView.swift; sourceTree = "<group>"; };
 		12F6072C26D7F6E500876C92 /* SwiftUIObjectIconImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIObjectIconImageView.swift; sourceTree = "<group>"; };
-		12FAAE6E2768D9040047F198 /* RelationOptionEditingAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionEditingAction.swift; sourceTree = "<group>"; };
 		12FAAE732769E3BB0047F198 /* TagRelationOptionSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationOptionSearchView.swift; sourceTree = "<group>"; };
 		12FD9D1C2767168800991886 /* RelationProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationProtocol.swift; sourceTree = "<group>"; };
 		12FD9D1E2767172A00991886 /* RelationText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationText.swift; sourceTree = "<group>"; };
@@ -3283,7 +3281,6 @@
 				123949F127A00A250080E1CF /* Views */,
 				12EB9B3F27747C1200BA732F /* Search */,
 				12EB9B162773394500BA732F /* RelationOptionProtocol.swift */,
-				12FAAE6E2768D9040047F198 /* RelationOptionEditingAction.swift */,
 				12EB9B112773287900BA732F /* RelationOptionsType.swift */,
 				12EB9AF52771F0E900BA732F /* RelationOptionsView.swift */,
 				12EB9AF02771CD6600BA732F /* RelationOptionsViewModel.swift */,
@@ -5551,7 +5548,6 @@
 				3D5A416A2703170300F1F6A1 /* BlockAction.swift in Sources */,
 				EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */,
 				12FD9D1D2767168800991886 /* RelationProtocol.swift in Sources */,
-				12FAAE6F2768D9040047F198 /* RelationOptionEditingAction.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
 				3DB1CA0F27293733000D2779 /* AccountConfigurationProvider.swift in Sources */,
 				C9C5368E276A3A07003CD3F3 /* TagRelationRowView.swift in Sources */,
