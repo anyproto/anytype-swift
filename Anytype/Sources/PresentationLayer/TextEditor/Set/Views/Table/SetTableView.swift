@@ -36,8 +36,6 @@ struct SetTableView: View {
                     }
                     .padding(.top, -headerMinimizedSize.height)
                 }
-                // Initial scroll offset
-                .offset(x: 0, y: -8)
             }
             .overlay(
                 SetFullHeader()
@@ -59,7 +57,6 @@ struct SetTableView: View {
                         SetTableViewRow(data: row, xOffset: xOffset)
                     }
                 }
-                Rectangle().frame(height: 40).foregroundColor(.backgroundPrimary)
             }
         }
     }

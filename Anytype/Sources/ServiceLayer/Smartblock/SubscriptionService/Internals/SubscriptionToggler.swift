@@ -124,7 +124,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             filters: filters,
             sorts: sorts,
             fullText: "",
-            limit: 100,
+            limit: 50,
             offset: 0,
             keys: keys ?? homeDetailsKeys.map { $0.rawValue },
             afterID: "",

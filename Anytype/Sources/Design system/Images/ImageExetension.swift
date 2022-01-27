@@ -21,6 +21,11 @@ extension Image {
 }
 
 extension Image {
+    enum `set` {
+        static let forward = createImage("set_pagination_arrow_forward")
+        static let back = createImage("set_pagination_arrow_backward")
+    }
+    
     enum main {
         static let draft = createImage("draft")
         static let search = createImage("main_search")

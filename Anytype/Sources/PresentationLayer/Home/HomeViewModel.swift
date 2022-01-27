@@ -145,7 +145,7 @@ final class HomeViewModel: ObservableObject {
                 blockIds.forEach { updateFavoritesCellWithTargetId($0) }
             case .details(let detailId):
                 updateFavoritesCellWithTargetId(detailId)
-            case .syncStatus:
+            case .syncStatus, .dataSourceUpdate:
                 break
             }
         }
