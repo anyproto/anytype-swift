@@ -10,6 +10,8 @@ protocol SubscriptionTogglerProtocol {
 }
 
 final class SubscriptionToggler: SubscriptionTogglerProtocol {
+    let numberOfRowsPerPageInSubscriptions = UserDefaultsConfig.rowsPerPageInSet
+    
     func startSubscription(data: SubscriptionData) -> SubscriptionTogglerResult? {
         switch data {
         case .historyTab:
@@ -117,13 +119,13 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         keys: [String]? = nil,
         pageNumber: Int64 = 1
     ) -> SubscriptionTogglerResult? {
-        let offset = Int64(pageNumber - 1) * Constants.numberOfRowsPerPageInSubscriptions
+        let offset = Int64(pageNumber - 1) * numberOfRowsPerPageInSubscriptions
         let response = Anytype_Rpc.Object.SearchSubscribe.Service.invoke(
             subID: subId.rawValue,
             filters: filters,
             sorts: sorts,
             fullText: "",
-            limit: Int32(Constants.numberOfRowsPerPageInSubscriptions),
+            limit: Int32(numberOfRowsPerPageInSubscriptions),
             offset: Int32(offset),
             keys: keys ?? homeDetailsKeys.map { $0.rawValue },
             afterID: "",
@@ -138,8 +140,8 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         
         // Returns 1 if count < numberOfRowsPerPageInSubscriptions
         // And returns 1 if count = numberOfRowsPerPageInSubscriptions
-        let closestNumberToRowsPerPage = Int64(Constants.numberOfRowsPerPageInSubscriptions) - 1
-        let pageCount = (result.counters.total + closestNumberToRowsPerPage) / Int64(Constants.numberOfRowsPerPageInSubscriptions)
+        let closestNumberToRowsPerPage = Int64( numberOfRowsPerPageInSubscriptions) - 1
+        let pageCount = (result.counters.total + closestNumberToRowsPerPage) / Int64(numberOfRowsPerPageInSubscriptions)
         
         return (details: result.records.asDetais, pageCount: pageCount)
     }

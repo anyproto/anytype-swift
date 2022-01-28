@@ -11,6 +11,7 @@ struct DebugMenu: View {
             DragIndicator()
             AnytypeText("Debug menu 👻".localized, style: .title, color: .textPrimary)
             buttons
+            setPageCounter
             toggles
         }
         .ignoresSafeArea()
@@ -18,7 +19,23 @@ struct DebugMenu: View {
         .navigationBarHidden(true)
     }
     
-    var buttons: some View {
+    @State var rowsPerPageInSet = "\(UserDefaultsConfig.rowsPerPageInSet)"
+    private var setPageCounter: some View {
+        HStack {
+            AnytypeText("Number of rows per page in set", style: .body, color: .textPrimary)
+                .frame(maxWidth: .infinity)
+            TextField("Pages", text: $rowsPerPageInSet)
+                .textFieldStyle(.roundedBorder)
+                .frame(width: 100)
+        }
+        .padding(20)
+        .onChange(of: rowsPerPageInSet) { count in
+            guard let count = Int64(count) else { return }
+            UserDefaultsConfig.rowsPerPageInSet = count
+        }
+    }
+    
+    private var buttons: some View {
         VStack {
             HStack {
                 StandardButton(text: "Logs 🧻", style: .secondary) {

@@ -6,7 +6,3 @@ var windowHolder: WindowHolder? {
     
     return sceneDeleage?.windowHolder
 }
-
-enum Constants {
-    static let numberOfRowsPerPageInSubscriptions: Int64 = 50
-}

@@ -82,6 +82,10 @@ struct UserDefaultsConfig {
         }
     }
     
+    // MARK: - rows per page in set
+    @UserDefault("UserData.RowsPerPageInSet", defaultValue: 50)
+    static var rowsPerPageInSet: Int64
+    
     // MARK: - Wallpaper    
     @UserDefault("UserData.Wallpaper", defaultValue: nil)
     private static var _wallpaper: Data?
