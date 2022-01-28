@@ -6,11 +6,10 @@ import Combine
 
 final class DateRelationDetailsViewModel: ObservableObject {
     
-    var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
-    @Published private var layout: FloatingPanelLayout = RelationOptionsPopupLayout()
+    weak var delegate: RelationDetailsViewModelDelegate?
     
-    var closePopupAction: (() -> Void)?
-        
+    let floatingPanelLayout: FloatingPanelLayout = RelationOptionsPopupLayout()
+    
     @Published var selectedValue: DateRelationDetailsValue {
         didSet {
             saveValue()

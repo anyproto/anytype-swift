@@ -156,6 +156,7 @@
 		123949E7279EC1D40080E1CF /* TextRelationActionButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123949E6279EC1D40080E1CF /* TextRelationActionButtonViewModel.swift */; };
 		123949EE279FD7320080E1CF /* FullScreenHeightPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123949ED279FD7320080E1CF /* FullScreenHeightPopupLayout.swift */; };
 		123949FC27A017110080E1CF /* RelationOptionsSearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123949FB27A017110080E1CF /* RelationOptionsSearchType.swift */; };
+		12394A2627A3FE120080E1CF /* RelationDetailsViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12394A2527A3FE120080E1CF /* RelationDetailsViewModelDelegate.swift */; };
 		123FDACE26C1361B00F6F44B /* ObjectHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDACD26C1361B00F6F44B /* ObjectHeader.swift */; };
 		123FDAD026C1505700F6F44B /* EditorPageController+UICollectionViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDACF26C1505700F6F44B /* EditorPageController+UICollectionViewDelegate.swift */; };
 		123FDAD226C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDAD126C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift */; };
@@ -1033,6 +1034,7 @@
 		123949E6279EC1D40080E1CF /* TextRelationActionButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationActionButtonViewModel.swift; sourceTree = "<group>"; };
 		123949ED279FD7320080E1CF /* FullScreenHeightPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullScreenHeightPopupLayout.swift; sourceTree = "<group>"; };
 		123949FB27A017110080E1CF /* RelationOptionsSearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsSearchType.swift; sourceTree = "<group>"; };
+		12394A2527A3FE120080E1CF /* RelationDetailsViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailsViewModelDelegate.swift; sourceTree = "<group>"; };
 		123FDACD26C1361B00F6F44B /* ObjectHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeader.swift; sourceTree = "<group>"; };
 		123FDACF26C1505700F6F44B /* EditorPageController+UICollectionViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorPageController+UICollectionViewDelegate.swift"; sourceTree = "<group>"; };
 		123FDAD126C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorPageController+FloatingPanelControllerDelegate.swift"; sourceTree = "<group>"; };
@@ -2975,6 +2977,7 @@
 			isa = PBXGroup;
 			children = (
 				12136D4F27991AF500262FE7 /* RelationDetailsViewModelProtocol.swift */,
+				12394A2527A3FE120080E1CF /* RelationDetailsViewModelDelegate.swift */,
 				12887F3D274BC25100228330 /* Text */,
 				12C2A58C27576B9D00311854 /* Date */,
 				12F14CE32758EFE000B976B5 /* Status */,
@@ -5968,6 +5971,7 @@
 				3D93852026FB0B74001C137F /* PageService.swift in Sources */,
 				3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */,
 				0A78328324BDEAE700A1B6F6 /* AttributedTextConverter.swift in Sources */,
+				12394A2627A3FE120080E1CF /* RelationDetailsViewModelDelegate.swift in Sources */,
 				3D93D56C270C9E3400614E29 /* LoadingViewController.swift in Sources */,
 				C91AFF0A270C3AF2005F9386 /* EventsLogViewModel.swift in Sources */,
 				538F172D272C2F75009528E7 /* ObjectSearchViewModel.swift in Sources */,

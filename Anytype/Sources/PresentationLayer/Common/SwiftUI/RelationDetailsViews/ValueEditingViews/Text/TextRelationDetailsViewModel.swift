@@ -5,11 +5,14 @@ import Combine
 import FloatingPanel
 
 final class TextRelationDetailsViewModel: ObservableObject {
+            
+    weak var delegate: RelationDetailsViewModelDelegate?
     
-    var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
-    @Published private var layout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0)
-        
-    var closePopupAction: (() -> Void)?
+    private(set) var floatingPanelLayout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0) {
+        didSet {
+            delegate?.didAskInvalidateLayout(false)
+        }
+    }
     
     @Published var value: String = "" {
         didSet {
@@ -19,7 +22,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
     @Published var height: CGFloat = 0 {
         didSet {
-            layout = FixedHeightPopupLayout(height: height + keyboardHeight)
+            floatingPanelLayout = FixedHeightPopupLayout(height: height + keyboardHeight)
         }
     }
     
@@ -98,7 +101,7 @@ private extension TextRelationDetailsViewModel {
     
     func adjustViewHeightBy(keyboardHeight: CGFloat) {
         self.keyboardHeight = keyboardHeight
-        layout = FixedHeightPopupLayout(height: height + keyboardHeight)
+        floatingPanelLayout = FixedHeightPopupLayout(height: height + keyboardHeight)
     }
     
 }
