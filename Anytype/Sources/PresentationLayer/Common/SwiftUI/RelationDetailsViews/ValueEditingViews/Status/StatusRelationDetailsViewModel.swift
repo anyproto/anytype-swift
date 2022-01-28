@@ -7,9 +7,7 @@ final class StatusRelationDetailsViewModel: ObservableObject {
 
     var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
     @Published private var layout: FloatingPanelLayout = FullScreenHeightPopupLayout()
-    
-    var onDismiss: () -> Void = {}
-    
+        
     var closePopupAction: (() -> Void)?
     
     @Published var isPresented: Bool = false
@@ -81,14 +79,6 @@ extension StatusRelationDetailsViewModel: RelationDetailsViewModelProtocol {
     
     func makeViewController() -> UIViewController {
         UIHostingController(rootView: StatusRelationDetailsView(viewModel: self))
-    }
-    
-}
-
-extension StatusRelationDetailsViewModel: RelationEditingViewModelProtocol {
-  
-    func makeView() -> AnyView {
-        AnyView(StatusRelationDetailsView(viewModel: self))
     }
     
 }

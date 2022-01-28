@@ -4,7 +4,6 @@ import FloatingPanel
 
 final class RelationOptionsViewModel: ObservableObject {
     
-    var onDismiss: () -> Void = {}
     var closePopupAction: (() -> Void)?
     
     var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
@@ -118,14 +117,6 @@ extension RelationOptionsViewModel: RelationDetailsViewModelProtocol {
     
     func makeViewController() -> UIViewController {
         UIHostingController(rootView: RelationOptionsView(viewModel: self))
-    }
-    
-}
-
-extension RelationOptionsViewModel: RelationEditingViewModelProtocol {
-    
-    func makeView() -> AnyView {
-        AnyView(RelationOptionsView(viewModel: self))
     }
     
 }

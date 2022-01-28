@@ -8,9 +8,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
     var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
     @Published private var layout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0)
-    
-    var onDismiss: () -> Void = {}
-    
+        
     var closePopupAction: (() -> Void)?
     
     @Published var value: String = "" {
@@ -72,19 +70,11 @@ extension TextRelationDetailsViewModel: RelationDetailsViewModelProtocol {
     }
 }
 
-extension TextRelationDetailsViewModel: RelationEditingViewModelProtocol {
+private extension TextRelationDetailsViewModel {
     
     func saveValue() {
         service.saveRelation(value: value, key: relation.id, textType: type)
     }
-    
-    func makeView() -> AnyView {
-        EmptyView().eraseToAnyView()
-    }
-    
-}
-
-private extension TextRelationDetailsViewModel {
     
     func setupKeyboardListener() {
         let showAction: KeyboardEventsListnerHelper.Action = { [weak self] notification in
