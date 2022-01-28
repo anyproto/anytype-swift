@@ -6,21 +6,12 @@ import Combine
 
 final class DateRelationDetailsViewModel: ObservableObject {
     
-    var layoutPublisher: Published<FloatingPanelLayout>.Publisher {
-        $layout
-    }
-    
-    @Published private var layout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0)
+    var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
+    @Published private var layout: FloatingPanelLayout = RelationOptionsPopupLayout()
     
     var closePopupAction: (() -> Void)?
     
     var onDismiss: () -> Void = {}
-    
-    @Published var height: CGFloat = 0 {
-        didSet {
-            layout = FixedHeightPopupLayout(height: height)
-        }
-    }
     
     @Published var selectedValue: DateRelationDetailsValue {
         didSet {

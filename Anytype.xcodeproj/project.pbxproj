@@ -133,7 +133,6 @@
 		1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1211D6592667CED000541D9C /* ActivityIndicatorView.swift */; };
 		12136D2C2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D2B2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift */; };
 		12136D5027991AF500262FE7 /* RelationDetailsViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D4F27991AF500262FE7 /* RelationDetailsViewModelProtocol.swift */; };
-		12136D522799520400262FE7 /* RelationDetailsViewPopupBehavior.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D512799520400262FE7 /* RelationDetailsViewPopupBehavior.swift */; };
 		12136D5627996F3400262FE7 /* TextRelationDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D5527996F3400262FE7 /* TextRelationDetailsService.swift */; };
 		12136D5827996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D5727996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift */; };
 		12136D5A2799A2BC00262FE7 /* TextRelationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D592799A2BC00262FE7 /* TextRelationDetailsViewController.swift */; };
@@ -1013,7 +1012,6 @@
 		1211D6592667CED000541D9C /* ActivityIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicatorView.swift; sourceTree = "<group>"; };
 		12136D2B2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsPopupLayout.swift; sourceTree = "<group>"; };
 		12136D4F27991AF500262FE7 /* RelationDetailsViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailsViewModelProtocol.swift; sourceTree = "<group>"; };
-		12136D512799520400262FE7 /* RelationDetailsViewPopupBehavior.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationDetailsViewPopupBehavior.swift; sourceTree = "<group>"; };
 		12136D5527996F3400262FE7 /* TextRelationDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsService.swift; sourceTree = "<group>"; };
 		12136D5727996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsServiceProtocol.swift; sourceTree = "<group>"; };
 		12136D592799A2BC00262FE7 /* TextRelationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsViewController.swift; sourceTree = "<group>"; };
@@ -3268,7 +3266,6 @@
 				12E05EEE2796A9C10037B667 /* RelationDetailsViewPopup.swift */,
 				12E05EF02796ADA90037B667 /* FixedHeightPopupLayout.swift */,
 				12136D2B2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift */,
-				12136D512799520400262FE7 /* RelationDetailsViewPopupBehavior.swift */,
 				1277C9AD279AC6BB00CBE1F8 /* TextRelationDetailsPopupLayout.swift */,
 				123949ED279FD7320080E1CF /* FullScreenHeightPopupLayout.swift */,
 			);
@@ -5617,7 +5614,6 @@
 				EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */,
 				12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */,
 				12485CE52715D1030008FA8B /* MiddlewareResponse.swift in Sources */,
-				12136D522799520400262FE7 /* RelationDetailsViewPopupBehavior.swift in Sources */,
 				12E15B89270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift in Sources */,
 				120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */,
 				12A52E3426CAA6EE000F0333 /* TouchGestureRecognizer.swift in Sources */,
