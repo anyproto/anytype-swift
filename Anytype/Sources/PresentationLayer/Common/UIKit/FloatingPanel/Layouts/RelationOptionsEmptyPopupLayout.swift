@@ -2,25 +2,26 @@ import Foundation
 import FloatingPanel
 import CoreGraphics
 
-final class FixedHeightPopupLayout: FloatingPanelLayout {
+final class RelationOptionsEmptyPopupLayout: FloatingPanelLayout {
     
     let position: FloatingPanelPosition = .bottom
-    let initialState: FloatingPanelState = .full
+    let initialState: FloatingPanelState = .half
     
     let height: CGFloat
     
     init(height: CGFloat) {
-        self.height = height
+        self.height = height + RelationDetailsViewPopup.grabberHeight
     }
     
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
-        return [
+        [
+            .half: FloatingPanelLayoutAnchor(absoluteInset: height, edge: .bottom, referenceGuide: .safeArea),
             .full: FloatingPanelLayoutAnchor(absoluteInset: height, edge: .bottom, referenceGuide: .safeArea)
         ]
     }
     
     func backdropAlpha(for state: FloatingPanelState) -> CGFloat {
-        return 0.3
+        0.3
     }
     
 }

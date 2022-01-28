@@ -4,14 +4,15 @@ import FloatingPanel
 
 final class RelationOptionsViewModel: ObservableObject {
     
-    var closePopupAction: (() -> Void)?
-    
-    var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
-    @Published private var layout: FloatingPanelLayout = RelationOptionsPopupLayout()
-    
-    @Published var isPresented: Bool = false
+    weak var delegate: RelationDetailsViewModelDelegate?
+        
     @Published var selectedOptions: [RelationOptionProtocol] = []
-    
+    private(set) var floatingPanelLayout: FloatingPanelLayout = RelationOptionsPopupLayout() {
+        didSet {
+            delegate?.didAskInvalidateLayout(true)
+        }
+    }
+
     private let type: RelationOptionsType
     private let relation: Relation
     private let service: RelationsServiceProtocol
@@ -27,7 +28,7 @@ final class RelationOptionsViewModel: ObservableObject {
         self.relation = relation
         self.service = service
         
-        self.updateLayout()
+        updateLayout()
     }
     
     var title: String { relation.name }
@@ -104,11 +105,11 @@ extension RelationOptionsViewModel {
             value: newSelectedOptionsIds.protobufValue
         )
         
-        closePopupAction?()
+        delegate?.didAskToClose()
     }
     
     private func updateLayout() {
-        layout = selectedOptions.isNotEmpty ? RelationOptionsPopupLayout() : FixedHeightPopupLayout(height: 166)
+        floatingPanelLayout = selectedOptions.isNotEmpty ? RelationOptionsPopupLayout() : RelationOptionsEmptyPopupLayout(height: 150)
     }
     
 }

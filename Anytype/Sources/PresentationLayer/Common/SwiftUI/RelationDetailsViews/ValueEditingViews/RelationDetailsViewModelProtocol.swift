@@ -4,9 +4,10 @@ import FloatingPanel
 
 protocol RelationDetailsViewModelProtocol {
     
-    var closePopupAction: (() -> Void)? { get set }
-    var layoutPublisher: Published<FloatingPanelLayout>.Publisher { get }
-        
+    var delegate: RelationDetailsViewModelDelegate? { get set }
+    
+    var floatingPanelLayout: FloatingPanelLayout { get }
+            
     func makeViewController() -> UIViewController
     
 }

@@ -4,17 +4,14 @@ import BlocksModels
 import FloatingPanel
 
 final class StatusRelationDetailsViewModel: ObservableObject {
-
-    var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
-    @Published private var layout: FloatingPanelLayout = FullScreenHeightPopupLayout()
         
-    var closePopupAction: (() -> Void)?
+    weak var delegate: RelationDetailsViewModelDelegate?
     
-    @Published var isPresented: Bool = false
+    let floatingPanelLayout: FloatingPanelLayout = FullScreenHeightPopupLayout()
 
     @Published var selectedStatus: Relation.Status.Option? {
         didSet {
-            saveValue()
+            saveValue(selectedStatus?.id)
         }
     }
     
@@ -63,14 +60,12 @@ extension StatusRelationDetailsViewModel {
         let optionId = service.addRelationOption(relationKey: relation.id, optionText: text)
         guard let optionId = optionId else { return}
         
-        service.updateRelation(relationKey: relation.id, value: optionId.protobufValue)
-        
-        closePopupAction?()
+        saveValue(optionId)
     }
     
-    func saveValue() {
-        service.updateRelation(relationKey: relation.id, value: selectedStatus?.id.protobufValue ?? nil)
-        closePopupAction?()
+    func saveValue(_ statusId: String?) {
+        service.updateRelation(relationKey: relation.id, value: statusId?.protobufValue ?? nil)
+        delegate?.didAskToClose()
     }
     
 }
