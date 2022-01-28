@@ -15,8 +15,6 @@ final class ImageName {
             static let other = "slash_menu_group_other"
             static let relation = "slash_menu_group_relation"
             static let style = "slash_menu_group_style"
-            static let color = "slash_menu_color_black"
-            static let background_color = "slash_menu_background_color_clear"
             static let alignment = "slash_menu_alignment_left"
         }
         

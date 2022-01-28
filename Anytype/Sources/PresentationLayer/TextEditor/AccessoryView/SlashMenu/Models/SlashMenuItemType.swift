@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 enum SlashMenuItemType {
     case style
@@ -34,30 +34,42 @@ enum SlashMenuItemType {
         }
     }
     
-    var iconName: String {
+    var iconName: ObjectIconImage {
         switch self {
         case .style:
-            return ImageName.slashMenu.groups.style
+            return .staticImage(ImageName.slashMenu.groups.style)
         case .media:
-            return ImageName.slashMenu.groups.media
+            return .staticImage(ImageName.slashMenu.groups.media)
         case .objects:
-            return ImageName.slashMenu.groups.objects
+            return .staticImage(ImageName.slashMenu.groups.objects)
         case .relations:
-            return ImageName.slashMenu.groups.relation
+            return .staticImage(ImageName.slashMenu.groups.relation)
         case .other:
-            return ImageName.slashMenu.groups.other
+            return .staticImage(ImageName.slashMenu.groups.other)
         case .actions:
-            return ImageName.slashMenu.groups.actions
+            return .staticImage(ImageName.slashMenu.groups.actions)
         case .color:
-            return ImageName.slashMenu.groups.color
+            let image = UIImage.circleImage(
+                size: .init(width: 22, height: 22),
+                fillColor: .textPrimary,
+                borderColor: .clear,
+                borderWidth: 0
+            )
+            return .image(image)
         case .background:
-            return ImageName.slashMenu.groups.background_color
+            let image = UIImage.circleImage(
+                size: .init(width: 22, height: 22),
+                fillColor: .backgroundPrimary,
+                borderColor: .strokePrimary,
+                borderWidth: 0.5
+            )
+            return .image(image)
         case .alignment:
-            return ImageName.slashMenu.groups.alignment
+            return .staticImage(ImageName.slashMenu.groups.alignment)
         }
     }
 
     var displayData: SlashMenuItemDisplayData {
-        SlashMenuItemDisplayData(iconData: .staticImage(iconName), title: self.title)
+        SlashMenuItemDisplayData(iconData: iconName, title: self.title)
     }
 }

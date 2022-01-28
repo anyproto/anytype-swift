@@ -237,18 +237,23 @@ extension UIImage {
         borderWidth: CGFloat
     ) -> UIImage {
         let format = UIGraphicsImageRendererFormat()
-        format.scale = 1
+
+        format.scale = UIApplication.shared.keyWindow?.screen.scale ?? 0
         let renderer = UIGraphicsImageRenderer(size: size, format: format)
 
         let img = renderer.image { ctx in
             ctx.cgContext.setFillColor(fillColor.cgColor)
             ctx.cgContext.setStrokeColor(borderColor.cgColor)
-            ctx.cgContext.setLineWidth(2)
+            ctx.cgContext.setLineWidth(borderWidth)
 
-
-            let rectangle = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            let delta = borderWidth/2
+            let rectangle = CGRect(
+                x: 0, y: 0,
+                width: size.width,
+                height: size.height
+            ).insetBy(dx: delta, dy: delta)
             ctx.cgContext.addEllipse(in: rectangle)
-            ctx.cgContext.drawPath(using: .fill)
+            ctx.cgContext.drawPath(using: .fillStroke)
         }
 
         return img
