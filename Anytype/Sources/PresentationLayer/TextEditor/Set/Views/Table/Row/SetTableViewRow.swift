@@ -27,7 +27,7 @@ struct SetTableViewRow: View {
                     SwiftUIObjectIconImageView(iconImage: icon, usecase: .setRow).frame(width: 18, height: 18)
                     Spacer.fixedWidth(8)
                 }
-                AnytypeText(data.title, style: .body, color: .grayscale90)
+                AnytypeText(data.title, style: .body, color: .textPrimary)
                     .lineLimit(1)
             }
             .padding(.horizontal, 16)
@@ -42,7 +42,7 @@ struct SetTableViewRow: View {
                 cell(colum)
                 Rectangle()
                     .frame(width: 0.5, height: 18)
-                    .foregroundColor(.grayscale30)
+                    .foregroundColor(.strokePrimary)
             }
         }
     }
