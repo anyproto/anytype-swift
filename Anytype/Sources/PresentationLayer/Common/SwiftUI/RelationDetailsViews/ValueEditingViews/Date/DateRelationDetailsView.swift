@@ -9,12 +9,10 @@ struct DateRelationDetailsView: View {
             AnytypeText(viewModel.title, style: .uxTitle1Semibold, color: .textPrimary)
                 .frame(height: 48, alignment: .center)
             valueList
+            Spacer()
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
-        .readSize { size in
-            viewModel.height = size.height
-        }
     }
     
     private var valueList: some View {
