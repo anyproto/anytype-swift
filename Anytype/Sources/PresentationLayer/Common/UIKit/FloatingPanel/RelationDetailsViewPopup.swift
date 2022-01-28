@@ -5,7 +5,6 @@ import SwiftUI
 import Combine
 import AnytypeCore
 
-#warning("TODO R: init with ViewModel + subscribe for content update in order to update floatingpanel layout")
 final class RelationDetailsViewPopup: FloatingPanelController {
         
     private var viewModel: RelationDetailsViewModelProtocol
@@ -70,7 +69,6 @@ private extension RelationDetailsViewPopup {
         setupGestures()
         setupSurfaceView()
         
-        behavior = RelationDetailsViewPopupBehavior()
         contentMode = .static
     }
     
