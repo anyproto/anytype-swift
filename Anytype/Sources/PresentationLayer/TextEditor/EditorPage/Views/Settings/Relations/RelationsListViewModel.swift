@@ -4,7 +4,6 @@ import SwiftProtobuf
 import UIKit
 import AnytypeCore
 
-#warning("TODO R: think about working with relationViewModels inssted of Relations")
 final class RelationsListViewModel: ObservableObject {
     
     // MARK: - Private variables

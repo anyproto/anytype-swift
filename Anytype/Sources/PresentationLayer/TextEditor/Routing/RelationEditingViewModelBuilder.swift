@@ -1,6 +1,5 @@
 import BlocksModels
 
-#warning("TODO R: - return VC instead of ViewModel")
 final class RelationEditingViewModelBuilder {
     
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
@@ -13,7 +12,7 @@ final class RelationEditingViewModelBuilder {
 
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
-    func buildViewModel(objectId: BlockId, relation: Relation) -> RelationEditingViewModelProtocol? {
+    func buildViewModel(objectId: BlockId, relation: Relation) -> RelationDetailsViewModelProtocol? {
         switch relation {
         case .text(let text):
             return TextRelationDetailsViewModel(

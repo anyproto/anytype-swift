@@ -108,7 +108,6 @@
 		0AEAD66025C0B93800E8A442 /* BlockFlattener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */; };
 		1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206DB8F267A303E000A48A7 /* MediaPickerView.swift */; };
 		120AC25E2747B56000330D7B /* TextRelationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120AC25D2747B56000330D7B /* TextRelationDetailsViewModel.swift */; };
-		120AC2602747B59200330D7B /* RelationEditingViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120AC25F2747B59200330D7B /* RelationEditingViewModelProtocol.swift */; };
 		120E816F269F26F8006FE84E /* ObjectSettingsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */; };
 		120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E8170269F31A8006FE84E /* ObjectSettingsView.swift */; };
 		120E8175269F342D006FE84E /* ObjectSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */; };
@@ -987,7 +986,6 @@
 		0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattener.swift; sourceTree = "<group>"; };
 		1206DB8F267A303E000A48A7 /* MediaPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerView.swift; sourceTree = "<group>"; };
 		120AC25D2747B56000330D7B /* TextRelationDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsViewModel.swift; sourceTree = "<group>"; };
-		120AC25F2747B59200330D7B /* RelationEditingViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEditingViewModelProtocol.swift; sourceTree = "<group>"; };
 		120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsContainerView.swift; sourceTree = "<group>"; };
 		120E8170269F31A8006FE84E /* ObjectSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsView.swift; sourceTree = "<group>"; };
 		120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsViewModel.swift; sourceTree = "<group>"; };
@@ -2977,7 +2975,6 @@
 			isa = PBXGroup;
 			children = (
 				12136D4F27991AF500262FE7 /* RelationDetailsViewModelProtocol.swift */,
-				120AC25F2747B59200330D7B /* RelationEditingViewModelProtocol.swift */,
 				12887F3D274BC25100228330 /* Text */,
 				12C2A58C27576B9D00311854 /* Date */,
 				12F14CE32758EFE000B976B5 /* Status */,
@@ -6013,7 +6010,6 @@
 				3DAE1C84273E69AD009A72F3 /* Range+Mention.swift in Sources */,
 				12636CE7276A01340084D35D /* TagRelationOptionSearchViewModel.swift in Sources */,
 				3DB1CA6E272C0C19000D2779 /* WallpaperColorsGridView.swift in Sources */,
-				120AC2602747B59200330D7B /* RelationEditingViewModelProtocol.swift in Sources */,
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
 				12A8CCE326BC055400090468 /* ImageBlockRestrictions.swift in Sources */,
 				3D6E9A43270F2CCC001B0A07 /* BrowserPage.swift in Sources */,
