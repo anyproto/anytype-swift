@@ -60,7 +60,7 @@ class BlocksFileEmptyView: BaseBlockView<BlocksFileEmptyViewConfiguration> {
     private let contentView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 0.5
-        view.layer.borderColor = UIColor.stroke.cgColor
+        view.layer.borderColor = UIColor.strokePrimary.cgColor
         view.layer.cornerRadius = 2
         view.clipsToBounds = true
         return view
@@ -69,7 +69,7 @@ class BlocksFileEmptyView: BaseBlockView<BlocksFileEmptyViewConfiguration> {
     private let label: UILabel = {
         let label = UILabel()
         label.font = .bodyRegular
-        label.textColor = .grayscale50
+        label.textColor = .buttonActive
         return label
     }()
     
@@ -81,7 +81,7 @@ class BlocksFileEmptyView: BaseBlockView<BlocksFileEmptyViewConfiguration> {
              
     private let activityIndicator: UIActivityIndicatorView = {
         let loader = UIActivityIndicatorView()
-        loader.color = .grayscale50
+        loader.color = .buttonActive
         loader.hidesWhenStopped = true
         return loader
     }()

@@ -13,7 +13,7 @@ struct TagView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: guidlines.cornerRadius)
                     .stroke(
-                        tag.backgroundColor == .grayscaleWhite ? Color.grayscale30 : tag.backgroundColor.suColor,
+                        tag.backgroundColor == UIColor.TagBackground.default ? Color.strokePrimary : tag.backgroundColor.suColor,
                         lineWidth: 1
                     )
             )

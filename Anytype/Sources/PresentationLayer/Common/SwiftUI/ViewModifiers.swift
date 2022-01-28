@@ -24,7 +24,7 @@ struct DividerModifier: ViewModifier {
         VStack(alignment: alignment, spacing: spacing) {
             content
             Divider()
-                .foregroundColor(Color.stroke)
+                .foregroundColor(Color.strokePrimary)
                 .padding(.leading, leadingPadding)
                 .padding(.trailing, trailingPadding)
         }

@@ -86,7 +86,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
         case .applied:
             return .buttonSelected
         case .notApplied:
-            return .grayscale50
+            return .buttonActive
         }
     }
 

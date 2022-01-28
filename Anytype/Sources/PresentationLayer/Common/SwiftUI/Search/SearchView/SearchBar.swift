@@ -28,7 +28,7 @@ struct SearchBar: View {
             Image.SearchBar.magnifyingGlass
                 .renderingMode(.template)
                 .aspectRatio(contentMode: .fit)
-                .foregroundColor(.grayscale50)
+                .foregroundColor(.buttonActive)
                 .frame(width: 14, height: 14)
                 .padding(.leading, 11)
             
@@ -38,7 +38,7 @@ struct SearchBar: View {
                 Button(action: { text = "" }) {
                     Image.SearchBar.circleFill
                         .renderingMode(.template)
-                        .foregroundColor(.grayscale50)
+                        .foregroundColor(.buttonActive)
                         .padding(.trailing, 8)
                 }
             }

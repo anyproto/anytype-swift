@@ -5,6 +5,7 @@ extension UIViewController {
     /// Sugar for adding view controller as a child
     /// - Parameter vc: view controller to add
     func embedChild(_ vc: UIViewController, into container: UIView? = nil) {
+        vc.willMove(toParent: self)
         addChild(vc)
         if let container = container {
             container.addSubview(vc.view)

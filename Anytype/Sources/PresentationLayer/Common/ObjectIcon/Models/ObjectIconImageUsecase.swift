@@ -24,7 +24,7 @@ extension ObjectIconImageUsecase {
         case .openedObjectNavigationBar, .mention, .setRow:
             return .clear
         default:
-            return .grayscale10
+            return .strokeTransperent
         }
     }
 }
