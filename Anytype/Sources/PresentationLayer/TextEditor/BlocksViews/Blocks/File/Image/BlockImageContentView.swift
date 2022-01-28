@@ -34,7 +34,7 @@ final class BlockImageContentView: BaseBlockView<BlockImageConfiguration> {
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.isUserInteractionEnabled = true
-        imageView.backgroundColor = .grayscale10
+        imageView.backgroundColor = .strokeTertiary
         
         addSubview(imageView) {
             $0.pinToSuperview(insets: Layout.imageViewInsets)

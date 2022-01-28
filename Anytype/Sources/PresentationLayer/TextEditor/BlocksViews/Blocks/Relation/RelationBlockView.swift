@@ -55,7 +55,7 @@ private extension RelationBlockView {
                     AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary)
                         .padding([.top], 5)
                         .frame(width: width * 0.4, height:  height, alignment: .topLeading)
-                        .background(Color.buttonSecondaryPressed)
+                        .background(Color.backgroundSelected)
                         .cornerRadius(2)
                     RelationValueView(relation: relation, style: .regular(allowMultiLine: true)) { relation in
                         delegate.actionOnValue?(relation)
@@ -65,7 +65,7 @@ private extension RelationBlockView {
                             $0.padding(.bottom, 13)
                         }
                         .frame(maxWidth: .infinity, minHeight: LayoutConstants.minHeight, alignment: .topLeading)
-                        .background(Color.buttonSecondaryPressed)
+                        .background(Color.backgroundSelected)
                         .cornerRadius(2)
                         .fixedSize(horizontal: false, vertical: true)
                         .readSize {

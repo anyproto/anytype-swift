@@ -21,7 +21,7 @@ struct SetTableViewHeader: View {
                     
                     Rectangle()
                         .frame(width: 0.5, height: 18)
-                        .foregroundColor(.grayscale30)
+                        .foregroundColor(.strokePrimary)
                 }
             }
             .frame(height: 40)

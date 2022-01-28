@@ -76,7 +76,7 @@ struct SetFullHeader: View {
                     if let url = ImageID(id: imageId, width: .custom(width)).resolvedUrl {
                         KFImage(url)
                             .resizable()
-                            .placeholder{ Color.grayscale30 }
+                            .placeholder{ Color.strokePrimary }
                             .frame(width: width, height: bigCover)
                             .aspectRatio(contentMode: .fill)
                 }

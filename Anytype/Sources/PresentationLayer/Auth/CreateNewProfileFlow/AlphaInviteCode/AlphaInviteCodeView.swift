@@ -43,7 +43,7 @@ struct AlphaInviteCodeView: View {
                     .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                     .foregroundColor(.textPrimary)
                     .placeholder(when: signUpData.inviteCode.isEmpty) {
-                        AnytypeText("Invitation code", style: .uxBodyRegular, color: .grayscale50)
+                        AnytypeText("Invitation code", style: .uxBodyRegular, color: .textTertiary)
                     }
                     .modifier(DividerModifier(spacing: 11.5))
                 Spacer.fixedHeight(20)

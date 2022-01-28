@@ -12,6 +12,7 @@ final class RoundedShadowView<View: UIView>: UIView {
         self.shadowLayer = CAShapeLayer()
 
         shadowLayer.shadowPath = shadowLayer.path
+        shadowLayer.shadowOpacity = 1
 
         super.init(frame: view.bounds)
 

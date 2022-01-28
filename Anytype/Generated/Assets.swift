@@ -73,38 +73,32 @@ internal enum Asset {
   }
 
   // MARK: - Backgound
-  static let backgroundBlurred = ColorAsset(name: "backgroundBlurred")
   static let backgroundDashboard = ColorAsset(name: "backgroundDashboard")
   static let backgroundPrimary = ColorAsset(name: "backgroundPrimary")
   static let backgroundSecondary = ColorAsset(name: "backgroundSecondary")
   static let backgroundSelected = ColorAsset(name: "backgroundSelected")
 
-  // MARK: - Custom
-  static let divider = ColorAsset(name: "divider")
-  static let dividerSecondary = ColorAsset(name: "dividerSecondary")
-  static let stroke = ColorAsset(name: "stroke")
-  static let toastBackground = ColorAsset(name: "toastBackground")
+  // MARK: - Button
+  static let buttonAccent = ColorAsset(name: "buttonAccent")
+  static let buttonActive = ColorAsset(name: "buttonActive")
+  static let buttonInactive = ColorAsset(name: "buttonInactive")
+  static let buttonSelected = ColorAsset(name: "buttonSelected")
+  static let buttonWhite = ColorAsset(name: "buttonWhite")
 
-  // MARK: - Grayscale
-  static let grayscale10 = ColorAsset(name: "grayscale10")
-  static let grayscale30 = ColorAsset(name: "grayscale30")
-  static let grayscale50 = ColorAsset(name: "grayscale50")
-  static let grayscale70 = ColorAsset(name: "grayscale70")
-  static let grayscale90 = ColorAsset(name: "grayscale90")
-  static let grayscaleWhite = ColorAsset(name: "grayscaleWhite")
+  // MARK: - Shadow
+  static let shadowPrimary = ColorAsset(name: "shadowPrimary")
 
   // MARK: - Stroke
   static let strokePrimary = ColorAsset(name: "strokePrimary")
   static let strokeSecondary = ColorAsset(name: "strokeSecondary")
   static let strokeTertiary = ColorAsset(name: "strokeTertiary")
+  static let strokeTransperent = ColorAsset(name: "strokeTransperent")
 
   // MARK: - Text
   static let textPrimary = ColorAsset(name: "textPrimary")
   static let textSecondary = ColorAsset(name: "textSecondary")
   static let textTertiary = ColorAsset(name: "textTertiary")
-  static let buttonInactive = ColorAsset(name: "buttonInactive")
-  static let buttonSecondaryPressed = ColorAsset(name: "buttonSecondaryPressed")
-  static let buttonSelected = ColorAsset(name: "buttonSelected")
+  static let textWhite = ColorAsset(name: "textWhite")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 

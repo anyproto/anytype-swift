@@ -428,7 +428,6 @@
 		3D513F0F27956E2B007850D5 /* EditorSetViewPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D513F0E27956E2B007850D5 /* EditorSetViewPicker.swift */; };
 		3D540C7B2625C9DE00A07BD8 /* EditorBrowserAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C7A2625C9DE00A07BD8 /* EditorBrowserAssembly.swift */; };
 		3D568FB5266A287400DC7881 /* SystemColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* SystemColors.xcassets */; };
-		3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC0266A5D8600DC7881 /* ColorName.swift */; };
 		3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */; };
 		3D56F2122706E1BA007BC15E /* SlashMenuComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D56F2112706E1BA007BC15E /* SlashMenuComparator.swift */; };
 		3D5A413B2702CB9A00F1F6A1 /* OpenedPageData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D5A413A2702CB9A00F1F6A1 /* OpenedPageData.swift */; };
@@ -1303,7 +1302,6 @@
 		3D513F0E27956E2B007850D5 /* EditorSetViewPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewPicker.swift; sourceTree = "<group>"; };
 		3D540C7A2625C9DE00A07BD8 /* EditorBrowserAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserAssembly.swift; sourceTree = "<group>"; };
 		3D568FB4266A287400DC7881 /* SystemColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SystemColors.xcassets; sourceTree = "<group>"; };
-		3D568FC0266A5D8600DC7881 /* ColorName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ColorName.swift; path = "Anytype/Sources/Design system/Colors/ColorName.swift"; sourceTree = SOURCE_ROOT; };
 		3D568FC3266A714900DC7881 /* UIColor+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "UIColor+Convenience.swift"; path = "Anytype/Sources/FrameworkExtensions/UIKit/UIColor+Convenience.swift"; sourceTree = SOURCE_ROOT; };
 		3D56F2112706E1BA007BC15E /* SlashMenuComparator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlashMenuComparator.swift; sourceTree = "<group>"; };
 		3D5A413A2702CB9A00F1F6A1 /* OpenedPageData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenedPageData.swift; sourceTree = "<group>"; };
@@ -4796,7 +4794,6 @@
 			children = (
 				12A7B6BB26C3E47200544037 /* CoverColor.swift */,
 				12A7B6BD26C3E47200544037 /* CoverGradient.swift */,
-				3D568FC0266A5D8600DC7881 /* ColorName.swift */,
 				039F6D79239591C80097560A /* Gradients.swift */,
 				127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */,
 			);
@@ -5657,7 +5654,6 @@
 				1223C9022726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift in Sources */,
 				EA074A2F26DFE10F00CE2EDF /* MentionMarkupEventProvider.swift in Sources */,
 				03D1516023FB4329004027CE /* DashboardServiceProtocol.swift in Sources */,
-				3D568FC1266A5D8600DC7881 /* ColorName.swift in Sources */,
 				C9367A91273126AD007D687A /* BlocksOptionView.swift in Sources */,
 				12EEC36D26A0903F00C3C4B1 /* EmojiGroup.swift in Sources */,
 				C910809E274CB02400EFA11C /* DividerCursorController.swift in Sources */,

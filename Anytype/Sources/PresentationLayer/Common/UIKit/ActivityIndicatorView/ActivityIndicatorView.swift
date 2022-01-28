@@ -47,7 +47,7 @@ private extension ActivityIndicatorView {
     }
     
     func setupActivityIndicatorView() {
-        activityIndicatorView.color = .grayscale10
+        activityIndicatorView.color = .strokeTertiary
         activityIndicatorView.backgroundColor = UIColor(white: 0.0, alpha: 0.32)
     }
     

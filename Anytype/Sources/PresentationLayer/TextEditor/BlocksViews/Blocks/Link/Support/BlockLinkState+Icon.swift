@@ -59,9 +59,7 @@ extension BlockLinkState {
             cornerRadius: cornerRadius
         )
         
-        let image = ImageBuilder(imageGuideline)
-            .setImageColor(.grayscale30)
-            .build()
+        let image = ImageBuilder(imageGuideline).build()
         
         imageView.kf.setImage(
             with: url,
@@ -93,7 +91,7 @@ extension BlockLinkState {
         )
         
         let image = ImageBuilder(imageGuideline)
-            .setImageColor(.grayscale30)
+            .setImageColor(.strokePrimary)
             .setText(String(placeholder))
             .setFont(UIFont.systemFont(ofSize: 17))
             .build()

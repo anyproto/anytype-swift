@@ -54,7 +54,7 @@ struct TagRelationOptionSearchView: View {
             $0.overlay(
                 HStack(spacing: 0) {
                     Spacer()
-                    AnytypeText("\(viewModel.selectedTagIds.count)", style: .relation1Regular, color: .grayscaleWhite)
+                    AnytypeText("\(viewModel.selectedTagIds.count)", style: .relation1Regular, color: .textWhite)
                         .frame(minWidth: 15, minHeight: 15)
                         .padding(5)
                         .background(Color.System.amber)
