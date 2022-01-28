@@ -64,6 +64,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView() {}
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
+
+        let createEmptyBlock: () -> Void = { [weak self] in
+            self?.actionHandler.createEmptyBlock(parentId: information.id)
+        }
         TextBlockContentConfiguration(
             blockDelegate: blockDelegate,
             block: block,

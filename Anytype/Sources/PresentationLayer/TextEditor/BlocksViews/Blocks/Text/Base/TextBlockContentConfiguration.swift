@@ -2,29 +2,45 @@ import Combine
 import BlocksModels
 import UIKit
 
-struct TextBlockContentConfiguration: BlockConfigurationProtocol {
-    
-    let blockDelegate: BlockDelegate
-    
+struct TextBlockContentConfiguration: BlockConfiguration {
+    typealias View = TextBlockContentView
+
+    let attributedText: NSAttributedString
+
     let block: BlockModelProtocol
     let information: BlockInformation
     let content: BlockText
     let text: UIKitAnytypeText
     let isFirstResponder: Bool
     
-    let upperBlock: BlockModelProtocol?
-    
+
     let shouldDisplayPlaceholder: Bool
     let isCheckable: Bool
     
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
-    let actionHandler: BlockActionHandlerProtocol
-    let showPage: (EditorScreenData) -> Void
-    let openURL: (URL) -> Void
-        
+
+    let alignment: NSTextAlignment
+
+    struct Actions {
+        let createEmptyBlock: () -> Void
+        let showPage: (EditorScreenData) -> Void
+        let openURL: (URL) -> Void
+        let changeText: (NSAttributedString) -> Void
+        let changeTextStyle: (MarkupType, NSRange) -> Void
+        let handleKeyboardAction: (CustomTextView.KeyboardAction, NSAttributedString) -> Void
+        let becomeFirstResponder: () -> Void
+        let resignFirstResponder: () -> Void
+
+        let textBlockSetNeedsLayout: () -> Void
+
+        let textViewWillBeginEditing: (UITextView) -> Void
+        let textViewDidBeginEditing: (UITextView) -> Void
+        let textViewDidEndEditing: (UITextView) -> Void
+    }
+
+ 
     let pressingEnterTimeChecker = TimeChecker()
-    var currentConfigurationState: UICellConfigurationState?
-    
+
     init(
         blockDelegate: BlockDelegate,
         block: BlockModelProtocol,
@@ -39,21 +55,13 @@ struct TextBlockContentConfiguration: BlockConfigurationProtocol {
         self.blockDelegate = blockDelegate
         self.block = block
         self.content = content
-        self.upperBlock = upperBlock
-        self.actionHandler = actionHandler
-        self.showPage = showPage
-        self.openURL = openURL
         self.focusPublisher = focusPublisher
         self.information = block.information
         self.isCheckable = isCheckable
         
-        self.text = content.anytypeText
+        self.text = content.anytypeText.attrString
         self.isFirstResponder = block.isFirstResponder
         shouldDisplayPlaceholder = block.isToggled && block.information.childrenIds.isEmpty
-    }
-    
-    func makeContentView() -> UIView & UIContentView {
-        TextBlockContentView(configuration: self)
     }
 }
 
@@ -61,7 +69,6 @@ extension TextBlockContentConfiguration: Hashable {
     
     static func == (lhs: TextBlockContentConfiguration, rhs: TextBlockContentConfiguration) -> Bool {
         lhs.information == rhs.information &&
-        lhs.currentConfigurationState == rhs.currentConfigurationState &&
         lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder &&
         lhs.isCheckable == rhs.isCheckable &&
         lhs.isFirstResponder == rhs.isFirstResponder
@@ -74,7 +81,6 @@ extension TextBlockContentConfiguration: Hashable {
         hasher.combine(information.content)
         hasher.combine(shouldDisplayPlaceholder)
         hasher.combine(isCheckable)
-        hasher.combine(currentConfigurationState)
         hasher.combine(isFirstResponder)
     }
 }

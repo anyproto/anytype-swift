@@ -3,17 +3,14 @@ import Combine
 import BlocksModels
 
 
-final class TextBlockContentView: BaseBlockView<TextBlockContentConfiguration> {
+final class TextBlockContentView: UIView, BlockContentView {
     
     // MARK: - Views
-    
     private let backgroundColorView = UIView()
     private let contentView = UIView()
     private(set) lazy var textView = CustomTextView()
     private(set) lazy var createEmptyBlockButton = EmptyToggleButtonBuilder.create { [weak self] in
-        guard let self = self else { return }
-        let blockId = self.currentConfiguration.information.id
-        self.currentConfiguration.actionHandler.createEmptyBlock(parentId: blockId)
+        self?.actions?.createEmptyBlock()
     }
     
     private let mainStackView: UIStackView = makeMainStackView()
@@ -26,22 +23,27 @@ final class TextBlockContentView: BaseBlockView<TextBlockContentConfiguration> {
     private var bottomContentnConstraint: NSLayoutConstraint?
 
     private var focusSubscription: AnyCancellable?
-    
-    override func setupSubviews() {
-        super.setupSubviews()
+    weak var blockDelegate: BlockDelegate?
+
+    private(set) var actions: TextBlockContentConfiguration.Actions?
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         setupLayout()
     }
 
-    override func update(with configuration: TextBlockContentConfiguration) {
-        super.update(with: configuration)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
 
-        applyNewConfiguration()
+        setupLayout()
     }
 
-    override func update(with state: UICellConfigurationState) {
-        super.update(with: state)
+    func update(with configuration: TextBlockContentConfiguration) {
+        applyNewConfiguration(configuration: configuration)
+    }
 
+    func update(with state: UICellConfigurationState) {
         textView.textView.isUserInteractionEnabled = state.isEditing
     }
 
@@ -79,24 +81,24 @@ final class TextBlockContentView: BaseBlockView<TextBlockContentConfiguration> {
 
     // MARK: - Apply configuration
     
-    private func applyNewConfiguration() {
-        textView.textView.textStorage.setAttributedString(currentConfiguration.text.attrString)
+    private func applyNewConfiguration(configuration: TextBlockContentConfiguration) {
+        textView.textView.textStorage.setAttributedString(configuration.text.attrString)
         
-        let restrictions = BlockRestrictionsBuilder.build(textContentType: currentConfiguration.content.contentType)
+        let restrictions = BlockRestrictionsBuilder.build(textContentType: configuration.content.contentType)
         
-        TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: currentConfiguration)
-        TextBlockTextViewStyler.applyStyle(textView: textView, configuration: currentConfiguration, restrictions: restrictions)
+        TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: configuration)
+        TextBlockTextViewStyler.applyStyle(textView: textView, configuration: configuration, restrictions: restrictions)
 
-        updateAllConstraint(blockTextStyle: currentConfiguration.content.contentType)
+        updateAllConstraint(blockTextStyle: configuration.content.contentType)
         
         textView.delegate = self
         
-        let displayPlaceholder = currentConfiguration.content.contentType == .toggle && currentConfiguration.shouldDisplayPlaceholder
+        let displayPlaceholder = configuration.content.contentType == .toggle && configuration.shouldDisplayPlaceholder
         createEmptyBlockButton.isHidden = !displayPlaceholder
 
-        backgroundColorView.backgroundColor = currentConfiguration.information.backgroundColor.map { UIColor.Background.uiColor(from: $0) }
+        backgroundColorView.backgroundColor = configuration.information.backgroundColor.map { UIColor.Background.uiColor(from: $0) }
 
-        focusSubscription = currentConfiguration.focusPublisher.sink { [weak self] focus in
+        focusSubscription = configuration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
         }
     }
