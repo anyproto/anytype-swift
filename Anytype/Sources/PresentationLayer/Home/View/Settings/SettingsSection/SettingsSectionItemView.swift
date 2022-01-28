@@ -17,6 +17,8 @@ struct SettingsSectionItemView: View {
                 AnytypeText(name, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
                 Image.arrow
+                    .renderingMode(.template)
+                    .foregroundColor(.textTertiary)
             }
         }
         .modifier(

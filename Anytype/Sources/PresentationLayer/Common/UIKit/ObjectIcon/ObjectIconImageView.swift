@@ -46,8 +46,8 @@ extension ObjectIconImageView: ConfigurableView {
             imageView.image = stringIconImage(
                 model: model,
                 string: character.flatMap { String($0) } ?? "",
-                textColor: UIColor.textTertiary,
-                backgroundColor: UIColor.grayscale10
+                textColor: UIColor.textWhite,
+                backgroundColor: UIColor.strokeSecondary
             )
         case .staticImage(let name):
             imageView.image = model.imageGuideline.flatMap {
@@ -72,8 +72,8 @@ extension ObjectIconImageView: ConfigurableView {
                 imageView.image = stringIconImage(
                     model: model,
                     string: String(character),
-                    textColor: UIColor.backgroundPrimary,
-                    backgroundColor: UIColor.dividerSecondary
+                    textColor: UIColor.textWhite,
+                    backgroundColor: UIColor.strokeSecondary
                 )
             }
         case .emoji(let iconEmoji):

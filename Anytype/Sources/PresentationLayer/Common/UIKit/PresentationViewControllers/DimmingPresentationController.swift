@@ -19,7 +19,7 @@ final class DimmingPresentationController: UIPresentationController {
     
     override func presentationTransitionWillBegin() {
         let dimmingView = UIView(frame: UIScreen.main.bounds)
-        dimmingView.backgroundColor = .grayscale90
+        dimmingView.backgroundColor = .strokePrimary
         dimmingView.alpha = 0
         self.dimmingView = dimmingView
         containerView?.addSubview(dimmingView)

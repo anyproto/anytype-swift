@@ -41,7 +41,7 @@ enum ButtonsFactory {
         button.setText(text ?? "")
         button.setBackgroundColor(.clear, state: .normal)
         button.setBackgroundColor(.clear, state: .disabled)
-        button.setBackgroundColor(.buttonSecondaryPressed, state: .selected)
+        button.setBackgroundColor(.backgroundSelected, state: .selected)
         button.setImageTintColor(.buttonInactive, state: .disabled)
         button.setImageTintColor(.textPrimary, state: .normal)
 
@@ -52,7 +52,7 @@ enum ButtonsFactory {
         let button = makeButton(image: image)
         button.layer.cornerRadius = 10
         button.layer.borderWidth = 0.5
-        button.layer.borderColor = UIColor.grayscale30.cgColor
+        button.layer.borderColor = UIColor.strokePrimary.cgColor
         button.contentMode = .center
         button.imageView.contentMode = .scaleAspectFit
 

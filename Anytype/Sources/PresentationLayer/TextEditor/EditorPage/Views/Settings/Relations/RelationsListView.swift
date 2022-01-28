@@ -106,7 +106,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                             id: "id1",
                                             text: "text1",
                                             textColor: UIColor.Text.teal,
-                                            backgroundColor: .grayscaleWhite,
+                                            backgroundColor: UIColor.TagBackground.default,
                                             scope: .local
                                         ),
                                         Relation.Tag.Option(
@@ -136,7 +136,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                             id: "id1",
                                             text: "text1",
                                             textColor: UIColor.Text.teal,
-                                            backgroundColor: .grayscaleWhite,
+                                            backgroundColor: UIColor.TagBackground.default,
                                             scope: .local
                                         ),
                                         Relation.Tag.Option(

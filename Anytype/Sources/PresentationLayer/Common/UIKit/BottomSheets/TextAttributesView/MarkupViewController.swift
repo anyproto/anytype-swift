@@ -4,7 +4,7 @@ import UIKit
 final class MarkupsViewController: UIViewController {
 
     private let backdropView = UIView()
-    let containerView = UIView()
+    private(set) lazy var containerShadowView = RoundedShadowView(view: containerStackView, cornerRadius: 20)
 
     private var containerStackView: UIStackView = {
         let containerStackView = UIStackView()
@@ -40,22 +40,22 @@ final class MarkupsViewController: UIViewController {
     
     private lazy var boldButton = makeButton(image: .textAttributes.bold) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.bold))
-    }.addBorders(edges: [.right, .bottom], width: 1, color: .stroke)
+    }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
 
     private lazy var italicButton = makeButton(image: .textAttributes.italic) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.italic))
-    }.addBorders(edges: [.right, .bottom], width: 1, color: .stroke)
+    }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
 
     private lazy var strikethroughButton = makeButton(image: .textAttributes.strikethrough) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.strikethrough))
-    }.addBorders(edges: [.bottom], width: 1, color: .stroke)
+    }.addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
 
     private lazy var codeButton = makeButton(text: "Code".localized) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.keyboard))
-    }.addBorders(edges: [.right, .bottom], width: 1, color: .stroke)
+    }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
 
     private lazy var urlButton = makeButton(text: "Link".localized, action: {})
-        .addBorders(edges: [.bottom], width: 1, color: .stroke)
+        .addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
 
     private lazy var leftAlignButton: ButtonWithImage = {
         let button = ButtonsFactory.makeButton(image: .textAttributes.alignLeft)
@@ -107,14 +107,12 @@ final class MarkupsViewController: UIViewController {
     // MARK: -  Setup views
 
     private func setupViews() {
-        containerView.backgroundColor = .white
-        containerView.layer.cornerRadius = 12.0
-        containerView.layer.cornerCurve = .continuous
+        containerStackView.backgroundColor = .backgroundSecondary
 
-        containerView.layer.shadowColor = UIColor.grayscale90.cgColor
-        containerView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        containerView.layer.shadowOpacity = 0.25
-        containerView.layer.shadowRadius = 40
+        containerShadowView.view.layer.cornerRadius = 16
+        containerShadowView.view.layer.masksToBounds = true
+        containerShadowView.shadowLayer.fillColor = UIColor.shadowPrimary.cgColor
+        containerShadowView.shadowLayer.shadowRadius = 10
 
         view.backgroundColor = .clear
         backdropView.backgroundColor = .clear
@@ -122,18 +120,13 @@ final class MarkupsViewController: UIViewController {
         backdropView.addGestureRecognizer(tapGeastureRecognizer)
 
         view.addSubview(backdropView)
-        view.addSubview(containerView)
+        view.addSubview(containerShadowView)
 
         backdropView.pinAllEdges(to: view)
-
-        containerView.addSubview(containerStackView) {
-            $0.pinToSuperview()
-        }
 
         containerStackView.addArrangedSubview(topStackView)
         containerStackView.addArrangedSubview(middleStackView)
         containerStackView.addArrangedSubview(bottomStackView)
-        containerView.backgroundColor = .backgroundSecondary
 
         topStackView.addArrangedSubview(boldButton)
         topStackView.addArrangedSubview(italicButton)

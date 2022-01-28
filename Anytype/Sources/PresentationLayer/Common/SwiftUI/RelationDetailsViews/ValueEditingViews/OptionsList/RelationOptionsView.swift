@@ -53,7 +53,7 @@ struct RelationOptionsView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.grayscale50)
+                    .foregroundColor(Color.strokePrimary)
             }
         }
     }
@@ -63,7 +63,6 @@ struct RelationOptionsView: View {
 // MARK: - NavigationBarView
 
 private extension RelationOptionsView {
-    
     var addButton: some View {
         Button {
             isSearchPresented = true

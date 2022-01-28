@@ -31,7 +31,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                     }
                 }
                 .frame(maxWidth: geometry.size.width * 0.8, minHeight: 0)
-                .background(Color.toastBackground)
+                .background(Color.strokePrimary)
                 .cornerRadius(10)
                 .transition(.slide)
                 .opacity(self.isShowing ? 1 : 0)
