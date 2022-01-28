@@ -52,6 +52,19 @@ private extension RelationDetailsViewPopup {
     
 }
 
+extension RelationDetailsViewPopup: FloatingPanelControllerDelegate {
+    
+    func floatingPanelDidMove(_ fpc: FloatingPanelController) {
+        if self.isAttracting == false {
+            let loc = self.surfaceLocation
+            let minY = self.surfaceLocation(for: .full).y
+            let maxY = self.surfaceLocation(for: .tip).y
+            self.surfaceLocation = CGPoint(x: loc.x, y: min(max(loc.y, minY), maxY))
+        }
+    }
+    
+}
+
 private extension RelationDetailsViewPopup {
     
     func setup() {
@@ -69,7 +82,9 @@ private extension RelationDetailsViewPopup {
         setupGestures()
         setupSurfaceView()
         
+        behavior = FloatingPanelDefaultBehavior()
         contentMode = .static
+        delegate = self
     }
     
     func setupGestures() {
