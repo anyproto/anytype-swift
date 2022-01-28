@@ -5,11 +5,9 @@ import SwiftUI
 import Combine
 import AnytypeCore
 
-#warning("TODO R: init with ViewModel + subscribe for content update in order to update floatingpanel layout")
 final class RelationDetailsViewPopup: FloatingPanelController {
         
     private var viewModel: RelationDetailsViewModelProtocol
-    private var cancellables: Set<AnyCancellable> = []
     
     // MARK: - Initializers
     
@@ -18,13 +16,9 @@ final class RelationDetailsViewPopup: FloatingPanelController {
         
         super.init(delegate: nil)
         
-        self.viewModel.closePopupAction = { [weak self] in
-            self?.closePopup()
-        }
+        self.viewModel.delegate = self
         
         setup()
-        
-        set(contentViewController: viewModel.makeViewController())
     }
     
     @available(*, unavailable)
@@ -34,42 +28,56 @@ final class RelationDetailsViewPopup: FloatingPanelController {
 
 }
 
-// MARK: - Private extension
+// MARK: - RelationDetailsViewModelDelegate
 
-private extension RelationDetailsViewPopup {
+extension RelationDetailsViewPopup: RelationDetailsViewModelDelegate {
     
-    func updateLayout(_ layout: FloatingPanelLayout) {
-        self.layout = layout//FixedHeightPopupLayout(height: viewHeight + Self.grabberHeight)
-        invalidateLayout()
+    func didAskInvalidateLayout(_ animated: Bool) {
+        if animated {
+            UIView.animate(withDuration: 0.3) {
+                self.invalidateLayout()
+            }
+        } else {
+            self.invalidateLayout()
+        }
     }
     
-    func closePopup() {
+    func didAskToClose() {
         hide(animated: true) {
             self.removePanelFromParent(animated: false, completion: nil)
         }
     }
+
     
 }
+
+// MARK: - FloatingPanelControllerDelegate
+
+extension RelationDetailsViewPopup: FloatingPanelControllerDelegate {
+    
+    func floatingPanel(_ fpc: FloatingPanelController, layoutFor size: CGSize) -> FloatingPanelLayout {
+        viewModel.floatingPanelLayout
+    }
+    
+    func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
+        viewModel.floatingPanelLayout
+    }
+    
+}
+
+// MARK: - Private extension
 
 private extension RelationDetailsViewPopup {
     
     func setup() {
-        setupFloatingPanelController()
-        
-        viewModel.layoutPublisher
-            .receiveOnMain()
-            .sink { [weak self] layout in
-                self?.updateLayout(layout)
-            }
-            .store(in: &cancellables)
-    }
-    
-    func setupFloatingPanelController() {
         setupGestures()
         setupSurfaceView()
         
-        behavior = RelationDetailsViewPopupBehavior()
+        behavior = RelationDetailsPopupBehavior()
         contentMode = .static
+        delegate = self
+        
+        set(contentViewController: viewModel.makeViewController())
     }
     
     func setupGestures() {

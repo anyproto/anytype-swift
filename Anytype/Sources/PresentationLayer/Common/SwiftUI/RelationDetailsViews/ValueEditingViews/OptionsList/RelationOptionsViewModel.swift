@@ -4,19 +4,18 @@ import FloatingPanel
 
 final class RelationOptionsViewModel: ObservableObject {
     
-    var onDismiss: () -> Void = {}
-    var closePopupAction: (() -> Void)?
-    
-    var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
-    @Published private var layout: FloatingPanelLayout = RelationOptionsPopupLayout()
-    
-    @Published var isPresented: Bool = false
+    weak var delegate: RelationDetailsViewModelDelegate?
+        
     @Published var selectedOptions: [RelationOptionProtocol] = []
-    
+    private(set) var floatingPanelLayout: FloatingPanelLayout = RelationOptionsPopupLayout() {
+        didSet {
+            delegate?.didAskInvalidateLayout(true)
+        }
+    }
+
     private let type: RelationOptionsType
     private let relation: Relation
     private let service: RelationsServiceProtocol
-    private var editingActions: [RelationOptionEditingAction] = []
     
     init(
         type: RelationOptionsType,
@@ -28,6 +27,8 @@ final class RelationOptionsViewModel: ObservableObject {
         self.selectedOptions = selectedOptions
         self.relation = relation
         self.service = service
+        
+        updateLayout()
     }
     
     var title: String { relation.name }
@@ -38,26 +39,22 @@ final class RelationOptionsViewModel: ObservableObject {
 
 extension RelationOptionsViewModel {
     
-    func postponeEditingAction(_ action: RelationOptionEditingAction) {
-        editingActions.append(action)
-    }
-    
-    func applyEditingActions() {
-        editingActions.forEach {
-            switch $0 {
-            case .remove(let indexSet):
-                selectedOptions.remove(atOffsets: indexSet)
-            case .move(let source, let destination):
-                selectedOptions.move(fromOffsets: source, toOffset: destination)
-            }
-        }
-        
+    func delete(_ indexSet: IndexSet) {
+        selectedOptions.remove(atOffsets: indexSet)
         service.updateRelation(
             relationKey: relation.id,
             value: selectedOptions.map { $0.id }.protobufValue
         )
         
-        editingActions = []
+        updateLayout()
+    }
+    
+    func move(source: IndexSet, destination: Int) {
+        selectedOptions.move(fromOffsets: source, toOffset: destination)
+        service.updateRelation(
+            relationKey: relation.id,
+            value: selectedOptions.map { $0.id }.protobufValue
+        )
     }
     
     @ViewBuilder
@@ -108,7 +105,11 @@ extension RelationOptionsViewModel {
             value: newSelectedOptionsIds.protobufValue
         )
         
-        closePopupAction?()
+        delegate?.didAskToClose()
+    }
+    
+    private func updateLayout() {
+        floatingPanelLayout = selectedOptions.isNotEmpty ? RelationOptionsPopupLayout() : RelationOptionsEmptyPopupLayout(height: 150)
     }
     
 }
@@ -117,14 +118,6 @@ extension RelationOptionsViewModel: RelationDetailsViewModelProtocol {
     
     func makeViewController() -> UIViewController {
         UIHostingController(rootView: RelationOptionsView(viewModel: self))
-    }
-    
-}
-
-extension RelationOptionsViewModel: RelationEditingViewModelProtocol {
-    
-    func makeView() -> AnyView {
-        AnyView(RelationOptionsView(viewModel: self))
     }
     
 }

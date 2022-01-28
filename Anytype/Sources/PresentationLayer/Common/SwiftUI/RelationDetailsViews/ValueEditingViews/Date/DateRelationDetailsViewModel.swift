@@ -6,21 +6,9 @@ import Combine
 
 final class DateRelationDetailsViewModel: ObservableObject {
     
-    var layoutPublisher: Published<FloatingPanelLayout>.Publisher {
-        $layout
-    }
+    weak var delegate: RelationDetailsViewModelDelegate?
     
-    @Published private var layout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0)
-    
-    var closePopupAction: (() -> Void)?
-    
-    var onDismiss: () -> Void = {}
-    
-    @Published var height: CGFloat = 0 {
-        didSet {
-            layout = FixedHeightPopupLayout(height: height)
-        }
-    }
+    let floatingPanelLayout: FloatingPanelLayout = RelationOptionsPopupLayout()
     
     @Published var selectedValue: DateRelationDetailsValue {
         didSet {
@@ -60,12 +48,12 @@ final class DateRelationDetailsViewModel: ObservableObject {
 extension DateRelationDetailsViewModel: RelationDetailsViewModelProtocol {
     
     func makeViewController() -> UIViewController {
-        UIHostingController(rootView: makeView())
+        UIHostingController(rootView:  DateRelationDetailsView(viewModel: self))
     }
 
 }
 
-extension DateRelationDetailsViewModel: RelationEditingViewModelProtocol {
+private extension DateRelationDetailsViewModel {
 
     func saveValue() {
         let value: Google_Protobuf_Value = {
@@ -84,10 +72,6 @@ extension DateRelationDetailsViewModel: RelationEditingViewModelProtocol {
         }()
         
         service.updateRelation(relationKey: relation.id, value: value)
-    }
-    
-    func makeView() -> AnyView {
-        DateRelationDetailsView(viewModel: self).eraseToAnyView()
     }
      
 }

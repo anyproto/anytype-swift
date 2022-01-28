@@ -8,13 +8,13 @@ final class TextRelationDetailsPopupLayout: FloatingPanelLayout {
     let initialState: FloatingPanelState = .full
     
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
-        return [
+        [
             .full: FloatingPanelIntrinsicLayoutAnchor(absoluteOffset: 0, referenceGuide: .safeArea)
         ]
     }
     
     func backdropAlpha(for state: FloatingPanelState) -> CGFloat {
-        return 0.3
+        0.3
     }
     
 }
