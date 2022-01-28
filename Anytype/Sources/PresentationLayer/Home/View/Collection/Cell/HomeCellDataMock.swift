@@ -1,5 +1,3 @@
-#if !RELEASE
-
 import UIKit
 import AnytypeCore
 
@@ -121,4 +119,3 @@ struct HomeCellDataMock {
         )
     ]
 }
-#endif

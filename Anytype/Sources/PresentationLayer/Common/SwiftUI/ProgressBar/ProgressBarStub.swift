@@ -4,7 +4,7 @@ struct ProgressBarStub: View {
     var body: some View {
         ZStack(alignment: .center) {
             Capsule()
-                .foregroundColor(.grayscale10)
+                .foregroundColor(.strokePrimary)
             Capsule()
                 .foregroundColor(.textPrimary)
                 .clipShape(Capsule())

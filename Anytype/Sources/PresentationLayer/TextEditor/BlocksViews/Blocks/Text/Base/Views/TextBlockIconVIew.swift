@@ -97,13 +97,22 @@ final class TextBlockIconView: UIView {
 
 extension TextBlockIconView {
     private func createToggleView() -> UIButton {
-        let toggleView = UIButton()
-        toggleView.setImage(UIImage(imageLiteralResourceName: Constants.Toggle.foldedImageName), for: .normal)
-        toggleView.setImage(UIImage(imageLiteralResourceName: Constants.Toggle.unfoldedImageName), for: .selected)
-        toggleView.contentMode = .center
-        toggleView.imageView?.contentMode = .scaleAspectFit
+        let toggleButton = UIButton(type: .custom)
 
-        addSubview(toggleView)  {
+        let originalImage = UIImage(
+            imageLiteralResourceName: Constants.Toggle.foldedImageName
+        ).withTintColor(.textPrimary)
+
+        let transformedImage = originalImage
+            .rotate(radians: .pi/2)
+            .withTintColor(.textPrimary)
+
+        toggleButton.setImage(originalImage, for: .normal)
+        toggleButton.setImage(transformedImage, for: .selected)
+        toggleButton.contentMode = .center
+        toggleButton.imageView?.contentMode = .scaleAspectFit
+
+        addSubview(toggleButton)  {
             $0.width.equal(to: Constants.size.width)
             $0.height.equal(to: Constants.size.height)
             $0.leading.equal(to: leadingAnchor)
@@ -111,7 +120,7 @@ extension TextBlockIconView {
             $0.bottom.equal(to: bottomAnchor)
             $0.trailing.equal(to: trailingAnchor)
         }
-        return toggleView
+        return toggleButton
     }
 
     private func createCheckboxView(
@@ -182,7 +191,7 @@ extension TextBlockIconView {
 
     private func createQuoteView() -> UIView {
         let quoteView = UIView()
-        quoteView.backgroundColor = .grayscale10
+        quoteView.backgroundColor = .strokeTertiary
 
         addSubview(quoteView) {
             $0.width.equal(to: 2)
@@ -230,7 +239,6 @@ private extension TextBlockIconView {
 
         enum Toggle {
             static let foldedImageName = "TextEditor/Text/folded"
-            static let unfoldedImageName = "TextEditor/Text/unfolded"
         }
     }
 }

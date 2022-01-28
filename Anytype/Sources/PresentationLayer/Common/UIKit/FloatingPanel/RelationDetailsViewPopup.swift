@@ -82,7 +82,7 @@ private extension RelationDetailsViewPopup {
         
         surfaceView.grabberHandlePadding = 6.0
         surfaceView.grabberHandleSize = CGSize(width: 48.0, height: 4.0)
-        surfaceView.grabberHandle.backgroundColor = .stroke
+        surfaceView.grabberHandle.backgroundColor = .strokePrimary
         
         surfaceView.contentPadding = UIEdgeInsets(top: RelationDetailsViewPopup.grabberHeight, left: 0, bottom: 0, right: 0)
 
@@ -103,7 +103,7 @@ private extension RelationDetailsViewPopup {
     
     func makeShadow() -> SurfaceAppearance.Shadow {
         let shadow = SurfaceAppearance.Shadow()
-        shadow.color = UIColor.grayscale90.withAlphaComponent(0.25)
+        shadow.color = UIColor.shadowPrimary
         shadow.offset = CGSize(width: 0, height: 0)
         shadow.radius = 40
         shadow.opacity = 1

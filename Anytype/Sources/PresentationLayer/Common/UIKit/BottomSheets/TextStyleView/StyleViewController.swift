@@ -219,28 +219,36 @@ final class StyleViewController: UIViewController {
         let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/highlight"))
         setupAction(for: highlightedButton, with: .quote)
 
-        let calloutButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/callout"))
+
+        let calloutImage = UIImage.imageWithText(
+            "Callout".localized,
+        textColor: .code != self.style ? .textTertiary : .textPrimary,
+            backgroundColor: .backgroundSelected,
+            font: .callout,
+            size: .init(width: 63, height: 28),
+            cornerRadius: 6
+        )
+
+        #warning("add restrictions when callout block will be introduced")
+        let calloutButton = ButtonsFactory.roundedBorderуButton(image: calloutImage)
+        calloutButton.isEnabled = .code == self.style
         setupAction(for: calloutButton, with: .code)
 
         if .quote != self.style {
             highlightedButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.quote))
         }
-        if .code != self.style {
-            #warning("add restrictions when callout block will be introduced")
-            calloutButton.setImage(UIImage(named: "StyleBottomSheet/calloutInactive"))
-            calloutButton.isEnabled = false
-        }
 
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/color"))
         colorButton.layer.borderWidth = 0
         colorButton.layer.cornerRadius = smallButtonSize.height / 2
-        colorButton.setBackgroundColor(.buttonSecondaryPressed, state: .selected)
+        colorButton.setBackgroundColor(.backgroundSelected, state: .selected)
         colorButton.addTarget(self, action: #selector(colorActionHandler), for: .touchUpInside)
 
-        let moreButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/more"))
+        let image = UIImage(named: "StyleBottomSheet/more")?.withTintColor(.textSecondary)
+        let moreButton = ButtonsFactory.roundedBorderуButton(image: image)
         moreButton.layer.borderWidth = 0
         moreButton.layer.cornerRadius = smallButtonSize.height / 2
-        moreButton.setBackgroundColor(.buttonSecondaryPressed, state: .selected)
+        moreButton.setBackgroundColor(.backgroundSelected, state: .selected)
         
         moreButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }

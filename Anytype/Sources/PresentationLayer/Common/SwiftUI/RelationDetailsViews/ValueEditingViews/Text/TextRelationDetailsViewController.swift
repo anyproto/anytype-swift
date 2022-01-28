@@ -66,7 +66,7 @@ private extension TextRelationDetailsViewController {
         let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil) { _ in }
         textView.isScrollEnabled = false
         textView.font = AnytypeFont.uxBodyRegular.uiKitFont
-        textView.textColor = UIColor.grayscale90
+        textView.textColor = UIColor.textSecondary
 
         return textView
     }
@@ -106,7 +106,7 @@ private extension TextRelationDetailsViewController {
         
         actionButton.adjustsImageWhenHighlighted = false
         actionButton.setImage(actionButtonViewModel.icon.withRenderingMode(.alwaysTemplate), for: .normal)
-        actionButton.tintColor = .grayscale50
+        actionButton.tintColor = .buttonActive
         
         actionButton.addAction(
             UIAction(
@@ -117,7 +117,7 @@ private extension TextRelationDetailsViewController {
             for: .touchUpInside
         )
         actionButton.layer.cornerRadius = Constants.actionButtonSize.width / 2.0
-        actionButton.layer.borderColor = UIColor.grayscale30.cgColor
+        actionButton.layer.borderColor = UIColor.strokePrimary.cgColor
         actionButton.layer.borderWidth = 1
         
         actionButton.isHidden = !actionButtonViewModel.isActionAvailable

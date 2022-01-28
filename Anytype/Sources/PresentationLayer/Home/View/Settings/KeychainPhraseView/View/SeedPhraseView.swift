@@ -14,7 +14,7 @@ struct SeedPhraseView: View {
                     .multilineTextAlignment(.leading)
             }
             .frame(maxWidth: .infinity)
-            .background(Color.grayscale10)
+            .background(Color.strokePrimary)
             .cornerRadius(4)
         }
         .onAppear {

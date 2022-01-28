@@ -10,9 +10,9 @@ enum StandardButtonStyle {
         case .secondary:
             return .backgroundPrimary
         case .primary:
-            return disabled ? .stroke : Color.System.amber
+            return disabled ? .strokePrimary : Color.System.amber
         case .destructive:
-            return disabled ? .stroke : Color.System.red
+            return disabled ? .strokePrimary : Color.System.red
         }
     }
     
@@ -32,7 +32,7 @@ enum StandardButtonStyle {
     var borderColor: Color? {
         switch self {
         case .secondary:
-            return .stroke
+            return .strokePrimary
         case .primary, .destructive:
             return nil
         }

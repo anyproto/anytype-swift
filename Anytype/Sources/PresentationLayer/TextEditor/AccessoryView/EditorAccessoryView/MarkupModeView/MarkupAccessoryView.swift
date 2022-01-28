@@ -31,8 +31,8 @@ final class MarkupAccessoryView: UIView {
     }
 
     private func createColorView() -> ColorView {
-        let color = viewModel.currentText?.colorState(range: viewModel.range) ?? .grayscale90
-        let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? .backgroundPrimary
+        let color = viewModel.currentText?.colorState(range: viewModel.range) ?? UIColor.Text.default
+        let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? UIColor.Background.default
 
         let colorView = ColorView(color: color,
                                   backgroundColor: backgroundColor) { [weak self] item in
@@ -72,6 +72,12 @@ final class MarkupAccessoryView: UIView {
                     $0.trailing.equal(to: view.trailingAnchor, constant: -10)
                     $0.top.equal(to: view.topAnchor, constant: topAnchorConstant + 8)
                 }
+
+                let color = self.viewModel.currentText?.colorState(range: self.viewModel.range) ?? UIColor.Text.default
+                let backgroundColor = self.viewModel.currentText?.backgroundColor(range: self.viewModel.range) ?? UIColor.Background.default
+
+                self.colorView.selectedTextColor = color
+                self.colorView.selectedBackgroundColor = backgroundColor
             } else {
                 self.colorView.removeFromSuperview()
                 self.colorView.containerView.removeFromSuperview()

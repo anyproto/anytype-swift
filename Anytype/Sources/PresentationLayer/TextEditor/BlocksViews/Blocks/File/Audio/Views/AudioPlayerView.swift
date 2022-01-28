@@ -81,7 +81,7 @@ final class AudioPlayerView: UIView {
         layer.cornerRadius = 16
         layer.cornerCurve = .continuous
         layer.borderWidth = 0.5
-        layer.borderColor = UIColor.grayscale30.cgColor
+        layer.borderColor = UIColor.strokePrimary.cgColor
     }
     
     private func setupLayout() {

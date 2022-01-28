@@ -41,6 +41,7 @@ class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIConten
 
     func update(with state: UICellConfigurationState) {
         selectionView.updateStyle(isSelected: state.isSelected)
+        bringSubviewToFront(selectionView)
 
         isUserInteractionEnabled = state.isEditing
 
