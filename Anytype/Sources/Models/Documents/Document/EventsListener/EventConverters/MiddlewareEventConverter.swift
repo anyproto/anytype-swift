@@ -98,9 +98,7 @@ final class MiddlewareEventConverter {
             guard amend.details.isNotEmpty else { return nil }
             
             let currentDetails = detailsStorage.get(id: amend.id) ?? ObjectDetails.empty(id: amend.id)
-            
-            let updatedDetails = currentDetails.updated(by: amend.details.asDetailsDictionary)
-            detailsStorage.add(details: updatedDetails)
+            let updatedDetails = detailsStorage.ammend(id: amend.id, values: amend.details.asDetailsDictionary)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark

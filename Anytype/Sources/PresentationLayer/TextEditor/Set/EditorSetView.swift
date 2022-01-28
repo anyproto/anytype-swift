@@ -37,7 +37,7 @@ struct EditorSetView: View {
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)
         
-        .bottomFloater(isPresented: $model.showViewPicker) {
+        .sheet(isPresented: $model.showViewPicker) {
             EditorSetViewPicker()
                 .cornerRadius(16, corners: [.topLeft, .topRight])
         }
