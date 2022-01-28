@@ -248,6 +248,13 @@ final class EditorRouter: EditorRouterProtocol {
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
         guard FeatureFlags.relationsEditing else { return }
         guard relation.isEditable else { return }
+        
+        if case .checkbox(let checkbox) = relation {
+            let relationsService = RelationsService(objectId: objectId)
+            relationsService.updateRelation(relationKey: checkbox.id, value: (!checkbox.value).protobufValue)
+            return
+        }
+        
         guard let viewController = viewController else { return }
         
         let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation)
