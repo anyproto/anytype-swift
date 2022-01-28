@@ -18,6 +18,7 @@ final class EditorNavigationBarHelper {
     
     private var startAppearingOffset: CGFloat = 0.0
     private var endAppearingOffset: CGFloat = 0.0
+    var canChangeSyncStatusAppearance = true
         
     init(onSettingsBarButtonItemTap: @escaping () -> Void) {
         self.settingsItem = EditorBarButtonItem(image: .editorNavigation.more, action: onSettingsBarButtonItemTap)
@@ -79,7 +80,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
     }
     
     func updateSyncStatus(_ status: SyncStatus) {
-        syncStatusItem.isHidden = false
+        if canChangeSyncStatusAppearance { syncStatusItem.isHidden = false }
         syncStatusItem.changeStatus(status)
     }
     

@@ -23,7 +23,8 @@ extension MiddlewareResponse {
         return EventsBunch(
             contextId: self.contextId,
             middlewareEvents: self.messages,
-            localEvents: localEvents
+            localEvents: localEvents,
+            dataSourceEvents: []
         )
     }
     

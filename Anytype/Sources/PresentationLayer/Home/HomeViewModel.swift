@@ -94,6 +94,9 @@ final class HomeViewModel: ObservableObject {
             profileData = HomeProfileData(details: details)
         case .update(let details):
             profileData = HomeProfileData(details: details)
+        case .pageCount(let count):
+            anytypeAssert(count == 1, "Unrecognized count \(count)", domain: .homeView)
+            break
         default:
             anytypeAssertionFailure("Usupported update \(update) for profile suscription", domain: .homeView)
         }
@@ -145,7 +148,7 @@ final class HomeViewModel: ObservableObject {
                 blockIds.forEach { updateFavoritesCellWithTargetId($0) }
             case .details(let detailId):
                 updateFavoritesCellWithTargetId(detailId)
-            case .syncStatus:
+            case .syncStatus, .dataSourceUpdate:
                 break
             }
         }
