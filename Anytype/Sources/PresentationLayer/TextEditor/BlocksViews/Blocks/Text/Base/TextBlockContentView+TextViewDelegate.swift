@@ -2,7 +2,7 @@ import AnytypeCore
 import UIKit
 import BlocksModels
 
-extension TextBlockContentView: CustomTextViewDelegate {    
+extension TextBlockContentView: CustomTextViewDelegate {
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
         switch change {
         case .become:
@@ -36,26 +36,21 @@ extension TextBlockContentView: CustomTextViewDelegate {
         actions?.changeTextStyle(attribute, range)
     }
     
-    func keyboardAction(_ action: CustomTextView.KeyboardAction) {
+    func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool {
         actions?.handleKeyboardAction(action, textView.textView.attributedText)
-//        switch action {
-//        case .enterInsideContent,
-//             .enterAtTheEndOfContent,
-//             .enterAtTheBeginingOfContent:
-//            // In the case of frequent pressing of enter
-//            // we can send multiple split requests to middle
-//            // from the same block, it will leads to wrong order of blocks in array,
-//            // adding a delay makes impossible to press enter very often
-////            if currentConfiguration.pressingEnterTimeChecker.exceedsTimeInterval() {
-//                actions?.handleKeyboardAction(action, textView.textView.attributedText)
-//
-////            }
-//            return false
-//        case .deleteOnEmptyContent, .deleteAtTheBeginingOfContent:
-//
-//            handler.handleKeyboardAction(action, info: currentConfiguration.information, attributedText: textView.textView.attributedText)
-//            return true
-//        }
+        switch action {
+        case .enterInsideContent,
+             .enterAtTheEndOfContent,
+             .enterAtTheBeginingOfContent:
+            // In the case of frequent pressing of enter
+            // we can send multiple split requests to middle
+            // from the same block, it will leads to wrong order of blocks in array,
+            // adding a delay makes impossible to press enter very often
+//            if currentConfiguration.pressingEnterTimeChecker.exceedsTimeInterval() {
+            return false
+        case .deleteOnEmptyContent, .deleteAtTheBeginingOfContent:
+            return true
+        }
     }
     
     func showPage(blockId: BlockId) {

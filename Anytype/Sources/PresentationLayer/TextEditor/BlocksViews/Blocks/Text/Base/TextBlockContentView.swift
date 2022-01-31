@@ -39,6 +39,7 @@ final class TextBlockContentView: UIView, BlockContentView {
     }
 
     func update(with configuration: TextBlockContentConfiguration) {
+        actions = configuration.actions
         applyNewConfiguration(configuration: configuration)
     }
 
@@ -81,7 +82,7 @@ final class TextBlockContentView: UIView, BlockContentView {
     // MARK: - Apply configuration
     
     private func applyNewConfiguration(configuration: TextBlockContentConfiguration) {
-        textView.textView.textStorage.setAttributedString(configuration.text.attrString)
+        textView.textView.textStorage.setAttributedString(configuration.content.anytypeText.attrString)
         
         let restrictions = BlockRestrictionsBuilder.build(textContentType: configuration.content.contentType)
         
@@ -95,7 +96,7 @@ final class TextBlockContentView: UIView, BlockContentView {
         let displayPlaceholder = configuration.content.contentType == .toggle && configuration.shouldDisplayPlaceholder
         createEmptyBlockButton.isHidden = !displayPlaceholder
 
-        backgroundColorView.backgroundColor = configuration.information.backgroundColor.map { UIColor.Background.uiColor(from: $0) }
+        backgroundColorView.backgroundColor = configuration.backgroundColor
 
         focusSubscription = configuration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)

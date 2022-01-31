@@ -23,10 +23,16 @@ struct TextBlockContentConfiguration: BlockConfiguration {
 
         let textViewDidChangeCaretPosition: (NSRange) -> Void
         let textViewDidApplyChangeType: (TextChangeType) -> Void
+
+        let toggleCheckBox: () -> Void
+        let toggleDropDown: () -> Void
     }
 
     let content: BlockText
+    let backgroundColor: UIColor?
     let isCheckable: Bool
+    let isToggled: Bool
+    let isChecked: Bool
     let shouldDisplayPlaceholder: Bool
     @EquatableNoop private(set) var focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     let alignment: NSTextAlignment
@@ -35,13 +41,23 @@ struct TextBlockContentConfiguration: BlockConfiguration {
 
     init(
         content: BlockText,
+        alignment: NSTextAlignment,
+        backgroundColor: UIColor?,
         isCheckable: Bool,
+        isToggled: Bool,
+        isChecked: Bool,
         shouldDisplayPlaceholder: Bool,
-        focusPublisher: AnyPublisher<BlockFocusPosition, Never>
+        focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
+        actions: Actions
     ) {
         self.content = content
-        self.focusPublisher = focusPublisher
+        self.alignment = alignment
+        self.backgroundColor = backgroundColor
         self.isCheckable = isCheckable
+        self.isToggled = isToggled
+        self.isChecked = isChecked
         self.shouldDisplayPlaceholder = shouldDisplayPlaceholder
+        self.focusPublisher = focusPublisher
+        self.actions = actions
     }
 }

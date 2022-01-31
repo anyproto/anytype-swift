@@ -1,11 +1,6 @@
 import UIKit
 
 protocol BlockConfigurationProtocol: UIContentConfiguration, Hashable {
-    //
-
-
-    //
-
     var currentConfigurationState: UICellConfigurationState? { get set }
 }
 

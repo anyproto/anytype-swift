@@ -9,7 +9,6 @@ extension CustomTextView: UITextViewDelegate {
         let keyAction = CustomTextView.KeyboardAction.build(text: textView.attributedText.string, range: range, replacement: text)
 
         if let keyAction = keyAction {
-            return false
             guard delegate.keyboardAction(keyAction) else { return false }
         }
 
