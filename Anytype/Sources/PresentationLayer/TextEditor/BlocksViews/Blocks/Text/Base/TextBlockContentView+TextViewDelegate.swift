@@ -76,13 +76,16 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func changeCaretPosition(_ range: NSRange) {
-        handler.changeCaretPosition(range: range)
-        blockDelegate.selectionDidChange(range: range)
+        actions?.textViewDidChangeCaretPosition(range)
+//        handler.changeCaretPosition(range: range)
+//        blockDelegate.selectionDidChange(range: range)
     }
     
     func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool {
         let changeType = textView.textView.textChangeType(changeTextRange: range, replacementText: replacementText)
-        blockDelegate.textWillChange(changeType: changeType)
+
+        actions?.textViewDidApplyChangeType(changeType)
+//        blockDelegate.textWillChange(changeType: changeType)
         
         let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
         if !shouldChangeText {

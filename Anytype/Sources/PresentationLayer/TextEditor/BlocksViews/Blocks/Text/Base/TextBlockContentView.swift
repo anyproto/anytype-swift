@@ -23,7 +23,6 @@ final class TextBlockContentView: UIView, BlockContentView {
     private var bottomContentnConstraint: NSLayoutConstraint?
 
     private var focusSubscription: AnyCancellable?
-    weak var blockDelegate: BlockDelegate?
 
     private(set) var actions: TextBlockContentConfiguration.Actions?
 

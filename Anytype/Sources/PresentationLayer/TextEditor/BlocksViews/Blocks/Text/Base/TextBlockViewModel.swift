@@ -15,7 +15,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let toggled: Bool
     private let isFirstResponder: Bool
 
-    private let blockDelegate: BlockDelegate
+    private weak var blockDelegate: BlockDelegate
     
     private let showPage: (EditorScreenData) -> Void
     private let openURL: (URL) -> Void
@@ -28,8 +28,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             indentationLevel,
             information,
             isCheckable,
-            toggled,
-            isFirstResponder
+            toggled
         ] as [AnyHashable]
     }
     
@@ -54,7 +53,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.toggled = block.isToggled
         self.information = block.information
         self.indentationLevel = block.indentationLevel
-        self.isFirstResponder = block.isFirstResponder
     }
     
     func set(focus: BlockFocusPosition) {
@@ -65,7 +63,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
 
-        let createEmptyBlock: () -> Void = { [weak self] in
+        let createEmptyBlock: () -> Void = {
             self?.actionHandler.createEmptyBlock(parentId: information.id)
         }
         TextBlockContentConfiguration(

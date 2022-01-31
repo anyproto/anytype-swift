@@ -18,6 +18,6 @@ protocol CustomTextViewDelegate: AnyObject {
     func changeCaretPosition(_ range: NSRange)
     func changeTextStyle(attribute: MarkupType, range: NSRange)
     
-    func keyboardAction(_ action: CustomTextView.KeyboardAction)
+    func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool
     func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool
 }

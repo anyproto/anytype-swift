@@ -725,6 +725,7 @@
 		C92DCD93272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD92272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift */; };
 		C92DCD952729952500A03D91 /* CursorModeAccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD942729952500A03D91 /* CursorModeAccessoryViewModel.swift */; };
 		C92DCD97272998D800A03D91 /* BaseDocument+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD96272998D800A03D91 /* BaseDocument+Extensions.swift */; };
+		C92EA51E27A7B75900D1306E /* EquatableNoop.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92EA51D27A7B75900D1306E /* EquatableNoop.swift */; };
 		C9367A91273126AD007D687A /* BlocksOptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367A90273126AD007D687A /* BlocksOptionView.swift */; };
 		C9367A9327312E8C007D687A /* BlocksOptionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367A9227312E8C007D687A /* BlocksOptionItem.swift */; };
 		C9367A9D27313692007D687A /* AccessoryViewSwitcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9367A9A27313692007D687A /* AccessoryViewSwitcher.swift */; };
@@ -1598,6 +1599,7 @@
 		C92DCD92272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeAccessoryViewModel.swift; sourceTree = "<group>"; };
 		C92DCD942729952500A03D91 /* CursorModeAccessoryViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CursorModeAccessoryViewModel.swift; sourceTree = "<group>"; };
 		C92DCD96272998D800A03D91 /* BaseDocument+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BaseDocument+Extensions.swift"; sourceTree = "<group>"; };
+		C92EA51D27A7B75900D1306E /* EquatableNoop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EquatableNoop.swift; sourceTree = "<group>"; };
 		C9367A90273126AD007D687A /* BlocksOptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksOptionView.swift; sourceTree = "<group>"; };
 		C9367A9227312E8C007D687A /* BlocksOptionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksOptionItem.swift; sourceTree = "<group>"; };
 		C9367A9A27313692007D687A /* AccessoryViewSwitcher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryViewSwitcher.swift; sourceTree = "<group>"; };
@@ -1928,6 +1930,7 @@
 		03746CF722DE504600380AA1 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				C92EA51927A7B74500D1306E /* PropertyWrappers */,
 				12426A2426DCF95F00693B1F /* KFProcessorBuilder.swift */,
 				12426A2926DCFA1300693B1F /* KFScalingType.swift */,
 				12DE403B264AD14E007B5074 /* Extensions */,
@@ -5041,6 +5044,14 @@
 			path = EventLog;
 			sourceTree = "<group>";
 		};
+		C92EA51927A7B74500D1306E /* PropertyWrappers */ = {
+			isa = PBXGroup;
+			children = (
+				C92EA51D27A7B75900D1306E /* EquatableNoop.swift */,
+			);
+			path = PropertyWrappers;
+			sourceTree = "<group>";
+		};
 		C9367A8C27312669007D687A /* BlocksOptionView */ = {
 			isa = PBXGroup;
 			children = (
@@ -6218,6 +6229,7 @@
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
 				C93B2D2A274E12B10008544D /* EditorCollectionView.swift in Sources */,
 				C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */,
+				C92EA51E27A7B75900D1306E /* EquatableNoop.swift in Sources */,
 				12C2A5822756342F00311854 /* DateExtension.swift in Sources */,
 				3D7F718627A190C6003FE893 /* EditorSetPaginationHelper.swift in Sources */,
 				EA4AC466261CB701002E961E /* FileLoaderReturnValue.swift in Sources */,
