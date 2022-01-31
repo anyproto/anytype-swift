@@ -66,12 +66,12 @@ class LoginViewModel: ObservableObject {
 
     func restoreFromkeychain() {
         let permissionContext = LAContext()
-        permissionContext.localizedCancelTitle = "Enter phrase".localized
+        permissionContext.localizedCancelTitle = "Cancel".localized
 
         var error: NSError?
-        if permissionContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+        if permissionContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
             let reason = "Restore secret phrase from keychain".localized
-            permissionContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { [unowned self] didComplete, evaluationError in
+            permissionContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [unowned self] didComplete, evaluationError in
                 guard didComplete,
                       let phrase = try? seedService.obtainSeed() else {
                     return
