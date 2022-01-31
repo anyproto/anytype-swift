@@ -55,7 +55,7 @@ struct RelationOptionsView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.strokePrimary)
+                    .foregroundColor(Color.textSecondary)
             }
         }
     }

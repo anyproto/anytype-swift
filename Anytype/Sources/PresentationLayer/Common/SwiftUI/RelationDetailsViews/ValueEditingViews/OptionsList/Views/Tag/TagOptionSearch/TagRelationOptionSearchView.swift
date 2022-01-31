@@ -57,10 +57,8 @@ struct TagRelationOptionSearchView: View {
                     AnytypeText("\(viewModel.selectedTagIds.count)", style: .relation1Regular, color: .textWhite)
                         .frame(minWidth: 15, minHeight: 15)
                         .padding(5)
-                        .background(Color.System.amber)
-                        .clipShape(
-                            Circle()
-                        )
+                        .background(Color.System.amber125)
+                        .clipShape(Circle())
                     Spacer.fixedWidth(12)
                 }
             )

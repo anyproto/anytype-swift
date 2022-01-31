@@ -20,14 +20,15 @@ struct ParsedRelations {
 
 extension ParsedRelations {
     // without description and with type
-    func featuredRelationsForEditor(type: ObjectType) -> [Relation] {
+    func featuredRelationsForEditor(type: ObjectType, objectRestriction: [ObjectRestrictions.ObjectRestriction]) -> [Relation] {
         var enhancedRelations = featuredRelations
         
         let objectTypeRelation: Relation = .text(
             Relation.Text(
                 id: BundledRelationKey.type.rawValue,
                 name: "",
-                isFeatured: false, isEditable: false,
+                isFeatured: false,
+                isEditable: !objectRestriction.contains(.typechange),
                 value: type.name
             )
         )
