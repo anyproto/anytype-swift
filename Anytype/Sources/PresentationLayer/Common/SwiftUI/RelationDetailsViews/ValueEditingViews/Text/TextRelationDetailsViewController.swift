@@ -67,7 +67,8 @@ private extension TextRelationDetailsViewController {
         textView.isScrollEnabled = false
         textView.font = AnytypeFont.uxBodyRegular.uiKitFont
         textView.textColor = UIColor.textSecondary
-
+        textView.textContainerInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
+        
         return textView
     }
     
