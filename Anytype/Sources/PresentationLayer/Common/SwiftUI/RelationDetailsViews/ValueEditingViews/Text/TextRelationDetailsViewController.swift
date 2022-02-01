@@ -44,7 +44,7 @@ final class TextRelationDetailsViewController: UIViewController {
 extension TextRelationDetailsViewController {
     
     func keyboardDidUpdateHeight(_ height: CGFloat) {
-        self.textViewBottomConstraint?.constant = -(height + Constant.textViewBottomInset)
+        self.textViewBottomConstraint?.constant = -(height + Constants.textViewBottomInset)
     }
     
 }
@@ -164,7 +164,7 @@ private extension TextRelationDetailsViewController {
         
         view.addSubview(textView) {
             $0.top.equal(to: titleLabel.bottomAnchor)
-            self.textViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: -Constant.textViewBottomInset)
+            self.textViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: -Constants.textViewBottomInset)
             $0.leading.equal(to: view.leadingAnchor)
             self.textViewTrailingConstraint =  $0.trailing.equal(to: view.trailingAnchor)
 //            self.textViewHeightConstraint = $0.height.equal(to: maxHeight, activate: false)
