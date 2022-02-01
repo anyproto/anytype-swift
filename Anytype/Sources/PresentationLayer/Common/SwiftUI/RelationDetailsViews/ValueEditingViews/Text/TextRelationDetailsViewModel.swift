@@ -5,10 +5,12 @@ import Combine
 import FloatingPanel
 
 final class TextRelationDetailsViewModel: ObservableObject {
-            
+          
+    weak var viewController: TextRelationDetailsViewController?
+    
     weak var delegate: RelationDetailsViewModelDelegate?
     
-    private(set) var floatingPanelLayout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0) {
+    private(set) var floatingPanelLayout: FloatingPanelLayout = IntrinsicTextRelationDetailsPopupLayout() {
         didSet {
             delegate?.didAskInvalidateLayout(false)
         }
@@ -17,12 +19,6 @@ final class TextRelationDetailsViewModel: ObservableObject {
     @Published var value: String = "" {
         didSet {
             actionButtonViewModel?.text = value
-        }
-    }
-    
-    @Published var height: CGFloat = 0 {
-        didSet {
-            floatingPanelLayout = FixedHeightPopupLayout(height: height + keyboardHeight)
         }
     }
     
@@ -36,7 +32,8 @@ final class TextRelationDetailsViewModel: ObservableObject {
     private var cancellable: AnyCancellable?
     
     private var keyboardListener: KeyboardEventsListnerHelper?
-    private var keyboardHeight: CGFloat = 0
+
+    // MARK: - Initializers
     
     init(
         value: String,
@@ -66,10 +63,20 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
 }
 
+extension TextRelationDetailsViewModel {
+    
+    func updatePopupLayout(_ layoutGuide: UILayoutGuide) {
+        self.floatingPanelLayout = AdaptiveTextRelationDetailsPopupLayout(layout: layoutGuide)
+    }
+    
+}
+
 extension TextRelationDetailsViewModel: RelationDetailsViewModelProtocol {
     
     func makeViewController() -> UIViewController {
-        TextRelationDetailsViewController(viewModel: self)
+        let vc = TextRelationDetailsViewController(viewModel: self)
+        self.viewController = vc
+        return vc
     }
 }
 
@@ -100,8 +107,8 @@ private extension TextRelationDetailsViewModel {
     }
     
     func adjustViewHeightBy(keyboardHeight: CGFloat) {
-        self.keyboardHeight = keyboardHeight
-        floatingPanelLayout = FixedHeightPopupLayout(height: height + keyboardHeight)
+        viewController?.keyboardDidUpdateHeight(keyboardHeight)
+        delegate?.didAskInvalidateLayout(true)
     }
     
 }
