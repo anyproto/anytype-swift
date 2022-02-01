@@ -345,6 +345,15 @@ final class MiddlewareEventConverter {
             }
             
             return .general
+        case .blockDataviewRelationSet(let data):
+            blocksContainer.updateDataview(blockId: data.id) { dataView in
+                let relation = RelationMetadata(middlewareRelation: data.relation)
+                var newRelations = dataView.relations
+                newRelations.append(relation)
+                return dataView.updated(relations: newRelations)
+            }
+            
+            return .general
         default:
             anytypeAssertionFailure("Unsupported event: \(event)", domain: .middlewareEventConverter)
             return nil
