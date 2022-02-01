@@ -1,15 +1,16 @@
 import Foundation
 import FloatingPanel
 import CoreGraphics
+import UIKit
 
-final class TextRelationDetailsPopupLayout: FloatingPanelLayout {
+final class IntrinsicTextRelationDetailsPopupLayout: FloatingPanelLayout {
     
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .full
     
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
         [
-            .full: FloatingPanelIntrinsicLayoutAnchor(absoluteOffset: 0, referenceGuide: .safeArea)
+            .full: FloatingPanelIntrinsicLayoutAnchor(absoluteOffset: 0, referenceGuide: .superview)
         ]
     }
     

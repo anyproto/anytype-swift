@@ -11,13 +11,13 @@ final class TextRelationDetailsViewController: UIViewController {
     private let viewModel: TextRelationDetailsViewModel
     
     private var textViewTrailingConstraint: NSLayoutConstraint?
+//    private var textViewHeightConstraint: NSLayoutConstraint?
     private var actionButtonLeadingConstraint: NSLayoutConstraint?
     
     // MARK: - Initializers
     
     init(viewModel: TextRelationDetailsViewModel) {
         self.viewModel = viewModel
-        
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -30,13 +30,12 @@ final class TextRelationDetailsViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        
         setupView()
     }
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        handleHeightUpdate()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        viewModel.updatePopupLayout(view.layoutMarginsGuide)
     }
     
 }
@@ -55,9 +54,19 @@ private extension TextRelationDetailsViewController {
         }
     }
     
-    func handleHeightUpdate() {
-        viewModel.height = textView.intrinsicContentSize.height + Constants.titleLabelHeight
-    }
+//    func handleHeightUpdate() {
+//        viewModel.height = textView.intrinsicContentSize.height + Constants.titleLabelHeight
+//        let textSize = textView.contentSize.height
+//        if textSize >= maxHeight {
+//            textView.isScrollEnabled = true
+//            textViewHeightConstraint?.isActive = true
+//            viewModel.height = maxHeight + Constants.titleLabelHeight
+//        } else {
+//            textView.isScrollEnabled = false
+//            textViewHeightConstraint?.isActive = false
+//            viewModel.height = textSize + Constants.titleLabelHeight
+//        }
+//    }
     
 }
 
@@ -146,9 +155,10 @@ private extension TextRelationDetailsViewController {
         
         view.addSubview(textView) {
             $0.top.equal(to: titleLabel.bottomAnchor)
-            $0.bottom.equal(to: view.bottomAnchor)
+            $0.bottom.equal(to: view.bottomAnchor, constant: -20)
             $0.leading.equal(to: view.leadingAnchor)
             self.textViewTrailingConstraint =  $0.trailing.equal(to: view.trailingAnchor)
+//            self.textViewHeightConstraint = $0.height.equal(to: maxHeight, activate: false)
         }
         
         view.addSubview(actionButton) {
@@ -168,7 +178,6 @@ extension TextRelationDetailsViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         viewModel.value = textView.text
         updateActionButtonVisibility()
-        handleHeightUpdate()
     }
     
 }

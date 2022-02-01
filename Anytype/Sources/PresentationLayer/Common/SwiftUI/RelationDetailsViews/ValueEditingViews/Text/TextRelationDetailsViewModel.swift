@@ -8,7 +8,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
             
     weak var delegate: RelationDetailsViewModelDelegate?
     
-    private(set) var floatingPanelLayout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0) {
+    private(set) var floatingPanelLayout: FloatingPanelLayout = IntrinsicTextRelationDetailsPopupLayout() {
         didSet {
             delegate?.didAskInvalidateLayout(false)
         }
@@ -17,12 +17,6 @@ final class TextRelationDetailsViewModel: ObservableObject {
     @Published var value: String = "" {
         didSet {
             actionButtonViewModel?.text = value
-        }
-    }
-    
-    @Published var height: CGFloat = 0 {
-        didSet {
-            floatingPanelLayout = FixedHeightPopupLayout(height: height + keyboardHeight)
         }
     }
     
@@ -36,7 +30,8 @@ final class TextRelationDetailsViewModel: ObservableObject {
     private var cancellable: AnyCancellable?
     
     private var keyboardListener: KeyboardEventsListnerHelper?
-    private var keyboardHeight: CGFloat = 0
+
+    // MARK: - Initializers
     
     init(
         value: String,
@@ -62,6 +57,14 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
     var title: String {
         relation.name
+    }
+    
+}
+
+extension TextRelationDetailsViewModel {
+    
+    func updatePopupLayout(_ layoutGuide: UILayoutGuide) {
+        self.floatingPanelLayout = AdaptiveTextRelationDetailsPopupLayout(layout: layoutGuide)
     }
     
 }
@@ -100,8 +103,6 @@ private extension TextRelationDetailsViewModel {
     }
     
     func adjustViewHeightBy(keyboardHeight: CGFloat) {
-        self.keyboardHeight = keyboardHeight
-        floatingPanelLayout = FixedHeightPopupLayout(height: height + keyboardHeight)
     }
     
 }
