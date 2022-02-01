@@ -96,6 +96,8 @@ private extension RelationDetailsViewPopup {
 
         if FeatureFlags.rainbowViews {
             surfaceView.backgroundColor = .red
+            surfaceView.grabberHandle.backgroundColor = .yellow
+            surfaceView.containerView.backgroundColor = .green
         }
     }
     

@@ -43,6 +43,18 @@ final class TextRelationDetailsViewController: UIViewController {
 
 private extension TextRelationDetailsViewController {
     
+    func updateActionButtonVisibility() {
+        if viewModel.actionButtonViewModel?.isActionAvailable ?? false {
+            textViewTrailingConstraint?.isActive = false
+            actionButtonLeadingConstraint?.isActive = true
+            actionButton.isHidden = false
+        } else {
+            textViewTrailingConstraint?.isActive = true
+            actionButtonLeadingConstraint?.isActive = false
+            actionButton.isHidden = true
+        }
+    }
+    
     func handleHeightUpdate() {
         viewModel.height = textView.intrinsicContentSize.height + Constants.titleLabelHeight
     }
@@ -67,7 +79,8 @@ private extension TextRelationDetailsViewController {
         textView.isScrollEnabled = false
         textView.font = AnytypeFont.uxBodyRegular.uiKitFont
         textView.textColor = UIColor.textSecondary
-
+        textView.textContainerInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
+        
         return textView
     }
     
@@ -80,6 +93,8 @@ private extension TextRelationDetailsViewController {
         if FeatureFlags.rainbowViews {
             view.fillSubviewsWithRandomColors()
         }
+        
+        updateActionButtonVisibility()
     }
     
     func setupTextView() {
@@ -137,9 +152,8 @@ private extension TextRelationDetailsViewController {
         }
         
         view.addSubview(actionButton) {
-            $0.top.equal(to: titleLabel.bottomAnchor)
-//            $0.bottom.equal(to: view.bottomAnchor)
-            $0.trailing.equal(to: view.trailingAnchor)
+            $0.top.equal(to: titleLabel.bottomAnchor, constant: Constants.actionButtonTopInset)
+            $0.trailing.equal(to: view.trailingAnchor, constant: -Constants.actionButtonRightInset)
             self.actionButtonLeadingConstraint = $0.leading.equal(to: textView.trailingAnchor, activate: false)
             $0.size(Constants.actionButtonSize)
         }
@@ -153,16 +167,7 @@ extension TextRelationDetailsViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         viewModel.value = textView.text
-        if viewModel.actionButtonViewModel?.isActionAvailable ?? false {
-            textViewTrailingConstraint?.isActive = false
-            actionButtonLeadingConstraint?.isActive = true
-            actionButton.isHidden = false
-        } else {
-            textViewTrailingConstraint?.isActive = true
-            actionButtonLeadingConstraint?.isActive = false
-            actionButton.isHidden = true
-        }
-//        actionButton.isHidden = !(viewModel.actionButtonViewModel?.isActionAvailable ?? false)
+        updateActionButtonVisibility()
         handleHeightUpdate()
     }
     
@@ -175,6 +180,8 @@ private extension TextRelationDetailsViewController {
     enum Constants {
         static let titleLabelHeight: CGFloat = 48
         static let actionButtonSize: CGSize = CGSize(width: 36, height: 36)
+        static let actionButtonRightInset: CGFloat = 20
+        static let actionButtonTopInset: CGFloat = 6
     }
     
 }
