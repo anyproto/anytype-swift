@@ -5,7 +5,9 @@ import Combine
 import FloatingPanel
 
 final class TextRelationDetailsViewModel: ObservableObject {
-            
+          
+    weak var viewController: TextRelationDetailsViewController?
+    
     weak var delegate: RelationDetailsViewModelDelegate?
     
     private(set) var floatingPanelLayout: FloatingPanelLayout = IntrinsicTextRelationDetailsPopupLayout() {
@@ -72,7 +74,9 @@ extension TextRelationDetailsViewModel {
 extension TextRelationDetailsViewModel: RelationDetailsViewModelProtocol {
     
     func makeViewController() -> UIViewController {
-        TextRelationDetailsViewController(viewModel: self)
+        let vc = TextRelationDetailsViewController(viewModel: self)
+        self.viewController = vc
+        return vc
     }
 }
 
@@ -103,6 +107,8 @@ private extension TextRelationDetailsViewModel {
     }
     
     func adjustViewHeightBy(keyboardHeight: CGFloat) {
+        viewController?.keyboardDidUpdateHeight(keyboardHeight)
+        delegate?.didAskInvalidateLayout(true)
     }
     
 }
