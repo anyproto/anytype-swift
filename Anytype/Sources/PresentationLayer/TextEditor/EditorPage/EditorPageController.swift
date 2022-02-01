@@ -207,7 +207,6 @@ extension EditorPageController: EditorPageViewInput {
             guard let indexPath = dataSource.indexPath(for: item) else { continue }
             guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
 
-
             cell.contentConfiguration = viewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
             cell.indentationLevel = viewModel.indentationLevel
         }
@@ -375,9 +374,16 @@ private extension EditorPageController {
         return dataSource
     }
     
-    func createHeaderCellRegistration()-> UICollectionView.CellRegistration<EditorViewListCell, ObjectHeader> {
-        .init { cell, _, item in
-            cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
+    func createHeaderCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, ObjectHeader> {
+        .init { [weak self] cell, _, item in
+            guard let self = self else { return }
+
+            let topAdjustedContentInset = self.collectionView.adjustedContentInset.top
+
+            if var objectHeaderFilledConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width) as? ObjectHeaderFilledConfiguration {
+                objectHeaderFilledConfiguration.topAdjustedContentInset = topAdjustedContentInset
+                cell.contentConfiguration = objectHeaderFilledConfiguration
+            }
         }
     }
     
