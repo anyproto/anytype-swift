@@ -133,7 +133,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     
     func delete(blockId: BlockId) {
         let previousBlock = modelsHolder?.findModel(beforeBlockId: blockId)
-        
+
         if singleService.delete(contextId: documentId, blockIds: [blockId]) {
             previousBlock.flatMap { setFocus(model: $0) }
         }        

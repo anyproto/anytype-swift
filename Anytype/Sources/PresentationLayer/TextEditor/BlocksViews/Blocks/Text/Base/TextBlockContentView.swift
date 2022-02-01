@@ -6,6 +6,7 @@ import BlocksModels
 final class TextBlockContentView: UIView, BlockContentView {
     
     // MARK: - Views
+    let pressingEnterTimeChecker = TimeChecker()
     private let backgroundColorView = UIView()
     private let contentView = UIView()
     private(set) lazy var textView = CustomTextView()

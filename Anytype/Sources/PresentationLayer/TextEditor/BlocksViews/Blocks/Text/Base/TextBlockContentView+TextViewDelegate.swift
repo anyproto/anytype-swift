@@ -37,7 +37,6 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool {
-        actions?.handleKeyboardAction(action, textView.textView.attributedText)
         switch action {
         case .enterInsideContent,
              .enterAtTheEndOfContent,
@@ -46,9 +45,12 @@ extension TextBlockContentView: CustomTextViewDelegate {
             // we can send multiple split requests to middle
             // from the same block, it will leads to wrong order of blocks in array,
             // adding a delay makes impossible to press enter very often
-//            if currentConfiguration.pressingEnterTimeChecker.exceedsTimeInterval() {
+            if pressingEnterTimeChecker.exceedsTimeInterval() {
+                actions?.handleKeyboardAction(action, textView.textView.attributedText)
+            }
             return false
         case .deleteOnEmptyContent, .deleteAtTheBeginingOfContent:
+            actions?.handleKeyboardAction(action, textView.textView.attributedText)
             return true
         }
     }
@@ -72,15 +74,12 @@ extension TextBlockContentView: CustomTextViewDelegate {
     
     func changeCaretPosition(_ range: NSRange) {
         actions?.textViewDidChangeCaretPosition(range)
-//        handler.changeCaretPosition(range: range)
-//        blockDelegate.selectionDidChange(range: range)
     }
     
     func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool {
         let changeType = textView.textView.textChangeType(changeTextRange: range, replacementText: replacementText)
 
         actions?.textViewDidApplyChangeType(changeType)
-//        blockDelegate.textWillChange(changeType: changeType)
         
         let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
         if !shouldChangeText {

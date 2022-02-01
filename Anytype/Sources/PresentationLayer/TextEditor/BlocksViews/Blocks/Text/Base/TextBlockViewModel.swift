@@ -14,7 +14,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let isCheckable: Bool
     private let toggled: Bool
 
-    private var blockDelegate: BlockDelegate
+    private weak var blockDelegate: BlockDelegate?
     
     private let showPage: (EditorScreenData) -> Void
     private let openURL: (URL) -> Void
@@ -82,7 +82,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             openURL: openURL,
             changeText: { attributedText in
                 actionHandler.changeText(attributedText, info: information)
-                blockDelegate.textDidChange()
+                blockDelegate?.textDidChange()
             },
             changeTextStyle: { attribute, range in
                 actionHandler.changeTextStyle(attribute, range: range, blockId: information.id)
@@ -91,29 +91,29 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 actionHandler.handleKeyboardAction(keyboardAction, info: information, attributedText: attributedString)
             },
             becomeFirstResponder: {
-                blockDelegate.becomeFirstResponder(blockId: information.id)
+                blockDelegate?.becomeFirstResponder(blockId: information.id)
             },
             resignFirstResponder: {
-                blockDelegate.resignFirstResponder(blockId: information.id)
+                blockDelegate?.resignFirstResponder(blockId: information.id)
             },
             textBlockSetNeedsLayout: {
-                blockDelegate.textBlockSetNeedsLayout()
+                blockDelegate?.textBlockSetNeedsLayout()
             },
             textViewWillBeginEditing: { textView in
-                blockDelegate.willBeginEditing(data: .init(textView: textView, block: block, text: content.anytypeText))
+                blockDelegate?.willBeginEditing(data: .init(textView: textView, block: block, text: content.anytypeText))
             },
             textViewDidBeginEditing: { _ in
-                blockDelegate.didBeginEditing()
+                blockDelegate?.didBeginEditing()
             },
             textViewDidEndEditing: { _ in
-                blockDelegate.didEndEditing()
+                blockDelegate?.didEndEditing()
             },
             textViewDidChangeCaretPosition: { caretPositionRange in
                 actionHandler.changeCaretPosition(range: caretPositionRange)
-                blockDelegate.selectionDidChange(range: caretPositionRange)
+                blockDelegate?.selectionDidChange(range: caretPositionRange)
             },
             textViewDidApplyChangeType: { textChangeType in
-                blockDelegate.textWillChange(changeType: textChangeType)
+                blockDelegate?.textWillChange(changeType: textChangeType)
             },
             toggleCheckBox: {
                 actionHandler.checkbox(selected: !content.checked, blockId: information.id)
