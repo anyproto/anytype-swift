@@ -18,8 +18,7 @@ struct UserDefaultsConfig {
 
     static func cleanStateAfterLogout() {
         usersId = ""
-        _lastOpenedPageId = nil
-        _selectedTab = nil
+        _screenDataFromLastSession = nil
     }
     
     
