@@ -60,7 +60,7 @@ final class EditorSetViewModel: ObservableObject {
     var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
-    private let relationsBuilder = RelationsBuilder(scope: .type)
+    private let relationsBuilder = RelationsBuilder()
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
 

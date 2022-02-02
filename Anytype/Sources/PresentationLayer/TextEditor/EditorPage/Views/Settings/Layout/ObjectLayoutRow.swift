@@ -26,8 +26,8 @@ struct ObjectLayoutRow: View {
                 VStack(alignment: .leading, spacing: 0) {
                     AnytypeText(layout.title, style: .uxTitle2Medium, color: .textPrimary)
                     AnytypeText(layout.description, style: .caption1Regular, color: .textSecondary)
-                        .minimumScaleFactor(0.5)
                         .lineLimit(1)
+                        .minimumScaleFactor(0.9)
                 }
                 
                 Spacer()
