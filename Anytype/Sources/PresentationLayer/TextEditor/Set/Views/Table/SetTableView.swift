@@ -28,12 +28,6 @@ struct SetTableView: View {
                         content
                     }
                     .frame(minWidth: fullWidth)
-                    .onAppear {
-                        DispatchQueue.main.async {
-                            // initial y offset is 0 for some reason
-                            offset = CGPoint(x: offset.x, y: 0)
-                        }
-                    }
                     .padding(.top, -headerMinimizedSize.height)
                 }
             }
