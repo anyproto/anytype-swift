@@ -60,7 +60,7 @@ private extension ObjectHeaderEmptyContentView  {
 extension ObjectHeaderEmptyContentView {
     
     enum Constants {
-        static let height: CGFloat = 184
+        static let height: CGFloat = 92
     }
     
 }
