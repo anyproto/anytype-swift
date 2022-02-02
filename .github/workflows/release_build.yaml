@@ -43,8 +43,8 @@ jobs:
       - name: Download Middleware
         run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
-      - name: Run unit tests
-        run: bundle exec fastlane tests
+      # - name: Run unit tests
+      #   run: bundle exec fastlane tests
 
       - name: Build and upload to Testflight
         run: |
