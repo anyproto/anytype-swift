@@ -171,7 +171,7 @@ private extension TextRelationDetailsViewController {
         }
         
         view.addSubview(actionButton) {
-            $0.top.equal(to: titleLabel.bottomAnchor, constant: Constants.actionButtonTopInset)
+            $0.centerY.equal(to: textView.centerYAnchor)
             $0.trailing.equal(to: view.trailingAnchor, constant: -Constants.actionButtonRightInset)
             self.actionButtonLeadingConstraint = $0.leading.equal(to: textView.trailingAnchor, activate: false)
             $0.size(Constants.actionButtonSize)
