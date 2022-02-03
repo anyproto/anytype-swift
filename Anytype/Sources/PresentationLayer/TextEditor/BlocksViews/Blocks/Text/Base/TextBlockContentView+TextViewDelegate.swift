@@ -51,7 +51,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
             return false
         case .deleteOnEmptyContent, .deleteAtTheBeginingOfContent:
             actions?.handleKeyboardAction(action, textView.textView.attributedText)
-            return true
+            return false
         }
     }
     

@@ -438,7 +438,7 @@ private extension UIImage {
         let frame = CGRect(x: 0, y: 0, width: 64, height: 24)
         let nameLabel = UILabel(frame: frame)
         nameLabel.textAlignment = .right
-        nameLabel.textColor = .textPrimary
+        nameLabel.textColor = .textTertiary
         nameLabel.font = AnytypeFont.caption1Medium.uiKitFont
         nameLabel.text = "Highlight".localized
 

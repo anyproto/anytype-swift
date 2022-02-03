@@ -15,16 +15,14 @@ final class BlockViewModelsHolder {
         }
     }
 
-    var modelsMapping = BlockMapping()
-
-
     var header: ObjectHeader?
+    private var modelsMapping = BlockMapping()
 
     init(objectId: String) {
         self.objectId = objectId
     }
     
-    func findModel(beforeBlockId blockId: BlockId, skipFeaturedRelations: Bool = true) -> BlockDataProvider? {
+    func findModel(beforeBlockId blockId: BlockId, skipFeaturedRelations: Bool = true) -> BlockViewModelProtocol? {
         guard let modelIndex = models.firstIndex(where: { $0.blockId == blockId }) else {
             return nil
         }
@@ -41,8 +39,8 @@ final class BlockViewModelsHolder {
         return model
     }
 
-    func contentProvider(for blockId: BlockId) -> ContentConfigurationProvider? {
-        models.first(where: { $0.blockId == blockId })
+    func contentProvider(for blockId: BlockId) -> BlockViewModelProtocol? {
+        modelsMapping[blockId]
     }
 }
 
@@ -62,10 +60,10 @@ extension BlockViewModelsHolder {
         }
     }
 
-    func contentProvider(for item: EditorItem) -> ContentConfigurationProvider?  {
+    func contentProvider(for item: EditorItem) -> BlockViewModelProtocol?  {
         switch item {
         case .header:
-            return header
+            return nil
         case .block(let blockViewModelProtocol):
             return contentProvider(for: blockViewModelProtocol.blockId)
         }
