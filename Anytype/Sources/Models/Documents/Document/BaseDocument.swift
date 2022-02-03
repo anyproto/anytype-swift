@@ -21,8 +21,11 @@ final class BaseDocument: BaseDocumentProtocol {
 
     let blocksContainer: BlockContainerModelProtocol = BlockContainer()
     let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
+    let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
     
-    private(set) var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
+    var objectRestrictions: ObjectRestrictions {
+        restrictionsContainer.restrinctions
+    }
 
     var parsedRelations: ParsedRelations {
         relationBuilder.parsedRelations(
@@ -37,7 +40,8 @@ final class BaseDocument: BaseDocumentProtocol {
         self.eventsListener = EventsListener(
             objectId: objectId,
             blocksContainer: blocksContainer,
-            relationStorage: relationsStorage
+            relationStorage: relationsStorage,
+            restrictionsContainer: restrictionsContainer
         )
         
         setup()
@@ -53,8 +57,6 @@ final class BaseDocument: BaseDocumentProtocol {
         guard let result = blockActionsService.open(contextId: objectId, blockId: objectId) else {
             return false
         }
-        
-        handleObjectShowResponse(response: result)
         
         EventsBunch(contextId: objectId, middlewareEvents: result.messages).send()
         return true
@@ -97,34 +99,6 @@ final class BaseDocument: BaseDocumentProtocol {
             }
         }
         eventsListener.startListening()
-    }
-
-    private func handleObjectShowResponse(response: MiddlewareResponse) {
-        let objectShowEvent = showEventsFromMessages(response.messages).first
-        guard let objectShowEvent = objectShowEvent else { return }
-
-        let rootId = objectShowEvent.rootID
-        guard rootId.isNotEmpty else { return }
-
-        let parsedBlocks = objectShowEvent.blocks.compactMap {
-            BlockInformationConverter.convert(block: $0)
-        }
-        let parsedDetails = objectShowEvent.details.map {
-            ObjectDetails(
-                id: $0.id,
-                values: $0.details.fields
-            )
-        }
-
-        TreeBlockBuilder.buildBlocksTree(from: parsedBlocks, with: rootId, in: blocksContainer)
-
-        parsedDetails.forEach { detailsStorage.add(details: $0) }
-        
-        relationsStorage.set(
-            relations: objectShowEvent.relations.map { RelationMetadata(middlewareRelation: $0) }
-        )
-        
-        objectRestrictions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareResctrictions: objectShowEvent.restrictions)
     }
 
     private func showEventsFromMessages(_ messages: [Anytype_Event.Message]) -> [Anytype_Event.Object.Show] {

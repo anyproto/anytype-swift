@@ -27,7 +27,8 @@ final class EventsListener: EventsListenerProtocol {
     init(
         objectId: BlockId,
         blocksContainer: BlockContainerModelProtocol,
-        relationStorage: RelationsMetadataStorageProtocol
+        relationStorage: RelationsMetadataStorageProtocol,
+        restrictionsContainer: ObjectRestrictionsContainer
     ) {
         self.objectId = objectId
         self.blocksContainer = blocksContainer
@@ -39,7 +40,8 @@ final class EventsListener: EventsListenerProtocol {
         self.middlewareConverter = MiddlewareEventConverter(
             blocksContainer: blocksContainer,
             relationStorage: relationStorage,
-            informationCreator: informationCreator
+            informationCreator: informationCreator,
+            restrictionsContainer: restrictionsContainer
         )
         self.localConverter = LocalEventConverter(
             blocksContainer: blocksContainer

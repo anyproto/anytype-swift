@@ -7,19 +7,23 @@ final class MiddlewareEventConverter {
     private let blocksContainer: BlockContainerModelProtocol
     private let relationStorage: RelationsMetadataStorageProtocol
     private let detailsStorage: ObjectDetailsStorage
+    private let restrictionsContainer: ObjectRestrictionsContainer
     
     private let informationCreator: BlockInformationCreator
+    
     
     init(
         blocksContainer: BlockContainerModelProtocol,
         relationStorage: RelationsMetadataStorageProtocol,
         informationCreator: BlockInformationCreator,
-        detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared
+        detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared,
+        restrictionsContainer: ObjectRestrictionsContainer
     ) {
         self.blocksContainer = blocksContainer
         self.relationStorage = relationStorage
         self.informationCreator = informationCreator
         self.detailsStorage = detailsStorage
+        self.restrictionsContainer = restrictionsContainer
     }
     
     func convert(_ event: Anytype_Event.Message.OneOf_Value) -> EventsListenerUpdate? {
@@ -267,11 +271,29 @@ final class MiddlewareEventConverter {
             })
             return .blocks(blockIds: [value.id])
         
-        /// Special case.
-        /// After we open document, we would like to receive all blocks of opened page.
-        /// For that, we send `blockShow` event to `eventHandler`.
-        ///
-        case .objectShow:
+        case .objectShow(let data):
+            guard data.rootID.isNotEmpty else {
+                anytypeAssertionFailure("Empty root id", domain: .middlewareEventConverter)
+                return nil
+            }
+
+            let parsedBlocks = data.blocks.compactMap {
+                BlockInformationConverter.convert(block: $0)
+            }
+            let parsedDetails = data.details.map {
+                ObjectDetails(id: $0.id, values: $0.details.fields)
+            }
+
+            TreeBlockBuilder.buildBlocksTree(from: parsedBlocks, with: data.rootID, in: blocksContainer)
+
+            parsedDetails.forEach { detailsStorage.add(details: $0) }
+    
+            relationStorage.set(
+                relations: data.relations.map { RelationMetadata(middlewareRelation: $0) }
+            )
+            
+            let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareResctrictions: data.restrictions)
+            restrictionsContainer.restrinctions = restrinctions
             return .general
         case .accountConfigUpdate(let config):
             AccountConfigurationProvider.shared.config = .init(config: config.config)
