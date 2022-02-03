@@ -24,11 +24,11 @@ final class ObjectHeaderView: UIView {
     private var leadingConstraint: NSLayoutConstraint!
     private var centerConstraint: NSLayoutConstraint!
     private var trailingConstraint: NSLayoutConstraint!
-        
-    override init(frame: CGRect) {
+
+    init(topAdjustedContentInset: CGFloat) {
         super.init(frame: .zero)
-        
-        setupView()
+
+        setupView(topAdjustedContentInset: topAdjustedContentInset)
     }
     
     @available(*, unavailable)
@@ -131,11 +131,11 @@ extension ObjectHeaderView: ConfigurableView {
 
 private extension ObjectHeaderView {
     
-    func setupView() {
+    func setupView(topAdjustedContentInset: CGFloat) {
         backgroundColor = .backgroundPrimary
         setupGestureRecognizers()
         
-        setupLayout()
+        setupLayout(topAdjustedContentInset: topAdjustedContentInset)
         
         iconView.isHidden = true
         coverView.isHidden = true
@@ -155,14 +155,15 @@ private extension ObjectHeaderView {
         )
     }
     
-    func setupLayout() {
+    func setupLayout(topAdjustedContentInset: CGFloat) {
         layoutUsing.anchors {
             $0.height.equal(to: Constants.height)
         }
         
         addSubview(coverView) {
-            $0.pinToSuperview(excluding: [.bottom])
-            $0.height.equal(to: Constants.coverHeight)
+            $0.pinToSuperview(excluding: [.top, .bottom])
+            $0.bottom.equal(to: bottomAnchor, constant: -Constants.coverBottomInset)
+            $0.height.equal(to: Constants.coverHeight + topAdjustedContentInset)
         }
         
         addSubview(iconView) {
@@ -205,7 +206,7 @@ private extension ObjectHeaderView {
 extension ObjectHeaderView {
     
     enum Constants {
-        static let height: CGFloat = 264
+        static let height: CGFloat = 172
         static let coverHeight = Constants.height - Constants.coverBottomInset
         static let coverBottomInset: CGFloat = 32
         

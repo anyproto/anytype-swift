@@ -4,7 +4,6 @@ import SwiftProtobuf
 import UIKit
 import AnytypeCore
 
-#warning("TODO R: think about working with relationViewModels inssted of Relations")
 final class RelationsListViewModel: ObservableObject {
     
     // MARK: - Private variables
@@ -13,7 +12,7 @@ final class RelationsListViewModel: ObservableObject {
     private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol 
     
-    private let onValueEditingTap: (String) -> ()
+    let onValueEditingTap: (String) -> ()
     
     // MARK: - Initializers
     
@@ -48,23 +47,5 @@ final class RelationsListViewModel: ObservableObject {
     
     func removeRelation(id: String) {
         relationsService.removeRelation(relationKey: id)
-    }
-    
-    func editRelation(id: String) {
-        guard FeatureFlags.relationsEditing else { return }
-        
-        let flattenRelations: [Relation] = sections.flatMap { $0.relations }
-        let relation = flattenRelations.first { $0.id == id }
-        
-        guard
-            let relation = relation,
-            case .checkbox(let checkbox) = relation
-        else {
-            onValueEditingTap(id)
-            return
-        }
-        
-        relationsService.updateRelation(relationKey: checkbox.id, value: (!checkbox.value).protobufValue)
-    }
-    
+    }    
 }

@@ -98,9 +98,7 @@ final class MiddlewareEventConverter {
             guard amend.details.isNotEmpty else { return nil }
             
             let currentDetails = detailsStorage.get(id: amend.id) ?? ObjectDetails.empty(id: amend.id)
-            
-            let updatedDetails = currentDetails.updated(by: amend.details.asDetailsDictionary)
-            detailsStorage.add(details: updatedDetails)
+            let updatedDetails = detailsStorage.ammend(id: amend.id, values: amend.details.asDetailsDictionary)
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
@@ -343,6 +341,15 @@ final class MiddlewareEventConverter {
                 var newRelations = dataView.relations
                 newRelations.remove(at: index)
                 
+                return dataView.updated(relations: newRelations)
+            }
+            
+            return .general
+        case .blockDataviewRelationSet(let data):
+            blocksContainer.updateDataview(blockId: data.id) { dataView in
+                let relation = RelationMetadata(middlewareRelation: data.relation)
+                var newRelations = dataView.relations
+                newRelations.append(relation)
                 return dataView.updated(relations: newRelations)
             }
             

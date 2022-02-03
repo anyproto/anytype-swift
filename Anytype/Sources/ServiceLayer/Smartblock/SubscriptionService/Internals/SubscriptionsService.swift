@@ -47,7 +47,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         
         guard let (details, count) = toggler.startSubscription(data: data) else { return }
         
-        details.forEach { storage.add(details: $0) }
+        details.forEach { storage.ammend(details: $0) }
         update(data.identifier, .initialData(details))
         update(data.identifier, .pageCount(count))
     }

@@ -5,23 +5,20 @@ import Combine
 import FloatingPanel
 
 final class TextRelationDetailsViewModel: ObservableObject {
+          
+    weak var viewController: TextRelationDetailsViewController?
     
-    var layoutPublisher: Published<FloatingPanelLayout>.Publisher { $layout }
-    @Published private var layout: FloatingPanelLayout = FixedHeightPopupLayout(height: 0)
+    weak var delegate: RelationDetailsViewModelDelegate?
     
-    var onDismiss: () -> Void = {}
-    
-    var closePopupAction: (() -> Void)?
+    private(set) var floatingPanelLayout: FloatingPanelLayout = IntrinsicTextRelationDetailsPopupLayout() {
+        didSet {
+            delegate?.didAskInvalidateLayout(false)
+        }
+    }
     
     @Published var value: String = "" {
         didSet {
             actionButtonViewModel?.text = value
-        }
-    }
-    
-    @Published var height: CGFloat = 0 {
-        didSet {
-            layout = FixedHeightPopupLayout(height: height + keyboardHeight)
         }
     }
     
@@ -35,7 +32,8 @@ final class TextRelationDetailsViewModel: ObservableObject {
     private var cancellable: AnyCancellable?
     
     private var keyboardListener: KeyboardEventsListnerHelper?
-    private var keyboardHeight: CGFloat = 0
+
+    // MARK: - Initializers
     
     init(
         value: String,
@@ -65,26 +63,28 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
 }
 
+extension TextRelationDetailsViewModel {
+    
+    func updatePopupLayout(_ layoutGuide: UILayoutGuide) {
+        self.floatingPanelLayout = AdaptiveTextRelationDetailsPopupLayout(layout: layoutGuide)
+    }
+    
+}
+
 extension TextRelationDetailsViewModel: RelationDetailsViewModelProtocol {
     
     func makeViewController() -> UIViewController {
-        TextRelationDetailsViewController(viewModel: self)
+        let vc = TextRelationDetailsViewController(viewModel: self)
+        self.viewController = vc
+        return vc
     }
 }
 
-extension TextRelationDetailsViewModel: RelationEditingViewModelProtocol {
+private extension TextRelationDetailsViewModel {
     
     func saveValue() {
         service.saveRelation(value: value, key: relation.id, textType: type)
     }
-    
-    func makeView() -> AnyView {
-        EmptyView().eraseToAnyView()
-    }
-    
-}
-
-private extension TextRelationDetailsViewModel {
     
     func setupKeyboardListener() {
         let showAction: KeyboardEventsListnerHelper.Action = { [weak self] notification in
@@ -107,8 +107,8 @@ private extension TextRelationDetailsViewModel {
     }
     
     func adjustViewHeightBy(keyboardHeight: CGFloat) {
-        self.keyboardHeight = keyboardHeight
-        layout = FixedHeightPopupLayout(height: height + keyboardHeight)
+        viewController?.keyboardDidUpdateHeight(keyboardHeight)
+        delegate?.didAskInvalidateLayout(true)
     }
     
 }

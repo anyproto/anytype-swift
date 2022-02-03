@@ -16,35 +16,43 @@ struct SetFullHeader: View {
     private var header: some View {
         VStack(alignment: .leading, spacing: 0) {
             cover
-                .ifLet(model.details.objectIconImage) { view, icon in
-                    view.overlay(iconView(icon: icon), alignment: .bottomLeading)
-                }
-            
             Spacer.fixedHeight(32)
             
             AnytypeText(model.details.title, style: .title, color: .textPrimary)
                 .fixedSize(horizontal: false, vertical: true)
                 .padding(.horizontal, 20)
             
+            description
+            
+            Spacer.fixedHeight(8)
+            featuredRelations
+        }
+        .readSize { width = $0.width }
+    }
+    
+    private var description: some View {
+        Group {
             if model.details.description.isNotEmpty {
                 Spacer.fixedHeight(8)
                 AnytypeText(model.details.description, style: .relation2Regular, color: .textPrimary)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, 20)
+            } else {
+                EmptyView()
             }
-            
-            Spacer.fixedHeight(8)
-            FlowRelationsView(
-                viewModel: FlowRelationsViewModel(
-                    relations: model.featuredRelations,
-                    onRelationTap: { relation in
-                        model.router.showRelationValueEditingView(key: relation.id)
-                    }
-                )
-            )
-                .padding(.horizontal, 20)
         }
-        .readSize { width = $0.width }
+    }
+    
+    private var featuredRelations: some View {
+        FlowRelationsView(
+            viewModel: FlowRelationsViewModel(
+                relations: model.featuredRelations,
+                onRelationTap: { relation in
+                    model.router.showRelationValueEditingView(key: relation.id)
+                }
+            )
+        )
+            .padding(.horizontal, 20)
     }
     
     private let iconBackgroundPadding: CGFloat = 4
@@ -88,6 +96,9 @@ struct SetFullHeader: View {
                         $0.frame(height: smallCover)
                     }
             }
+        }
+        .ifLet(model.details.objectIconImage) { view, icon in
+            view.overlay(iconView(icon: icon), alignment: .bottomLeading)
         }
     }
 }

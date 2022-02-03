@@ -18,8 +18,7 @@ struct UserDefaultsConfig {
 
     static func cleanStateAfterLogout() {
         usersId = ""
-        _lastOpenedPageId = nil
-        _selectedTab = nil
+        _screenDataFromLastSession = nil
     }
     
     
@@ -81,6 +80,10 @@ struct UserDefaultsConfig {
             Amplitude.instance().logDefaultObjectTypeChange(defaultObjectType)
         }
     }
+    
+    // MARK: - rows per page in set
+    @UserDefault("UserData.RowsPerPageInSet", defaultValue: 50)
+    static var rowsPerPageInSet: Int64
     
     // MARK: - Wallpaper    
     @UserDefault("UserData.Wallpaper", defaultValue: nil)
