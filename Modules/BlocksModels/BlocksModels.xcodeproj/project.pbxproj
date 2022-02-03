@@ -14,7 +14,6 @@
 		0A6D539825D9C99F002F3F82 /* BlockModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537825D9C99E002F3F82 /* BlockModelProtocol.swift */; };
 		0A6D539C25D9C99F002F3F82 /* Block+CommonStructures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */; };
 		0A6D539D25D9C99F002F3F82 /* Aliases.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D537D25D9C99E002F3F82 /* Aliases.swift */; };
-		0A6D53A625D9C99F002F3F82 /* TreeBlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */; };
 		12206711273164360051A331 /* RelationsMetadataStorageProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12206710273164360051A331 /* RelationsMetadataStorageProtocol.swift */; };
 		12206713273164890051A331 /* RelationsMetadataStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12206712273164890051A331 /* RelationsMetadataStorage.swift */; };
 		1223C91227282A2600C34616 /* BundledRelationsValueProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1223C91127282A2600C34616 /* BundledRelationsValueProvider.swift */; };
@@ -70,7 +69,6 @@
 		0A6D537825D9C99E002F3F82 /* BlockModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModelProtocol.swift; sourceTree = "<group>"; };
 		0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Block+CommonStructures.swift"; sourceTree = "<group>"; };
 		0A6D537D25D9C99E002F3F82 /* Aliases.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Aliases.swift; sourceTree = "<group>"; };
-		0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TreeBlockBuilder.swift; sourceTree = "<group>"; };
 		0A7831D224B8672D00A1B6F6 /* BlocksModels.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BlocksModels.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		12206710273164360051A331 /* RelationsMetadataStorageProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsMetadataStorageProtocol.swift; sourceTree = "<group>"; };
 		12206712273164890051A331 /* RelationsMetadataStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsMetadataStorage.swift; sourceTree = "<group>"; };
@@ -323,7 +321,6 @@
 				3DB7DCA22639DBCD00635E4C /* BlockContainer */,
 				0A6D536C25D9C99E002F3F82 /* IndentationBuilder.swift */,
 				0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */,
-				0A6D538625D9C99F002F3F82 /* TreeBlockBuilder.swift */,
 				EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */,
 			);
 			path = Block;
@@ -474,7 +471,6 @@
 				3D6E9A3E270E13B5001B0A07 /* FileContentType.swift in Sources */,
 				3DE511F926711E5C00153962 /* BlockText.swift in Sources */,
 				3D22B21526877D9300C78C28 /* BlockFileState.swift in Sources */,
-				0A6D53A625D9C99F002F3F82 /* TreeBlockBuilder.swift in Sources */,
 				3D22B21C2687809900C78C28 /* BlockContentDivider.swift in Sources */,
 				3DE0B3282747BDC200F69376 /* BlockDataView.swift in Sources */,
 				3D0BCABF26663B12002F7A0D /* BlockContainerModelProtocol.swift in Sources */,
