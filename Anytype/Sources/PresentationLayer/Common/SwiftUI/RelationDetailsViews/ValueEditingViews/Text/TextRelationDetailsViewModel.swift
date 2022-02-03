@@ -18,7 +18,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
     @Published var value: String = "" {
         didSet {
-            actionButtonViewModel?.text = value
+            handleValueUpdate(value: value)
         }
     }
     
@@ -55,6 +55,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
             }
         
         setupKeyboardListener()
+        handleValueUpdate(value: value)
     }
     
     var title: String {
@@ -109,6 +110,10 @@ private extension TextRelationDetailsViewModel {
     func adjustViewHeightBy(keyboardHeight: CGFloat) {
         viewController?.keyboardDidUpdateHeight(keyboardHeight)
         delegate?.didAskInvalidateLayout(true)
+    }
+    
+    func handleValueUpdate(value: String) {
+        actionButtonViewModel?.text = value
     }
     
 }
