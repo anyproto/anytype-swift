@@ -220,7 +220,7 @@ extension UIImage {
         backgroundView.layer.cornerRadius = cornerRadius
         backgroundView.layer.masksToBounds = true
         
-        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)
         if let currentContext = UIGraphicsGetCurrentContext() {
             backgroundView.layer.render(in: currentContext)
             let nameImage = UIGraphicsGetImageFromCurrentImageContext()

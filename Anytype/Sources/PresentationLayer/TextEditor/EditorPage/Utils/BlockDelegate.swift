@@ -68,11 +68,9 @@ final class BlockDelegateImpl: BlockDelegate {
         viewInput?.textBlockDidChangeText()
 
         guard let changeType = changeType else {
-            anytypeAssertionFailure("No change type in textDidChange", domain: .blockDelegate)
             return
         }
         guard let data = data else {
-            anytypeAssertionFailure("No data in textDidChange", domain: .blockDelegate)
             return
         }
 

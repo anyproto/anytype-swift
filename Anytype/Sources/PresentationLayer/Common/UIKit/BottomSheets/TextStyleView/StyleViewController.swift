@@ -216,15 +216,14 @@ final class StyleViewController: UIViewController {
         let buttonSize = CGSize(width: 103, height: 52)
         let smallButtonSize = CGSize(width: 32, height: 32)
 
-        let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/highlight"))
+        let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage.highlightImage())
         setupAction(for: highlightedButton, with: .quote)
-
 
         let calloutImage = UIImage.imageWithText(
             "Callout".localized,
         textColor: .code != self.style ? .textTertiary : .textPrimary,
             backgroundColor: .backgroundSelected,
-            font: .callout,
+            font: .caption1Medium,
             size: .init(width: 63, height: 28),
             cornerRadius: 6
         )
@@ -431,5 +430,32 @@ extension StyleViewController: FloatingPanelControllerDelegate {
             return true
         }
         return false
+    }
+}
+
+private extension UIImage {
+    static func highlightImage() -> UIImage? {
+        let frame = CGRect(x: 0, y: 0, width: 64, height: 24)
+        let nameLabel = UILabel(frame: frame)
+        nameLabel.textAlignment = .right
+        nameLabel.textColor = .textPrimary
+        nameLabel.font = AnytypeFont.caption1Medium.uiKitFont
+        nameLabel.text = "Highlight".localized
+
+        let backgroundView = UIView(frame: .init(x: 9, y: 4, width: 0, height: 0))
+        backgroundView.addSubview(nameLabel)
+
+        let quoteView = UIView(frame: .init(x: 0, y: 0, width: 1, height: frame.height))
+        quoteView.backgroundColor = UIColor.System.amber
+
+        backgroundView.addSubview(quoteView)
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)
+        if let currentContext = UIGraphicsGetCurrentContext() {
+            backgroundView.layer.render(in: currentContext)
+            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+            return nameImage
+        }
+
+        return nil
     }
 }

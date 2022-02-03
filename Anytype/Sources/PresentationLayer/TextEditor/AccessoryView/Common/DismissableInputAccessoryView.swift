@@ -8,7 +8,6 @@ class DismissableInputAccessoryView: UIView {
     
     var dismissHandler: (() -> Void)?
     private(set) weak var topSeparator: UIView?
-    private var transparentView: UIView?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,14 +20,12 @@ class DismissableInputAccessoryView: UIView {
     }
     
     override func didMoveToWindow() {
-        guard let window = window else {
+        guard window != nil else {
             topSeparator?.removeFromSuperview()
             topSeparator = nil
             return
         }
-        transparentView?.removeFromSuperview()
         topSeparator?.removeFromSuperview()
-        addTransparentViewForDismissAction(parentView: window)
         addTopSeparator()
     }
     
@@ -47,16 +44,5 @@ class DismissableInputAccessoryView: UIView {
             $0.height.equal(to: Constants.separatorHeight)
         }
         self.topSeparator = topSeparator
-    }
-    
-    private func addTransparentViewForDismissAction(parentView: UIWindow) {
-        let view = UIView()
-        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismiss)))
-        parentView.addSubview(view) {
-            $0.pinToSuperview(excluding: [.bottom])
-            $0.bottom.equal(to: topAnchor)
-        }
-
-        transparentView = view
     }
 }
