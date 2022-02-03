@@ -85,7 +85,7 @@ final class TextBlockActionHandler {
             // BUSINESS LOGIC:
             // We should check that if we are in `list` block and its text is `empty`, we should turn it into `.text`
             switch info.content {
-            case let .text(value) where value.contentType.isList && value.text == "":
+            case let .text(value) where value.contentType.isList && attributedText.string == "":
                 // Turn Into empty text block.
                 BlockBuilder.textStyle(info: info).flatMap { style in
                     self.service.turnInto(style, blockId: info.id)

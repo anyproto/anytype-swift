@@ -18,7 +18,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     let router: EditorRouterProtocol
     
     private let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
-    private let cursorManager = EditorCursorManager()
+    private let cursorManager: EditorCursorManager
     let objectSettingsViewModel: ObjectSettingsViewModel
     let actionHandler: BlockActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
@@ -51,7 +51,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         wholeBlockMarkupViewModel: MarkupViewModel,
         headerBuilder: ObjectHeaderBuilder,
         blockActionsService: BlockActionsServiceSingle,
-        blocksStateManager: EditorPageBlocksStateManagerProtocol
+        blocksStateManager: EditorPageBlocksStateManagerProtocol,
+        cursorManager: EditorCursorManager
     ) {
         self.objectSettingsViewModel = objectSettinsViewModel
         self.viewInput = viewInput
@@ -65,6 +66,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.headerBuilder = headerBuilder
         self.blockActionsService = blockActionsService
         self.blocksStateManager = blocksStateManager
+        self.cursorManager = cursorManager
 
         setupSubscriptions()
     }
@@ -134,6 +136,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             modelsHolder.applyDifference(difference: diffrerence)
             viewInput?.update(changes: diffrerence, allModels: modelsHolder.models)
+
+            updateCursorIfNeeded()
         case .syncStatus(let status):
             viewInput?.update(syncStatus: status)
         case .dataSourceUpdate:
@@ -246,6 +250,17 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             objectRestrictions: document.objectRestrictions,
             parsedRelations: document.parsedRelations
         )
+
+        updateCursorIfNeeded()
+    }
+
+    private func updateCursorIfNeeded() {
+        if let blockFocus = cursorManager.blockFocus,
+           let block = modelsHolder.contentProvider(for: blockFocus.id) {
+
+            block.set(focus: blockFocus.position)
+            cursorManager.blockFocus = nil
+        }
     }
 
     // iOS 14 bug fix applying header section while editing

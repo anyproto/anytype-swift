@@ -2,8 +2,8 @@ import Combine
 import UIKit
 import BlocksModels
 
-
 struct TextBlockViewModel: BlockViewModelProtocol {
+    
     var upperBlock: BlockModelProtocol?
 
     var indentationLevel: Int
@@ -20,8 +20,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let openURL: (URL) -> Void
     
     private let actionHandler: BlockActionHandlerProtocol
-    private let focusSubject = PassthroughSubject<BlockFocusPosition, Never>()
-    
+    private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
+
     var hashable: AnyHashable {
         [
             indentationLevel,
@@ -39,7 +39,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         blockDelegate: BlockDelegate,
         actionHandler: BlockActionHandlerProtocol,
         showPage: @escaping (EditorScreenData) -> Void,
-        openURL: @escaping (URL) -> Void
+        openURL: @escaping (URL) -> Void,
+        focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     ) {
         self.block = block
         self.content = content
@@ -51,8 +52,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.toggled = block.isToggled
         self.information = block.information
         self.indentationLevel = block.indentationLevel
+        self.focusSubject = focusSubject
     }
-    
+
     func set(focus: BlockFocusPosition) {
         focusSubject.send(focus)
     }
@@ -61,6 +63,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         let contentConfiguration = TextBlockContentConfiguration(
+            blockId: information.id,
             content: content,
             alignment: information.alignment.asNSTextAlignment,
             backgroundColor: information.backgroundColor.map { UIColor.Background.uiColor(from: $0) },
@@ -91,10 +94,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 actionHandler.handleKeyboardAction(keyboardAction, info: information, attributedText: attributedString)
             },
             becomeFirstResponder: {
-                blockDelegate?.becomeFirstResponder(blockId: information.id)
+
             },
             resignFirstResponder: {
-                blockDelegate?.resignFirstResponder(blockId: information.id)
+                
             },
             textBlockSetNeedsLayout: {
                 blockDelegate?.textBlockSetNeedsLayout()
@@ -105,7 +108,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             textViewDidBeginEditing: { _ in
                 blockDelegate?.didBeginEditing()
             },
-            textViewDidEndEditing: { _ in
+            textViewDidEndEditing: {  _ in
                 blockDelegate?.didEndEditing()
             },
             textViewDidChangeCaretPosition: { caretPositionRange in

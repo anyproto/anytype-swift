@@ -28,6 +28,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let toggleDropDown: () -> Void
     }
 
+    let blockId: BlockId
     let content: BlockText
     let backgroundColor: UIColor?
     let isCheckable: Bool
@@ -40,6 +41,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
     @EquatableNoop private(set) var actions: Actions
 
     init(
+        blockId: BlockId,
         content: BlockText,
         alignment: NSTextAlignment,
         backgroundColor: UIColor?,
@@ -50,6 +52,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
         actions: Actions
     ) {
+        self.blockId = blockId
         self.content = content
         self.alignment = alignment
         self.backgroundColor = backgroundColor

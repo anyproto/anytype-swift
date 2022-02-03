@@ -20,8 +20,7 @@ extension EditorPageController: FloatingPanelControllerDelegate {
         switch item {
         case let .block(block):
             if let blockViewModel = block as? TextBlockViewModel {
-                let focus = UserSession.shared.focus.value ?? .end
-                blockViewModel.set(focus: focus)
+                blockViewModel.set(focus: .end)
             }
         case .header:
             #warning("implement")
