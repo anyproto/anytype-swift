@@ -8,6 +8,7 @@ enum ObjectHeader: Hashable {
     
 }
 extension ObjectHeader: ContentConfigurationProvider {
+    var indentationLevel: Int { 0 }
     
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         switch self {

@@ -43,6 +43,7 @@ protocol AttachmentRouterProtocol {
 }
 
 final class EditorRouter: EditorRouterProtocol {
+    
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let fileRouter: FileRouter
@@ -247,9 +248,20 @@ final class EditorRouter: EditorRouterProtocol {
     func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
         guard FeatureFlags.relationsEditing else { return }
         guard relation.isEditable else { return }
-        guard let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation) else { return }
         
-        presentOverCurrentContextSwuftUIView(view: contentViewModel.makeView(), model: contentViewModel)
+        if case .checkbox(let checkbox) = relation {
+            let relationsService = RelationsService(objectId: objectId)
+            relationsService.updateRelation(relationKey: checkbox.id, value: (!checkbox.value).protobufValue)
+            return
+        }
+        
+        guard let viewController = viewController else { return }
+        
+        let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation)
+        guard let contentViewModel = contentViewModel else { return }
+        
+        let fpc = RelationDetailsViewPopup(viewModel: contentViewModel)
+        viewController.topPresentedController.present(fpc, animated: true, completion: nil)
     }
 
     func showAdditinNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
@@ -315,7 +327,7 @@ extension EditorRouter: AttachmentRouterProtocol {
     }
 }
 
-extension EditorRouter: TextRelationEditingViewModelDelegate {
+extension EditorRouter: TextRelationActionButtonViewModelDelegate {
     
     func canOpenUrl(_ url: URL) -> Bool {
         UIApplication.shared.canOpenURL(url.urlByAddingHttpIfSchemeIsEmpty())

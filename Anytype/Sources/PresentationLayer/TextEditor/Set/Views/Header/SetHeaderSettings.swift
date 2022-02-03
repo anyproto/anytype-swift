@@ -15,7 +15,7 @@ struct SetHeaderSettings: View {
                 Spacer.fixedWidth(20)
                 AnytypeText(model.activeView.name, style: .heading, color: .textPrimary)
                 Spacer.fixedWidth(5)
-                Image.arrowDown
+                Image.arrowDown.foregroundColor(.textPrimary)
                 Spacer()
             }
             .frame(height: settingsHeight)

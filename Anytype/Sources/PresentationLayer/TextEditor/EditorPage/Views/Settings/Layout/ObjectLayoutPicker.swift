@@ -38,5 +38,10 @@ struct ObjectLayoutPicker: View {
 struct DocumentLayoutPicker_Previews: PreviewProvider {
     static var previews: some View {
         ObjectLayoutPicker()
+            .environmentObject(
+                ObjectLayoutPickerViewModel(
+                    detailsService: DetailsService(objectId: "")
+                )
+            )
     }
 }

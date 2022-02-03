@@ -42,17 +42,13 @@ final class BlockActionService: BlockActionServiceProtocol {
         event.send()
     }
 
-    func split(info: BlockInformation, position: Int, newBlockContentType: BlockText.Style) {
+    func split(
+        info: BlockInformation,
+        position: Int,
+        newBlockContentType: BlockText.Style,
+        attributedString: NSAttributedString
+    ) {
         let blockId = info.id
-
-        let content = info.content
-        guard case let .text(blockText) = content else {
-            anytypeAssertionFailure(
-                "We have unsupported content type: \(content)",
-                domain: .blockActionsService
-            )
-            return
-        }
 
         let range = NSRange(location: position, length: 0)
         let documentId = self.documentId
@@ -60,12 +56,12 @@ final class BlockActionService: BlockActionServiceProtocol {
         // if splitted block has child then new block should be child of splitted block
         let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
-        guard textService.setText(
+        textService.setText(
             contextId: documentId,
             blockId: blockId,
-            middlewareString: MiddlewareString(text: blockText.text, marks: blockText.marks)
-        ) else { return }
-            
+            middlewareString: AttributedTextConverter.asMiddleware(attributedText: attributedString)
+        )
+
         guard let blockId = textService.split(
             contextId: documentId,
             blockId: blockId,
@@ -73,11 +69,9 @@ final class BlockActionService: BlockActionServiceProtocol {
             style: newBlockContentType,
             mode: mode
         ) else { return }
-            
-        EventsBunch(
-            contextId: documentId,
-            localEvents: [ .setFocus(blockId: blockId, position: .beginning) ]
-        ).send()
+
+        UserSession.shared.firstResponderId.value = blockId
+        UserSession.shared.focus.value = .beginning
     }
 
     func duplicate(blockId: BlockId) {        
@@ -149,9 +143,13 @@ final class BlockActionService: BlockActionServiceProtocol {
         listService.setFields(contextId: contextID, fields: blockFields)
     }
     
-    @discardableResult
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
         textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
+    }
+
+    @discardableResult
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
+        textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
     func setObjectTypeUrl(_ objectTypeUrl: String) {

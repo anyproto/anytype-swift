@@ -30,6 +30,10 @@ final class BlockViewModelsHolder {
     
         return model
     }
+
+    func contentProvider(for blockId: BlockId) -> ContentConfigurationProvider? {
+        models.first(where: { $0.blockId == blockId })
+    }
 }
 
 extension BlockViewModelsHolder {
@@ -45,6 +49,15 @@ extension BlockViewModelsHolder {
     func applyDifference(difference: CollectionDifference<BlockViewModelProtocol>) {
         if !difference.isEmpty, let result = models.applying(difference) {
             models = result
+        }
+    }
+
+    func contentProvider(for item: EditorItem) -> ContentConfigurationProvider?  {
+        switch item {
+        case .header:
+            return header
+        case .block(let blockViewModelProtocol):
+            return contentProvider(for: blockViewModelProtocol.blockId)
         }
     }
     

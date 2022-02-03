@@ -50,7 +50,7 @@ struct RelationsListView: View {
                                 } onStarTap: {
                                     viewModel.changeRelationFeaturedState(relationId: $0)
                                 } onEditTap: {
-                                    viewModel.editRelation(id: $0)
+                                    viewModel.onValueEditingTap($0)
                                 }
                             }
                         }

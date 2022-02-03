@@ -7,7 +7,7 @@ struct RelationValueView: View {
     let action: ((_ relation: Relation) -> Void)?
 
     var body: some View {
-        if action.isNotNil {
+        if action.isNotNil && relation.isEditable {
             Button {
                 guard FeatureFlags.relationsEditing else { return }
                 

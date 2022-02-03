@@ -17,7 +17,7 @@ enum BrowserNavigationManagerError: Error, LocalizedError {
             Page: \(page)
             OpenedPages: \(openedPages)
             ClosedPages: \(closedPages)
-            CurrentChildernConunt: \(childernCount)
+            CurrentChildernCount: \(childernCount)
             CachedChildrenCount: \(cachedChildrenCount)
             """
         }
