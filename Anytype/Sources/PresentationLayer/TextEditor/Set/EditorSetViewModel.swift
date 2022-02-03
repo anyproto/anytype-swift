@@ -20,10 +20,9 @@ final class EditorSetViewModel: ObservableObject {
         dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
     }
     
-    var colums: [SetColumData] {
+    var colums: [RelationMetadata] {
         dataView.relationsMetadataForView(activeView)
             .filter { $0.isHidden == false }
-            .map { SetColumData(metadata: $0) }
     }
     
     var rows: [SetTableViewRowData] {
@@ -60,7 +59,7 @@ final class EditorSetViewModel: ObservableObject {
     var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
-    private let relationsBuilder = RelationsBuilder()
+    private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
 
