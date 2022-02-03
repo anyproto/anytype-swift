@@ -131,7 +131,8 @@ final class EditorAssembly {
             document: document,
             handler: actionHandler,
             router: router,
-            delegate: blockDelegate
+            delegate: blockDelegate,
+            modelsholder: modelsHolder
         )
          
         let wholeBlockMarkupViewModel = MarkupViewModel(
