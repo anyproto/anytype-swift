@@ -26,14 +26,14 @@ final class BlockImageViewModel: BlockViewModelProtocol {
     
     let indentationLevel: Int
     let showIconPicker: Action<BlockId>
-
-    var onImageOpen: Action<ImageOpeningContext>?
+    let onImageOpen: Action<ImageOpeningContext>?
     
     init?(
         information: BlockInformation,
         fileData: BlockFile,
         indentationLevel: Int,
-        showIconPicker: @escaping (BlockId) -> ()
+        showIconPicker: @escaping (BlockId) -> (),
+        onImageOpen: Action<ImageOpeningContext>?
     ) {
         guard fileData.contentType == .image else {
             anytypeAssertionFailure(
@@ -47,6 +47,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         self.fileData = fileData
         self.indentationLevel = indentationLevel
         self.showIconPicker = showIconPicker
+        self.onImageOpen = onImageOpen
     }
     
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {

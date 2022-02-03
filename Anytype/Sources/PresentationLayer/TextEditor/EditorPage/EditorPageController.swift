@@ -235,7 +235,7 @@ extension EditorPageController: EditorPageViewInput {
     }
     
     func textBlockDidBeginEditing() {
-        collectionView.setContentOffset(contentOffset, animated: false)
+//        collectionView.setContentOffset(contentOffset, animated: false)
     }
 
     func textBlockDidChangeFrame() {

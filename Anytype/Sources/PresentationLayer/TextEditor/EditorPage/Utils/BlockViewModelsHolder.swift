@@ -3,11 +3,21 @@ import BlocksModels
 // We need to share models between several mutating services
 // Using reference semantics of BlockViewModelsHolder to share pointer
 // To the same models everywhere
+typealias BlockMapping = Dictionary<BlockId, BlockViewModelProtocol>
+
 final class BlockViewModelsHolder {
     
     let objectId: String
     
-    var models: [BlockViewModelProtocol] = []
+    var models: [BlockViewModelProtocol] = [] {
+        didSet {
+            modelsMapping = Dictionary(uniqueKeysWithValues: models.map { ($0.blockId, $0) } )
+        }
+    }
+
+    var modelsMapping = BlockMapping()
+
+
     var header: ObjectHeader?
 
     init(objectId: String) {
