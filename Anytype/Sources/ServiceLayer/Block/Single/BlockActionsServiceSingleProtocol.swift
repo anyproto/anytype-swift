@@ -8,7 +8,7 @@ protocol BlockActionsServiceSingleProtocol {
     func replace(contextId: BlockId, blockId: BlockId, info: BlockInformation) -> MiddlewareResponse?
     func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> MiddlewareResponse?
     func close(contextId: BlockId, blockId: BlockId)
-    func open(contextId: BlockId, blockId: BlockId) -> MiddlewareResponse?
+    func open(contextId: BlockId, blockId: BlockId) -> Bool
     func move(
         contextId: BlockId,
         blockIds: [String],

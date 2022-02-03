@@ -54,12 +54,7 @@ final class BaseDocument: BaseDocumentProtocol {
     // MARK: - BaseDocumentProtocol
 
     func open() -> Bool {
-        guard let result = blockActionsService.open(contextId: objectId, blockId: objectId) else {
-            return false
-        }
-        
-        EventsBunch(contextId: objectId, middlewareEvents: result.messages).send()
-        return true
+        return blockActionsService.open(contextId: objectId, blockId: objectId)
     }
     
     func close(){
