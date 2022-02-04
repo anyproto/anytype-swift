@@ -20,12 +20,18 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let listService = BlockListService()
     private let bookmarkService = BookmarkService()
     private let fileService = BlockActionsServiceFile()
+    private let cursorManager: EditorCursorManager
     
     private weak var modelsHolder: BlockViewModelsHolder?
 
-    init(documentId: String, modelsHolder: BlockViewModelsHolder) {
+    init(
+        documentId: String,
+        modelsHolder: BlockViewModelsHolder,
+        cursorManager: EditorCursorManager
+    ) {
         self.documentId = documentId
         self.modelsHolder = modelsHolder
+        self.cursorManager = cursorManager
     }
 
     // MARK: Actions/Add
@@ -37,9 +43,14 @@ final class BlockActionService: BlockActionServiceProtocol {
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool) {
         guard let response = singleService
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
-        
-        let event = shouldSetFocusOnUpdate ? response.addEvent : response.asEventsBunch
-        event.send()
+
+        if shouldSetFocusOnUpdate,
+           let addEntryMessage = response.messages.first { $0.value == .blockAdd($0.blockAdd) },
+            let block = addEntryMessage.blockAdd.blocks.first {
+                cursorManager.blockFocus = .init(id: block.id, position: .beginning)
+            }
+
+        response.asEventsBunch.send()
     }
 
     func split(
@@ -56,7 +67,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         // if splitted block has child then new block should be child of splitted block
         let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
-        textService.setText(
+        textService.setTextForced(
             contextId: documentId,
             blockId: blockId,
             middlewareString: AttributedTextConverter.asMiddleware(attributedText: attributedString)
@@ -70,8 +81,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             mode: mode
         ) else { return }
 
-        UserSession.shared.firstResponderId.value = blockId
-        UserSession.shared.focus.value = .beginning
+        cursorManager.blockFocus = .init(id: blockId, position: .beginning)
     }
 
     func duplicate(blockId: BlockId) {        
@@ -135,8 +145,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         let previousBlock = modelsHolder?.findModel(beforeBlockId: blockId)
 
         if singleService.delete(contextId: documentId, blockIds: [blockId]) {
-            previousBlock.flatMap { setFocus(model: $0) }
-        }        
+            previousBlock.map { setFocus(model: $0) }
+        }
     }
     
     func setFields(contextID: BlockId, blockFields: [BlockFields]) {
@@ -156,10 +166,9 @@ final class BlockActionService: BlockActionServiceProtocol {
         pageService.setObjectType(objectId: documentId, objectTypeUrl: objectTypeUrl)
     }
 
-    private func setFocus(model: BlockDataProvider) {
+    private func setFocus(model: BlockViewModelProtocol) {
         if case let .text(text) = model.information.content {
-            let event = LocalEvent.setFocus(blockId: model.blockId, position: .at(text.endOfTextRangeWithMention))
-            EventsBunch(contextId: documentId, localEvents: [event]).send()
+            model.set(focus: .at(text.endOfTextRangeWithMention))
         }
     }
 }

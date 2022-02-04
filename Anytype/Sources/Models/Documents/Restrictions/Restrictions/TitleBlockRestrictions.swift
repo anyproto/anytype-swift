@@ -8,6 +8,7 @@ struct TitleBlockRestrictions: BlockRestrictions {
     let canApplyBlockColor = true
     let canApplyBackgroundColor = true
     let canApplyMention = true
+    let canApplyEmoji = true
     let canDeleteOrDuplicate = false
     let availableAlignments = LayoutAlignment.allCases
     let turnIntoStyles: [BlockContentType] = []

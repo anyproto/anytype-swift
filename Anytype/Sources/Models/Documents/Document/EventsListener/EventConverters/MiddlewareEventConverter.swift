@@ -284,7 +284,7 @@ final class MiddlewareEventConverter {
                 ObjectDetails(id: $0.id, values: $0.details.fields)
             }
 
-            TreeBlockBuilder.buildBlocksTree(from: parsedBlocks, with: data.rootID, in: blocksContainer)
+            buildBlocksTree(information: parsedBlocks, rootId: data.rootID, container: blocksContainer)
 
             parsedDetails.forEach { detailsStorage.add(details: $0) }
     
@@ -410,6 +410,31 @@ final class MiddlewareEventConverter {
         let isNewStyleToggle = textContent.contentType == .toggle
         let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
         return toggleStyleChanged ? .general : .blocks(blockIds: [newData.id])
+    }
+    
+    private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: BlockContainerModelProtocol) {
+        let models = information.map { BlockModel(information: $0) }
+        
+        models.forEach { container.add($0) }
+        let roots = models.filter { $0.information.id == rootId }
+
+        guard roots.count != 0 else {
+            anytypeAssertionFailure("Unknown situation. We can't have zero roots.", domain: .treeBlockBuilder)
+            return
+        }
+
+        if roots.count != 1 {
+            // this situation is not possible, but, let handle it.
+            anytypeAssertionFailure(
+                "We have several roots for our rootId. Not possible, but let us handle it.",
+                domain: .treeBlockBuilder
+            )
+        }
+
+        let rootId = roots[0].information.id
+        container.rootId = rootId
+
+        IndentationBuilder.build(container: container, id: rootId)
     }
 }
 

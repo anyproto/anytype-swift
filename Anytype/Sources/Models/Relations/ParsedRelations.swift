@@ -29,6 +29,7 @@ extension ParsedRelations {
                 name: "",
                 isFeatured: false,
                 isEditable: !objectRestriction.contains(.typechange),
+                isBundled: true,
                 value: type.name
             )
         )

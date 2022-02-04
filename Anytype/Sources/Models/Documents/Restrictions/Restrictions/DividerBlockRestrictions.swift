@@ -9,6 +9,7 @@ struct DividerBlockRestrictions: BlockRestrictions {
     let canApplyBackgroundColor = true
     let canApplyMention = false
     let canDeleteOrDuplicate = true
+    let canApplyEmoji = false
     let turnIntoStyles: [BlockContentType] = [.divider(.line), .divider(.dots)]
    
     let availableAlignments = [LayoutAlignment]()

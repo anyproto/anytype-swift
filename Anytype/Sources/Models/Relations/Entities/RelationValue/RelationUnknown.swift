@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import CoreImage
 
 extension Relation {
     
@@ -8,11 +9,12 @@ extension Relation {
         let name: String
         let isFeatured: Bool
         let isEditable: Bool
+        let isBundled: Bool
         
         let value: String
         
         static func empty(id: BlockId, name: String) -> Unknown {
-            Unknown(id: id, name: name, isFeatured: false, isEditable: false, value: "")
+            Unknown(id: id, name: name, isFeatured: false, isEditable: false, isBundled: false, value: "")
         }
     }
     

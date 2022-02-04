@@ -16,7 +16,8 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         [
             indentationLevel,
             information,
-            type
+            type,
+            featuredRelations
         ] as [AnyHashable]
     }
     

@@ -4,7 +4,8 @@ import BlocksModels
 protocol BlockViewModelProtocol:
     HashableProvier,
     ContentConfigurationProvider,
-    BlockDataProvider
+    BlockDataProvider,
+    BlockFocusing
 {
     func didSelectRowInTableView()
     /// Block that upper than current.
@@ -20,6 +21,14 @@ protocol ContentConfigurationProvider {
     var indentationLevel: Int { get }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration
+}
+
+protocol BlockFocusing {
+    func set(focus: BlockFocusPosition)
+}
+
+extension BlockFocusing {
+    func set(focus: BlockFocusPosition) { }
 }
 
 protocol BlockDataProvider {

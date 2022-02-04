@@ -5,9 +5,6 @@ protocol BlockDelegate: AnyObject {
     func willBeginEditing(data: TextBlockDelegateData)
     func didBeginEditing()
     func didEndEditing()
-    
-    func becomeFirstResponder(blockId: BlockId)
-    func resignFirstResponder(blockId: BlockId)
 
     func textWillChange(changeType: TextChangeType)
     func textDidChange()
@@ -33,14 +30,6 @@ final class BlockDelegateImpl: BlockDelegate {
         self.viewInput = viewInput
         self.accessoryState = accessoryState
         self.markdownListener = markdownListener
-    }
-
-    func becomeFirstResponder(blockId: BlockId) {
-        UserSession.shared.firstResponderId.value = blockId
-    }
-    
-    func resignFirstResponder(blockId: BlockId) {
-        UserSession.shared.resignFirstResponder(blockId: blockId)
     }
 
     func didBeginEditing() {
