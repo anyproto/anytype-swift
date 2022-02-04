@@ -86,7 +86,8 @@ final class MarkStyleModifier {
             return keyboardUpdate(with: old, shouldHaveStyle: shouldApplyMarkup)
         case .strikethrough:
             return AttributedStringChange(
-                changeAttributes: [.strikethroughStyle : shouldApplyMarkup ? NSUnderlineStyle.single.rawValue : 0]
+                changeAttributes: [.strikethroughStyle : shouldApplyMarkup ? NSUnderlineStyle.single.rawValue : 0,
+                                   .strikethroughColor: UIColor.textPrimary]
             )
 
         case .underscored:
