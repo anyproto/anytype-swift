@@ -27,7 +27,9 @@ class CreateNewRelationViewModel: ObservableObject, Dismissible {
             isMulti: false,
             selections: [],
             objectTypes: [],
-            scope: .object)
+            scope: .object,
+            isBundled: false
+        )
 
         if let relation = relationService.createRelation(relationMetatdata) {
             onSelect(relation)
