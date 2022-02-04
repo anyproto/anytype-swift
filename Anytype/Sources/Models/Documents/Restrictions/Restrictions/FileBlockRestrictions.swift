@@ -7,6 +7,7 @@ struct FileBlockRestrictions: BlockRestrictions {
     let canApplyBlockColor = false
     let canApplyBackgroundColor = true
     let canApplyMention = false
+    let canApplyEmoji = false
     let canDeleteOrDuplicate = true
     let turnIntoStyles = [BlockContentType]()
     let availableAlignments = [LayoutAlignment]()

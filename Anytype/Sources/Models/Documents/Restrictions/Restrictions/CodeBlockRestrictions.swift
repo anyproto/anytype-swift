@@ -8,6 +8,7 @@ struct CodeBlockRestrictions: BlockRestrictions {
     let canApplyBlockColor = false
     let canApplyBackgroundColor = true
     let canApplyMention = false
+    let canApplyEmoji = false
     let canCreateBlockBelowOnEnter = false
     let canDeleteOrDuplicate = true
     let availableAlignments = [LayoutAlignment]()

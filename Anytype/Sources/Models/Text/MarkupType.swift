@@ -1,6 +1,7 @@
 import UIKit
 import BlocksModels
 import SwiftUI
+import AnytypeCore
 
 enum MarkupType: Equatable, Hashable, CaseIterable {
     case bold
@@ -13,6 +14,7 @@ enum MarkupType: Equatable, Hashable, CaseIterable {
     case link(URL?)
     case linkToObject(BlockId?)
     case mention(MentionData)
+    case emoji(Emoji)
 
     func hash(into hasher: inout Hasher) {
         switch self {
@@ -25,6 +27,8 @@ enum MarkupType: Equatable, Hashable, CaseIterable {
         case let .linkToObject(value):
             hasher.combine(value)
         case let .mention(value):
+            hasher.combine(value)
+        case let .emoji(value):
             hasher.combine(value)
         case .bold, .italic, .keyboard, .strikethrough, .underscored:
             break
@@ -53,6 +57,8 @@ enum MarkupType: Equatable, Hashable, CaseIterable {
             return "linkToObject"
         case .mention:
             return "mention"
+        case .emoji:
+            return "emoji"
         }
     }
 
