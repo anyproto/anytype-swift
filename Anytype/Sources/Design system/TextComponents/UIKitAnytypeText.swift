@@ -40,7 +40,11 @@ final class UIKitAnytypeText: Hashable {
     func typingAttributes(for cursorPosition: Int) -> [NSAttributedString.Key : Any] {
         // setup typingAttributes
         if cursorPosition == .zero {
-            return [.font: anytypeFont.uiKitFont, .paragraphStyle: paragraphStyle]
+            return [
+                .font: anytypeFont.uiKitFont,
+                .paragraphStyle: paragraphStyle,
+                .kern: anytypeFont.kern ?? 0
+            ]
         } else {
             let characterBeforeCursor = cursorPosition - 1
             let font = (attrString.attribute(.font, at: characterBeforeCursor, effectiveRange: nil) as? UIFont) ?? anytypeFont.uiKitFont

@@ -100,6 +100,7 @@ private extension RelationsBuilder {
                     name: relationMetadata.name,
                     isFeatured: relationMetadata.isFeatured(details: details),
                     isEditable: relationMetadata.isEditable,
+                    isBundled: relationMetadata.isBundled,
                     value: "Unsupported value".localized
                 )
             )
@@ -113,6 +114,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -133,6 +135,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: numberValue
             )
         )
@@ -145,6 +148,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -157,6 +161,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -169,6 +174,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -195,6 +201,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: selectedOption,
                 allOptions: options
             )
@@ -218,6 +225,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: value
             )
         )
@@ -230,6 +238,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.boolValue ?? false
             )
         )
@@ -258,6 +267,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 selectedTags: selectedTags,
                 allTags: tags
             )
@@ -314,6 +324,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 selectedObjects: objectOptions
             )
         )
@@ -379,6 +390,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 files: fileOptions
             )
         )

@@ -32,7 +32,6 @@ final class EditorPageController: UIViewController {
     }()
     
     private(set) var insetsHelper: ScrollViewContentInsetsHelper?
-    private var firstResponderHelper: FirstResponderHelper?
     private var contentOffset: CGPoint = .zero
     lazy var dividerCursorController = DividerCursorController(
         movingManager: viewModel.blocksStateManager,
@@ -101,7 +100,6 @@ final class EditorPageController: UIViewController {
         
         navigationBarHelper.handleViewWillAppear(controllerForNavigationItems, collectionView)
         
-        firstResponderHelper = FirstResponderHelper(scrollView: collectionView)
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView,
             stateManager: viewModel.blocksStateManager
@@ -120,7 +118,6 @@ final class EditorPageController: UIViewController {
         
         navigationBarHelper.handleViewWillDisappear()
         insetsHelper = nil
-        firstResponderHelper = nil
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -260,7 +257,6 @@ extension EditorPageController: EditorPageViewInput {
               let contentProvider = viewModel.modelsHolder.contentProvider(for: blockId) else {
                   return
               }
-
         reloadCell(for: dataSourceItem, using: contentProvider)
     }
 }
@@ -457,24 +453,9 @@ private extension EditorPageController {
     
     func applyBlocksSectionSnapshot(_ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>) {
         let selectedCells = collectionView.indexPathsForSelectedItems
-
-        UIView.performWithoutAnimation { [weak self] in
-            guard let self = self else { return }
-
-            self.dataSource.apply(snapshot, to: .main, animatingDifferences: true)
-            self.focusOnFocusedBlock()
-            selectedCells?.forEach {
-                self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
-            }
-        }
-    }
-    
-    private func focusOnFocusedBlock() {
-        let userSession = UserSession.shared
-        #warning("we should move this logic to TextBlockViewModel")
-        if let id = userSession.firstResponderId.value, let focusedAt = userSession.focus.value,
-           let blockViewModel = viewModel.modelsHolder.models.first(where: { $0.blockId == id }) as? TextBlockViewModel {
-            blockViewModel.set(focus: focusedAt)
+        dataSource.apply(snapshot, to: .main, animatingDifferences: false)
+        selectedCells?.forEach {
+            self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
         }
     }
 }

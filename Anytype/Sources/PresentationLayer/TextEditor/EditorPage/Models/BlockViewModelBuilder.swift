@@ -9,20 +9,18 @@ final class BlockViewModelBuilder {
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let pageService = PageService()
-    private let modelsholder: BlockViewModelsHolder
+    private let subjectsHolder = FocusSubjectsHolder()
 
     init(
         document: BaseDocumentProtocol,
         handler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
-        delegate: BlockDelegate,
-        modelsholder: BlockViewModelsHolder
+        delegate: BlockDelegate
     ) {
         self.document = document
         self.handler = handler
         self.router = router
         self.delegate = delegate
-        self.modelsholder = modelsholder
     }
 
     func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
@@ -38,12 +36,10 @@ final class BlockViewModelBuilder {
         case let .text(content):
             switch content.contentType {
             case .code:
-                viewModel = CodeBlockViewModel(
+                return CodeBlockViewModel(
                     block: block,
                     content: content,
-                    becomeFirstResponder: { [weak self] model in
-                        self?.delegate.becomeFirstResponder(blockId: model.information.id)
-                    },
+                    becomeFirstResponder: { _ in },
                     textDidChange: { block, textView in
                         self.handler.changeText(textView.attributedText, info: block.information)
                     },
@@ -59,7 +55,7 @@ final class BlockViewModelBuilder {
                 )
             default:
                 let isCheckable = content.contentType == .title ? document.objectDetails?.layout == .todo : false
-                viewModel = TextBlockViewModel(
+                return TextBlockViewModel(
                     block: block,
                     upperBlock: nil,
                     content: content,
@@ -71,13 +67,14 @@ final class BlockViewModelBuilder {
                     },
                     openURL: { [weak self] url in
                         self?.router.openUrl(url)
-                    }
+                    },
+                    focusSubject: subjectsHolder.focusSubject(for: block.information.id)
                 )
             }
         case let .file(content):
             switch content.contentType {
             case .file:
-                viewModel = BlockFileViewModel(
+                return BlockFileViewModel(
                     indentationLevel: block.indentationLevel,
                     information: block.information,
                     fileData: content,
@@ -89,9 +86,9 @@ final class BlockViewModelBuilder {
                     }
                 )
             case .none:
-                viewModel = UnknownLabelViewModel(information: block.information)
+                return UnknownLabelViewModel(information: block.information)
             case .image:
-                viewModel = BlockImageViewModel(
+                return BlockImageViewModel(
                     information: block.information,
                     fileData: content,
                     indentationLevel: block.indentationLevel,
@@ -103,7 +100,7 @@ final class BlockViewModelBuilder {
 
 
             case .video:
-                viewModel = VideoBlockViewModel(
+                return VideoBlockViewModel(
                     indentationLevel: block.indentationLevel,
                     information: block.information,
                     fileData: content,
@@ -115,7 +112,7 @@ final class BlockViewModelBuilder {
                     }
                 )
             case .audio:
-                viewModel = AudioBlockViewModel(
+                return AudioBlockViewModel(
                     indentationLevel: block.indentationLevel,
                     information: block.information,
                     fileData: content,
@@ -128,13 +125,13 @@ final class BlockViewModelBuilder {
                 )
             }
         case .divider(let content):
-            viewModel = DividerBlockViewModel(
+            return DividerBlockViewModel(
                 content: content,
                 information: block.information,
                 indentationLevel: block.indentationLevel
             )
         case let .bookmark(data):
-            viewModel = BlockBookmarkViewModel(
+            return BlockBookmarkViewModel(
                 indentationLevel: block.indentationLevel,
                 information: block.information,
                 bookmarkData: data,
@@ -147,7 +144,7 @@ final class BlockViewModelBuilder {
             )
         case let .link(content):
             let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID)
-            viewModel = BlockLinkViewModel(
+            return BlockLinkViewModel(
                 indentationLevel: block.indentationLevel,
                 information: block.information,
                 content: content,
@@ -159,7 +156,7 @@ final class BlockViewModelBuilder {
         case .featuredRelations:
             guard let objectType = document.objectDetails?.objectType else { return nil }
 
-            viewModel = FeaturedRelationsBlockViewModel(
+            return FeaturedRelationsBlockViewModel(
                 information: block.information,
                 featuredRelation: document.parsedRelations.featuredRelationsForEditor(type: objectType, objectRestriction: document.objectRestrictions.objectRestriction),
                 type: objectType.name
@@ -185,7 +182,7 @@ final class BlockViewModelBuilder {
                 return nil
             }
 
-            viewModel = RelationBlockViewModel(
+            return RelationBlockViewModel(
                 information: block.information,
                 indentationLevel: block.indentationLevel,
                 relation: relation) { [weak self] relation in
@@ -197,15 +194,8 @@ final class BlockViewModelBuilder {
             guard block.parent?.information.content.type != .layout(.header) else {
                 return nil
             }
-            viewModel = UnsupportedBlockViewModel(information: block.information)
+            return  UnsupportedBlockViewModel(information: block.information)
         }
-
-        if let existingModel = modelsholder.modelsMapping[block.information.id],
-            existingModel.hashable == viewModel?.hashable {
-            return existingModel
-        }
-
-        return viewModel
     }
 
     // MARK: - Actions

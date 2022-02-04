@@ -10,12 +10,9 @@ public protocol BlockModelProtocol {
     var kind: BlockKind { get }
 
     var indentationLevel: Int { get set }
-    var isFirstResponder: Bool { get set }
     var isToggled: Bool { get }
-    var focusAt: BlockFocusPosition? { get set }
 
     func toggle()
-    func unsetFirstResponder()
 }
 
 public extension BlockInformation {

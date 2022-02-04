@@ -157,7 +157,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     // MARK: - Public methods
     func changeCaretPosition(range: NSRange) {
-        UserSession.shared.focus.value = .at(range)
+        
     }
     
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
