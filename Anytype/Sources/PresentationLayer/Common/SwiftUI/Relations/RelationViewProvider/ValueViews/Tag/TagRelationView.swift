@@ -27,14 +27,14 @@ struct TagRelationView: View {
     }
 
     private var withMoreTagsView: some View {
-        var newTags = tags
-        if maxTags > 0 {
-            newTags = Array(tags.prefix(maxTags))
-        }
+        let leftTagsCount = (tags.count - maxTags) > 0 ? tags.count - maxTags : 0
 
         return HStack(spacing: hSpacing) {
-            contnetView(tags: newTags)
-            moreTagsView
+            contnetView(tags: Array(tags.prefix(maxTags)))
+
+            if leftTagsCount > 0 {
+                moreTagsView(count: leftTagsCount)
+            }
         }
         .padding(.horizontal, 1)
     }
@@ -45,8 +45,8 @@ struct TagRelationView: View {
         }
     }
 
-    private var moreTagsView: some View {
-        let leftTagsCount = "+\(tags.count - maxTags)"
+    private func moreTagsView(count: Int) -> some View {
+        let leftTagsCount = "+\(count)"
 
         return AnytypeText(leftTagsCount, style: .relation2Regular, color: .textSecondary)
             .lineLimit(1)
