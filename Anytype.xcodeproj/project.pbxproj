@@ -165,6 +165,7 @@
 		123FDADD26C17CBA00F6F44B /* ObjectHeaderCover.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDADC26C17CBA00F6F44B /* ObjectHeaderCover.swift */; };
 		123FDB0226C2BF9500F6F44B /* ObjectHeaderLocalEventsListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDB0126C2BF9500F6F44B /* ObjectHeaderLocalEventsListener.swift */; };
 		123FDB0726C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123FDB0626C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift */; };
+		1240EAF627B13D6B005B501E /* UIDeviceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1240EAF527B13D6B005B501E /* UIDeviceExtension.swift */; };
 		12426A1126DCE1A400693B1F /* ImageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12426A1026DCE1A400693B1F /* ImageBuilder.swift */; };
 		12426A1626DCE1B900693B1F /* ImageBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12426A1526DCE1B900693B1F /* ImageBuilderProtocol.swift */; };
 		12426A2526DCF95F00693B1F /* KFProcessorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12426A2426DCF95F00693B1F /* KFProcessorBuilder.swift */; };
@@ -1046,6 +1047,7 @@
 		123FDADC26C17CBA00F6F44B /* ObjectHeaderCover.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderCover.swift; sourceTree = "<group>"; };
 		123FDB0126C2BF9500F6F44B /* ObjectHeaderLocalEventsListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderLocalEventsListener.swift; sourceTree = "<group>"; };
 		123FDB0626C2C16F00F6F44B /* ObjectHeaderLocalEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderLocalEvent.swift; sourceTree = "<group>"; };
+		1240EAF527B13D6B005B501E /* UIDeviceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDeviceExtension.swift; sourceTree = "<group>"; };
 		12426A1026DCE1A400693B1F /* ImageBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBuilder.swift; sourceTree = "<group>"; };
 		12426A1526DCE1B900693B1F /* ImageBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageBuilderProtocol.swift; sourceTree = "<group>"; };
 		12426A2426DCF95F00693B1F /* KFProcessorBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KFProcessorBuilder.swift; sourceTree = "<group>"; };
@@ -2070,6 +2072,7 @@
 				EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */,
 				5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */,
 				EA2F0D6C264EBA1B0039C1CB /* TextChangeType.swift */,
+				1240EAF527B13D6B005B501E /* UIDeviceExtension.swift */,
 			);
 			path = FrameworkExtensions;
 			sourceTree = "<group>";
@@ -6074,6 +6077,7 @@
 				12EB9AF12771CD6600BA732F /* RelationOptionsViewModel.swift in Sources */,
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
 				12C2A59D2757A6E000311854 /* StatusRelationDetailsViewModel.swift in Sources */,
+				1240EAF627B13D6B005B501E /* UIDeviceExtension.swift in Sources */,
 				125B6EC026F235F400BCD7D6 /* CursorModeAccessoryViewItem.swift in Sources */,
 				C96A69AA273CD97700A07C3C /* BlockConfigurationProtocol.swift in Sources */,
 				3D0BCA982664EFEC002F7A0D /* DropData.swift in Sources */,
