@@ -18,7 +18,10 @@ struct OtherSettingsView: View {
         }
         .background(Color.backgroundSecondary)
         .cornerRadius(16)
-        .padding(.horizontal, 8)
+        .if(UIDevice.isPhone) {
+            $0.padding(.horizontal, 8)
+        }
+        
     }
 
     private var appearanceType: some View {
