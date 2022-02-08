@@ -51,7 +51,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private var movingBlocksWithChildsIndexPaths = [[IndexPath]]()
 
     private let document: BaseDocumentProtocol
-    private let modelsHolder: BlockViewModelsHolder
+    private let modelsHolder: EditorMainItemModelsHolder
     private let blockActionsService: BlockActionsServiceSingle
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
@@ -62,7 +62,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     init(
         document: BaseDocumentProtocol,
-        modelsHolder: BlockViewModelsHolder,
+        modelsHolder: EditorMainItemModelsHolder,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         blockActionsService: BlockActionsServiceSingle,
         actionHandler: BlockActionHandlerProtocol,
@@ -81,7 +81,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     // MARK: - EditorPageSelectionManagerProtocol
 
     func canSelectBlock(at indexPath: IndexPath) -> Bool {
-        guard let block = element(at: indexPath) else { return false }
+        guard let block = modelsHolder.blockViewModel(at: indexPath.row) else { return false }
 
         if block.content.type == .text(.title) ||
             block.content.type == .featuredRelations {
@@ -94,7 +94,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     func didLongTap(at indexPath: IndexPath) {
         guard canSelectBlock(at: indexPath) else { return }
 
-        element(at: indexPath).map {
+        modelsHolder.blockViewModel(at: indexPath.row).map {
             didSelectEditingState(on: $0.information)
         }
     }
@@ -104,7 +104,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
         blocksSelectionOverlayViewModel?.setSelectedBlocksCount(indexPaths.count)
 
-        let blocksInformation = indexPaths.compactMap { element(at: $0)?.information }
+        let blocksInformation = indexPaths.compactMap {
+            modelsHolder.blockViewModel(at: $0.row)?.information
+        }
         updateSelectionContent(selectedBlocks: blocksInformation)
     }
 
@@ -131,14 +133,14 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
         let notAllowedTypes: [BlockContentType] = [.text(.title), .featuredRelations]
 
-        if let element = modelsHolder.models[safe: indexPath.row],
+        if let element = modelsHolder.blockViewModel(at: indexPath.row),
            !notAllowedTypes.contains(element.content.type) {
             movingDestination = .position(indexPath)
             return true
         }
 
         // Divider can be placed at the bottom of last cell.
-        if indexPath.row == modelsHolder.models.count {
+        if indexPath.row == modelsHolder.items.count {
             movingDestination = .position(indexPath)
             return true
         }
@@ -148,7 +150,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     func canMoveItemsToObject(at indexPath: IndexPath) -> Bool {
         guard !movingBlocksWithChildsIndexPaths.flatMap({ $0 }).contains(indexPath),
-              let element = modelsHolder.models[safe: indexPath.row] else { return false }
+              let element = modelsHolder.blockViewModel(at: indexPath.row) else { return false }
 
         switch element.content.type {
         case .file, .divider, .relation,
@@ -215,10 +217,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 dropTargetId = blockId
             }
         case let .position(positionIndexPath):
-            if let targetBlock = modelsHolder.models[safe: positionIndexPath.row] {
+            if let targetBlock = modelsHolder.blockViewModel(at: positionIndexPath.row) {
                 position = .top
                 dropTargetId = targetBlock.blockId
-            } else if let targetBlock = modelsHolder.models[safe: positionIndexPath.row - 1] {
+            } else if let targetBlock = modelsHolder.blockViewModel(at: positionIndexPath.row - 1) {
                 position = .bottom
                 dropTargetId = targetBlock.blockId
             } else {
@@ -233,7 +235,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
         let blockIds = movingBlocksIndexPaths
             .sorted()
-            .compactMap { element(at: $0)?.blockId }
+            .compactMap { modelsHolder.blockViewModel(at: $0.row)?.blockId }
 
         blockActionsService.move(
             contextId: contextId,
@@ -251,7 +253,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     private func handleBlocksOptionItemSelection(_ item: BlocksOptionItem) {
-        let elements = selectedBlocksIndexPaths.compactMap(element(at:))
+        let elements = selectedBlocksIndexPaths.compactMap { modelsHolder.blockViewModel(at: $0.row) }
 
         switch item {
         case .delete:
@@ -273,7 +275,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .move:
             var onlyRootIndexPaths = selectedBlocksIndexPaths
             let allMovingBlocks = selectedBlocksIndexPaths.map { indexPath -> [IndexPath] in
-                guard let model = modelsHolder.models[safe: indexPath.row] else { return [] }
+                guard let model = modelsHolder.blockViewModel(at: indexPath.row) else { return [] }
 
                 var childIndexPaths = modelsHolder.allChildIndexes(for: model)
                     .map { IndexPath(row: $0, section: indexPath.section) }
@@ -309,10 +311,6 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
         editingState = .editing
     }
-
-    private func element(at: IndexPath) -> BlockViewModelProtocol? {
-        modelsHolder.models[safe: at.row]
-    }
 }
 
 extension EditorPageBlocksStateManager: BlockSelectionHandler {
@@ -322,7 +320,7 @@ extension EditorPageBlocksStateManager: BlockSelectionHandler {
     }
 }
 
-extension BlockViewModelsHolder {
+extension EditorMainItemModelsHolder {
     func allChildIndexes(for block: BlockViewModelProtocol) -> [Int] {
         allIndexes(for: block.information.childrenIds)
     }
@@ -331,13 +329,13 @@ extension BlockViewModelsHolder {
         var indexes = [Int]()
 
         for child in childs {
-            guard let index = models.firstIndex(where: { block in block.blockId == child } ) else {
+            guard let index = items.firstIndex(blockId: child) else {
                 continue
             }
 
             indexes.append(index)
 
-            let modelChilds = models[index].information.childrenIds
+            guard let modelChilds = blockViewModel(at: index)?.information.childrenIds else { continue }
             indexes.append(contentsOf: allIndexes(for: modelChilds))
         }
 

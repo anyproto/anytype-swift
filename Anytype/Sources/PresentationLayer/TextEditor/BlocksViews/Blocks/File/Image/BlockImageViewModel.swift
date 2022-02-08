@@ -11,8 +11,6 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         let image: ImageSource
         let imageView: UIImageView
     }
-
-    var upperBlock: BlockModelProtocol?
     
     var hashable: AnyHashable {
         [

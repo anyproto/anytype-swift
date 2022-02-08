@@ -12,7 +12,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     let blocksStateManager: EditorPageBlocksStateManagerProtocol
 
     let document: BaseDocumentProtocol
-    let modelsHolder: BlockViewModelsHolder
+    let modelsHolder: EditorMainItemModelsHolder
     let blockDelegate: BlockDelegate
     
     let router: EditorRouterProtocol
@@ -45,7 +45,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockDelegate: BlockDelegate,
         objectSettinsViewModel: ObjectSettingsViewModel,
         router: EditorRouterProtocol,
-        modelsHolder: BlockViewModelsHolder,
+        modelsHolder: EditorMainItemModelsHolder,
         blockBuilder: BlockViewModelBuilder,
         actionHandler: BlockActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
@@ -114,12 +114,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             )
             updateHeaderIfNeeded(header: header, details: details)
 
-            let featuredRelationsBlock = modelsHolder.models.first { blockModel in
-                if case .featuredRelations = blockModel.content {
-                    return true
-                }
-                return false
-            }
+            let featuredRelationsBlock = modelsHolder.items.firstFeatureRelationBlock
             if let featuredRelationsBlockViewModel = featuredRelationsBlock as? FeaturedRelationsBlockViewModel {
                 let diffrerence = difference(with: Set([featuredRelationsBlockViewModel.blockId]))
                 modelsHolder.applyDifference(difference: diffrerence)

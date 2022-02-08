@@ -328,7 +328,7 @@ private extension EditorPageController {
             switch $0 {
             case let .block(block):
                 return block.information.id == blockId
-            case .header:
+            case .header, .system:
                 return false
             }
         }
@@ -360,26 +360,16 @@ private extension EditorPageController {
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<EditorSection, EditorItem> {
         let headerCellRegistration = createHeaderCellRegistration()
         let cellRegistration = createCellRegistration()
-        let codeCellRegistration = createCodeCellRegistration()
-        
+        let systemCellRegistration = createSystemCellRegistration()
+
         let dataSource = UICollectionViewDiffableDataSource<EditorSection, EditorItem>(
             collectionView: collectionView
         ) { [weak self] (collectionView, indexPath, dataSourceItem) -> UICollectionViewCell? in
             let cell: UICollectionViewCell
             switch dataSourceItem {
             case let .block(block):
-                guard case .text(.code) = block.content.type else {
-                    cell = collectionView.dequeueConfiguredReusableCell(
-                        using: cellRegistration,
-                        for: indexPath,
-                        item: block
-                    )
-
-                    break
-                }
-                
-                cell =  collectionView.dequeueConfiguredReusableCell(
-                    using: codeCellRegistration,
+                cell = collectionView.dequeueConfiguredReusableCell(
+                    using: cellRegistration,
                     for: indexPath,
                     item: block
                 )
@@ -388,6 +378,12 @@ private extension EditorPageController {
                     using: headerCellRegistration,
                     for: indexPath,
                     item: header
+                )
+            case let .system(configuration):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: systemCellRegistration,
+                    for: indexPath,
+                    item: configuration
                 )
             }
 
@@ -427,9 +423,11 @@ private extension EditorPageController {
         }
     }
     
-    func createCodeCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, BlockViewModelProtocol> {
-        .init { [weak self] (cell, indexPath, item) in
-            self?.setupCell(cell: cell, indexPath: indexPath, item: item)
+    func createSystemCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, SystemContentConfiguationProvider> {
+        .init { (cell, indexPath, item) in
+            cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.indentationWidth = Constants.cellIndentationWidth
+            cell.indentationLevel = item.indentationLevel
         }
     }
     

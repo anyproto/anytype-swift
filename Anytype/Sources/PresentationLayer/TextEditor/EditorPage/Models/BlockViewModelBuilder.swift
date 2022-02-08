@@ -57,7 +57,6 @@ final class BlockViewModelBuilder {
                 let isCheckable = content.contentType == .title ? document.objectDetails?.layout == .todo : false
                 return TextBlockViewModel(
                     block: block,
-                    upperBlock: nil,
                     content: content,
                     isCheckable: isCheckable,
                     blockDelegate: delegate,
@@ -154,25 +153,26 @@ final class BlockViewModelBuilder {
                 }
             )
         case .featuredRelations:
-            guard let objectType = document.objectDetails?.objectType else { return nil }
-
-            return FeaturedRelationsBlockViewModel(
-                information: block.information,
-                featuredRelation: document.parsedRelations.featuredRelationsForEditor(type: objectType, objectRestriction: document.objectRestrictions.objectRestriction),
-                type: objectType.name
-            ) { [weak self] relation in
-                guard let self = self else { return }
-
-                if relation.id == BundledRelationKey.type.rawValue {
-                    self.router.showTypesSearch(
-                        onSelect: { [weak self] id in
-                            self?.handler.setObjectTypeUrl(id)
-                        }
-                    )
-                } else {
-                    self.router.showRelationValueEditingView(key: relation.id)
-                }
-            }
+            return nil
+//            guard let objectType = document.objectDetails?.objectType else { return nil }
+//
+//            return FeaturedRelationsBlockViewModel(
+//                information: block.information,
+//                featuredRelation: document.parsedRelations.featuredRelationsForEditor(type: objectType, objectRestriction: document.objectRestrictions.objectRestriction),
+//                type: objectType.name
+//            ) { [weak self] relation in
+//                guard let self = self else { return }
+//
+//                if relation.id == BundledRelationKey.type.rawValue {
+//                    self.router.showTypesSearch(
+//                        onSelect: { [weak self] id in
+//                            self?.handler.setObjectTypeUrl(id)
+//                        }
+//                    )
+//                } else {
+//                    self.router.showRelationValueEditingView(key: relation.id)
+//                }
+//            }
         case let .relation(content):
             let relation = document.parsedRelations.all.first {
                 $0.id == content.key
