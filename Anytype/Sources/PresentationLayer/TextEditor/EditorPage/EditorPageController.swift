@@ -189,23 +189,17 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func update(
-        changes: CollectionDifference<BlockViewModelProtocol>?,
-        allModels: [BlockViewModelProtocol]
+        changes: CollectionDifference<EditorItem>?,
+        allModels: [EditorItem]
     ) {
         var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
-        blocksSnapshot.append(allModels.map { EditorItem.block($0) })
-
-        var changedIndexes = [BlockId]()
+        blocksSnapshot.append(allModels)
 
         if let changes = changes {
             for change in changes.insertions {
-                changedIndexes.append(change.element.blockId)
+                guard blocksSnapshot.isVisible(change.element) else { continue }
 
-                guard let viewModel = allModels[safe: change.offset],
-                      let item = blocksSnapshot.items[safe: change.offset],
-                      blocksSnapshot.isVisible(item) else { continue }
-
-                reloadCell(for: item, using: viewModel)
+                reloadCell(for: change.element)
             }
         }
 
@@ -215,10 +209,9 @@ extension EditorPageController: EditorPageViewInput {
     func selectBlock(blockId: BlockId) {
         if let item = dataSourceItem(for: blockId),
             let indexPath = dataSource.indexPath(for: item) {
-            reloadCell(
-                for: item,
-                using: viewModel.modelsHolder.contentProvider(for: item)
-            )
+            viewModel.modelsHolder.contentProvider(for: item)
+                .map(reloadCell(for:))
+
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         }
 
@@ -253,11 +246,9 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func blockDidFinishEditing(blockId: BlockId) {
-        guard let dataSourceItem = dataSourceItem(for: blockId),
-              let contentProvider = viewModel.modelsHolder.contentProvider(for: blockId) else {
-                  return
-              }
-        reloadCell(for: dataSourceItem, using: contentProvider)
+        guard let newItem = viewModel.modelsHolder.contentProvider(for: blockId) else { return }
+
+        reloadCell(for: .block(newItem))
     }
 }
 
@@ -312,16 +303,22 @@ private extension EditorPageController {
         deletedScreen.isHidden = true
     }
 
-    func reloadCell(
-        for item: EditorItem,
-        using contentProvider: ContentConfigurationProvider?
-    ) {
+    func reloadCell(for item: EditorItem) {
         guard let indexPath = dataSource.indexPath(for: item),
               let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
 
-        cell.contentConfiguration = contentProvider?.makeContentConfiguration(maxWidth: cell.bounds.width)
-        cell.indentationLevel = contentProvider?.indentationLevel ?? 0
+        switch item {
+        case .header: break
+        case .block(let blockViewModel):
+            cell.contentConfiguration = blockViewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.indentationLevel = blockViewModel.indentationLevel 
+        case .system(let systemContentConfiguationProvider):
+            cell.contentConfiguration = systemContentConfiguationProvider.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.indentationLevel = systemContentConfiguationProvider.indentationLevel 
+        }
     }
+
+
 
     func dataSourceItem(for blockId: BlockId) -> EditorItem? {
         dataSource.snapshot().itemIdentifiers.first {

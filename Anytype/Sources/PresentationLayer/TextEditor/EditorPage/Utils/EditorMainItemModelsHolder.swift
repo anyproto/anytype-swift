@@ -42,12 +42,13 @@ extension EditorMainItemModelsHolder {
         blocksMapping[blockId]
     }
 
-    func contentProvider(for item: EditorItem) -> BlockViewModelProtocol?  {
+    func contentProvider(for item: EditorItem) -> EditorItem?  {
         switch item {
         case .header, .system:
             return nil
         case .block(let blockViewModelProtocol):
             return contentProvider(for: blockViewModelProtocol.blockId)
+                .map { EditorItem.block($0) }
         }
     }
 
@@ -97,12 +98,23 @@ extension Array where Element == EditorItem {
         }
     }
 
-    var firstFeatureRelationBlock: BlockViewModelProtocol? {
-        let item = first { blockModel  in
-            if case let .block(block) = blockModel, case .featuredRelations = block.content {
-                return true
+    var firstFeatureRelationViewModel: FeaturedRelationsBlockViewModel? {
+        first { element -> FeaturedRelationsBlockViewModel? in
+            if case let .block(block) = element, case .featuredRelations = block.content {
+                return block as? FeaturedRelationsBlockViewModel
             }
-            return false
-        }                                                                                                                                              
+
+            return nil
+        }
+    }
+
+    var onlyBlockViewModels: [BlockViewModelProtocol] {
+        compactMap { element -> BlockViewModelProtocol? in
+            if case let .block(block) = element {
+                return block
+            }
+
+            return nil
+        }
     }
 }

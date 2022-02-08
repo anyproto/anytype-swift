@@ -6,9 +6,7 @@ protocol BlockViewModelProtocol:
     ContentConfigurationProvider,
     BlockDataProvider,
     BlockFocusing
-{
-    func didSelectRowInTableView()
-}
+{ }
 
 protocol HashableProvier {
     var hashable: AnyHashable { get }
@@ -21,6 +19,8 @@ protocol ContentConfigurationProvider {
 }
 
 protocol BlockFocusing {
+    func didSelectRowInTableView()
+
     func set(focus: BlockFocusPosition)
 }
 

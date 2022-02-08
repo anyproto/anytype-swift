@@ -6,8 +6,8 @@ protocol EditorPageViewInput: AnyObject {
     
     func update(header: ObjectHeader, details: ObjectDetails?)
     func update(
-        changes: CollectionDifference<BlockViewModelProtocol>?,
-        allModels: [BlockViewModelProtocol]
+        changes: CollectionDifference<EditorItem>?,
+        allModels: [EditorItem]
     )
     func update(syncStatus: SyncStatus)
         

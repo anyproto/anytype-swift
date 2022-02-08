@@ -1,4 +1,4 @@
-typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier)
+typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing)
 
 enum EditorItem: Hashable {
     
@@ -27,6 +27,17 @@ enum EditorItem: Hashable {
             hasher.combine(header)
         case let.system(system):
             hasher.combine(system.hashable)
+        }
+    }
+}
+
+extension EditorItem {
+    func didSelect() {
+        switch self {
+        case .header: return
+        case .block(let blockViewModelProtocol): blockViewModelProtocol.didSelectRowInTableView()
+        case .system(let systemContentConfiguationProvider):
+            systemContentConfiguationProvider.didSelectRowInTableView()
         }
     }
 }

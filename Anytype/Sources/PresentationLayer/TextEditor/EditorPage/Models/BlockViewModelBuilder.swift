@@ -23,15 +23,29 @@ final class BlockViewModelBuilder {
         self.delegate = delegate
     }
 
-    func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
+    func buildEditorItems(from blocks: [BlockModelProtocol]) -> [EditorItem] {
+        let blockViewModels = build(blocks)
+        var editorItems = blockViewModels.map (EditorItem.block)
+
+        let featureRelationsIndex = blockViewModels.firstIndex {
+            if case let .featuredRelations = $0.content { return true }
+
+            return false
+        }
+
+//        let insetViewModel:
+
+        return editorItems
+    }
+
+    private func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
         blocks.compactMap { block -> BlockViewModelProtocol? in
-            let blockViewModel = build(block, previousBlock: nil)
+            let blockViewModel = build(from: block)
             return blockViewModel
         }
     }
 
-    func build(_ block: BlockModelProtocol, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
-        let viewModel: BlockViewModelProtocol?
+    func build(from block: BlockModelProtocol) -> BlockViewModelProtocol? {
         switch block.information.content {
         case let .text(content):
             switch content.contentType {
