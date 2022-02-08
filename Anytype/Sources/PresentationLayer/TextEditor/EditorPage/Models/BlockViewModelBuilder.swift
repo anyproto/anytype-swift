@@ -27,13 +27,12 @@ final class BlockViewModelBuilder {
         let blockViewModels = build(blocks)
         var editorItems = blockViewModels.map (EditorItem.block)
 
-        let featureRelationsIndex = blockViewModels.firstIndex {
-            if case let .featuredRelations = $0.content { return true }
+        let featureRelationsIndex = blockViewModels.firstIndex { $0.content == .featuredRelations }
 
-            return false
+        if let featureRelationsIndex = featureRelationsIndex {
+            let spacer = SpacerBlockViewModel(usage: .firstRowOffset)
+            editorItems.insert(.system(spacer), at: featureRelationsIndex + 1)
         }
-
-//        let insetViewModel:
 
         return editorItems
     }
@@ -167,26 +166,25 @@ final class BlockViewModelBuilder {
                 }
             )
         case .featuredRelations:
-            return nil
-//            guard let objectType = document.objectDetails?.objectType else { return nil }
-//
-//            return FeaturedRelationsBlockViewModel(
-//                information: block.information,
-//                featuredRelation: document.parsedRelations.featuredRelationsForEditor(type: objectType, objectRestriction: document.objectRestrictions.objectRestriction),
-//                type: objectType.name
-//            ) { [weak self] relation in
-//                guard let self = self else { return }
-//
-//                if relation.id == BundledRelationKey.type.rawValue {
-//                    self.router.showTypesSearch(
-//                        onSelect: { [weak self] id in
-//                            self?.handler.setObjectTypeUrl(id)
-//                        }
-//                    )
-//                } else {
-//                    self.router.showRelationValueEditingView(key: relation.id)
-//                }
-//            }
+            guard let objectType = document.objectDetails?.objectType else { return nil }
+
+            return FeaturedRelationsBlockViewModel(
+                information: block.information,
+                featuredRelation: document.parsedRelations.featuredRelationsForEditor(type: objectType, objectRestriction: document.objectRestrictions.objectRestriction),
+                type: objectType.name
+            ) { [weak self] relation in
+                guard let self = self else { return }
+
+                if relation.id == BundledRelationKey.type.rawValue {
+                    self.router.showTypesSearch(
+                        onSelect: { [weak self] id in
+                            self?.handler.setObjectTypeUrl(id)
+                        }
+                    )
+                } else {
+                    self.router.showRelationValueEditingView(key: relation.id)
+                }
+            }
         case let .relation(content):
             let relation = document.parsedRelations.all.first {
                 $0.id == content.key
