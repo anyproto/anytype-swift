@@ -20,8 +20,7 @@ final class MentionMarkupEventProvider {
     
     func updateMentionsEvent() -> EventsListenerUpdate {
         let blockIds = blocksContainer
-            .childrenIds(of: objectId)
-            .compactMap { blocksContainer.model(id: $0) }
+            .children(of: objectId)
             .compactMap { updateIfNeeded(model: $0) }
         
         return .blocks(blockIds: Set(blockIds))

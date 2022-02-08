@@ -68,7 +68,7 @@ final class BaseDocument: BaseDocumentProtocol {
             anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)
             return []
         }
-        return BlockFlattener.flatten(model: model, container: blocksContainer)
+        return BlockFlattener(container: blocksContainer).flatten(model: model)
     }
 
     // MARK: - Private methods
