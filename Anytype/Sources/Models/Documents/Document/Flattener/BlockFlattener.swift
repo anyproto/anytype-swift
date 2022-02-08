@@ -1,6 +1,5 @@
 import BlocksModels
 
-
 /// Input:
 /// A -> [B, C, D]
 /// B -> [X]
@@ -24,12 +23,12 @@ final class BlockFlattener {
         
         while !stack.isEmpty {
             if let model = stack.pop() {
-                // Skip meta blocks
-                if model.kind == .block { result.append(model) }
+                if model.kind == .block { result.append(model) } // Skip meta blocks
                 
                 let children = children(model: model)
                 
-                normalizeBlockNumber(blocks: children)
+                updateBlockNumberCount(models: children)
+                
                 for item in children.reversed() {
                     stack.push(item)
                 }
@@ -47,27 +46,17 @@ final class BlockFlattener {
         return container.children(of: model.information.id)
     }
     
-    /// Check numbered blocks that it has correct number in numbered list.
-    func normalizeBlockNumber(blocks: [BlockModelProtocol]) {
+    func updateBlockNumberCount(models: [BlockModelProtocol]) {
         var number: Int = 0
         
-        for blockModel in blocks {
-            switch blockModel.information.content {
-            case let .text(value) where value.contentType == .numbered:
+        models.forEach { model in
+            switch model.information.content {
+            case let .text(text) where text.contentType == .numbered:
                 number += 1
-                var blockModel = blockModel
-                
-                blockModel.information.content = .text(
-                    .init(
-                        text: value.text,
-                        marks: value.marks,
-                        color: value.color,
-                        contentType: value.contentType,
-                        checked: value.checked,
-                        number: number
-                    )
-                )
-            default: number = 0
+                var model = model
+                model.information.content = .text(text.updated(number: number))
+            default:
+                number = 0
             }
         }
     }
