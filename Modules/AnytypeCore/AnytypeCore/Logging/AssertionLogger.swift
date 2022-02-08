@@ -65,7 +65,7 @@ public enum ErrorDomain: String {
     case subscriptionStorage
     
     case homeView
-
+    case baseDocument
     
     case iconPicker
     
