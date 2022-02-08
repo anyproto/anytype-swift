@@ -798,7 +798,6 @@
 		EA57F41D26B99937007D4292 /* MarkupViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA57F41A26B99937007D4292 /* MarkupViewModelProtocol.swift */; };
 		EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA5FB424266A970E00DCD56C /* MentionObject.swift */; };
 		EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */; };
-		EA6BAF40260C8D750062273F /* NumberedBlockNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA6BAF3F260C8D750062273F /* NumberedBlockNormalizer.swift */; };
 		EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E540262DEC3F009F91D9 /* ButtonsFactory.swift */; };
 		EA77E545262DED67009F91D9 /* UIImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA77E544262DED67009F91D9 /* UIImageExtension.swift */; };
 		EAA70348264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */; };
@@ -1671,7 +1670,6 @@
 		EA57F41A26B99937007D4292 /* MarkupViewModelProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MarkupViewModelProtocol.swift; sourceTree = "<group>"; };
 		EA5FB424266A970E00DCD56C /* MentionObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MentionObject.swift; sourceTree = "<group>"; };
 		EA6279AA26317CCA00670715 /* UIScreen+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScreen+Convenience.swift"; sourceTree = "<group>"; };
-		EA6BAF3F260C8D750062273F /* NumberedBlockNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberedBlockNormalizer.swift; sourceTree = "<group>"; };
 		EA77E540262DEC3F009F91D9 /* ButtonsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsFactory.swift; sourceTree = "<group>"; };
 		EA77E544262DED67009F91D9 /* UIImageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageExtension.swift; sourceTree = "<group>"; };
 		EAA70347264432FA00C4F7F7 /* CollectionDifference.Change+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionDifference.Change+Convenience.swift"; sourceTree = "<group>"; };
@@ -4551,7 +4549,6 @@
 			isa = PBXGroup;
 			children = (
 				0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */,
-				EA6BAF3F260C8D750062273F /* NumberedBlockNormalizer.swift */,
 			);
 			path = Flattener;
 			sourceTree = "<group>";
@@ -6070,7 +6067,6 @@
 				123949FC27A017110080E1CF /* RelationOptionsSearchType.swift in Sources */,
 				53D6EE44265E4D9700C47263 /* EditorRouter.swift in Sources */,
 				3DB981222750E2BA00ECC882 /* Comparable+Clamped.swift in Sources */,
-				EA6BAF40260C8D750062273F /* NumberedBlockNormalizer.swift in Sources */,
 				12636CF0276A069D0084D35D /* RelationScopedOptionProtocol.swift in Sources */,
 				0A1F0D9324DDCE0100A8B488 /* AboutView.swift in Sources */,
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,

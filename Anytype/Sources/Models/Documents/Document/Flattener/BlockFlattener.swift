@@ -1,18 +1,13 @@
 import BlocksModels
 
 
-/// ```
 /// Input:
 /// A -> [B, C, D]
-///
 /// B -> [X]
 /// C -> [Y]
 /// D -> [Z]
-/// ```
 ///
-/// ```
 /// Result: [A, B, X, C, Y, D, Z]
-/// ```
 /// It is like a left-order traversing of tree, but we have to output parents first.
 ///
 final class BlockFlattener {
@@ -20,29 +15,8 @@ final class BlockFlattener {
     static func flatten(
         model: BlockModelProtocol, container: BlockContainerModelProtocol
     ) -> [BlockModelProtocol] {
-        let ids = flattenIds(model: model, container: container)
+        let ids = _flatten(model: model, container: container)
         return ids.compactMap { container.model(id: $0) }
-    }
-    
-    static func flattenIds(
-        model: BlockModelProtocol, container: BlockContainerModelProtocol
-    ) -> [BlockId] {
-        /// Fix it.
-        /// Because `ShouldKeep` template method will flush out all unnecessary blocks from list.
-        /// There is no need to skip first block ( or parent block ) if it is already skipped by `ShouldKeep`.
-        ///
-        /// But for any other parent block it will work properly.
-        ///
-        let rootItemIsAlreadySkipped = !self.shouldKeep(blockId: model.information.id, blocksContainer: container)
-        
-        let flattenIds = _flatten(model: model, container: container)
-        
-        if rootItemIsAlreadySkipped {
-            return flattenIds
-        }
-        else {
-            return Array(flattenIds.dropFirst())
-        }
     }
 }
 
@@ -58,9 +32,9 @@ private extension BlockFlattener {
         
         switch model.information.content {
         case let .text(value) where value.contentType == .toggle:
-            return processedToggle(blockId: blockId, container: container)
+            return toggleChildren(blockId: blockId, container: container)
         default:
-            return container.children(of: blockId)
+            return container.childrenIds(of: blockId)
         }
     }
     
@@ -71,29 +45,54 @@ private extension BlockFlattener {
         
         while !stack.isEmpty {
             if let value = stack.pop() {
-                /// Various flatteners?
                 if self.shouldKeep(blockId: value, blocksContainer: container) {
                     result.append(value)
                 }
                 
-                /// Do numbered stuff?
                 let children = filteredChildren(blockId: value, container: container)
-                NumberedBlockNormalizer().normalize(children, in: container)
+                normalizeBlockNumber(blockIds: children, container: container)
                 for item in children.reversed() {
                     stack.push(item)
                 }
             }
         }
+        
         return result
     }
     
-    static func processedToggle(blockId: BlockId, container: BlockContainerModelProtocol) -> [BlockId] {
+    static func toggleChildren(blockId: BlockId, container: BlockContainerModelProtocol) -> [BlockId] {
         let isToggled = UserSession.shared.isToggled(blockId: blockId)
         if isToggled {
-            return container.children(of: blockId)
+            return container.childrenIds(of: blockId)
         }
         else {
             return []
+        }
+    }
+    
+    /// Check numbered blocks that it has correct number in numbered list.
+    static func normalizeBlockNumber(blockIds: [BlockId], container: BlockContainerModelProtocol) {
+        var number: Int = 0
+        
+        for id in blockIds {
+            if var blockModel = container.model(id: id) {
+                switch blockModel.information.content {
+                case let .text(value) where value.contentType == .numbered:
+                    number += 1
+                    
+                    blockModel.information.content = .text(
+                        .init(
+                            text: value.text,
+                            marks: value.marks,
+                            color: value.color,
+                            contentType: value.contentType,
+                            checked: value.checked,
+                            number: number
+                        )
+                    )
+                default: number = 0
+                }
+            }
         }
     }
 }

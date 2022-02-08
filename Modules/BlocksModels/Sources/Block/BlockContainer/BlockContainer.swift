@@ -11,7 +11,7 @@ public final class BlockContainer: BlockContainerModelProtocol {
     
     public init() {}
     
-    public func children(of id: BlockId) -> [BlockId] {
+    public func childrenIds(of id: BlockId) -> [BlockId] {
         guard let value = models[id] else {
             return []
         }
