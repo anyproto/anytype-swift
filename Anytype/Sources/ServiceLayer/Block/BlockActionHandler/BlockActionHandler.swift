@@ -103,7 +103,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId) {
         guard let newText = markupChanger.toggleMarkup(markup, blockId: blockId) else { return }
         
-        changeText(newText, blockId: blockId)
+        changeTextForced(newText, blockId: blockId)
     }
     
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId) {
@@ -111,7 +111,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
         Amplitude.instance().logSetMarkup(attribute)
 
-        changeText(newText, blockId: blockId)
+        changeTextForced(newText, blockId: blockId)
     }
     
     func setLink(url: URL?, range: NSRange, blockId: BlockId) {
@@ -124,7 +124,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
         
         guard let newText = newText else { return }
-        changeText(newText, blockId: blockId)
+        changeTextForced(newText, blockId: blockId)
     }
     
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId) {
@@ -137,17 +137,18 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
         
         guard let newText = newText else { return }
-        changeText(newText, blockId: blockId)
+        changeTextForced(newText, blockId: blockId)
     }
     
     // MARK: - TextBlockActionHandler proxy
-    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation) {
-        actionHandler.handleKeyboardAction(info: info, action: action)
+    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation, attributedText: NSAttributedString) {
+        actionHandler.handleKeyboardAction(info: info, action: action, attributedText: attributedText)
     }
     
-    func changeText(_ text: NSAttributedString, blockId: BlockId) {
+    func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
         guard let info = document.blocksContainer.model(id: blockId)?.information else { return }
-        changeText(text, info: info)
+
+        actionHandler.changeTextForced(info: info, text: text)
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
@@ -156,7 +157,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     // MARK: - Public methods
     func changeCaretPosition(range: NSRange) {
-        UserSession.shared.focus.value = .at(range)
+        
     }
     
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {

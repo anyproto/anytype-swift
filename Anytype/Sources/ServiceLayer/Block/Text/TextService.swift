@@ -6,15 +6,23 @@ import BlocksModels
 import Amplitude
 
 final class TextService: TextServiceProtocol {    
+    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) {
+        Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextText)
+        Anytype_Rpc.Block.Set.Text.Text.Service.invoke(
+            contextID: contextId,
+            blockID: blockId,
+            text: middlewareString.text,
+            marks: middlewareString.marks
+        )
+    }
 
     @discardableResult
-    func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) -> Bool {
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextText)
         let event = Anytype_Rpc.Block.Set.Text.Text.Service
             .invoke(contextID: contextId, blockID: blockId, text: middlewareString.text, marks: middlewareString.marks)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .textService)
-        
         guard let event = event else {
             return false
         }

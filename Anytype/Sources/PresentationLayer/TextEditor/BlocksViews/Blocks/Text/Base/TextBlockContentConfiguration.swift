@@ -2,79 +2,65 @@ import Combine
 import BlocksModels
 import UIKit
 
-struct TextBlockContentConfiguration: BlockConfigurationProtocol {
-    
-    let blockDelegate: BlockDelegate
-    
-    let block: BlockModelProtocol
-    let information: BlockInformation
-    let content: BlockText
-    let text: UIKitAnytypeText
-    let isFirstResponder: Bool
-    
-    let upperBlock: BlockModelProtocol?
-    
-    let shouldDisplayPlaceholder: Bool
-    let isCheckable: Bool
-    
-    let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
-    let actionHandler: BlockActionHandlerProtocol
-    let showPage: (EditorScreenData) -> Void
-    let openURL: (URL) -> Void
-        
-    let pressingEnterTimeChecker = TimeChecker()
-    var currentConfigurationState: UICellConfigurationState?
-    
-    init(
-        blockDelegate: BlockDelegate,
-        block: BlockModelProtocol,
-        content: BlockText,
-        upperBlock: BlockModelProtocol?,
-        isCheckable: Bool,
-        actionHandler: BlockActionHandlerProtocol,
-        showPage: @escaping (EditorScreenData) -> Void,
-        openURL: @escaping (URL) -> Void,
-        focusPublisher: AnyPublisher<BlockFocusPosition, Never>
-    ) {
-        self.blockDelegate = blockDelegate
-        self.block = block
-        self.content = content
-        self.upperBlock = upperBlock
-        self.actionHandler = actionHandler
-        self.showPage = showPage
-        self.openURL = openURL
-        self.focusPublisher = focusPublisher
-        self.information = block.information
-        self.isCheckable = isCheckable
-        
-        self.text = content.anytypeText
-        self.isFirstResponder = block.isFirstResponder
-        shouldDisplayPlaceholder = block.isToggled && block.information.childrenIds.isEmpty
-    }
-    
-    func makeContentView() -> UIView & UIContentView {
-        TextBlockContentView(configuration: self)
-    }
-}
+struct TextBlockContentConfiguration: BlockConfiguration {
+    typealias View = TextBlockContentView
 
-extension TextBlockContentConfiguration: Hashable {
-    
-    static func == (lhs: TextBlockContentConfiguration, rhs: TextBlockContentConfiguration) -> Bool {
-        lhs.information == rhs.information &&
-        lhs.currentConfigurationState == rhs.currentConfigurationState &&
-        lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder &&
-        lhs.isCheckable == rhs.isCheckable &&
-        lhs.isFirstResponder == rhs.isFirstResponder
+    struct Actions {
+        let createEmptyBlock: () -> Void
+        let showPage: (EditorScreenData) -> Void
+        let openURL: (URL) -> Void
+        let changeText: (NSAttributedString) -> Void
+        let changeTextStyle: (MarkupType, NSRange) -> Void
+        let handleKeyboardAction: (CustomTextView.KeyboardAction, NSAttributedString) -> Void
+        let becomeFirstResponder: () -> Void
+        let resignFirstResponder: () -> Void
+
+        let textBlockSetNeedsLayout: () -> Void
+
+        let textViewWillBeginEditing: (UITextView) -> Void
+        let textViewDidBeginEditing: (UITextView) -> Void
+        let textViewDidEndEditing: (UITextView) -> Void
+
+        let textViewDidChangeCaretPosition: (NSRange) -> Void
+        let textViewDidApplyChangeType: (TextChangeType) -> Void
+
+        let toggleCheckBox: () -> Void
+        let toggleDropDown: () -> Void
     }
-    
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(information.id)
-        hasher.combine(information.alignment)
-        hasher.combine(information.backgroundColor)
-        hasher.combine(information.content)
-        hasher.combine(shouldDisplayPlaceholder)
-        hasher.combine(isCheckable)
-        hasher.combine(currentConfigurationState)
-        hasher.combine(isFirstResponder)
+
+    let blockId: BlockId
+    let content: BlockText
+    let backgroundColor: UIColor?
+    let isCheckable: Bool
+    let isToggled: Bool
+    let isChecked: Bool
+    let shouldDisplayPlaceholder: Bool
+    @EquatableNoop private(set) var focusPublisher: AnyPublisher<BlockFocusPosition, Never>
+    let alignment: NSTextAlignment
+
+    @EquatableNoop private(set) var actions: Actions
+
+    init(
+        blockId: BlockId,
+        content: BlockText,
+        alignment: NSTextAlignment,
+        backgroundColor: UIColor?,
+        isCheckable: Bool,
+        isToggled: Bool,
+        isChecked: Bool,
+        shouldDisplayPlaceholder: Bool,
+        focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
+        actions: Actions
+    ) {
+        self.blockId = blockId
+        self.content = content
+        self.alignment = alignment
+        self.backgroundColor = backgroundColor
+        self.isCheckable = isCheckable
+        self.isToggled = isToggled
+        self.isChecked = isChecked
+        self.shouldDisplayPlaceholder = shouldDisplayPlaceholder
+        self.focusPublisher = focusPublisher
+        self.actions = actions
     }
 }

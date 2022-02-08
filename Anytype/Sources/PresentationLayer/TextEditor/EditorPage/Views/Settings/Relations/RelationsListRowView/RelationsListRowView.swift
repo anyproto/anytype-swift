@@ -13,7 +13,7 @@ struct RelationsListRowView: View {
         GeometryReader { gr in
             HStack(spacing: 8) {
                 if editingMode {
-                    if relation.isEditable {
+                    if !relation.isBundled {
                         removeButton
                     } else {
                         Spacer.fixedWidth(Constants.buttonWidth)
@@ -45,12 +45,16 @@ struct RelationsListRowView: View {
     }
     
     private var name: some View {
-        HStack(spacing: 6) {
-            if !relation.isEditable {
-                Image.Relations.locked
-                    .frame(width: 15, height: 12)
+        Menu {
+            AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary)
+        } label: {
+            HStack(spacing: 6) {
+                if !relation.isEditable {
+                    Image.Relations.locked
+                        .frame(width: 15, height: 12)
+                }
+                AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
             }
-            AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
         }
     }
     
@@ -110,6 +114,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         name: "relation name",
                         isFeatured: false,
                         isEditable: true,
+                        isBundled: false,
                         selectedTags: [
                             Relation.Tag.Option(
                                 id: "id1",
@@ -184,6 +189,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         name: "Relation name",
                         isFeatured: false,
                         isEditable: true,
+                        isBundled: false,
                         value: "hello"
                     )
                 ),

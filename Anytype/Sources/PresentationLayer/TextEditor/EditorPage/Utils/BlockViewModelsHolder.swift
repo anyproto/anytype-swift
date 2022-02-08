@@ -3,18 +3,26 @@ import BlocksModels
 // We need to share models between several mutating services
 // Using reference semantics of BlockViewModelsHolder to share pointer
 // To the same models everywhere
+typealias BlockMapping = Dictionary<BlockId, BlockViewModelProtocol>
+
 final class BlockViewModelsHolder {
     
     let objectId: String
     
-    var models: [BlockViewModelProtocol] = []
+    var models: [BlockViewModelProtocol] = [] {
+        didSet {
+            modelsMapping = Dictionary(uniqueKeysWithValues: models.map { ($0.blockId, $0) } )
+        }
+    }
+
     var header: ObjectHeader?
+    private var modelsMapping = BlockMapping()
 
     init(objectId: String) {
         self.objectId = objectId
     }
     
-    func findModel(beforeBlockId blockId: BlockId, skipFeaturedRelations: Bool = true) -> BlockDataProvider? {
+    func findModel(beforeBlockId blockId: BlockId, skipFeaturedRelations: Bool = true) -> BlockViewModelProtocol? {
         guard let modelIndex = models.firstIndex(where: { $0.blockId == blockId }) else {
             return nil
         }
@@ -29,6 +37,10 @@ final class BlockViewModelsHolder {
         }
     
         return model
+    }
+
+    func contentProvider(for blockId: BlockId) -> BlockViewModelProtocol? {
+        modelsMapping[blockId]
     }
 }
 
@@ -45,6 +57,15 @@ extension BlockViewModelsHolder {
     func applyDifference(difference: CollectionDifference<BlockViewModelProtocol>) {
         if !difference.isEmpty, let result = models.applying(difference) {
             models = result
+        }
+    }
+
+    func contentProvider(for item: EditorItem) -> BlockViewModelProtocol?  {
+        switch item {
+        case .header:
+            return nil
+        case .block(let blockViewModelProtocol):
+            return contentProvider(for: blockViewModelProtocol.blockId)
         }
     }
     

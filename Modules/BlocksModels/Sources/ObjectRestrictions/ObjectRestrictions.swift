@@ -1,11 +1,3 @@
-//
-//  ObjectRestrictions.swift
-//  BlocksModels
-//
-//  Created by Denis Batvinkin on 21.10.2021.
-//
-
-
 public struct ObjectRestrictions {
 
     public enum ObjectRestriction: Int {

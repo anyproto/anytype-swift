@@ -16,6 +16,8 @@ public struct RelationMetadata: Hashable {
     public let objectTypes: [String]
     public let scope: Scope
     
+    public let isBundled: Bool
+    
     public init(
         key: String,
         name: String,
@@ -25,7 +27,8 @@ public struct RelationMetadata: Hashable {
         isMulti: Bool,
         selections: [Option],
         objectTypes: [String],
-        scope: Scope
+        scope: Scope,
+        isBundled: Bool
     ) {
         self.key = key
         self.name = name
@@ -36,6 +39,7 @@ public struct RelationMetadata: Hashable {
         self.selections = selections
         self.objectTypes = objectTypes
         self.scope = scope
+        self.isBundled = isBundled
     }
 }
 
@@ -60,6 +64,7 @@ public extension RelationMetadata {
         }
         self.objectTypes = middlewareRelation.objectTypes
         self.scope = Scope(rawValue: middlewareRelation.scope.rawValue)
+        self.isBundled = BundledRelationKey(rawValue: middlewareRelation.key).isNotNil
     }
 
     var middlewareModel: Anytype_Model_Relation {
@@ -83,6 +88,7 @@ public extension RelationMetadata {
             maxCount: 0,
             description_p: "",
             scope: scope,
-            creator: "")
+            creator: ""
+        )
     }
 }

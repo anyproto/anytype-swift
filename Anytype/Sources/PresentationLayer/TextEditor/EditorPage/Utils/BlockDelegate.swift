@@ -5,12 +5,10 @@ protocol BlockDelegate: AnyObject {
     func willBeginEditing(data: TextBlockDelegateData)
     func didBeginEditing()
     func didEndEditing()
-    
-    func becomeFirstResponder(blockId: BlockId)
-    func resignFirstResponder(blockId: BlockId)
-    
+
     func textWillChange(changeType: TextChangeType)
     func textDidChange()
+    func textBlockSetNeedsLayout()
     func selectionDidChange(range: NSRange)
 }
 
@@ -20,7 +18,7 @@ final class BlockDelegateImpl: BlockDelegate {
     private var data: TextBlockDelegateData?
     
     weak private var viewInput: EditorPageViewInput?
-    
+
     private let accessoryState: AccessoryViewStateManager
     private let markdownListener: MarkdownListener
     
@@ -34,14 +32,6 @@ final class BlockDelegateImpl: BlockDelegate {
         self.markdownListener = markdownListener
     }
 
-    func becomeFirstResponder(blockId: BlockId) {
-        UserSession.shared.firstResponderId.value = blockId
-    }
-    
-    func resignFirstResponder(blockId: BlockId) {
-        UserSession.shared.resignFirstResponder(blockId: blockId)
-    }
-
     func didBeginEditing() {
         viewInput?.textBlockDidBeginEditing()
     }
@@ -53,7 +43,10 @@ final class BlockDelegateImpl: BlockDelegate {
     }
     
     func didEndEditing() {
+        data.map { viewInput?.blockDidFinishEditing(blockId: $0.info.id) }
         accessoryState.didEndEditing()
+
+        data = nil
     }
     
     func textWillChange(changeType: TextChangeType) {
@@ -61,6 +54,8 @@ final class BlockDelegateImpl: BlockDelegate {
     }
     
     func textDidChange() {
+        viewInput?.textBlockDidChangeText()
+
         guard let changeType = changeType else {
             return
         }
@@ -70,6 +65,10 @@ final class BlockDelegateImpl: BlockDelegate {
 
         accessoryState.textDidChange(changeType: changeType)
         markdownListener.textDidChange(changeType: changeType, data: data)
+    }
+
+    func textBlockSetNeedsLayout() {
+        viewInput?.textBlockDidChangeFrame()
     }
 
     func selectionDidChange(range: NSRange) {

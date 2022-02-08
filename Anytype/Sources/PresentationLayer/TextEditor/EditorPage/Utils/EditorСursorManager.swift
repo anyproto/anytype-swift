@@ -1,8 +1,15 @@
-import Foundation
+import BlocksModels
+
+struct BlockFocus {
+    let id: BlockId
+    let position: BlockFocusPosition
+}
 
 final class EditorCursorManager {
     private var currentType: String?
     private var didAppearedOnce = false
+
+    var blockFocus: BlockFocus?
 
     func didAppeared(with blocks: [BlockViewModelProtocol], type: String?) {
         currentType = type

@@ -45,8 +45,11 @@ extension NSAttributedString {
     }
 
     func mention(range: NSRange) -> String? {
-        let mention: String? = value(for: .mention, range: range)
-        return mention
+        return value(for: .mention, range: range)
+    }
+    
+    func emoji(range: NSRange) -> String? {
+        return value(for: .emoji, range: range)
     }
     
     func hasMarkup(_ markup: MarkupType, range: NSRange) -> Bool {
@@ -71,6 +74,8 @@ extension NSAttributedString {
             return linkToObjectState(range: range).isNotNil
         case .mention:
             return mention(range: range).isNotNil
+        case .emoji:
+            return emoji(range: range).isNotNil
         }
     }
 }

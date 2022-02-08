@@ -79,6 +79,13 @@ extension UITextView {
         }
         return text(in: range)
     }
+
+    var isLayoutNeeded: Bool  {
+        let fixedWidth = bounds.size.width
+        let newSize = sizeThatFits(.init(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
+
+        return bounds.size.height != newSize.height
+    }
     
     func offsetFromBegining(_ position: UITextPosition) -> Int {
         return offset(from: self.beginningOfDocument, to: position)

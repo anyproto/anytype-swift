@@ -98,8 +98,12 @@ final class EditorAssembly {
         )
         
         let markupChanger = BlockMarkupChanger(blocksContainer: document.blocksContainer)
-        
-        let blockActionService = BlockActionService(documentId: document.objectId, modelsHolder: modelsHolder)
+        let cursorManager = EditorCursorManager()
+        let blockActionService = BlockActionService(
+            documentId: document.objectId,
+            modelsHolder: modelsHolder,
+            cursorManager: cursorManager
+        )
         let blockActionHandler = TextBlockActionHandler(
             contextId: document.objectId,
             service: blockActionService,
@@ -168,7 +172,8 @@ final class EditorAssembly {
             wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
             headerBuilder: headerBuilder,
             blockActionsService: blockActionsService,
-            blocksStateManager: blocksStateManager
+            blocksStateManager: blocksStateManager,
+            cursorManager: cursorManager
         )
     }
 

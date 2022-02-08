@@ -1,4 +1,4 @@
-
+import AnytypeCore
 import BlocksModels
 
 struct BlockValidator {    
@@ -53,9 +53,10 @@ struct BlockValidator {
                 return restrictions.canApplyBackgroundColor
             case .mention:
                 return restrictions.canApplyMention
-            case .UNRECOGNIZED:
-                return false
             case .emoji:
+                return restrictions.canApplyEmoji
+            case .UNRECOGNIZED:
+                anytypeAssertionFailure("Unsuppored mark \(mark)", domain: .blockValidator)
                 return false
             }
         }

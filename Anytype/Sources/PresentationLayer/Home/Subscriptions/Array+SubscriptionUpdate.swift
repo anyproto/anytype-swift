@@ -32,6 +32,8 @@ extension Array where Element: IdProvider {
             guard let index = indexInCollection(blockId: from) else { break }
             guard let insertIndex = indexInCollection(afterId: after) else { break }
             self.moveElement(from: index, to: insertIndex)
+        case .pageCount:
+            break
         }
     }
     

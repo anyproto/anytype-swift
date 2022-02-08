@@ -7,6 +7,7 @@ struct RelationBlockRestrictions: BlockRestrictions {
     let canApplyBlockColor = false
     let canApplyBackgroundColor = true
     let canApplyMention = false
+    let canApplyEmoji = false
     let canDeleteOrDuplicate = true
     let availableAlignments: [LayoutAlignment] = []
     let turnIntoStyles: [BlockContentType] = []

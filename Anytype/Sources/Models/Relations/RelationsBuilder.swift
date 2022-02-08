@@ -5,10 +5,10 @@ import UIKit
 
 final class RelationsBuilder {
     
-    private let scope: RelationMetadata.Scope
+    private let scope: [RelationMetadata.Scope]
     private let storage: ObjectDetailsStorage
     
-    init(scope: RelationMetadata.Scope = .object, storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
+    init(scope: [RelationMetadata.Scope] = [.object], storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
         self.scope = scope
         self.storage = storage
     }
@@ -44,7 +44,7 @@ final class RelationsBuilder {
         var otherRelations: [Relation] = []
         
         relationMetadatas.forEach { relationMetadata in
-            guard !relationMetadata.isHidden, relationMetadata.scope == scope else { return }
+            guard !relationMetadata.isHidden, scope.contains(relationMetadata.scope) else { return }
             
             let value = relation(
                 relationMetadata: relationMetadata,
@@ -100,6 +100,7 @@ private extension RelationsBuilder {
                     name: relationMetadata.name,
                     isFeatured: relationMetadata.isFeatured(details: details),
                     isEditable: relationMetadata.isEditable,
+                    isBundled: relationMetadata.isBundled,
                     value: "Unsupported value".localized
                 )
             )
@@ -113,6 +114,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -133,6 +135,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: numberValue
             )
         )
@@ -145,6 +148,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -157,6 +161,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -169,6 +174,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -195,6 +201,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: selectedOption,
                 allOptions: options
             )
@@ -218,6 +225,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: value
             )
         )
@@ -230,6 +238,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.boolValue ?? false
             )
         )
@@ -258,6 +267,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 selectedTags: selectedTags,
                 allTags: tags
             )
@@ -288,7 +298,7 @@ private extension RelationsBuilder {
             }
 
             let objectOptions: [Relation.Object.Option] = objectDetails.map { objectDetail in
-                let name = objectDetail.name
+                let name = objectDetail.title
                 let icon: ObjectIconImage = {
                     if let objectIcon = objectDetail.objectIconImage {
                         return objectIcon
@@ -314,6 +324,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 selectedObjects: objectOptions
             )
         )
@@ -379,6 +390,7 @@ private extension RelationsBuilder {
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
+                isBundled: metadata.isBundled,
                 files: fileOptions
             )
         )

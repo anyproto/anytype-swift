@@ -1,6 +1,6 @@
 public enum Feature: String, Codable {
     case sets = "Sets YEAH 🚀"
-    case rainbowCells = "Paint editor cells 🌈"
+    case rainbowViews = "Paint editor views 🌈"
     case showAlertOnAssert = "Show alerts on asserts\n(only in testflight dev)"
     case analytics = "Analytics Amplitude (only in development)"
     case middlewareLogs = "Show middleware logs in Xcode console"
@@ -24,7 +24,7 @@ public final class FeatureFlags {
     
     private static let defaultValues: Features = [
         .sets: !isRelease,
-        .rainbowCells: false,
+        .rainbowViews: false,
         .showAlertOnAssert : true,
         .analytics : false,
         .middlewareLogs: false,
@@ -51,8 +51,8 @@ public extension FeatureFlags {
         features[.analytics, default: false]
     }
     
-    static var rainbowCells: Bool {
-        features[.rainbowCells, default: false]
+    static var rainbowViews: Bool {
+        features[.rainbowViews, default: false]
     }
     
     static var middlewareLogs: Bool {

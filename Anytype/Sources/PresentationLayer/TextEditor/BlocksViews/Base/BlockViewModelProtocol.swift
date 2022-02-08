@@ -4,10 +4,10 @@ import BlocksModels
 protocol BlockViewModelProtocol:
     HashableProvier,
     ContentConfigurationProvider,
-    BlockDataProvider
+    BlockDataProvider,
+    BlockFocusing
 {
     func didSelectRowInTableView()
-    var indentationLevel: Int { get }
     /// Block that upper than current.
     /// Upper block can has other parent (i.e. has different level) but must be followed by the current block.
     var upperBlock: BlockModelProtocol? { get }
@@ -18,7 +18,17 @@ protocol HashableProvier {
 }
 
 protocol ContentConfigurationProvider {
+    var indentationLevel: Int { get }
+
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration
+}
+
+protocol BlockFocusing {
+    func set(focus: BlockFocusPosition)
+}
+
+extension BlockFocusing {
+    func set(focus: BlockFocusPosition) { }
 }
 
 protocol BlockDataProvider {

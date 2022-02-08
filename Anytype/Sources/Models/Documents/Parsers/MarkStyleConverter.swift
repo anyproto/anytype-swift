@@ -42,8 +42,11 @@ enum MarkStyleActionConverter {
             return .linkToObject(tuple.value)
 
         case .emoji:
-            anytypeAssertionFailure("Unrecognized markup emoji", domain: .markStyleConverter)
-            return nil
+            guard let emoji = Emoji(tuple.value) else {
+                anytypeAssertionFailure("Unrecognized emoji \(tuple.value)", domain: .markStyleConverter)
+                return nil
+            }
+            return .emoji(emoji)
 
         case .UNRECOGNIZED(let value):
             anytypeAssertionFailure("Unrecognized markup \(value)", domain: .markStyleConverter)

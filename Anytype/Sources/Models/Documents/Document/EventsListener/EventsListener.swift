@@ -27,7 +27,8 @@ final class EventsListener: EventsListenerProtocol {
     init(
         objectId: BlockId,
         blocksContainer: BlockContainerModelProtocol,
-        relationStorage: RelationsMetadataStorageProtocol
+        relationStorage: RelationsMetadataStorageProtocol,
+        restrictionsContainer: ObjectRestrictionsContainer
     ) {
         self.objectId = objectId
         self.blocksContainer = blocksContainer
@@ -39,7 +40,8 @@ final class EventsListener: EventsListenerProtocol {
         self.middlewareConverter = MiddlewareEventConverter(
             blocksContainer: blocksContainer,
             relationStorage: relationStorage,
-            informationCreator: informationCreator
+            informationCreator: informationCreator,
+            restrictionsContainer: restrictionsContainer
         )
         self.localConverter = LocalEventConverter(
             blocksContainer: blocksContainer
@@ -69,8 +71,14 @@ final class EventsListener: EventsListenerProtocol {
         let middlewareUpdates = events.middlewareEvents.compactMap(\.value).compactMap { middlewareConverter.convert($0) }
         let localUpdates = events.localEvents.compactMap { localConverter.convert($0) }
         let markupUpdates = [mentionMarkupEventProvider.updateMentionsEvent()].compactMap { $0 }
-        let updates = middlewareUpdates + localUpdates + markupUpdates
-        
+        let dataSourceUpdates = events.dataSourceEvents.compactMap { localConverter.convert($0) }
+
+        var updates = middlewareUpdates + markupUpdates + localUpdates
+
+        if dataSourceUpdates.isNotEmpty {
+            updates.append(.dataSourceUpdate)
+        }
+
         updates.forEach { update in
             if update.hasUpdate {
                 IndentationBuilder.build(
@@ -82,5 +90,4 @@ final class EventsListener: EventsListenerProtocol {
             onUpdateReceive?(update)
         }
     }
-    
 }

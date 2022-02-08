@@ -8,10 +8,15 @@ import BlocksModels
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {    
-    func open(contextId: BlockId, blockId: BlockId) -> MiddlewareResponse? {
-        Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: blockId, traceID: "")
-            .map { MiddlewareResponse($0.event) }
+    func open(contextId: BlockId, blockId: BlockId) -> Bool {
+        let event = Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: blockId, traceID: "")
+            .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockActionsService)
+        
+        guard let event = event else { return false }
+        event.send()
+        
+        return true
     }
     
     func close(contextId: BlockId, blockId: BlockId) {
