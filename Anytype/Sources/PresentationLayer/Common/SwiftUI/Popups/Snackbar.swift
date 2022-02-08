@@ -35,7 +35,7 @@ struct Snackbar: View {
                 VStack {
                     Spacer()
                     if isShowing {
-                        snackbar(containerWidth: geometry.size.width)
+                        snackbar(width: geometry.readableAlertWidth)
                             .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
                     }
                 }
@@ -44,7 +44,7 @@ struct Snackbar: View {
         }
     }
     
-    private func snackbar(containerWidth: CGFloat) -> some View {
+    private func snackbar(width: CGFloat) -> some View {
         HStack {
             Image.checked
             self.text
@@ -61,7 +61,7 @@ struct Snackbar: View {
             }
         }
         .padding()
-        .frame(width: containerWidth * 0.9, height: 64)
+        .frame(width: width, height: 64)
         .background(Color.backgroundPrimary)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .shadow(radius: 7)
@@ -73,5 +73,5 @@ struct Snackbar: View {
             }
         }
     }
-
+    
 }

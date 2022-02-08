@@ -29,7 +29,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                         }
                     }
                 }
-                .frame(maxWidth: maxWidth(using: geometry.size.width), minHeight: 0)
+                .frame(maxWidth: geometry.readableAlertWidth, minHeight: 0)
                 .background(Color.backgroundSecondary)
                 .cornerRadius(10)
                 .transition(.slide)
@@ -39,18 +39,6 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
         }
     }
     
-    func maxWidth(using width: CGFloat) -> CGFloat {
-        if UIDevice.isPad {
-            if UIDevice.current.orientation.isLandscape {
-                return width * 0.3
-            } else {
-                return width * 0.4
-            }
-            
-        } else {
-            return width * 0.8
-        }
-    }
 }
 
 struct ErrorAlertView_Previews: PreviewProvider {
