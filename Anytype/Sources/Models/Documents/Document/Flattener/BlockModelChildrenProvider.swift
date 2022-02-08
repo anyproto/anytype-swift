@@ -9,13 +9,13 @@ import BlocksModels
 /// Result: [A, B, X, C, Y, D, Z]
 /// It is like a left-order traversing of tree, but we have to output parents first.
 ///
-final class BlockFlattener {
+final class BlockModelChildrenProvider {
     private let container: BlockContainerModelProtocol
     init(container: BlockContainerModelProtocol) {
         self.container = container
     }
             
-    func flatten(model: BlockModelProtocol) -> [BlockModelProtocol] {
+    func children(model: BlockModelProtocol) -> [BlockModelProtocol] {
         var result = Array<BlockModelProtocol>()
         let stack = Stack<BlockModelProtocol>()
         
@@ -25,7 +25,7 @@ final class BlockFlattener {
             if let model = stack.pop() {
                 if model.kind == .block { result.append(model) } // Skip meta blocks
                 
-                let children = children(model: model)
+                let children = findChildren(model: model)
                 
                 updateBlockNumberCount(models: children)
                 
@@ -38,7 +38,7 @@ final class BlockFlattener {
         return result
     }
 
-    private func children(model: BlockModelProtocol) -> [BlockModelProtocol] {
+    private func findChildren(model: BlockModelProtocol) -> [BlockModelProtocol] {
         if model.information.content.isToggle, UserSession.shared.isToggled(blockId: model.information.id) == false {
             return [] // return no children for closed toggle
         }
@@ -46,7 +46,7 @@ final class BlockFlattener {
         return container.children(of: model.information.id)
     }
     
-    func updateBlockNumberCount(models: [BlockModelProtocol]) {
+    private func updateBlockNumberCount(models: [BlockModelProtocol]) {
         var number: Int = 0
         
         models.forEach { model in

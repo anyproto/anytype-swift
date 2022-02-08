@@ -3,7 +3,7 @@ import Foundation
 extension BaseDocumentProtocol {
     var isDocumentEmpty: Bool {
 
-        let haveNonTextAndRelationBlocks = flattenBlocks.contains {
+        let haveNonTextAndRelationBlocks = children.contains {
             switch $0.information.content {
             case .text, .featuredRelations:
                 return false
@@ -14,7 +14,7 @@ extension BaseDocumentProtocol {
 
         if haveNonTextAndRelationBlocks { return false }
 
-        let textBlocks = flattenBlocks.filter { $0.information.content.isText }
+        let textBlocks = children.filter { $0.information.content.isText }
 
         switch textBlocks.count {
         case 0, 1:
