@@ -5,10 +5,7 @@ import UniformTypeIdentifiers
 struct HomeCollectionView: View {
     private let columns: [GridItem] = {
         if UIDevice.isPad {
-            return [
-                GridItem(.adaptive(minimum: 150)),
-                GridItem(.adaptive(minimum: 150))
-            ]
+            return [GridItem(.adaptive(minimum: 150))]
         } else {
             return [
                 GridItem(.flexible()),
