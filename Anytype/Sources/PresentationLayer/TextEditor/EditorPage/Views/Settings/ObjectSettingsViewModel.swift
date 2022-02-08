@@ -2,8 +2,12 @@ import Foundation
 import Combine
 import BlocksModels
 
-final class ObjectSettingsViewModel: ObservableObject {
-    var dismissHandler: () -> Void = {}
+final class ObjectSettingsViewModel: ObservableObject, Dismissible {
+    var onDismiss: () -> Void = {} {
+        didSet {
+            objectActionsViewModel.dismissSheet = onDismiss
+        }
+    }
     
     @Published private(set) var details: ObjectDetails = ObjectDetails(id: "", values: [:])
     var settings: [ObjectSetting] {
@@ -37,7 +41,6 @@ final class ObjectSettingsViewModel: ObservableObject {
     
     init(
         objectId: String,
-        detailsStorage: ObjectDetailsStorageProtocol,
         objectDetailsService: DetailsService,
         popScreenAction: @escaping () -> (),
         onRelationValueEditingTap: @escaping (String) -> ()
@@ -60,7 +63,6 @@ final class ObjectSettingsViewModel: ObservableObject {
         
         self.relationsViewModel = RelationsListViewModel(
             relationsService: RelationsService(objectId: objectId),
-            detailsService: DetailsService(objectId: objectId),
             onValueEditingTap: onRelationValueEditingTap
         )
 
@@ -68,11 +70,10 @@ final class ObjectSettingsViewModel: ObservableObject {
     }
     
     func update(
-        objectDetailsStorage: ObjectDetailsStorageProtocol,
         objectRestrictions: ObjectRestrictions,
         parsedRelations: ParsedRelations
     ) {
-        if let details = objectDetailsStorage.get(id: objectId) {
+        if let details = ObjectDetailsStorage.shared.get(id: objectId) {
             objectActionsViewModel.details = details
             self.details = details
             iconPickerViewModel.details = details
@@ -81,10 +82,5 @@ final class ObjectSettingsViewModel: ObservableObject {
             relationsViewModel.update(with: parsedRelations)
         }
         objectActionsViewModel.objectRestrictions = objectRestrictions
-    }
-    
-    func configure(dismissHandler: @escaping () -> Void) {
-        self.dismissHandler = dismissHandler
-        objectActionsViewModel.dismissSheet = dismissHandler
     }
 }

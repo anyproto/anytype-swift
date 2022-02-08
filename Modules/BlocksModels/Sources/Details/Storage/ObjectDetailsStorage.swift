@@ -2,21 +2,16 @@ import Foundation
 import AnytypeCore
 
 public final class ObjectDetailsStorage {
+    public static let shared = ObjectDetailsStorage()
     
-    private var detailsStorage = SynchronizedDictionary<BlockId, ObjectDetails>()
-    
-    public init() {}
-    
-}
-
-extension ObjectDetailsStorage: ObjectDetailsStorageProtocol {
+    private var storage = SynchronizedDictionary<BlockId, ObjectDetails>()
     
     public func get(id: BlockId) -> ObjectDetails? {
-        detailsStorage[id]
+        storage[id]
     }
     
     public func add(details: ObjectDetails) {
-        detailsStorage[details.id] = details
+        storage[details.id] = details
     }
     
 }

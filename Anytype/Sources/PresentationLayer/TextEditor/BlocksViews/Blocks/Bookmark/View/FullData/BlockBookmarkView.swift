@@ -55,7 +55,7 @@ final class BlockBookmarkView: BaseBlockView<BlockBookmarkConfiguration> {
     private let backgroundView: UIView = {
         let view = UIView()
         view.layer.borderWidth = 0.5
-        view.layer.borderColor = UIColor.stroke.cgColor
+        view.layer.borderColor = UIColor.strokePrimary.cgColor
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
         return view

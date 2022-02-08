@@ -1,7 +1,8 @@
 import AnytypeCore
 
 final class LoginStateService {
-    
+    var isFirstLaunchAfterRegistration: Bool = false
+
     private let seedService: SeedServiceProtocol
     
     init(seedService: SeedServiceProtocol) {
@@ -13,12 +14,12 @@ final class LoginStateService {
     }
     
     func setupStateAfterRegistration() {
+        isFirstLaunchAfterRegistration = true
         UserDefaultsConfig.showKeychainAlert = true
         ObjectTypeProvider.loadObjects()
     }
     
     func cleanStateAfterLogout() {
-        try? seedService.removeSeed()
         UserDefaultsConfig.cleanStateAfterLogout()
         MiddlewareConfigurationService.shared.removeCacheConfiguration()
     }

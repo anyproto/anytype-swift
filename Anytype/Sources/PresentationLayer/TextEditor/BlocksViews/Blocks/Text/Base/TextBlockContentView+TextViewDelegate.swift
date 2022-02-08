@@ -53,7 +53,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func showPage(blockId: BlockId) {
-        guard let details = currentConfiguration.detailsStorage.get(id: blockId) else {
+        guard let details = ObjectDetailsStorage.shared.get(id: blockId) else {
             // Deleted objects goes here
             return
         }
@@ -98,7 +98,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
         TextBlockDelegateData(
             textView: textView.textView,
             block: currentConfiguration.block,
-            text: currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage)
+            text: currentConfiguration.content.anytypeText
         )
     }
 }

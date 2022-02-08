@@ -22,13 +22,13 @@ struct MentionObject {
         self.type = type
     }
     
-    init(searchResult: SearchData) {
+    init(details: ObjectDetails) {
         self.init(
-            id: searchResult.id,
-            objectIcon: searchResult.objectIcon,
-            name: searchResult.mentionTitle,
-            description: searchResult.description,
-            type: searchResult.objectType
+            id: details.id,
+            objectIcon: details.objectIcon,
+            name: details.mentionTitle,
+            description: details.description,
+            type: details.objectType
         )
     }
 }
@@ -45,7 +45,7 @@ extension MentionObject: Hashable {
     
 }
 
-private extension SearchData {
+private extension ObjectDetails {
     
     var objectIcon: ObjectIconImage {
         if let objectIcon = objectIconImage {

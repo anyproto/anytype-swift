@@ -15,8 +15,8 @@
         "repositoryURL": "git@github.com:amplitude/Amplitude-iOS.git",
         "state": {
           "branch": null,
-          "revision": "e23443447b2f7748fe9ef1d7d7a7ebc56d6be7a7",
-          "version": "8.3.1"
+          "revision": "b8a0d51fd414db206050ac83806795a8fab6f447",
+          "version": "8.7.1"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "git@github.com:scenee/FloatingPanel.git",
         "state": {
           "branch": null,
-          "revision": "b8fcb50874f50bb511173700f87b09344c568c6a",
-          "version": "2.4.0"
+          "revision": "0fbbbc8d99b4dfe58bb1dd704d14b45f35b46584",
+          "version": "2.5.1"
         }
       },
       {

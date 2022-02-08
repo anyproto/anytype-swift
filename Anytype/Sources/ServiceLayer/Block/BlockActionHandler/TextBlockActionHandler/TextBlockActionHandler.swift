@@ -26,7 +26,7 @@ final class TextBlockActionHandler {
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
 
         EventsBunch(
-            objectId: contextId,
+            contextId: contextId,
             localEvents: [.setText(blockId: info.id, text: middlewareString)]
         ).send()
 
@@ -45,7 +45,7 @@ final class TextBlockActionHandler {
 
         case let .enterAtTheBeginingOfContent(payload):
             guard payload.isNotEmpty else {
-                /// TODO: Fix it in TextView API.
+                #warning("Fix it in TextView API.")
                 /// If payload is empty, so, handle it as .enter ( or .enter at the end )
                 handleKeyboardAction(info: info, action: .enterAtTheEndOfContent)
                 return

@@ -10,13 +10,10 @@ private extension LoggerCategory {
 final class MiddlewareEventsListener: NSObject {
     
     private let wrapper = ServiceMessageHandlerAdapter()
-    
-    override init() {
-        super.init()
-        
-        _ = self.wrapper.with(value: self)
+
+    func startListening() {
+        _ = wrapper.with(value: self)
     }
-    
 }
 
 extension MiddlewareEventsListener: ServiceEventsHandlerProtocol {

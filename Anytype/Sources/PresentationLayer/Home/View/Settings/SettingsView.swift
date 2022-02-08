@@ -14,7 +14,7 @@ struct SettingsView: View {
                     .padding()
             }
         }
-        .background(Color.background)
+        .background(Color.backgroundSecondary)
         .cornerRadius(16)
         
         .sheet(isPresented: $viewModel.defaultType) {
@@ -29,7 +29,7 @@ struct SettingsView: View {
 struct SettingsView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Color.pureAmber.ignoresSafeArea()
+            Color.System.amber.ignoresSafeArea()
             SettingsView()
                 .environmentObject(SettingsViewModel(authService: ServiceLocator.shared.authService()))
                 .previewLayout(.fixed(width: 360, height: 276))

@@ -1,22 +1,22 @@
 import SwiftUI
 
 struct SearchBar: View {
-    
     @Binding var text: String
     let focused: Bool
-        
+    var placeholder: String = "Search"
+
     var body: some View {
         Group {
             if focused {
-                AutofocusedTextField(title: "Search".localized, text: $text)
+                AutofocusedTextField(title: placeholder.localized, text: $text)
             } else {
-                TextField("Search".localized, text: $text)
+                TextField(placeholder.localized, text: $text)
             }
         }
         .padding(8)
         .padding(.horizontal, 25)
         .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
-        .background(Color.grayscale10)
+        .background(Color.backgroundSelected)
         .cornerRadius(10)
         .overlay(overlay)
         .padding(.horizontal, 16)
@@ -28,7 +28,7 @@ struct SearchBar: View {
             Image.SearchBar.magnifyingGlass
                 .renderingMode(.template)
                 .aspectRatio(contentMode: .fit)
-                .foregroundColor(.grayscale50)
+                .foregroundColor(.buttonActive)
                 .frame(width: 14, height: 14)
                 .padding(.leading, 11)
             
@@ -38,7 +38,7 @@ struct SearchBar: View {
                 Button(action: { text = "" }) {
                     Image.SearchBar.circleFill
                         .renderingMode(.template)
-                        .foregroundColor(.grayscale50)
+                        .foregroundColor(.buttonActive)
                         .padding(.trailing, 8)
                 }
             }

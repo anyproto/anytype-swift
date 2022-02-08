@@ -70,7 +70,7 @@ final class StyleViewController: UIViewController {
 
         let styleCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
         styleCollectionView.translatesAutoresizingMaskIntoConstraints = false
-        styleCollectionView.backgroundColor = .white
+        styleCollectionView.backgroundColor = .backgroundSecondary
         styleCollectionView.alwaysBounceVertical = false
         styleCollectionView.alwaysBounceHorizontal = true
         styleCollectionView.delegate = self
@@ -158,9 +158,6 @@ final class StyleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Analytics
-        Amplitude.instance().logEvent(AmplitudeEventsName.popupStyleMenu)
-
         setupViews()
         configureStyleDataSource()
     }
@@ -168,7 +165,7 @@ final class StyleViewController: UIViewController {
     // MARK: - Setup views
 
     private func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundSecondary
 
         containerStackView.addArrangedSubview(listStackView)
         containerStackView.addArrangedSubview(otherStyleStackView)
@@ -219,31 +216,38 @@ final class StyleViewController: UIViewController {
         let buttonSize = CGSize(width: 103, height: 52)
         let smallButtonSize = CGSize(width: 32, height: 32)
 
-        let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/highlight"))
+        let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage.highlightImage())
         setupAction(for: highlightedButton, with: .quote)
 
-        let calloutButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/callout"))
+        let calloutImage = UIImage.imageWithText(
+            "Callout".localized,
+        textColor: .code != self.style ? .textTertiary : .textPrimary,
+            backgroundColor: .backgroundSelected,
+            font: .caption1Medium,
+            size: .init(width: 63, height: 28),
+            cornerRadius: 6
+        )
+
+        #warning("add restrictions when callout block will be introduced")
+        let calloutButton = ButtonsFactory.roundedBorderуButton(image: calloutImage)
+        calloutButton.isEnabled = .code == self.style
         setupAction(for: calloutButton, with: .code)
 
         if .quote != self.style {
             highlightedButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.quote))
         }
-        if .code != self.style {
-            // TODO: add restrictions when callout block will be introduced
-            calloutButton.setImage(UIImage(named: "StyleBottomSheet/calloutInactive"))
-            calloutButton.isEnabled = false
-        }
 
         let colorButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/color"))
         colorButton.layer.borderWidth = 0
         colorButton.layer.cornerRadius = smallButtonSize.height / 2
-        colorButton.setBackgroundColor(.buttonSecondaryPressed, state: .selected)
+        colorButton.setBackgroundColor(.backgroundSelected, state: .selected)
         colorButton.addTarget(self, action: #selector(colorActionHandler), for: .touchUpInside)
 
-        let moreButton = ButtonsFactory.roundedBorderуButton(image: UIImage(named: "StyleBottomSheet/more"))
+        let image = UIImage(named: "StyleBottomSheet/more")?.withTintColor(.textSecondary)
+        let moreButton = ButtonsFactory.roundedBorderуButton(image: image)
         moreButton.layer.borderWidth = 0
         moreButton.layer.cornerRadius = smallButtonSize.height / 2
-        moreButton.setBackgroundColor(.buttonSecondaryPressed, state: .selected)
+        moreButton.setBackgroundColor(.backgroundSelected, state: .selected)
         
         moreButton.addAction(UIAction(handler: { [weak self] _ in
             guard let self = self else { return }
@@ -426,5 +430,32 @@ extension StyleViewController: FloatingPanelControllerDelegate {
             return true
         }
         return false
+    }
+}
+
+private extension UIImage {
+    static func highlightImage() -> UIImage? {
+        let frame = CGRect(x: 0, y: 0, width: 64, height: 24)
+        let nameLabel = UILabel(frame: frame)
+        nameLabel.textAlignment = .right
+        nameLabel.textColor = .textPrimary
+        nameLabel.font = AnytypeFont.caption1Medium.uiKitFont
+        nameLabel.text = "Highlight".localized
+
+        let backgroundView = UIView(frame: .init(x: 9, y: 4, width: 0, height: 0))
+        backgroundView.addSubview(nameLabel)
+
+        let quoteView = UIView(frame: .init(x: 0, y: 0, width: 1, height: frame.height))
+        quoteView.backgroundColor = UIColor.System.amber
+
+        backgroundView.addSubview(quoteView)
+        UIGraphicsBeginImageContextWithOptions(frame.size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)
+        if let currentContext = UIGraphicsGetCurrentContext() {
+            backgroundView.layer.render(in: currentContext)
+            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+            return nameImage
+        }
+
+        return nil
     }
 }

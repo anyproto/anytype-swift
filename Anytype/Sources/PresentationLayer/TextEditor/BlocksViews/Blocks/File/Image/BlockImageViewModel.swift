@@ -17,7 +17,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
     var hashable: AnyHashable {
         [
             indentationLevel,
-            information,
+            information
         ] as [AnyHashable]
     }
     

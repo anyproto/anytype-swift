@@ -9,6 +9,7 @@ import AnytypeCore
 
 final class ObjectActionsService: ObjectActionsServiceProtocol {
     private var deleteSubscription: AnyCancellable?
+
     func delete(objectIds: [BlockId], completion: @escaping (Bool) -> ()) {
         Amplitude.instance().logDeletion(count: objectIds.count)
         
@@ -32,10 +33,14 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) {
         _ = Anytype_Rpc.ObjectList.Set.IsArchived.Service.invoke(objectIds: objectIds, isArchived: isArchived)
+
+        Amplitude.instance().logMoveToBin(isArchived)
     }
 
     func setFavorite(objectId: BlockId, _ isFavorite: Bool) {
         _ = Anytype_Rpc.Object.SetIsFavorite.Service.invoke(contextID: objectId, isFavorite: isFavorite)
+
+        Amplitude.instance().logAddToFavorites(isFavorite)
     }
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
@@ -46,7 +51,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         position: BlockPosition,
         templateId: String
     ) -> BlockId? {
-        let protobufDetails = details.map { $0.asDetailsUpdate }.reduce([String: Google_Protobuf_Value]()) { result, detail in
+        
+        let protobufDetails = details.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
             result[detail.key] = detail.value
             return result
@@ -58,7 +64,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
                 contextID: contextId, details: protobufStruct, templateID: templateId,
                 targetID: targetId, position: position.asMiddleware, fields: .init()
             )
-            .getValue()
+            .getValue(domain: .objectActionsService)
         
         guard let response = response else { return nil}
         EventsBunch(event: response.event).send()
@@ -73,18 +79,16 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             contextID: contextID,
             layout: selectedLayout
         ).map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .objectActionsService)?
             .send()
     }
 
     // MARK: - ObjectActionsService / SetDetails
     
-    func updateDetails(contextID: BlockId, updates: [DetailsUpdate]) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockSetDetails)
-
+    func updateBundledDetails(contextID: BlockId, details: [BundledDetails]) {
         Anytype_Rpc.Block.Set.Details.Service.invoke(
             contextID: contextID,
-            details: updates.map {
+            details: details.map {
                 Anytype_Rpc.Block.Set.Details.Detail(
                     key: $0.key,
                     value: $0.value
@@ -92,16 +96,15 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             }
         )
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .objectActionsService)?
             .send()
     }
 
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockListConvertChildrenToPages)
         return Anytype_Rpc.BlockList.ConvertChildrenToPages.Service
             .invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType)
             .map { $0.linkIds }
-            .getValue()
+            .getValue(domain: .objectActionsService)
     }
     
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) {
@@ -111,7 +114,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
                 dropTargetID: dropPositionblockId, position: position
             )
             .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .getValue(domain: .objectActionsService)?
             .send()
     }
     
@@ -120,8 +123,11 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             contextID: objectId,
             objectTypeURL: objectTypeUrl
         )
-            .map { EventsBunch(event: $0.event) }
-            .getValue()?
+            .map { (result) -> EventsBunch in
+                Amplitude.instance().logObjectTypeChange(objectTypeUrl)
+                return EventsBunch(event: result.event)
+            }
+            .getValue(domain: .objectActionsService)?
             .send()
     }
     

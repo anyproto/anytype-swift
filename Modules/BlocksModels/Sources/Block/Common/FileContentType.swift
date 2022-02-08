@@ -1,6 +1,6 @@
 import ProtobufMessages
 
-public enum FileContentType: Hashable {
+public enum FileContentType: String, Hashable {
     case none
     case file
     case image

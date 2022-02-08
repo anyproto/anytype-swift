@@ -74,7 +74,7 @@ final class BlockFlattener {
         in blocksContainer: BlockContainerModelProtocol,
         options: BlockFlattenerOptions
     ) -> [BlockId] {
-        /// TODO: Fix it.
+        /// Fix it.
         /// Because `ShouldKeep` template method will flush out all unnecessary blocks from list.
         /// There is no need to skip first block ( or parent block ) if it is already skipped by `ShouldKeep`.
         ///
@@ -166,8 +166,8 @@ private extension BlockFlattener {
         in blocksContainer: BlockContainerModelProtocol,
         options: BlockFlattenerOptions
     ) -> [BlockId] {
-        var result: Array<BlockId> = .init()
-        let stack: DataStructures.Stack<BlockId> = .init()
+        var result = Array<BlockId>()
+        let stack = Stack<BlockId>()
         stack.push(model.information.id)
         var isInRootModel = true
         

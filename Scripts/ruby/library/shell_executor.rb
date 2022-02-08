@@ -3,6 +3,10 @@ require 'shellwords'
 class ShellExecutor
   def self.run_command_line(line)
     puts "execute #{line}"
+    run_command_line_silent(line)
+  end
+
+  def self.run_command_line_silent(line)
 
     result = %x(#{line})
     

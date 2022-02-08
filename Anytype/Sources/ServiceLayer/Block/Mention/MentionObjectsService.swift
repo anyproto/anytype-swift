@@ -9,6 +9,6 @@ final class MentionObjectsService {
     
     func loadMentions() -> [MentionObject]? {
         return searchService.search(text: filterString)?
-            .map { MentionObject(searchResult: $0) }
+            .map { MentionObject(details: $0) }
     }
 }

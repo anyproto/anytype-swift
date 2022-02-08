@@ -1,4 +1,5 @@
 import SwiftUI
+import Amplitude
 
 
 struct MainAuthView: View {
@@ -45,7 +46,7 @@ struct MainAuthView: View {
             .transition(.identity)
             .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
         }
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
         .cornerRadius(16.0)
     }
     
@@ -61,6 +62,9 @@ struct MainAuthView: View {
                     userAnalyticsConsent = true
                 }
             }
+        }
+        .onAppear {
+            Amplitude.instance().logEvent(AmplitudeEventsName.disclaimerShow)
         }
     }
     

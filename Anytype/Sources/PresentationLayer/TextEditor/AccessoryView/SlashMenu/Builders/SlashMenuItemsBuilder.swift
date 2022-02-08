@@ -71,8 +71,8 @@ struct SlashMenuItemsBuilder {
     }
     
     private var relationMenuItem: SlashMenuItem? {
-        let relations = relations.map { relationValue in
-            SlashAction.relations(.relation(relationValue))
+        let relations = relations.map {
+            SlashAction.relations(.relation($0))
         }
         let childrens = [SlashAction.relations(.newRealtion)] + relations
         return SlashMenuItem(type: .relations, children: childrens)

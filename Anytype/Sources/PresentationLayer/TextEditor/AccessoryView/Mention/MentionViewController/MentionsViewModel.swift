@@ -4,6 +4,7 @@ import SwiftProtobuf
 import UIKit
 import Kingfisher
 import AnytypeCore
+import Amplitude
 
 final class MentionsViewModel {
     weak var view: MentionsView!
@@ -30,11 +31,15 @@ final class MentionsViewModel {
     func setFilterString(_ string: String) {
         mentionService.filterString = string
         obtainMentions()
+
+        Amplitude.instance().logSearchQuery(.mention, length: string.count)
     }
     
-    func didSelectMention(_ mention: MentionObject) {
+    func didSelectMention(_ mention: MentionObject, index: Int) {
         onSelect(mention)
         view?.dismiss()
+
+        Amplitude.instance().logSearchResult(index: index + 1, length: mentionService.filterString.count)
     }
     
     func didSelectCreateNewMention() {
@@ -48,6 +53,6 @@ final class MentionsViewModel {
             description: nil,
             type: nil
         )
-        didSelectMention(mention)
+        didSelectMention(mention, index: 1)
     }
 }

@@ -77,9 +77,8 @@ struct BlockInformationCreator {
         newData: Anytype_Event.Block.Set.Text,
         oldText: BlockText
     ) -> Anytype_Model_Block.Content.Text.Marks {
-        
         let useNewMarks = newData.marks.hasValue
-        var marks = useNewMarks ? newData.marks.value : oldText.marks
+        var marks: Anytype_Model_Block.Content.Text.Marks = useNewMarks ? newData.marks.value : oldText.marks
         
         // Workaroung: Some font could set bold style to attributed string
         // So if header or title style has font that apply bold we remove it

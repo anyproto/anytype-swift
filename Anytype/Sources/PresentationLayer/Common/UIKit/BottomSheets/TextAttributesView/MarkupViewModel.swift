@@ -17,22 +17,19 @@ final class MarkupViewModel {
             anytypeText = AttributedTextConverter.asModel(
                 text: textBlock.text,
                 marks: textBlock.marks,
-                style: textBlock.contentType,
-                detailsStorage: detailsStorage
+                style: textBlock.contentType
             )
             displayCurrentState()
         }
     }
     weak var view: MarkupViewProtocol?
     private let actionHandler: BlockActionHandlerProtocol
-    private let detailsStorage: ObjectDetailsStorageProtocol
 
     private var selectedRange: MarkupRange?
     private var anytypeText: UIKitAnytypeText?
     
-    init(actionHandler: BlockActionHandlerProtocol, detailsStorage: ObjectDetailsStorageProtocol) {
+    init(actionHandler: BlockActionHandlerProtocol) {
         self.actionHandler = actionHandler
-        self.detailsStorage = detailsStorage
     }
     
     func setRange(_ range: MarkupRange) {

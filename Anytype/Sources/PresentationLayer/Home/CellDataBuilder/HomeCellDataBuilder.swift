@@ -1,16 +1,20 @@
 import Combine
 import BlocksModels
 import AnytypeCore
-
 import SwiftUI
+
 final class HomeCellDataBuilder {
     private let document: BaseDocumentProtocol
     init(document: BaseDocumentProtocol) {
         self.document = document
     }
     
-    func buildCellData(_ searchResults: [SearchData]) -> [HomeCellData] {
-        searchResults.map { HomeCellData.create(searchResult: $0) }
+    func buildCellData(_ details: [ObjectDetails]) -> [HomeCellData] {
+        details.map { buildCellData($0) }
+    }
+    
+    func buildCellData(_ detail: ObjectDetails) -> HomeCellData {
+        HomeCellData.create(details: detail)
     }
     
     func buildFavoritesData() -> [HomeCellData] {
@@ -37,7 +41,7 @@ final class HomeCellDataBuilder {
             return nil
         }
         
-        let details = document.detailsStorage.get(id: link.targetBlockID)
+        let details = ObjectDetailsStorage.shared.get(id: link.targetBlockID)
         return HomePageLink(
             blockId: blockModel.information.id,
             targetBlockId: link.targetBlockID,
@@ -57,8 +61,7 @@ final class HomeCellDataBuilder {
             isLoading: pageLink.isLoading,
             isArchived: pageLink.isArchived,
             isDeleted: pageLink.isDeleted,
-            viewType: pageLink.details?.editorViewType ?? .page,
-            selected: false
+            viewType: pageLink.details?.editorViewType ?? .page
         )
     }
     
@@ -72,8 +75,7 @@ final class HomeCellDataBuilder {
             isLoading: false,
             isArchived: newDetails.isArchived,
             isDeleted: newDetails.isDeleted,
-            viewType: newDetails.editorViewType,
-            selected: false
+            viewType: newDetails.editorViewType
         )
     }
 }

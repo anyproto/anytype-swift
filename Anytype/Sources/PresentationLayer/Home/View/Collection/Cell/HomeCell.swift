@@ -3,7 +3,8 @@ import Kingfisher
 
 // figma.com/file/TupCOWb8sC9NcjtSToWIkS/Android---main---draft?node-id=4061%3A0
 struct HomeCell: View {
-    var cellData: HomeCellData
+    let cellData: HomeCellData
+    let selected: Bool
     
     private var isRedacted: Bool {
         cellData.isLoading
@@ -20,11 +21,11 @@ struct HomeCell: View {
         .padding(padding)
         .frame(height: 126)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .background(Color.background)
+        .background(Color.backgroundDashboard)
         .redacted(reason: isRedacted ? .placeholder : [])
         .cornerRadius(16)
         
-        .if(cellData.selected) {
+        .if(selected) {
             $0.overlay(
                 Image.main.selection
                     .frame(width: 20, height: 20)
@@ -86,7 +87,7 @@ struct HomeCell: View {
                 RoundedRectangle(
                     cornerRadius: Constants.iconCornerRadius
                 )
-                    .foregroundColor(Color.grayscale10)
+                    .foregroundColor(Color.strokeTertiary)
                     .frame(
                         width: Constants.iconSize.width,
                         height: Constants.iconSize.height
@@ -139,7 +140,7 @@ struct HomeCell_Previews: PreviewProvider {
         ScrollView() {
             LazyVGrid(columns: columns) {
                 ForEach(HomeCellDataMock.data) { data in
-                    HomeCell(cellData: data)
+                    HomeCell(cellData: data, selected: false)
                 }
             }
             .padding()

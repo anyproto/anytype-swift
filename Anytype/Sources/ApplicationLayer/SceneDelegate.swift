@@ -12,11 +12,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // TODO: Use a UIHostingController as window root view controller
+        #warning("Use a UIHostingController as window root view controller")
         guard let windowScene = scene as? UIWindowScene else {
             return
         }
-        
+
         connectionOptions.shortcutItem.flatMap { _ = handleQuickAction($0) }
         let window = UIWindow(windowScene: windowScene)
         self.window = window
@@ -24,6 +24,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let applicationCoordinator = ServiceLocator.shared.applicationCoordinator(window: window)
         applicationCoordinator.start()
         windowHolder = applicationCoordinator
+
+        window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

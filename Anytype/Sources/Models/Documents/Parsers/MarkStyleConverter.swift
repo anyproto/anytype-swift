@@ -1,10 +1,11 @@
 import BlocksModels
 import ProtobufMessages
 import AnytypeCore
+import UIKit
 
 enum MarkStyleActionConverter {
     
-    static func asModel(tuple: MiddlewareTuple, detailsStorage: ObjectDetailsStorageProtocol) -> MarkupType? {
+    static func asModel(tuple: MiddlewareTuple) -> MarkupType? {
         switch tuple.attribute {
         case .strikethrough:
             return .strikethrough
@@ -20,19 +21,19 @@ enum MarkStyleActionConverter {
             return .link(URL(string: tuple.value))
 
         case .textColor:
-            guard let color = MiddlewareColor(rawValue: tuple.value)?.color(background: false) else {
+            guard let middlewareColor = MiddlewareColor(rawValue: tuple.value) else {
                 return nil
             }
-            return .textColor(color)
+            return .textColor(UIColor.Text.uiColor(from: middlewareColor))
 
         case .backgroundColor:
-            guard let color = MiddlewareColor(rawValue: tuple.value)?.color(background: true) else {
+            guard let middlewareColor = MiddlewareColor(rawValue: tuple.value) else {
                 return nil
             }
-            return .backgroundColor(color)
+            return .backgroundColor(UIColor.Background.uiColor(from: middlewareColor))
 
         case .mention:
-            guard let details = detailsStorage.get(id: tuple.value) else {
+            guard let details = ObjectDetailsStorage.shared.get(id: tuple.value) else {
                 return .mention(.noDetails(blockId: tuple.value))
             }
             return .mention(MentionData(details: details))

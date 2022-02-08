@@ -82,7 +82,6 @@ final class EditorAssembly {
         
         let objectSettinsViewModel = ObjectSettingsViewModel(
             objectId: document.objectId,
-            detailsStorage: document.detailsStorage,
             objectDetailsService: DetailsService(
                 objectId: document.objectId
             ),
@@ -98,11 +97,7 @@ final class EditorAssembly {
             objectId: document.objectId
         )
         
-        let markupChanger = BlockMarkupChanger(
-            blocksContainer: document.blocksContainer,
-            detailsStorage: document.detailsStorage
-        )
-        
+        let markupChanger = BlockMarkupChanger(blocksContainer: document.blocksContainer)
         
         let blockActionService = BlockActionService(documentId: document.objectId, modelsHolder: modelsHolder)
         let blockActionHandler = TextBlockActionHandler(
@@ -140,8 +135,7 @@ final class EditorAssembly {
         )
          
         let wholeBlockMarkupViewModel = MarkupViewModel(
-            actionHandler: actionHandler,
-            detailsStorage: document.detailsStorage
+            actionHandler: actionHandler
         )
         
         let headerBuilder = ObjectHeaderBuilder(

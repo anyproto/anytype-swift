@@ -23,7 +23,7 @@ final class SlashMenuRealtionView: UIView, UIContentView {
 
     init(configuration: SlashMenuRealtionContentConfiguration) {
         self.currentConfiguration = configuration
-        self.realtionViewModel = RelationNameValueViewModel(relation: configuration.relation)
+        self.realtionViewModel = RelationNameValueViewModel(relation: configuration.relation, action: nil)
 
         super.init(frame: .zero)
 
@@ -73,7 +73,7 @@ struct EnhancedRelationView: View {
     var body: some View {
         GeometryReader { _ in
             RelationNameValueView(viewModel: viewModel)
-                .background(viewModel.isHighlighted ? Color.buttonSecondaryPressed : Color.background)
+                .background(viewModel.isHighlighted ? Color.backgroundSelected : Color.backgroundPrimary)
         }
     }
 }

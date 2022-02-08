@@ -1,4 +1,5 @@
 import SwiftUI
+import Amplitude
 
 struct LoginView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -22,6 +23,9 @@ struct LoginView: View {
         .sheet(isPresented: $viewModel.showQrCodeView) {
             QRCodeScannerView(qrCode: self.$viewModel.entropy, error: self.$viewModel.error)
         }
+        .onAppear {
+            Amplitude.instance().logEvent(AmplitudeEventsName.loginScreenShow)
+        }
     }
     
     private var bottomSheet: some View {
@@ -35,15 +39,19 @@ struct LoginView: View {
     private var keychainPhraseView: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText("Login with keychain".localized, style: .heading, color: .textPrimary)
+                AnytypeText("Login with phrase".localized, style: .heading, color: .textPrimary)
                 Spacer.fixedHeight(32)
                 scanQR
+                Spacer.fixedHeight(16)
+                if viewModel.canRestoreFromKeychain {
+                    restoreFromKeychain
+                }
                 enterMnemonic
                 buttons
             }
             .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
         }
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
         .cornerRadius(16.0)
     }
     
@@ -93,6 +101,23 @@ struct LoginView: View {
                 AnytypeText("Scan QR code".localized, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
                 Image.arrow
+            }
+            .modifier(DividerModifier(spacing: 10))
+        }
+    }
+
+    private var restoreFromKeychain: some View {
+        Button(
+            action: {
+                UIApplication.shared.hideKeyboard()
+                viewModel.restoreFromkeychain()
+            }
+        ) {
+            HStack {
+                AnytypeText("Restore from keychain".localized, style: .button1Regular, color: Color.System.amber125)
+                Spacer()
+                Image(systemName: "key")
+                    .foregroundColor(Color.System.amber125)
             }
             .modifier(DividerModifier(spacing: 10))
         }

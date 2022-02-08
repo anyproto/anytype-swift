@@ -27,7 +27,7 @@ struct ObjectSettingsContainerView: View {
                     guard !isLayoutPickerPresented else { return }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                        viewModel.dismissHandler()
+                        viewModel.onDismiss()
                     }
                 },
                 view: {
@@ -55,6 +55,11 @@ struct ObjectSettingsContainerView: View {
                 isPresented: $isRelationsViewPresented
             ) {
                 RelationsListView(viewModel: viewModel.relationsViewModel)
+                    .onChange(of: isRelationsViewPresented) { isRelationsViewPresented in
+                        if isRelationsViewPresented {
+                            Amplitude.instance().logEvent(AmplitudeEventsName.objectRelationShow)
+                        }
+                    }
             }
             .popup(
                 isPresented: $isLayoutPickerPresented,
@@ -68,18 +73,11 @@ struct ObjectSettingsContainerView: View {
                 }
             )
             .onChange(of: isLayoutPickerPresented) { showLayoutSettings in
-                // Analytics
-                if showLayoutSettings {
-                    Amplitude.instance().logEvent(AmplitudeEventsName.popupChooseLayout)
-                }
-
                 withAnimation() {
                     mainViewPresented = !showLayoutSettings
                 }
             }
             .onAppear {
-                Amplitude.instance().logEvent(AmplitudeEventsName.popupDocumentMenu)
-                
                 withAnimation(.fastSpring) {
                     mainViewPresented = true
                 }
@@ -92,7 +90,6 @@ struct ObjectSettingsContainerView_Previews: PreviewProvider {
         ObjectSettingsContainerView(
             viewModel: ObjectSettingsViewModel(
                 objectId: "dummyPageId",
-                detailsStorage: ObjectDetailsStorage(),
                 objectDetailsService: DetailsService(objectId: ""),
                 popScreenAction: {},
                 onRelationValueEditingTap: { _ in }

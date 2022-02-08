@@ -50,7 +50,10 @@ jobs:
           xcode-version: '13.2'
 
       - name: Download Middleware
-        run: ruby ./Scripts/middleware.rb --on-ci --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
+        run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
+
+      - name: Run unit tests
+        run: bundle exec fastlane tests
 
       - name: Build and upload to Testflight
         run: |
@@ -63,3 +66,4 @@ jobs:
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
           APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 600

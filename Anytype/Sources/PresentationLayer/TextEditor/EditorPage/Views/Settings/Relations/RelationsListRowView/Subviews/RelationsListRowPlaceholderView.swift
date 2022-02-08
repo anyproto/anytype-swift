@@ -10,7 +10,7 @@ struct RelationsListRowPlaceholderView: View {
             case .hint:
                 RelationsListRowHintView(hint: hint)
             case .empty:
-                Color.background
+                Color.backgroundPrimary
             }
         }
     }

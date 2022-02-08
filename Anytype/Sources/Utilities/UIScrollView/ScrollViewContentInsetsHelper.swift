@@ -12,7 +12,7 @@ final class ScrollViewContentInsetsHelper: KeyboardEventsListnerHelper {
                 right: 0
             )
     }
-
+    private weak var scrollView: UIScrollView?
     private var cancellables = [AnyCancellable]()
 
     init?(scrollView: UIScrollView, stateManager: EditorPageBlocksStateManagerProtocol) {
@@ -33,10 +33,15 @@ final class ScrollViewContentInsetsHelper: KeyboardEventsListnerHelper {
                 scrollView?.contentInset = EditorScrollViewConstants.movingInsents
             }
         }.store(in: &cancellables)
+        self.scrollView = scrollView
 
         super.init(willShowAction: showAction,
                    willChangeFrame: showAction,
                    willHideAction: willHideAction)
+    }
+
+    func restoreEditingOffset() {
+        scrollView?.handleBottomInsetChange(EditorScrollViewConstants.bottomEditorInsets)
     }
 }
 

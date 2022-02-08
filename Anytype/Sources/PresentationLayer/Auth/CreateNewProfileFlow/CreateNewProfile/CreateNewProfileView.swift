@@ -1,5 +1,5 @@
 import SwiftUI
-
+import Amplitude
 
 struct CreateNewProfileView: View {
     @State private var showImagePicker: Bool = false
@@ -19,9 +19,11 @@ struct CreateNewProfileView: View {
         }
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
-        
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(image: $signUpData.image)
+        }
+        .onAppear {
+            Amplitude.instance().logEvent(AmplitudeEventsName.authScreenShow)
         }
     }
     
@@ -31,7 +33,7 @@ struct CreateNewProfileView: View {
             VStack(spacing: 0) {
                 contentView
             }
-            .background(Color.background)
+            .background(Color.backgroundPrimary)
             .cornerRadius(16.0)
         }
     }
@@ -90,7 +92,7 @@ struct CreateNewProfileView: View {
                         .clipShape(Circle())
                         .frame(width: imageWidth, height: imageWidth)
                 } else {
-                    Color.stroke
+                    Color.strokePrimary
                         .clipShape(Circle())
                         .frame(width: imageWidth, height: imageWidth)
                 }

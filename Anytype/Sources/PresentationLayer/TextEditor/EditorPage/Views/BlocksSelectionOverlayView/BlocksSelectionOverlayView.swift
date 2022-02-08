@@ -41,6 +41,11 @@ final class BlocksSelectionOverlayView: UIView {
         }
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        applyShadow()
+    }
+
     // MARK: - Private
     private func setupView() {
         bindActions()
@@ -52,7 +57,7 @@ final class BlocksSelectionOverlayView: UIView {
             $0.height.equal(to: statusBarHeight)
         }
 
-        statusBarOverlayView.backgroundColor = .white
+        statusBarOverlayView.backgroundColor = .backgroundPrimary
 
         addSubview(navigationView) {
             $0.pin(to: self, excluding: [.bottom, .top], insets: .zero)
@@ -69,10 +74,13 @@ final class BlocksSelectionOverlayView: UIView {
             $0.pinToSuperview(excluding: [.top], insets: .zero)
         }
 
+        applyShadow()
+    }
+
+    private func applyShadow() {
         shadowedBlocksOptionView.view.layer.cornerRadius = 16
         shadowedBlocksOptionView.view.layer.masksToBounds = true
-        shadowedBlocksOptionView.shadowLayer.fillColor = UIColor.white.cgColor
-        shadowedBlocksOptionView.shadowLayer.shadowColor = UIColor.black.cgColor
+        shadowedBlocksOptionView.shadowLayer.fillColor = UIColor.textPrimary.cgColor
         shadowedBlocksOptionView.shadowLayer.shadowOffset = .init(width: 0, height: 2)
         shadowedBlocksOptionView.shadowLayer.shadowOpacity = 0.25
         shadowedBlocksOptionView.shadowLayer.shadowRadius = 3
@@ -149,7 +157,7 @@ private final class SelectionNavigationView: UIView {
             leftButtonTap?()
         })
         leftButton.setTitle("Done".localized, for: .normal)
-        leftButton.setTitleColor(.pureAmber, for: .normal)
+        leftButton.setTitleColor(UIColor.System.amber, for: .normal)
         leftButton.addAction(leftButtonAction, for: .touchUpInside)
 
         addSubview(leftButton) {

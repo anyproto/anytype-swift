@@ -33,7 +33,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
 
         EventsBunch(
-            objectId: MiddlewareConfigurationService.shared.configuration().homeBlockID,
+            contextId: MiddlewareConfigurationService.shared.configuration().homeBlockID,
             localEvents: [.documentClosed(blockId: document.objectId)]
         ).send()
     }
@@ -97,17 +97,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         case let .details(id):
             guard id == document.objectId else {
-                // TODO: - call blocks update with new details to update mentions/links
+                #warning("call blocks update with new details to update mentions/links")
                 performGeneralUpdate()
                 return
             }
             
-            // TODO: - also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details
+            #warning("also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details")
             let details = document.objectDetails
             let header = headerBuilder.objectHeader(details: details)
 
             objectSettingsViewModel.update(
-                objectDetailsStorage: document.detailsStorage,
                 objectRestrictions: document.objectRestrictions,
                 parsedRelations: document.parsedRelations
             )
@@ -120,8 +119,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
                 return false
             }
             if let featuredRelationsBlockViewModel = featuredRelationsBlock as? FeaturedRelationsBlockViewModel {
-                updateViewModelsWithStructs(Set([featuredRelationsBlockViewModel.blockId]))
-                viewInput?.update(blocks: modelsHolder.models)
+                let diffrerence = difference(with: Set([featuredRelationsBlockViewModel.blockId]))
+                modelsHolder.applyDifference(difference: diffrerence)
+                viewInput?.update(changes: diffrerence, allModels: modelsHolder.models)
             }
 
         case let .blocks(updatedIds):
@@ -129,10 +129,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
                 return
             }
             
-            updateViewModelsWithStructs(updatedIds)
+            let diffrerence = difference(with: updatedIds)
             updateMarkupViewModel(updatedIds)
-            
-            viewInput?.update(blocks: modelsHolder.models)
+
+            modelsHolder.applyDifference(difference: diffrerence)
+            viewInput?.update(changes: diffrerence, allModels: modelsHolder.models)
 
         case .syncStatus(let status):
             viewInput?.update(syncStatus: status)
@@ -164,36 +165,28 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             router.goBack()
         }
     }
-    
-    private func updateViewModelsWithStructs(_ blockIds: Set<BlockId>) {
-        for blockId in blockIds {
-            guard let newRecord = document.blocksContainer.model(id: blockId) else {
-                AnytypeLogger(category: "Editor page view model").debug("Could not find object with id: \(blockId)")
-                return
-            }
 
-            let viewModelIndex = modelsHolder.models.firstIndex {
-                $0.blockId == blockId
-            }
 
-            guard let viewModelIndex = viewModelIndex else {
-                return
-            }
+    private func difference(
+        with blockIds: Set<BlockId>
+    ) -> CollectionDifference<BlockViewModelProtocol> {
+        var currentModels = modelsHolder.models
+        
+        for (offset, model) in modelsHolder.models.enumerated() {
+            for blockId in blockIds {
+                if model.blockId == blockId {
+                    guard let model = document.blocksContainer.model(id: blockId),
+                          let newViewModel = blockBuilder.build(model, previousBlock: nil) else {
+                              continue
+                          }
 
-            let upperBlock = modelsHolder.models[viewModelIndex].upperBlock
-            
-            guard
-                let newModel = blockBuilder.build(newRecord, previousBlock: upperBlock)
-            else {
-                anytypeAssertionFailure(
-                    "Could not build model from record: \(newRecord)",
-                    domain: .editorPage
-                )
-                return
-            }
 
-            modelsHolder.models[viewModelIndex] = newModel
+                    currentModels[offset] = newViewModel
+                }
+            }
         }
+
+        return modelsHolder.difference(between: currentModels)
     }
     
     private func updateMarkupViewModel(_ updatedBlockIds: Set<BlockId>) {
@@ -219,7 +212,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
         guard let currentInformation = document.blocksContainer.model(id: blockId)?.information else {
             wholeBlockMarkupViewModel.removeInformationAndDismiss()
-            anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .editorPage)
+            AnytypeLogger(category: "Editor page view model").debug("Could not find object with id: \(blockId)")
             return
         }
         guard case .text = currentInformation.content else {
@@ -230,15 +223,20 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
 
     private func handleGeneralUpdate(with models: [BlockViewModelProtocol]) {
-        modelsHolder.apply(newModels: models)
+        let difference = modelsHolder.difference(between: models)
+        if !difference.isEmpty {
+            modelsHolder.applyDifference(difference: difference)
+        } else {
+            modelsHolder.models = models
+        }
+
         
         let details = document.objectDetails
         let header = headerBuilder.objectHeader(details: details)
         updateHeaderIfNeeded(header: header, details: details)
-        viewInput?.update(blocks: modelsHolder.models)
+        viewInput?.update(changes: difference, allModels: modelsHolder.models)
 
         objectSettingsViewModel.update(
-            objectDetailsStorage: document.detailsStorage,
             objectRestrictions: document.objectRestrictions,
             parsedRelations: document.parsedRelations
         )
@@ -256,17 +254,25 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 // MARK: - View output
 
 extension EditorPageViewModel {
-    func viewLoaded() {
+    func viewDidLoad() {
+        if let objectDetails = document.objectDetails {
+            Amplitude.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
+        }
+    }
+    
+    func viewWillAppear() {
         guard document.open() else {
             router.goBack()
             return
         }
-        
-        Amplitude.instance().logDocumentShow(document.objectId)
     }
 
-    func viewAppeared() {
+    func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.models, type: document.objectDetails?.type)
+    }
+    
+    func viewWillDisappear() {
+        document.close()
     }
 }
 

@@ -7,12 +7,19 @@ import Kingfisher
 final class ObjectIconImageView: UIView {
     
     private let painter: ObjectIconImagePainterProtocol = ObjectIconImagePainter.shared
+    private var currentModel: ObjectIconImageModel?
     let imageView = UIImageView()
     
     init() {
         super.init(frame: .zero)
         
         setupView()
+    }
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        currentModel.map(configure(model:))
     }
     
     @available(*, unavailable)
@@ -39,8 +46,8 @@ extension ObjectIconImageView: ConfigurableView {
             imageView.image = stringIconImage(
                 model: model,
                 string: character.flatMap { String($0) } ?? "",
-                textColor: UIColor.textTertiary,
-                backgroundColor: UIColor.grayscale10
+                textColor: UIColor.textWhite,
+                backgroundColor: UIColor.strokeSecondary
             )
         case .staticImage(let name):
             imageView.image = model.imageGuideline.flatMap {
@@ -49,9 +56,11 @@ extension ObjectIconImageView: ConfigurableView {
         case .image(let image):
             imageView.image = image
         }
+
+        currentModel = model
     }
     
-    func handleObjectIconType(_ type: ObjectIconType, model: Model) {
+    private func handleObjectIconType(_ type: ObjectIconType, model: Model) {
         switch type {
         case .basic(let id):
             downloadImage(imageId: id, model: model)
@@ -63,8 +72,8 @@ extension ObjectIconImageView: ConfigurableView {
                 imageView.image = stringIconImage(
                     model: model,
                     string: String(character),
-                    textColor: UIColor.backgroundPrimary,
-                    backgroundColor: UIColor.dividerSecondary
+                    textColor: UIColor.textWhite,
+                    backgroundColor: UIColor.strokeSecondary
                 )
             }
         case .emoji(let iconEmoji):

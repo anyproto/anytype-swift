@@ -22,7 +22,7 @@ extension BundledRelationsValueProvider {
             return ObjectIconType.basic(iconImageHash.value)
         }
         
-        if let iconEmoji = IconEmoji(self.iconEmoji) {
+        if let iconEmoji = Emoji(self.iconEmoji) {
             return ObjectIconType.emoji(iconEmoji)
         }
         
@@ -76,13 +76,13 @@ extension BundledRelationsValueProvider {
     }
     
     var objectType: ObjectType {
-        let type = ObjectTypeProvider.objectType(url: type)
+        let parsedType = ObjectTypeProvider.objectType(url: type)
         anytypeAssert(
-            type != nil,
-            "Cannot parse type :\(String(describing: type)))",
+            parsedType != nil,
+            "Cannot parse type :\(String(describing: type))",
             domain: .objectDetails
         )
-        return type ?? ObjectTypeProvider.defaultObjectType
+        return parsedType ?? ObjectTypeProvider.defaultObjectType
     }
     
     var editorViewType: EditorViewType {

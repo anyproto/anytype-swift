@@ -3,7 +3,7 @@ import SwiftUI
 
 struct EmojiGridView: View {
     
-    let onEmojiSelect: (Emoji) -> ()
+    let onEmojiSelect: (EmojiData) -> ()
     
     @State private var searchText = ""
     
@@ -41,7 +41,7 @@ struct EmojiGridView: View {
     
     private func makeEmptySearchResultView(placeholder: String) -> some View {
         VStack {
-            // TODO: - fix localisation. it does not work now
+            #warning("fix localisation. it does not work now")
             AnytypeText(
                 "There is no emoji named".localized + " \"\(placeholder)\"",
                 style: .uxBodyRegular,

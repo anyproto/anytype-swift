@@ -9,7 +9,8 @@ protocol EditorBrowser: AnyObject {
 }
 
 protocol EditorBrowserViewInputProtocol: AnyObject {
-    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
+    func multiselectActive(_ active: Bool)
+    func onScroll(bottom: Bool)
 }
 
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
@@ -18,9 +19,11 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     var router: EditorRouterProtocol!
 
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
-    private var navigationViewHeighConstaint: NSLayoutConstraint?
+    private var navigationViewBottomConstaint: NSLayoutConstraint?
     
     private let stateManager = BrowserNavigationManager()
+    
+    private let navbarHeight: CGFloat = 48
 
     init() {
         super.init(nibName: nil, bundle: nil)
@@ -31,9 +34,8 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         
         view.addSubview(navigationView) {
             $0.pinToSuperview(excluding: [.top, .bottom])
-            $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
-            navigationViewHeighConstaint = $0.height.equal(to: 0)
-            navigationViewHeighConstaint?.isActive = false
+            navigationViewBottomConstaint = $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
+            $0.height.equal(to: navbarHeight)
         }
 
         embedChild(childNavigation, into: view)
@@ -125,17 +127,44 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     func showPage(data: EditorScreenData) {
         router.showPage(data: data)
     }
+    
+    private var isMultiselectActive = false
+    func multiselectActive(_ active: Bool) {
+        isMultiselectActive = active
+        updateNavigationVisibility(animated: false)
+    }
+    
+    private var scrollDirectionBottom = false
+    func onScroll(bottom: Bool) {
+        guard !isMultiselectActive, scrollDirectionBottom != bottom else { return }
+        scrollDirectionBottom = bottom
+        updateNavigationVisibility(animated: true)
+    }
+    
+    private func updateNavigationVisibility(animated: Bool) {
+        guard !isMultiselectActive else {
+            setNavigationViewHidden(true, animated: animated)
+            return
+        }
+        
+        if scrollDirectionBottom {
+            setNavigationViewHidden(true, animated: animated)
+        } else {
+            setNavigationViewHidden(false, animated: animated)
+        }
+    }
 
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
+        navigationViewBottomConstaint?.constant = isHidden ? view.safeAreaInsets.bottom + navbarHeight : 0
+        
         UIView.animate(
             withDuration: animated ? 0.3 : 0,
             delay: 0,
-            options: [.curveEaseIn]) { [weak self] in
-                self?.navigationViewHeighConstaint?.isActive = isHidden
+            options: .curveEaseInOut,
+            animations: { [weak self] in
                 self?.view.layoutIfNeeded()
-            } completion: { [weak self] didComplete in
-                self?.navigationView.isHidden = isHidden
-            }
+            }, completion: nil
+        )
     }
     
     // MARK: - Unavailable

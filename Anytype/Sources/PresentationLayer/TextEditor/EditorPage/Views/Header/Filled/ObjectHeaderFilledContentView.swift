@@ -13,7 +13,7 @@ final class ObjectHeaderFilledContentView: UIView, UIContentView {
         
     // MARK: - Views
         
-    private let headerView = ObjectHeaderView()
+    private var headerView: ObjectHeaderView
     
     // MARK: - Private variables
     
@@ -39,8 +39,10 @@ final class ObjectHeaderFilledContentView: UIView, UIContentView {
     // MARK: - Initializers
     
     init(configuration: ObjectHeaderFilledConfiguration) {
+        self.headerView = ObjectHeaderView(topAdjustedContentInset: configuration.topAdjustedContentInset)
+
         super.init(frame: .zero)
-        
+
         setupLayout()
         apply(configuration)
     }
@@ -89,6 +91,8 @@ private extension ObjectHeaderFilledContentView  {
     }
     
     func updateCoverTransform(_ offset: CGFloat) {
+        let offset = offset + appliedConfiguration.topAdjustedContentInset
+
         guard offset.isLess(than: CGFloat.zero) else {
             headerView.applyCoverTransform(.identity)
             return

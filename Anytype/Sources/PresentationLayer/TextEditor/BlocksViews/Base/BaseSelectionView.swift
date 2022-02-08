@@ -13,8 +13,8 @@ final class BaseSelectionView: UIView {
     func updateStyle(isSelected: Bool) {
         if isSelected {
             layer.borderWidth = 2.0
-            layer.borderColor = UIColor.pureAmber.cgColor
-            backgroundColor = UIColor.pureAmber.withAlphaComponent(0.1)
+            layer.borderColor = UIColor.System.amber.cgColor
+            backgroundColor = UIColor.System.amber.withAlphaComponent(0.1)
         } else {
             layer.borderWidth = 0.0
             layer.borderColor = nil

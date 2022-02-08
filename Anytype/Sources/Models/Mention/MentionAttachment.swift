@@ -32,9 +32,7 @@ final class MentionAttachment: NSTextAttachment {
         glyphPosition position: CGPoint,
         characterIndex charIndex: Int
     ) -> CGRect {        
-        guard let image = self.image else {
-            return .zero
-        }
+        guard let image = self.image else { return .zero }
 
         guard let font = textContainer?.layoutManager?.textStorage?.attribute(.font, at: charIndex, effectiveRange: nil) as? UIFont else {
             return CGRect(origin: .zero, size: image.size)
@@ -43,9 +41,9 @@ final class MentionAttachment: NSTextAttachment {
         // Centering image in the middle of text.
         // Attachment is laied out on the base line in core graphics coordinate system (aka y axis go up)
         // Offset from line center to baseline
-        let yOffset = font.ascender - (font.lineHeight / 2)
+        let yOffset = font.ascender - (font.lineHeight / 2.0)
         // Shift image to center take into account the offset
-        let imageYPoint = -(image.size.height / 2) + yOffset
+        let imageYPoint = -(image.size.height / 2.0) + yOffset
         let imageOrigin = CGPoint(x: .zero, y: imageYPoint)
 
         return CGRect(origin: imageOrigin, size: image.size)

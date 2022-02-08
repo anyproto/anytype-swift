@@ -24,26 +24,19 @@ enum BundledDetails {
 
 extension BundledDetails {
     
-    var asDetailsUpdate: DetailsUpdate {
-        DetailsUpdate(
-            key: key.rawValue,
-            value: value
-        )
-    }
-    
-    private var key: BundledRelationKey {
+    var key: String {
         switch self {
-        case .name: return BundledRelationKey.name
-        case .iconEmoji: return BundledRelationKey.iconEmoji
-        case .iconImageHash: return BundledRelationKey.iconImage
-        case .coverId: return BundledRelationKey.coverId
-        case .coverType: return BundledRelationKey.coverType
-        case .type: return BundledRelationKey.type
-        case .isDraft: return BundledRelationKey.isDraft
+        case .name: return BundledRelationKey.name.rawValue
+        case .iconEmoji: return BundledRelationKey.iconEmoji.rawValue
+        case .iconImageHash: return BundledRelationKey.iconImage.rawValue
+        case .coverId: return BundledRelationKey.coverId.rawValue
+        case .coverType: return BundledRelationKey.coverType.rawValue
+        case .type: return BundledRelationKey.type.rawValue
+        case .isDraft: return BundledRelationKey.isDraft.rawValue
         }
     }
     
-    private var value: Google_Protobuf_Value {
+    var value: Google_Protobuf_Value {
         switch self {
         case .name(let string): return string.protobufValue
         case .iconEmoji(let string): return string.protobufValue

@@ -1,7 +1,6 @@
 import Foundation
 import SwiftUI
 import Combine
-import os
 
 // MARK: Style
 enum BlockToolbarBookmark {
@@ -26,7 +25,7 @@ enum BlockToolbarBookmark {
         }
         func foregroundColor() -> UIColor {
             switch self {
-            case .title: return .grayscale90
+            case .title: return .textSecondary
             case .subtitle: return .init(red: 0.422, green: 0.415, blue: 0.372, alpha: 1)
             case .section: return .init(red: 0.675, green: 0.663, blue: 0.588, alpha: 1)
             }
@@ -37,18 +36,9 @@ enum BlockToolbarBookmark {
     }
 }
 
-// MARK: View
-/// TODO: Refactor later.
-extension BlockToolbarBookmark {
-    struct Layout {
-        var webViewHeight: CGFloat = 300
-    }
-}
-
 extension BlockToolbarBookmark {
     struct InputView: View {
         @ObservedObject var model: ViewModel
-        var layout: Layout = .init()
         
         func view(preferredWebViewHeight: CGFloat) -> some View {
             VStack(alignment: .center) {

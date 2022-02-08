@@ -171,4 +171,91 @@ extension UIImage {
             )
         }
     }
+
+    func rotate(radians: Float) -> UIImage {
+        var newSize = CGRect(origin: CGPoint.zero, size: size)
+            .applying(CGAffineTransform(rotationAngle: CGFloat(radians))).size
+
+        newSize.width = floor(newSize.width)
+        newSize.height = floor(newSize.height)
+
+        UIGraphicsBeginImageContextWithOptions(newSize, false, self.scale)
+        let context = UIGraphicsGetCurrentContext()!
+
+
+        context.translateBy(x: newSize.width/2, y: newSize.height/2)
+        context.rotate(by: CGFloat(radians))
+
+        draw(in: CGRect(x: -size.width/2, y: -size.height/2, width: size.width, height: size.height))
+
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage ?? self
+    }
+
+    static func imageWithText(
+        _ text: String,
+        textColor: UIColor,
+        backgroundColor: UIColor,
+        font: AnytypeFont,
+        size: CGSize,
+        cornerRadius: CGFloat
+    ) -> UIImage? {
+
+        let frame = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        let nameLabel = UILabel(frame: frame)
+        nameLabel.textAlignment = .center
+        nameLabel.textColor = textColor
+        nameLabel.font = font.uiKitFont
+        nameLabel.text = text
+
+        let backgroundView = UIView(frame: frame)
+        backgroundView.backgroundColor = backgroundColor
+        backgroundView.addSubview(nameLabel) {
+            $0.centerX.equal(to: backgroundView.centerXAnchor)
+            $0.centerY.equal(to: backgroundView.centerYAnchor)
+        }
+
+        backgroundView.layer.cornerRadius = cornerRadius
+        backgroundView.layer.masksToBounds = true
+        
+        UIGraphicsBeginImageContextWithOptions(size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)
+        if let currentContext = UIGraphicsGetCurrentContext() {
+            backgroundView.layer.render(in: currentContext)
+            let nameImage = UIGraphicsGetImageFromCurrentImageContext()
+            return nameImage
+        }
+
+        return nil
+    }
+
+    static func circleImage(
+        size: CGSize,
+        fillColor: UIColor,
+        borderColor: UIColor,
+        borderWidth: CGFloat
+    ) -> UIImage {
+        let format = UIGraphicsImageRendererFormat()
+
+        format.scale = UIApplication.shared.keyWindow?.screen.scale ?? 0
+        let renderer = UIGraphicsImageRenderer(size: size, format: format)
+
+        let img = renderer.image { ctx in
+            ctx.cgContext.setFillColor(fillColor.cgColor)
+            ctx.cgContext.setStrokeColor(borderColor.cgColor)
+            ctx.cgContext.setLineWidth(borderWidth)
+
+            let delta = borderWidth/2
+            let rectangle = CGRect(
+                x: 0, y: 0,
+                width: size.width,
+                height: size.height
+            ).insetBy(dx: delta, dy: delta)
+            ctx.cgContext.addEllipse(in: rectangle)
+            ctx.cgContext.drawPath(using: .fillStroke)
+        }
+
+        return img
+    }
 }

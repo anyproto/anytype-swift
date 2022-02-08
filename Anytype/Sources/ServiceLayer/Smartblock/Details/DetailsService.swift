@@ -17,11 +17,7 @@ final class DetailsService {
 extension DetailsService: DetailsServiceProtocol {
     
     func updateBundledDetails(_ bundledDpdates: [BundledDetails]) {
-        updateDetails(bundledDpdates.map { $0.asDetailsUpdate })
-    }
-    
-    func updateDetails(_ updates: [DetailsUpdate]) {
-        service.updateDetails(contextID: objectId, updates: updates)
+        service.updateBundledDetails(contextID: objectId, details: bundledDpdates)
     }
 
     func setLayout(_ detailsLayout: DetailsLayout) {

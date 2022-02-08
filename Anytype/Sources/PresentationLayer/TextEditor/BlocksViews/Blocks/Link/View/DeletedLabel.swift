@@ -12,13 +12,13 @@ final class DeletedLabel: UIView {
                 insets: UIEdgeInsets(top: 0, left: 4, bottom: 0, right: -4)
             )
         }
-        backgroundColor = .grayscale10
+        backgroundColor = .backgroundSelected
         layer.cornerRadius = 3
     }
     
     private let deletedLabel: UILabel = {
         let view = UILabel()
-        view.textColor = .grayscale50
+        view.textColor = .textSecondary
         view.font = .relation2Regular
         view.text = "Deleted".localized
         return view

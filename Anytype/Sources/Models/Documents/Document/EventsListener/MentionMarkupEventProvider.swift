@@ -6,12 +6,12 @@ final class MentionMarkupEventProvider {
     
     private let objectId: BlockId
     private let blocksContainer: BlockContainerModelProtocol
-    private let detailsStorage: ObjectDetailsStorageProtocol
+    private let detailsStorage: ObjectDetailsStorage
         
     init(
         objectId: BlockId,
         blocksContainer: BlockContainerModelProtocol,
-        detailsStorage: ObjectDetailsStorageProtocol
+        detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared
     ) {
         self.objectId = objectId
         self.blocksContainer = blocksContainer
@@ -50,7 +50,7 @@ final class MentionMarkupEventProvider {
             
             guard let mentionNameInDetails = details?.mentionTitle else { return nil }
             
-            // TODO: Update only mentions to updated pages
+            #warning("Update only mentions to updated pages")
             let mentionChanged = true // mentionName != mentionNameInDetails
             
             if mentionChanged {

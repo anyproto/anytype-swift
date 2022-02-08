@@ -9,6 +9,7 @@
 import BlocksModels
 import SwiftUI
 import Combine
+import Amplitude
 
 struct MarkupItem: Identifiable, Equatable {
     let id = UUID()
@@ -89,6 +90,15 @@ final class MarkupAccessoryViewModel: ObservableObject {
         }
     }
 
+    func handleSelectedColorItem(_ colorItem: ColorView.ColorItem) {
+        switch colorItem {
+        case let .text(color):
+            actionHandler.changeTextStyle(.textColor(color.color), range: range, blockId: blockId)
+        case let .background(color):
+            actionHandler.changeTextStyle(.backgroundColor(color.color), range: range, blockId: blockId)
+        }
+    }
+
     private func attributeState(for markup: MarkupKind) -> AttributeState {
         guard let currentText = currentText else { return .disabled }
         guard let restrictions = restrictions else { return .disabled }
@@ -132,7 +142,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
 
             guard isCurrentBlock, let (block, textBlockContent) = self.blockData(blockId: self.blockId) else { return }
 
-            let currentText = textBlockContent.anytypeText(using: self.document.detailsStorage).attrString
+            let currentText = textBlockContent.anytypeText.attrString
             self.selectBlock(block, text: currentText, range: self.range)
         }.store(in: &cancellables)
     }

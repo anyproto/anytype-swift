@@ -7,10 +7,10 @@ struct LoadingAnimationView: View {
     
     var color: Color {
         if showError {
-            return .pureRed
+            return Color.System.red
         }
         
-        return shouldAnimate ? Color.stroke : Color.grayscale10
+        return shouldAnimate ? Color.strokePrimary : Color.strokeTertiary
     }
     
     var scale: CGFloat {

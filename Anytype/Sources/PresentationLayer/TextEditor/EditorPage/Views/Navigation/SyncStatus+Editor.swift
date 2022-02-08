@@ -46,11 +46,11 @@ extension SyncStatus {
     private var color: UIColor {
         switch self {
         case .offline, .failed:
-            return .pureRed
+            return UIColor.System.red
         case .syncing, .unknown:
-            return .pureAmber
+            return UIColor.System.amber
         case .synced:
-            return .pureGreen
+            return UIColor.System.green
         }
     }
     

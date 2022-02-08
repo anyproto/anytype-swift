@@ -5,7 +5,7 @@ struct RelationSheetModifier: ViewModifier {
     @Binding var isPresented: Bool
     
     let title: String?
-    let dismissCallback: () -> ()
+    let dismissCallback: (() -> ())?
     
     @State private var backgroundOpacity = 0.0
     @State private var sheetHeight = 0.0
@@ -29,13 +29,13 @@ struct RelationSheetModifier: ViewModifier {
         .onChange(of: isPresented) { newValue in
             guard newValue == false else { return }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                dismissCallback()
+                dismissCallback?()
             }
         }
     }
     
     private var background: some View {
-        Color.grayscale90.opacity(backgroundOpacity)
+        Color.strokePrimary.opacity(backgroundOpacity)
             .onTapGesture {
                 withAnimation(.fastSpring) {
                     backgroundOpacity = 0.0
@@ -57,8 +57,8 @@ struct RelationSheetModifier: ViewModifier {
             
             Spacer.fixedHeight(20)
         }
-        .background(Color.background)
-        .background(FrameCatcher { sheetHeight = $0.height })
+        .background(Color.backgroundPrimary)
+        .readSize { sheetHeight = $0.height }
         .cornerRadius(16, corners: [.topLeft, .topRight])
         .offset(x: 0, y: currentOffset)
     }
@@ -67,3 +67,11 @@ struct RelationSheetModifier: ViewModifier {
         isPresented ? 0 : sheetHeight
     }
 }
+
+struct RelationSheetModifier_Previews: PreviewProvider {
+    static var previews: some View {
+        AnytypeText("text", style: .body, color: .red)
+            .modifier(RelationSheetModifier(isPresented: .constant(true), title: "tiel", dismissCallback: nil))
+    }
+}
+

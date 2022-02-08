@@ -15,29 +15,30 @@ enum BlockColor: CaseIterable {
     case green
     
     var color: UIColor {
+        typealias ColorComponent = UIColor.Text
         switch self {
         case .amber:
-            return .pureAmber
+            return ColorComponent.amber
         case .black:
-            return .textPrimary
+            return ColorComponent.`default`
         case .lemon:
-            return .pureLemon
+            return ColorComponent.yellow
         case .red:
-            return .pureRed
+            return ColorComponent.red
         case .pink:
-            return .purePink
+            return ColorComponent.pink
         case .purple:
-            return .purePurple
+            return ColorComponent.purple
         case .blue:
-            return .pureUltramarine
+            return ColorComponent.blue
         case .sky:
-            return .pureBlue
+            return ColorComponent.sky
         case .teal:
-            return .pureTeal
+            return ColorComponent.teal
         case .green:
-            return .pureGreen
+            return ColorComponent.green
         case .gray:
-            return .darkGray
+            return ColorComponent.grey
         }
     }
     
@@ -47,7 +48,7 @@ enum BlockColor: CaseIterable {
         case .black:
             return "Black".localized
         case .lemon:
-            return "Lemon".localized
+            return "Yellow".localized
         case .amber:
             return "Amber".localized
         case .red:
@@ -69,31 +70,13 @@ enum BlockColor: CaseIterable {
         }
     }
     
-    var iconName: String {
-        switch self {
-        case .lemon:
-            return ImageName.slashMenu.color.lemon
-        case .black:
-            return ImageName.slashMenu.color.black
-        case .amber:
-            return ImageName.slashMenu.color.amber
-        case .red:
-            return ImageName.slashMenu.color.red
-        case .pink:
-            return ImageName.slashMenu.color.pink
-        case .purple:
-            return ImageName.slashMenu.color.purple
-        case .blue:
-            return ImageName.slashMenu.color.blue
-        case .sky:
-            return ImageName.slashMenu.color.sky
-        case .teal:
-            return ImageName.slashMenu.color.teal
-        case .green:
-            return ImageName.slashMenu.color.green
-        case .gray:
-            return ImageName.slashMenu.color.gray
-        }
+    var image: UIImage {
+        UIImage.circleImage(
+            size: .init(width: 22, height: 22),
+            fillColor: color,
+            borderColor: .strokePrimary,
+            borderWidth: 2
+        )
     }
     
     var middleware: MiddlewareColor {

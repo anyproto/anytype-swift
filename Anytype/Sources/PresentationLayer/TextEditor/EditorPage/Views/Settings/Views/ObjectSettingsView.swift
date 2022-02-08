@@ -16,7 +16,7 @@ struct ObjectSettingsView: View {
             DragIndicator(bottomPadding: 0)
             settings
         }
-        .background(Color.background)
+        .background(Color.backgroundSecondary)
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
     }
@@ -47,27 +47,14 @@ struct ObjectSettingsView: View {
         ObjectSettingRow(setting: viewModel.settings[index], isLast: index == viewModel.settings.count - 1) {
             switch viewModel.settings[index] {
             case .icon:
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.buttonIconInObjectSettings)
-
                 isIconPickerPresented = true
             case .cover:
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.buttonCoverInObjectSettings)
-
                 isCoverPickerPresented = true
             case .layout:
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.buttonLayoutInObjectSettings)
-
                 withAnimation() {
                     isLayoutPickerPresented = true
                 }
             case .relations:
-                // Analytics
-                Amplitude.instance().logEvent(
-                    AmplitudeEventsName.buttonRelationsInObjectSettings
-                )
                 isRelationsViewPresented = true
             }
         }
@@ -96,7 +83,6 @@ struct ObjectSettingsView_Previews: PreviewProvider {
             .environmentObject(
                 ObjectSettingsViewModel(
                     objectId: "dummyPageId",
-                    detailsStorage: ObjectDetailsStorage(),
                     objectDetailsService: DetailsService(objectId: ""),
                     popScreenAction: {},
                     onRelationValueEditingTap: { _ in }

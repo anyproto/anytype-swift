@@ -95,7 +95,7 @@ class ColorView: UIView {
         }, configuration: config)
 
         let styleCollectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-        styleCollectionView.backgroundColor = .white
+        styleCollectionView.backgroundColor = .clear
         styleCollectionView.isScrollEnabled = false
         styleCollectionView.delegate = self
         styleCollectionView.allowsMultipleSelection = true
@@ -109,8 +109,16 @@ class ColorView: UIView {
     // MARK: - Properties
 
     private var styleDataSource: UICollectionViewDiffableDataSource<SectionKind, ColorItem>?
-    private var selectedTextColor: UIColor?
-    private var selectedBackgroundColor: UIColor?
+    var selectedTextColor: UIColor? {
+        didSet {
+            updateSnapshot()
+        }
+    }
+    var selectedBackgroundColor: UIColor? {
+        didSet {
+            updateSnapshot()
+        }
+    }
     private var viewDidCloseHandler: () -> Void
     private var colorViewSelectedAction: (ColorItem) -> Void
 
@@ -120,8 +128,8 @@ class ColorView: UIView {
     /// - Parameter color: Foreground color
     /// - Parameter backgroundColor: Background color
     init(
-        color: UIColor = .textPrimary,
-        backgroundColor: UIColor = .backgroundPrimary,
+        color: UIColor = UIColor.Text.default,
+        backgroundColor: UIColor = UIColor.Background.default,
         colorViewSelectedAction: @escaping (ColorItem) -> Void,
         viewDidClose: @escaping () -> Void
     ) {
@@ -146,9 +154,8 @@ class ColorView: UIView {
         containerView.layer.cornerRadius = 12.0
         containerView.layer.cornerCurve = .continuous
 
-        containerView.layer.shadowColor = UIColor.grayscale90.cgColor
+        containerView.layer.shadowColor = UIColor.shadowPrimary.cgColor
         containerView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        containerView.layer.shadowOpacity = 0.25
         containerView.layer.shadowRadius = 40
 
         backgroundColor = .clear
@@ -159,6 +166,7 @@ class ColorView: UIView {
         addSubview(backdropView)
         addSubview(containerView)
         containerView.addSubview(styleCollectionView)
+        containerView.backgroundColor = .backgroundSecondary
 
         setupLayout()
     }
@@ -183,7 +191,7 @@ class ColorView: UIView {
         styleDataSource = UICollectionViewDiffableDataSource<SectionKind, ColorItem>(collectionView: styleCollectionView) {
             [weak self] (collectionView: UICollectionView, indexPath: IndexPath, identifier: ColorItem) -> UICollectionViewCell? in
 
-            let color = SectionKind(rawValue: indexPath.section) == .textColor ? self?.selectedTextColor : self?.backgroundColor
+            let color = SectionKind(rawValue: indexPath.section) == .textColor ? self?.selectedTextColor : self?.selectedBackgroundColor
 
             if identifier.color == color {
                 collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])

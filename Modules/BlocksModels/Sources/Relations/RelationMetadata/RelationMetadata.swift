@@ -1,5 +1,6 @@
 import Foundation
 import ProtobufMessages
+import SwiftProtobuf
 
 public struct RelationMetadata: Hashable {
     
@@ -36,7 +37,6 @@ public struct RelationMetadata: Hashable {
         self.objectTypes = objectTypes
         self.scope = scope
     }
-    
 }
 
 extension RelationMetadata: Identifiable {
@@ -44,7 +44,6 @@ extension RelationMetadata: Identifiable {
     public var id: String {
         return key
     }
-    
 }
 
 public extension RelationMetadata {
@@ -62,5 +61,28 @@ public extension RelationMetadata {
         self.objectTypes = middlewareRelation.objectTypes
         self.scope = Scope(rawValue: middlewareRelation.scope.rawValue)
     }
-    
+
+    var middlewareModel: Anytype_Model_Relation {
+        let scope = Anytype_Model_Relation.Scope(rawValue: scope.rawValue) ?? .object
+        let format = Anytype_Model_RelationFormat(rawValue: format.rawValue) ?? .longtext
+
+        return Anytype_Model_Relation(
+            key: key,
+            format: format,
+            name: name,
+            defaultValue: SwiftProtobuf.Google_Protobuf_Value(),
+            dataSource: .local,
+            hidden: isHidden,
+            readOnly: isReadOnly,
+            readOnlyRelation: false,
+            multi: isMulti,
+            objectTypes: objectTypes,
+            selectDict: selections.map {
+                $0.middlewareModel
+            },
+            maxCount: 0,
+            description_p: "",
+            scope: scope,
+            creator: "")
+    }
 }

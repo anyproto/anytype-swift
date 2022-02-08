@@ -21,10 +21,6 @@ struct ObjectBasicIconPicker: View {
             tabBarView
         }
         .ignoresSafeArea(.keyboard)
-        .onAppear {
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.popupChooseEmojiMenu)
-        }
     }
     
     private var emojiTabView: some View {
@@ -52,7 +48,7 @@ struct ObjectBasicIconPicker: View {
                 viewModel.removeIcon()
                 dismiss()
             } label: {
-                AnytypeText("Remove".localized, style: .uxBodyRegular, color: .pureRed)
+                AnytypeText("Remove".localized, style: .uxBodyRegular, color: Color.System.red)
             }
         }
     }
@@ -96,9 +92,6 @@ struct ObjectBasicIconPicker: View {
     
     private var randomEmojiButtonView: some View {
         Button {
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.buttonRandomEmoji)
-
             EmojiProvider.shared.randomEmoji().flatMap {
                 handleSelectedEmoji($0)
             }
@@ -108,7 +101,7 @@ struct ObjectBasicIconPicker: View {
         .frame(maxWidth: .infinity)
     }
     
-    private func handleSelectedEmoji(_ emoji: Emoji) {
+    private func handleSelectedEmoji(_ emoji: EmojiData) {
         viewModel.setEmoji(emoji.emoji)
         dismiss()
     }

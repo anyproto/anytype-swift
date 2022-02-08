@@ -11,20 +11,24 @@ struct StatusRelationEditingView: View {
             statusesList
             Spacer.fixedHeight(20)
         }
-        .onChange(of: searchText) { viewModel.filterStatusSections(text: $0)
-        }
+        .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.onDismiss))
+        .onChange(of: searchText) { viewModel.filterStatusSections(text: $0) }
     }
     
     private var statusesList: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                if viewModel.statusSections.isEmpty {
-                    createStatusButton
+                if searchText.isNotEmpty {
+                    RelationOptionCreateButton(text: searchText) {
+                        viewModel.addOption(text: searchText)
+                    }
                 }
                 
                 ForEach(viewModel.statusSections) { section in
-                    Section(header: sectionHeader(title: section.title)) {
-                        ForEach(section.statuses) { statusRow($0) }
+                    Section(
+                        header: RelationOptionsSectionHeaderView(title: section.title)
+                    ) {
+                        ForEach(section.options) { statusRow($0) }
                     }
                 }
             }
@@ -32,31 +36,7 @@ struct StatusRelationEditingView: View {
         }
     }
     
-    private var createStatusButton: some View {
-        Group {
-            Button {
-                viewModel.addOption(text: searchText)
-            } label: {
-                HStack(spacing: 8) {
-                    Image.Relations.createOption.frame(width: 24, height: 24)
-                    AnytypeText("\("Create option".localized) \"\(searchText)\"", style: .uxBodyRegular, color: .textSecondary)
-                        .lineLimit(1)
-                    Spacer()
-                }
-                .padding(.vertical, 14)
-            }
-        }
-        .modifier(DividerModifier(spacing: 0))
-    }
-    
-    private func sectionHeader(title: String) -> some View {
-        AnytypeText(title, style: .caption1Regular, color: .textSecondary)
-            .padding(.top, 26)
-            .padding(.bottom, 8)
-            .modifier(DividerModifier(spacing: 0, alignment: .leading))
-    }
-    
-    private func statusRow(_ status: RelationValue.Status) -> some View {
+    private func statusRow(_ status: Relation.Status.Option) -> some View {
         StatusRelationRowView(
             status: status,
             isSelected: status == viewModel.selectedStatus
@@ -77,9 +57,9 @@ struct StatusRelationEditingView_Previews: PreviewProvider {
         StatusRelationEditingView(
             viewModel: StatusRelationEditingViewModel(
                 relationKey: "",
+                relationName: "",
                 relationOptions: [],
                 selectedStatus: nil,
-                detailsService: DetailsService(objectId: ""),
                 relationsService: RelationsService(objectId: "")
             )
         )

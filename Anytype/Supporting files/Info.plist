@@ -16,6 +16,8 @@
 				<array>
 					<string>art</string>
 				</array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
 			</dict>
 			<key>oldSchool</key>
 			<dict>
@@ -23,11 +25,35 @@
 				<array>
 					<string>oldSchool</string>
 				</array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
 			</dict>
 		</dict>
 	</dict>
 	<key>CFBundleIcons~ipad</key>
-	<dict/>
+	<dict>
+		<key>CFBundleAlternateIcons</key>
+		<dict>
+			<key>art</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>art</string>
+				</array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+			</dict>
+			<key>oldSchool</key>
+			<dict>
+				<key>CFBundleIconFiles</key>
+				<array>
+					<string>oldSchool</string>
+				</array>
+                <key>UIPrerenderedIcon</key>
+                <false/>
+			</dict>
+		</dict>
+	</dict>
 	<key>CFBundleIdentifier</key>
 	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -37,9 +63,9 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.7.0</string>
+	<string>0.8.0</string>
 	<key>CFBundleVersion</key>
-	<string>43</string>
+	<string>37</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -107,8 +133,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>UIUserInterfaceStyle</key>
-	<string>Light</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>

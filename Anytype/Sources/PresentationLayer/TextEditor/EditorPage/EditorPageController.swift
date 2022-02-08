@@ -26,12 +26,12 @@ final class EditorPageController: UIViewController {
         )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
-        collectionView.contentInsetAdjustmentBehavior = .never
+        collectionView.contentInsetAdjustmentBehavior = .always
 
         return collectionView
     }()
     
-    private var insetsHelper: ScrollViewContentInsetsHelper?
+    private(set) var insetsHelper: ScrollViewContentInsetsHelper?
     private var firstResponderHelper: FirstResponderHelper?
     private var contentOffset: CGPoint = .zero
     lazy var dividerCursorController = DividerCursorController(
@@ -89,7 +89,7 @@ final class EditorPageController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        viewModel.viewLoaded()
+        viewModel.viewDidLoad()
         bindViewModel()
         setEditing(true, animated: false)
         collectionView.allowsSelectionDuringEditing = true
@@ -97,6 +97,7 @@ final class EditorPageController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
         
         navigationBarHelper.handleViewWillAppear(controllerForNavigationItems, collectionView)
         
@@ -109,11 +110,13 @@ final class EditorPageController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        viewModel.viewAppeared()
+        viewModel.viewDidAppear()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        viewModel.viewWillDisappear()
         
         navigationBarHelper.handleViewWillDisappear()
         insetsHelper = nil
@@ -123,7 +126,7 @@ final class EditorPageController: UIViewController {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         collectionView.isEditing = editing
-        browserViewInput?.setNavigationViewHidden(!editing, animated: false)
+        browserViewInput?.multiselectActive(!editing)
     }
     
     private var controllerForNavigationItems: UIViewController? {
@@ -185,32 +188,32 @@ extension EditorPageController: EditorPageViewInput {
     func update(syncStatus: SyncStatus) {
         navigationBarHelper.updateSyncStatus(syncStatus)
     }
-    
-    func update(blocks: [BlockViewModelProtocol]) {
+
+    func update(
+        changes: CollectionDifference<BlockViewModelProtocol>,
+        allModels: [BlockViewModelProtocol]
+    ) {
         var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
-        blocksSnapshot.append(blocks.map { EditorItem.block($0) })
-        
-        let sectionSnapshot = self.dataSource.snapshot(for: .main)
+        blocksSnapshot.append(allModels.map { EditorItem.block($0) })
 
-        sectionSnapshot.visibleItems.forEach { item in
-            switch item {
-            case let .block(block):
-                let blockForUpdate = blocks.first { $0.blockId == block.blockId }
+        var changedIndexes = [BlockId]()
+        for change in changes.insertions {
+            changedIndexes.append(change.element.blockId)
 
-                guard let blockForUpdate = blockForUpdate else { return }
-                guard let indexPath = self.dataSource.indexPath(for: item) else { return }
-                guard let cell = self.collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+            guard let viewModel = allModels[safe: change.offset],
+                  let item = blocksSnapshot.items[safe: change.offset],
+                  blocksSnapshot.isVisible(item) else { continue }
 
-                cell.contentConfiguration = blockForUpdate.makeContentConfiguration(maxWidth: cell.bounds.width)
-                cell.indentationLevel = blockForUpdate.indentationLevel
-            case .header:
-                return
-            }
+            guard let indexPath = dataSource.indexPath(for: item) else { continue }
+            guard let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
+
+            cell.contentConfiguration = viewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.indentationLevel = viewModel.indentationLevel
         }
-        
+
         applyBlocksSectionSnapshot(blocksSnapshot)
     }
-    
+
     func selectBlock(blockId: BlockId) {
         let item = dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
@@ -243,12 +246,6 @@ extension EditorPageController: EditorPageViewInput {
         navigationBarHelper.setNavigationBarHidden(show)
         deletedScreen.isHidden = !show
         if show { UIApplication.shared.hideKeyboard() }
-    }
-    
-    private func updateView() {
-        UIView.performWithoutAnimation {
-            dataSource.refresh(animatingDifferences: true)
-        }
     }
 }
 
@@ -377,9 +374,16 @@ private extension EditorPageController {
         return dataSource
     }
     
-    func createHeaderCellRegistration()-> UICollectionView.CellRegistration<EditorViewListCell, ObjectHeader> {
-        .init { cell, _, item in
-            cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
+    func createHeaderCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, ObjectHeader> {
+        .init { [weak self] cell, _, item in
+            guard let self = self else { return }
+
+            let topAdjustedContentInset = self.collectionView.adjustedContentInset.top
+
+            if var objectHeaderFilledConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width) as? ObjectHeaderFilledConfiguration {
+                objectHeaderFilledConfiguration.topAdjustedContentInset = topAdjustedContentInset
+                cell.contentConfiguration = objectHeaderFilledConfiguration
+            }
         }
     }
     
@@ -415,7 +419,7 @@ private extension EditorPageController {
     
     func applyBlocksSectionSnapshot(_ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>) {
         let selectedCells = collectionView.indexPathsForSelectedItems
-        
+
         UIView.performWithoutAnimation { [weak self] in
             guard let self = self else { return }
 
@@ -429,7 +433,7 @@ private extension EditorPageController {
     
     private func focusOnFocusedBlock() {
         let userSession = UserSession.shared
-        // TODO: we should move this logic to TextBlockViewModel
+        #warning("we should move this logic to TextBlockViewModel")
         if let id = userSession.firstResponderId.value, let focusedAt = userSession.focus.value,
            let blockViewModel = viewModel.modelsHolder.models.first(where: { $0.blockId == id }) as? TextBlockViewModel {
             blockViewModel.set(focus: focusedAt)

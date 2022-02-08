@@ -4,18 +4,16 @@ import BlocksModels
 final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
     private let blocksContainer: BlockContainerModelProtocol
-    private let detailsStorage: ObjectDetailsStorageProtocol
     
-    init(blocksContainer: BlockContainerModelProtocol, detailsStorage: ObjectDetailsStorageProtocol) {
+    init(blocksContainer: BlockContainerModelProtocol) {
         self.blocksContainer = blocksContainer
-        self.detailsStorage = detailsStorage
     }
     
     func toggleMarkup(_ markup: MarkupType, blockId: BlockId)  -> NSAttributedString? {
         guard let info = blocksContainer.model(id: blockId)?.information else { return nil }
         guard case let .text(blockText) = info.content else { return nil }
         
-        let range = blockText.anytypeText(using: detailsStorage).attrString.wholeRange
+        let range = blockText.anytypeText.attrString.wholeRange
         
         return toggleMarkup(markup, blockId: blockId, range: range)
     }
@@ -27,7 +25,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
 
         guard restrictions.isMarkupAvailable(markup) else { return nil }
 
-        let attributedText = content.anytypeText(using: detailsStorage).attrString
+        let attributedText = content.anytypeText.attrString
         let shouldApplyMarkup = !attributedText.hasMarkup(markup, range: range)
 
         return apply(
@@ -57,7 +55,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
 
         guard restrictions.isMarkupAvailable(markup) else { return nil }
 
-        let attributedText = content.anytypeText(using: detailsStorage).attrString
+        let attributedText = content.anytypeText.attrString
 
         return apply(
             markup,

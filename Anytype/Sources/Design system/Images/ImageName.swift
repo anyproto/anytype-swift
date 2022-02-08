@@ -15,8 +15,6 @@ final class ImageName {
             static let other = "slash_menu_group_other"
             static let relation = "slash_menu_group_relation"
             static let style = "slash_menu_group_style"
-            static let color = "slash_menu_color_black"
-            static let background_color = "slash_menu_background_color_clear"
             static let alignment = "slash_menu_alignment_left"
         }
         
@@ -51,34 +49,6 @@ final class ImageName {
             static let center = "slash_menu_alignment_center"
             static let left = "slash_menu_alignment_left"
             static let right = "slash_menu_alignment_right"
-        }
-        
-        enum background_color {
-            static let amber = "slash_menu_background_color_amber"
-            static let ultramarine = "slash_menu_background_color_ultramarine"
-            static let teal = "slash_menu_background_color_teal"
-            static let red = "slash_menu_background_color_red"
-            static let purple = "slash_menu_background_color_purple"
-            static let pink = "slash_menu_background_color_pink"
-            static let lemon = "slash_menu_background_color_lemon"
-            static let green = "slash_menu_background_color_green"
-            static let gray = "slash_menu_background_color_coldgray"
-            static let clear = "slash_menu_background_color_clear"
-            static let blue = "slash_menu_background_color_blue"
-        }
-        
-        enum color {
-            static let amber = "slash_menu_color_amber"
-            static let blue = "slash_menu_color_ultramarine"
-            static let teal = "slash_menu_color_teal"
-            static let red = "slash_menu_color_red"
-            static let purple = "slash_menu_color_purple"
-            static let pink = "slash_menu_color_pink"
-            static let lemon = "slash_menu_color_lemon"
-            static let green = "slash_menu_color_green"
-            static let gray = "slash_menu_color_coldgray"
-            static let black = "slash_menu_color_black"
-            static let sky = "slash_menu_color_sky"
         }
         
         enum media {

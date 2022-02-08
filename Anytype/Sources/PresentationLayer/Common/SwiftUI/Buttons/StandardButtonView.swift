@@ -8,11 +8,11 @@ enum StandardButtonStyle {
     func backgroundColor(disabled: Bool) -> Color {
         switch self {
         case .secondary:
-            return .buttonSecondary
+            return .backgroundPrimary
         case .primary:
-            return disabled ? .stroke : .buttonPrimary
+            return disabled ? .strokePrimary : Color.System.amber
         case .destructive:
-            return disabled ? .stroke : .pureRed
+            return disabled ? .strokePrimary : Color.System.red
         }
     }
     
@@ -22,21 +22,17 @@ enum StandardButtonStyle {
             if disabled {
                 return .textSecondary
             } else {
-                return .buttonSecondaryText
+                return .textPrimary
             }
         case .primary, .destructive:
-            if disabled {
-                return .white
-            } else {
-                return .buttonPrimartText
-            }
+            return .white
         }
     }
     
     var borderColor: Color? {
         switch self {
         case .secondary:
-            return .buttonSecondaryBorder
+            return .strokePrimary
         case .primary, .destructive:
             return nil
         }

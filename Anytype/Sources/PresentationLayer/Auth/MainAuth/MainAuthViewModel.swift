@@ -37,7 +37,6 @@ class MainAuthViewModel: ObservableObject {
 
     // MARK: - View output
     func viewLoaded() {
-        // Analytics
-        Amplitude.instance().logEvent(AmplitudeEventsName.showAuthScreen)
+        Amplitude.instance().logEvent(AmplitudeEventsName.authScreenShow)
     }
 }

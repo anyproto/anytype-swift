@@ -10,6 +10,7 @@ struct DateRelationEditingView: View {
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
+        .modifier(RelationSheetModifier(isPresented: $viewModel.isPresented, title: viewModel.relationName, dismissCallback: viewModel.onDismiss))
     }
     
     private var valueList: some View {
@@ -29,9 +30,10 @@ struct DateRelationEditingView_Previews: PreviewProvider {
     static var previews: some View {
         DateRelationEditingView(
             viewModel: DateRelationEditingViewModel(
-                service: DetailsService(objectId: ""),
-                key: "",
-                value: nil
+                relationKey: "",
+                relationName: "",
+                value: nil,
+                service: RelationsService(objectId: "")
             )
         )
     }

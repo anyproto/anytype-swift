@@ -91,7 +91,6 @@ private struct ContentView: View {
                     .padding()
                     .background(RoundedRectangle(cornerRadius: 5).fill(Color.blue))
             })
-            .border(Color.red)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }

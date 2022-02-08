@@ -24,7 +24,7 @@ final class SlashMenuActionHandler {
             handleStyle(style, blockId: blockId)
         case let .media(media):
             actionHandler.addBlock(media.blockViewsType, blockId: blockId)
-        case .objects(let action):
+        case let .objects(action):
             switch action {
             case .linkTo:
                 router.showLinkTo { [weak self] targetDetailsId in
@@ -34,8 +34,15 @@ final class SlashMenuActionHandler {
                 actionHandler.createPage(targetId: blockId, type: .dynamic(object.id))
                     .flatMap { router.showPage(data: EditorScreenData(pageId: $0, type: .page)) }
             }
-        case .relations:
-            break
+        case let .relations(action):
+            switch action {
+            case .newRealtion:
+                router.showAdditinNewRelationView { [weak self] relation in
+                    self?.actionHandler.addBlock(.relation(key: relation.id), blockId: blockId)
+                }
+            case .relation(let relation):
+                actionHandler.addBlock(.relation(key: relation.id), blockId: blockId)
+            }
         case let .other(other):
             actionHandler.addBlock(other.blockViewsType, blockId: blockId)
         case let .color(color):

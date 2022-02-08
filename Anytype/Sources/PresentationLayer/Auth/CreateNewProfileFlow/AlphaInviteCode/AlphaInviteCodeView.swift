@@ -1,4 +1,5 @@
 import SwiftUI
+import Amplitude
 
 struct AlphaInviteCodeView: View {
     @StateObject var signUpData: SignUpData
@@ -13,6 +14,9 @@ struct AlphaInviteCodeView: View {
         }
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            Amplitude.instance().logEvent(AmplitudeEventsName.invitaionScreenShow)
+        }
     }
     
     private var bottomSheet: some View {
@@ -39,7 +43,7 @@ struct AlphaInviteCodeView: View {
                     .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
                     .foregroundColor(.textPrimary)
                     .placeholder(when: signUpData.inviteCode.isEmpty) {
-                        AnytypeText("Invitation code", style: .uxBodyRegular, color: .grayscale50)
+                        AnytypeText("Invitation code", style: .uxBodyRegular, color: .textTertiary)
                     }
                     .modifier(DividerModifier(spacing: 11.5))
                 Spacer.fixedHeight(20)
@@ -48,7 +52,7 @@ struct AlphaInviteCodeView: View {
             }
             .padding(EdgeInsets(top: 23, leading: 20, bottom: 10, trailing: 20))
         }
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
         .cornerRadius(16.0)
     }
     

@@ -28,7 +28,12 @@ struct HomeCollectionView: View {
                 ForEach(cellData) { data in
                     Button(
                         action: { onTap(data) },
-                        label: { HomeCell(cellData: data) }
+                        label: {
+                            HomeCell(
+                                cellData: data,
+                                selected: viewModel.selectedPageIds.contains(data.id)
+                            )
+                        }
                     )
                     .disabled(data.isLoading)
                     

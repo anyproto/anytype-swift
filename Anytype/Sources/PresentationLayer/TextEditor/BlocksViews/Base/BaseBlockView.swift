@@ -1,7 +1,7 @@
 import UIKit
 
 private enum Constants {
-    static let selectionViewInset: UIEdgeInsets = .init(top: 2, left: 8, bottom: -2, right: -8)
+    static let selectionViewInset: UIEdgeInsets = .init(top: 0, left: 8, bottom: -2, right: -8)
 }
 
 class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIContentView {
@@ -45,11 +45,12 @@ class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIConten
 
     func update(with state: UICellConfigurationState) {
         selectionView.updateStyle(isSelected: state.isSelected)
+        bringSubviewToFront(selectionView)
 
         isUserInteractionEnabled = state.isEditing
 
         if state.isMoving {
-            backgroundColor = AnytypeColor.lightBlue.asUIColor
+            backgroundColor = UIColor.Background.blue
         } else {
             backgroundColor = .clear
         }

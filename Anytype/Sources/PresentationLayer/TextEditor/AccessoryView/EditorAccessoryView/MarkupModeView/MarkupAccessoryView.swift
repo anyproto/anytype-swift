@@ -31,19 +31,12 @@ final class MarkupAccessoryView: UIView {
     }
 
     private func createColorView() -> ColorView {
-        let color = viewModel.currentText?.colorState(range: viewModel.range) ?? .defaultColor
-        let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? .backgroundPrimary
+        let color = viewModel.currentText?.colorState(range: viewModel.range) ?? UIColor.Text.default
+        let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? UIColor.Background.default
 
         let colorView = ColorView(color: color,
                                   backgroundColor: backgroundColor) { [weak self] item in
-            guard let self = self else { return }
-
-            switch item {
-            case let .text(color):
-                self.viewModel.actionHandler.changeTextStyle(.textColor(color.color), range: self.viewModel.range, blockId: self.viewModel.blockId)
-            case let .background(color):
-                self.viewModel.actionHandler.changeTextStyle(.backgroundColor(color.color), range: self.viewModel.range, blockId: self.viewModel.blockId)
-            }
+            self?.viewModel.handleSelectedColorItem(item)
         } viewDidClose: { [weak self] in
             self?.viewModel.showColorView = false
         }
@@ -79,6 +72,12 @@ final class MarkupAccessoryView: UIView {
                     $0.trailing.equal(to: view.trailingAnchor, constant: -10)
                     $0.top.equal(to: view.topAnchor, constant: topAnchorConstant + 8)
                 }
+
+                let color = self.viewModel.currentText?.colorState(range: self.viewModel.range) ?? UIColor.Text.default
+                let backgroundColor = self.viewModel.currentText?.backgroundColor(range: self.viewModel.range) ?? UIColor.Background.default
+
+                self.colorView.selectedTextColor = color
+                self.colorView.selectedBackgroundColor = backgroundColor
             } else {
                 self.colorView.removeFromSuperview()
                 self.colorView.containerView.removeFromSuperview()

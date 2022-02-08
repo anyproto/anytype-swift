@@ -8,21 +8,39 @@ struct EditorSetView: View {
     @State private var offset = CGPoint.zero
 
     var body: some View {
-        ZStack {
-            SetTableView(
-                tableHeaderSize: $tableHeaderSize,
-                offset: $offset,
-                headerMinimizedSize: headerMinimizedSize
-            )
-            SetMinimizedHeader(
-                headerSize: tableHeaderSize,
-                tableViewOffset: offset,
-                headerMinimizedSize: $headerMinimizedSize
-            )
+        content
+            .environmentObject(model)
+            .onAppear {
+                model.onAppear()
+            }
+            .onDisappear {
+                model.onDisappear()
+            }
+    }
+    
+    private var content: some View {
+        VStack(spacing: 0) {
+            ZStack {
+                SetTableView(
+                    tableHeaderSize: $tableHeaderSize,
+                    offset: $offset,
+                    headerMinimizedSize: headerMinimizedSize
+                )
+                SetMinimizedHeader(
+                    headerSize: tableHeaderSize,
+                    tableViewOffset: offset,
+                    headerMinimizedSize: $headerMinimizedSize
+                )
+            }
+            EditorSetPaginationView()
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)
-        .environmentObject(model)
+        
+        .bottomFloater(isPresented: $model.showViewPicker) {
+            EditorSetViewPicker()
+                .cornerRadius(16, corners: [.topLeft, .topRight])
+        }
     }
 }
 

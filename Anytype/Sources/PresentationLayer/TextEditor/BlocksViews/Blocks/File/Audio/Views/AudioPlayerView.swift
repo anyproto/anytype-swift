@@ -57,7 +57,7 @@ final class AudioPlayerView: UIView {
 
     private func setupViews() {
         playButton.setImage(UIImage(systemName: "play.fill"))
-        playButton.imageView.tintColor = .black
+        playButton.imageView.tintColor = .textPrimary
         playButton.setMinHitTestArea(.init(width: 35, height: 35))
 
         playButton.addAction(UIAction(handler: { [weak self] action in
@@ -81,7 +81,7 @@ final class AudioPlayerView: UIView {
         layer.cornerRadius = 16
         layer.cornerCurve = .continuous
         layer.borderWidth = 0.5
-        layer.borderColor = UIColor.grayscale30.cgColor
+        layer.borderColor = UIColor.strokePrimary.cgColor
     }
     
     private func setupLayout() {

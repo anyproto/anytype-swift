@@ -43,10 +43,6 @@ final class EditorBottomNavigationView: UIView {
     
     private func setup() {
         backgroundColor = .backgroundPrimary
-
-        layoutUsing.anchors {
-            $0.height.equal(to: 48)
-        }
         
         layoutUsing.stack(
             layout: { stackView in

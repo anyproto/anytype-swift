@@ -46,11 +46,13 @@ final class CodeBlockView: BaseBlockView<CodeBlockContentConfiguration> {
     private func applyNewConfiguration() {
         codeSelectButton.setText(currentConfiguration.codeLanguage.rawValue)
         textStorage.language = currentConfiguration.codeLanguage.rawValue
-        textStorage.highlightr.highlight(currentConfiguration.content.anytypeText(using: currentConfiguration.detailsStorage).attrString.string).flatMap {
+        textStorage.highlightr.highlight(currentConfiguration.content.anytypeText.attrString.string).flatMap {
             textStorage.setAttributedString($0)
         }
         
-        let backgroundColor = currentConfiguration.backgroundColor?.color(background: true) ?? AnytypeColor.lightColdGray.asUIColor
+        let backgroundColor = currentConfiguration.backgroundColor.map {
+            UIColor.Background.uiColor(from: $0)
+        } ?? UIColor.Background.grey
         contentView.backgroundColor = backgroundColor
         textView.backgroundColor = backgroundColor
     }

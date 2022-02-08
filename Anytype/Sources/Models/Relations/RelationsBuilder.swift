@@ -6,9 +6,11 @@ import UIKit
 final class RelationsBuilder {
     
     private let scope: RelationMetadata.Scope
+    private let storage: ObjectDetailsStorage
     
-    init(scope: RelationMetadata.Scope = .object) {
+    init(scope: RelationMetadata.Scope = .object, storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
         self.scope = scope
+        self.storage = storage
     }
 
     // MARK: - Private variables
@@ -30,41 +32,29 @@ final class RelationsBuilder {
     
     // MARK: - Internal functions
     
-    func buildRelations(
-        using relations: [RelationMetadata],
-        objectId: BlockId,
-        detailsStorage: ObjectDetailsStorageProtocol
+    func parsedRelations(
+        relationMetadatas: [RelationMetadata],
+        objectId: BlockId
     ) -> ParsedRelations {
-        guard let objectDetails = detailsStorage.get(id: objectId) else {
+        guard let objectDetails = storage.get(id: objectId) else {
             return .empty
         }
         
         var featuredRelations: [Relation] = []
         var otherRelations: [Relation] = []
         
-        let featuredRelationIds = objectDetails.featuredRelations
-        relations.forEach { relation in
-            guard !relation.isHidden, relation.scope == scope else { return }
+        relationMetadatas.forEach { relationMetadata in
+            guard !relationMetadata.isHidden, relationMetadata.scope == scope else { return }
             
-            let value = relationValue(
-                relation: relation,
-                details: objectDetails,
-                detailsStorage: detailsStorage
+            let value = relation(
+                relationMetadata: relationMetadata,
+                details: objectDetails
             )
             
-            let relationData = Relation(
-                id: relation.id,
-                name: relation.name,
-                value: value,
-                hint: relation.format.hint,
-                isFeatured: featuredRelationIds.contains(relation.id),
-                isEditable: !relation.isReadOnly
-            )
-            
-            if relationData.isFeatured {
-                featuredRelations.append(relationData)
+            if value.isFeatured {
+                featuredRelations.append(value)
             } else {
-                otherRelations.append(relationData)
+                otherRelations.append(value)
             }
         }
         
@@ -77,219 +67,321 @@ final class RelationsBuilder {
 
 private extension RelationsBuilder {
     
-    func relationValue(
-        relation: RelationMetadata,
-        details: ObjectDetails,
-        detailsStorage: ObjectDetailsStorageProtocol
-    ) -> RelationValue {
-        switch relation.format {
+    func relation(relationMetadata: RelationMetadata, details: ObjectDetails) -> Relation {
+        switch relationMetadata.format {
         case .longText:
-            return textRelationValue(relation: relation, details: details)
+            return textRelation(metadata: relationMetadata, details: details)
         case .shortText:
-            return textRelationValue(relation: relation, details: details)
+            return textRelation(metadata: relationMetadata, details: details)
         case .number:
-            return numberRelationValue(relation: relation, details: details)
+            return numberRelation(metadata: relationMetadata, details: details)
         case .status:
-            return statusRelationValue(relation: relation, details: details)
+            return statusRelation(metadata: relationMetadata, details: details)
         case .date:
-            return dateRelationValue(relation: relation, details: details)
+            return dateRelation(metadata: relationMetadata, details: details)
         case .file:
-            return fileRelationValue(relation: relation, details: details, detailsStorage: detailsStorage)
+            return fileRelation(metadata: relationMetadata, details: details)
         case .checkbox:
-            return checkboxRelationValue(relation: relation, details: details)
+            return checkboxRelation(metadata: relationMetadata, details: details)
         case .url:
-            return urlRelationValue(relation: relation, details: details)
+            return urlRelation(metadata: relationMetadata, details: details)
         case .email:
-            return emailRelationValue(relation: relation, details: details)
+            return emailRelation(metadata: relationMetadata, details: details)
         case .phone:
-            return phoneRelationValue(relation: relation, details: details)
+            return phoneRelation(metadata: relationMetadata, details: details)
         case .tag:
-            return tagRelationValue(relation: relation, details: details)
+            return tagRelation(metadata: relationMetadata, details: details)
         case .object:
-            return objectRelationValue(relation: relation, details: details, detailsStorage: detailsStorage)
+            return objectRelation(metadata: relationMetadata, details: details)
         case .unrecognized:
-            return .text("Unsupported value".localized)
-        }
-    }
-    
-    func textRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
-        let value = details.values[relation.key]
-        
-        return .text(value?.stringValue)
-    }
-    
-    func numberRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
-        let value = details.values[relation.key]
-        
-        guard let number = value?.safeDoubleValue else {
-            return .number(nil)
-        }
-        
-        let text: String? = numberFormatter.string(from: NSNumber(floatLiteral: number))
-        return .number(text)
-    }
-    
-    func phoneRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
-        let value = details.values[relation.key]
-        
-        return .phone(value?.stringValue)
-    }
-    
-    func emailRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
-        let value = details.values[relation.key]
-        
-        return .email(value?.stringValue)
-    }
-    
-    func urlRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
-        let value = details.values[relation.key]
-        
-        return .url(value?.stringValue)
-    }
-    
-    func statusRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
-        let value = details.values[relation.key]
-        
-        guard
-            let optionId = value?.unwrapedListValue.stringValue, optionId.isNotEmpty
-        else { return .status(nil) }
-        
-        let option: RelationMetadata.Option? = relation.selections.first { $0.id == optionId }
-        
-        return .status(option.flatMap { RelationValue.Status(option: $0) })
-    }
-    
-    func dateRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
-        let value = details.values[relation.key]
-        
-        guard
-            let timeInterval = value?.safeDoubleValue,
-                !timeInterval.isZero
-        else { return .date(nil) }
-        
-        let date = Date(timeIntervalSince1970: timeInterval)
-        
-        return .date(DateRelationValue( date: date, text: dateFormatter.string(from: date)))
-    }
-    
-    func checkboxRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
-        let value = details.values[relation.key]
-        
-        return .checkbox(value?.boolValue ?? false)
-    }
-    
-    func tagRelationValue(relation: RelationMetadata, details: ObjectDetails) -> RelationValue {
-        let value = details.values[relation.key]
-        guard let value = value else { return .tag([]) }
-
-        let selectedTagIds: [String] = value.listValue.values.compactMap {
-            let tagId = $0.stringValue
-            return tagId.isEmpty ? nil : tagId
-        }
-        
-        let options: [RelationMetadata.Option] = relation.selections.filter {
-            selectedTagIds.contains($0.id)
-        }
-        
-        let tags: [TagRelationValue] = options.map {
-            TagRelationValue(
-                text: $0.text,
-                textColor: MiddlewareColor(rawValue: $0.color)?.asDarkColor ?? .grayscale90,
-                backgroundColor: MiddlewareColor(rawValue: $0.color)?.asLightColor ?? .grayscaleWhite
+            return .text(
+                Relation.Text(
+                    id: relationMetadata.id,
+                    name: relationMetadata.name,
+                    isFeatured: relationMetadata.isFeatured(details: details),
+                    isEditable: relationMetadata.isEditable,
+                    value: "Unsupported value".localized
+                )
             )
         }
-        
-        return .tag(tags)
     }
     
-    func objectRelationValue(
-        relation: RelationMetadata,
-        details: ObjectDetails,
-        detailsStorage: ObjectDetailsStorageProtocol
-    ) -> RelationValue {
-        let value = details.values[relation.key]
-        guard let value = value else { return .object([]) }
-        
-        let values: [Google_Protobuf_Value] = {
-            if case let .listValue(listValue) = value.kind {
-                return listValue.values
-            }
+    func textRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+        .text(
+            Relation.Text(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: details.values[metadata.key]?.stringValue
+            )
+        )
+    }
+    
+    func numberRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+        let numberValue: String? = {
+            let value = details.values[metadata.key]
             
-            return [value]
+            guard let number = value?.safeDoubleValue else { return nil }
+            
+            return numberFormatter.string(from: NSNumber(floatLiteral: number))
         }()
         
-        let objectDetails: [ObjectDetails] = values.compactMap {
-            let objectId = $0.stringValue
-            guard objectId.isNotEmpty else { return nil }
-            let objectDetails = detailsStorage.get(id: objectId)
-            return objectDetails
-        }
-
-        let objectRelations: [ObjectRelationValue] = objectDetails.map { objectDetail in
-            let name = objectDetail.name
-            let icon: ObjectIconImage = {
-                if let objectIcon = objectDetail.objectIconImage {
-                    return objectIcon
-                }
-                
-                return .placeholder(name.first)
-            }()
-            
-            return ObjectRelationValue(icon: icon, text: name)
-        }
-        
-        
-        return .object(objectRelations)
+        return .number(
+            Relation.Text(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: numberValue
+            )
+        )
     }
     
-    func fileRelationValue(
-        relation: RelationMetadata,
-        details: ObjectDetails,
-        detailsStorage: ObjectDetailsStorageProtocol
-    ) -> RelationValue {
-        let value = details.values[relation.key]
-        guard let value = value else { return .object([]) }
-        
-        let objectDetails: [ObjectDetails] = value.listValue.values.compactMap {
-            let objectId = $0.stringValue
-            guard objectId.isNotEmpty else { return nil }
-            
-            let objectDetails = detailsStorage.get(id: objectId)
-            return objectDetails
+    func phoneRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+        .phone(
+            Relation.Text(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: details.values[metadata.key]?.stringValue
+            )
+        )
+    }
+    
+    func emailRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+        .email(
+            Relation.Text(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: details.values[metadata.key]?.stringValue
+            )
+        )
+    }
+    
+    func urlRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+        .url(
+            Relation.Text(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: details.values[metadata.key]?.stringValue
+            )
+        )
+    }
+    
+    func statusRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+        let options: [Relation.Status.Option] = metadata.selections.map {
+            Relation.Status.Option(option: $0)
         }
+        
+        let selectedOption: Relation.Status.Option? = {
+            let value = details.values[metadata.key]
+            
+            guard
+                let optionId = value?.unwrapedListValue.stringValue, optionId.isNotEmpty
+            else { return nil }
+            
+            return options.first { $0.id == optionId }
+        }()
+        
+        return .status(
+            Relation.Status(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: selectedOption,
+                allOptions: options
+            )
+        )
+    }
+    
+    func dateRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+        let value: DateRelationValue? = {
+            let value = details.values[metadata.key]
+            
+            guard let timeInterval = value?.safeDoubleValue, !timeInterval.isZero
+            else { return nil }
+            
+            let date = Date(timeIntervalSince1970: timeInterval)
+            return DateRelationValue(date: date, text: dateFormatter.string(from: date))
+        }()
+        
+        return .date(
+            Relation.Date(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: value
+            )
+        )
+    }
+    
+    func checkboxRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+        .checkbox(
+            Relation.Checkbox(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                value: details.values[metadata.key]?.boolValue ?? false
+            )
+        )
+    }
+    
+    func tagRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+        let tags: [Relation.Tag.Option] = metadata.selections.map { Relation.Tag.Option(option: $0) }
+        
+        let selectedTags: [Relation.Tag.Option] = {
+            let value = details.values[metadata.key]
+            guard let value = value else { return [] }
+            
+            let selectedTagIds: [String] = value.listValue.values.compactMap {
+                let tagId = $0.stringValue
+                return tagId.isEmpty ? nil : tagId
+            }
+            
+            return selectedTagIds.compactMap { id in
+                tags.first { $0.id == id }
+            }
+        }()
+        
+        return .tag(
+            Relation.Tag(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                selectedTags: selectedTags,
+                allTags: tags
+            )
+        )
+    }
+    
+    func objectRelation(
+        metadata: RelationMetadata,
+        details: ObjectDetails
+    ) -> Relation {
+        let objectOptions: [Relation.Object.Option] = {
+            let value = details.values[metadata.key]
+            guard let value = value else { return [] }
+            
+            let values: [Google_Protobuf_Value] = {
+                if case let .listValue(listValue) = value.kind {
+                    return listValue.values
+                }
+                
+                return [value]
+            }()
+            
+            let objectDetails: [ObjectDetails] = values.compactMap {
+                let objectId = $0.stringValue
+                guard objectId.isNotEmpty else { return nil }
+                let objectDetails = storage.get(id: objectId)
+                return objectDetails
+            }
 
-        let objectRelations: [ObjectRelationValue] = objectDetails.map { objectDetail in
-            let fileName: String = {
+            let objectOptions: [Relation.Object.Option] = objectDetails.map { objectDetail in
                 let name = objectDetail.name
-                let fileExt = objectDetail.values[BundledRelationKey.fileExt.rawValue]
-                let fileExtString = fileExt?.stringValue
+                let icon: ObjectIconImage = {
+                    if let objectIcon = objectDetail.objectIconImage {
+                        return objectIcon
+                    }
+                    
+                    return .placeholder(name.first)
+                }()
                 
-                guard
-                    let fileExtString = fileExtString, fileExtString.isNotEmpty
-                else { return name }
-                
-                return "\(name).\(fileExtString)"
-            }()
+                return Relation.Object.Option(
+                    id: objectDetail.id,
+                    icon: icon,
+                    title: name,
+                    type: objectDetail.objectType.name
+                )
+            }
             
-            let icon: ObjectIconImage = {
-                if let objectIconType = objectDetail.icon {
-                    return .icon(objectIconType)
-                }
-                
-                let fileMimeType = objectDetail.values[BundledRelationKey.fileMimeType.rawValue]?.stringValue
-                let fileName = objectDetail.values[BundledRelationKey.name.rawValue]?.stringValue
-
-                guard let fileMimeType = fileMimeType, let fileName = fileName else {
-                    return .image(UIImage.blockFile.content.other)
-                }
-                
-                return .image(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
-            }()
-            
-            return ObjectRelationValue(icon: icon, text: fileName)
-        }
+            return objectOptions
+        }()
         
-        return .object(objectRelations)
+        return .object(
+            Relation.Object(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                selectedObjects: objectOptions
+            )
+        )
+    }
+    
+    func fileRelation(
+        metadata: RelationMetadata,
+        details: ObjectDetails
+    ) -> Relation {
+        let fileOptions: [Relation.File.Option] = {
+            let value = details.values[metadata.key]
+            guard let value = value else { return [] }
+            
+            let objectDetails: [ObjectDetails] = value.listValue.values.compactMap {
+                let objectId = $0.stringValue
+                guard objectId.isNotEmpty else { return nil }
+                
+                let objectDetails = storage.get(id: objectId)
+                return objectDetails
+            }
+
+            let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
+                let fileName: String = {
+                    let name = objectDetail.name
+                    let fileExt = objectDetail.values[BundledRelationKey.fileExt.rawValue]
+                    let fileExtString = fileExt?.stringValue
+                    
+                    guard
+                        let fileExtString = fileExtString, fileExtString.isNotEmpty
+                    else { return name }
+                    
+                    return "\(name).\(fileExtString)"
+                }()
+                
+                let icon: ObjectIconImage = {
+                    if let objectIconType = objectDetail.icon {
+                        return .icon(objectIconType)
+                    }
+                    
+                    let fileMimeType = objectDetail.values[BundledRelationKey.fileMimeType.rawValue]?.stringValue
+                    let fileName = objectDetail.values[BundledRelationKey.name.rawValue]?.stringValue
+
+                    guard let fileMimeType = fileMimeType, let fileName = fileName else {
+                        return .image(UIImage.blockFile.content.other)
+                    }
+                    
+                    return .image(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
+                }()
+                
+                return Relation.File.Option(
+                    id: objectDetail.id,
+                    icon: icon,
+                    title: fileName
+                )
+            }
+            
+            return objectOptions
+        }()
+        
+        return .file(
+            Relation.File(
+                id: metadata.id,
+                name: metadata.name,
+                isFeatured: metadata.isFeatured(details: details),
+                isEditable: metadata.isEditable,
+                files: fileOptions
+            )
+        )
     }
     
 }
@@ -325,6 +417,18 @@ extension RelationMetadata.Format {
         case .unrecognized:
             return "Enter value".localized
         }
+    }
+    
+}
+
+private extension RelationMetadata {
+    
+    func isFeatured(details: ObjectDetails) -> Bool {
+        details.featuredRelations.contains(self.id)
+    }
+    
+    var isEditable: Bool {
+        !self.isReadOnly
     }
     
 }

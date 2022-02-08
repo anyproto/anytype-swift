@@ -10,7 +10,7 @@ struct DefaultTypePicker: View {
             model?.defaultType = false
             model?.other = false
         }
-        return SearchView(title: "Choose default object type".localized, viewModel: searchViewModel)
+        return SearchView(title: "Choose default object type".localized, context: .menuSearch, viewModel: searchViewModel)
     }
 }
 

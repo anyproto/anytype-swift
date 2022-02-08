@@ -5,6 +5,7 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 import SwiftUI
+import Amplitude
 
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [HomeCellData] = []
@@ -12,29 +13,31 @@ final class HomeViewModel: ObservableObject {
         favoritesCellData.filter { !$0.isArchived && !$0.isDeleted }
     }
     
-    @Published var historyCellData: [HomeCellData] = []
-    @Published var binCellData: [HomeCellData] = []
-    @Published var sharedCellData: [HomeCellData] = []
-    @Published var setsCellData: [HomeCellData] = []
+    @Published var historyCellData = [HomeCellData]()
+    @Published var binCellData = [HomeCellData]()
+    @Published var sharedCellData = [HomeCellData]()
+    @Published var setsCellData = [HomeCellData]()
     
+    @Published var selectedPageIds: Set<BlockId> = []
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
     @Published var showDeletionAlert = false
     @Published var snackBarData = SnackBarData.empty
     @Published var loadingAlertData = LoadingAlertData.empty
     
+    @Published private(set) var profileData = HomeProfileData.empty
+    
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
     private let configurationService = MiddlewareConfigurationService.shared
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
+    private let subscriptionService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
     
     let document: BaseDocumentProtocol
-    private lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
+    lazy var cellDataBuilder = HomeCellDataBuilder(document: document)
     private lazy var cancellables = [AnyCancellable]()
     
-    
     let bottomSheetCoordinateSpaceName = "BottomSheetCoordinateSpaceName"
-    private var animationsEnabled = true
     
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
@@ -45,49 +48,80 @@ final class HomeViewModel: ObservableObject {
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(updateResult: $0)
         }.store(in: &cancellables)
-        document.open()
-        setupQuickActionsSubscription()
+        setupSubscriptions()
     }
 
     // MARK: - View output
 
-    func viewLoaded() {
-        reloadItems()
-        animationsEnabled = true
-    }
-
-    func updateBinTab() {
-        guard let searchResults = searchService.searchArchivedPages() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            binCellData = cellDataBuilder.buildCellData(searchResults)
+    func onAppear() {
+        document.open()
+        subscriptionService.startSubscription(
+            data: .profile(id: MiddlewareConfigurationService.shared.configuration().profileBlockId)
+        ) { [weak self] id, update in
+            withAnimation {
+                self?.onProfileUpdate(update: update)
+            }
         }
     }
-    func updateHistoryTab() {
-        guard let searchResults = searchService.searchHistoryPages() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            historyCellData = cellDataBuilder.buildCellData(searchResults)
+    
+    func onDisappear() {
+        subscriptionService.stopAllSubscriptions()
+        document.close()
+    }
+    
+    func onTabChange(tab: HomeTabsView.Tab) {
+        subscriptionService.stopSubscriptions(ids: [.sharedTab, .setsTab, .archiveTab, .historyTab])
+        tab.subscriptionId.flatMap { subId in
+            subscriptionService.startSubscription(data: subId) { [weak self] id, update in
+                withAnimation(update.isInitialData ? nil : .spring()) {
+                    self?.updateCollections(id: id, update)
+                }
+            }
+        }
+        
+        if tab == .favourites {
+            updateFavoritesTab()
         }
     }
-    func updateSharedTab() {
-        guard let searchResults = searchService.searchSharedPages() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            sharedCellData = cellDataBuilder.buildCellData(searchResults)
+    
+    private func onProfileUpdate(update: SubscriptionUpdate) {
+        switch update {
+        case .initialData(let array):
+            guard let details = array.first else {
+                anytypeAssertionFailure("Emppty data for profile subscription", domain: .homeView)
+                return
+            }
+            profileData = HomeProfileData(details: details)
+        case .update(let details):
+            profileData = HomeProfileData(details: details)
+        default:
+            anytypeAssertionFailure("Usupported update \(update) for profile suscription", domain: .homeView)
         }
     }
+    
+    private func updateCollections(id: SubscriptionId, _ update: SubscriptionUpdate) {
+        switch id {
+        case .historyTab:
+            historyCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
+        case .archiveTab:
+            binCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
+        case .sharedTab:
+            sharedCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
+        case .setsTab:
+            setsCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
+        default:
+            anytypeAssertionFailure("Unsupported subscription: \(id)", domain: .homeView)
+        }
+    }
+    
     func updateFavoritesTab() {
-        withAnimation(animationsEnabled ? .spring() : nil) {
+        withAnimation(.spring()) {
             favoritesCellData = cellDataBuilder.buildFavoritesData()
-        }
-    }
-    func updateSetsTab() {
-        guard let searchResults = searchService.searchSets() else { return }
-        withAnimation(animationsEnabled ? .spring() : nil) {
-            setsCellData = cellDataBuilder.buildCellData(searchResults)
         }
     }
     
     // MARK: - Private methods
-    private func setupQuickActionsSubscription() {
+    private func setupSubscriptions() {
         // visual delay on application launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             self.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { [weak self] action in
@@ -103,10 +137,10 @@ final class HomeViewModel: ObservableObject {
     }
     
     private func onDashboardChange(updateResult: EventsListenerUpdate) {
-        withAnimation(animationsEnabled ? .spring() : nil) {
+        withAnimation(.spring()) {
             switch updateResult {
             case .general:
-                reloadItems()
+                updateFavoritesTab()
             case .blocks(let blockIds):
                 blockIds.forEach { updateFavoritesCellWithTargetId($0) }
             case .details(let detailId):
@@ -117,16 +151,8 @@ final class HomeViewModel: ObservableObject {
         }
     }
 
-    private func reloadItems() {
-        updateBinTab()
-        updateHistoryTab()
-        updateFavoritesTab()
-        updateSharedTab()
-        updateSetsTab()
-    }
-    
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
-        guard let newDetails = document.detailsStorage.get(id: blockId) else {
+        guard let newDetails = ObjectDetailsStorage.shared.get(id: blockId) else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .homeView)
             return
         }
@@ -160,7 +186,6 @@ extension HomeViewModel {
         if openedPageData.showing {
             editorBrowser?.showPage(data: data)
         } else {
-            animationsEnabled = false // https://app.clickup.com/t/1jz5kg4
             openedPageData.data = data
             openedPageData.showing = true
         }

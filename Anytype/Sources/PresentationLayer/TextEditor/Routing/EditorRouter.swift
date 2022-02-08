@@ -16,7 +16,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showFilePicker(model: Picker.ViewModel)
     func showImagePicker(model: MediaPickerViewModel)
     
-    func saveFile(fileURL: URL)
+    func saveFile(fileURL: URL, type: FileContentType)
     
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
     
@@ -31,8 +31,11 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
     func showRelationValueEditingView(key: String)
-    func showRelationValueEditingView(objectId: BlockId, relation: Relation, metadata: RelationMetadata?)
+    func showRelationValueEditingView(objectId: BlockId, relation: Relation)
+    func showAdditinNewRelationView(onSelect: @escaping (RelationMetadata) -> Void)
+
     func goBack()
+
 }
 
 protocol AttachmentRouterProtocol {
@@ -62,7 +65,7 @@ final class EditorRouter: EditorRouterProtocol {
     }
 
     func showPage(data: EditorScreenData) {
-        if let details = document.detailsStorage.get(id: data.pageId)  {
+        if let details = ObjectDetailsStorage.shared.get(id: data.pageId)  {
             guard ObjectTypeProvider.isSupported(typeUrl: details.type) else {
                 showUnsupportedTypeAlert(typeUrl: details.type)
                 return
@@ -115,8 +118,8 @@ final class EditorRouter: EditorRouterProtocol {
         viewController?.present(vc, animated: true, completion: nil)
     }
     
-    func saveFile(fileURL: URL) {
-        fileRouter.saveFile(fileURL: fileURL)
+    func saveFile(fileURL: URL, type: FileContentType) {
+        fileRouter.saveFile(fileURL: fileURL, type: type)
     }
     
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void) {
@@ -170,22 +173,8 @@ final class EditorRouter: EditorRouterProtocol {
     }
     
     func showSettings(viewModel: ObjectSettingsViewModel) {
-        guard let viewController = rootController else {
-            return
-        }
-        
         let rootView = ObjectSettingsContainerView(viewModel: viewModel)
-        let controller = UIHostingController(rootView: rootView)
-        controller.modalPresentationStyle = .overCurrentContext
-        
-        controller.view.backgroundColor = .clear
-        controller.view.isOpaque = false
-        
-        rootView.viewModel.configure { [weak controller] in
-            controller?.dismiss(animated: false)
-        }
-        
-        viewController.present(controller, animated: false)
+        presentOverCurrentContextSwuftUIView(view: rootView, model: rootView.viewModel)
     }
     
     func showCoverPicker(viewModel: ObjectCoverPickerViewModel) {
@@ -204,7 +193,7 @@ final class EditorRouter: EditorRouterProtocol {
         let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
             onSelect(data.blockId)
         }
-        let moveToView = SearchView(title: "Move to".localized, viewModel: viewModel)
+        let moveToView = SearchView(title: "Move to".localized, context: .menuSearch, viewModel: viewModel)
         
         presentSwuftUIView(view: moveToView, model: viewModel)
     }
@@ -213,7 +202,7 @@ final class EditorRouter: EditorRouterProtocol {
         let viewModel = LinkToObjectSearchViewModel { data in
             onSelect(data.searchKind)
         }
-        let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
+        let linkToView = SearchView(title: "Link to".localized, context: .menuSearch, viewModel: viewModel)
 
         presentSwuftUIView(view: linkToView, model: viewModel)
     }
@@ -222,7 +211,7 @@ final class EditorRouter: EditorRouterProtocol {
         let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
             onSelect(data.blockId)
         }
-        let linkToView = SearchView(title: "Link to".localized, viewModel: viewModel)
+        let linkToView = SearchView(title: "Link to".localized, context: .menuSearch, viewModel: viewModel)
         
         presentSwuftUIView(view: linkToView, model: viewModel)
     }
@@ -231,7 +220,7 @@ final class EditorRouter: EditorRouterProtocol {
         let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
             onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
-        let searchView = SearchView(title: nil, viewModel: viewModel)
+        let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
         
         presentSwuftUIView(view: searchView, model: viewModel)
     }
@@ -241,60 +230,66 @@ final class EditorRouter: EditorRouterProtocol {
         let viewModel = ObjectSearchViewModel(searchKind: objectKind) { data in
             onSelect(data.blockId)
         }
-        let searchView = SearchView(title: "Change type".localized, viewModel: viewModel)
+        let searchView = SearchView(title: "Change type".localized, context: .menuSearch, viewModel: viewModel)
 
         presentSwuftUIView(view: searchView, model: viewModel)
     }
     
     func showRelationValueEditingView(key: String) {
+        guard FeatureFlags.relationsEditing else { return }
+        
         let relation = document.parsedRelations.all.first { $0.id == key }
         guard let relation = relation else { return }
-        let metadata = document.relationsStorage.relations.first { $0.key == relation.id }
         
-        showRelationValueEditingView(objectId: document.objectId, relation: relation, metadata: metadata)
+        showRelationValueEditingView(objectId: document.objectId, relation: relation)
     }
     
-    func showRelationValueEditingView(
-        objectId: BlockId,
-        relation: Relation,
-        metadata: RelationMetadata?
-    ) {
+    func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
+        guard FeatureFlags.relationsEditing else { return }
         guard relation.isEditable else { return }
-        guard let viewController = viewController else { return }
+        guard let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation) else { return }
         
-        let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation, metadata: metadata)
-        guard let contentViewModel = contentViewModel else { return }
+        presentOverCurrentContextSwuftUIView(view: contentViewModel.makeView(), model: contentViewModel)
+    }
+
+    func showAdditinNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
+        let relationService = RelationsService(objectId: document.objectId)
         
-        let sheetViewModel = RelationSheetViewModel(
-            name: relation.name,
-            contentViewModel: contentViewModel
-        )
-        
-        let relationSheet = RelationSheet(viewModel: sheetViewModel)
-        
-        let controller = UIHostingController(rootView: relationSheet)
-        controller.modalPresentationStyle = .overCurrentContext
-        
-        controller.view.backgroundColor = .clear
-        controller.view.isOpaque = false
-        
-        sheetViewModel.configureOnDismiss { [weak controller] in
-            controller?.dismiss(animated: false)
-        }
-        
-        viewController.topPresentedController.present(controller, animated: false)
+        let viewModel = SearchNewRelationViewModel(
+            relationService: relationService,
+            objectRelations: document.parsedRelations,
+            onSelect: onSelect)
+
+        let view = SearchNewRelationView(viewModel: viewModel)
+        presentSwuftUIView(view: view, model: viewModel)
     }
     
     func goBack() {
         rootController?.pop()
     }
     
-    private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
+    func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = viewController else { return }
         
         let controller = UIHostingController(rootView: view)
         model.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
         viewController.present(controller, animated: true)
+    }
+    
+    func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
+        guard let viewController = rootController else { return }
+        
+        let controller = UIHostingController(rootView: view)
+        controller.modalPresentationStyle = .overCurrentContext
+        
+        controller.view.backgroundColor = .clear
+        controller.view.isOpaque = false
+        
+        model.onDismiss = { [weak controller] in
+            controller?.dismiss(animated: false)
+        }
+        
+        viewController.topPresentedController.present(controller, animated: false)
     }
     
     private func showURLInputViewController(
@@ -323,7 +318,7 @@ extension EditorRouter: AttachmentRouterProtocol {
 extension EditorRouter: TextRelationEditingViewModelDelegate {
     
     func canOpenUrl(_ url: URL) -> Bool {
-        UIApplication.shared.canOpenURL(url)
+        UIApplication.shared.canOpenURL(url.urlByAddingHttpIfSchemeIsEmpty())
     }
 
 }

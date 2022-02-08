@@ -15,20 +15,19 @@ final class BaseDocument: BaseDocumentProtocol {
     private let eventsListener: EventsListener
     private let updateSubject = PassthroughSubject<EventsListenerUpdate, Never>()
     private let relationBuilder = RelationsBuilder()
+    private let detailsStorage = ObjectDetailsStorage.shared
     
     let objectId: BlockId
 
     let blocksContainer: BlockContainerModelProtocol = BlockContainer()
-    let detailsStorage: ObjectDetailsStorageProtocol = ObjectDetailsStorage()
     let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
     
     private(set) var objectRestrictions: ObjectRestrictions = ObjectRestrictions()
 
     var parsedRelations: ParsedRelations {
-        relationBuilder.buildRelations(
-            using: relationsStorage.relations,
-            objectId: objectId,
-            detailsStorage: detailsStorage
+        relationBuilder.parsedRelations(
+            relationMetadatas: relationsStorage.relations,
+            objectId: objectId
         )
     }
         
@@ -38,7 +37,6 @@ final class BaseDocument: BaseDocumentProtocol {
         self.eventsListener = EventsListener(
             objectId: objectId,
             blocksContainer: blocksContainer,
-            detailsStorage: detailsStorage,
             relationStorage: relationsStorage
         )
         
@@ -58,8 +56,12 @@ final class BaseDocument: BaseDocumentProtocol {
         
         handleObjectShowResponse(response: result)
         
-        EventsBunch(objectId: objectId, middlewareEvents: result.messages).send()
+        EventsBunch(contextId: objectId, middlewareEvents: result.messages).send()
         return true
+    }
+    
+    func close(){
+        blockActionsService.close(contextId: objectId, blockId: objectId)
     }
     
     var objectDetails: ObjectDetails? {

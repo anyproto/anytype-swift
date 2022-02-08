@@ -7,8 +7,8 @@ import BlocksModels
 extension EditorPageController: FloatingPanelControllerDelegate {
     
     func floatingPanelDidRemove(_ fpc: FloatingPanelController) {
-        UIView.animate(withDuration: CATransaction.animationDuration()) {
-            self.collectionView.contentInset.bottom = 0
+        UIView.animate(withDuration: CATransaction.animationDuration()) { [unowned self] in
+            insetsHelper?.restoreEditingOffset()
         }
 
         guard let selectedIndexPath = collectionView.indexPathsForSelectedItems?.first else { return }
@@ -24,7 +24,7 @@ extension EditorPageController: FloatingPanelControllerDelegate {
                 blockViewModel.set(focus: focus)
             }
         case .header:
-            // TODO: - implement
+            #warning("implement")
             return
         }
     }
@@ -53,7 +53,7 @@ extension EditorPageController: FloatingPanelControllerDelegate {
         guard let closestItemAttributes = collectionView.layoutAttributesForItem(at: closestItem)  else { return }
 
         let yOffset = closestItemAttributes.frame.maxY - collectionView.bounds.height + fpc.surfaceView.bounds.height + fpc.surfaceView.layoutMargins.bottom
-        collectionView.setContentOffset(CGPoint(x: 0, y: yOffset), animated: true)
+        collectionView.setContentOffset(CGPoint(x: 0.0, y: yOffset), animated: true)
         collectionView.contentInset.bottom = fpc.surfaceView.bounds.height
     }
 

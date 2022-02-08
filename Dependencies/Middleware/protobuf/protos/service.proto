@@ -1,0 +1,211 @@
+syntax = "proto3";
+package anytype;
+option go_package = "service";
+
+import "pb/protos/commands.proto";
+import "pb/protos/events.proto";
+
+service ClientCommands {
+    rpc ObjectAddWithObjectId (anytype.Rpc.Object.AddWithObjectId.Request) returns (anytype.Rpc.Object.AddWithObjectId.Response);
+    rpc ObjectShareByLink (anytype.Rpc.Object.ShareByLink.Request) returns (anytype.Rpc.Object.ShareByLink.Response);
+
+    rpc WalletCreate (anytype.Rpc.Wallet.Create.Request) returns (anytype.Rpc.Wallet.Create.Response);
+    rpc WalletRecover (anytype.Rpc.Wallet.Recover.Request) returns (anytype.Rpc.Wallet.Recover.Response);
+    rpc WalletConvert (anytype.Rpc.Wallet.Convert.Request) returns (anytype.Rpc.Wallet.Convert.Response);
+
+    rpc WorkspaceCreate (anytype.Rpc.Workspace.Create.Request) returns (anytype.Rpc.Workspace.Create.Response);
+    rpc WorkspaceSelect (anytype.Rpc.Workspace.Select.Request) returns (anytype.Rpc.Workspace.Select.Response);
+    rpc WorkspaceGetCurrent (anytype.Rpc.Workspace.GetCurrent.Request) returns (anytype.Rpc.Workspace.GetCurrent.Response);
+    rpc WorkspaceGetAll (anytype.Rpc.Workspace.GetAll.Request) returns (anytype.Rpc.Workspace.GetAll.Response);
+    rpc WorkspaceSetIsHighlighted (anytype.Rpc.Workspace.SetIsHighlighted.Request) returns (anytype.Rpc.Workspace.SetIsHighlighted.Response);
+
+    rpc AccountRecover (anytype.Rpc.Account.Recover.Request) returns (anytype.Rpc.Account.Recover.Response);
+    rpc AccountCreate (anytype.Rpc.Account.Create.Request) returns (anytype.Rpc.Account.Create.Response);
+    rpc AccountSelect (anytype.Rpc.Account.Select.Request) returns (anytype.Rpc.Account.Select.Response);
+    rpc AccountStop (anytype.Rpc.Account.Stop.Request) returns (anytype.Rpc.Account.Stop.Response);
+
+    rpc FileOffload (anytype.Rpc.File.Offload.Request) returns (anytype.Rpc.File.Offload.Response);
+    rpc FileListOffload (anytype.Rpc.FileList.Offload.Request) returns (anytype.Rpc.FileList.Offload.Response);
+
+    rpc VersionGet (anytype.Rpc.Version.Get.Request) returns (anytype.Rpc.Version.Get.Response);
+    rpc LogSend (anytype.Rpc.Log.Send.Request) returns (anytype.Rpc.Log.Send.Response);
+    rpc ConfigGet (anytype.Rpc.Config.Get.Request) returns (anytype.Rpc.Config.Get.Response);
+    rpc Shutdown (anytype.Rpc.Shutdown.Request) returns (anytype.Rpc.Shutdown.Response);
+
+    rpc ExternalDropFiles (anytype.Rpc.ExternalDrop.Files.Request) returns (anytype.Rpc.ExternalDrop.Files.Response);
+    rpc ExternalDropContent (anytype.Rpc.ExternalDrop.Content.Request) returns (anytype.Rpc.ExternalDrop.Content.Response);
+
+    rpc LinkPreview (anytype.Rpc.LinkPreview.Request) returns (anytype.Rpc.LinkPreview.Response);
+
+    rpc UploadFile (anytype.Rpc.UploadFile.Request) returns (anytype.Rpc.UploadFile.Response);
+    rpc DownloadFile (anytype.Rpc.DownloadFile.Request) returns (anytype.Rpc.DownloadFile.Response);
+
+    rpc BlockUpload (anytype.Rpc.Block.Upload.Request) returns (anytype.Rpc.Block.Upload.Response);
+    rpc BlockReplace (anytype.Rpc.Block.Replace.Request) returns (anytype.Rpc.Block.Replace.Response);
+    // BlockUpdateContent allows to update any simple block content to the new value of the same type
+    rpc BlockUpdateContent (anytype.Rpc.Block.UpdateContent.Request) returns (anytype.Rpc.Block.UpdateContent.Response);
+    rpc BlockOpen (anytype.Rpc.Block.Open.Request) returns (anytype.Rpc.Block.Open.Response);
+    rpc BlockShow (anytype.Rpc.Block.Show.Request) returns (anytype.Rpc.Block.Show.Response);
+    rpc BlockGetPublicWebURL (anytype.Rpc.Block.GetPublicWebURL.Request) returns (anytype.Rpc.Block.GetPublicWebURL.Response);
+    rpc BlockOpenBreadcrumbs (anytype.Rpc.Block.OpenBreadcrumbs.Request) returns (anytype.Rpc.Block.OpenBreadcrumbs.Response);
+    rpc BlockSetBreadcrumbs (anytype.Rpc.Block.SetBreadcrumbs.Request) returns (anytype.Rpc.Block.SetBreadcrumbs.Response);
+    rpc BlockCreate (anytype.Rpc.Block.Create.Request) returns (anytype.Rpc.Block.Create.Response);
+    rpc BlockCreatePage (anytype.Rpc.Block.CreatePage.Request) returns (anytype.Rpc.Block.CreatePage.Response);
+    rpc BlockCreateSet (anytype.Rpc.Block.CreateSet.Request) returns (anytype.Rpc.Block.CreateSet.Response);
+
+    rpc BlockUnlink (anytype.Rpc.Block.Unlink.Request) returns (anytype.Rpc.Block.Unlink.Response);
+    rpc BlockClose (anytype.Rpc.Block.Close.Request) returns (anytype.Rpc.Block.Close.Response);
+    rpc BlockDownload (anytype.Rpc.Block.Download.Request) returns (anytype.Rpc.Block.Download.Response);
+    rpc BlockGetMarks (anytype.Rpc.Block.Get.Marks.Request) returns (anytype.Rpc.Block.Get.Marks.Response);
+    rpc BlockUndo (anytype.Rpc.Block.Undo.Request) returns (anytype.Rpc.Block.Undo.Response);
+    rpc BlockRedo (anytype.Rpc.Block.Redo.Request) returns (anytype.Rpc.Block.Redo.Response);
+    rpc BlockSetFields (anytype.Rpc.Block.Set.Fields.Request) returns (anytype.Rpc.Block.Set.Fields.Response);
+    rpc BlockSetRestrictions (anytype.Rpc.Block.Set.Restrictions.Request) returns (anytype.Rpc.Block.Set.Restrictions.Response);
+
+    rpc BlockListMove (anytype.Rpc.BlockList.Move.Request) returns (anytype.Rpc.BlockList.Move.Response);
+    rpc BlockListMoveToNewPage (anytype.Rpc.BlockList.MoveToNewPage.Request) returns (anytype.Rpc.BlockList.MoveToNewPage.Response);
+    rpc BlockListConvertChildrenToPages (anytype.Rpc.BlockList.ConvertChildrenToPages.Request) returns (anytype.Rpc.BlockList.ConvertChildrenToPages.Response);
+
+    rpc BlockListSetFields (anytype.Rpc.BlockList.Set.Fields.Request) returns (anytype.Rpc.BlockList.Set.Fields.Response);
+    rpc BlockListSetTextStyle (anytype.Rpc.BlockList.Set.Text.Style.Request) returns (anytype.Rpc.BlockList.Set.Text.Style.Response);
+    rpc BlockListDuplicate (anytype.Rpc.BlockList.Duplicate.Request) returns (anytype.Rpc.BlockList.Duplicate.Response);
+    rpc BlockListSetBackgroundColor (anytype.Rpc.BlockList.Set.BackgroundColor.Request) returns (anytype.Rpc.BlockList.Set.BackgroundColor.Response);
+    rpc BlockListSetAlign (anytype.Rpc.BlockList.Set.Align.Request) returns (anytype.Rpc.BlockList.Set.Align.Response);
+    rpc BlockListSetDivStyle (anytype.Rpc.BlockList.Set.Div.Style.Request) returns (anytype.Rpc.BlockList.Set.Div.Style.Response);
+    rpc BlockListSetFileStyle (anytype.Rpc.BlockList.Set.File.Style.Request) returns (anytype.Rpc.BlockList.Set.File.Style.Response);
+
+    rpc BlockListTurnInto (anytype.Rpc.BlockList.TurnInto.Request) returns (anytype.Rpc.BlockList.TurnInto.Response);
+
+    rpc BlockSetLatexText (anytype.Rpc.Block.Set.Latex.Text.Request) returns (anytype.Rpc.Block.Set.Latex.Text.Response);
+    rpc BlockSetTextText (anytype.Rpc.Block.Set.Text.Text.Request) returns (anytype.Rpc.Block.Set.Text.Text.Response);
+    rpc BlockSetTextColor (anytype.Rpc.Block.Set.Text.Color.Request) returns (anytype.Rpc.Block.Set.Text.Color.Response);
+    rpc BlockListSetTextColor (anytype.Rpc.BlockList.Set.Text.Color.Request) returns (anytype.Rpc.BlockList.Set.Text.Color.Response);
+    rpc BlockListSetTextMark (anytype.Rpc.BlockList.Set.Text.Mark.Request) returns (anytype.Rpc.BlockList.Set.Text.Mark.Response);
+    rpc BlockSetTextStyle (anytype.Rpc.Block.Set.Text.Style.Request) returns (anytype.Rpc.Block.Set.Text.Style.Response);
+    rpc BlockSetTextChecked (anytype.Rpc.Block.Set.Text.Checked.Request) returns (anytype.Rpc.Block.Set.Text.Checked.Response);
+
+    rpc BlockSplit (anytype.Rpc.Block.Split.Request) returns (anytype.Rpc.Block.Split.Response);
+    rpc BlockMerge (anytype.Rpc.Block.Merge.Request) returns (anytype.Rpc.Block.Merge.Response);
+
+    rpc BlockCopy (anytype.Rpc.Block.Copy.Request) returns (anytype.Rpc.Block.Copy.Response);
+    rpc BlockPaste (anytype.Rpc.Block.Paste.Request) returns (anytype.Rpc.Block.Paste.Response);
+
+    rpc BlockCut (anytype.Rpc.Block.Cut.Request) returns (anytype.Rpc.Block.Cut.Response);
+    rpc BlockExport (anytype.Rpc.Block.Export.Request) returns (anytype.Rpc.Block.Export.Response);
+    rpc BlockImportMarkdown (anytype.Rpc.Block.ImportMarkdown.Request) returns (anytype.Rpc.Block.ImportMarkdown.Response);
+
+    rpc BlockSetFileName (anytype.Rpc.Block.Set.File.Name.Request) returns (anytype.Rpc.Block.Set.File.Name.Response);
+    rpc BlockSetImageName (anytype.Rpc.Block.Set.Image.Name.Request) returns (anytype.Rpc.Block.Set.Image.Name.Response);
+    rpc BlockSetImageWidth (anytype.Rpc.Block.Set.Image.Width.Request) returns (anytype.Rpc.Block.Set.Image.Width.Response);
+    rpc BlockSetVideoName (anytype.Rpc.Block.Set.Video.Name.Request) returns (anytype.Rpc.Block.Set.Video.Name.Response);
+    rpc BlockSetVideoWidth (anytype.Rpc.Block.Set.Video.Width.Request) returns (anytype.Rpc.Block.Set.Video.Width.Response);
+
+    rpc BlockSetLinkTargetBlockId (anytype.Rpc.Block.Set.Link.TargetBlockId.Request) returns (anytype.Rpc.Block.Set.Link.TargetBlockId.Response);
+
+    rpc BlockBookmarkFetch (anytype.Rpc.Block.Bookmark.Fetch.Request) returns (anytype.Rpc.Block.Bookmark.Fetch.Response);
+    rpc BlockBookmarkCreateAndFetch (anytype.Rpc.Block.Bookmark.CreateAndFetch.Request) returns (anytype.Rpc.Block.Bookmark.CreateAndFetch.Response);
+    rpc BlockFileCreateAndUpload (anytype.Rpc.Block.File.CreateAndUpload.Request) returns (anytype.Rpc.Block.File.CreateAndUpload.Response);
+
+    rpc BlockRelationSetKey (anytype.Rpc.Block.Relation.SetKey.Request) returns (anytype.Rpc.Block.Relation.SetKey.Response);
+    rpc BlockRelationAdd (anytype.Rpc.Block.Relation.Add.Request) returns (anytype.Rpc.Block.Relation.Add.Response);
+
+    // ## Dataview
+    // # View
+    rpc BlockDataviewViewCreate (anytype.Rpc.Block.Dataview.ViewCreate.Request) returns (anytype.Rpc.Block.Dataview.ViewCreate.Response);
+    rpc BlockDataviewViewDelete (anytype.Rpc.Block.Dataview.ViewDelete.Request) returns (anytype.Rpc.Block.Dataview.ViewDelete.Response);
+    rpc BlockDataviewViewUpdate (anytype.Rpc.Block.Dataview.ViewUpdate.Request) returns (anytype.Rpc.Block.Dataview.ViewUpdate.Response);
+    rpc BlockDataviewViewSetActive (anytype.Rpc.Block.Dataview.ViewSetActive.Request) returns (anytype.Rpc.Block.Dataview.ViewSetActive.Response);
+    rpc BlockDataviewViewSetPosition(anytype.Rpc.Block.Dataview.ViewSetPosition.Request) returns (anytype.Rpc.Block.Dataview.ViewSetPosition.Response);
+    rpc BlockDataviewSetSource (anytype.Rpc.Block.Dataview.SetSource.Request) returns (anytype.Rpc.Block.Dataview.SetSource.Response);
+
+    // # Relation
+    rpc BlockDataviewRelationAdd (anytype.Rpc.Block.Dataview.RelationAdd.Request) returns (anytype.Rpc.Block.Dataview.RelationAdd.Response);
+    rpc BlockDataviewRelationUpdate (anytype.Rpc.Block.Dataview.RelationUpdate.Request) returns (anytype.Rpc.Block.Dataview.RelationUpdate.Response);
+    rpc BlockDataviewRelationDelete (anytype.Rpc.Block.Dataview.RelationDelete.Request) returns (anytype.Rpc.Block.Dataview.RelationDelete.Response);
+    rpc BlockDataviewRelationListAvailable (anytype.Rpc.Block.Dataview.RelationListAvailable.Request) returns (anytype.Rpc.Block.Dataview.RelationListAvailable.Response);
+
+    // # Record
+    rpc BlockDataviewRecordCreate (anytype.Rpc.Block.Dataview.RecordCreate.Request) returns (anytype.Rpc.Block.Dataview.RecordCreate.Response);
+    rpc BlockDataviewRecordUpdate (anytype.Rpc.Block.Dataview.RecordUpdate.Request) returns (anytype.Rpc.Block.Dataview.RecordUpdate.Response);
+    rpc BlockDataviewRecordDelete (anytype.Rpc.Block.Dataview.RecordDelete.Request) returns (anytype.Rpc.Block.Dataview.RecordDelete.Response);
+    rpc BlockDataviewRecordRelationOptionAdd (anytype.Rpc.Block.Dataview.RecordRelationOptionAdd.Request) returns (anytype.Rpc.Block.Dataview.RecordRelationOptionAdd.Response);
+    rpc BlockDataviewRecordRelationOptionUpdate (anytype.Rpc.Block.Dataview.RecordRelationOptionUpdate.Request) returns (anytype.Rpc.Block.Dataview.RecordRelationOptionUpdate.Response);
+    rpc BlockDataviewRecordRelationOptionDelete (anytype.Rpc.Block.Dataview.RecordRelationOptionDelete.Request) returns (anytype.Rpc.Block.Dataview.RecordRelationOptionDelete.Response);
+    // ## Object's relations
+    // set an existing object type to the object so it will appear in sets and suggests relations from this type
+    // TODO: rename BlockObjectTypeSet -> ObjectObjectTypeSet
+    rpc BlockObjectTypeSet (anytype.Rpc.Block.ObjectType.Set.Request) returns (anytype.Rpc.Block.ObjectType.Set.Response);
+
+    rpc NavigationListObjects (anytype.Rpc.Navigation.ListObjects.Request) returns (anytype.Rpc.Navigation.ListObjects.Response);
+    rpc NavigationGetObjectInfoWithLinks (anytype.Rpc.Navigation.GetObjectInfoWithLinks.Request) returns (anytype.Rpc.Navigation.GetObjectInfoWithLinks.Response);
+
+    rpc ObjectGraph (anytype.Rpc.Object.Graph.Request) returns (anytype.Rpc.Object.Graph.Response);
+    rpc ObjectSearch (anytype.Rpc.Object.Search.Request) returns (anytype.Rpc.Object.Search.Response);
+    rpc ObjectSearchSubscribe (anytype.Rpc.Object.SearchSubscribe.Request) returns (anytype.Rpc.Object.SearchSubscribe.Response);
+    rpc ObjectIdsSubscribe (anytype.Rpc.Object.IdsSubscribe.Request) returns (anytype.Rpc.Object.IdsSubscribe.Response);
+    rpc ObjectSearchUnsubscribe (anytype.Rpc.Object.SearchUnsubscribe.Request) returns (anytype.Rpc.Object.SearchUnsubscribe.Response);
+    rpc ObjectRelationAdd (anytype.Rpc.Object.RelationAdd.Request) returns (anytype.Rpc.Object.RelationAdd.Response);
+    rpc ObjectRelationUpdate (anytype.Rpc.Object.RelationUpdate.Request) returns (anytype.Rpc.Object.RelationUpdate.Response);
+    rpc ObjectRelationDelete (anytype.Rpc.Object.RelationDelete.Request) returns (anytype.Rpc.Object.RelationDelete.Response);
+    rpc ObjectRelationOptionAdd (anytype.Rpc.Object.RelationOptionAdd.Request) returns (anytype.Rpc.Object.RelationOptionAdd.Response);
+    rpc ObjectRelationOptionUpdate (anytype.Rpc.Object.RelationOptionUpdate.Request) returns (anytype.Rpc.Object.RelationOptionUpdate.Response);
+    rpc ObjectRelationOptionDelete (anytype.Rpc.Object.RelationOptionDelete.Request) returns (anytype.Rpc.Object.RelationOptionDelete.Response);
+    rpc ObjectRelationListAvailable (anytype.Rpc.Object.RelationListAvailable.Request) returns (anytype.Rpc.Object.RelationListAvailable.Response);
+    rpc ObjectSetLayout (anytype.Rpc.Object.SetLayout.Request) returns (anytype.Rpc.Object.SetLayout.Response);
+    rpc ObjectFeaturedRelationAdd (anytype.Rpc.Object.FeaturedRelation.Add.Request) returns (anytype.Rpc.Object.FeaturedRelation.Add.Response);
+    rpc ObjectFeaturedRelationRemove (anytype.Rpc.Object.FeaturedRelation.Remove.Request) returns (anytype.Rpc.Object.FeaturedRelation.Remove.Response);
+    rpc ObjectSetIsFavorite (anytype.Rpc.Object.SetIsFavorite.Request) returns (anytype.Rpc.Object.SetIsFavorite.Response);
+    rpc ObjectSetIsArchived (anytype.Rpc.Object.SetIsArchived.Request) returns (anytype.Rpc.Object.SetIsArchived.Response);
+    // ObjectToSet creates new set from given object and removes object
+    rpc ObjectToSet (anytype.Rpc.Object.ToSet.Request) returns (anytype.Rpc.Object.ToSet.Response);
+
+    rpc ObjectListDelete (anytype.Rpc.ObjectList.Delete.Request) returns (anytype.Rpc.ObjectList.Delete.Response);
+    rpc ObjectListSetIsArchived (anytype.Rpc.ObjectList.Set.IsArchived.Request) returns (anytype.Rpc.ObjectList.Set.IsArchived.Response);
+    rpc ObjectListSetIsFavorite (anytype.Rpc.ObjectList.Set.IsFavorite.Request) returns (anytype.Rpc.ObjectList.Set.IsFavorite.Response);
+
+    // TODO: rename BlockSetDetails -> ObjectSetDetails
+    rpc BlockSetDetails (anytype.Rpc.Block.Set.Details.Request) returns (anytype.Rpc.Block.Set.Details.Response);
+
+    // PageCreate just creates the new page, without adding the link to it from some other page
+    // TODO: rename PageCreate -> ObjectCreate
+    rpc PageCreate (anytype.Rpc.Page.Create.Request) returns (anytype.Rpc.Page.Create.Response);
+    // SetCreate just creates the new set, without adding the link to it from some other page
+    rpc SetCreate (anytype.Rpc.Set.Create.Request) returns (anytype.Rpc.Set.Create.Response);
+
+    rpc MetricsSetParameters (anytype.Rpc.Metrics.SetParameters.Request) returns (anytype.Rpc.Metrics.SetParameters.Response);
+    // ## ObjectType
+    rpc ObjectTypeCreate (anytype.Rpc.ObjectType.Create.Request) returns (anytype.Rpc.ObjectType.Create.Response);
+    // ObjectTypeList lists all object types both bundled and created by user
+    rpc ObjectTypeList (anytype.Rpc.ObjectType.List.Request) returns (anytype.Rpc.ObjectType.List.Response);
+    rpc ObjectTypeRelationList (anytype.Rpc.ObjectType.Relation.List.Request) returns (anytype.Rpc.ObjectType.Relation.List.Response);
+    rpc ObjectTypeRelationAdd (anytype.Rpc.ObjectType.Relation.Add.Request) returns (anytype.Rpc.ObjectType.Relation.Add.Response);
+    rpc ObjectTypeRelationUpdate (anytype.Rpc.ObjectType.Relation.Update.Request) returns (anytype.Rpc.ObjectType.Relation.Update.Response);
+    rpc ObjectTypeRelationRemove (anytype.Rpc.ObjectType.Relation.Remove.Request) returns (anytype.Rpc.ObjectType.Relation.Remove.Response);
+
+    rpc Ping (anytype.Rpc.Ping.Request) returns (anytype.Rpc.Ping.Response);
+
+    rpc ProcessCancel (anytype.Rpc.Process.Cancel.Request) returns (anytype.Rpc.Process.Cancel.Response);
+
+    rpc HistoryShow (anytype.Rpc.History.Show.Request) returns (anytype.Rpc.History.Show.Response);
+    rpc HistoryVersions (anytype.Rpc.History.Versions.Request) returns (anytype.Rpc.History.Versions.Response);
+    rpc HistorySetVersion (anytype.Rpc.History.SetVersion.Request) returns (anytype.Rpc.History.SetVersion.Response);
+
+    rpc Export (anytype.Rpc.Export.Request) returns (anytype.Rpc.Export.Response);
+    rpc ExportWorkspace (anytype.Rpc.ExportWorkspace.Request) returns (anytype.Rpc.ExportWorkspace.Response);
+    rpc ExportTemplates (anytype.Rpc.ExportTemplates.Request) returns (anytype.Rpc.ExportTemplates.Response);
+    rpc ExportLocalstore (anytype.Rpc.ExportLocalstore.Request) returns (anytype.Rpc.ExportLocalstore.Response);
+
+    rpc MakeTemplate (anytype.Rpc.MakeTemplate.Request) returns (anytype.Rpc.MakeTemplate.Response);
+    rpc MakeTemplateByObjectType (anytype.Rpc.MakeTemplateByObjectType.Request) returns (anytype.Rpc.MakeTemplateByObjectType.Response);
+    rpc CloneTemplate (anytype.Rpc.CloneTemplate.Request) returns (anytype.Rpc.CloneTemplate.Response);
+    rpc ObjectDuplicate (anytype.Rpc.ObjectDuplicate.Request) returns (anytype.Rpc.ObjectDuplicate.Response);
+    rpc ApplyTemplate (anytype.Rpc.ApplyTemplate.Request) returns (anytype.Rpc.ApplyTemplate.Response);
+
+    rpc DebugSync (anytype.Rpc.Debug.Sync.Request) returns (anytype.Rpc.Debug.Sync.Response);
+
+    rpc DebugThread (anytype.Rpc.Debug.Thread.Request) returns (anytype.Rpc.Debug.Thread.Response);
+    rpc DebugTree (anytype.Rpc.Debug.Tree.Request) returns (anytype.Rpc.Debug.Tree.Response);
+
+    // used only for lib-server via grpc
+    rpc ListenEvents (anytype.Empty) returns (stream anytype.Event);
+}

@@ -8,8 +8,7 @@ enum AttributedTextConverter {
     static func asModel(
         text: String,
         marks: Anytype_Model_Block.Content.Text.Marks,
-        style: BlockText.Style,
-        detailsStorage: ObjectDetailsStorageProtocol
+        style: BlockText.Style
     ) -> UIKitAnytypeText {
         // Map attributes to our internal format.
         var markAttributes = marks.marks.compactMap { mark -> (range: NSRange, markAction: MarkupType)? in
@@ -17,11 +16,7 @@ enum AttributedTextConverter {
                 attribute: mark.type,
                 value: mark.param
             )
-            guard
-                let markValue = MarkStyleActionConverter.asModel(
-                tuple: middlewareTuple,
-                detailsStorage: detailsStorage
-            ) else {
+            guard let markValue = MarkStyleActionConverter.asModel(tuple: middlewareTuple) else {
                 return nil
             }
             

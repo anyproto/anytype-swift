@@ -3,7 +3,6 @@ import Combine
 
 protocol BaseDocumentProtocol: AnyObject {
     var blocksContainer: BlockContainerModelProtocol { get }
-    var detailsStorage: ObjectDetailsStorageProtocol { get }
     var objectRestrictions: ObjectRestrictions { get }
     var relationsStorage: RelationsMetadataStorageProtocol { get }
     var objectId: BlockId { get }
@@ -14,4 +13,5 @@ protocol BaseDocumentProtocol: AnyObject {
 
     @discardableResult
     func open() -> Bool
+    func close()
 }

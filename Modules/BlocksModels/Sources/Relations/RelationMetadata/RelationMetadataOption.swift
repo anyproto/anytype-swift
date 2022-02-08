@@ -20,5 +20,13 @@ extension RelationMetadata.Option {
         self.color = middlewareOption.color
         self.scope = Scope(rawValue: middlewareOption.scope.rawValue)
     }
-    
+
+    var middlewareModel: Anytype_Model_Relation.Option {
+        Anytype_Model_Relation.Option(
+            id: id,
+            text: text,
+            color: color,
+            scope: Anytype_Model_Relation.Option.Scope(rawValue: scope.rawValue) ?? .local
+        )
+    }
 }

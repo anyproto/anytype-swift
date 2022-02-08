@@ -1,43 +1,43 @@
 require 'tmpdir'
 require_relative '../workers_hub'
+require_relative '../constants'
+
+require_relative 'download_middleware'
+
+require_relative '../codegen/codegen_runner'
+require_relative '../codegen/file_formatter'
 
 class BasePipeline
-  def self.work(version, options)
-    puts "Lets fetch data from remote!"
-    information = GetRemoteInformationWorker.new(options[:token]).work
-    puts "I have gathered information!"
+  def self.work(artifactsDirectory)
+    dependenciesDirectory = Constants::DEPENDENCIES_DIR_PATH
+    puts "Cleaning up dependencies directory #{dependenciesDirectory}"
+    CleanupDependenciesDirectoryWorker.new(dependenciesDirectory).work
 
-    puts "Now lets find our url to release!"
-    assetURL = GetRemoteAssetURLWorker.new(information, version).work
-    puts "Our URL is: #{assetURL}"
+    puts "Moving files from  #{artifactsDirectory} to #{dependenciesDirectory}"
+    lib = File.join(artifactsDirectory, "Lib.xcframework")
+    FileUtils.cp_r(lib, dependenciesDirectory)
+    protobuf = File.join(artifactsDirectory, Constants::PROTOBUF_DIRECTORY_NAME)
+    FileUtils.cp_r(protobuf, dependenciesDirectory)    
+    remove_gitignore(dependenciesDirectory)
+    
+    puts "Copying protobuf files from Dependencies to ProtobufMessages"
+    directory = File.join([dependenciesDirectory, Constants::PROTOBUF_DIRECTORY_NAME])
+    DirHelper.allFiles(directory, "swift").each { |file|
+      FileUtils.cp(file, Constants::PROTOBUF_MESSAGES_DIR)
+    }
 
-    downloadFilePath = options[:downloadFilePath]
-    puts "Start downloading library to #{downloadFilePath}"
-    DownloadFileAtURLWorker.new(options[:token], assetURL, options[:downloadFilePath]).work
-    puts "Library is downloaded at #{downloadFilePath}"
+    puts "Generating swift from protobuf"
+    CodegenRunner.run()
 
-    temporaryDirectory = Dir.mktmpdir
-    puts "Start uncompressing to directory #{temporaryDirectory}"
-    UncompressFileToTemporaryDirectoryWorker.new(downloadFilePath, temporaryDirectory).work
+    puts "Running swift format"
+    FileFormatter.formatFiles()
+  end
 
-    ourDirectory = options[:dependenciesDirectoryPath]
-    puts "Cleaning up Dependencies directory #{ourDirectory}"
-    CleanupDependenciesDirectoryWorker.new(ourDirectory).work
-
-    puts "Moving files from temporaryDirectory #{temporaryDirectory} to ourDirectory: #{ourDirectory}"
-    CopyLibraryArtifactsFromTemporaryDirectoryToTargetDirectoryWorker.new(temporaryDirectory, ourDirectory).work
-
-    puts "Cleaning up Downloaded files"
-    RemoveDirectoryWorker.new(downloadFilePath).work
-    RemoveDirectoryWorker.new(temporaryDirectory).work
-
-    if options[:runsOnCI] == false
-      puts "Moving protobuf files from Dependencies to our project directory"
-      CopyProtobufFilesWorker.new(ourDirectory, options[:targetDirectoryPath]).work
-
-      puts "Generate services from protobuf files"
-      codegen_runner = File.expand_path("#{__dir__}../codegen/anytype_swift_codegen_runner.rb")
-      "ruby #{codegen_runner}"
+  # Remove when fixed on the middlewere side
+  private_class_method def self.remove_gitignore(dependenciesDirectory)
+    gitignore_path = "#{dependenciesDirectory}/protobuf/.gitignore"
+    if File.file?(gitignore_path)
+      FileUtils.rm(gitignore_path)
     end
   end
 end

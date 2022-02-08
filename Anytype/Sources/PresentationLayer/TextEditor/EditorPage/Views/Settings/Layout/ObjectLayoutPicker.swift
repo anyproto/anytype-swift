@@ -13,7 +13,7 @@ struct ObjectLayoutPicker: View {
                 .padding([.top, .bottom], 12)
             layoutList
         }
-        .background(Color.background)
+        .background(Color.backgroundSecondary)
         .cornerRadius(16, corners: [.topLeft, .topRight])
         .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
     }

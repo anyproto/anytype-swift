@@ -13,10 +13,6 @@ struct AboutView: View {
     
     var body: some View {
         contentView
-            .onAppear {
-                // Analytics
-                Amplitude.instance().logEvent(AmplitudeEventsName.showAboutScreen)
-            }
     }
     
     var contentView: some View {

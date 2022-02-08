@@ -8,7 +8,7 @@ struct HorizonalTypeListView: View {
     var body: some View {
         Divider()
             .frame(height: 0.5)
-            .foregroundColor(Color.grayscale30)
+            .foregroundColor(Color.strokePrimary)
         ScrollView(.horizontal) {
             LazyHStack(spacing: 0) {
                 ForEach(viewModel.items) { item in

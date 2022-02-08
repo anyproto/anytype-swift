@@ -4,6 +4,7 @@
 //
 // For information on using the generated types, please see the documentation:
 //   https://github.com/anytypeio/anytype-swift-codegen
+extension Anytype_Rpc.Metrics.SetParameters.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ExternalDrop.Files.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ExternalDrop.Content.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error: Swift.Error {}
@@ -17,6 +18,7 @@ extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error: Swift.Error 
 extension Anytype_Rpc.BlockList.Set.Align.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Fields.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockList.Set.File.Style.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.TurnInto.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Replace.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.UpdateContent.Response.Error: Swift.Error {}
@@ -126,6 +128,9 @@ extension Anytype_Rpc.Object.RelationOptionDelete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.RelationListAvailable.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Search.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Graph.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.IdsSubscribe.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetLayout.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetIsArchived.Response.Error: Swift.Error {}
@@ -136,11 +141,13 @@ extension Anytype_Rpc.ObjectList.Delete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Export.Response.Error: Swift.Error {}
+extension Anytype_Rpc.ExportWorkspace.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ExportTemplates.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ExportLocalstore.Response.Error: Swift.Error {}
 extension Anytype_Rpc.MakeTemplate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.MakeTemplateByObjectType.Response.Error: Swift.Error {}
 extension Anytype_Rpc.CloneTemplate.Response.Error: Swift.Error {}
+extension Anytype_Rpc.ObjectDuplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ApplyTemplate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Debug.Sync.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Debug.Thread.Response.Error: Swift.Error {}

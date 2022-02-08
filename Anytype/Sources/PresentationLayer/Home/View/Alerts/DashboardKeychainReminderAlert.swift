@@ -1,6 +1,8 @@
 import SwiftUI
+import Amplitude
 
 struct DashboardKeychainReminderAlert: View {
+    var shownInContext: AmplitudeEventsKeychainContext
     @EnvironmentObject private var model: HomeViewModel
     
     var body: some View {
@@ -12,11 +14,13 @@ struct DashboardKeychainReminderAlert: View {
             Spacer.fixedHeight(18)
             SeedPhraseView {
                 model.snackBarData = .init(text: "Keychain phrase copied to clipboard", showSnackBar: true)
+
+                Amplitude.instance().logKeychainPhraseCopy(shownInContext)
             }
             Spacer.fixedHeight(25)
         }
         .padding(.horizontal, 20)
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
         .cornerRadius(16)
     }
     
@@ -36,7 +40,7 @@ struct DashboardKeychainReminderAlert_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.blue
-            DashboardKeychainReminderAlert()
+            DashboardKeychainReminderAlert(shownInContext: .signup)
         }
     }
 }

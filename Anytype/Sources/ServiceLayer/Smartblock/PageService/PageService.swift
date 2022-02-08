@@ -11,7 +11,7 @@ final class PageService {
             ]
         )
         
-        guard let response = Anytype_Rpc.Page.Create.Service.invoke(details: details).getValue() else {
+        guard let response = Anytype_Rpc.Page.Create.Service.invoke(details: details).getValue(domain: .pageService) else {
             return nil
         }
         

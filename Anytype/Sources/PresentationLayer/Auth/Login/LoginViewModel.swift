@@ -1,9 +1,11 @@
 import SwiftUI
 import Combine
+import LocalAuthentication
 
 class LoginViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
     private lazy var cameraPermissionVerifier = CameraPermissionVerifier()
+    private let seedService: SeedServiceProtocol
 
     @Published var seed: String = ""
     @Published var showQrCodeView: Bool = false
@@ -25,8 +27,14 @@ class LoginViewModel: ObservableObject {
         }
     }
     @Published var showSelectProfile = false
+    let canRestoreFromKeychain: Bool
 
     private var subscriptions = [AnyCancellable]()
+
+    init(seedService: SeedServiceProtocol = ServiceLocator.shared.seedService()) {
+        self.canRestoreFromKeychain = (try? seedService.obtainSeed()).isNotNil
+        self.seedService = seedService
+    }
     
     func onEntropySet() {
         let result = authService.mnemonicByEntropy(entropy)
@@ -40,15 +48,7 @@ class LoginViewModel: ObservableObject {
     }
     
     func recoverWallet() {
-        let result = authService.walletRecovery(mnemonic: seed.trimmingCharacters(in: .whitespacesAndNewlines))
-        DispatchQueue.main.async { [weak self] in
-            switch result {
-            case .failure(let error):
-                self?.error = error.localizedDescription
-            case .success:
-                self?.showSelectProfile = true
-            }
-        }
+        recoverWallet(with: seed)
     }
 
     func onShowQRCodeTap() {
@@ -62,5 +62,35 @@ class LoginViewModel: ObservableObject {
                 }
             }
             .store(in: &subscriptions)
+    }
+
+    func restoreFromkeychain() {
+        let permissionContext = LAContext()
+        permissionContext.localizedCancelTitle = "Cancel".localized
+
+        var error: NSError?
+        if permissionContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
+            let reason = "Restore secret phrase from keychain".localized
+            permissionContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { [unowned self] didComplete, evaluationError in
+                guard didComplete,
+                      let phrase = try? seedService.obtainSeed() else {
+                    return
+                }
+
+                recoverWallet(with: phrase)
+            }
+        }
+    }
+
+    private func recoverWallet(with string: String) {
+        let result = authService.walletRecovery(mnemonic: string.trimmingCharacters(in: .whitespacesAndNewlines))
+        DispatchQueue.main.async { [weak self] in
+            switch result {
+            case .failure(let error):
+                self?.error = error.localizedDescription
+            case .success:
+                self?.showSelectProfile = true
+            }
+        }
     }
 }

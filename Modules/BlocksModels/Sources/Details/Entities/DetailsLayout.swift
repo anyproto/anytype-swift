@@ -22,4 +22,7 @@ public extension DetailsLayout {
         .todo
     ]
     
+    static let fileLayout: Int = 6
+    static let imageLayout: Int = 8
+    
 }

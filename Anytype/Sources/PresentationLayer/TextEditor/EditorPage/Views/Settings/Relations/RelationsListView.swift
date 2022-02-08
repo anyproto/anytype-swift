@@ -72,41 +72,96 @@ struct ObjectRelationsView_Previews: PreviewProvider {
         RelationsListView(
             viewModel: RelationsListViewModel(
                 relationsService: RelationsService(objectId: ""),
-                detailsService: DetailsService(objectId: ""),
                 sections: [
                     RelationsSection(
                         id: "id",
                         title: "title",
                         relations: [
-                            Relation(
-                                id: "1",
-                                name: "Relation name1",
-                                value: .text("text"),
-                                hint: "hint",
-                                isFeatured: false,
-                                isEditable: true
-                                
+                            Relation.text(
+                                Relation.Text(
+                                    id: "id",
+                                    name: "name",
+                                    isFeatured: false,
+                                    isEditable: true,
+                                    value: "text"
+                                )
                             ),
-                            Relation(
-                                id: "2",
-                                name: "Relation name2",
-                                value: .text("text2"),
-                                hint: "hint",
-                                isFeatured: false,
-                                isEditable: true
+                            Relation.text(
+                                Relation.Text(
+                                    id: "id2",
+                                    name: "name",
+                                    isFeatured: false,
+                                    isEditable: true,
+                                    value: "text"
+                                )
                             ),
-                            Relation(
-                                id: "3",
-                                name: "Relation name3",
-                                value: .tag([
-                                    TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .grayscaleWhite),
-                                    TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed),
-                                    TagRelationValue(text: "text", textColor: .darkTeal, backgroundColor: .lightTeal),
-                                    TagRelationValue(text: "text2", textColor: .darkRed, backgroundColor: .lightRed)
-                                ]),
-                                hint: "hint",
-                                isFeatured: false,
-                                isEditable: true
+                            Relation.tag(
+                                Relation.Tag(
+                                    id: "id3",
+                                    name: "name",
+                                    isFeatured: false,
+                                    isEditable: true,
+                                    selectedTags: [
+                                        Relation.Tag.Option(
+                                            id: "id1",
+                                            text: "text1",
+                                            textColor: UIColor.Text.teal,
+                                            backgroundColor: UIColor.TagBackground.default,
+                                            scope: .local
+                                        ),
+                                        Relation.Tag.Option(
+                                            id: "id2",
+                                            text: "text2",
+                                            textColor: UIColor.Text.red,
+                                            backgroundColor: UIColor.Background.red,
+                                            scope: .local
+                                        ),
+                                        Relation.Tag.Option(
+                                            id: "id3",
+                                            text: "text3",
+                                            textColor: UIColor.Text.teal,
+                                            backgroundColor: UIColor.Background.teal,
+                                            scope: .local
+                                        ),
+                                        Relation.Tag.Option(
+                                            id: "id4",
+                                            text: "text4",
+                                            textColor: UIColor.Text.red,
+                                            backgroundColor: UIColor.Background.red,
+                                            scope: .local
+                                        )
+                                    ],
+                                    allTags: [
+                                        Relation.Tag.Option(
+                                            id: "id1",
+                                            text: "text1",
+                                            textColor: UIColor.Text.teal,
+                                            backgroundColor: UIColor.TagBackground.default,
+                                            scope: .local
+                                        ),
+                                        Relation.Tag.Option(
+                                            id: "id2",
+                                            text: "text2",
+                                            textColor: UIColor.Text.red,
+                                            backgroundColor: UIColor.Background.red,
+                                            scope: .local
+                                        ),
+                                        Relation.Tag.Option(
+                                            id: "id3",
+                                            text: "text3",
+                                            textColor: UIColor.Text.teal,
+                                            backgroundColor: UIColor.Background.teal,
+                                            scope: .local
+                                        ),
+                                        Relation.Tag.Option(
+                                            id: "id4",
+                                            text: "text4",
+                                            textColor: UIColor.Text.red,
+                                            backgroundColor: UIColor.Background.red,
+                                            scope: .local
+                                        )
+                                    ]
+                                )
                             )
                         ]
                     ),
@@ -114,29 +169,32 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                         id: "id1",
                         title: "title2",
                         relations: [
-                            Relation(
-                                id: "12",
-                                name: "Relation name1",
-                                value: .text("text"),
-                                hint: "hint",
-                                isFeatured: false,
-                                isEditable: true
+                            Relation.text(
+                                Relation.Text(
+                                    id: "id23",
+                                    name: "name",
+                                    isFeatured: false,
+                                    isEditable: true,
+                                    value: "text"
+                                )
                             ),
-                            Relation(
-                                id: "22",
-                                name: "Relation name2",
-                                value: .text("text2"),
-                                hint: "hint",
-                                isFeatured: false,
-                                isEditable: true
+                            Relation.text(
+                                Relation.Text(
+                                    id: "id21",
+                                    name: "name",
+                                    isFeatured: false,
+                                    isEditable: true,
+                                    value: "text"
+                                )
                             ),
-                            Relation(
-                                id: "32",
-                                name: "Relation name3",
-                                value: .text("text3"),
-                                hint: "hint",
-                                isFeatured: false,
-                                isEditable: true
+                            Relation.text(
+                                Relation.Text(
+                                    id: "id22",
+                                    name: "name",
+                                    isFeatured: false,
+                                    isEditable: true,
+                                    value: "text"
+                                )
                             )
                         ]
                     )

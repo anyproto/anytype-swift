@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import BlocksModels
 
 extension Image {
     static let appIcon = createImage("AppIcon")
@@ -7,7 +8,9 @@ extension Image {
     static let artAppIcon = Image(uiImage: UIImage(imageLiteralResourceName: "art"))
     static let logo = createImage("logo")
     static let splashLogo = createImage("splashLogo")
+    
     static let arrow = createImage("arrowForward")
+    static let arrowDown = createImage("arrowDown")
     
     static let checked = createImage("TextEditor/Text/checked")
     
@@ -18,6 +21,11 @@ extension Image {
 }
 
 extension Image {
+    enum `set` {
+        static let forward = createImage("set_pagination_arrow_forward")
+        static let back = createImage("set_pagination_arrow_backward")
+    }
+    
     enum main {
         static let draft = createImage("draft")
         static let search = createImage("main_search")
@@ -83,8 +91,9 @@ extension Image {
         static let addToFeatured = createImage("relation_add_to_featured")
         static let removeFromFeatured = createImage("relation_remove_from_featured")
         static let locked = createImage("relation_locked")
+        static let lockedSmall = createImage("relation_locked_small")
         
-        static let createOption = createImage(ImageName.slashMenu.relations.addRelation)
+        static let createOption = createImage("relation_new")
         
         enum Icons {
             enum Small {
@@ -114,5 +123,39 @@ private extension Image {
         }
         
         return Image(uiImage: image)
+    }
+}
+
+extension Image.Relations {
+
+    static func relationIcon(format: RelationMetadata.Format) -> Image {
+        switch format {
+        case .longText:
+            return Image.createImage("format/text")
+        case .shortText:
+            return Image.createImage("format/text")
+        case .number:
+            return Image.createImage("format/number")
+        case .status:
+            return Image.createImage("format/status")
+        case .date:
+            return Image.createImage("format/date")
+        case .file:
+            return Image.createImage("format/attachment")
+        case .checkbox:
+            return Image.createImage("format/checkbox")
+        case .url:
+            return Image.createImage("format/url")
+        case .email:
+            return Image.createImage("format/email")
+        case .phone:
+            return Image.createImage("format/phone")
+        case .tag:
+            return Image.createImage("format/tag")
+        case .object:
+            return Image.createImage("format/object")
+        case .unrecognized:
+            return Image("")
+        }
     }
 }

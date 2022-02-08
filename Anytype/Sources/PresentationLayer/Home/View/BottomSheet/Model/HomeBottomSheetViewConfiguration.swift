@@ -3,7 +3,6 @@ import CoreGraphics
 extension HomeBottomSheetView {
     // Offsets counts from the top of the screen
     struct Configuration {
-        let cornerRadius: CGFloat = 16
         let containerHeight: CGFloat
 
         var maxHeight: CGFloat { containerHeight * heightRatio }

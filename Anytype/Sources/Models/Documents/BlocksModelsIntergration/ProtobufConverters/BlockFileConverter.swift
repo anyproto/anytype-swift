@@ -27,7 +27,8 @@ extension BlockFile {
                 mime: metadata.mime,
                 size: metadata.size,
                 addedAt: 0,
-                state: state.asMiddleware
+                state: state.asMiddleware,
+                style: .auto
             )
         )
     }

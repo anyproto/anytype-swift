@@ -1,12 +1,11 @@
 import Foundation
 import SwiftUI
 
-protocol RelationEditingViewModelProtocol {
+protocol RelationEditingViewModelProtocol: Dismissible {
     
-    func saveValue()
-    
+    var onDismiss: () -> Void { get set }
+        
     @ViewBuilder
     func makeView() -> AnyView
-    func viewWillDisappear()
     
 }

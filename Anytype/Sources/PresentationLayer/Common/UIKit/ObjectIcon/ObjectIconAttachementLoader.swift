@@ -40,7 +40,7 @@ extension ObjectIconAttachementLoader {
 
                 string: character.flatMap { String($0) } ?? "",
                 textColor: UIColor.textTertiary,
-                backgroundColor: UIColor.grayscale10
+                backgroundColor: UIColor.strokePrimary
             )
             setImage(image: image, processor: processor)
         case .staticImage(let name):
@@ -70,7 +70,7 @@ extension ObjectIconAttachementLoader {
                     model: model,
                     string: String(character),
                     textColor: UIColor.backgroundPrimary,
-                    backgroundColor: UIColor.dividerSecondary
+                    backgroundColor: UIColor.strokePrimary
                 )
                 setImage(image: image, processor: customProcessor)
             }

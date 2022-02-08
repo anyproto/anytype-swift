@@ -14,26 +14,27 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                 
                 VStack() {
 
-                    AnytypeText(self.errorText, style: .body, color: .white)
+                    AnytypeText(self.errorText, style: .body, color: .textPrimary)
                         .padding()
                         .layoutPriority(1)
                     
                     
                     VStack(spacing: 0) {
-                        Divider().background(Color.background)
+                        Divider().background(Color.strokePrimary)
                         Button(action: {
                             isShowing.toggle()
                             onOkPressed()
                         }) {
-                            AnytypeText("Ok", style: .body, color: .textSecondary)
+                            AnytypeText("Ok", style: .body, color: .buttonAccent)
                                 .padding()
                         }
                     }
                 }
                 .frame(maxWidth: geometry.size.width * 0.8, minHeight: 0)
-                .background(Color.toastBackground)
+                .background(Color.backgroundSecondary)
                 .cornerRadius(10)
                 .transition(.slide)
+                .shadow(color: Color.shadowPrimary, radius: 4)
                 .opacity(self.isShowing ? 1 : 0)
             }
         }

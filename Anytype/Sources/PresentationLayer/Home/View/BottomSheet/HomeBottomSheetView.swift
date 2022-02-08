@@ -24,7 +24,6 @@ struct HomeBottomSheetView<Content: View>: View {
     var body: some View {
         GeometryReader { geometry in
             content
-                .cornerRadius(config.cornerRadius, corners: [.topLeft, .topRight])
                 .frame(width: geometry.size.width, height: config.maxHeight)
                 .offset(y: offset)
         }

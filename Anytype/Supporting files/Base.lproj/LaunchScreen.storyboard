@@ -17,19 +17,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" clearsContextBeforeDrawing="NO" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splashLogo" translatesAutoresizingMaskIntoConstraints="NO" id="w0E-Zh-nqJ">
-                                <rect key="frame" x="103.5" y="349.5" width="207" height="207"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="w0E-Zh-nqJ" secondAttribute="height" multiplier="1:1" id="a5Z-kR-Glm"/>
-                                </constraints>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="splash_logo" translatesAutoresizingMaskIntoConstraints="NO" id="nOp-BL-1Ej">
+                                <rect key="frame" x="137" y="433" width="140" height="30"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="backgroundPrimary"/>
                         <constraints>
-                            <constraint firstItem="w0E-Zh-nqJ" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" id="VOo-wy-jys"/>
-                            <constraint firstItem="w0E-Zh-nqJ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="YpQ-Hh-g4g"/>
-                            <constraint firstItem="w0E-Zh-nqJ" firstAttribute="width" secondItem="Ze5-6b-2t3" secondAttribute="width" multiplier="0.5" id="cTH-IK-Ooj"/>
+                            <constraint firstItem="nOp-BL-1Ej" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="36v-mY-cR7"/>
+                            <constraint firstItem="nOp-BL-1Ej" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="WWa-36-L29"/>
                         </constraints>
                     </view>
                 </viewController>
@@ -39,9 +35,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="splashLogo" width="300" height="300"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
+        <image name="splash_logo" width="140" height="30"/>
+        <namedColor name="backgroundPrimary">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
 </document>

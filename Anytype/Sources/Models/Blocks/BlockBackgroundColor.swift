@@ -16,36 +16,37 @@ enum BlockBackgroundColor: CaseIterable {
     case green
     
     var color : UIColor {
+        typealias ColorComponent = UIColor.Background
         switch self {
         case .default:
-            return .backgroundPrimary
+            return ColorComponent.default
         case .lemon:
-            return .lightLemon
+            return ColorComponent.yellow
         case .amber:
-            return .lightAmber
+            return ColorComponent.amber
         case .red:
-            return .lightRed
+            return ColorComponent.red
         case .pink:
-            return .lightPink
+            return ColorComponent.pink
         case .purple:
-            return .lightPurple
+            return ColorComponent.purple
         case .sky:
-            return .lightBlue
+            return ColorComponent.sky
         case .blue:
-            return .lightUltramarine
+            return ColorComponent.blue
         case .teal:
-            return .lightTeal
+            return ColorComponent.teal
         case .green:
-            return .lightGreen
+            return ColorComponent.green
         case .gray:
-            return .lightColdGray
+            return ColorComponent.grey
         }
     }
     
     var title: String {
         switch self {
         case .lemon:
-            return "Lemon background".localized
+            return "Yellow background".localized
         case .default:
             return "Default background".localized
         case .amber:
@@ -69,31 +70,13 @@ enum BlockBackgroundColor: CaseIterable {
         }
     }
     
-    var iconName: String {
-        switch self {
-        case .lemon:
-            return ImageName.slashMenu.background_color.lemon
-        case .default:
-            return ImageName.slashMenu.background_color.clear
-        case .amber:
-            return ImageName.slashMenu.background_color.amber
-        case .red:
-            return ImageName.slashMenu.background_color.red
-        case .pink:
-            return ImageName.slashMenu.background_color.pink
-        case .purple:
-            return ImageName.slashMenu.background_color.purple
-        case .sky:
-            return ImageName.slashMenu.background_color.ultramarine
-        case .blue:
-            return ImageName.slashMenu.background_color.blue
-        case .teal:
-            return ImageName.slashMenu.background_color.teal
-        case .green:
-            return ImageName.slashMenu.background_color.green
-        case .gray:
-            return ImageName.slashMenu.background_color.gray
-        }
+    var image: UIImage {
+        UIImage.circleImage(
+            size: .init(width: 22, height: 22),
+            fillColor: color,
+            borderColor: .strokePrimary,
+            borderWidth: 2
+        )
     }
 
     var middleware: MiddlewareColor {

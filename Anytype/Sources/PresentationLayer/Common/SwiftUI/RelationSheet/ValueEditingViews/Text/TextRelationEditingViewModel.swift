@@ -4,92 +4,80 @@ import SwiftUI
 
 final class TextRelationEditingViewModel: ObservableObject {
     
-    @Published var value: String = "" {
+    var onDismiss: () -> Void = {}
+    
+    @Published var isPresented: Bool = false {
         didSet {
-            updateActionButtonState()
+            guard isPresented == false else { return }
+            
+            saveValue()
         }
     }
     
-    @Published var isActionButtonEnabled: Bool = false
+    @Published var value: String = ""
     
-    let valueType: TextRelationValueType
+    let title: String
     
-    private let service: TextRelationEditingServiceProtocol
-    private let key: String
+    private let type: TextRelationEditingViewType
+    private let relationKey: String
+    private let service: RelationsServiceProtocol
     
-    private weak var delegate: TextRelationEditingViewModelDelegate?
+    private let numberFormatter: NumberFormatter = {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
+        formatter.groupingSeparator = ""
+        return formatter
+    }()
     
     init(
-        service: TextRelationEditingServiceProtocol,
-        key: String,
-        value: String?,
-        delegate: TextRelationEditingViewModelDelegate?
+        type: TextRelationEditingViewType,
+        title: String,
+        value: String,
+        relationKey: String,
+        service: RelationsServiceProtocol
     ) {
-        self.service = service
-        self.key = key
-        self.value = value ?? ""
-        self.valueType = service.valueType
-        self.delegate = delegate
+        self.title = title
+        self.value = value
         
-        updateActionButtonState()
+        self.type = type
+        self.relationKey = relationKey
+        self.service = service
     }
     
-    func performAction() {
-        guard
-            let url = urlToOpen,
-            let delegate = delegate,
-            delegate.canOpenUrl(url)
-        else { return }
-        
-        delegate.openUrl(url)
+}
+
+extension TextRelationEditingViewModel {
+    
+    var keyboardType: UIKeyboardType {
+        switch type {
+        case .text: return .default
+        case .number: return .decimalPad
+        }
+    }
+    
+    var placeholder: String {
+        switch type {
+        case .text: return "Add text".localized
+        case .number: return "Add number".localized
+        }
     }
     
 }
 
 extension TextRelationEditingViewModel: RelationEditingViewModelProtocol {
     
-    func viewWillDisappear() {
-        saveValue()
-    }
-    
     func saveValue() {
-        service.save(value: value, forKey: key)
+        switch type {
+        case .text:
+            service.updateRelation(relationKey: relationKey, value: value.protobufValue)
+        case .number:
+            guard let number = numberFormatter.number(from: value)?.doubleValue else { return }
+            service.updateRelation(relationKey: relationKey, value: number.protobufValue)
+        }
     }
     
     func makeView() -> AnyView {
         AnyView(TextRelationEditingView(viewModel: self))
-    }
-    
-}
-
-private extension TextRelationEditingViewModel {
-    
-    func updateActionButtonState() {
-        guard value.isNotEmpty else {
-            isActionButtonEnabled = false
-            return
-        }
-        
-        switch valueType {
-        case .text: return
-        case .number: return
-        case .phone:
-            isActionButtonEnabled = value.isValidPhone()
-        case .email:
-            isActionButtonEnabled = value.isValidEmail()
-        case .url:
-            isActionButtonEnabled = value.isValidURL()
-        }
-    }
-    
-    var urlToOpen: URL? {
-        switch valueType {
-        case .text: return nil
-        case .number: return nil
-        case .phone: return URL(string: "tel:\(value)")
-        case .email: return URL(string: "mailto:\(value)")
-        case .url: return URL(string: value)
-        }
     }
     
 }

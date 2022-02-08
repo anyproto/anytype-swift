@@ -5,65 +5,77 @@ struct SetTableView: View {
     @Binding var offset: CGPoint
     var headerMinimizedSize: CGSize
 
-    @State private var initialOffset = CGPoint.zero
-
     @EnvironmentObject private var model: EditorSetViewModel
 
     var body: some View {
         SingleAxisGeometryReader { fullWidth in
             OffsetAwareScrollView(
-                axes: [.horizontal, .vertical],
+                axes: [.horizontal],
                 showsIndicators: false,
-                offsetChanged: { offset = $0 }
+                offsetChanged: { offset.x = $0.x }
             ) {
-                SetFullHeader()
-                    .offset(x: xOffset, y: 0)
-                    .background(FrameCatcher { tableHeaderSize = $0.size })
-                LazyVStack(
-                    alignment: .leading,
-                    spacing: 0,
-                    pinnedViews: [.sectionHeaders]
+                OffsetAwareScrollView(
+                    axes: [.vertical],
+                    showsIndicators: false,
+                    offsetChanged: { offset.y = $0.y }
                 ) {
-                    Section(header: compoundHeader) {
-                        tableContent
+                    Spacer.fixedHeight(tableHeaderSize.height)
+                    LazyVStack(
+                        alignment: .leading,
+                        spacing: 0,
+                        pinnedViews: [.sectionHeaders]
+                    ) {
+                        content
                     }
-                }
-                .frame(minWidth: fullWidth)
-                .onAppear {
-                    DispatchQueue.main.async {
-                        // initial y offset is 0 for some reason
-                        offset = CGPoint(x: offset.x, y: 0)
-                        initialOffset = offset
+                    .frame(minWidth: fullWidth)
+                    .onAppear {
+                        DispatchQueue.main.async {
+                            // initial y offset is 0 for some reason
+                            offset = CGPoint(x: offset.x, y: 0)
+                        }
                     }
+                    .padding(.top, -headerMinimizedSize.height)
                 }
-                .padding(.top, -headerMinimizedSize.height)
             }
+            .overlay(
+                SetFullHeader()
+                    .offset(x: 0, y: offset.y)
+                    .readSize { tableHeaderSize = $0 }
+                    .frame(width: fullWidth)
+                , alignment: .topLeading
+            )
         }
     }
-
-    private var tableContent: some View {
-        LazyVStack(alignment: .leading) {
-            ForEach(model.rows) { row in
-                SetTableViewRow(data: row, initialOffset: initialOffset.x, xOffset: offset.x)
+    
+    private var content: some View {
+        Group {
+            if model.isEmpty {
+                EmptyView()
+            } else {
+                Section(header: compoundHeader) {
+                    ForEach(model.rows) { row in
+                        SetTableViewRow(data: row, xOffset: xOffset)
+                    }
+                }
             }
         }
     }
 
     private var xOffset: CGFloat {
-        initialOffset.x >= offset.x ? initialOffset.x - offset.x : 0
+        max(-offset.x, 0)
     }
 
     private var compoundHeader: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(headerMinimizedSize.height)
-            Group {
+            VStack {
                 SetHeaderSettings()
                     .offset(x: xOffset, y: 0)
                     .environmentObject(model)
                 SetTableViewHeader()
             }
-            .background(Color.background)
         }
+        .background(Color.backgroundPrimary)
     }
 }
 

@@ -1,9 +1,9 @@
 struct EmojiGroup: Hashable {
     
     let name: String
-    let emojis: [Emoji]
+    let emojis: [EmojiData]
     
-    func updated(emoji: Emoji) -> EmojiGroup {
+    func updated(emoji: EmojiData) -> EmojiGroup {
         EmojiGroup(name: name, emojis: emojis + [emoji])
     }
 }

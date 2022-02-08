@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import BlocksModels
 
-// TODO: Check if block updates when featuredRelations is changed
+#warning("Check if block updates when featuredRelations is changed")
 struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     var upperBlock: BlockModelProtocol?
 

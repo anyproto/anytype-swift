@@ -3,8 +3,8 @@ import UIKit
 import Combine
 import BlocksModels
 
-struct HomeCellData: Identifiable {
-    let id: String
+struct HomeCellData: Identifiable, IdProvider {
+    let id: BlockId
     let destinationId: String
     let icon: ObjectIconType?
     let title: Title
@@ -14,20 +14,17 @@ struct HomeCellData: Identifiable {
     let isDeleted: Bool
     let viewType: EditorViewType
     
-    var selected: Bool
-    
-    static func create(searchResult: SearchData) -> HomeCellData {
+    static func create(details: ObjectDetails) -> HomeCellData {
         HomeCellData(
-            id: searchResult.id,
-            destinationId: searchResult.id,
-            icon: searchResult.icon,
-            title: searchResult.pageCellTitle,
-            type: searchResult.objectType.name,
+            id: details.id,
+            destinationId: details.id,
+            icon: details.icon,
+            title: details.pageCellTitle,
+            type: details.objectType.name,
             isLoading: false,
-            isArchived: searchResult.isArchived,
-            isDeleted: searchResult.isDeleted,
-            viewType: searchResult.editorViewType,
-            selected: false
+            isArchived: details.isArchived,
+            isDeleted: details.isDeleted,
+            viewType: details.editorViewType
         )
     }
 }

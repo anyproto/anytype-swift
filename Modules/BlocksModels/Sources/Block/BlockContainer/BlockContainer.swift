@@ -38,11 +38,7 @@ public final class BlockContainer: BlockContainerModelProtocol {
         }
     }
 
-    public func add(_ block: BlockModelProtocol) {        
-        if models[block.information.id] != nil {
-            anytypeAssertionFailure("We shouldn't replace block by add operation. Skipping...", domain: .blockContainer)
-            return
-        }
+    public func add(_ block: BlockModelProtocol) {
         models[block.information.id] = block
     }
 
@@ -94,6 +90,30 @@ public final class BlockContainer: BlockContainerModelProtocol {
         self.insert(childId: child, parentId: parentId, at: newIndex)
     }
     
+    public func update(blockId: BlockId, update updateAction: @escaping (BlockModelProtocol) -> ()) {
+        guard let entry = model(id: blockId) else {
+            anytypeAssertionFailure("No block with id \(blockId)", domain: .blockContainer)
+            return
+        }
+        
+        updateAction(entry)
+    }
+    
+    public func updateDataview(blockId: BlockId, update updateAction: @escaping (BlockDataview) -> (BlockDataview)) {
+        update(blockId: blockId) { block in
+            var block = block
+            guard case let .dataView(dataView) = block.information.content else {
+                anytypeAssertionFailure(
+                    "\(block.information.content) not a dataview in \(block.information)",
+                    domain: .blockContainer
+                )
+                return
+            }
+            
+            block.information.content = .dataView(updateAction(dataView))
+        }
+    }
+    
     // MARK: - Children / Replace
     /// If you would like to change children in parent, you should call this method.
     ///
@@ -131,8 +151,5 @@ public final class BlockContainer: BlockContainerModelProtocol {
         } : childrenIds
 
         parent.information.childrenIds = existedIds
-        /// TODO: Set children their new parentId if needed?
-        /// Actually, yes, but not now.
-        /// Do it later.
     }    
 }

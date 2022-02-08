@@ -30,6 +30,7 @@ extension Array where Element == BlockRestrictions {
 extension Array where Element == BlockInformation {
     var blocksOptionItems: [BlocksOptionItem] {
         var isDownloadAvailable = true
+        var isStyleAvailable = true
 
         var restrictions = [BlockRestrictions]()
 
@@ -40,6 +41,10 @@ extension Array where Element == BlockInformation {
                 isDownloadAvailable = false
             }
 
+            if !element.content.isText {
+                isStyleAvailable = false
+            }
+
             let restriction = BlockRestrictionsBuilder.build(contentType: element.content.type)
             restrictions.append(restriction)
         }
@@ -48,6 +53,10 @@ extension Array where Element == BlockInformation {
 
         if !isDownloadAvailable || count > 1 {
             mergedItems.remove(.download)
+        }
+
+        if !isStyleAvailable || count > 1 {
+            mergedItems.remove(.style)
         }
 
         return Array<BlocksOptionItem>(mergedItems).sorted()

@@ -10,6 +10,7 @@ struct TextBlockContentConfiguration: BlockConfigurationProtocol {
     let information: BlockInformation
     let content: BlockText
     let text: UIKitAnytypeText
+    let isFirstResponder: Bool
     
     let upperBlock: BlockModelProtocol?
     
@@ -18,7 +19,6 @@ struct TextBlockContentConfiguration: BlockConfigurationProtocol {
     
     let focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     let actionHandler: BlockActionHandlerProtocol
-    let detailsStorage: ObjectDetailsStorageProtocol
     let showPage: (EditorScreenData) -> Void
     let openURL: (URL) -> Void
         
@@ -34,8 +34,7 @@ struct TextBlockContentConfiguration: BlockConfigurationProtocol {
         actionHandler: BlockActionHandlerProtocol,
         showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
-        focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
-        detailsStorage: ObjectDetailsStorageProtocol
+        focusPublisher: AnyPublisher<BlockFocusPosition, Never>
     ) {
         self.blockDelegate = blockDelegate
         self.block = block
@@ -47,9 +46,9 @@ struct TextBlockContentConfiguration: BlockConfigurationProtocol {
         self.focusPublisher = focusPublisher
         self.information = block.information
         self.isCheckable = isCheckable
-        self.detailsStorage = detailsStorage
         
-        self.text = content.anytypeText(using: detailsStorage)
+        self.text = content.anytypeText
+        self.isFirstResponder = block.isFirstResponder
         shouldDisplayPlaceholder = block.isToggled && block.information.childrenIds.isEmpty
     }
     
@@ -64,7 +63,8 @@ extension TextBlockContentConfiguration: Hashable {
         lhs.information == rhs.information &&
         lhs.currentConfigurationState == rhs.currentConfigurationState &&
         lhs.shouldDisplayPlaceholder == rhs.shouldDisplayPlaceholder &&
-        lhs.isCheckable == rhs.isCheckable
+        lhs.isCheckable == rhs.isCheckable &&
+        lhs.isFirstResponder == rhs.isFirstResponder
     }
     
     func hash(into hasher: inout Hasher) {
@@ -75,5 +75,6 @@ extension TextBlockContentConfiguration: Hashable {
         hasher.combine(shouldDisplayPlaceholder)
         hasher.combine(isCheckable)
         hasher.combine(currentConfigurationState)
+        hasher.combine(isFirstResponder)
     }
 }

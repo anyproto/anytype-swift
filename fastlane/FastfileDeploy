@@ -14,6 +14,10 @@ platform :ios do
     )
   end
 
+  lane :tests do 
+    run_tests(devices: ["iPhone 8"], scheme: "AnytypeTests")
+  end
+
   # Private lanes
 
   private_lane :deploy do |options| 

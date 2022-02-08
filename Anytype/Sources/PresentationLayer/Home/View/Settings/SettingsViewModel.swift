@@ -2,6 +2,7 @@ import SwiftUI
 import ProtobufMessages
 import AnytypeCore
 import Combine
+import Amplitude
 
 final class SettingsViewModel: ObservableObject {
     @Published var loggingOut = false
@@ -14,6 +15,12 @@ final class SettingsViewModel: ObservableObject {
     @Published var clearCacheSuccessful = false
     @Published var about = false
     @Published var debugMenu = false
+    @Published var currentStyle = UserDefaultsConfig.userInterfaceStyle {
+        didSet {
+            UserDefaultsConfig.userInterfaceStyle = currentStyle
+            UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = currentStyle
+        }
+    }
     
     @Published var wallpaper: BackgroundType = UserDefaultsConfig.wallpaper {
         didSet {
@@ -45,7 +52,41 @@ final class SettingsViewModel: ObservableObject {
                     completion(false)
                 case .success:
                     completion(true)
+
+                    Amplitude.instance().logEvent(AmplitudeEventsName.fileCacheCleared)
                 }
             }
+    }
+}
+
+extension UIUserInterfaceStyle: Identifiable {
+    public var id: Int { rawValue }
+
+    static var allCases: [UIUserInterfaceStyle] { [.light, .dark, .unspecified,] }
+
+    var title: String {
+        switch self {
+        case .light:
+            return "Light"
+        case .dark:
+            return "Dark"
+        case .unspecified:
+            fallthrough
+        @unknown default:
+            return "System"
+        }
+    }
+
+    var image: UIImage {
+        switch self {
+        case .light:
+            return UIImage(imageLiteralResourceName: "theme_light")
+        case .dark:
+            return UIImage(imageLiteralResourceName: "theme_dark")
+        case .unspecified:
+            fallthrough
+        @unknown default:
+            return UIImage(imageLiteralResourceName: "theme_system")
+        }
     }
 }

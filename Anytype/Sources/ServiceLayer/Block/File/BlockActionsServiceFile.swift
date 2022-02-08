@@ -18,11 +18,7 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
             filePath: filePath,
             url: ""
         )
-        
-        // Analytics
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockUpload)
-        
-        _ = result.getValue()
+        _ = result.getValue(domain: .blockActionsService)
     }
     
     /// NOTE: `Upload` action will return message with event `blockSetFile.state == .uploading`.
@@ -40,12 +36,6 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
             .map(\.event)
             .map(MiddlewareResponse.init)
             .subscribe(on: DispatchQueue.global())
-            .handleEvents(
-                receiveSubscription: { _ in
-                    // Analytics
-                    Amplitude.instance().logEvent(AmplitudeEventsName.blockUpload)
-                }
-            )
             .eraseToAnyPublisher()
     }
     
@@ -54,9 +44,10 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
             url: "",
             localPath: localPath,
             type: FileContentType.image.asMiddleware,
-            disableEncryption: false // Deprecated
+            disableEncryption: false,
+            style: .auto
         )
-            .getValue()
+            .getValue(domain: .blockActionsService)
             .flatMap { Hash($0.hash) }
     }
     

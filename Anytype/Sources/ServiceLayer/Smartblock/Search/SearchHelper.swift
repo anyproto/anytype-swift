@@ -3,16 +3,16 @@ import SwiftProtobuf
 import BlocksModels
 
 class SearchHelper {
-    static func sort(relation: BundledRelationKey, type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum) -> Anytype_Model_Block.Content.Dataview.Sort {
-        var sort = Anytype_Model_Block.Content.Dataview.Sort()
+    static func sort(relation: BundledRelationKey, type: DataviewSort.TypeEnum) -> DataviewSort {
+        var sort = DataviewSort()
         sort.relationKey = relation.rawValue
         sort.type = type
         
         return sort
     }
     
-    static func isArchivedFilter(isArchived: Bool) -> Anytype_Model_Block.Content.Dataview.Filter {
-        var filter = Anytype_Model_Block.Content.Dataview.Filter()
+    static func isArchivedFilter(isArchived: Bool) -> DataviewFilter {
+        var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = isArchived.protobufValue
         filter.relationKey = BundledRelationKey.isArchived.rawValue
@@ -21,8 +21,18 @@ class SearchHelper {
         return filter
     }
     
-    static func notHiddenFilter() -> Anytype_Model_Block.Content.Dataview.Filter {
-        var filter = Anytype_Model_Block.Content.Dataview.Filter()
+    static func isDeletedFilter(isDeleted: Bool) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = isDeleted.protobufValue
+        filter.relationKey = BundledRelationKey.isDeleted.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func notHiddenFilter() -> DataviewFilter {
+        var filter = DataviewFilter()
         filter.condition = .equal
         filter.value = false.protobufValue
         filter.relationKey = BundledRelationKey.isHidden.rawValue
@@ -31,8 +41,18 @@ class SearchHelper {
         return filter
     }
     
-    static func typeFilter(typeUrls: [String]) -> Anytype_Model_Block.Content.Dataview.Filter {
-        var filter = Anytype_Model_Block.Content.Dataview.Filter()
+    static func lastOpenedDateNotNilFilter() -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notEmpty
+        filter.value = nil
+        filter.relationKey = BundledRelationKey.lastOpenedDate.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func typeFilter(typeUrls: [String]) -> DataviewFilter {
+        var filter = DataviewFilter()
         filter.condition = .in
         filter.value = typeUrls.protobufValue
         filter.relationKey = BundledRelationKey.type.rawValue
@@ -41,8 +61,18 @@ class SearchHelper {
         return filter
     }
     
-    static func supportedObjectTypeUrlsFilter(_ typeUrls: [String]) -> Anytype_Model_Block.Content.Dataview.Filter {
-        var filter = Anytype_Model_Block.Content.Dataview.Filter()
+    static func layoutFilter(layouts: [Int]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = layouts.protobufValue
+        filter.relationKey = BundledRelationKey.layout.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func supportedObjectTypeUrlsFilter(_ typeUrls: [String]) -> DataviewFilter {
+        var filter = DataviewFilter()
         filter.condition = .in
         filter.value = typeUrls.protobufValue
         filter.relationKey = BundledRelationKey.id.rawValue
@@ -51,14 +81,14 @@ class SearchHelper {
         return filter
     }
     
-    static func sharedObjectsFilters() -> [Anytype_Model_Block.Content.Dataview.Filter] {
-        var workspaceFilter = Anytype_Model_Block.Content.Dataview.Filter()
+    static func sharedObjectsFilters() -> [DataviewFilter] {
+        var workspaceFilter = DataviewFilter()
         workspaceFilter.condition = .notEmpty
         workspaceFilter.value = nil
         workspaceFilter.relationKey = BundledRelationKey.workspaceId.rawValue
         workspaceFilter.operator = .and
    
-        var highlightedFilter = Anytype_Model_Block.Content.Dataview.Filter()
+        var highlightedFilter = DataviewFilter()
         highlightedFilter.condition = .equal
         highlightedFilter.value = true
         highlightedFilter.relationKey = BundledRelationKey.isHighlighted.rawValue
@@ -70,8 +100,8 @@ class SearchHelper {
         ]
     }
     
-    static func excludedObjectTypeUrlFilter(_ typeUrl: String) -> Anytype_Model_Block.Content.Dataview.Filter {
-        var filter = Anytype_Model_Block.Content.Dataview.Filter()
+    static func excludedObjectTypeUrlFilter(_ typeUrl: String) -> DataviewFilter {
+        var filter = DataviewFilter()
         filter.condition = .notEqual
         filter.value = typeUrl.protobufValue
         

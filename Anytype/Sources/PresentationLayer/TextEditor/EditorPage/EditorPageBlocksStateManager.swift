@@ -16,7 +16,7 @@ protocol EditorPageMovingManagerProtocol {
     func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool
     func canMoveItemsToObject(at indexPath: IndexPath) -> Bool
 
-    func moveItem(at indexPath: IndexPath, to positionIndexPath: IndexPath)
+    func moveItem(at indexPath: IndexPath)
 
     func didSelectMovingIndexPaths(_ indexPaths: [IndexPath])
 }
@@ -46,6 +46,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private(set) var selectedBlocksIndexPaths = [IndexPath]()
     private(set) var movingBlocksIndexPaths = [IndexPath]()
     private var movingDestination: MovingDestination?
+
+    // We need to store interspace between root and all childs to disable cursor moving between those indexPaths
+    private var movingBlocksWithChildsIndexPaths = [[IndexPath]]()
 
     private let document: BaseDocumentProtocol
     private let modelsHolder: BlockViewModelsHolder
@@ -106,9 +109,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     // MARK: - EditorPageMovingManagerProtocol
-    func moveItem(at indexPath: IndexPath, to positionIndexPath: IndexPath) {
+    func moveItem(at indexPath: IndexPath) {
         movingBlocksIndexPaths = [indexPath]
-        movingDestination = .position(positionIndexPath)
 
         startMoving()
     }
@@ -119,6 +121,13 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool {
         guard indexPath.section == 1 else { return false }
+
+        for indexPathRanges in movingBlocksWithChildsIndexPaths {
+            var ranges = indexPathRanges.sorted()
+
+            ranges.removeFirst()
+            if ranges.contains(indexPath) { return false }
+        }
 
         let notAllowedTypes: [BlockContentType] = [.text(.title), .featuredRelations]
 
@@ -138,18 +147,19 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     func canMoveItemsToObject(at indexPath: IndexPath) -> Bool {
-        guard let element = modelsHolder.models[safe: indexPath.row],
-              !movingBlocksIndexPaths.contains(indexPath) else { return false }
+        guard !movingBlocksWithChildsIndexPaths.flatMap({ $0 }).contains(indexPath),
+              let element = modelsHolder.models[safe: indexPath.row] else { return false }
 
-        let notAllowedTypes: [BlockContentType] = [.text(.title), .featuredRelations]
-
-        if !notAllowedTypes.contains(element.content.type) {
+        switch element.content.type {
+        case .file, .divider, .relation,
+                .dataView, .featuredRelations,
+                .bookmark, .smartblock, .text(.title):
+            return false
+        default:
             movingDestination = .object(element.blockId)
 
             return true
         }
-
-        return false
     }
 
     // MARK: - Private
@@ -159,6 +169,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             switch state {
             case .selecting(let blocks):
                 movingBlocksIndexPaths.removeAll()
+                movingBlocksWithChildsIndexPaths.removeAll()
                 blocksSelectionOverlayViewModel?.setSelectedBlocksCount(blocks.count)
             case .moving:
                 blocksSelectionOverlayViewModel?.setNeedsUpdateForMovingState()
@@ -181,7 +192,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         blocksSelectionOverlayViewModel?.blocksOptionViewModel?.options = selectedBlocks.blocksOptionItems
     }
 
-    private func startMoving() {
+    func startMoving() {
         let position: BlockPosition
         let contextId = document.objectId
         let targetId: BlockId
@@ -260,8 +271,23 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
             return
         case .move:
+            var onlyRootIndexPaths = selectedBlocksIndexPaths
+            let allMovingBlocks = selectedBlocksIndexPaths.map { indexPath -> [IndexPath] in
+                guard let model = modelsHolder.models[safe: indexPath.row] else { return [] }
+
+                var childIndexPaths = modelsHolder.allChildIndexes(for: model)
+                    .map { IndexPath(row: $0, section: indexPath.section) }
+
+                onlyRootIndexPaths = onlyRootIndexPaths.filter { !childIndexPaths.contains($0) }
+
+                childIndexPaths.append(indexPath)
+                return childIndexPaths
+            }
+
+            movingBlocksWithChildsIndexPaths = allMovingBlocks
             didSelectMovingIndexPaths(selectedBlocksIndexPaths)
-            editingState = .moving(indexPaths: selectedBlocksIndexPaths)
+            editingState = .moving(indexPaths: allMovingBlocks.flatMap { $0 })
+            movingBlocksIndexPaths = onlyRootIndexPaths
             return
         case .download:
             anytypeAssert(
@@ -272,8 +298,13 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
             if case let .file(blockFile) = elements.first?.content,
                let url = UrlResolver.resolvedUrl(.file(id: blockFile.metadata.hash)) {
-                router.saveFile(fileURL: url)
+                router.saveFile(fileURL: url, type: blockFile.contentType)
             }
+        case .style:
+            editingState = .editing
+            elements.first.map { router.showStyleMenu(information: $0.information) }
+
+            return
         }
 
         editingState = .editing
@@ -288,5 +319,28 @@ extension EditorPageBlocksStateManager: BlockSelectionHandler {
     func didSelectEditingState(on block: BlockInformation) {
         editingState = .selecting(blocks: [block.id])
         updateSelectionContent(selectedBlocks: [block])
+    }
+}
+
+extension BlockViewModelsHolder {
+    func allChildIndexes(for block: BlockViewModelProtocol) -> [Int] {
+        allIndexes(for: block.information.childrenIds)
+    }
+
+    private func allIndexes(for childs: [BlockId]) -> [Int] {
+        var indexes = [Int]()
+
+        for child in childs {
+            guard let index = models.firstIndex(where: { block in block.blockId == child } ) else {
+                continue
+            }
+
+            indexes.append(index)
+
+            let modelChilds = models[index].information.childrenIds
+            indexes.append(contentsOf: allIndexes(for: modelChilds))
+        }
+
+        return indexes
     }
 }

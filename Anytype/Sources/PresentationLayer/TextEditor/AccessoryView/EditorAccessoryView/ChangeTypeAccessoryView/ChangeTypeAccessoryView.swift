@@ -57,7 +57,7 @@ class ChangeTypeAccessoryView: UIView {
         stackView.addArrangedSubview(changeTypeView)
 
         let changeTypeAction = UIAction { [weak viewModel] _ in
-            viewModel?.toogleChangeTypeState()
+            viewModel?.toggleChangeTypeState()
         }
         changeButton.addAction(changeTypeAction, for: .touchUpInside)
     }
@@ -79,7 +79,7 @@ class ChangeTypeAccessoryView: UIView {
         }
 
         button.setTitle("Done".localized, for: .normal)
-        button.setTitleColor(.pureAmber, for: .normal)
+        button.setTitleColor(UIColor.System.amber, for: .normal)
         button.addAction(primaryAction, for: .touchUpInside)
 
         return button
@@ -111,7 +111,7 @@ private final class ChangeButton: UIButton {
         setTitle("Change type".localized, for: .normal)
         setImage(.codeBlock.arrow, for: .normal)
         titleLabel?.font = .bodyRegular
-        setTitleColor(.grayscale50, for: .normal)
+        setTitleColor(.buttonActive, for: .normal)
         setTitleColor(.textPrimary, for: .highlighted)
 
         addTarget(self, action: #selector(didTap), for: .touchUpInside)

@@ -62,7 +62,7 @@ struct Snackbar: View {
         }
         .padding()
         .frame(width: containerWidth * 0.9, height: 64)
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
         .clipShape(RoundedRectangle(cornerRadius: 10))
         .shadow(radius: 7)
         .offset(x: 0, y: -20)

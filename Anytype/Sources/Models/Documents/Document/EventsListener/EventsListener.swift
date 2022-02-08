@@ -27,7 +27,6 @@ final class EventsListener: EventsListenerProtocol {
     init(
         objectId: BlockId,
         blocksContainer: BlockContainerModelProtocol,
-        detailsStorage: ObjectDetailsStorageProtocol,
         relationStorage: RelationsMetadataStorageProtocol
     ) {
         self.objectId = objectId
@@ -39,18 +38,15 @@ final class EventsListener: EventsListenerProtocol {
         )
         self.middlewareConverter = MiddlewareEventConverter(
             blocksContainer: blocksContainer,
-            detailsStorage: detailsStorage,
             relationStorage: relationStorage,
             informationCreator: informationCreator
         )
         self.localConverter = LocalEventConverter(
-            blocksContainer: blocksContainer,
-            detailsStorage: detailsStorage
+            blocksContainer: blocksContainer
         )
         self.mentionMarkupEventProvider = MentionMarkupEventProvider(
             objectId: objectId,
-            blocksContainer: blocksContainer,
-            detailsStorage: detailsStorage
+            blocksContainer: blocksContainer
         )
     }
     
@@ -63,7 +59,7 @@ final class EventsListener: EventsListenerProtocol {
             object: nil
         )
             .compactMap { $0.object as? EventsBunch }
-            .filter { $0.objectId == self.objectId }
+            .filter { $0.contextId == self.objectId }
             .sink { [weak self] events in
                 self?.handle(events: events)
             }
@@ -75,7 +71,7 @@ final class EventsListener: EventsListenerProtocol {
         let markupUpdates = [mentionMarkupEventProvider.updateMentionsEvent()].compactMap { $0 }
         let updates = middlewareUpdates + localUpdates + markupUpdates
         
-        updates.merged.forEach { update in
+        updates.forEach { update in
             if update.hasUpdate {
                 IndentationBuilder.build(
                     container: blocksContainer,

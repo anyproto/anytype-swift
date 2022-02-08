@@ -16,7 +16,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     var information: BlockInformation { block.information }
     var indentationLevel: Int { block.indentationLevel }
     let content: BlockText
-    let detailsStorage: ObjectDetailsStorageProtocol
     private var codeLanguage: CodeLanguage {
         CodeLanguage.create(
             middleware: block.information.fields[FieldName.codeLanguage]?.stringValue
@@ -32,7 +31,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
             content: content,
             backgroundColor: block.information.backgroundColor,
             codeLanguage: codeLanguage,
-            detailsStorage: detailsStorage,
             becomeFirstResponder: {
                 self.becomeFirstResponder(self.block)
             },
@@ -52,6 +50,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
 
 extension CodeBlockViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
-        return "id: \(blockId)\ntext: \(content.anytypeText(using: detailsStorage).attrString.string.prefix(10))...\ntype: \(block.information.content.type.style.description)"
+        return "id: \(blockId)\ntext: \(content.anytypeText.attrString.string.prefix(10))...\ntype: \(block.information.content.type.style.description)"
     }
 }

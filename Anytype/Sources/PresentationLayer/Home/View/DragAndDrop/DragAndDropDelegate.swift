@@ -1,6 +1,7 @@
 import Foundation
 import AnytypeCore
 import SwiftUI
+import Amplitude
 
 // MARK: - CellDataManager
 protocol DragAndDropDelegate {
@@ -40,6 +41,11 @@ extension HomeViewModel: DragAndDropDelegate {
             blockId: from.id,
             dropPositionblockId: to.id,
             position: direction.toBlockModel()
+        )
+
+        Amplitude.instance().logEvent(
+            AmplitudeEventsName.reorderObjects,
+            withEventProperties: [AmplitudeEventsPropertiesKey.route: AmplitudeEventsName.homeShow]
         )
         
         return true

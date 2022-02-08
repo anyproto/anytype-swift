@@ -4,16 +4,33 @@ import SwiftUIVisualEffects
 import AnytypeCore
 
 extension HomeTabsView {
-    enum Tab: String {
+    enum Tab: String, CaseIterable {
         case favourites
         case history
         case sets
         case shared
         case bin
+        
+        var subscriptionId: SubscriptionData? {
+            switch self {
+            case .favourites:
+                return nil
+            case .sets:
+                return .setsTab
+            case .shared:
+                return .sharedTab
+            case .history:
+                return .historyTab
+            case .bin:
+                return .archiveTab
+            }
+        }
     }
 }
 
 struct HomeTabsView: View {
+    private let cornerRadius: CGFloat = 16
+
     @EnvironmentObject var model: HomeViewModel
     @State private var tabSelection = UserDefaultsConfig.selectedTab
     
@@ -23,7 +40,8 @@ struct HomeTabsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HomeTabsHeader(tabSelection: $tabSelection, onTabSelection: onTabSelection)
+            HomeTabsHeader(tabSelection: $tabSelection)
+                .cornerRadius(cornerRadius, corners: [.topLeft, .topRight])
                 .highPriorityGesture(
                     DragGesture(coordinateSpace: .named(model.bottomSheetCoordinateSpaceName))
                         .onChanged { gesture in
@@ -114,28 +132,15 @@ struct HomeTabsView: View {
             UserDefaultsConfig.selectedTab = tab
             onTabSelection()
         }
+        .onAppear {
+            onTabSelection()
+        }
     }
     
     private func onTabSelection() {
         model.selectAll(false)
-        
-        switch tabSelection {
-        case .favourites:
-            Amplitude.instance().logEvent(AmplitudeEventsName.favoritesTabSelected)
-            break // updates via subscriptions
-        case .history:
-            Amplitude.instance().logEvent(AmplitudeEventsName.recentTabSelected)
-            model.updateHistoryTab()
-        case .bin:
-            Amplitude.instance().logEvent(AmplitudeEventsName.archiveTabSelected)
-            model.updateBinTab()
-        case .shared:
-            Amplitude.instance().logEvent(AmplitudeEventsName.sharedTabSelected)
-            model.updateSharedTab()
-        case .sets:
-            Amplitude.instance().logEvent(AmplitudeEventsName.setsTabSelected)
-            model.updateSetsTab()
-        }
+        model.onTabChange(tab: tabSelection)
+        Amplitude.instance().logHomeTabSelection(tabSelection)
     }
 }
 

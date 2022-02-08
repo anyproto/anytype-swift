@@ -16,8 +16,9 @@ struct FloaterAlertView: View {
             buttons
         }
         .padding(.horizontal, 20)
-        .background(Color.background)
+        .background(Color.backgroundSecondary)
         .cornerRadius(16)
+        .shadow(color: Color.shadowPrimary, radius: 4)
     }
     
     private var buttons: some View {
@@ -33,7 +34,7 @@ struct FloaterAlertView: View {
 struct FloaterAlertView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
-            Color.pureBlue
+            Color.System.blue
             FloaterAlertView(
                 title: "Are you sure you want to delete 3 objects?",
                 description: "These objects will be deleted irrevocably. You can’t undo this action.",

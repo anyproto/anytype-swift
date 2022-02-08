@@ -22,10 +22,6 @@ struct ObjectCoverPicker: View {
             
             tabHeaders
         }
-        .onAppear {
-            // Analytics
-            Amplitude.instance().logEvent(AmplitudeEventsName.popupChooseCover)
-        }
     }
     
     private var galleryTabView: some View {
@@ -74,7 +70,7 @@ struct ObjectCoverPicker: View {
                 viewModel.removeCover()
                 dismiss()
             } label: {
-                AnytypeText("Remove".localized, style: .uxBodyRegular, color: .pureRed)
+                AnytypeText("Remove".localized, style: .uxBodyRegular, color: Color.System.red)
             }
         }
     }

@@ -14,7 +14,7 @@ struct DashboardLoadingAlert: View {
             Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
-        .background(Color.background)
+        .background(Color.backgroundPrimary)
         .cornerRadius(16)
     }
 }

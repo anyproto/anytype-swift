@@ -14,16 +14,20 @@ extension Publisher {
         }
     }
     
-    public func sinkWithDefaultCompletion(_ actionName: String, receiveValue: @escaping ((Self.Output) -> Void)) -> AnyCancellable {
-        self.sink(receiveCompletion: defaultCompletion(actionName), receiveValue: receiveValue)
+    public func sinkWithDefaultCompletion(
+        _ actionName: String,
+        domain: ErrorDomain,
+        receiveValue: @escaping ((Self.Output) -> Void)
+    ) -> AnyCancellable {
+        self.sink(receiveCompletion: defaultCompletion(actionName, domain: domain), receiveValue: receiveValue)
     }
     
-    private func defaultCompletion(_ actionName: String) -> ((Subscribers.Completion<Self.Failure>) -> Void) {
+    private func defaultCompletion(_ actionName: String, domain: ErrorDomain) -> ((Subscribers.Completion<Self.Failure>) -> Void) {
         return { completion in
             switch completion {
             case .finished: return
             case let .failure(error):
-                anytypeAssertionFailure("\(actionName) error: \(error)", domain: .defaultCompletion)
+                anytypeAssertionFailure("\(actionName) error: \(error)", domain: domain)
             }
         }
     }

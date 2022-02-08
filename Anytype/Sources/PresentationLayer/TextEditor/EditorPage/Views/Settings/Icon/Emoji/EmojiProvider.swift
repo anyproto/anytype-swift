@@ -18,7 +18,7 @@ final class EmojiProvider {
         let lowercasedKeyword = keyword.lowercased()
         
         let filteredGroups: [EmojiGroup] = emojiGroups.compactMap { group in
-            let filteredEmoji: [Emoji] = group.emojis.filter { emoji in
+            let filteredEmoji: [EmojiData] = group.emojis.filter { emoji in
                 emoji.searchTerms.first { searchTerm in
                     searchTerm.lowercased().range(of: lowercasedKeyword).isNotNil
                 }.isNotNil
@@ -35,7 +35,7 @@ final class EmojiProvider {
         return filteredGroups
     }
     
-    func randomEmoji() -> Emoji? {
+    func randomEmoji() -> EmojiData? {
         emojiGroups.randomElement()?.emojis.randomElement()
     }
     
@@ -51,7 +51,7 @@ private extension EmojiProvider{
             fatalError("Missing data asset: EmojiData")
         }
         
-        let emojis = try! JSONDecoder().decode([Emoji].self, from: asset.data)
+        let emojis = try! JSONDecoder().decode([EmojiData].self, from: asset.data)
         
         var groups = [EmojiGroup]()
         
@@ -68,7 +68,7 @@ private extension EmojiProvider{
         return groups
     }
 
-    func emojiSupproted(_ emoji: Emoji) -> Bool {
+    func emojiSupproted(_ emoji: EmojiData) -> Bool {
         guard emoji.unicode_version.isNotEmpty else {
             return true // some data is missing for old emojis
         }

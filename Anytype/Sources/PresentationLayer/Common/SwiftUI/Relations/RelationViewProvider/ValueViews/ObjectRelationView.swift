@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct ObjectRelationView: View {
-    let value: [ObjectRelationValue]
+    let options: [Relation.Object.Option]
     let hint: String
     let style: RelationStyle
     
     var body: some View {
-        if value.isNotEmpty {
+        if options.isNotEmpty {
             objectsList
         } else {
             RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
@@ -16,23 +16,23 @@ struct ObjectRelationView: View {
     private var objectsList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: objectRelationStyle.hSpaсingList) {
-                ForEach(value) { object in
-                    objectView(objectRelation: object)
+                ForEach(options) { option in
+                    objectView(option: option)
                 }
             }.padding(.horizontal, 1)
         }
     }
     
-    private func objectView(objectRelation: ObjectRelationValue) -> some View {
+    private func objectView(option: Relation.Object.Option) -> some View {
         HStack(spacing: objectRelationStyle.hSpaсingObject) {
             SwiftUIObjectIconImageView(
-                iconImage: objectRelation.icon,
+                iconImage: option.icon,
                 usecase: .mention(.body)
             )
                 .frame(width: objectRelationStyle.size.width, height: objectRelationStyle.size.height)
             
             AnytypeText(
-                objectRelation.text,
+                option.title,
                 style: .relation1Regular,
                 color: .textPrimary
             )
@@ -61,6 +61,6 @@ private extension ObjectRelationView {
 
 struct ObjectRelationView_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectRelationView(value: [], hint: "Hint", style: .regular(allowMultiLine: false))
+        ObjectRelationView(options: [], hint: "Hint", style: .regular(allowMultiLine: false))
     }
 }

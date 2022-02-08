@@ -23,10 +23,8 @@ final class BlockViewModelBuilder {
     }
 
     func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
-        var previousBlock: BlockModelProtocol?
-        return blocks.compactMap { block -> BlockViewModelProtocol? in
-            let blockViewModel = build(block, previousBlock: previousBlock)
-            previousBlock = block
+        blocks.compactMap { block -> BlockViewModelProtocol? in
+            let blockViewModel = build(block, previousBlock: nil)
             return blockViewModel
         }
     }
@@ -39,7 +37,6 @@ final class BlockViewModelBuilder {
                 return CodeBlockViewModel(
                     block: block,
                     content: content,
-                    detailsStorage: document.detailsStorage,
                     becomeFirstResponder: { [weak self] model in
                         self?.delegate.becomeFirstResponder(blockId: model.information.id)
                     },
@@ -60,12 +57,11 @@ final class BlockViewModelBuilder {
                 let isCheckable = content.contentType == .title ? document.objectDetails?.layout == .todo : false
                 return TextBlockViewModel(
                     block: block,
-                    upperBlock: previousBlock,
+                    upperBlock: nil,
                     content: content,
                     isCheckable: isCheckable,
                     blockDelegate: delegate,
                     actionHandler: handler,
-                    detailsStorage: document.detailsStorage,
                     showPage: { [weak self] data in
                         self?.router.showPage(data: data)
                     },
@@ -85,7 +81,7 @@ final class BlockViewModelBuilder {
                         self?.showFilePicker(blockId: blockId)
                     },
                     downloadFile: { [weak self] fileId in
-                        self?.saveFile(fileId: fileId)
+                        self?.saveFile(fileId: fileId, type: .file)
                     }
                 )
             case .none:
@@ -112,7 +108,7 @@ final class BlockViewModelBuilder {
                         self?.showMediaPicker(type: .videos, blockId: blockId)
                     },
                     downloadVideo: { [weak self] fileId in
-                        self?.saveFile(fileId: fileId)
+                        self?.saveFile(fileId: fileId, type: .video)
                     }
                 )
             case .audio:
@@ -124,7 +120,7 @@ final class BlockViewModelBuilder {
                         self?.showFilePicker(blockId: blockId, types: [.audio])
                     },
                     downloadAudio: { [weak self] fileId in
-                        self?.saveFile(fileId: fileId)
+                        self?.saveFile(fileId: fileId, type: .audio)
                     }
                 )
             }
@@ -147,7 +143,7 @@ final class BlockViewModelBuilder {
                 }
             )
         case let .link(content):
-            let details = document.detailsStorage.get(id: content.targetBlockID)
+            let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID)
             return BlockLinkViewModel(
                 indentationLevel: block.indentationLevel,
                 information: block.information,
@@ -167,8 +163,6 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                // TODO: reimplement when relation edit will be ready
-
                 if relation.id == BundledRelationKey.type.rawValue {
                     guard
                         !self.document.objectRestrictions.objectRestriction.contains(.typechange)
@@ -181,6 +175,8 @@ final class BlockViewModelBuilder {
                             self?.handler.setObjectTypeUrl(id)
                         }
                     )
+                } else {
+                    self.router.showRelationValueEditingView(key: relation.id)
                 }
             }
         case let .relation(content):
@@ -195,7 +191,9 @@ final class BlockViewModelBuilder {
             return RelationBlockViewModel(
                 information: block.information,
                 indentationLevel: block.indentationLevel,
-                relation: relation)
+                relation: relation) { [weak self] relation in
+                    self?.router.showRelationValueEditingView(key: relation.id)
+                }
             
         case .smartblock, .layout, .dataView: return nil
         case .unsupported:
@@ -233,10 +231,10 @@ final class BlockViewModelBuilder {
         router.showFilePicker(model: model)
     }
     
-    private func saveFile(fileId: FileId) {
+    private func saveFile(fileId: FileId, type: FileContentType) {
         guard let url = UrlResolver.resolvedUrl(.file(id: fileId)) else { return }
         
-        router.saveFile(fileURL: url)
+        router.saveFile(fileURL: url, type: type)
     }
     
     private func showBookmarkBar(info: BlockInformation) {
