@@ -26,9 +26,10 @@ public final class BlockModel: ObservableObject, BlockModelProtocol {
 
     public var kind: BlockKind {
         switch self.information.content {
-        case .smartblock: return .meta
-        case .layout: return .meta
-        default: return .block
+        case .smartblock, .layout:
+            return .meta
+        case .text, .file, .divider, .bookmark, .link, .featuredRelations, .relation, .dataView, .unsupported:
+            return .block
         }
     }
 

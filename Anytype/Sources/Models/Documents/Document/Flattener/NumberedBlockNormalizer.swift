@@ -1,8 +1,7 @@
 import BlocksModels
 
-
 /// Check numbered blocks that it has correct number in numbered list.
-final class NumberedBlockNormalizer: BlockChildrenNormalizer {
+final class NumberedBlockNormalizer {
 
     func normalize(_ ids: [BlockId], in blocksContainer: BlockContainerModelProtocol) {
         var number: Int = 0

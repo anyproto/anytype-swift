@@ -812,8 +812,6 @@
 		EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */; };
 		EAADB1BA2678FE01004B0AF2 /* CGSizeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1B92678FE01004B0AF2 /* CGSizeExtension.swift */; };
 		EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAADB1BD26790459004B0AF2 /* NSMutableAttributedStringExtension.swift */; };
-		EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */; };
-		EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */; };
 		EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */; };
 		EAC5728D2621D38A00F25949 /* UIApplicationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5728C2621D38A00F25949 /* UIApplicationExtension.swift */; };
 		EAC5FD4E2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC5FD4D2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift */; };
@@ -1684,8 +1682,6 @@
 		EAADB1B22678EB52004B0AF2 /* MarkStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkStyleModifier.swift; sourceTree = "<group>"; };
 		EAADB1B92678FE01004B0AF2 /* CGSizeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGSizeExtension.swift; sourceTree = "<group>"; };
 		EAADB1BD26790459004B0AF2 /* NSMutableAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMutableAttributedStringExtension.swift; sourceTree = "<group>"; };
-		EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFlattenerOptions.swift; sourceTree = "<group>"; };
-		EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockChildrenNormalizer.swift; sourceTree = "<group>"; };
 		EAC572892621C4A200F25949 /* UICollectionView+Convenience.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Convenience.swift"; sourceTree = "<group>"; };
 		EAC5728C2621D38A00F25949 /* UIApplicationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtension.swift; sourceTree = "<group>"; };
 		EAC5FD4D2657DC6F006BB24E /* KeyboardEventsListenerHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardEventsListenerHelper.swift; sourceTree = "<group>"; };
@@ -4556,8 +4552,6 @@
 			children = (
 				0AEAD65F25C0B93800E8A442 /* BlockFlattener.swift */,
 				EA6BAF3F260C8D750062273F /* NumberedBlockNormalizer.swift */,
-				EAB228EB2633137D00CE124E /* BlockFlattenerOptions.swift */,
-				EAB228EE263318CE00CE124E /* BlockChildrenNormalizer.swift */,
 			);
 			path = Flattener;
 			sourceTree = "<group>";
@@ -5573,7 +5567,6 @@
 				3DB1C9DF2726D0E5000D2779 /* EditorPageDeletedScreen.swift in Sources */,
 				EAAD6E0026CD436F005CE1E7 /* BlockMarkupChanger.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
-				EAB228EF263318CE00CE124E /* BlockChildrenNormalizer.swift in Sources */,
 				3DB1CA5F272BF43F000D2779 /* DashboardWallpaper.swift in Sources */,
 				12136D5027991AF500262FE7 /* RelationDetailsViewModelProtocol.swift in Sources */,
 				5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */,
@@ -6155,7 +6148,6 @@
 				125B6ED426F235F400BCD7D6 /* SlashMenuContentConfigurationFactory.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
 				3DB1CA73272C0C5E000D2779 /* Wallpapers.swift in Sources */,
-				EAB228EC2633137D00CE124E /* BlockFlattenerOptions.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */,
 				3D5A418E27046EE400F1F6A1 /* AutofocusedTextField.swift in Sources */,
 				EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */,

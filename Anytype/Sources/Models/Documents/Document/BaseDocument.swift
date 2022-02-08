@@ -1,8 +1,6 @@
-import Foundation
 import BlocksModels
 import Combine
 import AnytypeCore
-import ProtobufMessages
 
 
 final class BaseDocument: BaseDocumentProtocol {
@@ -70,7 +68,7 @@ final class BaseDocument: BaseDocumentProtocol {
             anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)
             return []
         }
-        return BlockFlattener.flatten(model: model, blocksContainer: blocksContainer, options: .default)
+        return BlockFlattener.flatten(model: model, container: blocksContainer)
     }
 
     // MARK: - Private methods
