@@ -141,7 +141,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         case .syncStatus(let status):
             viewInput?.update(syncStatus: status)
         case .dataSourceUpdate:
-            let models = document.flattenBlocks
+            let models = document.children
 
             let blocksViewModels = blockBuilder.build(models)
             modelsHolder.models = blocksViewModels
@@ -153,7 +153,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func performGeneralUpdate() {
         handleDeletionState()
         
-        let models = document.flattenBlocks
+        let models = document.children
         
         let blocksViewModels = blockBuilder.build(models)
         

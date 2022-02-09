@@ -86,4 +86,12 @@ public extension BlockContent {
             return false
         }
     }
+    
+    var isToggle: Bool {
+        if case let .text(text) = self, text.contentType == .toggle {
+            return true
+        }
+        
+        return false
+    }
 }
