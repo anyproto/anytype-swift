@@ -1,3 +1,5 @@
+import AnytypeCore
+
 extension Array {
     func reordered<T: Comparable>(
         by order: [T],
@@ -18,8 +20,18 @@ extension Array {
       }
     
     mutating func moveElement(from: Index, to: Index) {
+        guard from <= count else {
+            anytypeAssertionFailure("Move element \(from) bigger then \(count)", domain: .arrayExtension)
+            return
+        }
+        
         let element = remove(at: from)
-        insert(element, at: to)
+        
+        if to <= count {
+            insert(element, at: to)
+        } else {
+            append(element)
+        }
     }
 }
 

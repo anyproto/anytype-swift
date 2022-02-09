@@ -2,10 +2,6 @@ import XCTest
 @testable import Anytype
 
 
-// пусто
-// мало с конца / с начала
-// много с конца / с начала
-// всю страницу закрыть когда она кончилась
 class EditorSetMarkdownHelpertests: XCTestCase {
     
     var helper: EditorSetPaginationHelper!
@@ -140,6 +136,40 @@ class EditorSetMarkdownHelpertests: XCTestCase {
         XCTAssertEqual(result!.data.pageCount, 5)
     }
     
+    func test_updatePageCount_zero() throws {
+        let data = EditorSetPaginationData(selectedPage: 6, visiblePages: [6, 7, 8], pageCount: 8)
+        
+        let result = helper.updatePageCount(0, data: data)
+        
+        XCTAssertEqual(result!.shoudUpdateSubscription, false)
+        XCTAssertEqual(result!.data.selectedPage, 0)
+        XCTAssertEqual(result!.data.visiblePages, [])
+        XCTAssertEqual(result!.data.pageCount, 0)
+    }
+    
+    func test_updatePageCount_empty_initial_state_one_page() throws {
+        let data = EditorSetPaginationData(selectedPage: 0, visiblePages: [], pageCount: 0)
+        
+        let result = helper.updatePageCount(1, data: data)
+        
+        XCTAssertEqual(result!.shoudUpdateSubscription, true)
+        XCTAssertEqual(result!.data.selectedPage, 1)
+        XCTAssertEqual(result!.data.visiblePages, [1])
+        XCTAssertEqual(result!.data.pageCount, 1)
+    }
+    
+    func test_updatePageCount_empty_initial_state_ten_pages() throws {
+        let data = EditorSetPaginationData(selectedPage: 0, visiblePages: [], pageCount: 0)
+        
+        let result = helper.updatePageCount(10, data: data)
+        
+        XCTAssertEqual(result!.shoudUpdateSubscription, true)
+        XCTAssertEqual(result!.data.selectedPage, 1)
+        XCTAssertEqual(result!.data.visiblePages, [1, 2, 3, 4, 5])
+        XCTAssertEqual(result!.data.pageCount, 10)
+    }
+    
+    
     // MARK: - changePage
     func test_changePage() throws {
         let data = EditorSetPaginationData(selectedPage: 3, visiblePages: [6, 7, 8], pageCount: 8)
@@ -199,4 +229,6 @@ class EditorSetMarkdownHelpertests: XCTestCase {
         
         XCTAssertNil(result)
     }
+    
+    
 }

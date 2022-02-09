@@ -49,7 +49,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         
         details.forEach { storage.ammend(details: $0) }
         update(data.identifier, .initialData(details))
-        update(data.identifier, .pageCount(count))
+        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(count)))
     }
  
     // MARK: - Private
@@ -106,7 +106,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
             case .objectRemove:
                 break // unsupported (Not supported in middleware converter also)
             case .subscriptionCounters(let data):
-                sendUpdate(.pageCount(data.total), contextId: events.contextId)
+                sendUpdate(.pageCount(numberOfPagesFromTotalCount(data.total)), contextId: events.contextId)
             case .accountConfigUpdate:
                 break
             case .accountDetails:
@@ -142,5 +142,13 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
             guard let action = turnedOnSubs[id] else { continue }
             action(id, .update(details))
         }
+    }
+    
+    private func numberOfPagesFromTotalCount(_ count: Int64) -> Int64 {
+        let numberOfRowsPerPageInSubscriptions = UserDefaultsConfig.rowsPerPageInSet
+        // Returns 1 if count < numberOfRowsPerPageInSubscriptions
+        // And returns 1 if count = numberOfRowsPerPageInSubscriptions
+        let closestNumberToRowsPerPage = numberOfRowsPerPageInSubscriptions - 1
+        return (count + closestNumberToRowsPerPage) / numberOfRowsPerPageInSubscriptions
     }
 }
