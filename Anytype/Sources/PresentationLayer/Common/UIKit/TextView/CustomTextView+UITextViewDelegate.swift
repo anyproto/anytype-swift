@@ -12,7 +12,7 @@ extension CustomTextView: UITextViewDelegate {
             guard delegate.keyboardAction(keyAction) else { return false }
         }
 
-        return delegate.shouldChangeText(range: range, replacementText: text, mentionsHolder: textView)
+        return delegate.shouldChangeText(range: range, replacementText: text)
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {

@@ -19,5 +19,5 @@ protocol CustomTextViewDelegate: AnyObject {
     func changeTextStyle(attribute: MarkupType, range: NSRange)
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool
-    func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool
+    func shouldChangeText(range: NSRange, replacementText: String) -> Bool
 }

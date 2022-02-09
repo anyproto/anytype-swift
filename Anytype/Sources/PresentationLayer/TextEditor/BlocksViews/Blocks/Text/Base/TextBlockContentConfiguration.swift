@@ -24,7 +24,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let textViewDidEndEditing: (UITextView) -> Void
 
         let textViewDidChangeCaretPosition: (NSRange) -> Void
-        let textViewDidApplyChangeType: (TextChangeType) -> Void
+        let textViewShouldReplaceText: (UITextView, String, NSRange) -> Bool
 
         let toggleCheckBox: () -> Void
         let toggleDropDown: () -> Void

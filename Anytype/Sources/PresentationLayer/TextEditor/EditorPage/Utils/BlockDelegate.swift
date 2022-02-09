@@ -18,16 +18,13 @@ final class BlockDelegateImpl: BlockDelegate {
     weak private var viewInput: EditorPageViewInput?
 
     private let accessoryState: AccessoryViewStateManager
-    private let markdownListener: MarkdownListener
     
     init(
         viewInput: EditorPageViewInput?,
-        accessoryState: AccessoryViewStateManager,
-        markdownListener: MarkdownListener
+        accessoryState: AccessoryViewStateManager
     ) {
         self.viewInput = viewInput
         self.accessoryState = accessoryState
-        self.markdownListener = markdownListener
     }
 
     func didBeginEditing() {
@@ -54,7 +51,6 @@ final class BlockDelegateImpl: BlockDelegate {
         guard let changeType = changeType else { return }
 
         accessoryState.textDidChange(changeType: changeType)
-        markdownListener.textDidChange(changeType: changeType, data: data)
     }
 
     func textBlockSetNeedsLayout() {

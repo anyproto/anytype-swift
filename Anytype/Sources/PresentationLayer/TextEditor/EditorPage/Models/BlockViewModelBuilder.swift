@@ -10,17 +10,20 @@ final class BlockViewModelBuilder {
     private let delegate: BlockDelegate
     private let pageService = PageService()
     private let subjectsHolder = FocusSubjectsHolder()
+    private let markdownListener: MarkdownListener
 
     init(
         document: BaseDocumentProtocol,
         handler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
-        delegate: BlockDelegate
+        delegate: BlockDelegate,
+        markdownListener: MarkdownListener
     ) {
         self.document = document
         self.handler = handler
         self.router = router
         self.delegate = delegate
+        self.markdownListener = markdownListener
     }
 
     func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
@@ -68,6 +71,7 @@ final class BlockViewModelBuilder {
                     openURL: { [weak self] url in
                         self?.router.openUrl(url)
                     },
+                    markdownListener: markdownListener,
                     focusSubject: subjectsHolder.focusSubject(for: block.information.id)
                 )
             }
