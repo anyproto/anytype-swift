@@ -62,13 +62,13 @@ final class BaseDocument: BaseDocumentProtocol {
     #warning("TODO")
     // Looks like this code runs on main thread.
     // This operation should be done in `eventsListener.onUpdateReceive` closure
-    // OR store flatten blocks instead of tree in `BlockContainer`
-    var flattenBlocks: [BlockModelProtocol] {
+    // OR store children blocks instead of tree in `BlockContainer`
+    var children: [BlockModelProtocol] {
         guard let model = blocksContainer.model(id: objectId) else {
             anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)
             return []
         }
-        return BlockFlattener(container: blocksContainer).flatten(model: model)
+        return model.children(container: blocksContainer)
     }
 
     // MARK: - Private methods
