@@ -83,10 +83,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             createEmptyBlock: { actionHandler.createEmptyBlock(parentId: information.id) },
             showPage: showPage,
             openURL: openURL,
-            changeText: { attributedText in
-                actionHandler.changeText(attributedText, info: information)
-                blockDelegate?.textDidChange()
-            },
             changeTextStyle: { attribute, range in
                 actionHandler.changeTextStyle(attribute, range: range, blockId: information.id)
             },
@@ -102,14 +98,18 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             textBlockSetNeedsLayout: {
                 blockDelegate?.textBlockSetNeedsLayout()
             },
+            textViewDidChangeText: { textView in
+                actionHandler.changeText(textView.attributedText, info: information)
+                blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))
+            },
             textViewWillBeginEditing: { textView in
-                blockDelegate?.willBeginEditing(data: .init(textView: textView, block: block, text: content.anytypeText))
+                blockDelegate?.willBeginEditing(data: blockDelegateData(textView: textView))
             },
             textViewDidBeginEditing: { _ in
                 blockDelegate?.didBeginEditing()
             },
-            textViewDidEndEditing: {  _ in
-                blockDelegate?.didEndEditing()
+            textViewDidEndEditing: { textView in
+                blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
             },
             textViewDidChangeCaretPosition: { caretPositionRange in
                 actionHandler.changeCaretPosition(range: caretPositionRange)
@@ -126,5 +126,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 actionHandler.toggle(blockId: information.id)
             }
         )
+    }
+
+    private func blockDelegateData(textView: UITextView) -> TextBlockDelegateData {
+        .init(textView: textView, block: block, text: content.anytypeText)
     }
 }

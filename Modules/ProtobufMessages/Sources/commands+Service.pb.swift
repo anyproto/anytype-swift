@@ -7125,7 +7125,7 @@ extension Anytype_Rpc.CloneTemplate {
 
 extension Anytype_Rpc.ObjectDuplicate {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.ServiceObjectDuplicate(data) }
+    static func invoke(_ data: Data?) -> Data? { nil }
   }
 
   public enum Service {

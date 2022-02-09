@@ -5,6 +5,7 @@ import AnytypeCore
 
 protocol MarkdownListener {
     func textDidChange(changeType: TextChangeType, data: TextBlockDelegateData)
+//    func shouldPerformMarkdownChange(changeType: TextChangeType, data: TextBlockDelegateData) -> Bool
 }
 
 final class MarkdownListenerImpl: MarkdownListener {
@@ -22,7 +23,7 @@ final class MarkdownListenerImpl: MarkdownListener {
         applyBeginningOfTextShortcuts(data: data)
         applyInlineShortcuts(data: data)
     }
-    
+
     // MARK: - Inline
     private func applyInlineShortcuts(data: TextBlockDelegateData) {
         InlineMarkdown.all.forEach { shortcut in
@@ -67,7 +68,7 @@ final class MarkdownListenerImpl: MarkdownListener {
                 let rangeOfOpeningSymbol = NSRange(location: locationOfOpeningSymbol - triggerSymbol.count, length: triggerSymbol.count)
                 newText.mutableString.deleteCharacters(in: rangeOfOpeningSymbol)
                 
-                handler.changeText(newText, info: data.info)
+                handler.changeTextForced(newText, blockId: data.info.id)
                 let cursorLocation = locationOfClosingSymbol - (triggerSymbol.count)
                 handler.changeCaretPosition(range: NSRange(location: cursorLocation, length: 0))
             }
@@ -119,7 +120,6 @@ final class MarkdownListenerImpl: MarkdownListener {
         
         let text = data.textView.attributedText.mutable
         text.mutableString.deleteCharacters(in: NSMakeRange(0, commandLength))
-        handler.changeText(text, info: data.info)
+        handler.changeTextForced(text, blockId: data.info.id)
     }
-    
 }

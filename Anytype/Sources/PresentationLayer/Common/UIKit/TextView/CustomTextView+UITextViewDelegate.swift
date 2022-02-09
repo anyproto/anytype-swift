@@ -31,7 +31,7 @@ extension CustomTextView: UITextViewDelegate {
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        delegate?.changeText(text: textView.attributedText)
+        delegate?.textViewDidChangeText(textView)
     }
     
     func textView(

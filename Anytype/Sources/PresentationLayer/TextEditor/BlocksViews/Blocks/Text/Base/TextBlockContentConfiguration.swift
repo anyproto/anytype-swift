@@ -9,13 +9,15 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let createEmptyBlock: () -> Void
         let showPage: (EditorScreenData) -> Void
         let openURL: (URL) -> Void
-        let changeText: (NSAttributedString) -> Void
+
         let changeTextStyle: (MarkupType, NSRange) -> Void
         let handleKeyboardAction: (CustomTextView.KeyboardAction, NSAttributedString) -> Void
         let becomeFirstResponder: () -> Void
         let resignFirstResponder: () -> Void
 
         let textBlockSetNeedsLayout: () -> Void
+
+        let textViewDidChangeText: (UITextView) -> Void
 
         let textViewWillBeginEditing: (UITextView) -> Void
         let textViewDidBeginEditing: (UITextView) -> Void

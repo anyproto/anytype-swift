@@ -23,11 +23,11 @@ extension TextBlockContentView: CustomTextViewDelegate {
     func didEndEditing() {
         actions?.textViewDidEndEditing(textView.textView)
     }
-    
-    func changeText(text: NSAttributedString) {
-        actions?.changeText(text)
 
-        if textView.textView.isLayoutNeeded {
+    func textViewDidChangeText(_ textView: UITextView) {
+        actions?.textViewDidChangeText(textView)
+
+        if textView.isLayoutNeeded {
             actions?.textBlockSetNeedsLayout()
         }
     }
@@ -83,7 +83,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
         
         let shouldChangeText = !mentionsHolder.removeMentionIfNeeded(text: replacementText)
         if !shouldChangeText {
-            actions?.changeText(textView.textView.attributedText)
+            actions?.textViewDidChangeText(textView.textView)
         }
         return shouldChangeText
     }
