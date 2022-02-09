@@ -2,15 +2,15 @@ import UIKit
 import SwiftUI
 
 final class RelationBlockView: UIView, BlockContentView, ObservableObject {
-    @Published var heightConstraint: NSLayoutConstraint!
-    @Published var relation: Relation?
-    @Published var actionOnValue: ((_ relation: Relation) -> Void)?
+    private var bottomConstraint: NSLayoutConstraint!
 
     // MARK: - Views
+    private lazy var relationValueView = RelationValueViewUIKit(relation: .unknown(.empty(id: "", name: "")),
+                                                               style: .regular(allowMultiLine: true),
+                                                               action: nil)
 
-    fileprivate lazy var relationView = RelationView(delegate: self)
-    private let container = UIView()
-
+    private let relationNameView = AnytypeLabel(style: .relation1Regular)
+    private let containerView = UIView()
 
     // MARK: - BaseBlockView
     override init(frame: CGRect) {
@@ -24,58 +24,44 @@ final class RelationBlockView: UIView, BlockContentView, ObservableObject {
     }
 
     func update(with configuration: RelationBlockContentConfiguration) {
-        relation = configuration.relation
-        actionOnValue = configuration.actionOnValue
+//        relation = configuration.relation
+//        actionOnValue = configuration.actionOnValue
 
+//        relationValueView.removeFromSuperview()
+//        relationValueView = RelationValueViewUIKit(relation: configuration.relation,
+//                                                   style: .regular(allowMultiLine: true),
+//                                                   action: configuration.actionOnValue)
+//
+//        relationNameView.setText(configuration.relation.name)
+//
+//        containerView.addSubview(relationValueView) {
+//            $0.pinToSuperview(excluding: [.left])
+//            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
+//        }
     }
 
     // MARK: - Setup view
-    static var number: Int = 0
-    func setupLayout() {
-        let relationsView = relationView.asUIView()
 
-        insertSubview(relationsView, at: 0)
+    private func setupLayout() {
+        relationNameView.textColor = .textSecondary
 
-        relationsView.layoutUsing.anchors {
-            heightConstraint = $0.height.equal(to: 32)
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 20, bottom: -2, right: -20))
+        addSubview(containerView) {
+            $0.pinToSuperview(excluding: [.bottom], insets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20))
+            bottomConstraint = $0.bottom.equal(to: bottomAnchor, constant: -2, priority: .defaultLow)
+            $0.height.greaterThanOrEqual(to: LayoutConstants.minHeight)
+        }
+        containerView.addSubview(relationNameView) {
+            $0.pinToSuperview(excluding: [.right, .bottom])
+            $0.width.equal(to: containerView.widthAnchor, multiplier: 0.4)
+            $0.height.greaterThanOrEqual(to: LayoutConstants.minHeight)
+        }
+        containerView.addSubview(relationValueView) {
+            $0.pinToSuperview(excluding: [.left])
+            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
         }
     }
-}
 
-private extension RelationBlockView {
-
-    struct RelationView: View {
-        @State private var width: CGFloat = .zero
-        @State private var height: CGFloat = .zero
-        @ObservedObject var delegate: RelationBlockView
-
-        var body: some View {
-            if let relation = delegate.relation {
-                HStack(spacing: 2) {
-                    AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary)
-                        .padding([.top], 5)
-                        .frame(width: width * 0.4, height:  height, alignment: .topLeading)
-                    RelationValueView(relation: relation, style: .regular(allowMultiLine: true)) { relation in
-                        delegate.actionOnValue?(relation)
-                    }
-                        .padding([.top], 5)
-                        .if(height > LayoutConstants.minHeight) {
-                            $0.padding(.bottom, 13)
-                        }
-                        .frame(maxWidth: .infinity, minHeight: LayoutConstants.minHeight, alignment: .topLeading)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .readSize {
-                            height = $0.height
-                            delegate.heightConstraint.constant = height
-                        }
-                }
-                .readSize { width = $0.width }
-            }
-        }
-
-        private enum LayoutConstants {
-            static let minHeight: CGFloat = 32
-        }
+    private enum LayoutConstants {
+        static let minHeight: CGFloat = 32
     }
 }

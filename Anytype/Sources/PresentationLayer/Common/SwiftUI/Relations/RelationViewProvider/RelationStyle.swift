@@ -32,6 +32,15 @@ extension RelationStyle {
         }
     }
 
+    var uiKitFontColor: UIColor {
+        switch self {
+        case .regular, .set:
+            return .textPrimary
+        case .featuredRelationBlock:
+            return .textSecondary
+        }
+    }
+
     var allowMultiLine: Bool {
         switch self {
         case let .regular(value):

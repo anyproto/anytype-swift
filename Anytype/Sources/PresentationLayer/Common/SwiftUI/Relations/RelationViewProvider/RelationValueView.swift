@@ -8,7 +8,7 @@ struct RelationValueView: View {
 
     var body: some View {
         if action.isNotNil && relation.isEditable {
-            Button {                
+            Button {
                 action?(relation)
             } label: {
                 relationView
@@ -22,23 +22,23 @@ struct RelationValueView: View {
         HStack(spacing: 0) {
             switch relation {
             case .text(let text):
-                TextRelationView(value: text.value, hint: relation.hint, style: style, allowMultiLine: style.allowMultiLine)
+                TextRelationView(value: text.value, hint: relation.hint, style: style, allowMultiLine: style.allowMultiLine).swiftUI
             case .number(let text):
-                TextRelationView(value: text.value, hint: relation.hint, style: style)
+                TextRelationView(value: text.value, hint: relation.hint, style: style).swiftUI
             case .status(let status):
                 StatusRelationView(statusOption: status.value, hint: relation.hint, style: style)
             case .date(let date):
-                TextRelationView(value: date.value?.text, hint: relation.hint, style: style)
+                TextRelationView(value: date.value?.text, hint: relation.hint, style: style).swiftUI
             case .object(let object):
                 ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
             case .checkbox(let checkbox):
                 CheckboxRelationView(isChecked: checkbox.value)
             case .url(let text):
-                TextRelationView(value: text.value, hint: relation.hint, style: style)
+                TextRelationView(value: text.value, hint: relation.hint, style: style).swiftUI
             case .email(let text):
-                TextRelationView(value: text.value, hint: relation.hint, style: style)
+                TextRelationView(value: text.value, hint: relation.hint, style: style).swiftUI
             case .phone(let text):
-                TextRelationView(value: text.value, hint: relation.hint, style: style)
+                TextRelationView(value: text.value, hint: relation.hint, style: style).swiftUI
             case .tag(let tag):
                 TagRelationView(tags: tag.selectedTags, hint: relation.hint, style: style)
             case .file(let file):
