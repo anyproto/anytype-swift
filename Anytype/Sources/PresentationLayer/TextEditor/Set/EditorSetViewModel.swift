@@ -132,7 +132,13 @@ final class EditorSetViewModel: ObservableObject {
         guard !isEmpty else { return }
         
         subscriptionService.startSubscription(
-            data: .set(.init(dataView: dataView, view: activeView, currentPage: pagitationData.selectedPage))
+            data: .set(
+                .init(
+                    dataView: dataView,
+                    view: activeView,
+                    currentPage: max(pagitationData.selectedPage, 1) // show first page for empty request
+                )
+            )
         ) { [weak self] subId, update in
             guard let self = self else { return }
             
