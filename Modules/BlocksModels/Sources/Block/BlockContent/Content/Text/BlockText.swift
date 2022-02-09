@@ -39,4 +39,8 @@ public extension BlockText {
     static var empty: Self {
         .init(text: "", marks: .init(), color: nil, contentType: .text, checked: false)
     }
+    
+    func updated(number: Int) -> BlockText {
+        BlockText(text: text, marks: marks, color: color, contentType: contentType, checked: checked, number: number)
+    }
 }
