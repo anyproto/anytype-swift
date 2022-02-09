@@ -21,7 +21,7 @@ final class TextRelationDetailsViewController: UIViewController {
     init(viewModel: TextRelationDetailsViewModel) {
         self.viewModel = viewModel
         self.maxViewHeight = {
-            guard let window = UIApplication.shared.windows.first else {
+            guard let window = UIApplication.shared.keyWindow else {
                 return UIScreen.main.bounds.height
             }
             

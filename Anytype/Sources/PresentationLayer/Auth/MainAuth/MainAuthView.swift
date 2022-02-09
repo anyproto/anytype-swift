@@ -30,7 +30,7 @@ struct MainAuthView: View {
         VStack() {
             Spacer()
             bottomSheet
-                .padding(20)
+                .modifier(ReadabilityPadding(padding: 20))
         }
     }
     
