@@ -16,6 +16,6 @@ extension InlineMarkdown {
         InlineMarkdown(text: ["`", "‘"], markup: .keyboard),
         InlineMarkdown(text: ["_", "*"], markup: .italic),
         InlineMarkdown(text: ["__", "**"], markup: .bold),
-        InlineMarkdown(text: "~ ", markup: .strikethrough),
+        InlineMarkdown(text: "~~", markup: .strikethrough),
     ]
 }
