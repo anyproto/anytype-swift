@@ -123,19 +123,19 @@ final class EditorAssembly {
             document: document
         )
         
-        let markdownListener = MarkdownListenerImpl(handler: actionHandler, markupChanger: markupChanger)
+        let markdownListener = MarkdownListenerImpl(markupChanger: markupChanger)
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            accessoryState: accessoryState,
-            markdownListener: markdownListener
+            accessoryState: accessoryState
         )
         
         let blocksConverter = BlockViewModelBuilder(
             document: document,
             handler: actionHandler,
             router: router,
-            delegate: blockDelegate
+            delegate: blockDelegate,
+            markdownListener: markdownListener
         )
          
         let wholeBlockMarkupViewModel = MarkupViewModel(
