@@ -4,16 +4,13 @@ import ProtobufMessages
 import UIKit
 
 final class SlashMenuViewModel {
-    var info: BlockInformation? {
-        didSet {
-            
-        }
-    }
+    var info: BlockInformation?
     
-    private var initialCaretPosition: UITextPosition?
+    private var selectedRange: NSRange?
     private weak var textView: UITextView?
     
     private let handler: SlashMenuActionHandler
+    var resetSlashMenuHandler: (() -> Void)?
     
     init(handler: SlashMenuActionHandler) {
         self.handler = handler
@@ -22,15 +19,17 @@ final class SlashMenuViewModel {
     func handle(_ action: SlashAction) {
         guard let info = info else { return }
 
-        handler.handle(action, blockId: info.id)
         removeSlashMenuText()
+        handler.handle(action, blockId: info.id)
+        resetSlashMenuHandler?()
     }
     
     func didShowMenuView(from textView: UITextView) {
         self.textView = textView
-        guard let caretPosition = textView.caretPosition else { return }
-        // -1 because in text "Hello, everyone/" we want to store position before slash, not after
-        initialCaretPosition = textView.position(from: caretPosition, offset: -1)
+        selectedRange = NSRange(
+            location: textView.selectedRange.location - 1,
+            length: 0
+        )
     }
     
     private func removeSlashMenuText() {
@@ -39,16 +38,20 @@ final class SlashMenuViewModel {
         //
         // We create text range from two text positions and replace text in
         // this range with empty string
-        guard let initialCaretPosition = initialCaretPosition,
+        guard let selectedRange = selectedRange,
               let textView = textView,
-              let currentPosition = textView.caretPosition,
-              let textRange = textView.textRange(from: initialCaretPosition, to: currentPosition),
               let info = info else {
             return
         }
-        textView.replace(textRange, withText: "")
-        
-        guard let text = textView.attributedText else { return }
-        handler.changeText(text, info: info)
+        let mutableText = textView.attributedText.mutable
+
+        let range = NSRange(
+            location: selectedRange.location,
+            length: textView.selectedRange.location - selectedRange.location
+        )
+
+        mutableText.replaceCharacters(in: range, with: "")
+        handler.changeText(mutableText, info: info)
+        self.selectedRange = nil
     }
 }

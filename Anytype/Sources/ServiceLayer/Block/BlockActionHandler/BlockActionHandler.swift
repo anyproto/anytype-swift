@@ -156,10 +156,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     // MARK: - Public methods
-    func changeCaretPosition(range: NSRange) {
-        
-    }
-    
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
         EventsBunch(
             contextId: document.objectId,

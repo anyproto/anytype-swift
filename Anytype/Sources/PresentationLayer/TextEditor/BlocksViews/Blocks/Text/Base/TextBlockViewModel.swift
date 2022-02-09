@@ -116,7 +116,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
             },
             textViewDidChangeCaretPosition: { caretPositionRange in
-                actionHandler.changeCaretPosition(range: caretPositionRange)
                 blockDelegate?.selectionDidChange(range: caretPositionRange)
             },
             textViewShouldReplaceText: textViewShouldReplaceText,

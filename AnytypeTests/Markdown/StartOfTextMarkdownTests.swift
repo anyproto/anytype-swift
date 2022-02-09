@@ -11,7 +11,7 @@ class StartOfTextMarkdownTests: XCTestCase {
     override func setUpWithError() throws {
         handler = BlockActionHandlerMock()
         changer = BlockMarkupChangerMock()
-        listener = MarkdownListenerImpl(handler: handler, markupChanger: changer)
+        listener = MarkdownListenerImpl(markupChanger: changer)
     }
     
     func testStartOfTextMarkdowns_triggered_on_every_carret_position_inside_shortcut() throws {
@@ -51,7 +51,7 @@ class StartOfTextMarkdownTests: XCTestCase {
         let data = buildData(text: shortcut + "Equilibrium", carretPosition: carretPosition ?? shortcut.count)
         handler.turnIntoStub = true
         handler.changeTextStub = true
-        
+
         listener.textDidChange(changeType: changeType, data: data)
         
         if success {
