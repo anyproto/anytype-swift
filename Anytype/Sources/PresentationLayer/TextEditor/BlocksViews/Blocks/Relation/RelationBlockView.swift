@@ -37,7 +37,6 @@ final class RelationBlockView: UIView, BlockContentView, ObservableObject {
 //        containerView.addSubview(relationValueView) {
 //            $0.pinToSuperview(excluding: [.left])
 //            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
-//        }
     }
 
     // MARK: - Setup view
@@ -46,14 +45,14 @@ final class RelationBlockView: UIView, BlockContentView, ObservableObject {
         relationNameView.textColor = .textSecondary
 
         addSubview(containerView) {
-            $0.pinToSuperview(excluding: [.bottom], insets: UIEdgeInsets(top: 0, left: 20, bottom: 0, right: -20))
-            bottomConstraint = $0.bottom.equal(to: bottomAnchor, constant: -2, priority: .defaultLow)
-            $0.height.greaterThanOrEqual(to: LayoutConstants.minHeight)
+            $0.pinToSuperview(excluding: [.bottom], insets: UIEdgeInsets(top: LayoutConstants.topInset, left: 20, bottom: 0, right: -20))
+            bottomConstraint = $0.bottom.equal(to: bottomAnchor, priority: .defaultLow)
+            $0.height.greaterThanOrEqual(to: LayoutConstants.oneLineHeight)
         }
         containerView.addSubview(relationNameView) {
             $0.pinToSuperview(excluding: [.right, .bottom])
             $0.width.equal(to: containerView.widthAnchor, multiplier: 0.4)
-            $0.height.greaterThanOrEqual(to: LayoutConstants.minHeight)
+            $0.height.greaterThanOrEqual(to: LayoutConstants.oneLineHeight)
         }
         containerView.addSubview(relationValueView) {
             $0.pinToSuperview(excluding: [.left])
@@ -62,6 +61,8 @@ final class RelationBlockView: UIView, BlockContentView, ObservableObject {
     }
 
     private enum LayoutConstants {
-        static let minHeight: CGFloat = 32
+        static let oneLineHeight: CGFloat = 32
+        static let topInset: CGFloat = 6
+        static let multiLineBottomInset: CGFloat = -12
     }
 }

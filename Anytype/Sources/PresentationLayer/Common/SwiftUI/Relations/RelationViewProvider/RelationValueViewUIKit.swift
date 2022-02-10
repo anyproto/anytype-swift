@@ -10,9 +10,9 @@ import UIKit
 import AnytypeCore
 
 final class RelationValueViewUIKit: UIView {
-    var relation: Relation
-    var style: RelationStyle
-    var action: ((_ relation: Relation) -> Void)?
+    let relation: Relation
+    let style: RelationStyle
+    let action: ((_ relation: Relation) -> Void)?
 
     private var relationView = UIView()
 
@@ -56,14 +56,14 @@ final class RelationValueViewUIKit: UIView {
     private func obtainRelationView(_ relation: Relation, style: RelationStyle) -> UIView {
         switch relation {
         case .text(let text):
-            return TextRelationView(value: text.value, hint: relation.hint, style: style, allowMultiLine: style.allowMultiLine).uiKit
+            return TextRelationFactory.uiKit(value: text.value, hint: relation.hint, style: style)
         case .number(let text):
-            return TextRelationView(value: text.value, hint: relation.hint, style: style).uiKit
+            return TextRelationFactory.uiKit(value: text.value, hint: relation.hint, style: style)
         case .status(let status):
             return UIView()
 //            StatusRelationView(statusOption: status.value, hint: relation.hint, style: style)
         case .date(let date):
-            return TextRelationView(value: date.value?.text, hint: relation.hint, style: style).uiKit
+            return TextRelationFactory.uiKit(value: date.value?.text, hint: relation.hint, style: style)
         case .object(let object):
             return UIView()
 //            ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
@@ -71,11 +71,11 @@ final class RelationValueViewUIKit: UIView {
             return UIView()
 //            CheckboxRelationView(isChecked: checkbox.value)
         case .url(let text):
-            return TextRelationView(value: text.value, hint: relation.hint, style: style).uiKit
+            return TextRelationFactory.uiKit(value: text.value, hint: relation.hint, style: style)
         case .email(let text):
-            return TextRelationView(value: text.value, hint: relation.hint, style: style).uiKit
+            return TextRelationFactory.uiKit(value: text.value, hint: relation.hint, style: style)
         case .phone(let text):
-            return TextRelationView(value: text.value, hint: relation.hint, style: style).uiKit
+            return TextRelationFactory.uiKit(value: text.value, hint: relation.hint, style: style)
         case .tag(let tag):
             return UIView()
 //            TagRelationView(tags: tag.selectedTags, hint: relation.hint, style: style)
