@@ -65,20 +65,13 @@ class LoginViewModel: ObservableObject {
     }
 
     func restoreFromkeychain() {
-        let permissionContext = LAContext()
-        permissionContext.localizedCancelTitle = "Cancel".localized
-
-        var error: NSError?
-        if permissionContext.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error) {
-            let reason = "Restore secret phrase from keychain".localized
-            permissionContext.evaluatePolicy(.deviceOwnerAuthentication, localizedReason: reason) { [unowned self] didComplete, evaluationError in
-                guard didComplete,
-                      let phrase = try? seedService.obtainSeed() else {
-                    return
-                }
-
-                recoverWallet(with: phrase)
+        LocalAuth.auth(reason: "Restore secret phrase from keychain".localized) { [unowned self] didComplete in
+            guard didComplete,
+                  let phrase = try? seedService.obtainSeed() else {
+                return
             }
+
+            recoverWallet(with: phrase)            
         }
     }
 

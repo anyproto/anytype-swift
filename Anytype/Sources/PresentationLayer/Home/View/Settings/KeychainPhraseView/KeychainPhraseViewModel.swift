@@ -7,22 +7,15 @@ class KeychainPhraseViewModel: ObservableObject {
     private let seedService = ServiceLocator.shared.seedService()
 
     private func obtainRecoveryPhrase(onTap: @escaping () -> ()) {
-        let permissionContext = LAContext()
-        permissionContext.localizedCancelTitle = "Cancel".localized
-
-        var error: NSError?
-        if permissionContext.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-            let reason = "Access to secret phrase from keychain".localized
-            permissionContext.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { [unowned self] didComplete, evaluationError in
-                guard didComplete,
-                      let phrase = try? seedService.obtainSeed() else {
-                    return
-                }
-                
-                DispatchQueue.main.async {
-                    recoveryPhrase = phrase
-                    onSuccessfullRecovery(recoveryPhrase: phrase, onTap: onTap)
-                }
+        LocalAuth.auth(reason: "Access to secret phrase from keychain".localized) { [unowned self] didComplete in
+            guard didComplete,
+                  let phrase = try? seedService.obtainSeed() else {
+                return
+            }
+            
+            DispatchQueue.main.async {
+                recoveryPhrase = phrase
+                onSuccessfullRecovery(recoveryPhrase: phrase, onTap: onTap)
             }
         }
     }
