@@ -9,6 +9,7 @@
 import UIKit
 import AnytypeCore
 
+
 final class RelationValueViewUIKit: UIView {
     let relation: Relation
     let style: RelationStyle
@@ -68,8 +69,7 @@ final class RelationValueViewUIKit: UIView {
             return UIView()
 //            ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
         case .checkbox(let checkbox):
-            return UIView()
-//            CheckboxRelationView(isChecked: checkbox.value)
+            return CheckboxRelationViewUIKit(isChecked: checkbox.value)
         case .url(let text):
             return TextRelationFactory.uiKit(value: text.value, hint: relation.hint, style: style)
         case .email(let text):

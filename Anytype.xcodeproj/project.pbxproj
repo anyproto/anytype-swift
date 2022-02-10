@@ -679,6 +679,7 @@
 		5386E3BE27B2C8B7004D8221 /* TextRelationViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5386E3BD27B2C8B7004D8221 /* TextRelationViewUIKit.swift */; };
 		5386E3C027B2DAEA004D8221 /* RelationValueViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5386E3BF27B2DAEA004D8221 /* RelationValueViewUIKit.swift */; };
 		5386E3C227B3F63E004D8221 /* TextRelationViewSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5386E3C127B3F63D004D8221 /* TextRelationViewSwiftUI.swift */; };
+		5386E3CD27B51BA7004D8221 /* CheckboxRelationViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5386E3CC27B51BA7004D8221 /* CheckboxRelationViewUIKit.swift */; };
 		538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538AE50E272C57300071DB0D /* LinkToObjectSearchViewModel.swift */; };
 		538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */; };
 		538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538F1727272C126F009528E7 /* SearchViewModelProtocol.swift */; };
@@ -1558,6 +1559,7 @@
 		5386E3BD27B2C8B7004D8221 /* TextRelationViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationViewUIKit.swift; sourceTree = "<group>"; };
 		5386E3BF27B2DAEA004D8221 /* RelationValueViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewUIKit.swift; sourceTree = "<group>"; };
 		5386E3C127B3F63D004D8221 /* TextRelationViewSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationViewSwiftUI.swift; sourceTree = "<group>"; };
+		5386E3CC27B51BA7004D8221 /* CheckboxRelationViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxRelationViewUIKit.swift; sourceTree = "<group>"; };
 		538AE50E272C57300071DB0D /* LinkToObjectSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchViewModel.swift; sourceTree = "<group>"; };
 		538EF48625F831AA005C7438 /* NSAttributedStringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedStringExtension.swift; sourceTree = "<group>"; };
 		538F1727272C126F009528E7 /* SearchViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewModelProtocol.swift; sourceTree = "<group>"; };
@@ -4894,6 +4896,7 @@
 			isa = PBXGroup;
 			children = (
 				5386E3BD27B2C8B7004D8221 /* TextRelationViewUIKit.swift */,
+				5386E3CC27B51BA7004D8221 /* CheckboxRelationViewUIKit.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -5884,6 +5887,7 @@
 				12A7B6C426C3E47200544037 /* CoverGradient.swift in Sources */,
 				C91AFEFC270B6618005F9386 /* EventsLogView.swift in Sources */,
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
+				5386E3CD27B51BA7004D8221 /* CheckboxRelationViewUIKit.swift in Sources */,
 				12C2A5672754E1C400311854 /* DateRelationDetailsValue.swift in Sources */,
 				12CAF32026D53866001E56B2 /* ObjectIconImagePainter.swift in Sources */,
 				12C2A5692754E90800311854 /* DateRelationDetailsRowView.swift in Sources */,
