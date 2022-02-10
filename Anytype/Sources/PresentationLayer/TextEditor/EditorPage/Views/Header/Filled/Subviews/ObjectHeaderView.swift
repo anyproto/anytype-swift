@@ -157,13 +157,13 @@ private extension ObjectHeaderView {
     
     func setupLayout(topAdjustedContentInset: CGFloat) {
         layoutUsing.anchors {
-            $0.height.equal(to: Constants.height)
+            $0.height.equal(to: Constants.height, priority: .defaultLow)
         }
         
         addSubview(coverView) {
             $0.pinToSuperview(excluding: [.top, .bottom])
             $0.bottom.equal(to: bottomAnchor, constant: -Constants.coverBottomInset)
-            $0.height.equal(to: Constants.coverHeight + topAdjustedContentInset)
+            $0.height.equal(to: Constants.coverHeight + topAdjustedContentInset, priority: .defaultLow)
         }
         
         addSubview(iconView) {

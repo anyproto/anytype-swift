@@ -3,10 +3,16 @@ import UniformTypeIdentifiers
 
 
 struct HomeCollectionView: View {
-    private let columns = [
-        GridItem(.flexible()),
-        GridItem(.flexible()),
-    ]
+    private let columns: [GridItem] = {
+        if UIDevice.isPad {
+            return [GridItem(.adaptive(minimum: 150))]
+        } else {
+            return [
+                GridItem(.flexible()),
+                GridItem(.flexible())
+            ]
+        }
+    }()
     
     var cellData: [HomeCellData]
     let dragAndDropDelegate: DragAndDropDelegate?
@@ -24,7 +30,7 @@ struct HomeCollectionView: View {
     
     private var content: some View {
         OffsetAwareScrollView(showsIndicators: false, offsetChanged: offsetChanged) {
-            LazyVGrid(columns: columns) {
+            LazyVGrid(columns: columns, alignment: .center) {
                 ForEach(cellData) { data in
                     Button(
                         action: { onTap(data) },

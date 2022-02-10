@@ -8,9 +8,7 @@ struct RelationValueView: View {
 
     var body: some View {
         if action.isNotNil && relation.isEditable {
-            Button {
-                guard FeatureFlags.relationsEditing else { return }
-                
+            Button {                
                 action?(relation)
             } label: {
                 relationView
