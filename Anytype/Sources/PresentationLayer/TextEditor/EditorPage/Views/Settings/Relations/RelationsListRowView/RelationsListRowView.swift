@@ -67,10 +67,7 @@ struct RelationsListRowView: View {
     }
     
     private var valueView: some View {
-        HStack(spacing: 0) {
-            RelationValueView(relation: relation, style: .regular(allowMultiLine: false), action: nil)
-            Spacer()
-        }
+        RelationValueView(relation: relation, style: .regular(allowMultiLine: false), action: nil)
     }
     
     private var removeButton: some View {
