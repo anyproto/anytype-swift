@@ -9,6 +9,7 @@ struct PageBlockRestrictions: BlockRestrictions {
     let canApplyBlockColor = false
     let canApplyBackgroundColor = true
     let canApplyMention = false
+    let canApplyEmoji = false
     let canDeleteOrDuplicate = true
     let turnIntoStyles: [BlockContentType] = [
         .text(.text), .text(.header), .text(.header2), .text(.header3), .text(.quote), .text(.code),

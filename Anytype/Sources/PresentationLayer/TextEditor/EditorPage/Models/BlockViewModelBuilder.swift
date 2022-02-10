@@ -9,17 +9,21 @@ final class BlockViewModelBuilder {
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let pageService = PageService()
+    private let subjectsHolder = FocusSubjectsHolder()
+    private let markdownListener: MarkdownListener
 
     init(
         document: BaseDocumentProtocol,
         handler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
-        delegate: BlockDelegate
+        delegate: BlockDelegate,
+        markdownListener: MarkdownListener
     ) {
         self.document = document
         self.handler = handler
         self.router = router
         self.delegate = delegate
+        self.markdownListener = markdownListener
     }
 
     func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
@@ -30,6 +34,7 @@ final class BlockViewModelBuilder {
     }
 
     func build(_ block: BlockModelProtocol, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
+        let viewModel: BlockViewModelProtocol?
         switch block.information.content {
         case let .text(content):
             switch content.contentType {
@@ -37,9 +42,7 @@ final class BlockViewModelBuilder {
                 return CodeBlockViewModel(
                     block: block,
                     content: content,
-                    becomeFirstResponder: { [weak self] model in
-                        self?.delegate.becomeFirstResponder(blockId: model.information.id)
-                    },
+                    becomeFirstResponder: { _ in },
                     textDidChange: { block, textView in
                         self.handler.changeText(textView.attributedText, info: block.information)
                     },
@@ -67,7 +70,9 @@ final class BlockViewModelBuilder {
                     },
                     openURL: { [weak self] url in
                         self?.router.openUrl(url)
-                    }
+                    },
+                    markdownListener: markdownListener,
+                    focusSubject: subjectsHolder.focusSubject(for: block.information.id)
                 )
             }
         case let .file(content):
@@ -87,18 +92,17 @@ final class BlockViewModelBuilder {
             case .none:
                 return UnknownLabelViewModel(information: block.information)
             case .image:
-                let viewModel = BlockImageViewModel(
+                return BlockImageViewModel(
                     information: block.information,
                     fileData: content,
                     indentationLevel: block.indentationLevel,
                     showIconPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .images, blockId: blockId)
-                    }
+                    },
+                    onImageOpen: router.openImage
                 )
 
-                viewModel?.onImageOpen = router.openImage
 
-                return viewModel
             case .video:
                 return VideoBlockViewModel(
                     indentationLevel: block.indentationLevel,
@@ -155,21 +159,15 @@ final class BlockViewModelBuilder {
             )
         case .featuredRelations:
             guard let objectType = document.objectDetails?.objectType else { return nil }
-            
+
             return FeaturedRelationsBlockViewModel(
                 information: block.information,
-                featuredRelation: document.parsedRelations.featuredRelationsForEditor(type: objectType),
+                featuredRelation: document.parsedRelations.featuredRelationsForEditor(type: objectType, objectRestriction: document.objectRestrictions.objectRestriction),
                 type: objectType.name
             ) { [weak self] relation in
                 guard let self = self else { return }
 
                 if relation.id == BundledRelationKey.type.rawValue {
-                    guard
-                        !self.document.objectRestrictions.objectRestriction.contains(.typechange)
-                    else {
-                        return
-                    }
-
                     self.router.showTypesSearch(
                         onSelect: { [weak self] id in
                             self?.handler.setObjectTypeUrl(id)
@@ -194,20 +192,20 @@ final class BlockViewModelBuilder {
                 relation: relation) { [weak self] relation in
                     self?.router.showRelationValueEditingView(key: relation.id)
                 }
-            
+
         case .smartblock, .layout, .dataView: return nil
         case .unsupported:
             guard block.parent?.information.content.type != .layout(.header) else {
                 return nil
             }
-            return UnsupportedBlockViewModel(information: block.information)
+            return  UnsupportedBlockViewModel(information: block.information)
         }
     }
-    
+
     // MARK: - Actions
-    
+
     private var subscriptions = [AnyCancellable]()
-    
+
     private func showMediaPicker(type: MediaPickerContentType, blockId: BlockId) {
         let model = MediaPickerViewModel(type: type) { [weak self] itemProvider in
             guard let itemProvider = itemProvider else { return }
@@ -218,30 +216,32 @@ final class BlockViewModelBuilder {
                 blockId: blockId
             )
         }
-        
+
         router.showImagePicker(model: model)
     }
-    
+
     private func showFilePicker(blockId: BlockId, types: [UTType] = [.item]) {
         let model = Picker.ViewModel(types: types)
         model.$resultInformation.safelyUnwrapOptionals().sink { [weak self] result in
             self?.handler.uploadFileAt(localPath: result.filePath, blockId: blockId)
         }.store(in: &subscriptions)
-            
+
         router.showFilePicker(model: model)
     }
-    
+
     private func saveFile(fileId: FileId, type: FileContentType) {
         guard let url = UrlResolver.resolvedUrl(.file(id: fileId)) else { return }
-        
+
         router.saveFile(fileURL: url, type: type)
     }
-    
+
     private func showBookmarkBar(info: BlockInformation) {
         router.showBookmarkBar() { [weak self] url in
             guard let self = self else { return }
-            
+
             self.handler.fetch(url: url, blockId: info.id)
         }
     }
 }
+
+

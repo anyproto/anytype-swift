@@ -98,8 +98,12 @@ final class EditorAssembly {
         )
         
         let markupChanger = BlockMarkupChanger(blocksContainer: document.blocksContainer)
-        
-        let blockActionService = BlockActionService(documentId: document.objectId, modelsHolder: modelsHolder)
+        let cursorManager = EditorCursorManager()
+        let blockActionService = BlockActionService(
+            documentId: document.objectId,
+            modelsHolder: modelsHolder,
+            cursorManager: cursorManager
+        )
         let blockActionHandler = TextBlockActionHandler(
             contextId: document.objectId,
             service: blockActionService,
@@ -119,19 +123,19 @@ final class EditorAssembly {
             document: document
         )
         
-        let markdownListener = MarkdownListenerImpl(handler: actionHandler, markupChanger: markupChanger)
+        let markdownListener = MarkdownListenerImpl(markupChanger: markupChanger)
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
-            accessoryState: accessoryState,
-            markdownListener: markdownListener
+            accessoryState: accessoryState
         )
         
         let blocksConverter = BlockViewModelBuilder(
             document: document,
             handler: actionHandler,
             router: router,
-            delegate: blockDelegate
+            delegate: blockDelegate,
+            markdownListener: markdownListener
         )
          
         let wholeBlockMarkupViewModel = MarkupViewModel(
@@ -168,7 +172,8 @@ final class EditorAssembly {
             wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
             headerBuilder: headerBuilder,
             blockActionsService: blockActionsService,
-            blocksStateManager: blocksStateManager
+            blocksStateManager: blocksStateManager,
+            cursorManager: cursorManager
         )
     }
 

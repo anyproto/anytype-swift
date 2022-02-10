@@ -71,6 +71,23 @@ extension Relation: RelationProtocol {
         }
     }
     
+    var isBundled: Bool {
+        switch self {
+        case .text(let text): return text.isBundled
+        case .number(let text): return text.isBundled
+        case .status(let status): return status.isBundled
+        case .date(let date): return date.isBundled
+        case .object(let object): return object.isBundled
+        case .checkbox(let checkbox): return checkbox.isBundled
+        case .url(let text): return text.isBundled
+        case .email(let text): return text.isBundled
+        case .phone(let text): return text.isBundled
+        case .tag(let tag): return tag.isBundled
+        case .file(let file): return file.isBundled
+        case .unknown(let unknown): return unknown.isBundled
+        }
+    }
+    
     var isFeatured: Bool {
         switch self {
         case .text(let text): return text.isFeatured

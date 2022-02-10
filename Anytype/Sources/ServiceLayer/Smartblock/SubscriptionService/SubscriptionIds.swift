@@ -1,6 +1,22 @@
 import BlocksModels
 import Kingfisher
 
+struct SetSubsriptionData: Hashable {
+    let source: [String]
+    let sorts: [DataviewSort]
+    let filters: [DataviewFilter]
+    let relations: [DataviewViewRelation]
+    let currentPage: Int64
+    
+    init(dataView: BlockDataview, view: DataviewView, currentPage: Int64) {
+        self.source = dataView.source
+        self.sorts = view.sorts
+        self.filters = view.filters
+        self.relations = view.relations
+        self.currentPage = currentPage
+    }
+}
+
 
 enum SubscriptionData: Hashable {
     case historyTab
@@ -9,7 +25,7 @@ enum SubscriptionData: Hashable {
     case setsTab
     
     case profile(id: BlockId)
-    case set(source: [String], sorts: [DataviewSort], filters: [DataviewFilter], relations: [DataviewViewRelation])
+    case set(SetSubsriptionData)
     
     var identifier: SubscriptionId {
         switch self {

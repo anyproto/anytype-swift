@@ -7,15 +7,33 @@ struct TextRelationView: View {
     var allowMultiLine: Bool = false
     
     var body: some View {
-        if let value = value, value.isNotEmpty {
+        if let text = text, text.isNotEmpty {
             AnytypeText(
-                value,
+                text,
                 style: style.font,
                 color: style.fontColor
             )
+                .multilineTextAlignment(.leading)
                 .lineLimit(allowMultiLine ? nil : 1)
         } else {
             RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
+        }
+    }
+
+    var text: String? {
+        if let maxLength = maxLength, let value = value, value.count > maxLength {
+            return String(value.prefix(maxLength) + " ...")
+        } else {
+            return value
+        }
+    }
+}
+
+private extension TextRelationView {
+    var maxLength: Int? {
+        switch style {
+        case .regular, .set: return nil
+        case .featuredRelationBlock: return 40
         }
     }
 }

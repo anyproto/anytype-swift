@@ -20,12 +20,18 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let listService = BlockListService()
     private let bookmarkService = BookmarkService()
     private let fileService = BlockActionsServiceFile()
+    private let cursorManager: EditorCursorManager
     
     private weak var modelsHolder: BlockViewModelsHolder?
 
-    init(documentId: String, modelsHolder: BlockViewModelsHolder) {
+    init(
+        documentId: String,
+        modelsHolder: BlockViewModelsHolder,
+        cursorManager: EditorCursorManager
+    ) {
         self.documentId = documentId
         self.modelsHolder = modelsHolder
+        self.cursorManager = cursorManager
     }
 
     // MARK: Actions/Add
@@ -37,22 +43,23 @@ final class BlockActionService: BlockActionServiceProtocol {
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool) {
         guard let response = singleService
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
-        
-        let event = shouldSetFocusOnUpdate ? response.addEvent : response.asEventsBunch
-        event.send()
+
+        if shouldSetFocusOnUpdate,
+           let addEntryMessage = response.messages.first { $0.value == .blockAdd($0.blockAdd) },
+            let block = addEntryMessage.blockAdd.blocks.first {
+                cursorManager.blockFocus = .init(id: block.id, position: .beginning)
+            }
+
+        response.asEventsBunch.send()
     }
 
-    func split(info: BlockInformation, position: Int, newBlockContentType: BlockText.Style) {
+    func split(
+        info: BlockInformation,
+        position: Int,
+        newBlockContentType: BlockText.Style,
+        attributedString: NSAttributedString
+    ) {
         let blockId = info.id
-
-        let content = info.content
-        guard case let .text(blockText) = content else {
-            anytypeAssertionFailure(
-                "We have unsupported content type: \(content)",
-                domain: .blockActionsService
-            )
-            return
-        }
 
         let range = NSRange(location: position, length: 0)
         let documentId = self.documentId
@@ -60,12 +67,12 @@ final class BlockActionService: BlockActionServiceProtocol {
         // if splitted block has child then new block should be child of splitted block
         let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
-        guard textService.setText(
+        textService.setTextForced(
             contextId: documentId,
             blockId: blockId,
-            middlewareString: MiddlewareString(text: blockText.text, marks: blockText.marks)
-        ) else { return }
-            
+            middlewareString: AttributedTextConverter.asMiddleware(attributedText: attributedString)
+        )
+
         guard let blockId = textService.split(
             contextId: documentId,
             blockId: blockId,
@@ -73,11 +80,8 @@ final class BlockActionService: BlockActionServiceProtocol {
             style: newBlockContentType,
             mode: mode
         ) else { return }
-            
-        EventsBunch(
-            contextId: documentId,
-            localEvents: [ .setFocus(blockId: blockId, position: .beginning) ]
-        ).send()
+
+        cursorManager.blockFocus = .init(id: blockId, position: .beginning)
     }
 
     func duplicate(blockId: BlockId) {        
@@ -139,29 +143,32 @@ final class BlockActionService: BlockActionServiceProtocol {
     
     func delete(blockId: BlockId) {
         let previousBlock = modelsHolder?.findModel(beforeBlockId: blockId)
-        
+
         if singleService.delete(contextId: documentId, blockIds: [blockId]) {
-            previousBlock.flatMap { setFocus(model: $0) }
-        }        
+            previousBlock.map { setFocus(model: $0) }
+        }
     }
     
     func setFields(contextID: BlockId, blockFields: [BlockFields]) {
         listService.setFields(contextId: contextID, fields: blockFields)
     }
     
-    @discardableResult
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
         textService.setText(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
+    }
+
+    @discardableResult
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
+        textService.setTextForced(contextId: contextId, blockId: blockId, middlewareString: middlewareString)
     }
     
     func setObjectTypeUrl(_ objectTypeUrl: String) {
         pageService.setObjectType(objectId: documentId, objectTypeUrl: objectTypeUrl)
     }
 
-    private func setFocus(model: BlockDataProvider) {
+    private func setFocus(model: BlockViewModelProtocol) {
         if case let .text(text) = model.information.content {
-            let event = LocalEvent.setFocus(blockId: model.blockId, position: .at(text.endOfTextRangeWithMention))
-            EventsBunch(contextId: documentId, localEvents: [event]).send()
+            model.set(focus: .at(text.endOfTextRangeWithMention))
         }
     }
 }

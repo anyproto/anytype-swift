@@ -11,13 +11,13 @@ protocol CustomTextViewDelegate: AnyObject {
     func willBeginEditing()
     func didBeginEditing()
     func didEndEditing()
+    func textViewDidChangeText(_ textView: UITextView)
     
     func openURL(_ url: URL)
     func showPage(blockId: BlockId)
-    func changeText(text: NSAttributedString)
     func changeCaretPosition(_ range: NSRange)
     func changeTextStyle(attribute: MarkupType, range: NSRange)
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool
-    func shouldChangeText(range: NSRange, replacementText: String, mentionsHolder: Mentionable) -> Bool
+    func shouldChangeText(range: NSRange, replacementText: String) -> Bool
 }

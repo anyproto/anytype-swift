@@ -26,6 +26,8 @@ final class MarkStyleModifier {
         switch action {
         case .mention:
             applySingleAction(action, shouldApplyMarkup: shouldApplyMarkup, range: range)
+        case .emoji:
+            applySingleAction(action, shouldApplyMarkup: shouldApplyMarkup, range: range)
         default:
             attributedString.enumerateAttributes(in: range) { _, subrange, _ in
                 applySingleAction(action, shouldApplyMarkup: shouldApplyMarkup, range: subrange)
@@ -46,6 +48,9 @@ final class MarkStyleModifier {
         attributedString.addAttributes(newAttributes, range: range)
         if case let .mention(data) = action {
             addMentionIcon(data: data, range: range, font: anytypeFont)
+        }
+        if case let .emoji(data) = action {
+            addEmoji(data: data, range: range, font: anytypeFont)
         }
     }
 
@@ -116,7 +121,13 @@ final class MarkStyleModifier {
             )
         case let .mention(data):
             return mentionUpdate(data: data)
+        case let .emoji(data):
+            return emojiUpdate(data: data)
         }
+    }
+    
+    private func emojiUpdate(data: Emoji) -> AttributedStringChange {
+        return AttributedStringChange(changeAttributes: [ .emoji: data ])
     }
     
     private func mentionUpdate(data: MentionData) -> AttributedStringChange {
@@ -147,6 +158,23 @@ final class MarkStyleModifier {
         mentionAttachmentString.addAttributes(iconAttributes, range: mentionAttachmentString.wholeRange)
         
         attributedString.insert(mentionAttachmentString, at: range.location)
+    }
+    
+    private func addEmoji(data: Emoji, range: NSRange, font: AnytypeFont) {
+        let emojiAttributedString = attributedString.attributedSubstring(from: range)
+        guard emojiAttributedString.string.isNotEmpty else {
+            // Empty string is for deleted emoji
+            return
+        }
+        
+        var iconAttributes = emojiAttributedString.attributes(at: 0, effectiveRange: nil)
+        iconAttributes.removeValue(forKey: .localUnderline) // no underline under icon
+        
+        let attachment = MentionAttachment(icon: .icon(.emoji(data)), size: font.mentionType)
+        let attachmentString = NSMutableAttributedString(attachment: attachment)
+        attachmentString.addAttributes(iconAttributes, range: attachmentString.wholeRange)
+        
+        attributedString.replaceCharacters(in: range, with: attachmentString)
     }
     
     private func keyboardUpdate(

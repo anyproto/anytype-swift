@@ -7,7 +7,7 @@ final class TextBlockTextViewStyler {
         updateCustomTextViewOptions(textView: textView, configuration: configuration, restrictions: restrictions)
         
         textView.textView.tertiaryColor = configuration.content.color.map { UIColor.Text.uiColor(from: $0) }
-        textView.textView.textAlignment = configuration.information.alignment.asNSTextAlignment
+        textView.textView.textAlignment = configuration.alignment
         
         textView.textView.selectedColor = nil
         if configuration.content.contentType == .checkbox {
@@ -20,7 +20,7 @@ final class TextBlockTextViewStyler {
         configuration: TextBlockContentConfiguration,
         restrictions: BlockRestrictions
     ) {
-        let autocorrect = configuration.information.content.type == .text(.title) ? false : true
+        let autocorrect = configuration.content.contentType == .title ? false : true
         let options = CustomTextViewOptions(
             createNewBlockOnEnter: restrictions.canCreateBlockBelowOnEnter,
             autocorrect: autocorrect
@@ -31,27 +31,27 @@ final class TextBlockTextViewStyler {
     private static func updateText(textView: CustomTextView, configuration: TextBlockContentConfiguration) {
         switch configuration.content.contentType {
         case .title:
-            setupText(in: textView, placeholer: "Untitled".localized, textStyle: configuration.text)
+            setupText(in: textView, placeholer: "Untitled".localized, textStyle: configuration.content.anytypeText)
         case .description:
-            setupText(in: textView, placeholer: "Add a description".localized, textStyle: configuration.text)
+            setupText(in: textView, placeholer: "Add a description".localized, textStyle: configuration.content.anytypeText)
         case .toggle:
-            setupText(in: textView, placeholer: "Toggle block".localized, textStyle: configuration.text)
+            setupText(in: textView, placeholer: "Toggle block".localized, textStyle: configuration.content.anytypeText)
         case .bulleted:
-            setupText(in: textView, placeholer: "Bulleted placeholder".localized, textStyle: configuration.text)
+            setupText(in: textView, placeholer: "Bulleted placeholder".localized, textStyle: configuration.content.anytypeText)
         case .checkbox:
-            setupText(in: textView, placeholer: "Checkbox".localized, textStyle: configuration.text)
+            setupText(in: textView, placeholer: "Checkbox".localized, textStyle: configuration.content.anytypeText)
         case .numbered:
-            setupText(in: textView, placeholer: "Numbered placeholder".localized, textStyle: configuration.text)
+            setupText(in: textView, placeholer: "Numbered placeholder".localized, textStyle: configuration.content.anytypeText)
         case .quote:
-            setupText(in: textView, placeholer: "Highlighted text".localized, textStyle: configuration.text)
+            setupText(in: textView, placeholer: "Highlighted text".localized, textStyle: configuration.content.anytypeText)
         case .header:
-            setupText(in: textView, placeholer: "Title".localized, textStyle: configuration.text)
+            setupText(in: textView, placeholer: "Title".localized, textStyle: configuration.content.anytypeText)
         case .header2:
-            setupText(in: textView, placeholer: "Heading".localized, textStyle: configuration.text)
+            setupText(in: textView, placeholer: "Heading".localized, textStyle: configuration.content.anytypeText)
         case .header3:
-            setupText(in: textView, placeholer: "Subheading".localized, textStyle: configuration.text)
+            setupText(in: textView, placeholer: "Subheading".localized, textStyle: configuration.content.anytypeText)
         case .header4, .code, .text:
-            setupText(in: textView, placeholer: "", textStyle: configuration.text)
+            setupText(in: textView, placeholer: "", textStyle: configuration.content.anytypeText)
         }
     }
     

@@ -27,7 +27,7 @@ struct SetTableViewRow: View {
                     SwiftUIObjectIconImageView(iconImage: icon, usecase: .setRow).frame(width: 18, height: 18)
                     Spacer.fixedWidth(8)
                 }
-                AnytypeText(data.title, style: .body, color: .textSecondary)
+                AnytypeText(data.title, style: .body, color: .textPrimary)
                     .lineLimit(1)
             }
             .padding(.horizontal, 16)

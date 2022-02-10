@@ -2,9 +2,9 @@ import BlocksModels
 
 final class RelationEditingViewModelBuilder {
     
-    private weak var delegate: TextRelationEditingViewModelDelegate?
+    private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
-    init(delegate: TextRelationEditingViewModelDelegate?) {
+    init(delegate: TextRelationActionButtonViewModelDelegate?) {
         self.delegate = delegate
     }
     
@@ -12,89 +12,81 @@ final class RelationEditingViewModelBuilder {
 
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
-    func buildViewModel(objectId: BlockId, relation: Relation) -> RelationEditingViewModelProtocol? {
+    func buildViewModel(objectId: BlockId, relation: Relation) -> RelationDetailsViewModelProtocol? {
         switch relation {
         case .text(let text):
-            return TextRelationEditingViewModel(
-                type: .text,
-                title: text.name,
+            return TextRelationDetailsViewModel(
                 value: text.value ?? "",
-                relationKey: text.id,
-                service: RelationsService(objectId: objectId)
+                type: .text,
+                relation: relation,
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                actionButtonViewModel: nil
             )
         case .number(let number):
-            return TextRelationEditingViewModel(
-                type: .number,
-                title: number.name,
+            return TextRelationDetailsViewModel(
                 value: number.value ?? "",
-                relationKey: number.id,
-                service: RelationsService(objectId: objectId)
+                type: .number,
+                relation: relation,
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                actionButtonViewModel: nil
             )
         case .phone(let phone):
-            return ActionableTextRelationEditingViewModel(
-                type: .phone,
+            return TextRelationDetailsViewModel(
                 value: phone.value ?? "",
-                title: phone.name,
-                relationKey: phone.id,
-                service:  RelationsService(objectId: objectId),
-                delegate: delegate
+                type: .phone,
+                relation: relation,
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                actionButtonViewModel: TextRelationActionButtonViewModel(type: .phone, delegate: delegate)
             )
         case .email(let email):
-            return ActionableTextRelationEditingViewModel(
-                type: .email,
+            return TextRelationDetailsViewModel(
                 value: email.value ?? "",
-                title: email.name,
-                relationKey: email.id,
-                service:  RelationsService(objectId: objectId),
-                delegate: delegate
+                type: .email,
+                relation: relation,
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                actionButtonViewModel: TextRelationActionButtonViewModel(type: .email, delegate: delegate)
             )
         case .url(let url):
-            return ActionableTextRelationEditingViewModel(
-                type: .url,
+            return TextRelationDetailsViewModel(
                 value: url.value ?? "",
-                title: url.name,
-                relationKey: url.id,
-                service:  RelationsService(objectId: objectId),
-                delegate: delegate
+                type: .url,
+                relation: relation,
+                service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
+                actionButtonViewModel: TextRelationActionButtonViewModel(type: .url, delegate: delegate)
             )
         case .date(let value):
-            return DateRelationEditingViewModel(
-                relationKey: relation.id,
-                relationName: relation.name,
+            return DateRelationDetailsViewModel(
                 value: value.value,
+                relation: relation,
                 service: RelationsService(objectId: objectId)
             )
         case .status(let status):
-            return StatusRelationEditingViewModel(
-                relationKey: relation.id,
-                relationName: relation.name,
-                relationOptions: status.allOptions,
+            return StatusRelationDetailsViewModel(
                 selectedStatus: status.value,
-                relationsService: RelationsService(objectId: objectId)
+                allStatuses: status.allOptions,
+                relation: relation,
+                service: RelationsService(objectId: objectId)
             )
         case .tag(let tag):
             return RelationOptionsViewModel(
                 type: .tags(tag.allTags),
-                title: tag.name,
-                relationKey: tag.id,
                 selectedOptions: tag.selectedTags,
-                relationsService: RelationsService(objectId: objectId)
+                relation: relation,
+                service: RelationsService(objectId: objectId)
             )
         case .object(let object):
             return RelationOptionsViewModel(
                 type: .objects,
-                title: object.name,
-                relationKey: object.id,
                 selectedOptions: object.selectedObjects,
-                relationsService: RelationsService(objectId: objectId)
+                relation: relation,
+                service: RelationsService(objectId: objectId)
             )
         case .file(let file):
             return RelationOptionsViewModel(
                 type: .files,
-                title: file.name,
-                relationKey: file.id,
                 selectedOptions: file.files,
-                relationsService: RelationsService(objectId: objectId)
+                relation: relation,
+                service: RelationsService(objectId: objectId)
             )
         default:
             return nil

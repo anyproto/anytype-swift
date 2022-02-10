@@ -10,6 +10,8 @@ final class EditorSetViewModel: ObservableObject {
     
     @Published var showViewPicker = false
     
+    @Published var pagitationData = EditorSetPaginationData.empty
+    
     var isEmpty: Bool {
         dataView.views.filter { $0.isSupported }.isEmpty
     }
@@ -18,10 +20,9 @@ final class EditorSetViewModel: ObservableObject {
         dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
     }
     
-    var colums: [SetColumData] {
+    var colums: [RelationMetadata] {
         dataView.relationsMetadataForView(activeView)
             .filter { $0.isHidden == false }
-            .map { SetColumData(metadata: $0) }
     }
     
     var rows: [SetTableViewRowData] {
@@ -51,15 +52,17 @@ final class EditorSetViewModel: ObservableObject {
         document.objectDetails ?? .empty
     }
     var featuredRelations: [Relation] {
-        document.parsedRelations.featuredRelationsForEditor(type: details.objectType)
+        document.parsedRelations.featuredRelationsForEditor(type: details.objectType, objectRestriction: document.restrictionsContainer.restrinctions.objectRestriction)
     }
     
     let document: BaseDocument
     var router: EditorRouterProtocol!
-    
-    private let relationsBuilder = RelationsBuilder(scope: .type)
+
+    let paginationHelper = EditorSetPaginationHelper()
+    private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
+
     
     init(document: BaseDocument) {
         self.document = document
@@ -89,7 +92,7 @@ final class EditorSetViewModel: ObservableObject {
         case .general:
             objectWillChange.send()
             setupDataview()
-        case .syncStatus, .blocks, .details:
+        case .syncStatus, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
         }
     }
@@ -129,14 +132,16 @@ final class EditorSetViewModel: ObservableObject {
         guard !isEmpty else { return }
         
         subscriptionService.startSubscription(
-            data: .set(
-                source: dataView.source,
-                sorts: activeView.sorts,
-                filters: activeView.filters,
-                relations: activeView.relations
-            )
+            data: .set(.init(dataView: dataView, view: activeView, currentPage: pagitationData.selectedPage))
         ) { [weak self] subId, update in
-            self?.records.applySubscriptionUpdate(update)
+            guard let self = self else { return }
+            
+            if case let .pageCount(count) = update {
+                self.updatePageCount(count)
+                return
+            }
+            
+            self.records.applySubscriptionUpdate(update)
         }
     }
 }

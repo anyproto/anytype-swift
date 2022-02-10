@@ -12,7 +12,9 @@ protocol TextServiceProtocol {
     func merge(contextId: BlockId, firstBlockId: BlockId, secondBlockId: BlockId) -> Bool
     func setStyle(contextId: BlockId, blockId: BlockId, style: Style)
     func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId?
-    
+
+    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
+
     @discardableResult
-    func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool    
+    func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool
 }

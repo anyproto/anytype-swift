@@ -17,9 +17,6 @@ struct SeedPhraseView: View {
             .background(Color.strokeTransperent)
             .cornerRadius(4)
         }
-        .onAppear {
-            model.obtainRecoveryPhrase()
-        }
     }
 }
 

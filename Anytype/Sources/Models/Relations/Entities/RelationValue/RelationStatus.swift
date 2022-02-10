@@ -9,6 +9,7 @@ extension Relation {
         let name: String
         let isFeatured: Bool
         let isEditable: Bool
+        let isBundled: Bool
         
         let value: Option?
         let allOptions: [Option]
@@ -18,7 +19,7 @@ extension Relation {
 
 extension Relation.Status {
     
-    struct Option: Hashable, Identifiable, RelationSectionedOptionProtocol {
+    struct Option: Hashable, Identifiable {
         let id: String
         let text: String
         let color: UIColor

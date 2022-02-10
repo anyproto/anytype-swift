@@ -45,10 +45,11 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         
         turnedOnSubs[data.identifier] = update
         
-        let details = toggler.startSubscription(data: data) ?? []
-        details.forEach { storage.add(details: $0) }
+        guard let (details, count) = toggler.startSubscription(data: data) else { return }
         
+        details.forEach { storage.ammend(details: $0) }
         update(data.identifier, .initialData(details))
+        update(data.identifier, .pageCount(count))
     }
  
     // MARK: - Private
@@ -90,38 +91,22 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 
                 update(details: updatedDetails, rawSubIds: data.subIds)
             case .subscriptionPosition(let position):
-                guard let subId = SubscriptionId(rawValue: events.contextId) else {
-                    anytypeAssertionFailure("Unsupported object id \(events.contextId) in subscriptionPosition", domain: .subscriptionStorage)
-                    break
-                }
-                
-                guard let action = turnedOnSubs[subId] else { return }
-                action(subId, .move(from: position.id, after: position.afterID.isNotEmpty ? position.afterID : nil))
+                let update: SubscriptionUpdate = .move(from: position.id, after: position.afterID.isNotEmpty ? position.afterID : nil)
+                sendUpdate(update, contextId: events.contextId)
             case .subscriptionAdd(let data):
-                guard let subId = SubscriptionId(rawValue: events.contextId) else {
-                    anytypeAssertionFailure("Unsupported object id \(events.contextId) in subscriptionRemove", domain: .subscriptionStorage)
-                    break
-                }
-                
                 guard let details = storage.get(id: data.id) else {
                     anytypeAssertionFailure("No details found for id \(data.id)", domain: .subscriptionStorage)
                     return
                 }
                 
-                guard let action = turnedOnSubs[subId] else { return }
-                action(subId, .add(details, after: data.afterID.isNotEmpty ? data.afterID : nil))
+                let update: SubscriptionUpdate = .add(details, after: data.afterID.isNotEmpty ? data.afterID : nil)
+                sendUpdate(update, contextId: events.contextId)
             case .subscriptionRemove(let remove):
-                guard let subId = SubscriptionId(rawValue: events.contextId) else {
-                    anytypeAssertionFailure("Unsupported object id \(events.contextId) in subscriptionRemove", domain: .subscriptionStorage)
-                    break
-                }
-                
-                guard let action = turnedOnSubs[subId] else { return }
-                action(subId, .remove(remove.id))
+                sendUpdate(.remove(remove.id), contextId: events.contextId)
             case .objectRemove:
                 break // unsupported (Not supported in middleware converter also)
-            case .subscriptionCounters:
-                break // unsupported for now. Used for pagination
+            case .subscriptionCounters(let data):
+                sendUpdate(.pageCount(data.total), contextId: events.contextId)
             case .accountConfigUpdate:
                 break
             case .accountDetails:
@@ -130,6 +115,15 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 anytypeAssertionFailure("Unupported event \(event)", domain: .subscriptionStorage)
             }
         }
+    }
+    
+    private func sendUpdate(_ update: SubscriptionUpdate, contextId: BlockId) {
+        guard let subId = SubscriptionId(rawValue: contextId) else {
+            anytypeAssertionFailure("Unsupported object id \(contextId)", domain: .subscriptionStorage)
+            return
+        }
+        guard let action = turnedOnSubs[subId] else { return }
+        action(subId, update)
     }
     
     private func update(details: ObjectDetails, rawSubIds: [String]) {

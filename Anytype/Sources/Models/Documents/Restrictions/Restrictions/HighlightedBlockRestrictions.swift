@@ -7,6 +7,7 @@ struct HighlightedBlockRestrictions: BlockRestrictions {
     let canApplyBlockColor = true
     let canApplyBackgroundColor = true
     let canApplyMention = true
+    let canApplyEmoji = true
     let canDeleteOrDuplicate = true
     let turnIntoStyles: [BlockContentType] = [
         .text(.text), .text(.header), .text(.header2), .text(.header3), .text(.quote), .text(.code),

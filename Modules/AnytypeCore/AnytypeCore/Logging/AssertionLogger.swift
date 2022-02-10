@@ -22,6 +22,7 @@ public enum ErrorDomain: String {
     case blockContainer
     case blockDelegate
     case blocksConverter
+    case blockValidator
     
     case blockImage
     case unknownLabel
@@ -31,6 +32,7 @@ public enum ErrorDomain: String {
     case editorBrowser
     case editorPage
     case editorSet
+    case editorSetPagination
     case loadingController
     
     case markStyleModifier

@@ -6,18 +6,12 @@ final class LocalEventConverter {
     private let blocksContainer: BlockContainerModelProtocol
     private let blockValidator = BlockValidator()
     
-    init(
-        blocksContainer: BlockContainerModelProtocol
-    ) {
+    init(blocksContainer: BlockContainerModelProtocol) {
         self.blocksContainer = blocksContainer
     }
     
     func convert(_ event: LocalEvent) -> EventsListenerUpdate? {
         switch event {
-        case let .setFocus(blockId, position):
-            setFocus(blockId: blockId, position: position)
-            return .general // https://app.clickup.com/t/1r67hcc
-//            return .blocks(blockIds: [blockId])
         case .setToggled, .documentClosed:
             return .general
         case let .setText(blockId: blockId, text: text):
@@ -73,14 +67,5 @@ final class LocalEventConverter {
         blockModel.information = blockValidator.validated(information: blockModel.information)
         
         return .blocks(blockIds: [blockId])
-    }
-    
-    private func setFocus(blockId: BlockId, position: BlockFocusPosition) {
-        guard var model = blocksContainer.model(id: blockId) else {
-            anytypeAssertionFailure("SetFocus: No model with id \(blockId)", domain: .localEventConverterSetFocus)
-            return
-        }
-        model.isFirstResponder = true
-        model.focusAt = position
     }
 }

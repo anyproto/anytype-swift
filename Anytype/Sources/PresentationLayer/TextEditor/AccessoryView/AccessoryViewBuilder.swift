@@ -67,6 +67,11 @@ struct AccessoryViewBuilder {
             document: document
         )
 
+        slashMenuViewModel.resetSlashMenuHandler = { [weak accessoryViewSwitcher] in
+            accessoryViewSwitcher?.restoreDefaultState()
+
+        }
+
         // set delegate
         let stateManager = AccessoryViewStateManagerImpl(switcher: accessoryViewSwitcher, handler: actionHandler)
         mentionsView.delegate = stateManager

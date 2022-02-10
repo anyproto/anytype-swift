@@ -96,6 +96,14 @@ extension UIImage {
         static let color = createImage("StyleBottomSheet/color")
     }
     
+    enum Relations {
+        enum Icons {
+            static let phone = createImage("relation_small_phone_icon")
+            static let email = createImage("relation_small_email_icon")
+            static let goToURL = createImage("relation_small_go_to_url_icon")
+        }
+    }
+    
     static func createImage(_ name: String) -> UIImage {
         guard let image = UIImage(named: name) else {
             anytypeAssertionFailure("No image named: \(name)", domain: .imageCreation)

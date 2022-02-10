@@ -1,9 +1,5 @@
 import UIKit
 
-private enum Constants {
-    static let selectionViewInset: UIEdgeInsets = .init(top: 0, left: 8, bottom: -2, right: -8)
-}
-
 class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIContentView {
     var configuration: UIContentConfiguration {
         get { currentConfiguration }
@@ -38,7 +34,7 @@ class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIConten
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func update(with configuration: Configuration) {
         configuration.currentConfigurationState.map(update(with:))
     }
@@ -55,12 +51,12 @@ class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIConten
             backgroundColor = .clear
         }
     }
-    
 
     func setupSubviews() {
+        let selectionViewInset = UIEdgeInsets(top: 0, left: 8, bottom: 0, right: -8)
+
         addSubview(selectionView) {
-            $0.pinToSuperview(insets: Constants.selectionViewInset)
+            $0.pinToSuperview(insets: selectionViewInset)
         }
     }
 }
-

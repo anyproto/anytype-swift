@@ -4,42 +4,27 @@ import AnytypeCore
 protocol BlockDelegate: AnyObject {
     func willBeginEditing(data: TextBlockDelegateData)
     func didBeginEditing()
-    func didEndEditing()
-    
-    func becomeFirstResponder(blockId: BlockId)
-    func resignFirstResponder(blockId: BlockId)
-    
+    func didEndEditing(data: TextBlockDelegateData)
+
     func textWillChange(changeType: TextChangeType)
-    func textDidChange()
+    func textDidChange(data: TextBlockDelegateData)
+    func textBlockSetNeedsLayout()
     func selectionDidChange(range: NSRange)
 }
 
 final class BlockDelegateImpl: BlockDelegate {
-    
     private var changeType: TextChangeType?
-    private var data: TextBlockDelegateData?
-    
+
     weak private var viewInput: EditorPageViewInput?
-    
+
     private let accessoryState: AccessoryViewStateManager
-    private let markdownListener: MarkdownListener
     
     init(
         viewInput: EditorPageViewInput?,
-        accessoryState: AccessoryViewStateManager,
-        markdownListener: MarkdownListener
+        accessoryState: AccessoryViewStateManager
     ) {
         self.viewInput = viewInput
         self.accessoryState = accessoryState
-        self.markdownListener = markdownListener
-    }
-
-    func becomeFirstResponder(blockId: BlockId) {
-        UserSession.shared.firstResponderId.value = blockId
-    }
-    
-    func resignFirstResponder(blockId: BlockId) {
-        UserSession.shared.resignFirstResponder(blockId: blockId)
     }
 
     func didBeginEditing() {
@@ -47,12 +32,12 @@ final class BlockDelegateImpl: BlockDelegate {
     }
 
     func willBeginEditing(data: TextBlockDelegateData) {
-        self.data = data
         viewInput?.textBlockWillBeginEditing()
         accessoryState.willBeginEditing(data: data)
     }
     
-    func didEndEditing() {
+    func didEndEditing(data: TextBlockDelegateData) {
+        viewInput?.blockDidFinishEditing(blockId: data.info.id)
         accessoryState.didEndEditing()
     }
     
@@ -60,16 +45,16 @@ final class BlockDelegateImpl: BlockDelegate {
         self.changeType = changeType
     }
     
-    func textDidChange() {
-        guard let changeType = changeType else {
-            return
-        }
-        guard let data = data else {
-            return
-        }
+    func textDidChange(data: TextBlockDelegateData) {
+        viewInput?.textBlockDidChangeText()
+
+        guard let changeType = changeType else { return }
 
         accessoryState.textDidChange(changeType: changeType)
-        markdownListener.textDidChange(changeType: changeType, data: data)
+    }
+
+    func textBlockSetNeedsLayout() {
+        viewInput?.textBlockDidChangeFrame()
     }
 
     func selectionDidChange(range: NSRange) {
