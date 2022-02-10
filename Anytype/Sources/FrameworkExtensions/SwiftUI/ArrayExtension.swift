@@ -33,6 +33,18 @@ extension Array {
             append(element)
         }
     }
+
+    func first<T>(applying condition: (Element) -> T?) -> T? {
+        var item: T?
+        for element in self {
+            if let foundedItem = condition(element) {
+                item = foundedItem
+                break
+            }
+        }
+
+        return item
+    }
 }
 
 extension Array where Element: Equatable {

@@ -14,8 +14,6 @@ import AVFoundation
 final class AudioBlockViewModel: BlockViewModelProtocol {
     private(set) var playerItem: AVPlayerItem?
 
-    var upperBlock: BlockModelProtocol?
-
     var hashable: AnyHashable {
         [
             indentationLevel,

@@ -1,5 +1,6 @@
 import UIKit
 
+@available(*, deprecated, message: "Use `CellBlockConfiguration` instead")
 class BaseBlockView<Configuration: BlockConfigurationProtocol>: UIView, UIContentView {
     var configuration: UIContentConfiguration {
         get { currentConfiguration }

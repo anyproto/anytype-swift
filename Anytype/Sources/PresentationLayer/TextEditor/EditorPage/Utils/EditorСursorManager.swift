@@ -11,7 +11,7 @@ final class EditorCursorManager {
 
     var blockFocus: BlockFocus?
 
-    func didAppeared(with blocks: [BlockViewModelProtocol], type: String?) {
+    func didAppeared(with blocks: [EditorItem], type: String?) {
         currentType = type
 
         if !didAppearedOnce {
@@ -21,7 +21,7 @@ final class EditorCursorManager {
         didAppearedOnce = true
     }
 
-    func handleGeneralUpdate(with blocks: [BlockViewModelProtocol], type: String?) {
+    func handleGeneralUpdate(with blocks: [EditorItem], type: String?) {
         guard didAppearedOnce, type != self.currentType else {
             return
         }
@@ -31,10 +31,15 @@ final class EditorCursorManager {
 
     }
 
-    private func setFocusOnFirstTextBlock(blocks: [BlockViewModelProtocol]) {
-        if let firstModel = blocks.first(where: { $0.content.isText }),
-           firstModel.content.isEmpty {
-            (firstModel as? TextBlockViewModel)?.set(focus: .beginning)
-        }
+    private func setFocusOnFirstTextBlock(blocks: [EditorItem]) {
+        let firstModel = blocks.first(applying: { item -> BlockViewModelProtocol? in
+            if case let .block(blockViewModel) = item, blockViewModel.content.isEmpty {
+                return blockViewModel
+            }
+
+            return nil
+        })
+
+        firstModel?.set(focus: .beginning)
     }
 }

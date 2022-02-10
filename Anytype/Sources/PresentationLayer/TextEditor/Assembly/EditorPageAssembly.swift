@@ -93,9 +93,7 @@ final class EditorAssembly {
             }
         )
                 
-        let modelsHolder = BlockViewModelsHolder(
-            objectId: document.objectId
-        )
+        let modelsHolder = EditorMainItemModelsHolder()
         
         let markupChanger = BlockMarkupChanger(blocksContainer: document.blocksContainer)
         let cursorManager = EditorCursorManager()

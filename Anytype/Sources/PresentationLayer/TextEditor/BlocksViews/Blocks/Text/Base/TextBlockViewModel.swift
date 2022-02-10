@@ -3,9 +3,6 @@ import UIKit
 import BlocksModels
 
 struct TextBlockViewModel: BlockViewModelProtocol {
-    
-    var upperBlock: BlockModelProtocol?
-
     var indentationLevel: Int
     var information: BlockInformation
 
@@ -33,7 +30,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     init(
         block: BlockModelProtocol,
-        upperBlock: BlockModelProtocol?,
         content: BlockText,
         isCheckable: Bool,
         blockDelegate: BlockDelegate,
