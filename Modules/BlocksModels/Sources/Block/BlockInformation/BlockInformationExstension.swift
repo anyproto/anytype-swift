@@ -1,5 +1,5 @@
 public extension BlockInformation {
-    static var emptyText: BlockInformation {
-        BlockInformation(content: .text(.empty))
+    static func emptyText(blockId: BlockId = "") -> BlockInformation {
+        BlockInformation(blockId: blockId, content: .text(.empty))
     }
 }

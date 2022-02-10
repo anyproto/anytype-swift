@@ -45,7 +45,7 @@ final class BlockActionService: BlockActionServiceProtocol {
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
 
         if shouldSetFocusOnUpdate,
-           let addEntryMessage = response.messages.first { $0.value == .blockAdd($0.blockAdd) },
+           let addEntryMessage = response.messages.first(where: { $0.value == .blockAdd($0.blockAdd) }),
             let block = addEntryMessage.blockAdd.blocks.first {
                 cursorManager.blockFocus = .init(id: block.id, position: .beginning)
             }

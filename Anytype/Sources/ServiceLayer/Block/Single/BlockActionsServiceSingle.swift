@@ -23,7 +23,6 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         _ = Anytype_Rpc.Block.Close.Service.invoke(contextID: contextId, blockID: blockId)
     }
     
-    // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
     func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> MiddlewareResponse? {
         guard let blockInformation = BlockInformationConverter.convert(information: info) else {
             anytypeAssertionFailure("addActionBlockIsNotParsed", domain: .blockActionsService)
@@ -32,7 +31,8 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
         Amplitude.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
 
-        return Anytype_Rpc.Block.Create.Service.invoke(contextID: contextId, targetID: targetId, block: blockInformation, position: position.asMiddleware)
+        return Anytype_Rpc.Block.Create.Service
+            .invoke(contextID: contextId, targetID: targetId, block: blockInformation, position: position.asMiddleware)
             .map { MiddlewareResponse($0.event) }
             .getValue(domain: .blockActionsService)
     }

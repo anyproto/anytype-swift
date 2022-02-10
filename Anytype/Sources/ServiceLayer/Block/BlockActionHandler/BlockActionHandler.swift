@@ -87,7 +87,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func createEmptyBlock(parentId: BlockId?) {
         let parentId = parentId ?? document.objectId
-        service.addChild(info: BlockInformation.emptyText, parentId: parentId)
+        service.addChild(info: BlockInformation.emptyText(), parentId: parentId)
     }
     
     func addLink(targetId: BlockId, blockId: BlockId) {

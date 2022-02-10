@@ -31,9 +31,9 @@ public struct BlockInformation: Hashable {
 }
 
 public extension BlockInformation {
-    init(content: BlockContent) {
+    init(blockId: BlockId = "", content: BlockContent) {
         self.init(
-            id: BlockId(""),
+            id: blockId,
             content: content,
             backgroundColor: nil,
             alignment: .left,

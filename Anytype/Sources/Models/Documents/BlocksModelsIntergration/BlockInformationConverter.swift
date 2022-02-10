@@ -26,9 +26,7 @@ enum BlockInformationConverter {
     
     static func convert(information: BlockInformation) -> Anytype_Model_Block? {
         let blockContent = information.content
-        guard
-            let content = BlocksModelsConverter.convert(block: blockContent)
-        else { return nil }
+        guard let content = BlocksModelsConverter.convert(block: blockContent) else { return nil }
 
         let id = information.id
         let fields = Google_Protobuf_Struct()
