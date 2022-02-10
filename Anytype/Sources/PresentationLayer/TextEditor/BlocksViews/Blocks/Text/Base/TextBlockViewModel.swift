@@ -15,6 +15,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     private let showPage: (EditorScreenData) -> Void
     private let openURL: (URL) -> Void
+    private let showURLBookmarkPopup: (UITextView, CGRect) -> Void
     
     private let actionHandler: BlockActionHandlerProtocol
     private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
@@ -38,6 +39,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         actionHandler: BlockActionHandlerProtocol,
         showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
+        showURLBookmarkPopup: @escaping (UITextView, CGRect) -> Void,
         markdownListener: MarkdownListener,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     ) {
@@ -48,6 +50,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.actionHandler = actionHandler
         self.showPage = showPage
         self.openURL = openURL
+        self.showURLBookmarkPopup = showURLBookmarkPopup
         self.toggled = block.isToggled
         self.information = block.information
         self.indentationLevel = block.indentationLevel
@@ -143,6 +146,20 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             return false
         }
 
+        if replacementText.isURL, let url = URL(string: replacementText) {
+
+            let newText = attributedStringWithURL(
+                attributedText: textView.attributedText,
+                replacementURL: url,
+                range: range
+            )
+
+            actionHandler.changeTextForced(newText, blockId: blockId)
+            textView.attributedText = newText
+
+            return false
+        }
+
         if let markdownChange = markdownListener.markdownChange(
             textView: textView,
             replacementText: replacementText,
@@ -164,5 +181,24 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         }
 
         return true
+    }
+
+    private func attributedStringWithURL(
+        attributedText: NSAttributedString,
+        replacementURL: URL,
+        range: NSRange
+    ) -> NSAttributedString {
+        let newRange = NSRange(location: range.location, length: replacementURL.absoluteString.count)
+        let mutableAttributedString = attributedText.mutable
+        mutableAttributedString.replaceCharacters(in: range, with: replacementURL.absoluteString)
+
+        let modifier = MarkStyleModifier(
+            attributedString: mutableAttributedString,
+            anytypeFont: content.contentType.uiFont
+        )
+
+        modifier.apply(.link(replacementURL), shouldApplyMarkup: true, range: newRange)
+
+        return NSAttributedString(attributedString: modifier.attributedString)
     }
 }

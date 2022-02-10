@@ -8,6 +8,8 @@ final class RoundedShadowView<View: UIView>: UIView {
     init(view: View, cornerRadius: CGFloat) {
         self.view = view
         self.cornerRadius = cornerRadius
+        view.layer.cornerRadius = cornerRadius
+        view.layer.masksToBounds = true
 
         self.shadowLayer = CAShapeLayer()
 
