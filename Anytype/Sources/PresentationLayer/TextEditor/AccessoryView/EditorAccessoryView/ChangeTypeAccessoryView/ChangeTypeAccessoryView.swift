@@ -45,7 +45,9 @@ class ChangeTypeAccessoryView: UIView {
             $0.width.lessThanOrEqual(to: Constants.doneButtonWidth)
         }
 
-        topView.heightAnchor.constraint(equalToConstant: Constants.topViewHeight).isActive = true
+        topView.layoutUsing.anchors {
+            $0.height.equal(to: Constants.topViewHeight, priority: .defaultLow)
+        }
 
         topView.addSubview(changeButton) {
             $0.leading.equal(to: topView.leadingAnchor, constant: Constants.padding)

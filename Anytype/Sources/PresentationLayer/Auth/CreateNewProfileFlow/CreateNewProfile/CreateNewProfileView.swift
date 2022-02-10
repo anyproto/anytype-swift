@@ -15,7 +15,7 @@ struct CreateNewProfileView: View {
         ZStack {
             Gradients.mainBackground()
             bottomSheet
-                .padding(20)
+                .modifier(ReadabilityPadding(padding: 20))
         }
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)

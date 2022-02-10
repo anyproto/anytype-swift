@@ -49,7 +49,7 @@ extension EditorPageController: UICollectionViewDelegate {
             if case .text = block.content, collectionView.isEditing { return false }
 
             return viewModel.blocksStateManager.canSelectBlock(at: indexPath)
-        case .header:
+        case .header, .system:
             return false
         }
     }

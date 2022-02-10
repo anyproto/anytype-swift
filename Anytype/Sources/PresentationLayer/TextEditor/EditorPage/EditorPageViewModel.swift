@@ -12,7 +12,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     let blocksStateManager: EditorPageBlocksStateManagerProtocol
 
     let document: BaseDocumentProtocol
-    let modelsHolder: BlockViewModelsHolder
+    let modelsHolder: EditorMainItemModelsHolder
     let blockDelegate: BlockDelegate
     
     let router: EditorRouterProtocol
@@ -45,7 +45,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockDelegate: BlockDelegate,
         objectSettinsViewModel: ObjectSettingsViewModel,
         router: EditorRouterProtocol,
-        modelsHolder: BlockViewModelsHolder,
+        modelsHolder: EditorMainItemModelsHolder,
         blockBuilder: BlockViewModelBuilder,
         actionHandler: BlockActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
@@ -114,16 +114,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             )
             updateHeaderIfNeeded(header: header, details: details)
 
-            let featuredRelationsBlock = modelsHolder.models.first { blockModel in
-                if case .featuredRelations = blockModel.content {
-                    return true
-                }
-                return false
-            }
-            if let featuredRelationsBlockViewModel = featuredRelationsBlock as? FeaturedRelationsBlockViewModel {
+            if let featuredRelationsBlockViewModel = modelsHolder.items.firstFeatureRelationViewModel {
                 let diffrerence = difference(with: Set([featuredRelationsBlockViewModel.blockId]))
                 modelsHolder.applyDifference(difference: diffrerence)
-                viewInput?.update(changes: diffrerence, allModels: modelsHolder.models)
+                viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
             }
 
         case let .blocks(updatedIds):
@@ -135,7 +129,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             updateMarkupViewModel(updatedIds)
 
             modelsHolder.applyDifference(difference: diffrerence)
-            viewInput?.update(changes: diffrerence, allModels: modelsHolder.models)
+            viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
 
             updateCursorIfNeeded()
         case .syncStatus(let status):
@@ -143,8 +137,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         case .dataSourceUpdate:
             let models = document.children
 
-            let blocksViewModels = blockBuilder.build(models)
-            modelsHolder.models = blocksViewModels
+            let blocksViewModels = blockBuilder.buildEditorItems(from: models)
+            modelsHolder.items = blocksViewModels
 
             viewInput?.update(changes: nil, allModels: blocksViewModels)
         }
@@ -155,13 +149,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         let models = document.children
         
-        let blocksViewModels = blockBuilder.build(models)
+        let blocksViewModels = blockBuilder.buildEditorItems(from: models)
         
         handleGeneralUpdate(with: blocksViewModels)
         
-        updateMarkupViewModel(newBlockViewModels: blocksViewModels)
+        updateMarkupViewModel(newBlockViewModels: blocksViewModels.onlyBlockViewModels)
 
-        cursorManager.handleGeneralUpdate(with: modelsHolder.models, type: document.objectDetails?.type)
+        cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.objectDetails?.type)
     }
     
     private func handleDeletionState() {
@@ -179,19 +173,20 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
     private func difference(
         with blockIds: Set<BlockId>
-    ) -> CollectionDifference<BlockViewModelProtocol> {
-        var currentModels = modelsHolder.models
+    ) -> CollectionDifference<EditorItem> {
+        var currentModels = modelsHolder.items
         
-        for (offset, model) in modelsHolder.models.enumerated() {
+        for (offset, model) in modelsHolder.items.enumerated() {
+            guard case let .block(blockViewModel) = model else { continue }
             for blockId in blockIds {
-                if model.blockId == blockId {
+                if blockViewModel.blockId == blockId {
                     guard let model = document.blocksContainer.model(id: blockId),
-                          let newViewModel = blockBuilder.build(model, previousBlock: nil) else {
+                          let newViewModel = blockBuilder.build(from: model) else {
                               continue
                           }
 
 
-                    currentModels[offset] = newViewModel
+                    currentModels[offset] = .block(newViewModel)
                 }
             }
         }
@@ -232,19 +227,19 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         wholeBlockMarkupViewModel.blockInformation = currentInformation
     }
 
-    private func handleGeneralUpdate(with models: [BlockViewModelProtocol]) {
+    private func handleGeneralUpdate(with models: [EditorItem]) {
         let difference = modelsHolder.difference(between: models)
         if !difference.isEmpty {
             modelsHolder.applyDifference(difference: difference)
         } else {
-            modelsHolder.models = models
+            modelsHolder.items = models
         }
 
         
         let details = document.objectDetails
         let header = headerBuilder.objectHeader(details: details)
         updateHeaderIfNeeded(header: header, details: details)
-        viewInput?.update(changes: difference, allModels: modelsHolder.models)
+        viewInput?.update(changes: difference, allModels: modelsHolder.items)
 
         objectSettingsViewModel.update(
             objectRestrictions: document.objectRestrictions,
@@ -289,7 +284,7 @@ extension EditorPageViewModel {
     }
 
     func viewDidAppear() {
-        cursorManager.didAppeared(with: modelsHolder.models, type: document.objectDetails?.type)
+        cursorManager.didAppeared(with: modelsHolder.items, type: document.objectDetails?.type)
     }
     
     func viewWillDisappear() {
@@ -305,11 +300,7 @@ extension EditorPageViewModel {
     }
 
     func element(at: IndexPath) -> BlockViewModelProtocol? {
-        guard modelsHolder.models.indices.contains(at.row) else {
-            anytypeAssertionFailure("Row doesn't exist", domain: .editorPage)
-            return nil
-        }
-        return modelsHolder.models[at.row]
+        modelsHolder.blockViewModel(at: at.row)
     }
 }
 

@@ -2,9 +2,7 @@ import UIKit
 import BlocksModels
 import Combine
 
-struct BlockFileViewModel: BlockViewModelProtocol {
-    var upperBlock: BlockModelProtocol?
-    
+struct BlockFileViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {
         [
             indentationLevel,

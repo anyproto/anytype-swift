@@ -22,7 +22,7 @@ extension EditorPageController: FloatingPanelControllerDelegate {
             if let blockViewModel = block as? TextBlockViewModel {
                 blockViewModel.set(focus: .end)
             }
-        case .header:
+        case .header, .system:
             #warning("implement")
             return
         }

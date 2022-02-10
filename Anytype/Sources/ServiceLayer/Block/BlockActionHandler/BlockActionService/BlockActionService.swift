@@ -22,11 +22,11 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let fileService = BlockActionsServiceFile()
     private let cursorManager: EditorCursorManager
     
-    private weak var modelsHolder: BlockViewModelsHolder?
+    private weak var modelsHolder: EditorMainItemModelsHolder?
 
     init(
         documentId: String,
-        modelsHolder: BlockViewModelsHolder,
+        modelsHolder: EditorMainItemModelsHolder,
         cursorManager: EditorCursorManager
     ) {
         self.documentId = documentId

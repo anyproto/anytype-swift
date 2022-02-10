@@ -2,9 +2,7 @@ import Combine
 import UIKit
 import BlocksModels
 
-struct CodeBlockViewModel: BlockViewModelProtocol {
-    var upperBlock: BlockModelProtocol?
-    
+struct CodeBlockViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {
         [
             information,

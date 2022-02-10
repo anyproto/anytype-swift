@@ -13,7 +13,6 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                 self.presenting.blur(radius: self.isShowing ? 1 : 0)
                 
                 VStack() {
-
                     AnytypeText(self.errorText, style: .body, color: .textPrimary)
                         .padding()
                         .layoutPriority(1)
@@ -30,7 +29,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                         }
                     }
                 }
-                .frame(maxWidth: geometry.size.width * 0.8, minHeight: 0)
+                .frame(maxWidth: geometry.readableAlertWidth, minHeight: 0)
                 .background(Color.backgroundSecondary)
                 .cornerRadius(10)
                 .transition(.slide)
@@ -39,6 +38,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
             }
         }
     }
+    
 }
 
 struct ErrorAlertView_Previews: PreviewProvider {

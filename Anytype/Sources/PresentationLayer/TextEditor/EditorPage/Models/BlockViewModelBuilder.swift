@@ -10,28 +10,44 @@ final class BlockViewModelBuilder {
     private let delegate: BlockDelegate
     private let pageService = PageService()
     private let subjectsHolder = FocusSubjectsHolder()
+    private let markdownListener: MarkdownListener
 
     init(
         document: BaseDocumentProtocol,
         handler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
-        delegate: BlockDelegate
+        delegate: BlockDelegate,
+        markdownListener: MarkdownListener
     ) {
         self.document = document
         self.handler = handler
         self.router = router
         self.delegate = delegate
+        self.markdownListener = markdownListener
     }
 
-    func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
+    func buildEditorItems(from blocks: [BlockModelProtocol]) -> [EditorItem] {
+        let blockViewModels = build(blocks)
+        var editorItems = blockViewModels.map (EditorItem.block)
+
+        let featureRelationsIndex = blockViewModels.firstIndex { $0.content == .featuredRelations }
+
+        if let featureRelationsIndex = featureRelationsIndex {
+            let spacer = SpacerBlockViewModel(usage: .firstRowOffset)
+            editorItems.insert(.system(spacer), at: featureRelationsIndex + 1)
+        }
+
+        return editorItems
+    }
+
+    private func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
         blocks.compactMap { block -> BlockViewModelProtocol? in
-            let blockViewModel = build(block, previousBlock: nil)
+            let blockViewModel = build(from: block)
             return blockViewModel
         }
     }
 
-    func build(_ block: BlockModelProtocol, previousBlock: BlockModelProtocol?) -> BlockViewModelProtocol? {
-        let viewModel: BlockViewModelProtocol?
+    func build(from block: BlockModelProtocol) -> BlockViewModelProtocol? {
         switch block.information.content {
         case let .text(content):
             switch content.contentType {
@@ -57,7 +73,6 @@ final class BlockViewModelBuilder {
                 let isCheckable = content.contentType == .title ? document.objectDetails?.layout == .todo : false
                 return TextBlockViewModel(
                     block: block,
-                    upperBlock: nil,
                     content: content,
                     isCheckable: isCheckable,
                     blockDelegate: delegate,
@@ -68,6 +83,7 @@ final class BlockViewModelBuilder {
                     openURL: { [weak self] url in
                         self?.router.openUrl(url)
                     },
+                    markdownListener: markdownListener,
                     focusSubject: subjectsHolder.focusSubject(for: block.information.id)
                 )
             }

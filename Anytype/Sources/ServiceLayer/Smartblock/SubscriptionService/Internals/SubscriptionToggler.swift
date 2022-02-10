@@ -2,7 +2,7 @@ import ProtobufMessages
 import BlocksModels
 import AnytypeCore
 
-typealias SubscriptionTogglerResult = (details: [ObjectDetails], pageCount: Int64)
+typealias SubscriptionTogglerResult = (details: [ObjectDetails], total: Int64)
 
 protocol SubscriptionTogglerProtocol {
     func startSubscription(data: SubscriptionData) -> SubscriptionTogglerResult?
@@ -46,7 +46,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             return nil
         }
         
-        return (details: result.records.asDetais, pageCount: 1)
+        return (details: result.records.asDetais, total: 1)
     }
     
     private func startSetSubscription(data: SetSubsriptionData) -> SubscriptionTogglerResult? {
@@ -138,12 +138,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             return nil
         }
         
-        // Returns 1 if count < numberOfRowsPerPageInSubscriptions
-        // And returns 1 if count = numberOfRowsPerPageInSubscriptions
-        let closestNumberToRowsPerPage = Int64( numberOfRowsPerPageInSubscriptions) - 1
-        let pageCount = (result.counters.total + closestNumberToRowsPerPage) / Int64(numberOfRowsPerPageInSubscriptions)
-        
-        return (details: result.records.asDetais, pageCount: pageCount)
+        return (details: result.records.asDetais, total: result.counters.total)
     }
     
     private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {

@@ -8,12 +8,12 @@ final class TextBlockActionHandler {
     private let service: BlockActionServiceProtocol
     private let contextId: String
     
-    private weak var modelsHolder: BlockViewModelsHolder?
+    private weak var modelsHolder: EditorMainItemModelsHolder?
 
     init(
         contextId: String,
         service: BlockActionServiceProtocol,
-        modelsHolder: BlockViewModelsHolder
+        modelsHolder: EditorMainItemModelsHolder
     ) {
         self.service = service
         self.contextId = contextId

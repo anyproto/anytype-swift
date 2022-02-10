@@ -3,9 +3,6 @@ import UIKit
 import BlocksModels
 
 struct TextBlockViewModel: BlockViewModelProtocol {
-    
-    var upperBlock: BlockModelProtocol?
-
     var indentationLevel: Int
     var information: BlockInformation
 
@@ -21,6 +18,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     private let actionHandler: BlockActionHandlerProtocol
     private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
+    private let mentionDetecter = MentionTextDetector()
+    private let markdownListener: MarkdownListener
 
     var hashable: AnyHashable {
         [
@@ -33,13 +32,13 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     init(
         block: BlockModelProtocol,
-        upperBlock: BlockModelProtocol?,
         content: BlockText,
         isCheckable: Bool,
         blockDelegate: BlockDelegate,
         actionHandler: BlockActionHandlerProtocol,
         showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
+        markdownListener: MarkdownListener,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     ) {
         self.block = block
@@ -52,6 +51,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.toggled = block.isToggled
         self.information = block.information
         self.indentationLevel = block.indentationLevel
+        self.markdownListener = markdownListener
         self.focusSubject = focusSubject
     }
 
@@ -83,10 +83,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             createEmptyBlock: { actionHandler.createEmptyBlock(parentId: information.id) },
             showPage: showPage,
             openURL: openURL,
-            changeText: { attributedText in
-                actionHandler.changeText(attributedText, info: information)
-                blockDelegate?.textDidChange()
-            },
             changeTextStyle: { attribute, range in
                 actionHandler.changeTextStyle(attribute, range: range, blockId: information.id)
             },
@@ -102,22 +98,23 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             textBlockSetNeedsLayout: {
                 blockDelegate?.textBlockSetNeedsLayout()
             },
+            textViewDidChangeText: { textView in
+                actionHandler.changeText(textView.attributedText, info: information)
+                blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))
+            },
             textViewWillBeginEditing: { textView in
-                blockDelegate?.willBeginEditing(data: .init(textView: textView, block: block, text: content.anytypeText))
+                blockDelegate?.willBeginEditing(data: blockDelegateData(textView: textView))
             },
             textViewDidBeginEditing: { _ in
                 blockDelegate?.didBeginEditing()
             },
-            textViewDidEndEditing: {  _ in
-                blockDelegate?.didEndEditing()
+            textViewDidEndEditing: { textView in
+                blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
             },
             textViewDidChangeCaretPosition: { caretPositionRange in
-                actionHandler.changeCaretPosition(range: caretPositionRange)
                 blockDelegate?.selectionDidChange(range: caretPositionRange)
             },
-            textViewDidApplyChangeType: { textChangeType in
-                blockDelegate?.textWillChange(changeType: textChangeType)
-            },
+            textViewShouldReplaceText: textViewShouldReplaceText,
             toggleCheckBox: {
                 actionHandler.checkbox(selected: !content.checked, blockId: information.id)
             },
@@ -126,5 +123,46 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 actionHandler.toggle(blockId: information.id)
             }
         )
+    }
+
+    private func blockDelegateData(textView: UITextView) -> TextBlockDelegateData {
+        .init(textView: textView, block: block, text: content.anytypeText)
+    }
+
+    private func textViewShouldReplaceText(
+        textView: UITextView,
+        replacementText: String,
+        range: NSRange
+    ) -> Bool {
+        let changeType = textView
+            .textChangeType(changeTextRange: range, replacementText: replacementText)
+        blockDelegate?.textWillChange(changeType: changeType)
+
+        if mentionDetecter.removeMentionIfNeeded(textView: textView, replacementText: replacementText) {
+            actionHandler.changeText(textView.attributedText, info: information)
+            return false
+        }
+
+        if let markdownChange = markdownListener.markdownChange(
+            textView: textView,
+            replacementText: replacementText,
+            range: range
+        ) {
+            switch markdownChange {
+            case let .turnInto(style, newText):
+                guard content.contentType != style else { return true }
+                guard BlockRestrictionsBuilder.build(content:  information.content).canApplyTextStyle(style) else { return true }
+
+                actionHandler.turnInto(style, blockId: information.id)
+                actionHandler.changeTextForced(newText, blockId: information.id)
+                textView.setFocus(.beginning)
+            case .setText(let text, let caretPosition):
+                break
+            }
+
+            return false
+        }
+
+        return true
     }
 }

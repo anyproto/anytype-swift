@@ -1,7 +1,7 @@
 @testable import Anytype
 import BlocksModels
 
-final class BlockActionHandlerMock: BlockActionHandlerProtocol {    
+final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     var blockSelectionHandler: BlockSelectionHandler? {
         get {
             assertionFailure()
@@ -154,5 +154,12 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
+    func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
+        assertionFailure()
+    }
+    
+    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation, attributedText: NSAttributedString) {
+        assertionFailure()
+    }
     
 }

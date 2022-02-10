@@ -38,6 +38,6 @@ struct EditorSetPaginationData {
     }
     
     static var empty: EditorSetPaginationData {
-        EditorSetPaginationData(selectedPage: 1, visiblePages: [1], pageCount: 1)
+        EditorSetPaginationData(selectedPage: 0, visiblePages: [], pageCount: 0)
     }
 }

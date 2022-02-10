@@ -5,17 +5,25 @@ struct EditorSetPaginationView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 0) {
-                backArror
-                Spacer()
-                pages
-                Spacer()
-                forwardArror
+            if model.pagitationData.pageCount >= 2 {
+                content
+            } else {
+                EmptyView()
             }
-            .padding().frame(height: 60)
-            
+        
             Rectangle().frame(height: 40).foregroundColor(.backgroundPrimary) // Navigation view stub
         }
+    }
+    
+    private var content: some View {
+        HStack(spacing: 0) {
+            backArror
+            Spacer()
+            pages
+            Spacer()
+            forwardArror
+        }
+        .padding().frame(height: 60)
     }
     
     private var pages: some View {

@@ -5,7 +5,6 @@ import BlocksModels
 class RelationBlockViewModel: BlockViewModelProtocol {
     var information: BlockInformation
     var indentationLevel: Int
-    var upperBlock: BlockModelProtocol?
 
     var relation: Relation
     var actionOnValue: ((_ relation: Relation) -> Void)?

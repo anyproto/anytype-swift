@@ -1,9 +1,7 @@
 import BlocksModels
 import UIKit
 
-struct VideoBlockViewModel: BlockViewModelProtocol {
-    var upperBlock: BlockModelProtocol?
-    
+struct VideoBlockViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {
         [
             indentationLevel,
