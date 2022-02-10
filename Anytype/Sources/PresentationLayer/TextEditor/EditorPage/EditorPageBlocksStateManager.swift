@@ -206,7 +206,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 let document = BaseDocument(objectId: content.targetBlockID)
                 let _ = document.open()
 
-                guard let id = document.flattenBlocks.last?.information.id else { return }
+                guard let id = document.children.last?.information.id else { return }
 
                 targetId = document.objectId
                 dropTargetId = id
