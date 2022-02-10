@@ -46,7 +46,7 @@ class ChangeTypeAccessoryView: UIView {
         }
 
         topView.layoutUsing.anchors {
-            $0.height.equal(to: Constants.topViewHeight, priority: .defaultLow)
+            $0.height.equal(to: Constants.topViewHeight)
         }
 
         topView.addSubview(changeButton) {
