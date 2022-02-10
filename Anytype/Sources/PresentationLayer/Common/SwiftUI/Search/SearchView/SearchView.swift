@@ -54,7 +54,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             LazyVStack(spacing: 0) {
                 ForEach(viewModel.searchData) { section in
                     Section(content: {
-                        ForEach(section.searchData.indices, id: \.self) { index in
+                        ForEach(section.searchData.indices) { index in
                             let searchData = section.searchData[index]
                             
                             Button(
