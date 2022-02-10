@@ -11,7 +11,7 @@ public enum ErrorDomain: String {
     case camera
     case clearCache
     
-    case treeBlockBuilder
+    case blockBuilder
     case localEventConverter
     case localEventConverterSetFocus
     case middlewareEventConverter

@@ -419,7 +419,7 @@ final class MiddlewareEventConverter {
         let roots = models.filter { $0.information.id == rootId }
 
         guard roots.count != 0 else {
-            anytypeAssertionFailure("Unknown situation. We can't have zero roots.", domain: .treeBlockBuilder)
+            anytypeAssertionFailure("Unknown situation. We can't have zero roots.", domain: .middlewareEventConverter)
             return
         }
 
@@ -427,7 +427,7 @@ final class MiddlewareEventConverter {
             // this situation is not possible, but, let handle it.
             anytypeAssertionFailure(
                 "We have several roots for our rootId. Not possible, but let us handle it.",
-                domain: .treeBlockBuilder
+                domain: .middlewareEventConverter
             )
         }
 

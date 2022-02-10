@@ -92,7 +92,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func addLink(targetId: BlockId, blockId: BlockId) {
         service.add(
-            info: BlockBuilder.createNewLink(targetBlockId: targetId),
+            info: BlockBuilder.createNewPageLink(targetBlockId: targetId),
             targetBlockId: blockId,
             position: .bottom,
             shouldSetFocusOnUpdate: false
@@ -199,30 +199,24 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     func addBlock(_ type: BlockContentType, blockId: BlockId) {
-        switch type {
-        case .smartblock(.page):
+        guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead", domain: .blockActionsService)
             _ = service.createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
-        default:
-            guard
-                let newBlock = BlockBuilder.createNewBlock(type: type),
-                let info = document.blocksContainer.model(
-                    id: blockId
-                )?.information
-            else {
-                return
-            }
-            
-            let shouldSetFocusOnUpdate = newBlock.content.isText ? true : false
-            let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
-            
-            service.add(
-                info: newBlock,
-                targetBlockId: info.id,
-                position: position,
-                shouldSetFocusOnUpdate: shouldSetFocusOnUpdate
-            )
+            return
         }
+            
+        guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
+        guard let info = document.blocksContainer.model(id: blockId)?.information else { return }
+        
+        let shouldSetFocusOnUpdate = newBlock.content.isText ? true : false
+        let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
+        
+        service.add(
+            info: newBlock,
+            targetBlockId: info.id,
+            position: position,
+            shouldSetFocusOnUpdate: shouldSetFocusOnUpdate
+        )
     }
 
     func selectBlock(blockInformation: BlockInformation) {
