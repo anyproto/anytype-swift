@@ -22,9 +22,10 @@ extension AccessoryViewStateManagerImpl: MentionViewDelegate {
         let lastMentionCharacterPosition = newMentionOffset + mentionString.length
         newText.insert(NSAttributedString(string: " "), at: lastMentionCharacterPosition)
         let newCaretPosition = NSMakeRange(lastMentionCharacterPosition + 2, 0) // 2 = space + 1 more char
-        
+
+        textView.attributedText = newText
+        textView.selectedRange = newCaretPosition
         handler.changeTextForced(newText, blockId: info.id)
-        handler.changeCaretPosition(range: newCaretPosition)
 
         Amplitude.instance().logSetMarkup(.mention(MentionData.noDetails(blockId: "")))
     }

@@ -9,7 +9,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let createEmptyBlock: () -> Void
         let showPage: (EditorScreenData) -> Void
         let openURL: (URL) -> Void
-        let changeText: (NSAttributedString) -> Void
+
         let changeTextStyle: (MarkupType, NSRange) -> Void
         let handleKeyboardAction: (CustomTextView.KeyboardAction, NSAttributedString) -> Void
         let becomeFirstResponder: () -> Void
@@ -17,12 +17,14 @@ struct TextBlockContentConfiguration: BlockConfiguration {
 
         let textBlockSetNeedsLayout: () -> Void
 
+        let textViewDidChangeText: (UITextView) -> Void
+
         let textViewWillBeginEditing: (UITextView) -> Void
         let textViewDidBeginEditing: (UITextView) -> Void
         let textViewDidEndEditing: (UITextView) -> Void
 
         let textViewDidChangeCaretPosition: (NSRange) -> Void
-        let textViewDidApplyChangeType: (TextChangeType) -> Void
+        let textViewShouldReplaceText: (UITextView, String, NSRange) -> Bool
 
         let toggleCheckBox: () -> Void
         let toggleDropDown: () -> Void
