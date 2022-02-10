@@ -19,7 +19,7 @@ struct RelationValueView: View {
     }
 
     private var relationView: some View {
-        Group {
+        HStack(spacing: 0) {
             switch relation {
             case .text(let text):
                 TextRelationView(value: text.value, hint: relation.hint, style: style, allowMultiLine: style.allowMultiLine)
@@ -46,6 +46,7 @@ struct RelationValueView: View {
             case .unknown(let unknown):
                 RelationsListRowPlaceholderView(hint: unknown.value, type: style.placeholderType)
             }
+            Spacer()
         }
     }
 }
