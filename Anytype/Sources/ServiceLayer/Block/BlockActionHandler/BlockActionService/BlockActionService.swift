@@ -41,16 +41,12 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool) {
-        guard let response = singleService
+        guard let blockId = singleService
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
 
-        if shouldSetFocusOnUpdate,
-           let addEntryMessage = response.messages.first(where: { $0.value == .blockAdd($0.blockAdd) }),
-            let block = addEntryMessage.blockAdd.blocks.first {
-                cursorManager.blockFocus = .init(id: block.id, position: .beginning)
-            }
-
-        response.asEventsBunch.send()
+        if shouldSetFocusOnUpdate {
+            cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+        }
     }
 
     func split(
