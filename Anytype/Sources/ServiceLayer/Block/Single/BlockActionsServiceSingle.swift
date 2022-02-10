@@ -64,13 +64,15 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         return true
     }
 
-    func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) -> MiddlewareResponse? {
+    func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockListDuplicate)
 
-        return Anytype_Rpc.BlockList.Duplicate.Service
+        let result = Anytype_Rpc.BlockList.Duplicate.Service
             .invoke(contextID: contextId, targetID: targetId, blockIds: blockIds, position: position.asMiddleware)
-            .map { MiddlewareResponse($0.event) }
-            .getValue(domain: .blockActionsService)
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .blockActionsService)?
+            .send()
+        
     }
 
     func move(

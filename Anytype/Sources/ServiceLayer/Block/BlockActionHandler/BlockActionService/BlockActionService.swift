@@ -82,15 +82,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func duplicate(blockId: BlockId) {        
         singleService
-            .duplicate(
-                contextId: documentId,
-                targetId: blockId,
-                blockIds: [blockId],
-                position: .bottom
-            )
-            .flatMap {
-                EventsBunch(contextId: documentId, middlewareEvents: $0.messages).send()
-            }
+            .duplicate(contextId: documentId, targetId: blockId, blockIds: [blockId], position: .bottom)
     }
 
 
