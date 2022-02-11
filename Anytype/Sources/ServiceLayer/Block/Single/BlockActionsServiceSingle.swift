@@ -39,18 +39,6 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         EventsBunch(event: result.event).send()
         return result.blockID
     }
-
-    func replace(contextId: BlockId, blockId: BlockId, info: BlockInformation) -> MiddlewareResponse? {
-        guard let block = BlockInformationConverter.convert(information: info) else {
-            anytypeAssertionFailure("replace action parsing error", domain: .blockActionsService)
-            return nil
-        }
-        
-        return Anytype_Rpc.Block.Replace.Service
-            .invoke(contextID: contextId, blockID: blockId, block: block)
-            .map { MiddlewareResponse($0.event) }
-            .getValue(domain: .blockActionsService)
-    }
     
     func delete(contextId: BlockId, blockIds: [BlockId]) -> Bool {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockDelete)
@@ -67,7 +55,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockListDuplicate)
 
-        let result = Anytype_Rpc.BlockList.Duplicate.Service
+        Anytype_Rpc.BlockList.Duplicate.Service
             .invoke(contextID: contextId, targetID: targetId, blockIds: blockIds, position: position.asMiddleware)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockActionsService)?
