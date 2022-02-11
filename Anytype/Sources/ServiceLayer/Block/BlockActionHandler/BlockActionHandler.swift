@@ -93,8 +93,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.add(
             info: BlockBuilder.createNewPageLink(targetBlockId: targetId),
             targetBlockId: blockId,
-            position: .bottom,
-            shouldSetFocusOnUpdate: false
+            position: .bottom
         )
     }
     
@@ -207,14 +206,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
         guard let info = document.blocksContainer.model(id: blockId)?.information else { return }
         
-        let shouldSetFocusOnUpdate = newBlock.content.isText ? true : false
         let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
         
         service.add(
             info: newBlock,
             targetBlockId: info.id,
-            position: position,
-            shouldSetFocusOnUpdate: shouldSetFocusOnUpdate
+            position: position
         )
     }
 
