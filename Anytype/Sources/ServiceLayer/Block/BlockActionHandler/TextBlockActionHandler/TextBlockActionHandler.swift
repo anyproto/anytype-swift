@@ -126,8 +126,7 @@ final class TextBlockActionHandler {
                         service.add(
                             info: newBlock,
                             targetBlockId: firstChildId,
-                            position: .top,
-                            shouldSetFocusOnUpdate: true
+                            position: .top
                         )
                     default:
                         let type = payload.contentType.isList ? payload.contentType : .text

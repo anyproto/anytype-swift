@@ -26,7 +26,7 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
         filePath: String,
         contextID: BlockId,
         blockID: BlockId
-    ) -> AnyPublisher<MiddlewareResponse, Error>  {
+    ) -> AnyPublisher<EventsBunch, Error>  {
         Anytype_Rpc.Block.Upload.Service.invoke(
             contextID: contextID,
             blockID: blockID,
@@ -34,7 +34,7 @@ final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
             url: ""
         )
             .map(\.event)
-            .map(MiddlewareResponse.init)
+            .map(EventsBunch.init)
             .subscribe(on: DispatchQueue.global())
             .eraseToAnyPublisher()
     }
