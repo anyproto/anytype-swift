@@ -30,7 +30,7 @@ struct ReadabilityPadding: ViewModifier {
 
         // If the width is already readable then don't apply any padding.
         guard width >= idealWidth else {
-            return 0
+            return self.padding
         }
 
         // If the width is too large then calculate the padding required
