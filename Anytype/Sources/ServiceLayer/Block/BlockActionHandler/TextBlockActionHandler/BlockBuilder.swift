@@ -6,18 +6,15 @@ struct BlockBuilder {
         switch info.content {
         case .text:
             return createContentType(info: info).flatMap { content in
-                BlockInformation(content: content)
+                BlockInformation.empty(content: content)
             }
         default: return nil
         }
     }
     
     static func createNewPageLink(targetBlockId: BlockId) -> BlockInformation {
-        BlockInformation(
-            content: .link(
-                BlockLink(targetBlockID: targetBlockId, style: .page, fields: [:])
-            )
-        )
+        let content: BlockContent = .link(BlockLink(targetBlockID: targetBlockId, style: .page, fields: [:]))
+        return BlockInformation.empty(content: content)
     }
 
     static func textStyle(info: BlockInformation) -> BlockText.Style? {
@@ -30,7 +27,7 @@ struct BlockBuilder {
     
     static func createNewBlock(type: BlockContentType) -> BlockInformation? {
         createContent(type: type).flatMap { content in
-            var block = BlockInformation(content: content)
+            var block = BlockInformation.empty(content: content)
             
             if case .file(let blockFile) = content, case .image = blockFile.contentType {
                 block.alignment = .center

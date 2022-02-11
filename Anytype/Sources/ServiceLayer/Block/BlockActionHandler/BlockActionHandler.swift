@@ -85,9 +85,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         listService.moveTo(contextId: document.objectId, blockId: blockId, targetId: targetId)
     }
     
-    func createEmptyBlock(parentId: BlockId?) {
-        let parentId = parentId ?? document.objectId
-        service.addChild(info: BlockInformation.emptyText(), parentId: parentId)
+    func createEmptyBlock(parentId: BlockId) {
+        service.addChild(info: BlockInformation.emptyText, parentId: parentId)
     }
     
     func addLink(targetId: BlockId, blockId: BlockId) {
