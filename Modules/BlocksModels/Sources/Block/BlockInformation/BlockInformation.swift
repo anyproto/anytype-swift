@@ -30,18 +30,7 @@ public struct BlockInformation: Hashable {
     }
 }
 
-public extension BlockInformation {
-    init(blockId: BlockId = "", content: BlockContent) {
-        self.init(
-            id: blockId,
-            content: content,
-            backgroundColor: nil,
-            alignment: .left,
-            childrenIds: [],
-            fields: [:]
-        )
-    }
-    
+public extension BlockInformation {    
     func updated(with backgroundColor: MiddlewareColor?) -> BlockInformation {
         BlockInformation(
             id: id,
