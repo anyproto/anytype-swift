@@ -37,20 +37,14 @@ final class BlockActionService: BlockActionServiceProtocol {
     // MARK: Actions/Add
 
     func addChild(info: BlockInformation, parentId: BlockId) {
-        add(info: info, targetBlockId: parentId, position: .inner, shouldSetFocusOnUpdate: true)
+        add(info: info, targetBlockId: parentId, position: .inner)
     }
 
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool) {
-        guard let response = singleService
+    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition) {
+        guard let blockId = singleService
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
 
-        if shouldSetFocusOnUpdate,
-           let addEntryMessage = response.messages.first(where: { $0.value == .blockAdd($0.blockAdd) }),
-            let block = addEntryMessage.blockAdd.blocks.first {
-                cursorManager.blockFocus = .init(id: block.id, position: .beginning)
-            }
-
-        response.asEventsBunch.send()
+        cursorManager.blockFocus = .init(id: blockId, position: .beginning)
     }
 
     func split(
@@ -86,15 +80,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func duplicate(blockId: BlockId) {        
         singleService
-            .duplicate(
-                contextId: documentId,
-                targetId: blockId,
-                blockIds: [blockId],
-                position: .bottom
-            )
-            .flatMap {
-                EventsBunch(contextId: documentId, middlewareEvents: $0.messages).send()
-            }
+            .duplicate(contextId: documentId, targetId: blockId, blockIds: [blockId], position: .bottom)
     }
 
 
@@ -209,8 +195,8 @@ extension BlockActionService {
             contextID: self.documentId,
             blockID: blockId
         )
-            .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath", domain: .blockActionsService) { serviceSuccess in
-                serviceSuccess.asEventsBunch.send()
+            .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath", domain: .blockActionsService) { events in
+                events.send()
         }.store(in: &self.subscriptions)
     }
 }
