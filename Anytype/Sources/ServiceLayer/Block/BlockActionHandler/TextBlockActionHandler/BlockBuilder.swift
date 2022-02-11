@@ -1,34 +1,20 @@
 import BlocksModels
+import AnytypeCore
 
 struct BlockBuilder {
     static func createInformation(info: BlockInformation) -> BlockInformation? {
         switch info.content {
         case .text:
             return createContentType(info: info).flatMap { content in
-                BlockInformation(content: content)
+                BlockInformation.empty(content: content)
             }
         default: return nil
         }
     }
     
-    static func createNewLink(targetBlockId: BlockId) -> BlockInformation {
-        BlockInformation(
-            content: .link(
-                BlockLink(targetBlockID: targetBlockId, style: .page, fields: [:])
-            )
-        )
-    }
-
-    static func createNewBlock(type: BlockContentType) -> BlockInformation? {
-        createContentType(blockType: type).flatMap { content in
-            var block = BlockInformation(content: content)
-            
-            if case .file(let blockFile) = content, case .image = blockFile.contentType {
-                block.alignment = .center
-            }
-
-            return block
-        }
+    static func createNewPageLink(targetBlockId: BlockId) -> BlockInformation {
+        let content: BlockContent = .link(BlockLink(targetBlockID: targetBlockId, style: .page, fields: [:]))
+        return BlockInformation.empty(content: content)
     }
 
     static func textStyle(info: BlockInformation) -> BlockText.Style? {
@@ -38,7 +24,40 @@ struct BlockBuilder {
         
         return nil
     }
+    
+    static func createNewBlock(type: BlockContentType) -> BlockInformation? {
+        createContent(type: type).flatMap { content in
+            var block = BlockInformation.empty(content: content)
+            
+            if case .file(let blockFile) = content, case .image = blockFile.contentType {
+                block.alignment = .center
+            }
 
+            return block
+        }
+    }
+
+    private static func createContent(type: BlockContentType) -> BlockContent? {
+        switch type {
+        case let .text(style):
+            return .text(.init(contentType: style))
+        case .bookmark:
+            return .bookmark(.empty())
+        case let .divider(style):
+            return .divider(.init(style: style))
+        case let .file(type):
+            return .file(.empty(contentType: type))
+        case let .link(style):
+            return .link(.empty(style: style))
+        case let .relation(key: key):
+            return .relation(.init(key: key))
+        case .layout, .smartblock, .featuredRelations, .dataView:
+            anytypeAssertionFailure("Unsupported type \(type)", domain: .blockBuilder)
+            return nil
+        }
+    }
+    
+    
     private static func createContentType(info: BlockInformation) -> BlockContent? {
         switch info.content {
         case let .text(blockType):
@@ -51,25 +70,6 @@ struct BlockBuilder {
             default: return .text(.init(contentType: .text))
             }
         default: return nil
-        }
-    }
-
-    private static func createContentType(blockType: BlockContentType) -> BlockContent? {
-        switch blockType {
-        case let .text(style):
-            return .text(.init(contentType: style))
-        case .bookmark:
-            return .bookmark(.empty())
-        case let .divider(style):
-            return .divider(.init(style: style))
-        case let .file(type):
-            return .file(.empty(contentType: type))
-        case let .link(style):
-            return .link(.init(style: style))
-        case let .relation(key: key):
-            return .relation(.init(key: key))
-        case .layout, .smartblock, .featuredRelations, .dataView:
-            return nil
         }
     }
 }
