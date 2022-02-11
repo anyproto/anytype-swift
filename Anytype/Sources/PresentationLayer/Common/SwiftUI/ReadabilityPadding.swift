@@ -1,5 +1,11 @@
 import SwiftUI
 
+extension View {
+    func readabilityPadding(_ padding: CGFloat = 0) -> some View {
+        modifier(ReadabilityPadding(padding: padding))
+    }
+}
+
 struct ReadabilityPadding: ViewModifier {
     
     let padding: CGFloat

@@ -23,7 +23,7 @@ struct AlphaInviteCodeView: View {
         VStack(spacing: 0) {
             Spacer()
             contentView
-                .modifier(ReadabilityPadding(padding: 20))
+                .readabilityPadding(20)
         }
     }
     
