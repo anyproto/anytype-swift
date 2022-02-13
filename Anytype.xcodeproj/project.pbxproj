@@ -630,6 +630,8 @@
 		530F503426F0ECC400F76D03 /* AudioBlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F503326F0ECC400F76D03 /* AudioBlockContentView.swift */; };
 		530F503626F0ECD100F76D03 /* AudioBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 530F503526F0ECD100F76D03 /* AudioBlockContentConfiguration.swift */; };
 		531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531197DF26430A9800FFC71E /* BlockActionHandler.swift */; };
+		5315D39627B99E28000F3456 /* StatusRelationViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5315D39527B99E28000F3456 /* StatusRelationViewUIKit.swift */; };
+		5315D39B27B9A0B0000F3456 /* RelationPlaceholderViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5315D39A27B9A0B0000F3456 /* RelationPlaceholderViewUIKit.swift */; };
 		531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531629342632BD0A000D6780 /* StylePanelLayout.swift */; };
 		531629382632BD0B000D6780 /* StyleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531629352632BD0A000D6780 /* StyleViewController.swift */; };
 		531629392632BD0B000D6780 /* StyleCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531629362632BD0A000D6780 /* StyleCellConfiguration.swift */; };
@@ -1513,6 +1515,8 @@
 		530F503326F0ECC400F76D03 /* AudioBlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBlockContentView.swift; sourceTree = "<group>"; };
 		530F503526F0ECD100F76D03 /* AudioBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		531197DF26430A9800FFC71E /* BlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockActionHandler.swift; sourceTree = "<group>"; };
+		5315D39527B99E28000F3456 /* StatusRelationViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationViewUIKit.swift; sourceTree = "<group>"; };
+		5315D39A27B9A0B0000F3456 /* RelationPlaceholderViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationPlaceholderViewUIKit.swift; sourceTree = "<group>"; };
 		531629342632BD0A000D6780 /* StylePanelLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StylePanelLayout.swift; sourceTree = "<group>"; };
 		531629352632BD0A000D6780 /* StyleViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleViewController.swift; sourceTree = "<group>"; };
 		531629362632BD0A000D6780 /* StyleCellConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StyleCellConfiguration.swift; sourceTree = "<group>"; };
@@ -4897,6 +4901,8 @@
 			children = (
 				5386E3BD27B2C8B7004D8221 /* TextRelationViewUIKit.swift */,
 				5386E3CC27B51BA7004D8221 /* CheckboxRelationViewUIKit.swift */,
+				5315D39527B99E28000F3456 /* StatusRelationViewUIKit.swift */,
+				5315D39A27B9A0B0000F3456 /* RelationPlaceholderViewUIKit.swift */,
 			);
 			path = UIKit;
 			sourceTree = "<group>";
@@ -4904,10 +4910,10 @@
 		5386E3BC27B2C86D004D8221 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				12461BFA2767835200D47708 /* Tag */,
 				5386E3C127B3F63D004D8221 /* TextRelationViewSwiftUI.swift */,
 				127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */,
 				127EABB62735254500C731F2 /* StatusRelationView.swift */,
-				12461BFA2767835200D47708 /* Tag */,
 				127EABF82739587400C731F2 /* ObjectRelationView.swift */,
 				12EB9B30277442BC00BA732F /* FileRelationView.swift */,
 			);
@@ -5752,6 +5758,7 @@
 				C97CD703272AA3C90085AE64 /* EditorСursorManager.swift in Sources */,
 				3DC9F276266107C200B115B9 /* AlphaInviteCodeView.swift in Sources */,
 				EAADB1BE26790459004B0AF2 /* NSMutableAttributedStringExtension.swift in Sources */,
+				5315D39B27B9A0B0000F3456 /* RelationPlaceholderViewUIKit.swift in Sources */,
 				125B6EBC26F235F400BCD7D6 /* EditorSearchCell.swift in Sources */,
 				127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */,
 				535F79962746CDBC0050A1B8 /* FlowRelationsView.swift in Sources */,
@@ -5986,6 +5993,7 @@
 				3DB1C9F527283FA0000D2779 /* DashboardClearCacheAlert.swift in Sources */,
 				3DB3EC69275513B8002781DA /* ProgressBarStub.swift in Sources */,
 				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,
+				5315D39627B99E28000F3456 /* StatusRelationViewUIKit.swift in Sources */,
 				C92DCD952729952500A03D91 /* CursorModeAccessoryViewModel.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
 				EA0261292625CFEE00AE6D86 /* HeaderBlockRestrictions.swift in Sources */,

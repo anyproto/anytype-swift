@@ -61,8 +61,7 @@ final class RelationValueViewUIKit: UIView {
         case .number(let text):
             return TextRelationFactory.uiKit(value: text.value, hint: relation.hint, style: style)
         case .status(let status):
-            return UIView()
-//            StatusRelationView(statusOption: status.value, hint: relation.hint, style: style)
+            return StatusRelationViewUIKit(statusOption: status.value, hint: relation.hint, style: style)
         case .date(let date):
             return TextRelationFactory.uiKit(value: date.value?.text, hint: relation.hint, style: style)
         case .object(let object):

@@ -30,7 +30,7 @@ final class CheckboxRelationViewUIKit: UIView {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: checkboxView.intrinsicContentSize.width, height: checkboxView.intrinsicContentSize.height)
+        checkboxView.intrinsicContentSize
     }
 
     // MARK: - Setup view

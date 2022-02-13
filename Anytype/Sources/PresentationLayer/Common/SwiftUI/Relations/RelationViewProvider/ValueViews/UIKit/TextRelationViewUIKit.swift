@@ -34,7 +34,7 @@ final class TextRelationViewUIKit: UIView {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: textView.intrinsicContentSize.width, height: textView.intrinsicContentSize.height)
+        textView.intrinsicContentSize
     }
 
     // MARK: - Setup view
