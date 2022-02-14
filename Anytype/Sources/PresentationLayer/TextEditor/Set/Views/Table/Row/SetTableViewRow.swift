@@ -51,6 +51,7 @@ struct SetTableViewRow: View {
         RelationValueView(relation: relationData, style: .set) { _ in
             model.router.showRelationValueEditingView(
                 objectId: data.id,
+                source: .dataview(recordId: data.id),
                 relation: relationData
             )
         }

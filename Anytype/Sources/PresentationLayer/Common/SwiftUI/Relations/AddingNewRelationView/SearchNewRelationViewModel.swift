@@ -25,6 +25,7 @@ enum SearchNewRelationSectionType: Hashable, Identifiable {
 // MARK: - View model
 
 class SearchNewRelationViewModel: ObservableObject, Dismissible {
+    let source: RelationSource
     let relationService: RelationsServiceProtocol
     let usedObjectRelationsIds: Set<String> // Used for exclude relations that already has in object
     var onSelect: (RelationMetadata) -> ()
@@ -35,18 +36,24 @@ class SearchNewRelationViewModel: ObservableObject, Dismissible {
 
     var createNewRelationViewModel: CreateNewRelationViewModel {
         CreateNewRelationViewModel(
+            source: source,
             relationService: self.relationService,
             onSelect: { [weak self] in
                 self?.shouldDismiss = true
                 self?.onSelect($0)
-            })
+            }
+        )
     }
 
     // MARK: - Init
 
-    init(relationService: RelationsServiceProtocol,
-         objectRelations: ParsedRelations,
-         onSelect: @escaping (RelationMetadata) -> ()) {
+    init(
+        source: RelationSource,
+        relationService: RelationsServiceProtocol,
+        objectRelations: ParsedRelations,
+        onSelect: @escaping (RelationMetadata) -> ()
+    ) {
+        self.source = source
         self.relationService = relationService
         self.onSelect = onSelect
 
@@ -77,14 +84,14 @@ class SearchNewRelationViewModel: ObservableObject, Dismissible {
     }
 
     func obtainAvailbaleRelationList() -> [SearchNewRelationSectionType] {
-        let relatonsMetadata = relationService.availableRelations()?.filter {
+        let relatonsMetadata = relationService.availableRelations(source: source)?.filter {
             !$0.isHidden && !usedObjectRelationsIds.contains($0.id)
         } ?? []
         return [.createNewRelation, .addFromLibriry(relatonsMetadata)]
     }
 
     func addRelation(_ relation: RelationMetadata) {
-        if let createdRelation = relationService.addRelation(relation) {
+        if let createdRelation = relationService.addRelation(source: source, relation: relation) {
             onSelect(createdRelation)
         }
     }

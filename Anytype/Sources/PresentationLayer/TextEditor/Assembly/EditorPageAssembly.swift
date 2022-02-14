@@ -89,7 +89,7 @@ final class EditorAssembly {
                 router?.goBack()
             },
             onRelationValueEditingTap: { [weak router] in
-                router?.showRelationValueEditingView(key: $0)
+                router?.showRelationValueEditingView(key: $0, source: .object)
             }
         )
                 
