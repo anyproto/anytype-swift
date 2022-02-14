@@ -50,7 +50,7 @@ final class TextBlockTextViewStyler {
             setupText(in: textView, placeholer: "Heading".localized, textStyle: configuration.content.anytypeText)
         case .header3:
             setupText(in: textView, placeholer: "Subheading".localized, textStyle: configuration.content.anytypeText)
-        case .header4, .code, .text:
+        case .header4, .code, .text, .callout:
             setupText(in: textView, placeholer: "", textStyle: configuration.content.anytypeText)
         }
     }

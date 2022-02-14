@@ -40,6 +40,7 @@ extension Anytype_Rpc.Block.Set.Text.Text.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Color.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Style.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Text.Checked.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Block.Set.Text.Icon.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.File.Name.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Image.Name.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Set.Image.Width.Response.Error: Swift.Error {}
@@ -148,6 +149,8 @@ extension Anytype_Rpc.MakeTemplate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.MakeTemplateByObjectType.Response.Error: Swift.Error {}
 extension Anytype_Rpc.CloneTemplate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ObjectDuplicate.Response.Error: Swift.Error {}
+extension Anytype_Rpc.UnsplashSearch.Response.Error: Swift.Error {}
+extension Anytype_Rpc.UnsplashDownload.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ApplyTemplate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Debug.Sync.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Debug.Thread.Response.Error: Swift.Error {}

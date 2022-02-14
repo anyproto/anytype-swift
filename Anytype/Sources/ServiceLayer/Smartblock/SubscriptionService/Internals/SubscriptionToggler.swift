@@ -120,19 +120,20 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         pageNumber: Int64 = 1
     ) -> SubscriptionTogglerResult? {
         let offset = Int64(pageNumber - 1) * numberOfRowsPerPageInSubscriptions
-        let response = Anytype_Rpc.Object.SearchSubscribe.Service.invoke(
-            subID: subId.rawValue,
-            filters: filters,
-            sorts: sorts,
-            fullText: "",
-            limit: Int32(numberOfRowsPerPageInSubscriptions),
-            offset: Int32(offset),
-            keys: keys ?? homeDetailsKeys.map { $0.rawValue },
-            afterID: "",
-            beforeID: "",
-            source: source,
-            ignoreWorkspace: ""
-        )
+        let response = Anytype_Rpc.Object.SearchSubscribe.Service
+            .invoke(
+                subID: subId.rawValue,
+                filters: filters,
+                sorts: sorts,
+                limit: numberOfRowsPerPageInSubscriptions,
+                offset: offset,
+                keys: keys ?? homeDetailsKeys.map { $0.rawValue },
+                afterID: "",
+                beforeID: "",
+                source: source,
+                ignoreWorkspace: "",
+                noDepSubscription: false
+            )
         
         guard let result = response.getValue(domain: .subscriptionService) else {
             return nil

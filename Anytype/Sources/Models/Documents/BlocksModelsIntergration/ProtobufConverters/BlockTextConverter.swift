@@ -9,7 +9,9 @@ extension BlockText {
                 style: contentType.asMiddleware,
                 marks: marks,
                 checked: checked,
-                color: color?.rawValue ?? ""
+                color: color?.rawValue ?? "",
+                iconEmoji: iconEmoji,
+                iconImage: iconImage
             )
         )
     }
@@ -28,7 +30,9 @@ extension Anytype_Model_Block.Content.Text {
                 marks: marks,
                 color: MiddlewareColor(rawValue: color),
                 contentType: contentType,
-                checked: checked
+                checked: checked,
+                iconEmoji: iconEmoji,
+                iconImage: iconImage
             )
         }
     }

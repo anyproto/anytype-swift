@@ -52,7 +52,9 @@ final class LocalEventConverter {
             style: oldText.contentType.asMiddleware,
             marks: text.marks,
             checked: oldText.checked,
-            color: oldText.color?.rawValue ?? ""
+            color: oldText.color?.rawValue ?? "",
+            iconEmoji: oldText.iconEmoji,
+            iconImage: oldText.iconImage
         )
         
         guard var textContent = middleContent.textContent else {

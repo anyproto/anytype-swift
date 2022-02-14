@@ -67,7 +67,9 @@ struct BlockValidator {
             color: content.color,
             contentType: content.contentType,
             checked: content.checked,
-            number: content.number
+            number: content.number,
+            iconEmoji: content.iconEmoji,
+            iconImage: content.iconImage
         )
     }
 }

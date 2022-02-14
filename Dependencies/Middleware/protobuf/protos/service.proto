@@ -83,6 +83,7 @@ service ClientCommands {
     rpc BlockListSetTextMark (anytype.Rpc.BlockList.Set.Text.Mark.Request) returns (anytype.Rpc.BlockList.Set.Text.Mark.Response);
     rpc BlockSetTextStyle (anytype.Rpc.Block.Set.Text.Style.Request) returns (anytype.Rpc.Block.Set.Text.Style.Response);
     rpc BlockSetTextChecked (anytype.Rpc.Block.Set.Text.Checked.Request) returns (anytype.Rpc.Block.Set.Text.Checked.Response);
+    rpc BlockSetTextIcon (anytype.Rpc.Block.Set.Text.Icon.Request) returns (anytype.Rpc.Block.Set.Text.Icon.Response);
 
     rpc BlockSplit (anytype.Rpc.Block.Split.Request) returns (anytype.Rpc.Block.Split.Response);
     rpc BlockMerge (anytype.Rpc.Block.Merge.Request) returns (anytype.Rpc.Block.Merge.Response);
@@ -199,6 +200,10 @@ service ClientCommands {
     rpc MakeTemplateByObjectType (anytype.Rpc.MakeTemplateByObjectType.Request) returns (anytype.Rpc.MakeTemplateByObjectType.Response);
     rpc CloneTemplate (anytype.Rpc.CloneTemplate.Request) returns (anytype.Rpc.CloneTemplate.Response);
     rpc ObjectDuplicate (anytype.Rpc.ObjectDuplicate.Request) returns (anytype.Rpc.ObjectDuplicate.Response);
+    rpc UnsplashSearch (anytype.Rpc.UnsplashSearch.Request) returns (anytype.Rpc.UnsplashSearch.Response);
+    // UnsplashDownload downloads picture from unsplash by ID, put it to the IPFS and returns the hash.
+    // The artist info is available in the object details
+    rpc UnsplashDownload (anytype.Rpc.UnsplashDownload.Request) returns (anytype.Rpc.UnsplashDownload.Response);
     rpc ApplyTemplate (anytype.Rpc.ApplyTemplate.Request) returns (anytype.Rpc.ApplyTemplate.Response);
 
     rpc DebugSync (anytype.Rpc.Debug.Sync.Request) returns (anytype.Rpc.Debug.Sync.Response);
