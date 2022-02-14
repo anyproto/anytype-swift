@@ -102,7 +102,7 @@ struct LoginView: View {
                 Spacer()
                 Image.arrow
             }
-            .modifier(DividerModifier(spacing: 10))
+            .divider(spacing: 10)
         }
     }
 
@@ -119,7 +119,7 @@ struct LoginView: View {
                 Image(systemName: "key")
                     .foregroundColor(Color.System.amber125)
             }
-            .modifier(DividerModifier(spacing: 10))
+            .divider(spacing: 10)
         }
     }
     

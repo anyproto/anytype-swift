@@ -59,7 +59,7 @@ struct RelationOptionsSearchView: View {
             }
             .padding(.bottom, 10)
         }
-        .modifier(DividerModifier(spacing: 0))
+        .divider()
     }
     
     private var addButton: some View {
