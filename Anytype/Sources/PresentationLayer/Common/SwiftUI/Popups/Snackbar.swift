@@ -18,37 +18,45 @@ struct Snackbar: View {
     }
 
     var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .center) {
-                self.presenting
-                VStack {
-                    Spacer()
-                    if isShowing {
-                        snackbar(width: geometry.readableAlertWidth)
-                            .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
-                    }
+        ZStack(alignment: .center) {
+            presenting
+            
+            VStack {
+                Spacer()
+                if isShowing {
+                    snackbarContainer
+                        .transition(.asymmetric(insertion: .move(edge: .bottom), removal: .opacity))
                 }
-                .animation(.spring(), value: isShowing)
             }
+            .animation(.spring(), value: isShowing)
         }
     }
     
-    private func snackbar(width: CGFloat) -> some View {
-        HStack {
-            Image.checked
-            text
+    private var snackbarContainer: some View {
+        HStack(spacing: 0) {
+            Spacer()
+            snackbar
+            Spacer()
         }
-        .padding()
-        .frame(width: width, height: 64)
-        .background(Color.backgroundPrimary)
-        .clipShape(RoundedRectangle(cornerRadius: 10))
-        .shadow(radius: 7)
         .offset(x: 0, y: -20)
         .onAppear {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 self.isShowing = false
             }
         }
+    }
+    
+    private var snackbar: some View {
+        HStack {
+            Image.checked
+            text
+                .lineLimit(3)
+        }
+        .padding()
+        .frame(minHeight: 64)
+        .background(Color.backgroundPrimary)
+        .clipShape(RoundedRectangle(cornerRadius: 10))
+        .shadow(radius: 7)
     }
     
 }
