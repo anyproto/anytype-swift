@@ -7,7 +7,6 @@ import FloatingPanel
 import AnytypeCore
 
 final class EditorRouter: EditorRouterProtocol {
-    
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let fileRouter: FileRouter
