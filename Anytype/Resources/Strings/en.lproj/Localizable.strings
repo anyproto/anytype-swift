@@ -131,7 +131,7 @@
 
 // Keychain screen
 "Keychain phrase" = "Keychain phrase";
-"Keychain phrase description" = "You will need it to sign in. Keep it in a safe place.\nIf you lose it, you can no longer access your account.";
+"Keychain phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
 "Keychain phrase copied to clipboard" = "Keychain phrase copied to clipboard";
 "Save keychain alert part 1" = "If you lose the passphrase and get logged out you will not be able to ";
 "Save keychain alert part 2" = "ever access your data again";
