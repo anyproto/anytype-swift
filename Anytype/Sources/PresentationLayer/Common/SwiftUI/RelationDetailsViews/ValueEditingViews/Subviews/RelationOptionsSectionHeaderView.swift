@@ -7,7 +7,7 @@ struct RelationOptionsSectionHeaderView: View {
         AnytypeText(title, style: .caption1Regular, color: .textSecondary)
             .padding(.top, 26)
             .padding(.bottom, 8)
-            .modifier(DividerModifier(spacing: 0, alignment: .leading))
+            .divider(spacing: 0, alignment: .leading)
     }
 }
 

@@ -11,7 +11,7 @@ struct StatusRelationDetailsRowView: View {
             content
             Spacer.fixedHeight(14)
         }
-        .modifier(DividerModifier(spacing: 0))
+        .divider()
     }
     
     private var content: some View {

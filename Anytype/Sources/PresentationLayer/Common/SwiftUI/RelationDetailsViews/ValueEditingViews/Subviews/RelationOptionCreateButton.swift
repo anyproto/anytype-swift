@@ -16,7 +16,7 @@ struct RelationOptionCreateButton: View {
             }
             .padding(.vertical, 14)
         }
-        .modifier(DividerModifier(spacing: 0))
+        .divider()
     }
 }
 

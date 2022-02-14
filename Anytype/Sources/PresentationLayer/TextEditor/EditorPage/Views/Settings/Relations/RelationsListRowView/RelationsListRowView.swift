@@ -38,7 +38,7 @@ struct RelationsListRowView: View {
                     starImageView
                 }
                 .frame(height: gr.size.height)
-                .modifier(DividerModifier(spacing:0))
+                .divider()
             }
         }
         .frame(height: 48)

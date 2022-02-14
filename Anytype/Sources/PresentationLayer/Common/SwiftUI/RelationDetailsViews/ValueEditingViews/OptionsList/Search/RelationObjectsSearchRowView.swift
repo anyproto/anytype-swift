@@ -33,7 +33,7 @@ struct RelationObjectsSearchRowView: View {
         }
         .frame(height: 64)
         .padding(.horizontal, 20)
-        .modifier(DividerModifier(spacing: 0, leadingPadding: 80, trailingPadding: 20))
+        .divider(spacing: 0, leadingPadding: 80, trailingPadding: 20)
     }
     
     private var text: some View {
@@ -46,17 +46,3 @@ struct RelationObjectsSearchRowView: View {
         }
     }
 }
-
-//struct RelationObjectsSearchRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RelationObjectsSearchRowView(
-//            data: RelationOptionsSearchData(
-//                id: "id",
-//                iconImage: .todo(true),
-//                title: "title",
-//                subtitle: "subtitle"
-//            ),
-//            isSelected: true
-//        ) {}
-//    }
-//}
