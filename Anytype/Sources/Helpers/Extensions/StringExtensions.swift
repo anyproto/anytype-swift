@@ -41,11 +41,4 @@ extension String {
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: self)
     }
-
-    var isURL: Bool {
-        let urlRegEx = "(?i)https?://(?:www\\.)?\\S+(?:/|\\b)"
-        let urlTest = NSPredicate(format: "SELF MATCHES %@", urlRegEx)
-
-        return urlTest.evaluate(with: self)
-    }
 }

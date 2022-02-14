@@ -146,7 +146,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             return false
         }
 
-        if replacementText.isURL, let url = URL(string: replacementText) {
+        if replacementText.isValidURL(), let url = URL(string: replacementText) {
 
             let newText = attributedStringWithURL(
                 attributedText: textView.attributedText,
