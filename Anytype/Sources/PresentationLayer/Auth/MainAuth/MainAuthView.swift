@@ -52,9 +52,10 @@ struct MainAuthView: View {
     
     private var analyticsConsentView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText("Important notice".localized, style: .heading, color: .textPrimary)
+            AnytypeText("On analytics".localized, style: .heading, color: .textPrimary)
             Spacer.fixedHeight(11)
             AnytypeText("Analytics constent text".localized, style: .uxCalloutRegular, color: .textPrimary)
+                .padding(.trailing, 5)
             Spacer.fixedHeight(18)
             StandardButton(text: "Start".localized, style: .primary) {
                 UISelectionFeedbackGenerator().selectionChanged()

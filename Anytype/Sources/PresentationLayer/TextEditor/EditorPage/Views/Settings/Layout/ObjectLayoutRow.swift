@@ -38,8 +38,7 @@ struct ObjectLayoutRow: View {
             }
         }
         .padding(.top, 12)
-        .modifier(DividerModifier(spacing: 12))
-            
+        .divider(spacing: 12)            
     }
 }
 

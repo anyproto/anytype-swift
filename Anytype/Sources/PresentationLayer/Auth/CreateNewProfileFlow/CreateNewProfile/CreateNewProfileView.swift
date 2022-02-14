@@ -56,7 +56,7 @@ struct CreateNewProfileView: View {
                     AnytypeText("Enter your name".localized, style: .heading, color: .textTertiary)
                 }
                 .disableAutocorrection(true)
-                .modifier(DividerModifier(spacing: 10))
+                .divider(spacing: 10)
             
             Spacer.fixedHeight(20)
             

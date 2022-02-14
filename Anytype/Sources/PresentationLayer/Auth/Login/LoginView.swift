@@ -40,9 +40,8 @@ struct LoginView: View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText("Login with phrase".localized, style: .heading, color: .textPrimary)
-                Spacer.fixedHeight(32)
+                Spacer.fixedHeight(19)
                 scanQR
-                Spacer.fixedHeight(16)
                 if viewModel.canRestoreFromKeychain {
                     restoreFromKeychain
                 }
@@ -102,7 +101,8 @@ struct LoginView: View {
                 Spacer()
                 Image.arrow
             }
-            .modifier(DividerModifier(spacing: 10))
+            .frame(height: 48)
+            .divider()
         }
     }
 
@@ -119,7 +119,8 @@ struct LoginView: View {
                 Image(systemName: "key")
                     .foregroundColor(Color.System.amber125)
             }
-            .modifier(DividerModifier(spacing: 10))
+            .frame(height: 48)
+            .divider()
         }
     }
     

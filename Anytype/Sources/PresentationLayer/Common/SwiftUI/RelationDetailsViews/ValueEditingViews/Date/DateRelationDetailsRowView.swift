@@ -13,7 +13,7 @@ struct DateRelationDetailsRowView: View {
             content
             Spacer.fixedHeight(12)
         }
-        .modifier(DividerModifier(spacing: 0))
+        .divider()
     }
     
     private var content: some View {

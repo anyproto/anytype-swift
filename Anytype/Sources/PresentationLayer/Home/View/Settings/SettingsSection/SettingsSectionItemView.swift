@@ -21,12 +21,7 @@ struct SettingsSectionItemView: View {
                     .foregroundColor(.textTertiary)
             }
         }
-        .modifier(
-            DividerModifier(
-                spacing: 12,
-                leadingPadding: iconWidth + iconSpacing
-            )
-        )
+        .divider(spacing: 12, leadingPadding: iconWidth + iconSpacing)
     }
 }
 
