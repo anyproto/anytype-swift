@@ -30,18 +30,24 @@ struct EditorContextualMenuView: View {
     let optionTapHandler: (EditorContextualOption) -> Void
 
     var body: some View {
-        VStack {
+        VStack(alignment: .center, spacing: 0) {
             ForEach(options) { option in
-                //43.5
                 Button {
                     optionTapHandler(option)
                 } label: {
                     Text(option.localisedString)
-                        .foregroundColor(Color.primary)
+                        .foregroundColor(Color.textPrimary)
                         .font(AnytypeFontBuilder.font(anytypeFont: .uxCalloutRegular))
-                        .padding(EdgeInsets(top: 11, leading: 16, bottom: 11, trailing: 16))
+                        .padding(.leading, 16)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(Color.backgroundSecondary)
                 }
-
+                .frame(minWidth: 0, maxWidth: 224, minHeight: 0, maxHeight: 43.5)
+                if(options.last != option) {
+                    Divider()
+                        .foregroundColor(Color.strokePrimary)
+                        .frame(minWidth: 0, maxWidth: 224, maxHeight: 0.5)
+                }
             }
         }
     }
