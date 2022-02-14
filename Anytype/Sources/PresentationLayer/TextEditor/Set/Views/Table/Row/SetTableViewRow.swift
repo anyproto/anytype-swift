@@ -14,7 +14,7 @@ struct SetTableViewRow: View {
             Spacer.fixedHeight(18)
             cells
             Spacer.fixedHeight(12)
-            Divider()
+            AnytypeDivider()
         }
     }
     
