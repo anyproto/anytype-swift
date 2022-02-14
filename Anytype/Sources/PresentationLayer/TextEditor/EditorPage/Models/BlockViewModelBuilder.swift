@@ -83,6 +83,7 @@ final class BlockViewModelBuilder {
                     openURL: { [weak self] url in
                         self?.router.openUrl(url)
                     },
+                    showURLBookmarkPopup: { _, _ in },
                     markdownListener: markdownListener,
                     focusSubject: subjectsHolder.focusSubject(for: block.information.id)
                 )

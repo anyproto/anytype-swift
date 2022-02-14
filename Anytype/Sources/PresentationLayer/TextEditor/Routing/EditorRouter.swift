@@ -35,7 +35,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showAdditinNewRelationView(onSelect: @escaping (RelationMetadata) -> Void)
 
     func goBack()
-
 }
 
 protocol AttachmentRouterProtocol {
@@ -43,7 +42,6 @@ protocol AttachmentRouterProtocol {
 }
 
 final class EditorRouter: EditorRouterProtocol {
-    
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let fileRouter: FileRouter
