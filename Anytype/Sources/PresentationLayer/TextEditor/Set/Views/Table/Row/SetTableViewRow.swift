@@ -27,7 +27,7 @@ struct SetTableViewRow: View {
                     SwiftUIObjectIconImageView(iconImage: icon, usecase: .setRow).frame(width: 18, height: 18)
                     Spacer.fixedWidth(8)
                 }
-                AnytypeText(data.title, style: .body, color: .textPrimary)
+                AnytypeText(data.title, style: .previewTitle2Medium, color: .textPrimary)
                     .lineLimit(1)
             }
             .padding(.horizontal, 16)
@@ -45,6 +45,7 @@ struct SetTableViewRow: View {
                     .foregroundColor(.strokePrimary)
             }
         }
+        .frame(height: 18)
     }
     
     private func cell(_ relationData: Relation) -> some View {

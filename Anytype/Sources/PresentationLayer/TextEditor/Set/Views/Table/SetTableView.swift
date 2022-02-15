@@ -33,9 +33,8 @@ struct SetTableView: View {
             }
             .overlay(
                 SetFullHeader()
-                    .offset(x: 0, y: offset.y)
                     .readSize { tableHeaderSize = $0 }
-                    .frame(width: fullWidth)
+                    .offset(x: 0, y: offset.y)
                 , alignment: .topLeading
             )
         }

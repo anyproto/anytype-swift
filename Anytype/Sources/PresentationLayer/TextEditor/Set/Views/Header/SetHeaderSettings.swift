@@ -11,10 +11,10 @@ struct SetHeaderSettings: View {
                 model.showViewPicker = true
             }
         }) {
-            HStack(spacing: 0) {
+            HStack(alignment: .center, spacing: 0) {
                 Spacer.fixedWidth(20)
-                AnytypeText(model.activeView.name, style: .heading, color: .textPrimary)
-                Spacer.fixedWidth(5)
+                AnytypeText(model.activeView.name, style: .subheading, color: .textPrimary)
+                Spacer.fixedWidth(4)
                 Image.arrowDown.foregroundColor(.textPrimary)
                 Spacer()
             }
