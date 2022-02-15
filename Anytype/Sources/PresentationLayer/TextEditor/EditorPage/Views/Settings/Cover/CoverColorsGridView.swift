@@ -6,7 +6,7 @@ struct CoverColorsGridView: View {
     
     private let columns: [GridItem] = {
         if UIDevice.isPad {
-            return [GridItem(.adaptive(minimum: 150), spacing: 16)]
+            return [GridItem(.adaptive(minimum: 200), spacing: 16)]
         } else {
             return [
                 GridItem(.flexible(), spacing: 16),
