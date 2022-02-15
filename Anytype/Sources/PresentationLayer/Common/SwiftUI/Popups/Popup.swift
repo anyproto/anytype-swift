@@ -228,7 +228,7 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
 
     private var screenSize: CGSize {
         #if os(iOS) || os(tvOS)
-        return UIScreen.main.bounds.size
+        return UIApplication.shared.keyWindow?.bounds.size ?? .zero
         #elseif os(watchOS)
         return WKInterfaceDevice.current().screenBounds.size
         #else
