@@ -26,6 +26,7 @@ struct SetTableView: View {
                         pinnedViews: [.sectionHeaders]
                     ) {
                         content
+                        pagination
                     }
                     .frame(minWidth: fullWidth)
                     .padding(.top, -headerMinimizedSize.height)
@@ -52,6 +53,12 @@ struct SetTableView: View {
                 }
             }
         }
+    }
+    
+    private var pagination: some View {
+        EditorSetPaginationView()
+            .frame(width: tableHeaderSize.width)
+            .offset(x: xOffset, y: 0)
     }
 
     private var xOffset: CGFloat {
