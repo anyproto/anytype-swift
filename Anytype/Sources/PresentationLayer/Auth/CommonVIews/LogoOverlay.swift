@@ -14,7 +14,7 @@ struct LogoOverlay: ViewModifier {
                     Spacer()
                 }
                     .padding(.horizontal, 20)
-                    .readabilityPadding()
+                    .horizontalReadabilityPadding()
                 ,
                 alignment: .topLeading
             )

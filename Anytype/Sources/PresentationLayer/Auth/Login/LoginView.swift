@@ -32,7 +32,7 @@ struct LoginView: View {
         VStack(spacing: 0) {
             Spacer()
             keychainPhraseView
-                .readabilityPadding(20)
+                .horizontalReadabilityPadding(20)
         }
     }
 

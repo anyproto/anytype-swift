@@ -1,12 +1,12 @@
 import SwiftUI
 
 extension View {
-    func readabilityPadding(_ padding: CGFloat = 0) -> some View {
-        modifier(ReadabilityPadding(padding: padding))
+    func horizontalReadabilityPadding(_ padding: CGFloat = 0) -> some View {
+        modifier(HorizontalReadabilityPadding(padding: padding))
     }
 }
 
-struct ReadabilityPadding: ViewModifier {
+struct HorizontalReadabilityPadding: ViewModifier {
     
     let padding: CGFloat
     
@@ -16,13 +16,12 @@ struct ReadabilityPadding: ViewModifier {
     func body(content: Content) -> some View {
         if UIDevice.isPad {
             content
-                .padding(.vertical, padding)
                 .padding(.horizontal, padPadding)
                 .readSize { size in
                     padPadding = padding(for: size.width)
                 }
         } else {
-            content.padding(padding)
+            content.padding(.horizontal, padding)
         }
     }
 
