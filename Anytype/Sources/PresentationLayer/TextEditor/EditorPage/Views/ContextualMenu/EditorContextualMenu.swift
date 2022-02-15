@@ -44,8 +44,7 @@ struct EditorContextualMenuView: View {
                 }
                 .frame(minWidth: 0, maxWidth: 224, minHeight: 0, maxHeight: 43.5)
                 if(options.last != option) {
-                    Divider()
-                        .foregroundColor(Color.strokePrimary)
+                    AnytypeDivider()
                         .frame(minWidth: 0, maxWidth: 224, maxHeight: 0.5)
                 }
             }
