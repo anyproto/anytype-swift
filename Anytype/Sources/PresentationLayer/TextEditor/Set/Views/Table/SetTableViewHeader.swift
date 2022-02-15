@@ -25,7 +25,7 @@ struct SetTableViewHeader: View {
                 }
             }
             .frame(height: 40)
-            Divider()
+            AnytypeDivider()
         }
     }
 }

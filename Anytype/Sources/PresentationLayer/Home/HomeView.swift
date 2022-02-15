@@ -51,30 +51,30 @@ struct HomeView: View {
         }
         .bottomFloater(isPresented: $showSettings) {
             SettingsView()
-                .modifier(ReadabilityPadding(padding: 8))
+                .readabilityPadding(8)
         }
 
         .bottomFloater(isPresented: $model.showDeletionAlert) {
             DashboardDeletionAlert()
-                .modifier(ReadabilityPadding(padding: 8))
+                .readabilityPadding(8)
         }
         .animation(.fastSpring, value: model.showDeletionAlert)
 
         .bottomFloater(isPresented: $settingsModel.loggingOut) {
             DashboardLogoutAlert()
-                .modifier(ReadabilityPadding(padding: 8))
+                .readabilityPadding(8)
         }
         .animation(.fastSpring, value: settingsModel.loggingOut)
         
         .bottomFloater(isPresented: $settingsModel.other) {
             OtherSettingsView()
-                .modifier(ReadabilityPadding(padding: 8))
+                .readabilityPadding(8)
         }
         .animation(.fastSpring, value: settingsModel.other)
         
         .bottomFloater(isPresented: $settingsModel.clearCacheAlert) {
             DashboardClearCacheAlert()
-                .modifier(ReadabilityPadding(padding: 8))
+                .readabilityPadding(8)
         }
         .animation(.fastSpring, value: settingsModel.clearCacheAlert)
         .onChange(of: settingsModel.clearCacheAlert) { showClearCacheAlert in
@@ -85,7 +85,7 @@ struct HomeView: View {
         
         .bottomFloater(isPresented: $showKeychainAlert) {
             DashboardKeychainReminderAlert(shownInContext: isFirstLaunchAfterRegistration ? .signup : .settings)
-                .modifier(ReadabilityPadding(padding: 8))
+                .readabilityPadding(8)
         }
         .animation(.fastSpring, value: showKeychainAlert)
         .onChange(of: showKeychainAlert) {
@@ -98,7 +98,7 @@ struct HomeView: View {
         
         .bottomFloater(isPresented: $model.loadingAlertData.showAlert) {
             DashboardLoadingAlert(text: model.loadingAlertData.text)
-                .modifier(ReadabilityPadding(padding: 8))
+                .readabilityPadding(8)
         }
         .animation(.fastSpring, value: model.loadingAlertData.showAlert)
         

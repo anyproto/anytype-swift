@@ -19,7 +19,7 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
                     
                     
                     VStack(spacing: 0) {
-                        Divider().background(Color.strokePrimary)
+                        AnytypeDivider()
                         Button(action: {
                             isShowing.toggle()
                             onOkPressed()

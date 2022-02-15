@@ -46,7 +46,7 @@ struct EditorSetViewPicker: View {
                     AnytypeText("\(view.type.name) view soon", style: .uxBodyRegular, color: .textSecondary)
                 }
             }
-            .modifier(DividerModifier(spacing: 14))
+            .divider(spacing: 14)
             .padding(.horizontal, 20)
         }
     }

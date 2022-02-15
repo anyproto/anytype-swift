@@ -74,14 +74,14 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
                                 )
                             }
                             .frame(maxWidth: .infinity)
-                            .modifier(DividerModifier(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading))
+                            .divider(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading)
                         }
                     }, header: {
                         if section.sectionName.isNotEmpty {
                             VStack(alignment: .leading, spacing: 0) {
                                 Spacer()
                                 AnytypeText(section.sectionName, style: .caption1Regular, color: .textSecondary)
-                                    .modifier(DividerModifier(spacing: 7, leadingPadding: 0, trailingPadding: 0   , alignment: .leading))
+                                    .divider(spacing: 7, leadingPadding: 0, trailingPadding: 0, alignment: .leading)
                             }
                             .padding(.horizontal, 20)
                             .frame(height: 52)

@@ -15,7 +15,7 @@ struct CreateNewProfileView: View {
         ZStack {
             Gradients.mainBackground()
             bottomSheet
-                .modifier(ReadabilityPadding(padding: 20))
+                .readabilityPadding(20)
         }
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
@@ -56,7 +56,7 @@ struct CreateNewProfileView: View {
                     AnytypeText("Enter your name".localized, style: .heading, color: .textTertiary)
                 }
                 .disableAutocorrection(true)
-                .modifier(DividerModifier(spacing: 10))
+                .divider(spacing: 10)
             
             Spacer.fixedHeight(20)
             

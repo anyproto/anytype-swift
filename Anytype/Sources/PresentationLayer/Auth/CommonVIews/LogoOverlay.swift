@@ -10,21 +10,25 @@ struct LogoOverlay: ViewModifier {
             .overlay(
                 HStack {
                     Image.logo
-                        .onTapGesture {
-                            titleTapCount += 1
-                            if titleTapCount == 10 {
-                                titleTapCount = 0
-                                AudioServicesPlaySystemSound(1109)
-                                showDebug = true
-                            }
-                        }
+                        .onTapGesture(perform: onTap)
                     Spacer()
                 }
-                    .modifier(ReadabilityPadding(padding: 20)),
+                    .padding(.horizontal, 20)
+                    .readabilityPadding()
+                ,
                 alignment: .topLeading
             )
             .sheet(isPresented: $showDebug) {
                 DebugMenu()
             }
+    }
+    
+    private func onTap() {
+        titleTapCount += 1
+        if titleTapCount == 10 {
+            titleTapCount = 0
+            AudioServicesPlaySystemSound(1109)
+            showDebug = true
+        }
     }
 }
