@@ -50,7 +50,11 @@ final class MarkupAccessoryView: UIView {
         let contentView = MarkupAccessoryContentView(viewModel: self.viewModel).asUIView()
         
         addSubview(contentView) {
-            $0.pinToSuperview()
+            if UIDevice.isPad {
+                $0.pin(to: readableContentGuide)
+            } else {
+                $0.pinToSuperview()
+            }
         }
     }
 

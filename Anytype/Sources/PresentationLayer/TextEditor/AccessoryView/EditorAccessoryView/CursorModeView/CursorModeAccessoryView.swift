@@ -19,7 +19,13 @@ class CursorModeAccessoryView: UIView {
         autoresizingMask = .flexibleHeight
         backgroundColor = .backgroundPrimary
         addSubview(stackView)
-        stackView.edgesToSuperview()
+        if UIDevice.isPad {
+            stackView.layoutUsing.anchors {
+                $0.pin(to: readableContentGuide)
+            }
+        } else {
+            stackView.edgesToSuperview()
+        }
     }
     
     // MARK: - Public methods
