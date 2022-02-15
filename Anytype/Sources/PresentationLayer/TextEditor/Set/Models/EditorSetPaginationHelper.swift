@@ -50,23 +50,23 @@ final class EditorSetPaginationHelper {
     }
     
     func updatePageCount(_ count: Int64, data: EditorSetPaginationData) -> EditorSetPaginationHelperData? {
+        guard count != 0 else { return EditorSetPaginationHelperData(data: .empty)}
+        
         var data = data
         data = updateVisiblePagesPage(count: count, data: data)
         data = data.updated(pageCount: count)
         
-        let noNeedToChangeCurrentPage = data.selectedPage <= data.pageCount
-        guard noNeedToChangeCurrentPage else {
+        if data.selectedPage == 0 {
+            return changePage(1, data: data)
+        } else if data.selectedPage > data.pageCount {
             return changePage(data.pageCount, data: data)
+        } else {
+            return EditorSetPaginationHelperData(data: data)
         }
-        
-        return EditorSetPaginationHelperData(data: data)
     }
     
     private func updateVisiblePagesPage(count: Int64, data: EditorSetPaginationData) -> EditorSetPaginationData {
-        guard let lastPage = data.visiblePages.last else {
-            anytypeAssertionFailure("Empty pagination data", domain: .editorSetPagination)
-            return data
-        }
+        let lastPage = data.visiblePages.last ?? 0
         
         if lastPage <= count {
             guard data.visiblePages.count < numberOfPagesPerRow else { return data }
@@ -78,8 +78,7 @@ final class EditorSetPaginationHelper {
     
     func addPages(count: Int64, data: EditorSetPaginationData, lastPage: Int64) -> EditorSetPaginationData {
         var newVisiblePages = [Int64]()
-        let numberOfPagesToTheClosestNumberDivisibleByFive = lastPage % numberOfPagesPerRow == 0 ? numberOfPagesPerRow : lastPage % numberOfPagesPerRow
-        let lowerBound = lastPage - numberOfPagesToTheClosestNumberDivisibleByFive + 1
+        let lowerBound = lastPage - numberOfPagesToTheClosestNumberDivisibleByNumberOfPagesPerRow(lastPage) + 1
         
         let upperBound = min(count, lowerBound + numberOfPagesPerRow - 1)
         for page in lowerBound...upperBound {
@@ -91,12 +90,18 @@ final class EditorSetPaginationHelper {
     
     func removePages(count: Int64, data: EditorSetPaginationData) -> EditorSetPaginationData {
         var newVisiblePages = [Int64]()
-        let numberOfPagesToTheClosestNumberDivisibleByFive = count % numberOfPagesPerRow == 0 ? numberOfPagesPerRow : count % numberOfPagesPerRow
-        let lowerBound = count - numberOfPagesToTheClosestNumberDivisibleByFive + 1
+        let lowerBound = count - numberOfPagesToTheClosestNumberDivisibleByNumberOfPagesPerRow(count) + 1
         for page in lowerBound...count {
             newVisiblePages.append(page)
         }
         
         return data.updated(visiblePages: newVisiblePages)
+    }
+    
+    func numberOfPagesToTheClosestNumberDivisibleByNumberOfPagesPerRow(_ number: Int64) -> Int64 {
+        guard number != 0 else {
+            return 0
+        }
+        return number % numberOfPagesPerRow == 0 ? numberOfPagesPerRow : number % numberOfPagesPerRow
     }
 }

@@ -18,7 +18,10 @@ struct OtherSettingsView: View {
         }
         .background(Color.backgroundSecondary)
         .cornerRadius(16)
-        .padding(.horizontal, 8)
+        .if(UIDevice.isPhone) {
+            $0.padding(.horizontal, 8)
+        }
+        
     }
 
     private var appearanceType: some View {
@@ -38,7 +41,7 @@ struct OtherSettingsView: View {
             .padding(.top, 16)
         }
         .padding(.vertical, 14)
-        .modifier(DividerModifier(spacing: 0))
+        .divider()
         .padding(.horizontal, 20)
     }
     
@@ -72,7 +75,7 @@ struct OtherSettingsView: View {
                 Image.arrow.foregroundColor(.textTertiary)
             }
             .padding(.vertical, 14)
-            .modifier(DividerModifier(spacing: 0))
+            .divider()
             .padding(.horizontal, 20)
         }
     }
@@ -87,7 +90,7 @@ struct OtherSettingsView: View {
             }
         }
         .padding(.vertical, 14)
-        .modifier(DividerModifier(spacing: 0))
+        .divider()
         .padding(.horizontal, 20)
     }
 
@@ -126,7 +129,7 @@ struct OtherSettingsView: View {
                 Spacer()
             }
             .padding(.vertical, 14)
-            .modifier(DividerModifier(spacing: 0))
+            .divider()
             .padding(.horizontal, 20)
         }
     }

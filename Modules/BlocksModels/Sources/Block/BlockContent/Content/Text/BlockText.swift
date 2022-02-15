@@ -10,6 +10,9 @@ public struct BlockText: Hashable {
     public var checked: Bool
     public var number: Int
     
+    public let iconEmoji: String
+    public let iconImage: String
+    
     // MARK: - Memberwise initializer
     public init(
         text: String,
@@ -17,7 +20,9 @@ public struct BlockText: Hashable {
         color: MiddlewareColor?,
         contentType: Style,
         checked: Bool,
-        number: Int = 1
+        number: Int = 1,
+        iconEmoji: String,
+        iconImage: String
     ) {
         self.text = text
         self.marks = marks
@@ -25,18 +30,33 @@ public struct BlockText: Hashable {
         self.contentType = contentType
         self.checked = checked
         self.number = number
+        self.iconEmoji = iconEmoji
+        self.iconImage = iconImage
     }
 }
 
 // MARK: ContentType / Text / Supplements
 public extension BlockText {
     init(contentType: Style) {
-        self.init(text: "", marks: .init(), color: nil, contentType: contentType, checked: false)
+        self.init(
+            text: "", marks: .init(), color: nil,
+            contentType: contentType, checked: false, iconEmoji: "", iconImage: ""
+        )
     }
             
     // MARK: - Create
 
     static var empty: Self {
-        .init(text: "", marks: .init(), color: nil, contentType: .text, checked: false)
+        .init(
+            text: "", marks: .init(), color: nil,
+            contentType: .text, checked: false, iconEmoji: "", iconImage: ""
+        )
+    }
+    
+    func updated(number: Int) -> BlockText {
+        BlockText(
+            text: text, marks: marks, color: color, contentType: contentType,
+            checked: checked, number: number, iconEmoji: iconEmoji, iconImage: iconImage
+        )
     }
 }

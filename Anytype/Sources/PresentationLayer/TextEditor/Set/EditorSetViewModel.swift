@@ -42,7 +42,6 @@ final class EditorSetViewModel: ObservableObject {
                 title: $0.title,
                 icon: $0.objectIconImage,
                 allRelations: sortedRelations,
-//                allMetadata: [], // todo: Use metadata from rows data
                 colums: colums
             )
         }
@@ -110,7 +109,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func updateActiveViewId(_ id: BlockId) {
-        document.blocksContainer.updateDataview(blockId: "dataview") { dataView in
+        document.blocksContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
             dataView.updated(activeViewId: id)
         }
         
@@ -132,7 +131,13 @@ final class EditorSetViewModel: ObservableObject {
         guard !isEmpty else { return }
         
         subscriptionService.startSubscription(
-            data: .set(.init(dataView: dataView, view: activeView, currentPage: pagitationData.selectedPage))
+            data: .set(
+                .init(
+                    dataView: dataView,
+                    view: activeView,
+                    currentPage: max(pagitationData.selectedPage, 1) // show first page for empty request
+                )
+            )
         ) { [weak self] subId, update in
             guard let self = self else { return }
             

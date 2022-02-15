@@ -54,66 +54,119 @@ extension RelationsService: RelationsServiceProtocol {
         Amplitude.instance().logEvent(AmplitudeEventsName.changeRelationValue)
     }
 
-    func createRelation(_ relation: RelationMetadata) -> RelationMetadata? {
-        addRelation(relation, isNew: true)
+    func createRelation(source: RelationSource, relation: RelationMetadata) -> RelationMetadata? {
+        addRelation(source: source, relation: relation, isNew: true)
     }
 
-    func addRelation(_ relation: RelationMetadata) -> RelationMetadata? {
-        addRelation(relation, isNew: false)
+    func addRelation(source: RelationSource, relation: RelationMetadata) -> RelationMetadata? {
+        addRelation(source: source, relation: relation, isNew: false)
     }
 
-    private func addRelation(_ relation: RelationMetadata, isNew: Bool) -> RelationMetadata? {
-        let response = Anytype_Rpc.Object.RelationAdd.Service.invoke(contextID: objectId,
-                                                                     relation: relation.middlewareModel)
-            .getValue(domain: .relationsService)
+    private func addRelation(source: RelationSource, relation: RelationMetadata, isNew: Bool) -> RelationMetadata? {
+        switch source {
+        case .object:
+            let response = Anytype_Rpc.Object.RelationAdd.Service
+                .invoke(contextID: objectId, relation: relation.middlewareModel)
+                .getValue(domain: .relationsService)
 
-        guard let response = response else { return nil }
+            guard let response = response else { return nil }
 
-        EventsBunch(event: response.event).send()
+            EventsBunch(event: response.event).send()
 
-        Amplitude.instance().logAddRelation(format: relation.format, isNew: isNew)
+            Amplitude.instance().logAddRelation(format: relation.format, isNew: isNew)
 
-        return RelationMetadata(middlewareRelation: response.relation)
+            return RelationMetadata(middlewareRelation: response.relation)
+
+        case .dataview:
+            let response = Anytype_Rpc.Block.Dataview.RelationAdd.Service
+                .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relation: relation.middlewareModel)
+                .getValue(domain: .relationsService)
+
+            guard let response = response else { return nil }
+
+            EventsBunch(event: response.event).send()
+
+            Amplitude.instance().logAddRelation(format: relation.format, isNew: isNew)
+
+            return RelationMetadata(middlewareRelation: response.relation)
+        }
     }
     
-    func removeRelation(relationKey: String) {
-        Anytype_Rpc.Object.RelationDelete.Service.invoke(
-            contextID: objectId,
-            relationKey: relationKey
-        ).map { EventsBunch(event: $0.event) }
-        .getValue(domain: .relationsService)?
-        .send()
+    func removeRelation(source: RelationSource, relationKey: String) {
+        switch source {
+        case .object:
+            Anytype_Rpc.Object.RelationDelete.Service
+                .invoke(contextID: objectId, relationKey: relationKey)
+                .map { EventsBunch(event: $0.event) }
+                .getValue(domain: .relationsService)?
+                .send()
+        case .dataview:
+            Anytype_Rpc.Block.Dataview.RelationDelete.Service
+                .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationKey: relationKey)
+                .map { EventsBunch(event: $0.event) }
+                .getValue(domain: .relationsService)?
+                .send()
+        }
         
         Amplitude.instance().logEvent(AmplitudeEventsName.deleteRelation)
     }
     
-    func addRelationOption(relationKey: String, optionText: String) -> String? {
-        let response = Anytype_Rpc.Object.RelationOptionAdd.Service.invoke(
-            contextID: objectId,
-            relationKey: relationKey,
-            option: Anytype_Model_Relation.Option(
-                id: "",
-                text: optionText,
-                color: MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue,
-                scope: .local
-            )
+    func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String? {
+        let option = Anytype_Model_Relation.Option(
+            id: "",
+            text: optionText,
+            color: MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue,
+            scope: .local
         )
-            .getValue(domain: .relationsService)
         
-        guard let response = response else { return nil }
-        
-        EventsBunch(event: response.event).send()
-        
-        return response.option.id
+        switch source {
+        case .object:
+            let response = Anytype_Rpc.Object.RelationOptionAdd.Service.invoke(
+                contextID: objectId,
+                relationKey: relationKey,
+                option: option
+            )
+                .getValue(domain: .relationsService)
+            
+            guard let response = response else { return nil }
+            
+            EventsBunch(event: response.event).send()
+            
+            return response.option.id
+        case .dataview(let recordId):
+            let response = Anytype_Rpc.Block.Dataview.RecordRelationOptionAdd.Service.invoke(
+                contextID: objectId,
+                blockID: SetConstants.dataviewBlockId,
+                relationKey: relationKey,
+                option: option,
+                recordID: recordId
+            ).getValue(domain: .relationsService)
+            
+            guard let response = response else { return nil }
+            
+            EventsBunch(event: response.event).send()
+            
+            return response.option.id
+        }
     }
 
-    func availableRelations() -> [RelationMetadata]? {
-        let response = Anytype_Rpc.Object.RelationListAvailable.Service.invoke(contextID: objectId)
-            .getValue(domain: .relationsService)
-
-        guard let response = response else { return nil }
-
-        return response.relations.map { RelationMetadata(middlewareRelation: $0) }
+    func availableRelations(source: RelationSource) -> [RelationMetadata]? {
+        let relations: [Anytype_Model_Relation]?
+        
+        switch source {
+        case .object:
+            relations = Anytype_Rpc.Object.RelationListAvailable.Service
+                .invoke(contextID: objectId)
+                .map { $0.relations }
+                .getValue(domain: .relationsService)
+        case .dataview:
+            relations = Anytype_Rpc.Block.Dataview.RelationListAvailable.Service
+                .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId)
+                .map { $0.relations }
+                .getValue(domain: .relationsService)
+        }
+        
+        return relations?.map { RelationMetadata(middlewareRelation: $0) }
     }
     
 }

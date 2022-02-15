@@ -23,7 +23,7 @@ final class TextBlockLeftViewStyler {
             leftView = TextBlockIconView(viewType: .numbered(configuration.content.number))
         case .quote:
             leftView = TextBlockIconView(viewType: .quote)
-        case .header, .header2, .header3, .header4, .code, .description, .text:
+        case .header, .header2, .header3, .header4, .code, .description, .text, .callout:
             leftView = TextBlockIconView(viewType: .empty)
         }
         

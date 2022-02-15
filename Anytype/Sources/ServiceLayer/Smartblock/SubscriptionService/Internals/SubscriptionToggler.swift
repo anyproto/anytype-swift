@@ -2,7 +2,7 @@ import ProtobufMessages
 import BlocksModels
 import AnytypeCore
 
-typealias SubscriptionTogglerResult = (details: [ObjectDetails], pageCount: Int64)
+typealias SubscriptionTogglerResult = (details: [ObjectDetails], total: Int64)
 
 protocol SubscriptionTogglerProtocol {
     func startSubscription(data: SubscriptionData) -> SubscriptionTogglerResult?
@@ -46,7 +46,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             return nil
         }
         
-        return (details: result.records.asDetais, pageCount: 1)
+        return (details: result.records.asDetais, total: 1)
     }
     
     private func startSetSubscription(data: SetSubsriptionData) -> SubscriptionTogglerResult? {
@@ -120,30 +120,26 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         pageNumber: Int64 = 1
     ) -> SubscriptionTogglerResult? {
         let offset = Int64(pageNumber - 1) * numberOfRowsPerPageInSubscriptions
-        let response = Anytype_Rpc.Object.SearchSubscribe.Service.invoke(
-            subID: subId.rawValue,
-            filters: filters,
-            sorts: sorts,
-            fullText: "",
-            limit: Int32(numberOfRowsPerPageInSubscriptions),
-            offset: Int32(offset),
-            keys: keys ?? homeDetailsKeys.map { $0.rawValue },
-            afterID: "",
-            beforeID: "",
-            source: source,
-            ignoreWorkspace: ""
-        )
+        let response = Anytype_Rpc.Object.SearchSubscribe.Service
+            .invoke(
+                subID: subId.rawValue,
+                filters: filters,
+                sorts: sorts,
+                limit: numberOfRowsPerPageInSubscriptions,
+                offset: offset,
+                keys: keys ?? homeDetailsKeys.map { $0.rawValue },
+                afterID: "",
+                beforeID: "",
+                source: source,
+                ignoreWorkspace: "",
+                noDepSubscription: false
+            )
         
         guard let result = response.getValue(domain: .subscriptionService) else {
             return nil
         }
         
-        // Returns 1 if count < numberOfRowsPerPageInSubscriptions
-        // And returns 1 if count = numberOfRowsPerPageInSubscriptions
-        let closestNumberToRowsPerPage = Int64( numberOfRowsPerPageInSubscriptions) - 1
-        let pageCount = (result.counters.total + closestNumberToRowsPerPage) / Int64(numberOfRowsPerPageInSubscriptions)
-        
-        return (details: result.records.asDetais, pageCount: pageCount)
+        return (details: result.records.asDetais, total: result.counters.total)
     }
     
     private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {

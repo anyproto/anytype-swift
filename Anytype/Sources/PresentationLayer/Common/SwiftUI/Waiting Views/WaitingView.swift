@@ -26,7 +26,7 @@ struct WaitingView: View {
         VStack(spacing: 0) {
             Spacer()
             contentView
-                .padding(20)
+                .horizontalReadabilityPadding(20)
         }
     }
     

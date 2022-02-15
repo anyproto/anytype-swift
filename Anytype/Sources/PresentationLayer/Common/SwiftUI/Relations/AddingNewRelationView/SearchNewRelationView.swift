@@ -50,7 +50,7 @@ struct SearchNewRelationView: View {
                                     .padding([.leading, .trailing], 20)
                             }
                             .frame(maxWidth: .infinity)
-                            .modifier(DividerModifier(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading))
+                            .divider(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading)
                             .sheet(isPresented: $showCreateNewRelation) {
                                 CreateNewRelationView(viewModel: viewModel.createNewRelationViewModel)
                             }
@@ -70,13 +70,13 @@ struct SearchNewRelationView: View {
                                         .padding([.leading, .trailing], 20)
                                 }
                                 .frame(maxWidth: .infinity)
-                                .modifier(DividerModifier(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading))
+                                .divider(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading)
                             }
                         }, header: {
                             VStack(alignment: .leading, spacing: 0) {
                                 Spacer()
                                 AnytypeText(section.headerName, style: .caption1Regular, color: .textSecondary)
-                                    .modifier(DividerModifier(spacing: 7, leadingPadding: 0, trailingPadding: 0   , alignment: .leading))
+                                    .divider(spacing: 7, leadingPadding: 0, trailingPadding: 0   , alignment: .leading)
                             }
                             .padding(.horizontal, 20)
                             .frame(height: 52)
@@ -117,10 +117,11 @@ struct SearchNewRelationView_Previews: PreviewProvider {
     static var previews: some View {
         SearchNewRelationView(
             viewModel: SearchNewRelationViewModel(
+                source: .object,
                 relationService: RelationsService(objectId: ""),
                 objectRelations: ParsedRelations(featuredRelations: [], otherRelations: []),
-                onSelect: { _ in
-            })
+                onSelect: { _ in }
+            )
         )
     }
 }

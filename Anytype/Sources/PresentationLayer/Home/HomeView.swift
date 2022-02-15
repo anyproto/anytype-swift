@@ -50,26 +50,31 @@ struct HomeView: View {
             }
         }
         .bottomFloater(isPresented: $showSettings) {
-            SettingsView().padding(8)
+            SettingsView()
+                .horizontalReadabilityPadding(8)
         }
 
         .bottomFloater(isPresented: $model.showDeletionAlert) {
-            DashboardDeletionAlert().padding(8)
+            DashboardDeletionAlert()
+                .horizontalReadabilityPadding(8)
         }
         .animation(.fastSpring, value: model.showDeletionAlert)
 
         .bottomFloater(isPresented: $settingsModel.loggingOut) {
-            DashboardLogoutAlert().padding(8)
+            DashboardLogoutAlert()
+                .horizontalReadabilityPadding(8)
         }
         .animation(.fastSpring, value: settingsModel.loggingOut)
         
         .bottomFloater(isPresented: $settingsModel.other) {
             OtherSettingsView()
+                .horizontalReadabilityPadding(8)
         }
         .animation(.fastSpring, value: settingsModel.other)
         
         .bottomFloater(isPresented: $settingsModel.clearCacheAlert) {
-            DashboardClearCacheAlert().padding(8)
+            DashboardClearCacheAlert()
+                .horizontalReadabilityPadding(8)
         }
         .animation(.fastSpring, value: settingsModel.clearCacheAlert)
         .onChange(of: settingsModel.clearCacheAlert) { showClearCacheAlert in
@@ -79,7 +84,8 @@ struct HomeView: View {
         }
         
         .bottomFloater(isPresented: $showKeychainAlert) {
-            DashboardKeychainReminderAlert(shownInContext: isFirstLaunchAfterRegistration ? .signup : .settings).padding(8)
+            DashboardKeychainReminderAlert(shownInContext: isFirstLaunchAfterRegistration ? .signup : .settings)
+                .horizontalReadabilityPadding(8)
         }
         .animation(.fastSpring, value: showKeychainAlert)
         .onChange(of: showKeychainAlert) {
@@ -91,7 +97,8 @@ struct HomeView: View {
         }
         
         .bottomFloater(isPresented: $model.loadingAlertData.showAlert) {
-            DashboardLoadingAlert(text: model.loadingAlertData.text).padding(8)
+            DashboardLoadingAlert(text: model.loadingAlertData.text)
+                .horizontalReadabilityPadding(8)
         }
         .animation(.fastSpring, value: model.loadingAlertData.showAlert)
         

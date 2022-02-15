@@ -29,12 +29,8 @@ struct ObjectSettingsView: View {
                 }
             }
             .padding([.leading, .trailing], Constants.edgeInset)
-            .modifier(
-                DividerModifier(
-                    spacing:  Constants.dividerSpacing
-                )
-            )
-
+            .divider(spacing:  Constants.dividerSpacing)
+            
             ObjectActionsView()
                 .environmentObject(viewModel.objectActionsViewModel)
                 .padding(.top, Constants.topActionObjectsViewInset)

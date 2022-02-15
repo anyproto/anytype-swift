@@ -2,10 +2,13 @@ import Combine
 import UIKit
 import BlocksModels
 
-struct TextBlockViewModel: BlockViewModelProtocol {
-    
-    var upperBlock: BlockModelProtocol?
+struct TextBlockURLInputParameters {
+    let textView: UITextView
+    let rect: CGRect
+    let optionHandler: (EditorContextualOption) -> Void
+}
 
+struct TextBlockViewModel: BlockViewModelProtocol {
     var indentationLevel: Int
     var information: BlockInformation
 
@@ -18,6 +21,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     private let showPage: (EditorScreenData) -> Void
     private let openURL: (URL) -> Void
+    private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
     
     private let actionHandler: BlockActionHandlerProtocol
     private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
@@ -35,13 +39,13 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     init(
         block: BlockModelProtocol,
-        upperBlock: BlockModelProtocol?,
         content: BlockText,
         isCheckable: Bool,
         blockDelegate: BlockDelegate,
         actionHandler: BlockActionHandlerProtocol,
         showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
+        showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,
         markdownListener: MarkdownListener,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     ) {
@@ -52,6 +56,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.actionHandler = actionHandler
         self.showPage = showPage
         self.openURL = openURL
+        self.showURLBookmarkPopup = showURLBookmarkPopup
         self.toggled = block.isToggled
         self.information = block.information
         self.indentationLevel = block.indentationLevel
@@ -147,6 +152,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             return false
         }
 
+        if shouldCreateBookmark(textView: textView, replacementText: replacementText, range: range) {
+            return false
+        }
+
         if let markdownChange = markdownListener.markdownChange(
             textView: textView,
             replacementText: replacementText,
@@ -168,5 +177,76 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         }
 
         return true
+    }
+
+    private func attributedStringWithURL(
+        attributedText: NSAttributedString,
+        replacementURL: URL,
+        range: NSRange
+    ) -> NSAttributedString {
+        let newRange = NSRange(location: range.location, length: replacementURL.absoluteString.count)
+        let mutableAttributedString = attributedText.mutable
+        mutableAttributedString.replaceCharacters(in: range, with: replacementURL.absoluteString)
+
+        let modifier = MarkStyleModifier(
+            attributedString: mutableAttributedString,
+            anytypeFont: content.contentType.uiFont
+        )
+
+        modifier.apply(.link(replacementURL), shouldApplyMarkup: true, range: newRange)
+
+        return NSAttributedString(attributedString: modifier.attributedString)
+    }
+
+    private func shouldCreateBookmark(
+        textView: UITextView,
+        replacementText: String,
+        range: NSRange
+    ) -> Bool {
+        let previousTypingAttributes = textView.typingAttributes
+        let originalAttributedString = textView.attributedText
+
+        if replacementText.isValidURL(), let url = URL(string: replacementText) {
+            let newText = attributedStringWithURL(
+                attributedText: textView.attributedText,
+                replacementURL: url,
+                range: range
+            )
+
+            actionHandler.changeTextForced(newText, blockId: blockId)
+            textView.attributedText = newText
+            textView.typingAttributes = previousTypingAttributes
+
+            let replacementRange = NSRange(location: range.location, length: replacementText.count)
+
+            guard let textRect = textView.textRectForRange(range: replacementRange) else { return true }
+
+            let urlIputParameters = TextBlockURLInputParameters(
+                textView: textView,
+                rect: textRect) { option in
+                    switch option {
+                    case .createBookmark:
+                        let position: BlockPosition = textView.text == replacementText ?
+                            .replace : .bottom
+                        actionHandler.createAndFetchBookmark(
+                            targetID: blockId,
+                            position: position,
+                            url: url.absoluteString
+                        )
+
+                        originalAttributedString.map {
+                            actionHandler.changeTextForced($0, blockId: blockId)
+                        }
+                    case .dismiss:
+                        break
+                    }
+                }
+
+            showURLBookmarkPopup(urlIputParameters)
+
+            return true
+        }
+
+        return false
     }
 }

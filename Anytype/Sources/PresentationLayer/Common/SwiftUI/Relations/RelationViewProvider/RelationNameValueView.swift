@@ -55,9 +55,6 @@ struct RelationNameValueView: View {
     }
 
     private var valueView: some View {
-        HStack(spacing: 0) {
-            RelationValueView(relation: viewModel.relation, style: .regular(allowMultiLine: false), action: viewModel.action)
-            Spacer()
-        }
+        RelationValueView(relation: viewModel.relation, style: .regular(allowMultiLine: false), action: viewModel.action)
     }
 }

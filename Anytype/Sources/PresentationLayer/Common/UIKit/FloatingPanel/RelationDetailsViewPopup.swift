@@ -44,7 +44,7 @@ extension RelationDetailsViewPopup: RelationDetailsViewModelDelegate {
     
     func didAskToClose() {
         hide(animated: true) {
-            self.removePanelFromParent(animated: false, completion: nil)
+            self.dismiss(animated: false)
         }
     }
 

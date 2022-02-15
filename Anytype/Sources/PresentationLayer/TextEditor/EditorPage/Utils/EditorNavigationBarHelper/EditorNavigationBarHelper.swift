@@ -27,8 +27,6 @@ final class EditorNavigationBarHelper {
         self.fakeNavigationBarBackgroundView.alpha = 0.0
         
         self.navigationBarTitleView.setAlphaForSubviews(0.0)
-        
-        self.syncStatusItem.isHidden = true
     }
     
 }

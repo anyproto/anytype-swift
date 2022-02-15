@@ -78,8 +78,6 @@ final class BlocksSelectionOverlayView: UIView {
     }
 
     private func applyShadow() {
-        shadowedBlocksOptionView.view.layer.cornerRadius = 16
-        shadowedBlocksOptionView.view.layer.masksToBounds = true
         shadowedBlocksOptionView.shadowLayer.fillColor = UIColor.textPrimary.cgColor
         shadowedBlocksOptionView.shadowLayer.shadowOffset = .init(width: 0, height: 2)
         shadowedBlocksOptionView.shadowLayer.shadowOpacity = 0.25

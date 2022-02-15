@@ -13,7 +13,7 @@ struct DateRelationDetailsRowView: View {
             content
             Spacer.fixedHeight(12)
         }
-        .modifier(DividerModifier(spacing: 0))
+        .divider()
     }
     
     private var content: some View {
@@ -29,7 +29,7 @@ struct DateRelationDetailsRowView: View {
                         DatePicker("", selection: $date, displayedComponents: .date)
                             .datePickerStyle(.compact)
                             .frame(height: 24)
-                        
+                            .accentColor(Color.System.amber)
                         Spacer.fixedWidth(4)
                     }
                     

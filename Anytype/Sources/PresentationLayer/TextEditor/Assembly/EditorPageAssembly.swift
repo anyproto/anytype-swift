@@ -89,13 +89,11 @@ final class EditorAssembly {
                 router?.goBack()
             },
             onRelationValueEditingTap: { [weak router] in
-                router?.showRelationValueEditingView(key: $0)
+                router?.showRelationValueEditingView(key: $0, source: .object)
             }
         )
                 
-        let modelsHolder = BlockViewModelsHolder(
-            objectId: document.objectId
-        )
+        let modelsHolder = EditorMainItemModelsHolder()
         
         let markupChanger = BlockMarkupChanger(blocksContainer: document.blocksContainer)
         let cursorManager = EditorCursorManager()

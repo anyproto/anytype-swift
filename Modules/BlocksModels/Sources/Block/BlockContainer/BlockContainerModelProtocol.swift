@@ -3,7 +3,7 @@
 public protocol BlockContainerModelProtocol: AnyObject {
     var rootId: BlockId? {get set}
 
-    func children(of id: BlockId) -> [BlockId]
+    func children(of id: BlockId) -> [BlockModelProtocol]
 
     func model(id: BlockId) -> BlockModelProtocol?
     func remove(_ id: BlockId)

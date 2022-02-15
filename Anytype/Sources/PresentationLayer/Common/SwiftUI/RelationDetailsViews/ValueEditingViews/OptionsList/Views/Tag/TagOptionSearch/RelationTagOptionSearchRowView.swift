@@ -8,7 +8,7 @@ struct RelationTagOptionSearchRowView: View {
     var body: some View {
         content
             .padding(.vertical, 14)
-            .modifier(DividerModifier(spacing: 0))
+            .divider()
     }
     
     private var content: some View {

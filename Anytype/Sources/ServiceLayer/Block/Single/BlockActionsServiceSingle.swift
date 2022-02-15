@@ -23,8 +23,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         _ = Anytype_Rpc.Block.Close.Service.invoke(contextID: contextId, blockID: blockId)
     }
     
-    // MARK: Create (OR Add) / Replace / Unlink ( OR Delete )
-    func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> MiddlewareResponse? {
+    func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {
         guard let blockInformation = BlockInformationConverter.convert(information: info) else {
             anytypeAssertionFailure("addActionBlockIsNotParsed", domain: .blockActionsService)
             return nil
@@ -32,21 +31,13 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
         Amplitude.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
 
-        return Anytype_Rpc.Block.Create.Service.invoke(contextID: contextId, targetID: targetId, block: blockInformation, position: position.asMiddleware)
-            .map { MiddlewareResponse($0.event) }
-            .getValue(domain: .blockActionsService)
-    }
-
-    func replace(contextId: BlockId, blockId: BlockId, info: BlockInformation) -> MiddlewareResponse? {
-        guard let block = BlockInformationConverter.convert(information: info) else {
-            anytypeAssertionFailure("replace action parsing error", domain: .blockActionsService)
-            return nil
-        }
+        let response = Anytype_Rpc.Block.Create.Service
+            .invoke(contextID: contextId, targetID: targetId, block: blockInformation, position: position.asMiddleware)
         
-        return Anytype_Rpc.Block.Replace.Service
-            .invoke(contextID: contextId, blockID: blockId, block: block)
-            .map { MiddlewareResponse($0.event) }
-            .getValue(domain: .blockActionsService)
+        guard let result = response.getValue(domain: .blockActionsService) else { return nil }
+
+        EventsBunch(event: result.event).send()
+        return result.blockID
     }
     
     func delete(contextId: BlockId, blockIds: [BlockId]) -> Bool {
@@ -61,13 +52,15 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         return true
     }
 
-    func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) -> MiddlewareResponse? {
+    func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockListDuplicate)
 
-        return Anytype_Rpc.BlockList.Duplicate.Service
+        Anytype_Rpc.BlockList.Duplicate.Service
             .invoke(contextID: contextId, targetID: targetId, blockIds: blockIds, position: position.asMiddleware)
-            .map { MiddlewareResponse($0.event) }
-            .getValue(domain: .blockActionsService)
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .blockActionsService)?
+            .send()
+        
     }
 
     func move(

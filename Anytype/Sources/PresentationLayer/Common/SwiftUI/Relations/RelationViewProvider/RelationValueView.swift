@@ -8,9 +8,7 @@ struct RelationValueView: View {
 
     var body: some View {
         if action.isNotNil && relation.isEditable {
-            Button {
-                guard FeatureFlags.relationsEditing else { return }
-                
+            Button {                
                 action?(relation)
             } label: {
                 relationView
@@ -21,7 +19,7 @@ struct RelationValueView: View {
     }
 
     private var relationView: some View {
-        Group {
+        HStack(spacing: 0) {
             switch relation {
             case .text(let text):
                 TextRelationView(value: text.value, hint: relation.hint, style: style, allowMultiLine: style.allowMultiLine)
@@ -48,6 +46,7 @@ struct RelationValueView: View {
             case .unknown(let unknown):
                 RelationsListRowPlaceholderView(hint: unknown.value, type: style.placeholderType)
             }
+            Spacer()
         }
     }
 }
