@@ -117,10 +117,11 @@ struct SearchNewRelationView_Previews: PreviewProvider {
     static var previews: some View {
         SearchNewRelationView(
             viewModel: SearchNewRelationViewModel(
+                source: .object,
                 relationService: RelationsService(objectId: ""),
                 objectRelations: ParsedRelations(featuredRelations: [], otherRelations: []),
-                onSelect: { _ in
-            })
+                onSelect: { _ in }
+            )
         )
     }
 }

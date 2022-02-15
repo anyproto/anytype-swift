@@ -5,42 +5,6 @@ import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
-protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
-    
-    func showPage(data: EditorScreenData)
-    func openUrl(_ url: URL)
-    func showBookmarkBar(completion: @escaping (URL) -> ())
-    func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void)
-    
-    func showFilePicker(model: Picker.ViewModel)
-    func showImagePicker(model: MediaPickerViewModel)
-    
-    func saveFile(fileURL: URL, type: FileContentType)
-    
-    func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
-    
-    func showStyleMenu(information: BlockInformation)
-    func showSettings(viewModel: ObjectSettingsViewModel)
-    func showCoverPicker(viewModel: ObjectCoverPickerViewModel)
-    func showIconPicker(viewModel: ObjectIconPickerViewModel)
-    
-    func showMoveTo(onSelect: @escaping (BlockId) -> ())
-    func showLinkTo(onSelect: @escaping (BlockId) -> ())
-    func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
-    func showSearch(onSelect: @escaping (EditorScreenData) -> ())
-    func showTypesSearch(onSelect: @escaping (BlockId) -> ())
-    func showRelationValueEditingView(key: String)
-    func showRelationValueEditingView(objectId: BlockId, relation: Relation)
-    func showAdditinNewRelationView(onSelect: @escaping (RelationMetadata) -> Void)
-    func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
-
-    func goBack()
-}
-
-protocol AttachmentRouterProtocol {
-    func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext)
-}
-
 final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
@@ -264,43 +228,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         presentSwuftUIView(view: searchView, model: viewModel)
     }
     
-    func showRelationValueEditingView(key: String) {
-        let relation = document.parsedRelations.all.first { $0.id == key }
-        guard let relation = relation else { return }
-        
-        showRelationValueEditingView(objectId: document.objectId, relation: relation)
-    }
-    
-    func showRelationValueEditingView(objectId: BlockId, relation: Relation) {
-        guard relation.isEditable else { return }
-        
-        if case .checkbox(let checkbox) = relation {
-            let relationsService = RelationsService(objectId: objectId)
-            relationsService.updateRelation(relationKey: checkbox.id, value: (!checkbox.value).protobufValue)
-            return
-        }
-        
-        guard let viewController = viewController else { return }
-        
-        let contentViewModel = relationEditingViewModelBuilder.buildViewModel(objectId: objectId, relation: relation)
-        guard let contentViewModel = contentViewModel else { return }
-        
-        let fpc = RelationDetailsViewPopup(viewModel: contentViewModel)
-        viewController.topPresentedController.present(fpc, animated: true, completion: nil)
-    }
-
-    func showAdditinNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
-        let relationService = RelationsService(objectId: document.objectId)
-        
-        let viewModel = SearchNewRelationViewModel(
-            relationService: relationService,
-            objectRelations: document.parsedRelations,
-            onSelect: onSelect)
-
-        let view = SearchNewRelationView(viewModel: viewModel)
-        presentSwuftUIView(view: view, model: viewModel)
-    }
-    
     func goBack() {
         rootController?.pop()
     }
@@ -359,6 +286,49 @@ extension EditorRouter: TextRelationActionButtonViewModelDelegate {
     }
 
 }
+
+// MARK: - Relations
+extension EditorRouter {
+    func showRelationValueEditingView(key: String, source: RelationSource) {
+        let relation = document.parsedRelations.all.first { $0.id == key }
+        guard let relation = relation else { return }
+        
+        showRelationValueEditingView(objectId: document.objectId, source: source, relation: relation)
+    }
+    
+    func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation) {
+        guard relation.isEditable else { return }
+        
+        if case .checkbox(let checkbox) = relation {
+            let relationsService = RelationsService(objectId: objectId)
+            relationsService.updateRelation(relationKey: checkbox.id, value: (!checkbox.value).protobufValue)
+            return
+        }
+        
+        guard let viewController = viewController else { return }
+        
+        let contentViewModel = relationEditingViewModelBuilder
+            .buildViewModel(source: source, objectId: objectId, relation: relation)
+        guard let contentViewModel = contentViewModel else { return }
+        
+        let fpc = RelationDetailsViewPopup(viewModel: contentViewModel)
+        viewController.topPresentedController.present(fpc, animated: true, completion: nil)
+    }
+
+    func showAddNewRelationView(source: RelationSource, onSelect: @escaping (RelationMetadata) -> Void) {
+        let relationService = RelationsService(objectId: document.objectId)
+        
+        let viewModel = SearchNewRelationViewModel(
+            source: source,
+            relationService: relationService,
+            objectRelations: document.parsedRelations,
+            onSelect: onSelect)
+
+        let view = SearchNewRelationView(viewModel: viewModel)
+        presentSwuftUIView(view: view, model: viewModel)
+    }
+}
+
 
 extension EditorRouter: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

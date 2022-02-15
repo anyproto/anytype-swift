@@ -189,7 +189,7 @@ final class BlockViewModelBuilder {
                         }
                     )
                 } else {
-                    self.router.showRelationValueEditingView(key: relation.id)
+                    self.router.showRelationValueEditingView(key: relation.id, source: .object)
                 }
             }
         case let .relation(content):
@@ -205,7 +205,7 @@ final class BlockViewModelBuilder {
                 information: block.information,
                 indentationLevel: block.indentationLevel,
                 relation: relation) { [weak self] relation in
-                    self?.router.showRelationValueEditingView(key: relation.id)
+                    self?.router.showRelationValueEditingView(key: relation.id, source: .object)
                 }
 
         case .smartblock, .layout, .dataView: return nil
