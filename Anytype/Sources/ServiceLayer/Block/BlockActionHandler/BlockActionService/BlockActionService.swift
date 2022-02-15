@@ -172,6 +172,20 @@ extension BlockActionService {
     func bookmarkFetch(blockId: BlockId, url: String) {
         bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url)
     }
+
+    func createAndFetchBookmark(
+        contextID: BlockId,
+        targetID: BlockId,
+        position: BlockPosition,
+        url: String
+    ) {
+        bookmarkService.createAndFetchBookmark(
+            contextID: contextID,
+            targetID: targetID,
+            position: position,
+            url: url
+        )
+    }
 }
 
 // MARK: - SetBackgroundColor

@@ -1,12 +1,11 @@
 import UIKit
 import BlocksModels
 import SafariServices
-import Combine
 import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
-final class EditorRouter: EditorRouterProtocol {
+final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let fileRouter: FileRouter
@@ -47,6 +46,36 @@ final class EditorRouter: EditorRouterProtocol {
             title: "Not supported type \"\(typeName)\"",
             message: "You can open it via desktop"
         )
+    }
+
+    func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters) {
+        let contextualMenuView = EditorContextualMenuView(
+            options: [.dismiss, .createBookmark],
+            optionTapHandler: { [weak rootController] option in
+                    rootController?.presentedViewController?.dismiss(animated: false, completion: nil)
+                    inputParameters.optionHandler(option)
+            }
+        )
+
+        let hostViewController = UIHostingController(rootView: contextualMenuView)
+        hostViewController.modalPresentationStyle = .popover
+
+        hostViewController.preferredContentSize = hostViewController
+            .sizeThatFits(
+                in: .init(
+                    width: CGFloat.greatestFiniteMagnitude,
+                    height: CGFloat.greatestFiniteMagnitude
+                )
+            )
+
+        if let popoverPresentationController = hostViewController.popoverPresentationController {
+            popoverPresentationController.sourceRect = inputParameters.rect
+            popoverPresentationController.sourceView = inputParameters.textView
+            popoverPresentationController.delegate = self
+            popoverPresentationController.permittedArrowDirections = [.up, .down]
+
+            rootController?.present(hostViewController, animated: true, completion: nil)
+        }
     }
     
     func openUrl(_ url: URL) {
@@ -258,7 +287,6 @@ extension EditorRouter: TextRelationActionButtonViewModelDelegate {
 
 }
 
-
 // MARK: - Relations
 extension EditorRouter {
     func showRelationValueEditingView(key: String, source: RelationSource) {
@@ -298,5 +326,20 @@ extension EditorRouter {
 
         let view = SearchNewRelationView(viewModel: viewModel)
         presentSwuftUIView(view: view, model: viewModel)
+    }
+}
+
+
+extension EditorRouter: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+
+    }
+
+    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
+        return true
     }
 }

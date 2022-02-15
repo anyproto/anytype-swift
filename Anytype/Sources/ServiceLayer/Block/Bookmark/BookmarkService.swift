@@ -9,4 +9,22 @@ class BookmarkService: BookmarkServiceProtocol {
             .getValue(domain: .bookmarkService)?
             .send()
     }
+
+    func createAndFetchBookmark(
+        contextID: BlockId,
+        targetID: BlockId,
+        position: BlockPosition,
+        url: String
+    ) {
+        Anytype_Rpc.Block.Bookmark.CreateAndFetch.Service
+            .invoke(
+                contextID: contextID,
+                targetID: targetID,
+                position: position.asMiddleware,
+                url: url
+            )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .bookmarkService)?
+            .send()
+    }
 }
