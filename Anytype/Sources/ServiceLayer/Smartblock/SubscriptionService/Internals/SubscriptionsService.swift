@@ -62,16 +62,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
             object: nil
         )
             .compactMap { $0.object as? EventsBunch }
-            .filter { [weak self] event in
-                guard let self = self else { return false }
-                guard event.contextId.isNotEmpty else { return true } // Empty object id in generic subscription
-                
-                guard let subscription = SubscriptionId(rawValue: event.contextId) else {
-                    return false
-                }
-                
-                return self.turnedOnSubs.keys.contains(subscription)
-            }
+            .filter { $0.contextId.isEmpty }
             .receiveOnMain()
             .sink { [weak self] events in
                 self?.handle(events: events)
@@ -92,7 +83,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 update(details: updatedDetails, rawSubIds: data.subIds)
             case .subscriptionPosition(let position):
                 let update: SubscriptionUpdate = .move(from: position.id, after: position.afterID.isNotEmpty ? position.afterID : nil)
-                sendUpdate(update, contextId: events.contextId)
+                sendUpdate(update, subId: position.subID)
             case .subscriptionAdd(let data):
                 guard let details = storage.get(id: data.id) else {
                     anytypeAssertionFailure("No details found for id \(data.id)", domain: .subscriptionStorage)
@@ -100,13 +91,13 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 }
                 
                 let update: SubscriptionUpdate = .add(details, after: data.afterID.isNotEmpty ? data.afterID : nil)
-                sendUpdate(update, contextId: events.contextId)
+                sendUpdate(update, subId: data.subID)
             case .subscriptionRemove(let remove):
-                sendUpdate(.remove(remove.id), contextId: events.contextId)
+                sendUpdate(.remove(remove.id), subId: remove.subID)
             case .objectRemove:
                 break // unsupported (Not supported in middleware converter also)
             case .subscriptionCounters(let data):
-                sendUpdate(.pageCount(numberOfPagesFromTotalCount(data.total)), contextId: events.contextId)
+                sendUpdate(.pageCount(numberOfPagesFromTotalCount(data.total)), subId: data.subID)
             case .accountConfigUpdate:
                 break
             case .accountDetails:
@@ -117,9 +108,9 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         }
     }
     
-    private func sendUpdate(_ update: SubscriptionUpdate, contextId: BlockId) {
-        guard let subId = SubscriptionId(rawValue: contextId) else {
-            anytypeAssertionFailure("Unsupported object id \(contextId)", domain: .subscriptionStorage)
+    private func sendUpdate(_ update: SubscriptionUpdate, subId: String) {
+        guard let subId = SubscriptionId(rawValue: subId) else {
+            anytypeAssertionFailure("Unsupported object id \(subId)", domain: .subscriptionStorage)
             return
         }
         guard let action = turnedOnSubs[subId] else { return }
