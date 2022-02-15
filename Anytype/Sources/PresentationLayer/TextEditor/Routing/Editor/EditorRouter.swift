@@ -315,14 +315,14 @@ extension EditorRouter {
         viewController.topPresentedController.present(fpc, animated: true, completion: nil)
     }
 
-    func showAddNewRelationView(source: RelationSource, onSelect: @escaping (RelationMetadata) -> Void) {
+    func showAddNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
         let relationService = RelationsService(objectId: document.objectId)
         
         let viewModel = SearchNewRelationViewModel(
-            source: source,
             relationService: relationService,
             objectRelations: document.parsedRelations,
-            onSelect: onSelect)
+            onSelect: onSelect
+        )
 
         let view = SearchNewRelationView(viewModel: viewModel)
         presentSwuftUIView(view: view, model: viewModel)

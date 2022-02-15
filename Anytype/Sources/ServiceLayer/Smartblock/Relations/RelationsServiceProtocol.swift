@@ -4,7 +4,7 @@ import SwiftProtobuf
 
 enum RelationSource {
     case object
-    case dataview(recordId: BlockId)
+    case dataview(contextId: BlockId)
 }
 
 protocol RelationsServiceProtocol {
@@ -13,10 +13,10 @@ protocol RelationsServiceProtocol {
     
     func updateRelation(relationKey: String, value: Google_Protobuf_Value)
 
-    func createRelation(source: RelationSource, relation: RelationMetadata) -> RelationMetadata?
-    func addRelation(source: RelationSource, relation: RelationMetadata) -> RelationMetadata?
+    func createRelation(relation: RelationMetadata) -> RelationMetadata?
+    func addRelation(relation: RelationMetadata) -> RelationMetadata?
 
-    func removeRelation(source: RelationSource, relationKey: String)
+    func removeRelation(relationKey: String)
     func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String?
-    func availableRelations(source: RelationSource) -> [RelationMetadata]?
+    func availableRelations() -> [RelationMetadata]?
 }
