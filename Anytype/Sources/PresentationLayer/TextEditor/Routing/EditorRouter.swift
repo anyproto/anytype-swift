@@ -1,7 +1,6 @@
 import UIKit
 import BlocksModels
 import SafariServices
-import Combine
 import SwiftUI
 import FloatingPanel
 import AnytypeCore
@@ -33,6 +32,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showRelationValueEditingView(key: String)
     func showRelationValueEditingView(objectId: BlockId, relation: Relation)
     func showAdditinNewRelationView(onSelect: @escaping (RelationMetadata) -> Void)
+    func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
 
     func goBack()
 }
@@ -41,7 +41,7 @@ protocol AttachmentRouterProtocol {
     func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext)
 }
 
-final class EditorRouter: EditorRouterProtocol {
+final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let fileRouter: FileRouter
@@ -82,6 +82,36 @@ final class EditorRouter: EditorRouterProtocol {
             title: "Not supported type \"\(typeName)\"",
             message: "You can open it via desktop"
         )
+    }
+
+    func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters) {
+        let contextualMenuView = EditorContextualMenuView(
+            options: [.dismiss, .createBookmark],
+            optionTapHandler: { [weak rootController] option in
+                    rootController?.presentedViewController?.dismiss(animated: false, completion: nil)
+                    inputParameters.optionHandler(option)
+            }
+        )
+
+        let hostViewController = UIHostingController(rootView: contextualMenuView)
+        hostViewController.modalPresentationStyle = .popover
+
+        hostViewController.preferredContentSize = hostViewController
+            .sizeThatFits(
+                in: .init(
+                    width: CGFloat.greatestFiniteMagnitude,
+                    height: CGFloat.greatestFiniteMagnitude
+                )
+            )
+
+        if let popoverPresentationController = hostViewController.popoverPresentationController {
+            popoverPresentationController.sourceRect = inputParameters.rect
+            popoverPresentationController.sourceView = inputParameters.textView
+            popoverPresentationController.delegate = self
+            popoverPresentationController.permittedArrowDirections = [.up, .down]
+
+            rootController?.present(hostViewController, animated: true, completion: nil)
+        }
     }
     
     func openUrl(_ url: URL) {
@@ -328,4 +358,18 @@ extension EditorRouter: TextRelationActionButtonViewModelDelegate {
         UIApplication.shared.canOpenURL(url.urlByAddingHttpIfSchemeIsEmpty())
     }
 
+}
+
+extension EditorRouter: UIPopoverPresentationControllerDelegate {
+    func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+        return .none
+    }
+
+    func popoverPresentationControllerDidDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) {
+
+    }
+
+    func popoverPresentationControllerShouldDismissPopover(_ popoverPresentationController: UIPopoverPresentationController) -> Bool {
+        return true
+    }
 }
