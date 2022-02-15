@@ -454,6 +454,14 @@ public struct Anytype_Model_Block {
     set {_uniqueStorage()._content = .latex(newValue)}
   }
 
+  public var tableOfContents: Anytype_Model_Block.Content.TableOfContents {
+    get {
+      if case .tableOfContents(let v)? = _storage._content {return v}
+      return Anytype_Model_Block.Content.TableOfContents()
+    }
+    set {_uniqueStorage()._content = .tableOfContents(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum OneOf_Content: Equatable {
@@ -469,6 +477,7 @@ public struct Anytype_Model_Block {
     case relation(Anytype_Model_Block.Content.Relation)
     case featuredRelations(Anytype_Model_Block.Content.FeaturedRelations)
     case latex(Anytype_Model_Block.Content.Latex)
+    case tableOfContents(Anytype_Model_Block.Content.TableOfContents)
 
   #if !swift(>=4.1)
     public static func ==(lhs: Anytype_Model_Block.OneOf_Content, rhs: Anytype_Model_Block.OneOf_Content) -> Bool {
@@ -522,6 +531,10 @@ public struct Anytype_Model_Block {
       }()
       case (.latex, .latex): return {
         guard case .latex(let l) = lhs, case .latex(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.tableOfContents, .tableOfContents): return {
+        guard case .tableOfContents(let l) = lhs, case .tableOfContents(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
       default: return false
@@ -873,6 +886,12 @@ public struct Anytype_Model_Block {
 
       public var color: String = String()
 
+      /// used with style Callout
+      public var iconEmoji: String = String()
+
+      /// in case both image and emoji are set, image should has a priority in the UI
+      public var iconImage: String = String()
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public enum Style: SwiftProtobuf.Enum {
@@ -896,6 +915,9 @@ public struct Anytype_Model_Block {
 
         /// currently only only one block of this style can exists on a page
         case description_ // = 12
+
+        /// currently only only one block of this style can exists on a page
+        case callout // = 13
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -917,6 +939,7 @@ public struct Anytype_Model_Block {
           case 10: self = .numbered
           case 11: self = .toggle
           case 12: self = .description_
+          case 13: self = .callout
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -936,6 +959,7 @@ public struct Anytype_Model_Block {
           case .numbered: return 10
           case .toggle: return 11
           case .description_: return 12
+          case .callout: return 13
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -1601,6 +1625,16 @@ public struct Anytype_Model_Block {
       public init() {}
     }
 
+    public struct TableOfContents {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
     public init() {}
   }
 
@@ -1678,6 +1712,7 @@ extension Anytype_Model_Block.Content.Text.Style: CaseIterable {
     .numbered,
     .toggle,
     .description_,
+    .callout,
   ]
 }
 
@@ -2777,6 +2812,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     22: .same(proto: "relation"),
     23: .same(proto: "featuredRelations"),
     24: .same(proto: "latex"),
+    25: .same(proto: "tableOfContents"),
   ]
 
   fileprivate class _StorageClass {
@@ -2980,6 +3016,19 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
             _storage._content = .latex(v)
           }
         }()
+        case 25: try {
+          var v: Anytype_Model_Block.Content.TableOfContents?
+          var hadOneofValue = false
+          if let current = _storage._content {
+            hadOneofValue = true
+            if case .tableOfContents(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._content = .tableOfContents(v)
+          }
+        }()
         default: break
         }
       }
@@ -3058,6 +3107,10 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       case .latex?: try {
         guard case .latex(let v)? = _storage._content else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 24)
+      }()
+      case .tableOfContents?: try {
+        guard case .tableOfContents(let v)? = _storage._content else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 25)
       }()
       case nil: break
       }
@@ -3440,6 +3493,8 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
     3: .same(proto: "marks"),
     4: .same(proto: "checked"),
     5: .same(proto: "color"),
+    6: .same(proto: "iconEmoji"),
+    7: .same(proto: "iconImage"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3453,6 +3508,8 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
       case 3: try { try decoder.decodeSingularMessageField(value: &self._marks) }()
       case 4: try { try decoder.decodeSingularBoolField(value: &self.checked) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.color) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.iconEmoji) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.iconImage) }()
       default: break
       }
     }
@@ -3478,6 +3535,12 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
     if !self.color.isEmpty {
       try visitor.visitSingularStringField(value: self.color, fieldNumber: 5)
     }
+    if !self.iconEmoji.isEmpty {
+      try visitor.visitSingularStringField(value: self.iconEmoji, fieldNumber: 6)
+    }
+    if !self.iconImage.isEmpty {
+      try visitor.visitSingularStringField(value: self.iconImage, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3487,6 +3550,8 @@ extension Anytype_Model_Block.Content.Text: SwiftProtobuf.Message, SwiftProtobuf
     if lhs._marks != rhs._marks {return false}
     if lhs.checked != rhs.checked {return false}
     if lhs.color != rhs.color {return false}
+    if lhs.iconEmoji != rhs.iconEmoji {return false}
+    if lhs.iconImage != rhs.iconImage {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -3507,6 +3572,7 @@ extension Anytype_Model_Block.Content.Text.Style: SwiftProtobuf._ProtoNameProvid
     10: .same(proto: "Numbered"),
     11: .same(proto: "Toggle"),
     12: .same(proto: "Description"),
+    13: .same(proto: "Callout"),
   ]
 }
 
@@ -4150,6 +4216,25 @@ extension Anytype_Model_Block.Content.Latex: SwiftProtobuf.Message, SwiftProtobu
 
   public static func ==(lhs: Anytype_Model_Block.Content.Latex, rhs: Anytype_Model_Block.Content.Latex) -> Bool {
     if lhs.text != rhs.text {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.TableOfContents: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".TableOfContents"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.TableOfContents, rhs: Anytype_Model_Block.Content.TableOfContents) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

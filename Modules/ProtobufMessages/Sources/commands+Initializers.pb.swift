@@ -1272,6 +1272,29 @@ extension Anytype_Rpc.Block.Set.Text.Color.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.Set.Text.Icon.Request {
+  public init(contextID: String, blockID: String, iconImage: String, iconEmoji: String) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.iconImage = iconImage
+    self.iconEmoji = iconEmoji
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Text.Icon.Response {
+  public init(error: Anytype_Rpc.Block.Set.Text.Icon.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.Set.Text.Icon.Response.Error {
+  public init(code: Anytype_Rpc.Block.Set.Text.Icon.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.Set.Text.Style.Request {
   public init(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) {
     self.contextID = contextID
@@ -1918,9 +1941,10 @@ extension Anytype_Rpc.Debug.Thread.Response.Error {
 }
 
 extension Anytype_Rpc.Debug.Tree.Request {
-  public init(blockID: String, path: String) {
+  public init(blockID: String, path: String, unanonymized: Bool) {
     self.blockID = blockID
     self.path = path
+    self.unanonymized = unanonymized
   }
 }
 
@@ -2734,13 +2758,12 @@ extension Anytype_Rpc.Object.Search.Response.Error {
 
 extension Anytype_Rpc.Object.SearchSubscribe.Request {
   public init(
-    subID: String, filters: [Anytype_Model_Block.Content.Dataview.Filter], sorts: [Anytype_Model_Block.Content.Dataview.Sort], fullText: String, limit: Int32, offset: Int32, keys: [String],
-    afterID: String, beforeID: String, source: [String], ignoreWorkspace: String
+    subID: String, filters: [Anytype_Model_Block.Content.Dataview.Filter], sorts: [Anytype_Model_Block.Content.Dataview.Sort], limit: Int64, offset: Int64, keys: [String], afterID: String,
+    beforeID: String, source: [String], ignoreWorkspace: String, noDepSubscription: Bool
   ) {
     self.subID = subID
     self.filters = filters
     self.sorts = sorts
-    self.fullText = fullText
     self.limit = limit
     self.offset = offset
     self.keys = keys
@@ -2748,6 +2771,7 @@ extension Anytype_Rpc.Object.SearchSubscribe.Request {
     self.beforeID = beforeID
     self.source = source
     self.ignoreWorkspace = ignoreWorkspace
+    self.noDepSubscription = noDepSubscription
   }
 }
 
@@ -3184,6 +3208,56 @@ extension Anytype_Rpc.Shutdown.Response.Error {
   public init(code: Anytype_Rpc.Shutdown.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.UnsplashDownload.Request {
+  public init(pictureID: String) {
+    self.pictureID = pictureID
+  }
+}
+
+extension Anytype_Rpc.UnsplashDownload.Response {
+  public init(error: Anytype_Rpc.UnsplashDownload.Response.Error, hash: String) {
+    self.error = error
+    self.hash = hash
+  }
+}
+
+extension Anytype_Rpc.UnsplashDownload.Response.Error {
+  public init(code: Anytype_Rpc.UnsplashDownload.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.UnsplashSearch.Request {
+  public init(query: String, limit: Int32) {
+    self.query = query
+    self.limit = limit
+  }
+}
+
+extension Anytype_Rpc.UnsplashSearch.Response {
+  public init(error: Anytype_Rpc.UnsplashSearch.Response.Error, pictures: [Anytype_Rpc.UnsplashSearch.Response.Picture]) {
+    self.error = error
+    self.pictures = pictures
+  }
+}
+
+extension Anytype_Rpc.UnsplashSearch.Response.Error {
+  public init(code: Anytype_Rpc.UnsplashSearch.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.UnsplashSearch.Response.Picture {
+  public init(id: String, url: String, artist: String, artistURL: String) {
+    self.id = id
+    self.url = url
+    self.artist = artist
+    self.artistURL = artistURL
   }
 }
 

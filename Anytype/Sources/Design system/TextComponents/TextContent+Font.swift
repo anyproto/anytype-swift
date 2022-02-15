@@ -14,7 +14,7 @@ extension BlockText.Style {
             return .heading
         case .header3:
             return .subheading
-        case .text, .checkbox, .bulleted, .numbered, .toggle, .header4, .quote:
+        case .text, .checkbox, .bulleted, .numbered, .toggle, .header4, .quote, .callout:
             return .body
         case .code:
             return .codeBlock

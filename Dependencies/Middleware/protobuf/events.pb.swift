@@ -936,6 +936,9 @@ public struct Anytype_Event {
         /// id of previous doc in order, empty means first
         public var afterID: String = String()
 
+        /// subscription id
+        public var subID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -949,6 +952,9 @@ public struct Anytype_Event {
 
         /// object id
         public var id: String = String()
+
+        /// subscription id
+        public var subID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -966,6 +972,9 @@ public struct Anytype_Event {
 
         /// id of previous doc in order, empty means first
         public var afterID: String = String()
+
+        /// subscription id
+        public var subID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -985,6 +994,9 @@ public struct Anytype_Event {
 
         /// how many records available before
         public var prevCount: Int64 = 0
+
+        /// subscription id
+        public var subID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1437,6 +1449,24 @@ public struct Anytype_Event {
         /// Clears the value of `color`. Subsequent reads from it will return its default value.
         public mutating func clearColor() {self._color = nil}
 
+        public var iconEmoji: Anytype_Event.Block.Set.Text.IconEmoji {
+          get {return _iconEmoji ?? Anytype_Event.Block.Set.Text.IconEmoji()}
+          set {_iconEmoji = newValue}
+        }
+        /// Returns true if `iconEmoji` has been explicitly set.
+        public var hasIconEmoji: Bool {return self._iconEmoji != nil}
+        /// Clears the value of `iconEmoji`. Subsequent reads from it will return its default value.
+        public mutating func clearIconEmoji() {self._iconEmoji = nil}
+
+        public var iconImage: Anytype_Event.Block.Set.Text.IconImage {
+          get {return _iconImage ?? Anytype_Event.Block.Set.Text.IconImage()}
+          set {_iconImage = newValue}
+        }
+        /// Returns true if `iconImage` has been explicitly set.
+        public var hasIconImage: Bool {return self._iconImage != nil}
+        /// Clears the value of `iconImage`. Subsequent reads from it will return its default value.
+        public mutating func clearIconImage() {self._iconImage = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Text {
@@ -1508,6 +1538,30 @@ public struct Anytype_Event {
           public init() {}
         }
 
+        public struct IconEmoji {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
+        public struct IconImage {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
         public init() {}
 
         fileprivate var _text: Anytype_Event.Block.Set.Text.Text? = nil
@@ -1515,6 +1569,8 @@ public struct Anytype_Event {
         fileprivate var _marks: Anytype_Event.Block.Set.Text.Marks? = nil
         fileprivate var _checked: Anytype_Event.Block.Set.Text.Checked? = nil
         fileprivate var _color: Anytype_Event.Block.Set.Text.Color? = nil
+        fileprivate var _iconEmoji: Anytype_Event.Block.Set.Text.IconEmoji? = nil
+        fileprivate var _iconImage: Anytype_Event.Block.Set.Text.IconImage? = nil
       }
 
       public struct Latex {
@@ -4930,6 +4986,7 @@ extension Anytype_Event.Object.Subscription.Add: SwiftProtobuf.Message, SwiftPro
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "afterId"),
+    3: .same(proto: "subId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -4940,6 +4997,7 @@ extension Anytype_Event.Object.Subscription.Add: SwiftProtobuf.Message, SwiftPro
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.subID) }()
       default: break
       }
     }
@@ -4952,12 +5010,16 @@ extension Anytype_Event.Object.Subscription.Add: SwiftProtobuf.Message, SwiftPro
     if !self.afterID.isEmpty {
       try visitor.visitSingularStringField(value: self.afterID, fieldNumber: 2)
     }
+    if !self.subID.isEmpty {
+      try visitor.visitSingularStringField(value: self.subID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Object.Subscription.Add, rhs: Anytype_Event.Object.Subscription.Add) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.afterID != rhs.afterID {return false}
+    if lhs.subID != rhs.subID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -4967,6 +5029,7 @@ extension Anytype_Event.Object.Subscription.Remove: SwiftProtobuf.Message, Swift
   public static let protoMessageName: String = Anytype_Event.Object.Subscription.protoMessageName + ".Remove"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
+    2: .same(proto: "subId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -4976,6 +5039,7 @@ extension Anytype_Event.Object.Subscription.Remove: SwiftProtobuf.Message, Swift
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.subID) }()
       default: break
       }
     }
@@ -4985,11 +5049,15 @@ extension Anytype_Event.Object.Subscription.Remove: SwiftProtobuf.Message, Swift
     if !self.id.isEmpty {
       try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
     }
+    if !self.subID.isEmpty {
+      try visitor.visitSingularStringField(value: self.subID, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Object.Subscription.Remove, rhs: Anytype_Event.Object.Subscription.Remove) -> Bool {
     if lhs.id != rhs.id {return false}
+    if lhs.subID != rhs.subID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5000,6 +5068,7 @@ extension Anytype_Event.Object.Subscription.Position: SwiftProtobuf.Message, Swi
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "id"),
     2: .same(proto: "afterId"),
+    3: .same(proto: "subId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5010,6 +5079,7 @@ extension Anytype_Event.Object.Subscription.Position: SwiftProtobuf.Message, Swi
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.afterID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.subID) }()
       default: break
       }
     }
@@ -5022,12 +5092,16 @@ extension Anytype_Event.Object.Subscription.Position: SwiftProtobuf.Message, Swi
     if !self.afterID.isEmpty {
       try visitor.visitSingularStringField(value: self.afterID, fieldNumber: 2)
     }
+    if !self.subID.isEmpty {
+      try visitor.visitSingularStringField(value: self.subID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Object.Subscription.Position, rhs: Anytype_Event.Object.Subscription.Position) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.afterID != rhs.afterID {return false}
+    if lhs.subID != rhs.subID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5039,6 +5113,7 @@ extension Anytype_Event.Object.Subscription.Counters: SwiftProtobuf.Message, Swi
     1: .same(proto: "total"),
     2: .same(proto: "nextCount"),
     3: .same(proto: "prevCount"),
+    4: .same(proto: "subId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5050,6 +5125,7 @@ extension Anytype_Event.Object.Subscription.Counters: SwiftProtobuf.Message, Swi
       case 1: try { try decoder.decodeSingularInt64Field(value: &self.total) }()
       case 2: try { try decoder.decodeSingularInt64Field(value: &self.nextCount) }()
       case 3: try { try decoder.decodeSingularInt64Field(value: &self.prevCount) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.subID) }()
       default: break
       }
     }
@@ -5065,6 +5141,9 @@ extension Anytype_Event.Object.Subscription.Counters: SwiftProtobuf.Message, Swi
     if self.prevCount != 0 {
       try visitor.visitSingularInt64Field(value: self.prevCount, fieldNumber: 3)
     }
+    if !self.subID.isEmpty {
+      try visitor.visitSingularStringField(value: self.subID, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5072,6 +5151,7 @@ extension Anytype_Event.Object.Subscription.Counters: SwiftProtobuf.Message, Swi
     if lhs.total != rhs.total {return false}
     if lhs.nextCount != rhs.nextCount {return false}
     if lhs.prevCount != rhs.prevCount {return false}
+    if lhs.subID != rhs.subID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5946,6 +6026,8 @@ extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._Me
     4: .same(proto: "marks"),
     5: .same(proto: "checked"),
     6: .same(proto: "color"),
+    7: .same(proto: "iconEmoji"),
+    8: .same(proto: "iconImage"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5960,6 +6042,8 @@ extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 4: try { try decoder.decodeSingularMessageField(value: &self._marks) }()
       case 5: try { try decoder.decodeSingularMessageField(value: &self._checked) }()
       case 6: try { try decoder.decodeSingularMessageField(value: &self._color) }()
+      case 7: try { try decoder.decodeSingularMessageField(value: &self._iconEmoji) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._iconImage) }()
       default: break
       }
     }
@@ -5988,6 +6072,12 @@ extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._Me
     try { if let v = self._color {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
     } }()
+    try { if let v = self._iconEmoji {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
+    } }()
+    try { if let v = self._iconImage {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5998,6 +6088,8 @@ extension Anytype_Event.Block.Set.Text: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs._marks != rhs._marks {return false}
     if lhs._checked != rhs._checked {return false}
     if lhs._color != rhs._color {return false}
+    if lhs._iconEmoji != rhs._iconEmoji {return false}
+    if lhs._iconImage != rhs._iconImage {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -6161,6 +6253,70 @@ extension Anytype_Event.Block.Set.Text.Color: SwiftProtobuf.Message, SwiftProtob
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Text.Color, rhs: Anytype_Event.Block.Set.Text.Color) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Text.IconEmoji: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.Text.protoMessageName + ".IconEmoji"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.Text.IconEmoji, rhs: Anytype_Event.Block.Set.Text.IconEmoji) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Text.IconImage: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.Text.protoMessageName + ".IconImage"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.Text.IconImage, rhs: Anytype_Event.Block.Set.Text.IconImage) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

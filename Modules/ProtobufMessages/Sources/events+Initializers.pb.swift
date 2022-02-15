@@ -659,7 +659,7 @@ extension Anytype_Event.Block.Set.Restrictions {
 extension Anytype_Event.Block.Set.Text {
   public init(
     id: String, text: Anytype_Event.Block.Set.Text.Text, style: Anytype_Event.Block.Set.Text.Style, marks: Anytype_Event.Block.Set.Text.Marks, checked: Anytype_Event.Block.Set.Text.Checked,
-    color: Anytype_Event.Block.Set.Text.Color
+    color: Anytype_Event.Block.Set.Text.Color, iconEmoji: Anytype_Event.Block.Set.Text.IconEmoji, iconImage: Anytype_Event.Block.Set.Text.IconImage
   ) {
     self.id = id
     self.text = text
@@ -667,6 +667,8 @@ extension Anytype_Event.Block.Set.Text {
     self.marks = marks
     self.checked = checked
     self.color = color
+    self.iconEmoji = iconEmoji
+    self.iconImage = iconImage
   }
 }
 
@@ -677,6 +679,18 @@ extension Anytype_Event.Block.Set.Text.Checked {
 }
 
 extension Anytype_Event.Block.Set.Text.Color {
+  public init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.Text.IconEmoji {
+  public init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.Text.IconImage {
   public init(value: String) {
     self.value = value
   }
@@ -802,30 +816,34 @@ extension Anytype_Event.Object.Show.RelationWithValuePerObject {
 }
 
 extension Anytype_Event.Object.Subscription.Add {
-  public init(id: String, afterID: String) {
+  public init(id: String, afterID: String, subID: String) {
     self.id = id
     self.afterID = afterID
+    self.subID = subID
   }
 }
 
 extension Anytype_Event.Object.Subscription.Counters {
-  public init(total: Int64, nextCount: Int64, prevCount: Int64) {
+  public init(total: Int64, nextCount: Int64, prevCount: Int64, subID: String) {
     self.total = total
     self.nextCount = nextCount
     self.prevCount = prevCount
+    self.subID = subID
   }
 }
 
 extension Anytype_Event.Object.Subscription.Position {
-  public init(id: String, afterID: String) {
+  public init(id: String, afterID: String, subID: String) {
     self.id = id
     self.afterID = afterID
+    self.subID = subID
   }
 }
 
 extension Anytype_Event.Object.Subscription.Remove {
-  public init(id: String) {
+  public init(id: String, subID: String) {
     self.id = id
+    self.subID = subID
   }
 }
 
