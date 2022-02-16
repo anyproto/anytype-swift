@@ -3,7 +3,7 @@ import AnytypeCore
 
 extension UIImage {
     static let backArrow = createImage("backArrow")
-    
+    static let slashMenuBackArrow = createImage("slash_back_arrow")
     static let searchIcon = createImage("searchTextFieldIcon")
     
     static let ghost = createImage(ImageName.ghost)
