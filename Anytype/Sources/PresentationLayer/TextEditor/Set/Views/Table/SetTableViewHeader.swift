@@ -5,28 +5,33 @@ struct SetTableViewHeader: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            LazyHStack(spacing: 0) {
-                ForEach(model.colums, id: \.key) { data in
-                    HStack(spacing: 0) {
-                        Spacer.fixedWidth(15)
-                        if data.isReadOnly {
-                            Image.Relations.lockedSmall
-                            Spacer.fixedWidth(4)
-                        }
-                        AnytypeText(data.name, style: .relation2Regular, color: .textSecondary)
-                            .lineLimit(1)
-                            .minimumScaleFactor(0.5)
-                        Spacer()
-                    }.frame(width: 144)
-                    
-                    Rectangle()
-                        .frame(width: 0.5, height: 18)
-                        .foregroundColor(.strokePrimary)
-                }
-            }
-            .frame(height: 40)
+            AnytypeDivider()
+            content
             AnytypeDivider()
         }
+    }
+    
+    private var content: some View {
+        LazyHStack(spacing: 0) {
+            ForEach(model.colums, id: \.key) { data in
+                HStack(spacing: 0) {
+                    Spacer.fixedWidth(15)
+                    if data.isReadOnly {
+                        Image.Relations.lockedSmall
+                        Spacer.fixedWidth(4)
+                    }
+                    AnytypeText(data.name, style: .relation2Regular, color: .textSecondary)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.5)
+                    Spacer()
+                }.frame(width: 144)
+                
+                Rectangle()
+                    .frame(width: .onePixel, height: 18)
+                    .foregroundColor(.strokePrimary)
+            }
+        }
+        .frame(height: 40)
     }
 }
 
