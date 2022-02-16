@@ -1,6 +1,9 @@
 import Foundation
 import Combine
 import BlocksModels
+import UIKit
+import FloatingPanel
+import SwiftUI
 
 final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     var onDismiss: () -> Void = {} {
@@ -17,6 +20,8 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     let coverPickerViewModel: ObjectCoverPickerViewModel
     let layoutPickerViewModel: ObjectLayoutPickerViewModel
     let relationsViewModel: RelationsListViewModel
+    
+    let popupLayout: FloatingPanelLayout = RelationOptionsPopupLayout()
     
     private let objectId: String
     private let objectDetailsService: DetailsService
@@ -84,6 +89,18 @@ extension ObjectSettingsViewModel {
         case .set:
             return ObjectSetting.allCases
         }
+    }
+    
+}
+
+extension ObjectSettingsViewModel: AnytypePopupViewModelProtocol {
+    
+    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
+        
+    }
+    
+    func makeContentView() -> UIViewController {
+        UIHostingController(rootView: ObjectSettingsView(viewModel: self))
     }
     
 }

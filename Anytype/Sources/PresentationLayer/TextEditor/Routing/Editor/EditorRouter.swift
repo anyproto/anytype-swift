@@ -166,8 +166,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSettings(viewModel: ObjectSettingsViewModel) {
-        let rootView = ObjectSettingsView(viewModel: viewModel)
-        presentOverCurrentContextSwuftUIView(view: rootView, model: rootView.viewModel)
+        let fpc = AnytypePopup(viewModel: viewModel)
+        viewController?.topPresentedController.present(fpc, animated: true, completion: nil)
     }
     
     func showCoverPicker(viewModel: ObjectCoverPickerViewModel) {

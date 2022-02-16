@@ -12,7 +12,8 @@ struct ObjectSettingsView: View {
     @State private var isRelationsViewPresented = false
     
     var body: some View {
-        mainView
+        settings
+            .background(Color.backgroundSecondary)
             .sheet(
                 isPresented: $isCoverPickerPresented
             ) {
@@ -45,14 +46,6 @@ struct ObjectSettingsView: View {
                         .environmentObject(viewModel.layoutPickerViewModel)
                 }
             )
-    }
-    
-    private var mainView: some View {
-        VStack(alignment: .center, spacing: 0) {
-            DragIndicator(bottomPadding: 0)
-            settings
-        }
-        .background(Color.backgroundSecondary)
     }
     
     private var settings: some View {
