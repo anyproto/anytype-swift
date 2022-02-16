@@ -20,7 +20,7 @@ final class SlashMenuView: DismissableInputAccessoryView {
     
     private func setup() {
         addSubview(navigationController.view) {
-            $0.pinToSuperview(excluding: [.top])
+            $0.pinToSuperviewPreservingReadability(excluding: [.top])
             $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
         }
     }

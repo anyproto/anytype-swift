@@ -77,6 +77,18 @@ public extension LayoutProxy {
         return pin(to: superview, excluding: edgesToExclude, insets: insets)
     }
     
+    @discardableResult
+    func pinToSuperviewPreservingReadability(excluding edgesToExclude: [UIRectEdge] = [],
+                                             insets: UIEdgeInsets = .zero) -> [NSLayoutConstraint] {
+        guard let superview = view.superview else { return [] }
+        
+        if UIDevice.isPad {
+            return pin(to: superview.readableContentGuide, excluding: edgesToExclude, insets: insets)
+        } else {
+            return pin(to: superview, excluding: edgesToExclude, insets: insets)
+        }
+    }
+    
     /// Pins all edges, excluding some edges, to a given layout guide with a given insets.
     ///
     /// - Parameters:
