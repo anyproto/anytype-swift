@@ -6,17 +6,14 @@ class CreateNewRelationViewModel: ObservableObject, Dismissible {
     @Published var relationTypes: [RelationMetadata.Format]
     @Published var selectedType: RelationMetadata.Format = .longText
 
-    let source: RelationSource
     let relationService: RelationsServiceProtocol
     var onSelect: (RelationMetadata) -> ()
     var onDismiss: () -> () = {}
 
     init(
-        source: RelationSource,
         relationService: RelationsServiceProtocol,
         onSelect: @escaping (RelationMetadata) -> ()
     ) {
-        self.source = source
         self.relationService = relationService
         self.onSelect = onSelect
 
@@ -37,7 +34,7 @@ class CreateNewRelationViewModel: ObservableObject, Dismissible {
             isBundled: false
         )
 
-        if let relation = relationService.createRelation(source: source, relation: relationMetatdata) {
+        if let relation = relationService.createRelation(relation: relationMetatdata) {
             onSelect(relation)
         }
     }

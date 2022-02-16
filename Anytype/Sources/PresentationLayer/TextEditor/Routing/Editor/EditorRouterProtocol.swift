@@ -31,7 +31,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func showRelationValueEditingView(key: String, source: RelationSource)
     func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)
-    func showAddNewRelationView(source: RelationSource, onSelect: @escaping (RelationMetadata) -> Void)
+    func showAddNewRelationView(onSelect: @escaping (RelationMetadata) -> Void)
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
     

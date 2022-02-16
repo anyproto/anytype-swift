@@ -62,7 +62,6 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         )
         
         self.relationsViewModel = RelationsListViewModel(
-            source: .object,
             relationsService: RelationsService(objectId: objectId),
             onValueEditingTap: onRelationValueEditingTap
         )

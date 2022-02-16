@@ -370,8 +370,14 @@ final class MiddlewareEventConverter {
         case .blockDataviewRelationSet(let data):
             blocksContainer.updateDataview(blockId: data.id) { dataView in
                 let relation = RelationMetadata(middlewareRelation: data.relation)
+                
                 var newRelations = dataView.relations
-                newRelations.append(relation)
+                if let index = newRelations.firstIndex(where: { $0.key == relation.key }) {
+                    newRelations[index] = relation
+                } else {
+                    newRelations.append(relation)
+                }
+                
                 return dataView.updated(relations: newRelations)
             }
             
