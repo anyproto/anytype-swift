@@ -47,7 +47,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         
         guard let (details, count) = toggler.startSubscription(data: data) else { return }
         
-        details.forEach { storage.ammend(details: $0) }
+        details.forEach { storage.amend(details: $0) }
         update(data.identifier, .initialData(details))
         update(data.identifier, .pageCount(numberOfPagesFromTotalCount(count)))
     }
@@ -74,12 +74,12 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         
         for event in events.middlewareEvents {
             switch event.value {
+            case .objectDetailsSet(let data):
+                guard let details = storage.set(data: data) else { return }
+                update(details: details, rawSubIds: data.subIds)
             case .objectDetailsAmend(let data):
-                let currentDetails = storage.get(id: data.id) ?? ObjectDetails.empty(id: data.id)
-                
-                let updatedDetails = currentDetails.updated(by: data.details.asDetailsDictionary)
-                storage.add(details: updatedDetails)
-                
+                let updatedDetails = storage.amend(data: data)
+
                 update(details: updatedDetails, rawSubIds: data.subIds)
             case .subscriptionPosition(let position):
                 let update: SubscriptionUpdate = .move(from: position.id, after: position.afterID.isNotEmpty ? position.afterID : nil)
