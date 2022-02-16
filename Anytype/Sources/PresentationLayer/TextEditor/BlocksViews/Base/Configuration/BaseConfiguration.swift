@@ -92,11 +92,11 @@ class BaseView<View: BlockContentView>: UIView & UIContentView {
 
     func setupSubviews() {
         addSubview(view) {
-            $0.pinToSuperview()
+             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 0, bottom: -1, right: 0))
         }
 
         addSubview(selectionView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 8, bottom: -2, right: -8))
+            $0.pin(to: view, insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: -8))
         }
     }
 }
