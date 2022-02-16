@@ -4,10 +4,16 @@ struct CoverColorsGridView: View {
     
     let onCoverSelect: (BackgroundType) -> ()
     
-    private let columns = [
-        GridItem(.flexible(), spacing: 16),
-        GridItem(.flexible())
-    ]
+    private let columns: [GridItem] = {
+        if UIDevice.isPad {
+            return [GridItem(.adaptive(minimum: 200), spacing: 16)]
+        } else {
+            return [
+                GridItem(.flexible(), spacing: 16),
+                GridItem(.flexible())
+            ]
+        }
+    }()
     
     var body: some View {
         ScrollView(showsIndicators: false) {
