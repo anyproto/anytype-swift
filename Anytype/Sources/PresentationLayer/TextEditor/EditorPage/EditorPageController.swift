@@ -285,23 +285,11 @@ private extension EditorPageController {
     
     func setupLayout() {
         view.addSubview(collectionView) {
-            if UIDevice.isPad {
-                $0.pinToSuperview(excluding: [.left, .right])
-                $0.leading.equal(to: view.readableContentGuide.leadingAnchor)
-                $0.trailing.equal(to: view.readableContentGuide.trailingAnchor)
-            } else {
-                $0.pinToSuperview()
-            }
+            $0.pinToSuperviewPreservingReadability()
         }
         
         view.addSubview(deletedScreen) {
-            if UIDevice.isPad {
-                $0.pinToSuperview(excluding: [.left, .right])
-                $0.leading.equal(to: view.readableContentGuide.leadingAnchor)
-                $0.trailing.equal(to: view.readableContentGuide.trailingAnchor)
-            } else {
-                $0.pinToSuperview()
-            }
+            $0.pinToSuperviewPreservingReadability()
         }
 
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
