@@ -106,7 +106,6 @@
 		0AEAD66025C0B93800E8A442 /* BlockModelChildrenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0AEAD65F25C0B93800E8A442 /* BlockModelChildrenProvider.swift */; };
 		1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1206DB8F267A303E000A48A7 /* MediaPickerView.swift */; };
 		120AC25E2747B56000330D7B /* TextRelationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120AC25D2747B56000330D7B /* TextRelationDetailsViewModel.swift */; };
-		120E816F269F26F8006FE84E /* ObjectSettingsContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */; };
 		120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E8170269F31A8006FE84E /* ObjectSettingsView.swift */; };
 		120E8175269F342D006FE84E /* ObjectSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */; };
 		120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120E8176269F3474006FE84E /* ObjectSetting.swift */; };
@@ -989,7 +988,6 @@
 		0AEAD65F25C0B93800E8A442 /* BlockModelChildrenProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockModelChildrenProvider.swift; sourceTree = "<group>"; };
 		1206DB8F267A303E000A48A7 /* MediaPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaPickerView.swift; sourceTree = "<group>"; };
 		120AC25D2747B56000330D7B /* TextRelationDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsViewModel.swift; sourceTree = "<group>"; };
-		120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsContainerView.swift; sourceTree = "<group>"; };
 		120E8170269F31A8006FE84E /* ObjectSettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsView.swift; sourceTree = "<group>"; };
 		120E8174269F342D006FE84E /* ObjectSettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingsViewModel.swift; sourceTree = "<group>"; };
 		120E8176269F3474006FE84E /* ObjectSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSetting.swift; sourceTree = "<group>"; };
@@ -3661,7 +3659,6 @@
 		3D38CC8E26D625F200E4F7BF /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				120E816E269F26F8006FE84E /* ObjectSettingsContainerView.swift */,
 				120E8170269F31A8006FE84E /* ObjectSettingsView.swift */,
 				120E817E26A026F5006FE84E /* ObjectSettingRow.swift */,
 			);
@@ -6180,7 +6177,6 @@
 				3DB1C9E12727DAEF000D2779 /* UIView+SpookyShake.swift in Sources */,
 				127EABF42739440200C731F2 /* TagRelationView.swift in Sources */,
 				3DE3C91D26F464BF0012AF51 /* MentionObjectsService.swift in Sources */,
-				120E816F269F26F8006FE84E /* ObjectSettingsContainerView.swift in Sources */,
 				EA57F3DA26B84AA9007D4292 /* MarkupRange.swift in Sources */,
 				3D5A416B2703170300F1F6A1 /* BlockBackgroundColor.swift in Sources */,
 				0A0965E525BEF5B000C004BD /* FileRouter.swift in Sources */,
