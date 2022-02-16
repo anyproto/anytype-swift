@@ -33,7 +33,11 @@ final class MentionView: DismissableInputAccessoryView {
         
         controller.addChild(mentionsController)
         addSubview(mentionsController.view) {
-            $0.pinToSuperview(excluding: [.top])
+            if UIDevice.isPad {
+                $0.pin(to: readableContentGuide, excluding: [.top])
+            } else {
+                $0.pinToSuperview(excluding: [.top])
+            }
             $0.top.equal(to: topSeparator?.bottomAnchor ?? topAnchor)
         }
         mentionsController.didMove(toParent: controller)
