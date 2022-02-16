@@ -311,7 +311,7 @@ extension EditorRouter {
             .buildViewModel(source: source, objectId: objectId, relation: relation)
         guard let contentViewModel = contentViewModel else { return }
         
-        let fpc = RelationDetailsViewPopup(viewModel: contentViewModel)
+        let fpc = AnytypePopup(viewModel: contentViewModel)
         viewController.topPresentedController.present(fpc, animated: true, completion: nil)
     }
 

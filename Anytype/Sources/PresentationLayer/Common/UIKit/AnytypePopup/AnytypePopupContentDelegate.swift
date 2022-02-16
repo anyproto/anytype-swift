@@ -1,6 +1,6 @@
 import Foundation
 
-protocol RelationDetailsViewModelDelegate: NSObject {
+protocol AnytypePopupContentDelegate: NSObject {
 
     func didAskInvalidateLayout(_ animated: Bool)
     func didAskToClose()

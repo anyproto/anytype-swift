@@ -5,18 +5,18 @@ import SwiftUI
 import Combine
 import AnytypeCore
 
-final class RelationDetailsViewPopup: FloatingPanelController {
+final class AnytypePopup: FloatingPanelController {
         
-    private var viewModel: RelationDetailsViewModelProtocol
+    private let viewModel: AnytypePopupViewModelProtocol
     
     // MARK: - Initializers
     
-    init(viewModel: RelationDetailsViewModelProtocol) {
+    init(viewModel: AnytypePopupViewModelProtocol) {
         self.viewModel = viewModel
         
         super.init(delegate: nil)
         
-        self.viewModel.delegate = self
+        viewModel.setContentDelegate(self)
         
         setup()
     }
@@ -30,7 +30,7 @@ final class RelationDetailsViewPopup: FloatingPanelController {
 
 // MARK: - RelationDetailsViewModelDelegate
 
-extension RelationDetailsViewPopup: RelationDetailsViewModelDelegate {
+extension AnytypePopup: AnytypePopupContentDelegate {
     
     func didAskInvalidateLayout(_ animated: Bool) {
         if animated {
@@ -47,27 +47,26 @@ extension RelationDetailsViewPopup: RelationDetailsViewModelDelegate {
             self.dismiss(animated: false)
         }
     }
-
     
 }
 
 // MARK: - FloatingPanelControllerDelegate
 
-extension RelationDetailsViewPopup: FloatingPanelControllerDelegate {
+extension AnytypePopup: FloatingPanelControllerDelegate {
     
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor size: CGSize) -> FloatingPanelLayout {
-        viewModel.floatingPanelLayout
+        viewModel.popupLayout
     }
     
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
-        viewModel.floatingPanelLayout
+        viewModel.popupLayout
     }
     
 }
 
 // MARK: - Private extension
 
-private extension RelationDetailsViewPopup {
+private extension AnytypePopup {
     
     func setup() {
         setupGestures()
@@ -77,7 +76,7 @@ private extension RelationDetailsViewPopup {
         contentMode = .static
         delegate = self
         
-        set(contentViewController: viewModel.makeViewController())
+        set(contentViewController: viewModel.makeContentView())
     }
     
     func setupGestures() {
@@ -92,7 +91,7 @@ private extension RelationDetailsViewPopup {
         surfaceView.grabberHandleSize = CGSize(width: 48.0, height: 4.0)
         surfaceView.grabberHandle.backgroundColor = .strokePrimary
         
-        surfaceView.contentPadding = UIEdgeInsets(top: RelationDetailsViewPopup.grabberHeight, left: 0, bottom: 0, right: 0)
+        surfaceView.contentPadding = UIEdgeInsets(top: AnytypePopup.grabberHeight, left: 0, bottom: 0, right: 0)
 
         if FeatureFlags.rainbowViews {
             surfaceView.backgroundColor = .red
@@ -123,7 +122,7 @@ private extension RelationDetailsViewPopup {
     
 }
 
-extension RelationDetailsViewPopup {
+extension AnytypePopup {
     
     static let grabberHeight: CGFloat = 16
     

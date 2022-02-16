@@ -28,7 +28,7 @@ final class TextRelationDetailsViewController: UIViewController {
             let windowHeight: CGFloat = window.bounds.height
             let topPadding: CGFloat = window.safeAreaInsets.top
             
-            return windowHeight - topPadding - RelationDetailsViewPopup.grabberHeight
+            return windowHeight - topPadding - AnytypePopup.grabberHeight
         }()
         
         super.init(nibName: nil, bundle: nil)

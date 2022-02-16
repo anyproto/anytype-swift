@@ -8,9 +8,9 @@ final class TextRelationDetailsViewModel: ObservableObject {
           
     weak var viewController: TextRelationDetailsViewController?
     
-    weak var delegate: RelationDetailsViewModelDelegate?
-    
-    private(set) var floatingPanelLayout: FloatingPanelLayout = IntrinsicTextRelationDetailsPopupLayout() {
+    private weak var delegate: AnytypePopupContentDelegate?
+
+    private(set) var popupLayout: FloatingPanelLayout = IntrinsicTextRelationDetailsPopupLayout() {
         didSet {
             delegate?.didAskInvalidateLayout(false)
         }
@@ -67,17 +67,21 @@ final class TextRelationDetailsViewModel: ObservableObject {
 extension TextRelationDetailsViewModel {
     
     func updatePopupLayout(_ layoutGuide: UILayoutGuide) {
-        self.floatingPanelLayout = AdaptiveTextRelationDetailsPopupLayout(layout: layoutGuide)
+        self.popupLayout = AdaptiveTextRelationDetailsPopupLayout(layout: layoutGuide)
     }
     
 }
 
-extension TextRelationDetailsViewModel: RelationDetailsViewModelProtocol {
+extension TextRelationDetailsViewModel: AnytypePopupViewModelProtocol {
     
-    func makeViewController() -> UIViewController {
+    func makeContentView() -> UIViewController {
         let vc = TextRelationDetailsViewController(viewModel: self)
         self.viewController = vc
         return vc
+    }
+    
+    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
+        delegate = сontentDelegate
     }
 }
 
