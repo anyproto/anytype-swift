@@ -33,7 +33,11 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         childNavigation.delegate = self
         
         view.addSubview(navigationView) {
-            $0.pinToSuperview(excluding: [.top, .bottom])
+            if UIDevice.isPad {
+                $0.pin(to: view.readableContentGuide, excluding: [.top, .bottom])
+            } else {
+                $0.pinToSuperview(excluding: [.top, .bottom])
+            }
             navigationViewBottomConstaint = $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
             $0.height.equal(to: navbarHeight)
         }

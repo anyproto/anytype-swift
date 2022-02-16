@@ -36,7 +36,11 @@ class ChangeTypeAccessoryView: UIView {
         backgroundColor = .backgroundPrimary
 
         addSubview(stackView) {
-            $0.pinToSuperview()
+            if UIDevice.isPad {
+                $0.pin(to: readableContentGuide)
+            } else {
+                $0.pinToSuperview()
+            } 
         }
 
         topView.addSubview(doneButton) {
