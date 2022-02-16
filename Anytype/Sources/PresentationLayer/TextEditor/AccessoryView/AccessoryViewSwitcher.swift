@@ -7,7 +7,6 @@ protocol AccessoryViewSwitcherProtocol {
     
     func restoreDefaultState()
     
-    func showURLInput(url: URL?)
     func showDefaultView()
     func showSlashMenuView()
     func showMentionsView()
@@ -22,7 +21,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private let slashMenuView: SlashMenuView
     private let changeTypeView: ChangeTypeAccessoryView
     private let markupAccessoryView: MarkupAccessoryView
-    private let urlInputView: URLInputAccessoryView
     
     private let document: BaseDocumentProtocol
 
@@ -32,7 +30,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         cursorModeAccessoryView: CursorModeAccessoryView,
         markupAccessoryView: MarkupAccessoryView,
         changeTypeView: ChangeTypeAccessoryView,
-        urlInputView: URLInputAccessoryView,
         document: BaseDocumentProtocol
     ) {
         self.slashMenuView = slashMenuView
@@ -40,7 +37,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         self.markupAccessoryView = markupAccessoryView
         self.changeTypeView = changeTypeView
         self.mentionsView = mentionsView
-        self.urlInputView = urlInputView
         self.document = document
         
         setupDismissHandlers()
@@ -88,15 +84,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
                 : .default(cursorModeAccessoryView)
 
         showAccessoryView(accessoryView, animation: activeView.animation)
-    }
-    
-    #warning("TODO: - Unused code? Remove it")
-    func showURLInput(url: URL?) {
-        guard let data = data else { return }
-        
-        urlInputView.updateUrlData(.init(data: data, url: url))
-        showAccessoryView(.urlInput(urlInputView))
-        _ = urlInputView.becomeFirstResponder()
     }
     
     func restoreDefaultState() {
@@ -150,6 +137,5 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
 
         mentionsView.dismissHandler = dismiss
         slashMenuView.dismissHandler = dismiss
-        urlInputView.dismissHandler = dismiss
     }
 }

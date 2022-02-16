@@ -7,7 +7,6 @@ enum AccessoryViewType: Equatable {
     case markup(MarkupAccessoryView)
     case mention(MentionView)
     case slashMenu(SlashMenuView)
-    case urlInput(URLInputAccessoryView)
 
     var view: UIView? {
         switch self {
@@ -20,8 +19,6 @@ enum AccessoryViewType: Equatable {
         case .mention(let view):
             return view
         case .slashMenu(let view):
-            return view
-        case .urlInput(let view):
             return view
         case .none:
             return nil

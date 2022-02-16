@@ -37,7 +37,7 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
             triggerTextActions(changeType: changeType)
         case .mention, .slashMenu:
             setTextToSlashOrMention()
-        case .none, .urlInput, .markup:
+        case .none, .markup:
             break
         }
     }
