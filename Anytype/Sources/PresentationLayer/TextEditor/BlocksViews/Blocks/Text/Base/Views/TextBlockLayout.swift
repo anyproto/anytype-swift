@@ -33,6 +33,4 @@ enum TextBlockLayout {
             return .init(top: 4, leading: 0, bottom: -4, trailing: 0)
         }
     }
-
-    static let mainInsetForBlockAfterHeader: NSDirectionalEdgeInsets = .init(top: 22, leading: 0, bottom: -2, trailing: 0)
 }

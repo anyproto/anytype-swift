@@ -5,17 +5,20 @@ import UIKit
 import BlocksModels
 import AnytypeCore
 
-final class VideoBlockContentView: BaseBlockView<VideoBlockConfiguration> {
+final class VideoBlockContentView: UIView, BlockContentView {
     private let videoVC = AVPlayerViewController()
-    
-    override func setupSubviews() {
-        super.setupSubviews()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
 
-    override func update(with configuration: VideoBlockConfiguration) {
-        super.update(with: configuration)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
 
+    func update(with configuration: VideoBlockConfiguration) {
         apply(configuration: configuration)
     }
 
@@ -32,7 +35,7 @@ final class VideoBlockContentView: BaseBlockView<VideoBlockConfiguration> {
             domain: .blockVideo
         )
         
-        guard let url = UrlResolver.resolvedUrl(.file(id: currentConfiguration.file.metadata.hash)) else { return
+        guard let url = UrlResolver.resolvedUrl(.file(id: configuration.file.metadata.hash)) else { return
         }
         
         videoVC.player = AVPlayer(url: url)

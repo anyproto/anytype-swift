@@ -2,14 +2,18 @@ import Combine
 import UIKit
 import BlocksModels
     
-final class BlockBookmarkOnlyUrlView: UIView & UIContentView {
-    private var currentConfiguration: BlockBookmarkOnlyUrlConfiguration
-    
-    init(configuration: BlockBookmarkOnlyUrlConfiguration) {
-        self.currentConfiguration = configuration
-        super.init(frame: .zero)
-        
+final class BlockBookmarkOnlyUrlView: UIView, BlockContentView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
+    func update(with configuration: BlockBookmarkOnlyUrlConfiguration) {
         apply(url: configuration.ulr)
     }
     
@@ -48,29 +52,6 @@ final class BlockBookmarkOnlyUrlView: UIView & UIContentView {
         view.backgroundColor = .backgroundPrimary
         return view
     }()
-    
-    // MARK: - UIContentView
-    var configuration: UIContentConfiguration {
-        get { currentConfiguration }
-        set {
-            guard let configuration = newValue as? BlockBookmarkOnlyUrlConfiguration,
-                  configuration != currentConfiguration else { return }
-            
-            currentConfiguration = configuration
-            apply(url: configuration.ulr)
-        }
-    }
-    
-    // MARK: - Unavailable
-    @available(*, unavailable)
-    override init(frame: CGRect) {
-        fatalError("Not implemented")
-    }
-    
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 private extension BlockBookmarkOnlyUrlView {
