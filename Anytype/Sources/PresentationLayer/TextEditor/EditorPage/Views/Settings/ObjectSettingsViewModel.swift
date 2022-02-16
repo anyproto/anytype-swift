@@ -21,8 +21,9 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     let layoutPickerViewModel: ObjectLayoutPickerViewModel
     let relationsViewModel: RelationsListViewModel
     
-    let popupLayout: FloatingPanelLayout = RelationOptionsPopupLayout()
+    private(set) var popupLayout: FloatingPanelLayout = IntrinsicPopupLayout()
     
+    private weak var сontentDelegate: AnytypePopupContentDelegate?
     private let objectId: String
     private let objectDetailsService: DetailsService
     
@@ -96,7 +97,7 @@ extension ObjectSettingsViewModel {
 extension ObjectSettingsViewModel: AnytypePopupViewModelProtocol {
     
     func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
-        
+        self.сontentDelegate = сontentDelegate
     }
     
     func makeContentView() -> UIViewController {

@@ -166,7 +166,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSettings(viewModel: ObjectSettingsViewModel) {
-        let fpc = AnytypePopup(viewModel: viewModel)
+        let fpc = AnytypePopup(viewModel: viewModel, insetted: true)
         viewController?.topPresentedController.present(fpc, animated: true, completion: nil)
     }
     
