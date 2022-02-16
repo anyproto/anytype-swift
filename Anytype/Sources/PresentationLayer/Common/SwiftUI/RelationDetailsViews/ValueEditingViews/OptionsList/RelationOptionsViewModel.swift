@@ -3,15 +3,15 @@ import SwiftUI
 import FloatingPanel
 
 final class RelationOptionsViewModel: ObservableObject {
-    
-    weak var delegate: RelationDetailsViewModelDelegate?
-        
+            
     @Published var selectedOptions: [RelationOptionProtocol] = []
-    private(set) var floatingPanelLayout: FloatingPanelLayout = RelationOptionsPopupLayout() {
+    private(set) var popupLayout: FloatingPanelLayout = RelationOptionsPopupLayout() {
         didSet {
             delegate?.didAskInvalidateLayout(true)
         }
     }
+
+    private weak var delegate: AnytypePopupContentDelegate?
 
     private let source: RelationSource
     private let type: RelationOptionsType
@@ -113,15 +113,19 @@ extension RelationOptionsViewModel {
     }
     
     private func updateLayout() {
-        floatingPanelLayout = selectedOptions.isNotEmpty ? RelationOptionsPopupLayout() : RelationOptionsEmptyPopupLayout(height: 150)
+        popupLayout = selectedOptions.isNotEmpty ? RelationOptionsPopupLayout() : RelationOptionsEmptyPopupLayout(height: 150)
     }
     
 }
 
-extension RelationOptionsViewModel: RelationDetailsViewModelProtocol {
+extension RelationOptionsViewModel: AnytypePopupViewModelProtocol {
     
-    func makeViewController() -> UIViewController {
+    func makeContentView() -> UIViewController {
         UIHostingController(rootView: RelationOptionsView(viewModel: self))
+    }
+    
+    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
+        delegate = сontentDelegate
     }
     
 }

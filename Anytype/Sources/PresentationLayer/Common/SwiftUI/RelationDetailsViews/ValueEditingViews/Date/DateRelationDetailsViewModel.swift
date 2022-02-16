@@ -5,11 +5,10 @@ import FloatingPanel
 import Combine
 
 final class DateRelationDetailsViewModel: ObservableObject {
-    
-    weak var delegate: RelationDetailsViewModelDelegate?
-    
-    let floatingPanelLayout: FloatingPanelLayout = RelationOptionsPopupLayout()
-    
+        
+    let popupLayout: FloatingPanelLayout = RelationOptionsPopupLayout()
+    private weak var delegate: AnytypePopupContentDelegate?
+
     @Published var selectedValue: DateRelationDetailsValue {
         didSet {
             saveValue()
@@ -45,10 +44,14 @@ final class DateRelationDetailsViewModel: ObservableObject {
     
 }
 
-extension DateRelationDetailsViewModel: RelationDetailsViewModelProtocol {
+extension DateRelationDetailsViewModel: AnytypePopupViewModelProtocol {
     
-    func makeViewController() -> UIViewController {
+    func makeContentView() -> UIViewController {
         UIHostingController(rootView:  DateRelationDetailsView(viewModel: self))
+    }
+    
+    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
+        delegate = сontentDelegate
     }
 
 }

@@ -7,9 +7,9 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     
     let source: RelationSource
         
-    weak var delegate: RelationDetailsViewModelDelegate?
+    private weak var delegate: AnytypePopupContentDelegate?
     
-    let floatingPanelLayout: FloatingPanelLayout = FullScreenHeightPopupLayout()
+    let popupLayout: FloatingPanelLayout = FullScreenHeightPopupLayout()
 
     @Published var selectedStatus: Relation.Status.Option? {
         didSet {
@@ -75,10 +75,14 @@ extension StatusRelationDetailsViewModel {
     
 }
 
-extension StatusRelationDetailsViewModel: RelationDetailsViewModelProtocol {
+extension StatusRelationDetailsViewModel: AnytypePopupViewModelProtocol {
     
-    func makeViewController() -> UIViewController {
+    func makeContentView() -> UIViewController {
         UIHostingController(rootView: StatusRelationDetailsView(viewModel: self))
+    }
+    
+    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
+        delegate = сontentDelegate
     }
     
 }
