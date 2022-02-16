@@ -32,7 +32,7 @@ struct EditorSetView: View {
                     headerMinimizedSize: $headerMinimizedSize
                 )
             }
-            EditorSetPaginationView()
+            Rectangle().frame(height: 40).foregroundColor(.backgroundPrimary) // Navigation view stub
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)
