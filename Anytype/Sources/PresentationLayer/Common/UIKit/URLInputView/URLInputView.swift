@@ -81,8 +81,19 @@ final class URLInputView: UIView {
     private func setup() {
         backgroundColor = .systemBackground
         addTextFieldTextChangeObserver()
+        
         addSubview(stackView)
-        stackView.pinAllEdges(to: self, insets: Constants.insets)
+        addSubview(stackView) {
+            if UIDevice.isPad {
+                $0.pin(to: readableContentGuide, excluding: [.top, .bottom])
+                $0.top.equal(to: topAnchor, constant: Constants.insets.top)
+                $0.bottom.equal(to: safeAreaLayoutGuide.bottomAnchor, constant: Constants.insets.bottom)
+            } else {
+                $0.pinToSuperview(excluding: [.bottom], insets: Constants.insets)
+                $0.bottom.equal(to: safeAreaLayoutGuide.bottomAnchor, constant: Constants.insets.bottom)
+            }
+        }
+        
         addTopLine()
         updateDoneButton()
     }
