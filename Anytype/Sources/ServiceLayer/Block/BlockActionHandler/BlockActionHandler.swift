@@ -218,4 +218,17 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func selectBlock(blockInformation: BlockInformation) {
         blockSelectionHandler?.didSelectEditingState(on: blockInformation)
     }
+
+    func createAndFetchBookmark(
+        targetID: BlockId,
+        position: BlockPosition,
+        url: String
+    ) {
+        service.createAndFetchBookmark(
+            contextID: document.objectId,
+            targetID: targetID,
+            position: position,
+            url: url
+        )
+    }
 }

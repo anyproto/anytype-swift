@@ -119,8 +119,8 @@ struct SearchNewRelationView_Previews: PreviewProvider {
             viewModel: SearchNewRelationViewModel(
                 relationService: RelationsService(objectId: ""),
                 objectRelations: ParsedRelations(featuredRelations: [], otherRelations: []),
-                onSelect: { _ in
-            })
+                onSelect: { _ in }
+            )
         )
     }
 }

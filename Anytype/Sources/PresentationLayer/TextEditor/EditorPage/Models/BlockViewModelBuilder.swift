@@ -80,10 +80,12 @@ final class BlockViewModelBuilder {
                     showPage: { [weak self] data in
                         self?.router.showPage(data: data)
                     },
-                    openURL: { [weak self] url in
-                        self?.router.openUrl(url)
+                    openURL: { [weak router] url in
+                        router?.openUrl(url)
                     },
-                    showURLBookmarkPopup: { _, _ in },
+                    showURLBookmarkPopup: { [weak router] parameters in
+                        router?.showLinkContextualMenu(inputParameters: parameters)
+                    },
                     markdownListener: markdownListener,
                     focusSubject: subjectsHolder.focusSubject(for: block.information.id)
                 )
@@ -187,7 +189,7 @@ final class BlockViewModelBuilder {
                         }
                     )
                 } else {
-                    self.router.showRelationValueEditingView(key: relation.id)
+                    self.router.showRelationValueEditingView(key: relation.id, source: .object)
                 }
             }
         case let .relation(content):
@@ -203,7 +205,7 @@ final class BlockViewModelBuilder {
                 information: block.information,
                 indentationLevel: block.indentationLevel,
                 relation: relation) { [weak self] relation in
-                    self?.router.showRelationValueEditingView(key: relation.id)
+                    self?.router.showRelationValueEditingView(key: relation.id, source: .object)
                 }
 
         case .smartblock, .layout, .dataView: return nil

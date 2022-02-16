@@ -4,6 +4,8 @@ import BlocksModels
 import FloatingPanel
 
 final class StatusRelationDetailsViewModel: ObservableObject {
+    
+    let source: RelationSource
         
     weak var delegate: RelationDetailsViewModelDelegate?
     
@@ -23,11 +25,14 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     private let service: RelationsServiceProtocol
     
     init(
+        source: RelationSource,
         selectedStatus: Relation.Status.Option?,
         allStatuses: [Relation.Status.Option],
         relation: Relation,
         service: RelationsServiceProtocol
     ) {
+        self.source = source
+        
         self.selectedStatus = selectedStatus
         self.allStatuses = allStatuses
         
@@ -57,7 +62,7 @@ extension StatusRelationDetailsViewModel {
     }
     
     func addOption(text: String) {
-        let optionId = service.addRelationOption(relationKey: relation.id, optionText: text)
+        let optionId = service.addRelationOption(source: source, relationKey: relation.id, optionText: text)
         guard let optionId = optionId else { return}
         
         saveValue(optionId)

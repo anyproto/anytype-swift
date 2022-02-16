@@ -42,7 +42,6 @@ final class EditorSetViewModel: ObservableObject {
                 title: $0.title,
                 icon: $0.objectIconImage,
                 allRelations: sortedRelations,
-//                allMetadata: [], // todo: Use metadata from rows data
                 colums: colums
             )
         }
@@ -110,7 +109,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func updateActiveViewId(_ id: BlockId) {
-        document.blocksContainer.updateDataview(blockId: "dataview") { dataView in
+        document.blocksContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
             dataView.updated(activeViewId: id)
         }
         

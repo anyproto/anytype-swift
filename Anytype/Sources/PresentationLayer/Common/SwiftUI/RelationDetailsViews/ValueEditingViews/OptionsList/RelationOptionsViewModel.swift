@@ -13,16 +13,19 @@ final class RelationOptionsViewModel: ObservableObject {
         }
     }
 
+    private let source: RelationSource
     private let type: RelationOptionsType
     private let relation: Relation
     private let service: RelationsServiceProtocol
     
     init(
+        source: RelationSource,
         type: RelationOptionsType,
         selectedOptions: [RelationOptionProtocol],
         relation: Relation,
         service: RelationsServiceProtocol
     ) {
+        self.source = source
         self.type = type
         self.selectedOptions = selectedOptions
         self.relation = relation
@@ -89,6 +92,7 @@ extension RelationOptionsViewModel {
         }
         
         return TagRelationOptionSearchViewModel(
+            source: source,
             availableTags: availableTags,
             relation: relation,
             service: service

@@ -174,12 +174,14 @@ extension Anytype_Model_Block.Content.Relation {
 }
 
 extension Anytype_Model_Block.Content.Text {
-  public init(text: String, style: Anytype_Model_Block.Content.Text.Style, marks: Anytype_Model_Block.Content.Text.Marks, checked: Bool, color: String) {
+  public init(text: String, style: Anytype_Model_Block.Content.Text.Style, marks: Anytype_Model_Block.Content.Text.Marks, checked: Bool, color: String, iconEmoji: String, iconImage: String) {
     self.text = text
     self.style = style
     self.marks = marks
     self.checked = checked
     self.color = color
+    self.iconEmoji = iconEmoji
+    self.iconImage = iconImage
   }
 }
 

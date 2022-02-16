@@ -75,7 +75,8 @@ struct CreateNewRelationView_Previews: PreviewProvider {
                 relationService: RelationsService(objectId: ""),
                 objectRelations: ParsedRelations(featuredRelations: [], otherRelations: []),
                 onSelect: { _ in
-                })
+                }
+            )
         )
     }
 }

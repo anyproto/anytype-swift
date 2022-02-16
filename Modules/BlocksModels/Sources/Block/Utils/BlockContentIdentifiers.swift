@@ -32,6 +32,7 @@ extension BlockText {
         case .numbered: return ".numbered"
         case .toggle: return ".toggle"
         case .code: return ".code"
+        case .callout: return ".callout"
         }
     }
 }

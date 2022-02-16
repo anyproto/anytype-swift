@@ -17,7 +17,7 @@ extension View {
 
 struct AnytypeDivider: View {
     var body: some View {
-        Color.strokePrimary.frame(height:CGFloat(1) / UIScreen.main.scale)
+        Color.strokePrimary.frame(height: .onePixel)
     }
 }
 

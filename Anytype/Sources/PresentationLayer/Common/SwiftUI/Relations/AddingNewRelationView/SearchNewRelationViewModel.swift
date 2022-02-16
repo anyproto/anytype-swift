@@ -39,14 +39,17 @@ class SearchNewRelationViewModel: ObservableObject, Dismissible {
             onSelect: { [weak self] in
                 self?.shouldDismiss = true
                 self?.onSelect($0)
-            })
+            }
+        )
     }
 
     // MARK: - Init
 
-    init(relationService: RelationsServiceProtocol,
-         objectRelations: ParsedRelations,
-         onSelect: @escaping (RelationMetadata) -> ()) {
+    init(
+        relationService: RelationsServiceProtocol,
+        objectRelations: ParsedRelations,
+        onSelect: @escaping (RelationMetadata) -> ()
+    ) {
         self.relationService = relationService
         self.onSelect = onSelect
 
@@ -84,7 +87,7 @@ class SearchNewRelationViewModel: ObservableObject, Dismissible {
     }
 
     func addRelation(_ relation: RelationMetadata) {
-        if let createdRelation = relationService.addRelation(relation) {
+        if let createdRelation = relationService.addRelation(relation: relation) {
             onSelect(createdRelation)
         }
     }

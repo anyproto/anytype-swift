@@ -3,6 +3,6 @@ import BlocksModels
 
 protocol RelationEditingViewModelBuilderProtocol {
 
-    func buildViewModel(objectId: BlockId, relation: Relation) -> RelationDetailsViewModelProtocol?
+    func buildViewModel(source: RelationSource, objectId: BlockId, relation: Relation) -> RelationDetailsViewModelProtocol?
     
 }

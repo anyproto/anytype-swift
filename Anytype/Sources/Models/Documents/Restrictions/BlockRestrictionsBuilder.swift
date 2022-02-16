@@ -33,7 +33,7 @@ struct BlockRestrictionsBuilder {
     
     static func build(textContentType: BlockText.Style) -> BlockRestrictions {
         switch textContentType {
-        case .text:
+        case .text, .callout:
             return TextBlockRestrictions()
         case .title, .description:
             return TitleBlockRestrictions()

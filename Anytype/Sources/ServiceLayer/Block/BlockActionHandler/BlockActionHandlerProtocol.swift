@@ -38,4 +38,9 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
     func selectBlock(blockInformation: BlockInformation)
+    func createAndFetchBookmark(
+        targetID: BlockId,
+        position: BlockPosition,
+        url: String
+    )
 }

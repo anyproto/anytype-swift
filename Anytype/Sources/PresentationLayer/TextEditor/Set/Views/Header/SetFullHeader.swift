@@ -25,6 +25,7 @@ struct SetFullHeader: View {
             description
             
             Spacer.fixedHeight(8)
+            
             featuredRelations
         }
         .readSize { width = $0.width }
@@ -33,7 +34,7 @@ struct SetFullHeader: View {
     private var description: some View {
         Group {
             if model.details.description.isNotEmpty {
-                Spacer.fixedHeight(8)
+                Spacer.fixedHeight(6)
                 AnytypeText(model.details.description, style: .relation2Regular, color: .textPrimary)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, 20)
@@ -48,7 +49,7 @@ struct SetFullHeader: View {
             viewModel: FlowRelationsViewModel(
                 relations: model.featuredRelations,
                 onRelationTap: { relation in
-                    model.router.showRelationValueEditingView(key: relation.id)
+                    model.router.showRelationValueEditingView(key: relation.id, source: .object)
                 }
             )
         )

@@ -2,6 +2,12 @@ import Combine
 import UIKit
 import BlocksModels
 
+struct TextBlockURLInputParameters {
+    let textView: UITextView
+    let rect: CGRect
+    let optionHandler: (EditorContextualOption) -> Void
+}
+
 struct TextBlockViewModel: BlockViewModelProtocol {
     var indentationLevel: Int
     var information: BlockInformation
@@ -15,7 +21,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     private let showPage: (EditorScreenData) -> Void
     private let openURL: (URL) -> Void
-    private let showURLBookmarkPopup: (UITextView, CGRect) -> Void
+    private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
     
     private let actionHandler: BlockActionHandlerProtocol
     private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
@@ -39,7 +45,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         actionHandler: BlockActionHandlerProtocol,
         showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
-        showURLBookmarkPopup: @escaping (UITextView, CGRect) -> Void,
+        showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,
         markdownListener: MarkdownListener,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     ) {
@@ -146,17 +152,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             return false
         }
 
-        if replacementText.isValidURL(), let url = URL(string: replacementText) {
-
-            let newText = attributedStringWithURL(
-                attributedText: textView.attributedText,
-                replacementURL: url,
-                range: range
-            )
-
-            actionHandler.changeTextForced(newText, blockId: blockId)
-            textView.attributedText = newText
-
+        if shouldCreateBookmark(textView: textView, replacementText: replacementText, range: range) {
             return false
         }
 
@@ -200,5 +196,57 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         modifier.apply(.link(replacementURL), shouldApplyMarkup: true, range: newRange)
 
         return NSAttributedString(attributedString: modifier.attributedString)
+    }
+
+    private func shouldCreateBookmark(
+        textView: UITextView,
+        replacementText: String,
+        range: NSRange
+    ) -> Bool {
+        let previousTypingAttributes = textView.typingAttributes
+        let originalAttributedString = textView.attributedText
+
+        if replacementText.isValidURL(), let url = URL(string: replacementText) {
+            let newText = attributedStringWithURL(
+                attributedText: textView.attributedText,
+                replacementURL: url,
+                range: range
+            )
+
+            actionHandler.changeTextForced(newText, blockId: blockId)
+            textView.attributedText = newText
+            textView.typingAttributes = previousTypingAttributes
+
+            let replacementRange = NSRange(location: range.location, length: replacementText.count)
+
+            guard let textRect = textView.textRectForRange(range: replacementRange) else { return true }
+
+            let urlIputParameters = TextBlockURLInputParameters(
+                textView: textView,
+                rect: textRect) { option in
+                    switch option {
+                    case .createBookmark:
+                        let position: BlockPosition = textView.text == replacementText ?
+                            .replace : .bottom
+                        actionHandler.createAndFetchBookmark(
+                            targetID: blockId,
+                            position: position,
+                            url: url.absoluteString
+                        )
+
+                        originalAttributedString.map {
+                            actionHandler.changeTextForced($0, blockId: blockId)
+                        }
+                    case .dismiss:
+                        break
+                    }
+                }
+
+            showURLBookmarkPopup(urlIputParameters)
+
+            return true
+        }
+
+        return false
     }
 }
