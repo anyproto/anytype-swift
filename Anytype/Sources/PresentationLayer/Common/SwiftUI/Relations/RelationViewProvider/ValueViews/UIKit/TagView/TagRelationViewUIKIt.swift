@@ -28,20 +28,19 @@ final class TagRelationViewUIKIt: UIView {
     // MARK: - Setup view
 
     private func setupViews() {
+        if tags.isEmpty {
+            setupPlaceholder()
+        } else {
+            setupTagsView()
+        }
+    }
+
+    private func setupTagsView() {
         stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.spacing = 6
         stackView.distribution = .fillProportionally
 
-        setupTagsView()
-
-        addSubview(stackView) {
-            $0.pinToSuperview(excluding: [.right])
-            $0.trailing.lessThanOrEqual(to: trailingAnchor)
-        }
-    }
-
-    private func setupTagsView() {
         tags.prefix(Constants.maxShowingTag).forEach { tag in
             let tagView = TagViewUIKit(tag: tag, guidlines: style.tagViewGuidlines)
             stackView.addArrangedSubview(tagView)
@@ -60,6 +59,20 @@ final class TagRelationViewUIKIt: UIView {
             moreTagsView.setContentCompressionResistancePriority(.required + 1, for: .horizontal)
             stackView.addArrangedSubview(moreTagsView)
         }
+
+        addSubview(stackView) {
+            $0.pinToSuperview(excluding: [.right])
+            $0.trailing.lessThanOrEqual(to: trailingAnchor)
+        }
+    }
+
+    private func setupPlaceholder() {
+        let placeholder = RelationPlaceholderViewUIKit(hint: hint, type: style.placeholderType)
+
+        addSubview(placeholder) {
+            $0.pinToSuperview()
+        }
+
     }
 }
 

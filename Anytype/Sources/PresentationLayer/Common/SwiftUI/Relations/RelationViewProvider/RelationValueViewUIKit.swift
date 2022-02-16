@@ -60,8 +60,7 @@ final class RelationValueViewUIKit: UIView {
         case .date(let date):
             return TextRelationFactory.uiKit(value: date.value?.text, hint: relation.hint, style: style)
         case .object(let object):
-            return UIView()
-//            ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
+            return ObjectListRelationViewUIKit(options: object.selectedObjects, hint: relation.hint, style: style)
         case .checkbox(let checkbox):
             return CheckboxRelationViewUIKit(isChecked: checkbox.value)
         case .url(let text):
@@ -76,8 +75,7 @@ final class RelationValueViewUIKit: UIView {
             return UIView()
 //            FileRelationView(options: file.files, hint: relation.hint, style: style)
         case .unknown(let unknown):
-            return UIView()
-//            RelationsListRowPlaceholderView(hint: unknown.value, type: style.placeholderType)
+            return RelationPlaceholderViewUIKit(hint: unknown.value, type: style.placeholderType)
         }
     }
 }
