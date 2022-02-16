@@ -65,9 +65,9 @@ extension RelationStyle {
     var tagViewGuidlines: TagView.Guidlines {
         switch self {
         case .regular, .set:
-            return TagView.Guidlines(textPadding: 6, cornerRadius: 5, tagHeight: 24)
+            return TagView.Guidlines(textPadding: 6, cornerRadius: 5, tagHeight: 20)
         case .featuredRelationBlock:
-            return TagView.Guidlines(textPadding: 6, cornerRadius: 4, tagHeight: 19)
+            return TagView.Guidlines(textPadding: 6, cornerRadius: 4, tagHeight: 15)
         }
     }
     

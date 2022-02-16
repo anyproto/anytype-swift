@@ -23,10 +23,12 @@ final class RelationBlockView: UIView, BlockContentView, ObservableObject {
         setupLayout()
     }
 
-    func update(with configuration: RelationBlockContentConfiguration) {
-//        relation = configuration.relation
-//        actionOnValue = configuration.actionOnValue
+    override func update(with configuration: RelationBlockContentConfiguration) {
+        //        relation = configuration.relation
+        //        actionOnValue = configuration.actionOnValue
 
+//        super.update(with: configuration)
+//
 //        relationValueView.removeFromSuperview()
 //        relationValueView = RelationValueViewUIKit(relation: configuration.relation,
 //                                                   style: .regular(allowMultiLine: true),
@@ -35,8 +37,12 @@ final class RelationBlockView: UIView, BlockContentView, ObservableObject {
 //        relationNameView.setText(configuration.relation.name)
 //
 //        containerView.addSubview(relationValueView) {
-//            $0.pinToSuperview(excluding: [.left])
+//            $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: LayoutConstants.topBottomInset,
+//                                                                       left: 0,
+//                                                                       bottom: -LayoutConstants.topBottomInset,
+//                                                                       right: 0))
 //            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
+//        }
     }
 
     // MARK: - Setup view
@@ -45,24 +51,26 @@ final class RelationBlockView: UIView, BlockContentView, ObservableObject {
         relationNameView.textColor = .textSecondary
 
         addSubview(containerView) {
-            $0.pinToSuperview(excluding: [.bottom], insets: UIEdgeInsets(top: LayoutConstants.topInset, left: 20, bottom: 0, right: -20))
-            bottomConstraint = $0.bottom.equal(to: bottomAnchor, priority: .defaultLow)
-            $0.height.greaterThanOrEqual(to: LayoutConstants.oneLineHeight)
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 0,
+                                                   left: 20,
+                                                   bottom: 0,
+                                                   right: -20))
         }
         containerView.addSubview(relationNameView) {
-            $0.pinToSuperview(excluding: [.right, .bottom])
+            $0.top.equal(to: containerView.topAnchor, constant: LayoutConstants.topBottomInset)
+            $0.leading.equal(to: containerView.leadingAnchor)
             $0.width.equal(to: containerView.widthAnchor, multiplier: 0.4)
-            $0.height.greaterThanOrEqual(to: LayoutConstants.oneLineHeight)
         }
         containerView.addSubview(relationValueView) {
-            $0.pinToSuperview(excluding: [.left])
+            $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: LayoutConstants.topBottomInset,
+                                                                       left: 0,
+                                                                       bottom: -LayoutConstants.topBottomInset,
+                                                                       right: 0))
             $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
         }
     }
 
     private enum LayoutConstants {
-        static let oneLineHeight: CGFloat = 32
-        static let topInset: CGFloat = 6
-        static let multiLineBottomInset: CGFloat = -12
+        static let topBottomInset: CGFloat = 6
     }
 }

@@ -32,11 +32,6 @@ final class RelationValueViewUIKit: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override var intrinsicContentSize: CGSize {
-        let height = relationView.intrinsicContentSize.height == UIView.noIntrinsicMetric ? 32.0 : relationView.intrinsicContentSize.height
-        return CGSize(width: relationView.intrinsicContentSize.width, height: height)
-    }
-
     private func setupView() {
         relationView = obtainRelationView(relation, style: style)
 
@@ -76,8 +71,7 @@ final class RelationValueViewUIKit: UIView {
         case .phone(let text):
             return TextRelationFactory.uiKit(value: text.value, hint: relation.hint, style: style)
         case .tag(let tag):
-            return UIView()
-//            TagRelationView(tags: tag.selectedTags, hint: relation.hint, style: style)
+            return TagRelationViewUIKIt(tags: tag.selectedTags, hint: relation.hint, style: style)
         case .file(let file):
             return UIView()
 //            FileRelationView(options: file.files, hint: relation.hint, style: style)
