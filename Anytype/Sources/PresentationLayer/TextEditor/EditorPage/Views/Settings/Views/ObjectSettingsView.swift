@@ -17,26 +17,25 @@ struct ObjectSettingsView: View {
             settings
         }
         .background(Color.backgroundSecondary)
-        .cornerRadius(16)
-        .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
     }
     
     private var settings: some View {
         VStack(spacing: 0) {
-            VStack(spacing: 0) {
-                ForEach(viewModel.settings.indices, id: \.self) { index in
-                    mainSetting(index: index)
-                }
-            }
-            .padding([.leading, .trailing], Constants.edgeInset)
-            .divider(spacing:  Constants.dividerSpacing)
+            settingsList
             
-            ObjectActionsView()
-                .environmentObject(viewModel.objectActionsViewModel)
-                .padding(.top, Constants.topActionObjectsViewInset)
-                .padding([.leading, .trailing], Constants.edgeInset)
+            ObjectActionsView(viewModel: viewModel.objectActionsViewModel)
+                .padding(.horizontal, Constants.edgeInset)
         }
-        .padding([.bottom], Constants.edgeInset)
+    }
+    
+    private var settingsList: some View {
+        VStack(spacing: 0) {
+            ForEach(viewModel.settings.indices, id: \.self) { index in
+                mainSetting(index: index)
+            }
+        }
+        .padding(.horizontal, Constants.edgeInset)
+        .divider(spacing: Constants.dividerSpacing)
     }
     
     private func mainSetting(index: Int) -> some View {
@@ -58,8 +57,7 @@ struct ObjectSettingsView: View {
 
     private enum Constants {
         static let edgeInset: CGFloat = 16
-        static let topActionObjectsViewInset: CGFloat = 20
-        static let dividerSpacing: CGFloat = 20
+        static let dividerSpacing: CGFloat = 12
     }
 }
 
