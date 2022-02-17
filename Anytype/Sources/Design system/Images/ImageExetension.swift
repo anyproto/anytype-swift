@@ -35,12 +35,14 @@ extension Image {
     }
     
     enum settings {
+        static let account = createImage("settings_account_and_data")
+        static let personalization = createImage("settings_personalization")
+        static let appearance = createImage("settings_appearance")
         static let keychain = createImage("setings_set_keychain_phrase")
         static let about = createImage("settings_about")
         static let pin = createImage("settings_set_pin_code")
         static let wallpaper = createImage("settings_set_wallpaper")
         static let debug = createImage("settings_debug")
-        static let other = createImage("settings_other")
     }
     
     enum auth {

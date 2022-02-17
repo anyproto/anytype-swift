@@ -39,7 +39,7 @@ struct EditorSetView: View {
         
         .sheet(isPresented: $model.showViewPicker) {
             EditorSetViewPicker()
-                .cornerRadius(16, corners: [.topLeft, .topRight])
+                .cornerRadius(16, corners: .top)
         }
     }
 }
