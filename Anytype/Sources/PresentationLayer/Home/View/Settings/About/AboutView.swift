@@ -7,9 +7,7 @@ import AudioToolbox
 
 struct AboutView: View {
     @EnvironmentObject private var model: SettingsViewModel
-    @Environment(\.presentationMode) private var presentationMode
-    
-    @State private var snackBarData = SnackBarData.empty
+    @EnvironmentObject private var homeModel: HomeViewModel
     
     var body: some View {
         contentView
@@ -37,19 +35,16 @@ struct AboutView: View {
                 }
             }
             .padding(.horizontal, 20)
-            Spacer()
         }
-        .snackbar(
-            isShowing: $snackBarData.showSnackBar,
-            text: AnytypeText(snackBarData.text, style: .uxCalloutRegular, color: .textPrimary)
-        )
+        .background(Color.backgroundSecondary)
+        .cornerRadius(12, corners: .top)
     }
     
     func aboutRow(label: String, value: String) -> some View {
         Button {
             UISelectionFeedbackGenerator().selectionChanged()
             UIPasteboard.general.string = value
-            snackBarData = .init(text: "\(label) " + "copied to clipboard".localized, showSnackBar: true)
+            homeModel.snackBarData = .init(text: "\(label) " + "copied to clipboard".localized, showSnackBar: true)
         } label: {
             HStack {
                 AnytypeText(label, style: .uxBodyRegular, color: .textSecondary)
@@ -69,7 +64,7 @@ struct AboutView: View {
                 if titleTapCount == 10 {
                     titleTapCount = 0
                     AudioServicesPlaySystemSound(1109)
-                    presentationMode.wrappedValue.dismiss()
+                    model.about = false
                     model.debugMenu = true
                 }
             }
