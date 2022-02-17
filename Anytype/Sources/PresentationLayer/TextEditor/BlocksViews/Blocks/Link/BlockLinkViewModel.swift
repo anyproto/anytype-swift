@@ -38,7 +38,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        return BlockLinkContentConfiguration(state: state)
+        return BlockLinkContentConfiguration(state: state).asCellBlockConfiguration
     }
     
     func didSelectRowInTableView() {

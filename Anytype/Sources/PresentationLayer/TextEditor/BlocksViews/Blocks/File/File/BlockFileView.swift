@@ -7,14 +7,21 @@ struct BlockFileMediaData: Hashable {
     var typeIcon: UIImage
 }
 
-class BlockFileView: BaseBlockView<BlockFileConfiguration> {
-    override func setupSubviews() {
-        super.setupSubviews()
+class BlockFileView: UIView, BlockContentView {
+
+    private let dividerView = DividerBlockView()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
 
-    override func update(with configuration: BlockFileConfiguration) {
-        super.update(with: configuration)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
+    func update(with configuration: BlockFileConfiguration) {
         handle(data: configuration.data)
     }
 

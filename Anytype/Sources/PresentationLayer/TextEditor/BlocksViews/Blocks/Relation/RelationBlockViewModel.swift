@@ -31,7 +31,7 @@ class RelationBlockViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView() {}
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        RelationBlockContentConfiguration(relation: relation, actionOnValue: actionOnValue)
+        RelationBlockContentConfiguration(relation: relation, actionOnValue: actionOnValue).asCellBlockConfiguration
     }
     
 }

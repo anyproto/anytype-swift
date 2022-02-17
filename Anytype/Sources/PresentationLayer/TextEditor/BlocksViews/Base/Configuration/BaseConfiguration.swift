@@ -76,7 +76,7 @@ class BaseView<View: BlockContentView>: UIView & UIContentView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     func update(with state: UICellConfigurationState) {
         selectionView.updateStyle(isSelected: state.isSelected)
 
@@ -92,17 +92,26 @@ class BaseView<View: BlockContentView>: UIView & UIContentView {
 
     func setupSubviews() {
         addSubview(view) {
-             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 0, bottom: -1, right: 0))
+             $0.pinToSuperview()
         }
 
         addSubview(selectionView) {
-            $0.pin(to: view, insets: UIEdgeInsets(top: 0, left: 8, bottom: 0, right: -8))
+            $0.pin(to: view, insets: UIEdgeInsets(top: 0, left: 8, bottom: -2, right: -8))
         }
     }
 }
 
 protocol BlockConfiguration: Hashable where View.Configuration == Self {
     associatedtype View: BlockContentView
+}
+
+extension BlockConfiguration {
+    var asCellBlockConfiguration: CellBlockConfiguration<Self> {
+        CellBlockConfiguration(
+            blockConfiguration: self,
+            currentConfigurationState: nil
+        )
+    }
 }
 
 protocol CellBlockConfigurationProtocol where Self: UIContentConfiguration {
