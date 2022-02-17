@@ -60,7 +60,7 @@ final class EditorSyncStatusItem: UIView {
     
     private func updateState() {
         backgroundView.alpha = state.backgroundAlpha
-        button.setTitleColor(state.textColor, for: .normal)
+        button.setTitleColor(state.hiddableTextColor, for: .normal)
     }
     
     // MARK: - Unavailable
