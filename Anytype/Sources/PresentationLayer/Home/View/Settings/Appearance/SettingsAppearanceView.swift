@@ -17,7 +17,7 @@ struct SettingsAppearanceView: View {
             appearanceType
             iconPicker
             
-            Spacer.fixedHeight(12)
+            Spacer.fixedHeight(20)
         }
         .background(Color.backgroundSecondary)
         .cornerRadius(16, corners: .top)

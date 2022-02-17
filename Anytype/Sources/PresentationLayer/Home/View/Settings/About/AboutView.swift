@@ -38,6 +38,7 @@ struct AboutView: View {
                 }
             }
             .padding(.horizontal, 20)
+            Spacer.fixedHeight(20)
         }
         .background(Color.backgroundSecondary)
         .cornerRadius(12, corners: .top)

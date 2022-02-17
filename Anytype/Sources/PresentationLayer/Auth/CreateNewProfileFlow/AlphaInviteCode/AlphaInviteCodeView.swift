@@ -24,6 +24,7 @@ struct AlphaInviteCodeView: View {
             Spacer()
             contentView
                 .horizontalReadabilityPadding(20)
+                .padding(.bottom, 20)
         }
     }
     
