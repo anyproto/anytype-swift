@@ -712,6 +712,7 @@
 		53F80F0D27BDA5B700E9E12A /* ObjectRelationViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F80F0C27BDA5B700E9E12A /* ObjectRelationViewUIKit.swift */; };
 		53F80F1027BDA95D00E9E12A /* FileListRelationViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F80F0F27BDA95D00E9E12A /* FileListRelationViewUIKit.swift */; };
 		53F80F1227BDA96E00E9E12A /* FileRelationViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F80F1127BDA96E00E9E12A /* FileRelationViewUIKit.swift */; };
+		53F80F2D27BE66FA00E9E12A /* RelationBlockViewDepricated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F80F2C27BE66FA00E9E12A /* RelationBlockViewDepricated.swift */; };
 		53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F820BF2648B257003FEB0B /* BlockActionService.swift */; };
 		53F8210D26528D1A003FEB0B /* CustomTextViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8210C26528D19003FEB0B /* CustomTextViewDelegate.swift */; };
 		53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F8211026529CC9003FEB0B /* TextViewManagingFocus.swift */; };
@@ -1602,6 +1603,7 @@
 		53F80F0C27BDA5B700E9E12A /* ObjectRelationViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRelationViewUIKit.swift; sourceTree = "<group>"; };
 		53F80F0F27BDA95D00E9E12A /* FileListRelationViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileListRelationViewUIKit.swift; sourceTree = "<group>"; };
 		53F80F1127BDA96E00E9E12A /* FileRelationViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileRelationViewUIKit.swift; sourceTree = "<group>"; };
+		53F80F2C27BE66FA00E9E12A /* RelationBlockViewDepricated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationBlockViewDepricated.swift; sourceTree = "<group>"; };
 		53F820BF2648B257003FEB0B /* BlockActionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionService.swift; sourceTree = "<group>"; };
 		53F8210C26528D19003FEB0B /* CustomTextViewDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextViewDelegate.swift; sourceTree = "<group>"; };
 		53F8211026529CC9003FEB0B /* TextViewManagingFocus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewManagingFocus.swift; sourceTree = "<group>"; };
@@ -4854,6 +4856,7 @@
 			isa = PBXGroup;
 			children = (
 				535E02A7274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift */,
+				53F80F2C27BE66FA00E9E12A /* RelationBlockViewDepricated.swift */,
 				535E02A9274FE5BE00E1AF8C /* RelationBlockView.swift */,
 				535E02B127502ECF00E1AF8C /* RelationBlockViewModel.swift */,
 			);
@@ -6380,6 +6383,7 @@
 				0ACFCCF7249C17B5002E0477 /* BlockListService Protocol.swift in Sources */,
 				C91AFF0F270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift in Sources */,
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
+				53F80F2D27BE66FA00E9E12A /* RelationBlockViewDepricated.swift in Sources */,
 				C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */,
 				538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */,
 				12EB9B2C27743D1700BA732F /* RelationFile.swift in Sources */,
