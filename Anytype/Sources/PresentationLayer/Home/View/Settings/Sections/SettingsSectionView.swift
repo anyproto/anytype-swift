@@ -20,13 +20,13 @@ struct SettingsSectionView: View {
             )
             
             SettingsSectionItemView(
-                name: "Appearance",
+                name: "Appearance".localized,
                 icon: .settings.appearance,
                 pressed: $viewModel.appearance
             )
 
             SettingsSectionItemView(
-                name: "About",
+                name: "About".localized,
                 icon: .settings.about,
                 pressed: $viewModel.about
             )

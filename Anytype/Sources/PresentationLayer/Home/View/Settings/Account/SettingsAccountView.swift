@@ -15,6 +15,10 @@ struct SettingsAccountView: View {
         .padding(.horizontal, 20)
         .background(Color.backgroundSecondary)
         .cornerRadius(16, corners: .top)
+        
+        .onAppear {
+            Amplitude.instance().logEvent(AmplitudeEventsName.accountSettingsShow)
+        }
     }
     
     private var header: some View {

@@ -11,6 +11,9 @@ struct AboutView: View {
     
     var body: some View {
         contentView
+            .onAppear {
+                Amplitude.instance().logEvent(AmplitudeEventsName.aboutSettingsShow)
+            }
     }
     
     var contentView: some View {

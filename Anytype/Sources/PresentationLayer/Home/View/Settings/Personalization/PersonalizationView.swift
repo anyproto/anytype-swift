@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import Amplitude
 
 struct PersonalizationView: View {
     @EnvironmentObject private var model: SettingsViewModel
@@ -16,6 +17,10 @@ struct PersonalizationView: View {
         }
         .background(Color.backgroundSecondary)
         .cornerRadius(16, corners: .top)
+        
+        .onAppear {
+            Amplitude.instance().logEvent(AmplitudeEventsName.personalizationSettingsShow)
+        }
     }
 
     private var defaultType: some View {

@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import Amplitude
 
 struct SettingsAppearanceView: View {
     @EnvironmentObject private var model: SettingsViewModel
@@ -20,6 +21,10 @@ struct SettingsAppearanceView: View {
         }
         .background(Color.backgroundSecondary)
         .cornerRadius(16, corners: .top)
+        
+        .onAppear {
+            Amplitude.instance().logEvent(AmplitudeEventsName.appearanceSettingsShow)
+        }
     }
     
     private var wallpaper: some View {
