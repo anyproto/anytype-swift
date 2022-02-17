@@ -3,6 +3,8 @@ import UIKit
 final class MoreRelationView: UIView {
     let count: Int
 
+    private var textView: AnytypeLabel!
+
     init(count: Int) {
         self.count = count
 
@@ -16,7 +18,6 @@ final class MoreRelationView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    private var textView: AnytypeLabel!
 
     override var intrinsicContentSize: CGSize {
         CGSize(width: textView.intrinsicContentSize.width + Constants.padding * 2, height: textView.intrinsicContentSize.height)
