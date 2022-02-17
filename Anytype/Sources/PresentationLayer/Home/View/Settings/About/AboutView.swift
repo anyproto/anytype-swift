@@ -19,7 +19,7 @@ struct AboutView: View {
     var contentView: some View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator()
-            Spacer.fixedHeight(70)
+            Spacer.fixedHeight(53)
             title
             Spacer.fixedHeight(27)
             
@@ -34,7 +34,7 @@ struct AboutView: View {
                     aboutRow(label: "Library", value: libraryVersion)
                 }
                 if let userId = UserDefaultsConfig.usersId {
-                    aboutRow(label: "User Id", value: userId)
+                    aboutRow(label: "User ID", value: userId)
                 }
             }
             .padding(.horizontal, 20)
@@ -50,7 +50,7 @@ struct AboutView: View {
             UIPasteboard.general.string = value
             homeModel.snackBarData = .init(text: "\(label) " + "copied to clipboard".localized, showSnackBar: true)
         } label: {
-            HStack {
+            HStack(alignment: .top) {
                 AnytypeText(label, style: .uxBodyRegular, color: .textSecondary)
                 Spacer.fixedWidth(50)
                 Spacer()

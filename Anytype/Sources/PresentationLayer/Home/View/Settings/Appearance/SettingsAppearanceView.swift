@@ -75,7 +75,7 @@ struct SettingsAppearanceView: View {
             AnytypeText(
                 style.title.localized,
                 style: .caption2Regular,
-                color: model.currentStyle == style ? .textPrimary : .textSecondary
+                color: .textSecondary
             ).frame(maxWidth: .infinity)
         }
     }
@@ -117,7 +117,6 @@ struct SettingsAppearanceView: View {
                             .frame(width: 66, height: 66)
                     )
             }
-            AnytypeText(icon.description, style: .caption2Regular, color: AppIconManager.shared.currentIcon == icon ? .textPrimary : .textSecondary)
         }
         .frame(maxWidth: .infinity)
     }
