@@ -11,7 +11,7 @@ struct SeedPhraseView: View {
                 AnytypeText(
                     model.recoveryPhrase ?? RedactedText.seedPhrase.localized,
                     style: .codeBlock,
-                    color: model.recoveryPhrase.isNil ? Color.Text.sky : UIColor.TagBackground.sky.suColor
+                    color: .Text.sky
                 )
                     .redacted(reason: model.recoveryPhrase.isNil ? .placeholder : [])
                     .padding()

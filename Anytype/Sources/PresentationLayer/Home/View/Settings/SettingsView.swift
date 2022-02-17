@@ -3,26 +3,18 @@ import Amplitude
 
 
 struct SettingsView: View {
-    @EnvironmentObject private var viewModel: SettingsViewModel
+    @EnvironmentObject private var model: SettingsViewModel
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator()
             SettingsSectionView()
-            Button(action: { viewModel.loggingOut = true }) {
-                AnytypeText("Log out".localized, style: .uxCalloutRegular, color: .textSecondary)
-                    .padding()
-            }
+            Spacer.fixedHeight(16)
         }
         .background(Color.backgroundSecondary)
         .cornerRadius(16)
         
-        .sheet(isPresented: $viewModel.defaultType) {
-            DefaultTypePicker()
-                .environmentObject(viewModel)
-        }
-        
-        .environmentObject(viewModel)
+        .environmentObject(model)
     }
 }
 
