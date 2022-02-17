@@ -88,52 +88,34 @@ final class MiddlewareEventConverter {
             })
             return .blocks(blockIds: [blockId])
         
-        case let .objectDetailsSet(value):
-            guard value.hasDetails else { return .general }
+        case let .objectDetailsSet(data):
+            guard let details = detailsStorage.set(data: data) else { return nil }
+            return .details(id: details.id)
             
-            let id = value.id
+        case let .objectDetailsAmend(data):
+            let oldDetails = detailsStorage.get(id: data.id)
+            let newDetails = detailsStorage.amend(data: data)
             
-            let details = ObjectDetails(id: id, values: value.details.fields)
-            detailsStorage.add(details: details)
-            
-            return .details(id: id)
-            
-        case let .objectDetailsAmend(amend):
-            guard amend.details.isNotEmpty else { return nil }
-            
-            let currentDetails = detailsStorage.get(id: amend.id) ?? ObjectDetails.empty(id: amend.id)
-            let updatedDetails = detailsStorage.ammend(id: amend.id, values: amend.details.asDetailsDictionary)
+            guard let oldDetails = oldDetails else {
+                return .details(id: data.id)
+            }
             
             // change layout from `todo` to `basic` should trigger update title
             // in order to remove chackmark
-            guard currentDetails.layout == updatedDetails.layout else {
+            guard oldDetails.layout == newDetails.layout else {
                 return .general
             }
-            
+
             // if `type` changed we should reload featured relations block
-            guard currentDetails.type == updatedDetails.type else {
+            guard oldDetails.type == newDetails.type else {
                 return .general
             }
+
+            return .details(id: data.id)
             
-            return .details(id: amend.id)
-            
-        case let .objectDetailsUnset(payload):
-            let id = payload.id
-            
-            guard let currentDetails = detailsStorage.get(id: id) else {
-                return nil
-            }
-            
-            let updatedDetails = currentDetails.removed(keys: payload.keys)
-            detailsStorage.add(details: updatedDetails)
-            
-            // change layout from `todo` to `basic` should trigger update title
-            // in order to remove chackmark
-            guard currentDetails.layout == updatedDetails.layout else {
-                return .general
-            }
-            
-            return .details(id: id)
+        case let .objectDetailsUnset(data):
+            guard let details = detailsStorage.unset(data: data) else { return nil }
+            return .details(id: details.id)
             
         case .objectRelationsSet(let set):
             relationStorage.set(
@@ -441,16 +423,5 @@ final class MiddlewareEventConverter {
         container.rootId = rootId
 
         IndentationBuilder.build(container: container, id: rootId)
-    }
-}
-
-public extension Array where Element == Anytype_Event.Object.Details.Amend.KeyValue {
-
-    var asDetailsDictionary: [String: Google_Protobuf_Value] {
-        reduce(
-            into: [String: Google_Protobuf_Value]()
-        ) { result, detail in
-            result[detail.key] = detail.value
-        }
     }
 }

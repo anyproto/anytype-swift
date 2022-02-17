@@ -64,6 +64,7 @@ public enum ErrorDomain: String {
     case authService
     case subscriptionService
     case subscriptionStorage
+    case detailsStorage
     
     case homeView
     case baseDocument
