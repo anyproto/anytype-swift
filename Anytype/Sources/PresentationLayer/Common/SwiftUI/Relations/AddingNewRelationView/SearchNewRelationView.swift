@@ -11,7 +11,7 @@ struct SearchNewRelationView: View {
 
     var body: some View {
         VStack() {
-            DragIndicator(bottomPadding: 0)
+            DragIndicator()
             SearchBar(text: $searchText, focused: true, placeholder: "Find a relation")
             content
         }

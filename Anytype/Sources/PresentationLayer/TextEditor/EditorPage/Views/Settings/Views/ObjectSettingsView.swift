@@ -13,7 +13,7 @@ struct ObjectSettingsView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            DragIndicator(bottomPadding: 0)
+            DragIndicator()
             settings
         }
         .background(Color.backgroundSecondary)
