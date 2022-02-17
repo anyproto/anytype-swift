@@ -4,7 +4,7 @@ private enum SlashMenuConstants {
     static let cellReuseId = NSStringFromClass(UITableViewCell.self)
     static let cellHeight: CGFloat = 56
     static let dividerCellhHeight: CGFloat = 35
-    static let separatorInsets = UIEdgeInsets(top: 0, left: 68, bottom: 0, right: 16)
+    static let separatorInsets = UIEdgeInsets(top: 0, left: 72, bottom: 0, right: 16)
     static let relationSeparatorInsets = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
     static let dividerSeparatorInsets = UIEdgeInsets(
         top: 0,

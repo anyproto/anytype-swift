@@ -75,7 +75,7 @@ enum BlockBackgroundColor: CaseIterable {
             size: .init(width: 22, height: 22),
             fillColor: color,
             borderColor: .strokePrimary,
-            borderWidth: 2
+            borderWidth: 1
         )
     }
 

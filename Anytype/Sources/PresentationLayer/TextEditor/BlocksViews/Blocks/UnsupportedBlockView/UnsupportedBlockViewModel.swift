@@ -18,8 +18,7 @@ struct UnsupportedBlockViewModel: BlockViewModelProtocol {
     }
 
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        let contentConfiguration = UnsupportedBlockContentConfiguration(text: "Unsupported block".localized)
-        return contentConfiguration
+        UnsupportedBlockContentConfiguration(text: "Unsupported block".localized).asCellBlockConfiguration
     }
 
     func didSelectRowInTableView() { }

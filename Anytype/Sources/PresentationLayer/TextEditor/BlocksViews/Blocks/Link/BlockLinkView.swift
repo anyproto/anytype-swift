@@ -3,15 +3,18 @@ import Combine
 import BlocksModels
 import Kingfisher
 
-final class BlockLinkView: BaseBlockView<BlockLinkContentConfiguration> {
-    override func setupSubviews() {
-        super.setupSubviews()
-
+final class BlockLinkView: UIView, BlockContentView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
 
-    override func update(with configuration: BlockLinkContentConfiguration) {
-        super.update(with: configuration)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
+
+    func update(with configuration: BlockLinkContentConfiguration) {
         apply(configuration)
     }
 

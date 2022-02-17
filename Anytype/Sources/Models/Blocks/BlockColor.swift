@@ -74,8 +74,8 @@ enum BlockColor: CaseIterable {
         UIImage.circleImage(
             size: .init(width: 22, height: 22),
             fillColor: color,
-            borderColor: .strokePrimary,
-            borderWidth: 2
+            borderColor: .clear,
+            borderWidth: 0
         )
     }
     

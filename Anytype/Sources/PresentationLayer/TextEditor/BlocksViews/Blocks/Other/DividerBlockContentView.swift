@@ -2,21 +2,27 @@ import UIKit
 import Combine
 import BlocksModels
 
-class DividerBlockContentView: BaseBlockView<DividerBlockContentConfiguration> {
+class DividerBlockContentView: UIView, BlockContentView {
     
     private let dividerView = DividerBlockView()
 
-    override func setupSubviews() {
-        super.setupSubviews()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
 
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupView()
+    }
+
+    func setupView() {
         addSubview(dividerView)
         dividerView.edgesToSuperview()
     }
 
-    override func update(with configuration: DividerBlockContentConfiguration) {
-        super.update(with: configuration)
-
-        handle(currentConfiguration.content.style)
+    func update(with configuration: DividerBlockContentConfiguration) {
+        handle(configuration.content.style)
     }
 
     

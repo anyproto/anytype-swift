@@ -3,21 +3,25 @@ import UIKit
 import Highlightr
 import BlocksModels
 
-final class CodeBlockView: BaseBlockView<CodeBlockContentConfiguration> {
-    override func setupSubviews() {
-        super.setupSubviews()
+final class CodeBlockView: UIView, BlockContentView {
+    private var actionHandler: CodeBlockContentConfiguration.Actions?
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupViews()
     }
 
-    override func update(with configuration: CodeBlockContentConfiguration) {
-        super.update(with: configuration)
-
-        applyNewConfiguration()
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupViews()
     }
 
-    override func update(with state: UICellConfigurationState) {
-        super.update(with: state)
+    func update(with configuration: CodeBlockContentConfiguration) {
+        actionHandler = configuration.actions
+        applyNewConfiguration(configuration: configuration)
+    }
 
+    func update(with state: UICellConfigurationState) {
         textView.isUserInteractionEnabled = state.isEditing
     }
 
@@ -43,14 +47,14 @@ final class CodeBlockView: BaseBlockView<CodeBlockContentConfiguration> {
         }
     }
 
-    private func applyNewConfiguration() {
-        codeSelectButton.setText(currentConfiguration.codeLanguage.rawValue)
-        textStorage.language = currentConfiguration.codeLanguage.rawValue
-        textStorage.highlightr.highlight(currentConfiguration.content.anytypeText.attrString.string).flatMap {
+    private func applyNewConfiguration(configuration: CodeBlockContentConfiguration) {
+        codeSelectButton.setText(configuration.codeLanguage.rawValue)
+        textStorage.language = configuration.codeLanguage.rawValue
+        textStorage.highlightr.highlight(configuration.content.anytypeText.attrString.string).flatMap {
             textStorage.setAttributedString($0)
         }
         
-        let backgroundColor = currentConfiguration.backgroundColor.map {
+        let backgroundColor = configuration.backgroundColor.map {
             UIColor.Background.uiColor(from: $0)
         } ?? UIColor.Background.grey
         contentView.backgroundColor = backgroundColor
@@ -93,7 +97,7 @@ final class CodeBlockView: BaseBlockView<CodeBlockContentConfiguration> {
         
         button.addAction(
             UIAction { [weak self] _ in
-                self?.currentConfiguration.showCodeSelection()
+                self?.actionHandler?.showCodeSelection()
             },
             for: .touchUpInside
         )
@@ -105,11 +109,11 @@ final class CodeBlockView: BaseBlockView<CodeBlockContentConfiguration> {
 extension CodeBlockView: UITextViewDelegate {
 
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        currentConfiguration.becomeFirstResponder()
+        actionHandler?.becomeFirstResponder()
         return true
     }
 
     func textViewDidChange(_ textView: UITextView) {
-        currentConfiguration.textDidChange(textView)
+        actionHandler?.textDidChange(textView)
     }
 }
