@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 
-final class RelationBlockViewDepricated: BaseBlockView<RelationBlockContentConfiguration>, ObservableObject {
+final class RelationBlockViewDepricated: UIView, BlockContentView, ObservableObject {
     @Published var heightConstraint: NSLayoutConstraint!
     @Published var relation: Relation?
     @Published var actionOnValue: ((_ relation: Relation) -> Void)?
@@ -11,25 +11,26 @@ final class RelationBlockViewDepricated: BaseBlockView<RelationBlockContentConfi
     fileprivate lazy var relationView = RelationView(delegate: self)
     private let container = UIView()
 
+    // MARK: - Lifecycle
 
-    // MARK: - BaseBlockView
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupLayout()
+    }
 
-    override func update(with configuration: RelationBlockContentConfiguration) {
-        super.update(with: configuration)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupLayout()
+    }
 
+    func update(with configuration: DepricatedRelationBlockContentConfiguration) {
         relation = configuration.relation
         actionOnValue = configuration.actionOnValue
 
     }
 
-    override func setupSubviews() {
-        super.setupSubviews()
-        setupLayout()
-    }
-
     // MARK: - Setup view
 
-    static var number: Int = 0
     func setupLayout() {
         let relationsView = relationView.asUIView()
 

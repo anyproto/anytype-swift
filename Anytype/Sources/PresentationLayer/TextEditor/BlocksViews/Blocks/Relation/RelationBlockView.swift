@@ -1,7 +1,7 @@
 import UIKit
 import SwiftUI
 
-final class RelationBlockView: UIView, BlockContentView, ObservableObject {
+final class RelationBlockView: UIView, BlockContentView {
     private var bottomConstraint: NSLayoutConstraint!
 
     // MARK: - Views
@@ -12,7 +12,8 @@ final class RelationBlockView: UIView, BlockContentView, ObservableObject {
     private let relationNameView = AnytypeLabel(style: .relation1Regular)
     private let containerView = UIView()
 
-    // MARK: - BaseBlockView
+    // MARK: - Lifecycle
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
@@ -23,26 +24,21 @@ final class RelationBlockView: UIView, BlockContentView, ObservableObject {
         setupLayout()
     }
 
-    override func update(with configuration: RelationBlockContentConfiguration) {
-        //        relation = configuration.relation
-        //        actionOnValue = configuration.actionOnValue
+    func update(with configuration: RelationBlockContentConfiguration) {
+        relationValueView.removeFromSuperview()
+        relationValueView = RelationValueViewUIKit(relation: configuration.relation,
+                                                   style: .regular(allowMultiLine: true),
+                                                   action: configuration.actionOnValue)
 
-//        super.update(with: configuration)
-//
-//        relationValueView.removeFromSuperview()
-//        relationValueView = RelationValueViewUIKit(relation: configuration.relation,
-//                                                   style: .regular(allowMultiLine: true),
-//                                                   action: configuration.actionOnValue)
-//
-//        relationNameView.setText(configuration.relation.name)
-//
-//        containerView.addSubview(relationValueView) {
-//            $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: LayoutConstants.topBottomInset,
-//                                                                       left: 0,
-//                                                                       bottom: -LayoutConstants.topBottomInset,
-//                                                                       right: 0))
-//            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
-//        }
+        relationNameView.setText(configuration.relation.name)
+
+        containerView.addSubview(relationValueView) {
+            $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: LayoutConstants.topBottomInset,
+                                                                       left: 0,
+                                                                       bottom: -LayoutConstants.topBottomInset,
+                                                                       right: 0))
+            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
+        }
     }
 
     // MARK: - Setup view

@@ -78,6 +78,6 @@ final class TagRelationViewUIKIt: UIView {
 
 extension TagRelationViewUIKIt {
     enum Constants {
-        static let maxShowingTag = 3
+        static let maxShowingTag = 1
     }
 }
