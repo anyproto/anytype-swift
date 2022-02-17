@@ -41,7 +41,7 @@ struct HomeTabsView: View {
     var body: some View {
         VStack(spacing: 0) {
             HomeTabsHeader(tabSelection: $tabSelection)
-                .cornerRadius(cornerRadius, corners: [.topLeft, .topRight])
+                .cornerRadius(cornerRadius, corners: .top)
                 .highPriorityGesture(
                     DragGesture(coordinateSpace: .named(model.bottomSheetCoordinateSpaceName))
                         .onChanged { gesture in

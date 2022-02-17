@@ -9,11 +9,13 @@ final class SettingsViewModel: ObservableObject {
     @Published var wallpaperPicker = false
     @Published var keychain = false
     @Published var pincode = false
-    @Published var other = false
     @Published var defaultType = false
     @Published var clearCacheAlert = false
     @Published var clearCacheSuccessful = false
     @Published var about = false
+    @Published var appearance = false
+    @Published var account = false
+    @Published var personalization = false
     @Published var debugMenu = false
     @Published var currentStyle = UserDefaultsConfig.userInterfaceStyle {
         didSet {

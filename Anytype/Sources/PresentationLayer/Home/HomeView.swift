@@ -59,18 +59,30 @@ struct HomeView: View {
                 .horizontalReadabilityPadding(8)
         }
         .animation(.fastSpring, value: model.showDeletionAlert)
-
-        .bottomFloater(isPresented: $settingsModel.loggingOut) {
-            DashboardLogoutAlert()
-                .horizontalReadabilityPadding(8)
-        }
-        .animation(.fastSpring, value: settingsModel.loggingOut)
         
-        .bottomFloater(isPresented: $settingsModel.other) {
-            OtherSettingsView()
-                .horizontalReadabilityPadding(8)
+        .bottomSheet(isPresented: $settingsModel.personalization) {
+            PersonalizationView()
+                .horizontalReadabilityPadding(0)
         }
-        .animation(.fastSpring, value: settingsModel.other)
+        .animation(.fastSpring, value: settingsModel.personalization)
+        
+        .bottomSheet(isPresented: $settingsModel.about) {
+            AboutView()
+                .horizontalReadabilityPadding(0)
+        }
+        .animation(.fastSpring, value: settingsModel.about)
+        
+        .bottomSheet(isPresented: $settingsModel.account) {
+            SettingsAccountView()
+                .horizontalReadabilityPadding(0)
+        }
+        .animation(.fastSpring, value: settingsModel.account)
+        
+        .bottomSheet(isPresented: $settingsModel.appearance) {
+            SettingsAppearanceView()
+                .horizontalReadabilityPadding(0)
+        }
+        .animation(.fastSpring, value: settingsModel.appearance)
         
         .bottomFloater(isPresented: $settingsModel.clearCacheAlert) {
             DashboardClearCacheAlert()
@@ -108,7 +120,13 @@ struct HomeView: View {
                 .onChange(of: model.showSearch) { showSearch in
                     Amplitude.instance().logEvent(AmplitudeEventsName.searchShow)
                 }
+        }   
+        
+        .bottomFloater(isPresented: $settingsModel.loggingOut) {
+            DashboardLogoutAlert()
+                .horizontalReadabilityPadding(8)
         }
+        .animation(.fastSpring, value: settingsModel.loggingOut)
         
         .snackbar(
             isShowing: $model.snackBarData.showSnackBar,

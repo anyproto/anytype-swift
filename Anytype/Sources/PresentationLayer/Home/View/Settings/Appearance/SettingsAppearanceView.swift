@@ -1,32 +1,42 @@
 import SwiftUI
 import AnytypeCore
 
-struct OtherSettingsView: View {
+struct SettingsAppearanceView: View {
     @EnvironmentObject private var model: SettingsViewModel
 
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
+            
             Spacer.fixedHeight(12)
-            AnytypeText("Other settings".localized, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText("Appearance".localized, style: .uxTitle1Semibold, color: .textPrimary)
             Spacer.fixedHeight(12)
-            defaultType
-            clearCache
+            
+            wallpaper
             appearanceType
             iconPicker
+            
             Spacer.fixedHeight(12)
         }
         .background(Color.backgroundSecondary)
-        .cornerRadius(16)
-        .if(UIDevice.isPhone) {
-            $0.padding(.horizontal, 8)
+        .cornerRadius(16, corners: .top)
+    }
+    
+    private var wallpaper: some View {
+        SettingsSectionItemView(
+            name: "Wallpaper".localized,
+            icon: .settings.wallpaper,
+            pressed: $model.wallpaperPicker
+        )
+        .sheet(isPresented: $model.wallpaperPicker) {
+            WallpaperPickerView()
         }
-        
+        .padding(.horizontal, 20)
     }
 
     private var appearanceType: some View {
         VStack(alignment: .center) {
-            AnytypeText("Appearance".localized, style: .caption1Medium, color: .textSecondary)
+            AnytypeText("Mode".localized, style: .caption1Medium, color: .textSecondary)
                 .frame(alignment: .center)
             HStack() {
                 ForEach(UIUserInterfaceStyle.allCases) { style in
@@ -62,21 +72,6 @@ struct OtherSettingsView: View {
                 style: .caption2Regular,
                 color: model.currentStyle == style ? .textPrimary : .textSecondary
             ).frame(maxWidth: .infinity)
-        }
-    }
-
-    private var defaultType: some View {
-        Button(action: { model.defaultType = true }) {
-            HStack(spacing: 0) {
-                AnytypeText("Default object type".localized, style: .uxBodyRegular, color: .textPrimary)
-                Spacer()
-                AnytypeText(ObjectTypeProvider.defaultObjectType.name, style: .uxBodyRegular, color: .textSecondary)
-                Spacer.fixedWidth(10)
-                Image.arrow.foregroundColor(.textTertiary)
-            }
-            .padding(.vertical, 14)
-            .divider()
-            .padding(.horizontal, 20)
         }
     }
 
@@ -135,11 +130,11 @@ struct OtherSettingsView: View {
     }
 }
 
-struct OtherSettingsView_Previews: PreviewProvider {
+struct SettingsAppearanceView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.System.blue
-            OtherSettingsView()
+            SettingsAppearanceView()
         }
     }
 }

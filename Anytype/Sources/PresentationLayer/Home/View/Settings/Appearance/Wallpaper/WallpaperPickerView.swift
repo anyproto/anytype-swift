@@ -6,14 +6,11 @@ struct WallpaperPickerView: View {
     @EnvironmentObject var model: SettingsViewModel
     
     var body: some View {
-        VStack {
+        VStack(alignment: .center) {
             DragIndicator()
-            AnytypeText(
-                "Change wallpaper".localized,
-                style: .uxTitle1Semibold,
-                color: .textPrimary
-            )
-                .multilineTextAlignment(.center)
+            Spacer.fixedHeight(12)
+            AnytypeText("Change wallpaper".localized, style: .uxTitle1Semibold, color: .textPrimary)
+            Spacer.fixedHeight(12)
             WallpaperColorsGridView() { background in
                 model.wallpaper = background
                 model.wallpaperPicker = false
