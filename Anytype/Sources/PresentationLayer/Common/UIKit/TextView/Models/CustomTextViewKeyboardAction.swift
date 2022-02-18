@@ -3,7 +3,7 @@ import AnytypeCore
 
 extension CustomTextView {
     enum KeyboardAction {
-        case enterAtTheBeginingOfContent(String)
+        case enterAtTheBeginingOfContent
         case enterInsideContent(position: Int)
         case enterAtTheEndOfContent
         
@@ -23,7 +23,11 @@ extension CustomTextView.KeyboardAction {
 
         if replacement == newLine {
             if isEmpty {
-                return .enterAtTheBeginingOfContent(text)
+                if text.isEmpty {
+                    return .enterAtTheEndOfContent
+                } else {
+                    return .enterAtTheBeginingOfContent
+                }
             }
 
             if text.endIndex == range.upperBound {

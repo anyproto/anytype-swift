@@ -32,14 +32,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 newBlockContentType: text.contentType.contentTypeForSplit
             )
 
-        case let .enterAtTheBeginingOfContent(payload):
-            guard payload.isNotEmpty else {
-                #warning("Fix it in TextView API.")
-                /// If payload is empty, so, handle it as .enter ( or .enter at the end )
-                handle(info: info, action: .enterAtTheEndOfContent, newString: newString)
-                return
-            }
-
+        case .enterAtTheBeginingOfContent:
             service.split(
                 newString,
                 blockId: info.id,
@@ -52,8 +45,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: newString)
 
         case .deleteAtTheBeginingOfContent:
-            guard text.contentType != .description else { return }
-
+            guard text.delitable else { return }
             service.merge(secondBlockId: info.id)
 
         case .deleteOnEmptyContent:
@@ -129,19 +121,27 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     }
 }
 
-extension BlockText.Style {
+
+// MARK: - Extensions
+private extension BlockText.Style {
     // We do want to create regular text block when splitting title block
     var contentTypeForSplit: BlockText.Style {
         self == .title ? .text : self
     }
 }
 
-extension BlockInformation {
+private extension BlockInformation {
     var splitMode: Anytype_Rpc.Block.Split.Request.Mode {
         if content.isToggle {
             return UserSession.shared.isToggled(blockId: id) ? .inner : .bottom
         } else {
             return childrenIds.isNotEmpty ? .inner : .bottom
         }
+    }
+}
+
+private extension BlockText {
+    var delitable: Bool {
+        contentType != .description
     }
 }
