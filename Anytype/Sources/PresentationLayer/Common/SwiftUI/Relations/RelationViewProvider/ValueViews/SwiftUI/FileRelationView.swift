@@ -15,7 +15,7 @@ struct FileRelationView: View {
     
     private var objectsList: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: objectRelationStyle.hSpaсingList) {
+            HStack(spacing: style.objectRelationStyle.hSpaсingList) {
                 ForEach(options) { objectView(option: $0) }
             }
             .padding(.horizontal, 1)
@@ -23,12 +23,12 @@ struct FileRelationView: View {
     }
     
     private func objectView(option: Relation.File.Option) -> some View {
-        HStack(spacing: objectRelationStyle.hSpaсingObject) {
+        HStack(spacing: style.objectRelationStyle.hSpaсingObject) {
             SwiftUIObjectIconImageView(
                 iconImage: option.icon,
                 usecase: .mention(.body)
             )
-                .frame(width: objectRelationStyle.size.width, height: objectRelationStyle.size.height)
+                .frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
             
             AnytypeText(
                 option.title,
@@ -36,23 +36,6 @@ struct FileRelationView: View {
                 color: .textPrimary
             )
                 .lineLimit(1)
-        }
-    }
-}
-
-private extension FileRelationView {
-    struct ObjectRelationStyle {
-        let hSpaсingList: CGFloat
-        let hSpaсingObject: CGFloat
-        let size: CGSize
-    }
-
-    var objectRelationStyle: ObjectRelationStyle {
-        switch style {
-        case .regular, .set:
-            return ObjectRelationStyle(hSpaсingList: 8, hSpaсingObject: 6, size: .init(width: 20, height: 20))
-        case .featuredRelationBlock:
-            return ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: .init(width: 16, height: 16))
         }
     }
 }
