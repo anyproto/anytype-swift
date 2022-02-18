@@ -14,6 +14,7 @@ struct PersonalizationView: View {
             Spacer.fixedHeight(12)
             
             defaultType
+            Spacer.fixedHeight(20)
         }
         .background(Color.backgroundSecondary)
         .cornerRadius(16, corners: .top)

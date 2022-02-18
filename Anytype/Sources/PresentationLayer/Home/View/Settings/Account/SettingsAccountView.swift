@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import Amplitude
 
 struct SettingsAccountView: View {
     @EnvironmentObject private var model: SettingsViewModel
@@ -11,6 +12,7 @@ struct SettingsAccountView: View {
             accessBlock
             dataBlock
             accountBlock
+            Spacer.fixedHeight(20)
         }
         .padding(.horizontal, 20)
         .background(Color.backgroundSecondary)
