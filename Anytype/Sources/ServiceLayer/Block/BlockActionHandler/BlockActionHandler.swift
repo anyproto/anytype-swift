@@ -11,7 +11,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let service: BlockActionServiceProtocol
     private let listService = BlockListService()
     private let markupChanger: BlockMarkupChangerProtocol
-    private let actionHandler: TextBlockActionHandler
+    private let actionHandler: TextBlockActionHandlerProtocol
     
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
     
@@ -19,7 +19,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         document: BaseDocumentProtocol,
         markupChanger: BlockMarkupChangerProtocol,
         service: BlockActionServiceProtocol,
-        actionHandler: TextBlockActionHandler
+        actionHandler: TextBlockActionHandlerProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger

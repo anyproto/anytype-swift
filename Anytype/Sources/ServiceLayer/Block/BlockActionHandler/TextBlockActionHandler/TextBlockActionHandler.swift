@@ -3,7 +3,17 @@ import Combine
 import AnytypeCore
 import Foundation
 
-final class TextBlockActionHandler {
+protocol TextBlockActionHandlerProtocol {
+    func changeText(info: BlockInformation, text: NSAttributedString)
+    func changeTextForced(info: BlockInformation, text: NSAttributedString)
+    func handleKeyboardAction(
+        info: BlockInformation,
+        action: CustomTextView.KeyboardAction,
+        attributedText: NSAttributedString
+    )
+}
+
+final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
     
     private let service: BlockActionServiceProtocol
     private let contextId: String
