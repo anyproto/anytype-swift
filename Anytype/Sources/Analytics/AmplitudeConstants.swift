@@ -77,8 +77,12 @@ enum AmplitudeEventsName {
 
     static let homeShow = "ScreenHome"
     static let settingsShow = "ScreenSettings"
-    static let otherSettingsShow = "ScreenSettingsOther"
     static let wallpaperSettingsShow = "ScreenSettingsWallpaper"
+    static let accountSettingsShow = "ScreenSettingsAccount"
+    static let personalizationSettingsShow = "ScreenSettingsPersonalization"
+    static let appearanceSettingsShow = "ScreenSettingsAppearance"
+    static let aboutSettingsShow = "ScreenSettingsAbout"
+    
     static let deletionWarningShow = "ShowDeletionWarning"
 
     static let keychainPhraseScreenShow = "ScreenKeychain"

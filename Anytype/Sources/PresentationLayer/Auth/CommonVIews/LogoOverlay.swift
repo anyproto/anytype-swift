@@ -13,8 +13,7 @@ struct LogoOverlay: ViewModifier {
                         .onTapGesture(perform: onTap)
                     Spacer()
                 }
-                    .padding(.horizontal, 20)
-                    .horizontalReadabilityPadding()
+                    .horizontalReadabilityPadding(20)
                 ,
                 alignment: .topLeading
             )

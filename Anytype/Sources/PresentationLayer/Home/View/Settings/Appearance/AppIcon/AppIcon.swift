@@ -6,14 +6,6 @@ enum AppIcon: CaseIterable {
     case gradient
     case art
     
-    var description: String {
-        switch self {
-        case .gradient: return "Gradient".localized
-        case .oldSchool: return "Old School".localized
-        case .art: return "Art".localized
-        }
-    }
-    
     var name: String? {
         switch self {
         case .gradient: return nil

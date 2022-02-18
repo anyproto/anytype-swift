@@ -31,6 +31,7 @@ struct MainAuthView: View {
             Spacer()
             bottomSheet
                 .horizontalReadabilityPadding(20)
+                .padding(.bottom, 20)
         }
     }
     

@@ -21,7 +21,7 @@ struct WallpaperColorsGridView: View {
             LazyVGrid(
                 columns: columns,
                 spacing: 16,
-                pinnedViews: [.sectionHeaders]
+                pinnedViews: []
             ) {
                 colorsSection
                 gradientsSection

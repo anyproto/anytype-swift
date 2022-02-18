@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import Amplitude
 
 struct SettingsAppearanceView: View {
     @EnvironmentObject private var model: SettingsViewModel
@@ -16,10 +17,14 @@ struct SettingsAppearanceView: View {
             appearanceType
             iconPicker
             
-            Spacer.fixedHeight(12)
+            Spacer.fixedHeight(20)
         }
         .background(Color.backgroundSecondary)
         .cornerRadius(16, corners: .top)
+        
+        .onAppear {
+            Amplitude.instance().logEvent(AmplitudeEventsName.appearanceSettingsShow)
+        }
     }
     
     private var wallpaper: some View {
@@ -61,7 +66,7 @@ struct SettingsAppearanceView: View {
                 .frame(width: 60, height: 60, alignment: .center)
                 .overlay(
                     RoundedRectangle(cornerRadius: 16).stroke(
-                        model.currentStyle == style ? Color.System.yellow : Color.clear,
+                        model.currentStyle == style ? Color.System.amber25 : Color.clear,
                         lineWidth: 2
                     ).frame(width: 66, height: 66)
                 )
@@ -70,7 +75,7 @@ struct SettingsAppearanceView: View {
             AnytypeText(
                 style.title.localized,
                 style: .caption2Regular,
-                color: model.currentStyle == style ? .textPrimary : .textSecondary
+                color: .textSecondary
             ).frame(maxWidth: .infinity)
         }
     }
@@ -106,13 +111,12 @@ struct SettingsAppearanceView: View {
                     .overlay(
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(
-                                AppIconManager.shared.currentIcon == icon ? Color.System.yellow : .clear,
+                                AppIconManager.shared.currentIcon == icon ? Color.System.amber25 : .clear,
                                 lineWidth: 2
                             )
                             .frame(width: 66, height: 66)
                     )
             }
-            AnytypeText(icon.description, style: .caption2Regular, color: AppIconManager.shared.currentIcon == icon ? .textPrimary : .textSecondary)
         }
         .frame(maxWidth: .infinity)
     }
