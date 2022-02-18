@@ -138,9 +138,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         changeTextForced(newText, blockId: blockId)
     }
     
-    // MARK: - TextBlockActionHandler proxy
-    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation, attributedText: NSAttributedString) {
-        keyboardHandler.handle(info: info, action: action, attributedText: attributedText)
+    func handleKeyboardAction(
+        _ action: CustomTextView.KeyboardAction,
+        info: BlockInformation,
+        newString: NSAttributedString
+    ) {
+        keyboardHandler.handle(info: info, action: action, newString: newString)
     }
     
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {

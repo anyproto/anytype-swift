@@ -4,7 +4,7 @@ import AnytypeCore
 import Foundation
 
 protocol KeyboardActionHandlerProtocol {
-    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, attributedText: NSAttributedString)
+    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, newString: NSAttributedString)
 }
 
 final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
@@ -15,7 +15,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         self.service = service
     }
 
-    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, attributedText: NSAttributedString) {
+    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, newString: NSAttributedString) {
         guard case let .text(text) = info.content else {
             anytypeAssertionFailure("Only text block may send keyboard action", domain: .textBlockActionHandler)
             return
@@ -23,26 +23,22 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         
         switch action {
         case let .enterInsideContent(position):
-            service.split(
-                info: info,
-                position: position,
-                newBlockContentType: text.contentType.contentTypeForSplit,
-                attributedString: attributedText
-            )
-
+            let type = text.contentType.contentTypeForSplit
+            service.split(info: info, position: position, newBlockContentType: type, attributedString: newString)
+            
         case let .enterAtTheBeginingOfContent(payload):
             guard payload.isNotEmpty else {
                 #warning("Fix it in TextView API.")
                 /// If payload is empty, so, handle it as .enter ( or .enter at the end )
-                handle(info: info, action: .enterAtTheEndOfContent, attributedText: attributedText)
+                handle(info: info, action: .enterAtTheEndOfContent, newString: newString)
                 return
             }
 
             let type = text.contentType.contentTypeForSplit
-            service.split(info: info, position: 0, newBlockContentType: type, attributedString: attributedText)
+            service.split(info: info, position: 0, newBlockContentType: type, attributedString: newString)
 
         case .enterAtTheEndOfContent:
-            onEnterAtTheEndOfContent(info: info, text: text, action: action, attributedText: attributedText)
+            onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: newString)
 
         case .deleteAtTheBeginingOfContent:
             guard text.contentType != .description else { return }
@@ -58,16 +54,16 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         info: BlockInformation,
         text: BlockText,
         action: CustomTextView.KeyboardAction,
-        attributedText: NSAttributedString
+        newString: NSAttributedString
     ) {
-        let enterInEmptyList = text.contentType.isList && attributedText.string.isEmpty
+        let enterInEmptyList = text.contentType.isList && newString.string.isEmpty
         guard !enterInEmptyList else {
             service.turnInto(.text, blockId: info.id)
             return
         }
         
         guard text.contentType != .toggle else {
-            onEnterAtTheEndOfToggle(info: info, text: text, action: action, attributedText: attributedText)
+            onEnterAtTheEndOfToggle(info: info, text: text, action: action, newString: newString)
             return
         }
         
@@ -85,9 +81,9 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
 
             service.split(
                 info: info,
-                position: attributedText.string.count,
+                position: newString.string.count,
                 newBlockContentType: type,
-                attributedString: attributedText
+                attributedString: newString
             )
         }
     }
@@ -96,16 +92,16 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         info: BlockInformation,
         text: BlockText,
         action: CustomTextView.KeyboardAction,
-        attributedText: NSAttributedString
+        newString: NSAttributedString
     ) {
         guard UserSession.shared.isToggled(blockId: info.id) else {
             let type = text.contentType.isList ? text.contentType : .text
 
             service.split(
                 info: info,
-                position: attributedText.string.count,
+                position: newString.string.count,
                 newBlockContentType: type,
-                attributedString: attributedText
+                attributedString: newString
             )
             return
         }
