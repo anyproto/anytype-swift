@@ -2,6 +2,7 @@ import BlocksModels
 import Combine
 import AnytypeCore
 import Foundation
+import ProtobufMessages
 
 protocol KeyboardActionHandlerProtocol {
     func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, newString: NSAttributedString)
@@ -23,9 +24,14 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         
         switch action {
         case let .enterInsideContent(position):
-            let type = text.contentType.contentTypeForSplit
-            service.split(newString, info: info, position: position, newBlockContentType: type)
-            
+            service.split(
+                newString,
+                blockId: info.id,
+                mode: info.splitMode,
+                position: position,
+                newBlockContentType: text.contentType.contentTypeForSplit
+            )
+
         case let .enterAtTheBeginingOfContent(payload):
             guard payload.isNotEmpty else {
                 #warning("Fix it in TextView API.")
@@ -34,8 +40,13 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 return
             }
 
-            let type = text.contentType.contentTypeForSplit
-            service.split(newString, info: info, position: 0, newBlockContentType: type)
+            service.split(
+                newString,
+                blockId: info.id,
+                mode: info.splitMode,
+                position: 0,
+                newBlockContentType: text.contentType.contentTypeForSplit
+            )
 
         case .enterAtTheEndOfContent:
             onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: newString)
@@ -81,7 +92,8 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
 
             service.split(
                 newString,
-                info: info,
+                blockId: info.id,
+                mode: info.splitMode,
                 position: newString.string.count,
                 newBlockContentType: type
             )
@@ -99,7 +111,8 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
 
             service.split(
                 newString,
-                info: info,
+                blockId: info.id,
+                mode: info.splitMode,
                 position: newString.string.count,
                 newBlockContentType: type
             )
@@ -120,5 +133,15 @@ extension BlockText.Style {
     // We do want to create regular text block when splitting title block
     var contentTypeForSplit: BlockText.Style {
         self == .title ? .text : self
+    }
+}
+
+extension BlockInformation {
+    var splitMode: Anytype_Rpc.Block.Split.Request.Mode {
+        if content.isToggle {
+            return UserSession.shared.isToggled(blockId: id) ? .inner : .bottom
+        } else {
+            return childrenIds.isNotEmpty ? .inner : .bottom
+        }
     }
 }

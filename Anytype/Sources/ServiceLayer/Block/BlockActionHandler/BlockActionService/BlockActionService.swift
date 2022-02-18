@@ -49,22 +49,12 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func split(
         _ string: NSAttributedString,
-        info: BlockInformation,
+        blockId: BlockId,
+        mode: Anytype_Rpc.Block.Split.Request.Mode,
         position: Int,
         newBlockContentType: BlockText.Style
     ) {
-        let blockId = info.id
-
         let range = NSRange(location: position, length: 0)
-        let documentId = self.documentId
-        
-
-        let mode: Anytype_Rpc.Block.Split.Request.Mode
-        if info.content.isToggle {
-            mode = UserSession.shared.isToggled(blockId: info.id) ? .inner : .bottom
-        } else {
-            mode = info.childrenIds.isNotEmpty ? .inner : .bottom
-        }
 
         textService.setTextForced(
             contextId: documentId,

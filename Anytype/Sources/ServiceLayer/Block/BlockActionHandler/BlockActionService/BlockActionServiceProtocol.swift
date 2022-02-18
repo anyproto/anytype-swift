@@ -1,5 +1,6 @@
 import BlocksModels
 import UIKit
+import ProtobufMessages
 
 protocol BlockActionServiceProtocol {
     
@@ -17,7 +18,8 @@ protocol BlockActionServiceProtocol {
     
     func split(
         _ string: NSAttributedString,
-        info: BlockInformation,
+        blockId: BlockId,
+        mode: Anytype_Rpc.Block.Split.Request.Mode,
         position: Int,
         newBlockContentType: BlockText.Style
     )
