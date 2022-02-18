@@ -104,8 +104,7 @@ final class EditorAssembly {
         )
         let blockActionHandler = TextBlockActionHandler(
             contextId: document.objectId,
-            service: blockActionService,
-            modelsHolder: modelsHolder
+            service: blockActionService
         )
         
         let actionHandler = BlockActionHandler(

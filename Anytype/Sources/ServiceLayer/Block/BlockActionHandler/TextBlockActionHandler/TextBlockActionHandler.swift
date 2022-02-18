@@ -7,17 +7,13 @@ final class TextBlockActionHandler {
     
     private let service: BlockActionServiceProtocol
     private let contextId: String
-    
-    private weak var modelsHolder: EditorMainItemModelsHolder?
 
     init(
         contextId: String,
-        service: BlockActionServiceProtocol,
-        modelsHolder: EditorMainItemModelsHolder
+        service: BlockActionServiceProtocol
     ) {
         self.service = service
         self.contextId = contextId
-        self.modelsHolder = modelsHolder
     }
     
     func changeText(info: BlockInformation, text: NSAttributedString) {
