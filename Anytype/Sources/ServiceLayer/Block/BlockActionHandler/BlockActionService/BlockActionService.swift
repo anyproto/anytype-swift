@@ -48,10 +48,10 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func split(
+        _ string: NSAttributedString,
         info: BlockInformation,
         position: Int,
-        newBlockContentType: BlockText.Style,
-        attributedString: NSAttributedString
+        newBlockContentType: BlockText.Style
     ) {
         let blockId = info.id
 
@@ -69,7 +69,7 @@ final class BlockActionService: BlockActionServiceProtocol {
         textService.setTextForced(
             contextId: documentId,
             blockId: blockId,
-            middlewareString: AttributedTextConverter.asMiddleware(attributedText: attributedString)
+            middlewareString: AttributedTextConverter.asMiddleware(attributedText: string)
         )
 
         guard let blockId = textService.split(

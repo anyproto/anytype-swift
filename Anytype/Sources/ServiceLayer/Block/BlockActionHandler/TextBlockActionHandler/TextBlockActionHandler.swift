@@ -24,7 +24,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         switch action {
         case let .enterInsideContent(position):
             let type = text.contentType.contentTypeForSplit
-            service.split(info: info, position: position, newBlockContentType: type, attributedString: newString)
+            service.split(newString, info: info, position: position, newBlockContentType: type)
             
         case let .enterAtTheBeginingOfContent(payload):
             guard payload.isNotEmpty else {
@@ -35,7 +35,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             }
 
             let type = text.contentType.contentTypeForSplit
-            service.split(info: info, position: 0, newBlockContentType: type, attributedString: newString)
+            service.split(newString, info: info, position: 0, newBlockContentType: type)
 
         case .enterAtTheEndOfContent:
             onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: newString)
@@ -80,10 +80,10 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             let type = text.contentType.isList ? text.contentType : .text
 
             service.split(
+                newString,
                 info: info,
                 position: newString.string.count,
-                newBlockContentType: type,
-                attributedString: newString
+                newBlockContentType: type
             )
         }
     }
@@ -98,10 +98,10 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             let type = text.contentType.isList ? text.contentType : .text
 
             service.split(
+                newString,
                 info: info,
                 position: newString.string.count,
-                newBlockContentType: type,
-                attributedString: newString
+                newBlockContentType: type
             )
             return
         }
@@ -111,11 +111,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.addChild(info: newBlock, parentId: info.id)
         } else {
             let firstChildId = info.childrenIds[0]
-            service.add(
-                info: newBlock,
-                targetBlockId: firstChildId,
-                position: .top
-            )
+            service.add(info: newBlock, targetBlockId: firstChildId, position: .top)
         }
     }
 }
