@@ -51,13 +51,13 @@ final class TextBlockActionHandler {
         action: CustomTextView.KeyboardAction,
         attributedText: NSAttributedString
     ) {
+        guard case let .text(text) = info.content else {
+            anytypeAssertionFailure("Only text block may send keyboard action", domain: .textBlockActionHandler)
+            return
+        }
+        
         switch action {
-            // .enterWithPayload and .enterAtBeginning should be used with BlockSplit
         case let .enterInsideContent(position):
-            guard case let .text(text) = info.content else {
-                anytypeAssertionFailure("Only text block may send keyboard action", domain: .textBlockActionHandler)
-                return
-            }
             service.split(
                 info: info,
                 position: position,
@@ -73,19 +73,14 @@ final class TextBlockActionHandler {
                 return
             }
 
-            guard case let .text(text) = info.content else {
-                anytypeAssertionFailure("Not text block for enterAtTheBeginingOfContent", domain: .textBlockActionHandler)
-                return
-            }
-
             let type = text.contentType.contentTypeForSplit
             service.split(info: info, position: 0, newBlockContentType: type, attributedString: attributedText)
 
         case .enterAtTheEndOfContent:
-            onEnterAtTheEndOfContent(info: info, action: action, attributedText: attributedText)
+            onEnterAtTheEndOfContent(info: info, text: text, action: action, attributedText: attributedText)
 
         case .deleteAtTheBeginingOfContent:
-            guard info.content.type != .text(.description) else { return }
+            guard text.contentType != .description else { return }
 
             service.merge(secondBlockId: info.id)
 
@@ -96,51 +91,70 @@ final class TextBlockActionHandler {
     
     private func onEnterAtTheEndOfContent(
         info: BlockInformation,
+        text: BlockText,
         action: CustomTextView.KeyboardAction,
         attributedText: NSAttributedString
     ) {
-        // BUSINESS LOGIC:
-        // We should check that if we are in `list` block and its text is `empty`, we should turn it into `.text`
-        switch info.content {
-        case let .text(value) where value.contentType.isList && attributedText.string == "":
-            // Turn Into empty text block.
-            BlockBuilder.textStyle(info: info).flatMap { style in
-                self.service.turnInto(style, blockId: info.id)
-            }
-        default:
-            if let newBlock = BlockBuilder.createInformation(info: info) {
-                switch info.content {
-                case let .text(payload):
-                    let isListAndNotToggle = payload.contentType.isListAndNotToggle
-                    let isToggleAndOpen = payload.contentType == .toggle && UserSession.shared.isToggled(blockId: info.id)
-                    // In case of return was tapped in list block (for toggle it should be open)
-                    // and this block has children, we will insert new child block at the beginning
-                    // of children list, otherwise we will create new block under current block
-                    let childrenIds = info.childrenIds
+        let enterInEmptyList = text.contentType.isList && attributedText.string.isEmpty
+        guard !enterInEmptyList else {
+            service.turnInto(.text, blockId: info.id)
+            return
+        }
+        
+        guard text.contentType != .toggle else {
+            onEnterAtTheEndOfToggle(info: info, text: text, action: action, attributedText: attributedText)
+            return
+        }
+        
+        guard let newBlock = BlockBuilder.createInformation(info: info) else { return }
+        
+        if info.childrenIds.isNotEmpty && text.contentType.isList {
+            let firstChildId = info.childrenIds[0]
+            service.add(
+                info: newBlock,
+                targetBlockId: firstChildId,
+                position: .top
+            )
+        } else {
+            let type = text.contentType.isList ? text.contentType : .text
 
-                    switch (childrenIds.isEmpty, isToggleAndOpen, isListAndNotToggle) {
-                    case (true, true, _):
-                        service.addChild(info: newBlock, parentId: info.id)
-                    case (false, true, _), (false, _, true):
-                        let firstChildId = childrenIds[0]
-                        service.add(
-                            info: newBlock,
-                            targetBlockId: firstChildId,
-                            position: .top
-                        )
-                    default:
-                        let type = payload.contentType.isList ? payload.contentType : .text
+            service.split(
+                info: info,
+                position: attributedText.string.count,
+                newBlockContentType: type,
+                attributedString: attributedText
+            )
+        }
+    }
+    
+    private func onEnterAtTheEndOfToggle(
+        info: BlockInformation,
+        text: BlockText,
+        action: CustomTextView.KeyboardAction,
+        attributedText: NSAttributedString
+    ) {
+        guard UserSession.shared.isToggled(blockId: info.id) else {
+            let type = text.contentType.isList ? text.contentType : .text
 
-                        service.split(
-                            info: info,
-                            position: attributedText.string.count,
-                            newBlockContentType: type,
-                            attributedString: attributedText
-                        )
-                    }
-                default: return
-                }
-            }
+            service.split(
+                info: info,
+                position: attributedText.string.count,
+                newBlockContentType: type,
+                attributedString: attributedText
+            )
+            return
+        }
+        
+        guard let newBlock = BlockBuilder.createInformation(info: info) else { return }
+        if info.childrenIds.isEmpty {
+            service.addChild(info: newBlock, parentId: info.id)
+        } else {
+            let firstChildId = info.childrenIds[0]
+            service.add(
+                info: newBlock,
+                targetBlockId: firstChildId,
+                position: .top
+            )
         }
     }
 }

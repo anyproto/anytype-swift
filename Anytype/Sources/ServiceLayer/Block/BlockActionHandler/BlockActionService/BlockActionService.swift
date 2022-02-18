@@ -58,8 +58,13 @@ final class BlockActionService: BlockActionServiceProtocol {
         let range = NSRange(location: position, length: 0)
         let documentId = self.documentId
         
-        // if splitted block has child then new block should be child of splitted block
-        let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
+
+        let mode: Anytype_Rpc.Block.Split.Request.Mode
+        if info.content.isToggle {
+            mode = UserSession.shared.isToggled(blockId: info.id) ? .inner : .bottom
+        } else {
+            mode = info.childrenIds.isNotEmpty ? .inner : .bottom
+        }
 
         textService.setTextForced(
             contextId: documentId,

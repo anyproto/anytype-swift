@@ -208,11 +208,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
         
-        service.add(
-            info: newBlock,
-            targetBlockId: info.id,
-            position: position
-        )
+        service.add(info: newBlock, targetBlockId: info.id, position: position)
     }
 
     func selectBlock(blockInformation: BlockInformation) {
