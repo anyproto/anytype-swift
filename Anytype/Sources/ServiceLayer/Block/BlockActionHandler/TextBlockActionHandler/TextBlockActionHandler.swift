@@ -3,60 +3,19 @@ import Combine
 import AnytypeCore
 import Foundation
 
-protocol TextBlockActionHandlerProtocol {
-    func changeText(info: BlockInformation, text: NSAttributedString)
-    func changeTextForced(info: BlockInformation, text: NSAttributedString)
-    func handleKeyboardAction(
-        info: BlockInformation,
-        action: CustomTextView.KeyboardAction,
-        attributedText: NSAttributedString
-    )
+protocol KeyboardActionHandlerProtocol {
+    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, attributedText: NSAttributedString)
 }
 
-final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
+final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     
     private let service: BlockActionServiceProtocol
-    private let contextId: String
 
-    init(
-        contextId: String,
-        service: BlockActionServiceProtocol
-    ) {
+    init(service: BlockActionServiceProtocol) {
         self.service = service
-        self.contextId = contextId
-    }
-    
-    func changeText(info: BlockInformation, text: NSAttributedString) {
-        guard case .text = info.content else { return }
-
-        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
-
-        EventsBunch(
-            contextId: contextId,
-            dataSourceUpdateEvents: [.setText(blockId: info.id, text: middlewareString)]
-        ).send()
-
-        service.setText(contextId: contextId, blockId: info.id, middlewareString: middlewareString)
     }
 
-    func changeTextForced(info: BlockInformation, text: NSAttributedString) {
-        guard case .text = info.content else { return }
-
-        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
-
-        EventsBunch(
-            contextId: contextId,
-            localEvents: [.setText(blockId: info.id, text: middlewareString)]
-        ).send()
-
-        service.setTextForced(contextId: contextId, blockId: info.id, middlewareString: middlewareString)
-    }
-
-    func handleKeyboardAction(
-        info: BlockInformation,
-        action: CustomTextView.KeyboardAction,
-        attributedText: NSAttributedString
-    ) {
+    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, attributedText: NSAttributedString) {
         guard case let .text(text) = info.content else {
             anytypeAssertionFailure("Only text block may send keyboard action", domain: .textBlockActionHandler)
             return
@@ -75,7 +34,7 @@ final class TextBlockActionHandler: TextBlockActionHandlerProtocol {
             guard payload.isNotEmpty else {
                 #warning("Fix it in TextView API.")
                 /// If payload is empty, so, handle it as .enter ( or .enter at the end )
-                handleKeyboardAction(info: info, action: .enterAtTheEndOfContent, attributedText: attributedText)
+                handle(info: info, action: .enterAtTheEndOfContent, attributedText: attributedText)
                 return
             }
 
