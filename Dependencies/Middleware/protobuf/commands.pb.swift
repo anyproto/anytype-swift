@@ -9797,6 +9797,15 @@ public struct Anytype_Rpc {
             case accountCreatedButFailedToSetAvatar // = 103
             case failedToStopRunningNode // = 104
             case badInviteCode // = 900
+
+            /// means general network error
+            case netError // = 901
+
+            /// means we wasn't able to connect to the cafe server
+            case netConnectionRefused // = 902
+
+            /// client can additionally support this error code to notify user that device is offline
+            case netOffline // = 903
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -9813,6 +9822,9 @@ public struct Anytype_Rpc {
               case 103: self = .accountCreatedButFailedToSetAvatar
               case 104: self = .failedToStopRunningNode
               case 900: self = .badInviteCode
+              case 901: self = .netError
+              case 902: self = .netConnectionRefused
+              case 903: self = .netOffline
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -9827,6 +9839,9 @@ public struct Anytype_Rpc {
               case .accountCreatedButFailedToSetAvatar: return 103
               case .failedToStopRunningNode: return 104
               case .badInviteCode: return 900
+              case .netError: return 901
+              case .netConnectionRefused: return 902
+              case .netOffline: return 903
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -13139,6 +13154,7 @@ public struct Anytype_Rpc {
             case null // = 0
             case unknownError // = 1
             case badInput // = 2
+            case alreadyExists // = 10
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -13150,6 +13166,7 @@ public struct Anytype_Rpc {
               case 0: self = .null
               case 1: self = .unknownError
               case 2: self = .badInput
+              case 10: self = .alreadyExists
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -13159,6 +13176,7 @@ public struct Anytype_Rpc {
               case .null: return 0
               case .unknownError: return 1
               case .badInput: return 2
+              case .alreadyExists: return 10
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -17806,6 +17824,9 @@ extension Anytype_Rpc.Account.Create.Response.Error.Code: CaseIterable {
     .accountCreatedButFailedToSetAvatar,
     .failedToStopRunningNode,
     .badInviteCode,
+    .netError,
+    .netConnectionRefused,
+    .netOffline,
   ]
 }
 
@@ -18136,6 +18157,7 @@ extension Anytype_Rpc.Object.RelationAdd.Response.Error.Code: CaseIterable {
     .null,
     .unknownError,
     .badInput,
+    .alreadyExists,
   ]
 }
 
@@ -32793,6 +32815,9 @@ extension Anytype_Rpc.Account.Create.Response.Error.Code: SwiftProtobuf._ProtoNa
     103: .same(proto: "ACCOUNT_CREATED_BUT_FAILED_TO_SET_AVATAR"),
     104: .same(proto: "FAILED_TO_STOP_RUNNING_NODE"),
     900: .same(proto: "BAD_INVITE_CODE"),
+    901: .same(proto: "NET_ERROR"),
+    902: .same(proto: "NET_CONNECTION_REFUSED"),
+    903: .same(proto: "NET_OFFLINE"),
   ]
 }
 
@@ -37601,6 +37626,7 @@ extension Anytype_Rpc.Object.RelationAdd.Response.Error.Code: SwiftProtobuf._Pro
     0: .same(proto: "NULL"),
     1: .same(proto: "UNKNOWN_ERROR"),
     2: .same(proto: "BAD_INPUT"),
+    10: .same(proto: "ALREADY_EXISTS"),
   ]
 }
 
