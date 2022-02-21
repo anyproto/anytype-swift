@@ -32,9 +32,9 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.split(
                 string,
                 blockId: info.id,
-                mode: splitMode(info: info),
+                mode: splitMode(info),
                 position: position,
-                newBlockContentType: text.contentType.contentTypeForSplit
+                newBlockContentType: contentTypeForSplit(text.contentType, blockId: info.id)
             )
 
         case .enterAtTheEnd(let string):
@@ -90,7 +90,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.split(
                 newString,
                 blockId: info.id,
-                mode: splitMode(info: info),
+                mode: splitMode(info),
                 position: newString.string.count,
                 newBlockContentType: type
             )
@@ -109,7 +109,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.split(
                 newString,
                 blockId: info.id,
-                mode: splitMode(info: info),
+                mode: splitMode(info),
                 position: newString.string.count,
                 newBlockContentType: type
             )
@@ -128,15 +128,21 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
 
 
 // MARK: - Extensions
-private extension BlockText.Style {
-    // We do want to create regular text block when splitting title block
-    var contentTypeForSplit: BlockText.Style {
-        self == .title ? .text : self
-    }
-}
-
 private extension KeyboardActionHandler {
-    func splitMode(info: BlockInformation) -> Anytype_Rpc.Block.Split.Request.Mode {
+    // We do want to create regular text block when splitting title block
+    func contentTypeForSplit(_ style: BlockText.Style, blockId: BlockId) -> BlockText.Style {
+        if style == .title {
+            return .text
+        }
+        
+        if style == .toggle {
+            return toggleStorage.isToggled(blockId: blockId) ? .text : .toggle
+        }
+        
+        return style
+    }
+
+    func splitMode(_ info: BlockInformation) -> Anytype_Rpc.Block.Split.Request.Mode {
         if info.content.isToggle {
             return toggleStorage.isToggled(blockId: info.id) ? .inner : .bottom
         } else {
