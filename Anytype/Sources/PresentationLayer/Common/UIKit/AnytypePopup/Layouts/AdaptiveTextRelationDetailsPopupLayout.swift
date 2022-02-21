@@ -24,4 +24,18 @@ final class AdaptiveTextRelationDetailsPopupLayout: FloatingPanelLayout {
         0.3
     }
     
+    func prepareLayout(surfaceView: UIView, in view: UIView) -> [NSLayoutConstraint] {
+        if UIDevice.isPad {
+            return [
+                surfaceView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+                surfaceView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor)
+            ]
+        } else {
+            return [
+                surfaceView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                surfaceView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ]
+        }
+    }
+    
 }
