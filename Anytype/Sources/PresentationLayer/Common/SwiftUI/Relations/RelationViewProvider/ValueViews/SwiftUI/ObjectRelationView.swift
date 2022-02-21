@@ -25,11 +25,14 @@ struct ObjectRelationView: View {
     
     private func objectView(option: Relation.Object.Option) -> some View {
         HStack(spacing: style.objectRelationStyle.hSpaсingObject) {
-            SwiftUIObjectIconImageView(
-                iconImage: option.icon,
-                usecase: .mention(.body)
-            )
-                .frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+            
+            if shouldShowIcon(icon: option.icon) {
+                SwiftUIObjectIconImageView(
+                    iconImage: option.icon,
+                    usecase: .mention(.body)
+                )
+                    .frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+            }
             
             AnytypeText(
                 option.title,
@@ -38,6 +41,11 @@ struct ObjectRelationView: View {
             )
                 .lineLimit(1)
         }
+    }
+
+    private func shouldShowIcon(icon: ObjectIconImage) -> Bool {
+        guard case .placeholder = icon else { return true }
+        return false
     }
 }
 
