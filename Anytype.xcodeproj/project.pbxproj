@@ -2154,6 +2154,7 @@
 		03C5C54122DFD90C00DD91DE /* AnytypeTests */ = {
 			isa = PBXGroup;
 			children = (
+				3DA46B65273BEB52007B7464 /* Mocks */,
 				3D7F718727A1B0BB003FE893 /* Pagination */,
 				3DB3EC8227577578002781DA /* Navigation */,
 				3DA46B5F273BEB05007B7464 /* Markdown */,
@@ -4305,7 +4306,6 @@
 		3DA46B5F273BEB05007B7464 /* Markdown */ = {
 			isa = PBXGroup;
 			children = (
-				3DA46B65273BEB52007B7464 /* Mocks */,
 				3DA46B63273BEB1E007B7464 /* StartOfTextMarkdownTests.swift */,
 				3DCEE139273C1F8B00BC5565 /* InlineMarkdownTests.swift */,
 			);
@@ -4320,7 +4320,8 @@
 				3DA46B6A273BEED2007B7464 /* BlockModelMock.swift */,
 				3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */,
 			);
-			path = Mocks;
+			name = Mocks;
+			path = Markdown/Mocks;
 			sourceTree = "<group>";
 		};
 		3DA4B1B226AF48C20000F243 /* Products */ = {
