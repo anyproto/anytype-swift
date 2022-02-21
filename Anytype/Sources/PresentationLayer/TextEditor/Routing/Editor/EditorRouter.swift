@@ -166,7 +166,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSettings(viewModel: ObjectSettingsViewModel) {
-        let rootView = ObjectSettingsContainerView(viewModel: viewModel)
+        let rootView = ObjectSettingsView(viewModel: viewModel)
         presentOverCurrentContextSwuftUIView(view: rootView, model: rootView.viewModel)
     }
     

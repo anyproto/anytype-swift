@@ -4,39 +4,74 @@ import BlocksModels
 
 struct ObjectSettingsView: View {
     
-    @EnvironmentObject var viewModel: ObjectSettingsViewModel
+    let viewModel: ObjectSettingsViewModel
     
-    @Binding var isCoverPickerPresented: Bool
-    @Binding var isIconPickerPresented: Bool
-    @Binding var isLayoutPickerPresented: Bool
-    @Binding var isRelationsViewPresented: Bool
+    @State private var isIconPickerPresented = false
+    @State private var isCoverPickerPresented = false
+    @State private var isLayoutPickerPresented = false
+    @State private var isRelationsViewPresented = false
     
     var body: some View {
+        mainView
+            .sheet(
+                isPresented: $isCoverPickerPresented
+            ) {
+                ObjectCoverPicker(viewModel: viewModel.coverPickerViewModel)
+            }
+            .sheet(
+                isPresented: $isIconPickerPresented
+            ) {
+                ObjectIconPicker(viewModel: viewModel.iconPickerViewModel)
+            }
+            .sheet(
+                isPresented: $isRelationsViewPresented
+            ) {
+                RelationsListView(viewModel: viewModel.relationsViewModel)
+                    .onChange(of: isRelationsViewPresented) { isRelationsViewPresented in
+                        if isRelationsViewPresented {
+                            Amplitude.instance().logEvent(AmplitudeEventsName.objectRelationShow)
+                        }
+                    }
+            }
+            .popup(
+                isPresented: $isLayoutPickerPresented,
+                type: .floater(verticalPadding: 0),
+                closeOnTap: false,
+                closeOnTapOutside: true,
+                backgroundOverlayColor: Color.black.opacity(0.25),
+                view: {
+                    ObjectLayoutPicker()
+                        .horizontalReadabilityPadding()
+                        .environmentObject(viewModel.layoutPickerViewModel)
+                }
+            )
+    }
+    
+    private var mainView: some View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator(bottomPadding: 0)
             settings
         }
         .background(Color.backgroundSecondary)
-        .cornerRadius(16)
-        .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
     }
     
     private var settings: some View {
         VStack(spacing: 0) {
-            VStack(spacing: 0) {
-                ForEach(viewModel.settings.indices, id: \.self) { index in
-                    mainSetting(index: index)
-                }
-            }
-            .padding([.leading, .trailing], Constants.edgeInset)
-            .divider(spacing:  Constants.dividerSpacing)
+            settingsList
             
-            ObjectActionsView()
-                .environmentObject(viewModel.objectActionsViewModel)
-                .padding(.top, Constants.topActionObjectsViewInset)
-                .padding([.leading, .trailing], Constants.edgeInset)
+            ObjectActionsView(viewModel: viewModel.objectActionsViewModel)
+                .padding(.horizontal, Constants.edgeInset)
         }
-        .padding([.bottom], Constants.edgeInset)
+    }
+    
+    private var settingsList: some View {
+        VStack(spacing: 0) {
+            ForEach(viewModel.settings.indices, id: \.self) { index in
+                mainSetting(index: index)
+            }
+        }
+        .padding(.horizontal, Constants.edgeInset)
+        .divider(spacing: Constants.dividerSpacing)
     }
     
     private func mainSetting(index: Int) -> some View {
@@ -58,8 +93,7 @@ struct ObjectSettingsView: View {
 
     private enum Constants {
         static let edgeInset: CGFloat = 16
-        static let topActionObjectsViewInset: CGFloat = 20
-        static let dividerSpacing: CGFloat = 20
+        static let dividerSpacing: CGFloat = 12
     }
 }
 
@@ -71,18 +105,12 @@ struct ObjectSettingsView_Previews: PreviewProvider {
     
     static var previews: some View {
         ObjectSettingsView(
-            isCoverPickerPresented: $isCoverPickerPresented,
-            isIconPickerPresented: $isIconPickerPresented,
-            isLayoutPickerPresented: $isLayoutPickerPresented,
-            isRelationsViewPresented: $isRelationsViewPresented
-        )
-            .environmentObject(
-                ObjectSettingsViewModel(
-                    objectId: "dummyPageId",
-                    objectDetailsService: DetailsService(objectId: ""),
-                    popScreenAction: {},
-                    onRelationValueEditingTap: { _ in }
-                )
+            viewModel: ObjectSettingsViewModel(
+                objectId: "dummyPageId",
+                objectDetailsService: DetailsService(objectId: ""),
+                popScreenAction: {},
+                onRelationValueEditingTap: { _ in }
             )
+        )
     }
 }
