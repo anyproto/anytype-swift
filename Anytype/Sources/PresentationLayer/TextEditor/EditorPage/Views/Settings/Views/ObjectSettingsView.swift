@@ -8,7 +8,6 @@ struct ObjectSettingsView: View {
     
     @State private var isIconPickerPresented = false
     @State private var isCoverPickerPresented = false
-    @State private var isLayoutPickerPresented = false
     @State private var isRelationsViewPresented = false
     
     var body: some View {
@@ -34,18 +33,6 @@ struct ObjectSettingsView: View {
                         }
                     }
             }
-            .popup(
-                isPresented: $isLayoutPickerPresented,
-                type: .floater(verticalPadding: 0),
-                closeOnTap: false,
-                closeOnTapOutside: true,
-                backgroundOverlayColor: Color.black.opacity(0.25),
-                view: {
-                    ObjectLayoutPicker()
-                        .horizontalReadabilityPadding()
-                        .environmentObject(viewModel.layoutPickerViewModel)
-                }
-            )
     }
     
     private var settings: some View {
@@ -75,9 +62,7 @@ struct ObjectSettingsView: View {
             case .cover:
                 isCoverPickerPresented = true
             case .layout:
-                withAnimation() {
-                    isLayoutPickerPresented = true
-                }
+                viewModel.showLayoutSettings()
             case .relations:
                 isRelationsViewPresented = true
             }
@@ -102,6 +87,7 @@ struct ObjectSettingsView_Previews: PreviewProvider {
                 objectId: "dummyPageId",
                 objectDetailsService: DetailsService(objectId: ""),
                 popScreenAction: {},
+                onLayoutSettingsTap: { _ in},
                 onRelationValueEditingTap: { _ in }
             )
         )

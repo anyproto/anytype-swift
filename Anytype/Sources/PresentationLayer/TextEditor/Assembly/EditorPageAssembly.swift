@@ -88,6 +88,9 @@ final class EditorAssembly {
             popScreenAction: { [weak router] in
                 router?.goBack()
             },
+            onLayoutSettingsTap: { [weak router] layoutPickerViewModel in
+                router?.showLayoutPicker(viewModel: layoutPickerViewModel)
+            },
             onRelationValueEditingTap: { [weak router] in
                 router?.showRelationValueEditingView(key: $0, source: .object)
             }

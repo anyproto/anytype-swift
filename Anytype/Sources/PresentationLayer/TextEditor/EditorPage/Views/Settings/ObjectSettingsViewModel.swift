@@ -27,15 +27,20 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     private let objectId: String
     private let objectDetailsService: DetailsService
     
+    private let onLayoutSettingsTap: (ObjectLayoutPickerViewModel) -> ()
+    
     init(
         objectId: String,
         objectDetailsService: DetailsService,
         popScreenAction: @escaping () -> (),
+        onLayoutSettingsTap: @escaping (ObjectLayoutPickerViewModel) -> (),
         onRelationValueEditingTap: @escaping (String) -> ()
     ) {
         self.objectId = objectId
         self.objectDetailsService = objectDetailsService
 
+        self.onLayoutSettingsTap = onLayoutSettingsTap
+        
         self.iconPickerViewModel = ObjectIconPickerViewModel(
             fileService: BlockActionsServiceFile(),
             detailsService: objectDetailsService
@@ -67,6 +72,10 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
             relationsViewModel.update(with: parsedRelations)
         }
         objectActionsViewModel.objectRestrictions = objectRestrictions
+    }
+    
+    func showLayoutSettings() {
+        onLayoutSettingsTap(layoutPickerViewModel)
     }
     
 }
