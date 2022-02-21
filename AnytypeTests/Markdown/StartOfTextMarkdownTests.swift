@@ -48,24 +48,25 @@ class StartOfTextMarkdownTests: XCTestCase {
         carretPosition: Int? = nil,
         success: Bool = true
     ) {
-        let data = buildData(text: shortcut + "Equilibrium", carretPosition: carretPosition ?? shortcut.count)
-        handler.turnIntoStub = true
-        handler.changeTextStub = true
-
-        listener.textDidChange(changeType: changeType, data: data)
-        
-        if success {
-            XCTAssertEqual(handler.turnIntoNumberOfCalls, 1)
-            XCTAssertEqual(handler.turnIntoStyleFromLastCall!, style)
-            XCTAssertEqual(handler.changeTextNumberOfCalls, 1)
-            XCTAssertEqual(handler.changeTextTextFromLastCall!.string, "Equilibrium")
-        } else {
-            XCTAssertEqual(handler.turnIntoNumberOfCalls, 0)
-            XCTAssertEqual(handler.changeTextNumberOfCalls, 0)
-        }
-        
-        handler.turnIntoNumberOfCalls = 0
-        handler.changeTextNumberOfCalls = 0
+        XCTFail()
+//        let data = buildData(text: shortcut + "Equilibrium", carretPosition: carretPosition ?? shortcut.count)
+//        handler.turnIntoStub = true
+//        handler.changeTextStub = true
+//
+////        listener.textDidChange(changeType: changeType, data: data)
+//        
+//        if success {
+//            XCTAssertEqual(handler.turnIntoNumberOfCalls, 1)
+//            XCTAssertEqual(handler.turnIntoStyleFromLastCall!, style)
+//            XCTAssertEqual(handler.changeTextNumberOfCalls, 1)
+//            XCTAssertEqual(handler.changeTextTextFromLastCall!.string, "Equilibrium")
+//        } else {
+//            XCTAssertEqual(handler.turnIntoNumberOfCalls, 0)
+//            XCTAssertEqual(handler.changeTextNumberOfCalls, 0)
+//        }
+//        
+//        handler.turnIntoNumberOfCalls = 0
+//        handler.changeTextNumberOfCalls = 0
     }
 
     private func buildData(text: String, carretPosition: Int) -> TextBlockDelegateData {
