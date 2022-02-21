@@ -19,11 +19,11 @@ class KeyboardActionHandlerTests: XCTestCase {
         toggleStorage = nil
     }
 
-    func test_enterInsideContent() throws {
+    func test_enterInside() throws {
         let info = info()
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterInsideContent(position: 0), newString: .init(string: ""))
+        handler.handle(info: info, action: .enterInside(position: 0), newString: .init(string: ""))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
     }

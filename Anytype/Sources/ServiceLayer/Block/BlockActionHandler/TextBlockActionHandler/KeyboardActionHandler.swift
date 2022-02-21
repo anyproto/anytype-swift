@@ -28,7 +28,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         }
         
         switch action {
-        case let .enterInsideContent(string, position):
+        case let .enterInside(string, position):
             service.split(
                 string,
                 blockId: info.id,
@@ -37,23 +37,14 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 newBlockContentType: text.contentType.contentTypeForSplit
             )
 
-        case .enterAtTheBeginingOfContent(let string):
-            service.split(
-                string,
-                blockId: info.id,
-                mode: splitMode(info: info),
-                position: 0,
-                newBlockContentType: text.contentType.contentTypeForSplit
-            )
-
-        case .enterAtTheEndOfContent(let string):
+        case .enterAtTheEnd(let string):
             onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: string)
 
-        case .deleteAtTheBeginingOfContent:
+        case .deleteAtTheBegining:
             guard text.delitable else { return }
             service.merge(secondBlockId: info.id)
 
-        case .deleteOnEmptyContent:
+        case .deleteForEmpty:
             service.delete(blockId: info.id)
         }
     }
