@@ -24,7 +24,7 @@ public final class FeatureFlags {
     }
     
     private static let defaultValues: Features = [
-        .sets: !isRelease,
+        .sets: true,
         .rainbowViews: false,
         .showAlertOnAssert : true,
         .analytics : false,
@@ -41,7 +41,7 @@ public final class FeatureFlags {
 
 public extension FeatureFlags {
     static var sets: Bool {
-        features[.sets, default: false]
+        features[.sets, default: true]
     }
     
     static var showAlertOnAssert: Bool {
