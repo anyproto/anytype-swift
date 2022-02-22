@@ -5,7 +5,7 @@ import Foundation
 import ProtobufMessages
 
 protocol KeyboardActionHandlerProtocol {
-    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, newString: NSAttributedString)
+    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction)
 }
 
 final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
@@ -21,33 +21,33 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         self.toggleStorage = toggleStorage
     }
 
-    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, newString: NSAttributedString) {
+    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction) {
         guard case let .text(text) = info.content else {
             anytypeAssertionFailure("Only text block may send keyboard action", domain: .textBlockActionHandler)
             return
         }
         
         switch action {
-        case let .enterInsideContent(position):
+        case let .enterInsideContent(string, position):
             service.split(
-                newString,
+                string,
                 blockId: info.id,
                 mode: splitMode(info: info),
                 position: position,
                 newBlockContentType: text.contentType.contentTypeForSplit
             )
 
-        case .enterAtTheBeginingOfContent:
+        case .enterAtTheBeginingOfContent(let string):
             service.split(
-                newString,
+                string,
                 blockId: info.id,
                 mode: splitMode(info: info),
                 position: 0,
                 newBlockContentType: text.contentType.contentTypeForSplit
             )
 
-        case .enterAtTheEndOfContent:
-            onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: newString)
+        case .enterAtTheEndOfContent(let string):
+            onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: string)
 
         case .deleteAtTheBeginingOfContent:
             guard text.delitable else { return }

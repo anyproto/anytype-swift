@@ -11,12 +11,9 @@ protocol BlockRestrictions {
     var canDeleteOrDuplicate: Bool { get }
     var turnIntoStyles: [BlockContentType] { get }
     var availableAlignments: [LayoutAlignment] { get }
-    var canCreateBlockBelowOnEnter: Bool { get }
 }
 
-extension BlockRestrictions {
-    var canCreateBlockBelowOnEnter: Bool { true }
-    
+extension BlockRestrictions {    
     func canApplyStyle(_ style: BlockContentType) -> Bool {
         turnIntoStyles.contains(style)
     }
