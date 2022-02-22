@@ -60,23 +60,21 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.turnInto(.text, blockId: info.id)
             return
         }
-        
-        let newBlock = BlockInformation.emptyText
 
         let needChildForToggle = text.contentType == .toggle && toggleStorage.isToggled(blockId: info.id)
         let needChildForList = text.contentType != .toggle && text.contentType.isList && info.childrenIds.isNotEmpty
         
         if needChildForToggle {
             if info.childrenIds.isEmpty {
-                service.addChild(info: newBlock, parentId: info.id)
+                service.addChild(info: BlockInformation.emptyText, parentId: info.id)
             } else {
                 let firstChildId = info.childrenIds[0]
-                service.add(info: newBlock, targetBlockId: firstChildId, position: .top)
+                service.add(info: BlockInformation.emptyText, targetBlockId: firstChildId, position: .top)
             }
         } else if needChildForList {
             let firstChildId = info.childrenIds[0]
             service.add(
-                info: newBlock,
+                info: BlockInformation.emptyText,
                 targetBlockId: firstChildId,
                 position: .top
             )
