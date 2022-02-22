@@ -49,7 +49,6 @@ struct BlockBuilder {
         }
     }
     
-    
     private static func createContent(info: BlockInformation) -> BlockContent? {
         switch info.content {
         case let .text(blockType):

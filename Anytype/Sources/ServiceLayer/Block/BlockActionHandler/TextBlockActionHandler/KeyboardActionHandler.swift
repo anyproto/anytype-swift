@@ -32,9 +32,9 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.split(
                 string,
                 blockId: info.id,
-                mode: splitMode(info: info),
+                mode: splitMode(info),
                 position: position,
-                newBlockContentType: text.contentType.contentTypeForSplit
+                newBlockContentType: contentTypeForSplit(text.contentType, blockId: info.id)
             )
 
         case .enterAtTheEnd(let string):
@@ -60,27 +60,21 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.turnInto(.text, blockId: info.id)
             return
         }
+
+        let needChildForToggle = text.contentType == .toggle && toggleStorage.isToggled(blockId: info.id)
+        let needChildForList = text.contentType != .toggle && text.contentType.isList && info.childrenIds.isNotEmpty
         
-        guard text.contentType != .toggle else {
-            onEnterAtTheEndOfToggle(info: info, text: text, action: action, newString: newString)
-            return
-        }
-        
-        onEnterAtTheEndOfNonToggle(info: info, text: text, action: action, newString: newString)
-    }
-    
-    private func onEnterAtTheEndOfNonToggle(
-        info: BlockInformation,
-        text: BlockText,
-        action: CustomTextView.KeyboardAction,
-        newString: NSAttributedString
-    ) {
-        guard let newBlock = BlockBuilder.createInformation(info: info) else { return }
-        
-        if info.childrenIds.isNotEmpty && text.contentType.isList {
+        if needChildForToggle {
+            if info.childrenIds.isEmpty {
+                service.addChild(info: BlockInformation.emptyText, parentId: info.id)
+            } else {
+                let firstChildId = info.childrenIds[0]
+                service.add(info: BlockInformation.emptyText, targetBlockId: firstChildId, position: .top)
+            }
+        } else if needChildForList {
             let firstChildId = info.childrenIds[0]
             service.add(
-                info: newBlock,
+                info: BlockInformation.emptyText,
                 targetBlockId: firstChildId,
                 position: .top
             )
@@ -90,53 +84,31 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.split(
                 newString,
                 blockId: info.id,
-                mode: splitMode(info: info),
+                mode: splitMode(info),
                 position: newString.string.count,
                 newBlockContentType: type
             )
-        }
-    }
-    
-    private func onEnterAtTheEndOfToggle(
-        info: BlockInformation,
-        text: BlockText,
-        action: CustomTextView.KeyboardAction,
-        newString: NSAttributedString
-    ) {
-        guard toggleStorage.isToggled(blockId: info.id) else {
-            let type = text.contentType.isList ? text.contentType : .text
-
-            service.split(
-                newString,
-                blockId: info.id,
-                mode: splitMode(info: info),
-                position: newString.string.count,
-                newBlockContentType: type
-            )
-            return
-        }
-        
-        guard let newBlock = BlockBuilder.createInformation(info: info) else { return }
-        if info.childrenIds.isEmpty {
-            service.addChild(info: newBlock, parentId: info.id)
-        } else {
-            let firstChildId = info.childrenIds[0]
-            service.add(info: newBlock, targetBlockId: firstChildId, position: .top)
         }
     }
 }
 
 
 // MARK: - Extensions
-private extension BlockText.Style {
-    // We do want to create regular text block when splitting title block
-    var contentTypeForSplit: BlockText.Style {
-        self == .title ? .text : self
-    }
-}
-
 private extension KeyboardActionHandler {
-    func splitMode(info: BlockInformation) -> Anytype_Rpc.Block.Split.Request.Mode {
+    // We do want to create regular text block when splitting title block
+    func contentTypeForSplit(_ style: BlockText.Style, blockId: BlockId) -> BlockText.Style {
+        if style == .title {
+            return .text
+        }
+        
+        if style == .toggle {
+            return toggleStorage.isToggled(blockId: blockId) ? .text : .toggle
+        }
+        
+        return style
+    }
+
+    func splitMode(_ info: BlockInformation) -> Anytype_Rpc.Block.Split.Request.Mode {
         if info.content.isToggle {
             return toggleStorage.isToggled(blockId: info.id) ? .inner : .bottom
         } else {
