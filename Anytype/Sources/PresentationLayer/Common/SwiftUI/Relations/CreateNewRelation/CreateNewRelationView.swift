@@ -4,7 +4,12 @@ import BlocksModels
 
 struct CreateNewRelationView: View {
     @State private var relationName = ""
-    @StateObject var viewModel: CreateNewRelationViewModel
+    @StateObject private var viewModel: CreateNewRelationViewModel
+
+    init(relationName: String, viewModel: CreateNewRelationViewModel) {
+        self.relationName = relationName
+        _viewModel = StateObject(wrappedValue: viewModel)
+    }
 
     var body: some View {
         VStack(alignment: .center, spacing: 0) {

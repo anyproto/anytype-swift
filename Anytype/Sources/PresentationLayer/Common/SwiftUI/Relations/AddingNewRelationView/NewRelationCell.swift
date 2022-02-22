@@ -21,7 +21,7 @@ struct NewRelationCell: View {
 
 extension NewRelationCell {
     enum CellKind {
-        case createNew
+        case createNew(searchText: String)
         case relation(realtionMetadata: RelationMetadata)
 
         var icon: Image {
@@ -35,9 +35,12 @@ extension NewRelationCell {
 
         var title: String {
             switch self {
-            case .createNew:
-                return "Create from scratch".localized
-            case .relation(let realtionMetadata):
+            case let .createNew(searchText):
+                if searchText.isEmpty {
+                    return "Create from scratch".localized
+                }
+                return "Create relation".localized + " \"\(searchText)\""
+            case let .relation(realtionMetadata):
                 return realtionMetadata.name
             }
         }

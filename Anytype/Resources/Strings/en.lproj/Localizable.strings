@@ -233,3 +233,7 @@
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Settings";
 "Alert.CameraPermissions.GoToSettings" = "Go to Settings?";
+
+// MARK: - Relation
+"Create from scratch" = "Create from scratch";
+"Create relation" = "Create relation";
