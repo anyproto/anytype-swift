@@ -9,10 +9,11 @@ extension CustomTextView: UITextViewDelegate {
             .build(attributedText: textView.attributedText, range: range, replacement: text)
 
         if let keyAction = keyAction {
-            guard delegate.keyboardAction(keyAction) else { return false }
+            delegate.keyboardAction(keyAction)
+            return false
+        } else {
+            return delegate.shouldChangeText(range: range, replacementText: text)
         }
-
-        return delegate.shouldChangeText(range: range, replacementText: text)
     }
 
     func textViewDidChangeSelection(_ textView: UITextView) {

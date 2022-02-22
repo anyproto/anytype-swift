@@ -36,23 +36,13 @@ extension TextBlockContentView: CustomTextViewDelegate {
         actions?.changeTextStyle(attribute, range)
     }
     
-    func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool {
-        switch action {
-        case .enterInsideContent, .enterAtTheEndOfContent, .enterAtTheBeginingOfContent:
-            // In the case of frequent pressing of enter
-            // we can send multiple split requests to middle
-            // from the same block, it will leads to wrong order of blocks in array,
-            // adding a delay makes impossible to press enter very often
-            guard pressingEnterTimeChecker.exceedsTimeInterval else {
-                return false
-            }
-        case .deleteOnEmptyContent, .deleteAtTheBeginingOfContent:
-            break
-        }
-        
+    func keyboardAction(_ action: CustomTextView.KeyboardAction) {
+        // In the case of frequent pressing
+        // we can send multiple requests to middle
+        // from the same block, it will leads to wrong order of blocks
+        guard pressingEnterTimeChecker.exceedsTimeInterval else { return }
         
         actions?.handleKeyboardAction(action)
-        return false
     }
     
     func showPage(blockId: BlockId) {
