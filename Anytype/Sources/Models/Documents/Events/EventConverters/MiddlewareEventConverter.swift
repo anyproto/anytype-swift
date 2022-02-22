@@ -453,5 +453,4 @@ public extension Array where Element == Anytype_Event.Object.Details.Amend.KeyVa
             result[detail.key] = detail.value
         }
     }
-    
 }

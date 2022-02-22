@@ -110,7 +110,9 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
     
     private func sendUpdate(_ update: SubscriptionUpdate, subId: String) {
         guard let subId = SubscriptionId(rawValue: subId) else {
-            anytypeAssertionFailure("Unsupported object id \(subId)", domain: .subscriptionStorage)
+            if !subId.hasSuffix(dependencySubscriptionSuffix) {
+                anytypeAssertionFailure("Unrecognized subscription: \(subId)", domain: .subscriptionStorage)
+            }
             return
         }
         guard let action = turnedOnSubs[subId] else { return }

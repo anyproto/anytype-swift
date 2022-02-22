@@ -449,7 +449,15 @@ private extension EditorPageController {
     
     func applyBlocksSectionSnapshot(_ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>) {
         let selectedCells = collectionView.indexPathsForSelectedItems
-        dataSource.apply(snapshot, to: .main, animatingDifferences: false)
+
+        if #available(iOS 15.0, *) {
+            dataSource.apply(snapshot, to: .main, animatingDifferences: false)
+        } else {
+            UIView.performWithoutAnimation {
+                dataSource.apply(snapshot, to: .main, animatingDifferences: true)
+            }
+        }
+
         selectedCells?.forEach {
             self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
         }
