@@ -21,18 +21,24 @@ final class EditorMainItemModelsHolder {
 extension EditorMainItemModelsHolder {
     func findModel(
         beforeBlockId blockId: BlockId,
-        skipFeaturedRelations: Bool = true
+        acceptingTypes: [BlockContentType]
     ) -> BlockViewModelProtocol? {
         guard let modelIndex = items.firstIndex(blockId: blockId) else { return nil }
 
         let index = items.index(before: modelIndex)
-        guard let model = items[safe: index] else {
-            return nil
+
+        guard items.indices.contains(index) else { return nil }
+
+        let model = items[0...index].last { item in
+            if case .block = item { return true }
+
+            return false
         }
 
         guard case let .block(block) = model else { return nil }
-        if block.content.type == .featuredRelations && skipFeaturedRelations {
-            return findModel(beforeBlockId: block.blockId)
+
+        if !acceptingTypes.contains(block.content.type) {
+            return findModel(beforeBlockId: block.blockId, acceptingTypes: acceptingTypes)
         }
 
         return block
