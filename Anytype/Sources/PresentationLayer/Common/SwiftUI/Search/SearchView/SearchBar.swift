@@ -9,8 +9,10 @@ struct SearchBar: View {
         Group {
             if focused {
                 AutofocusedTextField(placeholder: placeholder.localized, text: $text)
+                    .disableAutocorrection(true)
             } else {
                 AnytypeTextField(placeholder: placeholder.localized, text: $text)
+                    .disableAutocorrection(true)
             }
         }
         .padding(8)
