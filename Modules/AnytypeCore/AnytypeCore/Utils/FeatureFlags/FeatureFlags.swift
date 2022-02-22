@@ -4,6 +4,8 @@ public enum Feature: String, Codable {
     case showAlertOnAssert = "Show alerts on asserts\n(only in testflight dev)"
     case analytics = "Analytics Amplitude (only in development)"
     case middlewareLogs = "Show middleware logs in Xcode console"
+
+    case uikitRelationBlocks = "UIKit relation blocks"
 }
 
 public final class FeatureFlags {
@@ -22,11 +24,12 @@ public final class FeatureFlags {
     }
     
     private static let defaultValues: Features = [
-        .sets: !isRelease,
+        .sets: true,
         .rainbowViews: false,
         .showAlertOnAssert : true,
         .analytics : false,
-        .middlewareLogs: false
+        .middlewareLogs: false,
+        .uikitRelationBlocks: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -38,7 +41,7 @@ public final class FeatureFlags {
 
 public extension FeatureFlags {
     static var sets: Bool {
-        features[.sets, default: false]
+        features[.sets, default: true]
     }
     
     static var showAlertOnAssert: Bool {
@@ -55,6 +58,10 @@ public extension FeatureFlags {
     
     static var middlewareLogs: Bool {
         features[.middlewareLogs, default: false]
+    }
+
+    static var uikitRelationBlock: Bool {
+        features[.uikitRelationBlocks, default: false]
     }
 
 }

@@ -6,7 +6,8 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     var hashable: AnyHashable {
         [
             information,
-            indentationLevel
+            indentationLevel,
+            codeLanguage
         ] as [AnyHashable]
     }
     
@@ -14,11 +15,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     var information: BlockInformation { block.information }
     var indentationLevel: Int { block.indentationLevel }
     let content: BlockText
-    private var codeLanguage: CodeLanguage {
-        CodeLanguage.create(
-            middleware: block.information.fields[FieldName.codeLanguage]?.stringValue
-        )
-    }
+    let codeLanguage: CodeLanguage
 
     let becomeFirstResponder: (BlockModelProtocol) -> ()
     let textDidChange: (BlockModelProtocol, UITextView) -> ()

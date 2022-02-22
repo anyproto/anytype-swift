@@ -36,3 +36,9 @@ public enum BlockContentType: Hashable {
         }
     }
 }
+
+extension BlockContentType {
+    public static var allTextTypes: [BlockContentType] {
+        BlockText.Style.allCases.map { BlockContentType.text($0) }
+    }
+}

@@ -26,7 +26,6 @@ final class EditorPageController: UIViewController {
         )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
-        collectionView.contentInsetAdjustmentBehavior = .always
 
         return collectionView
     }()

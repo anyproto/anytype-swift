@@ -8,11 +8,13 @@ import AnytypeCore
 final class AnytypePopup: FloatingPanelController {
         
     private let viewModel: AnytypePopupViewModelProtocol
+    private let insetted: Bool
     
     // MARK: - Initializers
     
-    init(viewModel: AnytypePopupViewModelProtocol) {
+    init(viewModel: AnytypePopupViewModelProtocol, insetted: Bool = false) {
         self.viewModel = viewModel
+        self.insetted = insetted
         
         super.init(delegate: nil)
         
@@ -92,6 +94,12 @@ private extension AnytypePopup {
         surfaceView.grabberHandle.backgroundColor = .strokePrimary
         
         surfaceView.contentPadding = UIEdgeInsets(top: AnytypePopup.grabberHeight, left: 0, bottom: 0, right: 0)
+        
+        #warning("TODO: - omplement insets in PopupLayouts")
+        if insetted {
+            let horizontalInset = UIDevice.isPad ? 0.0 : 8.0
+            surfaceView.containerMargins = UIEdgeInsets(top: 0, left: horizontalInset, bottom: UIApplication.shared.mainWindowInsets.bottom + 8, right: horizontalInset)
+        }
 
         if FeatureFlags.rainbowViews {
             surfaceView.backgroundColor = .red

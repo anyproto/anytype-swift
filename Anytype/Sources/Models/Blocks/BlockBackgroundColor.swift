@@ -43,6 +43,34 @@ enum BlockBackgroundColor: CaseIterable {
         }
     }
     
+    var tagColor : UIColor {
+        typealias ColorComponent = UIColor.TagBackground
+        switch self {
+        case .default:
+            return ColorComponent.default
+        case .lemon:
+            return ColorComponent.yellow
+        case .amber:
+            return ColorComponent.amber
+        case .red:
+            return ColorComponent.red
+        case .pink:
+            return ColorComponent.pink
+        case .purple:
+            return ColorComponent.purple
+        case .sky:
+            return ColorComponent.sky
+        case .blue:
+            return ColorComponent.blue
+        case .teal:
+            return ColorComponent.teal
+        case .green:
+            return ColorComponent.green
+        case .gray:
+            return ColorComponent.grey
+        }
+    }
+    
     var title: String {
         switch self {
         case .lemon:

@@ -1,5 +1,6 @@
 import UIKit
 import BlocksModels
+import AnytypeCore
 
 
 class RelationBlockViewModel: BlockViewModelProtocol {
@@ -31,7 +32,10 @@ class RelationBlockViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView() {}
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        RelationBlockContentConfiguration(relation: relation, actionOnValue: actionOnValue).asCellBlockConfiguration
+        if FeatureFlags.uikitRelationBlock {
+            return RelationBlockContentConfiguration(actionOnValue: actionOnValue, relation: relation).asCellBlockConfiguration
+        }
+        return DepricatedRelationBlockContentConfiguration(actionOnValue: actionOnValue, relation: relation).asCellBlockConfiguration
     }
     
 }

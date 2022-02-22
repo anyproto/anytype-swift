@@ -8,14 +8,16 @@ struct SeedPhraseView: View {
     var body: some View {
         Button(action: { model.onSeedViewTap(onTap: onTap) }) {
             VStack(alignment: .center) {
+                Spacer.fixedHeight(10)
                 AnytypeText(
                     model.recoveryPhrase ?? RedactedText.seedPhrase.localized,
                     style: .codeBlock,
                     color: .Text.sky
                 )
                     .redacted(reason: model.recoveryPhrase.isNil ? .placeholder : [])
-                    .padding()
                     .multilineTextAlignment(.leading)
+                    .padding(.horizontal, 20)
+                Spacer.fixedHeight(10)
             }
             .frame(maxWidth: .infinity)
             .background(Color.strokeTransperent)
