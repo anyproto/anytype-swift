@@ -70,7 +70,18 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.merge(secondBlockId: info.id)
 
         case .deleteForEmpty:
-            service.delete(blockId: info.id)
+            if text.contentType.isList {
+                service.turnInto(.text, blockId: info.id)
+                return
+            }
+            
+            guard text.delitable else { return }
+            
+            if info.childrenIds.isEmpty {
+                service.delete(blockId: info.id)
+            } else {
+                listService.replace(blockIds: info.childrenIds, targetId: info.id)
+            }
         }
     }
     

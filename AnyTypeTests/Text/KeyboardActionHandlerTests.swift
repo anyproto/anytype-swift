@@ -5,12 +5,18 @@ import XCTest
 class KeyboardActionHandlerTests: XCTestCase {
     private var handler: KeyboardActionHandler!
     private var service: BlockActionServiceMock!
+    private var listService: BlockListServiceMock!
     private var toggleStorage: ToggleStorage!
 
     override func setUpWithError() throws {
         service = BlockActionServiceMock()
         toggleStorage = ToggleStorage()
-        handler = KeyboardActionHandler(service: service, toggleStorage: toggleStorage)
+        listService = BlockListServiceMock()
+        handler = KeyboardActionHandler(
+            service: service,
+            listService: listService,
+            toggleStorage: toggleStorage
+        )
     }
 
     override func tearDownWithError() throws {
@@ -270,7 +276,7 @@ class KeyboardActionHandlerTests: XCTestCase {
 
         XCTAssertEqual(service.addNumberOfCalls, 1)
         XCTAssertEqual(service.addInfo!, childInfo)
-        XCTAssertEqual(service.addTargetBlockId, "childrenId")
+        XCTAssertEqual(service.addTargetBlockId, "childId")
         XCTAssertEqual(service.addPosition, .top)
         XCTAssertEqual(service.addSetFocus, true)
     }
@@ -312,7 +318,7 @@ class KeyboardActionHandlerTests: XCTestCase {
 
         XCTAssertEqual(service.addNumberOfCalls, 1)
         XCTAssertEqual(service.addInfo!, childInfo)
-        XCTAssertEqual(service.addTargetBlockId, "childrenId")
+        XCTAssertEqual(service.addTargetBlockId, "childId")
         XCTAssertEqual(service.addPosition, .top)
         XCTAssertEqual(service.addSetFocus, true)
     }
@@ -429,7 +435,7 @@ class KeyboardActionHandlerTests: XCTestCase {
     
     // MARK: - deleteForEmpty
     
-    func test_deleteForEmpty() throws {
+    func test_deleteForEmpty_text() throws {
         let info = info(style: .text)
         service.deleteStub = true
 
@@ -437,6 +443,67 @@ class KeyboardActionHandlerTests: XCTestCase {
 
         XCTAssertEqual(service.deleteNumberOfCalls, 1)
         XCTAssertEqual(service.deleteBlockId, "id")
+    }
+    
+    func test_deleteForEmpty_text_with_children() throws {
+        let info = info(style: .text, hasChild: true)
+        listService.replaceStub = true
+
+        handler.handle(info: info, action: .deleteForEmpty)
+
+        XCTAssertEqual(listService.replaceNumberOfCalls, 1)
+        XCTAssertEqual(listService.replaceTargetId, "id")
+        XCTAssertEqual(listService.replaceBlockIds, ["childId"])
+    }
+    
+    func test_deleteForEmpty_description() throws {
+        let info = info(style: .description)
+
+        handler.handle(info: info, action: .deleteForEmpty)
+    }
+    
+    func test_deleteForEmpty_bulleted() throws {
+        let info = info(style: .bulleted)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, action: .deleteForEmpty)
+
+        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
+        XCTAssertEqual(service.turnIntoStyle, .text)
+        XCTAssertEqual(service.turnIntoBlockId, "id")
+    }
+    
+    func test_deleteForEmpty_bulleted_with_children() throws {
+        let info = info(style: .bulleted, hasChild: true)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, action: .deleteForEmpty)
+
+        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
+        XCTAssertEqual(service.turnIntoStyle, .text)
+        XCTAssertEqual(service.turnIntoBlockId, "id")
+    }
+    
+    func test_deleteForEmpty_toggle() throws {
+        let info = info(style: .toggle)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, action: .deleteForEmpty)
+
+        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
+        XCTAssertEqual(service.turnIntoStyle, .text)
+        XCTAssertEqual(service.turnIntoBlockId, "id")
+    }
+    
+    func test_deleteForEmpty_toggle_with_children() throws {
+        let info = info(style: .toggle, hasChild: true)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, action: .deleteForEmpty)
+
+        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
+        XCTAssertEqual(service.turnIntoStyle, .text)
+        XCTAssertEqual(service.turnIntoBlockId, "id")
     }
     
     // MARK: - Private
@@ -450,7 +517,7 @@ class KeyboardActionHandlerTests: XCTestCase {
             content: .text(.empty(contentType: style)),
             backgroundColor: nil,
             alignment: .center,
-            childrenIds: hasChild ? ["childrenId"] : [],
+            childrenIds: hasChild ? ["childId"] : [],
             fields: [:]
         )
     }
