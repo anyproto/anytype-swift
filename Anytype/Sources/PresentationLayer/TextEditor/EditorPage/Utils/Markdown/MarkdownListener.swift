@@ -13,12 +13,6 @@ protocol MarkdownListener {
 }
 
 final class MarkdownListenerImpl: MarkdownListener {
-    private let markupChanger: BlockMarkupChangerProtocol
-    
-    init(markupChanger: BlockMarkupChangerProtocol) {
-        self.markupChanger = markupChanger
-    }
-    
     func markdownChange(textView: UITextView, replacementText: String, range: NSRange) -> MarkdownChange? {
         guard textView.textChangeType(changeTextRange: range, replacementText: replacementText) == .typingSymbols else {
             return nil

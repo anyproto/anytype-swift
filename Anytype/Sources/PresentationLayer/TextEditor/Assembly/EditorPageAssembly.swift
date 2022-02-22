@@ -121,7 +121,7 @@ final class EditorAssembly {
             document: document
         )
         
-        let markdownListener = MarkdownListenerImpl(markupChanger: markupChanger)
+        let markdownListener = MarkdownListenerImpl()
         
         let blockDelegate = BlockDelegateImpl(
             viewInput: viewInput,
