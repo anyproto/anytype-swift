@@ -100,13 +100,16 @@ final class EditorAssembly {
         
         let markupChanger = BlockMarkupChanger(blocksContainer: document.blocksContainer)
         let cursorManager = EditorCursorManager()
+        let listService = BlockListService(contextId: document.objectId)
         let blockActionService = BlockActionService(
             documentId: document.objectId,
+            listService: listService,
             modelsHolder: modelsHolder,
             cursorManager: cursorManager
         )
         let keyboardHandler = KeyboardActionHandler(
             service: blockActionService,
+            listService: listService,
             toggleStorage: ToggleStorage.shared
         )
         
@@ -114,6 +117,7 @@ final class EditorAssembly {
             document: document,
             markupChanger: markupChanger,
             service: blockActionService,
+            listService: listService,
             keyboardHandler: keyboardHandler
         )
         

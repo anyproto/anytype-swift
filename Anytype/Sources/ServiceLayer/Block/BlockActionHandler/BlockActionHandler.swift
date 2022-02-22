@@ -9,7 +9,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let document: BaseDocumentProtocol
     
     private let service: BlockActionServiceProtocol
-    private let listService = BlockListService()
+    private let listService: BlockListServiceProtocol
     private let markupChanger: BlockMarkupChangerProtocol
     private let keyboardHandler: KeyboardActionHandlerProtocol
     
@@ -19,11 +19,13 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         document: BaseDocumentProtocol,
         markupChanger: BlockMarkupChangerProtocol,
         service: BlockActionServiceProtocol,
+        listService: BlockListServiceProtocol,
         keyboardHandler: KeyboardActionHandlerProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger
         self.service = service
+        self.listService = listService
         self.keyboardHandler = keyboardHandler
     }
 
@@ -45,7 +47,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func setTextColor(_ color: BlockColor, blockId: BlockId) {
-        listService.setBlockColor(contextId: document.objectId, blockIds: [blockId], color: color.middleware)
+        listService.setBlockColor(blockIds: [blockId], color: color.middleware)
     }
     
     func setBackgroundColor(_ color: BlockBackgroundColor, blockId: BlockId) {
@@ -57,7 +59,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func setFields(_ fields: [BlockFields], blockId: BlockId) {
-        service.setFields(contextID: document.objectId, blockFields: fields)
+        service.setFields(blockFields: fields)
     }
     
     func fetch(url: URL, blockId: BlockId) {
@@ -74,7 +76,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId) {
-        listService.setAlign(contextId: document.objectId, blockIds: [blockId], alignment: alignment)
+        listService.setAlign(blockIds: [blockId], alignment: alignment)
     }
     
     func delete(blockId: BlockId) {
@@ -82,7 +84,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func moveTo(targetId: BlockId, blockId: BlockId) {
-        listService.moveTo(contextId: document.objectId, blockId: blockId, targetId: targetId)
+        listService.moveTo(blockId: blockId, targetId: targetId)
     }
     
     func createEmptyBlock(parentId: BlockId) {

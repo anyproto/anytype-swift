@@ -17,7 +17,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let singleService = ServiceLocator.shared.blockActionsServiceSingle()
     private let pageService = ObjectActionsService()
     private let textService = TextService()
-    private let listService = BlockListService()
+    private let listService: BlockListServiceProtocol
     private let bookmarkService = BookmarkService()
     private let fileService = BlockActionsServiceFile()
     private let cursorManager: EditorCursorManager
@@ -26,10 +26,12 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     init(
         documentId: String,
+        listService: BlockListServiceProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         cursorManager: EditorCursorManager
     ) {
         self.documentId = documentId
+        self.listService = listService
         self.modelsHolder = modelsHolder
         self.cursorManager = cursorManager
     }
@@ -138,8 +140,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
     
-    func setFields(contextID: BlockId, blockFields: [BlockFields]) {
-        listService.setFields(contextId: contextID, fields: blockFields)
+    func setFields(blockFields: [BlockFields]) {
+        listService.setFields(fields: blockFields)
     }
     
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
@@ -165,7 +167,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 private extension BlockActionService {
 
     func setDividerStyle(blockId: BlockId, style: BlockDivider.Style) {
-        listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style)
+        listService.setDivStyle(blockIds: [blockId], style: style)
     }
 }
 
@@ -199,7 +201,7 @@ extension BlockActionService {
     }
     
     func setBackgroundColor(blockId: BlockId, color: MiddlewareColor) {
-        listService.setBackgroundColor(contextId: documentId, blockIds: [blockId], color: color)
+        listService.setBackgroundColor(blockIds: [blockId], color: color)
     }
 }
 

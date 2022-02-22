@@ -11,13 +11,16 @@ protocol KeyboardActionHandlerProtocol {
 final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     
     private let service: BlockActionServiceProtocol
+    private let listService: BlockListServiceProtocol
     private let toggleStorage: ToggleStorage
     
     init(
         service: BlockActionServiceProtocol,
+        listService: BlockListServiceProtocol,
         toggleStorage: ToggleStorage
     ) {
         self.service = service
+        self.listService = listService
         self.toggleStorage = toggleStorage
     }
 
