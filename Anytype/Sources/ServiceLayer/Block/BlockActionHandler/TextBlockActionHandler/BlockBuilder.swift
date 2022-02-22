@@ -57,7 +57,7 @@ struct BlockBuilder {
             case .bulleted where blockType.text != "": return .text(.empty(contentType: .bulleted))
             case .checkbox where blockType.text != "": return .text(.empty(contentType: .checkbox))
             case .numbered where blockType.text != "": return .text(.empty(contentType: .numbered))
-            case .toggle where UserSession.shared.isToggled(blockId: info.id) : return .text(.empty(contentType: .text))
+            case .toggle where ToggleStorage.shared.isToggled(blockId: info.id) : return .text(.empty(contentType: .text))
             case .toggle where blockType.text != "": return .text(.empty(contentType: .toggle))
             default: return .text(.empty(contentType: .text))
             }
