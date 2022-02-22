@@ -21,6 +21,7 @@ struct SetMinimizedHeader: View {
             VStack {
                 Spacer.fixedHeight(44)
                 HStack {
+                    Spacer()
                     if let icon = model.details.objectIconImage {
                         SwiftUIObjectIconImageView(iconImage: icon, usecase: .openedObjectNavigationBar)
                             .frame(width: 18, height: 18)
@@ -28,10 +29,11 @@ struct SetMinimizedHeader: View {
                     }
                     AnytypeText(model.details.title, style: .body, color: .textPrimary)
                         .lineLimit(1)
+                    Spacer()
                 }
                 .padding(.horizontal)
             }
-            .frame(width: width, height: minimizedHeaderHeight)
+            .frame(height: minimizedHeaderHeight)
             .background(Color.backgroundPrimary)
             .opacity(headerOpacity)
             .readSize { headerMinimizedSize = $0 }
