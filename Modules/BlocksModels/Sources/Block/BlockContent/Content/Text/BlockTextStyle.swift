@@ -1,7 +1,7 @@
 import ProtobufMessages
 
 public extension BlockText {
-    enum Style {
+    enum Style: CaseIterable {
         case title
         case description
         case text

@@ -39,10 +39,17 @@ struct Snackbar: View {
             Spacer()
         }
         .offset(x: 0, y: -20)
-        .onAppear {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
-                self.isShowing = false
+        .onAppear { hideAfterTimeout() }
+        .onChange(of: isShowing) { isShowing in
+            if isShowing == true {
+                hideAfterTimeout()
             }
+        }
+    }
+    
+    private func hideAfterTimeout() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            self.isShowing = false
         }
     }
     

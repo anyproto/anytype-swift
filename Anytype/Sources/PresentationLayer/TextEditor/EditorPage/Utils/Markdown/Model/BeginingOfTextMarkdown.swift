@@ -21,6 +21,6 @@ extension BeginingOfTextMarkdown {
         BeginingOfTextMarkdown(text: "[] ", style: .checkbox),
         BeginingOfTextMarkdown(text: "1. ", style: .numbered),
         BeginingOfTextMarkdown(text: "> ", style: .toggle),
-        BeginingOfTextMarkdown(text: ["``` ", "““ ", "‘‘‘"], style: .code),
+        BeginingOfTextMarkdown(text: ["``` ", "““ ", "‘‘‘ "], style: .code),
     ]
 }

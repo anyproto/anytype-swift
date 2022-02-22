@@ -4,18 +4,15 @@ import BlocksModels
 
 struct ObjectLayoutPicker: View {
     
-    @EnvironmentObject private var viewModel: ObjectLayoutPickerViewModel
+    let viewModel: ObjectLayoutPickerViewModel
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            DragIndicator()
             AnytypeText("Choose layout type".localized, style: .uxTitle1Semibold, color: .textPrimary)
                 .padding([.top, .bottom], 12)
             layoutList
         }
         .background(Color.backgroundSecondary)
-        .cornerRadius(16, corners: .top)
-        .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
     }
     
     private var layoutList: some View {
@@ -37,11 +34,8 @@ struct ObjectLayoutPicker: View {
 
 struct DocumentLayoutPicker_Previews: PreviewProvider {
     static var previews: some View {
-        ObjectLayoutPicker()
-            .environmentObject(
-                ObjectLayoutPickerViewModel(
-                    detailsService: DetailsService(objectId: "")
-                )
-            )
+        ObjectLayoutPicker(viewModel: ObjectLayoutPickerViewModel(
+            detailsService: DetailsService(objectId: "")
+        ))
     }
 }

@@ -102,6 +102,8 @@ extension UIImage {
             static let email = createImage("relation_small_email_icon")
             static let goToURL = createImage("relation_small_go_to_url_icon")
         }
+        static let checkboxChecked = createImage("relation_checkbox_checked")
+        static let checkboxUnchecked = createImage("relation_checkbox_unchecked")
     }
     
     static func createImage(_ name: String) -> UIImage {

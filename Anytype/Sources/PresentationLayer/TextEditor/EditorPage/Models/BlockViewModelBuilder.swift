@@ -55,6 +55,9 @@ final class BlockViewModelBuilder {
                 return CodeBlockViewModel(
                     block: block,
                     content: content,
+                    codeLanguage: CodeLanguage.create(
+                        middleware: block.information.fields[FieldName.codeLanguage]?.stringValue
+                    ),
                     becomeFirstResponder: { _ in },
                     textDidChange: { block, textView in
                         self.handler.changeText(textView.attributedText, info: block.information)
