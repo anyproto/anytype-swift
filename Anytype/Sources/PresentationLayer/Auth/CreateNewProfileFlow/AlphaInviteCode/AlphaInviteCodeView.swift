@@ -37,7 +37,7 @@ struct AlphaInviteCodeView: View {
                 AnytypeText("Do not have invite".localized, style: .uxCalloutRegular, color: .textPrimary)
                 Spacer.fixedHeight(30)
                 
-                AutofocusedTextField(title: "", text: $signUpData.inviteCode)
+                AutofocusedTextField(placeholder: "", text: $signUpData.inviteCode)
                     .disableAutocorrection(true)
                     .textContentType(.password)
                     .autocapitalization(.none)
