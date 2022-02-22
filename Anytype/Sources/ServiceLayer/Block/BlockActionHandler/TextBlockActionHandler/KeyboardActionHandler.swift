@@ -29,12 +29,22 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         
         switch action {
         case .enterForEmpty:
-            if text.contentType != .text {
+            if text.contentType.isList {
                 service.turnInto(.text, blockId: info.id)
                 return
             }
             
-            service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
+            if info.childrenIds.isNotEmpty {
+                service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
+            } else {
+                service.split(
+                    .init(string: ""),
+                    blockId: info.id,
+                    mode: .bottom,
+                    position: 0,
+                    newBlockContentType: .text
+                )
+            }
         case let .enterInside(string, position):
             service.split(
                 string,
