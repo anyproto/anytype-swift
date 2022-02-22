@@ -3,6 +3,7 @@ import AnytypeCore
 
 extension CustomTextView {
     enum KeyboardAction {
+        case enterForEmpty
         case enterInside(string: NSAttributedString, position: Int)
         case enterAtTheEnd(string: NSAttributedString)
         
@@ -23,7 +24,7 @@ extension CustomTextView.KeyboardAction {
 
         if replacement == newLine {
             if emptyRange && text.isEmpty {
-                return .enterAtTheEnd(string: attributedText)
+                return .enterForEmpty
             }
 
             if text.endIndex == range.upperBound {

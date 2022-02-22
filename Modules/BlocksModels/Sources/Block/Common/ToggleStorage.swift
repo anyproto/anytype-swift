@@ -2,7 +2,7 @@ import Foundation
 import AnytypeCore
 
 public class ToggleStorage {
-    public static var shared = ToggleStorage()
+    public static let shared = ToggleStorage()
     
     private var toggles = SynchronizedDictionary<BlockId, Bool>()
 

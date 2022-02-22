@@ -23,11 +23,18 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
 
     func handle(info: BlockInformation, action: CustomTextView.KeyboardAction) {
         guard case let .text(text) = info.content else {
-            anytypeAssertionFailure("Only text block may send keyboard action", domain: .textBlockActionHandler)
+            anytypeAssertionFailure("Only text block may send keyboard action", domain: .keyboardActionHandler)
             return
         }
         
         switch action {
+        case .enterForEmpty:
+            if text.contentType != .text {
+                service.turnInto(.text, blockId: info.id)
+                return
+            }
+            
+            service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
         case let .enterInside(string, position):
             service.split(
                 string,
@@ -38,6 +45,11 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             )
 
         case .enterAtTheEnd(let string):
+            guard string.string.isNotEmpty else {
+                anytypeAssertionFailure("Empty sting in enterAtTheEnd", domain: .keyboardActionHandler)
+                enterForEmpty(text: text, info: info)
+                return
+            }
             onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: string)
 
         case .deleteAtTheBegining:
@@ -49,18 +61,21 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         }
     }
     
+    private func enterForEmpty(text: BlockText, info: BlockInformation) {
+        if text.contentType != .text {
+            service.turnInto(.text, blockId: info.id)
+            return
+        }
+        
+        service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
+    }
+    
     private func onEnterAtTheEndOfContent(
         info: BlockInformation,
         text: BlockText,
         action: CustomTextView.KeyboardAction,
         newString: NSAttributedString
     ) {
-        let enterInEmptyList = text.contentType.isList && newString.string.isEmpty
-        guard !enterInEmptyList else {
-            service.turnInto(.text, blockId: info.id)
-            return
-        }
-
         let needChildForToggle = text.contentType == .toggle && toggleStorage.isToggled(blockId: info.id)
         let needChildForList = text.contentType != .toggle && text.contentType.isList && info.childrenIds.isNotEmpty
         
