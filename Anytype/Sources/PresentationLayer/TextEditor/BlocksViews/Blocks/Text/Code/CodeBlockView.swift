@@ -50,6 +50,7 @@ final class CodeBlockView: UIView, BlockContentView {
     private func applyNewConfiguration(configuration: CodeBlockContentConfiguration) {
         codeSelectButton.setText(configuration.codeLanguage.rawValue)
         textStorage.language = configuration.codeLanguage.rawValue
+    
         textStorage.highlightr.highlight(configuration.content.anytypeText.attrString.string).flatMap {
             textStorage.setAttributedString($0)
         }
@@ -66,11 +67,21 @@ final class CodeBlockView: UIView, BlockContentView {
     
     private let textStorage: CodeAttributedString = {
         let textStorage = CodeAttributedString()
-        textStorage.highlightr.setTheme(to: "github-gist")
         textStorage.highlightr.theme.boldCodeFont = .code
         
         return textStorage
     }()
+
+
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if traitCollection.userInterfaceStyle == .dark {
+            textStorage.highlightr.setTheme(to: "gruvbox-dark")
+        } else {
+            textStorage.highlightr.setTheme(to: "github-gist")
+        }
+    }
 
     private lazy var textView: UITextView = {
         let layoutManager = NSLayoutManager()
