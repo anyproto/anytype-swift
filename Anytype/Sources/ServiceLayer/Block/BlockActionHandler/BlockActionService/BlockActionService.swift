@@ -115,7 +115,10 @@ final class BlockActionService: BlockActionServiceProtocol {
     
     func merge(secondBlockId: BlockId) {
         guard
-            let previousBlock = modelsHolder?.findModel(beforeBlockId: secondBlockId),
+            let previousBlock = modelsHolder?.findModel(
+                beforeBlockId: secondBlockId,
+                acceptingTypes: BlockContentType.allTextTypes
+            ),
             previousBlock.content != .unsupported
         else {
             delete(blockId: secondBlockId)
@@ -128,7 +131,10 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func delete(blockId: BlockId) {
-        let previousBlock = modelsHolder?.findModel(beforeBlockId: blockId)
+        let previousBlock = modelsHolder?.findModel(
+            beforeBlockId: blockId,
+            acceptingTypes: BlockContentType.allTextTypes
+        )
 
         if singleService.delete(contextId: documentId, blockIds: [blockId]) {
             previousBlock.map { setFocus(model: $0) }
