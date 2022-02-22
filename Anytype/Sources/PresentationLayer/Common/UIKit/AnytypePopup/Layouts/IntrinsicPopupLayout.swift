@@ -3,12 +3,13 @@ import FloatingPanel
 import CoreGraphics
 import UIKit
 
-final class AdaptiveTextRelationDetailsPopupLayout: AnytypePopupLayout {
+final class IntrinsicPopupLayout: AnytypePopupLayout {
     
-    init(layout: UILayoutGuide) {
+    init() {
         let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring] = [
-            .full: FloatingPanelAdaptiveLayoutAnchor(absoluteOffset: 0, contentLayout: layout, referenceGuide: .safeArea)
+            .full: FloatingPanelIntrinsicLayoutAnchor(absoluteOffset: 0, referenceGuide: .superview)
         ]
+        
         super.init(initialState: .full, anchors: anchors)
     }
     

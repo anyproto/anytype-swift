@@ -10,7 +10,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
     private weak var delegate: AnytypePopupContentDelegate?
 
-    private(set) var popupLayout: FloatingPanelLayout = IntrinsicTextRelationDetailsPopupLayout() {
+    private(set) var popupLayout: FloatingPanelLayout = IntrinsicPopupLayout() {
         didSet {
             delegate?.didAskInvalidateLayout(false)
         }
