@@ -100,7 +100,7 @@ private extension TextRelationDetailsViewController {
         let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil) { _ in }
         textView.isScrollEnabled = false
         textView.font = AnytypeFont.uxBodyRegular.uiKitFont
-        textView.textColor = UIColor.textSecondary
+        textView.textColor = UIColor.textPrimary
         textView.textContainerInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
         
         return textView

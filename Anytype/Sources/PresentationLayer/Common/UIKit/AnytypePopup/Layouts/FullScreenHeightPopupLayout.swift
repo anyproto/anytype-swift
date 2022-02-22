@@ -1,20 +1,16 @@
 import Foundation
 import FloatingPanel
 import CoreGraphics
+import UIKit
 
-final class FullScreenHeightPopupLayout: FloatingPanelLayout {
+final class FullScreenHeightPopupLayout: AnytypePopupLayout {
     
-    let position: FloatingPanelPosition = .bottom
-    let initialState: FloatingPanelState = .full
-    
-    var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
-        [
+    init() {
+        let anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] = [
             .full: FloatingPanelLayoutAnchor(absoluteInset: 0, edge: .top, referenceGuide: .safeArea)
         ]
-    }
-    
-    func backdropAlpha(for state: FloatingPanelState) -> CGFloat {
-        0.3
+        
+        super.init(initialState: .full, anchors: anchors)
     }
     
 }

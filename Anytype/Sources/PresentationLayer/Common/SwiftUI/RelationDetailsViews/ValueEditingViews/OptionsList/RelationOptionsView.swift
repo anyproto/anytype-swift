@@ -13,6 +13,7 @@ struct RelationOptionsView: View {
                 .navigationBarTitleDisplayMode(.inline)
                 .sheet(isPresented: $isSearchPresented) { viewModel.makeSearchView() }
         }
+        .navigationViewStyle(.stack)
     }
     
     private var content: some View {
