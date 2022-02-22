@@ -10,10 +10,6 @@ extension Array where Element == BlockRestrictions {
                 options.remove(.duplicate)
             }
 
-            if !element.canCreateBlockBelowOnEnter {
-                options.remove(.addBlockBelow)
-            }
-
             if !element.canApplyStyle(.smartblock(.page)) {
                 options.remove(.turnInto)
             }

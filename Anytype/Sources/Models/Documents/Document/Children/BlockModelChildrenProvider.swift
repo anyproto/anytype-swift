@@ -39,7 +39,7 @@ final class BlockModelChildrenProvider {
     }
 
     private func findChildren(model: BlockModelProtocol) -> [BlockModelProtocol] {
-        if model.information.content.isToggle, UserSession.shared.isToggled(blockId: model.information.id) == false {
+        if model.information.content.isToggle, ToggleStorage.shared.isToggled(blockId: model.information.id) == false {
             return [] // return no children for closed toggle
         }
         

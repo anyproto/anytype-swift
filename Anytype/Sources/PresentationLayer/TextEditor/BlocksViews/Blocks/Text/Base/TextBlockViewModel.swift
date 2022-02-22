@@ -95,8 +95,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             changeTextStyle: { attribute, range in
                 actionHandler.changeTextStyle(attribute, range: range, blockId: information.id)
             },
-            handleKeyboardAction: { (keyboardAction, attributedString) in
-                actionHandler.handleKeyboardAction(keyboardAction, info: information, attributedText: attributedString)
+            handleKeyboardAction: { action in
+                actionHandler.handleKeyboardAction(action, info: information)
             },
             becomeFirstResponder: {
 

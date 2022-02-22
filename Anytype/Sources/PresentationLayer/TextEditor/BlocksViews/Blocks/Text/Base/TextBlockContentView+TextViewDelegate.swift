@@ -38,21 +38,21 @@ extension TextBlockContentView: CustomTextViewDelegate {
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool {
         switch action {
-        case .enterInsideContent,
-             .enterAtTheEndOfContent,
-             .enterAtTheBeginingOfContent:
+        case .enterInsideContent, .enterAtTheEndOfContent, .enterAtTheBeginingOfContent:
             // In the case of frequent pressing of enter
             // we can send multiple split requests to middle
             // from the same block, it will leads to wrong order of blocks in array,
             // adding a delay makes impossible to press enter very often
-            if pressingEnterTimeChecker.exceedsTimeInterval() {
-                actions?.handleKeyboardAction(action, textView.textView.attributedText)
+            guard pressingEnterTimeChecker.exceedsTimeInterval else {
+                return false
             }
-            return false
         case .deleteOnEmptyContent, .deleteAtTheBeginingOfContent:
-            actions?.handleKeyboardAction(action, textView.textView.attributedText)
-            return false
+            break
         }
+        
+        
+        actions?.handleKeyboardAction(action)
+        return false
     }
     
     func showPage(blockId: BlockId) {
