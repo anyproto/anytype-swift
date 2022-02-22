@@ -5,44 +5,49 @@ import Foundation
 import ProtobufMessages
 
 protocol KeyboardActionHandlerProtocol {
-    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, newString: NSAttributedString)
+    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction)
 }
 
 final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     
     private let service: BlockActionServiceProtocol
-
-    init(service: BlockActionServiceProtocol) {
+    private let toggleStorage: ToggleStorage
+    
+    init(
+        service: BlockActionServiceProtocol,
+        toggleStorage: ToggleStorage
+    ) {
         self.service = service
+        self.toggleStorage = toggleStorage
     }
 
-    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, newString: NSAttributedString) {
+    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction) {
         guard case let .text(text) = info.content else {
             anytypeAssertionFailure("Only text block may send keyboard action", domain: .textBlockActionHandler)
             return
         }
         
         switch action {
-        case let .enterInsideContent(position):
+        case let .enterInsideContent(string, position):
             service.split(
-                newString,
+                string,
                 blockId: info.id,
-                mode: info.splitMode,
+                mode: splitMode(info: info),
                 position: position,
                 newBlockContentType: text.contentType.contentTypeForSplit
             )
 
-        case .enterAtTheBeginingOfContent:
+        case .enterAtTheBeginingOfContent(let string):
             service.split(
-                newString,
+                string,
                 blockId: info.id,
-                mode: info.splitMode,
+                mode: splitMode(info: info),
                 position: 0,
                 newBlockContentType: text.contentType.contentTypeForSplit
             )
 
-        case .enterAtTheEndOfContent:
-            onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: newString)
+        case .enterAtTheEndOfContent(let string):
+            onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: string)
 
         case .deleteAtTheBeginingOfContent:
             guard text.delitable else { return }
@@ -70,6 +75,15 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             return
         }
         
+        onEnterAtTheEndOfNonToggle(info: info, text: text, action: action, newString: newString)
+    }
+    
+    private func onEnterAtTheEndOfNonToggle(
+        info: BlockInformation,
+        text: BlockText,
+        action: CustomTextView.KeyboardAction,
+        newString: NSAttributedString
+    ) {
         guard let newBlock = BlockBuilder.createInformation(info: info) else { return }
         
         if info.childrenIds.isNotEmpty && text.contentType.isList {
@@ -85,7 +99,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.split(
                 newString,
                 blockId: info.id,
-                mode: info.splitMode,
+                mode: splitMode(info: info),
                 position: newString.string.count,
                 newBlockContentType: type
             )
@@ -98,13 +112,13 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         action: CustomTextView.KeyboardAction,
         newString: NSAttributedString
     ) {
-        guard UserSession.shared.isToggled(blockId: info.id) else {
+        guard toggleStorage.isToggled(blockId: info.id) else {
             let type = text.contentType.isList ? text.contentType : .text
 
             service.split(
                 newString,
                 blockId: info.id,
-                mode: info.splitMode,
+                mode: splitMode(info: info),
                 position: newString.string.count,
                 newBlockContentType: type
             )
@@ -130,12 +144,12 @@ private extension BlockText.Style {
     }
 }
 
-private extension BlockInformation {
-    var splitMode: Anytype_Rpc.Block.Split.Request.Mode {
-        if content.isToggle {
-            return UserSession.shared.isToggled(blockId: id) ? .inner : .bottom
+private extension KeyboardActionHandler {
+    func splitMode(info: BlockInformation) -> Anytype_Rpc.Block.Split.Request.Mode {
+        if info.content.isToggle {
+            return toggleStorage.isToggled(blockId: info.id) ? .inner : .bottom
         } else {
-            return childrenIds.isNotEmpty ? .inner : .bottom
+            return info.childrenIds.isNotEmpty ? .inner : .bottom
         }
     }
 }

@@ -140,10 +140,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func handleKeyboardAction(
         _ action: CustomTextView.KeyboardAction,
-        info: BlockInformation,
-        newString: NSAttributedString
+        info: BlockInformation
     ) {
-        keyboardHandler.handle(info: info, action: action, newString: newString)
+        keyboardHandler.handle(info: info, action: action)
     }
     
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
