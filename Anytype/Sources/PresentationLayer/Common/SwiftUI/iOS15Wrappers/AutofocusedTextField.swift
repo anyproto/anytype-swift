@@ -8,7 +8,7 @@ struct AutofocusedTextField: View {
         if #available(iOS 15.0, *) {
             NewAutofocusedTextField(placeholder: placeholder, text: $text)
         } else {
-            TextField(placeholder, text: $text)
+            AnytypeTextField(placeholder: placeholder, text: $text)
         }
     }
 }
@@ -21,7 +21,7 @@ private struct NewAutofocusedTextField: View {
     @FocusState private var isFocused: Bool
     
     var body: some View {
-        TextField(placeholder, text: $text)
+        AnytypeTextField(placeholder: placeholder, text: $text)
             .focused($isFocused)
             .task {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

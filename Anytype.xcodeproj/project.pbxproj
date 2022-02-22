@@ -339,6 +339,7 @@
 		12FD9D27276717B200991886 /* RelationObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD9D26276717B200991886 /* RelationObject.swift */; };
 		12FD9D29276717CF00991886 /* RelationTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD9D28276717CF00991886 /* RelationTag.swift */; };
 		12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD9D2A2767180A00991886 /* RelationUnknown.swift */; };
+		12FF0D0827C51ADD00562DD9 /* AnytypeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FF0D0727C51ADD00562DD9 /* AnytypeTextField.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
 		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
 		3D00F1E9278ECC3000863D7C /* Array+SubscriptionUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1E8278ECC3000863D7C /* Array+SubscriptionUpdate.swift */; };
@@ -1232,6 +1233,7 @@
 		12FD9D26276717B200991886 /* RelationObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationObject.swift; sourceTree = "<group>"; };
 		12FD9D28276717CF00991886 /* RelationTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationTag.swift; sourceTree = "<group>"; };
 		12FD9D2A2767180A00991886 /* RelationUnknown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationUnknown.swift; sourceTree = "<group>"; };
+		12FF0D0727C51ADD00562DD9 /* AnytypeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeTextField.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1E8278ECC3000863D7C /* Array+SubscriptionUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SubscriptionUpdate.swift"; sourceTree = "<group>"; };
@@ -3354,6 +3356,14 @@
 			path = MediaFileUploadingWorker;
 			sourceTree = "<group>";
 		};
+		12FF0D0327C51AD300562DD9 /* TextField */ = {
+			isa = PBXGroup;
+			children = (
+				12FF0D0727C51ADD00562DD9 /* AnytypeTextField.swift */,
+			);
+			path = TextField;
+			sourceTree = "<group>";
+		};
 		3D00F1D3278D7CCF00863D7C /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -3854,6 +3864,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				12FF0D0327C51AD300562DD9 /* TextField */,
 				3DB3EC67275513A1002781DA /* ProgressBar */,
 				535E02AB274FF05600E1AF8C /* Relations */,
 				3D2F9C3A271F023A0043C326 /* Alerts */,
@@ -6179,6 +6190,7 @@
 				12C2A5602754E13000311854 /* DateRelationDetailsView.swift in Sources */,
 				12EEC36B26A0903F00C3C4B1 /* EmojiData.swift in Sources */,
 				12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */,
+				12FF0D0827C51ADD00562DD9 /* AnytypeTextField.swift in Sources */,
 				125B6EC826F235F400BCD7D6 /* MentionsViewModel.swift in Sources */,
 				535E02B227502ECF00E1AF8C /* RelationBlockViewModel.swift in Sources */,
 				12636CF8276A109D0084D35D /* RelationTagOptionSearchRowView.swift in Sources */,

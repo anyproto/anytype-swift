@@ -10,7 +10,7 @@ struct SearchBar: View {
             if focused {
                 AutofocusedTextField(placeholder: placeholder.localized, text: $text)
             } else {
-                TextField(placeholder.localized, text: $text)
+                AnytypeTextField(placeholder: placeholder.localized, text: $text)
             }
         }
         .padding(8)
