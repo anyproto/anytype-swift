@@ -1,9 +1,8 @@
 import Foundation
 import FloatingPanel
 import CoreGraphics
-import UIKit
 
-final class IntrinsicTextRelationDetailsPopupLayout: FloatingPanelLayout {
+final class IntrinsicPopupLayout: FloatingPanelLayout {
     
     let position: FloatingPanelPosition = .bottom
     let initialState: FloatingPanelState = .full

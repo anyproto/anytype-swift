@@ -220,7 +220,6 @@
 		1270CE9326DA84A600B2D443 /* GradientImageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270CE9226DA84A600B2D443 /* GradientImageBuilder.swift */; };
 		1270CE9526DA85BB00B2D443 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270CE9426DA85BB00B2D443 /* GradientColor.swift */; };
 		1270CE9726DA85E900B2D443 /* GradientPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270CE9626DA85E900B2D443 /* GradientPoint.swift */; };
-		1277C9AE279AC6BB00CBE1F8 /* IntrinsicTextRelationDetailsPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1277C9AD279AC6BB00CBE1F8 /* IntrinsicTextRelationDetailsPopupLayout.swift */; };
 		127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127DE7402656CE770047A99A /* MediaPickerViewModel.swift */; };
 		127EABA32734FD6E00C731F2 /* CheckboxRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */; };
 		127EABB32735204E00C731F2 /* CoverConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB22735204E00C731F2 /* CoverConstants.swift */; };
@@ -243,6 +242,7 @@
 		128AD9EE2775B2FB004E3BDB /* oldSchool@3x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 128AD9EC2775B2FB004E3BDB /* oldSchool@3x~ipad.png */; };
 		128AD9EF2775B2FB004E3BDB /* oldSchool@2x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 128AD9ED2775B2FB004E3BDB /* oldSchool@2x~ipad.png */; };
 		12928C8827BCF75600CE94C3 /* AnytypePopupViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12928C8727BCF75600CE94C3 /* AnytypePopupViewModelProtocol.swift */; };
+		12928C8C27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12928C8B27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift */; };
 		129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */; };
 		129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */; };
 		129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */; };
@@ -1097,7 +1097,6 @@
 		1270CE9226DA84A600B2D443 /* GradientImageBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageBuilder.swift; sourceTree = "<group>"; };
 		1270CE9426DA85BB00B2D443 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
 		1270CE9626DA85E900B2D443 /* GradientPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientPoint.swift; sourceTree = "<group>"; };
-		1277C9AD279AC6BB00CBE1F8 /* IntrinsicTextRelationDetailsPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrinsicTextRelationDetailsPopupLayout.swift; sourceTree = "<group>"; };
 		127DE7402656CE770047A99A /* MediaPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaPickerViewModel.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Pickers/MediaPicker/MediaPickerViewModel.swift; sourceTree = SOURCE_ROOT; };
 		127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxRelationView.swift; sourceTree = "<group>"; };
 		127EABB22735204E00C731F2 /* CoverConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverConstants.swift; sourceTree = "<group>"; };
@@ -1120,6 +1119,7 @@
 		128AD9EC2775B2FB004E3BDB /* oldSchool@3x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oldSchool@3x~ipad.png"; sourceTree = "<group>"; };
 		128AD9ED2775B2FB004E3BDB /* oldSchool@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oldSchool@2x~ipad.png"; sourceTree = "<group>"; };
 		12928C8727BCF75600CE94C3 /* AnytypePopupViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypePopupViewModelProtocol.swift; sourceTree = "<group>"; };
+		12928C8B27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IntrinsicPopupLayout.swift; sourceTree = "<group>"; };
 		129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectProfileIconPicker.swift; sourceTree = "<group>"; };
 		129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutPicker.swift; sourceTree = "<group>"; };
 		129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutRow.swift; sourceTree = "<group>"; };
@@ -2672,8 +2672,8 @@
 				12E05EF02796ADA90037B667 /* FixedHeightPopupLayout.swift */,
 				12136D2B2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift */,
 				12394A2B27A40C8F0080E1CF /* RelationOptionsEmptyPopupLayout.swift */,
-				1277C9AD279AC6BB00CBE1F8 /* IntrinsicTextRelationDetailsPopupLayout.swift */,
 				12450D4627A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift */,
+				12928C8B27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift */,
 			);
 			path = Layouts;
 			sourceTree = "<group>";
@@ -5570,7 +5570,6 @@
 				03746CF922DE506200380AA1 /* Constants.swift in Sources */,
 				12C5378127747D7500396990 /* RelationOptionsSearchViewModel.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
-				1277C9AE279AC6BB00CBE1F8 /* IntrinsicTextRelationDetailsPopupLayout.swift in Sources */,
 				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
 				3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */,
 				3D16841626DD672E008B9DFF /* BlockLayoutConverter.swift in Sources */,
@@ -6269,6 +6268,8 @@
 				C91AFF0F270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift in Sources */,
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
 				C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */,
+				0A2ADCE02496921500FA135D /* EventsBunch.swift in Sources */,
+				12928C8C27BD3C0B00CE94C3 /* IntrinsicPopupLayout.swift in Sources */,
 				538F1728272C126F009528E7 /* SearchViewModelProtocol.swift in Sources */,
 				12EB9B2C27743D1700BA732F /* RelationFile.swift in Sources */,
 				3D0BCAD126665B77002F7A0D /* HomePageLink.swift in Sources */,
@@ -6823,7 +6824,7 @@
 			repositoryURL = "git@github.com:scenee/FloatingPanel.git";
 			requirement = {
 				kind = exactVersion;
-				version = 2.5.1;
+				version = 2.5.2;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
