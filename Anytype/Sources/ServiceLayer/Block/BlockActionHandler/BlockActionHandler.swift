@@ -11,7 +11,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let service: BlockActionServiceProtocol
     private let listService = BlockListService()
     private let markupChanger: BlockMarkupChangerProtocol
-    private let actionHandler: TextBlockActionHandler
+    private let keyboardHandler: KeyboardActionHandlerProtocol
     
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
     
@@ -19,12 +19,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         document: BaseDocumentProtocol,
         markupChanger: BlockMarkupChangerProtocol,
         service: BlockActionServiceProtocol,
-        actionHandler: TextBlockActionHandler
+        keyboardHandler: KeyboardActionHandlerProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger
         self.service = service
-        self.actionHandler = actionHandler
+        self.keyboardHandler = keyboardHandler
     }
 
     // MARK: - Service proxy
@@ -138,19 +138,39 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         changeTextForced(newText, blockId: blockId)
     }
     
-    // MARK: - TextBlockActionHandler proxy
-    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation, attributedText: NSAttributedString) {
-        actionHandler.handleKeyboardAction(info: info, action: action, attributedText: attributedText)
+    func handleKeyboardAction(
+        _ action: CustomTextView.KeyboardAction,
+        info: BlockInformation
+    ) {
+        keyboardHandler.handle(info: info, action: action)
     }
     
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
         guard let info = document.blocksContainer.model(id: blockId)?.information else { return }
 
-        actionHandler.changeTextForced(info: info, text: text)
+        guard case .text = info.content else { return }
+
+        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
+
+        EventsBunch(
+            contextId: document.objectId,
+            localEvents: [.setText(blockId: info.id, text: middlewareString)]
+        ).send()
+
+        service.setTextForced(contextId: document.objectId, blockId: info.id, middlewareString: middlewareString)
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
-        actionHandler.changeText(info: info, text: text)
+        guard case .text = info.content else { return }
+
+        let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
+
+        EventsBunch(
+            contextId: document.objectId,
+            dataSourceUpdateEvents: [.setText(blockId: info.id, text: middlewareString)]
+        ).send()
+
+        service.setText(contextId: document.objectId, blockId: info.id, middlewareString: middlewareString)
     }
     
     // MARK: - Public methods
@@ -208,11 +228,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
         
-        service.add(
-            info: newBlock,
-            targetBlockId: info.id,
-            position: position
-        )
+        service.add(info: newBlock, targetBlockId: info.id, position: position)
     }
 
     func selectBlock(blockInformation: BlockInformation) {

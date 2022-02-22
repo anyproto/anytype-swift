@@ -1,6 +1,6 @@
 public extension BlockInformation {
     static var emptyText: BlockInformation {
-        empty(content: .text(.empty))
+        empty(content: .text(.empty(contentType: .text)))
     }
     
     static func empty(

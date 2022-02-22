@@ -102,17 +102,16 @@ final class EditorAssembly {
             modelsHolder: modelsHolder,
             cursorManager: cursorManager
         )
-        let blockActionHandler = TextBlockActionHandler(
-            contextId: document.objectId,
+        let keyboardHandler = KeyboardActionHandler(
             service: blockActionService,
-            modelsHolder: modelsHolder
+            toggleStorage: ToggleStorage.shared
         )
         
         let actionHandler = BlockActionHandler(
             document: document,
             markupChanger: markupChanger,
             service: blockActionService,
-            actionHandler: blockActionHandler
+            keyboardHandler: keyboardHandler
         )
         
         let accessoryState = AccessoryViewBuilder.accessoryState(

@@ -14,6 +14,9 @@ final class TextService: TextServiceProtocol {
             text: middlewareString.text,
             marks: middlewareString.marks
         )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .textService)?
+            .send()
     }
 
     @discardableResult
@@ -41,7 +44,7 @@ final class TextService: TextServiceProtocol {
     }
     
     func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId? {
-        let textContentType = BlockContent.text(BlockText(contentType: style)).description
+        let textContentType = BlockContent.text(.empty(contentType: style)).description
         Amplitude.instance().logCreateBlock(type: textContentType, style: String(describing: style))
 
         let response = Anytype_Rpc.Block.Split.Service

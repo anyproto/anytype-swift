@@ -47,16 +47,6 @@ public extension BlockText {
             }
         }
         
-        /// Returns true in case of .checkbox, .bulleted, .numbered, otherwise returns false
-        public var isListAndNotToggle: Bool {
-            switch self {
-            case .checkbox , .bulleted, .numbered:
-                return true
-            default:
-                return false
-            }
-        }
-        
         public var asMiddleware: Anytype_Model_Block.Content.Text.Style {
             switch self {
             case .title: return .title

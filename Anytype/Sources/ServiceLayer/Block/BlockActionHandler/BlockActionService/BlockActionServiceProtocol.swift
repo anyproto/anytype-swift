@@ -1,5 +1,6 @@
 import BlocksModels
 import UIKit
+import ProtobufMessages
 
 protocol BlockActionServiceProtocol {
     
@@ -15,7 +16,13 @@ protocol BlockActionServiceProtocol {
     
     func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId?
     
-    func split(info: BlockInformation, position: Int, newBlockContentType: BlockText.Style, attributedString: NSAttributedString)
+    func split(
+        _ string: NSAttributedString,
+        blockId: BlockId,
+        mode: Anytype_Rpc.Block.Split.Request.Mode,
+        position: Int,
+        newBlockContentType: BlockText.Style
+    )
     
     func bookmarkFetch(blockId: BlockId, url: String)
     

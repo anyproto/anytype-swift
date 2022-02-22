@@ -48,23 +48,18 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     func split(
-        info: BlockInformation,
+        _ string: NSAttributedString,
+        blockId: BlockId,
+        mode: Anytype_Rpc.Block.Split.Request.Mode,
         position: Int,
-        newBlockContentType: BlockText.Style,
-        attributedString: NSAttributedString
+        newBlockContentType: BlockText.Style
     ) {
-        let blockId = info.id
-
         let range = NSRange(location: position, length: 0)
-        let documentId = self.documentId
-        
-        // if splitted block has child then new block should be child of splitted block
-        let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
         textService.setTextForced(
             contextId: documentId,
             blockId: blockId,
-            middlewareString: AttributedTextConverter.asMiddleware(attributedText: attributedString)
+            middlewareString: AttributedTextConverter.asMiddleware(attributedText: string)
         )
 
         guard let blockId = textService.split(
