@@ -7,7 +7,7 @@ public final class BlockContainer: BlockContainerModelProtocol {
     private var models = SynchronizedDictionary<BlockId, BlockModelProtocol>()
 
     public var rootId: BlockId?
-    public var userSession = UserSession()
+    public var userSession = ToggleStorage()
     
     public init() {}
     

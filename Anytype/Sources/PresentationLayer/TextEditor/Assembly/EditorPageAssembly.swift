@@ -102,7 +102,10 @@ final class EditorAssembly {
             modelsHolder: modelsHolder,
             cursorManager: cursorManager
         )
-        let keyboardHandler = KeyboardActionHandler(service: blockActionService)
+        let keyboardHandler = KeyboardActionHandler(
+            service: blockActionService,
+            toggleStorage: ToggleStorage.shared
+        )
         
         let actionHandler = BlockActionHandler(
             document: document,

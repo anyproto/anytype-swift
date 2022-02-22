@@ -51,7 +51,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
         }
         
         
-        actions?.handleKeyboardAction(action, textView.textView.attributedText)
+        actions?.handleKeyboardAction(action)
         return false
     }
     

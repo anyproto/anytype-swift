@@ -9,7 +9,6 @@ struct CodeBlockRestrictions: BlockRestrictions {
     let canApplyBackgroundColor = true
     let canApplyMention = false
     let canApplyEmoji = false
-    let canCreateBlockBelowOnEnter = false
     let canDeleteOrDuplicate = true
     let availableAlignments = [LayoutAlignment]()
     let turnIntoStyles: [BlockContentType] = [

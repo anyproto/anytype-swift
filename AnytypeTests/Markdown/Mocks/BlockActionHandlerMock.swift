@@ -158,8 +158,15 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation, attributedText: NSAttributedString) {
+    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation, newString attributedText: NSAttributedString) {
         assertionFailure()
     }
     
+    func createEmptyBlock(parentId: BlockId) {
+        assertionFailure()
+    }
+    
+    func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: String) {
+        assertionFailure()
+    }
 }
