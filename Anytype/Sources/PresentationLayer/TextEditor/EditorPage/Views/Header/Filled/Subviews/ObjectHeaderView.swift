@@ -37,8 +37,18 @@ final class ObjectHeaderView: UIView {
     }
     
     // MARK: - Internal functions
-    
+    private var coverViewCenter: CGPoint = .zero
+
     func applyCoverTransform(_ transform: CGAffineTransform) {
+        if coverView.transform.isIdentity {
+            coverViewCenter = coverView.layer.position
+            coverView.layer.position = CGPoint(x: coverView.frame.midX, y: coverView.frame.maxY)
+            coverView.layer.anchorPoint = CGPoint(x: 0.5, y: 1.0)
+        } else if transform.isIdentity {
+            coverView.layer.position = coverViewCenter
+            coverView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        }
+
         // Disable CALayer implicit animations
         CATransaction.begin()
         CATransaction.setDisableActions(true)
@@ -47,7 +57,6 @@ final class ObjectHeaderView: UIView {
 
         CATransaction.commit()
     }
-    
 }
 
 extension ObjectHeaderView: ConfigurableView {
@@ -163,7 +172,7 @@ private extension ObjectHeaderView {
         addSubview(coverView) {
             $0.pinToSuperview(excluding: [.top, .bottom])
             $0.bottom.equal(to: bottomAnchor, constant: -Constants.coverBottomInset)
-            $0.height.equal(to: Constants.coverHeight + topAdjustedContentInset, priority: .defaultLow)
+            $0.height.equal(to: Constants.coverHeight + topAdjustedContentInset)
         }
         
         addSubview(iconView) {

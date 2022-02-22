@@ -92,25 +92,18 @@ private extension ObjectHeaderFilledContentView  {
     
     func updateCoverTransform(_ offset: CGFloat) {
         let offset = offset + appliedConfiguration.topAdjustedContentInset
-
+        
         guard offset.isLess(than: CGFloat.zero) else {
             headerView.applyCoverTransform(.identity)
             return
         }
-        
+
         let coverHeight = ObjectHeaderView.Constants.coverHeight
         let scaleY = (abs(offset) + coverHeight) / coverHeight
-        let scaledCoverHeight = coverHeight * scaleY
 
         var t = CGAffineTransform.identity
-                
-        t = t.translatedBy(
-            x: 0,
-            y: -((scaledCoverHeight - coverHeight) * 0.5)
-        )
-        
         t = t.scaledBy(x: scaleY, y: scaleY)
-        
+
         headerView.applyCoverTransform(t)
     }
     

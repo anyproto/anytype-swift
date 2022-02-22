@@ -48,7 +48,9 @@ class SelectProfileViewModel: ObservableObject {
         DispatchQueue.global().async { [weak self] in
             self?.handleAccountShowEvent()
             if let error = self?.authService.accountRecover() {
-                self?.error = error.localizedDescription
+                DispatchQueue.main.async {
+                    self?.error = error.localizedDescription
+                }
             }
         }
     }

@@ -3,7 +3,7 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
-class UnsupportedBlockView: BaseBlockView<UnsupportedBlockContentConfiguration> {
+class UnsupportedBlockView: UIView, BlockContentView {
     private let label: AnytypeLabel = {
         let label = AnytypeLabel(style: .callout)
         label.textColor = .textTertiary
@@ -17,15 +17,19 @@ class UnsupportedBlockView: BaseBlockView<UnsupportedBlockContentConfiguration> 
         return imageView
     }()
 
-    override func update(with configuration: UnsupportedBlockContentConfiguration) {
-        super.update(with: configuration)
-
-        apply(configuration: configuration)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setup()
     }
 
-    override func setupSubviews() {
-        super.setupSubviews()
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
         setup()
+    }
+
+
+    func update(with configuration: UnsupportedBlockContentConfiguration) {
+        apply(configuration: configuration)
     }
 
     private func setup() {

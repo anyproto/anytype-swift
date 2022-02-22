@@ -1,6 +1,10 @@
 import UIKit
 
 final class BaseSelectionView: UIView {
+    enum Constants {
+        static let borderWidth = 1.5
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -12,9 +16,9 @@ final class BaseSelectionView: UIView {
 
     func updateStyle(isSelected: Bool) {
         if isSelected {
-            layer.borderWidth = 2.0
+            layer.borderWidth = Constants.borderWidth
             layer.borderColor = UIColor.System.amber.cgColor
-            backgroundColor = UIColor.System.amber.withAlphaComponent(0.1)
+            backgroundColor = UIColor.System.amber.withAlphaComponent(0.2)
         } else {
             layer.borderWidth = 0.0
             layer.borderColor = nil

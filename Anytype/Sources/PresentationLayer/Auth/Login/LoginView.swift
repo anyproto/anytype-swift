@@ -33,6 +33,7 @@ struct LoginView: View {
             Spacer()
             keychainPhraseView
                 .horizontalReadabilityPadding(20)
+                .padding(.bottom, 20)
         }
     }
 

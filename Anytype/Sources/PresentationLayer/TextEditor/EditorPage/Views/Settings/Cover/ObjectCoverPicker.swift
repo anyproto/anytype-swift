@@ -26,7 +26,7 @@ struct ObjectCoverPicker: View {
     
     private var galleryTabView: some View {
         VStack(spacing: 0) {
-            DragIndicator(bottomPadding: 0)
+            DragIndicator()
             navigationBarView
             CoverColorsGridView { cover in
                 switch cover {

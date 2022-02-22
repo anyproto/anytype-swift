@@ -16,6 +16,7 @@ struct CreateNewProfileView: View {
             Gradients.mainBackground()
             bottomSheet
                 .horizontalReadabilityPadding(20)
+                .padding(.bottom, 20)
         }
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)

@@ -12,22 +12,25 @@ import BlocksModels
 import AnytypeCore
 
 
-final class AudioBlockContentView: BaseBlockView<AudioBlockContentConfiguration> {
+final class AudioBlockContentView: UIView, BlockContentView {
     // MARK: - Views
     let audioPlayerView = AudioPlayerView()
     let backgroundView = UIView()
 
     // MARK: - Lifecycle
-
-    override func setupSubviews() {
-        super.setupSubviews()
-
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
         setupLayout()
     }
 
-    override func update(with configuration: AudioBlockContentConfiguration) {
-        super.update(with: configuration)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+        setupLayout()
+    }
+
+    func update(with configuration: AudioBlockContentConfiguration) {
         apply(configuration: configuration)
     }
 

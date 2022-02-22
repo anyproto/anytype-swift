@@ -29,16 +29,12 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
             content: content,
             backgroundColor: block.information.backgroundColor,
             codeLanguage: codeLanguage,
-            becomeFirstResponder: {
-                self.becomeFirstResponder(self.block)
-            },
-            textDidChange: { textView in
-                self.textDidChange(self.block, textView)
-            },
-            showCodeSelection: {
-                self.showCodeSelection(self.block)
-            }
-        )
+            actions: .init(
+                becomeFirstResponder: { becomeFirstResponder(block) },
+                textDidChange: { textView in textDidChange(block, textView) },
+                showCodeSelection: { showCodeSelection(block) }
+            )
+        ).asCellBlockConfiguration
     }
     
     func didSelectRowInTableView() { }

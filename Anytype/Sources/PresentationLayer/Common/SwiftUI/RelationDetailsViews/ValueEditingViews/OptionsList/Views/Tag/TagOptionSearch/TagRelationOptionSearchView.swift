@@ -9,7 +9,7 @@ struct TagRelationOptionSearchView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            DragIndicator(bottomPadding: 0)
+            DragIndicator()
             SearchBar(text: $searchText, focused: false)
                 .padding(.vertical, 4)
                 .divider()

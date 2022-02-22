@@ -37,7 +37,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             type: type,
             alignment: information.alignment.asNSTextAlignment,
             onRelationTap: onRelationTap
-        )
+        ).asCellBlockConfiguration
     }
     
     func didSelectRowInTableView() {}
