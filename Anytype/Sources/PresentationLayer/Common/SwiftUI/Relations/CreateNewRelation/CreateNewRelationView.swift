@@ -8,7 +8,7 @@ struct CreateNewRelationView: View {
 
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            DragIndicator(bottomPadding: 0)
+            DragIndicator()
             AnytypeText("New relation".localized, style: .uxTitle1Semibold, color: .textPrimary)
                 .padding([.top, .bottom], 12)
             content

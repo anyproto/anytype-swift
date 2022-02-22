@@ -6,13 +6,10 @@ enum BlocksFileEmptyViewState {
     case error
 }
 
-struct BlocksFileEmptyViewConfiguration: BlockConfigurationProtocol {
+struct BlocksFileEmptyViewConfiguration: BlockConfiguration {
+    typealias View = BlocksFileEmptyView
+
     let image: UIImage
     let text: String
     let state: BlocksFileEmptyViewState
-    var currentConfigurationState: UICellConfigurationState?
-    
-    func makeContentView() -> UIView & UIContentView {
-        BlocksFileEmptyView(configuration: self)
-    }
 }

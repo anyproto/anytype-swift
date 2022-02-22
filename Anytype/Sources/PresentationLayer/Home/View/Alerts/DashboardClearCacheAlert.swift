@@ -20,7 +20,7 @@ struct DashboardClearCacheAlert: View {
                     if clearCacheSuccessful {
                         UINotificationFeedbackGenerator().notificationOccurred(.success)
                         settingsModel.clearCacheAlert = false
-                        settingsModel.other = false
+                        settingsModel.account = false
                         homeModel.snackBarData = .init(text: "Cache sucessfully cleared", showSnackBar: true)
                     } else {
                         UINotificationFeedbackGenerator().notificationOccurred(.error)

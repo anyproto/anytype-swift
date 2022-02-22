@@ -10,7 +10,7 @@ struct KeychainPhraseView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator()
-            Spacer.fixedHeight(58)
+            Spacer.fixedHeight(53)
             AnytypeText("Back up your keychain phrase".localized, style: .title, color: .textPrimary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(25)
@@ -24,7 +24,7 @@ struct KeychainPhraseView: View {
             Spacer()
         }
         .cornerRadius(12)
-        .padding([.leading, .trailing])
+        .padding(.horizontal)
         .onAppear {
             Amplitude.instance().logKeychainPhraseShow(shownInContext)
         }

@@ -26,11 +26,11 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
                 image: UIImage.blockFile.empty.bookmark,
                 text: "Add a web bookmark".localized,
                 state: .default
-            )
+            ).asCellBlockConfiguration
         case let .fetched(payload):
-            return BlockBookmarkConfiguration(payload: payload)
+            return BlockBookmarkConfiguration(payload: payload).asCellBlockConfiguration
         case let .onlyURL(url):
-            return BlockBookmarkOnlyUrlConfiguration(ulr: url)
+            return BlockBookmarkOnlyUrlConfiguration(ulr: url).asCellBlockConfiguration
         }
     }
     

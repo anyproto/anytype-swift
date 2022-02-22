@@ -114,11 +114,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             )
             updateHeaderIfNeeded(header: header, details: details)
 
-            if let featuredRelationsBlockViewModel = modelsHolder.items.firstFeatureRelationViewModel {
-                let diffrerence = difference(with: Set([featuredRelationsBlockViewModel.blockId]))
-                modelsHolder.applyDifference(difference: diffrerence)
-                viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
-            }
+            let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
+            let relationIds = allRelationsBlockViewModel.map(\.blockId)
+            let diffrerence = difference(with: Set(relationIds))
+            modelsHolder.applyDifference(difference: diffrerence)
+            viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
 
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {

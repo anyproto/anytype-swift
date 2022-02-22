@@ -55,10 +55,13 @@ final class SlashMenuView: DismissableInputAccessoryView {
         let navigationController = UINavigationController(rootViewController: controller)
         
         let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.titleTextAttributes = [
+            NSAttributedString.Key.font: AnytypeFont.uxTitle2Medium.uiKitFont
+        ]
         navBarAppearance.configureWithTransparentBackground()
         navBarAppearance.shadowColor = .backgroundPrimary
         navBarAppearance.backgroundColor = .backgroundPrimary
-        navBarAppearance.setBackIndicatorImage(UIImage.backArrow, transitionMaskImage: UIImage.backArrow)
+        navBarAppearance.setBackIndicatorImage(UIImage.slashMenuBackArrow, transitionMaskImage: UIImage.slashMenuBackArrow)
         navigationController.modifyBarAppearance(navBarAppearance)
         navigationController.navigationBar.tintColor = .textSecondary
         

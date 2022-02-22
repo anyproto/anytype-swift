@@ -108,6 +108,20 @@ extension Array where Element == EditorItem {
         }
     }
 
+    var allRelationViewModel: [BlockViewModelProtocol] {
+        compactMap { element -> BlockViewModelProtocol? in
+            if case let .block(block) = element {
+                switch block.content {
+                case .featuredRelations, .relation:
+                    return block
+                default:
+                    return nil
+                }
+            }
+            return nil
+        }
+    }
+
     var onlyBlockViewModels: [BlockViewModelProtocol] {
         compactMap { element -> BlockViewModelProtocol? in
             if case let .block(block) = element {

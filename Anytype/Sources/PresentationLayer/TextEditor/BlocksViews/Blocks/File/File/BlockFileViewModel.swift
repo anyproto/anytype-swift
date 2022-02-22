@@ -37,7 +37,7 @@ struct BlockFileViewModel: BlockViewModelProtocol {
         case .error:
             return emptyViewConfiguration(state: .error)
         case .done:
-            return BlockFileConfiguration(fileData.mediaData)
+            return BlockFileConfiguration(data: fileData.mediaData).asCellBlockConfiguration
         }
     }
     
@@ -46,6 +46,6 @@ struct BlockFileViewModel: BlockViewModelProtocol {
             image: UIImage.blockFile.empty.file,
             text: "Upload a file",
             state: state
-        )
+        ).asCellBlockConfiguration
     }
 }

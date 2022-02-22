@@ -3,18 +3,20 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
-class BlocksFileEmptyView: BaseBlockView<BlocksFileEmptyViewConfiguration> {
-    override func setupSubviews() {
-        super.setupSubviews()
-
+class BlocksFileEmptyView: UIView, BlockContentView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
 
-    override func update(with configuration: BlocksFileEmptyViewConfiguration) {
-        super.update(with: configuration)
-        apply(configuration: configuration)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
     }
 
+    func update(with configuration: BlocksFileEmptyViewConfiguration) {
+        apply(configuration: configuration)
+    }
     
     private func setup() {
         addSubview(contentView) {

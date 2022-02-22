@@ -1,12 +1,7 @@
-import UIKit
 import BlocksModels
 
-struct BlockBookmarkConfiguration: BlockConfigurationProtocol, Hashable {
-    
+struct BlockBookmarkConfiguration: BlockConfiguration {
+    typealias View = BlockBookmarkView
+
     let payload: BlockBookmarkPayload
-    var currentConfigurationState: UICellConfigurationState?
-            
-    func makeContentView() -> UIView & UIContentView {
-        BlockBookmarkView(configuration: self)
-    }
 }

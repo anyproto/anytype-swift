@@ -1,20 +1,21 @@
 import SwiftUI
 
 struct DragIndicator: View {
-    var bottomPadding: CGFloat = 6
-    
     var body: some View {
         VStack {
-            HStack {
-                Spacer()
-                RoundedRectangle(cornerRadius: 6)
-                    .fill(Color.strokePrimary)
-                    .frame(width: 48, height: 5)
-                Spacer()
-            }
-            .frame(height: 22)
-            
-            Spacer.fixedHeight(bottomPadding)
+            Spacer.fixedHeight(6)
+            content
+            Spacer.fixedHeight(6)
+        }
+    }
+    
+    private var content: some View {
+        HStack {
+            Spacer()
+            RoundedRectangle(cornerRadius: 6)
+                .fill(Color.strokePrimary)
+                .frame(width: 48, height: 4)
+            Spacer()
         }
     }
 }
