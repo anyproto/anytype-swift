@@ -35,14 +35,20 @@ final class ObjectHeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        coverViewCenter = coverView.layer.position
+    }
+
     // MARK: - Internal functions
-    private var coverViewCenter: CGPoint = .zero
+    private lazy var coverViewCenter: CGPoint = coverView.layer.position
 
     func applyCoverTransform(_ transform: CGAffineTransform) {
-        if coverView.transform.isIdentity {
-            coverViewCenter = coverView.layer.position
-            coverView.layer.position = CGPoint(x: coverView.frame.midX, y: coverView.frame.maxY)
+        if coverView.transform.isIdentity, !transform.isIdentity {
+            let maxY = coverViewCenter.y + coverView.bounds.height / 2
+            coverView.layer.position = CGPoint(x: coverViewCenter.x, y: maxY)
             coverView.layer.anchorPoint = CGPoint(x: 0.5, y: 1.0)
         } else if transform.isIdentity {
             coverView.layer.position = coverViewCenter
