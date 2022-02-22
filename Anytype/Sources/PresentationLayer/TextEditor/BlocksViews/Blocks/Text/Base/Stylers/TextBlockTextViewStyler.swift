@@ -4,7 +4,8 @@ import BlocksModels
 final class TextBlockTextViewStyler {
     static func applyStyle(textView: CustomTextView, configuration: TextBlockContentConfiguration, restrictions: BlockRestrictions) {
         updateText(textView: textView, configuration: configuration)
-        updateCustomTextViewOptions(textView: textView, configuration: configuration, restrictions: restrictions)
+        
+        textView.autocorrect = configuration.content.contentType == .title ? false : true
         
         textView.textView.tertiaryColor = configuration.content.color.map { UIColor.Text.uiColor(from: $0) }
         textView.textView.textAlignment = configuration.alignment
@@ -13,19 +14,6 @@ final class TextBlockTextViewStyler {
         if configuration.content.contentType == .checkbox {
             textView.textView.selectedColor = configuration.content.checked ? UIColor.textSecondary : nil
         }
-    }
-    
-    private static func updateCustomTextViewOptions(
-        textView: CustomTextView,
-        configuration: TextBlockContentConfiguration,
-        restrictions: BlockRestrictions
-    ) {
-        let autocorrect = configuration.content.contentType == .title ? false : true
-        let options = CustomTextViewOptions(
-            createNewBlockOnEnter: restrictions.canCreateBlockBelowOnEnter,
-            autocorrect: autocorrect
-        )
-        textView.setCustomTextViewOptions(options: options)
     }
     
     private static func updateText(textView: CustomTextView, configuration: TextBlockContentConfiguration) {

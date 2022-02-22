@@ -400,7 +400,6 @@
 		3D24913627BD271900821595 /* EventsListenerUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24912A27BD271900821595 /* EventsListenerUpdate.swift */; };
 		3D28A470271DAC9F009A0D48 /* HomeTabsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D28A46F271DAC9F009A0D48 /* HomeTabsHeader.swift */; };
 		3D28A476271DCDF4009A0D48 /* DashboardSelectionActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D28A475271DCDF4009A0D48 /* DashboardSelectionActionsView.swift */; };
-		3D29AFF126A5D2830095BA18 /* CustomTextViewOptions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D29AFF026A5D2830095BA18 /* CustomTextViewOptions.swift */; };
 		3D2D4C5B27BA54030070A4C6 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C5A27BA54030070A4C6 /* Divider.swift */; };
 		3D2D4C6327BA76270070A4C6 /* EditorRouterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6227BA76270070A4C6 /* EditorRouterProtocol.swift */; };
 		3D2D4C6527BAA2EF0070A4C6 /* SetConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */; };
@@ -423,6 +422,8 @@
 		3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */; };
 		3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */; };
 		3D34F20F27BE4B2300990C49 /* SettingsAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20E27BE4B2300990C49 /* SettingsAccountView.swift */; };
+		3D34F25427C3D16400990C49 /* KeyboardActionHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F25327C3D16400990C49 /* KeyboardActionHandlerTests.swift */; };
+		3D34F25627C3D1D100990C49 /* BlockActionServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F25527C3D1D100990C49 /* BlockActionServiceMock.swift */; };
 		3D38CC9326D626A700E4F7BF /* ObjectSettingAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38CC9226D626A700E4F7BF /* ObjectSettingAssembly.swift */; };
 		3D38CC9626D632C500E4F7BF /* ObjectHeaderBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D38CC9526D632C500E4F7BF /* ObjectHeaderBuilder.swift */; };
 		3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3A18292733E946000D0842 /* MarkdownListener.swift */; };
@@ -641,7 +642,7 @@
 		532D1D6127691FA100A1E4D8 /* SearchNewRelationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D1D6027691FA100A1E4D8 /* SearchNewRelationViewModel.swift */; };
 		5333421C262E249100238121 /* FloatingPanel in Frameworks */ = {isa = PBXBuildFile; productRef = 5333421B262E249100238121 /* FloatingPanel */; };
 		533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533856AF263B22B8005A06A9 /* MarkupViewController.swift */; };
-		5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */; };
+		5338E7EC25DC723D008CB97D /* KeyboardActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5338E7EB25DC723D008CB97D /* KeyboardActionHandler.swift */; };
 		533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AED8B26CC421F0018E33C /* SwiftUIFont.swift */; };
 		533AEDA026CC44920018E33C /* UIKitFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533AED9C26CC44920018E33C /* UIKitFont.swift */; };
 		534785622743D4550097CA30 /* RelationsSectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534785612743D4550097CA30 /* RelationsSectionBuilder.swift */; };
@@ -1279,7 +1280,6 @@
 		3D24912A27BD271900821595 /* EventsListenerUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsListenerUpdate.swift; sourceTree = "<group>"; };
 		3D28A46F271DAC9F009A0D48 /* HomeTabsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsHeader.swift; sourceTree = "<group>"; };
 		3D28A475271DCDF4009A0D48 /* DashboardSelectionActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSelectionActionsView.swift; sourceTree = "<group>"; };
-		3D29AFF026A5D2830095BA18 /* CustomTextViewOptions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = CustomTextViewOptions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/TextView/Models/CustomTextViewOptions.swift; sourceTree = SOURCE_ROOT; };
 		3D2D4C5A27BA54030070A4C6 /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
 		3D2D4C6227BA76270070A4C6 /* EditorRouterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorRouterProtocol.swift; sourceTree = "<group>"; };
 		3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetConstants.swift; sourceTree = "<group>"; };
@@ -1302,6 +1302,8 @@
 		3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceView.swift; sourceTree = "<group>"; };
 		3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRectCorner+Corners.swift"; sourceTree = "<group>"; };
 		3D34F20E27BE4B2300990C49 /* SettingsAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAccountView.swift; sourceTree = "<group>"; };
+		3D34F25327C3D16400990C49 /* KeyboardActionHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardActionHandlerTests.swift; sourceTree = "<group>"; };
+		3D34F25527C3D1D100990C49 /* BlockActionServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionServiceMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockActionServiceMock.swift; sourceTree = SOURCE_ROOT; };
 		3D38CC9226D626A700E4F7BF /* ObjectSettingAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingAssembly.swift; sourceTree = "<group>"; };
 		3D38CC9526D632C500E4F7BF /* ObjectHeaderBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderBuilder.swift; sourceTree = "<group>"; };
 		3D3A18292733E946000D0842 /* MarkdownListener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkdownListener.swift; sourceTree = "<group>"; };
@@ -1519,7 +1521,7 @@
 		532D1D5A2768FAE600A1E4D8 /* SearchNewRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationView.swift; sourceTree = "<group>"; };
 		532D1D6027691FA100A1E4D8 /* SearchNewRelationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationViewModel.swift; sourceTree = "<group>"; };
 		533856AF263B22B8005A06A9 /* MarkupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupViewController.swift; sourceTree = "<group>"; };
-		5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
+		5338E7EB25DC723D008CB97D /* KeyboardActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardActionHandler.swift; sourceTree = "<group>"; };
 		533AED8B26CC421F0018E33C /* SwiftUIFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIFont.swift; sourceTree = "<group>"; };
 		533AED9C26CC44920018E33C /* UIKitFont.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIKitFont.swift; sourceTree = "<group>"; };
 		534785612743D4550097CA30 /* RelationsSectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsSectionBuilder.swift; sourceTree = "<group>"; };
@@ -2154,6 +2156,8 @@
 		03C5C54122DFD90C00DD91DE /* AnytypeTests */ = {
 			isa = PBXGroup;
 			children = (
+				3D34F25227C3D14200990C49 /* Text */,
+				3DA46B65273BEB52007B7464 /* Mocks */,
 				3D7F718727A1B0BB003FE893 /* Pagination */,
 				3DB3EC8227577578002781DA /* Navigation */,
 				3DA46B5F273BEB05007B7464 /* Markdown */,
@@ -3598,7 +3602,6 @@
 		3D29AFEF26A5D2640095BA18 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3D29AFF026A5D2830095BA18 /* CustomTextViewOptions.swift */,
 				3DA7AD7D2712C7BF00EA45F6 /* CustomTextViewKeyboardAction.swift */,
 			);
 			path = Models;
@@ -3700,6 +3703,15 @@
 			);
 			path = Account;
 			sourceTree = "<group>";
+		};
+		3D34F25227C3D14200990C49 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				3D34F25327C3D16400990C49 /* KeyboardActionHandlerTests.swift */,
+			);
+			name = Text;
+			path = AnyTypeTests/Text;
+			sourceTree = SOURCE_ROOT;
 		};
 		3D36B0A526A71B4A0046C90F /* Utils */ = {
 			isa = PBXGroup;
@@ -4305,7 +4317,6 @@
 		3DA46B5F273BEB05007B7464 /* Markdown */ = {
 			isa = PBXGroup;
 			children = (
-				3DA46B65273BEB52007B7464 /* Mocks */,
 				3DA46B63273BEB1E007B7464 /* StartOfTextMarkdownTests.swift */,
 				3DCEE139273C1F8B00BC5565 /* InlineMarkdownTests.swift */,
 			);
@@ -4319,8 +4330,10 @@
 				3DA46B68273BECBB007B7464 /* BlockMarkupChangerMock.swift */,
 				3DA46B6A273BEED2007B7464 /* BlockModelMock.swift */,
 				3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */,
+				3D34F25527C3D1D100990C49 /* BlockActionServiceMock.swift */,
 			);
-			path = Mocks;
+			name = Mocks;
+			path = Markdown/Mocks;
 			sourceTree = "<group>";
 		};
 		3DA4B1B226AF48C20000F243 /* Products */ = {
@@ -4781,7 +4794,7 @@
 			isa = PBXGroup;
 			children = (
 				3D2F9C21271EAEAE0043C326 /* BlockBuilder.swift */,
-				5338E7EB25DC723D008CB97D /* TextBlockActionHandler.swift */,
+				5338E7EB25DC723D008CB97D /* KeyboardActionHandler.swift */,
 			);
 			path = TextBlockActionHandler;
 			sourceTree = "<group>";
@@ -5600,7 +5613,7 @@
 				EAAD6E0026CD436F005CE1E7 /* BlockMarkupChanger.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
 				3DB1CA5F272BF43F000D2779 /* DashboardWallpaper.swift in Sources */,
-				5338E7EC25DC723D008CB97D /* TextBlockActionHandler.swift in Sources */,
+				5338E7EC25DC723D008CB97D /* KeyboardActionHandler.swift in Sources */,
 				539E01922757CD0600067A24 /* SlashActionRelations.swift in Sources */,
 				3D3A9C3F265BC9AC000F07DB /* Publisher+Sink.swift in Sources */,
 				120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */,
@@ -5694,7 +5707,6 @@
 				12426A1626DCE1B900693B1F /* ImageBuilderProtocol.swift in Sources */,
 				EA57F37A26B740D5007D4292 /* UIFontExtension.swift in Sources */,
 				3DB9810E274FB82500ECC882 /* DashboardKeychainReminderAlert.swift in Sources */,
-				3D29AFF126A5D2830095BA18 /* CustomTextViewOptions.swift in Sources */,
 				3D3D894D2678D08E008C2B26 /* ViewModifiers.swift in Sources */,
 				3DB1CA0927293041000D2779 /* Amplitude+Events.swift in Sources */,
 				3D24911827BD270700821595 /* BlockModelChildrenProvider.swift in Sources */,
@@ -6364,6 +6376,8 @@
 				3D7F718927A1B0D4003FE893 /* EditorSetMarkdownHelpertests.swift in Sources */,
 				EA2640E526C40DEA006071BD /* AttributedStringConverterTests.swift in Sources */,
 				3DA46B6B273BEED2007B7464 /* BlockModelMock.swift in Sources */,
+				3D34F25627C3D1D100990C49 /* BlockActionServiceMock.swift in Sources */,
+				3D34F25427C3D16400990C49 /* KeyboardActionHandlerTests.swift in Sources */,
 				3DCEE13A273C1F8B00BC5565 /* InlineMarkdownTests.swift in Sources */,
 				EA26404126BC05F3006071BD /* MarkStyleModifierTests.swift in Sources */,
 				3DA46B67273BEB60007B7464 /* BlockActionHandlerMock.swift in Sources */,

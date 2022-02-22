@@ -2,47 +2,55 @@ import BlocksModels
 import Combine
 import AnytypeCore
 import Foundation
+import ProtobufMessages
 
 protocol KeyboardActionHandlerProtocol {
-    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, newString: NSAttributedString)
+    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction)
 }
 
 final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     
     private let service: BlockActionServiceProtocol
-
-    init(service: BlockActionServiceProtocol) {
+    private let toggleStorage: ToggleStorage
+    
+    init(
+        service: BlockActionServiceProtocol,
+        toggleStorage: ToggleStorage
+    ) {
         self.service = service
+        self.toggleStorage = toggleStorage
     }
 
-    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction, newString: NSAttributedString) {
+    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction) {
         guard case let .text(text) = info.content else {
             anytypeAssertionFailure("Only text block may send keyboard action", domain: .textBlockActionHandler)
             return
         }
         
         switch action {
-        case let .enterInsideContent(position):
-            let type = text.contentType.contentTypeForSplit
-            service.split(info: info, position: position, newBlockContentType: type, attributedString: newString)
-            
-        case let .enterAtTheBeginingOfContent(payload):
-            guard payload.isNotEmpty else {
-                #warning("Fix it in TextView API.")
-                /// If payload is empty, so, handle it as .enter ( or .enter at the end )
-                handle(info: info, action: .enterAtTheEndOfContent, newString: newString)
-                return
-            }
+        case let .enterInsideContent(string, position):
+            service.split(
+                string,
+                blockId: info.id,
+                mode: splitMode(info: info),
+                position: position,
+                newBlockContentType: text.contentType.contentTypeForSplit
+            )
 
-            let type = text.contentType.contentTypeForSplit
-            service.split(info: info, position: 0, newBlockContentType: type, attributedString: newString)
+        case .enterAtTheBeginingOfContent(let string):
+            service.split(
+                string,
+                blockId: info.id,
+                mode: splitMode(info: info),
+                position: 0,
+                newBlockContentType: text.contentType.contentTypeForSplit
+            )
 
-        case .enterAtTheEndOfContent:
-            onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: newString)
+        case .enterAtTheEndOfContent(let string):
+            onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: string)
 
         case .deleteAtTheBeginingOfContent:
-            guard text.contentType != .description else { return }
-
+            guard text.delitable else { return }
             service.merge(secondBlockId: info.id)
 
         case .deleteOnEmptyContent:
@@ -67,6 +75,15 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             return
         }
         
+        onEnterAtTheEndOfNonToggle(info: info, text: text, action: action, newString: newString)
+    }
+    
+    private func onEnterAtTheEndOfNonToggle(
+        info: BlockInformation,
+        text: BlockText,
+        action: CustomTextView.KeyboardAction,
+        newString: NSAttributedString
+    ) {
         guard let newBlock = BlockBuilder.createInformation(info: info) else { return }
         
         if info.childrenIds.isNotEmpty && text.contentType.isList {
@@ -80,10 +97,11 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             let type = text.contentType.isList ? text.contentType : .text
 
             service.split(
-                info: info,
+                newString,
+                blockId: info.id,
+                mode: splitMode(info: info),
                 position: newString.string.count,
-                newBlockContentType: type,
-                attributedString: newString
+                newBlockContentType: type
             )
         }
     }
@@ -94,14 +112,15 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         action: CustomTextView.KeyboardAction,
         newString: NSAttributedString
     ) {
-        guard UserSession.shared.isToggled(blockId: info.id) else {
+        guard toggleStorage.isToggled(blockId: info.id) else {
             let type = text.contentType.isList ? text.contentType : .text
 
             service.split(
-                info: info,
+                newString,
+                blockId: info.id,
+                mode: splitMode(info: info),
                 position: newString.string.count,
-                newBlockContentType: type,
-                attributedString: newString
+                newBlockContentType: type
             )
             return
         }
@@ -111,18 +130,32 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.addChild(info: newBlock, parentId: info.id)
         } else {
             let firstChildId = info.childrenIds[0]
-            service.add(
-                info: newBlock,
-                targetBlockId: firstChildId,
-                position: .top
-            )
+            service.add(info: newBlock, targetBlockId: firstChildId, position: .top)
         }
     }
 }
 
-extension BlockText.Style {
+
+// MARK: - Extensions
+private extension BlockText.Style {
     // We do want to create regular text block when splitting title block
     var contentTypeForSplit: BlockText.Style {
         self == .title ? .text : self
+    }
+}
+
+private extension KeyboardActionHandler {
+    func splitMode(info: BlockInformation) -> Anytype_Rpc.Block.Split.Request.Mode {
+        if info.content.isToggle {
+            return toggleStorage.isToggled(blockId: info.id) ? .inner : .bottom
+        } else {
+            return info.childrenIds.isNotEmpty ? .inner : .bottom
+        }
+    }
+}
+
+private extension BlockText {
+    var delitable: Bool {
+        contentType != .description
     }
 }
