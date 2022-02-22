@@ -23,7 +23,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info()
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterInsideContent(position: 0), newString: .init(string: ""))
+        handler.handle(info: info, action: .enterInsideContent(string: .init(string: ""), position: 0))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
     }
