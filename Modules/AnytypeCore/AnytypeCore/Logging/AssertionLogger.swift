@@ -49,7 +49,7 @@ public enum ErrorDomain: String {
     case anytypeColor
     case mergedArray
     
-    case textBlockActionHandler
+    case keyboardActionHandler
     case blockActionsService
     case objectActionsService
     case keyboardListner

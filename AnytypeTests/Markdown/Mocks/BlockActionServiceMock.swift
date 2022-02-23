@@ -63,12 +63,26 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     var addInfo: BlockInformation?
     var addTargetBlockId: BlockId?
     var addPosition: BlockPosition?
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition) {
+    var addSetFocus: Bool?
+    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
         if addStub {
             addNumberOfCalls += 1
             addInfo = info
             addTargetBlockId = targetBlockId
             addPosition = position
+            addSetFocus = setFocus
+        } else {
+            assertionFailure()
+        }
+    }
+    
+    var deleteStub = false
+    var deleteNumberOfCalls = 0
+    var deleteBlockId: BlockId?
+    func delete(blockId: BlockId) {
+        if deleteStub {
+            deleteNumberOfCalls += 1
+            deleteBlockId = blockId
         } else {
             assertionFailure()
         }
@@ -81,10 +95,6 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     func turnIntoPage(blockId: BlockId) -> BlockId? {
         assertionFailure()
         return nil
-    }
-    
-    func delete(blockId: BlockId) {
-        assertionFailure()
     }
     
     func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId? {

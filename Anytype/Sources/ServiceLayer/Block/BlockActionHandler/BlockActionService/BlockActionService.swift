@@ -40,11 +40,13 @@ final class BlockActionService: BlockActionServiceProtocol {
         add(info: info, targetBlockId: parentId, position: .inner)
     }
 
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition) {
+    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
         guard let blockId = singleService
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
-
-        cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+        
+        if setFocus {
+            cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+        }
     }
 
     func split(

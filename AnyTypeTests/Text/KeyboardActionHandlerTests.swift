@@ -261,17 +261,6 @@ class KeyboardActionHandlerTests: XCTestCase {
         XCTAssertEqual(service.splitData!.string, .init(string: "123"))
     }
 
-    func test_enterAtTheEnd_empty_bulleted() throws {
-        let info = info(style: .bulleted)
-        service.turnIntoStub = true
-        
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "")))
-        
-        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
-        XCTAssertEqual(service.turnIntoStyle!, .text)
-        XCTAssertEqual(service.turnIntoBlockId, "id")
-    }
-
     func test_enterAtTheEnd_bulleted_with_children() throws {
         let info = info(style: .bulleted, hasChild: true)
         service.addStub = true
@@ -283,17 +272,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         XCTAssertEqual(service.addInfo!, childInfo)
         XCTAssertEqual(service.addTargetBlockId, "childrenId")
         XCTAssertEqual(service.addPosition, .top)
-    }
-
-    func test_enterAtTheEnd_empty_bulleted_with_children() throws {
-        let info = info(style: .bulleted, hasChild: true)
-        service.turnIntoStub = true
-        
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "")))
-        
-        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
-        XCTAssertEqual(service.turnIntoStyle!, .text)
-        XCTAssertEqual(service.turnIntoBlockId, "id")
+        XCTAssertEqual(service.addSetFocus, true)
     }
     
     func test_enterAtTheEnd_open_toggle() throws {
@@ -335,6 +314,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         XCTAssertEqual(service.addInfo!, childInfo)
         XCTAssertEqual(service.addTargetBlockId, "childrenId")
         XCTAssertEqual(service.addPosition, .top)
+        XCTAssertEqual(service.addSetFocus, true)
     }
 
     func test_enterAtTheEnd_closed_toggle_with_children() throws {
@@ -351,50 +331,111 @@ class KeyboardActionHandlerTests: XCTestCase {
         XCTAssertEqual(service.splitData!.string, .init(string: "123"))
     }
     
-    func test_enterAtTheEnd_empty_open_toggle() throws {
+    // MARK: - enterOnEmpty
+    func test_enterOnEmpty_text() throws {
+        let info = info(style: .text)
+        service.addStub = true
+
+        handler.handle(info: info, action: .enterForEmpty)
+
+        XCTAssertEqual(service.addNumberOfCalls, 1)
+        XCTAssertEqual(service.addInfo!, .emptyText)
+        XCTAssertEqual(service.addSetFocus, false)
+        XCTAssertEqual(service.addPosition, .top)
+        XCTAssertEqual(service.addTargetBlockId, "id")
+    }
+    
+    func test_enterOnEmpty_text_with_children() throws {
+        let info = info(style: .text, hasChild: true)
+        service.addStub = true
+
+        handler.handle(info: info, action: .enterForEmpty)
+
+        XCTAssertEqual(service.addNumberOfCalls, 1)
+        XCTAssertEqual(service.addInfo!, .emptyText)
+        XCTAssertEqual(service.addSetFocus, false)
+        XCTAssertEqual(service.addPosition, .top)
+        XCTAssertEqual(service.addTargetBlockId, "id")
+    }
+    
+    func test_enterOnEmpty_bulleted() throws {
+        let info = info(style: .bulleted)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, action: .enterForEmpty)
+
+        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
+        XCTAssertEqual(service.turnIntoStyle!, .text)
+        XCTAssertEqual(service.turnIntoBlockId, "id")
+    }
+
+    func test_enterOnEmpty_bulleted_with_children() throws {
+        let info = info(style: .bulleted, hasChild: true)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, action: .enterForEmpty)
+
+        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
+        XCTAssertEqual(service.turnIntoStyle!, .text)
+        XCTAssertEqual(service.turnIntoBlockId, "id")
+    }
+
+    func test_enterOnEmpty_open_toggle() throws {
         toggleStorage.toggle(blockId: "id")
         let info = info(style: .toggle)
         service.turnIntoStub = true
-        
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "")))
-        
+
+        handler.handle(info: info, action: .enterForEmpty)
+
         XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
         XCTAssertEqual(service.turnIntoStyle!, .text)
         XCTAssertEqual(service.turnIntoBlockId, "id")
     }
-    
-    func test_enterAtTheEnd_empty_closed_toggle() throws {
+
+    func test_enterOnEmpty_closed_toggle() throws {
         let info = info(style: .toggle)
         service.turnIntoStub = true
-        
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "")))
-        
+
+        handler.handle(info: info, action: .enterForEmpty)
+
         XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
         XCTAssertEqual(service.turnIntoStyle!, .text)
         XCTAssertEqual(service.turnIntoBlockId, "id")
     }
-    
-    func test_enterAtTheEnd_empty_open_toggle_with_children() throws {
+
+    func test_enterOnEmpty_open_toggle_with_children() throws {
         toggleStorage.toggle(blockId: "id")
         let info = info(style: .toggle, hasChild: true)
         service.turnIntoStub = true
-        
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "")))
-        
+
+        handler.handle(info: info, action: .enterForEmpty)
+
+        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
+        XCTAssertEqual(service.turnIntoStyle!, .text)
+        XCTAssertEqual(service.turnIntoBlockId, "id")
+    }
+
+    func test_enterOnEmpty_closed_toggle_with_children() throws {
+        let info = info(style: .toggle, hasChild: true)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, action: .enterForEmpty)
+
         XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
         XCTAssertEqual(service.turnIntoStyle!, .text)
         XCTAssertEqual(service.turnIntoBlockId, "id")
     }
     
-    func test_enterAtTheEnd_empty_closed_toggle_with_children() throws {
-        let info = info(style: .toggle, hasChild: true)
-        service.turnIntoStub = true
-        
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "")))
-        
-        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
-        XCTAssertEqual(service.turnIntoStyle!, .text)
-        XCTAssertEqual(service.turnIntoBlockId, "id")
+    // MARK: - deleteForEmpty
+    
+    func test_deleteForEmpty() throws {
+        let info = info(style: .text)
+        service.deleteStub = true
+
+        handler.handle(info: info, action: .deleteForEmpty)
+
+        XCTAssertEqual(service.deleteNumberOfCalls, 1)
+        XCTAssertEqual(service.deleteBlockId, "id")
     }
     
     // MARK: - Private
