@@ -5,29 +5,71 @@ struct LinkToObjectSearchData: SearchDataProtocol {
     let id = UUID()
 
     let searchKind: LinkToObjectSearchViewModel.SearchKind
-    let searchTitle: String
+    
+    let title: String
     let description: String
-    let iconImage: ObjectIconImage
     let callout: String
+    
+    let iconImage: ObjectIconImage
+    
     let viewType: EditorViewType
 
+    init(details: ObjectDetails) {
+        self.searchKind = .object(details.id)
+        self.title = details.title
+        self.description = details.description
+        self.callout = details.objectType.name
 
+        if details.layout == .todo {
+            self.iconImage = .todo(details.isDone)
+        } else {
+            self.iconImage = details.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
+        }
+        
+        self.viewType = details.editorViewType
+    }
+
+    init(searchKind: LinkToObjectSearchViewModel.SearchKind, searchTitle: String, iconImage: ObjectIconImage) {
+        self.searchKind = searchKind
+        self.title = searchTitle
+        self.iconImage = iconImage
+        self.description = ""
+        self.callout = ""
+        self.viewType = .page
+    }
+    
+}
+
+extension LinkToObjectSearchData {
+    
     var shouldShowDescription: Bool {
         switch searchKind {
-        case .object: return true
+        case .object: return description.isNotEmpty
         case .web, .createObject: return false
         }
+    }
+    
+    var descriptionTextColor: Color {
+        .textPrimary
+    }
+    
+    var descriptionFont: AnytypeFont {
+        .relation3Regular
     }
 
     var shouldShowCallout: Bool {
         switch searchKind {
-        case .object: return true
+        case .object: return callout.isNotEmpty
         case .web, .createObject: return false
         }
     }
-
-    var descriptionTextColor: Color {
-        return .textPrimary
+    
+    var calloutFont: AnytypeFont {
+        .relation3Regular
+    }
+    
+    var verticalInset: CGFloat {
+        20
     }
 
     var usecase: ObjectIconImageUsecase {
@@ -37,28 +79,4 @@ struct LinkToObjectSearchData: SearchDataProtocol {
         }
     }
     
-    init(details: ObjectDetails) {
-        self.searchKind = .object(details.id)
-        self.searchTitle = details.title
-        self.description = details.description
-        self.viewType = details.editorViewType
-
-        let layout = details.layout
-        if layout == .todo {
-            self.iconImage =  .todo(details.isDone)
-        } else {
-            self.iconImage = details.icon.flatMap { .icon($0) } ?? .placeholder(searchTitle.first)
-        }
-
-        callout = details.objectType.name
-    }
-
-    init(searchKind: LinkToObjectSearchViewModel.SearchKind, searchTitle: String, iconImage: ObjectIconImage) {
-        self.searchKind = searchKind
-        self.searchTitle = searchTitle
-        self.iconImage = iconImage
-        self.description = ""
-        self.callout = ""
-        self.viewType = .page
-    }
 }

@@ -25,16 +25,21 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
     private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer()
-            title
             
-            if data.shouldShowDescription && haveDescription {
+            AnytypeText(data.title, style: .previewTitle2Medium, color: .textPrimary)
+                .lineLimit(1)
+                .frame(height: 20)
+            
+            if data.shouldShowDescription {
                 Spacer.fixedHeight(1)
-                description
+                AnytypeText(data.description, style: data.descriptionFont, color: data.descriptionTextColor)
+                    .lineLimit(1)
             }
             
-            if data.shouldShowCallout && data.callout.isNotEmpty {
+            if data.shouldShowCallout {
                 Spacer.fixedHeight(2)
-                type
+                AnytypeText(data.callout, style: .relation2Regular, color: .textSecondary)
+                .lineLimit(1)
             }
             
             Spacer()
@@ -42,27 +47,4 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
         }
     }
     
-    private var title: some View {
-        AnytypeText(data.searchTitle, style: .previewTitle2Medium, color: .textPrimary)
-            .lineLimit(1)
-            .frame(height: 20)
-    }
-    
-    private var description: some View {
-        AnytypeText(data.description, style: .relation3Regular, color: data.descriptionTextColor)
-            .lineLimit(1)
-    }
-    
-    private var type: some View {
-        AnytypeText(
-            data.callout,
-            style: haveDescription ? .relation3Regular : .relation2Regular,
-            color: .textSecondary
-        )
-        .lineLimit(1)
-    }
-    
-    private var haveDescription: Bool {
-        data.description.isNotEmpty
-    }
 }
