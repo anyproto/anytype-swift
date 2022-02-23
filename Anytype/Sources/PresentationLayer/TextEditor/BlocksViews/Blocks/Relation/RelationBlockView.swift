@@ -10,7 +10,9 @@ final class RelationBlockView: UIView, BlockContentView {
                                                                action: nil)
 
     private let relationNameView = AnytypeLabel(style: .relation1Regular)
+    private let relationLockedView = UIImageView(image: .Relations.Icons.locked)
     private let containerView = UIView()
+    private let relationNameStack = UIStackView()
 
     // MARK: - Lifecycle
     
@@ -31,6 +33,7 @@ final class RelationBlockView: UIView, BlockContentView {
                                                    action: configuration.actionOnValue)
 
         relationNameView.setText(configuration.relation.name)
+        relationLockedView.isHidden = configuration.relation.isEditable
 
         containerView.addSubview(relationValueView) {
             $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: LayoutConstants.topBottomInset,
@@ -44,6 +47,18 @@ final class RelationBlockView: UIView, BlockContentView {
     // MARK: - Setup view
 
     private func setupLayout() {
+        relationNameStack.axis = .horizontal
+        relationNameStack.spacing = 6
+        relationNameStack.alignment = .center
+
+        relationNameStack.addArrangedSubview(relationLockedView)
+        relationNameStack.addArrangedSubview(relationNameView)
+
+        relationLockedView.layoutUsing.anchors {
+            $0.width.equal(to: 10)
+            $0.height.equal(to: 13)
+        }
+
         relationNameView.textColor = .textSecondary
 
         addSubview(containerView) {
@@ -52,7 +67,7 @@ final class RelationBlockView: UIView, BlockContentView {
                                                    bottom: 0,
                                                    right: -20))
         }
-        containerView.addSubview(relationNameView) {
+        containerView.addSubview(relationNameStack) {
             $0.top.equal(to: containerView.topAnchor, constant: LayoutConstants.topBottomInset)
             $0.leading.equal(to: containerView.leadingAnchor)
             $0.width.equal(to: containerView.widthAnchor, multiplier: 0.4)
@@ -62,7 +77,7 @@ final class RelationBlockView: UIView, BlockContentView {
                                                                        left: 0,
                                                                        bottom: -LayoutConstants.topBottomInset,
                                                                        right: 0))
-            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
+            $0.leading.equal(to: relationNameStack.trailingAnchor, constant: 2)
         }
     }
 
