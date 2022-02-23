@@ -61,8 +61,6 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
                                     shouldShowDescription: searchData.shouldShowDescription
                                 )
                             }
-                            .frame(maxWidth: .infinity)
-                            .divider(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading)
                         }
                     }, header: {
                         if section.sectionName.isNotEmpty {

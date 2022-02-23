@@ -2,7 +2,6 @@ import SwiftUI
 import AnytypeCore
 import BlocksModels
 
-
 struct SearchCell<SearchData: SearchDataProtocol>: View {
     let data: SearchData
     let descriptionTextColor: Color
@@ -11,46 +10,49 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
-            SwiftUIObjectIconImageView(
-                iconImage: data.iconImage,
-                usecase: data.usecase
-            ).frame(width: 48, height: 48)
+            icon
             Spacer.fixedWidth(12)
-            text
+            content
             Spacer()
         }
         .frame(height: 68)
         .padding(.horizontal, 16)
     }
     
-    private var text: some View {
+    private var icon: some View {
+        SwiftUIObjectIconImageView(iconImage: data.iconImage, usecase: data.usecase)
+            .frame(width: 48, height: 48)
+    }
+    
+    private var content: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Spacer.fixedHeight(haveDescription ? 7 : 14)
-            AnytypeText(data.searchTitle, style: .previewTitle2Medium, color: .textPrimary)
-                .lineLimit(1)
-            Spacer.fixedHeight(1)
-            description
-            if shouldShowCallout {
+            Spacer()
+            title
+            
+            if shouldShowDescription && haveDescription {
+                Spacer.fixedHeight(1)
+                description
+            }
+            
+            if shouldShowCallout && data.callout.isNotEmpty {
+                Spacer.fixedHeight(2)
                 type
             }
-            Spacer.fixedHeight(haveDescription ? 7 : 14)
+            
+            Spacer()
+            AnytypeDivider()
         }
     }
     
+    private var title: some View {
+        AnytypeText(data.searchTitle, style: .previewTitle2Medium, color: .textPrimary)
+            .lineLimit(1)
+            .frame(height: 20)
+    }
+    
     private var description: some View {
-        Group {
-            if let descriptionText = data.description, !descriptionText.isEmpty {
-                AnytypeText(
-                    descriptionText,
-                    style: .relation3Regular,
-                    color: descriptionTextColor
-                )
-                    .lineLimit(1)
-                Spacer.fixedHeight(2)
-            } else {
-                EmptyView()
-            }
-        }
+        AnytypeText(data.description, style: .relation3Regular, color: descriptionTextColor)
+            .lineLimit(1)
     }
     
     private var type: some View {
