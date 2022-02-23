@@ -334,15 +334,16 @@ class KeyboardActionHandlerTests: XCTestCase {
     // MARK: - enterOnEmpty
     func test_enterOnEmpty_text() throws {
         let info = info(style: .text)
-        service.addStub = true
+        service.splitStub = true
 
         handler.handle(info: info, action: .enterForEmpty)
 
-        XCTAssertEqual(service.addNumberOfCalls, 1)
-        XCTAssertEqual(service.addInfo!, .emptyText)
-        XCTAssertEqual(service.addSetFocus, false)
-        XCTAssertEqual(service.addPosition, .top)
-        XCTAssertEqual(service.addTargetBlockId, "id")
+        XCTAssertEqual(service.splitNumberOfCalls, 1)
+        XCTAssertEqual(service.splitData!.position, 0)
+        XCTAssertEqual(service.splitData!.newBlockContentType, .text)
+        XCTAssertEqual(service.splitData!.blockId, "id")
+        XCTAssertEqual(service.splitData!.mode, .bottom)
+        XCTAssertEqual(service.splitData!.string, .init(string: ""))
     }
     
     func test_enterOnEmpty_text_with_children() throws {
