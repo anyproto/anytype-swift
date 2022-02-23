@@ -5,14 +5,10 @@ struct ObjectIconImageModel {
     let usecase: ObjectIconImageUsecase
     
     var imageGuideline: ImageGuideline? {
-        self.usecase.objectIconImageGuidelineSet.imageGuideline(
-            for: self.iconImage
-        )
+        usecase.objectIconImageGuidelineSet.imageGuideline(for: iconImage)
     }
     
     var font: UIFont? {
-        self.usecase.objectIconImageFontSet.imageFont(
-            for: self.iconImage
-        )
+        usecase.objectIconImageFontSet.imageFont(for: iconImage)
     }
 }
