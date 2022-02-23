@@ -16,6 +16,14 @@ final class CodeBlockView: UIView, BlockContentView {
         setupViews()
     }
 
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+
+        if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle {
+            textStorage.highlightr.setTheme(to: traitCollection.userInterfaceStyle.themeName)
+        }
+    }
+
     func update(with configuration: CodeBlockContentConfiguration) {
         actionHandler = configuration.actions
         applyNewConfiguration(configuration: configuration)
@@ -50,6 +58,8 @@ final class CodeBlockView: UIView, BlockContentView {
     private func applyNewConfiguration(configuration: CodeBlockContentConfiguration) {
         codeSelectButton.setText(configuration.codeLanguage.rawValue)
         textStorage.language = configuration.codeLanguage.rawValue
+        textStorage.highlightr.setTheme(to: traitCollection.userInterfaceStyle.themeName)
+    
         textStorage.highlightr.highlight(configuration.content.anytypeText.attrString.string).flatMap {
             textStorage.setAttributedString($0)
         }
@@ -66,7 +76,6 @@ final class CodeBlockView: UIView, BlockContentView {
     
     private let textStorage: CodeAttributedString = {
         let textStorage = CodeAttributedString()
-        textStorage.highlightr.setTheme(to: "github-gist")
         textStorage.highlightr.theme.boldCodeFont = .code
         
         return textStorage
@@ -115,5 +124,16 @@ extension CodeBlockView: UITextViewDelegate {
 
     func textViewDidChange(_ textView: UITextView) {
         actionHandler?.textDidChange(textView)
+    }
+}
+
+private extension UIUserInterfaceStyle {
+    var themeName: String {
+        switch self {
+        case .dark:
+            return "gruvbox-dark"
+        default:
+            return "github-gist"
+        }
     }
 }
