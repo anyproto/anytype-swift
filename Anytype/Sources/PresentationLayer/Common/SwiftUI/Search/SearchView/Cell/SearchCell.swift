@@ -3,10 +3,8 @@ import AnytypeCore
 import BlocksModels
 
 struct SearchCell<SearchData: SearchDataProtocol>: View {
+    
     let data: SearchData
-    let descriptionTextColor: Color
-    let shouldShowCallout: Bool
-    let shouldShowDescription: Bool
 
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
@@ -29,12 +27,12 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
             Spacer()
             title
             
-            if shouldShowDescription && haveDescription {
+            if data.shouldShowDescription && haveDescription {
                 Spacer.fixedHeight(1)
                 description
             }
             
-            if shouldShowCallout && data.callout.isNotEmpty {
+            if data.shouldShowCallout && data.callout.isNotEmpty {
                 Spacer.fixedHeight(2)
                 type
             }
@@ -51,7 +49,7 @@ struct SearchCell<SearchData: SearchDataProtocol>: View {
     }
     
     private var description: some View {
-        AnytypeText(data.description, style: .relation3Regular, color: descriptionTextColor)
+        AnytypeText(data.description, style: .relation3Regular, color: data.descriptionTextColor)
             .lineLimit(1)
     }
     

@@ -12,8 +12,6 @@ protocol SearchDataProtocol: Identifiable {
     var shouldShowDescription: Bool { get }
     var shouldShowCallout: Bool { get }
     var descriptionTextColor: Color { get }
-    
-    var viewType: EditorViewType { get }
 }
 
 struct SearchDataSection<SearchData: SearchDataProtocol>: Identifiable {
