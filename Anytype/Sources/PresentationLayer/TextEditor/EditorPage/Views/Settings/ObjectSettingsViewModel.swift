@@ -95,7 +95,7 @@ extension ObjectSettingsViewModel {
         case .todo:
             return ObjectSetting.allCases.filter { $0 != .icon }
         case .note:
-            return [.layout]
+            return [.layout, .relations]
         case .set:
             return ObjectSetting.allCases
         }
