@@ -67,6 +67,16 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue(domain: .objectActionsService)
         
         guard let response = response else { return nil}
+
+        let type = details.first(applying: { item -> String? in
+            if case let .type(type) = item {
+                return type.rawValue
+            }
+            return nil
+        })
+
+        Amplitude.instance().logCreateObject(objectType: type ?? "")
+
         EventsBunch(event: response.event).send()
         return response.targetID
     }
@@ -101,6 +111,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
+        Amplitude.instance().logCreateObject(objectType: objectType)
+
         return Anytype_Rpc.BlockList.ConvertChildrenToPages.Service
             .invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType)
             .map { $0.linkIds }
