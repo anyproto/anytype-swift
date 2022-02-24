@@ -81,7 +81,7 @@ private extension BlockLinkView {
         contentView.addSubview(deletedLabel) {
             $0.pinToSuperview(excluding: [.left, .right])
             $0.trailing.equal(to: contentView.trailingAnchor)
-            $0.leading.equal(to: textView.trailingAnchor)
+            $0.leading.greaterThanOrEqual(to: textView.trailingAnchor)
         }
     }
     
