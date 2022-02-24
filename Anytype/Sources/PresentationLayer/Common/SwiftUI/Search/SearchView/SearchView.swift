@@ -54,15 +54,8 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
                                     Amplitude.instance().logSearchResult(index: index + 1, length: searchText.count)
                                 }
                             ) {
-                                SearchCell(
-                                    data: searchData,
-                                    descriptionTextColor: searchData.descriptionTextColor,
-                                    shouldShowCallout: searchData.shouldShowCallout,
-                                    shouldShowDescription: searchData.shouldShowDescription
-                                )
+                                SearchCell(data: searchData)
                             }
-                            .frame(maxWidth: .infinity)
-                            .divider(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading)
                         }
                     }, header: {
                         if section.sectionName.isNotEmpty {

@@ -10,7 +10,7 @@ struct AnytypeTextField: View {
     var body: some View {
         ZStack(alignment: .leading) {
             if text.isEmpty {
-                AnytypeText(placeholder, style: .uxBodyRegular, color: .red)
+                AnytypeText(placeholder, style: .uxBodyRegular, color: .buttonActive)
             }
             TextField("", text: $text)
                 .foregroundColor(.textPrimary)
