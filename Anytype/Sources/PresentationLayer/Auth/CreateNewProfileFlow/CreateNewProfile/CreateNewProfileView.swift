@@ -50,7 +50,7 @@ struct CreateNewProfileView: View {
             }
             Spacer.fixedHeight(6)
             
-            AutofocusedTextField(title: "", text: $signUpData.userName)
+            AutofocusedTextField(placeholder: "", text: $signUpData.userName)
                 .foregroundColor(.textPrimary)
                 .font(AnytypeFontBuilder.font(anytypeFont: .heading))
                 .placeholder(when: signUpData.userName.isEmpty) {
