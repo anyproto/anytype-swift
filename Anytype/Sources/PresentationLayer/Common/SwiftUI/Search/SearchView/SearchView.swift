@@ -15,7 +15,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: title)
-            SearchBar(text: $searchText, focused: true, placeholder: "Paste link or search objects".localized)
+            SearchBar(text: $searchText, focused: true, placeholder: viewModel.placeholder)
             content
         }
         .background(Color.backgroundSecondary)

@@ -33,6 +33,7 @@ protocol SearchViewModelProtocol: ObservableObject, Dismissible {
     associatedtype SearchDataType: SearchDataProtocol
 
     var searchData: [SearchDataSection<SearchDataType>] { get }
+    var placeholder: String { get }
     var onSelect: (SearchDataType) -> () { get }
     var onDismiss: () -> () { get set }
 

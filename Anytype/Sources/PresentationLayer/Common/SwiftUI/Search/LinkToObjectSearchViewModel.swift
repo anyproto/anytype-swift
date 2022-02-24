@@ -21,6 +21,10 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     var onSelect: (SearchDataType) -> ()
     var onDismiss: () -> () = { }
 
+    var placeholder: String {
+        return "Paste link or search objects".localized
+    }
+
     func search(text: String) {
         searchData.removeAll()
 
