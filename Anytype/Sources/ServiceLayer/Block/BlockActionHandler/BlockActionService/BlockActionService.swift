@@ -90,9 +90,6 @@ final class BlockActionService: BlockActionServiceProtocol {
             templateId: ""
         ) else { return nil }
 
-        #warning("replace with CreateObject")
-//        Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
-
         return newBlockId
     }
 
