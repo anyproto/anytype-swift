@@ -23,8 +23,6 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     
     private let stateManager = BrowserNavigationManager()
     
-    private let navbarHeight: CGFloat = 48
-
     init() {
         super.init(nibName: nil, bundle: nil)
     }
@@ -34,14 +32,13 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         
         view.addSubview(navigationView) {
             $0.pinToSuperviewPreservingReadability(excluding: [.top, .bottom])
-            navigationViewBottomConstaint = $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
-            $0.height.equal(to: navbarHeight)
+            navigationViewBottomConstaint = $0.bottom.equal(to: view.bottomAnchor)
         }
 
         embedChild(childNavigation, into: view)
         childNavigation.view.layoutUsing.anchors {
             $0.pinToSuperviewPreservingReadability(excluding: [.bottom])
-            $0.bottom.equal(to: view.safeAreaLayoutGuide.bottomAnchor)
+            $0.bottom.equal(to: view.bottomAnchor)
         }
 
         view.bringSubviewToFront(navigationView)
@@ -155,7 +152,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     }
 
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
-        navigationViewBottomConstaint?.constant = isHidden ? view.safeAreaInsets.bottom + navbarHeight : 0
+        navigationViewBottomConstaint?.constant = isHidden ? view.safeAreaInsets.bottom + EditorBottomNavigationView.Constants.height : 0
         
         UIView.animate(
             withDuration: animated ? 0.3 : 0,
