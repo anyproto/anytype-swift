@@ -9,7 +9,7 @@ protocol BlockActionServiceProtocol {
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     func turnIntoPage(blockId: BlockId) -> BlockId?
     
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition)
+    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool)
     func addChild(info: BlockInformation, parentId: BlockId)
     
     func delete(blockId: BlockId)
@@ -47,4 +47,10 @@ protocol BlockActionServiceProtocol {
         position: BlockPosition,
         url: String
     )
+}
+
+extension BlockActionServiceProtocol {
+    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition) {
+        add(info: info, targetBlockId: targetBlockId, position: position, setFocus: true)
+    }
 }

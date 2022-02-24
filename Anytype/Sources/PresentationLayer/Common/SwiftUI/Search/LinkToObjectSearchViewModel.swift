@@ -48,7 +48,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
             objectData?.insert(createObjectData, at: 0)
         }
 
-        searchData.append(SearchDataSection(searchData: objectData ?? [], sectionName: text.isNotEmpty ? "Objects".localized : ""))
+        searchData.append(SearchDataSection(searchData: objectData ?? [], sectionName: "Objects".localized))
     }
 
     init(onSelect: @escaping (SearchDataType) -> ()) {

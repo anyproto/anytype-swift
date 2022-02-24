@@ -30,30 +30,71 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         }
     }
     
-    
-    func upload(blockId: BlockId, filePath: String) {
-        assertionFailure()
+    var turnIntoStub = false
+    var turnIntoNumberOfCalls = 0
+    var turnIntoStyle: BlockText.Style?
+    var turnIntoBlockId: BlockId?
+    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+        if turnIntoStub {
+            turnIntoNumberOfCalls += 1
+            turnIntoStyle = style
+            turnIntoBlockId = blockId
+        } else {
+            assertionFailure()
+        }
     }
     
-    func turnInto(_ style: BlockText.Style, blockId: BlockId) {
+    var addChildStub = false
+    var addChildNumberOfCalls = 0
+    var addChildInfo: BlockInformation?
+    var addChildParentId: BlockId?
+    func addChild(info: BlockInformation, parentId: BlockId) {
+        if addChildStub {
+            addChildNumberOfCalls += 1
+            addChildInfo = info
+            addChildParentId = parentId
+        } else {
+            assertionFailure()
+        }
+    }
+    
+    var addStub = false
+    var addNumberOfCalls = 0
+    var addInfo: BlockInformation?
+    var addTargetBlockId: BlockId?
+    var addPosition: BlockPosition?
+    var addSetFocus: Bool?
+    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
+        if addStub {
+            addNumberOfCalls += 1
+            addInfo = info
+            addTargetBlockId = targetBlockId
+            addPosition = position
+            addSetFocus = setFocus
+        } else {
+            assertionFailure()
+        }
+    }
+    
+    var deleteStub = false
+    var deleteNumberOfCalls = 0
+    var deleteBlockId: BlockId?
+    func delete(blockId: BlockId) {
+        if deleteStub {
+            deleteNumberOfCalls += 1
+            deleteBlockId = blockId
+        } else {
+            assertionFailure()
+        }
+    }
+    
+    func upload(blockId: BlockId, filePath: String) {
         assertionFailure()
     }
     
     func turnIntoPage(blockId: BlockId) -> BlockId? {
         assertionFailure()
         return nil
-    }
-    
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition) {
-        assertionFailure()
-    }
-    
-    func addChild(info: BlockInformation, parentId: BlockId) {
-        assertionFailure()
-    }
-    
-    func delete(blockId: BlockId) {
-        assertionFailure()
     }
     
     func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId? {

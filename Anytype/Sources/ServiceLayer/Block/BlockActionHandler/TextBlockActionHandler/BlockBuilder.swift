@@ -1,17 +1,7 @@
 import BlocksModels
 import AnytypeCore
 
-struct BlockBuilder {
-    static func createInformation(info: BlockInformation) -> BlockInformation? {
-        switch info.content {
-        case .text:
-            return createContent(info: info).flatMap { content in
-                BlockInformation.empty(content: content)
-            }
-        default: return nil
-        }
-    }
-    
+struct BlockBuilder {    
     static func createNewPageLink(targetBlockId: BlockId) -> BlockInformation {
         let content: BlockContent = .link(BlockLink(targetBlockID: targetBlockId, style: .page, fields: [:]))
         return BlockInformation.empty(content: content)
@@ -48,7 +38,6 @@ struct BlockBuilder {
             return nil
         }
     }
-    
     
     private static func createContent(info: BlockInformation) -> BlockContent? {
         switch info.content {
