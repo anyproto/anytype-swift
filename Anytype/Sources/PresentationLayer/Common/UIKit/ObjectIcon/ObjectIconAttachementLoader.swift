@@ -37,10 +37,9 @@ extension ObjectIconAttachementLoader {
         case .placeholder(let character):
             let image = stringIconImage(
                 model: model,
-
-                string: character.flatMap { String($0) } ?? "",
+                string: character.flatMap { String($0).uppercased() } ?? "",
                 textColor: UIColor.textTertiary,
-                backgroundColor: UIColor.strokePrimary
+                backgroundColor: model.usecase.placeholderBackgroundColor
             )
             setImage(image: image, processor: processor)
         case .staticImage(let name):
@@ -68,9 +67,9 @@ extension ObjectIconAttachementLoader {
             case .character(let character):
                 let image = stringIconImage(
                     model: model,
-                    string: String(character),
-                    textColor: UIColor.backgroundPrimary,
-                    backgroundColor: UIColor.strokePrimary
+                    string: String(character).uppercased(),
+                    textColor: UIColor.textWhite,
+                    backgroundColor: model.usecase.profileBackgroundColor
                 )
                 setImage(image: image, processor: customProcessor)
             }
@@ -79,7 +78,7 @@ extension ObjectIconAttachementLoader {
                 model: model,
                 string: iconEmoji.value,
                 textColor: UIColor.backgroundPrimary,
-                backgroundColor: model.usecase.backgroundColor
+                backgroundColor: model.usecase.emojiBackgroundColor
             )
             setImage(image: image, processor: customProcessor)
         }

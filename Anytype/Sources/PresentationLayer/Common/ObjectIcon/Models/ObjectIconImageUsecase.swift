@@ -19,7 +19,18 @@ enum ObjectIconImageUsecase: Equatable {
 }
 
 extension ObjectIconImageUsecase {
-    var backgroundColor: UIColor {
+    var profileBackgroundColor: UIColor {
+        switch self {
+        case .openedObject: return .strokePrimary
+        default: return .strokeSecondary
+        }
+    }
+    
+    var placeholderBackgroundColor: UIColor {
+        .strokeTransperent
+    }
+    
+    var emojiBackgroundColor: UIColor {
         switch self {
         case .openedObjectNavigationBar, .mention, .setRow:
             return .clear
