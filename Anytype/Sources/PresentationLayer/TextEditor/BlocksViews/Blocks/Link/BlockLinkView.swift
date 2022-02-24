@@ -4,6 +4,25 @@ import BlocksModels
 import Kingfisher
 
 final class BlockLinkView: UIView, BlockContentView {
+    
+    // MARK: - Views
+    
+    private let contentView = UIView()
+    private let iconContainerView = UIView()
+    
+    private let deletedLabel = DeletedLabel()
+    
+    private let textView: AnytypeLabel = {
+        let view = AnytypeLabel(style: .body)
+        view.isUserInteractionEnabled = false
+        return view
+    }()
+    
+    private var textViewLeadingToContentViewConstraint: NSLayoutConstraint?
+    private var textViewLeadingToIconViewConstraint: NSLayoutConstraint?
+    
+    // MARK: - Initializers
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -14,15 +33,25 @@ final class BlockLinkView: UIView, BlockContentView {
         setup()
     }
 
+    // MARK: - Internal functions
+    
     func update(with configuration: BlockLinkContentConfiguration) {
         apply(configuration)
     }
 
-    // MARK: - Internal functions
     func apply(_ configuration: BlockLinkContentConfiguration) {
-        iconView.removeAllSubviews()
-        iconView.addSubview(configuration.state.makeIconView()) {
-            $0.pinToSuperview()
+        iconContainerView.removeAllSubviews()
+        if let iconView = configuration.state.makeIconView() {
+            iconContainerView.addSubview(iconView) {
+                $0.pinToSuperview()
+            }
+            iconContainerView.isHidden = false
+            textViewLeadingToContentViewConstraint?.isActive = false
+            textViewLeadingToIconViewConstraint?.isActive = true
+        } else {
+            iconContainerView.isHidden = true
+            textViewLeadingToContentViewConstraint?.isActive = true
+            textViewLeadingToIconViewConstraint?.isActive = false
         }
 
         textView.setText(configuration.state.attributedTitle)
@@ -30,40 +59,33 @@ final class BlockLinkView: UIView, BlockContentView {
         deletedLabel.isHidden = !configuration.state.archived
     }
     
-    // MARK: - Private functions
+}
+
+// MARK: - Private functions
+
+private extension BlockLinkView {
     
-    private func setup() {
+    func setup() {
         addSubview(contentView) {
             $0.pinToSuperview(insets: Constants.contentInsets)
         }
         
-        contentView.addSubview(iconView) {
+        contentView.addSubview(iconContainerView) {
             $0.pinToSuperview(excluding: [.right])
         }
         contentView.addSubview(textView) {
             $0.pinToSuperview(excluding: [.left, .right])
-            $0.leading.equal(to: iconView.trailingAnchor)
+            self.textViewLeadingToContentViewConstraint = $0.leading.equal(to: contentView.leadingAnchor, activate: false)
+            self.textViewLeadingToIconViewConstraint = $0.leading.equal(to: iconContainerView.trailingAnchor, constant: 8)
         }
         contentView.addSubview(deletedLabel) {
             $0.pinToSuperview(excluding: [.left, .right])
             $0.trailing.equal(to: contentView.trailingAnchor)
-            $0.leading.equal(to: textView.trailingAnchor)
+            $0.leading.greaterThanOrEqual(to: textView.trailingAnchor)
         }
     }
     
-    // MARK: - Views
-    private let contentView = UIView()
-    private let iconView = UIView()
-    
-    private let deletedLabel = DeletedLabel()
-    
-    private let textView: AnytypeLabel = {
-        let view = AnytypeLabel(style: .body)
-        view.isUserInteractionEnabled = false
-        return view
-    }()
 }
-
 // MARK: - Constants
 
 private extension BlockLinkView {

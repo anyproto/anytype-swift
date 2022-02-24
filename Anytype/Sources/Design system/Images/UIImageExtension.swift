@@ -48,10 +48,6 @@ extension UIImage {
         static let dots = createImage("TextEditor/Divider/Dots")
     }
     
-    enum blockLink {
-        static let empty = createImage("TextEditor/Link/empty")
-    }
-    
     enum blockFile {
         static let noImage = createImage("no_image")
         

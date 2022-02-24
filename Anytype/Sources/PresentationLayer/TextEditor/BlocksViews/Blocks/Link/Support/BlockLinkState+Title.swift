@@ -19,7 +19,9 @@ extension BlockLinkState {
     private var disabledAttributes: [NSAttributedString.Key : Any] {
         [
             .font: UIFont.bodyRegular,
-            .foregroundColor: UIColor.textTertiary
+            .foregroundColor: UIColor.buttonActive,
+            .underlineStyle: NSUnderlineStyle.single.rawValue,
+            .underlineColor: UIColor.buttonInactive
         ]
     }
     
@@ -28,7 +30,7 @@ extension BlockLinkState {
             .font: UIFont.bodyRegular,
             .foregroundColor: UIColor.textPrimary,
             .underlineStyle: NSUnderlineStyle.single.rawValue,
-            .underlineColor: UIColor.textSecondary
+            .underlineColor: UIColor.buttonActive
         ]
     }
     

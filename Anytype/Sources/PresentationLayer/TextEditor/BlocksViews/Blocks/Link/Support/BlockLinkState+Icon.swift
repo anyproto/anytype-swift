@@ -4,14 +4,14 @@ import Kingfisher
 
 extension BlockLinkState {
     
-    func makeIconView() -> UIView {
+    func makeIconView() -> UIView? {
         if deleted {
             return makeIconImageView(.ghost)
         }
         
         switch style {
         case .noContent:
-            return makeIconImageView()
+            return nil
         case let .icon(icon):
             switch icon {
             case let .basic(id):
@@ -52,7 +52,6 @@ private extension BlockLinkState {
             return imageView
         }
         
-        
         let processor = KFProcessorBuilder(
             scalingType: .resizing(.aspectFill),
             targetSize: size,
@@ -79,7 +78,7 @@ private extension BlockLinkState {
         return imageView
     }
     
-    func makeIconImageView(_ image: UIImage? = UIImage.blockLink.empty ) -> UIView {
+    func makeIconImageView(_ image: UIImage?) -> UIView {
         let imageView = UIImageView(image: image)
         
         imageView.layoutUsing.anchors {
