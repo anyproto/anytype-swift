@@ -3,10 +3,11 @@ import BlocksModels
 import Kingfisher
 
 extension BlockLinkState {
-    private static let imageViewSize = CGSize(width: 24, height: 24)
     
     func makeIconView() -> UIView {
-        if deleted { return makeIconImageView(.ghost) }
+        if deleted {
+            return makeIconImageView(.ghost)
+        }
         
         switch style {
         case .noContent:
@@ -29,19 +30,23 @@ extension BlockLinkState {
         }
     }
     
-    private func makeProfileIconView(_ icon: ObjectIconType.Profile) -> UIView {
+}
+
+private extension BlockLinkState {
+    
+    func makeProfileIconView(_ icon: ObjectIconType.Profile) -> UIView {
         switch icon {
         case let .imageId(imageId):
-            return makeImageView(imageId: imageId, cornerRadius: Self.imageViewSize.width / 2)
+            return makeImageView(imageId: imageId, cornerRadius: Constants.imageViewSize.width / 2)
             
         case let .character(placeholder):
             return makePlaceholderView(placeholder)
         }
     }
     
-    private func makeImageView(imageId: BlockId, cornerRadius: CGFloat) -> UIImageView {
+    func makeImageView(imageId: BlockId, cornerRadius: CGFloat) -> UIImageView {
         let imageView = UIImageView()
-        let size = Self.imageViewSize
+        let size = Constants.imageViewSize
 
         guard let url = ImageID(id: imageId, width: size.width.asImageWidth).resolvedUrl else {
             return imageView
@@ -74,17 +79,17 @@ extension BlockLinkState {
         return imageView
     }
     
-    private func makeIconImageView(_ image: UIImage? = UIImage.blockLink.empty ) -> UIView {
+    func makeIconImageView(_ image: UIImage? = UIImage.blockLink.empty ) -> UIView {
         let imageView = UIImageView(image: image)
         
         imageView.layoutUsing.anchors {
-            $0.size(Self.imageViewSize)
+            $0.size(Constants.imageViewSize)
         }
         return imageView
     }
     
-    private func makePlaceholderView(_ placeholder: Character) -> UIView {
-        let size = Self.imageViewSize
+    func makePlaceholderView(_ placeholder: Character) -> UIView {
+        let size = Constants.imageViewSize
         let imageGuideline = ImageGuideline(
             size: size,
             cornerRadius: size.width / 2
@@ -98,13 +103,22 @@ extension BlockLinkState {
         return makeIconImageView(image)
     }
     
-    private func makeLabel(with string: String) -> UILabel {
+    func makeLabel(with string: String) -> UILabel {
         let label = UILabel()
         label.text = string
         
         label.layoutUsing.anchors {
-            $0.size(Self.imageViewSize)
+            $0.size(Constants.imageViewSize)
         }
         return label
     }
+    
+}
+
+private extension BlockLinkState {
+    
+    enum Constants {
+        static let imageViewSize = CGSize(width: 24, height: 24)
+    }
+    
 }

@@ -1,6 +1,7 @@
 import UIKit
 
 extension BlockLinkState {
+    
     var attributedTitle: NSAttributedString {
         if deleted {
             return NSAttributedString(
@@ -30,4 +31,5 @@ extension BlockLinkState {
             .underlineColor: UIColor.textSecondary
         ]
     }
+    
 }
