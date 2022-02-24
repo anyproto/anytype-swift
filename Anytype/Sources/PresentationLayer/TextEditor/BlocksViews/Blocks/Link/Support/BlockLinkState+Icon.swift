@@ -78,7 +78,7 @@ private extension BlockLinkState {
         return imageView
     }
     
-    func makeIconImageView(_ image: UIImage? = UIImage.blockLink.empty ) -> UIView {
+    func makeIconImageView(_ image: UIImage?) -> UIView {
         let imageView = UIImageView(image: image)
         
         imageView.layoutUsing.anchors {
