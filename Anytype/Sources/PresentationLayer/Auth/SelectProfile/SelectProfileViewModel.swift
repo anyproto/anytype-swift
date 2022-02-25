@@ -5,27 +5,34 @@ import ProtobufMessages
 final class SelectProfileViewModel: ObservableObject {
     
     @Published var showError: Bool = false
-    
     var errorText: String? {
         didSet {
             showError = errorText.isNotNil
         }
     }
     
+    @Published var snackBarData = SnackBarData.empty
+    
     private let authService = ServiceLocator.shared.authService()
     private let fileService = ServiceLocator.shared.fileService()
     
     private var cancellable: AnyCancellable?
     
+    private var isAccountSelected = false
+    
     func accountRecover() {
         handleAccountShowEvent()
-        
-        DispatchQueue.main.async { [weak self] in
-            guard let self = self else { return }
+        authService.accountRecover { [weak self] error in
+            guard let self = self, let error = error else { return }
             
-            if let error = self.authService.accountRecover() {
-                self.errorText = error.localizedDescription
-            }
+            self.errorText = error.localizedDescription
+            self.snackBarData = .empty
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
+            guard let self = self, !self.isAccountSelected else { return }
+            
+            self.snackBarData = .init(text: "Please give us a moment. We're almost there...".localized, showSnackBar: true)
         }
     }
     
@@ -66,10 +73,16 @@ private extension SelectProfileViewModel {
     }
     
     func selectProfile(id: String) {
-        if authService.selectAccount(id: id) {
-            showHomeView()
-        } else {
-            errorText = "Select account error".localized
+        authService.selectAccount(id: id) { [weak self] isSelected in
+            guard let self = self else { return }
+            self.isAccountSelected = true
+            self.snackBarData = .empty
+            
+            if isSelected {
+                self.showHomeView()
+            } else {
+                self.errorText = "Select account error".localized
+            }
         }
     }
     

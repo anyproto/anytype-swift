@@ -13,9 +13,17 @@ struct SelectProfileView: View {
                 ProgressView()
             }
         }
+        
+        .snackbar(
+            isShowing: $viewModel.snackBarData.showSnackBar,
+            text: AnytypeText(viewModel.snackBarData.text, style: .uxCalloutRegular, color: .textPrimary),
+            hideTimeout: 15
+        )
+        
         .errorToast(isShowing: $viewModel.showError, errorText: viewModel.errorText ?? "") {
             presentationMode.wrappedValue.dismiss()
         }
+        
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .onAppear {
