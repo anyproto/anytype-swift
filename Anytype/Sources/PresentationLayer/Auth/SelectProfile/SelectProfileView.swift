@@ -13,7 +13,7 @@ struct SelectProfileView: View {
                 ProgressView()
             }
         }
-        .errorToast(isShowing: $viewModel.showError, errorText: viewModel.error ?? "") {
+        .errorToast(isShowing: $viewModel.showError, errorText: viewModel.errorText ?? "") {
             presentationMode.wrappedValue.dismiss()
         }
         .navigationBarHidden(true)

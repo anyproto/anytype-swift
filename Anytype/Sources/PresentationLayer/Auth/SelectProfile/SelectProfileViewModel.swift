@@ -4,16 +4,13 @@ import ProtobufMessages
 
 final class SelectProfileViewModel: ObservableObject {
     
-    @Published var error: String? {
+    @Published var showError: Bool = false
+    
+    var errorText: String? {
         didSet {
-            showError = false
-            
-            if error.isNotNil {
-                showError = true
-            }
+            showError = errorText.isNotNil
         }
     }
-    @Published var showError: Bool = false
     
     private let authService = ServiceLocator.shared.authService()
     private let fileService = ServiceLocator.shared.fileService()
@@ -36,7 +33,7 @@ final class SelectProfileViewModel: ObservableObject {
         if authService.selectAccount(id: id) {
             showHomeView()
         } else {
-            self.error = "Select account error".localized
+            self.errorText = "Select account error".localized
         }
     }
     
