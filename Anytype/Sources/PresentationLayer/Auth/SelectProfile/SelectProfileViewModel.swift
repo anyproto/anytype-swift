@@ -2,56 +2,30 @@ import SwiftUI
 import Combine
 import ProtobufMessages
 
-
-class ProfileNameViewModel: ObservableObject, Identifiable {
-    var id: String
-    @Published var image: UIImage? = nil
-    @Published var color: UIColor?
-    @Published var name: String = ""
-    @Published var peers: String?
+final class SelectProfileViewModel: ObservableObject {
     
-    init(id: String) {
-        self.id = id
-    }
+    @Published var showError: Bool = false
     
-    var userIcon: UserIconView.IconType {
-        if let image = image {
-            return UserIconView.IconType.image(.image(image))
-        } else if let firstCharacter = name.first {
-            return UserIconView.IconType.placeholder(firstCharacter)
-        } else {
-            return UserIconView.IconType.placeholder(nil)
+    var errorText: String? {
+        didSet {
+            showError = errorText.isNotNil
         }
     }
-}
-
-
-class SelectProfileViewModel: ObservableObject {
-    private let authService  = ServiceLocator.shared.authService()
+    
+    private let authService = ServiceLocator.shared.authService()
     private let fileService = ServiceLocator.shared.fileService()
     
     private var cancellable: AnyCancellable?
     
-    @Published var profilesViewModels = [ProfileNameViewModel]()
-    @Published var error: String? {
-        didSet {
-            showError = false
-            
-            if error.isNotNil {
-                showError = true
-            }
-        }
-    }
-    @Published var showError: Bool = false
-    
     func accountRecover() {
+        self.handleAccountShowEvent()
         DispatchQueue.global().async { [weak self] in
-            self?.handleAccountShowEvent()
-            if let error = self?.authService.accountRecover() {
-                DispatchQueue.main.async {
-                    self?.error = error.localizedDescription
-                }
-            }
+            self?.authService.accountRecover()
+//            if let error = self?.authService.accountRecover() {
+//                DispatchQueue.main.async {
+//                    self?.error = error.localizedDescription
+//                }
+//            }
         }
     }
     
@@ -59,13 +33,17 @@ class SelectProfileViewModel: ObservableObject {
         if authService.selectAccount(id: id) {
             showHomeView()
         } else {
-            self.error = "Select account error".localized
+            self.errorText = "Select account error".localized
         }
     }
     
-    // MARK: - Private func
+}
+
+// MARK: - Private func
+
+private extension SelectProfileViewModel {
     
-    private func handleAccountShowEvent() {
+    func handleAccountShowEvent() {
         cancellable = NotificationCenter.Publisher(
             center: .default,
             name: .middlewareEvent,
@@ -76,21 +54,22 @@ class SelectProfileViewModel: ObservableObject {
             .map {
                 $0.filter { message in
                     guard let value = message.value else { return false }
-                    
-                    if case Anytype_Event.Message.OneOf_Value.accountShow = value {
-                        return true
+                    guard case Anytype_Event.Message.OneOf_Value.accountShow = value else {
+                        return false
                     }
-                    return false
+                    
+                    return true
                 }
             }
-            .filter { $0.count > 0 } 
+            .filter { $0.count > 0 }
             .receiveOnMain()
             .sink { [weak self] events in
-                guard let self = self else {
-                    return
-                }
+                guard
+                    let self = self,
+                    let event = events.first
+                else { return }
                 
-                self.selectProfile(id: events[0].accountShow.account.id)
+                self.selectProfile(id: event.accountShow.account.id)
             }
     }
     
@@ -98,4 +77,5 @@ class SelectProfileViewModel: ObservableObject {
         let homeAssembly = HomeViewAssembly()
         windowHolder?.startNewRootView(homeAssembly.createHomeView())
     }
+    
 }
