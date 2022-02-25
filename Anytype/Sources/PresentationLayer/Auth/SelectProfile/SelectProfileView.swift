@@ -3,9 +3,8 @@ import SwiftUI
 
 struct SelectProfileView: View {
     @StateObject var viewModel: SelectProfileViewModel
-    @State private var contentHeight: CGFloat = 0
     
-    @Environment(\.presentationMode) var presentationMode
+    @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
         HStack {
@@ -23,13 +22,7 @@ struct SelectProfileView: View {
             viewModel.accountRecover()
         }
     }
-    
-    private func contentHeight(proxy: GeometryProxy) -> some View {
-        DispatchQueue.main.async {
-            self.contentHeight = proxy.size.height
-        }
-        return Color.clear
-    }
+
 }
 
 struct SelectProfileView_Previews: PreviewProvider {
