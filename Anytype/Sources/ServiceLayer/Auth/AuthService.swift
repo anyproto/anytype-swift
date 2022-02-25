@@ -72,7 +72,10 @@ final class AuthService: AuthServiceProtocol {
         let result = Anytype_Rpc.Account.Recover.Service.invoke()
         switch result {
         case .success(let data):
-            return data.hasError ? AuthServiceError.recoverAccountError : nil
+            guard data.error.code == .null else {
+                return AuthServiceError.recoverAccountError
+            }
+            return nil
         case .failure:
             return AuthServiceError.recoverAccountError
         }
