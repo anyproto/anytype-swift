@@ -18,22 +18,14 @@ final class SelectProfileViewModel: ObservableObject {
     private var cancellable: AnyCancellable?
     
     func accountRecover() {
-        self.handleAccountShowEvent()
-        DispatchQueue.global().async { [weak self] in
-            self?.authService.accountRecover()
-//            if let error = self?.authService.accountRecover() {
-//                DispatchQueue.main.async {
-//                    self?.error = error.localizedDescription
-//                }
-//            }
-        }
-    }
-    
-    func selectProfile(id: String) {
-        if authService.selectAccount(id: id) {
-            showHomeView()
-        } else {
-            self.errorText = "Select account error".localized
+        handleAccountShowEvent()
+        
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            
+            if let error = self.authService.accountRecover() {
+                self.errorText = error.localizedDescription
+            }
         }
     }
     
@@ -71,6 +63,14 @@ private extension SelectProfileViewModel {
                 
                 self.selectProfile(id: event.accountShow.account.id)
             }
+    }
+    
+    func selectProfile(id: String) {
+        if authService.selectAccount(id: id) {
+            showHomeView()
+        } else {
+            errorText = "Select account error".localized
+        }
     }
     
     func showHomeView() {
