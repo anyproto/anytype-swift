@@ -2,37 +2,8 @@ import SwiftUI
 import Combine
 import ProtobufMessages
 
-
-class ProfileNameViewModel: ObservableObject, Identifiable {
-    var id: String
-    @Published var image: UIImage? = nil
-    @Published var color: UIColor?
-    @Published var name: String = ""
-    @Published var peers: String?
+final class SelectProfileViewModel: ObservableObject {
     
-    init(id: String) {
-        self.id = id
-    }
-    
-    var userIcon: UserIconView.IconType {
-        if let image = image {
-            return UserIconView.IconType.image(.image(image))
-        } else if let firstCharacter = name.first {
-            return UserIconView.IconType.placeholder(firstCharacter)
-        } else {
-            return UserIconView.IconType.placeholder(nil)
-        }
-    }
-}
-
-
-class SelectProfileViewModel: ObservableObject {
-    private let authService  = ServiceLocator.shared.authService()
-    private let fileService = ServiceLocator.shared.fileService()
-    
-    private var cancellable: AnyCancellable?
-    
-    @Published var profilesViewModels = [ProfileNameViewModel]()
     @Published var error: String? {
         didSet {
             showError = false
@@ -44,14 +15,20 @@ class SelectProfileViewModel: ObservableObject {
     }
     @Published var showError: Bool = false
     
+    private let authService = ServiceLocator.shared.authService()
+    private let fileService = ServiceLocator.shared.fileService()
+    
+    private var cancellable: AnyCancellable?
+    
     func accountRecover() {
+        self.handleAccountShowEvent()
         DispatchQueue.global().async { [weak self] in
-            self?.handleAccountShowEvent()
-            if let error = self?.authService.accountRecover() {
-                DispatchQueue.main.async {
-                    self?.error = error.localizedDescription
-                }
-            }
+            self?.authService.accountRecover()
+//            if let error = self?.authService.accountRecover() {
+//                DispatchQueue.main.async {
+//                    self?.error = error.localizedDescription
+//                }
+//            }
         }
     }
     
