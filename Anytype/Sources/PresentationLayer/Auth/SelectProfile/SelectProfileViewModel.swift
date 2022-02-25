@@ -37,9 +37,13 @@ final class SelectProfileViewModel: ObservableObject {
         }
     }
     
-    // MARK: - Private func
+}
+
+// MARK: - Private func
+
+private extension SelectProfileViewModel {
     
-    private func handleAccountShowEvent() {
+    func handleAccountShowEvent() {
         cancellable = NotificationCenter.Publisher(
             center: .default,
             name: .middlewareEvent,
@@ -50,21 +54,22 @@ final class SelectProfileViewModel: ObservableObject {
             .map {
                 $0.filter { message in
                     guard let value = message.value else { return false }
-                    
-                    if case Anytype_Event.Message.OneOf_Value.accountShow = value {
-                        return true
+                    guard case Anytype_Event.Message.OneOf_Value.accountShow = value else {
+                        return false
                     }
-                    return false
+                    
+                    return true
                 }
             }
-            .filter { $0.count > 0 } 
+            .filter { $0.count > 0 }
             .receiveOnMain()
             .sink { [weak self] events in
-                guard let self = self else {
-                    return
-                }
+                guard
+                    let self = self,
+                    let event = events.first
+                else { return }
                 
-                self.selectProfile(id: events[0].accountShow.account.id)
+                self.selectProfile(id: event.accountShow.account.id)
             }
     }
     
@@ -72,4 +77,5 @@ final class SelectProfileViewModel: ObservableObject {
         let homeAssembly = HomeViewAssembly()
         windowHolder?.startNewRootView(homeAssembly.createHomeView())
     }
+    
 }
