@@ -8,19 +8,22 @@
 
 import FloatingPanel
 import CoreGraphics
+import UIKit
 
 
 final class StylePanelLayout: FloatingPanelLayout {
-    enum Constant {
-        static let panelHeight: CGFloat = 238
+    private let layoutGuide: UILayoutGuide
+
+    init(layoutGuide: UILayoutGuide) {
+        self.layoutGuide = layoutGuide
     }
 
-    var position: FloatingPanelPosition = .bottom
-    var initialState: FloatingPanelState = .full
+    let initialState: FloatingPanelState = .full
+    let position: FloatingPanelPosition = .bottom
 
     var anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] {
         return [
-            .full: FloatingPanelLayoutAnchor(absoluteInset: Constant.panelHeight, edge: .bottom, referenceGuide: .safeArea),
+            .full: FloatingPanelAdaptiveLayoutAnchor(absoluteOffset: 0, contentLayout: layoutGuide),
         ]
     }
 }
