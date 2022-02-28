@@ -4,7 +4,7 @@ import BlocksModels
 
 struct ObjectSettingsView: View {
     
-    let viewModel: ObjectSettingsViewModel
+    @ObservedObject var viewModel: ObjectSettingsViewModel
     
     @State private var isIconPickerPresented = false
     @State private var isCoverPickerPresented = false
