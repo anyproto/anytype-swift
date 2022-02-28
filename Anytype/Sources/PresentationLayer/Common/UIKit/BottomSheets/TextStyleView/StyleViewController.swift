@@ -53,7 +53,7 @@ final class StyleViewController: UIViewController {
 
     // MARK: - Views
 
-    private let layoutGuide = UILayoutGuide()
+    let layoutGuide = UILayoutGuide()
 
     private lazy var styleCollectionView: UICollectionView = {
         var config = UICollectionViewCompositionalLayoutConfiguration()
