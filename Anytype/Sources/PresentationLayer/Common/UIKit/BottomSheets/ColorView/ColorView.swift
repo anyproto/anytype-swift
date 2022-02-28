@@ -157,6 +157,7 @@ class ColorView: UIView {
         containerView.layer.shadowColor = UIColor.shadowPrimary.cgColor
         containerView.layer.shadowOffset = CGSize(width: 0, height: 0)
         containerView.layer.shadowRadius = 40
+        containerView.layer.shadowOpacity = 1.0
 
         backgroundColor = .clear
         backdropView.backgroundColor = .clear
