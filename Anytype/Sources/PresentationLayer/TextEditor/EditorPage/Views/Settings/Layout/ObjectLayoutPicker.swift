@@ -11,6 +11,7 @@ struct ObjectLayoutPicker: View {
             TitleView(title: "Choose layout type".localized)
             layoutList
         }
+        .padding(.bottom, 44)
         .background(Color.backgroundSecondary)
     }
     
@@ -26,7 +27,6 @@ struct ObjectLayoutPicker: View {
                 )
             }
         }
-        .padding(.bottom, UIApplication.shared.mainWindowInsets.bottom)
     }
 }
 

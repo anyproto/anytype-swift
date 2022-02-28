@@ -41,7 +41,7 @@ extension ObjectLayoutPickerViewModel: AnytypePopupViewModelProtocol {
     }
     
     func makeContentView() -> UIViewController {
-        UIHostingController(rootView: ObjectLayoutPicker(viewModel: self))
+        AnytypeUIHostingViewController(rootView: ObjectLayoutPicker(viewModel: self))
     }
     
 }

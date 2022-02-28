@@ -38,7 +38,7 @@ struct ObjectSettingsView: View {
     private var settings: some View {
         VStack(spacing: 0) {
             settingsList
-            
+
             ObjectActionsView(viewModel: viewModel.objectActionsViewModel)
                 .padding(.horizontal, Constants.edgeInset)
         }
