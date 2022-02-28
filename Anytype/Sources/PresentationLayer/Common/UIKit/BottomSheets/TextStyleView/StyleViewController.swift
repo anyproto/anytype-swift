@@ -50,7 +50,10 @@ private extension StyleViewController {
 // MARK: - StyleViewController
 
 final class StyleViewController: UIViewController {
+
     // MARK: - Views
+
+    private let layoutGuide = UILayoutGuide()
 
     private lazy var styleCollectionView: UICollectionView = {
         var config = UICollectionViewCompositionalLayoutConfiguration()
@@ -82,7 +85,7 @@ final class StyleViewController: UIViewController {
 
     private var listStackView: UIStackView = {
         let listStackView = UIStackView()
-        listStackView.distribution = .equalCentering
+        listStackView.distribution = .fillEqually
         listStackView.axis = .horizontal
         listStackView.spacing = 7
         listStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -92,7 +95,7 @@ final class StyleViewController: UIViewController {
 
     private var otherStyleStackView: UIStackView = {
         let otherStyleStackView = UIStackView()
-        otherStyleStackView.distribution = .equalCentering
+        otherStyleStackView.distribution = .fillEqually
         otherStyleStackView.axis = .horizontal
         otherStyleStackView.spacing = 7
         otherStyleStackView.translatesAutoresizingMaskIntoConstraints = false
@@ -170,12 +173,27 @@ final class StyleViewController: UIViewController {
         containerStackView.addArrangedSubview(listStackView)
         containerStackView.addArrangedSubview(otherStyleStackView)
 
+        otherStyleStackView.layoutUsing.anchors {
+            $0.height.equal(to: 52)
+        }
+        listStackView.layoutUsing.anchors {
+            $0.height.equal(to: 52)
+        }
+
         view.addSubview(styleCollectionView)
         view.addSubview(containerStackView)
 
         setupListStackView()
         setupOtherStyleStackView()
         setupLayout()
+        setupLayoutGuide()
+    }
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        print(styleCollectionView.bounds)
+        print(listStackView.bounds)
     }
 
     private func setupLayout() {
@@ -183,24 +201,24 @@ final class StyleViewController: UIViewController {
             styleCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 6),
             styleCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
             styleCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            styleCollectionView.heightAnchor.constraint(equalToConstant: 48),
+            styleCollectionView.heightAnchor.constraint(equalToConstant: 52),
 
             containerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             containerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            containerStackView.topAnchor.constraint(equalTo: styleCollectionView.bottomAnchor, constant: 24),
-            containerStackView.bottomAnchor.constraint(lessThanOrEqualTo: view.bottomAnchor, constant: -20),
+            containerStackView.topAnchor.constraint(equalTo: styleCollectionView.bottomAnchor, constant: 16),
+
+            view.heightAnchor.constraint(equalToConstant: 232)
         ])
+        view.addLayoutGuide(layoutGuide)
+    }
+
+    private func setupLayoutGuide() {
+        view.addLayoutGuide(layoutGuide)
     }
 
     private func setupListStackView() {
-        let buttonSize = CGSize(width: 75, height: 52)
-
         ListItem.all.forEach { item in
             let button = ButtonsFactory.roundedBorderуButton(image: item.icon)
-
-            button.layoutUsing.anchors {
-                $0.size(buttonSize)
-            }
 
             if item.kind != self.style {
                 let isEnabled = restrictions.turnIntoStyles.contains(.text(item.kind))
@@ -209,21 +227,20 @@ final class StyleViewController: UIViewController {
             listStackView.addArrangedSubview(button)
             setupAction(for: button, with: item.kind)
         }
-        listStackView.arrangedSubviews.last?.setContentHuggingPriority(.defaultLow - 1, for: .horizontal)
     }
 
     private func setupOtherStyleStackView() {
-        let buttonSize = CGSize(width: 103, height: 52)
         let smallButtonSize = CGSize(width: 32, height: 32)
 
         let highlightedButton = ButtonsFactory.roundedBorderуButton(image: UIImage.highlightImage())
+        highlightedButton.setImageTintColor(.textSecondary, state: .disabled)
         setupAction(for: highlightedButton, with: .quote)
 
         let calloutImage = UIImage.imageWithText(
             "Callout".localized,
         textColor: .code != self.style ? .textTertiary : .textPrimary,
             backgroundColor: .backgroundSelected,
-            font: .caption1Medium,
+            font: .uxCalloutRegular,
             size: .init(width: 63, height: 28),
             cornerRadius: 6
         )
@@ -264,15 +281,6 @@ final class StyleViewController: UIViewController {
         let containerForColorAndMoreView = UIView()
 
         // setup constraints
-
-        highlightedButton.layoutUsing.anchors {
-            $0.size(buttonSize)
-        }
-
-        calloutButton.layoutUsing.anchors {
-            $0.size(buttonSize)
-        }
-
         containerForColorAndMoreView.layoutUsing.stack {
             $0.layoutUsing.anchors {
                 $0.center(in: containerForColorAndMoreView)
@@ -287,12 +295,9 @@ final class StyleViewController: UIViewController {
 
             return $0.hStack(
                 colorButton,
-                $0.hGap(fixed: 14),
+                $0.hGap(fixed: 10),
                 moreButton
             )
-        }
-        containerForColorAndMoreView.layoutUsing.anchors {
-            $0.size(buttonSize)
         }
 
         otherStyleStackView.addArrangedSubview(highlightedButton)
@@ -435,25 +440,25 @@ extension StyleViewController: FloatingPanelControllerDelegate {
 
 private extension UIImage {
     static func highlightImage() -> UIImage? {
-        let frame = CGRect(x: 0, y: 0, width: 64, height: 24)
+        let frame = CGRect(x: 0, y: 0, width: 70, height: 24)
         let nameLabel = UILabel(frame: frame)
         nameLabel.textAlignment = .right
-        nameLabel.textColor = .textTertiary
-        nameLabel.font = AnytypeFont.caption1Medium.uiKitFont
+        nameLabel.textColor = .buttonSelected
+        nameLabel.font = AnytypeFont.uxCalloutRegular.uiKitFont
         nameLabel.text = "Highlight".localized
 
         let backgroundView = UIView(frame: .init(x: 9, y: 4, width: 0, height: 0))
         backgroundView.addSubview(nameLabel)
 
         let quoteView = UIView(frame: .init(x: 0, y: 0, width: 1, height: frame.height))
-        quoteView.backgroundColor = UIColor.System.amber
+        quoteView.backgroundColor = .buttonSelected
 
         backgroundView.addSubview(quoteView)
         UIGraphicsBeginImageContextWithOptions(frame.size, false, UIApplication.shared.keyWindow?.screen.scale ?? 0)
         if let currentContext = UIGraphicsGetCurrentContext() {
             backgroundView.layer.render(in: currentContext)
             let nameImage = UIGraphicsGetImageFromCurrentImageContext()
-            return nameImage
+            return nameImage?.withRenderingMode(.alwaysTemplate)
         }
 
         return nil

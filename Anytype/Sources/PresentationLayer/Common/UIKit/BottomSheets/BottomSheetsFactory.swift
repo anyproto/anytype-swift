@@ -27,13 +27,13 @@ final class BottomSheetsFactory {
 
         fpc.surfaceView.layer.cornerCurve = .continuous
 
-        fpc.surfaceView.containerMargins = .init(top: 0, left: 10.0, bottom: parentViewController.view.safeAreaInsets.bottom + 6, right: 10.0)
+        fpc.surfaceView.containerMargins = .init(top: 0, left: 10.0, bottom: 44.0, right: 10.0)
         fpc.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
+        fpc.surfaceView.grabberHandle.layer.cornerRadius = 6.0
         fpc.surfaceView.grabberHandle.barColor = .strokePrimary
         fpc.surfaceView.appearance = appearance
         fpc.isRemovalInteractionEnabled = true
         fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
-        fpc.layout = StylePanelLayout()
         fpc.backdropView.backgroundColor = .clear
         fpc.contentMode = .static
 
@@ -64,6 +64,7 @@ final class BottomSheetsFactory {
             didTapMarkupButton: showMarkupMenu,
             actionHandler: actionHandler
         )
+        fpc.layout = StylePanelLayout(layoutGuide: contentVC.layoutGuide)
         
         fpc.set(contentViewController: contentVC)
         fpc.addPanel(toParent: parentViewController, animated: true) {

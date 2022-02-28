@@ -19,8 +19,8 @@ struct StyleCellBackgroundConfiguration {
             background.backgroundColor = UIColor.backgroundSelected
 
             if state.isHighlighted {
-                // Reduce the alpha of the tint color to 30% when highlighted
-                background.backgroundColorTransformer = .init { $0.withAlphaComponent(0.3) }
+                // Reduce the alpha of the tint color to 8% when highlighted
+                background.backgroundColorTransformer = .init { $0.withAlphaComponent(0.08) }
             }
         }
         return background
