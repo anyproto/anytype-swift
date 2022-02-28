@@ -88,10 +88,10 @@ final class BottomSheetsFactory {
 
         markupsViewController.view.pinAllEdges(to: parentViewController.view)
         markupsViewController.containerShadowView.layoutUsing.anchors {
-            $0.width.equal(to: 260)
-            $0.height.equal(to: 176)
-            $0.trailing.equal(to: styleView.trailingAnchor, constant: -10)
-            $0.top.equal(to: styleView.topAnchor, constant: -8)
+            $0.width.equal(to: 240)
+            $0.height.equal(to: 158)
+            $0.trailing.equal(to: styleView.trailingAnchor, constant: -8)
+            $0.top.equal(to: styleView.topAnchor, constant: 8)
         }
     }
 }
