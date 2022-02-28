@@ -95,7 +95,6 @@ private extension AnytypePopup {
         
         surfaceView.contentPadding = UIEdgeInsets(top: AnytypePopup.grabberHeight, left: 0, bottom: 0, right: 0)
         
-        #warning("TODO: - omplement insets in PopupLayouts")
         if insetted {
             let horizontalInset = UIDevice.isPad ? 0.0 : 8.0
             surfaceView.containerMargins = UIEdgeInsets(top: 0, left: horizontalInset, bottom: UIApplication.shared.mainWindowInsets.bottom + 8, right: horizontalInset)

@@ -21,7 +21,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     let layoutPickerViewModel: ObjectLayoutPickerViewModel
     let relationsViewModel: RelationsListViewModel
     
-    private(set) var popupLayout: FloatingPanelLayout = IntrinsicPopupLayout()
+    private(set) var popupLayout: FloatingPanelLayout = ConstantHeightPopupLayout(height: 0)
     
     private weak var сontentDelegate: AnytypePopupContentDelegate?
     private let objectId: String
@@ -76,6 +76,11 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     
     func showLayoutSettings() {
         onLayoutSettingsTap(layoutPickerViewModel)
+    }
+    
+    func viewDidUpdateHeight(_ height: CGFloat) {
+        popupLayout = ConstantHeightPopupLayout(height: height)
+        сontentDelegate?.didAskInvalidateLayout(false)
     }
     
 }
