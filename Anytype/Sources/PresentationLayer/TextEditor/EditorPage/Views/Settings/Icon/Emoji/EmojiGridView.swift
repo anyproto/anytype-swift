@@ -79,15 +79,27 @@ struct EmojiGridView: View {
         ) {
             ForEach(groups, id: \.name) { group in
                 Section(header: PickerSectionHeaderView(title: group.name)) {
-                    ForEach(group.emojis, id: \.emoji) { emoji in
+                    ForEach(group.emojis.indices, id: \.self) { index in
                         Button {
-                            onEmojiSelect(emoji)
+                            group.emojis[safe: index].flatMap {
+                                onEmojiSelect($0)
+                            }
                         } label: {
-                            Text(emoji.emoji).font(.system(size: 40))
+                            emojiGridView(at: index, inEmojis: group.emojis)
                         }
                     }
                 }
             }
+        }
+    }
+    
+    private func emojiGridView(at index: Int, inEmojis emojis: [EmojiData]) -> some View {
+        emojis[safe: index].flatMap { emoji in
+            Text(emoji.emoji)
+                .font(.system(size: 40))
+                .if(index > columns.count - 1) {
+                    $0.padding(.top, 12)
+                }
         }
     }
     
