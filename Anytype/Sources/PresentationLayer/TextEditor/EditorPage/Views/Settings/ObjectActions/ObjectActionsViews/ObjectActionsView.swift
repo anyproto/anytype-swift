@@ -3,8 +3,9 @@ import Amplitude
 
 
 struct ObjectActionsView: View {
-    let viewModel: ObjectActionsViewModel
-
+    
+    @ObservedObject var viewModel: ObjectActionsViewModel
+ 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
