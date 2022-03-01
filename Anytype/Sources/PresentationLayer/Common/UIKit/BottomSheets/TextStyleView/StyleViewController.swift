@@ -189,16 +189,9 @@ final class StyleViewController: UIViewController {
         setupLayoutGuide()
     }
 
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-
-        print(styleCollectionView.bounds)
-        print(listStackView.bounds)
-    }
-
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            styleCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 6),
+            styleCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             styleCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
             styleCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             styleCollectionView.heightAnchor.constraint(equalToConstant: 52),

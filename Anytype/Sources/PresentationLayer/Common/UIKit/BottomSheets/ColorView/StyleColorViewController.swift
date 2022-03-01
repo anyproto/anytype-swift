@@ -62,11 +62,5 @@ final class StyleColorViewController: UIViewController {
         view.addSubview(colorView) {
             $0.pinToSuperview()
         }
-
-        setupLayout()
-    }
-
-    private func setupLayout() {
-        colorView.pinAllEdges(to: view)
     }
 }
