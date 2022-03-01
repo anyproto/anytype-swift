@@ -433,6 +433,63 @@ class KeyboardActionHandlerTests: XCTestCase {
         XCTAssertEqual(service.turnIntoBlockId, "id")
     }
     
+    // MARK: - enterAtTheBegining
+    func test_enterAtTheBegining() throws {
+        let info = info(style: .text, hasChild: true)
+        service.addStub = true
+        let childInfo = BlockInformation.emptyText
+
+        handler.handle(info: info, action: .enterAtTheBegining)
+
+        XCTAssertEqual(service.addNumberOfCalls, 1)
+        XCTAssertEqual(service.addInfo!, childInfo)
+        XCTAssertEqual(service.addTargetBlockId, "id")
+        XCTAssertEqual(service.addPosition, .top)
+        XCTAssertEqual(service.addSetFocus, false)
+    }
+    
+    func test_enterAtTheBegining_bulleted() throws {
+        let info = info(style: .bulleted, hasChild: true)
+        service.addStub = true
+        let childInfo = BlockInformation.emptyText
+
+        handler.handle(info: info, action: .enterAtTheBegining)
+
+        XCTAssertEqual(service.addNumberOfCalls, 1)
+        XCTAssertEqual(service.addInfo!, childInfo)
+        XCTAssertEqual(service.addTargetBlockId, "id")
+        XCTAssertEqual(service.addPosition, .top)
+        XCTAssertEqual(service.addSetFocus, false)
+    }
+    
+    func test_enterAtTheBegining_toggle() throws {
+        let info = info(style: .toggle, hasChild: true)
+        service.addStub = true
+        let childInfo = BlockInformation.emptyText
+
+        handler.handle(info: info, action: .enterAtTheBegining)
+
+        XCTAssertEqual(service.addNumberOfCalls, 1)
+        XCTAssertEqual(service.addInfo!, childInfo)
+        XCTAssertEqual(service.addTargetBlockId, "id")
+        XCTAssertEqual(service.addPosition, .top)
+        XCTAssertEqual(service.addSetFocus, false)
+    }
+    
+    func test_enterAtTheBegining_title() throws {
+        let info = info(style: .title, hasChild: true)
+        service.addStub = true
+        let childInfo = BlockInformation.emptyText
+
+        handler.handle(info: info, action: .enterAtTheBegining)
+
+        XCTAssertEqual(service.addNumberOfCalls, 1)
+        XCTAssertEqual(service.addInfo!, childInfo)
+        XCTAssertEqual(service.addTargetBlockId, "id")
+        XCTAssertEqual(service.addPosition, .top)
+        XCTAssertEqual(service.addSetFocus, false)
+    }
+    
     // MARK: - deleteForEmpty
     
     func test_deleteForEmpty_text() throws {

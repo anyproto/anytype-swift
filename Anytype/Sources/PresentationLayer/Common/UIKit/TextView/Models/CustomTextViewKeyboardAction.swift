@@ -6,6 +6,7 @@ extension CustomTextView {
         case enterForEmpty
         case enterInside(string: NSAttributedString, position: Int)
         case enterAtTheEnd(string: NSAttributedString)
+        case enterAtTheBegining
         
         case deleteAtTheBegining
         case deleteForEmpty
@@ -29,6 +30,10 @@ extension CustomTextView.KeyboardAction {
 
             if text.endIndex == range.upperBound {
                 return .enterAtTheEnd(string: attributedText)
+            }
+            
+            if text.startIndex == range.lowerBound {
+                return .enterAtTheBegining
             }
             
             let position = String(text[..<range.lowerBound]).count

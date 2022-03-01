@@ -64,6 +64,9 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 return
             }
             onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: string)
+            
+        case .enterAtTheBegining:
+            service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
 
         case .deleteAtTheBegining:
             guard text.delitable else { return }
