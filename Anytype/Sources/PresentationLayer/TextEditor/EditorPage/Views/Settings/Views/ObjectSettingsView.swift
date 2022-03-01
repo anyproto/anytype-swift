@@ -42,6 +42,9 @@ struct ObjectSettingsView: View {
             ObjectActionsView(viewModel: viewModel.objectActionsViewModel)
                 .padding(.horizontal, Constants.edgeInset)
         }
+        .readSize { size in
+            viewModel.viewDidUpdateHeight(size.height)
+        }
     }
     
     private var settingsList: some View {

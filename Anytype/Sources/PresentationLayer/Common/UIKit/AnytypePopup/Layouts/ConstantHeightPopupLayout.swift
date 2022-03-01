@@ -3,16 +3,15 @@ import FloatingPanel
 import CoreGraphics
 import UIKit
 
-final class RelationOptionsEmptyPopupLayout: AnytypePopupLayout {
+final class ConstantHeightPopupLayout: AnytypePopupLayout {
     
     init(height: CGFloat) {
         let adjustedHeight = AnytypePopupLayout.adjustedPopupHeight(height)
         let anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] = [
-            .half: FloatingPanelLayoutAnchor(absoluteInset: adjustedHeight, edge: .bottom, referenceGuide: .safeArea),
             .full: FloatingPanelLayoutAnchor(absoluteInset: adjustedHeight, edge: .bottom, referenceGuide: .safeArea)
         ]
         
-        super.init(initialState: .half, anchors: anchors)
+        super.init(initialState: .full, anchors: anchors)
     }
     
 }
