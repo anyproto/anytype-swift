@@ -40,7 +40,7 @@ struct EmojiGridView: View {
     }
     
     private func makeEmptySearchResultView(placeholder: String) -> some View {
-        VStack {
+        VStack(spacing: 0) {
             AnytypeText(
                 "There is no emoji named".localized + " \"\(placeholder)\"",
                 style: .uxBodyRegular,
@@ -74,21 +74,33 @@ struct EmojiGridView: View {
     private func makeGridView(groups: [EmojiGroup]) -> some View {
         LazyVGrid(
             columns: columns,
-            spacing: 12,
+            spacing: 0,
             pinnedViews: [.sectionHeaders]
         ) {
-                ForEach(groups, id: \.name) { group in
-                    Section(header: PickerSectionHeaderView(title: group.name)) {
-                        ForEach(group.emojis, id: \.emoji) { emoji in
-                            Button {
-                                onEmojiSelect(emoji)
-                            } label: {
-                                Text(emoji.emoji).font(.system(size: 40))
+            ForEach(groups, id: \.name) { group in
+                Section(header: PickerSectionHeaderView(title: group.name)) {
+                    ForEach(group.emojis.indices, id: \.self) { index in
+                        Button {
+                            group.emojis[safe: index].flatMap {
+                                onEmojiSelect($0)
                             }
+                        } label: {
+                            emojiGridView(at: index, inEmojis: group.emojis)
                         }
                     }
                 }
             }
+        }
+    }
+    
+    private func emojiGridView(at index: Int, inEmojis emojis: [EmojiData]) -> some View {
+        emojis[safe: index].flatMap { emoji in
+            Text(emoji.emoji)
+                .font(.system(size: 40))
+                .if(index > columns.count - 1) {
+                    $0.padding(.top, 12)
+                }
+        }
     }
     
 }

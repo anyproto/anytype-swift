@@ -6,11 +6,10 @@ struct PickerSectionHeaderView: View {
     let title: String
     
     var body: some View {
-        VStack(alignment: .center) {
-            AnytypeText(title, style: .caption1Medium, color: .textSecondary)
-        }
+        AnytypeText(title, style: .caption1Medium, color: .textSecondary)
         .frame(maxWidth: .infinity)
-        .padding(.top, 4)
+        .padding(.top, 18)
+        .padding(.bottom, 12)
         .background(Color.backgroundSecondary)
     }
 }
