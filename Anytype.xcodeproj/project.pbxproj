@@ -446,6 +446,7 @@
 		3D44985C26D57773005A3E06 /* DismissHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D44985B26D57773005A3E06 /* DismissHandler.swift */; };
 		3D471E1F26C3B60200457DE5 /* BlockLinkState+Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E1E26C3B60200457DE5 /* BlockLinkState+Icon.swift */; };
 		3D471E3D26C69D2100457DE5 /* HomeSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D471E3C26C69D2100457DE5 /* HomeSearchView.swift */; };
+		3D4B8CE527C54FDC001A1F98 /* BlockListServiceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D4B8CE427C54FDC001A1F98 /* BlockListServiceMock.swift */; };
 		3D513F0F27956E2B007850D5 /* EditorSetViewPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D513F0E27956E2B007850D5 /* EditorSetViewPicker.swift */; };
 		3D540C7B2625C9DE00A07BD8 /* EditorBrowserAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D540C7A2625C9DE00A07BD8 /* EditorBrowserAssembly.swift */; };
 		3D568FB5266A287400DC7881 /* SystemColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D568FB4266A287400DC7881 /* SystemColors.xcassets */; };
@@ -1343,6 +1344,7 @@
 		3D44985B26D57773005A3E06 /* DismissHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DismissHandler.swift; sourceTree = "<group>"; };
 		3D471E1E26C3B60200457DE5 /* BlockLinkState+Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockLinkState+Icon.swift"; sourceTree = "<group>"; };
 		3D471E3C26C69D2100457DE5 /* HomeSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeSearchView.swift; sourceTree = "<group>"; };
+		3D4B8CE427C54FDC001A1F98 /* BlockListServiceMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockListServiceMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockListServiceMock.swift; sourceTree = SOURCE_ROOT; };
 		3D513F0E27956E2B007850D5 /* EditorSetViewPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewPicker.swift; sourceTree = "<group>"; };
 		3D540C7A2625C9DE00A07BD8 /* EditorBrowserAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserAssembly.swift; sourceTree = "<group>"; };
 		3D568FB4266A287400DC7881 /* SystemColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = SystemColors.xcassets; sourceTree = "<group>"; };
@@ -4383,6 +4385,7 @@
 				3DA46B6A273BEED2007B7464 /* BlockModelMock.swift */,
 				3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */,
 				3D34F25527C3D1D100990C49 /* BlockActionServiceMock.swift */,
+				3D4B8CE427C54FDC001A1F98 /* BlockListServiceMock.swift */,
 			);
 			name = Mocks;
 			path = Markdown/Mocks;
@@ -6513,6 +6516,7 @@
 				3D7F718927A1B0D4003FE893 /* EditorSetMarkdownHelpertests.swift in Sources */,
 				EA2640E526C40DEA006071BD /* AttributedStringConverterTests.swift in Sources */,
 				3DA46B6B273BEED2007B7464 /* BlockModelMock.swift in Sources */,
+				3D4B8CE527C54FDC001A1F98 /* BlockListServiceMock.swift in Sources */,
 				3D34F25627C3D1D100990C49 /* BlockActionServiceMock.swift in Sources */,
 				3D34F25427C3D16400990C49 /* KeyboardActionHandlerTests.swift in Sources */,
 				EA26404126BC05F3006071BD /* MarkStyleModifierTests.swift in Sources */,

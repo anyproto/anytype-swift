@@ -11,13 +11,16 @@ protocol KeyboardActionHandlerProtocol {
 final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     
     private let service: BlockActionServiceProtocol
+    private let listService: BlockListServiceProtocol
     private let toggleStorage: ToggleStorage
     
     init(
         service: BlockActionServiceProtocol,
+        listService: BlockListServiceProtocol,
         toggleStorage: ToggleStorage
     ) {
         self.service = service
+        self.listService = listService
         self.toggleStorage = toggleStorage
     }
 
@@ -67,7 +70,18 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.merge(secondBlockId: info.id)
 
         case .deleteForEmpty:
-            service.delete(blockId: info.id)
+            if text.contentType.isList {
+                service.turnInto(.text, blockId: info.id)
+                return
+            }
+            
+            guard text.delitable else { return }
+            
+            if info.childrenIds.isEmpty {
+                service.delete(blockId: info.id)
+            } else {
+                listService.replace(blockIds: info.childrenIds, targetId: info.id)
+            }
         }
     }
     
