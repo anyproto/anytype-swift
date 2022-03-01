@@ -122,7 +122,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    func setFields(contextID: BlockId, blockFields: [Anytype.BlockFields]) {
+    func setFields(blockFields: [Anytype.BlockFields]) {
         assertionFailure()
     }
     
