@@ -4,7 +4,7 @@ import BlocksModels
 
 struct ObjectSettingsView: View {
     
-    let viewModel: ObjectSettingsViewModel
+    @ObservedObject var viewModel: ObjectSettingsViewModel
     
     @State private var isIconPickerPresented = false
     @State private var isCoverPickerPresented = false
@@ -38,7 +38,7 @@ struct ObjectSettingsView: View {
     private var settings: some View {
         VStack(spacing: 0) {
             settingsList
-            
+
             ObjectActionsView(viewModel: viewModel.objectActionsViewModel)
                 .padding(.horizontal, Constants.edgeInset)
         }

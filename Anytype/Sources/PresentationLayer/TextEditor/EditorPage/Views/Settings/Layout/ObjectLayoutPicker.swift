@@ -4,14 +4,14 @@ import BlocksModels
 
 struct ObjectLayoutPicker: View {
     
-    let viewModel: ObjectLayoutPickerViewModel
+    @ObservedObject var viewModel: ObjectLayoutPickerViewModel
     
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
-            AnytypeText("Choose layout type".localized, style: .uxTitle1Semibold, color: .textPrimary)
-                .padding([.top, .bottom], 12)
+        VStack(spacing: 0) {
+            TitleView(title: "Choose layout type".localized)
             layoutList
         }
+        .padding(.bottom, 44)
         .background(Color.backgroundSecondary)
     }
     
@@ -27,8 +27,6 @@ struct ObjectLayoutPicker: View {
                 )
             }
         }
-        .padding([.leading, .trailing], 20)
-        .padding(.bottom, UIApplication.shared.mainWindowInsets.bottom + 20)
     }
 }
 

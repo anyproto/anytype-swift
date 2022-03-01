@@ -93,11 +93,11 @@ private extension AnytypePopup {
         surfaceView.grabberHandleSize = CGSize(width: 48.0, height: 4.0)
         surfaceView.grabberHandle.backgroundColor = .strokePrimary
         
-        surfaceView.contentPadding = UIEdgeInsets(top: AnytypePopup.grabberHeight, left: 0, bottom: 0, right: 0)
+        surfaceView.contentPadding = UIEdgeInsets(top: Constants.grabberHeight, left: 0, bottom: 0, right: 0)
         
         if insetted {
             let horizontalInset = UIDevice.isPad ? 0.0 : 8.0
-            surfaceView.containerMargins = UIEdgeInsets(top: 0, left: horizontalInset, bottom: UIApplication.shared.mainWindowInsets.bottom + 8, right: horizontalInset)
+            surfaceView.containerMargins = UIEdgeInsets(top: 0, left: horizontalInset, bottom: Constants.bottomInset, right: horizontalInset)
         }
 
         if FeatureFlags.rainbowViews {
@@ -131,6 +131,9 @@ private extension AnytypePopup {
 
 extension AnytypePopup {
     
-    static let grabberHeight: CGFloat = 16
+    enum Constants {
+        static let grabberHeight: CGFloat = 16
+        static let bottomInset: CGFloat = 44
+    }
     
 }
