@@ -32,7 +32,7 @@ final class SelectProfileViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
             guard let self = self, !self.isAccountSelected else { return }
             
-            self.snackBarData = .init(text: "Please give us a moment. We're almost there...".localized, showSnackBar: true)
+            self.snackBarData = .init(text: "Setting up encrypted storage\nPlease wait".localized, showSnackBar: true)
         }
     }
     
