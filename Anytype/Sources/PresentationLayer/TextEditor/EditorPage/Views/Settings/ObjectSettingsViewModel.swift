@@ -115,7 +115,7 @@ extension ObjectSettingsViewModel: AnytypePopupViewModelProtocol {
     }
     
     func makeContentView() -> UIViewController {
-        AnytypeUIHostingViewController(rootView: ObjectSettingsView(viewModel: self))
+        UIHostingController(rootView: ObjectSettingsView(viewModel: self))
     }
     
 }
