@@ -88,6 +88,18 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         }
     }
     
+    var mergeStub = false
+    var mergeNumberOfCalls = 0
+    var mergeSecondBlockId: BlockId?
+    func merge(secondBlockId: BlockId) {
+        if mergeStub {
+            mergeNumberOfCalls += 1
+            mergeSecondBlockId = secondBlockId
+        } else {
+            assertionFailure()
+        }
+    }
+    
     func upload(blockId: BlockId, filePath: String) {
         assertionFailure()
     }
@@ -133,10 +145,6 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
         assertionFailure()
         return false
-    }
-    
-    func merge(secondBlockId: BlockId) {
-        assertionFailure()
     }
     
     func setObjectTypeUrl(_ objectTypeUrl: String) {

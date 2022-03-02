@@ -69,9 +69,19 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
 
         case .deleteAtTheBegining:
+            if text.contentType.isList {
+                service.turnInto(.text, blockId: info.id)
+                return
+            }
+            
             guard text.delitable else { return }
-            service.merge(secondBlockId: info.id)
-
+            
+            if info.childrenIds.isEmpty {
+                service.merge(secondBlockId: info.id)
+            } else {
+                #warning("Mege with children")
+                service.merge(secondBlockId: info.id)
+            }
         case .deleteForEmpty:
             if text.contentType.isList {
                 service.turnInto(.text, blockId: info.id)

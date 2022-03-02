@@ -563,6 +563,78 @@ class KeyboardActionHandlerTests: XCTestCase {
         XCTAssertEqual(service.turnIntoBlockId, "id")
     }
     
+    // MARK: - deleteAtTheBegining
+    
+    func test_deleteAtTheBegining_text() throws {
+        let info = info(style: .text)
+        service.mergeStub = true
+
+        handler.handle(info: info, action: .deleteAtTheBegining)
+
+        XCTAssertEqual(service.mergeNumberOfCalls, 1)
+        XCTAssertEqual(service.mergeSecondBlockId!, "id")
+    }
+    
+    func test_deleteAtTheBegining_text_with_children() throws {
+        let info = info(style: .text, hasChild: true)
+        service.mergeStub = true
+
+        handler.handle(info: info, action: .deleteAtTheBegining)
+
+        XCTAssertEqual(service.mergeNumberOfCalls, 1)
+        XCTAssertEqual(service.mergeSecondBlockId!, "id")
+    }
+    
+    func test_deleteAtTheBegining_description() throws {
+        let info = info(style: .description)
+
+        handler.handle(info: info, action: .deleteAtTheBegining)
+    }
+    
+    func test_deleteAtTheBegining_bulleted() throws {
+        let info = info(style: .bulleted)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, action: .deleteAtTheBegining)
+
+        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
+        XCTAssertEqual(service.turnIntoStyle, .text)
+        XCTAssertEqual(service.turnIntoBlockId, "id")
+    }
+    
+    func test_deleteAtTheBegining_bulleted_with_children() throws {
+        let info = info(style: .bulleted, hasChild: true)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, action: .deleteAtTheBegining)
+
+        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
+        XCTAssertEqual(service.turnIntoStyle, .text)
+        XCTAssertEqual(service.turnIntoBlockId, "id")
+    }
+    
+    func test_deleteAtTheBegining_toggle() throws {
+        let info = info(style: .toggle)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, action: .deleteAtTheBegining)
+
+        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
+        XCTAssertEqual(service.turnIntoStyle, .text)
+        XCTAssertEqual(service.turnIntoBlockId, "id")
+    }
+    
+    func test_deleteAtTheBegining_toggle_with_children() throws {
+        let info = info(style: .toggle, hasChild: true)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, action: .deleteAtTheBegining)
+
+        XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
+        XCTAssertEqual(service.turnIntoStyle, .text)
+        XCTAssertEqual(service.turnIntoBlockId, "id")
+    }
+    
     // MARK: - Private
     
     private func info(
