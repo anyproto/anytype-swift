@@ -8,10 +8,10 @@ enum AuthServiceError: Error, LocalizedError {
     
     var errorDescription: String? {
         switch self {
-        case .createWalletError: return "Error creating wallet"
-        case .recoverWalletError: return "Error wallet recover account"
-        case .recoverAccountError: return "Account recover error"
-        case .selectAccountError: return "Error select account"
+        case .createWalletError: return "Error creating wallet".localized
+        case .recoverWalletError: return "Error wallet recover account".localized
+        case .recoverAccountError: return "Account recover error".localized
+        case .selectAccountError: return "Error select account".localized
         }
     }
 }

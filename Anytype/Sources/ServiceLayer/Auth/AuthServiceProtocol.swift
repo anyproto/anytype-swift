@@ -2,7 +2,7 @@ import BlocksModels
 
 protocol AuthServiceProtocol {
     func createWallet() -> Result<String, AuthServiceError>
-    func createAccount(name: String, imagePath: String, alphaInviteCode: String) -> Result<Void, Error>
+    func createAccount(name: String, imagePath: String, alphaInviteCode: String) -> Result<Void, CreateAccountServiceError>
     func walletRecovery(mnemonic: String) -> Result<Void, AuthServiceError>
     
     /// Recover account, called after wallet recovery. As soon as this func complete middleware send Event.Account.Show event.

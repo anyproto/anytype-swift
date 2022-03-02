@@ -44,9 +44,10 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
             DispatchQueue.main.async { [weak self] in
                 guard let self = self else { return }
                 
+                
                 switch result {
-                case .failure:
-                    self.error = "Sign up error".localized
+                case .failure(let error):
+                    self.error = error.localizedDescription
                     self.showError = true
                 case .success:
                     self.loginStateService.setupStateAfterRegistration()
