@@ -36,31 +36,33 @@ struct RelationsListView: View {
             LazyVStack(spacing: 0) {
                 ForEach(viewModel.sections) { section in
                     VStack(alignment: .leading, spacing: 0) {
-                        Section(
-                            header: AnytypeText(
-                                section.title,
-                                style: .uxTitle1Semibold,
-                                color: .textPrimary
-                            )
-                                .padding(.vertical, 12)
-                        ) {
-                            ForEach(section.relations) { relation in
-                                RelationsListRowView(editingMode: $editingMode, relation: relation) {
-                                    viewModel.removeRelation(id: $0)
-                                } onStarTap: {
-                                    viewModel.changeRelationFeaturedState(relationId: $0)
-                                } onEditTap: {
-                                    viewModel.onValueEditingTap($0)
-                                }
+                        
+                        Section(header: sectionHeader(title: section.title)) {
+                            ForEach(section.relations) {
+                                row(with: $0)
                             }
                         }
                         
-                        Spacer()
-                            .frame(height: 20)
+                        Spacer().frame(height: 20)
                     }
-                    
                 }
-            }.padding(.horizontal, 20)
+            }
+            .padding(.horizontal, 20)
+        }
+    }
+    
+    private func sectionHeader(title: String) -> some View {
+        AnytypeText(title, style: .uxTitle1Semibold, color: .textPrimary)
+            .frame(height: 48)
+    }
+    
+    private func row(with relation: Relation) -> some View {
+        RelationsListRowView(editingMode: $editingMode, relation: relation) {
+            viewModel.removeRelation(id: $0)
+        } onStarTap: {
+            viewModel.changeRelationFeaturedState(relationId: $0)
+        } onEditTap: {
+            viewModel.onValueEditingTap($0)
         }
     }
     

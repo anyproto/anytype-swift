@@ -5,7 +5,7 @@ struct TagView: View {
     let guidlines: Guidlines
     
     var body: some View {
-        AnytypeText(tag.text, style: .relation2Regular, color: tag.textColor.suColor)
+        AnytypeText(tag.text, style: .relation1Regular, color: tag.textColor.suColor)
             .lineLimit(1)
             .padding(.horizontal, guidlines.textPadding)
             .background(tag.backgroundColor.suColor)
