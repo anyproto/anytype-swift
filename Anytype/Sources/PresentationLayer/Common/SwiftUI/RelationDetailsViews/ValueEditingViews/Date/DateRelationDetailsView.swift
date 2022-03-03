@@ -6,8 +6,7 @@ struct DateRelationDetailsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            AnytypeText(viewModel.title, style: .uxTitle1Semibold, color: .textPrimary)
-                .frame(height: 48, alignment: .center)
+            TitleView(title: viewModel.title)
             valueList
             Spacer()
             Spacer.fixedHeight(20)
