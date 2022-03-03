@@ -22,26 +22,28 @@ extension AudioBlockViewModel: AudioPlayerViewDelegate {
     }
 
     var isPlaying: Bool {
-        audioPlayer.isPlaying(audioId: information.id)
+        audioPlayer.isPlaying(audioId: info.id)
     }
 
     func playButtonDidPress(sliderValue: Double) {
-        if audioPlayer.isPlaying(audioId: information.id) {
-            audioPlayer.pause(audioId: information.id)
+        if audioPlayer.isPlaying(audioId: info.id) {
+            audioPlayer.pause(audioId: info.id)
             audioPlayerView?.pause()
         } else {
-            audioPlayer.play(audioId: information.id,
-                             name: fileData.metadata.name,
-                             playerItem: playerItem,
-                             seekTime: sliderValue,
-                             delegate: self)
+            audioPlayer.play(
+                audioId: info.id,
+                name: fileData.metadata.name,
+                playerItem: playerItem,
+                seekTime: sliderValue,
+                delegate: self
+            )
             audioPlayerView?.play()
         }
     }
 
     func progressSliederChanged(value: Double, completion: @escaping () -> Void) {
         currentTimeInSeconds = value
-        audioPlayer.setTrackTime(audioId: information.id, value: value) {
+        audioPlayer.setTrackTime(audioId: info.id, value: value) {
             completion()
         }
     }

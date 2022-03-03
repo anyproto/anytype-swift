@@ -63,7 +63,7 @@ final class BaseDocument: BaseDocumentProtocol {
     // Looks like this code runs on main thread.
     // This operation should be done in `eventsListener.onUpdateReceive` closure
     // OR store children blocks instead of tree in `BlockContainer`
-    var children: [BlockModelProtocol] {
+    var children: [BlockInformation] {
         guard let model = blocksContainer.model(id: objectId) else {
             anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)
             return []

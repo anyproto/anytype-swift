@@ -1,15 +1,17 @@
-class Stack<T> {
+public class Stack<T> {
     private var list: [T] = []
     
-    var isEmpty: Bool {
+    public init() { }
+    
+    public var isEmpty: Bool {
         list.isEmpty
     }
     
-    func push(_ element: T) {
+    public func push(_ element: T) {
         list.append(element)
     }
     
-    func pop() -> T? {
+    public func pop() -> T? {
         guard !isEmpty else { return nil }
         return list.removeLast()
     }    

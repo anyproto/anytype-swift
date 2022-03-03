@@ -4,66 +4,67 @@ import AnytypeCore
 
 public final class BlockContainer: BlockContainerModelProtocol {
     
-    private var models = SynchronizedDictionary<BlockId, BlockModelProtocol>()
+    private var models = SynchronizedDictionary<BlockId, BlockInformation>()
 
     public var rootId: BlockId?
     
     public init() {}
     
-    public func children(of id: BlockId) -> [BlockModelProtocol] {
-        guard let value = models[id] else {
+    public func children(of id: BlockId) -> [BlockInformation] {
+        guard let information = models[id] else {
             return []
         }
         
-        return value.information.childrenIds.compactMap { model(id: $0) }
+        return information.childrenIds.compactMap { model(id: $0) }
     }
 
-    public func model(id: BlockId) -> BlockModelProtocol? {
+    public func model(id: BlockId) -> BlockInformation? {
         models[id]
     }
 
     public func remove(_ id: BlockId) {
         // go to parent and remove this block from a parent.
-        if let parentId = model(id: id)?.information.metadata.parentId,
+        if let parentId = model(id: id)?.metadata.parentId,
            var parent = models[parentId] {
-            var information = parent.information
-            information.childrenIds = information.childrenIds.filter {$0 != id}
-            parent.information = information
+            parent.childrenIds = parent.childrenIds.filter {$0 != id}
+            add(parent)
         }
         
-        if let block = self.model(id: id) {
+        if let information = model(id: id) {
             models.removeValue(forKey: id)
-            block.information.childrenIds.forEach(self.remove(_:))
+            information.childrenIds.forEach(remove(_:))
         }
     }
 
-    public func add(_ block: BlockModelProtocol) {
-        models[block.information.id] = block
+    public func add(_ info: BlockInformation) {
+        models[info.id] = info
     }
 
     private func insert(childId: BlockId, parentId: BlockId, at index: Int) {
-        guard var parentModel = model(id: parentId) else {
+        guard var parent = model(id: parentId) else {
             anytypeAssertionFailure("I can't find parent with id: \(parentId)", domain: .blockContainer)
             return
         }
         
-        guard var childModel = self.model(id: childId) else {
+        guard var child = model(id: childId) else {
             anytypeAssertionFailure("I can't find child with id: \(childId)", domain: .blockContainer)
             return
         }
         
-        var childrenIds = parentModel.information.childrenIds
+        var childrenIds = parent.childrenIds
         childrenIds.insert(childId, at: index)
-        parentModel.information.childrenIds = childrenIds
+        parent.childrenIds = childrenIds
+        add(parent)
         
         /// And now set parent
-        childModel.information.metadata.parentId = parentModel.information.id
+        child.metadata.parentId = parent.id
+        add(child)
     }
 
     public func add(child: BlockId, beforeChild: BlockId) {
         /// First, we must find parent of beforeChild
-        guard let parentId = model(id: beforeChild)?.information.metadata.parentId,
-              let parent = model(id: parentId)?.information,
+        guard let parentId = model(id: beforeChild)?.metadata.parentId,
+              let parent = model(id: parentId),
               let index = parent.childrenIds.firstIndex(of: beforeChild)
         else {
             anytypeAssertionFailure(
@@ -78,8 +79,8 @@ public final class BlockContainer: BlockContainerModelProtocol {
 
     public func add(child: BlockId, afterChild: BlockId) {
         /// First, we must find parent of afterChild
-        guard let parentId = model(id: afterChild)?.information.metadata.parentId,
-              let parent = model(id: parentId)?.information,
+        guard let parentId = model(id: afterChild)?.metadata.parentId,
+              let parent = model(id: parentId),
               let index = parent.childrenIds.firstIndex(of: afterChild)
         else {
             anytypeAssertionFailure(
@@ -90,30 +91,31 @@ public final class BlockContainer: BlockContainerModelProtocol {
         }
 
         let newIndex = index.advanced(by: 1)
-        self.insert(childId: child, parentId: parent.id, at: newIndex)
+        insert(childId: child, parentId: parent.id, at: newIndex)
     }
     
-    public func update(blockId: BlockId, update updateAction: @escaping (BlockModelProtocol) -> ()) {
+    public func update(blockId: BlockId, update updateAction: @escaping (BlockInformation) -> (BlockInformation?)) {
         guard let entry = model(id: blockId) else {
             anytypeAssertionFailure("No block with id \(blockId)", domain: .blockContainer)
             return
         }
         
-        updateAction(entry)
+        updateAction(entry).flatMap { add($0) }
     }
     
     public func updateDataview(blockId: BlockId, update updateAction: @escaping (BlockDataview) -> (BlockDataview)) {
-        update(blockId: blockId) { block in
-            var block = block
-            guard case let .dataView(dataView) = block.information.content else {
+        update(blockId: blockId) { info in
+            var info = info
+            guard case let .dataView(dataView) = info.content else {
                 anytypeAssertionFailure(
-                    "\(block.information.content) not a dataview in \(block.information)",
+                    "\(info.content) not a dataview in \(info)",
                     domain: .blockContainer
                 )
-                return
+                return nil
             }
             
-            block.information.content = .dataView(updateAction(dataView))
+            info.content = .dataView(updateAction(dataView))
+            return info
         }
     }
     
@@ -153,6 +155,7 @@ public final class BlockContainer: BlockContainerModelProtocol {
             }
         } : childrenIds
 
-        parent.information.childrenIds = existedIds
+        parent.childrenIds = existedIds
+        add(parent)
     }    
 }

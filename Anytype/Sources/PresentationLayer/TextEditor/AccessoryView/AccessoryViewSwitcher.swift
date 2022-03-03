@@ -47,8 +47,8 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func updateData(data: TextBlockDelegateData) {
         self.data = data
         
-        cursorModeAccessoryView.update(info: data.block.information, textView: data.textView)
-        markupAccessoryView.update(block: data.block, textView: data.textView)
+        cursorModeAccessoryView.update(info: data.info, textView: data.textView)
+        markupAccessoryView.update(info: data.info, textView: data.textView)
         slashMenuView.update(info: data.info, relations: document.parsedRelations.all)
 
         if data.textView.selectedRange.length != .zero {

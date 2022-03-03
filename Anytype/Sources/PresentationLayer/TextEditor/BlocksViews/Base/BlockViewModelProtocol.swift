@@ -31,12 +31,12 @@ extension BlockFocusing {
 }
 
 protocol BlockInformationProvider {
-    var information: BlockInformation { get }
+    var info: BlockInformation { get }
 }
 
 // MARK: - Extensions
 
 extension BlockInformationProvider {
-    var blockId: BlockId { information.id }
-    var content: BlockContent { information.content }
+    var blockId: BlockId { info.id }
+    var content: BlockContent { info.content }
 }
