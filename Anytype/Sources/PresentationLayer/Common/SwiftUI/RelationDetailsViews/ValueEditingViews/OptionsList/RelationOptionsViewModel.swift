@@ -113,7 +113,7 @@ extension RelationOptionsViewModel {
     }
     
     private func updateLayout() {
-        popupLayout = selectedOptions.isNotEmpty ? RelationOptionsPopupLayout() : RelationOptionsEmptyPopupLayout(height: 150)
+        popupLayout = selectedOptions.isNotEmpty ? RelationOptionsPopupLayout() : ConstantHeightPopupLayout(height: 150, insetted: false)
     }
     
 }

@@ -33,10 +33,8 @@ struct RelationOptionsView: View {
     
     private var emptyView: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(10)
             AnytypeText(viewModel.emptyPlaceholder, style: .uxCalloutRegular, color: .textTertiary)
-                .frame(height: 22)
-                .padding(.vertical, 13)
+                .frame(height: 48)
             Spacer()
         }
     }
