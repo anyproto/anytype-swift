@@ -24,7 +24,7 @@ public final class BlockContainer: BlockContainerModelProtocol {
 
     public func remove(_ id: BlockId) {
         // go to parent and remove this block from a parent.
-        if let parentId = model(id: id)?.information.metadata.parent?.id,
+        if let parentId = model(id: id)?.information.metadata.parentId,
            var parent = models[parentId] {
             var information = parent.information
             information.childrenIds = information.childrenIds.filter {$0 != id}
@@ -57,12 +57,13 @@ public final class BlockContainer: BlockContainerModelProtocol {
         parentModel.information.childrenIds = childrenIds
         
         /// And now set parent
-        childModel.information.metadata.parent = parentModel.information
+        childModel.information.metadata.parentId = parentModel.information.id
     }
 
     public func add(child: BlockId, beforeChild: BlockId) {
         /// First, we must find parent of beforeChild
-        guard let parent = model(id: beforeChild)?.information.metadata.parent,
+        guard let parentId = model(id: beforeChild)?.information.metadata.parentId,
+              let parent = model(id: parentId)?.information,
               let index = parent.childrenIds.firstIndex(of: beforeChild)
         else {
             anytypeAssertionFailure(
@@ -77,7 +78,8 @@ public final class BlockContainer: BlockContainerModelProtocol {
 
     public func add(child: BlockId, afterChild: BlockId) {
         /// First, we must find parent of afterChild
-        guard let parent = model(id: afterChild)?.information.metadata.parent,
+        guard let parentId = model(id: afterChild)?.information.metadata.parentId,
+              let parent = model(id: parentId)?.information,
               let index = parent.childrenIds.firstIndex(of: afterChild)
         else {
             anytypeAssertionFailure(
