@@ -202,7 +202,7 @@ final class BlockViewModelBuilder {
 
         case .smartblock, .layout, .dataView: return nil
         case .unsupported:
-            guard block.parent?.information.content.type != .layout(.header) else {
+            guard block.information.metadata.parent?.content.type != .layout(.header) else {
                 return nil
             }
             return  UnsupportedBlockViewModel(information: block.information)

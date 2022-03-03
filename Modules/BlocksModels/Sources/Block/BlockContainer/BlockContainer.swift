@@ -24,8 +24,8 @@ public final class BlockContainer: BlockContainerModelProtocol {
 
     public func remove(_ id: BlockId) {
         // go to parent and remove this block from a parent.
-        if let parentId = model(id: id)?.parent,
-           var parent = models[parentId.information.id] {
+        if let parentId = model(id: id)?.information.metadata.parent?.id,
+           var parent = models[parentId] {
             var information = parent.information
             information.childrenIds = information.childrenIds.filter {$0 != id}
             parent.information = information
@@ -57,12 +57,14 @@ public final class BlockContainer: BlockContainerModelProtocol {
         parentModel.information.childrenIds = childrenIds
         
         /// And now set parent
-        childModel.parent = parentModel
+        childModel.information.metadata.parent = parentModel.information
     }
 
     public func add(child: BlockId, beforeChild: BlockId) {
         /// First, we must find parent of beforeChild
-        guard let parent = model(id: beforeChild)?.parent, let index = parent.information.childrenIds.firstIndex(of: beforeChild) else {
+        guard let parent = model(id: beforeChild)?.information.metadata.parent,
+              let index = parent.childrenIds.firstIndex(of: beforeChild)
+        else {
             anytypeAssertionFailure(
                 "I can't find either parent or block itself with id: \(beforeChild)",
                 domain: .blockContainer
@@ -70,13 +72,14 @@ public final class BlockContainer: BlockContainerModelProtocol {
             return
         }
 
-        let parentId = parent.information.id
-        self.insert(childId: child, parentId: parentId, at: index)
+        self.insert(childId: child, parentId: parent.id, at: index)
     }
 
     public func add(child: BlockId, afterChild: BlockId) {
         /// First, we must find parent of afterChild
-        guard let parent = model(id: afterChild)?.parent, let index = parent.information.childrenIds.firstIndex(of: afterChild) else {
+        guard let parent = model(id: afterChild)?.information.metadata.parent,
+              let index = parent.childrenIds.firstIndex(of: afterChild)
+        else {
             anytypeAssertionFailure(
                 "I can't find either parent or block itself with id: \(afterChild)",
                 domain: .blockContainer
@@ -84,9 +87,8 @@ public final class BlockContainer: BlockContainerModelProtocol {
             return
         }
 
-        let parentId = parent.information.id
         let newIndex = index.advanced(by: 1)
-        self.insert(childId: child, parentId: parentId, at: newIndex)
+        self.insert(childId: child, parentId: parent.id, at: newIndex)
     }
     
     public func update(blockId: BlockId, update updateAction: @escaping (BlockModelProtocol) -> ()) {
