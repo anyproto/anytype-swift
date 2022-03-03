@@ -6,6 +6,13 @@ enum CustomTextViewFirstResponderChange {
     case resign
 }
 
+struct PastboardSlots {
+    let textSlot: String?
+    let htmlSlot: String?
+    let anySlot: String?
+    let fileSlot: Data?
+}
+
 protocol CustomTextViewDelegate: AnyObject {
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange)
     func willBeginEditing()
@@ -20,4 +27,6 @@ protocol CustomTextViewDelegate: AnyObject {
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction)
     func shouldChangeText(range: NSRange, replacementText: String) -> Bool
+
+    func paste(slots: PastboardSlots, range: NSRange)
 }
