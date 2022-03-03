@@ -1,11 +1,3 @@
-//
-//  AudioBlockViewModel.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 14.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import BlocksModels
 import UIKit
 import AVFoundation
@@ -14,14 +6,8 @@ import AVFoundation
 final class AudioBlockViewModel: BlockViewModelProtocol {
     private(set) var playerItem: AVPlayerItem?
 
-    var hashable: AnyHashable {
-        [
-            indentationLevel,
-            information
-        ] as [AnyHashable]
-    }
+    var hashable: AnyHashable { [ information ] as [AnyHashable] }
 
-    let indentationLevel: Int
     let information: BlockInformation
     let fileData: BlockFile
 
@@ -34,13 +20,11 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     weak var audioPlayerView: AudioPlayerViewInput?
 
     init(
-        indentationLevel: Int,
         information: BlockInformation,
         fileData: BlockFile,
         showAudioPicker: @escaping (BlockId) -> (),
         downloadAudio: @escaping (FileId) -> ()
     ) {
-        self.indentationLevel = indentationLevel
         self.information = information
         self.fileData = fileData
         self.showAudioPicker = showAudioPicker

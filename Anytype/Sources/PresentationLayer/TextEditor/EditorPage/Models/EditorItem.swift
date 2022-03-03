@@ -1,4 +1,4 @@
-typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing)
+typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing & IndentationProvider)
 
 enum EditorItem: Hashable {
     

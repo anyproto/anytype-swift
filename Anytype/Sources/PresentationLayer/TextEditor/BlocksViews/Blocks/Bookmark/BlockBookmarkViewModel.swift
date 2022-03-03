@@ -4,14 +4,7 @@ import UIKit
 
 // https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=106%3A745
 struct BlockBookmarkViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable {
-        [
-            indentationLevel,
-            information
-        ] as [AnyHashable]
-    }
-    
-    let indentationLevel: Int
+    var hashable: AnyHashable { [ information ] as [AnyHashable] }
     
     let information: BlockInformation
     let bookmarkData: BlockBookmark

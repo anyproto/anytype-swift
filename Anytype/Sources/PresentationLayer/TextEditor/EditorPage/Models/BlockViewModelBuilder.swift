@@ -97,7 +97,6 @@ final class BlockViewModelBuilder {
             switch content.contentType {
             case .file:
                 return BlockFileViewModel(
-                    indentationLevel: block.indentationLevel,
                     information: block.information,
                     fileData: content,
                     showFilePicker: { [weak self] blockId in
@@ -113,7 +112,6 @@ final class BlockViewModelBuilder {
                 return BlockImageViewModel(
                     information: block.information,
                     fileData: content,
-                    indentationLevel: block.indentationLevel,
                     showIconPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .images, blockId: blockId)
                     },
@@ -123,7 +121,6 @@ final class BlockViewModelBuilder {
 
             case .video:
                 return VideoBlockViewModel(
-                    indentationLevel: block.indentationLevel,
                     information: block.information,
                     fileData: content,
                     showVideoPicker: { [weak self] blockId in
@@ -135,7 +132,6 @@ final class BlockViewModelBuilder {
                 )
             case .audio:
                 return AudioBlockViewModel(
-                    indentationLevel: block.indentationLevel,
                     information: block.information,
                     fileData: content,
                     showAudioPicker: { [weak self] blockId in
@@ -147,14 +143,9 @@ final class BlockViewModelBuilder {
                 )
             }
         case .divider(let content):
-            return DividerBlockViewModel(
-                content: content,
-                information: block.information,
-                indentationLevel: block.indentationLevel
-            )
+            return DividerBlockViewModel(content: content, information: block.information)
         case let .bookmark(data):
             return BlockBookmarkViewModel(
-                indentationLevel: block.indentationLevel,
                 information: block.information,
                 bookmarkData: data,
                 showBookmarkBar: { [weak self] info in
@@ -167,7 +158,6 @@ final class BlockViewModelBuilder {
         case let .link(content):
             let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID)
             return BlockLinkViewModel(
-                indentationLevel: block.indentationLevel,
                 information: block.information,
                 content: content,
                 details: details,
@@ -206,7 +196,6 @@ final class BlockViewModelBuilder {
 
             return RelationBlockViewModel(
                 information: block.information,
-                indentationLevel: block.indentationLevel,
                 relation: relation) { [weak self] relation in
                     self?.router.showRelationValueEditingView(key: relation.id, source: .object)
                 }

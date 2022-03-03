@@ -4,7 +4,7 @@ import BlocksModels
 protocol BlockViewModelProtocol:
     HashableProvier,
     ContentConfigurationProvider,
-    BlockDataProvider,
+    BlockInformationProvider,
     BlockFocusing
 { }
 
@@ -13,9 +13,11 @@ protocol HashableProvier {
 }
 
 protocol ContentConfigurationProvider {
-    var indentationLevel: Int { get }
-
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration
+}
+
+protocol IndentationProvider {
+    var indentationLevel: Int { get }
 }
 
 protocol BlockFocusing {
@@ -28,13 +30,13 @@ extension BlockFocusing {
     func set(focus: BlockFocusPosition) { }
 }
 
-protocol BlockDataProvider {
+protocol BlockInformationProvider {
     var information: BlockInformation { get }
 }
 
 // MARK: - Extensions
 
-extension BlockDataProvider {
+extension BlockInformationProvider {
     var blockId: BlockId { information.id }
     var content: BlockContent { information.content }
 }

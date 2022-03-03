@@ -13,6 +13,8 @@ public struct BlockInformation: Hashable {
     public let backgroundColor: MiddlewareColor?
     public var alignment: LayoutAlignment
     
+    public var metadata = BlockInformationMetadata()
+    
     public init(
         id: BlockId,
         content: BlockContent,

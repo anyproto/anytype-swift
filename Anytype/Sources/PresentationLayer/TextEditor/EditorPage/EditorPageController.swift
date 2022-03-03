@@ -311,10 +311,10 @@ private extension EditorPageController {
         case .header: break
         case .block(let blockViewModel):
             cell.contentConfiguration = blockViewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationLevel = blockViewModel.indentationLevel 
+            cell.indentationLevel = blockViewModel.information.metadata.indentationLevel
         case .system(let systemContentConfiguationProvider):
             cell.contentConfiguration = systemContentConfiguationProvider.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationLevel = systemContentConfiguationProvider.indentationLevel 
+            cell.indentationLevel = systemContentConfiguationProvider.indentationLevel
         }
     }
 
@@ -431,7 +431,7 @@ private extension EditorPageController {
     func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BlockViewModelProtocol) {
         cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         cell.indentationWidth = Constants.cellIndentationWidth
-        cell.indentationLevel = item.indentationLevel
+        cell.indentationLevel = item.information.metadata.indentationLevel
         cell.contentView.isUserInteractionEnabled = true
         
         cell.backgroundConfiguration = UIBackgroundConfiguration.clear()

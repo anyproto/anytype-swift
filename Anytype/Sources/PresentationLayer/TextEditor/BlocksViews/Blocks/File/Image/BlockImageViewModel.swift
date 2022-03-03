@@ -12,24 +12,17 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         let imageView: UIImageView
     }
     
-    var hashable: AnyHashable {
-        [
-            indentationLevel,
-            information
-        ] as [AnyHashable]
-    }
+    var hashable: AnyHashable { [ information ] as [AnyHashable] }
     
     let information: BlockInformation
     let fileData: BlockFile
     
-    let indentationLevel: Int
     let showIconPicker: Action<BlockId>
     let onImageOpen: Action<ImageOpeningContext>?
     
     init?(
         information: BlockInformation,
         fileData: BlockFile,
-        indentationLevel: Int,
         showIconPicker: @escaping (BlockId) -> (),
         onImageOpen: Action<ImageOpeningContext>?
     ) {
@@ -43,7 +36,6 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         
         self.information = information
         self.fileData = fileData
-        self.indentationLevel = indentationLevel
         self.showIconPicker = showIconPicker
         self.onImageOpen = onImageOpen
     }

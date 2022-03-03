@@ -9,7 +9,6 @@ struct TextBlockURLInputParameters {
 }
 
 struct TextBlockViewModel: BlockViewModelProtocol {
-    var indentationLevel: Int
     var information: BlockInformation
 
     private let block: BlockModelProtocol
@@ -30,7 +29,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
 
     var hashable: AnyHashable {
         [
-            indentationLevel,
             information,
             isCheckable,
             toggled
@@ -57,9 +55,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.showPage = showPage
         self.openURL = openURL
         self.showURLBookmarkPopup = showURLBookmarkPopup
-        self.toggled = block.isToggled
+        self.toggled = block.information.isToggled
         self.information = block.information
-        self.indentationLevel = block.indentationLevel
         self.markdownListener = markdownListener
         self.focusSubject = focusSubject
     }
@@ -77,9 +74,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             alignment: information.alignment.asNSTextAlignment,
             backgroundColor: information.backgroundColor.map { UIColor.Background.uiColor(from: $0) },
             isCheckable: isCheckable,
-            isToggled: block.isToggled,
+            isToggled: block.information.isToggled,
             isChecked: content.checked,
-            shouldDisplayPlaceholder: block.isToggled && block.information.childrenIds.isEmpty,
+            shouldDisplayPlaceholder: block.information.isToggled && block.information.childrenIds.isEmpty,
             focusPublisher: focusSubject.eraseToAnyPublisher(),
             actions: action()
         )
@@ -128,7 +125,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 actionHandler.checkbox(selected: !content.checked, blockId: information.id)
             },
             toggleDropDown: {
-                block.toggle()
+                block.information.toggle()
                 actionHandler.toggle(blockId: information.id)
             }
         )

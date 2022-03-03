@@ -7,11 +7,11 @@ public enum IndentationBuilder {
                 guard var childBlock = container.model(id: childrenId) else { return }
 
                 childBlock.parent = parentBlock
-                childBlock.indentationLevel = 0
+                childBlock.information.metadata.indentationLevel = 0
 
                 // Don't count indentation if parent or child is meta(not drawing) block
-                if parentBlock.kind != .meta, childBlock.kind != .meta {
-                    childBlock.indentationLevel = parentBlock.indentationLevel + 1
+                if parentBlock.information.kind != .meta, childBlock.information.kind != .meta {
+                    childBlock.information.metadata.indentationLevel = parentBlock.information.metadata.indentationLevel + 1
                 }
 
                 build(container: container, id: childrenId)

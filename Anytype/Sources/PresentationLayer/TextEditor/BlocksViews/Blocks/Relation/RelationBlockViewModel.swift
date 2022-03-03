@@ -5,16 +5,14 @@ import AnytypeCore
 
 class RelationBlockViewModel: BlockViewModelProtocol {
     var information: BlockInformation
-    var indentationLevel: Int
 
     var relation: Relation
     var actionOnValue: ((_ relation: Relation) -> Void)?
 
     // MARK: - init
 
-    init(information: BlockInformation, indentationLevel: Int, relation: Relation, actionOnValue: ((_ relation: Relation) -> Void)?) {
+    init(information: BlockInformation, relation: Relation, actionOnValue: ((_ relation: Relation) -> Void)?) {
         self.information = information
-        self.indentationLevel = indentationLevel
         self.relation = relation
         self.actionOnValue = actionOnValue
     }
@@ -23,7 +21,6 @@ class RelationBlockViewModel: BlockViewModelProtocol {
 
     var hashable: AnyHashable {
         [
-            indentationLevel,
             information,
             relation
         ] as [AnyHashable]

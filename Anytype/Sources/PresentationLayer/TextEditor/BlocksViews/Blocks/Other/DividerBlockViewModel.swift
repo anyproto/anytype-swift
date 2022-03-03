@@ -2,22 +2,15 @@ import BlocksModels
 import UIKit
 
 struct DividerBlockViewModel: BlockViewModelProtocol {
-    var hashable: AnyHashable {
-        [
-            indentationLevel,
-            information
-        ] as [AnyHashable]
-    }
+    var hashable: AnyHashable { [ information ] as [AnyHashable] }
     
-    let indentationLevel: Int
     let information: BlockInformation
     
     private let dividerContent: BlockDivider
 
-    init(content: BlockDivider, information: BlockInformation, indentationLevel: Int) {
+    init(content: BlockDivider, information: BlockInformation) {
         self.dividerContent = content
         self.information = information
-        self.indentationLevel = indentationLevel
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {

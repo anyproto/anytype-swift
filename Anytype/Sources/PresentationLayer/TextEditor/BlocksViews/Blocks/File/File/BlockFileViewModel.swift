@@ -3,14 +3,8 @@ import BlocksModels
 import Combine
 
 struct BlockFileViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable {
-        [
-            indentationLevel,
-            information
-        ] as [AnyHashable]
-    }
+    var hashable: AnyHashable { [ information ] as [AnyHashable] }
     
-    let indentationLevel: Int
     let information: BlockInformation
     let fileData: BlockFile
     

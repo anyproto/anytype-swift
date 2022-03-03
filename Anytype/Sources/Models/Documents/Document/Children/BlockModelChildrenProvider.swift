@@ -23,7 +23,7 @@ final class BlockModelChildrenProvider {
         
         while !stack.isEmpty {
             if let model = stack.pop() {
-                if model.kind == .block { result.append(model) } // Skip meta blocks
+                if model.information.kind == .block { result.append(model) } // Skip meta blocks
                 
                 let children = findChildren(model: model)
                 

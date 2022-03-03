@@ -6,14 +6,12 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     var hashable: AnyHashable {
         [
             information,
-            indentationLevel,
             codeLanguage
         ] as [AnyHashable]
     }
     
     let block: BlockModelProtocol
     var information: BlockInformation { block.information }
-    var indentationLevel: Int { block.indentationLevel }
     let content: BlockText
     let codeLanguage: CodeLanguage
 
