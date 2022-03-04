@@ -55,7 +55,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     let document: BaseDocument
-    var router: EditorRouterProtocol!
+    var router: EditorRouterProtocol?
 
     let paginationHelper = EditorSetPaginationHelper()
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
@@ -82,7 +82,9 @@ final class EditorSetViewModel: ObservableObject {
             self?.onDataChange($0)
         }
         
-        if !document.open() { router.goBack() }
+        if !document.open() {
+            router?.goBack()
+        }
         setupDataview()
     }
     
