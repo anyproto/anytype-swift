@@ -3,6 +3,11 @@ import UIKit
 import BlocksModels
 
 extension TextBlockContentView: CustomTextViewDelegate {
+
+    func paste(slots: PastboardSlots, range: NSRange) {
+        actions?.paste(slots, range)
+    }
+
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
         switch change {
         case .become:

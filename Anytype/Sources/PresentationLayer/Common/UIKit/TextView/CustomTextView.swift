@@ -64,6 +64,7 @@ private extension CustomTextView {
         textView.isScrollEnabled = false
         textView.backgroundColor = nil
         textView.linkTextAttributes = [:]
+
         textView.removeInteractions { interaction in
             return interaction is UIContextMenuInteraction ||
             interaction is UIDragInteraction ||
