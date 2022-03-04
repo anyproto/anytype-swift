@@ -9,7 +9,7 @@ import AnytypeCore
 /// Result: [A, B, X, C, Y, D, Z]
 /// It is like a left-order traversing of tree, but we have to output parents first.
 ///
-final class BlockModelChildrenProvider {
+final class BlockInfoChildrenProvider {
     private let container: BlockContainerModelProtocol
     init(container: BlockContainerModelProtocol) {
         self.container = container

@@ -1,6 +1,6 @@
 public extension BlockInformation {
     func children(container: BlockContainerModelProtocol) -> [BlockInformation] {
-        BlockModelChildrenProvider(container: container).children(model: self)
+        BlockInfoChildrenProvider(container: container).children(model: self)
     }
     
     var isToggled: Bool {

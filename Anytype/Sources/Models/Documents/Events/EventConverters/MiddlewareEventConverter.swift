@@ -55,7 +55,7 @@ final class MiddlewareEventConverter {
     
         case let .blockSetChildrenIds(data):
             blocksContainer
-                .replace(childrenIds: data.childrenIds, parentId: data.id, shouldSkipGuardAgainstMissingIds: true )
+                .set(childrenIds: data.childrenIds, parentId: data.id)
             return .general
         case let .blockSetText(newData):
             return blockSetTextUpdate(newData)
@@ -424,7 +424,6 @@ final class MiddlewareEventConverter {
         }
 
         let rootId = roots[0].id
-        container.rootId = rootId
 
         IndentationBuilder.build(container: container, id: rootId)
     }
