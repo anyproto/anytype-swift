@@ -9,7 +9,7 @@ struct RelationOptionsSearchView: View {
     @State private var searchText = ""
     
     var body: some View {
-        VStack() {
+        VStack(spacing: 0) {
             DragIndicator()
             SearchBar(text: $searchText, focused: true)
             content
