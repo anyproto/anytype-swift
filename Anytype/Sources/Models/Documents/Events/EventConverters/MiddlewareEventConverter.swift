@@ -78,11 +78,9 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            blocksContainer.update(blockId: blockId, update: { info in
-                var info = info
-                info.alignment = modelAlignment
-                return info
-            })
+            blocksContainer.update(blockId: blockId) { info in
+                info.updated(with: modelAlignment)
+            }
             return .blocks(blockIds: [blockId])
         
         case let .objectDetailsSet(data):
@@ -176,8 +174,7 @@ final class MiddlewareEventConverter {
                         fileData.metadata.size = newData.size.value
                     }
                     
-                    info.content = .file(fileData)
-                    return info
+                    return info.updated(with: BlockContent.file(fileData))
                 default:
                     anytypeAssertionFailure("Wrong content: \(info.content) in blockSetFile", domain: .middlewareEventConverter)
                     return nil
@@ -220,8 +217,7 @@ final class MiddlewareEventConverter {
                         }
                     }
                     
-                    info.content = .bookmark(bookmark)
-                    return info
+                    return info.updated(with: BlockContent.bookmark(bookmark))
 
                 default:
                     anytypeAssertionFailure("Wrong content \(info.content) in blockSetBookmark", domain: .middlewareEventConverter)
@@ -238,7 +234,6 @@ final class MiddlewareEventConverter {
             let blockId = data.id
             
             blocksContainer.update(blockId: blockId, update: { info in
-                var info = info
                 switch info.content {
                 case let .divider(divider):
                     var divider = divider
@@ -247,8 +242,7 @@ final class MiddlewareEventConverter {
                         divider.style = style
                     }
                     
-                    info.content = .divider(divider)
-                    return info
+                    return info.updated(with: BlockContent.divider(divider))
                     
                 default:
                     anytypeAssertionFailure("Wrong conten \(info.content) in blockSetDiv", domain: .middlewareEventConverter)

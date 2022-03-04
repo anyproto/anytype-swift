@@ -27,7 +27,7 @@ final class LocalEventConverter {
             }
             
             content.state = .uploading
-            info.content = .file(content)
+            info = info.updated(with: BlockContent.file(content))
             blocksContainer.add(info)
             return .blocks(blockIds: [blockId])
         case .reload(blockId: let blockId):
@@ -66,7 +66,7 @@ final class LocalEventConverter {
         textContent.contentType = oldText.contentType
         textContent.number = oldText.number
         
-        info.content = .text(textContent)
+        info = info.updated(with: BlockContent.text(textContent))
         info = blockValidator.validated(information: info)
         blocksContainer.add(info)
         

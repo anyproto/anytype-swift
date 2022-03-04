@@ -33,7 +33,8 @@ public extension BlockInformation {
             backgroundColor: nil,
             alignment: .left,
             childrenIds: [],
-            fields: [:]
+            fields: [:],
+            metadata: BlockInformationMetadata()
         )
     }
     

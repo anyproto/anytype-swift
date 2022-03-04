@@ -103,9 +103,9 @@ final class MentionMarkupEventProvider {
         if case var .text(content) = info.content {
             content.text = string
             content.marks = Anytype_Model_Block.Content.Text.Marks(marks: marks)
-            var info = info
-            info.content = .text(content)
-            blocksContainer.add(info)
+            blocksContainer.add(
+                info.updated(with: BlockContent.text(content))
+            )
         }
     }
 }

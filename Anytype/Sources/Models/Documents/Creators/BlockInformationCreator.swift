@@ -60,8 +60,7 @@ struct BlockInformationCreator {
         }
         textContent.number = oldText.number
         
-        var newInfo = info
-        newInfo.content = .text(textContent)
+        let newInfo = info.updated(with: BlockContent.text(textContent))
         return validator.validated(information: newInfo)
     }
     
