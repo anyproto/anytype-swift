@@ -4,7 +4,7 @@ import AnytypeCore
 import SwiftProtobuf
 
 final class MiddlewareEventConverter {
-    private let blocksContainer: BlockContainerModelProtocol
+    private let blocksContainer: InfoContainerProtocol
     private let relationStorage: RelationsMetadataStorageProtocol
     private let detailsStorage: ObjectDetailsStorage
     private let restrictionsContainer: ObjectRestrictionsContainer
@@ -13,7 +13,7 @@ final class MiddlewareEventConverter {
     
     
     init(
-        blocksContainer: BlockContainerModelProtocol,
+        blocksContainer: InfoContainerProtocol,
         relationStorage: RelationsMetadataStorageProtocol,
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared,
@@ -47,7 +47,7 @@ final class MiddlewareEventConverter {
         
         case let .blockDelete(value):
             value.blockIds.forEach { blockId in
-                blocksContainer.remove(blockId)
+                blocksContainer.remove(id: blockId)
             }
             // Because blockDelete message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
@@ -55,13 +55,12 @@ final class MiddlewareEventConverter {
     
         case let .blockSetChildrenIds(data):
             blocksContainer
-                .set(childrenIds: data.childrenIds, parentId: data.id)
+                .setChildren(ids: data.childrenIds, parentId: data.id)
             return .general
         case let .blockSetText(newData):
             return blockSetTextUpdate(newData)
         case let .blockSetBackgroundColor(updateData):
             blocksContainer.update(blockId: updateData.id, update: { info in
-                var info = info
                 return info.updated(
                     with: MiddlewareColor(rawValue: updateData.backgroundColor)
                 )
@@ -376,7 +375,7 @@ final class MiddlewareEventConverter {
     }
     
     private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventsListenerUpdate {
-        guard let info = blocksContainer.model(id: newData.id) else {
+        guard let info = blocksContainer.get(id: newData.id) else {
             anytypeAssertionFailure(
                 "Block model with id \(newData.id) not found in container",
                 domain: .middlewareEventConverter
@@ -405,7 +404,7 @@ final class MiddlewareEventConverter {
         return toggleStyleChanged ? .general : .blocks(blockIds: [newData.id])
     }
     
-    private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: BlockContainerModelProtocol) {
+    private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: InfoContainerProtocol) {
         
         information.forEach { container.add($0) }
         let roots = information.filter { $0.id == rootId }

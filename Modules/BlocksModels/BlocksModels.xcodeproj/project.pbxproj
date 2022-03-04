@@ -27,7 +27,7 @@
 		12B69C8D265D10F600D047E3 /* CoverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B69C8C265D10F600D047E3 /* CoverType.swift */; };
 		12F91CF1270E015900C92B28 /* ObjectDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F91CF0270E015900C92B28 /* ObjectDetails.swift */; };
 		3D00F1E1278DEBB900863D7C /* ObjectDetails+Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1E0278DEBB900863D7C /* ObjectDetails+Parsing.swift */; };
-		3D0BCABF26663B12002F7A0D /* BlockContainerModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCABE26663B12002F7A0D /* BlockContainerModelProtocol.swift */; };
+		3D0BCABF26663B12002F7A0D /* InfoContainerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCABE26663B12002F7A0D /* InfoContainerProtocol.swift */; };
 		3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCAE026666C0E002F7A0D /* BlockLink.swift */; };
 		3D1606EA27BD406500CB20BD /* AmendExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1606E927BD406500CB20BD /* AmendExtension.swift */; };
 		3D17023D2715C1FB0079B65B /* SyncStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17023C2715C1FB0079B65B /* SyncStatus.swift */; };
@@ -48,7 +48,7 @@
 		3DB1B32227D0F59A0058F7BA /* BlockModelChildrenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1B32127D0F59A0058F7BA /* BlockModelChildrenProvider.swift */; };
 		3DB692B52697647700149864 /* MiddlewareColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B42697647600149864 /* MiddlewareColor.swift */; };
 		3DB7DCA82639DC0100635E4C /* ToggleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA72639DC0100635E4C /* ToggleStorage.swift */; };
-		3DB7DCAB2639DC7100635E4C /* BlockContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCAA2639DC7100635E4C /* BlockContainer.swift */; };
+		3DB7DCAB2639DC7100635E4C /* InfoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCAA2639DC7100635E4C /* InfoContainer.swift */; };
 		3DBED6A4266FC0FD00B9E9AB /* BlockContentIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */; };
 		3DE0B3282747BDC200F69376 /* BlockDataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE0B3272747BDC200F69376 /* BlockDataView.swift */; };
 		3DE511F926711E5C00153962 /* BlockText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE511F826711E5C00153962 /* BlockText.swift */; };
@@ -85,7 +85,7 @@
 		12B69C8C265D10F600D047E3 /* CoverType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverType.swift; sourceTree = "<group>"; };
 		12F91CF0270E015900C92B28 /* ObjectDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetails.swift; sourceTree = "<group>"; };
 		3D00F1E0278DEBB900863D7C /* ObjectDetails+Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectDetails+Parsing.swift"; sourceTree = "<group>"; };
-		3D0BCABE26663B12002F7A0D /* BlockContainerModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainerModelProtocol.swift; sourceTree = "<group>"; };
+		3D0BCABE26663B12002F7A0D /* InfoContainerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainerProtocol.swift; sourceTree = "<group>"; };
 		3D0BCAE026666C0E002F7A0D /* BlockLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLink.swift; sourceTree = "<group>"; };
 		3D1606E927BD406500CB20BD /* AmendExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AmendExtension.swift; sourceTree = "<group>"; };
 		3D17023C2715C1FB0079B65B /* SyncStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SyncStatus.swift; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		3DB1B32127D0F59A0058F7BA /* BlockModelChildrenProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModelChildrenProvider.swift; sourceTree = "<group>"; };
 		3DB692B42697647600149864 /* MiddlewareColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareColor.swift; sourceTree = "<group>"; };
 		3DB7DCA72639DC0100635E4C /* ToggleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleStorage.swift; sourceTree = "<group>"; };
-		3DB7DCAA2639DC7100635E4C /* BlockContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContainer.swift; sourceTree = "<group>"; };
+		3DB7DCAA2639DC7100635E4C /* InfoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainer.swift; sourceTree = "<group>"; };
 		3DBED6A3266FC0FD00B9E9AB /* BlockContentIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentIdentifiers.swift; sourceTree = "<group>"; };
 		3DE0B3272747BDC200F69376 /* BlockDataView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDataView.swift; sourceTree = "<group>"; };
 		3DE511F826711E5C00153962 /* BlockText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockText.swift; sourceTree = "<group>"; };
@@ -326,8 +326,8 @@
 			isa = PBXGroup;
 			children = (
 				3DB1B32127D0F59A0058F7BA /* BlockModelChildrenProvider.swift */,
-				3DB7DCAA2639DC7100635E4C /* BlockContainer.swift */,
-				3D0BCABE26663B12002F7A0D /* BlockContainerModelProtocol.swift */,
+				3DB7DCAA2639DC7100635E4C /* InfoContainer.swift */,
+				3D0BCABE26663B12002F7A0D /* InfoContainerProtocol.swift */,
 			);
 			path = BlockContainer;
 			sourceTree = "<group>";
@@ -464,13 +464,13 @@
 				3D22B21526877D9300C78C28 /* BlockFileState.swift in Sources */,
 				3D22B21C2687809900C78C28 /* BlockContentDivider.swift in Sources */,
 				3DE0B3282747BDC200F69376 /* BlockDataView.swift in Sources */,
-				3D0BCABF26663B12002F7A0D /* BlockContainerModelProtocol.swift in Sources */,
+				3D0BCABF26663B12002F7A0D /* InfoContainerProtocol.swift in Sources */,
 				3DBED6A4266FC0FD00B9E9AB /* BlockContentIdentifiers.swift in Sources */,
 				12206711273164360051A331 /* RelationsMetadataStorageProtocol.swift in Sources */,
 				3DB692B52697647700149864 /* MiddlewareColor.swift in Sources */,
 				12B69C8D265D10F600D047E3 /* CoverType.swift in Sources */,
 				127D1E222722F7490050FCB7 /* BundledRelationKey.swift in Sources */,
-				3DB7DCAB2639DC7100635E4C /* BlockContainer.swift in Sources */,
+				3DB7DCAB2639DC7100635E4C /* InfoContainer.swift in Sources */,
 				3D22B2192687804000C78C28 /* BlockFile.swift in Sources */,
 				3D22B220268781C300C78C28 /* BlockContentLayout.swift in Sources */,
 				531605C8272191EF0057B7C1 /* ObjectRestrictions.swift in Sources */,

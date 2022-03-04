@@ -5,12 +5,12 @@ import ProtobufMessages
 final class MentionMarkupEventProvider {
     
     private let objectId: BlockId
-    private let blocksContainer: BlockContainerModelProtocol
+    private let blocksContainer: InfoContainerProtocol
     private let detailsStorage: ObjectDetailsStorage
         
     init(
         objectId: BlockId,
-        blocksContainer: BlockContainerModelProtocol,
+        blocksContainer: InfoContainerProtocol,
         detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared
     ) {
         self.objectId = objectId

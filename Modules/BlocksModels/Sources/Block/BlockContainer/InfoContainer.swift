@@ -2,7 +2,7 @@ import Foundation
 import Combine
 import AnytypeCore
 
-public final class BlockContainer: BlockContainerModelProtocol {
+public final class InfoContainer: InfoContainerProtocol {
     
     private var models = SynchronizedDictionary<BlockId, BlockInformation>()
     
@@ -13,10 +13,10 @@ public final class BlockContainer: BlockContainerModelProtocol {
             return []
         }
         
-        return information.childrenIds.compactMap { model(id: $0) }
+        return information.childrenIds.compactMap { get(id: $0) }
     }
 
-    public func model(id: BlockId) -> BlockInformation? {
+    public func get(id: BlockId) -> BlockInformation? {
         models[id]
     }
     
@@ -24,22 +24,32 @@ public final class BlockContainer: BlockContainerModelProtocol {
         models[info.id] = info
     }
 
-    public func remove(_ id: BlockId) {
+    public func remove(id: BlockId) {
         // go to parent and remove this block from a parent.
-        if let parentId = model(id: id)?.metadata.parentId,
+        if let parentId = get(id: id)?.metadata.parentId,
            var parent = models[parentId] {
             parent.childrenIds = parent.childrenIds.filter {$0 != id}
             add(parent)
         }
         
-        if let information = model(id: id) {
+        if let information = get(id: id) {
             models.removeValue(forKey: id)
-            information.childrenIds.forEach(remove(_:))
+            information.childrenIds.forEach(remove(id:))
         }
     }
 
+    public func setChildren(ids: [BlockId], parentId: BlockId) {
+        guard var parent = get(id: parentId) else {
+            anytypeAssertionFailure("I can't find entry with id: \(parentId)", domain: .blockContainer)
+            return
+        }
+
+        parent.childrenIds = ids
+        add(parent)
+    }
+    
     public func update(blockId: BlockId, update updateAction: @escaping (BlockInformation) -> (BlockInformation?)) {
-        guard let entry = model(id: blockId) else {
+        guard let entry = get(id: blockId) else {
             anytypeAssertionFailure("No block with id \(blockId)", domain: .blockContainer)
             return
         }
@@ -61,15 +71,5 @@ public final class BlockContainer: BlockContainerModelProtocol {
             info.content = .dataView(updateAction(dataView))
             return info
         }
-    }
-    
-    public func set(childrenIds: [BlockId], parentId: BlockId) {
-        guard var parent = model(id: parentId) else {
-            anytypeAssertionFailure("I can't find entry with id: \(parentId)", domain: .blockContainer)
-            return
-        }
-
-        parent.childrenIds = childrenIds
-        add(parent)
     }
 }

@@ -10,8 +10,8 @@ import AnytypeCore
 /// It is like a left-order traversing of tree, but we have to output parents first.
 ///
 final class BlockInfoChildrenProvider {
-    private let container: BlockContainerModelProtocol
-    init(container: BlockContainerModelProtocol) {
+    private let container: InfoContainerProtocol
+    init(container: InfoContainerProtocol) {
         self.container = container
     }
             

@@ -3,10 +3,10 @@ import ProtobufMessages
 import AnytypeCore
 
 final class LocalEventConverter {
-    private let blocksContainer: BlockContainerModelProtocol
+    private let blocksContainer: InfoContainerProtocol
     private let blockValidator = BlockValidator()
     
-    init(blocksContainer: BlockContainerModelProtocol) {
+    init(blocksContainer: InfoContainerProtocol) {
         self.blocksContainer = blocksContainer
     }
     
@@ -17,7 +17,7 @@ final class LocalEventConverter {
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)
         case .setLoadingState(blockId: let blockId):
-            guard var info = blocksContainer.model(id: blockId) else {
+            guard var info = blocksContainer.get(id: blockId) else {
                 anytypeAssertionFailure("setLoadingState. Can't find model by id \(blockId)", domain: .localEventConverter)
                 return nil
             }
@@ -39,7 +39,7 @@ final class LocalEventConverter {
     // func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text)
     // only text is changed
     private func blockSetTextUpdate(blockId: BlockId, text: MiddlewareString) -> EventsListenerUpdate {
-        guard var info = blocksContainer.model(id: blockId) else {
+        guard var info = blocksContainer.get(id: blockId) else {
             anytypeAssertionFailure("Block model with id \(blockId) not found in container", domain: .localEventConverter)
             return .general
         }

@@ -7,7 +7,7 @@ final class BaseDocument: BaseDocumentProtocol {
     var updatePublisher: AnyPublisher<EventsListenerUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     let objectId: BlockId
 
-    let blocksContainer: BlockContainerModelProtocol = BlockContainer()
+    let blocksContainer: InfoContainerProtocol = InfoContainer()
     let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
     let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
     
@@ -62,9 +62,9 @@ final class BaseDocument: BaseDocumentProtocol {
     #warning("TODO")
     // Looks like this code runs on main thread.
     // This operation should be done in `eventsListener.onUpdateReceive` closure
-    // OR store children blocks instead of tree in `BlockContainer`
+    // OR store children blocks instead of tree in `InfoContainer`
     var children: [BlockInformation] {
-        guard let model = blocksContainer.model(id: objectId) else {
+        guard let model = blocksContainer.get(id: objectId) else {
             anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)
             return []
         }
