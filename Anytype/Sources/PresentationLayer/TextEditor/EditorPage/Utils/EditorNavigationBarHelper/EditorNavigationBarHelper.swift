@@ -9,9 +9,13 @@ final class EditorNavigationBarHelper {
     private let fakeNavigationBarBackgroundView = UIView()
     private let navigationBarTitleView = EditorNavigationBarTitleView()
     
+    private lazy var settingsBarButtonItem = UIBarButtonItem(customView: settingsItem)
+    private let doneBarButtonItem: UIBarButtonItem
+    private lazy var syncStatusBarButtonItem = UIBarButtonItem(customView: syncStatusItem)
+
     private let settingsItem: EditorBarButtonItem
     private let syncStatusItem = EditorSyncStatusItem(status: .unknown)
-    
+
     private var contentOffsetObservation: NSKeyValueObservation?
     
     private var isObjectHeaderWithCover = false
@@ -19,10 +23,27 @@ final class EditorNavigationBarHelper {
     private var startAppearingOffset: CGFloat = 0.0
     private var endAppearingOffset: CGFloat = 0.0
     var canChangeSyncStatusAppearance = true
+
+    private var currentEditorState: EditorEditingState?
+    private var lastTitleModel: EditorNavigationBarTitleView.Mode.TitleModel?
         
-    init(onSettingsBarButtonItemTap: @escaping () -> Void) {
+    init(
+        viewController: UIViewController,
+        onSettingsBarButtonItemTap: @escaping () -> Void,
+        onDoneBarButtonItemTap: @escaping () -> Void
+    ) {
+        self.controller = viewController
         self.settingsItem = EditorBarButtonItem(image: .editorNavigation.more, action: onSettingsBarButtonItemTap)
-        
+
+        self.doneBarButtonItem = UIBarButtonItem(
+            title: "Done".localized,
+            image: nil,
+            primaryAction: UIAction(handler: { _ in onDoneBarButtonItemTap() }),
+            menu: nil
+        )
+        self.doneBarButtonItem.tintColor = UIColor.buttonAccent
+
+
         self.fakeNavigationBarBackgroundView.backgroundColor = .backgroundPrimary
         self.fakeNavigationBarBackgroundView.alpha = 0.0
         
@@ -44,10 +65,8 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         }
     }
     
-    func handleViewWillAppear(_ vc: UIViewController?, _ scrollView: UIScrollView) {
-        guard let vc = vc else { return }
-        
-        configureNavigationItem(in: vc)
+    func handleViewWillAppear(scrollView: UIScrollView) {
+        configureNavigationItem()
         
         contentOffsetObservation = scrollView.observe(
             \.contentOffset,
@@ -69,22 +88,48 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         
         updateBarButtonItemsBackground(percent: 0)
 
+        let titleModel = EditorNavigationBarTitleView.Mode.TitleModel(
+            icon: details?.objectIconImage,
+            title: details?.title
+        )
+        self.lastTitleModel = titleModel
+
         navigationBarTitleView.configure(
-            model: EditorNavigationBarTitleView.Model(
-                icon: details?.objectIconImage,
-                title: details?.title
-            )
+            model: .title(titleModel)
         )
     }
     
     func updateSyncStatus(_ status: SyncStatus) {
-        if canChangeSyncStatusAppearance { syncStatusItem.isHidden = false }
         syncStatusItem.changeStatus(status)
     }
-    
-    func setNavigationBarHidden(_ hidden: Bool) {
-        controller?.navigationController?.navigationBar.alpha = hidden ? 0 : 1
-        fakeNavigationBarBackgroundView.isHidden = hidden
+
+    func editorEditingStateDidChange(_ state: EditorEditingState) {
+        currentEditorState = state
+        switch state {
+        case .editing:
+            controller?.navigationItem.titleView = navigationBarTitleView
+            controller?.navigationItem.rightBarButtonItem = settingsBarButtonItem
+            controller?.navigationItem.leftBarButtonItem = syncStatusBarButtonItem
+            lastTitleModel.map { navigationBarTitleView.configure(model: .title($0)) }
+        case .selecting(let blocks):
+            navigationBarTitleView.setAlphaForSubviews(1)
+            updateBarButtonItemsBackground(percent: 1)
+            fakeNavigationBarBackgroundView.alpha = 1
+            controller?.navigationItem.leftBarButtonItem = nil
+            controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
+            let title: String
+            switch blocks.count {
+            case 1:
+                title = "\(blocks.count) " + "selected block".localized
+            default:
+                title = "\(blocks.count) " + "selected blocks".localized
+            }
+            navigationBarTitleView.configure(model: .modeTitle(title))
+        case .moving:
+            let title = "Editor.MovingState.ScrollToSelectedPlace".localized
+            navigationBarTitleView.configure(model: .modeTitle(title))
+            controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
+        }
     }
 }
 
@@ -92,21 +137,9 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
 
 private extension EditorNavigationBarHelper {
     
-    func configureNavigationItem(in vc: UIViewController) {
-        vc.navigationItem.titleView = navigationBarTitleView
-        vc.navigationItem.backBarButtonItem = nil
-        vc.navigationItem.hidesBackButton = true
-        
-        vc.navigationItem.rightBarButtonItem = UIBarButtonItem(
-            customView: settingsItem
-        )
-        vc.navigationItem.leftBarButtonItem = UIBarButtonItem(
-            customView: syncStatusItem
-        )
-        
-        controller = vc
-        
-        setNavigationBarHidden(false)
+    func configureNavigationItem() {
+        controller?.navigationItem.backBarButtonItem = nil
+        controller?.navigationItem.hidesBackButton = true
     }
     
     func updateBarButtonItemsBackground(percent: CGFloat) {
@@ -117,6 +150,7 @@ private extension EditorNavigationBarHelper {
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {
         guard let alpha = countPercentOfNavigationBarAppearance(offset: newOffset) else { return }
+        guard case .editing = currentEditorState else { return }
 
         navigationBarTitleView.setAlphaForSubviews(alpha)
         updateBarButtonItemsBackground(percent: alpha)

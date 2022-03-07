@@ -17,30 +17,41 @@ final class EditorNavigationBarTitleView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 extension EditorNavigationBarTitleView: ConfigurableView {
-    
-    struct Model {
-        let icon: ObjectIconImage?
-        let title: String?
+
+    enum Mode {
+        struct TitleModel {
+            let icon: ObjectIconImage?
+            let title: String?
+        }
+
+        case title(TitleModel)
+        case modeTitle(String)
     }
+
     
-    func configure(model: Model) {
-        titleLabel.text = model.title
-        
-        switch model.icon {
-        case .some(let objectIconImage):
-            iconImageView.isHidden = false
-            iconImageView.configure(
-                model: ObjectIconImageView.Model(
-                    iconImage: objectIconImage,
-                    usecase: .openedObjectNavigationBar
+    func configure(model: Mode) {
+        switch model {
+        case let .title(titleModel):
+            titleLabel.text = titleModel.title
+            titleLabel.font = .uxCalloutRegular
+            switch titleModel.icon {
+            case .some(let objectIconImage):
+                iconImageView.isHidden = false
+                iconImageView.configure(
+                    model: ObjectIconImageView.Model(
+                        iconImage: objectIconImage,
+                        usecase: .openedObjectNavigationBar
+                    )
                 )
-            )
-        case .none:
-            iconImageView.isHidden = true
+            case .none:
+                iconImageView.isHidden = true
+            }
+        case let .modeTitle(text):
+            titleLabel.text = text
+            titleLabel.font = .uxTitle1Semibold
         }
     }
     
@@ -55,7 +66,6 @@ extension EditorNavigationBarTitleView: ConfigurableView {
 private extension EditorNavigationBarTitleView {
     
     func setupView() {
-        titleLabel.font = .uxCalloutRegular
         titleLabel.textColor = .textPrimary
         titleLabel.numberOfLines = 1
         
@@ -69,7 +79,7 @@ private extension EditorNavigationBarTitleView {
     
     func setupLayout() {
         addSubview(stackView) {
-            $0.width.lessThanOrEqual(to: 170)
+            $0.width.lessThanOrEqual(to: 300)
             $0.pinToSuperview()
         }
 
@@ -80,5 +90,4 @@ private extension EditorNavigationBarTitleView {
             $0.size(CGSize(width: 18, height: 18))
         }
     }
-    
 }

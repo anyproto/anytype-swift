@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 import Combine
 
-protocol EditorPageViewModelProtocol {
+protocol EditorPageViewModelProtocol: AnyObject {
     var blocksStateManager: EditorPageBlocksStateManagerProtocol { get }
 
     var document: BaseDocumentProtocol { get }
