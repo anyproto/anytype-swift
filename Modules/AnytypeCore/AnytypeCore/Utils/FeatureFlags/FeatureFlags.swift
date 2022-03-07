@@ -30,8 +30,8 @@ public final class FeatureFlags {
         .showAlertOnAssert : true,
         .analytics : false,
         .middlewareLogs: false,
-        .uikitRelationBlocks: false,
         .clipboard: false,
+        .uikitRelationBlocks: true
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -63,7 +63,7 @@ public extension FeatureFlags {
     }
 
     static var uikitRelationBlock: Bool {
-        features[.uikitRelationBlocks, default: false]
+        features[.uikitRelationBlocks, default: true]
     }
 
     static var clipboard: Bool {
