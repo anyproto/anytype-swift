@@ -26,17 +26,12 @@ public final class InfoContainer: InfoContainerProtocol {
 
     public func remove(id: BlockId) {
         // go to parent and remove this block from a parent.
-        if let parentId = get(id: id)?.metadata.parentId,
-           var parent = models[parentId] {
+        if let parentId = get(id: id)?.metadata.parentId, let parent = models[parentId] {
             let childrenIds = parent.childrenIds.filter {$0 != id}
-            parent = parent.updated(with: childrenIds)
-            add(parent)
+            add(parent.updated(with: childrenIds))
         }
         
-        if let information = get(id: id) {
-            models.removeValue(forKey: id)
-            information.childrenIds.forEach(remove(id:))
-        }
+        models.removeValue(forKey: id)
     }
 
     public func setChildren(ids: [BlockId], parentId: BlockId) {
