@@ -494,23 +494,22 @@ class KeyboardActionHandlerTests: XCTestCase {
     
     func test_deleteForEmpty_text() throws {
         let info = info(style: .text)
-        service.deleteStub = true
+        service.mergeStub = true
 
         handler.handle(info: info, action: .deleteForEmpty)
 
-        XCTAssertEqual(service.deleteNumberOfCalls, 1)
-        XCTAssertEqual(service.deleteBlockId, "id")
+        XCTAssertEqual(service.mergeNumberOfCalls, 1)
+        XCTAssertEqual(service.mergeSecondBlockId, "id")
     }
     
     func test_deleteForEmpty_text_with_children() throws {
         let info = info(style: .text, hasChild: true)
-        listService.replaceStub = true
+        service.mergeStub = true
 
         handler.handle(info: info, action: .deleteForEmpty)
 
-        XCTAssertEqual(listService.replaceNumberOfCalls, 1)
-        XCTAssertEqual(listService.replaceTargetId, "id")
-        XCTAssertEqual(listService.replaceBlockIds, ["childId"])
+        XCTAssertEqual(service.mergeNumberOfCalls, 1)
+        XCTAssertEqual(service.mergeSecondBlockId, "id")
     }
     
     func test_deleteForEmpty_description() throws {
@@ -647,7 +646,8 @@ class KeyboardActionHandlerTests: XCTestCase {
             backgroundColor: nil,
             alignment: .center,
             childrenIds: hasChild ? ["childId"] : [],
-            fields: [:]
+            fields: [:],
+            metadata: .init()
         )
     }
 }
