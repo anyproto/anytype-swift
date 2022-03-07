@@ -1,4 +1,4 @@
-import BlocksModels
+import AnytypeCore
 
 /// Input:
 /// A -> [B, C, D]
@@ -15,19 +15,18 @@ final class BlockModelChildrenProvider {
         self.container = container
     }
             
-    func children(model: BlockModelProtocol) -> [BlockModelProtocol] {
-        var result = Array<BlockModelProtocol>()
-        let stack = Stack<BlockModelProtocol>()
+    func children(model: BlockInformation) -> [BlockInformation] {
+        var result = Array<BlockInformation>()
+        let stack = Stack<BlockInformation>()
         
         stack.push(model)
         
         while !stack.isEmpty {
-            if let model = stack.pop() {
-                if model.kind == .block { result.append(model) } // Skip meta blocks
+            if let info = stack.pop() {
+                if info.kind == .block { result.append(info) } // Skip meta blocks
                 
-                let children = findChildren(model: model)
-                
-                updateBlockNumberCount(models: children)
+                let children = findChildren(info: info)
+                updateBlockNumberCount(infos: children)
                 
                 for item in children.reversed() {
                     stack.push(item)
@@ -38,23 +37,24 @@ final class BlockModelChildrenProvider {
         return result
     }
 
-    private func findChildren(model: BlockModelProtocol) -> [BlockModelProtocol] {
-        if model.information.content.isToggle, ToggleStorage.shared.isToggled(blockId: model.information.id) == false {
+    private func findChildren(info: BlockInformation) -> [BlockInformation] {
+        if info.content.isToggle, ToggleStorage.shared.isToggled(blockId: info.id) == false {
             return [] // return no children for closed toggle
         }
         
-        return container.children(of: model.information.id)
+        return container.children(of: info.id)
     }
     
-    private func updateBlockNumberCount(models: [BlockModelProtocol]) {
+    private func updateBlockNumberCount(infos: [BlockInformation]) {
         var number: Int = 0
         
-        models.forEach { model in
-            switch model.information.content {
+        infos.forEach { info in
+            switch info.content {
             case let .text(text) where text.contentType == .numbered:
                 number += 1
-                var model = model
-                model.information.content = .text(text.updated(number: number))
+                var info = info
+                info.content = .text(text.updated(number: number))
+                container.add(info)
             default:
                 number = 0
             }
