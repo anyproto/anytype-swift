@@ -9,7 +9,7 @@ enum EditorItem: Hashable {
     static func == (lhs: EditorItem, rhs: EditorItem) -> Bool {
         switch (lhs, rhs) {
         case let (.block(lhsBlock), .block(rhsBlock)):
-            return lhsBlock.information.id == rhsBlock.information.id
+            return lhsBlock.info.id == rhsBlock.info.id
         case let (.header(lhsHeader), .header(rhsHeader)):
             return lhsHeader == rhsHeader
         case let (.system(rhsSystem), .system(lhsSystem)):
@@ -22,7 +22,7 @@ enum EditorItem: Hashable {
     func hash(into hasher: inout Hasher) {
         switch self {
         case let .block(block):
-            hasher.combine(block.information.id)
+            hasher.combine(block.info.id)
         case let .header(header):
             hasher.combine(header)
         case let.system(system):

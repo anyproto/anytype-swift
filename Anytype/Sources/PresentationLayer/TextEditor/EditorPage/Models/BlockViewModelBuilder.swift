@@ -26,8 +26,8 @@ final class BlockViewModelBuilder {
         self.markdownListener = markdownListener
     }
 
-    func buildEditorItems(from blocks: [BlockModelProtocol]) -> [EditorItem] {
-        let blockViewModels = build(blocks)
+    func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
+        let blockViewModels = build(infos)
         var editorItems = blockViewModels.map (EditorItem.block)
 
         let featureRelationsIndex = blockViewModels.firstIndex { $0.content == .featuredRelations }
@@ -40,42 +40,41 @@ final class BlockViewModelBuilder {
         return editorItems
     }
 
-    private func build(_ blocks: [BlockModelProtocol]) -> [BlockViewModelProtocol] {
-        blocks.compactMap { block -> BlockViewModelProtocol? in
-            let blockViewModel = build(from: block)
-            return blockViewModel
+    private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
+        infos.compactMap { info -> BlockViewModelProtocol? in
+            build(info: info)
         }
     }
 
-    func build(from block: BlockModelProtocol) -> BlockViewModelProtocol? {
-        switch block.information.content {
+    func build(info: BlockInformation) -> BlockViewModelProtocol? {
+        switch info.content {
         case let .text(content):
             switch content.contentType {
             case .code:
                 return CodeBlockViewModel(
-                    block: block,
+                    info: info,
                     content: content,
                     codeLanguage: CodeLanguage.create(
-                        middleware: block.information.fields[FieldName.codeLanguage]?.stringValue
+                        middleware: info.fields[FieldName.codeLanguage]?.stringValue
                     ),
                     becomeFirstResponder: { _ in },
                     textDidChange: { block, textView in
-                        self.handler.changeText(textView.attributedText, info: block.information)
+                        self.handler.changeText(textView.attributedText, info: info)
                     },
-                    showCodeSelection: { [weak self] block in
+                    showCodeSelection: { [weak self] info in
                         self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in
                             let fields = BlockFields(
-                                blockId: block.information.id,
+                                blockId: info.id,
                                 fields: [FieldName.codeLanguage: language.toMiddleware()]
                             )
-                            self?.handler.setFields([fields], blockId: block.information.id)
+                            self?.handler.setFields([fields], blockId: info.id)
                         }
                     }
                 )
             default:
                 let isCheckable = content.contentType == .title ? document.objectDetails?.layout == .todo : false
                 return TextBlockViewModel(
-                    block: block,
+                    info: info,
                     content: content,
                     isCheckable: isCheckable,
                     blockDelegate: delegate,
@@ -90,14 +89,14 @@ final class BlockViewModelBuilder {
                         router?.showLinkContextualMenu(inputParameters: parameters)
                     },
                     markdownListener: markdownListener,
-                    focusSubject: subjectsHolder.focusSubject(for: block.information.id)
+                    focusSubject: subjectsHolder.focusSubject(for: info.id)
                 )
             }
         case let .file(content):
             switch content.contentType {
             case .file:
                 return BlockFileViewModel(
-                    information: block.information,
+                    info: info,
                     fileData: content,
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
@@ -107,10 +106,10 @@ final class BlockViewModelBuilder {
                     }
                 )
             case .none:
-                return UnknownLabelViewModel(information: block.information)
+                return UnknownLabelViewModel(info: info)
             case .image:
                 return BlockImageViewModel(
-                    information: block.information,
+                    info: info,
                     fileData: content,
                     showIconPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .images, blockId: blockId)
@@ -121,7 +120,7 @@ final class BlockViewModelBuilder {
 
             case .video:
                 return VideoBlockViewModel(
-                    information: block.information,
+                    info: info,
                     fileData: content,
                     showVideoPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .videos, blockId: blockId)
@@ -132,7 +131,7 @@ final class BlockViewModelBuilder {
                 )
             case .audio:
                 return AudioBlockViewModel(
-                    information: block.information,
+                    info: info,
                     fileData: content,
                     showAudioPicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId, types: [.audio])
@@ -143,10 +142,10 @@ final class BlockViewModelBuilder {
                 )
             }
         case .divider(let content):
-            return DividerBlockViewModel(content: content, information: block.information)
+            return DividerBlockViewModel(content: content, info: info)
         case let .bookmark(data):
             return BlockBookmarkViewModel(
-                information: block.information,
+                info: info,
                 bookmarkData: data,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
@@ -158,7 +157,7 @@ final class BlockViewModelBuilder {
         case let .link(content):
             let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID)
             return BlockLinkViewModel(
-                information: block.information,
+                info: info,
                 content: content,
                 details: details,
                 openLink: { [weak self] data in
@@ -167,10 +166,14 @@ final class BlockViewModelBuilder {
             )
         case .featuredRelations:
             guard let objectType = document.objectDetails?.objectType else { return nil }
-
+            
+            let featuredRelation = document.parsedRelations.featuredRelationsForEditor(
+                type: objectType,
+                objectRestriction: document.objectRestrictions.objectRestriction
+            )
             return FeaturedRelationsBlockViewModel(
-                information: block.information,
-                featuredRelation: document.parsedRelations.featuredRelationsForEditor(type: objectType, objectRestriction: document.objectRestrictions.objectRestriction),
+                info: info,
+                featuredRelation: featuredRelation,
                 type: objectType.name
             ) { [weak self] relation in
                 guard let self = self else { return }
@@ -195,21 +198,22 @@ final class BlockViewModelBuilder {
             }
 
             return RelationBlockViewModel(
-                information: block.information,
-                relation: relation) { [weak self] relation in
-                    self?.router.showRelationValueEditingView(key: relation.id, source: .object)
-                }
+                info: info,
+                relation: relation
+            ) { [weak self] relation in
+                self?.router.showRelationValueEditingView(key: relation.id, source: .object)
+            }
 
         case .smartblock, .layout, .dataView: return nil
         case .unsupported:
-            guard let parentId = block.information.metadata.parentId,
-                  let parent = document.blocksContainer.model(id: parentId)?.information,
+            guard let parentId = info.metadata.parentId,
+                  let parent = document.blocksContainer.model(id: parentId),
                   parent.content.type != .layout(.header)
             else {
                 return nil
             }
             
-            return  UnsupportedBlockViewModel(information: block.information)
+            return  UnsupportedBlockViewModel(info: info)
         }
     }
 

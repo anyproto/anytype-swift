@@ -148,7 +148,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
-        guard let info = document.blocksContainer.model(id: blockId)?.information else { return }
+        guard let info = document.blocksContainer.model(id: blockId) else { return }
 
         guard case .text = info.content else { return }
 
@@ -207,9 +207,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
-        guard let block = document.blocksContainer.model(id: targetId) else { return nil }
+        guard let info = document.blocksContainer.model(id: targetId) else { return nil }
         var position: BlockPosition
-        if case .text(let blockText) = block.information.content, blockText.text.isEmpty {
+        if case .text(let blockText) = info.content, blockText.text.isEmpty {
             position = .replace
         } else {
             position = .bottom
@@ -226,7 +226,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
             
         guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
-        guard let info = document.blocksContainer.model(id: blockId)?.information else { return }
+        guard let info = document.blocksContainer.model(id: blockId) else { return }
         
         let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
         
