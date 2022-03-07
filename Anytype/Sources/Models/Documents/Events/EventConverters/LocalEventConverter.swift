@@ -3,11 +3,11 @@ import ProtobufMessages
 import AnytypeCore
 
 final class LocalEventConverter {
-    private let blocksContainer: InfoContainerProtocol
+    private let infoContainer: InfoContainerProtocol
     private let blockValidator = BlockValidator()
     
-    init(blocksContainer: InfoContainerProtocol) {
-        self.blocksContainer = blocksContainer
+    init(infoContainer: InfoContainerProtocol) {
+        self.infoContainer = infoContainer
     }
     
     func convert(_ event: LocalEvent) -> EventsListenerUpdate? {
@@ -17,7 +17,7 @@ final class LocalEventConverter {
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)
         case .setLoadingState(blockId: let blockId):
-            guard var info = blocksContainer.get(id: blockId) else {
+            guard var info = infoContainer.get(id: blockId) else {
                 anytypeAssertionFailure("setLoadingState. Can't find model by id \(blockId)", domain: .localEventConverter)
                 return nil
             }
@@ -27,8 +27,8 @@ final class LocalEventConverter {
             }
             
             content.state = .uploading
-            info.content = .file(content)
-            blocksContainer.add(info)
+            info = info.updated(with: BlockContent.file(content))
+            infoContainer.add(info)
             return .blocks(blockIds: [blockId])
         case .reload(blockId: let blockId):
             return .blocks(blockIds: [blockId])
@@ -39,7 +39,7 @@ final class LocalEventConverter {
     // func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text)
     // only text is changed
     private func blockSetTextUpdate(blockId: BlockId, text: MiddlewareString) -> EventsListenerUpdate {
-        guard var info = blocksContainer.get(id: blockId) else {
+        guard var info = infoContainer.get(id: blockId) else {
             anytypeAssertionFailure("Block model with id \(blockId) not found in container", domain: .localEventConverter)
             return .general
         }
@@ -66,9 +66,9 @@ final class LocalEventConverter {
         textContent.contentType = oldText.contentType
         textContent.number = oldText.number
         
-        info.content = .text(textContent)
+        info = info.updated(with: BlockContent.text(textContent))
         info = blockValidator.validated(information: info)
-        blocksContainer.add(info)
+        infoContainer.add(info)
         
         return .blocks(blockIds: [blockId])
     }

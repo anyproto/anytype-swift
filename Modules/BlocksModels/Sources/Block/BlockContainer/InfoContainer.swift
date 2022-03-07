@@ -26,26 +26,21 @@ public final class InfoContainer: InfoContainerProtocol {
 
     public func remove(id: BlockId) {
         // go to parent and remove this block from a parent.
-        if let parentId = get(id: id)?.metadata.parentId,
-           var parent = models[parentId] {
-            parent.childrenIds = parent.childrenIds.filter {$0 != id}
-            add(parent)
+        if let parentId = get(id: id)?.metadata.parentId, let parent = models[parentId] {
+            let childrenIds = parent.childrenIds.filter {$0 != id}
+            add(parent.updated(with: childrenIds))
         }
         
-        if let information = get(id: id) {
-            models.removeValue(forKey: id)
-            information.childrenIds.forEach(remove(id:))
-        }
+        models.removeValue(forKey: id)
     }
 
     public func setChildren(ids: [BlockId], parentId: BlockId) {
-        guard var parent = get(id: parentId) else {
+        guard let parent = get(id: parentId) else {
             anytypeAssertionFailure("I can't find entry with id: \(parentId)", domain: .blockContainer)
             return
         }
 
-        parent.childrenIds = ids
-        add(parent)
+        add(parent.updated(with: ids))
     }
     
     public func update(blockId: BlockId, update updateAction: @escaping (BlockInformation) -> (BlockInformation?)) {
@@ -59,7 +54,6 @@ public final class InfoContainer: InfoContainerProtocol {
     
     public func updateDataview(blockId: BlockId, update updateAction: @escaping (BlockDataview) -> (BlockDataview)) {
         update(blockId: blockId) { info in
-            var info = info
             guard case let .dataView(dataView) = info.content else {
                 anytypeAssertionFailure(
                     "\(info.content) not a dataview in \(info)",
@@ -68,8 +62,8 @@ public final class InfoContainer: InfoContainerProtocol {
                 return nil
             }
             
-            info.content = .dataView(updateAction(dataView))
-            return info
+            let content = BlockContent.dataView(updateAction(dataView))
+            return info.updated(with: content)
         }
     }
 }

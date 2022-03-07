@@ -2,7 +2,7 @@ import BlocksModels
 import Combine
 
 protocol BaseDocumentProtocol: AnyObject {
-    var blocksContainer: InfoContainerProtocol { get }
+    var infoContainer: InfoContainerProtocol { get }
     var objectRestrictions: ObjectRestrictions { get }
     var relationsStorage: RelationsMetadataStorageProtocol { get }
     var objectId: BlockId { get }

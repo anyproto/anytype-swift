@@ -14,7 +14,7 @@ final class EventsListener: EventsListenerProtocol {
     
     private let objectId: BlockId
      
-    private let blocksContainer: InfoContainerProtocol
+    private let infoContainer: InfoContainerProtocol
     
     private let middlewareConverter: MiddlewareEventConverter
     private let localConverter: LocalEventConverter
@@ -26,29 +26,29 @@ final class EventsListener: EventsListenerProtocol {
     
     init(
         objectId: BlockId,
-        blocksContainer: InfoContainerProtocol,
+        infoContainer: InfoContainerProtocol,
         relationStorage: RelationsMetadataStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer
     ) {
         self.objectId = objectId
-        self.blocksContainer = blocksContainer
+        self.infoContainer = infoContainer
         
         let informationCreator = BlockInformationCreator(
             validator: BlockValidator(),
-            blocksContainer: blocksContainer
+            infoContainer: infoContainer
         )
         self.middlewareConverter = MiddlewareEventConverter(
-            blocksContainer: blocksContainer,
+            infoContainer: infoContainer,
             relationStorage: relationStorage,
             informationCreator: informationCreator,
             restrictionsContainer: restrictionsContainer
         )
         self.localConverter = LocalEventConverter(
-            blocksContainer: blocksContainer
+            infoContainer: infoContainer
         )
         self.mentionMarkupEventProvider = MentionMarkupEventProvider(
             objectId: objectId,
-            blocksContainer: blocksContainer
+            infoContainer: infoContainer
         )
     }
     
@@ -82,7 +82,7 @@ final class EventsListener: EventsListenerProtocol {
         updates.forEach { update in
             if update.hasUpdate {
                 IndentationBuilder.build(
-                    container: blocksContainer,
+                    container: infoContainer,
                     id: objectId
                 )
             }

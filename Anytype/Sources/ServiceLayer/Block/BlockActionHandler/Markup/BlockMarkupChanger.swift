@@ -3,14 +3,14 @@ import BlocksModels
 
 final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
-    private let blocksContainer: InfoContainerProtocol
+    private let infoContainer: InfoContainerProtocol
     
-    init(blocksContainer: InfoContainerProtocol) {
-        self.blocksContainer = blocksContainer
+    init(infoContainer: InfoContainerProtocol) {
+        self.infoContainer = infoContainer
     }
     
     func toggleMarkup(_ markup: MarkupType, blockId: BlockId)  -> NSAttributedString? {
-        guard let info = blocksContainer.get(id: blockId) else { return nil }
+        guard let info = infoContainer.get(id: blockId) else { return nil }
         guard case let .text(blockText) = info.content else { return nil }
         
         let range = blockText.anytypeText.attrString.wholeRange
@@ -86,7 +86,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
     
     private func blockData(blockId: BlockId) -> BlockText? {
-        guard let info = blocksContainer.get(id: blockId) else {
+        guard let info = infoContainer.get(id: blockId) else {
             anytypeAssertionFailure("Can't find block with id: \(blockId)", domain: .blockMarkupChanger)
             return nil
         }

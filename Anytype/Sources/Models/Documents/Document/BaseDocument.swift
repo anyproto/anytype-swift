@@ -7,7 +7,7 @@ final class BaseDocument: BaseDocumentProtocol {
     var updatePublisher: AnyPublisher<EventsListenerUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     let objectId: BlockId
 
-    let blocksContainer: InfoContainerProtocol = InfoContainer()
+    let infoContainer: InfoContainerProtocol = InfoContainer()
     let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
     let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
     
@@ -33,7 +33,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
         self.eventsListener = EventsListener(
             objectId: objectId,
-            blocksContainer: blocksContainer,
+            infoContainer: infoContainer,
             relationStorage: relationsStorage,
             restrictionsContainer: restrictionsContainer
         )
@@ -64,11 +64,11 @@ final class BaseDocument: BaseDocumentProtocol {
     // This operation should be done in `eventsListener.onUpdateReceive` closure
     // OR store children blocks instead of tree in `InfoContainer`
     var children: [BlockInformation] {
-        guard let model = blocksContainer.get(id: objectId) else {
+        guard let model = infoContainer.get(id: objectId) else {
             anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)
             return []
         }
-        return model.children(container: blocksContainer)
+        return model.children(container: infoContainer)
     }
 
     // MARK: - Private methods

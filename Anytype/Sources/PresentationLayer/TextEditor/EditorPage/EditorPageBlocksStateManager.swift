@@ -201,7 +201,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         let dropTargetId: BlockId
         switch movingDestination {
         case let .object(blockId):
-            if let info = document.blocksContainer.get(id: blockId),
+            if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
                 let document = BaseDocument(objectId: content.targetBlockID)
                 let _ = document.open()

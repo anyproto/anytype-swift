@@ -529,7 +529,6 @@
 		3DA46B64273BEB1E007B7464 /* StartOfTextMarkdownTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA46B63273BEB1E007B7464 /* StartOfTextMarkdownTests.swift */; };
 		3DA46B67273BEB60007B7464 /* BlockActionHandlerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA46B66273BEB60007B7464 /* BlockActionHandlerMock.swift */; };
 		3DA46B69273BECBB007B7464 /* BlockMarkupChangerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA46B68273BECBB007B7464 /* BlockMarkupChangerMock.swift */; };
-		3DA46B6B273BEED2007B7464 /* BlockModelMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA46B6A273BEED2007B7464 /* BlockModelMock.swift */; };
 		3DA4B1B726AF48DA0000F243 /* AnytypeCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3DA4B1B626AF48C20000F243 /* AnytypeCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3DA6263D2657AB8000942249 /* AnimationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA6263C2657AB8000942249 /* AnimationExtension.swift */; };
 		3DA626532657ADA700942249 /* PopupExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA626522657ADA700942249 /* PopupExtension.swift */; };
@@ -1425,7 +1424,6 @@
 		3DA46B63273BEB1E007B7464 /* StartOfTextMarkdownTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StartOfTextMarkdownTests.swift; path = AnyTypeTests/Markdown/StartOfTextMarkdownTests.swift; sourceTree = SOURCE_ROOT; };
 		3DA46B66273BEB60007B7464 /* BlockActionHandlerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockActionHandlerMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockActionHandlerMock.swift; sourceTree = SOURCE_ROOT; };
 		3DA46B68273BECBB007B7464 /* BlockMarkupChangerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockMarkupChangerMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockMarkupChangerMock.swift; sourceTree = SOURCE_ROOT; };
-		3DA46B6A273BEED2007B7464 /* BlockModelMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockModelMock.swift; path = AnyTypeTests/Markdown/Mocks/BlockModelMock.swift; sourceTree = SOURCE_ROOT; };
 		3DA4B1B126AF48C20000F243 /* AnytypeCore.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = AnytypeCore.xcodeproj; path = AnytypeCore/AnytypeCore.xcodeproj; sourceTree = "<group>"; };
 		3DA6263C2657AB8000942249 /* AnimationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationExtension.swift; sourceTree = "<group>"; };
 		3DA626522657ADA700942249 /* PopupExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupExtension.swift; sourceTree = "<group>"; };
@@ -4368,7 +4366,6 @@
 			children = (
 				3DA46B66273BEB60007B7464 /* BlockActionHandlerMock.swift */,
 				3DA46B68273BECBB007B7464 /* BlockMarkupChangerMock.swift */,
-				3DA46B6A273BEED2007B7464 /* BlockModelMock.swift */,
 				3DCEE13B273C1FAD00BC5565 /* TextViewExtension.swift */,
 				3D34F25527C3D1D100990C49 /* BlockActionServiceMock.swift */,
 				3D4B8CE427C54FDC001A1F98 /* BlockListServiceMock.swift */,
@@ -6499,7 +6496,6 @@
 			files = (
 				3D7F718927A1B0D4003FE893 /* EditorSetMarkdownHelpertests.swift in Sources */,
 				EA2640E526C40DEA006071BD /* AttributedStringConverterTests.swift in Sources */,
-				3DA46B6B273BEED2007B7464 /* BlockModelMock.swift in Sources */,
 				3D4B8CE527C54FDC001A1F98 /* BlockListServiceMock.swift in Sources */,
 				3D34F25627C3D1D100990C49 /* BlockActionServiceMock.swift in Sources */,
 				3D34F25427C3D16400990C49 /* KeyboardActionHandlerTests.swift in Sources */,

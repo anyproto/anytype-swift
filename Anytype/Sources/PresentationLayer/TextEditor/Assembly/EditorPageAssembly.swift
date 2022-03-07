@@ -98,7 +98,7 @@ final class EditorAssembly {
                 
         let modelsHolder = EditorMainItemModelsHolder()
         
-        let markupChanger = BlockMarkupChanger(blocksContainer: document.blocksContainer)
+        let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
         let cursorManager = EditorCursorManager()
         let listService = BlockListService(contextId: document.objectId)
         let blockActionService = BlockActionService(
