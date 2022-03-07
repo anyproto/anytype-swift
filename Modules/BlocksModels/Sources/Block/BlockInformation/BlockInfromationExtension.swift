@@ -1,6 +1,6 @@
 public extension BlockInformation {
-    func children(container: BlockContainerModelProtocol) -> [BlockInformation] {
-        BlockModelChildrenProvider(container: container).children(model: self)
+    func children(container: InfoContainerProtocol) -> [BlockInformation] {
+        BlockInfoChildrenProvider(container: container).children(model: self)
     }
     
     var isToggled: Bool {
@@ -33,7 +33,8 @@ public extension BlockInformation {
             backgroundColor: nil,
             alignment: .left,
             childrenIds: [],
-            fields: [:]
+            fields: [:],
+            metadata: BlockInformationMetadata()
         )
     }
     

@@ -207,7 +207,7 @@ final class BlockViewModelBuilder {
         case .smartblock, .layout, .dataView: return nil
         case .unsupported:
             guard let parentId = info.metadata.parentId,
-                  let parent = document.blocksContainer.model(id: parentId),
+                  let parent = document.infoContainer.get(id: parentId),
                   parent.content.type != .layout(.header)
             else {
                 return nil

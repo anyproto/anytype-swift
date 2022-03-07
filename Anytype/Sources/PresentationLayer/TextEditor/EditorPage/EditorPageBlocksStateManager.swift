@@ -95,7 +95,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         guard canSelectBlock(at: indexPath) else { return }
 
         modelsHolder.blockViewModel(at: indexPath.row).map {
-            didSelectEditingState(on: $0.info)
+            didSelectEditingState(info: $0.info)
         }
     }
 
@@ -201,7 +201,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         let dropTargetId: BlockId
         switch movingDestination {
         case let .object(blockId):
-            if let info = document.blocksContainer.model(id: blockId),
+            if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
                 let document = BaseDocument(objectId: content.targetBlockID)
                 let _ = document.open()
@@ -314,9 +314,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 }
 
 extension EditorPageBlocksStateManager: BlockSelectionHandler {
-    func didSelectEditingState(on block: BlockInformation) {
-        editingState = .selecting(blocks: [block.id])
-        updateSelectionContent(selectedBlocks: [block])
+    func didSelectEditingState(info: BlockInformation) {
+        editingState = .selecting(blocks: [info.id])
+        updateSelectionContent(selectedBlocks: [info])
     }
 }
 

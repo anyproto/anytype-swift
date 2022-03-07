@@ -111,7 +111,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func updateActiveViewId(_ id: BlockId) {
-        document.blocksContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
+        document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
             dataView.updated(activeViewId: id)
         }
         

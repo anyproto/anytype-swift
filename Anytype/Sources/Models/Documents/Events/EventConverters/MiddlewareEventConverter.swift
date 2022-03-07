@@ -4,7 +4,7 @@ import AnytypeCore
 import SwiftProtobuf
 
 final class MiddlewareEventConverter {
-    private let blocksContainer: BlockContainerModelProtocol
+    private let infoContainer: InfoContainerProtocol
     private let relationStorage: RelationsMetadataStorageProtocol
     private let detailsStorage: ObjectDetailsStorage
     private let restrictionsContainer: ObjectRestrictionsContainer
@@ -13,13 +13,13 @@ final class MiddlewareEventConverter {
     
     
     init(
-        blocksContainer: BlockContainerModelProtocol,
+        infoContainer: InfoContainerProtocol,
         relationStorage: RelationsMetadataStorageProtocol,
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared,
         restrictionsContainer: ObjectRestrictionsContainer
     ) {
-        self.blocksContainer = blocksContainer
+        self.infoContainer = infoContainer
         self.relationStorage = relationStorage
         self.informationCreator = informationCreator
         self.detailsStorage = detailsStorage
@@ -31,7 +31,7 @@ final class MiddlewareEventConverter {
         case let .threadStatus(status):
             return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
         case let .blockSetFields(fields):
-            blocksContainer.update(blockId: fields.id) { info in
+            infoContainer.update(blockId: fields.id) { info in
                 return info.updated(with: fields.fields.toFieldTypeMap())
             }
             return .blocks(blockIds: [fields.id])
@@ -39,7 +39,7 @@ final class MiddlewareEventConverter {
             value.blocks
                 .compactMap(BlockInformationConverter.convert(block:))
                 .forEach { block in
-                    blocksContainer.add(block)
+                    infoContainer.add(block)
                 }
             // Because blockAdd message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
@@ -47,21 +47,20 @@ final class MiddlewareEventConverter {
         
         case let .blockDelete(value):
             value.blockIds.forEach { blockId in
-                blocksContainer.remove(blockId)
+                infoContainer.remove(id: blockId)
             }
             // Because blockDelete message will always come together with blockSetChildrenIds
             // and it is easier to create update from those message
             return nil
     
         case let .blockSetChildrenIds(data):
-            blocksContainer
-                .replace(childrenIds: data.childrenIds, parentId: data.id, shouldSkipGuardAgainstMissingIds: true )
+            infoContainer
+                .setChildren(ids: data.childrenIds, parentId: data.id)
             return .general
         case let .blockSetText(newData):
             return blockSetTextUpdate(newData)
         case let .blockSetBackgroundColor(updateData):
-            blocksContainer.update(blockId: updateData.id, update: { info in
-                var info = info
+            infoContainer.update(blockId: updateData.id, update: { info in
                 return info.updated(
                     with: MiddlewareColor(rawValue: updateData.backgroundColor)
                 )
@@ -79,11 +78,9 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            blocksContainer.update(blockId: blockId, update: { info in
-                var info = info
-                info.alignment = modelAlignment
-                return info
-            })
+            infoContainer.update(blockId: blockId) { info in
+                info.updated(with: modelAlignment)
+            }
             return .blocks(blockIds: [blockId])
         
         case let .objectDetailsSet(data):
@@ -142,7 +139,7 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            blocksContainer.update(blockId: newData.id, update: { info in
+            infoContainer.update(blockId: newData.id, update: { info in
                 var info = info
                 
                 switch info.content {
@@ -177,8 +174,7 @@ final class MiddlewareEventConverter {
                         fileData.metadata.size = newData.size.value
                     }
                     
-                    info.content = .file(fileData)
-                    return info
+                    return info.updated(with: BlockContent.file(fileData))
                 default:
                     anytypeAssertionFailure("Wrong content: \(info.content) in blockSetFile", domain: .middlewareEventConverter)
                     return nil
@@ -189,7 +185,7 @@ final class MiddlewareEventConverter {
             
             let blockId = data.id
             
-            blocksContainer.update(blockId: blockId, update: { info in
+            infoContainer.update(blockId: blockId, update: { info in
                 var info = info
                 switch info.content {
                 case let .bookmark(bookmark):
@@ -221,8 +217,7 @@ final class MiddlewareEventConverter {
                         }
                     }
                     
-                    info.content = .bookmark(bookmark)
-                    return info
+                    return info.updated(with: BlockContent.bookmark(bookmark))
 
                 default:
                     anytypeAssertionFailure("Wrong content \(info.content) in blockSetBookmark", domain: .middlewareEventConverter)
@@ -238,8 +233,7 @@ final class MiddlewareEventConverter {
             
             let blockId = data.id
             
-            blocksContainer.update(blockId: blockId, update: { info in
-                var info = info
+            infoContainer.update(blockId: blockId, update: { info in
                 switch info.content {
                 case let .divider(divider):
                     var divider = divider
@@ -248,8 +242,7 @@ final class MiddlewareEventConverter {
                         divider.style = style
                     }
                     
-                    info.content = .divider(divider)
-                    return info
+                    return info.updated(with: BlockContent.divider(divider))
                     
                 default:
                     anytypeAssertionFailure("Wrong conten \(info.content) in blockSetDiv", domain: .middlewareEventConverter)
@@ -271,7 +264,7 @@ final class MiddlewareEventConverter {
                 ObjectDetails(id: $0.id, values: $0.details.fields)
             }
 
-            buildBlocksTree(information: parsedBlocks, rootId: data.rootID, container: blocksContainer)
+            buildBlocksTree(information: parsedBlocks, rootId: data.rootID, container: infoContainer)
 
             parsedDetails.forEach { detailsStorage.add(details: $0) }
     
@@ -290,7 +283,7 @@ final class MiddlewareEventConverter {
         case .blockDataviewViewSet(let data):
             guard let view = data.view.asModel else { return nil }
             
-            blocksContainer.updateDataview(blockId: data.id) { dataView in
+            infoContainer.updateDataview(blockId: data.id) { dataView in
                 var newViews = dataView.views
                 if let index = dataView.views.firstIndex(where: { $0.id == view.id }) {
                     newViews[index] = view
@@ -303,7 +296,7 @@ final class MiddlewareEventConverter {
             
             return .general
         case .blockDataviewViewOrder(let data):
-            blocksContainer.updateDataview(blockId: data.id) { dataView in
+            infoContainer.updateDataview(blockId: data.id) { dataView in
                 let newViews = data.viewIds.compactMap { id -> DataviewView? in
                     guard let view = dataView.views.first(where: { $0.id == id }) else {
                         anytypeAssertionFailure("Not found view in order with id: \(id)", domain: .middlewareEventConverter)
@@ -316,7 +309,7 @@ final class MiddlewareEventConverter {
             }
             return .general
         case .blockDataviewViewDelete(let data):
-            blocksContainer.updateDataview(blockId: data.id) { dataView in
+            infoContainer.updateDataview(blockId: data.id) { dataView in
                 guard let index = dataView.views.firstIndex(where: { $0.id == data.viewID }) else {
                     anytypeAssertionFailure("Not found view in delete with id: \(data.viewID)", domain: .middlewareEventConverter)
                     return dataView
@@ -335,13 +328,13 @@ final class MiddlewareEventConverter {
             
             return .general
         case .blockDataviewSourceSet(let data):
-            blocksContainer.updateDataview(blockId: data.id) { dataView in
+            infoContainer.updateDataview(blockId: data.id) { dataView in
                 return dataView.updated(source: data.source)
             }
             
             return .general
         case .blockDataviewRelationDelete(let data):
-            blocksContainer.updateDataview(blockId: data.id) { dataView in
+            infoContainer.updateDataview(blockId: data.id) { dataView in
                 guard let index = dataView.relations.firstIndex(where: { $0.key == data.relationKey }) else {
                     anytypeAssertionFailure("Not found key \(data.relationKey) in dataview: \(dataView)", domain: .middlewareEventConverter)
                     return dataView
@@ -355,7 +348,7 @@ final class MiddlewareEventConverter {
             
             return .general
         case .blockDataviewRelationSet(let data):
-            blocksContainer.updateDataview(blockId: data.id) { dataView in
+            infoContainer.updateDataview(blockId: data.id) { dataView in
                 let relation = RelationMetadata(middlewareRelation: data.relation)
                 
                 var newRelations = dataView.relations
@@ -376,7 +369,7 @@ final class MiddlewareEventConverter {
     }
     
     private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventsListenerUpdate {
-        guard let info = blocksContainer.model(id: newData.id) else {
+        guard let info = infoContainer.get(id: newData.id) else {
             anytypeAssertionFailure(
                 "Block model with id \(newData.id) not found in container",
                 domain: .middlewareEventConverter
@@ -395,7 +388,7 @@ final class MiddlewareEventConverter {
               case let .text(textContent) = newInformation.content else {
             return .general
         }
-        blocksContainer.add(newInformation)
+        infoContainer.add(newInformation)
         
         // If toggle changed style to another style or vice versa
         // we should rebuild all view to display/hide toggle's child blocks
@@ -405,7 +398,7 @@ final class MiddlewareEventConverter {
         return toggleStyleChanged ? .general : .blocks(blockIds: [newData.id])
     }
     
-    private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: BlockContainerModelProtocol) {
+    private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: InfoContainerProtocol) {
         
         information.forEach { container.add($0) }
         let roots = information.filter { $0.id == rootId }
@@ -424,7 +417,6 @@ final class MiddlewareEventConverter {
         }
 
         let rootId = roots[0].id
-        container.rootId = rootId
 
         IndentationBuilder.build(container: container, id: rootId)
     }
