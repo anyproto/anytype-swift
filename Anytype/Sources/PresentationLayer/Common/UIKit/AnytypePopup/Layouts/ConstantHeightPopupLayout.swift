@@ -5,8 +5,8 @@ import UIKit
 
 final class ConstantHeightPopupLayout: AnytypePopupLayout {
     
-    init(height: CGFloat) {
-        let adjustedHeight = AnytypePopupLayout.adjustedPopupHeight(height, insetted: true)
+    init(height: CGFloat, insetted: Bool) {
+        let adjustedHeight = AnytypePopupLayout.adjustedPopupHeight(height, insetted: insetted)
         let anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] = [
             .full: FloatingPanelLayoutAnchor(absoluteInset: adjustedHeight, edge: .bottom, referenceGuide: .superview)
         ]
