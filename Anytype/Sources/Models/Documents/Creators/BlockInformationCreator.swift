@@ -6,18 +6,18 @@ import ProtobufMessages
 struct BlockInformationCreator {
     
     private let validator: BlockValidator
-    private let blocksContainer: InfoContainerProtocol
+    private let infoContainer: InfoContainerProtocol
     
     init(
         validator: BlockValidator,
-        blocksContainer: InfoContainerProtocol
+        infoContainer: InfoContainerProtocol
     ) {
         self.validator = validator
-        self.blocksContainer = blocksContainer
+        self.infoContainer = infoContainer
     }
     
     func createBlockInformation(from newData: Anytype_Event.Block.Set.Text) -> BlockInformation? {
-        guard let info = blocksContainer.get(id: newData.id) else {
+        guard let info = infoContainer.get(id: newData.id) else {
             anytypeAssertionFailure(
                 "Block model with id \(newData.id) not found in container",
                 domain: .blockInformationCreator
@@ -65,7 +65,7 @@ struct BlockInformationCreator {
     }
     
     func createBlockInformation(newAlignmentData: Anytype_Event.Block.Set.Align) -> BlockInformation? {
-        guard let info = blocksContainer.get(id: newAlignmentData.id) else {
+        guard let info = infoContainer.get(id: newAlignmentData.id) else {
             anytypeAssertionFailure(
                 "Block model with id \(newAlignmentData.id) not found in container",
                 domain: .blockInformationCreator
