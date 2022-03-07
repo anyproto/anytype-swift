@@ -205,6 +205,10 @@
 		125BD56E27CF471B006D8227 /* AuthServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125BD56D27CF471B006D8227 /* AuthServiceError.swift */; };
 		125BD57327CF4C95006D8227 /* CreateAccountServiceError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125BD57227CF4C95006D8227 /* CreateAccountServiceError.swift */; };
 		125BD59327D3156A006D8227 /* ObjectRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125BD59227D3156A006D8227 /* ObjectRowView.swift */; };
+		125BD59927D3292F006D8227 /* NewRelationOptionsSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125BD59827D3292F006D8227 /* NewRelationOptionsSearchView.swift */; };
+		125BD59B27D32C53006D8227 /* NewRelationOptionsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125BD59A27D32C53006D8227 /* NewRelationOptionsSearchInteractor.swift */; };
+		125BD59D27D32C7A006D8227 /* NewRelationOptionsSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125BD59C27D32C7A006D8227 /* NewRelationOptionsSearchViewModel.swift */; };
+		125BD59F27D32CCB006D8227 /* NewRelationOptionsSearchInteractorInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125BD59E27D32CCB006D8227 /* NewRelationOptionsSearchInteractorInput.swift */; };
 		125E75E526CD199A000AF4E9 /* EditorNavigationBarTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125E75E426CD199A000AF4E9 /* EditorNavigationBarTitleView.swift */; };
 		125FD2E926CD6D2100D21F5A /* EditorNavigationBarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FD2E826CD6D2100D21F5A /* EditorNavigationBarHelper.swift */; };
 		125FD2FE26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FD2FD26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift */; };
@@ -1105,6 +1109,10 @@
 		125BD56D27CF471B006D8227 /* AuthServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthServiceError.swift; sourceTree = "<group>"; };
 		125BD57227CF4C95006D8227 /* CreateAccountServiceError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateAccountServiceError.swift; sourceTree = "<group>"; };
 		125BD59227D3156A006D8227 /* ObjectRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectRowView.swift; sourceTree = "<group>"; };
+		125BD59827D3292F006D8227 /* NewRelationOptionsSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationOptionsSearchView.swift; sourceTree = "<group>"; };
+		125BD59A27D32C53006D8227 /* NewRelationOptionsSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationOptionsSearchInteractor.swift; sourceTree = "<group>"; };
+		125BD59C27D32C7A006D8227 /* NewRelationOptionsSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationOptionsSearchViewModel.swift; sourceTree = "<group>"; };
+		125BD59E27D32CCB006D8227 /* NewRelationOptionsSearchInteractorInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationOptionsSearchInteractorInput.swift; sourceTree = "<group>"; };
 		125E75E426CD199A000AF4E9 /* EditorNavigationBarTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarTitleView.swift; sourceTree = "<group>"; };
 		125FD2E826CD6D2100D21F5A /* EditorNavigationBarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarHelper.swift; sourceTree = "<group>"; };
 		125FD2FD26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarHelperProtocol.swift; sourceTree = "<group>"; };
@@ -2869,6 +2877,17 @@
 			path = SlashMenu;
 			sourceTree = "<group>";
 		};
+		125BD59727D328FE006D8227 /* OptionsSearch */ = {
+			isa = PBXGroup;
+			children = (
+				125BD59827D3292F006D8227 /* NewRelationOptionsSearchView.swift */,
+				125BD59A27D32C53006D8227 /* NewRelationOptionsSearchInteractor.swift */,
+				125BD59E27D32CCB006D8227 /* NewRelationOptionsSearchInteractorInput.swift */,
+				125BD59C27D32C7A006D8227 /* NewRelationOptionsSearchViewModel.swift */,
+			);
+			path = OptionsSearch;
+			sourceTree = "<group>";
+		};
 		125FD2F926CE522000D21F5A /* EditorNavigationBarHelper */ = {
 			isa = PBXGroup;
 			children = (
@@ -3018,6 +3037,7 @@
 		12887F3B274BC1ED00228330 /* RelationDetailsViews */ = {
 			isa = PBXGroup;
 			children = (
+				125BD59727D328FE006D8227 /* OptionsSearch */,
 				12887F3C274BC20200228330 /* ValueEditingViews */,
 			);
 			path = RelationDetailsViews;
@@ -6173,6 +6193,7 @@
 				03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */,
 				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
+				125BD59F27D32CCB006D8227 /* NewRelationOptionsSearchInteractorInput.swift in Sources */,
 				53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */,
 				1255DF842702098300870B95 /* MediaFileUploadingOperation.swift in Sources */,
 				038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */,
@@ -6303,6 +6324,7 @@
 				53FF7C5026F7DB7B00A5A592 /* AnytypeAudioPlayerProtocol.swift in Sources */,
 				0ACC356D25C196180003CF3A /* DataStructures+Stack.swift in Sources */,
 				3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */,
+				125BD59B27D32C53006D8227 /* NewRelationOptionsSearchInteractor.swift in Sources */,
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
 				53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */,
@@ -6397,6 +6419,7 @@
 				3D5A418B2704697300F1F6A1 /* AutofocusedTextEditor.swift in Sources */,
 				03D1516623FB446A004027CE /* MiddlewareConfigurationService.swift in Sources */,
 				0A78327324B8D2DF00A1B6F6 /* AlignmentConverters.swift in Sources */,
+				125BD59D27D32C7A006D8227 /* NewRelationOptionsSearchViewModel.swift in Sources */,
 				124A60B727130EFD0012FD2D /* ObjectDetailsExtensions.swift in Sources */,
 				533AED8C26CC421F0018E33C /* SwiftUIFont.swift in Sources */,
 				12CAF35C26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift in Sources */,
@@ -6454,6 +6477,7 @@
 				3DE0CFD426F8593D003A606A /* SlashMenuItem.swift in Sources */,
 				EA02612D2625D04D00AE6D86 /* HighlightedBlockRestrictions.swift in Sources */,
 				53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */,
+				125BD59927D3292F006D8227 /* NewRelationOptionsSearchView.swift in Sources */,
 				12C8441926FE294200D64B8D /* ObjectHeaderEmptyData.swift in Sources */,
 				125FD2FE26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift in Sources */,
 				534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */,
