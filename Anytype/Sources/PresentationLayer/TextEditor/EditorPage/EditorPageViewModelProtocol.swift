@@ -9,7 +9,7 @@ protocol EditorPageViewModelProtocol {
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
     var objectSettingsViewModel: ObjectSettingsViewModel { get }
     
-    var modelsHolder: BlockViewModelsHolder { get }
+    var modelsHolder: EditorMainItemModelsHolder { get }
     var actionHandler: BlockActionHandlerProtocol { get }
     
     func viewDidLoad()

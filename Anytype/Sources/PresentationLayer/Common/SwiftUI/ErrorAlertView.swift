@@ -8,37 +8,35 @@ struct ErrorAlertView<Presenting>: View where Presenting: View {
     let onOkPressed: () -> ()
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack(alignment: .center) {
-                self.presenting.blur(radius: self.isShowing ? 1 : 0)
+        ZStack(alignment: .center) {
+            self.presenting.blur(radius: self.isShowing ? 1 : 0)
+            
+            VStack() {
+                AnytypeText(self.errorText, style: .body, color: .textPrimary)
+                    .padding()
+                    .layoutPriority(1)
                 
-                VStack() {
-
-                    AnytypeText(self.errorText, style: .body, color: .textPrimary)
-                        .padding()
-                        .layoutPriority(1)
-                    
-                    
-                    VStack(spacing: 0) {
-                        Divider().background(Color.strokePrimary)
-                        Button(action: {
-                            isShowing.toggle()
-                            onOkPressed()
-                        }) {
-                            AnytypeText("Ok", style: .body, color: .buttonAccent)
-                                .padding()
-                        }
+                
+                VStack(spacing: 0) {
+                    AnytypeDivider()
+                    Button(action: {
+                        isShowing.toggle()
+                        onOkPressed()
+                    }) {
+                        AnytypeText("Ok", style: .body, color: .buttonAccent)
+                            .padding()
                     }
                 }
-                .frame(maxWidth: geometry.size.width * 0.8, minHeight: 0)
-                .background(Color.backgroundSecondary)
-                .cornerRadius(10)
-                .transition(.slide)
-                .shadow(color: Color.shadowPrimary, radius: 4)
-                .opacity(self.isShowing ? 1 : 0)
             }
+            .frame(maxWidth: 300, minHeight: 0)
+            .background(Color.backgroundSecondary)
+            .cornerRadius(10)
+            .transition(.slide)
+            .shadow(color: Color.shadowPrimary, radius: 4)
+            .opacity(self.isShowing ? 1 : 0)
         }
     }
+    
 }
 
 struct ErrorAlertView_Previews: PreviewProvider {

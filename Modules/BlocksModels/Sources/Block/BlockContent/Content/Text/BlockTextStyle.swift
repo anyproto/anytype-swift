@@ -1,7 +1,7 @@
 import ProtobufMessages
 
 public extension BlockText {
-    enum Style {
+    enum Style: CaseIterable {
         case title
         case description
         case text
@@ -15,6 +15,7 @@ public extension BlockText {
         case numbered
         case toggle
         case code
+        case callout
         
         public init?(_ model: Anytype_Model_Block.Content.Text.Style) {
             switch model {
@@ -31,6 +32,7 @@ public extension BlockText {
             case .numbered: self = .numbered
             case .toggle: self = .toggle
             case .description_: self = .description
+            case .callout: self = .callout
             case .UNRECOGNIZED: return nil
             }
         }
@@ -70,6 +72,7 @@ public extension BlockText {
             case .numbered: return .numbered
             case .toggle: return .toggle
             case .code: return .code
+            case .callout: return .callout
             }
         }
     }

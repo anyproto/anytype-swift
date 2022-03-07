@@ -2,13 +2,12 @@ import Combine
 import UIKit
 import BlocksModels
 
-struct CodeBlockViewModel: BlockViewModelProtocol {
-    var upperBlock: BlockModelProtocol?
-    
+struct CodeBlockViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {
         [
             information,
-            indentationLevel
+            indentationLevel,
+            codeLanguage
         ] as [AnyHashable]
     }
     
@@ -16,11 +15,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     var information: BlockInformation { block.information }
     var indentationLevel: Int { block.indentationLevel }
     let content: BlockText
-    private var codeLanguage: CodeLanguage {
-        CodeLanguage.create(
-            middleware: block.information.fields[FieldName.codeLanguage]?.stringValue
-        )
-    }
+    let codeLanguage: CodeLanguage
 
     let becomeFirstResponder: (BlockModelProtocol) -> ()
     let textDidChange: (BlockModelProtocol, UITextView) -> ()
@@ -31,16 +26,12 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
             content: content,
             backgroundColor: block.information.backgroundColor,
             codeLanguage: codeLanguage,
-            becomeFirstResponder: {
-                self.becomeFirstResponder(self.block)
-            },
-            textDidChange: { textView in
-                self.textDidChange(self.block, textView)
-            },
-            showCodeSelection: {
-                self.showCodeSelection(self.block)
-            }
-        )
+            actions: .init(
+                becomeFirstResponder: { becomeFirstResponder(block) },
+                textDidChange: { textView in textDidChange(block, textView) },
+                showCodeSelection: { showCodeSelection(block) }
+            )
+        ).asCellBlockConfiguration
     }
     
     func didSelectRowInTableView() { }

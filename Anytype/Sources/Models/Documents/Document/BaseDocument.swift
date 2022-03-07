@@ -1,22 +1,10 @@
-import Foundation
 import BlocksModels
 import Combine
 import AnytypeCore
-import ProtobufMessages
 
-
-private extension LoggerCategory {
-    static let baseDocument: Self = "BaseDocument"
-}
 
 final class BaseDocument: BaseDocumentProtocol {
     var updatePublisher: AnyPublisher<EventsListenerUpdate, Never> { updateSubject.eraseToAnyPublisher() }
-    private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
-    private let eventsListener: EventsListener
-    private let updateSubject = PassthroughSubject<EventsListenerUpdate, Never>()
-    private let relationBuilder = RelationsBuilder()
-    private let detailsStorage = ObjectDetailsStorage.shared
-    
     let objectId: BlockId
 
     let blocksContainer: BlockContainerModelProtocol = BlockContainer()
@@ -26,6 +14,12 @@ final class BaseDocument: BaseDocumentProtocol {
     var objectRestrictions: ObjectRestrictions {
         restrictionsContainer.restrinctions
     }
+    
+    private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
+    private let eventsListener: EventsListener
+    private let updateSubject = PassthroughSubject<EventsListenerUpdate, Never>()
+    private let relationBuilder = RelationsBuilder()
+    private let detailsStorage = ObjectDetailsStorage.shared
 
     var parsedRelations: ParsedRelations {
         relationBuilder.parsedRelations(
@@ -65,25 +59,19 @@ final class BaseDocument: BaseDocumentProtocol {
         detailsStorage.get(id: objectId)
     }
     
+    #warning("TODO")
     // Looks like this code runs on main thread.
     // This operation should be done in `eventsListener.onUpdateReceive` closure
-    // OR store flatten blocks instead of tree in `BlockContainer`
-    var flattenBlocks: [BlockModelProtocol] {
-        guard
-            let activeModel = blocksContainer.model(id: objectId)
-        else {
-            AnytypeLogger.create(.baseDocument).debug("getModels. Our document is not ready yet")
+    // OR store children blocks instead of tree in `BlockContainer`
+    var children: [BlockModelProtocol] {
+        guard let model = blocksContainer.model(id: objectId) else {
+            anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)
             return []
         }
-        return BlockFlattener.flatten(
-            root: activeModel,
-            in: blocksContainer,
-            options: .default
-        )
+        return model.children(container: blocksContainer)
     }
 
-    
-    
+    // MARK: - Private methods
     private func setup() {
         eventsListener.onUpdateReceive = { [weak self] update in
             guard update.hasUpdate else { return }
@@ -94,14 +82,5 @@ final class BaseDocument: BaseDocumentProtocol {
             }
         }
         eventsListener.startListening()
-    }
-
-    private func showEventsFromMessages(_ messages: [Anytype_Event.Message]) -> [Anytype_Event.Object.Show] {
-        messages
-            .compactMap { $0.value }
-            .compactMap { value -> Anytype_Event.Object.Show? in
-                guard case .objectShow(let event) = value else { return nil }
-                return event
-            }
     }
 }

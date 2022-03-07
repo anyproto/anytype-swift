@@ -10,7 +10,7 @@ struct RelationOptionsSearchView: View {
     
     var body: some View {
         VStack() {
-            DragIndicator(bottomPadding: 0)
+            DragIndicator()
             SearchBar(text: $searchText, focused: true)
             content
             addButton
@@ -59,7 +59,7 @@ struct RelationOptionsSearchView: View {
             }
             .padding(.bottom, 10)
         }
-        .modifier(DividerModifier(spacing: 0))
+        .divider()
     }
     
     private var addButton: some View {

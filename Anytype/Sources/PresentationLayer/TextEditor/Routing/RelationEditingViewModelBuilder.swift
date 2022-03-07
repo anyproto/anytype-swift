@@ -12,7 +12,7 @@ final class RelationEditingViewModelBuilder {
 
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
-    func buildViewModel(objectId: BlockId, relation: Relation) -> RelationDetailsViewModelProtocol? {
+    func buildViewModel(source: RelationSource, objectId: BlockId, relation: Relation) -> AnytypePopupViewModelProtocol? {
         switch relation {
         case .text(let text):
             return TextRelationDetailsViewModel(
@@ -62,6 +62,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .status(let status):
             return StatusRelationDetailsViewModel(
+                source: source,
                 selectedStatus: status.value,
                 allStatuses: status.allOptions,
                 relation: relation,
@@ -69,6 +70,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .tag(let tag):
             return RelationOptionsViewModel(
+                source: source,
                 type: .tags(tag.allTags),
                 selectedOptions: tag.selectedTags,
                 relation: relation,
@@ -76,6 +78,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .object(let object):
             return RelationOptionsViewModel(
+                source: source,
                 type: .objects,
                 selectedOptions: object.selectedObjects,
                 relation: relation,
@@ -83,6 +86,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             )
         case .file(let file):
             return RelationOptionsViewModel(
+                source: source,
                 type: .files,
                 selectedOptions: file.files,
                 relation: relation,

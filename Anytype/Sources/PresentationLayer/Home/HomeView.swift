@@ -50,26 +50,43 @@ struct HomeView: View {
             }
         }
         .bottomFloater(isPresented: $showSettings) {
-            SettingsView().padding(8)
+            SettingsView()
+                .horizontalReadabilityPadding(8)
         }
 
         .bottomFloater(isPresented: $model.showDeletionAlert) {
-            DashboardDeletionAlert().padding(8)
+            DashboardDeletionAlert()
+                .horizontalReadabilityPadding(8)
         }
         .animation(.fastSpring, value: model.showDeletionAlert)
-
-        .bottomFloater(isPresented: $settingsModel.loggingOut) {
-            DashboardLogoutAlert().padding(8)
-        }
-        .animation(.fastSpring, value: settingsModel.loggingOut)
         
-        .bottomFloater(isPresented: $settingsModel.other) {
-            OtherSettingsView()
+        .bottomSheet(isPresented: $settingsModel.personalization) {
+            PersonalizationView()
+                .horizontalReadabilityPadding(0)
         }
-        .animation(.fastSpring, value: settingsModel.other)
+        .animation(.fastSpring, value: settingsModel.personalization)
+        
+        .bottomSheet(isPresented: $settingsModel.about) {
+            AboutView()
+                .horizontalReadabilityPadding(0)
+        }
+        .animation(.fastSpring, value: settingsModel.about)
+        
+        .bottomSheet(isPresented: $settingsModel.account) {
+            SettingsAccountView()
+                .horizontalReadabilityPadding(0)
+        }
+        .animation(.fastSpring, value: settingsModel.account)
+        
+        .bottomSheet(isPresented: $settingsModel.appearance) {
+            SettingsAppearanceView()
+                .horizontalReadabilityPadding(0)
+        }
+        .animation(.fastSpring, value: settingsModel.appearance)
         
         .bottomFloater(isPresented: $settingsModel.clearCacheAlert) {
-            DashboardClearCacheAlert().padding(8)
+            DashboardClearCacheAlert()
+                .horizontalReadabilityPadding(8)
         }
         .animation(.fastSpring, value: settingsModel.clearCacheAlert)
         .onChange(of: settingsModel.clearCacheAlert) { showClearCacheAlert in
@@ -79,7 +96,8 @@ struct HomeView: View {
         }
         
         .bottomFloater(isPresented: $showKeychainAlert) {
-            DashboardKeychainReminderAlert(shownInContext: isFirstLaunchAfterRegistration ? .signup : .settings).padding(8)
+            DashboardKeychainReminderAlert(shownInContext: isFirstLaunchAfterRegistration ? .signup : .settings)
+                .horizontalReadabilityPadding(8)
         }
         .animation(.fastSpring, value: showKeychainAlert)
         .onChange(of: showKeychainAlert) {
@@ -91,7 +109,8 @@ struct HomeView: View {
         }
         
         .bottomFloater(isPresented: $model.loadingAlertData.showAlert) {
-            DashboardLoadingAlert(text: model.loadingAlertData.text).padding(8)
+            DashboardLoadingAlert(text: model.loadingAlertData.text)
+                .horizontalReadabilityPadding(8)
         }
         .animation(.fastSpring, value: model.loadingAlertData.showAlert)
         
@@ -101,7 +120,13 @@ struct HomeView: View {
                 .onChange(of: model.showSearch) { showSearch in
                     Amplitude.instance().logEvent(AmplitudeEventsName.searchShow)
                 }
+        }   
+        
+        .bottomFloater(isPresented: $settingsModel.loggingOut) {
+            DashboardLogoutAlert()
+                .horizontalReadabilityPadding(8)
         }
+        .animation(.fastSpring, value: settingsModel.loggingOut)
         
         .snackbar(
             isShowing: $model.snackBarData.showSnackBar,

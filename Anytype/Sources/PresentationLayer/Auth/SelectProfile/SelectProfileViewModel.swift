@@ -2,68 +2,47 @@ import SwiftUI
 import Combine
 import ProtobufMessages
 
-
-class ProfileNameViewModel: ObservableObject, Identifiable {
-    var id: String
-    @Published var image: UIImage? = nil
-    @Published var color: UIColor?
-    @Published var name: String = ""
-    @Published var peers: String?
+final class SelectProfileViewModel: ObservableObject {
     
-    init(id: String) {
-        self.id = id
-    }
-    
-    var userIcon: UserIconView.IconType {
-        if let image = image {
-            return UserIconView.IconType.image(.image(image))
-        } else if let firstCharacter = name.first {
-            return UserIconView.IconType.placeholder(firstCharacter)
-        } else {
-            return UserIconView.IconType.placeholder(nil)
+    @Published var showError: Bool = false
+    var errorText: String? {
+        didSet {
+            showError = errorText.isNotNil
         }
     }
-}
-
-
-class SelectProfileViewModel: ObservableObject {
-    private let authService  = ServiceLocator.shared.authService()
+    
+    @Published var snackBarData = SnackBarData.empty
+    
+    private let authService = ServiceLocator.shared.authService()
     private let fileService = ServiceLocator.shared.fileService()
     
     private var cancellable: AnyCancellable?
     
-    @Published var profilesViewModels = [ProfileNameViewModel]()
-    @Published var error: String? {
-        didSet {
-            showError = false
-            
-            if error.isNotNil {
-                showError = true
-            }
-        }
-    }
-    @Published var showError: Bool = false
+    private var isAccountSelected = false
     
     func accountRecover() {
-        DispatchQueue.global().async { [weak self] in
-            self?.handleAccountShowEvent()
-            if let error = self?.authService.accountRecover() {
-                self?.error = error.localizedDescription
-            }
+        handleAccountShowEvent()
+        authService.accountRecover { [weak self] error in
+            guard let self = self, let error = error else { return }
+            
+            self.errorText = error.localizedDescription
+            self.snackBarData = .empty
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
+            guard let self = self, !self.isAccountSelected else { return }
+            
+            self.snackBarData = .init(text: "Setting up encrypted storage\nPlease wait".localized, showSnackBar: true)
         }
     }
     
-    func selectProfile(id: String) {
-        if authService.selectAccount(id: id) {
-            showHomeView()
-        } else {
-            self.error = "Select account error".localized
-        }
-    }
+}
+
+// MARK: - Private func
+
+private extension SelectProfileViewModel {
     
-    // MARK: - Private func
-    
-    private func handleAccountShowEvent() {
+    func handleAccountShowEvent() {
         cancellable = NotificationCenter.Publisher(
             center: .default,
             name: .middlewareEvent,
@@ -74,26 +53,42 @@ class SelectProfileViewModel: ObservableObject {
             .map {
                 $0.filter { message in
                     guard let value = message.value else { return false }
-                    
-                    if case Anytype_Event.Message.OneOf_Value.accountShow = value {
-                        return true
+                    guard case Anytype_Event.Message.OneOf_Value.accountShow = value else {
+                        return false
                     }
-                    return false
+                    
+                    return true
                 }
             }
-            .filter { $0.count > 0 } 
+            .filter { $0.count > 0 }
             .receiveOnMain()
             .sink { [weak self] events in
-                guard let self = self else {
-                    return
-                }
+                guard
+                    let self = self,
+                    let event = events.first
+                else { return }
                 
-                self.selectProfile(id: events[0].accountShow.account.id)
+                self.selectProfile(id: event.accountShow.account.id)
             }
+    }
+    
+    func selectProfile(id: String) {
+        authService.selectAccount(id: id) { [weak self] isSelected in
+            guard let self = self else { return }
+            self.isAccountSelected = true
+            self.snackBarData = .empty
+            
+            if isSelected {
+                self.showHomeView()
+            } else {
+                self.errorText = "Select account error".localized
+            }
+        }
     }
     
     func showHomeView() {
         let homeAssembly = HomeViewAssembly()
         windowHolder?.startNewRootView(homeAssembly.createHomeView())
     }
+    
 }

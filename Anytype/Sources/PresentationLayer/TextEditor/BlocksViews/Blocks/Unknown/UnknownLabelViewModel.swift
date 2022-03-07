@@ -2,9 +2,7 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
-struct UnknownLabelViewModel: BlockViewModelProtocol {
-    var upperBlock: BlockModelProtocol?
-    
+struct UnknownLabelViewModel: BlockViewModelProtocol {    
     let indentationLevel = 0
     let information: BlockInformation
     

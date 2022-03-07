@@ -2,15 +2,18 @@ import Combine
 import UIKit
 import BlocksModels
     
-final class BlockBookmarkView: BaseBlockView<BlockBookmarkConfiguration> {
-    override func setupSubviews() {
-        super.setupSubviews()
+final class BlockBookmarkView: UIView, BlockContentView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setup()
     }
 
-    override func update(with configuration: BlockBookmarkConfiguration) {
-        super.update(with: configuration)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setup()
+    }
 
+    func update(with configuration: BlockBookmarkConfiguration) {
         apply(payload: configuration.payload)
     }
 

@@ -22,7 +22,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId)
     func delete(blockId: BlockId)
     func moveTo(targetId: BlockId, blockId: BlockId)
-    func createEmptyBlock(parentId: BlockId?)
+    func createEmptyBlock(parentId: BlockId)
     func setLink(url: URL?, range: NSRange, blockId: BlockId)
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId)
     func addLink(targetId: BlockId, blockId: BlockId)
@@ -38,4 +38,9 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
     func selectBlock(blockInformation: BlockInformation)
+    func createAndFetchBookmark(
+        targetID: BlockId,
+        position: BlockPosition,
+        url: String
+    )
 }

@@ -36,7 +36,7 @@ class ChangeTypeAccessoryView: UIView {
         backgroundColor = .backgroundPrimary
 
         addSubview(stackView) {
-            $0.pinToSuperview()
+            $0.pinToSuperviewPreservingReadability() 
         }
 
         topView.addSubview(doneButton) {
@@ -45,7 +45,9 @@ class ChangeTypeAccessoryView: UIView {
             $0.width.lessThanOrEqual(to: Constants.doneButtonWidth)
         }
 
-        topView.heightAnchor.constraint(equalToConstant: Constants.topViewHeight).isActive = true
+        topView.layoutUsing.anchors {
+            $0.height.equal(to: Constants.topViewHeight)
+        }
 
         topView.addSubview(changeButton) {
             $0.leading.equal(to: topView.leadingAnchor, constant: Constants.padding)

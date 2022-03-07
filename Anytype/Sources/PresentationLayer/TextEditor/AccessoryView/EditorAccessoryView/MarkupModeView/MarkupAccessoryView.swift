@@ -50,7 +50,7 @@ final class MarkupAccessoryView: UIView {
         let contentView = MarkupAccessoryContentView(viewModel: self.viewModel).asUIView()
         
         addSubview(contentView) {
-            $0.pinToSuperview()
+            $0.pinToSuperviewPreservingReadability()
         }
     }
 

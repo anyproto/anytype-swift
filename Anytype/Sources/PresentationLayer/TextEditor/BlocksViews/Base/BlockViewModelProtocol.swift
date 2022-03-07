@@ -6,12 +6,7 @@ protocol BlockViewModelProtocol:
     ContentConfigurationProvider,
     BlockDataProvider,
     BlockFocusing
-{
-    func didSelectRowInTableView()
-    /// Block that upper than current.
-    /// Upper block can has other parent (i.e. has different level) but must be followed by the current block.
-    var upperBlock: BlockModelProtocol? { get }
-}
+{ }
 
 protocol HashableProvier {
     var hashable: AnyHashable { get }
@@ -24,6 +19,8 @@ protocol ContentConfigurationProvider {
 }
 
 protocol BlockFocusing {
+    func didSelectRowInTableView()
+
     func set(focus: BlockFocusPosition)
 }
 

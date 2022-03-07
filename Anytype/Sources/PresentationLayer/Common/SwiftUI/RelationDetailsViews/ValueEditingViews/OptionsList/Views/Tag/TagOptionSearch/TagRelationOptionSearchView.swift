@@ -9,10 +9,10 @@ struct TagRelationOptionSearchView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            DragIndicator(bottomPadding: 0)
+            DragIndicator()
             SearchBar(text: $searchText, focused: false)
                 .padding(.vertical, 4)
-                .modifier(DividerModifier(spacing: 0))
+                .divider()
             tagsList
             addButton
         }
@@ -42,7 +42,7 @@ struct TagRelationOptionSearchView: View {
             .padding(.horizontal, 20)
             .padding(.bottom, 10)
         }
-        .modifier(DividerModifier(spacing: 0))
+        .divider()
     }        
     
     private var addButton: some View {

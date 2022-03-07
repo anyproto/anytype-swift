@@ -11,8 +11,6 @@ struct FlowRelationsView: View {
             cell: { item, index in
                 HStack(spacing: 6) {
                     RelationValueView(relation: item, style: .featuredRelationBlock(allowMultiLine: false)) { relation in
-                        guard FeatureFlags.relationsEditing else { return }
-
                         viewModel.onRelationTap(relation)
                     }
 

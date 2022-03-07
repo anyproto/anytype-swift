@@ -3,9 +3,7 @@ import BlocksModels
 import UIKit
 
 // https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=106%3A745
-struct BlockBookmarkViewModel: BlockViewModelProtocol {
-    var upperBlock: BlockModelProtocol?
-    
+struct BlockBookmarkViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {
         [
             indentationLevel,
@@ -28,11 +26,11 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
                 image: UIImage.blockFile.empty.bookmark,
                 text: "Add a web bookmark".localized,
                 state: .default
-            )
+            ).asCellBlockConfiguration
         case let .fetched(payload):
-            return BlockBookmarkConfiguration(payload: payload)
+            return BlockBookmarkConfiguration(payload: payload).asCellBlockConfiguration
         case let .onlyURL(url):
-            return BlockBookmarkOnlyUrlConfiguration(ulr: url)
+            return BlockBookmarkOnlyUrlConfiguration(ulr: url).asCellBlockConfiguration
         }
     }
     

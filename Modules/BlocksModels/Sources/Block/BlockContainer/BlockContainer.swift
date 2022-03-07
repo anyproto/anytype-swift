@@ -11,12 +11,12 @@ public final class BlockContainer: BlockContainerModelProtocol {
     
     public init() {}
     
-    public func children(of id: BlockId) -> [BlockId] {
+    public func children(of id: BlockId) -> [BlockModelProtocol] {
         guard let value = models[id] else {
             return []
         }
         
-        return value.information.childrenIds
+        return value.information.childrenIds.compactMap { model(id: $0) }
     }
 
     public func model(id: BlockId) -> BlockModelProtocol? {

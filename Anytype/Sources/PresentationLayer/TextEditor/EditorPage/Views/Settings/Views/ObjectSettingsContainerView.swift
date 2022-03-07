@@ -37,7 +37,7 @@ struct ObjectSettingsContainerView: View {
                         isLayoutPickerPresented: $isLayoutPickerPresented,
                         isRelationsViewPresented: $isRelationsViewPresented
                     )
-                        .padding(8)
+                        .horizontalReadabilityPadding(8)
                         .environmentObject(viewModel)
                 }
             )
@@ -69,6 +69,7 @@ struct ObjectSettingsContainerView: View {
                 backgroundOverlayColor: Color.black.opacity(0.25),
                 view: {
                     ObjectLayoutPicker()
+                        .horizontalReadabilityPadding()
                         .environmentObject(viewModel.layoutPickerViewModel)
                 }
             )

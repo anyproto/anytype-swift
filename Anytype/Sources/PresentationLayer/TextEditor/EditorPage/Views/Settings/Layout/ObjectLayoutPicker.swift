@@ -8,13 +8,13 @@ struct ObjectLayoutPicker: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            DragIndicator(bottomPadding: 0)
+            DragIndicator()
             AnytypeText("Choose layout type".localized, style: .uxTitle1Semibold, color: .textPrimary)
                 .padding([.top, .bottom], 12)
             layoutList
         }
         .background(Color.backgroundSecondary)
-        .cornerRadius(16, corners: [.topLeft, .topRight])
+        .cornerRadius(16, corners: .top)
         .shadow(color: Color.black.opacity(0.35), radius: 40, x: 0, y: 4)
     }
     

@@ -78,12 +78,10 @@ final class BlocksSelectionOverlayView: UIView {
     }
 
     private func applyShadow() {
-        shadowedBlocksOptionView.view.layer.cornerRadius = 16
-        shadowedBlocksOptionView.view.layer.masksToBounds = true
-        shadowedBlocksOptionView.shadowLayer.fillColor = UIColor.textPrimary.cgColor
-        shadowedBlocksOptionView.shadowLayer.shadowOffset = .init(width: 0, height: 2)
-        shadowedBlocksOptionView.shadowLayer.shadowOpacity = 0.25
-        shadowedBlocksOptionView.shadowLayer.shadowRadius = 3
+        shadowedBlocksOptionView.shadowLayer.fillColor = UIColor.shadowPrimary.cgColor
+        shadowedBlocksOptionView.shadowLayer.shadowOffset = .init(width: 0, height: 0)
+        shadowedBlocksOptionView.shadowLayer.shadowOpacity = 1
+        shadowedBlocksOptionView.shadowLayer.shadowRadius = 40
     }
 
     private func makeMovingButtonsView() -> TwoStandardButtonsView {
@@ -157,7 +155,7 @@ private final class SelectionNavigationView: UIView {
             leftButtonTap?()
         })
         leftButton.setTitle("Done".localized, for: .normal)
-        leftButton.setTitleColor(UIColor.System.amber, for: .normal)
+        leftButton.setTitleColor(UIColor.buttonAccent, for: .normal)
         leftButton.addAction(leftButtonAction, for: .touchUpInside)
 
         addSubview(leftButton) {

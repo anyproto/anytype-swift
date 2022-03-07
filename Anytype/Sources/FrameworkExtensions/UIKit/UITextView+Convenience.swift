@@ -63,6 +63,16 @@ extension UITextView {
         }
         typingAttributes = oldTypingAttributes
     }
+
+    func textRectForRange(range: NSRange) -> CGRect? {
+        if let beginningSelectedTextPostion = position(from: beginningOfDocument, offset: range.location),
+           let endSelectedTextPosition = position(from: beginningSelectedTextPostion, offset: range.length),
+           let textRange = textRange(from: beginningSelectedTextPostion, to: endSelectedTextPosition) {
+            return firstRect(for: textRange)
+        }
+
+        return nil
+    }
     
     func textChangeType(changeTextRange: NSRange, replacementText: String) -> TextChangeType {
         if replacementText == "",  changeTextRange.location < text.count {

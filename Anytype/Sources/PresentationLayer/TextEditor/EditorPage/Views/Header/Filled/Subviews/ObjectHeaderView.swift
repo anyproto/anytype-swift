@@ -35,10 +35,26 @@ final class ObjectHeaderView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        coverViewCenter = coverView.layer.position
+    }
+
     // MARK: - Internal functions
-    
+    private lazy var coverViewCenter: CGPoint = coverView.layer.position
+
     func applyCoverTransform(_ transform: CGAffineTransform) {
+        if coverView.transform.isIdentity, !transform.isIdentity {
+            let maxY = coverViewCenter.y + coverView.bounds.height / 2
+            coverView.layer.position = CGPoint(x: coverViewCenter.x, y: maxY)
+            coverView.layer.anchorPoint = CGPoint(x: 0.5, y: 1.0)
+        } else if transform.isIdentity {
+            coverView.layer.position = coverViewCenter
+            coverView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        }
+
         // Disable CALayer implicit animations
         CATransaction.begin()
         CATransaction.setDisableActions(true)
@@ -47,7 +63,6 @@ final class ObjectHeaderView: UIView {
 
         CATransaction.commit()
     }
-    
 }
 
 extension ObjectHeaderView: ConfigurableView {
@@ -157,7 +172,7 @@ private extension ObjectHeaderView {
     
     func setupLayout(topAdjustedContentInset: CGFloat) {
         layoutUsing.anchors {
-            $0.height.equal(to: Constants.height)
+            $0.height.equal(to: Constants.height, priority: .defaultLow)
         }
         
         addSubview(coverView) {

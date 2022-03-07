@@ -4,10 +4,12 @@ import BlocksModels
 import FloatingPanel
 
 final class StatusRelationDetailsViewModel: ObservableObject {
-        
-    weak var delegate: RelationDetailsViewModelDelegate?
     
-    let floatingPanelLayout: FloatingPanelLayout = FullScreenHeightPopupLayout()
+    let source: RelationSource
+        
+    private weak var delegate: AnytypePopupContentDelegate?
+    
+    let popupLayout: FloatingPanelLayout = FullScreenHeightPopupLayout()
 
     @Published var selectedStatus: Relation.Status.Option? {
         didSet {
@@ -23,11 +25,14 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     private let service: RelationsServiceProtocol
     
     init(
+        source: RelationSource,
         selectedStatus: Relation.Status.Option?,
         allStatuses: [Relation.Status.Option],
         relation: Relation,
         service: RelationsServiceProtocol
     ) {
+        self.source = source
+        
         self.selectedStatus = selectedStatus
         self.allStatuses = allStatuses
         
@@ -57,7 +62,7 @@ extension StatusRelationDetailsViewModel {
     }
     
     func addOption(text: String) {
-        let optionId = service.addRelationOption(relationKey: relation.id, optionText: text)
+        let optionId = service.addRelationOption(source: source, relationKey: relation.id, optionText: text)
         guard let optionId = optionId else { return}
         
         saveValue(optionId)
@@ -70,10 +75,14 @@ extension StatusRelationDetailsViewModel {
     
 }
 
-extension StatusRelationDetailsViewModel: RelationDetailsViewModelProtocol {
+extension StatusRelationDetailsViewModel: AnytypePopupViewModelProtocol {
     
-    func makeViewController() -> UIViewController {
+    func makeContentView() -> UIViewController {
         UIHostingController(rootView: StatusRelationDetailsView(viewModel: self))
+    }
+    
+    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
+        delegate = сontentDelegate
     }
     
 }

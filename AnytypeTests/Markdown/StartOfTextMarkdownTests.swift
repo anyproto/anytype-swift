@@ -5,67 +5,50 @@ import XCTest
 class StartOfTextMarkdownTests: XCTestCase {
 
     var listener: MarkdownListenerImpl!
-    var handler: BlockActionHandlerMock!
-    var changer: BlockMarkupChangerMock!
     
     override func setUpWithError() throws {
-        handler = BlockActionHandlerMock()
-        changer = BlockMarkupChangerMock()
-        listener = MarkdownListenerImpl(markupChanger: changer)
-    }
-    
-    func testStartOfTextMarkdowns_triggered_on_every_carret_position_inside_shortcut() throws {
-        BeginingOfTextMarkdown.all.forEach { shortcut in
-            shortcut.text.forEach { text in
-                (0...text.count).forEach { index in
-                    testStartOfTextMarkdown(shortcut: text, style: shortcut.style, carretPosition: index, success: true)
-                }
-                testStartOfTextMarkdown(shortcut: text, style: shortcut.style, carretPosition: text.count + 1, success: false)
-            }
-        }
+        listener = MarkdownListenerImpl()
     }
 
     func testStartOfTextMarkdowns() throws {
         BeginingOfTextMarkdown.all.forEach { shortcut in
             shortcut.text.forEach { text in
-                testStartOfTextMarkdown(shortcut: text, style: shortcut.style)
+                testEnteringSpaceAfterTextMarkdown(shortcut: text, style: shortcut.style)
             }
         }
     }
     
-    func testStartOfTextMarkdowns_did_not_trigger_on_delete() throws {
-        BeginingOfTextMarkdown.all.forEach { shortcut in
-            shortcut.text.forEach { text in
-                testStartOfTextMarkdown(shortcut: text, style: shortcut.style, changeType: .deletingSymbols, success: false)
-            }
-        }
-    }
-    
-    private func testStartOfTextMarkdown(
+    private func testEnteringSpaceAfterTextMarkdown(
         shortcut: String,
         style: BlockText.Style,
-        changeType: TextChangeType = .typingSymbols,
-        carretPosition: Int? = nil,
         success: Bool = true
     ) {
-        let data = buildData(text: shortcut + "Equilibrium", carretPosition: carretPosition ?? shortcut.count)
-        handler.turnIntoStub = true
-        handler.changeTextStub = true
+        let shortcutByDeletingSpaces = shortcut.replacingOccurrences(of: " ", with: "")
+        let data = buildData(
+            text: shortcutByDeletingSpaces,
+            carretPosition: shortcutByDeletingSpaces.count
+        )
 
-        listener.textDidChange(changeType: changeType, data: data)
-        
+        let markdownChange = listener.markdownChange(
+            textView: data.textView,
+            replacementText: " ",
+            range: data.textView.selectedRange
+        )
+
         if success {
-            XCTAssertEqual(handler.turnIntoNumberOfCalls, 1)
-            XCTAssertEqual(handler.turnIntoStyleFromLastCall!, style)
-            XCTAssertEqual(handler.changeTextNumberOfCalls, 1)
-            XCTAssertEqual(handler.changeTextTextFromLastCall!.string, "Equilibrium")
+            switch markdownChange {
+            case .setText:
+                break // Not implemented. It is about inline markups
+            case let .turnInto(newStyle, text: newText):
+                XCTAssertEqual(newStyle, style)
+                XCTAssertEqual(newText.string, "")
+            default:
+                XCTFail("Wrong case")
+            }
         } else {
-            XCTAssertEqual(handler.turnIntoNumberOfCalls, 0)
-            XCTAssertEqual(handler.changeTextNumberOfCalls, 0)
+           XCTAssertNil(markdownChange)
         }
         
-        handler.turnIntoNumberOfCalls = 0
-        handler.changeTextNumberOfCalls = 0
     }
 
     private func buildData(text: String, carretPosition: Int) -> TextBlockDelegateData {

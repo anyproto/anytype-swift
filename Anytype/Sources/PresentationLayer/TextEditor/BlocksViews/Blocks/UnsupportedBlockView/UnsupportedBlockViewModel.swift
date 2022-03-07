@@ -3,8 +3,6 @@ import UIKit
 import AnytypeCore
 
 struct UnsupportedBlockViewModel: BlockViewModelProtocol {
-    var upperBlock: BlockModelProtocol?
-
     let indentationLevel = 0
     let information: BlockInformation
 
@@ -20,8 +18,7 @@ struct UnsupportedBlockViewModel: BlockViewModelProtocol {
     }
 
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        let contentConfiguration = UnsupportedBlockContentConfiguration(text: "Unsupported block".localized)
-        return contentConfiguration
+        UnsupportedBlockContentConfiguration(text: "Unsupported block".localized).asCellBlockConfiguration
     }
 
     func didSelectRowInTableView() { }

@@ -20,6 +20,7 @@ final class SearchListViewController: UIViewController {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
+        searchBar.backgroundColor = .backgroundSecondary
         searchBar.placeholder = NSLocalizedString("Search for language", comment: "")
 
         return searchBar
@@ -27,7 +28,7 @@ final class SearchListViewController: UIViewController {
 
     private lazy var collectionView: UICollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .grouped)
-        listConfiguration.backgroundColor = .white
+        listConfiguration.backgroundColor = .backgroundSecondary
         let layout = UICollectionViewCompositionalLayout.list(using: listConfiguration)
 
         let collectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
@@ -60,7 +61,7 @@ final class SearchListViewController: UIViewController {
     // MARK: - Setup and layut views
 
     private func setupViews() {
-        view.backgroundColor = .white
+        view.backgroundColor = .backgroundSecondary
 
         view.addSubview(searchBar)
         view.addSubview(collectionView)
@@ -88,6 +89,7 @@ final class SearchListViewController: UIViewController {
             var content = cell.defaultContentConfiguration()
             content.text = "\(item)"
             cell.contentConfiguration = content
+            cell.contentView.backgroundColor = .backgroundSecondary
         }
 
         dataSource = UICollectionViewDiffableDataSource<Section, CodeLanguage>(collectionView: collectionView) {

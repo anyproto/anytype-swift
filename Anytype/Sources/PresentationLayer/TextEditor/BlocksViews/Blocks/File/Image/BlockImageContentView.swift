@@ -4,27 +4,30 @@ import BlocksModels
 import Kingfisher
 import AnytypeCore
 
-final class BlockImageContentView: BaseBlockView<BlockImageConfiguration> {
-    
+final class BlockImageContentView: UIView, BlockContentView {
     private lazy var imageView = UIImageView()
     private lazy var tapGesture = BindableGestureRecognizer { [unowned self] _ in
-        currentConfiguration.imageViewTapHandler(imageView)
+        imageViewTapHandler?(imageView)
     }
     private var currentFile: BlockFile?
+    private var imageViewTapHandler: ((UIImageView) -> Void)?
 
-    override func setupSubviews() {
-        super.setupSubviews()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupUIElements()
     }
 
-    override func update(with configuration: BlockImageConfiguration) {
-        super.update(with: configuration)
-        handleFile(configuration.fileData, currentFile)
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupUIElements()
     }
 
-    override func update(with state: UICellConfigurationState) {
-        super.update(with: state)
+    func update(with configuration: BlockImageConfiguration) {
+        handleFile(configuration: configuration)
+        imageViewTapHandler = configuration.imageViewTapHandler
+    }
 
+    func update(with state: UICellConfigurationState) {
         tapGesture.isEnabled = state.isEditing
     }
     
@@ -42,17 +45,20 @@ final class BlockImageContentView: BaseBlockView<BlockImageConfiguration> {
         }
     }
     
-    private func handleFile(_ file: BlockFile, _ oldFile: BlockFile?) {
+    private func handleFile(configuration: BlockImageConfiguration) {
         anytypeAssert(
-            file.state == .done,
-            "Wrong state \(file.state) for block image",
+            configuration.fileData.state == .done,
+            "Wrong state \(configuration.fileData.state) for block image",
             domain: .blockImage
         )
-        setupImage(file, oldFile)
+        setupImage(with: configuration)
         invalidateIntrinsicContentSize()
     }
     
-    func setupImage(_ file: BlockFile, _ oldFile: BlockFile?) {
+    func setupImage(with configuration: BlockImageConfiguration) {
+        let file = configuration.fileData
+        let oldFile = currentFile
+
         guard !file.metadata.hash.isEmpty else { return }
 
         let imageId = file.metadata.hash
@@ -61,7 +67,7 @@ final class BlockImageContentView: BaseBlockView<BlockImageConfiguration> {
         
         imageView.kf.cancelDownloadTask()
         
-        let imageWidth = currentConfiguration.maxWidth - Layout.imageViewInsets.right - Layout.imageViewInsets.left
+        let imageWidth = configuration.maxWidth - Layout.imageViewInsets.right - Layout.imageViewInsets.left
         let imageSize = CGSize(
             width: imageWidth,
             height: Layout.imageContentViewDefaultHeight

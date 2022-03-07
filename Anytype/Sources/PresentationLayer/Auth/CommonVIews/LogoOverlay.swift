@@ -8,19 +8,26 @@ struct LogoOverlay: ViewModifier {
     func body(content: Content) -> some View {
         content
             .overlay(
-                Image.logo.padding(.leading, 20).padding(.top, 30)
-                    .onTapGesture {
-                        titleTapCount += 1
-                        if titleTapCount == 10 {
-                            titleTapCount = 0
-                            AudioServicesPlaySystemSound(1109)
-                            showDebug = true
-                        }
-                    },
+                HStack {
+                    Image.logo
+                        .onTapGesture(perform: onTap)
+                    Spacer()
+                }
+                    .horizontalReadabilityPadding(20)
+                ,
                 alignment: .topLeading
             )
             .sheet(isPresented: $showDebug) {
                 DebugMenu()
             }
+    }
+    
+    private func onTap() {
+        titleTapCount += 1
+        if titleTapCount == 10 {
+            titleTapCount = 0
+            AudioServicesPlaySystemSound(1109)
+            showDebug = true
+        }
     }
 }

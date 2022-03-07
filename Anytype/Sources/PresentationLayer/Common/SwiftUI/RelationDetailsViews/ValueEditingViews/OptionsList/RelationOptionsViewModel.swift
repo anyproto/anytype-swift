@@ -3,26 +3,29 @@ import SwiftUI
 import FloatingPanel
 
 final class RelationOptionsViewModel: ObservableObject {
-    
-    weak var delegate: RelationDetailsViewModelDelegate?
-        
+            
     @Published var selectedOptions: [RelationOptionProtocol] = []
-    private(set) var floatingPanelLayout: FloatingPanelLayout = RelationOptionsPopupLayout() {
+    private(set) var popupLayout: FloatingPanelLayout = RelationOptionsPopupLayout() {
         didSet {
             delegate?.didAskInvalidateLayout(true)
         }
     }
 
+    private weak var delegate: AnytypePopupContentDelegate?
+
+    private let source: RelationSource
     private let type: RelationOptionsType
     private let relation: Relation
     private let service: RelationsServiceProtocol
     
     init(
+        source: RelationSource,
         type: RelationOptionsType,
         selectedOptions: [RelationOptionProtocol],
         relation: Relation,
         service: RelationsServiceProtocol
     ) {
+        self.source = source
         self.type = type
         self.selectedOptions = selectedOptions
         self.relation = relation
@@ -89,6 +92,7 @@ extension RelationOptionsViewModel {
         }
         
         return TagRelationOptionSearchViewModel(
+            source: source,
             availableTags: availableTags,
             relation: relation,
             service: service
@@ -109,15 +113,19 @@ extension RelationOptionsViewModel {
     }
     
     private func updateLayout() {
-        floatingPanelLayout = selectedOptions.isNotEmpty ? RelationOptionsPopupLayout() : RelationOptionsEmptyPopupLayout(height: 150)
+        popupLayout = selectedOptions.isNotEmpty ? RelationOptionsPopupLayout() : RelationOptionsEmptyPopupLayout(height: 150)
     }
     
 }
 
-extension RelationOptionsViewModel: RelationDetailsViewModelProtocol {
+extension RelationOptionsViewModel: AnytypePopupViewModelProtocol {
     
-    func makeViewController() -> UIViewController {
+    func makeContentView() -> UIViewController {
         UIHostingController(rootView: RelationOptionsView(viewModel: self))
+    }
+    
+    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
+        delegate = сontentDelegate
     }
     
 }

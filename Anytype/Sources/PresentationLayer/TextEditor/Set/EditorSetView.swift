@@ -32,14 +32,14 @@ struct EditorSetView: View {
                     headerMinimizedSize: $headerMinimizedSize
                 )
             }
-            EditorSetPaginationView()
+            Rectangle().frame(height: 40).foregroundColor(.backgroundPrimary) // Navigation view stub
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)
         
         .sheet(isPresented: $model.showViewPicker) {
             EditorSetViewPicker()
-                .cornerRadius(16, corners: [.topLeft, .topRight])
+                .cornerRadius(16, corners: .top)
         }
     }
 }

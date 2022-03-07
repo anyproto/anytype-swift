@@ -11,12 +11,13 @@ public enum ErrorDomain: String {
     case camera
     case clearCache
     
-    case treeBlockBuilder
+    case blockBuilder
     case localEventConverter
     case localEventConverterSetFocus
     case middlewareEventConverter
     case objectDetails
     case relationsBuilder
+    case arrayExtension
     
     case blockInformationCreator
     case blockContainer
@@ -63,9 +64,11 @@ public enum ErrorDomain: String {
     case authService
     case subscriptionService
     case subscriptionStorage
+    case detailsStorage
     
     case homeView
-
+    case baseDocument
+    case protobufConverter
     
     case iconPicker
     

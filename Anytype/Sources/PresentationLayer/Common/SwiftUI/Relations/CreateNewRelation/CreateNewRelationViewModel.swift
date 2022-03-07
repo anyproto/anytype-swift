@@ -10,7 +10,10 @@ class CreateNewRelationViewModel: ObservableObject, Dismissible {
     var onSelect: (RelationMetadata) -> ()
     var onDismiss: () -> () = {}
 
-    init(relationService: RelationsServiceProtocol, onSelect: @escaping (RelationMetadata) -> ()) {
+    init(
+        relationService: RelationsServiceProtocol,
+        onSelect: @escaping (RelationMetadata) -> ()
+    ) {
         self.relationService = relationService
         self.onSelect = onSelect
 
@@ -31,7 +34,7 @@ class CreateNewRelationViewModel: ObservableObject, Dismissible {
             isBundled: false
         )
 
-        if let relation = relationService.createRelation(relationMetatdata) {
+        if let relation = relationService.createRelation(relation: relationMetatdata) {
             onSelect(relation)
         }
     }

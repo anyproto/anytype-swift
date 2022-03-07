@@ -37,13 +37,17 @@ struct BlockInformationCreator {
         let checked = newData.hasChecked ? newData.checked.value : oldText.checked
         let style = newData.hasStyle ? newData.style.value : oldText.contentType.asMiddleware
         let marks = buildMarks(newData: newData, oldText: oldText)
+        let iconEmoji = newData.hasIconEmoji ? newData.iconEmoji.value : oldText.iconEmoji
+        let iconImage = newData.hasIconImage ? newData.iconImage.value : oldText.iconImage
         
         let middleContent = Anytype_Model_Block.Content.Text(
             text: text,
             style: style,
             marks: marks,
             checked: checked,
-            color: color ?? ""
+            color: color ?? "",
+            iconEmoji: iconEmoji,
+            iconImage: iconImage
         )
         
         guard var textContent = middleContent.textContent else {

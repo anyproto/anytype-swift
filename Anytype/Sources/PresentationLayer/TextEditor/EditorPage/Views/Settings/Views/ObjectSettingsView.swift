@@ -13,7 +13,7 @@ struct ObjectSettingsView: View {
     
     var body: some View {
         VStack(alignment: .center, spacing: 0) {
-            DragIndicator(bottomPadding: 0)
+            DragIndicator()
             settings
         }
         .background(Color.backgroundSecondary)
@@ -29,12 +29,8 @@ struct ObjectSettingsView: View {
                 }
             }
             .padding([.leading, .trailing], Constants.edgeInset)
-            .modifier(
-                DividerModifier(
-                    spacing:  Constants.dividerSpacing
-                )
-            )
-
+            .divider(spacing:  Constants.dividerSpacing)
+            
             ObjectActionsView()
                 .environmentObject(viewModel.objectActionsViewModel)
                 .padding(.top, Constants.topActionObjectsViewInset)

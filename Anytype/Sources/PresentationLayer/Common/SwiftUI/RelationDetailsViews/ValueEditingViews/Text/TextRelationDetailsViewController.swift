@@ -21,14 +21,14 @@ final class TextRelationDetailsViewController: UIViewController {
     init(viewModel: TextRelationDetailsViewModel) {
         self.viewModel = viewModel
         self.maxViewHeight = {
-            guard let window = UIApplication.shared.windows.first else {
+            guard let window = UIApplication.shared.keyWindow else {
                 return UIScreen.main.bounds.height
             }
             
             let windowHeight: CGFloat = window.bounds.height
             let topPadding: CGFloat = window.safeAreaInsets.top
             
-            return windowHeight - topPadding - RelationDetailsViewPopup.grabberHeight
+            return windowHeight - topPadding - AnytypePopup.grabberHeight
         }()
         
         super.init(nibName: nil, bundle: nil)

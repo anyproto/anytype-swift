@@ -1,9 +1,7 @@
 import BlocksModels
 import UIKit
 
-struct VideoBlockViewModel: BlockViewModelProtocol {
-    var upperBlock: BlockModelProtocol?
-    
+struct VideoBlockViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {
         [
             indentationLevel,
@@ -36,7 +34,7 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
         case .error:
             return emptyViewConfiguration(state: .error)
         case .done:
-            return VideoBlockConfiguration(fileData: fileData)
+            return VideoBlockConfiguration(file: fileData).asCellBlockConfiguration
         }
     }
     
@@ -45,6 +43,6 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
             image: UIImage.blockFile.empty.video,
             text: "Upload a video".localized,
             state: state
-        )
+        ).asCellBlockConfiguration
     }
 }

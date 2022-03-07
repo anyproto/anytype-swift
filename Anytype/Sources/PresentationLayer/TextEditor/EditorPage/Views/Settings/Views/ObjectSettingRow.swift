@@ -1,11 +1,3 @@
-//
-//  ObjectSettingRow.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 15.07.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import SwiftUI
 
 struct ObjectSettingRow: View {
@@ -15,17 +7,13 @@ struct ObjectSettingRow: View {
     let onTap: () -> Void
     
     var body: some View {
-        if isLast {
-            settingButton
-        } else {
-            settingButton
-                .modifier(
-                    DividerModifier(
-                        spacing:  Constants.verticalInset,
-                        leadingPadding: Constants.space + Constants.iconWidth
-                    )
+        settingButton
+            .if(!isLast) { settingButton in
+                settingButton.divider(
+                    spacing:  Constants.verticalInset,
+                    leadingPadding: Constants.space + Constants.iconWidth
                 )
-        }
+            }
     }
 
     private var settingButton: some View {

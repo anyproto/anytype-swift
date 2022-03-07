@@ -4,8 +4,6 @@ import BlocksModels
 
 #warning("Check if block updates when featuredRelations is changed")
 struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
-    var upperBlock: BlockModelProtocol?
-
     let indentationLevel: Int = 0
     let information: BlockInformation
     let type: String
@@ -39,7 +37,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             type: type,
             alignment: information.alignment.asNSTextAlignment,
             onRelationTap: onRelationTap
-        )
+        ).asCellBlockConfiguration
     }
     
     func didSelectRowInTableView() {}

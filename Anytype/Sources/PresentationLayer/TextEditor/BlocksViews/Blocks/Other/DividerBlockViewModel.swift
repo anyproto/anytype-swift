@@ -2,8 +2,6 @@ import BlocksModels
 import UIKit
 
 struct DividerBlockViewModel: BlockViewModelProtocol {
-    var upperBlock: BlockModelProtocol?
-
     var hashable: AnyHashable {
         [
             indentationLevel,
@@ -23,7 +21,7 @@ struct DividerBlockViewModel: BlockViewModelProtocol {
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        return DividerBlockContentConfiguration(content: dividerContent)
+        return DividerBlockContentConfiguration(content: dividerContent).asCellBlockConfiguration
     }
     
     func didSelectRowInTableView() {}

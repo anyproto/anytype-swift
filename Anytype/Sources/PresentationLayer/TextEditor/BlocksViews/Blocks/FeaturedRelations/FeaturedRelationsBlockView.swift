@@ -2,53 +2,54 @@ import Foundation
 import UIKit
 import SwiftUI
 
-final class FeaturedRelationsBlockView: BaseBlockView<FeaturedRelationsBlockContentConfiguration> {
-
+final class FeaturedRelationsBlockView: UIView, BlockContentView {
     // MARK: - Views
 
-    private lazy var relationsView: UIView = {
-        return UIView()
-    }()
+    private var relationsView: UIView?
 
     private var relationFlowViewModel: FlowRelationsViewModel?
     
-    // MARK: - BaseBlockView
-
-    override func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
-        super.update(with: configuration)
-
-        apply(configuration)
-    }
-
-    override func setupSubviews() {
-        super.setupSubviews()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
         setupLayout()
     }
-    
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupLayout()
+    }
+
+    func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
+        apply(configuration)
+    }
 }
 
 private extension FeaturedRelationsBlockView  {
     
-    func setupLayout() {
-        let relationFlowViewModel = FlowRelationsViewModel(
-            relations: currentConfiguration.featuredRelations,
-            onRelationTap: currentConfiguration.onRelationTap
-        )
-        self.relationFlowViewModel = relationFlowViewModel
-        relationFlowViewModel.relations = currentConfiguration.featuredRelations
-        relationFlowViewModel.alignment = currentConfiguration.alignment.asSwiftUI
-
-        let relationsView = FlowRelationsView(viewModel: relationFlowViewModel).asUIView()
-
-        addSubview(relationsView) {
-            $0.leading.equal(to: leadingAnchor, constant: Constants.horizontalSpacing)
-            $0.top.equal(to: topAnchor, constant: Constants.verticalSpacing)
-            $0.bottom.equal(to: bottomAnchor, constant: -Constants.verticalSpacing)
-            $0.trailing.equal(to: trailingAnchor, constant: -Constants.horizontalSpacing)
-        }
-    }
+    func setupLayout() {}
     
     func apply(_ configuration: FeaturedRelationsBlockContentConfiguration) {
+        if relationsView == nil {
+            let relationFlowViewModel = FlowRelationsViewModel(
+                relations: configuration.featuredRelations,
+                onRelationTap: configuration.onRelationTap
+            )
+            self.relationFlowViewModel = relationFlowViewModel
+            relationFlowViewModel.relations = configuration.featuredRelations
+            relationFlowViewModel.alignment = configuration.alignment.asSwiftUI
+
+            let relationsView = FlowRelationsView(viewModel: relationFlowViewModel).asUIView()
+
+            addSubview(relationsView) {
+                $0.leading.equal(to: leadingAnchor, constant: Constants.horizontalSpacing)
+                $0.top.equal(to: topAnchor, constant: Constants.verticalSpacing)
+                $0.bottom.equal(to: bottomAnchor, constant: -Constants.verticalSpacing)
+                $0.trailing.equal(to: trailingAnchor, constant: -Constants.horizontalSpacing)
+            }
+
+            self.relationsView = relationsView
+        }
+
         relationFlowViewModel?.relations = configuration.featuredRelations
         relationFlowViewModel?.alignment = configuration.alignment.asSwiftUI
     }

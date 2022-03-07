@@ -26,7 +26,6 @@ final class EditorPageController: UIViewController {
         )
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
-        collectionView.contentInsetAdjustmentBehavior = .always
 
         return collectionView
     }()
@@ -189,23 +188,17 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func update(
-        changes: CollectionDifference<BlockViewModelProtocol>?,
-        allModels: [BlockViewModelProtocol]
+        changes: CollectionDifference<EditorItem>?,
+        allModels: [EditorItem]
     ) {
         var blocksSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
-        blocksSnapshot.append(allModels.map { EditorItem.block($0) })
-
-        var changedIndexes = [BlockId]()
+        blocksSnapshot.append(allModels)
 
         if let changes = changes {
             for change in changes.insertions {
-                changedIndexes.append(change.element.blockId)
+                guard blocksSnapshot.isVisible(change.element) else { continue }
 
-                guard let viewModel = allModels[safe: change.offset],
-                      let item = blocksSnapshot.items[safe: change.offset],
-                      blocksSnapshot.isVisible(item) else { continue }
-
-                reloadCell(for: item, using: viewModel)
+                reloadCell(for: change.element)
             }
         }
 
@@ -215,10 +208,9 @@ extension EditorPageController: EditorPageViewInput {
     func selectBlock(blockId: BlockId) {
         if let item = dataSourceItem(for: blockId),
             let indexPath = dataSource.indexPath(for: item) {
-            reloadCell(
-                for: item,
-                using: viewModel.modelsHolder.contentProvider(for: item)
-            )
+            viewModel.modelsHolder.contentProvider(for: item)
+                .map(reloadCell(for:))
+
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         }
 
@@ -253,11 +245,9 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func blockDidFinishEditing(blockId: BlockId) {
-        guard let dataSourceItem = dataSourceItem(for: blockId),
-              let contentProvider = viewModel.modelsHolder.contentProvider(for: blockId) else {
-                  return
-              }
-        reloadCell(for: dataSourceItem, using: contentProvider)
+        guard let newItem = viewModel.modelsHolder.contentProvider(for: blockId) else { return }
+
+        reloadCell(for: .block(newItem))
     }
 }
 
@@ -294,10 +284,11 @@ private extension EditorPageController {
     
     func setupLayout() {
         view.addSubview(collectionView) {
-            $0.pinToSuperview()
+            $0.pinToSuperviewPreservingReadability()
         }
+        
         view.addSubview(deletedScreen) {
-            $0.pinToSuperview()
+            $0.pinToSuperviewPreservingReadability()
         }
 
         navigationBarHelper.addFakeNavigationBarBackgroundView(to: view)
@@ -312,23 +303,29 @@ private extension EditorPageController {
         deletedScreen.isHidden = true
     }
 
-    func reloadCell(
-        for item: EditorItem,
-        using contentProvider: ContentConfigurationProvider?
-    ) {
+    func reloadCell(for item: EditorItem) {
         guard let indexPath = dataSource.indexPath(for: item),
               let cell = collectionView.cellForItem(at: indexPath) as? UICollectionViewListCell else { return }
 
-        cell.contentConfiguration = contentProvider?.makeContentConfiguration(maxWidth: cell.bounds.width)
-        cell.indentationLevel = contentProvider?.indentationLevel ?? 0
+        switch item {
+        case .header: break
+        case .block(let blockViewModel):
+            cell.contentConfiguration = blockViewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.indentationLevel = blockViewModel.indentationLevel 
+        case .system(let systemContentConfiguationProvider):
+            cell.contentConfiguration = systemContentConfiguationProvider.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.indentationLevel = systemContentConfiguationProvider.indentationLevel 
+        }
     }
+
+
 
     func dataSourceItem(for blockId: BlockId) -> EditorItem? {
         dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
             case let .block(block):
                 return block.information.id == blockId
-            case .header:
+            case .header, .system:
                 return false
             }
         }
@@ -341,7 +338,7 @@ private extension EditorPageController {
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
         
-        viewModel.actionHandler.createEmptyBlock(parentId: nil)
+        viewModel.actionHandler.createEmptyBlock(parentId: viewModel.document.objectId)
     }
 
     @objc
@@ -360,26 +357,16 @@ private extension EditorPageController {
     func makeCollectionViewDataSource() -> UICollectionViewDiffableDataSource<EditorSection, EditorItem> {
         let headerCellRegistration = createHeaderCellRegistration()
         let cellRegistration = createCellRegistration()
-        let codeCellRegistration = createCodeCellRegistration()
-        
+        let systemCellRegistration = createSystemCellRegistration()
+
         let dataSource = UICollectionViewDiffableDataSource<EditorSection, EditorItem>(
             collectionView: collectionView
         ) { [weak self] (collectionView, indexPath, dataSourceItem) -> UICollectionViewCell? in
             let cell: UICollectionViewCell
             switch dataSourceItem {
             case let .block(block):
-                guard case .text(.code) = block.content.type else {
-                    cell = collectionView.dequeueConfiguredReusableCell(
-                        using: cellRegistration,
-                        for: indexPath,
-                        item: block
-                    )
-
-                    break
-                }
-                
-                cell =  collectionView.dequeueConfiguredReusableCell(
-                    using: codeCellRegistration,
+                cell = collectionView.dequeueConfiguredReusableCell(
+                    using: cellRegistration,
                     for: indexPath,
                     item: block
                 )
@@ -388,6 +375,12 @@ private extension EditorPageController {
                     using: headerCellRegistration,
                     for: indexPath,
                     item: header
+                )
+            case let .system(configuration):
+                return collectionView.dequeueConfiguredReusableCell(
+                    using: systemCellRegistration,
+                    for: indexPath,
+                    item: configuration
                 )
             }
 
@@ -427,9 +420,11 @@ private extension EditorPageController {
         }
     }
     
-    func createCodeCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, BlockViewModelProtocol> {
-        .init { [weak self] (cell, indexPath, item) in
-            self?.setupCell(cell: cell, indexPath: indexPath, item: item)
+    func createSystemCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, SystemContentConfiguationProvider> {
+        .init { (cell, indexPath, item) in
+            cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
+            cell.indentationWidth = Constants.cellIndentationWidth
+            cell.indentationLevel = item.indentationLevel
         }
     }
     

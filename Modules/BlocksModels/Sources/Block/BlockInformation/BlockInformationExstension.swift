@@ -1,5 +1,18 @@
 public extension BlockInformation {
     static var emptyText: BlockInformation {
-        BlockInformation(content: .text(.empty))
+        empty(content: .text(.empty))
+    }
+    
+    static func empty(
+        blockId: BlockId = "", content: BlockContent
+    ) -> BlockInformation {
+        BlockInformation(
+            id: blockId,
+            content: content,
+            backgroundColor: nil,
+            alignment: .left,
+            childrenIds: [],
+            fields: [:]
+        )
     }
 }

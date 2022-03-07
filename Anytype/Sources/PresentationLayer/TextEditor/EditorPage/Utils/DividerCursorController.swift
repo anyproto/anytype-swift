@@ -11,7 +11,7 @@ final class DividerCursorController {
 
     private enum Constants {
         enum Divider {
-            static let cornerRadius = 8.0
+            static let cornerRadius = 2.0
             static let origin = CGPoint(x: 8, y: 0)
             static let padding = 8.0
             static let height = 4.0

@@ -11,8 +11,6 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         let image: ImageSource
         let imageView: UIImageView
     }
-
-    var upperBlock: BlockModelProtocol?
     
     var hashable: AnyHashable {
         [
@@ -66,7 +64,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
                 imageViewTapHandler: { [weak self] imageView in
                     self?.didTapOpenImage(imageView)
                 }
-            )
+            ).asCellBlockConfiguration
         }
     }
         
@@ -75,7 +73,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             image: UIImage.blockFile.empty.image,
             text: "Upload a picture".localized,
             state: state
-        )
+        ).asCellBlockConfiguration
     }
     
     func didSelectRowInTableView() {

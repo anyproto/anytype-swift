@@ -4,9 +4,7 @@ import Combine
 import BlocksModels
 
 
-struct BlockLinkViewModel: BlockViewModelProtocol {
-    var upperBlock: BlockModelProtocol?
-    
+struct BlockLinkViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {
         [
             indentationLevel,
@@ -40,7 +38,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        return BlockLinkContentConfiguration(state: state)
+        return BlockLinkContentConfiguration(state: state).asCellBlockConfiguration
     }
     
     func didSelectRowInTableView() {

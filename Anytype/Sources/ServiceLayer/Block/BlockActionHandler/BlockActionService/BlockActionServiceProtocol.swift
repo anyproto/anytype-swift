@@ -8,7 +8,7 @@ protocol BlockActionServiceProtocol {
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     func turnIntoPage(blockId: BlockId) -> BlockId?
     
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, shouldSetFocusOnUpdate: Bool)
+    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition)
     func addChild(info: BlockInformation, parentId: BlockId)
     
     func delete(blockId: BlockId)
@@ -34,4 +34,10 @@ protocol BlockActionServiceProtocol {
     func merge(secondBlockId: BlockId)
     
     func setObjectTypeUrl(_ objectTypeUrl: String)
+    func createAndFetchBookmark(
+        contextID: BlockId,
+        targetID: BlockId,
+        position: BlockPosition,
+        url: String
+    )
 }

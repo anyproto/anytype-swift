@@ -1,80 +1,72 @@
 import UIKit
 import SwiftUI
 
-final class RelationBlockView: BaseBlockView<RelationBlockContentConfiguration>, ObservableObject {
-    @Published var heightConstraint: NSLayoutConstraint!
-    @Published var relation: Relation?
-    @Published var actionOnValue: ((_ relation: Relation) -> Void)?
+final class RelationBlockView: UIView, BlockContentView {
+    private var bottomConstraint: NSLayoutConstraint!
 
     // MARK: - Views
+    private lazy var relationValueView = RelationValueViewUIKit(relation: .unknown(.empty(id: "", name: "")),
+                                                               style: .regular(allowMultiLine: true),
+                                                               action: nil)
 
-    fileprivate lazy var relationView = RelationView(delegate: self)
-    private let container = UIView()
+    private let relationNameView = AnytypeLabel(style: .relation1Regular)
+    private let containerView = UIView()
 
-
-    // MARK: - BaseBlockView
-
-    override func update(with configuration: RelationBlockContentConfiguration) {
-        super.update(with: configuration)
-
-        relation = configuration.relation
-        actionOnValue = configuration.actionOnValue
-
+    // MARK: - Lifecycle
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupLayout()
     }
 
-    override func setupSubviews() {
-        super.setupSubviews()
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
         setupLayout()
+    }
+
+    func update(with configuration: RelationBlockContentConfiguration) {
+        relationValueView.removeFromSuperview()
+        relationValueView = RelationValueViewUIKit(relation: configuration.relation,
+                                                   style: .regular(allowMultiLine: true),
+                                                   action: configuration.actionOnValue)
+
+        relationNameView.setText(configuration.relation.name)
+
+        containerView.addSubview(relationValueView) {
+            $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: LayoutConstants.topBottomInset,
+                                                                       left: 0,
+                                                                       bottom: -LayoutConstants.topBottomInset,
+                                                                       right: 0))
+            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
+        }
     }
 
     // MARK: - Setup view
 
-    static var number: Int = 0
-    func setupLayout() {
-        let relationsView = relationView.asUIView()
+    private func setupLayout() {
+        relationNameView.textColor = .textSecondary
 
-        insertSubview(relationsView, at: 0)
-
-        relationsView.layoutUsing.anchors {
-            heightConstraint = $0.height.equal(to: 32)
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 20, bottom: -2, right: -20))
+        addSubview(containerView) {
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 0,
+                                                   left: 20,
+                                                   bottom: 0,
+                                                   right: -20))
+        }
+        containerView.addSubview(relationNameView) {
+            $0.top.equal(to: containerView.topAnchor, constant: LayoutConstants.topBottomInset)
+            $0.leading.equal(to: containerView.leadingAnchor)
+            $0.width.equal(to: containerView.widthAnchor, multiplier: 0.4)
+        }
+        containerView.addSubview(relationValueView) {
+            $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: LayoutConstants.topBottomInset,
+                                                                       left: 0,
+                                                                       bottom: -LayoutConstants.topBottomInset,
+                                                                       right: 0))
+            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
         }
     }
-}
 
-private extension RelationBlockView {
-
-    struct RelationView: View {
-        @State private var width: CGFloat = .zero
-        @State private var height: CGFloat = .zero
-        @ObservedObject var delegate: RelationBlockView
-
-        var body: some View {
-            if let relation = delegate.relation {
-                HStack(spacing: 2) {
-                    AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary)
-                        .padding([.top], 5)
-                        .frame(width: width * 0.4, height:  height, alignment: .topLeading)
-                    RelationValueView(relation: relation, style: .regular(allowMultiLine: true)) { relation in
-                        delegate.actionOnValue?(relation)
-                    }
-                        .padding([.top], 5)
-                        .if(height > LayoutConstants.minHeight) {
-                            $0.padding(.bottom, 13)
-                        }
-                        .frame(maxWidth: .infinity, minHeight: LayoutConstants.minHeight, alignment: .topLeading)
-                        .fixedSize(horizontal: false, vertical: true)
-                        .readSize {
-                            height = $0.height
-                            delegate.heightConstraint.constant = height
-                        }
-                }
-                .readSize { width = $0.width }
-            }
-        }
-
-        private enum LayoutConstants {
-            static let minHeight: CGFloat = 32
-        }
+    private enum LayoutConstants {
+        static let topBottomInset: CGFloat = 6
     }
 }

@@ -23,7 +23,8 @@ struct AlphaInviteCodeView: View {
         VStack(spacing: 0) {
             Spacer()
             contentView
-                .padding(20)
+                .horizontalReadabilityPadding(20)
+                .padding(.bottom, 20)
         }
     }
     
@@ -45,7 +46,7 @@ struct AlphaInviteCodeView: View {
                     .placeholder(when: signUpData.inviteCode.isEmpty) {
                         AnytypeText("Invitation code", style: .uxBodyRegular, color: .textTertiary)
                     }
-                    .modifier(DividerModifier(spacing: 11.5))
+                    .divider(spacing: 11.5)
                 Spacer.fixedHeight(20)
                 
                 buttons
