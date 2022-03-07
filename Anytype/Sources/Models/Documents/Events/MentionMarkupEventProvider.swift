@@ -104,7 +104,7 @@ final class MentionMarkupEventProvider {
             content.text = string
             content.marks = Anytype_Model_Block.Content.Text.Marks(marks: marks)
             infoContainer.add(
-                info.updated(with: BlockContent.text(content))
+                info.updated(content: .text(content))
             )
         }
     }

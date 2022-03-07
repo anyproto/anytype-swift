@@ -10,13 +10,13 @@ struct BlockBuilder {
     
     static func createNewBlock(type: BlockContentType) -> BlockInformation? {
         createContent(type: type).flatMap { content in
-            var block = BlockInformation.empty(content: content)
+            var info = BlockInformation.empty(content: content)
             
             if case .file(let blockFile) = content, case .image = blockFile.contentType {
-                block = block.updated(with: LayoutAlignment.center)
+                info = info.updated(alignment: .center)
             }
 
-            return block
+            return info
         }
     }
 

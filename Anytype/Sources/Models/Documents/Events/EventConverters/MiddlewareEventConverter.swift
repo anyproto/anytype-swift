@@ -32,7 +32,7 @@ final class MiddlewareEventConverter {
             return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
         case let .blockSetFields(fields):
             infoContainer.update(blockId: fields.id) { info in
-                return info.updated(with: fields.fields.toFieldTypeMap())
+                return info.updated(fields: fields.fields.toFieldTypeMap())
             }
             return .blocks(blockIds: [fields.id])
         case let .blockAdd(value):
@@ -62,7 +62,7 @@ final class MiddlewareEventConverter {
         case let .blockSetBackgroundColor(updateData):
             infoContainer.update(blockId: updateData.id, update: { info in
                 return info.updated(
-                    with: MiddlewareColor(rawValue: updateData.backgroundColor)
+                    backgroundColor: MiddlewareColor(rawValue: updateData.backgroundColor)
                 )
             })
             return .blocks(blockIds: [updateData.id])
@@ -79,7 +79,7 @@ final class MiddlewareEventConverter {
             }
             
             infoContainer.update(blockId: blockId) { info in
-                info.updated(with: modelAlignment)
+                info.updated(alignment: modelAlignment)
             }
             return .blocks(blockIds: [blockId])
         
@@ -174,7 +174,7 @@ final class MiddlewareEventConverter {
                         fileData.metadata.size = newData.size.value
                     }
                     
-                    return info.updated(with: BlockContent.file(fileData))
+                    return info.updated(content: .file(fileData))
                 default:
                     anytypeAssertionFailure("Wrong content: \(info.content) in blockSetFile", domain: .middlewareEventConverter)
                     return nil
@@ -217,7 +217,7 @@ final class MiddlewareEventConverter {
                         }
                     }
                     
-                    return info.updated(with: BlockContent.bookmark(bookmark))
+                    return info.updated(content: .bookmark(bookmark))
 
                 default:
                     anytypeAssertionFailure("Wrong content \(info.content) in blockSetBookmark", domain: .middlewareEventConverter)
@@ -242,7 +242,7 @@ final class MiddlewareEventConverter {
                         divider.style = style
                     }
                     
-                    return info.updated(with: BlockContent.divider(divider))
+                    return info.updated(content: .divider(divider))
                     
                 default:
                     anytypeAssertionFailure("Wrong conten \(info.content) in blockSetDiv", domain: .middlewareEventConverter)

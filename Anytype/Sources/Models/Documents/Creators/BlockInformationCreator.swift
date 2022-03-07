@@ -60,7 +60,7 @@ struct BlockInformationCreator {
         }
         textContent.number = oldText.number
         
-        let newInfo = info.updated(with: BlockContent.text(textContent))
+        let newInfo = info.updated(content: .text(textContent))
         return validator.validated(information: newInfo)
     }
     
@@ -73,7 +73,7 @@ struct BlockInformationCreator {
             return nil
         }
         guard let alignment = newAlignmentData.align.asBlockModel else { return nil }
-        return info.updated(with: alignment)
+        return info.updated(alignment: alignment)
     }
     
     private func buildMarks(

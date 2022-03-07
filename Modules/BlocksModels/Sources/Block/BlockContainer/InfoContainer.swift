@@ -28,7 +28,7 @@ public final class InfoContainer: InfoContainerProtocol {
         // go to parent and remove this block from a parent.
         if let parentId = get(id: id)?.metadata.parentId, let parent = models[parentId] {
             let childrenIds = parent.childrenIds.filter {$0 != id}
-            add(parent.updated(with: childrenIds))
+            add(parent.updated(childrenIds: childrenIds))
         }
         
         models.removeValue(forKey: id)
@@ -40,7 +40,7 @@ public final class InfoContainer: InfoContainerProtocol {
             return
         }
 
-        add(parent.updated(with: ids))
+        add(parent.updated(childrenIds: ids))
     }
     
     public func update(blockId: BlockId, update updateAction: @escaping (BlockInformation) -> (BlockInformation?)) {
@@ -63,7 +63,7 @@ public final class InfoContainer: InfoContainerProtocol {
             }
             
             let content = BlockContent.dataView(updateAction(dataView))
-            return info.updated(with: content)
+            return info.updated(content: content)
         }
     }
 }
