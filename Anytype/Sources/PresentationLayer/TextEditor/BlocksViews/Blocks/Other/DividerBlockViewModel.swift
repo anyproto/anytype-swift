@@ -2,15 +2,15 @@ import BlocksModels
 import UIKit
 
 struct DividerBlockViewModel: BlockViewModelProtocol {
-    var hashable: AnyHashable { [ information ] as [AnyHashable] }
+    var hashable: AnyHashable { [ info ] as [AnyHashable] }
     
-    let information: BlockInformation
+    let info: BlockInformation
     
     private let dividerContent: BlockDivider
 
-    init(content: BlockDivider, information: BlockInformation) {
+    init(content: BlockDivider, info: BlockInformation) {
         self.dividerContent = content
-        self.information = information
+        self.info = info
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {

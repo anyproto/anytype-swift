@@ -31,16 +31,13 @@ final class MiddlewareEventConverter {
         case let .threadStatus(status):
             return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
         case let .blockSetFields(fields):
-            blocksContainer.update(blockId: fields.id) { block in
-                var block = block
-
-                block.information = block.information.updated(with: fields.fields.toFieldTypeMap())
+            blocksContainer.update(blockId: fields.id) { info in
+                return info.updated(with: fields.fields.toFieldTypeMap())
             }
             return .blocks(blockIds: [fields.id])
         case let .blockAdd(value):
             value.blocks
                 .compactMap(BlockInformationConverter.convert(block:))
-                .map(BlockModel.init)
                 .forEach { block in
                     blocksContainer.add(block)
                 }
@@ -63,9 +60,9 @@ final class MiddlewareEventConverter {
         case let .blockSetText(newData):
             return blockSetTextUpdate(newData)
         case let .blockSetBackgroundColor(updateData):
-            blocksContainer.update(blockId: updateData.id, update: { block in
-                var block = block
-                block.information = block.information.updated(
+            blocksContainer.update(blockId: updateData.id, update: { info in
+                var info = info
+                return info.updated(
                     with: MiddlewareColor(rawValue: updateData.backgroundColor)
                 )
             })
@@ -82,9 +79,10 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            blocksContainer.update(blockId: blockId, update: { (value) in
-                var value = value
-                value.information.alignment = modelAlignment
+            blocksContainer.update(blockId: blockId, update: { info in
+                var info = info
+                info.alignment = modelAlignment
+                return info
             })
             return .blocks(blockIds: [blockId])
         
@@ -144,10 +142,10 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            blocksContainer.update(blockId: newData.id, update: { block in
-                var block = block
+            blocksContainer.update(blockId: newData.id, update: { info in
+                var info = info
                 
-                switch block.information.content {
+                switch info.content {
                 case let .file(fileData):
                     var fileData = fileData
                     
@@ -179,79 +177,86 @@ final class MiddlewareEventConverter {
                         fileData.metadata.size = newData.size.value
                     }
                     
-                    block.information.content = .file(fileData)
-                default: return
+                    info.content = .file(fileData)
+                    return info
+                default:
+                    anytypeAssertionFailure("Wrong content: \(info.content) in blockSetFile", domain: .middlewareEventConverter)
+                    return nil
                 }
             })
             return .blocks(blockIds: [newData.id])
-        case let .blockSetBookmark(value):
+        case let .blockSetBookmark(data):
             
-            let blockId = value.id
-            let newUpdate = value
+            let blockId = data.id
             
-            blocksContainer.update(blockId: blockId, update: { (value) in
-                var block = value
-                switch value.information.content {
-                case let .bookmark(value):
-                    var value = value
+            blocksContainer.update(blockId: blockId, update: { info in
+                var info = info
+                switch info.content {
+                case let .bookmark(bookmark):
+                    var bookmark = bookmark
                     
-                    if newUpdate.hasURL {
-                        value.url = newUpdate.url.value
+                    if data.hasURL {
+                        bookmark.url = data.url.value
                     }
                     
-                    if newUpdate.hasTitle {
-                        value.title = newUpdate.title.value
+                    if data.hasTitle {
+                        bookmark.title = data.title.value
                     }
 
-                    if newUpdate.hasDescription_p {
-                        value.theDescription = newUpdate.description_p.value
+                    if data.hasDescription_p {
+                        bookmark.theDescription = data.description_p.value
                     }
 
-                    if newUpdate.hasImageHash {
-                        value.imageHash = newUpdate.imageHash.value
+                    if data.hasImageHash {
+                        bookmark.imageHash = data.imageHash.value
                     }
 
-                    if newUpdate.hasFaviconHash {
-                        value.faviconHash = newUpdate.faviconHash.value
+                    if data.hasFaviconHash {
+                        bookmark.faviconHash = data.faviconHash.value
                     }
 
-                    if newUpdate.hasType {
-                        if let type = newUpdate.type.value.asModel {
-                            value.type = type
+                    if data.hasType {
+                        if let type = data.type.value.asModel {
+                            bookmark.type = type
                         }
                     }
                     
-                    block.information.content = .bookmark(value)
+                    info.content = .bookmark(bookmark)
+                    return info
 
-                default: return
+                default:
+                    anytypeAssertionFailure("Wrong content \(info.content) in blockSetBookmark", domain: .middlewareEventConverter)
+                    return nil
                 }
             })
             return .blocks(blockIds: [blockId])
             
-        case let .blockSetDiv(value):
-            guard value.hasStyle else {
+        case let .blockSetDiv(data):
+            guard data.hasStyle else {
                 return .general
             }
             
-            let blockId = value.id
-            let newUpdate = value
+            let blockId = data.id
             
-            blocksContainer.update(blockId: blockId, update: { (value) in
-                var block = value
-                switch value.information.content {
-                case let .divider(value):
-                    var value = value
+            blocksContainer.update(blockId: blockId, update: { info in
+                var info = info
+                switch info.content {
+                case let .divider(divider):
+                    var divider = divider
                                         
-                    if let style = BlockDivider.Style(newUpdate.style.value) {
-                        value.style = style
+                    if let style = BlockDivider.Style(data.style.value) {
+                        divider.style = style
                     }
                     
-                    block.information.content = .divider(value)
+                    info.content = .divider(divider)
+                    return info
                     
-                default: return
+                default:
+                    anytypeAssertionFailure("Wrong conten \(info.content) in blockSetDiv", domain: .middlewareEventConverter)
+                    return nil
                 }
             })
-            return .blocks(blockIds: [value.id])
+            return .blocks(blockIds: [data.id])
         
         case .objectShow(let data):
             guard data.rootID.isNotEmpty else {
@@ -371,16 +376,16 @@ final class MiddlewareEventConverter {
     }
     
     private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventsListenerUpdate {
-        guard var blockModel = blocksContainer.model(id: newData.id) else {
+        guard let info = blocksContainer.model(id: newData.id) else {
             anytypeAssertionFailure(
                 "Block model with id \(newData.id) not found in container",
                 domain: .middlewareEventConverter
             )
             return .general
         }
-        guard case let .text(oldText) = blockModel.information.content else {
+        guard case let .text(oldText) = info.content else {
             anytypeAssertionFailure(
-                "Block model doesn't support text:\n \(blockModel.information)",
+                "Block model doesn't support text:\n \(info)",
                 domain: .middlewareEventConverter
             )
             return .general
@@ -390,7 +395,7 @@ final class MiddlewareEventConverter {
               case let .text(textContent) = newInformation.content else {
             return .general
         }
-        blockModel.information = newInformation
+        blocksContainer.add(newInformation)
         
         // If toggle changed style to another style or vice versa
         // we should rebuild all view to display/hide toggle's child blocks
@@ -401,10 +406,9 @@ final class MiddlewareEventConverter {
     }
     
     private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: BlockContainerModelProtocol) {
-        let models = information.map { BlockModel(information: $0) }
         
-        models.forEach { container.add($0) }
-        let roots = models.filter { $0.information.id == rootId }
+        information.forEach { container.add($0) }
+        let roots = information.filter { $0.id == rootId }
 
         guard roots.count != 0 else {
             anytypeAssertionFailure("Unknown situation. We can't have zero roots.", domain: .middlewareEventConverter)
@@ -419,7 +423,7 @@ final class MiddlewareEventConverter {
             )
         }
 
-        let rootId = roots[0].information.id
+        let rootId = roots[0].id
         container.rootId = rootId
 
         IndentationBuilder.build(container: container, id: rootId)

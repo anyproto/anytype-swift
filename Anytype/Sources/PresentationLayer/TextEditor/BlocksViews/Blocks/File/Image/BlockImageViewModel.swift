@@ -12,16 +12,16 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         let imageView: UIImageView
     }
     
-    var hashable: AnyHashable { [ information ] as [AnyHashable] }
+    var hashable: AnyHashable { [ info ] as [AnyHashable] }
     
-    let information: BlockInformation
+    let info: BlockInformation
     let fileData: BlockFile
     
     let showIconPicker: Action<BlockId>
     let onImageOpen: Action<ImageOpeningContext>?
     
     init?(
-        information: BlockInformation,
+        info: BlockInformation,
         fileData: BlockFile,
         showIconPicker: @escaping (BlockId) -> (),
         onImageOpen: Action<ImageOpeningContext>?
@@ -34,7 +34,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             return nil
         }
         
-        self.information = information
+        self.info = info
         self.fileData = fileData
         self.showIconPicker = showIconPicker
         self.onImageOpen = onImageOpen
@@ -51,7 +51,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         case .done:
             return BlockImageConfiguration(
                 fileData: fileData,
-                alignmetn: information.alignment,
+                alignmetn: info.alignment,
                 maxWidth: maxWidth,
                 imageViewTapHandler: { [weak self] imageView in
                     self?.didTapOpenImage(imageView)
