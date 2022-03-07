@@ -152,7 +152,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
-        guard let info = document.blocksContainer.model(id: blockId) else { return }
+        guard let info = document.infoContainer.get(id: blockId) else { return }
 
         guard case .text = info.content else { return }
 
@@ -211,7 +211,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
-        guard let info = document.blocksContainer.model(id: targetId) else { return nil }
+        guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
         if case .text(let blockText) = info.content, blockText.text.isEmpty {
             position = .replace
@@ -230,15 +230,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
             
         guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
-        guard let info = document.blocksContainer.model(id: blockId) else { return }
+        guard let info = document.infoContainer.get(id: blockId) else { return }
         
         let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
         
         service.add(info: newBlock, targetBlockId: info.id, position: position)
     }
 
-    func selectBlock(blockInformation: BlockInformation) {
-        blockSelectionHandler?.didSelectEditingState(on: blockInformation)
+    func selectBlock(info: BlockInformation) {
+        blockSelectionHandler?.didSelectEditingState(info: info)
     }
 
     func createAndFetchBookmark(

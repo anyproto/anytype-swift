@@ -1,5 +1,5 @@
 public extension BlockInformation {
-    func children(container: BlockContainerModelProtocol) -> [BlockInformation] {
+    func children(container: InfoContainerProtocol) -> [BlockInformation] {
         BlockInfoChildrenProvider(container: container).children(model: self)
     }
     
@@ -33,7 +33,8 @@ public extension BlockInformation {
             backgroundColor: nil,
             alignment: .left,
             childrenIds: [],
-            fields: [:]
+            fields: [:],
+            metadata: BlockInformationMetadata()
         )
     }
     

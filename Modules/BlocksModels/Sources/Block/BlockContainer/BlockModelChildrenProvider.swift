@@ -10,8 +10,8 @@ import AnytypeCore
 /// It is like a left-order traversing of tree, but we have to output parents first.
 ///
 final class BlockInfoChildrenProvider {
-    private let container: BlockContainerModelProtocol
-    init(container: BlockContainerModelProtocol) {
+    private let container: InfoContainerProtocol
+    init(container: InfoContainerProtocol) {
         self.container = container
     }
             
@@ -52,9 +52,8 @@ final class BlockInfoChildrenProvider {
             switch info.content {
             case let .text(text) where text.contentType == .numbered:
                 number += 1
-                var info = info
-                info.content = .text(text.updated(number: number))
-                container.add(info)
+                let content = BlockContent.text(text.updated(number: number))
+                container.add(info.updated(with: content))
             default:
                 number = 0
             }

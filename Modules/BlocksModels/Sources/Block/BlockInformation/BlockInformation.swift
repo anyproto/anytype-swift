@@ -3,17 +3,17 @@ import ProtobufMessages
 public typealias BlockFields = [String : BlockFieldType]
 
 public struct BlockInformation: Hashable {
-    public var id: BlockId
-    public var content: BlockContent
+    public let id: BlockId
+    public let content: BlockContent
     
-    public var childrenIds: [BlockId]
+    public let childrenIds: [BlockId]
     
     public let fields: BlockFields
     
     public let backgroundColor: MiddlewareColor?
-    public var alignment: LayoutAlignment
+    public let alignment: LayoutAlignment
     
-    public var metadata = BlockInformationMetadata()
+    public let metadata: BlockInformationMetadata
     
     public init(
         id: BlockId,
@@ -21,7 +21,8 @@ public struct BlockInformation: Hashable {
         backgroundColor: MiddlewareColor?,
         alignment: LayoutAlignment,
         childrenIds: [BlockId],
-        fields: BlockFields
+        fields: BlockFields,
+        metadata: BlockInformationMetadata
     ) {
         self.id = id
         self.content = content
@@ -29,41 +30,7 @@ public struct BlockInformation: Hashable {
         self.alignment = alignment
         self.childrenIds = childrenIds
         self.fields = fields
-    }
-}
-
-public extension BlockInformation {    
-    func updated(with backgroundColor: MiddlewareColor?) -> BlockInformation {
-        BlockInformation(
-            id: id,
-            content: content,
-            backgroundColor: backgroundColor,
-            alignment: alignment,
-            childrenIds: childrenIds,
-            fields: fields
-        )
-    }
-    
-    func updated(with fields: BlockFields) -> BlockInformation {
-        BlockInformation(
-            id: id,
-            content: content,
-            backgroundColor: backgroundColor,
-            alignment: alignment,
-            childrenIds: childrenIds,
-            fields: fields
-        )
-    }
-    
-    func updated(with alignment: LayoutAlignment) -> BlockInformation {
-        BlockInformation(
-            id: id,
-            content: content,
-            backgroundColor: backgroundColor,
-            alignment: alignment,
-            childrenIds: childrenIds,
-            fields: fields
-        )
+        self.metadata = metadata
     }
 }
 
