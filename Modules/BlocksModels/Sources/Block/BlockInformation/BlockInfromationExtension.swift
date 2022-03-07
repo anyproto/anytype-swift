@@ -1,4 +1,8 @@
 public extension BlockInformation {
+    func children(container: BlockContainerModelProtocol) -> [BlockInformation] {
+        BlockModelChildrenProvider(container: container).children(model: self)
+    }
+    
     var isToggled: Bool {
         ToggleStorage.shared.isToggled(blockId: id)
     }

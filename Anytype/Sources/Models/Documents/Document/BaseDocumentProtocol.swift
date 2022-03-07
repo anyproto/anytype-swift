@@ -8,7 +8,7 @@ protocol BaseDocumentProtocol: AnyObject {
     var objectId: BlockId { get }
     var updatePublisher: AnyPublisher<EventsListenerUpdate, Never> { get }
     var objectDetails: ObjectDetails? { get }
-    var children: [BlockModelProtocol] { get }
+    var children: [BlockInformation] { get }
     var parsedRelations: ParsedRelations { get }
 
     @discardableResult

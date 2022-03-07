@@ -3,25 +3,17 @@ import BlocksModels
 import AnytypeCore
 
 
-class RelationBlockViewModel: BlockViewModelProtocol {
-    var information: BlockInformation
+struct RelationBlockViewModel: BlockViewModelProtocol {
+    var info: BlockInformation
 
     var relation: Relation
     var actionOnValue: ((_ relation: Relation) -> Void)?
-
-    // MARK: - init
-
-    init(information: BlockInformation, relation: Relation, actionOnValue: ((_ relation: Relation) -> Void)?) {
-        self.information = information
-        self.relation = relation
-        self.actionOnValue = actionOnValue
-    }
 
     // MARK: - BlockViewModelProtocol methods
 
     var hashable: AnyHashable {
         [
-            information,
+            info,
             relation
         ] as [AnyHashable]
     }

@@ -17,16 +17,16 @@ struct BlockInformationCreator {
     }
     
     func createBlockInformation(from newData: Anytype_Event.Block.Set.Text) -> BlockInformation? {
-        guard let blockModel = blocksContainer.model(id: newData.id) else {
+        guard let info = blocksContainer.model(id: newData.id) else {
             anytypeAssertionFailure(
                 "Block model with id \(newData.id) not found in container",
                 domain: .blockInformationCreator
             )
             return nil
         }
-        guard case let .text(oldText) = blockModel.information.content else {
+        guard case let .text(oldText) = info.content else {
             anytypeAssertionFailure(
-                "Block model doesn't support text:\n \(blockModel.information)",
+                "Block model doesn't support text:\n \(info)",
                 domain: .blockInformationCreator
             )
             return nil
@@ -60,13 +60,13 @@ struct BlockInformationCreator {
         }
         textContent.number = oldText.number
         
-        var information = blockModel.information
-        information.content = .text(textContent)
-        return validator.validated(information: information)
+        var newInfo = info
+        newInfo.content = .text(textContent)
+        return validator.validated(information: newInfo)
     }
     
     func createBlockInformation(newAlignmentData: Anytype_Event.Block.Set.Align) -> BlockInformation? {
-        guard let blockModel = blocksContainer.model(id: newAlignmentData.id) else {
+        guard let info = blocksContainer.model(id: newAlignmentData.id) else {
             anytypeAssertionFailure(
                 "Block model with id \(newAlignmentData.id) not found in container",
                 domain: .blockInformationCreator
@@ -74,7 +74,7 @@ struct BlockInformationCreator {
             return nil
         }
         guard let alignment = newAlignmentData.align.asBlockModel else { return nil }
-        return blockModel.information.updated(with: alignment)
+        return info.updated(with: alignment)
     }
     
     private func buildMarks(

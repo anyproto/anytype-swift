@@ -6,9 +6,9 @@ import AVFoundation
 final class AudioBlockViewModel: BlockViewModelProtocol {
     private(set) var playerItem: AVPlayerItem?
 
-    var hashable: AnyHashable { [ information ] as [AnyHashable] }
+    var hashable: AnyHashable { [ info ] as [AnyHashable] }
 
-    let information: BlockInformation
+    let info: BlockInformation
     let fileData: BlockFile
 
     let showAudioPicker: (BlockId) -> ()
@@ -20,12 +20,12 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     weak var audioPlayerView: AudioPlayerViewInput?
 
     init(
-        information: BlockInformation,
+        info: BlockInformation,
         fileData: BlockFile,
         showAudioPicker: @escaping (BlockId) -> (),
         downloadAudio: @escaping (FileId) -> ()
     ) {
-        self.information = information
+        self.info = info
         self.fileData = fileData
         self.showAudioPicker = showAudioPicker
         self.downloadAudio = downloadAudio
@@ -56,8 +56,12 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             guard playerItem != nil else {
                 return emptyViewConfiguration(state: .error)
             }
-            audioPlayer.updateDelegate(audioId: information.id, delegate: self)
-            return AudioBlockContentConfiguration(file: fileData, trackId: information.id, audioPlayerViewDelegate: self).asCellBlockConfiguration
+            audioPlayer.updateDelegate(audioId: info.id, delegate: self)
+            return AudioBlockContentConfiguration(
+                file: fileData,
+                trackId: info.id,
+                audioPlayerViewDelegate: self
+            ).asCellBlockConfiguration
         }
     }
 

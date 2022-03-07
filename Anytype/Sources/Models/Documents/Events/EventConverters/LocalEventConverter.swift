@@ -17,17 +17,18 @@ final class LocalEventConverter {
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)
         case .setLoadingState(blockId: let blockId):
-            guard var model = blocksContainer.model(id: blockId) else {
+            guard var info = blocksContainer.model(id: blockId) else {
                 anytypeAssertionFailure("setLoadingState. Can't find model by id \(blockId)", domain: .localEventConverter)
                 return nil
             }
-            guard case var .file(content) = model.information.content else {
+            guard case var .file(content) = info.content else {
                 anytypeAssertionFailure("Not file content of block \(blockId) for setLoading action", domain: .localEventConverter)
                 return nil
             }
             
             content.state = .uploading
-            model.information.content = .file(content)
+            info.content = .file(content)
+            blocksContainer.add(info)
             return .blocks(blockIds: [blockId])
         case .reload(blockId: let blockId):
             return .blocks(blockIds: [blockId])
@@ -38,12 +39,12 @@ final class LocalEventConverter {
     // func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text)
     // only text is changed
     private func blockSetTextUpdate(blockId: BlockId, text: MiddlewareString) -> EventsListenerUpdate {
-        guard var blockModel = blocksContainer.model(id: blockId) else {
+        guard var info = blocksContainer.model(id: blockId) else {
             anytypeAssertionFailure("Block model with id \(blockId) not found in container", domain: .localEventConverter)
             return .general
         }
-        guard case let .text(oldText) = blockModel.information.content else {
-            anytypeAssertionFailure("Block model doesn't support text:\n \(blockModel.information)", domain: .localEventConverter)
+        guard case let .text(oldText) = info.content else {
+            anytypeAssertionFailure("Block model doesn't support text:\n \(info)", domain: .localEventConverter)
             return .general
         }
         
@@ -65,8 +66,9 @@ final class LocalEventConverter {
         textContent.contentType = oldText.contentType
         textContent.number = oldText.number
         
-        blockModel.information.content = .text(textContent)
-        blockModel.information = blockValidator.validated(information: blockModel.information)
+        info.content = .text(textContent)
+        info = blockValidator.validated(information: info)
+        blocksContainer.add(info)
         
         return .blocks(blockIds: [blockId])
     }

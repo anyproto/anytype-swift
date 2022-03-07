@@ -2,9 +2,9 @@ import BlocksModels
 import UIKit
 
 struct VideoBlockViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable { [ information ] as [AnyHashable] }
+    var hashable: AnyHashable { [ info ] as [AnyHashable] }
     
-    let information: BlockInformation
+    let info: BlockInformation
     let fileData: BlockFile
     
     let showVideoPicker: (BlockId) -> ()
