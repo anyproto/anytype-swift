@@ -63,7 +63,7 @@ public extension FeatureFlags {
     }
 
     static var uikitRelationBlock: Bool {
-        features[.uikitRelationBlocks, default: false]
+        features[.uikitRelationBlocks, default: true]
     }
 
     static var clipboard: Bool {
