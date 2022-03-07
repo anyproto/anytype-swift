@@ -5,21 +5,21 @@ import ProtobufMessages
 final class MentionMarkupEventProvider {
     
     private let objectId: BlockId
-    private let blocksContainer: InfoContainerProtocol
+    private let infoContainer: InfoContainerProtocol
     private let detailsStorage: ObjectDetailsStorage
         
     init(
         objectId: BlockId,
-        blocksContainer: InfoContainerProtocol,
+        infoContainer: InfoContainerProtocol,
         detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared
     ) {
         self.objectId = objectId
-        self.blocksContainer = blocksContainer
+        self.infoContainer = infoContainer
         self.detailsStorage = detailsStorage
     }
     
     func updateMentionsEvent() -> EventsListenerUpdate {
-        let blockIds = blocksContainer
+        let blockIds = infoContainer
             .children(of: objectId)
             .compactMap { updateIfNeeded(info: $0) }
         
@@ -103,7 +103,7 @@ final class MentionMarkupEventProvider {
         if case var .text(content) = info.content {
             content.text = string
             content.marks = Anytype_Model_Block.Content.Text.Marks(marks: marks)
-            blocksContainer.add(
+            infoContainer.add(
                 info.updated(with: BlockContent.text(content))
             )
         }

@@ -147,7 +147,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
     }
 
     private func blockData(blockId: BlockId) -> (BlockInformation, BlockText)? {
-        guard let info = document.blocksContainer.get(id: blockId) else {
+        guard let info = document.infoContainer.get(id: blockId) else {
             return nil
         }
         guard case let .text(content) = info.content else {
