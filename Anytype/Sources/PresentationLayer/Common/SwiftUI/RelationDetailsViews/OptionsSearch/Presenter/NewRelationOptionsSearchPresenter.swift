@@ -36,12 +36,7 @@ private extension NewRelationOptionsSearchPresenter {
     
     func handleObtainedOptionsResult(_ result: RelationOptionsSearchResult?) {
         self.result = result
-        guard let result = result else {
-            self.sections = []
-            return
-        }
-        
-        
+        self.sections = result?.asSearchSections ?? []
     }
     
 }

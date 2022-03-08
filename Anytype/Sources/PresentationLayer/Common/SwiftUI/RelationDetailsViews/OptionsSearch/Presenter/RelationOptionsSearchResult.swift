@@ -6,3 +6,11 @@ enum RelationOptionsSearchResult {
     case files([ObjectDetails])
     case tags([Relation.Tag.Option])
 }
+
+extension RelationOptionsSearchResult {
+    
+    var asSearchSections: [RelationOptionsSearchSectionModel] {
+        RelationOptionsSearchSectionsBuilder.makeSections(using: self)
+    }
+    
+}
