@@ -15,6 +15,8 @@ final class NewRelationOptionsSearchPresenter: ObservableObject {
     
 }
 
+// MARK: - Internal functions
+
 extension NewRelationOptionsSearchPresenter {
     
     func search(text: String) {
@@ -24,14 +26,11 @@ extension NewRelationOptionsSearchPresenter {
     }
     
     func didSelectOption(with id: String) {
-//        if selectedOptionIds.contains(id) {
-//            selectedOptionIds.removeAll { $0 == id }
-//        } else {
-//            selectedOptionIds.append(id)
-//        }
     }
     
 }
+
+// MARK: - Private extension
 
 private extension NewRelationOptionsSearchPresenter {
     

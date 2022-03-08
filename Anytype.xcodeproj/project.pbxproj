@@ -2750,6 +2750,23 @@
 			path = ImageBuilder;
 			sourceTree = "<group>";
 		};
+		124478B427D71E0100581174 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				12D4A69427D6552500354E3F /* RelationOptionsSearchObjectRowView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		124478B827D71E6400581174 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				12D4A67027D5F6DB00354E3F /* RelationOptionsSearchSectionModel.swift */,
+				12D4A67527D5F7F400354E3F /* RelationOptionsSearchRowModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		12461BF32767646D00D47708 /* Tag */ = {
 			isa = PBXGroup;
 			children = (
@@ -3286,7 +3303,8 @@
 			isa = PBXGroup;
 			children = (
 				125BD59827D3292F006D8227 /* NewRelationOptionsSearchView.swift */,
-				12D4A69427D6552500354E3F /* RelationOptionsSearchObjectRowView.swift */,
+				124478B427D71E0100581174 /* Subviews */,
+				124478B827D71E6400581174 /* Models */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3295,8 +3313,6 @@
 			isa = PBXGroup;
 			children = (
 				125BD59C27D32C7A006D8227 /* NewRelationOptionsSearchPresenter.swift */,
-				12D4A67027D5F6DB00354E3F /* RelationOptionsSearchSectionModel.swift */,
-				12D4A67527D5F7F400354E3F /* RelationOptionsSearchRowModel.swift */,
 				12D4A67A27D6004600354E3F /* RelationOptionSearchItem.swift */,
 			);
 			path = Presenter;
