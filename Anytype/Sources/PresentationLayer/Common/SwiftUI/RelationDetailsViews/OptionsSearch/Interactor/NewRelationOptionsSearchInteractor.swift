@@ -3,12 +3,12 @@ import BlocksModels
 
 final class NewRelationOptionsSearchInteractor {
 
-    private let type: RelationOptionsSearchType
+    private let type: NewRelationOptionsSearchType
     private let excludedOptionIds: [String]
     
     private let searchService: SearchServiceProtocol
     
-    init(type: RelationOptionsSearchType, excludedOptionIds: [String], searchService: SearchServiceProtocol) {
+    init(type: NewRelationOptionsSearchType, excludedOptionIds: [String], searchService: SearchServiceProtocol) {
         self.type = type
         self.excludedOptionIds = excludedOptionIds
         self.searchService = searchService

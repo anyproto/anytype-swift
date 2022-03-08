@@ -168,6 +168,7 @@
 		124478BC27D7230A00581174 /* RelationOptionsSearchObjectRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124478BB27D7230A00581174 /* RelationOptionsSearchObjectRowViewModel.swift */; };
 		124478C027D7573D00581174 /* RelationOptionsSearchTagRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124478BF27D7573D00581174 /* RelationOptionsSearchTagRowView.swift */; };
 		124478C227D7574D00581174 /* RelationOptionsSearchTagRowViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124478C127D7574D00581174 /* RelationOptionsSearchTagRowViewModel.swift */; };
+		124478C427D7681200581174 /* NewRelationOptionsSearchType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124478C327D7681200581174 /* NewRelationOptionsSearchType.swift */; };
 		12450D4727A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12450D4627A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift */; };
 		12461BFC2767837000D47708 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12461BFB2767837000D47708 /* TagView.swift */; };
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
@@ -1081,6 +1082,7 @@
 		124478BB27D7230A00581174 /* RelationOptionsSearchObjectRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsSearchObjectRowViewModel.swift; sourceTree = "<group>"; };
 		124478BF27D7573D00581174 /* RelationOptionsSearchTagRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsSearchTagRowView.swift; sourceTree = "<group>"; };
 		124478C127D7574D00581174 /* RelationOptionsSearchTagRowViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsSearchTagRowViewModel.swift; sourceTree = "<group>"; };
+		124478C327D7681200581174 /* NewRelationOptionsSearchType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationOptionsSearchType.swift; sourceTree = "<group>"; };
 		12450D4627A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveTextRelationDetailsPopupLayout.swift; sourceTree = "<group>"; };
 		12461BFB2767837000D47708 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -3342,6 +3344,7 @@
 				125BD59C27D32C7A006D8227 /* NewRelationOptionsSearchPresenter.swift */,
 				12D4A67A27D6004600354E3F /* RelationOptionsSearchResult.swift */,
 				124478B927D71F2400581174 /* RelationOptionsSearchSectionsBuilder.swift */,
+				124478C327D7681200581174 /* NewRelationOptionsSearchType.swift */,
 			);
 			path = Presenter;
 			sourceTree = "<group>";
@@ -6609,6 +6612,7 @@
 				C9367AB7273153D2007D687A /* BlocksSelectionOverlayView.swift in Sources */,
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorBrowserAssembly.swift in Sources */,
+				124478C427D7681200581174 /* NewRelationOptionsSearchType.swift in Sources */,
 				12E05EEF2796A9C10037B667 /* AnytypePopup.swift in Sources */,
 				12450D4727A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift in Sources */,
 			);
