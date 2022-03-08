@@ -24,11 +24,11 @@ extension NewRelationOptionsSearchPresenter {
     }
     
     func didSelectOption(with id: String) {
-        if selectedOptionIds.contains(id) {
-            selectedOptionIds.removeAll { $0 == id }
-        } else {
-            selectedOptionIds.append(id)
-        }
+//        if selectedOptionIds.contains(id) {
+//            selectedOptionIds.removeAll { $0 == id }
+//        } else {
+//            selectedOptionIds.append(id)
+//        }
     }
     
 }
