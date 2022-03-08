@@ -313,7 +313,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             return
         case .paste:
             let blockIds = elements.map(\.blockId)
-            blockActionsService.paste(selectedBlockIds: blockIds)
+            let pastboardHelper = PastboardHelper()
+            let slots = pastboardHelper.obtainSlots()
+            blockActionsService.paste(selectedBlockIds: blockIds, slots: slots)
         }
 
         editingState = .editing

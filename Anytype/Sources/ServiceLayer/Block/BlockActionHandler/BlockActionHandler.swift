@@ -30,8 +30,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     // MARK: - Service proxy
-    func past(blockId: BlockId, range: NSRange) {
-        service.paste(blockId: blockId, range: range)
+    func past(blockId: BlockId, range: NSRange, slots: PastboardSlots) {
+        service.paste(blockId: blockId, range: range, slots: slots)
     }
 
     func turnIntoPage(blockId: BlockId) -> BlockId? {

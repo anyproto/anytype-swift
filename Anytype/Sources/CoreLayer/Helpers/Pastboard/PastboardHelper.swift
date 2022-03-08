@@ -3,7 +3,7 @@ import UniformTypeIdentifiers
 import AnytypeCore
 
 
-protocol PastboardServiceProtocol {
+protocol PastboardHelperProtocol {
     func obtainSlots() -> PastboardSlots
 }
 
@@ -12,7 +12,7 @@ struct PastboardSlots {
     let htmlSlot: String?
 }
 
-final class PastboardService: PastboardServiceProtocol {
+final class PastboardHelper: PastboardHelperProtocol {
 
     func obtainSlots() -> PastboardSlots{
         let pasteboard = UIPasteboard.general
@@ -20,8 +20,13 @@ final class PastboardService: PastboardServiceProtocol {
         var textSlot: String? = nil
 
         if pasteboard.contains(pasteboardTypes: [UTType.html.identifier], inItemSet: nil) {
-            if let data = pasteboard.data(forPasteboardType: UTType.html.identifier, inItemSet: nil)?.first {
-                htmlSlot = String(data: data, encoding: .utf8)
+            if let pasteboardData = pasteboard.data(
+                forPasteboardType: UTType.html.identifier,
+                inItemSet: nil
+            ) {
+                pasteboardData.first.map {
+                    htmlSlot = String(data: $0, encoding: .utf8)
+                }
             }
         }
 
@@ -35,7 +40,7 @@ final class PastboardService: PastboardServiceProtocol {
 
 extension UIPasteboard {
     var hasSlots: Bool {
-        return UIPasteboard.general.contains(pasteboardTypes: [UTType.html.identifier], inItemSet: nil) ||
+        UIPasteboard.general.contains(pasteboardTypes: [UTType.html.identifier], inItemSet: nil) ||
         UIPasteboard.general.contains(pasteboardTypes: [UTType.plainText.identifier])
     }
 }

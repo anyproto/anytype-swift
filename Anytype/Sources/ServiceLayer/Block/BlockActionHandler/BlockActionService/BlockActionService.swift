@@ -20,7 +20,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let listService: BlockListServiceProtocol
     private let bookmarkService = BookmarkService()
     private let fileService = BlockActionsServiceFile()
-    private let pastboardService = PastboardService()
+    private let pastboardService = PastboardHelper()
     private let cursorManager: EditorCursorManager
     
     private weak var modelsHolder: EditorMainItemModelsHolder?
@@ -39,13 +39,11 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     // MARK: Actions
 
-    func paste(blockId: BlockId, range: NSRange) {
-        let slots = pastboardService.obtainSlots()
+    func paste(blockId: BlockId, range: NSRange, slots: PastboardSlots) {
         singleService.paste(contextId: documentId, focusedBlockId: blockId, selectedTextRange: range, isPartOfBlock: false, slots: slots)
     }
 
-    func paste(selectedBlockIds: [BlockId]) {
-        let slots = pastboardService.obtainSlots()
+    func paste(selectedBlockIds: [BlockId], slots: PastboardSlots) {
         singleService.paste(contextId: documentId, selectedBlockIds: selectedBlockIds, isPartOfBlock: false, slots: slots)
     }
 

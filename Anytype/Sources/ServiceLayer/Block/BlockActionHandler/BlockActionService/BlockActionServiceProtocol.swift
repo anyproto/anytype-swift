@@ -4,8 +4,8 @@ import ProtobufMessages
 
 protocol BlockActionServiceProtocol {
 
-    func paste(blockId: BlockId, range: NSRange)
-    func paste(selectedBlockIds: [BlockId])
+    func paste(blockId: BlockId, range: NSRange, slots: PastboardSlots)
+    func paste(selectedBlockIds: [BlockId], slots: PastboardSlots)
 
     func upload(blockId: BlockId, filePath: String)
     

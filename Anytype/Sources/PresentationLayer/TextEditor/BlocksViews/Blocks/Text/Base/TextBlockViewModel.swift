@@ -85,7 +85,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     func action() -> TextBlockContentConfiguration.Actions {
         return .init(
             paste: { range in
-                actionHandler.past(blockId: blockId, range: range)
+                let pastboardHelper = PastboardHelper()
+                let slots = pastboardHelper.obtainSlots()
+                actionHandler.past(blockId: blockId, range: range, slots: slots)
             },
             createEmptyBlock: { actionHandler.createEmptyBlock(parentId: info.id) },
             showPage: showPage,
