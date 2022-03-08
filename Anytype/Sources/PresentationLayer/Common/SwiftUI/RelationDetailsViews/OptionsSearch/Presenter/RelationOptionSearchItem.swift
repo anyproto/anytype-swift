@@ -1,7 +1,7 @@
 import Foundation
 import BlocksModels
 
-enum RelationOptionsSearchItem {
+enum RelationOptionSearchItem {
     case object(ObjectDetails)
     case file(ObjectDetails)
     case tag(Relation.Tag.Option)
