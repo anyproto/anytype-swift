@@ -98,25 +98,7 @@ final class TextViewWithPlaceholder: UITextView {
             return super.paste(sender)
         }
 
-        let pasteboard = UIPasteboard.general
-        var htmlSlot: String? = nil
-        var textSlot: String? = nil
-
-        if pasteboard.contains(pasteboardTypes: [UTType.html.identifier], inItemSet: nil) {
-            if let data = pasteboard.data(forPasteboardType: UTType.html.identifier, inItemSet: nil)?.first as? Data {
-                htmlSlot = String(data: data, encoding: .utf8)
-            }
-        }
-
-        if pasteboard.contains(pasteboardTypes: [UTType.text.identifier]) {
-            textSlot = pasteboard.value(forPasteboardType: UTType.text.identifier) as? String
-        }
-
-        if pasteboard.contains(pasteboardTypes: [UTType.image.identifier]) {
-
-        }
-        customTextViewDelegate?.paste(slots: .init(textSlot: textSlot, htmlSlot: htmlSlot, anySlot: nil, fileSlot: nil),
-                                      range: selectedRange)
+        customTextViewDelegate?.paste(range: selectedRange)
     }
 
     // MARK: - Initialization

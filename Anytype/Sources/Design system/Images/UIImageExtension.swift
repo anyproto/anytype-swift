@@ -19,6 +19,7 @@ extension UIImage {
             static let move = createImage("TextEditor/BlocksOption/move")
             static let turnInto = createImage("TextEditor/BlocksOption/turn_into_object")
             static let download = createImage("TextEditor/BlocksOption/download")
+            static let paste = createImage("TextEditor/BlocksOption/paste")
         }
 
         static let bigGhost = createImage("TextEditor/bigGhost")

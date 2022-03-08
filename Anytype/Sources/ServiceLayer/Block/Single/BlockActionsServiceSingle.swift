@@ -8,8 +8,9 @@ import BlocksModels
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
+
     func paste(contextId: BlockId, focusedBlockId: BlockId, selectedTextRange: NSRange, isPartOfBlock: Bool, slots: PastboardSlots) {
-        #warning("implement in next prs isPartOfBlock, selectedBlockIds, anySlot, fileSlot")
+        #warning("implement in next prs isPartOfBlock, anySlot")
         Anytype_Rpc.Block.Paste.Service.invoke(
             contextID: contextId,
             focusedBlockID: focusedBlockId,
@@ -24,7 +25,24 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockActionsService)?
             .send()
+    }
 
+    func paste(contextId: BlockId, selectedBlockIds: [BlockId], isPartOfBlock: Bool, slots: PastboardSlots) {
+        #warning("implement in next prs isPartOfBlock, anySlot")
+        Anytype_Rpc.Block.Paste.Service.invoke(
+            contextID: contextId,
+            focusedBlockID: "",
+            selectedTextRange: Anytype_Model_Range(),
+            selectedBlockIds: selectedBlockIds,
+            isPartOfBlock: isPartOfBlock,
+            textSlot: slots.textSlot ?? "",
+            htmlSlot: slots.htmlSlot ?? "",
+            anySlot: [],
+            fileSlot: []
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .blockActionsService)?
+            .send()
     }
 
     func open(contextId: BlockId, blockId: BlockId) -> Bool {

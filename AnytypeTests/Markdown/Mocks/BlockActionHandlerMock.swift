@@ -166,7 +166,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func past(slots: PastboardSlots, blockId: BlockId, range: NSRange) {
+    func past(blockId: BlockId, range: NSRange) {
         assertionFailure()
     }
 }

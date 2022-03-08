@@ -9,6 +9,7 @@ enum BlocksOptionItem: CaseIterable, Comparable {
     case turnInto
     case move
     case moveTo
+    case paste
 }
 
 extension BlocksOptionItem {
@@ -32,6 +33,8 @@ extension BlocksOptionItem {
             return BlockOptionImage.move
         case .download:
             return BlockOptionImage.download
+        case .paste:
+            return BlockOptionImage.paste
         }
     }
 
@@ -53,6 +56,8 @@ extension BlocksOptionItem {
             return "Move".localized
         case .download:
             return "Download".localized
+        case .paste:
+            return "Paste".localized
         }
     }
 }

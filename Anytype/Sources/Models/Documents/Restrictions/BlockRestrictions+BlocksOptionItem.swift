@@ -1,4 +1,5 @@
 import BlocksModels
+import UIKit
 
 extension Array where Element == BlockRestrictions {
     var mergedOptions: Set<BlocksOptionItem> {
@@ -53,6 +54,10 @@ extension Array where Element == BlockInformation {
 
         if !isStyleAvailable || count > 1 {
             mergedItems.remove(.style)
+        }
+
+        if UIPasteboard.general.hasSlots {
+            mergedItems.insert(.paste)
         }
 
         return Array<BlocksOptionItem>(mergedItems).sorted()

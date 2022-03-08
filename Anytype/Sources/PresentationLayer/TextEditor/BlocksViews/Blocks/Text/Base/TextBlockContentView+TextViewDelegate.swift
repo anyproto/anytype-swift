@@ -4,8 +4,8 @@ import BlocksModels
 
 extension TextBlockContentView: CustomTextViewDelegate {
 
-    func paste(slots: PastboardSlots, range: NSRange) {
-        actions?.paste(slots, range)
+    func paste(range: NSRange) {
+        actions?.paste(range)
     }
 
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
