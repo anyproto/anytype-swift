@@ -1,5 +1,6 @@
 @testable import Anytype
 import BlocksModels
+import ProtobufMessages
 
 final class BlockListServiceMock: BlockListServiceProtocol {
     var replaceStub = false
@@ -11,6 +12,22 @@ final class BlockListServiceMock: BlockListServiceProtocol {
             replaceNumberOfCalls += 1
             replaceBlockIds = blockIds
             replaceTargetId = targetId
+        } else {
+            assertionFailure()
+        }
+    }
+    
+    var moveStub = false
+    var moveNumberOfCalls = 0
+    var moveBlockId: BlockId?
+    var moveTargetId: BlockId?
+    var movePosition: Anytype_Model_Block.Position?
+    func move(blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position) {
+        if moveStub {
+            moveNumberOfCalls += 1
+            moveBlockId = blockId
+            moveTargetId = targetId
+            movePosition = position
         } else {
             assertionFailure()
         }
@@ -36,7 +53,7 @@ final class BlockListServiceMock: BlockListServiceProtocol {
         assertionFailure()
     }
     
-    func moveTo(blockId: BlockId, targetId: BlockId) {
+    func moveToPage(blockId: BlockId, pageId: BlockId) {
         assertionFailure()
     }
 }

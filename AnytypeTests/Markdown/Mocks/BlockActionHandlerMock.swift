@@ -69,7 +69,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func moveTo(targetId: BlockId, blockId: BlockId) {
+    func moveToPage(blockId: BlockId, pageId: BlockId) {
         assertionFailure()
     }
     

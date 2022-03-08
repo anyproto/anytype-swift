@@ -22,7 +22,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func toggle(blockId: BlockId)
     func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId)
     func delete(blockId: BlockId)
-    func moveTo(targetId: BlockId, blockId: BlockId)
+    func moveToPage(blockId: BlockId, pageId: BlockId)
     func createEmptyBlock(parentId: BlockId)
     func setLink(url: URL?, range: NSRange, blockId: BlockId)
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId)

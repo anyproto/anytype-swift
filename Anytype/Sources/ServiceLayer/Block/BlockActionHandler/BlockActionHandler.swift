@@ -87,8 +87,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.delete(blockId: blockId)
     }
     
-    func moveTo(targetId: BlockId, blockId: BlockId) {
-        listService.moveTo(blockId: blockId, targetId: targetId)
+    func moveToPage(blockId: BlockId, pageId: BlockId) {
+        listService.moveToPage(blockId: blockId, pageId: pageId)
     }
     
     func createEmptyBlock(parentId: BlockId) {

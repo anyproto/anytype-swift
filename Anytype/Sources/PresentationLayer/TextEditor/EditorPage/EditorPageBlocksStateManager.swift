@@ -265,9 +265,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .turnInto:
             elements.forEach { actionHandler.turnIntoPage(blockId: $0.blockId) }
         case .moveTo:
-            router.showMoveTo { [weak self] targetId in
+            router.showMoveTo { [weak self] pageId in
                 elements.forEach {
-                    self?.actionHandler.moveTo(targetId: targetId, blockId: $0.blockId)
+                    self?.actionHandler.moveToPage(blockId: $0.blockId, pageId: pageId)
                 }
                 self?.editingState = .editing
             }
