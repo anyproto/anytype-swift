@@ -6,6 +6,8 @@ public enum Feature: String, Codable {
     case middlewareLogs = "Show middleware logs in Xcode console"
 
     case uikitRelationBlocks = "UIKit relation blocks"
+    
+    case newRelationOptionsSearch = "New Search View for searching relation options"
 }
 
 public final class FeatureFlags {
@@ -29,7 +31,8 @@ public final class FeatureFlags {
         .showAlertOnAssert : true,
         .analytics : false,
         .middlewareLogs: false,
-        .uikitRelationBlocks: false
+        .uikitRelationBlocks: false,
+        .newRelationOptionsSearch: !isRelease
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -62,6 +65,10 @@ public extension FeatureFlags {
 
     static var uikitRelationBlock: Bool {
         features[.uikitRelationBlocks, default: false]
+    }
+    
+    static var newRelationOptionsSearch: Bool {
+        features[.newRelationOptionsSearch, default: false]
     }
 
 }
