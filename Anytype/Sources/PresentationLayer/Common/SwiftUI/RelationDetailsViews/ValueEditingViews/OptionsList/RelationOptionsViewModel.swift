@@ -78,7 +78,11 @@ extension RelationOptionsViewModel {
                 )
             }
         case .tags(let allTags):
-            TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
+            if FeatureFlags.newRelationOptionsSearch {
+                RelationOptionsSearchModuleAssembly.buildModule(searchType: .tags(allTags))
+            } else {
+                TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
+            }
         case .files:
             if FeatureFlags.newRelationOptionsSearch {
                 RelationOptionsSearchModuleAssembly.buildModule(searchType: .files)
