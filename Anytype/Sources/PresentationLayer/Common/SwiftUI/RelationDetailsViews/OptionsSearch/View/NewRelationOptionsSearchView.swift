@@ -59,15 +59,22 @@ struct NewRelationOptionsSearchView: View {
             }
             .padding(.bottom, 10)
         }
-        .divider()
     }
     
     private func sectionView(model: RelationOptionsSearchSectionModel) -> some View {
-        Section(
-            header: RelationOptionsSectionHeaderView(title: model.title ?? "")
-        ) {
-            ForEach(model.rows) { row in
-                rowView(model: row)
+        Group {
+            if let title = model.title, title.isNotEmpty {
+                Section(
+                    header: RelationOptionsSectionHeaderView(title: title)
+                ) {
+                    ForEach(model.rows) { row in
+                        rowView(model: row)
+                    }
+                }
+            } else {
+                ForEach(model.rows) { row in
+                    rowView(model: row)
+                }
             }
         }
     }
