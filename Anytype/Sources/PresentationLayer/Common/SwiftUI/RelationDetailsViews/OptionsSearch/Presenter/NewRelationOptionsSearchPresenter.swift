@@ -5,7 +5,7 @@ final class NewRelationOptionsSearchPresenter: ObservableObject {
     @Published var sections: [RelationOptionsSearchSectionModel] = []
     
     private var selectedOptionIds: [String] = []
-    private var items: [RelationOptionSearchItem] = []
+    private var result: RelationOptionsSearchResult? = nil
 
     private let interactor: NewRelationOptionsSearchInteractorInput
     
@@ -20,8 +20,8 @@ final class NewRelationOptionsSearchPresenter: ObservableObject {
 extension NewRelationOptionsSearchPresenter {
     
     func search(text: String) {
-        interactor.obtainOptions(for: text) { [weak self] items in
-            self?.handleObtainedOptionItems(items)
+        interactor.obtainOptions(for: text) { [weak self] result in
+            self?.handleObtainedOptionsResult(result)
         }
     }
     
@@ -34,8 +34,14 @@ extension NewRelationOptionsSearchPresenter {
 
 private extension NewRelationOptionsSearchPresenter {
     
-    func handleObtainedOptionItems(_ items: [RelationOptionSearchItem]) {
-        self.items = items
+    func handleObtainedOptionsResult(_ result: RelationOptionsSearchResult?) {
+        self.result = result
+        guard let result = result else {
+            self.sections = []
+            return
+        }
+        
+        
     }
     
 }

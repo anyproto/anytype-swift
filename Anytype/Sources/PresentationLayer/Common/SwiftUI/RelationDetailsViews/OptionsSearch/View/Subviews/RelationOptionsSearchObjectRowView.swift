@@ -43,19 +43,6 @@ struct RelationOptionsSearchObjectRowView: View {
     }
 }
 
-extension RelationOptionsSearchObjectRowView {
-    
-    struct Model: Hashable, Identifiable {
-        let id: String
-        let icon: ObjectIconImage
-        let title: String
-        let subtitle: String
-        
-        let isSelected: Bool
-    }
-    
-}
-
 //struct RelationOptionsSearchObjectRowView_Previews: PreviewProvider {
 //    static var previews: some View {
 //        RelationOptionsSearchObjectRowView()
