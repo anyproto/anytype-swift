@@ -93,8 +93,8 @@ final class MarkupAccessoryView: UIView {
         viewModel.updateRange(range: range)
     }
 
-    func update(block: BlockModelProtocol, textView: UITextView) {
-        viewModel.selectBlock(block, text: textView.attributedText, range: textView.selectedRange)
+    func update(info: BlockInformation, textView: UITextView) {
+        viewModel.selectBlock(info, text: textView.attributedText, range: textView.selectedRange)
     }
 
     // MARK: - Unavailable

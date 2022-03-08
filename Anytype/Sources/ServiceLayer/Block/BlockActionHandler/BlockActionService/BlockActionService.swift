@@ -36,7 +36,11 @@ final class BlockActionService: BlockActionServiceProtocol {
         self.cursorManager = cursorManager
     }
 
-    // MARK: Actions/Add
+    // MARK: Actions
+
+    func paste(slots: PastboardSlots, blockId: BlockId, range: NSRange) {
+        singleService.paste(contextId: documentId, focusedBlockId: blockId, selectedTextRange: range, isPartOfBlock: false, slots: slots)
+    }
 
     func addChild(info: BlockInformation, parentId: BlockId) {
         add(info: info, targetBlockId: parentId, position: .inner)
@@ -155,7 +159,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     private func setFocus(model: BlockViewModelProtocol) {
-        if case let .text(text) = model.information.content {
+        if case let .text(text) = model.info.content {
             model.set(focus: .at(text.endOfTextRangeWithMention))
         }
     }

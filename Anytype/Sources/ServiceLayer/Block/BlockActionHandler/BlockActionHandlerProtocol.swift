@@ -2,12 +2,13 @@ import Foundation
 import BlocksModels
 
 protocol BlockSelectionHandler: AnyObject {
-    func didSelectEditingState(on block: BlockInformation)
+    func didSelectEditingState(info: BlockInformation)
 }
 
 protocol BlockActionHandlerProtocol: AnyObject {
     var blockSelectionHandler: BlockSelectionHandler? { get set }
 
+    func past(slots: PastboardSlots, blockId: BlockId, range: NSRange)
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     @discardableResult
     func turnIntoPage(blockId: BlockId) -> BlockId?
@@ -37,7 +38,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
-    func selectBlock(blockInformation: BlockInformation)
+    func selectBlock(info: BlockInformation)
     func createAndFetchBookmark(
         targetID: BlockId,
         position: BlockPosition,

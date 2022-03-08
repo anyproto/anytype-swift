@@ -9,10 +9,8 @@ struct TextBlockURLInputParameters {
 }
 
 struct TextBlockViewModel: BlockViewModelProtocol {
-    var indentationLevel: Int
-    var information: BlockInformation
+    var info: BlockInformation
 
-    private let block: BlockModelProtocol
     private let content: BlockText
     private let isCheckable: Bool
     private let toggled: Bool
@@ -30,15 +28,14 @@ struct TextBlockViewModel: BlockViewModelProtocol {
 
     var hashable: AnyHashable {
         [
-            indentationLevel,
-            information,
+            info,
             isCheckable,
             toggled
         ] as [AnyHashable]
     }
     
     init(
-        block: BlockModelProtocol,
+        info: BlockInformation,
         content: BlockText,
         isCheckable: Bool,
         blockDelegate: BlockDelegate,
@@ -49,7 +46,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         markdownListener: MarkdownListener,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     ) {
-        self.block = block
         self.content = content
         self.isCheckable = isCheckable
         self.blockDelegate = blockDelegate
@@ -57,9 +53,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.showPage = showPage
         self.openURL = openURL
         self.showURLBookmarkPopup = showURLBookmarkPopup
-        self.toggled = block.isToggled
-        self.information = block.information
-        self.indentationLevel = block.indentationLevel
+        self.toggled = info.isToggled
+        self.info = info
         self.markdownListener = markdownListener
         self.focusSubject = focusSubject
     }
@@ -72,14 +67,14 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         let contentConfiguration = TextBlockContentConfiguration(
-            blockId: information.id,
+            blockId: info.id,
             content: content,
-            alignment: information.alignment.asNSTextAlignment,
-            backgroundColor: information.backgroundColor.map { UIColor.Background.uiColor(from: $0) },
+            alignment: info.alignment.asNSTextAlignment,
+            backgroundColor: info.backgroundColor.map { UIColor.Background.uiColor(from: $0) },
             isCheckable: isCheckable,
-            isToggled: block.isToggled,
+            isToggled: info.isToggled,
             isChecked: content.checked,
-            shouldDisplayPlaceholder: block.isToggled && block.information.childrenIds.isEmpty,
+            shouldDisplayPlaceholder: info.isToggled && info.childrenIds.isEmpty,
             focusPublisher: focusSubject.eraseToAnyPublisher(),
             actions: action()
         )
@@ -89,14 +84,17 @@ struct TextBlockViewModel: BlockViewModelProtocol {
 
     func action() -> TextBlockContentConfiguration.Actions {
         return .init(
-            createEmptyBlock: { actionHandler.createEmptyBlock(parentId: information.id) },
+            paste: { slots, range in
+                actionHandler.past(slots: slots, blockId: blockId, range: range)
+            },
+            createEmptyBlock: { actionHandler.createEmptyBlock(parentId: info.id) },
             showPage: showPage,
             openURL: openURL,
             changeTextStyle: { attribute, range in
-                actionHandler.changeTextStyle(attribute, range: range, blockId: information.id)
+                actionHandler.changeTextStyle(attribute, range: range, blockId: info.id)
             },
             handleKeyboardAction: { action in
-                actionHandler.handleKeyboardAction(action, info: information)
+                actionHandler.handleKeyboardAction(action, info: info)
             },
             becomeFirstResponder: {
 
@@ -108,7 +106,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 blockDelegate?.textBlockSetNeedsLayout()
             },
             textViewDidChangeText: { textView in
-                actionHandler.changeText(textView.attributedText, info: information)
+                actionHandler.changeText(textView.attributedText, info: info)
                 blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))
             },
             textViewWillBeginEditing: { textView in
@@ -125,17 +123,17 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             },
             textViewShouldReplaceText: textViewShouldReplaceText,
             toggleCheckBox: {
-                actionHandler.checkbox(selected: !content.checked, blockId: information.id)
+                actionHandler.checkbox(selected: !content.checked, blockId: info.id)
             },
             toggleDropDown: {
-                block.toggle()
-                actionHandler.toggle(blockId: information.id)
+                info.toggle()
+                actionHandler.toggle(blockId: info.id)
             }
         )
     }
 
     private func blockDelegateData(textView: UITextView) -> TextBlockDelegateData {
-        .init(textView: textView, block: block, text: content.anytypeText)
+        .init(textView: textView, info: info, text: content.anytypeText)
     }
 
     private func textViewShouldReplaceText(
@@ -148,7 +146,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         blockDelegate?.textWillChange(changeType: changeType)
 
         if mentionDetecter.removeMentionIfNeeded(textView: textView, replacementText: replacementText) {
-            actionHandler.changeText(textView.attributedText, info: information)
+            actionHandler.changeText(textView.attributedText, info: info)
             return false
         }
 
@@ -164,10 +162,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             switch markdownChange {
             case let .turnInto(style, newText):
                 guard content.contentType != style else { return true }
-                guard BlockRestrictionsBuilder.build(content:  information.content).canApplyTextStyle(style) else { return true }
+                guard BlockRestrictionsBuilder.build(content:  info.content).canApplyTextStyle(style) else { return true }
 
-                actionHandler.turnInto(style, blockId: information.id)
-                actionHandler.changeTextForced(newText, blockId: information.id)
+                actionHandler.turnInto(style, blockId: info.id)
+                actionHandler.changeTextForced(newText, blockId: info.id)
                 textView.setFocus(.beginning)
             case .setText(let text, let caretPosition):
                 break

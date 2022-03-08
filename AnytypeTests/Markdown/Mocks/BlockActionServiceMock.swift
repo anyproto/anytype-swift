@@ -11,7 +11,6 @@ struct SplitData {
 }
 
 final class BlockActionServiceMock: BlockActionServiceProtocol {
-    
     var splitStub = false
     var splitNumberOfCalls = 0
     var splitData: SplitData?
@@ -155,5 +154,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    
+    func paste(slots: PastboardSlots, blockId: BlockId, range: NSRange) {
+        assertionFailure()
+    }
 }

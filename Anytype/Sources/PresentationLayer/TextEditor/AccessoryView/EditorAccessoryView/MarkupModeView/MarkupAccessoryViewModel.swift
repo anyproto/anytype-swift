@@ -54,9 +54,8 @@ final class MarkupAccessoryViewModel: ObservableObject {
         self.subscribeOnBlocksChanges()
     }
 
-    func selectBlock(_ block: BlockModelProtocol, text: NSAttributedString, range: NSRange) {
-        restrictions = BlockRestrictionsBuilder.build(contentType: block.information.content.type)
-        blockId = block.information.id
+    func selectBlock(_ info: BlockInformation, text: NSAttributedString, range: NSRange) {
+        restrictions = BlockRestrictionsBuilder.build(contentType: info.content.type)
         currentText = text
 
         updateRange(range: range)
@@ -147,13 +146,13 @@ final class MarkupAccessoryViewModel: ObservableObject {
         }.store(in: &cancellables)
     }
 
-    private func blockData(blockId: BlockId) -> (BlockModelProtocol, BlockText)? {
-        guard let model = document.blocksContainer.model(id: blockId) else {
+    private func blockData(blockId: BlockId) -> (BlockInformation, BlockText)? {
+        guard let info = document.infoContainer.get(id: blockId) else {
             return nil
         }
-        guard case let .text(content) = model.information.content else {
+        guard case let .text(content) = info.content else {
             return nil
         }
-        return (model, content)
+        return (info, content)
     }
 }

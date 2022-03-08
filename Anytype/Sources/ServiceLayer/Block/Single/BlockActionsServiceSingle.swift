@@ -7,7 +7,26 @@ import AnytypeCore
 import BlocksModels
 
 // MARK: Actions
-final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {    
+final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
+    func paste(contextId: BlockId, focusedBlockId: BlockId, selectedTextRange: NSRange, isPartOfBlock: Bool, slots: PastboardSlots) {
+        #warning("implement in next prs isPartOfBlock, selectedBlockIds, anySlot, fileSlot")
+        Anytype_Rpc.Block.Paste.Service.invoke(
+            contextID: contextId,
+            focusedBlockID: focusedBlockId,
+            selectedTextRange: selectedTextRange.asMiddleware,
+            selectedBlockIds: [],
+            isPartOfBlock: isPartOfBlock,
+            textSlot: slots.textSlot ?? "",
+            htmlSlot: slots.htmlSlot ?? "",
+            anySlot: [],
+            fileSlot: []
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .blockActionsService)?
+            .send()
+
+    }
+
     func open(contextId: BlockId, blockId: BlockId) -> Bool {
         let event = Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: blockId, traceID: "")
             .map { EventsBunch(event: $0.event) }
@@ -24,7 +43,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {
-        guard let blockInformation = BlockInformationConverter.convert(information: info) else {
+        guard let block = BlockInformationConverter.convert(information: info) else {
             anytypeAssertionFailure("addActionBlockIsNotParsed", domain: .blockActionsService)
             return nil
         }
@@ -32,7 +51,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         Amplitude.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
 
         let response = Anytype_Rpc.Block.Create.Service
-            .invoke(contextID: contextId, targetID: targetId, block: blockInformation, position: position.asMiddleware)
+            .invoke(contextID: contextId, targetID: targetId, block: block, position: position.asMiddleware)
         
         guard let result = response.getValue(domain: .blockActionsService) else { return nil }
 

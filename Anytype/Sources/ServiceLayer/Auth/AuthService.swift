@@ -11,6 +11,8 @@ final class AuthService: AuthServiceProtocol {
     private let rootPath: String
     private let loginStateService: LoginStateService
     
+    private var subscriptions: [AnyCancellable] = []
+    
     init(
         localRepoService: LocalRepoServiceProtocol,
         seedService: SeedServiceProtocol,
@@ -86,19 +88,38 @@ final class AuthService: AuthServiceProtocol {
         return result
     }
 
-    func accountRecover() -> AuthServiceError? {
-        let result = Anytype_Rpc.Account.Recover.Service.invoke()
-        switch result {
-        case .success(let data):
-            return data.hasError ? AuthServiceError.recoverAccountError : nil
-        case .failure:
-            return AuthServiceError.recoverAccountError
-        }
+    func accountRecover(onCompletion: @escaping (AuthServiceError?) -> ()) {
+        Anytype_Rpc.Account.Recover.Service.invoke(queue: .global(qos: .userInitiated))
+            .receiveOnMain()
+            .sinkWithResult { result in
+                switch result {
+                case .success(let data):
+                    guard data.error.code == .null else {
+                        return onCompletion(AuthServiceError.recoverAccountError)
+                    }
+                    return onCompletion(nil)
+                case .failure:
+                    return onCompletion(AuthServiceError.recoverAccountError)
+                }
+            }
+            .store(in: &subscriptions)
     }
 
     func selectAccount(id: String) -> Bool {
         let result = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath)
-                
+        return handleAccountSelect(result: result)
+    }
+    
+    func selectAccount(id: String, onCompletion: @escaping (Bool) -> ()) {
+        Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath, queue: .global(qos: .userInitiated))
+            .receiveOnMain()
+            .sinkWithResult { [weak self] result in
+                onCompletion(self?.handleAccountSelect(result: result) ?? false)
+            }
+            .store(in: &subscriptions)
+    }
+    
+    private func handleAccountSelect(result: Result<Anytype_Rpc.Account.Select.Response, Error>) -> Bool {
         switch result {
         case .success(let response):
             AccountConfigurationProvider.shared.config = .init(config: response.config)

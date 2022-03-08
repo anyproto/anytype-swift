@@ -5,31 +5,28 @@ import BlocksModels
 struct CodeBlockViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {
         [
-            information,
-            indentationLevel,
+            info,
             codeLanguage
         ] as [AnyHashable]
     }
     
-    let block: BlockModelProtocol
-    var information: BlockInformation { block.information }
-    var indentationLevel: Int { block.indentationLevel }
+    let info: BlockInformation
     let content: BlockText
     let codeLanguage: CodeLanguage
 
-    let becomeFirstResponder: (BlockModelProtocol) -> ()
-    let textDidChange: (BlockModelProtocol, UITextView) -> ()
-    let showCodeSelection: (BlockModelProtocol) -> ()
+    let becomeFirstResponder: (BlockInformation) -> ()
+    let textDidChange: (BlockInformation, UITextView) -> ()
+    let showCodeSelection: (BlockInformation) -> ()
 
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         return CodeBlockContentConfiguration(
             content: content,
-            backgroundColor: block.information.backgroundColor,
+            backgroundColor: info.backgroundColor,
             codeLanguage: codeLanguage,
             actions: .init(
-                becomeFirstResponder: { becomeFirstResponder(block) },
-                textDidChange: { textView in textDidChange(block, textView) },
-                showCodeSelection: { showCodeSelection(block) }
+                becomeFirstResponder: { becomeFirstResponder(info) },
+                textDidChange: { textView in textDidChange(info, textView) },
+                showCodeSelection: { showCodeSelection(info) }
             )
         ).asCellBlockConfiguration
     }
@@ -41,6 +38,6 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
 
 extension CodeBlockViewModel: CustomDebugStringConvertible {
     var debugDescription: String {
-        return "id: \(blockId)\ntext: \(content.anytypeText.attrString.string.prefix(10))...\ntype: \(block.information.content.type.style.description)"
+        return "id: \(blockId)\ntext: \(content.anytypeText.attrString.string.prefix(10))...\ntype: \(info.content.type.style.description)"
     }
 }
