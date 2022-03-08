@@ -110,7 +110,8 @@ final class EditorAssembly {
         let keyboardHandler = KeyboardActionHandler(
             service: blockActionService,
             listService: listService,
-            toggleStorage: ToggleStorage.shared
+            toggleStorage: ToggleStorage.shared,
+            container: document.infoContainer
         )
         
         let actionHandler = BlockActionHandler(

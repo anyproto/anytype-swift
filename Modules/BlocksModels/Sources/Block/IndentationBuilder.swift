@@ -15,7 +15,7 @@ public enum IndentationBuilder {
                 }
                 
                 child = child.updated(
-                    with: BlockInformationMetadata(
+                    metadata: BlockInformationMetadata(
                         indentationLevel: indentationLevel,
                         parentId: parent.id
                     )

@@ -1,7 +1,5 @@
-/// We need to distinct Container and InfoContainer.
-/// Another contains InfoContainer and DetailsContainer.
 public protocol InfoContainerProtocol: AnyObject {
-    func children(of info: BlockId) -> [BlockInformation]
+    func children(of id: BlockId) -> [BlockInformation]
 
     func `get`(id: BlockId) -> BlockInformation?
     func add(_ info: BlockInformation)

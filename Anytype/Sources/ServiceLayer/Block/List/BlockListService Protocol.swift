@@ -2,6 +2,7 @@ import Foundation
 import Combine
 import BlocksModels
 import UIKit
+import ProtobufMessages
 
 protocol BlockListServiceProtocol {
     func setDivStyle(blockIds: [BlockId], style: BlockDivider.Style)
@@ -11,5 +12,6 @@ protocol BlockListServiceProtocol {
     func setBlockColor(blockIds: [BlockId], color: MiddlewareColor)
     
     func replace(blockIds: [BlockId], targetId: BlockId)
-    func moveTo(blockId: BlockId, targetId: BlockId)
+    func move(blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position)
+    func moveToPage(blockId: BlockId, pageId: BlockId)
 }

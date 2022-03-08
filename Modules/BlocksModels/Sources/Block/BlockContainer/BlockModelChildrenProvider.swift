@@ -53,7 +53,7 @@ final class BlockInfoChildrenProvider {
             case let .text(text) where text.contentType == .numbered:
                 number += 1
                 let content = BlockContent.text(text.updated(number: number))
-                container.add(info.updated(with: content))
+                container.add(info.updated(content: content))
             default:
                 number = 0
             }
