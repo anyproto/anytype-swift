@@ -98,7 +98,7 @@ final class EditorAssembly {
                 
         let modelsHolder = EditorMainItemModelsHolder()
         
-        let markupChanger = BlockMarkupChanger(blocksContainer: document.blocksContainer)
+        let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
         let cursorManager = EditorCursorManager()
         let listService = BlockListService(contextId: document.objectId)
         let blockActionService = BlockActionService(
@@ -110,7 +110,8 @@ final class EditorAssembly {
         let keyboardHandler = KeyboardActionHandler(
             service: blockActionService,
             listService: listService,
-            toggleStorage: ToggleStorage.shared
+            toggleStorage: ToggleStorage.shared,
+            container: document.infoContainer
         )
         
         let actionHandler = BlockActionHandler(

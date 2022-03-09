@@ -53,7 +53,7 @@ final class CursorModeAccessoryViewModel {
             
             delegate.showSlashMenuView()
         case .editingMode:
-            handler.selectBlock(blockInformation: info)
+            handler.selectBlock(info: info)
         }
     }
     

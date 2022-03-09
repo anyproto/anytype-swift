@@ -1,5 +1,6 @@
 import BlocksModels
 import AnytypeCore
+import SwiftUI
 
 struct BlockBuilder {    
     static func createNewPageLink(targetBlockId: BlockId) -> BlockInformation {
@@ -9,13 +10,13 @@ struct BlockBuilder {
     
     static func createNewBlock(type: BlockContentType) -> BlockInformation? {
         createContent(type: type).flatMap { content in
-            var block = BlockInformation.empty(content: content)
+            var info = BlockInformation.empty(content: content)
             
             if case .file(let blockFile) = content, case .image = blockFile.contentType {
-                block.alignment = .center
+                info = info.updated(alignment: .center)
             }
 
-            return block
+            return info
         }
     }
 

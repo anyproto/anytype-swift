@@ -8,6 +8,7 @@ struct RelationOptionsSectionHeaderView: View {
             .padding(.top, 26)
             .padding(.bottom, 8)
             .divider(spacing: 0, alignment: .leading)
+            .padding(.horizontal, 20)
     }
 }
 

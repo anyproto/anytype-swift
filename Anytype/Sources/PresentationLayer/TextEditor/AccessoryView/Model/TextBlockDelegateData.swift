@@ -4,10 +4,6 @@ import UIKit
 struct TextBlockDelegateData {
     let textView: UITextView
     
-    let block: BlockModelProtocol
+    let info: BlockInformation
     let text: UIKitAnytypeText
-    
-    var info: BlockInformation {
-        block.information
-    }
 }

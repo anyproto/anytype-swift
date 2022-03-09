@@ -23,7 +23,7 @@ struct TagView: View {
 
 extension TagView {
     
-    struct Guidlines {
+    struct Guidlines: Hashable {
         let textPadding: CGFloat
         let cornerRadius: CGFloat
         let tagHeight: CGFloat

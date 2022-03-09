@@ -24,7 +24,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         }
     }
     
-    func selectBlock(blockInformation: BlockInformation) {
+    func selectBlock(info: BlockInformation) {
         assertionFailure()
     }
     
@@ -69,7 +69,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func moveTo(targetId: BlockId, blockId: BlockId) {
+    func moveToPage(blockId: BlockId, pageId: BlockId) {
         assertionFailure()
     }
     
@@ -163,6 +163,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     }
 
     func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: String) {
+        assertionFailure()
+    }
+    
+    func past(slots: PastboardSlots, blockId: BlockId, range: NSRange) {
         assertionFailure()
     }
 }

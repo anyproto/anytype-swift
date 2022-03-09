@@ -2,7 +2,7 @@ import Foundation
 import BlocksModels
 
 protocol BlockSelectionHandler: AnyObject {
-    func didSelectEditingState(on block: BlockInformation)
+    func didSelectEditingState(info: BlockInformation)
 }
 
 protocol BlockActionHandlerProtocol: AnyObject {
@@ -22,7 +22,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func toggle(blockId: BlockId)
     func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId)
     func delete(blockId: BlockId)
-    func moveTo(targetId: BlockId, blockId: BlockId)
+    func moveToPage(blockId: BlockId, pageId: BlockId)
     func createEmptyBlock(parentId: BlockId)
     func setLink(url: URL?, range: NSRange, blockId: BlockId)
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId)
@@ -38,7 +38,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
-    func selectBlock(blockInformation: BlockInformation)
+    func selectBlock(info: BlockInformation)
     func createAndFetchBookmark(
         targetID: BlockId,
         position: BlockPosition,

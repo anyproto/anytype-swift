@@ -22,7 +22,8 @@ struct SearchBar: View {
         .cornerRadius(10)
         .overlay(overlay)
         .padding(.horizontal, 16)
-        .padding(.vertical, 6)
+        .padding(.vertical, 10)
+        .divider()
     }
     
     private var overlay: some View {

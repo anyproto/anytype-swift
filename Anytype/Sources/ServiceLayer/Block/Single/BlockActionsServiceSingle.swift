@@ -43,7 +43,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {
-        guard let blockInformation = BlockInformationConverter.convert(information: info) else {
+        guard let block = BlockInformationConverter.convert(information: info) else {
             anytypeAssertionFailure("addActionBlockIsNotParsed", domain: .blockActionsService)
             return nil
         }
@@ -51,7 +51,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         Amplitude.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
 
         let response = Anytype_Rpc.Block.Create.Service
-            .invoke(contextID: contextId, targetID: targetId, block: blockInformation, position: position.asMiddleware)
+            .invoke(contextID: contextId, targetID: targetId, block: block, position: position.asMiddleware)
         
         guard let result = response.getValue(domain: .blockActionsService) else { return nil }
 

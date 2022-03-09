@@ -137,7 +137,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         case .dataSourceUpdate:
             let models = document.children
 
-            let blocksViewModels = blockBuilder.buildEditorItems(from: models)
+            let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
             modelsHolder.items = blocksViewModels
 
             viewInput?.update(changes: nil, allModels: blocksViewModels)
@@ -149,7 +149,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         let models = document.children
         
-        let blocksViewModels = blockBuilder.buildEditorItems(from: models)
+        let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
         
         handleGeneralUpdate(with: blocksViewModels)
         
@@ -180,8 +180,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             guard case let .block(blockViewModel) = model else { continue }
             for blockId in blockIds {
                 if blockViewModel.blockId == blockId {
-                    guard let model = document.blocksContainer.model(id: blockId),
-                          let newViewModel = blockBuilder.build(from: model) else {
+                    guard let model = document.infoContainer.get(id: blockId),
+                          let newViewModel = blockBuilder.build(info: model) else {
                               continue
                           }
 
@@ -215,7 +215,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
-        guard let currentInformation = document.blocksContainer.model(id: blockId)?.information else {
+        guard let currentInformation = document.infoContainer.get(id: blockId) else {
             wholeBlockMarkupViewModel.removeInformationAndDismiss()
             AnytypeLogger(category: "Editor page view model").debug("Could not find object with id: \(blockId)")
             return

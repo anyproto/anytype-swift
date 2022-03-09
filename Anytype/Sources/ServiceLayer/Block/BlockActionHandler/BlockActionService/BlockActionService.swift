@@ -159,7 +159,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
     private func setFocus(model: BlockViewModelProtocol) {
-        if case let .text(text) = model.information.content {
+        if case let .text(text) = model.info.content {
             model.set(focus: .at(text.endOfTextRangeWithMention))
         }
     }

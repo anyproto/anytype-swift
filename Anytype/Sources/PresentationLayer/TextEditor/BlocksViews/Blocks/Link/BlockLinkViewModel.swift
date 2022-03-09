@@ -7,15 +7,12 @@ import BlocksModels
 struct BlockLinkViewModel: BlockViewModelProtocol {    
     var hashable: AnyHashable {
         [
-            indentationLevel,
-            information,
+            info,
             state
-            
         ] as [AnyHashable]
     }
     
-    let indentationLevel: Int
-    let information: BlockInformation
+    let info: BlockInformation
 
     private let state: BlockLinkState
     
@@ -24,14 +21,12 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
 
 
     init(
-        indentationLevel: Int,
-        information: BlockInformation,
+        info: BlockInformation,
         content: BlockLink,
         details: ObjectDetails?,
         openLink: @escaping (EditorScreenData) -> ()
     ) {
-        self.indentationLevel = indentationLevel
-        self.information = information
+        self.info = info
         self.content = content
         self.openLink = openLink
         self.state = details.flatMap { BlockLinkState(details: $0) } ?? .empty
