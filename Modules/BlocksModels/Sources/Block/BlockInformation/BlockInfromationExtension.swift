@@ -1,6 +1,6 @@
 public extension BlockInformation {
-    func children(container: InfoContainerProtocol) -> [BlockInformation] {
-        BlockInfoChildrenProvider(container: container).children(model: self)
+    func flatChildrenTree(container: InfoContainerProtocol) -> [BlockInformation] {
+        ChildrenInfoTreeBuilder(container: container, root: self).flatList()
     }
     
     var isToggled: Bool {
@@ -25,10 +25,10 @@ public extension BlockInformation {
     }
     
     static func empty(
-        blockId: BlockId = "", content: BlockContent
+        id: BlockId = "", content: BlockContent
     ) -> BlockInformation {
         BlockInformation(
-            id: blockId,
+            id: id,
             content: content,
             backgroundColor: nil,
             alignment: .left,
@@ -49,6 +49,21 @@ public extension BlockInformation {
             }
         default:
             return false
+        }
+    }
+    
+    var isText: Bool {
+        switch content {
+        case .text:
+            return true
+        default:
+            return false
+        }
+    }
+    
+    func headerLayout(container: InfoContainerProtocol) -> BlockInformation? {
+        container.children(of: id).first { info in
+            info.content == .layout(.init(style: .header))
         }
     }
 }

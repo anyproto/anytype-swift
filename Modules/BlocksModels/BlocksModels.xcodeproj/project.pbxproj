@@ -46,7 +46,7 @@
 		3D6E9A5227102E30001B0A07 /* BlockTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A5127102E30001B0A07 /* BlockTextStyle.swift */; };
 		3DB1B31B27D0E2000058F7BA /* BlockInformationMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1B31A27D0E2000058F7BA /* BlockInformationMetadata.swift */; };
 		3DB1B31D27D0E27F0058F7BA /* BlockInfromationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1B31C27D0E27F0058F7BA /* BlockInfromationExtension.swift */; };
-		3DB1B32227D0F59A0058F7BA /* BlockModelChildrenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1B32127D0F59A0058F7BA /* BlockModelChildrenProvider.swift */; };
+		3DB1B32227D0F59A0058F7BA /* ChildrenInfoTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1B32127D0F59A0058F7BA /* ChildrenInfoTreeBuilder.swift */; };
 		3DB692B52697647700149864 /* MiddlewareColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B42697647600149864 /* MiddlewareColor.swift */; };
 		3DB7DCA82639DC0100635E4C /* ToggleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA72639DC0100635E4C /* ToggleStorage.swift */; };
 		3DB7DCAB2639DC7100635E4C /* InfoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCAA2639DC7100635E4C /* InfoContainer.swift */; };
@@ -105,7 +105,7 @@
 		3D6E9A5127102E30001B0A07 /* BlockTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTextStyle.swift; sourceTree = "<group>"; };
 		3DB1B31A27D0E2000058F7BA /* BlockInformationMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockInformationMetadata.swift; sourceTree = "<group>"; };
 		3DB1B31C27D0E27F0058F7BA /* BlockInfromationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockInfromationExtension.swift; sourceTree = "<group>"; };
-		3DB1B32127D0F59A0058F7BA /* BlockModelChildrenProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModelChildrenProvider.swift; sourceTree = "<group>"; };
+		3DB1B32127D0F59A0058F7BA /* ChildrenInfoTreeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildrenInfoTreeBuilder.swift; sourceTree = "<group>"; };
 		3DB692B42697647600149864 /* MiddlewareColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareColor.swift; sourceTree = "<group>"; };
 		3DB7DCA72639DC0100635E4C /* ToggleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleStorage.swift; sourceTree = "<group>"; };
 		3DB7DCAA2639DC7100635E4C /* InfoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainer.swift; sourceTree = "<group>"; };
@@ -328,7 +328,7 @@
 		3DB7DCA22639DBCD00635E4C /* BlockContainer */ = {
 			isa = PBXGroup;
 			children = (
-				3DB1B32127D0F59A0058F7BA /* BlockModelChildrenProvider.swift */,
+				3DB1B32127D0F59A0058F7BA /* ChildrenInfoTreeBuilder.swift */,
 				3DB7DCAA2639DC7100635E4C /* InfoContainer.swift */,
 				3D0BCABE26663B12002F7A0D /* InfoContainerProtocol.swift */,
 			);
@@ -458,7 +458,7 @@
 				3DB1B31B27D0E2000058F7BA /* BlockInformationMetadata.swift in Sources */,
 				12F91CF1270E015900C92B28 /* ObjectDetails.swift in Sources */,
 				3D30405A27D2113A00FFE0EB /* BlockInformation+Update.swift in Sources */,
-				3DB1B32227D0F59A0058F7BA /* BlockModelChildrenProvider.swift in Sources */,
+				3DB1B32227D0F59A0058F7BA /* ChildrenInfoTreeBuilder.swift in Sources */,
 				1223C91227282A2600C34616 /* BundledRelationsValueProvider.swift in Sources */,
 				3D1DE31527AC338F007BD545 /* ObjectRestrictionsContainer.swift in Sources */,
 				3DB1B31D27D0E27F0058F7BA /* BlockInfromationExtension.swift in Sources */,

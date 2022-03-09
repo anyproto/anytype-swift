@@ -1,34 +1,30 @@
 import BlocksModels
+import XCTest
 
 final class InfoContainerMock: InfoContainerProtocol {
-    var getStub = false
-    var getReturnInfo: BlockInformation?
-    var getNumberOfCalls = 0
-    var getBlockId: BlockId?
+    var getReturnInfo = [BlockId: BlockInformation]()
     func get(id: BlockId) -> BlockInformation? {
-        if getStub {
-            getNumberOfCalls += 1
-            getBlockId = id
-            return getReturnInfo
-        } else {
-            assertionFailure()
+        guard let info = getReturnInfo[id] else {
+            XCTFail()
             return nil
         }
+        return info
     }
     
-    var childrenStub = false
-    var childrenNumberOfCalls = 0
-    var childrenId: BlockId?
-    var childrenReturnInfo = [BlockInformation]()
+    private var childrenReturnInfo = [BlockId: [BlockInformation]]()
+    func stubChildForParent(parentId: BlockId, child: BlockInformation?) {
+        var data: [BlockInformation] = childrenReturnInfo[parentId] ?? []
+        child.flatMap { data.append($0) }
+        childrenReturnInfo[parentId] = data
+    }
+    
     func children(of id: BlockId) -> [BlockInformation] {
-        if childrenStub {
-            childrenNumberOfCalls += 1
-            childrenId = id
-            return childrenReturnInfo
-        } else {
-            assertionFailure()
+        guard let children = childrenReturnInfo[id] else {
+            XCTFail()
             return []
         }
+        
+        return children
     }
     
     func add(_ info: BlockInformation) {

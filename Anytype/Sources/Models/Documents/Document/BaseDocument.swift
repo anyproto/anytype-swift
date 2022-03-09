@@ -68,7 +68,7 @@ final class BaseDocument: BaseDocumentProtocol {
             anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)
             return []
         }
-        return model.children(container: infoContainer)
+        return model.flatChildrenTree(container: infoContainer)
     }
 
     // MARK: - Private methods

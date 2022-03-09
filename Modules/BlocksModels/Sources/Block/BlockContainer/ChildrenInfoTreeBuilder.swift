@@ -9,17 +9,19 @@ import AnytypeCore
 /// Result: [A, B, X, C, Y, D, Z]
 /// It is like a left-order traversing of tree, but we have to output parents first.
 ///
-final class BlockInfoChildrenProvider {
+final class ChildrenInfoTreeBuilder {
     private let container: InfoContainerProtocol
-    init(container: InfoContainerProtocol) {
+    private let root: BlockInformation
+    init(container: InfoContainerProtocol, root: BlockInformation) {
         self.container = container
+        self.root = root
     }
             
-    func children(model: BlockInformation) -> [BlockInformation] {
+    func flatList() -> [BlockInformation] {
         var result = Array<BlockInformation>()
         let stack = Stack<BlockInformation>()
         
-        stack.push(model)
+        stack.push(root)
         
         while !stack.isEmpty {
             if let info = stack.pop() {
