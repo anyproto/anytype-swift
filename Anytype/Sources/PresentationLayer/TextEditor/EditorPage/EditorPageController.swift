@@ -52,10 +52,14 @@ final class EditorPageController: UIViewController {
         return recognizer
     }()
 
-    private lazy var navigationBarHelper = EditorNavigationBarHelper(
-        onSettingsBarButtonItemTap: { [weak self] in
+    private lazy var navigationBarHelper: EditorNavigationBarHelper = EditorNavigationBarHelper(
+        viewController: self,
+        onSettingsBarButtonItemTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
-            self?.viewModel.showSettings()
+            viewModel?.showSettings()
+        }, onDoneBarButtonItemTap:  { [weak viewModel] in
+            viewModel?.blocksStateManager.didSelectEditingMode()
+
         }
     )
 
@@ -97,7 +101,7 @@ final class EditorPageController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
         
-        navigationBarHelper.handleViewWillAppear(controllerForNavigationItems, collectionView)
+        navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
         
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView,
@@ -135,21 +139,18 @@ final class EditorPageController: UIViewController {
 
     func bindViewModel() {
         viewModel.blocksStateManager.editorEditingState.sink { [unowned self] state in
+            navigationBarHelper.editorEditingStateDidChange(state)
+
             switch state {
             case .selecting(let blockIds):
                 view.endEditing(true)
                 setEditing(false, animated: true)
-                blockIds.forEach(selectBlock)
                 blocksSelectionOverlayView.isHidden = false
-                navigationBarHelper.canChangeSyncStatusAppearance = false
-                navigationBarHelper.setNavigationBarHidden(true)
             case .editing:
                 collectionView.deselectAllMovingItems()
                 dividerCursorController.movingMode = .none
                 setEditing(true, animated: true)
                 blocksSelectionOverlayView.isHidden = true
-                navigationBarHelper.setNavigationBarHidden(false)
-                navigationBarHelper.canChangeSyncStatusAppearance = true
             case .moving(let indexPaths):
                 dividerCursorController.movingMode = .drum
                 setEditing(false, animated: true)
@@ -158,6 +159,10 @@ final class EditorPageController: UIViewController {
                     collectionView.setItemIsMoving(true, at: indexPath)
                 }
             }
+        }.store(in: &cancellables)
+
+        viewModel.blocksStateManager.editorSelectedBlocks.sink { [unowned self] blockIds in
+            blockIds.forEach(selectBlock)
         }.store(in: &cancellables)
     }
 }
@@ -239,7 +244,7 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func showDeletedScreen(_ show: Bool) {
-        navigationBarHelper.setNavigationBarHidden(show)
+        navigationController?.setNavigationBarHidden(show, animated: false)
         deletedScreen.isHidden = !show
         if show { UIApplication.shared.hideKeyboard() }
     }

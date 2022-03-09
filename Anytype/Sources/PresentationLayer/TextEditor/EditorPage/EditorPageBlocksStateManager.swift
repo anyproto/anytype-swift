@@ -19,6 +19,7 @@ protocol EditorPageMovingManagerProtocol {
     func moveItem(at indexPath: IndexPath)
 
     func didSelectMovingIndexPaths(_ indexPaths: [IndexPath])
+    func didSelectEditingMode()
 }
 
 protocol EditorPageSelectionManagerProtocol {
@@ -29,8 +30,9 @@ protocol EditorPageSelectionManagerProtocol {
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath])
 }
 
-protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol {
+protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol, AnyObject {
     var editorEditingState: AnyPublisher<EditorEditingState, Never> { get }
+    var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { get }
 }
 
 final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
@@ -39,9 +41,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case object(BlockId)
     }
 
-    var editorEditingState: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher()
-    }
+    var editorEditingState: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
+    var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { $selectedBlocks.eraseToAnyPublisher() }
+
     @Published var editingState: EditorEditingState = .editing
+    @Published var selectedBlocks = [BlockId]()
 
     private(set) var selectedBlocksIndexPaths = [IndexPath]()
     private(set) var movingBlocksIndexPaths = [IndexPath]()
@@ -108,6 +112,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             modelsHolder.blockViewModel(at: $0.row)?.info
         }
         updateSelectionContent(selectedBlocks: blocksInformation)
+
+        if case .selecting = editingState {
+            editingState = .selecting(blocks: blocksInformation.map { $0.id })
+        }
     }
 
     // MARK: - EditorPageMovingManagerProtocol
@@ -148,6 +156,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         return false
     }
 
+    func didSelectEditingMode() {
+        editingState = .editing
+    }
+
     func canMoveItemsToObject(at indexPath: IndexPath) -> Bool {
         guard !movingBlocksWithChildsIndexPaths.flatMap({ $0 }).contains(indexPath),
               let element = modelsHolder.blockViewModel(at: indexPath.row) else { return false }
@@ -180,8 +192,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
         }.store(in: &cancellables)
 
-        blocksSelectionOverlayViewModel?.endEditingModeHandler = { [weak self] in self?.editingState = .editing }
-        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.tapHandler = { [weak self] in self?.handleBlocksOptionItemSelection($0) }
+        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.tapHandler = { [weak self] in
+            self?.handleBlocksOptionItemSelection($0)
+
+        }
         blocksSelectionOverlayViewModel?.moveButtonHandler = { [weak self] in
             self?.startMoving()
         }
@@ -316,6 +330,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 extension EditorPageBlocksStateManager: BlockSelectionHandler {
     func didSelectEditingState(info: BlockInformation) {
         editingState = .selecting(blocks: [info.id])
+        selectedBlocks = [info.id]
         updateSelectionContent(selectedBlocks: [info])
     }
 }
