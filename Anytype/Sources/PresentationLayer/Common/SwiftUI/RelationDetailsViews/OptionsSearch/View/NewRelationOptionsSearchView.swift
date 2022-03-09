@@ -90,6 +90,10 @@ struct NewRelationOptionsSearchView: View {
                 RelationOptionsSearchObjectRowView(model: model) {
                     presenter.didSelectOption(with: $0)
                 }
+            case .tag(let model):
+                RelationOptionsSearchTagRowView(model: model) {
+                    presenter.didSelectOption(with: $0)
+                }
             }
         }
     }
