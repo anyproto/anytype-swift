@@ -3,12 +3,12 @@ import BlocksModels
 
 final class NewRelationOptionsSearchInteractor {
 
-    private let type: RelationOptionsSearchType
+    private let type: NewRelationOptionsSearchType
     private let excludedOptionIds: [String]
     
     private let searchService: SearchServiceProtocol
     
-    init(type: RelationOptionsSearchType, excludedOptionIds: [String], searchService: SearchServiceProtocol) {
+    init(type: NewRelationOptionsSearchType, excludedOptionIds: [String], searchService: SearchServiceProtocol) {
         self.type = type
         self.excludedOptionIds = excludedOptionIds
         self.searchService = searchService
@@ -28,6 +28,9 @@ extension NewRelationOptionsSearchInteractor: NewRelationOptionsSearchInteractor
             return
         case .tags(let allTags):
             onCompletion(searchTags(with: text, allTags: allTags))
+            return
+        case .statuses(let allStatuses):
+            onCompletion(searchStatuses(with: text, allStatuses: allStatuses))
             return
         }
     }
@@ -75,6 +78,25 @@ private extension NewRelationOptionsSearchInteractor {
         }
         
         return RelationOptionsSearchResult.tags(filteredTags)
+    }
+    
+    func searchStatuses(with text: String, allStatuses: [Relation.Status.Option]) -> RelationOptionsSearchResult? {
+        guard text.isNotEmpty else {
+            return RelationOptionsSearchResult.statuses(allStatuses)
+        }
+        
+        let availableStatuses = allStatuses.filter { !excludedOptionIds.contains($0.id) }
+        let filteredStatuses: [Relation.Status.Option] = availableStatuses.filter {
+            guard $0.text.isNotEmpty else { return false }
+            
+            return $0.text.lowercased().contains(text.lowercased())
+        }
+
+        guard filteredStatuses.isNotEmpty else {
+            return nil
+        }
+        
+        return RelationOptionsSearchResult.statuses(filteredStatuses)
     }
     
 }

@@ -312,6 +312,14 @@ extension EditorRouter {
         
         guard let viewController = viewController else { return }
         
+        if case .status(let status) = relation, FeatureFlags.newRelationOptionsSearch {
+            let view = RelationOptionsSearchModuleAssembly.buildModule(searchType: .statuses(status.allOptions))
+            
+            let controller = UIHostingController(rootView: view)
+            viewController.topPresentedController.present(controller, animated: true)
+            return
+        }
+        
         let contentViewModel = relationEditingViewModelBuilder
             .buildViewModel(source: source, objectId: objectId, relation: relation)
         guard let contentViewModel = contentViewModel else { return }

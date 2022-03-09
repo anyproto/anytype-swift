@@ -5,6 +5,7 @@ enum RelationOptionsSearchRowModel: Hashable, Identifiable {
     case object(RelationOptionsSearchObjectRowView.Model)
     case file(RelationOptionsSearchObjectRowView.Model)
     case tag(RelationOptionsSearchTagRowView.Model)
+    case status(RelationOptionsSearchStatusRowView.Model)
     
 }
 
@@ -15,6 +16,7 @@ extension RelationOptionsSearchRowModel {
         case .object(let model): return model.id
         case .file(let model): return model.id
         case .tag(let model): return model.id
+        case .status(let model): return model.id
         }
     }
     

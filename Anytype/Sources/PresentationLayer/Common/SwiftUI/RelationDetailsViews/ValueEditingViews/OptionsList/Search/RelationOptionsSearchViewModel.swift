@@ -34,9 +34,6 @@ extension RelationOptionsSearchViewModel {
                 results = service.search(text: text)
             case .files:
                 results = service.searchFiles(text: text)
-            case .tags:
-                assertionFailure("FOO")
-                results = []
             }
             
             return results?.filter { !excludedIds.contains($0.id) }

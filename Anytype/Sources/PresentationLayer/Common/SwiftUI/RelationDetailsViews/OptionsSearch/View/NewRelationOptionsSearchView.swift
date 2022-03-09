@@ -94,6 +94,10 @@ struct NewRelationOptionsSearchView: View {
                 RelationOptionsSearchTagRowView(model: model) {
                     presenter.didSelectOption(with: $0)
                 }
+            case .status(let model):
+                RelationOptionsSearchStatusRowView(model: model) {
+                    presenter.didSelectOption(with: $0)
+                }
             }
         }
     }

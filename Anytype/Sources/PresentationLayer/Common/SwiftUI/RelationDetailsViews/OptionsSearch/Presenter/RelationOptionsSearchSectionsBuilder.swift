@@ -1,39 +1,18 @@
 import Foundation
+import BlocksModels
 
 final class RelationOptionsSearchSectionsBuilder {
     
     static func makeSections(using searchResult: RelationOptionsSearchResult) -> [RelationOptionsSearchSectionModel] {
         switch searchResult {
         case .objects(let array):
-            return [
-                RelationOptionsSearchSectionModel(
-                    id: "objects.search.section.model.id",
-                    title: nil,
-                    rows: array.map {
-                        RelationOptionsSearchRowModel.object(
-                            RelationOptionsSearchObjectRowView.Model(
-                                details: $0
-                            )
-                        )
-                    }
-                )
-            ]
+            return objectsSection(array)
         case .files(let array):
-            return [
-                RelationOptionsSearchSectionModel(
-                    id: "files.search.section.model.id",
-                    title: nil,
-                    rows: array.map {
-                        RelationOptionsSearchRowModel.object(
-                            RelationOptionsSearchObjectRowView.Model(
-                                details: $0
-                            )
-                        )
-                    }
-                )
-            ]
+            return filesSection(array)
         case .tags(let array):
-            return sections(from: array)
+            return tagsSections(array)
+        case .statuses(let array):
+            return statusesSections(array)
         }
     }
     
@@ -41,11 +20,59 @@ final class RelationOptionsSearchSectionsBuilder {
 
 private extension RelationOptionsSearchSectionsBuilder {
     
-    static func sections(from tags: [Relation.Tag.Option]) -> [RelationOptionsSearchSectionModel] {
-        var localOptions: [Relation.Tag.Option] = []
-        var otherOptions: [Relation.Tag.Option] = []
+    static func objectsSection(_ objects: [ObjectDetails]) -> [RelationOptionsSearchSectionModel] {
+        [
+            RelationOptionsSearchSectionModel(
+                id: "objects.search.section.model.id",
+                title: nil,
+                rows: objects.map {
+                    RelationOptionsSearchRowModel.object(
+                        RelationOptionsSearchObjectRowView.Model(
+                            details: $0
+                        )
+                    )
+                }
+            )
+        ]
+    }
+    
+    static func filesSection(_ files: [ObjectDetails]) -> [RelationOptionsSearchSectionModel] {
+        [
+            RelationOptionsSearchSectionModel(
+                id: "files.search.section.model.id",
+                title: nil,
+                rows: files.map {
+                    RelationOptionsSearchRowModel.file(
+                        RelationOptionsSearchObjectRowView.Model(
+                            details: $0
+                        )
+                    )
+                }
+            )
+        ]
+    }
+    
+    static func tagsSections(_ tags: [Relation.Tag.Option]) -> [RelationOptionsSearchSectionModel] {
+        scopedOptionsSections(tags) { tag in
+            return RelationOptionsSearchRowModel.tag(
+                RelationOptionsSearchTagRowView.Model(option: tag)
+            )
+        }
+    }
+    
+    static func statusesSections(_ statuses: [Relation.Status.Option]) -> [RelationOptionsSearchSectionModel] {
+        scopedOptionsSections(statuses) { status in
+            return RelationOptionsSearchRowModel.status(
+                RelationOptionsSearchStatusRowView.Model(option: status)
+            )
+        }
+    }
+    
+    static func scopedOptionsSections<O: NewRelationOptionProtocol>(_ options: [O], transformation: (O) -> RelationOptionsSearchRowModel) -> [RelationOptionsSearchSectionModel] {
+        var localOptions: [O] = []
+        var otherOptions: [O] = []
         
-        tags.forEach {
+        options.forEach {
             if $0.scope == .local {
                 localOptions.append($0)
             } else {
@@ -60,11 +87,7 @@ private extension RelationOptionsSearchSectionsBuilder {
                 RelationOptionsSearchSectionModel(
                     id: "localOptionsSectionID",
                     title: "In this object".localized,
-                    rows: localOptions.map {
-                        RelationOptionsSearchRowModel.tag(
-                            RelationOptionsSearchTagRowView.Model(option: $0)
-                        )
-                    }
+                    rows: localOptions.map { transformation($0) }
                 )
             )
         }
@@ -74,11 +97,7 @@ private extension RelationOptionsSearchSectionsBuilder {
                 RelationOptionsSearchSectionModel(
                     id: "otherOptionsSectionID",
                     title: "Everywhere".localized,
-                    rows: otherOptions.map {
-                        RelationOptionsSearchRowModel.tag(
-                            RelationOptionsSearchTagRowView.Model(option: $0)
-                        )
-                    }
+                    rows: otherOptions.map { transformation($0) }
                 )
             )
         }

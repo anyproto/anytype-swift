@@ -5,6 +5,7 @@ enum RelationOptionsSearchResult {
     case objects([ObjectDetails])
     case files([ObjectDetails])
     case tags([Relation.Tag.Option])
+    case statuses([Relation.Status.Option])
 }
 
 extension RelationOptionsSearchResult {
