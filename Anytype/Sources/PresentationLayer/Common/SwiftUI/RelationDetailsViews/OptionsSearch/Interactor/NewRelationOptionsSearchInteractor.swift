@@ -19,8 +19,8 @@ final class NewRelationOptionsSearchInteractor {
 
 extension NewRelationOptionsSearchInteractor: NewRelationOptionsSearchInteractorInput {
     
-    func obtainOptions(for text: String, onCompletion: ([RelationOptionSearchItem]) -> Void) {
-        let result: [ObjectDetails]? = {
+    func obtainOptions(for text: String, onCompletion: (RelationOptionsSearchResult?) -> Void) {
+        let response: [ObjectDetails]? = {
             let results: [ObjectDetails]?
             switch type {
             case .objects:
@@ -32,23 +32,22 @@ extension NewRelationOptionsSearchInteractor: NewRelationOptionsSearchInteractor
             return results?.filter { !excludedOptionIds.contains($0.id) }
         }()
         
-        guard let result = result, result.isNotEmpty else {
-            onCompletion([])
+        guard let response = response, response.isNotEmpty else {
+            onCompletion(nil)
             return
         }
+        
 
-        let items: [RelationOptionSearchItem] = {
-            result.map {
-                switch type {
-                case .objects:
-                    return RelationOptionSearchItem.object($0)
-                case .files:
-                    return RelationOptionSearchItem.file($0)
-                }
+        let result: RelationOptionsSearchResult = {
+            switch type {
+            case .objects:
+                return RelationOptionsSearchResult.objects(response)
+            case .files:
+                return RelationOptionsSearchResult.files(response)
             }
         }()
-        
-        onCompletion(items)
+
+        onCompletion(result)
     }
     
 }
