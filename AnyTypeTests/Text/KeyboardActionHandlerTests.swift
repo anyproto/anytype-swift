@@ -495,183 +495,89 @@ class KeyboardActionHandlerTests: XCTestCase {
         XCTAssertEqual(service.addSetFocus, false)
     }
     
-    // MARK: - deleteForEmpty
+    // MARK: - delete
     
-    func test_deleteForEmpty_text() throws {
+    func test_delete_text() throws {
         let info = info(style: .text)
         service.mergeStub = true
 
-        handler.handle(info: info, action: .deleteForEmpty)
+        handler.handle(info: info, action: .delete)
 
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "id")
     }
     
-    func test_deleteForEmpty_text_with_children() throws {
+    func test_delete_text_with_children() throws {
         let info = info(style: .text, hasChild: true)
         service.mergeStub = true
 
-        handler.handle(info: info, action: .deleteForEmpty)
+        handler.handle(info: info, action: .delete)
 
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "id")
     }
     
-    func test_deleteForEmpty_title() throws {
+    func test_delete_title() throws {
         let info = info(style: .title)
 
-        handler.handle(info: info, action: .deleteForEmpty)
+        handler.handle(info: info, action: .delete)
     }
     
-    func test_deleteForEmpty_description() throws {
+    func test_delete_description() throws {
         let info = info(style: .description)
 
-        handler.handle(info: info, action: .deleteForEmpty)
+        handler.handle(info: info, action: .delete)
     }
     
-    func test_deleteForEmpty_bulleted() throws {
+    func test_delete_bulleted() throws {
         let info = info(style: .bulleted)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .deleteForEmpty)
+        handler.handle(info: info, action: .delete)
 
         validateTurnInto()
     }
     
-    func test_deleteForEmpty_bulleted_with_children() throws {
+    func test_delete_bulleted_with_children() throws {
         let info = info(style: .bulleted, hasChild: true)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .deleteForEmpty)
+        handler.handle(info: info, action: .delete)
 
         validateTurnInto()
     }
     
-    func test_deleteForEmpty_toggle() throws {
+    func test_delete_toggle() throws {
         let info = info(style: .toggle)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .deleteForEmpty)
+        handler.handle(info: info, action: .delete)
 
         validateTurnInto()
     }
     
-    func test_deleteForEmpty_toggle_with_children() throws {
+    func test_delete_toggle_with_children() throws {
         let info = info(style: .toggle, hasChild: true)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .deleteForEmpty)
-
-        validateTurnInto()
-    }
-    
-    // MARK: - deleteAtTheBegining
-    
-    func test_deleteAtTheBegining_text() throws {
-        let info = info(style: .text)
-        service.mergeStub = true
-
-        handler.handle(info: info, action: .deleteAtTheBegining)
-
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId!, "id")
-    }
-    
-    func test_deleteAtTheBegining_title() throws {
-        let info = info(style: .title)
-
-        handler.handle(info: info, action: .deleteAtTheBegining)
-    }
-    
-    func test_deleteAtTheBegining_description() throws {
-        let info = info(style: .description)
-
-        handler.handle(info: info, action: .deleteAtTheBegining)
-    }
-    
-    func test_deleteAtTheBegining_text_with_children() throws {
-        let info = info(style: .text, hasChild: true)
-        service.mergeStub = true
-        
-        handler.handle(info: info, action: .deleteAtTheBegining)
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId!, "id")
-    }
-    
-    func test_deleteAtTheBegining_bulleted() throws {
-        let info = info(style: .bulleted)
-        service.turnIntoStub = true
-
-        handler.handle(info: info, action: .deleteAtTheBegining)
-
-        validateTurnInto()
-    }
-    
-    func test_deleteAtTheBegining_bulleted_with_children() throws {
-        let info = info(style: .bulleted, hasChild: true)
-        service.turnIntoStub = true
-
-        handler.handle(info: info, action: .deleteAtTheBegining)
-
-        validateTurnInto()
-    }
-    
-    func test_deleteAtTheBegining_toggle() throws {
-        let info = info(style: .toggle)
-        service.turnIntoStub = true
-
-        handler.handle(info: info, action: .deleteAtTheBegining)
-
-        validateTurnInto()
-    }
-    
-    func test_deleteAtTheBegining_toggle_with_children() throws {
-        let info = info(style: .toggle, hasChild: true)
-        service.turnIntoStub = true
-
-        handler.handle(info: info, action: .deleteAtTheBegining)
+        handler.handle(info: info, action: .delete)
 
         validateTurnInto()
     }
     
     // MARK: - Delitable
-    func test_deleteAtTheBegining_text_first_block_in_page_without_title_and_description() throws {
+    func test_delete_text_first_block_in_page_without_title_and_description() throws {
         let page = info(id: "pageId", content: .smartblock(.init(style: .page)))
         let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)), parent: page)
         let info = info(style: .text, parent: page)
         infoContainer.stubChildForParent(parentId: headerLayout.id, child: nil)
 
-        handler.handle(info: info, action: .deleteAtTheBegining)
+        handler.handle(info: info, action: .delete)
         
         // No action
     }
     
-    func test_deleteForEmpty_text_first_block_in_page_without_title_and_description() throws {
-        let page = info(id: "pageId", content: .smartblock(.init(style: .page)))
-        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)), parent: page)
-        let info = info(style: .text, parent: page)
-        infoContainer.stubChildForParent(parentId: headerLayout.id, child: nil)
-
-        handler.handle(info: info, action: .deleteForEmpty)
-        
-        // No action
-    }
-    
-    func test_deleteAtTheBegining_text_second_block_in_page_without_title_and_description() throws {
-        let page = info(id: "pageId", content: .smartblock(.init(style: .page)))
-        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)), parent: page)
-        let info1 = info(id: "id1", style: .text, parent: page)
-        let info2 = info(id: "id2", style: .text, parent: page)
-        infoContainer.stubChildForParent(parentId: headerLayout.id, child: nil)
-        service.mergeStub = true
-
-        handler.handle(info: info2, action: .deleteAtTheBegining)
-        
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId!, "id2")
-    }
-    
-    func test_deleteForEmpty_text_second_block_in_page_without_title_and_description() throws {
+    func test_delete_text_second_block_in_page_without_title_and_description() throws {
         let page = info(id: "pageId", content: .smartblock(.init(style: .page)))
         let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)), parent: page)
         let info1 = info(id: "id1", style: .text, parent: page)
@@ -679,59 +585,33 @@ class KeyboardActionHandlerTests: XCTestCase {
         infoContainer.stubChildForParent(parentId: headerLayout.id, child: nil)
         service.mergeStub = true
         
-        handler.handle(info: info2, action: .deleteForEmpty)
+        handler.handle(info: info2, action: .delete)
         
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId!, "id2")
     }
     
-    func test_deleteAtTheBegining_text_first_block_in_page_without_title_with_description() throws {
-        let page = info(id: "pageId", content: .smartblock(.init(style: .page)))
-        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)), parent: page)
-        let description = info(id: "description", style: .description, parent: headerLayout)
-        let info = info(style: .text, parent: page)
-        service.mergeStub = true
-        
-        handler.handle(info: info, action: .deleteForEmpty)
-        
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId!, "id")
-    }
-    
-    func test_deleteForEmpty_text_first_block_in_page_without_title_with_description() throws {
+    func test_delete_text_first_block_in_page_without_title_with_description() throws {
         let page = info(id: "pageId", content: .smartblock(.init(style: .page)))
         let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)), parent: page)
         let description = info(id: "description", style: .description, parent: headerLayout)
         let info = info(style: .text, parent: page)
         service.mergeStub = true
 
-        handler.handle(info: info, action: .deleteForEmpty)
+        handler.handle(info: info, action: .delete)
         
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId!, "id")
     }
     
-    func test_deleteAtTheBegining_text_first_block_in_page_with_title_without_description() throws {
-        let page = info(id: "pageId", content: .smartblock(.init(style: .page)))
-        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)), parent: page)
-        let title = info(id: "title", style: .title, parent: headerLayout)
-        let info = info(style: .text, parent: page)
-        service.mergeStub = true
-        
-        handler.handle(info: info, action: .deleteForEmpty)
-        
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId!, "id")
-    }
-    
-    func test_deleteForEmpty_text_first_block_in_page_with_title_without_description() throws {
+    func test_delete_text_first_block_in_page_with_title_without_description() throws {
         let page = info(id: "pageId", content: .smartblock(.init(style: .page)))
         let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)), parent: page)
         let title = info(id: "title", style: .description, parent: headerLayout)
         let info = info(style: .text, parent: page)
         service.mergeStub = true
 
-        handler.handle(info: info, action: .deleteForEmpty)
+        handler.handle(info: info, action: .delete)
         
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId!, "id")
@@ -743,7 +623,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let child = info(id: "childId", style: .text, parent: parent)
         listService.moveStub = true
         
-        handler.handle(info: child, action: .deleteAtTheBegining)
+        handler.handle(info: child, action: .delete)
         
         XCTAssertEqual(listService.moveNumberOfCalls, 1)
         XCTAssertEqual(listService.moveBlockId, "childId")
@@ -758,7 +638,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         listService.moveStub = true
         
         // when
-        handler.handle(info: child2, action: .deleteAtTheBegining)
+        handler.handle(info: child2, action: .delete)
         
         XCTAssertEqual(listService.moveNumberOfCalls, 1)
         XCTAssertEqual(listService.moveBlockId, "childId2")
@@ -774,7 +654,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.mergeStub = true
         
         // when
-        handler.handle(info: child1, action: .deleteAtTheBegining)
+        handler.handle(info: child1, action: .delete)
         
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "childId1")
@@ -796,74 +676,8 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.mergeStub = true
         
         // when
-        handler.handle(info: child, action: .deleteAtTheBegining)
+        handler.handle(info: child, action: .delete)
         
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId, "childId")
-    }
-    
-    func test_deleteForEmpty_one_children() throws {
-        let parent = info(id: "parentId", style: .toggle, hasChild: true)
-        let child = info(id: "childId", style: .text, parent: parent)
-        listService.moveStub = true
-        
-        handler.handle(info: child, action: .deleteForEmpty)
-        
-        XCTAssertEqual(listService.moveNumberOfCalls, 1)
-        XCTAssertEqual(listService.moveBlockId, "childId")
-        XCTAssertEqual(listService.moveTargetId, "parentId")
-        XCTAssertEqual(listService.movePosition, .bottom)
-    }
-    
-    func test_deleteForEmpty_last_children() throws {
-        let parent = info(id: "parentId", style: .toggle, hasChild: true)
-        let child1 = info(id: "childId1", style: .text, parent: parent)
-        let child2 = info(id: "childId2", style: .text, parent: parent)
-        listService.moveStub = true
-        
-        // when
-        handler.handle(info: child2, action: .deleteForEmpty)
-        
-        XCTAssertEqual(listService.moveNumberOfCalls, 1)
-        XCTAssertEqual(listService.moveBlockId, "childId2")
-        XCTAssertEqual(listService.moveTargetId, "parentId")
-        XCTAssertEqual(listService.movePosition, .bottom)
-    }
-    
-    func test_deleteForEmpty_not_last_children() throws {
-        let parent = info(id: "parentId", style: .toggle, hasChild: true)
-        let child1 = info(id: "childId1", style: .text, parent: parent)
-        let child2 = info(id: "childId2", style: .text, parent: parent)
-        
-        service.mergeStub = true
-        
-        // when
-        handler.handle(info: child1, action: .deleteForEmpty)
-
-
-        XCTAssertEqual(service.mergeNumberOfCalls, 1)
-        XCTAssertEqual(service.mergeSecondBlockId, "childId1")
-    }
-    
-    func test_deleteForEmpty_one_children_of_page() throws {
-        let childId = "childId"
-        let parent = BlockInformation(
-            id: "parentId",
-            content: .smartblock(.init(style: .page)),
-            backgroundColor: nil,
-            alignment: .center,
-            childrenIds: [childId],
-            fields: [:],
-            metadata: .init()
-        )
-        let child = info(id: childId, style: .text, parent: parent)
-        
-        service.mergeStub = true
-        
-        // when
-        handler.handle(info: child, action: .deleteForEmpty)
-
-
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "childId")
     }

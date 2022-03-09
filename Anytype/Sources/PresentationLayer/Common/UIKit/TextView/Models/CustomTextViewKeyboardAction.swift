@@ -8,8 +8,7 @@ extension CustomTextView {
         case enterAtTheEnd(string: NSAttributedString)
         case enterAtTheBegining
         
-        case deleteAtTheBegining
-        case deleteForEmpty
+        case delete
     }
 }
 
@@ -40,12 +39,8 @@ extension CustomTextView.KeyboardAction {
             return .enterInside(string: attributedText, position: position)
         }
         
-        if text == emptyString, replacement == emptyString, emptyRange {
-            return .deleteForEmpty
-        }
-        
         if replacement == emptyString, emptyRange {
-            return .deleteAtTheBegining
+            return .delete
         }
         
         return nil
