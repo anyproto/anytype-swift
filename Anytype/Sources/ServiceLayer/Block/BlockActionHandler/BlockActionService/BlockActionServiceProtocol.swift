@@ -6,6 +6,7 @@ protocol BlockActionServiceProtocol {
 
     func paste(blockId: BlockId, range: NSRange, slots: PastboardSlots)
     func paste(selectedBlockIds: [BlockId], slots: PastboardSlots)
+    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots
 
     func upload(blockId: BlockId, filePath: String)
     

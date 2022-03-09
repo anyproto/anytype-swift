@@ -47,6 +47,10 @@ final class BlockActionService: BlockActionServiceProtocol {
         singleService.paste(contextId: documentId, selectedBlockIds: selectedBlockIds, isPartOfBlock: false, slots: slots)
     }
 
+    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots {
+        singleService.copy(contextId: documentId, blocksInfo: blocksInfo, selectedTextRange: selectedTextRange)
+    }
+
     func addChild(info: BlockInformation, parentId: BlockId) {
         add(info: info, targetBlockId: parentId, position: .inner)
     }

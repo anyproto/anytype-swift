@@ -97,6 +97,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 actionHandler.past(blockId: blockId, range: range, slots: slots)
                 return true
             },
+            copy: { range in
+                actionHandler.copy(blocksIds: [info.id], selectedTextRange: range)
+            },
             createEmptyBlock: { actionHandler.createEmptyBlock(parentId: info.id) },
             showPage: showPage,
             openURL: openURL,

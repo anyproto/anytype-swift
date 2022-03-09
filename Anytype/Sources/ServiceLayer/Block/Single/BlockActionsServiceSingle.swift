@@ -45,6 +45,21 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             .send()
     }
 
+    func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots {
+        let blockskModels = blocksInfo.compactMap {
+            BlockInformationConverter.convert(information: $0)
+        }
+
+        let result = Anytype_Rpc.Block.Copy.Service.invoke(
+            contextID: contextId,
+            blocks: blockskModels,
+            selectedTextRange: selectedTextRange.asMiddleware
+        )
+            .getValue(domain: .blockActionsService)
+
+        return PastboardSlots(textSlot: result?.textSlot, htmlSlot: result?.htmlSlot, anySlot: result?.anySlot)
+    }
+
     func open(contextId: BlockId, blockId: BlockId) -> Bool {
         let event = Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: blockId, traceID: "")
             .map { EventsBunch(event: $0.event) }

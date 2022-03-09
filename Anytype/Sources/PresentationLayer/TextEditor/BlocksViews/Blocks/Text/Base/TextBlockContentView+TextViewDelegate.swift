@@ -8,6 +8,10 @@ extension TextBlockContentView: CustomTextViewDelegate {
         actions?.paste(range) ?? false
     }
 
+    func copy(range: NSRange) {
+        actions?.copy(range)
+    }
+
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
         switch change {
         case .become:

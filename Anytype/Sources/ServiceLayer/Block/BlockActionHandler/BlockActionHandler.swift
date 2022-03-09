@@ -34,6 +34,16 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.paste(blockId: blockId, range: range, slots: slots)
     }
 
+    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) {
+        let pastboardHelper = PastboardHelper()
+
+        let blocksInfo = blocksIds.compactMap {
+            document.infoContainer.get(id: $0)
+        }
+        let anySlots = service.copy(blocksInfo: blocksInfo, selectedTextRange: selectedTextRange)
+        pastboardHelper.copy(slots: anySlots)
+    }
+
     func turnIntoPage(blockId: BlockId) -> BlockId? {
         return service.turnIntoPage(blockId: blockId)
     }
