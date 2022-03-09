@@ -21,14 +21,13 @@ struct NewRelationOptionsSearchView: View {
     }
     
     private var content: some View {
-        Color.orange
-//        Group {
-//            if viewModel.searchResults.isEmpty {
-//                emptyState
-//            } else {
-//                searchResults
-//            }
-//        }
+        Group {
+            if presenter.sections.isEmpty {
+                emptyState
+            } else {
+                searchResults
+            }
+        }
     }
     
     private var emptyState: some View {
@@ -52,16 +51,40 @@ struct NewRelationOptionsSearchView: View {
     }
     
     private var searchResults: some View {
-        Color.green
-//        ScrollView {
-//            LazyVStack(spacing: 0) {
-//                ForEach(viewModel.searchResults) {
-//                    RelationObjectsSearchRowView(data: $0, selectedIds: $viewModel.selectedOptionIds)
-//                }
-//            }
-//            .padding(.bottom, 10)
-//        }
+        ScrollView {
+            LazyVStack(spacing: 0) {
+                ForEach(presenter.sections) { section in
+                    sectionView(model: section)
+                }
+            }
+            .padding(.bottom, 10)
+        }
         .divider()
+    }
+    
+    private func sectionView(model: RelationOptionsSearchSectionModel) -> some View {
+        Section(
+            header: RelationOptionsSectionHeaderView(title: model.title ?? "")
+        ) {
+            ForEach(model.rows) { row in
+                rowView(model: row)
+            }
+        }
+    }
+    
+    private func rowView(model: RelationOptionsSearchRowModel) -> some View {
+        Group {
+            switch model {
+            case .object(let model):
+                RelationOptionsSearchObjectRowView(model: model) {
+                    presenter.didSelectOption(with: $0)
+                }
+            case .file(let model):
+                RelationOptionsSearchObjectRowView(model: model) {
+                    presenter.didSelectOption(with: $0)
+                }
+            }
+        }
     }
     
     private var addButton: some View {

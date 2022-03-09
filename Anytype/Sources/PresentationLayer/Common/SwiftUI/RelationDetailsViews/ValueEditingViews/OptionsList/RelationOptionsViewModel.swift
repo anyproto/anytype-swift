@@ -1,6 +1,7 @@
 import Foundation
 import SwiftUI
 import FloatingPanel
+import AnytypeCore
 
 final class RelationOptionsViewModel: ObservableObject {
             
@@ -64,25 +65,33 @@ extension RelationOptionsViewModel {
     func makeSearchView() -> some View {
         switch type {
         case .objects:
-            RelationOptionsSearchView(
-                viewModel: RelationOptionsSearchViewModel(
-                    type: .objects,
-                    excludedIds: selectedOptions.map { $0.id }
-                ) { [weak self] ids in
-                    self?.handleNewOptionIds(ids)
-                }
-            )
+            if FeatureFlags.newRelationOptionsSearch {
+                RelationOptionsSearchModuleAssembly.buildModule(searchType: .objects)
+            } else {
+                RelationOptionsSearchView(
+                    viewModel: RelationOptionsSearchViewModel(
+                        type: .objects,
+                        excludedIds: selectedOptions.map { $0.id }
+                    ) { [weak self] ids in
+                        self?.handleNewOptionIds(ids)
+                    }
+                )
+            }
         case .tags(let allTags):
             TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
         case .files:
-            RelationOptionsSearchView(
-                viewModel: RelationOptionsSearchViewModel(
-                    type: .files,
-                    excludedIds: selectedOptions.map { $0.id }
-                ) { [weak self] ids in
-                    self?.handleNewOptionIds(ids)
-                }
-            )
+            if FeatureFlags.newRelationOptionsSearch {
+                RelationOptionsSearchModuleAssembly.buildModule(searchType: .files)
+            } else {
+                RelationOptionsSearchView(
+                    viewModel: RelationOptionsSearchViewModel(
+                        type: .files,
+                        excludedIds: selectedOptions.map { $0.id }
+                    ) { [weak self] ids in
+                        self?.handleNewOptionIds(ids)
+                    }
+                )
+            }   
         }
     }
     
