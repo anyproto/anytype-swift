@@ -2,17 +2,16 @@ import UIKit
 import UniformTypeIdentifiers
 import AnytypeCore
 
-
-protocol PastboardHelperProtocol {
-    func obtainSlots() -> PastboardSlots
-}
-
 struct PastboardSlots {
     let textSlot: String?
     let htmlSlot: String?
+
+    var onlyTextSlotAvailable: Bool {
+        return textSlot.isNotNil && htmlSlot.isNil
+    }
 }
 
-final class PastboardHelper: PastboardHelperProtocol {
+final class PastboardHelper {
 
     func obtainSlots() -> PastboardSlots{
         let pasteboard = UIPasteboard.general
@@ -41,6 +40,6 @@ final class PastboardHelper: PastboardHelperProtocol {
 extension UIPasteboard {
     var hasSlots: Bool {
         UIPasteboard.general.contains(pasteboardTypes: [UTType.html.identifier], inItemSet: nil) ||
-        UIPasteboard.general.contains(pasteboardTypes: [UTType.plainText.identifier])
+        UIPasteboard.general.contains(pasteboardTypes: [UTType.utf8PlainText.identifier])
     }
 }

@@ -46,7 +46,13 @@ extension Array where Element == BlockInformation {
             restrictions.append(restriction)
         }
 
-        var mergedItems = restrictions.mergedOptions
+        var mergedItems: Set<BlocksOptionItem> = []
+
+        if UIPasteboard.general.hasSlots {
+            mergedItems.insert(.paste)
+        }
+
+        mergedItems = restrictions.mergedOptions
 
         if !isDownloadAvailable || count > 1 {
             mergedItems.remove(.download)
@@ -54,10 +60,6 @@ extension Array where Element == BlockInformation {
 
         if !isStyleAvailable || count > 1 {
             mergedItems.remove(.style)
-        }
-
-        if UIPasteboard.general.hasSlots {
-            mergedItems.insert(.paste)
         }
 
         return Array<BlocksOptionItem>(mergedItems).sorted()

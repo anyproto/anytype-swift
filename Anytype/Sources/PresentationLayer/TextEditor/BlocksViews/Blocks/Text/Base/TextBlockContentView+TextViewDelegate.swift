@@ -4,8 +4,8 @@ import BlocksModels
 
 extension TextBlockContentView: CustomTextViewDelegate {
 
-    func paste(range: NSRange) {
-        actions?.paste(range)
+    func paste(range: NSRange) -> Bool {
+        actions?.paste(range) ?? false
     }
 
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {

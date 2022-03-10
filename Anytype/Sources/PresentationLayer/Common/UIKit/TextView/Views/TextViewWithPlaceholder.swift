@@ -98,7 +98,11 @@ final class TextViewWithPlaceholder: UITextView {
             return super.paste(sender)
         }
 
-        customTextViewDelegate?.paste(range: selectedRange)
+        let handled = customTextViewDelegate?.paste(range: selectedRange) ?? false
+
+        if !handled {
+            super.paste(sender)
+        }
     }
 
     // MARK: - Initialization

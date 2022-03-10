@@ -1,6 +1,7 @@
 import UIKit
 
 enum BlocksOptionItem: CaseIterable, Comparable {
+    case paste
     case style
     case download
     case delete
@@ -9,7 +10,6 @@ enum BlocksOptionItem: CaseIterable, Comparable {
     case turnInto
     case move
     case moveTo
-    case paste
 }
 
 extension BlocksOptionItem {
