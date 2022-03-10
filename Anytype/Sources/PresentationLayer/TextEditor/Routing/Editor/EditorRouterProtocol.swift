@@ -1,4 +1,5 @@
 import BlocksModels
+import UIKit
 
 protocol AttachmentRouterProtocol {
     func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext)
@@ -37,4 +38,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
     
     func goBack()
+    
+    func presentFullscreen(_ vc: UIViewController)
 }

@@ -237,6 +237,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         rootController?.pop()
     }
     
+    func presentFullscreen(_ vc: UIViewController) {
+        rootController?.present(vc, animated: true)
+    }
+    
     func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = viewController else { return }
         

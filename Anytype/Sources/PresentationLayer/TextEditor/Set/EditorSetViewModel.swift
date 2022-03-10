@@ -8,9 +8,9 @@ final class EditorSetViewModel: ObservableObject {
     @Published var dataView = BlockDataview.empty
     @Published private var records: [ObjectDetails] = []
     
-    @Published var showViewPicker = false
-    
     @Published var pagitationData = EditorSetPaginationData.empty
+    
+    weak var popupDelegate: AnytypePopupContentDelegate?
     
     var isEmpty: Bool {
         dataView.views.filter { $0.isSupported }.isEmpty
@@ -74,6 +74,10 @@ final class EditorSetViewModel: ObservableObject {
     
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
+    }
+    
+    func showViewPicker() {
+        router?.presentFullscreen(AnytypePopup(viewModel: self))
     }
     
     // MARK: - Private

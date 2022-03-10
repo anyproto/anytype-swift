@@ -438,6 +438,7 @@
 		3D2F9C7827206CE40043C326 /* QuickActionsStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C7727206CE40043C326 /* QuickActionsStorage.swift */; };
 		3D300BBC26D8E86B00F46763 /* LoadingAnimationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D300BBB26D8E86B00F46763 /* LoadingAnimationView.swift */; };
 		3D30407727D66E7E00FFE0EB /* InfoContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30407627D66E7E00FFE0EB /* InfoContainerMock.swift */; };
+		3D30408A27DA219400FFE0EB /* EditorSetViewModel+ViewPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30408927DA219400FFE0EB /* EditorSetViewModel+ViewPickerPopup.swift */; };
 		3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */; };
 		3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */; };
 		3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */; };
@@ -1351,6 +1352,7 @@
 		3D2F9C7727206CE40043C326 /* QuickActionsStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickActionsStorage.swift; sourceTree = "<group>"; };
 		3D300BBB26D8E86B00F46763 /* LoadingAnimationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingAnimationView.swift; sourceTree = "<group>"; };
 		3D30407627D66E7E00FFE0EB /* InfoContainerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InfoContainerMock.swift; path = AnyTypeTests/Markdown/Mocks/InfoContainerMock.swift; sourceTree = SOURCE_ROOT; };
+		3D30408927DA219400FFE0EB /* EditorSetViewModel+ViewPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorSetViewModel+ViewPickerPopup.swift"; sourceTree = "<group>"; };
 		3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationView.swift; sourceTree = "<group>"; };
 		3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceView.swift; sourceTree = "<group>"; };
 		3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRectCorner+Corners.swift"; sourceTree = "<group>"; };
@@ -4525,7 +4527,6 @@
 			isa = PBXGroup;
 			children = (
 				3D7F7171279F0813003FE893 /* Pagination */,
-				3D8D41B8274287A900F8EBF3 /* EditorSetHostingController.swift */,
 				3D1B5F76274CF553007D97AE /* Table */,
 				3D1B5F6B274CF0FB007D97AE /* Header */,
 				3D513F0E27956E2B007850D5 /* EditorSetViewPicker.swift */,
@@ -4568,8 +4569,10 @@
 				3DCFDE312796C360006C7D02 /* Models */,
 				3DA6DBCF27457D9700516E75 /* Views */,
 				3DAE1CAF273EA208009A72F3 /* EditorSetView.swift */,
+				3D8D41B8274287A900F8EBF3 /* EditorSetHostingController.swift */,
 				3D8D41BA274297FF00F8EBF3 /* EditorSetViewModel.swift */,
 				3D7F718027A088B7003FE893 /* EditorSetViewModel+Pagination.swift */,
+				3D30408927DA219400FFE0EB /* EditorSetViewModel+ViewPickerPopup.swift */,
 			);
 			path = Set;
 			sourceTree = "<group>";
@@ -6498,6 +6501,7 @@
 				12136D2C2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift in Sources */,
 				12636CF3276A0CF00084D35D /* RelationOptionsSectionHeaderView.swift in Sources */,
 				120E818426A04A31006FE84E /* DetailsService.swift in Sources */,
+				3D30408A27DA219400FFE0EB /* EditorSetViewModel+ViewPickerPopup.swift in Sources */,
 				0A31FDF524CF06EC006D9B4E /* GoogleProtobufStructuresConverter.swift in Sources */,
 				530F502026F0981700F76D03 /* AnytypeLabel.swift in Sources */,
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
