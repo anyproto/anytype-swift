@@ -3,21 +3,16 @@ import AnytypeCore
 import SwiftUI
 
 struct BlockBuilder {    
-    static func createNewPageLink(targetBlockId: BlockId) -> BlockInformation {
-        let content: BlockContent = .link(BlockLink(targetBlockID: targetBlockId, style: .page, fields: [:]))
-        return BlockInformation.empty(content: content)
-    }
-    
     static func createNewBlock(type: BlockContentType) -> BlockInformation? {
-        createContent(type: type).flatMap { content in
-            var info = BlockInformation.empty(content: content)
-            
-            if case .file(let blockFile) = content, case .image = blockFile.contentType {
-                info = info.updated(alignment: .center)
-            }
-
-            return info
+        guard let content = createContent(type: type) else { return nil }
+        
+        let info = BlockInformation.empty(content: content)
+        
+        if case .file(let blockFile) = content, case .image = blockFile.contentType {
+            return info.updated(alignment: .center)
         }
+
+        return info
     }
 
     private static func createContent(type: BlockContentType) -> BlockContent? {
@@ -37,21 +32,6 @@ struct BlockBuilder {
         case .layout, .smartblock, .featuredRelations, .dataView:
             anytypeAssertionFailure("Unsupported type \(type)", domain: .blockBuilder)
             return nil
-        }
-    }
-    
-    private static func createContent(info: BlockInformation) -> BlockContent? {
-        switch info.content {
-        case let .text(blockType):
-            switch blockType.contentType {
-            case .bulleted where blockType.text != "": return .text(.empty(contentType: .bulleted))
-            case .checkbox where blockType.text != "": return .text(.empty(contentType: .checkbox))
-            case .numbered where blockType.text != "": return .text(.empty(contentType: .numbered))
-            case .toggle where ToggleStorage.shared.isToggled(blockId: info.id) : return .text(.empty(contentType: .text))
-            case .toggle where blockType.text != "": return .text(.empty(contentType: .toggle))
-            default: return .text(.empty(contentType: .text))
-            }
-        default: return nil
         }
     }
 }

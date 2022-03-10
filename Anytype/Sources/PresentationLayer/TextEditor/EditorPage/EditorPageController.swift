@@ -323,8 +323,6 @@ private extension EditorPageController {
         }
     }
 
-
-
     func dataSourceItem(for blockId: BlockId) -> EditorItem? {
         dataSource.snapshot().itemIdentifiers.first {
             switch $0 {

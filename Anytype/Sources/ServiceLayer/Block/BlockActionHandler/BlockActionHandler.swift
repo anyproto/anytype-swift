@@ -97,7 +97,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func addLink(targetId: BlockId, blockId: BlockId) {
         service.add(
-            info: BlockBuilder.createNewPageLink(targetBlockId: targetId),
+            info: .emptyLink(targetId: targetId),
             targetBlockId: blockId,
             position: .bottom
         )

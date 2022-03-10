@@ -1,6 +1,7 @@
 @testable import Anytype
 import BlocksModels
 import ProtobufMessages
+import XCTest
 
 struct SplitData {
     let string: NSAttributedString
@@ -95,7 +96,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
             mergeNumberOfCalls += 1
             mergeSecondBlockId = secondBlockId
         } else {
-            assertionFailure()
+            XCTFail()
         }
     }
     

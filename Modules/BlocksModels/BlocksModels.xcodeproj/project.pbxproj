@@ -39,6 +39,7 @@
 		3D22B21E2687812F00C78C28 /* BlockContentBookmark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */; };
 		3D22B220268781C300C78C28 /* BlockContentLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B21F268781C300C78C28 /* BlockContentLayout.swift */; };
 		3D30405A27D2113A00FFE0EB /* BlockInformation+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30405927D2113A00FFE0EB /* BlockInformation+Update.swift */; };
+		3D30407C27D90D8900FFE0EB /* BlockInformation+Creation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30407B27D90D8900FFE0EB /* BlockInformation+Creation.swift */; };
 		3D43FD8526B14E9E0094D4C0 /* AnytypeCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D43FD8426B14E9E0094D4C0 /* AnytypeCore.framework */; };
 		3D53F03326B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D53F03226B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift */; };
 		3D6E9A3C270E11CA001B0A07 /* BlockPosition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A3B270E11CA001B0A07 /* BlockPosition.swift */; };
@@ -46,7 +47,7 @@
 		3D6E9A5227102E30001B0A07 /* BlockTextStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A5127102E30001B0A07 /* BlockTextStyle.swift */; };
 		3DB1B31B27D0E2000058F7BA /* BlockInformationMetadata.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1B31A27D0E2000058F7BA /* BlockInformationMetadata.swift */; };
 		3DB1B31D27D0E27F0058F7BA /* BlockInfromationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1B31C27D0E27F0058F7BA /* BlockInfromationExtension.swift */; };
-		3DB1B32227D0F59A0058F7BA /* BlockModelChildrenProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1B32127D0F59A0058F7BA /* BlockModelChildrenProvider.swift */; };
+		3DB1B32227D0F59A0058F7BA /* ChildrenInfoTreeBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1B32127D0F59A0058F7BA /* ChildrenInfoTreeBuilder.swift */; };
 		3DB692B52697647700149864 /* MiddlewareColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692B42697647600149864 /* MiddlewareColor.swift */; };
 		3DB7DCA82639DC0100635E4C /* ToggleStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCA72639DC0100635E4C /* ToggleStorage.swift */; };
 		3DB7DCAB2639DC7100635E4C /* InfoContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB7DCAA2639DC7100635E4C /* InfoContainer.swift */; };
@@ -98,6 +99,7 @@
 		3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentBookmark.swift; sourceTree = "<group>"; };
 		3D22B21F268781C300C78C28 /* BlockContentLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentLayout.swift; sourceTree = "<group>"; };
 		3D30405927D2113A00FFE0EB /* BlockInformation+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockInformation+Update.swift"; sourceTree = "<group>"; };
+		3D30407B27D90D8900FFE0EB /* BlockInformation+Creation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockInformation+Creation.swift"; sourceTree = "<group>"; };
 		3D43FD8426B14E9E0094D4C0 /* AnytypeCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AnytypeCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D53F03226B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Google_Protobuf_Value+Entries.swift"; sourceTree = "<group>"; };
 		3D6E9A3B270E11CA001B0A07 /* BlockPosition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockPosition.swift; sourceTree = "<group>"; };
@@ -105,7 +107,7 @@
 		3D6E9A5127102E30001B0A07 /* BlockTextStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTextStyle.swift; sourceTree = "<group>"; };
 		3DB1B31A27D0E2000058F7BA /* BlockInformationMetadata.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockInformationMetadata.swift; sourceTree = "<group>"; };
 		3DB1B31C27D0E27F0058F7BA /* BlockInfromationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockInfromationExtension.swift; sourceTree = "<group>"; };
-		3DB1B32127D0F59A0058F7BA /* BlockModelChildrenProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockModelChildrenProvider.swift; sourceTree = "<group>"; };
+		3DB1B32127D0F59A0058F7BA /* ChildrenInfoTreeBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChildrenInfoTreeBuilder.swift; sourceTree = "<group>"; };
 		3DB692B42697647600149864 /* MiddlewareColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareColor.swift; sourceTree = "<group>"; };
 		3DB7DCA72639DC0100635E4C /* ToggleStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToggleStorage.swift; sourceTree = "<group>"; };
 		3DB7DCAA2639DC7100635E4C /* InfoContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainer.swift; sourceTree = "<group>"; };
@@ -321,6 +323,7 @@
 				3DB692B42697647600149864 /* MiddlewareColor.swift */,
 				3DB1B31A27D0E2000058F7BA /* BlockInformationMetadata.swift */,
 				3DB1B31C27D0E27F0058F7BA /* BlockInfromationExtension.swift */,
+				3D30407B27D90D8900FFE0EB /* BlockInformation+Creation.swift */,
 			);
 			path = BlockInformation;
 			sourceTree = "<group>";
@@ -328,7 +331,7 @@
 		3DB7DCA22639DBCD00635E4C /* BlockContainer */ = {
 			isa = PBXGroup;
 			children = (
-				3DB1B32127D0F59A0058F7BA /* BlockModelChildrenProvider.swift */,
+				3DB1B32127D0F59A0058F7BA /* ChildrenInfoTreeBuilder.swift */,
 				3DB7DCAA2639DC7100635E4C /* InfoContainer.swift */,
 				3D0BCABE26663B12002F7A0D /* InfoContainerProtocol.swift */,
 			);
@@ -458,7 +461,7 @@
 				3DB1B31B27D0E2000058F7BA /* BlockInformationMetadata.swift in Sources */,
 				12F91CF1270E015900C92B28 /* ObjectDetails.swift in Sources */,
 				3D30405A27D2113A00FFE0EB /* BlockInformation+Update.swift in Sources */,
-				3DB1B32227D0F59A0058F7BA /* BlockModelChildrenProvider.swift in Sources */,
+				3DB1B32227D0F59A0058F7BA /* ChildrenInfoTreeBuilder.swift in Sources */,
 				1223C91227282A2600C34616 /* BundledRelationsValueProvider.swift in Sources */,
 				3D1DE31527AC338F007BD545 /* ObjectRestrictionsContainer.swift in Sources */,
 				3DB1B31D27D0E27F0058F7BA /* BlockInfromationExtension.swift in Sources */,
@@ -495,6 +498,7 @@
 				3D17023D2715C1FB0079B65B /* SyncStatus.swift in Sources */,
 				3D22B2172687802800C78C28 /* BlockContentSmartblock.swift in Sources */,
 				0A6D538C25D9C99F002F3F82 /* IndentationBuilder.swift in Sources */,
+				3D30407C27D90D8900FFE0EB /* BlockInformation+Creation.swift in Sources */,
 				0A6D539225D9C99F002F3F82 /* BlockContent.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

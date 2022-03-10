@@ -234,7 +234,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         } else {
             modelsHolder.items = models
         }
-
         
         let details = document.objectDetails
         let header = headerBuilder.objectHeader(details: details)
