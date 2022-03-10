@@ -100,6 +100,9 @@ final class EditorSetViewModel: ObservableObject {
             setupDataview()
         case .syncStatus, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
+        case .header(let data):
+            // TODO:
+            break
         }
     }
     
