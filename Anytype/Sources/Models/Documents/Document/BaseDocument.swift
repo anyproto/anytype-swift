@@ -6,6 +6,7 @@ import AnytypeCore
 final class BaseDocument: BaseDocumentProtocol {
     var updatePublisher: AnyPublisher<EventsListenerUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     let objectId: BlockId
+    private(set) var isOpened = false
 
     let infoContainer: InfoContainerProtocol = InfoContainer()
     let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
@@ -47,8 +48,10 @@ final class BaseDocument: BaseDocumentProtocol {
 
     // MARK: - BaseDocumentProtocol
 
+    @discardableResult
     func open() -> Bool {
-        return blockActionsService.open(contextId: objectId, blockId: objectId)
+        isOpened = blockActionsService.open(contextId: objectId, blockId: objectId)
+        return isOpened
     }
     
     func close(){
