@@ -77,22 +77,3 @@ struct ObjectSettingsView: View {
         static let dividerSpacing: CGFloat = 12
     }
 }
-
-struct ObjectSettingsView_Previews: PreviewProvider {
-    @State static private var isIconPickerPresented = false
-    @State static private var isCoverPickerPresented = false
-    @State static private var isLayoutPickerPresented = false
-    @State static private var isRelationsViewPresented = false
-    
-    static var previews: some View {
-        ObjectSettingsView(
-            viewModel: ObjectSettingsViewModel(
-                objectId: "dummyPageId",
-                objectDetailsService: DetailsService(objectId: ""),
-                popScreenAction: {},
-                onLayoutSettingsTap: { _ in},
-                onRelationValueEditingTap: { _ in }
-            )
-        )
-    }
-}

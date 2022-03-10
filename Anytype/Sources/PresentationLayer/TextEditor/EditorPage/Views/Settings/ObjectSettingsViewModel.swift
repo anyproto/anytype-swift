@@ -32,14 +32,14 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     init(
         objectId: String,
         objectDetailsService: DetailsService,
-        popScreenAction: @escaping () -> (),
-        onLayoutSettingsTap: @escaping (ObjectLayoutPickerViewModel) -> (),
-        onRelationValueEditingTap: @escaping (String) -> ()
+        router: EditorRouter
     ) {
         self.objectId = objectId
         self.objectDetailsService = objectDetailsService
-
-        self.onLayoutSettingsTap = onLayoutSettingsTap
+        
+        self.onLayoutSettingsTap = { [weak router] model in
+            router?.showLayoutPicker(viewModel: model)
+        }
         
         self.iconPickerViewModel = ObjectIconPickerViewModel(
             fileService: BlockActionsServiceFile(),
@@ -56,10 +56,17 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         
         self.relationsViewModel = RelationsListViewModel(
             relationsService: RelationsService(objectId: objectId),
-            onValueEditingTap: onRelationValueEditingTap
+            onValueEditingTap: { [weak router] in
+                router?.showRelationValueEditingView(key: $0, source: .object)
+            }
         )
 
-        self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId, popScreenAction: popScreenAction)
+        self.objectActionsViewModel = ObjectActionsViewModel(
+            objectId: objectId,
+            popScreenAction: { [weak router] in
+                router?.goBack()
+            }
+        )
     }
     
     func update(objectRestrictions: ObjectRestrictions, parsedRelations: ParsedRelations) {

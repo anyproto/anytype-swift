@@ -83,10 +83,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
         let details = document.objectDetails
-        let header = headerBuilder.objectHeaderForLocalEvent(
-            event,
-            details: details
-        )
+        let header = headerBuilder.objectHeaderForLocalEvent(event, details: details)
 
         updateHeaderIfNeeded(header: header, details: details)
     }
