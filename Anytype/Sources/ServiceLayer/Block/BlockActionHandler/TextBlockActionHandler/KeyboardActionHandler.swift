@@ -78,7 +78,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         case .enterAtTheBegining:
             service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
 
-        case .deleteAtTheBegining, .deleteForEmpty:
+        case .delete:
             onDelete(text: text, info: info, parent: parent)
         }
     }

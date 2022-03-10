@@ -20,24 +20,6 @@ public extension BlockInformation {
         }
     }
     
-    static var emptyText: BlockInformation {
-        empty(content: .text(.empty(contentType: .text)))
-    }
-    
-    static func empty(
-        id: BlockId = "", content: BlockContent
-    ) -> BlockInformation {
-        BlockInformation(
-            id: id,
-            content: content,
-            backgroundColor: nil,
-            alignment: .left,
-            childrenIds: [],
-            fields: [:],
-            metadata: BlockInformationMetadata()
-        )
-    }
-    
     var isTextAndEmpty: Bool {
         switch content {
         case .text(let textData):
