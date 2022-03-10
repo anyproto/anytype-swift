@@ -37,4 +37,5 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
     
     func goBack()
+    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
 }
