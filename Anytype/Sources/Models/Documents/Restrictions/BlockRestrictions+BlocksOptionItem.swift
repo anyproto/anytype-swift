@@ -53,6 +53,7 @@ extension Array where Element == BlockInformation {
         }
 
         mergedItems = restrictions.mergedOptions
+        mergedItems.insert(.copy)
 
         if !isDownloadAvailable || count > 1 {
             mergedItems.remove(.download)

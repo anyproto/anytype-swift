@@ -40,7 +40,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     // MARK: Actions
 
     func paste(blockId: BlockId, range: NSRange, slots: PastboardSlots) {
-        singleService.paste(contextId: documentId, focusedBlockId: blockId, selectedTextRange: range, isPartOfBlock: false, slots: slots)
+        singleService.paste(contextId: documentId, focusedBlockId: blockId, selectedTextRange: range, isPartOfBlock: true, slots: slots)
     }
 
     func paste(selectedBlockIds: [BlockId], slots: PastboardSlots) {
