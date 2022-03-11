@@ -238,7 +238,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func presentFullscreen(_ vc: UIViewController) {
-        rootController?.present(vc, animated: true)
+        rootController?.topPresentedController.present(vc, animated: true)
     }
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {

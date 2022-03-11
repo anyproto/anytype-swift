@@ -7,9 +7,9 @@ final class StatusRelationDetailsViewModel: ObservableObject {
     
     let source: RelationSource
         
-    private weak var delegate: AnytypePopupContentDelegate?
+    private weak var popup: AnytypePopupProxy?
     
-    let popupLayout: FloatingPanelLayout = FullScreenHeightPopupLayout()
+    let popupLayout = AnytypePopupLayoutType.fullScreen
 
     @Published var selectedStatus: Relation.Status.Option? {
         didSet {
@@ -70,7 +70,7 @@ extension StatusRelationDetailsViewModel {
     
     func saveValue(_ statusId: String?) {
         service.updateRelation(relationKey: relation.id, value: statusId?.protobufValue ?? nil)
-        delegate?.didAskToClose()
+        popup?.close()
     }
     
 }
@@ -81,8 +81,8 @@ extension StatusRelationDetailsViewModel: AnytypePopupViewModelProtocol {
         UIHostingController(rootView: StatusRelationDetailsView(viewModel: self))
     }
     
-    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
-        delegate = сontentDelegate
+    func onPopupInstall(_ popup: AnytypePopupProxy) {
+        self.popup = popup
     }
     
 }

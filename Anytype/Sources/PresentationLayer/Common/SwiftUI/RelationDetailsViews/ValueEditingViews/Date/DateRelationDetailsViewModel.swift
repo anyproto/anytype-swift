@@ -6,8 +6,8 @@ import Combine
 
 final class DateRelationDetailsViewModel: ObservableObject {
         
-    let popupLayout: FloatingPanelLayout = RelationOptionsPopupLayout()
-    private weak var delegate: AnytypePopupContentDelegate?
+    let popupLayout = AnytypePopupLayoutType.relationOptions
+    private weak var popup: AnytypePopupProxy?
 
     @Published var selectedValue: DateRelationDetailsValue {
         didSet {
@@ -50,8 +50,8 @@ extension DateRelationDetailsViewModel: AnytypePopupViewModelProtocol {
         UIHostingController(rootView:  DateRelationDetailsView(viewModel: self))
     }
     
-    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
-        delegate = сontentDelegate
+    func onPopupInstall(_ popup: AnytypePopupProxy) {
+        self.popup = popup
     }
 
 }

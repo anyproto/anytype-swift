@@ -2,12 +2,12 @@ import FloatingPanel
 import SwiftUI
 
 extension EditorSetViewModel: AnytypePopupViewModelProtocol {
-    var popupLayout: FloatingPanelLayout {
-        IntrinsicPopupLayout()
+    var popupLayout: AnytypePopupLayoutType {
+        .intrinsic
     }
     
-    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
-        popupDelegate = сontentDelegate
+    func onPopupInstall(_ popup: AnytypePopupProxy) {
+        self.popup = popup
     }
     
     func makeContentView() -> UIViewController {

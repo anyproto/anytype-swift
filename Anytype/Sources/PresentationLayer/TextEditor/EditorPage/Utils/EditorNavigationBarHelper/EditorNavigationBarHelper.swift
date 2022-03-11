@@ -33,7 +33,7 @@ final class EditorNavigationBarHelper {
         onDoneBarButtonItemTap: @escaping () -> Void
     ) {
         self.controller = viewController
-        self.settingsItem = EditorBarButtonItem(image: .editorNavigation.more, action: onSettingsBarButtonItemTap)
+        self.settingsItem = EditorBarButtonItem(image: .more, action: onSettingsBarButtonItemTap)
 
         self.doneBarButtonItem = UIBarButtonItem(
             title: "Done".localized,

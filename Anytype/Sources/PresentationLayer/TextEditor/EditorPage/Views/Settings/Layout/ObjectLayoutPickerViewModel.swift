@@ -15,9 +15,9 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     
     // MARK: - Private variables
     
-    private(set) var popupLayout: FloatingPanelLayout = IntrinsicPopupLayout()
+    private(set) var popupLayout: AnytypePopupLayoutType = .intrinsic
     
-    private weak var сontentDelegate: AnytypePopupContentDelegate?
+    private weak var popup: AnytypePopupProxy?
     
     private let detailsService: DetailsService
     
@@ -36,8 +36,8 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
 
 extension ObjectLayoutPickerViewModel: AnytypePopupViewModelProtocol {
     
-    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
-        self.сontentDelegate = сontentDelegate
+    func onPopupInstall(_ popup: AnytypePopupProxy) {
+        self.popup = popup
     }
     
     func makeContentView() -> UIViewController {

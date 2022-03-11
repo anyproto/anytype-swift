@@ -30,7 +30,7 @@ struct EditorSetViewPicker: View {
                     Button(action: {
                         model.updateActiveViewId(view.id)
                         withAnimation(.fastSpring) {
-                            model.popupDelegate?.didAskToClose()
+                            model.popup?.close()
                         }
                     }) {
                         AnytypeText(view.name, style: .uxBodyRegular, color: .textPrimary)

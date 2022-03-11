@@ -10,7 +10,7 @@ final class EditorSetViewModel: ObservableObject {
     
     @Published var pagitationData = EditorSetPaginationData.empty
     
-    weak var popupDelegate: AnytypePopupContentDelegate?
+    weak var popup: AnytypePopupProxy?
     
     var isEmpty: Bool {
         dataView.views.filter { $0.isSupported }.isEmpty
@@ -94,7 +94,7 @@ final class EditorSetViewModel: ObservableObject {
         setupDataview()
     }
     
-    private func onDataChange(_ data: EventsListenerUpdate) {
+    private func onDataChange(_ data: DocumentUpdate) {
         switch data {
         case .general:
             objectWillChange.send()

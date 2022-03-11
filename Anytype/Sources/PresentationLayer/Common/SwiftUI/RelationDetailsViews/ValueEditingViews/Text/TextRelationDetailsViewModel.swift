@@ -8,11 +8,11 @@ final class TextRelationDetailsViewModel: ObservableObject {
           
     weak var viewController: TextRelationDetailsViewController?
     
-    private weak var delegate: AnytypePopupContentDelegate?
+    private weak var popup: AnytypePopupProxy?
 
-    private(set) var popupLayout: FloatingPanelLayout = IntrinsicPopupLayout() {
+    private(set) var popupLayout: AnytypePopupLayoutType = .intrinsic {
         didSet {
-            delegate?.didAskInvalidateLayout(false)
+            popup?.updateLayout(false)
         }
     }
     
@@ -67,7 +67,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
 extension TextRelationDetailsViewModel {
     
     func updatePopupLayout(_ layoutGuide: UILayoutGuide) {
-        self.popupLayout = AdaptiveTextRelationDetailsPopupLayout(layout: layoutGuide)
+        self.popupLayout = .adaptiveTextRelationDetails(layoutGuide: layoutGuide)
     }
     
 }
@@ -80,8 +80,8 @@ extension TextRelationDetailsViewModel: AnytypePopupViewModelProtocol {
         return vc
     }
     
-    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
-        delegate = сontentDelegate
+    func onPopupInstall(_ popup: AnytypePopupProxy) {
+        self.popup = popup
     }
 }
 
@@ -113,7 +113,7 @@ private extension TextRelationDetailsViewModel {
     
     func adjustViewHeightBy(keyboardHeight: CGFloat) {
         viewController?.keyboardDidUpdateHeight(keyboardHeight)
-        delegate?.didAskInvalidateLayout(true)
+        popup?.updateLayout(true)
     }
     
     func handleValueUpdate(value: String) {
