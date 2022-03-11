@@ -83,7 +83,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         updateHeaderIfNeeded(header: header, details: details)
     }
     
-    private func handleUpdate(updateResult: EventsListenerUpdate) {
+    private func handleUpdate(updateResult: DocumentUpdate) {
         switch updateResult {
 
         case .general:

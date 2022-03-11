@@ -414,7 +414,7 @@
 		3D24913327BD271900821595 /* SubscriptionsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24912627BD271900821595 /* SubscriptionsServiceProtocol.swift */; };
 		3D24913427BD271900821595 /* LocalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24912827BD271900821595 /* LocalEvent.swift */; };
 		3D24913527BD271900821595 /* EventsBunch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24912927BD271900821595 /* EventsBunch.swift */; };
-		3D24913627BD271900821595 /* EventsListenerUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24912A27BD271900821595 /* EventsListenerUpdate.swift */; };
+		3D24913627BD271900821595 /* DocumentUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D24912A27BD271900821595 /* DocumentUpdate.swift */; };
 		3D28A470271DAC9F009A0D48 /* HomeTabsHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D28A46F271DAC9F009A0D48 /* HomeTabsHeader.swift */; };
 		3D28A476271DCDF4009A0D48 /* DashboardSelectionActionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D28A475271DCDF4009A0D48 /* DashboardSelectionActionsView.swift */; };
 		3D2D4C5B27BA54030070A4C6 /* Divider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2D4C5A27BA54030070A4C6 /* Divider.swift */; };
@@ -1328,7 +1328,7 @@
 		3D24912627BD271900821595 /* SubscriptionsServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubscriptionsServiceProtocol.swift; sourceTree = "<group>"; };
 		3D24912827BD271900821595 /* LocalEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalEvent.swift; sourceTree = "<group>"; };
 		3D24912927BD271900821595 /* EventsBunch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsBunch.swift; sourceTree = "<group>"; };
-		3D24912A27BD271900821595 /* EventsListenerUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventsListenerUpdate.swift; sourceTree = "<group>"; };
+		3D24912A27BD271900821595 /* DocumentUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DocumentUpdate.swift; sourceTree = "<group>"; };
 		3D28A46F271DAC9F009A0D48 /* HomeTabsHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsHeader.swift; sourceTree = "<group>"; };
 		3D28A475271DCDF4009A0D48 /* DashboardSelectionActionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardSelectionActionsView.swift; sourceTree = "<group>"; };
 		3D2D4C5A27BA54030070A4C6 /* Divider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Divider.swift; sourceTree = "<group>"; };
@@ -3743,7 +3743,7 @@
 				3D30408B27DA92F900FFE0EB /* ObjectHeaderLocalEvent.swift */,
 				3D24912827BD271900821595 /* LocalEvent.swift */,
 				3D24912927BD271900821595 /* EventsBunch.swift */,
-				3D24912A27BD271900821595 /* EventsListenerUpdate.swift */,
+				3D24912A27BD271900821595 /* DocumentUpdate.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -6629,7 +6629,7 @@
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,
 				3D3040AD27DB5A7300FFE0EB /* AnytypePopupLayoutType.swift in Sources */,
 				3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */,
-				3D24913627BD271900821595 /* EventsListenerUpdate.swift in Sources */,
+				3D24913627BD271900821595 /* DocumentUpdate.swift in Sources */,
 				12CAF34E26D64440001E56B2 /* TodoIconImageGuideline.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
 				C9367AB7273153D2007D687A /* BlocksSelectionOverlayView.swift in Sources */,
