@@ -52,8 +52,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let contextualMenuView = EditorContextualMenuView(
             options: [.dismiss, .createBookmark],
             optionTapHandler: { [weak rootController] option in
-                    rootController?.presentedViewController?.dismiss(animated: false, completion: nil)
-                    inputParameters.optionHandler(option)
+                rootController?.presentedViewController?.dismiss(animated: false, completion: nil)
+                inputParameters.optionHandler(option)
             }
         )
 
@@ -241,7 +241,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         rootController?.present(vc, animated: true)
     }
     
-    func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
+    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
+        rootController?.setNavigationViewHidden(isHidden, animated: animated)
+    }
+    
+    private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = viewController else { return }
         
         let controller = UIHostingController(rootView: view)
@@ -249,7 +253,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         viewController.present(controller, animated: true)
     }
     
-    func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
+    private func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = rootController else { return }
         
         let controller = UIHostingController(rootView: view)

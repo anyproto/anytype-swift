@@ -73,6 +73,7 @@ final class EditorSetViewModel: ObservableObject {
             return
         }
         setupSubscriptions()
+        router?.setNavigationViewHidden(false, animated: true)
     }
     
     func onDisappear() {
