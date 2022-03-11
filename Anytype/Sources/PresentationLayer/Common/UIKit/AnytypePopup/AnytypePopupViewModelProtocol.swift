@@ -4,7 +4,7 @@ import FloatingPanel
 
 protocol AnytypePopupViewModelProtocol {
     
-    var popupLayout: FloatingPanelLayout { get }
+    var popupLayout: AnytypePopupLayoutType { get }
     
     func onPopupInstall(_ popup: AnytypePopupProxy)
     

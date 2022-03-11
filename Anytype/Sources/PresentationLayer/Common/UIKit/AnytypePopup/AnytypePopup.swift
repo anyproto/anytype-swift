@@ -57,11 +57,11 @@ extension AnytypePopup: AnytypePopupProxy {
 extension AnytypePopup: FloatingPanelControllerDelegate {
     
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor size: CGSize) -> FloatingPanelLayout {
-        viewModel.popupLayout
+        viewModel.popupLayout.layout
     }
     
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
-        viewModel.popupLayout
+        viewModel.popupLayout.layout
     }
     
 }

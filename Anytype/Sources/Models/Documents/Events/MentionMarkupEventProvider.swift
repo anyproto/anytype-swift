@@ -18,7 +18,7 @@ final class MentionMarkupEventProvider {
         self.detailsStorage = detailsStorage
     }
     
-    func updateMentionsEvent() -> EventsListenerUpdate {
+    func updateMentionsEvent() -> DocumentUpdate {
         let blockIds = infoContainer
             .children(of: objectId)
             .compactMap { updateIfNeeded(info: $0) }

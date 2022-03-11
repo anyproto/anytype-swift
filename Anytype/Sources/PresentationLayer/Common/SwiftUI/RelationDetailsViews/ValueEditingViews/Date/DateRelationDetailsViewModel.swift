@@ -6,7 +6,7 @@ import Combine
 
 final class DateRelationDetailsViewModel: ObservableObject {
         
-    let popupLayout: FloatingPanelLayout = RelationOptionsPopupLayout()
+    let popupLayout = AnytypePopupLayoutType.relationOptions
     private weak var popup: AnytypePopupProxy?
 
     @Published var selectedValue: DateRelationDetailsValue {

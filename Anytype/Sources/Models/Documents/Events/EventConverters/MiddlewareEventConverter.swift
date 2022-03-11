@@ -26,7 +26,7 @@ final class MiddlewareEventConverter {
         self.restrictionsContainer = restrictionsContainer
     }
     
-    func convert(_ event: Anytype_Event.Message.OneOf_Value) -> EventsListenerUpdate? {
+    func convert(_ event: Anytype_Event.Message.OneOf_Value) -> DocumentUpdate? {
         switch event {
         case let .threadStatus(status):
             return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
@@ -368,7 +368,7 @@ final class MiddlewareEventConverter {
         }
     }
     
-    private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> EventsListenerUpdate {
+    private func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text) -> DocumentUpdate {
         guard let info = infoContainer.get(id: newData.id) else {
             anytypeAssertionFailure(
                 "Block model with id \(newData.id) not found in container",

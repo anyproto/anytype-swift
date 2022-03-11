@@ -4,7 +4,7 @@ import AnytypeCore
 
 
 final class BaseDocument: BaseDocumentProtocol {
-    var updatePublisher: AnyPublisher<EventsListenerUpdate, Never> { updateSubject.eraseToAnyPublisher() }
+    var updatePublisher: AnyPublisher<DocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     let objectId: BlockId
     private(set) var isOpened = false
 
@@ -18,7 +18,7 @@ final class BaseDocument: BaseDocumentProtocol {
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     private let eventsListener: EventsListener
-    private let updateSubject = PassthroughSubject<EventsListenerUpdate, Never>()
+    private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
     private let relationBuilder = RelationsBuilder()
     private let detailsStorage = ObjectDetailsStorage.shared
 

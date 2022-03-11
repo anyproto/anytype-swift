@@ -6,7 +6,7 @@ import AnytypeCore
 final class RelationOptionsViewModel: ObservableObject {
             
     @Published var selectedOptions: [RelationOptionProtocol] = []
-    private(set) var popupLayout: FloatingPanelLayout = RelationOptionsPopupLayout() {
+    private(set) var popupLayout: AnytypePopupLayoutType = .relationOptions {
         didSet {
             popup?.updateLayout(true)
         }
@@ -126,7 +126,7 @@ extension RelationOptionsViewModel {
     }
     
     private func updateLayout() {
-        popupLayout = selectedOptions.isNotEmpty ? RelationOptionsPopupLayout() : ConstantHeightPopupLayout(height: 150, insetted: false)
+        popupLayout = selectedOptions.isNotEmpty ? .relationOptions : .constantHeight(height: 150, floatingPanelStyle: false)
     }
     
 }

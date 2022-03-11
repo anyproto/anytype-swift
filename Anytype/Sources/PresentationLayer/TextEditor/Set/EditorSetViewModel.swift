@@ -93,7 +93,7 @@ final class EditorSetViewModel: ObservableObject {
         setupDataview()
     }
     
-    private func onDataChange(_ data: EventsListenerUpdate) {
+    private func onDataChange(_ data: DocumentUpdate) {
         switch data {
         case .general:
             objectWillChange.send()
