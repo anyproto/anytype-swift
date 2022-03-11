@@ -85,15 +85,7 @@ final class EditorAssembly {
             objectDetailsService: DetailsService(
                 objectId: document.objectId
             ),
-            popScreenAction: { [weak router] in
-                router?.goBack()
-            },
-            onLayoutSettingsTap: { [weak router] layoutPickerViewModel in
-                router?.showLayoutPicker(viewModel: layoutPickerViewModel)
-            },
-            onRelationValueEditingTap: { [weak router] in
-                router?.showRelationValueEditingView(key: $0, source: .object)
-            }
+            router: router
         )
                 
         let modelsHolder = EditorMainItemModelsHolder()

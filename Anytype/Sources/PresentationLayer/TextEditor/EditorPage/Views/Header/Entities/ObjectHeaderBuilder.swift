@@ -27,37 +27,36 @@ final class ObjectHeaderBuilder {
         self.router = router
     }
     
-    // MARK: - Internal functions
-    
-    func objectHeader(details: ObjectDetails?) -> ObjectHeader {
+    func header(details: ObjectDetails?) -> ObjectHeader {
         guard let details = details else {
             return .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
         }
         return buildObjectHeader(details: details)
     }
     
-    func objectHeaderForLocalEvent(_ event: ObjectHeaderLocalEvent, details: ObjectDetails?) -> ObjectHeader {
+    func updatedHeader(_ update: ObjectHeaderUpdate, details: ObjectDetails?) -> ObjectHeader {
         guard let details = details else {
-            return fakeHeader(event: event)
+            return fakeHeader(update: update)
         }
         
         let header = buildObjectHeader(details: details)
         
-        return header.modifiedByLocalEvent(
-            event,
+        return header.modifiedByUpdate(
+            update,
             onIconTap: onIconTap,
             onCoverTap: onCoverTap
         ) ?? .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
     }
     
-    private func fakeHeader(event: ObjectHeaderLocalEvent) -> ObjectHeader {
-        switch event {
-        case .iconUploading(let uIImage):
+    // MARK: - Private
+    private func fakeHeader(update: ObjectHeaderUpdate) -> ObjectHeader {
+        switch update {
+        case .iconUploading(let path):
             return ObjectHeader.filled(
                 .iconOnly(
                     ObjectHeaderIconOnlyState(
                         icon: ObjectHeaderIcon(
-                            icon: .basicPreview(uIImage),
+                            icon: .basicPreview(UIImage(contentsOfFile: path)),
                             layoutAlignment: .left,
                             onTap: onIconTap
                         ),
@@ -65,11 +64,11 @@ final class ObjectHeaderBuilder {
                     )
                 )
             )
-        case .coverUploading(let uIImage):
+        case .coverUploading(let path):
             return ObjectHeader.filled(
                 .coverOnly(
                     ObjectHeaderCover(
-                        coverType: .preview(uIImage),
+                        coverType: .preview(UIImage(contentsOfFile: path)),
                         onTap: onCoverTap
                     )
                 )
