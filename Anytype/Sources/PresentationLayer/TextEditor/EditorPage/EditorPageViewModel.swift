@@ -17,7 +17,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     let router: EditorRouterProtocol
     
-    private let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
     private let cursorManager: EditorCursorManager
     let objectSettingsViewModel: ObjectSettingsViewModel
     let actionHandler: BlockActionHandlerProtocol
@@ -72,18 +71,14 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
 
     private func setupSubscriptions() {
-        objectHeaderLocalEventsListener.beginObservingEvents { [weak self] event in
-            self?.handleObjectHeaderLocalEvent(event)
-        }
-
         document.updatePublisher.sink { [weak self] in
             self?.handleUpdate(updateResult: $0)
         }.store(in: &cancellables)
     }
     
-    private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
+    private func updateHeader(_ update: ObjectHeaderUpdate) {
         let details = document.objectDetails
-        let header = headerBuilder.objectHeaderForLocalEvent(event, details: details)
+        let header = headerBuilder.updatedHeader(update, details: details)
 
         updateHeaderIfNeeded(header: header, details: details)
     }
@@ -103,7 +98,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             
             #warning("also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details")
             let details = document.objectDetails
-            let header = headerBuilder.objectHeader(details: details)
+            let header = headerBuilder.header(details: details)
 
             objectSettingsViewModel.update(
                 objectRestrictions: document.objectRestrictions,
@@ -138,6 +133,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             modelsHolder.items = blocksViewModels
 
             viewInput?.update(changes: nil, allModels: blocksViewModels)
+        case .header(let update):
+            updateHeader(update)
         }
     }
     
@@ -233,7 +230,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         }
         
         let details = document.objectDetails
-        let header = headerBuilder.objectHeader(details: details)
+        let header = headerBuilder.header(details: details)
         updateHeaderIfNeeded(header: header, details: details)
         viewInput?.update(changes: difference, allModels: modelsHolder.items)
 

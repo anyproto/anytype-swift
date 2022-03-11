@@ -4,13 +4,19 @@ import AnytypeCore
 
 final class ObjectHeaderImageUploadingWorker {
     
+    private let objectId: BlockId
     private var uploadedImageHash: Hash?
     
     private let fileService = BlockActionsServiceFile()
     private let detailsService: DetailsService
     private let usecase: ObjectHeaderImageUsecase
     
-    init(detailsService: DetailsService, usecase: ObjectHeaderImageUsecase) {
+    init(
+        objectId: BlockId,
+        detailsService: DetailsService,
+        usecase: ObjectHeaderImageUsecase
+    ) {
+        self.objectId = objectId
         self.detailsService = detailsService
         self.usecase = usecase
     }
@@ -28,17 +34,21 @@ extension ObjectHeaderImageUploadingWorker: MediaFileUploadingWorkerProtocol {
     }
     
     func prepare() {
-        NotificationCenter.default.post(
-            name: usecase.notificationName,
-            object: ""
-        )
+        EventsBunch(
+            contextId: objectId,
+            localEvents: [
+                usecase.localEvent(path: "")
+            ]
+        ).send()
     }
     
     func upload(_ localPath: String) {
-        NotificationCenter.default.post(
-            name: usecase.notificationName,
-            object: localPath
-        )
+        EventsBunch(
+            contextId: objectId,
+            localEvents: [
+                usecase.localEvent(path: localPath)
+            ]
+        ).send()
         uploadedImageHash = fileService.syncUploadImageAt(localPath: localPath)
     }
     

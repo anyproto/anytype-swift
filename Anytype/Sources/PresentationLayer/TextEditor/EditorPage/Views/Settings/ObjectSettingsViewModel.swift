@@ -42,10 +42,12 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         }
         
         self.iconPickerViewModel = ObjectIconPickerViewModel(
+            objectId: objectId,
             fileService: BlockActionsServiceFile(),
             detailsService: objectDetailsService
         )
         self.coverPickerViewModel = ObjectCoverPickerViewModel(
+            objectId: objectId,
             fileService: BlockActionsServiceFile(),
             detailsService: objectDetailsService
         )
