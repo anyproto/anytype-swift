@@ -10,7 +10,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
     
     private weak var popup: AnytypePopupProxy?
 
-    private(set) var popupLayout: FloatingPanelLayout = IntrinsicPopupLayout() {
+    private(set) var popupLayout: AnytypePopupLayoutType = .intrinsic {
         didSet {
             popup?.updateLayout(false)
         }
@@ -67,7 +67,7 @@ final class TextRelationDetailsViewModel: ObservableObject {
 extension TextRelationDetailsViewModel {
     
     func updatePopupLayout(_ layoutGuide: UILayoutGuide) {
-        self.popupLayout = AdaptiveTextRelationDetailsPopupLayout(layout: layoutGuide)
+        self.popupLayout = .adaptiveTextRelationDetails(layoutGuide: layoutGuide)
     }
     
 }
