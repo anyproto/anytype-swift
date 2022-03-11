@@ -42,7 +42,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         document: BaseDocumentProtocol,
         viewInput: EditorPageViewInput,
         blockDelegate: BlockDelegate,
-        objectSettinsViewModel: ObjectSettingsViewModel,
+        objectSettingsViewModel: ObjectSettingsViewModel,
         router: EditorRouterProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockBuilder: BlockViewModelBuilder,
@@ -53,7 +53,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager
     ) {
-        self.objectSettingsViewModel = objectSettinsViewModel
+        self.objectSettingsViewModel = objectSettingsViewModel
         self.viewInput = viewInput
         self.document = document
         self.router = router
