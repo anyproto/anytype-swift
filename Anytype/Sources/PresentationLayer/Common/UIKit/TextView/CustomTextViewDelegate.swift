@@ -21,5 +21,5 @@ protocol CustomTextViewDelegate: AnyObject {
     func keyboardAction(_ action: CustomTextView.KeyboardAction)
     func shouldChangeText(range: NSRange, replacementText: String) -> Bool
 
-    func paste(range: NSRange) -> Bool
+    func shouldPaste(range: NSRange) -> Bool
 }

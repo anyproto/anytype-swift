@@ -7,7 +7,7 @@ struct PastboardSlots {
     let htmlSlot: String?
 
     var onlyTextSlotAvailable: Bool {
-        return textSlot.isNotNil && htmlSlot.isNil
+        textSlot.isNotNil && htmlSlot.isNil
     }
 }
 
