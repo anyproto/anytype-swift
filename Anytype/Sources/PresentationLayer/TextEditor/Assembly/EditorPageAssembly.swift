@@ -80,7 +80,7 @@ final class EditorAssembly {
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel
     ) -> EditorPageViewModel {
         
-        let objectSettinsViewModel = ObjectSettingsViewModel(
+        let objectSettingsViewModel = ObjectSettingsViewModel(
             objectId: document.objectId,
             objectDetailsService: DetailsService(
                 objectId: document.objectId
@@ -140,7 +140,7 @@ final class EditorAssembly {
         )
         
         let headerBuilder = ObjectHeaderBuilder(
-            settingsViewModel: objectSettinsViewModel,
+            settingsViewModel: objectSettingsViewModel,
             router: router
         )
 
@@ -161,7 +161,7 @@ final class EditorAssembly {
             document: document,
             viewInput: viewInput,
             blockDelegate: blockDelegate,
-            objectSettinsViewModel: objectSettinsViewModel,
+            objectSettingsViewModel: objectSettingsViewModel,
             router: router,
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,

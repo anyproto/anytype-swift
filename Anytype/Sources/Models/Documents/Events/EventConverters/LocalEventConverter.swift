@@ -10,7 +10,7 @@ final class LocalEventConverter {
         self.infoContainer = infoContainer
     }
     
-    func convert(_ event: LocalEvent) -> EventsListenerUpdate? {
+    func convert(_ event: LocalEvent) -> DocumentUpdate? {
         switch event {
         case .setToggled, .documentClosed:
             return .general
@@ -40,7 +40,7 @@ final class LocalEventConverter {
     // simplified version of inner converter method
     // func blockSetTextUpdate(_ newData: Anytype_Event.Block.Set.Text)
     // only text is changed
-    private func blockSetTextUpdate(blockId: BlockId, text: MiddlewareString) -> EventsListenerUpdate {
+    private func blockSetTextUpdate(blockId: BlockId, text: MiddlewareString) -> DocumentUpdate {
         guard var info = infoContainer.get(id: blockId) else {
             anytypeAssertionFailure("Block model with id \(blockId) not found in container", domain: .localEventConverter)
             return .general

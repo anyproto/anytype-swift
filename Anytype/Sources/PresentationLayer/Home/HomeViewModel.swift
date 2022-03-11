@@ -139,7 +139,7 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    private func onDashboardChange(update: EventsListenerUpdate) {
+    private func onDashboardChange(update: DocumentUpdate) {
         withAnimation(.spring()) {
             switch update {
             case .general:

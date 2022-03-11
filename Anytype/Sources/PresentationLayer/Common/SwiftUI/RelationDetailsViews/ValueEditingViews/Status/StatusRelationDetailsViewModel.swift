@@ -9,7 +9,7 @@ final class StatusRelationDetailsViewModel: ObservableObject {
         
     private weak var popup: AnytypePopupProxy?
     
-    let popupLayout: FloatingPanelLayout = FullScreenHeightPopupLayout()
+    let popupLayout = AnytypePopupLayoutType.fullScreen
 
     @Published var selectedStatus: Relation.Status.Option? {
         didSet {

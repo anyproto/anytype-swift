@@ -15,7 +15,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     
     // MARK: - Private variables
     
-    private(set) var popupLayout: FloatingPanelLayout = IntrinsicPopupLayout()
+    private(set) var popupLayout: AnytypePopupLayoutType = .intrinsic
     
     private weak var popup: AnytypePopupProxy?
     

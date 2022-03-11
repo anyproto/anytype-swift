@@ -1,7 +1,7 @@
 import BlocksModels
 import AnytypeCore
 
-enum EventsListenerUpdate: Hashable {
+enum DocumentUpdate: Hashable {
     case general
     case syncStatus(SyncStatus)
     case blocks(blockIds: Set<BlockId>)
