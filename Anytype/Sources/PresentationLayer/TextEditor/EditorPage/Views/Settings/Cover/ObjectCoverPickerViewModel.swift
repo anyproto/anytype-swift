@@ -17,13 +17,15 @@ final class ObjectCoverPickerViewModel: ObservableObject {
 
     // MARK: - Private variables
     
+    private let objectId: BlockId
     private let imageUploadingDemon = MediaFileUploadingDemon.shared
     private let fileService: BlockActionsServiceFile
     private let detailsService: DetailsService
         
     // MARK: - Initializer
     
-    init(fileService: BlockActionsServiceFile, detailsService: DetailsService) {
+    init(objectId: BlockId, fileService: BlockActionsServiceFile, detailsService: DetailsService) {
+        self.objectId = objectId
         self.fileService = fileService
         self.detailsService = detailsService
     }
@@ -52,6 +54,7 @@ extension ObjectCoverPickerViewModel {
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: ObjectHeaderImageUploadingWorker(
+                objectId: objectId,
                 detailsService: detailsService,
                 usecase: .cover
             )

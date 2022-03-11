@@ -55,13 +55,12 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     let document: BaseDocument
-    var router: EditorRouterProtocol?
+    var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
-
     
     init(document: BaseDocument) {
         self.document = document
@@ -69,6 +68,10 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onAppear() {
+        guard document.isOpened else {
+            router.goBack()
+            return
+        }
         setupSubscriptions()
     }
     
@@ -77,7 +80,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func showViewPicker() {
-        router?.presentFullscreen(AnytypePopup(viewModel: self))
+        router.presentFullscreen(AnytypePopup(viewModel: self))
     }
     
     // MARK: - Private
@@ -86,9 +89,7 @@ final class EditorSetViewModel: ObservableObject {
             self?.onDataChange($0)
         }
         
-        if !document.open() {
-            router?.goBack()
-        }
+        document.open()
         setupDataview()
     }
     
@@ -99,6 +100,9 @@ final class EditorSetViewModel: ObservableObject {
             setupDataview()
         case .syncStatus, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
+        case .header(let data):
+            // TODO:
+            break
         }
     }
     
