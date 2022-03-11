@@ -6,8 +6,8 @@ extension EditorSetViewModel: AnytypePopupViewModelProtocol {
         IntrinsicPopupLayout()
     }
     
-    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
-        popupDelegate = сontentDelegate
+    func onPopupInstall(_ popup: AnytypePopupProxy) {
+        self.popup = popup
     }
     
     func makeContentView() -> UIViewController {

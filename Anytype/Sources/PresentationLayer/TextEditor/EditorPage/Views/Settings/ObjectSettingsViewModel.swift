@@ -23,7 +23,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     
     private(set) var popupLayout: FloatingPanelLayout = ConstantHeightPopupLayout(height: 0, insetted: true)
     
-    private weak var сontentDelegate: AnytypePopupContentDelegate?
+    private weak var popup: AnytypePopupProxy?
     private let objectId: String
     private let objectDetailsService: DetailsService
     
@@ -89,7 +89,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     
     func viewDidUpdateHeight(_ height: CGFloat) {
         popupLayout = ConstantHeightPopupLayout(height: height, insetted: true)
-        сontentDelegate?.didAskInvalidateLayout(false)
+        popup?.updateLayout(false)
     }
     
 }
@@ -119,8 +119,8 @@ extension ObjectSettingsViewModel {
 
 extension ObjectSettingsViewModel: AnytypePopupViewModelProtocol {
     
-    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
-        self.сontentDelegate = сontentDelegate
+    func onPopupInstall(_ popup: AnytypePopupProxy) {
+        self.popup = popup
     }
     
     func makeContentView() -> UIViewController {

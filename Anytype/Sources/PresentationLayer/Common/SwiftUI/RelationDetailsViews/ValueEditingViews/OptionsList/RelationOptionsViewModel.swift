@@ -8,11 +8,11 @@ final class RelationOptionsViewModel: ObservableObject {
     @Published var selectedOptions: [RelationOptionProtocol] = []
     private(set) var popupLayout: FloatingPanelLayout = RelationOptionsPopupLayout() {
         didSet {
-            delegate?.didAskInvalidateLayout(true)
+            popup?.updateLayout(true)
         }
     }
 
-    private weak var delegate: AnytypePopupContentDelegate?
+    private weak var popup: AnytypePopupProxy?
 
     private let source: RelationSource
     private let type: RelationOptionsType
@@ -122,7 +122,7 @@ extension RelationOptionsViewModel {
             value: newSelectedOptionsIds.protobufValue
         )
         
-        delegate?.didAskToClose()
+        popup?.close()
     }
     
     private func updateLayout() {
@@ -137,8 +137,8 @@ extension RelationOptionsViewModel: AnytypePopupViewModelProtocol {
         UIHostingController(rootView: RelationOptionsView(viewModel: self))
     }
     
-    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
-        delegate = сontentDelegate
+    func onPopupInstall(_ popup: AnytypePopupProxy) {
+        self.popup = popup
     }
     
 }

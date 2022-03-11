@@ -18,7 +18,7 @@ final class AnytypePopup: FloatingPanelController {
         
         super.init(delegate: nil)
         
-        viewModel.setContentDelegate(self)
+        viewModel.onPopupInstall(self)
         
         setup()
     }
@@ -32,9 +32,9 @@ final class AnytypePopup: FloatingPanelController {
 
 // MARK: - RelationDetailsViewModelDelegate
 
-extension AnytypePopup: AnytypePopupContentDelegate {
+extension AnytypePopup: AnytypePopupProxy {
     
-    func didAskInvalidateLayout(_ animated: Bool) {
+    func updateLayout(_ animated: Bool) {
         if animated {
             UIView.animate(withDuration: 0.3) {
                 self.invalidateLayout()
@@ -44,7 +44,7 @@ extension AnytypePopup: AnytypePopupContentDelegate {
         }
     }
     
-    func didAskToClose() {
+    func close() {
         hide(animated: true) {
             self.dismiss(animated: false)
         }
