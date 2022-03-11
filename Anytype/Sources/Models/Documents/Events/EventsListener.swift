@@ -8,7 +8,7 @@ final class EventsListener: EventsListenerProtocol {
     
     // MARK: - Internal variables
     
-    var onUpdateReceive: ((EventsListenerUpdate) -> Void)?
+    var onUpdateReceive: ((DocumentUpdate) -> Void)?
         
     // MARK: - Private variables
     
