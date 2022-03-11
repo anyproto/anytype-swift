@@ -6,7 +6,6 @@ struct EditorSetViewPicker: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            DragIndicator()
             Spacer.fixedHeight(12)
             AnytypeText("Views".localized, style: .uxTitle1Semibold, color: .textPrimary)
             
@@ -31,7 +30,7 @@ struct EditorSetViewPicker: View {
                     Button(action: {
                         model.updateActiveViewId(view.id)
                         withAnimation(.fastSpring) {
-                            model.showViewPicker = false
+                            model.popupDelegate?.didAskToClose()
                         }
                     }) {
                         AnytypeText(view.name, style: .uxBodyRegular, color: .textPrimary)

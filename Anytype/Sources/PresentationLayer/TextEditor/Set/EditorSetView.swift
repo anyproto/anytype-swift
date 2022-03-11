@@ -36,11 +36,6 @@ struct EditorSetView: View {
         }
         .ignoresSafeArea(edges: .top)
         .navigationBarHidden(true)
-        
-        .sheet(isPresented: $model.showViewPicker) {
-            EditorSetViewPicker()
-                .cornerRadius(16, corners: .top)
-        }
     }
 }
 

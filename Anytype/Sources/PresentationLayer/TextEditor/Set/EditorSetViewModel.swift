@@ -8,9 +8,9 @@ final class EditorSetViewModel: ObservableObject {
     @Published var dataView = BlockDataview.empty
     @Published private var records: [ObjectDetails] = []
     
-    @Published var showViewPicker = false
-    
     @Published var pagitationData = EditorSetPaginationData.empty
+    
+    weak var popupDelegate: AnytypePopupContentDelegate?
     
     var isEmpty: Bool {
         dataView.views.filter { $0.isSupported }.isEmpty
@@ -55,13 +55,12 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     let document: BaseDocument
-    var router: EditorRouterProtocol?
+    var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
-
     
     init(document: BaseDocument) {
         self.document = document
@@ -69,6 +68,10 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onAppear() {
+        guard document.isOpened else {
+            router.goBack()
+            return
+        }
         setupSubscriptions()
         router?.setNavigationViewHidden(false, animated: true)
     }
@@ -77,15 +80,17 @@ final class EditorSetViewModel: ObservableObject {
         subscriptionService.stopAllSubscriptions()
     }
     
+    func showViewPicker() {
+        router.presentFullscreen(AnytypePopup(viewModel: self))
+    }
+    
     // MARK: - Private
     private func setup() {
         subscription = document.updatePublisher.sink { [weak self] in
             self?.onDataChange($0)
         }
         
-        if !document.open() {
-            router?.goBack()
-        }
+        document.open()
         setupDataview()
     }
     
@@ -96,6 +101,9 @@ final class EditorSetViewModel: ObservableObject {
             setupDataview()
         case .syncStatus, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
+        case .header(let data):
+            // TODO:
+            break
         }
     }
     

@@ -1,11 +1,3 @@
-//
-//  ObjectHeaderImageUsecase.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 05.10.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import BlocksModels
 import AnytypeCore
@@ -13,16 +5,13 @@ import AnytypeCore
 enum ObjectHeaderImageUsecase {
     case icon
     case cover
-}
-
-extension ObjectHeaderImageUsecase {
     
-    var notificationName: Notification.Name {
+    func localEvent(path: String) -> LocalEvent {
         switch self {
         case .icon:
-            return .documentIconImageUploadingEvent
+            return .header(.iconUploading(path))
         case .cover:
-            return .documentCoverImageUploadingEvent
+            return .header(.coverUploading(path))
         }
     }
     

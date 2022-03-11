@@ -2,21 +2,21 @@ import UIKit
 
 extension ObjectHeader {
     
-    func modifiedByLocalEvent(
-        _ event: ObjectHeaderLocalEvent,
+    func modifiedByUpdate(
+        _ update: ObjectHeaderUpdate,
         onIconTap: @escaping () -> (),
         onCoverTap: @escaping () -> ()
     ) -> ObjectHeader? {
-        switch event {
-        case .iconUploading(let uIImage):
+        switch update {
+        case .iconUploading(let path):
             return modifiedByIconUploadingEventWith(
-                image: uIImage,
+                image: UIImage(contentsOfFile: path),
                 onIconTap: onIconTap,
                 onCoverTap: onCoverTap
             )
-        case .coverUploading(let uIImage):
+        case .coverUploading(let path):
             return modifiedByCoverUploadingEventWith(
-                image: uIImage,
+                image: UIImage(contentsOfFile: path),
                 onCoverTap: onCoverTap
             )
         }
