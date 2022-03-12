@@ -1,29 +1,20 @@
-//
-//  NewSearchView+ListModel.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 12.03.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import Foundation
 
 extension NewSearchView {
     
     enum ListModel {
         case plain(rows: [NewSearchRowConfiguration])
-        case sectioned
+        case sectioned(sectinos: [NewSearchSectionConfiguration])
     }
     
 }
-
 
 extension NewSearchView.ListModel {
     
     var isEmpty: Bool {
         switch self {
-        case .plain(rows: let rows): return rows.isEmpty
-        case .sectioned: return false
+        case .plain(let rows): return rows.isEmpty
+        case .sectioned(let sections): return sections.isEmpty
         }
     }
     

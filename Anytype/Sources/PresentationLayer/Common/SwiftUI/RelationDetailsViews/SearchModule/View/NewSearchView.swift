@@ -52,19 +52,29 @@ struct NewSearchView: View {
         ScrollView {
             LazyVStack(spacing: 0) {
                 switch viewModel.listModel {
-                case .plain(rows: let rows):
-                    ForEach(rows) { row in
-                        Button {
-                            viewModel.didSelectRow(with: row.id)
-                        } label: {
-                            row.rowBuilder()
+                case .plain(let rows):
+                    rowViews(rows: rows)
+                case .sectioned(let sections):
+                    ForEach(sections) { section in
+                        Section(
+                            header: RelationOptionsSectionHeaderView(title: section.title)
+                        ) {
+                            rowViews(rows: section.rows)
                         }
                     }
-                case .sectioned:
-                    EmptyView()
                 }
             }
             .padding(.bottom, 10)
+        }
+    }
+    
+    private func rowViews(rows: [NewSearchRowConfiguration]) -> some View {
+        ForEach(rows) { row in
+            Button {
+                viewModel.didSelectRow(with: row.id)
+            } label: {
+                row.rowBuilder()
+            }
         }
     }
     
