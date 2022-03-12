@@ -176,6 +176,8 @@
 		1244792227D8A8BE00581174 /* StatusSearchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244792127D8A8BE00581174 /* StatusSearchRowView.swift */; };
 		1244792427D8AE4100581174 /* NewSearchModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244792327D8AE4100581174 /* NewSearchModuleAssembly.swift */; };
 		1244793127DC575D00581174 /* NewSearchRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244793027DC575D00581174 /* NewSearchRowConfiguration.swift */; };
+		1244793D27DC626B00581174 /* NewSearchViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244793C27DC626B00581174 /* NewSearchViewModelProtocol.swift */; };
+		1244793F27DC633700581174 /* NewSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244793E27DC633700581174 /* NewSearchViewModel.swift */; };
 		12450D4727A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12450D4627A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift */; };
 		12461BFC2767837000D47708 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12461BFB2767837000D47708 /* TagView.swift */; };
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
@@ -1100,6 +1102,8 @@
 		1244792127D8A8BE00581174 /* StatusSearchRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSearchRowView.swift; sourceTree = "<group>"; };
 		1244792327D8AE4100581174 /* NewSearchModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchModuleAssembly.swift; sourceTree = "<group>"; };
 		1244793027DC575D00581174 /* NewSearchRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchRowConfiguration.swift; sourceTree = "<group>"; };
+		1244793C27DC626B00581174 /* NewSearchViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchViewModelProtocol.swift; sourceTree = "<group>"; };
+		1244793E27DC633700581174 /* NewSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchViewModel.swift; sourceTree = "<group>"; };
 		12450D4627A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveTextRelationDetailsPopupLayout.swift; sourceTree = "<group>"; };
 		12461BFB2767837000D47708 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -2852,6 +2856,8 @@
 		1244793A27DC61FA00581174 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				1244793E27DC633700581174 /* NewSearchViewModel.swift */,
+				1244793C27DC626B00581174 /* NewSearchViewModelProtocol.swift */,
 				1244793B27DC620D00581174 /* StatusSearchViewModel */,
 			);
 			path = ViewModels;
@@ -6455,6 +6461,7 @@
 				C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */,
 				C92DCD97272998D800A03D91 /* BaseDocument+Extensions.swift in Sources */,
 				3DE6925127301D4000A4CD4E /* AccessoryViewStateManager+Mention.swift in Sources */,
+				1244793F27DC633700581174 /* NewSearchViewModel.swift in Sources */,
 				3D932D4226317E3A00C7D1EA /* HomeCollectionView.swift in Sources */,
 				531197E026430A9800FFC71E /* BlockActionHandler.swift in Sources */,
 				129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */,
@@ -6592,6 +6599,7 @@
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
 				127EABA32734FD6E00C731F2 /* CheckboxRelationView.swift in Sources */,
 				125D1C8127D7145C0014F8EC /* RelationOptionsSearchModuleAssembly.swift in Sources */,
+				1244793D27DC626B00581174 /* NewSearchViewModelProtocol.swift in Sources */,
 				3DB1CA1D272A7FE3000D2779 /* QuickAction.swift in Sources */,
 				123FDADD26C17CBA00F6F44B /* ObjectHeaderCover.swift in Sources */,
 				0ACC357625C851650003CF3A /* BlockViewModelBuilder.swift in Sources */,

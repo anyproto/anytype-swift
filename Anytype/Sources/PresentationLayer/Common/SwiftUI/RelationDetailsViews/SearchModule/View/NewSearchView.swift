@@ -2,7 +2,7 @@ import SwiftUI
 
 struct NewSearchView: View {
     
-    @ObservedObject var viewModel: StatusSearchViewModel
+    @ObservedObject var viewModel: NewSearchViewModel
 
     @State private var searchText = ""
     

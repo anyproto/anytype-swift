@@ -1,7 +1,7 @@
 import Foundation
 import SwiftUI
 
-final class StatusSearchViewModel: ObservableObject {
+final class StatusSearchViewModel {
     
     @Published private(set) var rows: [NewSearchRowConfiguration] = []
     
