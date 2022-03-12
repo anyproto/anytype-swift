@@ -11,20 +11,28 @@ final class NewSearchViewModel: ObservableObject {
     
     init(internalViewModel: StatusSearchViewModel) {
         self.internalViewModel = internalViewModel
-        self.cancellable = internalViewModel.$rows.sink { [weak self] rows in
-            self?.rows = rows
-        }
+        setupInternalViewModel()
     }
 }
 
 extension NewSearchViewModel {
     
     func didAskToSearch(text: String) {
-        internalViewModel.didAskToSearch(text: text)
+        internalViewModel.search(text: text)
     }
     
     func didSelectRow(with id: String) {
-        internalViewModel.didSelectRow(with: id)
+        internalViewModel.handleRowSelect(rowId: id)
+    }
+    
+}
+
+private extension NewSearchViewModel {
+    
+    func setupInternalViewModel() {
+        cancellable = internalViewModel.rowsPublisher.sink { [weak self] rows in
+            self?.rows = rows
+        }
     }
     
 }
