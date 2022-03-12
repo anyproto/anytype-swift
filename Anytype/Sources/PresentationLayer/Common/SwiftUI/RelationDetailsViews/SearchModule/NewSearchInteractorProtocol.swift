@@ -1,8 +1,8 @@
 import Foundation
+import SwiftUI
 
 protocol NewSearchInteractorProtocol {
 
-    func didAskToSearch(text: String)
-    func didSelectRow(with rowId: UUID)
+    func makeSearch(text: String, onCompletion: () -> ())
     
 }

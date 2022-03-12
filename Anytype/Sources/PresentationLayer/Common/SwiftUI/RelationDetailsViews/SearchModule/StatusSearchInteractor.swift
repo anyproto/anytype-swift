@@ -2,12 +2,10 @@ import Foundation
 
 final class StatusSearchInteractor {
     
-    private let viewModel: NewSearchViewModel<StatusSearchRow>
     private let allStatuses: [Relation.Status.Option]
     private let selectedStatus: Relation.Status.Option?
     
-    init(viewModel: NewSearchViewModel<StatusSearchRow>, allStatuses: [Relation.Status.Option], selectedStatus: Relation.Status.Option?) {
-        self.viewModel = viewModel
+    init(allStatuses: [Relation.Status.Option], selectedStatus: Relation.Status.Option?) {
         self.allStatuses = allStatuses
         self.selectedStatus = selectedStatus
     }
@@ -16,9 +14,10 @@ final class StatusSearchInteractor {
 
 extension StatusSearchInteractor: NewSearchInteractorProtocol {
     
-    func didAskToSearch(text: String) {
+    func makeSearch(text: String, onCompletion: () -> ()) {
         guard text.isNotEmpty else {
-            viewModel.update(rows: availableStatuses.asStatusSearchRows)
+            onCompletion()
+//            viewModel.update(rows: availableStatuses.asStatusSearchRows)
             return
         }
 
@@ -27,12 +26,8 @@ extension StatusSearchInteractor: NewSearchInteractorProtocol {
             
             return $0.text.lowercased().contains(text.lowercased())
         }
-
-        viewModel.update(rows: filteredStatuses.asStatusSearchRows)
-    }
-    
-    func didSelectRow(with rowId: UUID) {
-        debugPrint(rowId)
+        onCompletion()
+//        viewModel.update(rows: filteredStatuses.asStatusSearchRows)
     }
     
 }

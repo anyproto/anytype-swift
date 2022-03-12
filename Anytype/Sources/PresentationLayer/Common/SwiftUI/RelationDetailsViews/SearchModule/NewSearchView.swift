@@ -1,32 +1,34 @@
 import SwiftUI
 
-struct NewSearchView<Row: NewSearchRowProtocol>: View {
+struct NewSearchView: View {
     
-    let interactor: NewSearchInteractorProtocol
-    @ObservedObject var viewModel: NewSearchViewModel<Row>
-    
+//    let interactor: NewSearchInteractorProtocol
+//    @ObservedObject var viewModel: NewSearchViewModel<Row>
+//
     @State private var searchText = ""
     
     var body: some View {
-        VStack(spacing: 0) {
-            DragIndicator()
-            SearchBar(text: $searchText, focused: true)
-            content
-            addButton
-        }
-        .background(Color.backgroundSecondary)
-        .onChange(of: searchText) { interactor.didAskToSearch(text: $0) }
-        .onAppear { interactor.didAskToSearch(text: searchText) }
+        Color.red
+//        VStack(spacing: 0) {
+//            DragIndicator()
+//            SearchBar(text: $searchText, focused: true)
+//            content
+//            addButton
+//        }
+//        .background(Color.backgroundSecondary)
+//        .onChange(of: searchText) { interactor.didAskToSearch(text: $0) }
+//        .onAppear { interactor.didAskToSearch(text: searchText) }
     }
     
     private var content: some View {
-        Group {
-            if viewModel.rows.isEmpty {
-                emptyState
-            } else {
-                searchResults
-            }
-        }
+        Color.red
+//        Group {
+//            if viewModel.rows.isEmpty {
+//                emptyState
+//            } else {
+//                searchResults
+//            }
+//        }
     }
     
     private var emptyState: some View {
@@ -50,16 +52,17 @@ struct NewSearchView<Row: NewSearchRowProtocol>: View {
     }
     
     private var searchResults: some View {
-        ScrollView {
-            LazyVStack(spacing: 0) {
-                ForEach(viewModel.rows) { row in
-                    row.view {
-                        interactor.didSelectRow(with: row.id)
-                    }
-                }
-            }
-            .padding(.bottom, 10)
-        }
+        Color.red
+//        ScrollView {
+//            LazyVStack(spacing: 0) {
+//                ForEach(viewModel.rows) { row in
+//                    row.view {
+//                        interactor.didSelectRow(with: row.id)
+//                    }
+//                }
+//            }
+//            .padding(.bottom, 10)
+//        }
     }
     
     private var addButton: some View {
