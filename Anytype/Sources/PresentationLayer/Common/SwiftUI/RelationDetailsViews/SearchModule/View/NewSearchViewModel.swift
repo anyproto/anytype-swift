@@ -4,7 +4,7 @@ import Combine
 
 final class NewSearchViewModel: ObservableObject {
     
-    @Published private(set) var rows: [NewSearchRowConfiguration] = []
+    @Published private(set) var listModel: NewSearchView.ListModel = .plain(rows: [])
     
     private let internalViewModel: StatusSearchViewModel
     private var cancellable: AnyCancellable? = nil
@@ -30,8 +30,8 @@ extension NewSearchViewModel {
 private extension NewSearchViewModel {
     
     func setupInternalViewModel() {
-        cancellable = internalViewModel.rowsPublisher.sink { [weak self] rows in
-            self?.rows = rows
+        cancellable = internalViewModel.listModelPublisher.sink { [weak self] listModel in
+            self?.listModel = listModel
         }
     }
     

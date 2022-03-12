@@ -1,8 +1,9 @@
 import Foundation
 import SwiftUI
+import Combine
 
 final class StatusSearchViewModel {
-        
+    
     @Published private var rows: [NewSearchRowConfiguration] = []
     
     private var statuses: [Relation.Status.Option] = [] {
@@ -21,7 +22,11 @@ final class StatusSearchViewModel {
 
 extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var rowsPublisher: Published<[NewSearchRowConfiguration]>.Publisher { $rows }
+    var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> {
+        $rows.map { rows -> NewSearchView.ListModel in
+            NewSearchView.ListModel.plain(rows: rows)
+        }.eraseToAnyPublisher()
+    }
     
     func search(text: String) {
         interactor.search(text: text) { [weak self] statuses in
