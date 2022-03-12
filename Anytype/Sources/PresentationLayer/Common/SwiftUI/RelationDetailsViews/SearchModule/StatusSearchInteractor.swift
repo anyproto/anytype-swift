@@ -12,12 +12,11 @@ final class StatusSearchInteractor {
     
 }
 
-extension StatusSearchInteractor: NewSearchInteractorProtocol {
+extension StatusSearchInteractor {
     
-    func makeSearch(text: String, onCompletion: () -> ()) {
+    func search(text: String, onCompletion: ([Relation.Status.Option]) -> ()) {
         guard text.isNotEmpty else {
-            onCompletion()
-//            viewModel.update(rows: availableStatuses.asStatusSearchRows)
+            onCompletion(availableStatuses)
             return
         }
 
@@ -26,8 +25,7 @@ extension StatusSearchInteractor: NewSearchInteractorProtocol {
             
             return $0.text.lowercased().contains(text.lowercased())
         }
-        onCompletion()
-//        viewModel.update(rows: filteredStatuses.asStatusSearchRows)
+        onCompletion(filteredStatuses)
     }
     
 }
@@ -42,24 +40,4 @@ private extension StatusSearchInteractor {
         return allStatuses.filter { $0.id != selectedStatus.id }
     }
     
-}
-
-private extension StatusSearchRowViewModel {
-    
-    init(status: Relation.Status.Option) {
-        self.text = status.text
-        self.color = status.color
-    }
-    
-}
-
-private extension Array where Element == Relation.Status.Option {
-    
-    var asStatusSearchRows: [StatusSearchRow] {
-        self.map {
-            StatusSearchRow(
-                viewModel: StatusSearchRowViewModel(status: $0)
-            )
-        }
-    }
 }

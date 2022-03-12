@@ -2,17 +2,12 @@ import SwiftUI
 
 struct StatusSearchRowView: View {
     
-    let viewModel: StatusSearchRowViewModel
-    let onTap: () -> ()
+    let viewModel: Model
     
     var body: some View {
-        Button {
-            onTap()
-        } label: {
-            label
-        }
-        .divider()
-        .padding(.horizontal, 20)
+        label
+            .divider()
+            .padding(.horizontal, 20)
     }
     
     private var label: some View {
@@ -24,9 +19,14 @@ struct StatusSearchRowView: View {
     }
     
 }
-//
-//struct StatusSearchRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StatusSearchRowView()
-//    }
-//}
+
+extension StatusSearchRowView {
+    
+    struct Model {
+        
+        let text: String
+        let color: UIColor
+        
+    }
+
+}
