@@ -180,6 +180,7 @@
 		1244793F27DC633700581174 /* NewSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244793E27DC633700581174 /* NewSearchViewModel.swift */; };
 		1244794127DC735A00581174 /* NewSearchView+ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244794027DC735A00581174 /* NewSearchView+ListModel.swift */; };
 		1244794327DC8F8000581174 /* NewSearchSectionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244794227DC8F8000581174 /* NewSearchSectionConfiguration.swift */; };
+		1244794527DC931900581174 /* NewSearchSectionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244794427DC931900581174 /* NewSearchSectionsBuilder.swift */; };
 		12450D4727A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12450D4627A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift */; };
 		12461BFC2767837000D47708 /* TagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12461BFB2767837000D47708 /* TagView.swift */; };
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
@@ -1108,6 +1109,7 @@
 		1244793E27DC633700581174 /* NewSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchViewModel.swift; sourceTree = "<group>"; };
 		1244794027DC735A00581174 /* NewSearchView+ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewSearchView+ListModel.swift"; sourceTree = "<group>"; };
 		1244794227DC8F8000581174 /* NewSearchSectionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchSectionConfiguration.swift; sourceTree = "<group>"; };
+		1244794427DC931900581174 /* NewSearchSectionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchSectionsBuilder.swift; sourceTree = "<group>"; };
 		12450D4627A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveTextRelationDetailsPopupLayout.swift; sourceTree = "<group>"; };
 		12461BFB2767837000D47708 /* TagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagView.swift; sourceTree = "<group>"; };
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
@@ -2865,6 +2867,7 @@
 			children = (
 				1244793C27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift */,
 				1244793B27DC620D00581174 /* StatusSearchViewModel */,
+				1244794427DC931900581174 /* NewSearchSectionsBuilder.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -6602,6 +6605,7 @@
 				12EB9B172773394500BA732F /* RelationOptionProtocol.swift in Sources */,
 				124478CB27D77CCD00581174 /* NewRelationOptionProtocol.swift in Sources */,
 				535E02B827503D7D00E1AF8C /* BlockRelationConverter.swift in Sources */,
+				1244794527DC931900581174 /* NewSearchSectionsBuilder.swift in Sources */,
 				1270CE9526DA85BB00B2D443 /* GradientColor.swift in Sources */,
 				539E019A2758422800067A24 /* SlashMenuRealtionView.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
