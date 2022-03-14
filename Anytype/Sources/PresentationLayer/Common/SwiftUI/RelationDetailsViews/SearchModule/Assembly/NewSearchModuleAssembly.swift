@@ -9,7 +9,7 @@ final class NewSearchModuleAssembly {
         )
         
         let viewModel = StatusSearchViewModel(interactor: interactor)
-        return NewSearchView(viewModel: viewModel)
+        return NewSearchView(viewModel: NewSearchViewModel(internalViewModel: viewModel))
     }
     
 }

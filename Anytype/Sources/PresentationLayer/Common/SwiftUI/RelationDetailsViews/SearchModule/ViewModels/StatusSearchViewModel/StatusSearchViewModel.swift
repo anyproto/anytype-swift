@@ -1,9 +1,9 @@
 import Foundation
 import SwiftUI
 
-final class StatusSearchViewModel: ObservableObject {
-    
-    @Published private(set) var rows: [NewSearchRowConfiguration] = []
+final class StatusSearchViewModel {
+        
+    @Published private var rows: [NewSearchRowConfiguration] = []
     
     private var statuses: [Relation.Status.Option] = [] {
         didSet {
@@ -19,16 +19,18 @@ final class StatusSearchViewModel: ObservableObject {
     
 }
 
-extension StatusSearchViewModel {
+extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    func didAskToSearch(text: String) {
+    var rowsPublisher: Published<[NewSearchRowConfiguration]>.Publisher { $rows }
+    
+    func search(text: String) {
         interactor.search(text: text) { [weak self] statuses in
             self?.statuses = statuses
         }
     }
     
-    func didSelectRow(with id: String) {
-        let index = rows.firstIndex { $0.id == id }
+    func handleRowSelect(rowId: String) {
+        let index = rows.firstIndex { $0.id == rowId }
         
         guard let index = index else { return }
 
