@@ -2,9 +2,9 @@ import Foundation
 
 final class NewSearchSectionsBuilder {
     
-    static func makeSections<O: NewRelationOptionProtocol>(_ options: [O], rowsBuilder: ([O]) -> [NewSearchRowConfiguration]) -> [NewSearchSectionConfiguration] {
-        var localOptions: [O] = []
-        var otherOptions: [O] = []
+    static func makeSections<Option: NewRelationOptionProtocol>(_ options: [Option], rowsBuilder: ([Option]) -> [NewSearchRowConfiguration]) -> [NewSearchSectionConfiguration] {
+        var localOptions: [Option] = []
+        var otherOptions: [Option] = []
         
         options.forEach {
             if $0.scope == .local {
