@@ -144,13 +144,14 @@ final class EditorAssembly {
             router: router
         )
 
-        let blockActionsService = BlockActionsServiceSingle()
+        let blockActionsServiceSingle = BlockActionsServiceSingle()
 
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
-            blockActionsService: blockActionsService,
+            blockActionsServiceSingle: blockActionsServiceSingle,
+            blockActionsService: blockActionService,
             actionHandler: actionHandler,
             router: router
         )
@@ -168,7 +169,7 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
             headerBuilder: headerBuilder,
-            blockActionsService: blockActionsService,
+            blockActionsService: blockActionsServiceSingle,
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager
         )
