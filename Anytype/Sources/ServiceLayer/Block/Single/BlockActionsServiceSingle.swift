@@ -10,7 +10,6 @@ import BlocksModels
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
     func paste(contextId: BlockId, focusedBlockId: BlockId, selectedTextRange: NSRange, isPartOfBlock: Bool, slots: PastboardSlots) {
-        #warning("implement in next prs isPartOfBlock, anySlot")
         Anytype_Rpc.Block.Paste.Service.invoke(
             contextID: contextId,
             focusedBlockID: focusedBlockId,
@@ -19,7 +18,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             isPartOfBlock: isPartOfBlock,
             textSlot: slots.textSlot ?? "",
             htmlSlot: slots.htmlSlot ?? "",
-            anySlot: [],
+            anySlot: slots.anySlot ?? [],
             fileSlot: []
         )
             .map { EventsBunch(event: $0.event) }
@@ -28,7 +27,6 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
 
     func paste(contextId: BlockId, selectedBlockIds: [BlockId], isPartOfBlock: Bool, slots: PastboardSlots) {
-        #warning("implement in next prs isPartOfBlock, anySlot")
         Anytype_Rpc.Block.Paste.Service.invoke(
             contextID: contextId,
             focusedBlockID: "",
@@ -37,7 +35,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             isPartOfBlock: isPartOfBlock,
             textSlot: slots.textSlot ?? "",
             htmlSlot: slots.htmlSlot ?? "",
-            anySlot: [],
+            anySlot: slots.anySlot ?? [],
             fileSlot: []
         )
             .map { EventsBunch(event: $0.event) }
