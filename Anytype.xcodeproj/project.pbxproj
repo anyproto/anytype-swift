@@ -2803,8 +2803,8 @@
 		1244793A27DC61FA00581174 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				125683D827DF1BEE003A8251 /* ObjectsSearchViewModel */,
 				1244793C27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift */,
+				125683D827DF1BEE003A8251 /* ObjectsSearchViewModel */,
 				125683D627DF1928003A8251 /* TagsSearchViewModel */,
 				1244793B27DC620D00581174 /* StatusSearchViewModel */,
 				1244794427DC931900581174 /* NewSearchSectionsBuilder.swift */,

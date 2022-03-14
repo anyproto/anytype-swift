@@ -1,19 +1,20 @@
 import SwiftUI
 
 struct TagView: View {
-    let tag: Relation.Tag.Option
+    
+    let viewModel: Model
     let guidlines: Guidlines
     
     var body: some View {
-        AnytypeText(tag.text, style: .relation1Regular, color: tag.textColor.suColor)
+        AnytypeText(viewModel.text, style: .relation1Regular, color: viewModel.textColor.suColor)
             .lineLimit(1)
             .padding(.horizontal, guidlines.textPadding)
-            .background(tag.backgroundColor.suColor)
+            .background(viewModel.backgroundColor.suColor)
             .cornerRadius(guidlines.cornerRadius)
             .overlay(
                 RoundedRectangle(cornerRadius: guidlines.cornerRadius)
                     .stroke(
-                        tag.backgroundColor == UIColor.TagBackground.default ? Color.strokePrimary : tag.backgroundColor.suColor,
+                        viewModel.backgroundColor == UIColor.TagBackground.default ? Color.strokePrimary : viewModel.backgroundColor.suColor,
                         lineWidth: 1
                     )
             )
@@ -22,6 +23,12 @@ struct TagView: View {
 }
 
 extension TagView {
+    
+    struct Model {
+        let text: String
+        let textColor: UIColor
+        let backgroundColor: UIColor
+    }
     
     struct Guidlines: Hashable {
         let textPadding: CGFloat
@@ -34,12 +41,10 @@ extension TagView {
 struct TagView_Previews: PreviewProvider {
     static var previews: some View {
         TagView(
-            tag: Relation.Tag.Option(
-                id: "id",
+            viewModel: TagView.Model(
                 text: "text",
                 textColor: UIColor.Background.amber,
-                backgroundColor: UIColor.Text.amber,
-                scope: .local
+                backgroundColor: UIColor.Text.amber
             ),
             guidlines: RelationStyle.set.tagViewGuidlines
         )
