@@ -36,12 +36,8 @@ extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
         }
     }
     
-    func handleRowSelect(rowId: String) {
-        let index = tags.firstIndex { $0.id == rowId }
+    func handleRowsSelect(rowIds: [String]) {
         
-        guard let index = index else { return }
-
-        debugPrint("selected index \(index)")
     }
     
 }

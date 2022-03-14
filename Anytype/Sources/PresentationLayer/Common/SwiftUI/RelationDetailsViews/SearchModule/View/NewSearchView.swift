@@ -11,7 +11,10 @@ struct NewSearchView: View {
             DragIndicator()
             SearchBar(text: $searchText, focused: true)
             content
-            addButton
+            
+            viewModel.addButtonModel.flatMap {
+                addButton(model: $0)
+            }
         }
         .background(Color.backgroundSecondary)
         .onChange(of: searchText) { viewModel.didAskToSearch(text: $0) }
@@ -78,28 +81,29 @@ struct NewSearchView: View {
         }
     }
     
-    private var addButton: some View {
-        Color.yellow
-//        StandardButton(disabled: viewModel.selectedOptionIds.isEmpty, text: "Add".localized, style: .primary) {
-//            viewModel.didTapAddSelectedOptions()
-//            presentationMode.wrappedValue.dismiss()
-//        }
-//        .if(viewModel.selectedOptionIds.isNotEmpty) {
-//            $0.overlay(
-//                HStack(spacing: 0) {
-//                    Spacer()
-//                    AnytypeText("\(viewModel.selectedOptionIds.count)", style: .relation1Regular, color: .textWhite)
-//                        .frame(minWidth: 15, minHeight: 15)
-//                        .padding(5)
-//                        .background(Color.System.amber125)
-//                        .clipShape(Circle())
-//                    Spacer.fixedWidth(12)
-//                }
-//            )
-//        }
-//        .padding(.vertical, 10)
-//        .padding(.horizontal, 20)
+    private func addButton(model: AddButtonModel) -> some View {
+        StandardButton(disabled: model.isDisabled, text: "Add".localized, style: .primary) {
+            debugPrint("addButton")
+        }
+        .if(!model.isDisabled) {
+            $0.if(model.counter > 0) {
+                $0.overlay(
+                    HStack(spacing: 0) {
+                        Spacer()
+                        AnytypeText("\(model.counter)", style: .relation1Regular, color: .textWhite)
+                            .frame(minWidth: 15, minHeight: 15)
+                            .padding(5)
+                            .background(Color.System.amber125)
+                            .clipShape(Circle())
+                        Spacer.fixedWidth(12)
+                    }
+                )
+            }
+        }
+        .padding(.vertical, 10)
+        .padding(.horizontal, 20)
     }
+    
 }
 
 //struct NewSearchView_Previews: PreviewProvider {

@@ -5,13 +5,22 @@ import Combine
 final class NewSearchViewModel: ObservableObject {
     
     @Published private(set) var listModel: NewSearchView.ListModel = .plain(rows: [])
+    @Published private(set) var addButtonModel: NewSearchView.AddButtonModel? = nil
     
+    private let selectionMode: SearchSelectionMode
     private let internalViewModel: NewInternalSearchViewModelProtocol
     private var cancellable: AnyCancellable? = nil
     
-    init(internalViewModel: NewInternalSearchViewModelProtocol) {
+    private var selectedRowIds: [String] = [] {
+        didSet {
+            updateAddButtonModel()
+        }
+    }
+    
+    init(selectionMode: SearchSelectionMode, internalViewModel: NewInternalSearchViewModelProtocol) {
+        self.selectionMode = selectionMode
         self.internalViewModel = internalViewModel
-        setupInternalViewModel()
+        setup()
     }
 }
 
@@ -22,17 +31,43 @@ extension NewSearchViewModel {
     }
     
     func didSelectRow(with id: String) {
-        internalViewModel.handleRowSelect(rowId: id)
+        switch selectionMode {
+        case .singleItem:
+            internalViewModel.handleRowsSelect(rowIds: [id])
+        case .multipleItems:
+            handleMultipleItemsSelection(rowId: id)
+        }
     }
     
 }
 
 private extension NewSearchViewModel {
     
+    func setup() {
+        setupInternalViewModel()
+        updateAddButtonModel()
+    }
+    
     func setupInternalViewModel() {
         cancellable = internalViewModel.listModelPublisher.sink { [weak self] listModel in
             self?.listModel = listModel
         }
+    }
+    
+    func updateAddButtonModel() {
+        guard case .multipleItems = selectionMode else { return }
+
+        addButtonModel = selectedRowIds.isEmpty ? .disabled : .enabled(counter: selectedRowIds.count)
+    }
+    
+    func handleMultipleItemsSelection(rowId: String) {
+        if selectedRowIds.contains(rowId) {
+            selectedRowIds.removeAll { $0 == rowId }
+        } else {
+            selectedRowIds.append(rowId)
+        }
+        
+        internalViewModel.handleRowsSelect(rowIds: selectedRowIds)
     }
     
 }
