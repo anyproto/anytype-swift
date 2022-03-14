@@ -8,15 +8,16 @@ final class ObjectIconPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
     
-    @Published var details: ObjectDetails = ObjectDetails(id: "", values: [:])
     var detailsLayout: DetailsLayout {
-        details.layout
+        document.objectDetails?.layout ?? .basic
     }
+    
     var isRemoveEnabled: Bool {
         switch detailsLayout {
         case .basic:
             return true
         case .profile:
+            guard let details = document.objectDetails else { return false }
             return details.iconImageHash.isNotNil
         default:
             anytypeAssertionFailure(
@@ -29,19 +30,30 @@ final class ObjectIconPickerViewModel: ObservableObject {
 
     // MARK: - Private variables
     
-    private let objectId: String
+    private let document: BaseDocumentProtocol
     private let imageUploadingDemon = MediaFileUploadingDemon.shared
-    private let fileService: BlockActionsServiceFile
+    private let fileService: BlockActionsServiceFileProtocol
     private let detailsService: DetailsServiceProtocol
+    
+    private var subscription: AnyCancellable?
         
     // MARK: - Initializer
     
-    init(objectId: String, fileService: BlockActionsServiceFile, detailsService: DetailsServiceProtocol) {
-        self.objectId = objectId
+    init(
+        document: BaseDocumentProtocol,
+        fileService: BlockActionsServiceFileProtocol,
+        detailsService: DetailsServiceProtocol
+    ) {
+        self.document = document
         self.fileService = fileService
         self.detailsService = detailsService
     }
     
+    private func setupSubscription() {
+        subscription = document.updatePublisher.sink { [weak self] _ in
+            self?.objectWillChange.send()
+        }
+    }
 }
 
 extension ObjectIconPickerViewModel {
@@ -56,7 +68,7 @@ extension ObjectIconPickerViewModel {
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: ObjectHeaderImageUploadingWorker(
-                objectId: objectId,
+                objectId: document.objectId,
                 detailsService: detailsService,
                 usecase: .icon
             )
