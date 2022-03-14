@@ -12,4 +12,14 @@ final class NewSearchModuleAssembly {
         return NewSearchView(viewModel: NewSearchViewModel(internalViewModel: viewModel))
     }
     
+    static func buildTagsSearchModule(allTags: [Relation.Tag.Option], selectedTagIds: [String]) -> NewSearchView {
+        let interactor = TagsSearchInteractor(
+            allTags: allTags,
+            selectedTagIds: selectedTagIds
+        )
+        
+        let viewModel = TagsSearchViewModel(interactor: interactor)
+        return NewSearchView(viewModel: NewSearchViewModel(internalViewModel: viewModel))
+    }
+    
 }
