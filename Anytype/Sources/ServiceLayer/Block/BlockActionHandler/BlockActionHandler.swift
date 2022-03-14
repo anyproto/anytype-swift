@@ -31,14 +31,29 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     // MARK: - Service proxy
-    func past(blockId: BlockId, range: NSRange) {
-        let slots = pastboardHelper.obtainSlots()
-        service.paste(blockId: blockId, range: range, slots: slots)
+    func shouldPaste(blockId: BlockId, range: NSRange, completion: @escaping (Bool) -> Void) {
+        pastboardHelper.obtainSlots { [weak self] slots in
+            // don't handle paste if only text in clipboard and it's valid url
+            if slots.onlyTextSlotAvailable,
+               let textSlot = slots.textSlot,
+               textSlot.isValidURL() {
+                completion(false)
+            }
+            self?.service.paste(blockId: blockId, range: range, slots: slots)
+            completion(true)
+        }
     }
 
-    func paste(selectedBlockIds: [BlockId]) {
-        let slots = pastboardHelper.obtainSlots()
-        service.paste(selectedBlockIds: selectedBlockIds, slots: slots)
+    func shouldPaste(selectedBlockIds: [BlockId], completion: @escaping (Bool) -> Void) {
+        pastboardHelper.obtainSlots { [weak self] slots in
+            // don't handle paste if only text in clipboard and it's valid url
+            if slots.onlyTextSlotAvailable,
+               let textSlot = slots.textSlot,
+               textSlot.isValidURL() {
+                completion(false)
+            }
+            self?.service.paste(selectedBlockIds: selectedBlockIds, slots: slots)
+        }
     }
 
     func copy(blocksIds: [BlockId], selectedTextRange: NSRange) {

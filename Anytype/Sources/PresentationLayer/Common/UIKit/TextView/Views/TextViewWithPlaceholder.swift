@@ -82,6 +82,13 @@ final class TextViewWithPlaceholder: UITextView {
         return value
     }
 
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        if action == #selector(TextViewWithPlaceholder.paste(_:)) {
+            return true
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
+
     override func resignFirstResponder() -> Bool {
         let value = super.resignFirstResponder()
         onFirstResponderChange(.resign)
@@ -98,10 +105,10 @@ final class TextViewWithPlaceholder: UITextView {
             return super.paste(sender)
         }
 
-        let handled = customTextViewDelegate?.shouldPaste(range: selectedRange) ?? false
-
-        if !handled {
-            super.paste(sender)
+        customTextViewDelegate?.shouldPaste(range: selectedRange)  { handled in
+            if !handled {
+                super.paste(sender)
+            }
         }
     }
 
