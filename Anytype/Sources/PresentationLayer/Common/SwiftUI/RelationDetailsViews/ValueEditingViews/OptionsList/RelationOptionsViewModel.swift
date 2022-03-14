@@ -80,7 +80,6 @@ extension RelationOptionsViewModel {
         case .tags(let allTags):
             if FeatureFlags.newRelationOptionsSearch {
                 NewSearchModuleAssembly.buildTagsSearchModule(allTags: allTags, selectedTagIds: selectedOptions.map { $0.id })
-                RelationOptionsSearchModuleAssembly.buildModule(searchType: .tags(allTags))
             } else {
                 TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
             }
