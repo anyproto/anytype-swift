@@ -6,10 +6,10 @@ final class NewSearchViewModel: ObservableObject {
     
     @Published private(set) var listModel: NewSearchView.ListModel = .plain(rows: [])
     
-    private let internalViewModel: StatusSearchViewModel
+    private let internalViewModel: NewInternalSearchViewModelProtocol
     private var cancellable: AnyCancellable? = nil
     
-    init(internalViewModel: StatusSearchViewModel) {
+    init(internalViewModel: NewInternalSearchViewModelProtocol) {
         self.internalViewModel = internalViewModel
         setupInternalViewModel()
     }

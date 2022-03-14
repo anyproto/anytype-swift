@@ -1,28 +1,28 @@
 import Foundation
-import SwiftUI
 import Combine
+import SwiftUI
 
-final class StatusSearchViewModel {
+final class TagsSearchViewModel {
     
     @Published private var sections: [NewSearchSectionConfiguration] = []
     
-    private var statuses: [Relation.Status.Option] = [] {
+    private var tags: [Relation.Tag.Option] = [] {
         didSet {
-            sections = NewSearchSectionsBuilder.makeSections(statuses) {
+            sections = NewSearchSectionsBuilder.makeSections(tags) {
                 $0.asRowsConfigurations
             }
         }
     }
     
-    private let interactor: StatusSearchInteractor
+    private let interactor: TagsSearchInteractor
     
-    init(interactor: StatusSearchInteractor) {
+    init(interactor: TagsSearchInteractor) {
         self.interactor = interactor
     }
     
 }
 
-extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
+extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
     
     var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> {
         $sections.map { sections -> NewSearchView.ListModel in
@@ -31,13 +31,13 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func search(text: String) {
-        interactor.search(text: text) { [weak self] statuses in
-            self?.statuses = statuses
+        interactor.search(text: text) { [weak self] tags in
+            self?.tags = tags
         }
     }
     
     func handleRowSelect(rowId: String) {
-        let index = sections.firstIndex { $0.id == rowId }
+        let index = tags.firstIndex { $0.id == rowId }
         
         guard let index = index else { return }
 
@@ -46,7 +46,7 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     
 }
 
-private extension Array where Element == Relation.Status.Option {
+private extension Array where Element == Relation.Tag.Option {
 
     var asRowsConfigurations: [NewSearchRowConfiguration] {
         map { option in
@@ -55,10 +55,10 @@ private extension Array where Element == Relation.Status.Option {
                 rowContentHash: option.hashValue
             ) {
                 AnyView(
-                    StatusSearchRowView(
-                        viewModel: StatusSearchRowView.Model(
-                            text: option.text,
-                            color: option.color
+                    TagSearchRowView(
+                        viewModel: TagSearchRowView.Model(
+                            tag: option,
+                            guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines
                         )
                     )
                 )
