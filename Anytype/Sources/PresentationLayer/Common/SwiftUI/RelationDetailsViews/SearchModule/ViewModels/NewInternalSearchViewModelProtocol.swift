@@ -1,8 +1,9 @@
 import Foundation
+import Combine
 
 protocol NewInternalSearchViewModelProtocol {
     
-    var rowsPublisher: Published<[NewSearchRowConfiguration]>.Publisher { get }
+    var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> { get }
     
     func search(text: String)
     func handleRowSelect(rowId: String)

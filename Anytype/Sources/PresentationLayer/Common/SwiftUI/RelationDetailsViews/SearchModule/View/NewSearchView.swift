@@ -20,7 +20,7 @@ struct NewSearchView: View {
     
     private var content: some View {
         Group {
-            if viewModel.rows.isEmpty {
+            if viewModel.listModel.isEmpty {
                 emptyState
             } else {
                 searchResults
@@ -51,15 +51,30 @@ struct NewSearchView: View {
     private var searchResults: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                ForEach(viewModel.rows) { row in
-                    Button {
-                        viewModel.didSelectRow(with: row.id)
-                    } label: {
-                        row.rowBuilder()
+                switch viewModel.listModel {
+                case .plain(let rows):
+                    rowViews(rows: rows)
+                case .sectioned(let sections):
+                    ForEach(sections) { section in
+                        Section(
+                            header: RelationOptionsSectionHeaderView(title: section.title)
+                        ) {
+                            rowViews(rows: section.rows)
+                        }
                     }
                 }
             }
             .padding(.bottom, 10)
+        }
+    }
+    
+    private func rowViews(rows: [NewSearchRowConfiguration]) -> some View {
+        ForEach(rows) { row in
+            Button {
+                viewModel.didSelectRow(with: row.id)
+            } label: {
+                row.rowBuilder()
+            }
         }
     }
     

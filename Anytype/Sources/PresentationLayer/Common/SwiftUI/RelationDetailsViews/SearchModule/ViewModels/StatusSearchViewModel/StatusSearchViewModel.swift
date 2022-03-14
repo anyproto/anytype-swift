@@ -1,13 +1,16 @@
 import Foundation
 import SwiftUI
+import Combine
 
 final class StatusSearchViewModel {
-        
-    @Published private var rows: [NewSearchRowConfiguration] = []
+    
+    @Published private var sections: [NewSearchSectionConfiguration] = []
     
     private var statuses: [Relation.Status.Option] = [] {
         didSet {
-            rows = statuses.asRowsConfigurations
+            sections = NewSearchSectionsBuilder.makeSections(statuses) {
+                $0.asRowsConfigurations
+            }
         }
     }
     
@@ -21,7 +24,11 @@ final class StatusSearchViewModel {
 
 extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var rowsPublisher: Published<[NewSearchRowConfiguration]>.Publisher { $rows }
+    var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> {
+        $sections.map { sections -> NewSearchView.ListModel in
+            NewSearchView.ListModel.sectioned(sectinos: sections)
+        }.eraseToAnyPublisher()
+    }
     
     func search(text: String) {
         interactor.search(text: text) { [weak self] statuses in
@@ -30,7 +37,7 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func handleRowSelect(rowId: String) {
-        let index = rows.firstIndex { $0.id == rowId }
+        let index = sections.firstIndex { $0.id == rowId }
         
         guard let index = index else { return }
 
