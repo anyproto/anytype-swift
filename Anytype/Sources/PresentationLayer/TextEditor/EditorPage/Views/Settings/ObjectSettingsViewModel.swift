@@ -32,7 +32,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     init(
         objectId: String,
         objectDetailsService: DetailsService,
-        router: EditorRouter
+        router: EditorRouterProtocol
     ) {
         self.objectId = objectId
         self.objectDetailsService = objectDetailsService
