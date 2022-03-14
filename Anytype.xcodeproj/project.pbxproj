@@ -2828,14 +2828,46 @@
 		1244790F27D8A35800581174 /* SearchModule */ = {
 			isa = PBXGroup;
 			children = (
+				1244793527DC61D600581174 /* Assembly */,
+				1244793927DC61E400581174 /* View */,
+				1244793A27DC61FA00581174 /* ViewModels */,
+			);
+			path = SearchModule;
+			sourceTree = "<group>";
+		};
+		1244793527DC61D600581174 /* Assembly */ = {
+			isa = PBXGroup;
+			children = (
 				1244792327D8AE4100581174 /* NewSearchModuleAssembly.swift */,
+			);
+			path = Assembly;
+			sourceTree = "<group>";
+		};
+		1244793927DC61E400581174 /* View */ = {
+			isa = PBXGroup;
+			children = (
 				1244791327D8A37000581174 /* NewSearchView.swift */,
+				1244793027DC575D00581174 /* NewSearchRowConfiguration.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1244793A27DC61FA00581174 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				1244793B27DC620D00581174 /* StatusSearchViewModel */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		1244793B27DC620D00581174 /* StatusSearchViewModel */ = {
+			isa = PBXGroup;
+			children = (
 				1244791527D8A38600581174 /* StatusSearchViewModel.swift */,
 				1244791B27D8A63D00581174 /* StatusSearchInteractor.swift */,
 				1244792127D8A8BE00581174 /* StatusSearchRowView.swift */,
-				1244793027DC575D00581174 /* NewSearchRowConfiguration.swift */,
 			);
-			path = SearchModule;
+			path = StatusSearchViewModel;
 			sourceTree = "<group>";
 		};
 		12461BF32767646D00D47708 /* Tag */ = {
