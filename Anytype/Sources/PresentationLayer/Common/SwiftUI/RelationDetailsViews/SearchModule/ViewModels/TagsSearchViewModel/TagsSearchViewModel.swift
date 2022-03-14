@@ -56,10 +56,12 @@ private extension Array where Element == Relation.Tag.Option {
             ) {
                 AnyView(
                     TagSearchRowView(
-                        viewModel: TagSearchRowView.Model(
-                            tag: option,
-                            guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines
-                        )
+                        viewModel: TagView.Model(
+                            text: option.text,
+                            textColor: option.textColor,
+                            backgroundColor: option.backgroundColor
+                        ),
+                        guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines
                     )
                 )
             }

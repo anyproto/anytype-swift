@@ -2,26 +2,17 @@ import SwiftUI
 
 struct TagSearchRowView: View {
     
-    let viewModel: Model
+    let viewModel: TagView.Model
+    let guidlines: TagView.Guidlines
     
     var body: some View {
         HStack(spacing: 0) {
-            TagView(tag: viewModel.tag, guidlines: viewModel.guidlines)
+            TagView(viewModel: viewModel, guidlines: guidlines)
             Spacer()
         }
         .frame(height: 48)
         .divider()
         .padding(.horizontal, 20)
-    }
-    
-}
-
-extension TagSearchRowView {
-    
-    struct Model {
-        #warning("TODO: remove using domain objects")
-        let tag: Relation.Tag.Option
-        let guidlines: TagView.Guidlines
     }
     
 }

@@ -2,11 +2,11 @@ import SwiftUI
 
 struct TagRelationRowView: View {
 
-    let tag: Relation.Tag.Option
+    let viewModel: TagView.Model
     
     var body: some View {
         HStack(spacing: 0) {
-            TagView(tag: tag, guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines)
+            TagView(viewModel: viewModel, guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines)
             Spacer()
         }
         .frame(height: 48)
@@ -16,12 +16,10 @@ struct TagRelationRowView: View {
 struct TagRelationRowView_Previews: PreviewProvider {
     static var previews: some View {
         TagRelationRowView(
-            tag: Relation.Tag.Option(
-                id: "id",
+            viewModel: TagView.Model(
                 text: "text",
                 textColor: UIColor.Text.amber,
-                backgroundColor: UIColor.Background.amber,
-                scope: .local
+                backgroundColor: UIColor.Background.amber
             )
         )
     }
