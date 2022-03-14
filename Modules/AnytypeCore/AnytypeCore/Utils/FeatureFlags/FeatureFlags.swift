@@ -70,7 +70,7 @@ public extension FeatureFlags {
     }
 
     static var clipboard: Bool {
-        features[.uikitRelationBlocks, default: false]
+        features[.clipboard, default: false]
     }
     
     static var newRelationOptionsSearch: Bool {

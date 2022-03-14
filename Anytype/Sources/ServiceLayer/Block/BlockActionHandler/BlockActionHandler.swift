@@ -14,6 +14,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let keyboardHandler: KeyboardActionHandlerProtocol
     
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
+    private let pastboardHelper = PastboardHelper()
     
     init(
         document: BaseDocumentProtocol,
@@ -30,8 +31,22 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     // MARK: - Service proxy
-    func past(slots: PastboardSlots, blockId: BlockId, range: NSRange) {
-        service.paste(slots: slots, blockId: blockId, range: range)
+    func past(blockId: BlockId, range: NSRange) {
+        let slots = pastboardHelper.obtainSlots()
+        service.paste(blockId: blockId, range: range, slots: slots)
+    }
+
+    func paste(selectedBlockIds: [BlockId]) {
+        let slots = pastboardHelper.obtainSlots()
+        service.paste(selectedBlockIds: selectedBlockIds, slots: slots)
+    }
+
+    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) {
+        let blocksInfo = blocksIds.compactMap {
+            document.infoContainer.get(id: $0)
+        }
+        let anySlots = service.copy(blocksInfo: blocksInfo, selectedTextRange: selectedTextRange)
+        pastboardHelper.copy(slots: anySlots)
     }
 
     func turnIntoPage(blockId: BlockId) -> BlockId? {

@@ -84,8 +84,21 @@ struct TextBlockViewModel: BlockViewModelProtocol {
 
     func action() -> TextBlockContentConfiguration.Actions {
         return .init(
-            paste: { slots, range in
-                actionHandler.past(slots: slots, blockId: blockId, range: range)
+            paste: { range in
+                let pastboardHelper = PastboardHelper()
+                let slots = pastboardHelper.obtainSlots()
+
+                // don't handle paste if only text in clipboard and it's valid url
+                if slots.onlyTextSlotAvailable,
+                   let textSlot = slots.textSlot,
+                   textSlot.isValidURL() {
+                    return false
+                }
+                actionHandler.past(blockId: blockId, range: range)
+                return true
+            },
+            copy: { range in
+                actionHandler.copy(blocksIds: [info.id], selectedTextRange: range)
             },
             createEmptyBlock: { actionHandler.createEmptyBlock(parentId: info.id) },
             showPage: showPage,
