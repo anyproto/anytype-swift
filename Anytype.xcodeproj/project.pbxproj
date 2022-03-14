@@ -196,6 +196,11 @@
 		1256666227C7814C005F774D /* BlockLinkStateStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1256666127C7814C005F774D /* BlockLinkStateStyle.swift */; };
 		125683D027DF14F5003A8251 /* TagsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125683CF27DF14F5003A8251 /* TagsSearchInteractor.swift */; };
 		125683D527DF17CE003A8251 /* TagSearchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125683D427DF17CE003A8251 /* TagSearchRowView.swift */; };
+		125683DA27DF1BFB003A8251 /* ObjectsSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125683D927DF1BFB003A8251 /* ObjectsSearchViewModel.swift */; };
+		125683DC27DF1C2B003A8251 /* ObjectsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125683DB27DF1C2B003A8251 /* ObjectsSearchInteractor.swift */; };
+		125683DE27DF1D0A003A8251 /* FilesSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125683DD27DF1D0A003A8251 /* FilesSearchInteractor.swift */; };
+		125683E027DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125683DF27DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift */; };
+		125683E227DF1E7D003A8251 /* SearchObjectRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125683E127DF1E7D003A8251 /* SearchObjectRowView.swift */; };
 		1259300526F3A5C500B115CD /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300426F3A5C500B115CD /* Highlightr */; };
 		1259300826F3A60B00B115CD /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300726F3A60B00B115CD /* Amplitude */; };
 		1259300E26F3A6AE00B115CD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300D26F3A6AE00B115CD /* Kingfisher */; };
@@ -1128,6 +1133,11 @@
 		1256666127C7814C005F774D /* BlockLinkStateStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLinkStateStyle.swift; sourceTree = "<group>"; };
 		125683CF27DF14F5003A8251 /* TagsSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsSearchInteractor.swift; sourceTree = "<group>"; };
 		125683D427DF17CE003A8251 /* TagSearchRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagSearchRowView.swift; sourceTree = "<group>"; };
+		125683D927DF1BFB003A8251 /* ObjectsSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsSearchViewModel.swift; sourceTree = "<group>"; };
+		125683DB27DF1C2B003A8251 /* ObjectsSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsSearchInteractor.swift; sourceTree = "<group>"; };
+		125683DD27DF1D0A003A8251 /* FilesSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilesSearchInteractor.swift; sourceTree = "<group>"; };
+		125683DF27DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectsSearchInteractorProtocol.swift; sourceTree = "<group>"; };
+		125683E127DF1E7D003A8251 /* SearchObjectRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchObjectRowView.swift; sourceTree = "<group>"; };
 		125B6E9826F235F400BCD7D6 /* EditorSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSearchCell.swift; sourceTree = "<group>"; };
 		125B6E9926F235F400BCD7D6 /* EditorSearchCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSearchCellData.swift; sourceTree = "<group>"; };
 		125B6E9A26F235F400BCD7D6 /* EditorSearchCellConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSearchCellConfiguration.swift; sourceTree = "<group>"; };
@@ -2871,6 +2881,7 @@
 		1244793A27DC61FA00581174 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				125683D827DF1BEE003A8251 /* ObjectsSearchViewModel */,
 				1244793C27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift */,
 				125683D627DF1928003A8251 /* TagsSearchViewModel */,
 				1244793B27DC620D00581174 /* StatusSearchViewModel */,
@@ -2942,6 +2953,18 @@
 				125683D427DF17CE003A8251 /* TagSearchRowView.swift */,
 			);
 			path = TagsSearchViewModel;
+			sourceTree = "<group>";
+		};
+		125683D827DF1BEE003A8251 /* ObjectsSearchViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				125683D927DF1BFB003A8251 /* ObjectsSearchViewModel.swift */,
+				125683DF27DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift */,
+				125683DB27DF1C2B003A8251 /* ObjectsSearchInteractor.swift */,
+				125683DD27DF1D0A003A8251 /* FilesSearchInteractor.swift */,
+				125683E127DF1E7D003A8251 /* SearchObjectRowView.swift */,
+			);
+			path = ObjectsSearchViewModel;
 			sourceTree = "<group>";
 		};
 		125B6E9326F235F400BCD7D6 /* AccessoryView */ = {
@@ -6109,6 +6132,7 @@
 				3D07ED76261F4D6500C007E2 /* DividerBlockContentView.swift in Sources */,
 				3D1B5F70274CF12C007D97AE /* SetFullHeader.swift in Sources */,
 				530F503226F0ECB000F76D03 /* AudioBlockViewModel.swift in Sources */,
+				125683DE27DF1D0A003A8251 /* FilesSearchInteractor.swift in Sources */,
 				1223C9002726BE1C00C34616 /* FeaturedRelationsBlockView.swift in Sources */,
 				EA43DD6826B1A33000E66878 /* NSAttributedString+Markup.swift in Sources */,
 				3D93D55D270AFE1400614E29 /* EditorBrowserController.swift in Sources */,
@@ -6127,6 +6151,7 @@
 				3DB3EC66275501A4002781DA /* LoadingAlertData.swift in Sources */,
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
 				12D4A67627D5F7F400354E3F /* RelationOptionsSearchRowModel.swift in Sources */,
+				125683E227DF1E7D003A8251 /* SearchObjectRowView.swift in Sources */,
 				C9121A5A273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift in Sources */,
 				1270CE9726DA85E900B2D443 /* GradientPoint.swift in Sources */,
 				3D2D4C6327BA76270070A4C6 /* EditorRouterProtocol.swift in Sources */,
@@ -6155,6 +6180,7 @@
 				3D8311072705899000CA6308 /* SlashActionObject.swift in Sources */,
 				5355DFEE2701CBB7005FD730 /* CustomizableHitTestArea.swift in Sources */,
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,
+				125683DC27DF1C2B003A8251 /* ObjectsSearchInteractor.swift in Sources */,
 				534FFA6A277231AB00C51056 /* CreateNewRelationCell.swift in Sources */,
 				3DE0CFD526F8593D003A606A /* SlashActionFilterMatch.swift in Sources */,
 				3DA7AD842712CF8400EA45F6 /* NSRange+Zero.swift in Sources */,
@@ -6569,6 +6595,7 @@
 				3DE3C91D26F464BF0012AF51 /* MentionObjectsService.swift in Sources */,
 				EA57F3DA26B84AA9007D4292 /* MarkupRange.swift in Sources */,
 				3D5A416B2703170300F1F6A1 /* BlockBackgroundColor.swift in Sources */,
+				125683E027DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift in Sources */,
 				0A0965E525BEF5B000C004BD /* FileRouter.swift in Sources */,
 				C965247F2720781C00254057 /* HorizonalTypeListView.swift in Sources */,
 				124478C727D7737800581174 /* RelationOptionsSearchStatusRowView.swift in Sources */,
@@ -6731,6 +6758,7 @@
 				53F80F0527BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift in Sources */,
 				3D3A182A2733E946000D0842 /* MarkdownListener.swift in Sources */,
 				3D3040AD27DB5A7300FFE0EB /* AnytypePopupLayoutType.swift in Sources */,
+				125683DA27DF1BFB003A8251 /* ObjectsSearchViewModel.swift in Sources */,
 				3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */,
 				3D24913627BD271900821595 /* DocumentUpdate.swift in Sources */,
 				12CAF34E26D64440001E56B2 /* TodoIconImageGuideline.swift in Sources */,

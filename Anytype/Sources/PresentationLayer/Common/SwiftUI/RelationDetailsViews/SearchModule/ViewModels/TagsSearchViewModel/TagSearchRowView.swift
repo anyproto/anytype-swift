@@ -19,6 +19,7 @@ struct TagSearchRowView: View {
 extension TagSearchRowView {
     
     struct Model {
+        #warning("TODO: remove using domain objects")
         let tag: Relation.Tag.Option
         let guidlines: TagView.Guidlines
     }

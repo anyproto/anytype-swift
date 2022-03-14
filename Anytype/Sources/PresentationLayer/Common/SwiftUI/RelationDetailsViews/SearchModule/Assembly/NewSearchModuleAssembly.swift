@@ -22,4 +22,24 @@ final class NewSearchModuleAssembly {
         return NewSearchView(viewModel: NewSearchViewModel(internalViewModel: viewModel))
     }
     
+    static func buildObjectsSearchModule(selectedObjectIds: [String]) -> NewSearchView {
+        let interactor = ObjectsSearchInteractor(
+            searchService: SearchService(),
+            selectedObjectIds: selectedObjectIds
+        )
+        
+        let viewModel = ObjectsSearchViewModel(interactor: interactor)
+        return NewSearchView(viewModel: NewSearchViewModel(internalViewModel: viewModel))
+    }
+    
+    static func buildFilesSearchModule(selectedObjectIds: [String]) -> NewSearchView {
+        let interactor = FilesSearchInteractor(
+            searchService: SearchService(),
+            selectedObjectIds: selectedObjectIds
+        )
+        
+        let viewModel = ObjectsSearchViewModel(interactor: interactor)
+        return NewSearchView(viewModel: NewSearchViewModel(internalViewModel: viewModel))
+    }
+    
 }

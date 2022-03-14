@@ -66,7 +66,7 @@ extension RelationOptionsViewModel {
         switch type {
         case .objects:
             if FeatureFlags.newRelationOptionsSearch {
-                RelationOptionsSearchModuleAssembly.buildModule(searchType: .objects)
+                NewSearchModuleAssembly.buildObjectsSearchModule(selectedObjectIds: selectedOptions.map { $0.id })
             } else {
                 RelationOptionsSearchView(
                     viewModel: RelationOptionsSearchViewModel(
@@ -86,7 +86,7 @@ extension RelationOptionsViewModel {
             }
         case .files:
             if FeatureFlags.newRelationOptionsSearch {
-                RelationOptionsSearchModuleAssembly.buildModule(searchType: .files)
+                NewSearchModuleAssembly.buildFilesSearchModule(selectedObjectIds: selectedOptions.map { $0.id })
             } else {
                 RelationOptionsSearchView(
                     viewModel: RelationOptionsSearchViewModel(
