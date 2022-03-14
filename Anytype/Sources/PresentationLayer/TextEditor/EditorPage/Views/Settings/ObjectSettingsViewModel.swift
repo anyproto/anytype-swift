@@ -12,6 +12,10 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         }
     }
     
+    var settings: [ObjectSetting] {
+        settingsBuilder.build(details: details, restrictions: objectActionsViewModel.objectRestrictions)
+    }
+    
     @Published private(set) var details: ObjectDetails = ObjectDetails(id: "", values: [:])
     
     let objectActionsViewModel: ObjectActionsViewModel
@@ -26,6 +30,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     private weak var popup: AnytypePopupProxy?
     private let objectId: String
     private let objectDetailsService: DetailsService
+    private let settingsBuilder = ObjectSettingBuilder()
     
     private let onLayoutSettingsTap: (ObjectLayoutPickerViewModel) -> ()
     
@@ -90,29 +95,6 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     func viewDidUpdateHeight(_ height: CGFloat) {
         popupLayout = .constantHeight(height: height, floatingPanelStyle: true)
         popup?.updateLayout(false)
-    }
-    
-}
-
-extension ObjectSettingsViewModel {
-    
-    var settings: [ObjectSetting] {
-        if details.type == ObjectTemplateType.BundledType.profile.rawValue {
-            return ObjectSetting.allCases.filter { $0 != .layout }
-        }
-        
-        switch details.layout {
-        case .basic:
-            return ObjectSetting.allCases
-        case .profile:
-            return ObjectSetting.allCases
-        case .todo:
-            return ObjectSetting.allCases.filter { $0 != .icon }
-        case .note:
-            return [.layout, .relations]
-        case .set:
-            return ObjectSetting.allCases
-        }
     }
     
 }
