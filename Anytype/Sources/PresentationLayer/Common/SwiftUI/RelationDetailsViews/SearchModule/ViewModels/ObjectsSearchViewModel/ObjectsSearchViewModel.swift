@@ -55,7 +55,8 @@ private extension Array where Element == ObjectDetails {
             ) {
                 AnyView(
                     SearchObjectRowView(
-                        viewModel: SearchObjectRowView.Model(details: details)
+                        viewModel: SearchObjectRowView.Model(details: details),
+                        selectionIndicatorViewModel: .notSelected
                     )
                 )
             }

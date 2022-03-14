@@ -61,7 +61,8 @@ private extension Array where Element == Relation.Tag.Option {
                             textColor: option.textColor,
                             backgroundColor: option.backgroundColor
                         ),
-                        guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines
+                        guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines,
+                        selectionIndicatorViewModel: .notSelected
                     )
                 )
             }
