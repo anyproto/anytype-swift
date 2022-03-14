@@ -105,6 +105,14 @@ final class TextViewWithPlaceholder: UITextView {
         }
     }
 
+    override func copy(_ sender: Any?) {
+        guard FeatureFlags.clipboard else {
+            return super.copy(sender)
+        }
+
+        customTextViewDelegate?.copy(range: selectedRange)
+    }
+
     // MARK: - Initialization
         
     init(

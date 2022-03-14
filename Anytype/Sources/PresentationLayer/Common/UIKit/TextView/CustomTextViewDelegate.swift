@@ -22,4 +22,5 @@ protocol CustomTextViewDelegate: AnyObject {
     func shouldChangeText(range: NSRange, replacementText: String) -> Bool
 
     func shouldPaste(range: NSRange) -> Bool
+    func copy(range: NSRange)
 }

@@ -94,8 +94,11 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                    textSlot.isValidURL() {
                     return false
                 }
-                actionHandler.past(blockId: blockId, range: range, slots: slots)
+                actionHandler.past(blockId: blockId, range: range)
                 return true
+            },
+            copy: { range in
+                actionHandler.copy(blocksIds: [info.id], selectedTextRange: range)
             },
             createEmptyBlock: { actionHandler.createEmptyBlock(parentId: info.id) },
             showPage: showPage,

@@ -7,6 +7,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
 
     struct Actions {
         let paste: (NSRange) -> Bool
+        let copy: (NSRange) -> Void
         let createEmptyBlock: () -> Void
         let showPage: (EditorScreenData) -> Void
         let openURL: (URL) -> Void

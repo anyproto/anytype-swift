@@ -1,5 +1,6 @@
 import BlocksModels
 import UIKit
+import AnytypeCore
 
 extension Array where Element == BlockRestrictions {
     var mergedOptions: Set<BlocksOptionItem> {
@@ -46,13 +47,7 @@ extension Array where Element == BlockInformation {
             restrictions.append(restriction)
         }
 
-        var mergedItems: Set<BlocksOptionItem> = []
-
-        if UIPasteboard.general.hasSlots {
-            mergedItems.insert(.paste)
-        }
-
-        mergedItems = restrictions.mergedOptions
+        var mergedItems = restrictions.mergedOptions
 
         if !isDownloadAvailable || count > 1 {
             mergedItems.remove(.download)
@@ -60,6 +55,15 @@ extension Array where Element == BlockInformation {
 
         if !isStyleAvailable || count > 1 {
             mergedItems.remove(.style)
+        }
+
+        if !FeatureFlags.clipboard {
+            mergedItems.remove(.copy)
+            mergedItems.remove(.paste)
+        }
+
+        if !UIPasteboard.general.hasSlots {
+            mergedItems.remove(.paste)
         }
 
         return Array<BlocksOptionItem>(mergedItems).sorted()
