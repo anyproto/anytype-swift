@@ -4,12 +4,13 @@ import SwiftProtobuf
 
 final class DetailsService {
     
-    private let service = ObjectActionsService()
+    private let service: ObjectActionsServiceProtocol
 
     private let objectId: String
         
-    init(objectId: String) {
+    init(objectId: String, service: ObjectActionsServiceProtocol) {
         self.objectId = objectId
+        self.service = service
     }
     
 }

@@ -15,7 +15,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     private var subscriptions: [AnyCancellable] = []
     private let singleService = ServiceLocator.shared.blockActionsServiceSingle()
-    private let pageService = ObjectActionsService()
+    private let pageService = ServiceLocator.shared.objectActionsService()
     private let textService = TextService()
     private let listService: BlockListServiceProtocol
     private let bookmarkService = BookmarkService()

@@ -29,14 +29,14 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     
     private weak var popup: AnytypePopupProxy?
     private let objectId: String
-    private let objectDetailsService: DetailsService
+    private let objectDetailsService: DetailsServiceProtocol
     private let settingsBuilder = ObjectSettingBuilder()
     
     private let onLayoutSettingsTap: (ObjectLayoutPickerViewModel) -> ()
     
     init(
         objectId: String,
-        objectDetailsService: DetailsService,
+        objectDetailsService: DetailsServiceProtocol,
         router: EditorRouterProtocol
     ) {
         self.objectId = objectId

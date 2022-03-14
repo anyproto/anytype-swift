@@ -56,7 +56,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     private let document: BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
-    private let blockActionsService: BlockActionsServiceSingle
+    private let blockActionsService: BlockActionsServiceSingleProtocol
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
 
@@ -68,7 +68,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         document: BaseDocumentProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
-        blockActionsService: BlockActionsServiceSingle,
+        blockActionsService: BlockActionsServiceSingleProtocol,
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol
     ) {

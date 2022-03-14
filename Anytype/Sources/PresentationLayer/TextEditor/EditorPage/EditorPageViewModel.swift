@@ -26,7 +26,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let headerBuilder: ObjectHeaderBuilder
     private lazy var cancellables = [AnyCancellable]()
 
-    private let blockActionsService: BlockActionsServiceSingle
+    private let blockActionsService: BlockActionsServiceSingleProtocol
 
     deinit {
         blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
@@ -49,7 +49,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         actionHandler: BlockActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
         headerBuilder: ObjectHeaderBuilder,
-        blockActionsService: BlockActionsServiceSingle,
+        blockActionsService: BlockActionsServiceSingleProtocol,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager
     ) {

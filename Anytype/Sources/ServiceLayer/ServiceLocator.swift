@@ -50,6 +50,10 @@ final class ServiceLocator {
         SearchService()
     }
     
+    func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
+        DetailsService(objectId: objectId, service: objectActionsService())
+    }
+    
     func subscriptionService() -> SubscriptionsServiceProtocol {
         SubscriptionsService(
             toggler: subscriptionToggler(),

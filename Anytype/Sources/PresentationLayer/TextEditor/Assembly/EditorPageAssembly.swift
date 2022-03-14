@@ -82,9 +82,7 @@ final class EditorAssembly {
         
         let objectSettingsViewModel = ObjectSettingsViewModel(
             objectId: document.objectId,
-            objectDetailsService: DetailsService(
-                objectId: document.objectId
-            ),
+            objectDetailsService: ServiceLocator.shared.detailsService(objectId: document.objectId),
             router: router
         )
                 
@@ -144,7 +142,7 @@ final class EditorAssembly {
             router: router
         )
 
-        let blockActionsService = BlockActionsServiceSingle()
+        let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
 
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,

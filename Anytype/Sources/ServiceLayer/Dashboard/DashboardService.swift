@@ -6,7 +6,7 @@ import Amplitude
 
 
 class DashboardService: DashboardServiceProtocol {
-    private let objectsService = ObjectActionsService()
+    private let objectsService = ServiceLocator.shared.objectActionsService()
     
     func createNewPage() -> BlockId? {
         let defaultTypeUrl = ObjectTypeProvider.defaultObjectType.url

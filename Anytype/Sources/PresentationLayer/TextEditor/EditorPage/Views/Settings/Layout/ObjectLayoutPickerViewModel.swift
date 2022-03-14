@@ -19,11 +19,11 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     
     private weak var popup: AnytypePopupProxy?
     
-    private let detailsService: DetailsService
+    private let detailsService: DetailsServiceProtocol
     
     // MARK: - Initializer
     
-    init(detailsService: DetailsService) {
+    init(detailsService: DetailsServiceProtocol) {
         self.detailsService = detailsService
     }
     
