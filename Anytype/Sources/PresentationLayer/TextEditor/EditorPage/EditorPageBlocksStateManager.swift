@@ -2,6 +2,7 @@ import BlocksModels
 import Combine
 import AnytypeCore
 import Foundation
+import UIKit
 
 enum EditorEditingState {
     case editing
@@ -56,7 +57,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     private let document: BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
-    private let blockActionsService: BlockActionsServiceSingle
+    private let blockActionsServiceSingle: BlockActionsServiceSingle
+    private let blockActionsService: BlockActionServiceProtocol
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
 
@@ -68,13 +70,15 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         document: BaseDocumentProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
-        blockActionsService: BlockActionsServiceSingle,
+        blockActionsServiceSingle: BlockActionsServiceSingle,
+        blockActionsService: BlockActionServiceProtocol,
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
         self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
+        self.blockActionsServiceSingle = blockActionsServiceSingle
         self.blockActionsService = blockActionsService
         self.actionHandler = actionHandler
         self.router = router
@@ -251,7 +255,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             .sorted()
             .compactMap { modelsHolder.blockViewModel(at: $0.row)?.blockId }
 
-        blockActionsService.move(
+        blockActionsServiceSingle.move(
             contextId: contextId,
             blockIds: blockIds,
             targetContextID: targetId,
@@ -321,6 +325,12 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             elements.first.map { router.showStyleMenu(information: $0.info) }
 
             return
+        case .paste:
+            let blockIds = elements.map(\.blockId)
+            actionHandler.paste(selectedBlockIds: blockIds)
+        case .copy:
+            let blocksIds = elements.map(\.blockId)
+            actionHandler.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
         }
 
         editingState = .editing
