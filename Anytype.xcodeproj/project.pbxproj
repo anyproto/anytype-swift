@@ -263,7 +263,7 @@
 		129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */; };
 		12A4793527C38E6C00E62795 /* AnytypePopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A4793427C38E6C00E62795 /* AnytypePopupLayout.swift */; };
 		12A52E0126CA7BF6000F0333 /* UIViewControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52E0026CA7BF6000F0333 /* UIViewControllerExtensions.swift */; };
-		12A52E1B26CA88CD000F0333 /* EditorBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52E1A26CA88CD000F0333 /* EditorBarButtonItem.swift */; };
+		12A52E1B26CA88CD000F0333 /* UIEditorBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52E1A26CA88CD000F0333 /* UIEditorBarButtonItem.swift */; };
 		12A52E2726CAA166000F0333 /* ViewAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52E2626CAA166000F0333 /* ViewAnimator.swift */; };
 		12A52E2926CAA17B000F0333 /* AnimatableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52E2826CAA17B000F0333 /* AnimatableView.swift */; };
 		12A52E2C26CAA1A2000F0333 /* ViewAnimator+Scale.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12A52E2B26CAA1A2000F0333 /* ViewAnimator+Scale.swift */; };
@@ -439,6 +439,7 @@
 		3D30408A27DA219400FFE0EB /* EditorSetViewModel+ViewPickerPopup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30408927DA219400FFE0EB /* EditorSetViewModel+ViewPickerPopup.swift */; };
 		3D30408C27DA92F900FFE0EB /* ObjectHeaderLocalEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30408B27DA92F900FFE0EB /* ObjectHeaderLocalEvent.swift */; };
 		3D3040AD27DB5A7300FFE0EB /* AnytypePopupLayoutType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3040AC27DB5A7300FFE0EB /* AnytypePopupLayoutType.swift */; };
+		3D3040B027DBAD3500FFE0EB /* EditorBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3040AF27DBAD3500FFE0EB /* EditorBarButtonItem.swift */; };
 		3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */; };
 		3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */; };
 		3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */; };
@@ -1177,7 +1178,7 @@
 		129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutRow.swift; sourceTree = "<group>"; };
 		12A4793427C38E6C00E62795 /* AnytypePopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypePopupLayout.swift; sourceTree = "<group>"; };
 		12A52E0026CA7BF6000F0333 /* UIViewControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerExtensions.swift; sourceTree = "<group>"; };
-		12A52E1A26CA88CD000F0333 /* EditorBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBarButtonItem.swift; sourceTree = "<group>"; };
+		12A52E1A26CA88CD000F0333 /* UIEditorBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIEditorBarButtonItem.swift; sourceTree = "<group>"; };
 		12A52E2626CAA166000F0333 /* ViewAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewAnimator.swift; sourceTree = "<group>"; };
 		12A52E2826CAA17B000F0333 /* AnimatableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimatableView.swift; sourceTree = "<group>"; };
 		12A52E2B26CAA1A2000F0333 /* ViewAnimator+Scale.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ViewAnimator+Scale.swift"; sourceTree = "<group>"; };
@@ -1353,6 +1354,7 @@
 		3D30408927DA219400FFE0EB /* EditorSetViewModel+ViewPickerPopup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorSetViewModel+ViewPickerPopup.swift"; sourceTree = "<group>"; };
 		3D30408B27DA92F900FFE0EB /* ObjectHeaderLocalEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectHeaderLocalEvent.swift; sourceTree = "<group>"; };
 		3D3040AC27DB5A7300FFE0EB /* AnytypePopupLayoutType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypePopupLayoutType.swift; sourceTree = "<group>"; };
+		3D3040AF27DBAD3500FFE0EB /* EditorBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBarButtonItem.swift; sourceTree = "<group>"; };
 		3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationView.swift; sourceTree = "<group>"; };
 		3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceView.swift; sourceTree = "<group>"; };
 		3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRectCorner+Corners.swift"; sourceTree = "<group>"; };
@@ -3639,9 +3641,9 @@
 		3D170236271598790079B65B /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
+				3D3040AE27DBAC3700FFE0EB /* BarButton */,
 				3D17025A2716E4E20079B65B /* Model */,
 				125E75E426CD199A000AF4E9 /* EditorNavigationBarTitleView.swift */,
-				12A52E1A26CA88CD000F0333 /* EditorBarButtonItem.swift */,
 				3D17023E2715D0D80079B65B /* EditorSyncStatusItem.swift */,
 				3D1702402715D22B0079B65B /* SyncStatus+Editor.swift */,
 			);
@@ -3854,6 +3856,15 @@
 				1247BAFF27CCBF470079DA1F /* ConstantHeightPopupLayout.swift */,
 			);
 			path = Layouts;
+			sourceTree = "<group>";
+		};
+		3D3040AE27DBAC3700FFE0EB /* BarButton */ = {
+			isa = PBXGroup;
+			children = (
+				12A52E1A26CA88CD000F0333 /* UIEditorBarButtonItem.swift */,
+				3D3040AF27DBAD3500FFE0EB /* EditorBarButtonItem.swift */,
+			);
+			path = BarButton;
 			sourceTree = "<group>";
 		};
 		3D34F20227BE2F9200990C49 /* Personalization */ = {
@@ -5883,6 +5894,7 @@
 				C9121A5C273B8E2F00FFDA07 /* RoundedShadowView.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				12F6072826D7DF0D00876C92 /* ObjectIconImageView.swift in Sources */,
+				3D3040B027DBAD3500FFE0EB /* EditorBarButtonItem.swift in Sources */,
 				123FDAD226C150F500F6F44B /* EditorPageController+FloatingPanelControllerDelegate.swift in Sources */,
 				C9C49A8527049D0200D86463 /* AlertsFactory.swift in Sources */,
 				C98F6A6C27A90F210063DD7A /* BaseConfiguration.swift in Sources */,
@@ -6280,7 +6292,7 @@
 				3D16841226DD672E008B9DFF /* BlockDividerConverter.swift in Sources */,
 				3DFD1B4026EB1F8B00F893FC /* StaticImageGuideline.swift in Sources */,
 				0AD6B24524CF12CC0097A841 /* BookmarkServiceProtocol.swift in Sources */,
-				12A52E1B26CA88CD000F0333 /* EditorBarButtonItem.swift in Sources */,
+				12A52E1B26CA88CD000F0333 /* UIEditorBarButtonItem.swift in Sources */,
 				538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */,
 				3DE0B3232747BCBC00F69376 /* BlockDataviewConverter.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */,

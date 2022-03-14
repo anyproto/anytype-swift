@@ -1,6 +1,6 @@
 import UIKit
 
-final class EditorBarButtonItem: UIView, CustomizableHitTestAreaView {
+final class UIEditorBarButtonItem: UIView, CustomizableHitTestAreaView {
     // CustomizableHitTestAreaView
     var minHitTestArea: CGSize = Constants.minimumHitArea
     
@@ -31,7 +31,7 @@ final class EditorBarButtonItem: UIView, CustomizableHitTestAreaView {
     }
 }
 
-private extension EditorBarButtonItem {
+private extension UIEditorBarButtonItem {
     
     func setup(image: UIImage, action: @escaping () -> Void) {
         setupBackgroundView()
@@ -100,7 +100,7 @@ private extension EditorBarButtonItem {
     
 }
 
-private extension EditorBarButtonItem {
+private extension UIEditorBarButtonItem {
     
     enum Constants {
         static let animationDuration: TimeInterval = 0.1
