@@ -10,6 +10,7 @@ protocol BaseDocumentProtocol: AnyObject {
     var objectDetails: ObjectDetails? { get }
     var children: [BlockInformation] { get }
     var parsedRelations: ParsedRelations { get }
+    var isLocked: Bool { get }
 
     @discardableResult
     func open() -> Bool

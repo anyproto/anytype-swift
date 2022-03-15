@@ -36,4 +36,5 @@ public struct BlockInformation: Hashable {
 
 public enum FieldName {
     public static let codeLanguage = "lang"
+    public static let isLocked = "isLocked"
 }

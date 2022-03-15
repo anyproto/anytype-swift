@@ -102,8 +102,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             objectSettingsViewModel.update(
                 objectRestrictions: document.objectRestrictions,
-                parsedRelations: document.parsedRelations
+                parsedRelations: document.parsedRelations,
+                isLocked: document.isLocked
             )
+
             updateHeaderIfNeeded(header: header, details: details)
 
             let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
@@ -136,6 +138,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         case .header(let update):
             updateHeader(update)
         }
+
+        blocksStateManager.checkDocumentLockField()
     }
     
     private func performGeneralUpdate() {
@@ -236,7 +240,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         objectSettingsViewModel.update(
             objectRestrictions: document.objectRestrictions,
-            parsedRelations: document.parsedRelations
+            parsedRelations: document.parsedRelations,
+            isLocked: document.isLocked
         )
 
         updateCursorIfNeeded()
@@ -289,7 +294,8 @@ extension EditorPageViewModel {
 
 extension EditorPageViewModel {
     func didSelectBlock(at indexPath: IndexPath) {
-        element(at: indexPath)?.didSelectRowInTableView()
+        element(at: indexPath)?
+            .didSelectRowInTableView(editorEditingState: blocksStateManager.editingState)
     }
 
     func element(at: IndexPath) -> BlockViewModelProtocol? {

@@ -71,7 +71,11 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         )
     }
     
-    func update(objectRestrictions: ObjectRestrictions, parsedRelations: ParsedRelations) {
+    func update(
+        objectRestrictions: ObjectRestrictions,
+        parsedRelations: ParsedRelations,
+        isLocked: Bool
+    ) {
         if let details = ObjectDetailsStorage.shared.get(id: objectId) {
             objectActionsViewModel.details = details
             self.details = details
@@ -81,6 +85,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
             relationsViewModel.update(with: parsedRelations)
         }
         objectActionsViewModel.objectRestrictions = objectRestrictions
+        objectActionsViewModel.isLocked = isLocked
     }
     
     func showLayoutSettings() {

@@ -264,6 +264,7 @@ final class MiddlewareEventConverter {
                 ObjectDetails(id: $0.id, values: $0.details.fields)
             }
 
+
             buildBlocksTree(information: parsedBlocks, rootId: data.rootID, container: infoContainer)
 
             parsedDetails.forEach { detailsStorage.add(details: $0) }
@@ -271,7 +272,9 @@ final class MiddlewareEventConverter {
             relationStorage.set(
                 relations: data.relations.map { RelationMetadata(middlewareRelation: $0) }
             )
-            
+
+
+            print("-_- \(data.blocks.first?.fields.fields)")
             let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareResctrictions: data.restrictions)
             restrictionsContainer.restrinctions = restrinctions
             return .general

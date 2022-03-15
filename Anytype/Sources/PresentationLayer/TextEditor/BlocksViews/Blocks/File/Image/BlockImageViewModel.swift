@@ -67,8 +67,8 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             state: state
         ).asCellBlockConfiguration
     }
-    
-    func didSelectRowInTableView() {
+
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         switch fileData.state {
         case .empty, .error:
             showIconPicker(blockId)

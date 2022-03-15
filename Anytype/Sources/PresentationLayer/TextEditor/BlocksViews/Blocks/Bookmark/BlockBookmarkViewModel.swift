@@ -27,11 +27,12 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
         }
     }
     
-    func didSelectRowInTableView() {
-        guard let url = URL(string: bookmarkData.url) else {
-            showBookmarkBar(info)
-            return
-        }
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {
+        guard let url = URL(string: bookmarkData.url),
+              case .editing = editorEditingState else {
+                  showBookmarkBar(info)
+                  return
+              }
         
         openUrl(url)
     }

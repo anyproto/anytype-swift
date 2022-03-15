@@ -5,7 +5,7 @@ struct SpacerBlockViewModel: SystemContentConfiguationProvider {
         case firstRowOffset = 14
     }
 
-    func didSelectRowInTableView() {}
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 
     var hashable: AnyHashable {
         [

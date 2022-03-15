@@ -17,5 +17,5 @@ struct DividerBlockViewModel: BlockViewModelProtocol {
         return DividerBlockContentConfiguration(content: dividerContent).asCellBlockConfiguration
     }
     
-    func didSelectRowInTableView() {}
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 }

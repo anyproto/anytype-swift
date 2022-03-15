@@ -129,6 +129,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             let title = "Editor.MovingState.ScrollToSelectedPlace".localized
             navigationBarTitleView.configure(model: .modeTitle(title))
             controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
+        case .locked: break
         }
     }
 }

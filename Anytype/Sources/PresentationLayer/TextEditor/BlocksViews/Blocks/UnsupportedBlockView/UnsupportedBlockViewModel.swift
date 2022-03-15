@@ -21,5 +21,5 @@ struct UnsupportedBlockViewModel: BlockViewModelProtocol {
         UnsupportedBlockContentConfiguration(text: "Unsupported block".localized).asCellBlockConfiguration
     }
 
-    func didSelectRowInTableView() { }
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) { }
 }

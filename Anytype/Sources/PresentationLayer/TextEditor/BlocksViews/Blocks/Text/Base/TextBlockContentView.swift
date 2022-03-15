@@ -44,6 +44,8 @@ final class TextBlockContentView: UIView, BlockContentView {
     }
 
     func update(with state: UICellConfigurationState) {
+        textView.textView.isLockedForEditing = state.isLocked
+
         textView.textView.isUserInteractionEnabled = state.isEditing
     }
 

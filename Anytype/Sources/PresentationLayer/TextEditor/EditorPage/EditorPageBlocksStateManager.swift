@@ -7,6 +7,7 @@ enum EditorEditingState {
     case editing
     case selecting(blocks: [BlockId])
     case moving(indexPaths: [IndexPath])
+    case locked
 }
 
 /// Blocks drag & drop protocol.
@@ -31,7 +32,10 @@ protocol EditorPageSelectionManagerProtocol {
 }
 
 protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol, AnyObject {
-    var editorEditingState: AnyPublisher<EditorEditingState, Never> { get }
+    func checkDocumentLockField()
+
+    var editingState: EditorEditingState { get }
+    var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { get }
     var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { get }
 }
 
@@ -41,7 +45,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case object(BlockId)
     }
 
-    var editorEditingState: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
+    var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
     var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { $selectedBlocks.eraseToAnyPublisher() }
 
     @Published var editingState: EditorEditingState = .editing
@@ -82,6 +86,14 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         setupEditingHandlers()
     }
 
+    func checkDocumentLockField() {
+        if document.isLocked {
+            editingState = .locked
+        } else if case .locked = editingState, !document.isLocked {
+            editingState = .editing
+        }
+    }
+
     // MARK: - EditorPageSelectionManagerProtocol
 
     func canSelectBlock(at indexPath: IndexPath) -> Bool {
@@ -111,7 +123,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         let blocksInformation = indexPaths.compactMap {
             modelsHolder.blockViewModel(at: $0.row)?.info
         }
-        updateSelectionContent(selectedBlocks: blocksInformation)
+        updateSelectionBarActions(selectedBlocks: blocksInformation)
 
         if case .selecting = editingState {
             editingState = .selecting(blocks: blocksInformation.map { $0.id })
@@ -189,6 +201,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 blocksSelectionOverlayViewModel?.setNeedsUpdateForMovingState()
             case .editing:
                 movingBlocksIndexPaths.removeAll()
+            case .locked: break
             }
         }.store(in: &cancellables)
 
@@ -204,7 +217,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         }
     }
 
-    private func updateSelectionContent(selectedBlocks: [BlockInformation]) {
+    private func updateSelectionBarActions(selectedBlocks: [BlockInformation]) {
         blocksSelectionOverlayViewModel?.blocksOptionViewModel?.options = selectedBlocks.blocksOptionItems
     }
 
@@ -331,7 +344,7 @@ extension EditorPageBlocksStateManager: BlockSelectionHandler {
     func didSelectEditingState(info: BlockInformation) {
         editingState = .selecting(blocks: [info.id])
         selectedBlocks = [info.id]
-        updateSelectionContent(selectedBlocks: [info])
+        updateSelectionBarActions(selectedBlocks: [info])
     }
 }
 
