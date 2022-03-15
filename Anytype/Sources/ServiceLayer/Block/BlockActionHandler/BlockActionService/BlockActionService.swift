@@ -19,7 +19,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let textService = TextService()
     private let listService: BlockListServiceProtocol
     private let bookmarkService = BookmarkService()
-    private let fileService = BlockActionsServiceFile()
+    private let fileService = FileActionsService()
     private let pastboardService = PastboardHelper()
     private let cursorManager: EditorCursorManager
     

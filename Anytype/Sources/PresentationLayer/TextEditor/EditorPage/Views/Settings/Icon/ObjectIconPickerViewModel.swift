@@ -32,7 +32,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
     
     private let document: BaseDocumentProtocol
     private let imageUploadingDemon = MediaFileUploadingDemon.shared
-    private let fileService: BlockActionsServiceFileProtocol
+    private let fileService: FileActionsServiceProtocol
     private let detailsService: DetailsServiceProtocol
     
     private var subscription: AnyCancellable?
@@ -41,7 +41,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
     
     init(
         document: BaseDocumentProtocol,
-        fileService: BlockActionsServiceFileProtocol,
+        fileService: FileActionsServiceProtocol,
         detailsService: DetailsServiceProtocol
     ) {
         self.document = document

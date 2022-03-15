@@ -11,12 +11,12 @@ final class ObjectCoverPickerViewModel: ObservableObject {
     
     private let objectId: BlockId
     private let imageUploadingDemon = MediaFileUploadingDemon.shared
-    private let fileService: BlockActionsServiceFileProtocol
+    private let fileService: FileActionsServiceProtocol
     private let detailsService: DetailsServiceProtocol
         
     // MARK: - Initializer
     
-    init(objectId: BlockId, fileService: BlockActionsServiceFileProtocol, detailsService: DetailsServiceProtocol) {
+    init(objectId: BlockId, fileService: FileActionsServiceProtocol, detailsService: DetailsServiceProtocol) {
         self.objectId = objectId
         self.fileService = fileService
         self.detailsService = detailsService
