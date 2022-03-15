@@ -10,6 +10,7 @@ import AnytypeCore
 import Combine
 import BlocksModels
 import UIKit
+import UniformTypeIdentifiers
 
 final class MediaFileUploadingOperation: AsyncOperation {
         
@@ -33,20 +34,20 @@ final class MediaFileUploadingOperation: AsyncOperation {
             return
         }
         
-        let typeIdentifier: String? = itemProvider.registeredTypeIdentifiers.first {
-            worker.contentType.supportedTypeIdentifiers.contains($0)
-        }
+//        let typeIdentifier: String? = itemProvider.registeredTypeIdentifiers.first {
+//            worker.contentType.supportedTypeIdentifiers.contains($0)
+//        }
         
-        guard let identifier = typeIdentifier else {
-            worker.finish()
-            state = .finished
-            return
-        }
+//        guard let identifier = typeIdentifier else {
+//            worker.finish()
+//            state = .finished
+//            return
+//        }
         
         worker.prepare()
         
         itemProvider.loadFileRepresentation(
-            forTypeIdentifier: identifier
+            forTypeIdentifier: UTType.item.identifier
         ) { [weak self] temporaryUrl, error in
             guard let temporaryUrl = temporaryUrl else {
                 self?.worker.finish()

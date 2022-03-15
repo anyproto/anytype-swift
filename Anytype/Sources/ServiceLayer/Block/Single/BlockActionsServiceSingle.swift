@@ -1,30 +1,43 @@
-import Foundation
 import Combine
 import BlocksModels
 import ProtobufMessages
 import Amplitude
 import AnytypeCore
-import BlocksModels
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
-    func paste(contextId: BlockId, focusedBlockId: BlockId, selectedTextRange: NSRange, isPartOfBlock: Bool, slots: PastboardSlots) {
+    func paste(contextId: BlockId,
+               focusedBlockId: BlockId,
+               selectedTextRange: NSRange,
+               isPartOfBlock: Bool,
+               textSlots: TextSlots,
+               anySlots: AnySlots?,
+               fileSlot: Anytype_Rpc.Block.Paste.Request.File?) -> BlockId? {
         paste(contextId: contextId,
               focusedBlockId: focusedBlockId,
               selectedTextRange: selectedTextRange.asMiddleware,
               selectedBlockIds: [],
               isPartOfBlock: isPartOfBlock,
-              slots: slots)
+              textSlots: textSlots,
+              anySlots: anySlots,
+              fileSlot: fileSlot)
     }
 
-    func paste(contextId: BlockId, selectedBlockIds: [BlockId], isPartOfBlock: Bool, slots: PastboardSlots) {
+    func paste(contextId: BlockId,
+               selectedBlockIds: [BlockId],
+               isPartOfBlock: Bool,
+               textSlots: TextSlots,
+               anySlots: AnySlots?,
+               fileSlot: Anytype_Rpc.Block.Paste.Request.File?) -> BlockId? {
         paste(contextId: contextId,
               focusedBlockId: "",
               selectedTextRange: Anytype_Model_Range(),
               selectedBlockIds: selectedBlockIds,
               isPartOfBlock: isPartOfBlock,
-              slots: slots)
+              textSlots: textSlots,
+              anySlots: anySlots,
+              fileSlot: fileSlot)
     }
 
     private func paste(contextId: BlockId,
@@ -32,26 +45,29 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
                        selectedTextRange: Anytype_Model_Range,
                        selectedBlockIds: [BlockId],
                        isPartOfBlock: Bool,
-                       slots: PastboardSlots) {
+                       textSlots: TextSlots,
+                       anySlots: AnySlots?,
+                       fileSlot: Anytype_Rpc.Block.Paste.Request.File?) -> BlockId? {
 
-        let middleFileSlot = slots.fileSlot?.compactMap { fileSlot in
-            Anytype_Rpc.Block.Paste.Request.File(name: fileSlot.name, data: Data(), localPath: fileSlot.url.relativePath)
-        }
-
-        Anytype_Rpc.Block.Paste.Service.invoke(
+        let result = Anytype_Rpc.Block.Paste.Service.invoke(
             contextID: contextId,
             focusedBlockID: focusedBlockId,
             selectedTextRange: selectedTextRange,
             selectedBlockIds: selectedBlockIds,
             isPartOfBlock: isPartOfBlock,
-            textSlot: slots.textSlot ?? "",
-            htmlSlot: slots.htmlSlot ?? "",
-            anySlot: slots.anySlot ?? [],
-            fileSlot: middleFileSlot ?? []
+            textSlot: textSlots.textSlot ?? "",
+            htmlSlot: textSlots.htmlSlot ?? "",
+            anySlot: anySlots ?? [],
+            fileSlot: [fileSlot ?? Anytype_Rpc.Block.Paste.Request.File()]
         )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockActionsService)?
-            .send()
+            .getValue(domain: .blockActionsService)
+
+        let events = result.map {
+            EventsBunch(event: $0.event)
+        }
+        events?.send()
+
+        return result?.blockIds.last
     }
 
     func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots {
@@ -66,7 +82,8 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         )
             .getValue(domain: .blockActionsService)
 
-        return PastboardSlots(textSlot: result?.textSlot, htmlSlot: result?.htmlSlot, anySlot: result?.anySlot, fileSlot: nil)
+        let textSlots = TextSlots(textSlot: result?.textSlot, htmlSlot: result?.htmlSlot)
+        return PastboardSlots(textSlots: textSlots, anySlots: result?.anySlot, fileSlots: nil)
     }
 
     func open(contextId: BlockId, blockId: BlockId) -> Bool {

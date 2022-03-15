@@ -3,19 +3,21 @@ import UniformTypeIdentifiers
 import AnytypeCore
 import ProtobufMessages
 
-struct PastboardSlots {
-    struct FileSlot {
-        var name: String
-        var url: URL
-    }
+typealias AnySlots = [Anytype_Model_Block]
+
+struct TextSlots {
     let textSlot: String?
     let htmlSlot: String?
-    let anySlot: [Anytype_Model_Block]?
-    let fileSlot: [FileSlot]?
 
     var onlyTextSlotAvailable: Bool {
         textSlot.isNotNil && htmlSlot.isNil
     }
+}
+
+struct PastboardSlots {
+    let textSlots: TextSlots
+    let anySlots: AnySlots?
+    let fileSlots:  [NSItemProvider]?
 }
 
 final class PastboardHelper {
@@ -26,7 +28,7 @@ final class PastboardHelper {
             var htmlSlot: String? = nil
             var textSlot: String? = nil
             var anySlot: [Anytype_Model_Block]? = nil
-            var fileSlot = [PastboardSlots.FileSlot]()
+            var fileSlot = [NSItemProvider]()
 
             if pasteboard.contains(pasteboardTypes: [UTType.html.identifier], inItemSet: nil) {
                 if let pasteboardData = pasteboard.data(
@@ -58,43 +60,31 @@ final class PastboardHelper {
                 }
             }
 
-            let groupWaitingCompletion = DispatchGroup()
-            groupWaitingCompletion.enter()
-
-            let groupWaitingFileSlot = DispatchGroup()
-
             if pasteboard.contains(pasteboardTypes: [UTType.item.identifier]) {
                 pasteboard.itemProviders.forEach { itemProvider in
-                    groupWaitingFileSlot.enter()
-
-                    itemProvider.loadFileRepresentation(forTypeIdentifier: UTType.item.identifier) { url, error in
-                        if let url = url {
-                            fileSlot.append(.init(name: itemProvider.suggestedName ?? "", url: url))
-                            groupWaitingFileSlot.leave()
-                            groupWaitingCompletion.wait()
-                        }
-                    }
+                    fileSlot.append(itemProvider)
                 }
             }
-            groupWaitingFileSlot.wait()
 
-            completion(.init(textSlot: textSlot, htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot))
-            groupWaitingCompletion.leave()
+            DispatchQueue.main.async {
+                let textSlots = TextSlots(textSlot: textSlot, htmlSlot: htmlSlot)
+                completion(.init(textSlots: textSlots, anySlots: anySlot, fileSlots: fileSlot))
+            }
         }
     }
 
     func copy(slots: PastboardSlots) {
         let pasteboard = UIPasteboard.general
 
-        if let textSlot = slots.textSlot {
+        if let textSlot = slots.textSlots.textSlot {
             pasteboard.setValue(textSlot, forPasteboardType: UTType.plainText.identifier)
         }
 
-        if let htmlSlot = slots.htmlSlot {
+        if let htmlSlot = slots.textSlots.htmlSlot {
             pasteboard.addItems([[UTType.html.identifier: htmlSlot]])
         }
 
-        if let anySlot = slots.anySlot {
+        if let anySlot = slots.anySlots {
             let anyJSONSlot: [[String: Any]] = anySlot.compactMap { anytypeModelBlock in
                 if let jsonString = try? anytypeModelBlock.jsonString() {
                     return [UTType.anySlot.identifier: jsonString]

@@ -4,6 +4,32 @@ import Combine
 import AnytypeCore
 import Amplitude
 
+final class DefaultFileWorker: MediaFileUploadingWorkerProtocol {
+    var contentType: MediaPickerContentType = .images
+
+    private let action: (_ localPath: String) -> Void
+
+    init(action: @escaping (_ localPath: String) -> Void) {
+        self.action = action
+    }
+
+    func cancel() {
+        // do nothing
+    }
+
+    func prepare() {
+        // do nothing
+    }
+
+    func upload(_ localPath: String) {
+        action(localPath)
+    }
+
+    func finish() {
+        // do nothing
+    }
+}
+
 final class BlockActionHandler: BlockActionHandlerProtocol {
     weak var blockSelectionHandler: BlockSelectionHandler?
     private let document: BaseDocumentProtocol
@@ -31,15 +57,32 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     // MARK: - Service proxy
+
     func shouldPaste(blockId: BlockId, range: NSRange, completion: @escaping (Bool) -> Void) {
         pastboardHelper.obtainSlots { [weak self] slots in
             // don't handle paste if only text in clipboard and it's valid url
-            if slots.onlyTextSlotAvailable,
-               let textSlot = slots.textSlot,
+            if slots.textSlots.onlyTextSlotAvailable,
+               let textSlot = slots.textSlots.textSlot,
                textSlot.isValidURL() {
                 completion(false)
             }
-            self?.service.paste(blockId: blockId, range: range, slots: slots)
+            self?.service.paste(blockId: blockId, range: range, textSlots: slots.textSlots, anySlots: slots.anySlots)
+
+            slots.fileSlots?.forEach { itemProvider in
+                var lastBlockId = blockId
+
+                let operation = MediaFileUploadingOperation(
+                    itemProvider: itemProvider,
+                    worker: DefaultFileWorker { localPath in
+                        lastBlockId = self?.service.pasteFile(blockId: lastBlockId,
+                                                              range: range,
+                                                              localPath: localPath,
+                                                              name: itemProvider.suggestedName ?? "") ?? lastBlockId
+                    }
+                )
+                self?.fileUploadingDemon.addOperation(operation)
+            }
+
             completion(true)
         }
     }
@@ -47,12 +90,27 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func shouldPaste(selectedBlockIds: [BlockId], completion: @escaping (Bool) -> Void) {
         pastboardHelper.obtainSlots { [weak self] slots in
             // don't handle paste if only text in clipboard and it's valid url
-            if slots.onlyTextSlotAvailable,
-               let textSlot = slots.textSlot,
+            if slots.textSlots.onlyTextSlotAvailable,
+               let textSlot = slots.textSlots.textSlot,
                textSlot.isValidURL() {
                 completion(false)
             }
-            self?.service.paste(selectedBlockIds: selectedBlockIds, slots: slots)
+            self?.service.paste(selectedBlockIds: selectedBlockIds, textSlots: slots.textSlots, anySlots: slots.anySlots)
+            guard var lastBlockId = selectedBlockIds.last else { return }
+
+            slots.fileSlots?.forEach { itemProvider in
+                let operation = MediaFileUploadingOperation(
+                    itemProvider: itemProvider,
+                    worker: DefaultFileWorker { localPath in
+                        lastBlockId = self?.service.pasteFile(selectedBlockIds: [lastBlockId],
+                                                              localPath: localPath,
+                                                              name: itemProvider.suggestedName ?? "") ?? lastBlockId
+                    }
+                )
+                self?.fileUploadingDemon.addOperation(operation)
+            }
+
+            completion(true)
         }
     }
 
