@@ -72,7 +72,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             if slots.onlyTextSlotAvailable,
                let textSlot = slots.textSlot,
                textSlot.isValidURL() {
-                completion(false)
+                return completion(false)
             }
             self?.service.paste(focusedBlockId: blockId,
                                 selectedTextRange: range,
