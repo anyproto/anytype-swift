@@ -9,6 +9,8 @@ final class NewSearchViewModel: ObservableObject {
     
     private let selectionMode: SearchSelectionMode
     private let internalViewModel: NewInternalSearchViewModelProtocol
+    private let onSelect: (_ ids: [String]) -> Void
+    
     private var cancellable: AnyCancellable? = nil
     
     private var selectedRowIds: [String] = [] {
@@ -17,9 +19,14 @@ final class NewSearchViewModel: ObservableObject {
         }
     }
     
-    init(selectionMode: SearchSelectionMode, internalViewModel: NewInternalSearchViewModelProtocol) {
+    init(
+        selectionMode: SearchSelectionMode,
+        internalViewModel: NewInternalSearchViewModelProtocol,
+        onSelect: @escaping (_ ids: [String]) -> Void
+    ) {
         self.selectionMode = selectionMode
         self.internalViewModel = internalViewModel
+        self.onSelect = onSelect
         setup()
     }
 }
@@ -33,10 +40,14 @@ extension NewSearchViewModel {
     func didSelectRow(with id: String) {
         switch selectionMode {
         case .singleItem:
-            internalViewModel.handleRowsSelection(ids: [id])
+            onSelect([id])
         case .multipleItems:
             handleMultipleRowsSelection(rowId: id)
         }
+    }
+    
+    func didTapAddButton() {
+        onSelect(selectedRowIds)
     }
     
 }

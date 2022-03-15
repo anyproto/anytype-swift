@@ -66,7 +66,9 @@ extension RelationOptionsViewModel {
         switch type {
         case .objects:
             if FeatureFlags.newRelationOptionsSearch {
-                NewSearchModuleAssembly.buildObjectsSearchModule(selectedObjectIds: selectedOptions.map { $0.id })
+                NewSearchModuleAssembly.buildObjectsSearchModule(selectedObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
+                    self?.handleNewOptionIds(ids)
+                }
             } else {
                 RelationOptionsSearchView(
                     viewModel: RelationOptionsSearchViewModel(
@@ -79,13 +81,17 @@ extension RelationOptionsViewModel {
             }
         case .tags(let allTags):
             if FeatureFlags.newRelationOptionsSearch {
-                NewSearchModuleAssembly.buildTagsSearchModule(allTags: allTags, selectedTagIds: selectedOptions.map { $0.id })
+                NewSearchModuleAssembly.buildTagsSearchModule(allTags: allTags, selectedTagIds: selectedOptions.map { $0.id }) { [weak self] ids in
+                    self?.handleNewOptionIds(ids)
+                }
             } else {
                 TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
             }
         case .files:
             if FeatureFlags.newRelationOptionsSearch {
-                NewSearchModuleAssembly.buildFilesSearchModule(selectedObjectIds: selectedOptions.map { $0.id })
+                NewSearchModuleAssembly.buildFilesSearchModule(selectedObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
+                    self?.handleNewOptionIds(ids)
+                }
             } else {
                 RelationOptionsSearchView(
                     viewModel: RelationOptionsSearchViewModel(
