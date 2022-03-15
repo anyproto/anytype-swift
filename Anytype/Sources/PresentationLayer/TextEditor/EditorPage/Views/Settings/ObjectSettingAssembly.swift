@@ -8,7 +8,10 @@ final class ObjectSettingAssembly {
             objectDetailsService: ServiceLocator.shared.detailsService(objectId: document.objectId),
             router: router
         )
-        return AnytypePopup(viewModel: viewModel, insetted: true)
+        let popup = AnytypePopup(viewModel: viewModel, insetted: true)
+        viewModel.onDismiss = { [weak popup] in popup?.dismiss(animated: false) }
+        
+        return popup
     }
     
     func coverPicker(document: BaseDocumentProtocol) -> UIViewController {
