@@ -33,7 +33,7 @@ extension NewSearchViewModel {
     func didSelectRow(with id: String) {
         switch selectionMode {
         case .singleItem:
-            internalViewModel.handleRowsSelect(rowIds: [id])
+            internalViewModel.handleRowsSelection(ids: [id])
         case .multipleItems:
             handleMultipleItemsSelection(rowId: id)
         }
@@ -67,7 +67,7 @@ private extension NewSearchViewModel {
             selectedRowIds.append(rowId)
         }
         
-        internalViewModel.handleRowsSelect(rowIds: selectedRowIds)
+        internalViewModel.handleRowsSelection(ids: selectedRowIds)
     }
     
 }
