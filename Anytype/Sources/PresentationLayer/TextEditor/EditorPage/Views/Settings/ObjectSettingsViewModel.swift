@@ -16,80 +16,76 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         settingsBuilder.build(details: details, restrictions: objectActionsViewModel.objectRestrictions)
     }
     
-    @Published private(set) var details: ObjectDetails = ObjectDetails(id: "", values: [:])
+    var details: ObjectDetails {
+        document.objectDetails ?? .empty
+    }
     
     let objectActionsViewModel: ObjectActionsViewModel
 
-    let iconPickerViewModel: ObjectIconPickerViewModel
-    let coverPickerViewModel: ObjectCoverPickerViewModel
-    let layoutPickerViewModel: ObjectLayoutPickerViewModel
     let relationsViewModel: RelationsListViewModel
     
     private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: true)
     
     private weak var popup: AnytypePopupProxy?
-    private let objectId: String
-    private let objectDetailsService: DetailsService
+    private weak var router: EditorRouterProtocol?
+    private let document: BaseDocumentProtocol
+    private let objectDetailsService: DetailsServiceProtocol
     private let settingsBuilder = ObjectSettingBuilder()
     
-    private let onLayoutSettingsTap: (ObjectLayoutPickerViewModel) -> ()
+    private var subscription: AnyCancellable?
     
     init(
-        objectId: String,
-        objectDetailsService: DetailsService,
+        document: BaseDocumentProtocol,
+        objectDetailsService: DetailsServiceProtocol,
         router: EditorRouterProtocol
     ) {
-        self.objectId = objectId
+        self.document = document
         self.objectDetailsService = objectDetailsService
-        
-        self.onLayoutSettingsTap = { [weak router] model in
-            router?.showLayoutPicker(viewModel: model)
-        }
-        
-        self.iconPickerViewModel = ObjectIconPickerViewModel(
-            objectId: objectId,
-            fileService: BlockActionsServiceFile(),
-            detailsService: objectDetailsService
-        )
-        self.coverPickerViewModel = ObjectCoverPickerViewModel(
-            objectId: objectId,
-            fileService: BlockActionsServiceFile(),
-            detailsService: objectDetailsService
-        )
-        
-        self.layoutPickerViewModel = ObjectLayoutPickerViewModel(
-            detailsService: objectDetailsService
-        )
-        
+        self.router = router
+
         self.relationsViewModel = RelationsListViewModel(
-            relationsService: RelationsService(objectId: objectId),
+            relationsService: RelationsService(objectId: document.objectId),
             onValueEditingTap: { [weak router] in
                 router?.showRelationValueEditingView(key: $0, source: .object)
             }
         )
 
         self.objectActionsViewModel = ObjectActionsViewModel(
-            objectId: objectId,
+            objectId: document.objectId,
             popScreenAction: { [weak router] in
                 router?.goBack()
             }
         )
+        
+        setupSubscription()
+        onDocumentUpdate()
     }
     
-    func update(objectRestrictions: ObjectRestrictions, parsedRelations: ParsedRelations) {
-        if let details = ObjectDetailsStorage.shared.get(id: objectId) {
-            objectActionsViewModel.details = details
-            self.details = details
-            iconPickerViewModel.details = details
-            layoutPickerViewModel.details = details
-
-            relationsViewModel.update(with: parsedRelations)
+    func setupSubscription() {
+        subscription = document.updatePublisher.sink { [weak self] _ in
+            self?.onDocumentUpdate()
         }
-        objectActionsViewModel.objectRestrictions = objectRestrictions
+    }
+    
+    private func onDocumentUpdate() {
+        objectWillChange.send()
+        if let details = document.objectDetails {
+            objectActionsViewModel.details = details
+            relationsViewModel.update(with: document.parsedRelations)
+        }
+        objectActionsViewModel.objectRestrictions = document.objectRestrictions
     }
     
     func showLayoutSettings() {
-        onLayoutSettingsTap(layoutPickerViewModel)
+        router?.showLayoutPicker()
+    }
+    
+    func showIconPicker() {
+        router?.showIconPicker()
+    }
+    
+    func showCoverPicker() {
+        router?.showCoverPicker()
     }
     
     func viewDidUpdateHeight(_ height: CGFloat) {

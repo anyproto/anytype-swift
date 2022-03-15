@@ -8,22 +8,20 @@ final class ObjectHeaderBuilder {
     private lazy var onIconTap = { [weak self] in
         guard let self = self else { return }
         UISelectionFeedbackGenerator().selectionChanged()
-        self.router.showIconPicker(viewModel: self.settingsViewModel.iconPickerViewModel)
+        self.router.showIconPicker()
     }
     
     private lazy var onCoverTap = { [weak self] in
         guard let self = self else { return }
         UISelectionFeedbackGenerator().selectionChanged()
-        self.router.showCoverPicker(viewModel: self.settingsViewModel.coverPickerViewModel)
+        self.router.showCoverPicker()
     }
     
     private let router: EditorRouterProtocol
-    private let settingsViewModel: ObjectSettingsViewModel
     
     // MARK: - Initializers
     
-    init(settingsViewModel: ObjectSettingsViewModel, router: EditorRouterProtocol) {
-        self.settingsViewModel = settingsViewModel
+    init(router: EditorRouterProtocol) {
         self.router = router
     }
     
