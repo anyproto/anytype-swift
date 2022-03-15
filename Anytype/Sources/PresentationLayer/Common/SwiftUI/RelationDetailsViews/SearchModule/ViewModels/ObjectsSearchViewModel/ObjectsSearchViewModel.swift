@@ -9,7 +9,13 @@ final class ObjectsSearchViewModel {
     
     private var objects: [ObjectDetails] = [] {
         didSet {
-            rows = objects.asRowsConfigurations
+            rows = objects.asRowConfigurations(with: selectedObjectIds)
+        }
+    }
+    
+    private var selectedObjectIds: [String] = [] {
+        didSet {
+            rows = objects.asRowConfigurations(with: selectedObjectIds)
         }
     }
     
@@ -36,13 +42,14 @@ extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func handleRowsSelect(rowIds: [String]) {
+        self.selectedObjectIds = rowIds
     }
     
 }
 
 private extension Array where Element == ObjectDetails {
 
-    var asRowsConfigurations: [NewSearchRowConfiguration] {
+    func asRowConfigurations(with selectedIds: [String]) -> [NewSearchRowConfiguration] {
         map { details in
             NewSearchRowConfiguration(
                 id: details.id,
@@ -51,12 +58,13 @@ private extension Array where Element == ObjectDetails {
                 AnyView(
                     SearchObjectRowView(
                         viewModel: SearchObjectRowView.Model(details: details),
-                        selectionIndicatorViewModel: .notSelected
+                        selectionIndicatorViewModel: SelectionIndicatorViewModelBuilder.buildModel(id: details.id, selectedIds: selectedIds)
                     )
                 )
             }
         }
     }
+    
 }
 
 private extension SearchObjectRowView.Model {
