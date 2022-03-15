@@ -8,13 +8,13 @@ final class TagsSearchViewModel {
     
     private var tags: [Relation.Tag.Option] = [] {
         didSet {
-            sections = makeSections()
+            sections = makeSections(tags: tags, selectedTagIds: selectedTagIds)
         }
     }
     
     private var selectedTagIds: [String] = [] {
         didSet {
-            sections = makeSections()
+            sections = makeSections(tags: tags, selectedTagIds: selectedTagIds)
         }
     }
     
@@ -48,16 +48,18 @@ extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
 
 private extension TagsSearchViewModel {
     
-    func makeSections() -> [NewSearchSectionConfiguration] {
-        NewSearchSectionsBuilder.makeSections(tags) { [weak self] tags in
-            guard let self = self else { return [] }
-            
-            return self.rowConfigurations(from: tags, selectedTagIds: self.selectedTagIds)
+    func makeSections(tags: [Relation.Tag.Option], selectedTagIds: [String]) -> [NewSearchSectionConfiguration] {
+        NewSearchSectionsBuilder.makeSections(tags) {
+            $0.asRowConfigurations(with: selectedTagIds)
         }
     }
     
-    func rowConfigurations(from tags: [Relation.Tag.Option], selectedTagIds: [String]) -> [NewSearchRowConfiguration] {
-        tags.map { tag in
+}
+
+private extension Array where Element == Relation.Tag.Option {
+    
+    func asRowConfigurations(with selectedTagIds: [String]) -> [NewSearchRowConfiguration] {
+        map { tag in
             NewSearchRowConfiguration(
                 id: tag.id,
                 rowContentHash: tag.hashValue
