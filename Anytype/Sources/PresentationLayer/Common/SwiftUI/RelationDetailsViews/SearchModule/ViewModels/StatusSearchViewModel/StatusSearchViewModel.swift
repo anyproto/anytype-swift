@@ -36,12 +36,8 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
         }
     }
     
-    func handleRowSelect(rowId: String) {
-        let index = sections.firstIndex { $0.id == rowId }
-        
-        guard let index = index else { return }
-
-        debugPrint("selected index \(index)")
+    func handleRowsSelect(rowIds: [String]) {
+       
     }
     
 }

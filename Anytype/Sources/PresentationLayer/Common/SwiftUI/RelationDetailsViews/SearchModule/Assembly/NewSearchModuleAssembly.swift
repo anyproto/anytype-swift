@@ -8,8 +8,9 @@ final class NewSearchModuleAssembly {
             selectedStatus: selectedStatus
         )
         
-        let viewModel = StatusSearchViewModel(interactor: interactor)
-        return NewSearchView(viewModel: NewSearchViewModel(internalViewModel: viewModel))
+        let internalViewModel = StatusSearchViewModel(interactor: interactor)
+        let viewModel = NewSearchViewModel(selectionMode: .singleItem, internalViewModel: internalViewModel)
+        return NewSearchView(viewModel: viewModel)
     }
     
     static func buildTagsSearchModule(allTags: [Relation.Tag.Option], selectedTagIds: [String]) -> NewSearchView {
@@ -18,8 +19,9 @@ final class NewSearchModuleAssembly {
             selectedTagIds: selectedTagIds
         )
         
-        let viewModel = TagsSearchViewModel(interactor: interactor)
-        return NewSearchView(viewModel: NewSearchViewModel(internalViewModel: viewModel))
+        let internalViewModel = TagsSearchViewModel(interactor: interactor)
+        let viewModel = NewSearchViewModel(selectionMode: .multipleItems, internalViewModel: internalViewModel)
+        return NewSearchView(viewModel: viewModel)
     }
     
     static func buildObjectsSearchModule(selectedObjectIds: [String]) -> NewSearchView {
@@ -28,8 +30,9 @@ final class NewSearchModuleAssembly {
             selectedObjectIds: selectedObjectIds
         )
         
-        let viewModel = ObjectsSearchViewModel(interactor: interactor)
-        return NewSearchView(viewModel: NewSearchViewModel(internalViewModel: viewModel))
+        let internalViewModel = ObjectsSearchViewModel(interactor: interactor)
+        let viewModel = NewSearchViewModel(selectionMode: .multipleItems, internalViewModel: internalViewModel)
+        return NewSearchView(viewModel: viewModel)
     }
     
     static func buildFilesSearchModule(selectedObjectIds: [String]) -> NewSearchView {
@@ -38,8 +41,9 @@ final class NewSearchModuleAssembly {
             selectedObjectIds: selectedObjectIds
         )
         
-        let viewModel = ObjectsSearchViewModel(interactor: interactor)
-        return NewSearchView(viewModel: NewSearchViewModel(internalViewModel: viewModel))
+        let internalViewModel = ObjectsSearchViewModel(interactor: interactor)
+        let viewModel = NewSearchViewModel(selectionMode: .multipleItems, internalViewModel: internalViewModel)
+        return NewSearchView(viewModel: viewModel)
     }
     
 }

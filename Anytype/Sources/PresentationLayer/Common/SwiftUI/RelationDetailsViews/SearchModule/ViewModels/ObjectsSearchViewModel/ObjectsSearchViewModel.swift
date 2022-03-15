@@ -35,12 +35,7 @@ extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
         }
     }
     
-    func handleRowSelect(rowId: String) {
-        let index = objects.firstIndex { $0.id == rowId }
-        
-        guard let index = index else { return }
-
-        debugPrint("selected index \(index)")
+    func handleRowsSelect(rowIds: [String]) {
     }
     
 }
