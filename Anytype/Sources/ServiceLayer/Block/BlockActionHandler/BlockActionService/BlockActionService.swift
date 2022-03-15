@@ -39,46 +39,41 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     // MARK: Actions
 
-    func paste(blockId: BlockId, range: NSRange, textSlots: TextSlots, anySlots: AnySlots?) {
+    func paste(focusedBlockId: BlockId?,
+               selectedTextRange: NSRange?,
+               selectedBlockIds: [BlockId]?,
+               isPartOfBlock: Bool,
+               textSlot: String?,
+               htmlSlot: String?,
+               anySlots: AnySlots?) {
         _ = singleService.paste(contextId: documentId,
-                                focusedBlockId: blockId,
-                                selectedTextRange: range,
-                                isPartOfBlock: true,
-                                textSlots: textSlots,
+                                focusedBlockId: focusedBlockId ?? "",
+                                selectedTextRange: selectedTextRange ?? NSRange(),
+                                selectedBlockIds: selectedBlockIds ?? [],
+                                isPartOfBlock: isPartOfBlock,
+                                textSlot: textSlot,
+                                htmlSlot: htmlSlot,
                                 anySlots: anySlots,
-                                fileSlot: nil)
+                                fileSlots: nil)
     }
 
-    func paste(selectedBlockIds: [BlockId], textSlots: TextSlots, anySlots: AnySlots?) {
-        _ = singleService.paste(contextId: documentId,
-                                selectedBlockIds: selectedBlockIds,
-                                isPartOfBlock: false,
-                                textSlots: textSlots,
-                                anySlots: anySlots,
-                                fileSlot: nil)
-    }
-
-    func pasteFile(blockId: BlockId, range: NSRange, localPath: String, name: String) -> BlockId? {
+    func pasteFile(focusedBlockId: BlockId?,
+               selectedTextRange: NSRange?,
+               selectedBlockIds: [BlockId]?,
+               isPartOfBlock: Bool,
+               localPath: String,
+               name: String) -> BlockId? {
         let fileSlot = Anytype_Rpc.Block.Paste.Request.File(name: name, data: Data(), localPath: localPath)
 
         return singleService.paste(contextId: documentId,
-                                   focusedBlockId: blockId,
-                                   selectedTextRange: range,
-                                   isPartOfBlock: true,
-                                   textSlots: TextSlots(textSlot: nil, htmlSlot: nil),
+                                   focusedBlockId: focusedBlockId ?? "",
+                                   selectedTextRange: selectedTextRange ?? NSRange(),
+                                   selectedBlockIds: selectedBlockIds ?? [],
+                                   isPartOfBlock: isPartOfBlock,
+                                   textSlot: nil,
+                                   htmlSlot: nil,
                                    anySlots: nil,
-                                   fileSlot: fileSlot)
-    }
-
-    func pasteFile(selectedBlockIds: [BlockId], localPath: String, name: String) -> BlockId? {
-        let fileSlot = Anytype_Rpc.Block.Paste.Request.File(name: name, data: Data(), localPath: localPath)
-
-        return singleService.paste(contextId: documentId,
-                                   selectedBlockIds: selectedBlockIds,
-                                   isPartOfBlock: false,
-                                   textSlots: TextSlots(textSlot: nil, htmlSlot: nil),
-                                   anySlots: nil,
-                                   fileSlot: fileSlot)
+                                   fileSlots: [fileSlot])
     }
 
     func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots {

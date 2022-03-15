@@ -8,8 +8,8 @@ protocol BlockSelectionHandler: AnyObject {
 protocol BlockActionHandlerProtocol: AnyObject {
     var blockSelectionHandler: BlockSelectionHandler? { get set }
 
-    func shouldPaste(blockId: BlockId, range: NSRange, completion: @escaping (Bool) -> Void)
-    func shouldPaste(selectedBlockIds: [BlockId], completion: @escaping (Bool) -> Void)
+    func paste(blockId: BlockId, range: NSRange, completion: @escaping (Bool) -> Void)
+    func paste(selectedBlockIds: [BlockId], completion: @escaping (Bool) -> Void)
     func copy(blocksIds: [BlockId], selectedTextRange: NSRange)
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     @discardableResult

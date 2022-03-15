@@ -4,7 +4,7 @@ import Combine
 import AnytypeCore
 import Amplitude
 
-final class DefaultFileWorker: MediaFileUploadingWorkerProtocol {
+final class DefaultFileUplodingWorker: MediaFileUploadingWorkerProtocol {
     var contentType: MediaPickerContentType = .images
 
     private let action: (_ localPath: String) -> Void
@@ -58,53 +58,42 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
     // MARK: - Service proxy
 
-    func shouldPaste(blockId: BlockId, range: NSRange, completion: @escaping (Bool) -> Void) {
-        pastboardHelper.obtainSlots { [weak self] slots in
-            // don't handle paste if only text in clipboard and it's valid url
-            if slots.textSlots.onlyTextSlotAvailable,
-               let textSlot = slots.textSlots.textSlot,
-               textSlot.isValidURL() {
-                completion(false)
-            }
-            self?.service.paste(blockId: blockId, range: range, textSlots: slots.textSlots, anySlots: slots.anySlots)
-
-            slots.fileSlots?.forEach { itemProvider in
-                var lastBlockId = blockId
-
-                let operation = MediaFileUploadingOperation(
-                    itemProvider: itemProvider,
-                    worker: DefaultFileWorker { localPath in
-                        lastBlockId = self?.service.pasteFile(blockId: lastBlockId,
-                                                              range: range,
-                                                              localPath: localPath,
-                                                              name: itemProvider.suggestedName ?? "") ?? lastBlockId
-                    }
-                )
-                self?.fileUploadingDemon.addOperation(operation)
-            }
-
-            completion(true)
-        }
+    func paste(blockId: BlockId, range: NSRange, completion: @escaping (Bool) -> Void) {
+        paste(blockId: blockId, range: range, selectedBlockIds: nil, isPartOfBlock: true, completion: completion)
     }
 
-    func shouldPaste(selectedBlockIds: [BlockId], completion: @escaping (Bool) -> Void) {
+    func paste(selectedBlockIds: [BlockId], completion: @escaping (Bool) -> Void) {
+        paste(blockId: nil, range: nil, selectedBlockIds: selectedBlockIds, isPartOfBlock: false, completion: completion)
+    }
+
+    private func paste(blockId: BlockId?, range: NSRange?, selectedBlockIds: [BlockId]?, isPartOfBlock: Bool, completion: @escaping (Bool) -> Void) {
         pastboardHelper.obtainSlots { [weak self] slots in
             // don't handle paste if only text in clipboard and it's valid url
-            if slots.textSlots.onlyTextSlotAvailable,
-               let textSlot = slots.textSlots.textSlot,
+            if slots.onlyTextSlotAvailable,
+               let textSlot = slots.textSlot,
                textSlot.isValidURL() {
                 completion(false)
             }
-            self?.service.paste(selectedBlockIds: selectedBlockIds, textSlots: slots.textSlots, anySlots: slots.anySlots)
-            guard var lastBlockId = selectedBlockIds.last else { return }
+            self?.service.paste(focusedBlockId: blockId,
+                                selectedTextRange: range,
+                                selectedBlockIds: selectedBlockIds,
+                                isPartOfBlock: isPartOfBlock,
+                                textSlot: slots.textSlot,
+                                htmlSlot: slots.htmlSlot,
+                                anySlots: slots.anySlots)
 
+            // paste file slot
             slots.fileSlots?.forEach { itemProvider in
+
                 let operation = MediaFileUploadingOperation(
                     itemProvider: itemProvider,
-                    worker: DefaultFileWorker { localPath in
-                        lastBlockId = self?.service.pasteFile(selectedBlockIds: [lastBlockId],
-                                                              localPath: localPath,
-                                                              name: itemProvider.suggestedName ?? "") ?? lastBlockId
+                    worker: DefaultFileUplodingWorker { localPath in
+                        _ = self?.service.pasteFile(focusedBlockId: blockId,
+                                                    selectedTextRange: range,
+                                                    selectedBlockIds: selectedBlockIds,
+                                                    isPartOfBlock: isPartOfBlock,
+                                                    localPath: localPath,
+                                                    name: itemProvider.suggestedName ?? "")
                     }
                 )
                 self?.fileUploadingDemon.addOperation(operation)

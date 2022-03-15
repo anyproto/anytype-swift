@@ -5,19 +5,19 @@ import ProtobufMessages
 
 typealias AnySlots = [Anytype_Model_Block]
 
-struct TextSlots {
+struct PastboardSlots {
     let textSlot: String?
     let htmlSlot: String?
-
-    var onlyTextSlotAvailable: Bool {
-        textSlot.isNotNil && htmlSlot.isNil
-    }
-}
-
-struct PastboardSlots {
-    let textSlots: TextSlots
     let anySlots: AnySlots?
     let fileSlots:  [NSItemProvider]?
+
+    var onlyTextSlotAvailable: Bool {
+        textSlot.isNotNil && htmlSlot.isNil && anySlots.isNil && fileSlots.isNil
+    }
+
+    var hasSlots: Bool {
+        textSlot.isNotNil || htmlSlot.isNotNil || anySlots.isNotNil || fileSlots.isNotNil
+    }
 }
 
 final class PastboardHelper {
@@ -25,10 +25,10 @@ final class PastboardHelper {
     func obtainSlots(completion: @escaping (PastboardSlots) -> Void) {
         DispatchQueue.global().async {
             let pasteboard = UIPasteboard.general
-            var htmlSlot: String? = nil
-            var textSlot: String? = nil
-            var anySlot: [Anytype_Model_Block]? = nil
-            var fileSlot = [NSItemProvider]()
+            var htmlSlot: String = ""
+            var textSlot: String = ""
+            var anySlot: [Anytype_Model_Block] = []
+            var fileSlot: [NSItemProvider] = []
 
             if pasteboard.contains(pasteboardTypes: [UTType.html.identifier], inItemSet: nil) {
                 if let pasteboardData = pasteboard.data(
@@ -36,13 +36,13 @@ final class PastboardHelper {
                     inItemSet: nil
                 ) {
                     pasteboardData.first.map {
-                        htmlSlot = String(data: $0, encoding: .utf8)
+                        htmlSlot = String(data: $0, encoding: .utf8) ?? ""
                     }
                 }
             }
 
             if pasteboard.contains(pasteboardTypes: [UTType.plainText.identifier], inItemSet: nil) {
-                textSlot = pasteboard.value(forPasteboardType: UTType.text.identifier) as? String
+                textSlot = pasteboard.value(forPasteboardType: UTType.text.identifier) as? String ?? ""
             }
 
             if pasteboard.contains(pasteboardTypes: [UTType.anySlot.identifier], inItemSet: nil) {
@@ -67,8 +67,7 @@ final class PastboardHelper {
             }
 
             DispatchQueue.main.async {
-                let textSlots = TextSlots(textSlot: textSlot, htmlSlot: htmlSlot)
-                completion(.init(textSlots: textSlots, anySlots: anySlot, fileSlots: fileSlot))
+                completion(.init(textSlot: textSlot, htmlSlot: htmlSlot, anySlots: anySlot, fileSlots: fileSlot))
             }
         }
     }
@@ -76,11 +75,11 @@ final class PastboardHelper {
     func copy(slots: PastboardSlots) {
         let pasteboard = UIPasteboard.general
 
-        if let textSlot = slots.textSlots.textSlot {
+        if let textSlot = slots.textSlot {
             pasteboard.setValue(textSlot, forPasteboardType: UTType.plainText.identifier)
         }
 
-        if let htmlSlot = slots.textSlots.htmlSlot {
+        if let htmlSlot = slots.htmlSlot {
             pasteboard.addItems([[UTType.html.identifier: htmlSlot]])
         }
 

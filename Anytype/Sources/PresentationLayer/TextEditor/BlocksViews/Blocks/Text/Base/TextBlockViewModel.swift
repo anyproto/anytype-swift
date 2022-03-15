@@ -85,7 +85,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     func action() -> TextBlockContentConfiguration.Actions {
         return .init(
             shouldPaste: { range, completion in
-                actionHandler.shouldPaste(blockId: blockId, range: range) { shouldPaste in
+                actionHandler.paste(blockId: blockId, range: range) { shouldPaste in
                     completion(shouldPaste)
                 }
             },
