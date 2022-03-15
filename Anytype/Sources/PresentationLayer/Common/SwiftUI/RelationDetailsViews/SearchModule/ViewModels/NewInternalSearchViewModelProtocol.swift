@@ -7,6 +7,6 @@ protocol NewInternalSearchViewModelProtocol {
     
     func search(text: String)
     
-    func handleRowsSelect(rowIds: [String])
+    func handleRowsSelection(ids: [String])
     
 }

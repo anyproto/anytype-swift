@@ -33,9 +33,9 @@ extension NewSearchViewModel {
     func didSelectRow(with id: String) {
         switch selectionMode {
         case .singleItem:
-            internalViewModel.handleRowsSelect(rowIds: [id])
+            internalViewModel.handleRowsSelection(ids: [id])
         case .multipleItems:
-            handleMultipleItemsSelection(rowId: id)
+            handleMultipleRowsSelection(rowId: id)
         }
     }
     
@@ -60,14 +60,14 @@ private extension NewSearchViewModel {
         addButtonModel = selectedRowIds.isEmpty ? .disabled : .enabled(counter: selectedRowIds.count)
     }
     
-    func handleMultipleItemsSelection(rowId: String) {
+    func handleMultipleRowsSelection(rowId: String) {
         if selectedRowIds.contains(rowId) {
             selectedRowIds.removeAll { $0 == rowId }
         } else {
             selectedRowIds.append(rowId)
         }
         
-        internalViewModel.handleRowsSelect(rowIds: selectedRowIds)
+        internalViewModel.handleRowsSelection(ids: selectedRowIds)
     }
     
 }

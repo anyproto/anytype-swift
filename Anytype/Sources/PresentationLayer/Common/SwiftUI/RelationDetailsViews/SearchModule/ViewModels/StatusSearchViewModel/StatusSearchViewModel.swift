@@ -36,7 +36,7 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
         }
     }
     
-    func handleRowsSelect(rowIds: [String]) {
+    func handleRowsSelection(ids: [String]) {
        
     }
     

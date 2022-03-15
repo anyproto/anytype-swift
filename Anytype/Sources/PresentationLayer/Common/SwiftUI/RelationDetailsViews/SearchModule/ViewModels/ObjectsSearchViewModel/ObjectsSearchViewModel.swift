@@ -41,8 +41,8 @@ extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
         }
     }
     
-    func handleRowsSelect(rowIds: [String]) {
-        self.selectedObjectIds = rowIds
+    func handleRowsSelection(ids: [String]) {
+        self.selectedObjectIds = ids
     }
     
 }

@@ -40,8 +40,8 @@ extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
         }
     }
     
-    func handleRowsSelect(rowIds: [String]) {
-        selectedTagIds = rowIds
+    func handleRowsSelection(ids: [String]) {
+        selectedTagIds = ids
     }
     
 }
