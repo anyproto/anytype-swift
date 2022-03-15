@@ -7,7 +7,7 @@ final class NewSearchViewModel: ObservableObject {
     @Published private(set) var listModel: NewSearchView.ListModel = .plain(rows: [])
     @Published private(set) var addButtonModel: NewSearchView.AddButtonModel? = nil
     
-    private let selectionMode: SearchSelectionMode
+    private let selectionMode: SelectionMode
     private let internalViewModel: NewInternalSearchViewModelProtocol
     private let onSelect: (_ ids: [String]) -> Void
     
@@ -20,7 +20,7 @@ final class NewSearchViewModel: ObservableObject {
     }
     
     init(
-        selectionMode: SearchSelectionMode,
+        selectionMode: SelectionMode,
         internalViewModel: NewInternalSearchViewModelProtocol,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) {
