@@ -84,13 +84,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func onSettingsTap() {
-        router.showSettings(
-            viewModel: ObjectSettingsViewModel(
-                objectId: document.objectId,
-                objectDetailsService: DetailsService(objectId: document.objectId),
-                router: router
-            )
-        )
+        router.showSettings()
     }
     
     // MARK: - Private

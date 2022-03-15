@@ -1,28 +1,23 @@
-//
-//  MiddlewareObjectRestrictionsConverter.swift
-//  BlocksModels
-//
-//  Created by Denis Batvinkin on 21.10.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import ProtobufMessages
+import AnytypeCore
 
 
 public enum MiddlewareObjectRestrictionsConverter {
 
-    public static func convertObjectRestrictions(middlewareResctrictions: Anytype_Model_Restrictions) -> ObjectRestrictions {
-        let objectRestrictions = middlewareResctrictions.object.compactMap { objectRestrictions in
-            ObjectRestrictions.ObjectRestriction(rawValue: objectRestrictions.rawValue)
+    public static func convertObjectRestrictions(middlewareRestrictions: Anytype_Model_Restrictions) -> ObjectRestrictions {
+        let objectRestrictions: [ObjectRestriction] = middlewareRestrictions.object.compactMap { middleRestriction in
+            let restriction = ObjectRestriction(rawValue: middleRestriction.rawValue)
+            anytypeAssert(restriction.isNotNil, "Unsupported restriction \(middleRestriction.rawValue)", domain: .restrictionsConverter)
+            return restriction
         }
 
-        let dataViewRestrictions = middlewareResctrictions.dataview.reduce(
-            [BlockId: [ObjectRestrictions.DataViewRestriction]]()
+        let dataViewRestrictions = middlewareRestrictions.dataview.reduce(
+            [BlockId: [DataViewRestriction]]()
         ) { partialResult, blockDataViewRestrictions in
             var partialResult = partialResult
 
             partialResult[blockDataViewRestrictions.blockID] = blockDataViewRestrictions.restrictions.compactMap { dataViewRestriction in
-                ObjectRestrictions.DataViewRestriction(rawValue: dataViewRestriction.rawValue)
+                DataViewRestriction(rawValue: dataViewRestriction.rawValue)
             }
             return partialResult
         }

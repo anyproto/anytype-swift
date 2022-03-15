@@ -69,6 +69,7 @@ public enum ErrorDomain: String {
     case homeView
     case baseDocument
     case protobufConverter
+    case restrictionsConverter
     
     case iconPicker
     

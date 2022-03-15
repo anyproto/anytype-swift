@@ -7,7 +7,6 @@ protocol EditorPageViewModelProtocol: AnyObject {
 
     var document: BaseDocumentProtocol { get }
     var wholeBlockMarkupViewModel: MarkupViewModel { get }
-    var objectSettingsViewModel: ObjectSettingsViewModel { get }
     
     var modelsHolder: EditorMainItemModelsHolder { get }
     var actionHandler: BlockActionHandlerProtocol { get }

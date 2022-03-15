@@ -165,28 +165,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         controller.selectBlock(blockId: information.id)
     }
     
-    func showSettings(viewModel: ObjectSettingsViewModel) {
-        let popup = AnytypePopup(viewModel: viewModel, insetted: true)
-        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
-    }
-    
-    func showCoverPicker(viewModel: ObjectCoverPickerViewModel) {
-        guard let viewController = viewController else { return }
-        let controller = settingAssembly.coverPicker(viewModel: viewModel)
-        viewController.present(controller, animated: true)
-    }
-    
-    func showIconPicker(viewModel: ObjectIconPickerViewModel) {
-        guard let viewController = viewController else { return }
-        let controller = settingAssembly.iconPicker(viewModel: viewModel)
-        viewController.present(controller, animated: true)
-    }
-    
-    func showLayoutPicker(viewModel: ObjectLayoutPickerViewModel) {
-        let popup = AnytypePopup(viewModel: viewModel)
-        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
-    }
-    
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
         let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
             onSelect(data.blockId)
@@ -241,7 +219,29 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         rootController?.topPresentedController.present(vc, animated: true)
     }
     
-    func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
+    // MARK: - Settings
+    func showSettings() {
+        let popup = settingAssembly.settingsPopup(document: document, router: self)
+        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
+    }
+    
+    func showCoverPicker() {
+        let picker = settingAssembly.coverPicker(document: document)
+        viewController?.topPresentedController.present(picker, animated: true)
+    }
+    
+    func showIconPicker() {
+        let controller = settingAssembly.iconPicker(document: document)
+        viewController?.topPresentedController.present(controller, animated: true)
+    }
+    
+    func showLayoutPicker() {
+        let popup = settingAssembly.layoutPicker(document: document)
+        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
+    }
+    
+    // MARK: - Private
+    private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = viewController else { return }
         
         let controller = UIHostingController(rootView: view)
@@ -249,7 +249,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         viewController.present(controller, animated: true)
     }
     
-    func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
+    private func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = rootController else { return }
         
         let controller = UIHostingController(rootView: view)
