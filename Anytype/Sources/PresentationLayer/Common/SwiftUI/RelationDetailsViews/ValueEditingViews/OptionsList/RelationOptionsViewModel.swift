@@ -6,6 +6,7 @@ import AnytypeCore
 final class RelationOptionsViewModel: ObservableObject {
             
     @Published var selectedOptions: [RelationOptionProtocol] = []
+    @Published var isSearchPresented: Bool = false
     private(set) var popupLayout: AnytypePopupLayoutType = .relationOptions {
         didSet {
             popup?.updateLayout(true)
@@ -59,6 +60,10 @@ extension RelationOptionsViewModel {
             relationKey: relation.id,
             value: selectedOptions.map { $0.id }.protobufValue
         )
+    }
+    
+    func didTapAddButton() {
+        isSearchPresented = true
     }
     
     @ViewBuilder
@@ -127,7 +132,7 @@ extension RelationOptionsViewModel {
             relationKey: relation.id,
             value: newSelectedOptionsIds.protobufValue
         )
-        
+        isSearchPresented = false
         popup?.close()
     }
     
