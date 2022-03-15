@@ -20,7 +20,7 @@ struct ParsedRelations {
 
 extension ParsedRelations {
     // without description and with type
-    func featuredRelationsForEditor(type: ObjectType, objectRestriction: [ObjectRestrictions.ObjectRestriction]) -> [Relation] {
+    func featuredRelationsForEditor(type: ObjectType, objectRestriction: [ObjectRestriction]) -> [Relation] {
         var enhancedRelations = featuredRelations
         
         let objectTypeRelation: Relation = .text(

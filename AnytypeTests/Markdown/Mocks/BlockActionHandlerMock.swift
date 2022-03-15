@@ -169,4 +169,12 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     func past(blockId: BlockId, range: NSRange) {
         assertionFailure()
     }
+    
+    func paste(selectedBlockIds: [BlockId]) {
+        assertionFailure()
+    }
+    
+    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) {
+        assertionFailure()
+    }
 }

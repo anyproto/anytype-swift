@@ -18,7 +18,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     let router: EditorRouterProtocol
     
     private let cursorManager: EditorCursorManager
-    let objectSettingsViewModel: ObjectSettingsViewModel
     let actionHandler: BlockActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
     
@@ -26,7 +25,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let headerBuilder: ObjectHeaderBuilder
     private lazy var cancellables = [AnyCancellable]()
 
-    private let blockActionsService: BlockActionsServiceSingle
+    private let blockActionsService: BlockActionsServiceSingleProtocol
 
     deinit {
         blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
@@ -42,18 +41,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         document: BaseDocumentProtocol,
         viewInput: EditorPageViewInput,
         blockDelegate: BlockDelegate,
-        objectSettingsViewModel: ObjectSettingsViewModel,
         router: EditorRouterProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockBuilder: BlockViewModelBuilder,
         actionHandler: BlockActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
         headerBuilder: ObjectHeaderBuilder,
-        blockActionsService: BlockActionsServiceSingle,
+        blockActionsService: BlockActionsServiceSingleProtocol,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager
     ) {
-        self.objectSettingsViewModel = objectSettingsViewModel
         self.viewInput = viewInput
         self.document = document
         self.router = router
@@ -99,11 +96,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             #warning("also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details")
             let details = document.objectDetails
             let header = headerBuilder.header(details: details)
-
-            objectSettingsViewModel.update(
-                objectRestrictions: document.objectRestrictions,
-                parsedRelations: document.parsedRelations
-            )
+            
             updateHeaderIfNeeded(header: header, details: details)
 
             let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
@@ -234,11 +227,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         updateHeaderIfNeeded(header: header, details: details)
         viewInput?.update(changes: difference, allModels: modelsHolder.items)
 
-        objectSettingsViewModel.update(
-            objectRestrictions: document.objectRestrictions,
-            parsedRelations: document.parsedRelations
-        )
-
         updateCursorIfNeeded()
     }
 
@@ -300,15 +288,15 @@ extension EditorPageViewModel {
 extension EditorPageViewModel {
     
     func showSettings() {
-        router.showSettings(viewModel: objectSettingsViewModel)
+        router.showSettings()
     }
     
     func showIconPicker() {
-        router.showIconPicker(viewModel: objectSettingsViewModel.iconPickerViewModel)
+        router.showIconPicker()
     }
     
     func showCoverPicker() {
-        router.showCoverPicker(viewModel: objectSettingsViewModel.coverPickerViewModel)
+        router.showCoverPicker()
     }
 }
 

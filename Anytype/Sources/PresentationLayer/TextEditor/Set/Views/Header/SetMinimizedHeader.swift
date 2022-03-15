@@ -20,25 +20,35 @@ struct SetMinimizedHeader: View {
         VStack {
             Spacer.fixedHeight(44)
             HStack {
+                Rectangle().frame(width: 1, height: 1).foregroundColor(.clear) // sync status here
                 Spacer()
-                if let icon = model.details.objectIconImage {
-                    SwiftUIObjectIconImageView(iconImage: icon, usecase: .openedObjectNavigationBar)
-                        .frame(width: 18, height: 18)
-                    Spacer.fixedWidth(8)
-                }
-                AnytypeText(model.details.title, style: .body, color: .textPrimary)
-                    .lineLimit(1)
+                title
                 Spacer()
+                EditorBarButtonItem(image: .more, action: model.onSettingsTap)
+                    .frame(width: 28, height: 28)
+                    .padding(10)
             }
             .padding(.horizontal)
         }
         .frame(height: minimizedHeaderHeight)
-        .background(Color.backgroundPrimary)
-        .opacity(headerOpacity)
+        .background(Color.backgroundPrimary.opacity(titleOpacity))
         .readSize { headerMinimizedSize = $0 }
     }
+    
+    private var title: some View {
+        Group {
+            if let icon = model.details.objectIconImage {
+                SwiftUIObjectIconImageView(iconImage: icon, usecase: .openedObjectNavigationBar)
+                    .frame(width: 18, height: 18)
+                Spacer.fixedWidth(8)
+            }
+            AnytypeText(model.details.title, style: .body, color: .textPrimary)
+                .lineLimit(1)
+        }
+        .opacity(titleOpacity)
+    }
 
-    private var headerOpacity: Double {
+    private var titleOpacity: Double {
         guard tableViewOffset.y < 0 else { return 0 }
 
         let startingOpacityHeight = headerSize.height - minimizedHeaderHeight
