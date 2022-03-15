@@ -167,6 +167,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showSettings(viewModel: ObjectSettingsViewModel) {
         let popup = AnytypePopup(viewModel: viewModel, insetted: true)
+        viewModel.onDismiss = { [weak popup] in popup?.dismiss(animated: false) }
         viewController?.topPresentedController.present(popup, animated: true, completion: nil)
     }
     
