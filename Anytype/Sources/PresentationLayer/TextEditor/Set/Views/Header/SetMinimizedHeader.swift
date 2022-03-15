@@ -24,7 +24,7 @@ struct SetMinimizedHeader: View {
                 Spacer()
                 title
                 Spacer()
-                EditorBarButtonItem(image: .more, action: { })
+                EditorBarButtonItem(image: .more, action: model.onSettingsTap)
                     .frame(width: 28, height: 28)
                     .padding(10)
             }

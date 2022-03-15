@@ -78,16 +78,7 @@ final class EditorAssembly {
         document: BaseDocumentProtocol,
         router: EditorRouter,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel
-    ) -> EditorPageViewModel {
-        
-        let objectSettingsViewModel = ObjectSettingsViewModel(
-            objectId: document.objectId,
-            objectDetailsService: DetailsService(
-                objectId: document.objectId
-            ),
-            router: router
-        )
-                
+    ) -> EditorPageViewModel {                
         let modelsHolder = EditorMainItemModelsHolder()
         
         let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
@@ -139,12 +130,8 @@ final class EditorAssembly {
             actionHandler: actionHandler
         )
         
-        let headerBuilder = ObjectHeaderBuilder(
-            settingsViewModel: objectSettingsViewModel,
-            router: router
-        )
-
-        let blockActionsService = BlockActionsServiceSingle()
+        let headerBuilder = ObjectHeaderBuilder(router: router)
+        let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
 
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
@@ -161,7 +148,6 @@ final class EditorAssembly {
             document: document,
             viewInput: viewInput,
             blockDelegate: blockDelegate,
-            objectSettingsViewModel: objectSettingsViewModel,
             router: router,
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,
