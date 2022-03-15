@@ -27,7 +27,11 @@ extension Relation.Tag {
         let scope: RelationMetadata.Option.Scope
         
         func makeView() -> AnyView {
-            AnyView(TagRelationRowView(tag: self))
+            AnyView(
+                TagRelationRowView(
+                    viewModel: TagView.Model(text: text, textColor: textColor, backgroundColor: backgroundColor)
+                )
+            )
         }
     }
     

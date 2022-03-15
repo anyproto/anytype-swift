@@ -8,12 +8,12 @@ final class ObjectHeaderImageUploadingWorker {
     private var uploadedImageHash: Hash?
     
     private let fileService = BlockActionsServiceFile()
-    private let detailsService: DetailsService
+    private let detailsService: DetailsServiceProtocol
     private let usecase: ObjectHeaderImageUsecase
     
     init(
         objectId: BlockId,
-        detailsService: DetailsService,
+        detailsService: DetailsServiceProtocol,
         usecase: ObjectHeaderImageUsecase
     ) {
         self.objectId = objectId

@@ -272,10 +272,8 @@ final class MiddlewareEventConverter {
             relationStorage.set(
                 relations: data.relations.map { RelationMetadata(middlewareRelation: $0) }
             )
+            let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: data.restrictions)
 
-
-            print("-_- \(data.blocks.first?.fields.fields)")
-            let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareResctrictions: data.restrictions)
             restrictionsContainer.restrinctions = restrinctions
             return .general
         case .accountConfigUpdate(let config):

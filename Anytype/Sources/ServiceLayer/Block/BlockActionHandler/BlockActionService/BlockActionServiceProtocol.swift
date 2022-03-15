@@ -4,7 +4,12 @@ import ProtobufMessages
 
 protocol BlockActionServiceProtocol {
 
-    func paste(slots: PastboardSlots, blockId: BlockId, range: NSRange)
+    // paste in edit mode (inside text block)
+    func paste(blockId: BlockId, range: NSRange, slots: PastboardSlots)
+    // paste in select mode (selected blocks)
+    func paste(selectedBlockIds: [BlockId], slots: PastboardSlots)
+    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots
+
     func upload(blockId: BlockId, filePath: String)
     
     func turnInto(_ style: BlockText.Style, blockId: BlockId)

@@ -12,6 +12,7 @@ protocol ObjectActionsServiceProtocol {
     func updateBundledDetails(contextID: BlockId, details: [BundledDetails])
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position)
     func setLocked(_ isLocked: Bool, objectId: BlockId)
+    func updateLayout(contextID: BlockId, value: Int)
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
     func createPage(

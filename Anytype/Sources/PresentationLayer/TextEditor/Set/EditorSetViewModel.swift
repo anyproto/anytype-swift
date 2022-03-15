@@ -84,6 +84,10 @@ final class EditorSetViewModel: ObservableObject {
         router.presentFullscreen(AnytypePopup(viewModel: self))
     }
     
+    func onSettingsTap() {
+        router.showSettings()
+    }
+    
     // MARK: - Private
     private func setup() {
         subscription = document.updatePublisher.sink { [weak self] in

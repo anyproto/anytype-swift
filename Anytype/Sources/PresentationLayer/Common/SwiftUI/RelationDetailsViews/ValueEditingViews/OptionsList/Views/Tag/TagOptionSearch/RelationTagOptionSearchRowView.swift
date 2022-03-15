@@ -20,7 +20,14 @@ struct RelationTagOptionSearchRowView: View {
             }
         } label: {
             HStack(spacing: 0) {
-                TagView(tag: tag, guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines)
+                TagView(
+                    viewModel: TagView.Model(
+                        text: tag.text,
+                        textColor: tag.textColor,
+                        backgroundColor: tag.backgroundColor
+                    ),
+                    guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines
+                )
                 Spacer()
                 
                 if selectedTagIds.contains(tag.id) {

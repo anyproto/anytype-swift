@@ -4,7 +4,7 @@ import BlocksModels
 
 
 final class ObjectActionsViewModel: ObservableObject {
-    private let service = ObjectActionsService()
+    private let service = ServiceLocator.shared.objectActionsService()
     private let objectId: BlockId
 
     var details: ObjectDetails = ObjectDetails(id: "", values: [:]) {

@@ -13,7 +13,7 @@ final class EditorNavigationBarHelper {
     private let doneBarButtonItem: UIBarButtonItem
     private lazy var syncStatusBarButtonItem = UIBarButtonItem(customView: syncStatusItem)
 
-    private let settingsItem: EditorBarButtonItem
+    private let settingsItem: UIEditorBarButtonItem
     private let syncStatusItem = EditorSyncStatusItem(status: .unknown)
 
     private var contentOffsetObservation: NSKeyValueObservation?
@@ -33,7 +33,7 @@ final class EditorNavigationBarHelper {
         onDoneBarButtonItemTap: @escaping () -> Void
     ) {
         self.controller = viewController
-        self.settingsItem = EditorBarButtonItem(image: .more, action: onSettingsBarButtonItemTap)
+        self.settingsItem = UIEditorBarButtonItem(image: .more, action: onSettingsBarButtonItemTap)
 
         self.doneBarButtonItem = UIBarButtonItem(
             title: "Done".localized,

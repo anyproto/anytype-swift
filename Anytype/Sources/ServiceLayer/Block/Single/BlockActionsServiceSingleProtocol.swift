@@ -4,6 +4,8 @@ import BlocksModels
 
 protocol BlockActionsServiceSingleProtocol {
     func paste(contextId: BlockId, focusedBlockId: BlockId, selectedTextRange: NSRange, isPartOfBlock: Bool, slots: PastboardSlots)
+    func paste(contextId: BlockId, selectedBlockIds: [BlockId], isPartOfBlock: Bool, slots: PastboardSlots)
+    func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots
     func delete(contextId: BlockId, blockIds: [BlockId]) -> Bool
     func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition)
     func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId?

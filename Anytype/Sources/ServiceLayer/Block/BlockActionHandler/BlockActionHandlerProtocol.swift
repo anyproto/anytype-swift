@@ -8,7 +8,9 @@ protocol BlockSelectionHandler: AnyObject {
 protocol BlockActionHandlerProtocol: AnyObject {
     var blockSelectionHandler: BlockSelectionHandler? { get set }
 
-    func past(slots: PastboardSlots, blockId: BlockId, range: NSRange)
+    func past(blockId: BlockId, range: NSRange)
+    func paste(selectedBlockIds: [BlockId])
+    func copy(blocksIds: [BlockId], selectedTextRange: NSRange)
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     @discardableResult
     func turnIntoPage(blockId: BlockId) -> BlockId?
