@@ -8,9 +8,13 @@ final class TagsSearchViewModel {
     
     private var tags: [Relation.Tag.Option] = [] {
         didSet {
-            sections = NewSearchSectionsBuilder.makeSections(tags) {
-                $0.asRowsConfigurations
-            }
+            sections = makeSections(tags: tags, selectedTagIds: selectedTagIds)
+        }
+    }
+    
+    private var selectedTagIds: [String] = [] {
+        didSet {
+            sections = makeSections(tags: tags, selectedTagIds: selectedTagIds)
         }
     }
     
@@ -37,31 +41,44 @@ extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func handleRowsSelect(rowIds: [String]) {
-        
+        selectedTagIds = rowIds
+    }
+    
+}
+
+private extension TagsSearchViewModel {
+    
+    func makeSections(tags: [Relation.Tag.Option], selectedTagIds: [String]) -> [NewSearchSectionConfiguration] {
+        NewSearchSectionsBuilder.makeSections(tags) {
+            $0.asRowConfigurations(with: selectedTagIds)
+        }
     }
     
 }
 
 private extension Array where Element == Relation.Tag.Option {
-
-    var asRowsConfigurations: [NewSearchRowConfiguration] {
-        map { option in
+    
+    func asRowConfigurations(with selectedTagIds: [String]) -> [NewSearchRowConfiguration] {
+        map { tag in
             NewSearchRowConfiguration(
-                id: option.id,
-                rowContentHash: option.hashValue
+                id: tag.id,
+                rowContentHash: tag.hashValue
             ) {
-                AnyView(
-                    TagSearchRowView(
-                        viewModel: TagView.Model(
-                            text: option.text,
-                            textColor: option.textColor,
-                            backgroundColor: option.backgroundColor
-                        ),
-                        guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines,
-                        selectionIndicatorViewModel: .notSelected
-                    )
-                )
+                TagSearchRowView(
+                    viewModel: tag.asTagViewModel,
+                    guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines,
+                    selectionIndicatorViewModel: SelectionIndicatorViewModelBuilder.buildModel(id: tag.id, selectedIds: selectedTagIds)
+                ).eraseToAnyView()
             }
         }
     }
+    
+}
+
+private extension Relation.Tag.Option {
+    
+    var asTagViewModel: TagView.Model {
+        TagView.Model(text: text, textColor: textColor, backgroundColor: backgroundColor)
+    }
+    
 }

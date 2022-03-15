@@ -197,6 +197,7 @@
 		125683ED27DF4DDF003A8251 /* SelectionIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125683EC27DF4DDF003A8251 /* SelectionIndicatorView.swift */; };
 		125683F227DF808E003A8251 /* SearchSelectionMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125683F127DF808E003A8251 /* SearchSelectionMode.swift */; };
 		125683F427DF8366003A8251 /* NewSearchView+AddButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125683F327DF8366003A8251 /* NewSearchView+AddButtonModel.swift */; };
+		125683F627E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125683F527E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift */; };
 		1259300526F3A5C500B115CD /* Highlightr in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300426F3A5C500B115CD /* Highlightr */; };
 		1259300826F3A60B00B115CD /* Amplitude in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300726F3A60B00B115CD /* Amplitude */; };
 		1259300E26F3A6AE00B115CD /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 1259300D26F3A6AE00B115CD /* Kingfisher */; };
@@ -1124,6 +1125,7 @@
 		125683EC27DF4DDF003A8251 /* SelectionIndicatorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionIndicatorView.swift; sourceTree = "<group>"; };
 		125683F127DF808E003A8251 /* SearchSelectionMode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchSelectionMode.swift; sourceTree = "<group>"; };
 		125683F327DF8366003A8251 /* NewSearchView+AddButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewSearchView+AddButtonModel.swift"; sourceTree = "<group>"; };
+		125683F527E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectionIndicatorViewModelBuilder.swift; sourceTree = "<group>"; };
 		125B6E9826F235F400BCD7D6 /* EditorSearchCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSearchCell.swift; sourceTree = "<group>"; };
 		125B6E9926F235F400BCD7D6 /* EditorSearchCellData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSearchCellData.swift; sourceTree = "<group>"; };
 		125B6E9A26F235F400BCD7D6 /* EditorSearchCellConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSearchCellConfiguration.swift; sourceTree = "<group>"; };
@@ -2824,6 +2826,7 @@
 				1244793B27DC620D00581174 /* StatusSearchViewModel */,
 				1244794427DC931900581174 /* NewSearchSectionsBuilder.swift */,
 				124478CA27D77CCD00581174 /* NewRelationOptionProtocol.swift */,
+				125683F527E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -6179,6 +6182,7 @@
 				120F7D78267F873500327734 /* BlockBookmarkView.swift in Sources */,
 				1220670827314E210051A331 /* RelationsListViewModel.swift in Sources */,
 				12C2A5982757A6D600311854 /* StatusRelationDetailsView.swift in Sources */,
+				125683F627E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift in Sources */,
 				12C2A5652754E13D00311854 /* DateRelationDetailsViewModel.swift in Sources */,
 				3D34F20F27BE4B2300990C49 /* SettingsAccountView.swift in Sources */,
 				0AD7695025D5854700669F8C /* BlockListService.swift in Sources */,
