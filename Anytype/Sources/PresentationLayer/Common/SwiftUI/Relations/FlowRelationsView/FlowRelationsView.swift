@@ -2,7 +2,7 @@ import SwiftUI
 import AnytypeCore
 
 struct FlowRelationsView: View {
-    @StateObject var viewModel: FlowRelationsViewModel
+    @ObservedObject var viewModel: FlowRelationsViewModel
 
     var body: some View {
         FlowLayout(
