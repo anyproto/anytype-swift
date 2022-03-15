@@ -6,25 +6,26 @@ import SwiftUI
 import FloatingPanel
 
 final class ObjectLayoutPickerViewModel: ObservableObject {
-        
-    @Published var details: ObjectDetails = ObjectDetails(id: "", values: [:])
-    
     var selectedLayout: DetailsLayout {
-        details.layout
+        document.objectDetails?.layout ?? .basic
     }
     
     // MARK: - Private variables
     
     private(set) var popupLayout: AnytypePopupLayoutType = .intrinsic
-    
     private weak var popup: AnytypePopupProxy?
     
+    private let document: BaseDocumentProtocol
     private let detailsService: DetailsServiceProtocol
+    private var subscription: AnyCancellable?
     
     // MARK: - Initializer
     
-    init(detailsService: DetailsServiceProtocol) {
+    init(document: BaseDocumentProtocol, detailsService: DetailsServiceProtocol) {
+        self.document = document
         self.detailsService = detailsService
+        
+        setupSubscription()
     }
     
     func didSelectLayout(_ layout: DetailsLayout) {
@@ -32,6 +33,12 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
         detailsService.setLayout(layout)
     }
     
+    // MARK: - Private
+    func setupSubscription() {
+        subscription = document.updatePublisher.sink { [weak self] _ in
+            self?.objectWillChange.send()
+        }
+    }
 }
 
 extension ObjectLayoutPickerViewModel: AnytypePopupViewModelProtocol {

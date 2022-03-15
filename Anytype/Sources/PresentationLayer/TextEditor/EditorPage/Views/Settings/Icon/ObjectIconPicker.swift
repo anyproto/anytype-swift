@@ -1,4 +1,5 @@
 import SwiftUI
+import AnytypeCore
 
 struct ObjectIconPicker: View {
     @ObservedObject var viewModel: ObjectIconPickerViewModel
@@ -7,14 +8,17 @@ struct ObjectIconPicker: View {
     var body: some View {
         Group {
             switch viewModel.detailsLayout {
-            case .basic:
+            case .basic, .set:
                 ObjectBasicIconPicker(onDismiss: dismissHandler.onDismiss)
                     .environmentObject(viewModel)
             case .profile:
                 ObjectProfileIconPicker(onDismiss: dismissHandler.onDismiss)
                     .environmentObject(viewModel)
-            default:
+            case .todo, .note:
                 EmptyView()
+                    .onAppear {
+                        anytypeAssertionFailure("Not supported layout", domain: .iconPicker)
+                    }
             }
         }
     }
