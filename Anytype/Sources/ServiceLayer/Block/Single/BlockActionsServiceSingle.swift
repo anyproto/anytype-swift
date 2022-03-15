@@ -8,8 +8,8 @@ import BlocksModels
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
+
     func paste(contextId: BlockId, focusedBlockId: BlockId, selectedTextRange: NSRange, isPartOfBlock: Bool, slots: PastboardSlots) {
-        #warning("implement in next prs isPartOfBlock, selectedBlockIds, anySlot, fileSlot")
         Anytype_Rpc.Block.Paste.Service.invoke(
             contextID: contextId,
             focusedBlockID: focusedBlockId,
@@ -18,13 +18,44 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             isPartOfBlock: isPartOfBlock,
             textSlot: slots.textSlot ?? "",
             htmlSlot: slots.htmlSlot ?? "",
-            anySlot: [],
+            anySlot: slots.anySlot ?? [],
             fileSlot: []
         )
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockActionsService)?
             .send()
+    }
 
+    func paste(contextId: BlockId, selectedBlockIds: [BlockId], isPartOfBlock: Bool, slots: PastboardSlots) {
+        Anytype_Rpc.Block.Paste.Service.invoke(
+            contextID: contextId,
+            focusedBlockID: "",
+            selectedTextRange: Anytype_Model_Range(),
+            selectedBlockIds: selectedBlockIds,
+            isPartOfBlock: isPartOfBlock,
+            textSlot: slots.textSlot ?? "",
+            htmlSlot: slots.htmlSlot ?? "",
+            anySlot: slots.anySlot ?? [],
+            fileSlot: []
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .blockActionsService)?
+            .send()
+    }
+
+    func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots {
+        let blockskModels = blocksInfo.compactMap {
+            BlockInformationConverter.convert(information: $0)
+        }
+
+        let result = Anytype_Rpc.Block.Copy.Service.invoke(
+            contextID: contextId,
+            blocks: blockskModels,
+            selectedTextRange: selectedTextRange.asMiddleware
+        )
+            .getValue(domain: .blockActionsService)
+
+        return PastboardSlots(textSlot: result?.textSlot, htmlSlot: result?.htmlSlot, anySlot: result?.anySlot)
     }
 
     func open(contextId: BlockId, blockId: BlockId) -> Bool {

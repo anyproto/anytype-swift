@@ -6,6 +6,7 @@ protocol EditorBrowser: AnyObject {
     func pop()
     func goToHome(animated: Bool)
     func showPage(data: EditorScreenData)
+    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
 }
 
 protocol EditorBrowserViewInputProtocol: AnyObject {

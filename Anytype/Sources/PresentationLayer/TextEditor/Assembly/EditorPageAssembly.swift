@@ -131,13 +131,13 @@ final class EditorAssembly {
         )
         
         let headerBuilder = ObjectHeaderBuilder(router: router)
-        let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
+        let blockActionsServiceSingle = ServiceLocator.shared.blockActionsServiceSingle()
 
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
-            blockActionsService: blockActionsService,
+            blockActionsServiceSingle: blockActionsServiceSingle,
             actionHandler: actionHandler,
             router: router
         )
@@ -154,7 +154,7 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
             headerBuilder: headerBuilder,
-            blockActionsService: blockActionsService,
+            blockActionsService: blockActionsServiceSingle,
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager
         )

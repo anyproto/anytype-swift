@@ -34,7 +34,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     }
     
     // MARK: - Private
-    func setupSubscription() {
+    private func setupSubscription() {
         subscription = document.updatePublisher.sink { [weak self] _ in
             self?.objectWillChange.send()
         }

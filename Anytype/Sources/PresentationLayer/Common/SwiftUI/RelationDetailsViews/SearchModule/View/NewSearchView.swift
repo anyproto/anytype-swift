@@ -1,11 +1,9 @@
 import SwiftUI
 
-struct NewRelationOptionsSearchView: View {
+struct NewSearchView: View {
     
-    @Environment(\.presentationMode) private var presentationMode
-    
-    @ObservedObject var presenter: NewRelationOptionsSearchPresenter
-    
+    @ObservedObject var viewModel: NewSearchViewModel
+
     @State private var searchText = ""
     
     var body: some View {
@@ -16,13 +14,13 @@ struct NewRelationOptionsSearchView: View {
             addButton
         }
         .background(Color.backgroundSecondary)
-        .onChange(of: searchText) { presenter.search(text: $0) }
-        .onAppear { presenter.search(text: searchText) }
+        .onChange(of: searchText) { viewModel.didAskToSearch(text: $0) }
+        .onAppear { viewModel.didAskToSearch(text: searchText) }
     }
     
     private var content: some View {
         Group {
-            if presenter.sections.isEmpty {
+            if viewModel.listModel.isEmpty {
                 emptyState
             } else {
                 searchResults
@@ -53,57 +51,35 @@ struct NewRelationOptionsSearchView: View {
     private var searchResults: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
-                ForEach(presenter.sections) { section in
-                    sectionView(model: section)
+                switch viewModel.listModel {
+                case .plain(let rows):
+                    rowViews(rows: rows)
+                case .sectioned(let sections):
+                    ForEach(sections) { section in
+                        Section(
+                            header: RelationOptionsSectionHeaderView(title: section.title)
+                        ) {
+                            rowViews(rows: section.rows)
+                        }
+                    }
                 }
             }
             .padding(.bottom, 10)
         }
     }
     
-    private func sectionView(model: RelationOptionsSearchSectionModel) -> some View {
-        Group {
-            if let title = model.title, title.isNotEmpty {
-                Section(
-                    header: RelationOptionsSectionHeaderView(title: title)
-                ) {
-                    ForEach(model.rows) { row in
-                        rowView(model: row)
-                    }
-                }
-            } else {
-                ForEach(model.rows) { row in
-                    rowView(model: row)
-                }
-            }
-        }
-    }
-    
-    private func rowView(model: RelationOptionsSearchRowModel) -> some View {
-        Group {
-            switch model {
-            case .object(let model):
-                RelationOptionsSearchObjectRowView(model: model) {
-                    presenter.didSelectOption(with: $0)
-                }
-            case .file(let model):
-                RelationOptionsSearchObjectRowView(model: model) {
-                    presenter.didSelectOption(with: $0)
-                }
-            case .tag(let model):
-                RelationOptionsSearchTagRowView(model: model) {
-                    presenter.didSelectOption(with: $0)
-                }
-            case .status(let model):
-                RelationOptionsSearchStatusRowView(model: model) {
-                    presenter.didSelectOption(with: $0)
-                }
+    private func rowViews(rows: [NewSearchRowConfiguration]) -> some View {
+        ForEach(rows) { row in
+            Button {
+                viewModel.didSelectRow(with: row.id)
+            } label: {
+                row.rowBuilder()
             }
         }
     }
     
     private var addButton: some View {
-        Color.red
+        Color.yellow
 //        StandardButton(disabled: viewModel.selectedOptionIds.isEmpty, text: "Add".localized, style: .primary) {
 //            viewModel.didTapAddSelectedOptions()
 //            presentationMode.wrappedValue.dismiss()
@@ -126,8 +102,8 @@ struct NewRelationOptionsSearchView: View {
     }
 }
 
-//struct NewRelationOptionsSearchView_Previews: PreviewProvider {
+//struct NewSearchView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        NewRelationOptionsSearchView()
+//        NewSearchView()
 //    }
 //}

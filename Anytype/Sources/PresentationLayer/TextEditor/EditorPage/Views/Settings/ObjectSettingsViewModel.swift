@@ -61,21 +61,6 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         onDocumentUpdate()
     }
     
-    func setupSubscription() {
-        subscription = document.updatePublisher.sink { [weak self] _ in
-            self?.onDocumentUpdate()
-        }
-    }
-    
-    private func onDocumentUpdate() {
-        objectWillChange.send()
-        if let details = document.objectDetails {
-            objectActionsViewModel.details = details
-            relationsViewModel.update(with: document.parsedRelations)
-        }
-        objectActionsViewModel.objectRestrictions = document.objectRestrictions
-    }
-    
     func showLayoutSettings() {
         router?.showLayoutPicker()
     }
@@ -93,6 +78,21 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         popup?.updateLayout(false)
     }
     
+    // MARK: - Private
+    private func setupSubscription() {
+        subscription = document.updatePublisher.sink { [weak self] _ in
+            self?.onDocumentUpdate()
+        }
+    }
+    
+    private func onDocumentUpdate() {
+        objectWillChange.send()
+        if let details = document.objectDetails {
+            objectActionsViewModel.details = details
+            relationsViewModel.update(with: document.parsedRelations)
+        }
+        objectActionsViewModel.objectRestrictions = document.objectRestrictions
+    }
 }
 
 extension ObjectSettingsViewModel: AnytypePopupViewModelProtocol {

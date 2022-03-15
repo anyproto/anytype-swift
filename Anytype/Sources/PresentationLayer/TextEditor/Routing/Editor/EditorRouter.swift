@@ -52,8 +52,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let contextualMenuView = EditorContextualMenuView(
             options: [.dismiss, .createBookmark],
             optionTapHandler: { [weak rootController] option in
-                    rootController?.presentedViewController?.dismiss(animated: false, completion: nil)
-                    inputParameters.optionHandler(option)
+                rootController?.presentedViewController?.dismiss(animated: false, completion: nil)
+                inputParameters.optionHandler(option)
             }
         )
 
@@ -219,6 +219,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         rootController?.topPresentedController.present(vc, animated: true)
     }
     
+    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
+        rootController?.setNavigationViewHidden(isHidden, animated: animated)
+    }
+    
     // MARK: - Settings
     func showSettings() {
         let popup = settingAssembly.settingsPopup(document: document, router: self)
@@ -241,6 +245,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     // MARK: - Private
+    
     private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = viewController else { return }
         
@@ -317,7 +322,7 @@ extension EditorRouter {
         guard let viewController = viewController else { return }
         
         if case .status(let status) = relation, FeatureFlags.newRelationOptionsSearch {
-            let view = RelationOptionsSearchModuleAssembly.buildModule(searchType: .statuses(status.allOptions))
+            let view = NewSearchModuleAssembly.buildStatusSearchModule(allStatuses: status.allOptions, selectedStatus: status.value)
             
             let controller = UIHostingController(rootView: view)
             viewController.topPresentedController.present(controller, animated: true)

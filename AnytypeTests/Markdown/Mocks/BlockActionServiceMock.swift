@@ -158,4 +158,17 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     func paste(slots: PastboardSlots, blockId: BlockId, range: NSRange) {
         assertionFailure()
     }
+    
+    func paste(blockId: BlockId, range: NSRange, slots: PastboardSlots) {
+        assertionFailure()
+    }
+    
+    func paste(selectedBlockIds: [BlockId], slots: PastboardSlots) {
+        assertionFailure()
+    }
+    
+    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots {
+        assertionFailure()
+        return .init(textSlot: nil, htmlSlot: nil, anySlot: [])
+    }
 }
