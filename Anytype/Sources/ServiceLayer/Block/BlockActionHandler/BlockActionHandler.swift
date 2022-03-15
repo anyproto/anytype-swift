@@ -3,6 +3,7 @@ import BlocksModels
 import Combine
 import AnytypeCore
 import Amplitude
+import ProtobufMessages
 
 final class DefaultFileUplodingWorker: MediaFileUploadingWorkerProtocol {
     var contentType: MediaPickerContentType = .images
@@ -40,7 +41,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let keyboardHandler: KeyboardActionHandlerProtocol
     
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
-    private let pastboardHelper = PastboardHelper()
     
     init(
         document: BaseDocumentProtocol,
@@ -58,33 +58,30 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
     // MARK: - Service proxy
 
-    func paste(blockId: BlockId, range: NSRange, completion: @escaping (Bool) -> Void) {
-        paste(blockId: blockId, range: range, selectedBlockIds: nil, isPartOfBlock: true, completion: completion)
+    func paste(blockId: BlockId, range: NSRange, pasteSlot: PasteboardSlot) {
+        paste(blockId: blockId, range: range, selectedBlockIds: nil, isPartOfBlock: true, pasteSlot: pasteSlot)
     }
 
-    func paste(selectedBlockIds: [BlockId], completion: @escaping (Bool) -> Void) {
-        paste(blockId: nil, range: nil, selectedBlockIds: selectedBlockIds, isPartOfBlock: false, completion: completion)
+    func paste(selectedBlockIds: [BlockId], pasteSlot: PasteboardSlot) {
+        paste(blockId: nil, range: nil, selectedBlockIds: selectedBlockIds, isPartOfBlock: false, pasteSlot: pasteSlot)
     }
 
-    private func paste(blockId: BlockId?, range: NSRange?, selectedBlockIds: [BlockId]?, isPartOfBlock: Bool, completion: @escaping (Bool) -> Void) {
-        pastboardHelper.obtainSlots { [weak self] slots in
-            // don't handle paste if only text in clipboard and it's valid url
-            if slots.onlyTextSlotAvailable,
-               let textSlot = slots.textSlot,
-               textSlot.isValidURL() {
-                return completion(false)
+    private func paste(blockId: BlockId?, range: NSRange?, selectedBlockIds: [BlockId]?, isPartOfBlock: Bool, pasteSlot: PasteboardSlot) {
+        var textSlot: String? = nil
+        var htmlSlot: String? = nil
+        var anySlots: [Anytype_Model_Block]? = nil
+
+        switch pasteSlot {
+        case .text(let text):
+            textSlot = text
+        case .html(let html):
+            htmlSlot = html
+        case .anySlots(let anyJSONSlots):
+            anySlots = anyJSONSlots.compactMap { anyJSONSlot in
+                try? Anytype_Model_Block(jsonString: anyJSONSlot)
             }
-            self?.service.paste(focusedBlockId: blockId,
-                                selectedTextRange: range,
-                                selectedBlockIds: selectedBlockIds,
-                                isPartOfBlock: isPartOfBlock,
-                                textSlot: slots.textSlot,
-                                htmlSlot: slots.htmlSlot,
-                                anySlots: slots.anySlots)
-
-            // paste file slot
-            slots.fileSlots?.forEach { itemProvider in
-
+        case .fileSlots(let fileSlots):
+            fileSlots.forEach { [weak self] itemProvider in
                 let operation = MediaFileUploadingOperation(
                     itemProvider: itemProvider,
                     worker: DefaultFileUplodingWorker { localPath in
@@ -98,17 +95,26 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                 )
                 self?.fileUploadingDemon.addOperation(operation)
             }
-
-            completion(true)
+            return
         }
+
+        service.paste(focusedBlockId: blockId,
+                      selectedTextRange: range,
+                      selectedBlockIds: selectedBlockIds,
+                      isPartOfBlock: isPartOfBlock,
+                      textSlot: textSlot,
+                      htmlSlot: htmlSlot,
+                      anySlots: anySlots)
     }
 
     func copy(blocksIds: [BlockId], selectedTextRange: NSRange) {
+        let pasteboardHelper = PasteboardHelper()
         let blocksInfo = blocksIds.compactMap {
             document.infoContainer.get(id: $0)
         }
-        let anySlots = service.copy(blocksInfo: blocksInfo, selectedTextRange: selectedTextRange)
-        pastboardHelper.copy(slots: anySlots)
+        if let anySlots = service.copy(blocksInfo: blocksInfo, selectedTextRange: selectedTextRange) {
+            pasteboardHelper.copy(slots: anySlots)
+        }
     }
 
     func turnIntoPage(blockId: BlockId) -> BlockId? {

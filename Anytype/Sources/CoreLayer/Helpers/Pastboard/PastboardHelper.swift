@@ -1,60 +1,37 @@
 import UIKit
 import UniformTypeIdentifiers
 import AnytypeCore
-import ProtobufMessages
 
-typealias AnySlots = [Anytype_Model_Block]
-
-struct PastboardSlots {
-    let textSlot: String?
-    let htmlSlot: String?
-    let anySlots: AnySlots?
-    let fileSlots:  [NSItemProvider]?
-
-    var onlyTextSlotAvailable: Bool {
-        textSlot.isNotNil && htmlSlot.isNil && anySlots.isNil
-    }
-
-    var hasSlots: Bool {
-        textSlot.isNotNil || htmlSlot.isNotNil || anySlots.isNotNil || fileSlots.isNotNil
-    }
-}
-
-enum SlotToPaste {
+enum PasteboardSlot {
     case text(String)
     case html(String)
     case anySlots([String])
     case fileSlots([NSItemProvider])
 }
 
-final class PastboardHelper {
+final class PasteboardHelper {
 
-    func obtainSlots() -> SlotToPaste? {
+    func obtainSlots() -> PasteboardSlot? {
         let pasteboard = UIPasteboard.general
-        var fileSlot: [NSItemProvider]?
+        var fileSlot: [NSItemProvider] = []
 
-        var slotToPaste: SlotToPaste?
-
-        // Dind first item to paste with follow order anySlots, htmlSlot, textSlot, fileSlots
+        // Find first item to paste with follow order anySlots, htmlSlot, textSlot, fileSlots
+        // anySlots
         if pasteboard.contains(pasteboardTypes: [UTType.anySlot.identifier], inItemSet: nil) {
-            if let pasteboardData = pasteboard.data(
+            if let pasteboardData = pasteboard.values(
                 forPasteboardType: UTType.anySlot.identifier,
                 inItemSet: nil
-            ) {
-
-                let anySlots: [String] = pasteboardData.compactMap {
-                    if let anyJSONSlot = String(data: $0, encoding: .utf8) {
-                        return anyJSONSlot
-                    }
-                    return nil
+            ) as? [Data] {
+                let anySlots = pasteboardData.compactMap { data in
+                    String(data: data, encoding: .utf8)
                 }
-
-                if anySlots.isNotEmpty {
+                    if anySlots.isNotEmpty {
                     return .anySlots(anySlots)
                 }
             }
         }
 
+        // htmlSlot
         if pasteboard.contains(pasteboardTypes: [UTType.html.identifier], inItemSet: nil) {
             let data = pasteboard.data(
                 forPasteboardType: UTType.html.identifier,
@@ -66,6 +43,7 @@ final class PastboardHelper {
             }
         }
 
+        // textSlot
         if pasteboard.contains(pasteboardTypes: [UTType.plainText.identifier], inItemSet: nil) {
             let text = pasteboard.value(forPasteboardType: UTType.text.identifier)
 
@@ -73,70 +51,41 @@ final class PastboardHelper {
                 return .text(text)
             }
         }
-
+        
+        // fileSlots
         pasteboard.itemProviders.forEach { itemProvider in
-            // any slot
-            if itemProvider.hasItemConformingToTypeIdentifier(UTType.anySlot.identifier) {
-                itemProvider.loadDataRepresentation(forTypeIdentifier: UTType.anySlot.identifier) { data, _ in
-                    if let data = data, let htmlSlot = String(data: data, encoding: .utf8) {
-                        slotToPaste = .html(htmlSlot)
-                        return
-                    }
-                }
-            }
-
-            // html slot
-            if itemProvider.hasItemConformingToTypeIdentifier(UTType.html.identifier) {
-                itemProvider.loadDataRepresentation(forTypeIdentifier: UTType.html.identifier) { data, _ in
-                    if let data = data, let htmlSlot = String(data: data, encoding: .utf8) {
-                        slotToPaste = .html(htmlSlot)
-                        return
-                    }
-                }
-            }
-
-            // text slot
-            if itemProvider.hasItemConformingToTypeIdentifier(UTType.utf8PlainText.identifier) {
-                itemProvider.loadItem(forTypeIdentifier: UTType.utf8PlainText.identifier, options: nil) { text, _ in
-                    if let text = text as? String {
-                        slotToPaste = .text(text)
-                        return
-                    }
-                }
-            }
-
-            // file slot
-            fileSlot?.append(itemProvider)
+            fileSlot.append(itemProvider)
+        }
+        if fileSlot.isNotEmpty {
+            return .fileSlots(fileSlot)
         }
 
-        fileSlot = [NSItemProvider]()
-        pasteboard.itemProviders.forEach { itemProvider in
-            fileSlot?.append(itemProvider)
-        }
-
-        return slotToPaste
+        // pasteboard is empty
+        return nil
     }
 
-    func copy(slots: PastboardSlots) {
+    func copy(slots: [PasteboardSlot]) {
         let pasteboard = UIPasteboard.general
+        var textSlots: [String: Any] = [:]
+        var allSlots: [[String: Any]] = [[:]]
 
-        if let textSlot = slots.textSlot {
-            pasteboard.setValue(textSlot, forPasteboardType: UTType.plainText.identifier)
-        }
-
-        if let htmlSlot = slots.htmlSlot {
-            pasteboard.addItems([[UTType.html.identifier: htmlSlot]])
-        }
-
-        if let anySlot = slots.anySlots {
-            let anyJSONSlot: [[String: Any]] = anySlot.compactMap { anytypeModelBlock in
-                if let jsonString = try? anytypeModelBlock.jsonString() {
-                    return [UTType.anySlot.identifier: jsonString]
+        slots.forEach { slot in
+            switch slot {
+            case let .text(text):
+                textSlots[UTType.plainText.identifier] = text
+            case let .html(html):
+                textSlots[UTType.html.identifier] = html
+            case let .anySlots(anySlots):
+                allSlots = anySlots.compactMap { anySlot in
+                    [UTType.anySlot.identifier: anySlot]
                 }
-                return nil
+            case .fileSlots:
+                // Don't have yet
+                break
             }
-            pasteboard.addItems(anyJSONSlot)
         }
+        allSlots.insert(textSlots, at: 0)
+        pasteboard.setItems(allSlots)
     }
 }
 

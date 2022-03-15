@@ -10,7 +10,7 @@ protocol BlockActionServiceProtocol {
                isPartOfBlock: Bool,
                textSlot: String?,
                htmlSlot: String?,
-               anySlots: AnySlots?)
+               anySlots:  [Anytype_Model_Block]?)
 
     func pasteFile(focusedBlockId: BlockId?,
                    selectedTextRange: NSRange?,
@@ -19,7 +19,7 @@ protocol BlockActionServiceProtocol {
                    localPath: String,
                    name: String) -> BlockId?
 
-    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots
+    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> [PasteboardSlot]?
 
     func upload(blockId: BlockId, filePath: String)
     

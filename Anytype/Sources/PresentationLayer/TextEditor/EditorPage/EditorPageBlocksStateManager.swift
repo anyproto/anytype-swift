@@ -322,7 +322,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             return
         case .paste:
             let blockIds = elements.map(\.blockId)
-            actionHandler.paste(selectedBlockIds: blockIds) {_ in }
+            let pasteboardHelper = PasteboardHelper()
+            if let pasteSlot = pasteboardHelper.obtainSlots() {
+                actionHandler.paste(selectedBlockIds: blockIds, pasteSlot: pasteSlot)
+            }
         case .copy:
             let blocksIds = elements.map(\.blockId)
             actionHandler.copy(blocksIds: blocksIds, selectedTextRange: NSRange())

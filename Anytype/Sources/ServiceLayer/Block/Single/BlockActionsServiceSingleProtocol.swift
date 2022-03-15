@@ -11,9 +11,9 @@ protocol BlockActionsServiceSingleProtocol {
                isPartOfBlock: Bool,
                textSlot: String?,
                htmlSlot: String?,
-               anySlots: AnySlots?,
+               anySlots: [Anytype_Model_Block]?,
                fileSlots: [Anytype_Rpc.Block.Paste.Request.File]?) -> BlockId?
-    func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots
+    func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> [PasteboardSlot]?
     func delete(contextId: BlockId, blockIds: [BlockId]) -> Bool
     func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition)
     func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId?

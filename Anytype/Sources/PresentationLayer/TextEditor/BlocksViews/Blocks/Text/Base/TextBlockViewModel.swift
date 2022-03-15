@@ -84,10 +84,16 @@ struct TextBlockViewModel: BlockViewModelProtocol {
 
     func action() -> TextBlockContentConfiguration.Actions {
         return .init(
-            shouldPaste: { range, completion in
-                actionHandler.paste(blockId: blockId, range: range) { shouldPaste in
-                    completion(shouldPaste)
+            shouldPaste: { range in
+                let pasteboardHelper = PasteboardHelper()
+                guard let pasteSlot = pasteboardHelper.obtainSlots() else { return true }
+
+                if case let .text(textSlot) = pasteSlot, textSlot.isValidURL() {
+                    return true
                 }
+
+                actionHandler.paste(blockId: blockId, range: range, pasteSlot: pasteSlot)
+                return false
             },
             copy: { range in
                 actionHandler.copy(blocksIds: [info.id], selectedTextRange: range)

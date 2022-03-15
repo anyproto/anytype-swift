@@ -13,7 +13,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
                isPartOfBlock: Bool,
                textSlot: String?,
                htmlSlot: String?,
-               anySlots: AnySlots?,
+               anySlots:  [Anytype_Model_Block]?,
                fileSlots: [Anytype_Rpc.Block.Paste.Request.File]?) -> BlockId? {
 
         let result = Anytype_Rpc.Block.Paste.Service.invoke(
@@ -37,7 +37,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         return result?.blockIds.last
     }
 
-    func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots {
+    func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> [PasteboardSlot]? {
         let blockskModels = blocksInfo.compactMap {
             BlockInformationConverter.convert(information: $0)
         }
@@ -49,7 +49,13 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         )
             .getValue(domain: .blockActionsService)
 
-        return PastboardSlots(textSlot: result?.textSlot, htmlSlot: result?.htmlSlot, anySlots: result?.anySlot, fileSlots: nil)
+        if let result = result {
+            let anySlot = result.anySlot.compactMap { modelBlock in
+                try? modelBlock.jsonString()
+            }
+            return [.html(result.htmlSlot), .text(result.textSlot), .anySlots(anySlot)]
+        }
+        return nil
     }
 
     func open(contextId: BlockId, blockId: BlockId) -> Bool {
