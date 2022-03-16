@@ -2,7 +2,7 @@ import Foundation
 
 final class NewSearchSectionsBuilder {
     
-    static func makeSections<Option: NewRelationOptionProtocol>(_ options: [Option], rowsBuilder: ([Option]) -> [NewSearchRowConfiguration]) -> [NewSearchSectionConfiguration] {
+    static func makeSections<Option: NewRelationOptionProtocol>(_ options: [Option], rowsBuilder: ([Option]) -> [ListRowConfiguration]) -> [NewSearchSectionConfiguration] {
         var localOptions: [Option] = []
         var otherOptions: [Option] = []
         

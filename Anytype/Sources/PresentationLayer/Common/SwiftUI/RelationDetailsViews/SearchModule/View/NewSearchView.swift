@@ -76,12 +76,12 @@ struct NewSearchView: View {
         }
     }
     
-    private func rowViews(rows: [NewSearchRowConfiguration]) -> some View {
+    private func rowViews(rows: [ListRowConfiguration]) -> some View {
         ForEach(rows) { row in
             Button {
                 viewModel.didSelectRow(with: row.id)
             } label: {
-                row.rowBuilder()
+                row.makeView()
             }
         }
     }

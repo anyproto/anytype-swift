@@ -58,11 +58,11 @@ private extension TagsSearchViewModel {
 
 private extension Array where Element == Relation.Tag.Option {
     
-    func asRowConfigurations(with selectedTagIds: [String]) -> [NewSearchRowConfiguration] {
+    func asRowConfigurations(with selectedTagIds: [String]) -> [ListRowConfiguration] {
         map { tag in
-            NewSearchRowConfiguration(
+            ListRowConfiguration(
                 id: tag.id,
-                rowContentHash: tag.hashValue
+                contentHash: tag.hashValue
             ) {
                 TagSearchRowView(
                     viewModel: tag.asTagViewModel,

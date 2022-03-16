@@ -5,6 +5,6 @@ struct NewSearchSectionConfiguration: Hashable, Identifiable {
     
     let id: String
     let title: String
-    let rows: [NewSearchRowConfiguration]
+    let rows: [ListRowConfiguration]
     
 }
