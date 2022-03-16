@@ -2,7 +2,12 @@ import Foundation
 
 final class NewSearchModuleAssembly {
  
-    static func buildStatusSearchModule(allStatuses: [Relation.Status.Option], selectedStatus: Relation.Status.Option?, onSelect: @escaping (_ ids: [String]) -> Void) -> NewSearchView {
+    static func buildStatusSearchModule(
+        allStatuses: [Relation.Status.Option],
+        selectedStatus: Relation.Status.Option?,
+        onSelect: @escaping (_ ids: [String]) -> Void,
+        onCreate: @escaping (_ title: String) -> Void
+    ) -> NewSearchView {
         let interactor = StatusSearchInteractor(
             allStatuses: allStatuses,
             selectedStatus: selectedStatus
@@ -11,14 +16,19 @@ final class NewSearchModuleAssembly {
         let internalViewModel = StatusSearchViewModel(interactor: interactor)
         let viewModel = NewSearchViewModel(
             selectionMode: .singleItem,
-            itemCreationMode: .unavailable,
+            itemCreationMode: .available(action: onCreate),
             internalViewModel: internalViewModel,
             onSelect: onSelect
         )
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func buildTagsSearchModule(allTags: [Relation.Tag.Option], selectedTagIds: [String], onSelect: @escaping (_ ids: [String]) -> Void) -> NewSearchView {
+    static func buildTagsSearchModule(
+        allTags: [Relation.Tag.Option],
+        selectedTagIds: [String],
+        onSelect: @escaping (_ ids: [String]) -> Void,
+        onCreate: @escaping (_ title: String) -> Void
+    ) -> NewSearchView {
         let interactor = TagsSearchInteractor(
             allTags: allTags,
             selectedTagIds: selectedTagIds
@@ -27,7 +37,7 @@ final class NewSearchModuleAssembly {
         let internalViewModel = TagsSearchViewModel(interactor: interactor)
         let viewModel = NewSearchViewModel(
             selectionMode: .multipleItems,
-            itemCreationMode: .unavailable,
+            itemCreationMode: .available(action: onCreate),
             internalViewModel: internalViewModel,
             onSelect: onSelect
         )

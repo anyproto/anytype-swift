@@ -88,6 +88,8 @@ extension RelationOptionsViewModel {
             if FeatureFlags.newRelationOptionsSearch {
                 NewSearchModuleAssembly.buildTagsSearchModule(allTags: allTags, selectedTagIds: selectedOptions.map { $0.id }) { [weak self] ids in
                     self?.handleNewOptionIds(ids)
+                } onCreate: { title in
+                    debugPrint(title)
                 }
             } else {
                 TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
