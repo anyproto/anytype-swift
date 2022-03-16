@@ -322,7 +322,10 @@ extension EditorRouter {
         guard let viewController = viewController else { return }
         
         if case .status(let status) = relation, FeatureFlags.newRelationOptionsSearch {
-            let view = NewSearchModuleAssembly.buildStatusSearchModule(allStatuses: status.allOptions, selectedStatus: status.value)
+            let view = NewSearchModuleAssembly.buildStatusSearchModule(allStatuses: status.allOptions, selectedStatus: status.value) { _ in
+                #warning("TODO: implement")
+                debugPrint("foo")
+            }
             
             let controller = UIHostingController(rootView: view)
             viewController.topPresentedController.present(controller, animated: true)

@@ -83,7 +83,7 @@ struct NewSearchView: View {
     
     private func addButton(model: AddButtonModel) -> some View {
         StandardButton(disabled: model.isDisabled, text: "Add".localized, style: .primary) {
-            debugPrint("addButton")
+            viewModel.didTapAddButton()
         }
         .if(!model.isDisabled) {
             $0.if(model.counter > 0) {
