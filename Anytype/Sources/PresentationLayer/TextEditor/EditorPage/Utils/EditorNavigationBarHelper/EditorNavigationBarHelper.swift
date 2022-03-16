@@ -155,7 +155,12 @@ private extension EditorNavigationBarHelper {
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {
         guard let alpha = countPercentOfNavigationBarAppearance(offset: newOffset) else { return }
-        guard case .editing = currentEditorState else { return }
+
+        switch currentEditorState {
+            case .editing, .locked: break
+            default: return
+        }
+
 
         navigationBarTitleView.setAlphaForSubviews(alpha)
         updateBarButtonItemsBackground(percent: alpha)
