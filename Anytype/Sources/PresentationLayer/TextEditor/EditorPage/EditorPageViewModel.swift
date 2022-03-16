@@ -22,7 +22,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     let wholeBlockMarkupViewModel: MarkupViewModel
     
     private let blockBuilder: BlockViewModelBuilder
-    private let headerBuilder: ObjectHeaderBuilder
+    private let headerModel: ObjectHeaderViewModel
     private lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
@@ -46,7 +46,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockBuilder: BlockViewModelBuilder,
         actionHandler: BlockActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
-        headerBuilder: ObjectHeaderBuilder,
+        headerModel: ObjectHeaderViewModel,
         blockActionsService: BlockActionsServiceSingleProtocol,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager
@@ -59,7 +59,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.actionHandler = actionHandler
         self.blockDelegate = blockDelegate
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
-        self.headerBuilder = headerBuilder
+        self.headerModel = headerModel
         self.blockActionsService = blockActionsService
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
@@ -72,7 +72,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             self?.handleUpdate(updateResult: $0)
         }.store(in: &subscriptions)
         
-        headerBuilder.$header.sink { [weak self] _ in
+        headerModel.$header.sink { [weak self] _ in
             self?.updateHeaderIfNeeded()
         }.store(in: &subscriptions)
     }
@@ -121,7 +121,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             viewInput?.update(changes: nil, allModels: blocksViewModels)
         case .header:
-            break // supported in headerBuilder
+            break // supported in headerModel
         }
     }
     
@@ -232,10 +232,10 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
     // iOS 14 bug fix applying header section while editing
     private func updateHeaderIfNeeded() {
-        guard modelsHolder.header != headerBuilder.header else { return }
+        guard modelsHolder.header != headerModel.header else { return }
 
-        viewInput?.update(header: headerBuilder.header, details: document.objectDetails)
-        modelsHolder.header = headerBuilder.header
+        viewInput?.update(header: headerModel.header, details: document.objectDetails)
+        modelsHolder.header = headerModel.header
     }
 }
 

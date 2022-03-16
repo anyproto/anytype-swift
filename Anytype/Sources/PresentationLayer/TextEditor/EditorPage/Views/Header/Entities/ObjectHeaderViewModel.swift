@@ -2,7 +2,7 @@ import BlocksModels
 import UIKit
 import Combine
 
-final class ObjectHeaderBuilder: ObservableObject {
+final class ObjectHeaderViewModel: ObservableObject {
     
     @Published private(set) var header: ObjectHeader = .initialState
     
