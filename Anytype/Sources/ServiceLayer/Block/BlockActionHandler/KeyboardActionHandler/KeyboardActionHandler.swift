@@ -56,11 +56,11 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                     .init(string: ""),
                     blockId: info.id.value,
                     mode: .bottom,
-                    position: 0,
+                    nsRange: NSRange(location: 0, length: 0),
                     newBlockContentType: .text
                 )
             }
-        case let .enterInside(string, position):
+        case let .enterInside(string, nsRange):
             service.split(
                 string,
                 blockId: info.id.value,
@@ -68,7 +68,8 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 position: position,
                 newBlockContentType: contentTypeForSplit(text.contentType, blockId: info.id.value)
             )
-        case .enterAtTheEnd(let string):
+
+        case let .enterAtTheEnd(string, nsRange):
             guard string.string.isNotEmpty else {
                 anytypeAssertionFailure("Empty sting in enterAtTheEnd", domain: .keyboardActionHandler)
                 enterForEmpty(text: text, info: info)
@@ -148,7 +149,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 newString,
                 blockId: info.id.value,
                 mode: splitMode(info),
-                position: newString.string.count,
+                nsRange: NSRange(location: newString.string.count, length: 0),
                 newBlockContentType: type
             )
         }

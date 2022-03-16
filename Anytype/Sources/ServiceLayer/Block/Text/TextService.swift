@@ -49,12 +49,12 @@ final class TextService: TextServiceProtocol {
         ).send()
     }
     
-    func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId? {
+    func split(contextId: BlockId, blockId: BlockId, nsRange: NSRange, style: Style, mode: SplitMode) -> BlockId? {
         let textContentType = BlockContent.text(.empty(contentType: style)).description
         AnytypeAnalytics.instance().logCreateBlock(type: textContentType, style: String(describing: style))
 
         let response = Anytype_Rpc.Block.Split.Service
-            .invoke(contextID: contextId, blockID: blockId, range: range.asMiddleware, style: style.asMiddleware, mode: mode)
+            .invoke(contextID: contextId, blockID: blockId, range: nsRange.asMiddleware, style: style.asMiddleware, mode: mode)
             .getValue(domain: .textService)
         
         guard let response = response else {
