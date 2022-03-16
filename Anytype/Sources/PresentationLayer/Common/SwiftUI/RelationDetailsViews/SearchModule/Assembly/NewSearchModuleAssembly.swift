@@ -11,6 +11,7 @@ final class NewSearchModuleAssembly {
         let internalViewModel = StatusSearchViewModel(interactor: interactor)
         let viewModel = NewSearchViewModel(
             selectionMode: .singleItem,
+            itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,
             onSelect: onSelect
         )
@@ -26,6 +27,7 @@ final class NewSearchModuleAssembly {
         let internalViewModel = TagsSearchViewModel(interactor: interactor)
         let viewModel = NewSearchViewModel(
             selectionMode: .multipleItems,
+            itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,
             onSelect: onSelect
         )
@@ -41,6 +43,7 @@ final class NewSearchModuleAssembly {
         let internalViewModel = ObjectsSearchViewModel(interactor: interactor)
         let viewModel = NewSearchViewModel(
             selectionMode: .multipleItems,
+            itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,
             onSelect: onSelect
         )
@@ -56,6 +59,7 @@ final class NewSearchModuleAssembly {
         let internalViewModel = ObjectsSearchViewModel(interactor: interactor)
         let viewModel = NewSearchViewModel(
             selectionMode: .multipleItems,
+            itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,
             onSelect: onSelect
         )

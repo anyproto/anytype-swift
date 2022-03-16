@@ -23,7 +23,7 @@ struct NewSearchView: View {
     
     private var content: some View {
         Group {
-            if viewModel.listModel.isEmpty {
+            if viewModel.listModel.isEmpty && !viewModel.isCreateButtonAvailable {
                 emptyState
             } else {
                 searchResults
@@ -54,6 +54,11 @@ struct NewSearchView: View {
     private var searchResults: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
+                if viewModel.isCreateButtonAvailable {
+                    RelationOptionCreateButton(text: searchText) {
+                        viewModel.didTapCreateButton(title: searchText)
+                    }
+                }
                 switch viewModel.listModel {
                 case .plain(let rows):
                     rowViews(rows: rows)
