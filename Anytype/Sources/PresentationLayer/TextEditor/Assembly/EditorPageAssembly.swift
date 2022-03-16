@@ -69,7 +69,6 @@ final class EditorAssembly {
         )
 
         controller.viewModel = viewModel
-        viewModel.setupSubscriptions() // run subscriptions after controller setup
         
         return (controller, router)
     }

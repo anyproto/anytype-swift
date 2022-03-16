@@ -4,7 +4,7 @@ import Combine
 
 final class ObjectHeaderBuilder: ObservableObject {
     
-    @Published var header: ObjectHeader = .initialState
+    @Published private(set) var header: ObjectHeader = .initialState
     
     // MARK: - Private variables
     

@@ -11,6 +11,8 @@ protocol EditorPageViewModelProtocol: AnyObject {
     var modelsHolder: EditorMainItemModelsHolder { get }
     var actionHandler: BlockActionHandlerProtocol { get }
     
+    var router: EditorRouterProtocol { get }
+    
     func viewDidLoad()
     func viewWillAppear()
     func viewDidAppear()
@@ -23,5 +25,5 @@ protocol EditorPageViewModelProtocol: AnyObject {
     func showIconPicker()
     func showCoverPicker()
     
-    var router: EditorRouterProtocol { get }
+    func setupSubscriptions()
 }
