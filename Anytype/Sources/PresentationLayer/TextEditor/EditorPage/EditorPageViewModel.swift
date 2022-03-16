@@ -23,7 +23,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     private let blockBuilder: BlockViewModelBuilder
     private let headerBuilder: ObjectHeaderBuilder
-    private lazy var cancellables = [AnyCancellable]()
+    private lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
 
@@ -66,13 +66,15 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
 
     func setupSubscriptions() {
+        subscriptions = []
+        
         document.updatePublisher.sink { [weak self] in
             self?.handleUpdate(updateResult: $0)
-        }.store(in: &cancellables)
+        }.store(in: &subscriptions)
         
         headerBuilder.$header.sink { [weak self] _ in
             self?.updateHeaderIfNeeded()
-        }.store(in: &cancellables)
+        }.store(in: &subscriptions)
     }
     
     private func handleUpdate(updateResult: DocumentUpdate) {

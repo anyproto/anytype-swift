@@ -65,7 +65,11 @@ final class EditorPageController: UIViewController {
 
     private let blocksSelectionOverlayView: BlocksSelectionOverlayView
     
-    var viewModel: EditorPageViewModelProtocol!
+    var viewModel: EditorPageViewModelProtocol! {
+        didSet {
+            viewModel.setupSubscriptions()
+        }
+    }
     private var cancellables = [AnyCancellable]()
     
     // MARK: - Initializers
