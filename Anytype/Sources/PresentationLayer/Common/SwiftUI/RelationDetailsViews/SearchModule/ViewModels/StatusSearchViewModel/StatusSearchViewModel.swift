@@ -4,7 +4,7 @@ import Combine
 
 final class StatusSearchViewModel {
     
-    @Published private var sections: [NewSearchSectionConfiguration] = []
+    @Published private var sections: [ListSectionConfiguration] = []
     
     private var statuses: [Relation.Status.Option] = [] {
         didSet {

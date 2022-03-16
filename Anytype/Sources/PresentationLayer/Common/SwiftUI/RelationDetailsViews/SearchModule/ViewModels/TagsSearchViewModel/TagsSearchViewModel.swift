@@ -4,7 +4,7 @@ import SwiftUI
 
 final class TagsSearchViewModel {
     
-    @Published private var sections: [NewSearchSectionConfiguration] = []
+    @Published private var sections: [ListSectionConfiguration] = []
     
     private var tags: [Relation.Tag.Option] = [] {
         didSet {
@@ -48,7 +48,7 @@ extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
 
 private extension TagsSearchViewModel {
     
-    func makeSections(tags: [Relation.Tag.Option], selectedTagIds: [String]) -> [NewSearchSectionConfiguration] {
+    func makeSections(tags: [Relation.Tag.Option], selectedTagIds: [String]) -> [ListSectionConfiguration] {
         NewSearchSectionsBuilder.makeSections(tags) {
             $0.asRowConfigurations(with: selectedTagIds)
         }

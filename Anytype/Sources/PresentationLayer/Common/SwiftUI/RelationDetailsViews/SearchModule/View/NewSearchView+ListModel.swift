@@ -4,7 +4,7 @@ extension NewSearchView {
     
     enum ListModel {
         case plain(rows: [ListRowConfiguration])
-        case sectioned(sectinos: [NewSearchSectionConfiguration])
+        case sectioned(sectinos: [ListSectionConfiguration])
     }
     
 }

@@ -64,9 +64,7 @@ struct NewSearchView: View {
                     rowViews(rows: rows)
                 case .sectioned(let sections):
                     ForEach(sections) { section in
-                        Section(
-                            header: RelationOptionsSectionHeaderView(title: section.title)
-                        ) {
+                        Section(header: section.makeView()) {
                             rowViews(rows: section.rows)
                         }
                     }
