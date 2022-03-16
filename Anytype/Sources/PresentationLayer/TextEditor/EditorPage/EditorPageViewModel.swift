@@ -143,7 +143,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         updateMarkupViewModel(newBlockViewModels: blocksViewModels.onlyBlockViewModels)
 
-        cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.objectDetails?.type)
+        if !document.isLocked {
+            cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.objectDetails?.type)
+        }
     }
     
     private func handleDeletionState() {

@@ -1,8 +1,8 @@
 import BlocksModels
 
 final class ObjectSettingBuilder {
-    func build(details: ObjectDetails, restrictions: ObjectRestrictions) -> [ObjectSetting] {
-        var settings = defaultSettings(details: details)
+    func build(details: ObjectDetails, restrictions: ObjectRestrictions, isLocked: Bool) -> [ObjectSetting] {
+        var settings = defaultSettings(details: details, isLocked: isLocked)
         if restrictions.objectRestriction.contains(.layoutchange) {
             settings = settings.filter { $0 != .layout }
         }
@@ -10,7 +10,9 @@ final class ObjectSettingBuilder {
         return settings
     }
     
-    private func defaultSettings(details: ObjectDetails) -> [ObjectSetting] {
+    private func defaultSettings(details: ObjectDetails, isLocked: Bool) -> [ObjectSetting] {
+        if isLocked { return ObjectSetting.lockedCases }
+
         switch details.layout {
         case .basic:
             return ObjectSetting.allCases

@@ -128,9 +128,7 @@ public extension BundledRelationsValueProvider {
     }
     
     private func boolValue(with key: BundledRelationKey) -> Bool {
-        guard let value = values[key.rawValue] else {
-            return false
-        }
+        guard let value = values[key.rawValue] else { return false }
         return value.unwrapedListValue.boolValue
     }
 }

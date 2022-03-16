@@ -12,6 +12,7 @@ final class TextBlockContentView: UIView, BlockContentView {
     private(set) lazy var createEmptyBlockButton = EmptyToggleButtonBuilder.create { [weak self] in
         self?.actions?.createEmptyBlock()
     }
+    private lazy var textBlockLeadingView = TextBlockLeadingView()
     
     private let mainStackView: UIStackView = makeMainStackView()
     private let contentStackView: UIStackView = makeContentStackView()
@@ -45,6 +46,8 @@ final class TextBlockContentView: UIView, BlockContentView {
 
     func update(with state: UICellConfigurationState) {
         textView.textView.isLockedForEditing = state.isLocked
+        createEmptyBlockButton.isEnabled = !state.isLocked
+        textBlockLeadingView.checkboxView?.isUserInteractionEnabled = !state.isLocked
 
         textView.textView.isUserInteractionEnabled = state.isEditing
     }
@@ -52,7 +55,7 @@ final class TextBlockContentView: UIView, BlockContentView {
     // MARK: - Setup views
     
     private func setupLayout() {
-        contentStackView.addArrangedSubview(TextBlockIconView(viewType: .empty))
+        contentStackView.addArrangedSubview(textBlockLeadingView)
         contentStackView.addArrangedSubview(textView)
 
         contentView.addSubview(contentStackView) {
@@ -89,6 +92,9 @@ final class TextBlockContentView: UIView, BlockContentView {
         let restrictions = BlockRestrictionsBuilder.build(textContentType: configuration.content.contentType)
         
         TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: configuration)
+
+        textBlockLeadingView.update(style: .init(with: configuration))
+
         TextBlockTextViewStyler.applyStyle(textView: textView, configuration: configuration, restrictions: restrictions)
 
         updateAllConstraint(blockTextStyle: configuration.content.contentType)

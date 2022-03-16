@@ -71,6 +71,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         switch fileData.state {
         case .empty, .error:
+            guard case .editing = editorEditingState else { return }
             showIconPicker(blockId)
         case .uploading, .done:
             return

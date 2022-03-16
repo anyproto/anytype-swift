@@ -13,7 +13,11 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     }
     
     var settings: [ObjectSetting] {
-        settingsBuilder.build(details: details, restrictions: objectActionsViewModel.objectRestrictions)
+        settingsBuilder.build(
+            details: details,
+            restrictions: objectActionsViewModel.objectRestrictions,
+            isLocked: document.isLocked
+        )
     }
     
     var details: ObjectDetails {
