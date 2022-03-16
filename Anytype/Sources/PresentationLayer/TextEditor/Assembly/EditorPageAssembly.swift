@@ -42,7 +42,7 @@ final class EditorAssembly {
             assembly: self
         )
         
-        model.router = router
+        model.setup(router: router)
         
         return (controller, router)
     }

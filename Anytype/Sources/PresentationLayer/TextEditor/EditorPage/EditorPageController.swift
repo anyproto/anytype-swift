@@ -186,10 +186,7 @@ extension EditorPageController: EditorPageViewInput {
             }
         }
 
-        navigationBarHelper.configureNavigationBar(
-            using: header,
-            details: details
-        )
+        navigationBarHelper.configureNavigationBar(using: header, details: details)
     }
     
     func update(syncStatus: SyncStatus) {

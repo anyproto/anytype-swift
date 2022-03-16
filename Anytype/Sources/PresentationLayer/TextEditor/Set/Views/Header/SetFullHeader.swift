@@ -56,50 +56,20 @@ struct SetFullHeader: View {
             .padding(.horizontal, 20)
     }
     
-    private let iconBackgroundPadding: CGFloat = 4
-    private func iconView(icon: ObjectIconImage) -> some View {
-        ZStack {
-            if let guideline = ObjectIconImageUsecase.openedObject
-                .objectIconImageGuidelineSet
-                .imageGuideline(for: icon) {
-                let paddingFromBothSides = iconBackgroundPadding * 2
-                RoundedRectangle(cornerRadius: guideline.cornersGuideline.radius + iconBackgroundPadding).foregroundColor(.white)
-                    .frame(width: guideline.size.width + paddingFromBothSides, height: guideline.size.height + paddingFromBothSides)
-            }
-            
-            SwiftUIObjectIconImageView(iconImage: icon, usecase: .openedObject)
-                .frame(width: 96, height: 96)
-        }
-        .padding(.leading, -8 + 20) // 8 is default padding
-        .padding(.bottom, -8 - 16)
-    }
-    
     private var cover: some View {
         Group {
-            switch model.details.documentCover {
-            case .color(let color):
-                color.suColor.frame(height: bigCover)
-            case .gradient(let gradient):
-                gradient.asLinearGradient().frame(height: bigCover)
-            case .imageId(let imageId):
-                    if let url = ImageID(id: imageId, width: .custom(width)).resolvedUrl {
-                        KFImage(url)
-                            .resizable()
-                            .placeholder{ Color.strokePrimary }
-                            .frame(width: width, height: bigCover)
-                            .aspectRatio(contentMode: .fill)
+            switch model.headerModel.header {
+            case .empty(let data):
+                Button(action: data.onTap) {
+                    Color.backgroundPrimary
+                        .frame(height: smallCover)
                 }
-            case .none:
-                Color.backgroundPrimary
-                    .if(model.details.icon.isNotNil) {
-                        $0.frame(height: bigCover)
-                    } else: {
-                        $0.frame(height: smallCover)
-                    }
+            case .filled(let state):
+                ObjectHeaderFilledContentSwitfUIView(
+                    configuration: ObjectHeaderFilledConfiguration(state: state, width: width)
+                )
+                    .frame(height: bigCover)
             }
-        }
-        .ifLet(model.details.objectIconImage) { view, icon in
-            view.overlay(iconView(icon: icon), alignment: .bottomLeading)
         }
     }
 }

@@ -38,9 +38,3 @@ struct EditorSetView: View {
         .navigationBarHidden(true)
     }
 }
-
-struct EditorSetView_Previews: PreviewProvider {
-    static var previews: some View {
-        EditorSetView(model: EditorSetViewModel(document: BaseDocument(objectId: "")))
-    }
-}
