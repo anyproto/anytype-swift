@@ -74,7 +74,10 @@ final class TextViewWithPlaceholder: UITextView {
         }
     }
 
-    override var canBecomeFirstResponder: Bool { !isLockedForEditing }
+    override var canBecomeFirstResponder: Bool {
+        let canBecome = super.canBecomeFirstResponder
+        return isLockedForEditing ? false : canBecome
+    }
     
     override func becomeFirstResponder() -> Bool {
         let value = super.becomeFirstResponder()
