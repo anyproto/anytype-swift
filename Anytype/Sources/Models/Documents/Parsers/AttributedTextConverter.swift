@@ -10,6 +10,8 @@ enum AttributedTextConverter {
         marks: Anytype_Model_Block.Content.Text.Marks,
         style: BlockText.Style
     ) -> UIKitAnytypeText {
+        // we need parse marks as if it utf16 string
+        let textUTF16 = text.utf16
         // Map attributes to our internal format.
         var markAttributes = marks.marks.compactMap { mark -> (range: NSRange, markAction: MarkupType)? in
             let middlewareTuple = MiddlewareTuple(
@@ -21,16 +23,16 @@ enum AttributedTextConverter {
             }
             
             // we need convert marks to NSRange
-            let distance = text.distance(from: text.startIndex, to: text.endIndex)
+            let textLength = textUTF16.count
             
             let fromOffset: Int? = {
                 let from = Int(mark.range.from)
-                guard from <= distance else { return nil }
+                guard from <= textLength else { return nil }
                 return from
             }()
             let toOffset: Int? = {
                 let to = Int(mark.range.to)
-                guard to <= distance else { return nil }
+                guard to <= textLength else { return nil }
                 return to
             }()
             
@@ -45,10 +47,8 @@ enum AttributedTextConverter {
                 anytypeAssertionFailure(message, domain: .textConverter)
                 return nil
             }
-            
-            let from = text.index(text.startIndex, offsetBy: fromOffset)
-            let to = text.index(text.startIndex, offsetBy: toOffset)
-            let nsRange = NSRange(from..<to, in: text)
+
+            let nsRange = NSRange(location: fromOffset, length: toOffset - fromOffset)
             return (nsRange, markValue)
         }
 
@@ -86,7 +86,7 @@ enum AttributedTextConverter {
     
     static func asMiddleware(attributedText: NSAttributedString) -> MiddlewareString {
         // 1. Iterate over all ranges in a string.
-        var marksTuples = [MiddlewareTuple: Set<Range<String.Index>>]()
+        var marksTuples = [MiddlewareTuple: Set<NSRange>]()
         let mutableAttributedText = NSMutableAttributedString(attributedString: attributedText)
         // We remove mention attachments to save correct markup ranges
         mutableAttributedText.removeAllMentionAttachmets()
@@ -118,8 +118,6 @@ enum AttributedTextConverter {
             
             // 3. Iterate over all marks in this range.
             for mark in marks {
-                guard let range = Range(range, in: wholeText) else { return }
-
                 // 4. If key exists, so, we must add range to result indexSet.
                 if var value = marksTuples[mark] {
                     value.insert(range)
@@ -135,10 +133,7 @@ enum AttributedTextConverter {
         let middlewareMarks = marksTuples.compactMap { (markup, ranges) -> [Anytype_Model_Block.Content.Text.Mark]? in
 
             ranges.map { range in
-                let from = wholeText.distance(from: wholeText.startIndex, to: range.lowerBound)
-                let to = wholeText.distance(from: wholeText.startIndex, to: range.upperBound)
-
-                let middleRange = Anytype_Model_Range(from: Int32(from), to: Int32(to))
+                let middleRange = Anytype_Model_Range(from: Int32(range.lowerBound), to: Int32(range.upperBound))
                 return Anytype_Model_Block.Content.Text.Mark(
                     range: middleRange,
                     type: markup.attribute,
