@@ -6,6 +6,9 @@ enum ObjectHeader: Hashable {
     case filled(ObjectHeaderFilledState)
     case empty(ObjectHeaderEmptyData)
     
+    static var initialState: ObjectHeader {
+        .empty(.init(onTap: {}))
+    }
 }
 extension ObjectHeader: ContentConfigurationProvider {
     var indentationLevel: Int { 0 }

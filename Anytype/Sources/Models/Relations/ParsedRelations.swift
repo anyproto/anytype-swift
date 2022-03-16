@@ -18,10 +18,13 @@ struct ParsedRelations {
     
 }
 
-extension ParsedRelations {
+extension BaseDocumentProtocol {
     // without description and with type
-    func featuredRelationsForEditor(type: ObjectType, objectRestriction: [ObjectRestriction]) -> [Relation] {
-        var enhancedRelations = featuredRelations
+    func featuredRelationsForEditor() -> [Relation] {
+        let type = objectDetails?.objectType ?? .fallbackType
+        let objectRestriction = objectRestrictions.objectRestriction
+        
+        var enhancedRelations = parsedRelations.featuredRelations
         
         let objectTypeRelation: Relation = .text(
             Relation.Text(

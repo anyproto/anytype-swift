@@ -24,14 +24,12 @@ struct SetMinimizedHeader: View {
                 Spacer()
                 title
                 Spacer()
-                EditorBarButtonItem(image: .more, action: model.onSettingsTap)
-                    .frame(width: 28, height: 28)
-                    .padding(10)
+                settingsButton
             }
             .padding(.horizontal)
         }
         .frame(height: minimizedHeaderHeight)
-        .background(Color.backgroundPrimary.opacity(titleOpacity))
+        .background(Color.backgroundPrimary.opacity(opacity))
         .readSize { headerMinimizedSize = $0 }
     }
     
@@ -45,14 +43,28 @@ struct SetMinimizedHeader: View {
             AnytypeText(model.details.title, style: .body, color: .textPrimary)
                 .lineLimit(1)
         }
-        .opacity(titleOpacity)
+        .opacity(opacity)
+    }
+    
+    private var settingsButton: some View {
+        EditorBarButtonItem(
+            image: .more,
+            state: EditorBarItemState(
+                haveBackground: model.details.documentCover.isNotNil,
+                opacity: opacity
+            ),
+            action: model.onSettingsTap
+        )
+        .frame(width: 28, height: 28)
+        .padding(10)
     }
 
-    private var titleOpacity: Double {
+    private var opacity: Double {
         guard tableViewOffset.y < 0 else { return 0 }
 
         let startingOpacityHeight = headerSize.height - minimizedHeaderHeight
-        return abs(tableViewOffset.y) / startingOpacityHeight
+        let opacity = abs(tableViewOffset.y) / startingOpacityHeight
+        return min(opacity, 1)
     }
 }
 

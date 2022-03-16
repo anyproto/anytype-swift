@@ -2,7 +2,7 @@ import BlocksModels
 import Combine
 import AnytypeCore
 
-protocol BlockActionsServiceFileProtocol {
+protocol FileActionsServiceProtocol {
     
     func syncUploadDataAt(filePath: String, contextID: BlockId, blockID: BlockId)
     

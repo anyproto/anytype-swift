@@ -1,7 +1,10 @@
 import BlocksModels
 import UIKit
+import Combine
 
-final class ObjectHeaderBuilder {
+final class ObjectHeaderBuilder: ObservableObject {
+    
+    @Published var header: ObjectHeader = .initialState
     
     // MARK: - Private variables
     
@@ -17,23 +20,48 @@ final class ObjectHeaderBuilder {
         self.router.showCoverPicker()
     }
     
+    private let document: BaseDocumentProtocol
     private let router: EditorRouterProtocol
+    
+    private var subscription: AnyCancellable?
     
     // MARK: - Initializers
     
-    init(router: EditorRouterProtocol) {
+    init(document: BaseDocumentProtocol, router: EditorRouterProtocol) {
+        self.document = document
         self.router = router
+        self.header = buildHeader()
+        
+        setupSubscription()
     }
     
-    func header(details: ObjectDetails?) -> ObjectHeader {
-        guard let details = details else {
+    // MARK: - Private
+    private func setupSubscription() {
+        subscription = document.updatePublisher.sink { [weak self] update in
+            self?.onUpdate(update)
+        }
+    }
+    
+    private func onUpdate(_ update: DocumentUpdate) {
+        switch update {
+        case .details, .general:
+            header = buildHeader()
+        case .header(let data):
+            header = buildLoadingHeader(data)
+        case .blocks, .dataSourceUpdate, .syncStatus:
+            break
+        }
+    }
+    
+    private func buildHeader() -> ObjectHeader {
+        guard let details = document.objectDetails else {
             return .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
         }
         return buildObjectHeader(details: details)
     }
     
-    func updatedHeader(_ update: ObjectHeaderUpdate, details: ObjectDetails?) -> ObjectHeader {
-        guard let details = details else {
+    private func buildLoadingHeader(_ update: ObjectHeaderUpdate) -> ObjectHeader {
+        guard let details = document.objectDetails else {
             return fakeHeader(update: update)
         }
         
@@ -46,7 +74,6 @@ final class ObjectHeaderBuilder {
         ) ?? .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
     }
     
-    // MARK: - Private
     private func fakeHeader(update: ObjectHeaderUpdate) -> ObjectHeader {
         switch update {
         case .iconUploading(let path):
