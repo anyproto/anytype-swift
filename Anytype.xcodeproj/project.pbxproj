@@ -227,9 +227,6 @@
 		125FD2E926CD6D2100D21F5A /* EditorNavigationBarHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FD2E826CD6D2100D21F5A /* EditorNavigationBarHelper.swift */; };
 		125FD2FE26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FD2FD26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift */; };
 		125FD32326CE97BD00D21F5A /* ObjectIconImageUsecase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125FD32226CE97BD00D21F5A /* ObjectIconImageUsecase.swift */; };
-		12636CEC276A04260084D35D /* RelationOptionsSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12636CEB276A04260084D35D /* RelationOptionsSection.swift */; };
-		12636CEE276A04BC0084D35D /* RelationOptionsSectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12636CED276A04BC0084D35D /* RelationOptionsSectionBuilder.swift */; };
-		12636CF0276A069D0084D35D /* RelationScopedOptionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12636CEF276A069D0084D35D /* RelationScopedOptionProtocol.swift */; };
 		12636CF3276A0CF00084D35D /* RelationOptionsSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12636CF2276A0CF00084D35D /* RelationOptionsSectionHeaderView.swift */; };
 		12636CF6276A0DC70084D35D /* RelationOptionCreateButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12636CF5276A0DC70084D35D /* RelationOptionCreateButton.swift */; };
 		1265CC0927C5226D00AD8004 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1265CC0827C5226D00AD8004 /* TitleView.swift */; };
@@ -1142,9 +1139,6 @@
 		125FD2E826CD6D2100D21F5A /* EditorNavigationBarHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarHelper.swift; sourceTree = "<group>"; };
 		125FD2FD26CE522700D21F5A /* EditorNavigationBarHelperProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorNavigationBarHelperProtocol.swift; sourceTree = "<group>"; };
 		125FD32226CE97BD00D21F5A /* ObjectIconImageUsecase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconImageUsecase.swift; sourceTree = "<group>"; };
-		12636CEB276A04260084D35D /* RelationOptionsSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsSection.swift; sourceTree = "<group>"; };
-		12636CED276A04BC0084D35D /* RelationOptionsSectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsSectionBuilder.swift; sourceTree = "<group>"; };
-		12636CEF276A069D0084D35D /* RelationScopedOptionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationScopedOptionProtocol.swift; sourceTree = "<group>"; };
 		12636CF2276A0CF00084D35D /* RelationOptionsSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsSectionHeaderView.swift; sourceTree = "<group>"; };
 		12636CF5276A0DC70084D35D /* RelationOptionCreateButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionCreateButton.swift; sourceTree = "<group>"; };
 		1265CC0827C5226D00AD8004 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
@@ -2713,14 +2707,6 @@
 			path = TextRelationDetailsService;
 			sourceTree = "<group>";
 		};
-		123949EC279FCC780080E1CF /* Entities */ = {
-			isa = PBXGroup;
-			children = (
-				12636CF1276A076F0084D35D /* RelationOptionSection */,
-			);
-			path = Entities;
-			sourceTree = "<group>";
-		};
 		123949F127A00A250080E1CF /* Rows */ = {
 			isa = PBXGroup;
 			children = (
@@ -2972,16 +2958,6 @@
 			path = EditorNavigationBarHelper;
 			sourceTree = "<group>";
 		};
-		12636CF1276A076F0084D35D /* RelationOptionSection */ = {
-			isa = PBXGroup;
-			children = (
-				12636CEB276A04260084D35D /* RelationOptionsSection.swift */,
-				12636CED276A04BC0084D35D /* RelationOptionsSectionBuilder.swift */,
-				12636CEF276A069D0084D35D /* RelationScopedOptionProtocol.swift */,
-			);
-			path = RelationOptionSection;
-			sourceTree = "<group>";
-		};
 		12636CF4276A0DAB0084D35D /* Subviews */ = {
 			isa = PBXGroup;
 			children = (
@@ -3116,7 +3092,6 @@
 				12F14CE32758EFE000B976B5 /* Status */,
 				12EB9B1827735C2900BA732F /* OptionsList */,
 				12636CF4276A0DAB0084D35D /* Subviews */,
-				123949EC279FCC780080E1CF /* Entities */,
 			);
 			path = ValueEditingViews;
 			sourceTree = "<group>";
@@ -6349,7 +6324,6 @@
 				3DB981222750E2BA00ECC882 /* Comparable+Clamped.swift in Sources */,
 				125BD56E27CF471B006D8227 /* AuthServiceError.swift in Sources */,
 				53F80F0A27BD93CF00E9E12A /* MoreRelationView.swift in Sources */,
-				12636CF0276A069D0084D35D /* RelationScopedOptionProtocol.swift in Sources */,
 				0A1F0D9324DDCE0100A8B488 /* AboutView.swift in Sources */,
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,
 				3D2D4C6527BAA2EF0070A4C6 /* SetConstants.swift in Sources */,
@@ -6420,7 +6394,6 @@
 				3DE8D5C426CFFFE4006F31C1 /* AlertHelper.swift in Sources */,
 				3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */,
 				3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */,
-				12636CEE276A04BC0084D35D /* RelationOptionsSectionBuilder.swift in Sources */,
 				1280E20F265C1B7900E5AEEE /* ImageCornersGuideline.swift in Sources */,
 				53F8215B2655C871003FEB0B /* BottomSheetsFactory.swift in Sources */,
 				120EB4E126E8EE2E003A0C2B /* ObjectHeaderCoverView.swift in Sources */,
@@ -6532,7 +6505,6 @@
 				125B6EC926F235F400BCD7D6 /* MentionView.swift in Sources */,
 				0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */,
 				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
-				12636CEC276A04260084D35D /* RelationOptionsSection.swift in Sources */,
 				12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
 				C93B2D2A274E12B10008544D /* EditorCollectionView.swift in Sources */,
