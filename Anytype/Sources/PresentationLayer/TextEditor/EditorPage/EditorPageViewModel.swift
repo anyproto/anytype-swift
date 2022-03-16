@@ -91,7 +91,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             }
             
             #warning("also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details")
-            let details = document.objectDetails
+            let details = document.details
 
             let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
             let relationIds = allRelationsBlockViewModel.map(\.blockId)
@@ -136,11 +136,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         updateMarkupViewModel(newBlockViewModels: blocksViewModels.onlyBlockViewModels)
 
-        cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.objectDetails?.type)
+        cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
     }
     
     private func handleDeletionState() {
-        guard let details = document.objectDetails else {
+        guard let details = document.details else {
             anytypeAssertionFailure("No detais for general update", domain: .editorPage)
             return
         }
@@ -234,7 +234,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private func updateHeaderIfNeeded() {
         guard modelsHolder.header != headerModel.header else { return }
 
-        viewInput?.update(header: headerModel.header, details: document.objectDetails)
+        viewInput?.update(header: headerModel.header, details: document.details)
         modelsHolder.header = headerModel.header
     }
 }
@@ -243,7 +243,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
 extension EditorPageViewModel {
     func viewDidLoad() {
-        if let objectDetails = document.objectDetails {
+        if let objectDetails = document.details {
             Amplitude.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
         }
     }
@@ -256,7 +256,7 @@ extension EditorPageViewModel {
     }
 
     func viewDidAppear() {
-        cursorManager.didAppeared(with: modelsHolder.items, type: document.objectDetails?.type)
+        cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
     }
     
     func viewWillDisappear() {

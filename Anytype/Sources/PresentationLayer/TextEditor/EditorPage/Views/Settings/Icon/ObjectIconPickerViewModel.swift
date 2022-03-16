@@ -9,7 +9,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
     let mediaPickerContentType: MediaPickerContentType = .images
     
     var detailsLayout: DetailsLayout {
-        document.objectDetails?.layout ?? .basic
+        document.details?.layout ?? .basic
     }
     
     var isRemoveEnabled: Bool {
@@ -17,7 +17,7 @@ final class ObjectIconPickerViewModel: ObservableObject {
         case .basic:
             return true
         case .profile:
-            guard let details = document.objectDetails else { return false }
+            guard let details = document.details else { return false }
             return details.iconImageHash.isNotNil
         default:
             anytypeAssertionFailure(
