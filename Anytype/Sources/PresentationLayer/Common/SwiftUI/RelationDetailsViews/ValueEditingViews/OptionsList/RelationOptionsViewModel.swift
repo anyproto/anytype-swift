@@ -7,6 +7,7 @@ final class RelationOptionsViewModel: ObservableObject {
             
     @Published var selectedOptions: [RelationOptionProtocol] = []
     @Published var isSearchPresented: Bool = false
+    
     private(set) var popupLayout: AnytypePopupLayoutType = .relationOptions {
         didSet {
             popup?.updateLayout(true)
@@ -42,6 +43,8 @@ final class RelationOptionsViewModel: ObservableObject {
     
 }
 
+// MARK: - Internal functions
+
 extension RelationOptionsViewModel {
     
     func delete(_ indexSet: IndexSet) {
@@ -70,23 +73,36 @@ extension RelationOptionsViewModel {
     func makeSearchView() -> some View {
         switch type {
         case .objects:
-            NewSearchModuleAssembly.buildObjectsSearchModule(selectedObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
+            NewSearchModuleAssembly.buildObjectsSearchModule(
+                selectedObjectIds: selectedOptions.map { $0.id }
+            ) { [weak self] ids in
                 self?.handleNewOptionIds(ids)
             }
         case .tags(let allTags):
-            NewSearchModuleAssembly.buildTagsSearchModule(allTags: allTags, selectedTagIds: selectedOptions.map { $0.id }) { [weak self] ids in
+            NewSearchModuleAssembly.buildTagsSearchModule(
+                allTags: allTags,
+                selectedTagIds: selectedOptions.map { $0.id }
+            ) { [weak self] ids in
                 self?.handleNewOptionIds(ids)
             } onCreate: { [weak self] title in
                 self?.handleCreateOption(title: title)
             }
         case .files:
-            NewSearchModuleAssembly.buildFilesSearchModule(selectedObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
+            NewSearchModuleAssembly.buildFilesSearchModule(
+                selectedObjectIds: selectedOptions.map { $0.id }
+            ) { [weak self] ids in
                 self?.handleNewOptionIds(ids)
-            }   
+            }
         }
     }
     
-    private func handleNewOptionIds(_ ids: [String]) {
+}
+
+// MARK: - Private extension
+
+private extension RelationOptionsViewModel {
+    
+    func handleNewOptionIds(_ ids: [String]) {
         let newSelectedOptionsIds = selectedOptions.map { $0.id } + ids
         
         service.updateRelation(
@@ -97,18 +113,21 @@ extension RelationOptionsViewModel {
         popup?.close()
     }
     
-    private func handleCreateOption(title: String) {
+    func handleCreateOption(title: String) {
         let optionId = service.addRelationOption(source: source, relationKey: relation.id, optionText: title)
         guard let optionId = optionId else { return}
 
         handleNewOptionIds([optionId])
     }
     
-    private func updateLayout() {
+    func updateLayout() {
         popupLayout = selectedOptions.isNotEmpty ? .relationOptions : .constantHeight(height: 150, floatingPanelStyle: false)
     }
     
 }
+
+
+// MARK: - AnytypePopupViewModelProtocol
 
 extension RelationOptionsViewModel: AnytypePopupViewModelProtocol {
     
