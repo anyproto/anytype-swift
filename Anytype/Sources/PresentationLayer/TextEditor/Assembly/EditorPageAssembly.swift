@@ -69,6 +69,7 @@ final class EditorAssembly {
         )
 
         controller.viewModel = viewModel
+        viewModel.setupSubscriptions() // run subscriptions after controller setup
         
         return (controller, router)
     }
@@ -130,7 +131,7 @@ final class EditorAssembly {
             actionHandler: actionHandler
         )
         
-        let headerBuilder = ObjectHeaderBuilder(router: router)
+        let headerBuilder = ObjectHeaderBuilder(document: document, router: router)
         let blockActionsServiceSingle = ServiceLocator.shared.blockActionsServiceSingle()
 
         let blocksStateManager = EditorPageBlocksStateManager(
