@@ -12,7 +12,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     
     // MARK: - Private variables
     
-    private(set) var popupLayout: AnytypePopupLayoutType = .intrinsic
+    private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: false)
     private weak var popup: AnytypePopupProxy?
     
     private let document: BaseDocumentProtocol
@@ -31,6 +31,11 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     func didSelectLayout(_ layout: DetailsLayout) {
         Amplitude.instance().logLayoutChange(layout)
         detailsService.setLayout(layout)
+    }
+    
+    func viewDidUpdateHeight(_ height: CGFloat) {
+        popupLayout = .constantHeight(height: height, floatingPanelStyle: false)
+        popup?.updateLayout(false)
     }
     
     // MARK: - Private
