@@ -333,7 +333,6 @@
 		12EB9AF12771CD6600BA732F /* RelationOptionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9AF02771CD6600BA732F /* RelationOptionsViewModel.swift */; };
 		12EB9AF62771F0E900BA732F /* RelationOptionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9AF52771F0E900BA732F /* RelationOptionsView.swift */; };
 		12EB9B122773287900BA732F /* RelationOptionsType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9B112773287900BA732F /* RelationOptionsType.swift */; };
-		12EB9B172773394500BA732F /* RelationOptionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9B162773394500BA732F /* RelationOptionProtocol.swift */; };
 		12EB9B2C27743D1700BA732F /* RelationFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9B2B27743D1700BA732F /* RelationFile.swift */; };
 		12EB9B31277442BC00BA732F /* FileRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9B30277442BC00BA732F /* FileRelationView.swift */; };
 		12EB9B342774437300BA732F /* RelationFilesRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EB9B332774437300BA732F /* RelationFilesRowView.swift */; };
@@ -1249,7 +1248,6 @@
 		12EB9AF02771CD6600BA732F /* RelationOptionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsViewModel.swift; sourceTree = "<group>"; };
 		12EB9AF52771F0E900BA732F /* RelationOptionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsView.swift; sourceTree = "<group>"; };
 		12EB9B112773287900BA732F /* RelationOptionsType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionsType.swift; sourceTree = "<group>"; };
-		12EB9B162773394500BA732F /* RelationOptionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationOptionProtocol.swift; sourceTree = "<group>"; };
 		12EB9B2B27743D1700BA732F /* RelationFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFile.swift; sourceTree = "<group>"; };
 		12EB9B30277442BC00BA732F /* FileRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileRelationView.swift; sourceTree = "<group>"; };
 		12EB9B332774437300BA732F /* RelationFilesRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFilesRowView.swift; sourceTree = "<group>"; };
@@ -3408,7 +3406,6 @@
 			isa = PBXGroup;
 			children = (
 				123949F127A00A250080E1CF /* Rows */,
-				12EB9B162773394500BA732F /* RelationOptionProtocol.swift */,
 				12EB9B112773287900BA732F /* RelationOptionsType.swift */,
 				12EB9AF52771F0E900BA732F /* RelationOptionsView.swift */,
 				12EB9AF02771CD6600BA732F /* RelationOptionsViewModel.swift */,
@@ -6507,7 +6504,6 @@
 				12CAF35C26D6644E001E56B2 /* ObjectIconImageGuidelineSet.swift in Sources */,
 				1280E20B265C1A5700E5AEEE /* UIImageExtensions.swift in Sources */,
 				12FD9D232767177400991886 /* RelationStatus.swift in Sources */,
-				12EB9B172773394500BA732F /* RelationOptionProtocol.swift in Sources */,
 				124478CB27D77CCD00581174 /* NewRelationOptionProtocol.swift in Sources */,
 				535E02B827503D7D00E1AF8C /* BlockRelationConverter.swift in Sources */,
 				1244794527DC931900581174 /* NewSearchSectionsBuilder.swift in Sources */,

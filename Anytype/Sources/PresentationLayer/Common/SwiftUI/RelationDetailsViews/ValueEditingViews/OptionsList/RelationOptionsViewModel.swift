@@ -5,7 +5,7 @@ import AnytypeCore
 
 final class RelationOptionsViewModel: ObservableObject {
             
-    @Published var selectedOptions: [RelationOptionProtocol] = []
+    @Published var selectedOptions: [NewSearchRowConfiguration] = []
     @Published var isSearchPresented: Bool = false
     
     private(set) var popupLayout: AnytypePopupLayoutType = .relationOptions {
@@ -24,7 +24,7 @@ final class RelationOptionsViewModel: ObservableObject {
     init(
         source: RelationSource,
         type: RelationOptionsType,
-        selectedOptions: [RelationOptionProtocol],
+        selectedOptions: [NewSearchRowConfiguration],
         relation: Relation,
         service: RelationsServiceProtocol
     ) {
@@ -74,14 +74,14 @@ extension RelationOptionsViewModel {
         switch type {
         case .objects:
             NewSearchModuleAssembly.buildObjectsSearchModule(
-                selectedObjectIds: selectedOptions.map { $0.id }
+                selectedObjectIds: selectedOptionIds
             ) { [weak self] ids in
                 self?.handleNewOptionIds(ids)
             }
         case .tags(let allTags):
             NewSearchModuleAssembly.buildTagsSearchModule(
                 allTags: allTags,
-                selectedTagIds: selectedOptions.map { $0.id }
+                selectedTagIds: selectedOptionIds
             ) { [weak self] ids in
                 self?.handleNewOptionIds(ids)
             } onCreate: { [weak self] title in
@@ -89,7 +89,7 @@ extension RelationOptionsViewModel {
             }
         case .files:
             NewSearchModuleAssembly.buildFilesSearchModule(
-                selectedObjectIds: selectedOptions.map { $0.id }
+                selectedObjectIds: selectedOptionIds
             ) { [weak self] ids in
                 self?.handleNewOptionIds(ids)
             }
@@ -103,7 +103,7 @@ extension RelationOptionsViewModel {
 private extension RelationOptionsViewModel {
     
     func handleNewOptionIds(_ ids: [String]) {
-        let newSelectedOptionsIds = selectedOptions.map { $0.id } + ids
+        let newSelectedOptionsIds = selectedOptionIds + ids
         
         service.updateRelation(
             relationKey: relation.id,
@@ -122,6 +122,10 @@ private extension RelationOptionsViewModel {
     
     func updateLayout() {
         popupLayout = selectedOptions.isNotEmpty ? .relationOptions : .constantHeight(height: 150, floatingPanelStyle: false)
+    }
+    
+    var selectedOptionIds: [String] {
+        selectedOptions.map { $0.id }
     }
     
 }
