@@ -88,8 +88,8 @@ extension RelationOptionsViewModel {
             if FeatureFlags.newRelationOptionsSearch {
                 NewSearchModuleAssembly.buildTagsSearchModule(allTags: allTags, selectedTagIds: selectedOptions.map { $0.id }) { [weak self] ids in
                     self?.handleNewOptionIds(ids)
-                } onCreate: { title in
-                    debugPrint(title)
+                } onCreate: { [weak self] title in
+                    self?.handleCreateOption(title: title)
                 }
             } else {
                 TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
@@ -136,6 +136,13 @@ extension RelationOptionsViewModel {
         )
         isSearchPresented = false
         popup?.close()
+    }
+    
+    private func handleCreateOption(title: String) {
+        let optionId = service.addRelationOption(source: source, relationKey: relation.id, optionText: title)
+        guard let optionId = optionId else { return}
+
+        handleNewOptionIds([optionId])
     }
     
     private func updateLayout() {
