@@ -70,19 +70,8 @@ extension RelationOptionsViewModel {
     func makeSearchView() -> some View {
         switch type {
         case .objects:
-            if FeatureFlags.newRelationOptionsSearch {
-                NewSearchModuleAssembly.buildObjectsSearchModule(selectedObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
-                    self?.handleNewOptionIds(ids)
-                }
-            } else {
-                RelationOptionsSearchView(
-                    viewModel: RelationOptionsSearchViewModel(
-                        type: .objects,
-                        excludedIds: selectedOptions.map { $0.id }
-                    ) { [weak self] ids in
-                        self?.handleNewOptionIds(ids)
-                    }
-                )
+            NewSearchModuleAssembly.buildObjectsSearchModule(selectedObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
+                self?.handleNewOptionIds(ids)
             }
         case .tags(let allTags):
             if FeatureFlags.newRelationOptionsSearch {
@@ -95,19 +84,8 @@ extension RelationOptionsViewModel {
                 TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
             }
         case .files:
-            if FeatureFlags.newRelationOptionsSearch {
-                NewSearchModuleAssembly.buildFilesSearchModule(selectedObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
-                    self?.handleNewOptionIds(ids)
-                }
-            } else {
-                RelationOptionsSearchView(
-                    viewModel: RelationOptionsSearchViewModel(
-                        type: .files,
-                        excludedIds: selectedOptions.map { $0.id }
-                    ) { [weak self] ids in
-                        self?.handleNewOptionIds(ids)
-                    }
-                )
+            NewSearchModuleAssembly.buildFilesSearchModule(selectedObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
+                self?.handleNewOptionIds(ids)
             }   
         }
     }
