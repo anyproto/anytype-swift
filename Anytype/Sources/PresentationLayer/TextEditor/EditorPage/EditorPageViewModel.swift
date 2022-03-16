@@ -63,21 +63,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.blockActionsService = blockActionsService
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
-
-        setupSubscriptions()
     }
 
-    private func setupSubscriptions() {
+    func setupSubscriptions() {
         document.updatePublisher.sink { [weak self] in
             self?.handleUpdate(updateResult: $0)
         }.store(in: &cancellables)
-    }
-    
-    private func updateHeader(_ update: ObjectHeaderUpdate) {
-        let details = document.objectDetails
-        let header = headerBuilder.updatedHeader(update, details: details)
-
-        updateHeaderIfNeeded(header: header, details: details)
+        
+        headerBuilder.$header.sink { [weak self] _ in
+            self?.updateHeaderIfNeeded()
+        }.store(in: &cancellables)
     }
     
     private func handleUpdate(updateResult: DocumentUpdate) {
@@ -95,9 +90,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             
             #warning("also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details")
             let details = document.objectDetails
-            let header = headerBuilder.header(details: details)
-            
-            updateHeaderIfNeeded(header: header, details: details)
 
             let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
             let relationIds = allRelationsBlockViewModel.map(\.blockId)
@@ -126,8 +118,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             modelsHolder.items = blocksViewModels
 
             viewInput?.update(changes: nil, allModels: blocksViewModels)
-        case .header(let update):
-            updateHeader(update)
+        case .header:
+            break // supported in headerBuilder
         }
     }
     
@@ -222,9 +214,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             modelsHolder.items = models
         }
         
-        let details = document.objectDetails
-        let header = headerBuilder.header(details: details)
-        updateHeaderIfNeeded(header: header, details: details)
         viewInput?.update(changes: difference, allModels: modelsHolder.items)
 
         updateCursorIfNeeded()
@@ -240,11 +229,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
 
     // iOS 14 bug fix applying header section while editing
-    private func updateHeaderIfNeeded(header: ObjectHeader, details: ObjectDetails?) {
-        guard modelsHolder.header != header else { return }
+    private func updateHeaderIfNeeded() {
+        guard modelsHolder.header != headerBuilder.header else { return }
 
-        viewInput?.update(header: header, details: details)
-        modelsHolder.header = header
+        viewInput?.update(header: headerBuilder.header, details: document.objectDetails)
+        modelsHolder.header = headerBuilder.header
     }
 }
 
