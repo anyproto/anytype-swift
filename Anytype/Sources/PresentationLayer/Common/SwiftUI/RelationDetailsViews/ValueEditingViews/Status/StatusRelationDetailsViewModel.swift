@@ -42,7 +42,8 @@ extension StatusRelationDetailsViewModel {
     }
     
     func didTapClearButton() {
-
+        currentStatusModel = nil
+        service.updateRelation(relationKey: relation.id, value: nil)
     }
     
 }

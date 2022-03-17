@@ -45,7 +45,9 @@ private extension StatusRelationDetailsView {
     
     var clearButton: some View {
         Button {
-            viewModel.didTapClearButton()
+            withAnimation(.fastSpring) {
+                viewModel.didTapClearButton()
+            }
         } label: {
             AnytypeText("Clear".localized, style: .uxBodyRegular, color: .buttonActive)
         }
