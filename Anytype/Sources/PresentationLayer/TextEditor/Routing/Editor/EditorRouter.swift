@@ -321,19 +321,6 @@ extension EditorRouter {
         
         guard let viewController = viewController else { return }
         
-        if case .status(let status) = relation, FeatureFlags.newRelationOptionsSearch {
-            let view = NewSearchModuleAssembly.buildStatusSearchModule(allStatuses: status.allOptions, selectedStatus: status.value) { _ in
-                #warning("TODO: implement")
-                debugPrint("foo")
-            } onCreate: { title in
-                debugPrint(title)
-            }
-            
-            let controller = UIHostingController(rootView: view)
-            viewController.topPresentedController.present(controller, animated: true)
-            return
-        }
-        
         let contentViewModel = relationEditingViewModelBuilder
             .buildViewModel(source: source, objectId: objectId, relation: relation)
         guard let contentViewModel = contentViewModel else { return }

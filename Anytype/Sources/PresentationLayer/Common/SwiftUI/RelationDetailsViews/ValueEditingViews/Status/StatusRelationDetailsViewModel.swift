@@ -5,34 +5,32 @@ import FloatingPanel
 
 final class StatusRelationDetailsViewModel: ObservableObject {
     
-    let source: RelationSource
-        
-    private weak var popup: AnytypePopupProxy?
+    @Published private(set) var currentStatusModel: StatusSearchRowView.Model?
     
-    let popupLayout = AnytypePopupLayoutType.fullScreen
+    let popupLayout = AnytypePopupLayoutType.constantHeight(height: 116, floatingPanelStyle: false)
 
-    @Published var selectedStatus: Relation.Status.Option?
-    
+    private let source: RelationSource
     private let allStatuses: [Relation.Status.Option]
-    
     private let relation: Relation
     private let service: RelationsServiceProtocol
     
+    private weak var popup: AnytypePopupProxy?
+    
     init(
         source: RelationSource,
-        selectedStatus: Relation.Status.Option?,
+        currentStatus: Relation.Status.Option?,
         allStatuses: [Relation.Status.Option],
         relation: Relation,
         service: RelationsServiceProtocol
     ) {
         self.source = source
         
-        self.selectedStatus = selectedStatus
+        self.currentStatusModel = currentStatus.flatMap { StatusSearchRowView.Model(
+            text: $0.text, color: $0.color) }
         self.allStatuses = allStatuses
         
         self.relation = relation
         self.service = service
-        
     }
     
 }
