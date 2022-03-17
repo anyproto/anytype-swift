@@ -7,7 +7,7 @@ protocol BaseDocumentProtocol: AnyObject {
     var relationsStorage: RelationsMetadataStorageProtocol { get }
     var objectId: BlockId { get }
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { get }
-    var objectDetails: ObjectDetails? { get }
+    var details: ObjectDetails? { get }
     var children: [BlockInformation] { get }
     var parsedRelations: ParsedRelations { get }
 

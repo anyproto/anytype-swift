@@ -17,7 +17,7 @@ extension EditorPageController: DocumentDetaisProvider {
     }
     
     var details: ObjectDetails? {
-        viewModel.document.objectDetails
+        viewModel.document.details
     }
 }
 
@@ -27,6 +27,6 @@ extension EditorSetHostingController: DocumentDetaisProvider {
     }
     
     var details: ObjectDetails? {
-        model.document.objectDetails
+        model.document.details
     }
 }
