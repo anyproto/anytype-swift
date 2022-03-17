@@ -30,7 +30,11 @@ struct StatusRelationDetailsView: View {
     private var content: some View {
         Group {
             if let currentStatusModel = viewModel.currentStatusModel {
-                StatusSearchRowView(viewModel: currentStatusModel)
+                Button {
+                    viewModel.didTapAddButton()
+                } label: {
+                    StatusSearchRowView(viewModel: currentStatusModel)
+                }
             } else {
                 AnytypeText("No related options here. You can add some".localized, style: .uxCalloutRegular, color: .textTertiary)
                     .frame(height: 48)
