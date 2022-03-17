@@ -4,7 +4,7 @@ import Combine
 
 final class StatusSearchViewModel {
     
-    @Published private var sections: [NewSearchSectionConfiguration] = []
+    @Published private var sections: [ListSectionConfiguration] = []
     
     private var statuses: [Relation.Status.Option] = [] {
         didSet {
@@ -44,11 +44,11 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
 
 private extension Array where Element == Relation.Status.Option {
 
-    var asRowsConfigurations: [NewSearchRowConfiguration] {
+    var asRowsConfigurations: [ListRowConfiguration] {
         map { option in
-            NewSearchRowConfiguration(
+            ListRowConfiguration(
                 id: option.id,
-                rowContentHash: option.hashValue
+                contentHash: option.hashValue
             ) {
                 AnyView(
                     StatusSearchRowView(

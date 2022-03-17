@@ -2,7 +2,7 @@ import Foundation
 
 final class NewSearchSectionsBuilder {
     
-    static func makeSections<Option: NewRelationOptionProtocol>(_ options: [Option], rowsBuilder: ([Option]) -> [NewSearchRowConfiguration]) -> [NewSearchSectionConfiguration] {
+    static func makeSections<Option: NewRelationOptionProtocol>(_ options: [Option], rowsBuilder: ([Option]) -> [ListRowConfiguration]) -> [ListSectionConfiguration] {
         var localOptions: [Option] = []
         var otherOptions: [Option] = []
         
@@ -14,11 +14,11 @@ final class NewSearchSectionsBuilder {
             }
         }
         
-        var sections: [NewSearchSectionConfiguration] = []
+        var sections: [ListSectionConfiguration] = []
         
         if localOptions.isNotEmpty {
             sections.append(
-                NewSearchSectionConfiguration(
+                ListSectionConfiguration(
                     id: "localOptionsSectionID",
                     title: "In this object".localized,
                     rows: rowsBuilder(localOptions)
@@ -28,7 +28,7 @@ final class NewSearchSectionsBuilder {
         
         if otherOptions.isNotEmpty {
             sections.append(
-                NewSearchSectionConfiguration(
+                ListSectionConfiguration(
                     id: "otherOptionsSectionID",
                     title: "Everywhere".localized,
                     rows: rowsBuilder(otherOptions)

@@ -165,11 +165,11 @@
 		1244791C27D8A63D00581174 /* StatusSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244791B27D8A63D00581174 /* StatusSearchInteractor.swift */; };
 		1244792227D8A8BE00581174 /* StatusSearchRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244792127D8A8BE00581174 /* StatusSearchRowView.swift */; };
 		1244792427D8AE4100581174 /* NewSearchModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244792327D8AE4100581174 /* NewSearchModuleAssembly.swift */; };
-		1244793127DC575D00581174 /* NewSearchRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244793027DC575D00581174 /* NewSearchRowConfiguration.swift */; };
+		1244793127DC575D00581174 /* ListRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244793027DC575D00581174 /* ListRowConfiguration.swift */; };
 		1244793D27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244793C27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift */; };
 		1244793F27DC633700581174 /* NewSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244793E27DC633700581174 /* NewSearchViewModel.swift */; };
 		1244794127DC735A00581174 /* NewSearchView+ListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244794027DC735A00581174 /* NewSearchView+ListModel.swift */; };
-		1244794327DC8F8000581174 /* NewSearchSectionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244794227DC8F8000581174 /* NewSearchSectionConfiguration.swift */; };
+		1244794327DC8F8000581174 /* ListSectionConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244794227DC8F8000581174 /* ListSectionConfiguration.swift */; };
 		1244794527DC931900581174 /* NewSearchSectionsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244794427DC931900581174 /* NewSearchSectionsBuilder.swift */; };
 		1244794727DC96FB00581174 /* TagsSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1244794627DC96FB00581174 /* TagsSearchViewModel.swift */; };
 		12450D4727A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12450D4627A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift */; };
@@ -1081,11 +1081,11 @@
 		1244791B27D8A63D00581174 /* StatusSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSearchInteractor.swift; sourceTree = "<group>"; };
 		1244792127D8A8BE00581174 /* StatusSearchRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusSearchRowView.swift; sourceTree = "<group>"; };
 		1244792327D8AE4100581174 /* NewSearchModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchModuleAssembly.swift; sourceTree = "<group>"; };
-		1244793027DC575D00581174 /* NewSearchRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchRowConfiguration.swift; sourceTree = "<group>"; };
+		1244793027DC575D00581174 /* ListRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListRowConfiguration.swift; sourceTree = "<group>"; };
 		1244793C27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewInternalSearchViewModelProtocol.swift; sourceTree = "<group>"; };
 		1244793E27DC633700581174 /* NewSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchViewModel.swift; sourceTree = "<group>"; };
 		1244794027DC735A00581174 /* NewSearchView+ListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NewSearchView+ListModel.swift"; sourceTree = "<group>"; };
-		1244794227DC8F8000581174 /* NewSearchSectionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchSectionConfiguration.swift; sourceTree = "<group>"; };
+		1244794227DC8F8000581174 /* ListSectionConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListSectionConfiguration.swift; sourceTree = "<group>"; };
 		1244794427DC931900581174 /* NewSearchSectionsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchSectionsBuilder.swift; sourceTree = "<group>"; };
 		1244794627DC96FB00581174 /* TagsSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsSearchViewModel.swift; sourceTree = "<group>"; };
 		12450D4627A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdaptiveTextRelationDetailsPopupLayout.swift; sourceTree = "<group>"; };
@@ -2768,8 +2768,6 @@
 				1244791327D8A37000581174 /* NewSearchView.swift */,
 				1244794027DC735A00581174 /* NewSearchView+ListModel.swift */,
 				125683F327DF8366003A8251 /* NewSearchView+AddButtonModel.swift */,
-				1244794227DC8F8000581174 /* NewSearchSectionConfiguration.swift */,
-				1244793027DC575D00581174 /* NewSearchRowConfiguration.swift */,
 				1244793E27DC633700581174 /* NewSearchViewModel.swift */,
 				125683F127DF808E003A8251 /* NewSearchViewModel+SelectionMode.swift */,
 				1256840327E0C606003A8251 /* NewSearchViewModel+ItemCreationMode.swift */,
@@ -2865,6 +2863,15 @@
 				125683E127DF1E7D003A8251 /* SearchObjectRowView.swift */,
 			);
 			path = ObjectsSearchViewModel;
+			sourceTree = "<group>";
+		};
+		1256840B27E1D904003A8251 /* Configurations */ = {
+			isa = PBXGroup;
+			children = (
+				1244794227DC8F8000581174 /* ListSectionConfiguration.swift */,
+				1244793027DC575D00581174 /* ListRowConfiguration.swift */,
+			);
+			path = Configurations;
 			sourceTree = "<group>";
 		};
 		125B6E9326F235F400BCD7D6 /* AccessoryView */ = {
@@ -3973,6 +3980,7 @@
 				535F79722746AAD40050A1B8 /* FlowLayout.swift */,
 				1240EAF727B14841005B501E /* HorizontalReadabilityPadding.swift */,
 				3D2D4C5A27BA54030070A4C6 /* Divider.swift */,
+				1256840B27E1D904003A8251 /* Configurations */,
 				125683EC27DF4DDF003A8251 /* SelectionIndicatorView.swift */,
 			);
 			path = SwiftUI;
@@ -6246,9 +6254,9 @@
 				3DE0B3232747BCBC00F69376 /* BlockDataviewConverter.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */,
 				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,
-				1244793127DC575D00581174 /* NewSearchRowConfiguration.swift in Sources */,
+				1244793127DC575D00581174 /* ListRowConfiguration.swift in Sources */,
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
-				1244794327DC8F8000581174 /* NewSearchSectionConfiguration.swift in Sources */,
+				1244794327DC8F8000581174 /* ListSectionConfiguration.swift in Sources */,
 				53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */,
 				1255DF842702098300870B95 /* MediaFileUploadingOperation.swift in Sources */,
 				038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */,

@@ -5,7 +5,7 @@ import AnytypeCore
 
 final class RelationOptionsViewModel: ObservableObject {
             
-    @Published var selectedOptions: [NewSearchRowConfiguration] = []
+    @Published var selectedOptions: [ListRowConfiguration] = []
     @Published var isSearchPresented: Bool = false
     
     private(set) var popupLayout: AnytypePopupLayoutType = .relationOptions {
@@ -24,7 +24,7 @@ final class RelationOptionsViewModel: ObservableObject {
     init(
         source: RelationSource,
         type: RelationOptionsType,
-        selectedOptions: [NewSearchRowConfiguration],
+        selectedOptions: [ListRowConfiguration],
         relation: Relation,
         service: RelationsServiceProtocol
     ) {

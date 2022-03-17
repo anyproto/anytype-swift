@@ -64,9 +64,7 @@ struct NewSearchView: View {
                     rowViews(rows: rows)
                 case .sectioned(let sections):
                     ForEach(sections) { section in
-                        Section(
-                            header: RelationOptionsSectionHeaderView(title: section.title)
-                        ) {
+                        Section(header: section.makeView()) {
                             rowViews(rows: section.rows)
                         }
                     }
@@ -76,12 +74,12 @@ struct NewSearchView: View {
         }
     }
     
-    private func rowViews(rows: [NewSearchRowConfiguration]) -> some View {
+    private func rowViews(rows: [ListRowConfiguration]) -> some View {
         ForEach(rows) { row in
             Button {
                 viewModel.didSelectRow(with: row.id)
             } label: {
-                row.rowBuilder()
+                row.makeView()
             }
         }
     }
