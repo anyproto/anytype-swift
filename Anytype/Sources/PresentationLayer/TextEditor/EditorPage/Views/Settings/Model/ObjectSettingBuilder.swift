@@ -11,7 +11,7 @@ final class ObjectSettingBuilder {
     }
     
     private func defaultSettings(details: ObjectDetails, isLocked: Bool) -> [ObjectSetting] {
-        if isLocked { return ObjectSetting.lockedCases }
+        if isLocked { return ObjectSetting.lockedEditingCases }
 
         switch details.layout {
         case .basic:

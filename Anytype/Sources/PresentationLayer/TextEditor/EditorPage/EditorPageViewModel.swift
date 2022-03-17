@@ -91,16 +91,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             }
             
             #warning("also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details")
-//            let details = document.details
-//            let header = headerBuilder.header(details: details)
-//            updateHeaderIfNeeded(header: header, details: details)
 
             let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
             let relationIds = allRelationsBlockViewModel.map(\.blockId)
             let diffrerence = difference(with: Set(relationIds))
             modelsHolder.applyDifference(difference: diffrerence)
             viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
-
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
                 return

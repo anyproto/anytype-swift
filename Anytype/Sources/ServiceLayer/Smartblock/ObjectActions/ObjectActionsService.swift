@@ -46,7 +46,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     func setLocked(_ isLocked: Bool, objectId: BlockId) {
         typealias ProtobufDictionary = [String: Google_Protobuf_Value]
         var protoFields = ProtobufDictionary()
-        protoFields["isLocked"] = isLocked.protobufValue
+        protoFields[BlockFieldBundledKey.isLocked.rawValue] = isLocked.protobufValue
 
         let protobufStruct: Google_Protobuf_Struct = .init(fields: protoFields)
         let blockField = Anytype_Rpc.BlockList.Set.Fields.Request.BlockField(
