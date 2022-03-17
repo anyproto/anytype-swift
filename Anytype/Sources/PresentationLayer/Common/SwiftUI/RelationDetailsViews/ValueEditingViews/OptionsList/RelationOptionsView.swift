@@ -39,7 +39,9 @@ struct RelationOptionsView: View {
     
     private var optionsList: some View {
         List {
-            ForEach(viewModel.selectedOptions, id: \.id) { $0.makeView() }
+            ForEach(viewModel.selectedOptions, id: \.id) {
+                $0.rowBuilder()
+            }
             .onMove { source, destination in
                 viewModel.move(source: source, destination: destination)
             }

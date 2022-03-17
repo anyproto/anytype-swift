@@ -72,7 +72,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return RelationOptionsViewModel(
                 source: source,
                 type: .tags(tag.allTags),
-                selectedOptions: tag.selectedTags,
+                selectedOptions: [],//tag.selectedTags,
                 relation: relation,
                 service: RelationsService(objectId: objectId)
             )
@@ -80,7 +80,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return RelationOptionsViewModel(
                 source: source,
                 type: .objects,
-                selectedOptions: object.selectedObjects,
+                selectedOptions: [],
                 relation: relation,
                 service: RelationsService(objectId: objectId)
             )
@@ -88,7 +88,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return RelationOptionsViewModel(
                 source: source,
                 type: .files,
-                selectedOptions: file.files,
+                selectedOptions: [], //file.files,
                 relation: relation,
                 service: RelationsService(objectId: objectId)
             )
