@@ -325,6 +325,8 @@ extension EditorRouter {
             let view = NewSearchModuleAssembly.buildStatusSearchModule(allStatuses: status.allOptions, selectedStatus: status.value) { _ in
                 #warning("TODO: implement")
                 debugPrint("foo")
+            } onCreate: { title in
+                debugPrint(title)
             }
             
             let controller = UIHostingController(rootView: view)
