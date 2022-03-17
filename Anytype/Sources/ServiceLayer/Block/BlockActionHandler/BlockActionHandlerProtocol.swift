@@ -8,8 +8,8 @@ protocol BlockSelectionHandler: AnyObject {
 protocol BlockActionHandlerProtocol: AnyObject {
     var blockSelectionHandler: BlockSelectionHandler? { get set }
 
-    func past(blockId: BlockId, range: NSRange)
-    func paste(selectedBlockIds: [BlockId])
+    func paste(blockId: BlockId, range: NSRange, pasteSlot: PasteboardSlot)
+    func paste(selectedBlockIds: [BlockId], pasteSlot: PasteboardSlot)
     func copy(blocksIds: [BlockId], selectedTextRange: NSRange)
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     @discardableResult

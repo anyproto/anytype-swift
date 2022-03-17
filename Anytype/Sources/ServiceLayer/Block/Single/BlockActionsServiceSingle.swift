@@ -1,49 +1,43 @@
-import Foundation
 import Combine
 import BlocksModels
 import ProtobufMessages
 import Amplitude
 import AnytypeCore
-import BlocksModels
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
+    func paste(contextId: BlockId,
+               focusedBlockId: BlockId,
+               selectedTextRange: NSRange,
+               selectedBlockIds: [BlockId],
+               isPartOfBlock: Bool,
+               textSlot: String?,
+               htmlSlot: String?,
+               anySlots:  [Anytype_Model_Block]?,
+               fileSlots: [Anytype_Rpc.Block.Paste.Request.File]?) -> BlockId? {
 
-    func paste(contextId: BlockId, focusedBlockId: BlockId, selectedTextRange: NSRange, isPartOfBlock: Bool, slots: PastboardSlots) {
-        Anytype_Rpc.Block.Paste.Service.invoke(
+        let result = Anytype_Rpc.Block.Paste.Service.invoke(
             contextID: contextId,
             focusedBlockID: focusedBlockId,
             selectedTextRange: selectedTextRange.asMiddleware,
-            selectedBlockIds: [],
-            isPartOfBlock: isPartOfBlock,
-            textSlot: slots.textSlot ?? "",
-            htmlSlot: slots.htmlSlot ?? "",
-            anySlot: slots.anySlot ?? [],
-            fileSlot: []
-        )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockActionsService)?
-            .send()
-    }
-
-    func paste(contextId: BlockId, selectedBlockIds: [BlockId], isPartOfBlock: Bool, slots: PastboardSlots) {
-        Anytype_Rpc.Block.Paste.Service.invoke(
-            contextID: contextId,
-            focusedBlockID: "",
-            selectedTextRange: Anytype_Model_Range(),
             selectedBlockIds: selectedBlockIds,
             isPartOfBlock: isPartOfBlock,
-            textSlot: slots.textSlot ?? "",
-            htmlSlot: slots.htmlSlot ?? "",
-            anySlot: slots.anySlot ?? [],
-            fileSlot: []
+            textSlot: textSlot ?? "",
+            htmlSlot: htmlSlot ?? "",
+            anySlot: anySlots ?? [],
+            fileSlot: fileSlots ?? []
         )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockActionsService)?
-            .send()
+            .getValue(domain: .blockActionsService)
+
+        let events = result.map {
+            EventsBunch(event: $0.event)
+        }
+        events?.send()
+
+        return result?.blockIds.last
     }
 
-    func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots {
+    func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> [PasteboardSlot]? {
         let blockskModels = blocksInfo.compactMap {
             BlockInformationConverter.convert(information: $0)
         }
@@ -55,7 +49,13 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         )
             .getValue(domain: .blockActionsService)
 
-        return PastboardSlots(textSlot: result?.textSlot, htmlSlot: result?.htmlSlot, anySlot: result?.anySlot)
+        if let result = result {
+            let anySlot = result.anySlot.compactMap { modelBlock in
+                try? modelBlock.jsonString()
+            }
+            return [.html(result.htmlSlot), .text(result.textSlot), .anySlots(anySlot)]
+        }
+        return nil
     }
 
     func open(contextId: BlockId, blockId: BlockId) -> Bool {
