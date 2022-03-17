@@ -16,7 +16,6 @@ struct SetFullHeader: View {
     private var header: some View {
         VStack(alignment: .leading, spacing: 0) {
             cover
-            Spacer.fixedHeight(32)
             
             AnytypeText(model.details.title, style: .title, color: .textPrimary)
                 .fixedSize(horizontal: false, vertical: true)
