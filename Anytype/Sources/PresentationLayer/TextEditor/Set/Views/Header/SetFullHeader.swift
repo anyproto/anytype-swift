@@ -6,8 +6,7 @@ struct SetFullHeader: View {
     
     @EnvironmentObject private var model: EditorSetViewModel
     
-    private let bigCover: CGFloat = 230
-    private let smallCover: CGFloat = 150
+    private let minimizedHeaderHeight = ObjectHeaderConstants.minimizedHeaderHeight + UIApplication.shared.mainWindowInsets.top
     
     var body: some View {
         header
@@ -15,6 +14,9 @@ struct SetFullHeader: View {
     
     private var header: some View {
         VStack(alignment: .leading, spacing: 0) {
+            Rectangle().foregroundColor(.backgroundPrimary)
+                .frame(height: minimizedHeaderHeight)
+            
             cover
             
             AnytypeText(model.details.title, style: .title, color: .textPrimary)
@@ -61,13 +63,17 @@ struct SetFullHeader: View {
             case .empty(let data):
                 Button(action: data.onTap) {
                     Color.backgroundPrimary
-                        .frame(height: smallCover)
+                        .frame(height: ObjectHeaderConstants.emptyViewHeight)
                 }
             case .filled(let state):
                 ObjectHeaderFilledContentSwitfUIView(
-                    configuration: ObjectHeaderFilledConfiguration(state: state, width: width)
+                    configuration: ObjectHeaderFilledConfiguration(
+                        state: state,
+                        width: width,
+                        topAdjustedContentInset: minimizedHeaderHeight
+                    )
                 )
-                    .frame(height: bigCover)
+                    .frame(height: ObjectHeaderConstants.height)
             }
         }
     }

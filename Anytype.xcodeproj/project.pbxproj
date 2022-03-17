@@ -437,6 +437,7 @@
 		3D3040B027DBAD3500FFE0EB /* EditorBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3040AF27DBAD3500FFE0EB /* EditorBarButtonItem.swift */; };
 		3D3040CE27DF664600FFE0EB /* ObjectSettingBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3040CD27DF664600FFE0EB /* ObjectSettingBuilder.swift */; };
 		3D3040F427E2193500FFE0EB /* ObjectHeaderFilledContentSwitfUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3040F327E2193500FFE0EB /* ObjectHeaderFilledContentSwitfUIView.swift */; };
+		3D30410227E364FC00FFE0EB /* ObjectHeaderConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30410127E364FB00FFE0EB /* ObjectHeaderConstants.swift */; };
 		3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */; };
 		3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */; };
 		3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */; };
@@ -1353,6 +1354,7 @@
 		3D3040AF27DBAD3500FFE0EB /* EditorBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBarButtonItem.swift; sourceTree = "<group>"; };
 		3D3040CD27DF664600FFE0EB /* ObjectSettingBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSettingBuilder.swift; sourceTree = "<group>"; };
 		3D3040F327E2193500FFE0EB /* ObjectHeaderFilledContentSwitfUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderFilledContentSwitfUIView.swift; sourceTree = "<group>"; };
+		3D30410127E364FB00FFE0EB /* ObjectHeaderConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderConstants.swift; sourceTree = "<group>"; };
 		3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationView.swift; sourceTree = "<group>"; };
 		3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceView.swift; sourceTree = "<group>"; };
 		3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRectCorner+Corners.swift"; sourceTree = "<group>"; };
@@ -3085,6 +3087,7 @@
 				120E816B269F26BE006FE84E /* Settings */,
 				3D44983D26D5314B005A3E06 /* Header */,
 				3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */,
+				3D30410127E364FB00FFE0EB /* ObjectHeaderConstants.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -6428,6 +6431,7 @@
 				3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */,
 				125B6ED426F235F400BCD7D6 /* SlashMenuContentConfigurationFactory.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
+				3D30410227E364FC00FFE0EB /* ObjectHeaderConstants.swift in Sources */,
 				3DB1CA73272C0C5E000D2779 /* Wallpapers.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */,
 				3D5A418E27046EE400F1F6A1 /* AutofocusedTextField.swift in Sources */,

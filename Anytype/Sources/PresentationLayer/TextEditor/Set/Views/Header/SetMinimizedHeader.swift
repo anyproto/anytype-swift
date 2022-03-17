@@ -7,7 +7,7 @@ struct SetMinimizedHeader: View {
 
     @EnvironmentObject private var model: EditorSetViewModel
 
-    private let minimizedHeaderHeight: CGFloat = 92
+    private let minimizedHeaderHeight = ObjectHeaderConstants.minimizedHeaderHeight + UIApplication.shared.mainWindowInsets.top
 
     var body: some View {
         VStack {
@@ -17,16 +17,16 @@ struct SetMinimizedHeader: View {
     }
 
     private var header: some View {
-        VStack {
-            Spacer.fixedHeight(44)
-            HStack {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(UIApplication.shared.mainWindowInsets.top)
+            HStack(alignment: .center, spacing: 0) {
                 Rectangle().frame(width: 1, height: 1).foregroundColor(.clear) // sync status here
                 Spacer()
                 title
                 Spacer()
                 settingsButton
             }
-            .padding(.horizontal)
+            .padding(.horizontal, 10)
         }
         .frame(height: minimizedHeaderHeight)
         .background(Color.backgroundPrimary.opacity(opacity))
@@ -56,7 +56,6 @@ struct SetMinimizedHeader: View {
             action: model.onSettingsTap
         )
         .frame(width: 28, height: 28)
-        .padding(10)
     }
 
     private var opacity: Double {
