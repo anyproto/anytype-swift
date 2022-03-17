@@ -70,60 +70,19 @@ extension RelationOptionsViewModel {
     func makeSearchView() -> some View {
         switch type {
         case .objects:
-            if FeatureFlags.newRelationOptionsSearch {
-                NewSearchModuleAssembly.buildObjectsSearchModule(selectedObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
-                    self?.handleNewOptionIds(ids)
-                }
-            } else {
-                RelationOptionsSearchView(
-                    viewModel: RelationOptionsSearchViewModel(
-                        type: .objects,
-                        excludedIds: selectedOptions.map { $0.id }
-                    ) { [weak self] ids in
-                        self?.handleNewOptionIds(ids)
-                    }
-                )
+            NewSearchModuleAssembly.buildObjectsSearchModule(selectedObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
+                self?.handleNewOptionIds(ids)
             }
         case .tags(let allTags):
-            if FeatureFlags.newRelationOptionsSearch {
-                NewSearchModuleAssembly.buildTagsSearchModule(allTags: allTags, selectedTagIds: selectedOptions.map { $0.id }) { [weak self] ids in
-                    self?.handleNewOptionIds(ids)
-                } onCreate: { [weak self] title in
-                    self?.handleCreateOption(title: title)
-                }
-            } else {
-                TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
+            NewSearchModuleAssembly.buildTagsSearchModule(allTags: allTags, selectedTagIds: selectedOptions.map { $0.id }) { [weak self] ids in
+                self?.handleNewOptionIds(ids)
+            } onCreate: { [weak self] title in
+                self?.handleCreateOption(title: title)
             }
         case .files:
-            if FeatureFlags.newRelationOptionsSearch {
-                NewSearchModuleAssembly.buildFilesSearchModule(selectedObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
-                    self?.handleNewOptionIds(ids)
-                }
-            } else {
-                RelationOptionsSearchView(
-                    viewModel: RelationOptionsSearchViewModel(
-                        type: .files,
-                        excludedIds: selectedOptions.map { $0.id }
-                    ) { [weak self] ids in
-                        self?.handleNewOptionIds(ids)
-                    }
-                )
+            NewSearchModuleAssembly.buildFilesSearchModule(selectedObjectIds: selectedOptions.map { $0.id }) { [weak self] ids in
+                self?.handleNewOptionIds(ids)
             }   
-        }
-    }
-    
-    private func searchViewModel(allTags: [Relation.Tag.Option]) -> TagRelationOptionSearchViewModel {
-        let availableTags = allTags.filter { tag in
-            !selectedOptions.contains { $0.id == tag.id }
-        }
-        
-        return TagRelationOptionSearchViewModel(
-            source: source,
-            availableTags: availableTags,
-            relation: relation,
-            service: service
-        ) { [weak self] ids in
-            self?.handleNewOptionIds(ids)
         }
     }
     
