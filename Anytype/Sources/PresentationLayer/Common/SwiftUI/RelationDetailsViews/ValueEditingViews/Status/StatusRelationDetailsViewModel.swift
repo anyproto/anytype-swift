@@ -78,12 +78,15 @@ private extension StatusRelationDetailsViewModel {
     func handleSelectedOptionIds(_ ids: [String]) {
         defer {
             isSearchPresented = false
-            popup?.close()
         }
         
-        guard let statusId = ids.first else { return }
+        guard
+            let newStatusId = ids.first,
+            let newStatus = allStatuses.first(where: { $0.id ==  newStatusId })
+        else { return }
         
-        service.updateRelation(relationKey: relation.id, value: statusId.protobufValue)
+        selectedStatus = newStatus
+        service.updateRelation(relationKey: relation.id, value: newStatusId.protobufValue)
     }
     
     func handleCreateOption(title: String) {
