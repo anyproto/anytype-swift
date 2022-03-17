@@ -83,6 +83,7 @@ final class TextViewWithPlaceholder: UITextView {
     }
 
     override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        // Force showing paste menu item in text view for other type than text
         if action == #selector(TextViewWithPlaceholder.paste(_:)) {
             return true
         }
