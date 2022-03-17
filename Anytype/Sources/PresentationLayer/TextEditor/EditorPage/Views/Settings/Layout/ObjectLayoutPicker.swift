@@ -11,8 +11,10 @@ struct ObjectLayoutPicker: View {
             TitleView(title: "Choose layout type".localized)
             layoutList
         }
-        .padding(.bottom, 44)
         .background(Color.backgroundSecondary)
+        .readSize { size in
+            viewModel.viewDidUpdateHeight(size.height)
+        }
     }
     
     private var layoutList: some View {
