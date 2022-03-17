@@ -54,7 +54,7 @@ struct RelationOptionsView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
-                    .foregroundColor(Color.textSecondary)
+                    .foregroundColor(Color.buttonActive)
             }
         }
     }
@@ -74,8 +74,3 @@ private extension RelationOptionsView {
     }
     
 }
-//struct RelationOptionsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        RelationOptionsView()
-//    }
-//}
