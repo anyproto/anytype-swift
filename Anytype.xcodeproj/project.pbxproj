@@ -2757,7 +2757,7 @@
 			children = (
 				1244793527DC61D600581174 /* Assembly */,
 				1244793927DC61E400581174 /* View */,
-				1244793A27DC61FA00581174 /* ViewModels */,
+				1256841B27E34309003A8251 /* ViewModel */,
 			);
 			path = SearchModule;
 			sourceTree = "<group>";
@@ -2776,25 +2776,21 @@
 				1244791327D8A37000581174 /* NewSearchView.swift */,
 				1244794027DC735A00581174 /* NewSearchView+ListModel.swift */,
 				125683F327DF8366003A8251 /* NewSearchView+AddButtonModel.swift */,
-				1244793E27DC633700581174 /* NewSearchViewModel.swift */,
-				125683F127DF808E003A8251 /* NewSearchViewModel+SelectionMode.swift */,
-				1256840327E0C606003A8251 /* NewSearchViewModel+ItemCreationMode.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
 		};
-		1244793A27DC61FA00581174 /* ViewModels */ = {
+		1244793A27DC61FA00581174 /* SearchViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				1244793C27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift */,
-				125683D827DF1BEE003A8251 /* ObjectsSearchViewModel */,
-				125683D627DF1928003A8251 /* TagsSearchViewModel */,
-				1244793B27DC620D00581174 /* StatusSearchViewModel */,
 				1244794427DC931900581174 /* NewSearchSectionsBuilder.swift */,
 				124478CA27D77CCD00581174 /* NewRelationOptionProtocol.swift */,
 				125683F527E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift */,
+				125683D827DF1BEE003A8251 /* ObjectsSearchViewModel */,
+				125683D627DF1928003A8251 /* TagsSearchViewModel */,
+				1244793B27DC620D00581174 /* StatusSearchViewModel */,
 			);
-			path = ViewModels;
+			path = SearchViewModels;
 			sourceTree = "<group>";
 		};
 		1244793B27DC620D00581174 /* StatusSearchViewModel */ = {
@@ -2880,6 +2876,17 @@
 				1244793027DC575D00581174 /* ListRowConfiguration.swift */,
 			);
 			path = Configurations;
+			sourceTree = "<group>";
+		};
+		1256841B27E34309003A8251 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1244793C27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift */,
+				1244793E27DC633700581174 /* NewSearchViewModel.swift */,
+				125683F127DF808E003A8251 /* NewSearchViewModel+SelectionMode.swift */,
+				1256840327E0C606003A8251 /* NewSearchViewModel+ItemCreationMode.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 		125B6E9326F235F400BCD7D6 /* AccessoryView */ = {
@@ -3093,22 +3100,14 @@
 		12887F3B274BC1ED00228330 /* RelationDetailsViews */ = {
 			isa = PBXGroup;
 			children = (
-				1244790F27D8A35800581174 /* SearchModule */,
-				12887F3C274BC20200228330 /* ValueEditingViews */,
-			);
-			path = RelationDetailsViews;
-			sourceTree = "<group>";
-		};
-		12887F3C274BC20200228330 /* ValueEditingViews */ = {
-			isa = PBXGroup;
-			children = (
+				1244793A27DC61FA00581174 /* SearchViewModels */,
 				12887F3D274BC25100228330 /* Text */,
 				12C2A58C27576B9D00311854 /* Date */,
 				12F14CE32758EFE000B976B5 /* Status */,
 				12EB9B1827735C2900BA732F /* OptionsList */,
 				12636CF4276A0DAB0084D35D /* Subviews */,
 			);
-			path = ValueEditingViews;
+			path = RelationDetailsViews;
 			sourceTree = "<group>";
 		};
 		12887F3D274BC25100228330 /* Text */ = {
@@ -3962,6 +3961,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				1244790F27D8A35800581174 /* SearchModule */,
 				12FF0D0F27C5223000562DD9 /* TitleView */,
 				12FF0D0327C51AD300562DD9 /* TextField */,
 				3DB3EC67275513A1002781DA /* ProgressBar */,
