@@ -22,6 +22,8 @@ final class ObjectHeaderEmptyContentView: UIView, UIContentView {
         tapGesture = BindableGestureRecognizer { _ in configuration.data.onTap() }
         
         super.init(frame: .zero)
+
+        isUserInteractionEnabled = !configuration.isLocked
         
         setupView()
     }

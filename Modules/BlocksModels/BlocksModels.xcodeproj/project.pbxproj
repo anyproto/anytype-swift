@@ -60,6 +60,7 @@
 		535E02B627503B7500E1AF8C /* BlockRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02B527503B7500E1AF8C /* BlockRelation.swift */; };
 		53856C06265BE1DB00CB1FAE /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */; };
 		C9BEC8482721CD15001C16E2 /* ObjectTemplateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BEC8472721CD15001C16E2 /* ObjectTemplateType.swift */; };
+		C9F44C7D27E350B90078E709 /* BlockFieldBundledKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F44C7C27E350B90078E709 /* BlockFieldBundledKey.swift */; };
 		EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */; };
 /* End PBXBuildFile section */
 
@@ -119,6 +120,7 @@
 		535E02B527503B7500E1AF8C /* BlockRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRelation.swift; sourceTree = "<group>"; };
 		53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtobufMessages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C9BEC8472721CD15001C16E2 /* ObjectTemplateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplateType.swift; sourceTree = "<group>"; };
+		C9F44C7C27E350B90078E709 /* BlockFieldBundledKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFieldBundledKey.swift; sourceTree = "<group>"; };
 		EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentType.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -311,6 +313,7 @@
 				0A6D536C25D9C99E002F3F82 /* IndentationBuilder.swift */,
 				0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */,
 				EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */,
+				C9F44C7C27E350B90078E709 /* BlockFieldBundledKey.swift */,
 			);
 			path = Block;
 			sourceTree = "<group>";
@@ -468,6 +471,7 @@
 				5345CED92745185800DC2DD9 /* RelationMetadataScope.swift in Sources */,
 				3D6E9A3E270E13B5001B0A07 /* FileContentType.swift in Sources */,
 				3DE511F926711E5C00153962 /* BlockText.swift in Sources */,
+				C9F44C7D27E350B90078E709 /* BlockFieldBundledKey.swift in Sources */,
 				3D22B21526877D9300C78C28 /* BlockFileState.swift in Sources */,
 				3D22B21C2687809900C78C28 /* BlockContentDivider.swift in Sources */,
 				3DE0B3282747BDC200F69376 /* BlockDataView.swift in Sources */,

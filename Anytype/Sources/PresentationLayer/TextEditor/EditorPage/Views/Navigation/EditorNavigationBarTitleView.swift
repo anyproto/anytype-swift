@@ -7,6 +7,7 @@ final class EditorNavigationBarTitleView: UIView {
     
     private let iconImageView = ObjectIconImageView()
     private let titleLabel = UILabel()
+    private let lockImageView = UIImageView()
     
     init() {
         super.init(frame: .zero)
@@ -54,11 +55,16 @@ extension EditorNavigationBarTitleView: ConfigurableView {
             titleLabel.font = .uxTitle1Semibold
         }
     }
+
+    func setIsLocked(_ isLocked: Bool) {
+        lockImageView.isHidden = !isLocked
+    }
     
     /// Parents alpha sets automatically by system when it attaches to NavigationBar. 
     func setAlphaForSubviews(_ alpha: CGFloat) {
         titleLabel.alpha = alpha
         iconImageView.alpha = alpha
+        lockImageView.alpha = alpha
     }
     
 }
@@ -73,6 +79,8 @@ private extension EditorNavigationBarTitleView {
         
         stackView.axis = .horizontal
         stackView.spacing = 8
+        lockImageView.image = .editorNavigation.lockedObject
+        lockImageView.contentMode = .center
         
         setupLayout()        
     }
@@ -85,9 +93,14 @@ private extension EditorNavigationBarTitleView {
 
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(lockImageView)
 
         iconImageView.layoutUsing.anchors {
             $0.size(CGSize(width: 18, height: 18))
+        }
+
+        lockImageView.layoutUsing.anchors {
+            $0.size(CGSize(width: 10, height: 18))
         }
     }
 }

@@ -63,7 +63,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         focusSubject.send(focus)
     }
     
-    func didSelectRowInTableView() {}
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         let contentConfiguration = TextBlockContentConfiguration(

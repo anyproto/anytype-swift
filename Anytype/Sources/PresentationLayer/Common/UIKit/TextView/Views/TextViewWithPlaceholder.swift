@@ -25,6 +25,7 @@ final class TextViewWithPlaceholder: UITextView {
     private var placeholderConstraints: [InsetEdgeType: NSLayoutConstraint] = [:]
     private let blockLayoutManager = TextBlockLayoutManager()
     private let onFirstResponderChange: (CustomTextViewFirstResponderChange) -> ()
+    var isLockedForEditing = false
 
     // MARK: - Internal variables
     
@@ -71,6 +72,11 @@ final class TextViewWithPlaceholder: UITextView {
         didSet {
             placeholderLabel.textAlignment = textAlignment
         }
+    }
+
+    override var canBecomeFirstResponder: Bool {
+        let canBecome = super.canBecomeFirstResponder
+        return isLockedForEditing ? false : canBecome
     }
     
     override func becomeFirstResponder() -> Bool {

@@ -18,7 +18,7 @@ struct RelationBlockViewModel: BlockViewModelProtocol {
         ] as [AnyHashable]
     }
 
-    func didSelectRowInTableView() {}
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         if FeatureFlags.uikitRelationBlock {

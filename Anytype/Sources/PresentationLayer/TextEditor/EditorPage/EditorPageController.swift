@@ -142,19 +142,21 @@ final class EditorPageController: UIViewController {
     }
 
     func bindViewModel() {
-        viewModel.blocksStateManager.editorEditingState.sink { [unowned self] state in
+        viewModel.blocksStateManager.editorEditingStatePublisher.sink { [unowned self] state in
             navigationBarHelper.editorEditingStateDidChange(state)
 
             switch state {
-            case .selecting(let blockIds):
+            case .selecting:
                 view.endEditing(true)
                 setEditing(false, animated: true)
                 blocksSelectionOverlayView.isHidden = false
+                collectionView.isLocked = false
             case .editing:
                 collectionView.deselectAllMovingItems()
                 dividerCursorController.movingMode = .none
                 setEditing(true, animated: true)
                 blocksSelectionOverlayView.isHidden = true
+                collectionView.isLocked = false
             case .moving(let indexPaths):
                 dividerCursorController.movingMode = .drum
                 setEditing(false, animated: true)
@@ -162,6 +164,10 @@ final class EditorPageController: UIViewController {
                     collectionView.deselectItem(at: indexPath, animated: false)
                     collectionView.setItemIsMoving(true, at: indexPath)
                 }
+                collectionView.isLocked = false
+            case .locked:
+                view.endEditing(true)
+                collectionView.isLocked = true
             }
         }.store(in: &cancellables)
 
@@ -391,6 +397,7 @@ private extension EditorPageController {
             // UIKit bug. isSelected works fine, UIConfigurationStateCustomKey properties sometimes switch to adjacent cellsAnytype/Sources/PresentationLayer/TextEditor/BlocksViews/Base/CustomStateKeys.swift
             if let self = self {
                 (cell as? EditorViewListCell)?.isMoving = self.collectionView.indexPathsForMovingItems.contains(indexPath)
+                (cell as? EditorViewListCell)?.isLocked = self.collectionView.isLocked
             }
 
 

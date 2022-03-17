@@ -13,7 +13,11 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     }
     
     var settings: [ObjectSetting] {
-        settingsBuilder.build(details: details, restrictions: objectActionsViewModel.objectRestrictions)
+        settingsBuilder.build(
+            details: details,
+            restrictions: objectActionsViewModel.objectRestrictions,
+            isLocked: document.isLocked
+        )
     }
     
     var details: ObjectDetails {
@@ -60,7 +64,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         setupSubscription()
         onDocumentUpdate()
     }
-    
+
     func showLayoutSettings() {
         router?.showLayoutPicker()
     }
@@ -91,6 +95,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
             objectActionsViewModel.details = details
             relationsViewModel.update(with: document.parsedRelations)
         }
+        objectActionsViewModel.isLocked = document.isLocked
         objectActionsViewModel.objectRestrictions = document.objectRestrictions
     }
 }

@@ -67,6 +67,7 @@ private extension ObjectHeaderFilledContentView  {
     }
     
     func apply(_ configuration: ObjectHeaderFilledConfiguration) {
+        isUserInteractionEnabled = !configuration.isLocked
         appliedConfiguration = configuration
         headerView.configure(
             model: ObjectHeaderView.Model(

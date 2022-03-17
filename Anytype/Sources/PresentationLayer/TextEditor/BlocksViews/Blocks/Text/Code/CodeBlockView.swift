@@ -30,6 +30,8 @@ final class CodeBlockView: UIView, BlockContentView {
     }
 
     func update(with state: UICellConfigurationState) {
+        textView.isLockedForEditing = state.isLocked
+        codeSelectButton.isUserInteractionEnabled = !state.isLocked
         textView.isUserInteractionEnabled = state.isEditing
     }
 
@@ -81,14 +83,14 @@ final class CodeBlockView: UIView, BlockContentView {
         return textStorage
     }()
 
-    private lazy var textView: UITextView = {
+    private lazy var textView: LockableTextView = {
         let layoutManager = NSLayoutManager()
         textStorage.addLayoutManager(layoutManager)
 
         let textContainer = NSTextContainer()
         layoutManager.addTextContainer(textContainer)
 
-        let textView = UITextView(frame: .zero, textContainer: textContainer)
+        let textView = LockableTextView(frame: .zero, textContainer: textContainer)
         textView.isScrollEnabled = false
         textView.autocorrectionType = .no
         textView.autocapitalizationType = .none
@@ -115,8 +117,17 @@ final class CodeBlockView: UIView, BlockContentView {
     }()
 }
 
-extension CodeBlockView: UITextViewDelegate {
+private class LockableTextView: UITextView {
+    var isLockedForEditing = false
 
+    override var canBecomeFirstResponder: Bool {
+        isLockedForEditing
+            ? false
+            : super.canBecomeFirstResponder
+    }
+}
+
+extension CodeBlockView: UITextViewDelegate {
     func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
         actionHandler?.becomeFirstResponder()
         return true

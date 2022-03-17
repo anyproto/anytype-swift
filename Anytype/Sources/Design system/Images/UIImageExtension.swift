@@ -33,6 +33,7 @@ extension UIImage {
         static let search = createImage("TextEditor/search")
         static let backArrow = createImage("TextEditor/backArrow")
         static let forwardArrow = createImage("TextEditor/forwardArrow")
+        static let lockedObject = createImage("TextEditor/locked_object")
     }
     
     enum edititngToolbar {

@@ -264,6 +264,7 @@ final class MiddlewareEventConverter {
                 ObjectDetails(id: $0.id, values: $0.details.fields)
             }
 
+
             buildBlocksTree(information: parsedBlocks, rootId: data.rootID, container: infoContainer)
 
             parsedDetails.forEach { detailsStorage.add(details: $0) }
@@ -271,8 +272,8 @@ final class MiddlewareEventConverter {
             relationStorage.set(
                 relations: data.relations.map { RelationMetadata(middlewareRelation: $0) }
             )
-            
             let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: data.restrictions)
+
             restrictionsContainer.restrinctions = restrinctions
             return .general
         case .accountConfigUpdate(let config):

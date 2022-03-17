@@ -40,5 +40,5 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         ).asCellBlockConfiguration
     }
     
-    func didSelectRowInTableView() {}
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 }

@@ -5,6 +5,8 @@ enum ObjectSetting: CaseIterable {
     case cover
     case layout
     case relations
+
+    static var lockedEditingCases: [ObjectSetting] { [.relations] }
 }
 
 extension ObjectSetting {

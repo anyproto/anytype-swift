@@ -10,7 +10,6 @@ enum BlockInformationConverter {
         }
         
         let blockContent = BlocksModelsConverter.convert(middleware: content) ?? .unsupported
-        
         let alignment = block.align.asBlockModel ?? .left
         let info =  BlockInformation(
             id: block.id,
