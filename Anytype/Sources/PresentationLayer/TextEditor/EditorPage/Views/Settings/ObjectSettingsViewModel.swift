@@ -21,7 +21,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     }
     
     var details: ObjectDetails {
-        document.objectDetails ?? .empty
+        document.details ?? .empty
     }
     
     let objectActionsViewModel: ObjectActionsViewModel
@@ -91,7 +91,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     
     private func onDocumentUpdate() {
         objectWillChange.send()
-        if let details = document.objectDetails {
+        if let details = document.details {
             objectActionsViewModel.details = details
             relationsViewModel.update(with: document.parsedRelations)
         }

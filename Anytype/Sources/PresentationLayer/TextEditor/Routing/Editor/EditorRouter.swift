@@ -202,7 +202,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
-        let objectKind: SearchKind = .objectTypes(currentObjectTypeUrl: document.objectDetails?.type ?? "")
+        let objectKind: SearchKind = .objectTypes(currentObjectTypeUrl: document.details?.type ?? "")
         let viewModel = ObjectSearchViewModel(searchKind: objectKind) { data in
             onSelect(data.blockId)
         }
@@ -322,7 +322,12 @@ extension EditorRouter {
         guard let viewController = viewController else { return }
         
         if case .status(let status) = relation, FeatureFlags.newRelationOptionsSearch {
-            let view = NewSearchModuleAssembly.buildStatusSearchModule(allStatuses: status.allOptions, selectedStatus: status.value)
+            let view = NewSearchModuleAssembly.buildStatusSearchModule(allStatuses: status.allOptions, selectedStatus: status.value) { _ in
+                #warning("TODO: implement")
+                debugPrint("foo")
+            } onCreate: { title in
+                debugPrint(title)
+            }
             
             let controller = UIHostingController(rootView: view)
             viewController.topPresentedController.present(controller, animated: true)

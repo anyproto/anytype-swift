@@ -5,7 +5,7 @@ import ProtobufMessages
 import Amplitude
 import AnytypeCore
 
-final class BlockActionsServiceFile: BlockActionsServiceFileProtocol {
+final class FileActionsService: FileActionsServiceProtocol {
     
     func syncUploadDataAt(
         filePath: String,

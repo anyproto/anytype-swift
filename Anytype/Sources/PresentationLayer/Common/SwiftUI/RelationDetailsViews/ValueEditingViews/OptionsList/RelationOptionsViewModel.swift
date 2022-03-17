@@ -5,7 +5,9 @@ import AnytypeCore
 
 final class RelationOptionsViewModel: ObservableObject {
             
-    @Published var selectedOptions: [RelationOptionProtocol] = []
+    @Published var selectedOptions: [ListRowConfiguration] = []
+    @Published var isSearchPresented: Bool = false
+    
     private(set) var popupLayout: AnytypePopupLayoutType = .relationOptions {
         didSet {
             popup?.updateLayout(true)
@@ -22,7 +24,7 @@ final class RelationOptionsViewModel: ObservableObject {
     init(
         source: RelationSource,
         type: RelationOptionsType,
-        selectedOptions: [RelationOptionProtocol],
+        selectedOptions: [ListRowConfiguration],
         relation: Relation,
         service: RelationsServiceProtocol
     ) {
@@ -40,6 +42,8 @@ final class RelationOptionsViewModel: ObservableObject {
     var emptyPlaceholder: String { type.placeholder }
     
 }
+
+// MARK: - Internal functions
 
 extension RelationOptionsViewModel {
     
@@ -61,75 +65,73 @@ extension RelationOptionsViewModel {
         )
     }
     
+    func didTapAddButton() {
+        isSearchPresented = true
+    }
+    
     @ViewBuilder
     func makeSearchView() -> some View {
         switch type {
         case .objects:
-            if FeatureFlags.newRelationOptionsSearch {
-                NewSearchModuleAssembly.buildObjectsSearchModule(selectedObjectIds: selectedOptions.map { $0.id })
-            } else {
-                RelationOptionsSearchView(
-                    viewModel: RelationOptionsSearchViewModel(
-                        type: .objects,
-                        excludedIds: selectedOptions.map { $0.id }
-                    ) { [weak self] ids in
-                        self?.handleNewOptionIds(ids)
-                    }
-                )
+            NewSearchModuleAssembly.buildObjectsSearchModule(
+                selectedObjectIds: selectedOptionIds
+            ) { [weak self] ids in
+                self?.handleNewOptionIds(ids)
             }
         case .tags(let allTags):
-            if FeatureFlags.newRelationOptionsSearch {
-                NewSearchModuleAssembly.buildTagsSearchModule(allTags: allTags, selectedTagIds: selectedOptions.map { $0.id })
-            } else {
-                TagRelationOptionSearchView(viewModel: searchViewModel(allTags: allTags))
+            NewSearchModuleAssembly.buildTagsSearchModule(
+                allTags: allTags,
+                selectedTagIds: selectedOptionIds
+            ) { [weak self] ids in
+                self?.handleNewOptionIds(ids)
+            } onCreate: { [weak self] title in
+                self?.handleCreateOption(title: title)
             }
         case .files:
-            if FeatureFlags.newRelationOptionsSearch {
-                NewSearchModuleAssembly.buildFilesSearchModule(selectedObjectIds: selectedOptions.map { $0.id })
-            } else {
-                RelationOptionsSearchView(
-                    viewModel: RelationOptionsSearchViewModel(
-                        type: .files,
-                        excludedIds: selectedOptions.map { $0.id }
-                    ) { [weak self] ids in
-                        self?.handleNewOptionIds(ids)
-                    }
-                )
-            }   
+            NewSearchModuleAssembly.buildFilesSearchModule(
+                selectedObjectIds: selectedOptionIds
+            ) { [weak self] ids in
+                self?.handleNewOptionIds(ids)
+            }
         }
     }
     
-    private func searchViewModel(allTags: [Relation.Tag.Option]) -> TagRelationOptionSearchViewModel {
-        let availableTags = allTags.filter { tag in
-            !selectedOptions.contains { $0.id == tag.id }
-        }
-        
-        return TagRelationOptionSearchViewModel(
-            source: source,
-            availableTags: availableTags,
-            relation: relation,
-            service: service
-        ) { [weak self] ids in
-            self?.handleNewOptionIds(ids)
-        }
-    }
+}
+
+// MARK: - Private extension
+
+private extension RelationOptionsViewModel {
     
-    private func handleNewOptionIds(_ ids: [String]) {
-        let newSelectedOptionsIds = selectedOptions.map { $0.id } + ids
+    func handleNewOptionIds(_ ids: [String]) {
+        let newSelectedOptionsIds = selectedOptionIds + ids
         
         service.updateRelation(
             relationKey: relation.id,
             value: newSelectedOptionsIds.protobufValue
         )
-        
+        isSearchPresented = false
         popup?.close()
     }
     
-    private func updateLayout() {
+    func handleCreateOption(title: String) {
+        let optionId = service.addRelationOption(source: source, relationKey: relation.id, optionText: title)
+        guard let optionId = optionId else { return}
+
+        handleNewOptionIds([optionId])
+    }
+    
+    func updateLayout() {
         popupLayout = selectedOptions.isNotEmpty ? .relationOptions : .constantHeight(height: 150, floatingPanelStyle: false)
     }
     
+    var selectedOptionIds: [String] {
+        selectedOptions.map { $0.id }
+    }
+    
 }
+
+
+// MARK: - AnytypePopupViewModelProtocol
 
 extension RelationOptionsViewModel: AnytypePopupViewModelProtocol {
     

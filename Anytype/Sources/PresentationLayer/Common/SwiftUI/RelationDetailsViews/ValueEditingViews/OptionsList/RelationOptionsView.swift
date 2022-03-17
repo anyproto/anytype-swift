@@ -3,15 +3,13 @@ import SwiftUI
 struct RelationOptionsView: View {
     
     @ObservedObject var viewModel: RelationOptionsViewModel
-        
-    @State private var isSearchPresented: Bool = false
-    
+            
     var body: some View {
         NavigationView {
             content
                 .navigationTitle(viewModel.title)
                 .navigationBarTitleDisplayMode(.inline)
-                .sheet(isPresented: $isSearchPresented) { viewModel.makeSearchView() }
+                .sheet(isPresented: $viewModel.isSearchPresented) { viewModel.makeSearchView() }
         }
         .navigationViewStyle(.stack)
     }
@@ -41,7 +39,9 @@ struct RelationOptionsView: View {
     
     private var optionsList: some View {
         List {
-            ForEach(viewModel.selectedOptions, id: \.id) { $0.makeView() }
+            ForEach(viewModel.selectedOptions) {
+                $0.makeView()
+            }
             .onMove { source, destination in
                 viewModel.move(source: source, destination: destination)
             }
@@ -64,9 +64,10 @@ struct RelationOptionsView: View {
 // MARK: - NavigationBarView
 
 private extension RelationOptionsView {
+    
     var addButton: some View {
         Button {
-            isSearchPresented = true
+            viewModel.didTapAddButton()
         } label: {
             Image.Relations.createOption.frame(width: 24, height: 24)
         }

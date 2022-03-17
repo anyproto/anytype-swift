@@ -22,8 +22,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     let wholeBlockMarkupViewModel: MarkupViewModel
     
     private let blockBuilder: BlockViewModelBuilder
-    private let headerBuilder: ObjectHeaderBuilder
-    private lazy var cancellables = [AnyCancellable]()
+    private let headerModel: ObjectHeaderViewModel
+    private lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
 
@@ -46,7 +46,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockBuilder: BlockViewModelBuilder,
         actionHandler: BlockActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
-        headerBuilder: ObjectHeaderBuilder,
+        headerModel: ObjectHeaderViewModel,
         blockActionsService: BlockActionsServiceSingleProtocol,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager
@@ -59,25 +59,22 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.actionHandler = actionHandler
         self.blockDelegate = blockDelegate
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
-        self.headerBuilder = headerBuilder
+        self.headerModel = headerModel
         self.blockActionsService = blockActionsService
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
-
-        setupSubscriptions()
     }
 
-    private func setupSubscriptions() {
+    func setupSubscriptions() {
+        subscriptions = []
+        
         document.updatePublisher.sink { [weak self] in
             self?.handleUpdate(updateResult: $0)
-        }.store(in: &cancellables)
-    }
-    
-    private func updateHeader(_ update: ObjectHeaderUpdate) {
-        let details = document.objectDetails
-        let header = headerBuilder.updatedHeader(update, details: details)
-
-        updateHeaderIfNeeded(header: header, details: details)
+        }.store(in: &subscriptions)
+        
+        headerModel.$header.sink { [weak self] _ in
+            self?.updateHeaderIfNeeded()
+        }.store(in: &subscriptions)
     }
     
     private func handleUpdate(updateResult: DocumentUpdate) {
@@ -94,9 +91,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             }
             
             #warning("also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details")
-            let details = document.objectDetails
-            let header = headerBuilder.header(details: details)
-            updateHeaderIfNeeded(header: header, details: details)
+//            let details = document.details
+//            let header = headerBuilder.header(details: details)
+//            updateHeaderIfNeeded(header: header, details: details)
 
             let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
             let relationIds = allRelationsBlockViewModel.map(\.blockId)
@@ -125,8 +122,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             modelsHolder.items = blocksViewModels
 
             viewInput?.update(changes: nil, allModels: blocksViewModels)
-        case .header(let update):
-            updateHeader(update)
+        case .header:
+            break // supported in headerModel
         }
 
         blocksStateManager.checkDocumentLockField()
@@ -144,12 +141,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         updateMarkupViewModel(newBlockViewModels: blocksViewModels.onlyBlockViewModels)
 
         if !document.isLocked {
-            cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.objectDetails?.type)
+            cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
         }
     }
     
     private func handleDeletionState() {
-        guard let details = document.objectDetails else {
+        guard let details = document.details else {
             anytypeAssertionFailure("No detais for general update", domain: .editorPage)
             return
         }
@@ -225,9 +222,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             modelsHolder.items = models
         }
         
-        let details = document.objectDetails
-        let header = headerBuilder.header(details: details)
-        updateHeaderIfNeeded(header: header, details: details)
         viewInput?.update(changes: difference, allModels: modelsHolder.items)
 
         updateCursorIfNeeded()
@@ -243,11 +237,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
 
     // iOS 14 bug fix applying header section while editing
-    private func updateHeaderIfNeeded(header: ObjectHeader, details: ObjectDetails?) {
-        guard modelsHolder.header != header else { return }
+    private func updateHeaderIfNeeded() {
+        guard modelsHolder.header != headerModel.header else { return }
 
-        viewInput?.update(header: header, details: details)
-        modelsHolder.header = header
+        viewInput?.update(header: headerModel.header, details: document.details)
+        modelsHolder.header = headerModel.header
     }
 }
 
@@ -255,7 +249,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
 extension EditorPageViewModel {
     func viewDidLoad() {
-        if let objectDetails = document.objectDetails {
+        if let objectDetails = document.details {
             Amplitude.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
         }
     }
@@ -268,7 +262,7 @@ extension EditorPageViewModel {
     }
 
     func viewDidAppear() {
-        cursorManager.didAppeared(with: modelsHolder.items, type: document.objectDetails?.type)
+        cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
     }
     
     func viewWillDisappear() {

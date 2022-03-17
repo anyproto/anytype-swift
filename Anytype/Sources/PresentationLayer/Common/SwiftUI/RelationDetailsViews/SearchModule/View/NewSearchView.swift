@@ -23,7 +23,7 @@ struct NewSearchView: View {
     
     private var content: some View {
         Group {
-            if viewModel.listModel.isEmpty {
+            if viewModel.listModel.isEmpty && !viewModel.isCreateButtonAvailable {
                 emptyState
             } else {
                 searchResults
@@ -54,14 +54,17 @@ struct NewSearchView: View {
     private var searchResults: some View {
         ScrollView {
             LazyVStack(spacing: 0) {
+                if viewModel.isCreateButtonAvailable {
+                    RelationOptionCreateButton(text: searchText) {
+                        viewModel.didTapCreateButton(title: searchText)
+                    }
+                }
                 switch viewModel.listModel {
                 case .plain(let rows):
                     rowViews(rows: rows)
                 case .sectioned(let sections):
                     ForEach(sections) { section in
-                        Section(
-                            header: RelationOptionsSectionHeaderView(title: section.title)
-                        ) {
+                        Section(header: section.makeView()) {
                             rowViews(rows: section.rows)
                         }
                     }
@@ -71,19 +74,19 @@ struct NewSearchView: View {
         }
     }
     
-    private func rowViews(rows: [NewSearchRowConfiguration]) -> some View {
+    private func rowViews(rows: [ListRowConfiguration]) -> some View {
         ForEach(rows) { row in
             Button {
                 viewModel.didSelectRow(with: row.id)
             } label: {
-                row.rowBuilder()
+                row.makeView()
             }
         }
     }
     
     private func addButton(model: AddButtonModel) -> some View {
         StandardButton(disabled: model.isDisabled, text: "Add".localized, style: .primary) {
-            debugPrint("addButton")
+            viewModel.didTapAddButton()
         }
         .if(!model.isDisabled) {
             $0.if(model.counter > 0) {

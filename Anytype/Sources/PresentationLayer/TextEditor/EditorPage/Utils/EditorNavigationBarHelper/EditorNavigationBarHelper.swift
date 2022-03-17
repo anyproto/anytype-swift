@@ -82,11 +82,11 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
     }
     
     func configureNavigationBar(using header: ObjectHeader, details: ObjectDetails?) {
-        isObjectHeaderWithCover = header.isWithCover
+        isObjectHeaderWithCover = header.hasCover
         startAppearingOffset = header.startAppearingOffset
         endAppearingOffset = header.endAppearingOffset
         
-        updateBarButtonItemsBackground(percent: 0)
+        updateBarButtonItemsBackground(opacity: 0)
 
         let titleModel = EditorNavigationBarTitleView.Mode.TitleModel(
             icon: details?.objectIconImage,
@@ -114,7 +114,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             navigationBarTitleView.setIsLocked(false)
         case .selecting(let blocks):
             navigationBarTitleView.setAlphaForSubviews(1)
-            updateBarButtonItemsBackground(percent: 1)
+            updateBarButtonItemsBackground(opacity: 1)
             fakeNavigationBarBackgroundView.alpha = 1
             controller?.navigationItem.leftBarButtonItem = nil
             controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
@@ -147,24 +147,23 @@ private extension EditorNavigationBarHelper {
         controller?.navigationItem.hidesBackButton = true
     }
     
-    func updateBarButtonItemsBackground(percent: CGFloat) {
-        let state = EditorBarItemState(haveBackground: isObjectHeaderWithCover, percentOfNavigationAppearance: percent)
+    func updateBarButtonItemsBackground(opacity: CGFloat) {
+        let state = EditorBarItemState(haveBackground: isObjectHeaderWithCover, opacity: opacity)
         settingsItem.changeState(state)
         syncStatusItem.changeState(state)
     }
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {
-        guard let alpha = countPercentOfNavigationBarAppearance(offset: newOffset) else { return }
+        guard let opacity = countPercentOfNavigationBarAppearance(offset: newOffset) else { return }
 
         switch currentEditorState {
             case .editing, .locked: break
             default: return
         }
 
-
-        navigationBarTitleView.setAlphaForSubviews(alpha)
-        updateBarButtonItemsBackground(percent: alpha)
-        fakeNavigationBarBackgroundView.alpha = alpha
+        navigationBarTitleView.setAlphaForSubviews(opacity)
+        updateBarButtonItemsBackground(opacity: opacity)
+        fakeNavigationBarBackgroundView.alpha = opacity
     }
     
     private func countPercentOfNavigationBarAppearance(offset: CGFloat) -> CGFloat? {
@@ -190,10 +189,10 @@ private extension EditorNavigationBarHelper {
 
 private extension ObjectHeader {
     
-    var isWithCover: Bool {
+    var hasCover: Bool {
         switch self {
         case .filled(let filledState):
-            return filledState.isWithCover
+            return filledState.hasCover
         case .empty:
             return false
         }

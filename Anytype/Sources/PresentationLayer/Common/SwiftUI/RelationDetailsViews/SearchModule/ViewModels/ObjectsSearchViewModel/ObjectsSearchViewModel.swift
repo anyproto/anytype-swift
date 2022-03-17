@@ -5,7 +5,7 @@ import SwiftUI
 
 final class ObjectsSearchViewModel {
     
-    @Published private var rows: [NewSearchRowConfiguration] = []
+    @Published private var rows: [ListRowConfiguration] = []
     
     private var objects: [ObjectDetails] = [] {
         didSet {
@@ -49,11 +49,11 @@ extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
 
 private extension Array where Element == ObjectDetails {
 
-    func asRowConfigurations(with selectedIds: [String]) -> [NewSearchRowConfiguration] {
+    func asRowConfigurations(with selectedIds: [String]) -> [ListRowConfiguration] {
         map { details in
-            NewSearchRowConfiguration(
+            ListRowConfiguration(
                 id: details.id,
-                rowContentHash: details.hashValue
+                contentHash: details.hashValue
             ) {
                 AnyView(
                     SearchObjectRowView(

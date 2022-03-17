@@ -7,7 +7,7 @@ final class ObjectActionsViewModel: ObservableObject {
     private let service = ServiceLocator.shared.objectActionsService()
     private let objectId: BlockId
 
-    var details: ObjectDetails = ObjectDetails(id: "", values: [:]) {
+    @Published var details: ObjectDetails = ObjectDetails(id: "", values: [:]) {
         didSet {
             objectActions = ObjectAction.allCasesWith(
                 details: details,
@@ -16,7 +16,7 @@ final class ObjectActionsViewModel: ObservableObject {
             )
         }
     }
-    var objectRestrictions: ObjectRestrictions = ObjectRestrictions() {
+    @Published var objectRestrictions: ObjectRestrictions = ObjectRestrictions() {
         didSet {
             objectActions = ObjectAction.allCasesWith(
                 details: details,
@@ -25,7 +25,7 @@ final class ObjectActionsViewModel: ObservableObject {
             )
         }
     }
-    var isLocked: Bool = false {
+    @Published var isLocked: Bool = false {
         didSet {
             objectActions = ObjectAction.allCasesWith(
                 details: details,

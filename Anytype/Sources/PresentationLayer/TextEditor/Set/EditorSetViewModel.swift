@@ -7,6 +7,7 @@ import SwiftUI
 final class EditorSetViewModel: ObservableObject {
     @Published var dataView = BlockDataview.empty
     @Published private var records: [ObjectDetails] = []
+    @Published private(set) var headerModel: ObjectHeaderViewModel!
     
     @Published var pagitationData = EditorSetPaginationData.empty
     
@@ -48,14 +49,14 @@ final class EditorSetViewModel: ObservableObject {
     }
  
     var details: ObjectDetails {
-        document.objectDetails ?? .empty
+        document.details ?? .empty
     }
     var featuredRelations: [Relation] {
-        document.parsedRelations.featuredRelationsForEditor(type: details.objectType, objectRestriction: document.restrictionsContainer.restrinctions.objectRestriction)
+        document.featuredRelationsForEditor()
     }
     
     let document: BaseDocument
-    var router: EditorRouterProtocol!
+    private(set) var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
@@ -64,7 +65,18 @@ final class EditorSetViewModel: ObservableObject {
     
     init(document: BaseDocument) {
         self.document = document
-        setup()
+    }
+    
+    func setup(router: EditorRouterProtocol) {
+        self.router = router
+        self.headerModel = ObjectHeaderViewModel(document: document, router: router)
+        
+        subscription = document.updatePublisher.sink { [weak self] in
+            self?.onDataChange($0)
+        }
+        
+        document.open()
+        setupDataview()
     }
     
     func onAppear() {
@@ -89,14 +101,6 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     // MARK: - Private
-    private func setup() {
-        subscription = document.updatePublisher.sink { [weak self] in
-            self?.onDataChange($0)
-        }
-        
-        document.open()
-        setupDataview()
-    }
     
     private func onDataChange(_ data: DocumentUpdate) {
         switch data {
@@ -105,9 +109,8 @@ final class EditorSetViewModel: ObservableObject {
             setupDataview()
         case .syncStatus, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
-        case .header(let data):
-            // TODO:
-            break
+        case .header:
+            break // handled in ObjectHeaderViewModel
         }
     }
     

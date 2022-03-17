@@ -14,9 +14,10 @@ struct RelationOptionCreateButton: View {
                     .lineLimit(1)
                 Spacer()
             }
-            .padding(.vertical, 14)
         }
+        .frame(height: 52)
         .divider()
+        .padding(.horizontal, 20)
     }
 }
 

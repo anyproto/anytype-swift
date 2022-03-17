@@ -76,7 +76,7 @@ private extension ObjectHeaderFilledContentView  {
             )
         )
         
-        guard configuration.state.isWithCover else {
+        guard configuration.state.hasCover else {
             subscription = nil
             return
         }

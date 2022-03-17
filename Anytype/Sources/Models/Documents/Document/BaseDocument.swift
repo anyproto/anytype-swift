@@ -15,7 +15,8 @@ final class BaseDocument: BaseDocumentProtocol {
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
 
     var isLocked: Bool {
-        guard let isLockedField = infoContainer.get(id: objectId)?.fields["isLocked"],
+        guard let isLockedField = infoContainer.get(id: objectId)?
+                .fields[BlockFieldBundledKey.isLocked.rawValue],
               case let .boolType(isLocked) = isLockedField else {
             return false
         }
@@ -65,7 +66,7 @@ final class BaseDocument: BaseDocumentProtocol {
         blockActionsService.close(contextId: objectId, blockId: objectId)
     }
     
-    var objectDetails: ObjectDetails? {
+    var details: ObjectDetails? {
         detailsStorage.get(id: objectId)
     }
     

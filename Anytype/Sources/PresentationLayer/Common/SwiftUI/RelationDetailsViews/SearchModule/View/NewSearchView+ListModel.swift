@@ -3,8 +3,8 @@ import Foundation
 extension NewSearchView {
     
     enum ListModel {
-        case plain(rows: [NewSearchRowConfiguration])
-        case sectioned(sectinos: [NewSearchSectionConfiguration])
+        case plain(rows: [ListRowConfiguration])
+        case sectioned(sectinos: [ListSectionConfiguration])
     }
     
 }

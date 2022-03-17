@@ -1,11 +1,3 @@
-//
-//  ObjectHeaderEmptyContentView.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 23.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 
 final class ObjectHeaderEmptyContentView: UIView, UIContentView {

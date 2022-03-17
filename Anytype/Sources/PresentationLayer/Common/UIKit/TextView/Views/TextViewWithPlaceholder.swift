@@ -88,6 +88,14 @@ final class TextViewWithPlaceholder: UITextView {
         return value
     }
 
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        // Force showing paste menu item in text view for other type than text
+        if action == #selector(TextViewWithPlaceholder.paste(_:)) {
+            return true
+        }
+        return super.canPerformAction(action, withSender: sender)
+    }
+
     override func resignFirstResponder() -> Bool {
         let value = super.resignFirstResponder()
         onFirstResponderChange(.resign)
@@ -104,9 +112,11 @@ final class TextViewWithPlaceholder: UITextView {
             return super.paste(sender)
         }
 
-        let handled = customTextViewDelegate?.shouldPaste(range: selectedRange) ?? false
+        guard let customTextViewDelegate = customTextViewDelegate else {
+            return super.paste(sender)
+        }
 
-        if !handled {
+        if customTextViewDelegate.shouldPaste(range: selectedRange) {
             super.paste(sender)
         }
     }
