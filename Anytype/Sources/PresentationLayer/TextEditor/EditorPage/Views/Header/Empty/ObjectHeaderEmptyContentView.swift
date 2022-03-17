@@ -42,17 +42,9 @@ private extension ObjectHeaderEmptyContentView  {
     
     func setupLayout() {
         layoutUsing.anchors {
-            $0.height.equal(to: Constants.height)
+            $0.height.equal(to: ObjectHeaderConstants.height)
         }
         translatesAutoresizingMaskIntoConstraints = true
-    }
-    
-}
-
-extension ObjectHeaderEmptyContentView {
-    
-    enum Constants {
-        static let height: CGFloat = 92
     }
     
 }

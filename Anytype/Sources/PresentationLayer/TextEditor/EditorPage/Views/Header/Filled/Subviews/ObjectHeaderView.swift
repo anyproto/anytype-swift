@@ -127,7 +127,7 @@ extension ObjectHeaderView: ConfigurableView {
                 objectCover: objectHeaderCover.coverType,
                 size: CGSize(
                     width: maxWidth,
-                    height: Constants.coverHeight
+                    height: ObjectHeaderConstants.coverHeight
                 )
             )
         )
@@ -164,24 +164,24 @@ private extension ObjectHeaderView {
     
     func setupLayout(topAdjustedContentInset: CGFloat) {
         layoutUsing.anchors {
-            $0.height.equal(to: Constants.height, priority: .defaultLow)
+            $0.height.equal(to: ObjectHeaderConstants.height, priority: .defaultLow)
         }
         
         addSubview(coverView) {
             $0.pinToSuperview(excluding: [.top, .bottom])
-            $0.bottom.equal(to: bottomAnchor, constant: -Constants.coverBottomInset)
-            $0.height.equal(to: Constants.coverHeight + topAdjustedContentInset)
+            $0.bottom.equal(to: bottomAnchor, constant: -ObjectHeaderConstants.coverBottomInset)
+            $0.height.equal(to: ObjectHeaderConstants.coverHeight + topAdjustedContentInset)
         }
         
         addSubview(iconView) {
             $0.bottom.equal(
                 to: bottomAnchor,
-                constant: -Constants.iconBottomInset
+                constant: -ObjectHeaderConstants.iconBottomInset
             )
 
             leadingConstraint = $0.leading.equal(
                 to: leadingAnchor,
-                constant: Constants.iconHorizontalInset,
+                constant: ObjectHeaderConstants.iconHorizontalInset,
                 activate: false
             )
 
@@ -192,7 +192,7 @@ private extension ObjectHeaderView {
             
             trailingConstraint =  $0.trailing.equal(
                 to: trailingAnchor,
-                constant: -Constants.iconHorizontalInset,
+                constant: -ObjectHeaderConstants.iconHorizontalInset,
                 activate: false
             )
         }
@@ -206,19 +206,6 @@ private extension ObjectHeaderView {
         case icon
         case cover
         case iconAndCover
-    }
-    
-}
-
-extension ObjectHeaderView {
-    
-    enum Constants {
-        static let height: CGFloat = 172
-        static let coverHeight = Constants.height - Constants.coverBottomInset
-        static let coverBottomInset: CGFloat = 32
-        
-        static let iconHorizontalInset: CGFloat = 20 - ObjectHeaderIconView.Constants.borderWidth
-        static let iconBottomInset: CGFloat = 16 - ObjectHeaderIconView.Constants.borderWidth
     }
     
 }

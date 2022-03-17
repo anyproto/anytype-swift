@@ -192,20 +192,20 @@ private extension ObjectHeader {
     var startAppearingOffset: CGFloat {
         switch self {
         case .filled:
-            return ObjectHeaderView.Constants.height - 100
+            return ObjectHeaderConstants.height - 100
             
         case .empty:
-            return ObjectHeaderEmptyContentView.Constants.height - 50
+            return ObjectHeaderConstants.emptyViewHeight - 50
         }
     }
     
     var endAppearingOffset: CGFloat {
         switch self {
         case .filled:
-            return ObjectHeaderView.Constants.height
+            return ObjectHeaderConstants.height
             
         case .empty:
-            return ObjectHeaderEmptyContentView.Constants.height
+            return ObjectHeaderConstants.emptyViewHeight
         }
     }
     
