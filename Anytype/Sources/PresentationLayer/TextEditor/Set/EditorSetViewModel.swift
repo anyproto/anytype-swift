@@ -7,7 +7,7 @@ import SwiftUI
 final class EditorSetViewModel: ObservableObject {
     @Published var dataView = BlockDataview.empty
     @Published private var records: [ObjectDetails] = []
-    @Published private(set) var headerModel: ObjectHeaderBuilder!
+    @Published private(set) var headerModel: ObjectHeaderViewModel!
     
     @Published var pagitationData = EditorSetPaginationData.empty
     
@@ -49,7 +49,7 @@ final class EditorSetViewModel: ObservableObject {
     }
  
     var details: ObjectDetails {
-        document.objectDetails ?? .empty
+        document.details ?? .empty
     }
     var featuredRelations: [Relation] {
         document.featuredRelationsForEditor()
@@ -69,7 +69,7 @@ final class EditorSetViewModel: ObservableObject {
     
     func setup(router: EditorRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderBuilder(document: document, router: router)
+        self.headerModel = ObjectHeaderViewModel(document: document, router: router)
         
         subscription = document.updatePublisher.sink { [weak self] in
             self?.onDataChange($0)
@@ -110,7 +110,7 @@ final class EditorSetViewModel: ObservableObject {
         case .syncStatus, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
         case .header:
-            break // handled in ObjectHeaderBuilder
+            break // handled in ObjectHeaderViewModel
         }
     }
     

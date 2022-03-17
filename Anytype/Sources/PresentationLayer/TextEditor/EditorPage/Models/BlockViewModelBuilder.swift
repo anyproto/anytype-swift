@@ -72,7 +72,7 @@ final class BlockViewModelBuilder {
                     }
                 )
             default:
-                let isCheckable = content.contentType == .title ? document.objectDetails?.layout == .todo : false
+                let isCheckable = content.contentType == .title ? document.details?.layout == .todo : false
                 return TextBlockViewModel(
                     info: info,
                     content: content,
@@ -165,7 +165,7 @@ final class BlockViewModelBuilder {
                 }
             )
         case .featuredRelations:
-            guard let objectType = document.objectDetails?.objectType else { return nil }
+            guard let objectType = document.details?.objectType else { return nil }
             
             let featuredRelation = document.featuredRelationsForEditor()
             return FeaturedRelationsBlockViewModel(

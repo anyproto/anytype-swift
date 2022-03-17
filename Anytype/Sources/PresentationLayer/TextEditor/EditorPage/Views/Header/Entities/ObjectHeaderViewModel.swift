@@ -2,7 +2,7 @@ import BlocksModels
 import UIKit
 import Combine
 
-final class ObjectHeaderBuilder: ObservableObject {
+final class ObjectHeaderViewModel: ObservableObject {
     
     @Published private(set) var header: ObjectHeader = .initialState
     
@@ -54,14 +54,14 @@ final class ObjectHeaderBuilder: ObservableObject {
     }
     
     private func buildHeader() -> ObjectHeader {
-        guard let details = document.objectDetails else {
+        guard let details = document.details else {
             return .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
         }
         return buildObjectHeader(details: details)
     }
     
     private func buildLoadingHeader(_ update: ObjectHeaderUpdate) -> ObjectHeader {
-        guard let details = document.objectDetails else {
+        guard let details = document.details else {
             return fakeHeader(update: update)
         }
         
