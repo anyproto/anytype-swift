@@ -82,7 +82,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
     }
     
     func configureNavigationBar(using header: ObjectHeader, details: ObjectDetails?) {
-        isObjectHeaderWithCover = header.isWithCover
+        isObjectHeaderWithCover = header.hasCover
         startAppearingOffset = header.startAppearingOffset
         endAppearingOffset = header.endAppearingOffset
         
@@ -180,10 +180,10 @@ private extension EditorNavigationBarHelper {
 
 private extension ObjectHeader {
     
-    var isWithCover: Bool {
+    var hasCover: Bool {
         switch self {
         case .filled(let filledState):
-            return filledState.isWithCover
+            return filledState.hasCover
         case .empty:
             return false
         }

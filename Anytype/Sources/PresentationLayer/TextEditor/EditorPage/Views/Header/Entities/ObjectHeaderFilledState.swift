@@ -3,7 +3,7 @@ enum ObjectHeaderFilledState: Hashable {
     case coverOnly(ObjectHeaderCover)
     case iconAndCover(icon: ObjectHeaderIcon, cover: ObjectHeaderCover)
     
-    var isWithCover: Bool {
+    var hasCover: Bool {
         switch self {
         case .iconOnly:
             return false

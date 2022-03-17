@@ -58,7 +58,7 @@ final class BaseDocument: BaseDocumentProtocol {
         blockActionsService.close(contextId: objectId, blockId: objectId)
     }
     
-    var objectDetails: ObjectDetails? {
+    var details: ObjectDetails? {
         detailsStorage.get(id: objectId)
     }
     

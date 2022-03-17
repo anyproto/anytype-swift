@@ -7,7 +7,7 @@ import FloatingPanel
 
 final class ObjectLayoutPickerViewModel: ObservableObject {
     var selectedLayout: DetailsLayout {
-        document.objectDetails?.layout ?? .basic
+        document.details?.layout ?? .basic
     }
     
     // MARK: - Private variables
