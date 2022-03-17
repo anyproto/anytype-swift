@@ -9,12 +9,29 @@ final class ObjectActionsViewModel: ObservableObject {
 
     @Published var details: ObjectDetails = ObjectDetails(id: "", values: [:]) {
         didSet {
-            objectActions = ObjectAction.allCasesWith(details: details, objectRestrictions: objectRestrictions)
+            objectActions = ObjectAction.allCasesWith(
+                details: details,
+                objectRestrictions: objectRestrictions,
+                isLocked: isLocked
+            )
         }
     }
     @Published var objectRestrictions: ObjectRestrictions = ObjectRestrictions() {
         didSet {
-            objectActions = ObjectAction.allCasesWith(details: details, objectRestrictions: objectRestrictions)
+            objectActions = ObjectAction.allCasesWith(
+                details: details,
+                objectRestrictions: objectRestrictions,
+                isLocked: isLocked
+            )
+        }
+    }
+    @Published var isLocked: Bool = false {
+        didSet {
+            objectActions = ObjectAction.allCasesWith(
+                details: details,
+                objectRestrictions: objectRestrictions,
+                isLocked: isLocked
+            )
         }
     }
     @Published var objectActions: [ObjectAction] = []
@@ -38,6 +55,10 @@ final class ObjectActionsViewModel: ObservableObject {
 
     func changeFavoriteSate() {
         service.setFavorite(objectId: objectId, !details.isFavorite)
+    }
+
+    func changeLockState() {
+        service.setLocked(!isLocked, objectId: objectId)
     }
 
     func moveTo() {

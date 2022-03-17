@@ -35,7 +35,8 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         }
     }
 
-    func didSelectRowInTableView() {
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {
+        if case .locked = editorEditingState { return }
         switch fileData.state {
         case .empty, .error:
             showAudioPicker(blockId)

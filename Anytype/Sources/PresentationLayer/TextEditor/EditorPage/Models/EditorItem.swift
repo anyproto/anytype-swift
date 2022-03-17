@@ -30,14 +30,3 @@ enum EditorItem: Hashable {
         }
     }
 }
-
-extension EditorItem {
-    func didSelect() {
-        switch self {
-        case .header: return
-        case .block(let blockViewModelProtocol): blockViewModelProtocol.didSelectRowInTableView()
-        case .system(let systemContentConfiguationProvider):
-            systemContentConfiguationProvider.didSelectRowInTableView()
-        }
-    }
-}

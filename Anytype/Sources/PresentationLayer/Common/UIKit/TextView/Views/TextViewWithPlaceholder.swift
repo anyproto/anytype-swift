@@ -25,6 +25,7 @@ final class TextViewWithPlaceholder: UITextView {
     private var placeholderConstraints: [InsetEdgeType: NSLayoutConstraint] = [:]
     private let blockLayoutManager = TextBlockLayoutManager()
     private let onFirstResponderChange: (CustomTextViewFirstResponderChange) -> ()
+    var isLockedForEditing = false
 
     // MARK: - Internal variables
     
@@ -72,6 +73,11 @@ final class TextViewWithPlaceholder: UITextView {
             placeholderLabel.textAlignment = textAlignment
         }
     }
+
+    override var canBecomeFirstResponder: Bool {
+        let canBecome = super.canBecomeFirstResponder
+        return isLockedForEditing ? false : canBecome
+    }
     
     override func becomeFirstResponder() -> Bool {
         let value = super.becomeFirstResponder()
@@ -80,6 +86,14 @@ final class TextViewWithPlaceholder: UITextView {
         reloadGestures()
         onFirstResponderChange(.become)
         return value
+    }
+
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        // Force showing paste menu item in text view for other type than text
+        if action == #selector(TextViewWithPlaceholder.paste(_:)) {
+            return true
+        }
+        return super.canPerformAction(action, withSender: sender)
     }
 
     override func resignFirstResponder() -> Bool {
@@ -98,9 +112,11 @@ final class TextViewWithPlaceholder: UITextView {
             return super.paste(sender)
         }
 
-        let handled = customTextViewDelegate?.shouldPaste(range: selectedRange) ?? false
+        guard let customTextViewDelegate = customTextViewDelegate else {
+            return super.paste(sender)
+        }
 
-        if !handled {
+        if customTextViewDelegate.shouldPaste(range: selectedRange) {
             super.paste(sender)
         }
     }

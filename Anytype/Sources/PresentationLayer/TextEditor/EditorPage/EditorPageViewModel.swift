@@ -91,14 +91,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             }
             
             #warning("also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details")
-            let details = document.details
 
             let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
             let relationIds = allRelationsBlockViewModel.map(\.blockId)
             let diffrerence = difference(with: Set(relationIds))
             modelsHolder.applyDifference(difference: diffrerence)
             viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
-
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
                 return
@@ -123,6 +121,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         case .header:
             break // supported in headerModel
         }
+
+        blocksStateManager.checkDocumentLockField()
     }
     
     private func performGeneralUpdate() {
@@ -136,7 +136,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         updateMarkupViewModel(newBlockViewModels: blocksViewModels.onlyBlockViewModels)
 
-        cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
+        if !document.isLocked {
+            cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
+        }
     }
     
     private func handleDeletionState() {
@@ -268,7 +270,8 @@ extension EditorPageViewModel {
 
 extension EditorPageViewModel {
     func didSelectBlock(at indexPath: IndexPath) {
-        element(at: indexPath)?.didSelectRowInTableView()
+        element(at: indexPath)?
+            .didSelectRowInTableView(editorEditingState: blocksStateManager.editingState)
     }
 
     func element(at: IndexPath) -> BlockViewModelProtocol? {

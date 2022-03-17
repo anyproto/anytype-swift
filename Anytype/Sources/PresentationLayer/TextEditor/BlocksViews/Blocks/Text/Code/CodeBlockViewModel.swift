@@ -31,7 +31,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
         ).asCellBlockConfiguration
     }
     
-    func didSelectRowInTableView() { }
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 }
 
 // MARK: - Debug

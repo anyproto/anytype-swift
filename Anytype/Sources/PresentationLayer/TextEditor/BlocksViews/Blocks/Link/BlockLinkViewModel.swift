@@ -36,7 +36,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         return BlockLinkContentConfiguration(state: state).asCellBlockConfiguration
     }
     
-    func didSelectRowInTableView() {
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         if state.deleted || state.archived {
             return
         }

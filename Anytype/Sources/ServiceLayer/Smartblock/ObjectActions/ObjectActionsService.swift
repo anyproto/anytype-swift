@@ -42,6 +42,25 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
 
         Amplitude.instance().logAddToFavorites(isFavorite)
     }
+
+    func setLocked(_ isLocked: Bool, objectId: BlockId) {
+        typealias ProtobufDictionary = [String: Google_Protobuf_Value]
+        var protoFields = ProtobufDictionary()
+        protoFields[BlockFieldBundledKey.isLocked.rawValue] = isLocked.protobufValue
+
+        let protobufStruct: Google_Protobuf_Struct = .init(fields: protoFields)
+        let blockField = Anytype_Rpc.BlockList.Set.Fields.Request.BlockField(
+            blockID: objectId,
+            fields: protobufStruct
+        )
+
+        _ = Anytype_Rpc.BlockList.Set.Fields.Service.invoke(
+            contextID: objectId,
+            blockFields: [blockField]
+        ).map { EventsBunch(event: $0.event) }
+        .getValue(domain: .objectActionsService)?
+        .send()
+    }
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`.
     func createPage(

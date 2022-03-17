@@ -21,7 +21,7 @@ protocol IndentationProvider {
 }
 
 protocol BlockFocusing {
-    func didSelectRowInTableView()
+    func didSelectRowInTableView(editorEditingState: EditorEditingState)
 
     func set(focus: BlockFocusPosition)
 }

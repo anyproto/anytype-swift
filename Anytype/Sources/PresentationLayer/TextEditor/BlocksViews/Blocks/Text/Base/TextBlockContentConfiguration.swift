@@ -6,7 +6,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
     typealias View = TextBlockContentView
 
     struct Actions {
-        let paste: (NSRange) -> Bool
+        let shouldPaste: (NSRange) -> Bool
         let copy: (NSRange) -> Void
         let createEmptyBlock: () -> Void
         let showPage: (EditorScreenData) -> Void

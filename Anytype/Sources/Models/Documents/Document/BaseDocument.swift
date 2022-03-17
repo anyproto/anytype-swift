@@ -12,8 +12,16 @@ final class BaseDocument: BaseDocumentProtocol {
     let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
     let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
     
-    var objectRestrictions: ObjectRestrictions {
-        restrictionsContainer.restrinctions
+    var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
+
+    var isLocked: Bool {
+        guard let isLockedField = infoContainer.get(id: objectId)?
+                .fields[BlockFieldBundledKey.isLocked.rawValue],
+              case let .boolType(isLocked) = isLockedField else {
+            return false
+        }
+
+        return isLocked
     }
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()

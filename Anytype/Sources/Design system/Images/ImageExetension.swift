@@ -69,9 +69,8 @@ extension Image {
         static let restore = createImage("restore")
         static let favorite = createImage("addToFavorites")
         static let unfavorite = createImage("unfavorite")
-        static let moveTo = createImage("moveTo")
-        static let template = createImage("addNew")
-        static let search = createImage("search")
+        static let lock = createImage("lock")
+        static let unlock = createImage("unlock")
     }
     
     enum LayoutSettings {

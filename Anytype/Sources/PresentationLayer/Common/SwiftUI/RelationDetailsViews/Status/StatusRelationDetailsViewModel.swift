@@ -5,18 +5,22 @@ import FloatingPanel
 
 final class StatusRelationDetailsViewModel: ObservableObject {
     
-    let source: RelationSource
-        
-    private weak var popup: AnytypePopupProxy?
+    @Published private(set) var currentStatusModel: StatusSearchRowView.Model?
+    @Published var isSearchPresented: Bool = false
     
-    let popupLayout = AnytypePopupLayoutType.fullScreen
+    let popupLayout = AnytypePopupLayoutType.constantHeight(height: 116, floatingPanelStyle: false)
 
-    @Published var selectedStatus: Relation.Status.Option?
-    
+    private let source: RelationSource
+    private var selectedStatus: Relation.Status.Option? {
+        didSet {
+            updateSelectedStatusViewModel()
+        }
+    }
     private let allStatuses: [Relation.Status.Option]
-    
     private let relation: Relation
     private let service: RelationsServiceProtocol
+    
+    private weak var popup: AnytypePopupProxy?
     
     init(
         source: RelationSource,
@@ -33,13 +37,64 @@ final class StatusRelationDetailsViewModel: ObservableObject {
         self.relation = relation
         self.service = service
         
+        updateSelectedStatusViewModel()
     }
     
 }
 
 extension StatusRelationDetailsViewModel {
     
+    func didTapAddButton() {
+        isSearchPresented = true
+    }
     
+    func didTapClearButton() {
+        selectedStatus = nil
+        service.updateRelation(relationKey: relation.id, value: nil)
+    }
+    
+    @ViewBuilder
+    func makeSearchView() -> some View {
+        NewSearchModuleAssembly.buildStatusSearchModule(
+            allStatuses: allStatuses,
+            selectedStatus: selectedStatus
+        ) { [weak self] ids in
+            self?.handleSelectedOptionIds(ids)
+        } onCreate: { [weak self] title in
+            self?.handleCreateOption(title: title)
+        }
+    }
+    
+}
+
+private extension StatusRelationDetailsViewModel {
+    
+    func updateSelectedStatusViewModel() {
+        currentStatusModel = selectedStatus.flatMap {
+            StatusSearchRowView.Model(text: $0.text, color: $0.color)
+        }
+    }
+    
+    func handleSelectedOptionIds(_ ids: [String]) {
+        defer {
+            isSearchPresented = false
+        }
+        
+        guard
+            let newStatusId = ids.first,
+            let newStatus = allStatuses.first(where: { $0.id ==  newStatusId })
+        else { return }
+        
+        selectedStatus = newStatus
+        service.updateRelation(relationKey: relation.id, value: newStatusId.protobufValue)
+    }
+    
+    func handleCreateOption(title: String) {
+        let optionId = service.addRelationOption(source: source, relationKey: relation.id, optionText: title)
+        guard let optionId = optionId else { return}
+
+        handleSelectedOptionIds([optionId])
+    }
     
 }
 

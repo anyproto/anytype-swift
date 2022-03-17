@@ -16,12 +16,8 @@ struct ObjectActionsView: View {
                             viewModel.changeArchiveState()
                         case .favorite:
                             viewModel.changeFavoriteSate()
-//                        case .moveTo:
-//                            viewModel.moveTo()
-//                        case .template:
-//                            viewModel.template()
-//                        case .search:
-//                            viewModel.search()
+                        case .locked:
+                            viewModel.changeLockState()
                         }
                     }
                 }

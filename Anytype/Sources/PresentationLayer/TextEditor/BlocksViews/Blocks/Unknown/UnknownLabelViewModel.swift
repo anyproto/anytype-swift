@@ -19,5 +19,5 @@ struct UnknownLabelViewModel: BlockViewModelProtocol {
         return contentConfiguration
     }
     
-    func didSelectRowInTableView() { }
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 }

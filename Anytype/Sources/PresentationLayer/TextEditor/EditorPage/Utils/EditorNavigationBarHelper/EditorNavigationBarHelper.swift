@@ -111,6 +111,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             controller?.navigationItem.rightBarButtonItem = settingsBarButtonItem
             controller?.navigationItem.leftBarButtonItem = syncStatusBarButtonItem
             lastTitleModel.map { navigationBarTitleView.configure(model: .title($0)) }
+            navigationBarTitleView.setIsLocked(false)
         case .selecting(let blocks):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
@@ -125,10 +126,14 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
                 title = "\(blocks.count) " + "selected blocks".localized
             }
             navigationBarTitleView.configure(model: .modeTitle(title))
+            navigationBarTitleView.setIsLocked(false)
         case .moving:
             let title = "Editor.MovingState.ScrollToSelectedPlace".localized
             navigationBarTitleView.configure(model: .modeTitle(title))
             controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
+            navigationBarTitleView.setIsLocked(false)
+        case .locked:
+            navigationBarTitleView.setIsLocked(true)
         }
     }
 }
@@ -150,7 +155,11 @@ private extension EditorNavigationBarHelper {
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {
         guard let opacity = countPercentOfNavigationBarAppearance(offset: newOffset) else { return }
-        guard case .editing = currentEditorState else { return }
+
+        switch currentEditorState {
+            case .editing, .locked: break
+            default: return
+        }
 
         navigationBarTitleView.setAlphaForSubviews(opacity)
         updateBarButtonItemsBackground(opacity: opacity)
