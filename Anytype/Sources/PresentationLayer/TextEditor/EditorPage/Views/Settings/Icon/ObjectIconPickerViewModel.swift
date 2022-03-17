@@ -7,7 +7,9 @@ import AnytypeCore
 final class ObjectIconPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
-    
+
+    var isRemoveButtonAvailable: Bool { document.details?.icon != nil }
+
     var detailsLayout: DetailsLayout {
         document.details?.layout ?? .basic
     }

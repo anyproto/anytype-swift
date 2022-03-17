@@ -7,17 +7,22 @@ final class ObjectCoverPickerViewModel: ObservableObject {
     
     let mediaPickerContentType: MediaPickerContentType = .images
 
+    var isRemoveButtonAvailable: Bool { document.details?.documentCover != nil }
+
     // MARK: - Private variables
-    
-    private let objectId: BlockId
+    private let document: BaseDocumentProtocol
     private let imageUploadingDemon = MediaFileUploadingDemon.shared
     private let fileService: FileActionsServiceProtocol
     private let detailsService: DetailsServiceProtocol
         
     // MARK: - Initializer
     
-    init(objectId: BlockId, fileService: FileActionsServiceProtocol, detailsService: DetailsServiceProtocol) {
-        self.objectId = objectId
+    init(
+        document: BaseDocumentProtocol,
+        fileService: FileActionsServiceProtocol,
+        detailsService: DetailsServiceProtocol
+    ) {
+        self.document = document
         self.fileService = fileService
         self.detailsService = detailsService
     }
@@ -46,7 +51,7 @@ extension ObjectCoverPickerViewModel {
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: ObjectHeaderImageUploadingWorker(
-                objectId: objectId,
+                objectId: document.objectId,
                 detailsService: detailsService,
                 usecase: .cover
             )

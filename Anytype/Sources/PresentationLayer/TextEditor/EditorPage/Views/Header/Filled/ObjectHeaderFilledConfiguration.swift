@@ -5,7 +5,7 @@ struct ObjectHeaderFilledConfiguration: UIContentConfiguration, Hashable {
     let state: ObjectHeaderFilledState
     let width: CGFloat
     var topAdjustedContentInset: CGFloat = 0
-    var isLocked = false
+    private(set) var isLocked = false
     
     func makeContentView() -> UIView & UIContentView {
         ObjectHeaderFilledContentView(configuration: self)

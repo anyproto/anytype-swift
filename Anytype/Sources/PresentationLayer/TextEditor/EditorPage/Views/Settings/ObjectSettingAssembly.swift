@@ -16,7 +16,7 @@ final class ObjectSettingAssembly {
     
     func coverPicker(document: BaseDocumentProtocol) -> UIViewController {
         let viewModel = ObjectCoverPickerViewModel(
-            objectId: document.objectId,
+            document: document,
             fileService: ServiceLocator.shared.fileService(),
             detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
         )
