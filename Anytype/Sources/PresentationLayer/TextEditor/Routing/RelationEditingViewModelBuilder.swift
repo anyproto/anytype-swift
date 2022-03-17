@@ -64,7 +64,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         case .status(let status):
             return StatusRelationDetailsViewModel(
                 source: source,
-                currentStatus: status.value,
+                selectedStatus: status.value,
                 allStatuses: status.allOptions,
                 relation: relation,
                 service: RelationsService(objectId: objectId)

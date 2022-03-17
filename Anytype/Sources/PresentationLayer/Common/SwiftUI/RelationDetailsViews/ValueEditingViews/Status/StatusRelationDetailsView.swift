@@ -14,6 +14,7 @@ struct StatusRelationDetailsView: View {
             content
             Spacer()
         }
+        .sheet(isPresented: $viewModel.isSearchPresented) { viewModel.makeSearchView() }
     }
     
     private var rightButton: some View {
