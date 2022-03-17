@@ -37,7 +37,13 @@ final class StatusRelationDetailsViewModel: ObservableObject {
 
 extension StatusRelationDetailsViewModel {
     
+    func didTapAddButton() {
+        
+    }
     
+    func didTapClearButton() {
+
+    }
     
 }
 
