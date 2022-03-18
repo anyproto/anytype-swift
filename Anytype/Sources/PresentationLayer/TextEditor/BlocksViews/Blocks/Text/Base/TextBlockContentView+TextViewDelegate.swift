@@ -3,6 +3,11 @@ import UIKit
 import BlocksModels
 
 extension TextBlockContentView: CustomTextViewDelegate {
+
+    func paste(slots: PastboardSlots, range: NSRange) {
+        actions?.paste(slots, range)
+    }
+
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
         switch change {
         case .become:
@@ -36,23 +41,13 @@ extension TextBlockContentView: CustomTextViewDelegate {
         actions?.changeTextStyle(attribute, range)
     }
     
-    func keyboardAction(_ action: CustomTextView.KeyboardAction) -> Bool {
-        switch action {
-        case .enterInsideContent,
-             .enterAtTheEndOfContent,
-             .enterAtTheBeginingOfContent:
-            // In the case of frequent pressing of enter
-            // we can send multiple split requests to middle
-            // from the same block, it will leads to wrong order of blocks in array,
-            // adding a delay makes impossible to press enter very often
-            if pressingEnterTimeChecker.exceedsTimeInterval() {
-                actions?.handleKeyboardAction(action, textView.textView.attributedText)
-            }
-            return false
-        case .deleteOnEmptyContent, .deleteAtTheBeginingOfContent:
-            actions?.handleKeyboardAction(action, textView.textView.attributedText)
-            return false
-        }
+    func keyboardAction(_ action: CustomTextView.KeyboardAction) {
+        // In the case of frequent pressing
+        // we can send multiple requests to middle
+        // from the same block, it will leads to wrong order of blocks
+        guard pressingEnterTimeChecker.exceedsTimeInterval else { return }
+        
+        actions?.handleKeyboardAction(action)
     }
     
     func showPage(blockId: BlockId) {

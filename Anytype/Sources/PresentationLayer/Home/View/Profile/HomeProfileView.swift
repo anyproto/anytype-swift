@@ -46,7 +46,7 @@ struct HomeProfileView: View {
                         ImageID(id: imageId, width: UserIconView.Constants.size.width.asImageWidth)
                     )
                 )
-            } else if let firstCharacter = model.profileData.name.first {
+            } else if let firstCharacter = model.profileData.name.uppercased().first {
                 return UserIconView.IconType.placeholder(firstCharacter)
             } else {
                 return UserIconView.IconType.placeholder(nil)

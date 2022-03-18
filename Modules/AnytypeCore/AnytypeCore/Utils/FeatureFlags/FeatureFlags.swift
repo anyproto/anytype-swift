@@ -6,6 +6,7 @@ public enum Feature: String, Codable {
     case middlewareLogs = "Show middleware logs in Xcode console"
 
     case uikitRelationBlocks = "UIKit relation blocks"
+    case clipboard = "Clipboard"
 }
 
 public final class FeatureFlags {
@@ -29,6 +30,7 @@ public final class FeatureFlags {
         .showAlertOnAssert : true,
         .analytics : false,
         .middlewareLogs: false,
+        .clipboard: false,
         .uikitRelationBlocks: true
     ]
     
@@ -62,6 +64,10 @@ public extension FeatureFlags {
 
     static var uikitRelationBlock: Bool {
         features[.uikitRelationBlocks, default: true]
+    }
+
+    static var clipboard: Bool {
+        features[.clipboard, default: false]
     }
 
 }

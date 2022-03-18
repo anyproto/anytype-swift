@@ -51,7 +51,7 @@ enum ButtonsFactory {
     static func roundedBorderуButton(image: UIImage?) -> ButtonWithImage {
         let button = makeButton(image: image)
         button.layer.cornerRadius = 10
-        button.layer.borderWidth = 0.5
+        button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.strokePrimary.cgColor
         button.contentMode = .center
         button.imageView.contentMode = .scaleAspectFit

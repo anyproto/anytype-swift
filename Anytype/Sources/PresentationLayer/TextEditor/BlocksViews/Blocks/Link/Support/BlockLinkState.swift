@@ -1,32 +1,6 @@
 import BlocksModels
 
-extension BlockLinkState {
-    
-    enum Style: Hashable, Equatable {
-        case noContent
-        case icon(ObjectIconType)
-        case checkmark(Bool)
-        
-        init(details: ObjectDetails) {
-            if let objectIcon = details.icon {
-                self = .icon(objectIcon)
-                return
-            }
-            
-            guard case .todo = details.layout else {
-                self = .noContent
-                return
-            }
-            
-            self = .checkmark(details.isDone)
-        }
-    }
-    
-}
-
 struct BlockLinkState: Hashable, Equatable {
-    static let empty = BlockLinkState(title: "", style: .noContent, typeUrl: nil, viewType: .page, archived: false, deleted: false)
-
     let title: String
     let style: Style
     let type: ObjectType?
@@ -54,5 +28,11 @@ struct BlockLinkState: Hashable, Equatable {
         self.archived = archived
         self.deleted = deleted
     }
+    
+}
+
+extension BlockLinkState {
+    
+    static let empty = BlockLinkState(title: "", style: .noContent, typeUrl: nil, viewType: .page, archived: false, deleted: false)
     
 }

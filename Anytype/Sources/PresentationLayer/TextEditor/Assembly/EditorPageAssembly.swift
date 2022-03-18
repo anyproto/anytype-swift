@@ -88,6 +88,9 @@ final class EditorAssembly {
             popScreenAction: { [weak router] in
                 router?.goBack()
             },
+            onLayoutSettingsTap: { [weak router] layoutPickerViewModel in
+                router?.showLayoutPicker(viewModel: layoutPickerViewModel)
+            },
             onRelationValueEditingTap: { [weak router] in
                 router?.showRelationValueEditingView(key: $0, source: .object)
             }
@@ -97,22 +100,25 @@ final class EditorAssembly {
         
         let markupChanger = BlockMarkupChanger(blocksContainer: document.blocksContainer)
         let cursorManager = EditorCursorManager()
+        let listService = BlockListService(contextId: document.objectId)
         let blockActionService = BlockActionService(
             documentId: document.objectId,
+            listService: listService,
             modelsHolder: modelsHolder,
             cursorManager: cursorManager
         )
-        let blockActionHandler = TextBlockActionHandler(
-            contextId: document.objectId,
+        let keyboardHandler = KeyboardActionHandler(
             service: blockActionService,
-            modelsHolder: modelsHolder
+            listService: listService,
+            toggleStorage: ToggleStorage.shared
         )
         
         let actionHandler = BlockActionHandler(
             document: document,
             markupChanger: markupChanger,
             service: blockActionService,
-            actionHandler: blockActionHandler
+            listService: listService,
+            keyboardHandler: keyboardHandler
         )
         
         let accessoryState = AccessoryViewBuilder.accessoryState(

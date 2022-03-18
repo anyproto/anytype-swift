@@ -1,0 +1,47 @@
+import Foundation
+import FloatingPanel
+import CoreGraphics
+import UIKit
+
+open class AnytypePopupLayout: FloatingPanelLayout {
+    
+    public let position: FloatingPanelPosition = .bottom
+    public let initialState: FloatingPanelState
+    public let anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring]
+    
+    init(initialState: FloatingPanelState, anchors: [FloatingPanelState : FloatingPanelLayoutAnchoring]) {
+        self.initialState = initialState
+        self.anchors = anchors
+    }
+ 
+    public func backdropAlpha(for state: FloatingPanelState) -> CGFloat {
+        0.3
+    }
+    
+    public func prepareLayout(surfaceView: UIView, in view: UIView) -> [NSLayoutConstraint] {
+        if UIDevice.isPad {
+            return [
+                surfaceView.leadingAnchor.constraint(equalTo: view.readableContentGuide.leadingAnchor),
+                surfaceView.trailingAnchor.constraint(equalTo: view.readableContentGuide.trailingAnchor)
+            ]
+        } else {
+            return [
+                surfaceView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                surfaceView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ]
+        }
+    }
+    
+}
+
+extension AnytypePopupLayout {
+    
+    static func adjustedPopupHeight(_ height: CGFloat, insetted: Bool) -> CGFloat {
+        let adjustedHeight = height + AnytypePopup.Constants.grabberHeight
+        
+        guard insetted else { return adjustedHeight }
+        
+        return adjustedHeight + AnytypePopup.Constants.bottomInset
+    }
+    
+}

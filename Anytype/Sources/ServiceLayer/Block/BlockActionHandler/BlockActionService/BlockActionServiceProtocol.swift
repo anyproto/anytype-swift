@@ -1,21 +1,29 @@
 import BlocksModels
 import UIKit
+import ProtobufMessages
 
 protocol BlockActionServiceProtocol {
-    
+
+    func paste(slots: PastboardSlots, blockId: BlockId, range: NSRange)
     func upload(blockId: BlockId, filePath: String)
     
     func turnInto(_ style: BlockText.Style, blockId: BlockId)
     func turnIntoPage(blockId: BlockId) -> BlockId?
     
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition)
+    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool)
     func addChild(info: BlockInformation, parentId: BlockId)
     
     func delete(blockId: BlockId)
     
     func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId?
     
-    func split(info: BlockInformation, position: Int, newBlockContentType: BlockText.Style, attributedString: NSAttributedString)
+    func split(
+        _ string: NSAttributedString,
+        blockId: BlockId,
+        mode: Anytype_Rpc.Block.Split.Request.Mode,
+        position: Int,
+        newBlockContentType: BlockText.Style
+    )
     
     func bookmarkFetch(blockId: BlockId, url: String)
     
@@ -26,7 +34,7 @@ protocol BlockActionServiceProtocol {
     
     func duplicate(blockId: BlockId)
     
-    func setFields(contextID: BlockId, blockFields: [BlockFields])
+    func setFields(blockFields: [BlockFields])
 
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
     @discardableResult
@@ -40,4 +48,10 @@ protocol BlockActionServiceProtocol {
         position: BlockPosition,
         url: String
     )
+}
+
+extension BlockActionServiceProtocol {
+    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition) {
+        add(info: info, targetBlockId: targetBlockId, position: position, setFocus: true)
+    }
 }

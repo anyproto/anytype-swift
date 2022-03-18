@@ -4,7 +4,7 @@ import UIKit
 final class MarkupsViewController: UIViewController {
 
     private let backdropView = UIView()
-    private(set) lazy var containerShadowView = RoundedShadowView(view: containerStackView, cornerRadius: 20)
+    private(set) lazy var containerShadowView = RoundedShadowView(view: containerStackView, cornerRadius: 12)
 
     private var containerStackView: UIStackView = {
         let containerStackView = UIStackView()
@@ -109,10 +109,10 @@ final class MarkupsViewController: UIViewController {
     private func setupViews() {
         containerStackView.backgroundColor = .backgroundSecondary
 
-        containerShadowView.view.layer.cornerRadius = 16
+        containerShadowView.view.layer.cornerRadius = 12
         containerShadowView.view.layer.masksToBounds = true
         containerShadowView.shadowLayer.fillColor = UIColor.shadowPrimary.cgColor
-        containerShadowView.shadowLayer.shadowRadius = 10
+        containerShadowView.shadowLayer.shadowRadius = 40
 
         view.backgroundColor = .clear
         backdropView.backgroundColor = .clear

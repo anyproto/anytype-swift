@@ -3,12 +3,13 @@ import AnytypeCore
 
 extension CustomTextView {
     enum KeyboardAction {
-        case enterAtTheBeginingOfContent(String)
-        case enterInsideContent(position: Int)
-        case enterAtTheEndOfContent
+        case enterForEmpty
+        case enterInside(string: NSAttributedString, position: Int)
+        case enterAtTheEnd(string: NSAttributedString)
+        case enterAtTheBegining
         
-        case deleteAtTheBeginingOfContent
-        case deleteOnEmptyContent
+        case deleteAtTheBegining
+        case deleteForEmpty
     }
 }
 
@@ -16,30 +17,35 @@ extension CustomTextView.KeyboardAction {
     private static let newLine = "\n"
     private static let emptyString = ""
     
-    static func build(text: String, range: NSRange, replacement: String) -> Self? {
+    static func build(attributedText: NSAttributedString, range: NSRange, replacement: String) -> Self? {
+        let text = attributedText.string
         guard let range = Range(range, in: text) else { return nil }
 
-        let isEmpty = range.isEmpty && range.lowerBound == text.startIndex
+        let emptyRange = range.isEmpty && range.lowerBound == text.startIndex
 
         if replacement == newLine {
-            if isEmpty {
-                return .enterAtTheBeginingOfContent(text)
+            if emptyRange && text.isEmpty {
+                return .enterForEmpty
             }
 
             if text.endIndex == range.upperBound {
-                return .enterAtTheEndOfContent
+                return .enterAtTheEnd(string: attributedText)
+            }
+            
+            if text.startIndex == range.lowerBound {
+                return .enterAtTheBegining
             }
             
             let position = String(text[..<range.lowerBound]).count
-            return .enterInsideContent(position: position)
+            return .enterInside(string: attributedText, position: position)
         }
         
-        if text == emptyString, replacement == emptyString, isEmpty {
-            return .deleteOnEmptyContent
+        if text == emptyString, replacement == emptyString, emptyRange {
+            return .deleteForEmpty
         }
         
-        if replacement == emptyString, isEmpty {
-            return .deleteAtTheBeginingOfContent
+        if replacement == emptyString, emptyRange {
+            return .deleteAtTheBegining
         }
         
         return nil

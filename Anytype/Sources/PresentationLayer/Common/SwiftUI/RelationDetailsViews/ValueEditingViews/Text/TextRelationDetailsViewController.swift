@@ -28,7 +28,7 @@ final class TextRelationDetailsViewController: UIViewController {
             let windowHeight: CGFloat = window.bounds.height
             let topPadding: CGFloat = window.safeAreaInsets.top
             
-            return windowHeight - topPadding - AnytypePopup.grabberHeight
+            return windowHeight - topPadding - AnytypePopup.Constants.grabberHeight
         }()
         
         super.init(nibName: nil, bundle: nil)
@@ -100,8 +100,11 @@ private extension TextRelationDetailsViewController {
         let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil) { _ in }
         textView.isScrollEnabled = false
         textView.font = AnytypeFont.uxBodyRegular.uiKitFont
-        textView.textColor = UIColor.textSecondary
+        textView.textColor = UIColor.textPrimary
         textView.textContainerInset = UIEdgeInsets(top: 12, left: 20, bottom: 12, right: 20)
+        textView.textContainer.lineFragmentPadding = 0.0
+        textView.backgroundColor = nil
+        textView.linkTextAttributes = [:]
         
         return textView
     }
@@ -167,6 +170,7 @@ private extension TextRelationDetailsViewController {
         }
         
         view.addSubview(textView) {
+            $0.height.greaterThanOrEqual(to: Constants.textViewMinHeight)
             $0.top.equal(to: titleLabel.bottomAnchor)
             self.textViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: -Constants.textViewBottomInset)
             $0.leading.equal(to: view.leadingAnchor)
@@ -204,6 +208,7 @@ private extension TextRelationDetailsViewController {
     
     enum Constants {
         static let titleLabelHeight: CGFloat = 48
+        static let textViewMinHeight: CGFloat = 48
         static let textViewBottomInset: CGFloat = 20
         static let actionButtonSize: CGSize = CGSize(width: 36, height: 36)
         static let actionButtonRightInset: CGFloat = 20

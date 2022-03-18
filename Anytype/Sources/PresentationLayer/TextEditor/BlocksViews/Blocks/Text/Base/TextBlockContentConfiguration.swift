@@ -6,12 +6,13 @@ struct TextBlockContentConfiguration: BlockConfiguration {
     typealias View = TextBlockContentView
 
     struct Actions {
+        let paste: (PastboardSlots, NSRange) -> Void
         let createEmptyBlock: () -> Void
         let showPage: (EditorScreenData) -> Void
         let openURL: (URL) -> Void
 
         let changeTextStyle: (MarkupType, NSRange) -> Void
-        let handleKeyboardAction: (CustomTextView.KeyboardAction, NSAttributedString) -> Void
+        let handleKeyboardAction: (CustomTextView.KeyboardAction) -> Void
         let becomeFirstResponder: () -> Void
         let resignFirstResponder: () -> Void
 

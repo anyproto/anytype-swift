@@ -9,8 +9,7 @@ struct TagRelationRowView: View {
             TagView(tag: tag, guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines)
             Spacer()
         }
-        .frame(height: 20)
-        .padding(.vertical, 12)
+        .frame(height: 48)
     }
 }
 

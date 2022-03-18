@@ -14,7 +14,7 @@ struct InlineNavigationBar<Title: View, Button: View>: View {
     }
     
     var body: some View {
-        HStack {
+        HStack(spacing: 0) {
             Spacer()
                 .frame(maxWidth: .infinity)
             
@@ -30,7 +30,7 @@ struct InlineNavigationBar<Title: View, Button: View>: View {
     private var rightView: some View {
         HStack {
             Spacer()
-            rightButton.padding(.horizontal)
+            rightButton.padding(.horizontal, 16)
         }
     }
     

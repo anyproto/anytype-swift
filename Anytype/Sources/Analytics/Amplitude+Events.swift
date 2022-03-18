@@ -161,4 +161,9 @@ extension Amplitude {
         logEvent(eventName,
                  withEventProperties: [AmplitudeEventsPropertiesKey.format: format.name])
     }
+
+    func logCreateObject(objectType: String) {
+        logEvent(AmplitudeEventsName.createObject,
+                 withEventProperties: [AmplitudeEventsPropertiesKey.objectType: objectType])
+    }
 }

@@ -89,14 +89,17 @@ struct TextBlockViewModel: BlockViewModelProtocol {
 
     func action() -> TextBlockContentConfiguration.Actions {
         return .init(
+            paste: { slots, range in
+                actionHandler.past(slots: slots, blockId: blockId, range: range)
+            },
             createEmptyBlock: { actionHandler.createEmptyBlock(parentId: information.id) },
             showPage: showPage,
             openURL: openURL,
             changeTextStyle: { attribute, range in
                 actionHandler.changeTextStyle(attribute, range: range, blockId: information.id)
             },
-            handleKeyboardAction: { (keyboardAction, attributedString) in
-                actionHandler.handleKeyboardAction(keyboardAction, info: information, attributedText: attributedString)
+            handleKeyboardAction: { action in
+                actionHandler.handleKeyboardAction(action, info: information)
             },
             becomeFirstResponder: {
 

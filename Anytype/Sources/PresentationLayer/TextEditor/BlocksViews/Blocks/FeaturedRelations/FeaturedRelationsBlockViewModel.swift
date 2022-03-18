@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import BlocksModels
 
-#warning("Check if block updates when featuredRelations is changed")
+#warning("Check if block updates when featuredRelations is changed. Waiting for new imp of flow layout")
 struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let indentationLevel: Int = 0
     let information: BlockInformation

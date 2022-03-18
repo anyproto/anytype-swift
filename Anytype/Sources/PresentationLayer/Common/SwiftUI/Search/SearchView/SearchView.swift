@@ -12,10 +12,10 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
     @StateObject var viewModel: SearchViewModel
     
     var body: some View {
-        VStack() {
+        VStack(spacing: 0) {
             DragIndicator()
-            titleView
-            SearchBar(text: $searchText, focused: true)
+            TitleView(title: title)
+            SearchBar(text: $searchText, focused: true, placeholder: viewModel.placeholder)
             content
         }
         .background(Color.backgroundSecondary)
@@ -25,18 +25,6 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             Amplitude.instance().logSearchQuery(context, length: searchText.count)
         }
         .onAppear { search(text: searchText) }
-    }
-    
-    private var titleView: some View {
-        Group {
-            if let title = title {
-                Spacer.fixedHeight(6)
-                AnytypeText(title, style: .uxTitle1Semibold, color: .textPrimary)
-                Spacer.fixedHeight(12)
-            } else {
-                EmptyView()
-            }
-        }
     }
     
     private var content: some View {
@@ -66,15 +54,8 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
                                     Amplitude.instance().logSearchResult(index: index + 1, length: searchText.count)
                                 }
                             ) {
-                                SearchCell(
-                                    data: searchData,
-                                    descriptionTextColor: searchData.descriptionTextColor,
-                                    shouldShowCallout: searchData.shouldShowCallout,
-                                    shouldShowDescription: searchData.shouldShowDescription
-                                )
+                                SearchCell(data: searchData)
                             }
-                            .frame(maxWidth: .infinity)
-                            .divider(spacing: 0, leadingPadding: 72, trailingPadding: 12, alignment: .leading)
                         }
                     }, header: {
                         if section.sectionName.isNotEmpty {

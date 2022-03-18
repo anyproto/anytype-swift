@@ -21,25 +21,42 @@ struct ObjectLayoutRow: View {
             onTap()
         }
         label: {
-            HStack(spacing: 12) {
-                layout.icon.frame(width: 44, height: 44)
-                VStack(alignment: .leading, spacing: 0) {
-                    AnytypeText(layout.title, style: .uxTitle2Medium, color: .textPrimary)
-                    AnytypeText(layout.description, style: .caption1Regular, color: .textSecondary)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.9)
+            row
+        }
+    }
+    
+    private var row: some View {
+        HStack(spacing: 0) {
+            layout.icon.frame(width: 44, height: 44)
+            
+            Spacer.fixedWidth(12)
+            
+            VStack(alignment: .leading, spacing: 0) {
+                Spacer()
+                
+                HStack(spacing: 0) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        AnytypeText(layout.title, style: .uxTitle2Medium, color: .textPrimary)
+                        AnytypeText(layout.description, style: .caption1Regular, color: .textSecondary)
+                            .lineLimit(1)
+                            .minimumScaleFactor(0.9)
+                    }
+                    
+                    Spacer(minLength: 12)
+                    
+                    if isSelected {
+                        Image.optionChecked.frame(width: 24, height: 24).foregroundColor(.buttonSelected)
+                    }
                 }
                 
                 Spacer()
-                
-                if isSelected {
-                    Image.optionChecked.frame(width: 24, height: 24).foregroundColor(.buttonSelected)
-                }
+                AnytypeDivider()
             }
         }
-        .padding(.top, 12)
-        .divider(spacing: 12)            
+        .frame(height: 60)
+        .padding(.horizontal, 16)
     }
+    
 }
 
 private extension DetailsLayout {

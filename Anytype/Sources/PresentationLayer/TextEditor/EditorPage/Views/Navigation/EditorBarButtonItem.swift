@@ -75,7 +75,7 @@ private extension EditorBarButtonItem {
     
     func updateState() {
         backgroundView.alpha = state.backgroundAlpha
-        button.tintColor = state.textColor
+        button.tintColor = state.buttonTintColor
     }
     
     func enableAnimation(_ inAnimator: ViewAnimator<UIView>, _ outAnimator: ViewAnimator<UIView>) {

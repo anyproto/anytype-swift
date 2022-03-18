@@ -31,7 +31,7 @@ struct RelationObjectsSearchRowView: View {
                 Image.optionChecked.foregroundColor(.textSecondary)
             }
         }
-        .frame(height: 64)
+        .frame(height: 68)
         .padding(.horizontal, 20)
         .divider(spacing: 0, leadingPadding: 80, trailingPadding: 20)
     }

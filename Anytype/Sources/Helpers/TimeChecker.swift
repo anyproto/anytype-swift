@@ -17,7 +17,7 @@ final class TimeChecker {
     }
     
     /// Returns true in case of time interval (threshold) has beed exceeded from last time calling this method, otherwise return false
-    func exceedsTimeInterval() -> Bool {
+    var exceedsTimeInterval: Bool {
         if let previous = self.previous, CACurrentMediaTime() - previous < self.threshold {
             return false
         }

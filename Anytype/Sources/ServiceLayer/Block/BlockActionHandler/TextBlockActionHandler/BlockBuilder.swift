@@ -1,28 +1,10 @@
 import BlocksModels
 import AnytypeCore
 
-struct BlockBuilder {
-    static func createInformation(info: BlockInformation) -> BlockInformation? {
-        switch info.content {
-        case .text:
-            return createContentType(info: info).flatMap { content in
-                BlockInformation.empty(content: content)
-            }
-        default: return nil
-        }
-    }
-    
+struct BlockBuilder {    
     static func createNewPageLink(targetBlockId: BlockId) -> BlockInformation {
         let content: BlockContent = .link(BlockLink(targetBlockID: targetBlockId, style: .page, fields: [:]))
         return BlockInformation.empty(content: content)
-    }
-
-    static func textStyle(info: BlockInformation) -> BlockText.Style? {
-        if case let .text(textContent) = createContentType(info: info) {
-            return textContent.contentType
-        }
-        
-        return nil
     }
     
     static func createNewBlock(type: BlockContentType) -> BlockInformation? {
@@ -40,7 +22,7 @@ struct BlockBuilder {
     private static func createContent(type: BlockContentType) -> BlockContent? {
         switch type {
         case let .text(style):
-            return .text(.init(contentType: style))
+            return .text(.empty(contentType: style))
         case .bookmark:
             return .bookmark(.empty())
         case let .divider(style):
@@ -57,17 +39,16 @@ struct BlockBuilder {
         }
     }
     
-    
-    private static func createContentType(info: BlockInformation) -> BlockContent? {
+    private static func createContent(info: BlockInformation) -> BlockContent? {
         switch info.content {
         case let .text(blockType):
             switch blockType.contentType {
-            case .bulleted where blockType.text != "": return .text(.init(contentType: .bulleted))
-            case .checkbox where blockType.text != "": return .text(.init(contentType: .checkbox))
-            case .numbered where blockType.text != "": return .text(.init(contentType: .numbered))
-            case .toggle where UserSession.shared.isToggled(blockId: info.id) : return .text(.init(contentType: .text))
-            case .toggle where blockType.text != "": return .text(.init(contentType: .toggle))
-            default: return .text(.init(contentType: .text))
+            case .bulleted where blockType.text != "": return .text(.empty(contentType: .bulleted))
+            case .checkbox where blockType.text != "": return .text(.empty(contentType: .checkbox))
+            case .numbered where blockType.text != "": return .text(.empty(contentType: .numbered))
+            case .toggle where ToggleStorage.shared.isToggled(blockId: info.id) : return .text(.empty(contentType: .text))
+            case .toggle where blockType.text != "": return .text(.empty(contentType: .toggle))
+            default: return .text(.empty(contentType: .text))
             }
         default: return nil
         }

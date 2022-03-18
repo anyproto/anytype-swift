@@ -2,31 +2,61 @@ import BlocksModels
 import SwiftUI
 
 struct ObjectSearchData: SearchDataProtocol {
+    
     let id = UUID()
-
-    let searchKind: SearchKind
-    private let details: ObjectDetails
-
-    let blockId: BlockId
-    let searchTitle: String
+    
+    let title: String
     let description: String
-    var shouldShowDescription: Bool { true }
-
-    var shouldShowCallout: Bool {
-        switch searchKind {
-        case .objects:
-            return true
-        case .objectTypes:
-            return false
-        }
+    let callout: String
+    
+    let blockId: BlockId
+    
+    private let searchKind: SearchKind
+    private let details: ObjectDetails
+    
+    init(searchKind: SearchKind, details: ObjectDetails) {
+        self.details = details
+        self.searchKind = searchKind
+        self.title = details.title
+        self.description = details.description
+        self.callout = details.objectType.name
+        
+        self.blockId = details.id
     }
 
+}
+
+extension ObjectSearchData {
+    
+    var shouldShowDescription: Bool {
+        description.isNotEmpty
+    }
+    
     var descriptionTextColor: Color {
         switch searchKind {
-        case .objects:
-            return .textPrimary
-        case .objectTypes:
-            return .textSecondary
+        case .objects: return .textPrimary
+        case .objectTypes: return .textSecondary
+        }
+    }
+    
+    var descriptionFont: AnytypeFont {
+        switch searchKind {
+        case .objects: return .relation3Regular
+        case .objectTypes: return .relation2Regular
+        }
+    }
+    
+    var shouldShowCallout: Bool {
+        switch searchKind {
+        case .objects: return callout.isNotEmpty
+        case .objectTypes: return false
+        }
+    }
+    
+    var verticalInset: CGFloat {
+        switch searchKind {
+        case .objects: return 16
+        case .objectTypes: return 20
         }
     }
 
@@ -39,23 +69,12 @@ struct ObjectSearchData: SearchDataProtocol {
         if layout == .todo {
             return .todo(details.isDone)
         } else {
-            return details.icon.flatMap { .icon($0) } ?? .placeholder(searchTitle.first)
+            return details.icon.flatMap { .icon($0) } ?? .placeholder(title.first)
         }
-    }
-
-    var callout: String {
-        details.objectType.name
     }
     
     var viewType: EditorViewType {
         details.editorViewType
     }
-
-    init(searchKind: SearchKind, details: ObjectDetails) {
-        self.details = details
-        self.searchKind = searchKind
-        self.searchTitle = details.title
-        self.description = details.description
-        self.blockId = details.id
-    }
+    
 }

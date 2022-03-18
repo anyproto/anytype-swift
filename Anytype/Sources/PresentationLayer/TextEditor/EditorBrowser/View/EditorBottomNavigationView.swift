@@ -48,10 +48,11 @@ final class EditorBottomNavigationView: UIView {
             layout: { stackView in
                 stackView.layoutUsing.anchors {
                     $0.pinToSuperview(
-                        excluding: [.top, .bottom],
+                        excluding: [.bottom],
                         insets: UIEdgeInsets(top: 0, left: 60, bottom: 0, right: -60)
                     )
-                    $0.centerY.equal(to: self.centerYAnchor)
+                    $0.height.equal(to: Constants.height)
+                    $0.bottom.equal(to: self.safeAreaLayoutGuide.bottomAnchor)
                 }
             }
         ) {
@@ -134,4 +135,12 @@ final class EditorBottomNavigationView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+extension EditorBottomNavigationView {
+    
+    enum Constants {
+        static let height: CGFloat = 48
+    }
+    
 }

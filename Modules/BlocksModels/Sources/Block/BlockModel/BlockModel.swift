@@ -14,14 +14,11 @@ public final class BlockModel: ObservableObject, BlockModelProtocol {
     }
 
     public var isToggled: Bool {
-        get {
-            UserSession.shared.toggles[information.id] ?? false
-        }
+        ToggleStorage.shared.isToggled(blockId: information.id)
     }
 
     public func toggle() {
-        let newValue = !isToggled
-        UserSession.shared.toggles[information.id] = newValue
+        ToggleStorage.shared.toggle(blockId: information.id)
     }
 
     public var kind: BlockKind {

@@ -166,8 +166,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSettings(viewModel: ObjectSettingsViewModel) {
-        let rootView = ObjectSettingsContainerView(viewModel: viewModel)
-        presentOverCurrentContextSwuftUIView(view: rootView, model: rootView.viewModel)
+        let popup = AnytypePopup(viewModel: viewModel, insetted: true)
+        viewModel.onDismiss = { [weak popup] in popup?.dismiss(animated: false) }
+        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
     }
     
     func showCoverPicker(viewModel: ObjectCoverPickerViewModel) {
@@ -180,6 +181,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         guard let viewController = viewController else { return }
         let controller = settingAssembly.iconPicker(viewModel: viewModel)
         viewController.present(controller, animated: true)
+    }
+    
+    func showLayoutPicker(viewModel: ObjectLayoutPickerViewModel) {
+        let popup = AnytypePopup(viewModel: viewModel)
+        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {

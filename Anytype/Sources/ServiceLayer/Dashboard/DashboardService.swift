@@ -9,9 +9,8 @@ class DashboardService: DashboardServiceProtocol {
     private let objectsService = ObjectActionsService()
     
     func createNewPage() -> BlockId? {
-        #warning("replace with CreateObject")
-//        Amplitude.instance().logEvent(AmplitudeEventsName.pageCreate)
         let defaultTypeUrl = ObjectTypeProvider.defaultObjectType.url
+
         return objectsService.createPage(
             contextId: "",
             targetId: "",

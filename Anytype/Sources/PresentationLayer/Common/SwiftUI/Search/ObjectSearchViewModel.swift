@@ -29,6 +29,10 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
     @Published var searchData: [SearchDataSection<ObjectSearchData>] = []
     var onSelect: (ObjectSearchData) -> ()
     var onDismiss: () -> () = {}
+
+    var placeholder: String {
+        return "Search".localized
+    }
     
     lazy var descriptionTextColor = searchKind.descriptionTextColor
     lazy var shouldShowCallout = searchKind.shouldShowCallout

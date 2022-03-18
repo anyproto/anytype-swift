@@ -38,6 +38,7 @@ enum AmplitudeEventsName {
 
 
     // Object events
+    static let createObject = "CreateObject"
     static let addToFavorites = "AddToFavorites"
     static let removeFromFavorites = "RemoveFromFavorites"
     static let moveToBin = "MoveToBin"

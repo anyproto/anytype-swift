@@ -48,10 +48,6 @@ extension UIImage {
         static let dots = createImage("TextEditor/Divider/Dots")
     }
     
-    enum blockLink {
-        static let empty = createImage("TextEditor/Link/empty")
-    }
-    
     enum blockFile {
         static let noImage = createImage("no_image")
         
@@ -101,6 +97,7 @@ extension UIImage {
             static let phone = createImage("relation_small_phone_icon")
             static let email = createImage("relation_small_email_icon")
             static let goToURL = createImage("relation_small_go_to_url_icon")
+            static let locked = createImage("relation_locked")
         }
         static let checkboxChecked = createImage("relation_checkbox_checked")
         static let checkboxUnchecked = createImage("relation_checkbox_unchecked")

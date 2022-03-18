@@ -3,10 +3,11 @@ import Amplitude
 
 
 struct ObjectActionsView: View {
-    @EnvironmentObject var viewModel: ObjectActionsViewModel
-
+    
+    @ObservedObject var viewModel: ObjectActionsViewModel
+ 
     var body: some View {
-        ScrollView (.horizontal, showsIndicators: false) {
+        ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 20) {
                 ForEach(viewModel.objectActions) { setting in
                     ObjectActionRow(setting: setting) {
@@ -26,5 +27,6 @@ struct ObjectActionsView: View {
                 }
             }
         }
+        .frame(height: 108)
     }
 }

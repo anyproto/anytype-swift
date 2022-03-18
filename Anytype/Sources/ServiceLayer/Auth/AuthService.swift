@@ -44,20 +44,38 @@ final class AuthService: AuthServiceProtocol {
         return result
     }
 
-    func createAccount(name: String, imagePath: String, alphaInviteCode: String) -> Result<Void, Error> {
+    func createAccount(name: String, imagePath: String, alphaInviteCode: String) -> Result<Void, CreateAccountServiceError> {
         let result = Anytype_Rpc.Account.Create.Service
             .invoke(name: name, avatar: .avatarLocalPath(imagePath), alphaInviteCode: alphaInviteCode)
         
-        if let response = result.getValue(domain: .authService) {
-            AccountConfigurationProvider.shared.config = .init(config: response.config)
+        switch result {
+        case .success(let response):
+            return handleCreateAccount(response: response)
+        case .failure(let error as NSError):
+            guard
+                let code = Anytype_Rpc.Account.Create.Response.Error.Code(rawValue: error.code),
+                let serviceError = CreateAccountServiceError(code: code)
+            else {
+                return .failure(.unknownError)
+            }
             
-            let accountId = response.account.id
-            Amplitude.instance().setUserId(accountId)
-            Amplitude.instance().logAccountCreate(accountId)
-            UserDefaultsConfig.usersId = accountId
+            return .failure(serviceError)
+        }
+    }
+    
+    private func handleCreateAccount(response: Anytype_Rpc.Account.Create.Response) -> Result<Void, CreateAccountServiceError> {
+        if let error = CreateAccountServiceError(code: response.error.code) {
+            return .failure(error)
         }
         
-        return result.map { _ in }
+        AccountConfigurationProvider.shared.config = .init(config: response.config)
+
+        let accountId = response.account.id
+        Amplitude.instance().setUserId(accountId)
+        Amplitude.instance().logAccountCreate(accountId)
+        UserDefaultsConfig.usersId = accountId
+        
+        return .success(Void())
     }
 
     func walletRecovery(mnemonic: String) -> Result<Void, AuthServiceError> {

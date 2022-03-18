@@ -35,28 +35,22 @@ public struct BlockText: Hashable {
     }
 }
 
-// MARK: ContentType / Text / Supplements
+// MARK: Updates
 public extension BlockText {
-    init(contentType: Style) {
-        self.init(
-            text: "", marks: .init(), color: nil,
-            contentType: contentType, checked: false, iconEmoji: "", iconImage: ""
-        )
-    }
-            
-    // MARK: - Create
-
-    static var empty: Self {
-        .init(
-            text: "", marks: .init(), color: nil,
-            contentType: .text, checked: false, iconEmoji: "", iconImage: ""
-        )
-    }
-    
     func updated(number: Int) -> BlockText {
         BlockText(
             text: text, marks: marks, color: color, contentType: contentType,
             checked: checked, number: number, iconEmoji: iconEmoji, iconImage: iconImage
+        )
+    }
+}
+
+// MARK: Empty
+public extension BlockText {
+    static func empty(contentType: Style) -> BlockText {
+        BlockText(
+            text: "", marks: .init(), color: nil, contentType: contentType,
+            checked: false, iconEmoji: "", iconImage: ""
         )
     }
 }

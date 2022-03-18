@@ -70,12 +70,16 @@ class SearchNewRelationViewModel: ObservableObject, Dismissible {
 
         newSearchData.forEach { section in
             guard case let .addFromLibriry(relationsMetadata) = section else { return }
+            searchData.removeAll()
 
             let filteredRelationsMetadata = relationsMetadata.filter { relationMetadata in
                 relationMetadata.name.contains(text)
             }
+            searchData.append(.createNewRelation)
 
-            searchData = [.addFromLibriry(filteredRelationsMetadata)]
+            if filteredRelationsMetadata.isNotEmpty {
+                searchData.append(.addFromLibriry(filteredRelationsMetadata))
+            }
         }
     }
 

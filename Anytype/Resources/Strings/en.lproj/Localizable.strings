@@ -226,6 +226,10 @@
 
 "Editor.MovingState.ScrollToSelectedPlace" = "Scroll to select a place";
 
+// MARK: - Link to search
+
+"Paste link or search objects" = "Paste link or search objects";
+
 // MARK: - Main search
 "There is no object named" = "There is no object named";
 "Try to create a new one or search for something else" = "Try to create a new one or search for something else";
@@ -233,3 +237,7 @@
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Settings";
 "Alert.CameraPermissions.GoToSettings" = "Go to Settings?";
+
+// MARK: - Relation
+"Create from scratch" = "Create from scratch";
+"Create relation" = "Create relation";

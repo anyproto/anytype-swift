@@ -17,7 +17,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let singleService = ServiceLocator.shared.blockActionsServiceSingle()
     private let pageService = ObjectActionsService()
     private let textService = TextService()
-    private let listService = BlockListService()
+    private let listService: BlockListServiceProtocol
     private let bookmarkService = BookmarkService()
     private let fileService = BlockActionsServiceFile()
     private let cursorManager: EditorCursorManager
@@ -26,45 +26,48 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     init(
         documentId: String,
+        listService: BlockListServiceProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         cursorManager: EditorCursorManager
     ) {
         self.documentId = documentId
+        self.listService = listService
         self.modelsHolder = modelsHolder
         self.cursorManager = cursorManager
     }
 
-    // MARK: Actions/Add
+    // MARK: Actions
+
+    func paste(slots: PastboardSlots, blockId: BlockId, range: NSRange) {
+        singleService.paste(contextId: documentId, focusedBlockId: blockId, selectedTextRange: range, isPartOfBlock: false, slots: slots)
+    }
 
     func addChild(info: BlockInformation, parentId: BlockId) {
         add(info: info, targetBlockId: parentId, position: .inner)
     }
 
-    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition) {
+    func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
         guard let blockId = singleService
                 .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
-
-        cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+        
+        if setFocus {
+            cursorManager.blockFocus = .init(id: blockId, position: .beginning)
+        }
     }
 
     func split(
-        info: BlockInformation,
+        _ string: NSAttributedString,
+        blockId: BlockId,
+        mode: Anytype_Rpc.Block.Split.Request.Mode,
         position: Int,
-        newBlockContentType: BlockText.Style,
-        attributedString: NSAttributedString
+        newBlockContentType: BlockText.Style
     ) {
-        let blockId = info.id
-
         let range = NSRange(location: position, length: 0)
-        let documentId = self.documentId
-        
-        // if splitted block has child then new block should be child of splitted block
-        let mode: Anytype_Rpc.Block.Split.Request.Mode = info.childrenIds.count > 0 ? .inner : .bottom
 
         textService.setTextForced(
             contextId: documentId,
             blockId: blockId,
-            middlewareString: AttributedTextConverter.asMiddleware(attributedText: attributedString)
+            middlewareString: AttributedTextConverter.asMiddleware(attributedText: string)
         )
 
         guard let blockId = textService.split(
@@ -92,9 +95,6 @@ final class BlockActionService: BlockActionServiceProtocol {
             position: position,
             templateId: ""
         ) else { return nil }
-
-        #warning("replace with CreateObject")
-//        Amplitude.instance().logEvent(AmplitudeEventsName.blockCreatePage)
 
         return newBlockId
     }
@@ -141,8 +141,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
     
-    func setFields(contextID: BlockId, blockFields: [BlockFields]) {
-        listService.setFields(contextId: contextID, fields: blockFields)
+    func setFields(blockFields: [BlockFields]) {
+        listService.setFields(fields: blockFields)
     }
     
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
@@ -168,7 +168,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 private extension BlockActionService {
 
     func setDividerStyle(blockId: BlockId, style: BlockDivider.Style) {
-        listService.setDivStyle(contextId: documentId, blockIds: [blockId], style: style)
+        listService.setDivStyle(blockIds: [blockId], style: style)
     }
 }
 
@@ -202,7 +202,7 @@ extension BlockActionService {
     }
     
     func setBackgroundColor(blockId: BlockId, color: MiddlewareColor) {
-        listService.setBackgroundColor(contextId: documentId, blockIds: [blockId], color: color)
+        listService.setBackgroundColor(blockIds: [blockId], color: color)
     }
 }
 

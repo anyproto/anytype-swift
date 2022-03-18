@@ -10,7 +10,7 @@ final class CustomTextView: UIView {
         }
     }
     
-    var options = CustomTextViewOptions(createNewBlockOnEnter: false, autocorrect: true)
+    var autocorrect = true
     
     // MARK: - Private variables
     
@@ -34,12 +34,6 @@ final class CustomTextView: UIView {
     
     override var intrinsicContentSize: CGSize {
         .zero
-    }
-    
-    // MARK: - Internal functions
-    
-    func setCustomTextViewOptions(options: CustomTextViewOptions) {
-        self.options = options
     }
     
     // MARK: - Private functions
@@ -70,6 +64,7 @@ private extension CustomTextView {
         textView.isScrollEnabled = false
         textView.backgroundColor = nil
         textView.linkTextAttributes = [:]
+
         textView.removeInteractions { interaction in
             return interaction is UIContextMenuInteraction ||
             interaction is UIDragInteraction ||
@@ -100,7 +95,7 @@ private extension CustomTextView {
         textView.addInteraction(linkSelection)
         textView.addInteraction(mentionSelection)
         textView.addInteraction(objectSelection)
-        textView.autocorrectionType = options.autocorrect ? .yes : .no
+        textView.autocorrectionType = autocorrect ? .yes : .no
         return textView
     }
     

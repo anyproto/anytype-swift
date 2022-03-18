@@ -46,13 +46,13 @@ struct SearchNewRelationView: View {
                                     showCreateNewRelation = true
                                 }
                             ) {
-                                NewRelationCell(cellKind: .createNew)
+                                NewRelationCell(cellKind: .createNew(searchText: searchText))
                                     .padding([.leading, .trailing], 20)
                             }
                             .frame(maxWidth: .infinity)
                             .divider(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading)
                             .sheet(isPresented: $showCreateNewRelation) {
-                                CreateNewRelationView(viewModel: viewModel.createNewRelationViewModel)
+                                CreateNewRelationView(relationName: searchText, viewModel: viewModel.createNewRelationViewModel)
                             }
                         }
                     case let .addFromLibriry(relationsMetaData):
@@ -63,6 +63,7 @@ struct SearchNewRelationView: View {
                                     action: {
                                         viewModel.addRelation(relationMetadata)
                                         presentationMode.wrappedValue.dismiss()
+
                                         Amplitude.instance().logSearchResult(index: index + 1, length: searchText.count)
                                     }
                                 ) {
