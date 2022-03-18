@@ -560,7 +560,7 @@ class KeyboardActionHandlerTests: XCTestCase {
 
         XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
         XCTAssertEqual(service.turnIntoStyle, .text)
-        XCTAssertEqual(service.turnIntoBlockId, "id")
+        XCTAssertEqual(service.turnIntoBlockId, "1d")
     }
     
     // MARK: - deleteAtTheBegining
