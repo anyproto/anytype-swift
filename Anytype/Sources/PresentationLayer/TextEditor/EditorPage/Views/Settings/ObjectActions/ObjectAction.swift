@@ -19,8 +19,12 @@ enum ObjectAction: Hashable, Identifiable {
         if !objectRestrictions.objectRestriction.contains(.delete) {
             allCases.append(.archive(isArchived: details.isArchived))
         }
+
         allCases.append(.favorite(isFavorite: details.isFavorite))
-        allCases.append(.locked(isLocked: isLocked))
+
+        if details.objectType.url != ObjectTemplateType.bundled(.set).rawValue {
+            allCases.append(.locked(isLocked: isLocked))
+        }
 
         return allCases
     }
