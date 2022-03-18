@@ -44,11 +44,15 @@ struct ObjectBasicIconPicker: View {
             AnytypeText("Change icon".localized, style: .uxTitle1Semibold, color: .textPrimary)
                 .multilineTextAlignment(.center)
         } rightButton: {
-            Button {
-                viewModel.removeIcon()
-                dismiss()
-            } label: {
-                AnytypeText("Remove".localized, style: .uxBodyRegular, color: Color.System.red)
+            if viewModel.isRemoveButtonAvailable {
+                Button {
+                    viewModel.removeIcon()
+                    dismiss()
+                } label: {
+                    AnytypeText("Remove".localized, style: .uxBodyRegular, color: Color.System.red)
+                }
+            } else {
+                EmptyView()
             }
         }
     }

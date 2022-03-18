@@ -2,7 +2,7 @@ import UIKit
 
 struct ObjectHeaderEmptyConfiguration: UIContentConfiguration, Hashable {
     let data: ObjectHeaderEmptyData
-    var isLocked = false
+    private(set) var isLocked = false
     
     func makeContentView() -> UIView & UIContentView {
         ObjectHeaderEmptyContentView(configuration: self)
