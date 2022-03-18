@@ -165,4 +165,8 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: String) {
         assertionFailure()
     }
+
+    func past(slots: PastboardSlots, blockId: BlockId, range: NSRange) {
+        assertionFailure()
+    }
 }

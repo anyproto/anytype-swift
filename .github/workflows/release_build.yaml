@@ -45,6 +45,9 @@ jobs:
 
       - name: Run unit tests
         run: bundle exec fastlane tests
+        env:
+          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
+          FASTLANE_XCODE_LIST_TIMEOUT: 900
 
       - name: Build and upload to Testflight
         run: |
@@ -58,4 +61,4 @@ jobs:
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
           APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
           FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
-
+          FASTLANE_XCODE_LIST_TIMEOUT: 900
