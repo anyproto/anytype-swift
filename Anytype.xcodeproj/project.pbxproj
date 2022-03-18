@@ -2102,7 +2102,6 @@
 				03D1516423FB443E004027CE /* Configuration */,
 				03D1516123FB437A004027CE /* Dashboard */,
 				03CB3F00230C104F003D5DFD /* Auth */,
-				3D3A9C3E265BC9AC000F07DB /* Publisher+Sink.swift */,
 				3DE296462617439C00EADB0A /* ServiceLocator.swift */,
 			);
 			path = ServiceLayer;
@@ -4681,6 +4680,7 @@
 		3DC06DFC26774DD6005F0A45 /* Combine */ = {
 			isa = PBXGroup;
 			children = (
+				3D3A9C3E265BC9AC000F07DB /* Publisher+Sink.swift */,
 				034A30402405CDBE002599E2 /* CombineExtension.swift */,
 			);
 			path = Combine;

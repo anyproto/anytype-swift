@@ -6,15 +6,17 @@ import AnytypeCore
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
-    func paste(contextId: BlockId,
-               focusedBlockId: BlockId,
-               selectedTextRange: NSRange,
-               selectedBlockIds: [BlockId],
-               isPartOfBlock: Bool,
-               textSlot: String?,
-               htmlSlot: String?,
-               anySlots:  [Anytype_Model_Block]?,
-               fileSlots: [Anytype_Rpc.Block.Paste.Request.File]?) -> BlockId? {
+    func paste(
+        contextId: BlockId,
+        focusedBlockId: BlockId,
+        selectedTextRange: NSRange,
+        selectedBlockIds: [BlockId],
+        isPartOfBlock: Bool,
+        textSlot: String?,
+        htmlSlot: String?,
+        anySlots:  [Anytype_Model_Block]?,
+        fileSlots: [Anytype_Rpc.Block.Paste.Request.File]?
+    ) -> BlockId? {
 
         let result = Anytype_Rpc.Block.Paste.Service.invoke(
             contextID: contextId,
