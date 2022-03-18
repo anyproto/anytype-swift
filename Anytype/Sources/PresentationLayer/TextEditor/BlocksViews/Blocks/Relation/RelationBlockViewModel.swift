@@ -4,10 +4,10 @@ import AnytypeCore
 
 
 struct RelationBlockViewModel: BlockViewModelProtocol {
-    var info: BlockInformation
+    let info: BlockInformation
 
-    var relation: Relation
-    var actionOnValue: ((_ relation: Relation) -> Void)?
+    let relation: Relation
+    let actionOnValue: ((_ relation: Relation) -> Void)?
 
     // MARK: - BlockViewModelProtocol methods
 
@@ -22,9 +22,13 @@ struct RelationBlockViewModel: BlockViewModelProtocol {
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         if FeatureFlags.uikitRelationBlock {
-            return RelationBlockContentConfiguration(actionOnValue: actionOnValue, relation: relation).asCellBlockConfiguration
+            return RelationBlockContentConfiguration(
+                actionOnValue: actionOnValue, relation: relation
+            ).asCellBlockConfiguration
         }
-        return DepricatedRelationBlockContentConfiguration(actionOnValue: actionOnValue, relation: relation).asCellBlockConfiguration
+        return DepricatedRelationBlockContentConfiguration(
+            actionOnValue: actionOnValue, relation: relation
+        ).asCellBlockConfiguration
     }
     
 }

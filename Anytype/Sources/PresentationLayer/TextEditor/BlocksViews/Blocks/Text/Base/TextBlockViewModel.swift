@@ -9,7 +9,7 @@ struct TextBlockURLInputParameters {
 }
 
 struct TextBlockViewModel: BlockViewModelProtocol {
-    var info: BlockInformation
+    let info: BlockInformation
 
     private let content: BlockText
     private let isCheckable: Bool
