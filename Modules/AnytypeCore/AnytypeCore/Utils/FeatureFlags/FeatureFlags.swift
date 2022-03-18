@@ -32,9 +32,8 @@ public final class FeatureFlags {
         .showAlertOnAssert : true,
         .analytics : false,
         .middlewareLogs: false,
-        .uikitRelationBlocks: false,
         .clipboard: false,
-        .newRelationOptionsSearch: !isRelease
+        .uikitRelationBlocks: true
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -71,10 +70,6 @@ public extension FeatureFlags {
 
     static var clipboard: Bool {
         features[.clipboard, default: false]
-    }
-    
-    static var newRelationOptionsSearch: Bool {
-        features[.newRelationOptionsSearch, default: false]
     }
 
 }
