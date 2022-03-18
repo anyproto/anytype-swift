@@ -3,33 +3,22 @@ import BlocksModels
 import AnytypeCore
 
 
-class RelationBlockViewModel: BlockViewModelProtocol {
-    var information: BlockInformation
-    var indentationLevel: Int
+struct RelationBlockViewModel: BlockViewModelProtocol {
+    var info: BlockInformation
 
     var relation: Relation
     var actionOnValue: ((_ relation: Relation) -> Void)?
-
-    // MARK: - init
-
-    init(information: BlockInformation, indentationLevel: Int, relation: Relation, actionOnValue: ((_ relation: Relation) -> Void)?) {
-        self.information = information
-        self.indentationLevel = indentationLevel
-        self.relation = relation
-        self.actionOnValue = actionOnValue
-    }
 
     // MARK: - BlockViewModelProtocol methods
 
     var hashable: AnyHashable {
         [
-            indentationLevel,
-            information,
+            info,
             relation
         ] as [AnyHashable]
     }
 
-    func didSelectRowInTableView() {}
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         if FeatureFlags.uikitRelationBlock {

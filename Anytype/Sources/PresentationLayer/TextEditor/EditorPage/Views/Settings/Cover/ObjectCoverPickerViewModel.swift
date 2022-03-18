@@ -1,11 +1,3 @@
-//
-//  ObjectCoverPickerViewModel.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 15.07.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import BlocksModels
 import Combine
@@ -17,13 +9,15 @@ final class ObjectCoverPickerViewModel: ObservableObject {
 
     // MARK: - Private variables
     
+    private let objectId: BlockId
     private let imageUploadingDemon = MediaFileUploadingDemon.shared
-    private let fileService: BlockActionsServiceFile
-    private let detailsService: DetailsService
+    private let fileService: FileActionsServiceProtocol
+    private let detailsService: DetailsServiceProtocol
         
     // MARK: - Initializer
     
-    init(fileService: BlockActionsServiceFile, detailsService: DetailsService) {
+    init(objectId: BlockId, fileService: FileActionsServiceProtocol, detailsService: DetailsServiceProtocol) {
+        self.objectId = objectId
         self.fileService = fileService
         self.detailsService = detailsService
     }
@@ -52,6 +46,7 @@ extension ObjectCoverPickerViewModel {
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: ObjectHeaderImageUploadingWorker(
+                objectId: objectId,
                 detailsService: detailsService,
                 usecase: .cover
             )

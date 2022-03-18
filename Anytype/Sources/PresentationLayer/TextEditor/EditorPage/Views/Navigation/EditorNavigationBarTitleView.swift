@@ -7,6 +7,7 @@ final class EditorNavigationBarTitleView: UIView {
     
     private let iconImageView = ObjectIconImageView()
     private let titleLabel = UILabel()
+    private let lockImageView = UIImageView()
     
     init() {
         super.init(frame: .zero)
@@ -17,37 +18,53 @@ final class EditorNavigationBarTitleView: UIView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
 }
 
 extension EditorNavigationBarTitleView: ConfigurableView {
-    
-    struct Model {
-        let icon: ObjectIconImage?
-        let title: String?
-    }
-    
-    func configure(model: Model) {
-        titleLabel.text = model.title
-        
-        switch model.icon {
-        case .some(let objectIconImage):
-            iconImageView.isHidden = false
-            iconImageView.configure(
-                model: ObjectIconImageView.Model(
-                    iconImage: objectIconImage,
-                    usecase: .openedObjectNavigationBar
-                )
-            )
-        case .none:
-            iconImageView.isHidden = true
+
+    enum Mode {
+        struct TitleModel {
+            let icon: ObjectIconImage?
+            let title: String?
         }
+
+        case title(TitleModel)
+        case modeTitle(String)
+    }
+
+    
+    func configure(model: Mode) {
+        switch model {
+        case let .title(titleModel):
+            titleLabel.text = titleModel.title
+            titleLabel.font = .uxCalloutRegular
+            switch titleModel.icon {
+            case .some(let objectIconImage):
+                iconImageView.isHidden = false
+                iconImageView.configure(
+                    model: ObjectIconImageView.Model(
+                        iconImage: objectIconImage,
+                        usecase: .openedObjectNavigationBar
+                    )
+                )
+            case .none:
+                iconImageView.isHidden = true
+            }
+        case let .modeTitle(text):
+            titleLabel.text = text
+            titleLabel.font = .uxTitle1Semibold
+        }
+    }
+
+    func setIsLocked(_ isLocked: Bool) {
+        lockImageView.isHidden = !isLocked
     }
     
     /// Parents alpha sets automatically by system when it attaches to NavigationBar. 
     func setAlphaForSubviews(_ alpha: CGFloat) {
         titleLabel.alpha = alpha
         iconImageView.alpha = alpha
+        lockImageView.alpha = alpha
     }
     
 }
@@ -55,7 +72,6 @@ extension EditorNavigationBarTitleView: ConfigurableView {
 private extension EditorNavigationBarTitleView {
     
     func setupView() {
-        titleLabel.font = .uxCalloutRegular
         titleLabel.textColor = .textPrimary
         titleLabel.numberOfLines = 1
         
@@ -63,22 +79,28 @@ private extension EditorNavigationBarTitleView {
         
         stackView.axis = .horizontal
         stackView.spacing = 8
+        lockImageView.image = .editorNavigation.lockedObject
+        lockImageView.contentMode = .center
         
         setupLayout()        
     }
     
     func setupLayout() {
         addSubview(stackView) {
-            $0.width.lessThanOrEqual(to: 170)
+            $0.width.lessThanOrEqual(to: 300)
             $0.pinToSuperview()
         }
 
         stackView.addArrangedSubview(iconImageView)
         stackView.addArrangedSubview(titleLabel)
+        stackView.addArrangedSubview(lockImageView)
 
         iconImageView.layoutUsing.anchors {
             $0.size(CGSize(width: 18, height: 18))
         }
+
+        lockImageView.layoutUsing.anchors {
+            $0.size(CGSize(width: 10, height: 18))
+        }
     }
-    
 }

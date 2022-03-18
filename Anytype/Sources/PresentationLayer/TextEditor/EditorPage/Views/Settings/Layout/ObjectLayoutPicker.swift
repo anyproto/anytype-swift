@@ -11,8 +11,10 @@ struct ObjectLayoutPicker: View {
             TitleView(title: "Choose layout type".localized)
             layoutList
         }
-        .padding(.bottom, 44)
         .background(Color.backgroundSecondary)
+        .readSize { size in
+            viewModel.viewDidUpdateHeight(size.height)
+        }
     }
     
     private var layoutList: some View {
@@ -27,13 +29,5 @@ struct ObjectLayoutPicker: View {
                 )
             }
         }
-    }
-}
-
-struct DocumentLayoutPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        ObjectLayoutPicker(viewModel: ObjectLayoutPickerViewModel(
-            detailsService: DetailsService(objectId: "")
-        ))
     }
 }

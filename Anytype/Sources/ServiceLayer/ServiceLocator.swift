@@ -42,12 +42,16 @@ final class ServiceLocator {
         ObjectActionsService()
     }
     
-    func fileService() -> BlockActionsServiceFileProtocol {
-        BlockActionsServiceFile()
+    func fileService() -> FileActionsServiceProtocol {
+        FileActionsService()
     }
     
     func searchService() -> SearchService {
         SearchService()
+    }
+    
+    func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
+        DetailsService(objectId: objectId, service: objectActionsService())
     }
     
     func subscriptionService() -> SubscriptionsServiceProtocol {

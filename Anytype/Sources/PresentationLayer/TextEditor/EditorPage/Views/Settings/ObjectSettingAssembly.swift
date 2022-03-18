@@ -1,7 +1,26 @@
 import SwiftUI
+import BlocksModels
 
 final class ObjectSettingAssembly {
-    func coverPicker(viewModel: ObjectCoverPickerViewModel) -> UIViewController {
+    func settingsPopup(document: BaseDocumentProtocol, router: EditorRouterProtocol) -> UIViewController {
+        let viewModel = ObjectSettingsViewModel(
+            document: document,
+            objectDetailsService: ServiceLocator.shared.detailsService(objectId: document.objectId),
+            router: router
+        )
+        let popup = AnytypePopup(viewModel: viewModel, insetted: true)
+        viewModel.onDismiss = { [weak popup] in popup?.dismiss(animated: false) }
+        
+        return popup
+    }
+    
+    func coverPicker(document: BaseDocumentProtocol) -> UIViewController {
+        let viewModel = ObjectCoverPickerViewModel(
+            objectId: document.objectId,
+            fileService: ServiceLocator.shared.fileService(),
+            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
+        )
+        
         let controller = UIHostingController(
             rootView: ObjectCoverPicker(viewModel: viewModel)
         )
@@ -13,7 +32,13 @@ final class ObjectSettingAssembly {
         return controller
     }
     
-    func iconPicker(viewModel: ObjectIconPickerViewModel) -> UIViewController {
+    func iconPicker(document: BaseDocumentProtocol) -> UIViewController {
+        let viewModel = ObjectIconPickerViewModel(
+            document: document,
+            fileService: ServiceLocator.shared.fileService(),
+            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
+        )
+        
         let controller = UIHostingController(
             rootView: ObjectIconPicker(viewModel: viewModel)
         )
@@ -25,5 +50,13 @@ final class ObjectSettingAssembly {
         )
         
         return controller
+    }
+    
+    func layoutPicker(document: BaseDocumentProtocol) -> UIViewController {
+        let viewModel = ObjectLayoutPickerViewModel(
+            document: document,
+            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
+        )
+        return AnytypePopup(viewModel: viewModel)
     }
 }

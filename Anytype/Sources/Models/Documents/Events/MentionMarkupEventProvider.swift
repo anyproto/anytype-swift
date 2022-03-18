@@ -5,29 +5,29 @@ import ProtobufMessages
 final class MentionMarkupEventProvider {
     
     private let objectId: BlockId
-    private let blocksContainer: BlockContainerModelProtocol
+    private let infoContainer: InfoContainerProtocol
     private let detailsStorage: ObjectDetailsStorage
         
     init(
         objectId: BlockId,
-        blocksContainer: BlockContainerModelProtocol,
+        infoContainer: InfoContainerProtocol,
         detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared
     ) {
         self.objectId = objectId
-        self.blocksContainer = blocksContainer
+        self.infoContainer = infoContainer
         self.detailsStorage = detailsStorage
     }
     
-    func updateMentionsEvent() -> EventsListenerUpdate {
-        let blockIds = blocksContainer
+    func updateMentionsEvent() -> DocumentUpdate {
+        let blockIds = infoContainer
             .children(of: objectId)
-            .compactMap { updateIfNeeded(model: $0) }
+            .compactMap { updateIfNeeded(info: $0) }
         
         return .blocks(blockIds: Set(blockIds))
     }
     
-    func updateIfNeeded(model: BlockModelProtocol) -> BlockId? {
-        guard case let .text(content) = model.information.content else { return nil }
+    func updateIfNeeded(info: BlockInformation) -> BlockId? {
+        guard case let .text(content) = info.content else { return nil }
         guard !content.marks.marks.isEmpty else { return nil }
         
         var string = content.text
@@ -78,11 +78,12 @@ final class MentionMarkupEventProvider {
                 }
             }
         }
+        
         if needUpdate {
-            update(model: model, string: string, marks: sortedMarks)
+            update(info: info, string: string, marks: sortedMarks)
         }
         
-        return needUpdate ? model.information.id : nil
+        return needUpdate ? info.id : nil
     }
     
     private func mentionRange(in string: String, range: Anytype_Model_Range) -> Range<String.Index>? {
@@ -96,14 +97,15 @@ final class MentionMarkupEventProvider {
     }
     
     private func update(
-        model: BlockModelProtocol,
+        info: BlockInformation,
         string: String,
         marks: [Anytype_Model_Block.Content.Text.Mark]) {
-        if case var .text(content) = model.information.content {
+        if case var .text(content) = info.content {
             content.text = string
             content.marks = Anytype_Model_Block.Content.Text.Marks(marks: marks)
-            var model = model
-            model.information.content = .text(content)
+            infoContainer.add(
+                info.updated(content: .text(content))
+            )
         }
     }
 }

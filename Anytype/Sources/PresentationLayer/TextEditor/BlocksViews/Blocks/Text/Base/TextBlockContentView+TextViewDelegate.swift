@@ -4,8 +4,12 @@ import BlocksModels
 
 extension TextBlockContentView: CustomTextViewDelegate {
 
-    func paste(slots: PastboardSlots, range: NSRange) {
-        actions?.paste(slots, range)
+    func shouldPaste(range: NSRange) -> Bool {
+        actions?.shouldPaste(range) ?? true
+    }
+
+    func copy(range: NSRange) {
+        actions?.copy(range)
     }
 
     func changeFirstResponderState(_ change: CustomTextViewFirstResponderChange) {
@@ -41,12 +45,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
         actions?.changeTextStyle(attribute, range)
     }
     
-    func keyboardAction(_ action: CustomTextView.KeyboardAction) {
-        // In the case of frequent pressing
-        // we can send multiple requests to middle
-        // from the same block, it will leads to wrong order of blocks
-        guard pressingEnterTimeChecker.exceedsTimeInterval else { return }
-        
+    func keyboardAction(_ action: CustomTextView.KeyboardAction) {        
         actions?.handleKeyboardAction(action)
     }
     

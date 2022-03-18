@@ -16,8 +16,8 @@
 				<array>
 					<string>art</string>
 				</array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
+				<key>UIPrerenderedIcon</key>
+				<false/>
 			</dict>
 			<key>oldSchool</key>
 			<dict>
@@ -25,8 +25,8 @@
 				<array>
 					<string>oldSchool</string>
 				</array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
+				<key>UIPrerenderedIcon</key>
+				<false/>
 			</dict>
 		</dict>
 	</dict>
@@ -40,8 +40,8 @@
 				<array>
 					<string>art</string>
 				</array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
+				<key>UIPrerenderedIcon</key>
+				<false/>
 			</dict>
 			<key>oldSchool</key>
 			<dict>
@@ -49,8 +49,8 @@
 				<array>
 					<string>oldSchool</string>
 				</array>
-                <key>UIPrerenderedIcon</key>
-                <false/>
+				<key>UIPrerenderedIcon</key>
+				<false/>
 			</dict>
 		</dict>
 	</dict>
@@ -63,9 +63,9 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.11.0</string>
+	<string>0.12.0</string>
 	<key>CFBundleVersion</key>
-	<string>15</string>
+	<string>11</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -155,6 +155,20 @@
 					<string>audio/x-flac</string>
 				</array>
 			</dict>
+		</dict>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string></string>
+			<key>UTTypeIconFiles</key>
+			<array/>
+			<key>UTTypeIdentifier</key>
+			<string>com.anytype.anySlots</string>
+			<key>UTTypeTagSpecification</key>
+			<dict/>
 		</dict>
 	</array>
 	<key>UserDefinedSettings</key>

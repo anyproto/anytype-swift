@@ -5,8 +5,10 @@ extension UIImage {
     static let backArrow = createImage("backArrow")
     static let slashMenuBackArrow = createImage("slash_back_arrow")
     static let searchIcon = createImage("searchTextFieldIcon")
+    static let more = createImage("more")
     
     static let ghost = createImage(ImageName.ghost)
+    
 }
 
 extension UIImage {
@@ -19,17 +21,19 @@ extension UIImage {
             static let move = createImage("TextEditor/BlocksOption/move")
             static let turnInto = createImage("TextEditor/BlocksOption/turn_into_object")
             static let download = createImage("TextEditor/BlocksOption/download")
+            static let paste = createImage("TextEditor/BlocksOption/paste")
+            static let copy = createImage("TextEditor/BlocksOption/copy")
         }
 
         static let bigGhost = createImage("TextEditor/bigGhost")
     }
     
     enum editorNavigation {
-        static let more = createImage("TextEditor/More")
         static let home = createImage("TextEditor/home")
         static let search = createImage("TextEditor/search")
         static let backArrow = createImage("TextEditor/backArrow")
         static let forwardArrow = createImage("TextEditor/forwardArrow")
+        static let lockedObject = createImage("TextEditor/locked_object")
     }
     
     enum edititngToolbar {

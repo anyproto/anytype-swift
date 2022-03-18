@@ -1,11 +1,3 @@
-//
-//  AudioBlockViewModel.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 14.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import BlocksModels
 import UIKit
 import AVFoundation
@@ -14,15 +6,9 @@ import AVFoundation
 final class AudioBlockViewModel: BlockViewModelProtocol {
     private(set) var playerItem: AVPlayerItem?
 
-    var hashable: AnyHashable {
-        [
-            indentationLevel,
-            information
-        ] as [AnyHashable]
-    }
+    var hashable: AnyHashable { [ info ] as [AnyHashable] }
 
-    let indentationLevel: Int
-    let information: BlockInformation
+    let info: BlockInformation
     let fileData: BlockFile
 
     let showAudioPicker: (BlockId) -> ()
@@ -34,14 +20,12 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     weak var audioPlayerView: AudioPlayerViewInput?
 
     init(
-        indentationLevel: Int,
-        information: BlockInformation,
+        info: BlockInformation,
         fileData: BlockFile,
         showAudioPicker: @escaping (BlockId) -> (),
         downloadAudio: @escaping (FileId) -> ()
     ) {
-        self.indentationLevel = indentationLevel
-        self.information = information
+        self.info = info
         self.fileData = fileData
         self.showAudioPicker = showAudioPicker
         self.downloadAudio = downloadAudio
@@ -51,7 +35,8 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         }
     }
 
-    func didSelectRowInTableView() {
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {
+        if case .locked = editorEditingState { return }
         switch fileData.state {
         case .empty, .error:
             showAudioPicker(blockId)
@@ -72,8 +57,12 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             guard playerItem != nil else {
                 return emptyViewConfiguration(state: .error)
             }
-            audioPlayer.updateDelegate(audioId: information.id, delegate: self)
-            return AudioBlockContentConfiguration(file: fileData, trackId: information.id, audioPlayerViewDelegate: self).asCellBlockConfiguration
+            audioPlayer.updateDelegate(audioId: info.id, delegate: self)
+            return AudioBlockContentConfiguration(
+                file: fileData,
+                trackId: info.id,
+                audioPlayerViewDelegate: self
+            ).asCellBlockConfiguration
         }
     }
 

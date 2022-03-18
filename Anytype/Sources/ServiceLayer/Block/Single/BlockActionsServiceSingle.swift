@@ -1,30 +1,61 @@
-import Foundation
 import Combine
 import BlocksModels
 import ProtobufMessages
 import Amplitude
 import AnytypeCore
-import BlocksModels
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
-    func paste(contextId: BlockId, focusedBlockId: BlockId, selectedTextRange: NSRange, isPartOfBlock: Bool, slots: PastboardSlots) {
-        #warning("implement in next prs isPartOfBlock, selectedBlockIds, anySlot, fileSlot")
-        Anytype_Rpc.Block.Paste.Service.invoke(
+    func paste(contextId: BlockId,
+               focusedBlockId: BlockId,
+               selectedTextRange: NSRange,
+               selectedBlockIds: [BlockId],
+               isPartOfBlock: Bool,
+               textSlot: String?,
+               htmlSlot: String?,
+               anySlots:  [Anytype_Model_Block]?,
+               fileSlots: [Anytype_Rpc.Block.Paste.Request.File]?) -> BlockId? {
+
+        let result = Anytype_Rpc.Block.Paste.Service.invoke(
             contextID: contextId,
             focusedBlockID: focusedBlockId,
             selectedTextRange: selectedTextRange.asMiddleware,
-            selectedBlockIds: [],
+            selectedBlockIds: selectedBlockIds,
             isPartOfBlock: isPartOfBlock,
-            textSlot: slots.textSlot ?? "",
-            htmlSlot: slots.htmlSlot ?? "",
-            anySlot: [],
-            fileSlot: []
+            textSlot: textSlot ?? "",
+            htmlSlot: htmlSlot ?? "",
+            anySlot: anySlots ?? [],
+            fileSlot: fileSlots ?? []
         )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockActionsService)?
-            .send()
+            .getValue(domain: .blockActionsService)
 
+        let events = result.map {
+            EventsBunch(event: $0.event)
+        }
+        events?.send()
+
+        return result?.blockIds.last
+    }
+
+    func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> [PasteboardSlot]? {
+        let blockskModels = blocksInfo.compactMap {
+            BlockInformationConverter.convert(information: $0)
+        }
+
+        let result = Anytype_Rpc.Block.Copy.Service.invoke(
+            contextID: contextId,
+            blocks: blockskModels,
+            selectedTextRange: selectedTextRange.asMiddleware
+        )
+            .getValue(domain: .blockActionsService)
+
+        if let result = result {
+            let anySlot = result.anySlot.compactMap { modelBlock in
+                try? modelBlock.jsonString()
+            }
+            return [.html(result.htmlSlot), .text(result.textSlot), .anySlots(anySlot)]
+        }
+        return nil
     }
 
     func open(contextId: BlockId, blockId: BlockId) -> Bool {
@@ -43,7 +74,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {
-        guard let blockInformation = BlockInformationConverter.convert(information: info) else {
+        guard let block = BlockInformationConverter.convert(information: info) else {
             anytypeAssertionFailure("addActionBlockIsNotParsed", domain: .blockActionsService)
             return nil
         }
@@ -51,7 +82,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         Amplitude.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
 
         let response = Anytype_Rpc.Block.Create.Service
-            .invoke(contextID: contextId, targetID: targetId, block: blockInformation, position: position.asMiddleware)
+            .invoke(contextID: contextId, targetID: targetId, block: block, position: position.asMiddleware)
         
         guard let result = response.getValue(domain: .blockActionsService) else { return nil }
 

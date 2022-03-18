@@ -1,4 +1,5 @@
 import BlocksModels
+import UIKit
 
 protocol AttachmentRouterProtocol {
     func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext)
@@ -19,10 +20,11 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
     
     func showStyleMenu(information: BlockInformation)
-    func showSettings(viewModel: ObjectSettingsViewModel)
-    func showCoverPicker(viewModel: ObjectCoverPickerViewModel)
-    func showIconPicker(viewModel: ObjectIconPickerViewModel)
-    func showLayoutPicker(viewModel: ObjectLayoutPickerViewModel)
+    
+    func showSettings()
+    func showCoverPicker()
+    func showIconPicker()
+    func showLayoutPicker()
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
@@ -37,4 +39,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
     
     func goBack()
+    
+    func presentFullscreen(_ vc: UIViewController)
+    func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
 }

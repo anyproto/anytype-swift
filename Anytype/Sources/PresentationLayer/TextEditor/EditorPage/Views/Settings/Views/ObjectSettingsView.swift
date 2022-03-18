@@ -6,32 +6,16 @@ struct ObjectSettingsView: View {
     
     @ObservedObject var viewModel: ObjectSettingsViewModel
     
-    @State private var isIconPickerPresented = false
-    @State private var isCoverPickerPresented = false
     @State private var isRelationsViewPresented = false
     
     var body: some View {
         settings
             .background(Color.backgroundSecondary)
-            .sheet(
-                isPresented: $isCoverPickerPresented
-            ) {
-                ObjectCoverPicker(viewModel: viewModel.coverPickerViewModel)
-            }
-            .sheet(
-                isPresented: $isIconPickerPresented
-            ) {
-                ObjectIconPicker(viewModel: viewModel.iconPickerViewModel)
-            }
+        
             .sheet(
                 isPresented: $isRelationsViewPresented
             ) {
                 RelationsListView(viewModel: viewModel.relationsViewModel)
-                    .onChange(of: isRelationsViewPresented) { isRelationsViewPresented in
-                        if isRelationsViewPresented {
-                            Amplitude.instance().logEvent(AmplitudeEventsName.objectRelationShow)
-                        }
-                    }
             }
     }
     
@@ -61,13 +45,16 @@ struct ObjectSettingsView: View {
         ObjectSettingRow(setting: viewModel.settings[index], isLast: index == viewModel.settings.count - 1) {
             switch viewModel.settings[index] {
             case .icon:
-                isIconPickerPresented = true
+                viewModel.showIconPicker()
             case .cover:
-                isCoverPickerPresented = true
+                viewModel.showCoverPicker()
             case .layout:
                 viewModel.showLayoutSettings()
             case .relations:
-                isRelationsViewPresented = true
+                if isRelationsViewPresented == false {
+                    Amplitude.instance().logEvent(AmplitudeEventsName.objectRelationShow)
+                    isRelationsViewPresented = true
+                }
             }
         }
     }
@@ -75,24 +62,5 @@ struct ObjectSettingsView: View {
     private enum Constants {
         static let edgeInset: CGFloat = 16
         static let dividerSpacing: CGFloat = 12
-    }
-}
-
-struct ObjectSettingsView_Previews: PreviewProvider {
-    @State static private var isIconPickerPresented = false
-    @State static private var isCoverPickerPresented = false
-    @State static private var isLayoutPickerPresented = false
-    @State static private var isRelationsViewPresented = false
-    
-    static var previews: some View {
-        ObjectSettingsView(
-            viewModel: ObjectSettingsViewModel(
-                objectId: "dummyPageId",
-                objectDetailsService: DetailsService(objectId: ""),
-                popScreenAction: {},
-                onLayoutSettingsTap: { _ in},
-                onRelationValueEditingTap: { _ in }
-            )
-        )
     }
 }

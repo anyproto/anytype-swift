@@ -12,106 +12,98 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         }
     }
     
-    @Published private(set) var details: ObjectDetails = ObjectDetails(id: "", values: [:])
+    var settings: [ObjectSetting] {
+        settingsBuilder.build(
+            details: details,
+            restrictions: objectActionsViewModel.objectRestrictions,
+            isLocked: document.isLocked
+        )
+    }
+    
+    var details: ObjectDetails {
+        document.details ?? .empty
+    }
     
     let objectActionsViewModel: ObjectActionsViewModel
 
-    let iconPickerViewModel: ObjectIconPickerViewModel
-    let coverPickerViewModel: ObjectCoverPickerViewModel
-    let layoutPickerViewModel: ObjectLayoutPickerViewModel
     let relationsViewModel: RelationsListViewModel
     
-    private(set) var popupLayout: FloatingPanelLayout = ConstantHeightPopupLayout(height: 0, insetted: true)
+    private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: true)
     
-    private weak var сontentDelegate: AnytypePopupContentDelegate?
-    private let objectId: String
-    private let objectDetailsService: DetailsService
+    private weak var popup: AnytypePopupProxy?
+    private weak var router: EditorRouterProtocol?
+    private let document: BaseDocumentProtocol
+    private let objectDetailsService: DetailsServiceProtocol
+    private let settingsBuilder = ObjectSettingBuilder()
     
-    private let onLayoutSettingsTap: (ObjectLayoutPickerViewModel) -> ()
+    private var subscription: AnyCancellable?
     
     init(
-        objectId: String,
-        objectDetailsService: DetailsService,
-        popScreenAction: @escaping () -> (),
-        onLayoutSettingsTap: @escaping (ObjectLayoutPickerViewModel) -> (),
-        onRelationValueEditingTap: @escaping (String) -> ()
+        document: BaseDocumentProtocol,
+        objectDetailsService: DetailsServiceProtocol,
+        router: EditorRouterProtocol
     ) {
-        self.objectId = objectId
+        self.document = document
         self.objectDetailsService = objectDetailsService
+        self.router = router
 
-        self.onLayoutSettingsTap = onLayoutSettingsTap
-        
-        self.iconPickerViewModel = ObjectIconPickerViewModel(
-            fileService: BlockActionsServiceFile(),
-            detailsService: objectDetailsService
-        )
-        self.coverPickerViewModel = ObjectCoverPickerViewModel(
-            fileService: BlockActionsServiceFile(),
-            detailsService: objectDetailsService
-        )
-        
-        self.layoutPickerViewModel = ObjectLayoutPickerViewModel(
-            detailsService: objectDetailsService
-        )
-        
         self.relationsViewModel = RelationsListViewModel(
-            relationsService: RelationsService(objectId: objectId),
-            onValueEditingTap: onRelationValueEditingTap
+            relationsService: RelationsService(objectId: document.objectId),
+            onValueEditingTap: { [weak router] in
+                router?.showRelationValueEditingView(key: $0, source: .object)
+            }
         )
 
-        self.objectActionsViewModel = ObjectActionsViewModel(objectId: objectId, popScreenAction: popScreenAction)
+        self.objectActionsViewModel = ObjectActionsViewModel(
+            objectId: document.objectId,
+            popScreenAction: { [weak router] in
+                router?.goBack()
+            }
+        )
+        
+        setupSubscription()
+        onDocumentUpdate()
     }
-    
-    func update(objectRestrictions: ObjectRestrictions, parsedRelations: ParsedRelations) {
-        if let details = ObjectDetailsStorage.shared.get(id: objectId) {
-            objectActionsViewModel.details = details
-            self.details = details
-            iconPickerViewModel.details = details
-            layoutPickerViewModel.details = details
 
-            relationsViewModel.update(with: parsedRelations)
-        }
-        objectActionsViewModel.objectRestrictions = objectRestrictions
+    func showLayoutSettings() {
+        router?.showLayoutPicker()
     }
     
-    func showLayoutSettings() {
-        onLayoutSettingsTap(layoutPickerViewModel)
+    func showIconPicker() {
+        router?.showIconPicker()
+    }
+    
+    func showCoverPicker() {
+        router?.showCoverPicker()
     }
     
     func viewDidUpdateHeight(_ height: CGFloat) {
-        popupLayout = ConstantHeightPopupLayout(height: height, insetted: true)
-        сontentDelegate?.didAskInvalidateLayout(false)
+        popupLayout = .constantHeight(height: height, floatingPanelStyle: true)
+        popup?.updateLayout(false)
     }
     
-}
-
-extension ObjectSettingsViewModel {
-    
-    var settings: [ObjectSetting] {
-        if details.type == ObjectTemplateType.BundledType.profile.rawValue {
-            return ObjectSetting.allCases.filter { $0 != .layout }
-        }
-        
-        switch details.layout {
-        case .basic:
-            return ObjectSetting.allCases
-        case .profile:
-            return ObjectSetting.allCases
-        case .todo:
-            return ObjectSetting.allCases.filter { $0 != .icon }
-        case .note:
-            return [.layout, .relations]
-        case .set:
-            return ObjectSetting.allCases
+    // MARK: - Private
+    private func setupSubscription() {
+        subscription = document.updatePublisher.sink { [weak self] _ in
+            self?.onDocumentUpdate()
         }
     }
     
+    private func onDocumentUpdate() {
+        objectWillChange.send()
+        if let details = document.details {
+            objectActionsViewModel.details = details
+            relationsViewModel.update(with: document.parsedRelations)
+        }
+        objectActionsViewModel.isLocked = document.isLocked
+        objectActionsViewModel.objectRestrictions = document.objectRestrictions
+    }
 }
 
 extension ObjectSettingsViewModel: AnytypePopupViewModelProtocol {
     
-    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
-        self.сontentDelegate = сontentDelegate
+    func onPopupInstall(_ popup: AnytypePopupProxy) {
+        self.popup = popup
     }
     
     func makeContentView() -> UIViewController {

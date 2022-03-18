@@ -4,20 +4,29 @@ import AnytypeCore
 
 
 final class BaseDocument: BaseDocumentProtocol {
-    var updatePublisher: AnyPublisher<EventsListenerUpdate, Never> { updateSubject.eraseToAnyPublisher() }
+    var updatePublisher: AnyPublisher<DocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
     let objectId: BlockId
+    private(set) var isOpened = false
 
-    let blocksContainer: BlockContainerModelProtocol = BlockContainer()
+    let infoContainer: InfoContainerProtocol = InfoContainer()
     let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
     let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
     
-    var objectRestrictions: ObjectRestrictions {
-        restrictionsContainer.restrinctions
+    var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
+
+    var isLocked: Bool {
+        guard let isLockedField = infoContainer.get(id: objectId)?
+                .fields[BlockFieldBundledKey.isLocked.rawValue],
+              case let .boolType(isLocked) = isLockedField else {
+            return false
+        }
+
+        return isLocked
     }
     
     private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
     private let eventsListener: EventsListener
-    private let updateSubject = PassthroughSubject<EventsListenerUpdate, Never>()
+    private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
     private let relationBuilder = RelationsBuilder()
     private let detailsStorage = ObjectDetailsStorage.shared
 
@@ -33,7 +42,7 @@ final class BaseDocument: BaseDocumentProtocol {
         
         self.eventsListener = EventsListener(
             objectId: objectId,
-            blocksContainer: blocksContainer,
+            infoContainer: infoContainer,
             relationStorage: relationsStorage,
             restrictionsContainer: restrictionsContainer
         )
@@ -47,28 +56,30 @@ final class BaseDocument: BaseDocumentProtocol {
 
     // MARK: - BaseDocumentProtocol
 
+    @discardableResult
     func open() -> Bool {
-        return blockActionsService.open(contextId: objectId, blockId: objectId)
+        isOpened = blockActionsService.open(contextId: objectId, blockId: objectId)
+        return isOpened
     }
     
     func close(){
         blockActionsService.close(contextId: objectId, blockId: objectId)
     }
     
-    var objectDetails: ObjectDetails? {
+    var details: ObjectDetails? {
         detailsStorage.get(id: objectId)
     }
     
     #warning("TODO")
     // Looks like this code runs on main thread.
     // This operation should be done in `eventsListener.onUpdateReceive` closure
-    // OR store children blocks instead of tree in `BlockContainer`
-    var children: [BlockModelProtocol] {
-        guard let model = blocksContainer.model(id: objectId) else {
+    // OR store children blocks instead of tree in `InfoContainer`
+    var children: [BlockInformation] {
+        guard let model = infoContainer.get(id: objectId) else {
             anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)
             return []
         }
-        return model.children(container: blocksContainer)
+        return model.flatChildrenTree(container: infoContainer)
     }
 
     // MARK: - Private methods

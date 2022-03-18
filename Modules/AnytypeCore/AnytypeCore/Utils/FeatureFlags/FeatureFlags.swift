@@ -7,6 +7,8 @@ public enum Feature: String, Codable {
 
     case uikitRelationBlocks = "UIKit relation blocks"
     case clipboard = "Clipboard"
+    
+    case newRelationOptionsSearch = "New Search View for searching relation options"
 }
 
 public final class FeatureFlags {

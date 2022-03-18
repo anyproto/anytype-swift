@@ -13,20 +13,30 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private let service: BlockActionServiceProtocol
     private let listService: BlockListServiceProtocol
     private let toggleStorage: ToggleStorage
+    private let container: InfoContainerProtocol
     
     init(
         service: BlockActionServiceProtocol,
         listService: BlockListServiceProtocol,
-        toggleStorage: ToggleStorage
+        toggleStorage: ToggleStorage,
+        container: InfoContainerProtocol
     ) {
         self.service = service
         self.listService = listService
         self.toggleStorage = toggleStorage
+        self.container = container
     }
 
     func handle(info: BlockInformation, action: CustomTextView.KeyboardAction) {
         guard case let .text(text) = info.content else {
             anytypeAssertionFailure("Only text block may send keyboard action", domain: .keyboardActionHandler)
+            return
+        }
+        
+        guard let parentId = info.metadata.parentId,
+              let parent = container.get(id: parentId)
+        else {
+            anytypeAssertionFailure("No parent in \(text)", domain: .keyboardActionHandler)
             return
         }
         
@@ -68,34 +78,27 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         case .enterAtTheBegining:
             service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
 
-        case .deleteAtTheBegining:
-            if text.contentType.isList {
-                service.turnInto(.text, blockId: info.id)
-                return
-            }
-            
-            guard text.delitable else { return }
-            
-            if info.childrenIds.isEmpty {
-                service.merge(secondBlockId: info.id)
-            } else {
-                #warning("Mege with children")
-                service.merge(secondBlockId: info.id)
-            }
-        case .deleteForEmpty:
-            if text.contentType.isList {
-                service.turnInto(.text, blockId: info.id)
-                return
-            }
-            
-            guard text.delitable else { return }
-            
-            if info.childrenIds.isEmpty {
-                service.delete(blockId: info.id)
-            } else {
-                listService.replace(blockIds: info.childrenIds, targetId: info.id)
-            }
+        case .delete:
+            onDelete(text: text, info: info, parent: parent)
         }
+    }
+    
+    private func onDelete(text: BlockText, info: BlockInformation, parent: BlockInformation) {
+        if text.contentType.isList {
+            service.turnInto(.text, blockId: info.id)
+            return
+        }
+        
+        guard isBlockDelitable(info: info, text: text, parent: parent) else { return }
+        
+        if isLastChildOfBlock(info: info, container: container, parent: parent)
+        {
+            // on delete of last child of block - move child to parent level
+            listService.move(blockId: info.id, targetId: parent.id, position: .bottom)
+            return
+        }
+        
+        service.merge(secondBlockId: info.id)
     }
     
     private func enterForEmpty(text: BlockText, info: BlockInformation) {
@@ -167,10 +170,37 @@ private extension KeyboardActionHandler {
             return info.childrenIds.isNotEmpty ? .inner : .bottom
         }
     }
-}
-
-private extension BlockText {
-    var delitable: Bool {
-        contentType != .description
+    
+    
+    func isBlockDelitable(info: BlockInformation, text: BlockText, parent: BlockInformation) -> Bool {
+        if text.contentType == .title || text.contentType == .description {
+            return false
+        }
+        
+        guard let header = parent.headerLayout(container: container) else {
+            // if header is nil - we are in nested blocks
+            return true
+        }
+        
+        guard let firstTextBlock = container.children(of: parent.id).first(where: { $0.isText }) else {
+            return false
+        }
+        
+        let isFirstBlock = info.id == firstTextBlock.id
+        let headerHaveTextBlocks = container.children(of: header.id).contains { $0.isText }
+        if isFirstBlock && !headerHaveTextBlocks {
+            return false // We can delete block only if there is text block in header to set focus
+        }
+        
+        return true
+    }
+    
+    
+    func isLastChildOfBlock(info: BlockInformation, container: InfoContainerProtocol, parent: BlockInformation) -> Bool {
+        let children = container.children(of: parent.id)
+        let isLastChid = children.last?.id == info.id
+        let isParentTypeBlock = parent.kind == .block
+        
+        return isLastChid && isParentTypeBlock
     }
 }

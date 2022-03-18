@@ -17,17 +17,15 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     let router: EditorRouterProtocol
     
-    private let objectHeaderLocalEventsListener = ObjectHeaderLocalEventsListener()
     private let cursorManager: EditorCursorManager
-    let objectSettingsViewModel: ObjectSettingsViewModel
     let actionHandler: BlockActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
     
     private let blockBuilder: BlockViewModelBuilder
-    private let headerBuilder: ObjectHeaderBuilder
-    private lazy var cancellables = [AnyCancellable]()
+    private let headerModel: ObjectHeaderViewModel
+    private lazy var subscriptions = [AnyCancellable]()
 
-    private let blockActionsService: BlockActionsServiceSingle
+    private let blockActionsService: BlockActionsServiceSingleProtocol
 
     deinit {
         blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
@@ -43,18 +41,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         document: BaseDocumentProtocol,
         viewInput: EditorPageViewInput,
         blockDelegate: BlockDelegate,
-        objectSettinsViewModel: ObjectSettingsViewModel,
         router: EditorRouterProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blockBuilder: BlockViewModelBuilder,
         actionHandler: BlockActionHandler,
         wholeBlockMarkupViewModel: MarkupViewModel,
-        headerBuilder: ObjectHeaderBuilder,
-        blockActionsService: BlockActionsServiceSingle,
+        headerModel: ObjectHeaderViewModel,
+        blockActionsService: BlockActionsServiceSingleProtocol,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager
     ) {
-        self.objectSettingsViewModel = objectSettinsViewModel
         self.viewInput = viewInput
         self.document = document
         self.router = router
@@ -63,35 +59,25 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.actionHandler = actionHandler
         self.blockDelegate = blockDelegate
         self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
-        self.headerBuilder = headerBuilder
+        self.headerModel = headerModel
         self.blockActionsService = blockActionsService
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
-
-        setupSubscriptions()
     }
 
-    private func setupSubscriptions() {
-        objectHeaderLocalEventsListener.beginObservingEvents { [weak self] event in
-            self?.handleObjectHeaderLocalEvent(event)
-        }
-
+    func setupSubscriptions() {
+        subscriptions = []
+        
         document.updatePublisher.sink { [weak self] in
             self?.handleUpdate(updateResult: $0)
-        }.store(in: &cancellables)
+        }.store(in: &subscriptions)
+        
+        headerModel.$header.sink { [weak self] _ in
+            self?.updateHeaderIfNeeded()
+        }.store(in: &subscriptions)
     }
     
-    private func handleObjectHeaderLocalEvent(_ event: ObjectHeaderLocalEvent) {
-        let details = document.objectDetails
-        let header = headerBuilder.objectHeaderForLocalEvent(
-            event,
-            details: details
-        )
-
-        updateHeaderIfNeeded(header: header, details: details)
-    }
-    
-    private func handleUpdate(updateResult: EventsListenerUpdate) {
+    private func handleUpdate(updateResult: DocumentUpdate) {
         switch updateResult {
 
         case .general:
@@ -105,21 +91,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             }
             
             #warning("also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details")
-            let details = document.objectDetails
-            let header = headerBuilder.objectHeader(details: details)
-
-            objectSettingsViewModel.update(
-                objectRestrictions: document.objectRestrictions,
-                parsedRelations: document.parsedRelations
-            )
-            updateHeaderIfNeeded(header: header, details: details)
 
             let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
             let relationIds = allRelationsBlockViewModel.map(\.blockId)
             let diffrerence = difference(with: Set(relationIds))
             modelsHolder.applyDifference(difference: diffrerence)
             viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
-
         case let .blocks(updatedIds):
             guard !updatedIds.isEmpty else {
                 return
@@ -137,11 +114,15 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         case .dataSourceUpdate:
             let models = document.children
 
-            let blocksViewModels = blockBuilder.buildEditorItems(from: models)
+            let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
             modelsHolder.items = blocksViewModels
 
             viewInput?.update(changes: nil, allModels: blocksViewModels)
+        case .header:
+            break // supported in headerModel
         }
+
+        blocksStateManager.checkDocumentLockField()
     }
     
     private func performGeneralUpdate() {
@@ -149,17 +130,19 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         
         let models = document.children
         
-        let blocksViewModels = blockBuilder.buildEditorItems(from: models)
+        let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
         
         handleGeneralUpdate(with: blocksViewModels)
         
         updateMarkupViewModel(newBlockViewModels: blocksViewModels.onlyBlockViewModels)
 
-        cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.objectDetails?.type)
+        if !document.isLocked {
+            cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
+        }
     }
     
     private func handleDeletionState() {
-        guard let details = document.objectDetails else {
+        guard let details = document.details else {
             anytypeAssertionFailure("No detais for general update", domain: .editorPage)
             return
         }
@@ -180,8 +163,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             guard case let .block(blockViewModel) = model else { continue }
             for blockId in blockIds {
                 if blockViewModel.blockId == blockId {
-                    guard let model = document.blocksContainer.model(id: blockId),
-                          let newViewModel = blockBuilder.build(from: model) else {
+                    guard let model = document.infoContainer.get(id: blockId),
+                          let newViewModel = blockBuilder.build(info: model) else {
                               continue
                           }
 
@@ -215,7 +198,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
-        guard let currentInformation = document.blocksContainer.model(id: blockId)?.information else {
+        guard let currentInformation = document.infoContainer.get(id: blockId) else {
             wholeBlockMarkupViewModel.removeInformationAndDismiss()
             AnytypeLogger(category: "Editor page view model").debug("Could not find object with id: \(blockId)")
             return
@@ -234,17 +217,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         } else {
             modelsHolder.items = models
         }
-
         
-        let details = document.objectDetails
-        let header = headerBuilder.objectHeader(details: details)
-        updateHeaderIfNeeded(header: header, details: details)
         viewInput?.update(changes: difference, allModels: modelsHolder.items)
-
-        objectSettingsViewModel.update(
-            objectRestrictions: document.objectRestrictions,
-            parsedRelations: document.parsedRelations
-        )
 
         updateCursorIfNeeded()
     }
@@ -259,11 +233,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
 
     // iOS 14 bug fix applying header section while editing
-    private func updateHeaderIfNeeded(header: ObjectHeader, details: ObjectDetails?) {
-        guard modelsHolder.header != header else { return }
+    private func updateHeaderIfNeeded() {
+        guard modelsHolder.header != headerModel.header else { return }
 
-        viewInput?.update(header: header, details: details)
-        modelsHolder.header = header
+        viewInput?.update(header: headerModel.header, details: document.details)
+        modelsHolder.header = headerModel.header
     }
 }
 
@@ -271,7 +245,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
 extension EditorPageViewModel {
     func viewDidLoad() {
-        if let objectDetails = document.objectDetails {
+        if let objectDetails = document.details {
             Amplitude.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
         }
     }
@@ -284,7 +258,7 @@ extension EditorPageViewModel {
     }
 
     func viewDidAppear() {
-        cursorManager.didAppeared(with: modelsHolder.items, type: document.objectDetails?.type)
+        cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
     }
     
     func viewWillDisappear() {
@@ -296,7 +270,8 @@ extension EditorPageViewModel {
 
 extension EditorPageViewModel {
     func didSelectBlock(at indexPath: IndexPath) {
-        element(at: indexPath)?.didSelectRowInTableView()
+        element(at: indexPath)?
+            .didSelectRowInTableView(editorEditingState: blocksStateManager.editingState)
     }
 
     func element(at: IndexPath) -> BlockViewModelProtocol? {
@@ -307,15 +282,15 @@ extension EditorPageViewModel {
 extension EditorPageViewModel {
     
     func showSettings() {
-        router.showSettings(viewModel: objectSettingsViewModel)
+        router.showSettings()
     }
     
     func showIconPicker() {
-        router.showIconPicker(viewModel: objectSettingsViewModel.iconPickerViewModel)
+        router.showIconPicker()
     }
     
     func showCoverPicker() {
-        router.showCoverPicker(viewModel: objectSettingsViewModel.coverPickerViewModel)
+        router.showCoverPicker()
     }
 }
 

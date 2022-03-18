@@ -3,25 +3,20 @@ import BlocksModels
 import Combine
 
 struct BlockFileViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable {
-        [
-            indentationLevel,
-            information
-        ] as [AnyHashable]
-    }
+    var hashable: AnyHashable { [ info ] as [AnyHashable] }
     
-    let indentationLevel: Int
-    let information: BlockInformation
+    let info: BlockInformation
     let fileData: BlockFile
     
     let showFilePicker: (BlockId) -> ()
     let downloadFile: (FileId) -> ()
     
-    func didSelectRowInTableView() {
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         switch fileData.state {
         case .done:
             downloadFile(fileData.metadata.hash)
         case .empty, .error:
+            if case .locked = editorEditingState { return }
             showFilePicker(blockId)
         case .uploading:
             return
