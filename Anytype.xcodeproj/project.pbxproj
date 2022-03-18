@@ -2097,7 +2097,7 @@
 		038FB5C822D8F321002B90B8 /* ServiceLayer */ = {
 			isa = PBXGroup;
 			children = (
-				3D2F9C14271EADC50043C326 /* Smartblock */,
+				3D2F9C14271EADC50043C326 /* Object */,
 				0A66456924085A1E008392AF /* Block */,
 				03D1516423FB443E004027CE /* Configuration */,
 				03D1516123FB437A004027CE /* Dashboard */,
@@ -3746,7 +3746,7 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
-		3D2F9C14271EADC50043C326 /* Smartblock */ = {
+		3D2F9C14271EADC50043C326 /* Object */ = {
 			isa = PBXGroup;
 			children = (
 				126F3D85273E4E4300AEF39A /* Relations */,
@@ -3756,7 +3756,7 @@
 				0A721EE6244067DF0035A3E4 /* ObjectActions */,
 				3D93851B26FB0AD0001C137F /* PageService */,
 			);
-			path = Smartblock;
+			path = Object;
 			sourceTree = "<group>";
 		};
 		3D2F9C3A271F023A0043C326 /* Alerts */ = {
@@ -4880,7 +4880,7 @@
 			isa = PBXGroup;
 			children = (
 				EAAD6E0726CD484E005CE1E7 /* Markup */,
-				5338E7E425DC32E5008CB97D /* TextBlockActionHandler */,
+				5338E7E425DC32E5008CB97D /* KeyboardActionHandler */,
 				3D8C76782689E19800353CDC /* BlockActionService */,
 				531197DF26430A9800FFC71E /* BlockActionHandler.swift */,
 				12E15B88270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift */,
@@ -4931,13 +4931,13 @@
 			path = TextAttributesView;
 			sourceTree = "<group>";
 		};
-		5338E7E425DC32E5008CB97D /* TextBlockActionHandler */ = {
+		5338E7E425DC32E5008CB97D /* KeyboardActionHandler */ = {
 			isa = PBXGroup;
 			children = (
 				3D2F9C21271EAEAE0043C326 /* BlockBuilder.swift */,
 				5338E7EB25DC723D008CB97D /* KeyboardActionHandler.swift */,
 			);
-			path = TextBlockActionHandler;
+			path = KeyboardActionHandler;
 			sourceTree = "<group>";
 		};
 		5347854A2743C50C0097CA30 /* Relations */ = {
