@@ -6,6 +6,7 @@ import UniformTypeIdentifiers
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
     private let handler: BlockActionHandlerProtocol
+    private let pasteboardService: PasteboardService
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let pageService = PageService()
@@ -15,12 +16,14 @@ final class BlockViewModelBuilder {
     init(
         document: BaseDocumentProtocol,
         handler: BlockActionHandlerProtocol,
+        pasteboardService: PasteboardService,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
         markdownListener: MarkdownListener
     ) {
         self.document = document
         self.handler = handler
+        self.pasteboardService = pasteboardService
         self.router = router
         self.delegate = delegate
         self.markdownListener = markdownListener
@@ -79,6 +82,7 @@ final class BlockViewModelBuilder {
                     isCheckable: isCheckable,
                     blockDelegate: delegate,
                     actionHandler: handler,
+                    pasteboardService: pasteboardService,
                     showPage: { [weak self] data in
                         self?.router.showPage(data: data)
                     },

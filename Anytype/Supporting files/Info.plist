@@ -166,7 +166,7 @@
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>com.anytype.anySlots</string>
+			<string>com.anytype.blockSlot</string>
 			<key>UTTypeTagSpecification</key>
 			<dict/>
 		</dict>

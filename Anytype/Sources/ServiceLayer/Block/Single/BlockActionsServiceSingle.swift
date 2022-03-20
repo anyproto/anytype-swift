@@ -7,61 +7,9 @@ import AnytypeCore
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     private let contextId: BlockId
+
     init(contextId: BlockId) {
         self.contextId = contextId
-    }
-    
-    func paste(
-        focusedBlockId: BlockId,
-        selectedTextRange: NSRange,
-        selectedBlockIds: [BlockId],
-        isPartOfBlock: Bool,
-        textSlot: String?,
-        htmlSlot: String?,
-        anySlots:  [Anytype_Model_Block]?,
-        fileSlots: [Anytype_Rpc.Block.Paste.Request.File]?
-    ) -> BlockId? {
-
-        let result = Anytype_Rpc.Block.Paste.Service.invoke(
-            contextID: contextId,
-            focusedBlockID: focusedBlockId,
-            selectedTextRange: selectedTextRange.asMiddleware,
-            selectedBlockIds: selectedBlockIds,
-            isPartOfBlock: isPartOfBlock,
-            textSlot: textSlot ?? "",
-            htmlSlot: htmlSlot ?? "",
-            anySlot: anySlots ?? [],
-            fileSlot: fileSlots ?? []
-        )
-            .getValue(domain: .blockActionsService)
-
-        let events = result.map {
-            EventsBunch(event: $0.event)
-        }
-        events?.send()
-
-        return result?.blockIds.last
-    }
-
-    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> [PasteboardSlot]? {
-        let blockskModels = blocksInfo.compactMap {
-            BlockInformationConverter.convert(information: $0)
-        }
-
-        let result = Anytype_Rpc.Block.Copy.Service.invoke(
-            contextID: contextId,
-            blocks: blockskModels,
-            selectedTextRange: selectedTextRange.asMiddleware
-        )
-            .getValue(domain: .blockActionsService)
-
-        if let result = result {
-            let anySlot = result.anySlot.compactMap { modelBlock in
-                try? modelBlock.jsonString()
-            }
-            return [.html(result.htmlSlot), .text(result.textSlot), .anySlots(anySlot)]
-        }
-        return nil
     }
 
     func open() -> Bool {
