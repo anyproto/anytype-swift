@@ -26,7 +26,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
                 newBlockContentType: newBlockContentType
             )
         } else {
-            assertionFailure()
+            XCTFail()
         }
     }
     
