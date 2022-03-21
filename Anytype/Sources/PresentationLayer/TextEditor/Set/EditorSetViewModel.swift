@@ -11,8 +11,6 @@ final class EditorSetViewModel: ObservableObject {
     
     @Published var pagitationData = EditorSetPaginationData.empty
     
-    weak var popup: AnytypePopupProxy?
-    
     var isEmpty: Bool {
         dataView.views.filter { $0.isSupported }.isEmpty
     }
@@ -93,7 +91,9 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func showViewPicker() {
-        router.presentFullscreen(AnytypePopup(viewModel: self))
+        router.presentFullscreen(
+            AnytypePopup(viewModel: SetViewPickerViewModel(mainModel: self))
+        )
     }
     
     func onSettingsTap() {
