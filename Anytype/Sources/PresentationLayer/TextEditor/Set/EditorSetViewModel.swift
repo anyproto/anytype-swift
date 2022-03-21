@@ -96,7 +96,13 @@ final class EditorSetViewModel: ObservableObject {
         )
     }
     
-    func onSettingsTap() {
+    func showSetSettings() {
+        router.presentFullscreen(
+            AnytypePopup(viewModel: EditorSetSettingsViewModel(mainModel: self))
+        )
+    }
+    
+    func showObjectSettings() {
         router.showSettings()
     }
     
