@@ -14,7 +14,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     private let documentId: BlockId
 
     private var subscriptions: [AnyCancellable] = []
-    private let singleService = ServiceLocator.shared.blockActionsServiceSingle()
+    private let singleService: BlockActionsServiceSingleProtocol
     private let pageService = ServiceLocator.shared.objectActionsService()
     private let textService = TextService()
     private let listService: BlockListServiceProtocol
@@ -27,11 +27,13 @@ final class BlockActionService: BlockActionServiceProtocol {
     init(
         documentId: String,
         listService: BlockListServiceProtocol,
+        singleService: BlockActionsServiceSingleProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         cursorManager: EditorCursorManager
     ) {
         self.documentId = documentId
         self.listService = listService
+        self.singleService = singleService
         self.modelsHolder = modelsHolder
         self.cursorManager = cursorManager
     }
@@ -45,15 +47,16 @@ final class BlockActionService: BlockActionServiceProtocol {
                textSlot: String?,
                htmlSlot: String?,
                anySlots: [Anytype_Model_Block]?) {
-        _ = singleService.paste(contextId: documentId,
-                                focusedBlockId: focusedBlockId ?? "",
-                                selectedTextRange: selectedTextRange ?? NSRange(),
-                                selectedBlockIds: selectedBlockIds ?? [],
-                                isPartOfBlock: isPartOfBlock,
-                                textSlot: textSlot,
-                                htmlSlot: htmlSlot,
-                                anySlots: anySlots,
-                                fileSlots: nil)
+        _ = singleService.paste(
+            focusedBlockId: focusedBlockId ?? "",
+            selectedTextRange: selectedTextRange ?? NSRange(),
+            selectedBlockIds: selectedBlockIds ?? [],
+            isPartOfBlock: isPartOfBlock,
+            textSlot: textSlot,
+            htmlSlot: htmlSlot,
+            anySlots: anySlots,
+            fileSlots: nil
+        )
     }
 
     func pasteFile(focusedBlockId: BlockId?,
@@ -64,19 +67,20 @@ final class BlockActionService: BlockActionServiceProtocol {
                name: String) -> BlockId? {
         let fileSlot = Anytype_Rpc.Block.Paste.Request.File(name: name, data: Data(), localPath: localPath)
 
-        return singleService.paste(contextId: documentId,
-                                   focusedBlockId: focusedBlockId ?? "",
-                                   selectedTextRange: selectedTextRange ?? NSRange(),
-                                   selectedBlockIds: selectedBlockIds ?? [],
-                                   isPartOfBlock: isPartOfBlock,
-                                   textSlot: nil,
-                                   htmlSlot: nil,
-                                   anySlots: nil,
-                                   fileSlots: [fileSlot])
+        return singleService.paste(
+            focusedBlockId: focusedBlockId ?? "",
+            selectedTextRange: selectedTextRange ?? NSRange(),
+            selectedBlockIds: selectedBlockIds ?? [],
+            isPartOfBlock: isPartOfBlock,
+            textSlot: nil,
+            htmlSlot: nil,
+            anySlots: nil,
+            fileSlots: [fileSlot]
+        )
     }
 
     func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> [PasteboardSlot]? {
-        singleService.copy(contextId: documentId, blocksInfo: blocksInfo, selectedTextRange: selectedTextRange)
+        singleService.copy(blocksInfo: blocksInfo, selectedTextRange: selectedTextRange)
     }
 
     func addChild(info: BlockInformation, parentId: BlockId) {
@@ -85,7 +89,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func add(info: BlockInformation, targetBlockId: BlockId, position: BlockPosition, setFocus: Bool) {
         guard let blockId = singleService
-                .add(contextId: documentId, targetId: targetBlockId, info: info, position: position) else { return }
+                .add(targetId: targetBlockId, info: info, position: position) else { return }
         
         if setFocus {
             cursorManager.blockFocus = .init(id: blockId, position: .beginning)
@@ -120,7 +124,7 @@ final class BlockActionService: BlockActionServiceProtocol {
 
     func duplicate(blockId: BlockId) {        
         singleService
-            .duplicate(contextId: documentId, targetId: blockId, blockIds: [blockId], position: .bottom)
+            .duplicate(targetId: blockId, blockIds: [blockId], position: .bottom)
     }
 
 
@@ -173,7 +177,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             acceptingTypes: BlockContentType.allTextTypes
         )
 
-        if singleService.delete(contextId: documentId, blockIds: [blockId]) {
+        if singleService.delete(blockIds: [blockId]) {
             previousBlock.map { setFocus(model: $0) }
         }
     }

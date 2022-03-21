@@ -34,8 +34,8 @@ final class ServiceLocator {
         DashboardService()
     }
     
-    func blockActionsServiceSingle() -> BlockActionsServiceSingleProtocol {
-        BlockActionsServiceSingle()
+    func blockActionsServiceSingle(contextId: BlockId) -> BlockActionsServiceSingleProtocol {
+        BlockActionsServiceSingle(contextId: contextId)
     }
     
     func objectActionsService() -> ObjectActionsServiceProtocol {
