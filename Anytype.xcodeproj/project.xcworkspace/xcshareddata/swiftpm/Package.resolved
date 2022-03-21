@@ -69,8 +69,8 @@
         "repositoryURL": "https://github.com/google/GoogleUtilities.git",
         "state": {
           "branch": null,
-          "revision": "797005ad8a1f0614063933e2fa010a5d13cb09d0",
-          "version": "7.6.0"
+          "revision": "b3bb0c5551fb3f80ca939829639ab5b093edd14f",
+          "version": "7.7.0"
         }
       },
       {
@@ -87,8 +87,8 @@
         "repositoryURL": "https://github.com/google/gtm-session-fetcher.git",
         "state": {
           "branch": null,
-          "revision": "91ed3d188eb95705fef3c249453b81f32dc557d1",
-          "version": "1.5.0"
+          "revision": "bc6a19702ac76ac4e488b68148710eb815f9bc56",
+          "version": "1.7.0"
         }
       },
       {
@@ -132,8 +132,8 @@
         "repositoryURL": "https://github.com/google/promises.git",
         "state": {
           "branch": null,
-          "revision": "afa9a1ace74e116848d4f743599ab83e584ff8cb",
-          "version": "1.2.12"
+          "revision": "611337c330350c9c1823ad6d671e7f936af5ee13",
+          "version": "2.0.0"
         }
       },
       {
