@@ -1,47 +1,42 @@
-import UIKit
-import UniformTypeIdentifiers
 import BlocksModels
-import ProtobufMessages
+import ProtobufMessages 
+import AnytypeCore
 
-private enum PasteboardSlot {
-    case textSlot(String)
-    case htmlSlot(String)
-    case blockSlots([String])
-    case fileSlots([NSItemProvider])
+protocol PasteboardServiceProtocol {
+    var hasValidURL: Bool { get }
+    func pasteInsideBlock(focusedBlockId: BlockId, range: NSRange)
+    func pasteInSelectedBlocks(selectedBlockIds: [BlockId])
+    func copy(blocksIds: [BlockId], selectedTextRange: NSRange)
 }
 
-final class PasteboardService {
+final class PasteboardService: PasteboardServiceProtocol {
     private let document: BaseDocumentProtocol
+    private let pasteboardAction: PasteboardSlotActionProtocol
     private let pasteboardOperations = OperationQueue()
-    
-    init(document: BaseDocumentProtocol) {
+
+    init(document: BaseDocumentProtocol, pasteboardAction: PasteboardSlotAction) {
         self.document = document
+        self.pasteboardAction = pasteboardAction
+        self.pasteboardOperations.maxConcurrentOperationCount = 1
     }
     
     var hasValidURL: Bool {
-        if UIPasteboard.general.hasURLs, let url = UIPasteboard.general.url?.absoluteString, url.isValidURL() {
-            return true
-        }
-        return false
+        pasteboardAction.hasValidURL
     }
     
     func pasteInsideBlock(focusedBlockId: BlockId, range: NSRange) {
-        paste(focusedBlockId: focusedBlockId, range: range, selectedBlockIds: nil)
+        let context = PasteboardActionContext(focusedBlockId: focusedBlockId, range: range, selectedBlocksIds: nil)
+        paste(context: context)
     }
     
     func pasteInSelectedBlocks(selectedBlockIds: [BlockId]) {
-        paste(focusedBlockId: nil, range: nil, selectedBlockIds:selectedBlockIds)
+        let context = PasteboardActionContext(focusedBlockId: nil, range: nil, selectedBlocksIds: selectedBlockIds)
+        paste(context: context)
     }
     
-    private func paste(focusedBlockId: BlockId?, range: NSRange?, selectedBlockIds: [BlockId]?) {
-        let operation = PasteboardOperation { [weak self] completion in
-            guard let self = self else { return completion() }
-            
-            DispatchQueue.global().async {
-                self.doPaste(focusedBlockId: focusedBlockId, selectedTextRange: range, selectedBlockIds: selectedBlockIds, isPartOfBlock: false) {
-                    completion()
-                }
-            }
+    private func paste(context: PasteboardActionContext) {
+        let operation = PasteboardOperation(pasteboardValue: pasteboardAction, context: context) { _ in
+            #warning("add completion")
         }
         pasteboardOperations.addOperation(operation)
     }
@@ -50,159 +45,62 @@ final class PasteboardService {
         let blocksInfo = blocksIds.compactMap {
             document.infoContainer.get(id: $0)
         }
-        if let anySlots = copy(contextId: document.objectId, blocksInfo: blocksInfo, selectedTextRange: selectedTextRange) {
-            copyToPasteboard(slots: anySlots)
-        }
+        copy(contextId: document.objectId, blocksInfo: blocksInfo, selectedTextRange: selectedTextRange)
     }
 }
 
-// MARK: - Private methods for pasteboard
+// MARK: - PasteboardSlotActionDelegate
 
-private extension PasteboardService {
-    
-    private func copyToPasteboard(slots: [PasteboardSlot]) {
-        let pasteboard = UIPasteboard.general
-        var textSlots: [String: Any] = [:]
-        var allSlots: [[String: Any]] = [[:]]
-        
-        slots.forEach { slot in
-            switch slot {
-            case let .textSlot(text):
-                textSlots[UTType.plainText.identifier] = text
-            case let .htmlSlot(html):
-                textSlots[UTType.html.identifier] = html
-            case let .blockSlots(blocksSlots):
-                allSlots = blocksSlots.compactMap { blockSlot in
-                    [UTType.blockSlot.identifier: blockSlot.data(using: .utf8) ?? blockSlot]
-                }
-            case .fileSlots:
-                // Don't have yet
-                break
-            }
-        }
-        allSlots.append(textSlots)
-        pasteboard.setItems(allSlots)
+extension PasteboardService: PasteboardSlotActionDelegate {
+    func pasteText(_ text: String, context: PasteboardActionContext) {
+        paste(contextId: document.objectId,
+              focusedBlockId: context.focusedBlockId,
+              selectedTextRange: context.range,
+              selectedBlockIds: context.selectedBlocksIds,
+              isPartOfBlock: context.focusedBlockId.isNotNil,
+              textSlot: text,
+              htmlSlot: nil,
+              anySlots:  [],
+              fileSlots: [])
     }
-    
-    private func doPaste(focusedBlockId: BlockId?,
-                         selectedTextRange: NSRange?,
-                         selectedBlockIds: [BlockId]?,
-                         isPartOfBlock: Bool,
-                         completion: @escaping () -> Void) {
-        var textSlot: String? = nil
-        var htmlSlot: String? = nil
-        var anySlots: [Anytype_Model_Block]? = nil
-        var fileSlots: [Anytype_Rpc.Block.Paste.Request.File]? = nil
-        
-        guard let slot = obtainSlots() else { return completion() }
-        
-        switch slot {
-        case .textSlot(let text):
-            textSlot = text
-        case .htmlSlot(let html):
-            htmlSlot = html
-        case .blockSlots(let anyJSONSlots):
-            anySlots = anyJSONSlots.compactMap { anyJSONSlot in
-                try? Anytype_Model_Block(jsonString: anyJSONSlot)
-            }
-        case let .fileSlots(items):
-            let fileQueue = OperationQueue()
-            
-            items.forEach { itemProvider in
-                fileQueue.addOperation { [weak self] in
-                    guard let self = self else { return }
-                    
-                    itemProvider.loadFileRepresentation(
-                        forTypeIdentifier: UTType.data.identifier
-                    ) { temporaryUrl, error in
-                        guard let temporaryUrl = temporaryUrl?.relativePath else {
-                            return
-                        }
-                        let name = itemProvider.suggestedName ?? ""
-                        fileSlots = [Anytype_Rpc.Block.Paste.Request.File(name: name, data: Data(), localPath: temporaryUrl)]
-                        
-                        self.paste(contextId: self.document.objectId,
-                                   focusedBlockId: focusedBlockId,
-                                   selectedTextRange: selectedTextRange,
-                                   selectedBlockIds: selectedBlockIds,
-                                   isPartOfBlock: isPartOfBlock,
-                                   textSlot: textSlot,
-                                   htmlSlot: htmlSlot,
-                                   anySlots: anySlots,
-                                   fileSlots: fileSlots)
-                        
-                    }
-                }
-            }
-            fileQueue.addBarrierBlock {
-                completion()
-            }
-            return
-        }
-        
-        self.paste(contextId: document.objectId,
-                   focusedBlockId: focusedBlockId,
-                   selectedTextRange: selectedTextRange,
-                   selectedBlockIds: selectedBlockIds,
-                   isPartOfBlock: isPartOfBlock,
-                   textSlot: textSlot,
-                   htmlSlot: htmlSlot,
-                   anySlots: anySlots,
-                   fileSlots: fileSlots)
-        completion()
+
+    func pasteHTML(_ text: String, context: PasteboardActionContext) {
+        paste(contextId: document.objectId,
+              focusedBlockId: context.focusedBlockId,
+              selectedTextRange: context.range,
+              selectedBlockIds: context.selectedBlocksIds,
+              isPartOfBlock: context.focusedBlockId.isNotNil,
+              textSlot: nil,
+              htmlSlot: text,
+              anySlots:  [],
+              fileSlots: [])
     }
-    
-    private func obtainSlots() -> PasteboardSlot? {
-        let pasteboard = UIPasteboard.general
-        var fileSlot: [NSItemProvider] = []
-        
-        // Find first item to paste with follow order anySlots, htmlSlot, textSlot, fileSlots
-        // anySlots
-        if pasteboard.contains(pasteboardTypes: [UTType.blockSlot.identifier], inItemSet: nil) {
-            if let pasteboardData = pasteboard.values(
-                forPasteboardType: UTType.blockSlot.identifier,
-                inItemSet: nil
-            ) as? [Data] {
-                let anySlots = pasteboardData.compactMap { data in
-                    String(data: data, encoding: .utf8)
-                }
-                if anySlots.isNotEmpty {
-                    return .blockSlots(anySlots)
-                }
-            }
+
+    func pasteBlock(_ blocks: [String], context: PasteboardActionContext) {
+        let blocksSlots = blocks.compactMap { blockJSONSlot in
+            try? Anytype_Model_Block(jsonString: blockJSONSlot)
         }
-        
-        // htmlSlot
-        if pasteboard.contains(pasteboardTypes: [UTType.html.identifier], inItemSet: nil) {
-            let data = pasteboard.data(
-                forPasteboardType: UTType.html.identifier,
-                inItemSet: nil
-            )
-            
-            if let data = data?.first, let htmlSlot = String(data: data, encoding: .utf8) {
-                return .htmlSlot(htmlSlot)
-            }
-        }
-        
-        // textSlot
-        if pasteboard.contains(pasteboardTypes: [UTType.plainText.identifier], inItemSet: nil) {
-            let text = pasteboard.value(forPasteboardType: UTType.text.identifier)
-            
-            if let text = text as? String {
-                return .textSlot(text)
-            }
-        }
-        
-        // fileSlots
-        pasteboard.itemProviders.forEach { itemProvider in
-            fileSlot.append(itemProvider)
-        }
-        if fileSlot.isNotEmpty {
-            return .fileSlots(fileSlot)
-        }
-        
-        // pasteboard is empty
-        return nil
+        paste(contextId: document.objectId,
+              focusedBlockId: context.focusedBlockId,
+              selectedTextRange: context.range,
+              selectedBlockIds: context.selectedBlocksIds,
+              isPartOfBlock: context.focusedBlockId.isNotNil,
+              textSlot: nil,
+              htmlSlot: nil,
+              anySlots:  blocksSlots,
+              fileSlots: [])
+    }
+
+    func pasteFile(localPath: String, name: String, context: PasteboardActionContext) {
+        paste(contextId: document.objectId,
+              focusedBlockId: context.focusedBlockId,
+              selectedTextRange: context.range,
+              selectedBlockIds: context.selectedBlocksIds,
+              isPartOfBlock: context.focusedBlockId.isNotNil,
+              textSlot: nil,
+              htmlSlot: nil,
+              anySlots:  [],
+              fileSlots: [Anytype_Rpc.Block.Paste.Request.File(name: name, data: Data(), localPath: localPath)])
     }
 }
 
@@ -240,7 +138,7 @@ private extension PasteboardService {
         events?.send()
     }
     
-    private func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> [PasteboardSlot]? {
+    private func copy(contextId: BlockId, blocksInfo: [BlockInformation], selectedTextRange: NSRange) {
         let blockskModels = blocksInfo.compactMap {
             BlockInformationConverter.convert(information: $0)
         }
@@ -256,15 +154,7 @@ private extension PasteboardService {
             let anySlot = result.anySlot.compactMap { modelBlock in
                 try? modelBlock.jsonString()
             }
-            return [.htmlSlot(result.htmlSlot), .textSlot(result.textSlot), .blockSlots(anySlot)]
+            pasteboardAction.performCopy(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blockSlot: anySlot)
         }
-        return nil
-    }
-}
-
-extension UIPasteboard {
-    var hasSlots: Bool {
-        UIPasteboard.general.contains(pasteboardTypes: [UTType.html.identifier], inItemSet: nil) ||
-        UIPasteboard.general.contains(pasteboardTypes: [UTType.utf8PlainText.identifier])
     }
 }

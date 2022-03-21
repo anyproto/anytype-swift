@@ -6,7 +6,7 @@ import UniformTypeIdentifiers
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
     private let handler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardService
+    private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let pageService = PageService()
@@ -16,7 +16,7 @@ final class BlockViewModelBuilder {
     init(
         document: BaseDocumentProtocol,
         handler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardService,
+        pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
         markdownListener: MarkdownListener

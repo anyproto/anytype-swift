@@ -22,7 +22,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
     
     private let actionHandler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardService
+    private let pasteboardService: PasteboardServiceProtocol
     private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     private let mentionDetecter = MentionTextDetector()
     private let markdownListener: MarkdownListener
@@ -41,7 +41,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         isCheckable: Bool,
         blockDelegate: BlockDelegate,
         actionHandler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardService,
+        pasteboardService: PasteboardServiceProtocol,
         showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
         showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,

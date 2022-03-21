@@ -61,7 +61,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let modelsHolder: EditorMainItemModelsHolder
     private let blockActionsServiceSingle: BlockActionsServiceSingleProtocol
     private let actionHandler: BlockActionHandlerProtocol
-    private let pasteboardService: PasteboardService
+    private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
 
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
@@ -74,7 +74,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         blockActionsServiceSingle: BlockActionsServiceSingleProtocol,
         actionHandler: BlockActionHandlerProtocol,
-        pasteboardService: PasteboardService,
+        pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol
     ) {
         self.document = document
