@@ -24,6 +24,7 @@ extension Image {
     enum `set` {
         static let forward = createImage("set_pagination_arrow_forward")
         static let back = createImage("set_pagination_arrow_backward")
+        static let settings = createImage("set_settings")
     }
     
     enum main {
