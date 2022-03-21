@@ -28,7 +28,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let blockActionsService: BlockActionsServiceSingleProtocol
 
     deinit {
-        blockActionsService.close(contextId: document.objectId, blockId: document.objectId)
+        blockActionsService.close()
 
         EventsBunch(
             contextId: MiddlewareConfigurationService.shared.configuration().homeBlockID,
