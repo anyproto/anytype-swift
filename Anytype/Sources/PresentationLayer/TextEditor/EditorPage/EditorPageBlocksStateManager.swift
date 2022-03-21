@@ -222,7 +222,6 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     func startMoving() {
         let position: BlockPosition
-        let contextId = document.objectId
         let targetId: BlockId
         let dropTargetId: BlockId
         switch movingDestination {
@@ -264,7 +263,6 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             .compactMap { modelsHolder.blockViewModel(at: $0.row)?.blockId }
 
         blockActionsServiceSingle.move(
-            contextId: contextId,
             blockIds: blockIds,
             targetContextID: targetId,
             dropTargetID: dropTargetId,

@@ -24,7 +24,7 @@ final class BaseDocument: BaseDocumentProtocol {
         return isLocked
     }
     
-    private let blockActionsService = ServiceLocator.shared.blockActionsServiceSingle()
+    private let blockActionsService: BlockActionsServiceSingleProtocol
     private let eventsListener: EventsListener
     private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
     private let relationBuilder = RelationsBuilder()
@@ -47,23 +47,25 @@ final class BaseDocument: BaseDocumentProtocol {
             restrictionsContainer: restrictionsContainer
         )
         
+        self.blockActionsService = ServiceLocator.shared.blockActionsServiceSingle(contextId: objectId)
+        
         setup()
     }
     
     deinit {
-        blockActionsService.close(contextId: objectId, blockId: objectId)
+        close()
     }
 
     // MARK: - BaseDocumentProtocol
 
     @discardableResult
     func open() -> Bool {
-        isOpened = blockActionsService.open(contextId: objectId, blockId: objectId)
+        isOpened = blockActionsService.open()
         return isOpened
     }
     
     func close(){
-        blockActionsService.close(contextId: objectId, blockId: objectId)
+        blockActionsService.close()
     }
     
     var details: ObjectDetails? {

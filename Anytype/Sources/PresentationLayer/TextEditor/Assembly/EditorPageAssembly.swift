@@ -84,9 +84,11 @@ final class EditorAssembly {
         let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
         let cursorManager = EditorCursorManager()
         let listService = BlockListService(contextId: document.objectId)
+        let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId)
         let blockActionService = BlockActionService(
             documentId: document.objectId,
             listService: listService,
+            singleService: singleService,
             modelsHolder: modelsHolder,
             cursorManager: cursorManager
         )
@@ -131,7 +133,8 @@ final class EditorAssembly {
         )
         
         let headerModel = ObjectHeaderViewModel(document: document, router: router)
-        let blockActionsServiceSingle = ServiceLocator.shared.blockActionsServiceSingle()
+        let blockActionsServiceSingle = ServiceLocator.shared
+            .blockActionsServiceSingle(contextId: document.objectId)
 
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
