@@ -331,7 +331,7 @@ extension EditorRouter {
 
     func showAddNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
         let relationService = RelationsService(objectId: document.objectId)
-        
+
         let viewModel = SearchNewRelationViewModel(
             relationService: relationService,
             objectRelations: document.parsedRelations,
