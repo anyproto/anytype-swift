@@ -4,7 +4,7 @@ import Combine
 
 class CreateNewRelationViewModel: ObservableObject, Dismissible {
     @Published var relationTypes: [RelationMetadata.Format]
-    @Published var selectedType: RelationMetadata.Format = .longText
+    @Published var selectedType: RelationMetadata.Format = .object
 
     let relationService: RelationsServiceProtocol
     var onSelect: (RelationMetadata) -> ()
