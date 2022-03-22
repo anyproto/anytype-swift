@@ -4,7 +4,7 @@ import BlocksModels
 protocol BlockViewModelProtocol:
     HashableProvier,
     ContentConfigurationProvider,
-    BlockDataProvider,
+    BlockInformationProvider,
     BlockFocusing
 { }
 
@@ -13,13 +13,15 @@ protocol HashableProvier {
 }
 
 protocol ContentConfigurationProvider {
-    var indentationLevel: Int { get }
-
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration
 }
 
+protocol IndentationProvider {
+    var indentationLevel: Int { get }
+}
+
 protocol BlockFocusing {
-    func didSelectRowInTableView()
+    func didSelectRowInTableView(editorEditingState: EditorEditingState)
 
     func set(focus: BlockFocusPosition)
 }
@@ -28,13 +30,13 @@ extension BlockFocusing {
     func set(focus: BlockFocusPosition) { }
 }
 
-protocol BlockDataProvider {
-    var information: BlockInformation { get }
+protocol BlockInformationProvider {
+    var info: BlockInformation { get }
 }
 
 // MARK: - Extensions
 
-extension BlockDataProvider {
-    var blockId: BlockId { information.id }
-    var content: BlockContent { information.content }
+extension BlockInformationProvider {
+    var blockId: BlockId { info.id }
+    var content: BlockContent { info.content }
 }

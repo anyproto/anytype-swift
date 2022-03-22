@@ -25,9 +25,9 @@ final class ScrollViewContentInsetsHelper: KeyboardEventsListnerHelper {
             scrollView?.handleBottomInsetChange(EditorScrollViewConstants.bottomEditorInsets)
         }
 
-        stateManager.editorEditingState.sink { [weak scrollView] state in
+        stateManager.editorEditingStatePublisher.sink { [weak scrollView] state in
             switch state {
-            case .editing, .selecting:
+            case .editing, .selecting, .locked:
                 scrollView?.handleBottomInsetChange(EditorScrollViewConstants.bottomEditorInsets)
             case .moving:
                 scrollView?.contentInset = EditorScrollViewConstants.movingInsents

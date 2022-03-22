@@ -71,11 +71,24 @@ class BlockListService: BlockListServiceProtocol {
             .send()
     }
     
-    func moveTo(blockId: BlockId, targetId: BlockId) {
+    func move(blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position) {
         Anytype_Rpc.BlockList.Move.Service.invoke(
             contextID: contextId,
             blockIds: [blockId],
-            targetContextID: targetId,
+            targetContextID: contextId,
+            dropTargetID: targetId,
+            position: position
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .blockListService)?
+            .send()
+    }
+    
+    func moveToPage(blockId: BlockId, pageId: BlockId) {
+        Anytype_Rpc.BlockList.Move.Service.invoke(
+            contextID: contextId,
+            blockIds: [blockId],
+            targetContextID: pageId,
             dropTargetID: "",
             position: .bottom
         )

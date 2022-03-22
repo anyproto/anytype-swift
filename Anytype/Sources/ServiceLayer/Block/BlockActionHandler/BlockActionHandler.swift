@@ -3,6 +3,33 @@ import BlocksModels
 import Combine
 import AnytypeCore
 import Amplitude
+import ProtobufMessages
+
+final class DefaultFileUplodingWorker: MediaFileUploadingWorkerProtocol {
+    var contentType: MediaPickerContentType = .images
+
+    private let action: (_ localPath: String) -> Void
+
+    init(action: @escaping (_ localPath: String) -> Void) {
+        self.action = action
+    }
+
+    func cancel() {
+        // do nothing
+    }
+
+    func prepare() {
+        // do nothing
+    }
+
+    func upload(_ localPath: String) {
+        action(localPath)
+    }
+
+    func finish() {
+        // do nothing
+    }
+}
 
 final class BlockActionHandler: BlockActionHandlerProtocol {
     weak var blockSelectionHandler: BlockSelectionHandler?
@@ -30,8 +57,64 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     // MARK: - Service proxy
-    func past(slots: PastboardSlots, blockId: BlockId, range: NSRange) {
-        service.paste(slots: slots, blockId: blockId, range: range)
+
+    func paste(blockId: BlockId, range: NSRange, pasteSlot: PasteboardSlot) {
+        paste(blockId: blockId, range: range, selectedBlockIds: nil, isPartOfBlock: true, pasteSlot: pasteSlot)
+    }
+
+    func paste(selectedBlockIds: [BlockId], pasteSlot: PasteboardSlot) {
+        paste(blockId: nil, range: nil, selectedBlockIds: selectedBlockIds, isPartOfBlock: false, pasteSlot: pasteSlot)
+    }
+
+    private func paste(blockId: BlockId?, range: NSRange?, selectedBlockIds: [BlockId]?, isPartOfBlock: Bool, pasteSlot: PasteboardSlot) {
+        var textSlot: String? = nil
+        var htmlSlot: String? = nil
+        var anySlots: [Anytype_Model_Block]? = nil
+
+        switch pasteSlot {
+        case .text(let text):
+            textSlot = text
+        case .html(let html):
+            htmlSlot = html
+        case .anySlots(let anyJSONSlots):
+            anySlots = anyJSONSlots.compactMap { anyJSONSlot in
+                try? Anytype_Model_Block(jsonString: anyJSONSlot)
+            }
+        case .fileSlots(let fileSlots):
+            fileSlots.forEach { [weak self] itemProvider in
+                let operation = MediaFileUploadingOperation(
+                    itemProvider: itemProvider,
+                    worker: DefaultFileUplodingWorker { localPath in
+                        _ = self?.service.pasteFile(focusedBlockId: blockId,
+                                                    selectedTextRange: range,
+                                                    selectedBlockIds: selectedBlockIds,
+                                                    isPartOfBlock: isPartOfBlock,
+                                                    localPath: localPath,
+                                                    name: itemProvider.suggestedName ?? "")
+                    }
+                )
+                self?.fileUploadingDemon.addOperation(operation)
+            }
+            return
+        }
+
+        service.paste(focusedBlockId: blockId,
+                      selectedTextRange: range,
+                      selectedBlockIds: selectedBlockIds,
+                      isPartOfBlock: isPartOfBlock,
+                      textSlot: textSlot,
+                      htmlSlot: htmlSlot,
+                      anySlots: anySlots)
+    }
+
+    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) {
+        let pasteboardHelper = PasteboardHelper()
+        let blocksInfo = blocksIds.compactMap {
+            document.infoContainer.get(id: $0)
+        }
+        if let anySlots = service.copy(blocksInfo: blocksInfo, selectedTextRange: selectedTextRange) {
+            pasteboardHelper.copy(slots: anySlots)
+        }
     }
 
     func turnIntoPage(blockId: BlockId) -> BlockId? {
@@ -87,8 +170,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.delete(blockId: blockId)
     }
     
-    func moveTo(targetId: BlockId, blockId: BlockId) {
-        listService.moveTo(blockId: blockId, targetId: targetId)
+    func moveToPage(blockId: BlockId, pageId: BlockId) {
+        listService.moveToPage(blockId: blockId, pageId: pageId)
     }
     
     func createEmptyBlock(parentId: BlockId) {
@@ -97,7 +180,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func addLink(targetId: BlockId, blockId: BlockId) {
         service.add(
-            info: BlockBuilder.createNewPageLink(targetBlockId: targetId),
+            info: .emptyLink(targetId: targetId),
             targetBlockId: blockId,
             position: .bottom
         )
@@ -152,7 +235,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
-        guard let info = document.blocksContainer.model(id: blockId)?.information else { return }
+        guard let info = document.infoContainer.get(id: blockId) else { return }
 
         guard case .text = info.content else { return }
 
@@ -211,9 +294,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
-        guard let block = document.blocksContainer.model(id: targetId) else { return nil }
+        guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
-        if case .text(let blockText) = block.information.content, blockText.text.isEmpty {
+        if case .text(let blockText) = info.content, blockText.text.isEmpty {
             position = .replace
         } else {
             position = .bottom
@@ -230,15 +313,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
             
         guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
-        guard let info = document.blocksContainer.model(id: blockId)?.information else { return }
+        guard let info = document.infoContainer.get(id: blockId) else { return }
         
         let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
         
         service.add(info: newBlock, targetBlockId: info.id, position: position)
     }
 
-    func selectBlock(blockInformation: BlockInformation) {
-        blockSelectionHandler?.didSelectEditingState(on: blockInformation)
+    func selectBlock(info: BlockInformation) {
+        blockSelectionHandler?.didSelectEditingState(info: info)
     }
 
     func createAndFetchBookmark(

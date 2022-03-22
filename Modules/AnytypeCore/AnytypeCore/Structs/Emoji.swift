@@ -18,5 +18,5 @@ public struct Emoji: Hashable {
         self.value = String(emoji)
     }
     
-    public static let `default` = Emoji("📄")!
+    public static let `default` = Emoji("📝")!
 }

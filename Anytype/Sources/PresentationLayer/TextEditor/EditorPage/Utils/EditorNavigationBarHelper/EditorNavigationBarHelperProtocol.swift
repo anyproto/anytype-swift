@@ -5,11 +5,10 @@ protocol EditorNavigationBarHelperProtocol {
     
     func addFakeNavigationBarBackgroundView(to view: UIView)
     
-    func handleViewWillAppear(_ vc: UIViewController?, _ scrollView: UIScrollView)
+    func handleViewWillAppear(scrollView: UIScrollView)
     func handleViewWillDisappear()
     
     func configureNavigationBar(using header: ObjectHeader, details: ObjectDetails?)
     
-    func setNavigationBarHidden(_ hidden: Bool)
-    
+    func editorEditingStateDidChange(_ state: EditorEditingState)
 }

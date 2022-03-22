@@ -66,11 +66,15 @@ struct ObjectCoverPicker: View {
             AnytypeText("Change cover".localized, style: .uxTitle1Semibold, color: .textPrimary)
                 .multilineTextAlignment(.center)
         } rightButton: {
-            Button {
-                viewModel.removeCover()
-                dismiss()
-            } label: {
-                AnytypeText("Remove".localized, style: .uxBodyRegular, color: Color.System.red)
+            if viewModel.isRemoveButtonAvailable {
+                Button {
+                    viewModel.removeCover()
+                    dismiss()
+                } label: {
+                    AnytypeText("Remove".localized, style: .uxBodyRegular, color: Color.System.red)
+                }
+            } else {
+                EmptyView()
             }
         }
     }

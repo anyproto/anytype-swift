@@ -1,6 +1,7 @@
 @testable import Anytype
 import BlocksModels
 import ProtobufMessages
+import XCTest
 
 struct SplitData {
     let string: NSAttributedString
@@ -95,7 +96,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
             mergeNumberOfCalls += 1
             mergeSecondBlockId = secondBlockId
         } else {
-            assertionFailure()
+            XCTFail()
         }
     }
     
@@ -156,5 +157,18 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     
     func paste(slots: PastboardSlots, blockId: BlockId, range: NSRange) {
         assertionFailure()
+    }
+
+    func paste(blockId: BlockId, range: NSRange, slots: PastboardSlots) {
+        assertionFailure()
+    }
+    
+    func paste(selectedBlockIds: [BlockId], slots: PastboardSlots) {
+        assertionFailure()
+    }
+    
+    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots {
+        assertionFailure()
+        return .init(textSlot: nil, htmlSlot: nil, anySlot: [])
     }
 }

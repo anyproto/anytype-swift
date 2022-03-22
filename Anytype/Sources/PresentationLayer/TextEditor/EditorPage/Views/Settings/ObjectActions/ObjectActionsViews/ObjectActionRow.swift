@@ -34,31 +34,23 @@ private extension ObjectAction {
 
     var title: String {
         switch self {
-        case let .archive(isArchived: isArchived):
+        case let .archive(isArchived):
             return isArchived ? "Restore".localized : "Delete".localized
-        case let .favorite(isFavorite: isFavorite):
+        case let .favorite(isFavorite):
             return isFavorite ? "Unfavorite".localized : "Favorite".localized
-//        case .moveTo:
-//            return "Move to"
-//        case .template:
-//            return "Template"
-//        case .search:
-//            return "Search"
+        case let .locked(isLocked):
+            return isLocked ? "Unlock".localized : "Lock".localized
         }
     }
 
     var image: Image {
         switch self {
-        case let .archive(isArchived: isArchived):
+        case let .archive(isArchived):
             return isArchived ? .ObjectAction.restore : .ObjectAction.archive
-        case let .favorite(isFavorite: isFavorite):
+        case let .favorite(isFavorite):
             return isFavorite ? .ObjectAction.unfavorite : .ObjectAction.favorite
-//        case .moveTo:
-//            return Image.ObjectAction.moveTo
-//        case .template:
-//            return Image.ObjectAction.template
-//        case .search:
-//            return Image.ObjectAction.search
+        case let .locked(isLocked):
+            return isLocked ? .ObjectAction.unlock : .ObjectAction.lock
         }
     }
 }

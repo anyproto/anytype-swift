@@ -42,7 +42,7 @@ final class EditorAssembly {
             assembly: self
         )
         
-        model.router = router
+        model.setup(router: router)
         
         return (controller, router)
     }
@@ -78,39 +78,25 @@ final class EditorAssembly {
         document: BaseDocumentProtocol,
         router: EditorRouter,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel
-    ) -> EditorPageViewModel {
-        
-        let objectSettinsViewModel = ObjectSettingsViewModel(
-            objectId: document.objectId,
-            objectDetailsService: DetailsService(
-                objectId: document.objectId
-            ),
-            popScreenAction: { [weak router] in
-                router?.goBack()
-            },
-            onLayoutSettingsTap: { [weak router] layoutPickerViewModel in
-                router?.showLayoutPicker(viewModel: layoutPickerViewModel)
-            },
-            onRelationValueEditingTap: { [weak router] in
-                router?.showRelationValueEditingView(key: $0, source: .object)
-            }
-        )
-                
+    ) -> EditorPageViewModel {                
         let modelsHolder = EditorMainItemModelsHolder()
         
-        let markupChanger = BlockMarkupChanger(blocksContainer: document.blocksContainer)
+        let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
         let cursorManager = EditorCursorManager()
         let listService = BlockListService(contextId: document.objectId)
+        let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId)
         let blockActionService = BlockActionService(
             documentId: document.objectId,
             listService: listService,
+            singleService: singleService,
             modelsHolder: modelsHolder,
             cursorManager: cursorManager
         )
         let keyboardHandler = KeyboardActionHandler(
             service: blockActionService,
             listService: listService,
-            toggleStorage: ToggleStorage.shared
+            toggleStorage: ToggleStorage.shared,
+            container: document.infoContainer
         )
         
         let actionHandler = BlockActionHandler(
@@ -146,18 +132,15 @@ final class EditorAssembly {
             actionHandler: actionHandler
         )
         
-        let headerBuilder = ObjectHeaderBuilder(
-            settingsViewModel: objectSettinsViewModel,
-            router: router
-        )
-
-        let blockActionsService = BlockActionsServiceSingle()
+        let headerModel = ObjectHeaderViewModel(document: document, router: router)
+        let blockActionsServiceSingle = ServiceLocator.shared
+            .blockActionsServiceSingle(contextId: document.objectId)
 
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
             modelsHolder: modelsHolder,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
-            blockActionsService: blockActionsService,
+            blockActionsServiceSingle: blockActionsServiceSingle,
             actionHandler: actionHandler,
             router: router
         )
@@ -168,14 +151,13 @@ final class EditorAssembly {
             document: document,
             viewInput: viewInput,
             blockDelegate: blockDelegate,
-            objectSettinsViewModel: objectSettinsViewModel,
             router: router,
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,
             actionHandler: actionHandler,
             wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
-            headerBuilder: headerBuilder,
-            blockActionsService: blockActionsService,
+            headerModel: headerModel,
+            blockActionsService: blockActionsServiceSingle,
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager
         )

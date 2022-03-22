@@ -4,7 +4,23 @@ import ProtobufMessages
 
 protocol BlockActionServiceProtocol {
 
-    func paste(slots: PastboardSlots, blockId: BlockId, range: NSRange)
+    func paste(focusedBlockId: BlockId?,
+               selectedTextRange: NSRange?,
+               selectedBlockIds: [BlockId]?,
+               isPartOfBlock: Bool,
+               textSlot: String?,
+               htmlSlot: String?,
+               anySlots:  [Anytype_Model_Block]?)
+
+    func pasteFile(focusedBlockId: BlockId?,
+                   selectedTextRange: NSRange?,
+                   selectedBlockIds: [BlockId]?,
+                   isPartOfBlock: Bool,
+                   localPath: String,
+                   name: String) -> BlockId?
+
+    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> [PasteboardSlot]?
+
     func upload(blockId: BlockId, filePath: String)
     
     func turnInto(_ style: BlockText.Style, blockId: BlockId)

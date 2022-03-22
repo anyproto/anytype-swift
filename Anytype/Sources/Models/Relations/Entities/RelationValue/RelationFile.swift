@@ -18,16 +18,13 @@ extension Relation {
 
 extension Relation.File {
     
-    struct Option: Hashable, Identifiable, RelationOptionProtocol {
+    struct Option: Hashable, Identifiable {
         
         let id: String
         
         let icon: ObjectIconImage
         let title: String
         
-        func makeView() -> AnyView {
-            AnyView(RelationFilesRowView(file: self))
-        }
     }
     
 }

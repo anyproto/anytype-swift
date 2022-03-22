@@ -1,4 +1,5 @@
 import BlocksModels
+import SwiftUI
 
 final class RelationEditingViewModelBuilder {
     
@@ -72,7 +73,16 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return RelationOptionsViewModel(
                 source: source,
                 type: .tags(tag.allTags),
-                selectedOptions: tag.selectedTags,
+                selectedOptions: tag.selectedTags.map { tag in
+                    ListRowConfiguration(
+                        id: tag.id,
+                        contentHash: tag.hashValue
+                    ) {
+                        TagRelationRowView(
+                            viewModel: TagView.Model(text: tag.text, textColor: tag.textColor, backgroundColor: tag.backgroundColor)
+                        ).eraseToAnyView()
+                    }
+                },
                 relation: relation,
                 service: RelationsService(objectId: objectId)
             )
@@ -80,7 +90,14 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return RelationOptionsViewModel(
                 source: source,
                 type: .objects,
-                selectedOptions: object.selectedObjects,
+                selectedOptions: object.selectedObjects.map { object in
+                    ListRowConfiguration(
+                        id: object.id,
+                        contentHash: object.hashValue
+                    ) {
+                        RelationObjectsRowView(object: object).eraseToAnyView()
+                    }
+                },
                 relation: relation,
                 service: RelationsService(objectId: objectId)
             )
@@ -88,7 +105,14 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
             return RelationOptionsViewModel(
                 source: source,
                 type: .files,
-                selectedOptions: file.files,
+                selectedOptions: file.files.map { file in
+                    ListRowConfiguration(
+                        id: file.id,
+                        contentHash: file.hashValue
+                    ) {
+                        RelationFilesRowView(file: file).eraseToAnyView()
+                    }
+                },
                 relation: relation,
                 service: RelationsService(objectId: objectId)
             )

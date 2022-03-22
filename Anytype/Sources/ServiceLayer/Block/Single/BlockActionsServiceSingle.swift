@@ -1,34 +1,71 @@
-import Foundation
 import Combine
 import BlocksModels
 import ProtobufMessages
 import Amplitude
 import AnytypeCore
-import BlocksModels
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
-    func paste(contextId: BlockId, focusedBlockId: BlockId, selectedTextRange: NSRange, isPartOfBlock: Bool, slots: PastboardSlots) {
-        #warning("implement in next prs isPartOfBlock, selectedBlockIds, anySlot, fileSlot")
-        Anytype_Rpc.Block.Paste.Service.invoke(
+    private let contextId: BlockId
+    init(contextId: BlockId) {
+        self.contextId = contextId
+    }
+    
+    func paste(
+        focusedBlockId: BlockId,
+        selectedTextRange: NSRange,
+        selectedBlockIds: [BlockId],
+        isPartOfBlock: Bool,
+        textSlot: String?,
+        htmlSlot: String?,
+        anySlots:  [Anytype_Model_Block]?,
+        fileSlots: [Anytype_Rpc.Block.Paste.Request.File]?
+    ) -> BlockId? {
+
+        let result = Anytype_Rpc.Block.Paste.Service.invoke(
             contextID: contextId,
             focusedBlockID: focusedBlockId,
             selectedTextRange: selectedTextRange.asMiddleware,
-            selectedBlockIds: [],
+            selectedBlockIds: selectedBlockIds,
             isPartOfBlock: isPartOfBlock,
-            textSlot: slots.textSlot ?? "",
-            htmlSlot: slots.htmlSlot ?? "",
-            anySlot: [],
-            fileSlot: []
+            textSlot: textSlot ?? "",
+            htmlSlot: htmlSlot ?? "",
+            anySlot: anySlots ?? [],
+            fileSlot: fileSlots ?? []
         )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockActionsService)?
-            .send()
+            .getValue(domain: .blockActionsService)
 
+        let events = result.map {
+            EventsBunch(event: $0.event)
+        }
+        events?.send()
+
+        return result?.blockIds.last
     }
 
-    func open(contextId: BlockId, blockId: BlockId) -> Bool {
-        let event = Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: blockId, traceID: "")
+    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> [PasteboardSlot]? {
+        let blockskModels = blocksInfo.compactMap {
+            BlockInformationConverter.convert(information: $0)
+        }
+
+        let result = Anytype_Rpc.Block.Copy.Service.invoke(
+            contextID: contextId,
+            blocks: blockskModels,
+            selectedTextRange: selectedTextRange.asMiddleware
+        )
+            .getValue(domain: .blockActionsService)
+
+        if let result = result {
+            let anySlot = result.anySlot.compactMap { modelBlock in
+                try? modelBlock.jsonString()
+            }
+            return [.html(result.htmlSlot), .text(result.textSlot), .anySlots(anySlot)]
+        }
+        return nil
+    }
+
+    func open() -> Bool {
+        let event = Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: contextId, traceID: "")
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockActionsService)
         
@@ -38,12 +75,12 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         return true
     }
     
-    func close(contextId: BlockId, blockId: BlockId) {
-        _ = Anytype_Rpc.Block.Close.Service.invoke(contextID: contextId, blockID: blockId)
+    func close() {
+        _ = Anytype_Rpc.Block.Close.Service.invoke(contextID: contextId, blockID: contextId)
     }
     
-    func add(contextId: BlockId, targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {
-        guard let blockInformation = BlockInformationConverter.convert(information: info) else {
+    func add(targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {
+        guard let block = BlockInformationConverter.convert(information: info) else {
             anytypeAssertionFailure("addActionBlockIsNotParsed", domain: .blockActionsService)
             return nil
         }
@@ -51,7 +88,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         Amplitude.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
 
         let response = Anytype_Rpc.Block.Create.Service
-            .invoke(contextID: contextId, targetID: targetId, block: blockInformation, position: position.asMiddleware)
+            .invoke(contextID: contextId, targetID: targetId, block: block, position: position.asMiddleware)
         
         guard let result = response.getValue(domain: .blockActionsService) else { return nil }
 
@@ -59,7 +96,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         return result.blockID
     }
     
-    func delete(contextId: BlockId, blockIds: [BlockId]) -> Bool {
+    func delete(blockIds: [BlockId]) -> Bool {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockDelete)
         let event = Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextId, blockIds: blockIds)
             .map { EventsBunch(event: $0.event) }
@@ -71,7 +108,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         return true
     }
 
-    func duplicate(contextId: BlockId, targetId: BlockId, blockIds: [BlockId], position: BlockPosition) {
+    func duplicate(targetId: BlockId, blockIds: [BlockId], position: BlockPosition) {
         Amplitude.instance().logEvent(AmplitudeEventsName.blockListDuplicate)
 
         Anytype_Rpc.BlockList.Duplicate.Service
@@ -83,7 +120,6 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
 
     func move(
-        contextId: BlockId,
         blockIds: [String],
         targetContextID: BlockId,
         dropTargetID: String,

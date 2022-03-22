@@ -89,7 +89,7 @@ final class TextBlockIconView: UIView {
             let quoteView = createQuoteView()
             currentView = quoteView
         case .empty:
-            isHidden = true
+            setContentHuggingPriority(.required, for: .horizontal)
             return
         }
     }

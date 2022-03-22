@@ -8,7 +8,7 @@ struct SetHeaderSettings: View {
     var body: some View {
         Button(action: {
             withAnimation(.fastSpring) {
-                model.showViewPicker = true
+                model.showViewPicker()
             }
         }) {
             HStack(alignment: .center, spacing: 0) {

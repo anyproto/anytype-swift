@@ -56,9 +56,8 @@ class StartOfTextMarkdownTests: XCTestCase {
         textView.text = text
         textView.selectedRange = NSRange(location: carretPosition, length: 0)
         
-        let block = BlockModelMock(information: .emptyText)
         let text = UIKitAnytypeText(text: text, style: .body)
         
-        return TextBlockDelegateData(textView: textView, block: block, text: text)
+        return TextBlockDelegateData(textView: textView, info: .emptyText, text: text)
     }
 }

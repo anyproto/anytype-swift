@@ -1,11 +1,3 @@
-//
-//  ObjectHeaderEmptyContentView.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 23.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 
 final class ObjectHeaderEmptyContentView: UIView, UIContentView {
@@ -30,6 +22,8 @@ final class ObjectHeaderEmptyContentView: UIView, UIContentView {
         tapGesture = BindableGestureRecognizer { _ in configuration.data.onTap() }
         
         super.init(frame: .zero)
+
+        isUserInteractionEnabled = !configuration.isLocked
         
         setupView()
     }
@@ -50,17 +44,9 @@ private extension ObjectHeaderEmptyContentView  {
     
     func setupLayout() {
         layoutUsing.anchors {
-            $0.height.equal(to: Constants.height)
+            $0.height.equal(to: ObjectHeaderConstants.emptyViewHeight)
         }
         translatesAutoresizingMaskIntoConstraints = true
-    }
-    
-}
-
-extension ObjectHeaderEmptyContentView {
-    
-    enum Constants {
-        static let height: CGFloat = 92
     }
     
 }

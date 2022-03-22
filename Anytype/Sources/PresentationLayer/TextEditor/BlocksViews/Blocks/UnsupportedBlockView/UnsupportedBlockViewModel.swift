@@ -4,22 +4,22 @@ import AnytypeCore
 
 struct UnsupportedBlockViewModel: BlockViewModelProtocol {
     let indentationLevel = 0
-    let information: BlockInformation
+    let info: BlockInformation
 
     var hashable: AnyHashable {
         [
             indentationLevel,
-            information
+            info
         ] as [AnyHashable]
     }
 
-    init(information: BlockInformation) {
-        self.information = information
+    init(info: BlockInformation) {
+        self.info = info
     }
 
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         UnsupportedBlockContentConfiguration(text: "Unsupported block".localized).asCellBlockConfiguration
     }
 
-    func didSelectRowInTableView() { }
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) { }
 }

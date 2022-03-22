@@ -1,11 +1,3 @@
-//
-//  ObjectHeaderFilledContentView.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 23.09.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import UIKit
 import Combine
 
@@ -67,6 +59,7 @@ private extension ObjectHeaderFilledContentView  {
     }
     
     func apply(_ configuration: ObjectHeaderFilledConfiguration) {
+        isUserInteractionEnabled = !configuration.isLocked
         appliedConfiguration = configuration
         headerView.configure(
             model: ObjectHeaderView.Model(
@@ -75,7 +68,7 @@ private extension ObjectHeaderFilledContentView  {
             )
         )
         
-        guard configuration.state.isWithCover else {
+        guard configuration.state.hasCover else {
             subscription = nil
             return
         }
@@ -98,7 +91,7 @@ private extension ObjectHeaderFilledContentView  {
             return
         }
 
-        let coverHeight = ObjectHeaderView.Constants.coverHeight
+        let coverHeight = ObjectHeaderConstants.coverHeight
         let scaleY = (abs(offset) + coverHeight) / coverHeight
 
         var t = CGAffineTransform.identity

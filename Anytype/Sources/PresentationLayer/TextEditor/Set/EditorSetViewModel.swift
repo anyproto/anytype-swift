@@ -7,10 +7,11 @@ import SwiftUI
 final class EditorSetViewModel: ObservableObject {
     @Published var dataView = BlockDataview.empty
     @Published private var records: [ObjectDetails] = []
-    
-    @Published var showViewPicker = false
+    @Published private(set) var headerModel: ObjectHeaderViewModel!
     
     @Published var pagitationData = EditorSetPaginationData.empty
+    
+    weak var popup: AnytypePopupProxy?
     
     var isEmpty: Bool {
         dataView.views.filter { $0.isSupported }.isEmpty
@@ -48,53 +49,68 @@ final class EditorSetViewModel: ObservableObject {
     }
  
     var details: ObjectDetails {
-        document.objectDetails ?? .empty
+        document.details ?? .empty
     }
     var featuredRelations: [Relation] {
-        document.parsedRelations.featuredRelationsForEditor(type: details.objectType, objectRestriction: document.restrictionsContainer.restrinctions.objectRestriction)
+        document.featuredRelationsForEditor()
     }
     
     let document: BaseDocument
-    var router: EditorRouterProtocol?
+    private(set) var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
-
     
     init(document: BaseDocument) {
         self.document = document
-        setup()
+    }
+    
+    func setup(router: EditorRouterProtocol) {
+        self.router = router
+        self.headerModel = ObjectHeaderViewModel(document: document, router: router)
+        
+        subscription = document.updatePublisher.sink { [weak self] in
+            self?.onDataChange($0)
+        }
+        
+        document.open()
+        setupDataview()
     }
     
     func onAppear() {
+        guard document.isOpened else {
+            router.goBack()
+            return
+        }
         setupSubscriptions()
+        router?.setNavigationViewHidden(false, animated: true)
     }
     
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
     }
     
-    // MARK: - Private
-    private func setup() {
-        subscription = document.updatePublisher.sink { [weak self] in
-            self?.onDataChange($0)
-        }
-        
-        if !document.open() {
-            router?.goBack()
-        }
-        setupDataview()
+    func showViewPicker() {
+        router.presentFullscreen(AnytypePopup(viewModel: self))
     }
     
-    private func onDataChange(_ data: EventsListenerUpdate) {
+    func onSettingsTap() {
+        router.showSettings()
+    }
+    
+    // MARK: - Private
+    
+    private func onDataChange(_ data: DocumentUpdate) {
         switch data {
         case .general:
             objectWillChange.send()
             setupDataview()
         case .syncStatus, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
+        case .header:
+            break // handled in ObjectHeaderViewModel
         }
     }
     
@@ -111,7 +127,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func updateActiveViewId(_ id: BlockId) {
-        document.blocksContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
+        document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
             dataView.updated(activeViewId: id)
         }
         

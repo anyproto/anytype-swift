@@ -17,16 +17,12 @@ extension Relation {
 
 extension Relation.Object {
 
-    struct Option: Hashable, Identifiable, RelationOptionProtocol {
+    struct Option: Hashable, Identifiable {
         let id: String
         
         let icon: ObjectIconImage
         let title: String
         let type: String
-        
-        func makeView() -> AnyView {
-            AnyView(RelationObjectsRowView(object: self))
-        }
     }
     
 }

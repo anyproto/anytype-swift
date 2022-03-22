@@ -46,7 +46,7 @@ final class HomeViewModel: ObservableObject {
         let homeBlockId = configurationService.configuration().homeBlockID
         document = BaseDocument(objectId: homeBlockId)
         document.updatePublisher.sink { [weak self] in
-            self?.onDashboardChange(updateResult: $0)
+            self?.onDashboardChange(update: $0)
         }.store(in: &cancellables)
         setupSubscriptions()
     }
@@ -139,16 +139,19 @@ final class HomeViewModel: ObservableObject {
         }
     }
     
-    private func onDashboardChange(updateResult: EventsListenerUpdate) {
+    private func onDashboardChange(update: DocumentUpdate) {
         withAnimation(.spring()) {
-            switch updateResult {
+            switch update {
             case .general:
                 updateFavoritesTab()
             case .blocks(let blockIds):
                 blockIds.forEach { updateFavoritesCellWithTargetId($0) }
             case .details(let detailId):
                 updateFavoritesCellWithTargetId(detailId)
-            case .syncStatus, .dataSourceUpdate:
+            case .syncStatus:
+                break
+            case .dataSourceUpdate, .header:
+                anytypeAssertionFailure("Unsupported event \(update)", domain: .homeView)
                 break
             }
         }

@@ -68,7 +68,17 @@ final class MarkdownListenerImpl: MarkdownListener {
     
     private func applyStyle(_ style: BlockText.Style, string: NSAttributedString, shortcutLength: Int) -> MarkdownChange {
         let text = string.mutable
-        text.mutableString.deleteCharacters(in: NSMakeRange(0, shortcutLength))
+        
+        anytypeAssert(
+            shortcutLength <= text.string.count,
+            "Shortcut length: \(shortcutLength) for style: \(style) is bigger then  string length: \(text.string)",
+            domain: .markdownListener
+        )
+        
+        
+        text.mutableString.deleteCharacters(
+            in: NSMakeRange(0, min(shortcutLength, text.string.count))
+        )
 
         return .turnInto(style, text: text)
     }
