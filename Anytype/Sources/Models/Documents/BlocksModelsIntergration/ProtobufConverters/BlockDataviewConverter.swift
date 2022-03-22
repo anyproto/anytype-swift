@@ -29,14 +29,3 @@ extension Anytype_Model_Block.Content.Dataview.View {
     }
 }
 
-extension Anytype_Model_Block.Content.Dataview.View.TypeEnum {
-    var asModel: DataviewViewType? {
-        switch self {
-        case .table: return .table
-        case .list: return .list
-        case .gallery: return .gallery
-        case .kanban: return .kanban
-        case .UNRECOGNIZED: return nil
-        }
-    }
-}
