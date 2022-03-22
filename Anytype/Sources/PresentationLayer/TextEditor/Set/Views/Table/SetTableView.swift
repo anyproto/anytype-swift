@@ -69,9 +69,13 @@ struct SetTableView: View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(headerMinimizedSize.height)
             VStack {
-                SetHeaderSettings()
-                    .offset(x: xOffset, y: 0)
-                    .environmentObject(model)
+                HStack {
+                    SetHeaderSettings()
+                        .offset(x: xOffset, y: 0)
+                        .environmentObject(model)
+                        .frame(width: tableHeaderSize.width)
+                    Spacer()
+                }
                 SetTableViewHeader()
             }
         }
