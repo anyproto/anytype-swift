@@ -9,6 +9,15 @@ final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelP
         self.mainModel = mainModel
     }
     
+    func onSettingTap(_ setting: EditorSetSetting) {
+        switch setting {
+        case .settings:
+            // todo
+            break
+        }
+    }
+    
+    // MARK: - AnytypePopupViewModelProtocol
     var popupLayout: AnytypePopupLayoutType {
         .constantHeight(height: 100, floatingPanelStyle: false)
     }

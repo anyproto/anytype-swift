@@ -3,11 +3,11 @@ import BlocksModels
 
 struct EditorSetSettingsView: View {
     @EnvironmentObject var mainModel: EditorSetViewModel
-    @EnvironmentObject var model: SetViewPickerViewModel
+    @EnvironmentObject var model: EditorSetSettingsViewModel
     
     var body: some View {
         HStack(spacing: 16) {
-            ForEach(EditorSetSettings.allCases) { setting in
+            ForEach(EditorSetSetting.allCases) { setting in
                 settingsButton(setting)
             }
             Spacer()
@@ -18,18 +18,20 @@ struct EditorSetSettingsView: View {
         .padding(.horizontal, 16)
     }
     
-    private func settingsButton(_ setting: EditorSetSettings) -> some View {
-        VStack(spacing: 0) {
-            ZStack(alignment: .center) {
-                RoundedRectangle(cornerRadius: 10.5)
-                    .foregroundColor(.strokeTertiary)
-                setting.image
+    private func settingsButton(_ setting: EditorSetSetting) -> some View {
+        Button(action: { model.onSettingTap(setting) }) {
+            VStack(spacing: 0) {
+                ZStack(alignment: .center) {
+                    RoundedRectangle(cornerRadius: 10.5)
+                        .foregroundColor(.strokeTertiary)
+                    setting.image
+                }
+                .frame(width: 52, height: 52)
+                
+                Spacer.fixedHeight(5)
+                AnytypeText(setting.name, style: .caption2Regular, color: .textSecondary)
             }
-            .frame(width: 52, height: 52)
-            
-            Spacer.fixedHeight(5)
-            AnytypeText(setting.name, style: .caption2Regular, color: .textSecondary)
+            .frame(height: 52)
         }
-        .frame(height: 52)
     }
 }

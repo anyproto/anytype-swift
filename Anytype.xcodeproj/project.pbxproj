@@ -441,7 +441,7 @@
 		3D30410227E364FC00FFE0EB /* ObjectHeaderConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30410127E364FB00FFE0EB /* ObjectHeaderConstants.swift */; };
 		3D30412927E8D12800FFE0EB /* EditorSetSettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30412727E8D12800FFE0EB /* EditorSetSettingsViewModel.swift */; };
 		3D30412A27E8D12800FFE0EB /* EditorSetSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30412827E8D12800FFE0EB /* EditorSetSettingsView.swift */; };
-		3D30412C27E8D45C00FFE0EB /* EditorSetSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30412B27E8D45C00FFE0EB /* EditorSetSettings.swift */; };
+		3D30412C27E8D45C00FFE0EB /* EditorSetSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30412B27E8D45C00FFE0EB /* EditorSetSetting.swift */; };
 		3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */; };
 		3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */; };
 		3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */; };
@@ -1361,7 +1361,7 @@
 		3D30410127E364FB00FFE0EB /* ObjectHeaderConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectHeaderConstants.swift; sourceTree = "<group>"; };
 		3D30412727E8D12800FFE0EB /* EditorSetSettingsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetSettingsViewModel.swift; sourceTree = "<group>"; };
 		3D30412827E8D12800FFE0EB /* EditorSetSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetSettingsView.swift; sourceTree = "<group>"; };
-		3D30412B27E8D45C00FFE0EB /* EditorSetSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetSettings.swift; sourceTree = "<group>"; };
+		3D30412B27E8D45C00FFE0EB /* EditorSetSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetSetting.swift; sourceTree = "<group>"; };
 		3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationView.swift; sourceTree = "<group>"; };
 		3D34F20927BE3B5300990C49 /* SettingsAppearanceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsAppearanceView.swift; sourceTree = "<group>"; };
 		3D34F20B27BE3BE400990C49 /* UIRectCorner+Corners.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIRectCorner+Corners.swift"; sourceTree = "<group>"; };
@@ -3840,7 +3840,7 @@
 			children = (
 				3D30412827E8D12800FFE0EB /* EditorSetSettingsView.swift */,
 				3D30412727E8D12800FFE0EB /* EditorSetSettingsViewModel.swift */,
-				3D30412B27E8D45C00FFE0EB /* EditorSetSettings.swift */,
+				3D30412B27E8D45C00FFE0EB /* EditorSetSetting.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -6363,7 +6363,7 @@
 				3D44984526D53D61005A3E06 /* EditorPageViewModelProtocol.swift in Sources */,
 				3D2F9C1E271EAE8E0043C326 /* FirebaseNonFatalLogger.swift in Sources */,
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,
-				3D30412C27E8D45C00FFE0EB /* EditorSetSettings.swift in Sources */,
+				3D30412C27E8D45C00FFE0EB /* EditorSetSetting.swift in Sources */,
 				3D16841726DD672E008B9DFF /* BlockFileConverter.swift in Sources */,
 				3D155274264D976A00B0E976 /* Snackbar.swift in Sources */,
 				C961495C27182F8900360840 /* GalleryViewTransitionAnimator.swift in Sources */,
