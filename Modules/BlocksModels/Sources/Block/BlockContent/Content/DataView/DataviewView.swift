@@ -34,8 +34,8 @@ public struct DataviewView: Hashable, Identifiable {
         type == .table
     }
     
-    public var asMiddleware: DataviewMiddlewareView {
-        DataviewMiddlewareView(
+    public var asMiddleware: MiddlewareDataviewView {
+        MiddlewareDataviewView(
             id: id,
             type: type.asMiddleware,
             name: name,
@@ -51,7 +51,7 @@ public struct DataviewView: Hashable, Identifiable {
 }
 
 public extension DataviewView {
-    init?(data: DataviewMiddlewareView) {
+    init?(data: MiddlewareDataviewView) {
         guard let type = data.type.asModel else { return nil }
         
         self.id = data.id
@@ -67,7 +67,7 @@ public extension DataviewView {
     }
 }
 
-public extension DataviewMiddlewareView {
+public extension MiddlewareDataviewView {
     var asModel: DataviewView? {
         DataviewView(data: self)
     }

@@ -7,39 +7,33 @@ public struct BlockDataview: Hashable {
     public let views: [DataviewView]
     public let relations: [RelationMetadata]
     
-    public init(
-        activeViewId: BlockId,
-        source: [String],
-        views: [DataviewView],
-        relations: [RelationMetadata]
-    ) {
-        self.activeViewId = activeViewId
-        self.source = source
-        self.views = views
-        self.relations = relations
-    }
-    
-    public func updated(views newViews: [DataviewView]) -> BlockDataview {
-        BlockDataview(activeViewId: activeViewId, source: source, views: newViews, relations: relations)
-    }
-    
-    public func updated(activeViewId newActiveViewId: BlockId) -> BlockDataview {
-        BlockDataview(activeViewId: newActiveViewId, source: source, views: views, relations: relations)
-    }
-    
-    public func updated(source newSource: [String]) -> BlockDataview {
-        BlockDataview(activeViewId: activeViewId, source: newSource, views: views, relations: relations)
-    }
-    
-    public func updated(relations newRelations: [RelationMetadata]) -> BlockDataview {
-        BlockDataview(activeViewId: activeViewId, source: source, views: views, relations: newRelations)
+    public func updated(
+        activeViewId: BlockId? = nil,
+        source: [String]? = nil,
+        views: [DataviewView]? = nil,
+        relations: [RelationMetadata]? = nil
+    ) -> BlockDataview {
+        BlockDataview(
+            activeViewId: activeViewId ?? self.activeViewId,
+            source: source ?? self.source,
+            views: views ?? self.views,
+            relations: relations ?? self.relations
+        )
     }
     
     public static var empty: BlockDataview {
         BlockDataview(activeViewId: "", source: [], views: [], relations: [])
     }
+    
+    var asMiddleware: MiddlewareDataview {
+        MiddlewareDataview(
+            source: source,
+            views: views.map(\.asMiddleware),
+            relations: relations.map(\.middlewareModel),
+            activeView: activeViewId
+        )
+    }
 }
-
 
 extension BlockDataview {
     public func relationsMetadataForView(_ view: DataviewView) -> [RelationMetadata] {
@@ -49,5 +43,20 @@ extension BlockDataview {
             .compactMap { key in
                 relations.first { $0.key == key }
             }
+    }
+}
+
+public extension MiddlewareDataview {
+    var blockContent: BlockContent {
+        .dataView(asModel)
+    }
+    
+    var asModel: BlockDataview {
+        BlockDataview(
+            activeViewId: activeView,
+            source: source,
+            views: views.compactMap(\.asModel),
+            relations: relations.map { RelationMetadata(middlewareRelation: $0) }
+        )
     }
 }
