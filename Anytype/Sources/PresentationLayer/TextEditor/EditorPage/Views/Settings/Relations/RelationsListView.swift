@@ -4,10 +4,9 @@ import BlocksModels
 struct RelationsListView: View {
     
     @ObservedObject var viewModel: RelationsListViewModel
-    
     @State private var editingMode = false
     
-    @State private var createNewRelatin = false
+    @State private var isCreateNewRelatinPresented = false
     
     var body: some View {
         VStack(spacing: 0) {
@@ -15,31 +14,37 @@ struct RelationsListView: View {
             navigationBar
             relationsList
         }
-        .sheet(isPresented: $createNewRelatin) {
+        .sheet(isPresented: $isCreateNewRelatinPresented) {
             SearchNewRelationView(viewModel: viewModel.searchNewRelationViewModel)
         }
     }
     
     private var navigationBar: some View {
         HStack {
-            Button {
-                withAnimation(.fastSpring) {
-                    editingMode.toggle()
-                }
-            } label: {
-                AnytypeText(editingMode ? "Done".localized : "Edit".localized, style: .uxBodyRegular, color: .textSecondary)
-            }
-
+            editButton
             Spacer()
-            
-            Button {
-                createNewRelatin = true
-            } label: {
-                Image.Relations.createOption.frame(width: 24, height: 24)
-            }
+            createNewRelationButton
         }
         .frame(height: 48)
         .padding(.horizontal, 16)
+    }
+    
+    private var editButton: some View {
+        Button {
+            withAnimation(.fastSpring) {
+                editingMode.toggle()
+            }
+        } label: {
+            AnytypeText(editingMode ? "Done".localized : "Edit".localized, style: .uxBodyRegular, color: .textSecondary)
+        }
+    }
+    
+    private var createNewRelationButton: some View {
+        Button {
+            isCreateNewRelatinPresented = true
+        } label: {
+            Image.Relations.createOption.frame(width: 24, height: 24)
+        }
     }
     
     private var relationsList: some View {

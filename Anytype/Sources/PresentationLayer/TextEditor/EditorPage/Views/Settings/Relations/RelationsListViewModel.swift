@@ -5,10 +5,13 @@ import UIKit
 import AnytypeCore
 
 final class RelationsListViewModel: ObservableObject {
-    
-    // MARK: - Private variables
-    
+        
     @Published private(set) var sections: [RelationsSection]
+    
+    let onValueEditingTap: (String) -> ()
+
+    // MARK: - Private variables
+
     private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol 
     
@@ -17,9 +20,7 @@ final class RelationsListViewModel: ObservableObject {
             sections = sectionsBuilder.buildSections(from: parsedRelations)
         }
     }
-    
-    let onValueEditingTap: (String) -> ()
-    
+        
     // MARK: - Initializers
     
     init(
@@ -32,7 +33,11 @@ final class RelationsListViewModel: ObservableObject {
         self.onValueEditingTap = onValueEditingTap
     }
     
-    // MARK: - Internal functions
+}
+
+// MARK: - Internal functions
+
+extension RelationsListViewModel {
     
     func update(with parsedRelations: ParsedRelations) {
         self.parsedRelations = parsedRelations
@@ -62,4 +67,5 @@ final class RelationsListViewModel: ObservableObject {
             onSelect: { _ in }
         )
     }
+    
 }
