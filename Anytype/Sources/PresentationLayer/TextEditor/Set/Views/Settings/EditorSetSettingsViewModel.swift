@@ -3,10 +3,10 @@ import SwiftUI
 
 final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelProtocol {
     weak var popup: AnytypePopupProxy?
-    private var mainModel: EditorSetViewModel
+    private let setModel: EditorSetViewModel
     
-    init(mainModel: EditorSetViewModel) {
-        self.mainModel = mainModel
+    init(setModel: EditorSetViewModel) {
+        self.setModel = setModel
     }
     
     func onSettingTap(_ setting: EditorSetSetting) {
@@ -30,7 +30,7 @@ final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelP
         UIHostingController(
             rootView: EditorSetSettingsView()
                 .environmentObject(self)
-                .environmentObject(mainModel)
+                .environmentObject(setModel)
         )
     }
 }

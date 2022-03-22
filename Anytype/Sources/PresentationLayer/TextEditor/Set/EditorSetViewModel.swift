@@ -92,13 +92,16 @@ final class EditorSetViewModel: ObservableObject {
     
     func showViewPicker() {
         router.presentFullscreen(
-            AnytypePopup(viewModel: SetViewPickerViewModel(mainModel: self))
+            AnytypePopup(viewModel: SetViewPickerViewModel(setModel: self))
         )
     }
     
     func showSetSettings() {
         router.presentFullscreen(
-            AnytypePopup(viewModel: EditorSetSettingsViewModel(mainModel: self))
+            AnytypePopup(
+                viewModel: EditorSetSettingsViewModel(setModel: self),
+                floatingPanelStyle: true
+            )
         )
     }
     
