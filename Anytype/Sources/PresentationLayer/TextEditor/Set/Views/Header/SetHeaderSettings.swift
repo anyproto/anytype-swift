@@ -17,7 +17,7 @@ struct SetHeaderSettings: View {
     
     private var settingButton: some View {
         Button(action: {
-            model.showViewPicker()
+            model.showSetSettings()
         }) {
             Image.set.settings
         }
