@@ -7,11 +7,16 @@ struct RelationsListView: View {
     
     @State private var editingMode = false
     
+    @State private var createNewRelatin = false
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
             navigationBar
             relationsList
+        }
+        .sheet(isPresented: $createNewRelatin) {
+            SearchNewRelationView(viewModel: viewModel.searchNewRelationViewModel)
         }
     }
     
@@ -26,6 +31,12 @@ struct RelationsListView: View {
             }
 
             Spacer()
+            
+            Button {
+                createNewRelatin = true
+            } label: {
+                Image.Relations.createOption.frame(width: 24, height: 24)
+            }
         }
         .frame(height: 48)
         .padding(.horizontal, 16)

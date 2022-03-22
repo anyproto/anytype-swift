@@ -12,6 +12,12 @@ final class RelationsListViewModel: ObservableObject {
     private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol 
     
+    private var parsedRelations: ParsedRelations = .empty {
+        didSet {
+            sections = sectionsBuilder.buildSections(from: parsedRelations)
+        }
+    }
+    
     let onValueEditingTap: (String) -> ()
     
     // MARK: - Initializers
@@ -29,7 +35,7 @@ final class RelationsListViewModel: ObservableObject {
     // MARK: - Internal functions
     
     func update(with parsedRelations: ParsedRelations) {
-        self.sections = sectionsBuilder.buildSections(from: parsedRelations)
+        self.parsedRelations = parsedRelations
     }
     
     func changeRelationFeaturedState(relationId: String) {
@@ -47,5 +53,13 @@ final class RelationsListViewModel: ObservableObject {
     
     func removeRelation(id: String) {
         relationsService.removeRelation(relationKey: id)
-    }    
+    }
+    
+    var searchNewRelationViewModel: SearchNewRelationViewModel {
+        SearchNewRelationViewModel(
+            relationService: relationsService,
+            objectRelations: parsedRelations,
+            onSelect: { _ in }
+        )
+    }
 }
