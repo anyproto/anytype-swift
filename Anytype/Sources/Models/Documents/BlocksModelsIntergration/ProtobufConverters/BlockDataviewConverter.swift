@@ -13,19 +13,3 @@ extension Anytype_Model_Block.Content.Dataview {
         )
     }
 }
-
-extension Anytype_Model_Block.Content.Dataview.View {
-    var asModel: DataviewView? {
-        type.asModel.flatMap {
-            DataviewView(
-                id: id,
-                name: name,
-                type: $0,
-                relations: relations.map(\.asModel),
-                sorts: sorts,
-                filters: filters
-            )
-        }
-    }
-}
-

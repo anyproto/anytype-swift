@@ -1,3 +1,5 @@
+import ProtobufMessages
+
 public struct DataviewView: Hashable, Identifiable {
     public let id: BlockId
     public let name: String
@@ -7,28 +9,66 @@ public struct DataviewView: Hashable, Identifiable {
     public let relations: [DataviewViewRelation]
     public let sorts: [DataviewSort]
     public let filters: [DataviewFilter]
-
-    public init(
-        id: BlockId,
-        name: String,
-        type: DataviewViewType,
-        relations: [DataviewViewRelation],
-        sorts: [DataviewSort],
-        filters: [DataviewFilter]
-    ) {
-        self.id = id
-        self.name = name
-        self.type = type
-        self.relations = relations
-        self.sorts = sorts
-        self.filters = filters
-    }
+    
+    public let coverRelationKey: String
+    public let hideIcon: Bool
+    public let cardSize: DataviewViewSize
+    public let coverFit: Bool
     
     public static var empty: DataviewView {
-        DataviewView(id: "", name: "", type: .list, relations: [], sorts: [], filters: [])
+        DataviewView(
+            id: "",
+            name: "",
+            type: .table,
+            relations: [],
+            sorts: [],
+            filters: [],
+            coverRelationKey: "",
+            hideIcon: false,
+            cardSize: .small,
+            coverFit: false
+        )
     }
     
     public var isSupported: Bool {
         type == .table
+    }
+    
+    public var asMiddleware: DataviewMiddlewareView {
+        DataviewMiddlewareView(
+            id: id,
+            type: type.asMiddleware,
+            name: name,
+            sorts: sorts,
+            filters: filters,
+            relations: relations.map(\.asMiddleware),
+            coverRelationKey: coverRelationKey,
+            hideIcon: hideIcon,
+            cardSize: cardSize,
+            coverFit: coverFit
+        )
+    }
+}
+
+public extension DataviewView {
+    init?(data: DataviewMiddlewareView) {
+        guard let type = data.type.asModel else { return nil }
+        
+        self.id = data.id
+        self.name = data.name
+        self.type = type
+        self.relations = data.relations.map(\.asModel)
+        self.sorts = data.sorts
+        self.filters = data.filters
+        self.coverRelationKey = data.coverRelationKey
+        self.hideIcon = data.hideIcon
+        self.cardSize = data.cardSize
+        self.coverFit = data.coverFit
+    }
+}
+
+public extension DataviewMiddlewareView {
+    var asModel: DataviewView? {
+        DataviewView(data: self)
     }
 }

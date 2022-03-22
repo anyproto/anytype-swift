@@ -297,8 +297,8 @@
 				3D30415A27EA247300FFE0EB /* BlockDataViewAliases.swift */,
 				3D30415E27EA24AB00FFE0EB /* DataviewViewRelation.swift */,
 				3D30415C27EA249400FFE0EB /* DataviewViewType.swift */,
-				3DE0B3272747BDC200F69376 /* BlockDataView.swift */,
 				3D30416027EA24E400FFE0EB /* DataviewView.swift */,
+				3DE0B3272747BDC200F69376 /* BlockDataView.swift */,
 			);
 			path = DataView;
 			sourceTree = "<group>";
