@@ -20,8 +20,7 @@ platform :ios do
       devices: ["iPhone 8"], 
       scheme: "AnytypeTests",
       slack_url: "https://hooks.slack.com/services/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",
-      fail_build: false,
-      slack_default_payloads: [:git_branch]
+      fail_build: false
     )
   end
 

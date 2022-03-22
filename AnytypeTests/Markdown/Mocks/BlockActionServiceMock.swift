@@ -154,21 +154,19 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     func createAndFetchBookmark(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: String) {
         assertionFailure()
     }
-    
-    func paste(slots: PastboardSlots, blockId: BlockId, range: NSRange) {
+
+    func pasteFile(focusedBlockId: BlockId?, selectedTextRange: NSRange?, selectedBlockIds: [BlockId]?, isPartOfBlock: Bool, localPath: String, name: String) -> BlockId? {
+        assertionFailure()
+        return nil
+    }
+
+    func paste(focusedBlockId: BlockId?, selectedTextRange: NSRange?, selectedBlockIds: [BlockId]?, isPartOfBlock: Bool, textSlot: String?, htmlSlot: String?, anySlots: [Anytype_Model_Block]?) {
         assertionFailure()
     }
 
-    func paste(blockId: BlockId, range: NSRange, slots: PastboardSlots) {
+    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> [PasteboardSlot]? {
         assertionFailure()
+        return nil
     }
-    
-    func paste(selectedBlockIds: [BlockId], slots: PastboardSlots) {
-        assertionFailure()
-    }
-    
-    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> PastboardSlots {
-        assertionFailure()
-        return .init(textSlot: nil, htmlSlot: nil, anySlot: [])
-    }
+
 }
