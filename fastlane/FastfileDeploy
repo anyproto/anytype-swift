@@ -15,7 +15,13 @@ platform :ios do
   end
 
   lane :tests do 
-    run_tests(devices: ["iPhone 8"], scheme: "AnytypeTests")
+  desc "Runs all the tests"
+    scan(
+      devices: ["iPhone 8"], 
+      scheme: "AnytypeTests",
+      slack_url: "https://hooks.slack.com/services/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",
+      fail_build: false
+    )
   end
 
   # Private lanes
