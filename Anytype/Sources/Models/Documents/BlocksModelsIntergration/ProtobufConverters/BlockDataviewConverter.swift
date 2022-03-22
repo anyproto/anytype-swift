@@ -40,9 +40,3 @@ extension Anytype_Model_Block.Content.Dataview.View.TypeEnum {
         }
     }
 }
-
-extension Anytype_Model_Block.Content.Dataview.Relation {
-    var asModel: DataviewViewRelation {
-        DataviewViewRelation(key: key, isVisible: isVisible)
-    }
-}
