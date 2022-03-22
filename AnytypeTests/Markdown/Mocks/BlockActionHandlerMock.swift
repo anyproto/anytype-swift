@@ -174,7 +174,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) {
+    func fffffsddcopy(blocksIds: [BlockId], selectedTextRange: NSRange) {
         assertionFailure()
     }
 }
