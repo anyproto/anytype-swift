@@ -80,7 +80,7 @@ final class PasteboardHelper {
     }
 
     var hasValidURL: Bool {
-        if UIPasteboard.general.hasURLs, let url = UIPasteboard.general.url?.absoluteString, url.isValidURL() {
+        if pasteboard.hasURLs, let url = pasteboard.url?.absoluteString, url.isValidURL() {
             return true
         }
         return false

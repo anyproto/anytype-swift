@@ -15,20 +15,21 @@ final class PasteboardFileOperation: AsyncOperation {
 
     private let itemProvider: NSItemProvider
     private let context: PasteboardActionContext
-    private weak var pasteActionDelegate: PasteboardSlotActionDelegate?
+    private let service: PasteboardMiddleServiceProtocol
 
     // MARK: - Initializers
 
-    init(itemProvider: NSItemProvider, context: PasteboardActionContext, pasteActionDelegate: PasteboardSlotActionDelegate?) {
+    init(itemProvider: NSItemProvider, context: PasteboardActionContext, service: PasteboardMiddleServiceProtocol) {
         self.itemProvider = itemProvider
         self.context = context
-        self.pasteActionDelegate = pasteActionDelegate
+        self.service = service
 
         super.init()
     }
 
     override func start() {
         guard !isCancelled else {
+            self.state = .finished
             return
         }
 
@@ -42,7 +43,7 @@ final class PasteboardFileOperation: AsyncOperation {
                 return
             }
 
-            self.pasteActionDelegate?.pasteFile(localPath: temporaryUrl, name: self.itemProvider.suggestedName ?? "", context: self.context)
+            self.service.pasteFile(localPath: temporaryUrl, name: self.itemProvider.suggestedName ?? "", context: self.context)
             self.state = .finished
         }
 

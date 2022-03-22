@@ -703,6 +703,10 @@
 		535FDE1B27E8B5DC0098DBFA /* PasteboardSlotAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FDE1A27E8B5DC0098DBFA /* PasteboardSlotAction.swift */; };
 		535FDE2027E8B63A0098DBFA /* PasteboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FDE1F27E8B63A0098DBFA /* PasteboardHelper.swift */; };
 		535FDE2227E8CB0B0098DBFA /* PasteboardFileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FDE2127E8CB0B0098DBFA /* PasteboardFileOperation.swift */; };
+		535FDE2527E9C5FF0098DBFA /* PasteboardActionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FDE2427E9C5FF0098DBFA /* PasteboardActionContext.swift */; };
+		535FDE2727E9C6250098DBFA /* PasteboardSlotActionProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FDE2627E9C6250098DBFA /* PasteboardSlotActionProtocol.swift */; };
+		535FDE2927E9C6770098DBFA /* PasteboardMiddleServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FDE2827E9C6770098DBFA /* PasteboardMiddleServiceProtocol.swift */; };
+		535FDE2B27E9C6A60098DBFA /* PasteboardMiddleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FDE2A27E9C6A60098DBFA /* PasteboardMiddleService.swift */; };
 		53728CFB273596750092A8CF /* MarkupKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53728CFA273596750092A8CF /* MarkupKind.swift */; };
 		53728D00273596C40092A8CF /* MarkupAccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53728CFF273596C40092A8CF /* MarkupAccessoryViewModel.swift */; };
 		53728D1E273AC8F90092A8CF /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53728D1D273AC8F90092A8CF /* ColorView.swift */; };
@@ -1644,6 +1648,10 @@
 		535FDE1A27E8B5DC0098DBFA /* PasteboardSlotAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardSlotAction.swift; sourceTree = "<group>"; };
 		535FDE1F27E8B63A0098DBFA /* PasteboardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardHelper.swift; sourceTree = "<group>"; };
 		535FDE2127E8CB0B0098DBFA /* PasteboardFileOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardFileOperation.swift; sourceTree = "<group>"; };
+		535FDE2427E9C5FF0098DBFA /* PasteboardActionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardActionContext.swift; sourceTree = "<group>"; };
+		535FDE2627E9C6250098DBFA /* PasteboardSlotActionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardSlotActionProtocol.swift; sourceTree = "<group>"; };
+		535FDE2827E9C6770098DBFA /* PasteboardMiddleServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardMiddleServiceProtocol.swift; sourceTree = "<group>"; };
+		535FDE2A27E9C6A60098DBFA /* PasteboardMiddleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardMiddleService.swift; sourceTree = "<group>"; };
 		53728CFA273596750092A8CF /* MarkupKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupKind.swift; sourceTree = "<group>"; };
 		53728CFF273596C40092A8CF /* MarkupAccessoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupAccessoryViewModel.swift; sourceTree = "<group>"; };
 		53728D1D273AC8F90092A8CF /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
@@ -5149,6 +5157,25 @@
 			path = Operations;
 			sourceTree = "<group>";
 		};
+		535FDE2C27E9C6AD0098DBFA /* PasteboardSlotAction */ = {
+			isa = PBXGroup;
+			children = (
+				535FDE2627E9C6250098DBFA /* PasteboardSlotActionProtocol.swift */,
+				535FDE2427E9C5FF0098DBFA /* PasteboardActionContext.swift */,
+				535FDE1A27E8B5DC0098DBFA /* PasteboardSlotAction.swift */,
+			);
+			path = PasteboardSlotAction;
+			sourceTree = "<group>";
+		};
+		535FDE2D27E9C6CB0098DBFA /* PasteboardMiddleService */ = {
+			isa = PBXGroup;
+			children = (
+				535FDE2827E9C6770098DBFA /* PasteboardMiddleServiceProtocol.swift */,
+				535FDE2A27E9C6A60098DBFA /* PasteboardMiddleService.swift */,
+			);
+			path = PasteboardMiddleService;
+			sourceTree = "<group>";
+		};
 		53728D012735BD2A0092A8CF /* MarkupState */ = {
 			isa = PBXGroup;
 			children = (
@@ -5273,9 +5300,10 @@
 		53A4878327D6ABF200A2E627 /* Pastboard */ = {
 			isa = PBXGroup;
 			children = (
+				535FDE2D27E9C6CB0098DBFA /* PasteboardMiddleService */,
+				535FDE2C27E9C6AD0098DBFA /* PasteboardSlotAction */,
 				535FDE2327E8CB380098DBFA /* Operations */,
 				53A4878727D6AC0800A2E627 /* PasteboardService.swift */,
-				535FDE1A27E8B5DC0098DBFA /* PasteboardSlotAction.swift */,
 				535FDE1F27E8B63A0098DBFA /* PasteboardHelper.swift */,
 			);
 			path = Pastboard;
@@ -6257,6 +6285,7 @@
 				12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				3D1B5F74274CF2F5007D97AE /* SetMinimizedHeader.swift in Sources */,
+				535FDE2927E9C6770098DBFA /* PasteboardMiddleServiceProtocol.swift in Sources */,
 				1256666227C7814C005F774D /* BlockLinkStateStyle.swift in Sources */,
 				3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */,
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
@@ -6781,14 +6810,17 @@
 				3D471E3D26C69D2100457DE5 /* HomeSearchView.swift in Sources */,
 				EA57F3D126B83DDF007D4292 /* AttributeState.swift in Sources */,
 				53A4633726287B970097C25E /* ImageExetension.swift in Sources */,
+				535FDE2B27E9C6A60098DBFA /* PasteboardMiddleService.swift in Sources */,
 				3DB1CA0D2729316F000D2779 /* AccountConfiguration.swift in Sources */,
 				3D1702412715D22B0079B65B /* SyncStatus+Editor.swift in Sources */,
 				3D5A415E2703132800F1F6A1 /* SlashActionStyle.swift in Sources */,
 				03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */,
 				3D5A413B2702CB9A00F1F6A1 /* OpenedPageData.swift in Sources */,
+				535FDE2527E9C5FF0098DBFA /* PasteboardActionContext.swift in Sources */,
 				0ACDB07C255AA40900B8B0D8 /* FileActionsServiceProtocol.swift in Sources */,
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
 				129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */,
+				535FDE2727E9C6250098DBFA /* PasteboardSlotActionProtocol.swift in Sources */,
 				C9C536AB276C86DD003CD3F3 /* UIColor+Assets.swift in Sources */,
 				1244792427D8AE4100581174 /* NewSearchModuleAssembly.swift in Sources */,
 				C9D655E427B4D10D00E09F38 /* EditorContextualMenu.swift in Sources */,

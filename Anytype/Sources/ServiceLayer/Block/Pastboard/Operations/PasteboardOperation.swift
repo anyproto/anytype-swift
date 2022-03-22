@@ -30,11 +30,15 @@ final class PasteboardOperation: AsyncOperation {
         guard !isCancelled else {
             return
         }
-        
-        pasteboardAction.performPaste(context: context) { [weak self] isSuccess in
-            self?.completion(isSuccess)
 
-            self?.state = .finished
+        DispatchQueue.global().async { [weak self] in
+            guard let self = self else { return }
+
+            self.pasteboardAction.performPaste(context: self.context) { isSuccess in
+                self.completion(isSuccess)
+
+                self.state = .finished
+            }
         }
 
         state = .executing
