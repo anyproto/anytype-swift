@@ -2,8 +2,8 @@ import SwiftUI
 import BlocksModels
 
 struct EditorSetSettingsView: View {
-    @EnvironmentObject var mainModel: EditorSetViewModel
-    @EnvironmentObject var model: EditorSetSettingsViewModel
+    @EnvironmentObject private var setModel: EditorSetViewModel
+    @EnvironmentObject private var model: EditorSetSettingsViewModel
     
     var body: some View {
         HStack(spacing: 16) {
@@ -22,7 +22,7 @@ struct EditorSetSettingsView: View {
         Button(action: { model.onSettingTap(setting) }) {
             VStack(spacing: 0) {
                 ZStack(alignment: .center) {
-                    RoundedRectangle(cornerRadius: 10.5)
+                    RoundedRectangle(cornerRadius: 10)
                         .foregroundColor(.strokeTertiary)
                     setting.image
                 }

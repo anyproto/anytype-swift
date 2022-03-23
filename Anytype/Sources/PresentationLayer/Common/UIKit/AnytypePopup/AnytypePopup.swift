@@ -8,13 +8,13 @@ import AnytypeCore
 final class AnytypePopup: FloatingPanelController {
         
     private let viewModel: AnytypePopupViewModelProtocol
-    private let insetted: Bool
+    private let floatingPanelStyle: Bool
     
     // MARK: - Initializers
     
-    init(viewModel: AnytypePopupViewModelProtocol, insetted: Bool = false) {
+    init(viewModel: AnytypePopupViewModelProtocol, floatingPanelStyle: Bool = false) {
         self.viewModel = viewModel
-        self.insetted = insetted
+        self.floatingPanelStyle = floatingPanelStyle
         
         super.init(delegate: nil)
         
@@ -95,7 +95,7 @@ private extension AnytypePopup {
         
         surfaceView.contentPadding = UIEdgeInsets(top: Constants.grabberHeight, left: 0, bottom: 0, right: 0)
         
-        if insetted {
+        if floatingPanelStyle {
             let horizontalInset = UIDevice.isPad ? 0.0 : 8.0
             surfaceView.containerMargins = UIEdgeInsets(top: 0, left: horizontalInset, bottom: Constants.bottomInset, right: horizontalInset)
         }

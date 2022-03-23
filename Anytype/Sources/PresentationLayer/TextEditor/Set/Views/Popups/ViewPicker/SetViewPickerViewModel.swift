@@ -3,10 +3,10 @@ import SwiftUI
 
 final class SetViewPickerViewModel: ObservableObject, AnytypePopupViewModelProtocol {
     weak var popup: AnytypePopupProxy?
-    private var mainModel: EditorSetViewModel
+    private let setModel: EditorSetViewModel
     
-    init(mainModel: EditorSetViewModel) {
-        self.mainModel = mainModel
+    init(setModel: EditorSetViewModel) {
+        self.setModel = setModel
     }
     
     var popupLayout: AnytypePopupLayoutType {
@@ -21,7 +21,7 @@ final class SetViewPickerViewModel: ObservableObject, AnytypePopupViewModelProto
         UIHostingController(
             rootView: EditorSetViewPicker()
                 .environmentObject(self)
-                .environmentObject(mainModel)
+                .environmentObject(setModel)
         )
     }
 }

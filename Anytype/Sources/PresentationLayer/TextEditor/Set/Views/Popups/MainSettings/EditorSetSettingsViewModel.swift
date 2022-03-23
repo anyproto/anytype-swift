@@ -3,23 +3,22 @@ import SwiftUI
 
 final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelProtocol {
     weak var popup: AnytypePopupProxy?
-    private var mainModel: EditorSetViewModel
+    private let setModel: EditorSetViewModel
     
-    init(mainModel: EditorSetViewModel) {
-        self.mainModel = mainModel
+    init(setModel: EditorSetViewModel) {
+        self.setModel = setModel
     }
     
     func onSettingTap(_ setting: EditorSetSetting) {
         switch setting {
         case .settings:
-            // todo
-            break
+            setModel.showViewSettings()
         }
     }
     
     // MARK: - AnytypePopupViewModelProtocol
     var popupLayout: AnytypePopupLayoutType {
-        .constantHeight(height: 100, floatingPanelStyle: false)
+        .constantHeight(height: 100, floatingPanelStyle: true)
     }
     
     func onPopupInstall(_ popup: AnytypePopupProxy) {
@@ -30,7 +29,7 @@ final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelP
         UIHostingController(
             rootView: EditorSetSettingsView()
                 .environmentObject(self)
-                .environmentObject(mainModel)
+                .environmentObject(setModel)
         )
     }
 }
