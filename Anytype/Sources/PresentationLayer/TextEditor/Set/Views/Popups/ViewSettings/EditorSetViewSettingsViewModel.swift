@@ -1,25 +1,26 @@
 import FloatingPanel
 import SwiftUI
+import ProtobufMessages
 
-final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelProtocol {
+
+final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewModelProtocol {
     weak var popup: AnytypePopupProxy?
     private let setModel: EditorSetViewModel
+    private let service: DataviewServiceProtocol
     
-    init(setModel: EditorSetViewModel) {
+    init(setModel: EditorSetViewModel, service: DataviewServiceProtocol) {
         self.setModel = setModel
+        self.service = service
     }
     
-    func onSettingTap(_ setting: EditorSetSetting) {
-        switch setting {
-        case .settings:
-            // todo
-            break
-        }
+    func onShowIconChange(_ show: Bool) {
+        let newView = setModel.activeView.updated(hideIcon: !show)
+        service.updateView(newView)
     }
     
     // MARK: - AnytypePopupViewModelProtocol
     var popupLayout: AnytypePopupLayoutType {
-        .constantHeight(height: 100, floatingPanelStyle: false)
+        .intrinsic
     }
     
     func onPopupInstall(_ popup: AnytypePopupProxy) {
@@ -28,7 +29,7 @@ final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelP
     
     func makeContentView() -> UIViewController {
         UIHostingController(
-            rootView: EditorSetSettingsView()
+            rootView: EditorSetViewSettingsView()
                 .environmentObject(self)
                 .environmentObject(setModel)
         )

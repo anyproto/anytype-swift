@@ -34,6 +34,21 @@ public struct DataviewView: Hashable, Identifiable {
         type == .table
     }
     
+    public func updated(hideIcon: Bool) -> DataviewView {
+        DataviewView(
+            id: id,
+            name: name,
+            type: type,
+            relations: relations,
+            sorts: sorts,
+            filters: filters,
+            coverRelationKey: coverRelationKey,
+            hideIcon: hideIcon,
+            cardSize: cardSize,
+            coverFit: coverFit
+        )
+    }
+    
     public var asMiddleware: MiddlewareDataviewView {
         MiddlewareDataviewView(
             id: id,
