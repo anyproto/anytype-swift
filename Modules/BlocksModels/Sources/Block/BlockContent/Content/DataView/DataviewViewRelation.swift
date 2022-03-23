@@ -1,4 +1,4 @@
-public struct DataviewViewRelation: Hashable {
+public struct DataviewRelation: Hashable {
     public let key: String
     public let isVisible: Bool
     public let width: Int32
@@ -6,7 +6,7 @@ public struct DataviewViewRelation: Hashable {
     public let timeFormat: DataviewTimeFormat
     public let dateFormat: DataviewDateFormat
     
-    public init(data: DataviewRelation) {
+    public init(data: MiddlewareRelation) {
         self.key = data.key
         self.isVisible = data.isVisible
         self.width = data.width
@@ -15,8 +15,8 @@ public struct DataviewViewRelation: Hashable {
         self.dateFormat = data.dateFormat
     }
     
-    var asMiddleware: DataviewRelation {
-        DataviewRelation(
+    var asMiddleware: MiddlewareRelation {
+        MiddlewareRelation(
             key: key,
             isVisible: isVisible,
             width: width,
@@ -27,8 +27,8 @@ public struct DataviewViewRelation: Hashable {
     }
 }
 
-public extension DataviewRelation {
-    var asModel: DataviewViewRelation {
-        DataviewViewRelation(data: self)
+public extension MiddlewareRelation {
+    var asModel: DataviewRelation {
+        DataviewRelation(data: self)
     }
 }
