@@ -1,7 +1,6 @@
 import SwiftUI
 import Amplitude
 
-
 struct ObjectCoverPicker: View {
     
     @ObservedObject var viewModel: ObjectCoverPickerViewModel
@@ -28,7 +27,7 @@ struct ObjectCoverPicker: View {
         VStack(spacing: 0) {
             DragIndicator()
             navigationBarView
-            CoverColorsGridView { cover in
+            ItemPickerGridView(viewModel: CoverColorsGridViewModel { cover in
                 switch cover {
                 case let .color(color):
                     viewModel.setColor(color.name)
@@ -36,7 +35,8 @@ struct ObjectCoverPicker: View {
                     viewModel.setGradient(gradient.name)
                 }
                 dismiss()
-            }
+                }
+            )
         }
         .transition(
             .asymmetric(
