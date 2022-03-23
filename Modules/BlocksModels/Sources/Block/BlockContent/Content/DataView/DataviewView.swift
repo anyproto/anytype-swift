@@ -6,7 +6,7 @@ public struct DataviewView: Hashable, Identifiable {
 
     public let type: DataviewViewType
     
-    public let relations: [DataviewViewRelation]
+    public let relations: [DataviewRelation]
     public let sorts: [DataviewSort]
     public let filters: [DataviewFilter]
     
