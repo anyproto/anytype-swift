@@ -10,7 +10,7 @@ final class SetViewPickerViewModel: ObservableObject, AnytypePopupViewModelProto
     }
     
     var popupLayout: AnytypePopupLayoutType {
-        .intrinsic
+        .fullScreen
     }
     
     func onPopupInstall(_ popup: AnytypePopupProxy) {
