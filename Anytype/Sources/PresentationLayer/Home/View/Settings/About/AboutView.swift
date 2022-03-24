@@ -19,9 +19,10 @@ struct AboutView: View {
     var contentView: some View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator()
-            Spacer.fixedHeight(53)
+            
+            Spacer.fixedHeight(12)
             title
-            Spacer.fixedHeight(27)
+            Spacer.fixedHeight(12)
             
             VStack(alignment: .leading, spacing: 0) {
                 if let version = MetadataProvider.appVersion, version.isNotEmpty {
@@ -55,14 +56,15 @@ struct AboutView: View {
                 Spacer.fixedWidth(50)
                 Spacer()
                 AnytypeText(value, style: .uxBodyRegular, color: .textPrimary)
+                    .multilineTextAlignment(.trailing)
             }
-            .padding(.vertical, 12)
+            .padding(.vertical, 14)
         }
     }
     
     @State private var titleTapCount = 0
     var title: some View {
-        AnytypeText("About".localized, style: .title, color: .textPrimary)
+        AnytypeText("About".localized, style: .uxTitle1Semibold, color: .textPrimary)
             .onTapGesture {
                 titleTapCount += 1
                 if titleTapCount == 10 {
