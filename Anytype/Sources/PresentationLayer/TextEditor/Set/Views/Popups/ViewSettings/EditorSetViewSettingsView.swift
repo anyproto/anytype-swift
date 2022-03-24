@@ -7,11 +7,22 @@ struct EditorSetViewSettingsView: View {
     
     var body: some View {
         VStack {
+            topBar
             settingsSection
             relationsSection
         }
         .background(Color.backgroundPrimary)
         .padding(20)
+    }
+    
+    private var topBar: some View {
+        HStack(spacing: 0) {
+            AnytypeText("Edit".localized, style: .uxBodyRegular, color: .buttonActive)
+            Spacer()
+            Button(action: model.showAddNewRelationView) {
+                Image.plus
+            }
+        }
     }
     
     private var settingsSection: some View {

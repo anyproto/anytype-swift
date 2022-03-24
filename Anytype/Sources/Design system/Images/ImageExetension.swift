@@ -18,6 +18,8 @@ extension Image {
     
     static let ghost = createImage(ImageName.ghost)
     static let optionChecked = createImage("option_checked")
+    
+    static let plus = createImage("plus")
 }
 
 extension Image {
