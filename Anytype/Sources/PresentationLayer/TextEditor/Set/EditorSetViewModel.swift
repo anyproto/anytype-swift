@@ -20,12 +20,15 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var colums: [RelationMetadata] {
-        dataView.relationsMetadataForView(activeView)
-            .filter { $0.isHidden == false }
+        sortedRelations.filter { $0.isVisible }.map(\.metadata)
+    }
+ 
+    var rows: [SetTableViewRowData] {
+        dataBuilder.rowData(records, dataView: dataView, activeView: activeView, colums: colums)
     }
     
-    var rows: [SetTableViewRowData] {
-        rowBuilder.build(records, dataView: dataView, activeView: activeView, colums: colums)
+    var sortedRelations: [SetRelation] {
+        dataBuilder.sortedRelations(dataview: dataView, view: activeView)
     }
  
     var details: ObjectDetails {
@@ -41,7 +44,7 @@ final class EditorSetViewModel: ObservableObject {
     let paginationHelper = EditorSetPaginationHelper()
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
-    private let rowBuilder = SetTableViewRowDataBuilder()
+    private let dataBuilder = SetTableViewDataBuilder()
     
     init(document: BaseDocument) {
         self.document = document

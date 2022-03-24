@@ -1,19 +1,33 @@
 import BlocksModels
 
-final class SetTableViewRowDataBuilder {
+final class SetTableViewDataBuilder {
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     
-    func build(
+    func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
+        return view.relations
+            .compactMap { relation in
+                let metadata = dataview.relations
+                    .filter { !$0.isHidden }
+                    .first { $0.key == relation.key }
+                guard let metadata = metadata else { return nil }
+                
+                return SetRelation(isVisible: relation.isVisible, metadata: metadata)
+            }
+    }
+    
+    func rowData(
         _ datails: [ObjectDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
         colums: [RelationMetadata]
     ) -> [SetTableViewRowData] {
         datails.map { details in
-            let parsedRelations = relationsBuilder.parsedRelations(
-                relationMetadatas: dataView.relationsMetadataForView(activeView),
-                objectId: details.id
-            ).all
+            let metadata = sortedRelations(dataview: dataView, view: activeView)
+                .filter { $0.isVisible == true }
+                .map { $0.metadata }
+            let parsedRelations = relationsBuilder
+                .parsedRelations(relationMetadatas: metadata, objectId: details.id)
+                .all
             
             let sortedRelations = colums.compactMap { colum in
                 parsedRelations.first { $0.id == colum.key }
