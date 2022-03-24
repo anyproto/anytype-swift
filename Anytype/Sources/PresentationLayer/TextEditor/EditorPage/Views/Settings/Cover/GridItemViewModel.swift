@@ -5,6 +5,8 @@ protocol GridItemViewModelProtocol: ObservableObject {
 
     var sections: [GridItemSection<Item>] { get }
 
+    func onAppear()
+
     func didSelectItem(item: Item)
 }
 
@@ -20,3 +22,6 @@ protocol GridItemViewRepresentable {
     var view: AnyView { get }
 }
 
+extension GridItemViewModelProtocol {
+    func onAppear() { }
+}
