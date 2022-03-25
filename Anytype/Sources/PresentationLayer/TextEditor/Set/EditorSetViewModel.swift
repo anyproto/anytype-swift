@@ -11,8 +11,6 @@ final class EditorSetViewModel: ObservableObject {
     
     @Published var pagitationData = EditorSetPaginationData.empty
     
-    weak var popup: AnytypePopupProxy?
-    
     var isEmpty: Bool {
         dataView.views.filter { $0.isSupported }.isEmpty
     }
@@ -27,25 +25,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var rows: [SetTableViewRowData] {
-        records.map {
-            let relations = relationsBuilder.parsedRelations(
-                relationMetadatas: dataView.relationsMetadataForView(activeView),
-                objectId: $0.id
-            ).all
-            
-            let sortedRelations = colums.compactMap { colum in
-                relations.first { $0.id == colum.key }
-            }
-            
-            return SetTableViewRowData(
-                id: $0.id,
-                type: $0.editorViewType,
-                title: $0.title,
-                icon: $0.objectIconImage,
-                allRelations: sortedRelations,
-                colums: colums
-            )
-        }
+        rowBuilder.build(records, dataView: dataView, activeView: activeView, colums: colums)
     }
  
     var details: ObjectDetails {
@@ -59,9 +39,9 @@ final class EditorSetViewModel: ObservableObject {
     private(set) var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
-    private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
+    private let rowBuilder = SetTableViewRowDataBuilder()
     
     init(document: BaseDocument) {
         self.document = document
@@ -93,10 +73,32 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func showViewPicker() {
-        router.presentFullscreen(AnytypePopup(viewModel: self))
+        router.presentFullscreen(
+            AnytypePopup(viewModel: SetViewPickerViewModel(setModel: self))
+        )
     }
     
-    func onSettingsTap() {
+    func showSetSettings() {
+        router.presentFullscreen(
+            AnytypePopup(
+                viewModel: EditorSetSettingsViewModel(setModel: self),
+                floatingPanelStyle: true
+            )
+        )
+    }
+    
+    func showViewSettings() {
+        router.presentFullscreen(
+            AnytypePopup(
+                viewModel: EditorSetViewSettingsViewModel(
+                    setModel: self,
+                    service: DataviewService(objectId: document.objectId)
+                )
+            )
+        )
+    }
+    
+    func showObjectSettings() {
         router.showSettings()
     }
     

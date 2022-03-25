@@ -23,7 +23,7 @@ struct SetTableViewRow: View {
             model.router.showPage(data: data.screenData)
         } label: {
             HStack(spacing: 0) {
-                if let icon = data.icon {
+                if let icon = data.icon, data.showIcon {
                     SwiftUIObjectIconImageView(iconImage: icon, usecase: .setRow).frame(width: 18, height: 18)
                     Spacer.fixedWidth(8)
                 }
@@ -57,14 +57,5 @@ struct SetTableViewRow: View {
             )
         }
         .frame(width: 128)
-    }
-}
-
-struct SetTableViewRow_Previews: PreviewProvider {
-    static var previews: some View {
-        SetTableViewRow(
-            data: SetTableViewRowData(id: "", type: .page, title: "Title", icon: .placeholder("f"), allRelations: [], colums: []),
-            xOffset: 0
-        )
     }
 }
