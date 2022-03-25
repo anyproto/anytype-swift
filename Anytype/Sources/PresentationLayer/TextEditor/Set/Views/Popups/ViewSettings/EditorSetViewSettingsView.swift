@@ -5,8 +5,6 @@ struct EditorSetViewSettingsView: View {
     @EnvironmentObject var setModel: EditorSetViewModel
     @EnvironmentObject var model: EditorSetViewSettingsViewModel
     
-    @State private var icon = false
-    
     var body: some View {
         VStack {
             settingsSection
@@ -14,23 +12,13 @@ struct EditorSetViewSettingsView: View {
         }
         .background(Color.backgroundPrimary)
         .padding(20)
-        
-        .onAppear {
-            icon = !setModel.activeView.hideIcon
-        }
-        .onChange(of: icon) {
-            model.onShowIconChange($0)
-        }
     }
     
     private var settingsSection: some View {
         VStack {
             AnytypeText("Settings".localized, style: .uxTitle1Semibold, color: .textPrimary)
-            HStack {
-                Toggle(isOn: $icon) {
-                    AnytypeText("Icon".localized, style: .uxBodyRegular, color: .textPrimary)
-                }
-                .toggleStyle(SwitchToggleStyle(tint: .System.amber50))
+            AnytypeToggle(title: "Icon", isOn: !setModel.activeView.hideIcon) {
+                model.onShowIconChange($0)
             }
         }
     }
