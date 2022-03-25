@@ -29,7 +29,7 @@ public struct BlockDataview: Hashable {
         MiddlewareDataview(
             source: source,
             views: views.map(\.asMiddleware),
-            relations: relations.map(\.middlewareModel),
+            relations: relations.map(\.asMiddleware),
             activeView: activeViewId
         )
     }
