@@ -39,7 +39,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     let document: BaseDocument
-    private(set) var router: EditorRouterProtocol!
+    private var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
     private var subscription: AnyCancellable?
@@ -73,36 +73,6 @@ final class EditorSetViewModel: ObservableObject {
     
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
-    }
-    
-    func showViewPicker() {
-        router.presentFullscreen(
-            AnytypePopup(viewModel: SetViewPickerViewModel(setModel: self))
-        )
-    }
-    
-    func showSetSettings() {
-        router.presentFullscreen(
-            AnytypePopup(
-                viewModel: EditorSetSettingsViewModel(setModel: self),
-                floatingPanelStyle: true
-            )
-        )
-    }
-    
-    func showViewSettings() {
-        router.presentFullscreen(
-            AnytypePopup(
-                viewModel: EditorSetViewSettingsViewModel(
-                    setModel: self,
-                    service: DataviewService(objectId: document.objectId)
-                )
-            )
-        )
-    }
-    
-    func showObjectSettings() {
-        router.showSettings()
     }
     
     // MARK: - Private
@@ -171,5 +141,62 @@ final class EditorSetViewModel: ObservableObject {
             
             self.records.applySubscriptionUpdate(update)
         }
+    }
+}
+
+// MARK: - Routing
+extension EditorSetViewModel {
+    func showPage(_ data: EditorScreenData) {
+        router.showPage(data: data)
+    }
+    
+    func showRelationValueEditingView(key: String, source: RelationSource) {
+        router.showRelationValueEditingView(key: key, source: source)
+    }
+    
+    func showRelationValueEditingView(
+        objectId: BlockId,
+        source: RelationSource,
+        relation: Relation
+    ) {
+        router.showRelationValueEditingView(
+            objectId: objectId,
+            source: source,
+            relation: relation
+        )
+    }
+    
+    func showViewPicker() {
+        router.presentFullscreen(
+            AnytypePopup(viewModel: SetViewPickerViewModel(setModel: self))
+        )
+    }
+    
+    func showSetSettings() {
+        router.presentFullscreen(
+            AnytypePopup(
+                viewModel: EditorSetSettingsViewModel(setModel: self),
+                floatingPanelStyle: true
+            )
+        )
+    }
+    
+    func showViewSettings() {
+        router.presentFullscreen(
+            AnytypePopup(
+                viewModel: EditorSetViewSettingsViewModel(
+                    setModel: self,
+                    service: DataviewService(objectId: document.objectId)
+                )
+            )
+        )
+    }
+    
+    func showObjectSettings() {
+        router.showSettings()
+    }
+    
+    func showAddNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
+        router.showAddNewRelationView(onSelect: onSelect)
     }
 }

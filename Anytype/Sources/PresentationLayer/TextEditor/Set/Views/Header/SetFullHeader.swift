@@ -50,7 +50,7 @@ struct SetFullHeader: View {
             viewModel: FlowRelationsViewModel(
                 relations: model.featuredRelations,
                 onRelationTap: { relation in
-                    model.router.showRelationValueEditingView(key: relation.id, source: .object)
+                    model.showRelationValueEditingView(key: relation.id, source: .object)
                 }
             )
         )

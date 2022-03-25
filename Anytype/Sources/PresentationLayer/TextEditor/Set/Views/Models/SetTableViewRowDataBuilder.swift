@@ -11,7 +11,11 @@ final class SetTableViewDataBuilder {
                     .first { $0.key == relation.key }
                 guard let metadata = metadata else { return nil }
                 
-                return SetRelation(isVisible: relation.isVisible, metadata: metadata)
+                return SetRelation(
+                    isVisible: relation.isVisible,
+                    metadata: metadata,
+                    relation: relation
+                )
             }
     }
     
