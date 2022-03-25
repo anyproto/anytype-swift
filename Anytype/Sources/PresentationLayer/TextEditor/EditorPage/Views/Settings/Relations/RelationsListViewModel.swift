@@ -5,15 +5,22 @@ import UIKit
 import AnytypeCore
 
 final class RelationsListViewModel: ObservableObject {
-    
-    // MARK: - Private variables
-    
+        
     @Published private(set) var sections: [RelationsSection]
+    
+    let onValueEditingTap: (String) -> ()
+
+    // MARK: - Private variables
+
     private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol 
     
-    let onValueEditingTap: (String) -> ()
-    
+    private var parsedRelations: ParsedRelations = .empty {
+        didSet {
+            sections = sectionsBuilder.buildSections(from: parsedRelations)
+        }
+    }
+        
     // MARK: - Initializers
     
     init(
@@ -26,10 +33,14 @@ final class RelationsListViewModel: ObservableObject {
         self.onValueEditingTap = onValueEditingTap
     }
     
-    // MARK: - Internal functions
+}
+
+// MARK: - Internal functions
+
+extension RelationsListViewModel {
     
     func update(with parsedRelations: ParsedRelations) {
-        self.sections = sectionsBuilder.buildSections(from: parsedRelations)
+        self.parsedRelations = parsedRelations
     }
     
     func changeRelationFeaturedState(relationId: String) {
@@ -47,5 +58,14 @@ final class RelationsListViewModel: ObservableObject {
     
     func removeRelation(id: String) {
         relationsService.removeRelation(relationKey: id)
-    }    
+    }
+    
+    var searchNewRelationViewModel: SearchNewRelationViewModel {
+        SearchNewRelationViewModel(
+            relationService: relationsService,
+            objectRelations: parsedRelations,
+            onSelect: { _ in }
+        )
+    }
+    
 }
