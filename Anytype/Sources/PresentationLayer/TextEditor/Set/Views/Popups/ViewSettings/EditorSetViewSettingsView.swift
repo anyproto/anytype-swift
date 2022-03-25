@@ -11,7 +11,7 @@ struct EditorSetViewSettingsView: View {
             settingsSection
             relationsSection
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.backgroundSecondary)
         .padding(20)
     }
     

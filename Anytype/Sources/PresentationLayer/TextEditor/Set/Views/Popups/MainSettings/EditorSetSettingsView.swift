@@ -12,7 +12,7 @@ struct EditorSetSettingsView: View {
             }
             Spacer()
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.backgroundSecondary)
         .padding(.top, 16)
         .padding(.bottom, 13)
         .padding(.horizontal, 16)

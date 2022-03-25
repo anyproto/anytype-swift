@@ -20,7 +20,7 @@ struct EditorSetViewPicker: View {
                 }
             }
         }
-        .background(Color.backgroundPrimary)
+        .background(Color.backgroundSecondary)
     }
     
     func viewButton(_ view: DataviewView) -> some View {
