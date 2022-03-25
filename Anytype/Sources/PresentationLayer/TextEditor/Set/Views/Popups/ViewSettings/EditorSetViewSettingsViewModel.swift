@@ -31,6 +31,12 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
         service.updateView(newView)
     }
     
+    func showAddNewRelationView() {
+        setModel.showAddNewRelationView { [weak self] relation in
+            self?.service.addRelation(relation)
+        }
+    }
+    
     // MARK: - AnytypePopupViewModelProtocol
     var popupLayout: AnytypePopupLayoutType {
         .fullScreen

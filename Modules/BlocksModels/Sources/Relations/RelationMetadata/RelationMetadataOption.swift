@@ -21,7 +21,7 @@ extension RelationMetadata.Option {
         self.scope = Scope(rawValue: middlewareOption.scope.rawValue)
     }
 
-    var middlewareModel: Anytype_Model_Relation.Option {
+    var asMiddleware: Anytype_Model_Relation.Option {
         Anytype_Model_Relation.Option(
             id: id,
             text: text,

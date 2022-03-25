@@ -251,7 +251,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         
         let controller = UIHostingController(rootView: view)
         model.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
-        viewController.present(controller, animated: true)
+        viewController.topPresentedController.present(controller, animated: true)
     }
     
     private func presentOverCurrentContextSwuftUIView<Content: View>(view: Content, model: Dismissible) {

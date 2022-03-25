@@ -1,5 +1,6 @@
 import BlocksModels
 import ProtobufMessages
+import Combine
 
 final class DataviewService: DataviewServiceProtocol {
     private let objectId: BlockId
@@ -17,7 +18,15 @@ final class DataviewService: DataviewServiceProtocol {
                 view: view.asMiddleware
             )
             .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .anytypeColor)?
+            .getValue(domain: .dataviewService)?
+            .send()
+    }
+    
+    func addRelation(_ relation: RelationMetadata) {
+        Anytype_Rpc.Block.Dataview.RelationAdd.Service
+            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relation: relation.asMiddleware)
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .dataviewService)?
             .send()
     }
 }

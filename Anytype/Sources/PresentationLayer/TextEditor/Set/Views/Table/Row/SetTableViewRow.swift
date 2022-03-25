@@ -20,7 +20,7 @@ struct SetTableViewRow: View {
     
     private var title: some View {
         Button {
-            model.router.showPage(data: data.screenData)
+            model.showPage(data.screenData)
         } label: {
             HStack(spacing: 0) {
                 if let icon = data.icon, data.showIcon {
@@ -50,7 +50,7 @@ struct SetTableViewRow: View {
     
     private func cell(_ relationData: Relation) -> some View {
         RelationValueView(relation: relationData, style: .set) { _ in
-            model.router.showRelationValueEditingView(
+            model.showRelationValueEditingView(
                 objectId: data.id,
                 source: .dataview(contextId: model.document.objectId),
                 relation: relationData
