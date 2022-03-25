@@ -64,7 +64,7 @@ extension RelationsListViewModel {
         SearchNewRelationViewModel(
             relationService: relationsService,
             objectRelations: parsedRelations,
-            onSelect: { _ in }
+            onSelect: nil
         )
     }
     
