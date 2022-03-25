@@ -35,17 +35,6 @@ public struct BlockDataview: Hashable {
     }
 }
 
-extension BlockDataview {
-    public func relationsMetadataForView(_ view: DataviewView) -> [RelationMetadata] {
-        return view.relations
-            .filter { $0.isVisible }
-            .map(\.key)
-            .compactMap { key in
-                relations.first { $0.key == key }
-            }
-    }
-}
-
 public extension MiddlewareDataview {
     var blockContent: BlockContent {
         .dataView(asModel)
