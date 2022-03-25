@@ -59,6 +59,7 @@ struct AboutView: View {
                     .multilineTextAlignment(.trailing)
             }
             .padding(.vertical, 14)
+            .divider()
         }
     }
     
