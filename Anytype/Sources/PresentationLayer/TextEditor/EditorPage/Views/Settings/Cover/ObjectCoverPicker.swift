@@ -31,7 +31,10 @@ struct ObjectCoverPicker: View {
             navigationBarView
             ItemPickerGridView(
                 viewModel: UnsplashViewModel(
-                    onItemSelect: { _ in },
+                    onItemSelect: { item in
+                        viewModel.uploadUnplashCover(unsplashItem: item)
+                        dismiss()
+                    },
                     unsplashService: UnsplashService()
                 ))
         }

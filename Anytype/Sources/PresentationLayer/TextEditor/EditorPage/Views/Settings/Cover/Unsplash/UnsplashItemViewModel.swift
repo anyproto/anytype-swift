@@ -18,9 +18,14 @@ struct UnsplashItemView: View {
     let viewModel: UnsplashItemViewModel
 
     var body: some View {
-        KFImage(viewModel.item.url)
-            .resizable()
-            .scaledToFill()
-            .frame(height: 112)
+        ZStack(alignment: .bottomLeading) {
+            KFImage(viewModel.item.url)
+                .resizable()
+                .scaledToFill()
+                .frame(height: 112)
+            AnytypeText(viewModel.item.artistName, style: .caption2Medium, color: .textWhite)
+                .padding(.init(8    ))
+        }
+
     }
 }
