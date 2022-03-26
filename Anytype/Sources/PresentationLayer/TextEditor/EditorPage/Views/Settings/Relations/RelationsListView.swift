@@ -102,6 +102,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                     isFeatured: false,
                                     isEditable: true,
                                     isBundled: false,
+                                    format: .longText,
                                     value: "text"
                                 )
                             ),
@@ -112,6 +113,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                     isFeatured: false,
                                     isEditable: true,
                                     isBundled: false,
+                                    format: .longText,
                                     value: "text"
                                 )
                             ),
@@ -122,6 +124,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                     isFeatured: false,
                                     isEditable: true,
                                     isBundled: false,
+                                    format: .shortText,
                                     selectedTags: [
                                         Relation.Tag.Option(
                                             id: "id1",
@@ -197,6 +200,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                     isFeatured: false,
                                     isEditable: true,
                                     isBundled: false,
+                                    format: .shortText,
                                     value: "text"
                                 )
                             ),
@@ -207,6 +211,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                     isFeatured: false,
                                     isEditable: true,
                                     isBundled: false,
+                                    format: .shortText,
                                     value: "text"
                                 )
                             ),
@@ -217,6 +222,7 @@ struct ObjectRelationsView_Previews: PreviewProvider {
                                     isFeatured: false,
                                     isEditable: true,
                                     isBundled: false,
+                                    format: .shortText,
                                     value: "text"
                                 )
                             )

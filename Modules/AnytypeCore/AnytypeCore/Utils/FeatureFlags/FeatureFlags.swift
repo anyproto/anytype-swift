@@ -7,6 +7,7 @@ public enum Feature: String, Codable {
 
     case uikitRelationBlocks = "UIKit relation blocks"
     case clipboard = "Clipboard"
+    case objectPreview = "Object preview"
     
     case newRelationOptionsSearch = "New Search View for searching relation options"
 }
@@ -33,7 +34,8 @@ public final class FeatureFlags {
         .analytics : false,
         .middlewareLogs: false,
         .clipboard: false,
-        .uikitRelationBlocks: true
+        .uikitRelationBlocks: true,
+        .objectPreview: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -70,6 +72,10 @@ public extension FeatureFlags {
 
     static var clipboard: Bool {
         features[.clipboard, default: false]
+    }
+
+    static var objectPreview: Bool {
+        features[.objectPreview, default: false]
     }
 
 }

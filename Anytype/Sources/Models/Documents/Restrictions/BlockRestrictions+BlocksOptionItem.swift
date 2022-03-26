@@ -62,6 +62,19 @@ extension Array where Element == BlockInformation {
             mergedItems.remove(.paste)
         }
 
+        if !FeatureFlags.objectPreview {
+            mergedItems.remove(.preview)
+        }
+
+        var isPreviewAvailable = false
+        if case .link = first?.content, count == 1 {
+            isPreviewAvailable = true
+        }
+
+        if !isPreviewAvailable {
+            mergedItems.remove(.preview)
+        }
+
         if !UIPasteboard.general.hasSlots {
             mergedItems.remove(.paste)
         }

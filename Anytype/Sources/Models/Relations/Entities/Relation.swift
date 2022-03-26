@@ -104,6 +104,23 @@ extension Relation: RelationProtocol {
         case .unknown(let unknown): return unknown.isFeatured
         }
     }
+
+    var format: RelationMetadata.Format {
+        switch self {
+        case .text(let text): return text.format
+        case .number(let text): return text.format
+        case .status(let status): return status.format
+        case .date(let date): return date.format
+        case .object(let object): return object.format
+        case .checkbox(let checkbox): return checkbox.format
+        case .url(let text): return text.format
+        case .email(let text): return text.format
+        case .phone(let text): return text.format
+        case .tag(let tag): return tag.format
+        case .file(let file): return file.format
+        case .unknown(let unknown): return unknown.format
+        }
+    }
     
 }
 

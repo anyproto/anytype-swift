@@ -32,6 +32,7 @@
 "Delete" = "Delete";
 "Duplicate" = "Duplicate";
 "Copy" = "Copy";
+"Preview" = "Preview";
 "Paste" = "Paste";
 "Move" = "Move";
 "Move to" = "Move to";
@@ -239,5 +240,6 @@
 "Alert.CameraPermissions.GoToSettings" = "Go to Settings?";
 
 // MARK: - Relation
+"Featured relations" = "Featured relations";
 "Create from scratch" = "Create from scratch";
 "Create relation" = "Create relation";
