@@ -76,6 +76,10 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: string)
             
         case .enterAtTheBegining:
+            guard text.contentType != .title, text.contentType != .description else {
+                service.split(text.anytypeText.attrString, blockId: info.id, mode: .bottom, position: 0, newBlockContentType: .text)
+                return
+            }
             service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
 
         case .delete:
@@ -152,7 +156,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
 private extension KeyboardActionHandler {
     // We do want to create regular text block when splitting title block
     func contentTypeForSplit(_ style: BlockText.Style, blockId: BlockId) -> BlockText.Style {
-        if style == .title {
+        if style == .title || style == .description {
             return .text
         }
         

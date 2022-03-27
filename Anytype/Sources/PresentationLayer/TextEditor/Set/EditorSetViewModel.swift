@@ -11,8 +11,6 @@ final class EditorSetViewModel: ObservableObject {
     
     @Published var pagitationData = EditorSetPaginationData.empty
     
-    weak var popup: AnytypePopupProxy?
-    
     var isEmpty: Bool {
         dataView.views.filter { $0.isSupported }.isEmpty
     }
@@ -22,30 +20,15 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var colums: [RelationMetadata] {
-        dataView.relationsMetadataForView(activeView)
-            .filter { $0.isHidden == false }
+        sortedRelations.filter { $0.isVisible }.map(\.metadata)
+    }
+ 
+    var rows: [SetTableViewRowData] {
+        dataBuilder.rowData(records, dataView: dataView, activeView: activeView, colums: colums)
     }
     
-    var rows: [SetTableViewRowData] {
-        records.map {
-            let relations = relationsBuilder.parsedRelations(
-                relationMetadatas: dataView.relationsMetadataForView(activeView),
-                objectId: $0.id
-            ).all
-            
-            let sortedRelations = colums.compactMap { colum in
-                relations.first { $0.id == colum.key }
-            }
-            
-            return SetTableViewRowData(
-                id: $0.id,
-                type: $0.editorViewType,
-                title: $0.title,
-                icon: $0.objectIconImage,
-                allRelations: sortedRelations,
-                colums: colums
-            )
-        }
+    var sortedRelations: [SetRelation] {
+        dataBuilder.sortedRelations(dataview: dataView, view: activeView)
     }
  
     var details: ObjectDetails {
@@ -56,12 +39,12 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     let document: BaseDocument
-    private(set) var router: EditorRouterProtocol!
+    private var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
-    private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
+    private let dataBuilder = SetTableViewDataBuilder()
     
     init(document: BaseDocument) {
         self.document = document
@@ -90,14 +73,6 @@ final class EditorSetViewModel: ObservableObject {
     
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
-    }
-    
-    func showViewPicker() {
-        router.presentFullscreen(AnytypePopup(viewModel: self))
-    }
-    
-    func onSettingsTap() {
-        router.showSettings()
     }
     
     // MARK: - Private
@@ -166,5 +141,62 @@ final class EditorSetViewModel: ObservableObject {
             
             self.records.applySubscriptionUpdate(update)
         }
+    }
+}
+
+// MARK: - Routing
+extension EditorSetViewModel {
+    func showPage(_ data: EditorScreenData) {
+        router.showPage(data: data)
+    }
+    
+    func showRelationValueEditingView(key: String, source: RelationSource) {
+        router.showRelationValueEditingView(key: key, source: source)
+    }
+    
+    func showRelationValueEditingView(
+        objectId: BlockId,
+        source: RelationSource,
+        relation: Relation
+    ) {
+        router.showRelationValueEditingView(
+            objectId: objectId,
+            source: source,
+            relation: relation
+        )
+    }
+    
+    func showViewPicker() {
+        router.presentFullscreen(
+            AnytypePopup(viewModel: SetViewPickerViewModel(setModel: self))
+        )
+    }
+    
+    func showSetSettings() {
+        router.presentFullscreen(
+            AnytypePopup(
+                viewModel: EditorSetSettingsViewModel(setModel: self),
+                floatingPanelStyle: true
+            )
+        )
+    }
+    
+    func showViewSettings() {
+        router.presentFullscreen(
+            AnytypePopup(
+                viewModel: EditorSetViewSettingsViewModel(
+                    setModel: self,
+                    service: DataviewService(objectId: document.objectId)
+                )
+            )
+        )
+    }
+    
+    func showObjectSettings() {
+        router.showSettings()
+    }
+    
+    func showAddNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
+        router.showAddNewRelationView(onSelect: onSelect)
     }
 }

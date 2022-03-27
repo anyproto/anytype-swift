@@ -18,12 +18,21 @@ extension Image {
     
     static let ghost = createImage(ImageName.ghost)
     static let optionChecked = createImage("option_checked")
+    
+    static let plus = createImage("plus")
 }
 
 extension Image {
     enum `set` {
         static let forward = createImage("set_pagination_arrow_forward")
         static let back = createImage("set_pagination_arrow_backward")
+        static let settings = createImage("set_settings")
+        
+        static let filter = createImage("set_settins_filter")
+        static let group = createImage("set_settins_group")
+        static let viewSettings = createImage("set_settins_settings")
+        static let sort = createImage("set_settins_sort")
+        static let view = createImage("set_settins_view")
     }
     
     enum main {

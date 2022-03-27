@@ -5,9 +5,10 @@ import Amplitude
 struct SearchNewRelationView: View {
     @Environment(\.presentationMode) var presentationMode
 
+    @StateObject var viewModel: SearchNewRelationViewModel
+
     @State private var searchText = ""
     @State private var showCreateNewRelation: Bool = false
-    @StateObject var viewModel: SearchNewRelationViewModel
 
     var body: some View {
         VStack() {
