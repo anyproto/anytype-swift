@@ -61,17 +61,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     }
     
     private func buildLoadingHeader(_ update: ObjectHeaderUpdate) -> ObjectHeader {
-        guard let details = document.details else {
-            return fakeHeader(update: update)
-        }
-        
-        let header = buildObjectHeader(details: details)
-        
-        return header.modifiedByUpdate(
-            update,
-            onIconTap: onIconTap,
-            onCoverTap: onCoverTap
-        ) ?? .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
+        fakeHeader(update: update)
     }
     
     private func fakeHeader(update: ObjectHeaderUpdate) -> ObjectHeader {
