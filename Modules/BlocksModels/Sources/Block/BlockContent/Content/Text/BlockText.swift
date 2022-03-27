@@ -47,6 +47,13 @@ public extension BlockText {
 
 // MARK: Empty
 public extension BlockText {
+    static func plain(_ text: String, contentType: Style) -> BlockText {
+        BlockText(
+            text: text, marks: .init(), color: nil, contentType: contentType,
+            checked: false, iconEmoji: "", iconImage: ""
+        )
+    }
+    
     static func empty(contentType: Style) -> BlockText {
         BlockText(
             text: "", marks: .init(), color: nil, contentType: contentType,

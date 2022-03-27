@@ -53,7 +53,7 @@ struct SetMinimizedHeader: View {
                 haveBackground: model.details.documentCover.isNotNil,
                 opacity: opacity
             ),
-            action: model.onSettingsTap
+            action: model.showObjectSettings
         )
         .frame(width: 28, height: 28)
     }

@@ -2,7 +2,8 @@ import SwiftUI
 import BlocksModels
 
 struct EditorSetViewPicker: View {
-    @EnvironmentObject var model: EditorSetViewModel
+    @EnvironmentObject var setModel: EditorSetViewModel
+    @EnvironmentObject var model: SetViewPickerViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -13,7 +14,7 @@ struct EditorSetViewPicker: View {
                 VStack(alignment: .center, spacing: 0) {
                     Spacer.fixedHeight(12)
                     
-                    ForEach(model.dataView.views) { view in
+                    ForEach(setModel.dataView.views) { view in
                         viewButton(view)
                     }
                 }
@@ -28,14 +29,14 @@ struct EditorSetViewPicker: View {
             HStack(spacing: 0) {
                 if view.isSupported {
                     Button(action: {
-                        model.updateActiveViewId(view.id)
+                        setModel.updateActiveViewId(view.id)
                         withAnimation(.fastSpring) {
                             model.popup?.close()
                         }
                     }) {
                         AnytypeText(view.name, style: .uxBodyRegular, color: .textPrimary)
                         Spacer(minLength: 5)
-                        if view == model.activeView {
+                        if view == setModel.activeView {
                             Image.optionChecked
                         }
                     }
