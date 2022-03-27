@@ -101,6 +101,20 @@ class KeyboardActionHandlerTests: XCTestCase {
         XCTAssertEqual(service.splitData!.string, .init(string: "123"))
     }
     
+    func test_enterInside_description() throws {
+        let info = info(style: .description)
+        service.splitStub = true
+        
+        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 2))
+        
+        XCTAssertEqual(service.splitNumberOfCalls, 1)
+        XCTAssertEqual(service.splitData!.position, 2)
+        XCTAssertEqual(service.splitData!.newBlockContentType, .text)
+        XCTAssertEqual(service.splitData!.blockId, "id")
+        XCTAssertEqual(service.splitData!.mode, .bottom)
+        XCTAssertEqual(service.splitData!.string, .init(string: "123"))
+    }
+    
     func test_enterInside_quote() throws {
         let info = info(style: .quote)
         service.splitStub = true
@@ -482,18 +496,33 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     func test_enterAtTheBegining_title() throws {
-        let info = info(style: .title, hasChild: true)
-        service.addStub = true
-        let childInfo = BlockInformation.emptyText
+        let info = info(content: .text(.plain("Title text", contentType: .title)))
+        service.splitStub = true
 
         handler.handle(info: info, action: .enterAtTheBegining)
 
-        XCTAssertEqual(service.addNumberOfCalls, 1)
-        XCTAssertEqual(service.addInfo!, childInfo)
-        XCTAssertEqual(service.addTargetBlockId, "id")
-        XCTAssertEqual(service.addPosition, .top)
-        XCTAssertEqual(service.addSetFocus, false)
+        XCTAssertEqual(service.splitNumberOfCalls, 1)
+        XCTAssertEqual(service.splitData!.string.string, "Title text")
+        XCTAssertEqual(service.splitData!.mode, .bottom)
+        XCTAssertEqual(service.splitData!.blockId, "id")
+        XCTAssertEqual(service.splitData!.newBlockContentType, .text)
+        XCTAssertEqual(service.splitData!.position, 0)
     }
+    
+    func test_enterAtTheBegining_description() throws {
+        let info = info(content: .text(.plain("description text", contentType: .description)))
+        service.splitStub = true
+
+        handler.handle(info: info, action: .enterAtTheBegining)
+
+        XCTAssertEqual(service.splitNumberOfCalls, 1)
+        XCTAssertEqual(service.splitData!.string.string, "description text")
+        XCTAssertEqual(service.splitData!.mode, .bottom)
+        XCTAssertEqual(service.splitData!.blockId, "id")
+        XCTAssertEqual(service.splitData!.newBlockContentType, .text)
+        XCTAssertEqual(service.splitData!.position, 0)
+    }
+
     
     // MARK: - delete
     
@@ -567,9 +596,8 @@ class KeyboardActionHandlerTests: XCTestCase {
     
     // MARK: - Delitable
     func test_delete_text_first_block_in_page_without_title_and_description() throws {
-        let page = info(id: "pageId", content: .smartblock(.init(style: .page)))
-        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)), parent: page)
-        let info = info(style: .text, parent: page)
+        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)))
+        let info = info(style: .text)
         infoContainer.stubChildForParent(parentId: headerLayout.id, child: nil)
 
         handler.handle(info: info, action: .delete)
@@ -578,10 +606,9 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     func test_delete_text_second_block_in_page_without_title_and_description() throws {
-        let page = info(id: "pageId", content: .smartblock(.init(style: .page)))
-        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)), parent: page)
-        let info1 = info(id: "id1", style: .text, parent: page)
-        let info2 = info(id: "id2", style: .text, parent: page)
+        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)))
+        let info1 = info(id: "id1", style: .text)
+        let info2 = info(id: "id2", style: .text)
         infoContainer.stubChildForParent(parentId: headerLayout.id, child: nil)
         service.mergeStub = true
         
@@ -592,10 +619,9 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     func test_delete_text_first_block_in_page_without_title_with_description() throws {
-        let page = info(id: "pageId", content: .smartblock(.init(style: .page)))
-        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)), parent: page)
+        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)))
         let description = info(id: "description", style: .description, parent: headerLayout)
-        let info = info(style: .text, parent: page)
+        let info = info(style: .text)
         service.mergeStub = true
 
         handler.handle(info: info, action: .delete)
@@ -605,10 +631,9 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     func test_delete_text_first_block_in_page_with_title_without_description() throws {
-        let page = info(id: "pageId", content: .smartblock(.init(style: .page)))
-        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)), parent: page)
+        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)))
         let title = info(id: "title", style: .description, parent: headerLayout)
-        let info = info(style: .text, parent: page)
+        let info = info(style: .text)
         service.mergeStub = true
 
         handler.handle(info: info, action: .delete)
@@ -704,6 +729,8 @@ class KeyboardActionHandlerTests: XCTestCase {
         hasChild: Bool = false,
         parent: BlockInformation? = nil
     ) -> BlockInformation {
+        let parent = parent ?? pageInfo()
+        
         let info = BlockInformation(
             id: id,
             content: content,
@@ -711,15 +738,29 @@ class KeyboardActionHandlerTests: XCTestCase {
             alignment: .center,
             childrenIds: hasChild ? ["childId"] : [],
             fields: [:],
-            metadata: .init(indentationLevel: 0, parentId: parent?.id)
+            metadata: .init(indentationLevel: 0, parentId: parent.id)
         )
         
-        if let parent = parent {
-            infoContainer.getReturnInfo[parent.id] = parent
-            infoContainer.stubChildForParent(parentId: parent.id, child: info)
-        }
+        infoContainer.getReturnInfo[parent.id] = parent
+        infoContainer.stubChildForParent(parentId: parent.id, child: info)
         
         infoContainer.getReturnInfo[id] = info
+        
+        return info
+    }
+    
+    private func pageInfo() -> BlockInformation {
+        let info = BlockInformation(
+            id: "pageId",
+            content: .smartblock(.init(style: .page)),
+            backgroundColor: nil,
+            alignment: .center,
+            childrenIds: [],
+            fields: [:],
+            metadata: .init(indentationLevel: 0, parentId: nil)
+        )
+        
+        infoContainer.getReturnInfo["pageId"] = info
         
         return info
     }
