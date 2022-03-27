@@ -76,15 +76,7 @@ extension ObjectCoverPickerViewModel {
         EventsBunch(
             contextId: document.objectId,
             localEvents: [
-                ObjectHeaderImageUsecase.cover.localEvent(path: ""),
-
-            ]
-        ).send()
-
-        EventsBunch(
-            contextId: document.objectId,
-            localEvents: [
-                ObjectHeaderImageUsecase.cover.localEvent(path: unsplashItem.id),
+                LocalEvent.header(.coverUploading(.remotePreviewURL(unsplashItem.url)))
             ]
         ).send()
 

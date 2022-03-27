@@ -12,17 +12,19 @@ protocol GridItemViewModelProtocol: ObservableObject {
 
     var isLoading: Bool { get }
     var sections: [GridItemSection<Item>] { get }
+    var searchValue: String { get set }
 
     func onAppear()
 
     func didSelectItem(item: Item)
-
-    /// Optional
-    func didChangeSearchQuery(query: String)
 }
 
 extension GridItemViewModelProtocol {
     var isLoading: Bool { false }
+    var searchValue: String {
+        get { "" }
+        set { _ = newValue }
+    }
     
     func didChangeSearchQuery(query: String) { }
 }
