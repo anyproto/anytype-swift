@@ -64,7 +64,7 @@ extension RelationsService: RelationsServiceProtocol {
 
     private func addRelation(relation: RelationMetadata, isNew: Bool) -> RelationMetadata? {
         let response = Anytype_Rpc.Object.RelationAdd.Service
-            .invoke(contextID: objectId, relation: relation.middlewareModel)
+            .invoke(contextID: objectId, relation: relation.asMiddleware)
             .getValue(domain: .relationsService)
 
         guard let response = response else { return nil }
