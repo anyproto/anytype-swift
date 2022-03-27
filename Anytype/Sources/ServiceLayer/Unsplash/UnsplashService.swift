@@ -1,8 +1,15 @@
 import ProtobufMessages
 import Combine
-import Foundation
 
-final class UnsplashService {
+protocol UnslpashItemDownloader {
+    func downloadImage(id: String) -> AnyPublisher<String, Error>
+}
+
+protocol UnsplashServiceProtocol: UnslpashItemDownloader {
+    func searchUnsplashImages(query: String) -> AnyPublisher<[UnsplashItem], Error>
+}
+
+final class UnsplashService: UnsplashServiceProtocol {
     private lazy var queue = DispatchQueue(label: "com.anytypeio.unsplash")
 
     func searchUnsplashImages(query: String) -> AnyPublisher<[UnsplashItem], Error> {
@@ -12,10 +19,10 @@ final class UnsplashService {
             .eraseToAnyPublisher()
     }
 
-    func downloadImage(id: String) -> AnyPublisher<Data?, Error> {
+    func downloadImage(id: String) -> AnyPublisher<String, Error> {
         Anytype_Rpc.UnsplashDownload.Service
             .invoke(pictureID: id, queue: queue)
-            .map { try? $0.serializedData() }
+            .map { $0.hash }
             .eraseToAnyPublisher()
     }
 }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
-    let viewModel: ViewModel
+    @ObservedObject var viewModel: ViewModel
     
     private let columns: [GridItem] = {
         if UIDevice.isPad {
@@ -25,6 +25,9 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
             }
         }
         .padding(.horizontal, 16)
+        .onAppear {
+            viewModel.onAppear()
+        }
     }
 
     private var sections: some View {
@@ -42,6 +45,7 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
     private func sectionItems(items: [ViewModel.Item]) -> some View {
         ForEach(items) { item in
             item.view
+                .applyCoverGridItemAppearance()
                 .onTapGesture {
                     viewModel.didSelectItem(item: item)
                 }
@@ -50,7 +54,7 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
     }
 }
 
-extension View {
+private extension View {
     func applyCoverGridItemAppearance() -> some View {
         self
             .cornerRadius(4)

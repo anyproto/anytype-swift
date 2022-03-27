@@ -6,7 +6,7 @@ final class CoverColorsGridViewModel: GridItemViewModelProtocol {
 
     let onCoverSelect: (BackgroundType) -> ()
 
-    private(set) lazy var sections: [Section] = backgroundSections()
+    lazy var sections: [Section] = backgroundSections()
 
     init(onCoverSelect: @escaping (BackgroundType) -> ()) {
         self.onCoverSelect = onCoverSelect
@@ -14,7 +14,7 @@ final class CoverColorsGridViewModel: GridItemViewModelProtocol {
 
     func didSelectItem(item: BackgroundType) {
         onCoverSelect(item)
-    }
+    }    
 
     private func backgroundSections() -> [Section] {
         [
@@ -29,11 +29,9 @@ extension BackgroundType: GridItemViewModel {
         switch self {
         case .color(let coverColor):
             return Color(hex: coverColor.hex)
-                .applyCoverGridItemAppearance()
                 .eraseToAnyView()
         case .gradient(let gradient):
             return gradient.asLinearGradient()
-                .applyCoverGridItemAppearance()
                 .eraseToAnyView()
         }
     }
