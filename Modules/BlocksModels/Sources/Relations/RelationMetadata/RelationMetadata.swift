@@ -92,3 +92,9 @@ public extension RelationMetadata {
         )
     }
 }
+
+public extension Anytype_Model_Relation {
+    var asModel: RelationMetadata {
+        RelationMetadata(middlewareRelation: self)
+    }
+}

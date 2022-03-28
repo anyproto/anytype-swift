@@ -33,7 +33,15 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
     
     func showAddNewRelationView() {
         setModel.showAddNewRelationView { [weak self] relation in
-            self?.service.addRelation(relation)
+            guard let self = self else { return }
+            
+            if self.service.addRelation(relation) {
+                let newRelation = DataviewRelation(key: relation.key, isVisible: true)
+                var newRelations = self.setModel.activeView.relations
+                newRelations.append(newRelation)
+                let newView = self.setModel.activeView.updated( relations: newRelations)
+                self.service.updateView(newView)
+            }
         }
     }
     

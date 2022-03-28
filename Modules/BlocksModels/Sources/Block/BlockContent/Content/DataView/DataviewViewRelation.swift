@@ -1,5 +1,5 @@
 public struct DataviewRelation: Hashable {
-    public let key: String
+    public let key: BlockId
     public let isVisible: Bool
     public let width: Int32
     public let dateIncludeTime: Bool
@@ -37,6 +37,17 @@ public extension DataviewRelation {
         self.dateIncludeTime = data.dateIncludeTime
         self.timeFormat = data.timeFormat
         self.dateFormat = data.dateFormat
+    }
+    
+    init(key: BlockId, isVisible: Bool) {
+        self.init(
+            key: key,
+            isVisible: isVisible,
+            width: 0,
+            dateIncludeTime: false,
+            timeFormat: .format12,
+            dateFormat: .monthAbbrBeforeDay
+        )
     }
 }
 
