@@ -174,7 +174,7 @@ extension EditorSetViewModel {
     
     func showSetSettings() {
         showViewSettings()
-        // TODO: Uncomment after filters and sorts will be completed
+#warning("TODO: Uncomment after filters and sorts will be completed")
 //        router.presentFullscreen(
 //            AnytypePopup(
 //                viewModel: EditorSetSettingsViewModel(setModel: self),
