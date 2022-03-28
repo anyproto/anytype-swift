@@ -24,7 +24,7 @@ struct UnsplashItemView: View {
                 .scaledToFill()
                 .frame(height: 112)
             AnytypeText(viewModel.item.artistName, style: .caption2Medium, color: .textWhite)
-                .padding(.init(8    ))
+                .padding(.init(8))
         }
 
     }
