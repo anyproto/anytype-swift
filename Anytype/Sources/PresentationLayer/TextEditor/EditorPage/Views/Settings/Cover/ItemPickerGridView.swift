@@ -1,6 +1,12 @@
 import SwiftUI
 
+enum ItemPickerGridViewContants {
+    static let gridItemHeight = 112.0
+}
+
 struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
+
+    @State private var searchText = ""
     @ObservedObject var viewModel: ViewModel
     
     private let columns: [GridItem] = {
@@ -15,6 +21,9 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
     }()
     
     var body: some View {
+        if case let .available(placeholder) = viewModel.searchAvailability {
+            SearchBar(text: $searchText, focused: false, placeholder: placeholder)
+        }
         ScrollView(showsIndicators: false) {
             LazyVGrid(
                 columns: columns,
@@ -27,6 +36,9 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
         .padding(.horizontal, 16)
         .onAppear {
             viewModel.onAppear()
+        }
+        .onChange(of: searchText) { newValue in
+            viewModel.didChangeSearchQuery(query: newValue)
         }
     }
 
@@ -57,7 +69,7 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
 private extension View {
     func applyCoverGridItemAppearance() -> some View {
         self
+            .frame(height: ItemPickerGridViewContants.gridItemHeight)
             .cornerRadius(4)
-            .frame(height: 112)
     }
 }

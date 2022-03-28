@@ -6,6 +6,7 @@ final class UnsplashViewModel: GridItemViewModelProtocol {
     typealias Item = UnsplashItemViewModel
     typealias Section = GridItemSection<Item>
 
+    let searchAvailability: SearchAvailability = .available(placeholder: "Search".localized)
     let onItemSelect: (UnsplashItem) -> ()
 
     private var unsplashItems = [UnsplashItem]() {
@@ -14,6 +15,7 @@ final class UnsplashViewModel: GridItemViewModelProtocol {
         }
     }
     private let unsplashService: UnsplashServiceProtocol
+    private(set) var isLoading: Bool = true
     private var searchSubscription: AnyCancellable?
 
     @Published var sections = [Section]()
@@ -25,23 +27,30 @@ final class UnsplashViewModel: GridItemViewModelProtocol {
         self.onItemSelect = onItemSelect
         self.unsplashService = unsplashService
 
-        searchImages()
+        searchImages(query: "")
     }
 
-    func searchImages() {
+    func didSelectItem(item: UnsplashItemViewModel) {
+        onItemSelect(item.item)
+    }
+
+    func didChangeSearchQuery(query: String) {
+        searchImages(query: query)
+    }
+
+    private func searchImages(query: String) {
+        isLoading = true
+        
         searchSubscription = unsplashService
-            .searchUnsplashImages(query: "")
+            .searchUnsplashImages(query: query)
             .receiveOnMain()
             .sinkWithResult { [weak self] result in
+                self?.isLoading = false
                 switch result {
                 case .success(let items): self?.unsplashItems = items
                 case .failure: break
                 }
             }
-    }
-
-    func didSelectItem(item: UnsplashItemViewModel) {
-        onItemSelect(item.item)
     }
 
     private func backgroundSections() -> [Section] {

@@ -4,6 +4,7 @@ final class CoverColorsGridViewModel: GridItemViewModelProtocol {
     typealias Item = BackgroundType
     typealias Section = GridItemSection<Item>
 
+    let searchAvailability: SearchAvailability = .unavailable
     let onCoverSelect: (BackgroundType) -> ()
 
     lazy var sections: [Section] = backgroundSections()

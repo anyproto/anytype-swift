@@ -19,10 +19,13 @@ struct UnsplashItemView: View {
 
     var body: some View {
         ZStack(alignment: .bottomLeading) {
-            KFImage(viewModel.item.url)
+            KFImage
+                .url(viewModel.item.url)
+                .fade(duration: 0.25)
                 .resizable()
                 .scaledToFill()
-                .frame(height: 112)
+                .frame(height: ItemPickerGridViewContants.gridItemHeight)
+                .clipped()
             AnytypeText(viewModel.item.artistName, style: .caption2Medium, color: .textWhite)
                 .padding(.init(8))
         }
