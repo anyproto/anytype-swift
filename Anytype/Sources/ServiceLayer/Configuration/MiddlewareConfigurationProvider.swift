@@ -1,41 +1,39 @@
 import Foundation
 import Combine
 import ProtobufMessages
+import AnytypeCore
 
 /// Service that handles middleware config
-final class MiddlewareConfigurationService {
+final class MiddlewareConfigurationProvider {
     
     // MARK: - Initializer
-    static let shared = MiddlewareConfigurationService()
+    static let shared = MiddlewareConfigurationProvider()
     
     // MARK: - Private variables
     private var cachedConfiguration: MiddlewareConfiguration?
 }
 
-extension MiddlewareConfigurationService {
+extension MiddlewareConfigurationProvider {
     
-    func configuration() -> MiddlewareConfiguration {
+    var configuration: MiddlewareConfiguration {
         if let configuration = cachedConfiguration {
             return configuration
         }
         
-        guard let result = try? Anytype_Rpc.Config.Get.Service.invoke().get() else {
+        let result = Anytype_Rpc.Config.Get.Service.invoke()
+        switch result {
+        case .success(let response):
+            let config = MiddlewareConfiguration(response: response)
+            cachedConfiguration = config
+            return config
+            
+        case .failure(let error):
+            anytypeAssertionFailure(error.localizedDescription, domain: .middlewareConfigurationProvider)
+            
             // Error will be returned if we try to get MiddlewareConfiguration without authorization
             return MiddlewareConfiguration.empty
         }
-        
-        let config = MiddlewareConfiguration(
-            homeBlockID: result.homeBlockID,
-            archiveBlockID: result.archiveBlockID,
-            profileBlockId: result.profileBlockID,
-            gatewayURL: result.gatewayURL
-        )
-        
-        cachedConfiguration = config
-        
-        return config
     }
-    
     
     func removeCacheConfiguration() {
         cachedConfiguration = nil

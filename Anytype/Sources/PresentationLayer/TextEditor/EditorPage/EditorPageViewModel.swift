@@ -31,7 +31,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockActionsService.close()
 
         EventsBunch(
-            contextId: MiddlewareConfigurationService.shared.configuration().homeBlockID,
+            contextId: MiddlewareConfigurationProvider.shared.configuration.homeBlockID,
             localEvents: [.documentClosed(blockId: document.objectId)]
         ).send()
     }

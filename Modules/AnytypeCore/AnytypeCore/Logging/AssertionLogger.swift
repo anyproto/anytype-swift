@@ -3,6 +3,8 @@ public enum ErrorDomain: String {
     case userDefaults
     case debug
     
+    case middlewareConfigurationProvider
+    
     case imageDownloader
     case imageCreation
     case colorCreation
