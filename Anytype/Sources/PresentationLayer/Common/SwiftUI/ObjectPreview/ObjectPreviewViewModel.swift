@@ -19,14 +19,11 @@ final class ObjectPreviewViewModel: ObservableObject {
 
     // MARK: - Initializer
 
-    init(featuredRelations: [Relation], fields: MiddleBlockFields) {
-        let featuredRelationsByIds = Dictionary(
-            uniqueKeysWithValues: featuredRelations.map { ($0.id, $0) }
-        )
+    init(featuredRelationsByIds: [String: Relation], fields: BlockFields) {
         updateObjectPreview(featuredRelationsByIds: featuredRelationsByIds, fields: fields)
     }
 
-    func updateObjectPreview(featuredRelationsByIds: [String: Relation], fields: MiddleBlockFields) {
+    func updateObjectPreview(featuredRelationsByIds: [String: Relation], fields: BlockFields) {
         objectPreviewSections = objectPreviewModelBuilder.build(featuredRelationsByIds: featuredRelationsByIds,
                                                                 fields: fields)
     }

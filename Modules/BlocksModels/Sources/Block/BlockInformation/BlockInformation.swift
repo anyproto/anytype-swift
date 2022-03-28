@@ -5,7 +5,7 @@ public struct BlockInformation: Hashable {
     
     public let childrenIds: [BlockId]
     
-    public let fields: MiddleBlockFields
+    public let fields: BlockFields
     
     public let backgroundColor: MiddlewareColor?
     public let alignment: LayoutAlignment
@@ -18,8 +18,8 @@ public struct BlockInformation: Hashable {
         backgroundColor: MiddlewareColor?,
         alignment: LayoutAlignment,
         childrenIds: [BlockId],
-        fields: MiddleBlockFields,
         configurationData: BlockInformationMetadata
+        fields: BlockFields
     ) {
         self.id = id
         self.content = content

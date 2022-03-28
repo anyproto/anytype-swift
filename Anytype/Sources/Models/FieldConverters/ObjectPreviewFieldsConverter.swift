@@ -12,7 +12,7 @@ import BlocksModels
 
 extension ObjectPreviewFields: FieldsConverterProtocol {
 
-    func convertToMiddle() -> MiddleBlockFields {
+    func convertToMiddle() -> BlockFields {
         typealias ProtobufDictionary = [String: Google_Protobuf_Value]
 
         var protoFields: [String: Google_Protobuf_Value] = [:]
@@ -41,7 +41,7 @@ extension ObjectPreviewFields: FieldsConverterProtocol {
         return protoFields
     }
 
-    static func convertToModel(fields: MiddleBlockFields) -> ObjectPreviewFields {
+    static func convertToModel(fields: BlockFields) -> ObjectPreviewFields {
         var icon: ObjectPreviewFields.Icon = .none
         var layout: ObjectPreviewFields.Layout = .text
         var name: Bool = false

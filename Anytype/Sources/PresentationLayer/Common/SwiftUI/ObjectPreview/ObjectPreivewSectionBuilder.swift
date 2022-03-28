@@ -3,7 +3,7 @@ import SwiftUI
 
 final class ObjectPreivewSectionBuilder {
 
-    func build(featuredRelationsByIds: [String: Relation], fields: MiddleBlockFields) -> ObjectPreviewViewSection {
+    func build(featuredRelationsByIds: [String: Relation], fields: BlockFields) -> ObjectPreviewViewSection {
         var featuredRelationSection: [ObjectPreviewViewFeaturedSectionItem] = []
         let objectPreviewFields = ObjectPreviewFields.convertToModel(fields: fields)
 

@@ -6,4 +6,4 @@ extension BlockId {
     public static var empty: String = ""
 }
 
-public typealias MiddleBlockFields = [String : Google_Protobuf_Value]
+public typealias BlockFields = [String : Google_Protobuf_Value]
