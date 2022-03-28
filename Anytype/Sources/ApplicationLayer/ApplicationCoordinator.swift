@@ -74,7 +74,6 @@ private extension ApplicationCoordinator {
     }
 
     func login() {
-        #warning("Remove static")
         let userId = UserDefaultsConfig.usersId
         guard userId.isEmpty == false else {
             showAuthScreen()

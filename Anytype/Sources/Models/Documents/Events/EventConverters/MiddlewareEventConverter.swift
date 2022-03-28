@@ -117,7 +117,6 @@ final class MiddlewareEventConverter {
                 relations: set.relations.map { RelationMetadata(middlewareRelation: $0) }
             )
             
-            #warning("TODO: add relations update")
             return .general
             
         case .objectRelationsAmend(let amend):
@@ -125,13 +124,11 @@ final class MiddlewareEventConverter {
                 relations: amend.relations.map { RelationMetadata(middlewareRelation: $0) }
             )
             
-            #warning("TODO: add relations update")
             return .general
             
         case .objectRelationsRemove(let remove):
             relationStorage.remove(relationKeys: remove.keys)
             
-            #warning("TODO: add relations update")
             return .general
             
         case let .blockSetFile(newData):
@@ -140,8 +137,6 @@ final class MiddlewareEventConverter {
             }
             
             infoContainer.update(blockId: newData.id, update: { info in
-                var info = info
-                
                 switch info.content {
                 case let .file(fileData):
                     var fileData = fileData
@@ -186,7 +181,6 @@ final class MiddlewareEventConverter {
             let blockId = data.id
             
             infoContainer.update(blockId: blockId, update: { info in
-                var info = info
                 switch info.content {
                 case let .bookmark(bookmark):
                     var bookmark = bookmark

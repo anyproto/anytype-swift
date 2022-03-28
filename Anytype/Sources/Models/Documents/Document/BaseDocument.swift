@@ -72,10 +72,6 @@ final class BaseDocument: BaseDocumentProtocol {
         detailsStorage.get(id: objectId)
     }
     
-    #warning("TODO")
-    // Looks like this code runs on main thread.
-    // This operation should be done in `eventsListener.onUpdateReceive` closure
-    // OR store children blocks instead of tree in `InfoContainer`
     var children: [BlockInformation] {
         guard let model = infoContainer.get(id: objectId) else {
             anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)

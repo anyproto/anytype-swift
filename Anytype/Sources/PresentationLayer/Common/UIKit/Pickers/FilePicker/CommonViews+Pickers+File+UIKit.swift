@@ -99,7 +99,6 @@ extension Picker {
 // MARK: - ViewModel
 extension Picker {
     final class ViewModel: BaseFilePickerViewModel {
-        #warning("Move to Mime Type Provider")
         private(set) var types: [UTType] = [
             .item
         ]
