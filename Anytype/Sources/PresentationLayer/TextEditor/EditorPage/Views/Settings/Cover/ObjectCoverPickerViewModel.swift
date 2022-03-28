@@ -81,10 +81,8 @@ extension ObjectCoverPickerViewModel {
             .downloadImage(id: unsplashItem.id)
             .receiveOnMain()
             .sinkWithResult { result in
-                switch result {
-                case .success(let output): self.setUnsplash(output)
-                case .failure: break
-                }
+                let imageHash = result.getValue(domain: .unsplash)
+                imageHash.map(self.setUnsplash)
             }.store(in: &cancellables)
     }
     

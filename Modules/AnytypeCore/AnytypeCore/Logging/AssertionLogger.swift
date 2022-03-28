@@ -24,7 +24,8 @@ public enum ErrorDomain: String {
     case blockDelegate
     case blocksConverter
     case blockValidator
-    
+
+    case unsplash
     case blockImage
     case unknownLabel
     case unsupportedBlock

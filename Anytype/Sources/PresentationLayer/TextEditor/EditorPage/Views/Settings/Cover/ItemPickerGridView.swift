@@ -20,7 +20,7 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
     }()
     
     var body: some View {
-        if case let .search(placeholder) = viewModel.searchAvailability {
+        if case let .available(placeholder) = viewModel.searchAvailability {
             SearchBar(text: $searchText, focused: false, placeholder: placeholder)
         }
         ScrollView(showsIndicators: false) {

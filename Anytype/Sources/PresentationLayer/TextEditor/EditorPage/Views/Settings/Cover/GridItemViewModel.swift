@@ -1,14 +1,14 @@
 import SwiftUI
 
-enum SearchAvaliability {
-    case none
-    case search(placeholder: String)
+enum SearchAvailability {
+    case unavailable
+    case available(placeholder: String)
 }
 
 protocol GridItemViewModelProtocol: ObservableObject {
     associatedtype Item: GridItemViewModel
 
-    var searchAvailability: SearchAvaliability { get }
+    var searchAvailability: SearchAvailability { get }
 
     var isLoading: Bool { get }
     var sections: [GridItemSection<Item>] { get }
