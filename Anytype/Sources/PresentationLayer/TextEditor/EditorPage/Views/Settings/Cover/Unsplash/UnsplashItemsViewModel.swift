@@ -9,6 +9,8 @@ final class UnsplashViewModel: GridItemViewModelProtocol {
     let searchAvailability: SearchAvailability = .available(placeholder: "Search".localized)
     let onItemSelect: (UnsplashItem) -> ()
 
+    @Published var sections = [Section]()
+
     private var unsplashItems = [UnsplashItem]() {
         didSet {
             sections = backgroundSections()
@@ -17,8 +19,9 @@ final class UnsplashViewModel: GridItemViewModelProtocol {
     private let unsplashService: UnsplashServiceProtocol
     private(set) var isLoading: Bool = true
     private var searchSubscription: AnyCancellable?
+    private var searchTextChangedSubscription: AnyCancellable?
 
-    @Published var sections = [Section]()
+    @Published private var searchValue: String = ""
 
     init(
         onItemSelect: @escaping (UnsplashItem) -> (),
@@ -28,6 +31,12 @@ final class UnsplashViewModel: GridItemViewModelProtocol {
         self.unsplashService = unsplashService
 
         searchImages(query: "")
+
+        searchTextChangedSubscription = $searchValue
+            .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
+            .sink { [weak self] value in
+                self?.searchImages(query: value)
+            }
     }
 
     func didSelectItem(item: UnsplashItemViewModel) {
@@ -35,12 +44,12 @@ final class UnsplashViewModel: GridItemViewModelProtocol {
     }
 
     func didChangeSearchQuery(query: String) {
-        searchImages(query: query)
+        searchValue = query
     }
 
     private func searchImages(query: String) {
         isLoading = true
-        
+
         searchSubscription = unsplashService
             .searchUnsplashImages(query: query)
             .receiveOnMain()

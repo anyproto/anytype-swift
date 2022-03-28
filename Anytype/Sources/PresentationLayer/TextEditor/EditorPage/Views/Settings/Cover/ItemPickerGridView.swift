@@ -5,10 +5,9 @@ enum ItemPickerGridViewContants {
 }
 
 struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
-
-    @State private var searchText = ""
     @ObservedObject var viewModel: ViewModel
-    
+    @State private var searchText = ""
+
     private let columns: [GridItem] = {
         if UIDevice.isPad {
             return [GridItem(.adaptive(minimum: 200), spacing: 16)]
@@ -34,6 +33,7 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
             }
         }
         .padding(.horizontal, 16)
+        .onAppear { viewModel.onAppear() }
         .onAppear {
             viewModel.onAppear()
         }

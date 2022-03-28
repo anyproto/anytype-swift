@@ -72,8 +72,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             self?.handleUpdate(updateResult: $0)
         }.store(in: &subscriptions)
         
-        headerModel.$header.sink { [weak self] _ in
-            self?.updateHeaderIfNeeded()
+        headerModel.$header.sink { [weak self] value in
+            self?.updateHeaderIfNeeded(headerModel: value)
         }.store(in: &subscriptions)
     }
     
@@ -233,11 +233,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
 
     // iOS 14 bug fix applying header section while editing
-    private func updateHeaderIfNeeded() {
-        guard modelsHolder.header != headerModel.header else { return }
+    private func updateHeaderIfNeeded(headerModel: ObjectHeader) {
+        guard modelsHolder.header != headerModel else {
+            return
+        }
 
-        viewInput?.update(header: headerModel.header, details: document.details)
-        modelsHolder.header = headerModel.header
+        viewInput?.update(header: headerModel, details: document.details)
+        modelsHolder.header = headerModel
     }
 }
 

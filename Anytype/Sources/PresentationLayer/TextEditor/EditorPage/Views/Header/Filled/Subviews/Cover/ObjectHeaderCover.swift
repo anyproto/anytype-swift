@@ -9,7 +9,12 @@ struct ObjectHeaderCover: Hashable {
 
 enum ObjectHeaderCoverType: Hashable {
     case cover(DocumentCover)
-    case preview(UIImage?)
+    case preview(ObjectHeaderCoverPreviewType)
+}
+
+enum ObjectHeaderCoverPreviewType: Hashable {
+    case remote(URL)
+    case image(UIImage?)
 }
 
 extension ObjectHeaderCover {

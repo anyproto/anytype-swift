@@ -14,11 +14,19 @@ extension ObjectHeader {
                 onIconTap: onIconTap,
                 onCoverTap: onCoverTap
             )
-        case .coverUploading(let path):
-            return modifiedByCoverUploadingEventWith(
-                image: UIImage(contentsOfFile: path),
-                onCoverTap: onCoverTap
-            )
+        case .coverUploading(let update):
+            switch update {
+            case .bundleImagePath(let string):
+                return modifiedByCoverUploadingEventWith(
+                    previewType: .image(UIImage(contentsOfFile: string)),
+                    onCoverTap: onCoverTap
+                )
+            case .remotePreviewURL(let uRL):
+                return modifiedByCoverUploadingEventWith(
+                    previewType: .remote(uRL),
+                    onCoverTap: onCoverTap
+                )
+            }
         }
     }
     
@@ -53,11 +61,11 @@ extension ObjectHeader {
     }
     
     private func modifiedByCoverUploadingEventWith(
-        image: UIImage?,
+        previewType: ObjectHeaderCoverPreviewType,
         onCoverTap: @escaping () -> ()
     ) -> ObjectHeader? {
         let newCover = ObjectHeaderCover(
-            coverType: .preview(image),
+            coverType: .preview(previewType),
             onTap: onCoverTap
         )
         

@@ -14,16 +14,13 @@ protocol GridItemViewModelProtocol: ObservableObject {
     var sections: [GridItemSection<Item>] { get }
 
     func onAppear()
-
     func didSelectItem(item: Item)
-
-    /// Optional
     func didChangeSearchQuery(query: String)
 }
 
 extension GridItemViewModelProtocol {
     var isLoading: Bool { false }
-    
+
     func didChangeSearchQuery(query: String) { }
 }
 

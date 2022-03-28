@@ -61,7 +61,16 @@ final class ObjectHeaderViewModel: ObservableObject {
     }
     
     private func buildLoadingHeader(_ update: ObjectHeaderUpdate) -> ObjectHeader {
-        fakeHeader(update: update)
+        guard let details = document.details else {
+            return fakeHeader(update: update)
+        }
+        
+        let header = buildObjectHeader(details: details)
+        return header.modifiedByUpdate(
+            update,
+            onIconTap: onIconTap,
+            onCoverTap: onCoverTap
+        ) ?? .empty(ObjectHeaderEmptyData(onTap: onCoverTap))
     }
     
     private func fakeHeader(update: ObjectHeaderUpdate) -> ObjectHeader {
@@ -79,15 +88,27 @@ final class ObjectHeaderViewModel: ObservableObject {
                     )
                 )
             )
-        case .coverUploading(let path):
-            return ObjectHeader.filled(
-                .coverOnly(
-                    ObjectHeaderCover(
-                        coverType: .preview(UIImage(contentsOfFile: path)),
-                        onTap: onCoverTap
+        case .coverUploading(let coverUpdate):
+            switch coverUpdate {
+            case .bundleImagePath(let string):
+                return ObjectHeader.filled(
+                    .coverOnly(
+                        ObjectHeaderCover(
+                            coverType: .preview(.image(UIImage(contentsOfFile: string))),
+                            onTap: onCoverTap
+                        )
                     )
                 )
-            )
+            case .remotePreviewURL(let url):
+                return ObjectHeader.filled(
+                    .coverOnly(
+                        ObjectHeaderCover(
+                            coverType: .preview(.remote(url)),
+                            onTap: onCoverTap
+                        )
+                    )
+                )
+            }
         }
     }
     
