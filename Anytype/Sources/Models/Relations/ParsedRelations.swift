@@ -6,15 +6,17 @@ struct ParsedRelations {
     let all: [Relation]
     
     let featuredRelations: [Relation]
+    let featuredRelationsByIds: [String: Relation]
     let otherRelations: [Relation]
     
-    init(featuredRelations: [Relation], otherRelations: [Relation]) {
+    init(featuredRelations: [Relation], otherRelations: [Relation], featuredRelationsByIds: [String: Relation]) {
         self.all = featuredRelations + otherRelations
         self.featuredRelations = featuredRelations
         self.otherRelations = otherRelations
+        self.featuredRelationsByIds = featuredRelationsByIds
     }
     
-    static let empty = ParsedRelations(featuredRelations: [], otherRelations: [])
+    static let empty = ParsedRelations(featuredRelations: [], otherRelations: [], featuredRelationsByIds: [:])
     
 }
 
@@ -33,6 +35,7 @@ extension BaseDocumentProtocol {
                 isFeatured: false,
                 isEditable: !objectRestriction.contains(.typechange),
                 isBundled: true,
+                format: .longText,
                 value: type.name
             )
         )

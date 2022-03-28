@@ -707,7 +707,6 @@
 		53856BCB2659B38F00CB1FAE /* CodeBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53856BCA2659B38F00CB1FAE /* CodeBlockViewModel.swift */; };
 		53856BEB265BC48800CB1FAE /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D83225DAC2F30043CB5E /* ProtobufMessages.framework */; };
 		53856BEC265BC48800CB1FAE /* ProtobufMessages.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0A55D83225DAC2F30043CB5E /* ProtobufMessages.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		53856BF0265BCD4B00CB1FAE /* FieldsExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53856BEF265BCD4B00CB1FAE /* FieldsExtenstion.swift */; };
 		5386E3BE27B2C8B7004D8221 /* TextRelationViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5386E3BD27B2C8B7004D8221 /* TextRelationViewUIKit.swift */; };
 		5386E3C027B2DAEA004D8221 /* RelationValueViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5386E3BF27B2DAEA004D8221 /* RelationValueViewUIKit.swift */; };
 		5386E3C227B3F63E004D8221 /* TextRelationViewSwiftUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5386E3C127B3F63D004D8221 /* TextRelationViewSwiftUI.swift */; };
@@ -729,6 +728,12 @@
 		53BC39A3261B7934004D7EB6 /* CodeBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A2261B7934004D7EB6 /* CodeBlockView.swift */; };
 		53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */; };
 		53C9F69226C166AF00209CA1 /* TitleBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9F69126C166AF00209CA1 /* TitleBlockRestrictions.swift */; };
+		53D4088627EC9D0A00495335 /* ObjectPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4088527EC9D0A00495335 /* ObjectPreviewViewModel.swift */; };
+		53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4088727EC9EFE00495335 /* ObjectPreviewView.swift */; };
+		53D4089427ECBB6900495335 /* ObjectPreviewFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */; };
+		53D4089727ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089627ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift */; };
+		53D4089927EDDAA300495335 /* ObjectPreivewSectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089827EDDAA300495335 /* ObjectPreivewSectionBuilder.swift */; };
+		53D4089B27EDDB2800495335 /* ObjectPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089A27EDDB2800495335 /* ObjectPreviewModel.swift */; };
 		53D6EE2E265D7DD600C47263 /* EditorViewListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D6EE2D265D7DD600C47263 /* EditorViewListCell.swift */; };
 		53D6EE44265E4D9700C47263 /* EditorRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D6EE43265E4D9700C47263 /* EditorRouter.swift */; };
 		53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */; };
@@ -1636,7 +1641,6 @@
 		537F49712677EB6700C81BA0 /* BlockDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockDelegate.swift; sourceTree = "<group>"; };
 		538269F326F4E4D400040156 /* AudioPlaybackConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioPlaybackConfigurator.swift; sourceTree = "<group>"; };
 		53856BCA2659B38F00CB1FAE /* CodeBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockViewModel.swift; sourceTree = "<group>"; };
-		53856BEF265BCD4B00CB1FAE /* FieldsExtenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = FieldsExtenstion.swift; path = ../../../../../../Modules/ProtobufMessages/Sources/FieldsExtenstion.swift; sourceTree = "<group>"; };
 		5386E3BD27B2C8B7004D8221 /* TextRelationViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationViewUIKit.swift; sourceTree = "<group>"; };
 		5386E3BF27B2DAEA004D8221 /* RelationValueViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewUIKit.swift; sourceTree = "<group>"; };
 		5386E3C127B3F63D004D8221 /* TextRelationViewSwiftUI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationViewSwiftUI.swift; sourceTree = "<group>"; };
@@ -1659,6 +1663,12 @@
 		53BC39A2261B7934004D7EB6 /* CodeBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockView.swift; sourceTree = "<group>"; };
 		53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		53C9F69126C166AF00209CA1 /* TitleBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBlockRestrictions.swift; sourceTree = "<group>"; };
+		53D4088527EC9D0A00495335 /* ObjectPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewViewModel.swift; sourceTree = "<group>"; };
+		53D4088727EC9EFE00495335 /* ObjectPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewView.swift; sourceTree = "<group>"; };
+		53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewFields.swift; sourceTree = "<group>"; };
+		53D4089627ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewFieldsConverter.swift; sourceTree = "<group>"; };
+		53D4089827EDDAA300495335 /* ObjectPreivewSectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreivewSectionBuilder.swift; sourceTree = "<group>"; };
+		53D4089A27EDDB2800495335 /* ObjectPreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewModel.swift; sourceTree = "<group>"; };
 		53D6EE2D265D7DD600C47263 /* EditorViewListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewListCell.swift; sourceTree = "<group>"; };
 		53D6EE43265E4D9700C47263 /* EditorRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorRouter.swift; sourceTree = "<group>"; };
 		53EA4A7226371DAB00968B8E /* StyleColorViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleColorViewController.swift; sourceTree = "<group>"; };
@@ -2143,6 +2153,7 @@
 		038FB5C922D8F32F002B90B8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				53D4089527ECCE9000495335 /* FieldConverters */,
 				C971EB2027E9DCF3002FF3BE /* Unsplash */,
 				12887F35274BB31F00228330 /* Details */,
 				5347854A2743C50C0097CA30 /* Relations */,
@@ -3547,7 +3558,6 @@
 		3D07ED3D261DD95F00C007E2 /* BlockModelsConverters */ = {
 			isa = PBXGroup;
 			children = (
-				53856BEF265BCD4B00CB1FAE /* FieldsExtenstion.swift */,
 				0A78327224B8D2DF00A1B6F6 /* AlignmentConverters.swift */,
 				0AA00C5124CF057300870C18 /* BlockBookmarkStyleConverter.swift */,
 				0A31FDF624CF0DDC006D9B4E /* BlocksLinkStyleConverter.swift */,
@@ -4057,6 +4067,7 @@
 		3D486C162631726A00A9B625 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				53D4087F27EC970600495335 /* ObjectPreview */,
 				1244790F27D8A35800581174 /* SearchModule */,
 				12FF0D0F27C5223000562DD9 /* TitleView */,
 				12FF0D0327C51AD300562DD9 /* TextField */,
@@ -5258,6 +5269,26 @@
 			path = Code;
 			sourceTree = "<group>";
 		};
+		53D4087F27EC970600495335 /* ObjectPreview */ = {
+			isa = PBXGroup;
+			children = (
+				53D4088527EC9D0A00495335 /* ObjectPreviewViewModel.swift */,
+				53D4088727EC9EFE00495335 /* ObjectPreviewView.swift */,
+				53D4089827EDDAA300495335 /* ObjectPreivewSectionBuilder.swift */,
+				53D4089A27EDDB2800495335 /* ObjectPreviewModel.swift */,
+			);
+			path = ObjectPreview;
+			sourceTree = "<group>";
+		};
+		53D4089527ECCE9000495335 /* FieldConverters */ = {
+			isa = PBXGroup;
+			children = (
+				53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */,
+				53D4089627ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift */,
+			);
+			path = FieldConverters;
+			sourceTree = "<group>";
+		};
 		53EA4A6F26371D6400968B8E /* ColorView */ = {
 			isa = PBXGroup;
 			children = (
@@ -5937,7 +5968,6 @@
 				3D24912E27BD271900821595 /* LocalEventConverter.swift in Sources */,
 				C9A59DEA27E0F40B0063D3E1 /* TextBlockLeadingStyle.swift in Sources */,
 				3D829172265E50190007C152 /* RedactedText.swift in Sources */,
-				53856BF0265BCD4B00CB1FAE /* FieldsExtenstion.swift in Sources */,
 				3D932D4626317E3A00C7D1EA /* HomeTabsView.swift in Sources */,
 				123FDACE26C1361B00F6F44B /* ObjectHeader.swift in Sources */,
 				12C8440926FCECA300D64B8D /* ObjectHeaderFilledContentView.swift in Sources */,
@@ -6151,6 +6181,7 @@
 				3D2D4C6327BA76270070A4C6 /* EditorRouterProtocol.swift in Sources */,
 				12A52E2926CAA17B000F0333 /* AnimatableView.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
+				53D4089927EDDAA300495335 /* ObjectPreivewSectionBuilder.swift in Sources */,
 				534FFA6C277231C100C51056 /* CreateNewRelationView.swift in Sources */,
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
 				EAC5FD542657DD2E006BB24E /* ScrollViewContentInsetsHelper.swift in Sources */,
@@ -6190,6 +6221,7 @@
 				537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */,
 				535F79732746AAD40050A1B8 /* FlowLayout.swift in Sources */,
 				EA57F3D526B84592007D4292 /* MarkupViewModelAction.swift in Sources */,
+				53D4089B27EDDB2800495335 /* ObjectPreviewModel.swift in Sources */,
 				3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				535E02AD274FF0B100E1AF8C /* RelationValueView.swift in Sources */,
@@ -6324,6 +6356,7 @@
 				3DF6F628262EDA31000E05A5 /* DebugMenu.swift in Sources */,
 				53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */,
 				EAED57AA269F375B00374A46 /* TextBlockContentConfiguration.swift in Sources */,
+				53D4088627EC9D0A00495335 /* ObjectPreviewViewModel.swift in Sources */,
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
 				3DB1C9F527283FA0000D2779 /* DashboardClearCacheAlert.swift in Sources */,
@@ -6389,6 +6422,7 @@
 				12A52E2C26CAA1A2000F0333 /* ViewAnimator+Scale.swift in Sources */,
 				3D1B5F78274CF567007D97AE /* SetTableViewHeader.swift in Sources */,
 				3DB7DC922639CA9500635E4C /* HomeProfileViewButtonImage.swift in Sources */,
+				53D4089427ECBB6900495335 /* ObjectPreviewFields.swift in Sources */,
 				3D8D41B9274287A900F8EBF3 /* EditorSetHostingController.swift in Sources */,
 				3DE6E3C026542151008FB0AF /* UIVIewController+Child.swift in Sources */,
 				1270CE9326DA84A600B2D443 /* GradientImageBuilder.swift in Sources */,
@@ -6475,6 +6509,7 @@
 				C961495C27182F8900360840 /* GalleryViewTransitionAnimator.swift in Sources */,
 				EA20CE032613703B00DBA9FE /* MediaPickerContentType.swift in Sources */,
 				12FD9D29276717CF00991886 /* RelationTag.swift in Sources */,
+				53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */,
 				12EB9AF12771CD6600BA732F /* RelationOptionsViewModel.swift in Sources */,
 				EA5FB42A266A970F00DCD56C /* MentionObject.swift in Sources */,
 				12C2A59D2757A6E000311854 /* StatusRelationDetailsViewModel.swift in Sources */,
@@ -6663,6 +6698,7 @@
 				0AA168DD254060E40097CB23 /* MediaPicker.swift in Sources */,
 				53728D00273596C40092A8CF /* MarkupAccessoryViewModel.swift in Sources */,
 				1289F5A42733C50500656EC2 /* TextRelationFactory.swift in Sources */,
+				53D4089727ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift in Sources */,
 				120EB4DC26E8E94C003A0C2B /* ObjectHeaderView.swift in Sources */,
 				03F910B923A93EFE00DF2F36 /* ScannerViewController.swift in Sources */,
 				03C5C53922DF6C9900DD91DE /* SeedServiceProtocol.swift in Sources */,

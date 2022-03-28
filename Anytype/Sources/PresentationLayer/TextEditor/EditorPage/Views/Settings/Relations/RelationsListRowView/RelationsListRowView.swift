@@ -112,6 +112,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         isFeatured: false,
                         isEditable: true,
                         isBundled: false,
+                        format: .longText,
                         selectedTags: [
                             Relation.Tag.Option(
                                 id: "id1",
@@ -187,6 +188,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                         isFeatured: false,
                         isEditable: true,
                         isBundled: false,
+                        format: .longText,
                         value: "hello"
                     )
                 ),

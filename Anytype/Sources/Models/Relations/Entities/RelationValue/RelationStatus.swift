@@ -10,6 +10,7 @@ extension Relation {
         let isFeatured: Bool
         let isEditable: Bool
         let isBundled: Bool
+        let format: RelationMetadata.Format
         
         let value: Option?
         let allOptions: [Option]

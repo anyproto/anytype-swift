@@ -340,6 +340,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .copy:
             let blocksIds = elements.map(\.blockId)
             actionHandler.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
+        case .preview:
+            elements.first.map { router.showObjectPreview(information: $0.info) {} }
         }
 
         editingState = .editing

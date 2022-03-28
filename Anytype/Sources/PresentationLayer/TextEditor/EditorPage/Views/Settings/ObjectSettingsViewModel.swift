@@ -28,7 +28,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
 
     let relationsViewModel: RelationsListViewModel
     
-    private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: true)
+    private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: false)
     
     private weak var popup: AnytypePopupProxy?
     private weak var router: EditorRouterProtocol?

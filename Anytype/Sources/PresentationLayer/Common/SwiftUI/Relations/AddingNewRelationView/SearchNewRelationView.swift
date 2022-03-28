@@ -120,7 +120,7 @@ struct SearchNewRelationView_Previews: PreviewProvider {
         SearchNewRelationView(
             viewModel: SearchNewRelationViewModel(
                 relationService: RelationsService(objectId: ""),
-                objectRelations: ParsedRelations(featuredRelations: [], otherRelations: []),
+                objectRelations: ParsedRelations(featuredRelations: [], otherRelations: [], featuredRelationsByIds: [:]),
                 onSelect: { _ in }
             )
         )

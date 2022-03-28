@@ -1,4 +1,4 @@
-import Foundation
+import BlocksModels
 import SwiftUI
 
 extension Relation {
@@ -9,6 +9,7 @@ extension Relation {
         let isFeatured: Bool
         let isEditable: Bool
         let isBundled: Bool
+        let format: RelationMetadata.Format
         
         let selectedObjects: [Option]
     }

@@ -4,7 +4,7 @@ public extension BlockInformation {
         backgroundColor: MiddlewareColor? = nil,
         alignment: LayoutAlignment? = nil,
         childrenIds: [BlockId]? = nil,
-        fields: BlockFields? = nil,
+        fields: MiddleBlockFields? = nil,
         metadata: BlockInformationMetadata? = nil
     ) -> BlockInformation {
         BlockInformation(
