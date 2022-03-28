@@ -1,4 +1,4 @@
-public struct DataviewRelation: Hashable {
+public struct DataviewRelationOption: Hashable {
     public let key: BlockId
     public let isVisible: Bool
     public let width: Int32
@@ -17,8 +17,8 @@ public struct DataviewRelation: Hashable {
         )
     }
     
-    public func updated(isVisible: Bool) -> DataviewRelation {
-        DataviewRelation(
+    public func updated(isVisible: Bool) -> DataviewRelationOption {
+        DataviewRelationOption(
             key: key,
             isVisible: isVisible,
             width: width,
@@ -29,7 +29,7 @@ public struct DataviewRelation: Hashable {
     }
 }
             
-public extension DataviewRelation {
+public extension DataviewRelationOption {
     init(data: MiddlewareRelation) {
         self.key = data.key
         self.isVisible = data.isVisible
@@ -52,7 +52,7 @@ public extension DataviewRelation {
 }
 
 public extension MiddlewareRelation {
-    var asModel: DataviewRelation {
-        DataviewRelation(data: self)
+    var asModel: DataviewRelationOption {
+        DataviewRelationOption(data: self)
     }
 }

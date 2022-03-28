@@ -2,9 +2,8 @@ import BlocksModels
 import SwiftUI
 
 struct SetRelation: Identifiable {
-    let isVisible: Bool
     let metadata: RelationMetadata
-    let relation: DataviewRelation
+    let option: DataviewRelationOption
     
     var id: String { metadata.id }
 }

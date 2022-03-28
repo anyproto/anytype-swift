@@ -20,14 +20,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
     }
     
     func onRelationVisibleChange(_ relation: SetRelation, isVisible: Bool) {
-        var newRelations = setModel.activeView.relations
-        let newRelation = relation.relation.updated(isVisible: isVisible)
-        
-        guard let relationIndex = newRelations
-                .firstIndex(where: { $0.key == relation.relation.key }) else { return }
-        newRelations[relationIndex] = newRelation
-        
-        let newView = setModel.activeView.updated(relations: newRelations)
+        let newOption = relation.option.updated(isVisible: isVisible)
+        let newView = setModel.activeView.updated(option: newOption)
         service.updateView(newView)
     }
     
@@ -36,10 +30,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
             guard let self = self else { return }
             
             if self.service.addRelation(relation) {
-                let newRelation = DataviewRelation(key: relation.key, isVisible: true)
-                var newRelations = self.setModel.activeView.relations
-                newRelations.append(newRelation)
-                let newView = self.setModel.activeView.updated( relations: newRelations)
+                let newOption = DataviewRelationOption(key: relation.key, isVisible: true)
+                let newView = self.setModel.activeView.updated(option: newOption)
                 self.service.updateView(newView)
             }
         }

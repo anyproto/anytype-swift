@@ -59,7 +59,7 @@ struct EditorSetViewSettingsView: View {
             Spacer.fixedWidth(10)
             AnytypeToggle(
                 title: relation.metadata.name,
-                isOn: relation.isVisible
+                isOn: relation.option.isVisible
             ) {
                 model.onRelationVisibleChange(relation, isVisible: $0)
             }
