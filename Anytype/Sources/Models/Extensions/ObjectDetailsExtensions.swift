@@ -60,6 +60,8 @@ extension BundledRelationsValueProvider {
                     )
                 )
             }
+        case .unsplash:
+            return DocumentCover.imageId(coverId)
         }
     }
     
