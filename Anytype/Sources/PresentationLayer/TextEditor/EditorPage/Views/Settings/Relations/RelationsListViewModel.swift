@@ -8,32 +8,29 @@ final class RelationsListViewModel: ObservableObject {
         
     @Published private(set) var sections: [RelationsSection]
     
-    let onValueEditingTap: (String) -> ()
-
     // MARK: - Private variables
-    
-    private let router: EditorRouterProtocol
-    private let sectionsBuilder = RelationsSectionBuilder()
-    private let relationsService: RelationsServiceProtocol 
     
     private var parsedRelations: ParsedRelations = .empty {
         didSet {
             sections = sectionsBuilder.buildSections(from: parsedRelations)
         }
     }
+    
+    private let sectionsBuilder = RelationsSectionBuilder()
+    private let relationsService: RelationsServiceProtocol
+    
+    private let router: EditorRouterProtocol
         
     // MARK: - Initializers
     
     init(
         router: EditorRouterProtocol,
         relationsService: RelationsServiceProtocol,
-        sections: [RelationsSection] = [],
-        onValueEditingTap: @escaping (String) -> ()
+        sections: [RelationsSection] = []
     ) {
         self.router = router
         self.relationsService = relationsService
         self.sections = sections
-        self.onValueEditingTap = onValueEditingTap
     }
     
 }
@@ -57,6 +54,10 @@ extension RelationsListViewModel {
         } else {
             relationsService.addFeaturedRelation(relationKey: relationRowData.id)
         }
+    }
+    
+    func handleTapOnRelation(relationId: String) {
+        router.showRelationValueEditingView(key: relationId, source: .object)
     }
     
     func removeRelation(id: String) {
