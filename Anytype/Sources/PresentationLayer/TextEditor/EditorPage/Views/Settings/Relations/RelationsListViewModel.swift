@@ -11,7 +11,8 @@ final class RelationsListViewModel: ObservableObject {
     let onValueEditingTap: (String) -> ()
 
     // MARK: - Private variables
-
+    
+    private let router: EditorRouterProtocol
     private let sectionsBuilder = RelationsSectionBuilder()
     private let relationsService: RelationsServiceProtocol 
     
@@ -24,10 +25,12 @@ final class RelationsListViewModel: ObservableObject {
     // MARK: - Initializers
     
     init(
+        router: EditorRouterProtocol,
         relationsService: RelationsServiceProtocol,
         sections: [RelationsSection] = [],
         onValueEditingTap: @escaping (String) -> ()
     ) {
+        self.router = router
         self.relationsService = relationsService
         self.sections = sections
         self.onValueEditingTap = onValueEditingTap
@@ -60,12 +63,8 @@ extension RelationsListViewModel {
         relationsService.removeRelation(relationKey: id)
     }
     
-    var searchNewRelationViewModel: SearchNewRelationViewModel {
-        SearchNewRelationViewModel(
-            relationService: relationsService,
-            objectRelations: parsedRelations,
-            onSelect: nil
-        )
+    func showAddNewRelationView() {
+        router.showAddNewRelationView(onSelect: nil)
     }
     
 }

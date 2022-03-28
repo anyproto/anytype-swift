@@ -336,7 +336,7 @@ extension EditorRouter {
         viewController.topPresentedController.present(fpc, animated: true, completion: nil)
     }
 
-    func showAddNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
+    func showAddNewRelationView(onSelect: ((RelationMetadata) -> Void)?) {
         let relationService = RelationsService(objectId: document.objectId)
 
         let viewModel = SearchNewRelationViewModel(
