@@ -54,46 +54,20 @@ final class ObjectPreviewFieldsConverter {
         var name: Bool = false
         var featuredRelationsIds: Set<String> = []
 
-        if let withIcon = fields[FieldsName.withIcon] {
-            switch withIcon {
-            case .boolType(let value):
-                if value {
-                    icon = .medium
-                }
-            default:
-                break
-            }
+        if case let .boolType(value) = fields[FieldsName.withIcon], value {
+            icon = .medium
         }
 
-        if let style = fields[FieldsName.style] {
-            switch style {
-            case .doubleType(let value):
-                if value == 1 {
-                    layout = .card
-                }
-            default:
-                break
-            }
+        if case let .doubleType(value) = fields[FieldsName.style], value == 1 {
+            layout = .card
         }
 
-        if let withName = fields[FieldsName.withName] {
-            switch withName {
-            case .boolType(let value):
-                name = value
-            default:
-                break
-            }
+        if case let .boolType(value) = fields[FieldsName.withName] {
+            name = value
         }
 
-        if let withDescription = fields[FieldsName.withDescription] {
-            switch withDescription {
-            case .boolType(let value):
-                if value {
-                    featuredRelationsIds.insert(BundledRelationKey.description.rawValue)
-                }
-            default:
-                break
-            }
+        if case let .boolType(value) = fields[FieldsName.withDescription], value {
+            featuredRelationsIds.insert(BundledRelationKey.description.rawValue)
         }
 
         return .init(icon: icon, layout: layout, withName: name, featuredRelationsIds: featuredRelationsIds)

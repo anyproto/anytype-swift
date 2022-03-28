@@ -7,8 +7,8 @@ final class ObjectPreivewSectionBuilder {
         var featuredRelationSection: [ObjectPreviewViewFeaturedSectionItem] = []
         let objectPreviewFields = ObjectPreviewFieldsConverter.convertToModel(fields: fields)
 
-        let layout = ObjectPreviewViewMainSectionItem(id: ids.layout, name: "Preview layout".localized, value: objectPreviewFields.layout.name)
-        let icon = ObjectPreviewViewMainSectionItem(id: ids.icon, name: "Icon".localized, value: objectPreviewFields.icon.name)
+        let layout = ObjectPreviewViewMainSectionItem(id: IDs.layout, name: "Preview layout".localized, value: objectPreviewFields.layout.name)
+        let icon = ObjectPreviewViewMainSectionItem(id: IDs.icon, name: "Icon".localized, value: objectPreviewFields.icon.name)
         let mainSection = [layout, icon]
 
         featuredRelationsByIds.forEach { (key: String, relation: Relation) in
@@ -29,7 +29,7 @@ final class ObjectPreivewSectionBuilder {
 }
 
 extension ObjectPreivewSectionBuilder {
-    enum ids {
+    enum IDs {
         static let layout = "layout"
         static let icon = "icon"
     }

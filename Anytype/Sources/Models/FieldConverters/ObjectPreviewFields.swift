@@ -6,7 +6,7 @@
 //  Copyright © 2022 Anytype. All rights reserved.
 //
 
-import BlocksModels
+import Foundation
 
 struct ObjectPreviewFields {
     enum Layout {

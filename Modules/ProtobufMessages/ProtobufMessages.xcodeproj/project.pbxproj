@@ -19,7 +19,6 @@
 		0A6D53C625D9DB76002F3F82 /* commands.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A6D53BB25D9DB76002F3F82 /* commands.pb.swift */; };
 		0AEFADDC25DED2490014F739 /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 0AEFADDB25DED2490014F739 /* SwiftProtobuf */; };
 		12B346AD26A5767B00D5A0C4 /* Lib.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12B346AC26A5767B00D5A0C4 /* Lib.xcframework */; };
-		3DB692A826975E1200149864 /* FieldsExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692A426975E1100149864 /* FieldsExtenstion.swift */; };
 		3DB692A926975E1200149864 /* localstore+Initializers.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692A526975E1200149864 /* localstore+Initializers.pb.swift */; };
 		3DB692AA26975E1200149864 /* changes.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692A626975E1200149864 /* changes.pb.swift */; };
 		3DB692AB26975E1200149864 /* service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB692A726975E1200149864 /* service.pb.swift */; };
@@ -39,7 +38,6 @@
 		0A6D53BA25D9DB76002F3F82 /* commands+Service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "commands+Service.pb.swift"; sourceTree = "<group>"; };
 		0A6D53BB25D9DB76002F3F82 /* commands.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = commands.pb.swift; sourceTree = "<group>"; };
 		12B346AC26A5767B00D5A0C4 /* Lib.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Lib.xcframework; path = ../../Dependencies/Middleware/Lib.xcframework; sourceTree = "<group>"; };
-		3DB692A426975E1100149864 /* FieldsExtenstion.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FieldsExtenstion.swift; sourceTree = "<group>"; };
 		3DB692A526975E1200149864 /* localstore+Initializers.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "localstore+Initializers.pb.swift"; sourceTree = "<group>"; };
 		3DB692A626975E1200149864 /* changes.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = changes.pb.swift; sourceTree = "<group>"; };
 		3DB692A726975E1200149864 /* service.pb.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = service.pb.swift; sourceTree = "<group>"; };
@@ -80,7 +78,6 @@
 			isa = PBXGroup;
 			children = (
 				3DB692A626975E1200149864 /* changes.pb.swift */,
-				3DB692A426975E1100149864 /* FieldsExtenstion.swift */,
 				3DB692A526975E1200149864 /* localstore+Initializers.pb.swift */,
 				3DB692A726975E1200149864 /* service.pb.swift */,
 				0A6D53BB25D9DB76002F3F82 /* commands.pb.swift */,
@@ -198,7 +195,6 @@
 				0A6D53C225D9DB76002F3F82 /* events+Initializers.pb.swift in Sources */,
 				0A6D53BE25D9DB76002F3F82 /* commands+ErrorAdoption.pb.swift in Sources */,
 				3DB692A926975E1200149864 /* localstore+Initializers.pb.swift in Sources */,
-				3DB692A826975E1200149864 /* FieldsExtenstion.swift in Sources */,
 				0A6D53C025D9DB76002F3F82 /* events.pb.swift in Sources */,
 				0A6D53C125D9DB76002F3F82 /* commands+Initializers.pb.swift in Sources */,
 				3DB692AA26975E1200149864 /* changes.pb.swift in Sources */,
