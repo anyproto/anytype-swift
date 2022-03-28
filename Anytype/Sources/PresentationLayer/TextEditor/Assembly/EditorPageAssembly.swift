@@ -107,9 +107,11 @@ final class EditorAssembly {
             keyboardHandler: keyboardHandler
         )
 
-        let pasteboardMiddleService = PasteboardMiddleService(document: document)
-        let pasteboardSlotAction = PasteboardSlotAction(pasteboardHelper: PasteboardHelper(), service: pasteboardMiddleService)
-        let pasteboardService = PasteboardService(document: document, pasteboardAction: pasteboardSlotAction)
+        let pasteboardMiddlewareService = PasteboardMiddleService(document: document)
+        let pasteboardHelper = PasteboardHelper()
+        let pasteboardService = PasteboardService(document: document,
+                                                  pasteboardHelper: pasteboardHelper,
+                                                  pasteboardMiddlewareService: pasteboardMiddlewareService)
         
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,

@@ -52,7 +52,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     private(set) var selectedBlocksIndexPaths = [IndexPath]()
     private(set) var movingBlocksIndexPaths = [IndexPath]()
-    private var movingDestination: MovingDestination?
+    private var movingDestination: MovingDestination?   
 
     // We need to store interspace between root and all childs to disable cursor moving between those indexPaths
     private var movingBlocksWithChildsIndexPaths = [[IndexPath]]()

@@ -12,14 +12,19 @@ final class PasteboardOperation: AsyncOperation {
 
     // MARK: - Private variables
 
-    private let pasteboardAction: PasteboardSlotActionProtocol
     private let completion: (_ isSuccess: Bool) -> Void
     private let context: PasteboardActionContext
+    private let pasteboardHelper: PasteboardHelper
+    private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
 
     // MARK: - Initializers
 
-    init(pasteboardValue: PasteboardSlotActionProtocol, context: PasteboardActionContext, completion: @escaping (_ isSuccess: Bool) -> Void) {
-        self.pasteboardAction = pasteboardValue
+    init(pasteboardHelper: PasteboardHelper,
+         pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol,
+         context: PasteboardActionContext,
+         completion: @escaping (_ isSuccess: Bool) -> Void) {
+        self.pasteboardHelper = pasteboardHelper
+        self.pasteboardMiddlewareService = pasteboardMiddlewareService
         self.context = context
         self.completion = completion
 
@@ -34,7 +39,7 @@ final class PasteboardOperation: AsyncOperation {
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
 
-            self.pasteboardAction.performPaste(context: self.context) { isSuccess in
+            self.performPaste(context: self.context) { isSuccess in
                 self.completion(isSuccess)
 
                 self.state = .finished
@@ -42,5 +47,44 @@ final class PasteboardOperation: AsyncOperation {
         }
 
         state = .executing
+    }
+
+    private func performPaste(context: PasteboardActionContext, completion: @escaping (_ isSuccess: Bool) -> Void) {
+        guard pasteboardHelper.hasSlots else { return completion(false) }
+
+        // Find first item to paste with follow order anySlots (blocks slots), htmlSlot, textSlot, filesSlots
+        // blocks slots
+        if let blocksSlots = pasteboardHelper.obtainBlocksSlots() {
+            pasteboardMiddlewareService.pasteBlock(blocksSlots, context: context)
+            completion(true)
+            return
+        }
+
+        // html slot
+        if let htmlSlot = pasteboardHelper.obtainHTMLSlot() {
+            pasteboardMiddlewareService.pasteHTML(htmlSlot, context: context)
+            completion(true)
+            return
+        }
+
+        // text slot
+        if let textSlot = pasteboardHelper.obtainTextSlot() {
+            pasteboardMiddlewareService.pasteText(textSlot, context: context)
+            completion(true)
+            return
+        }
+
+        // file slot
+        let fileQueue = OperationQueue()
+        pasteboardHelper.obtainAsFiles()?.forEach { itemProvider in
+            let fileOperation = PasteboardFileOperation(itemProvider: itemProvider,
+                                                        context: context,
+                                                        pasteboardMiddlewareService: pasteboardMiddlewareService)
+            fileQueue.addOperation(fileOperation)
+        }
+
+        fileQueue.addBarrierBlock {
+            completion(true)
+        }
     }
 }

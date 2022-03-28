@@ -8,13 +8,7 @@
 
 import BlocksModels
 
-struct PasteboardCopyResult {
-    let textSlot: String
-    let htmlSlot: String
-    let blockSlot: [String]
-}
-
-protocol PasteboardMiddleServiceProtocol: AnyObject {
+protocol PasteboardMiddlewareServiceProtocol: AnyObject {
     func pasteText(_ text: String, context: PasteboardActionContext)
     func pasteHTML(_ html: String, context: PasteboardActionContext)
     func pasteBlock(_ blocks: [String], context: PasteboardActionContext)

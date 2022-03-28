@@ -1,27 +1,26 @@
 import BlocksModels
-import ProtobufMessages 
-import AnytypeCore
-
-protocol PasteboardServiceProtocol {
-    var hasValidURL: Bool { get }
-    func pasteInsideBlock(focusedBlockId: BlockId, range: NSRange)
-    func pasteInSelectedBlocks(selectedBlockIds: [BlockId])
-    func copy(blocksIds: [BlockId], selectedTextRange: NSRange)
-}
 
 final class PasteboardService: PasteboardServiceProtocol {
     private let document: BaseDocumentProtocol
-    private let pasteboardAction: PasteboardSlotActionProtocol
-    private let pasteboardOperations = OperationQueue()
+    private let pasteboardHelper: PasteboardHelper
+    private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
+    private let pasteboardOperations: OperationQueue = {
+        let queue = OperationQueue()
+        queue.qualityOfService = .utility
+        queue.maxConcurrentOperationCount = 1
+        return queue
+    }()
 
-    init(document: BaseDocumentProtocol, pasteboardAction: PasteboardSlotAction) {
+    init(document: BaseDocumentProtocol,
+         pasteboardHelper: PasteboardHelper,
+         pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol) {
         self.document = document
-        self.pasteboardAction = pasteboardAction
-        self.pasteboardOperations.maxConcurrentOperationCount = 1
+        self.pasteboardMiddlewareService = pasteboardMiddlewareService
+        self.pasteboardHelper = pasteboardHelper
     }
     
     var hasValidURL: Bool {
-        pasteboardAction.hasValidURL
+        pasteboardHelper.hasValidURL
     }
     
     func pasteInsideBlock(focusedBlockId: BlockId, range: NSRange) {
@@ -35,13 +34,19 @@ final class PasteboardService: PasteboardServiceProtocol {
     }
     
     private func paste(context: PasteboardActionContext) {
-        let operation = PasteboardOperation(pasteboardValue: pasteboardAction, context: context) { _ in
+        let operation = PasteboardOperation (
+            pasteboardHelper: pasteboardHelper,
+            pasteboardMiddlewareService: pasteboardMiddlewareService,
+            context: context
+        ) { _ in
             #warning("add completion")
         }
         pasteboardOperations.addOperation(operation)
     }
     
     func copy(blocksIds: [BlockId], selectedTextRange: NSRange) {
-        pasteboardAction.performCopy(blocksIds: blocksIds, selectedTextRange: selectedTextRange)
+        if let result = pasteboardMiddlewareService.copy(blocksIds: blocksIds, selectedTextRange: selectedTextRange) {
+            pasteboardHelper.setItems(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blocksSlots: result.blockSlot)
+        }
     }
 }

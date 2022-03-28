@@ -85,11 +85,8 @@ final class PasteboardHelper {
         }
         return false
     }
-}
 
-extension UIPasteboard {
     var hasSlots: Bool {
-        UIPasteboard.general.contains(pasteboardTypes: [UTType.html.identifier], inItemSet: nil) ||
-        UIPasteboard.general.contains(pasteboardTypes: [UTType.utf8PlainText.identifier])
+        pasteboard.hasSlots
     }
 }

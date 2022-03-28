@@ -1,11 +1,3 @@
-//
-//  PasteboardActionContext.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 22.03.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import BlocksModels
 
 enum PasteboardActionContext {
@@ -17,7 +9,7 @@ enum PasteboardActionContext {
         case .focused(let blockId, _):
             return blockId
         case .selected(_):
-            return ""
+            return BlockId.empty
         }
     }
 

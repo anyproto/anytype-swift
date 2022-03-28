@@ -2,7 +2,7 @@ import BlocksModels
 import ProtobufMessages
 import AnytypeCore
 
-final class PasteboardMiddleService: PasteboardMiddleServiceProtocol {
+final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
     private let document: BaseDocumentProtocol
 
     init(document: BaseDocumentProtocol) {
