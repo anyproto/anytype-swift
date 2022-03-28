@@ -23,8 +23,8 @@ struct WallpaperColorsGridView: View {
                 spacing: 0,
                 pinnedViews: []
             ) {
-                colorsSection
                 gradientsSection
+                colorsSection
             }
         }
         .padding(.horizontal, 16)
@@ -32,7 +32,7 @@ struct WallpaperColorsGridView: View {
     
     private var colorsSection: some View {
         Section(header: PickerSectionHeaderView(title: "Solid colors".localized)) {
-            ForEach(Wallpapers.colors.indices, id: \.self) { index in
+            ForEach(CoverConstants.colors.indices, id: \.self) { index in
                 colorView(at: index)
             }
         }
@@ -40,7 +40,7 @@ struct WallpaperColorsGridView: View {
     
     private var gradientsSection: some View {
         Section(header: PickerSectionHeaderView(title: "Gradients".localized)) {
-            ForEach(Wallpapers.gradients.indices, id: \.self) { index in
+            ForEach(CoverConstants.gradients.indices, id: \.self) { index in
                 gradientView(at: index)
             }
         }

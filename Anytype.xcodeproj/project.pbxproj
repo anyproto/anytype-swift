@@ -587,7 +587,6 @@
 		3DB1CA5C272BF2C3000D2779 /* BackgroundType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA5B272BF2C3000D2779 /* BackgroundType.swift */; };
 		3DB1CA5F272BF43F000D2779 /* DashboardWallpaper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA5E272BF43F000D2779 /* DashboardWallpaper.swift */; };
 		3DB1CA6E272C0C19000D2779 /* WallpaperColorsGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA6D272C0C19000D2779 /* WallpaperColorsGridView.swift */; };
-		3DB1CA73272C0C5E000D2779 /* Wallpapers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA72272C0C5E000D2779 /* Wallpapers.swift */; };
 		3DB1E7482639A93B00F479BB /* HomeTabsHeaderText.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */; };
 		3DB3EC5D2754CB0D002781DA /* ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3EC5C2754CB0D002781DA /* ProgressBar.swift */; };
 		3DB3EC642754FFF1002781DA /* DashboardLoadingAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB3EC632754FFF1002781DA /* DashboardLoadingAlert.swift */; };
@@ -1519,7 +1518,6 @@
 		3DB1CA5B272BF2C3000D2779 /* BackgroundType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BackgroundType.swift; sourceTree = "<group>"; };
 		3DB1CA5E272BF43F000D2779 /* DashboardWallpaper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardWallpaper.swift; sourceTree = "<group>"; };
 		3DB1CA6D272C0C19000D2779 /* WallpaperColorsGridView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperColorsGridView.swift; sourceTree = "<group>"; };
-		3DB1CA72272C0C5E000D2779 /* Wallpapers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Wallpapers.swift; sourceTree = "<group>"; };
 		3DB1E7472639A93B00F479BB /* HomeTabsHeaderText.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsHeaderText.swift; sourceTree = "<group>"; };
 		3DB3EC5C2754CB0D002781DA /* ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressBar.swift; sourceTree = "<group>"; };
 		3DB3EC632754FFF1002781DA /* DashboardLoadingAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardLoadingAlert.swift; sourceTree = "<group>"; };
@@ -4660,7 +4658,6 @@
 			children = (
 				3DB1CA59272BEF3B000D2779 /* WallpaperPickerView.swift */,
 				3DB1CA6D272C0C19000D2779 /* WallpaperColorsGridView.swift */,
-				3DB1CA72272C0C5E000D2779 /* Wallpapers.swift */,
 			);
 			path = Wallpaper;
 			sourceTree = "<group>";
@@ -6574,7 +6571,6 @@
 				125B6ED426F235F400BCD7D6 /* SlashMenuContentConfigurationFactory.swift in Sources */,
 				0A83081125D562AC0067EEC9 /* ObjectActionsService.swift in Sources */,
 				3D30410227E364FC00FFE0EB /* ObjectHeaderConstants.swift in Sources */,
-				3DB1CA73272C0C5E000D2779 /* Wallpapers.swift in Sources */,
 				0ACDB06A25599A0C00B8B0D8 /* BlocksFileEmptyView.swift in Sources */,
 				3D5A418E27046EE400F1F6A1 /* AutofocusedTextField.swift in Sources */,
 				EADD27DB26737A1A00853264 /* NSAttributedString.KeyExtension.swift in Sources */,
