@@ -78,7 +78,10 @@ private extension AnytypePopup {
         contentMode = .static
         delegate = self
         
-        set(contentViewController: viewModel.makeContentView())
+        let contentView = viewModel.makeContentView()
+        contentView.view.backgroundColor = .backgroundSecondary
+        
+        set(contentViewController: contentView)
     }
     
     func setupGestures() {
@@ -109,6 +112,7 @@ private extension AnytypePopup {
     
     func makeAppearance() -> SurfaceAppearance {
         let appearance = SurfaceAppearance()
+        appearance.backgroundColor = .backgroundSecondary
         appearance.cornerRadius = 16.0
         appearance.cornerCurve = .continuous
         
