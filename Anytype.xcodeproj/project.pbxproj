@@ -286,6 +286,7 @@
 		12B0FF79274FDB3700CA35FE /* art@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B0FF75274FDB3700CA35FE /* art@2x.png */; };
 		12B0FF7A274FDB3700CA35FE /* oldSchool@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B0FF76274FDB3700CA35FE /* oldSchool@2x.png */; };
 		12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */; };
+		12C0591A27F1DBA6004FFAAB /* Snackbar+Autohide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C0591927F1DBA6004FFAAB /* Snackbar+Autohide.swift */; };
 		12C2A5602754E13000311854 /* DateRelationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A55F2754E13000311854 /* DateRelationDetailsView.swift */; };
 		12C2A5652754E13D00311854 /* DateRelationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5642754E13D00311854 /* DateRelationDetailsViewModel.swift */; };
 		12C2A5672754E1C400311854 /* DateRelationDetailsValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5662754E1C400311854 /* DateRelationDetailsValue.swift */; };
@@ -1220,6 +1221,7 @@
 		12B0FF75274FDB3700CA35FE /* art@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "art@2x.png"; sourceTree = "<group>"; };
 		12B0FF76274FDB3700CA35FE /* oldSchool@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oldSchool@2x.png"; sourceTree = "<group>"; };
 		12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS14SwiftUINavigationController.swift; sourceTree = "<group>"; };
+		12C0591927F1DBA6004FFAAB /* Snackbar+Autohide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Snackbar+Autohide.swift"; sourceTree = "<group>"; };
 		12C2A55F2754E13000311854 /* DateRelationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationDetailsView.swift; sourceTree = "<group>"; };
 		12C2A5642754E13D00311854 /* DateRelationDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationDetailsViewModel.swift; sourceTree = "<group>"; };
 		12C2A5662754E1C400311854 /* DateRelationDetailsValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationDetailsValue.swift; sourceTree = "<group>"; };
@@ -3588,6 +3590,7 @@
 			isa = PBXGroup;
 			children = (
 				3D155273264D976A00B0E976 /* Snackbar.swift */,
+				12C0591927F1DBA6004FFAAB /* Snackbar+Autohide.swift */,
 				3D155277264D97A100B0E976 /* View+Snackbar.swift */,
 				3D8A82D72656EDF400C4A9CD /* Popup.swift */,
 				3DA626522657ADA700942249 /* PopupExtension.swift */,
@@ -6274,6 +6277,7 @@
 				3DE6926827302D5800A4CD4E /* AccessoryViewStateManager.swift in Sources */,
 				53FB4E812731CCD200BF3F0E /* MarkupAccessoryView.swift in Sources */,
 				C93793F0275614370016A26D /* EditorPageController+DragNDrop.swift in Sources */,
+				12C0591A27F1DBA6004FFAAB /* Snackbar+Autohide.swift in Sources */,
 				120E8175269F342D006FE84E /* ObjectSettingsViewModel.swift in Sources */,
 				EAE8C6A6269304B600324B46 /* URLInputView.swift in Sources */,
 				3D6E9A46270F4889001B0A07 /* BrowserNavigationManagerError.swift in Sources */,
