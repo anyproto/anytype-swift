@@ -1,4 +1,3 @@
-import ProtobufMessages
 
 public struct BlockInformation: Hashable {
     public let id: BlockId
@@ -34,4 +33,8 @@ public struct BlockInformation: Hashable {
 
 public enum FieldName {
     public static let codeLanguage = "lang"
+    public static let withName = "withName"
+    public static let withIcon = "withIcon"
+    public static let style = "style"
+    public static let withDescription = "withDescription"
 }

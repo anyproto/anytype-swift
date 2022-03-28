@@ -5,7 +5,7 @@ final class ObjectPreivewSectionBuilder {
 
     func build(featuredRelationsByIds: [String: Relation], fields: MiddleBlockFields) -> ObjectPreviewViewSection {
         var featuredRelationSection: [ObjectPreviewViewFeaturedSectionItem] = []
-        let objectPreviewFields = ObjectPreviewFieldsConverter.convertToModel(fields: fields)
+        let objectPreviewFields = ObjectPreviewFields.convertToModel(fields: fields)
 
         let layout = ObjectPreviewViewMainSectionItem(id: IDs.layout, name: "Preview layout".localized, value: objectPreviewFields.layout.name)
         let icon = ObjectPreviewViewMainSectionItem(id: IDs.icon, name: "Icon".localized, value: objectPreviewFields.icon.name)

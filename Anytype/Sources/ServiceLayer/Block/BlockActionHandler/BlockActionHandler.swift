@@ -60,8 +60,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.duplicate(blockId: blockId)
     }
     
-    func setFields(_ fields: [BlockFields], blockId: BlockId) {
-        service.setFields(blockFields: fields)
+    func setFields(_ fields: FieldsConverterProtocol, blockId: BlockId) {
+        service.setFields(blockFields: fields, blockId: blockId)
     }
     
     func fetch(url: URL, blockId: BlockId) {

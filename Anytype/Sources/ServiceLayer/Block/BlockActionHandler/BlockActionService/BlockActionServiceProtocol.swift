@@ -33,7 +33,7 @@ protocol BlockActionServiceProtocol {
     
     func duplicate(blockId: BlockId)
     
-    func setFields(blockFields: [BlockFields])
+    func setFields(blockFields: FieldsConverterProtocol, blockId: BlockId)
 
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString)
     @discardableResult

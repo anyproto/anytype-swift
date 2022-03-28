@@ -139,8 +139,10 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
     
-    func setFields(blockFields: [BlockFields]) {
-        listService.setFields(fields: blockFields)
+    func setFields(blockFields: FieldsConverterProtocol, blockId: BlockId) {
+        let middleFields = blockFields.convertToMiddle()
+        let setFieldsRequest = Anytype_Rpc.BlockList.Set.Fields.Request.BlockField(blockID: blockId, fields: .init(fields: middleFields))
+        listService.setFields(fields: [setFieldsRequest])
     }
     
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {
