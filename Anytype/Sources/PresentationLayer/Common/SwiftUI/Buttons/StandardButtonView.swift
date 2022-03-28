@@ -8,7 +8,7 @@ enum StandardButtonStyle {
     func backgroundColor(disabled: Bool) -> Color {
         switch self {
         case .secondary:
-            return .backgroundPrimary
+            return .clear
         case .primary:
             return disabled ? .strokePrimary : Color.System.amber
         case .destructive:
