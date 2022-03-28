@@ -49,10 +49,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
 
         self.relationsViewModel = RelationsListViewModel(
             router: router,
-            relationsService: RelationsService(objectId: document.objectId),
-            onValueEditingTap: { [weak router] in
-                router?.showRelationValueEditingView(key: $0, source: .object)
-            }
+            relationsService: RelationsService(objectId: document.objectId)
         )
 
         self.objectActionsViewModel = ObjectActionsViewModel(
