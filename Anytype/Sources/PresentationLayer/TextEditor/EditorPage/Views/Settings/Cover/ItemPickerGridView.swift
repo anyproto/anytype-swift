@@ -6,7 +6,8 @@ enum ItemPickerGridViewContants {
 
 struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
     @ObservedObject var viewModel: ViewModel
-    
+    @State private var searchText = ""
+
     private let columns: [GridItem] = {
         if UIDevice.isPad {
             return [GridItem(.adaptive(minimum: 200), spacing: 16)]
@@ -20,7 +21,7 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
     
     var body: some View {
         if case let .search(placeholder) = viewModel.searchAvailability {
-            SearchBar(text: $viewModel.searchValue, focused: false, placeholder: placeholder)
+            SearchBar(text: $searchText, focused: false, placeholder: placeholder)
         }
         ScrollView(showsIndicators: false) {
             LazyVGrid(
@@ -33,6 +34,12 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
         }
         .padding(.horizontal, 16)
         .onAppear { viewModel.onAppear() }
+        .onAppear {
+            viewModel.onAppear()
+        }
+        .onChange(of: searchText) { newValue in
+            viewModel.didChangeSearchQuery(query: newValue)
+        }
     }
 
     private var sections: some View {

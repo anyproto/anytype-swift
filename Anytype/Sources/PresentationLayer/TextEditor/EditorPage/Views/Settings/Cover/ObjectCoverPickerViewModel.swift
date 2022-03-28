@@ -72,12 +72,9 @@ extension ObjectCoverPickerViewModel {
 
     func uploadUnplashCover(unsplashItem: UnsplashItem) {
         Amplitude.instance().logEvent(AmplitudeEventsName.setCover)
-
         EventsBunch(
             contextId: document.objectId,
-            localEvents: [
-                LocalEvent.header(.coverUploading(.remotePreviewURL(unsplashItem.url)))
-            ]
+            localEvents: [unsplashItem.updateEvent]
         ).send()
 
         unsplashDownloadService
