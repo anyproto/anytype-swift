@@ -49,7 +49,7 @@ final class MentionMarkupEventProvider {
             
             guard let mentionNameInDetails = details?.mentionTitle else { return nil }
             
-            #warning("Update only mentions to updated pages")
+            // Update only mentions to updated pages
             let mentionChanged = true // mentionName != mentionNameInDetails
             
             if mentionChanged {
