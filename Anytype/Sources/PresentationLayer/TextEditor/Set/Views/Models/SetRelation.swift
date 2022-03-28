@@ -1,7 +1,7 @@
 import BlocksModels
 import SwiftUI
 
-struct SetRelation: Identifiable {
+struct SetRelation: Identifiable, Equatable {
     let metadata: RelationMetadata
     let option: DataviewRelationOption
     

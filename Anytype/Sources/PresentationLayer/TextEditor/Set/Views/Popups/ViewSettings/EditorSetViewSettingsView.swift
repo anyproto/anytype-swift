@@ -6,27 +6,48 @@ struct EditorSetViewSettingsView: View {
     @EnvironmentObject var model: EditorSetViewSettingsViewModel
     
     var body: some View {
-        VStack {
-            topBar
-            settingsSection
-            relationsSection
+        NavigationView {
+            content
+                .padding(.horizontal, 20)
         }
         .background(Color.backgroundSecondary)
-        .padding(20)
+    
+        .animation(.default, value: setModel.activeView)
+        .animation(.default, value: setModel.sortedRelations)
     }
     
-    private var topBar: some View {
-        HStack(spacing: 0) {
-            AnytypeText("Edit".localized, style: .uxBodyRegular, color: .buttonActive)
-            Spacer()
-            Button(action: model.showAddNewRelationView) {
-                Image.plus
+    private var content: some View {
+        List {
+            VStack(spacing: 0) {
+                settingsSection
+                relationsHeader
+            }
+            relationsSection
+        }
+        
+        .navigationViewStyle(.stack)
+        .navigationBarTitleDisplayMode(.inline)
+        
+        .padding(.horizontal, -15) // list internal padding
+        .listStyle(.plain)
+        .listRowInsets(EdgeInsets())
+        .buttonStyle(BorderlessButtonStyle())
+        
+        .toolbar {
+            ToolbarItem(placement: .navigationBarLeading) {
+                EditButton()
+                    .foregroundColor(Color.buttonActive)
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: model.showAddNewRelationView) {
+                    Image.plus
+                }
             }
         }
     }
     
     private var settingsSection: some View {
-        VStack {
+        VStack(spacing: 0) {
             Spacer.fixedHeight(12)
             AnytypeText("Settings".localized, style: .uxTitle1Semibold, color: .textPrimary)
             Spacer.fixedHeight(12)
@@ -36,19 +57,26 @@ struct EditorSetViewSettingsView: View {
             }
             .padding(.bottom, 10)
             .padding(.top, 2)
-            .divider()
+        }
+    }
+    
+    private var relationsHeader: some View {
+        VStack(spacing: 0) {
+            Spacer.fixedHeight(12)
+            AnytypeText("Relations".localized, style: .uxTitle1Semibold, color: .textPrimary)
+            Spacer.fixedHeight(12)
         }
     }
     
     private var relationsSection: some View {
-        VStack {
-            Spacer.fixedHeight(12)
-            AnytypeText("Relations".localized, style: .uxTitle1Semibold, color: .textPrimary)
-            Spacer.fixedHeight(12)
-            
-            ForEach(setModel.sortedRelations) { relation in
-                relationRow(relation)
-            }
+        ForEach(setModel.sortedRelations) { relation in
+            relationRow(relation)
+        }
+        .onDelete { index in
+            print(index)
+        }
+        .onMove { indexes, index in
+            print(indexes, index)
         }
     }
     
@@ -66,6 +94,5 @@ struct EditorSetViewSettingsView: View {
         }
         .padding(.bottom, 10)
         .padding(.top, 2)
-        .divider()
     }
 }
