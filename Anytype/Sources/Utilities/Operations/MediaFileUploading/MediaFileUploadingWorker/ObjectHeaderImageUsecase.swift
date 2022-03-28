@@ -11,7 +11,7 @@ enum ObjectHeaderImageUsecase {
         case .icon:
             return .header(.iconUploading(path))
         case .cover:
-            return .header(.coverUploading(path))
+            return .header(.coverUploading(.bundleImagePath(path)))
         }
     }
     

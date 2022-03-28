@@ -1,7 +1,6 @@
 import SwiftUI
 import Amplitude
 
-
 struct ObjectCoverPicker: View {
     
     @ObservedObject var viewModel: ObjectCoverPickerViewModel
@@ -16,6 +15,8 @@ struct ObjectCoverPicker: View {
             switch selectedTab {
             case .gallery:
                 galleryTabView
+            case .unsplash:
+                unsplashView
             case .upload:
                 uploadTabView
             }
@@ -23,12 +24,34 @@ struct ObjectCoverPicker: View {
             tabHeaders
         }
     }
+
+    private var unsplashView: some View {
+        VStack(spacing: 0) {
+            DragIndicator()
+            navigationBarView
+            ItemPickerGridView(
+                viewModel: UnsplashViewModel(
+                    onItemSelect: { item in
+                        viewModel.uploadUnplashCover(unsplashItem: item)
+                        dismiss()
+                    },
+                    unsplashService: UnsplashService()
+                ))
+        }
+        .transition(
+            .asymmetric(
+                insertion: .move(edge: .trailing),
+                removal: .move(edge: .leading)
+            )
+        )
+    }
+
     
     private var galleryTabView: some View {
         VStack(spacing: 0) {
             DragIndicator()
             navigationBarView
-            CoverColorsGridView { cover in
+            ItemPickerGridView(viewModel: CoverColorsGridViewModel { cover in
                 switch cover {
                 case let .color(color):
                     viewModel.setColor(color.name)
@@ -36,7 +59,8 @@ struct ObjectCoverPicker: View {
                     viewModel.setGradient(gradient.name)
                 }
                 dismiss()
-            }
+                }
+            )
         }
         .transition(
             .asymmetric(
@@ -82,6 +106,7 @@ struct ObjectCoverPicker: View {
     private var tabHeaders: some View {
         HStack {
             tabHeaderButton(.gallery)
+            tabHeaderButton(.unsplash)
             tabHeaderButton(.upload)
         }
         .frame(height: 48)
@@ -113,18 +138,18 @@ struct ObjectCoverPicker: View {
 // MARK: - Private extension
 
 private extension ObjectCoverPicker {
-    
+
     enum Tab: CaseIterable {
         case gallery
+        case unsplash
         case upload
-        
+
         var title: String {
             switch self {
             case .gallery: return "Gallery".localized
+            case .unsplash: return "Unsplash".localized
             case .upload: return "Upload".localized
             }
         }
     }
-    
 }
-

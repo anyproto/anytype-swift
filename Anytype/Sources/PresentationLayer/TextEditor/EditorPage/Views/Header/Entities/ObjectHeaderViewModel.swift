@@ -66,7 +66,6 @@ final class ObjectHeaderViewModel: ObservableObject {
         }
         
         let header = buildObjectHeader(details: details)
-        
         return header.modifiedByUpdate(
             update,
             onIconTap: onIconTap,
@@ -89,15 +88,27 @@ final class ObjectHeaderViewModel: ObservableObject {
                     )
                 )
             )
-        case .coverUploading(let path):
-            return ObjectHeader.filled(
-                .coverOnly(
-                    ObjectHeaderCover(
-                        coverType: .preview(UIImage(contentsOfFile: path)),
-                        onTap: onCoverTap
+        case .coverUploading(let coverUpdate):
+            switch coverUpdate {
+            case .bundleImagePath(let string):
+                return ObjectHeader.filled(
+                    .coverOnly(
+                        ObjectHeaderCover(
+                            coverType: .preview(.image(UIImage(contentsOfFile: string))),
+                            onTap: onCoverTap
+                        )
                     )
                 )
-            )
+            case .remotePreviewURL(let url):
+                return ObjectHeader.filled(
+                    .coverOnly(
+                        ObjectHeaderCover(
+                            coverType: .preview(.remote(url)),
+                            onTap: onCoverTap
+                        )
+                    )
+                )
+            }
         }
     }
     
