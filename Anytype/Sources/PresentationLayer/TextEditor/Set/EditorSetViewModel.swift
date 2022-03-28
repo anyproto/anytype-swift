@@ -173,12 +173,14 @@ extension EditorSetViewModel {
     }
     
     func showSetSettings() {
-        router.presentFullscreen(
-            AnytypePopup(
-                viewModel: EditorSetSettingsViewModel(setModel: self),
-                floatingPanelStyle: true
-            )
-        )
+        showViewSettings()
+        // TODO: Uncomment after filters and sorts will be completed
+//        router.presentFullscreen(
+//            AnytypePopup(
+//                viewModel: EditorSetSettingsViewModel(setModel: self),
+//                floatingPanelStyle: true
+//            )
+//        )
     }
     
     func showViewSettings() {
