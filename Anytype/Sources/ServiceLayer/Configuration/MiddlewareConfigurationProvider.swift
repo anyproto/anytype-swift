@@ -33,7 +33,7 @@ extension MiddlewareConfigurationProvider {
         return config
     }
     
-    func removeCacheConfiguration() {
+    func removeCachedConfiguration() {
         cachedConfiguration = nil
     }
     
