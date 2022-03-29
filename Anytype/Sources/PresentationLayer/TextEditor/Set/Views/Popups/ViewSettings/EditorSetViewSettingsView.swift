@@ -4,6 +4,7 @@ import BlocksModels
 struct EditorSetViewSettingsView: View {
     @EnvironmentObject var setModel: EditorSetViewModel
     @EnvironmentObject var model: EditorSetViewSettingsViewModel
+    @State private var editMode = EditMode.inactive
     
     var body: some View {
         NavigationView {
@@ -24,6 +25,7 @@ struct EditorSetViewSettingsView: View {
             }
             relationsSection
         }
+        .environment(\.editMode, $editMode)
         
         .navigationViewStyle(.stack)
         .navigationBarTitleDisplayMode(.inline)
@@ -37,9 +39,13 @@ struct EditorSetViewSettingsView: View {
             ToolbarItem(placement: .navigationBarLeading) {
                 EditButton()
                     .foregroundColor(Color.buttonActive)
+                    .environment(\.editMode, $editMode)
             }
             ToolbarItem(placement: .navigationBarTrailing) {
-                Button(action: model.showAddNewRelationView) {
+                Button(action: {
+                    withAnimation { editMode = .inactive }
+                    model.showAddNewRelationView()
+                }) {
                     Image.plus
                 }
             }
@@ -71,12 +77,13 @@ struct EditorSetViewSettingsView: View {
     private var relationsSection: some View {
         ForEach(setModel.sortedRelations) { relation in
             relationRow(relation)
+                .deleteDisabled(relation.metadata.isReadOnly)
         }
-        .onDelete { index in
-            print(index)
+        .onDelete { indexes in
+            model.deleteRelations(indexes: indexes)
         }
-        .onMove { indexes, index in
-            print(indexes, index)
+        .onMove { from, to in
+            model.moveRelation(from: from, to: to)
         }
     }
     

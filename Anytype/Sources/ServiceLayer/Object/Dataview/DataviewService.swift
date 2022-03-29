@@ -33,4 +33,12 @@ final class DataviewService: DataviewServiceProtocol {
         
         return events.isNotNil
     }
+    
+    func deleteRelation(key: BlockId) {
+        Anytype_Rpc.Block.Dataview.RelationDelete.Service
+            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationKey: key)
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .dataviewService)?
+            .send()
+    }
 }
