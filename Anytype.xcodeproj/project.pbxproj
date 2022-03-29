@@ -287,6 +287,8 @@
 		12B0FF7A274FDB3700CA35FE /* oldSchool@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B0FF76274FDB3700CA35FE /* oldSchool@2x.png */; };
 		12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */; };
 		12C0591A27F1DBA6004FFAAB /* Snackbar+Autohide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C0591927F1DBA6004FFAAB /* Snackbar+Autohide.swift */; };
+		12C0592E27F3274E004FFAAB /* DownloadableContentProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C0592D27F3274E004FFAAB /* DownloadableContentProtocol.swift */; };
+		12C0593527F3287D004FFAAB /* FileMetadataExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C0593427F3287D004FFAAB /* FileMetadataExtensions.swift */; };
 		12C2A5602754E13000311854 /* DateRelationDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A55F2754E13000311854 /* DateRelationDetailsView.swift */; };
 		12C2A5652754E13D00311854 /* DateRelationDetailsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5642754E13D00311854 /* DateRelationDetailsViewModel.swift */; };
 		12C2A5672754E1C400311854 /* DateRelationDetailsValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C2A5662754E1C400311854 /* DateRelationDetailsValue.swift */; };
@@ -1227,6 +1229,8 @@
 		12B0FF76274FDB3700CA35FE /* oldSchool@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oldSchool@2x.png"; sourceTree = "<group>"; };
 		12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS14SwiftUINavigationController.swift; sourceTree = "<group>"; };
 		12C0591927F1DBA6004FFAAB /* Snackbar+Autohide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Snackbar+Autohide.swift"; sourceTree = "<group>"; };
+		12C0592D27F3274E004FFAAB /* DownloadableContentProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadableContentProtocol.swift; sourceTree = "<group>"; };
+		12C0593427F3287D004FFAAB /* FileMetadataExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileMetadataExtensions.swift; sourceTree = "<group>"; };
 		12C2A55F2754E13000311854 /* DateRelationDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationDetailsView.swift; sourceTree = "<group>"; };
 		12C2A5642754E13D00311854 /* DateRelationDetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationDetailsViewModel.swift; sourceTree = "<group>"; };
 		12C2A5662754E1C400311854 /* DateRelationDetailsValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateRelationDetailsValue.swift; sourceTree = "<group>"; };
@@ -2303,6 +2307,7 @@
 		03CB3F0B230C3E98003D5DFD /* NetwrokLayer */ = {
 			isa = PBXGroup;
 			children = (
+				12C0593227F3282F004FFAAB /* DownloadableContent */,
 				03CB3F0E230C4137003D5DFD /* Image */,
 				1215E8A826A82DFD0089AF7E /* UrlResolver.swift */,
 				12426A2B26DD006500693B1F /* ImageID.swift */,
@@ -3231,8 +3236,17 @@
 			isa = PBXGroup;
 			children = (
 				124A60B627130EFD0012FD2D /* ObjectDetailsExtensions.swift */,
+				12C0593427F3287D004FFAAB /* FileMetadataExtensions.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		12C0593227F3282F004FFAAB /* DownloadableContent */ = {
+			isa = PBXGroup;
+			children = (
+				12C0592D27F3274E004FFAAB /* DownloadableContentProtocol.swift */,
+			);
+			path = DownloadableContent;
 			sourceTree = "<group>";
 		};
 		12C2A57B2755F04E00311854 /* RelationValue */ = {
@@ -5975,6 +5989,7 @@
 				123FDACE26C1361B00F6F44B /* ObjectHeader.swift in Sources */,
 				12C8440926FCECA300D64B8D /* ObjectHeaderFilledContentView.swift in Sources */,
 				3D2F9C17271EAE4D0043C326 /* SearchHelper.swift in Sources */,
+				12C0593527F3287D004FFAAB /* FileMetadataExtensions.swift in Sources */,
 				03CB3F01230C10E9003D5DFD /* AuthServiceProtocol.swift in Sources */,
 				03527A0722F7A44B004F0418 /* KeychainPhraseView.swift in Sources */,
 				EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */,
@@ -5984,6 +5999,7 @@
 				3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */,
 				3D16841626DD672E008B9DFF /* BlockLayoutConverter.swift in Sources */,
 				12CAF37226D6A9E3001E56B2 /* ImageStorageProtocol.swift in Sources */,
+				12C0592E27F3274E004FFAAB /* DownloadableContentProtocol.swift in Sources */,
 				3DB1C9DF2726D0E5000D2779 /* EditorPageDeletedScreen.swift in Sources */,
 				EAAD6E0026CD436F005CE1E7 /* BlockMarkupChanger.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
