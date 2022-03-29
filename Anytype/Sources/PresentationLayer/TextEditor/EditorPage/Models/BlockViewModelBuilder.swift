@@ -124,9 +124,6 @@ final class BlockViewModelBuilder {
                     fileData: content,
                     showVideoPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .videos, blockId: blockId)
-                    },
-                    downloadVideo: { [weak self] fileId in
-                        self?.saveFile(fileId: fileId, type: .video)
                     }
                 )
             case .audio:
@@ -135,9 +132,6 @@ final class BlockViewModelBuilder {
                     fileData: content,
                     showAudioPicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId, types: [.audio])
-                    },
-                    downloadAudio: { [weak self] fileId in
-                        self?.saveFile(fileId: fileId, type: .audio)
                     }
                 )
             }
