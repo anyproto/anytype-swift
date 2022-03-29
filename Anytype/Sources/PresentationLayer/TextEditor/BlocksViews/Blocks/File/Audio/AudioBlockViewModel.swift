@@ -30,7 +30,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
         self.showAudioPicker = showAudioPicker
         self.downloadAudio = downloadAudio
 
-        if let url = UrlResolver.resolvedUrl(.file(id: fileData.metadata.hash)) {
+        if let url = fileData.metadata.downloadingUrl {
             self.playerItem = AVPlayerItem(url: url)
         }
     }
