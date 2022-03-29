@@ -4,18 +4,14 @@ final class SetTableViewDataBuilder {
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
-        return view.relations
-            .compactMap { relation in
+        return view.options
+            .compactMap { option in
                 let metadata = dataview.relations
                     .filter { !$0.isHidden }
-                    .first { $0.key == relation.key }
+                    .first { $0.key == option.key }
                 guard let metadata = metadata else { return nil }
                 
-                return SetRelation(
-                    isVisible: relation.isVisible,
-                    metadata: metadata,
-                    relation: relation
-                )
+                return SetRelation(metadata: metadata, option: option)
             }
     }
     
@@ -27,7 +23,7 @@ final class SetTableViewDataBuilder {
     ) -> [SetTableViewRowData] {
         datails.map { details in
             let metadata = sortedRelations(dataview: dataView, view: activeView)
-                .filter { $0.isVisible == true }
+                .filter { $0.option.isVisible == true }
                 .map { $0.metadata }
             let parsedRelations = relationsBuilder
                 .parsedRelations(relationMetadatas: metadata, objectId: details.id)
