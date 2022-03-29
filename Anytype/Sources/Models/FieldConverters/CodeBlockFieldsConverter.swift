@@ -12,7 +12,7 @@ import BlocksModels
 
 extension CodeBlockFields: FieldsConverterProtocol {
 
-    func convertToMiddle() -> BlockFields {
+    func asMiddleware() -> BlockFields {
         typealias ProtobufDictionary = [String: Google_Protobuf_Value]
 
         var protoFields: [String: Google_Protobuf_Value] = [:]

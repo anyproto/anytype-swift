@@ -9,5 +9,5 @@
 import BlocksModels
 
 public protocol FieldsConverterProtocol {
-    func convertToMiddle() -> BlockFields
+    func asMiddleware() -> BlockFields
 }
