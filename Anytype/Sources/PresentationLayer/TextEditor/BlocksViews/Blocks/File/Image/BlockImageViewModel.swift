@@ -80,7 +80,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
 
     private func downloadImage() {
         guard
-            let url = ImageID(id: fileData.metadata.hash, width: .original).resolvedUrl
+            let url = ImageMetadata(id: fileData.metadata.hash, width: .original).resolvedUrl
         else {
             return
         }
@@ -93,7 +93,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
     }
     
     private func didTapOpenImage(_ sender: UIImageView) {
-        let imageId = ImageID(id: fileData.metadata.hash, width: .original)
+        let imageId = ImageMetadata(id: fileData.metadata.hash, width: .original)
 
         onImageOpen?(.init(image: .middleware(imageId), imageView: sender))
     }
