@@ -110,13 +110,8 @@ extension ObjectIconAttachementLoader {
             return
         }
         
-        KingfisherManager.shared.retrieveImage(
-            with: url,
-            options: [.processor(processor)]
-        ) { [weak self] result in
-            guard case let .success(result) = result else { return }
-
-            self?.attachement?.image = result.image
+        AnytypeImageDownloader.retrieveImage(with: url, options: [.processor(processor)]) { [weak self] image in
+            self?.attachement?.image = image
         }
     }
     

@@ -85,10 +85,10 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             return
         }
 
-        KingfisherManager.shared.retrieveImage(with: url) { result in
-            guard case let .success(success) = result else { return }
+        AnytypeImageDownloader.retrieveImage(with: url, options: nil) { image in
+            guard let image = image else { return }
 
-            UIImageWriteToSavedPhotosAlbum(success.image, nil, nil, nil)
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         }
     }
     
