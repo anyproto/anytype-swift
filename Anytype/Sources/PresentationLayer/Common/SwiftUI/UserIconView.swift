@@ -6,7 +6,7 @@ import SwiftUIVisualEffects
 extension UserIconView {
     
     enum IconType {
-        case image(ImageSource)
+        case image(id: String)
         case placeholder(Character?)
     }
 }
@@ -18,8 +18,8 @@ struct UserIconView: View {
     var body: some View {
         Group {
             switch icon {
-            case let .image(imageSource):
-                imageIcon(imageSource)
+            case let .image(id):
+                imageIcon(id)
             case let .placeholder(character):
                 placeholderIcon(character)
             }
@@ -28,29 +28,25 @@ struct UserIconView: View {
         
     }
     
-    private func imageIcon(_ imageSource: ImageSource) -> some View {
-        Group {
-            switch imageSource {
-            case let .image(image: image):
-                Image(uiImage: image)
-                    .renderingMode(.original)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            case let .middleware(source):
-                KFImage
-                    .url(source.downloadingUrl)
-                    .setProcessors(
-                        [
-                            KFProcessorBuilder(
-                                scalingType: .resizing(.aspectFill),
-                                targetSize: Constants.size,
-                                cornerRadius: .widthFraction(0.5)
-                            ).processor
-                        ]
-                    )
-                    .fade(duration: 0.25)
-            }
-        }
+    private func imageIcon(_ imageId: String) -> some View {
+        KFImage
+            .url(
+                ImageMetadata(id: imageId, width: Constants.size.width.asImageWidth)
+                    .downloadingUrl
+            )
+            .setProcessors(
+                [
+                    KFProcessorBuilder(
+                        scalingType: .resizing(.aspectFill),
+                        targetSize: Constants.size,
+                        cornerRadius: .widthFraction(0.5)
+                    ).processor
+                ]
+            )
+            .placeholder({
+                placeholderIcon(nil)
+            })
+            .fade(duration: 0.25)
     }
     
     private func placeholderIcon(_ character: Character?) -> some View {
