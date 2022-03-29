@@ -31,7 +31,7 @@ struct AboutView: View {
                 if let buildNumber = MetadataProvider.buildNumber, buildNumber.isNotEmpty {
                     aboutRow(label: "Build number", value: buildNumber)
                 }
-                if let libraryVersion = MiddlewareConfigurationService.shared.libraryVersion(), libraryVersion.isNotEmpty {
+                if let libraryVersion = MiddlewareConfigurationProvider.shared.libraryVersion(), libraryVersion.isNotEmpty {
                     aboutRow(label: "Library", value: libraryVersion)
                 }
                 if let userId = UserDefaultsConfig.usersId {

@@ -21,6 +21,6 @@ final class LoginStateService {
     
     func cleanStateAfterLogout() {
         UserDefaultsConfig.cleanStateAfterLogout()
-        MiddlewareConfigurationService.shared.removeCacheConfiguration()
+        MiddlewareConfigurationProvider.shared.removeCacheConfiguration()
     }
 }

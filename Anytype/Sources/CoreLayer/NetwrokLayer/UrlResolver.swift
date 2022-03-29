@@ -5,7 +5,7 @@ import UIKit
 final class UrlResolver {
        
     static func resolvedUrl(_ urlType: UrlType) -> URL? {
-        let gatewayUrl = MiddlewareConfigurationService.shared.configuration().gatewayURL
+        let gatewayUrl = MiddlewareConfigurationProvider.shared.configuration.gatewayURL
         
         guard let components = URLComponents(string: gatewayUrl) else {
             return nil
