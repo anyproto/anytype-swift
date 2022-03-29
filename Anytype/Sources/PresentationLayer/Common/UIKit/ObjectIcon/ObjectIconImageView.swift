@@ -101,7 +101,7 @@ extension ObjectIconImageView: ConfigurableView {
         ).processor
         
         imageView.kf.setImage(
-            with: ImageID(id: imageId, width: imageGuideline.size.width.asImageWidth).resolvedUrl,
+            with: ImageMetadata(id: imageId, width: imageGuideline.size.width.asImageWidth).downloadingUrl,
             placeholder: placeholder,
             options: [.processor(processor), .transition(.fade(0.2))]
         )

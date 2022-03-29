@@ -106,7 +106,7 @@ extension ObjectIconAttachementLoader {
             cornerRadius: .point(imageGuideline.cornersGuideline.radius)
         ).processor |> customProcessor
         
-        guard let url = ImageID(id: imageId, width: imageGuideline.size.width.asImageWidth).resolvedUrl else {
+        guard let url = ImageMetadata(id: imageId, width: imageGuideline.size.width.asImageWidth).downloadingUrl else {
             return
         }
         

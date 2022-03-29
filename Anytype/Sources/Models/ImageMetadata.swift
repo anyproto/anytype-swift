@@ -1,15 +1,8 @@
-//
-//  ImageID.swift
-//  ImageID
-//
-//  Created by Konstantin Mordan on 30.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
-import  UIKit
+import UIKit
 
-struct ImageID {
+struct ImageMetadata {
+    
     private let id: String
     private let width: ImageWidth
     
@@ -19,9 +12,9 @@ struct ImageID {
     }
 }
 
-extension ImageID {
+extension ImageMetadata: DownloadableContentProtocol {
     
-    var resolvedUrl: URL? {
+    var downloadingUrl: URL? {
         UrlResolver.resolvedUrl(.image(id: id, width: width))
     }
     

@@ -43,7 +43,7 @@ struct HomeProfileView: View {
             if let imageId = model.profileData.avatarId {
                 return UserIconView.IconType.image(
                     .middleware(
-                        ImageID(id: imageId, width: UserIconView.Constants.size.width.asImageWidth)
+                        ImageMetadata(id: imageId, width: UserIconView.Constants.size.width.asImageWidth)
                     )
                 )
             } else if let firstCharacter = model.profileData.name.uppercased().first {

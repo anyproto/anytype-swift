@@ -5,7 +5,7 @@ import Combine
 
 enum ImageSource {
     case image(UIImage)
-    case middleware(ImageID)
+    case middleware(ImageMetadata)
 
     var image: Future<UIImage?, Error> {
         Future<UIImage?, Error> { promise in
@@ -28,10 +28,10 @@ enum ImageSource {
 
 extension ImageDownloader {
     func downloadImage(
-        from imageId: ImageID,
+        from imageId: ImageMetadata,
         completion: @escaping (Result<UIImage, Error>) -> Void
     ) {
-        guard let url = imageId.resolvedUrl else {
+        guard let url = imageId.downloadingUrl else {
             anytypeAssertionFailure("fileId has no resolvedUrl", domain: .imageDownloader)
             completion(.failure(KingfisherError.imageSettingError(reason: KingfisherError.ImageSettingErrorReason.emptySource)))
             return
