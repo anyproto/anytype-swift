@@ -38,7 +38,7 @@ struct UserIconView: View {
                     .aspectRatio(contentMode: .fill)
             case let .middleware(source):
                 KFImage
-                    .url(source.resolvedUrl)
+                    .url(source.downloadingUrl)
                     .setProcessors(
                         [
                             KFProcessorBuilder(

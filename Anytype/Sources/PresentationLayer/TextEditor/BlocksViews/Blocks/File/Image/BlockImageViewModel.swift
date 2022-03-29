@@ -80,7 +80,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
 
     private func downloadImage() {
         guard
-            let url = ImageMetadata(id: fileData.metadata.hash, width: .original).resolvedUrl
+            let url = ImageMetadata(id: fileData.metadata.hash, width: .original).downloadingUrl
         else {
             return
         }

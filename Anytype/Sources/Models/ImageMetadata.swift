@@ -12,9 +12,9 @@ struct ImageMetadata {
     }
 }
 
-extension ImageMetadata {
+extension ImageMetadata: DownloadableContentProtocol {
     
-    var resolvedUrl: URL? {
+    var downloadingUrl: URL? {
         UrlResolver.resolvedUrl(.image(id: id, width: width))
     }
     

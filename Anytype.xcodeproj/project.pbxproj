@@ -2171,6 +2171,7 @@
 				0372922C23F991660033DFDB /* Middleware */,
 				1215E8C026A86CAC0089AF7E /* ImageSource.swift */,
 				12426A2B26DD006500693B1F /* ImageMetadata.swift */,
+				12870A2B26DE6A7400A6F46A /* ImageWidth.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2311,7 +2312,6 @@
 				12C0593227F3282F004FFAAB /* DownloadableContent */,
 				03CB3F0E230C4137003D5DFD /* Image */,
 				1215E8A826A82DFD0089AF7E /* UrlResolver.swift */,
-				12870A2B26DE6A7400A6F46A /* ImageWidth.swift */,
 			);
 			path = NetwrokLayer;
 			sourceTree = "<group>";

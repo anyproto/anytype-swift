@@ -78,7 +78,7 @@ final class BlockBookmarkInfoView: UIView {
             with: ImageMetadata(
                 id: payload.faviconHash,
                 width: imageGuideline.size.width.asImageWidth
-            ).resolvedUrl,
+            ).downloadingUrl,
             placeholder: placeholder,
             options: [.processor(processor), .transition(.fade(0.2))]
         )
