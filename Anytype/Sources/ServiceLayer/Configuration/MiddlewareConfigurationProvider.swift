@@ -20,12 +20,12 @@ extension MiddlewareConfigurationProvider {
             return configuration
         }
         
+        // Error will be returned if we try to get MiddlewareConfiguration without authorization
         let config: MiddlewareConfiguration? = Anytype_Rpc.Config.Get.Service.invoke()
             .map { MiddlewareConfiguration(response: $0) }
             .getValue(domain: .middlewareConfigurationProvider)
         
         guard let config = config else {
-            // Error will be returned if we try to get MiddlewareConfiguration without authorization
             return MiddlewareConfiguration.empty
         }
         
@@ -33,7 +33,7 @@ extension MiddlewareConfigurationProvider {
         return config
     }
     
-    func removeCacheConfiguration() {
+    func removeCachedConfiguration() {
         cachedConfiguration = nil
     }
     
