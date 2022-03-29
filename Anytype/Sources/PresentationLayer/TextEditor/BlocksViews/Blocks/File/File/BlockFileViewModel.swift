@@ -9,12 +9,12 @@ struct BlockFileViewModel: BlockViewModelProtocol {
     let fileData: BlockFile
     
     let showFilePicker: (BlockId) -> ()
-    let downloadFile: (FileId) -> ()
+    let downloadFile: (FileMetadata) -> ()
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         switch fileData.state {
         case .done:
-            downloadFile(fileData.metadata.hash)
+            downloadFile(fileData.metadata)
         case .empty, .error:
             if case .locked = editorEditingState { return }
             showFilePicker(blockId)

@@ -101,8 +101,9 @@ final class BlockViewModelBuilder {
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
-                    downloadFile: { [weak self] fileId in
-                        self?.saveFile(fileId: fileId, type: .file)
+                    downloadFile: { [weak router] fileMetadata in
+                        guard let url = fileMetadata.downloadingUrl else { return }
+                        router?.saveFile(fileURL: url, type: .file)
                     }
                 )
             case .none:
@@ -233,12 +234,6 @@ final class BlockViewModelBuilder {
         }.store(in: &subscriptions)
 
         router.showFilePicker(model: model)
-    }
-
-    private func saveFile(fileId: FileId, type: FileContentType) {
-        guard let url = UrlResolver.resolvedUrl(.file(id: fileId)) else { return }
-
-        router.saveFile(fileURL: url, type: type)
     }
 
     private func showBookmarkBar(info: BlockInformation) {
