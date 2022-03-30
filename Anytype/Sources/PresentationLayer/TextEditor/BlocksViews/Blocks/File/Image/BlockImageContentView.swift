@@ -72,9 +72,7 @@ final class BlockImageContentView: UIView, BlockContentView {
             height: Layout.imageContentViewDefaultHeight
         )
         
-        let placeholder = ImageBuilder(
-            ImageGuideline(size: imageSize)
-        ).build()
+        let placeholder = ImageBuilder(ImageGuideline(size: imageSize)).build()
         
         imageView.kf.setImage(
             with: ImageMetadata(id: imageId, width: imageSize.width.asImageWidth).contentUrl,

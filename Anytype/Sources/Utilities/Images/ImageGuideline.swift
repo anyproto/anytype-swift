@@ -12,20 +12,9 @@ struct ImageGuideline {
         self.cornersGuideline = cornersGuideline
     }
     
-    init(size: CGSize,
-         cornerRadius: CGFloat? = nil,
-         backgroundColor: UIColor? = nil) {
+    init(size: CGSize, radius: ImageCornersGuideline.Radius, borderColor: UIColor? = nil) {
         self.size = size
-        self.cornersGuideline = {
-            guard let cornerRadius = cornerRadius else {
-                return .init(radius: .point(0), borderColor: nil)
-            }
-            
-            return .init(
-                radius: .point(cornerRadius),
-                borderColor: backgroundColor
-            )
-        }()
+        self.cornersGuideline = ImageCornersGuideline(radius: radius, borderColor: borderColor)
     }
     
 }
