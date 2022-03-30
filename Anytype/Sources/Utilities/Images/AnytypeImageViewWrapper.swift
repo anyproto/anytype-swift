@@ -22,28 +22,28 @@ final class AnytypeImageViewWrapper {
 
 // MARK: - Public functions
 
-extension AnytypeImageViewWrapper {
+extension AnytypeImageViewWrapper: AnytypeImageViewWrapperProtocol {
     
     @discardableResult
-    func imageGuideline(_ imageGuideline: ImageGuideline) -> AnytypeImageViewWrapper {
+    func imageGuideline(_ imageGuideline: ImageGuideline) -> AnytypeImageViewWrapperProtocol {
         self.imageGuideline = imageGuideline
         return self
     }
     
     @discardableResult
-    func scalingType(_ scalingType: KFScalingType) -> AnytypeImageViewWrapper {
+    func scalingType(_ scalingType: KFScalingType) -> AnytypeImageViewWrapperProtocol {
         self.scalingType = scalingType
         return self
     }
     
     @discardableResult
-    func animatedTransition( _ animatedTransition: Bool) -> AnytypeImageViewWrapper {
+    func animatedTransition( _ animatedTransition: Bool) -> AnytypeImageViewWrapperProtocol {
         self.animatedTransition = animatedTransition
         return self
     }
     
     @discardableResult
-    func placeholderNeeded( _ placeholderNeeded: Bool) -> AnytypeImageViewWrapper {
+    func placeholderNeeded( _ placeholderNeeded: Bool) -> AnytypeImageViewWrapperProtocol {
         self.placeholderNeeded = placeholderNeeded
         return self
     }
