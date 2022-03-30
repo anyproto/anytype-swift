@@ -6,7 +6,7 @@ class CodegenDefaultOptionsGenerator
   def self.defaultOptions
     options = {
       commentsHeaderFilePath: File.expand_path("#{__dir__}/../../../Templates/Middleware/commands+HeaderComments.pb.swift"),
-      serviceFilePath: File.expand_path("#{__dir__}/../../../Dependencies/Middleware/protobuf/protos/service.proto"),
+      serviceFilePath: File.expand_path("#{__dir__}/../../../Dependencies/Middleware/#{Constants::PROTOBUF_DIRECTORY_NAME}/protos/service/service.proto"),
     }
   end
 

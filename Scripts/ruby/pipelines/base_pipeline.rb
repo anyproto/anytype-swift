@@ -35,7 +35,7 @@ class BasePipeline
 
   # Remove when fixed on the middlewere side
   private_class_method def self.remove_gitignore(dependenciesDirectory)
-    gitignore_path = "#{dependenciesDirectory}/protobuf/.gitignore"
+    gitignore_path = "#{dependenciesDirectory}/#{Constants::PROTOBUF_DIRECTORY_NAME}/.gitignore"
     if File.file?(gitignore_path)
       FileUtils.rm(gitignore_path)
     end
