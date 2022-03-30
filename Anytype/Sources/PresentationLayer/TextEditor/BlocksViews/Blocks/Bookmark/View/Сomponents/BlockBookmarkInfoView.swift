@@ -74,14 +74,17 @@ final class BlockBookmarkInfoView: UIView {
             cornerRadius: .point(2)
         ).processor
         
-        iconView.kf.setImage(
-            with: ImageMetadata(
-                id: payload.faviconHash,
-                width: imageGuideline.size.width.asImageWidth
-            ).contentUrl,
-            placeholder: placeholder,
-            options: [.processor(processor), .transition(.fade(0.2))]
-        )
+        iconView.wrapper
+            .imageGuideline(imageGuideline)
+            .setImage(id: payload.faviconHash)
+//        iconView.kf.setImage(
+//            with: ImageMetadata(
+//                id: payload.faviconHash,
+//                width: imageGuideline.size.width.asImageWidth
+//            ).contentUrl,
+//            placeholder: placeholder,
+//            options: [.processor(processor), .transition(.fade(0.2))]
+//        )
 
     }
     
