@@ -12,9 +12,9 @@ struct ImageGuideline {
         self.cornersGuideline = cornersGuideline
     }
     
-    init(size: CGSize, radius: ImageCornersGuideline.Radius, borderColor: UIColor? = nil) {
+    init(size: CGSize, radius: ImageCornersGuideline.Radius, backgroundColor: UIColor? = nil) {
         self.size = size
-        self.cornersGuideline = ImageCornersGuideline(radius: radius, borderColor: borderColor)
+        self.cornersGuideline = ImageCornersGuideline(radius: radius, backgroundColor: backgroundColor)
     }
     
 }

@@ -117,13 +117,24 @@ private extension AnytypeImageViewWrapper {
             }
         }()
         
-//        if let cornerRadius = cornerRadius {
-//            return imageProcessor |> RoundCornerImageProcessor(radius: cornerRadius)
-//        } else {
-//            return imageProcessor
-//        }
+        if let cornersGuideline = imageGuideline.cornersGuideline {
+            return imageProcessor |> RoundCornerImageProcessor(
+                radius: cornersGuideline.radius.asRoundCornerImageProcessorRadius,
+                backgroundColor: cornersGuideline.backgroundColor
+            )
+        }
         
         return imageProcessor
     }
     
+}
+
+private extension ImageCornersGuideline.Radius {
+    
+    var asRoundCornerImageProcessorRadius: RoundCornerImageProcessor.Radius {
+        switch self {
+        case .widthFraction(let widthFraction): return .widthFraction(widthFraction)
+        case .point(let point): return .point(point)
+        }
+    }
 }

@@ -37,7 +37,7 @@ extension SyncStatus {
         ImageBuilder(
             ImageGuideline(
                 size: CGSize(width: 10, height: 10),
-                cornersGuideline: .init(radius: .point(5), borderColor: nil)
+                radius: .point(5)
             )
         )
             .setImageColor(color).build()

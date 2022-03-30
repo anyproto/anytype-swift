@@ -3,7 +3,7 @@ import UIKit
 struct ImageCornersGuideline {
     
     let radius: Radius
-    let borderColor: UIColor?
+    let backgroundColor: UIColor?
     
 }
 
@@ -13,7 +13,7 @@ extension ImageCornersGuideline {
         """
         \(ImageCornersGuideline.self).
         \(radius.identifier).
-        \(borderColor?.hexString ?? "")
+        \(backgroundColor?.hexString ?? "")
         """
     }
     
