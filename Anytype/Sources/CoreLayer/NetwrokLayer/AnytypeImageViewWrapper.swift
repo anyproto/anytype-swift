@@ -1,22 +1,7 @@
-//
-//  AnytypeImageViewWrapper.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 30.03.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Kingfisher
-
-extension UIImageView {
-    
-    var wrapper: AnytypeImageViewWrapper {
-        AnytypeImageViewWrapper(imageView: self)
-    }
-    
-}
+import AnytypeCore
 
 final class AnytypeImageViewWrapper {
     
@@ -27,11 +12,15 @@ final class AnytypeImageViewWrapper {
     
     private let imageView: UIImageView
     
+    // MARK: - Initializers
+    
     init(imageView: UIImageView) {
         self.imageView = imageView
     }
     
 }
+
+// MARK: - Public functions
 
 extension AnytypeImageViewWrapper {
     
@@ -63,10 +52,11 @@ extension AnytypeImageViewWrapper {
         imageView.kf.cancelDownloadTask()
         
         guard id.isNotEmpty else {
+            anytypeAssertionFailure(<#T##message: String##String#>, domain: ErrorDomain)
             // TODO: assert
             return
         }
-        
+             
         guard let imageGuideline = imageGuideline else {
             // TODO: assert
             return
@@ -75,6 +65,17 @@ extension AnytypeImageViewWrapper {
         guard
             let url = ImageMetadata(id: id, width: imageGuideline.size.width.asImageWidth).contentUrl
         else {
+            // TODO: assert
+            return
+        }
+        
+        setImage(url: url)
+    }
+    
+    func setImage(url: URL) {
+        imageView.kf.cancelDownloadTask()
+        
+        guard let imageGuideline = imageGuideline else {
             // TODO: assert
             return
         }
@@ -94,6 +95,8 @@ extension AnytypeImageViewWrapper {
     }
     
 }
+
+// MARK: - Private extension
 
 private extension AnytypeImageViewWrapper {
     
