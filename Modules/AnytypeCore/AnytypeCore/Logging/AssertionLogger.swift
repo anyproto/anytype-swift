@@ -5,8 +5,8 @@ public enum ErrorDomain: String {
     
     case middlewareConfigurationProvider
     case anytypeImageDownloader
+    case downloadingUrlBuilder
     
-    case imageDownloader
     case imageCreation
     case colorCreation
     case fileLoader
