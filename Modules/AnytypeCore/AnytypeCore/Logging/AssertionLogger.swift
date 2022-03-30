@@ -4,6 +4,7 @@ public enum ErrorDomain: String {
     case debug
     
     case middlewareConfigurationProvider
+    case anytypeImageDownloader
     
     case imageDownloader
     case imageCreation
