@@ -701,6 +701,11 @@
 		535F79962746CDBC0050A1B8 /* FlowRelationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F79952746CDBC0050A1B8 /* FlowRelationsView.swift */; };
 		535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F7999274705C30050A1B8 /* FlowRelationsViewModel.swift */; };
 		535F79BD274C087A0050A1B8 /* UTTypeExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535F79BC274C087A0050A1B8 /* UTTypeExtension.swift */; };
+		535FDE0A27E7E27B0098DBFA /* PasteboardOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FDE0927E7E27B0098DBFA /* PasteboardOperation.swift */; };
+		535FDE2027E8B63A0098DBFA /* PasteboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FDE1F27E8B63A0098DBFA /* PasteboardHelper.swift */; };
+		535FDE2227E8CB0B0098DBFA /* PasteboardFileOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FDE2127E8CB0B0098DBFA /* PasteboardFileOperation.swift */; };
+		535FDE2927E9C6770098DBFA /* PasteboardMiddlewareServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FDE2827E9C6770098DBFA /* PasteboardMiddlewareServiceProtocol.swift */; };
+		535FDE2B27E9C6A60098DBFA /* PasteboardMiddleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535FDE2A27E9C6A60098DBFA /* PasteboardMiddleService.swift */; };
 		53728CFB273596750092A8CF /* MarkupKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53728CFA273596750092A8CF /* MarkupKind.swift */; };
 		53728D00273596C40092A8CF /* MarkupAccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53728CFF273596C40092A8CF /* MarkupAccessoryViewModel.swift */; };
 		53728D1E273AC8F90092A8CF /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53728D1D273AC8F90092A8CF /* ColorView.swift */; };
@@ -727,10 +732,14 @@
 		539E019A2758422800067A24 /* SlashMenuRealtionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539E01992758422800067A24 /* SlashMenuRealtionView.swift */; };
 		539E019C2758423D00067A24 /* SlashMenuRealtionContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539E019B2758423D00067A24 /* SlashMenuRealtionContentConfiguration.swift */; };
 		53A4633726287B970097C25E /* ImageExetension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A4633626287B970097C25E /* ImageExetension.swift */; };
-		53A4878827D6AC0900A2E627 /* PastboardHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A4878727D6AC0800A2E627 /* PastboardHelper.swift */; };
+		53A4878827D6AC0900A2E627 /* PasteboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53A4878727D6AC0800A2E627 /* PasteboardService.swift */; };
 		53BC39A3261B7934004D7EB6 /* CodeBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A2261B7934004D7EB6 /* CodeBlockView.swift */; };
 		53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */; };
 		53C9F69226C166AF00209CA1 /* TitleBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53C9F69126C166AF00209CA1 /* TitleBlockRestrictions.swift */; };
+		53D408CA27F1D3AB00495335 /* UIPasteboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408C927F1D3AB00495335 /* UIPasteboardExtension.swift */; };
+		53D408CF27F1D44F00495335 /* PasteboardCopyResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408CE27F1D44F00495335 /* PasteboardCopyResult.swift */; };
+		53D408D127F1D48000495335 /* PasteboardServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408D027F1D48000495335 /* PasteboardServiceProtocol.swift */; };
+		53D408D327F1DFCB00495335 /* PasteboardActionContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408D227F1DFCB00495335 /* PasteboardActionContext.swift */; };
 		53D4088627EC9D0A00495335 /* ObjectPreviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4088527EC9D0A00495335 /* ObjectPreviewViewModel.swift */; };
 		53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4088727EC9EFE00495335 /* ObjectPreviewView.swift */; };
 		53D4089427ECBB6900495335 /* ObjectPreviewFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */; };
@@ -1640,6 +1649,11 @@
 		535F79952746CDBC0050A1B8 /* FlowRelationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRelationsView.swift; sourceTree = "<group>"; };
 		535F7999274705C30050A1B8 /* FlowRelationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRelationsViewModel.swift; sourceTree = "<group>"; };
 		535F79BC274C087A0050A1B8 /* UTTypeExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UTTypeExtension.swift; sourceTree = "<group>"; };
+		535FDE0927E7E27B0098DBFA /* PasteboardOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardOperation.swift; sourceTree = "<group>"; };
+		535FDE1F27E8B63A0098DBFA /* PasteboardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardHelper.swift; sourceTree = "<group>"; };
+		535FDE2127E8CB0B0098DBFA /* PasteboardFileOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardFileOperation.swift; sourceTree = "<group>"; };
+		535FDE2827E9C6770098DBFA /* PasteboardMiddlewareServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardMiddlewareServiceProtocol.swift; sourceTree = "<group>"; };
+		535FDE2A27E9C6A60098DBFA /* PasteboardMiddleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardMiddleService.swift; sourceTree = "<group>"; };
 		53728CFA273596750092A8CF /* MarkupKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupKind.swift; sourceTree = "<group>"; };
 		53728CFF273596C40092A8CF /* MarkupAccessoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarkupAccessoryViewModel.swift; sourceTree = "<group>"; };
 		53728D1D273AC8F90092A8CF /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
@@ -1664,11 +1678,15 @@
 		539E01992758422800067A24 /* SlashMenuRealtionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuRealtionView.swift; sourceTree = "<group>"; };
 		539E019B2758423D00067A24 /* SlashMenuRealtionContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuRealtionContentConfiguration.swift; sourceTree = "<group>"; };
 		53A4633626287B970097C25E /* ImageExetension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageExetension.swift; sourceTree = "<group>"; };
-		53A4878727D6AC0800A2E627 /* PastboardHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PastboardHelper.swift; sourceTree = "<group>"; };
+		53A4878727D6AC0800A2E627 /* PasteboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardService.swift; sourceTree = "<group>"; };
 		53B1656D261C9FD700E8E7AA /* IBMPlexMono-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexMono-Regular.ttf"; sourceTree = "<group>"; };
 		53BC39A2261B7934004D7EB6 /* CodeBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockView.swift; sourceTree = "<group>"; };
 		53BC39A6261B7946004D7EB6 /* CodeBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockContentConfiguration.swift; sourceTree = "<group>"; };
 		53C9F69126C166AF00209CA1 /* TitleBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleBlockRestrictions.swift; sourceTree = "<group>"; };
+		53D408C927F1D3AB00495335 /* UIPasteboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPasteboardExtension.swift; sourceTree = "<group>"; };
+		53D408CE27F1D44F00495335 /* PasteboardCopyResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardCopyResult.swift; sourceTree = "<group>"; };
+		53D408D027F1D48000495335 /* PasteboardServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardServiceProtocol.swift; sourceTree = "<group>"; };
+		53D408D227F1DFCB00495335 /* PasteboardActionContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardActionContext.swift; sourceTree = "<group>"; };
 		53D4088527EC9D0A00495335 /* ObjectPreviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewViewModel.swift; sourceTree = "<group>"; };
 		53D4088727EC9EFE00495335 /* ObjectPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewView.swift; sourceTree = "<group>"; };
 		53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewFields.swift; sourceTree = "<group>"; };
@@ -2218,7 +2236,6 @@
 		039F669A23C7FD6700DBE36A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				53A4878327D6ABF200A2E627 /* Pastboard */,
 				039F669B23C7FDC300DBE36A /* TimingTimer.swift */,
 				3D7C08262684E21500E2168D /* FileSizeConverter.swift */,
 				3D1460E027B3F33000DC3667 /* LocalAuth.swift */,
@@ -2490,6 +2507,7 @@
 		0A66456924085A1E008392AF /* Block */ = {
 			isa = PBXGroup;
 			children = (
+				53A4878327D6ABF200A2E627 /* Pastboard */,
 				EA5FB452266E2F6500DCD56C /* Mention */,
 				531197DE26430A8200FFC71E /* BlockActionHandler */,
 				3D07ECD1261B501E00C007E2 /* File */,
@@ -4637,6 +4655,7 @@
 		3DA7AD822712CE5800EA45F6 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				53D408C927F1D3AB00495335 /* UIPasteboardExtension.swift */,
 				3D6E9A38270E0937001B0A07 /* ResultExtension.swift */,
 				3DE0CFE026F860EF003A606A /* StringExtension.swift */,
 				3D43FDAF26B18BF80094D4C0 /* Array+SafeCall.swift */,
@@ -5146,6 +5165,25 @@
 			path = FlowRelationsView;
 			sourceTree = "<group>";
 		};
+		535FDE2327E8CB380098DBFA /* Operations */ = {
+			isa = PBXGroup;
+			children = (
+				535FDE2127E8CB0B0098DBFA /* PasteboardFileOperation.swift */,
+				535FDE0927E7E27B0098DBFA /* PasteboardOperation.swift */,
+			);
+			path = Operations;
+			sourceTree = "<group>";
+		};
+		535FDE2D27E9C6CB0098DBFA /* PasteboardMiddleService */ = {
+			isa = PBXGroup;
+			children = (
+				53D408CE27F1D44F00495335 /* PasteboardCopyResult.swift */,
+				535FDE2827E9C6770098DBFA /* PasteboardMiddlewareServiceProtocol.swift */,
+				535FDE2A27E9C6A60098DBFA /* PasteboardMiddleService.swift */,
+			);
+			path = PasteboardMiddleService;
+			sourceTree = "<group>";
+		};
 		53728D012735BD2A0092A8CF /* MarkupState */ = {
 			isa = PBXGroup;
 			children = (
@@ -5270,7 +5308,12 @@
 		53A4878327D6ABF200A2E627 /* Pastboard */ = {
 			isa = PBXGroup;
 			children = (
-				53A4878727D6AC0800A2E627 /* PastboardHelper.swift */,
+				535FDE2D27E9C6CB0098DBFA /* PasteboardMiddleService */,
+				535FDE2327E8CB380098DBFA /* Operations */,
+				53A4878727D6AC0800A2E627 /* PasteboardService.swift */,
+				53D408D027F1D48000495335 /* PasteboardServiceProtocol.swift */,
+				535FDE1F27E8B63A0098DBFA /* PasteboardHelper.swift */,
+				53D408D227F1DFCB00495335 /* PasteboardActionContext.swift */,
 			);
 			path = Pastboard;
 			sourceTree = "<group>";
@@ -5977,10 +6020,12 @@
 			files = (
 				EA4B6E232689F07900F717D3 /* BlockFileIconBuilder.swift in Sources */,
 				3D68564226E0E1A000AA36A9 /* Spacer+FixedSize.swift in Sources */,
+				53D408CF27F1D44F00495335 /* PasteboardCopyResult.swift in Sources */,
 				3DE0CFD626F8593D003A606A /* SlashMenuItemDisplayData.swift in Sources */,
 				3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */,
 				EAADB1B32678EB52004B0AF2 /* MarkStyleModifier.swift in Sources */,
 				3DAE1CB0273EA208009A72F3 /* EditorSetView.swift in Sources */,
+				53D408CA27F1D3AB00495335 /* UIPasteboardExtension.swift in Sources */,
 				3D24913527BD271900821595 /* EventsBunch.swift in Sources */,
 				3D24912E27BD271900821595 /* LocalEventConverter.swift in Sources */,
 				C9A59DEA27E0F40B0063D3E1 /* TextBlockLeadingStyle.swift in Sources */,
@@ -6252,6 +6297,7 @@
 				12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */,
 				0303ECFF22D8EDAA005C552B /* AppDelegate.swift in Sources */,
 				3D1B5F74274CF2F5007D97AE /* SetMinimizedHeader.swift in Sources */,
+				535FDE2927E9C6770098DBFA /* PasteboardMiddlewareServiceProtocol.swift in Sources */,
 				1256666227C7814C005F774D /* BlockLinkStateStyle.swift in Sources */,
 				3D93854C26FC3BB3001C137F /* UserDefaultsConfig.swift in Sources */,
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
@@ -6275,7 +6321,7 @@
 				C91AFEFC270B6618005F9386 /* EventsLogView.swift in Sources */,
 				3DBE2404262F04AA0065E9B6 /* Binding+OnChange.swift in Sources */,
 				5386E3CD27B51BA7004D8221 /* CheckboxRelationViewUIKit.swift in Sources */,
-				53A4878827D6AC0900A2E627 /* PastboardHelper.swift in Sources */,
+				53A4878827D6AC0900A2E627 /* PasteboardService.swift in Sources */,
 				12C2A5672754E1C400311854 /* DateRelationDetailsValue.swift in Sources */,
 				12CAF32026D53866001E56B2 /* ObjectIconImagePainter.swift in Sources */,
 				12C2A5692754E90800311854 /* DateRelationDetailsRowView.swift in Sources */,
@@ -6372,6 +6418,7 @@
 				0A0965EE25BEF5B000C004BD /* EditorPageViewModel.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
 				53F80F1027BDA95D00E9E12A /* FileListRelationViewUIKit.swift in Sources */,
+				535FDE2227E8CB0B0098DBFA /* PasteboardFileOperation.swift in Sources */,
 				3DF6F628262EDA31000E05A5 /* DebugMenu.swift in Sources */,
 				53F8211126529CC9003FEB0B /* TextViewManagingFocus.swift in Sources */,
 				EAED57AA269F375B00374A46 /* TextBlockContentConfiguration.swift in Sources */,
@@ -6379,6 +6426,7 @@
 				03C5C54B22E09E0F00DD91DE /* SecureStoreQueryable.swift in Sources */,
 				EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */,
 				3DB1C9F527283FA0000D2779 /* DashboardClearCacheAlert.swift in Sources */,
+				53D408D127F1D48000495335 /* PasteboardServiceProtocol.swift in Sources */,
 				3DB3EC69275513B8002781DA /* ProgressBarStub.swift in Sources */,
 				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,
 				5315D39627B99E28000F3456 /* StatusRelationViewUIKit.swift in Sources */,
@@ -6481,6 +6529,7 @@
 				124E2BC2273020F500A2D534 /* RelationsListView.swift in Sources */,
 				3D7EA8A6268EF38D00C76974 /* BlockFileConfiguration.swift in Sources */,
 				12CAF36026D69F31001E56B2 /* PlaceholderIconImageGuideline.swift in Sources */,
+				535FDE0A27E7E27B0098DBFA /* PasteboardOperation.swift in Sources */,
 				12CAF37026D6A9B0001E56B2 /* ImageStorage.swift in Sources */,
 				C971EB2227E9DCFE002FF3BE /* UnsplashItem.swift in Sources */,
 				3D300BBC26D8E86B00F46763 /* LoadingAnimationView.swift in Sources */,
@@ -6490,6 +6539,7 @@
 				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
 				3D38CC9326D626A700E4F7BF /* ObjectSettingAssembly.swift in Sources */,
 				12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */,
+				53D408D327F1DFCB00495335 /* PasteboardActionContext.swift in Sources */,
 				3D93D570270C9E4E00614E29 /* EditorPageViewInput.swift in Sources */,
 				531629382632BD0B000D6780 /* StyleViewController.swift in Sources */,
 				120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */,
@@ -6558,6 +6608,7 @@
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
 				12F14CD52758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift in Sources */,
 				12136D5A2799A2BC00262FE7 /* TextRelationDetailsViewController.swift in Sources */,
+				535FDE2027E8B63A0098DBFA /* PasteboardHelper.swift in Sources */,
 				12CAF32326D53878001E56B2 /* ObjectIconImagePainterProtocol.swift in Sources */,
 				126C46D726BD966700D31DBF /* ObjectHeaderIcon.swift in Sources */,
 				532D1D5B2768FAE600A1E4D8 /* SearchNewRelationView.swift in Sources */,
@@ -6773,6 +6824,7 @@
 				3D471E3D26C69D2100457DE5 /* HomeSearchView.swift in Sources */,
 				EA57F3D126B83DDF007D4292 /* AttributeState.swift in Sources */,
 				53A4633726287B970097C25E /* ImageExetension.swift in Sources */,
+				535FDE2B27E9C6A60098DBFA /* PasteboardMiddleService.swift in Sources */,
 				3DB1CA0D2729316F000D2779 /* AccountConfiguration.swift in Sources */,
 				3D1702412715D22B0079B65B /* SyncStatus+Editor.swift in Sources */,
 				3D5A415E2703132800F1F6A1 /* SlashActionStyle.swift in Sources */,

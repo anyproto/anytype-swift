@@ -106,6 +106,12 @@ final class EditorAssembly {
             listService: listService,
             keyboardHandler: keyboardHandler
         )
+
+        let pasteboardMiddlewareService = PasteboardMiddleService(document: document)
+        let pasteboardHelper = PasteboardHelper()
+        let pasteboardService = PasteboardService(document: document,
+                                                  pasteboardHelper: pasteboardHelper,
+                                                  pasteboardMiddlewareService: pasteboardMiddlewareService)
         
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
@@ -123,6 +129,7 @@ final class EditorAssembly {
         let blocksConverter = BlockViewModelBuilder(
             document: document,
             handler: actionHandler,
+            pasteboardService: pasteboardService,
             router: router,
             delegate: blockDelegate,
             markdownListener: markdownListener
@@ -142,6 +149,7 @@ final class EditorAssembly {
             blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
             blockActionsServiceSingle: blockActionsServiceSingle,
             actionHandler: actionHandler,
+            pasteboardService: pasteboardService,
             router: router
         )
 
