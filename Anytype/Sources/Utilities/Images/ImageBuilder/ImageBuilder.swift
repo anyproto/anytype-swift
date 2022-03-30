@@ -60,16 +60,14 @@ extension ImageBuilder: ImageBuilderProtocol {
             return cachedImage
         }
         
-        let isOpaque = imageGuideline.cornersGuideline.isOpaque
-        let format = UIGraphicsImageRendererFormat.default()
-        format.scale = UIScreen.main.scale
+        let isOpaque = imageGuideline.cornersGuideline?.isOpaque ?? false
+        let format = UIGraphicsImageRendererFormat.preferred()
         format.opaque = isOpaque
-        
-        
         
         let image = UIGraphicsImageRenderer(
             size: imageGuideline.size,
-            format: format)
+            format: format
+        )
             .image { ctx in
                 ctx.cgContext.setFillColor(imageColor.cgColor)
                 ctx.fill(ctx.format.bounds)
@@ -82,7 +80,7 @@ extension ImageBuilder: ImageBuilderProtocol {
             .rounded(
                 radius: imageGuideline.cornerRadius,
                 opaque: isOpaque,
-                backgroundColor: imageGuideline.cornersGuideline.borderColor?.cgColor
+                backgroundColor: imageGuideline.cornersGuideline?.borderColor?.cgColor
         )
 
         imageStorage.saveImage(image, forKey: key)

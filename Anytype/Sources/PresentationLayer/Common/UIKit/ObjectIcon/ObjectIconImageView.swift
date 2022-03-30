@@ -97,7 +97,7 @@ extension ObjectIconImageView: ConfigurableView {
         let processor = KFProcessorBuilder(
             scalingType: .resizing(.aspectFill),
             targetSize: imageGuideline.size,
-            cornerRadius: imageGuideline.cornersGuideline.radius
+            cornerRadius: imageGuideline.cornersGuideline?.radius
         ).processor
         
         imageView.kf.setImage(
