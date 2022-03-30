@@ -21,6 +21,8 @@ extension UIImageView {
 final class AnytypeImageViewWrapper {
     
     private var imageGuideline: ImageGuideline?
+    private var scalingType: KFScalingType = .resizing(.aspectFill)
+    private var animatedTransition = false
     
     private let imageView: UIImageView
     
@@ -35,6 +37,18 @@ extension AnytypeImageViewWrapper {
     @discardableResult
     func imageGuideline(_ imageGuideline: ImageGuideline) -> AnytypeImageViewWrapper {
         self.imageGuideline = imageGuideline
+        return self
+    }
+    
+    @discardableResult
+    func scalingType(_ scalingType: KFScalingType) -> AnytypeImageViewWrapper {
+        self.scalingType = scalingType
+        return self
+    }
+    
+    @discardableResult
+    func animatedTransition( _ animatedTransition: Bool) -> AnytypeImageViewWrapper {
+        self.animatedTransition = animatedTransition
         return self
     }
     
@@ -56,9 +70,48 @@ extension AnytypeImageViewWrapper {
             return
         }
         imageView.kf.cancelDownloadTask()
-        imageView.kf.setImage(with: url, placeholder: nil, options: []) { result in
+        imageView.kf.setImage(
+            with: url,
+            placeholder: nil,
+            options: buildOptions(imageGuideline: imageGuideline)
+        ) { result in
             // TODO: assert
         }
+    }
+    
+}
+
+private extension AnytypeImageViewWrapper {
+    
+    func buildOptions(imageGuideline: ImageGuideline) -> KingfisherOptionsInfo {
+        let processor = buildProcessor(imageGuideline: imageGuideline)
+        
+        var options: KingfisherOptionsInfo = [.processor(processor)]
+        if animatedTransition {
+            options.append(.transition(.fade(0.2)))
+        }
+        
+        return options
+    }
+    
+    func buildProcessor(imageGuideline: ImageGuideline) -> Kingfisher.ImageProcessor {
+        let imageProcessor: ImageProcessor = {
+            switch scalingType {
+            case .resizing(let mode):
+                return ResizingImageProcessor(referenceSize: imageGuideline.size, mode: mode)
+                |> CroppingImageProcessor(size: imageGuideline.size)
+            case .downsampling:
+                return DownsamplingImageProcessor(size: imageGuideline.size)
+            }
+        }()
+        
+//        if let cornerRadius = cornerRadius {
+//            return imageProcessor |> RoundCornerImageProcessor(radius: cornerRadius)
+//        } else {
+//            return imageProcessor
+//        }
+        
+        return imageProcessor
     }
     
 }
