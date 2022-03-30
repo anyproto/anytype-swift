@@ -28,7 +28,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
                 textDidChange: { textView in textDidChange(info, textView) },
                 showCodeSelection: { showCodeSelection(info) }
             )
-        ).asCellBlockConfiguration
+        ).cellBlockConfiguration(indentationSettings: .init(with: info.metadata))
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}

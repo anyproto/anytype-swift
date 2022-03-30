@@ -323,10 +323,8 @@ private extension EditorPageController {
         case .header: break
         case .block(let blockViewModel):
             cell.contentConfiguration = blockViewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationLevel = blockViewModel.info.metadata.indentationLevel
         case .system(let systemContentConfiguationProvider):
             cell.contentConfiguration = systemContentConfiguationProvider.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationLevel = systemContentConfiguationProvider.indentationLevel
         }
     }
 
@@ -436,15 +434,11 @@ private extension EditorPageController {
     func createSystemCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, SystemContentConfiguationProvider> {
         .init { (cell, indexPath, item) in
             cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationWidth = Constants.cellIndentationWidth
-            cell.indentationLevel = item.indentationLevel
         }
     }
     
     func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BlockViewModelProtocol) {
         cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
-        cell.indentationWidth = Constants.cellIndentationWidth
-        cell.indentationLevel = item.info.metadata.indentationLevel
         cell.contentView.isUserInteractionEnabled = true
         
         cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
@@ -474,15 +468,4 @@ private extension EditorPageController {
             self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
         }
     }
-}
-
-
-// MARK: - Constants
-
-private extension EditorPageController {
-    
-    enum Constants {
-        static let cellIndentationWidth: CGFloat = 24
-    }
-    
 }

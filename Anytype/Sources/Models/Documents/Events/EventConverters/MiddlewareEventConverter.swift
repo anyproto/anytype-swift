@@ -62,10 +62,14 @@ final class MiddlewareEventConverter {
         case let .blockSetBackgroundColor(updateData):
             infoContainer.update(blockId: updateData.id, update: { info in
                 return info.updated(
-                    backgroundColor: MiddlewareColor(rawValue: updateData.backgroundColor)
+                    backgroundColor: MiddlewareColor(rawValue: updateData.backgroundColor) ?? .default
                 )
             })
-            return .blocks(blockIds: [updateData.id])
+
+            var childIds = infoContainer.recursiveChildren(of: updateData.id).map { $0.id }
+            childIds.append(updateData.id)
+            
+            return .blocks(blockIds: Set(childIds))
             
         case let .blockSetAlign(value):
             let blockId = value.id

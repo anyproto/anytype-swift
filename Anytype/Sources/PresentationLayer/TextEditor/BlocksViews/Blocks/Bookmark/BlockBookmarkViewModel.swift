@@ -19,11 +19,13 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
                 image: UIImage.blockFile.empty.bookmark,
                 text: "Add a web bookmark".localized,
                 state: .default
-            ).asCellBlockConfiguration
+            ).cellBlockConfiguration(indentationSettings: .init(with: info.metadata))
         case let .fetched(payload):
-            return BlockBookmarkConfiguration(payload: payload).asCellBlockConfiguration
+            return BlockBookmarkConfiguration(payload: payload)
+                .cellBlockConfiguration(indentationSettings: .init(with: info.metadata))
         case let .onlyURL(url):
-            return BlockBookmarkOnlyUrlConfiguration(ulr: url).asCellBlockConfiguration
+            return BlockBookmarkOnlyUrlConfiguration(ulr: url)
+                .cellBlockConfiguration(indentationSettings: .init(with: info.metadata))
         }
     }
     

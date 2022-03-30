@@ -16,6 +16,14 @@ public final class InfoContainer: InfoContainerProtocol {
         return information.childrenIds.compactMap { get(id: $0) }
     }
 
+    public func recursiveChildren(of id: BlockId) -> [BlockInformation] {
+        guard let information = models[id] else { return [] }
+
+        let childBlocks = information.childrenIds.compactMap { get(id: $0) }
+
+        return childBlocks + childBlocks.map { recursiveChildren(of: $0.id) }.flatMap { $0 }
+    }
+
     public func get(id: BlockId) -> BlockInformation? {
         models[id]
     }

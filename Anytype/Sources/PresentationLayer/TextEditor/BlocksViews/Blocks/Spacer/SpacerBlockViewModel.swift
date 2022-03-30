@@ -17,9 +17,8 @@ struct SpacerBlockViewModel: SystemContentConfiguationProvider {
     let usage: SpacerCase
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        CellBlockConfiguration(
-            blockConfiguration: SpacerBlockConfiguration(spacerHeight: usage.rawValue)
-        )
+        SpacerBlockConfiguration(spacerHeight: usage.rawValue)
+            .cellBlockConfiguration(indentationSettings: nil)
     }
 }
 

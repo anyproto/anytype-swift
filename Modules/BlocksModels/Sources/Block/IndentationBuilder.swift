@@ -17,7 +17,8 @@ public enum IndentationBuilder {
                 child = child.updated(
                     metadata: BlockInformationMetadata(
                         indentationLevel: indentationLevel,
-                        parentId: parent.id
+                        parentId: parent.id,
+                        parentBackgroundColors: parentBackgroundColors(child: child, parent: parent)
                     )
                 )
 
@@ -25,6 +26,28 @@ public enum IndentationBuilder {
                 build(container: container, id: childrenId)
             }
         }
+    }
+
+    private static func parentBackgroundColors(
+        child: BlockInformation,
+        parent: BlockInformation
+    ) -> [MiddlewareColor?] {
+        var previousBackgroundColors: [MiddlewareColor?]
+
+        if parent.kind != .meta, child.kind != .meta {
+            previousBackgroundColors = parent.metadata.parentBackgroundColors
+            let previousNotDefaultColor = previousBackgroundColors.last { $0 != .default }
+
+            if parent.backgroundColor == .default || parent.backgroundColor == nil {
+                previousBackgroundColors.append(previousNotDefaultColor ?? nil)
+            } else {
+                previousBackgroundColors.append(parent.backgroundColor)
+            }
+        } else {
+            previousBackgroundColors = parent.metadata.parentBackgroundColors
+        }
+
+        return previousBackgroundColors
     }
 
 }

@@ -37,7 +37,8 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             type: type,
             alignment: info.alignment.asNSTextAlignment,
             onRelationTap: onRelationTap
-        ).asCellBlockConfiguration
+        )
+            .cellBlockConfiguration(indentationSettings: .init(with: info.metadata))
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
