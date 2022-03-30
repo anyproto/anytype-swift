@@ -70,20 +70,7 @@ private extension ObjectHeaderCoverView {
     private func showImageWithId(_ imageId: String, _ size: CGSize) {
         let imageGuideline = ImageGuideline(size: size)
         
-        let placeholder = ImageBuilder(imageGuideline).build()
-        let processor = KFProcessorBuilder(
-            scalingType: .resizing(.aspectFill),
-            targetSize: imageGuideline.size,
-            cornerRadius: nil
-        ).processor
-        
-        imageView.kf.cancelDownloadTask()
-        imageView.kf.setImage(
-            with: ImageMetadata(id: imageId, width: imageGuideline.size.width.asImageWidth).contentUrl,
-            placeholder: placeholder,
-            options: [.processor(processor)]
-        )
-        
+        imageView.wrapper.imageGuideline(imageGuideline).setImage(id: imageId)
         imageView.contentMode = .scaleAspectFill
     }
     
