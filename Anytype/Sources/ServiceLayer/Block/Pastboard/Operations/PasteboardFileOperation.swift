@@ -36,17 +36,19 @@ final class PasteboardFileOperation: AsyncOperation {
         itemProvider.loadFileRepresentation(
             forTypeIdentifier: UTType.data.identifier
         ) { [weak self] temporaryUrl, error in
-            guard let self = self else { return }
-
-            guard let temporaryUrl = temporaryUrl?.relativePath else {
-                self.state = .finished
-                return
-            }
-
-            self.pasteboardMiddlewareService.pasteFile(localPath: temporaryUrl, name: self.itemProvider.suggestedName ?? "", context: self.context)
-            self.state = .finished
+            self?.loadItemProviderCompletion(temporaryUrl: temporaryUrl, error: error)
         }
 
         state = .executing
+    }
+
+    private func loadItemProviderCompletion(temporaryUrl: URL?, error: Error?) {
+        guard let temporaryUrl = temporaryUrl?.relativePath else {
+            state = .finished
+            return
+        }
+
+        pasteboardMiddlewareService.pasteFile(localPath: temporaryUrl, name: itemProvider.suggestedName ?? "", context: context)
+        state = .finished
     }
 }
