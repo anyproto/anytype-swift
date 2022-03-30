@@ -13,9 +13,6 @@ import FloatingPanel
 final class ObjectPreviewViewModel: ObservableObject {
     // MARK: - Private variables
 
-    private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: true)
-    private weak var popup: AnytypePopupProxy?
-
     private let objectPreviewModelBuilder = ObjectPreivewSectionBuilder()
     @Published var objectPreviewSections = ObjectPreviewViewSection(main: [], featuredRelation: [])
 
@@ -26,24 +23,8 @@ final class ObjectPreviewViewModel: ObservableObject {
         updateObjectPreview(featuredRelationsByIds: featuredRelationsByIds, fields: fields)
     }
 
-    func viewDidUpdateHeight(_ height: CGFloat) {
-        popupLayout = .constantHeight(height: height, floatingPanelStyle: false)
-        popup?.updateLayout(false)
-    }
-
     func updateObjectPreview(featuredRelationsByIds: [String: Relation], fields: MiddleBlockFields) {
         objectPreviewSections = objectPreviewModelBuilder.build(featuredRelationsByIds: featuredRelationsByIds,
                                                                 fields: fields)
-    }
-}
-
-extension ObjectPreviewViewModel: AnytypePopupViewModelProtocol {
-
-    func onPopupInstall(_ popup: AnytypePopupProxy) {
-        self.popup = popup
-    }
-
-    func makeContentView() -> UIViewController {
-        UIHostingController(rootView: ObjectPreviewView(viewModel: self))
     }
 }
