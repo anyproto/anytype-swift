@@ -88,6 +88,11 @@ extension AnytypeImageViewWrapper {
         }
     }
     
+    func setImage(_ image: UIImage?) {
+        imageView.kf.cancelDownloadTask()
+        imageView.image = image
+    }
+    
 }
 
 private extension AnytypeImageViewWrapper {

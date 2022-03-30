@@ -76,16 +76,15 @@ private extension ObjectHeaderCoverView {
     
     private func showColor(_ color: UIColor, _ size: CGSize) {
         let imageGuideline = ImageGuideline(size: size)
-        
-        imageView.image = ImageBuilder(imageGuideline)
+        let image: UIImage? = ImageBuilder(imageGuideline)
             .setImageColor(color)
             .build()
-        
+        imageView.wrapper.setImage(image)
         imageView.contentMode = .scaleAspectFill
     }
     
     private func showGradient(_ gradient: GradientColor, _ size: CGSize) {
-        imageView.image = GradientImageBuilder().image(
+        let image: UIImage? = GradientImageBuilder().image(
             size: size,
             color: gradient,
             point: GradientPoint(
@@ -93,6 +92,7 @@ private extension ObjectHeaderCoverView {
                 end: CGPoint(x: 0.5, y: 1)
             )
         )
+        imageView.wrapper.setImage(image)
         imageView.contentMode = .scaleToFill
     }
     
@@ -105,7 +105,7 @@ private extension ObjectHeaderCoverView {
                 options: [.transition(.fade(0.2))]
             )
         case .image(let image):
-            imageView.image = image
+            imageView.wrapper.setImage(image)
         }
 
         imageView.contentMode = .scaleAspectFill
