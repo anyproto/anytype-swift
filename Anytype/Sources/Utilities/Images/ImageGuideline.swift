@@ -18,14 +18,26 @@ struct ImageGuideline {
         self.size = size
         self.cornersGuideline = {
             guard let cornerRadius = cornerRadius else {
-                return .init(radius: 0, borderColor: nil)
+                return .init(radius: .point(0), borderColor: nil)
             }
             
             return .init(
-                radius: cornerRadius,
+                radius: .point(cornerRadius),
                 borderColor: backgroundColor
             )
         }()
+    }
+    
+}
+
+extension ImageGuideline {
+    
+    var cornerRadius: CGFloat {
+        switch cornersGuideline.radius {
+        case .point(let point): return point
+        case .widthFraction(let widthFraction):
+            return size.width * widthFraction
+        }
     }
     
 }

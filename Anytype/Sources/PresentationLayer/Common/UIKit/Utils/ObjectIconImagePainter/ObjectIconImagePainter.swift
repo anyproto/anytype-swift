@@ -27,11 +27,11 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
         if let image = imageStorage.image(forKey: hash) {
             return image
         }
-        
+
         let modifiedImage = image
             .scaled(to: imageGuideline.size)
             .rounded(
-                radius: imageGuideline.cornersGuideline.radius,
+                radius: imageGuideline.cornerRadius,
                 backgroundColor: imageGuideline.cornersGuideline.borderColor?.cgColor
             )
         

@@ -65,6 +65,8 @@ extension ImageBuilder: ImageBuilderProtocol {
         format.scale = UIScreen.main.scale
         format.opaque = isOpaque
         
+        
+        
         let image = UIGraphicsImageRenderer(
             size: imageGuideline.size,
             format: format)
@@ -78,7 +80,7 @@ extension ImageBuilder: ImageBuilderProtocol {
                 
             }
             .rounded(
-                radius: imageGuideline.cornersGuideline.radius,
+                radius: imageGuideline.cornerRadius,
                 opaque: isOpaque,
                 backgroundColor: imageGuideline.cornersGuideline.borderColor?.cgColor
         )
@@ -115,6 +117,16 @@ extension ImageBuilder: ImageBuilderProtocol {
             ],
             context: nil
         )
+    }
+    
+}
+
+private extension ImageCornersGuideline {
+    
+    var isOpaque: Bool {
+        guard let backgroundColor = borderColor else { return false }
+        
+        return !backgroundColor.isTransparent
     }
     
 }
