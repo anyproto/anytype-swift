@@ -6,6 +6,7 @@ import Amplitude
 
 final class SettingsViewModel: ObservableObject {
     @Published var loggingOut = false
+    @Published var accountDeleting = false
     @Published var wallpaperPicker = false
     @Published var keychain = false
     @Published var pincode = false
@@ -37,8 +38,22 @@ final class SettingsViewModel: ObservableObject {
     }
 
     func logout() {
-        authService.logout()
+        guard authService.logout() else {
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
+            return
+        }
+        
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
         windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
+    }
+    
+    func accountDeletionConfirm() {
+        guard let status = authService.deleteAccount() else {
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
+            return
+        }
+        
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
     }
     
     private var clearCacheSubscription: AnyCancellable?

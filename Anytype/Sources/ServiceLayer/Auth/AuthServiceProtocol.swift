@@ -15,5 +15,7 @@ protocol AuthServiceProtocol {
     func mnemonicByEntropy(_ entropy: String) -> Result<String, Error>
 
     /// Accounts seed will be removed from keychain.
-    func logout()
+    func logout() -> Bool
+    
+    func deleteAccount() -> AccountStatus?
 }
