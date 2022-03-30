@@ -35,7 +35,7 @@ final class VideoBlockContentView: UIView, BlockContentView {
             domain: .blockVideo
         )
         
-        guard let url = configuration.file.metadata.downloadingUrl else { return }
+        guard let url = configuration.file.metadata.contentUrl else { return }
         videoVC.player = AVPlayer(url: url)
     }
 }

@@ -129,7 +129,7 @@
 		12136D5627996F3400262FE7 /* TextRelationDetailsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D5527996F3400262FE7 /* TextRelationDetailsService.swift */; };
 		12136D5827996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D5727996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift */; };
 		12136D5A2799A2BC00262FE7 /* TextRelationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12136D592799A2BC00262FE7 /* TextRelationDetailsViewController.swift */; };
-		1215E8A926A82DFD0089AF7E /* DownloadingUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8A826A82DFD0089AF7E /* DownloadingUrlBuilder.swift */; };
+		1215E8A926A82DFD0089AF7E /* ContentUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8A826A82DFD0089AF7E /* ContentUrlBuilder.swift */; };
 		1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8B026A860D20089AF7E /* AppConfigurator.swift */; };
 		1215E8B426A860ED0089AF7E /* AppConfiguratorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8B326A860ED0089AF7E /* AppConfiguratorProtocol.swift */; };
 		1215E8B626A8610C0089AF7E /* KingfisherConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1215E8B526A8610C0089AF7E /* KingfisherConfigurator.swift */; };
@@ -1084,7 +1084,7 @@
 		12136D5527996F3400262FE7 /* TextRelationDetailsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsService.swift; sourceTree = "<group>"; };
 		12136D5727996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsServiceProtocol.swift; sourceTree = "<group>"; };
 		12136D592799A2BC00262FE7 /* TextRelationDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsViewController.swift; sourceTree = "<group>"; };
-		1215E8A826A82DFD0089AF7E /* DownloadingUrlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadingUrlBuilder.swift; sourceTree = "<group>"; };
+		1215E8A826A82DFD0089AF7E /* ContentUrlBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentUrlBuilder.swift; sourceTree = "<group>"; };
 		1215E8B026A860D20089AF7E /* AppConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfigurator.swift; sourceTree = "<group>"; };
 		1215E8B326A860ED0089AF7E /* AppConfiguratorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConfiguratorProtocol.swift; sourceTree = "<group>"; };
 		1215E8B526A8610C0089AF7E /* KingfisherConfigurator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KingfisherConfigurator.swift; sourceTree = "<group>"; };
@@ -3262,7 +3262,7 @@
 			isa = PBXGroup;
 			children = (
 				12C0592D27F3274E004FFAAB /* DownloadableContentProtocol.swift */,
-				1215E8A826A82DFD0089AF7E /* DownloadingUrlBuilder.swift */,
+				1215E8A826A82DFD0089AF7E /* ContentUrlBuilder.swift */,
 			);
 			path = DownloadableContent;
 			sourceTree = "<group>";
@@ -6303,7 +6303,7 @@
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
 				534785642743D4EC0097CA30 /* ParsedRelations.swift in Sources */,
 				3D30417227EA689F00FFE0EB /* SetTableViewRowDataBuilder.swift in Sources */,
-				1215E8A926A82DFD0089AF7E /* DownloadingUrlBuilder.swift in Sources */,
+				1215E8A926A82DFD0089AF7E /* ContentUrlBuilder.swift in Sources */,
 				3D93D575270CA3D600614E29 /* EditorPageAssembly.swift in Sources */,
 				3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */,
 				3D932D4426317E3A00C7D1EA /* HomeBottomSheetView.swift in Sources */,

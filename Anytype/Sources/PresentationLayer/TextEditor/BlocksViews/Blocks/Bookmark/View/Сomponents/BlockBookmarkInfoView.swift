@@ -78,10 +78,11 @@ final class BlockBookmarkInfoView: UIView {
             with: ImageMetadata(
                 id: payload.faviconHash,
                 width: imageGuideline.size.width.asImageWidth
-            ).downloadingUrl,
+            ).contentUrl,
             placeholder: placeholder,
             options: [.processor(processor), .transition(.fade(0.2))]
         )
+
     }
     
     // MARK: - Views

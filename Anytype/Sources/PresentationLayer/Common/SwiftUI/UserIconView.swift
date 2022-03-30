@@ -32,7 +32,7 @@ struct UserIconView: View {
         KFImage
             .url(
                 ImageMetadata(id: imageId, width: Constants.size.width.asImageWidth)
-                    .downloadingUrl
+                    .contentUrl
             )
             .setProcessors(
                 [

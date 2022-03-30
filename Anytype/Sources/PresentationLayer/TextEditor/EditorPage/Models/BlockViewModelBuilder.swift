@@ -106,7 +106,7 @@ final class BlockViewModelBuilder {
                         self?.showFilePicker(blockId: blockId)
                     },
                     downloadFile: { [weak router] fileMetadata in
-                        guard let url = fileMetadata.downloadingUrl else { return }
+                        guard let url = fileMetadata.contentUrl else { return }
                         router?.saveFile(fileURL: url, type: .file)
                     }
                 )

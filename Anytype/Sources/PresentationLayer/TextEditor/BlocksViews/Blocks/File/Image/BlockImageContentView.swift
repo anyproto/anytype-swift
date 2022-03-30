@@ -77,7 +77,7 @@ final class BlockImageContentView: UIView, BlockContentView {
         ).build()
         
         imageView.kf.setImage(
-            with: ImageMetadata(id: imageId, width: imageSize.width.asImageWidth).downloadingUrl,
+            with: ImageMetadata(id: imageId, width: imageSize.width.asImageWidth).contentUrl,
             placeholder: placeholder,
             options: [.processor(DownsamplingImageProcessor(size: imageSize)), .transition(.fade(0.2))]
         )

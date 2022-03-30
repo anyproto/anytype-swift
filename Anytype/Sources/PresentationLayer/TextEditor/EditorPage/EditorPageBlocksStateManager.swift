@@ -326,7 +326,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             )
 
             if case let .file(blockFile) = elements.first?.content,
-               let url = blockFile.metadata.downloadingUrl {
+               let url = blockFile.metadata.contentUrl {
                 router.saveFile(fileURL: url, type: blockFile.contentType)
             }
         case .style:

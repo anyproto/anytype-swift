@@ -3,7 +3,7 @@ import BlocksModels
 
 protocol DownloadableContentProtocol {
     
-    var downloadingUrl: URL? { get }
+    var contentUrl: URL? { get }
     
 }
 
@@ -11,8 +11,8 @@ protocol DownloadableContentProtocol {
 
 extension ImageMetadata: DownloadableContentProtocol {
     
-    var downloadingUrl: URL? {
-        DownloadingUrlBuilder.imageUrl(imageMetadata: self)
+    var contentUrl: URL? {
+        ContentUrlBuilder.imageUrl(imageMetadata: self)
     }
     
 }
@@ -21,8 +21,8 @@ extension ImageMetadata: DownloadableContentProtocol {
 
 extension FileMetadata: DownloadableContentProtocol {
     
-    var downloadingUrl: URL? {
-        DownloadingUrlBuilder.fileUrl(fileId: self.hash)
+    var contentUrl: URL? {
+        ContentUrlBuilder.fileUrl(fileId: self.hash)
     }
     
 }
