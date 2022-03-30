@@ -6,7 +6,7 @@ final class ContentUrlBuilder {
        
     static func fileUrl(fileId: String) -> URL? {
         guard fileId.isNotEmpty else {
-            anytypeAssertionFailure("File id is nil", domain: .contentUrlBuilder)
+            anytypeAssertionFailure("File id is empty", domain: .contentUrlBuilder)
             return nil
         }
         
@@ -21,7 +21,7 @@ final class ContentUrlBuilder {
     
     static func imageUrl(imageMetadata: ImageMetadata) -> URL? {
         guard imageMetadata.id.isNotEmpty else {
-            anytypeAssertionFailure("Image id is nil", domain: .contentUrlBuilder)
+            anytypeAssertionFailure("Image id is empty", domain: .contentUrlBuilder)
             return nil
         }
         

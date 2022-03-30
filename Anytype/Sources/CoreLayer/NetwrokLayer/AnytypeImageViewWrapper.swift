@@ -52,20 +52,18 @@ extension AnytypeImageViewWrapper {
         imageView.kf.cancelDownloadTask()
         
         guard id.isNotEmpty else {
-            anytypeAssertionFailure(<#T##message: String##String#>, domain: ErrorDomain)
-            // TODO: assert
+            anytypeAssertionFailure("Empty image id", domain: .imageViewWrapper)
             return
         }
              
         guard let imageGuideline = imageGuideline else {
-            // TODO: assert
+            anytypeAssertionFailure("ImageGuideline is nil", domain: .imageViewWrapper)
             return
         }
         
-        guard
-            let url = ImageMetadata(id: id, width: imageGuideline.size.width.asImageWidth).contentUrl
-        else {
-            // TODO: assert
+        let imageMetadata = ImageMetadata(id: id, width: imageGuideline.size.width)
+        guard let url = imageMetadata.contentUrl else {
+            anytypeAssertionFailure("Url is nil", domain: .imageViewWrapper)
             return
         }
         
@@ -76,7 +74,7 @@ extension AnytypeImageViewWrapper {
         imageView.kf.cancelDownloadTask()
         
         guard let imageGuideline = imageGuideline else {
-            // TODO: assert
+            anytypeAssertionFailure("ImageGuideline is nil", domain: .imageViewWrapper)
             return
         }
         
@@ -85,7 +83,9 @@ extension AnytypeImageViewWrapper {
             placeholder: buildPlaceholder(with: imageGuideline),
             options: buildOptions(with: imageGuideline)
         ) { result in
-            // TODO: assert
+            guard case .failure(let error) = result else { return }
+            
+            anytypeAssertionFailure(error.localizedDescription, domain: .imageViewWrapper)
         }
     }
     
