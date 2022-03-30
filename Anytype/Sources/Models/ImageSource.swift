@@ -13,7 +13,7 @@ enum ImageSource {
             case .image(let image):
                 promise(.success(image))
             case .middleware(let imageID):
-                guard let url = imageID.downloadingUrl else {
+                guard let url = imageID.contentUrl else {
                     promise(.success(nil))
                     return
                 }

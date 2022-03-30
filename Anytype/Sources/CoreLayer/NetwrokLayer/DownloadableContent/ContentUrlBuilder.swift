@@ -2,17 +2,17 @@ import Foundation
 import AnytypeCore
 import UIKit
 
-final class DownloadingUrlBuilder {
+final class ContentUrlBuilder {
        
     static func fileUrl(fileId: String) -> URL? {
         guard fileId.isNotEmpty else {
-            anytypeAssertionFailure("File id is nil", domain: .downloadingUrlBuilder)
+            anytypeAssertionFailure("File id is nil", domain: .contentUrlBuilder)
             return nil
         }
         
         let gatewayUrl = MiddlewareConfigurationProvider.shared.configuration.gatewayURL
         guard let components = URLComponents(string: gatewayUrl) else {
-            anytypeAssertionFailure("File url components is nil. GatewayUrl: \(gatewayUrl)", domain: .downloadingUrlBuilder)
+            anytypeAssertionFailure("File url components is nil. GatewayUrl: \(gatewayUrl)", domain: .contentUrlBuilder)
             return nil
         }
         
@@ -21,13 +21,13 @@ final class DownloadingUrlBuilder {
     
     static func imageUrl(imageMetadata: ImageMetadata) -> URL? {
         guard imageMetadata.id.isNotEmpty else {
-            anytypeAssertionFailure("Image id is nil", domain: .downloadingUrlBuilder)
+            anytypeAssertionFailure("Image id is nil", domain: .contentUrlBuilder)
             return nil
         }
         
         let gatewayUrl = MiddlewareConfigurationProvider.shared.configuration.gatewayURL
         guard let components = URLComponents(string: gatewayUrl) else {
-            anytypeAssertionFailure("Image url components is nil. GatewayUrl: \(gatewayUrl)", domain: .downloadingUrlBuilder)
+            anytypeAssertionFailure("Image url components is nil. GatewayUrl: \(gatewayUrl)", domain: .contentUrlBuilder)
             return nil
         }
         
@@ -38,7 +38,7 @@ final class DownloadingUrlBuilder {
 
 // MARK: - Private extension
 
-private extension DownloadingUrlBuilder {
+private extension ContentUrlBuilder {
     
     static func makeFileUrl(initialComponents: URLComponents, fileId: String) -> URL? {
         var components = initialComponents
@@ -78,7 +78,7 @@ private extension DownloadingUrlBuilder {
 
 // MARK: - Constants
 
-private extension DownloadingUrlBuilder {
+private extension ContentUrlBuilder {
     
     enum Constants {
         static let imageSubPath = "/image/"

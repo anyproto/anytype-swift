@@ -79,7 +79,7 @@ private extension ObjectHeaderCoverView {
         
         imageView.kf.cancelDownloadTask()
         imageView.kf.setImage(
-            with: ImageMetadata(id: imageId, width: imageGuideline.size.width.asImageWidth).downloadingUrl,
+            with: ImageMetadata(id: imageId, width: imageGuideline.size.width.asImageWidth).contentUrl,
             placeholder: placeholder,
             options: [.processor(processor)]
         )

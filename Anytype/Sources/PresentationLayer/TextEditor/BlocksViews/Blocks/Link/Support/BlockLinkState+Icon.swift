@@ -48,7 +48,7 @@ private extension BlockLinkState {
         let imageView = UIImageView()
         let size = Constants.imageViewSize
 
-        guard let url = ImageMetadata(id: imageId, width: size.width.asImageWidth).downloadingUrl else {
+        guard let url = ImageMetadata(id: imageId, width: size.width.asImageWidth).contentUrl else {
             return imageView
         }
         
