@@ -23,11 +23,11 @@ final class AuthService: AuthServiceProtocol {
         self.loginStateService = loginStateService
     }
 
-    func logout() -> Bool {
+    func logout(removeData: Bool) -> Bool {
         Amplitude.instance().logEvent(AmplitudeEventsName.logout)
         
         guard Anytype_Rpc.Account.Stop.Service
-                .invoke(removeData: false).getValue(domain: .authService)
+                .invoke(removeData: removeData).getValue(domain: .authService)
                 .isNotNil else {
                     return false
                 }
@@ -126,8 +126,14 @@ final class AuthService: AuthServiceProtocol {
     
     func deleteAccount() -> AccountStatus? {
         Anytype_Rpc.Account.Delete.Service.invoke(revert: false)
-            .map { $0.status }
             .getValue(domain: .authService)
+            .flatMap { $0.status.asModel }
+    }
+    
+    func restoreAccount() -> AccountStatus? {
+        Anytype_Rpc.Account.Delete.Service.invoke(revert: true)
+            .getValue(domain: .authService)
+            .flatMap { $0.status.asModel }
     }
     
     func mnemonicByEntropy(_ entropy: String) -> Result<String, Error> {

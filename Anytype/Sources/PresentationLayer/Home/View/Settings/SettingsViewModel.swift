@@ -37,8 +37,8 @@ final class SettingsViewModel: ObservableObject {
         self.authService = authService
     }
 
-    func logout() {
-        guard authService.logout() else {
+    func logout(removeData: Bool) {
+        guard authService.logout(removeData: removeData) else {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return
         }
@@ -53,7 +53,17 @@ final class SettingsViewModel: ObservableObject {
             return
         }
         
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        switch status {
+        case .active:
+            UINotificationFeedbackGenerator().notificationOccurred(.error)
+            return
+        case .pendingDeletion(let progress):
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            windowHolder?.startNewRootView(DeletedAccountView(progress: progress))
+        case .deleted:
+            logout(removeData: true)
+        }
+        
     }
     
     private var clearCacheSubscription: AnyCancellable?

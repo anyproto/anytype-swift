@@ -56,7 +56,7 @@ struct SettingsAccountView: View {
     private var dataBlock: some View {
         VStack(spacing: 0) {
             section("Data".localized)
-            button(text: "Clear file cache", color: .textPrimary) {
+            SettingsButton(text: "Clear file cache", textColor: .textPrimary) {
                 model.clearCacheAlert = true
             }
         }
@@ -65,27 +65,13 @@ struct SettingsAccountView: View {
     private var accountBlock: some View {
         VStack(spacing: 0) {
             section("Account".localized)
-            button(text: "Log out", color: .textPrimary) {
+            SettingsButton(text: "Log out", textColor: .textPrimary) {
                 model.loggingOut = true
             }
-            button(text: "Delete account", color: .System.red) {
+            SettingsButton(text: "Delete account", textColor: .System.red) {
                 model.accountDeleting = true
             }
          }
-    }
-    
-    private func button(text: String, color: Color, action: @escaping () -> ()) -> some View {
-        Button(action: action) {
-            VStack(alignment: .leading, spacing: 0) {
-                Spacer.fixedHeight(14)
-                HStack(spacing: 0) {
-                    AnytypeText(text.localized, style: .uxBodyRegular, color: color)
-                    Spacer()
-                }
-                Spacer.fixedHeight(14)
-            }
-            .divider()
-        }
     }
     
     private func section(_ text: String) -> some View {
