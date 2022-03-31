@@ -76,8 +76,9 @@ public enum ErrorDomain: String {
     case restrictionsConverter
     
     case iconPicker
-    
     case appIcon
+    
+    case calendar
 }
 
 public protocol MessageLogger {
