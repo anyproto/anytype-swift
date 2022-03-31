@@ -100,7 +100,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 },
                 emptyOptionsPlaceholder: Constants.objectsOptionsPlaceholder,
                 relation: relation,
-                searchModuleBuilder: ObjectsOptionsSearchModuleBuilder(),
+                searchModuleBuilder: ObjectsOptionsSearchModuleBuilder(limitedObjectType: object.limitedObjectTypes),
                 service: RelationsService(objectId: objectId)
             )
         case .file(let file):
