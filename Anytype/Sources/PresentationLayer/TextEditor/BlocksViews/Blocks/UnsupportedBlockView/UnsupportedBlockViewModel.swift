@@ -19,7 +19,10 @@ struct UnsupportedBlockViewModel: BlockViewModelProtocol {
 
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         UnsupportedBlockContentConfiguration(text: "Unsupported block".localized)
-            .cellBlockConfiguration(indentationSettings: .init(with: info.metadata))
+            .cellBlockConfiguration(
+                indentationSettings: .init(with: info.metadata),
+                dragConfiguration: .init(id: info.id)
+            )
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) { }

@@ -22,4 +22,5 @@ struct CellBlockConfiguration<Configuration: BlockConfiguration>: UIContentConfi
     let blockConfiguration: Configuration
     var currentConfigurationState: UICellConfigurationState?
     let indentationSettings: IndentationSettings?
+    let dragConfiguration: BlockDragConfiguration?
 }

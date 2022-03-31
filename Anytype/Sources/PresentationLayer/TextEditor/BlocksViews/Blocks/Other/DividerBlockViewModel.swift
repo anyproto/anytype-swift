@@ -15,7 +15,10 @@ struct DividerBlockViewModel: BlockViewModelProtocol {
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         DividerBlockContentConfiguration(content: dividerContent)
-            .cellBlockConfiguration(indentationSettings: .init(with: info.metadata))
+            .cellBlockConfiguration(
+                indentationSettings: .init(with: info.metadata),
+                dragConfiguration: .init(id: info.id)
+            )
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}

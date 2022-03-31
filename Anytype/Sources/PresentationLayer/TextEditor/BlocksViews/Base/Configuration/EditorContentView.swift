@@ -1,6 +1,6 @@
 import UIKit
 
-class EditorContentView<View: BlockContentView>: UIView & UIContentView {
+final class EditorContentView<View: BlockContentView>: UIView & UIContentView, UIDragInteractionDelegate {
     typealias Configuration = CellBlockConfiguration<View.Configuration>
 
     var configuration: UIContentConfiguration {
@@ -8,7 +8,8 @@ class EditorContentView<View: BlockContentView>: UIView & UIContentView {
             Configuration(
                 blockConfiguration: blockConfiguration,
                 currentConfigurationState: currentConfigurationState,
-                indentationSettings: indentationSettings
+                indentationSettings: indentationSettings,
+                dragConfiguration: dragConfiguration
             )
         }
         set {
@@ -25,6 +26,8 @@ class EditorContentView<View: BlockContentView>: UIView & UIContentView {
             if newConfiguration.indentationSettings != indentationSettings {
                 indentationSettings = newConfiguration.indentationSettings
             }
+
+            dragConfiguration = newConfiguration.dragConfiguration
         }
     }
 
@@ -40,7 +43,13 @@ class EditorContentView<View: BlockContentView>: UIView & UIContentView {
         }
     }
 
-    var currentConfigurationState: UICellConfigurationState? {
+    private var dragConfiguration: BlockDragConfiguration? {
+        didSet {
+            setupDragInteraction()
+        }
+    }
+
+    private var currentConfigurationState: UICellConfigurationState? {
         didSet {
             currentConfigurationState.map {
                 update(with: $0)
@@ -53,11 +62,13 @@ class EditorContentView<View: BlockContentView>: UIView & UIContentView {
     private let view = View(frame: .zero)
     private lazy var selectionView = BaseSelectionView()
     private var viewLeadingConstraint: NSLayoutConstraint?
+    private lazy var viewDragInteraction = UIDragInteraction(delegate: self)
 
     init(configuration: Configuration) {
         self.blockConfiguration = configuration.blockConfiguration
         self.currentConfigurationState = configuration.currentConfigurationState
         self.indentationSettings = configuration.indentationSettings
+        self.dragConfiguration = configuration.dragConfiguration
 
         super.init(frame: .zero)
 
@@ -67,13 +78,15 @@ class EditorContentView<View: BlockContentView>: UIView & UIContentView {
         configuration.currentConfigurationState.map { view.update(with: $0) }
 
         indentationSettings.map(update(with:))
+
+        setupDragInteraction()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 
-    func update(with state: UICellConfigurationState) {
+    private func update(with state: UICellConfigurationState) {
         selectionView.updateStyle(isSelected: state.isSelected)
 
         isUserInteractionEnabled = state.isEditing
@@ -85,7 +98,12 @@ class EditorContentView<View: BlockContentView>: UIView & UIContentView {
         }
     }
 
-    func update(with indentationSettings: IndentationSettings) {
+    private func setupDragInteraction() {
+        guard dragConfiguration != nil, viewDragInteraction.view == nil else { return }
+        view.addInteraction(viewDragInteraction)
+    }
+
+    private func update(with indentationSettings: IndentationSettings) {
         backgroundColorsStackView.axis = .horizontal
         backgroundColorsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
 
@@ -127,6 +145,20 @@ class EditorContentView<View: BlockContentView>: UIView & UIContentView {
         addSubview(selectionView) {
             $0.pin(to: view, insets: UIEdgeInsets(top: 0, left: 8, bottom: -2, right: -8))
         }
+    }
+
+    // MARK: - UIDragInteractionDelegate
+
+    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
+        guard let dragConfiguration = dragConfiguration else {
+            return []
+        }
+
+        let provider = NSItemProvider(object: dragConfiguration.id as NSItemProviderWriting)
+        let item = UIDragItem(itemProvider: provider)
+        item.localObject = dragConfiguration
+
+        return [item]
     }
 }
 
