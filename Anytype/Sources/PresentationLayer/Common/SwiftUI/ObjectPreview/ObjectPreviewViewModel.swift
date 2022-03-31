@@ -11,6 +11,7 @@ import SwiftUI
 import FloatingPanel
 
 final class ObjectPreviewViewModel: ObservableObject {
+    
     // MARK: - Private variables
 
     private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: true)
@@ -21,8 +22,10 @@ final class ObjectPreviewViewModel: ObservableObject {
 
     // MARK: - Initializer
 
-    init(featuredRelationsByIds: [String: Relation],
-         fields: MiddleBlockFields) {
+    init(featuredRelations: [Relation], fields: MiddleBlockFields) {
+        let featuredRelationsByIds = Dictionary(
+            uniqueKeysWithValues: featuredRelations.map { ($0.id, $0) }
+        )
         updateObjectPreview(featuredRelationsByIds: featuredRelationsByIds, fields: fields)
     }
 

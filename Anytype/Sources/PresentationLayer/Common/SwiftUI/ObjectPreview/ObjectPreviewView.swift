@@ -87,7 +87,7 @@ struct ObjectPreviewView: View {
 
 struct ObjectPreviewView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = ObjectPreviewViewModel(featuredRelationsByIds: [:], fields: .init())
+        let viewModel = ObjectPreviewViewModel(featuredRelations: [], fields: .init())
         ObjectPreviewView(viewModel: viewModel)
     }
 }
