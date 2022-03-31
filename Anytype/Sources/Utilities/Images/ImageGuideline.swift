@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 struct ImageGuideline {
     
@@ -8,11 +9,19 @@ struct ImageGuideline {
     // MARK: - Initializers
     
     init(size: CGSize, cornersGuideline: ImageCornersGuideline? = nil) {
+        if size.isZero {
+            anytypeAssertionFailure("Size should not be `zero`", domain: .imageGuideline)
+        }
+        
         self.size = size
         self.cornersGuideline = cornersGuideline
     }
     
     init(size: CGSize, radius: ImageCornersGuideline.Radius, backgroundColor: UIColor? = nil) {
+        if size.isZero {
+            anytypeAssertionFailure("Size should not be `zero`", domain: .imageGuideline)
+        }
+        
         self.size = size
         self.cornersGuideline = ImageCornersGuideline(radius: radius, backgroundColor: backgroundColor)
     }

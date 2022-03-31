@@ -33,28 +33,29 @@ final class ObjectIconImageView: UIView {
 
 extension ObjectIconImageView: ConfigurableView {    
     func configure(model: ObjectIconImageModel) {
-        imageView.kf.cancelDownloadTask()
-        
         switch model.iconImage {
         case .icon(let objectIconType):
             handleObjectIconType(objectIconType, model: model)
         case .todo(let isChecked):
-            imageView.image = model.imageGuideline.flatMap {
+            let image: UIImage? = model.imageGuideline.flatMap {
                 painter.todoImage(isChecked: isChecked, imageGuideline: $0)
             }
+            imageView.wrapper.setImage(image)
         case .placeholder(let character):
-            imageView.image = stringIconImage(
+            let image: UIImage? = stringIconImage(
                 model: model,
                 string: character.flatMap { String($0).uppercased() } ?? "",
                 textColor: UIColor.textTertiary,
                 backgroundColor: model.usecase.placeholderBackgroundColor
             )
+            imageView.wrapper.setImage(image)
         case .staticImage(let name):
-            imageView.image = model.imageGuideline.flatMap {
+            let image: UIImage? = model.imageGuideline.flatMap {
                 painter.staticImage(name: name, imageGuideline: $0)
             }
+            imageView.wrapper.setImage(image)
         case .image(let image):
-            imageView.image = image
+            imageView.wrapper.setImage(image)
         }
 
         currentModel = model
@@ -69,26 +70,28 @@ extension ObjectIconImageView: ConfigurableView {
             case .imageId(let id):
                 downloadImage(imageId: id, model: model)
             case .character(let character):
-                imageView.image = stringIconImage(
+                let image: UIImage? = stringIconImage(
                     model: model,
                     string: String(character).uppercased(),
                     textColor: UIColor.textWhite,
                     backgroundColor: model.usecase.profileBackgroundColor
                 )
+                imageView.wrapper.setImage(image)
             }
         case .emoji(let iconEmoji):
-            imageView.image = stringIconImage(
+            let image: UIImage? = stringIconImage(
                 model: model,
                 string: iconEmoji.value,
                 textColor: UIColor.backgroundPrimary,
                 backgroundColor: model.usecase.emojiBackgroundColor
             )
+            imageView.wrapper.setImage(image)
         }
     }
     
     private func downloadImage(imageId: String, model: Model) {
         guard let imageGuideline = model.imageGuideline else {
-            imageView.image = nil
+            imageView.wrapper.setImage(nil)
             return
         }
         
