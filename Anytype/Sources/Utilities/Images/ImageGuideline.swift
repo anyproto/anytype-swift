@@ -3,29 +3,18 @@ import UIKit
 struct ImageGuideline {
     
     let size: CGSize
-    let cornersGuideline: ImageCornersGuideline
+    let cornersGuideline: ImageCornersGuideline?
     
     // MARK: - Initializers
     
-    init(size: CGSize, cornersGuideline: ImageCornersGuideline) {
+    init(size: CGSize, cornersGuideline: ImageCornersGuideline? = nil) {
         self.size = size
         self.cornersGuideline = cornersGuideline
     }
     
-    init(size: CGSize,
-         cornerRadius: CGFloat? = nil,
-         backgroundColor: UIColor? = nil) {
+    init(size: CGSize, radius: ImageCornersGuideline.Radius, borderColor: UIColor? = nil) {
         self.size = size
-        self.cornersGuideline = {
-            guard let cornerRadius = cornerRadius else {
-                return .init(radius: .point(0), borderColor: nil)
-            }
-            
-            return .init(
-                radius: .point(cornerRadius),
-                borderColor: backgroundColor
-            )
-        }()
+        self.cornersGuideline = ImageCornersGuideline(radius: radius, borderColor: borderColor)
     }
     
 }
@@ -33,7 +22,9 @@ struct ImageGuideline {
 extension ImageGuideline {
     
     var cornerRadius: CGFloat {
-        switch cornersGuideline.radius {
+        guard let radius = cornersGuideline?.radius else { return 0 }
+        
+        switch radius {
         case .point(let point): return point
         case .widthFraction(let widthFraction):
             return size.width * widthFraction
@@ -45,7 +36,7 @@ extension ImageGuideline {
 extension ImageGuideline {
     
     var identifier: String {
-        "\(ImageGuideline.self).\(size).\(cornersGuideline.identifier)"
+        "\(ImageGuideline.self).\(size).\(cornersGuideline?.identifier ?? "")"
     }
     
 }

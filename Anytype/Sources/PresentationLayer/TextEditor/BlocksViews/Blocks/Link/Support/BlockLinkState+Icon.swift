@@ -60,7 +60,7 @@ private extension BlockLinkState {
         
         let imageGuideline = ImageGuideline(
             size: size,
-            cornerRadius: cornerRadius
+            radius: .point(cornerRadius)
         )
         
         let image = ImageBuilder(imageGuideline).build()
@@ -89,10 +89,7 @@ private extension BlockLinkState {
     
     func makePlaceholderView(_ placeholder: Character) -> UIView {
         let size = Constants.imageViewSize
-        let imageGuideline = ImageGuideline(
-            size: size,
-            cornerRadius: size.width / 2
-        )
+        let imageGuideline = ImageGuideline(size: size, radius: .widthFraction(0.5))
         
         let image = ImageBuilder(imageGuideline)
             .setImageColor(.strokePrimary)
