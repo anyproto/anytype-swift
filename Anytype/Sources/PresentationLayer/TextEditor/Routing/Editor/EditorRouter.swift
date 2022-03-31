@@ -27,25 +27,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
     }
 
-    func showPage(data: EditorScreenData) {
-        if let details = ObjectDetailsStorage.shared.get(id: data.pageId)  {
-            guard ObjectTypeProvider.isSupported(typeUrl: details.type) else {
-                showUnsupportedTypeAlert(typeUrl: details.type)
-                return
-            }
-        }
-        
+    func showPage(data: EditorScreenData) {    
         let controller = editorAssembly.buildEditorController(data: data, editorBrowserViewInput: rootController)
         viewController?.navigationController?.pushViewController(controller, animated: true)
-    }
-    
-    private func showUnsupportedTypeAlert(typeUrl: String) {
-        let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized
-        
-        AlertHelper.showToast(
-            title: "Not supported type \"\(typeName)\"",
-            message: "You can open it via desktop"
-        )
     }
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters) {

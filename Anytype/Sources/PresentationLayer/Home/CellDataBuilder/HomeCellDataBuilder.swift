@@ -21,14 +21,6 @@ final class HomeCellDataBuilder {
         let links: [HomePageLink] = document.children.compactMap(blockToPageLink)
         
         return links
-            .filter {
-                guard let details = $0.details, !$0.isLoading else {
-                    return true
-                }
-                
-                return ObjectTypeProvider.isSupported(typeUrl: details.type)
-
-            }
             .map { buildHomeCellData(pageLink: $0) }
     }
     
