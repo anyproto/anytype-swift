@@ -325,7 +325,8 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
                 isBundled: metadata.isBundled,
-                selectedObjects: objectOptions
+                selectedObjects: objectOptions,
+                limitObjectTypes: metadata.objectTypes
             )
         )
     }
