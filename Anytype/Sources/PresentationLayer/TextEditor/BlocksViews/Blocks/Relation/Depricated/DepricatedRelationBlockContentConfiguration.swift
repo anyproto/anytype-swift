@@ -1,4 +1,3 @@
-
 struct DepricatedRelationBlockContentConfiguration: BlockConfiguration {
     typealias View = RelationBlockViewDepricated
 

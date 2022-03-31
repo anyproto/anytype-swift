@@ -11,12 +11,10 @@ enum EditorEditingState {
 
 /// Blocks drag & drop protocol.
 protocol EditorPageMovingManagerProtocol {
-    var movingBlocksIndexPaths: [IndexPath] { get }
-
     func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool
     func canMoveItemsToObject(at indexPath: IndexPath) -> Bool
 
-    func moveItem(at indexPath: IndexPath)
+    func moveItem(with blockDragConfiguration: BlockDragConfiguration)
 
     func didSelectMovingIndexPaths(_ indexPaths: [IndexPath])
     func didSelectEditingMode()
@@ -51,7 +49,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     @Published var selectedBlocks = [BlockId]()
 
     private(set) var selectedBlocksIndexPaths = [IndexPath]()
-    private(set) var movingBlocksIndexPaths = [IndexPath]()
+    private(set) var movingBlocksIds = [BlockId]()
     private var movingDestination: MovingDestination?
 
     // We need to store interspace between root and all childs to disable cursor moving between those indexPaths
@@ -130,14 +128,15 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     // MARK: - EditorPageMovingManagerProtocol
-    func moveItem(at indexPath: IndexPath) {
-        movingBlocksIndexPaths = [indexPath]
-
+    func moveItem(with blockDragConfiguration: BlockDragConfiguration) {
+        movingBlocksIds = [blockDragConfiguration.id]
         startMoving()
     }
 
     func didSelectMovingIndexPaths(_ indexPaths: [IndexPath]) {
-        movingBlocksIndexPaths = indexPaths
+        movingBlocksIds = indexPaths
+            .sorted()
+            .compactMap { modelsHolder.blockViewModel(at: $0.row)?.blockId }
     }
 
     func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool {
@@ -193,13 +192,12 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         $editingState.sink { [unowned self] state in
             switch state {
             case .selecting(let blocks):
-                movingBlocksIndexPaths.removeAll()
                 movingBlocksWithChildsIndexPaths.removeAll()
                 blocksSelectionOverlayViewModel?.setSelectedBlocksCount(blocks.count)
             case .moving:
                 blocksSelectionOverlayViewModel?.setNeedsUpdateForMovingState()
             case .editing:
-                movingBlocksIndexPaths.removeAll()
+                movingBlocksIds.removeAll()
             case .locked: break
             }
         }.store(in: &cancellables)
@@ -224,6 +222,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         let position: BlockPosition
         let targetId: BlockId
         let dropTargetId: BlockId
+
         switch movingDestination {
         case let .object(blockId):
             if let info = document.infoContainer.get(id: blockId),
@@ -258,17 +257,16 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             return
         }
 
-        let blockIds = movingBlocksIndexPaths
-            .sorted()
-            .compactMap { modelsHolder.blockViewModel(at: $0.row)?.blockId }
+        guard !movingBlocksIds.contains(dropTargetId) else { return }
 
         blockActionsServiceSingle.move(
-            blockIds: blockIds,
+            blockIds: movingBlocksIds,
             targetContextID: targetId,
             dropTargetID: dropTargetId,
             position: position
         )
 
+        movingBlocksIds.removeAll()
         editingState = .editing
     }
 
@@ -313,7 +311,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             movingBlocksWithChildsIndexPaths = allMovingBlocks
             didSelectMovingIndexPaths(selectedBlocksIndexPaths)
             editingState = .moving(indexPaths: allMovingBlocks.flatMap { $0 })
-            movingBlocksIndexPaths = onlyRootIndexPaths
+            movingBlocksIds = onlyRootIndexPaths
+                .sorted()
+                .compactMap { modelsHolder.blockViewModel(at: $0.row)?.blockId }
             return
         case .download:
             anytypeAssert(

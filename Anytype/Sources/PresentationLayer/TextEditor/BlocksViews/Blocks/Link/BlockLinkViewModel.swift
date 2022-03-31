@@ -34,7 +34,10 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         BlockLinkContentConfiguration(state: state)
-            .cellBlockConfiguration(indentationSettings: .init(with: info.metadata))
+            .cellBlockConfiguration(
+                indentationSettings: .init(with: info.metadata),
+                dragConfiguration: .init(id: info.id)
+            )
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {

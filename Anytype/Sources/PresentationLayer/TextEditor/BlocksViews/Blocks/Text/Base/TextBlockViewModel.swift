@@ -86,7 +86,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             actions: action()
         )
 
-        return contentConfiguration.cellBlockConfiguration(indentationSettings: .init(with: info.metadata))
+        return contentConfiguration.cellBlockConfiguration(
+            indentationSettings: .init(with: info.metadata),
+            dragConfiguration: content.contentType == .title ? nil : .init(id: info.id)
+        )
     }
 
     func action() -> TextBlockContentConfiguration.Actions {
