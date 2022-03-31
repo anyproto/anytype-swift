@@ -1,22 +1,7 @@
-//
-//  AnytypeImageViewWrapper.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 30.03.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import Foundation
 import UIKit
 import Kingfisher
-
-extension UIImageView {
-    
-    var wrapper: AnytypeImageViewWrapper {
-        AnytypeImageViewWrapper(imageView: self)
-    }
-    
-}
+import AnytypeCore
 
 final class AnytypeImageViewWrapper {
     
@@ -27,11 +12,15 @@ final class AnytypeImageViewWrapper {
     
     private let imageView: UIImageView
     
+    // MARK: - Initializers
+    
     init(imageView: UIImageView) {
         self.imageView = imageView
     }
     
 }
+
+// MARK: - Public functions
 
 extension AnytypeImageViewWrapper {
     
@@ -63,19 +52,29 @@ extension AnytypeImageViewWrapper {
         imageView.kf.cancelDownloadTask()
         
         guard id.isNotEmpty else {
-            // TODO: assert
+            anytypeAssertionFailure("Empty image id", domain: .imageViewWrapper)
             return
         }
+             
+        guard let imageGuideline = imageGuideline else {
+            anytypeAssertionFailure("ImageGuideline is nil", domain: .imageViewWrapper)
+            return
+        }
+        
+        let imageMetadata = ImageMetadata(id: id, width: imageGuideline.size.width)
+        guard let url = imageMetadata.contentUrl else {
+            anytypeAssertionFailure("Url is nil", domain: .imageViewWrapper)
+            return
+        }
+        
+        setImage(url: url)
+    }
+    
+    func setImage(url: URL) {
+        imageView.kf.cancelDownloadTask()
         
         guard let imageGuideline = imageGuideline else {
-            // TODO: assert
-            return
-        }
-        
-        guard
-            let url = ImageMetadata(id: id, width: imageGuideline.size.width.asImageWidth).contentUrl
-        else {
-            // TODO: assert
+            anytypeAssertionFailure("ImageGuideline is nil", domain: .imageViewWrapper)
             return
         }
         
@@ -84,7 +83,9 @@ extension AnytypeImageViewWrapper {
             placeholder: buildPlaceholder(with: imageGuideline),
             options: buildOptions(with: imageGuideline)
         ) { result in
-            // TODO: assert
+            guard case .failure(let error) = result else { return }
+            
+            anytypeAssertionFailure(error.localizedDescription, domain: .imageViewWrapper)
         }
     }
     
@@ -94,6 +95,8 @@ extension AnytypeImageViewWrapper {
     }
     
 }
+
+// MARK: - Private extension
 
 private extension AnytypeImageViewWrapper {
     

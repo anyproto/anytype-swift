@@ -47,7 +47,7 @@ extension ObjectHeaderCoverView: ConfigurableView {
         case let .cover(cover):
             configureCoverState(cover, model.size)
         case let .preview(previewType):
-            configurePreviewState(previewType)
+            configurePreviewState(previewType, model.size)
         }
     }
 }
@@ -96,14 +96,13 @@ private extension ObjectHeaderCoverView {
         imageView.contentMode = .scaleToFill
     }
     
-    private func configurePreviewState(_ previewType: ObjectHeaderCoverPreviewType) {
+    private func configurePreviewState(_ previewType: ObjectHeaderCoverPreviewType, _ size: CGSize) {
         switch previewType {
         case .remote(let url):
-            imageView.kf.setImage(
-                with: url,
-                placeholder: nil,
-                options: [.transition(.fade(0.2))]
-            )
+            imageView.wrapper
+                .imageGuideline(ImageGuideline(size: size))
+                .placeholderNeeded(false)
+                .setImage(url: url)
         case .image(let image):
             imageView.wrapper.setImage(image)
         }

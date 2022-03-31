@@ -7,6 +7,7 @@ public enum ErrorDomain: String {
     case anytypeImageDownloader
     case contentUrlBuilder
     case imageGuideline
+    case imageViewWrapper
     
     case imageCreation
     case colorCreation

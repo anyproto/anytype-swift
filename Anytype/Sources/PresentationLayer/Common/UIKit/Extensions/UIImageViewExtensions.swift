@@ -13,3 +13,11 @@ extension UIImageView {
     }
     
 }
+
+extension UIImageView {
+    
+    var wrapper: AnytypeImageViewWrapper {
+        AnytypeImageViewWrapper(imageView: self)
+    }
+    
+}
