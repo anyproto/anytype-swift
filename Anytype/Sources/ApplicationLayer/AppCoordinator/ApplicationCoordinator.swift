@@ -10,22 +10,13 @@ final class ApplicationCoordinator {
     
     private let authService: AuthServiceProtocol
     
-    private let authAssembly: AuthAssembly
-    
     private(set) lazy var rootNavigationController = createNavigationController()
     
     // MARK: - Initializers
     
-    init(
-        window: UIWindow,
-        authService: AuthServiceProtocol,
-        authAssembly: AuthAssembly
-    ) {
+    init(window: UIWindow, authService: AuthServiceProtocol) {
         self.window = window
-        
         self.authService = authService
-        
-        self.authAssembly = authAssembly
     }
 
     func start() {
@@ -75,29 +66,20 @@ private extension ApplicationCoordinator {
 
     func login() {
         let userId = UserDefaultsConfig.usersId
-        guard userId.isEmpty == false else {
-            showAuthScreen()
+        guard userId.isNotEmpty else {
+            WindowManager.shared.showAuthWindow()
             return
         }
         
-        if authService.selectAccount(id: userId) {
-            showHomeScreen()
-        } else {
-            showAuthScreen()
+        switch authService.selectAccount(id: userId) {
+        case .active:
+            WindowManager.shared.showHomeWindow()
+        case .pendingDeletion(progress: let progress):
+            WindowManager.shared.showDeletedAccountWindow(progress: progress)
+        case .deleted, .none:
+            WindowManager.shared.showAuthWindow()
         }
     }
-    
-    func showHomeScreen() {
-        let homeAssembly = HomeViewAssembly()
-        let view = homeAssembly.createHomeView()
-        
-        startNewRootView(view)
-    }
-    
-    func showAuthScreen() {
-        startNewRootView(authAssembly.authView())
-    }
-    
 } 
 
 // MARK: - MainWindowHolde

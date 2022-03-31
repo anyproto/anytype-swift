@@ -403,6 +403,7 @@
 		3D1CEC2F27F4D9F7000D36BA /* CalendarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC2E27F4D9F7000D36BA /* CalendarExtension.swift */; };
 		3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC3027F5A8CA000D36BA /* DeletedAccountViewModel.swift */; };
 		3D1CEC3427F5D174000D36BA /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC3327F5D174000D36BA /* WindowManager.swift */; };
+		3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC4427F5F566000D36BA /* Clock.swift */; };
 		3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */; };
 		3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D210C132758CCE50007F558 /* RelationsListRowPlaceholderView.swift */; };
 		3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */; };
@@ -1347,6 +1348,7 @@
 		3D1CEC2E27F4D9F7000D36BA /* CalendarExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExtension.swift; sourceTree = "<group>"; };
 		3D1CEC3027F5A8CA000D36BA /* DeletedAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAccountViewModel.swift; sourceTree = "<group>"; };
 		3D1CEC3327F5D174000D36BA /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+		3D1CEC4427F5F566000D36BA /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
 		3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTriggerSymbols.swift; sourceTree = "<group>"; };
 		3D210C132758CCE50007F558 /* RelationsListRowPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListRowPlaceholderView.swift; sourceTree = "<group>"; };
 		3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageViewModel.swift; sourceTree = SOURCE_ROOT; };
@@ -4142,6 +4144,7 @@
 				3D2D4C5A27BA54030070A4C6 /* Divider.swift */,
 				125683EC27DF4DDF003A8251 /* SelectionIndicatorView.swift */,
 				3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */,
+				3D1CEC4427F5F566000D36BA /* Clock.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -6244,6 +6247,7 @@
 				3D07ED41261DDB9B00C007E2 /* BlockFileStateConverter.swift in Sources */,
 				0A005AB224C5D2F1000520AA /* ImagePicker.swift in Sources */,
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
+				3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */,
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
 				EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */,
 				3DB3EC642754FFF1002781DA /* DashboardLoadingAlert.swift in Sources */,

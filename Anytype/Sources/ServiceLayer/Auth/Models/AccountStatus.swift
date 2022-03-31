@@ -19,7 +19,7 @@ struct DeletionProgress {
     var daysToDeletion: Int {
         Calendar.current
             .numberOfDaysBetween(Date(), and: deadline)
-            .clamped(0, maxDeadline)
+            .clamped(1, maxDeadline)
     }
 }
 
