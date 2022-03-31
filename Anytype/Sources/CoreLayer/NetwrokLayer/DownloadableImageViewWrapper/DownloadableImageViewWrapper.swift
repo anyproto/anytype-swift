@@ -83,8 +83,8 @@ extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
             placeholder: buildPlaceholder(with: imageGuideline),
             options: buildOptions(with: imageGuideline)
         ) { result in
-            guard case .failure(let error) = result else { return }
-            
+            guard case .failure(let error) = result, !error.isTaskCancelled else { return }
+ 
             anytypeAssertionFailure(error.localizedDescription, domain: .imageViewWrapper)
         }
     }
