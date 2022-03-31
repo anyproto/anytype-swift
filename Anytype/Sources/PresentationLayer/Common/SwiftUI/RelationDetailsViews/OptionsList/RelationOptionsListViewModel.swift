@@ -3,7 +3,7 @@ import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
-final class RelationOptionsViewModel: ObservableObject {
+final class RelationOptionsListViewModel: ObservableObject {
             
     @Published var selectedOptions: [ListRowConfiguration] = []
     @Published var isSearchPresented: Bool = false
@@ -45,7 +45,7 @@ final class RelationOptionsViewModel: ObservableObject {
 
 // MARK: - Internal functions
 
-extension RelationOptionsViewModel {
+extension RelationOptionsListViewModel {
     
     func delete(_ indexSet: IndexSet) {
         selectedOptions.remove(atOffsets: indexSet)
@@ -100,7 +100,7 @@ extension RelationOptionsViewModel {
 
 // MARK: - Private extension
 
-private extension RelationOptionsViewModel {
+private extension RelationOptionsListViewModel {
     
     func handleNewOptionIds(_ ids: [String]) {
         let newSelectedOptionsIds = selectedOptionIds + ids
@@ -133,10 +133,10 @@ private extension RelationOptionsViewModel {
 
 // MARK: - AnytypePopupViewModelProtocol
 
-extension RelationOptionsViewModel: AnytypePopupViewModelProtocol {
+extension RelationOptionsListViewModel: AnytypePopupViewModelProtocol {
     
     func makeContentView() -> UIViewController {
-        UIHostingController(rootView: RelationOptionsView(viewModel: self))
+        UIHostingController(rootView: RelationOptionsListView(viewModel: self))
     }
     
     func onPopupInstall(_ popup: AnytypePopupProxy) {

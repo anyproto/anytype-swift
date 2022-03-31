@@ -70,7 +70,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 service: RelationsService(objectId: objectId)
             )
         case .tag(let tag):
-            return RelationOptionsViewModel(
+            return RelationOptionsListViewModel(
                 source: source,
                 type: .tags(tag.allTags),
                 selectedOptions: tag.selectedTags.map { tag in
@@ -87,7 +87,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 service: RelationsService(objectId: objectId)
             )
         case .object(let object):
-            return RelationOptionsViewModel(
+            return RelationOptionsListViewModel(
                 source: source,
                 type: .objects,
                 selectedOptions: object.selectedObjects.map { object in
@@ -102,7 +102,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 service: RelationsService(objectId: objectId)
             )
         case .file(let file):
-            return RelationOptionsViewModel(
+            return RelationOptionsListViewModel(
                 source: source,
                 type: .files,
                 selectedOptions: file.files.map { file in
