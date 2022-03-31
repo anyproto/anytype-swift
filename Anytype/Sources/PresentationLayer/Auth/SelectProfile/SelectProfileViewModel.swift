@@ -79,16 +79,10 @@ private extension SelectProfileViewModel {
             self.snackBarData = .empty
             
             if isSelected {
-                self.showHomeView()
+                WindowManager.shared.showHomeWindow()
             } else {
                 self.errorText = "Select account error".localized
             }
         }
     }
-    
-    func showHomeView() {
-        let homeAssembly = HomeViewAssembly()
-        windowHolder?.startNewRootView(homeAssembly.createHomeView())
-    }
-    
 }

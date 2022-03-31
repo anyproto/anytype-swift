@@ -9,7 +9,7 @@ final class DeletedAccountViewModel: ObservableObject {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return
         }
-        windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
+        WindowManager.shared.showAuthWindow()
     }
     
     func cancel() {
@@ -19,7 +19,7 @@ final class DeletedAccountViewModel: ObservableObject {
         }
         
         if case .active = status {
-            windowHolder?.startNewRootView(HomeViewAssembly().createHomeView())
+            WindowManager.shared.showHomeWindow()
         } else {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return

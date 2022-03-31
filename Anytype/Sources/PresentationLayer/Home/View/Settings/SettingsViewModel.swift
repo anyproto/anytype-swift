@@ -44,7 +44,7 @@ final class SettingsViewModel: ObservableObject {
         }
         
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-        windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
+        WindowManager.shared.showHomeWindow()
     }
     
     func accountDeletionConfirm() {
@@ -59,7 +59,7 @@ final class SettingsViewModel: ObservableObject {
             return
         case .pendingDeletion(let progress):
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            windowHolder?.startNewRootView(DeletedAccountView(progress: progress))
+            WindowManager.shared.showDeletedAccountWindow(progress: progress)
         case .deleted:
             logout(removeData: true)
         }
