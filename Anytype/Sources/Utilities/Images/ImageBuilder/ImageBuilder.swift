@@ -80,7 +80,7 @@ extension ImageBuilder: ImageBuilderProtocol {
             .rounded(
                 radius: imageGuideline.cornerRadius,
                 opaque: isOpaque,
-                backgroundColor: imageGuideline.cornersGuideline?.borderColor?.cgColor
+                backgroundColor: imageGuideline.cornersGuideline?.backgroundColor?.cgColor
         )
 
         imageStorage.saveImage(image, forKey: key)
@@ -122,7 +122,7 @@ extension ImageBuilder: ImageBuilderProtocol {
 private extension ImageCornersGuideline {
     
     var isOpaque: Bool {
-        guard let backgroundColor = borderColor else { return false }
+        guard let backgroundColor = backgroundColor else { return false }
         
         return !backgroundColor.isTransparent
     }
