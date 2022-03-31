@@ -104,21 +104,25 @@ extension Relation: RelationProtocol {
         case .unknown(let unknown): return unknown.isFeatured
         }
     }
+    
+}
 
-    var format: RelationMetadata.Format {
+extension Relation {
+    
+    var iconName: String {
         switch self {
-        case .text(let text): return text.format
-        case .number(let text): return text.format
-        case .status(let status): return status.format
-        case .date(let date): return date.format
-        case .object(let object): return object.format
-        case .checkbox(let checkbox): return checkbox.format
-        case .url(let text): return text.format
-        case .email(let text): return text.format
-        case .phone(let text): return text.format
-        case .tag(let tag): return tag.format
-        case .file(let file): return file.format
-        case .unknown(let unknown): return unknown.format
+        case .text: return RelationMetadata.Format.longText.iconName
+        case .number: return RelationMetadata.Format.number.iconName
+        case .status: return RelationMetadata.Format.status.iconName
+        case .date: return RelationMetadata.Format.date.iconName
+        case .object: return RelationMetadata.Format.object.iconName
+        case .checkbox: return RelationMetadata.Format.checkbox.iconName
+        case .url: return RelationMetadata.Format.url.iconName
+        case .email: return RelationMetadata.Format.email.iconName
+        case .phone: return RelationMetadata.Format.phone.iconName
+        case .tag: return RelationMetadata.Format.tag.iconName
+        case .file: return RelationMetadata.Format.file.iconName
+        case .unknown: return RelationMetadata.Format.unrecognized.iconName
         }
     }
     
