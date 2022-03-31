@@ -1,5 +1,5 @@
 //
-//  AnytypePopupView.swift
+//  AnytypePopupViewModel.swift
 //  Anytype
 //
 //  Created by Denis Batvinkin on 30.03.2022.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-final class AnytypePopupView<Content: View>: AnytypePopupViewModelProtocol, ObservableObject {
+final class AnytypePopupViewModel<Content: View>: AnytypePopupViewModelProtocol, ObservableObject {
     private(set) var popupLayout: AnytypePopupLayoutType
     private weak var popup: AnytypePopupProxy?
     private let contentView: Content
@@ -19,7 +19,9 @@ final class AnytypePopupView<Content: View>: AnytypePopupViewModelProtocol, Obse
     }
 
     func viewDidUpdateHeight(_ height: CGFloat) {
-        popupLayout = .constantHeight(height: height, floatingPanelStyle: false)
+        if case .constantHeight = popupLayout {
+            popupLayout = .constantHeight(height: height, floatingPanelStyle: false)
+        }
         popup?.updateLayout(false)
     }
 
@@ -30,9 +32,11 @@ final class AnytypePopupView<Content: View>: AnytypePopupViewModelProtocol, Obse
     func makeContentView() -> UIViewController {
         UIHostingController(rootView: InnerAnytypePopupView(viewModel: self, contentView: contentView))
     }
+}
 
+private extension AnytypePopupViewModel {
     struct InnerAnytypePopupView: View {
-        @ObservedObject var viewModel: AnytypePopupView
+        @ObservedObject var viewModel: AnytypePopupViewModel
         let contentView: Content
 
         var body: some View {

@@ -26,7 +26,7 @@ final class AnytypePopup: FloatingPanelController {
     convenience init<Content: View>(contentView: Content,
                                     popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: true),
                                     floatingPanelStyle: Bool = false) {
-        let popupView = AnytypePopupView(contentView: contentView, popupLayout: popupLayout)
+        let popupView = AnytypePopupViewModel(contentView: contentView, popupLayout: popupLayout)
         self.init(viewModel: popupView, floatingPanelStyle: floatingPanelStyle)
     }
     
