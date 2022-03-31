@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DeletedAccountView: View {
     let progress: DeletionProgress
-    private let service = ServiceLocator.shared.authService()
+    @StateObject var model = DeletedAccountViewModel()
     
     var body: some View {
         ZStack {
@@ -32,36 +32,14 @@ struct DeletedAccountView: View {
     
     private var mainView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            clock(progress: progress.deletionProgress)
+            clock
             Spacer.fixedHeight(19)
             title
             Spacer.fixedHeight(11)
             AnytypeText("Pending deletion text".localized, style: .uxCalloutRegular, color: .textPrimary)
             Spacer.fixedHeight(14)
-            cancelButton
-            SettingsButton(text: "Logout and clear data", textColor: .System.red) {
-                guard service.logout(removeData: true) else {
-                    UINotificationFeedbackGenerator().notificationOccurred(.error)
-                    return
-                }
-                windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
-            }
-        }
-    }
-    
-    private var cancelButton: some View {
-        SettingsButton(text: "Cancel deletion", textColor: .System.red) {
-            guard let status = service.restoreAccount() else {
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-                return
-            }
-            
-            if case .active = status {
-                windowHolder?.startNewRootView(HomeViewAssembly().createHomeView())
-            } else {
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-                return
-            }
+            SettingsButton(text: "Cancel deletion", textColor: .System.red) { model.cancel() }
+            SettingsButton(text: "Logout and clear data", textColor: .System.red) { model.logOut() }
         }
     }
     
@@ -72,19 +50,23 @@ struct DeletedAccountView: View {
         return AnytypeText(text, style: .heading, color: .textPrimary)
     }
     
-    private func clock(progress: CGFloat) -> some View {
+    @State private var clockProgress: CGFloat = 0
+    private var clock: some View {
         HStack(spacing: 0) {
             ZStack {
                 Circle()
                     .stroke(Color.strokePrimary, lineWidth: 2)
                     .frame(width: 52, height: 52)
-                Circle()
-                    .trim(from: 0.0, to: progress)
-                    .stroke(Color.System.red, lineWidth: 2)
+                Clock(progress: clockProgress)
+                    .fill(Color.System.red)
                     .frame(width: 36, height: 36)
-                    .rotationEffect(Angle(degrees: -90))
             }
             Spacer()
+        }
+        .onAppear {
+            withAnimation(.spring(dampingFraction: 0.5).speed(0.4)) {
+                clockProgress = progress.deletionProgress
+            }
         }
     }
 }
