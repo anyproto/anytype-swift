@@ -34,7 +34,7 @@ extension UTType {
         UTType.types(tag: "xlsx", tagClass: .filenameExtension, conformingTo: nil).first!
     }
 
-    static var anySlot: UTType {
-        UTType("com.anytype.anySlots")!
+    static var blockSlot: UTType {
+        UTType("com.anytype.blockSlot")!
     }
 }
