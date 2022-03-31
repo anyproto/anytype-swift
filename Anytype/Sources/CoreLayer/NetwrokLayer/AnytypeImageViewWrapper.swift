@@ -23,6 +23,7 @@ final class AnytypeImageViewWrapper {
     private var imageGuideline: ImageGuideline?
     private var scalingType: KFScalingType = .resizing(.aspectFill)
     private var animatedTransition = false
+    private var placeholderNeeded = true
     
     private let imageView: UIImageView
     
@@ -52,6 +53,12 @@ extension AnytypeImageViewWrapper {
         return self
     }
     
+    @discardableResult
+    func placeholderNeeded( _ placeholderNeeded: Bool) -> AnytypeImageViewWrapper {
+        self.placeholderNeeded = placeholderNeeded
+        return self
+    }
+    
     func setImage(id: String) {
         guard id.isNotEmpty else {
             // TODO: assert
@@ -69,11 +76,12 @@ extension AnytypeImageViewWrapper {
             // TODO: assert
             return
         }
+        
         imageView.kf.cancelDownloadTask()
         imageView.kf.setImage(
             with: url,
-            placeholder: nil,
-            options: buildOptions(imageGuideline: imageGuideline)
+            placeholder: buildPlaceholder(with: imageGuideline),
+            options: buildOptions(with: imageGuideline)
         ) { result in
             // TODO: assert
         }
@@ -83,7 +91,11 @@ extension AnytypeImageViewWrapper {
 
 private extension AnytypeImageViewWrapper {
     
-    func buildOptions(imageGuideline: ImageGuideline) -> KingfisherOptionsInfo {
+    func buildPlaceholder(with imageGuideline: ImageGuideline) -> Placeholder? {
+        placeholderNeeded ? ImageBuilder(imageGuideline).build() : nil
+    }
+    
+    func buildOptions(with imageGuideline: ImageGuideline) -> KingfisherOptionsInfo {
         let processor = buildProcessor(imageGuideline: imageGuideline)
         
         var options: KingfisherOptionsInfo = [.processor(processor)]
