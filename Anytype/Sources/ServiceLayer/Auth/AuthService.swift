@@ -23,12 +23,17 @@ final class AuthService: AuthServiceProtocol {
         self.loginStateService = loginStateService
     }
 
-    func logout() {
+    func logout(removeData: Bool) -> Bool {
         Amplitude.instance().logEvent(AmplitudeEventsName.logout)
         
-        _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: false)
+        guard Anytype_Rpc.Account.Stop.Service
+                .invoke(removeData: removeData).getValue(domain: .authService)
+                .isNotNil else {
+                    return false
+                }
         
         loginStateService.cleanStateAfterLogout()
+        return true
     }
 
     func createWallet() -> Result<String, AuthServiceError> {
@@ -119,6 +124,25 @@ final class AuthService: AuthServiceProtocol {
             .store(in: &subscriptions)
     }
     
+    func deleteAccount() -> AccountStatus? {
+        Anytype_Rpc.Account.Delete.Service.invoke(revert: false)
+            .getValue(domain: .authService)
+            .flatMap { $0.status.asModel }
+    }
+    
+    func restoreAccount() -> AccountStatus? {
+        Anytype_Rpc.Account.Delete.Service.invoke(revert: true)
+            .getValue(domain: .authService)
+            .flatMap { $0.status.asModel }
+    }
+    
+    func mnemonicByEntropy(_ entropy: String) -> Result<String, Error> {
+        Anytype_Rpc.Wallet.Convert.Service.invoke(mnemonic: "", entropy: entropy)
+            .map { $0.mnemonic }
+            .mapError { _ in AuthServiceError.selectAccountError }
+    }
+    
+    // MARK: - Private
     private func handleAccountSelect(result: Result<Anytype_Rpc.Account.Select.Response, Error>) -> Bool {
         switch result {
         case .success(let response):
@@ -136,9 +160,4 @@ final class AuthService: AuthServiceProtocol {
         }
     }
     
-    func mnemonicByEntropy(_ entropy: String) -> Result<String, Error> {
-        Anytype_Rpc.Wallet.Convert.Service.invoke(mnemonic: "", entropy: entropy)
-            .map { $0.mnemonic }
-            .mapError { _ in AuthServiceError.selectAccountError }
-    }
 }

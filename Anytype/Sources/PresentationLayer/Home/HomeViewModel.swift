@@ -21,7 +21,7 @@ final class HomeViewModel: ObservableObject {
     @Published var selectedPageIds: Set<BlockId> = []
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
-    @Published var showDeletionAlert = false
+    @Published var showPagesDeletionAlert = false
     @Published var snackBarData = SnackBarData.empty
     @Published var loadingAlertData = LoadingAlertData.empty
     

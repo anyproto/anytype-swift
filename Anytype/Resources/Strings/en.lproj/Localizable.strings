@@ -243,3 +243,6 @@
 "Featured relations" = "Featured relations";
 "Create from scratch" = "Create from scratch";
 "Create relation" = "Create relation";
+
+// MARK: - Deletion
+"Pending deletion text" = "We're sorry to see you go. Once you request your account to be deleted, you have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node, you won't be able to sign into Anytype on new devices.";

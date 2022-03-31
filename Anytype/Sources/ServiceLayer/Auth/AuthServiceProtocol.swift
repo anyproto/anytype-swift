@@ -14,6 +14,7 @@ protocol AuthServiceProtocol {
     /// Get mnemonic (keychain phrase) by entropy from qr code
     func mnemonicByEntropy(_ entropy: String) -> Result<String, Error>
 
-    /// Accounts seed will be removed from keychain.
-    func logout()
+    func logout(removeData: Bool) -> Bool    
+    func deleteAccount() -> AccountStatus?
+    func restoreAccount() -> AccountStatus?
 }
