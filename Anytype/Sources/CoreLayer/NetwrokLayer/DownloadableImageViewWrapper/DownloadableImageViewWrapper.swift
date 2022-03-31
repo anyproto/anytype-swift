@@ -3,7 +3,7 @@ import UIKit
 import Kingfisher
 import AnytypeCore
 
-final class AnytypeImageViewWrapper {
+final class DownloadableImageViewWrapper {
     
     private var imageGuideline: ImageGuideline?
     private var scalingType: KFScalingType = .resizing(.aspectFill)
@@ -22,28 +22,28 @@ final class AnytypeImageViewWrapper {
 
 // MARK: - Public functions
 
-extension AnytypeImageViewWrapper {
+extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
     
     @discardableResult
-    func imageGuideline(_ imageGuideline: ImageGuideline) -> AnytypeImageViewWrapper {
+    func imageGuideline(_ imageGuideline: ImageGuideline) -> DownloadableImageViewWrapperProtocol {
         self.imageGuideline = imageGuideline
         return self
     }
     
     @discardableResult
-    func scalingType(_ scalingType: KFScalingType) -> AnytypeImageViewWrapper {
+    func scalingType(_ scalingType: KFScalingType) -> DownloadableImageViewWrapperProtocol {
         self.scalingType = scalingType
         return self
     }
     
     @discardableResult
-    func animatedTransition( _ animatedTransition: Bool) -> AnytypeImageViewWrapper {
+    func animatedTransition( _ animatedTransition: Bool) -> DownloadableImageViewWrapperProtocol {
         self.animatedTransition = animatedTransition
         return self
     }
     
     @discardableResult
-    func placeholderNeeded( _ placeholderNeeded: Bool) -> AnytypeImageViewWrapper {
+    func placeholderNeeded( _ placeholderNeeded: Bool) -> DownloadableImageViewWrapperProtocol {
         self.placeholderNeeded = placeholderNeeded
         return self
     }
@@ -83,8 +83,8 @@ extension AnytypeImageViewWrapper {
             placeholder: buildPlaceholder(with: imageGuideline),
             options: buildOptions(with: imageGuideline)
         ) { result in
-            guard case .failure(let error) = result else { return }
-            
+            guard case .failure(let error) = result, !error.isTaskCancelled else { return }
+ 
             anytypeAssertionFailure(error.localizedDescription, domain: .imageViewWrapper)
         }
     }
@@ -98,7 +98,7 @@ extension AnytypeImageViewWrapper {
 
 // MARK: - Private extension
 
-private extension AnytypeImageViewWrapper {
+private extension DownloadableImageViewWrapper {
     
     func buildPlaceholder(with imageGuideline: ImageGuideline) -> Placeholder? {
         placeholderNeeded ? ImageBuilder(imageGuideline).build() : nil

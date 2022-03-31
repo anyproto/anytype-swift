@@ -23,7 +23,7 @@ extension KFProcessorBuilder {
         if let cornersGuideline = imageGuideline.cornersGuideline {
             return imageProcessor |> RoundCornerImageProcessor(
                 radius: cornersGuideline.radius.asRoundCornerImageProcessorRadius,
-                backgroundColor: cornersGuideline.backgroundColor
+                backgroundColor: nil
             )
         }
         

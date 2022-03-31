@@ -16,8 +16,8 @@ extension UIImageView {
 
 extension UIImageView {
     
-    var wrapper: AnytypeImageViewWrapper {
-        AnytypeImageViewWrapper(imageView: self)
+    var wrapper: DownloadableImageViewWrapperProtocol {
+        DownloadableImageViewWrapper(imageView: self)
     }
     
 }
