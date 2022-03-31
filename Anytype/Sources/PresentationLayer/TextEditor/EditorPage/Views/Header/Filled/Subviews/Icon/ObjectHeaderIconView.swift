@@ -108,8 +108,8 @@ private extension ObjectHeaderIconView {
         containerViewHeightConstraint.constant = imageGuideline.size.height
         containerViewWidthConstraint.constant = imageGuideline.size.width
         
-        containerView.layer.cornerRadius = imageGuideline.cornersGuideline.radius
-        layer.cornerRadius = imageGuideline.cornersGuideline.radius + Constants.borderWidth
+        containerView.layer.cornerRadius = imageGuideline.cornerRadius
+        layer.cornerRadius = imageGuideline.cornerRadius + Constants.borderWidth
     }
     
 }
