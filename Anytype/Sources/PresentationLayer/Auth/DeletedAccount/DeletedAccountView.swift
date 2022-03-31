@@ -2,7 +2,7 @@ import SwiftUI
 
 struct DeletedAccountView: View {
     let progress: DeletionProgress
-    private let service = ServiceLocator.shared.authService()
+    @StateObject var model = DeletedAccountViewModel()
     
     var body: some View {
         ZStack {
@@ -38,30 +38,8 @@ struct DeletedAccountView: View {
             Spacer.fixedHeight(11)
             AnytypeText("Pending deletion text".localized, style: .uxCalloutRegular, color: .textPrimary)
             Spacer.fixedHeight(14)
-            cancelButton
-            SettingsButton(text: "Logout and clear data", textColor: .System.red) {
-                guard service.logout(removeData: true) else {
-                    UINotificationFeedbackGenerator().notificationOccurred(.error)
-                    return
-                }
-                windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
-            }
-        }
-    }
-    
-    private var cancelButton: some View {
-        SettingsButton(text: "Cancel deletion", textColor: .System.red) {
-            guard let status = service.restoreAccount() else {
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-                return
-            }
-            
-            if case .active = status {
-                windowHolder?.startNewRootView(HomeViewAssembly().createHomeView())
-            } else {
-                UINotificationFeedbackGenerator().notificationOccurred(.error)
-                return
-            }
+            SettingsButton(text: "Cancel deletion", textColor: .System.red) { model.cancel() }
+            SettingsButton(text: "Logout and clear data", textColor: .System.red) { model.logOut() }
         }
     }
     
