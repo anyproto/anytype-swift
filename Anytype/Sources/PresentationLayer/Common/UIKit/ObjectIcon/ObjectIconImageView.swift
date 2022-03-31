@@ -92,19 +92,9 @@ extension ObjectIconImageView: ConfigurableView {
             return
         }
         
-        let placeholder = ImageBuilder(imageGuideline).build()
-        
-        let processor = KFProcessorBuilder(
-            scalingType: .resizing(.aspectFill),
-            targetSize: imageGuideline.size,
-            cornerRadius: imageGuideline.cornersGuideline?.radius
-        ).processor
-        
-        imageView.kf.setImage(
-            with: ImageMetadata(id: imageId, width: imageGuideline.size.width.asImageWidth).contentUrl,
-            placeholder: placeholder,
-            options: [.processor(processor), .transition(.fade(0.2))]
-        )
+        imageView.wrapper
+            .imageGuideline(imageGuideline)
+            .setImage(id: imageId)
     }
     
     private func stringIconImage(

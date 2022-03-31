@@ -37,10 +37,9 @@ struct UserIconView: View {
             .setProcessors(
                 [
                     KFProcessorBuilder(
-                        scalingType: .resizing(.aspectFill),
-                        targetSize: Constants.size,
-                        cornerRadius: .widthFraction(0.5)
-                    ).processor
+                        imageGuideline: ImageGuideline(size: Constants.size, radius: .widthFraction(0.5)),
+                        scalingType: .resizing(.aspectFill)
+                    ).build()
                 ]
             )
             .placeholder({

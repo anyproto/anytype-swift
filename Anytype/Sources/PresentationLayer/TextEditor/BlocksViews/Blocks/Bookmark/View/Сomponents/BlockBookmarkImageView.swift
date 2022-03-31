@@ -15,27 +15,26 @@ class BlockBookmarkImageView: UIImageView {
         backgroundColor = .backgroundPrimary
         
         layoutUsing.anchors {
-            $0.width.equal(to: 78)
-            $0.height.equal(to: 78)
+            $0.size(Constants.size)
         }
     }
     
     
-    func update(imageId: String) {
-        let imageGuideline = ImageGuideline(
-            size: bounds.size,
-            radius: .point(2)
-        )
-        let placeholder = ImageBuilder(imageGuideline).build()
-        
-        kf.setImage(
-            with: ImageMetadata(id: imageId, width: imageGuideline.size.width.asImageWidth).contentUrl,
-            placeholder: placeholder
-        )
+    func update(imageId: String) {  
+        let imageGuideline = ImageGuideline(size: CGSize.zero, radius: .point(2))
+        wrapper.imageGuideline(imageGuideline).setImage(id: imageId)
     }
     
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
+
+private extension BlockBookmarkImageView {
+    
+    enum Constants {
+        static let size = CGSize(width: 78, height: 78)
+    }
+    
 }

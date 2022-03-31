@@ -101,10 +101,9 @@ extension ObjectIconAttachementLoader {
         setImage(image: ImageBuilder(imageGuideline).build(), processor: customProcessor)
         
         let processor = KFProcessorBuilder(
-            scalingType: .resizing(.aspectFill),
-            targetSize: imageGuideline.size,
-            cornerRadius: imageGuideline.cornersGuideline?.radius
-        ).processor |> customProcessor
+            imageGuideline: imageGuideline,
+            scalingType: .resizing(.aspectFill)
+        ).build() |> customProcessor
         
         guard let url = ImageMetadata(id: imageId, width: imageGuideline.size.width.asImageWidth).contentUrl else {
             return

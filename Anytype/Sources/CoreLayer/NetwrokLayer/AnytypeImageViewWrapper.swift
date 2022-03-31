@@ -22,7 +22,7 @@ final class AnytypeImageViewWrapper {
     
     private var imageGuideline: ImageGuideline?
     private var scalingType: KFScalingType = .resizing(.aspectFill)
-    private var animatedTransition = false
+    private var animatedTransition = true
     private var placeholderNeeded = true
     
     private let imageView: UIImageView
@@ -60,6 +60,8 @@ extension AnytypeImageViewWrapper {
     }
     
     func setImage(id: String) {
+        imageView.kf.cancelDownloadTask()
+        
         guard id.isNotEmpty else {
             // TODO: assert
             return
@@ -77,7 +79,6 @@ extension AnytypeImageViewWrapper {
             return
         }
         
-        imageView.kf.cancelDownloadTask()
         imageView.kf.setImage(
             with: url,
             placeholder: buildPlaceholder(with: imageGuideline),
@@ -96,7 +97,7 @@ private extension AnytypeImageViewWrapper {
     }
     
     func buildOptions(with imageGuideline: ImageGuideline) -> KingfisherOptionsInfo {
-        let processor = buildProcessor(imageGuideline: imageGuideline)
+        let processor = KFProcessorBuilder(imageGuideline: imageGuideline, scalingType: scalingType).build() 
         
         var options: KingfisherOptionsInfo = [.processor(processor)]
         if animatedTransition {
@@ -106,35 +107,4 @@ private extension AnytypeImageViewWrapper {
         return options
     }
     
-    func buildProcessor(imageGuideline: ImageGuideline) -> Kingfisher.ImageProcessor {
-        let imageProcessor: ImageProcessor = {
-            switch scalingType {
-            case .resizing(let mode):
-                return ResizingImageProcessor(referenceSize: imageGuideline.size, mode: mode)
-                |> CroppingImageProcessor(size: imageGuideline.size)
-            case .downsampling:
-                return DownsamplingImageProcessor(size: imageGuideline.size)
-            }
-        }()
-        
-        if let cornersGuideline = imageGuideline.cornersGuideline {
-            return imageProcessor |> RoundCornerImageProcessor(
-                radius: cornersGuideline.radius.asRoundCornerImageProcessorRadius,
-                backgroundColor: cornersGuideline.backgroundColor
-            )
-        }
-        
-        return imageProcessor
-    }
-    
-}
-
-private extension ImageCornersGuideline.Radius {
-    
-    var asRoundCornerImageProcessorRadius: RoundCornerImageProcessor.Radius {
-        switch self {
-        case .widthFraction(let widthFraction): return .widthFraction(widthFraction)
-        case .point(let point): return .point(point)
-        }
-    }
 }
