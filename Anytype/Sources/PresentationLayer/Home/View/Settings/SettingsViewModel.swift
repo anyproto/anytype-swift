@@ -44,7 +44,7 @@ final class SettingsViewModel: ObservableObject {
         }
         
         UINotificationFeedbackGenerator().notificationOccurred(.success)
-        WindowManager.shared.showHomeWindow()
+        WindowManager.shared.showAuthWindow()
     }
     
     func accountDeletionConfirm() {

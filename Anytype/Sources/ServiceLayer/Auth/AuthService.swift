@@ -100,11 +100,12 @@ final class AuthService: AuthServiceProtocol {
                 switch result {
                 case .success(let data):
                     guard data.error.code == .null else {
-                        return onCompletion(AuthServiceError.recoverAccountError)
+                        return onCompletion(AuthServiceError.recoverAccountError(code: data.error.code))
                     }
                     return onCompletion(nil)
-                case .failure:
-                    return onCompletion(AuthServiceError.recoverAccountError)
+                case .failure(let error as NSError):
+                    let code = RecoverAccountErrorCode(rawValue: error.code) ?? .null
+                    return onCompletion(AuthServiceError.recoverAccountError(code: code))
                 }
             }
             .store(in: &subscriptions)
