@@ -9,6 +9,8 @@ protocol ObjectTypeProviderProtocol {
     
     static func loadObjects()
     
+    static func isSupported(typeUrl: String) -> Bool
+    
     static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType]
     static func objectType(url: String?) -> ObjectType?
 }
@@ -29,6 +31,10 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         types.filter {
             !Set($0.types).intersection(smartblockTypes).isEmpty
         }
+    }
+    
+    static func isSupported(typeUrl: String) -> Bool {
+        supportedTypeUrls.contains(typeUrl)
     }
     
     static func objectType(url: String?) -> ObjectType? {
