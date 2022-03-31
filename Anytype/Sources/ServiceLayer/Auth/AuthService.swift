@@ -110,16 +110,16 @@ final class AuthService: AuthServiceProtocol {
             .store(in: &subscriptions)
     }
 
-    func selectAccount(id: String) -> Bool {
+    func selectAccount(id: String) -> AccountStatus? {
         let result = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath)
         return handleAccountSelect(result: result)
     }
     
-    func selectAccount(id: String, onCompletion: @escaping (Bool) -> ()) {
+    func selectAccount(id: String, onCompletion: @escaping (AccountStatus?) -> ()) {
         Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath, queue: .global(qos: .userInitiated))
             .receiveOnMain()
             .sinkWithResult { [weak self] result in
-                onCompletion(self?.handleAccountSelect(result: result) ?? false)
+                onCompletion(self?.handleAccountSelect(result: result))
             }
             .store(in: &subscriptions)
     }
@@ -143,7 +143,7 @@ final class AuthService: AuthServiceProtocol {
     }
     
     // MARK: - Private
-    private func handleAccountSelect(result: Result<Anytype_Rpc.Account.Select.Response, Error>) -> Bool {
+    private func handleAccountSelect(result: Result<Anytype_Rpc.Account.Select.Response, Error>) -> AccountStatus? {
         switch result {
         case .success(let response):
             AccountConfigurationProvider.shared.config = .init(config: response.config)
@@ -154,9 +154,9 @@ final class AuthService: AuthServiceProtocol {
             UserDefaultsConfig.usersId = accountId
             
             loginStateService.setupStateAfterLoginOrAuth()
-            return true
+            return response.account.status.asModel
         case .failure:
-            return false
+            return nil
         }
     }
     

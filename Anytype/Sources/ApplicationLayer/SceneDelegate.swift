@@ -21,8 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         
         let applicationCoordinator = ServiceLocator.shared.applicationCoordinator(window: window)
-        applicationCoordinator.start()
         windowHolder = applicationCoordinator
+        
+        applicationCoordinator.start()
 
         window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
     }
