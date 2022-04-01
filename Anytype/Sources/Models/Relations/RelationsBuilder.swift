@@ -41,7 +41,6 @@ final class RelationsBuilder {
         }
         
         var featuredRelations: [Relation] = []
-        var featuredRelationsByIds: [String: Relation] = [:]
         var otherRelations: [Relation] = []
         
         relationMetadatas.forEach { relationMetadata in
@@ -54,15 +53,12 @@ final class RelationsBuilder {
             
             if value.isFeatured {
                 featuredRelations.append(value)
-                featuredRelationsByIds[value.id] = value
             } else {
                 otherRelations.append(value)
             }
         }
         
-        return ParsedRelations(featuredRelations: featuredRelations,
-                               otherRelations: otherRelations,
-                               featuredRelationsByIds: featuredRelationsByIds)
+        return ParsedRelations(featuredRelations: featuredRelations, otherRelations: otherRelations)
     }
     
 }

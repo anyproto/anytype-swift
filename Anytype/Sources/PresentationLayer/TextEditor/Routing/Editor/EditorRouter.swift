@@ -224,10 +224,13 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showObjectPreview(information: BlockInformation, onSelect: @escaping () -> Void) {
-        let viewModel = ObjectPreviewViewModel(featuredRelationsByIds: document.parsedRelations.featuredRelationsByIds,
-                                               fields: information.fields)
+        let viewModel = ObjectPreviewViewModel(
+            featuredRelations: document.parsedRelations.featuredRelations,
+            fields: information.fields
+        )
         let contentView = ObjectPreviewView(viewModel: viewModel)
         let popup = AnytypePopup(contentView: contentView)
+
         viewController?.topPresentedController.present(popup, animated: true, completion: nil)
     }
     

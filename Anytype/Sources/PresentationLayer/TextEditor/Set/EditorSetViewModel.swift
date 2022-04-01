@@ -35,7 +35,7 @@ final class EditorSetViewModel: ObservableObject {
         document.details ?? .empty
     }
     var featuredRelations: [Relation] {
-        document.featuredRelationsForEditor()
+        document.featuredRelationsForEditor
     }
     
     let document: BaseDocument
