@@ -19,9 +19,6 @@ struct ObjectPreviewView: View {
             featuredRealtionSection
         }
         .background(Color.backgroundSecondary)
-        .readSize { size in
-            viewModel.viewDidUpdateHeight(size.height)
-        }
         .padding(.horizontal, 20)
     }
 

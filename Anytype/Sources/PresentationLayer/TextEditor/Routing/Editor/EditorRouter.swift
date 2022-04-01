@@ -228,7 +228,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             featuredRelations: document.parsedRelations.featuredRelations,
             fields: information.fields
         )
-        let popup = AnytypePopup(viewModel: viewModel, floatingPanelStyle: false)
+        let contentView = ObjectPreviewView(viewModel: viewModel)
+        let popup = AnytypePopup(contentView: contentView)
+
         viewController?.topPresentedController.present(popup, animated: true, completion: nil)
     }
     
