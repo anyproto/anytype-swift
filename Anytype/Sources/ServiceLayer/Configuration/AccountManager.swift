@@ -3,7 +3,7 @@ import ProtobufMessages
 
 
 final class AccountManager: ObservableObject {
-    static var shared = AccountManager()
+    static let shared = AccountManager()
     
     @Published var account = AccountData.empty
     
