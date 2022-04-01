@@ -11,6 +11,7 @@ extension Relation {
         let isBundled: Bool
         
         let selectedObjects: [Option]
+        let limitObjectTypes: [String]
     }
     
 }

@@ -3,10 +3,13 @@ import SwiftUI
 import FloatingPanel
 import AnytypeCore
 
-final class RelationOptionsViewModel: ObservableObject {
+final class RelationOptionsListViewModel: ObservableObject {
             
     @Published var selectedOptions: [ListRowConfiguration] = []
     @Published var isSearchPresented: Bool = false
+    
+    let title: String
+    let emptyPlaceholder: String
     
     private(set) var popupLayout: AnytypePopupLayoutType = .relationOptions {
         didSet {
@@ -17,40 +20,39 @@ final class RelationOptionsViewModel: ObservableObject {
     private weak var popup: AnytypePopupProxy?
 
     private let source: RelationSource
-    private let type: RelationOptionsType
-    private let relation: Relation
+    private let relationId: String
+    private let searchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol
     private let service: RelationsServiceProtocol
     
     init(
         source: RelationSource,
-        type: RelationOptionsType,
         selectedOptions: [ListRowConfiguration],
+        emptyOptionsPlaceholder: String,
         relation: Relation,
+        searchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol,
         service: RelationsServiceProtocol
     ) {
         self.source = source
-        self.type = type
         self.selectedOptions = selectedOptions
-        self.relation = relation
+        self.title = relation.name
+        self.emptyPlaceholder = emptyOptionsPlaceholder
+        self.relationId = relation.id
+        self.searchModuleBuilder = searchModuleBuilder
         self.service = service
         
         updateLayout()
     }
-    
-    var title: String { relation.name }
-    
-    var emptyPlaceholder: String { type.placeholder }
-    
+        
 }
 
 // MARK: - Internal functions
 
-extension RelationOptionsViewModel {
+extension RelationOptionsListViewModel {
     
     func delete(_ indexSet: IndexSet) {
         selectedOptions.remove(atOffsets: indexSet)
         service.updateRelation(
-            relationKey: relation.id,
+            relationKey: relationId,
             value: selectedOptions.map { $0.id }.protobufValue
         )
         
@@ -60,7 +62,7 @@ extension RelationOptionsViewModel {
     func move(source: IndexSet, destination: Int) {
         selectedOptions.move(fromOffsets: source, toOffset: destination)
         service.updateRelation(
-            relationKey: relation.id,
+            relationKey: relationId,
             value: selectedOptions.map { $0.id }.protobufValue
         )
     }
@@ -69,30 +71,13 @@ extension RelationOptionsViewModel {
         isSearchPresented = true
     }
     
-    @ViewBuilder
     func makeSearchView() -> some View {
-        switch type {
-        case .objects:
-            NewSearchModuleAssembly.buildObjectsSearchModule(
-                selectedObjectIds: selectedOptionIds
-            ) { [weak self] ids in
-                self?.handleNewOptionIds(ids)
-            }
-        case .tags(let allTags):
-            NewSearchModuleAssembly.buildTagsSearchModule(
-                allTags: allTags,
-                selectedTagIds: selectedOptionIds
-            ) { [weak self] ids in
-                self?.handleNewOptionIds(ids)
-            } onCreate: { [weak self] title in
-                self?.handleCreateOption(title: title)
-            }
-        case .files:
-            NewSearchModuleAssembly.buildFilesSearchModule(
-                selectedObjectIds: selectedOptionIds
-            ) { [weak self] ids in
-                self?.handleNewOptionIds(ids)
-            }
+        searchModuleBuilder.buildModule(
+            excludedOptionIds: selectedOptionIds
+        ) { [weak self] ids in
+            self?.handleNewOptionIds(ids)
+        } onCreate: { [weak self] title in
+            self?.handleCreateOption(title: title)
         }
     }
     
@@ -100,13 +85,13 @@ extension RelationOptionsViewModel {
 
 // MARK: - Private extension
 
-private extension RelationOptionsViewModel {
+private extension RelationOptionsListViewModel {
     
     func handleNewOptionIds(_ ids: [String]) {
         let newSelectedOptionsIds = selectedOptionIds + ids
         
         service.updateRelation(
-            relationKey: relation.id,
+            relationKey: relationId,
             value: newSelectedOptionsIds.protobufValue
         )
         isSearchPresented = false
@@ -114,7 +99,7 @@ private extension RelationOptionsViewModel {
     }
     
     func handleCreateOption(title: String) {
-        let optionId = service.addRelationOption(source: source, relationKey: relation.id, optionText: title)
+        let optionId = service.addRelationOption(source: source, relationKey: relationId, optionText: title)
         guard let optionId = optionId else { return}
 
         handleNewOptionIds([optionId])
@@ -133,10 +118,10 @@ private extension RelationOptionsViewModel {
 
 // MARK: - AnytypePopupViewModelProtocol
 
-extension RelationOptionsViewModel: AnytypePopupViewModelProtocol {
+extension RelationOptionsListViewModel: AnytypePopupViewModelProtocol {
     
     func makeContentView() -> UIViewController {
-        UIHostingController(rootView: RelationOptionsView(viewModel: self))
+        UIHostingController(rootView: RelationOptionsListView(viewModel: self))
     }
     
     func onPopupInstall(_ popup: AnytypePopupProxy) {
