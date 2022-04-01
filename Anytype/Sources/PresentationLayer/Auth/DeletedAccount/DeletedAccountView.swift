@@ -64,7 +64,7 @@ struct DeletedAccountView: View {
             Spacer()
         }
         .onAppear {
-            withAnimation(.spring(dampingFraction: 0.5).speed(0.4)) {
+            withAnimation(.spring(dampingFraction: 0.9).speed(0.4)) {
                 clockProgress = progress.deletionProgress
             }
         }

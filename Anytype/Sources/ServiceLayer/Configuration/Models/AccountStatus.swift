@@ -1,14 +1,14 @@
 import ProtobufMessages
 import CoreGraphics
 
-enum AccountStatus {
+enum AccountStatus: Equatable {
     case active
     case pendingDeletion(progress: DeletionProgress)
     case deleted
 }
 
 
-struct DeletionProgress {
+struct DeletionProgress: Equatable {
     let deadline: Date
     private let maxDeadline = 30
     
