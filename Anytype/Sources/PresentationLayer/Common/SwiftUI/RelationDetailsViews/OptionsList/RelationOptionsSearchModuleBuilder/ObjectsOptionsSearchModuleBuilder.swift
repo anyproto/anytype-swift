@@ -1,6 +1,12 @@
 import Foundation
 
-struct ObjectsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol {
+struct ObjectsOptionsSearchModuleBuilder {
+    
+    let limitedObjectType: [String]
+    
+}
+
+extension ObjectsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProtocol {
     
     func buildModule(
         excludedOptionIds: [String],
@@ -9,6 +15,7 @@ struct ObjectsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProt
     ) -> NewSearchView {
         NewSearchModuleAssembly.buildObjectsSearchModule(
             selectedObjectIds: excludedOptionIds,
+            limitedObjectType: limitedObjectType,
             onSelect: onSelect
         )
     }

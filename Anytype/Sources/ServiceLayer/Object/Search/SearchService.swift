@@ -6,6 +6,7 @@ protocol SearchServiceProtocol {
     func search(text: String) -> [ObjectDetails]?
     func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
     func searchFiles(text: String) -> [ObjectDetails]?
+    func searchObjects(text: String, excludedObjectIds: [String], limitedTypeUrls: [String]) -> [ObjectDetails]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -71,7 +72,23 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
     }
     
-    private func makeRequest(
+    func searchObjects(text: String, excludedObjectIds: [String], limitedTypeUrls: [String]) -> [ObjectDetails]? {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.lastOpenedDate,
+            type: .desc
+        )
+        
+        let typeUrls: [String] = limitedTypeUrls.isNotEmpty ? limitedTypeUrls : ObjectTypeProvider.supportedTypeUrls
+        var filters = buildFilters(isArchived: false, typeUrls: typeUrls)
+
+        return makeRequest(filters: filters, sorts: [sort], fullText: text)
+    }
+    
+}
+
+private extension SearchService {
+    
+    func makeRequest(
         filters: [DataviewFilter],
         sorts: [DataviewSort],
         fullText: String
@@ -98,12 +115,10 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return details
     }
     
-    private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {
+    func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {
         [
             SearchHelper.notHiddenFilter(),
-            
             SearchHelper.isArchivedFilter(isArchived: isArchived),
-            
             SearchHelper.typeFilter(typeUrls: typeUrls)
         ]
     }

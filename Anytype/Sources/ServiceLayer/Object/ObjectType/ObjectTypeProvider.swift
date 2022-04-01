@@ -18,8 +18,7 @@ protocol ObjectTypeProviderProtocol {
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     static var supportedTypeUrls: [String] {
-        var smartblockTypes: [Anytype_Model_SmartBlockType] = [.page, .profilePage, .anytypeProfile]
-        if FeatureFlags.sets { smartblockTypes.append(.set)}
+        let smartblockTypes: [Anytype_Model_SmartBlockType] = [.page, .profilePage, .anytypeProfile, .set]
         
         return objectTypes(smartblockTypes: smartblockTypes).map { $0.url } +
         [ObjectTemplateType.BundledType.note.rawValue]
