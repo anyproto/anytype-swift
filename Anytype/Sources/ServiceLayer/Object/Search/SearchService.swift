@@ -5,7 +5,7 @@ import BlocksModels
 protocol SearchServiceProtocol {
     func search(text: String) -> [ObjectDetails]?
     func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
-    func searchFiles(text: String) -> [ObjectDetails]?
+    func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeUrls: [String]) -> [ObjectDetails]?
 }
 
@@ -57,7 +57,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         ) { $0.id }
     }
     
-    func searchFiles(text: String) -> [ObjectDetails]? {
+    func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -66,7 +66,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         let filters = [
             SearchHelper.notHiddenFilter(),
             SearchHelper.isDeletedFilter(isDeleted: false),
-            SearchHelper.layoutFilter(layouts: [DetailsLayout.fileLayout, DetailsLayout.imageLayout])
+            SearchHelper.layoutFilter(layouts: [DetailsLayout.fileLayout, DetailsLayout.imageLayout]),
+            SearchHelper.excludedIdsFilter(excludedFileIds)
         ]
         
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
@@ -80,7 +81,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let typeUrls: [String] = limitedTypeUrls.isNotEmpty ? limitedTypeUrls : ObjectTypeProvider.supportedTypeUrls
         var filters = buildFilters(isArchived: false, typeUrls: typeUrls)
-
+        filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
+        
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
     }
     

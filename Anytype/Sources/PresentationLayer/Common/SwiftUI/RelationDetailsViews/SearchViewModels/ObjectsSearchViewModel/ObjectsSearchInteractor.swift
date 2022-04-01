@@ -18,10 +18,12 @@ final class ObjectsSearchInteractor {
 extension ObjectsSearchInteractor: ObjectsSearchInteractorProtocol {
     
     func search(text: String, onCompletion: ([ObjectDetails]) -> ()) {
-        let response = searchService.searchObjects(text: text, excludedObjectIds: [], limitedTypeUrls: limitedObjectType)
-        let filteredResponse = response?.filter { !selectedObjectIds.contains($0.id) }
-        
-        onCompletion(filteredResponse ?? [])
+        let response = searchService.searchObjects(
+            text: text,
+            excludedObjectIds: selectedObjectIds,
+            limitedTypeUrls: limitedObjectType
+        )
+        onCompletion(response ?? [])
     }
     
 }
