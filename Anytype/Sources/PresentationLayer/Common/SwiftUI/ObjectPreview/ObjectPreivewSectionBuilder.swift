@@ -3,12 +3,18 @@ import SwiftUI
 
 final class ObjectPreivewSectionBuilder {
 
-    func build(featuredRelationsByIds: [String: Relation], fields: BlockFields) -> ObjectPreviewViewSection {
+    func build(featuredRelationsByIds: [String: Relation], objectPreviewFields: ObjectPreviewFields) -> ObjectPreviewViewSection {
         var featuredRelationSection: [ObjectPreviewViewFeaturedSectionItem] = []
-        let objectPreviewFields = ObjectPreviewFields.convertToModel(fields: fields)
 
-        let layout = ObjectPreviewViewMainSectionItem(id: IDs.layout, name: "Preview layout".localized, value: objectPreviewFields.layout.name)
-        let icon = ObjectPreviewViewMainSectionItem(id: IDs.icon, name: "Icon".localized, value: objectPreviewFields.icon.name)
+        let layout = ObjectPreviewViewMainSectionItem(
+            id: IDs.layout,
+            name: "Preview layout".localized,
+            value: .layout(objectPreviewFields.layout)
+        )
+        let icon = ObjectPreviewViewMainSectionItem(
+            id: IDs.icon,
+            name: "Icon".localized,
+            value: .icon(objectPreviewFields.icon))
         let mainSection = [layout, icon]
 
         featuredRelationsByIds.forEach { (key: String, relation: Relation) in

@@ -26,7 +26,12 @@ struct ObjectPreviewView: View {
         VStack(spacing: 0) {
             ForEach(viewModel.objectPreviewSections.main) { item in
                 mainSectionRow(item) {
-                    // TODO: will be impled in next pr
+                    switch item.value {
+                    case .icon:
+                        break
+                    case .layout:
+                        viewModel.showPreviewLayout()
+                    }
                 }
                 .divider()
             }
@@ -73,7 +78,7 @@ struct ObjectPreviewView: View {
             HStack(spacing: 0) {
                 AnytypeText(item.name, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
-                AnytypeText(item.value, style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(item.value.name, style: .uxBodyRegular, color: .textSecondary)
                 Spacer.fixedWidth(10)
                 Image.arrow
             }
@@ -84,7 +89,8 @@ struct ObjectPreviewView: View {
 
 struct ObjectPreviewView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = ObjectPreviewViewModel(featuredRelations: [], fields: .init())
+        let router = ObjectPreviewRouter(viewController: UIViewController())
+        let viewModel = ObjectPreviewViewModel(featuredRelationsByIds: [:], fields: .init(), router: router)
         ObjectPreviewView(viewModel: viewModel)
     }
 }

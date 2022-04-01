@@ -11,20 +11,32 @@ import SwiftUI
 import FloatingPanel
 
 final class ObjectPreviewViewModel: ObservableObject {
-    
+
+    @Published var objectPreviewSections = ObjectPreviewViewSection(main: [], featuredRelation: [])
+
     // MARK: - Private variables
 
     private let objectPreviewModelBuilder = ObjectPreivewSectionBuilder()
-    @Published var objectPreviewSections = ObjectPreviewViewSection(main: [], featuredRelation: [])
+    private let objectPreviewFields: ObjectPreviewFields
+    private let router: ObjectPreviewRouter
 
     // MARK: - Initializer
 
-    init(featuredRelationsByIds: [String: Relation], fields: BlockFields) {
-        updateObjectPreview(featuredRelationsByIds: featuredRelationsByIds, fields: fields)
+    init(featuredRelationsByIds: [String: Relation],
+         fields: BlockFields,
+         router: ObjectPreviewRouter) {
+        objectPreviewFields = ObjectPreviewFields.convertToModel(fields: fields)
+        self.router = router
+
+        updateObjectPreview(featuredRelationsByIds: featuredRelationsByIds, objectPreviewFields: objectPreviewFields)
     }
 
-    func updateObjectPreview(featuredRelationsByIds: [String: Relation], fields: BlockFields) {
+    func updateObjectPreview(featuredRelationsByIds: [String: Relation], objectPreviewFields: ObjectPreviewFields) {
         objectPreviewSections = objectPreviewModelBuilder.build(featuredRelationsByIds: featuredRelationsByIds,
-                                                                fields: fields)
+                                                                objectPreviewFields: objectPreviewFields)
+    }
+
+    func showPreviewLayout() {
+        router.showPreviewLayout(objectPreviewFields: objectPreviewFields)
     }
 }

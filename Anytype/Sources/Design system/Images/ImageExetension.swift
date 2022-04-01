@@ -105,6 +105,11 @@ extension Image {
         
         static let createOption = createImage("relation_new")
     }
+
+    enum ObjectPreview {
+        static let card = createImage(ImageName.ObjectPreview.card)
+        static let text = createImage(ImageName.ObjectPreview.text)
+    }
 }
 
 extension Image {

@@ -6,9 +6,10 @@
 //  Copyright © 2022 Anytype. All rights reserved.
 //
 
-import Foundation
+import SwiftUI
 
 struct ObjectPreviewFields {
+
     enum FieldName {
         public static let withName = "withName"
         public static let withIcon = "withIcon"
@@ -16,12 +17,12 @@ struct ObjectPreviewFields {
         public static let withDescription = "withDescription"
     }
 
-    enum Layout {
+    enum Layout: String, CaseIterable {
         case text
         case card
     }
 
-    enum Icon {
+    enum Icon: String, CaseIterable {
         case none
         case medium
     }
@@ -40,6 +41,15 @@ extension ObjectPreviewFields.Layout {
             return "Text".localized
         case .card:
             return "Card".localized
+        }
+    }
+
+    var iconName: String {
+        switch self {
+        case .text:
+            return ImageName.ObjectPreview.text
+        case .card:
+            return ImageName.ObjectPreview.card
         }
     }
 }
