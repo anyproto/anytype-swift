@@ -83,7 +83,11 @@ extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
             placeholder: buildPlaceholder(with: imageGuideline),
             options: buildOptions(with: imageGuideline)
         ) { result in
-            guard case .failure(let error) = result, !error.isTaskCancelled else { return }
+            guard
+                case .failure(let error) = result,
+                !error.isTaskCancelled,
+                !error.isImageSettingError
+            else { return }
  
             anytypeAssertionFailure(error.localizedDescription, domain: .imageViewWrapper)
         }
@@ -113,6 +117,15 @@ private extension DownloadableImageViewWrapper {
         }
         
         return options
+    }
+    
+}
+
+private extension KingfisherError {
+    
+    var isImageSettingError: Bool {
+        if case .imageSettingError = self { return true }
+        return false
     }
     
 }

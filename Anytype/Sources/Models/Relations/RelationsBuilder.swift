@@ -105,7 +105,6 @@ private extension RelationsBuilder {
                     isFeatured: relationMetadata.isFeatured(details: details),
                     isEditable: relationMetadata.isEditable,
                     isBundled: relationMetadata.isBundled,
-                    format: relationMetadata.format,
                     value: "Unsupported value".localized
                 )
             )
@@ -120,7 +119,6 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
                 isBundled: metadata.isBundled,
-                format: metadata.format,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -142,7 +140,6 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
                 isBundled: metadata.isBundled,
-                format: metadata.format,
                 value: numberValue
             )
         )
@@ -156,7 +153,6 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
                 isBundled: metadata.isBundled,
-                format: metadata.format,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -170,7 +166,6 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
                 isBundled: metadata.isBundled,
-                format: metadata.format,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -184,7 +179,6 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
                 isBundled: metadata.isBundled,
-                format: metadata.format,
                 value: details.values[metadata.key]?.stringValue
             )
         )
@@ -212,7 +206,6 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
                 isBundled: metadata.isBundled,
-                format: metadata.format,
                 value: selectedOption,
                 allOptions: options
             )
@@ -237,7 +230,6 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
                 isBundled: metadata.isBundled,
-                format: metadata.format,
                 value: value
             )
         )
@@ -251,7 +243,6 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
                 isBundled: metadata.isBundled,
-                format: metadata.format,
                 value: details.values[metadata.key]?.boolValue ?? false
             )
         )
@@ -281,7 +272,6 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
                 isBundled: metadata.isBundled,
-                format: metadata.format,
                 selectedTags: selectedTags,
                 allTags: tags
             )
@@ -339,7 +329,6 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
                 isBundled: metadata.isBundled,
-                format: metadata.format,
                 selectedObjects: objectOptions
             )
         )
@@ -406,7 +395,6 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable,
                 isBundled: metadata.isBundled,
-                format: metadata.format,
                 files: fileOptions
             )
         )

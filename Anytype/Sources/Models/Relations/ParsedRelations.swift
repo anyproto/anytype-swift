@@ -35,7 +35,6 @@ extension BaseDocumentProtocol {
                 isFeatured: false,
                 isEditable: !objectRestriction.contains(.typechange),
                 isBundled: true,
-                format: .longText,
                 value: type.name
             )
         )
