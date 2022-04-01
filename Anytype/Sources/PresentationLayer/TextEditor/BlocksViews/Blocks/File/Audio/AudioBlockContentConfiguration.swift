@@ -28,3 +28,7 @@ struct AudioBlockContentConfiguration: BlockConfiguration {
         hasher.combine(audioPlayerViewDelegate?.hashable)
     }
 }
+
+extension AudioBlockContentConfiguration {
+    var contentInsets: UIEdgeInsets { .init(top: 10, left: 20, bottom: -10, right: -20) }
+}

@@ -28,7 +28,7 @@ class BlockFileView: UIView, BlockContentView {
     func setup() {
         layoutUsing.anchors { $0.height.equal(to: 32) }
         addSubview(contentView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 1, left: 20, bottom: -1, right: -20))
+            $0.pinToSuperview()
         }
     
         contentView.layoutUsing.stack {

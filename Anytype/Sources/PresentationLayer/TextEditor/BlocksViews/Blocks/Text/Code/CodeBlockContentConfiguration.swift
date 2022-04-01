@@ -15,3 +15,9 @@ struct CodeBlockContentConfiguration: BlockConfiguration {
     let codeLanguage: CodeLanguage
     @EquatableNoop private(set) var actions: Actions
 }
+
+extension CodeBlockContentConfiguration {
+    var contentInsets: UIEdgeInsets {
+        UIEdgeInsets(top: 6, left: 10, bottom: -6, right: -10)
+    }
+}
