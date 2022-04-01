@@ -404,6 +404,7 @@
 		3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC3027F5A8CA000D36BA /* DeletedAccountViewModel.swift */; };
 		3D1CEC3427F5D174000D36BA /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC3327F5D174000D36BA /* WindowManager.swift */; };
 		3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC4427F5F566000D36BA /* Clock.swift */; };
+		3D1CEC4B27F70B2E000D36BA /* AccountData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC4A27F70B2E000D36BA /* AccountData.swift */; };
 		3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */; };
 		3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D210C132758CCE50007F558 /* RelationsListRowPlaceholderView.swift */; };
 		3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */; };
@@ -588,7 +589,7 @@
 		3DB1CA0927293041000D2779 /* Amplitude+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0827293041000D2779 /* Amplitude+Events.swift */; };
 		3DB1CA0B27293156000D2779 /* MiddlewareConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0A27293156000D2779 /* MiddlewareConfiguration.swift */; };
 		3DB1CA0D2729316F000D2779 /* AccountConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0C2729316F000D2779 /* AccountConfiguration.swift */; };
-		3DB1CA0F27293733000D2779 /* AccountConfigurationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0E27293733000D2779 /* AccountConfigurationProvider.swift */; };
+		3DB1CA0F27293733000D2779 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0E27293733000D2779 /* AccountManager.swift */; };
 		3DB1CA1D272A7FE3000D2779 /* QuickAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA1C272A7FE3000D2779 /* QuickAction.swift */; };
 		3DB1CA31272AE1F9000D2779 /* DefaultTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA30272AE1F9000D2779 /* DefaultTypePicker.swift */; };
 		3DB1CA5A272BEF3B000D2779 /* WallpaperPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA59272BEF3B000D2779 /* WallpaperPickerView.swift */; };
@@ -1349,6 +1350,7 @@
 		3D1CEC3027F5A8CA000D36BA /* DeletedAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAccountViewModel.swift; sourceTree = "<group>"; };
 		3D1CEC3327F5D174000D36BA /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
 		3D1CEC4427F5F566000D36BA /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		3D1CEC4A27F70B2E000D36BA /* AccountData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountData.swift; sourceTree = "<group>"; };
 		3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTriggerSymbols.swift; sourceTree = "<group>"; };
 		3D210C132758CCE50007F558 /* RelationsListRowPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListRowPlaceholderView.swift; sourceTree = "<group>"; };
 		3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageViewModel.swift; sourceTree = SOURCE_ROOT; };
@@ -1532,7 +1534,7 @@
 		3DB1CA0827293041000D2779 /* Amplitude+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Amplitude+Events.swift"; sourceTree = "<group>"; };
 		3DB1CA0A27293156000D2779 /* MiddlewareConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiddlewareConfiguration.swift; sourceTree = "<group>"; };
 		3DB1CA0C2729316F000D2779 /* AccountConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountConfiguration.swift; sourceTree = "<group>"; };
-		3DB1CA0E27293733000D2779 /* AccountConfigurationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountConfigurationProvider.swift; sourceTree = "<group>"; };
+		3DB1CA0E27293733000D2779 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		3DB1CA1C272A7FE3000D2779 /* QuickAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAction.swift; sourceTree = "<group>"; };
 		3DB1CA30272AE1F9000D2779 /* DefaultTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTypePicker.swift; sourceTree = "<group>"; };
 		3DB1CA59272BEF3B000D2779 /* WallpaperPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperPickerView.swift; sourceTree = "<group>"; };
@@ -2304,7 +2306,6 @@
 		03CB3F00230C104F003D5DFD /* Auth */ = {
 			isa = PBXGroup;
 			children = (
-				3D1CEC2627F38A2B000D36BA /* Models */,
 				03CB3EFD230C0FC4003D5DFD /* AuthServiceProtocol.swift */,
 				0339676F2397DA7E000CB7BA /* AuthService.swift */,
 				EAE6BE242681FC5C00275788 /* LoginStateService.swift */,
@@ -2345,10 +2346,10 @@
 		03D1516423FB443E004027CE /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				3D1CEC4927F70B1C000D36BA /* Models */,
 				3DB1CA0A27293156000D2779 /* MiddlewareConfiguration.swift */,
 				03D1516523FB446A004027CE /* MiddlewareConfigurationProvider.swift */,
-				3DB1CA0C2729316F000D2779 /* AccountConfiguration.swift */,
-				3DB1CA0E27293733000D2779 /* AccountConfigurationProvider.swift */,
+				3DB1CA0E27293733000D2779 /* AccountManager.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -3704,14 +3705,6 @@
 			path = Table;
 			sourceTree = "<group>";
 		};
-		3D1CEC2627F38A2B000D36BA /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				3D1CEC2727F38A38000D36BA /* AccountStatus.swift */,
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
 		3D1CEC2927F38CCB000D36BA /* DeletedAccount */ = {
 			isa = PBXGroup;
 			children = (
@@ -3729,6 +3722,16 @@
 				3D1CEC3327F5D174000D36BA /* WindowManager.swift */,
 			);
 			path = AppCoordinator;
+			sourceTree = "<group>";
+		};
+		3D1CEC4927F70B1C000D36BA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3D1CEC2727F38A38000D36BA /* AccountStatus.swift */,
+				3DB1CA0C2729316F000D2779 /* AccountConfiguration.swift */,
+				3D1CEC4A27F70B2E000D36BA /* AccountData.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		3D24911A27BD271900821595 /* Events */ = {
@@ -6042,7 +6045,7 @@
 				12FD9D1D2767168800991886 /* RelationProtocol.swift in Sources */,
 				53F80F5D27BEAFEA00E9E12A /* DepricatedRelationBlockContentConfiguration.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
-				3DB1CA0F27293733000D2779 /* AccountConfigurationProvider.swift in Sources */,
+				3DB1CA0F27293733000D2779 /* AccountManager.swift in Sources */,
 				C9C5368E276A3A07003CD3F3 /* TagRelationRowView.swift in Sources */,
 				53728CFB273596750092A8CF /* MarkupKind.swift in Sources */,
 				3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */,
@@ -6249,6 +6252,7 @@
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
 				3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */,
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
+				3D1CEC4B27F70B2E000D36BA /* AccountData.swift in Sources */,
 				EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */,
 				3DB3EC642754FFF1002781DA /* DashboardLoadingAlert.swift in Sources */,
 				EA2F0D6D264EBA1B0039C1CB /* TextChangeType.swift in Sources */,

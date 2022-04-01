@@ -1,25 +1,25 @@
 import ProtobufMessages
 import CoreGraphics
 
-enum AccountStatus {
+enum AccountStatus: Equatable {
     case active
     case pendingDeletion(progress: DeletionProgress)
     case deleted
 }
 
 
-struct DeletionProgress {
+struct DeletionProgress: Equatable {
     let deadline: Date
     private let maxDeadline = 30
     
     var deletionProgress: CGFloat {
-        return 1 - (CGFloat(daysToDeletion) / CGFloat(maxDeadline)).clamped(0, 1)
+        return 1 - (CGFloat(daysToDeletion) / CGFloat(maxDeadline)).clamped(0.1, 0.9)
     }
     
     var daysToDeletion: Int {
         Calendar.current
             .numberOfDaysBetween(Date(), and: deadline)
-            .clamped(1, maxDeadline)
+            .clamped(0, maxDeadline)
     }
 }
 
@@ -32,7 +32,9 @@ extension Anytype_Model_Account.Status {
             return .active
         case .pendingDeletion:
             return .pendingDeletion(
-                progress: DeletionProgress(deadline: Date(milliseconds: deletionDate))
+                progress: DeletionProgress(
+                    deadline: Date(timeIntervalSince1970: TimeInterval(deletionDate))
+                )
             )
         case .UNRECOGNIZED:
             return nil

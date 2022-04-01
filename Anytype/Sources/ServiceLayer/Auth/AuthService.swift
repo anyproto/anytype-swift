@@ -72,13 +72,13 @@ final class AuthService: AuthServiceProtocol {
         if let error = CreateAccountServiceError(code: response.error.code) {
             return .failure(error)
         }
-        
-        AccountConfigurationProvider.shared.config = .init(config: response.config)
 
         let accountId = response.account.id
         Amplitude.instance().setUserId(accountId)
         Amplitude.instance().logAccountCreate(accountId)
         UserDefaultsConfig.usersId = accountId
+        
+        AccountManager.shared.account = response.account.asModel
         
         return .success(Void())
     }
@@ -147,7 +147,7 @@ final class AuthService: AuthServiceProtocol {
     private func handleAccountSelect(result: Result<Anytype_Rpc.Account.Select.Response, Error>) -> AccountStatus? {
         switch result {
         case .success(let response):
-            AccountConfigurationProvider.shared.config = .init(config: response.config)
+            AccountManager.shared.account = response.account.asModel
             
             let accountId = response.account.id
             Amplitude.instance().setUserId(accountId)

@@ -44,9 +44,17 @@ struct DeletedAccountView: View {
     }
     
     private var title: some View {
-        let dayLiteral = progress.daysToDeletion > 1 ? "days".localized : "day".localized
-        let localizedPrefix = "This account is planned for deletion in".localized
-        let text = "\(localizedPrefix) \(progress.daysToDeletion) \(dayLiteral)"
+        let dayText: String
+        if progress.daysToDeletion == 0 {
+            dayText = "today".localized
+        } else if progress.daysToDeletion == 1 {
+            dayText = "tomorrow".localized
+        } else {
+            dayText =  "\("in".localized) \(progress.daysToDeletion) \("days".localized)"
+        }
+        
+        let localizedPrefix = "This account will be deleted".localized
+        let text = "\(localizedPrefix) \(dayText)"
         return AnytypeText(text, style: .heading, color: .textPrimary)
     }
     
@@ -64,7 +72,7 @@ struct DeletedAccountView: View {
             Spacer()
         }
         .onAppear {
-            withAnimation(.spring(dampingFraction: 0.5).speed(0.4)) {
+            withAnimation(.spring(dampingFraction: 0.7).speed(0.4)) {
                 clockProgress = progress.deletionProgress
             }
         }
