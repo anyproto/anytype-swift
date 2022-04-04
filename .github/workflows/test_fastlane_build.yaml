@@ -30,7 +30,7 @@ jobs:
           ruby-version: 2.7.2
           bundler-cache: true
 
-      - uses: maxim-lobanov/setup-xcode@v1.3.2
+      - uses: maxim-lobanov/setup-xcode@v1.4.1
         with:
           xcode-version: '13.2'
 
