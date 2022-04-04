@@ -45,7 +45,7 @@ jobs:
           git config --global user.name "William Blake"
           git config --global user.email "iosteam@anytype.io"
 
-      - uses: maxim-lobanov/setup-xcode@v1.3.0
+      - uses: maxim-lobanov/setup-xcode@v1.4.1
         with:
           xcode-version: '13.2'
 
