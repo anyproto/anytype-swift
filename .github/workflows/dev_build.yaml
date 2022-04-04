@@ -24,12 +24,12 @@ jobs:
           ref: ${{ github.event.inputs.branch }}
 
       - name: Install SSH key for access to repository.
-        uses: webfactory/ssh-agent@v0.5.3
+        uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
 
       - name: Setup ruby
-        uses: ruby/setup-ruby@v1.81.0
+        uses: ruby/setup-ruby@v1.100.0
         with:
           ruby-version: 2.7.2
           bundler-cache: true

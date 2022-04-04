@@ -20,7 +20,7 @@ jobs:
           ref: ${{ github.event.inputs.branch }}
 
       - name: Install SSH key for access to repository.
-        uses: webfactory/ssh-agent@v0.5.3
+        uses: webfactory/ssh-agent@v0.5.4
         with:
           ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
 

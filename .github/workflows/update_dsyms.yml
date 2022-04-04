@@ -31,7 +31,7 @@ jobs:
           ref: 'develop'
           
       - name: Setup ruby
-        uses: ruby/setup-ruby@v1.81.0
+        uses: ruby/setup-ruby@v1.100.0
         with:
             ruby-version: 2.7.2
             bundler-cache: true
