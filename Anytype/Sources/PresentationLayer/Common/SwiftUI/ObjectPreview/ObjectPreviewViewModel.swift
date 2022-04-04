@@ -36,7 +36,11 @@ final class ObjectPreviewViewModel: ObservableObject {
                                                                 objectPreviewFields: objectPreviewFields)
     }
 
-    func showPreviewLayout() {
-        router.showPreviewLayout(objectPreviewFields: objectPreviewFields)
+    func showLayoutMenu() {
+        router.showLayoutMenu(objectPreviewFields: objectPreviewFields)
+    }
+
+    func showIconMenu() {
+        router.showIconMenu(objectPreviewFields: objectPreviewFields)
     }
 }

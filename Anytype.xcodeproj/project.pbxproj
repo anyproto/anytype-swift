@@ -777,6 +777,7 @@
 		53F7447427F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7447327F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift */; };
 		53F7447627F71789005C9BB0 /* CheckPopupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7447527F71789005C9BB0 /* CheckPopupItem.swift */; };
 		53F7447927F71A83005C9BB0 /* PopupViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7447827F71A83005C9BB0 /* PopupViewBuilder.swift */; };
+		53F7449D27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7449C27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift */; };
 		53F80EF427BD3BE300E9E12A /* TagRelationViewUIKIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F80EF327BD3BE300E9E12A /* TagRelationViewUIKIt.swift */; };
 		53F80EFA27BD8A0A00E9E12A /* TagViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F80EF927BD8A0A00E9E12A /* TagViewUIKit.swift */; };
 		53F80F0527BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F80F0427BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift */; };
@@ -1753,6 +1754,7 @@
 		53F7447327F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPopuViewViewModelProtocol.swift; sourceTree = "<group>"; };
 		53F7447527F71789005C9BB0 /* CheckPopupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPopupItem.swift; sourceTree = "<group>"; };
 		53F7447827F71A83005C9BB0 /* PopupViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewBuilder.swift; sourceTree = "<group>"; };
+		53F7449C27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewIconMenuViewModel.swift; sourceTree = "<group>"; };
 		53F80EF327BD3BE300E9E12A /* TagRelationViewUIKIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationViewUIKIt.swift; sourceTree = "<group>"; };
 		53F80EF927BD8A0A00E9E12A /* TagViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewUIKit.swift; sourceTree = "<group>"; };
 		53F80F0427BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectListRelationViewUIKit.swift; sourceTree = "<group>"; };
@@ -5447,7 +5449,8 @@
 		53D4087F27EC970600495335 /* ObjectPreview */ = {
 			isa = PBXGroup;
 			children = (
-				53F7442A27F4BB68005C9BB0 /* PreviewLayout */,
+				53F7449B27FB8FE9005C9BB0 /* IconMenu */,
+				53F7442A27F4BB68005C9BB0 /* LayoutMenu */,
 				53F7441627F4A09B005C9BB0 /* ObjectPreviewViewSection.swift */,
 				53D4088527EC9D0A00495335 /* ObjectPreviewViewModel.swift */,
 				53D4088727EC9EFE00495335 /* ObjectPreviewView.swift */,
@@ -5489,12 +5492,12 @@
 			path = ColorCell;
 			sourceTree = "<group>";
 		};
-		53F7442A27F4BB68005C9BB0 /* PreviewLayout */ = {
+		53F7442A27F4BB68005C9BB0 /* LayoutMenu */ = {
 			isa = PBXGroup;
 			children = (
 				53F7443027F4BC7B005C9BB0 /* ObjectPreviewLayoutMenuViewModel.swift */,
 			);
-			path = PreviewLayout;
+			path = LayoutMenu;
 			sourceTree = "<group>";
 		};
 		53F7447027F71564005C9BB0 /* PopupsView */ = {
@@ -5514,6 +5517,14 @@
 				53F7447527F71789005C9BB0 /* CheckPopupItem.swift */,
 			);
 			path = CheckPopupView;
+			sourceTree = "<group>";
+		};
+		53F7449B27FB8FE9005C9BB0 /* IconMenu */ = {
+			isa = PBXGroup;
+			children = (
+				53F7449C27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift */,
+			);
+			path = IconMenu;
 			sourceTree = "<group>";
 		};
 		53F80EF827BD89EE00E9E12A /* TagView */ = {
@@ -6423,6 +6434,7 @@
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
 				3D1CEC4B27F70B2E000D36BA /* AccountData.swift in Sources */,
 				EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */,
+				53F7449D27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift in Sources */,
 				3DB3EC642754FFF1002781DA /* DashboardLoadingAlert.swift in Sources */,
 				EA2F0D6D264EBA1B0039C1CB /* TextChangeType.swift in Sources */,
 				3D2F9C01271EA5FB0043C326 /* HomeViewModel+Selection.swift in Sources */,

@@ -28,9 +28,9 @@ struct ObjectPreviewView: View {
                 mainSectionRow(item) {
                     switch item.value {
                     case .icon:
-                        break
+                        viewModel.showIconMenu()
                     case .layout:
-                        viewModel.showPreviewLayout()
+                        viewModel.showLayoutMenu()
                     }
                 }
                 .divider()
