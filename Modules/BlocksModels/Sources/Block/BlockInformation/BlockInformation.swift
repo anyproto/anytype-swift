@@ -18,7 +18,7 @@ public struct BlockInformation: Hashable {
         backgroundColor: MiddlewareColor?,
         alignment: LayoutAlignment,
         childrenIds: [BlockId],
-        configurationData: BlockInformationMetadata
+        configurationData: BlockInformationMetadata,
         fields: BlockFields
     ) {
         self.id = id

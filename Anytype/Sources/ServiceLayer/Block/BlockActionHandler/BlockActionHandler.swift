@@ -61,7 +61,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId) {
-        service.setFields(blockFields: fields, blockId: blockId)
+        guard let info = document.infoContainer.get(id: blockId) else { return }
+
+        let newFields = info.fields.merging(fields.asMiddleware()) { (_, new) in new }
+
+        service.setFields(blockFields: newFields, blockId: blockId)
     }
     
     func fetch(url: URL, blockId: BlockId) {

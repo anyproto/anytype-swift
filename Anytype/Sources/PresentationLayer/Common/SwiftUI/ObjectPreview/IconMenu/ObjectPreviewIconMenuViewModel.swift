@@ -7,11 +7,15 @@ final class ObjectPreviewIconMenuViewModel: CheckPopuViewViewModelProtocol {
 
     // MARK: - Private variables
 
+    private var objectPreviewFields: ObjectPreviewFields
     private let objectPreviewModelBuilder = ObjectPreivewSectionBuilder()
+    private let onSelect: (ObjectPreviewFields) -> Void
 
     // MARK: - Initializer
 
-    init(objectPreviewFields: ObjectPreviewFields) {
+    init(objectPreviewFields: ObjectPreviewFields, onSelect: @escaping (ObjectPreviewFields) -> Void) {
+        self.objectPreviewFields = objectPreviewFields
+        self.onSelect = onSelect
         self.updatePreviewFields(objectPreviewFields)
     }
 
@@ -29,6 +33,14 @@ final class ObjectPreviewIconMenuViewModel: CheckPopuViewViewModelProtocol {
     func onTap(itemId: String) {
         guard let icon = ObjectPreviewFields.Icon(rawValue: itemId) else { return }
 
-        // TODO: here will be fileds service
+        objectPreviewFields = ObjectPreviewFields(
+            icon: icon,
+            layout: objectPreviewFields.layout,
+            withName: objectPreviewFields.withName,
+            featuredRelationsIds: objectPreviewFields.featuredRelationsIds
+        )
+
+        onSelect(objectPreviewFields)
+        updatePreviewFields(objectPreviewFields)
     }
 }

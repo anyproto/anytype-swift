@@ -17,18 +17,22 @@ final class ObjectPreivewSectionBuilder {
             value: .icon(objectPreviewFields.icon))
         let mainSection = [layout, icon]
 
-        featuredRelationsByIds.forEach { (key: String, relation: Relation) in
-            let icon = Image.createImage(relation.iconName)
+        let withNameRelation = ObjectPreviewViewFeaturedSectionItem(
+            id: BundledRelationKey.snippet.rawValue,
+            iconName: RelationMetadata.Format.shortText.iconName,
+            name: "Name".localized,
+            isEnabled: objectPreviewFields.withName
+        )
+        featuredRelationSection.append(withNameRelation)
 
-            let isEnabled = objectPreviewFields.featuredRelationsIds.contains(key)
-            let featuredRelation = ObjectPreviewViewFeaturedSectionItem(
-                id: relation.id,
-                icon: icon,
-                name: relation.name,
-                isEnabled: isEnabled
-            )
-            featuredRelationSection.append(featuredRelation)
-        }
+        let isEnabledDescription = objectPreviewFields.featuredRelationsIds.contains(BundledRelationKey.description.rawValue)
+        let withDescription = ObjectPreviewViewFeaturedSectionItem(
+            id: BundledRelationKey.description.rawValue,
+            iconName: RelationMetadata.Format.longText.iconName,
+            name: "Description".localized,
+            isEnabled: isEnabledDescription
+        )
+        featuredRelationSection.append(withDescription)
 
         return .init(main: mainSection, featuredRelation: featuredRelationSection)
     }

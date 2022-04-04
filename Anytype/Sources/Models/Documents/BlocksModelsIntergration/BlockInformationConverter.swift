@@ -21,8 +21,8 @@ enum BlockInformationConverter {
             configurationData: .init(
                 backgroundColor: color,
                 indentationStyle: .none
-            )
-            fields: block.fields.fields,
+            ),
+            fields: block.fields.fields
         )
         
         return BlockValidator().validated(information: info)

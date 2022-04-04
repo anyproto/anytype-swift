@@ -15,14 +15,14 @@ final class ObjectPreviewRouter {
         self.viewController = viewController
     }
 
-    func showLayoutMenu(objectPreviewFields: ObjectPreviewFields) {
-        let viewModel = ObjectPreviewLayoutMenuViewModel(objectPreviewFields: objectPreviewFields)
+    func showLayoutMenu(objectPreviewFields: ObjectPreviewFields, onSelect: @escaping (ObjectPreviewFields) -> Void) {
+        let viewModel = ObjectPreviewLayoutMenuViewModel(objectPreviewFields: objectPreviewFields, onSelect: onSelect)
         let view = PopupViewBuilder.createCheckPopup(viewModel: viewModel)
         viewController?.topPresentedController.present(view, animated: true, completion: nil)
     }
 
-    func showIconMenu(objectPreviewFields: ObjectPreviewFields) {
-        let viewModel = ObjectPreviewIconMenuViewModel(objectPreviewFields: objectPreviewFields)
+    func showIconMenu(objectPreviewFields: ObjectPreviewFields, onSelect: @escaping (ObjectPreviewFields) -> Void) {
+        let viewModel = ObjectPreviewIconMenuViewModel(objectPreviewFields: objectPreviewFields, onSelect: onSelect)
         let view = PopupViewBuilder.createCheckPopup(viewModel: viewModel)
         viewController?.topPresentedController.present(view, animated: true, completion: nil)
     }

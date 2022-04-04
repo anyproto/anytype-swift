@@ -35,7 +35,7 @@ struct ObjectPreviewViewMainSectionItem: Identifiable {
 
 struct ObjectPreviewViewFeaturedSectionItem: Identifiable {
     let id: String
-    let icon: Image
+    let iconName: String
     let name: String
     let isEnabled: Bool
 }

@@ -13,8 +13,8 @@ public extension BlockInformation {
             backgroundColor: backgroundColor ?? self.backgroundColor,
             alignment: alignment ?? self.alignment,
             childrenIds: childrenIds ?? self.childrenIds,
-            fields: fields ?? self.fields,
-            configurationData: metadata ?? self.configurationData
+            configurationData: metadata ?? self.configurationData,
+            fields: fields ?? self.fields
         )
     }
 }
