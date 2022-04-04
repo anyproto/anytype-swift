@@ -11,6 +11,7 @@ import BlocksModels
 
 struct CheckPopupView<ViewModel: CheckPopuViewViewModelProtocol>: View {
     @ObservedObject var viewModel: ViewModel
+    @State private var scrollViewContentSize: CGSize = .zero
 
     var body: some View {
         VStack(spacing: 0) {
@@ -24,45 +25,43 @@ struct CheckPopupView<ViewModel: CheckPopuViewViewModelProtocol>: View {
     private var mainSection: some View {
         VStack(spacing: 0) {
             ForEach(viewModel.items) { item in
-                mainSectionRow(item) {
-                    viewModel.onTap(item: item)
+                Button {
+                    viewModel.onTap(itemId: item.id)
+                } label: {
+                    mainSectionRow(item)
                 }
                 .divider()
             }
         }
     }
 
-    private func mainSectionRow(_ item: CheckPopupItem, onTap: @escaping () -> Void) -> some View {
-        Button {
-            onTap()
-        } label: {
-            HStack(spacing: 0) {
-                if let iconName = item.icon {
-                    Image(iconName)
-                    Spacer.fixedWidth(12)
-                }
+    private func mainSectionRow(_ item: CheckPopupItem) -> some View {
+        HStack(spacing: 0) {
+            if let iconName = item.icon {
+                Image(iconName)
+                Spacer.fixedWidth(12)
+            }
 
-                VStack(spacing: 0) {
-                    AnytypeText(item.title, style: .uxBodyRegular, color: .textPrimary)
+            VStack(spacing: 0) {
+                AnytypeText(item.title, style: .uxBodyRegular, color: .textPrimary)
 
-                    if let subtitle = item.subtitle {
-                        AnytypeText(subtitle, style: .caption1Regular, color: .textSecondary)
-                    }
-                }
-                Spacer()
-
-                if item.isSelected {
-                    Image.optionChecked.frame(width: 24, height: 24).foregroundColor(.buttonSelected)
+                if let subtitle = item.subtitle {
+                    AnytypeText(subtitle, style: .caption1Regular, color: .textSecondary)
                 }
             }
-            .frame(height: 52)
+            Spacer()
+
+            if item.isSelected {
+                Image.optionChecked.frame(width: 24, height: 24).foregroundColor(.buttonSelected)
+            }
         }
+        .frame(height: 52)
     }
 }
 
-struct ObjectPreviewPopupView_Previews: PreviewProvider {
+struct CheckPopupView_Previews: PreviewProvider {
     final class CheckPopupTestViewModel: CheckPopuViewViewModelProtocol {
-        func onTap(item: CheckPopupItem) {
+        func onTap(itemId: String) {
         }
 
         var items: [CheckPopupItem] = [

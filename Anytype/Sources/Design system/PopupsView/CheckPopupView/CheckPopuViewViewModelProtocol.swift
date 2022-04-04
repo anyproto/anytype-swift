@@ -11,5 +11,5 @@ import SwiftUI
 protocol CheckPopuViewViewModelProtocol: ObservableObject {
     var items: [CheckPopupItem] { get }
 
-    func onTap(item: CheckPopupItem)
+    func onTap(itemId: String)
 }

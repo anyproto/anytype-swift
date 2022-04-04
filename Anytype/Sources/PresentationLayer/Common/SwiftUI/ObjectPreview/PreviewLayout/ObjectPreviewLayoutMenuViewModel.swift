@@ -10,8 +10,8 @@ import BlocksModels
 import SwiftUI
 import FloatingPanel
 
-final class ObjectPreviewPopupViewModel: CheckPopuViewViewModelProtocol {
-    @Published var items: [CheckPopupItem] = []
+final class ObjectPreviewLayoutMenuViewModel: CheckPopuViewViewModelProtocol {
+    @Published private(set) var items: [CheckPopupItem] = []
 
     // MARK: - Private variables
 
@@ -34,8 +34,8 @@ final class ObjectPreviewPopupViewModel: CheckPopuViewViewModelProtocol {
         }
     }
 
-    func onTap(item: CheckPopupItem) {
-        guard let layout = ObjectPreviewFields.Layout(rawValue: item.id) else { return }
+    func onTap(itemId: String) {
+        guard let layout = ObjectPreviewFields.Layout(rawValue: itemId) else { return }
 
         // TODO: here will be fileds service
     }
