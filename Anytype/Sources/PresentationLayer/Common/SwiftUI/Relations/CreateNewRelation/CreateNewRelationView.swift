@@ -42,11 +42,18 @@ struct CreateNewRelationView: View {
                                 viewModel.selectedType = relationType
                             }
                         ) {
-                            CreateNewRelationCell(format: relationType, isSelected: viewModel.selectedType == relationType)
-                                .padding([.leading, .trailing], 20)
+                            RelationFormatCell(
+                                model: RelationFormatCell.Model(
+                                    id: "\(relationType.id)",
+                                    title: relationType.name,
+                                    icon: relationType.iconName,
+                                    isSelected: viewModel.selectedType == relationType
+                                )
+                            )
+                                .padding(.horizontal, 20)
                         }
                         .frame(maxWidth: .infinity)
-                        .divider(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading)
+                        
                     }
                 }, header: {
                     VStack(alignment: .leading, spacing: 0) {
