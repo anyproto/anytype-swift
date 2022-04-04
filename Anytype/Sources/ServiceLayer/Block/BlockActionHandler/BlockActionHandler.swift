@@ -60,7 +60,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.duplicate(blockId: blockId)
     }
     
-    func setFields(_ fields: FieldsConverterProtocol, blockId: BlockId) {
+    func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId) {
         service.setFields(blockFields: fields, blockId: blockId)
     }
     

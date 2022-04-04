@@ -10,7 +10,7 @@ import ProtobufMessages
 import SwiftProtobuf
 import BlocksModels
 
-extension ObjectPreviewFields: FieldsConverterProtocol {
+extension ObjectPreviewFields: FieldsConvertibleProtocol {
 
     func asMiddleware() -> BlockFields {
         typealias ProtobufDictionary = [String: Google_Protobuf_Value]

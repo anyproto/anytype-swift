@@ -1,5 +1,5 @@
 //
-//  FieldsConverterProtocol.swift
+//  FieldsConvertibleProtocol.swift
 //  Anytype
 //
 //  Created by Denis Batvinkin on 27.03.2022.
@@ -8,6 +8,6 @@
 
 import BlocksModels
 
-public protocol FieldsConverterProtocol {
+public protocol FieldsConvertibleProtocol {
     func asMiddleware() -> BlockFields
 }

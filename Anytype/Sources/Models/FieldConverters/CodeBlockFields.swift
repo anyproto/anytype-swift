@@ -9,5 +9,10 @@
 import Foundation
 
 struct CodeBlockFields {
+
+    enum FieldName {
+        public static let codeLanguage = "lang"
+    }
+
     let language: CodeLanguage
 }

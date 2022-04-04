@@ -755,10 +755,9 @@
 		53D4089427ECBB6900495335 /* ObjectPreviewFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */; };
 		53D4089727ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089627ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift */; };
 		53D4089927EDDAA300495335 /* ObjectPreivewSectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089827EDDAA300495335 /* ObjectPreivewSectionBuilder.swift */; };
-		53D4089B27EDDB2800495335 /* ObjectPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089A27EDDB2800495335 /* ObjectPreviewModel.swift */; };
 		53D408AC27F0B7EE00495335 /* CodeBlockFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408AB27F0B7EE00495335 /* CodeBlockFields.swift */; };
 		53D408AE27F0B85B00495335 /* CodeBlockFieldsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408AD27F0B85B00495335 /* CodeBlockFieldsConverter.swift */; };
-		53D408B027F0BF7600495335 /* FieldsConverterProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408AF27F0BF7600495335 /* FieldsConverterProtocol.swift */; };
+		53D408B027F0BF7600495335 /* FieldsConvertibleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408AF27F0BF7600495335 /* FieldsConvertibleProtocol.swift */; };
 		53D408CA27F1D3AB00495335 /* UIPasteboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408C927F1D3AB00495335 /* UIPasteboardExtension.swift */; };
 		53D408CF27F1D44F00495335 /* PasteboardCopyResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408CE27F1D44F00495335 /* PasteboardCopyResult.swift */; };
 		53D408D127F1D48000495335 /* PasteboardServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408D027F1D48000495335 /* PasteboardServiceProtocol.swift */; };
@@ -1726,10 +1725,9 @@
 		53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewFields.swift; sourceTree = "<group>"; };
 		53D4089627ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewFieldsConverter.swift; sourceTree = "<group>"; };
 		53D4089827EDDAA300495335 /* ObjectPreivewSectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreivewSectionBuilder.swift; sourceTree = "<group>"; };
-		53D4089A27EDDB2800495335 /* ObjectPreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewModel.swift; sourceTree = "<group>"; };
 		53D408AB27F0B7EE00495335 /* CodeBlockFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockFields.swift; sourceTree = "<group>"; };
 		53D408AD27F0B85B00495335 /* CodeBlockFieldsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockFieldsConverter.swift; sourceTree = "<group>"; };
-		53D408AF27F0BF7600495335 /* FieldsConverterProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldsConverterProtocol.swift; sourceTree = "<group>"; };
+		53D408AF27F0BF7600495335 /* FieldsConvertibleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldsConvertibleProtocol.swift; sourceTree = "<group>"; };
 		53D408C927F1D3AB00495335 /* UIPasteboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPasteboardExtension.swift; sourceTree = "<group>"; };
 		53D408CE27F1D44F00495335 /* PasteboardCopyResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardCopyResult.swift; sourceTree = "<group>"; };
 		53D408D027F1D48000495335 /* PasteboardServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardServiceProtocol.swift; sourceTree = "<group>"; };
@@ -5447,7 +5445,7 @@
 		53D4089527ECCE9000495335 /* FieldConverters */ = {
 			isa = PBXGroup;
 			children = (
-				53D408AF27F0BF7600495335 /* FieldsConverterProtocol.swift */,
+				53D408AF27F0BF7600495335 /* FieldsConvertibleProtocol.swift */,
 				53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */,
 				53D4089627ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift */,
 				53D408AB27F0B7EE00495335 /* CodeBlockFields.swift */,
@@ -6423,7 +6421,7 @@
 				534785642743D4EC0097CA30 /* ParsedRelations.swift in Sources */,
 				3D30417227EA689F00FFE0EB /* SetTableViewRowDataBuilder.swift in Sources */,
 				53F7441727F4A09B005C9BB0 /* ObjectPreviewViewSection.swift in Sources */,
-				1215E8A926A82DFD0089AF7E /* DownloadingUrlBuilder.swift in Sources */,
+				1215E8A926A82DFD0089AF7E /* ContentUrlBuilder.swift in Sources */,
 				1215E8A926A82DFD0089AF7E /* ContentUrlBuilder.swift in Sources */,
 				3D93D575270CA3D600614E29 /* EditorPageAssembly.swift in Sources */,
 				3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */,

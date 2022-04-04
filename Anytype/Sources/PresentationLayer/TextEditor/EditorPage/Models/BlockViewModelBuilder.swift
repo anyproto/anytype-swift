@@ -58,7 +58,7 @@ final class BlockViewModelBuilder {
                     info: info,
                     content: content,
                     codeLanguage: CodeLanguage.create(
-                        middleware: info.fields[FieldName.codeLanguage]?.stringValue
+                        middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
                     ),
                     becomeFirstResponder: { _ in },
                     textDidChange: { block, textView in

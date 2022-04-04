@@ -10,11 +10,9 @@ import ProtobufMessages
 import SwiftProtobuf
 import BlocksModels
 
-extension CodeBlockFields: FieldsConverterProtocol {
+extension CodeBlockFields: FieldsConvertibleProtocol {
 
     func asMiddleware() -> BlockFields {
-        typealias ProtobufDictionary = [String: Google_Protobuf_Value]
-
         var protoFields: [String: Google_Protobuf_Value] = [:]
 
         protoFields[FieldName.codeLanguage] = language.toMiddleware().protobufValue

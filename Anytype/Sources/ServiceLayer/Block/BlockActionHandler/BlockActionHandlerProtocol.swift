@@ -15,7 +15,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setTextColor(_ color: BlockColor, blockId: BlockId)
     func setBackgroundColor(_ color: BlockBackgroundColor, blockId: BlockId)
     func duplicate(blockId: BlockId)
-    func setFields(_ fields: FieldsConverterProtocol, blockId: BlockId)
+    func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId)
     func fetch(url: URL, blockId: BlockId)
     func checkbox(selected: Bool, blockId: BlockId)
     func toggle(blockId: BlockId)

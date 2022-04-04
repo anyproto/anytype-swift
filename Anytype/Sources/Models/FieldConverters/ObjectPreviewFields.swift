@@ -9,6 +9,13 @@
 import Foundation
 
 struct ObjectPreviewFields {
+    enum FieldName {
+        public static let withName = "withName"
+        public static let withIcon = "withIcon"
+        public static let style = "style"
+        public static let withDescription = "withDescription"
+    }
+
     enum Layout {
         case text
         case card
