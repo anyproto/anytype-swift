@@ -68,8 +68,10 @@ struct SettingsAccountView: View {
             SettingsButton(text: "Log out", textColor: .textPrimary) {
                 model.loggingOut = true
             }
-            SettingsButton(text: "Delete account", textColor: .System.red) {
-                model.accountDeleting = true
+            if FeatureFlags.deletion {
+                SettingsButton(text: "Delete account", textColor: .System.red) {
+                    model.accountDeleting = true
+                }
             }
          }
     }
