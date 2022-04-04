@@ -77,7 +77,7 @@ struct EditorSetViewSettingsView: View {
     private var relationsSection: some View {
         ForEach(setModel.sortedRelations) { relation in
             relationRow(relation)
-                .deleteDisabled(relation.metadata.isReadOnly)
+                .deleteDisabled(relation.metadata.isBundled)
         }
         .onDelete { indexes in
             model.deleteRelations(indexes: indexes)
