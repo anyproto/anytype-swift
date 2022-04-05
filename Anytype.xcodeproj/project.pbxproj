@@ -2167,6 +2167,7 @@
 		038FB5C622D8F2DE002B90B8 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				129C54D527FC8BC100C390C7 /* AddNewRelation flow */,
 				3D932D3626317E3A00C7D1EA /* Home */,
 				0331BBE122E608AC002AD179 /* Common */,
 				03074B86239514BF009FA7D0 /* Auth */,
@@ -2935,6 +2936,100 @@
 			path = Tag;
 			sourceTree = "<group>";
 		};
+		1247BC5627FC8D39005F2DB4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				129C54CF27FC79F900C390C7 /* RelationFormatsView.swift */,
+				534FFA69277231AB00C51056 /* RelationFormatCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1247BC5727FC8D40005F2DB4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				129C54D127FC7A2800C390C7 /* RelationFormatsViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1247BC5827FC8D4A005F2DB4 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				129C54D327FC83C000C390C7 /* SupportedRelationFormat.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		1247BC5927FC8D68005F2DB4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				532D1D582768FABC00A1E4D8 /* NewRelationCell.swift */,
+				532D1D5A2768FAE600A1E4D8 /* SearchNewRelationView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1247BC5A27FC8D71005F2DB4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				532D1D6027691FA100A1E4D8 /* SearchNewRelationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1247BC5B27FC8D79005F2DB4 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				12F3B84727E9C6E200360CA3 /* SearchNewRelationSectionType.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		1247BC5C27FC8D9F005F2DB4 /* Old */ = {
+			isa = PBXGroup;
+			children = (
+				534FFA6B277231C100C51056 /* CreateNewRelationView.swift */,
+				534FFA6D277231CD00C51056 /* CreateNewRelationViewModel.swift */,
+			);
+			path = Old;
+			sourceTree = "<group>";
+		};
+		1247BC5D27FC8DA8005F2DB4 /* New */ = {
+			isa = PBXGroup;
+			children = (
+				1247BC5E27FC8DB4005F2DB4 /* View */,
+				1247BC5F27FC8DBB005F2DB4 /* ViewModel */,
+			);
+			path = New;
+			sourceTree = "<group>";
+		};
+		1247BC5E27FC8DB4005F2DB4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				129C54C827FC4EA200C390C7 /* NewRelationView.swift */,
+				1247BC6027FC8DD1005F2DB4 /* Subviews */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1247BC5F27FC8DBB005F2DB4 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				129C54C327FC4CF600C390C7 /* NewRelationViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		1247BC6027FC8DD1005F2DB4 /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				129C54CA27FC694A00C390C7 /* NewRelationSectionView.swift */,
+				129C54CC27FC741C00C390C7 /* NewRelationFormatSectionView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
 		124E2BBD273020CF00A2D534 /* Relations */ = {
 			isa = PBXGroup;
 			children = (
@@ -3248,15 +3343,24 @@
 			path = ValueViews;
 			sourceTree = "<group>";
 		};
-		129C54CE27FC79BC00C390C7 /* RelationFormatsList */ = {
+		129C54CE27FC79BC00C390C7 /* RelationFormats screen */ = {
 			isa = PBXGroup;
 			children = (
-				129C54D327FC83C000C390C7 /* SupportedRelationFormat.swift */,
-				129C54CF27FC79F900C390C7 /* RelationFormatsView.swift */,
-				129C54D127FC7A2800C390C7 /* RelationFormatsViewModel.swift */,
-				534FFA69277231AB00C51056 /* RelationFormatCell.swift */,
+				1247BC5627FC8D39005F2DB4 /* View */,
+				1247BC5727FC8D40005F2DB4 /* ViewModel */,
+				1247BC5827FC8D4A005F2DB4 /* Entities */,
 			);
-			path = RelationFormatsList;
+			path = "RelationFormats screen";
+			sourceTree = "<group>";
+		};
+		129C54D527FC8BC100C390C7 /* AddNewRelation flow */ = {
+			isa = PBXGroup;
+			children = (
+				534FFA652772315C00C51056 /* CreateNewRelation screen */,
+				532D1D542768FA6E00A1E4D8 /* AddingNewRelation screen */,
+				129C54CE27FC79BC00C390C7 /* RelationFormats screen */,
+			);
+			path = "AddNewRelation flow";
 			sourceTree = "<group>";
 		};
 		12A1B51F27F4CEB2007ACDC9 /* DownloadableImageViewWrapper */ = {
@@ -5122,15 +5226,14 @@
 			path = TextStyleView;
 			sourceTree = "<group>";
 		};
-		532D1D542768FA6E00A1E4D8 /* AddingNewRelationView */ = {
+		532D1D542768FA6E00A1E4D8 /* AddingNewRelation screen */ = {
 			isa = PBXGroup;
 			children = (
-				532D1D582768FABC00A1E4D8 /* NewRelationCell.swift */,
-				532D1D5A2768FAE600A1E4D8 /* SearchNewRelationView.swift */,
-				532D1D6027691FA100A1E4D8 /* SearchNewRelationViewModel.swift */,
-				12F3B84727E9C6E200360CA3 /* SearchNewRelationSectionType.swift */,
+				1247BC5927FC8D68005F2DB4 /* View */,
+				1247BC5A27FC8D71005F2DB4 /* ViewModel */,
+				1247BC5B27FC8D79005F2DB4 /* Entities */,
 			);
-			path = AddingNewRelationView;
+			path = "AddingNewRelation screen";
 			sourceTree = "<group>";
 		};
 		533856AC263B2285005A06A9 /* TextAttributesView */ = {
@@ -5164,17 +5267,13 @@
 			path = Relations;
 			sourceTree = "<group>";
 		};
-		534FFA652772315C00C51056 /* CreateNewRelation */ = {
+		534FFA652772315C00C51056 /* CreateNewRelation screen */ = {
 			isa = PBXGroup;
 			children = (
-				534FFA6B277231C100C51056 /* CreateNewRelationView.swift */,
-				534FFA6D277231CD00C51056 /* CreateNewRelationViewModel.swift */,
-				129C54C327FC4CF600C390C7 /* NewRelationViewModel.swift */,
-				129C54C827FC4EA200C390C7 /* NewRelationView.swift */,
-				129C54CA27FC694A00C390C7 /* NewRelationSectionView.swift */,
-				129C54CC27FC741C00C390C7 /* NewRelationFormatSectionView.swift */,
+				1247BC5C27FC8D9F005F2DB4 /* Old */,
+				1247BC5D27FC8DA8005F2DB4 /* New */,
 			);
-			path = CreateNewRelation;
+			path = "CreateNewRelation screen";
 			sourceTree = "<group>";
 		};
 		5356072026E25F92001464A4 /* UnsupportedBlockView */ = {
@@ -5212,9 +5311,6 @@
 		535E02AB274FF05600E1AF8C /* Relations */ = {
 			isa = PBXGroup;
 			children = (
-				129C54CE27FC79BC00C390C7 /* RelationFormatsList */,
-				534FFA652772315C00C51056 /* CreateNewRelation */,
-				532D1D542768FA6E00A1E4D8 /* AddingNewRelationView */,
 				535E02AE27501FC600E1AF8C /* RelationViewProvider */,
 				535F79862746CCD60050A1B8 /* FlowRelationsView */,
 			);
