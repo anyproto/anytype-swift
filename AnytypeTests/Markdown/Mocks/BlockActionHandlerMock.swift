@@ -165,16 +165,4 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: String) {
         assertionFailure()
     }
-
-    func paste(blockId: BlockId, range: NSRange, pasteSlot: PasteboardSlot) {
-        assertionFailure()
-    }
-
-    func paste(selectedBlockIds: [BlockId], pasteSlot: PasteboardSlot) {
-        assertionFailure()
-    }
-
-    func copy(blocksIds: [BlockId], selectedTextRange: NSRange) {
-        assertionFailure()
-    }
 }
