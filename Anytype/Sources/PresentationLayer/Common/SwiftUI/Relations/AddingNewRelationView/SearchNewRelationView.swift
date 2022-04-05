@@ -1,6 +1,7 @@
 import SwiftUI
 import BlocksModels
 import Amplitude
+import AnytypeCore
 
 struct SearchNewRelationView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -53,7 +54,11 @@ struct SearchNewRelationView: View {
                             .frame(maxWidth: .infinity)
                             .divider(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading)
                             .sheet(isPresented: $showCreateNewRelation) {
-                                CreateNewRelationView(relationName: searchText, viewModel: viewModel.createNewRelationViewModel)
+                                if FeatureFlags.createNewRelationV2 {
+                                    NewRelationView(viewModel: viewModel.newRelationViewModel(searchText: searchText))
+                                } else {
+                                    CreateNewRelationView(relationName: searchText, viewModel: viewModel.createNewRelationViewModel)
+                                }
                             }
                         }
                     case let .addFromLibriry(relationsMetaData):
