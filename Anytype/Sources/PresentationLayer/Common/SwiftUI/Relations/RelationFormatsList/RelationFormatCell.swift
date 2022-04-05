@@ -33,6 +33,7 @@ extension RelationFormatCell {
         let title: String
         let icon: String
         
+        #warning("TODO: remove when create new relation v2 will be implemented")
         let isSelected: Bool
     }
     
