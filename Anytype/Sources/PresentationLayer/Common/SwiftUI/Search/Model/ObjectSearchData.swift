@@ -11,12 +11,10 @@ struct ObjectSearchData: SearchDataProtocol {
     
     let blockId: BlockId
     
-    private let searchKind: SearchKind
     private let details: ObjectDetails
     
-    init(searchKind: SearchKind, details: ObjectDetails) {
+    init(details: ObjectDetails) {
         self.details = details
-        self.searchKind = searchKind
         self.title = details.title
         self.description = details.description
         self.callout = details.objectType.name
@@ -33,27 +31,19 @@ extension ObjectSearchData {
     }
     
     var descriptionTextColor: Color {
-        switch searchKind {
-        case .objects: return .textPrimary
-        }
+        .textPrimary
     }
     
     var descriptionFont: AnytypeFont {
-        switch searchKind {
-        case .objects: return .relation3Regular
-        }
+        .relation3Regular
     }
     
     var shouldShowCallout: Bool {
-        switch searchKind {
-        case .objects: return callout.isNotEmpty
-        }
+        callout.isNotEmpty
     }
     
     var verticalInset: CGFloat {
-        switch searchKind {
-        case .objects: return 16
-        }
+        16
     }
 
     var usecase: ObjectIconImageUsecase {
