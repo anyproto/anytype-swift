@@ -25,6 +25,7 @@ final class ImageName {
             static let code = "slash_menu_style_code"
             static let heading = "slash_menu_style_heading"
             static let highlighted = "slash_menu_style_highlighted"
+            static let callout = "slash_menu_style_callout"
             static let italic = "slash_menu_style_italic"
             static let link = "slash_menu_style_link"
             static let numbered = "slash_menu_style_numbered"

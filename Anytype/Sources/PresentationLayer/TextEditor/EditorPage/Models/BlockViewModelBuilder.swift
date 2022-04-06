@@ -42,7 +42,14 @@ final class BlockViewModelBuilder {
 
     private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
         infos.compactMap { info -> BlockViewModelProtocol? in
-            build(info: info)
+
+
+            let block = build(info: info)
+            if (block == nil) {
+                print(info)
+            }
+
+            return block
         }
     }
 
