@@ -13,6 +13,7 @@ struct NewRelationView: View {
             TitleView(title: "New relation".localized)
             nameSection
             formatSection
+            restrictionsSection
         }
         .padding(.horizontal, 20)
     }
@@ -33,6 +34,14 @@ struct NewRelationView: View {
     private var formatSection: some View {
         NewRelationFormatSectionView(format: viewModel.format) {
             viewModel.didTapFormatSection()
+        }
+    }
+    
+    private var restrictionsSection: some View {
+        viewModel.objectTypeRestrictions.flatMap {
+            NewRelationRestrictionsSectionView(model: $0) {
+                debugPrint("")
+            }
         }
     }
 }
