@@ -1,6 +1,6 @@
 import Foundation
 
-final class NewSearchModuleAssembly {
+final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
  
     static func buildStatusSearchModule(
         allStatuses: [Relation.Status.Option],
