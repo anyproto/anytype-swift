@@ -1,15 +1,15 @@
 import Foundation
 
-final class RelationFormatsViewModel: ObservableObject {
+final class RelationFormatsListViewModel: ObservableObject {
     
-    let supportedFormatModels: [RelationFormatCell.Model]
+    let supportedFormatModels: [RelationFormatListCell.Model]
     
     private let onSelect: (SupportedRelationFormat) -> Void
     
     init(onSelect: @escaping (SupportedRelationFormat) -> Void) {
         self.onSelect = onSelect
         self.supportedFormatModels = SupportedRelationFormat.allCases.map {
-            RelationFormatCell.Model(
+            RelationFormatListCell.Model(
                 id: $0.id,
                 title: $0.title,
                 icon: $0.icon,
@@ -20,7 +20,7 @@ final class RelationFormatsViewModel: ObservableObject {
     
 }
 
-extension RelationFormatsViewModel {
+extension RelationFormatsListViewModel {
     
     func didSelectFormat(id: String) {
         guard let format = SupportedRelationFormat(rawValue: id) else { return }

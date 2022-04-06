@@ -14,6 +14,7 @@ struct NewRelationView: View {
             nameSection
             formatSection
         }
+        .padding(.horizontal, 20)
     }
     
     private var nameSection: some View {
