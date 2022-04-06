@@ -17,13 +17,13 @@ protocol NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView
     
     static func objectsSearchModule(
-        selectedObjectIds: [String],
+        excludedObjectIds: [String],
         limitedObjectType: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     
     static func filesSearchModule(
-        selectedObjectIds: [String],
+        excludedFileIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     

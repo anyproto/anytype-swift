@@ -45,13 +45,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     }
     
     static func objectsSearchModule(
-        selectedObjectIds: [String],
+        excludedObjectIds: [String],
         limitedObjectType: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectsSearchInteractor(
             searchService: SearchService(),
-            selectedObjectIds: selectedObjectIds,
+            excludedObjectIds: excludedObjectIds,
             limitedObjectType: limitedObjectType
         )
         
@@ -66,12 +66,12 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     }
     
     static func filesSearchModule(
-        selectedObjectIds: [String],
+        excludedFileIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = FilesSearchInteractor(
             searchService: SearchService(),
-            selectedObjectIds: selectedObjectIds
+            excludedFileIds: excludedFileIds
         )
         
         let internalViewModel = ObjectsSearchViewModel(interactor: interactor)
