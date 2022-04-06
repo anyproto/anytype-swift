@@ -10,7 +10,6 @@ struct NewRelationView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            DragIndicator()
             TitleView(title: "New relation".localized)
             nameSection
             formatSection
