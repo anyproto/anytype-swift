@@ -204,13 +204,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
-        let objectKind: SearchKind = .objectTypes(currentObjectTypeUrl: document.details?.type ?? "")
-        let viewModel = ObjectSearchViewModel(searchKind: objectKind) { data in
-            onSelect(data.blockId)
+        let view = NewSearchModuleAssembly.objectTypesSearchModule(
+            excludedObjectTypeId: document.details?.type
+        ) { [weak self] id in
+            onSelect(id)
+            
+            self?.viewController?.topPresentedController.dismiss(animated: true)
         }
-        let searchView = SearchView(title: "Change type".localized, context: .menuSearch, viewModel: viewModel)
-
-        presentSwuftUIView(view: searchView, model: viewModel)
+        
+        let controller = UIHostingController(rootView: view)
+        viewController?.topPresentedController.present(controller, animated: true)
     }
     
     func goBack() {

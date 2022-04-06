@@ -27,4 +27,9 @@ protocol NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     
+    static func objectTypesSearchModule(
+        excludedObjectTypeId: String?,
+        onSelect: @escaping (_ id: String) -> Void
+    ) -> NewSearchView
+    
 }
