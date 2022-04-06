@@ -35,28 +35,24 @@ extension ObjectSearchData {
     var descriptionTextColor: Color {
         switch searchKind {
         case .objects: return .textPrimary
-        case .objectTypes: return .textSecondary
         }
     }
     
     var descriptionFont: AnytypeFont {
         switch searchKind {
         case .objects: return .relation3Regular
-        case .objectTypes: return .relation2Regular
         }
     }
     
     var shouldShowCallout: Bool {
         switch searchKind {
         case .objects: return callout.isNotEmpty
-        case .objectTypes: return false
         }
     }
     
     var verticalInset: CGFloat {
         switch searchKind {
         case .objects: return 16
-        case .objectTypes: return 20
         }
     }
 

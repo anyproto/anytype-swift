@@ -3,14 +3,11 @@ import BlocksModels
 
 enum SearchKind {
     case objects
-    case objectTypes(currentObjectTypeUrl: String)
     
     var descriptionTextColor: Color {
         switch self {
         case .objects:
             return .textPrimary
-        case .objectTypes:
-            return .textSecondary
         }
     }
     
@@ -18,8 +15,6 @@ enum SearchKind {
         switch self {
         case .objects:
             return true
-        case .objectTypes:
-            return false
         }
     }
 }
@@ -63,8 +58,6 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
         switch searchKind {
         case .objects:
             return service.search(text: text)
-        case .objectTypes(let currentObjectTypeUrl):
-            return service.searchObjectTypes(text: text, filteringTypeUrl: currentObjectTypeUrl)
         }
     }
 }
