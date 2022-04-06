@@ -21,10 +21,6 @@ struct BlockDragConfiguration {
     let id: String
 }
 
-struct BlockDragConfiguration {
-    let id: String
-}
-
 extension BlockConfiguration {
     func cellBlockConfiguration(
         indentationSettings: IndentationSettings?,
