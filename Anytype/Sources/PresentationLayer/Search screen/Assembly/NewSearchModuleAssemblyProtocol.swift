@@ -2,27 +2,27 @@ import Foundation
 
 protocol NewSearchModuleAssemblyProtocol {
     
-    static func buildStatusSearchModule(
+    static func statusSearchModule(
         allStatuses: [Relation.Status.Option],
         selectedStatus: Relation.Status.Option?,
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
     ) -> NewSearchView
     
-    static func buildTagsSearchModule(
+    static func tagsSearchModule(
         allTags: [Relation.Tag.Option],
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
     ) -> NewSearchView
     
-    static func buildObjectsSearchModule(
+    static func objectsSearchModule(
         selectedObjectIds: [String],
         limitedObjectType: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     
-    static func buildFilesSearchModule(
+    static func filesSearchModule(
         selectedObjectIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
