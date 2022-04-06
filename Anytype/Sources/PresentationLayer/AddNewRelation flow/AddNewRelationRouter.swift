@@ -5,36 +5,68 @@ import SwiftUI
 
 final class AddNewRelationRouter {
 
+    var onSelect: ((_ newRelation: RelationMetadata) -> Void)?
+    
     private let document: BaseDocumentProtocol
     private weak var viewController: UIViewController?
     
-    init(document: BaseDocumentProtocol, viewController: UIViewController) {
+    init(
+        document: BaseDocumentProtocol,
+        viewController: UIViewController
+    ) {
         self.document = document
         self.viewController = viewController
     }
     
 }
+
 extension AddNewRelationRouter {
     
-    func showAddNewRelationView(onSelect: ((_ newRelation: RelationMetadata) -> Void)?) {
+    func showAddNewRelationView() {
         let relationService = RelationsService(objectId: document.objectId)
 
         let viewModel = SearchNewRelationViewModel(
-            relationService: relationService,
             objectRelations: document.parsedRelations,
-            onSelect: onSelect
+            relationService: relationService,
+            output: self,
+            onSelect: nil
         )
 
         let view = SearchNewRelationView(viewModel: viewModel)
         
-        presentSwuftUIView(view: view, model: viewModel)
+        presentSwuftUIView(view: view)
     }
     
-    private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
+}
+
+extension AddNewRelationRouter: SearchNewRelationModuleOutput {
+    
+    func didAddRelation(_ relation: RelationMetadata) {
+        onSelect?(relation)
+        viewController?.topPresentedController.dismiss(animated: true)
+    }
+    
+    func didAskToShowCreateNewRelation(searchText: String) {
+        viewController?.topPresentedController.dismiss(animated: true) { [weak self] in
+            self?.showCreateNewRelationView(searchText: searchText)
+        }
+    }
+    
+    private func showCreateNewRelationView(searchText: String) {
+        let viewModel = NewRelationViewModel(name: searchText)
+        let view = NewRelationView(viewModel: viewModel)
+        
+        presentSwuftUIView(view: view)
+    }
+      
+}
+
+private extension AddNewRelationRouter {
+    
+    func presentSwuftUIView<Content: View>(view: Content) {
         guard let viewController = viewController else { return }
         
         let controller = UIHostingController(rootView: view)
-//        model.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
         viewController.topPresentedController.present(controller, animated: true)
     }
     
