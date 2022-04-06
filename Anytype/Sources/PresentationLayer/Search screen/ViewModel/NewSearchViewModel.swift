@@ -4,6 +4,8 @@ import Combine
 
 final class NewSearchViewModel: ObservableObject {
     
+    let title: String?
+    
     @Published private(set) var listModel: NewSearchView.ListModel = .plain(rows: [])
     @Published private(set) var addButtonModel: NewSearchView.AddButtonModel? = nil
     @Published private(set) var isCreateButtonAvailable: Bool = false
@@ -22,11 +24,13 @@ final class NewSearchViewModel: ObservableObject {
     }
     
     init(
+        title: String? = nil,
         selectionMode: SelectionMode,
         itemCreationMode: ItemCreationMode,
         internalViewModel: NewInternalSearchViewModelProtocol,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) {
+        self.title = title
         self.selectionMode = selectionMode
         self.itemCreationMode = itemCreationMode
         self.internalViewModel = internalViewModel

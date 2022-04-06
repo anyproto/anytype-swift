@@ -95,6 +95,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let internalViewModel = ObjectTypesSearchViewModel(interactor: interactor)
         let viewModel = NewSearchViewModel(
+            title: "Change type".localized,
             selectionMode: .singleItem,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel
