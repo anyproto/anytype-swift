@@ -21,7 +21,7 @@ enum BlockInformationConverter {
             fields: block.fields.toFieldTypeMap(),
             metadata: .init(
                 backgroundColor: color,
-                indentationStyle: blockContent.indentationStyle
+                indentationStyle: .none
             )
         )
         

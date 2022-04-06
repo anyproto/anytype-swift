@@ -6,13 +6,15 @@ public enum IndentationBuilder {
             parent.childrenIds.forEach { childrenId in
                 guard var child = container.get(id: childrenId) else { return }
 
+                let isLastChild = parent.childrenIds.last == childrenId
+
                 child = child.updated(
                     metadata: BlockInformationMetadata(
                         parentId: parent.id,
                         parentBackgroundColors: parentBackgroundColors(child: child, parent: parent),
-                        parentIndentationStyle: parentIndentationStyles(child: child, parent: parent),
+                        parentIndentationStyle: parentIndentationStyles(child: child, isLastChild: isLastChild, parent: parent),
                         backgroundColor: child.backgroundColor,
-                        indentationStyle: child.content.indentationStyle
+                        indentationStyle: child.content.indentationStyle(isSingleChild: child.childrenIds.isEmpty)
                     )
                 )
 
@@ -46,6 +48,7 @@ public enum IndentationBuilder {
 
     private static func parentIndentationStyles(
         child: BlockInformation,
+        isLastChild: Bool,
         parent: BlockInformation
     ) -> [BlockIndentationStyle] {
         var previousIndentationStyles = [BlockIndentationStyle]()
@@ -53,7 +56,7 @@ public enum IndentationBuilder {
         if parent.kind != .meta, child.kind != .meta {
             previousIndentationStyles = parent.metadata.parentIndentationStyle
 
-            previousIndentationStyles.append(parent.content.indentationStyle)
+            previousIndentationStyles.append(parent.content.indentationStyle(isLastChildBlock: isLastChild))
         } else {
             previousIndentationStyles = parent.metadata.parentIndentationStyle
         }
@@ -63,11 +66,15 @@ public enum IndentationBuilder {
 }
 
 public extension BlockContent {
-    var indentationStyle: BlockIndentationStyle {
+    func indentationStyle(
+        isLastChildBlock: Bool = false,
+        isSingleChild: Bool = false,
+        hasChildrenBlocks: Bool = false
+    ) -> BlockIndentationStyle {
         switch self {
         case .text(let blockText):
             switch blockText.contentType {
-            case .quote: return .highlighted
+            case .quote: return .highlighted(isSingleChild ? .single : isLastChildBlock ? .closing : .full)
             case .callout: return .callout
             default: return .none
             }

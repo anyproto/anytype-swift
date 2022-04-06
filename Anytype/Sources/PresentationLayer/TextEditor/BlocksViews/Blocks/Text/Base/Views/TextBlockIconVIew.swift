@@ -202,7 +202,7 @@ extension TextBlockIconView {
         layoutUsing.anchors {
             $0.width.equal(to: Constants.size.width, priority: .defaultHigh)
             if let superview = superview {
-                $0.top.equal(to: superview.topAnchor)
+                $0.top.equal(to: superview.topAnchor, priority: .defaultHigh)
                 $0.bottom.equal(to: superview.bottomAnchor)
             }
         }
