@@ -37,8 +37,8 @@ struct NewRelationView: View {
     }
 }
 
-struct NewRelationView_Previews: PreviewProvider {
-    static var previews: some View {
-        NewRelationView(viewModel: NewRelationViewModel(name: "name"))
-    }
-}
+//struct NewRelationView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        NewRelationView(viewModel: NewRelationViewModel(name: "name"))
+//    }
+//}
