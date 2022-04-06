@@ -84,7 +84,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func objectTypesSearchModule(
+    static func changeObjectTypeSearchModule(
         excludedObjectTypeId: String?,
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView {
