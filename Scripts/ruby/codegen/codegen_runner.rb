@@ -29,7 +29,6 @@ class CodegenRunner
       :transform,
       :outputFilePath,
       :templateFilePath,
-      :commentsHeaderFilePath,
       :importsFilePath,
       :serviceFilePath
     ]
