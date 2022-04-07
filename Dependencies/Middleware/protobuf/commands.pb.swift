@@ -9649,6 +9649,7 @@ public struct Anytype_Rpc {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
+    /// TODO: use model from models.proto
     public struct Config {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -9741,32 +9742,33 @@ public struct Anytype_Rpc {
 
         /// Error while trying to create an account
         public var error: Anytype_Rpc.Account.Create.Response.Error {
-          get {return _storage._error ?? Anytype_Rpc.Account.Create.Response.Error()}
-          set {_uniqueStorage()._error = newValue}
+          get {return _error ?? Anytype_Rpc.Account.Create.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {return _storage._error != nil}
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {_uniqueStorage()._error = nil}
+        public mutating func clearError() {self._error = nil}
 
         /// A newly created account; In case of a failure, i.e. error is non-NULL, the account model should contain empty/default-value fields
         public var account: Anytype_Model_Account {
-          get {return _storage._account ?? Anytype_Model_Account()}
-          set {_uniqueStorage()._account = newValue}
+          get {return _account ?? Anytype_Model_Account()}
+          set {_account = newValue}
         }
         /// Returns true if `account` has been explicitly set.
-        public var hasAccount: Bool {return _storage._account != nil}
+        public var hasAccount: Bool {return self._account != nil}
         /// Clears the value of `account`. Subsequent reads from it will return its default value.
-        public mutating func clearAccount() {_uniqueStorage()._account = nil}
+        public mutating func clearAccount() {self._account = nil}
 
+        /// deprecated, use account
         public var config: Anytype_Rpc.Account.Config {
-          get {return _storage._config ?? Anytype_Rpc.Account.Config()}
-          set {_uniqueStorage()._config = newValue}
+          get {return _config ?? Anytype_Rpc.Account.Config()}
+          set {_config = newValue}
         }
         /// Returns true if `config` has been explicitly set.
-        public var hasConfig: Bool {return _storage._config != nil}
+        public var hasConfig: Bool {return self._config != nil}
         /// Clears the value of `config`. Subsequent reads from it will return its default value.
-        public mutating func clearConfig() {_uniqueStorage()._config = nil}
+        public mutating func clearConfig() {self._config = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -9853,7 +9855,9 @@ public struct Anytype_Rpc {
 
         public init() {}
 
-        fileprivate var _storage = _StorageClass.defaultInstance
+        fileprivate var _error: Anytype_Rpc.Account.Create.Response.Error? = nil
+        fileprivate var _account: Anytype_Model_Account? = nil
+        fileprivate var _config: Anytype_Rpc.Account.Config? = nil
       }
 
       public init() {}
@@ -9926,6 +9930,7 @@ public struct Anytype_Rpc {
             case walletRecoverNotPerformed // = 106
             case failedToStopRunningNode // = 107
             case anotherAnytypeProcessIsRunning // = 108
+            case accountIsDeleted // = 109
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -9945,6 +9950,7 @@ public struct Anytype_Rpc {
               case 106: self = .walletRecoverNotPerformed
               case 107: self = .failedToStopRunningNode
               case 108: self = .anotherAnytypeProcessIsRunning
+              case 109: self = .accountIsDeleted
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -9962,6 +9968,7 @@ public struct Anytype_Rpc {
               case .walletRecoverNotPerformed: return 106
               case .failedToStopRunningNode: return 107
               case .anotherAnytypeProcessIsRunning: return 108
+              case .accountIsDeleted: return 109
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -9974,6 +9981,115 @@ public struct Anytype_Rpc {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.Account.Recover.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    public struct Delete {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var revert: Bool = false
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// Error while trying to recover an account
+        public var error: Anytype_Rpc.Account.Delete.Response.Error {
+          get {return _error ?? Anytype_Rpc.Account.Delete.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var status: Anytype_Model_Account.Status {
+          get {return _status ?? Anytype_Model_Account.Status()}
+          set {_status = newValue}
+        }
+        /// Returns true if `status` has been explicitly set.
+        public var hasStatus: Bool {return self._status != nil}
+        /// Clears the value of `status`. Subsequent reads from it will return its default value.
+        public mutating func clearStatus() {self._status = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Account.Delete.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+
+            /// No error;
+            case null // = 0
+
+            /// Any other errors
+            case unknownError // = 1
+            case badInput // = 2
+            case accountIsAlreadyDeleted // = 101
+            case accountIsActive // = 102
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 101: self = .accountIsAlreadyDeleted
+              case 102: self = .accountIsActive
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .accountIsAlreadyDeleted: return 101
+              case .accountIsActive: return 102
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Account.Delete.Response.Error? = nil
+        fileprivate var _status: Anytype_Model_Account.Status? = nil
       }
 
       public init() {}
@@ -10014,32 +10130,33 @@ public struct Anytype_Rpc {
 
         /// Error while trying to launch/select an account
         public var error: Anytype_Rpc.Account.Select.Response.Error {
-          get {return _storage._error ?? Anytype_Rpc.Account.Select.Response.Error()}
-          set {_uniqueStorage()._error = newValue}
+          get {return _error ?? Anytype_Rpc.Account.Select.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {return _storage._error != nil}
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {_uniqueStorage()._error = nil}
+        public mutating func clearError() {self._error = nil}
 
         /// Selected account
         public var account: Anytype_Model_Account {
-          get {return _storage._account ?? Anytype_Model_Account()}
-          set {_uniqueStorage()._account = newValue}
+          get {return _account ?? Anytype_Model_Account()}
+          set {_account = newValue}
         }
         /// Returns true if `account` has been explicitly set.
-        public var hasAccount: Bool {return _storage._account != nil}
+        public var hasAccount: Bool {return self._account != nil}
         /// Clears the value of `account`. Subsequent reads from it will return its default value.
-        public mutating func clearAccount() {_uniqueStorage()._account = nil}
+        public mutating func clearAccount() {self._account = nil}
 
+        /// deprecated, use account
         public var config: Anytype_Rpc.Account.Config {
-          get {return _storage._config ?? Anytype_Rpc.Account.Config()}
-          set {_uniqueStorage()._config = newValue}
+          get {return _config ?? Anytype_Rpc.Account.Config()}
+          set {_config = newValue}
         }
         /// Returns true if `config` has been explicitly set.
-        public var hasConfig: Bool {return _storage._config != nil}
+        public var hasConfig: Bool {return self._config != nil}
         /// Clears the value of `config`. Subsequent reads from it will return its default value.
-        public mutating func clearConfig() {_uniqueStorage()._config = nil}
+        public mutating func clearConfig() {self._config = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -10120,7 +10237,9 @@ public struct Anytype_Rpc {
 
         public init() {}
 
-        fileprivate var _storage = _StorageClass.defaultInstance
+        fileprivate var _error: Anytype_Rpc.Account.Select.Response.Error? = nil
+        fileprivate var _account: Anytype_Model_Account? = nil
+        fileprivate var _config: Anytype_Rpc.Account.Config? = nil
       }
 
       public init() {}
@@ -17844,6 +17963,18 @@ extension Anytype_Rpc.Account.Recover.Response.Error.Code: CaseIterable {
     .walletRecoverNotPerformed,
     .failedToStopRunningNode,
     .anotherAnytypeProcessIsRunning,
+    .accountIsDeleted,
+  ]
+}
+
+extension Anytype_Rpc.Account.Delete.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.Delete.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .accountIsAlreadyDeleted,
+    .accountIsActive,
   ]
 }
 
@@ -18985,6 +19116,11 @@ extension Anytype_Rpc.Account.Recover.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Account.Recover.Response: @unchecked Sendable {}
 extension Anytype_Rpc.Account.Recover.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Account.Recover.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Delete: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Delete.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Delete.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Delete.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Delete.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.Account.Select: @unchecked Sendable {}
 extension Anytype_Rpc.Account.Select.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Account.Select.Response: @unchecked Sendable {}
@@ -33513,77 +33649,41 @@ extension Anytype_Rpc.Account.Create.Response: SwiftProtobuf.Message, SwiftProto
     3: .same(proto: "config"),
   ]
 
-  fileprivate class _StorageClass {
-    var _error: Anytype_Rpc.Account.Create.Response.Error? = nil
-    var _account: Anytype_Model_Account? = nil
-    var _config: Anytype_Rpc.Account.Config? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _error = source._error
-      _account = source._account
-      _config = source._config
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._error) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._account) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._config) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._account) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._config) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      try { if let v = _storage._error {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      } }()
-      try { if let v = _storage._account {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      } }()
-      try { if let v = _storage._config {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
-    }
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._account {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._config {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Create.Response, rhs: Anytype_Rpc.Account.Create.Response) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._error != rhs_storage._error {return false}
-        if _storage._account != rhs_storage._account {return false}
-        if _storage._config != rhs_storage._config {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._account != rhs._account {return false}
+    if lhs._config != rhs._config {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -33768,6 +33868,148 @@ extension Anytype_Rpc.Account.Recover.Response.Error.Code: SwiftProtobuf._ProtoN
     106: .same(proto: "WALLET_RECOVER_NOT_PERFORMED"),
     107: .same(proto: "FAILED_TO_STOP_RUNNING_NODE"),
     108: .same(proto: "ANOTHER_ANYTYPE_PROCESS_IS_RUNNING"),
+    109: .same(proto: "ACCOUNT_IS_DELETED"),
+  ]
+}
+
+extension Anytype_Rpc.Account.Delete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Delete"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Delete, rhs: Anytype_Rpc.Account.Delete) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Delete.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.Delete.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "revert"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.revert) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.revert != false {
+      try visitor.visitSingularBoolField(value: self.revert, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Delete.Request, rhs: Anytype_Rpc.Account.Delete.Request) -> Bool {
+    if lhs.revert != rhs.revert {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Delete.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.Delete.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "status"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._status) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._status {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Delete.Response, rhs: Anytype_Rpc.Account.Delete.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs._status != rhs._status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Delete.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.Delete.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Delete.Response.Error, rhs: Anytype_Rpc.Account.Delete.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Delete.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    101: .same(proto: "ACCOUNT_IS_ALREADY_DELETED"),
+    102: .same(proto: "ACCOUNT_IS_ACTIVE"),
   ]
 }
 
@@ -33836,77 +34078,41 @@ extension Anytype_Rpc.Account.Select.Response: SwiftProtobuf.Message, SwiftProto
     3: .same(proto: "config"),
   ]
 
-  fileprivate class _StorageClass {
-    var _error: Anytype_Rpc.Account.Select.Response.Error? = nil
-    var _account: Anytype_Model_Account? = nil
-    var _config: Anytype_Rpc.Account.Config? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _error = source._error
-      _account = source._account
-      _config = source._config
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._error) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._account) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._config) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._account) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._config) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      try { if let v = _storage._error {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      } }()
-      try { if let v = _storage._account {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      } }()
-      try { if let v = _storage._config {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
-    }
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._account {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._config {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Select.Response, rhs: Anytype_Rpc.Account.Select.Response) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._error != rhs_storage._error {return false}
-        if _storage._account != rhs_storage._account {return false}
-        if _storage._config != rhs_storage._config {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._account != rhs._account {return false}
+    if lhs._config != rhs._config {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

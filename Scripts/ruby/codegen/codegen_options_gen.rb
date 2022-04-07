@@ -5,7 +5,6 @@ require_relative 'codegen_config'
 class CodegenDefaultOptionsGenerator
   def self.defaultOptions
     options = {
-      commentsHeaderFilePath: File.expand_path("#{__dir__}/../../../Templates/Middleware/commands+HeaderComments.pb.swift"),
       serviceFilePath: File.expand_path("#{__dir__}/../../../Dependencies/Middleware/#{Constants::PROTOBUF_DIRECTORY_NAME}/protos/service.proto"),
     }
   end
@@ -30,7 +29,7 @@ class CodegenDefaultOptionsGenerator
       filePath: filePath,
     }
 
-    paths = [:outputFilePath, :templateFilePath, :commentsHeaderFilePath, :importsFilePath]
+    paths = [:outputFilePath, :templateFilePath, :importsFilePath]
     
     for path in paths
       if path == :outputFilePath
@@ -53,21 +52,18 @@ class CodegenDefaultOptionsGenerator
         case key
           when :outputFilePath then "+Initializers"
           when :templateFilePath then nil #"+Initializers+Template"
-          when :commentsHeaderFilePath then "+CommentsHeader"
           when :importsFilePath then "+Initializers+Import"
         end
       when "serviceWithRequestAndResponse" then
         case key
           when :outputFilePath then "+Service"
           when :templateFilePath then "+Service+Template"
-          when :commentsHeaderFilePath then "+CommentsHeader"
           when :importsFilePath then "+Service+Import"
         end
       when "errorAdoption" then
         case key
           when :outputFilePath then "+ErrorAdoption"
           when :templateFilePath then nil
-          when :commentsHeaderFilePath then "+CommentsHeader"
           when :importsFilePath then nil
         end
     end
