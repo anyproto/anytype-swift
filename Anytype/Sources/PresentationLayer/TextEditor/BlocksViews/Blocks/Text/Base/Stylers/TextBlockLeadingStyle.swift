@@ -51,9 +51,7 @@ enum TextBlockLeadingStyle {
             )
         case .numbered:
             self = .numbered(configuration.content.number)
-        case .quote:
-            self = .quote
-        case .header, .header2, .header3, .header4, .code, .description, .text, .callout:
+        case .header, .header2, .header3, .header4, .code, .description, .text, .callout, .quote:
             self = .body
         }
     }
