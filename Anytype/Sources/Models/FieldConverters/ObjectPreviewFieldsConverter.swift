@@ -38,11 +38,6 @@ extension ObjectPreviewFields: FieldsConvertibleProtocol {
         }
         protoFields[FieldName.withDescription] = withDescription.protobufValue
 
-        let withName = featuredRelationsIds.contains {
-            $0 == BundledRelationKey.snippet.rawValue
-        }
-        protoFields[FieldName.withName] = withName.protobufValue
-
         return protoFields
     }
 

@@ -42,6 +42,11 @@ final class ObjectPreviewViewModel: ObservableObject {
     }
 
     func toggleFeaturedRelation(id: String, isEnabled: Bool) {
+        var withName = objectPreviewFields.withName
+        if id == BundledRelationKey.name.rawValue {
+            withName = isEnabled
+        }
+
         var newFeaturedRelationsIds = Set(objectPreviewFields.featuredRelationsIds)
 
         if isEnabled {
@@ -53,7 +58,7 @@ final class ObjectPreviewViewModel: ObservableObject {
         objectPreviewFields = ObjectPreviewFields(
             icon: objectPreviewFields.icon,
             layout: objectPreviewFields.layout,
-            withName: objectPreviewFields.withName,
+            withName: withName,
             featuredRelationsIds: newFeaturedRelationsIds
         )
 

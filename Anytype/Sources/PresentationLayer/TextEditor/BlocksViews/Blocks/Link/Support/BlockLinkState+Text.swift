@@ -1,4 +1,5 @@
 import UIKit
+import BlocksModels
 
 extension BlockLinkState {
     
@@ -9,10 +10,25 @@ extension BlockLinkState {
                 attributes: disabledAttributes
             )
         }
+
+        guard objectPreviewFields.withName else {
+            return NSAttributedString(string: .empty)
+        }
         
         return NSAttributedString(
             string: !title.isEmpty ? title : "Untitled".localized,
             attributes: archived ? disabledAttributes : enabledAttributes
+        )
+    }
+
+    var attributedDescription: NSAttributedString {
+        guard !deleted, hasDescription else {
+            return NSAttributedString(string: .empty)
+        }
+
+        return NSAttributedString(
+            string: description,
+            attributes: archived ? disabledDescriptionAttributes : enabledDescriptionAttributes
         )
     }
     
@@ -31,6 +47,20 @@ extension BlockLinkState {
             .foregroundColor: UIColor.textPrimary,
             .underlineStyle: NSUnderlineStyle.single.rawValue,
             .underlineColor: UIColor.buttonActive
+        ]
+    }
+
+    private var disabledDescriptionAttributes: [NSAttributedString.Key : Any] {
+        [
+            .font: UIFont.relation2Regular,
+            .foregroundColor: UIColor.textSecondary,
+        ]
+    }
+
+    private var enabledDescriptionAttributes: [NSAttributedString.Key : Any] {
+        [
+            .font: UIFont.relation2Regular,
+            .foregroundColor: UIColor.textSecondary,
         ]
     }
     

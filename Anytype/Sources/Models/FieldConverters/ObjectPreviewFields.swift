@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct ObjectPreviewFields {
+struct ObjectPreviewFields: Hashable {
 
     enum FieldName {
         public static let withName = "withName"

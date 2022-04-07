@@ -175,7 +175,9 @@ public extension UIView.Stack {
 // MARK: - Stack + gaps
 
 public extension UIView.Stack {
-    
+    typealias MinMaxGapViewClosure = (MinMaxGapViewConstraintProtocol) -> Void
+    typealias FixeGapViewClosure = (FixedGapViewConstraintProtocol) -> Void
+
     /// Gap with min/max height
     ///
     /// - Parameters:
@@ -190,14 +192,18 @@ public extension UIView.Stack {
               max maxHeight: CGFloat? = nil,
               color: UIColor = .clear,
               relatedTo relatedView: UIView? = nil,
-              reversely: Bool = false) -> UIView {
+              reversely: Bool = false,
+              view: MinMaxGapViewClosure? = nil) -> MinMaxGapViewConstraintProtocol {
         let spacing = GapView(relatedView: relatedView, reversely: reversely)
         spacing.backgroundColor = color
         
-        spacing.heightAnchor.constraint(greaterThanOrEqualToConstant: minHeight).isActive = true
+        spacing.minConstraint = spacing.heightAnchor.constraint(greaterThanOrEqualToConstant: minHeight)
+        spacing.minConstraint?.isActive = true
         if let maxHeight = maxHeight {
-            spacing.heightAnchor.constraint(lessThanOrEqualToConstant: maxHeight).isActive = true
+            spacing.maxConstraint = spacing.heightAnchor.constraint(lessThanOrEqualToConstant: maxHeight)
+            spacing.maxConstraint?.isActive = true
         }
+        view?(spacing)
         
         return spacing
     }
@@ -206,8 +212,8 @@ public extension UIView.Stack {
     ///
     /// - Parameter height: height of gap
     /// - Returns: view representing the gap
-    func vGap(fixed height: CGFloat) -> UIView {
-        vGap(fixed: height, color: .clear)
+    func vGap(fixed height: CGFloat, view: FixeGapViewClosure? = nil) -> FixedGapViewConstraintProtocol {
+        vGap(fixed: height, color: .clear, view: view)
     }
     
     /// Vertical gap between arranged subviews
@@ -222,17 +228,20 @@ public extension UIView.Stack {
     func vGap(fixed height: CGFloat? = nil,
               color: UIColor = .clear,
               relatedTo relatedView: UIView? = nil,
-              reversely: Bool = false) -> UIView {
+              reversely: Bool = false,
+              view: FixeGapViewClosure? = nil) -> FixedGapViewConstraintProtocol {
         
         let spacing = GapView(relatedView: relatedView, reversely: reversely)
         spacing.backgroundColor = color
         
         if let height = height {
-            spacing.heightAnchor.constraint(equalToConstant: height).isActive = true
+            spacing.fixedConstraint = spacing.heightAnchor.constraint(equalToConstant: height)
+            spacing.fixedConstraint?.isActive = true
         } else {
             spacing.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
             spacing.setContentHuggingPriority(.defaultLow, for: .vertical)
         }
+        view?(spacing)
 
         return spacing
     }
@@ -241,8 +250,8 @@ public extension UIView.Stack {
     ///
     /// - Parameter width: width of gap
     /// - Returns: view representing the gap
-    func hGap(fixed width: CGFloat) -> UIView {
-        hGap(fixed: width, color: .clear)
+    func hGap(fixed width: CGFloat, view: FixeGapViewClosure? = nil) -> FixedGapViewConstraintProtocol {
+        hGap(fixed: width, color: .clear, view: view)
     }
     
     /// Horizontal gap between arranged subviews
@@ -257,17 +266,20 @@ public extension UIView.Stack {
     func hGap(fixed width: CGFloat? = nil,
               color: UIColor = .clear,
               relatedTo relatedView: UIView? = nil,
-              reversely: Bool = false) -> UIView {
+              reversely: Bool = false,
+              view: FixeGapViewClosure? = nil) -> FixedGapViewConstraintProtocol {
         
         let spacing = GapView(relatedView: relatedView, reversely: reversely)
         spacing.backgroundColor = color
         
         if let width = width {
-            spacing.widthAnchor.constraint(equalToConstant: width).isActive = true
+            spacing.fixedConstraint = spacing.widthAnchor.constraint(equalToConstant: width)
+            spacing.fixedConstraint?.isActive = true
         } else {
             spacing.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             spacing.setContentHuggingPriority(.defaultLow, for: .horizontal)
         }
+        view?(spacing)
         
         return spacing
     }
@@ -286,7 +298,19 @@ public extension UIView.Stack {
     
 }
 
-private final class GapView: UIView {
+public protocol FixedGapViewConstraintProtocol: UIView {
+    var fixedConstraint: NSLayoutConstraint? { get set }
+}
+
+public protocol MinMaxGapViewConstraintProtocol: UIView {
+    var minConstraint: NSLayoutConstraint? { get set }
+    var maxConstraint: NSLayoutConstraint? { get set }
+}
+
+private final class GapView: UIView, FixedGapViewConstraintProtocol, MinMaxGapViewConstraintProtocol {
+    var minConstraint: NSLayoutConstraint?
+    var maxConstraint: NSLayoutConstraint?
+    var fixedConstraint: NSLayoutConstraint?
 
     private var observation: NSKeyValueObservation?
 

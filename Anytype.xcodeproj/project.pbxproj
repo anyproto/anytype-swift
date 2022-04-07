@@ -588,7 +588,7 @@
 		3DAE1C84273E69AD009A72F3 /* Range+Mention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAE1C83273E69AD009A72F3 /* Range+Mention.swift */; };
 		3DAE1C89273E6A59009A72F3 /* String+Range.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAE1C88273E6A59009A72F3 /* String+Range.swift */; };
 		3DAE1CB0273EA208009A72F3 /* EditorSetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAE1CAF273EA208009A72F3 /* EditorSetView.swift */; };
-		3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9C92726A6E7000D2779 /* BlockLinkState+Title.swift */; };
+		3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9C92726A6E7000D2779 /* BlockLinkState+Text.swift */; };
 		3DB1C9DC2726C248000D2779 /* DeletedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9DB2726C248000D2779 /* DeletedLabel.swift */; };
 		3DB1C9DF2726D0E5000D2779 /* EditorPageDeletedScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9DE2726D0E5000D2779 /* EditorPageDeletedScreen.swift */; };
 		3DB1C9E12727DAEF000D2779 /* UIView+SpookyShake.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1C9E02727DAEF000D2779 /* UIView+SpookyShake.swift */; };
@@ -1566,7 +1566,7 @@
 		3DAE1C83273E69AD009A72F3 /* Range+Mention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Range+Mention.swift"; sourceTree = "<group>"; };
 		3DAE1C88273E6A59009A72F3 /* String+Range.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Range.swift"; sourceTree = "<group>"; };
 		3DAE1CAF273EA208009A72F3 /* EditorSetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetView.swift; sourceTree = "<group>"; };
-		3DB1C9C92726A6E7000D2779 /* BlockLinkState+Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockLinkState+Title.swift"; sourceTree = "<group>"; };
+		3DB1C9C92726A6E7000D2779 /* BlockLinkState+Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockLinkState+Text.swift"; sourceTree = "<group>"; };
 		3DB1C9DB2726C248000D2779 /* DeletedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedLabel.swift; sourceTree = "<group>"; };
 		3DB1C9DE2726D0E5000D2779 /* EditorPageDeletedScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageDeletedScreen.swift; sourceTree = "<group>"; };
 		3DB1C9E02727DAEF000D2779 /* UIView+SpookyShake.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+SpookyShake.swift"; sourceTree = "<group>"; };
@@ -4170,7 +4170,7 @@
 				3DDC6A5F2627071E004F5EA4 /* BlockLinkState.swift */,
 				1256666127C7814C005F774D /* BlockLinkStateStyle.swift */,
 				3D471E1E26C3B60200457DE5 /* BlockLinkState+Icon.swift */,
-				3DB1C9C92726A6E7000D2779 /* BlockLinkState+Title.swift */,
+				3DB1C9C92726A6E7000D2779 /* BlockLinkState+Text.swift */,
 			);
 			path = Support;
 			sourceTree = "<group>";
@@ -6558,7 +6558,7 @@
 				3DB6E247268B5F8900C303E5 /* BlockViewModelProtocol.swift in Sources */,
 				120EB4E326E8F618003A0C2B /* ObjectHeaderIconView.swift in Sources */,
 				53F80EFA27BD8A0A00E9E12A /* TagViewUIKit.swift in Sources */,
-				3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Title.swift in Sources */,
+				3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Text.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
 				532D1D592768FABC00A1E4D8 /* NewRelationCell.swift in Sources */,
 				125B6ED026F235F400BCD7D6 /* SlashMenuAssembly.swift in Sources */,
