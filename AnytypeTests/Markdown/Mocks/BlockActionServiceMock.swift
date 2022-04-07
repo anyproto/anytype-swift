@@ -134,7 +134,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    func setFields(blockFields: [Anytype.BlockFields]) {
+    func setFields(blockFields: [BlockFields]) {
         assertionFailure()
     }
     
@@ -152,6 +152,10 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     }
     
     func createAndFetchBookmark(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: String) {
+        assertionFailure()
+    }
+
+    func setFields(blockFields: BlockFields, blockId: BlockId) {
         assertionFailure()
     }
 

@@ -2,6 +2,10 @@ import BlocksModels
 import XCTest
 
 final class InfoContainerMock: InfoContainerProtocol {
+    func recursiveChildren(of id: BlockId) -> [BlockInformation] {
+        []
+    }
+
     var getReturnInfo = [BlockId: BlockInformation]()
     func get(id: BlockId) -> BlockInformation? {
         guard let info = getReturnInfo[id] else {
