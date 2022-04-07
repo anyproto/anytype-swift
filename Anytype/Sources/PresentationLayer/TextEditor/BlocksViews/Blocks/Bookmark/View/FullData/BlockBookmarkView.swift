@@ -61,6 +61,7 @@ final class BlockBookmarkView: UIView, BlockContentView {
         view.layer.borderColor = UIColor.strokePrimary.cgColor
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
+        view.backgroundColor = .clear
         return view
     }()
 }

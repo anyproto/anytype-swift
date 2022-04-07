@@ -20,7 +20,7 @@ struct UnsupportedBlockViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         UnsupportedBlockContentConfiguration(text: "Unsupported block".localized)
             .cellBlockConfiguration(
-                indentationSettings: .init(with: info.metadata),
+                indentationSettings: .init(with: info.configurationData),
                 dragConfiguration: .init(id: info.id)
             )
     }
