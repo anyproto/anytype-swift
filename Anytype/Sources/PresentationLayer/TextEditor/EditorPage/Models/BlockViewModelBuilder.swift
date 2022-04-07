@@ -164,7 +164,6 @@ final class BlockViewModelBuilder {
                 }
             )
         case .featuredRelations:
-            return nil
             guard let objectType = document.details?.objectType else { return nil }
             
             let featuredRelation = document.featuredRelationsForEditor
