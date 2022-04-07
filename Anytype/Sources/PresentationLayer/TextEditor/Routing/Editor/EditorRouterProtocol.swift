@@ -31,10 +31,11 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
+    func showObjectPreview(information: BlockInformation, onSelect: @escaping () -> Void)
     
     func showRelationValueEditingView(key: String, source: RelationSource)
     func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)
-    func showAddNewRelationView(onSelect: @escaping (RelationMetadata) -> Void)
+    func showAddNewRelationView(onSelect: ((RelationMetadata) -> Void)?)
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
     

@@ -1,10 +1,19 @@
 import BlocksModels
 import SwiftUI
 
-struct SetRelation: Identifiable {
-    let isVisible: Bool
+struct SetRelation: Identifiable, Equatable, Hashable {
     let metadata: RelationMetadata
-    let relation: DataviewRelation
+    let option: DataviewRelationOption
     
     var id: String { metadata.id }
+}
+
+extension Array where Element == DataviewRelationOption {
+    func index(of relation: SetRelation) -> Index? {
+        firstIndex(where: { $0.key == relation.id })
+    }
+    
+    func index(of relation: DataviewRelationOption) -> Index? {
+        firstIndex(where: { $0.key == relation.key })
+    }
 }

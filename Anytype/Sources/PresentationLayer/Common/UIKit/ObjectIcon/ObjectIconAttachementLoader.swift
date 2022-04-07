@@ -101,22 +101,16 @@ extension ObjectIconAttachementLoader {
         setImage(image: ImageBuilder(imageGuideline).build(), processor: customProcessor)
         
         let processor = KFProcessorBuilder(
-            scalingType: .resizing(.aspectFill),
-            targetSize: imageGuideline.size,
-            cornerRadius: .point(imageGuideline.cornersGuideline.radius)
-        ).processor |> customProcessor
+            imageGuideline: imageGuideline,
+            scalingType: .resizing(.aspectFill)
+        ).build() |> customProcessor
         
-        guard let url = ImageID(id: imageId, width: imageGuideline.size.width.asImageWidth).resolvedUrl else {
+        guard let url = ImageMetadata(id: imageId, width: imageGuideline.size.width.asImageWidth).contentUrl else {
             return
         }
         
-        KingfisherManager.shared.retrieveImage(
-            with: url,
-            options: [.processor(processor)]
-        ) { [weak self] result in
-            guard case let .success(result) = result else { return }
-
-            self?.attachement?.image = result.image
+        AnytypeImageDownloader.retrieveImage(with: url, options: [.processor(processor)]) { [weak self] image in
+            self?.attachement?.image = image
         }
     }
     

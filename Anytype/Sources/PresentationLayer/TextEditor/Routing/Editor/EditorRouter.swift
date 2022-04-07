@@ -222,6 +222,17 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
         rootController?.setNavigationViewHidden(isHidden, animated: animated)
     }
+
+    func showObjectPreview(information: BlockInformation, onSelect: @escaping () -> Void) {
+        let viewModel = ObjectPreviewViewModel(
+            featuredRelations: document.parsedRelations.featuredRelations,
+            fields: information.fields
+        )
+        let contentView = ObjectPreviewView(viewModel: viewModel)
+        let popup = AnytypePopup(contentView: contentView)
+
+        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
+    }
     
     // MARK: - Settings
     func showSettings() {
@@ -329,7 +340,7 @@ extension EditorRouter {
         viewController.topPresentedController.present(fpc, animated: true, completion: nil)
     }
 
-    func showAddNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
+    func showAddNewRelationView(onSelect: ((RelationMetadata) -> Void)?) {
         let relationService = RelationsService(objectId: document.objectId)
 
         let viewModel = SearchNewRelationViewModel(

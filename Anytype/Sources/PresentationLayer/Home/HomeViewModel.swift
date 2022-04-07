@@ -21,7 +21,7 @@ final class HomeViewModel: ObservableObject {
     @Published var selectedPageIds: Set<BlockId> = []
     @Published var openedPageData = OpenedPageData.cached
     @Published var showSearch = false
-    @Published var showDeletionAlert = false
+    @Published var showPagesDeletionAlert = false
     @Published var snackBarData = SnackBarData.empty
     @Published var loadingAlertData = LoadingAlertData.empty
     
@@ -29,7 +29,7 @@ final class HomeViewModel: ObservableObject {
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
-    private let configurationService = MiddlewareConfigurationService.shared
+    private let configurationService = MiddlewareConfigurationProvider.shared
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let subscriptionService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
     
@@ -43,7 +43,7 @@ final class HomeViewModel: ObservableObject {
     private var quickActionsSubscription: AnyCancellable?
     
     init() {
-        let homeBlockId = configurationService.configuration().homeBlockID
+        let homeBlockId = configurationService.configuration.homeBlockID
         document = BaseDocument(objectId: homeBlockId)
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(update: $0)
@@ -56,7 +56,7 @@ final class HomeViewModel: ObservableObject {
     func onAppear() {
         document.open()
         subscriptionService.startSubscription(
-            data: .profile(id: MiddlewareConfigurationService.shared.configuration().profileBlockId)
+            data: .profile(id: MiddlewareConfigurationProvider.shared.configuration.profileBlockId)
         ) { [weak self] id, update in
             withAnimation {
                 self?.onProfileUpdate(update: update)

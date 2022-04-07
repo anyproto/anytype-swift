@@ -100,9 +100,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 break // unsupported (Not supported in middleware converter also)
             case .subscriptionCounters(let data):
                 sendUpdate(.pageCount(numberOfPagesFromTotalCount(data.total)), subId: data.subID)
-            case .accountConfigUpdate:
-                break
-            case .accountDetails:
+            case .accountConfigUpdate, .accountUpdate, .accountDetails:
                 break
             default:
                 anytypeAssertionFailure("Unupported event \(event)", domain: .subscriptionStorage)

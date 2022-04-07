@@ -23,6 +23,7 @@ extension UIImage {
             static let download = createImage("TextEditor/BlocksOption/download")
             static let paste = createImage("TextEditor/BlocksOption/paste")
             static let copy = createImage("TextEditor/BlocksOption/copy")
+            static let preview = createImage("TextEditor/BlocksOption/view")
         }
 
         static let bigGhost = createImage("TextEditor/bigGhost")

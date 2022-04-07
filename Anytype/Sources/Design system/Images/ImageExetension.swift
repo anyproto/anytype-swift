@@ -107,9 +107,9 @@ extension Image {
     }
 }
 
-private extension Image {
+extension Image {
     
-    private static func createImage(_ name: String) -> Image {
+    static func createImage(_ name: String) -> Image {
         guard let image = UIImage(named: name) else {
             anytypeAssertionFailure("No image named: \(name)", domain: .imageCreation)
             return .noImage
@@ -118,6 +118,10 @@ private extension Image {
         return Image(uiImage: image)
     }
     
+}
+
+private extension Image {
+    
     private static func createSystemImage(_ name: String) -> Image {
         guard let image = UIImage(systemName: name) else {
             anytypeAssertionFailure("No system image named: \(name)", domain: .imageCreation)
@@ -125,39 +129,5 @@ private extension Image {
         }
         
         return Image(uiImage: image)
-    }
-}
-
-extension Image.Relations {
-
-    static func relationIcon(format: RelationMetadata.Format) -> Image {
-        switch format {
-        case .longText:
-            return Image.createImage("format/text")
-        case .shortText:
-            return Image.createImage("format/text")
-        case .number:
-            return Image.createImage("format/number")
-        case .status:
-            return Image.createImage("format/status")
-        case .date:
-            return Image.createImage("format/date")
-        case .file:
-            return Image.createImage("format/attachment")
-        case .checkbox:
-            return Image.createImage("format/checkbox")
-        case .url:
-            return Image.createImage("format/url")
-        case .email:
-            return Image.createImage("format/email")
-        case .phone:
-            return Image.createImage("format/phone")
-        case .tag:
-            return Image.createImage("format/tag")
-        case .object:
-            return Image.createImage("format/object")
-        case .unrecognized:
-            return Image("")
-        }
     }
 }

@@ -1,5 +1,4 @@
 public enum Feature: String, Codable {
-    case sets = "Sets YEAH 🚀"
     case rainbowViews = "Paint editor views 🌈"
     case showAlertOnAssert = "Show alerts on asserts\n(only in testflight dev)"
     case analytics = "Analytics Amplitude (only in development)"
@@ -7,8 +6,11 @@ public enum Feature: String, Codable {
 
     case uikitRelationBlocks = "UIKit relation blocks"
     case clipboard = "Clipboard"
+    case objectPreview = "Object preview"
     
     case newRelationOptionsSearch = "New Search View for searching relation options"
+    
+    case deletion = "Account deletion"
 }
 
 public final class FeatureFlags {
@@ -27,13 +29,14 @@ public final class FeatureFlags {
     }
     
     private static let defaultValues: Features = [
-        .sets: true,
         .rainbowViews: false,
         .showAlertOnAssert : true,
         .analytics : false,
         .middlewareLogs: false,
         .clipboard: false,
-        .uikitRelationBlocks: true
+        .uikitRelationBlocks: true,
+        .objectPreview: false,
+        .deletion: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -44,10 +47,7 @@ public final class FeatureFlags {
 }
 
 public extension FeatureFlags {
-    static var sets: Bool {
-        features[.sets, default: true]
-    }
-    
+
     static var showAlertOnAssert: Bool {
         features[.showAlertOnAssert, default: true]
     }
@@ -72,4 +72,11 @@ public extension FeatureFlags {
         features[.clipboard, default: false]
     }
 
+    static var objectPreview: Bool {
+        features[.objectPreview, default: false]
+    }
+    
+    static var deletion: Bool {
+        features[.deletion, default: false]
+    }
 }

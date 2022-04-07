@@ -56,40 +56,24 @@ struct SettingsAccountView: View {
     private var dataBlock: some View {
         VStack(spacing: 0) {
             section("Data".localized)
-            clearCache
+            SettingsButton(text: "Clear file cache", textColor: .textPrimary) {
+                model.clearCacheAlert = true
+            }
         }
     }
 
-    private var clearCache: some View {
-        Button(action: { model.clearCacheAlert = true }) {
-            HStack(spacing: 0) {
-                AnytypeText("Clear file cache".localized, style: .uxBodyRegular, color: .System.red)
-                Spacer()
-            }
-            .padding(.vertical, 14)
-            .divider()
-        }
-    }
-    
     private var accountBlock: some View {
         VStack(spacing: 0) {
             section("Account".localized)
-            logOut
-        }
-    }
-    
-    private var logOut: some View {
-        Button(action: { model.loggingOut = true }) {
-            VStack(alignment: .leading, spacing: 0) {
-                Spacer.fixedHeight(14)
-                HStack(spacing: 0) {
-                    AnytypeText("Log out".localized, style: .uxBodyRegular, color: .textPrimary)
-                    Spacer()
-                }
-                Spacer.fixedHeight(14)
+            SettingsButton(text: "Log out", textColor: .textPrimary) {
+                model.loggingOut = true
             }
-            .divider()
-        }
+            if FeatureFlags.deletion {
+                SettingsButton(text: "Delete account", textColor: .System.red) {
+                    model.accountDeleting = true
+                }
+            }
+         }
     }
     
     private func section(_ text: String) -> some View {

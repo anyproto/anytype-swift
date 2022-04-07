@@ -6,16 +6,18 @@ struct EditorSetViewPicker: View {
     @EnvironmentObject var model: SetViewPickerViewModel
     
     var body: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(12)
-            AnytypeText("Views".localized, style: .uxTitle1Semibold, color: .textPrimary)
-            
-            ScrollView(.vertical, showsIndicators: false) {
-                VStack(alignment: .center, spacing: 0) {
-                    Spacer.fixedHeight(12)
-                    
-                    ForEach(setModel.dataView.views) { view in
-                        viewButton(view)
+        ScrollView {
+            VStack(spacing: 0) {
+                Spacer.fixedHeight(12)
+                AnytypeText("Views".localized, style: .uxTitle1Semibold, color: .textPrimary)
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(alignment: .center, spacing: 0) {
+                        Spacer.fixedHeight(12)
+                        
+                        ForEach(setModel.dataView.views) { view in
+                            viewButton(view)
+                        }
                     }
                 }
             }

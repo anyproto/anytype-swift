@@ -15,7 +15,6 @@ final class SignUpData: ObservableObject {
 class WaitingOnCreatAccountViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
     private let loginStateService = ServiceLocator.shared.loginStateService()
-    private let homeViewAssembly = HomeViewAssembly()
     
     private let diskStorage = DiskStorage()
     
@@ -51,7 +50,7 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
                     self.showError = true
                 case .success:
                     self.loginStateService.setupStateAfterRegistration()
-                    windowHolder?.startNewRootView(self.homeViewAssembly.createHomeView())
+                    WindowManager.shared.showHomeWindow()
                 }
             }
         }

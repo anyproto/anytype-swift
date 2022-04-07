@@ -21,7 +21,6 @@ struct UserDefaultsConfig {
         _screenDataFromLastSession = nil
     }
     
-    
     @UserDefault("App.AnalyticsUserConsent", defaultValue: false)
     public static var analyticsUserConsent: Bool
     
@@ -33,7 +32,7 @@ struct UserDefaultsConfig {
         get {
             let tab = _selectedTab.flatMap { HomeTabsView.Tab(rawValue: $0) } ?? .favourites
             
-            if tab == .shared && !AccountConfigurationProvider.shared.config.enableSpaces {
+            if tab == .shared && !AccountManager.shared.account.config.enableSpaces {
                 return .favourites
             }
             
