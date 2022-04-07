@@ -2,6 +2,7 @@ import BlocksModels
 import CoreGraphics
 import Combine
 import Amplitude
+import AnytypeCore
 
 final class SearchNewRelationViewModel: ObservableObject, Dismissible {
     
@@ -15,16 +16,19 @@ final class SearchNewRelationViewModel: ObservableObject, Dismissible {
     // Used for exclude relations that already has in object
     private let usedObjectRelationsIds: Set<String>
     private let relationService: RelationsServiceProtocol
+    private weak var output: SearchNewRelationModuleOutput?
     private let onSelect: ((RelationMetadata) -> ())?
     
     // MARK: - Initializers
     
     init(
-        relationService: RelationsServiceProtocol,
         objectRelations: ParsedRelations,
+        relationService: RelationsServiceProtocol,
+        output: SearchNewRelationModuleOutput?,
         onSelect: ((RelationMetadata) -> ())?
     ) {
         self.relationService = relationService
+        self.output = output
         self.onSelect = onSelect
 
         usedObjectRelationsIds = Set(objectRelations.all.map { $0.id })
@@ -70,7 +74,11 @@ extension SearchNewRelationViewModel {
 
     func addRelation(_ relation: RelationMetadata) {
         if let createdRelation = relationService.addRelation(relation: relation) {
-            onSelect?(createdRelation)
+            if FeatureFlags.createNewRelationV2 {
+                output?.didAddRelation(createdRelation)
+            } else {
+                onSelect?(createdRelation)
+            }
         }
     }
     
@@ -84,6 +92,10 @@ extension SearchNewRelationViewModel {
                 self.onSelect?($0)
             }
         )
+    }
+    
+    func showAddRelation(searchText: String) {
+        output?.didAskToShowCreateNewRelation(searchText: searchText)
     }
     
     func newRelationViewModel(searchText: String) -> NewRelationViewModel {

@@ -181,6 +181,7 @@
 		12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12472316264EAFD400B1E753 /* StringExtensions.swift */; };
 		1247BB0027CCBF470079DA1F /* ConstantHeightPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BAFF27CCBF470079DA1F /* ConstantHeightPopupLayout.swift */; };
 		1247BC6227FCA033005F2DB4 /* AddNewRelationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6127FCA033005F2DB4 /* AddNewRelationRouter.swift */; };
+		1247BC6427FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6327FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift */; };
 		124A60B727130EFD0012FD2D /* ObjectDetailsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B627130EFD0012FD2D /* ObjectDetailsExtensions.swift */; };
 		124AF82C26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124AF82B26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift */; };
 		124E2BC2273020F500A2D534 /* RelationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E2BC1273020F500A2D534 /* RelationsListView.swift */; };
@@ -1152,6 +1153,7 @@
 		12472316264EAFD400B1E753 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		1247BAFF27CCBF470079DA1F /* ConstantHeightPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantHeightPopupLayout.swift; sourceTree = "<group>"; };
 		1247BC6127FCA033005F2DB4 /* AddNewRelationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRelationRouter.swift; sourceTree = "<group>"; };
+		1247BC6327FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationModuleOutput.swift; sourceTree = "<group>"; };
 		124A60B627130EFD0012FD2D /* ObjectDetailsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsExtensions.swift; sourceTree = "<group>"; };
 		124AF82B26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationValuesProtocol+PageCellTitle.swift"; sourceTree = "<group>"; };
 		124E2BC1273020F500A2D534 /* RelationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListView.swift; sourceTree = "<group>"; };
@@ -2976,6 +2978,7 @@
 			isa = PBXGroup;
 			children = (
 				532D1D6027691FA100A1E4D8 /* SearchNewRelationViewModel.swift */,
+				1247BC6327FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -6993,6 +6996,7 @@
 				3D0BCAD126665B77002F7A0D /* HomePageLink.swift in Sources */,
 				3D2D59B3268CD5E5004745EC /* BlockImageContentView.swift in Sources */,
 				12F3E75E270C6A73002EE52F /* MediaFileUploadingWorkerProtocol.swift in Sources */,
+				1247BC6427FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift in Sources */,
 				03475B6F2306031D00F8FCE7 /* ViewExtension.swift in Sources */,
 				3DE0CFD426F8593D003A606A /* SlashMenuItem.swift in Sources */,
 				EA02612D2625D04D00AE6D86 /* HighlightedBlockRestrictions.swift in Sources */,

@@ -79,16 +79,16 @@ struct CreateNewRelationView: View {
 
 }
 
-struct CreateNewRelationView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        SearchNewRelationView(
-            viewModel: SearchNewRelationViewModel(
-                relationService: RelationsService(objectId: ""),
-                objectRelations: ParsedRelations(featuredRelations: [], otherRelations: []),
-                onSelect: { _ in
-                }
-            )
-        )
-    }
-}
+//struct CreateNewRelationView_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//        SearchNewRelationView(
+//            viewModel: SearchNewRelationViewModel(
+//                relationService: RelationsService(objectId: ""),
+//                objectRelations: ParsedRelations(featuredRelations: [], otherRelations: []),
+//                onSelect: { _ in
+//                }
+//            )
+//        )
+//    }
+//}

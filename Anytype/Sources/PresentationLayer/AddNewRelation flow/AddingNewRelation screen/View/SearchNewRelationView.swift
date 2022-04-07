@@ -24,6 +24,11 @@ struct SearchNewRelationView: View {
                 presentationMode.wrappedValue.dismiss()
             }
         }
+        .onChange(of: showCreateNewRelation) { newValue in
+            guard newValue, FeatureFlags.createNewRelationV2 else { return }
+            
+            viewModel.showAddRelation(searchText: searchText)
+        }
     }
 
     private var content: some View {
@@ -54,9 +59,7 @@ struct SearchNewRelationView: View {
                             .frame(maxWidth: .infinity)
                             .divider(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading)
                             .sheet(isPresented: $showCreateNewRelation) {
-                                if FeatureFlags.createNewRelationV2 {
-                                    NewRelationView(viewModel: viewModel.newRelationViewModel(searchText: searchText))
-                                } else {
+                                if !FeatureFlags.createNewRelationV2 {
                                     CreateNewRelationView(relationName: searchText, viewModel: viewModel.createNewRelationViewModel)
                                 }
                             }
@@ -68,7 +71,9 @@ struct SearchNewRelationView: View {
                                 Button(
                                     action: {
                                         viewModel.addRelation(relationMetadata)
-                                        presentationMode.wrappedValue.dismiss()
+                                        if !FeatureFlags.createNewRelationV2 {
+                                            presentationMode.wrappedValue.dismiss()
+                                        }
 
                                         Amplitude.instance().logSearchResult(index: index + 1, length: searchText.count)
                                     }
@@ -119,15 +124,15 @@ struct SearchNewRelationView: View {
     }
 }
 
-struct SearchNewRelationView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        SearchNewRelationView(
-            viewModel: SearchNewRelationViewModel(
-                relationService: RelationsService(objectId: ""),
-                objectRelations: ParsedRelations(featuredRelations: [], otherRelations: []),
-                onSelect: { _ in }
-            )
-        )
-    }
-}
+//struct SearchNewRelationView_Previews: PreviewProvider {
+//
+//    static var previews: some View {
+//        SearchNewRelationView(
+//            viewModel: SearchNewRelationViewModel(
+//                relationService: RelationsService(objectId: ""),
+//                objectRelations: ParsedRelations(featuredRelations: [], otherRelations: []),
+//                onSelect: { _ in }
+//            )
+//        )
+//    }
+//}
