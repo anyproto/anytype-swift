@@ -43,7 +43,9 @@ extension NewRelationViewModel {
     }
     
     func didTapTypesRestrictionSection() {
-        output?.didAskToShowObjectTypesSearch(selectedObjectTypesIds: [])
+        output?.didAskToShowObjectTypesSearch(
+            selectedObjectTypesIds: objectTypes?.map { $0.url } ?? []
+        )
     }
     
 }

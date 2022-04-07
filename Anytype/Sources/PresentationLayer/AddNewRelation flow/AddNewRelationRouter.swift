@@ -78,11 +78,18 @@ extension AddNewRelationRouter: NewRelationModuleOutput {
     }
     
     func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String]) {
-        let view = NewSearchModuleAssembly.multiselectObjectTypesSearchModule(selectedObjectTypeIds: selectedObjectTypesIds) { ids in
-            debugPrint("")
+        let view = NewSearchModuleAssembly.multiselectObjectTypesSearchModule(
+            selectedObjectTypeIds: selectedObjectTypesIds
+        ) { [weak self] ids in
+            self?.handleObjectTypesSelection(objectTypesIds: ids)
         }
         
         presentSwuftUIView(view: view)
+    }
+    
+    private func handleObjectTypesSelection(objectTypesIds: [String]) {
+        newRelationModuleInput?.updateTypesRestriction(objectTypeIds: objectTypesIds)
+        viewController?.topPresentedController.dismiss(animated: true)
     }
     
 }
