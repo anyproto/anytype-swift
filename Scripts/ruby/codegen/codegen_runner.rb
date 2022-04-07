@@ -1,58 +1,68 @@
 require_relative '../library/shell_executor'
 require_relative 'codegen_config'
-require_relative 'codegen_options_gen'
-
+require 'pathname'
 
 class CodegenRunner
   def self.run()
-    codegenOptions().each { |options|
-      options = CodegenDefaultOptionsGenerator.populate(options)
-      puts "Running codegen #{options[:transform]} for file: #{options[:filePath]}"
-      start(options)
-    }
+    generateErrorAdoption(CodegenConfig::CommandsFilePath)
+    generateService(CodegenConfig::CommandsFilePath)
+
+    generateInit(CodegenConfig::ModelsFilePath)
+    generateInit(CodegenConfig::EventsFilePath)
+    generateInit(CodegenConfig::LocalstoreFilePath)
   end
 
-
-  def self.start(options)
-    args = ""
-    extract_codegen_options(options).each {|key, value|
-      args += " --#{key.to_s} #{value}"
-    }
+  private_class_method def self.generateErrorAdoption(filePath)
+    dirPath = Pathname.new(filePath).dirname.to_s
+    outputFilePath = append_suffix("+ErrorAdoption", filePath, dirPath)
+    args = "generateErrorAdoption" +
+      " --filePath #{filePath}" +
+      " --outputFilePath #{outputFilePath}"
     
-    action = "#{CodegenConfig::CodegenPath} generate #{args}"
-    ShellExecutor.run_command_line_silent action
+    puts "Run generateErrorAdoption for #{filePath}"
+    ShellExecutor.run_command_line_silent "#{CodegenConfig::CodegenPath} #{args}"
   end
 
-  private_class_method def self.extract_codegen_options(options)
-    extracted_options = [
-      :filePath,
-      :transform,
-      :outputFilePath,
-      :templateFilePath,
-      :importsFilePath,
-      :serviceFilePath
-    ]
+  private_class_method def self.generateInit(filePath)
+    dirPath = Pathname.new(filePath).dirname.to_s
+    outputFilePath = append_suffix("+Initializers", filePath, dirPath)
+    importsFilePath = append_suffix("+Initializers+Import", filePath, CodegenConfig::CodegenTemplatesPath)
 
-    sliced_options = {}
-    extracted_options.each {|key|
-      unless options[key].nil?
-        sliced_options[key] = options[key]
-      end
-    }
-
-    return sliced_options
+    args = "generateInitializes" +
+        " --filePath #{filePath}" +
+        " --outputFilePath #{outputFilePath}" +
+        " --importsFilePath #{importsFilePath}"
+    
+    puts "Run generateInitializes for #{filePath}"
+    ShellExecutor.run_command_line_silent "#{CodegenConfig::CodegenPath} #{args}"
   end
 
-  # names of transforms stored in https://github.com/anytypeio/anytype-swift-codegen
-  private_class_method def self.codegenOptions()
-    [
-      { transform: "memberwiseInitializer", filePath: CodegenConfig::ModelsFilePath }, 
-      { transform: "memberwiseInitializer", filePath: CodegenConfig::EventsFilePath },
-      { transform: "memberwiseInitializer", filePath: CodegenConfig::LocalstoreFilePath },
+  private_class_method def self.generateService(filePath)
+    dirPath = Pathname.new(filePath).dirname.to_s
+    outputFilePath = append_suffix("+Service", filePath, dirPath)
+    importsFilePath = append_suffix("+Service+Import", filePath, CodegenConfig::CodegenTemplatesPath)
+    templateFilePath = append_suffix("+Service+Template", filePath, CodegenConfig::CodegenTemplatesPath)
+    serviceFilePath = File.expand_path("#{__dir__}/../../../Dependencies/Middleware/#{Constants::PROTOBUF_DIRECTORY_NAME}/protos/service.proto")
 
-      { transform: "memberwiseInitializer", filePath: CodegenConfig::CommandsFilePath },
-      { transform: "errorAdoption", filePath: CodegenConfig::CommandsFilePath }, 
-      { transform: "serviceWithRequestAndResponse", filePath: CodegenConfig::CommandsFilePath }
-    ]
+    args = "generateService" +
+      " --filePath #{filePath}" +
+      " --outputFilePath #{outputFilePath}" +
+      " --importsFilePath #{importsFilePath}" +
+      " --templateFilePath #{templateFilePath}" +
+      " --serviceFilePath #{serviceFilePath}"
+    
+    puts "Run generateService for #{filePath}"
+    ShellExecutor.run_command_line_silent "#{CodegenConfig::CodegenPath} #{args}"
+  end
+
+  private_class_method def self.append_suffix(suffix, filePath, dirPath)
+    pathname = Pathname.new(filePath)
+    basename = pathname.basename
+    components = basename.to_s.split(".")
+    the_name = components.first
+    the_extname = components.drop(1).join(".")
+    result_name = dirPath + "/" + the_name + suffix + ".#{the_extname}"
+
+    result_name
   end
 end

@@ -72,11 +72,7 @@ final class ServiceLocator {
     // MARK: - Coodrdinators
     
     func applicationCoordinator(window: UIWindow) -> ApplicationCoordinator {
-        ApplicationCoordinator(
-            window: window,
-            authService: authService(),
-            authAssembly: AuthAssembly()
-        )
+        ApplicationCoordinator(window: window, authService: authService())
     }
 
 }

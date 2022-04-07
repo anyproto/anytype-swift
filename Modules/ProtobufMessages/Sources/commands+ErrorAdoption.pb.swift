@@ -92,6 +92,7 @@ extension Anytype_Rpc.Wallet.Recover.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Convert.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Recover.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Account.Delete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Select.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Stop.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Log.Send.Response.Error: Swift.Error {}

@@ -9,6 +9,8 @@ public enum Feature: String, Codable {
     case objectPreview = "Object preview"
     
     case newRelationOptionsSearch = "New Search View for searching relation options"
+    
+    case deletion = "Account deletion"
 }
 
 public final class FeatureFlags {
@@ -33,7 +35,8 @@ public final class FeatureFlags {
         .middlewareLogs: false,
         .clipboard: false,
         .uikitRelationBlocks: true,
-        .objectPreview: false
+        .objectPreview: false,
+        .deletion: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -72,5 +75,8 @@ public extension FeatureFlags {
     static var objectPreview: Bool {
         features[.objectPreview, default: false]
     }
-
+    
+    static var deletion: Bool {
+        features[.deletion, default: false]
+    }
 }

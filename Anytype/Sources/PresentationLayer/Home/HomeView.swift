@@ -54,11 +54,11 @@ struct HomeView: View {
                 .horizontalReadabilityPadding(8)
         }
 
-        .bottomFloater(isPresented: $model.showDeletionAlert) {
+        .bottomFloater(isPresented: $model.showPagesDeletionAlert) {
             DashboardDeletionAlert()
                 .horizontalReadabilityPadding(8)
         }
-        .animation(.fastSpring, value: model.showDeletionAlert)
+        .animation(.fastSpring, value: model.showPagesDeletionAlert)
         
         .bottomSheet(isPresented: $settingsModel.personalization) {
             PersonalizationView()
@@ -127,6 +127,13 @@ struct HomeView: View {
                 .horizontalReadabilityPadding(8)
         }
         .animation(.fastSpring, value: settingsModel.loggingOut)
+        
+        
+        .bottomFloater(isPresented: $settingsModel.accountDeleting) {
+            DashboardAccountDeletionAlert()
+                .horizontalReadabilityPadding(8)
+        }
+        .animation(.fastSpring, value: settingsModel.accountDeleting)
         
         .snackbar(
             isShowing: $model.snackBarData.showSnackBar,

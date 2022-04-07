@@ -120,7 +120,6 @@ final class DividerCursorController {
     private func placeDividerCursor() {
         guard moveCursorView.superview == nil else { return }
 
-        print("=_= placing cursor")
         view.addSubview(moveCursorView)
         let point = collectionView.convert(view.center, from: view)
         adjustDividerCursorPosition(at: point)
