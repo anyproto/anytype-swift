@@ -23,7 +23,6 @@
 		0372922E23F991B60033DFDB /* BlockFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372922D23F991B60033DFDB /* BlockFields.swift */; };
 		0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */; };
 		0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */; };
-		03746CF922DE506200380AA1 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03746CF822DE506200380AA1 /* Constants.swift */; };
 		037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AA83322E34601002CB09F /* ApplicationCoordinator.swift */; };
 		038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 038A81FC23A0158B00B71388 /* LoginViewModel.swift */; };
 		03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0303ED0222D8EDAA005C552B /* SettingsView.swift */; };
@@ -406,6 +405,15 @@
 		3D1B5F74274CF2F5007D97AE /* SetMinimizedHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F73274CF2F5007D97AE /* SetMinimizedHeader.swift */; };
 		3D1B5F78274CF567007D97AE /* SetTableViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F77274CF567007D97AE /* SetTableViewHeader.swift */; };
 		3D1B5F7A274D0397007D97AE /* UIColor+Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F79274D0397007D97AE /* UIColor+Color.swift */; };
+		3D1CEC2227F38871000D36BA /* DashboardAccountDeletionAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC2127F38871000D36BA /* DashboardAccountDeletionAlert.swift */; };
+		3D1CEC2827F38A38000D36BA /* AccountStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC2727F38A38000D36BA /* AccountStatus.swift */; };
+		3D1CEC2B27F38CE3000D36BA /* DeletedAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC2A27F38CE3000D36BA /* DeletedAccountView.swift */; };
+		3D1CEC2D27F48301000D36BA /* SettingsButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC2C27F48301000D36BA /* SettingsButton.swift */; };
+		3D1CEC2F27F4D9F7000D36BA /* CalendarExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC2E27F4D9F7000D36BA /* CalendarExtension.swift */; };
+		3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC3027F5A8CA000D36BA /* DeletedAccountViewModel.swift */; };
+		3D1CEC3427F5D174000D36BA /* WindowManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC3327F5D174000D36BA /* WindowManager.swift */; };
+		3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC4427F5F566000D36BA /* Clock.swift */; };
+		3D1CEC4B27F70B2E000D36BA /* AccountData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1CEC4A27F70B2E000D36BA /* AccountData.swift */; };
 		3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */; };
 		3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D210C132758CCE50007F558 /* RelationsListRowPlaceholderView.swift */; };
 		3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */; };
@@ -590,7 +598,7 @@
 		3DB1CA0927293041000D2779 /* Amplitude+Events.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0827293041000D2779 /* Amplitude+Events.swift */; };
 		3DB1CA0B27293156000D2779 /* MiddlewareConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0A27293156000D2779 /* MiddlewareConfiguration.swift */; };
 		3DB1CA0D2729316F000D2779 /* AccountConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0C2729316F000D2779 /* AccountConfiguration.swift */; };
-		3DB1CA0F27293733000D2779 /* AccountConfigurationProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0E27293733000D2779 /* AccountConfigurationProvider.swift */; };
+		3DB1CA0F27293733000D2779 /* AccountManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA0E27293733000D2779 /* AccountManager.swift */; };
 		3DB1CA1D272A7FE3000D2779 /* QuickAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA1C272A7FE3000D2779 /* QuickAction.swift */; };
 		3DB1CA31272AE1F9000D2779 /* DefaultTypePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA30272AE1F9000D2779 /* DefaultTypePicker.swift */; };
 		3DB1CA5A272BEF3B000D2779 /* WallpaperPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA59272BEF3B000D2779 /* WallpaperPickerView.swift */; };
@@ -988,7 +996,6 @@
 		0372922D23F991B60033DFDB /* BlockFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFields.swift; sourceTree = "<group>"; };
 		0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtension.swift; sourceTree = "<group>"; };
 		0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileViewModel.swift; sourceTree = "<group>"; };
-		03746CF822DE506200380AA1 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		037AA83322E34601002CB09F /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
 		037F2D36239DC6DC008C16BF /* MainAuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainAuthViewModel.swift; sourceTree = "<group>"; };
 		038A81FC23A0158B00B71388 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -1364,6 +1371,15 @@
 		3D1B5F73274CF2F5007D97AE /* SetMinimizedHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetMinimizedHeader.swift; sourceTree = "<group>"; };
 		3D1B5F77274CF567007D97AE /* SetTableViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableViewHeader.swift; sourceTree = "<group>"; };
 		3D1B5F79274D0397007D97AE /* UIColor+Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Color.swift"; sourceTree = "<group>"; };
+		3D1CEC2127F38871000D36BA /* DashboardAccountDeletionAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardAccountDeletionAlert.swift; sourceTree = "<group>"; };
+		3D1CEC2727F38A38000D36BA /* AccountStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountStatus.swift; sourceTree = "<group>"; };
+		3D1CEC2A27F38CE3000D36BA /* DeletedAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAccountView.swift; sourceTree = "<group>"; };
+		3D1CEC2C27F48301000D36BA /* SettingsButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsButton.swift; sourceTree = "<group>"; };
+		3D1CEC2E27F4D9F7000D36BA /* CalendarExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarExtension.swift; sourceTree = "<group>"; };
+		3D1CEC3027F5A8CA000D36BA /* DeletedAccountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletedAccountViewModel.swift; sourceTree = "<group>"; };
+		3D1CEC3327F5D174000D36BA /* WindowManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowManager.swift; sourceTree = "<group>"; };
+		3D1CEC4427F5F566000D36BA /* Clock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Clock.swift; sourceTree = "<group>"; };
+		3D1CEC4A27F70B2E000D36BA /* AccountData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountData.swift; sourceTree = "<group>"; };
 		3D1D840E26F4AC330091A78A /* TextTriggerSymbols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextTriggerSymbols.swift; sourceTree = "<group>"; };
 		3D210C132758CCE50007F558 /* RelationsListRowPlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListRowPlaceholderView.swift; sourceTree = "<group>"; };
 		3D22B20D2685DABD00C78C28 /* BlockImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = BlockImageViewModel.swift; path = Anytype/Sources/PresentationLayer/TextEditor/BlocksViews/Blocks/File/Image/BlockImageViewModel.swift; sourceTree = SOURCE_ROOT; };
@@ -1547,7 +1563,7 @@
 		3DB1CA0827293041000D2779 /* Amplitude+Events.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Amplitude+Events.swift"; sourceTree = "<group>"; };
 		3DB1CA0A27293156000D2779 /* MiddlewareConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MiddlewareConfiguration.swift; sourceTree = "<group>"; };
 		3DB1CA0C2729316F000D2779 /* AccountConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountConfiguration.swift; sourceTree = "<group>"; };
-		3DB1CA0E27293733000D2779 /* AccountConfigurationProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountConfigurationProvider.swift; sourceTree = "<group>"; };
+		3DB1CA0E27293733000D2779 /* AccountManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountManager.swift; sourceTree = "<group>"; };
 		3DB1CA1C272A7FE3000D2779 /* QuickAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuickAction.swift; sourceTree = "<group>"; };
 		3DB1CA30272AE1F9000D2779 /* DefaultTypePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultTypePicker.swift; sourceTree = "<group>"; };
 		3DB1CA59272BEF3B000D2779 /* WallpaperPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WallpaperPickerView.swift; sourceTree = "<group>"; };
@@ -1962,6 +1978,7 @@
 		03074B86239514BF009FA7D0 /* Auth */ = {
 			isa = PBXGroup;
 			children = (
+				3D1CEC2927F38CCB000D36BA /* DeletedAccount */,
 				3DC9F26A2660214E00B115B9 /* CommonVIews */,
 				03507433239E72D7001CF477 /* MainAuth */,
 				03507436239E72FC001CF477 /* CreateNewProfileFlow */,
@@ -2099,7 +2116,6 @@
 				12426A2926DCFA1300693B1F /* KFScalingType.swift */,
 				1211AF7A27F4B84800BACB88 /* KFProcessorBuilder.swift */,
 				12DE403B264AD14E007B5074 /* Extensions */,
-				03746CF822DE506200380AA1 /* Constants.swift */,
 				03A90DF123A04C71000E3EFE /* CustomEnvironments.swift */,
 				3DE8D5C326CFFFE4006F31C1 /* AlertHelper.swift */,
 				3D44984C26D54A64005A3E06 /* BindableGestureRecognizer.swift */,
@@ -2167,12 +2183,11 @@
 		038FB5C722D8F304002B90B8 /* ApplicationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */,
+				3D1CEC3227F5D147000D36BA /* AppCoordinator */,
 				1215E8AF26A8608F0089AF7E /* AppConfigurators */,
+				3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */,
 				0303ECFE22D8EDAA005C552B /* AppDelegate.swift */,
 				0303ED0022D8EDAA005C552B /* SceneDelegate.swift */,
-				037AA83322E34601002CB09F /* ApplicationCoordinator.swift */,
-				12E014D3266FCA7A008036B0 /* WindowHolder.swift */,
 				12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */,
 			);
 			path = ApplicationLayer;
@@ -2372,10 +2387,10 @@
 		03D1516423FB443E004027CE /* Configuration */ = {
 			isa = PBXGroup;
 			children = (
+				3D1CEC4927F70B1C000D36BA /* Models */,
 				3DB1CA0A27293156000D2779 /* MiddlewareConfiguration.swift */,
 				03D1516523FB446A004027CE /* MiddlewareConfigurationProvider.swift */,
-				3DB1CA0C2729316F000D2779 /* AccountConfiguration.swift */,
-				3DB1CA0E27293733000D2779 /* AccountConfigurationProvider.swift */,
+				3DB1CA0E27293733000D2779 /* AccountManager.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -3771,6 +3786,35 @@
 			path = Table;
 			sourceTree = "<group>";
 		};
+		3D1CEC2927F38CCB000D36BA /* DeletedAccount */ = {
+			isa = PBXGroup;
+			children = (
+				3D1CEC2A27F38CE3000D36BA /* DeletedAccountView.swift */,
+				3D1CEC3027F5A8CA000D36BA /* DeletedAccountViewModel.swift */,
+			);
+			path = DeletedAccount;
+			sourceTree = "<group>";
+		};
+		3D1CEC3227F5D147000D36BA /* AppCoordinator */ = {
+			isa = PBXGroup;
+			children = (
+				037AA83322E34601002CB09F /* ApplicationCoordinator.swift */,
+				12E014D3266FCA7A008036B0 /* WindowHolder.swift */,
+				3D1CEC3327F5D174000D36BA /* WindowManager.swift */,
+			);
+			path = AppCoordinator;
+			sourceTree = "<group>";
+		};
+		3D1CEC4927F70B1C000D36BA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				3D1CEC2727F38A38000D36BA /* AccountStatus.swift */,
+				3DB1CA0C2729316F000D2779 /* AccountConfiguration.swift */,
+				3D1CEC4A27F70B2E000D36BA /* AccountData.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		3D24911A27BD271900821595 /* Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -3907,6 +3951,7 @@
 				3DB1C9F427283FA0000D2779 /* DashboardClearCacheAlert.swift */,
 				3DB9810D274FB82500ECC882 /* DashboardKeychainReminderAlert.swift */,
 				3DB3EC632754FFF1002781DA /* DashboardLoadingAlert.swift */,
+				3D1CEC2127F38871000D36BA /* DashboardAccountDeletionAlert.swift */,
 			);
 			path = Alerts;
 			sourceTree = "<group>";
@@ -4183,6 +4228,7 @@
 				3D2D4C5A27BA54030070A4C6 /* Divider.swift */,
 				125683EC27DF4DDF003A8251 /* SelectionIndicatorView.swift */,
 				3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */,
+				3D1CEC4427F5F566000D36BA /* Clock.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -4532,6 +4578,7 @@
 			children = (
 				3D932D4C26317E9200C7D1EA /* StandardButtonView.swift */,
 				3DC9F260266018B000B115B9 /* StandardButton.swift */,
+				3D1CEC2C27F48301000D36BA /* SettingsButton.swift */,
 			);
 			path = Buttons;
 			sourceTree = "<group>";
@@ -4716,6 +4763,7 @@
 				3DB981212750E2BA00ECC882 /* Comparable+Clamped.swift */,
 				12C2A5812756342F00311854 /* DateExtension.swift */,
 				1211AF7C27F4BE7400BACB88 /* CGSizeExtensions.swift */,
+				3D1CEC2E27F4D9F7000D36BA /* CalendarExtension.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -6087,7 +6135,6 @@
 				03CB3F01230C10E9003D5DFD /* AuthServiceProtocol.swift in Sources */,
 				03527A0722F7A44B004F0418 /* KeychainPhraseView.swift in Sources */,
 				EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */,
-				03746CF922DE506200380AA1 /* Constants.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
 				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
 				3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */,
@@ -6108,7 +6155,7 @@
 				12FD9D1D2767168800991886 /* RelationProtocol.swift in Sources */,
 				53F80F5D27BEAFEA00E9E12A /* DepricatedRelationBlockContentConfiguration.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
-				3DB1CA0F27293733000D2779 /* AccountConfigurationProvider.swift in Sources */,
+				3DB1CA0F27293733000D2779 /* AccountManager.swift in Sources */,
 				C9C5368E276A3A07003CD3F3 /* TagRelationRowView.swift in Sources */,
 				53728CFB273596750092A8CF /* MarkupKind.swift in Sources */,
 				3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */,
@@ -6137,10 +6184,12 @@
 				C98F6A6C27A90F210063DD7A /* BaseConfiguration.swift in Sources */,
 				0AD6B24C24CF633F0097A841 /* BlockToolbarBookmark.swift in Sources */,
 				3D2F9C07271EA78F0043C326 /* HomeTabsSelectionHeader.swift in Sources */,
+				3D1CEC2227F38871000D36BA /* DashboardAccountDeletionAlert.swift in Sources */,
 				3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */,
 				127EAC19273A438900C731F2 /* RelationsListRowHintView.swift in Sources */,
 				3D932D4126317E3A00C7D1EA /* HomeView.swift in Sources */,
 				12887F3A274BB32600228330 /* BundledDetails.swift in Sources */,
+				3D1CEC2D27F48301000D36BA /* SettingsButton.swift in Sources */,
 				3D43FDB026B18BF80094D4C0 /* Array+SafeCall.swift in Sources */,
 				EAADB1A52678CD6E004B0AF2 /* MentionTextDetector.swift in Sources */,
 				3DD2FC442620802900C65466 /* AuthAssembly.swift in Sources */,
@@ -6217,6 +6266,7 @@
 				3D24912C27BD271900821595 /* EventsListener.swift in Sources */,
 				53F2F61C270DF53000D6CA9B /* AudioBlockPlayerDelegate.swift in Sources */,
 				535F79BD274C087A0050A1B8 /* UTTypeExtension.swift in Sources */,
+				3D1CEC3427F5D174000D36BA /* WindowManager.swift in Sources */,
 				120F7D48267CFB0100327734 /* ItemPickerGridView.swift in Sources */,
 				C97CD703272AA3C90085AE64 /* EditorСursorManager.swift in Sources */,
 				3DC9F276266107C200B115B9 /* AlphaInviteCodeView.swift in Sources */,
@@ -6238,6 +6288,7 @@
 				EA3D1E5426CFCCC5001A31D9 /* TextViewAttributeSelectionHandler.swift in Sources */,
 				1200BF9227F4CA62000A0366 /* DownloadableImageViewWrapperProtocol.swift in Sources */,
 				C9367A9E27313692007D687A /* TextBlockDelegateData.swift in Sources */,
+				3D1CEC2B27F38CE3000D36BA /* DeletedAccountView.swift in Sources */,
 				12F3E763270C6C0C002EE52F /* ObjectHeaderImageUploadingWorker.swift in Sources */,
 				531629372632BD0B000D6780 /* StylePanelLayout.swift in Sources */,
 				12D15D2027F5F78500D22086 /* TagsOptionsSearchModuleBuilder.swift in Sources */,
@@ -6311,7 +6362,9 @@
 				3D07ED41261DDB9B00C007E2 /* BlockFileStateConverter.swift in Sources */,
 				0A005AB224C5D2F1000520AA /* ImagePicker.swift in Sources */,
 				EA20CDCD2612288400DBA9FE /* VideoBlockViewModel.swift in Sources */,
+				3D1CEC4527F5F566000D36BA /* Clock.swift in Sources */,
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
+				3D1CEC4B27F70B2E000D36BA /* AccountData.swift in Sources */,
 				EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */,
 				3DB3EC642754FFF1002781DA /* DashboardLoadingAlert.swift in Sources */,
 				EA2F0D6D264EBA1B0039C1CB /* TextChangeType.swift in Sources */,
@@ -6633,6 +6686,7 @@
 				3D30412C27E8D45C00FFE0EB /* EditorSetSetting.swift in Sources */,
 				3D16841726DD672E008B9DFF /* BlockFileConverter.swift in Sources */,
 				1211AF6627F338EC00BACB88 /* AnytypeImageDownloader.swift in Sources */,
+				3D1CEC2827F38A38000D36BA /* AccountStatus.swift in Sources */,
 				3D155274264D976A00B0E976 /* Snackbar.swift in Sources */,
 				C961495C27182F8900360840 /* GalleryViewTransitionAnimator.swift in Sources */,
 				EA20CE032613703B00DBA9FE /* MediaPickerContentType.swift in Sources */,
@@ -6698,6 +6752,7 @@
 				3D5A41492702E4E400F1F6A1 /* SlashMenuItemsBuilder.swift in Sources */,
 				125BD57327CF4C95006D8227 /* CreateAccountServiceError.swift in Sources */,
 				53FF7C5026F7DB7B00A5A592 /* AnytypeAudioPlayerProtocol.swift in Sources */,
+				3D1CEC2F27F4D9F7000D36BA /* CalendarExtension.swift in Sources */,
 				3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */,
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
@@ -6849,6 +6904,7 @@
 				EA0261302625D0AB00AE6D86 /* CodeBlockRestrictions.swift in Sources */,
 				538269F426F4E4D400040156 /* AudioPlaybackConfigurator.swift in Sources */,
 				0ACFCCF7249C17B5002E0477 /* BlockListService Protocol.swift in Sources */,
+				3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */,
 				C91AFF0F270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift in Sources */,
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
 				53F80F2D27BE66FA00E9E12A /* RelationBlockViewDepricated.swift in Sources */,

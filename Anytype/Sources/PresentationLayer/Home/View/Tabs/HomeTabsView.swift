@@ -99,7 +99,7 @@ struct HomeTabsView: View {
             )
             .tag(Tab.sets)
             
-            if AccountConfigurationProvider.shared.config.enableSpaces {
+            if AccountManager.shared.account.config.enableSpaces {
                 HomeCollectionView(
                     cellData: model.sharedCellData,
                     dragAndDropDelegate: nil, // no dnd

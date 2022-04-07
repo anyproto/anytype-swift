@@ -33,7 +33,7 @@ struct HomeTabsHeader: View {
             Spacer().frame(maxWidth: 15)
             tabButton(text: "Sets".localized, tab: .sets)
             Spacer().frame(maxWidth: 15)
-            if AccountConfigurationProvider.shared.config.enableSpaces {
+            if AccountManager.shared.account.config.enableSpaces {
                 tabButton(text: "Shared".localized, tab: .shared)
                 Spacer().frame(maxWidth: 15)
             }
