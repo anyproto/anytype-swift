@@ -49,7 +49,6 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     @Published var selectedBlocks = [BlockId]()
 
     private(set) var selectedBlocksIndexPaths = [IndexPath]()
-
     private(set) var movingBlocksIds = [BlockId]()
     private var movingDestination: MovingDestination?
 
