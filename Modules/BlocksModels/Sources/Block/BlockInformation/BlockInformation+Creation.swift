@@ -13,7 +13,7 @@ public extension BlockInformation {
             alignment: .left,
             childrenIds: [],
             fields: [:],
-            metadata: BlockInformationMetadata(
+            configurationData: BlockInformationMetadata(
                 backgroundColor: .default,
                 indentationStyle: .none
             )

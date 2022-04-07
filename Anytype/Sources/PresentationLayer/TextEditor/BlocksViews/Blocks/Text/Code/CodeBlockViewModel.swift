@@ -29,7 +29,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
                 showCodeSelection: { showCodeSelection(info) }
             )
         ).cellBlockConfiguration(
-            indentationSettings: .init(with: info.metadata),
+            indentationSettings: .init(with: info.configurationData),
             dragConfiguration: .init(id: info.id)
         )
     }

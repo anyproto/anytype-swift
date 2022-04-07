@@ -34,7 +34,7 @@ public final class InfoContainer: InfoContainerProtocol {
 
     public func remove(id: BlockId) {
         // go to parent and remove this block from a parent.
-        if let parentId = get(id: id)?.metadata.parentId, let parent = models[parentId] {
+        if let parentId = get(id: id)?.configurationData.parentId, let parent = models[parentId] {
             let childrenIds = parent.childrenIds.filter {$0 != id}
             add(parent.updated(childrenIds: childrenIds))
         }

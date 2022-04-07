@@ -48,7 +48,7 @@ final class EditorPageController: UIViewController {
     private lazy var longTapGestureRecognizer: UILongPressGestureRecognizer = {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(EditorPageController.handleLongPress))
 
-        recognizer.minimumPressDuration = 0.5
+        recognizer.minimumPressDuration = 0.2
         return recognizer
     }()
 
@@ -354,7 +354,7 @@ private extension EditorPageController {
 
         guard gesture.state == .ended else { return }
 
-        UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         let location = gesture.location(in: collectionView)
         collectionView.indexPathForItem(at: location).map {
             viewModel.blocksStateManager.didLongTap(at: $0)

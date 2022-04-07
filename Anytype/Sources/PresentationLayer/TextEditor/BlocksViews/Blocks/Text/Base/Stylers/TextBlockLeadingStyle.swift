@@ -1,3 +1,5 @@
+import AnytypeCore
+
 enum TextBlockLeadingStyle {
     struct TitleModel {
         let isCheckable: Bool
@@ -22,6 +24,7 @@ enum TextBlockLeadingStyle {
     case bulleted
     case quote
     case body
+    case callout(ObjectIconImageModel)
 
     init(with configuration: TextBlockContentConfiguration) {
         switch configuration.content.contentType {
@@ -53,6 +56,10 @@ enum TextBlockLeadingStyle {
             self = .numbered(configuration.content.number)
         case .header, .header2, .header3, .header4, .code, .description, .text, .callout, .quote:
             self = .body
+        case .callout:
+            let emoji = Emoji(configuration.content.iconEmoji) ?? .default
+
+            self = .callout(.init(iconImage: .icon(.emoji(emoji)), usecase: .editorSearch))
         }
     }
 }

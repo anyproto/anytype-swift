@@ -19,7 +19,7 @@ enum BlockInformationConverter {
             alignment: alignment,
             childrenIds: block.childrenIds,
             fields: block.fields.toFieldTypeMap(),
-            metadata: .init(
+            configurationData: .init(
                 backgroundColor: color,
                 indentationStyle: .none
             )
