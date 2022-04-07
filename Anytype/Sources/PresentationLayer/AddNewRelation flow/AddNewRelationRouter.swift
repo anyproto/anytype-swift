@@ -78,7 +78,7 @@ extension AddNewRelationRouter: NewRelationModuleOutput {
     }
     
     func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String]) {
-        let view = NewSearchModuleAssembly.limitObjectTypesSearchModule(selectedObjectTypeIds: selectedObjectTypesIds) { ids in
+        let view = NewSearchModuleAssembly.multiselectObjectTypesSearchModule(selectedObjectTypeIds: selectedObjectTypesIds) { ids in
             debugPrint("")
         }
         

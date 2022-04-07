@@ -5,7 +5,7 @@ struct DefaultTypePicker: View {
     @EnvironmentObject private var model: SettingsViewModel
     
     var body: some View {
-        NewSearchModuleAssembly.changeObjectTypeSearchModule(
+        NewSearchModuleAssembly.objectTypeSearchModule(
             title: "Choose default object type".localized,
             excludedObjectTypeId: nil
         ) { [weak model] id in
