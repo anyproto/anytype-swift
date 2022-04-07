@@ -30,7 +30,7 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
             return emptyViewConfiguration(state: .error)
         case .done:
             return VideoBlockConfiguration(file: fileData).cellBlockConfiguration(
-                indentationSettings: .init(with: info.metadata),
+                indentationSettings: .init(with: info.configurationData),
                 dragConfiguration: .init(id: info.id)
             )
         }
@@ -42,7 +42,7 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
             text: "Upload a video".localized,
             state: state
         ).cellBlockConfiguration(
-                indentationSettings: .init(with: info.metadata),
+                indentationSettings: .init(with: info.configurationData),
                 dragConfiguration: .init(id: info.id)
             )
     }

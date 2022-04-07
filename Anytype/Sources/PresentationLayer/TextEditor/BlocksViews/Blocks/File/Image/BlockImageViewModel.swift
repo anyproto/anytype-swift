@@ -57,7 +57,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
                     self?.didTapOpenImage(imageView)
                 }
             ).cellBlockConfiguration(
-                indentationSettings: .init(with: info.metadata),
+                indentationSettings: .init(with: info.configurationData),
                 dragConfiguration: .init(id: info.id)
             )
         }
@@ -69,7 +69,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             text: "Upload a picture".localized,
             state: state
         ).cellBlockConfiguration(
-            indentationSettings: .init(with: info.metadata),
+            indentationSettings: .init(with: info.configurationData),
             dragConfiguration: .init(id: info.id)
         )
     }

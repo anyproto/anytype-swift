@@ -33,7 +33,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             return
         }
         
-        guard let parentId = info.metadata.parentId,
+        guard let parentId = info.configurationData.parentId,
               let parent = container.get(id: parentId)
         else {
             anytypeAssertionFailure("No parent in \(text)", domain: .keyboardActionHandler)
