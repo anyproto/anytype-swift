@@ -3466,8 +3466,8 @@
 			isa = PBXGroup;
 			children = (
 				1247BC6127FCA033005F2DB4 /* AddNewRelationRouter.swift */,
-				534FFA652772315C00C51056 /* CreateNewRelation screen */,
 				532D1D542768FA6E00A1E4D8 /* AddingNewRelation screen */,
+				534FFA652772315C00C51056 /* CreateNewRelation screen */,
 				129C54CE27FC79BC00C390C7 /* RelationFormatsList screen */,
 			);
 			path = "AddNewRelation flow";
