@@ -1,12 +1,19 @@
 import Foundation
 import SwiftUI
 import BlocksModels
+import Combine
 
 final class NewRelationViewModel: ObservableObject {
     
-    @Published var name: String
+    @Published var name: String {
+        didSet {
+            isCreateButtonActive = name.isNotEmpty
+        }
+    }
     @Published private(set) var formatModel: NewRelationFormatSectionView.Model
     @Published private(set) var objectTypesRestrictionModel: [NewRelationRestrictionsSectionView.ObjectTypeModel]?
+    
+    @Published private(set) var isCreateButtonActive: Bool
     
     private var format: SupportedRelationFormat {
         didSet {
@@ -31,6 +38,8 @@ final class NewRelationViewModel: ObservableObject {
         self.format = defaultFormat
         self.formatModel = defaultFormat.asViewModel
         
+        self.isCreateButtonActive = name.isNotEmpty
+        
         handleNewRelationFormatUpdate()
     }
     
@@ -46,6 +55,10 @@ extension NewRelationViewModel {
         output?.didAskToShowObjectTypesSearch(
             selectedObjectTypesIds: objectTypes?.map { $0.url } ?? []
         )
+    }
+    
+    func didTapAddButton() {
+        
     }
     
 }
