@@ -2,7 +2,7 @@ import SwiftUI
 
 struct NewRelationFormatSectionView: View {
     
-    let format: SupportedRelationFormat
+    let model: Model
     let onTap: () -> Void
     
     var body: some View {
@@ -18,15 +18,27 @@ struct NewRelationFormatSectionView: View {
     
     private var contentView: some View {
         HStack(spacing: 5) {
-            Image(format.icon).frame(width: 24, height: 24)
-            AnytypeText(format.title, style: .uxBodyRegular, color: .textPrimary)
+            Image(model.icon).frame(width: 24, height: 24)
+            AnytypeText(model.title, style: .uxBodyRegular, color: .textPrimary)
                 .lineLimit(1)
         }
     }
 }
 
+extension NewRelationFormatSectionView {
+    
+    struct Model: Hashable {
+        let icon: String
+        let title: String
+    }
+    
+}
+
 struct NewRelationFormatSectionView_Previews: PreviewProvider {
     static var previews: some View {
-        NewRelationFormatSectionView(format: .text, onTap: {})
+        NewRelationFormatSectionView(
+            model: NewRelationFormatSectionView.Model(icon: "format/text", title: "Text"),
+            onTap: {}
+        )
     }
 }
