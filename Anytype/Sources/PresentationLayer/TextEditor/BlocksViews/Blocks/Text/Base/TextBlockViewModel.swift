@@ -66,18 +66,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        let backgroundColor: UIColor?
-        if let middlewareColor = info.backgroundColor, middlewareColor != .default {
-            backgroundColor = UIColor.Background.uiColor(from: middlewareColor)
-        } else {
-            backgroundColor = nil
-        }
-
         let contentConfiguration = TextBlockContentConfiguration(
             blockId: info.id,
             content: content,
             alignment: info.alignment.asNSTextAlignment,
-            backgroundColor: backgroundColor,
             isCheckable: isCheckable,
             isToggled: info.isToggled,
             isChecked: content.checked,
@@ -86,7 +78,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             actions: action()
         )
 
-        return contentConfiguration.cellBlockConfiguration(indentationSettings: .init(with: info.metadata))
+        return contentConfiguration.cellBlockConfiguration(
+            indentationSettings: .init(with: info.metadata),
+            dragConfiguration: content.contentType == .title ? nil : .init(id: info.id)
+        )
     }
 
     func action() -> TextBlockContentConfiguration.Actions {

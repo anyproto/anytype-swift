@@ -62,7 +62,7 @@ private extension FeaturedRelationsBlockView  {
 private extension FeaturedRelationsBlockView {
     
     enum Constants {
-        static let horizontalSpacing: CGFloat = 20
+        static let horizontalSpacing: CGFloat = 0
         static let verticalSpacing: CGFloat = 8
     }
 }

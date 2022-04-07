@@ -21,7 +21,7 @@ class BlocksFileEmptyView: UIView, BlockContentView {
     private func setup() {
         addSubview(contentView) {
             $0.height.equal(to: 52)
-            $0.pinToSuperview(insets: Layout.placeholderInsets)
+            $0.pinToSuperview()
         }
         
         contentView.layoutUsing.stack {
@@ -92,7 +92,6 @@ class BlocksFileEmptyView: UIView, BlockContentView {
 
 extension BlocksFileEmptyView {
     private enum Layout {
-        static let placeholderInsets = UIEdgeInsets(top: 7, left: 20, bottom: -7, right: -20)
         static let contentInsets = UIEdgeInsets(top: 15, left: 16, bottom: 15, right: 18)
         static let labelSpacing: CGFloat = 10
         static let iconWidth: CGFloat =  22

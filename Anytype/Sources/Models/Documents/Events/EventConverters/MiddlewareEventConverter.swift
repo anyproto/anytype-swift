@@ -394,7 +394,12 @@ final class MiddlewareEventConverter {
         let isOldStyleToggle = oldText.contentType == .toggle
         let isNewStyleToggle = textContent.contentType == .toggle
         let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
-        return toggleStyleChanged ? .general : .blocks(blockIds: [newData.id])
+
+
+        var childIds = infoContainer.recursiveChildren(of: newData.id).map { $0.id }
+        childIds.append(newData.id)
+
+        return toggleStyleChanged ? .general : .blocks(blockIds: Set(childIds))
     }
     
     private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: InfoContainerProtocol) {

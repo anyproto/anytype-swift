@@ -280,7 +280,6 @@ private extension EditorPageController {
     func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dropDelegate = self
-        collectionView.dragDelegate = self
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
     

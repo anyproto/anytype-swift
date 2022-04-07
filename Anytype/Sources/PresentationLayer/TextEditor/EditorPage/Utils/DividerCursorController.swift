@@ -118,10 +118,7 @@ final class DividerCursorController {
     }
 
     private func placeDividerCursor() {
-        guard moveCursorView.superview == nil else {
-            anytypeAssertionFailure("Unexpected case", domain: .editorPage)
-            return
-        }
+        guard moveCursorView.superview == nil else { return }
 
         view.addSubview(moveCursorView)
         let point = collectionView.convert(view.center, from: view)
