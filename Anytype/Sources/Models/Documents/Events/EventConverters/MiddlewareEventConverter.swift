@@ -274,8 +274,8 @@ final class MiddlewareEventConverter {
 
             restrictionsContainer.restrinctions = restrinctions
             return .general
-        case .accountConfigUpdate(let config):
-            AccountConfigurationProvider.shared.config = .init(config: config.config)
+        case .accountUpdate(let account):
+            handleAccountUpdate(account)
             return nil
             
         //MARK: - Dataview
@@ -423,5 +423,25 @@ final class MiddlewareEventConverter {
         let rootId = roots[0].id
 
         IndentationBuilder.build(container: container, id: rootId)
+    }
+    
+    private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {
+        let currentStatus = AccountManager.shared.account.status
+        AccountManager.shared.updateAccount(update)
+        let newStatus = AccountManager.shared.account.status
+        guard currentStatus != newStatus else { return }
+        
+        switch newStatus {
+        case .active:
+            break
+        case .pendingDeletion(let progress):
+            WindowManager.shared.showDeletedAccountWindow(progress: progress)
+        case .deleted:
+            if UserDefaultsConfig.usersId.isNotEmpty {
+                _ = ServiceLocator.shared.authService().logout(removeData: true)
+                WindowManager.shared.showAuthWindow()
+            }
+        }
+        
     }
 }

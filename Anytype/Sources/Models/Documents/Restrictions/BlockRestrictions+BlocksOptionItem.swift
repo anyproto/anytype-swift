@@ -57,11 +57,6 @@ extension Array where Element == BlockInformation {
             mergedItems.remove(.style)
         }
 
-        if !FeatureFlags.clipboard {
-            mergedItems.remove(.copy)
-            mergedItems.remove(.paste)
-        }
-
         if !FeatureFlags.objectPreview {
             mergedItems.remove(.preview)
         }
@@ -75,7 +70,12 @@ extension Array where Element == BlockInformation {
             mergedItems.remove(.preview)
         }
 
-        if !UIPasteboard.general.hasSlots {
+        if FeatureFlags.clipboard {
+            if !UIPasteboard.general.hasSlots {
+                mergedItems.remove(.paste)
+            }
+        } else {
+            mergedItems.remove(.copy)
             mergedItems.remove(.paste)
         }
 

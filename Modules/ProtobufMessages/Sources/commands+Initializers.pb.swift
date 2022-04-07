@@ -42,6 +42,26 @@ extension Anytype_Rpc.Account.Create.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Account.Delete.Request {
+  public init(revert: Bool) {
+    self.revert = revert
+  }
+}
+
+extension Anytype_Rpc.Account.Delete.Response {
+  public init(error: Anytype_Rpc.Account.Delete.Response.Error, status: Anytype_Model_Account.Status) {
+    self.error = error
+    self.status = status
+  }
+}
+
+extension Anytype_Rpc.Account.Delete.Response.Error {
+  public init(code: Anytype_Rpc.Account.Delete.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Account.Recover.Response {
   public init(error: Anytype_Rpc.Account.Recover.Response.Error) {
     self.error = error
