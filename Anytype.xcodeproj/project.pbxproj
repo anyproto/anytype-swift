@@ -267,6 +267,9 @@
 		129C54C927FC4EA200C390C7 /* NewRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129C54C827FC4EA200C390C7 /* NewRelationView.swift */; };
 		129C54CB27FC694A00C390C7 /* NewRelationSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129C54CA27FC694A00C390C7 /* NewRelationSectionView.swift */; };
 		129C54CD27FC741C00C390C7 /* NewRelationFormatSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129C54CC27FC741C00C390C7 /* NewRelationFormatSectionView.swift */; };
+		129C54D027FC79F900C390C7 /* RelationFormatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129C54CF27FC79F900C390C7 /* RelationFormatsView.swift */; };
+		129C54D227FC7A2800C390C7 /* RelationFormatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129C54D127FC7A2800C390C7 /* RelationFormatsViewModel.swift */; };
+		129C54D427FC83C000C390C7 /* SupportedRelationFormat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129C54D327FC83C000C390C7 /* SupportedRelationFormat.swift */; };
 		129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */; };
 		129D78952694AE6900DA6757 /* ObjectLayoutPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */; };
 		129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */; };
@@ -1230,6 +1233,9 @@
 		129C54C827FC4EA200C390C7 /* NewRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationView.swift; sourceTree = "<group>"; };
 		129C54CA27FC694A00C390C7 /* NewRelationSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationSectionView.swift; sourceTree = "<group>"; };
 		129C54CC27FC741C00C390C7 /* NewRelationFormatSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationFormatSectionView.swift; sourceTree = "<group>"; };
+		129C54CF27FC79F900C390C7 /* RelationFormatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFormatsView.swift; sourceTree = "<group>"; };
+		129C54D127FC7A2800C390C7 /* RelationFormatsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFormatsViewModel.swift; sourceTree = "<group>"; };
+		129C54D327FC83C000C390C7 /* SupportedRelationFormat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SupportedRelationFormat.swift; sourceTree = "<group>"; };
 		129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectProfileIconPicker.swift; sourceTree = "<group>"; };
 		129D78942694AE6900DA6757 /* ObjectLayoutPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutPicker.swift; sourceTree = "<group>"; };
 		129D78C42694B7E700DA6757 /* ObjectLayoutRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectLayoutRow.swift; sourceTree = "<group>"; };
@@ -3242,6 +3248,17 @@
 			path = ValueViews;
 			sourceTree = "<group>";
 		};
+		129C54CE27FC79BC00C390C7 /* RelationFormatsList */ = {
+			isa = PBXGroup;
+			children = (
+				129C54D327FC83C000C390C7 /* SupportedRelationFormat.swift */,
+				129C54CF27FC79F900C390C7 /* RelationFormatsView.swift */,
+				129C54D127FC7A2800C390C7 /* RelationFormatsViewModel.swift */,
+				534FFA69277231AB00C51056 /* RelationFormatCell.swift */,
+			);
+			path = RelationFormatsList;
+			sourceTree = "<group>";
+		};
 		12A1B51F27F4CEB2007ACDC9 /* DownloadableImageViewWrapper */ = {
 			isa = PBXGroup;
 			children = (
@@ -5150,7 +5167,6 @@
 		534FFA652772315C00C51056 /* CreateNewRelation */ = {
 			isa = PBXGroup;
 			children = (
-				534FFA69277231AB00C51056 /* RelationFormatCell.swift */,
 				534FFA6B277231C100C51056 /* CreateNewRelationView.swift */,
 				534FFA6D277231CD00C51056 /* CreateNewRelationViewModel.swift */,
 				129C54C327FC4CF600C390C7 /* NewRelationViewModel.swift */,
@@ -5196,6 +5212,7 @@
 		535E02AB274FF05600E1AF8C /* Relations */ = {
 			isa = PBXGroup;
 			children = (
+				129C54CE27FC79BC00C390C7 /* RelationFormatsList */,
 				534FFA652772315C00C51056 /* CreateNewRelation */,
 				532D1D542768FA6E00A1E4D8 /* AddingNewRelationView */,
 				535E02AE27501FC600E1AF8C /* RelationViewProvider */,
@@ -6447,6 +6464,7 @@
 				53F80EFA27BD8A0A00E9E12A /* TagViewUIKit.swift in Sources */,
 				3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Title.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
+				129C54D227FC7A2800C390C7 /* RelationFormatsViewModel.swift in Sources */,
 				532D1D592768FABC00A1E4D8 /* NewRelationCell.swift in Sources */,
 				125B6ED026F235F400BCD7D6 /* SlashMenuAssembly.swift in Sources */,
 				12CAF35E26D67540001E56B2 /* ObjectIconImageFontSet.swift in Sources */,
@@ -6635,6 +6653,7 @@
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
 				53F80F0D27BDA5B700E9E12A /* ObjectRelationViewUIKit.swift in Sources */,
 				3D24912D27BD271900821595 /* EventsListenerProtocol.swift in Sources */,
+				129C54D027FC79F900C390C7 /* RelationFormatsView.swift in Sources */,
 				12A8CCE326BC055400090468 /* ImageBlockRestrictions.swift in Sources */,
 				1211AF7727F49A9300BACB88 /* DownloadableImageViewWrapper.swift in Sources */,
 				3D6E9A43270F2CCC001B0A07 /* BrowserPage.swift in Sources */,
@@ -6773,6 +6792,7 @@
 				0A0965E525BEF5B000C004BD /* FileRouter.swift in Sources */,
 				C965247F2720781C00254057 /* HorizonalTypeListView.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
+				129C54D427FC83C000C390C7 /* SupportedRelationFormat.swift in Sources */,
 				120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */,
 				3DC9F26C2660216500B115B9 /* LogoOverlay.swift in Sources */,
 				EA57F41D26B99937007D4292 /* MarkupViewModelProtocol.swift in Sources */,
