@@ -42,8 +42,8 @@ struct CreateNewRelationView: View {
                                 viewModel.selectedType = relationType
                             }
                         ) {
-                            RelationFormatCell(
-                                model: RelationFormatCell.Model(
+                            RelationFormatListCell(
+                                model: RelationFormatListCell.Model(
                                     id: "\(relationType.id)",
                                     title: relationType.name,
                                     icon: relationType.iconName,

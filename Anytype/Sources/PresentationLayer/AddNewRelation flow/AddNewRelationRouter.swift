@@ -56,7 +56,8 @@ extension AddNewRelationRouter: SearchNewRelationModuleOutput {
         let viewModel = NewRelationViewModel(name: searchText)
         let view = NewRelationView(viewModel: viewModel)
         
-        presentSwuftUIView(view: view)
+        let popup = AnytypePopup(contentView: view)
+        viewController?.topPresentedController.present(popup, animated: true)
     }
       
 }

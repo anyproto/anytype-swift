@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct RelationFormatsView: View {
+struct RelationFormatsListView: View {
     
-    @ObservedObject var viewModel: RelationFormatsViewModel
+    @ObservedObject var viewModel: RelationFormatsListViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -19,7 +19,7 @@ struct RelationFormatsView: View {
                     Button {
                         viewModel.didSelectFormat(id: model.id)
                     } label: {
-                        RelationFormatCell(model: model)
+                        RelationFormatListCell(model: model)
                     }
                 }
             }

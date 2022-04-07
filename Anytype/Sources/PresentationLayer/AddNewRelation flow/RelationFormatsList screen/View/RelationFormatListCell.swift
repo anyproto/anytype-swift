@@ -2,7 +2,7 @@ import SwiftUI
 import AnytypeCore
 import BlocksModels
 
-struct RelationFormatCell: View {
+struct RelationFormatListCell: View {
     
     let model: Model
 
@@ -25,7 +25,7 @@ struct RelationFormatCell: View {
     }
 }
 
-extension RelationFormatCell {
+extension RelationFormatListCell {
     
     struct Model: Identifiable, Hashable {
         let id: String
