@@ -19,9 +19,6 @@ struct ObjectPreviewView: View {
             featuredRealtionSection
         }
         .background(Color.backgroundSecondary)
-        .readSize { size in
-            viewModel.viewDidUpdateHeight(size.height)
-        }
         .padding(.horizontal, 20)
     }
 
@@ -87,7 +84,7 @@ struct ObjectPreviewView: View {
 
 struct ObjectPreviewView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = ObjectPreviewViewModel(featuredRelationsByIds: [:], fields: .init())
+        let viewModel = ObjectPreviewViewModel(featuredRelations: [], fields: .init())
         ObjectPreviewView(viewModel: viewModel)
     }
 }

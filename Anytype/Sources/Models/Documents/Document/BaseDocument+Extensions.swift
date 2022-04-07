@@ -1,6 +1,8 @@
 import Foundation
+import BlocksModels
 
 extension BaseDocumentProtocol {
+    
     var isDocumentEmpty: Bool {
 
         let haveNonTextAndRelationBlocks = children.contains {
@@ -25,4 +27,32 @@ extension BaseDocumentProtocol {
             return false
         }
     }
+    
+    // without description and with type
+    var featuredRelationsForEditor: [Relation] {
+        let type = details?.objectType ?? .fallbackType
+        let objectRestriction = objectRestrictions.objectRestriction
+        
+        var enhancedRelations = parsedRelations.featuredRelations
+        
+        let objectTypeRelation: Relation = .text(
+            Relation.Text(
+                id: BundledRelationKey.type.rawValue,
+                name: "",
+                isFeatured: false,
+                isEditable: !objectRestriction.contains(.typechange),
+                isBundled: true,
+                value: type.name
+            )
+        )
+
+        enhancedRelations.insert(objectTypeRelation, at: 0)
+
+        enhancedRelations.removeAll { relation in
+            relation.id == BundledRelationKey.description.rawValue
+        }
+
+        return enhancedRelations
+    }
+    
 }

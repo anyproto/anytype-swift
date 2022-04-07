@@ -9,9 +9,9 @@ extension Relation {
         let isFeatured: Bool
         let isEditable: Bool
         let isBundled: Bool
-        let format: RelationMetadata.Format
         
         let selectedObjects: [Option]
+        let limitedObjectTypes: [String]
     }
     
 }

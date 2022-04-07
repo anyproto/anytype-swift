@@ -52,7 +52,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     private(set) var selectedBlocksIndexPaths = [IndexPath]()
     private(set) var movingBlocksIndexPaths = [IndexPath]()
-    private var movingDestination: MovingDestination?
+    private var movingDestination: MovingDestination?   
 
     // We need to store interspace between root and all childs to disable cursor moving between those indexPaths
     private var movingBlocksWithChildsIndexPaths = [[IndexPath]]()
@@ -61,6 +61,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let modelsHolder: EditorMainItemModelsHolder
     private let blockActionsServiceSingle: BlockActionsServiceSingleProtocol
     private let actionHandler: BlockActionHandlerProtocol
+    private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
 
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
@@ -73,6 +74,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         blockActionsServiceSingle: BlockActionsServiceSingleProtocol,
         actionHandler: BlockActionHandlerProtocol,
+        pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol
     ) {
         self.document = document
@@ -80,6 +82,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
         self.blockActionsServiceSingle = blockActionsServiceSingle
         self.actionHandler = actionHandler
+        self.pasteboardService = pasteboardService
         self.router = router
 
         setupEditingHandlers()
@@ -323,7 +326,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             )
 
             if case let .file(blockFile) = elements.first?.content,
-               let url = UrlResolver.resolvedUrl(.file(id: blockFile.metadata.hash)) {
+               let url = blockFile.metadata.contentUrl {
                 router.saveFile(fileURL: url, type: blockFile.contentType)
             }
         case .style:
@@ -333,13 +336,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             return
         case .paste:
             let blockIds = elements.map(\.blockId)
-            let pasteboardHelper = PasteboardHelper()
-            if let pasteSlot = pasteboardHelper.obtainSlots() {
-                actionHandler.paste(selectedBlockIds: blockIds, pasteSlot: pasteSlot)
-            }
+            pasteboardService.pasteInSelectedBlocks(selectedBlockIds: blockIds)
+
         case .copy:
             let blocksIds = elements.map(\.blockId)
-            actionHandler.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
+            pasteboardService.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
         case .preview:
             elements.first.map { router.showObjectPreview(information: $0.info) {} }
         }

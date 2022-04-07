@@ -27,7 +27,6 @@ final class HomeCellDataBuilder {
                 }
                 
                 return ObjectTypeProvider.isSupported(typeUrl: details.type)
-
             }
             .map { buildHomeCellData(pageLink: $0) }
     }

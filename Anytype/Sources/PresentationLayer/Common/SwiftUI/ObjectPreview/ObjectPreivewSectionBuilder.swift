@@ -12,7 +12,7 @@ final class ObjectPreivewSectionBuilder {
         let mainSection = [layout, icon]
 
         featuredRelationsByIds.forEach { (key: String, relation: Relation) in
-            let icon = Image.Relations.relationIcon(format: relation.format)
+            let icon = Image.createImage(relation.iconName)
 
             let isEnabled = objectPreviewFields.featuredRelationsIds.contains(key)
             let featuredRelation = ObjectPreviewViewFeaturedSectionItem(

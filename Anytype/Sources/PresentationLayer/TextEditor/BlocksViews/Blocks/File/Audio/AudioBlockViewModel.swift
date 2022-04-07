@@ -12,7 +12,6 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     let fileData: BlockFile
 
     let showAudioPicker: (BlockId) -> ()
-    let downloadAudio: (FileId) -> ()
 
     // Player properties
     let audioPlayer = AnytypeSharedAudioplayer.sharedInstance
@@ -22,15 +21,13 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     init(
         info: BlockInformation,
         fileData: BlockFile,
-        showAudioPicker: @escaping (BlockId) -> (),
-        downloadAudio: @escaping (FileId) -> ()
+        showAudioPicker: @escaping (BlockId) -> ()
     ) {
         self.info = info
         self.fileData = fileData
         self.showAudioPicker = showAudioPicker
-        self.downloadAudio = downloadAudio
 
-        if let url = UrlResolver.resolvedUrl(.file(id: fileData.metadata.hash)) {
+        if let url = fileData.metadata.contentUrl {
             self.playerItem = AVPlayerItem(url: url)
         }
     }

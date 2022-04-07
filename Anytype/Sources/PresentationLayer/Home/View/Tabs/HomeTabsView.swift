@@ -89,17 +89,15 @@ struct HomeTabsView: View {
             )
             .tag(Tab.history)
             
-            if FeatureFlags.sets {
-                HomeCollectionView(
-                    cellData: model.setsCellData,
-                    dragAndDropDelegate: nil, // no dnd
-                    offsetChanged: offsetChanged,
-                    onTap: { data in
-                        model.showPage(pageId: data.destinationId, viewType: data.viewType)
-                    }
-                )
-                .tag(Tab.sets)
-            }
+            HomeCollectionView(
+                cellData: model.setsCellData,
+                dragAndDropDelegate: nil, // no dnd
+                offsetChanged: offsetChanged,
+                onTap: { data in
+                    model.showPage(pageId: data.destinationId, viewType: data.viewType)
+                }
+            )
+            .tag(Tab.sets)
             
             if AccountManager.shared.account.config.enableSpaces {
                 HomeCollectionView(

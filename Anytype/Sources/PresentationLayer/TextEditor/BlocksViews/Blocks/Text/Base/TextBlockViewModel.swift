@@ -22,6 +22,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
     
     private let actionHandler: BlockActionHandlerProtocol
+    private let pasteboardService: PasteboardServiceProtocol
     private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     private let mentionDetecter = MentionTextDetector()
     private let markdownListener: MarkdownListener
@@ -40,6 +41,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         isCheckable: Bool,
         blockDelegate: BlockDelegate,
         actionHandler: BlockActionHandlerProtocol,
+        pasteboardService: PasteboardServiceProtocol,
         showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
         showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,
@@ -50,6 +52,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.isCheckable = isCheckable
         self.blockDelegate = blockDelegate
         self.actionHandler = actionHandler
+        self.pasteboardService = pasteboardService
         self.showPage = showPage
         self.openURL = openURL
         self.showURLBookmarkPopup = showURLBookmarkPopup
@@ -85,18 +88,15 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     func action() -> TextBlockContentConfiguration.Actions {
         return .init(
             shouldPaste: { range in
-                let pasteboardHelper = PasteboardHelper()
-                guard let pasteSlot = pasteboardHelper.obtainSlots() else { return true }
-
-                if case let .text(textSlot) = pasteSlot, textSlot.isValidURL() {
+                if pasteboardService.hasValidURL {
                     return true
                 }
-
-                actionHandler.paste(blockId: blockId, range: range, pasteSlot: pasteSlot)
+                
+                pasteboardService.pasteInsideBlock(focusedBlockId: blockId, range: range)
                 return false
             },
             copy: { range in
-                actionHandler.copy(blocksIds: [info.id], selectedTextRange: range)
+                pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
             },
             createEmptyBlock: { actionHandler.createEmptyBlock(parentId: info.id) },
             showPage: showPage,
