@@ -29,7 +29,7 @@ extension ObjectIconImageUsecase {
                 ),
                 placeholderImageFont: nil
             )
-        case .editorSearch, .editorAccessorySearch:
+        case .editorSearch, .editorAccessorySearch, .editorCalloutBlock:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,

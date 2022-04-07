@@ -27,6 +27,7 @@ extension Array where Element == BlockRestrictions {
 
 extension Array where Element == BlockInformation {
     var blocksOptionItems: [BlocksOptionItem] {
+        return []
         var isDownloadAvailable = true
         var isStyleAvailable = true
 

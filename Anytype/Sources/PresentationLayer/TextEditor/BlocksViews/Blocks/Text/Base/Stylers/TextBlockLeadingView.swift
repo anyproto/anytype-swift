@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 final class TextBlockLeadingView: UIView {
 
@@ -9,6 +10,7 @@ final class TextBlockLeadingView: UIView {
     private(set) var bulletedView: UIView?
     private(set) var quoteView: UIView?
     private(set) var bodyView: UIView?
+    private(set) var emojiView: UIView?
 
     func update(style: TextBlockLeadingStyle) {
         removeAllSubviews()
@@ -36,6 +38,13 @@ final class TextBlockLeadingView: UIView {
         case .body:
             innerView = TextBlockIconView(viewType: .empty)
             self.bodyView = innerView
+        case .callout(let model):
+            let iconView = ObjectIconImageView()
+            iconView.configure(model: model)
+
+            iconView.backgroundColor = .red
+            innerView = iconView
+            self.emojiView = iconView
         }
 
         addSubview(innerView) {
