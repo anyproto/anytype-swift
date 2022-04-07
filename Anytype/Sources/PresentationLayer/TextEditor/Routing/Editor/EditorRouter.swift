@@ -173,7 +173,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         }
         let moveToView = SearchView(title: "Move to".localized, context: .menuSearch, viewModel: viewModel)
         
-        presentSwuftUIView(view: moveToView, model: viewModel)
+        presentSwiftUIView(view: moveToView, model: viewModel)
     }
 
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {
@@ -182,7 +182,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         }
         let linkToView = SearchView(title: "Link to".localized, context: .menuSearch, viewModel: viewModel)
 
-        presentSwuftUIView(view: linkToView, model: viewModel)
+        presentSwiftUIView(view: linkToView, model: viewModel)
     }
 
     func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
@@ -191,7 +191,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         }
         let linkToView = SearchView(title: "Link to".localized, context: .menuSearch, viewModel: viewModel)
         
-        presentSwuftUIView(view: linkToView, model: viewModel)
+        presentSwiftUIView(view: linkToView, model: viewModel)
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
@@ -200,7 +200,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         }
         let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
         
-        presentSwuftUIView(view: searchView, model: viewModel)
+        presentSwiftUIView(view: searchView, model: viewModel)
     }
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
@@ -263,7 +263,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Private
     
-    private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
+    private func presentSwiftUIView<Content: View>(view: Content, model: Dismissible) {
         guard let viewController = viewController else { return }
         
         let controller = UIHostingController(rootView: view)
