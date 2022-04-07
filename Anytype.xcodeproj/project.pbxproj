@@ -710,8 +710,6 @@
 		534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19C62623A7220080AEF0 /* SearchListViewController.swift */; };
 		534D19CB2623BDCC0080AEF0 /* ButtonWithImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */; };
 		534FFA6A277231AB00C51056 /* RelationFormatListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534FFA69277231AB00C51056 /* RelationFormatListCell.swift */; };
-		534FFA6C277231C100C51056 /* CreateNewRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534FFA6B277231C100C51056 /* CreateNewRelationView.swift */; };
-		534FFA6E277231CD00C51056 /* CreateNewRelationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 534FFA6D277231CD00C51056 /* CreateNewRelationViewModel.swift */; };
 		5355DFEE2701CBB7005FD730 /* CustomizableHitTestArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5355DFED2701CBB7005FD730 /* CustomizableHitTestArea.swift */; };
 		5356072526E2602F001464A4 /* UnsupportedBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072426E2602F001464A4 /* UnsupportedBlockViewModel.swift */; };
 		5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5356072626E61A0F001464A4 /* UnsupportedBlockView.swift */; };
@@ -1685,8 +1683,6 @@
 		534D19C62623A7220080AEF0 /* SearchListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchListViewController.swift; sourceTree = "<group>"; };
 		534D19CA2623BDCC0080AEF0 /* ButtonWithImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonWithImage.swift; sourceTree = "<group>"; };
 		534FFA69277231AB00C51056 /* RelationFormatListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFormatListCell.swift; sourceTree = "<group>"; };
-		534FFA6B277231C100C51056 /* CreateNewRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRelationView.swift; sourceTree = "<group>"; };
-		534FFA6D277231CD00C51056 /* CreateNewRelationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewRelationViewModel.swift; sourceTree = "<group>"; };
 		5355DFED2701CBB7005FD730 /* CustomizableHitTestArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomizableHitTestArea.swift; sourceTree = "<group>"; };
 		5356072426E2602F001464A4 /* UnsupportedBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockViewModel.swift; sourceTree = "<group>"; };
 		5356072626E61A0F001464A4 /* UnsupportedBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsupportedBlockView.swift; sourceTree = "<group>"; };
@@ -3010,24 +3006,6 @@
 				12F3B84727E9C6E200360CA3 /* SearchNewRelationSectionType.swift */,
 			);
 			path = Entities;
-			sourceTree = "<group>";
-		};
-		1247BC5C27FC8D9F005F2DB4 /* Old */ = {
-			isa = PBXGroup;
-			children = (
-				534FFA6B277231C100C51056 /* CreateNewRelationView.swift */,
-				534FFA6D277231CD00C51056 /* CreateNewRelationViewModel.swift */,
-			);
-			path = Old;
-			sourceTree = "<group>";
-		};
-		1247BC5D27FC8DA8005F2DB4 /* New */ = {
-			isa = PBXGroup;
-			children = (
-				1247BC5E27FC8DB4005F2DB4 /* View */,
-				1247BC5F27FC8DBB005F2DB4 /* ViewModel */,
-			);
-			path = New;
 			sourceTree = "<group>";
 		};
 		1247BC5E27FC8DB4005F2DB4 /* View */ = {
@@ -5402,8 +5380,8 @@
 		534FFA652772315C00C51056 /* CreateNewRelation screen */ = {
 			isa = PBXGroup;
 			children = (
-				1247BC5C27FC8D9F005F2DB4 /* Old */,
-				1247BC5D27FC8DA8005F2DB4 /* New */,
+				1247BC5E27FC8DB4005F2DB4 /* View */,
+				1247BC5F27FC8DBB005F2DB4 /* ViewModel */,
 			);
 			path = "CreateNewRelation screen";
 			sourceTree = "<group>";
@@ -6557,7 +6535,6 @@
 				12A52E2926CAA17B000F0333 /* AnimatableView.swift in Sources */,
 				039DA2E62305843D0041F95C /* ErrorAlertView.swift in Sources */,
 				53D4089927EDDAA300495335 /* ObjectPreivewSectionBuilder.swift in Sources */,
-				534FFA6C277231C100C51056 /* CreateNewRelationView.swift in Sources */,
 				3D929B2F263307700063F1BE /* AnytypeFont.swift in Sources */,
 				EAC5FD542657DD2E006BB24E /* ScrollViewContentInsetsHelper.swift in Sources */,
 				3D3040F427E2193500FFE0EB /* ObjectHeaderFilledContentSwitfUIView.swift in Sources */,
@@ -7043,7 +7020,6 @@
 				3D1702562716D1C30079B65B /* UIButton+ImageTitleSpacing.swift in Sources */,
 				3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */,
 				12F3E765270C6EE4002EE52F /* ObjectHeaderImageUsecase.swift in Sources */,
-				534FFA6E277231CD00C51056 /* CreateNewRelationViewModel.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
 				125683F227DF808E003A8251 /* NewSearchViewModel+SelectionMode.swift in Sources */,
 				C9CD66AC27EB3BDE001F1860 /* UnsplashItemsViewModel.swift in Sources */,

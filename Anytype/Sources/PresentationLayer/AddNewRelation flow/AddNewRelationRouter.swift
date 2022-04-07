@@ -34,13 +34,12 @@ extension AddNewRelationRouter {
         let viewModel = SearchNewRelationViewModel(
             objectRelations: document.parsedRelations,
             relationService: relationService,
-            output: self,
-            onSelect: nil
+            output: self
         )
 
         let view = SearchNewRelationView(viewModel: viewModel)
         
-        presentSwuftUIView(view: view)
+        presentSwiftUIView(view: view)
     }
     
 }
@@ -84,7 +83,7 @@ extension AddNewRelationRouter: NewRelationModuleOutput {
         let viewModel = RelationFormatsListViewModel(output: self)
         let view = RelationFormatsListView(viewModel: viewModel)
         
-        presentSwuftUIView(view: view)
+        presentSwiftUIView(view: view)
     }
     
     func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String]) {
@@ -94,7 +93,7 @@ extension AddNewRelationRouter: NewRelationModuleOutput {
             self?.handleObjectTypesSelection(objectTypesIds: ids)
         }
         
-        presentSwuftUIView(view: view)
+        presentSwiftUIView(view: view)
     }
     
     func didCreateRelation(_ relationMetadata: RelationMetadata) {
@@ -124,7 +123,7 @@ extension AddNewRelationRouter: RelationFormatsListModuleOutput {
 
 private extension AddNewRelationRouter {
     
-    func presentSwuftUIView<Content: View>(view: Content) {
+    func presentSwiftUIView<Content: View>(view: Content) {
         guard let viewController = viewController else { return }
         
         let controller = UIHostingController(rootView: view)

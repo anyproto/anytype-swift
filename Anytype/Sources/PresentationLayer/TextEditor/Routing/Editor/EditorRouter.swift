@@ -347,22 +347,7 @@ extension EditorRouter {
     }
 
     func showAddNewRelationView(onSelect: ((RelationMetadata) -> Void)?) {
-        if FeatureFlags.createNewRelationV2 {
-            addNewRelationRouter.showAddNewRelationView(onCompletion: onSelect)
-            return
-        }
-        
-        let relationService = RelationsService(objectId: document.objectId)
-
-        let viewModel = SearchNewRelationViewModel(
-            objectRelations: document.parsedRelations,
-            relationService: relationService,
-            output: nil,
-            onSelect: onSelect
-        )
-
-        let view = SearchNewRelationView(viewModel: viewModel)
-        presentSwuftUIView(view: view, model: viewModel)
+        addNewRelationRouter.showAddNewRelationView(onCompletion: onSelect)
     }
 }
 

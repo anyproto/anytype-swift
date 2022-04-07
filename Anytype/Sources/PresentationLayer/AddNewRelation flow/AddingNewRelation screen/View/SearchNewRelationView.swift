@@ -4,7 +4,6 @@ import Amplitude
 import AnytypeCore
 
 struct SearchNewRelationView: View {
-    @Environment(\.presentationMode) var presentationMode
 
     @StateObject var viewModel: SearchNewRelationViewModel
 
@@ -14,18 +13,13 @@ struct SearchNewRelationView: View {
     var body: some View {
         VStack() {
             DragIndicator()
-            SearchBar(text: $searchText, focused: true, placeholder: "Find a relation")
+            SearchBar(text: $searchText, focused: true, placeholder: "Find a relation".localized)
             content
         }
         .onChange(of: searchText) { search(text: $0) }
         .onAppear { search(text: "") }
-        .onReceive(viewModel.$shouldDismiss) { shouldDismiss in
-            if shouldDismiss {
-                presentationMode.wrappedValue.dismiss()
-            }
-        }
         .onChange(of: showCreateNewRelation) { newValue in
-            guard newValue, FeatureFlags.createNewRelationV2 else { return }
+            guard newValue else { return }
             
             viewModel.showAddRelation(searchText: searchText)
         }
@@ -58,11 +52,6 @@ struct SearchNewRelationView: View {
                             }
                             .frame(maxWidth: .infinity)
                             .divider(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading)
-                            .sheet(isPresented: $showCreateNewRelation) {
-                                if !FeatureFlags.createNewRelationV2 {
-                                    CreateNewRelationView(relationName: searchText, viewModel: viewModel.createNewRelationViewModel)
-                                }
-                            }
                         }
                     case let .addFromLibriry(relationsMetaData):
                         Section(content: {
@@ -71,9 +60,6 @@ struct SearchNewRelationView: View {
                                 Button(
                                     action: {
                                         viewModel.addRelation(relationMetadata)
-                                        if !FeatureFlags.createNewRelationV2 {
-                                            presentationMode.wrappedValue.dismiss()
-                                        }
 
                                         Amplitude.instance().logSearchResult(index: index + 1, length: searchText.count)
                                     }
@@ -123,16 +109,3 @@ struct SearchNewRelationView: View {
         viewModel.search(text: text)
     }
 }
-
-//struct SearchNewRelationView_Previews: PreviewProvider {
-//
-//    static var previews: some View {
-//        SearchNewRelationView(
-//            viewModel: SearchNewRelationViewModel(
-//                relationService: RelationsService(objectId: ""),
-//                objectRelations: ParsedRelations(featuredRelations: [], otherRelations: []),
-//                onSelect: { _ in }
-//            )
-//        )
-//    }
-//}
