@@ -348,8 +348,7 @@ extension EditorRouter {
 
     func showAddNewRelationView(onSelect: ((RelationMetadata) -> Void)?) {
         if FeatureFlags.createNewRelationV2 {
-            addNewRelationRouter.onSelect = onSelect
-            addNewRelationRouter.showAddNewRelationView()
+            addNewRelationRouter.showAddNewRelationView(onCompletion: onSelect)
             return
         }
         
