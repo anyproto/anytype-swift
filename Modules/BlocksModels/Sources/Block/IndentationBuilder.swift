@@ -1,25 +1,49 @@
 import Foundation
 
+private class IndentationRecursionData {
+    var closingBlockIndex = [BlockId: [Int]]()
+}
+
 public enum IndentationBuilder {
-    public static func build(container: InfoContainerProtocol, id: BlockId) {
+    public static func build(
+        container: InfoContainerProtocol,
+        id: BlockId
+    ) {
+        privateBuild(container: container, id: id)
+    }
+
+    private static func privateBuild(
+        container: InfoContainerProtocol,
+        id: BlockId,
+        indentationRecursionData: IndentationRecursionData = IndentationRecursionData()
+    ) {
         if let parent = container.get(id: id) {
+
             parent.childrenIds.forEach { childrenId in
                 guard var child = container.get(id: childrenId) else { return }
 
-                let isLastChild = parent.childrenIds.last == childrenId
+                let indentationStyles = parentIndentationStyles(
+                    child: child,
+                    parent: parent,
+                    indentationRecursion: indentationRecursionData
+                )
 
                 child = child.updated(
                     metadata: BlockInformationMetadata(
                         parentId: parent.id,
                         parentBackgroundColors: parentBackgroundColors(child: child, parent: parent),
-                        parentIndentationStyle: parentIndentationStyles(child: child, isLastChild: isLastChild, parent: parent),
+                        parentIndentationStyle: indentationStyles,
                         backgroundColor: child.backgroundColor,
                         indentationStyle: child.content.indentationStyle(isSingleChild: child.childrenIds.isEmpty)
                     )
                 )
 
                 container.add(child)
-                build(container: container, id: childrenId)
+                privateBuild(
+                    container: container,
+                    id: childrenId,
+                    indentationRecursionData: indentationRecursionData
+                )
             }
         }
     }
@@ -48,13 +72,32 @@ public enum IndentationBuilder {
 
     private static func parentIndentationStyles(
         child: BlockInformation,
-        isLastChild: Bool,
-        parent: BlockInformation
+        parent: BlockInformation,
+        indentationRecursion: IndentationRecursionData
     ) -> [BlockIndentationStyle] {
-        var previousIndentationStyles = [BlockIndentationStyle]()
+        var previousIndentationStyles = parent.metadata.parentIndentationStyle
+
+        if let indentationRecursionParams = indentationRecursion.closingBlockIndex[child.id] {
+            if child.childrenIds.count > 0, let lastChild = child.childrenIds.last {
+                indentationRecursion.closingBlockIndex[lastChild] = indentationRecursionParams
+            } else {
+                indentationRecursionParams.forEach {
+                    previousIndentationStyles[$0] = .highlighted(.closing)
+                }
+
+            }
+        }
 
         if parent.kind != .meta, child.kind != .meta {
-            previousIndentationStyles = parent.metadata.parentIndentationStyle
+            let isLastChild = parent.childrenIds.last == child.id
+            let indentationStyle: BlockIndentationStyle = parent.content.indentationStyle(isLastChildBlock: isLastChild)
+
+            if isLastChild,
+                child.childrenIds.count > 0,
+                let lastChildId = child.childrenIds.last,
+                indentationStyle == .highlighted(.full) {
+                indentationRecursion.closingBlockIndex[lastChildId] = [previousIndentationStyles.count]
+            }
 
             previousIndentationStyles.append(parent.content.indentationStyle(isLastChildBlock: isLastChild))
         } else {
@@ -74,7 +117,7 @@ public extension BlockContent {
         switch self {
         case .text(let blockText):
             switch blockText.contentType {
-            case .quote: return .highlighted(isSingleChild ? .single : isLastChildBlock ? .closing : .full)
+            case .quote: return .highlighted(isSingleChild ? .single : .full)
             case .callout: return .callout
             default: return .none
             }
