@@ -57,7 +57,11 @@ extension AddNewRelationRouter: SearchNewRelationModuleOutput {
     }
     
     private func showCreateNewRelationView(searchText: String) {
-        let viewModel = NewRelationViewModel(name: searchText, output: self)
+        let viewModel = NewRelationViewModel(
+            name: searchText,
+            service: RelationsService(objectId: document.objectId),
+            output: self
+        )
         let view = NewRelationView(viewModel: viewModel)
         
         newRelationModuleInput = viewModel
@@ -85,6 +89,11 @@ extension AddNewRelationRouter: NewRelationModuleOutput {
         }
         
         presentSwuftUIView(view: view)
+    }
+    
+    func didCreateRelation(_ relationMetadata: RelationMetadata) {
+        onCompletion?(relationMetadata)
+        viewController?.topPresentedController.dismiss(animated: true)
     }
     
     private func handleObjectTypesSelection(objectTypesIds: [String]) {

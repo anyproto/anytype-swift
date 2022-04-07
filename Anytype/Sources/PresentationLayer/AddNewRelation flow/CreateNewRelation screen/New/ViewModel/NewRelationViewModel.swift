@@ -28,10 +28,12 @@ final class NewRelationViewModel: ObservableObject {
         }
     }
     
+    private let service: RelationsServiceProtocol
     private weak var output: NewRelationModuleOutput?
     
-    init(name: String, output: NewRelationModuleOutput?) {
+    init(name: String, service: RelationsServiceProtocol, output: NewRelationModuleOutput?) {
         self.name = name
+        self.service = service
         self.output = output
         
         let defaultFormat = SupportedRelationFormat.text
@@ -52,13 +54,26 @@ extension NewRelationViewModel {
     }
     
     func didTapTypesRestrictionSection() {
-        output?.didAskToShowObjectTypesSearch(
-            selectedObjectTypesIds: objectTypes?.map { $0.url } ?? []
-        )
+        output?.didAskToShowObjectTypesSearch(selectedObjectTypesIds: objectTypeIds)
     }
     
     func didTapAddButton() {
-        
+        let relationMetatdata = RelationMetadata(
+            key: "",
+            name: name,
+            format: format.asRelationMetadataFormat,
+            isHidden: false,
+            isReadOnly: false,
+            isMulti: format.isMulti,
+            selections: [],
+            objectTypes: objectTypeIds,
+            scope: .object,
+            isBundled: false
+        )
+
+        if let relation = service.createRelation(relation: relationMetatdata) {
+            output?.didCreateRelation(relation)
+        }
     }
     
 }
@@ -87,12 +102,48 @@ private extension NewRelationViewModel {
         }
     }
     
+    var objectTypeIds: [String] {
+        objectTypes?.map { $0.url } ?? []
+    }
+    
 }
 
 private extension SupportedRelationFormat {
     
     var asViewModel: NewRelationFormatSectionView.Model {
         NewRelationFormatSectionView.Model(icon: self.icon, title: self.title)
+    }
+    
+    var asRelationMetadataFormat: RelationMetadata.Format {
+        switch self {
+        case .text: return .longText
+        case .tag: return .tag
+        case .status: return .status
+        case .number: return .number
+        case .date: return .date
+        case .file: return .file
+        case .object: return .object
+        case .checkbox: return .checkbox
+        case .url: return .url
+        case .email: return .email
+        case .phone: return .phone
+        }
+    }
+    
+    var isMulti: Bool {
+        switch self {
+        case .text: return false
+        case .tag: return true
+        case .status: return true
+        case .number: return false
+        case .date: return false
+        case .file: return true
+        case .object: return true
+        case .checkbox: return false
+        case .url: return false
+        case .email: return false
+        case .phone: return false
+        }
     }
     
 }
