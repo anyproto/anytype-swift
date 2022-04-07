@@ -32,7 +32,7 @@ final class MiddlewareEventConverter {
             return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
         case let .blockSetFields(fields):
             infoContainer.update(blockId: fields.id) { info in
-                return info.updated(fields: fields.fields.toFieldTypeMap())
+                return info.updated(fields: fields.fields.fields)
             }
             return .blocks(blockIds: [fields.id])
         case let .blockAdd(value):

@@ -4,7 +4,7 @@ public extension BlockInformation {
         backgroundColor: MiddlewareColor? = nil,
         alignment: LayoutAlignment? = nil,
         childrenIds: [BlockId]? = nil,
-        fields: MiddleBlockFields? = nil,
+        fields: BlockFields? = nil,
         metadata: BlockInformationMetadata? = nil
     ) -> BlockInformation {
         BlockInformation(
@@ -13,8 +13,8 @@ public extension BlockInformation {
             backgroundColor: backgroundColor ?? self.backgroundColor,
             alignment: alignment ?? self.alignment,
             childrenIds: childrenIds ?? self.childrenIds,
-            fields: fields ?? self.fields,
-            configurationData: metadata ?? self.configurationData
+            configurationData: metadata ?? self.configurationData,
+            fields: fields ?? self.fields
         )
     }
 }

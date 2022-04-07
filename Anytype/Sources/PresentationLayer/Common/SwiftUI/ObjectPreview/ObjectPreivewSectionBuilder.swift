@@ -3,26 +3,36 @@ import SwiftUI
 
 final class ObjectPreivewSectionBuilder {
 
-    func build(featuredRelationsByIds: [String: Relation], fields: MiddleBlockFields) -> ObjectPreviewViewSection {
+    func build(featuredRelationsByIds: [String: Relation], objectPreviewFields: ObjectPreviewFields) -> ObjectPreviewViewSection {
         var featuredRelationSection: [ObjectPreviewViewFeaturedSectionItem] = []
-        let objectPreviewFields = ObjectPreviewFieldsConverter.convertToModel(fields: fields)
 
-        let layout = ObjectPreviewViewMainSectionItem(id: IDs.layout, name: "Preview layout".localized, value: objectPreviewFields.layout.name)
-        let icon = ObjectPreviewViewMainSectionItem(id: IDs.icon, name: "Icon".localized, value: objectPreviewFields.icon.name)
+        let layout = ObjectPreviewViewMainSectionItem(
+            id: IDs.layout,
+            name: "Preview layout".localized,
+            value: .layout(objectPreviewFields.layout)
+        )
+        let icon = ObjectPreviewViewMainSectionItem(
+            id: IDs.icon,
+            name: "Icon".localized,
+            value: .icon(objectPreviewFields.icon))
         let mainSection = [layout, icon]
 
-        featuredRelationsByIds.forEach { (key: String, relation: Relation) in
-            let icon = Image.createImage(relation.iconName)
+        let withNameRelation = ObjectPreviewViewFeaturedSectionItem(
+            id: BundledRelationKey.snippet.rawValue,
+            iconName: RelationMetadata.Format.shortText.iconName,
+            name: "Name".localized,
+            isEnabled: objectPreviewFields.withName
+        )
+        featuredRelationSection.append(withNameRelation)
 
-            let isEnabled = objectPreviewFields.featuredRelationsIds.contains(key)
-            let featuredRelation = ObjectPreviewViewFeaturedSectionItem(
-                id: relation.id,
-                icon: icon,
-                name: relation.name,
-                isEnabled: isEnabled
-            )
-            featuredRelationSection.append(featuredRelation)
-        }
+        let isEnabledDescription = objectPreviewFields.featuredRelationsIds.contains(BundledRelationKey.description.rawValue)
+        let withDescription = ObjectPreviewViewFeaturedSectionItem(
+            id: BundledRelationKey.description.rawValue,
+            iconName: RelationMetadata.Format.longText.iconName,
+            name: "Description".localized,
+            isEnabled: isEnabledDescription
+        )
+        featuredRelationSection.append(withDescription)
 
         return .init(main: mainSection, featuredRelation: featuredRelationSection)
     }

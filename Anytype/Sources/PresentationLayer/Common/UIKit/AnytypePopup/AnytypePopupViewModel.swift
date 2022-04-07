@@ -38,10 +38,13 @@ private extension AnytypePopupViewModel {
     struct InnerAnytypePopupView: View {
         @ObservedObject var viewModel: AnytypePopupViewModel
         let contentView: Content
+        @State private var currentHeight: CGFloat = .zero
 
         var body: some View {
             contentView.readSize { size in
-                viewModel.viewDidUpdateHeight(size.height)
+                guard currentHeight != size.height else { return }
+                currentHeight = size.height
+                viewModel.viewDidUpdateHeight(currentHeight)
             }
         }
     }

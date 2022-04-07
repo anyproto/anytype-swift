@@ -1,4 +1,3 @@
-import ProtobufMessages
 
 public struct BlockInformation: Hashable {
     public let id: BlockId
@@ -6,7 +5,7 @@ public struct BlockInformation: Hashable {
     
     public let childrenIds: [BlockId]
     
-    public let fields: MiddleBlockFields
+    public let fields: BlockFields
     
     public let backgroundColor: MiddlewareColor?
     public let alignment: LayoutAlignment
@@ -19,8 +18,8 @@ public struct BlockInformation: Hashable {
         backgroundColor: MiddlewareColor?,
         alignment: LayoutAlignment,
         childrenIds: [BlockId],
-        fields: MiddleBlockFields,
-        configurationData: BlockInformationMetadata
+        configurationData: BlockInformationMetadata,
+        fields: BlockFields
     ) {
         self.id = id
         self.content = content
@@ -30,8 +29,4 @@ public struct BlockInformation: Hashable {
         self.fields = fields
         self.configurationData = configurationData
     }
-}
-
-public enum FieldName {
-    public static let codeLanguage = "lang"
 }
