@@ -11,11 +11,19 @@ struct NewRelationCell: View {
             cellKind.icon
                 .frame(width: 24, height: 24)
             Spacer.fixedWidth(12)
-            AnytypeText(cellKind.title, style: .uxBodyRegular, color: .textPrimary)
-                .lineLimit(1)
+            title
             Spacer()
         }
         .frame(height: 52)
+    }
+    
+    private var title: some View {
+        AnytypeText(
+            cellKind.title.isNotEmpty ? cellKind.title : "Untitled".localized,
+            style: .uxBodyRegular,
+            color: cellKind.title.isNotEmpty ? Color.textPrimary : Color.textSecondary
+        )
+            .lineLimit(1)
     }
 }
 
