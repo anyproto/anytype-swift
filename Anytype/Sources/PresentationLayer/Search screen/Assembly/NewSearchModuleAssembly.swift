@@ -108,4 +108,29 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
+    static func limitObjectTypesSearchModule(
+        selectedObjectTypeIds: [String],
+        onSelect: @escaping (_ ids: [String]) -> Void
+    ) -> NewSearchView {
+        let interactor = ObjectTypesSearchInteractor(
+            searchService: SearchService(),
+            excludedObjectTypeId: nil
+        )
+        
+        let internalViewModel = MultiselectObjectTypesSearchViewModel(
+            selectedObjectTypeIds: selectedObjectTypeIds,
+            interactor: interactor
+        )
+        
+        let viewModel = NewSearchViewModel(
+            title: "Limit object type".localized,
+            selectionMode: .multipleItems,
+            itemCreationMode: .unavailable,
+            internalViewModel: internalViewModel,
+            onSelect: onSelect
+        )
+        
+        return NewSearchView(viewModel: viewModel)
+    }
+    
 }

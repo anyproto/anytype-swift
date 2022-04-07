@@ -23,6 +23,10 @@ extension NewRelationViewModel {
         output?.didAskToShowRelationFormats()
     }
     
+    func didTapRestrictionsSection() {
+        output?.didAskToShowObjectTypesSearch(selectedObjectTypesIds: [])
+    }
+    
 }
 
 extension NewRelationViewModel: NewRelationModuleInput {

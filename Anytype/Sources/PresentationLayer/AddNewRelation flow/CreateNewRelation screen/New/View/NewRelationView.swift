@@ -40,7 +40,7 @@ struct NewRelationView: View {
     private var restrictionsSection: some View {
         viewModel.objectTypeRestrictions.flatMap {
             NewRelationRestrictionsSectionView(model: $0) {
-                debugPrint("")
+                viewModel.didTapRestrictionsSection()
             }
         }
     }
