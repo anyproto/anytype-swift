@@ -280,6 +280,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         }
 
         bringSubviewToFront(wrapperView)
+        bringSubviewToFront(selectionView)
     }
 
     // MARK: - UIDragInteractionDelegate
@@ -292,14 +293,33 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         let provider = NSItemProvider(object: dragConfiguration.id as NSItemProviderWriting)
         let item = UIDragItem(itemProvider: provider)
         item.localObject = dragConfiguration
+
+        contentStackView.backgroundColor = indentationSettings?.relativeBackgroundColor
         let dragPreview = UIDragPreview(view: contentStackView)
+
         item.previewProvider = { dragPreview }
 
         return [item]
+    }
+
+    func dragInteraction(_ interaction: UIDragInteraction, session: UIDragSession, didEndWith operation: UIDropOperation) {
+        contentStackView.backgroundColor = .clear
     }
 }
 
 private enum IndentationConstants {
     static let indentationWidth: CGFloat = 24
     static let leadingViewVerticalPadding: CGFloat = 6
+}
+
+private extension IndentationSettings {
+    var relativeBackgroundColor: UIColor {
+        if let backgroundColor = backgroundColor { return backgroundColor }
+
+        let last = parentBlocksInfo.last { settings in
+            settings.color != nil
+        }
+
+        return last?.color ?? UIColor.Background.default
+    }
 }
