@@ -13,36 +13,11 @@ struct ParsedRelations {
         self.featuredRelations = featuredRelations
         self.otherRelations = otherRelations
     }
+        
+}
+
+extension ParsedRelations {
     
     static let empty = ParsedRelations(featuredRelations: [], otherRelations: [])
     
-}
-
-extension BaseDocumentProtocol {
-    // without description and with type
-    func featuredRelationsForEditor() -> [Relation] {
-        let type = details?.objectType ?? .fallbackType
-        let objectRestriction = objectRestrictions.objectRestriction
-        
-        var enhancedRelations = parsedRelations.featuredRelations
-        
-        let objectTypeRelation: Relation = .text(
-            Relation.Text(
-                id: BundledRelationKey.type.rawValue,
-                name: "",
-                isFeatured: false,
-                isEditable: !objectRestriction.contains(.typechange),
-                isBundled: true,
-                value: type.name
-            )
-        )
-
-        enhancedRelations.insert(objectTypeRelation, at: 0)
-
-        enhancedRelations.removeAll { relation in
-            relation.id == BundledRelationKey.description.rawValue
-        }
-
-        return enhancedRelations
-    }
 }

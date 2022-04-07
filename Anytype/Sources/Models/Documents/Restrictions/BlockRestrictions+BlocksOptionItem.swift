@@ -57,12 +57,25 @@ extension Array where Element == BlockInformation {
             mergedItems.remove(.style)
         }
 
-        if !FeatureFlags.clipboard {
-            mergedItems.remove(.copy)
-            mergedItems.remove(.paste)
+        if !FeatureFlags.objectPreview {
+            mergedItems.remove(.preview)
         }
 
-        if !UIPasteboard.general.hasSlots {
+        var isPreviewAvailable = false
+        if case .link = first?.content, count == 1 {
+            isPreviewAvailable = true
+        }
+
+        if !isPreviewAvailable {
+            mergedItems.remove(.preview)
+        }
+
+        if FeatureFlags.clipboard {
+            if !UIPasteboard.general.hasSlots {
+                mergedItems.remove(.paste)
+            }
+        } else {
+            mergedItems.remove(.copy)
             mergedItems.remove(.paste)
         }
 

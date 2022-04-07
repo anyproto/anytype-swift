@@ -18,6 +18,7 @@ public extension RelationMetadata {
         case tag
         case unrecognized
     }
+    
 }
 
 extension RelationMetadata.Format {

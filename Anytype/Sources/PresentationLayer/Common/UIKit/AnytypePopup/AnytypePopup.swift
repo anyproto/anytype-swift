@@ -22,6 +22,13 @@ final class AnytypePopup: FloatingPanelController {
         
         setup()
     }
+
+    convenience init<Content: View>(contentView: Content,
+                                    popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: true),
+                                    floatingPanelStyle: Bool = false) {
+        let popupView = AnytypePopupViewModel(contentView: contentView, popupLayout: popupLayout)
+        self.init(viewModel: popupView, floatingPanelStyle: floatingPanelStyle)
+    }
     
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
@@ -78,7 +85,10 @@ private extension AnytypePopup {
         contentMode = .static
         delegate = self
         
-        set(contentViewController: viewModel.makeContentView())
+        let contentView = viewModel.makeContentView()
+        contentView.view.backgroundColor = .backgroundSecondary
+        
+        set(contentViewController: contentView)
     }
     
     func setupGestures() {
@@ -109,6 +119,7 @@ private extension AnytypePopup {
     
     func makeAppearance() -> SurfaceAppearance {
         let appearance = SurfaceAppearance()
+        appearance.backgroundColor = .backgroundSecondary
         appearance.cornerRadius = 16.0
         appearance.cornerCurve = .continuous
         

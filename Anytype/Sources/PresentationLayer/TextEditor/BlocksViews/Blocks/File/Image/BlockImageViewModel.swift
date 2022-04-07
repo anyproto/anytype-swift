@@ -57,7 +57,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
                     self?.didTapOpenImage(imageView)
                 }
             ).cellBlockConfiguration(
-                indentationSettings: .init(with: info.metadata),
+                indentationSettings: .init(with: info.configurationData),
                 dragConfiguration: .init(id: info.id)
             )
         }
@@ -69,7 +69,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             text: "Upload a picture".localized,
             state: state
         ).cellBlockConfiguration(
-            indentationSettings: .init(with: info.metadata),
+            indentationSettings: .init(with: info.configurationData),
             dragConfiguration: .init(id: info.id)
         )
     }
@@ -86,20 +86,20 @@ final class BlockImageViewModel: BlockViewModelProtocol {
 
     private func downloadImage() {
         guard
-            let url = ImageID(id: fileData.metadata.hash, width: .original).resolvedUrl
+            let url = ImageMetadata(id: fileData.metadata.hash, width: .original).contentUrl
         else {
             return
         }
 
-        KingfisherManager.shared.retrieveImage(with: url) { result in
-            guard case let .success(success) = result else { return }
+        AnytypeImageDownloader.retrieveImage(with: url, options: nil) { image in
+            guard let image = image else { return }
 
-            UIImageWriteToSavedPhotosAlbum(success.image, nil, nil, nil)
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         }
     }
     
     private func didTapOpenImage(_ sender: UIImageView) {
-        let imageId = ImageID(id: fileData.metadata.hash, width: .original)
+        let imageId = ImageMetadata(id: fileData.metadata.hash, width: .original)
 
         onImageOpen?(.init(image: .middleware(imageId), imageView: sender))
     }

@@ -70,7 +70,7 @@ extension TextBlockContentConfiguration {
     var contentInsets: UIEdgeInsets {
         switch content.contentType {
         case .title:
-            return .zero
+            return .init(top: 0, left: 20, bottom: -2, right: -20)
         case .description:
             return .init(top: 8, left: 20, bottom: 0, right: -20)
         case .header:

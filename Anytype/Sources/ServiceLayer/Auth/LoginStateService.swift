@@ -11,16 +11,18 @@ final class LoginStateService {
     
     func setupStateAfterLoginOrAuth() {
         ObjectTypeProvider.loadObjects()
+        MiddlewareConfigurationProvider.shared.removeCachedConfiguration()
     }
     
     func setupStateAfterRegistration() {
         isFirstLaunchAfterRegistration = true
         UserDefaultsConfig.showKeychainAlert = true
         ObjectTypeProvider.loadObjects()
+        MiddlewareConfigurationProvider.shared.removeCachedConfiguration()
     }
     
     func cleanStateAfterLogout() {
         UserDefaultsConfig.cleanStateAfterLogout()
-        MiddlewareConfigurationService.shared.removeCacheConfiguration()
+        MiddlewareConfigurationProvider.shared.removeCachedConfiguration()
     }
 }

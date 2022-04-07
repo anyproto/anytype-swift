@@ -63,9 +63,9 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>CFBundleShortVersionString</key>
-	<string>0.13.0</string>
+	<string>0.14.0</string>
 	<key>CFBundleVersion</key>
-	<string>11</string>
+	<string>0</string>
 	<key>ITSAppUsesNonExemptEncryption</key>
 	<false/>
 	<key>LSRequiresIPhoneOS</key>
@@ -166,7 +166,7 @@
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>com.anytype.anySlots</string>
+			<string>com.anytype.blockSlot</string>
 			<key>UTTypeTagSpecification</key>
 			<dict/>
 		</dict>

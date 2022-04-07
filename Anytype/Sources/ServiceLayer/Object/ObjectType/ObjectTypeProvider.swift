@@ -9,8 +9,7 @@ protocol ObjectTypeProviderProtocol {
     
     static func loadObjects()
     
-    static func isSupported(type: ObjectType?) -> Bool
-    static func isSupported(typeUrl: String?) -> Bool
+    static func isSupported(typeUrl: String) -> Bool
     
     static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType]
     static func objectType(url: String?) -> ObjectType?
@@ -18,8 +17,7 @@ protocol ObjectTypeProviderProtocol {
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     static var supportedTypeUrls: [String] {
-        var smartblockTypes: [Anytype_Model_SmartBlockType] = [.page, .profilePage, .anytypeProfile]
-        if FeatureFlags.sets { smartblockTypes.append(.set)}
+        let smartblockTypes: [Anytype_Model_SmartBlockType] = [.page, .profilePage, .anytypeProfile, .set]
         
         return objectTypes(smartblockTypes: smartblockTypes).map { $0.url } +
         [ObjectTemplateType.BundledType.note.rawValue]
@@ -29,24 +27,14 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         objectType(url: UserDefaultsConfig.defaultObjectType) ?? .fallbackType
     }
     
-    static func isSupported(type: ObjectType?) -> Bool {
-        guard let type = type else {
-            return false
-        }
-        
-        return isSupported(typeUrl: type.url)
-    }
-    
-    static func isSupported(typeUrl: String?) -> Bool {
-        if FeatureFlags.sets { return true }
-        
-        return typeUrl != ObjectTemplateType.BundledType.set.rawValue
-    }
-    
     static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType] {
         types.filter {
             !Set($0.types).intersection(smartblockTypes).isEmpty
         }
+    }
+    
+    static func isSupported(typeUrl: String) -> Bool {
+        supportedTypeUrls.contains(typeUrl)
     }
     
     static func objectType(url: String?) -> ObjectType? {

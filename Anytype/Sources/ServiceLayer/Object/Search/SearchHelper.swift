@@ -110,4 +110,16 @@ class SearchHelper {
         
         return filter
     }
+    
+    static func excludedIdsFilter(_ ids: [String]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notIn
+        filter.value = ids.protobufValue
+        
+        filter.relationKey = BundledRelationKey.id.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
 }

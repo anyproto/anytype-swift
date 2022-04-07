@@ -62,26 +62,15 @@ final class BlockBookmarkInfoView: UIView {
         
         let imageGuideline = ImageGuideline(
             size: Layout.iconSize,
-            cornerRadius: 2,
+            radius: .point(2),
             backgroundColor: UIColor.backgroundPrimary
         )
         
-        let placeholder = ImageBuilder(imageGuideline).build()
-        
-        let processor = KFProcessorBuilder(
-            scalingType: .downsampling,
-            targetSize: Layout.iconSize,
-            cornerRadius: .point(2)
-        ).processor
-        
-        iconView.kf.setImage(
-            with: ImageID(
-                id: payload.faviconHash,
-                width: imageGuideline.size.width.asImageWidth
-            ).resolvedUrl,
-            placeholder: placeholder,
-            options: [.processor(processor), .transition(.fade(0.2))]
-        )
+        iconView.wrapper
+            .imageGuideline(imageGuideline)
+            .scalingType(.downsampling)
+            .animatedTransition(false)
+            .setImage(id: payload.faviconHash)
     }
     
     // MARK: - Views

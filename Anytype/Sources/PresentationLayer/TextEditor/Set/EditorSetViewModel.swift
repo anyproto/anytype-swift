@@ -20,7 +20,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var colums: [RelationMetadata] {
-        sortedRelations.filter { $0.isVisible }.map(\.metadata)
+        sortedRelations.filter { $0.option.isVisible }.map(\.metadata)
     }
  
     var rows: [SetTableViewRowData] {
@@ -35,7 +35,7 @@ final class EditorSetViewModel: ObservableObject {
         document.details ?? .empty
     }
     var featuredRelations: [Relation] {
-        document.featuredRelationsForEditor()
+        document.featuredRelationsForEditor
     }
     
     let document: BaseDocument

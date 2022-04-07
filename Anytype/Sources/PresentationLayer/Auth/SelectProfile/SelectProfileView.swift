@@ -17,7 +17,7 @@ struct SelectProfileView: View {
         .snackbar(
             isShowing: $viewModel.snackBarData.showSnackBar,
             text: AnytypeText(viewModel.snackBarData.text, style: .uxCalloutRegular, color: .textPrimary),
-            hideTimeout: 15
+            autohide: .disabled
         )
         
         .errorToast(isShowing: $viewModel.showError, errorText: viewModel.errorText ?? "") {

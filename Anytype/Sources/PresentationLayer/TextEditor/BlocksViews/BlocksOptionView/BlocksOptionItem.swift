@@ -3,6 +3,7 @@ import UIKit
 enum BlocksOptionItem: CaseIterable, Comparable {
     case paste
     case copy
+    case preview
     case style
     case download
     case delete
@@ -38,6 +39,8 @@ extension BlocksOptionItem {
             return BlockOptionImage.paste
         case .copy:
             return BlockOptionImage.copy
+        case .preview:
+            return BlockOptionImage.preview
         }
     }
 
@@ -63,6 +66,8 @@ extension BlocksOptionItem {
             return "Paste".localized
         case .copy:
             return "Copy".localized
+        case .preview:
+            return "Preview".localized
         }
     }
 }

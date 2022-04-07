@@ -8,10 +8,10 @@ struct DashboardDeletionAlert: View {
             title: "\("Are you sure you want to delete".localized) \(model.numberOfSelectedPages) \(objectsLiteral)?",
             description: "These objects will be deleted irrevocably. You can’t undo this action.".localized,
             leftButtonData: StandardButtonData(text: "Cancel".localized, style: .secondary) {
-                model.showDeletionAlert = false
+                model.showPagesDeletionAlert = false
             },
             rightButtonData: StandardButtonData(text: "Delete", style: .destructive) {
-                model.deleteConfirmation()
+                model.pagesDeleteConfirmation()
             }
         )
     }

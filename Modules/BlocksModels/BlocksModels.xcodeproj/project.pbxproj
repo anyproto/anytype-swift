@@ -63,6 +63,8 @@
 		5345CED92745185800DC2DD9 /* RelationMetadataScope.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12336DC42742A5C8001D4434 /* RelationMetadataScope.swift */; };
 		535E02B627503B7500E1AF8C /* BlockRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 535E02B527503B7500E1AF8C /* BlockRelation.swift */; };
 		53856C06265BE1DB00CB1FAE /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */; };
+		53D4088A27ECB8D800495335 /* FieldsExtenstion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4088927ECB8D800495335 /* FieldsExtenstion.swift */; };
+		C9ACFE7327FECD5600E748A4 /* IndentationStyleRecursiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9ACFE7227FECD5600E748A4 /* IndentationStyleRecursiveData.swift */; };
 		C9BEC8482721CD15001C16E2 /* ObjectTemplateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9BEC8472721CD15001C16E2 /* ObjectTemplateType.swift */; };
 		C9F44C7D27E350B90078E709 /* BlockFieldBundledKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F44C7C27E350B90078E709 /* BlockFieldBundledKey.swift */; };
 		EAC6BB6A2628B4AB004C8C06 /* BlockContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */; };
@@ -127,6 +129,8 @@
 		531605C92721982E0057B7C1 /* MiddlewareObjectRestrictionsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MiddlewareObjectRestrictionsConverter.swift; sourceTree = "<group>"; };
 		535E02B527503B7500E1AF8C /* BlockRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRelation.swift; sourceTree = "<group>"; };
 		53856C05265BE1DB00CB1FAE /* ProtobufMessages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtobufMessages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		53D4088927ECB8D800495335 /* FieldsExtenstion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldsExtenstion.swift; sourceTree = "<group>"; };
+		C9ACFE7227FECD5600E748A4 /* IndentationStyleRecursiveData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndentationStyleRecursiveData.swift; sourceTree = "<group>"; };
 		C9BEC8472721CD15001C16E2 /* ObjectTemplateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTemplateType.swift; sourceTree = "<group>"; };
 		C9F44C7C27E350B90078E709 /* BlockFieldBundledKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFieldBundledKey.swift; sourceTree = "<group>"; };
 		EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentType.swift; sourceTree = "<group>"; };
@@ -223,6 +227,7 @@
 		129D788C2694964800DA6757 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				53D4088927ECB8D800495335 /* FieldsExtenstion.swift */,
 				129D788D2694965700DA6757 /* LayoutAlignment.swift */,
 			);
 			path = Common;
@@ -331,6 +336,7 @@
 				3D0BCADF26666BE9002F7A0D /* BlockContent */,
 				3DB7DCA22639DBCD00635E4C /* BlockContainer */,
 				0A6D536C25D9C99E002F3F82 /* IndentationBuilder.swift */,
+				C9ACFE7227FECD5600E748A4 /* IndentationStyleRecursiveData.swift */,
 				0A6D537C25D9C99E002F3F82 /* Block+CommonStructures.swift */,
 				EAC6BB692628B4AB004C8C06 /* BlockContentType.swift */,
 				C9F44C7C27E350B90078E709 /* BlockFieldBundledKey.swift */,
@@ -507,6 +513,7 @@
 				531605C8272191EF0057B7C1 /* ObjectRestrictions.swift in Sources */,
 				129D788E2694965700DA6757 /* LayoutAlignment.swift in Sources */,
 				3D53F03326B300CE001A6EEE /* Google_Protobuf_Value+Entries.swift in Sources */,
+				53D4088A27ECB8D800495335 /* FieldsExtenstion.swift in Sources */,
 				3D22B21E2687812F00C78C28 /* BlockContentBookmark.swift in Sources */,
 				3D30416127EA24E500FFE0EB /* DataviewView.swift in Sources */,
 				0A6D539C25D9C99F002F3F82 /* Block+CommonStructures.swift in Sources */,
@@ -519,6 +526,7 @@
 				3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */,
 				12206713273164890051A331 /* RelationsMetadataStorage.swift in Sources */,
 				531605CA2721982E0057B7C1 /* MiddlewareObjectRestrictionsConverter.swift in Sources */,
+				C9ACFE7327FECD5600E748A4 /* IndentationStyleRecursiveData.swift in Sources */,
 				124E2BC92731249600A2D534 /* RelationMetadataFormat.swift in Sources */,
 				124E2BCD273125C400A2D534 /* RelationMetadataOption.swift in Sources */,
 				3D30415B27EA247300FFE0EB /* BlockDataViewAliases.swift in Sources */,

@@ -6,6 +6,7 @@ import UniformTypeIdentifiers
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
     private let handler: BlockActionHandlerProtocol
+    private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
     private let pageService = PageService()
@@ -15,12 +16,14 @@ final class BlockViewModelBuilder {
     init(
         document: BaseDocumentProtocol,
         handler: BlockActionHandlerProtocol,
+        pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
         markdownListener: MarkdownListener
     ) {
         self.document = document
         self.handler = handler
+        self.pasteboardService = pasteboardService
         self.router = router
         self.delegate = delegate
         self.markdownListener = markdownListener
@@ -86,6 +89,7 @@ final class BlockViewModelBuilder {
                     isCheckable: isCheckable,
                     blockDelegate: delegate,
                     actionHandler: handler,
+                    pasteboardService: pasteboardService,
                     showPage: { [weak self] data in
                         self?.router.showPage(data: data)
                     },
@@ -108,8 +112,9 @@ final class BlockViewModelBuilder {
                     showFilePicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId)
                     },
-                    downloadFile: { [weak self] fileId in
-                        self?.saveFile(fileId: fileId, type: .file)
+                    downloadFile: { [weak router] fileMetadata in
+                        guard let url = fileMetadata.contentUrl else { return }
+                        router?.saveFile(fileURL: url, type: .file)
                     }
                 )
             case .none:
@@ -131,9 +136,6 @@ final class BlockViewModelBuilder {
                     fileData: content,
                     showVideoPicker: { [weak self] blockId in
                         self?.showMediaPicker(type: .videos, blockId: blockId)
-                    },
-                    downloadVideo: { [weak self] fileId in
-                        self?.saveFile(fileId: fileId, type: .video)
                     }
                 )
             case .audio:
@@ -142,9 +144,6 @@ final class BlockViewModelBuilder {
                     fileData: content,
                     showAudioPicker: { [weak self] blockId in
                         self?.showFilePicker(blockId: blockId, types: [.audio])
-                    },
-                    downloadAudio: { [weak self] fileId in
-                        self?.saveFile(fileId: fileId, type: .audio)
                     }
                 )
             }
@@ -174,7 +173,7 @@ final class BlockViewModelBuilder {
         case .featuredRelations:
             guard let objectType = document.details?.objectType else { return nil }
             
-            let featuredRelation = document.featuredRelationsForEditor()
+            let featuredRelation = document.featuredRelationsForEditor
             return FeaturedRelationsBlockViewModel(
                 info: info,
                 featuredRelation: featuredRelation,
@@ -210,7 +209,7 @@ final class BlockViewModelBuilder {
 
         case .smartblock, .layout, .dataView: return nil
         case .unsupported:
-            guard let parentId = info.metadata.parentId,
+            guard let parentId = info.configurationData.parentId,
                   let parent = document.infoContainer.get(id: parentId),
                   parent.content.type != .layout(.header)
             else {
@@ -246,12 +245,6 @@ final class BlockViewModelBuilder {
         }.store(in: &subscriptions)
 
         router.showFilePicker(model: model)
-    }
-
-    private func saveFile(fileId: FileId, type: FileContentType) {
-        guard let url = UrlResolver.resolvedUrl(.file(id: fileId)) else { return }
-
-        router.saveFile(fileURL: url, type: type)
     }
 
     private func showBookmarkBar(info: BlockInformation) {

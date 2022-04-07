@@ -61,18 +61,19 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         }
     }
 
-    /// All backgrounds are here. Added through horizontal `StackView` and width (block + indentation) constraint.
     private lazy var backgroundColorsStackView = UIStackView()
     private lazy var wrapperView = UIView()
 
-    /// Horizontal stack view like view.
     private lazy var contentStackView = UIView()
     private lazy var leadingView = TextBlockIconView(viewType: .quote)
     private lazy var blockView = View(frame: .zero)
+
     private lazy var selectionView = BaseSelectionView()
+    
     private lazy var indentationViews = [UIView]()
 
-    private var leadingWidthConstraint: NSLayoutConstraint?
+    private var leadingViewWidthConstraint: NSLayoutConstraint?
+    private var leadingViewBottomConstraint: NSLayoutConstraint?
     private var contentConstraints: InsetConstraints?
 
     private lazy var viewDragInteraction = UIDragInteraction(delegate: self)
@@ -152,11 +153,19 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
     private func configureLeadingView(with style: BlockIndentationStyle) {
         switch style {
-        case .highlighted:
-            leadingWidthConstraint?.constant = IndentationConstants.indentationWidth
+        case .highlighted(let highlightStyle):
+            leadingViewWidthConstraint?.constant = IndentationConstants.indentationWidth
             leadingView.isHidden = false
+
+            switch highlightStyle {
+            case .single:
+                leadingViewBottomConstraint?.constant = -IndentationConstants.leadingViewVerticalPadding
+            default:
+                leadingViewBottomConstraint?.constant = 0
+            }
+
         default:
-            leadingWidthConstraint?.constant = 0
+            leadingViewWidthConstraint?.constant = 0
             leadingView.isHidden = true
         }
     }
@@ -165,15 +174,16 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         var leadingContraintValue = blockConfiguration.contentInsets.left
 
         parentIndentationStyles.forEach() { element in
-            if case .highlighted = element {
-                addBlockLeadingView(with: leadingContraintValue)
+
+            if case let .highlighted(style) = element {
+                addBlockLeadingView(with: leadingContraintValue, shouldTrimAtBottom: style == .closing)
             }
 
             leadingContraintValue = leadingContraintValue + IndentationConstants.indentationWidth
         }
     }
 
-    private func addBlockLeadingView(with indentation: CGFloat) {
+    private func addBlockLeadingView(with indentation: CGFloat, shouldTrimAtBottom: Bool) {
         let leadingView = TextBlockLeadingView()
         leadingView.update(style: .quote)
 
@@ -181,7 +191,12 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         addSubview(leadingView) {
             $0.pinToSuperview(
                 excluding: [.right],
-                insets: .init(top: 0, left: indentation, bottom: 0, right: 0)
+                insets: .init(
+                    top: 0,
+                    left: indentation,
+                    bottom: shouldTrimAtBottom ? -IndentationConstants.leadingViewVerticalPadding : 0,
+                    right: 0
+                )
             )
         }
     }
@@ -225,8 +240,10 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
         leadingView.isHidden = true
         contentStackView.addSubview(leadingView) {
-            $0.pinToSuperview(excluding: [.right], insets: .zero)
-            leadingWidthConstraint = $0.width.equal(to: 0)
+            $0.pinToSuperview(excluding: [.right, .bottom], insets: .init(top: IndentationConstants.leadingViewVerticalPadding, left: 0, bottom: 0, right: 0))
+            leadingViewWidthConstraint = $0.width.equal(to: 0)
+            leadingViewBottomConstraint = $0.bottom.equal(to: contentStackView.bottomAnchor)
+            leadingViewBottomConstraint?.isActive = true
         }
 
         var blockViewToContentbottomConstraint: NSLayoutConstraint?
@@ -258,10 +275,12 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         }
 
         addSubview(selectionView) {
-            $0.pin(to: contentStackView, insets: .init(top: 1, left: -8, bottom: -1, right: 8))
+            $0.pin(to: contentStackView, excluding: [.bottom], insets: .init(top: 0, left: -8, bottom: 0, right: 8))
+            $0.bottom.equal(to: blockView.bottomAnchor, constant: 0)
         }
 
         bringSubviewToFront(wrapperView)
+        bringSubviewToFront(selectionView)
     }
 
     // MARK: - UIDragInteractionDelegate
@@ -275,10 +294,32 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         let item = UIDragItem(itemProvider: provider)
         item.localObject = dragConfiguration
 
+        contentStackView.backgroundColor = indentationSettings?.relativeBackgroundColor
+        let dragPreview = UIDragPreview(view: contentStackView)
+
+        item.previewProvider = { dragPreview }
+
         return [item]
+    }
+
+    func dragInteraction(_ interaction: UIDragInteraction, session: UIDragSession, didEndWith operation: UIDropOperation) {
+        contentStackView.backgroundColor = .clear
     }
 }
 
 private enum IndentationConstants {
     static let indentationWidth: CGFloat = 24
+    static let leadingViewVerticalPadding: CGFloat = 6
+}
+
+private extension IndentationSettings {
+    var relativeBackgroundColor: UIColor {
+        if let backgroundColor = backgroundColor { return backgroundColor }
+
+        let last = parentBlocksInfo.last { settings in
+            settings.color != nil
+        }
+
+        return last?.color ?? UIColor.Background.default
+    }
 }
