@@ -9,10 +9,12 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Model_Account {
-  public init(id: String, name: String, avatar: Anytype_Model_Account.Avatar) {
+  public init(id: String, name: String, avatar: Anytype_Model_Account.Avatar, config: Anytype_Model_Account.Config, status: Anytype_Model_Account.Status) {
     self.id = id
     self.name = name
     self.avatar = avatar
+    self.config = config
+    self.status = status
   }
 }
 
@@ -29,6 +31,13 @@ extension Anytype_Model_Account.Config {
     self.enableReleaseChannelSwitch = enableReleaseChannelSwitch
     self.enableSpaces = enableSpaces
     self.extra = extra
+  }
+}
+
+extension Anytype_Model_Account.Status {
+  public init(statusType: Anytype_Model_Account.StatusType, deletionDate: Int64) {
+    self.statusType = statusType
+    self.deletionDate = deletionDate
   }
 }
 

@@ -4349,6 +4349,56 @@ extension Anytype_Rpc.Account.Recover {
   }
 }
 
+extension Anytype_Rpc.Account.Delete {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceAccountDelete(data) }
+  }
+
+  public enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(revert: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(revert: revert), on: queue)
+    }
+    public static func invoke(revert: Bool) -> Result<Response, Error> {
+      self.result(.init(revert: revert))
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 extension Anytype_Rpc.Account.Select {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.ServiceAccountSelect(data) }

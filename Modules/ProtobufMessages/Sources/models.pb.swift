@@ -1890,22 +1890,80 @@ public struct Anytype_Model_Account {
   // methods supported on all messages.
 
   /// User's thread id
-  public var id: String = String()
+  public var id: String {
+    get {return _storage._id}
+    set {_uniqueStorage()._id = newValue}
+  }
 
   /// User name, that associated with this account
-  public var name: String = String()
+  public var name: String {
+    get {return _storage._name}
+    set {_uniqueStorage()._name = newValue}
+  }
 
   /// Avatar of a user's account
   public var avatar: Anytype_Model_Account.Avatar {
-    get {return _avatar ?? Anytype_Model_Account.Avatar()}
-    set {_avatar = newValue}
+    get {return _storage._avatar ?? Anytype_Model_Account.Avatar()}
+    set {_uniqueStorage()._avatar = newValue}
   }
   /// Returns true if `avatar` has been explicitly set.
-  public var hasAvatar: Bool {return self._avatar != nil}
+  public var hasAvatar: Bool {return _storage._avatar != nil}
   /// Clears the value of `avatar`. Subsequent reads from it will return its default value.
-  public mutating func clearAvatar() {self._avatar = nil}
+  public mutating func clearAvatar() {_uniqueStorage()._avatar = nil}
+
+  public var config: Anytype_Model_Account.Config {
+    get {return _storage._config ?? Anytype_Model_Account.Config()}
+    set {_uniqueStorage()._config = newValue}
+  }
+  /// Returns true if `config` has been explicitly set.
+  public var hasConfig: Bool {return _storage._config != nil}
+  /// Clears the value of `config`. Subsequent reads from it will return its default value.
+  public mutating func clearConfig() {_uniqueStorage()._config = nil}
+
+  public var status: Anytype_Model_Account.Status {
+    get {return _storage._status ?? Anytype_Model_Account.Status()}
+    set {_uniqueStorage()._status = newValue}
+  }
+  /// Returns true if `status` has been explicitly set.
+  public var hasStatus: Bool {return _storage._status != nil}
+  /// Clears the value of `status`. Subsequent reads from it will return its default value.
+  public mutating func clearStatus() {_uniqueStorage()._status = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public enum StatusType: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+    case active // = 0
+    case pendingDeletion // = 1
+    case startedDeletion // = 2
+    case deleted // = 3
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .active
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .active
+      case 1: self = .pendingDeletion
+      case 2: self = .startedDeletion
+      case 3: self = .deleted
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .active: return 0
+      case .pendingDeletion: return 1
+      case .startedDeletion: return 2
+      case .deleted: return 3
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
 
   ///*
   /// Avatar of a user's account. It could be an image or color
@@ -1994,10 +2052,38 @@ public struct Anytype_Model_Account {
     fileprivate var _extra: SwiftProtobuf.Google_Protobuf_Struct? = nil
   }
 
+  public struct Status {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var statusType: Anytype_Model_Account.StatusType = .active
+
+    public var deletionDate: Int64 = 0
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
   public init() {}
 
-  fileprivate var _avatar: Anytype_Model_Account.Avatar? = nil
+  fileprivate var _storage = _StorageClass.defaultInstance
 }
+
+#if swift(>=4.2)
+
+extension Anytype_Model_Account.StatusType: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Account.StatusType] = [
+    .active,
+    .pendingDeletion,
+    .startedDeletion,
+    .deleted,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 public struct Anytype_Model_LinkPreview {
   // SwiftProtobuf.Message conformance is added in an extension below. See the
@@ -2722,9 +2808,11 @@ extension Anytype_Model_Block.Content.TableOfContents: @unchecked Sendable {}
 extension Anytype_Model_BlockMetaOnly: @unchecked Sendable {}
 extension Anytype_Model_Range: @unchecked Sendable {}
 extension Anytype_Model_Account: @unchecked Sendable {}
+extension Anytype_Model_Account.StatusType: @unchecked Sendable {}
 extension Anytype_Model_Account.Avatar: @unchecked Sendable {}
 extension Anytype_Model_Account.Avatar.OneOf_Avatar: @unchecked Sendable {}
 extension Anytype_Model_Account.Config: @unchecked Sendable {}
+extension Anytype_Model_Account.Status: @unchecked Sendable {}
 extension Anytype_Model_LinkPreview: @unchecked Sendable {}
 extension Anytype_Model_LinkPreview.TypeEnum: @unchecked Sendable {}
 extension Anytype_Model_Restrictions: @unchecked Sendable {}
@@ -4397,46 +4485,107 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     1: .same(proto: "id"),
     2: .same(proto: "name"),
     3: .same(proto: "avatar"),
+    4: .same(proto: "config"),
+    5: .same(proto: "status"),
   ]
 
+  fileprivate class _StorageClass {
+    var _id: String = String()
+    var _name: String = String()
+    var _avatar: Anytype_Model_Account.Avatar? = nil
+    var _config: Anytype_Model_Account.Config? = nil
+    var _status: Anytype_Model_Account.Status? = nil
+
+    static let defaultInstance = _StorageClass()
+
+    private init() {}
+
+    init(copying source: _StorageClass) {
+      _id = source._id
+      _name = source._name
+      _avatar = source._avatar
+      _config = source._config
+      _status = source._status
+    }
+  }
+
+  fileprivate mutating func _uniqueStorage() -> _StorageClass {
+    if !isKnownUniquelyReferenced(&_storage) {
+      _storage = _StorageClass(copying: _storage)
+    }
+    return _storage
+  }
+
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
-      case 2: try { try decoder.decodeSingularStringField(value: &self.name) }()
-      case 3: try { try decoder.decodeSingularMessageField(value: &self._avatar) }()
-      default: break
+    _ = _uniqueStorage()
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      while let fieldNumber = try decoder.nextFieldNumber() {
+        // The use of inline closures is to circumvent an issue where the compiler
+        // allocates stack space for every case branch when no optimizations are
+        // enabled. https://github.com/apple/swift-protobuf/issues/1034
+        switch fieldNumber {
+        case 1: try { try decoder.decodeSingularStringField(value: &_storage._id) }()
+        case 2: try { try decoder.decodeSingularStringField(value: &_storage._name) }()
+        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._avatar) }()
+        case 4: try { try decoder.decodeSingularMessageField(value: &_storage._config) }()
+        case 5: try { try decoder.decodeSingularMessageField(value: &_storage._status) }()
+        default: break
+        }
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    // The use of inline closures is to circumvent an issue where the compiler
-    // allocates stack space for every if/case branch local when no optimizations
-    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-    // https://github.com/apple/swift-protobuf/issues/1182
-    if !self.id.isEmpty {
-      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every if/case branch local when no optimizations
+      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+      // https://github.com/apple/swift-protobuf/issues/1182
+      if !_storage._id.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._id, fieldNumber: 1)
+      }
+      if !_storage._name.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._name, fieldNumber: 2)
+      }
+      try { if let v = _storage._avatar {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+      } }()
+      try { if let v = _storage._config {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+      } }()
+      try { if let v = _storage._status {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+      } }()
     }
-    if !self.name.isEmpty {
-      try visitor.visitSingularStringField(value: self.name, fieldNumber: 2)
-    }
-    try { if let v = self._avatar {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Account, rhs: Anytype_Model_Account) -> Bool {
-    if lhs.id != rhs.id {return false}
-    if lhs.name != rhs.name {return false}
-    if lhs._avatar != rhs._avatar {return false}
+    if lhs._storage !== rhs._storage {
+      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
+        let _storage = _args.0
+        let rhs_storage = _args.1
+        if _storage._id != rhs_storage._id {return false}
+        if _storage._name != rhs_storage._name {return false}
+        if _storage._avatar != rhs_storage._avatar {return false}
+        if _storage._config != rhs_storage._config {return false}
+        if _storage._status != rhs_storage._status {return false}
+        return true
+      }
+      if !storagesAreEqual {return false}
+    }
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Model_Account.StatusType: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Active"),
+    1: .same(proto: "PendingDeletion"),
+    2: .same(proto: "StartedDeletion"),
+    3: .same(proto: "Deleted"),
+  ]
 }
 
 extension Anytype_Model_Account.Avatar: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -4559,6 +4708,44 @@ extension Anytype_Model_Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs.enableReleaseChannelSwitch != rhs.enableReleaseChannelSwitch {return false}
     if lhs.enableSpaces != rhs.enableSpaces {return false}
     if lhs._extra != rhs._extra {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Account.Status: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Account.protoMessageName + ".Status"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "statusType"),
+    2: .same(proto: "deletionDate"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.statusType) }()
+      case 2: try { try decoder.decodeSingularInt64Field(value: &self.deletionDate) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.statusType != .active {
+      try visitor.visitSingularEnumField(value: self.statusType, fieldNumber: 1)
+    }
+    if self.deletionDate != 0 {
+      try visitor.visitSingularInt64Field(value: self.deletionDate, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Account.Status, rhs: Anytype_Model_Account.Status) -> Bool {
+    if lhs.statusType != rhs.statusType {return false}
+    if lhs.deletionDate != rhs.deletionDate {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
