@@ -9,6 +9,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let fileRouter: FileRouter
+    private let addNewRelationRouter: AddNewRelationRouter
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
     private let editorAssembly: EditorAssembly
@@ -25,6 +26,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.document = document
         self.editorAssembly = assembly
         self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
+        self.addNewRelationRouter = AddNewRelationRouter(document: document, viewController: viewController)
     }
 
     func showPage(data: EditorScreenData) {
@@ -341,6 +343,11 @@ extension EditorRouter {
     }
 
     func showAddNewRelationView(onSelect: ((RelationMetadata) -> Void)?) {
+        if FeatureFlags.createNewRelationV2 {
+            addNewRelationRouter.showAddNewRelationView(onSelect: onSelect)
+            return
+        }
+        
         let relationService = RelationsService(objectId: document.objectId)
 
         let viewModel = SearchNewRelationViewModel(
