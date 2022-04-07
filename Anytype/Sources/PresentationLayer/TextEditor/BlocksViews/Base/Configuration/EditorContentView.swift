@@ -1,4 +1,5 @@
 import UIKit
+import BlocksModels
 
 final class EditorContentView<View: BlockContentView>: UIView & UIContentView, UIDragInteractionDelegate {
     typealias Configuration = CellBlockConfiguration<View.Configuration>
@@ -28,12 +29,14 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
             }
 
             dragConfiguration = newConfiguration.dragConfiguration
+
+            updateIndentationPaddings()
         }
     }
 
     private var blockConfiguration: View.Configuration {
         didSet {
-            view.update(with: blockConfiguration)
+            blockView.update(with: blockConfiguration)
         }
     }
 
@@ -49,19 +52,29 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         }
     }
 
-    var currentConfigurationState: UICellConfigurationState? {
+    private var currentConfigurationState: UICellConfigurationState? {
         didSet {
             currentConfigurationState.map {
                 update(with: $0)
-                view.update(with: $0)
+                blockView.update(with: $0)
             }
         }
     }
 
-    private lazy var backgroundColorsStackView = UIStackView()  
-    private let view = View(frame: .zero)
+    /// All backgrounds are here. Added through horizontal `StackView` and width (block + indentation) constraint.
+    private lazy var backgroundColorsStackView = UIStackView()
+    private lazy var wrapperView = UIView()
+
+    /// Horizontal stack view like view.
+    private lazy var contentStackView = UIView()
+    private lazy var leadingView = TextBlockIconView(viewType: .quote)
+    private lazy var blockView = View(frame: .zero)
     private lazy var selectionView = BaseSelectionView()
-    private var viewLeadingConstraint: NSLayoutConstraint?
+    private lazy var indentationViews = [UIView]()
+
+    private var leadingWidthConstraint: NSLayoutConstraint?
+    private var contentConstraints: InsetConstraints?
+
     private lazy var viewDragInteraction = UIDragInteraction(delegate: self)
 
     init(configuration: Configuration) {
@@ -74,17 +87,19 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
         setupSubviews()
 
-        view.update(with: configuration.blockConfiguration)
-        configuration.currentConfigurationState.map { view.update(with: $0) }
-
+        blockView.update(with: configuration.blockConfiguration)
+        configuration.currentConfigurationState.map { blockView.update(with: $0) }
         indentationSettings.map(update(with:))
 
         setupDragInteraction()
+        updateIndentationPaddings()
     }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+    // MARK: - UICollectionView configuration
 
     private func update(with state: UICellConfigurationState) {
         selectionView.updateStyle(isSelected: state.isSelected)
@@ -98,31 +113,100 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         }
     }
 
+    // MARK: - Drag&Drop
+
     private func setupDragInteraction() {
         guard dragConfiguration != nil, viewDragInteraction.view == nil else { return }
-        view.addInteraction(viewDragInteraction)
+        contentStackView.addInteraction(viewDragInteraction)
+    }
+
+    // MARK: - Indentation
+
+    private func updateIndentationPaddings() {
+        var blockContentInsets = blockConfiguration.contentInsets
+        let indentationLevel = indentationSettings?.parentBlocksInfo.count ?? 0
+        let parentIndentaionPadding = CGFloat(indentationLevel) * IndentationConstants.indentationWidth
+
+        blockContentInsets.left = blockContentInsets.left + parentIndentaionPadding
+
+        contentConstraints?.update(with: blockContentInsets)
     }
 
     private func update(with indentationSettings: IndentationSettings) {
         backgroundColorsStackView.axis = .horizontal
         backgroundColorsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        indentationViews.forEach { $0.removeFromSuperview() }
+        indentationViews.removeAll()
 
-        var leadingContraintValue: CGFloat = 0.0
+        configureLeadingView(with: indentationSettings.style)
 
-        for (i, color) in indentationSettings.parentColors.enumerated() {
-            let view = coloredView(color: color)
+        configureParentIndentationStyles(
+            parentIndentationStyles: indentationSettings.parentBlocksInfo.map(\.indentationStyle)
+        )
 
-            if i != indentationSettings.parentColors.count - 1 {
-                view.widthAnchor.constraint(equalToConstant: IndentationConstants.indentationWidth).isActive = true
+        configureBackgroundColors(
+            parentBackgrounds: indentationSettings.parentBlocksInfo.map(\.color),
+            backgroundColor: indentationSettings.backgroundColor
+        )
+    }
+
+    private func configureLeadingView(with style: BlockIndentationStyle) {
+        switch style {
+        case .highlighted:
+            leadingWidthConstraint?.constant = IndentationConstants.indentationWidth
+            leadingView.isHidden = false
+        default:
+            leadingWidthConstraint?.constant = 0
+            leadingView.isHidden = true
+        }
+    }
+
+    private func configureParentIndentationStyles(parentIndentationStyles: [BlockIndentationStyle]) {
+        var leadingContraintValue = blockConfiguration.contentInsets.left
+
+        parentIndentationStyles.forEach() { element in
+            if case .highlighted = element {
+                addBlockLeadingView(with: leadingContraintValue)
             }
 
             leadingContraintValue = leadingContraintValue + IndentationConstants.indentationWidth
+        }
+    }
 
-            backgroundColorsStackView.addArrangedSubview(view)
+    private func addBlockLeadingView(with indentation: CGFloat) {
+        let leadingView = TextBlockLeadingView()
+        leadingView.update(style: .quote)
+
+        indentationViews.append(leadingView)
+        addSubview(leadingView) {
+            $0.pinToSuperview(
+                excluding: [.right],
+                insets: .init(top: 0, left: indentation, bottom: 0, right: 0)
+            )
+        }
+    }
+
+    private func configureBackgroundColors(
+        parentBackgrounds: [UIColor?],
+        backgroundColor: UIColor?
+    ) {
+        parentBackgrounds.enumerated().forEach { element in
+            let coloredView = coloredView(color: element.element)
+
+            if element.offset == 0 {
+                let firstColorWidth = blockConfiguration.contentInsets.left + IndentationConstants.indentationWidth
+                coloredView.widthAnchor.constraint(equalToConstant: firstColorWidth).isActive = true
+            } else {
+                coloredView.widthAnchor.constraint(equalToConstant: IndentationConstants.indentationWidth).isActive = true
+            }
+
+            backgroundColorsStackView.addArrangedSubview(coloredView)
         }
 
-        viewLeadingConstraint?.constant = leadingContraintValue
+        let view = coloredView(color: backgroundColor ?? parentBackgrounds.last.flatMap { $0 })
+        backgroundColorsStackView.addArrangedSubview(view)
     }
+
 
     private func coloredView(color: UIColor?) -> UIView {
         let view = UIView()
@@ -132,19 +216,52 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     }
 
 
+    // MARK: - Subviews setup
+
     private func setupSubviews() {
-        addSubview(backgroundColorsStackView) {
+        addSubview(wrapperView) {
             $0.pinToSuperview()
         }
 
-        addSubview(view) {
-            $0.pinToSuperview(excluding: [.left])
-            viewLeadingConstraint = $0.leading.equal(to: leadingAnchor, constant: 0)
+        leadingView.isHidden = true
+        contentStackView.addSubview(leadingView) {
+            $0.pinToSuperview(excluding: [.right], insets: .zero)
+            leadingWidthConstraint = $0.width.equal(to: 0)
+        }
+
+        var blockViewToContentbottomConstraint: NSLayoutConstraint?
+        contentStackView.addSubview(blockView) {
+            $0.pinToSuperview(excluding: [.left, .bottom], insets: .zero)
+            $0.leading.equal(to: leadingView.trailingAnchor)
+            blockViewToContentbottomConstraint = $0.bottom.equal(to: contentStackView.bottomAnchor)
+        }
+
+        wrapperView.addSubview(contentStackView) {
+            let leadingConstraint = $0.leading.equal(to: wrapperView.leadingAnchor)
+            let trailingConstraint = $0.trailing.equal(to: wrapperView.trailingAnchor)
+            let topConstraint = $0.top.equal(to: wrapperView.topAnchor)
+            $0.bottom.equal(to: wrapperView.bottomAnchor)
+
+            if let bottomConstraint = blockViewToContentbottomConstraint {
+                contentConstraints = .init(
+                    leadingConstraint: leadingConstraint,
+                    trailingConstraint: trailingConstraint,
+                    topConstraint: topConstraint,
+                    bottomConstraint: bottomConstraint
+                )
+            }
+        }
+
+        addSubview(backgroundColorsStackView) {
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.equal(to: contentStackView.bottomAnchor)
         }
 
         addSubview(selectionView) {
-            $0.pin(to: view, insets: UIEdgeInsets(top: 0, left: 8, bottom: -2, right: -8))
+            $0.pin(to: contentStackView, insets: .init(top: 1, left: -8, bottom: -1, right: 8))
         }
+
+        bringSubviewToFront(wrapperView)
     }
 
     // MARK: - UIDragInteractionDelegate

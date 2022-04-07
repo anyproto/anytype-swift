@@ -19,7 +19,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     let showCodeSelection: (BlockInformation) -> ()
 
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        return CodeBlockContentConfiguration(
+        CodeBlockContentConfiguration(
             content: content,
             backgroundColor: info.backgroundColor,
             codeLanguage: codeLanguage,

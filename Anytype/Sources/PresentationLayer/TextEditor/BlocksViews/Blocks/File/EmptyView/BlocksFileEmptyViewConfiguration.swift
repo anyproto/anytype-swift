@@ -13,3 +13,9 @@ struct BlocksFileEmptyViewConfiguration: BlockConfiguration {
     let text: String
     let state: BlocksFileEmptyViewState
 }
+
+extension BlocksFileEmptyViewConfiguration {
+    var contentInsets: UIEdgeInsets {
+        UIEdgeInsets(top: 7, left: 20, bottom: -7, right: -20)
+    }
+}
