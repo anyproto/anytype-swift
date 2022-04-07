@@ -47,6 +47,8 @@ final class NewRelationViewModel: ObservableObject {
     
 }
 
+// MARK: - Internal functions
+
 extension NewRelationViewModel {
     
     func didTapFormatSection() {
@@ -78,6 +80,8 @@ extension NewRelationViewModel {
     
 }
 
+// MARK: - NewRelationModuleInput
+
 extension NewRelationViewModel: NewRelationModuleInput {
     
     func updateRelationFormat(_ newFormat: SupportedRelationFormat) {
@@ -91,6 +95,8 @@ extension NewRelationViewModel: NewRelationModuleInput {
     }
     
 }
+
+// MARK: - Private extension
 
 private extension NewRelationViewModel {
     
@@ -107,6 +113,8 @@ private extension NewRelationViewModel {
     }
     
 }
+
+// MARK: - SupportedRelationFormat private extension
 
 private extension SupportedRelationFormat {
     
@@ -147,6 +155,8 @@ private extension SupportedRelationFormat {
     }
     
 }
+
+// MARK: - Array private extension
 
 private extension Array where Element == ObjectType {
     

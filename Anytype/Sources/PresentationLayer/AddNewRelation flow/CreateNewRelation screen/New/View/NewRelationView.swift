@@ -54,9 +54,3 @@ struct NewRelationView: View {
         .padding(.vertical, 10)
     }
 }
-
-//struct NewRelationView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NewRelationView(viewModel: NewRelationViewModel(name: "name"))
-//    }
-//}

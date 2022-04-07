@@ -13,6 +13,8 @@ final class RelationFormatsListViewModel: ObservableObject {
     
 }
 
+// MARK: - Internal functions
+
 extension RelationFormatsListViewModel {
     
     func didSelectFormat(id: String) {
@@ -21,6 +23,8 @@ extension RelationFormatsListViewModel {
     }
     
 }
+
+// MARK: - Array private extension
 
 private extension Array where Element == SupportedRelationFormat {
     
