@@ -1,14 +1,12 @@
 import ProtobufMessages
 
-public typealias BlockFields = [String : BlockFieldType]
-
 public struct BlockInformation: Hashable {
     public let id: BlockId
     public let content: BlockContent
     
     public let childrenIds: [BlockId]
     
-    public let fields: BlockFields
+    public let fields: MiddleBlockFields
     
     public let backgroundColor: MiddlewareColor?
     public let alignment: LayoutAlignment
@@ -21,7 +19,7 @@ public struct BlockInformation: Hashable {
         backgroundColor: MiddlewareColor?,
         alignment: LayoutAlignment,
         childrenIds: [BlockId],
-        fields: BlockFields,
+        fields: MiddleBlockFields,
         metadata: BlockInformationMetadata
     ) {
         self.id = id

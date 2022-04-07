@@ -48,28 +48,10 @@ private extension BlockLinkState {
         let imageView = UIImageView()
         let size = Constants.imageViewSize
 
-        guard let url = ImageID(id: imageId, width: size.width.asImageWidth).resolvedUrl else {
-            return imageView
-        }
-        
-        let processor = KFProcessorBuilder(
-            scalingType: .resizing(.aspectFill),
-            targetSize: size,
-            cornerRadius: .point(cornerRadius)
-        ).processor
-        
-        let imageGuideline = ImageGuideline(
-            size: size,
-            cornerRadius: cornerRadius
-        )
-        
-        let image = ImageBuilder(imageGuideline).build()
-        
-        imageView.kf.setImage(
-            with: url,
-            placeholder: image,
-            options: [.processor(processor), .transition(.fade(0.2))]
-        )
+        let imageGuideline = ImageGuideline(size: size, radius: .point(cornerRadius))
+        imageView.wrapper
+            .imageGuideline(imageGuideline)
+            .setImage(id: imageId)
         
         imageView.layoutUsing.anchors {
             $0.size(size)
@@ -89,10 +71,7 @@ private extension BlockLinkState {
     
     func makePlaceholderView(_ placeholder: Character) -> UIView {
         let size = Constants.imageViewSize
-        let imageGuideline = ImageGuideline(
-            size: size,
-            cornerRadius: size.width / 2
-        )
+        let imageGuideline = ImageGuideline(size: size, radius: .widthFraction(0.5))
         
         let image = ImageBuilder(imageGuideline)
             .setImageColor(.strokePrimary)

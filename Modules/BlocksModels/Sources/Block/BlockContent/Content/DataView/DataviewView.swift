@@ -6,7 +6,7 @@ public struct DataviewView: Hashable, Identifiable {
 
     public let type: DataviewViewType
     
-    public let relations: [DataviewRelation]
+    public let options: [DataviewRelationOption]
     public let sorts: [DataviewSort]
     public let filters: [DataviewFilter]
     
@@ -20,7 +20,7 @@ public struct DataviewView: Hashable, Identifiable {
             id: "",
             name: "",
             type: .table,
-            relations: [],
+            options: [],
             sorts: [],
             filters: [],
             coverRelationKey: "",
@@ -36,13 +36,13 @@ public struct DataviewView: Hashable, Identifiable {
     
     public func updated(
         hideIcon: Bool? = nil,
-        relations: [DataviewRelation]? = nil
+        options: [DataviewRelationOption]? = nil
     ) -> DataviewView {
         DataviewView(
             id: id,
             name: name,
             type: type,
-            relations: relations ?? self.relations,
+            options: options ?? self.options,
             sorts: sorts,
             filters: filters,
             coverRelationKey: coverRelationKey,
@@ -52,6 +52,19 @@ public struct DataviewView: Hashable, Identifiable {
         )
     }
     
+    public func updated(option: DataviewRelationOption) -> DataviewView {
+        var newOptions = options
+        
+        if let index = newOptions
+            .firstIndex(where: { $0.key == option.key }) {
+            newOptions[index] = option
+        } else {
+            newOptions.append(option)
+        }
+        
+        return updated(options: newOptions)
+    }
+    
     public var asMiddleware: MiddlewareDataviewView {
         MiddlewareDataviewView(
             id: id,
@@ -59,7 +72,7 @@ public struct DataviewView: Hashable, Identifiable {
             name: name,
             sorts: sorts,
             filters: filters,
-            relations: relations.map(\.asMiddleware),
+            relations: options.map(\.asMiddleware),
             coverRelationKey: coverRelationKey,
             hideIcon: hideIcon,
             cardSize: cardSize,
@@ -75,7 +88,7 @@ public extension DataviewView {
         self.id = data.id
         self.name = data.name
         self.type = type
-        self.relations = data.relations.map(\.asModel)
+        self.options = data.relations.map(\.asModel)
         self.sorts = data.sorts
         self.filters = data.filters
         self.coverRelationKey = data.coverRelationKey

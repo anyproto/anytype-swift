@@ -44,10 +44,15 @@ final class NewSearchModuleAssembly {
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func buildObjectsSearchModule(selectedObjectIds: [String], onSelect: @escaping (_ ids: [String]) -> Void) -> NewSearchView {
+    static func buildObjectsSearchModule(
+        selectedObjectIds: [String],
+        limitedObjectType: [String],
+        onSelect: @escaping (_ ids: [String]) -> Void
+    ) -> NewSearchView {
         let interactor = ObjectsSearchInteractor(
             searchService: SearchService(),
-            selectedObjectIds: selectedObjectIds
+            selectedObjectIds: selectedObjectIds,
+            limitedObjectType: limitedObjectType
         )
         
         let internalViewModel = ObjectsSearchViewModel(interactor: interactor)

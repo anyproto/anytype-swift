@@ -63,24 +63,15 @@ final class BlockImageContentView: UIView, BlockContentView {
         let imageId = file.metadata.hash
         guard imageId != oldFile?.metadata.hash else { return }
         currentFile = file
-        
-        imageView.kf.cancelDownloadTask()
-        
+                
         let imageWidth = configuration.maxWidth - Layout.imageViewInsets.right - Layout.imageViewInsets.left
-        let imageSize = CGSize(
-            width: imageWidth,
-            height: Layout.imageContentViewDefaultHeight
-        )
+        let imageSize = CGSize(width: imageWidth, height: Layout.imageContentViewDefaultHeight)
         
-        let placeholder = ImageBuilder(
-            ImageGuideline(size: imageSize)
-        ).build()
-        
-        imageView.kf.setImage(
-            with: ImageID(id: imageId, width: imageSize.width.asImageWidth).resolvedUrl,
-            placeholder: placeholder,
-            options: [.processor(DownsamplingImageProcessor(size: imageSize)), .transition(.fade(0.2))]
-        )
+        let imageGuideline = ImageGuideline(size: imageSize)
+        imageView.wrapper
+            .imageGuideline(imageGuideline)
+            .scalingType(.downsampling)
+            .setImage(id: imageId)
     }
 }
 

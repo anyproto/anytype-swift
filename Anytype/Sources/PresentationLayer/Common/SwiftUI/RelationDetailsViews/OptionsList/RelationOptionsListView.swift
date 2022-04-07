@@ -1,8 +1,8 @@
 import SwiftUI
 
-struct RelationOptionsView: View {
+struct RelationOptionsListView: View {
     
-    @ObservedObject var viewModel: RelationOptionsViewModel
+    @ObservedObject var viewModel: RelationOptionsListViewModel
             
     var body: some View {
         NavigationView {
@@ -63,7 +63,7 @@ struct RelationOptionsView: View {
 
 // MARK: - NavigationBarView
 
-private extension RelationOptionsView {
+private extension RelationOptionsListView {
     
     var addButton: some View {
         Button {

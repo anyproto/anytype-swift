@@ -47,7 +47,7 @@ extension ObjectHeaderCoverView: ConfigurableView {
         case let .cover(cover):
             configureCoverState(cover, model.size)
         case let .preview(previewType):
-            configurePreviewState(previewType)
+            configurePreviewState(previewType, model.size)
         }
     }
 }
@@ -70,35 +70,21 @@ private extension ObjectHeaderCoverView {
     private func showImageWithId(_ imageId: String, _ size: CGSize) {
         let imageGuideline = ImageGuideline(size: size)
         
-        let placeholder = ImageBuilder(imageGuideline).build()
-        let processor = KFProcessorBuilder(
-            scalingType: .resizing(.aspectFill),
-            targetSize: imageGuideline.size,
-            cornerRadius: nil
-        ).processor
-        
-        imageView.kf.cancelDownloadTask()
-        imageView.kf.setImage(
-            with: ImageID(id: imageId, width: imageGuideline.size.width.asImageWidth).resolvedUrl,
-            placeholder: placeholder,
-            options: [.processor(processor)]
-        )
-        
+        imageView.wrapper.imageGuideline(imageGuideline).setImage(id: imageId)
         imageView.contentMode = .scaleAspectFill
     }
     
     private func showColor(_ color: UIColor, _ size: CGSize) {
         let imageGuideline = ImageGuideline(size: size)
-        
-        imageView.image = ImageBuilder(imageGuideline)
+        let image: UIImage? = ImageBuilder(imageGuideline)
             .setImageColor(color)
             .build()
-        
+        imageView.wrapper.setImage(image)
         imageView.contentMode = .scaleAspectFill
     }
     
     private func showGradient(_ gradient: GradientColor, _ size: CGSize) {
-        imageView.image = GradientImageBuilder().image(
+        let image: UIImage? = GradientImageBuilder().image(
             size: size,
             color: gradient,
             point: GradientPoint(
@@ -106,19 +92,19 @@ private extension ObjectHeaderCoverView {
                 end: CGPoint(x: 0.5, y: 1)
             )
         )
+        imageView.wrapper.setImage(image)
         imageView.contentMode = .scaleToFill
     }
     
-    private func configurePreviewState(_ previewType: ObjectHeaderCoverPreviewType) {
+    private func configurePreviewState(_ previewType: ObjectHeaderCoverPreviewType, _ size: CGSize) {
         switch previewType {
         case .remote(let url):
-            imageView.kf.setImage(
-                with: url,
-                placeholder: nil,
-                options: [.transition(.fade(0.2))]
-            )
+            imageView.wrapper
+                .imageGuideline(ImageGuideline(size: size))
+                .placeholderNeeded(false)
+                .setImage(url: url)
         case .image(let image):
-            imageView.image = image
+            imageView.wrapper.setImage(image)
         }
 
         imageView.contentMode = .scaleAspectFill

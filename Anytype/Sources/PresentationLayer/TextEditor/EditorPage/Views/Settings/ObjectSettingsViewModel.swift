@@ -28,7 +28,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
 
     let relationsViewModel: RelationsListViewModel
     
-    private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: true)
+    private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: false)
     
     private weak var popup: AnytypePopupProxy?
     private weak var router: EditorRouterProtocol?
@@ -48,10 +48,8 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         self.router = router
 
         self.relationsViewModel = RelationsListViewModel(
-            relationsService: RelationsService(objectId: document.objectId),
-            onValueEditingTap: { [weak router] in
-                router?.showRelationValueEditingView(key: $0, source: .object)
-            }
+            router: router,
+            relationsService: RelationsService(objectId: document.objectId)
         )
 
         self.objectActionsViewModel = ObjectActionsViewModel(

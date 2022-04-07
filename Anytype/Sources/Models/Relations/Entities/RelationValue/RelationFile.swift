@@ -10,7 +10,7 @@ extension Relation {
         let isFeatured: Bool
         let isEditable: Bool
         let isBundled: Bool
-        
+
         let files: [Option]
     }
     

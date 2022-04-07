@@ -155,18 +155,4 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
 
-    func pasteFile(focusedBlockId: BlockId?, selectedTextRange: NSRange?, selectedBlockIds: [BlockId]?, isPartOfBlock: Bool, localPath: String, name: String) -> BlockId? {
-        assertionFailure()
-        return nil
-    }
-
-    func paste(focusedBlockId: BlockId?, selectedTextRange: NSRange?, selectedBlockIds: [BlockId]?, isPartOfBlock: Bool, textSlot: String?, htmlSlot: String?, anySlots: [Anytype_Model_Block]?) {
-        assertionFailure()
-    }
-
-    func copy(blocksInfo: [BlockInformation], selectedTextRange: NSRange) -> [PasteboardSlot]? {
-        assertionFailure()
-        return nil
-    }
-
 }

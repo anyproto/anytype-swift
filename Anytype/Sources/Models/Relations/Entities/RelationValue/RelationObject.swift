@@ -1,4 +1,4 @@
-import Foundation
+import BlocksModels
 import SwiftUI
 
 extension Relation {
@@ -11,6 +11,7 @@ extension Relation {
         let isBundled: Bool
         
         let selectedObjects: [Option]
+        let limitedObjectTypes: [String]
     }
     
 }

@@ -2,6 +2,16 @@ import Foundation
 
 private class IndentationRecursionData {
     var closingBlockIndex = [BlockId: [Int]]()
+
+    func addClosing(for blockId: BlockId, at index: Int) {
+        if var existingIndexes = closingBlockIndex[blockId] {
+
+            existingIndexes.append(index)
+            closingBlockIndex[blockId] = existingIndexes
+        } else {
+            closingBlockIndex[blockId] = [index]
+        }
+    }
 }
 
 public enum IndentationBuilder {
@@ -77,29 +87,31 @@ public enum IndentationBuilder {
     ) -> [BlockIndentationStyle] {
         var previousIndentationStyles = parent.metadata.parentIndentationStyle
 
-        if let indentationRecursionParams = indentationRecursion.closingBlockIndex[child.id] {
-            if child.childrenIds.count > 0, let lastChild = child.childrenIds.last {
-                indentationRecursion.closingBlockIndex[lastChild] = indentationRecursionParams
+        if let closingBlocks = indentationRecursion.closingBlockIndex[child.id] {
+            if child.childrenIds.count > 0, let last = child.childrenIds.last {
+                closingBlocks.forEach { indentationRecursion.addClosing(for: last, at: $0) }
             } else {
-                indentationRecursionParams.forEach {
-                    previousIndentationStyles[$0] = .highlighted(.closing)
+                closingBlocks.forEach { index in
+                    previousIndentationStyles[index] = .highlighted(.closing)
                 }
-
             }
         }
 
         if parent.kind != .meta, child.kind != .meta {
-            let isLastChild = parent.childrenIds.last == child.id
-            let indentationStyle: BlockIndentationStyle = parent.content.indentationStyle(isLastChildBlock: isLastChild)
 
-            if isLastChild,
+            let isLastChild = parent.childrenIds.last == child.id
+            let indentationStyle: BlockIndentationStyle = parent.content.indentationStyle(
+                isLastChild: isLastChild && child.childrenIds.count == 0
+            )
+
+            if case .highlighted = indentationStyle,
+                isLastChild,
                 child.childrenIds.count > 0,
-                let lastChildId = child.childrenIds.last,
-                indentationStyle == .highlighted(.full) {
-                indentationRecursion.closingBlockIndex[lastChildId] = [previousIndentationStyles.count]
+                let lastChildId = child.childrenIds.last {
+                indentationRecursion.addClosing(for: lastChildId, at: previousIndentationStyles.count)
             }
 
-            previousIndentationStyles.append(parent.content.indentationStyle(isLastChildBlock: isLastChild))
+            previousIndentationStyles.append(indentationStyle)
         } else {
             previousIndentationStyles = parent.metadata.parentIndentationStyle
         }
@@ -109,15 +121,23 @@ public enum IndentationBuilder {
 }
 
 public extension BlockContent {
-    func indentationStyle(
-        isLastChildBlock: Bool = false,
-        isSingleChild: Bool = false,
-        hasChildrenBlocks: Bool = false
-    ) -> BlockIndentationStyle {
+    func indentationStyle(isSingleChild: Bool) -> BlockIndentationStyle {
         switch self {
         case .text(let blockText):
             switch blockText.contentType {
             case .quote: return .highlighted(isSingleChild ? .single : .full)
+            case .callout: return .callout
+            default: return .none
+            }
+        default: return .none
+        }
+    }
+
+    func indentationStyle(isLastChild: Bool) -> BlockIndentationStyle {
+        switch self {
+        case .text(let blockText):
+            switch blockText.contentType {
+            case .quote: return .highlighted(isLastChild ? .closing : .full)
             case .callout: return .callout
             default: return .none
             }

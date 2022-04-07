@@ -5,14 +5,14 @@ struct SetSubsriptionData: Hashable {
     let source: [String]
     let sorts: [DataviewSort]
     let filters: [DataviewFilter]
-    let relations: [DataviewRelation]
+    let options: [DataviewRelationOption]
     let currentPage: Int64
     
     init(dataView: BlockDataview, view: DataviewView, currentPage: Int64) {
         self.source = dataView.source
         self.sorts = view.sorts
         self.filters = view.filters
-        self.relations = view.relations
+        self.options = view.options
         self.currentPage = currentPage
     }
 }
