@@ -14,7 +14,7 @@ public extension BlockInformation {
             alignment: alignment ?? self.alignment,
             childrenIds: childrenIds ?? self.childrenIds,
             fields: fields ?? self.fields,
-            metadata: metadata ?? self.metadata
+            configurationData: metadata ?? self.configurationData
         )
     }
 }

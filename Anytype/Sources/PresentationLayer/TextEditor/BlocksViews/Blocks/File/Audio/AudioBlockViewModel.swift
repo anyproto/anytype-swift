@@ -60,7 +60,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
                 trackId: info.id,
                 audioPlayerViewDelegate: self
             ).cellBlockConfiguration(
-                indentationSettings: .init(with: info.metadata),
+                indentationSettings: .init(with: info.configurationData),
                 dragConfiguration: .init(id: info.id)
             )
         }
@@ -72,7 +72,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             text: "Upload a audio".localized,
             state: state
         ).cellBlockConfiguration(
-            indentationSettings: .init(with: info.metadata),
+            indentationSettings: .init(with: info.configurationData),
             dragConfiguration: .init(id: info.id)
         )
     }

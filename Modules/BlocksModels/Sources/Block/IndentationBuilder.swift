@@ -48,7 +48,7 @@ public enum IndentationBuilder {
         var previousBackgroundColors: [MiddlewareColor?]
 
         if parent.kind != .meta, child.kind != .meta {
-            previousBackgroundColors = parent.metadata.parentBackgroundColors
+            previousBackgroundColors = parent.configurationData.parentBackgroundColors
             let previousNotDefaultColor = previousBackgroundColors.last { $0 != .default }
 
             if parent.backgroundColor == .default || parent.backgroundColor == nil {
@@ -57,7 +57,7 @@ public enum IndentationBuilder {
                 previousBackgroundColors.append(parent.backgroundColor)
             }
         } else {
-            previousBackgroundColors = parent.metadata.parentBackgroundColors
+            previousBackgroundColors = parent.configurationData.parentBackgroundColors
         }
 
         return previousBackgroundColors
@@ -68,7 +68,7 @@ public enum IndentationBuilder {
         parent: BlockInformation,
         indentationRecursion: IndentationStyleRecursiveData
     ) -> [BlockIndentationStyle] {
-        var previousIndentationStyles = parent.metadata.parentIndentationStyle
+        var previousIndentationStyles = parent.configurationData.parentIndentationStyle
 
         if let closingBlocks = indentationRecursion.childBlockIdToClosingIndexes[child.id] {
             if child.childrenIds.count > 0, let last = child.childrenIds.last {
@@ -95,7 +95,7 @@ public enum IndentationBuilder {
 
             previousIndentationStyles.append(indentationStyle)
         } else {
-            previousIndentationStyles = parent.metadata.parentIndentationStyle
+            previousIndentationStyles = parent.configurationData.parentIndentationStyle
         }
 
         return previousIndentationStyles

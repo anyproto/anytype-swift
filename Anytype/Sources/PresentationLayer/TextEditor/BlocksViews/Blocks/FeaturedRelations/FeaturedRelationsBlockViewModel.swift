@@ -38,7 +38,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             alignment: info.alignment.asNSTextAlignment,
             onRelationTap: onRelationTap
         ).cellBlockConfiguration(
-            indentationSettings: .init(with: info.metadata),
+            indentationSettings: .init(with: info.configurationData),
             dragConfiguration: nil
         )
     }
