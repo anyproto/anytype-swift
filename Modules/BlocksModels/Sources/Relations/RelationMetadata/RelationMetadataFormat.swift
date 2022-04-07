@@ -93,6 +93,7 @@ public extension RelationMetadata.Format {
         }
     }
 
+    #warning("TODO: remove when create new relation v2 will be implemented")
     var name: String {
         switch self {
         case .longText:

@@ -31,7 +31,7 @@ struct NewRelationView: View {
     }
     
     private var formatSection: some View {
-        NewRelationFormatSectionView(model: viewModel.formatModel) {
+        NewRelationFormatSectionView(format: viewModel.format) {
             viewModel.didTapFormatSection()
         }
     }
