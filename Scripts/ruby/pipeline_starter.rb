@@ -49,7 +49,7 @@ class PipelineStarter
   end
 
   private_class_method def self.done
-    puts "Done 💫"
+    puts "Done 💫".red.blink
     `afplay /System/Library/Sounds/Glass.aiff`
   end
 end
