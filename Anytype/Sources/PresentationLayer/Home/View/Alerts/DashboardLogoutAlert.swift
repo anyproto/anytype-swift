@@ -13,7 +13,6 @@ struct DashboardLogoutAlert: View {
                 model.loggingOut = false
             },
             rightButtonData: StandardButtonData(text: "Log out".localized, style: .destructive) {
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
                 model.logout(removeData: false)
             }
         )
