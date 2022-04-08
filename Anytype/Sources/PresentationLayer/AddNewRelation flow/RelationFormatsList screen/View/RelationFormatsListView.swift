@@ -23,6 +23,7 @@ struct RelationFormatsListView: View {
                     }
                 }
             }
+            .padding(.horizontal, 20)
         }
     }
 }

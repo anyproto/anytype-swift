@@ -10,6 +10,8 @@ final class AddNewRelationRouter {
     private let document: BaseDocumentProtocol
     private weak var viewController: UIViewController?
     
+    private weak var newRelationModuleInput: NewRelationModuleInput?
+    
     init(
         document: BaseDocumentProtocol,
         viewController: UIViewController
@@ -53,13 +55,35 @@ extension AddNewRelationRouter: SearchNewRelationModuleOutput {
     }
     
     private func showCreateNewRelationView(searchText: String) {
-        let viewModel = NewRelationViewModel(name: searchText)
+        let viewModel = NewRelationViewModel(name: searchText, output: self)
         let view = NewRelationView(viewModel: viewModel)
+        
+        newRelationModuleInput = viewModel
         
         let popup = AnytypePopup(contentView: view)
         viewController?.topPresentedController.present(popup, animated: true)
     }
       
+}
+
+extension AddNewRelationRouter: NewRelationModuleOutput {
+    
+    func didAskToShowRelationFormats() {
+        let viewModel = RelationFormatsListViewModel(output: self)
+        let view = RelationFormatsListView(viewModel: viewModel)
+        
+        presentSwuftUIView(view: view)
+    }
+    
+}
+
+extension AddNewRelationRouter: RelationFormatsListModuleOutput {
+    
+    func didSelectFormat(_ format: SupportedRelationFormat) {
+        newRelationModuleInput?.updateRelationFormat(format)
+        viewController?.topPresentedController.dismiss(animated: true)
+    }
+    
 }
 
 private extension AddNewRelationRouter {

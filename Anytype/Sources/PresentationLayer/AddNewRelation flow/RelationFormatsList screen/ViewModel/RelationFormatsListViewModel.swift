@@ -4,10 +4,10 @@ final class RelationFormatsListViewModel: ObservableObject {
     
     let supportedFormatModels: [RelationFormatListCell.Model]
     
-    private let onSelect: (SupportedRelationFormat) -> Void
+    private weak var output: RelationFormatsListModuleOutput?
     
-    init(onSelect: @escaping (SupportedRelationFormat) -> Void) {
-        self.onSelect = onSelect
+    init(output: RelationFormatsListModuleOutput) {
+        self.output = output
         self.supportedFormatModels = SupportedRelationFormat.allCases.map {
             RelationFormatListCell.Model(
                 id: $0.id,
@@ -24,7 +24,7 @@ extension RelationFormatsListViewModel {
     
     func didSelectFormat(id: String) {
         guard let format = SupportedRelationFormat(rawValue: id) else { return }
-        onSelect(format)
+        output?.didSelectFormat(format)
     }
     
 }

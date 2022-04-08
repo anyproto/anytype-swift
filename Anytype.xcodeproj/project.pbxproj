@@ -182,6 +182,9 @@
 		1247BB0027CCBF470079DA1F /* ConstantHeightPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BAFF27CCBF470079DA1F /* ConstantHeightPopupLayout.swift */; };
 		1247BC6227FCA033005F2DB4 /* AddNewRelationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6127FCA033005F2DB4 /* AddNewRelationRouter.swift */; };
 		1247BC6427FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6327FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift */; };
+		1247BC6627FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6527FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift */; };
+		1247BC6827FDC440005F2DB4 /* NewRelationModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6727FDC440005F2DB4 /* NewRelationModuleInput.swift */; };
+		1247BC6A27FDC493005F2DB4 /* NewRelationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6927FDC493005F2DB4 /* NewRelationModuleOutput.swift */; };
 		124A60B727130EFD0012FD2D /* ObjectDetailsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B627130EFD0012FD2D /* ObjectDetailsExtensions.swift */; };
 		124AF82C26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124AF82B26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift */; };
 		124E2BC2273020F500A2D534 /* RelationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E2BC1273020F500A2D534 /* RelationsListView.swift */; };
@@ -1154,6 +1157,9 @@
 		1247BAFF27CCBF470079DA1F /* ConstantHeightPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConstantHeightPopupLayout.swift; sourceTree = "<group>"; };
 		1247BC6127FCA033005F2DB4 /* AddNewRelationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewRelationRouter.swift; sourceTree = "<group>"; };
 		1247BC6327FD9637005F2DB4 /* SearchNewRelationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationModuleOutput.swift; sourceTree = "<group>"; };
+		1247BC6527FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFormatsListModuleOutput.swift; sourceTree = "<group>"; };
+		1247BC6727FDC440005F2DB4 /* NewRelationModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleInput.swift; sourceTree = "<group>"; };
+		1247BC6927FDC493005F2DB4 /* NewRelationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleOutput.swift; sourceTree = "<group>"; };
 		124A60B627130EFD0012FD2D /* ObjectDetailsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsExtensions.swift; sourceTree = "<group>"; };
 		124AF82B26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationValuesProtocol+PageCellTitle.swift"; sourceTree = "<group>"; };
 		124E2BC1273020F500A2D534 /* RelationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListView.swift; sourceTree = "<group>"; };
@@ -2953,6 +2959,7 @@
 			isa = PBXGroup;
 			children = (
 				129C54D127FC7A2800C390C7 /* RelationFormatsListViewModel.swift */,
+				1247BC6527FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -3021,6 +3028,8 @@
 		1247BC5F27FC8DBB005F2DB4 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				1247BC6727FDC440005F2DB4 /* NewRelationModuleInput.swift */,
+				1247BC6927FDC493005F2DB4 /* NewRelationModuleOutput.swift */,
 				129C54C327FC4CF600C390C7 /* NewRelationViewModel.swift */,
 			);
 			path = ViewModel;
@@ -6237,6 +6246,7 @@
 				12FD9D1D2767168800991886 /* RelationProtocol.swift in Sources */,
 				53F80F5D27BEAFEA00E9E12A /* DepricatedRelationBlockContentConfiguration.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
+				1247BC6827FDC440005F2DB4 /* NewRelationModuleInput.swift in Sources */,
 				3DB1CA0F27293733000D2779 /* AccountConfigurationProvider.swift in Sources */,
 				C9C5368E276A3A07003CD3F3 /* TagRelationRowView.swift in Sources */,
 				53728CFB273596750092A8CF /* MarkupKind.swift in Sources */,
@@ -6283,6 +6293,7 @@
 				12FD9D252767179A00991886 /* RelationDate.swift in Sources */,
 				3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */,
 				12136D5827996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift in Sources */,
+				1247BC6A27FDC493005F2DB4 /* NewRelationModuleOutput.swift in Sources */,
 				129C54CD27FC741C00C390C7 /* NewRelationFormatSectionView.swift in Sources */,
 				3D932D4326317E3A00C7D1EA /* HomeCell.swift in Sources */,
 				12D94FD12678CD1F00F794EB /* ObjectBasicIconPicker.swift in Sources */,
@@ -6928,6 +6939,7 @@
 				531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */,
 				3D16843626DE8BDF008B9DFF /* Application+FirstResponder.swift in Sources */,
 				1206DB90267A303E000A48A7 /* MediaPickerView.swift in Sources */,
+				1247BC6627FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift in Sources */,
 				1244791627D8A38600581174 /* StatusSearchViewModel.swift in Sources */,
 				535E02AA274FE5BE00E1AF8C /* RelationBlockView.swift in Sources */,
 				3DB3EC81275654BC002781DA /* SingleAxisGeometryReader.swift in Sources */,
