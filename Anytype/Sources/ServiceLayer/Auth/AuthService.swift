@@ -23,17 +23,23 @@ final class AuthService: AuthServiceProtocol {
         self.loginStateService = loginStateService
     }
 
-    func logout(removeData: Bool) -> Bool {
+    func logout(removeData: Bool, onCompletion: @escaping (Bool) -> ()) {
         Amplitude.instance().logEvent(AmplitudeEventsName.logout)
         
-        guard Anytype_Rpc.Account.Stop.Service
-                .invoke(removeData: removeData).getValue(domain: .authService)
-                .isNotNil else {
-                    return false
+        Anytype_Rpc.Account.Stop.Service
+            .invoke(removeData: removeData, queue: .global(qos: .userInitiated))
+            .receiveOnMain()
+            .sinkWithResult { [weak self] result in
+                switch result {
+                case .success:
+                    self?.loginStateService.cleanStateAfterLogout()
+                    onCompletion(true)
+                case .failure(let error):
+                    anytypeAssertionFailure(error.localizedDescription, domain: .authService)
+                    onCompletion(false)
                 }
-        
-        loginStateService.cleanStateAfterLogout()
-        return true
+            }
+            .store(in: &subscriptions)
     }
 
     func createWallet() -> Result<String, AuthServiceError> {
