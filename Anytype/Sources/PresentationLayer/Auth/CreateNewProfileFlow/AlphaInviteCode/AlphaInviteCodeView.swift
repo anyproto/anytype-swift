@@ -71,7 +71,9 @@ struct AlphaInviteCodeView: View {
                 isActive: $showCreateNewProfile
             ) {
                 StandardButtonView(disabled: signUpData.inviteCode.isEmpty, text: "Confirm", style: .primary)
-            }.disabled(signUpData.inviteCode.isEmpty)
+            }
+            .disabled(signUpData.inviteCode.isEmpty)
+            .buttonStyle(ShrinkingButtonStyle())
         }
     }
 }

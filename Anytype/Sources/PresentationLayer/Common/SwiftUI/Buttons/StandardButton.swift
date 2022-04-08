@@ -1,6 +1,5 @@
 import SwiftUI
 
-
 typealias StandardButtonAction = () -> Void
 
 struct StandardButtonData {
@@ -27,10 +26,13 @@ struct StandardButton: View {
     let action: StandardButtonAction
     
     var body: some View {
-        Button(action: action) {
+        Button {
+            action()
+        } label: {
             StandardButtonView(disabled: disabled, inProgress: inProgress, text: text, style: style)
         }
         .disabled(disabled)
+        .buttonStyle(ShrinkingButtonStyle())
     }
 }
 
