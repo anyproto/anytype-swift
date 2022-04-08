@@ -22,6 +22,8 @@ final class AddNewRelationRouter {
     
 }
 
+// MARK: - Entry point
+
 extension AddNewRelationRouter {
     
     func showAddNewRelationView(onCompletion: ((_ newRelation: RelationMetadata) -> Void)?) {
@@ -42,6 +44,8 @@ extension AddNewRelationRouter {
     }
     
 }
+
+// MARK: - SearchNewRelationModuleOutput
 
 extension AddNewRelationRouter: SearchNewRelationModuleOutput {
     
@@ -71,6 +75,8 @@ extension AddNewRelationRouter: SearchNewRelationModuleOutput {
     }
       
 }
+
+// MARK: - NewRelationModuleOutput
 
 extension AddNewRelationRouter: NewRelationModuleOutput {
     
@@ -103,6 +109,8 @@ extension AddNewRelationRouter: NewRelationModuleOutput {
     
 }
 
+// MARK: - RelationFormatsListModuleOutput
+
 extension AddNewRelationRouter: RelationFormatsListModuleOutput {
     
     func didSelectFormat(_ format: SupportedRelationFormat) {
@@ -111,6 +119,8 @@ extension AddNewRelationRouter: RelationFormatsListModuleOutput {
     }
     
 }
+
+// MARK: - Private extension
 
 private extension AddNewRelationRouter {
     
