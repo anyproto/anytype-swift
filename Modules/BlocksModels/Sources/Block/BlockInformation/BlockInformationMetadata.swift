@@ -1,6 +1,12 @@
 public enum BlockIndentationStyle: Hashable {
+    public enum HighligtedStyle {
+        case full
+        case closing
+        case single
+    }
+
     case `none`
-    case highlighted
+    case highlighted(HighligtedStyle)
     case callout
 }
 

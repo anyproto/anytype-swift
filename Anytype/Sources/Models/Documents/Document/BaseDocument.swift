@@ -17,7 +17,7 @@ final class BaseDocument: BaseDocumentProtocol {
     var isLocked: Bool {
         guard let isLockedField = infoContainer.get(id: objectId)?
                 .fields[BlockFieldBundledKey.isLocked.rawValue],
-              case let .boolType(isLocked) = isLockedField else {
+              case let .boolValue(isLocked) = isLockedField.kind else {
             return false
         }
 

@@ -12,11 +12,11 @@ public extension BlockInformation {
             backgroundColor: nil,
             alignment: .left,
             childrenIds: [],
-            fields: [:],
-            metadata: BlockInformationMetadata(
+            configurationData: BlockInformationMetadata(
                 backgroundColor: .default,
                 indentationStyle: .none
-            )
+            ),
+            fields: [:]
         )
     }
     

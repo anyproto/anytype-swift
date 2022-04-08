@@ -100,6 +100,8 @@
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "No items match filter";
 "Unsupported block" = "Unsupported block";
+"Name" = "Name";
+"Description" = "Description";
 
 "selected block" = "selected block";
 "selected blocks" = "selected blocks";

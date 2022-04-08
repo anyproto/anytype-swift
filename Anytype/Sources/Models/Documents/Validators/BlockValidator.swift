@@ -26,8 +26,8 @@ struct BlockValidator {
             backgroundColor: backgroundColor,
             alignment: alignment,
             childrenIds: info.childrenIds,
-            fields: info.fields,
-            metadata: info.metadata
+            configurationData: info.configurationData,
+            fields: info.fields
         )
     }
     

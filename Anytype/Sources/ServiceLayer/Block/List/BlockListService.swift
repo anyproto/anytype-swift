@@ -21,10 +21,9 @@ class BlockListService: BlockListServiceProtocol {
             .send()
     }
     
-    func setFields(fields: [BlockFields]) {
-        let middleFields = fields.map { $0.convertToMiddle() }
+    func setFields(fields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) {
         Anytype_Rpc.BlockList.Set.Fields.Service
-            .invoke(contextID: contextId, blockFields: middleFields)
+            .invoke(contextID: contextId, blockFields: fields)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockListService)?
             .send()

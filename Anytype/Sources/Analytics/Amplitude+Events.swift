@@ -159,7 +159,7 @@ extension Amplitude {
     func logAddRelation(format: RelationMetadata.Format, isNew: Bool) {
         let eventName = isNew ? AmplitudeEventsName.createRelation : AmplitudeEventsName.addExistingRelation
         logEvent(eventName,
-                 withEventProperties: [AmplitudeEventsPropertiesKey.format: format.name])
+                 withEventProperties: [AmplitudeEventsPropertiesKey.format: format.analyticString])
     }
 
     func logCreateObject(objectType: String) {

@@ -1,8 +1,9 @@
-import Foundation
+import SwiftProtobuf
 
 public typealias BlockId = String
-public typealias MiddleBlockFields = [String : BlockFieldType]
 
 extension BlockId {
     public static var empty: String = ""
 }
+
+public typealias BlockFields = [String : Google_Protobuf_Value]
