@@ -4,11 +4,11 @@ import BlocksModels
 import SwiftUI
 
 final class AddNewRelationRouter {
-
-    var onSelect: ((_ newRelation: RelationMetadata) -> Void)?
     
     private let document: BaseDocumentProtocol
     private weak var viewController: UIViewController?
+    
+    private var onCompletion: ((_ newRelation: RelationMetadata) -> Void)?
     
     private weak var newRelationModuleInput: NewRelationModuleInput?
     
@@ -24,7 +24,9 @@ final class AddNewRelationRouter {
 
 extension AddNewRelationRouter {
     
-    func showAddNewRelationView() {
+    func showAddNewRelationView(onCompletion: ((_ newRelation: RelationMetadata) -> Void)?) {
+        self.onCompletion = onCompletion
+        
         let relationService = RelationsService(objectId: document.objectId)
 
         let viewModel = SearchNewRelationViewModel(
@@ -44,7 +46,7 @@ extension AddNewRelationRouter {
 extension AddNewRelationRouter: SearchNewRelationModuleOutput {
     
     func didAddRelation(_ relation: RelationMetadata) {
-        onSelect?(relation)
+        onCompletion?(relation)
         viewController?.topPresentedController.dismiss(animated: true)
     }
     
