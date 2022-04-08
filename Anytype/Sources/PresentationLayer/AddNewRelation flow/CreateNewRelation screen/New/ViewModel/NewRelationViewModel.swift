@@ -74,6 +74,7 @@ extension NewRelationViewModel {
         )
 
         if let relation = service.createRelation(relation: relationMetatdata) {
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
             output?.didCreateRelation(relation)
         }
     }

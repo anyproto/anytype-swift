@@ -3,6 +3,7 @@ import CoreGraphics
 import Combine
 import Amplitude
 import AnytypeCore
+import UIKit
 
 final class SearchNewRelationViewModel: ObservableObject, Dismissible {
     
@@ -75,6 +76,7 @@ extension SearchNewRelationViewModel {
     func addRelation(_ relation: RelationMetadata) {
         if let createdRelation = relationService.addRelation(relation: relation) {
             if FeatureFlags.createNewRelationV2 {
+                UISelectionFeedbackGenerator().selectionChanged()
                 output?.didAddRelation(createdRelation)
             } else {
                 onSelect?(createdRelation)
