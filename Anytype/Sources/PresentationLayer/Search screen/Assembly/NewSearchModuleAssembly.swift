@@ -85,6 +85,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     }
     
     static func changeObjectTypeSearchModule(
+        title: String,
         excludedObjectTypeId: String?,
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView {
@@ -95,7 +96,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let internalViewModel = ObjectTypesSearchViewModel(interactor: interactor)
         let viewModel = NewSearchViewModel(
-            title: "Change type".localized,
+            title: title,
             selectionMode: .singleItem,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel

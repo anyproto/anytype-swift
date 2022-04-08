@@ -5,12 +5,14 @@ struct DefaultTypePicker: View {
     @EnvironmentObject private var model: SettingsViewModel
     
     var body: some View {
-        let searchViewModel = ObjectSearchViewModel(searchKind: .objectTypes(currentObjectTypeUrl: "")) { [weak model] data in
-            UserDefaultsConfig.defaultObjectType = data.blockId
+        NewSearchModuleAssembly.changeObjectTypeSearchModule(
+            title: "Choose default object type".localized,
+            excludedObjectTypeId: nil
+        ) { [weak model] id in
+            UserDefaultsConfig.defaultObjectType = id
             model?.defaultType = false
             model?.personalization = false
         }
-        return SearchView(title: "Choose default object type".localized, context: .menuSearch, viewModel: searchViewModel)
     }
 }
 

@@ -205,6 +205,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
         let view = NewSearchModuleAssembly.changeObjectTypeSearchModule(
+            title: "Change type".localized,
             excludedObjectTypeId: document.details?.type
         ) { [weak self] id in
             onSelect(id)
