@@ -18,19 +18,22 @@ final class SelectProfileViewModel: ObservableObject {
     
     private var cancellable: AnyCancellable?
     
-    private var isAccountSelected = false
+    private var isAccountRecovering = false
     
     func accountRecover() {
         handleAccountShowEvent()
+        
+        isAccountRecovering = true
         authService.accountRecover { [weak self] error in
             guard let self = self, let error = error else { return }
             
+            self.isAccountRecovering = false
             self.errorText = error.localizedDescription
             self.snackBarData = .empty
         }
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
-            guard let self = self, !self.isAccountSelected else { return }
+            guard let self = self, self.isAccountRecovering else { return }
             
             self.snackBarData = .init(text: "Setting up encrypted storage\nPlease wait".localized, showSnackBar: true)
         }
@@ -75,7 +78,7 @@ private extension SelectProfileViewModel {
     func selectProfile(id: String) {
         authService.selectAccount(id: id) { [weak self] status in
             guard let self = self else { return }
-            self.isAccountSelected = true
+            self.isAccountRecovering = false
             self.snackBarData = .empty
             
             switch status {
