@@ -32,15 +32,15 @@ struct NewRelationView: View {
     }
     
     private var formatSection: some View {
-        NewRelationFormatSectionView(format: viewModel.format) {
+        NewRelationFormatSectionView(model: viewModel.formatModel) {
             viewModel.didTapFormatSection()
         }
     }
     
     private var restrictionsSection: some View {
-        viewModel.objectTypeRestrictions.flatMap {
+        viewModel.objectTypesRestrictionModel.flatMap {
             NewRelationRestrictionsSectionView(model: $0) {
-                viewModel.didTapRestrictionsSection()
+                viewModel.didTapTypesRestrictionSection()
             }
         }
     }

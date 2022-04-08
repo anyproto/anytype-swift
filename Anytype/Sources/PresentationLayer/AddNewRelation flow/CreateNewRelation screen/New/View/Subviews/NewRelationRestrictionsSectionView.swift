@@ -42,7 +42,7 @@ struct NewRelationRestrictionsSectionView: View {
                 Spacer.fixedWidth(30)
             }
         }
-        .transparencyEffect(edge: .leading, length: 40)
+        .transparencyEffect(edge: .trailing, length: 40)
     }
     
     private func objectTypeView(model: ObjectTypeModel) -> some View {
