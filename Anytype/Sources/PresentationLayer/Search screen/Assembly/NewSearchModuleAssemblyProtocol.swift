@@ -33,4 +33,9 @@ protocol NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView
     
+    static func limitObjectTypesSearchModule(
+        selectedObjectTypeIds: [String],
+        onSelect: @escaping (_ ids: [String]) -> Void
+    ) -> NewSearchView
+    
 }

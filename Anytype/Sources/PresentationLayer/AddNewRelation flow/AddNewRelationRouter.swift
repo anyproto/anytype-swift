@@ -77,6 +77,14 @@ extension AddNewRelationRouter: NewRelationModuleOutput {
         presentSwuftUIView(view: view)
     }
     
+    func didAskToShowObjectTypesSearch(selectedObjectTypesIds: [String]) {
+        let view = NewSearchModuleAssembly.limitObjectTypesSearchModule(selectedObjectTypeIds: selectedObjectTypesIds) { ids in
+            debugPrint("")
+        }
+        
+        presentSwuftUIView(view: view)
+    }
+    
 }
 
 extension AddNewRelationRouter: RelationFormatsListModuleOutput {

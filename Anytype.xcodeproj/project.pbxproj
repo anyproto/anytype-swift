@@ -191,6 +191,7 @@
 		1247BC7E27FDEAAB005F2DB4 /* NewRelationRestrictionsSectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC7D27FDEAAB005F2DB4 /* NewRelationRestrictionsSectionView.swift */; };
 		1247BC8027FE05C4005F2DB4 /* TransparencyEffect.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC7F27FE05C4005F2DB4 /* TransparencyEffect.swift */; };
 		1247BC8227FE0929005F2DB4 /* TransparencyEffectModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC8127FE0929005F2DB4 /* TransparencyEffectModifier.swift */; };
+		1247BC8727FEE504005F2DB4 /* MultiselectObjectTypesSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC8627FEE504005F2DB4 /* MultiselectObjectTypesSearchViewModel.swift */; };
 		124A60B727130EFD0012FD2D /* ObjectDetailsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B627130EFD0012FD2D /* ObjectDetailsExtensions.swift */; };
 		124AF82C26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124AF82B26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift */; };
 		124E2BC2273020F500A2D534 /* RelationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E2BC1273020F500A2D534 /* RelationsListView.swift */; };
@@ -1172,6 +1173,7 @@
 		1247BC7D27FDEAAB005F2DB4 /* NewRelationRestrictionsSectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationRestrictionsSectionView.swift; sourceTree = "<group>"; };
 		1247BC7F27FE05C4005F2DB4 /* TransparencyEffect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparencyEffect.swift; sourceTree = "<group>"; };
 		1247BC8127FE0929005F2DB4 /* TransparencyEffectModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransparencyEffectModifier.swift; sourceTree = "<group>"; };
+		1247BC8627FEE504005F2DB4 /* MultiselectObjectTypesSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiselectObjectTypesSearchViewModel.swift; sourceTree = "<group>"; };
 		124A60B627130EFD0012FD2D /* ObjectDetailsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsExtensions.swift; sourceTree = "<group>"; };
 		124AF82B26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationValuesProtocol+PageCellTitle.swift"; sourceTree = "<group>"; };
 		124E2BC1273020F500A2D534 /* RelationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListView.swift; sourceTree = "<group>"; };
@@ -3139,6 +3141,7 @@
 			isa = PBXGroup;
 			children = (
 				1247BC7727FDD6EA005F2DB4 /* ObjectTypesSearchViewModel.swift */,
+				1247BC8627FEE504005F2DB4 /* MultiselectObjectTypesSearchViewModel.swift */,
 				1247BC7927FDD7AF005F2DB4 /* Interactor */,
 			);
 			path = ObjectTypesSearchViewModel;
@@ -6702,6 +6705,7 @@
 				12F6072D26D7F6E500876C92 /* SwiftUIObjectIconImageView.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				C961582027AC2AD400AE8848 /* FocusSubjectsHolder.swift in Sources */,
+				1247BC8727FEE504005F2DB4 /* MultiselectObjectTypesSearchViewModel.swift in Sources */,
 				3D2F9C22271EAEAE0043C326 /* BlockBuilder.swift in Sources */,
 				03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */,
 				3D00F1E9278ECC3000863D7C /* Array+SubscriptionUpdate.swift in Sources */,

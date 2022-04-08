@@ -3,25 +3,32 @@ import BlocksModels
 import Combine
 import SwiftUI
 
-final class ObjectTypesSearchViewModel {
+final class MultiselectObjectTypesSearchViewModel {
     
     @Published private var rows: [ListRowConfiguration] = []
     
     private var objects: [ObjectDetails] = [] {
         didSet {
-            rows = objects.asRowConfigurations(with: [])
+            rows = objects.asRowConfigurations(with: selectedObjectTypeIds)
+        }
+    }
+    
+    private var selectedObjectTypeIds: [String] = [] {
+        didSet {
+            rows = objects.asRowConfigurations(with: selectedObjectTypeIds)
         }
     }
     
     private let interactor: ObjectTypesSearchInteractor
     
-    init(interactor: ObjectTypesSearchInteractor) {
+    init(selectedObjectTypeIds: [String], interactor: ObjectTypesSearchInteractor) {
+        self.selectedObjectTypeIds = selectedObjectTypeIds
         self.interactor = interactor
     }
     
 }
 
-extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
+extension MultiselectObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
     var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> {
         $rows.map { rows -> NewSearchView.ListModel in
@@ -35,7 +42,9 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
         }
     }
     
-    func handleRowsSelection(ids: [String]) {}
+    func handleRowsSelection(ids: [String]) {
+        self.selectedObjectTypeIds = ids
+    }
     
 }
 
@@ -49,7 +58,7 @@ private extension Array where Element == ObjectDetails {
             ) {
                 SearchObjectRowView(
                     viewModel: SearchObjectRowView.Model(details: details),
-                    selectionIndicatorViewModel: nil
+                    selectionIndicatorViewModel: SelectionIndicatorViewModelBuilder.buildModel(id: details.id, selectedIds: selectedIds)
                 ).eraseToAnyView()
             }
         }
