@@ -14,6 +14,8 @@ struct NewRelationView: View {
             nameSection
             formatSection
             restrictionsSection
+            Spacer.fixedHeight(10)
+            button
         }
         .padding(.horizontal, 20)
     }
@@ -43,6 +45,13 @@ struct NewRelationView: View {
                 viewModel.didTapTypesRestrictionSection()
             }
         }
+    }
+    
+    private var button: some View {
+        StandardButton(disabled: !viewModel.isCreateButtonActive, text: "Сreate".localized, style: .primary) {
+            viewModel.didTapAddButton()
+        }
+        .padding(.vertical, 10)
     }
 }
 

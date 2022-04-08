@@ -99,7 +99,7 @@ extension SearchNewRelationViewModel {
     }
     
     func newRelationViewModel(searchText: String) -> NewRelationViewModel {
-        NewRelationViewModel(name: searchText, output: nil)
+        NewRelationViewModel(name: searchText, service: relationService, output: nil)
     }
     
 }
