@@ -186,6 +186,8 @@
 		1247BC6827FDC440005F2DB4 /* NewRelationModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6727FDC440005F2DB4 /* NewRelationModuleInput.swift */; };
 		1247BC6A27FDC493005F2DB4 /* NewRelationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6927FDC493005F2DB4 /* NewRelationModuleOutput.swift */; };
 		1247BC7527FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC7427FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift */; };
+		1247BC7827FDD6EA005F2DB4 /* ObjectTypesSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC7727FDD6EA005F2DB4 /* ObjectTypesSearchViewModel.swift */; };
+		1247BC7B27FDD7D8005F2DB4 /* ObjectTypesSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC7A27FDD7D8005F2DB4 /* ObjectTypesSearchInteractor.swift */; };
 		124A60B727130EFD0012FD2D /* ObjectDetailsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B627130EFD0012FD2D /* ObjectDetailsExtensions.swift */; };
 		124AF82C26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124AF82B26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift */; };
 		124E2BC2273020F500A2D534 /* RelationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E2BC1273020F500A2D534 /* RelationsListView.swift */; };
@@ -1162,6 +1164,8 @@
 		1247BC6727FDC440005F2DB4 /* NewRelationModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleInput.swift; sourceTree = "<group>"; };
 		1247BC6927FDC493005F2DB4 /* NewRelationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleOutput.swift; sourceTree = "<group>"; };
 		1247BC7427FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
+		1247BC7727FDD6EA005F2DB4 /* ObjectTypesSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesSearchViewModel.swift; sourceTree = "<group>"; };
+		1247BC7A27FDD7D8005F2DB4 /* ObjectTypesSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesSearchInteractor.swift; sourceTree = "<group>"; };
 		124A60B627130EFD0012FD2D /* ObjectDetailsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsExtensions.swift; sourceTree = "<group>"; };
 		124AF82B26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationValuesProtocol+PageCellTitle.swift"; sourceTree = "<group>"; };
 		124E2BC1273020F500A2D534 /* RelationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListView.swift; sourceTree = "<group>"; };
@@ -3053,6 +3057,7 @@
 				125683D827DF1BEE003A8251 /* ObjectsSearchViewModel */,
 				125683D627DF1928003A8251 /* TagsSearchViewModel */,
 				1244793B27DC620D00581174 /* StatusSearchViewModel */,
+				1247BC7627FDD6CC005F2DB4 /* ObjectTypesSearchViewModel */,
 			);
 			path = InternalViewModels;
 			sourceTree = "<group>";
@@ -3121,6 +3126,23 @@
 				1244792127D8A8BE00581174 /* StatusSearchRowView.swift */,
 			);
 			path = RowView;
+			sourceTree = "<group>";
+		};
+		1247BC7627FDD6CC005F2DB4 /* ObjectTypesSearchViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				1247BC7727FDD6EA005F2DB4 /* ObjectTypesSearchViewModel.swift */,
+				1247BC7927FDD7AF005F2DB4 /* Interactor */,
+			);
+			path = ObjectTypesSearchViewModel;
+			sourceTree = "<group>";
+		};
+		1247BC7927FDD7AF005F2DB4 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				1247BC7A27FDD7D8005F2DB4 /* ObjectTypesSearchInteractor.swift */,
+			);
+			path = Interactor;
 			sourceTree = "<group>";
 		};
 		124E2BBD273020CF00A2D534 /* Relations */ = {
@@ -6496,6 +6518,7 @@
 				3D5A417A2704541900F1F6A1 /* SearchBar.swift in Sources */,
 				125B6EC726F235F400BCD7D6 /* MentionDisplayData.swift in Sources */,
 				C96149522718189000360840 /* GalleryViewController.swift in Sources */,
+				1247BC7827FDD6EA005F2DB4 /* ObjectTypesSearchViewModel.swift in Sources */,
 				12394A2A27A405D10080E1CF /* RelationDetailsPopupBehavior.swift in Sources */,
 				1247BB0027CCBF470079DA1F /* ConstantHeightPopupLayout.swift in Sources */,
 				3D30412927E8D12800FFE0EB /* EditorSetSettingsViewModel.swift in Sources */,
@@ -7006,6 +7029,7 @@
 				12426A1126DCE1A400693B1F /* ImageBuilder.swift in Sources */,
 				3D9384F826F9F421001C137F /* MentionImageProcessor.swift in Sources */,
 				539E019C2758423D00067A24 /* SlashMenuRealtionContentConfiguration.swift in Sources */,
+				1247BC7B27FDD7D8005F2DB4 /* ObjectTypesSearchInteractor.swift in Sources */,
 				12136D2C2796C5EC00262FE7 /* RelationOptionsPopupLayout.swift in Sources */,
 				12636CF3276A0CF00084D35D /* RelationOptionsSectionHeaderView.swift in Sources */,
 				120E818426A04A31006FE84E /* DetailsService.swift in Sources */,

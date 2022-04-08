@@ -3,31 +3,25 @@ import BlocksModels
 import Combine
 import SwiftUI
 
-final class ObjectsSearchViewModel {
+final class ObjectTypesSearchViewModel {
     
     @Published private var rows: [ListRowConfiguration] = []
     
     private var objects: [ObjectDetails] = [] {
         didSet {
-            rows = objects.asRowConfigurations(with: selectedObjectIds)
+            rows = objects.asRowConfigurations(with: [])
         }
     }
     
-    private var selectedObjectIds: [String] = [] {
-        didSet {
-            rows = objects.asRowConfigurations(with: selectedObjectIds)
-        }
-    }
+    private let interactor: ObjectTypesSearchInteractor
     
-    private let interactor: ObjectsSearchInteractorProtocol
-    
-    init(interactor: ObjectsSearchInteractorProtocol) {
+    init(interactor: ObjectTypesSearchInteractor) {
         self.interactor = interactor
     }
     
 }
 
-extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
+extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
     var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> {
         $rows.map { rows -> NewSearchView.ListModel in
@@ -42,7 +36,7 @@ extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func handleRowsSelection(ids: [String]) {
-        self.selectedObjectIds = ids
+        
     }
     
 }
@@ -55,12 +49,10 @@ private extension Array where Element == ObjectDetails {
                 id: details.id,
                 contentHash: details.hashValue
             ) {
-                AnyView(
-                    SearchObjectRowView(
-                        viewModel: SearchObjectRowView.Model(details: details),
-                        selectionIndicatorViewModel: SelectionIndicatorViewModelBuilder.buildModel(id: details.id, selectedIds: selectedIds)
-                    )
-                )
+                SearchObjectRowView(
+                    viewModel: SearchObjectRowView.Model(details: details),
+                    selectionIndicatorViewModel: nil
+                ).eraseToAnyView()
             }
         }
     }
@@ -79,7 +71,7 @@ private extension SearchObjectRowView.Model {
             }
         }()
         self.title = title
-        self.subtitle = details.objectType.name
+        self.subtitle = details.description//details.objectType.name
     }
     
 }

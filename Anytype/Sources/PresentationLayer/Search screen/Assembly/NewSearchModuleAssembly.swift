@@ -84,4 +84,26 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
+    static func objectTypesSearchModule(
+        excludedObjectTypeId: String?,
+        onSelect: @escaping (_ id: String) -> Void
+    ) -> NewSearchView {
+        let interactor = ObjectTypesSearchInteractor(
+            searchService: SearchService(),
+            excludedObjectTypeId: excludedObjectTypeId
+        )
+        
+        let internalViewModel = ObjectTypesSearchViewModel(interactor: interactor)
+        let viewModel = NewSearchViewModel(
+            selectionMode: .singleItem,
+            itemCreationMode: .unavailable,
+            internalViewModel: internalViewModel
+        ) { ids in
+            guard let id = ids.first else { return }
+            onSelect(id)
+        }
+        
+        return NewSearchView(viewModel: viewModel)
+    }
+    
 }
