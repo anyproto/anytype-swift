@@ -27,13 +27,13 @@ protocol NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
     
-    static func changeObjectTypeSearchModule(
+    static func objectTypeSearchModule(
         title: String,
         excludedObjectTypeId: String?,
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView
     
-    static func limitObjectTypesSearchModule(
+    static func multiselectObjectTypesSearchModule(
         selectedObjectTypeIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView
