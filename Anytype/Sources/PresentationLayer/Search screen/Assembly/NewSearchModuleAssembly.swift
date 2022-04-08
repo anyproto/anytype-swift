@@ -1,8 +1,8 @@
 import Foundation
 
-final class NewSearchModuleAssembly {
+final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
  
-    static func buildStatusSearchModule(
+    static func statusSearchModule(
         allStatuses: [Relation.Status.Option],
         selectedStatus: Relation.Status.Option?,
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -23,7 +23,7 @@ final class NewSearchModuleAssembly {
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func buildTagsSearchModule(
+    static func tagsSearchModule(
         allTags: [Relation.Tag.Option],
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -44,14 +44,14 @@ final class NewSearchModuleAssembly {
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func buildObjectsSearchModule(
-        selectedObjectIds: [String],
+    static func objectsSearchModule(
+        excludedObjectIds: [String],
         limitedObjectType: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectsSearchInteractor(
             searchService: SearchService(),
-            selectedObjectIds: selectedObjectIds,
+            excludedObjectIds: excludedObjectIds,
             limitedObjectType: limitedObjectType
         )
         
@@ -65,10 +65,13 @@ final class NewSearchModuleAssembly {
         return NewSearchView(viewModel: viewModel)
     }
     
-    static func buildFilesSearchModule(selectedObjectIds: [String], onSelect: @escaping (_ ids: [String]) -> Void) -> NewSearchView {
+    static func filesSearchModule(
+        excludedFileIds: [String],
+        onSelect: @escaping (_ ids: [String]) -> Void
+    ) -> NewSearchView {
         let interactor = FilesSearchInteractor(
             searchService: SearchService(),
-            selectedObjectIds: selectedObjectIds
+            excludedFileIds: excludedFileIds
         )
         
         let internalViewModel = ObjectsSearchViewModel(interactor: interactor)

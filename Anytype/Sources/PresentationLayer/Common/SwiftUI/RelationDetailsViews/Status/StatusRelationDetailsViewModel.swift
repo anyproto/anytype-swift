@@ -55,7 +55,7 @@ extension StatusRelationDetailsViewModel {
     
     @ViewBuilder
     func makeSearchView() -> some View {
-        NewSearchModuleAssembly.buildStatusSearchModule(
+        NewSearchModuleAssembly.statusSearchModule(
             allStatuses: allStatuses,
             selectedStatus: selectedStatus
         ) { [weak self] ids in

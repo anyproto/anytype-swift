@@ -4,11 +4,11 @@ import BlocksModels
 final class FilesSearchInteractor {
     
     private let searchService: SearchServiceProtocol
-    private let selectedObjectIds: [String]
+    private let excludedFileIds: [String]
     
-    init(searchService: SearchServiceProtocol, selectedObjectIds: [String]) {
+    init(searchService: SearchServiceProtocol, excludedFileIds: [String]) {
         self.searchService = searchService
-        self.selectedObjectIds = selectedObjectIds
+        self.excludedFileIds = excludedFileIds
     }
     
 }
@@ -16,7 +16,7 @@ final class FilesSearchInteractor {
 extension FilesSearchInteractor: ObjectsSearchInteractorProtocol {
     
     func search(text: String, onCompletion: ([ObjectDetails]) -> ()) {
-        let response = searchService.searchFiles(text: text, excludedFileIds: selectedObjectIds)
+        let response = searchService.searchFiles(text: text, excludedFileIds: excludedFileIds)
         onCompletion(response ?? [])
     }
     

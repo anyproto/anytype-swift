@@ -185,6 +185,7 @@
 		1247BC6627FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6527FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift */; };
 		1247BC6827FDC440005F2DB4 /* NewRelationModuleInput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6727FDC440005F2DB4 /* NewRelationModuleInput.swift */; };
 		1247BC6A27FDC493005F2DB4 /* NewRelationModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC6927FDC493005F2DB4 /* NewRelationModuleOutput.swift */; };
+		1247BC7527FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1247BC7427FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift */; };
 		124A60B727130EFD0012FD2D /* ObjectDetailsExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A60B627130EFD0012FD2D /* ObjectDetailsExtensions.swift */; };
 		124AF82C26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124AF82B26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift */; };
 		124E2BC2273020F500A2D534 /* RelationsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E2BC1273020F500A2D534 /* RelationsListView.swift */; };
@@ -1160,6 +1161,7 @@
 		1247BC6527FDC36B005F2DB4 /* RelationFormatsListModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFormatsListModuleOutput.swift; sourceTree = "<group>"; };
 		1247BC6727FDC440005F2DB4 /* NewRelationModuleInput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleInput.swift; sourceTree = "<group>"; };
 		1247BC6927FDC493005F2DB4 /* NewRelationModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationModuleOutput.swift; sourceTree = "<group>"; };
+		1247BC7427FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchModuleAssemblyProtocol.swift; sourceTree = "<group>"; };
 		124A60B627130EFD0012FD2D /* ObjectDetailsExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetailsExtensions.swift; sourceTree = "<group>"; };
 		124AF82B26A6DA63004911E9 /* RelationValuesProtocol+PageCellTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RelationValuesProtocol+PageCellTitle.swift"; sourceTree = "<group>"; };
 		124E2BC1273020F500A2D534 /* RelationsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListView.swift; sourceTree = "<group>"; };
@@ -2177,6 +2179,7 @@
 		038FB5C622D8F2DE002B90B8 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				1244790F27D8A35800581174 /* Search screen */,
 				129C54D527FC8BC100C390C7 /* AddNewRelation flow */,
 				3D932D3626317E3A00C7D1EA /* Home */,
 				0331BBE122E608AC002AD179 /* Common */,
@@ -2878,19 +2881,21 @@
 			path = ImageBuilder;
 			sourceTree = "<group>";
 		};
-		1244790F27D8A35800581174 /* SearchModule */ = {
+		1244790F27D8A35800581174 /* Search screen */ = {
 			isa = PBXGroup;
 			children = (
 				1244793527DC61D600581174 /* Assembly */,
 				1244793927DC61E400581174 /* View */,
 				1256841B27E34309003A8251 /* ViewModel */,
+				1247BC6B27FDD0B8005F2DB4 /* InternalViewModels */,
 			);
-			path = SearchModule;
+			path = "Search screen";
 			sourceTree = "<group>";
 		};
 		1244793527DC61D600581174 /* Assembly */ = {
 			isa = PBXGroup;
 			children = (
+				1247BC7427FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift */,
 				1244792327D8AE4100581174 /* NewSearchModuleAssembly.swift */,
 			);
 			path = Assembly;
@@ -2912,9 +2917,6 @@
 				1244794427DC931900581174 /* NewSearchSectionsBuilder.swift */,
 				124478CA27D77CCD00581174 /* NewRelationOptionProtocol.swift */,
 				125683F527E09380003A8251 /* SelectionIndicatorViewModelBuilder.swift */,
-				125683D827DF1BEE003A8251 /* ObjectsSearchViewModel */,
-				125683D627DF1928003A8251 /* TagsSearchViewModel */,
-				1244793B27DC620D00581174 /* StatusSearchViewModel */,
 			);
 			path = SearchViewModels;
 			sourceTree = "<group>";
@@ -2923,8 +2925,8 @@
 			isa = PBXGroup;
 			children = (
 				1244791527D8A38600581174 /* StatusSearchViewModel.swift */,
-				1244791B27D8A63D00581174 /* StatusSearchInteractor.swift */,
-				1244792127D8A8BE00581174 /* StatusSearchRowView.swift */,
+				1247BC7227FDD3B6005F2DB4 /* Interactor */,
+				1247BC7327FDD3BD005F2DB4 /* RowView */,
 			);
 			path = StatusSearchViewModel;
 			sourceTree = "<group>";
@@ -3044,6 +3046,83 @@
 			path = Subviews;
 			sourceTree = "<group>";
 		};
+		1247BC6B27FDD0B8005F2DB4 /* InternalViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				1244793C27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift */,
+				125683D827DF1BEE003A8251 /* ObjectsSearchViewModel */,
+				125683D627DF1928003A8251 /* TagsSearchViewModel */,
+				1244793B27DC620D00581174 /* StatusSearchViewModel */,
+			);
+			path = InternalViewModels;
+			sourceTree = "<group>";
+		};
+		1247BC6C27FDD324005F2DB4 /* ObjectsSearchInteractor */ = {
+			isa = PBXGroup;
+			children = (
+				125683DB27DF1C2B003A8251 /* ObjectsSearchInteractor.swift */,
+			);
+			path = ObjectsSearchInteractor;
+			sourceTree = "<group>";
+		};
+		1247BC6D27FDD32E005F2DB4 /* FilesSearchInteractor */ = {
+			isa = PBXGroup;
+			children = (
+				125683DD27DF1D0A003A8251 /* FilesSearchInteractor.swift */,
+			);
+			path = FilesSearchInteractor;
+			sourceTree = "<group>";
+		};
+		1247BC6E27FDD33E005F2DB4 /* RowView */ = {
+			isa = PBXGroup;
+			children = (
+				125683E127DF1E7D003A8251 /* SearchObjectRowView.swift */,
+			);
+			path = RowView;
+			sourceTree = "<group>";
+		};
+		1247BC6F27FDD351005F2DB4 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				125683DF27DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift */,
+				1247BC6C27FDD324005F2DB4 /* ObjectsSearchInteractor */,
+				1247BC6D27FDD32E005F2DB4 /* FilesSearchInteractor */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		1247BC7027FDD3A6005F2DB4 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				125683CF27DF14F5003A8251 /* TagsSearchInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		1247BC7127FDD3AE005F2DB4 /* RowView */ = {
+			isa = PBXGroup;
+			children = (
+				125683D427DF17CE003A8251 /* TagSearchRowView.swift */,
+			);
+			path = RowView;
+			sourceTree = "<group>";
+		};
+		1247BC7227FDD3B6005F2DB4 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				1244791B27D8A63D00581174 /* StatusSearchInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		1247BC7327FDD3BD005F2DB4 /* RowView */ = {
+			isa = PBXGroup;
+			children = (
+				1244792127D8A8BE00581174 /* StatusSearchRowView.swift */,
+			);
+			path = RowView;
+			sourceTree = "<group>";
+		};
 		124E2BBD273020CF00A2D534 /* Relations */ = {
 			isa = PBXGroup;
 			children = (
@@ -3075,8 +3154,8 @@
 			isa = PBXGroup;
 			children = (
 				1244794627DC96FB00581174 /* TagsSearchViewModel.swift */,
-				125683CF27DF14F5003A8251 /* TagsSearchInteractor.swift */,
-				125683D427DF17CE003A8251 /* TagSearchRowView.swift */,
+				1247BC7027FDD3A6005F2DB4 /* Interactor */,
+				1247BC7127FDD3AE005F2DB4 /* RowView */,
 			);
 			path = TagsSearchViewModel;
 			sourceTree = "<group>";
@@ -3085,10 +3164,8 @@
 			isa = PBXGroup;
 			children = (
 				125683D927DF1BFB003A8251 /* ObjectsSearchViewModel.swift */,
-				125683DF27DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift */,
-				125683DB27DF1C2B003A8251 /* ObjectsSearchInteractor.swift */,
-				125683DD27DF1D0A003A8251 /* FilesSearchInteractor.swift */,
-				125683E127DF1E7D003A8251 /* SearchObjectRowView.swift */,
+				1247BC6F27FDD351005F2DB4 /* Interactor */,
+				1247BC6E27FDD33E005F2DB4 /* RowView */,
 			);
 			path = ObjectsSearchViewModel;
 			sourceTree = "<group>";
@@ -3105,7 +3182,6 @@
 		1256841B27E34309003A8251 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				1244793C27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift */,
 				1244793E27DC633700581174 /* NewSearchViewModel.swift */,
 				125683F127DF808E003A8251 /* NewSearchViewModel+SelectionMode.swift */,
 				1256840327E0C606003A8251 /* NewSearchViewModel+ItemCreationMode.swift */,
@@ -4294,7 +4370,6 @@
 			isa = PBXGroup;
 			children = (
 				53D4087F27EC970600495335 /* ObjectPreview */,
-				1244790F27D8A35800581174 /* SearchModule */,
 				12FF0D0F27C5223000562DD9 /* TitleView */,
 				12FF0D0327C51AD300562DD9 /* TextField */,
 				3DB3EC67275513A1002781DA /* ProgressBar */,
@@ -6720,6 +6795,7 @@
 				12394A2627A3FE120080E1CF /* AnytypePopupProxy.swift in Sources */,
 				12394A2627A3FE120080E1CF /* AnytypePopupProxy.swift in Sources */,
 				3D93D56C270C9E3400614E29 /* LoadingViewController.swift in Sources */,
+				1247BC7527FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift in Sources */,
 				C91AFF0A270C3AF2005F9386 /* EventsLogViewModel.swift in Sources */,
 				538F172D272C2F75009528E7 /* ObjectSearchViewModel.swift in Sources */,
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,

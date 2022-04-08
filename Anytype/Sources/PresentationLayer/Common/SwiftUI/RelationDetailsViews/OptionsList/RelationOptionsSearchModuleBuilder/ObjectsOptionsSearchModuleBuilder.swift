@@ -13,8 +13,8 @@ extension ObjectsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderP
         onSelect: @escaping ([String]) -> Void,
         onCreate _ : @escaping (String) -> Void
     ) -> NewSearchView {
-        NewSearchModuleAssembly.buildObjectsSearchModule(
-            selectedObjectIds: excludedOptionIds,
+        NewSearchModuleAssembly.objectsSearchModule(
+            excludedObjectIds: excludedOptionIds,
             limitedObjectType: limitedObjectType,
             onSelect: onSelect
         )
