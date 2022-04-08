@@ -5,12 +5,9 @@ import Amplitude
 import AnytypeCore
 import UIKit
 
-final class SearchNewRelationViewModel: ObservableObject, Dismissible {
+final class SearchNewRelationViewModel: ObservableObject {
     
-    var onDismiss: () -> () = {}
-
     @Published private(set) var searchData: [SearchNewRelationSectionType] = [.createNewRelation]
-    @Published private(set) var shouldDismiss: Bool = false
 
     // MARK: - Private variables
     
@@ -18,19 +15,16 @@ final class SearchNewRelationViewModel: ObservableObject, Dismissible {
     private let usedObjectRelationsIds: Set<String>
     private let relationService: RelationsServiceProtocol
     private weak var output: SearchNewRelationModuleOutput?
-    private let onSelect: ((RelationMetadata) -> ())?
     
     // MARK: - Initializers
     
     init(
         objectRelations: ParsedRelations,
         relationService: RelationsServiceProtocol,
-        output: SearchNewRelationModuleOutput?,
-        onSelect: ((RelationMetadata) -> ())?
+        output: SearchNewRelationModuleOutput?
     ) {
         self.relationService = relationService
         self.output = output
-        self.onSelect = onSelect
 
         usedObjectRelationsIds = Set(objectRelations.all.map { $0.id })
     }
@@ -75,33 +69,14 @@ extension SearchNewRelationViewModel {
 
     func addRelation(_ relation: RelationMetadata) {
         if let createdRelation = relationService.addRelation(relation: relation) {
-            if FeatureFlags.createNewRelationV2 {
-                UISelectionFeedbackGenerator().selectionChanged()
-                output?.didAddRelation(createdRelation)
-            } else {
-                onSelect?(createdRelation)
-            }
+            UISelectionFeedbackGenerator().selectionChanged()
+            output?.didAddRelation(createdRelation)
         }
     }
-    
-    var createNewRelationViewModel: CreateNewRelationViewModel {
-        CreateNewRelationViewModel(
-            relationService: relationService,
-            onSelect: { [weak self] in
-                guard let self = self else { return }
-                
-                self.shouldDismiss = true
-                self.onSelect?($0)
-            }
-        )
-    }
+
     
     func showAddRelation(searchText: String) {
         output?.didAskToShowCreateNewRelation(searchText: searchText)
-    }
-    
-    func newRelationViewModel(searchText: String) -> NewRelationViewModel {
-        NewRelationViewModel(name: searchText, service: relationService, output: nil)
     }
     
 }

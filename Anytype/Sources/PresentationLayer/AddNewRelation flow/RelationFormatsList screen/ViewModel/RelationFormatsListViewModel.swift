@@ -29,13 +29,8 @@ extension RelationFormatsListViewModel {
 private extension Array where Element == SupportedRelationFormat {
     
     var asRelationFormatListCellModels: [RelationFormatListCell.Model] {
-        self.map {
-            RelationFormatListCell.Model(
-                id: $0.id,
-                title: $0.title,
-                icon: $0.icon,
-                isSelected: false
-            )
+        map {
+            RelationFormatListCell.Model(id: $0.id, title: $0.title, icon: $0.icon)
         }
     }
     

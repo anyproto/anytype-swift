@@ -92,38 +92,25 @@ public extension RelationMetadata.Format {
             return "format/unknown"
         }
     }
-
-    #warning("TODO: remove when create new relation v2 will be implemented")
-    var name: String {
+    
+    var analyticString: String {
         switch self {
-        case .longText:
-            return "Text"
-        case .shortText:
-            return "Text"
-        case .number:
-            return "Numbers"
-        case .status:
-            return "Status"
-        case .date:
-            return "Date"
-        case .file:
-            return "File & Media"
-        case .checkbox:
-            return "Checkbox"
-        case .url:
-            return "URL"
-        case .email:
-            return "Email"
-        case .phone:
-            return "Phone number"
-        case .tag:
-            return "Tag"
-        case .object:
-            return "Object"
-        case .unrecognized:
-            return "Unknown"
+        case .longText: return "Text"
+        case .shortText: return "Text"
+        case .number: return "Numbers"
+        case .status: return "Status"
+        case .date: return "Date"
+        case .file: return "File & Media"
+        case .checkbox: return "Checkbox"
+        case .url: return "URL"
+        case .email: return "Email"
+        case .phone: return "Phone number"
+        case .tag: return "Tag"
+        case .object: return "Object"
+        case .unrecognized: return "Unknown"
         }
     }
+
 }
 
 extension RelationMetadata.Format: Identifiable {
