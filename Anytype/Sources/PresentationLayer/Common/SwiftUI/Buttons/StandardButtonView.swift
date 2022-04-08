@@ -1,9 +1,49 @@
 import SwiftUI
 
-enum StandardButtonStyle {
-    case primary
-    case secondary
-    case destructive
+struct StandardButtonView: View {
+    let disabled: Bool
+    let inProgress: Bool
+    let text: String
+    let style: StandardButtonStyle
+    
+    init(
+        disabled: Bool = false,
+        inProgress: Bool = false,
+        text: String,
+        style: StandardButtonStyle
+    ) {
+        self.disabled = disabled
+        self.inProgress = inProgress
+        self.text = text
+        self.style = style
+    }
+    
+    var body: some View {
+        Group {
+            if inProgress {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: style.textColor(disabled: disabled)))
+            } else {
+                AnytypeText(
+                    text,
+                    style: style.textFont,
+                    color: style.textColor(disabled: disabled)
+                )
+            }
+        }
+        .frame(minWidth: 0, maxWidth: .infinity)
+        .frame(height: 48)
+        .background(style.backgroundColor(disabled: disabled))
+        .cornerRadius(10.0)
+        .ifLet(style.borderColor) { view, borderColor in
+            view.overlay(
+                RoundedRectangle(cornerRadius: 8.0).stroke(borderColor, lineWidth: 1)
+            )
+        }
+    }
+}
+
+private extension StandardButtonStyle {
     
     func backgroundColor(disabled: Bool) -> Color {
         switch self {
@@ -46,38 +86,7 @@ enum StandardButtonStyle {
             return .button1Regular
         }
     }
-}
-
-struct StandardButtonView: View {
-    var disabled: Bool = false
-    var inProgress: Bool = false
-    let text: String
-    let style: StandardButtonStyle
     
-    var body: some View {
-        Group {
-            if inProgress {
-                ProgressView()
-                    .progressViewStyle(CircularProgressViewStyle(tint: style.textColor(disabled: disabled)))
-            } else {
-                AnytypeText(
-                    text,
-                    style: style.textFont,
-                    color: style.textColor(disabled: disabled)
-                )
-            }
-        }
-        .frame(minWidth: 0, maxWidth: .infinity)
-        .frame(height: 48)
-        .background(style.backgroundColor(disabled: disabled))
-        .cornerRadius(10.0)
-        .eraseToAnyView()
-        .ifLet(style.borderColor) { button, borderColor in
-            button.overlay(
-                RoundedRectangle(cornerRadius: 8.0).stroke(borderColor, lineWidth: 1)
-            )
-        }
-    }
 }
 
 struct StandardButton_Previews: PreviewProvider {

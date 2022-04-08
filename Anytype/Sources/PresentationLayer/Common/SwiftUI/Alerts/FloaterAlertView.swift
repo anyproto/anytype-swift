@@ -3,8 +3,8 @@ import SwiftUI
 struct FloaterAlertView: View {
     let title: String
     let description: String
-    let leftButtonData: StandardButtonData
-    let rightButtonData: StandardButtonData
+    let leftButtonData: StandardButtonModel
+    let rightButtonData: StandardButtonModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -23,9 +23,9 @@ struct FloaterAlertView: View {
     
     private var buttons: some View {
         HStack(spacing: 0) {
-            StandardButton(data: leftButtonData)
+            StandardButton(model: leftButtonData)
             Spacer.fixedWidth(10)
-            StandardButton(data: rightButtonData)
+            StandardButton(model: rightButtonData)
         }
         .padding(.vertical, 10)
     }
@@ -38,8 +38,8 @@ struct FloaterAlertView_Previews: PreviewProvider {
             FloaterAlertView(
                 title: "Are you sure you want to delete 3 objects?",
                 description: "These objects will be deleted irrevocably. You can’t undo this action.",
-                leftButtonData: StandardButtonData(text: "Cancel", style: .secondary, action: {}),
-                rightButtonData: StandardButtonData(text: "Delete", style: .destructive, action: {})
+                leftButtonData: StandardButtonModel(text: "Cancel", style: .secondary, action: {}),
+                rightButtonData: StandardButtonModel(text: "Delete", style: .destructive, action: {})
             )
         }
     }

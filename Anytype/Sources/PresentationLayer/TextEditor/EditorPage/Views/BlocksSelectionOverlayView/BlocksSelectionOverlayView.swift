@@ -82,14 +82,14 @@ final class BlocksSelectionOverlayView: UIView {
 
     private func makeMovingButtonsView() -> TwoStandardButtonsView {
         TwoStandardButtonsView(
-            leftButtonData: StandardButtonData(
+            leftButtonData: StandardButtonModel(
                 text: "Cancel".localized,
                 style: .secondary,
                 action: { [weak viewModel] in
                     viewModel?.cancelButtonHandler?()
                 }
             ),
-            rightButtonData: StandardButtonData(
+            rightButtonData: StandardButtonModel(
                 text: "Move".localized,
                 style: .primary,
                 action: { [weak viewModel] in
