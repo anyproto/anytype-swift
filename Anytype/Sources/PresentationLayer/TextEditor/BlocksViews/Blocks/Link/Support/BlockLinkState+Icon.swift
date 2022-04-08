@@ -13,6 +13,8 @@ extension BlockLinkState {
         case .noContent:
             return nil
         case let .icon(icon):
+            guard case .medium = objectPreviewFields.icon else { return nil }
+
             switch icon {
             case let .basic(id):
                 return makeImageView(imageId: id, cornerRadius: 4)
@@ -20,7 +22,7 @@ extension BlockLinkState {
             case let .profile(profile):
                 return makeProfileIconView(profile)
             case let .emoji(emoji):
-                return makeLabel(with: emoji.value)
+                return makeEmoji(with: emoji.value)
                 
             }
         case let .checkmark(isChecked):
@@ -37,7 +39,7 @@ private extension BlockLinkState {
     func makeProfileIconView(_ icon: ObjectIconType.Profile) -> UIView {
         switch icon {
         case let .imageId(imageId):
-            return makeImageView(imageId: imageId, cornerRadius: Constants.imageViewSize.width / 2)
+            return makeImageView(imageId: imageId, cornerRadius: imageSize.width / 2)
             
         case let .character(placeholder):
             return makePlaceholderView(placeholder)
@@ -46,15 +48,14 @@ private extension BlockLinkState {
     
     func makeImageView(imageId: BlockId, cornerRadius: CGFloat) -> UIImageView {
         let imageView = UIImageView()
-        let size = Constants.imageViewSize
 
-        let imageGuideline = ImageGuideline(size: size, radius: .point(cornerRadius))
+        let imageGuideline = ImageGuideline(size: imageSize, radius: .point(cornerRadius))
         imageView.wrapper
             .imageGuideline(imageGuideline)
             .setImage(id: imageId)
         
         imageView.layoutUsing.anchors {
-            $0.size(size)
+            $0.size(imageSize)
         }
    
         return imageView
@@ -64,14 +65,13 @@ private extension BlockLinkState {
         let imageView = UIImageView(image: image)
         
         imageView.layoutUsing.anchors {
-            $0.size(Constants.imageViewSize)
+            $0.size(imageSize)
         }
         return imageView
     }
     
     func makePlaceholderView(_ placeholder: Character) -> UIView {
-        let size = Constants.imageViewSize
-        let imageGuideline = ImageGuideline(size: size, radius: .widthFraction(0.5))
+        let imageGuideline = ImageGuideline(size: imageSize, radius: .widthFraction(0.5))
         
         let image = ImageBuilder(imageGuideline)
             .setImageColor(.strokePrimary)
@@ -81,14 +81,68 @@ private extension BlockLinkState {
         return makeIconImageView(image)
     }
     
-    func makeLabel(with string: String) -> UILabel {
+    func makeEmoji(with string: String) -> UIView {
+        switch objectPreviewFields.layout {
+        case .text:
+            return makeLabelEmoji(with: string)
+        case .card:
+            return makeEmojiImageView(with: string)
+        }
+    }
+
+    func makeLabelEmoji(with string: String) -> UILabel {
         let label = UILabel()
         label.text = string
-        
+
         label.layoutUsing.anchors {
-            $0.size(Constants.imageViewSize)
+            $0.size(imageSize)
         }
         return label
+    }
+
+    func makeEmojiImageView(with string: String) -> UIImageView {
+        let painter = ObjectIconImagePainter.shared
+        let image = painter.image(
+            with: string,
+            font: .previewTitle2Regular,
+            textColor: .textPrimary,
+            imageGuideline: .init(size: imageSize),
+            backgroundColor: .clear
+        )
+        let imageView = UIImageView(image: image)
+
+        imageView.layoutUsing.anchors {
+            $0.size(Constants.CardLayout.imageViewSize)
+        }
+        imageView.backgroundColor = .strokeTransperent
+        imageView.layer.cornerRadius = 14
+
+        return imageView
+    }
+
+    var imageSize: CGSize {
+        if deleted {
+            return Constants.TextLayout.imageViewSize
+        }
+        
+        switch objectPreviewFields.layout {
+        case .text:
+            return Constants.TextLayout.imageViewSize
+        case .card:
+            switch style {
+            case.checkmark:
+                return Constants.CardLayout.checkmarkViewSize
+            case .icon(let type):
+                switch type {
+                case .emoji:
+                    return Constants.CardLayout.emojiViewSize
+                default:
+                    return Constants.CardLayout.imageViewSize
+                }
+            case .noContent:
+                return .zero
+            }
+        }
     }
     
 }
@@ -96,7 +150,15 @@ private extension BlockLinkState {
 private extension BlockLinkState {
     
     enum Constants {
-        static let imageViewSize = CGSize(width: 24, height: 24)
+        enum TextLayout {
+            static let imageViewSize = CGSize(width: 24, height: 24)
+        }
+
+        enum CardLayout {
+            static let imageViewSize = CGSize(width: 64, height: 64)
+            static let emojiViewSize = CGSize(width: 36, height: 36)
+            static let checkmarkViewSize = CGSize(width: 28, height: 28)
+        }
     }
     
 }
