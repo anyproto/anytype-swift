@@ -223,15 +223,18 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         rootController?.setNavigationViewHidden(isHidden, animated: animated)
     }
 
-    func showObjectPreview(information: BlockInformation, onSelect: @escaping () -> Void) {
-        let viewModel = ObjectPreviewViewModel(
-            featuredRelations: document.parsedRelations.featuredRelations,
-            fields: information.fields
-        )
+    func showObjectPreview(information: BlockInformation, onSelect: @escaping (ObjectPreviewFields) -> Void) {
+        let router = ObjectPreviewRouter(viewController: viewController)
+        let featuredRelationsByIds = document.parsedRelations.featuredRelations.toDictionary { $0.id }
+        let viewModel = ObjectPreviewViewModel(featuredRelationsByIds: featuredRelationsByIds,
+                                               fields: information.fields,
+                                               router: router,
+                                               onSelect: onSelect)
         let contentView = ObjectPreviewView(viewModel: viewModel)
         let popup = AnytypePopup(contentView: contentView)
 
         viewController?.topPresentedController.present(popup, animated: true, completion: nil)
+
     }
     
     // MARK: - Settings

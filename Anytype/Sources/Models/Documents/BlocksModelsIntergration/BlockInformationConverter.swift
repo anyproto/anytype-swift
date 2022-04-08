@@ -18,11 +18,11 @@ enum BlockInformationConverter {
             backgroundColor: MiddlewareColor(rawValue: block.backgroundColor),
             alignment: alignment,
             childrenIds: block.childrenIds,
-            fields: block.fields.toFieldTypeMap(),
             configurationData: .init(
                 backgroundColor: color,
                 indentationStyle: .none
-            )
+            ),
+            fields: block.fields.fields
         )
         
         return BlockValidator().validated(information: info)

@@ -65,7 +65,7 @@ final class BlockViewModelBuilder {
                     info: info,
                     content: content,
                     codeLanguage: CodeLanguage.create(
-                        middleware: info.fields[FieldName.codeLanguage]?.stringValue
+                        middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
                     ),
                     becomeFirstResponder: { _ in },
                     textDidChange: { block, textView in
@@ -73,11 +73,8 @@ final class BlockViewModelBuilder {
                     },
                     showCodeSelection: { [weak self] info in
                         self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in
-                            let fields = BlockFields(
-                                blockId: info.id,
-                                fields: [FieldName.codeLanguage: language.toMiddleware()]
-                            )
-                            self?.handler.setFields([fields], blockId: info.id)
+                            let fields = CodeBlockFields(language: language)
+                            self?.handler.setFields(fields, blockId: info.id)
                         }
                     }
                 )

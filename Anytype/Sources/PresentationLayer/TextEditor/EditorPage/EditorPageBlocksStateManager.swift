@@ -342,7 +342,13 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             let blocksIds = elements.map(\.blockId)
             pasteboardService.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
         case .preview:
-            elements.first.map { router.showObjectPreview(information: $0.info) {} }
+            elements.first.map {
+                let blockId = $0.blockId
+
+                router.showObjectPreview(information: $0.info) { [weak self] newFields in
+                    self?.actionHandler.setFields(newFields, blockId: blockId)
+                }
+            }
         }
 
         editingState = .editing

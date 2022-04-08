@@ -10,63 +10,61 @@ import ProtobufMessages
 import SwiftProtobuf
 import BlocksModels
 
-final class ObjectPreviewFieldsConverter {
+extension ObjectPreviewFields: FieldsConvertibleProtocol {
 
-    enum FieldsName {
-        static let withName = "withName"
-        static let withIcon = "withIcon"
-        static let style = "style"
-        static let withDescription = "withDescription"
-    }
-
-    static func convertToMiddle(fields: ObjectPreviewFields) -> Google_Protobuf_Struct {
+    func asMiddleware() -> BlockFields {
         typealias ProtobufDictionary = [String: Google_Protobuf_Value]
 
         var protoFields: [String: Google_Protobuf_Value] = [:]
 
-        protoFields[FieldsName.withName] = fields.withName.protobufValue
+        protoFields[FieldName.withName] = withName.protobufValue
 
-        switch fields.icon {
+        switch icon {
         case .none:
-            protoFields[FieldsName.withIcon] = false
+            protoFields[FieldName.withIcon] = false
         case .medium:
-            protoFields[FieldsName.withIcon] = true
+            protoFields[FieldName.withIcon] = true
         }
 
-        switch fields.layout {
+        switch layout {
         case .text:
-            protoFields[FieldsName.style] = ""
+            protoFields[FieldName.style] = ""
         case .card:
-            protoFields[FieldsName.style] = 1
+            protoFields[FieldName.style] = 1
         }
 
-        let withDescription = fields.featuredRelationsIds.contains {
+        let withDescription = featuredRelationsIds.contains {
             $0 == BundledRelationKey.description.rawValue
         }
+        protoFields[FieldName.withDescription] = withDescription.protobufValue
 
-        protoFields[FieldsName.withDescription] = withDescription.protobufValue
-        return .init(fields: protoFields)
+        let withName = featuredRelationsIds.contains {
+            $0 == BundledRelationKey.snippet.rawValue
+        }
+        protoFields[FieldName.withName] = withName.protobufValue
+
+        return protoFields
     }
 
-    static func convertToModel(fields: MiddleBlockFields) -> ObjectPreviewFields {
+    static func convertToModel(fields: BlockFields) -> ObjectPreviewFields {
         var icon: ObjectPreviewFields.Icon = .none
         var layout: ObjectPreviewFields.Layout = .text
         var name: Bool = false
         var featuredRelationsIds: Set<String> = []
 
-        if case let .boolType(value) = fields[FieldsName.withIcon], value {
+        if case let .boolValue(value) = fields[FieldName.withIcon]?.kind, value {
             icon = .medium
         }
 
-        if case let .doubleType(value) = fields[FieldsName.style], value == 1 {
+        if case let .numberValue(value) = fields[FieldName.style]?.kind, value == 1 {
             layout = .card
         }
 
-        if case let .boolType(value) = fields[FieldsName.withName] {
+        if case let .boolValue(value) = fields[FieldName.withName]?.kind {
             name = value
         }
 
-        if case let .boolType(value) = fields[FieldsName.withDescription], value {
+        if case let .boolValue(value) = fields[FieldName.withDescription]?.kind, value {
             featuredRelationsIds.insert(BundledRelationKey.description.rawValue)
         }
 

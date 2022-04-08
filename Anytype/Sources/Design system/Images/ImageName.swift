@@ -66,4 +66,9 @@ final class ImageName {
             static let line_divider = "slash_menu_line_divider"
         }
     }
+
+    enum ObjectPreview {
+        static let card = "card"
+        static let text = "text"
+    }
 }

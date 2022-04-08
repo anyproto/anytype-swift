@@ -20,7 +20,6 @@
 		034A30412405CDBE002599E2 /* CombineExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 034A30402405CDBE002599E2 /* CombineExtension.swift */; };
 		03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03507434239E72F3001CF477 /* CreateNewProfileViewModel.swift */; };
 		03527A0722F7A44B004F0418 /* KeychainPhraseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03527A0622F7A44B004F0418 /* KeychainPhraseView.swift */; };
-		0372922E23F991B60033DFDB /* BlockFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372922D23F991B60033DFDB /* BlockFields.swift */; };
 		0372AB4423A0BF29008CF5B9 /* SelectProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */; };
 		0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03992F6C2396BA9B0027A4AD /* SelectProfileView.swift */; };
 		037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 037AA83322E34601002CB09F /* ApplicationCoordinator.swift */; };
@@ -756,7 +755,9 @@
 		53D4089427ECBB6900495335 /* ObjectPreviewFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */; };
 		53D4089727ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089627ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift */; };
 		53D4089927EDDAA300495335 /* ObjectPreivewSectionBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089827EDDAA300495335 /* ObjectPreivewSectionBuilder.swift */; };
-		53D4089B27EDDB2800495335 /* ObjectPreviewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D4089A27EDDB2800495335 /* ObjectPreviewModel.swift */; };
+		53D408AC27F0B7EE00495335 /* CodeBlockFields.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408AB27F0B7EE00495335 /* CodeBlockFields.swift */; };
+		53D408AE27F0B85B00495335 /* CodeBlockFieldsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408AD27F0B85B00495335 /* CodeBlockFieldsConverter.swift */; };
+		53D408B027F0BF7600495335 /* FieldsConvertibleProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408AF27F0BF7600495335 /* FieldsConvertibleProtocol.swift */; };
 		53D408CA27F1D3AB00495335 /* UIPasteboardExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408C927F1D3AB00495335 /* UIPasteboardExtension.swift */; };
 		53D408CF27F1D44F00495335 /* PasteboardCopyResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408CE27F1D44F00495335 /* PasteboardCopyResult.swift */; };
 		53D408D127F1D48000495335 /* PasteboardServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53D408D027F1D48000495335 /* PasteboardServiceProtocol.swift */; };
@@ -770,6 +771,13 @@
 		53F2F61C270DF53000D6CA9B /* AudioBlockPlayerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F2F61B270DF53000D6CA9B /* AudioBlockPlayerDelegate.swift */; };
 		53F7441727F4A09B005C9BB0 /* ObjectPreviewViewSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7441627F4A09B005C9BB0 /* ObjectPreviewViewSection.swift */; };
 		53F7441927F4A119005C9BB0 /* AnytypePopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7441827F4A119005C9BB0 /* AnytypePopupViewModel.swift */; };
+		53F7442F27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7442E27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift */; };
+		53F7443127F4BC7B005C9BB0 /* ObjectPreviewLayoutMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7443027F4BC7B005C9BB0 /* ObjectPreviewLayoutMenuViewModel.swift */; };
+		53F7447227F7157A005C9BB0 /* CheckPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7447127F7157A005C9BB0 /* CheckPopupView.swift */; };
+		53F7447427F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7447327F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift */; };
+		53F7447627F71789005C9BB0 /* CheckPopupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7447527F71789005C9BB0 /* CheckPopupItem.swift */; };
+		53F7447927F71A83005C9BB0 /* PopupViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7447827F71A83005C9BB0 /* PopupViewBuilder.swift */; };
+		53F7449D27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7449C27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift */; };
 		53F80EF427BD3BE300E9E12A /* TagRelationViewUIKIt.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F80EF327BD3BE300E9E12A /* TagRelationViewUIKIt.swift */; };
 		53F80EFA27BD8A0A00E9E12A /* TagViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F80EF927BD8A0A00E9E12A /* TagViewUIKit.swift */; };
 		53F80F0527BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F80F0427BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift */; };
@@ -998,7 +1006,6 @@
 		03507434239E72F3001CF477 /* CreateNewProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateNewProfileViewModel.swift; sourceTree = "<group>"; };
 		03527A0622F7A44B004F0418 /* KeychainPhraseView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainPhraseView.swift; sourceTree = "<group>"; };
 		03652DD7239F5E7B0029E773 /* ScannerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
-		0372922D23F991B60033DFDB /* BlockFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockFields.swift; sourceTree = "<group>"; };
 		0372AB3F23A09C7F008CF5B9 /* NotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtension.swift; sourceTree = "<group>"; };
 		0372AB4123A09DDC008CF5B9 /* SelectProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectProfileViewModel.swift; sourceTree = "<group>"; };
 		037AA83322E34601002CB09F /* ApplicationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinator.swift; sourceTree = "<group>"; };
@@ -1725,7 +1732,9 @@
 		53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewFields.swift; sourceTree = "<group>"; };
 		53D4089627ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewFieldsConverter.swift; sourceTree = "<group>"; };
 		53D4089827EDDAA300495335 /* ObjectPreivewSectionBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreivewSectionBuilder.swift; sourceTree = "<group>"; };
-		53D4089A27EDDB2800495335 /* ObjectPreviewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewModel.swift; sourceTree = "<group>"; };
+		53D408AB27F0B7EE00495335 /* CodeBlockFields.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockFields.swift; sourceTree = "<group>"; };
+		53D408AD27F0B85B00495335 /* CodeBlockFieldsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodeBlockFieldsConverter.swift; sourceTree = "<group>"; };
+		53D408AF27F0BF7600495335 /* FieldsConvertibleProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FieldsConvertibleProtocol.swift; sourceTree = "<group>"; };
 		53D408C927F1D3AB00495335 /* UIPasteboardExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIPasteboardExtension.swift; sourceTree = "<group>"; };
 		53D408CE27F1D44F00495335 /* PasteboardCopyResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardCopyResult.swift; sourceTree = "<group>"; };
 		53D408D027F1D48000495335 /* PasteboardServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardServiceProtocol.swift; sourceTree = "<group>"; };
@@ -1739,6 +1748,13 @@
 		53F2F61B270DF53000D6CA9B /* AudioBlockPlayerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioBlockPlayerDelegate.swift; sourceTree = "<group>"; };
 		53F7441627F4A09B005C9BB0 /* ObjectPreviewViewSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectPreviewViewSection.swift; sourceTree = "<group>"; };
 		53F7441827F4A119005C9BB0 /* AnytypePopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypePopupViewModel.swift; sourceTree = "<group>"; };
+		53F7442E27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewRouter.swift; sourceTree = "<group>"; };
+		53F7443027F4BC7B005C9BB0 /* ObjectPreviewLayoutMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewLayoutMenuViewModel.swift; sourceTree = "<group>"; };
+		53F7447127F7157A005C9BB0 /* CheckPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPopupView.swift; sourceTree = "<group>"; };
+		53F7447327F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPopuViewViewModelProtocol.swift; sourceTree = "<group>"; };
+		53F7447527F71789005C9BB0 /* CheckPopupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPopupItem.swift; sourceTree = "<group>"; };
+		53F7447827F71A83005C9BB0 /* PopupViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewBuilder.swift; sourceTree = "<group>"; };
+		53F7449C27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewIconMenuViewModel.swift; sourceTree = "<group>"; };
 		53F80EF327BD3BE300E9E12A /* TagRelationViewUIKIt.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationViewUIKIt.swift; sourceTree = "<group>"; };
 		53F80EF927BD8A0A00E9E12A /* TagViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagViewUIKit.swift; sourceTree = "<group>"; };
 		53F80F0427BD8DAD00E9E12A /* ObjectListRelationViewUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectListRelationViewUIKit.swift; sourceTree = "<group>"; };
@@ -2102,14 +2118,6 @@
 			path = CreateNewProfileFlow;
 			sourceTree = "<group>";
 		};
-		0372922C23F991660033DFDB /* Middleware */ = {
-			isa = PBXGroup;
-			children = (
-				0372922D23F991B60033DFDB /* BlockFields.swift */,
-			);
-			path = Middleware;
-			sourceTree = "<group>";
-		};
 		0372AB4323A09DE1008CF5B9 /* SelectProfile */ = {
 			isa = PBXGroup;
 			children = (
@@ -2229,7 +2237,6 @@
 				EA5FB453266E309700DCD56C /* Mention */,
 				0327B0B1232BB904007DB8A7 /* Documents */,
 				12BE8E5826565D6D000C95B9 /* Extensions */,
-				0372922C23F991660033DFDB /* Middleware */,
 				1215E8C026A86CAC0089AF7E /* ImageSource.swift */,
 				12426A2B26DD006500693B1F /* ImageMetadata.swift */,
 				12870A2B26DE6A7400A6F46A /* ImageWidth.swift */,
@@ -4209,7 +4216,6 @@
 			children = (
 				53D4087F27EC970600495335 /* ObjectPreview */,
 				1244790F27D8A35800581174 /* SearchModule */,
-				12FF0D0F27C5223000562DD9 /* TitleView */,
 				12FF0D0327C51AD300562DD9 /* TextField */,
 				3DB3EC67275513A1002781DA /* ProgressBar */,
 				535E02AB274FF05600E1AF8C /* Relations */,
@@ -5382,6 +5388,8 @@
 		53A46330262878710097C25E /* Design system */ = {
 			isa = PBXGroup;
 			children = (
+				12FF0D0F27C5223000562DD9 /* TitleView */,
+				53F7447027F71564005C9BB0 /* PopupsView */,
 				53040A4C26D838EF0023AC73 /* TextComponents */,
 				3DA626392657AB7200942249 /* Animations */,
 				EA77E53F262DEC31009F91D9 /* Buttons */,
@@ -5441,10 +5449,13 @@
 		53D4087F27EC970600495335 /* ObjectPreview */ = {
 			isa = PBXGroup;
 			children = (
+				53F7449B27FB8FE9005C9BB0 /* IconMenu */,
+				53F7442A27F4BB68005C9BB0 /* LayoutMenu */,
 				53F7441627F4A09B005C9BB0 /* ObjectPreviewViewSection.swift */,
 				53D4088527EC9D0A00495335 /* ObjectPreviewViewModel.swift */,
 				53D4088727EC9EFE00495335 /* ObjectPreviewView.swift */,
 				53D4089827EDDAA300495335 /* ObjectPreivewSectionBuilder.swift */,
+				53F7442E27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift */,
 			);
 			path = ObjectPreview;
 			sourceTree = "<group>";
@@ -5452,8 +5463,11 @@
 		53D4089527ECCE9000495335 /* FieldConverters */ = {
 			isa = PBXGroup;
 			children = (
+				53D408AF27F0BF7600495335 /* FieldsConvertibleProtocol.swift */,
 				53D4089327ECBB6900495335 /* ObjectPreviewFields.swift */,
 				53D4089627ECCEFC00495335 /* ObjectPreviewFieldsConverter.swift */,
+				53D408AB27F0B7EE00495335 /* CodeBlockFields.swift */,
+				53D408AD27F0B85B00495335 /* CodeBlockFieldsConverter.swift */,
 			);
 			path = FieldConverters;
 			sourceTree = "<group>";
@@ -5476,6 +5490,41 @@
 				53EA4A7E2637639F00968B8E /* StyleColorCellConfiguration.swift */,
 			);
 			path = ColorCell;
+			sourceTree = "<group>";
+		};
+		53F7442A27F4BB68005C9BB0 /* LayoutMenu */ = {
+			isa = PBXGroup;
+			children = (
+				53F7443027F4BC7B005C9BB0 /* ObjectPreviewLayoutMenuViewModel.swift */,
+			);
+			path = LayoutMenu;
+			sourceTree = "<group>";
+		};
+		53F7447027F71564005C9BB0 /* PopupsView */ = {
+			isa = PBXGroup;
+			children = (
+				53F7447727F71A60005C9BB0 /* CheckPopupView */,
+				53F7447827F71A83005C9BB0 /* PopupViewBuilder.swift */,
+			);
+			path = PopupsView;
+			sourceTree = "<group>";
+		};
+		53F7447727F71A60005C9BB0 /* CheckPopupView */ = {
+			isa = PBXGroup;
+			children = (
+				53F7447127F7157A005C9BB0 /* CheckPopupView.swift */,
+				53F7447327F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift */,
+				53F7447527F71789005C9BB0 /* CheckPopupItem.swift */,
+			);
+			path = CheckPopupView;
+			sourceTree = "<group>";
+		};
+		53F7449B27FB8FE9005C9BB0 /* IconMenu */ = {
+			isa = PBXGroup;
+			children = (
+				53F7449C27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift */,
+			);
+			path = IconMenu;
 			sourceTree = "<group>";
 		};
 		53F80EF827BD89EE00E9E12A /* TagView */ = {
@@ -6163,6 +6212,7 @@
 				5338E7EC25DC723D008CB97D /* KeyboardActionHandler.swift in Sources */,
 				1244794127DC735A00581174 /* NewSearchView+ListModel.swift in Sources */,
 				539E01922757CD0600067A24 /* SlashActionRelations.swift in Sources */,
+				53F7447927F71A83005C9BB0 /* PopupViewBuilder.swift in Sources */,
 				3D3A9C3F265BC9AC000F07DB /* Publisher+Sink.swift in Sources */,
 				120E8177269F3474006FE84E /* ObjectSetting.swift in Sources */,
 				3D5A416A2703170300F1F6A1 /* BlockAction.swift in Sources */,
@@ -6170,6 +6220,7 @@
 				12FD9D1D2767168800991886 /* RelationProtocol.swift in Sources */,
 				53F80F5D27BEAFEA00E9E12A /* DepricatedRelationBlockContentConfiguration.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
+                53D408B027F0BF7600495335 /* FieldsConverterProtocol.swift in Sources */,
 				3DB1CA0F27293733000D2779 /* AccountManager.swift in Sources */,
 				C9C5368E276A3A07003CD3F3 /* TagRelationRowView.swift in Sources */,
 				53728CFB273596750092A8CF /* MarkupKind.swift in Sources */,
@@ -6187,6 +6238,7 @@
 				0A6F90062554546300B94AED /* BlockLayoutStyleConverter.swift in Sources */,
 				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
+				53F7447227F7157A005C9BB0 /* CheckPopupView.swift in Sources */,
 				3DAD610F26EB58FD00EC0C43 /* ImageName.swift in Sources */,
 				3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */,
 				EAC6BAA6262715B5004C8C06 /* BookmarkBlockRestrictions.swift in Sources */,
@@ -6214,6 +6266,7 @@
 				3D210C142758CCE50007F558 /* RelationsListRowPlaceholderView.swift in Sources */,
 				EAED57A6269F346D00374A46 /* TextBlockViewModel.swift in Sources */,
 				0A0965FB25BEF5B000C004BD /* EditorPageController.swift in Sources */,
+				53F7442F27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift in Sources */,
 				12FD9D252767179A00991886 /* RelationDate.swift in Sources */,
 				3DB92FA5264D8B0100E83276 /* SettingsSectionView.swift in Sources */,
 				12136D5827996F7C00262FE7 /* TextRelationDetailsServiceProtocol.swift in Sources */,
@@ -6381,6 +6434,7 @@
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
 				3D1CEC4B27F70B2E000D36BA /* AccountData.swift in Sources */,
 				EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */,
+				53F7449D27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift in Sources */,
 				3DB3EC642754FFF1002781DA /* DashboardLoadingAlert.swift in Sources */,
 				EA2F0D6D264EBA1B0039C1CB /* TextChangeType.swift in Sources */,
 				3D2F9C01271EA5FB0043C326 /* HomeViewModel+Selection.swift in Sources */,
@@ -6424,7 +6478,7 @@
 				534785642743D4EC0097CA30 /* ParsedRelations.swift in Sources */,
 				3D30417227EA689F00FFE0EB /* SetTableViewRowDataBuilder.swift in Sources */,
 				53F7441727F4A09B005C9BB0 /* ObjectPreviewViewSection.swift in Sources */,
-				1215E8A926A82DFD0089AF7E /* DownloadingUrlBuilder.swift in Sources */,
+				1215E8A926A82DFD0089AF7E /* ContentUrlBuilder.swift in Sources */,
 				1215E8A926A82DFD0089AF7E /* ContentUrlBuilder.swift in Sources */,
 				3D93D575270CA3D600614E29 /* EditorPageAssembly.swift in Sources */,
 				3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */,
@@ -6449,6 +6503,7 @@
 				12C2A5692754E90800311854 /* DateRelationDetailsRowView.swift in Sources */,
 				12C2A5802755F0CE00311854 /* DateRelationValue.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
+				53F7447427F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift in Sources */,
 				535E02B4275037B800E1AF8C /* RelationBlockRestrictions.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* EditorViewListCell.swift in Sources */,
 				EA2640CA26C3DDF6006071BD /* NSRange+Middleware.swift in Sources */,
@@ -6667,6 +6722,7 @@
 				12CAF34A26D643C0001E56B2 /* ProfileIconImageGuideline.swift in Sources */,
 				534D19C72623A7220080AEF0 /* SearchListViewController.swift in Sources */,
 				3D38CC9326D626A700E4F7BF /* ObjectSettingAssembly.swift in Sources */,
+				53D408AE27F0B85B00495335 /* CodeBlockFieldsConverter.swift in Sources */,
 				12472317264EAFD400B1E753 /* StringExtensions.swift in Sources */,
 				53D408D327F1DFCB00495335 /* PasteboardActionContext.swift in Sources */,
 				3D93D570270C9E4E00614E29 /* EditorPageViewInput.swift in Sources */,
@@ -6731,6 +6787,7 @@
 				535E02A8274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift in Sources */,
 				12C8440726FCEC1800D64B8D /* ObjectHeaderFilledConfiguration.swift in Sources */,
 				12CAF34C26D643F7001E56B2 /* EmojiIconImageGuideline.swift in Sources */,
+				53F7447627F71789005C9BB0 /* CheckPopupItem.swift in Sources */,
 				3D0BCACF26665794002F7A0D /* HomeCellDataBuilder.swift in Sources */,
 				12DE4056264AE455007B5074 /* StackedLayout.swift in Sources */,
 				3D07ED34261DD62700C007E2 /* BlocksModelsConverter.swift in Sources */,
@@ -6766,7 +6823,6 @@
 				03C5C54F22E0A16700DD91DE /* InternetAuthenticationType.swift in Sources */,
 				125B6ED326F235F400BCD7D6 /* SlashMenuView.swift in Sources */,
 				0AD6B24A24CF5DC00097A841 /* BlockBookmarkViewModel.swift in Sources */,
-				0372922E23F991B60033DFDB /* BlockFields.swift in Sources */,
 				3D24913027BD271900821595 /* SubscriptionIds.swift in Sources */,
 				3D5A41492702E4E400F1F6A1 /* SlashMenuItemsBuilder.swift in Sources */,
 				125BD57327CF4C95006D8227 /* CreateAccountServiceError.swift in Sources */,
@@ -6873,6 +6929,7 @@
 				12EB9B31277442BC00BA732F /* FileRelationView.swift in Sources */,
 				1244791C27D8A63D00581174 /* StatusSearchInteractor.swift in Sources */,
 				12A7B6C126C3E47200544037 /* DocumentCover.swift in Sources */,
+				53D408AC27F0B7EE00495335 /* CodeBlockFields.swift in Sources */,
 				1219F971269350A5009DE4D4 /* ObjectIconType.swift in Sources */,
 				3D30416A27EA4DC100FFE0EB /* EditorSetViewSettingsView.swift in Sources */,
 				3D5A418B2704697300F1F6A1 /* AutofocusedTextEditor.swift in Sources */,
@@ -6891,6 +6948,7 @@
 				539E019A2758422800067A24 /* SlashMenuRealtionView.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
 				127EABA32734FD6E00C731F2 /* CheckboxRelationView.swift in Sources */,
+				53F7443127F4BC7B005C9BB0 /* ObjectPreviewLayoutMenuViewModel.swift in Sources */,
 				1244793D27DC626B00581174 /* NewInternalSearchViewModelProtocol.swift in Sources */,
 				3DB1CA1D272A7FE3000D2779 /* QuickAction.swift in Sources */,
 				123FDADD26C17CBA00F6F44B /* ObjectHeaderCover.swift in Sources */,
