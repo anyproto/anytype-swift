@@ -9,6 +9,7 @@ struct NewSearchView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
+            TitleView(title: viewModel.title)
             SearchBar(text: $searchText, focused: true)
             content
             
