@@ -43,7 +43,7 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x24,
                 emojiImageGuideline: EmojiIconImageGuideline.x24,
                 todoImageGuideline: TodoIconImageGuideline.x24,
-                placeholderImageGuideline: PlaceholderIconImageGuideline.x48,
+                placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x24
             )
         case .dashboardList:

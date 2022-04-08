@@ -141,6 +141,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             toggleDropDown: {
                 info.toggle()
                 actionHandler.toggle(blockId: info.id)
+            },
+            tapOnCalloutIcon: {
+                print("TAAAAAP")
             }
         )
     }

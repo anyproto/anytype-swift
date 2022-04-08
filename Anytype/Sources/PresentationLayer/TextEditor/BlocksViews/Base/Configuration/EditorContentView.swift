@@ -75,6 +75,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     private var leadingViewWidthConstraint: NSLayoutConstraint?
     private var leadingViewBottomConstraint: NSLayoutConstraint?
     private var contentConstraints: InsetConstraints?
+    private lazy var calloutClosingView = UIView()
 
     private lazy var viewDragInteraction = UIDragInteraction(delegate: self)
 
@@ -118,6 +119,8 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
     private func setupDragInteraction() {
         guard dragConfiguration != nil, viewDragInteraction.view == nil else { return }
+
+        viewDragInteraction.isEnabled = true
         contentStackView.addInteraction(viewDragInteraction)
     }
 
@@ -125,7 +128,15 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
     private func updateIndentationPaddings() {
         var blockContentInsets = blockConfiguration.contentInsets
-        let indentationLevel = indentationSettings?.parentBlocksInfo.count ?? 0
+        var indentationLevel = indentationSettings?.parentBlocksInfo.count ?? 0
+
+        let additionalIndentations = indentationSettings?
+            .parentBlocksInfo
+            .filter { $0.indentationStyle == .callout }
+            .count ?? 0
+
+        indentationLevel = indentationLevel + additionalIndentations
+
         let parentIndentaionPadding = CGFloat(indentationLevel) * IndentationConstants.indentationWidth
 
         blockContentInsets.left = blockContentInsets.left + parentIndentaionPadding
@@ -141,14 +152,51 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
         configureLeadingView(with: indentationSettings.style)
 
-        configureParentIndentationStyles(
-            parentIndentationStyles: indentationSettings.parentBlocksInfo.map(\.indentationStyle)
-        )
+        if let bottomColor = indentationSettings.bottomBackgroundColor {
+            bottomColoredViewHeightConstraint?.constant = 16
+            bottomColoredView.backgroundColor = bottomColor
+        } else {
+            bottomColoredViewHeightConstraint?.constant = 0
+        }
 
-        configureBackgroundColors(
-            parentBackgrounds: indentationSettings.parentBlocksInfo.map(\.color),
-            backgroundColor: indentationSettings.backgroundColor
-        )
+        var leadingInset = blockConfiguration.contentInsets.left
+
+        indentationSettings.parentBlocksInfo.enumerated().forEach {
+            var backgroundWidth: CGFloat? = IndentationConstants.indentationWidth
+
+            if $0.offset == 0 {
+                backgroundWidth = blockConfiguration.contentInsets.left + IndentationConstants.indentationWidth
+            } else if $0.offset == indentationSettings.parentBlocksInfo.count - 1 && indentationSettings.backgroundColor == nil {
+                backgroundWidth = nil
+            }
+
+            let inset = shouldMakeAdditionalPadding(for: $0.element.indentationStyle)
+            ? IndentationConstants.indentationWidth * 2
+            : IndentationConstants.indentationWidth
+
+
+            if case let .highlighted = $0.element.indentationStyle {
+                addIndentationStyleView(style: $0.element.indentationStyle, leadingPadding: leadingInset)
+            }
+
+            addBackgroundColorView(color: $0.element.color, width: backgroundWidth)
+
+            leadingInset = leadingInset + inset
+        }
+
+
+        let lastBackgroundColor = indentationSettings.backgroundColor ?? indentationSettings.parentBlocksInfo.last.flatMap { $0.color }
+
+        addBackgroundColorView(color: lastBackgroundColor, width: nil)
+    }
+
+    private func shouldMakeAdditionalPadding(for style: BlockIndentationStyle) -> Bool {
+        switch style {
+        case .highlighted, .none:
+            return false
+        case .callout:
+            return true
+        }
     }
 
     private func configureLeadingView(with style: BlockIndentationStyle) {
@@ -170,17 +218,11 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         }
     }
 
-    private func configureParentIndentationStyles(parentIndentationStyles: [BlockIndentationStyle]) {
-        var leadingContraintValue = blockConfiguration.contentInsets.left
-
-        parentIndentationStyles.forEach() { element in
-
-            if case let .highlighted(style) = element {
-                addBlockLeadingView(with: leadingContraintValue, shouldTrimAtBottom: style == .closing)
-            }
-
-            leadingContraintValue = leadingContraintValue + IndentationConstants.indentationWidth
-        }
+    private func addIndentationStyleView(
+        style: BlockIndentationStyle,
+        leadingPadding: CGFloat
+    ) {
+        addBlockLeadingView(with: leadingPadding, shouldTrimAtBottom: style == .highlighted(.closing))
     }
 
     private func addBlockLeadingView(with indentation: CGFloat, shouldTrimAtBottom: Bool) {
@@ -201,27 +243,14 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         }
     }
 
-    private func configureBackgroundColors(
-        parentBackgrounds: [UIColor?],
-        backgroundColor: UIColor?
-    ) {
-        parentBackgrounds.enumerated().forEach { element in
-            let coloredView = coloredView(color: element.element)
-
-            if element.offset == 0 {
-                let firstColorWidth = blockConfiguration.contentInsets.left + IndentationConstants.indentationWidth
-                coloredView.widthAnchor.constraint(equalToConstant: firstColorWidth).isActive = true
-            } else {
-                coloredView.widthAnchor.constraint(equalToConstant: IndentationConstants.indentationWidth).isActive = true
-            }
-
-            backgroundColorsStackView.addArrangedSubview(coloredView)
+    private func addBackgroundColorView(color: UIColor?, width: CGFloat?) {
+        let coloredView = coloredView(color: color)
+        width.map {
+            coloredView.widthAnchor.constraint(equalToConstant: $0).isActive = true
         }
 
-        let view = coloredView(color: backgroundColor ?? parentBackgrounds.last.flatMap { $0 })
-        backgroundColorsStackView.addArrangedSubview(view)
+        backgroundColorsStackView.addArrangedSubview(coloredView)
     }
-
 
     private func coloredView(color: UIColor?) -> UIView {
         let view = UIView()
@@ -230,12 +259,15 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         return view
     }
 
+    private lazy var bottomColoredView = UIView()
+    private var bottomColoredViewHeightConstraint: NSLayoutConstraint?
 
     // MARK: - Subviews setup
 
     private func setupSubviews() {
         addSubview(wrapperView) {
-            $0.pinToSuperview()
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.equal(to: bottomAnchor, priority: .init(rawValue: 999))
         }
 
         leadingView.isHidden = true
@@ -253,11 +285,16 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
             blockViewToContentbottomConstraint = $0.bottom.equal(to: contentStackView.bottomAnchor)
         }
 
+        wrapperView.addSubview(bottomColoredView) {
+            $0.pinToSuperview(excluding: [.top])
+            bottomColoredViewHeightConstraint = $0.height.equal(to: 0)
+        }
+
         wrapperView.addSubview(contentStackView) {
             let leadingConstraint = $0.leading.equal(to: wrapperView.leadingAnchor)
             let trailingConstraint = $0.trailing.equal(to: wrapperView.trailingAnchor)
             let topConstraint = $0.top.equal(to: wrapperView.topAnchor)
-            $0.bottom.equal(to: wrapperView.bottomAnchor)
+            $0.bottom.equal(to: bottomColoredView.topAnchor)
 
             if let bottomConstraint = blockViewToContentbottomConstraint {
                 contentConstraints = .init(

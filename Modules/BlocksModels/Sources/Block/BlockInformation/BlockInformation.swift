@@ -1,4 +1,3 @@
-
 public struct BlockInformation: Hashable {
     public let id: BlockId
     public let content: BlockContent
@@ -28,5 +27,17 @@ public struct BlockInformation: Hashable {
         self.childrenIds = childrenIds
         self.fields = fields
         self.configurationData = configurationData
+    }
+}
+
+public extension BlockInformation {
+    var relativeBackgroundColor: MiddlewareColor? {
+        if backgroundColor != nil { return backgroundColor }
+
+        if case let .text(text) = content, case .callout = text.contentType {
+            return backgroundColor ?? .grey
+        }
+
+        return backgroundColor
     }
 }
