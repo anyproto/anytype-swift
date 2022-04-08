@@ -33,7 +33,7 @@ public final class FeatureFlags {
         .showAlertOnAssert : true,
         .analytics : false,
         .middlewareLogs: false,
-        .clipboard: false,
+        .clipboard: true,
         .uikitRelationBlocks: true,
         .objectPreview: false,
         .deletion: false
@@ -69,7 +69,7 @@ public extension FeatureFlags {
     }
 
     static var clipboard: Bool {
-        features[.clipboard, default: false]
+        features[.clipboard, default: true]
     }
 
     static var objectPreview: Bool {
