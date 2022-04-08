@@ -42,7 +42,10 @@ final class BlocksSelectionOverlayView: UIView {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        applyShadow()
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            applyShadow()
+        }
+       
     }
 
     // MARK: - Private
