@@ -45,7 +45,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setFields(_ fields: [Anytype.BlockFields], blockId: BlockId) {
+    func setFields(_ fields: [BlockFields], blockId: BlockId) {
         assertionFailure()
     }
     
@@ -163,6 +163,10 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     }
 
     func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: String) {
+        assertionFailure()
+    }
+
+    func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId) {
         assertionFailure()
     }
 }

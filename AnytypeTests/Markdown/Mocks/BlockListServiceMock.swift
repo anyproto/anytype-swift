@@ -45,7 +45,7 @@ final class BlockListServiceMock: BlockListServiceProtocol {
         assertionFailure()
     }
     
-    func setFields(fields: [Anytype.BlockFields]) {
+    func setFields(fields: [BlockFields]) {
         assertionFailure()
     }
     
@@ -54,6 +54,10 @@ final class BlockListServiceMock: BlockListServiceProtocol {
     }
     
     func moveToPage(blockId: BlockId, pageId: BlockId) {
+        assertionFailure()
+    }
+
+    func setFields(fields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) {
         assertionFailure()
     }
 }
