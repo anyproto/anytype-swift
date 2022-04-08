@@ -168,7 +168,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
+        let viewModel = ObjectSearchViewModel { data in
             onSelect(data.blockId)
         }
         let moveToView = SearchView(title: "Move to".localized, context: .menuSearch, viewModel: viewModel)
@@ -186,7 +186,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
+        let viewModel = ObjectSearchViewModel { data in
             onSelect(data.blockId)
         }
         let linkToView = SearchView(title: "Link to".localized, context: .menuSearch, viewModel: viewModel)
@@ -195,7 +195,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
+        let viewModel = ObjectSearchViewModel { data in
             onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
         let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
