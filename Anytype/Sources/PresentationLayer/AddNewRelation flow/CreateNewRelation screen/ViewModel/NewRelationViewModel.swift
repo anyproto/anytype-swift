@@ -102,11 +102,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
 private extension NewRelationViewModel {
     
     func handleNewRelationFormatUpdate() {
-        if format == .object {
-            objectTypes = []
-        } else {
-            objectTypes = nil
-        }
+        objectTypes = format == .object ? [] : nil
     }
     
     var objectTypeIds: [String] {
