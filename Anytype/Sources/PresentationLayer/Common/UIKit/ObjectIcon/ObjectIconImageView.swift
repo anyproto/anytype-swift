@@ -19,7 +19,9 @@ final class ObjectIconImageView: UIView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        currentModel.map(configure(model:))
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            currentModel.map { configure(model: $0) }
+        }
     }
     
     @available(*, unavailable)
