@@ -11,14 +11,18 @@ enum BlockInformationConverter {
         
         let blockContent = BlocksModelsConverter.convert(middleware: content) ?? .unsupported
         let alignment = block.align.asBlockModel ?? .left
+        let color = MiddlewareColor(rawValue: block.backgroundColor)
         let info =  BlockInformation(
             id: block.id,
             content: blockContent,
             backgroundColor: MiddlewareColor(rawValue: block.backgroundColor),
             alignment: alignment,
             childrenIds: block.childrenIds,
-            fields: block.fields.toFieldTypeMap(),
-            metadata: BlockInformationMetadata()
+            configurationData: .init(
+                backgroundColor: color,
+                indentationStyle: .none
+            ),
+            fields: block.fields.fields
         )
         
         return BlockValidator().validated(information: info)

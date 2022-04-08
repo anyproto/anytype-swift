@@ -67,7 +67,7 @@ private extension BlockLinkView {
     
     func setup() {
         addSubview(contentView) {
-            $0.pinToSuperview(insets: Constants.contentInsets)
+            $0.pinToSuperview()
         }
         
         contentView.addSubview(iconContainerView) {
@@ -92,7 +92,6 @@ private extension BlockLinkView {
     
     enum Constants {
         static let textContainerInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 8)
-        static let contentInsets = UIEdgeInsets(top: 5, left: 20, bottom: -5, right: -20)
     }
     
 }

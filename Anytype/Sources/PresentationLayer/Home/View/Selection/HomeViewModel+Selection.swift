@@ -35,12 +35,12 @@ extension HomeViewModel {
     }
     
     func deleteSelected() {
-        showDeletionAlert = true
+        showPagesDeletionAlert = true
 
         Amplitude.instance().logEvent(AmplitudeEventsName.deletionWarningShow)
     }
     
-    func deleteConfirmation() {
+    func pagesDeleteConfirmation() {
         loadingAlertData = .init(text: "Deleting in progress", showAlert: true)
         
         objectActionsService.delete(objectIds: Array(selectedPageIds)) { [weak self] success in
@@ -48,7 +48,7 @@ extension HomeViewModel {
             
             if success {
                 UINotificationFeedbackGenerator().notificationOccurred(.success)
-                self?.showDeletionAlert = false
+                self?.showPagesDeletionAlert = false
                 self?.selectAll(false)
             } else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)

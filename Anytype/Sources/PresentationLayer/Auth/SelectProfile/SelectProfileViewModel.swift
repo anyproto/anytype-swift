@@ -73,22 +73,21 @@ private extension SelectProfileViewModel {
     }
     
     func selectProfile(id: String) {
-        authService.selectAccount(id: id) { [weak self] isSelected in
+        authService.selectAccount(id: id) { [weak self] status in
             guard let self = self else { return }
             self.isAccountSelected = true
             self.snackBarData = .empty
             
-            if isSelected {
-                self.showHomeView()
-            } else {
+            switch status {
+            case .active:
+                WindowManager.shared.showHomeWindow()
+            case .pendingDeletion(progress: let progress):
+                WindowManager.shared.showDeletedAccountWindow(progress: progress)
+            case .deleted:
+                self.errorText = "Account deleted".localized
+            case .none:
                 self.errorText = "Select account error".localized
             }
         }
     }
-    
-    func showHomeView() {
-        let homeAssembly = HomeViewAssembly()
-        windowHolder?.startNewRootView(homeAssembly.createHomeView())
-    }
-    
 }

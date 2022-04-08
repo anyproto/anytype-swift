@@ -34,7 +34,6 @@ struct TextBlockContentConfiguration: BlockConfiguration {
 
     let blockId: BlockId
     let content: BlockText
-    let backgroundColor: UIColor?
     let isCheckable: Bool
     let isToggled: Bool
     let isChecked: Bool
@@ -48,7 +47,6 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         blockId: BlockId,
         content: BlockText,
         alignment: NSTextAlignment,
-        backgroundColor: UIColor?,
         isCheckable: Bool,
         isToggled: Bool,
         isChecked: Bool,
@@ -59,12 +57,28 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         self.blockId = blockId
         self.content = content
         self.alignment = alignment
-        self.backgroundColor = backgroundColor
         self.isCheckable = isCheckable
         self.isToggled = isToggled
         self.isChecked = isChecked
         self.shouldDisplayPlaceholder = shouldDisplayPlaceholder
         self.focusPublisher = focusPublisher
         self.actions = actions
+    }
+}
+
+extension TextBlockContentConfiguration {
+    var contentInsets: UIEdgeInsets {
+        switch content.contentType {
+        case .title:
+            return .init(top: 0, left: 20, bottom: -2, right: -20)
+        case .description:
+            return .init(top: 8, left: 20, bottom: 0, right: -20)
+        case .header:
+            return .init(top: 24, left: 20, bottom: -2, right: -20)
+        case .header2, .header3:
+            return .init(top: 16, left: 20, bottom: -2, right: -20)
+        default:
+            return .init(top: 0, left: 20, bottom: -2, right: -20)
+        }
     }
 }

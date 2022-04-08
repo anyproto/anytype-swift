@@ -38,7 +38,7 @@ final class RelationBlockViewDepricated: UIView, BlockContentView, ObservableObj
 
         relationsView.layoutUsing.anchors {
             heightConstraint = $0.height.equal(to: 32)
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 20, bottom: -2, right: -20))
+            $0.pinToSuperview()
         }
     }
 }

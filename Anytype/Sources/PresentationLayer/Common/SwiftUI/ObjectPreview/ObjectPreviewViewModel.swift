@@ -11,23 +11,70 @@ import SwiftUI
 import FloatingPanel
 
 final class ObjectPreviewViewModel: ObservableObject {
-    
+
+    @Published var objectPreviewSections = ObjectPreviewViewSection(main: [], featuredRelation: [])
+
     // MARK: - Private variables
 
+    private var objectPreviewFields: ObjectPreviewFields
+    private var featuredRelationsByIds: [String: Relation]
     private let objectPreviewModelBuilder = ObjectPreivewSectionBuilder()
-    @Published var objectPreviewSections = ObjectPreviewViewSection(main: [], featuredRelation: [])
+    private let router: ObjectPreviewRouter
+    private let onSelect: (ObjectPreviewFields) -> Void
 
     // MARK: - Initializer
 
-    init(featuredRelations: [Relation], fields: MiddleBlockFields) {
-        let featuredRelationsByIds = Dictionary(
-            uniqueKeysWithValues: featuredRelations.map { ($0.id, $0) }
-        )
-        updateObjectPreview(featuredRelationsByIds: featuredRelationsByIds, fields: fields)
+    init(featuredRelationsByIds: [String: Relation],
+         fields: BlockFields,
+         router: ObjectPreviewRouter,
+         onSelect: @escaping (ObjectPreviewFields) -> Void) {
+        self.objectPreviewFields = ObjectPreviewFields.convertToModel(fields: fields)
+        self.router = router
+        self.onSelect = onSelect
+        self.featuredRelationsByIds = featuredRelationsByIds
+
+        updateObjectPreview(featuredRelationsByIds: featuredRelationsByIds, objectPreviewFields: objectPreviewFields)
     }
 
-    func updateObjectPreview(featuredRelationsByIds: [String: Relation], fields: MiddleBlockFields) {
+    func updateObjectPreview(featuredRelationsByIds: [String: Relation], objectPreviewFields: ObjectPreviewFields) {
         objectPreviewSections = objectPreviewModelBuilder.build(featuredRelationsByIds: featuredRelationsByIds,
-                                                                fields: fields)
+                                                                objectPreviewFields: objectPreviewFields)
+    }
+
+    func toggleFeaturedRelation(id: String, isEnabled: Bool) {
+        var newFeaturedRelationsIds = Set(objectPreviewFields.featuredRelationsIds)
+
+        if isEnabled {
+            newFeaturedRelationsIds.insert(id)
+        } else {
+            newFeaturedRelationsIds.remove(id)
+        }
+
+        objectPreviewFields = ObjectPreviewFields(
+            icon: objectPreviewFields.icon,
+            layout: objectPreviewFields.layout,
+            withName: objectPreviewFields.withName,
+            featuredRelationsIds: newFeaturedRelationsIds
+        )
+
+        self.onSelect(objectPreviewFields)
+    }
+
+    func showLayoutMenu() {
+        router.showLayoutMenu(objectPreviewFields: objectPreviewFields) { [weak self] newObjectPreviewFields in
+            self?.handleOnSelect(newObjectPreviewFields: newObjectPreviewFields)
+        }
+    }
+
+    func showIconMenu() {
+        router.showIconMenu(objectPreviewFields: objectPreviewFields) { [weak self] newObjectPreviewFields in
+            self?.handleOnSelect(newObjectPreviewFields: newObjectPreviewFields)
+        }
+    }
+
+    private func handleOnSelect(newObjectPreviewFields: ObjectPreviewFields) {
+        objectPreviewFields = newObjectPreviewFields
+        onSelect(newObjectPreviewFields)
+        updateObjectPreview(featuredRelationsByIds: featuredRelationsByIds, objectPreviewFields: newObjectPreviewFields)
     }
 }

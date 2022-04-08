@@ -13,6 +13,6 @@ final class AlertHelper {
           alert.dismiss(animated: true, completion: nil)
         }
         
-        windowHolder?.presentOnTop(alert, animated: true)
+        WindowManager.shared.presentOnTop(alert, animated: true)
     }
 }

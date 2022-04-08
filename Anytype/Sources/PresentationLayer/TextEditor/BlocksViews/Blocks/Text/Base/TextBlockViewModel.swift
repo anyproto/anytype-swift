@@ -73,7 +73,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             blockId: info.id,
             content: content,
             alignment: info.alignment.asNSTextAlignment,
-            backgroundColor: info.backgroundColor.map { UIColor.Background.uiColor(from: $0) },
             isCheckable: isCheckable,
             isToggled: info.isToggled,
             isChecked: content.checked,
@@ -82,7 +81,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             actions: action()
         )
 
-        return CellBlockConfiguration(blockConfiguration: contentConfiguration)
+        return contentConfiguration.cellBlockConfiguration(
+            indentationSettings: .init(with: info.configurationData),
+            dragConfiguration: content.contentType == .title ? nil : .init(id: info.id)
+        )
     }
 
     func action() -> TextBlockContentConfiguration.Actions {

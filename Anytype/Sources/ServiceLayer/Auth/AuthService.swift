@@ -23,12 +23,17 @@ final class AuthService: AuthServiceProtocol {
         self.loginStateService = loginStateService
     }
 
-    func logout() {
+    func logout(removeData: Bool) -> Bool {
         Amplitude.instance().logEvent(AmplitudeEventsName.logout)
         
-        _ = Anytype_Rpc.Account.Stop.Service.invoke(removeData: false)
+        guard Anytype_Rpc.Account.Stop.Service
+                .invoke(removeData: removeData).getValue(domain: .authService)
+                .isNotNil else {
+                    return false
+                }
         
         loginStateService.cleanStateAfterLogout()
+        return true
     }
 
     func createWallet() -> Result<String, AuthServiceError> {
@@ -67,13 +72,13 @@ final class AuthService: AuthServiceProtocol {
         if let error = CreateAccountServiceError(code: response.error.code) {
             return .failure(error)
         }
-        
-        AccountConfigurationProvider.shared.config = .init(config: response.config)
 
         let accountId = response.account.id
         Amplitude.instance().setUserId(accountId)
         Amplitude.instance().logAccountCreate(accountId)
         UserDefaultsConfig.usersId = accountId
+        
+        AccountManager.shared.account = response.account.asModel
         
         return .success(Void())
     }
@@ -95,45 +100,41 @@ final class AuthService: AuthServiceProtocol {
                 switch result {
                 case .success(let data):
                     guard data.error.code == .null else {
-                        return onCompletion(AuthServiceError.recoverAccountError)
+                        return onCompletion(AuthServiceError.recoverAccountError(code: data.error.code))
                     }
                     return onCompletion(nil)
-                case .failure:
-                    return onCompletion(AuthServiceError.recoverAccountError)
+                case .failure(let error as NSError):
+                    let code = RecoverAccountErrorCode(rawValue: error.code) ?? .null
+                    return onCompletion(AuthServiceError.recoverAccountError(code: code))
                 }
             }
             .store(in: &subscriptions)
     }
 
-    func selectAccount(id: String) -> Bool {
+    func selectAccount(id: String) -> AccountStatus? {
         let result = Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath)
         return handleAccountSelect(result: result)
     }
     
-    func selectAccount(id: String, onCompletion: @escaping (Bool) -> ()) {
+    func selectAccount(id: String, onCompletion: @escaping (AccountStatus?) -> ()) {
         Anytype_Rpc.Account.Select.Service.invoke(id: id, rootPath: rootPath, queue: .global(qos: .userInitiated))
             .receiveOnMain()
             .sinkWithResult { [weak self] result in
-                onCompletion(self?.handleAccountSelect(result: result) ?? false)
+                onCompletion(self?.handleAccountSelect(result: result))
             }
             .store(in: &subscriptions)
     }
     
-    private func handleAccountSelect(result: Result<Anytype_Rpc.Account.Select.Response, Error>) -> Bool {
-        switch result {
-        case .success(let response):
-            AccountConfigurationProvider.shared.config = .init(config: response.config)
-            
-            let accountId = response.account.id
-            Amplitude.instance().setUserId(accountId)
-            Amplitude.instance().logAccountSelect(accountId)
-            UserDefaultsConfig.usersId = accountId
-            
-            loginStateService.setupStateAfterLoginOrAuth()
-            return true
-        case .failure:
-            return false
-        }
+    func deleteAccount() -> AccountStatus? {
+        Anytype_Rpc.Account.Delete.Service.invoke(revert: false)
+            .getValue(domain: .authService)
+            .flatMap { $0.status.asModel }
+    }
+    
+    func restoreAccount() -> AccountStatus? {
+        Anytype_Rpc.Account.Delete.Service.invoke(revert: true)
+            .getValue(domain: .authService)
+            .flatMap { $0.status.asModel }
     }
     
     func mnemonicByEntropy(_ entropy: String) -> Result<String, Error> {
@@ -141,4 +142,23 @@ final class AuthService: AuthServiceProtocol {
             .map { $0.mnemonic }
             .mapError { _ in AuthServiceError.selectAccountError }
     }
+    
+    // MARK: - Private
+    private func handleAccountSelect(result: Result<Anytype_Rpc.Account.Select.Response, Error>) -> AccountStatus? {
+        switch result {
+        case .success(let response):
+            AccountManager.shared.account = response.account.asModel
+            
+            let accountId = response.account.id
+            Amplitude.instance().setUserId(accountId)
+            Amplitude.instance().logAccountSelect(accountId)
+            UserDefaultsConfig.usersId = accountId
+            
+            loginStateService.setupStateAfterLoginOrAuth()
+            return response.account.status.asModel
+        case .failure:
+            return nil
+        }
+    }
+    
 }

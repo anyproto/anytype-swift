@@ -59,7 +59,10 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
                 file: fileData,
                 trackId: info.id,
                 audioPlayerViewDelegate: self
-            ).asCellBlockConfiguration
+            ).cellBlockConfiguration(
+                indentationSettings: .init(with: info.configurationData),
+                dragConfiguration: .init(id: info.id)
+            )
         }
     }
 
@@ -68,6 +71,9 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             image: UIImage.blockFile.empty.video,
             text: "Upload a audio".localized,
             state: state
-        ).asCellBlockConfiguration
+        ).cellBlockConfiguration(
+            indentationSettings: .init(with: info.configurationData),
+            dragConfiguration: .init(id: info.id)
+        )
     }
 }

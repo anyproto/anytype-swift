@@ -16,6 +16,14 @@ public final class InfoContainer: InfoContainerProtocol {
         return information.childrenIds.compactMap { get(id: $0) }
     }
 
+    public func recursiveChildren(of id: BlockId) -> [BlockInformation] {
+        guard let information = models[id] else { return [] }
+
+        let childBlocks = information.childrenIds.compactMap { get(id: $0) }
+
+        return childBlocks + childBlocks.map { recursiveChildren(of: $0.id) }.flatMap { $0 }
+    }
+
     public func get(id: BlockId) -> BlockInformation? {
         models[id]
     }
@@ -26,7 +34,7 @@ public final class InfoContainer: InfoContainerProtocol {
 
     public func remove(id: BlockId) {
         // go to parent and remove this block from a parent.
-        if let parentId = get(id: id)?.metadata.parentId, let parent = models[parentId] {
+        if let parentId = get(id: id)?.configurationData.parentId, let parent = models[parentId] {
             let childrenIds = parent.childrenIds.filter {$0 != id}
             add(parent.updated(childrenIds: childrenIds))
         }

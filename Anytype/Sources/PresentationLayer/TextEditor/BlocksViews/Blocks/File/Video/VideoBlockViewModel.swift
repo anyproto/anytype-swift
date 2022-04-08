@@ -29,7 +29,10 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
         case .error:
             return emptyViewConfiguration(state: .error)
         case .done:
-            return VideoBlockConfiguration(file: fileData).asCellBlockConfiguration
+            return VideoBlockConfiguration(file: fileData).cellBlockConfiguration(
+                indentationSettings: .init(with: info.configurationData),
+                dragConfiguration: .init(id: info.id)
+            )
         }
     }
     
@@ -38,6 +41,9 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
             image: UIImage.blockFile.empty.video,
             text: "Upload a video".localized,
             state: state
-        ).asCellBlockConfiguration
+        ).cellBlockConfiguration(
+                indentationSettings: .init(with: info.configurationData),
+                dragConfiguration: .init(id: info.id)
+            )
     }
 }

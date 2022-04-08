@@ -32,7 +32,7 @@ final class MiddlewareEventConverter {
             return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
         case let .blockSetFields(fields):
             infoContainer.update(blockId: fields.id) { info in
-                return info.updated(fields: fields.fields.toFieldTypeMap())
+                return info.updated(fields: fields.fields.fields)
             }
             return .blocks(blockIds: [fields.id])
         case let .blockAdd(value):
@@ -62,10 +62,14 @@ final class MiddlewareEventConverter {
         case let .blockSetBackgroundColor(updateData):
             infoContainer.update(blockId: updateData.id, update: { info in
                 return info.updated(
-                    backgroundColor: MiddlewareColor(rawValue: updateData.backgroundColor)
+                    backgroundColor: MiddlewareColor(rawValue: updateData.backgroundColor) ?? .default
                 )
             })
-            return .blocks(blockIds: [updateData.id])
+
+            var childIds = infoContainer.recursiveChildren(of: updateData.id).map { $0.id }
+            childIds.append(updateData.id)
+            
+            return .blocks(blockIds: Set(childIds))
             
         case let .blockSetAlign(value):
             let blockId = value.id
@@ -270,8 +274,8 @@ final class MiddlewareEventConverter {
 
             restrictionsContainer.restrinctions = restrinctions
             return .general
-        case .accountConfigUpdate(let config):
-            AccountConfigurationProvider.shared.config = .init(config: config.config)
+        case .accountUpdate(let account):
+            handleAccountUpdate(account)
             return nil
             
         //MARK: - Dataview
@@ -390,7 +394,12 @@ final class MiddlewareEventConverter {
         let isOldStyleToggle = oldText.contentType == .toggle
         let isNewStyleToggle = textContent.contentType == .toggle
         let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
-        return toggleStyleChanged ? .general : .blocks(blockIds: [newData.id])
+
+
+        var childIds = infoContainer.recursiveChildren(of: newData.id).map { $0.id }
+        childIds.append(newData.id)
+
+        return toggleStyleChanged ? .general : .blocks(blockIds: Set(childIds))
     }
     
     private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: InfoContainerProtocol) {
@@ -414,5 +423,25 @@ final class MiddlewareEventConverter {
         let rootId = roots[0].id
 
         IndentationBuilder.build(container: container, id: rootId)
+    }
+    
+    private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {
+        let currentStatus = AccountManager.shared.account.status
+        AccountManager.shared.updateAccount(update)
+        let newStatus = AccountManager.shared.account.status
+        guard currentStatus != newStatus else { return }
+        
+        switch newStatus {
+        case .active:
+            break
+        case .pendingDeletion(let progress):
+            WindowManager.shared.showDeletedAccountWindow(progress: progress)
+        case .deleted:
+            if UserDefaultsConfig.usersId.isNotEmpty {
+                _ = ServiceLocator.shared.authService().logout(removeData: true)
+                WindowManager.shared.showAuthWindow()
+            }
+        }
+        
     }
 }

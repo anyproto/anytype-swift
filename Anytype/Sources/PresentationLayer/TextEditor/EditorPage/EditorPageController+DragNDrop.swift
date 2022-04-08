@@ -1,30 +1,5 @@
 import UIKit
 
-extension EditorPageController: UICollectionViewDragDelegate {
-    func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
-        guard collectionView.isEditing,
-              viewModel.blocksStateManager.canSelectBlock(at: indexPath),
-              let item = collectionView.cellForItem(at: indexPath),
-              !view.isAnySubviewFirstResponder()
-        else { return [] }
-
-        let itemProvider = NSItemProvider(object: item.description as NSItemProviderWriting)
-        let dragItem = UIDragItem(itemProvider: itemProvider)
-        dragItem.localObject = dragItem
-
-        return [dragItem]
-    }
-
-    func collectionView(_ collectionView: UICollectionView, dragSessionWillBegin session: UIDragSession) {
-        dividerCursorController.movingMode = .dragNdrop
-    }
-
-    func collectionView(_ collectionView: UICollectionView, dragSessionDidEnd session: UIDragSession) {
-        dividerCursorController.movingMode = .none
-        collectionView.deselectAllSelectedItems()
-    }
-}
-
 extension EditorPageController: UICollectionViewDropDelegate {
     func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
         var destinationIndexPath: IndexPath?
@@ -39,6 +14,8 @@ extension EditorPageController: UICollectionViewDropDelegate {
             destinationIndexPath: destinationIndexPath,
             collectionView: collectionView
         )
+
+        dividerCursorController.movingMode = .none
     }
 
     func collectionView(
@@ -46,6 +23,7 @@ extension EditorPageController: UICollectionViewDropDelegate {
         dropSessionDidUpdate session: UIDropSession,
         withDestinationIndexPath destinationIndexPath: IndexPath?
     ) -> UICollectionViewDropProposal {
+        dividerCursorController.movingMode = .dragNdrop
         let indexPath = desiredIndexPath(using: destinationIndexPath)
 
         guard viewModel.blocksStateManager.canPlaceDividerAtIndexPath(indexPath) else {
@@ -61,7 +39,8 @@ extension EditorPageController: UICollectionViewDropDelegate {
 
         return UICollectionViewDropProposal(
             operation: .move,
-            intent: .insertIntoDestinationIndexPath)
+            intent: .insertIntoDestinationIndexPath
+        )
     }
 
     private func desiredIndexPath(using destinationIndexPath: IndexPath?) -> IndexPath {
@@ -80,14 +59,13 @@ extension EditorPageController: UICollectionViewDropDelegate {
     ) {
         dividerCursorController.moveCursorView.isHidden = true
 
+        collectionView.deselectAllSelectedItems()
+        
         guard let item = coordinator.items.first,
-              let sourceIndexPath = item.sourceIndexPath
-        else {
+              let blockDragConfiguration = item.dragItem.localObject as? BlockDragConfiguration else {
             return
         }
 
-        viewModel.blocksStateManager.moveItem(at: sourceIndexPath)
-
-        collectionView.deselectAllSelectedItems()
+        viewModel.blocksStateManager.moveItem(with: blockDragConfiguration)
     }
 }

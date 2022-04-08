@@ -48,7 +48,7 @@ final class EditorPageController: UIViewController {
     private lazy var longTapGestureRecognizer: UILongPressGestureRecognizer = {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(EditorPageController.handleLongPress))
 
-        recognizer.minimumPressDuration = 0.5
+        recognizer.minimumPressDuration = 0.2
         return recognizer
     }()
 
@@ -280,7 +280,6 @@ private extension EditorPageController {
     func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dropDelegate = self
-        collectionView.dragDelegate = self
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
     
@@ -323,10 +322,8 @@ private extension EditorPageController {
         case .header: break
         case .block(let blockViewModel):
             cell.contentConfiguration = blockViewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationLevel = blockViewModel.info.metadata.indentationLevel
         case .system(let systemContentConfiguationProvider):
             cell.contentConfiguration = systemContentConfiguationProvider.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationLevel = systemContentConfiguationProvider.indentationLevel
         }
     }
 
@@ -357,7 +354,7 @@ private extension EditorPageController {
 
         guard gesture.state == .ended else { return }
 
-        UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         let location = gesture.location(in: collectionView)
         collectionView.indexPathForItem(at: location).map {
             viewModel.blocksStateManager.didLongTap(at: $0)
@@ -436,15 +433,11 @@ private extension EditorPageController {
     func createSystemCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, SystemContentConfiguationProvider> {
         .init { (cell, indexPath, item) in
             cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationWidth = Constants.cellIndentationWidth
-            cell.indentationLevel = item.indentationLevel
         }
     }
     
     func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BlockViewModelProtocol) {
         cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
-        cell.indentationWidth = Constants.cellIndentationWidth
-        cell.indentationLevel = item.info.metadata.indentationLevel
         cell.contentView.isUserInteractionEnabled = true
         
         cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
@@ -474,15 +467,4 @@ private extension EditorPageController {
             self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
         }
     }
-}
-
-
-// MARK: - Constants
-
-private extension EditorPageController {
-    
-    enum Constants {
-        static let cellIndentationWidth: CGFloat = 24
-    }
-    
 }

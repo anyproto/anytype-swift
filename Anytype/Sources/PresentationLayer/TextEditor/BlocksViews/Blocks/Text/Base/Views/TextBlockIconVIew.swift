@@ -200,12 +200,9 @@ extension TextBlockIconView {
             $0.bottom.equal(to: bottomAnchor)
         }
         layoutUsing.anchors {
-            $0.width.equal(to: Constants.size.width)
-            if let superview = superview {
-                $0.top.equal(to: superview.topAnchor)
-                $0.bottom.equal(to: superview.bottomAnchor)
-            }
+            $0.width.equal(to: Constants.size.width, priority: .defaultLow)
         }
+
         return quoteView
     }
 }
