@@ -3,7 +3,7 @@ import UIKit
 import BlocksModels
 import SwiftUI
 
-final class AddNewRelationRouter {
+final class AddNewRelationCoordinator {
     
     private let document: BaseDocumentProtocol
     private weak var viewController: UIViewController?
@@ -24,7 +24,7 @@ final class AddNewRelationRouter {
 
 // MARK: - Entry point
 
-extension AddNewRelationRouter {
+extension AddNewRelationCoordinator {
     
     func showAddNewRelationView(onCompletion: ((_ newRelation: RelationMetadata) -> Void)?) {
         self.onCompletion = onCompletion
@@ -46,7 +46,7 @@ extension AddNewRelationRouter {
 
 // MARK: - SearchNewRelationModuleOutput
 
-extension AddNewRelationRouter: SearchNewRelationModuleOutput {
+extension AddNewRelationCoordinator: SearchNewRelationModuleOutput {
     
     func didAddRelation(_ relation: RelationMetadata) {
         onCompletion?(relation)
@@ -77,7 +77,7 @@ extension AddNewRelationRouter: SearchNewRelationModuleOutput {
 
 // MARK: - NewRelationModuleOutput
 
-extension AddNewRelationRouter: NewRelationModuleOutput {
+extension AddNewRelationCoordinator: NewRelationModuleOutput {
     
     func didAskToShowRelationFormats() {
         let viewModel = RelationFormatsListViewModel(output: self)
@@ -110,7 +110,7 @@ extension AddNewRelationRouter: NewRelationModuleOutput {
 
 // MARK: - RelationFormatsListModuleOutput
 
-extension AddNewRelationRouter: RelationFormatsListModuleOutput {
+extension AddNewRelationCoordinator: RelationFormatsListModuleOutput {
     
     func didSelectFormat(_ format: SupportedRelationFormat) {
         newRelationModuleInput?.updateRelationFormat(format)
@@ -121,7 +121,7 @@ extension AddNewRelationRouter: RelationFormatsListModuleOutput {
 
 // MARK: - Private extension
 
-private extension AddNewRelationRouter {
+private extension AddNewRelationCoordinator {
     
     func presentSwiftUIView<Content: View>(view: Content) {
         guard let viewController = viewController else { return }
