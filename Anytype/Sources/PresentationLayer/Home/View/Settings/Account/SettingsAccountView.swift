@@ -65,13 +65,13 @@ struct SettingsAccountView: View {
     private var accountBlock: some View {
         VStack(spacing: 0) {
             section("Account".localized)
-            SettingsButton(text: "Log out", textColor: .textPrimary) {
-                model.loggingOut = true
-            }
             if FeatureFlags.deletion {
-                SettingsButton(text: "Delete account", textColor: .System.red) {
+                SettingsButton(text: "Delete account", textColor: .textPrimary) {
                     model.accountDeleting = true
                 }
+            }
+            SettingsButton(text: "Log out", textColor: .System.red) {
+                model.loggingOut = true
             }
          }
     }
