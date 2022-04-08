@@ -14,7 +14,7 @@ struct RelationFormatListCell: View {
                 .lineLimit(1)
         }
         .frame(height: 52)
-        .divider()
+        .divider(alignment: .leading)
     }
 }
 

@@ -5,44 +5,32 @@ import Combine
 
 final class NewRelationViewModel: ObservableObject {
     
-    @Published var name: String {
-        didSet {
-            isCreateButtonActive = name.isNotEmpty
-        }
-    }
-    @Published private(set) var formatModel: NewRelationFormatSectionView.Model
-    @Published private(set) var objectTypesRestrictionModel: [NewRelationRestrictionsSectionView.ObjectTypeModel]?
-    
-    @Published private(set) var isCreateButtonActive: Bool
-    
-    private var format: SupportedRelationFormat {
-        didSet {
-            formatModel = format.asViewModel
-            handleNewRelationFormatUpdate()
-        }
+    var formatModel: NewRelationFormatSectionView.Model {
+        format.asViewModel
     }
     
-    private var objectTypes: [ObjectType]? {
-        didSet {
-            objectTypesRestrictionModel = objectTypes.flatMap { $0.asViewModel }
-        }
+    var objectTypesRestrictionModel: [NewRelationRestrictionsSectionView.ObjectTypeModel]? {
+        objectTypes.flatMap { $0.asViewModel }
     }
+    
+    var isCreateButtonActive: Bool {
+        name.isNotEmpty
+    }
+    
+    @Published var name: String
+    @Published private var format: SupportedRelationFormat
+    @Published private var objectTypes: [ObjectType]?
     
     private let service: RelationsServiceProtocol
     private weak var output: NewRelationModuleOutput?
     
     init(name: String, service: RelationsServiceProtocol, output: NewRelationModuleOutput?) {
-        self.name = name
         self.service = service
         self.output = output
         
-        let defaultFormat = SupportedRelationFormat.text
-        self.format = defaultFormat
-        self.formatModel = defaultFormat.asViewModel
-        
-        self.isCreateButtonActive = name.isNotEmpty
-        
-        handleNewRelationFormatUpdate()
+        self.name = name
+        self.format = SupportedRelationFormat.text
+        handleFormatUpdate()
     }
     
 }
@@ -87,6 +75,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
     
     func updateRelationFormat(_ newFormat: SupportedRelationFormat) {
         format = newFormat
+        handleFormatUpdate()
     }
     
     func updateTypesRestriction(objectTypeIds: [String]) {
@@ -101,7 +90,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
 
 private extension NewRelationViewModel {
     
-    func handleNewRelationFormatUpdate() {
+    func handleFormatUpdate() {
         objectTypes = format == .object ? [] : nil
     }
     

@@ -14,7 +14,7 @@ struct RelationFormatsListView: View {
     
     private var list: some View {
         ScrollView {
-            LazyVStack(spacing: 0) {
+            LazyVStack(alignment: .leading, spacing: 0) {
                 ForEach(viewModel.supportedFormatModels) { model in
                     Button {
                         viewModel.didSelectFormat(id: model.id)
