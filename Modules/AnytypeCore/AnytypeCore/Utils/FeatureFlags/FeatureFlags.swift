@@ -7,9 +7,6 @@ public enum Feature: String, Codable {
     case uikitRelationBlocks = "UIKit relation blocks"
     case clipboard = "Clipboard"
     case objectPreview = "Object preview"
-    
-    case newRelationOptionsSearch = "New Search View for searching relation options"
-    
     case deletion = "Account deletion"
 }
 

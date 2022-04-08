@@ -103,8 +103,8 @@ struct HomeSearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView(
             title: "FOoo",
-            context: .general, viewModel: ObjectSearchViewModel(searchKind: .objects, onSelect: { _ in
-            })
+            context: .general, viewModel: ObjectSearchViewModel { _ in
+            }
         )
     }
 }
