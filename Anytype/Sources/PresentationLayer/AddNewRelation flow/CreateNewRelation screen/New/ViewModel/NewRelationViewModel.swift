@@ -6,6 +6,7 @@ final class NewRelationViewModel: ObservableObject {
     
     @Published var name: String
     @Published private(set) var format: SupportedRelationFormat = .text
+    @Published private(set) var objectTypeRestrictions: [NewRelationRestrictionsSectionView.ObjectTypeModel]? = nil
     
     private weak var output: NewRelationModuleOutput?
     
@@ -28,6 +29,11 @@ extension NewRelationViewModel: NewRelationModuleInput {
     
     func updateRelationFormat(_ newFormat: SupportedRelationFormat) {
         format = newFormat
+        if format == .object {
+            objectTypeRestrictions = []
+        } else {
+            objectTypeRestrictions = nil
+        }
     }
     
 }
