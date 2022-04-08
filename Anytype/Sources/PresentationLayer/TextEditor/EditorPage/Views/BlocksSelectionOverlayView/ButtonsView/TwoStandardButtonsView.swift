@@ -1,13 +1,13 @@
 import SwiftUI
 
 struct TwoStandardButtonsView: View {
-    let leftButtonData: StandardButtonData
-    let rightButtonData: StandardButtonData
+    let leftButtonData: StandardButtonModel
+    let rightButtonData: StandardButtonModel
 
     var body: some View {
         HStack(spacing: 8) {
-            StandardButton(data: leftButtonData)
-            StandardButton(data: rightButtonData)
+            StandardButton(model: leftButtonData)
+            StandardButton(model: rightButtonData)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 10)

@@ -2,28 +2,26 @@ import SwiftUI
 
 typealias StandardButtonAction = () -> Void
 
-struct StandardButtonData {
+struct StandardButton: View {
     let disabled: Bool
     let inProgress: Bool
     let text: String
     let style: StandardButtonStyle
     let action: StandardButtonAction
     
-    init(disabled: Bool = false, inProgress: Bool = false, text: String, style: StandardButtonStyle, action: @escaping StandardButtonAction) {
+    init(
+        disabled: Bool = false,
+        inProgress: Bool = false,
+        text: String,
+        style: StandardButtonStyle,
+        action: @escaping StandardButtonAction
+    ) {
         self.disabled = disabled
         self.inProgress = inProgress
         self.text = text
         self.style = style
         self.action = action
     }
-}
-
-struct StandardButton: View {
-    var disabled: Bool = false
-    var inProgress: Bool = false
-    let text: String
-    let style: StandardButtonStyle
-    let action: StandardButtonAction
     
     var body: some View {
         Button {
@@ -37,13 +35,15 @@ struct StandardButton: View {
 }
 
 extension StandardButton {
-    init(data: StandardButtonData) {
+    
+    init(model: StandardButtonModel) {
         self.init(
-            disabled: data.disabled,
-            inProgress: data.inProgress,
-            text: data.text,
-            style: data.style,
-            action: data.action
+            disabled: model.disabled,
+            inProgress: model.inProgress,
+            text: model.text,
+            style: model.style,
+            action: model.action
         )
     }
+    
 }

@@ -299,6 +299,8 @@
 		12AA74FC27B26C100098BC94 /* GeometryProxyExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AA74FB27B26C100098BC94 /* GeometryProxyExtensions.swift */; };
 		12AB961728002EEA008E32EA /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AB961628002EEA008E32EA /* TitleView.swift */; };
 		12AB963128007E58008E32EA /* ShrinkingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AB963028007E58008E32EA /* ShrinkingButtonStyle.swift */; };
+		12AB96362800867B008E32EA /* StandardButtonModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AB96352800867B008E32EA /* StandardButtonModel.swift */; };
+		12AB9638280087E7008E32EA /* StandardButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AB9637280087E7008E32EA /* StandardButtonStyle.swift */; };
 		12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */; };
 		12AF9986273A8B87004CBB80 /* RelationsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12AF9985273A8B87004CBB80 /* RelationsBuilder.swift */; };
 		12B0FF60274FC5E200CA35FE /* TextRelationActionButtonViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B0FF5F274FC5E200CA35FE /* TextRelationActionButtonViewModelDelegate.swift */; };
@@ -1300,6 +1302,8 @@
 		12AA74FB27B26C100098BC94 /* GeometryProxyExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeometryProxyExtensions.swift; sourceTree = "<group>"; };
 		12AB961628002EEA008E32EA /* TitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
 		12AB963028007E58008E32EA /* ShrinkingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShrinkingButtonStyle.swift; sourceTree = "<group>"; };
+		12AB96352800867B008E32EA /* StandardButtonModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardButtonModel.swift; sourceTree = "<group>"; };
+		12AB9637280087E7008E32EA /* StandardButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StandardButtonStyle.swift; sourceTree = "<group>"; };
 		12AF69132656AB7D00C0BA99 /* UIImageViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UIImageViewExtensions.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Extensions/UIImageViewExtensions.swift; sourceTree = SOURCE_ROOT; };
 		12AF9985273A8B87004CBB80 /* RelationsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsBuilder.swift; sourceTree = "<group>"; };
 		12B0FF5F274FC5E200CA35FE /* TextRelationActionButtonViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationActionButtonViewModelDelegate.swift; sourceTree = "<group>"; };
@@ -4839,8 +4843,10 @@
 		3D932D4A26317E9200C7D1EA /* Buttons */ = {
 			isa = PBXGroup;
 			children = (
-				3D932D4C26317E9200C7D1EA /* StandardButtonView.swift */,
 				3DC9F260266018B000B115B9 /* StandardButton.swift */,
+				12AB9637280087E7008E32EA /* StandardButtonStyle.swift */,
+				12AB96352800867B008E32EA /* StandardButtonModel.swift */,
+				3D932D4C26317E9200C7D1EA /* StandardButtonView.swift */,
 				3D1CEC2C27F48301000D36BA /* SettingsButton.swift */,
 			);
 			path = Buttons;
@@ -6850,6 +6856,7 @@
 				127EABB32735204E00C731F2 /* CoverConstants.swift in Sources */,
 				0A0965EE25BEF5B000C004BD /* EditorPageViewModel.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
+				12AB9638280087E7008E32EA /* StandardButtonStyle.swift in Sources */,
 				53F80F1027BDA95D00E9E12A /* FileListRelationViewUIKit.swift in Sources */,
 				535FDE2227E8CB0B0098DBFA /* PasteboardFileOperation.swift in Sources */,
 				3DF6F628262EDA31000E05A5 /* DebugMenu.swift in Sources */,
@@ -7123,6 +7130,7 @@
 				3D932D5826317EFC00C7D1EA /* BaseFilePickerViewModel.swift in Sources */,
 				0AD7694C25D57F2D00669F8C /* TextService.swift in Sources */,
 				3DB1C9E32727FE2E000D2779 /* MentionData.swift in Sources */,
+				12AB96362800867B008E32EA /* StandardButtonModel.swift in Sources */,
 				3D24913127BD271900821595 /* SubscriptionToggler.swift in Sources */,
 				3DF80F3326EF8552000492F3 /* EmptyToggleButtonBuilder.swift in Sources */,
 				125B6ED426F235F400BCD7D6 /* SlashMenuContentConfigurationFactory.swift in Sources */,
