@@ -30,10 +30,10 @@ final class ApplicationCoordinator {
     fileprivate func createNavigationController() -> UINavigationController {
         let controller: UINavigationController
         
-        if #available(iOS 14.0, *) {
-            controller = iOS14SwiftUINavigationController()
-        } else {
+        if #available(iOS 15.0, *) {
             controller = UINavigationController()
+        } else {
+            controller = iOS14SwiftUINavigationController()
         }
         
         let navBarAppearance = UINavigationBarAppearance()
