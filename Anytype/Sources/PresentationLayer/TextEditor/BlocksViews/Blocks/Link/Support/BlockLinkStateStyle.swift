@@ -6,8 +6,14 @@ extension BlockLinkState {
         case noContent
         case icon(ObjectIconType)
         case checkmark(Bool)
+
+        var isCheckmark: Bool {
+            if case .checkmark = self {
+                return true
+            }
+            return false
+        }
     }
-    
 }
 
 extension BlockLinkState.Style {
