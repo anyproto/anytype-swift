@@ -8,37 +8,45 @@ struct SetTableView: View {
     @EnvironmentObject private var model: EditorSetViewModel
 
     var body: some View {
-        SingleAxisGeometryReader { fullWidth in
-            OffsetAwareScrollView(
-                axes: [.horizontal],
-                showsIndicators: false,
-                offsetChanged: { offset.x = $0.x }
-            ) {
-                OffsetAwareScrollView(
-                    axes: [.vertical],
-                    showsIndicators: false,
-                    offsetChanged: { offset.y = $0.y }
-                ) {
-                    Spacer.fixedHeight(tableHeaderSize.height)
-                    LazyVStack(
-                        alignment: .leading,
-                        spacing: 0,
-                        pinnedViews: [.sectionHeaders]
-                    ) {
-                        content
-                        pagination
-                    }
-                    .frame(minWidth: fullWidth)
-                    .padding(.top, -headerMinimizedSize.height)
-                }
+        if #available(iOS 15.0, *) {
+            SingleAxisGeometryReader { fullWidth in
+                scrollView(fullWidth: fullWidth)
             }
-            .overlay(
-                SetFullHeader()
-                    .readSize { tableHeaderSize = $0 }
-                    .offset(x: 0, y: offset.y)
-                , alignment: .topLeading
-            )
+        } else {
+            scrollView(fullWidth: UIApplication.shared.keyWindow!.frame.width)
         }
+    }
+    
+    private func scrollView(fullWidth: CGFloat) -> some View {
+        OffsetAwareScrollView(
+            axes: [.horizontal],
+            showsIndicators: false,
+            offsetChanged: { offset.x = $0.x }
+        ) {
+            OffsetAwareScrollView(
+                axes: [.vertical],
+                showsIndicators: false,
+                offsetChanged: { offset.y = $0.y }
+            ) {
+                Spacer.fixedHeight(tableHeaderSize.height)
+                LazyVStack(
+                    alignment: .leading,
+                    spacing: 0,
+                    pinnedViews: [.sectionHeaders]
+                ) {
+                    content
+                    pagination
+                }
+                .frame(minWidth: fullWidth)
+                .padding(.top, -headerMinimizedSize.height)
+            }
+        }
+        .overlay(
+            SetFullHeader()
+                .readSize { tableHeaderSize = $0 }
+                .offset(x: 0, y: offset.y)
+            , alignment: .topLeading
+        )
     }
     
     private var content: some View {
