@@ -438,7 +438,7 @@ final class MiddlewareEventConverter {
             WindowManager.shared.showDeletedAccountWindow(progress: progress)
         case .deleted:
             if UserDefaultsConfig.usersId.isNotEmpty {
-                _ = ServiceLocator.shared.authService().logout(removeData: true)
+                ServiceLocator.shared.authService().logout(removeData: true) { _ in }
                 WindowManager.shared.showAuthWindow()
             }
         }

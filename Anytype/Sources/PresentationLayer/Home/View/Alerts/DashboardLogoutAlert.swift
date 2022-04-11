@@ -4,6 +4,8 @@ import Amplitude
 struct DashboardLogoutAlert: View {
     @EnvironmentObject var model: SettingsViewModel
     
+    @State private var isLogoutInProgress = false
+    
     var body: some View {
         FloaterAlertView(
             title: "Have you backed up your keychain phrase?".localized,
@@ -12,8 +14,8 @@ struct DashboardLogoutAlert: View {
                 model.keychain = true
                 model.loggingOut = false
             },
-            rightButtonData: StandardButtonData(text: "Log out".localized, style: .destructive) {
-                UINotificationFeedbackGenerator().notificationOccurred(.success)
+            rightButtonData: StandardButtonData(inProgress: isLogoutInProgress, text: "Log out".localized, style: .destructive) {
+                isLogoutInProgress = true
                 model.logout(removeData: false)
             }
         )

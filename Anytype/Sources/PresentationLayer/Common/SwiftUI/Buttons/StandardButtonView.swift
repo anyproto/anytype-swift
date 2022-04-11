@@ -50,15 +50,23 @@ enum StandardButtonStyle {
 
 struct StandardButtonView: View {
     var disabled: Bool = false
+    var inProgress: Bool = false
     let text: String
     let style: StandardButtonStyle
     
     var body: some View {
-        AnytypeText(
-            text,
-            style: style.textFont,
-            color: style.textColor(disabled: disabled)
-        )
+        Group {
+            if inProgress {
+                ProgressView()
+                    .progressViewStyle(CircularProgressViewStyle(tint: style.textColor(disabled: disabled)))
+            } else {
+                AnytypeText(
+                    text,
+                    style: style.textFont,
+                    color: style.textColor(disabled: disabled)
+                )
+            }
+        }
         .frame(minWidth: 0, maxWidth: .infinity)
         .frame(height: 48)
         .background(style.backgroundColor(disabled: disabled))
@@ -75,12 +83,14 @@ struct StandardButtonView: View {
 struct StandardButton_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            StandardButton(disabled: false ,text: "Secondary enabled", style: .secondary, action: {})
+            StandardButton(disabled: false, text: "Secondary enabled", style: .secondary, action: {})
             StandardButton(disabled: true ,text: "Secondary disabled", style: .secondary, action: {})
             StandardButton(disabled: false ,text: "Primary enabled", style: .primary, action: {})
             StandardButton(disabled: true ,text: "Primary disabled", style: .primary, action: {})
-            StandardButton(disabled: false ,text: "Destructive enabled", style: .destructive, action: {})
-            StandardButton(disabled: true ,text: "Destructive disabled", style: .destructive, action: {})
+            HStack {
+                StandardButton(disabled: false, text: "Destructive enabled", style: .destructive, action: {})
+                StandardButton(disabled: true, inProgress: false, text: "Destructive disabled", style: .destructive, action: {})
+            }
         }.padding()
     }
 }
