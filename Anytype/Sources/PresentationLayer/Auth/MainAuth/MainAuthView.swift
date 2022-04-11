@@ -86,11 +86,10 @@ struct MainAuthView: View {
                 viewModel.singUp()
             }
             
-            NavigationLink(
-                destination: viewModel.loginView()
-            ) {
+            NavigationLink(destination: viewModel.loginView()) {
                 StandardButtonView(text: "Login".localized, style: .primary)
             }
+            .buttonStyle(ShrinkingButtonStyle())
         }
     }
     
