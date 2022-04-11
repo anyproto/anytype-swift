@@ -70,7 +70,7 @@ private extension ObjectHeaderCoverView {
     private func showImageWithId(_ imageId: String, _ size: CGSize) {
         let imageGuideline = ImageGuideline(size: size)
         
-        imageView.wrapper.imageGuideline(imageGuideline).setImage(id: imageId)
+        imageView.wrapper.imageGuideline(imageGuideline).scalingType(nil).setImage(id: imageId)
         imageView.contentMode = .scaleAspectFill
     }
     

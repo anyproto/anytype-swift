@@ -7,7 +7,7 @@ protocol DownloadableImageViewWrapperProtocol {
     func imageGuideline(_ imageGuideline: ImageGuideline) -> DownloadableImageViewWrapperProtocol
     
     @discardableResult
-    func scalingType(_ scalingType: KFScalingType) -> DownloadableImageViewWrapperProtocol
+    func scalingType(_ scalingType: KFScalingType?) -> DownloadableImageViewWrapperProtocol
     
     @discardableResult
     func animatedTransition( _ animatedTransition: Bool) -> DownloadableImageViewWrapperProtocol
