@@ -1,4 +1,3 @@
-require_relative 'base_pipeline'
 require_relative '../constants'
 require_relative '../library/lib_version'
 
