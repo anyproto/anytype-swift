@@ -7,7 +7,13 @@ import UIKit
 
 final class SearchNewRelationViewModel: ObservableObject {
     
-    @Published private(set) var searchData: [SearchNewRelationSectionType] = [.createNewRelation]
+    @Published private(set) var searchData: [SearchNewRelationSectionType] = {
+        if FeatureFlags.createNewRelation {
+            return [.createNewRelation]
+        } else {
+            return []
+        }
+    }()
 
     // MARK: - Private variables
     
@@ -52,7 +58,10 @@ extension SearchNewRelationViewModel {
             let filteredRelationsMetadata = relationsMetadata.filter { relationMetadata in
                 relationMetadata.name.contains(text)
             }
-            searchData.append(.createNewRelation)
+            
+            if FeatureFlags.createNewRelation {
+                searchData.append(.createNewRelation)
+            }
 
             if filteredRelationsMetadata.isNotEmpty {
                 searchData.append(.addFromLibriry(filteredRelationsMetadata))
@@ -64,7 +73,12 @@ extension SearchNewRelationViewModel {
         let relatonsMetadata = relationService.availableRelations()?.filter {
             !$0.isHidden && !usedObjectRelationsIds.contains($0.id)
         } ?? []
-        return [.createNewRelation, .addFromLibriry(relatonsMetadata)]
+        
+        if FeatureFlags.createNewRelation {
+            return [.createNewRelation, .addFromLibriry(relatonsMetadata)]
+        } else {
+            return [.addFromLibriry(relatonsMetadata)]
+        }
     }
 
     func addRelation(_ relation: RelationMetadata) {
