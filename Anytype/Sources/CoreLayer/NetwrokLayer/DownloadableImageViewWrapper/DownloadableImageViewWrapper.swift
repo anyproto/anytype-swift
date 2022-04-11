@@ -6,7 +6,7 @@ import AnytypeCore
 final class DownloadableImageViewWrapper {
     
     private var imageGuideline: ImageGuideline?
-    private var scalingType: KFScalingType = .resizing(.aspectFill)
+    private var scalingType: KFScalingType? = .resizing(.aspectFill)
     private var animatedTransition = true
     private var placeholderNeeded = true
     
@@ -31,7 +31,7 @@ extension DownloadableImageViewWrapper: DownloadableImageViewWrapperProtocol {
     }
     
     @discardableResult
-    func scalingType(_ scalingType: KFScalingType) -> DownloadableImageViewWrapperProtocol {
+    func scalingType(_ scalingType: KFScalingType?) -> DownloadableImageViewWrapperProtocol {
         self.scalingType = scalingType
         return self
     }
