@@ -38,6 +38,8 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showAddNewRelationView(onSelect: ((RelationMetadata) -> Void)?)
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
+
+    func showWaitingView(_ shouldShow: Bool, text: String)
     
     func goBack()
     

@@ -760,6 +760,7 @@
 		539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539168842632DD5200AD5C5F /* StyleCellView.swift */; };
 		53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */; };
 		5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5396534E2600D1B100A74C11 /* TextBlockLayoutManager.swift */; };
+		5398C4342804D63B00983C79 /* WaitingPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5398C4332804D63B00983C79 /* WaitingPopupView.swift */; };
 		539E01922757CD0600067A24 /* SlashActionRelations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539E01912757CD0600067A24 /* SlashActionRelations.swift */; };
 		539E019727582AA300067A24 /* RelationNameValueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539E019627582AA200067A24 /* RelationNameValueView.swift */; };
 		539E019A2758422800067A24 /* SlashMenuRealtionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539E01992758422800067A24 /* SlashMenuRealtionView.swift */; };
@@ -1755,6 +1756,7 @@
 		539168842632DD5200AD5C5F /* StyleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleCellView.swift; sourceTree = "<group>"; };
 		53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPhraseViewModel.swift; sourceTree = "<group>"; };
 		5396534E2600D1B100A74C11 /* TextBlockLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayoutManager.swift; sourceTree = "<group>"; };
+		5398C4332804D63B00983C79 /* WaitingPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingPopupView.swift; sourceTree = "<group>"; };
 		539E01912757CD0600067A24 /* SlashActionRelations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashActionRelations.swift; sourceTree = "<group>"; };
 		539E019627582AA200067A24 /* RelationNameValueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationNameValueView.swift; sourceTree = "<group>"; };
 		539E01992758422800067A24 /* SlashMenuRealtionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlashMenuRealtionView.swift; sourceTree = "<group>"; };
@@ -5742,8 +5744,9 @@
 		53F7447027F71564005C9BB0 /* PopupsView */ = {
 			isa = PBXGroup;
 			children = (
-				53F7447727F71A60005C9BB0 /* CheckPopupView */,
 				53F7447827F71A83005C9BB0 /* PopupViewBuilder.swift */,
+				53F7447727F71A60005C9BB0 /* CheckPopupView */,
+				5398C4332804D63B00983C79 /* WaitingPopupView.swift */,
 			);
 			path = PopupsView;
 			sourceTree = "<group>";
@@ -6950,6 +6953,7 @@
 				3DDD3D1426AED74E00B5673A /* CodeLanguage.swift in Sources */,
 				12D15D1E27F5F6C000D22086 /* RelationOptionsSearchModuleBuilderProtocol.swift in Sources */,
 				3D30418527ECBBDB00FFE0EB /* AnytypeToggle.swift in Sources */,
+				5398C4342804D63B00983C79 /* WaitingPopupView.swift in Sources */,
 				3D30412A27E8D12800FFE0EB /* EditorSetSettingsView.swift in Sources */,
 				0A78328324BDEAE700A1B6F6 /* AttributedTextConverter.swift in Sources */,
 				1247BC8027FE05C4005F2DB4 /* TransparencyEffect.swift in Sources */,

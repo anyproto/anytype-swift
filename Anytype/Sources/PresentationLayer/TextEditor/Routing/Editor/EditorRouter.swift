@@ -216,6 +216,15 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let controller = UIHostingController(rootView: view)
         viewController?.topPresentedController.present(controller, animated: true)
     }
+
+    func showWaitingView(_ shouldShow: Bool, text: String) {
+        if shouldShow {
+            let popup = PopupViewBuilder.createWaitingPopup(text: text)
+            viewController?.topPresentedController.present(popup, animated: true, completion: nil)
+        } else {
+            viewController?.topPresentedController.dismiss(animated: true, completion: nil)
+        }
+    }
     
     func goBack() {
         rootController?.pop()

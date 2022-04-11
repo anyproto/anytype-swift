@@ -89,6 +89,9 @@ final class BlockViewModelBuilder {
                     showURLBookmarkPopup: { [weak router] parameters in
                         router?.showLinkContextualMenu(inputParameters: parameters)
                     },
+                    shouldShowWaitingView: { [weak router] shouldShow, text in
+                        router?.showWaitingView(shouldShow, text: text)
+                    },
                     markdownListener: markdownListener,
                     focusSubject: subjectsHolder.focusSubject(for: info.id)
                 )

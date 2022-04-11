@@ -23,23 +23,25 @@ final class PasteboardService: PasteboardServiceProtocol {
         pasteboardHelper.hasValidURL
     }
     
-    func pasteInsideBlock(focusedBlockId: BlockId, range: NSRange) {
+    func pasteInsideBlock(focusedBlockId: BlockId, range: NSRange, completion: @escaping () -> Void) {
         let context = PasteboardActionContext.focused(focusedBlockId, range)
-        paste(context: context)
+        paste(context: context, completion: completion)
     }
     
-    func pasteInSelectedBlocks(selectedBlockIds: [BlockId]) {
+    func pasteInSelectedBlocks(selectedBlockIds: [BlockId], completion: @escaping () -> Void) {
         let context = PasteboardActionContext.selected(selectedBlockIds)
-        paste(context: context)
+        paste(context: context, completion: completion)
     }
     
-    private func paste(context: PasteboardActionContext) {
+    private func paste(context: PasteboardActionContext, completion: @escaping () -> Void) {
         let operation = PasteboardOperation (
             pasteboardHelper: pasteboardHelper,
             pasteboardMiddlewareService: pasteboardMiddlewareService,
             context: context
         ) { _ in
-            #warning("add completion")
+            DispatchQueue.main.async {
+                completion()
+            }
         }
         pasteboardOperations.addOperation(operation)
     }
