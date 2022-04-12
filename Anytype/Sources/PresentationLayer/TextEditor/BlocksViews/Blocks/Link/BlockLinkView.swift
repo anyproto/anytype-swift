@@ -9,8 +9,15 @@ final class BlockLinkView: UIView, BlockContentView {
     
     private var hGap: FixedGapViewConstraintProtocol!
     private var vGap: FixedGapViewConstraintProtocol!
-    private var iconContainerTopConstraint: NSLayoutConstraint!
+    private var containerHeightConstraint: NSLayoutConstraint!
+
     private var iconContainerLeadingConstraint: NSLayoutConstraint!
+    private var iconContainerTopConstraint: NSLayoutConstraint!
+    private var iconContainerCenterConstraint: NSLayoutConstraint!
+
+    private var stackViewTrailingConstraint: NSLayoutConstraint!
+    private var stackViewTopConstraint: NSLayoutConstraint!
+    private var stackViewBottomConstraint: NSLayoutConstraint!
 
     private let contentView = UIView()
     private let iconContainerView = UIView()
@@ -68,6 +75,7 @@ final class BlockLinkView: UIView, BlockContentView {
 
         descriptionView.isHidden = !configuration.state.hasDescription
         descriptionView.setText(configuration.state.attributedDescription)
+        descriptionView.setLineBreakMode(.byTruncatingTail)
     }
     
 }
@@ -78,13 +86,28 @@ private extension BlockLinkView {
     
     func setup() {
         addSubview(contentView) {
-            $0.pinToSuperview()
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.equal(to: bottomAnchor, priority: .defaultLow)
+        }
+        containerHeightConstraint = contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.CardLayout.containerHeight)
+
+        contentView.addSubview(iconContainerView) {
+            iconContainerTopConstraint = $0.top.equal(to: contentView.topAnchor)
+            iconContainerCenterConstraint = $0.centerY.equal(to: contentView.centerYAnchor)
+            iconContainerLeadingConstraint = $0.leading.equal(to: contentView.leadingAnchor)
         }
 
-        stackView = contentView.layoutUsing.stack {
+        stackView = contentView.layoutUsing.stack { [weak self] in
+            guard let self = self else { return }
+            $0.layoutUsing.anchors {
+                $0.leading.equal(to: self.iconContainerView.trailingAnchor)
+                self.stackViewTopConstraint = $0.top.equal(to: self.contentView.topAnchor)
+                self.stackViewTrailingConstraint = $0.trailing.equal(to: self.contentView.trailingAnchor)
+                self.stackViewBottomConstraint = $0.bottom.equal(to: self.contentView.bottomAnchor)
+            }
+        } builder: {
             $0.hStack(
-                iconContainerView,
-                $0.hGap(fixed: .zero) {  [weak self] view in
+                $0.hGap(fixed: .zero, relatedTo: iconContainerView) {  [weak self] view in
                     self?.hGap = view
                 },
                 $0.vStack(
@@ -100,14 +123,12 @@ private extension BlockLinkView {
                 )
             )
         }
-
-        iconContainerView.layoutUsing.anchors {
-            iconContainerTopConstraint = $0.top.equal(to: stackView.topAnchor)
-            iconContainerLeadingConstraint = $0.leading.equal(to: stackView.leadingAnchor)
-        }
     }
 
     func setLayout(configuration: BlockLinkContentConfiguration) {
+        contentView.layer.borderColor = nil
+        contentView.layer.borderWidth = .zero
+
         guard !configuration.state.deleted else {
             setupTextLayout()
             return
@@ -119,34 +140,49 @@ private extension BlockLinkView {
         case .text:
             setupTextLayout()
         case .card:
-            setupCardLayout(backgroundColor: configuration.backgroundColor)
+            setupCardLayout(backgroundColor: configuration.backgroundColor, iconInCenterY: configuration.state.style.isCheckmark)
         }
     }
 
     func setupTextLayout() {
-        contentView.layer.borderColor = nil
-        contentView.layer.borderWidth = 0.0
-        contentView.backgroundColor = .clear
         contentView.layer.cornerRadius = 0
+        containerHeightConstraint.isActive = false
         stackView.alignment = Constants.TextLayout.stackAlignment
+        titleView.numberOfLines = 1
         vGap.fixedConstraint?.constant = Constants.TextLayout.vGapImageText
         hGap.fixedConstraint?.constant = Constants.TextLayout.hGapImageText
-        iconContainerTopConstraint.constant = Constants.TextLayout.imageContainerEdgeInset
-        iconContainerLeadingConstraint.constant = Constants.TextLayout.imageContainerEdgeInset
+
+        iconContainerLeadingConstraint.constant = Constants.TextLayout.stackViewEdgeInsets.left
+        iconContainerTopConstraint.constant = Constants.TextLayout.stackViewEdgeInsets.top
+        iconContainerTopConstraint.isActive = true
+        iconContainerCenterConstraint.isActive = false
+
+        stackViewTrailingConstraint.constant = Constants.TextLayout.stackViewEdgeInsets.right
+        stackViewTopConstraint.constant = Constants.TextLayout.stackViewEdgeInsets.top
+        stackViewBottomConstraint.constant = Constants.TextLayout.stackViewEdgeInsets.bottom
     }
 
-    func setupCardLayout(backgroundColor: UIColor) {
-        contentView.backgroundColor = backgroundColor
-        if backgroundColor == .clear {
+    func setupCardLayout(backgroundColor: UIColor, iconInCenterY: Bool) {
+        if backgroundColor == .clear || backgroundColor == UIColor.backgroundPrimary {
             contentView.layer.borderColor = UIColor.strokePrimary.cgColor
             contentView.layer.borderWidth = 0.5
         }
         contentView.layer.cornerRadius = 16
+        containerHeightConstraint.isActive = true
+        titleView.numberOfLines = 2
         stackView.alignment = Constants.CardLayout.stackAlignment
         vGap.fixedConstraint?.constant = Constants.CardLayout.vGapImageText
         hGap.fixedConstraint?.constant = Constants.CardLayout.hGapImageText
-        iconContainerTopConstraint.constant = Constants.CardLayout.imageContainerEdgeInset
-        iconContainerLeadingConstraint.constant = Constants.CardLayout.imageContainerEdgeInset
+
+        iconContainerLeadingConstraint.constant = Constants.CardLayout.stackViewEdgeInsets.left
+
+        iconContainerTopConstraint.isActive = !iconInCenterY
+        iconContainerCenterConstraint.isActive = iconInCenterY
+        iconContainerTopConstraint.constant = Constants.CardLayout.stackViewEdgeInsets.top
+
+        stackViewTrailingConstraint.constant = Constants.CardLayout.stackViewEdgeInsets.right
+        stackViewTopConstraint.constant = Constants.CardLayout.stackViewEdgeInsets.top
+        stackViewBottomConstraint.constant = Constants.CardLayout.stackViewEdgeInsets.bottom
     }
     
 }
@@ -157,6 +193,7 @@ private extension BlockLinkView {
     enum Constants {
 
         enum TextLayout {
+            static let stackViewEdgeInsets = UIEdgeInsets(top: 4, left: 0, bottom: -4, right: 0)
             static let imageContainerEdgeInset: CGFloat = 0
             static let hGapImageText: CGFloat = 8
             static let vGapImageText: CGFloat = 2
@@ -164,6 +201,8 @@ private extension BlockLinkView {
         }
 
         enum CardLayout {
+            static let stackViewEdgeInsets = UIEdgeInsets(top: 16, left: 16, bottom: -16, right: -16)
+            static let containerHeight: CGFloat = 96
             static let imageContainerEdgeInset: CGFloat = 16
             static let hGapImageText: CGFloat = 12
             static let vGapImageText: CGFloat = 4

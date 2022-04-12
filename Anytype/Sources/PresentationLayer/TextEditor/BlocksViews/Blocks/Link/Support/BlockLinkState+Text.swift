@@ -42,10 +42,12 @@ extension BlockLinkState {
     }
     
     private var enabledAttributes: [NSAttributedString.Key : Any] {
-        [
+        let underlineStyle: NSUnderlineStyle = objectPreviewFields.layout == .card ? [] : .single
+
+        return [
             .font: UIFont.bodyRegular,
             .foregroundColor: UIColor.textPrimary,
-            .underlineStyle: NSUnderlineStyle.single.rawValue,
+            .underlineStyle: underlineStyle.rawValue ,
             .underlineColor: UIColor.buttonActive
         ]
     }
