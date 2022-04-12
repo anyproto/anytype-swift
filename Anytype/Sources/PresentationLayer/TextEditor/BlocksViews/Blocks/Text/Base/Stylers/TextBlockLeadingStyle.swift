@@ -61,10 +61,11 @@ enum TextBlockLeadingStyle {
             self = .numbered(configuration.content.number)
         case .callout:
             let objectIconImage: ObjectIconImage
-            if let emoji = Emoji(configuration.content.iconEmoji) {
-                objectIconImage = .icon(.emoji(emoji))
+
+            if let hash = Hash(configuration.content.iconImage) {
+                objectIconImage = .icon(.basic(hash.value))
             } else {
-                objectIconImage = .icon(.basic(configuration.content.iconImage))
+                objectIconImage = .icon(.emoji(Emoji(configuration.content.iconEmoji) ?? .lamp))
             }
 
             self = .callout(
