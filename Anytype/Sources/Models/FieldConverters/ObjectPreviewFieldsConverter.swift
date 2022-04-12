@@ -42,9 +42,9 @@ extension ObjectPreviewFields: FieldsConvertibleProtocol {
     }
 
     static func convertToModel(fields: BlockFields) -> ObjectPreviewFields {
-        var icon: ObjectPreviewFields.Icon = .none
+        var icon: ObjectPreviewFields.Icon = .medium
         var layout: ObjectPreviewFields.Layout = .text
-        var name: Bool = false
+        var name: Bool = true
         var featuredRelationsIds: Set<String> = []
 
         if case let .boolValue(value) = fields[FieldName.withIcon]?.kind, value {
