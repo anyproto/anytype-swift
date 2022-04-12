@@ -36,7 +36,7 @@ final class FileActionsService: FileActionsServiceProtocol {
         )
             .map(\.event)
             .map(EventsBunch.init)
-            .subscribe(on: DispatchQueue.global())
+            .subscribe(on: queue)
             .eraseToAnyPublisher()
     }
     
