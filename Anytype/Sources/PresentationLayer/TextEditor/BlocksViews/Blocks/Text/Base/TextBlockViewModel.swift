@@ -20,6 +20,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let showPage: (EditorScreenData) -> Void
     private let openURL: (URL) -> Void
     private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
+    private let showTextIconPicker: () -> Void
     
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
@@ -45,6 +46,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
         showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,
+        showTextIconPicker: @escaping () -> Void,
         markdownListener: MarkdownListener,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     ) {
@@ -56,6 +58,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.showPage = showPage
         self.openURL = openURL
         self.showURLBookmarkPopup = showURLBookmarkPopup
+        self.showTextIconPicker = showTextIconPicker
         self.toggled = info.isToggled
         self.info = info
         self.markdownListener = markdownListener
@@ -142,9 +145,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 info.toggle()
                 actionHandler.toggle(blockId: info.id)
             },
-            tapOnCalloutIcon: {
-                print("TAAAAAP")
-            }
+            tapOnCalloutIcon: showTextIconPicker
         )
     }
 

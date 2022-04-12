@@ -191,6 +191,21 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         
         presentSwuftUIView(view: linkToView, model: viewModel)
     }
+
+    func showTextIconPicker(contextId: BlockId, objectId: BlockId) {
+        let viewModel = TextIconPickerViewModel(
+            fileService: FileActionsService(),
+            textService: TextService(),
+            contextId: contextId,
+            objectId: objectId
+        )
+
+        let iconPicker = ObjectBasicIconPicker(viewModel: viewModel) { [weak rootController] in
+            rootController?.dismiss(animated: true, completion: nil)
+        }
+
+        presentSwuftUIView(view: iconPicker, model: nil)
+    }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
         let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
@@ -260,11 +275,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     // MARK: - Private
     
-    private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible) {
+    private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible?) {
         guard let viewController = viewController else { return }
         
         let controller = UIHostingController(rootView: view)
-        model.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
+        model?.onDismiss = { [weak controller] in controller?.dismiss(animated: true) }
         viewController.topPresentedController.present(controller, animated: true)
     }
     

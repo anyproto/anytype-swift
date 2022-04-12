@@ -9,7 +9,10 @@ struct ObjectIconPicker: View {
         Group {
             switch viewModel.detailsLayout {
             case .basic, .set:
-                ObjectBasicIconPicker(onDismiss: dismissHandler.onDismiss)
+                ObjectBasicIconPicker(
+                    viewModel: viewModel,
+                    onDismiss: dismissHandler.onDismiss
+                )
                     .environmentObject(viewModel)
             case .profile:
                 ObjectProfileIconPicker(onDismiss: dismissHandler.onDismiss)

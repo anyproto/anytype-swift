@@ -214,6 +214,9 @@ extension BlockActionService {
             contextID: self.documentId,
             blockID: blockId
         )
+            .map(\.event)
+            .map(EventsBunch.init)
+            .subscribe(on: DispatchQueue.global())
             .sinkWithDefaultCompletion("fileService.uploadDataAtFilePath", domain: .blockActionsService) { events in
                 events.send()
         }.store(in: &self.subscriptions)

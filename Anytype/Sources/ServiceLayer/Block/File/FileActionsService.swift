@@ -26,17 +26,13 @@ final class FileActionsService: FileActionsServiceProtocol {
         filePath: String,
         contextID: BlockId,
         blockID: BlockId
-    ) -> AnyPublisher<EventsBunch, Error>  {
+    ) -> Future<Anytype_Rpc.Block.Upload.Response, Error> {
         Anytype_Rpc.Block.Upload.Service.invoke(
             contextID: contextID,
             blockID: blockID,
             filePath: filePath,
             url: ""
         )
-            .map(\.event)
-            .map(EventsBunch.init)
-            .subscribe(on: DispatchQueue.global())
-            .eraseToAnyPublisher()
     }
     
     func syncUploadImageAt(localPath: String) -> Hash? {
