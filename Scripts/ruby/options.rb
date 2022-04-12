@@ -11,6 +11,7 @@ class Options
 
     OptionParser.new do |opts|
       opts.on('-h', '--help', 'Show help') { help_message(opts); exit(0) }
+      opts.on('-c', '--codegen-only', 'Run only codegen') {|v| options[:codegenOnly] = true }
       opts.on('-l', '--latest', 'Update to the latest version') {|v| options[:latest] = true }
       opts.on('--artifacts-path [PATH]', 'Custom artifacts: protobuf and xcframework') {|v| options[:artifactsPath] = v }
 

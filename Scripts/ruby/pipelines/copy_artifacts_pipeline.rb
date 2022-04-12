@@ -2,12 +2,7 @@ require 'tmpdir'
 require_relative '../workers_hub'
 require_relative '../constants'
 
-require_relative 'download_middleware'
-
-require_relative '../codegen/codegen_runner'
-require_relative '../codegen/file_formatter'
-
-class BasePipeline
+class CopyArtifactsPipeline
   def self.work(artifactsDirectory)
     dependenciesDirectory = Constants::DEPENDENCIES_DIR_PATH
     puts "Cleaning up dependencies directory".colorize(:blue)
@@ -20,18 +15,6 @@ class BasePipeline
     protobuf = File.join(artifactsDirectory, Constants::PROTOBUF_DIRECTORY_NAME)
     FileUtils.cp_r(protobuf, dependenciesDirectory)    
     remove_gitignore(dependenciesDirectory)
-    
-    puts "Copying protobuf files from Dependencies to ProtobufMessages".colorize(:blue)
-    directory = File.join([dependenciesDirectory, Constants::PROTOBUF_DIRECTORY_NAME])
-    DirHelper.allFiles(directory, "swift").each { |file|
-      FileUtils.cp(file, Constants::PROTOBUF_MESSAGES_DIR)
-    }
-
-    puts "Generating swift from protobuf".colorize(:blue)
-    CodegenRunner.run()
-
-    puts "Running swift format".colorize(:blue)
-    FileFormatter.formatFiles()
   end
 
   # Remove when fixed on the middlewere side
