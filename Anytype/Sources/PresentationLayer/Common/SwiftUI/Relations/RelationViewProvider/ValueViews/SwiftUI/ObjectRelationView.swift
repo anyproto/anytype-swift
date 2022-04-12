@@ -37,7 +37,7 @@ struct ObjectRelationView: View {
             AnytypeText(
                 option.title,
                 style: .relation1Regular,
-                color: .textPrimary
+                color: option.isDeleted ? .textTertiary : .textPrimary
             )
                 .lineLimit(1)
         }

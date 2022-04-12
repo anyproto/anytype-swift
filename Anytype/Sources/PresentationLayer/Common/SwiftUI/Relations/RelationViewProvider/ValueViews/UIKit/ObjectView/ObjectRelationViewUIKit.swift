@@ -32,7 +32,7 @@ final class ObjectRelationViewUIKit: UIView {
         textView = AnytypeLabel(style: .relation1Regular)
         textView.setText(option.title)
         textView.setLineBreakMode(.byTruncatingTail)
-        textView.textColor = .textPrimary
+        textView.textColor = option.isDeleted ? .textTertiary : .textPrimary
 
         let model = ObjectIconImageModel(
             iconImage: option.icon,

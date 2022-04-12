@@ -19,12 +19,14 @@ struct RelationObjectsRowView: View {
     
     private var text: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(object.title, style: .previewTitle2Medium, color: .textPrimary)
+            AnytypeText(object.title, style: .previewTitle2Medium, color: object.isDeleted ? .textTertiary : .textPrimary)
                 .lineLimit(1)
-            Spacer.fixedHeight(1)
-            
-            AnytypeText(object.type, style: .relation2Regular, color: .textSecondary)
-                .lineLimit(1)
+            if !object.isDeleted {
+                Spacer.fixedHeight(1)
+                
+                AnytypeText(object.type, style: .relation2Regular, color: .textSecondary)
+                    .lineLimit(1)
+            }
         }
     }
 }
@@ -36,7 +38,8 @@ struct RelationObjectsRowView_Previews: PreviewProvider {
                 id: "",
                 icon: .placeholder("r"),
                 title: "title",
-                type: "type"
+                type: "type",
+                isDeleted: false
             )
         )
     }
