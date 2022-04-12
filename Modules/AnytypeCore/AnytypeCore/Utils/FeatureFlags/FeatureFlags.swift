@@ -8,6 +8,7 @@ public enum Feature: String, Codable {
     case clipboard = "Clipboard"
     case objectPreview = "Object preview"
     case deletion = "Account deletion"
+    case createNewRelation = "Create new relation"
 }
 
 public final class FeatureFlags {
@@ -33,7 +34,8 @@ public final class FeatureFlags {
         .clipboard: false,
         .uikitRelationBlocks: true,
         .objectPreview: false,
-        .deletion: false
+        .deletion: false,
+        .createNewRelation: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -75,5 +77,9 @@ public extension FeatureFlags {
     
     static var deletion: Bool {
         features[.deletion, default: false]
+    }
+    
+    static var createNewRelation: Bool {
+        features[.createNewRelation, default: false]
     }
 }
