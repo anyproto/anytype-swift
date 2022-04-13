@@ -1,4 +1,3 @@
-
 import BlocksModels
 import Combine
 import Foundation
@@ -29,7 +28,6 @@ final class HomeViewModel: ObservableObject {
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
-    private let configurationService = MiddlewareConfigurationProvider.shared
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let subscriptionService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
     
@@ -42,9 +40,8 @@ final class HomeViewModel: ObservableObject {
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
     
-    init() {
-        let homeBlockId = configurationService.configuration.homeBlockID
-        document = BaseDocument(objectId: homeBlockId)
+    init(homeBlockId: AnytypeId) {
+        document = BaseDocument(objectId: homeBlockId.value)
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(update: $0)
         }.store(in: &cancellables)
