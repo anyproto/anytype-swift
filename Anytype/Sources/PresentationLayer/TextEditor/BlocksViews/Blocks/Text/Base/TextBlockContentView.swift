@@ -52,13 +52,11 @@ final class TextBlockContentView: UIView, BlockContentView {
     
     private func setupLayout() {
         contentStackView.addArrangedSubview(textBlockLeadingView)
+        contentStackView.addArrangedSubview(textView)
 
-        textBlockLeadingView.layoutUsing.anchors {
-            $0.top.equal(to: contentStackView.topAnchor)
+        textView.layoutUsing.anchors {
             $0.bottom.equal(to: contentStackView.bottomAnchor)
         }
-
-        contentStackView.addArrangedSubview(textView)
 
         contentView.addSubview(contentStackView) {
             topContentConstraint = $0.top.equal(to: contentView.topAnchor)

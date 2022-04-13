@@ -38,6 +38,11 @@ enum BasicIconImageGuideline {
         radius: .point(1)
     )
     
+    static let x16 = ImageGuideline(
+        size: CGSize(width: 16, height: 16),
+        radius: .point(1)
+    )
+    
 }
 
 

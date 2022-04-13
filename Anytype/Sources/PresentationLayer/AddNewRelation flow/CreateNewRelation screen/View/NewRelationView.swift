@@ -3,21 +3,25 @@ import SwiftUI
 struct NewRelationView: View {
     
     @ObservedObject private(set) var viewModel: NewRelationViewModel
-        
+    
     init(viewModel: NewRelationViewModel) {
         self.viewModel = viewModel
     }
     
     var body: some View {
-        VStack(spacing: 0) {
-            TitleView(title: "New relation".localized)
-            nameSection
-            formatSection
-            restrictionsSection
-            Spacer.fixedHeight(10)
-            button
-        }
-        .padding(.horizontal, 20)
+        ScrollView(.vertical, showsIndicators: false) {
+            VStack(spacing: 0) {
+                DragIndicator()
+                TitleView(title: "New relation".localized)
+                nameSection
+                formatSection
+                restrictionsSection
+                Spacer.fixedHeight(10)
+                Spacer()
+                button
+            }
+            .padding(.horizontal, 20)
+        } 
     }
     
     private var nameSection: some View {

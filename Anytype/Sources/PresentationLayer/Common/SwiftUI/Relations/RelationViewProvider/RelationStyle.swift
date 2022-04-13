@@ -80,4 +80,15 @@ extension RelationStyle {
         }
     }
     
+    var objectIconImageUsecase: ObjectIconImageUsecase {
+        switch self {
+        case .regular:
+            return .mention(.body)
+        case .featuredRelationBlock:
+            return .featuredRelationsBlock
+        case .set:
+            return .mention(.body)
+        }
+    }
+    
 }

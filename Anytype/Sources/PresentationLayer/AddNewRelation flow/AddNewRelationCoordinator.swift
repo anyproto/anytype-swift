@@ -69,8 +69,16 @@ extension AddNewRelationCoordinator: SearchNewRelationModuleOutput {
         
         newRelationModuleInput = viewModel
         
-        let popup = AnytypePopup(contentView: view)
-        viewController?.topPresentedController.present(popup, animated: true)
+        let vc = UIHostingController(rootView: view)
+        
+        if #available(iOS 15.0, *) {
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [.medium()]
+                sheet.selectedDetentIdentifier = .medium
+            }
+        }
+        
+        viewController?.topPresentedController.present(vc, animated: true)
     }
       
 }
