@@ -10,7 +10,7 @@ import BlocksModels
 
 protocol PasteboardServiceProtocol {
     var hasValidURL: Bool { get }
-    func pasteInsideBlock(focusedBlockId: BlockId, range: NSRange)
-    func pasteInSelectedBlocks(selectedBlockIds: [BlockId])
+    func pasteInsideBlock(focusedBlockId: BlockId, range: NSRange, completion: @escaping () -> Void)
+    func pasteInSelectedBlocks(selectedBlockIds: [BlockId], completion: @escaping () -> Void)
     func copy(blocksIds: [BlockId], selectedTextRange: NSRange)
 }
