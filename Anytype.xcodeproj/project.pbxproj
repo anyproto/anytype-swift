@@ -255,7 +255,6 @@
 		1270CE9726DA85E900B2D443 /* GradientPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270CE9626DA85E900B2D443 /* GradientPoint.swift */; };
 		127DE7412656CE770047A99A /* MediaPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127DE7402656CE770047A99A /* MediaPickerViewModel.swift */; };
 		127EABA32734FD6E00C731F2 /* CheckboxRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */; };
-		127EABB32735204E00C731F2 /* CoverConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB22735204E00C731F2 /* CoverConstants.swift */; };
 		127EABB72735254500C731F2 /* StatusRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB62735254500C731F2 /* StatusRelationView.swift */; };
 		127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */; };
 		127EABF42739440200C731F2 /* TagRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABF32739440200C731F2 /* TagRelationView.swift */; };
@@ -1259,7 +1258,6 @@
 		1270CE9626DA85E900B2D443 /* GradientPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientPoint.swift; sourceTree = "<group>"; };
 		127DE7402656CE770047A99A /* MediaPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = MediaPickerViewModel.swift; path = Anytype/Sources/PresentationLayer/Common/UIKit/Pickers/MediaPicker/MediaPickerViewModel.swift; sourceTree = SOURCE_ROOT; };
 		127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxRelationView.swift; sourceTree = "<group>"; };
-		127EABB22735204E00C731F2 /* CoverConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverConstants.swift; sourceTree = "<group>"; };
 		127EABB62735254500C731F2 /* StatusRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationView.swift; sourceTree = "<group>"; };
 		127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeColorProtocol.swift; sourceTree = "<group>"; };
 		127EABF32739440200C731F2 /* TagRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagRelationView.swift; sourceTree = "<group>"; };
@@ -3685,7 +3683,6 @@
 		12C8441226FE01AF00D64B8D /* Cover */ = {
 			isa = PBXGroup;
 			children = (
-				127EABB22735204E00C731F2 /* CoverConstants.swift */,
 				12A7B6B926C3E47200544037 /* DocumentCover.swift */,
 				3DB1CA5B272BF2C3000D2779 /* BackgroundType.swift */,
 			);
@@ -6856,7 +6853,6 @@
 				12461BFC2767837000D47708 /* TagView.swift in Sources */,
 				3D2F9C1A271EAE5D0043C326 /* ObjectType.swift in Sources */,
 				3D5A415F2703132800F1F6A1 /* SlashActionAlignment.swift in Sources */,
-				127EABB32735204E00C731F2 /* CoverConstants.swift in Sources */,
 				0A0965EE25BEF5B000C004BD /* EditorPageViewModel.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,
 				12AB9638280087E7008E32EA /* StandardButtonStyle.swift in Sources */,

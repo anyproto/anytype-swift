@@ -18,11 +18,7 @@ struct WallpaperColorsGridView: View {
     
     var body: some View {
         ScrollView(showsIndicators: false) {
-            LazyVGrid(
-                columns: columns,
-                spacing: 0,
-                pinnedViews: []
-            ) {
+            LazyVGrid(columns: columns, spacing: 0, pinnedViews: []) {
                 gradientsSection
                 colorsSection
             }
@@ -32,50 +28,43 @@ struct WallpaperColorsGridView: View {
     
     private var colorsSection: some View {
         Section(header: PickerSectionHeaderView(title: "Solid colors".localized)) {
-            ForEach(CoverConstants.colors.indices, id: \.self) { index in
-                colorView(at: index)
+            ForEach(CoverColor.allCases) { color in
+                colorView(color)
             }
         }
     }
     
     private var gradientsSection: some View {
         Section(header: PickerSectionHeaderView(title: "Gradients".localized)) {
-            ForEach(CoverConstants.gradients.indices, id: \.self) { index in
-                gradientView(at: index)
+            ForEach(CoverGradient.allCases) { gradient in
+                gradientView(gradient)
             }
         }
     }
     
-    private func colorView(at index: Int) -> some View {
-        CoverConstants.colors[safe: index].flatMap { color in
-            Color(hex: color.hex)
-                .applyCoverGridItemAppearance(needTopPadding: index > columns.count - 1)
-                .onTapGesture {
-                    onCoverSelect(.color(color))
-                }
-        }
+    private func colorView(_ color: CoverColor) -> some View {
+        Color(hex: color.data.hex)
+            .сoverGridAppearance()
+            .onTapGesture {
+                onCoverSelect(.color(color))
+            }
     }
     
-    private func gradientView(at index: Int) -> some View {
-        CoverConstants.gradients[safe: index].flatMap { gradient in
-            gradient.asLinearGradient()
-                .applyCoverGridItemAppearance(needTopPadding: index > columns.count - 1)
-                .onTapGesture {
-                    onCoverSelect(.gradient(gradient))
-                }
-        }
+    private func gradientView(_ gradient: CoverGradient) -> some View {
+        gradient.data.asLinearGradient()
+            .сoverGridAppearance()
+            .onTapGesture {
+                onCoverSelect(.gradient(gradient))
+            }
     }
 }
 
 private extension View {
-    
-    func applyCoverGridItemAppearance(needTopPadding: Bool) -> some View {
+    func сoverGridAppearance() -> some View {
         self
             .cornerRadius(4)
             .frame(height: 208)
-            .if(needTopPadding) {
-                $0.padding(.top, 16)
-            }
+            .padding(.top, 16)
     }
     
 }
