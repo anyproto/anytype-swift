@@ -206,7 +206,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             rootController?.dismiss(animated: true, completion: nil)
         }
 
-        presentSwuftUIView(view: iconPicker, model: nil)
+        presentSwiftUIView(view: iconPicker, model: nil)
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
@@ -289,8 +289,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     // MARK: - Private
-    
-    private func presentSwuftUIView<Content: View>(view: Content, model: Dismissible?) {
+
+    private func presentSwiftUIView<Content: View>(view: Content, model: Dismissible?) {
         guard let viewController = viewController else { return }
         
         let controller = UIHostingController(rootView: view)
