@@ -67,7 +67,7 @@ private extension BlockLinkView {
     
     func setup() {
         addSubview(contentView) {
-            $0.pinToSuperview()
+            $0.pinToSuperview(insets: .init(top: 5, left: 0, bottom: -5, right: 0))
         }
         
         contentView.addSubview(iconContainerView) {

@@ -232,13 +232,18 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         indentationViews.append(leadingView)
         addSubview(leadingView) {
             $0.pinToSuperview(
-                excluding: [.right],
+                excluding: [.right, .bottom],
                 insets: .init(
                     top: 0,
                     left: indentation,
-                    bottom: shouldTrimAtBottom ? -IndentationConstants.leadingViewVerticalPadding : 0,
+                    bottom: 0,
                     right: 0
                 )
+            )
+
+            $0.bottom.equal(
+                to: contentStackView.bottomAnchor,
+                constant: shouldTrimAtBottom ? -IndentationConstants.leadingViewVerticalPadding : 0
             )
         }
     }
