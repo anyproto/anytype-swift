@@ -1,15 +1,12 @@
 import BlocksModels
-
-enum EditorViewType: String {
-    case page
-    case set
-}
+import AnytypeCore
 
 struct EditorScreenData {
     let pageId: BlockId
     let type: EditorViewType
-    
-    static var empty: EditorScreenData {
-        EditorScreenData(pageId: "", type: .page)
-    }
+}
+
+enum EditorViewType: String {
+    case page
+    case set
 }
