@@ -175,19 +175,26 @@ final class HomeViewModel: ObservableObject {
 }
 
 // MARK: - New page
+
 extension HomeViewModel {
+    
     func startSearch() {
         showSearch = true
     }
     
     func createAndShowNewPage() {
-        guard let blockId = createNewPage() else { return }
+        guard let id = createNewPage() else { return }
         
-        showPage(pageId: blockId, viewType: .page)
+        showPage(id: id, viewType: .page)
     }
     
-    func showPage(pageId: BlockId, viewType: EditorViewType) {
-        let data = EditorScreenData(pageId: pageId, type: viewType)
+    func tryShowPage(id: String, viewType: EditorViewType) {
+        guard let anytypeID = id.asAnytypeID else { return }
+        showPage(id: anytypeID, viewType: viewType)
+    }
+    
+    func showPage(id: AnytypeID, viewType: EditorViewType) {
+        let data = EditorScreenData(pageId: id.value, type: viewType)
         
         if openedPageData.showing {
             editorBrowser?.showPage(data: data)
@@ -203,14 +210,13 @@ extension HomeViewModel {
             .edgesIgnoringSafeArea(.all)
     }
     
-    private func createNewPage() -> BlockId? {
-        guard let newBlockId = dashboardService.createNewPage() else { return nil }
-
-        if newBlockId.isEmpty {
+    private func createNewPage() -> AnytypeID? {
+        guard let id = dashboardService.createNewPage() else {
             anytypeAssertionFailure("No new block id in create new page response", domain: .homeView)
             return nil
         }
         
-        return newBlockId
+        return id
     }
+    
 }

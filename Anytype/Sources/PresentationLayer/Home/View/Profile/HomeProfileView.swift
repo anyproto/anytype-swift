@@ -33,9 +33,11 @@ struct HomeProfileView: View {
     }
     
     private var avatar: some View {
-        Button(action: {
-            model.showPage(pageId: model.profileData.blockId, viewType: .page)
-        }){ userIcon }
+        Button {
+            model.tryShowPage(id: model.profileData.blockId, viewType: .page)
+        } label: {
+            userIcon
+        }
     }
     
     private var userIcon: some View {
