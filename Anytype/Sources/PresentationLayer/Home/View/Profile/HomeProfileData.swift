@@ -4,7 +4,7 @@ import BlocksModels
 struct HomeProfileData {
     
     let name: String
-    let avatarId: String?
+    let avatarId: Hash?
     let blockId: AnytypeId
     
 }
@@ -21,7 +21,7 @@ extension HomeProfileData {
         guard let id = details.id.asAnytypeId else { return nil }
         
         name = details.name.isNotEmpty ? details.name : Self.defaultName
-        avatarId = details.iconImageHash?.value
+        avatarId = details.iconImageHash
         blockId = id
     }
     
