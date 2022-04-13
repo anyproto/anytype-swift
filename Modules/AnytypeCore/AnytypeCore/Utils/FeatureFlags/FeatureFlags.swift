@@ -35,7 +35,7 @@ public final class FeatureFlags {
         .uikitRelationBlocks: true,
         .objectPreview: false,
         .deletion: false,
-        .createNewRelation: false
+        .createNewRelation: true
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -80,6 +80,6 @@ public extension FeatureFlags {
     }
     
     static var createNewRelation: Bool {
-        features[.createNewRelation, default: false]
+        features[.createNewRelation, default: true]
     }
 }
