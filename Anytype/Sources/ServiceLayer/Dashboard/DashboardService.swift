@@ -9,7 +9,7 @@ final class DashboardService: DashboardServiceProtocol {
     
     private let objectsService = ServiceLocator.shared.objectActionsService()
     
-    func createNewPage() -> AnytypeID? {
+    func createNewPage() -> AnytypeId? {
         let defaultTypeUrl = ObjectTypeProvider.defaultObjectType.url
         let id = objectsService.createPage(
             contextId: "",
@@ -19,7 +19,7 @@ final class DashboardService: DashboardServiceProtocol {
             templateId: ""
         )
         
-        return id?.asAnytypeID
+        return id?.asAnytypeId
     }
     
 }

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct AnytypeID: Hashable {
+public struct AnytypeId: Hashable {
     
     public let value: String
     
