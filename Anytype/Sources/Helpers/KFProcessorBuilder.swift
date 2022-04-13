@@ -4,7 +4,7 @@ import UIKit
 
 struct KFProcessorBuilder {
     let imageGuideline: ImageGuideline
-    let scalingType: KFScalingType
+    let scalingType: KFScalingType?
 }
 
 extension KFProcessorBuilder {
@@ -17,6 +17,8 @@ extension KFProcessorBuilder {
                 |> CroppingImageProcessor(size: imageGuideline.size)
             case .downsampling:
                 return DownsamplingImageProcessor(size: imageGuideline.size)
+            case .none:
+                return DefaultImageProcessor()
             }
         }()
         

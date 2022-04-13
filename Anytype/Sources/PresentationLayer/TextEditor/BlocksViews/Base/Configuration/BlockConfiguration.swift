@@ -1,12 +1,5 @@
 import UIKit
 
-protocol Configuration {
-    associatedtype BlockConfiguration
-
-    var configuration: BlockConfiguration { get }
-    var currentConfigurationState: UICellConfigurationState? { get }
-}
-
 protocol BlockConfiguration: Hashable where View.Configuration == Self {
     associatedtype View: BlockContentView
 

@@ -38,13 +38,15 @@ final class SettingsViewModel: ObservableObject {
     }
 
     func logout(removeData: Bool) {
-        guard authService.logout(removeData: removeData) else {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            return
+        authService.logout(removeData: removeData) { isSuccess in
+            guard isSuccess else {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                return
+            }
+            
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            WindowManager.shared.showAuthWindow()
         }
-        
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
-        WindowManager.shared.showAuthWindow()
     }
     
     func accountDeletionConfirm() {

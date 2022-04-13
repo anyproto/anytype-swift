@@ -21,7 +21,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let openURL: (URL) -> Void
     private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
     private let showTextIconPicker: () -> Void
-    
+
+    private let showWaitingView: (String) -> Void
+    private let hideWaitingView: () -> Void
+
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
@@ -47,6 +50,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         openURL: @escaping (URL) -> Void,
         showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,
         showTextIconPicker: @escaping () -> Void,
+        showWaitingView: @escaping (String) -> Void,
+        hideWaitingView: @escaping () -> Void,
         markdownListener: MarkdownListener,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     ) {
@@ -59,6 +64,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.openURL = openURL
         self.showURLBookmarkPopup = showURLBookmarkPopup
         self.showTextIconPicker = showTextIconPicker
+        self.showWaitingView = showWaitingView
+        self.hideWaitingView = hideWaitingView
         self.toggled = info.isToggled
         self.info = info
         self.markdownListener = markdownListener
@@ -96,8 +103,11 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 if pasteboardService.hasValidURL {
                     return true
                 }
-                
-                pasteboardService.pasteInsideBlock(focusedBlockId: blockId, range: range)
+                showWaitingView("Paste processing...".localized)
+
+                pasteboardService.pasteInsideBlock(focusedBlockId: blockId, range: range) {
+                    hideWaitingView()
+                }
                 return false
             },
             copy: { range in

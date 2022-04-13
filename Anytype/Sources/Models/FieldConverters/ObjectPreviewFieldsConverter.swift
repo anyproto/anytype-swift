@@ -38,18 +38,13 @@ extension ObjectPreviewFields: FieldsConvertibleProtocol {
         }
         protoFields[FieldName.withDescription] = withDescription.protobufValue
 
-        let withName = featuredRelationsIds.contains {
-            $0 == BundledRelationKey.snippet.rawValue
-        }
-        protoFields[FieldName.withName] = withName.protobufValue
-
         return protoFields
     }
 
     static func convertToModel(fields: BlockFields) -> ObjectPreviewFields {
-        var icon: ObjectPreviewFields.Icon = .none
+        var icon: ObjectPreviewFields.Icon = .medium
         var layout: ObjectPreviewFields.Layout = .text
-        var name: Bool = false
+        var name: Bool = true
         var featuredRelationsIds: Set<String> = []
 
         if case let .boolValue(value) = fields[FieldName.withIcon]?.kind, value {

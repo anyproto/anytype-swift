@@ -9,6 +9,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
     private let fileRouter: FileRouter
+    private let addNewRelationCoordinator: AddNewRelationCoordinator
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
     private let editorAssembly: EditorAssembly
@@ -25,6 +26,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.document = document
         self.editorAssembly = assembly
         self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
+        self.addNewRelationCoordinator = AddNewRelationCoordinator(document: document, viewController: viewController)
     }
 
     func showPage(data: EditorScreenData) {
@@ -166,12 +168,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
+        let viewModel = ObjectSearchViewModel { data in
             onSelect(data.blockId)
         }
         let moveToView = SearchView(title: "Move to".localized, context: .menuSearch, viewModel: viewModel)
         
-        presentSwuftUIView(view: moveToView, model: viewModel)
+        presentSwiftUIView(view: moveToView, model: viewModel)
     }
 
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {
@@ -180,16 +182,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         }
         let linkToView = SearchView(title: "Link to".localized, context: .menuSearch, viewModel: viewModel)
 
-        presentSwuftUIView(view: linkToView, model: viewModel)
+        presentSwiftUIView(view: linkToView, model: viewModel)
     }
 
     func showLinkTo(onSelect: @escaping (BlockId) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
+        let viewModel = ObjectSearchViewModel { data in
             onSelect(data.blockId)
         }
         let linkToView = SearchView(title: "Link to".localized, context: .menuSearch, viewModel: viewModel)
         
-        presentSwuftUIView(view: linkToView, model: viewModel)
+        presentSwiftUIView(view: linkToView, model: viewModel)
     }
 
     func showTextIconPicker(contextId: BlockId, objectId: BlockId) {
@@ -208,22 +210,35 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let viewModel = ObjectSearchViewModel(searchKind: .objects) { data in
+        let viewModel = ObjectSearchViewModel { data in
             onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
         let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
         
-        presentSwuftUIView(view: searchView, model: viewModel)
+        presentSwiftUIView(view: searchView, model: viewModel)
     }
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
-        let objectKind: SearchKind = .objectTypes(currentObjectTypeUrl: document.details?.type ?? "")
-        let viewModel = ObjectSearchViewModel(searchKind: objectKind) { data in
-            onSelect(data.blockId)
+        let view = NewSearchModuleAssembly.objectTypeSearchModule(
+            title: "Change type".localized,
+            excludedObjectTypeId: document.details?.type
+        ) { [weak self] id in
+            onSelect(id)
+            
+            self?.viewController?.topPresentedController.dismiss(animated: true)
         }
-        let searchView = SearchView(title: "Change type".localized, context: .menuSearch, viewModel: viewModel)
+        
+        let controller = UIHostingController(rootView: view)
+        viewController?.topPresentedController.present(controller, animated: true)
+    }
 
-        presentSwuftUIView(view: searchView, model: viewModel)
+    func showWaitingView(text: String) {
+        let popup = PopupViewBuilder.createWaitingPopup(text: text)
+        viewController?.topPresentedController.present(popup, animated: true, completion: nil)
+    }
+
+    func hideWaitingView() {
+        viewController?.topPresentedController.dismiss(animated: true, completion: nil)
     }
     
     func goBack() {
@@ -359,16 +374,7 @@ extension EditorRouter {
     }
 
     func showAddNewRelationView(onSelect: ((RelationMetadata) -> Void)?) {
-        let relationService = RelationsService(objectId: document.objectId)
-
-        let viewModel = SearchNewRelationViewModel(
-            relationService: relationService,
-            objectRelations: document.parsedRelations,
-            onSelect: onSelect
-        )
-
-        let view = SearchNewRelationView(viewModel: viewModel)
-        presentSwuftUIView(view: view, model: viewModel)
+        addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
     }
 }
 

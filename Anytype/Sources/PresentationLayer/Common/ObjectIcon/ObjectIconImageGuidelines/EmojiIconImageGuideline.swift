@@ -38,4 +38,8 @@ enum EmojiIconImageGuideline {
         radius: .point(0)
     )
     
+    static let x16 = ImageGuideline(
+        size: CGSize(width: 16, height: 16),
+        radius: .point(0)
+    )
 }

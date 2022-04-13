@@ -102,6 +102,12 @@ final class BlockViewModelBuilder {
                             objectId: info.id
                         )
                     },
+                    showWaitingView: { [weak router] text in
+                        router?.showWaitingView(text: text)
+                    },
+                    hideWaitingView: {  [weak router] in
+                        router?.hideWaitingView()
+                    },
                     markdownListener: markdownListener,
                     focusSubject: subjectsHolder.focusSubject(for: info.id)
                 )

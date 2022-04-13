@@ -19,7 +19,7 @@ final class CodeBlockView: UIView, BlockContentView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle {
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
             textStorage.highlightr.setTheme(to: traitCollection.userInterfaceStyle.themeName)
         }
     }

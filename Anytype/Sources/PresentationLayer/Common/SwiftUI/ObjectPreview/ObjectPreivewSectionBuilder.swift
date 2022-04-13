@@ -18,7 +18,7 @@ final class ObjectPreivewSectionBuilder {
         let mainSection = [layout, icon]
 
         let withNameRelation = ObjectPreviewViewFeaturedSectionItem(
-            id: BundledRelationKey.snippet.rawValue,
+            id: BundledRelationKey.name.rawValue,
             iconName: RelationMetadata.Format.shortText.iconName,
             name: "Name".localized,
             isEnabled: objectPreviewFields.withName

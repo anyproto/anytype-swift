@@ -43,4 +43,9 @@ enum ProfileIconImageGuideline {
         radius: .widthFraction(0.5)
     )
     
+    static let x16 = ImageGuideline(
+        size: CGSize(width: 16, height: 16),
+        radius: .widthFraction(0.5)
+    )
+    
 }

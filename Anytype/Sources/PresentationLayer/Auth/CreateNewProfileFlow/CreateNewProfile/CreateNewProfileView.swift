@@ -77,7 +77,9 @@ struct CreateNewProfileView: View {
                 destination: viewModel.showSetupWallet(signUpData: signUpData, showWaitingView: $showCreateNewProfile)
             ) {
                 StandardButtonView(disabled: signUpData.userName.isEmpty, text: "Create".localized, style: .primary)
-            }.disabled(signUpData.userName.isEmpty)
+            }
+            .disabled(signUpData.userName.isEmpty)
+            .buttonStyle(ShrinkingButtonStyle())
         }
     }
     
