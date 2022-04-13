@@ -1,22 +1,17 @@
-//
-//  TextIconPickerViewModel.swift
-//  Anytype
-//
-//  Created by Dmitry Bilienko on 12.04.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import Foundation
 import BlocksModels
+import UniformTypeIdentifiers
+import Combine
 
 final class TextIconPickerViewModel: ObjectIconPickerViewModelProtocol {
     let mediaPickerContentType: MediaPickerContentType = .images
     let isRemoveButtonAvailable: Bool = false
 
-    let fileService: FileActionsServiceProtocol
-    let textService: TextServiceProtocol
-    let contextId: BlockId
-    let objectId: BlockId
+    private let fileService: FileActionsServiceProtocol
+    private let textService: TextServiceProtocol
+    private let contextId: BlockId
+    private let objectId: BlockId
+    private var cancellables = [AnyCancellable]()
 
     init(
         fileService: FileActionsServiceProtocol,
@@ -41,8 +36,38 @@ final class TextIconPickerViewModel: ObjectIconPickerViewModelProtocol {
     }
 
     func uploadImage(from itemProvider: NSItemProvider) {
+        let typeIdentifier: String = itemProvider.registeredTypeIdentifiers.first {
+            MediaPickerContentType.images.supportedTypeIdentifiers.contains($0)
+        } ?? ""
 
+        itemProvider.loadFileRepresentation(
+            forTypeIdentifier: typeIdentifier
+        ) { [self] localPath, error in
+            guard let localPath = localPath else {
+                return
+            }
+            uploadImage(from: localPath)
+        }
     }
 
     func removeIcon() { /* Unavailable */ }
+
+    private func uploadImage(from url: URL) {
+        fileService
+            .asyncUploadImage(at: url)
+            .sinkWithResult { [self] result in
+                switch result {
+                case .success(let hash):
+                    guard let hash = hash else { return }
+                    textService.setTextIcon(
+                        contextId: contextId,
+                        blockId: objectId,
+                        imageHash: hash.value,
+                        emojiUnicode: ""
+                    )
+                case .failure: break
+                }
+            }.store(in: &self.cancellables)
+    }
 }
+
