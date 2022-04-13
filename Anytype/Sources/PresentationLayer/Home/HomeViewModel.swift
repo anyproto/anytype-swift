@@ -196,7 +196,7 @@ extension HomeViewModel {
     }
     
     func showPage(id: AnytypeId, viewType: EditorViewType) {
-        let data = EditorScreenData(pageId: id.value, type: viewType)
+        let data = EditorScreenData(pageId: id, type: viewType)
         
         if openedPageData.showing {
             editorBrowser?.showPage(data: data)

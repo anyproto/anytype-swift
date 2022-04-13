@@ -1,6 +1,6 @@
 import Foundation
 import BlocksModels
-
+import AnytypeCore
 
 final class SlashMenuActionHandler {
     private let actionHandler: BlockActionHandlerProtocol
@@ -31,8 +31,12 @@ final class SlashMenuActionHandler {
                     self?.actionHandler.addLink(targetId: targetDetailsId, blockId: blockId)
                 }
             case .objectType(let object):
-                actionHandler.createPage(targetId: blockId, type: .dynamic(object.id))
-                    .flatMap { router.showPage(data: EditorScreenData(pageId: $0, type: .page)) }
+                actionHandler
+                    .createPage(targetId: blockId, type: .dynamic(object.id))
+                    .flatMap { $0.asAnytypeId }
+                    .flatMap {
+                        router.showPage(data: EditorScreenData(pageId: $0, type: .page))
+                    }
             }
         case let .relations(action):
             switch action {

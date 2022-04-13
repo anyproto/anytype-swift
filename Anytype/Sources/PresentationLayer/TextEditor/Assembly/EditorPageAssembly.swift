@@ -1,5 +1,6 @@
 import BlocksModels
 import UIKit
+import AnytypeCore
 
 final class EditorAssembly {
     private weak var browser: EditorBrowserController!
@@ -30,10 +31,10 @@ final class EditorAssembly {
     }
     
     // MARK: - Set
-    private func buildSetModule(pageId: BlockId) -> (EditorSetHostingController, EditorRouterProtocol) {
-        let document = BaseDocument(objectId: pageId)
+    private func buildSetModule(pageId: AnytypeId) -> (EditorSetHostingController, EditorRouterProtocol) {
+        let document = BaseDocument(objectId: pageId.value)
         let model = EditorSetViewModel(document: document)
-        let controller = EditorSetHostingController(objectId: pageId, model: model)
+        let controller = EditorSetHostingController(objectId: pageId.value, model: model)
         
         let router = EditorRouter(
             rootController: browser,
@@ -49,11 +50,11 @@ final class EditorAssembly {
     
     // MARK: - Page
     
-    private func buildPageModule(pageId: BlockId) -> (EditorPageController, EditorRouterProtocol) {
+    private func buildPageModule(pageId: AnytypeId) -> (EditorPageController, EditorRouterProtocol) {
         let blocksSelectionOverlayView = buildBlocksSelectionOverlayView()
 
         let controller = EditorPageController(blocksSelectionOverlayView: blocksSelectionOverlayView)
-        let document = BaseDocument(objectId: pageId)
+        let document = BaseDocument(objectId: pageId.value)
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,

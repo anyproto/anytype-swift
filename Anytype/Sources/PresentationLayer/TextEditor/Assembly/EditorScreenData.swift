@@ -2,7 +2,7 @@ import BlocksModels
 import AnytypeCore
 
 struct EditorScreenData {
-    let pageId: BlockId
+    let pageId: AnytypeId
     let type: EditorViewType
 }
 
