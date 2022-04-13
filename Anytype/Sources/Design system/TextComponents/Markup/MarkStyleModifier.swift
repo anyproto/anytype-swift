@@ -152,7 +152,7 @@ final class MarkStyleModifier {
         var iconAttributes = mentionAttributedString.attributes(at: 0, effectiveRange: nil)
         iconAttributes.removeValue(forKey: .localUnderline) // no underline under icon
         
-        let mentionIcon = data.isDeleted ? ObjectIconImage.staticImage(ImageName.ghost) : data.image
+        let mentionIcon = data.image
         let mentionAttachment = MentionAttachment(icon: mentionIcon, size: font.mentionType)
         let mentionAttachmentString = NSMutableAttributedString(attachment: mentionAttachment)
         mentionAttachmentString.addAttributes(iconAttributes, range: mentionAttachmentString.wholeRange)

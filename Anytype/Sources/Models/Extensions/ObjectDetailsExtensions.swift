@@ -66,6 +66,10 @@ extension BundledRelationsValueProvider {
     }
     
     var objectIconImage: ObjectIconImage? {
+        guard !isDeleted else {
+            return ObjectIconImage.staticImage(ImageName.ghost)
+        }
+        
         if let icon = icon {
             return .icon(icon)
         }
@@ -78,6 +82,10 @@ extension BundledRelationsValueProvider {
     }
     
     var objectType: ObjectType {
+        guard !isDeleted else {
+            return ObjectTypeProvider.defaultObjectType
+        }
+        
         let parsedType = ObjectTypeProvider.objectType(url: type)
         anytypeAssert(
             parsedType != nil,

@@ -29,7 +29,7 @@ struct ObjectRelationView: View {
             if shouldShowIcon(icon: option.icon) {
                 SwiftUIObjectIconImageView(
                     iconImage: option.icon,
-                    usecase: .mention(.body)
+                    usecase: style.objectIconImageUsecase
                 )
                     .frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
             }
@@ -37,7 +37,7 @@ struct ObjectRelationView: View {
             AnytypeText(
                 option.title,
                 style: .relation1Regular,
-                color: .textPrimary
+                color: option.isDeleted ? .textTertiary : .textPrimary
             )
                 .lineLimit(1)
         }

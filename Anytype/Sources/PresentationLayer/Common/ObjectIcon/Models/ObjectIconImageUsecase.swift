@@ -16,6 +16,8 @@ enum ObjectIconImageUsecase: Equatable {
     case mention(ObjectIconImageMentionType)
     case editorAccessorySearch
     
+    case featuredRelationsBlock
+    
     case setRow
 }
 
@@ -33,7 +35,7 @@ extension ObjectIconImageUsecase {
     
     var emojiBackgroundColor: UIColor {
         switch self {
-        case .openedObjectNavigationBar, .mention, .setRow:
+        case .openedObjectNavigationBar, .mention, .setRow, .featuredRelationsBlock:
             return .clear
         default:
             return .strokeTransperent

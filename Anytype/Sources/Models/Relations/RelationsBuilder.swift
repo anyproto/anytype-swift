@@ -311,7 +311,8 @@ private extension RelationsBuilder {
                     id: objectDetail.id,
                     icon: icon,
                     title: name,
-                    type: objectDetail.objectType.name
+                    type: objectDetail.objectType.name,
+                    isDeleted: objectDetail.isDeleted
                 )
             }
             
