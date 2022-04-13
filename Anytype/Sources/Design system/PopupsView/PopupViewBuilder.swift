@@ -19,7 +19,7 @@ final class PopupViewBuilder {
         return AnytypePopup(
             contentView: view,
             floatingPanelStyle: true,
-            configuration: .init(showGrabber: false, dismissOnBackdropView: false)
+            configuration: .init(isGrabberVisible: false, dismissOnBackdropView: false)
         )
     }
 }

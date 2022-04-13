@@ -29,7 +29,7 @@ struct WaitingPopupView_Previews: PreviewProvider {
     static var previews: some View {
         ZStack {
             Color.blue
-            DashboardLoadingAlert(text: "Progress...")
+            DashboardLoadingAlert(text: "Progress...".localized)
         }
     }
 }

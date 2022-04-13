@@ -8,7 +8,7 @@ import AnytypeCore
 final class AnytypePopup: FloatingPanelController {
 
     struct Configuration {
-        let showGrabber: Bool
+        let isGrabberVisible: Bool
         let dismissOnBackdropView: Bool
     }
         
@@ -112,7 +112,7 @@ private extension AnytypePopup {
         surfaceView.grabberHandlePadding = 6.0
         surfaceView.grabberHandleSize = CGSize(width: 48.0, height: 4.0)
         surfaceView.grabberHandle.backgroundColor = .strokePrimary
-        surfaceView.grabberHandle.isHidden = !configuration.showGrabber
+        surfaceView.grabberHandle.isHidden = !configuration.isGrabberVisible
 
         surfaceView.contentPadding = UIEdgeInsets(top: Constants.grabberHeight, left: 0, bottom: 0, right: 0)
         
@@ -156,7 +156,7 @@ extension AnytypePopup {
     enum Constants {
         static let grabberHeight: CGFloat = 16
         static let bottomInset: CGFloat = 44
-        static let defaultConifguration: Configuration = .init(showGrabber: true, dismissOnBackdropView: true)
+        static let defaultConifguration: Configuration = .init(isGrabberVisible: true, dismissOnBackdropView: true)
     }
     
 }

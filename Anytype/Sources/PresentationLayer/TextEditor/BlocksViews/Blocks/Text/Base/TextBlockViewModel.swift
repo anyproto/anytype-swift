@@ -20,7 +20,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let showPage: (EditorScreenData) -> Void
     private let openURL: (URL) -> Void
     private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
-    private let shouldShowWaitingView: (Bool, String) -> Void
+    private let showWaitingView: (String) -> Void
+    private let hideWaitingView: () -> Void
     
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
@@ -46,7 +47,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
         showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,
-        shouldShowWaitingView: @escaping (Bool, String) -> Void,
+        showWaitingView: @escaping (String) -> Void,
+        hideWaitingView: @escaping () -> Void,
         markdownListener: MarkdownListener,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     ) {
@@ -58,7 +60,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.showPage = showPage
         self.openURL = openURL
         self.showURLBookmarkPopup = showURLBookmarkPopup
-        self.shouldShowWaitingView = shouldShowWaitingView
+        self.showWaitingView = showWaitingView
+        self.hideWaitingView = hideWaitingView
         self.toggled = info.isToggled
         self.info = info
         self.markdownListener = markdownListener
@@ -96,9 +99,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 if pasteboardService.hasValidURL {
                     return true
                 }
-                shouldShowWaitingView(true, "Paste processing...".localized)
+                showWaitingView("Paste processing...".localized)
+
                 pasteboardService.pasteInsideBlock(focusedBlockId: blockId, range: range) {
-                    shouldShowWaitingView(false, "Paste processing...".localized)
+                    hideWaitingView()
                 }
                 return false
             },

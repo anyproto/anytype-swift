@@ -39,7 +39,8 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
 
-    func showWaitingView(_ shouldShow: Bool, text: String)
+    func showWaitingView(text: String)
+    func hideWaitingView()
     
     func goBack()
     
