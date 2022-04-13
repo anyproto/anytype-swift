@@ -4,7 +4,7 @@ import BlocksModels
 import Amplitude
 import AnytypeCore
 
-final class ObjectIconPickerViewModel: ObservableObject {
+final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewModelProtocol {
     
     let mediaPickerContentType: MediaPickerContentType = .images
 

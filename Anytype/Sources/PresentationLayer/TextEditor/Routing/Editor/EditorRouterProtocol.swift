@@ -25,6 +25,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCoverPicker()
     func showIconPicker()
     func showLayoutPicker()
+    func showTextIconPicker(contextId: BlockId, objectId: BlockId)
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())

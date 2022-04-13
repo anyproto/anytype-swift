@@ -96,6 +96,12 @@ final class BlockViewModelBuilder {
                     showURLBookmarkPopup: { [weak router] parameters in
                         router?.showLinkContextualMenu(inputParameters: parameters)
                     },
+                    showTextIconPicker: { [unowned router, unowned document] in
+                        router.showTextIconPicker(
+                            contextId: document.objectId,
+                            objectId: info.id
+                        )
+                    },
                     markdownListener: markdownListener,
                     focusSubject: subjectsHolder.focusSubject(for: info.id)
                 )

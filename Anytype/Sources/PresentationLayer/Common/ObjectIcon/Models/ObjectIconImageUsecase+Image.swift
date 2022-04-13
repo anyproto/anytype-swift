@@ -39,12 +39,12 @@ extension ObjectIconImageUsecase {
             )
         case .editorCalloutBlock:
             return ObjectIconImageGuidelineSet(
-                basicImageGuideline: BasicIconImageGuideline.x24,
-                profileImageGuideline: ProfileIconImageGuideline.x24,
-                emojiImageGuideline: EmojiIconImageGuideline.x24,
-                todoImageGuideline: TodoIconImageGuideline.x24,
+                basicImageGuideline: BasicIconImageGuideline.x20,
+                profileImageGuideline: ProfileIconImageGuideline.x20,
+                emojiImageGuideline: EmojiIconImageGuideline.x20,
+                todoImageGuideline: TodoIconImageGuideline.x20,
                 placeholderImageGuideline: nil,
-                staticImageGuideline: StaticImageGuideline.x24
+                staticImageGuideline: StaticImageGuideline.x20
             )
         case .dashboardList:
             return ObjectIconImageGuidelineSet(

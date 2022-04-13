@@ -60,13 +60,19 @@ enum TextBlockLeadingStyle {
         case .numbered:
             self = .numbered(configuration.content.number)
         case .callout:
-            let emoji = Emoji(configuration.content.iconEmoji) ?? .default
+            let objectIconImage: ObjectIconImage
+
+            if let hash = Hash(configuration.content.iconImage) {
+                objectIconImage = .icon(.basic(hash.value))
+            } else {
+                objectIconImage = .icon(.emoji(Emoji(configuration.content.iconEmoji) ?? .lamp))
+            }
 
             self = .callout(
                 .init(
                     onTap: {
                         configuration.actions.tapOnCalloutIcon()
-                    }, iconImageModel: .init(iconImage: .icon(.emoji(emoji)), usecase: .editorCalloutBlock)
+                    }, iconImageModel: .init(iconImage: objectIconImage, usecase: .editorCalloutBlock)
                 )
             )
         case .header, .header2, .header3, .header4, .code, .description, .text, .quote:
