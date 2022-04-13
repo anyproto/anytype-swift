@@ -25,7 +25,7 @@ final class HomeViewModel: ObservableObject {
     @Published var snackBarData = SnackBarData.empty
     @Published var loadingAlertData = LoadingAlertData.empty
     
-    @Published private(set) var profileData = HomeProfileData.empty
+    @Published private(set) var profileData: HomeProfileData?
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
@@ -185,6 +185,11 @@ extension HomeViewModel {
     func createAndShowNewPage() {
         guard let id = createNewPage() else { return }
         
+        showPage(id: id, viewType: .page)
+    }
+    
+    func showProfile() {
+        guard let id = profileData?.blockId else { return }
         showPage(id: id, viewType: .page)
     }
     
