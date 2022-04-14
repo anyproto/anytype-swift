@@ -77,5 +77,23 @@ final class TextService: TextServiceProtocol {
             .getValue(domain: .textService)?
             .send()
     }
+
+    func setTextIcon(
+        contextId: BlockId,
+        blockId: BlockId,
+        imageHash: String,
+        emojiUnicode: String
+    ) {
+        Anytype_Rpc.Block.Set.Text.Icon.Service.invoke(
+            contextID: contextId,
+            blockID: blockId,
+            iconImage: imageHash,
+            iconEmoji: emojiUnicode
+        )
+            .getValue(domain: .textService)
+            .map(\.event)
+            .map(EventsBunch.init)?
+            .send()
+    }
     
 }

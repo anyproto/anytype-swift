@@ -16,18 +16,21 @@ public struct BlockInformationMetadata: Hashable {
     public let parentIndentationStyle: [BlockIndentationStyle]
     public let backgroundColor: MiddlewareColor?
     public let indentationStyle: BlockIndentationStyle
+    public let calloutBackgroundColor: MiddlewareColor?
 
     public init(
         parentId: BlockId? = nil,
         parentBackgroundColors: [MiddlewareColor?] = [MiddlewareColor](),
         parentIndentationStyle: [BlockIndentationStyle] = [BlockIndentationStyle](),
         backgroundColor: MiddlewareColor?,
-        indentationStyle: BlockIndentationStyle
+        indentationStyle: BlockIndentationStyle,
+        calloutBackgroundColor: MiddlewareColor?
     ) {
         self.parentId = parentId
         self.parentBackgroundColors = parentBackgroundColors
         self.parentIndentationStyle = parentIndentationStyle
         self.backgroundColor = backgroundColor
         self.indentationStyle = indentationStyle
+        self.calloutBackgroundColor = calloutBackgroundColor
     }
 }

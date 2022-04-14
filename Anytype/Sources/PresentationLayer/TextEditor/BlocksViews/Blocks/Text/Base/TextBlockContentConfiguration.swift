@@ -30,6 +30,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
 
         let toggleCheckBox: () -> Void
         let toggleDropDown: () -> Void
+        let tapOnCalloutIcon: () -> Void
     }
 
     let blockId: BlockId

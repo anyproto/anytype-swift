@@ -886,6 +886,8 @@
 		C9D57023278C474E00F6DBB8 /* ComponentColors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C9D57022278C474E00F6DBB8 /* ComponentColors.xcassets */; };
 		C9D655E427B4D10D00E09F38 /* EditorContextualMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D655E327B4D10D00E09F38 /* EditorContextualMenu.swift */; };
 		C9E9F5E427FC7E7F008163D9 /* InsetConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E9F5E327FC7E7F008163D9 /* InsetConstraints.swift */; };
+		C9F0A4772805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F0A4762805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift */; };
+		C9F0A47D28057D8F00FA16DD /* TextIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F0A47C28057D8F00FA16DD /* TextIconPickerViewModel.swift */; };
 		C9F44C7F27E351400078E709 /* TextBlockLeadingViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F44C7E27E351400078E709 /* TextBlockLeadingViewBuilder.swift */; };
 		EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */; };
 		EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */; };
@@ -1885,6 +1887,8 @@
 		C9D57022278C474E00F6DBB8 /* ComponentColors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ComponentColors.xcassets; sourceTree = "<group>"; };
 		C9D655E327B4D10D00E09F38 /* EditorContextualMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorContextualMenu.swift; sourceTree = "<group>"; };
 		C9E9F5E327FC7E7F008163D9 /* InsetConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetConstraints.swift; sourceTree = "<group>"; };
+		C9F0A4762805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconPickerViewModelProtocol.swift; sourceTree = "<group>"; };
+		C9F0A47C28057D8F00FA16DD /* TextIconPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextIconPickerViewModel.swift; sourceTree = "<group>"; };
 		C9F44C7E27E351400078E709 /* TextBlockLeadingViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLeadingViewBuilder.swift; sourceTree = "<group>"; };
 		EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowInsetsProvider.swift; sourceTree = "<group>"; };
 		EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRestrictions.swift; sourceTree = "<group>"; };
@@ -2805,8 +2809,10 @@
 		120E818A26A05937006FE84E /* Icon */ = {
 			isa = PBXGroup;
 			children = (
+				C9F0A47B28057D6000FA16DD /* GenericIconPickerViewModel */,
 				3D44985926D57456005A3E06 /* ObjectIconPicker.swift */,
 				120E818D26A05946006FE84E /* ObjectIconPickerViewModel.swift */,
+				C9F0A4762805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift */,
 				129D787226945B6D00DA6757 /* ObjectProfileIconPicker.swift */,
 				12D94FD02678CD1F00F794EB /* ObjectBasicIconPicker.swift */,
 				3D89224C2680E0850023E705 /* Emoji */,
@@ -6054,6 +6060,14 @@
 			path = ContextualMenu;
 			sourceTree = "<group>";
 		};
+		C9F0A47B28057D6000FA16DD /* GenericIconPickerViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				C9F0A47C28057D8F00FA16DD /* TextIconPickerViewModel.swift */,
+			);
+			path = GenericIconPickerViewModel;
+			sourceTree = "<group>";
+		};
 		EA02611A2625B1DB00AE6D86 /* Restrictions */ = {
 			isa = PBXGroup;
 			children = (
@@ -6549,6 +6563,7 @@
 				125683F427DF8366003A8251 /* NewSearchView+AddButtonModel.swift in Sources */,
 				12AF69142656AB7D00C0BA99 /* UIImageViewExtensions.swift in Sources */,
 				12E15B89270B2FAE0055EA01 /* BlockActionHandlerProtocol.swift in Sources */,
+				C9F0A47D28057D8F00FA16DD /* TextIconPickerViewModel.swift in Sources */,
 				120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */,
 				12A52E3426CAA6EE000F0333 /* TouchGestureRecognizer.swift in Sources */,
 				129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */,
@@ -6998,6 +7013,7 @@
 				120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */,
 				3DE0CFD826F8593D003A606A /* SlashAction.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* CustomTextView.swift in Sources */,
+				C9F0A4772805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift in Sources */,
 				538EF48725F831AA005C7438 /* NSAttributedStringExtension.swift in Sources */,
 				125E75E526CD199A000AF4E9 /* EditorNavigationBarTitleView.swift in Sources */,
 				539E019727582AA300067A24 /* RelationNameValueView.swift in Sources */,
