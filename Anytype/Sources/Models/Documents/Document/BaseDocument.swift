@@ -40,7 +40,7 @@ final class BaseDocument: BaseDocumentProtocol {
         self.objectId = objectId
         
         self.eventsListener = EventsListener(
-            objectId: objectId.value,
+            objectId: objectId,
             infoContainer: infoContainer,
             relationStorage: relationsStorage,
             restrictionsContainer: restrictionsContainer
