@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 import BlocksModels
-
+import AnytypeCore
 
 final class ServiceLocator {
     static let shared = ServiceLocator()
@@ -50,7 +50,7 @@ final class ServiceLocator {
         SearchService()
     }
     
-    func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
+    func detailsService(objectId: AnytypeId) -> DetailsServiceProtocol {
         DetailsService(objectId: objectId, service: objectActionsService())
     }
     
