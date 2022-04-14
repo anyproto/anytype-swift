@@ -62,7 +62,7 @@ extension ObjectCoverPickerViewModel {
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: ObjectHeaderImageUploadingWorker(
-                objectId: document.objectId,
+                objectId: document.objectId.value,
                 detailsService: detailsService,
                 usecase: .cover
             )
@@ -73,7 +73,7 @@ extension ObjectCoverPickerViewModel {
     func uploadUnplashCover(unsplashItem: UnsplashItem) {
         Amplitude.instance().logEvent(AmplitudeEventsName.setCover)
         EventsBunch(
-            contextId: document.objectId,
+            contextId: document.objectId.value,
             localEvents: [unsplashItem.updateEvent]
         ).send()
 

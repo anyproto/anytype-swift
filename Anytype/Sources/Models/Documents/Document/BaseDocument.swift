@@ -2,10 +2,9 @@ import BlocksModels
 import Combine
 import AnytypeCore
 
-
 final class BaseDocument: BaseDocumentProtocol {
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
-    let objectId: BlockId
+    let objectId: AnytypeId
     private(set) var isOpened = false
 
     let infoContainer: InfoContainerProtocol = InfoContainer()
@@ -15,7 +14,7 @@ final class BaseDocument: BaseDocumentProtocol {
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
 
     var isLocked: Bool {
-        guard let isLockedField = infoContainer.get(id: objectId)?
+        guard let isLockedField = infoContainer.get(id: objectId.value)?
                 .fields[BlockFieldBundledKey.isLocked.rawValue],
               case let .boolValue(isLocked) = isLockedField.kind else {
             return false
@@ -33,21 +32,21 @@ final class BaseDocument: BaseDocumentProtocol {
     var parsedRelations: ParsedRelations {
         relationBuilder.parsedRelations(
             relationMetadatas: relationsStorage.relations,
-            objectId: objectId
+            objectId: objectId.value
         )
     }
         
-    init(objectId: BlockId) {
+    init(objectId: AnytypeId) {
         self.objectId = objectId
         
         self.eventsListener = EventsListener(
-            objectId: objectId,
+            objectId: objectId.value,
             infoContainer: infoContainer,
             relationStorage: relationsStorage,
             restrictionsContainer: restrictionsContainer
         )
         
-        self.blockActionsService = ServiceLocator.shared.blockActionsServiceSingle(contextId: objectId)
+        self.blockActionsService = ServiceLocator.shared.blockActionsServiceSingle(contextId: objectId.value)
         
         setup()
     }
@@ -69,11 +68,11 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     var details: ObjectDetails? {
-        detailsStorage.get(id: objectId)
+        detailsStorage.get(id: objectId.value)
     }
     
     var children: [BlockInformation] {
-        guard let model = infoContainer.get(id: objectId) else {
+        guard let model = infoContainer.get(id: objectId.value) else {
             anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)
             return []
         }

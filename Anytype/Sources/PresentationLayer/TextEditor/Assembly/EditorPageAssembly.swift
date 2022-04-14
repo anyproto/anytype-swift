@@ -32,7 +32,7 @@ final class EditorAssembly {
     
     // MARK: - Set
     private func buildSetModule(pageId: AnytypeId) -> (EditorSetHostingController, EditorRouterProtocol) {
-        let document = BaseDocument(objectId: pageId.value)
+        let document = BaseDocument(objectId: pageId)
         let model = EditorSetViewModel(document: document)
         let controller = EditorSetHostingController(objectId: pageId.value, model: model)
         
@@ -54,7 +54,7 @@ final class EditorAssembly {
         let blocksSelectionOverlayView = buildBlocksSelectionOverlayView()
 
         let controller = EditorPageController(blocksSelectionOverlayView: blocksSelectionOverlayView)
-        let document = BaseDocument(objectId: pageId.value)
+        let document = BaseDocument(objectId: pageId)
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
@@ -84,10 +84,10 @@ final class EditorAssembly {
         
         let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
         let cursorManager = EditorCursorManager()
-        let listService = BlockListService(contextId: document.objectId)
-        let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId)
+        let listService = BlockListService(contextId: document.objectId.value)
+        let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId.value)
         let blockActionService = BlockActionService(
-            documentId: document.objectId,
+            documentId: document.objectId.value,
             listService: listService,
             singleService: singleService,
             modelsHolder: modelsHolder,
@@ -142,7 +142,7 @@ final class EditorAssembly {
         
         let headerModel = ObjectHeaderViewModel(document: document, router: router)
         let blockActionsServiceSingle = ServiceLocator.shared
-            .blockActionsServiceSingle(contextId: document.objectId)
+            .blockActionsServiceSingle(contextId: document.objectId.value)
 
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,

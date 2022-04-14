@@ -5,7 +5,7 @@ final class ObjectSettingAssembly {
     func settingsPopup(document: BaseDocumentProtocol, router: EditorRouterProtocol) -> UIViewController {
         let viewModel = ObjectSettingsViewModel(
             document: document,
-            objectDetailsService: ServiceLocator.shared.detailsService(objectId: document.objectId),
+            objectDetailsService: ServiceLocator.shared.detailsService(objectId: document.objectId.value),
             router: router
         )
         let popup = AnytypePopup(viewModel: viewModel, floatingPanelStyle: true)
@@ -18,7 +18,7 @@ final class ObjectSettingAssembly {
         let viewModel = ObjectCoverPickerViewModel(
             document: document,
             fileService: ServiceLocator.shared.fileService(),
-            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
+            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId.value)
         )
         
         let controller = UIHostingController(
@@ -36,7 +36,7 @@ final class ObjectSettingAssembly {
         let viewModel = ObjectIconPickerViewModel(
             document: document,
             fileService: ServiceLocator.shared.fileService(),
-            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
+            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId.value)
         )
         
         let controller = UIHostingController(
@@ -55,7 +55,7 @@ final class ObjectSettingAssembly {
     func layoutPicker(document: BaseDocumentProtocol) -> UIViewController {
         let viewModel = ObjectLayoutPickerViewModel(
             document: document,
-            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
+            detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId.value)
         )
         return AnytypePopup(viewModel: viewModel)
     }

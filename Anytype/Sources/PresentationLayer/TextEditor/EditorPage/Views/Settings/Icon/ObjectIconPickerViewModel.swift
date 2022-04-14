@@ -70,7 +70,7 @@ extension ObjectIconPickerViewModel {
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: ObjectHeaderImageUploadingWorker(
-                objectId: document.objectId,
+                objectId: document.objectId.value,
                 detailsService: detailsService,
                 usecase: .icon
             )

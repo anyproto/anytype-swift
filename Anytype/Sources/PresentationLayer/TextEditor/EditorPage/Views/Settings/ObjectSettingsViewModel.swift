@@ -49,11 +49,11 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
 
         self.relationsViewModel = RelationsListViewModel(
             router: router,
-            relationsService: RelationsService(objectId: document.objectId)
+            relationsService: RelationsService(objectId: document.objectId.value)
         )
 
         self.objectActionsViewModel = ObjectActionsViewModel(
-            objectId: document.objectId,
+            objectId: document.objectId.value,
             popScreenAction: { [weak router] in
                 router?.goBack()
             }
