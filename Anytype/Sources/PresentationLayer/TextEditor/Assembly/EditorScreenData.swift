@@ -5,7 +5,7 @@ enum EditorViewType: String {
     case set
 }
 
-struct EditorScreenData {
+struct EditorScreenData: Hashable {
     let pageId: BlockId
     let type: EditorViewType
     
