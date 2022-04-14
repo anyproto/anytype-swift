@@ -1,7 +1,7 @@
 import BlocksModels
 import AnytypeCore
 
-struct SetTableViewRowData: Identifiable {
+struct SetTableViewRowData: Identifiable, Hashable {
     let id: BlockId
     let title: String
     let icon: ObjectIconImage?
