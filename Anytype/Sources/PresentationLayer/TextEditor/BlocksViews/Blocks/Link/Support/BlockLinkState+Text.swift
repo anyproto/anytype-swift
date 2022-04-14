@@ -22,7 +22,7 @@ extension BlockLinkState {
     }
 
     var attributedDescription: NSAttributedString {
-        guard !deleted, hasDescription else {
+        guard !deleted, hasDescription, description.isNotEmpty else {
             return NSAttributedString(string: .empty)
         }
 
