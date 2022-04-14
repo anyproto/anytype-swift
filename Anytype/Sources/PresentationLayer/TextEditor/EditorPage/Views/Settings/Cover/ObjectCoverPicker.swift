@@ -54,9 +54,9 @@ struct ObjectCoverPicker: View {
             ItemPickerGridView(viewModel: CoverColorsGridViewModel { cover in
                 switch cover {
                 case let .color(color):
-                    viewModel.setColor(color.name)
+                    viewModel.setColor(color.data.name)
                 case let .gradient(gradient):
-                    viewModel.setGradient(gradient.name)
+                    viewModel.setGradient(gradient.data.name)
                 }
                 dismiss()
                 }
