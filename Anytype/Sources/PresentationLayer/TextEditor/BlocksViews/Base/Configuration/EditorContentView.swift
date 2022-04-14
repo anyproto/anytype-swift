@@ -107,7 +107,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         selectionView.updateStyle(isSelected: state.isSelected)
 
         isUserInteractionEnabled = state.isEditing
-
+        viewDragInteraction.isEnabled = !state.isLocked
         if state.isMoving {
             backgroundColor = UIColor.Background.blue
         } else {
@@ -120,7 +120,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     private func setupDragInteraction() {
         guard dragConfiguration != nil, viewDragInteraction.view == nil else { return }
 
-        viewDragInteraction.isEnabled = true
+        viewDragInteraction.isEnabled = currentConfigurationState.map { $0.isLocked } ?? true
         contentStackView.addInteraction(viewDragInteraction)
     }
 
@@ -175,7 +175,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
             : IndentationConstants.indentationWidth
 
 
-            if case let .highlighted = $0.element.indentationStyle {
+            if case .highlighted = $0.element.indentationStyle {
                 addIndentationStyleView(style: $0.element.indentationStyle, leadingPadding: leadingInset)
             }
 
