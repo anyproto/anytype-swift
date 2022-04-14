@@ -2,8 +2,12 @@ import Amplitude
 import BlocksModels
 import UIKit
 
+
+
+
 extension Amplitude {
     func logAccountCreate(_ accountId: String) {
+
         logEvent(
             AmplitudeEventsName.createAccount,
             withEventProperties: [AmplitudeEventsPropertiesKey.accountId : accountId]
