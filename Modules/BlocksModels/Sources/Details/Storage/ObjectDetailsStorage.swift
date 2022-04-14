@@ -26,7 +26,7 @@ public final class ObjectDetailsStorage {
             return nil
         }
         
-        let currentDetails = get(id: id) ?? ObjectDetails.empty(id: id.value)
+        let currentDetails = get(id: id) ?? ObjectDetails(id: id.value)
         let updatedDetails = currentDetails.updated(by: data.details.fields)
         
         add(details: updatedDetails)
@@ -60,7 +60,7 @@ public final class ObjectDetailsStorage {
     }
     
     public func amend(id: BlockId, values: [String: Google_Protobuf_Value]) -> ObjectDetails {
-        let currentDetails = get(id: id.asAnytypeId!) ?? ObjectDetails.empty(id: id)
+        let currentDetails = get(id: id.asAnytypeId!) ?? ObjectDetails(id: id)
         let updatedDetails = currentDetails.updated(by: values)
         add(details: updatedDetails)
         return updatedDetails

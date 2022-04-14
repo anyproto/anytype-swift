@@ -12,9 +12,15 @@ public struct ObjectDetails: Hashable, BundledRelationsValueProvider {
         self.values = values
     }
     
-    public static func empty(id: BlockId) -> ObjectDetails {
-        ObjectDetails(id: id, values: [:])
+}
+
+public extension ObjectDetails {
+    
+    public init(id: BlockId) {
+        self.id = id
+        self.values = [:]
     }
+    
 }
 
 public extension ObjectDetails {
