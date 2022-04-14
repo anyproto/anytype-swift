@@ -3,20 +3,23 @@ import Combine
 import BlocksModels
 import ProtobufMessages
 import Amplitude
+import AnytypeCore
 
-
-class DashboardService: DashboardServiceProtocol {
+final class DashboardService: DashboardServiceProtocol {
+    
     private let objectsService = ServiceLocator.shared.objectActionsService()
     
-    func createNewPage() -> BlockId? {
+    func createNewPage() -> AnytypeID? {
         let defaultTypeUrl = ObjectTypeProvider.defaultObjectType.url
-
-        return objectsService.createPage(
+        let id = objectsService.createPage(
             contextId: "",
             targetId: "",
             details: [.name(""), .isDraft(true), .type(.dynamic(defaultTypeUrl))],
             position: .bottom,
             templateId: ""
         )
+        
+        return id?.asAnytypeID
     }
+    
 }

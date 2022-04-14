@@ -11,4 +11,9 @@ public extension String {
     var replacedNewlinesWithSpaces: String {
         String(components(separatedBy: .newlines).joined(separator: " "))
     }
+    
+    var asAnytypeID: AnytypeID? {
+        AnytypeID(self)
+    }
+    
 }

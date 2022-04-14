@@ -74,7 +74,7 @@ struct HomeTabsView: View {
                 dragAndDropDelegate: model,
                 offsetChanged: offsetChanged,
                 onTap: { data in
-                    model.showPage(pageId: data.destinationId, viewType: data.viewType)
+                    model.tryShowPage(id: data.destinationId, viewType: data.viewType)
                 }
             )
             .tag(Tab.favourites)
@@ -84,7 +84,7 @@ struct HomeTabsView: View {
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
                 onTap: { data in
-                    model.showPage(pageId: data.destinationId, viewType: data.viewType)
+                    model.tryShowPage(id: data.destinationId, viewType: data.viewType)
                 }
             )
             .tag(Tab.history)
@@ -94,7 +94,7 @@ struct HomeTabsView: View {
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
                 onTap: { data in
-                    model.showPage(pageId: data.destinationId, viewType: data.viewType)
+                    model.tryShowPage(id: data.destinationId, viewType: data.viewType)
                 }
             )
             .tag(Tab.sets)
@@ -105,7 +105,7 @@ struct HomeTabsView: View {
                     dragAndDropDelegate: nil, // no dnd
                     offsetChanged: offsetChanged,
                     onTap: { data in
-                        model.showPage(pageId: data.destinationId, viewType: data.viewType)
+                        model.tryShowPage(id: data.destinationId, viewType: data.viewType)
                     }
                 )
                 .tag(Tab.shared)
