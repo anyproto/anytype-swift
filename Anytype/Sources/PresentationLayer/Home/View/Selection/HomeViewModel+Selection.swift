@@ -10,7 +10,7 @@ extension HomeViewModel {
     
     func selectAll(_ select: Bool) {
         if select {
-            binCellData.forEach { selectedPageIds.update(with: $0.id) }
+            binCellData.forEach { selectedPageIds.update(with: $0.id.value) }
         } else {
             selectedPageIds = []
         }
@@ -22,10 +22,10 @@ extension HomeViewModel {
             return
         }
         
-        if selectedPageIds.contains(data.id) {
-            selectedPageIds.remove(data.id)
+        if selectedPageIds.contains(data.id.value) {
+            selectedPageIds.remove(data.id.value)
         } else {
-            selectedPageIds.update(with: data.id)
+            selectedPageIds.update(with: data.id.value)
         }
     }
     

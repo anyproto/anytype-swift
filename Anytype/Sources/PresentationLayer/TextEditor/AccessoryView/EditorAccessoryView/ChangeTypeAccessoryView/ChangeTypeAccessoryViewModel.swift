@@ -42,7 +42,7 @@ final class ChangeTypeAccessoryViewModel {
         let supportedTypes = searchService
             .searchObjectTypes(text: "", filteringTypeUrl: nil)?
             .map { object in
-                TypeItem(from: object, handler: { [weak handler] in handler?.setObjectTypeUrl(object.id) })
+                TypeItem(from: object, handler: { [weak handler] in handler?.setObjectTypeUrl(object.id.value) })
             }
 
         supportedTypes.map { allSupportedTypes = $0 }

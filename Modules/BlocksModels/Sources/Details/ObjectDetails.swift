@@ -4,10 +4,10 @@ import SwiftProtobuf
 
 public struct ObjectDetails: Hashable, BundledRelationsValueProvider {
     
-    public let id: String
+    public let id: AnytypeId
     public let values: [String: Google_Protobuf_Value]
     
-    public init(id: String, values: [String: Google_Protobuf_Value]) {
+    public init(id: AnytypeId, values: [String: Google_Protobuf_Value]) {
         self.id = id
         self.values = values
     }
@@ -16,7 +16,7 @@ public struct ObjectDetails: Hashable, BundledRelationsValueProvider {
 
 public extension ObjectDetails {
     
-    public init(id: BlockId) {
+    init(id: AnytypeId) {
         self.id = id
         self.values = [:]
     }

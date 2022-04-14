@@ -2,12 +2,11 @@ import Foundation
 import Combine
 import BlocksModels
 
-
 final class ObjectActionsViewModel: ObservableObject {
     private let service = ServiceLocator.shared.objectActionsService()
     private let objectId: BlockId
 
-    @Published var details: ObjectDetails = ObjectDetails(id: "", values: [:]) {
+    @Published var details: ObjectDetails = ObjectDetails(id: "".asAnytypeId!, values: [:]) {
         didSet {
             objectActions = ObjectAction.allCasesWith(
                 details: details,

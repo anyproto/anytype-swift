@@ -17,12 +17,10 @@ extension HomeProfileData {
 
 extension HomeProfileData {
     
-    init?(details: ObjectDetails) {
-        guard let id = details.id.asAnytypeId else { return nil }
-        
+    init(details: ObjectDetails) {        
         name = details.name.isNotEmpty ? details.name : Self.defaultName
         avatarId = details.iconImageHash
-        blockId = id
+        blockId = details.id
     }
     
 }

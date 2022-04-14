@@ -89,7 +89,7 @@ final class MiddlewareEventConverter {
         
         case let .objectDetailsSet(data):
             guard let details = detailsStorage.set(data: data) else { return nil }
-            return .details(id: details.id)
+            return .details(id: details.id.value)
             
         case let .objectDetailsAmend(data):
             guard let id = data.id.asAnytypeId else { return nil }
@@ -115,7 +115,7 @@ final class MiddlewareEventConverter {
             
         case let .objectDetailsUnset(data):
             guard let details = detailsStorage.unset(data: data) else { return nil }
-            return .details(id: details.id)
+            return .details(id: details.id.value)
             
         case .objectRelationsSet(let set):
             relationStorage.set(
@@ -259,8 +259,10 @@ final class MiddlewareEventConverter {
             let parsedBlocks = data.blocks.compactMap {
                 BlockInformationConverter.convert(block: $0)
             }
-            let parsedDetails = data.details.map {
-                ObjectDetails(id: $0.id, values: $0.details.fields)
+            
+            let parsedDetails: [ObjectDetails] = data.details.compactMap {
+                guard let id = $0.id.asAnytypeId else { return nil }
+                return ObjectDetails(id: id, values: $0.details.fields)
             }
 
 

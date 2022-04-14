@@ -26,7 +26,7 @@ final class SetTableViewDataBuilder {
                 .filter { $0.option.isVisible == true }
                 .map { $0.metadata }
             let parsedRelations = relationsBuilder
-                .parsedRelations(relationMetadatas: metadata, objectId: details.id)
+                .parsedRelations(relationMetadatas: metadata, objectId: details.id.value)
                 .all
             
             let sortedRelations = colums.compactMap { colum in
@@ -42,14 +42,10 @@ final class SetTableViewDataBuilder {
                 return relation
             }
             
-            guard let id = details.id.asAnytypeId else {
-                return nil
-            }
-            
-            let screenData = EditorScreenData(pageId: id, type: details.editorViewType)
+            let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
             
             return SetTableViewRowData(
-                id: details.id,
+                id: details.id.value,
                 title: details.title,
                 icon: details.objectIconImage,
                 relations: relations,

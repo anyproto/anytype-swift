@@ -13,7 +13,7 @@ public final class ObjectDetailsStorage {
     }
     
     public func add(details: ObjectDetails) {
-        storage[details.id.asAnytypeId!] = details
+        storage[details.id] = details
     }
     
     public func set(data: Anytype_Event.Object.Details.Set) -> ObjectDetails? {
@@ -26,7 +26,7 @@ public final class ObjectDetailsStorage {
             return nil
         }
         
-        let currentDetails = get(id: id) ?? ObjectDetails(id: id.value)
+        let currentDetails = get(id: id) ?? ObjectDetails(id: id)
         let updatedDetails = currentDetails.updated(by: data.details.fields)
         
         add(details: updatedDetails)
@@ -51,7 +51,7 @@ public final class ObjectDetailsStorage {
     }
     
     public func amend(data: Anytype_Event.Object.Details.Amend) -> ObjectDetails {
-        return amend(id: data.id, values: data.details.asDetailsDictionary)
+        return amend(id: data.id.asAnytypeId!, values: data.details.asDetailsDictionary)
     }
     
     @discardableResult
@@ -59,8 +59,8 @@ public final class ObjectDetailsStorage {
         return amend(id: details.id, values: details.values)
     }
     
-    public func amend(id: BlockId, values: [String: Google_Protobuf_Value]) -> ObjectDetails {
-        let currentDetails = get(id: id.asAnytypeId!) ?? ObjectDetails(id: id)
+    public func amend(id: AnytypeId, values: [String: Google_Protobuf_Value]) -> ObjectDetails {
+        let currentDetails = get(id: id) ?? ObjectDetails(id: id)
         let updatedDetails = currentDetails.updated(by: values)
         add(details: updatedDetails)
         return updatedDetails

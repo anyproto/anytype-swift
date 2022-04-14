@@ -59,9 +59,8 @@ extension TextBlockContentView: CustomTextViewDelegate {
         }
         
         if !details.isArchived && !details.isDeleted {
-            guard let id = details.id.asAnytypeId else { return }
             actions?.showPage(
-                EditorScreenData(pageId: id, type: details.editorViewType)
+                EditorScreenData(pageId: details.id, type: details.editorViewType)
             )
         }
     }

@@ -310,7 +310,7 @@ private extension RelationsBuilder {
                 }()
                 
                 return Relation.Object.Option(
-                    id: objectDetail.id,
+                    id: objectDetail.id.value,
                     icon: icon,
                     title: name,
                     type: objectDetail.objectType.name,
@@ -377,7 +377,7 @@ private extension RelationsBuilder {
                 }()
                 
                 return Relation.File.Option(
-                    id: objectDetail.id,
+                    id: objectDetail.id.value,
                     icon: icon,
                     title: fileName
                 )
