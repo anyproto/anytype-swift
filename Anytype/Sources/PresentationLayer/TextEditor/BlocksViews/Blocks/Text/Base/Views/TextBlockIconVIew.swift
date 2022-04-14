@@ -214,8 +214,8 @@ extension TextBlockIconView {
 
         iconView.configure(model: model)
 
-        let action = UIAction { action in
-            self.action?()
+        let action = UIAction { [weak self] action in
+            self?.action?()
         }
 
         let button = UIButton()

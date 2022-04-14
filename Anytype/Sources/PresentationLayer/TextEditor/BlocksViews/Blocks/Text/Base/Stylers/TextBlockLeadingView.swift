@@ -48,7 +48,6 @@ final class TextBlockLeadingView: UIView {
 
             addSubview(innerView) {
                 $0.pinToSuperview(
-                    excluding: [.bottom],
                     insets: .init(
                         top: 0,
                         left: 12,
