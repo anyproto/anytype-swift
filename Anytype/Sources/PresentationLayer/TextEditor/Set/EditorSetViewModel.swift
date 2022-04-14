@@ -31,9 +31,10 @@ final class EditorSetViewModel: ObservableObject {
         dataBuilder.sortedRelations(dataview: dataView, view: activeView)
     }
  
-    var details: ObjectDetails {
-        document.details ?? .empty
+    var details: ObjectDetails? {
+        document.details
     }
+    
     var featuredRelations: [Relation] {
         document.featuredRelationsForEditor
     }

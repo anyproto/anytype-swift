@@ -13,15 +13,12 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     }
     
     var settings: [ObjectSetting] {
-        settingsBuilder.build(
+        guard let details = document.details else { return [] }
+        return settingsBuilder.build(
             details: details,
             restrictions: objectActionsViewModel.objectRestrictions,
             isLocked: document.isLocked
         )
-    }
-    
-    var details: ObjectDetails {
-        document.details ?? .empty
     }
     
     let objectActionsViewModel: ObjectActionsViewModel

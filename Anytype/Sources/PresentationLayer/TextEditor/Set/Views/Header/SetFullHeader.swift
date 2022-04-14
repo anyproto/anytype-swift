@@ -19,9 +19,11 @@ struct SetFullHeader: View {
             
             cover
             
-            AnytypeText(model.details.title, style: .title, color: .textPrimary)
-                .fixedSize(horizontal: false, vertical: true)
-                .padding(.horizontal, 20)
+            model.details.flatMap {
+                AnytypeText($0.title, style: .title, color: .textPrimary)
+                    .fixedSize(horizontal: false, vertical: true)
+                    .padding(.horizontal, 20)
+            }
             
             description
             
@@ -34,9 +36,9 @@ struct SetFullHeader: View {
     
     private var description: some View {
         Group {
-            if model.details.description.isNotEmpty {
+            if let description = model.details?.description, description.isNotEmpty {
                 Spacer.fixedHeight(6)
-                AnytypeText(model.details.description, style: .relation2Regular, color: .textPrimary)
+                AnytypeText(description, style: .relation2Regular, color: .textPrimary)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(.horizontal, 20)
             } else {
