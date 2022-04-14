@@ -36,7 +36,10 @@ final class RelationsBuilder {
         relationMetadatas: [RelationMetadata],
         objectId: BlockId
     ) -> ParsedRelations {
-        guard let objectDetails = storage.get(id: objectId) else {
+        guard
+            let id = objectId.asAnytypeId,
+            let objectDetails = storage.get(id: id)
+        else {
             return .empty
         }
         
@@ -291,8 +294,7 @@ private extension RelationsBuilder {
             }()
             
             let objectDetails: [ObjectDetails] = values.compactMap {
-                let objectId = $0.stringValue
-                guard objectId.isNotEmpty else { return nil }
+                guard let objectId = $0.stringValue.asAnytypeId else { return nil }
                 let objectDetails = storage.get(id: objectId)
                 return objectDetails
             }
@@ -341,9 +343,7 @@ private extension RelationsBuilder {
             guard let value = value else { return [] }
             
             let objectDetails: [ObjectDetails] = value.listValue.values.compactMap {
-                let objectId = $0.stringValue
-                guard objectId.isNotEmpty else { return nil }
-                
+                guard let objectId = $0.stringValue.asAnytypeId else { return nil }
                 let objectDetails = storage.get(id: objectId)
                 return objectDetails
             }

@@ -68,7 +68,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     var details: ObjectDetails? {
-        detailsStorage.get(id: objectId.value)
+        detailsStorage.get(id: objectId)
     }
     
     var children: [BlockInformation] {

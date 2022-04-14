@@ -151,7 +151,9 @@ final class BlockViewModelBuilder {
                 }
             )
         case let .link(content):
-            let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID)
+            guard let id = content.targetBlockID.asAnytypeId else { return nil }
+            
+            let details = ObjectDetailsStorage.shared.get(id: id)
             return BlockLinkViewModel(
                 info: info,
                 content: content,

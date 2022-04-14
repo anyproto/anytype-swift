@@ -40,7 +40,8 @@ final class HomeCellDataBuilder {
             return nil
         }
         
-        let details = ObjectDetailsStorage.shared.get(id: link.targetBlockID)
+        guard let id = link.targetBlockID.asAnytypeId else { return nil }
+        let details = ObjectDetailsStorage.shared.get(id: id)
         return HomePageLink(
             blockId: info.id,
             targetBlockId: link.targetBlockID,

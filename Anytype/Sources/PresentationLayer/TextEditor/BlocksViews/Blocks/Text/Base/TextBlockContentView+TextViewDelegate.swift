@@ -50,7 +50,10 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func showPage(blockId: BlockId) {
-        guard let details = ObjectDetailsStorage.shared.get(id: blockId) else {
+        guard
+            let id = blockId.asAnytypeId,
+            let details = ObjectDetailsStorage.shared.get(id: id)
+        else {
             // Deleted objects goes here
             return
         }
