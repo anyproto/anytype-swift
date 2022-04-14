@@ -50,7 +50,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         )
 
         self.objectActionsViewModel = ObjectActionsViewModel(
-            objectId: document.objectId.value,
+            objectId: document.objectId,
             popScreenAction: { [weak router] in
                 router?.goBack()
             }

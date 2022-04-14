@@ -1,11 +1,13 @@
 import Foundation
 import Combine
 import BlocksModels
+import AnytypeCore
 
 final class ObjectActionsViewModel: ObservableObject {
+    
+    private let objectId: AnytypeId
     private let service = ServiceLocator.shared.objectActionsService()
-    private let objectId: BlockId
-
+    
     @Published var details: ObjectDetails = ObjectDetails(id: "".asAnytypeId!, values: [:]) {
         didSet {
             objectActions = ObjectAction.allCasesWith(
@@ -38,14 +40,14 @@ final class ObjectActionsViewModel: ObservableObject {
     let popScreenAction: () -> ()
     var dismissSheet: () -> () = {}
     
-    init(objectId: String, popScreenAction: @escaping () -> ()) {
+    init(objectId: AnytypeId, popScreenAction: @escaping () -> ()) {
         self.objectId = objectId
         self.popScreenAction = popScreenAction
     }
 
     func changeArchiveState() {
         let isArchived = !details.isArchived
-        service.setArchive(objectId: objectId, isArchived)
+        service.setArchive(objectId: objectId.value, isArchived)
         if isArchived {
             popScreenAction()
             dismissSheet()
@@ -53,11 +55,11 @@ final class ObjectActionsViewModel: ObservableObject {
     }
 
     func changeFavoriteSate() {
-        service.setFavorite(objectId: objectId, !details.isFavorite)
+        service.setFavorite(objectId: objectId.value, !details.isFavorite)
     }
 
     func changeLockState() {
-        service.setLocked(!isLocked, objectId: objectId)
+        service.setLocked(!isLocked, objectId: objectId.value)
     }
 
     func moveTo() {
