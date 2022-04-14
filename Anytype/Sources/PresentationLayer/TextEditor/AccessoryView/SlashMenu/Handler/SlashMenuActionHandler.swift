@@ -57,7 +57,7 @@ final class SlashMenuActionHandler {
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
-        actionHandler.changeTextForced(text, blockId: info.id)
+        actionHandler.changeTextForced(text, blockId: info.id.value)
     }
     
     private func handleAlignment(_ alignment: SlashActionAlignment, blockId: BlockId) {

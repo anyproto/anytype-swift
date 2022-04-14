@@ -40,7 +40,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         return BlockLinkContentConfiguration(state: state, backgroundColor: backgroundColor)
             .cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+                dragConfiguration: .init(id: info.id.value)
             )
     }
     

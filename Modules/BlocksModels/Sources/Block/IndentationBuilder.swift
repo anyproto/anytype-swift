@@ -13,7 +13,7 @@ public enum IndentationBuilder {
         if let parent = container.get(id: id) {
 
             parent.childrenIds.forEach { childrenId in
-                guard var child = container.get(id: childrenId) else { return }
+                guard var child = container.get(id: childrenId.value) else { return }
 
                 let indentationStyles = parentIndentationStyles(
                     child: child,
@@ -23,7 +23,7 @@ public enum IndentationBuilder {
 
                 child = child.updated(
                     metadata: BlockInformationMetadata(
-                        parentId: parent.id,
+                        parentId: parent.id.value,
                         parentBackgroundColors: parentBackgroundColors(child: child, parent: parent),
                         parentIndentationStyle: indentationStyles,
                         backgroundColor: child.backgroundColor,
@@ -34,7 +34,7 @@ public enum IndentationBuilder {
                 container.add(child)
                 privateBuild(
                     container: container,
-                    id: childrenId,
+                    id: childrenId.value,
                     indentationRecursionData: indentationRecursionData
                 )
             }
@@ -70,9 +70,9 @@ public enum IndentationBuilder {
     ) -> [BlockIndentationStyle] {
         var previousIndentationStyles = parent.configurationData.parentIndentationStyle
 
-        if let closingBlocks = indentationRecursion.childBlockIdToClosingIndexes[child.id] {
+        if let closingBlocks = indentationRecursion.childBlockIdToClosingIndexes[child.id.value] {
             if child.childrenIds.count > 0, let last = child.childrenIds.last {
-                closingBlocks.forEach { indentationRecursion.addClosing(for: last, at: $0) }
+                closingBlocks.forEach { indentationRecursion.addClosing(for: last.value, at: $0) }
             } else {
                 closingBlocks.forEach { index in
                     previousIndentationStyles[index] = .highlighted(.closing)
@@ -90,7 +90,7 @@ public enum IndentationBuilder {
                 isLastChild,
                 child.childrenIds.count > 0,
                 let lastChildId = child.childrenIds.last {
-                indentationRecursion.addClosing(for: lastChildId, at: previousIndentationStyles.count)
+                indentationRecursion.addClosing(for: lastChildId.value, at: previousIndentationStyles.count)
             }
 
             previousIndentationStyles.append(indentationStyle)

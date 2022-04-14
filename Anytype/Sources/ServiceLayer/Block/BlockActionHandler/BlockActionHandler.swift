@@ -162,10 +162,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
         EventsBunch(
             contextId: document.objectId.value,
-            localEvents: [.setText(blockId: info.id, text: middlewareString)]
+            localEvents: [.setText(blockId: info.id.value, text: middlewareString)]
         ).send()
 
-        service.setTextForced(contextId: document.objectId.value, blockId: info.id, middlewareString: middlewareString)
+        service.setTextForced(contextId: document.objectId.value, blockId: info.id.value, middlewareString: middlewareString)
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
@@ -175,10 +175,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
 
         EventsBunch(
             contextId: document.objectId.value,
-            dataSourceUpdateEvents: [.setText(blockId: info.id, text: middlewareString)]
+            dataSourceUpdateEvents: [.setText(blockId: info.id.value, text: middlewareString)]
         ).send()
 
-        service.setText(contextId: document.objectId.value, blockId: info.id, middlewareString: middlewareString)
+        service.setText(contextId: document.objectId.value, blockId: info.id.value, middlewareString: middlewareString)
     }
     
     // MARK: - Public methods
@@ -236,7 +236,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
         
-        service.add(info: newBlock, targetBlockId: info.id, position: position)
+        service.add(info: newBlock, targetBlockId: info.id.value, position: position)
     }
 
     func selectBlock(info: BlockInformation) {
