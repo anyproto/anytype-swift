@@ -10,7 +10,6 @@ final class TextBlockLeadingView: UIView {
     private(set) var bulletedView: UIView?
     private(set) var quoteView: UIView?
     private(set) var bodyView: UIView?
-    private(set) var emojiView: UIView?
     private(set) var calloutIconView: UIView?
 
     func update(style: TextBlockLeadingStyle) {

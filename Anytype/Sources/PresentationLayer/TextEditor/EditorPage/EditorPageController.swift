@@ -352,7 +352,7 @@ private extension EditorPageController {
     private func handleLongPress(gesture: UILongPressGestureRecognizer) {
         guard dividerCursorController.movingMode != .drum else { return }
 
-        guard gesture.state == .ended else { return }
+        guard gesture.state == .ended, !collectionView.isLocked else { return }
 
         UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         let location = gesture.location(in: collectionView)

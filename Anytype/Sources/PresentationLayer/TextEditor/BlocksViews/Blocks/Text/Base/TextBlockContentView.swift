@@ -44,6 +44,7 @@ final class TextBlockContentView: UIView, BlockContentView {
         textView.textView.isLockedForEditing = state.isLocked
         createEmptyBlockButton.isEnabled = !state.isLocked
         textBlockLeadingView.checkboxView?.isUserInteractionEnabled = !state.isLocked
+        textBlockLeadingView.calloutIconView?.isUserInteractionEnabled = !state.isLocked
 
         textView.textView.isUserInteractionEnabled = state.isEditing
     }
