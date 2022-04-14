@@ -50,8 +50,10 @@ public final class ObjectDetailsStorage {
         return updatedDetails
     }
     
-    public func amend(data: Anytype_Event.Object.Details.Amend) -> ObjectDetails {
-        return amend(id: data.id.asAnytypeId!, values: data.details.asDetailsDictionary)
+    public func amend(data: Anytype_Event.Object.Details.Amend) -> ObjectDetails? {
+        guard let id = data.id.asAnytypeId else { return nil }
+        
+        return amend(id: id, values: data.details.asDetailsDictionary)
     }
     
     @discardableResult
