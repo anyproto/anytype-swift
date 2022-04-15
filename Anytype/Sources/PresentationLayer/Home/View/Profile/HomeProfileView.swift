@@ -27,14 +27,14 @@ struct HomeProfileView: View {
     }
     
     var hiText: some View {
-        AnytypeText("Hi, \(model.profileData.name)", style: .title, color: .white)
+        AnytypeText("Hi, \(name)", style: .title, color: .white)
             .padding(.horizontal)
             .transition(.opacity)
     }
     
     private var avatar: some View {
         Button {
-            model.tryShowPage(id: model.profileData.blockId, viewType: .page)
+            model.showProfile()
         } label: {
             userIcon
         }
@@ -42,9 +42,9 @@ struct HomeProfileView: View {
     
     private var userIcon: some View {
         let iconType: UserIconView.IconType = {
-            if let imageId = model.profileData.avatarId {
+            if let imageId = model.profileData?.avatarId {
                 return UserIconView.IconType.image(id: imageId)
-            } else if let firstCharacter = model.profileData.name.uppercased().first {
+            } else if let firstCharacter = name.uppercased().first {
                 return UserIconView.IconType.placeholder(firstCharacter)
             } else {
                 return UserIconView.IconType.placeholder(nil)
@@ -85,6 +85,10 @@ struct HomeProfileView: View {
                 .fixedSize(horizontal: false, vertical: true)
             Spacer.fixedHeight(containerHeight / 5)
         }
+    }
+    
+    private var name: String {
+        model.profileData?.name ?? HomeProfileData.defaultName
     }
 }
 
