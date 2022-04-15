@@ -209,12 +209,10 @@ extension HomeViewModel {
         }
     }
     
-    func createBrowser() -> some View {
-        openedPageData.data.flatMap {
-            EditorBrowserAssembly().editor(data: $0, model: self)
-                .eraseToAnyView()
-                .edgesIgnoringSafeArea(.all)
-        }
+    func createBrowser(data: EditorScreenData) -> some View {
+        EditorBrowserAssembly().editor(data: data, model: self)
+            .eraseToAnyView()
+            .edgesIgnoringSafeArea(.all)
     }
     
     private func createNewPage() -> AnytypeId? {
