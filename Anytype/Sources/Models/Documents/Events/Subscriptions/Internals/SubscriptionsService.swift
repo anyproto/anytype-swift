@@ -78,7 +78,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 guard let details = storage.set(data: data) else { return }
                 update(details: details, rawSubIds: data.subIds)
             case .objectDetailsAmend(let data):
-                let details = storage.amend(data: data)
+                guard let details = storage.amend(data: data) else { return }
                 update(details: details, rawSubIds: data.subIds)
             case .objectDetailsUnset(let data):
                 guard let details = storage.unset(data: data) else { return }
