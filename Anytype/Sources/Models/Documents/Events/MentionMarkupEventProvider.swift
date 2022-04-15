@@ -4,12 +4,12 @@ import ProtobufMessages
 
 final class MentionMarkupEventProvider {
     
-    private let objectId: BlockId
+    private let objectId: AnytypeId
     private let infoContainer: InfoContainerProtocol
     private let detailsStorage: ObjectDetailsStorage
         
     init(
-        objectId: BlockId,
+        objectId: AnytypeId,
         infoContainer: InfoContainerProtocol,
         detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared
     ) {
@@ -20,7 +20,7 @@ final class MentionMarkupEventProvider {
     
     func updateMentionsEvent() -> DocumentUpdate {
         let blockIds = infoContainer
-            .children(of: objectId)
+            .children(of: objectId.value)
             .compactMap { updateIfNeeded(info: $0) }
         
         return .blocks(blockIds: Set(blockIds))
