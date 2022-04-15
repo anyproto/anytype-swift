@@ -32,7 +32,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         EventsBunch(
             contextId: MiddlewareConfigurationProvider.shared.configuration.homeBlockID,
-            localEvents: [.documentClosed(blockId: document.objectId)]
+            localEvents: [.documentClosed(blockId: document.objectId.value)]
         ).send()
     }
 
@@ -84,7 +84,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             performGeneralUpdate()
 
         case let .details(id):
-            guard id == document.objectId else {
+            guard id == document.objectId.value else {
                 #warning("call blocks update with new details to update mentions/links")
                 performGeneralUpdate()
                 return

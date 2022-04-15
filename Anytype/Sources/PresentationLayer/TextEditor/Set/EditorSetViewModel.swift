@@ -188,7 +188,7 @@ extension EditorSetViewModel {
             AnytypePopup(
                 viewModel: EditorSetViewSettingsViewModel(
                     setModel: self,
-                    service: DataviewService(objectId: document.objectId)
+                    service: DataviewService(objectId: document.objectId.value)
                 )
             )
         )

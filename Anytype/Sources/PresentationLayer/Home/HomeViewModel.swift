@@ -41,7 +41,7 @@ final class HomeViewModel: ObservableObject {
     private var quickActionsSubscription: AnyCancellable?
     
     init(homeBlockId: AnytypeId) {
-        document = BaseDocument(objectId: homeBlockId.value)
+        document = BaseDocument(objectId: homeBlockId)
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(update: $0)
         }.store(in: &cancellables)

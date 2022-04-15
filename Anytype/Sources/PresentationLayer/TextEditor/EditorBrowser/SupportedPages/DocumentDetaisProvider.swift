@@ -10,7 +10,7 @@ protocol DocumentDetaisProvider {
 extension EditorPageController: DocumentDetaisProvider {
     
     var objectId: BlockId {
-        viewModel.document.objectId
+        viewModel.document.objectId.value
     }
     
     var screenData: EditorScreenData {

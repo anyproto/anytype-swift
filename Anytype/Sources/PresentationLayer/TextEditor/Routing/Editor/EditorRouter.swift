@@ -352,7 +352,7 @@ extension EditorRouter {
         let relation = document.parsedRelations.all.first { $0.id == key }
         guard let relation = relation else { return }
         
-        showRelationValueEditingView(objectId: document.objectId, source: source, relation: relation)
+        showRelationValueEditingView(objectId: document.objectId.value, source: source, relation: relation)
     }
     
     func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation) {

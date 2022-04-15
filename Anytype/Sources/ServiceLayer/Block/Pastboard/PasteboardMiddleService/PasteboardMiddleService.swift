@@ -10,7 +10,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
     }
 
     func pasteText(_ text: String, context: PasteboardActionContext) {
-        paste(contextId: document.objectId,
+        paste(contextId: document.objectId.value,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
               selectedBlockIds: context.selectedBlocksIds,
@@ -22,7 +22,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
     }
 
     func pasteHTML(_ html: String, context: PasteboardActionContext) {
-        paste(contextId: document.objectId,
+        paste(contextId: document.objectId.value,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
               selectedBlockIds: context.selectedBlocksIds,
@@ -37,7 +37,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
         let blocksSlots = blocks.compactMap { blockJSONSlot in
             try? Anytype_Model_Block(jsonString: blockJSONSlot)
         }
-        paste(contextId: document.objectId,
+        paste(contextId: document.objectId.value,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
               selectedBlockIds: context.selectedBlocksIds,
@@ -49,7 +49,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
     }
 
     func pasteFile(localPath: String, name: String, context: PasteboardActionContext) {
-        paste(contextId: document.objectId,
+        paste(contextId: document.objectId.value,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
               selectedBlockIds: context.selectedBlocksIds,
@@ -66,7 +66,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
             return BlockInformationConverter.convert(information: info)
         }
         let result = Anytype_Rpc.Block.Copy.Service.invoke(
-            contextID: document.objectId,
+            contextID: document.objectId.value,
             blocks: blocks,
             selectedTextRange: selectedTextRange.asMiddleware
         )
