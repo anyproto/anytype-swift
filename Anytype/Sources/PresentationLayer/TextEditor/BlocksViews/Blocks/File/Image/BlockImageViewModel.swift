@@ -58,7 +58,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
                 }
             ).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+                dragConfiguration: .init(id: info.id.value)
             )
         }
     }
@@ -70,7 +70,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             state: state
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
-            dragConfiguration: .init(id: info.id)
+            dragConfiguration: .init(id: info.id.value)
         )
     }
 

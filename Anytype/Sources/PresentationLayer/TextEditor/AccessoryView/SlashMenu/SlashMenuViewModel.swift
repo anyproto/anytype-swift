@@ -20,7 +20,7 @@ final class SlashMenuViewModel {
         guard let info = info else { return }
 
         removeSlashMenuText()
-        handler.handle(action, blockId: info.id)
+        handler.handle(action, blockId: info.id.value)
         resetSlashMenuHandler?()
     }
     

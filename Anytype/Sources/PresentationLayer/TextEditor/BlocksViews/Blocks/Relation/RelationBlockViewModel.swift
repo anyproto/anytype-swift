@@ -26,14 +26,14 @@ struct RelationBlockViewModel: BlockViewModelProtocol {
                 actionOnValue: actionOnValue, relation: relation
             ).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+                dragConfiguration: .init(id: info.id.value)
             )
         }
         return DepricatedRelationBlockContentConfiguration(
             actionOnValue: actionOnValue, relation: relation
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
-            dragConfiguration: .init(id: info.id)
+            dragConfiguration: .init(id: info.id.value)
         )
     }
     

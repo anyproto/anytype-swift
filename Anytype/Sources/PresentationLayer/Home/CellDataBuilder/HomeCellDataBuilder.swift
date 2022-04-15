@@ -39,12 +39,11 @@ final class HomeCellDataBuilder {
             )
             return nil
         }
-        guard let infoId = info.id.asAnytypeId else { return nil }
         guard let targetBlockId = link.targetBlockID.asAnytypeId else { return nil }
         
         let details = ObjectDetailsStorage.shared.get(id: targetBlockId)
         return HomePageLink(
-            blockId: infoId,
+            blockId: info.id,
             targetBlockId: targetBlockId,
             details: details
         )

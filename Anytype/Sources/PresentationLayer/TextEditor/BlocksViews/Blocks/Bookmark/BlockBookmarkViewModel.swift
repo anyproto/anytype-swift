@@ -21,19 +21,19 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
                 state: .default
             ).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+                dragConfiguration: .init(id: info.id.value)
             )
         case let .fetched(payload):
             return BlockBookmarkConfiguration(payload: payload)
                 .cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+                dragConfiguration: .init(id: info.id.value)
             )
         case let .onlyURL(url):
             return BlockBookmarkOnlyUrlConfiguration(ulr: url)
                 .cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+                dragConfiguration: .init(id: info.id.value)
             )
         }
     }

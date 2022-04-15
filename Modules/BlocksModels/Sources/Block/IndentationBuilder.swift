@@ -13,7 +13,7 @@ public enum IndentationBuilder {
         if let parent = container.get(id: id) {
 
             parent.childrenIds.forEach { childrenId in
-                guard var child = container.get(id: childrenId) else { return }
+                guard var child = container.get(id: childrenId.value) else { return }
 
                 let indentationStyles = parentIndentationStyles(
                     child: child,
@@ -29,7 +29,7 @@ public enum IndentationBuilder {
 
                 child = child.updated(
                     metadata: BlockInformationMetadata(
-                        parentId: parent.id,
+                        parentId: parent.id.value,
                         parentBackgroundColors: parentBackgroundColors(child: child, parent: parent),
                         parentIndentationStyle: indentationStyles,
                         backgroundColor: child.relativeBackgroundColor,
@@ -41,7 +41,7 @@ public enum IndentationBuilder {
                 container.add(child)
                 privateBuild(
                     container: container,
-                    id: childrenId,
+                    id: childrenId.value,
                     indentationRecursionData: indentationRecursionData
                 )
             }
@@ -77,9 +77,9 @@ public enum IndentationBuilder {
     ) -> [BlockIndentationStyle] {
         var previousIndentationStyles = parent.configurationData.parentIndentationStyle
 
-        if let closingBlocks = indentationRecursion.hightlightedChildBlockIdToClosingIndexes[child.id] {
+        if let closingBlocks = indentationRecursion.hightlightedChildBlockIdToClosingIndexes[child.id.value] {
             if child.childrenIds.count > 0, let last = child.childrenIds.last {
-                closingBlocks.forEach { indentationRecursion.addClosing(for: last, at: $0) }
+                closingBlocks.forEach { indentationRecursion.addClosing(for: last.value, at: $0) }
             } else {
                 closingBlocks.forEach { index in
                     previousIndentationStyles[index] = .highlighted(.closing)
@@ -97,7 +97,7 @@ public enum IndentationBuilder {
                 isLastChild,
                 child.childrenIds.count > 0,
                 let lastChildId = child.childrenIds.last {
-                indentationRecursion.addClosing(for: lastChildId, at: previousIndentationStyles.count)
+                indentationRecursion.addClosing(for: lastChildId.value, at: previousIndentationStyles.count)
             }
 
             previousIndentationStyles.append(indentationStyle)
@@ -113,21 +113,25 @@ public enum IndentationBuilder {
         parent: BlockInformation,
         indentationRecursion: IndentationStyleRecursiveData
     ) -> MiddlewareColor? {
-        if let calloutLastBackground = indentationRecursion.lastChildCalloutBlocks[child.id] {
+        if let calloutLastBackground = indentationRecursion.lastChildCalloutBlocks[child.id.value] {
             if child.childrenIds.isEmpty {
                 return calloutLastBackground
             } else if let lastChild = child.childrenIds.last {
-                indentationRecursion.lastChildCalloutBlocks[lastChild] = calloutLastBackground
+                indentationRecursion.lastChildCalloutBlocks[lastChild.value] = calloutLastBackground
             }
         }
-
-        let isLastInParent = parent.childrenIds.last ?? "" == child.id
+        
+        let isLastInParent: Bool = {
+            guard let last = parent.childrenIds.last else { return false }
+            return last == child.id
+        }()
+        
         if case .callout = parent.content.indentationStyle(isLastChild: isLastInParent) {
             if let lastChildId = parent.childrenIds.last, lastChildId == child.id, child.childrenIds.isEmpty {
                 return parent.relativeBackgroundColor
             } else {
                 child.childrenIds.last.map {
-                    indentationRecursion.lastChildCalloutBlocks[$0] = parent.relativeBackgroundColor
+                    indentationRecursion.lastChildCalloutBlocks[$0.value] = parent.relativeBackgroundColor
                 }
             }
         }

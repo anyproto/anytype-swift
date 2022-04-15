@@ -74,7 +74,7 @@ final class BlockViewModelBuilder {
                     showCodeSelection: { [weak self] info in
                         self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in
                             let fields = CodeBlockFields(language: language)
-                            self?.handler.setFields(fields, blockId: info.id)
+                            self?.handler.setFields(fields, blockId: info.id.value)
                         }
                     }
                 )
@@ -98,8 +98,8 @@ final class BlockViewModelBuilder {
                     },
                     showTextIconPicker: { [unowned router, unowned document] in
                         router.showTextIconPicker(
-                            contextId: document.objectId,
-                            objectId: info.id
+                            contextId: document.objectId.value,
+                            objectId: info.id.value
                         )
                     },
                     showWaitingView: { [weak router] text in
@@ -109,7 +109,7 @@ final class BlockViewModelBuilder {
                         router?.hideWaitingView()
                     },
                     markdownListener: markdownListener,
-                    focusSubject: subjectsHolder.focusSubject(for: info.id)
+                    focusSubject: subjectsHolder.focusSubject(for: info.id.value)
                 )
             }
         case let .file(content):
@@ -262,7 +262,7 @@ final class BlockViewModelBuilder {
         router.showBookmarkBar() { [weak self] url in
             guard let self = self else { return }
 
-            self.handler.fetch(url: url, blockId: info.id)
+            self.handler.fetch(url: url, blockId: info.id.value)
         }
     }
 }

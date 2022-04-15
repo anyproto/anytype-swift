@@ -127,7 +127,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func showStyleMenu(information: BlockInformation) {
         guard let controller = viewController,
               let rootController = rootController,
-              let info = document.infoContainer.get(id: information.id) else { return }
+              let info = document.infoContainer.get(id: information.id.value) else { return }
         guard let controller = controller as? EditorPageController else {
             anytypeAssertionFailure("Not supported type of controller: \(controller)", domain: .editorPage)
             return
@@ -165,7 +165,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
                 )
             }
         )
-        controller.selectBlock(blockId: information.id)
+        controller.selectBlock(blockId: information.id.value)
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {

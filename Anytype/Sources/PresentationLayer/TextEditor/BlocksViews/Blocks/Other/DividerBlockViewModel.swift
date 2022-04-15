@@ -17,7 +17,7 @@ struct DividerBlockViewModel: BlockViewModelProtocol {
         DividerBlockContentConfiguration(content: dividerContent)
             .cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+                dragConfiguration: .init(id: info.id.value)
             )
     }
     

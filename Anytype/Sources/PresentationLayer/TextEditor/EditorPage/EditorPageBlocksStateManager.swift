@@ -126,7 +126,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         updateSelectionBarActions(selectedBlocks: blocksInformation)
 
         if case .selecting = editingState {
-            editingState = .selecting(blocks: blocksInformation.map { $0.id })
+            editingState = .selecting(blocks: blocksInformation.map { $0.id.value })
         }
     }
 
@@ -237,7 +237,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 guard let id = document.children.last?.id else { return }
 
                 targetId = document.objectId.value
-                dropTargetId = id
+                dropTargetId = id.value
                 position = .bottom
             } else {
                 targetId = document.objectId.value
@@ -361,15 +361,15 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
 extension EditorPageBlocksStateManager: BlockSelectionHandler {
     func didSelectEditingState(info: BlockInformation) {
-        editingState = .selecting(blocks: [info.id])
-        selectedBlocks = [info.id]
+        editingState = .selecting(blocks: [info.id.value])
+        selectedBlocks = [info.id.value]
         updateSelectionBarActions(selectedBlocks: [info])
     }
 }
 
 extension EditorMainItemModelsHolder {
     func allChildIndexes(viewModel: BlockViewModelProtocol) -> [Int] {
-        allIndexes(for: viewModel.info.childrenIds)
+        allIndexes(for: viewModel.info.childrenIds.map { $0.value })
     }
 
     private func allIndexes(for childs: [BlockId]) -> [Int] {
@@ -383,7 +383,7 @@ extension EditorMainItemModelsHolder {
             indexes.append(index)
 
             guard let modelChilds = blockViewModel(at: index)?.info.childrenIds else { continue }
-            indexes.append(contentsOf: allIndexes(for: modelChilds))
+            indexes.append(contentsOf: allIndexes(for: modelChilds.map { $0.value }))
         }
 
         return indexes

@@ -57,7 +57,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
     func selectBlock(_ info: BlockInformation, text: NSAttributedString, range: NSRange) {
         restrictions = BlockRestrictionsBuilder.build(contentType: info.content.type)
         currentText = text
-        blockId = info.id
+        blockId = info.id.value
 
         updateRange(range: range)
     }

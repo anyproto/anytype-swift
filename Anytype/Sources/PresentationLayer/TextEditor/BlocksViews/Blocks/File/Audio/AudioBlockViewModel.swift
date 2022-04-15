@@ -54,14 +54,14 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             guard playerItem != nil else {
                 return emptyViewConfiguration(state: .error)
             }
-            audioPlayer.updateDelegate(audioId: info.id, delegate: self)
+            audioPlayer.updateDelegate(audioId: info.id.value, delegate: self)
             return AudioBlockContentConfiguration(
                 file: fileData,
-                trackId: info.id,
+                trackId: info.id.value,
                 audioPlayerViewDelegate: self
             ).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
+                dragConfiguration: .init(id: info.id.value)
             )
         }
     }
@@ -73,7 +73,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             state: state
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
-            dragConfiguration: .init(id: info.id)
+            dragConfiguration: .init(id: info.id.value)
         )
     }
 }

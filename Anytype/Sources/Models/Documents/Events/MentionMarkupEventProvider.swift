@@ -86,7 +86,7 @@ final class MentionMarkupEventProvider {
             update(info: info, string: string, marks: sortedMarks)
         }
         
-        return needUpdate ? info.id : nil
+        return needUpdate ? info.id.value : nil
     }
     
     private func mentionRange(in string: String, range: Anytype_Model_Range) -> Range<String.Index>? {

@@ -7,7 +7,7 @@ public extension BlockInformation {
         id: BlockId = "", content: BlockContent
     ) -> BlockInformation {
         BlockInformation(
-            id: id,
+            id: id.asAnytypeId!,
             content: content,
             backgroundColor: nil,
             alignment: .left,

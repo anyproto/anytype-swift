@@ -331,7 +331,7 @@ private extension EditorPageController {
         dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
             case let .block(block):
-                return block.info.id == blockId
+                return block.info.id.value == blockId
             case .header, .system:
                 return false
             }

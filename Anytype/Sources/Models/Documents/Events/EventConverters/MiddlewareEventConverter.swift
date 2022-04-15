@@ -66,7 +66,7 @@ final class MiddlewareEventConverter {
                 )
             })
 
-            var childIds = infoContainer.recursiveChildren(of: updateData.id).map { $0.id }
+            var childIds = infoContainer.recursiveChildren(of: updateData.id).map { $0.id.value }
             childIds.append(updateData.id)
             
             return .blocks(blockIds: Set(childIds))
@@ -399,7 +399,7 @@ final class MiddlewareEventConverter {
         let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
 
 
-        var childIds = infoContainer.recursiveChildren(of: newData.id).map { $0.id }
+        var childIds = infoContainer.recursiveChildren(of: newData.id).map { $0.id.value }
         childIds.append(newData.id)
 
         return toggleStyleChanged ? .general : .blocks(blockIds: Set(childIds))
@@ -408,7 +408,7 @@ final class MiddlewareEventConverter {
     private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: InfoContainerProtocol) {
         
         information.forEach { container.add($0) }
-        let roots = information.filter { $0.id == rootId }
+        let roots = information.filter { $0.id.value == rootId }
 
         guard roots.count != 0 else {
             anytypeAssertionFailure("Unknown situation. We can't have zero roots.", domain: .middlewareEventConverter)
@@ -425,7 +425,7 @@ final class MiddlewareEventConverter {
 
         let rootId = roots[0].id
 
-        IndentationBuilder.build(container: container, id: rootId)
+        IndentationBuilder.build(container: container, id: rootId.value)
     }
     
     private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {
