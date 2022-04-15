@@ -22,7 +22,8 @@ enum BlockInformationConverter {
             childrenIds: block.childrenIds.compactMap { $0.asAnytypeId },
             configurationData: .init(
                 backgroundColor: color,
-                indentationStyle: .none
+                indentationStyle: .none,
+                calloutBackgroundColor: nil
             ),
             fields: block.fields.fields
         )

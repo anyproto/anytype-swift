@@ -14,7 +14,8 @@ public extension BlockInformation {
             childrenIds: [],
             configurationData: BlockInformationMetadata(
                 backgroundColor: .default,
-                indentationStyle: .none
+                indentationStyle: content.indentationStyle(isLastChild: true),
+                calloutBackgroundColor: nil
             ),
             fields: [:]
         )

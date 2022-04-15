@@ -83,6 +83,8 @@ final class SlashMenuActionHandler {
             actionHandler.turnInto(.header3, blockId: blockId)
         case .highlighted:
             actionHandler.turnInto(.quote, blockId: blockId)
+        case .callout:
+            actionHandler.turnInto(.callout, blockId: blockId)
         case .checkbox:
             actionHandler.turnInto(.checkbox, blockId: blockId)
         case .bulleted:

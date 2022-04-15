@@ -21,13 +21,20 @@ public enum IndentationBuilder {
                     indentationRecursion: indentationRecursionData
                 )
 
+                let calloutBackground = calloutBottomBackground(
+                    child: child,
+                    parent: parent,
+                    indentationRecursion: indentationRecursionData
+                )
+
                 child = child.updated(
                     metadata: BlockInformationMetadata(
                         parentId: parent.id.value,
                         parentBackgroundColors: parentBackgroundColors(child: child, parent: parent),
                         parentIndentationStyle: indentationStyles,
-                        backgroundColor: child.backgroundColor,
-                        indentationStyle: child.content.indentationStyle(isSingleChild: child.childrenIds.isEmpty)
+                        backgroundColor: child.relativeBackgroundColor,
+                        indentationStyle: child.content.indentationStyle(isSingleChild: child.childrenIds.isEmpty),
+                        calloutBackgroundColor: calloutBackground
                     )
                 )
 
@@ -51,10 +58,10 @@ public enum IndentationBuilder {
             previousBackgroundColors = parent.configurationData.parentBackgroundColors
             let previousNotDefaultColor = previousBackgroundColors.last { $0 != .default }
 
-            if parent.backgroundColor == .default || parent.backgroundColor == nil {
+            if parent.backgroundColor == .default || parent.relativeBackgroundColor == nil {
                 previousBackgroundColors.append(previousNotDefaultColor ?? nil)
             } else {
-                previousBackgroundColors.append(parent.backgroundColor)
+                previousBackgroundColors.append(parent.relativeBackgroundColor)
             }
         } else {
             previousBackgroundColors = parent.configurationData.parentBackgroundColors
@@ -70,7 +77,7 @@ public enum IndentationBuilder {
     ) -> [BlockIndentationStyle] {
         var previousIndentationStyles = parent.configurationData.parentIndentationStyle
 
-        if let closingBlocks = indentationRecursion.childBlockIdToClosingIndexes[child.id.value] {
+        if let closingBlocks = indentationRecursion.hightlightedChildBlockIdToClosingIndexes[child.id.value] {
             if child.childrenIds.count > 0, let last = child.childrenIds.last {
                 closingBlocks.forEach { indentationRecursion.addClosing(for: last.value, at: $0) }
             } else {
@@ -99,6 +106,37 @@ public enum IndentationBuilder {
         }
 
         return previousIndentationStyles
+    }
+
+    private static func calloutBottomBackground(
+        child: BlockInformation,
+        parent: BlockInformation,
+        indentationRecursion: IndentationStyleRecursiveData
+    ) -> MiddlewareColor? {
+        if let calloutLastBackground = indentationRecursion.lastChildCalloutBlocks[child.id.value] {
+            if child.childrenIds.isEmpty {
+                return calloutLastBackground
+            } else if let lastChild = child.childrenIds.last {
+                indentationRecursion.lastChildCalloutBlocks[lastChild.value] = calloutLastBackground
+            }
+        }
+        
+        let isLastInParent: Bool = {
+            guard let last = parent.childrenIds.last else { return false }
+            return last == child.id
+        }()
+        
+        if case .callout = parent.content.indentationStyle(isLastChild: isLastInParent) {
+            if let lastChildId = parent.childrenIds.last, lastChildId == child.id, child.childrenIds.isEmpty {
+                return parent.relativeBackgroundColor
+            } else {
+                child.childrenIds.last.map {
+                    indentationRecursion.lastChildCalloutBlocks[$0.value] = parent.relativeBackgroundColor
+                }
+            }
+        }
+
+        return nil
     }
 }
 

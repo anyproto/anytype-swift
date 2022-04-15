@@ -44,6 +44,7 @@ final class TextBlockContentView: UIView, BlockContentView {
         textView.textView.isLockedForEditing = state.isLocked
         createEmptyBlockButton.isEnabled = !state.isLocked
         textBlockLeadingView.checkboxView?.isUserInteractionEnabled = !state.isLocked
+        textBlockLeadingView.calloutIconView?.isUserInteractionEnabled = !state.isLocked
 
         textView.textView.isUserInteractionEnabled = state.isEditing
     }
@@ -54,9 +55,7 @@ final class TextBlockContentView: UIView, BlockContentView {
         contentStackView.addArrangedSubview(textBlockLeadingView)
         contentStackView.addArrangedSubview(textView)
 
-        textView.layoutUsing.anchors {
-            $0.bottom.equal(to: contentStackView.bottomAnchor)
-        }
+        textView.widthAnchor.constraint(lessThanOrEqualTo: textView.widthAnchor, constant: 24).isActive = true
 
         contentView.addSubview(contentStackView) {
             topContentConstraint = $0.top.equal(to: contentView.topAnchor)

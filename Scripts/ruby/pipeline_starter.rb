@@ -27,7 +27,7 @@ class PipelineStarter
   private_class_method def self.install_library_from_path(options)
       path = options[:artifactsPath]
       puts "Install library from path #{path}"
-      CopyArtifactsPipeline(path)
+      CopyArtifactsPipeline.work(path)
       CodegenPipeline.work()
       done()
   end
@@ -36,7 +36,7 @@ class PipelineStarter
     version = VersionProvider.latest_version(options[:token])
     actifacts_dir = DownloadMiddlewarePipeline.work(version, options)
     
-    CopyArtifactsPipeline(actifacts_dir)
+    CopyArtifactsPipeline.work(actifacts_dir)
     CodegenPipeline.work()
     LibraryFile.set(version)
     
@@ -48,7 +48,7 @@ class PipelineStarter
     version = VersionProvider.version_from_library_file(options[:token])
     actifacts_dir = DownloadMiddlewarePipeline.work(version, options)
     
-    CopyArtifactsPipeline(actifacts_dir)
+    CopyArtifactsPipeline.work(actifacts_dir)
     CodegenPipeline.work()
 
     cleanup(actifacts_dir)
