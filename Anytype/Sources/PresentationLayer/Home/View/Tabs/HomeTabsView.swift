@@ -143,8 +143,9 @@ struct HomeTabsView: View {
 }
 
 struct HomeTabsView_Previews: PreviewProvider {
+    
     static var model: HomeViewModel {
-        let model = HomeViewModel()
+        let model = HomeViewModel(homeBlockId: AnytypeId("test")!)
         return model
     }
     

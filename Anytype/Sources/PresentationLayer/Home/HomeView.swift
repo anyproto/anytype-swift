@@ -171,6 +171,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(model: HomeViewModel())
+        HomeView(model: HomeViewModel(homeBlockId: AnytypeId("test")!))
     }
 }

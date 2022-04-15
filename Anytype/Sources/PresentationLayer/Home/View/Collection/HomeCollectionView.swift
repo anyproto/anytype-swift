@@ -1,6 +1,6 @@
 import SwiftUI
 import UniformTypeIdentifiers
-
+import AnytypeCore
 
 struct HomeCollectionView: View {
     private let columns: [GridItem] = {
@@ -64,6 +64,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView(cellData: [], dragAndDropDelegate: HomeViewModel(), offsetChanged: { _ in }, onTap: { _ in })
+        HomeCollectionView(cellData: [], dragAndDropDelegate: HomeViewModel(homeBlockId: AnytypeId("test")!), offsetChanged: { _ in }, onTap: { _ in })
     }
 }

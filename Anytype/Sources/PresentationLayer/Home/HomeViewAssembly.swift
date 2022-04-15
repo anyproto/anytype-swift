@@ -1,7 +1,13 @@
 import SwiftUI
+import AnytypeCore
 
-class HomeViewAssembly {
-    func createHomeView() -> HomeView {
-        HomeView(model: HomeViewModel())
+final class HomeViewAssembly {
+    
+    func createHomeView() -> HomeView? {
+        let homeBlockId = MiddlewareConfigurationProvider.shared.configuration.homeBlockID
+        guard let id = homeBlockId.asAnytypeId else { return nil }
+        
+        return HomeView(model: HomeViewModel(homeBlockId: id))
     }
+    
 }

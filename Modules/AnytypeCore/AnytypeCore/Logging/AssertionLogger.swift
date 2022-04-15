@@ -82,6 +82,7 @@ public enum ErrorDomain: String {
     case appIcon
     
     case calendar
+    case anytypeId
 }
 
 public protocol MessageLogger {

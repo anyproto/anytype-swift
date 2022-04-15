@@ -1,6 +1,6 @@
 import SwiftUI
 import Amplitude
-
+import AnytypeCore
 
 struct HomeProfileView: View {
     @EnvironmentObject var model: HomeViewModel
@@ -95,7 +95,7 @@ struct HomeProfileView: View {
 struct HomeProfileView_Previews: PreviewProvider {
     static var previews: some View {
         HomeProfileView()
-            .environmentObject(HomeViewModel())
+            .environmentObject(HomeViewModel(homeBlockId: AnytypeId("test")!))
             .background(Color.System.blue)
     }
 }

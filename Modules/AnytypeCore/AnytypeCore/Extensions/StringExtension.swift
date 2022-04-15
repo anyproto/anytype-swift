@@ -13,7 +13,13 @@ public extension String {
     }
     
     var asAnytypeId: AnytypeId? {
-        AnytypeId(self)
+        let id = AnytypeId(self)
+        
+        if id.isNil {
+            anytypeAssertionFailure("Tried to create AnytypeId from invalid string", domain: .anytypeId)
+        }
+        
+        return id
     }
     
 }
