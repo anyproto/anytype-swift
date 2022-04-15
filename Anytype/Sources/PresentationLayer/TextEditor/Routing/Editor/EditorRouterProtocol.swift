@@ -25,6 +25,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCoverPicker()
     func showIconPicker()
     func showLayoutPicker()
+    func showTextIconPicker(contextId: BlockId, objectId: BlockId)
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
@@ -38,6 +39,9 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showAddNewRelationView(onSelect: ((RelationMetadata) -> Void)?)
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters)
+
+    func showWaitingView(text: String)
+    func hideWaitingView()
     
     func goBack()
     

@@ -1,7 +1,7 @@
 import BlocksModels
 import AnytypeCore
 
-struct EditorScreenData {
+struct EditorScreenData: Hashable {
     let pageId: AnytypeId
     let type: EditorViewType
 }

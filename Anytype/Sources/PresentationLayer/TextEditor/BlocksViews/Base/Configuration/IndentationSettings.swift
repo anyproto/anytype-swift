@@ -10,6 +10,7 @@ struct IndentationSettings: Equatable {
     let parentBlocksInfo: [BlockIndentationSettings]
     let style: BlockIndentationStyle
     let backgroundColor: UIColor?
+    let bottomBackgroundColor: UIColor?
 }
 
 extension IndentationSettings {
@@ -25,6 +26,8 @@ extension IndentationSettings {
         let backgroundColor: UIColor?
         if let middlewareColor = metadata.backgroundColor, middlewareColor != .default {
             backgroundColor = UIColor.Background.uiColor(from: middlewareColor)
+        } else if metadata.backgroundColor == nil, metadata.indentationStyle == .callout {
+            backgroundColor = UIColor.Background.grey
         } else {
             backgroundColor = nil
         }
@@ -32,5 +35,6 @@ extension IndentationSettings {
         self.parentBlocksInfo = parentBlockInfo
         self.style = metadata.indentationStyle
         self.backgroundColor = backgroundColor
+        self.bottomBackgroundColor = metadata.calloutBackgroundColor.map { UIColor.Background.uiColor(from: $0) }
     }
 }

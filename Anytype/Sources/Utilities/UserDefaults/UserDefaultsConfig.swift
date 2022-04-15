@@ -91,11 +91,17 @@ struct UserDefaultsConfig {
     static var wallpaper: BackgroundType {
         get {
             guard let rawWallpaper = _wallpaper else { return .default }
-            guard let wallpaper = try? JSONDecoder().decode(BackgroundType.self, from: rawWallpaper) else {
-                return .default
+            if let wallpaper = try? JSONDecoder().decode(BackgroundType.self, from: rawWallpaper) {
+                return wallpaper
             }
             
-            return wallpaper
+            if let oldWallpaper = try? JSONDecoder().decode(OldBackgroundType.self, from: rawWallpaper),
+               let wallpaper = oldWallpaper.newType {
+                self.wallpaper = wallpaper
+                return wallpaper
+            }
+            
+            return .default
         }
         set {
             guard let encoded = try? JSONEncoder().encode(newValue) else {

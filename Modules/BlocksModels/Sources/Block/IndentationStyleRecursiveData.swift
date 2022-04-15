@@ -1,13 +1,14 @@
 final class IndentationStyleRecursiveData {
-    var childBlockIdToClosingIndexes = [BlockId: [Int]]()
+    var lastChildCalloutBlocks = [BlockId: MiddlewareColor?]()
+    var hightlightedChildBlockIdToClosingIndexes = [BlockId: [Int]]()
 
     func addClosing(for blockId: BlockId, at index: Int) {
-        if var existingIndexes = childBlockIdToClosingIndexes[blockId] {
+        if var existingIndexes = hightlightedChildBlockIdToClosingIndexes[blockId] {
 
             existingIndexes.append(index)
-            childBlockIdToClosingIndexes[blockId] = existingIndexes
+            hightlightedChildBlockIdToClosingIndexes[blockId] = existingIndexes
         } else {
-            childBlockIdToClosingIndexes[blockId] = [index]
+            hightlightedChildBlockIdToClosingIndexes[blockId] = [index]
         }
     }
 }

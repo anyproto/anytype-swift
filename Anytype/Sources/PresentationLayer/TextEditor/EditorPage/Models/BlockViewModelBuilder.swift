@@ -45,7 +45,14 @@ final class BlockViewModelBuilder {
 
     private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
         infos.compactMap { info -> BlockViewModelProtocol? in
-            build(info: info)
+
+
+            let block = build(info: info)
+            if (block == nil) {
+                print(info)
+            }
+
+            return block
         }
     }
 
@@ -88,6 +95,18 @@ final class BlockViewModelBuilder {
                     },
                     showURLBookmarkPopup: { [weak router] parameters in
                         router?.showLinkContextualMenu(inputParameters: parameters)
+                    },
+                    showTextIconPicker: { [unowned router, unowned document] in
+                        router.showTextIconPicker(
+                            contextId: document.objectId,
+                            objectId: info.id
+                        )
+                    },
+                    showWaitingView: { [weak router] text in
+                        router?.showWaitingView(text: text)
+                    },
+                    hideWaitingView: {  [weak router] in
+                        router?.hideWaitingView()
                     },
                     markdownListener: markdownListener,
                     focusSubject: subjectsHolder.focusSubject(for: info.id)

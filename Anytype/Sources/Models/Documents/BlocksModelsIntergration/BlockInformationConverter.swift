@@ -20,7 +20,8 @@ enum BlockInformationConverter {
             childrenIds: block.childrenIds,
             configurationData: .init(
                 backgroundColor: color,
-                indentationStyle: .none
+                indentationStyle: .none,
+                calloutBackgroundColor: nil
             ),
             fields: block.fields.fields
         )

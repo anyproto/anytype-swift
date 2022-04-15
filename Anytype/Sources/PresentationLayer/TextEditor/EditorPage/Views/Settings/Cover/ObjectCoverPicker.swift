@@ -52,13 +52,13 @@ struct ObjectCoverPicker: View {
             DragIndicator()
             navigationBarView
             ItemPickerGridView(viewModel: CoverColorsGridViewModel { cover in
-                switch cover {
-                case let .color(color):
-                    viewModel.setColor(color.name)
-                case let .gradient(gradient):
-                    viewModel.setGradient(gradient.name)
-                }
-                dismiss()
+                    switch cover {
+                    case let .color(color):
+                        viewModel.setColor(color.data.name)
+                    case let .gradient(gradient):
+                        viewModel.setGradient(gradient.data.name)
+                    }
+                    dismiss()
                 }
             )
         }

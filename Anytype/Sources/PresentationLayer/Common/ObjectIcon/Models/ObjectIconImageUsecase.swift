@@ -35,7 +35,7 @@ extension ObjectIconImageUsecase {
     
     var emojiBackgroundColor: UIColor {
         switch self {
-        case .openedObjectNavigationBar, .mention, .setRow, .featuredRelationsBlock:
+        case .openedObjectNavigationBar, .mention, .setRow, .featuredRelationsBlock, .editorCalloutBlock:
             return .clear
         default:
             return .strokeTransperent

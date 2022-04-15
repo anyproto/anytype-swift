@@ -4,7 +4,7 @@ final class SetTableViewDataBuilder {
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
-        return view.options
+        let relations: [SetRelation] = view.options
             .compactMap { option in
                 let metadata = dataview.relations
                     .filter { !$0.isHidden }
@@ -13,6 +13,8 @@ final class SetTableViewDataBuilder {
                 
                 return SetRelation(metadata: metadata, option: option)
             }
+
+        return NSOrderedSet(array: relations).array as! [SetRelation]
     }
     
     func rowData(

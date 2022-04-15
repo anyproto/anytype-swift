@@ -336,7 +336,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             return
         case .paste:
             let blockIds = elements.map(\.blockId)
-            pasteboardService.pasteInSelectedBlocks(selectedBlockIds: blockIds)
+            router.showWaitingView(text: "Paste processing...".localized)
+            pasteboardService.pasteInSelectedBlocks(selectedBlockIds: blockIds) { [weak self] in
+                self?.router.hideWaitingView()
+            }
 
         case .copy:
             let blocksIds = elements.map(\.blockId)

@@ -86,7 +86,7 @@ private extension BlockLinkView {
     
     func setup() {
         addSubview(contentView) {
-            $0.pinToSuperview(excluding: [.bottom])
+            $0.pinToSuperview(excluding: [.bottom], insets: .init(top: 5, left: 0, bottom: -5, right: 0))
             $0.bottom.equal(to: bottomAnchor, priority: .defaultLow)
         }
         containerHeightConstraint = contentView.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.CardLayout.containerHeight)
