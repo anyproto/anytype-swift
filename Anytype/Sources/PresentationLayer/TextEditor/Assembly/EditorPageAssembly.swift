@@ -34,7 +34,7 @@ final class EditorAssembly {
     private func buildSetModule(pageId: AnytypeId) -> (EditorSetHostingController, EditorRouterProtocol) {
         let document = BaseDocument(objectId: pageId)
         let model = EditorSetViewModel(document: document)
-        let controller = EditorSetHostingController(objectId: pageId.value, model: model)
+        let controller = EditorSetHostingController(objectId: pageId, model: model)
         
         let router = EditorRouter(
             rootController: browser,

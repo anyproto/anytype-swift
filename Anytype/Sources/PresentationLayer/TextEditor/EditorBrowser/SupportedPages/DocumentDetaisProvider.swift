@@ -2,19 +2,21 @@ import BlocksModels
 import AnytypeCore
 
 protocol DocumentDetaisProvider {
-    var objectId: BlockId { get }
+    
+    var objectId: AnytypeId { get }
     var screenData: EditorScreenData { get }
     var details: ObjectDetails? { get }
+    
 }
 
 extension EditorPageController: DocumentDetaisProvider {
     
-    var objectId: BlockId {
-        viewModel.document.objectId.value
+    var objectId: AnytypeId {
+        viewModel.document.objectId
     }
     
     var screenData: EditorScreenData {
-        EditorScreenData(pageId: objectId.asAnytypeId!, type: .page)
+        EditorScreenData(pageId: objectId, type: .page)
     }
     
     var details: ObjectDetails? {
@@ -26,7 +28,7 @@ extension EditorPageController: DocumentDetaisProvider {
 extension EditorSetHostingController: DocumentDetaisProvider {
     
     var screenData: EditorScreenData {
-        EditorScreenData(pageId: objectId.asAnytypeId!, type: .set)
+        EditorScreenData(pageId: objectId, type: .set)
     }
     
     var details: ObjectDetails? {
