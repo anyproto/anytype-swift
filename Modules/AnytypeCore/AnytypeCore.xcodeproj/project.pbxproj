@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		124A1D692805D5020058FDAD /* AnytypeID.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A1D682805D5010058FDAD /* AnytypeID.swift */; };
+		124A1D692805D5020058FDAD /* AnytypeId.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124A1D682805D5010058FDAD /* AnytypeId.swift */; };
 		1255DF7026FF63DA00870B95 /* SynchronizedDictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1255DF6F26FF63DA00870B95 /* SynchronizedDictionary.swift */; };
 		1255DF7C270201EA00870B95 /* AsyncOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1255DF7B270201EA00870B95 /* AsyncOperation.swift */; };
 		1263D6EC26B7E59C001D4C8A /* ProtobufMessages.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1263D6EB26B7E59C001D4C8A /* ProtobufMessages.framework */; };
@@ -38,7 +38,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		124A1D682805D5010058FDAD /* AnytypeID.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeID.swift; sourceTree = "<group>"; };
+		124A1D682805D5010058FDAD /* AnytypeId.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeId.swift; sourceTree = "<group>"; };
 		1255DF6F26FF63DA00870B95 /* SynchronizedDictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SynchronizedDictionary.swift; sourceTree = "<group>"; };
 		1255DF7B270201EA00870B95 /* AsyncOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AsyncOperation.swift; sourceTree = "<group>"; };
 		1263D6EB26B7E59C001D4C8A /* ProtobufMessages.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ProtobufMessages.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -114,7 +114,7 @@
 				3DB1B32327D0F5C40058F7BA /* Stack.swift */,
 				3DE6BCAC2770CDA10036F4C5 /* Emoji.swift */,
 				12F91CEB270E000700C92B28 /* Hash.swift */,
-				124A1D682805D5010058FDAD /* AnytypeID.swift */,
+				124A1D682805D5010058FDAD /* AnytypeId.swift */,
 			);
 			path = Structs;
 			sourceTree = "<group>";
@@ -314,7 +314,7 @@
 				12F91CEC270E000700C92B28 /* Hash.swift in Sources */,
 				3D43FDC626B1E8680094D4C0 /* UIViewController+TopPresentationController.swift in Sources */,
 				C91AFEF9270B560E005F9386 /* LogEventStorage.swift in Sources */,
-				124A1D692805D5020058FDAD /* AnytypeID.swift in Sources */,
+				124A1D692805D5020058FDAD /* AnytypeId.swift in Sources */,
 				C91AFEED270B4F4F005F9386 /* AssertionLogger.swift in Sources */,
 				3D513F1427958290007850D5 /* Localization.swift in Sources */,
 				53F5A3EE274C5E7100D132AB /* FeatureFlagsStorage.swift in Sources */,

@@ -12,8 +12,8 @@ public extension String {
         String(components(separatedBy: .newlines).joined(separator: " "))
     }
     
-    var asAnytypeID: AnytypeID? {
-        AnytypeID(self)
+    var asAnytypeId: AnytypeId? {
+        AnytypeId(self)
     }
     
 }

@@ -194,11 +194,11 @@ extension HomeViewModel {
     }
     
     func tryShowPage(id: String, viewType: EditorViewType) {
-        guard let anytypeID = id.asAnytypeID else { return }
-        showPage(id: anytypeID, viewType: viewType)
+        guard let anytypeId = id.asAnytypeId else { return }
+        showPage(id: anytypeId, viewType: viewType)
     }
     
-    func showPage(id: AnytypeID, viewType: EditorViewType) {
+    func showPage(id: AnytypeId, viewType: EditorViewType) {
         let data = EditorScreenData(pageId: id.value, type: viewType)
         
         if openedPageData.showing {
@@ -215,7 +215,7 @@ extension HomeViewModel {
             .edgesIgnoringSafeArea(.all)
     }
     
-    private func createNewPage() -> AnytypeID? {
+    private func createNewPage() -> AnytypeId? {
         guard let id = dashboardService.createNewPage() else {
             anytypeAssertionFailure("No new block id in create new page response", domain: .homeView)
             return nil

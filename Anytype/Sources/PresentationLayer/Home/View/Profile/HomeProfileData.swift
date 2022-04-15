@@ -5,7 +5,7 @@ struct HomeProfileData {
     
     let name: String
     let avatarId: String?
-    let blockId: AnytypeID
+    let blockId: AnytypeId
     
 }
             
@@ -18,7 +18,7 @@ extension HomeProfileData {
 extension HomeProfileData {
     
     init?(details: ObjectDetails) {
-        guard let id = details.id.asAnytypeID else { return nil }
+        guard let id = details.id.asAnytypeId else { return nil }
         
         name = details.name.isNotEmpty ? details.name : Self.defaultName
         avatarId = details.iconImageHash?.value
