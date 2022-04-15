@@ -155,13 +155,16 @@ final class HomeViewModel: ObservableObject {
     }
 
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
-        guard let newDetails = ObjectDetailsStorage.shared.get(id: blockId) else {
+        guard
+            let id = blockId.asAnytypeId,
+            let newDetails = ObjectDetailsStorage.shared.get(id: id)
+        else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .homeView)
             return
         }
 
         favoritesCellData.enumerated()
-            .first { $0.element.destinationId == blockId }
+            .first { $0.element.destinationId.value == blockId }
             .flatMap { offset, data in
                 favoritesCellData[offset] = cellDataBuilder.updatedCellData(
                     newDetails: newDetails,

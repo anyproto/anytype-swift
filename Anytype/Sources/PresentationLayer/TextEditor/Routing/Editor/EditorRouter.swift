@@ -30,7 +30,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showPage(data: EditorScreenData) {
-        if let details = ObjectDetailsStorage.shared.get(id: data.pageId.value)  {
+        if let id = data.pageId.value.asAnytypeId,
+           let details = ObjectDetailsStorage.shared.get(id: id) {
             guard ObjectTypeProvider.isSupported(typeUrl: details.type) else {
                 showUnsupportedTypeAlert(typeUrl: details.type)
                 return

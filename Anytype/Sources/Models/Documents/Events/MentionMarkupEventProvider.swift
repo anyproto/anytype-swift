@@ -45,10 +45,13 @@ final class MentionMarkupEventProvider {
             let mentionName = string[mentionRange]
             
             let mentionBlockId = mark.param
-            let details = detailsStorage.get(id: mentionBlockId)
             
-            guard let mentionNameInDetails = details?.mentionTitle else { return nil }
+            guard
+                let id = mentionBlockId.asAnytypeId,
+                let details = detailsStorage.get(id: id)
+            else { return nil }
             
+            let mentionNameInDetails = details.mentionTitle
             // Update only mentions to updated pages
             let mentionChanged = true // mentionName != mentionNameInDetails
             

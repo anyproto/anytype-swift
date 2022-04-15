@@ -37,7 +37,7 @@ struct HomeCollectionView: View {
                         label: {
                             HomeCell(
                                 cellData: data,
-                                selected: viewModel.selectedPageIds.contains(data.id)
+                                selected: viewModel.selectedPageIds.contains(data.id.value)
                             )
                         }
                     )
@@ -47,7 +47,7 @@ struct HomeCollectionView: View {
                         view.onDrag {
                             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                             dropData.draggingCellData = data
-                            return NSItemProvider(object: data.id as NSString)
+                            return NSItemProvider(object: data.id.value as NSString)
                         }
                         .onDrop(
                             of: [UTType.text],

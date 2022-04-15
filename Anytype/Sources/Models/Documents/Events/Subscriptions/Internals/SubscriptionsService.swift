@@ -87,7 +87,10 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 let update: SubscriptionUpdate = .move(from: position.id, after: position.afterID.isNotEmpty ? position.afterID : nil)
                 sendUpdate(update, subId: position.subID)
             case .subscriptionAdd(let data):
-                guard let details = storage.get(id: data.id) else {
+                guard
+                    let id = data.id.asAnytypeId,
+                    let details = storage.get(id: id)
+                else {
                     anytypeAssertionFailure("No details found for id \(data.id)", domain: .subscriptionStorage)
                     return
                 }
