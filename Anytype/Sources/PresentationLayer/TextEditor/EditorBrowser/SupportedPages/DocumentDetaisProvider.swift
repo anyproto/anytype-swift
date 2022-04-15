@@ -8,25 +8,29 @@ protocol DocumentDetaisProvider {
 }
 
 extension EditorPageController: DocumentDetaisProvider {
+    
     var objectId: BlockId {
         viewModel.document.objectId
     }
     
     var screenData: EditorScreenData {
-        EditorScreenData(pageId: objectId, type: .page)
+        EditorScreenData(pageId: objectId.asAnytypeId!, type: .page)
     }
     
     var details: ObjectDetails? {
         viewModel.document.details
     }
+    
 }
 
 extension EditorSetHostingController: DocumentDetaisProvider {
+    
     var screenData: EditorScreenData {
-        EditorScreenData(pageId: objectId, type: .set)
+        EditorScreenData(pageId: objectId.asAnytypeId!, type: .set)
     }
     
     var details: ObjectDetails? {
         model.document.details
     }
+    
 }

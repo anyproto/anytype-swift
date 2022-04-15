@@ -49,6 +49,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
             return
         }
         
-        openLink(EditorScreenData(pageId: content.targetBlockID, type: state.viewType))
+        guard let id = content.targetBlockID.asAnytypeId else { return }
+        openLink(EditorScreenData(pageId: id, type: state.viewType))
     }
 }

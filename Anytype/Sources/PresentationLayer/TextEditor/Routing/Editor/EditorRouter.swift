@@ -30,7 +30,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showPage(data: EditorScreenData) {
-        if let details = ObjectDetailsStorage.shared.get(id: data.pageId)  {
+        if let details = ObjectDetailsStorage.shared.get(id: data.pageId.value)  {
             guard ObjectTypeProvider.isSupported(typeUrl: details.type) else {
                 showUnsupportedTypeAlert(typeUrl: details.type)
                 return
@@ -211,7 +211,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
         let viewModel = ObjectSearchViewModel { data in
-            onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
+            guard let id = data.blockId.asAnytypeId else { return }
+            onSelect(EditorScreenData(pageId: id, type: data.viewType))
         }
         let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
         

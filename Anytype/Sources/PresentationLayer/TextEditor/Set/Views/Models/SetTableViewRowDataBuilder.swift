@@ -23,7 +23,7 @@ final class SetTableViewDataBuilder {
         activeView: DataviewView,
         colums: [RelationMetadata]
     ) -> [SetTableViewRowData] {
-        datails.map { details in
+        datails.flatMap { details in
             let metadata = sortedRelations(dataview: dataView, view: activeView)
                 .filter { $0.option.isVisible == true }
                 .map { $0.metadata }
@@ -44,7 +44,11 @@ final class SetTableViewDataBuilder {
                 return relation
             }
             
-            let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
+            guard let id = details.id.asAnytypeId else {
+                return nil
+            }
+            
+            let screenData = EditorScreenData(pageId: id, type: details.editorViewType)
             
             return SetTableViewRowData(
                 id: details.id,

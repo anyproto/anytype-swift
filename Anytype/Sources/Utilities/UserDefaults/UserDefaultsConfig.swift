@@ -58,7 +58,7 @@ struct UserDefaultsConfig {
     
     static func storeOpenedScreenData(_ data: EditorScreenData?) {
         initializeScreenDataFromLastSession()
-        _lastOpenedPageId = data?.pageId
+        _lastOpenedPageId = data?.pageId.value
         _lastOpenedViewType = data?.type.rawValue
     }
     
@@ -67,7 +67,7 @@ struct UserDefaultsConfig {
         _screenDataFromLastSessionInitialized = true
         
         guard let type = _lastOpenedViewType.flatMap ({ EditorViewType(rawValue: $0) }) else { return }
-        guard let pageId = _lastOpenedPageId else { return }
+        guard let pageId = _lastOpenedPageId?.asAnytypeId else { return }
                 
         _screenDataFromLastSession = EditorScreenData(pageId: pageId, type: type)
     }

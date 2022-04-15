@@ -196,7 +196,7 @@ extension HomeViewModel {
     }
     
     func showPage(id: AnytypeId, viewType: EditorViewType) {
-        let data = EditorScreenData(pageId: id.value, type: viewType)
+        let data = EditorScreenData(pageId: id, type: viewType)
         
         if openedPageData.showing {
             editorBrowser?.showPage(data: data)
@@ -207,9 +207,11 @@ extension HomeViewModel {
     }
     
     func createBrowser() -> some View {
-        EditorBrowserAssembly().editor(data: openedPageData.data, model: self)
-            .eraseToAnyView()
-            .edgesIgnoringSafeArea(.all)
+        openedPageData.data.flatMap {
+            EditorBrowserAssembly().editor(data: $0, model: self)
+                .eraseToAnyView()
+                .edgesIgnoringSafeArea(.all)
+        }
     }
     
     private func createNewPage() -> AnytypeId? {
