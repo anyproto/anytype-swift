@@ -36,7 +36,9 @@ struct BlockLinkState: Hashable, Equatable {
         self.deleted = deleted
         self.objectPreviewFields = objectPreviewFields
         self.description = description
-        self.hasDescription = objectPreviewFields.featuredRelationsIds.contains(BundledRelationKey.description.rawValue) && !deleted
+
+        let hasDescriptionInFields = objectPreviewFields.featuredRelationsIds.contains(BundledRelationKey.description.rawValue) && !deleted
+        self.hasDescription = description.isNotEmpty && hasDescriptionInFields
     }
     
 }
