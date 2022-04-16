@@ -47,8 +47,8 @@ extension ObjectPreviewFields: FieldsConvertibleProtocol {
         var name: Bool = true
         var featuredRelationsIds: Set<String> = []
 
-        if case let .boolValue(value) = fields[FieldName.withIcon]?.kind, value {
-            icon = .medium
+        if case let .boolValue(value) = fields[FieldName.withIcon]?.kind, !value {
+            icon = .none
         }
 
         if case let .numberValue(value) = fields[FieldName.style]?.kind, value == 1 {
