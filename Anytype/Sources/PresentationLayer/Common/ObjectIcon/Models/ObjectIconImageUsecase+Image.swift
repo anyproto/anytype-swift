@@ -41,7 +41,7 @@ extension ObjectIconImageUsecase {
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: BasicIconImageGuideline.x20,
                 profileImageGuideline: ProfileIconImageGuideline.x20,
-                emojiImageGuideline: EmojiIconImageGuideline.x20,
+                emojiImageGuideline: EmojiIconImageGuideline.x24,
                 todoImageGuideline: TodoIconImageGuideline.x20,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
                 staticImageGuideline: StaticImageGuideline.x20
