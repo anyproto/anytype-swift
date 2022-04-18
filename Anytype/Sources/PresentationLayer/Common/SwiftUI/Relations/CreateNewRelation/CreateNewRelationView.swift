@@ -64,7 +64,7 @@ struct CreateNewRelationView: View {
     }
 
     private var overlay: some View {
-        StandardButton(disabled: false, text: "Create".localized, style: .primary, action: {
+        StandardButton(disabled: relationName.isEmpty, text: "Create".localized, style: .primary, action: {
             viewModel.createRelation(relationName)
         })
             .padding([.leading, .trailing], 20)
