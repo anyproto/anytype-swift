@@ -5,14 +5,12 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
 
     func configure() {
         // Check analytics feature flag
-        let isEnabled: Bool
         #if !RELEASE
-        isEnabled = FeatureFlags.analytics
-        #else
-        isEnabled = true
+        AnytypeAnalytics.instance().isEnabled = FeatureFlags.analytics
         #endif
-        
-        guard isEnabled else { return }
+
+        AnytypeAnalytics.instance().setEventConfiguartion(event: AnalyticsEventsName.blockSetTextText,
+                                                          configuation: .init(threshold: .notInRow))
         
           // Initialize SDK
         #if !RELEASE
