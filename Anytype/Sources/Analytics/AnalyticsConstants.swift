@@ -1,13 +1,13 @@
 // MARK: - API Key
 
-enum AmplitudeConfiguration {
+enum AnalyticsConfiguration {
     static let devAPIKey = "827af3255d76ef87541cd459a0a38242"
     static let prodAPIKey = "1ba981d1a9afb8af8c81847ef3383a20"
 }
 
 // MARK: - Events name
 
-enum AmplitudeEventsName {
+enum AnalyticsEventsName {
     // Auth events
     static let createAccount = "CreateAccount"
     static let openAccount = "OpenAccount"
@@ -99,7 +99,7 @@ enum AmplitudeEventsName {
 
 // MARK: - Home tab names
 
-enum AmplitudeEventsHomeTabValue {
+enum AnalyticsEventsHomeTabValue {
     static let favoritesTabSelected = "FavoritesTabSelected"
     static let archiveTabSelected = "ArchiveTabSelected"
     static let recentTabSelected = "RecentTabSelected"
@@ -109,7 +109,7 @@ enum AmplitudeEventsHomeTabValue {
 
 // MARK: - Keychain showing context
 
-enum AmplitudeEventsKeychainContext: String {
+enum AnalyticsEventsKeychainContext: String {
     case settings = "ScreenSettings"
     case logout = "BeforeLogout"
     case signup = "FirstSession"
@@ -117,7 +117,7 @@ enum AmplitudeEventsKeychainContext: String {
 
 // MARK: - Search context
 
-enum AmplitudeEventsSearchContext: String {
+enum AnalyticsEventsSearchContext: String {
     /// General search
     case general = "ScreenSearch"
     case mention = "MenuMention"
@@ -126,7 +126,7 @@ enum AmplitudeEventsSearchContext: String {
 
 // MARK: - Properties key
 
-enum AmplitudeEventsPropertiesKey {
+enum AnalyticsEventsPropertiesKey {
     static let accountId = "accountId"
     static let blockStyle = "style"
     static let blockType = "type"

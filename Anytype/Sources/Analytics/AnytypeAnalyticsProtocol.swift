@@ -8,7 +8,9 @@
 
 import Foundation
 
-protocol AnytypeAnalyticsProtocol {
-
+public protocol AnytypeAnalyticsProtocol {
+    func initializeApiKey(_ apiKey: String)
+    func setUserId(_ userId: String)
     func logEvent(_ eventType: String, withEventProperties eventProperties: [AnyHashable : Any]?)
+    func logEvent(_ eventType: String)
 }
