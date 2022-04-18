@@ -5,6 +5,7 @@ struct AccessoryViewBuilder {
     static func accessoryState(
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouter,
+        pasteboardService: PasteboardServiceProtocol,
         document: BaseDocumentProtocol
     ) -> AccessoryViewStateManager {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
@@ -48,7 +49,8 @@ struct AccessoryViewBuilder {
         let slashMenuViewModel = SlashMenuViewModel(
             handler: SlashMenuActionHandler(
                 actionHandler: actionHandler,
-                router: router
+                router: router,
+                pasteboardService: pasteboardService
             )
         )
         let slashMenuView = SlashMenuAssembly.menuView(
