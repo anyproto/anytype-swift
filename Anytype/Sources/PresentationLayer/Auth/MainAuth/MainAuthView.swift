@@ -1,5 +1,4 @@
 import SwiftUI
-import Amplitude
 
 
 struct MainAuthView: View {
@@ -66,7 +65,7 @@ struct MainAuthView: View {
             }
         }
         .onAppear {
-            Amplitude.instance().logEvent(AmplitudeEventsName.disclaimerShow)
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.disclaimerShow)
         }
     }
     

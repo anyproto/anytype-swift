@@ -1,7 +1,6 @@
 import AnytypeCore
 import BlocksModels
 import UIKit
-import Amplitude
 
 extension HomeViewModel {
     var isSelectionMode: Bool { selectedPageIds.isNotEmpty }
@@ -37,7 +36,7 @@ extension HomeViewModel {
     func deleteSelected() {
         showPagesDeletionAlert = true
 
-        Amplitude.instance().logEvent(AmplitudeEventsName.deletionWarningShow)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deletionWarningShow)
     }
     
     func pagesDeleteConfirmation() {

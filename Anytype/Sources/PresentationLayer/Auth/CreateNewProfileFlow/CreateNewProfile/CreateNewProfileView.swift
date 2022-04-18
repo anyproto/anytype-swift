@@ -1,5 +1,4 @@
 import SwiftUI
-import Amplitude
 
 struct CreateNewProfileView: View {
     @State private var showImagePicker: Bool = false
@@ -24,7 +23,7 @@ struct CreateNewProfileView: View {
             ImagePicker(image: $signUpData.image)
         }
         .onAppear {
-            Amplitude.instance().logEvent(AmplitudeEventsName.authScreenShow)
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.authScreenShow)
         }
     }
     

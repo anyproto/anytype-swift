@@ -4,7 +4,6 @@ import BlocksModels
 import UIKit
 import ProtobufMessages
 import SwiftProtobuf
-import Amplitude
 import AnytypeCore
 
 class BlockListService: BlockListServiceProtocol {
@@ -30,7 +29,7 @@ class BlockListService: BlockListServiceProtocol {
     }
 
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetBackgroundColor)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListSetBackgroundColor)
 
         Anytype_Rpc.BlockList.Set.BackgroundColor.Service
             .invoke(contextID: contextId, blockIds: blockIds, color: color.rawValue)
@@ -40,7 +39,7 @@ class BlockListService: BlockListServiceProtocol {
     }
 
     func setAlign(blockIds: [BlockId], alignment: LayoutAlignment) {
-        Amplitude.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
+        AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
 
         Anytype_Rpc.BlockList.Set.Align.Service
             .invoke(contextID: contextId, blockIds: blockIds, align: alignment.asMiddleware)

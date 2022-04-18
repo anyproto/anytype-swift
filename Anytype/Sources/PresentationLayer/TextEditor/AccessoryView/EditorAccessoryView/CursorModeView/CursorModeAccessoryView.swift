@@ -1,5 +1,4 @@
 import UIKit
-import Amplitude
 import BlocksModels
 
 class CursorModeAccessoryView: UIView {

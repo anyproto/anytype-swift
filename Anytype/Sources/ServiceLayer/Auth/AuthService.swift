@@ -2,7 +2,6 @@ import Foundation
 import Combine
 import SwiftUI
 import ProtobufMessages
-import Amplitude
 import AnytypeCore
 import BlocksModels
 
@@ -24,7 +23,7 @@ final class AuthService: AuthServiceProtocol {
     }
 
     func logout(removeData: Bool, onCompletion: @escaping (Bool) -> ()) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.logout)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
         
         Anytype_Rpc.Account.Stop.Service
             .invoke(removeData: removeData, queue: .global(qos: .userInitiated))
@@ -80,8 +79,8 @@ final class AuthService: AuthServiceProtocol {
         }
 
         let accountId = response.account.id
-        Amplitude.instance().setUserId(accountId)
-        Amplitude.instance().logAccountCreate(accountId)
+        AnytypeAnalytics.instance().setUserId(accountId)
+        AnytypeAnalytics.instance().logAccountCreate(accountId)
         UserDefaultsConfig.usersId = accountId
         
         AccountManager.shared.account = response.account.asModel
@@ -156,8 +155,8 @@ final class AuthService: AuthServiceProtocol {
             AccountManager.shared.account = response.account.asModel
             
             let accountId = response.account.id
-            Amplitude.instance().setUserId(accountId)
-            Amplitude.instance().logAccountSelect(accountId)
+            AnytypeAnalytics.instance().setUserId(accountId)
+            AnytypeAnalytics.instance().logAccountSelect(accountId)
             UserDefaultsConfig.usersId = accountId
             
             loginStateService.setupStateAfterLoginOrAuth()

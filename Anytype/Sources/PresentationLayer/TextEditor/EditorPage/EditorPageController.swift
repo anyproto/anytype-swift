@@ -2,9 +2,7 @@ import BlocksModels
 import UIKit
 import Combine
 import AnytypeCore
-
 import SwiftUI
-import Amplitude
 
 final class EditorPageController: UIViewController {
 

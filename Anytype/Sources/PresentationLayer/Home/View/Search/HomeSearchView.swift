@@ -1,5 +1,4 @@
 import SwiftUI
-import Amplitude
 
 struct HomeSearchView: View {
     @EnvironmentObject var viewModel: HomeViewModel

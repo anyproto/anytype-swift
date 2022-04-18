@@ -1,5 +1,4 @@
 import SwiftUI
-import Amplitude
 import AnytypeCore
 
 struct HomeProfileView: View {

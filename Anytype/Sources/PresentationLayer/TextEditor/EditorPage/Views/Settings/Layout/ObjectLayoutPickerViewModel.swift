@@ -1,7 +1,6 @@
 import Foundation
 import BlocksModels
 import Combine
-import Amplitude
 import SwiftUI
 import FloatingPanel
 
@@ -29,7 +28,7 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     }
     
     func didSelectLayout(_ layout: DetailsLayout) {
-        Amplitude.instance().logLayoutChange(layout)
+        AnytypeAnalytics.instance().logLayoutChange(layout)
         detailsService.setLayout(layout)
     }
     

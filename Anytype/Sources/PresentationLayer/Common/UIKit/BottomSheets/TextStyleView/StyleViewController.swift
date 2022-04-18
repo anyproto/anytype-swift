@@ -1,7 +1,6 @@
 import UIKit
 import FloatingPanel
 import BlocksModels
-import Amplitude
 
 
 // MARK: - Cell model
