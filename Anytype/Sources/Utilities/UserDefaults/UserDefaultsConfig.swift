@@ -3,7 +3,6 @@ import BlocksModels
 import Combine
 import Firebase
 import SwiftUI
-import Amplitude
 
 struct UserDefaultsConfig {
     @UserDefault("userId", defaultValue: "")
@@ -76,7 +75,7 @@ struct UserDefaultsConfig {
     @UserDefault("UserData.DefaultObjectType", defaultValue: "")
     static var defaultObjectType: String {
         didSet {
-            Amplitude.instance().logDefaultObjectTypeChange(defaultObjectType)
+            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType)
         }
     }
     
@@ -123,7 +122,7 @@ struct UserDefaultsConfig {
         set {
             _userInterfaceStyleRawValue = newValue.rawValue
 
-            Amplitude.instance().logSelectTheme(userInterfaceStyle)
+            AnytypeAnalytics.instance().logSelectTheme(userInterfaceStyle)
         }
     }
 }

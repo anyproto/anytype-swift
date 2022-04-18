@@ -1,6 +1,5 @@
 import Foundation
 import SwiftUI
-import Amplitude
 
 
 class MainAuthViewModel: ObservableObject {
@@ -37,6 +36,6 @@ class MainAuthViewModel: ObservableObject {
 
     // MARK: - View output
     func viewLoaded() {
-        Amplitude.instance().logEvent(AmplitudeEventsName.authScreenShow)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.authScreenShow)
     }
 }

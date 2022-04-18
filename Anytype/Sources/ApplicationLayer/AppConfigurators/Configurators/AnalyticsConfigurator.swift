@@ -1,5 +1,4 @@
 import UIKit
-import Amplitude
 import AnytypeCore
 
 final class AnalyticsConfigurator: AppConfiguratorProtocol {
@@ -15,18 +14,11 @@ final class AnalyticsConfigurator: AppConfiguratorProtocol {
         
         guard isEnabled else { return }
         
-        // Disable IDFA for Amplitude
-        if let trackingOptions = AMPTrackingOptions().disableIDFA() {
-            Amplitude.instance().setTrackingOptions(trackingOptions)
-        }
-
-        // Enable sending automatic session events
-        Amplitude.instance().trackingSessionEvents = true
           // Initialize SDK
         #if !RELEASE
-        Amplitude.instance().initializeApiKey(AmplitudeConfiguration.devAPIKey)
+        AnytypeAnalytics.instance().initializeApiKey(AnalyticsConfiguration.devAPIKey)
         #else
-        Amplitude.instance().initializeApiKey(AmplitudeConfiguration.prodAPIKey)
+        AnytypeAnalytics.instance().initializeApiKey(AnalyticsConfiguration.prodAPIKey)
         #endif
     }
 

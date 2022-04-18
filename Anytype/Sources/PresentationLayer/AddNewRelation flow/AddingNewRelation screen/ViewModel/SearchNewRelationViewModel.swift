@@ -1,7 +1,6 @@
 import BlocksModels
 import CoreGraphics
 import Combine
-import Amplitude
 import AnytypeCore
 import UIKit
 
@@ -42,7 +41,7 @@ final class SearchNewRelationViewModel: ObservableObject {
 extension SearchNewRelationViewModel {
     
     func search(text: String) {
-        Amplitude.instance().logSearchQuery(.menuSearch, length: text.count)
+        AnytypeAnalytics.instance().logSearchQuery(.menuSearch, length: text.count)
         
         let newSearchData = obtainAvailbaleRelationList()
 

@@ -1,6 +1,4 @@
-
 import UIKit
-import Amplitude
 
 
 protocol MentionViewDelegate: AnyObject {

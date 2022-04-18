@@ -1,5 +1,4 @@
 import SwiftUI
-import Amplitude
 import AnytypeCore
 
 struct HomeView: View {
@@ -18,7 +17,7 @@ struct HomeView: View {
             .environmentObject(model)
             .environmentObject(settingsModel)
             .onAppear {
-                Amplitude.instance().logEvent(AmplitudeEventsName.homeShow)
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.homeShow)
 
                 model.onAppear()
                 
@@ -41,7 +40,7 @@ struct HomeView: View {
                     withAnimation(.fastSpring) {
                         showSettings.toggle()
                         if showSettings {
-                            Amplitude.instance().logEvent(AmplitudeEventsName.settingsShow)
+                            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.settingsShow)
                         }
                     }
                 }) {
@@ -91,7 +90,7 @@ struct HomeView: View {
         .animation(.fastSpring, value: settingsModel.clearCacheAlert)
         .onChange(of: settingsModel.clearCacheAlert) { showClearCacheAlert in
             if showClearCacheAlert {
-                Amplitude.instance().logEvent(AmplitudeEventsName.clearFileCacheAlertShow)
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.clearFileCacheAlertShow)
             }
         }
         
@@ -104,7 +103,7 @@ struct HomeView: View {
             UserDefaultsConfig.showKeychainAlert = $0
 
             if isFirstLaunchAfterRegistration {
-                Amplitude.instance().logKeychainPhraseShow(.signup)
+                AnytypeAnalytics.instance().logKeychainPhraseShow(.signup)
             }
         }
         
@@ -118,7 +117,7 @@ struct HomeView: View {
             HomeSearchView()
                 .environmentObject(model)
                 .onChange(of: model.showSearch) { showSearch in
-                    Amplitude.instance().logEvent(AmplitudeEventsName.searchShow)
+                    AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.searchShow)
                 }
         }   
         

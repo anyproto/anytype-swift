@@ -1,5 +1,4 @@
 import SwiftUI
-import Amplitude
 import BlocksModels
 
 struct ObjectSettingsView: View {
@@ -52,7 +51,7 @@ struct ObjectSettingsView: View {
                 viewModel.showLayoutSettings()
             case .relations:
                 if isRelationsViewPresented == false {
-                    Amplitude.instance().logEvent(AmplitudeEventsName.objectRelationShow)
+                    AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.objectRelationShow)
                     isRelationsViewPresented = true
                 }
             }

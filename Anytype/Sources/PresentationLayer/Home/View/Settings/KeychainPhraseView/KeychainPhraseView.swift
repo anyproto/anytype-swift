@@ -1,9 +1,8 @@
 import SwiftUI
-import Amplitude
 
 
 struct KeychainPhraseView: View {
-    var shownInContext: AmplitudeEventsKeychainContext
+    var shownInContext: AnalyticsEventsKeychainContext
 
     @State private var showSnackbar = false
     
@@ -19,14 +18,14 @@ struct KeychainPhraseView: View {
             SeedPhraseView {
                 showSnackbar = true
 
-                Amplitude.instance().logKeychainPhraseCopy(shownInContext)
+                AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
             }
             Spacer()
         }
         .cornerRadius(12)
         .padding(.horizontal)
         .onAppear {
-            Amplitude.instance().logKeychainPhraseShow(shownInContext)
+            AnytypeAnalytics.instance().logKeychainPhraseShow(shownInContext)
         }
         .snackbar(
             isShowing: $showSnackbar,

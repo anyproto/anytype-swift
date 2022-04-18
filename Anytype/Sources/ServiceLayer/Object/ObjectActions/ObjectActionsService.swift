@@ -3,7 +3,6 @@ import Combine
 import SwiftProtobuf
 import BlocksModels
 import ProtobufMessages
-import Amplitude
 import AnytypeCore
 
 
@@ -11,7 +10,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     private var deleteSubscription: AnyCancellable?
 
     func delete(objectIds: [BlockId], completion: @escaping (Bool) -> ()) {
-        Amplitude.instance().logDeletion(count: objectIds.count)
+        AnytypeAnalytics.instance().logDeletion(count: objectIds.count)
         
         deleteSubscription = Anytype_Rpc.ObjectList.Delete.Service
             .invoke(objectIds: objectIds, queue: DispatchQueue.global(qos: .userInitiated))
@@ -34,13 +33,13 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) {
         _ = Anytype_Rpc.ObjectList.Set.IsArchived.Service.invoke(objectIds: objectIds, isArchived: isArchived)
 
-        Amplitude.instance().logMoveToBin(isArchived)
+        AnytypeAnalytics.instance().logMoveToBin(isArchived)
     }
 
     func setFavorite(objectId: BlockId, _ isFavorite: Bool) {
         _ = Anytype_Rpc.Object.SetIsFavorite.Service.invoke(contextID: objectId, isFavorite: isFavorite)
 
-        Amplitude.instance().logAddToFavorites(isFavorite)
+        AnytypeAnalytics.instance().logAddToFavorites(isFavorite)
     }
 
     func setLocked(_ isLocked: Bool, objectId: BlockId) {
@@ -94,7 +93,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             return nil
         })
 
-        Amplitude.instance().logCreateObject(objectType: type ?? "")
+        AnytypeAnalytics.instance().logCreateObject(objectType: type ?? "")
 
         EventsBunch(event: response.event).send()
         return response.targetID
@@ -130,7 +129,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
-        Amplitude.instance().logCreateObject(objectType: objectType)
+        AnytypeAnalytics.instance().logCreateObject(objectType: objectType)
 
         return Anytype_Rpc.BlockList.ConvertChildrenToPages.Service
             .invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType)
@@ -155,7 +154,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             objectTypeURL: objectTypeUrl
         )
             .map { (result) -> EventsBunch in
-                Amplitude.instance().logObjectTypeChange(objectTypeUrl)
+                AnytypeAnalytics.instance().logObjectTypeChange(objectTypeUrl)
                 return EventsBunch(event: result.event)
             }
             .getValue(domain: .objectActionsService)?

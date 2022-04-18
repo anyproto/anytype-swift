@@ -1,7 +1,6 @@
 import Combine
 import BlocksModels
 import ProtobufMessages
-import Amplitude
 import AnytypeCore
 
 // MARK: Actions
@@ -33,7 +32,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
             return nil
         }
 
-        Amplitude.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
+        AnytypeAnalytics.instance().logCreateBlock(type: info.content.description, style: info.content.type.style)
 
         let response = Anytype_Rpc.Block.Create.Service
             .invoke(contextID: contextId, targetID: targetId, block: block, position: position.asMiddleware)
@@ -45,7 +44,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
     
     func delete(blockIds: [BlockId]) -> Bool {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockDelete)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockDelete)
         let event = Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextId, blockIds: blockIds)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockActionsService)
@@ -57,7 +56,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
 
     func duplicate(targetId: BlockId, blockIds: [BlockId], position: BlockPosition) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockListDuplicate)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListDuplicate)
 
         Anytype_Rpc.BlockList.Duplicate.Service
             .invoke(contextID: contextId, targetID: targetId, blockIds: blockIds, position: position.asMiddleware)
@@ -87,6 +86,6 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
         event.send()
 
-        Amplitude.instance().logReorderBlock(count: blockIds.count)
+        AnytypeAnalytics.instance().logReorderBlock(count: blockIds.count)
     }
 }

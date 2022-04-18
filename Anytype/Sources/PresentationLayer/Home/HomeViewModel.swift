@@ -4,7 +4,6 @@ import Foundation
 import ProtobufMessages
 import AnytypeCore
 import SwiftUI
-import Amplitude
 
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [HomeCellData] = []

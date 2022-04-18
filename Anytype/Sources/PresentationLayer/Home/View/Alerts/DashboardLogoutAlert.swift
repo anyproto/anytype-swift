@@ -1,5 +1,4 @@
 import SwiftUI
-import Amplitude
 
 struct DashboardLogoutAlert: View {
     @EnvironmentObject var model: SettingsViewModel

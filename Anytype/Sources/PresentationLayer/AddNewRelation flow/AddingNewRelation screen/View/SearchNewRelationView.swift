@@ -1,6 +1,5 @@
 import SwiftUI
 import BlocksModels
-import Amplitude
 import AnytypeCore
 
 struct SearchNewRelationView: View {
@@ -61,7 +60,7 @@ struct SearchNewRelationView: View {
                                     action: {
                                         viewModel.addRelation(relationMetadata)
 
-                                        Amplitude.instance().logSearchResult(index: index + 1, length: searchText.count)
+                                        AnytypeAnalytics.instance().logSearchResult(index: index + 1, length: searchText.count)
                                     }
                                 ) {
                                     NewRelationCell(cellKind: .relation(realtionMetadata: relationMetadata))

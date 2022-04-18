@@ -2,7 +2,6 @@ import Foundation
 import ProtobufMessages
 import BlocksModels
 import SwiftProtobuf
-import Amplitude
 
 final class RelationsService {
     
@@ -17,7 +16,7 @@ final class RelationsService {
 extension RelationsService: RelationsServiceProtocol {
     
     func addFeaturedRelation(relationKey: String) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.addFeatureRelation)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.addFeatureRelation)
 
         Anytype_Rpc.Object.FeaturedRelation.Add.Service.invoke(
             contextID: objectId,
@@ -28,7 +27,7 @@ extension RelationsService: RelationsServiceProtocol {
     }
     
     func removeFeaturedRelation(relationKey: String) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.removeFeatureRelation)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeFeatureRelation)
 
         Anytype_Rpc.Object.FeaturedRelation.Remove.Service.invoke(
             contextID: objectId,
@@ -51,7 +50,7 @@ extension RelationsService: RelationsServiceProtocol {
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .relationsService)?
             .send()
-        Amplitude.instance().logEvent(AmplitudeEventsName.changeRelationValue)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.changeRelationValue)
     }
 
     func createRelation(relation: RelationMetadata) -> RelationMetadata? {
@@ -71,7 +70,7 @@ extension RelationsService: RelationsServiceProtocol {
 
         EventsBunch(event: response.event).send()
 
-        Amplitude.instance().logAddRelation(format: relation.format, isNew: isNew)
+        AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew)
 
         return RelationMetadata(middlewareRelation: response.relation)
     }
@@ -83,7 +82,7 @@ extension RelationsService: RelationsServiceProtocol {
             .getValue(domain: .relationsService)?
             .send()
         
-        Amplitude.instance().logEvent(AmplitudeEventsName.deleteRelation)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
     }
     
     func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String? {

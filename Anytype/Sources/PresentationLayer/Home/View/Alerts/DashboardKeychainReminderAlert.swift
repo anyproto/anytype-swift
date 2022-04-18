@@ -1,8 +1,7 @@
 import SwiftUI
-import Amplitude
 
 struct DashboardKeychainReminderAlert: View {
-    var shownInContext: AmplitudeEventsKeychainContext
+    var shownInContext: AnalyticsEventsKeychainContext
     @EnvironmentObject private var model: HomeViewModel
     
     var body: some View {
@@ -15,7 +14,7 @@ struct DashboardKeychainReminderAlert: View {
             SeedPhraseView {
                 model.snackBarData = .init(text: "Keychain phrase copied to clipboard", showSnackBar: true)
 
-                Amplitude.instance().logKeychainPhraseCopy(shownInContext)
+                AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
             }
             Spacer.fixedHeight(25)
         }

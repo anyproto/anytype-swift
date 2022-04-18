@@ -3,7 +3,6 @@ import SwiftUI
 import Combine
 import os
 import BlocksModels
-import Amplitude
 import AnytypeCore
 
 final class EditorPageViewModel: EditorPageViewModelProtocol {
@@ -248,7 +247,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 extension EditorPageViewModel {
     func viewDidLoad() {
         if let objectDetails = document.details {
-            Amplitude.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
+            AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
         }
     }
     

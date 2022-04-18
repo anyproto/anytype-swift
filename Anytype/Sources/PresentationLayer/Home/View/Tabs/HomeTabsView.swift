@@ -1,5 +1,4 @@
 import SwiftUI
-import Amplitude
 import SwiftUIVisualEffects
 import AnytypeCore
 
@@ -138,7 +137,7 @@ struct HomeTabsView: View {
     private func onTabSelection() {
         model.selectAll(false)
         model.onTabChange(tab: tabSelection)
-        Amplitude.instance().logHomeTabSelection(tabSelection)
+        AnytypeAnalytics.instance().logHomeTabSelection(tabSelection)
     }
 }
 

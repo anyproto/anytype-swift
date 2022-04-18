@@ -2,7 +2,6 @@ import Foundation
 import Combine
 import BlocksModels
 import ProtobufMessages
-import Amplitude
 import AnytypeCore
 
 final class DashboardService: DashboardServiceProtocol {

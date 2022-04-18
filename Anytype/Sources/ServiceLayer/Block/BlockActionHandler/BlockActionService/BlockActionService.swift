@@ -1,7 +1,6 @@
 import Combine
 import BlocksModels
 import UIKit
-import Amplitude
 import AnytypeCore
 import ProtobufMessages
 

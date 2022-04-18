@@ -1,5 +1,4 @@
 import SwiftUI
-import Amplitude
 
 struct SettingsSectionView: View {
 

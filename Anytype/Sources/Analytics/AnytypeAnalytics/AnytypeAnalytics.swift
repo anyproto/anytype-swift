@@ -34,6 +34,10 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
         Amplitude.instance().initializeApiKey(apiKey)
     }
 
+    func setUserId(_ userId: String) {
+        Amplitude.instance().setUserId(userId)
+    }
+
     func logEvent(_ eventType: String, withEventProperties eventProperties: [AnyHashable : Any]?) {
         Amplitude.instance().logEvent(eventType, withEventProperties: eventProperties)
     }

@@ -1,6 +1,5 @@
 import Combine
 import UIKit
-import Amplitude
 import BlocksModels
     
 final class FileRouter {
@@ -22,7 +21,7 @@ final class FileRouter {
             loadingCompletion: { [weak self] url in
                 let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: true)
                 self?.viewController?.present(controller, animated: true, completion: nil)
-                Amplitude.instance().logDownloadMedia(type: type)
+                AnytypeAnalytics.instance().logDownloadMedia(type: type)
             }
         )
         
