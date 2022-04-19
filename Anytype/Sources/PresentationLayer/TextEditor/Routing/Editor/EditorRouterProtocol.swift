@@ -45,6 +45,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func goBack()
     
+    func presentSheet(_ vc: UIViewController)
     func presentFullscreen(_ vc: UIViewController)
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
 }

@@ -168,9 +168,8 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        router.presentFullscreen(
-            AnytypePopup(viewModel: SetViewPickerViewModel(setModel: self))
-        )
+        let vc = UIHostingController(rootView: EditorSetViewPicker(setModel: self))
+        router.presentSheet(vc)
     }
     
     func showSetSettings() {

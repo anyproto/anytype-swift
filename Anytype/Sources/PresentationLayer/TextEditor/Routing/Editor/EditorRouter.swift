@@ -247,6 +247,17 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         rootController?.pop()
     }
     
+    func presentSheet(_ vc: UIViewController) {
+        if #available(iOS 15.0, *) {
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.selectedDetentIdentifier = .medium
+            }
+        }
+        
+        viewController?.topPresentedController.present(vc, animated: true)
+    }
+    
     func presentFullscreen(_ vc: UIViewController) {
         rootController?.topPresentedController.present(vc, animated: true)
     }

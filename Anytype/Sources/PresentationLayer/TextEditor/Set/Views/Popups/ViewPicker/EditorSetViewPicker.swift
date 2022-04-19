@@ -2,22 +2,20 @@ import SwiftUI
 import BlocksModels
 
 struct EditorSetViewPicker: View {
-    @EnvironmentObject var setModel: EditorSetViewModel
-    @EnvironmentObject var model: SetViewPickerViewModel
+    
+    @ObservedObject var setModel: EditorSetViewModel
+    @Environment(\.presentationMode) var presentationMode
     
     var body: some View {
-        ScrollView {
-            VStack(spacing: 0) {
-                Spacer.fixedHeight(12)
-                AnytypeText("Views".localized, style: .uxTitle1Semibold, color: .textPrimary)
-                
-                ScrollView(.vertical, showsIndicators: false) {
-                    VStack(alignment: .center, spacing: 0) {
-                        Spacer.fixedHeight(12)
-                        
-                        ForEach(setModel.dataView.views) { view in
-                            viewButton(view)
-                        }
+        VStack(spacing: 0) {
+            DragIndicator()
+            TitleView(title: "Views".localized)
+            ScrollView(.vertical, showsIndicators: false) {
+                VStack(alignment: .center, spacing: 0) {
+                    Spacer.fixedHeight(10)
+                    
+                    ForEach(setModel.dataView.views) { view in
+                        viewButton(view)
                     }
                 }
             }
@@ -33,7 +31,7 @@ struct EditorSetViewPicker: View {
                     Button(action: {
                         setModel.updateActiveViewId(view.id)
                         withAnimation(.fastSpring) {
-                            model.popup?.close()
+                            presentationMode.wrappedValue.dismiss()
                         }
                     }) {
                         AnytypeText(view.name, style: .uxBodyRegular, color: .textPrimary)
