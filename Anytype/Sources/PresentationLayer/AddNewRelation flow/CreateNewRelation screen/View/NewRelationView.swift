@@ -52,7 +52,7 @@ struct NewRelationView: View {
     }
     
     private var button: some View {
-        StandardButton(disabled: !viewModel.isCreateButtonActive, text: "Сreate".localized, style: .primary) {
+        StandardButton(disabled: !viewModel.isCreateButtonActive, text: "Create".localized, style: .primary) {
             viewModel.didTapAddButton()
         }
         .padding(.vertical, 10)
