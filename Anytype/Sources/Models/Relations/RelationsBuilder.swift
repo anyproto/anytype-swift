@@ -294,7 +294,11 @@ private extension RelationsBuilder {
             }()
             
             let objectDetails: [ObjectDetails] = values.compactMap {
-                guard let objectId = $0.stringValue.asAnytypeId else { return nil }
+                let value = $0.stringValue
+                guard
+                    value.isNotEmpty,
+                    let objectId = value.asAnytypeId
+                else { return nil }
                 let objectDetails = storage.get(id: objectId)
                 return objectDetails
             }
@@ -343,7 +347,11 @@ private extension RelationsBuilder {
             guard let value = value else { return [] }
             
             let objectDetails: [ObjectDetails] = value.listValue.values.compactMap {
-                guard let objectId = $0.stringValue.asAnytypeId else { return nil }
+                let value = $0.stringValue
+                guard
+                    value.isNotEmpty,
+                    let objectId = value.asAnytypeId
+                else { return nil }
                 let objectDetails = storage.get(id: objectId)
                 return objectDetails
             }
