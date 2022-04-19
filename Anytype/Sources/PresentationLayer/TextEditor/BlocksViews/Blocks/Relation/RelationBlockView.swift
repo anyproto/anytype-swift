@@ -25,6 +25,10 @@ final class RelationBlockView: UIView, BlockContentView {
         super.init(coder: coder)
         setupLayout()
     }
+    
+    func update(with state: UICellConfigurationState) {
+        relationValueView.isUserInteractionEnabled = !state.isLocked
+    }
 
     func update(with configuration: RelationBlockContentConfiguration) {
         relationValueView.removeFromSuperview()
