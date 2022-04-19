@@ -10,11 +10,15 @@ import Amplitude
 
 final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
 
+    var isEnabled: Bool = true
+
     private static var anytypeAnalytics: AnytypeAnalytics = {
         let anytypeAnalytics = AnytypeAnalytics()
         return anytypeAnalytics
     }()
 
+    private var eventsConfiguration: [String: EventConfigurtion] = [:]
+    private var lastEvents: String = .empty
 
     init() {
         // Disable IDFA for Amplitude
@@ -30,6 +34,10 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
         return AnytypeAnalytics.anytypeAnalytics
     }
 
+    func setEventConfiguartion(event: String, configuation: EventConfigurtion) {
+        eventsConfiguration[event] = configuation
+    }
+
     func initializeApiKey(_ apiKey: String) {
         Amplitude.instance().initializeApiKey(apiKey)
     }
@@ -39,10 +47,19 @@ final class AnytypeAnalytics: AnytypeAnalyticsProtocol {
     }
 
     func logEvent(_ eventType: String, withEventProperties eventProperties: [AnyHashable : Any]?) {
+        guard isEnabled else { return }
+        
+        let eventConfiguration = eventsConfiguration[eventType]
+
+        if case .notInRow = eventConfiguration?.threshold, lastEvents == eventType {
+            return
+        }
+
+        lastEvents = eventType
         Amplitude.instance().logEvent(eventType, withEventProperties: eventProperties)
     }
 
     func logEvent(_ eventType: String) {
-        Amplitude.instance().logEvent(eventType)
+        logEvent(eventType, withEventProperties: nil)
     }
 }
