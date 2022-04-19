@@ -24,8 +24,8 @@ struct TransparencyEffect: View {
             LinearGradient(
                 gradient: Gradient(
                     colors: [
-                        Color.backgroundPrimary.opacity(0),
-                        Color.backgroundPrimary
+                        Color(UIColor.systemBackground).opacity(0),
+                        Color(UIColor.systemBackground)
                     ]
                 ),
                 startPoint: .leading,
@@ -40,8 +40,8 @@ struct TransparencyEffect: View {
             LinearGradient(
                 gradient: Gradient(
                     colors: [
-                        Color.backgroundPrimary,
-                        Color.backgroundPrimary.opacity(0)
+                        Color(UIColor.systemBackground),
+                        Color(UIColor.systemBackground).opacity(0)
                     ]
                 ),
                 startPoint: .leading,
@@ -57,8 +57,8 @@ struct TransparencyEffect: View {
             LinearGradient(
                 gradient: Gradient(
                     colors: [
-                        Color.backgroundPrimary,
-                        Color.backgroundPrimary.opacity(0)
+                        Color(UIColor.systemBackground),
+                        Color(UIColor.systemBackground).opacity(0)
                     ]
                 ),
                 startPoint: .top,
@@ -75,8 +75,8 @@ struct TransparencyEffect: View {
             LinearGradient(
                 gradient: Gradient(
                     colors: [
-                        Color.backgroundPrimary.opacity(0),
-                        Color.backgroundPrimary
+                        Color(UIColor.systemBackground).opacity(0),
+                        Color(UIColor.systemBackground)
                     ]
                 ),
                 startPoint: .top,
