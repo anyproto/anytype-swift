@@ -82,7 +82,6 @@ final class TextViewWithPlaceholder: UITextView {
     override func becomeFirstResponder() -> Bool {
         let value = super.becomeFirstResponder()
 
-
         reloadGestures()
         onFirstResponderChange(.become)
         return value
