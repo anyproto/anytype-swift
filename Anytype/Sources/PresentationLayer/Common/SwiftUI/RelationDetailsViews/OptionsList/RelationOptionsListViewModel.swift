@@ -121,7 +121,13 @@ private extension RelationOptionsListViewModel {
 extension RelationOptionsListViewModel: AnytypePopupViewModelProtocol {
     
     func makeContentView() -> UIViewController {
-        UIHostingController(rootView: RelationOptionsListView(viewModel: self))
+        UIHostingController(
+            rootView:
+                RelationOptionsListView(viewModel: self)
+                .highPriorityGesture(
+                    DragGesture()
+                )
+        )
     }
     
     func onPopupInstall(_ popup: AnytypePopupProxy) {

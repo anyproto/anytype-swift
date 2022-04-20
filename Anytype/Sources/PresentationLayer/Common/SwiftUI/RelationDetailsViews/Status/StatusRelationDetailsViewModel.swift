@@ -101,7 +101,13 @@ private extension StatusRelationDetailsViewModel {
 extension StatusRelationDetailsViewModel: AnytypePopupViewModelProtocol {
     
     func makeContentView() -> UIViewController {
-        UIHostingController(rootView: StatusRelationDetailsView(viewModel: self))
+        UIHostingController(
+            rootView:
+                StatusRelationDetailsView(viewModel: self)
+                .highPriorityGesture(
+                    DragGesture()
+                )
+        )
     }
     
     func onPopupInstall(_ popup: AnytypePopupProxy) {
