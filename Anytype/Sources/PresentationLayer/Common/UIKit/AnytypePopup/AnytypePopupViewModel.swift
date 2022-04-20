@@ -35,17 +35,24 @@ final class AnytypePopupViewModel<Content: View>: AnytypePopupViewModelProtocol,
 }
 
 private extension AnytypePopupViewModel {
+    
     struct InnerAnytypePopupView: View {
+        
         @ObservedObject var viewModel: AnytypePopupViewModel
         let contentView: Content
         @State private var currentHeight: CGFloat = .zero
 
         var body: some View {
-            contentView.readSize { size in
-                guard currentHeight != size.height else { return }
-                currentHeight = size.height
-                viewModel.viewDidUpdateHeight(currentHeight)
-            }
+            contentView
+                .highPriorityGesture(
+                    DragGesture()
+                )
+                .readSize { size in
+                    guard currentHeight != size.height else { return }
+                    currentHeight = size.height
+                    viewModel.viewDidUpdateHeight(currentHeight)
+                }
         }
     }
+    
 }
