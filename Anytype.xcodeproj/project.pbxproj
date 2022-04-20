@@ -2445,7 +2445,6 @@
 		03CB3F0E230C4137003D5DFD /* Image */ = {
 			isa = PBXGroup;
 			children = (
-				3DA12E6A2636F6330085D008 /* FileLoader */,
 			);
 			path = Image;
 			sourceTree = "<group>";
@@ -3502,7 +3501,9 @@
 		1289C50E2810278F005085E2 /* FileDownloading flow */ = {
 			isa = PBXGroup;
 			children = (
+				3DA12E6A2636F6330085D008 /* FileLoader */,
 				0A0965C125BEF5B000C004BD /* FileDownloadingCoordinator.swift */,
+				3D93D56A270C9E3400614E29 /* LoadingViewController.swift */,
 			);
 			path = "FileDownloading flow";
 			sourceTree = "<group>";
@@ -4932,7 +4933,6 @@
 			isa = PBXGroup;
 			children = (
 				3D93D569270C9E3400614E29 /* URLInputViewController.swift */,
-				3D93D56A270C9E3400614E29 /* LoadingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
