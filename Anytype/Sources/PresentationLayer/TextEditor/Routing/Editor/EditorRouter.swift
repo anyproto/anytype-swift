@@ -8,7 +8,7 @@ import AnytypeCore
 final class EditorRouter: NSObject, EditorRouterProtocol {
     private weak var rootController: EditorBrowserController?
     private weak var viewController: UIViewController?
-    private let fileRouter: FileRouter
+    private let fileCoordinator: FileDownloadingCoordinator
     private let addNewRelationCoordinator: AddNewRelationCoordinator
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
@@ -25,7 +25,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.viewController = viewController
         self.document = document
         self.editorAssembly = assembly
-        self.fileRouter = FileRouter(fileLoader: FileLoader(), viewController: viewController)
+        self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
         self.addNewRelationCoordinator = AddNewRelationCoordinator(document: document, viewController: viewController)
     }
 
@@ -115,7 +115,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func saveFile(fileURL: URL, type: FileContentType) {
-        fileRouter.saveFile(fileURL: fileURL, type: type)
+        fileCoordinator.saveFile(fileURL: fileURL, type: type)
     }
     
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void) {
