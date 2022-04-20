@@ -60,6 +60,6 @@ final class ObjectSettingAssembly {
             document: document,
             detailsService: ServiceLocator.shared.detailsService(objectId: document.objectId)
         )
-        return AnytypePopup(viewModel: viewModel)
+        return AnytypePopup(contentView: ObjectLayoutPicker(viewModel: viewModel))
     }
 }
