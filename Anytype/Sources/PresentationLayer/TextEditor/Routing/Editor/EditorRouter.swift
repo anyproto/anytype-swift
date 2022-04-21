@@ -115,7 +115,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func saveFile(fileURL: URL, type: FileContentType) {
-        fileCoordinator.saveFile(fileURL: fileURL, type: type)
+        fileCoordinator.downloadFileAt(fileURL, withType: type)
     }
     
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void) {
