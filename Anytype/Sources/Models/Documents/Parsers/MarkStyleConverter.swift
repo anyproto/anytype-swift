@@ -33,7 +33,8 @@ enum MarkStyleActionConverter {
             return .backgroundColor(UIColor.Background.uiColor(from: middlewareColor))
 
         case .mention:
-            guard let details = ObjectDetailsStorage.shared.get(id: tuple.value) else {
+            guard let id = tuple.value.asAnytypeId else { return nil }
+            guard let details = ObjectDetailsStorage.shared.get(id: id) else {
                 return .mention(.noDetails(blockId: tuple.value))
             }
             return .mention(MentionData(details: details))

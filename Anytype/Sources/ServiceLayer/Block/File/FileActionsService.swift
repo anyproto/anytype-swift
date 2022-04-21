@@ -2,10 +2,10 @@ import Foundation
 import Combine
 import BlocksModels
 import ProtobufMessages
-import Amplitude
 import AnytypeCore
 
 final class FileActionsService: FileActionsServiceProtocol {
+    private lazy var queue = DispatchQueue(label: "com.anytypeio.fileService")
     
     func syncUploadDataAt(
         filePath: String,
@@ -35,7 +35,7 @@ final class FileActionsService: FileActionsServiceProtocol {
         )
             .map(\.event)
             .map(EventsBunch.init)
-            .subscribe(on: DispatchQueue.global())
+            .subscribe(on: queue)
             .eraseToAnyPublisher()
     }
     
@@ -49,6 +49,20 @@ final class FileActionsService: FileActionsServiceProtocol {
         )
             .getValue(domain: .blockActionsService)
             .flatMap { Hash($0.hash) }
+    }
+
+    func asyncUploadImage(at localPathURL: URL) -> AnyPublisher<Hash?, Error> {
+        Anytype_Rpc.UploadFile.Service.invoke(
+            url: "",
+            localPath: localPathURL.relativePath,
+            type: FileContentType.image.asMiddleware,
+            disableEncryption: false,
+            style: .auto,
+            queue: queue
+        )
+            .map(\.hash)
+            .map(Hash.init)
+            .eraseToAnyPublisher()
     }
     
 }

@@ -6,10 +6,7 @@ struct RelationObjectsRowView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
-            SwiftUIObjectIconImageView(
-                iconImage: object.icon,
-                usecase: .dashboardSearch
-            ).frame(width: 48, height: 48)
+            icon
             Spacer.fixedWidth(12)
             text
             Spacer()
@@ -17,16 +14,39 @@ struct RelationObjectsRowView: View {
         .frame(height: 68)
     }
     
+    private var icon: some View {
+        Group {
+            if object.isDeleted {
+                Image.ghost.resizable().frame(width: 28, height: 28)
+            } else {
+                SwiftUIObjectIconImageView(
+                    iconImage: object.icon,
+                    usecase: .dashboardSearch
+                )
+            }
+        }.frame(width: 48, height: 48)
+    }
+    
     private var text: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(object.title, style: .previewTitle2Medium, color: .textPrimary)
+            AnytypeText(
+                object.isDeleted ? "Non-existent object".localized : object.title,
+                style: .previewTitle2Medium,
+                color: object.isDeleted ? .textTertiary : .textPrimary
+            )
                 .lineLimit(1)
+            
             Spacer.fixedHeight(1)
             
-            AnytypeText(object.type, style: .relation2Regular, color: .textSecondary)
+            AnytypeText(
+                object.isDeleted ? "Deleted".localized : object.type,
+                style: .relation2Regular,
+                color: object.isDeleted ? .textTertiary : .textSecondary
+            )
                 .lineLimit(1)
         }
     }
+    
 }
 
 struct RelationObjectsRowView_Previews: PreviewProvider {
@@ -36,7 +56,8 @@ struct RelationObjectsRowView_Previews: PreviewProvider {
                 id: "",
                 icon: .placeholder("r"),
                 title: "title",
-                type: "type"
+                type: "type",
+                isDeleted: false
             )
         )
     }

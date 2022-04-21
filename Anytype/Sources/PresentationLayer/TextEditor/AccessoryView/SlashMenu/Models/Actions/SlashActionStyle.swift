@@ -7,6 +7,7 @@ enum SlashActionStyle: CaseIterable {
     case heading
     case subheading
     case highlighted
+    case callout
     case checkbox
     case bulleted
     case numberedList
@@ -29,6 +30,8 @@ enum SlashActionStyle: CaseIterable {
             return "Subheading".localized
         case .highlighted:
             return "Highlighted".localized
+        case .callout:
+            return "Callout".localized
         case .checkbox:
             return "Checkbox".localized
         case .bulleted:
@@ -62,6 +65,8 @@ enum SlashActionStyle: CaseIterable {
             return ImageName.slashMenu.style.subheading
         case .highlighted:
             return ImageName.slashMenu.style.highlighted
+        case .callout:
+            return ImageName.slashMenu.style.callout
         case .checkbox:
             return ImageName.slashMenu.style.checkbox
         case .bulleted:
@@ -95,6 +100,8 @@ enum SlashActionStyle: CaseIterable {
             return "Subheading block subtitle".localized
         case .highlighted:
             return "Highlighted block subtitle".localized
+        case .callout:
+            return "Small section heading".localized
         case .checkbox:
             return "Checkbox block subtitle".localized
         case .bulleted:
@@ -120,6 +127,8 @@ enum SlashActionStyle: CaseIterable {
             return .text(.header3)
         case .highlighted:
             return .text(.quote)
+        case .callout:
+            return .text(.callout)
         case .checkbox:
             return .text(.checkbox)
         case .bulleted:

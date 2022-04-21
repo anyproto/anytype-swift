@@ -1,6 +1,5 @@
 import SwiftUI
 import AnytypeCore
-import Amplitude
 
 struct WallpaperPickerView: View {
     @EnvironmentObject var model: SettingsViewModel
@@ -18,7 +17,7 @@ struct WallpaperPickerView: View {
         }
         .background(Color.backgroundSecondary)
         .onAppear {
-            Amplitude.instance().logEvent(AmplitudeEventsName.wallpaperSettingsShow)
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.wallpaperSettingsShow)
         }
     }
 }

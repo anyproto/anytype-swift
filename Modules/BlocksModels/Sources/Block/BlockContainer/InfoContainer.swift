@@ -13,7 +13,15 @@ public final class InfoContainer: InfoContainerProtocol {
             return []
         }
         
-        return information.childrenIds.compactMap { get(id: $0) }
+        return information.childrenIds.compactMap { get(id: $0.value) }
+    }
+
+    public func recursiveChildren(of id: BlockId) -> [BlockInformation] {
+        guard let information = models[id] else { return [] }
+
+        let childBlocks = information.childrenIds.compactMap { get(id: $0.value) }
+
+        return childBlocks + childBlocks.map { recursiveChildren(of: $0.id.value) }.flatMap { $0 }
     }
 
     public func get(id: BlockId) -> BlockInformation? {
@@ -21,13 +29,13 @@ public final class InfoContainer: InfoContainerProtocol {
     }
     
     public func add(_ info: BlockInformation) {
-        models[info.id] = info
+        models[info.id.value] = info
     }
 
     public func remove(id: BlockId) {
         // go to parent and remove this block from a parent.
-        if let parentId = get(id: id)?.metadata.parentId, let parent = models[parentId] {
-            let childrenIds = parent.childrenIds.filter {$0 != id}
+        if let parentId = get(id: id)?.configurationData.parentId, let parent = models[parentId] {
+            let childrenIds = parent.childrenIds.filter {$0.value != id}
             add(parent.updated(childrenIds: childrenIds))
         }
         
@@ -39,8 +47,10 @@ public final class InfoContainer: InfoContainerProtocol {
             anytypeAssertionFailure("I can't find entry with id: \(parentId)", domain: .blockContainer)
             return
         }
+        
+        let anytypeIds = ids.compactMap { $0.asAnytypeId }
 
-        add(parent.updated(childrenIds: ids))
+        add(parent.updated(childrenIds: anytypeIds))
     }
     
     public func update(blockId: BlockId, update updateAction: @escaping (BlockInformation) -> (BlockInformation?)) {

@@ -1,5 +1,4 @@
 import SwiftUI
-import Amplitude
 import SwiftUIVisualEffects
 import AnytypeCore
 
@@ -74,7 +73,7 @@ struct HomeTabsView: View {
                 dragAndDropDelegate: model,
                 offsetChanged: offsetChanged,
                 onTap: { data in
-                    model.showPage(pageId: data.destinationId, viewType: data.viewType)
+                    model.tryShowPage(id: data.destinationId.value, viewType: data.viewType)
                 }
             )
             .tag(Tab.favourites)
@@ -84,7 +83,7 @@ struct HomeTabsView: View {
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
                 onTap: { data in
-                    model.showPage(pageId: data.destinationId, viewType: data.viewType)
+                    model.tryShowPage(id: data.destinationId.value, viewType: data.viewType)
                 }
             )
             .tag(Tab.history)
@@ -94,7 +93,7 @@ struct HomeTabsView: View {
                 dragAndDropDelegate: nil, // no dnd
                 offsetChanged: offsetChanged,
                 onTap: { data in
-                    model.showPage(pageId: data.destinationId, viewType: data.viewType)
+                    model.tryShowPage(id: data.destinationId.value, viewType: data.viewType)
                 }
             )
             .tag(Tab.sets)
@@ -105,7 +104,7 @@ struct HomeTabsView: View {
                     dragAndDropDelegate: nil, // no dnd
                     offsetChanged: offsetChanged,
                     onTap: { data in
-                        model.showPage(pageId: data.destinationId, viewType: data.viewType)
+                        model.tryShowPage(id: data.destinationId.value, viewType: data.viewType)
                     }
                 )
                 .tag(Tab.shared)
@@ -138,13 +137,14 @@ struct HomeTabsView: View {
     private func onTabSelection() {
         model.selectAll(false)
         model.onTabChange(tab: tabSelection)
-        Amplitude.instance().logHomeTabSelection(tabSelection)
+        AnytypeAnalytics.instance().logHomeTabSelection(tabSelection)
     }
 }
 
 struct HomeTabsView_Previews: PreviewProvider {
+    
     static var model: HomeViewModel {
-        let model = HomeViewModel()
+        let model = HomeViewModel(homeBlockId: AnytypeIdMock.id)
         return model
     }
     

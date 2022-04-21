@@ -12,9 +12,6 @@ struct ObjectLayoutPicker: View {
             layoutList
         }
         .background(Color.backgroundSecondary)
-        .readSize { size in
-            viewModel.viewDidUpdateHeight(size.height)
-        }
     }
     
     private var layoutList: some View {

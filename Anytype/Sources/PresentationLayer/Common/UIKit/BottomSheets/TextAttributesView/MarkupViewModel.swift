@@ -103,9 +103,9 @@ extension MarkupViewModel: MarkupViewModelProtocol {
         }
         switch action {
         case let .selectAlignment(alignment):
-            actionHandler.setAlignment(alignment, blockId: blockInformation.id)
+            actionHandler.setAlignment(alignment, blockId: blockInformation.id.value)
         case let .toggleMarkup(markup):
-            setMarkup(markup: markup, blockId: blockInformation.id)
+            setMarkup(markup: markup, blockId: blockInformation.id.value)
         }
     }
     

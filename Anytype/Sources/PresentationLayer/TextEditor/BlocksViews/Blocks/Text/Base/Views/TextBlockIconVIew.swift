@@ -11,6 +11,7 @@ final class TextBlockIconView: UIView {
         case bulleted
         case quote
         case empty
+        case callout(model: ObjectIconImageModel)
     }
 
     private var currentView: UIView?
@@ -88,6 +89,8 @@ final class TextBlockIconView: UIView {
         case .quote:
             let quoteView = createQuoteView()
             currentView = quoteView
+        case .callout(let model):
+            currentView = createCalloutView(model: model)
         case .empty:
             setContentHuggingPriority(.required, for: .horizontal)
             return
@@ -200,13 +203,35 @@ extension TextBlockIconView {
             $0.bottom.equal(to: bottomAnchor)
         }
         layoutUsing.anchors {
-            $0.width.equal(to: Constants.size.width)
-            if let superview = superview {
-                $0.top.equal(to: superview.topAnchor)
-                $0.bottom.equal(to: superview.bottomAnchor)
-            }
+            $0.width.equal(to: Constants.size.width, priority: .defaultLow)
         }
+
         return quoteView
+    }
+
+    private func createCalloutView(model: ObjectIconImageModel) -> UIView {
+        let iconView = ObjectIconImageView()
+
+        iconView.configure(model: model)
+
+        let action = UIAction { [weak self] action in
+            self?.action?()
+        }
+
+        let button = UIButton()
+        button.addAction(action, for: .touchUpInside)
+
+        addSubview(button) {
+            $0.pinToSuperview()
+        }
+
+        button.addSubview(iconView) {
+            $0.pinToSuperview()
+        }
+
+        iconView.isUserInteractionEnabled = false
+
+        return button
     }
 }
 

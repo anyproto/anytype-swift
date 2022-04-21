@@ -31,9 +31,10 @@ final class EditorSetViewModel: ObservableObject {
         dataBuilder.sortedRelations(dataview: dataView, view: activeView)
     }
  
-    var details: ObjectDetails {
-        document.details ?? .empty
+    var details: ObjectDetails? {
+        document.details
     }
+    
     var featuredRelations: [Relation] {
         document.featuredRelationsForEditor
     }
@@ -167,9 +168,8 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        router.presentFullscreen(
-            AnytypePopup(viewModel: SetViewPickerViewModel(setModel: self))
-        )
+        let vc = UIHostingController(rootView: EditorSetViewPicker(setModel: self))
+        router.presentSheet(vc)
     }
     
     func showSetSettings() {
@@ -188,7 +188,7 @@ extension EditorSetViewModel {
             AnytypePopup(
                 viewModel: EditorSetViewSettingsViewModel(
                     setModel: self,
-                    service: DataviewService(objectId: document.objectId)
+                    service: DataviewService(objectId: document.objectId.value)
                 )
             )
         )

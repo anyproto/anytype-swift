@@ -61,12 +61,13 @@ final class BlockBookmarkView: UIView, BlockContentView {
         view.layer.borderColor = UIColor.strokePrimary.cgColor
         view.layer.cornerRadius = 16
         view.clipsToBounds = true
+        view.backgroundColor = .clear
         return view
     }()
 }
 
 private extension BlockBookmarkView {
     enum Layout {
-        static let backgroundViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
+        static let backgroundViewInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
     }
 }

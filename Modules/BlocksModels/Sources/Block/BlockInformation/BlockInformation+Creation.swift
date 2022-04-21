@@ -1,19 +1,24 @@
 public extension BlockInformation {
+    
     static var emptyText: BlockInformation {
         empty(content: .text(.empty(contentType: .text)))
     }
     
     static func empty(
-        id: BlockId = "", content: BlockContent
+        id: BlockId = Constants.newBlockId, content: BlockContent
     ) -> BlockInformation {
         BlockInformation(
-            id: id,
+            id: id.asAnytypeId!,
             content: content,
             backgroundColor: nil,
             alignment: .left,
             childrenIds: [],
-            fields: [:],
-            metadata: BlockInformationMetadata()
+            configurationData: BlockInformationMetadata(
+                backgroundColor: .default,
+                indentationStyle: content.indentationStyle(isLastChild: true),
+                calloutBackgroundColor: nil
+            ),
+            fields: [:]
         )
     }
     
@@ -21,4 +26,13 @@ public extension BlockInformation {
         let content: BlockContent = .link(BlockLink(targetBlockID: targetId, style: .page, fields: [:]))
         return BlockInformation.empty(content: content)
     }
+    
+}
+
+public extension BlockInformation {
+    
+    enum Constants {
+        public static let newBlockId = "new_block_id"
+    }
+    
 }

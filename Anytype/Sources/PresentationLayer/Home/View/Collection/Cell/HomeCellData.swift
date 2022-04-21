@@ -2,10 +2,11 @@ import Foundation
 import UIKit
 import Combine
 import BlocksModels
+import AnytypeCore
 
 struct HomeCellData: Identifiable, IdProvider {
-    let id: BlockId
-    let destinationId: String
+    let id: AnytypeId
+    let destinationId: AnytypeId
     let icon: ObjectIconType?
     let title: Title
     let type: String

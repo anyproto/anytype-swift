@@ -1,26 +1,26 @@
-import ProtobufMessages
+import AnytypeCore
 
 public struct BlockInformation: Hashable {
-    public let id: BlockId
+    public let id: AnytypeId
     public let content: BlockContent
     
-    public let childrenIds: [BlockId]
+    public let childrenIds: [AnytypeId]
     
-    public let fields: MiddleBlockFields
+    public let fields: BlockFields
     
     public let backgroundColor: MiddlewareColor?
     public let alignment: LayoutAlignment
     
-    public let metadata: BlockInformationMetadata
+    public let configurationData: BlockInformationMetadata
     
     public init(
-        id: BlockId,
+        id: AnytypeId,
         content: BlockContent,
         backgroundColor: MiddlewareColor?,
         alignment: LayoutAlignment,
-        childrenIds: [BlockId],
-        fields: MiddleBlockFields,
-        metadata: BlockInformationMetadata
+        childrenIds: [AnytypeId],
+        configurationData: BlockInformationMetadata,
+        fields: BlockFields
     ) {
         self.id = id
         self.content = content
@@ -28,10 +28,18 @@ public struct BlockInformation: Hashable {
         self.alignment = alignment
         self.childrenIds = childrenIds
         self.fields = fields
-        self.metadata = metadata
+        self.configurationData = configurationData
     }
 }
 
-public enum FieldName {
-    public static let codeLanguage = "lang"
+public extension BlockInformation {
+    var relativeBackgroundColor: MiddlewareColor? {
+        if backgroundColor != nil { return backgroundColor }
+
+        if case let .text(text) = content, case .callout = text.contentType {
+            return backgroundColor ?? .grey
+        }
+
+        return backgroundColor
+    }
 }

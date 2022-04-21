@@ -24,11 +24,7 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
             SearchBar(text: $searchText, focused: false, placeholder: placeholder)
         }
         ScrollView(showsIndicators: false) {
-            LazyVGrid(
-                columns: columns,
-                spacing: 0,
-                pinnedViews: [.sectionHeaders]
-            ) {
+            LazyVGrid(columns: columns, spacing: 0) {
                 sections
             }
         }

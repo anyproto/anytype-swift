@@ -1,32 +1,22 @@
 import UIKit
-import Amplitude
 import AnytypeCore
 
 final class AnalyticsConfigurator: AppConfiguratorProtocol {
 
     func configure() {
         // Check analytics feature flag
-        let isEnabled: Bool
         #if !RELEASE
-        isEnabled = FeatureFlags.analytics
-        #else
-        isEnabled = true
+        AnytypeAnalytics.instance().isEnabled = FeatureFlags.analytics
         #endif
-        
-        guard isEnabled else { return }
-        
-        // Disable IDFA for Amplitude
-        if let trackingOptions = AMPTrackingOptions().disableIDFA() {
-            Amplitude.instance().setTrackingOptions(trackingOptions)
-        }
 
-        // Enable sending automatic session events
-        Amplitude.instance().trackingSessionEvents = true
+        AnytypeAnalytics.instance().setEventConfiguartion(event: AnalyticsEventsName.blockSetTextText,
+                                                          configuation: .init(threshold: .notInRow))
+        
           // Initialize SDK
         #if !RELEASE
-        Amplitude.instance().initializeApiKey(AmplitudeConfiguration.devAPIKey)
+        AnytypeAnalytics.instance().initializeApiKey(AnalyticsConfiguration.devAPIKey)
         #else
-        Amplitude.instance().initializeApiKey(AmplitudeConfiguration.prodAPIKey)
+        AnytypeAnalytics.instance().initializeApiKey(AnalyticsConfiguration.prodAPIKey)
         #endif
     }
 

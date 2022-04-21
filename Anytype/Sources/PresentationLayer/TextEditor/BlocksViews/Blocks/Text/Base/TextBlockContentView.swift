@@ -4,9 +4,8 @@ import BlocksModels
 
 
 final class TextBlockContentView: UIView, BlockContentView {
-    
+
     // MARK: - Views
-    private let backgroundColorView = UIView()
     private let contentView = UIView()
     private(set) lazy var textView = CustomTextView()
     private(set) lazy var createEmptyBlockButton = EmptyToggleButtonBuilder.create { [weak self] in
@@ -16,10 +15,7 @@ final class TextBlockContentView: UIView, BlockContentView {
     
     private let mainStackView: UIStackView = makeMainStackView()
     private let contentStackView: UIStackView = makeContentStackView()
-    
-    private var topMainConstraint: NSLayoutConstraint?
-    private var bottomMainConstraint: NSLayoutConstraint?
-    
+
     private var topContentConstraint: NSLayoutConstraint?
     private var bottomContentnConstraint: NSLayoutConstraint?
 
@@ -48,6 +44,7 @@ final class TextBlockContentView: UIView, BlockContentView {
         textView.textView.isLockedForEditing = state.isLocked
         createEmptyBlockButton.isEnabled = !state.isLocked
         textBlockLeadingView.checkboxView?.isUserInteractionEnabled = !state.isLocked
+        textBlockLeadingView.calloutIconView?.isUserInteractionEnabled = !state.isLocked
 
         textView.textView.isUserInteractionEnabled = state.isEditing
     }
@@ -58,6 +55,8 @@ final class TextBlockContentView: UIView, BlockContentView {
         contentStackView.addArrangedSubview(textBlockLeadingView)
         contentStackView.addArrangedSubview(textView)
 
+        textView.widthAnchor.constraint(lessThanOrEqualTo: textView.widthAnchor, constant: 24).isActive = true
+
         contentView.addSubview(contentStackView) {
             topContentConstraint = $0.top.equal(to: contentView.topAnchor)
             bottomContentnConstraint = $0.bottom.equal(to: contentView.bottomAnchor)
@@ -65,22 +64,15 @@ final class TextBlockContentView: UIView, BlockContentView {
             $0.trailing.equal(to: contentView.trailingAnchor)
         }
 
-        backgroundColorView.addSubview(contentView) {
-            $0.pinToSuperview(insets: TextBlockLayout.contentInset)
-        }
-
         createEmptyBlockButton.layoutUsing.anchors {
             $0.height.equal(to: 26)
         }
 
-        mainStackView.addArrangedSubview(backgroundColorView)
+        mainStackView.addArrangedSubview(contentView)
         mainStackView.addArrangedSubview(createEmptyBlockButton)
 
         addSubview(mainStackView) {
-            topMainConstraint = $0.top.equal(to: topAnchor)
-            bottomMainConstraint = $0.bottom.equal(to: bottomAnchor)
-            $0.leading.equal(to: leadingAnchor)
-            $0.trailing.equal(to: trailingAnchor)
+            $0.pinToSuperview()
         }
     }
 
@@ -104,24 +96,17 @@ final class TextBlockContentView: UIView, BlockContentView {
         let displayPlaceholder = configuration.content.contentType == .toggle && configuration.shouldDisplayPlaceholder
         createEmptyBlockButton.isHidden = !displayPlaceholder
 
-        backgroundColorView.backgroundColor = configuration.backgroundColor
-
         focusSubscription = configuration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
         }
     }
     
     private func updateAllConstraint(blockTextStyle: BlockText.Style) {
-        let mainInset = TextBlockLayout.mainInset(textBlockStyle: blockTextStyle)
         let contentInset = TextBlockLayout.contentInset(textBlockStyle: blockTextStyle)
-        
-        topMainConstraint?.constant = mainInset.top
-        bottomMainConstraint?.constant = mainInset.bottom
-        
+
         topContentConstraint?.constant = contentInset.top
         bottomContentnConstraint?.constant = contentInset.bottom
     }
-    
 }
 
 private extension TextBlockContentView {

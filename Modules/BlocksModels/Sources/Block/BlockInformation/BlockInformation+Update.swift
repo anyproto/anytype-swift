@@ -1,10 +1,13 @@
+import AnytypeCore
+
 public extension BlockInformation {
+    
     func updated(
         content: BlockContent? = nil,
         backgroundColor: MiddlewareColor? = nil,
         alignment: LayoutAlignment? = nil,
-        childrenIds: [BlockId]? = nil,
-        fields: MiddleBlockFields? = nil,
+        childrenIds: [AnytypeId]? = nil,
+        fields: BlockFields? = nil,
         metadata: BlockInformationMetadata? = nil
     ) -> BlockInformation {
         BlockInformation(
@@ -13,8 +16,9 @@ public extension BlockInformation {
             backgroundColor: backgroundColor ?? self.backgroundColor,
             alignment: alignment ?? self.alignment,
             childrenIds: childrenIds ?? self.childrenIds,
-            fields: fields ?? self.fields,
-            metadata: metadata ?? self.metadata
+            configurationData: metadata ?? self.configurationData,
+            fields: fields ?? self.fields
         )
     }
+    
 }

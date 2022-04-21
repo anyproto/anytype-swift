@@ -66,10 +66,7 @@ final class RelationBlockView: UIView, BlockContentView {
         relationNameView.textColor = .textSecondary
 
         addSubview(containerView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0,
-                                                   left: 20,
-                                                   bottom: 0,
-                                                   right: -20))
+            $0.pinToSuperview()
         }
         containerView.addSubview(relationNameStack) {
             $0.top.equal(to: containerView.topAnchor, constant: LayoutConstants.topBottomInset)

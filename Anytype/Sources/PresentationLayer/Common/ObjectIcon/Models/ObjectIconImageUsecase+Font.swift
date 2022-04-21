@@ -47,6 +47,25 @@ extension ObjectIconImageUsecase {
                     weight: .regular
                 )
             )
+
+        case .editorCalloutBlock:
+            return ObjectIconImageFontSet(
+                profileImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 20,
+                    weight: .regular
+                ),
+                emojiImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 20,
+                    weight: .regular
+                ),
+                placeholderImageFont: UIKitFontBuilder.uiKitFont(
+                    name: .inter,
+                    size: 20,
+                    weight: .regular
+                )
+            )
         case .editorSearchExpandedIcons:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
@@ -109,7 +128,7 @@ extension ObjectIconImageUsecase {
             )
         case let .mention(type):
             return mentionFontGuidelineSet(for: type)
-        case .setRow:
+        case .setRow, .featuredRelationsBlock:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,

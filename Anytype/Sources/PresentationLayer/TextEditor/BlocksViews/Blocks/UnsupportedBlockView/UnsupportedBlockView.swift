@@ -57,7 +57,7 @@ class UnsupportedBlockView: UIView, BlockContentView {
 
 extension UnsupportedBlockView {
     private enum Layout {
-        static let labelTrailingSpacing: CGFloat = 20
+        static let labelTrailingSpacing: CGFloat = 0
         static let labelTopBottomSpacing: CGFloat = 5
         static let iconToTextPadding: CGFloat = 9
         static let iconSize: CGFloat =  18

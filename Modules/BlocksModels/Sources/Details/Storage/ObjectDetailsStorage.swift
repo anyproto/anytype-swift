@@ -6,9 +6,9 @@ import ProtobufMessages
 public final class ObjectDetailsStorage {
     public static let shared = ObjectDetailsStorage()
     
-    private var storage = SynchronizedDictionary<BlockId, ObjectDetails>()
+    private var storage = SynchronizedDictionary<AnytypeId, ObjectDetails>()
     
-    public func get(id: BlockId) -> ObjectDetails? {
+    public func get(id: AnytypeId) -> ObjectDetails? {
         storage[id]
     }
     
@@ -18,15 +18,15 @@ public final class ObjectDetailsStorage {
     
     public func set(data: Anytype_Event.Object.Details.Set) -> ObjectDetails? {
         guard data.hasDetails else {
-            anytypeAssertionFailure("No details in Object.Details.Set", domain: .diskStorage)
+            anytypeAssertionFailure("No details in Object.Details.Set", domain: .detailsStorage)
             return nil
         }
-        guard data.id.isNotEmpty else {
-            anytypeAssertionFailure("Id is empty in details \(data.details)", domain: .diskStorage)
+        guard let id = data.id.asAnytypeId else {
+            anytypeAssertionFailure("Id is empty in details \(data.details)", domain: .detailsStorage)
             return nil
         }
         
-        let currentDetails = get(id: data.id) ?? ObjectDetails.empty(id: data.id)
+        let currentDetails = get(id: id) ?? ObjectDetails(id: id)
         let updatedDetails = currentDetails.updated(by: data.details.fields)
         
         add(details: updatedDetails)
@@ -35,7 +35,12 @@ public final class ObjectDetailsStorage {
     }
     
     public func unset(data: Anytype_Event.Object.Details.Unset) -> ObjectDetails? {
-        guard let currentDetails = get(id: data.id) else {
+        guard let id = data.id.asAnytypeId else {
+            anytypeAssertionFailure("Id is empty in details \(data)", domain: .detailsStorage)
+            return nil
+        }
+        
+        guard let currentDetails = get(id: id) else {
             return nil
         }
         
@@ -45,8 +50,10 @@ public final class ObjectDetailsStorage {
         return updatedDetails
     }
     
-    public func amend(data: Anytype_Event.Object.Details.Amend) -> ObjectDetails {
-        return amend(id: data.id, values: data.details.asDetailsDictionary)
+    public func amend(data: Anytype_Event.Object.Details.Amend) -> ObjectDetails? {
+        guard let id = data.id.asAnytypeId else { return nil }
+        
+        return amend(id: id, values: data.details.asDetailsDictionary)
     }
     
     @discardableResult
@@ -54,8 +61,8 @@ public final class ObjectDetailsStorage {
         return amend(id: details.id, values: details.values)
     }
     
-    public func amend(id: BlockId, values: [String: Google_Protobuf_Value]) -> ObjectDetails {
-        let currentDetails = get(id: id) ?? ObjectDetails.empty(id: id)
+    public func amend(id: AnytypeId, values: [String: Google_Protobuf_Value]) -> ObjectDetails {
+        let currentDetails = get(id: id) ?? ObjectDetails(id: id)
         let updatedDetails = currentDetails.updated(by: values)
         add(details: updatedDetails)
         return updatedDetails

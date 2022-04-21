@@ -5,6 +5,7 @@ struct DebugMenu: View {
     @State private var flags = FeatureFlags.features.sorted { $0.0.rawValue < $1.0.rawValue }
     @State private var showLogs = false
     @State private var showTypography = false
+    @State private var showFeedbackGenerators = false
     
     var body: some View {
         VStack {
@@ -54,11 +55,21 @@ struct DebugMenu: View {
                     anytypeAssertionFailure("Test assert", domain: .debug)
                 }
             }
+            
+            HStack {
+                StandardButton(text: "Feedback Generators 🃏", style: .secondary) {
+                    UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+                    showFeedbackGenerators.toggle()
+                }
+            }
         }
         .padding(.horizontal)
         .padding()
         .sheet(isPresented: $showLogs) { EventsLogView(viewModel: .init()) }
         .sheet(isPresented: $showTypography) { TypographyExample() }
+        .sheet(isPresented: $showFeedbackGenerators) {
+            FeedbackGeneratorExamplesView()
+        }
     }
     
     var toggles: some View {

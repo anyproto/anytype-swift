@@ -2,7 +2,6 @@ import Foundation
 import Combine
 import SwiftUI
 import ProtobufMessages
-import Amplitude
 import AnytypeCore
 import BlocksModels
 
@@ -23,17 +22,23 @@ final class AuthService: AuthServiceProtocol {
         self.loginStateService = loginStateService
     }
 
-    func logout(removeData: Bool) -> Bool {
-        Amplitude.instance().logEvent(AmplitudeEventsName.logout)
+    func logout(removeData: Bool, onCompletion: @escaping (Bool) -> ()) {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
         
-        guard Anytype_Rpc.Account.Stop.Service
-                .invoke(removeData: removeData).getValue(domain: .authService)
-                .isNotNil else {
-                    return false
+        Anytype_Rpc.Account.Stop.Service
+            .invoke(removeData: removeData, queue: .global(qos: .userInitiated))
+            .receiveOnMain()
+            .sinkWithResult { [weak self] result in
+                switch result {
+                case .success:
+                    self?.loginStateService.cleanStateAfterLogout()
+                    onCompletion(true)
+                case .failure(let error):
+                    anytypeAssertionFailure(error.localizedDescription, domain: .authService)
+                    onCompletion(false)
                 }
-        
-        loginStateService.cleanStateAfterLogout()
-        return true
+            }
+            .store(in: &subscriptions)
     }
 
     func createWallet() -> Result<String, AuthServiceError> {
@@ -74,8 +79,8 @@ final class AuthService: AuthServiceProtocol {
         }
 
         let accountId = response.account.id
-        Amplitude.instance().setUserId(accountId)
-        Amplitude.instance().logAccountCreate(accountId)
+        AnytypeAnalytics.instance().setUserId(accountId)
+        AnytypeAnalytics.instance().logAccountCreate(accountId)
         UserDefaultsConfig.usersId = accountId
         
         AccountManager.shared.account = response.account.asModel
@@ -150,8 +155,8 @@ final class AuthService: AuthServiceProtocol {
             AccountManager.shared.account = response.account.asModel
             
             let accountId = response.account.id
-            Amplitude.instance().setUserId(accountId)
-            Amplitude.instance().logAccountSelect(accountId)
+            AnytypeAnalytics.instance().setUserId(accountId)
+            AnytypeAnalytics.instance().logAccountSelect(accountId)
             UserDefaultsConfig.usersId = accountId
             
             loginStateService.setupStateAfterLoginOrAuth()

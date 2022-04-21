@@ -8,12 +8,15 @@ enum ObjectIconImageUsecase: Equatable {
     
     case editorSearch // slash menu + mention
     case editorSearchExpandedIcons
+    case editorCalloutBlock
     
     case dashboardList
     case dashboardProfile
     case dashboardSearch
     case mention(ObjectIconImageMentionType)
     case editorAccessorySearch
+    
+    case featuredRelationsBlock
     
     case setRow
 }
@@ -32,7 +35,7 @@ extension ObjectIconImageUsecase {
     
     var emojiBackgroundColor: UIColor {
         switch self {
-        case .openedObjectNavigationBar, .mention, .setRow:
+        case .openedObjectNavigationBar, .mention, .setRow, .featuredRelationsBlock, .editorCalloutBlock:
             return .clear
         default:
             return .strokeTransperent

@@ -24,11 +24,17 @@ struct RelationBlockViewModel: BlockViewModelProtocol {
         if FeatureFlags.uikitRelationBlock {
             return RelationBlockContentConfiguration(
                 actionOnValue: actionOnValue, relation: relation
-            ).asCellBlockConfiguration
+            ).cellBlockConfiguration(
+                indentationSettings: .init(with: info.configurationData),
+                dragConfiguration: .init(id: info.id.value)
+            )
         }
         return DepricatedRelationBlockContentConfiguration(
             actionOnValue: actionOnValue, relation: relation
-        ).asCellBlockConfiguration
+        ).cellBlockConfiguration(
+            indentationSettings: .init(with: info.configurationData),
+            dragConfiguration: .init(id: info.id.value)
+        )
     }
     
 }

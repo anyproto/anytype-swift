@@ -33,7 +33,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             return
         }
         
-        guard let parentId = info.metadata.parentId,
+        guard let parentId = info.configurationData.parentId,
               let parent = container.get(id: parentId)
         else {
             anytypeAssertionFailure("No parent in \(text)", domain: .keyboardActionHandler)
@@ -43,16 +43,16 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         switch action {
         case .enterForEmpty:
             if text.contentType.isList {
-                service.turnInto(.text, blockId: info.id)
+                service.turnInto(.text, blockId: info.id.value)
                 return
             }
             
             if info.childrenIds.isNotEmpty {
-                service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
+                service.add(info: .emptyText, targetBlockId: info.id.value, position: .top, setFocus: false)
             } else {
                 service.split(
                     .init(string: ""),
-                    blockId: info.id,
+                    blockId: info.id.value,
                     mode: .bottom,
                     position: 0,
                     newBlockContentType: .text
@@ -61,10 +61,10 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         case let .enterInside(string, position):
             service.split(
                 string,
-                blockId: info.id,
+                blockId: info.id.value,
                 mode: splitMode(info),
                 position: position,
-                newBlockContentType: contentTypeForSplit(text.contentType, blockId: info.id)
+                newBlockContentType: contentTypeForSplit(text.contentType, blockId: info.id.value)
             )
 
         case .enterAtTheEnd(let string):
@@ -77,10 +77,10 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             
         case .enterAtTheBegining:
             guard text.contentType != .title, text.contentType != .description else {
-                service.split(text.anytypeText.attrString, blockId: info.id, mode: .bottom, position: 0, newBlockContentType: .text)
+                service.split(text.anytypeText.attrString, blockId: info.id.value, mode: .bottom, position: 0, newBlockContentType: .text)
                 return
             }
-            service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
+            service.add(info: .emptyText, targetBlockId: info.id.value, position: .top, setFocus: false)
 
         case .delete:
             onDelete(text: text, info: info, parent: parent)
@@ -89,7 +89,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     
     private func onDelete(text: BlockText, info: BlockInformation, parent: BlockInformation) {
         if text.contentType.isList {
-            service.turnInto(.text, blockId: info.id)
+            service.turnInto(.text, blockId: info.id.value)
             return
         }
         
@@ -98,20 +98,20 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         if isLastChildOfBlock(info: info, container: container, parent: parent)
         {
             // on delete of last child of block - move child to parent level
-            listService.move(blockId: info.id, targetId: parent.id, position: .bottom)
+            listService.move(blockId: info.id.value, targetId: parent.id.value, position: .bottom)
             return
         }
         
-        service.merge(secondBlockId: info.id)
+        service.merge(secondBlockId: info.id.value)
     }
     
     private func enterForEmpty(text: BlockText, info: BlockInformation) {
         if text.contentType != .text {
-            service.turnInto(.text, blockId: info.id)
+            service.turnInto(.text, blockId: info.id.value)
             return
         }
         
-        service.add(info: .emptyText, targetBlockId: info.id, position: .top, setFocus: false)
+        service.add(info: .emptyText, targetBlockId: info.id.value, position: .top, setFocus: false)
     }
     
     private func onEnterAtTheEndOfContent(
@@ -120,21 +120,21 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         action: CustomTextView.KeyboardAction,
         newString: NSAttributedString
     ) {
-        let needChildForToggle = text.contentType == .toggle && toggleStorage.isToggled(blockId: info.id)
+        let needChildForToggle = text.contentType == .toggle && toggleStorage.isToggled(blockId: info.id.value)
         let needChildForList = text.contentType != .toggle && text.contentType.isList && info.childrenIds.isNotEmpty
         
         if needChildForToggle {
             if info.childrenIds.isEmpty {
-                service.addChild(info: BlockInformation.emptyText, parentId: info.id)
+                service.addChild(info: BlockInformation.emptyText, parentId: info.id.value)
             } else {
                 let firstChildId = info.childrenIds[0]
-                service.add(info: BlockInformation.emptyText, targetBlockId: firstChildId, position: .top)
+                service.add(info: BlockInformation.emptyText, targetBlockId: firstChildId.value, position: .top)
             }
         } else if needChildForList {
             let firstChildId = info.childrenIds[0]
             service.add(
                 info: BlockInformation.emptyText,
-                targetBlockId: firstChildId,
+                targetBlockId: firstChildId.value,
                 position: .top
             )
         } else {
@@ -142,7 +142,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
 
             service.split(
                 newString,
-                blockId: info.id,
+                blockId: info.id.value,
                 mode: splitMode(info),
                 position: newString.string.count,
                 newBlockContentType: type
@@ -169,7 +169,7 @@ private extension KeyboardActionHandler {
 
     func splitMode(_ info: BlockInformation) -> Anytype_Rpc.Block.Split.Request.Mode {
         if info.content.isToggle {
-            return toggleStorage.isToggled(blockId: info.id) ? .inner : .bottom
+            return toggleStorage.isToggled(blockId: info.id.value) ? .inner : .bottom
         } else {
             return info.childrenIds.isNotEmpty ? .inner : .bottom
         }
@@ -186,12 +186,12 @@ private extension KeyboardActionHandler {
             return true
         }
         
-        guard let firstTextBlock = container.children(of: parent.id).first(where: { $0.isText }) else {
+        guard let firstTextBlock = container.children(of: parent.id.value).first(where: { $0.isText }) else {
             return false
         }
         
         let isFirstBlock = info.id == firstTextBlock.id
-        let headerHaveTextBlocks = container.children(of: header.id).contains { $0.isText }
+        let headerHaveTextBlocks = container.children(of: header.id.value).contains { $0.isText }
         if isFirstBlock && !headerHaveTextBlocks {
             return false // We can delete block only if there is text block in header to set focus
         }
@@ -201,7 +201,7 @@ private extension KeyboardActionHandler {
     
     
     func isLastChildOfBlock(info: BlockInformation, container: InfoContainerProtocol, parent: BlockInformation) -> Bool {
-        let children = container.children(of: parent.id)
+        let children = container.children(of: parent.id.value)
         let isLastChid = children.last?.id == info.id
         let isParentTypeBlock = parent.kind == .block
         

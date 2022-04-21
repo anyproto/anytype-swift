@@ -1,6 +1,5 @@
 import SwiftUI
 import AnytypeCore
-import Amplitude
 
 struct SettingsAccountView: View {
     @EnvironmentObject private var model: SettingsViewModel
@@ -19,7 +18,7 @@ struct SettingsAccountView: View {
         .cornerRadius(16, corners: .top)
         
         .onAppear {
-            Amplitude.instance().logEvent(AmplitudeEventsName.accountSettingsShow)
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.accountSettingsShow)
         }
     }
     

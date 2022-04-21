@@ -8,5 +8,6 @@ protocol FileActionsServiceProtocol {
     
     func asyncUploadDataAt(filePath: String, contextID: BlockId, blockID: BlockId) -> AnyPublisher<EventsBunch, Error>
     
-    func syncUploadImageAt(localPath: String) -> Hash?    
+    func syncUploadImageAt(localPath: String) -> Hash?
+    func asyncUploadImage(at localPathURL: URL) -> AnyPublisher<Hash?, Error>
 }

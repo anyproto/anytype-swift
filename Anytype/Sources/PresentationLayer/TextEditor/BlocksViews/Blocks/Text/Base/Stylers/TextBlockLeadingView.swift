@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 final class TextBlockLeadingView: UIView {
 
@@ -9,6 +10,7 @@ final class TextBlockLeadingView: UIView {
     private(set) var bulletedView: UIView?
     private(set) var quoteView: UIView?
     private(set) var bodyView: UIView?
+    private(set) var calloutIconView: UIView?
 
     func update(style: TextBlockLeadingStyle) {
         removeAllSubviews()
@@ -36,6 +38,25 @@ final class TextBlockLeadingView: UIView {
         case .body:
             innerView = TextBlockIconView(viewType: .empty)
             self.bodyView = innerView
+        case .callout(let model):
+            innerView = TextBlockIconView(
+                viewType: .callout(model: model.iconImageModel),
+                action: model.onTap
+            )
+            self.calloutIconView = innerView
+
+            addSubview(innerView) {
+                $0.pinToSuperview(
+                    insets: .init(
+                        top: 0,
+                        left: 12,
+                        bottom: 0,
+                        right: -6 // 12 - contentStackView horizontal spaciing
+                    )
+                )
+            }
+
+            return
         }
 
         addSubview(innerView) {

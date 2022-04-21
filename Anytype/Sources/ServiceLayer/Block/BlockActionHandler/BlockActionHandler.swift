@@ -2,7 +2,6 @@ import UIKit
 import BlocksModels
 import Combine
 import AnytypeCore
-import Amplitude
 import ProtobufMessages
 
 final class BlockActionHandler: BlockActionHandlerProtocol {
@@ -60,8 +59,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.duplicate(blockId: blockId)
     }
     
-    func setFields(_ fields: [BlockFields], blockId: BlockId) {
-        service.setFields(blockFields: fields)
+    func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId) {
+        guard let info = document.infoContainer.get(id: blockId) else { return }
+
+        let newFields = info.fields.merging(fields.asMiddleware()) { (_, new) in new }
+
+        service.setFields(blockFields: newFields, blockId: blockId)
     }
     
     func fetch(url: URL, blockId: BlockId) {
@@ -73,7 +76,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func toggle(blockId: BlockId) {
-        EventsBunch(contextId: document.objectId, localEvents: [.setToggled(blockId: blockId)])
+        EventsBunch(contextId: document.objectId.value, localEvents: [.setToggled(blockId: blockId)])
             .send()
     }
     
@@ -111,7 +114,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId) {
         guard let newText = markupChanger.toggleMarkup(attribute, blockId: blockId, range: range) else { return }
 
-        Amplitude.instance().logSetMarkup(attribute)
+        AnytypeAnalytics.instance().logSetMarkup(attribute)
 
         changeTextForced(newText, blockId: blockId)
     }
@@ -119,7 +122,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func setLink(url: URL?, range: NSRange, blockId: BlockId) {
         let newText: NSAttributedString?
         if let url = url {
-            Amplitude.instance().logSetMarkup(MarkupType.link(url))
+            AnytypeAnalytics.instance().logSetMarkup(MarkupType.link(url))
             newText = markupChanger.setMarkup(.link(url), blockId: blockId, range: range)
         } else {
             newText = markupChanger.removeMarkup(.link(nil), blockId: blockId, range: range)
@@ -132,7 +135,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId) {
         let newText: NSAttributedString?
         if let linkBlockId = linkBlockId {
-            Amplitude.instance().logSetMarkup(MarkupType.linkToObject(blockId))
+            AnytypeAnalytics.instance().logSetMarkup(MarkupType.linkToObject(blockId))
             newText = markupChanger.setMarkup(.linkToObject(linkBlockId), blockId: blockId, range: range)
         } else {
             newText = markupChanger.removeMarkup(.linkToObject(nil), blockId: blockId, range: range)
@@ -157,11 +160,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
 
         EventsBunch(
-            contextId: document.objectId,
-            localEvents: [.setText(blockId: info.id, text: middlewareString)]
+            contextId: document.objectId.value,
+            localEvents: [.setText(blockId: info.id.value, text: middlewareString)]
         ).send()
 
-        service.setTextForced(contextId: document.objectId, blockId: info.id, middlewareString: middlewareString)
+        service.setTextForced(contextId: document.objectId.value, blockId: info.id.value, middlewareString: middlewareString)
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
@@ -170,38 +173,38 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
 
         EventsBunch(
-            contextId: document.objectId,
-            dataSourceUpdateEvents: [.setText(blockId: info.id, text: middlewareString)]
+            contextId: document.objectId.value,
+            dataSourceUpdateEvents: [.setText(blockId: info.id.value, text: middlewareString)]
         ).send()
 
-        service.setText(contextId: document.objectId, blockId: info.id, middlewareString: middlewareString)
+        service.setText(contextId: document.objectId.value, blockId: info.id.value, middlewareString: middlewareString)
     }
     
     // MARK: - Public methods
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
         EventsBunch(
-            contextId: document.objectId,
+            contextId: document.objectId.value,
             localEvents: [.setLoadingState(blockId: blockId)]
         ).send()
         
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: BlockMediaUploadingWorker(
-                objectId: document.objectId,
+                objectId: document.objectId.value,
                 blockId: blockId,
                 contentType: type
             )
         )
         fileUploadingDemon.addOperation(operation)
 
-        Amplitude.instance().logUploadMedia(type: type.asFileBlockContentType)
+        AnytypeAnalytics.instance().logUploadMedia(type: type.asFileBlockContentType)
     }
     
     func uploadFileAt(localPath: String, blockId: BlockId) {
-        Amplitude.instance().logUploadMedia(type: .file)
+        AnytypeAnalytics.instance().logUploadMedia(type: .file)
 
         EventsBunch(
-            contextId: document.objectId,
+            contextId: document.objectId.value,
             localEvents: [.setLoadingState(blockId: blockId)]
         ).send()
         
@@ -232,7 +235,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         
         let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
         
-        service.add(info: newBlock, targetBlockId: info.id, position: position)
+        service.add(info: newBlock, targetBlockId: info.id.value, position: position)
     }
 
     func selectBlock(info: BlockInformation) {
@@ -245,7 +248,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         url: String
     ) {
         service.createAndFetchBookmark(
-            contextID: document.objectId,
+            contextID: document.objectId.value,
             targetID: targetID,
             position: position,
             url: url

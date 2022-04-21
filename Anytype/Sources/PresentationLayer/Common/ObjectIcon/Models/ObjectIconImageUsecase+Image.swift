@@ -37,6 +37,15 @@ extension ObjectIconImageUsecase {
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
                 staticImageGuideline: StaticImageGuideline.x40
             )
+        case .editorCalloutBlock:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x20,
+                profileImageGuideline: ProfileIconImageGuideline.x20,
+                emojiImageGuideline: EmojiIconImageGuideline.x24,
+                todoImageGuideline: TodoIconImageGuideline.x20,
+                placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
+                staticImageGuideline: StaticImageGuideline.x20
+            )
         case .dashboardList:
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: BasicIconImageGuideline.x48,
@@ -83,6 +92,15 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: nil
+            )
+        case .featuredRelationsBlock:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x16,
+                profileImageGuideline: ProfileIconImageGuideline.x16,
+                emojiImageGuideline: EmojiIconImageGuideline.x16,
+                todoImageGuideline: TodoIconImageGuideline.x16,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: StaticImageGuideline.x16
             )
         }
     }

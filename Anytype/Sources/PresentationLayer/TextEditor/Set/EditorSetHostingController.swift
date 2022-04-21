@@ -1,11 +1,13 @@
 import SwiftUI
 import BlocksModels
+import AnytypeCore
 
 final class EditorSetHostingController: UIHostingController<EditorSetView> {
-    let objectId: BlockId
+    
+    let objectId: AnytypeId
     let model: EditorSetViewModel
     
-    init(objectId: BlockId, model: EditorSetViewModel) {
+    init(objectId: AnytypeId, model: EditorSetViewModel) {
         self.objectId = objectId
         self.model = model
         

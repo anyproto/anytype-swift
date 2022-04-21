@@ -1,5 +1,4 @@
 import SwiftUI
-import Amplitude
 
 struct AlphaInviteCodeView: View {
     @StateObject var signUpData: SignUpData
@@ -15,7 +14,7 @@ struct AlphaInviteCodeView: View {
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .onAppear {
-            Amplitude.instance().logEvent(AmplitudeEventsName.invitaionScreenShow)
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.invitaionScreenShow)
         }
     }
     
@@ -71,7 +70,9 @@ struct AlphaInviteCodeView: View {
                 isActive: $showCreateNewProfile
             ) {
                 StandardButtonView(disabled: signUpData.inviteCode.isEmpty, text: "Confirm", style: .primary)
-            }.disabled(signUpData.inviteCode.isEmpty)
+            }
+            .disabled(signUpData.inviteCode.isEmpty)
+            .buttonStyle(ShrinkingButtonStyle())
         }
     }
 }

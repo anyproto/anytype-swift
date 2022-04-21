@@ -13,24 +13,18 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     }
     
     var settings: [ObjectSetting] {
-        settingsBuilder.build(
+        guard let details = document.details else { return [] }
+        return settingsBuilder.build(
             details: details,
             restrictions: objectActionsViewModel.objectRestrictions,
             isLocked: document.isLocked
         )
     }
     
-    var details: ObjectDetails {
-        document.details ?? .empty
-    }
-    
     let objectActionsViewModel: ObjectActionsViewModel
 
     let relationsViewModel: RelationsListViewModel
-    
-    private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: false)
-    
-    private weak var popup: AnytypePopupProxy?
+
     private weak var router: EditorRouterProtocol?
     private let document: BaseDocumentProtocol
     private let objectDetailsService: DetailsServiceProtocol
@@ -49,7 +43,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
 
         self.relationsViewModel = RelationsListViewModel(
             router: router,
-            relationsService: RelationsService(objectId: document.objectId)
+            relationsService: RelationsService(objectId: document.objectId.value)
         )
 
         self.objectActionsViewModel = ObjectActionsViewModel(
@@ -75,11 +69,6 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         router?.showCoverPicker()
     }
     
-    func viewDidUpdateHeight(_ height: CGFloat) {
-        popupLayout = .constantHeight(height: height, floatingPanelStyle: true)
-        popup?.updateLayout(false)
-    }
-    
     // MARK: - Private
     private func setupSubscription() {
         subscription = document.updatePublisher.sink { [weak self] _ in
@@ -96,16 +85,4 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         objectActionsViewModel.isLocked = document.isLocked
         objectActionsViewModel.objectRestrictions = document.objectRestrictions
     }
-}
-
-extension ObjectSettingsViewModel: AnytypePopupViewModelProtocol {
-    
-    func onPopupInstall(_ popup: AnytypePopupProxy) {
-        self.popup = popup
-    }
-    
-    func makeContentView() -> UIViewController {
-        UIHostingController(rootView: ObjectSettingsView(viewModel: self))
-    }
-    
 }

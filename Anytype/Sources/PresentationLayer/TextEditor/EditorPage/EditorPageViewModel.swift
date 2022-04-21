@@ -3,7 +3,6 @@ import SwiftUI
 import Combine
 import os
 import BlocksModels
-import Amplitude
 import AnytypeCore
 
 final class EditorPageViewModel: EditorPageViewModelProtocol {
@@ -32,7 +31,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         EventsBunch(
             contextId: MiddlewareConfigurationProvider.shared.configuration.homeBlockID,
-            localEvents: [.documentClosed(blockId: document.objectId)]
+            localEvents: [.documentClosed(blockId: document.objectId.value)]
         ).send()
     }
 
@@ -84,7 +83,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             performGeneralUpdate()
 
         case let .details(id):
-            guard id == document.objectId else {
+            guard id == document.objectId.value else {
                 #warning("call blocks update with new details to update mentions/links")
                 performGeneralUpdate()
                 return
@@ -178,7 +177,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModel(_ updatedBlockIds: Set<BlockId>) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id,
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id.value,
               updatedBlockIds.contains(blockIdWithMarkupMenu) else {
             return
         }
@@ -186,7 +185,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModel(newBlockViewModels: [BlockViewModelProtocol]) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id else {
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id.value else {
             return
         }
         let blockIds = Set(newBlockViewModels.map { $0.blockId })
@@ -248,7 +247,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 extension EditorPageViewModel {
     func viewDidLoad() {
         if let objectDetails = document.details {
-            Amplitude.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
+            AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
         }
     }
     

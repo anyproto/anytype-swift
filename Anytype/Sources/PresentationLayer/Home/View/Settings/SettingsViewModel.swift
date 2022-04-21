@@ -2,7 +2,6 @@ import SwiftUI
 import ProtobufMessages
 import AnytypeCore
 import Combine
-import Amplitude
 
 final class SettingsViewModel: ObservableObject {
     @Published var loggingOut = false
@@ -38,13 +37,15 @@ final class SettingsViewModel: ObservableObject {
     }
 
     func logout(removeData: Bool) {
-        guard authService.logout(removeData: removeData) else {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            return
+        authService.logout(removeData: removeData) { isSuccess in
+            guard isSuccess else {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                return
+            }
+            
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            WindowManager.shared.showAuthWindow()
         }
-        
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
-        WindowManager.shared.showAuthWindow()
     }
     
     func accountDeletionConfirm() {
@@ -80,7 +81,7 @@ final class SettingsViewModel: ObservableObject {
                 case .success:
                     completion(true)
 
-                    Amplitude.instance().logEvent(AmplitudeEventsName.fileCacheCleared)
+                    AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.fileCacheCleared)
                 }
             }
     }

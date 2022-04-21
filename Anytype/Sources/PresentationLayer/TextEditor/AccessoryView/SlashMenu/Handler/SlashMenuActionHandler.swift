@@ -1,23 +1,26 @@
 import Foundation
 import BlocksModels
-
+import AnytypeCore
 
 final class SlashMenuActionHandler {
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
+    private let pasteboardService: PasteboardServiceProtocol
     
     init(
         actionHandler: BlockActionHandlerProtocol,
-        router: EditorRouterProtocol
+        router: EditorRouterProtocol,
+        pasteboardService: PasteboardServiceProtocol
     ) {
         self.actionHandler = actionHandler
         self.router = router
+        self.pasteboardService = pasteboardService
     }
     
-    func handle(_ action: SlashAction, blockId: BlockId) {
+    func handle(_ action: SlashAction, blockId: BlockId, selectedRange: NSRange) {
         switch action {
         case let .actions(action):
-            handleActions(action, blockId: blockId)
+            handleActions(action, blockId: blockId, selectedRange: selectedRange)
         case let .alignment(alignmnet):
             handleAlignment(alignmnet, blockId: blockId)
         case let .style(style):
@@ -31,8 +34,12 @@ final class SlashMenuActionHandler {
                     self?.actionHandler.addLink(targetId: targetDetailsId, blockId: blockId)
                 }
             case .objectType(let object):
-                actionHandler.createPage(targetId: blockId, type: .dynamic(object.id))
-                    .flatMap { router.showPage(data: EditorScreenData(pageId: $0, type: .page)) }
+                actionHandler
+                    .createPage(targetId: blockId, type: .dynamic(object.id.value))
+                    .flatMap { $0.asAnytypeId }
+                    .flatMap {
+                        router.showPage(data: EditorScreenData(pageId: $0, type: .page))
+                    }
             }
         case let .relations(action):
             switch action {
@@ -53,7 +60,7 @@ final class SlashMenuActionHandler {
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
-        actionHandler.changeTextForced(text, blockId: info.id)
+        actionHandler.changeTextForced(text, blockId: info.id.value)
     }
     
     private func handleAlignment(_ alignment: SlashActionAlignment, blockId: BlockId) {
@@ -79,6 +86,8 @@ final class SlashMenuActionHandler {
             actionHandler.turnInto(.header3, blockId: blockId)
         case .highlighted:
             actionHandler.turnInto(.quote, blockId: blockId)
+        case .callout:
+            actionHandler.turnInto(.callout, blockId: blockId)
         case .checkbox:
             actionHandler.turnInto(.checkbox, blockId: blockId)
         case .bulleted:
@@ -100,7 +109,7 @@ final class SlashMenuActionHandler {
         }
     }
     
-    private func handleActions(_ action: BlockAction, blockId: BlockId) {
+    private func handleActions(_ action: BlockAction, blockId: BlockId, selectedRange: NSRange) {
         switch action {
         case .delete:
             actionHandler.delete(blockId: blockId)
@@ -109,6 +118,13 @@ final class SlashMenuActionHandler {
         case .moveTo:
             router.showMoveTo { [weak self] pageId in
                 self?.actionHandler.moveToPage(blockId: blockId, pageId: pageId)
+            }
+        case .copy:
+            pasteboardService.copy(blocksIds: [blockId], selectedTextRange: NSRange())
+        case .paste:
+            router.showWaitingView(text: "Paste processing...".localized)
+            pasteboardService.pasteInsideBlock(focusedBlockId: blockId, range: selectedRange) { [weak self] in
+                self?.router.hideWaitingView()
             }
         }
     }

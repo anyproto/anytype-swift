@@ -56,7 +56,10 @@ final class BlockImageViewModel: BlockViewModelProtocol {
                 imageViewTapHandler: { [weak self] imageView in
                     self?.didTapOpenImage(imageView)
                 }
-            ).asCellBlockConfiguration
+            ).cellBlockConfiguration(
+                indentationSettings: .init(with: info.configurationData),
+                dragConfiguration: .init(id: info.id.value)
+            )
         }
     }
         
@@ -65,7 +68,10 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             image: UIImage.blockFile.empty.image,
             text: "Upload a picture".localized,
             state: state
-        ).asCellBlockConfiguration
+        ).cellBlockConfiguration(
+            indentationSettings: .init(with: info.configurationData),
+            dragConfiguration: .init(id: info.id.value)
+        )
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {

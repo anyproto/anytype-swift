@@ -24,7 +24,7 @@ struct MentionObject {
     
     init(details: ObjectDetails) {
         self.init(
-            id: details.id,
+            id: details.id.value,
             objectIcon: details.objectIcon,
             name: details.mentionTitle,
             description: details.description,

@@ -38,7 +38,7 @@ extension HorizonalTypeListViewModel.Item {
         let emoji = Emoji(details.iconEmoji).map { ObjectIconImage.icon(.emoji($0)) } ??  ObjectIconImage.image(UIImage())
 
         self.init(
-            id: details.id,
+            id: details.id.value,
             title: details.name,
             image: emoji,
             action: handler

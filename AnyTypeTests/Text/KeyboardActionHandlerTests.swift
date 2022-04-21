@@ -693,8 +693,8 @@ class KeyboardActionHandlerTests: XCTestCase {
             backgroundColor: nil,
             alignment: .center,
             childrenIds: [childId],
-            fields: [:],
-            metadata: .init()
+            configurationData: .init(parentId: "parentId", backgroundColor: nil, indentationStyle: .none, calloutBackgroundColor: nil),
+            fields: [:]
         )
         let child = info(id: childId, style: .text, parent: parent)
         
@@ -737,8 +737,8 @@ class KeyboardActionHandlerTests: XCTestCase {
             backgroundColor: nil,
             alignment: .center,
             childrenIds: hasChild ? ["childId"] : [],
-            fields: [:],
-            metadata: .init(indentationLevel: 0, parentId: parent.id)
+            configurationData: .init(parentId: parent.id, backgroundColor: nil, indentationStyle: .none, calloutBackgroundColor: nil),
+            fields: [:]
         )
         
         infoContainer.getReturnInfo[parent.id] = parent
@@ -756,8 +756,8 @@ class KeyboardActionHandlerTests: XCTestCase {
             backgroundColor: nil,
             alignment: .center,
             childrenIds: [],
-            fields: [:],
-            metadata: .init(indentationLevel: 0, parentId: nil)
+            configurationData: .init(backgroundColor: nil, indentationStyle: .none, calloutBackgroundColor: nil),
+            fields: [:]
         )
         
         infoContainer.getReturnInfo["pageId"] = info

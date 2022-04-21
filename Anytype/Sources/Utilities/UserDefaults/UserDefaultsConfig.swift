@@ -3,7 +3,6 @@ import BlocksModels
 import Combine
 import Firebase
 import SwiftUI
-import Amplitude
 
 struct UserDefaultsConfig {
     @UserDefault("userId", defaultValue: "")
@@ -58,7 +57,7 @@ struct UserDefaultsConfig {
     
     static func storeOpenedScreenData(_ data: EditorScreenData?) {
         initializeScreenDataFromLastSession()
-        _lastOpenedPageId = data?.pageId
+        _lastOpenedPageId = data?.pageId.value
         _lastOpenedViewType = data?.type.rawValue
     }
     
@@ -67,7 +66,7 @@ struct UserDefaultsConfig {
         _screenDataFromLastSessionInitialized = true
         
         guard let type = _lastOpenedViewType.flatMap ({ EditorViewType(rawValue: $0) }) else { return }
-        guard let pageId = _lastOpenedPageId else { return }
+        guard let pageId = _lastOpenedPageId?.asAnytypeId else { return }
                 
         _screenDataFromLastSession = EditorScreenData(pageId: pageId, type: type)
     }
@@ -76,7 +75,7 @@ struct UserDefaultsConfig {
     @UserDefault("UserData.DefaultObjectType", defaultValue: "")
     static var defaultObjectType: String {
         didSet {
-            Amplitude.instance().logDefaultObjectTypeChange(defaultObjectType)
+            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType)
         }
     }
     
@@ -91,11 +90,17 @@ struct UserDefaultsConfig {
     static var wallpaper: BackgroundType {
         get {
             guard let rawWallpaper = _wallpaper else { return .default }
-            guard let wallpaper = try? JSONDecoder().decode(BackgroundType.self, from: rawWallpaper) else {
-                return .default
+            if let wallpaper = try? JSONDecoder().decode(BackgroundType.self, from: rawWallpaper) {
+                return wallpaper
             }
             
-            return wallpaper
+            if let oldWallpaper = try? JSONDecoder().decode(OldBackgroundType.self, from: rawWallpaper),
+               let wallpaper = oldWallpaper.newType {
+                self.wallpaper = wallpaper
+                return wallpaper
+            }
+            
+            return .default
         }
         set {
             guard let encoded = try? JSONEncoder().encode(newValue) else {
@@ -117,7 +122,7 @@ struct UserDefaultsConfig {
         set {
             _userInterfaceStyleRawValue = newValue.rawValue
 
-            Amplitude.instance().logSelectTheme(userInterfaceStyle)
+            AnytypeAnalytics.instance().logSelectTheme(userInterfaceStyle)
         }
     }
 }

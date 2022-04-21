@@ -5,11 +5,14 @@ final class DeletedAccountViewModel: ObservableObject {
     private let service = ServiceLocator.shared.authService()
     
     func logOut() {
-        guard service.logout(removeData: true) else {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            return
+        service.logout(removeData: true) { isSuccess in
+            guard isSuccess else {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                return
+            }
+            
+            WindowManager.shared.showAuthWindow()
         }
-        WindowManager.shared.showAuthWindow()
     }
     
     func cancel() {

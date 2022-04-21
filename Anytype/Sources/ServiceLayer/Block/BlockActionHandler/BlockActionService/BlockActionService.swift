@@ -1,7 +1,6 @@
 import Combine
 import BlocksModels
 import UIKit
-import Amplitude
 import AnytypeCore
 import ProtobufMessages
 
@@ -139,8 +138,9 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
     
-    func setFields(blockFields: [BlockFields]) {
-        listService.setFields(fields: blockFields)
+    func setFields(blockFields: BlockFields, blockId: BlockId) {
+        let setFieldsRequest = Anytype_Rpc.BlockList.Set.Fields.Request.BlockField(blockID: blockId, fields: .init(fields: blockFields))
+        listService.setFields(fields: [setFieldsRequest])
     }
     
     func setText(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) {

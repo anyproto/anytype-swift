@@ -1,6 +1,6 @@
 import SwiftUI
 import UniformTypeIdentifiers
-
+import AnytypeCore
 
 struct HomeCollectionView: View {
     private let columns: [GridItem] = {
@@ -37,7 +37,7 @@ struct HomeCollectionView: View {
                         label: {
                             HomeCell(
                                 cellData: data,
-                                selected: viewModel.selectedPageIds.contains(data.id)
+                                selected: viewModel.selectedPageIds.contains(data.id.value)
                             )
                         }
                     )
@@ -47,7 +47,7 @@ struct HomeCollectionView: View {
                         view.onDrag {
                             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                             dropData.draggingCellData = data
-                            return NSItemProvider(object: data.id as NSString)
+                            return NSItemProvider(object: data.id.value as NSString)
                         }
                         .onDrop(
                             of: [UTType.text],
@@ -64,6 +64,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView(cellData: [], dragAndDropDelegate: HomeViewModel(), offsetChanged: { _ in }, onTap: { _ in })
+        HomeCollectionView(cellData: [], dragAndDropDelegate: HomeViewModel(homeBlockId: AnytypeIdMock.id), offsetChanged: { _ in }, onTap: { _ in })
     }
 }
