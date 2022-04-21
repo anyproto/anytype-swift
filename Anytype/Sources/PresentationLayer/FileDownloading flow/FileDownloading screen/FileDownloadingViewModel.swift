@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import AnytypeCore
+import UIKit
 
 final class FileDownloadingViewModel: NSObject, ObservableObject {
     
@@ -34,6 +35,7 @@ extension FileDownloadingViewModel {
     func didTapCancelButton() {
         task?.cancel()
         output?.didAskToClose()
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
     
 }
@@ -102,6 +104,7 @@ private extension FileDownloadingViewModel {
         do {
             try FileManager.default.moveItem(at: url, to: localURL)
             output?.didDownloadFileTo(localURL)
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
         } catch {
             // TODO: error handling
             anytypeAssertionFailure(error.localizedDescription, domain: .fileLoader)
