@@ -834,10 +834,12 @@
 		C9121A5C273B8E2F00FFDA07 /* RoundedShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A5B273B8E2F00FFDA07 /* RoundedShadowView.swift */; };
 		C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */; };
 		C917DF0E271772BD0085185D /* ImageViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C917DF0D271772BD0085185D /* ImageViewerViewController.swift */; };
+		C91989ED2811673600CC6BEB /* UndoRedoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91989EC2811673600CC6BEB /* UndoRedoView.swift */; };
 		C91AFEFC270B6618005F9386 /* EventsLogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFEFB270B6618005F9386 /* EventsLogView.swift */; };
 		C91AFF0A270C3AF2005F9386 /* EventsLogViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF09270C3AF2005F9386 /* EventsLogViewModel.swift */; };
 		C91AFF0F270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF0E270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift */; };
 		C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */; };
+		C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */; };
 		C92DCD682728561900A03D91 /* HorizonalTypeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD672728561900A03D91 /* HorizonalTypeListViewModel.swift */; };
 		C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD90272990CE00A03D91 /* ChangeTypeAccessoryView.swift */; };
 		C92DCD93272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD92272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift */; };
@@ -1838,10 +1840,12 @@
 		C9121A5B273B8E2F00FFDA07 /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
 		C9121A5D273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlocksSelectionOverlayViewModel.swift; sourceTree = "<group>"; };
 		C917DF0D271772BD0085185D /* ImageViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewerViewController.swift; sourceTree = "<group>"; };
+		C91989EC2811673600CC6BEB /* UndoRedoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoView.swift; sourceTree = "<group>"; };
 		C91AFEFB270B6618005F9386 /* EventsLogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLogView.swift; sourceTree = "<group>"; };
 		C91AFF09270C3AF2005F9386 /* EventsLogViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventsLogViewModel.swift; sourceTree = "<group>"; };
 		C91AFF0E270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerEventsMarkupHelper.swift; sourceTree = "<group>"; };
 		C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
+		C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoViewModel.swift; sourceTree = "<group>"; };
 		C92DCD672728561900A03D91 /* HorizonalTypeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonalTypeListViewModel.swift; sourceTree = "<group>"; };
 		C92DCD90272990CE00A03D91 /* ChangeTypeAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeAccessoryView.swift; sourceTree = "<group>"; };
 		C92DCD92272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeAccessoryViewModel.swift; sourceTree = "<group>"; };
@@ -2354,6 +2358,7 @@
 		03A24B8D232152ED00DA7369 /* TextEditor */ = {
 			isa = PBXGroup;
 			children = (
+				C91989EA2811667F00CC6BEB /* Views */,
 				3D8D41BC27429A2900F8EBF3 /* Assembly */,
 				3DAE1CAB273EA1F2009A72F3 /* Set */,
 				0A0965BF25BEF5B000C004BD /* Routing */,
@@ -5899,6 +5904,23 @@
 			path = ImageViewer;
 			sourceTree = "<group>";
 		};
+		C91989EA2811667F00CC6BEB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C91989EB2811672A00CC6BEB /* UndoRedo */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C91989EB2811672A00CC6BEB /* UndoRedo */ = {
+			isa = PBXGroup;
+			children = (
+				C91989EC2811673600CC6BEB /* UndoRedoView.swift */,
+				C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */,
+			);
+			path = UndoRedo;
+			sourceTree = "<group>";
+		};
 		C91AFEEB270B4C9C005F9386 /* Debug */ = {
 			isa = PBXGroup;
 			children = (
@@ -6533,6 +6555,7 @@
 				3DAD610F26EB58FD00EC0C43 /* ImageName.swift in Sources */,
 				3D93D56B270C9E3400614E29 /* URLInputViewController.swift in Sources */,
 				EAC6BAA6262715B5004C8C06 /* BookmarkBlockRestrictions.swift in Sources */,
+				C91989ED2811673600CC6BEB /* UndoRedoView.swift in Sources */,
 				C9121A5C273B8E2F00FFDA07 /* RoundedShadowView.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				12F6072826D7DF0D00876C92 /* ObjectIconImageView.swift in Sources */,
@@ -6737,6 +6760,7 @@
 				3D2F9C01271EA5FB0043C326 /* HomeViewModel+Selection.swift in Sources */,
 				1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */,
 				3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */,
+				C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */,
 				3D8311072705899000CA6308 /* SlashActionObject.swift in Sources */,
 				5355DFEE2701CBB7005FD730 /* CustomizableHitTestArea.swift in Sources */,
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,

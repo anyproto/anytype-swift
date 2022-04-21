@@ -11,5 +11,14 @@ extension UIViewController {
         navigationController?.interactivePopGestureRecognizer?.delegate = nil
         navigationController?.interactivePopGestureRecognizer?.isEnabled = true
     }
-    
+
+    func dismissAndPresent(
+        viewController: UIViewController,
+        animateDismissing: Bool = false,
+        animatePresenting: Bool = true
+    ) {
+        dismiss(animated: animateDismissing) { [weak self] in
+            self?.present(viewController, animated: animatePresenting, completion: nil)
+        }
+    }
 }

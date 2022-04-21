@@ -34,6 +34,8 @@ private extension ObjectAction {
 
     var title: String {
         switch self {
+        case .undoRedo:
+            return "Undo/Redo"
         case let .archive(isArchived):
             return isArchived ? "Restore".localized : "Delete".localized
         case let .favorite(isFavorite):
@@ -45,6 +47,8 @@ private extension ObjectAction {
 
     var image: Image {
         switch self {
+        case .undoRedo:
+            return .ObjectAction.undoRedo
         case let .archive(isArchived):
             return isArchived ? .ObjectAction.restore : .ObjectAction.archive
         case let .favorite(isFavorite):

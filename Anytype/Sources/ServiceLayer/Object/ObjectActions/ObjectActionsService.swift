@@ -160,5 +160,16 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue(domain: .objectActionsService)?
             .send()
     }
-    
+
+    func undo(objectId: AnytypeId) {
+        let _ = Anytype_Rpc.Block.Undo.Service
+            .invoke(contextID: objectId.value)
+            .map{ EventsBunch(event: $0.event).send() }
+    }
+
+    func redo(objectId: AnytypeId) {
+        let _ = Anytype_Rpc.Block.Redo.Service.invoke(contextID: objectId.value)
+            .map { EventsBunch(event: $0.event).send() }
+
+    }
 }

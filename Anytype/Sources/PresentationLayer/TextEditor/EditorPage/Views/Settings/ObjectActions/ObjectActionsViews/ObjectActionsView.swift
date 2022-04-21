@@ -17,6 +17,8 @@ struct ObjectActionsView: View {
                             viewModel.changeFavoriteSate()
                         case .locked:
                             viewModel.changeLockState()
+                        case .undoRedo:
+                            viewModel.undoRedoAction()
                         }
                     }
                 }

@@ -261,6 +261,18 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func presentFullscreen(_ vc: UIViewController) {
         rootController?.topPresentedController.present(vc, animated: true)
     }
+
+    func presentUndoRedo() {
+        let undoRedoView = UndoRedoView(viewModel: .init(objectId: document.objectId))
+        let popupViewController = AnytypePopup(
+            contentView: undoRedoView,
+            floatingPanelStyle: true,
+            configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
+        )
+        popupViewController.backdropView.backgroundColor = .clear
+
+        viewController?.dismissAndPresent(viewController: popupViewController)
+    }
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
         rootController?.setNavigationViewHidden(isHidden, animated: animated)
