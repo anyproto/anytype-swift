@@ -5,19 +5,22 @@ import AnytypeCore
 final class SlashMenuActionHandler {
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
+    private let pasteboardService: PasteboardServiceProtocol
     
     init(
         actionHandler: BlockActionHandlerProtocol,
-        router: EditorRouterProtocol
+        router: EditorRouterProtocol,
+        pasteboardService: PasteboardServiceProtocol
     ) {
         self.actionHandler = actionHandler
         self.router = router
+        self.pasteboardService = pasteboardService
     }
     
-    func handle(_ action: SlashAction, blockId: BlockId) {
+    func handle(_ action: SlashAction, blockId: BlockId, selectedRange: NSRange) {
         switch action {
         case let .actions(action):
-            handleActions(action, blockId: blockId)
+            handleActions(action, blockId: blockId, selectedRange: selectedRange)
         case let .alignment(alignmnet):
             handleAlignment(alignmnet, blockId: blockId)
         case let .style(style):
@@ -106,7 +109,7 @@ final class SlashMenuActionHandler {
         }
     }
     
-    private func handleActions(_ action: BlockAction, blockId: BlockId) {
+    private func handleActions(_ action: BlockAction, blockId: BlockId, selectedRange: NSRange) {
         switch action {
         case .delete:
             actionHandler.delete(blockId: blockId)
@@ -115,6 +118,13 @@ final class SlashMenuActionHandler {
         case .moveTo:
             router.showMoveTo { [weak self] pageId in
                 self?.actionHandler.moveToPage(blockId: blockId, pageId: pageId)
+            }
+        case .copy:
+            pasteboardService.copy(blocksIds: [blockId], selectedTextRange: NSRange())
+        case .paste:
+            router.showWaitingView(text: "Paste processing...".localized)
+            pasteboardService.pasteInsideBlock(focusedBlockId: blockId, range: selectedRange) { [weak self] in
+                self?.router.hideWaitingView()
             }
         }
     }

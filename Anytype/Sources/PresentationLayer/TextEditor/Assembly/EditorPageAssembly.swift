@@ -117,6 +117,7 @@ final class EditorAssembly {
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
             router: router,
+            pasteboardService: pasteboardService,
             document: document
         )
         
