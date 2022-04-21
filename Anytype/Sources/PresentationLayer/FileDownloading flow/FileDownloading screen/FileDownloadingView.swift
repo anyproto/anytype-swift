@@ -6,7 +6,6 @@ struct FileDownloadingView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(15)
             AnytypeText("Loading, please wait".localized, style: .uxCalloutRegular, color: .textPrimary)
             Spacer.fixedHeight(13)
             ProgressView(value: viewModel.bytesLoaded, total: viewModel.bytesExpected)
@@ -16,7 +15,6 @@ struct FileDownloadingView: View {
         }
         .padding(.horizontal, 20)
         .background(Color.backgroundPrimary)
-        .cornerRadius(16)
     }
     
 }
