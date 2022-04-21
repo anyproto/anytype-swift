@@ -1,11 +1,3 @@
-//
-//  FileDownloadingViewModel.swift
-//  Anytype
-//
-//  Created by Konstantin Mordan on 20.04.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import Foundation
 import Combine
 import AnytypeCore
@@ -13,8 +5,11 @@ import UIKit
 
 final class FileDownloadingViewModel: NSObject, ObservableObject {
     
+    @Published private(set) var isErrorOccured: Bool = false
     @Published private(set) var bytesLoaded: Double = 0
     @Published private(set) var bytesExpected: Double = 0
+    
+    private(set) var errorMessage: String = Constants.defaultErrorMessage
     
     private weak var task: URLSessionDownloadTask?
     
@@ -38,6 +33,11 @@ extension FileDownloadingViewModel {
         UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
     
+    func didTapDoneButton() {
+        output?.didAskToClose()
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+    }
+    
 }
 
 // MARK: - URLSessionDownloadDelegate
@@ -45,11 +45,16 @@ extension FileDownloadingViewModel {
 extension FileDownloadingViewModel: URLSessionDownloadDelegate {
     
     func urlSession(_ session: URLSession, didBecomeInvalidWithError error: Error?) {
-        // TODO: error handling
+        handleError(message: error?.localizedDescription)
     }
     
     func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        // TODO: error handling
+        guard
+            let error = error as? URLError,
+            error.code != .cancelled
+        else { return }
+        
+        handleError(message: error.localizedDescription)
     }
     
     func urlSession(
@@ -87,7 +92,7 @@ private extension FileDownloadingViewModel {
     
     private func handleDownloadTaskCompletion(url: URL, response: URLResponse?) {
         guard let response = response else {
-            // TODO: error handling
+            handleError(message: nil)
             return
         }
         
@@ -106,9 +111,23 @@ private extension FileDownloadingViewModel {
             output?.didDownloadFileTo(localURL)
             UINotificationFeedbackGenerator().notificationOccurred(.success)
         } catch {
-            // TODO: error handling
+            handleError(message: error.localizedDescription)
             anytypeAssertionFailure(error.localizedDescription, domain: .fileLoader)
         }
+    }
+    
+    func handleError(message: String?) {
+        errorMessage = message ?? Constants.defaultErrorMessage
+        isErrorOccured = true
+        UINotificationFeedbackGenerator().notificationOccurred(.error)
+    }
+    
+}
+
+private extension FileDownloadingViewModel {
+    
+    enum Constants {
+        static let defaultErrorMessage = "Error occurred. Please try again".localized
     }
     
 }
