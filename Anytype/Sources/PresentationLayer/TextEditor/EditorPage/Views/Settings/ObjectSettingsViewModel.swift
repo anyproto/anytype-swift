@@ -24,10 +24,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
     let objectActionsViewModel: ObjectActionsViewModel
 
     let relationsViewModel: RelationsListViewModel
-    
-    private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: false)
-    
-    private weak var popup: AnytypePopupProxy?
+
     private weak var router: EditorRouterProtocol?
     private let document: BaseDocumentProtocol
     private let objectDetailsService: DetailsServiceProtocol
@@ -72,11 +69,6 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         router?.showCoverPicker()
     }
     
-    func viewDidUpdateHeight(_ height: CGFloat) {
-        popupLayout = .constantHeight(height: height, floatingPanelStyle: true)
-        popup?.updateLayout(false)
-    }
-    
     // MARK: - Private
     private func setupSubscription() {
         subscription = document.updatePublisher.sink { [weak self] _ in
@@ -93,16 +85,4 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         objectActionsViewModel.isLocked = document.isLocked
         objectActionsViewModel.objectRestrictions = document.objectRestrictions
     }
-}
-
-extension ObjectSettingsViewModel: AnytypePopupViewModelProtocol {
-    
-    func onPopupInstall(_ popup: AnytypePopupProxy) {
-        self.popup = popup
-    }
-    
-    func makeContentView() -> UIViewController {
-        UIHostingController(rootView: ObjectSettingsView(viewModel: self))
-    }
-    
 }

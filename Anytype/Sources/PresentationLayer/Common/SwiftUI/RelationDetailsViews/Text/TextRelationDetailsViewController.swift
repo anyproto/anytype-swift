@@ -45,10 +45,11 @@ final class TextRelationDetailsViewController: UIViewController {
         super.loadView()
         setupView()
     }
-    
+        
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.updatePopupLayout(view.safeAreaLayoutGuide)
+        _ = textView.becomeFirstResponder()
     }
     
     override func viewDidLayoutSubviews() {
