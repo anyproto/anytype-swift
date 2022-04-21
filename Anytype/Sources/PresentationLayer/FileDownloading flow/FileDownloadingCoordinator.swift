@@ -2,16 +2,21 @@ import Combine
 import UIKit
 import BlocksModels
     
-final class FileRouter {
+final class FileDownloadingCoordinator {
     
-    private let fileLoader: FileLoader
+    private let fileLoader = FileLoader()
     private weak var viewController: UIViewController?
     
-    init(fileLoader: FileLoader, viewController: UIViewController?) {
-        self.fileLoader = fileLoader
+    init(viewController: UIViewController?) {
         self.viewController = viewController
     }
         
+}
+
+// MARK: - Entry point
+
+extension FileDownloadingCoordinator {
+    
     func saveFile(fileURL: URL, type: FileContentType) {
         let loadData = fileLoader.loadFile(remoteFileURL: fileURL)
         
@@ -19,14 +24,17 @@ final class FileRouter {
             loadData: loadData,
             informationText: "Loading, please wait".localized,
             loadingCompletion: { [weak self] url in
-                let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: true)
-                self?.viewController?.present(controller, animated: true, completion: nil)
+                self?.showDocumentPickerViewController(url: url)
                 AnytypeAnalytics.instance().logDownloadMedia(type: type)
             }
         )
         
-        DispatchQueue.main.async {
-            self.viewController?.present(loadingVC, animated: true, completion: nil)
-        }
+        viewController?.topPresentedController.present(loadingVC, animated: true)
     }
+    
+    private func showDocumentPickerViewController(url: URL) {
+        let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: true)
+        viewController?.topPresentedController.present(controller, animated: true)
+    }
+    
 }
