@@ -27,11 +27,13 @@ final class FileDownloadingViewModel: NSObject, ObservableObject {
         self.downloadFileAt(url)
     }
     
-    private func downloadFileAt(_ url: URL) {
-        let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
-        let task = urlSession.downloadTask(with: url)
-        self.task = task
-        task.resume()
+}
+
+extension FileDownloadingViewModel {
+    
+    func didTapCancelButton() {
+        task?.cancel()
+        output?.didAskToClose()
     }
     
 }
@@ -73,6 +75,13 @@ extension FileDownloadingViewModel: URLSessionDownloadDelegate {
 // MARK: - Private extension
 
 private extension FileDownloadingViewModel {
+    
+    private func downloadFileAt(_ url: URL) {
+        let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+        let task = urlSession.downloadTask(with: url)
+        self.task = task
+        task.resume()
+    }
     
     private func handleDownloadTaskCompletion(url: URL, response: URLResponse?) {
         guard let response = response else {
