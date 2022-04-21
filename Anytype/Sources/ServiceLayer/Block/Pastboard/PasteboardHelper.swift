@@ -18,12 +18,11 @@ final class PasteboardHelper {
                 forPasteboardType: UTType.blockSlot.identifier,
                 inItemSet: nil
             ) as? [Data] {
-                let blockSlots = pasteboardData.compactMap { data in
-                    String(data: data, encoding: .utf8)
-                }
-                if blockSlots.isNotEmpty {
-                    return blockSlots
-                }
+                guard let data = pasteboardData.first else { return nil }
+
+                // https://stackoverflow.com/questions/9164278/storing-nsarray-in-uipasteboard
+                let blockSlots = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String]
+                return blockSlots
             }
         }
         return nil
@@ -60,27 +59,25 @@ final class PasteboardHelper {
 
     func setItems(textSlot: String?, htmlSlot: String?, blocksSlots: [String]?) {
         var textSlots: [String: Any] = [:]
-        var allSlots: [[String: Any]] = [[:]]
+        var allSlots: [[String: Any]] = []
 
         if let textSlot = textSlot {
             textSlots[UTType.plainText.identifier] = textSlot
         }
 
         if let htmlSlot = htmlSlot {
-            textSlots[UTType.plainText.identifier] = htmlSlot
+            textSlots[UTType.html.identifier] = htmlSlot
         }
 
         if let blocksSlots = blocksSlots {
-            allSlots = blocksSlots.compactMap { blockSlot in
-                [UTType.blockSlot.identifier: blockSlot.data(using: .utf8) ?? blockSlot]
-            }
+            textSlots[UTType.blockSlot.identifier] = blocksSlots
         }
         allSlots.append(textSlots)
         pasteboard.setItems(allSlots)
     }
 
     var hasValidURL: Bool {
-        if pasteboard.hasURLs, let url = pasteboard.url?.absoluteString, url.isValidURL() {
+        if let string = pasteboard.string, string.isValidURL() {
             return true
         }
         return false
