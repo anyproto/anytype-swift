@@ -80,6 +80,7 @@ final class TextBlockIconView: UIView {
             currentView = toggleView
             toggleView.isSelected = isToggled
             let action = UIAction(handler: { [weak toggleView, weak self] reciver in
+                UISelectionFeedbackGenerator().selectionChanged()
                 toggleView?.isSelected.toggle()
                 self?.action?()
             })
