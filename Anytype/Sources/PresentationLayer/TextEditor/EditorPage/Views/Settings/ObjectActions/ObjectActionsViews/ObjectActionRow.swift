@@ -35,7 +35,7 @@ private extension ObjectAction {
     var title: String {
         switch self {
         case .undoRedo:
-            return "Undo/Redo"
+            return "Undo/Redo".localized
         case let .archive(isArchived):
             return isArchived ? "Restore".localized : "Delete".localized
         case let .favorite(isFavorite):
