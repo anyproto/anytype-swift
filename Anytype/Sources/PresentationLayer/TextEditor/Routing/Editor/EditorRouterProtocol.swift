@@ -6,7 +6,8 @@ protocol AttachmentRouterProtocol {
 }
 
 protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
-    
+    func showAlert(alertModel: AlertModel)
+
     func showPage(data: EditorScreenData)
     func openUrl(_ url: URL)
     func showBookmarkBar(completion: @escaping (URL) -> ())

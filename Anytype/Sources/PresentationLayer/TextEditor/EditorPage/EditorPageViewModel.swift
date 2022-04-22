@@ -19,6 +19,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let cursorManager: EditorCursorManager
     let actionHandler: BlockActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
+    let objectActionsService: ObjectActionsServiceProtocol
     
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
@@ -48,7 +49,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         headerModel: ObjectHeaderViewModel,
         blockActionsService: BlockActionsServiceSingleProtocol,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
-        cursorManager: EditorCursorManager
+        cursorManager: EditorCursorManager,
+        objectActionsService: ObjectActionsServiceProtocol
     ) {
         self.viewInput = viewInput
         self.document = document
@@ -62,6 +64,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.blockActionsService = blockActionsService
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
+        self.objectActionsService = objectActionsService
     }
 
     func setupSubscriptions() {
@@ -264,6 +267,17 @@ extension EditorPageViewModel {
     
     func viewWillDisappear() {
         document.close()
+    }
+
+    func shakeMotionDidAppear() {
+        router.showAlert(
+            alertModel: .undoAlertModel(
+                undoAction: { [weak self] in
+                    guard let self = self else { return }
+                    self.objectActionsService.undo(objectId: self.document.objectId)
+                }
+            )
+        )
     }
 }
 

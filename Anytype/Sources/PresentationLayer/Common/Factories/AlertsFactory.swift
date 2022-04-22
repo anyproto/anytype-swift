@@ -20,4 +20,24 @@ final class AlertsFactory {
             secondaryButton: .default(Text("Cancel".localized))
         )
     }
+
+    static func alertController(from alertModel: AlertModel) -> UIAlertController {
+        let alertController = UIAlertController(
+            title: alertModel.title,
+            message: alertModel.message,
+            preferredStyle: .alert
+        )
+
+        alertModel.buttons.forEach { item in
+            let action = UIAlertAction(
+                title: item.title,
+                style: item.style,
+                handler: { _ in item.action() }
+            )
+
+            alertController.addAction(action)
+        }
+
+        return alertController
+    }
 }
