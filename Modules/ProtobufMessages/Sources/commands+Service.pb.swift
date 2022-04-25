@@ -4351,7 +4351,7 @@ extension Anytype_Rpc.Account.Recover {
 
 extension Anytype_Rpc.Account.Delete {
   private struct Invocation {
-    static func invoke(_ data: Data?) -> Data? { Lib.ServiceAccountDelete(data) }
+    static func invoke(_ data: Data?) -> Data? { nil }
   }
 
   public enum Service {

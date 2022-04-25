@@ -10,24 +10,24 @@ struct ObjectCoverPicker: View {
     @State private var selectedTab: Tab = .gallery
     
     var body: some View {
-        VStack(spacing: 0) {
-            switch selectedTab {
-            case .gallery:
-                galleryTabView
-            case .unsplash:
+//        VStack(spacing: 0) {
+//            switch selectedTab {
+//            case .gallery:
+//                galleryTabView
+//            case .unsplash:
                 unsplashView
-            case .upload:
-                uploadTabView
-            }
+//            case .upload:
+//                uploadTabView
+//            }
             
-            tabHeaders
-        }
+//            tabHeaders
+//        }
     }
 
     private var unsplashView: some View {
         VStack(spacing: 0) {
-            DragIndicator()
-            navigationBarView
+//            DragIndicator()
+//            navigationBarView
             ItemPickerGridView(
                 viewModel: UnsplashViewModel(
                     onItemSelect: { item in
@@ -37,12 +37,12 @@ struct ObjectCoverPicker: View {
                     unsplashService: UnsplashService()
                 ))
         }
-        .transition(
-            .asymmetric(
-                insertion: .move(edge: .trailing),
-                removal: .move(edge: .leading)
-            )
-        )
+//        .transition(
+//            .asymmetric(
+//                insertion: .move(edge: .trailing),
+//                removal: .move(edge: .leading)
+//            )
+//        )
     }
 
     
@@ -61,12 +61,12 @@ struct ObjectCoverPicker: View {
                 }
             )
         }
-        .transition(
-            .asymmetric(
-                insertion: .move(edge: .leading),
-                removal: .move(edge: .trailing)
-            )
-        )
+//        .transition(
+//            .asymmetric(
+//                insertion: .move(edge: .leading),
+//                removal: .move(edge: .trailing)
+//            )
+//        )
     }
     
     private var uploadTabView: some View {
@@ -76,12 +76,12 @@ struct ObjectCoverPicker: View {
             }
             dismiss()
         }
-        .transition(
-            .asymmetric(
-                insertion: .move(edge: .trailing),
-                removal: .move(edge: .leading)
-            )
-        )
+//        .transition(
+//            .asymmetric(
+//                insertion: .move(edge: .trailing),
+//                removal: .move(edge: .leading)
+//            )
+//        )
     }
     
     private var navigationBarView: some View {

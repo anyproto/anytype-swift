@@ -10,6 +10,8 @@ struct UnsplashItemViewModel: Identifiable {
 extension UnsplashItemViewModel: GridItemViewModel {
     var view: AnyView {
         UnsplashItemView(viewModel: self)
+//            .frame(height: ItemPickerGridViewContants.gridItemHeight)
+            .clipped()
             .eraseToAnyView()
     }
 }
@@ -22,9 +24,12 @@ struct UnsplashItemView: View {
             KFImage
                 .url(viewModel.item.url)
                 .fade(duration: 0.25)
+//                .resizable()
+
                 .resizable()
+                .aspectRatio(contentMode: .fill)
+
                 .scaledToFill()
-                .frame(height: ItemPickerGridViewContants.gridItemHeight)
                 .clipped()
             AnytypeText(viewModel.item.artistName, style: .caption2Medium, color: .textWhite)
                 .padding(.init(8))
