@@ -9,6 +9,7 @@
 import Foundation
 import Combine
 import AnytypeCore
+import UIKit
 
 final class FileDownloadingViewModel: NSObject, ObservableObject {
     
@@ -27,11 +28,14 @@ final class FileDownloadingViewModel: NSObject, ObservableObject {
         self.downloadFileAt(url)
     }
     
-    private func downloadFileAt(_ url: URL) {
-        let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
-        let task = urlSession.downloadTask(with: url)
-        self.task = task
-        task.resume()
+}
+
+extension FileDownloadingViewModel {
+    
+    func didTapCancelButton() {
+        task?.cancel()
+        output?.didAskToClose()
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
     }
     
 }
@@ -74,6 +78,13 @@ extension FileDownloadingViewModel: URLSessionDownloadDelegate {
 
 private extension FileDownloadingViewModel {
     
+    private func downloadFileAt(_ url: URL) {
+        let urlSession = URLSession(configuration: .default, delegate: self, delegateQueue: .main)
+        let task = urlSession.downloadTask(with: url)
+        self.task = task
+        task.resume()
+    }
+    
     private func handleDownloadTaskCompletion(url: URL, response: URLResponse?) {
         guard let response = response else {
             // TODO: error handling
@@ -93,6 +104,7 @@ private extension FileDownloadingViewModel {
         do {
             try FileManager.default.moveItem(at: url, to: localURL)
             output?.didDownloadFileTo(localURL)
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
         } catch {
             // TODO: error handling
             anytypeAssertionFailure(error.localizedDescription, domain: .fileLoader)

@@ -60,4 +60,8 @@ extension FileDownloadingCoordinator: FileDownloadingModuleOutput {
         }
     }
     
+    func didAskToClose() {
+        viewController?.topPresentedController.dismiss(animated: true)
+    }
+    
 }
