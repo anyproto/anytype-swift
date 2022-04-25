@@ -4,6 +4,8 @@ import BlocksModels
     
 final class FileDownloadingCoordinator {
     
+    private(set) var type: FileContentType?
+    
     private let fileLoader = FileLoader()
     private weak var viewController: UIViewController?
     
@@ -26,28 +28,8 @@ extension FileDownloadingCoordinator {
             configuration: .init(isGrabberVisible: false, dismissOnBackdropView: false)
         )
         
+        self.type = type
         viewController?.topPresentedController.present(popup, animated: true)
-    }
-    
-    @available(*, deprecated)
-    func saveFile(fileURL: URL, type: FileContentType) {
-        let loadData = fileLoader.loadFile(remoteFileURL: fileURL)
-        
-        let loadingVC = LoadingViewController(
-            loadData: loadData,
-            informationText: "Loading, please wait".localized,
-            loadingCompletion: { [weak self] url in
-                self?.showDocumentPickerViewController(url: url)
-                AnytypeAnalytics.instance().logDownloadMedia(type: type)
-            }
-        )
-        
-        viewController?.topPresentedController.present(loadingVC, animated: true)
-    }
-    
-    private func showDocumentPickerViewController(url: URL) {
-        let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: true)
-        viewController?.topPresentedController.present(controller, animated: true)
     }
     
 }
@@ -55,6 +37,9 @@ extension FileDownloadingCoordinator {
 extension FileDownloadingCoordinator: FileDownloadingModuleOutput {
     
     func didDownloadFileTo(_ url: URL) {
+        type.flatMap {
+            AnytypeAnalytics.instance().logDownloadMedia(type: $0)
+        }
         viewController?.topPresentedController.dismiss(animated: true) { [weak self] in
             self?.showDocumentPickerViewController(url: url)
         }
@@ -62,6 +47,11 @@ extension FileDownloadingCoordinator: FileDownloadingModuleOutput {
     
     func didAskToClose() {
         viewController?.topPresentedController.dismiss(animated: true)
+    }
+    
+    private func showDocumentPickerViewController(url: URL) {
+        let controller = UIDocumentPickerViewController(forExporting: [url], asCopy: true)
+        viewController?.topPresentedController.present(controller, animated: true)
     }
     
 }
