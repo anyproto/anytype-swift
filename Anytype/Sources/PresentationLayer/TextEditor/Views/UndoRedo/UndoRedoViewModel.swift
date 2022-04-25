@@ -2,7 +2,7 @@ import UIKit
 import AnytypeCore
 
 final class UndoRedoViewModel: ObservableObject {
-    struct ButtonModels: Identifiable {
+    struct ButtonModel: Identifiable {
         let id: String
         let title: String
         let image: UIImage
@@ -30,7 +30,7 @@ final class UndoRedoViewModel: ObservableObject {
         objectActionsService.redo(objectId: objectId)
     }
 
-    private func buildButtonModels() -> [ButtonModels] {
+    private func buildButtonModels() -> [ButtonModel] {
         [
             .init(
                 id: "undo",
