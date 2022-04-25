@@ -85,9 +85,9 @@ final class GalleryViewController: UIViewController {
     }
 
     private func imageViewController(forIndex index: Int) -> ImageViewerViewController? {
-        guard let imageSource = viewModel.imageSources[safe: index] else { return nil }
+        guard let item = viewModel.items[safe: index] else { return nil }
 
-        let viewModel = ImageViewerViewModel(imageSource: imageSource)
+        let viewModel = ImageViewerViewModel(item: item)
         let viewController = ImageViewerViewController(viewModel: viewModel)
 
         return viewController
