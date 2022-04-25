@@ -79,6 +79,8 @@ final class EventsListener: EventsListenerProtocol {
             updates.append(.dataSourceUpdate)
         }
 
+        updates = updates.contains(.general) ? [.general] : updates
+
         updates.forEach { update in
             if update.hasUpdate {
                 IndentationBuilder.build(
