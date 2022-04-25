@@ -41,6 +41,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let controller = editorAssembly.buildEditorController(data: data, editorBrowserViewInput: rootController)
         viewController?.navigationController?.pushViewController(controller, animated: true)
     }
+
+    func showAlert(alertModel: AlertModel) {
+        let alertController = AlertsFactory.alertController(from: alertModel)
+        viewController?.present(alertController, animated: true, completion: nil)
+    }
     
     private func showUnsupportedTypeAlert(typeUrl: String) {
         let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized

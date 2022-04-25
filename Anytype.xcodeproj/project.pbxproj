@@ -840,6 +840,7 @@
 		C91AFF0F270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF0E270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift */; };
 		C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */; };
 		C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */; };
+		C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91FAF5E2812C2510055BC4A /* AlertModel.swift */; };
 		C92DCD682728561900A03D91 /* HorizonalTypeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD672728561900A03D91 /* HorizonalTypeListViewModel.swift */; };
 		C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD90272990CE00A03D91 /* ChangeTypeAccessoryView.swift */; };
 		C92DCD93272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD92272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift */; };
@@ -1846,6 +1847,7 @@
 		C91AFF0E270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoggerEventsMarkupHelper.swift; sourceTree = "<group>"; };
 		C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoViewModel.swift; sourceTree = "<group>"; };
+		C91FAF5E2812C2510055BC4A /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		C92DCD672728561900A03D91 /* HorizonalTypeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonalTypeListViewModel.swift; sourceTree = "<group>"; };
 		C92DCD90272990CE00A03D91 /* ChangeTypeAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeAccessoryView.swift; sourceTree = "<group>"; };
 		C92DCD92272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeAccessoryViewModel.swift; sourceTree = "<group>"; };
@@ -2123,6 +2125,7 @@
 		0331BBE122E608AC002AD179 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				C9C49A8327049CEF00D86463 /* Factories */,
 				3D1683F326DCE4EF008B9DFF /* ObjectIcon */,
 				3D486C162631726A00A9B625 /* SwiftUI */,
 				3D486C132631726400A9B625 /* UIKit */,
@@ -4495,7 +4498,6 @@
 				3D2F9C3A271F023A0043C326 /* Alerts */,
 				3D5A418C27046E9F00F1F6A1 /* iOS15Wrappers */,
 				3D5A41762704541900F1F6A1 /* Search */,
-				C9C49A8327049CEF00D86463 /* Factories */,
 				1206DB8C267A3017000A48A7 /* MediaPicker */,
 				3D155276264D977600B0E976 /* Popups */,
 				3D932D4A26317E9200C7D1EA /* Buttons */,
@@ -6065,6 +6067,7 @@
 			isa = PBXGroup;
 			children = (
 				C9C49A8427049D0200D86463 /* AlertsFactory.swift */,
+				C91FAF5E2812C2510055BC4A /* AlertModel.swift */,
 			);
 			path = Factories;
 			sourceTree = "<group>";
@@ -7167,6 +7170,7 @@
 				3D1D840F26F4AC330091A78A /* TextTriggerSymbols.swift in Sources */,
 				12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */,
 				C97B5D6427F499D200EA7E33 /* IndentationSettings.swift in Sources */,
+				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
 				53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */,
 				3D8D41B62742840000F8EBF3 /* DocumentDetaisProvider.swift in Sources */,

@@ -169,7 +169,8 @@ final class EditorAssembly {
             headerModel: headerModel,
             blockActionsService: blockActionsServiceSingle,
             blocksStateManager: blocksStateManager,
-            cursorManager: cursorManager
+            cursorManager: cursorManager,
+            objectActionsService: ServiceLocator.shared.objectActionsService()
         )
     }
 

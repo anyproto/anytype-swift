@@ -213,6 +213,9 @@
 "Note" = "Note";
 "Choose layout type" = "Choose layout type";
 
+"Undo typing" = "Undo typing";
+"Undo" = "Undo";
+
 // Object Type
 "Page" = "Page";
 "Set" = "Set";
