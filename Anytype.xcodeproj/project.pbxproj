@@ -266,6 +266,9 @@
 		12870A2C26DE6A7400A6F46A /* ImageWidth.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12870A2B26DE6A7400A6F46A /* ImageWidth.swift */; };
 		12887F26274B94A600228330 /* DetailsServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12887F25274B94A600228330 /* DetailsServiceProtocol.swift */; };
 		12887F3A274BB32600228330 /* BundledDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12887F39274BB32600228330 /* BundledDetails.swift */; };
+		1289C51428105493005085E2 /* FileDownloadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289C51328105493005085E2 /* FileDownloadingView.swift */; };
+		1289C51628105A2D005085E2 /* FileDownloadingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289C51528105A2D005085E2 /* FileDownloadingViewModel.swift */; };
+		1289C518281159DE005085E2 /* FileDownloadingModuleOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289C517281159DE005085E2 /* FileDownloadingModuleOutput.swift */; };
 		1289F59C2733622C00656EC2 /* RelationsListRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289F59B2733622C00656EC2 /* RelationsListRowView.swift */; };
 		1289F5A42733C50500656EC2 /* TextRelationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1289F5A32733C50500656EC2 /* TextRelationFactory.swift */; };
 		128AD9EA2775B2F1004E3BDB /* art@3x~ipad.png in Resources */ = {isa = PBXBuildFile; fileRef = 128AD9E52775B2F1004E3BDB /* art@3x~ipad.png */; };
@@ -1274,6 +1277,9 @@
 		12870A2B26DE6A7400A6F46A /* ImageWidth.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageWidth.swift; sourceTree = "<group>"; };
 		12887F25274B94A600228330 /* DetailsServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsServiceProtocol.swift; sourceTree = "<group>"; };
 		12887F39274BB32600228330 /* BundledDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BundledDetails.swift; sourceTree = "<group>"; };
+		1289C51328105493005085E2 /* FileDownloadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloadingView.swift; sourceTree = "<group>"; };
+		1289C51528105A2D005085E2 /* FileDownloadingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloadingViewModel.swift; sourceTree = "<group>"; };
+		1289C517281159DE005085E2 /* FileDownloadingModuleOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileDownloadingModuleOutput.swift; sourceTree = "<group>"; };
 		1289F59B2733622C00656EC2 /* RelationsListRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationsListRowView.swift; sourceTree = "<group>"; };
 		1289F5A32733C50500656EC2 /* TextRelationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationFactory.swift; sourceTree = "<group>"; };
 		128AD9E52775B2F1004E3BDB /* art@3x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "art@3x~ipad.png"; sourceTree = "<group>"; };
@@ -3501,11 +3507,22 @@
 		1289C50E2810278F005085E2 /* FileDownloading flow */ = {
 			isa = PBXGroup;
 			children = (
+				1289C51228105474005085E2 /* FileDownloading screen */,
 				3DA12E6A2636F6330085D008 /* FileLoader */,
 				0A0965C125BEF5B000C004BD /* FileDownloadingCoordinator.swift */,
 				3D93D56A270C9E3400614E29 /* LoadingViewController.swift */,
 			);
 			path = "FileDownloading flow";
+			sourceTree = "<group>";
+		};
+		1289C51228105474005085E2 /* FileDownloading screen */ = {
+			isa = PBXGroup;
+			children = (
+				1289C51328105493005085E2 /* FileDownloadingView.swift */,
+				1289C51528105A2D005085E2 /* FileDownloadingViewModel.swift */,
+				1289C517281159DE005085E2 /* FileDownloadingModuleOutput.swift */,
+			);
+			path = "FileDownloading screen";
 			sourceTree = "<group>";
 		};
 		1289F5A22733C49D00656EC2 /* ValueViews */ = {
@@ -6491,6 +6508,7 @@
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
 				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
 				3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */,
+				1289C51628105A2D005085E2 /* FileDownloadingViewModel.swift in Sources */,
 				3D16841626DD672E008B9DFF /* BlockLayoutConverter.swift in Sources */,
 				12CAF37226D6A9E3001E56B2 /* ImageStorageProtocol.swift in Sources */,
 				12C0592E27F3274E004FFAAB /* DownloadableContentProtocol.swift in Sources */,
@@ -6518,6 +6536,7 @@
 				12A8CCEE26BD5F3B00090468 /* EditorItem.swift in Sources */,
 				3D7F7173279F0829003FE893 /* EditorSetPaginationData.swift in Sources */,
 				53FF7C5226F7E49900A5A592 /* AudioPlayerView.swift in Sources */,
+				1289C518281159DE005085E2 /* FileDownloadingModuleOutput.swift in Sources */,
 				3D6E9A39270E0937001B0A07 /* ResultExtension.swift in Sources */,
 				12DE4057264AE455007B5074 /* UIView+Layout.swift in Sources */,
 				3D22B20E2685DABD00C78C28 /* BlockImageViewModel.swift in Sources */,
@@ -7246,6 +7265,7 @@
 				12A7B6C126C3E47200544037 /* DocumentCover.swift in Sources */,
 				53D408AC27F0B7EE00495335 /* CodeBlockFields.swift in Sources */,
 				1219F971269350A5009DE4D4 /* ObjectIconType.swift in Sources */,
+				1289C51428105493005085E2 /* FileDownloadingView.swift in Sources */,
 				3D30416A27EA4DC100FFE0EB /* EditorSetViewSettingsView.swift in Sources */,
 				3D5A418B2704697300F1F6A1 /* AutofocusedTextEditor.swift in Sources */,
 				03D1516623FB446A004027CE /* MiddlewareConfigurationProvider.swift in Sources */,
