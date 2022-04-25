@@ -139,6 +139,16 @@ final class EditorPageController: UIViewController {
         return self
     }
 
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        super.motionBegan(motion, with: event)
+
+        if motion == .motionShake {
+            viewModel.shakeMotionDidAppear()
+
+            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+        }
+    }
+
     func bindViewModel() {
         viewModel.blocksStateManager.editorEditingStatePublisher.sink { [unowned self] state in
             navigationBarHelper.editorEditingStateDidChange(state)

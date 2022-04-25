@@ -78,6 +78,7 @@ extension Image {
         static let restore = createImage("restore")
         static let favorite = createImage("addToFavorites")
         static let unfavorite = createImage("unfavorite")
+        static let undoRedo = createImage("undoredo")
         static let lock = createImage("lock")
         static let unlock = createImage("unlock")
     }

@@ -26,6 +26,11 @@ extension UIImage {
             static let preview = createImage("TextEditor/BlocksOption/view")
         }
 
+        enum UndoRedo {
+            static let undo = createImage("undo")
+            static let redo = createImage("redo")
+        }
+
         static let bigGhost = createImage("TextEditor/bigGhost")
     }
     

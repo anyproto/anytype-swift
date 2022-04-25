@@ -3,6 +3,7 @@ import BlocksModels
 
 enum ObjectAction: Hashable, Identifiable {
     // NOTE: When adding new case here, it case MUST be added in allCasesWith method
+    case undoRedo
     case archive(isArchived: Bool)
     case favorite(isFavorite: Bool)
     case locked(isLocked: Bool)
@@ -23,6 +24,7 @@ enum ObjectAction: Hashable, Identifiable {
         allCases.append(.favorite(isFavorite: details.isFavorite))
 
         if details.objectType.url != ObjectTemplateType.bundled(.set).rawValue {
+            allCases.append(.undoRedo)
             allCases.append(.locked(isLocked: isLocked))
         }
 
@@ -31,6 +33,8 @@ enum ObjectAction: Hashable, Identifiable {
     
     var id: String {
         switch self {
+        case .undoRedo:
+            return "undoredo"
         case .archive:
             return "archive"
         case .favorite:

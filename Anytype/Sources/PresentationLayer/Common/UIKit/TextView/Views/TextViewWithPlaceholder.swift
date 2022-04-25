@@ -10,6 +10,8 @@ final class TextViewWithPlaceholder: UITextView {
         case left
         case right
     }
+
+    override var undoManager: UndoManager? { nil }
     
     // MARK: - Views
     
@@ -183,6 +185,8 @@ private extension TextViewWithPlaceholder {
         placeholderConstraints[.top]?.constant = textContainerInset.top
         placeholderConstraints[.bottom]?.constant = textContainerInset.bottom
     }
+
+
     
     private func syncPlaceholder() {
         self.placeholderLabel.isHidden = !self.text.isEmpty

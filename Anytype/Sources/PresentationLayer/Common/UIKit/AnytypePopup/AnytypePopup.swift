@@ -114,7 +114,12 @@ private extension AnytypePopup {
         surfaceView.grabberHandle.backgroundColor = .strokePrimary
         surfaceView.grabberHandle.isHidden = !configuration.isGrabberVisible
 
-        surfaceView.contentPadding = UIEdgeInsets(top: Constants.grabberHeight, left: 0, bottom: 0, right: 0)
+        surfaceView.contentPadding = UIEdgeInsets(
+            top: configuration.isGrabberVisible ? Constants.grabberHeight : 0,
+            left: 0,
+            bottom: 0,
+            right: 0
+        )
         
         if floatingPanelStyle {
             let horizontalInset = UIDevice.isPad ? 0.0 : 8.0
@@ -145,7 +150,7 @@ private extension AnytypePopup {
         shadow.offset = CGSize(width: 0, height: 0)
         shadow.radius = 40
         shadow.opacity = 1
-        
+
         return shadow
     }
     

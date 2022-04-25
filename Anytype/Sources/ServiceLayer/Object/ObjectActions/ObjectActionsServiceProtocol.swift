@@ -1,6 +1,7 @@
 import Combine
 import BlocksModels
 import ProtobufMessages
+import AnytypeCore
 
 protocol ObjectActionsServiceProtocol {
     func delete(objectIds: [BlockId], completion: @escaping (Bool) -> ())
@@ -23,4 +24,7 @@ protocol ObjectActionsServiceProtocol {
     ) -> BlockId?
     
     func setObjectType(objectId: BlockId, objectTypeUrl: String)
+
+    func undo(objectId: AnytypeId)
+    func redo(objectId: AnytypeId)
 }

@@ -21,13 +21,19 @@ final class ObjectActionsViewModel: ObservableObject {
 
     let popScreenAction: () -> ()
     var dismissSheet: () -> () = {}
+    let undoRedoAction: () -> ()
     
     private let objectId: AnytypeId
     private let service = ServiceLocator.shared.objectActionsService()
     
-    init(objectId: AnytypeId, popScreenAction: @escaping () -> ()) {
+    init(
+        objectId: AnytypeId,
+        popScreenAction: @escaping () -> (),
+        undoRedoAction: @escaping () -> ()
+    ) {
         self.objectId = objectId
         self.popScreenAction = popScreenAction
+        self.undoRedoAction = undoRedoAction
     }
 
     func changeArchiveState() {

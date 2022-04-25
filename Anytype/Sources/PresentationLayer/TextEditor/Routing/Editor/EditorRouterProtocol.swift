@@ -6,7 +6,8 @@ protocol AttachmentRouterProtocol {
 }
 
 protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
-    
+    func showAlert(alertModel: AlertModel)
+
     func showPage(data: EditorScreenData)
     func openUrl(_ url: URL)
     func showBookmarkBar(completion: @escaping (URL) -> ())
@@ -26,6 +27,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showIconPicker()
     func showLayoutPicker()
     func showTextIconPicker(contextId: BlockId, objectId: BlockId)
+    func presentUndoRedo()
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())

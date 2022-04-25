@@ -41,6 +41,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let controller = editorAssembly.buildEditorController(data: data, editorBrowserViewInput: rootController)
         viewController?.navigationController?.pushViewController(controller, animated: true)
     }
+
+    func showAlert(alertModel: AlertModel) {
+        let alertController = AlertsFactory.alertController(from: alertModel)
+        viewController?.present(alertController, animated: true, completion: nil)
+    }
     
     private func showUnsupportedTypeAlert(typeUrl: String) {
         let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized
@@ -260,6 +265,18 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func presentFullscreen(_ vc: UIViewController) {
         rootController?.topPresentedController.present(vc, animated: true)
+    }
+
+    func presentUndoRedo() {
+        let undoRedoView = UndoRedoView(viewModel: .init(objectId: document.objectId))
+        let popupViewController = AnytypePopup(
+            contentView: undoRedoView,
+            floatingPanelStyle: true,
+            configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
+        )
+        popupViewController.backdropView.backgroundColor = .clear
+
+        viewController?.dismissAndPresent(viewController: popupViewController)
     }
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {
