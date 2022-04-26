@@ -39,6 +39,7 @@ extension UserDefaultsConfig {
     static func cleanStateAfterLogout() {
         usersId = ""
         _screenDataFromLastSession = nil
+        storeOpenedScreenData(nil)
     }
     
 }
