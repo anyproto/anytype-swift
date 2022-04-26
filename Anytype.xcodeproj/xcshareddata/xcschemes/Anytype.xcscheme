@@ -80,16 +80,6 @@
             value = "DEBUG"
             isEnabled = "NO">
          </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "ANYTYPE_GRPC_LOG"
-            value = "3"
-            isEnabled = "NO">
-         </EnvironmentVariable>
-         <EnvironmentVariable
-            key = "ANYTYPE_GRPC_TRACE"
-            value = "3"
-            isEnabled = "NO">
-         </EnvironmentVariable>
       </EnvironmentVariables>
    </LaunchAction>
    <ProfileAction
