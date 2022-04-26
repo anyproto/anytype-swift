@@ -21,7 +21,6 @@ final class ServiceLocator {
     func authService() -> AuthServiceProtocol {
         return AuthService(
             localRepoService: localRepoService(),
-            seedService: seedService(),
             loginStateService: loginStateService()
         )
     }

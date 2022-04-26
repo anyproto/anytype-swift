@@ -4,11 +4,14 @@ final class SignUpData: ObservableObject {
     @Published var userName: String
     @Published var image: UIImage?
     @Published var inviteCode: String
+    var mnemonic: String
     
-    init() {
+    init(mnemonic: String) {
         userName = ""
         image = nil
         inviteCode = ""
+
+        self.mnemonic = mnemonic
     }
 }
 
