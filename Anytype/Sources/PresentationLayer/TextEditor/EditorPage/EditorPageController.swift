@@ -101,14 +101,13 @@ final class EditorPageController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        viewModel.viewWillAppear()
         
         navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
-        
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView,
             stateManager: viewModel.blocksStateManager
         )
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -118,11 +117,16 @@ final class EditorPageController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        viewModel.viewWillDisappear()
-        
+
+        view.endEditing(true)
+
         navigationBarHelper.handleViewWillDisappear()
         insetsHelper = nil
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewModel.viewDidDissapear()
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -182,6 +186,12 @@ final class EditorPageController: UIViewController {
         viewModel.blocksStateManager.editorSelectedBlocks.sink { [unowned self] blockIds in
             blockIds.forEach(selectBlock)
         }.store(in: &cancellables)
+    }
+
+    override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+        view.endEditing(true)
+
+        super.present(viewControllerToPresent, animated: flag, completion: completion)
     }
 }
 
