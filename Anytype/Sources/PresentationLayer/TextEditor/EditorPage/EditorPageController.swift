@@ -12,6 +12,7 @@ final class EditorPageController: UIViewController {
     private lazy var deletedScreen = EditorPageDeletedScreen(
         onBackTap: viewModel.router.goBack
     )
+    private weak var firstResponderView: UIView?
     
     let collectionView: EditorCollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -22,6 +23,7 @@ final class EditorPageController: UIViewController {
             frame: .zero,
             collectionViewLayout: layout
         )
+
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
 
@@ -97,17 +99,18 @@ final class EditorPageController: UIViewController {
         bindViewModel()
         setEditing(true, animated: false)
         collectionView.allowsSelectionDuringEditing = true
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
+
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView,
             stateManager: viewModel.blocksStateManager
         )
 
+        navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.viewWillAppear()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -118,15 +121,17 @@ final class EditorPageController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
+        UIApplication.shared.hideKeyboard()
+        firstResponderView?.resignFirstResponder()
         view.endEditing(true)
-
-        navigationBarHelper.handleViewWillDisappear()
-        insetsHelper = nil
     }
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         viewModel.viewDidDissapear()
+
+        navigationBarHelper.handleViewWillDisappear()
+        insetsHelper = nil
     }
 
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -250,11 +255,10 @@ extension EditorPageController: EditorPageViewInput {
     }
     
     func textBlockWillBeginEditing() {
-        contentOffset = collectionView.contentOffset
+//        contentOffset = collectionView.contentOffset
     }
-    
-    func textBlockDidBeginEditing() {
-//        collectionView.setContentOffset(contentOffset, animated: false)
+    func textBlockDidBeginEditing(firstResponderView: UIView) {
+        self.firstResponderView = firstResponderView
     }
 
     func textBlockDidChangeFrame() {
