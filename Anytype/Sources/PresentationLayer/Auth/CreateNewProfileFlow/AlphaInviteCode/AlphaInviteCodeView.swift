@@ -64,7 +64,7 @@ struct AlphaInviteCodeView: View {
             
             NavigationLink(
                 destination: CreateNewProfileView(
-                    viewModel: CreateNewProfileViewModel(),
+                    viewModel: CreateNewProfileViewModel(seedService: ServiceLocator.shared.seedService()),
                     showCreateNewProfile: $showCreateNewProfile
                 ).environmentObject(signUpData),
                 isActive: $showCreateNewProfile
@@ -79,6 +79,6 @@ struct AlphaInviteCodeView: View {
 
 struct AlphaInviteCodeView_Previews: PreviewProvider {
     static var previews: some View {
-        AlphaInviteCodeView(signUpData: SignUpData())
+        AlphaInviteCodeView(signUpData: SignUpData(mnemonic: UUID().uuidString))
     }
 }

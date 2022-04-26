@@ -357,7 +357,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 extension EditorRouter: AttachmentRouterProtocol {
     func openImage(_ imageContext: BlockImageViewModel.ImageOpeningContext) {
         let viewModel = GalleryViewModel(
-            imageSources: [imageContext.image], initialImageDisplayIndex: 0)
+            items: [.init(imageSource: imageContext.image, previewImage: imageContext.imageView.image)],
+            initialImageDisplayIndex: 0
+        )
         let galleryViewController = GalleryViewController(
             viewModel: viewModel,
             initialImageView: imageContext.imageView

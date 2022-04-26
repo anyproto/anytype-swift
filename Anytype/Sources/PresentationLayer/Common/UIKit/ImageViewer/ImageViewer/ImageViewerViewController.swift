@@ -89,6 +89,7 @@ final class ImageViewerViewController: UIViewController {
             $0.centerX.equal(to: view.centerXAnchor)
             $0.centerY.equal(to: view.centerYAnchor)
         }
+        reloadImageView()
     }
 
     private func setupGestureRecognizer() {

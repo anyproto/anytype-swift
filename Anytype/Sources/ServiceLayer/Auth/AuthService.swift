@@ -6,7 +6,6 @@ import AnytypeCore
 import BlocksModels
 
 final class AuthService: AuthServiceProtocol {
-    private let seedService: SeedServiceProtocol
     private let rootPath: String
     private let loginStateService: LoginStateService
     
@@ -14,10 +13,8 @@ final class AuthService: AuthServiceProtocol {
     
     init(
         localRepoService: LocalRepoServiceProtocol,
-        seedService: SeedServiceProtocol,
         loginStateService: LoginStateService
     ) {
-        self.seedService = seedService
         self.rootPath = localRepoService.middlewareRepoPath
         self.loginStateService = loginStateService
     }
@@ -48,7 +45,6 @@ final class AuthService: AuthServiceProtocol {
         
         if let mnemonic = result.getValue(domain: .authService) {
             AnytypeLogger.create("Services.AuthService").debugPrivate("seed:", arg: mnemonic)
-            try? seedService.saveSeed(mnemonic)
         }
         
         return result
@@ -89,8 +85,6 @@ final class AuthService: AuthServiceProtocol {
     }
 
     func walletRecovery(mnemonic: String) -> Result<Void, AuthServiceError> {
-        try? seedService.saveSeed(mnemonic)
-        
         let result = Anytype_Rpc.Wallet.Recover.Service.invoke(rootPath: rootPath, mnemonic: mnemonic)
             .mapError { _ in AuthServiceError.recoverWalletError }
             .map { _ in Void() }
