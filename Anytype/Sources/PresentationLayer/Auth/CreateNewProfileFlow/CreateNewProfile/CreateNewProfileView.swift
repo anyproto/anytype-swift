@@ -108,9 +108,9 @@ struct CreateNewProfileView: View {
 struct CreateNewProfileView_Previews: PreviewProvider {
     static var previews: some View {
         CreateNewProfileView(
-            viewModel: CreateNewProfileViewModel(),
+            viewModel: CreateNewProfileViewModel(seedService: ServiceLocator.shared.seedService()),
             showCreateNewProfile: .constant(true)
         )
-        .environmentObject(SignUpData())
+        .environmentObject(SignUpData(mnemonic: ""))
     }
 }
