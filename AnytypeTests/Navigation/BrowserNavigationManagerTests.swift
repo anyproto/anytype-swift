@@ -260,6 +260,6 @@ class BrowserNavigationManagerTests: XCTestCase {
     private func createPage() -> BrowserPage {
         let controller = UIViewController()
         controllersStorage.append(controller)
-        return BrowserPage(pageData: .init(pageId: "\(UUID())", type: .page), title: nil, subtitle: nil, controller: controller)
+        return BrowserPage(pageData: .init(pageId: AnytypeIdMock.id, type: .page), title: nil, subtitle: nil, controller: controller)
     }
 }
