@@ -147,7 +147,7 @@ struct HomeView: View {
             ZStack {
                 Group {
                     DashboardWallpaper()
-                    if let data = model.openedPageData.data {
+                    if let data = model.openedEditorScreenData {
                         newPageNavigation(data: data)
                     }
                     HomeProfileView()
@@ -162,11 +162,11 @@ struct HomeView: View {
     }
     
     private func newPageNavigation(data: EditorScreenData) -> some View {
-        NavigationLink(
-            destination: model.createBrowser(data: data),
-            isActive: $model.openedPageData.showing,
-            label: { EmptyView() }
-        )
+        NavigationLink(isActive: $model.showingEditorScreenData) {
+            model.createBrowser(data: data)
+        } label: {
+            EmptyView()
+        }
     }
 }
 

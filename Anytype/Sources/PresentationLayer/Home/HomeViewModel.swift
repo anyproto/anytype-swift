@@ -17,7 +17,10 @@ final class HomeViewModel: ObservableObject {
     @Published var setsCellData = [HomeCellData]()
     
     @Published var selectedPageIds: Set<BlockId> = []
-    @Published var openedPageData = OpenedPageData.cached
+    
+    @Published private(set) var openedEditorScreenData: EditorScreenData?
+    @Published var showingEditorScreenData: Bool = false
+    
     @Published var showSearch = false
     @Published var showPagesDeletionAlert = false
     @Published var snackBarData = SnackBarData.empty
@@ -45,6 +48,10 @@ final class HomeViewModel: ObservableObject {
             self?.onDashboardChange(update: $0)
         }.store(in: &cancellables)
         setupSubscriptions()
+        
+        let data = UserDefaultsConfig.screenDataFromLastSession
+        showingEditorScreenData = data != nil
+        openedEditorScreenData = data
     }
 
     // MARK: - View output
@@ -200,11 +207,11 @@ extension HomeViewModel {
     func showPage(id: AnytypeId, viewType: EditorViewType) {
         let data = EditorScreenData(pageId: id, type: viewType)
         
-        if openedPageData.showing {
+        if showingEditorScreenData {
             editorBrowser?.showPage(data: data)
         } else {
-            openedPageData.data = data
-            openedPageData.showing = true
+            openedEditorScreenData = data
+            showingEditorScreenData = true
         }
     }
     
