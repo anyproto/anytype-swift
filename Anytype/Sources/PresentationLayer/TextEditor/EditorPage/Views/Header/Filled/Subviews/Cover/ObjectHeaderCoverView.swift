@@ -43,6 +43,8 @@ extension ObjectHeaderCoverView: ConfigurableView {
     }
     
     func configure(model: Model) {
+        imageView.image = nil
+
         switch model.objectCover {
         case let .cover(cover):
             configureCoverState(cover, model.size)

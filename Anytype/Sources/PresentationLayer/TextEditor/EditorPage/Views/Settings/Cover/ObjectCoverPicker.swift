@@ -7,27 +7,25 @@ struct ObjectCoverPicker: View {
     
     var onDismiss: () -> Void = {}
     
-    @State private var selectedTab: Tab = .gallery
+    @State private var index: Int = 0
     
     var body: some View {
-//        VStack(spacing: 0) {
-//            switch selectedTab {
-//            case .gallery:
-//                galleryTabView
-//            case .unsplash:
-                unsplashView
-//            case .upload:
-//                uploadTabView
-//            }
-            
-//            tabHeaders
-//        }
+        TabView(selection: $index) {
+            galleryTabView
+                .tag(Tab.gallery.rawValue)
+            unsplashView
+                .tag(Tab.unsplash.rawValue)
+            uploadTabView
+                .tag(Tab.upload.rawValue)
+        }
+        .tabViewStyle(.page(indexDisplayMode: .never))
+        tabHeaders
     }
 
     private var unsplashView: some View {
         VStack(spacing: 0) {
-//            DragIndicator()
-//            navigationBarView
+            DragIndicator()
+            navigationBarView
             ItemPickerGridView(
                 viewModel: UnsplashViewModel(
                     onItemSelect: { item in
@@ -35,14 +33,9 @@ struct ObjectCoverPicker: View {
                         dismiss()
                     },
                     unsplashService: UnsplashService()
-                ))
+                )
+            )
         }
-//        .transition(
-//            .asymmetric(
-//                insertion: .move(edge: .trailing),
-//                removal: .move(edge: .leading)
-//            )
-//        )
     }
 
     
@@ -61,12 +54,6 @@ struct ObjectCoverPicker: View {
                 }
             )
         }
-//        .transition(
-//            .asymmetric(
-//                insertion: .move(edge: .leading),
-//                removal: .move(edge: .trailing)
-//            )
-//        )
     }
     
     private var uploadTabView: some View {
@@ -76,12 +63,6 @@ struct ObjectCoverPicker: View {
             }
             dismiss()
         }
-//        .transition(
-//            .asymmetric(
-//                insertion: .move(edge: .trailing),
-//                removal: .move(edge: .leading)
-//            )
-//        )
     }
     
     private var navigationBarView: some View {
@@ -115,14 +96,13 @@ struct ObjectCoverPicker: View {
         Button {
             UISelectionFeedbackGenerator().selectionChanged()
             withAnimation {
-                selectedTab = tab
+                index = tab.rawValue
             }
-            
         } label: {
             AnytypeText(
                 tab.title,
                 style: .uxBodyRegular,
-                color: selectedTab == tab ? Color.buttonSelected : Color.buttonActive
+                color: index == tab.rawValue ? Color.buttonSelected : Color.buttonActive
             )
         }
         .frame(maxWidth: .infinity)
@@ -138,7 +118,7 @@ struct ObjectCoverPicker: View {
 
 private extension ObjectCoverPicker {
 
-    enum Tab: CaseIterable {
+    enum Tab: Int {
         case gallery
         case unsplash
         case upload

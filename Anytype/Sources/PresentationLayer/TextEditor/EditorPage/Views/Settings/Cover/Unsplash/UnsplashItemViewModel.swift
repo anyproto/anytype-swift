@@ -10,8 +10,6 @@ struct UnsplashItemViewModel: Identifiable {
 extension UnsplashItemViewModel: GridItemViewModel {
     var view: AnyView {
         UnsplashItemView(viewModel: self)
-//            .frame(height: ItemPickerGridViewContants.gridItemHeight)
-            .clipped()
             .eraseToAnyView()
     }
 }
@@ -20,20 +18,27 @@ struct UnsplashItemView: View {
     let viewModel: UnsplashItemViewModel
 
     var body: some View {
-        ZStack(alignment: .bottomLeading) {
-            KFImage
-                .url(viewModel.item.url)
-                .fade(duration: 0.25)
-//                .resizable()
-
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-
-                .scaledToFill()
-                .clipped()
-            AnytypeText(viewModel.item.artistName, style: .caption2Medium, color: .textWhite)
-                .padding(.init(8))
+        GeometryReader { geometry in
+            ZStack(alignment: .bottomLeading) {
+                KFImage
+                    .url(viewModel.item.url)
+                    .setProcessors(
+                        [
+                            KFProcessorBuilder(
+                                imageGuideline: ImageGuideline(
+                                    size: .init(
+                                        width: geometry.size.width > 0 ? geometry.size.width : 200,
+                                        height: ItemPickerGridViewContants.gridItemHeight
+                                    )
+                                ),
+                                scalingType: .resizing(.aspectFill)
+                            ).build()
+                        ]
+                    )
+                    .fade(duration: 0.25)
+                AnytypeText(viewModel.item.artistName, style: .caption2Medium, color: .textWhite)
+                    .padding(.init(8))
+            }
         }
-
     }
 }

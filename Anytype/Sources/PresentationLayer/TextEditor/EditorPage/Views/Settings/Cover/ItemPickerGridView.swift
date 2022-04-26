@@ -54,8 +54,6 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
                 .onTapGesture {
                     viewModel.didSelectItem(item: item)
                 }
-                .clipped()
-
         }
         .padding(.top, 16)
     }
