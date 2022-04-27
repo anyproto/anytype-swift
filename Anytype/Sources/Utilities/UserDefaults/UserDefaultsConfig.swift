@@ -5,6 +5,7 @@ import Firebase
 import SwiftUI
 
 struct UserDefaultsConfig {
+    
     @UserDefault("userId", defaultValue: "")
     public static var usersId: String {
         didSet {
@@ -14,35 +15,38 @@ struct UserDefaultsConfig {
 
     @UserDefault("App.InstalledAtDate", defaultValue: nil)
     public static var installedAtDate: Date?
+    
+    @UserDefault("App.AnalyticsUserConsent", defaultValue: false)
+    public static var analyticsUserConsent: Bool
+    
+    @UserDefault("UserData.DefaultObjectType", defaultValue: "")
+    static var defaultObjectType: String {
+        didSet {
+            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType)
+        }
+    }
+    
+    @UserDefault("UserData.RowsPerPageInSet", defaultValue: 50)
+    static var rowsPerPageInSet: Int64
+    
+    @UserDefault("UserData.ShowKeychainAlert", defaultValue: false)
+    static var showKeychainAlert: Bool
+    
+}
 
+extension UserDefaultsConfig {
+    
     static func cleanStateAfterLogout() {
         usersId = ""
         _screenDataFromLastSession = nil
     }
     
-    @UserDefault("App.AnalyticsUserConsent", defaultValue: false)
-    public static var analyticsUserConsent: Bool
+}
+
+// MARK: - Opened Page id
+
+extension UserDefaultsConfig {
     
-    // MARK: - Selected Tab
-    @UserDefault("UserData.SelectedTab", defaultValue: nil)
-    private static var _selectedTab: String?
-    
-    static var selectedTab: HomeTabsView.Tab {
-        get {
-            let tab = _selectedTab.flatMap { HomeTabsView.Tab(rawValue: $0) } ?? .favourites
-            
-            if tab == .shared && !AccountManager.shared.account.config.enableSpaces {
-                return .favourites
-            }
-            
-            return tab
-        }
-        set {
-            _selectedTab = newValue.rawValue
-        }
-    }
-    
-    // MARK: - Opened Page id
     @UserDefault("UserData.LastOpenedPageId", defaultValue: nil)
     private static var _lastOpenedPageId: String?
     @UserDefault("UserData.LastOpenedViewType", defaultValue: nil)
@@ -71,19 +75,36 @@ struct UserDefaultsConfig {
         _screenDataFromLastSession = EditorScreenData(pageId: pageId, type: type)
     }
     
-    // MARK: - Default object type
-    @UserDefault("UserData.DefaultObjectType", defaultValue: "")
-    static var defaultObjectType: String {
-        didSet {
-            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType)
+}
+
+// MARK: - Selected Tab
+
+extension UserDefaultsConfig {
+    
+    @UserDefault("UserData.SelectedTab", defaultValue: nil)
+    private static var _selectedTab: String?
+    
+    static var selectedTab: HomeTabsView.Tab {
+        get {
+            let tab = _selectedTab.flatMap { HomeTabsView.Tab(rawValue: $0) } ?? .favourites
+            
+            if tab == .shared && !AccountManager.shared.account.config.enableSpaces {
+                return .favourites
+            }
+            
+            return tab
+        }
+        set {
+            _selectedTab = newValue.rawValue
         }
     }
     
-    // MARK: - rows per page in set
-    @UserDefault("UserData.RowsPerPageInSet", defaultValue: 50)
-    static var rowsPerPageInSet: Int64
+}
+
+// MARK: - Wallpaper
+
+extension UserDefaultsConfig {
     
-    // MARK: - Wallpaper    
     @UserDefault("UserData.Wallpaper", defaultValue: nil)
     private static var _wallpaper: Data?
     
@@ -111,12 +132,15 @@ struct UserDefaultsConfig {
         }
     }
     
-    @UserDefault("UserData.ShowKeychainAlert", defaultValue: false)
-    static var showKeychainAlert: Bool
+}
 
+// MARK: - UserInterfaceStyle
+
+extension UserDefaultsConfig {
+    
     @UserDefault("UserData.UserInterfaceStyle", defaultValue: UIUserInterfaceStyle.unspecified.rawValue)
     private static var _userInterfaceStyleRawValue: Int
-
+    
     static var userInterfaceStyle: UIUserInterfaceStyle {
         get { UIUserInterfaceStyle(rawValue: _userInterfaceStyleRawValue) ?? .unspecified }
         set {
@@ -125,4 +149,5 @@ struct UserDefaultsConfig {
             AnytypeAnalytics.instance().logSelectTheme(userInterfaceStyle)
         }
     }
+    
 }
