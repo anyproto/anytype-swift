@@ -97,6 +97,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
             let relationIds = allRelationsBlockViewModel.map(\.blockId)
             let diffrerence = difference(with: Set(relationIds))
+
+            guard !diffrerence.isEmpty else { return }
             modelsHolder.applyDifference(difference: diffrerence)
             viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
         case let .blocks(updatedIds):

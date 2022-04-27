@@ -33,19 +33,17 @@ final class TextRelationViewUIKit: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override var intrinsicContentSize: CGSize {
-        textView.intrinsicContentSize
-    }
-
     // MARK: - Setup view
 
     private func setupViews() {
         textView.textColor = style.uiKitFontColor
         textView.setText(text)
+        textView.numberOfLines =  1
         textView.numberOfLines = style.allowMultiLine ? 0 : 1
 
         addSubview(textView) {
-            $0.pinToSuperview()
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.greaterThanOrEqual(to: bottomAnchor, priority: .init(rawValue: 999))
         }
     }
 }

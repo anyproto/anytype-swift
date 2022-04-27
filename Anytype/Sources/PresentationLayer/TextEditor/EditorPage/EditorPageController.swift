@@ -261,11 +261,12 @@ extension EditorPageController: EditorPageViewInput {
         self.firstResponderView = firstResponderView
     }
 
-    func textBlockDidChangeFrame() {
-        // Can be skipped now. But need to clarify if every iOS version is adapted for automatic layout invalidation.
-//        UIView.animate(withDuration: 0.3) {
-//            self.collectionView.collectionViewLayout.invalidateLayout()
-//        }
+    func blockDidChangeFrame() {
+        DispatchQueue.main.async { [weak self] in
+            UIView.performWithoutAnimation {
+                self?.collectionView.collectionViewLayout.invalidateLayout()
+            }
+        }
     }
 
     func textBlockDidChangeText() {

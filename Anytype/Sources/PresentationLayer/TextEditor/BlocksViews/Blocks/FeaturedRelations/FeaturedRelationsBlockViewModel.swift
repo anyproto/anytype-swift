@@ -8,6 +8,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
     let type: String
     var featuredRelations: [Relation]
+    let blockDelegate: BlockDelegate
     let onRelationTap: (Relation) -> Void
     
     var hashable: AnyHashable {
@@ -23,11 +24,13 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         info: BlockInformation,
         featuredRelation: [Relation],
         type: String,
+        blockDelegate: BlockDelegate,
         onRelationTap: @escaping (Relation) -> Void
     ) {
         self.info = info
         self.featuredRelations = featuredRelation
         self.type = type
+        self.blockDelegate = blockDelegate
         self.onRelationTap = onRelationTap
     }
     
@@ -36,7 +39,8 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             featuredRelations: featuredRelations,
             type: type,
             alignment: info.alignment.asNSTextAlignment,
-            onRelationTap: onRelationTap
+            onRelationTap: onRelationTap,
+            heightDidChanged: { blockDelegate.textBlockSetNeedsLayout() }
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
             dragConfiguration: nil
