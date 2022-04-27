@@ -33,7 +33,8 @@ final class BaseDocument: BaseDocumentProtocol {
     var parsedRelations: ParsedRelations {
         relationBuilder.parsedRelations(
             relationMetadatas: relationsStorage.relations,
-            objectId: objectId
+            objectId: objectId,
+            isObjectLocked: isLocked
         )
     }
         

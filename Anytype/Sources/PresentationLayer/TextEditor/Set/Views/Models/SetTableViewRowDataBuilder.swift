@@ -21,14 +21,19 @@ final class SetTableViewDataBuilder {
         _ datails: [ObjectDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
-        colums: [RelationMetadata]
+        colums: [RelationMetadata],
+        isObjectLocked: Bool
     ) -> [SetTableViewRowData] {
         datails.map { details in
             let metadata = sortedRelations(dataview: dataView, view: activeView)
                 .filter { $0.option.isVisible == true }
                 .map { $0.metadata }
             let parsedRelations = relationsBuilder
-                .parsedRelations(relationMetadatas: metadata, objectId: details.id)
+                .parsedRelations(
+                    relationMetadatas: metadata,
+                    objectId: details.id,
+                    isObjectLocked: isObjectLocked
+                )
                 .all
             
             let sortedRelations = colums.compactMap { colum in
