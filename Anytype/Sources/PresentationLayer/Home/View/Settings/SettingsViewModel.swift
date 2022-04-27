@@ -4,6 +4,7 @@ import AnytypeCore
 import Combine
 
 final class SettingsViewModel: ObservableObject {
+    
     @Published var loggingOut = false
     @Published var accountDeleting = false
     @Published var wallpaperPicker = false
@@ -29,9 +30,9 @@ final class SettingsViewModel: ObservableObject {
             UserDefaultsConfig.wallpaper = wallpaper
         }
     }
-    
+        
     private let authService: AuthServiceProtocol
-
+    
     init(authService: AuthServiceProtocol) {
         self.authService = authService
     }
