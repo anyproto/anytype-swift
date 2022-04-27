@@ -17,6 +17,7 @@ protocol EditorPageViewModelProtocol: AnyObject {
     func viewWillAppear()
     func viewDidAppear()
     func viewWillDisappear()
+    func viewDidDissapear()
 
     func shakeMotionDidAppear()
 

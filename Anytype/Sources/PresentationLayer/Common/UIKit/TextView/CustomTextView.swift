@@ -56,9 +56,7 @@ private extension CustomTextView {
         let textView = TextViewWithPlaceholder(
             frame: .zero,
             textContainer: nil
-        ) { [weak self] change in
-            self?.delegate?.changeFirstResponderState(change)
-        }
+        )
         
         textView.textContainer.lineFragmentPadding = 0.0
         textView.isScrollEnabled = false

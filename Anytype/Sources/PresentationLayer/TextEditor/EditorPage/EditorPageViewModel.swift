@@ -252,22 +252,25 @@ extension EditorPageViewModel {
         if let objectDetails = document.details {
             AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
         }
-    }
-    
-    func viewWillAppear() {
+
         guard document.open() else {
             router.goBack()
             return
         }
     }
+    
+    func viewWillAppear() { }
 
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
     }
-    
-    func viewWillDisappear() {
+
+    func viewWillDisappear() {}
+
+    func viewDidDissapear() {
         document.close()
     }
+
 
     func shakeMotionDidAppear() {
         router.showAlert(

@@ -138,8 +138,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             textViewWillBeginEditing: { textView in
                 blockDelegate?.willBeginEditing(data: blockDelegateData(textView: textView))
             },
-            textViewDidBeginEditing: { _ in
-                blockDelegate?.didBeginEditing()
+            textViewDidBeginEditing: { textView in
+                blockDelegate?.didBeginEditing(view: textView)
             },
             textViewDidEndEditing: { textView in
                 blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))

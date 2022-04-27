@@ -98,7 +98,7 @@ private extension TextRelationDetailsViewController {
     }
     
     static func makeTextView() -> TextViewWithPlaceholder {
-        let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil) { _ in }
+        let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil)
         textView.isScrollEnabled = false
         textView.font = AnytypeFont.uxBodyRegular.uiKitFont
         textView.textColor = UIColor.textPrimary
