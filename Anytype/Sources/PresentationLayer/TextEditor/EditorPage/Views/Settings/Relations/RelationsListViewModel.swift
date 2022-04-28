@@ -6,6 +6,7 @@ import AnytypeCore
 
 final class RelationsListViewModel: ObservableObject {
         
+    @Published private(set) var navigationBarButtonsDisabled: Bool = false
     @Published private(set) var sections: [RelationsSection]
     
     // MARK: - Private variables
@@ -26,11 +27,13 @@ final class RelationsListViewModel: ObservableObject {
     init(
         router: EditorRouterProtocol,
         relationsService: RelationsServiceProtocol,
-        sections: [RelationsSection] = []
+        sections: [RelationsSection] = [],
+        isObjectLocked: Bool
     ) {
         self.router = router
         self.relationsService = relationsService
         self.sections = sections
+        self.navigationBarButtonsDisabled = isObjectLocked
     }
     
 }
@@ -39,8 +42,9 @@ final class RelationsListViewModel: ObservableObject {
 
 extension RelationsListViewModel {
     
-    func update(with parsedRelations: ParsedRelations) {
+    func update(with parsedRelations: ParsedRelations, isObjectLocked: Bool) {
         self.parsedRelations = parsedRelations
+        self.navigationBarButtonsDisabled = isObjectLocked
     }
     
     func changeRelationFeaturedState(relationId: String) {
