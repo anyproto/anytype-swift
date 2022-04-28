@@ -9,39 +9,48 @@ struct RelationsListRowView: View {
     let onStarTap: (String) -> ()
     let onEditTap: (String) -> ()
     
+    @State private var size: CGSize = .zero
+    
     var body: some View {
-        GeometryReader { gr in
-            HStack(spacing: 8) {
-                if editingMode {
-                    if !relation.isBundled {
-                        removeButton
-                    } else {
-                        Spacer.fixedWidth(Constants.buttonWidth)
-                    }
+        row
+            .frame(height: 48)
+            .readSize { size = $0 }
+    }
+    
+    private var row: some View {
+        HStack(spacing: 8) {
+            if editingMode {
+                if !relation.isBundled {
+                    removeButton
+                } else {
+                    Spacer.fixedWidth(Constants.buttonWidth)
                 }
-                
-                // If we will use spacing more than 0 it will be added to
-                // `Spacer()` from both sides as a result
-                // `Spacer` will take up more space
-                HStack(spacing: 0) {
-                    name
-                        .frame(width: gr.size.width * 0.4, alignment: .leading)
-                    Spacer.fixedWidth(8)
-                    
-                    if relation.isEditable {
-                        valueViewButton
-                    } else {
-                        valueView
-                    }
-                    
-                    Spacer(minLength: 8)
-                    starImageView
-                }
-                .frame(height: gr.size.height)
-                .divider()
             }
+            
+            contentView
         }
-        .frame(height: 48)
+    }
+    
+    private var contentView: some View {
+        // If we will use spacing more than 0 it will be added to
+        // `Spacer()` from both sides as a result
+        // `Spacer` will take up more space
+        HStack(spacing: 0) {
+            name
+            
+            Spacer.fixedWidth(8)
+            
+            if relation.isEditable {
+                valueViewButton
+            } else {
+                valueView
+            }
+            
+            Spacer(minLength: 8)
+            starImageView
+        }
+        .frame(height: size.height)
+        .divider()
     }
     
     private var name: some View {
@@ -55,6 +64,7 @@ struct RelationsListRowView: View {
                 }
                 AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
             }
+            .frame(width: size.width * 0.4, alignment: .leading)
         }
     }
     
