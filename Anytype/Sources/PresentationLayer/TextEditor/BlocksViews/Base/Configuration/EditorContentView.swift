@@ -362,6 +362,6 @@ private extension IndentationSettings {
             settings.color != nil
         }
 
-        return last?.color ?? UIColor.Background.default
+        return last?.color ?? .clear
     }
 }

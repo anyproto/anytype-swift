@@ -100,17 +100,17 @@ final class EditorPageController: UIViewController {
         setEditing(true, animated: false)
         collectionView.allowsSelectionDuringEditing = true
 
-        insetsHelper = ScrollViewContentInsetsHelper(
-            scrollView: collectionView,
-            stateManager: viewModel.blocksStateManager
-        )
-
         navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
+
+        insetsHelper = ScrollViewContentInsetsHelper(
+            scrollView: collectionView,
+            stateManager: viewModel.blocksStateManager
+        )
     }
 
     override func viewDidAppear(_ animated: Bool) {
