@@ -19,7 +19,7 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
 
     func setupSubview() {
         addSubview(blocksView) {
-            $0.pinToSuperview()
+            $0.pinToSuperview(insets: .init(top: 0, left: 2, bottom: 0, right: 0))
         }
     }
 

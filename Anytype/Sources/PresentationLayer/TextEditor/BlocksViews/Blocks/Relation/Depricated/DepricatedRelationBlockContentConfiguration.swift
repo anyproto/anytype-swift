@@ -3,7 +3,7 @@ import UIKit
 struct DepricatedRelationBlockContentConfiguration: BlockConfiguration {
     typealias View = RelationBlockViewDepricated
 
-    @EquatableNoop private(set) var actionOnValue: ((_ relation: Relation) -> Void)?
+    @EquatableNoop private(set) var actionOnValue: (() -> Void)?
     let relation: Relation
 }
 

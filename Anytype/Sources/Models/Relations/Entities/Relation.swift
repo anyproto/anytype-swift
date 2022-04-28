@@ -104,49 +104,4 @@ extension Relation: RelationProtocol {
         case .unknown(let unknown): return unknown.isFeatured
         }
     }
-    
-}
-
-extension Relation {
-    
-    var iconName: String {
-        switch self {
-        case .text: return RelationMetadata.Format.longText.iconName
-        case .number: return RelationMetadata.Format.number.iconName
-        case .status: return RelationMetadata.Format.status.iconName
-        case .date: return RelationMetadata.Format.date.iconName
-        case .object: return RelationMetadata.Format.object.iconName
-        case .checkbox: return RelationMetadata.Format.checkbox.iconName
-        case .url: return RelationMetadata.Format.url.iconName
-        case .email: return RelationMetadata.Format.email.iconName
-        case .phone: return RelationMetadata.Format.phone.iconName
-        case .tag: return RelationMetadata.Format.tag.iconName
-        case .file: return RelationMetadata.Format.file.iconName
-        case .unknown: return RelationMetadata.Format.unrecognized.iconName
-        }
-    }
-    
-}
-
-// MARK: - hint
-
-extension Relation {
-    
-    var hint: String {
-        switch self {
-        case .text: return "Enter text".localized
-        case .number: return "Enter number".localized
-        case .date: return "Enter date".localized
-        case .object: return "Select objects".localized
-        case .url: return "Enter URL".localized
-        case .email: return "Enter e-mail".localized
-        case .phone: return "Enter phone".localized
-        case .status: return "Select status".localized
-        case .tag: return "Select tags".localized
-        case .file: return "Select files".localized
-        case .checkbox: return ""
-        case .unknown: return "Enter value".localized
-        }
-    }
-    
 }

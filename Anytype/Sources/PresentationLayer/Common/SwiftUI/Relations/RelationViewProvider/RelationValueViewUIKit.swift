@@ -11,13 +11,13 @@ import AnytypeCore
 
 
 final class RelationValueViewUIKit: UIView {
-    let relation: Relation
+    let relation: RelationItemModel
     let style: RelationStyle
-    let action: ((_ relation: Relation) -> Void)?
+    let action: ((_ relation: RelationItemModel) -> Void)?
 
     private var relationView = UIView()
 
-    init(relation: Relation, style: RelationStyle, action: ((Relation) -> Void)?) {
+    init(relation: RelationItemModel, style: RelationStyle, action: ((RelationItemModel) -> Void)?) {
         self.relation = relation
         self.style = style
         self.action = action
@@ -49,7 +49,7 @@ final class RelationValueViewUIKit: UIView {
         }
     }
 
-    private func obtainRelationView(_ relation: Relation, style: RelationStyle) -> UIView {
+    private func obtainRelationView(_ relation: RelationItemModel, style: RelationStyle) -> UIView {
         switch relation {
         case .text(let text):
             return TextRelationFactory.uiKit(value: text.value, hint: relation.hint, style: style)
@@ -58,7 +58,7 @@ final class RelationValueViewUIKit: UIView {
         case .status(let status):
             return StatusRelationViewUIKit(statusOption: status.value, hint: relation.hint, style: style)
         case .date(let date):
-            return TextRelationFactory.uiKit(value: date.value?.text, hint: relation.hint, style: style)
+            return TextRelationFactory.uiKit(value: date.textValue, hint: relation.hint, style: style)
         case .object(let object):
             return ObjectListRelationViewUIKit(options: object.selectedObjects, hint: relation.hint, style: style)
         case .checkbox(let checkbox):

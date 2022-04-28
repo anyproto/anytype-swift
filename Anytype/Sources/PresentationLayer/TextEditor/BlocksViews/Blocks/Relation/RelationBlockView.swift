@@ -35,7 +35,6 @@ final class RelationBlockView: UIView, BlockContentView {
         relationValueView = RelationValueViewUIKit(relation: configuration.relation,
                                                    style: .regular(allowMultiLine: true),
                                                    action: configuration.actionOnValue)
-
         relationNameView.setText(configuration.relation.name)
         relationLockedView.isHidden = configuration.relation.isEditable
 

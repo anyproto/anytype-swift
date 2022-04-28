@@ -36,10 +36,14 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
         FeaturedRelationsBlockContentConfiguration(
-            featuredRelations: featuredRelations,
+            featuredRelations: featuredRelations.map(RelationItemModel.init),
             type: type,
             alignment: info.alignment.asNSTextAlignment,
-            onRelationTap: onRelationTap,
+            onRelationTap: { item in
+                featuredRelations
+                    .first { $0.id == item.id }
+                    .map(onRelationTap)
+            },
             heightDidChanged: { blockDelegate.textBlockSetNeedsLayout() }
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
