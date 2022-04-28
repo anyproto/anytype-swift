@@ -24,7 +24,7 @@ final class EditorSetViewModel: ObservableObject {
     }
  
     var rows: [SetTableViewRowData] {
-        dataBuilder.rowData(records, dataView: dataView, activeView: activeView, colums: colums)
+        dataBuilder.rowData(records, dataView: dataView, activeView: activeView, colums: colums, isObjectLocked: document.isLocked)
     }
     
     var sortedRelations: [SetRelation] {
