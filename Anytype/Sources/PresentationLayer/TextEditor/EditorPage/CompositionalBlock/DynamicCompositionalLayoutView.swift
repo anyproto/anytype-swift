@@ -2,7 +2,7 @@ import UIKit
 import BlocksModels
 
 // Used only for iOS14.
-private class iOS14CompositionalContentHeightStorage {
+private final class iOS14CompositionalContentHeightStorage {
     static let shared = iOS14CompositionalContentHeightStorage()
 
     var blockHeightConstant = [AnyHashable: CGFloat]()
@@ -63,18 +63,24 @@ final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
     private func setupSizeHandlers() {
         collectionView.onChangeHandler = { [weak self] in
             guard let self = self else { return }
-            guard self.collectionViewHeightConstraint?.constant ?? -1 != self.collectionView.intrinsicContentSize.height else { return }
 
-            self.collectionViewHeightConstraint?.constant = self.collectionView.intrinsicContentSize.height
+            guard let collectionViewHeightConstraint = self.collectionViewHeightConstraint,
+                  collectionViewHeightConstraint.constant != self.collectionView.intrinsicContentSize.height else {
+                      return
+                  }
 
-            self.configuration.map {
-                iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[$0.hashable] = self.collectionView.intrinsicContentSize.height
-            }
+            collectionViewHeightConstraint.constant = self.collectionView.intrinsicContentSize.height
+
+            self.configuration.map(self.saveBlockHeight(configuration:))
 
             if #available(iOS 15.0, *) { } else {
                 self.configuration?.heightDidChanged()
             }
         }
+    }
+
+    private func saveBlockHeight(configuration: DynamicCompositionalLayoutConfiguration) {
+        iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[configuration.hashable] = self.collectionView.intrinsicContentSize.height
     }
 
     func update(with configuration: DynamicCompositionalLayoutConfiguration) {

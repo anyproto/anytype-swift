@@ -1,6 +1,6 @@
 import UIKit
 
-class DynamicCollectionView: UICollectionView {
+final class DynamicCollectionView: UICollectionView {
     var onChangeHandler: (() -> Void)?
 
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -18,7 +18,7 @@ class DynamicCollectionView: UICollectionView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        if !__CGSizeEqualToSize(bounds.size, intrinsicContentSize) {
+        if !bounds.size.equalTo(intrinsicContentSize) {
             invalidateIntrinsicContentSize()
             onChangeHandler?()
         }

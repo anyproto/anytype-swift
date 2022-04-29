@@ -1,13 +1,6 @@
 import BlocksModels
 
 enum RelationItemModel: Hashable {
-    struct DateModel: Hashable {
-        let id: String
-        let name: String
-        let textValue: String?
-        let isEditable: Bool
-    }
-
     case text(Relation.Text)
     case number(Relation.Text)
     case status(Relation.Status)
@@ -123,5 +116,14 @@ enum RelationItemModel: Hashable {
         case .file(let file): return file.id
         case .unknown(let unknown): return unknown.id
         }
+    }
+}
+
+extension RelationItemModel {
+    struct DateModel: Hashable {
+        let id: String
+        let name: String
+        let textValue: String?
+        let isEditable: Bool
     }
 }

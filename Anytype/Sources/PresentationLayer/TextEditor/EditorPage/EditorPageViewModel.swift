@@ -216,7 +216,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
     private func handleGeneralUpdate(with models: [EditorItem]) {
         let difference = modelsHolder.difference(between: models)
-        if !difference.isEmpty {
+        if difference.insertions.isNotEmpty {
             modelsHolder.applyDifference(difference: difference)
         } else {
             modelsHolder.items = models
