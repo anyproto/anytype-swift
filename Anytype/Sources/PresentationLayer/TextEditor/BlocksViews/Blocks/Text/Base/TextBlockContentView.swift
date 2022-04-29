@@ -69,6 +69,8 @@ final class TextBlockContentView: UIView, BlockContentView {
         }
 
         mainStackView.addArrangedSubview(contentView)
+        contentView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor).isActive = true
+
         mainStackView.addArrangedSubview(createEmptyBlockButton)
 
         addSubview(mainStackView) {
