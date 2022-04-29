@@ -44,7 +44,6 @@ final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
     }
 
     private func setupView() {
-        collectionView.isUserInteractionEnabled = false
         addSubview(collectionView) {
             $0.pinToSuperview(excluding: [.bottom])
             collectionViewHeightConstraint = $0.height.equal(to: 60, priority: .init(rawValue: 999))

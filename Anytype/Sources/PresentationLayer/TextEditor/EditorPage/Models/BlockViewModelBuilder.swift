@@ -206,7 +206,7 @@ final class BlockViewModelBuilder {
             return RelationBlockViewModel(
                 info: info,
                 relation: relation
-            ) { [weak self] relation in
+            ) { [weak self] in
                 self?.router.showRelationValueEditingView(key: relation.id, source: .object)
             }
 
