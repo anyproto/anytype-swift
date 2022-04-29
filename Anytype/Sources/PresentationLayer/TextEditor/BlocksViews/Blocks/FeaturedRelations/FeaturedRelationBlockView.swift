@@ -19,9 +19,11 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
 
     func setupSubview() {
         addSubview(blocksView) {
-            $0.pinToSuperview(insets: .init(top: 8, left: 2, bottom: 0, right: 0))
+            $0.pinToSuperview(
+                insets: .init(top: 8, left: 0, bottom: 0, right: 0)
+            )
         }
-    }
+    } 
 
     func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
         var views = [UIView]()
@@ -36,12 +38,18 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
             views.append(relationView)
 
             if item != configuration.featuredRelations.last {
-                let label = AnytypeLabel(style: .caption2Medium)
+                let label = UILabel()
 
-                label.setText("•")
+                label.text = "•"
                 label.textColor = .textSecondary
-                label.heightAnchor.constraint(equalToConstant: 18).isActive = true
+                label.font = .systemFont(ofSize: 16)
+
+                let heightConstraint = label.heightAnchor.constraint(equalToConstant: 18)
+                heightConstraint.priority = .defaultLow
+                heightConstraint.isActive = true
+
                 label.translatesAutoresizingMaskIntoConstraints = false
+
                 views.append(label)
             }
         }

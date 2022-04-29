@@ -69,6 +69,8 @@ final class TextBlockContentView: UIView, BlockContentView {
         }
 
         mainStackView.addArrangedSubview(contentView)
+        contentView.widthAnchor.constraint(equalTo: mainStackView.widthAnchor).isActive = true
+
         mainStackView.addArrangedSubview(createEmptyBlockButton)
 
         addSubview(mainStackView) {
@@ -80,7 +82,7 @@ final class TextBlockContentView: UIView, BlockContentView {
     
     private func applyNewConfiguration(configuration: TextBlockContentConfiguration) {
         textView.textView.textStorage.setAttributedString(configuration.content.anytypeText.attrString)
-        
+
         let restrictions = BlockRestrictionsBuilder.build(textContentType: configuration.content.contentType)
         
         TextBlockLeftViewStyler.applyStyle(contentStackView: contentStackView, configuration: configuration)
@@ -114,6 +116,7 @@ private extension TextBlockContentView {
     static func makeMainStackView() -> UIStackView {
         let mainStackView = UIStackView()
         mainStackView.axis = .vertical
+        mainStackView.alignment = .leading
         return mainStackView
     }
     
