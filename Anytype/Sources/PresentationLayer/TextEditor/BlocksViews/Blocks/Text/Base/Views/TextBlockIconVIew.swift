@@ -10,7 +10,6 @@ final class TextBlockIconView: UIView {
         case numbered(Int)
         case bulleted
         case quote
-        case empty
         case callout(model: ObjectIconImageModel)
     }
 
@@ -92,9 +91,6 @@ final class TextBlockIconView: UIView {
             currentView = quoteView
         case .callout(let model):
             currentView = createCalloutView(model: model)
-        case .empty:
-            setContentHuggingPriority(.required, for: .horizontal)
-            return
         }
     }
 }
