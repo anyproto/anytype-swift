@@ -44,7 +44,7 @@ final class BlockViewModelBuilder {
     }
 
     private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
-        infos.compactMap { build(info: $0) }
+        infos.compactMap(build(info:))
     }
 
     func build(info: BlockInformation) -> BlockViewModelProtocol? {
