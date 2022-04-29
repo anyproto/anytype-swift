@@ -4,7 +4,7 @@ import SwiftUI
 final class RelationBlockViewDepricated: UIView, BlockContentView, ObservableObject {
     @Published var heightConstraint: NSLayoutConstraint!
     @Published var relation: Relation?
-    @Published var actionOnValue: ((_ relation: Relation) -> Void)?
+    @Published var actionOnValue: (() -> Void)?
 
     // MARK: - Views
 
@@ -56,8 +56,8 @@ private extension RelationBlockViewDepricated {
                     AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary)
                         .padding([.top], 5)
                         .frame(width: width * 0.4, height:  height, alignment: .topLeading)
-                    RelationValueView(relation: relation, style: .regular(allowMultiLine: true)) { relation in
-                        delegate.actionOnValue?(relation)
+                    RelationValueView(relation: RelationItemModel(relation: relation), style: .regular(allowMultiLine: true)) {
+                        delegate.actionOnValue?()
                     }
                         .padding([.top], 5)
                         .if(height > LayoutConstants.minHeight) {

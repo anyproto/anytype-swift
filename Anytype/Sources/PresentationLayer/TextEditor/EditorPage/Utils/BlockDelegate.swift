@@ -55,7 +55,7 @@ final class BlockDelegateImpl: BlockDelegate {
     }
 
     func textBlockSetNeedsLayout() {
-        viewInput?.textBlockDidChangeFrame()
+        viewInput?.blockDidChangeFrame()
     }
 
     func selectionDidChange(range: NSRange) {

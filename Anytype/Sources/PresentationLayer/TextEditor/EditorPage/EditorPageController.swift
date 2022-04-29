@@ -100,17 +100,17 @@ final class EditorPageController: UIViewController {
         setEditing(true, animated: false)
         collectionView.allowsSelectionDuringEditing = true
 
-        insetsHelper = ScrollViewContentInsetsHelper(
-            scrollView: collectionView,
-            stateManager: viewModel.blocksStateManager
-        )
-
         navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
+
+        insetsHelper = ScrollViewContentInsetsHelper(
+            scrollView: collectionView,
+            stateManager: viewModel.blocksStateManager
+        )
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -261,11 +261,12 @@ extension EditorPageController: EditorPageViewInput {
         self.firstResponderView = firstResponderView
     }
 
-    func textBlockDidChangeFrame() {
-        // Can be skipped now. But need to clarify if every iOS version is adapted for automatic layout invalidation.
-//        UIView.animate(withDuration: 0.3) {
-//            self.collectionView.collectionViewLayout.invalidateLayout()
-//        }
+    func blockDidChangeFrame() {
+        DispatchQueue.main.async { [weak self] in
+            UIView.performWithoutAnimation {
+                self?.collectionView.collectionViewLayout.invalidateLayout()
+            }
+        }
     }
 
     func textBlockDidChangeText() {

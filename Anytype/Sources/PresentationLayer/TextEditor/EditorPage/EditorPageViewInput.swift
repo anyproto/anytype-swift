@@ -17,7 +17,7 @@ protocol EditorPageViewInput: AnyObject {
     /// Tells the delegate when editing of the text block begins
     func textBlockDidBeginEditing(firstResponderView: UIView)
 
-    func textBlockDidChangeFrame()
+    func blockDidChangeFrame()
 
     func textBlockDidChangeText()
 

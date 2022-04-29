@@ -7,7 +7,7 @@ struct RelationBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
 
     let relation: Relation
-    let actionOnValue: ((_ relation: Relation) -> Void)?
+    let actionOnValue: (() -> Void)?
 
     // MARK: - BlockViewModelProtocol methods
 
@@ -23,7 +23,8 @@ struct RelationBlockViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         if FeatureFlags.uikitRelationBlock {
             return RelationBlockContentConfiguration(
-                actionOnValue: actionOnValue, relation: relation
+                actionOnValue: { _ in actionOnValue?() },
+                relation: RelationItemModel(relation: relation)
             ).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
                 dragConfiguration: .init(id: info.id.value)

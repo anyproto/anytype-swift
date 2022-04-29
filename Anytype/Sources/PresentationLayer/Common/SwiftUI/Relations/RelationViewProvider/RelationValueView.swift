@@ -2,14 +2,14 @@ import SwiftUI
 import AnytypeCore
 
 struct RelationValueView: View {
-    let relation: Relation
+    let relation: RelationItemModel
     let style: RelationStyle
-    let action: ((_ relation: Relation) -> Void)?
+    let action: (() -> Void)?
 
     var body: some View {
         if action.isNotNil && relation.isEditable {
             Button {
-                action?(relation)
+                action?()
             } label: {
                 relationView
             }
@@ -28,7 +28,7 @@ struct RelationValueView: View {
             case .status(let status):
                 StatusRelationView(statusOption: status.value, hint: relation.hint, style: style)
             case .date(let date):
-                TextRelationFactory.swiftUI(value: date.value?.text, hint: relation.hint, style: style)
+                TextRelationFactory.swiftUI(value: date.textValue, hint: relation.hint, style: style)
             case .object(let object):
                 ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
             case .checkbox(let checkbox):

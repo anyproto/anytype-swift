@@ -272,7 +272,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     private func setupSubviews() {
         addSubview(wrapperView) {
             $0.pinToSuperview(excluding: [.bottom])
-            $0.bottom.equal(to: bottomAnchor, priority: .init(rawValue: 999))
+            $0.bottom.equal(to: bottomAnchor, priority: .init(rawValue: 997))
         }
 
         leadingView.isHidden = true
@@ -362,6 +362,6 @@ private extension IndentationSettings {
             settings.color != nil
         }
 
-        return last?.color ?? UIColor.Background.default
+        return last?.color ?? .clear
     }
 }

@@ -44,16 +44,7 @@ final class BlockViewModelBuilder {
     }
 
     private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
-        infos.compactMap { info -> BlockViewModelProtocol? in
-
-
-            let block = build(info: info)
-            if (block == nil) {
-                print(info)
-            }
-
-            return block
-        }
+        infos.compactMap(build(info:))
     }
 
     func build(info: BlockInformation) -> BlockViewModelProtocol? {
@@ -188,7 +179,8 @@ final class BlockViewModelBuilder {
             return FeaturedRelationsBlockViewModel(
                 info: info,
                 featuredRelation: featuredRelation,
-                type: objectType.name
+                type: objectType.name,
+                blockDelegate: delegate
             ) { [weak self] relation in
                 guard let self = self else { return }
 
@@ -214,7 +206,7 @@ final class BlockViewModelBuilder {
             return RelationBlockViewModel(
                 info: info,
                 relation: relation
-            ) { [weak self] relation in
+            ) { [weak self] in
                 self?.router.showRelationValueEditingView(key: relation.id, source: .object)
             }
 

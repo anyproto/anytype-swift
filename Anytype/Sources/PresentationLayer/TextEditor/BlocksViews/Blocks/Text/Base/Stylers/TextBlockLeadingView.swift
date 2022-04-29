@@ -14,12 +14,18 @@ final class TextBlockLeadingView: UIView {
 
     func update(style: TextBlockLeadingStyle) {
         removeAllSubviews()
+        isHidden = false
 
         let innerView: UIView
         switch style {
         case .title(let titleModel):
-            innerView = TextBlockLeadingViewBuilder.leftTitleView(model: titleModel)
+            guard titleModel.isCheckable else {
+                isHidden = true
+                return
+            }
+            innerView = TextBlockLeadingViewBuilder.checkableLeftTitleView(model: titleModel)
             self.titleView = innerView
+
         case .toggle(let toggleModel):
             innerView = TextBlockLeadingViewBuilder.leftToggleView(model: toggleModel)
             self.toogleView = innerView
@@ -36,8 +42,8 @@ final class TextBlockLeadingView: UIView {
             innerView = TextBlockIconView(viewType: .quote)
             self.quoteView = innerView
         case .body:
-            innerView = TextBlockIconView(viewType: .empty)
-            self.bodyView = innerView
+            isHidden = true
+            return
         case .callout(let model):
             innerView = TextBlockIconView(
                 viewType: .callout(model: model.iconImageModel),

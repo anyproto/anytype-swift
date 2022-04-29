@@ -20,6 +20,6 @@ final class SlashMenuContentConfigurationFactory {
     }
 
     func configuration(relation: Relation) -> UIContentConfiguration {
-        SlashMenuRealtionContentConfiguration(relation: relation)
+        SlashMenuRealtionContentConfiguration(relation: RelationItemModel(relation: relation))
     }
 }
