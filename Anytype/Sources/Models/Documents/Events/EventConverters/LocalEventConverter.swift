@@ -12,7 +12,7 @@ final class LocalEventConverter {
     
     func convert(_ event: LocalEvent) -> DocumentUpdate? {
         switch event {
-        case .setToggled, .documentClosed:
+        case .setToggled, .documentClosed, .setStyle:
             return .general
         case let .setText(blockId: blockId, text: text):
             return blockSetTextUpdate(blockId: blockId, text: text)

@@ -11,6 +11,7 @@ public enum IndentationBuilder {
         indentationRecursionData: IndentationStyleRecursiveData = IndentationStyleRecursiveData()
     ) {
         if let parent = container.get(id: id) {
+            var updatedBlockNumber = 0
 
             parent.childrenIds.forEach { childrenId in
                 guard var child = container.get(id: childrenId.value) else { return }
@@ -38,7 +39,15 @@ public enum IndentationBuilder {
                     )
                 )
 
-                container.add(child)
+
+                let updatedChild = updatedNumberedValueIfNeeded(
+                    container: container,
+                    child: child,
+                    numberValue: &updatedBlockNumber
+                )
+
+                container.add(updatedChild)
+
                 privateBuild(
                     container: container,
                     id: childrenId.value,
@@ -46,6 +55,25 @@ public enum IndentationBuilder {
                 )
             }
         }
+    }
+
+    
+    private static func updatedNumberedValueIfNeeded(
+        container: InfoContainerProtocol,
+        child: BlockInformation,
+        numberValue: inout Int
+    ) -> BlockInformation {
+        switch child.content {
+        case let .text(text) where text.contentType == .numbered:
+            numberValue += 1
+            let content = BlockContent.text(text.updated(number: numberValue))
+
+            return child.updated(content: content)
+        default:
+            numberValue = 0
+        }
+
+        return child
     }
 
     private static func parentBackgroundColors(
