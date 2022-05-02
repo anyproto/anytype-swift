@@ -79,7 +79,7 @@ struct RelationsListView: View {
     }
     
     private func row(with relation: Relation) -> some View {
-        RelationsListRowView(editingMode: $editingMode, relation: relation) {
+        RelationsListRowView(editingMode: $editingMode, starButtonAvailable: !viewModel.navigationBarButtonsDisabled, relation: relation) {
             viewModel.removeRelation(id: $0)
         } onStarTap: {
             viewModel.changeRelationFeaturedState(relationId: $0)
