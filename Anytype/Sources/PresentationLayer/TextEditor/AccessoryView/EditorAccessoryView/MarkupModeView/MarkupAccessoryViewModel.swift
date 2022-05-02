@@ -121,7 +121,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
             case let .object(linkBlockId):
                 self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)
             case let .createObject(name):
-                if let linkBlockId = self?.pageService.createPage(name: name) {
+                if let linkBlockId = self?.pageService.createPage(name: name, route: .mention) {
                     self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)
                 }
             case let .web(url):

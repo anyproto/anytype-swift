@@ -84,13 +84,14 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
 
-    func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition, route: AnalyticsEventsRouteKind) -> BlockId? {
         guard let newBlockId = pageService.createPage(
             contextId: documentId,
             targetId: targetId,
             details: [.name(""), .type(type)],
             position: position,
-            templateId: ""
+            templateId: "",
+            route: route
         ) else { return nil }
 
         return newBlockId

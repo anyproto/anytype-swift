@@ -162,7 +162,7 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.format: format.analyticString])
     }
 
-    func logCreateObject(objectType: String) {
+    func logCreateObject(objectType: String, route: AnalyticsEventsRouteKind) {
         logEvent(AnalyticsEventsName.createObject,
                  withEventProperties: [AnalyticsEventsPropertiesKey.objectType: objectType])
     }

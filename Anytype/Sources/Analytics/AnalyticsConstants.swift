@@ -144,3 +144,11 @@ enum AnalyticsEventsPropertiesKey {
     static let align = "align"
     static let format = "format"
 }
+
+enum AnalyticsEventsRouteKind: String {
+    case set = "Set"
+    case home = "Home"
+    case mention = "Mention"
+    case powertool = "Powertool"
+    case turnInto = "TurnInto"
+}

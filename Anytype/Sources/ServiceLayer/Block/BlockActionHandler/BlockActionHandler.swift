@@ -211,7 +211,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         upload(blockId: blockId, filePath: localPath)
     }
     
-    func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTemplateType, route: AnalyticsEventsRouteKind) -> BlockId? {
         guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
         if case .text(let blockText) = info.content, blockText.text.isEmpty {
@@ -220,13 +220,13 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             position = .bottom
         }
         
-        return service.createPage(targetId: targetId, type: type, position: position)
+        return service.createPage(targetId: targetId, type: type, position: position, route: route)
     }
 
     func addBlock(_ type: BlockContentType, blockId: BlockId) {
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead", domain: .blockActionsService)
-            _ = service.createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
+//            _ = service.createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
             return
         }
             

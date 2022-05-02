@@ -20,7 +20,8 @@ protocol ObjectActionsServiceProtocol {
         contextId: BlockId,
         targetId: BlockId,
         details: [BundledDetails],
-        position: BlockPosition, templateId: String
+        position: BlockPosition, templateId: String,
+        route: AnalyticsEventsRouteKind
     ) -> BlockId?
     
     func setObjectType(objectId: BlockId, objectTypeUrl: String)

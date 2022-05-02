@@ -67,7 +67,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         targetId: BlockId,
         details: [BundledDetails],
         position: BlockPosition,
-        templateId: String
+        templateId: String,
+        route: AnalyticsEventsRouteKind
     ) -> BlockId? {
         
         let protobufDetails = details.reduce([String: Google_Protobuf_Value]()) { result, detail in
@@ -92,8 +93,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             }
             return nil
         })
-
-        AnytypeAnalytics.instance().logCreateObject(objectType: type ?? "")
+        
+        AnytypeAnalytics.instance().logCreateObject(objectType: type ?? "", route: route)
 
         EventsBunch(event: response.event).send()
         return response.targetID
@@ -129,7 +130,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
-        AnytypeAnalytics.instance().logCreateObject(objectType: objectType)
+        AnytypeAnalytics.instance().logCreateObject(objectType: objectType, route: .turnInto)
 
         return Anytype_Rpc.BlockList.ConvertChildrenToPages.Service
             .invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType)

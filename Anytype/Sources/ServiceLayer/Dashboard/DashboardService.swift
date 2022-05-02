@@ -15,7 +15,8 @@ final class DashboardService: DashboardServiceProtocol {
             targetId: "",
             details: [.name(""), .isDraft(true), .type(.dynamic(defaultTypeUrl))],
             position: .bottom,
-            templateId: ""
+            templateId: "",
+            route: .home
         )
         
         return id?.asAnytypeId
