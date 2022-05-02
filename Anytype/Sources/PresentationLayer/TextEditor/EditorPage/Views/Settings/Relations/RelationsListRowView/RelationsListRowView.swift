@@ -3,6 +3,7 @@ import SwiftUI
 struct RelationsListRowView: View {
     
     @Binding var editingMode: Bool
+    let starButtonAvailable: Bool
     let relation: Relation
     
     let onRemoveTap: (String) -> ()
@@ -47,7 +48,9 @@ struct RelationsListRowView: View {
             }
             
             Spacer(minLength: 8)
-            starImageView
+            if starButtonAvailable {
+                starImageView
+            }
         }
         .frame(height: size.height)
         .divider()
@@ -115,6 +118,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
         VStack(spacing: 0) {
             RelationsListRowView(
                 editingMode: .constant(false),
+                starButtonAvailable: true,
                 relation: Relation.tag(
                     Relation.Tag(
                         id: "1",
@@ -190,6 +194,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
             )
             RelationsListRowView(
                 editingMode: .constant(false),
+                starButtonAvailable: true,
                 relation: Relation.text(
                     Relation.Text(
                         id: "1",
