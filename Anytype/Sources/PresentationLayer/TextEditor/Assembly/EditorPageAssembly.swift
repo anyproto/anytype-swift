@@ -118,7 +118,8 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             router: router,
             pasteboardService: pasteboardService,
-            document: document
+            document: document,
+            modelsHolder: modelsHolder
         )
         
         let markdownListener = MarkdownListenerImpl()
