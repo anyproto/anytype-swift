@@ -61,12 +61,6 @@ final class BlockActionService: BlockActionServiceProtocol {
     ) {
         let range = NSRange(location: position, length: 0)
 
-        textService.setTextForced(
-            contextId: documentId,
-            blockId: blockId,
-            middlewareString: AttributedTextConverter.asMiddleware(attributedText: string)
-        )
-
         guard let blockId = textService.split(
             contextId: documentId,
             blockId: blockId,

@@ -97,7 +97,8 @@ final class EditorAssembly {
             service: blockActionService,
             listService: listService,
             toggleStorage: ToggleStorage.shared,
-            container: document.infoContainer
+            container: document.infoContainer,
+            modelsHolder: modelsHolder
         )
         
         let actionHandler = BlockActionHandler(
