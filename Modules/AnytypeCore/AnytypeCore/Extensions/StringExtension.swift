@@ -11,4 +11,9 @@ public extension String {
     var replacedNewlinesWithSpaces: String {
         String(components(separatedBy: .newlines).joined(separator: " "))
     }
+
+    /// check if string has percent encoding
+    var isEncoded: Bool {
+        return removingPercentEncoding != self
+    }
 }
