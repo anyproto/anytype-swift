@@ -117,7 +117,7 @@
 // Settings
 "Your public page" = "Your public page";
 "Wallpaper" = "Wallpaper";
-"Keychain phrase" = "Keychain phrase";
+"Recovery phrase" = "Recovery phrase";
 "Pin code" = "Pin code";
 "Log out" = "Log out";
 "Soon" = "Soon";
@@ -129,14 +129,14 @@
 "Archive" = "Archive";
 "Restore" = "Restore";
 
-"Have you backed up your keychain phrase?" = "Have you backed up your keychain phrase?";
-"Backup keychain phrase" = "Backup keychain phrase";
+"Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
+"Backup recovery phrase" = "Backup recovery phrase";
 
 
 // Keychain screen
-"Keychain phrase" = "Keychain phrase";
-"Keychain phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
-"Keychain phrase copied to clipboard" = "Keychain phrase copied to clipboard";
+"Recovery phrase" = "Recovery phrase";
+"Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
+"Recovery phrase copied to clipboard" = "Recovery phrase copied to clipboard";
 "Save keychain alert part 1" = "If you lose the passphrase and get logged out you will not be able to ";
 "Save keychain alert part 2" = "ever access your data again";
 "Save keychain alert part 3" = ".\nSave this passphrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
@@ -149,7 +149,7 @@
 "Login with phrase" = "Login with phrase";
 "Enter phrase" = "Enter phrase";
 "Restore secret phrase from keychain" = "Restore secret phrase from keychain";
-"or Type your keychain phrase" = "or Type your keychain phrase";
+"or Type your recovery phrase" = "or Type your recovery phrase";
 "Choose pin code" = "Choose pin code";
 "Do it later" = "Do it later";
 "Setting up the wallet" = "Setting up the wallet";

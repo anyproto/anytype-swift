@@ -7,12 +7,12 @@ struct DashboardKeychainReminderAlert: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(23)
-            AnytypeText("Don’t forget to save your keychain phrase".localized, style: .heading, color: .textPrimary)
+            AnytypeText("Don’t forget to save your recovery phrase".localized, style: .heading, color: .textPrimary)
             Spacer.fixedHeight(11)
             description
             Spacer.fixedHeight(18)
             SeedPhraseView {
-                model.snackBarData = .init(text: "Keychain phrase copied to clipboard", showSnackBar: true)
+                model.snackBarData = .init(text: "Recovery phrase copied to clipboard", showSnackBar: true)
 
                 AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
             }
