@@ -23,6 +23,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private let markupAccessoryView: MarkupAccessoryView
     
     private let document: BaseDocumentProtocol
+    private let modelsHolder: EditorMainItemModelsHolder
 
     init(
         mentionsView: MentionView,
@@ -30,7 +31,8 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         cursorModeAccessoryView: CursorModeAccessoryView,
         markupAccessoryView: MarkupAccessoryView,
         changeTypeView: ChangeTypeAccessoryView,
-        document: BaseDocumentProtocol
+        document: BaseDocumentProtocol,
+        modelsHolder: EditorMainItemModelsHolder
     ) {
         self.slashMenuView = slashMenuView
         self.cursorModeAccessoryView = cursorModeAccessoryView
@@ -38,6 +40,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         self.changeTypeView = changeTypeView
         self.mentionsView = mentionsView
         self.document = document
+        self.modelsHolder = modelsHolder
         
         setupDismissHandlers()
     }
@@ -78,10 +81,8 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func showDefaultView() {
         markupAccessoryView.selectionChanged(range: .zero)
 
-        let accessoryView: AccessoryViewType =
-            document.isDocumentEmpty && !document.objectRestrictions.objectRestriction.contains(.typechange)
-                ? .changeType(changeTypeView)
-                : .default(cursorModeAccessoryView)
+        let accessoryView: AccessoryViewType = modelsHolder.isDocumentEmpty && !document.objectRestrictions.objectRestriction.contains(.typechange)
+                ? .changeType(changeTypeView) : .default(cursorModeAccessoryView)
 
         showAccessoryView(accessoryView, animation: activeView.animation)
     }

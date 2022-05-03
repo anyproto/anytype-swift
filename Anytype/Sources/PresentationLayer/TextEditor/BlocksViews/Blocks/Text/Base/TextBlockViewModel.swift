@@ -93,7 +93,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
 
         return contentConfiguration.cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
-            dragConfiguration: content.contentType == .title ? nil : .init(id: info.id.value)
+            dragConfiguration:
+                content.contentType == .title ? nil : .init(id: info.id.value)
         )
     }
 
@@ -122,12 +123,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             handleKeyboardAction: { action in
                 actionHandler.handleKeyboardAction(action, info: info)
             },
-            becomeFirstResponder: {
-
-            },
-            resignFirstResponder: {
-                
-            },
+            becomeFirstResponder: { },
+            resignFirstResponder: { },
             textBlockSetNeedsLayout: { /* Nothing to update */ },
             textViewDidChangeText: { textView in
                 actionHandler.changeText(textView.attributedText, info: info)
