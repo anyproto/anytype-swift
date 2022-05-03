@@ -1,4 +1,5 @@
 import BlocksModels
+import AnytypeCore
 
 enum LocalEvent {
     case general
