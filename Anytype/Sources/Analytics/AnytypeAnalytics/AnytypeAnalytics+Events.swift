@@ -163,6 +163,13 @@ extension AnytypeAnalytics {
     }
 
     func logCreateObject(objectType: String, route: AnalyticsEventsRouteKind) {
+        var objectType = objectType
+
+        // suppose that bundled type start with underscore
+        if !objectType.starts(with: "_") {
+            objectType = AnalyticsEventsTypeValues.customType
+        }
+
         logEvent(AnalyticsEventsName.createObject,
                  withEventProperties: [AnalyticsEventsPropertiesKey.objectType: objectType])
     }

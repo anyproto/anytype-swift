@@ -145,6 +145,10 @@ enum AnalyticsEventsPropertiesKey {
     static let format = "format"
 }
 
+enum AnalyticsEventsTypeValues {
+    static let customType = "Custom"
+}
+
 enum AnalyticsEventsRouteKind: String {
     case set = "Set"
     case home = "Home"

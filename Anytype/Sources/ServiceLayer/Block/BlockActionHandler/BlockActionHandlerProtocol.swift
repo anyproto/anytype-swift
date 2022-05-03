@@ -29,7 +29,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func addBlock(_ type: BlockContentType, blockId: BlockId)
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
     func upload(blockId: BlockId, filePath: String)
-    func createPage(targetId: BlockId, type: ObjectTemplateType, route: AnalyticsEventsRouteKind) -> BlockId?
+    func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId?
     func setObjectTypeUrl(_ objectTypeUrl: String)
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId)
     func changeText(_ text: NSAttributedString, info: BlockInformation)

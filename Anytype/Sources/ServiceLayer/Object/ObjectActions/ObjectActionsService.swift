@@ -67,8 +67,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         targetId: BlockId,
         details: [BundledDetails],
         position: BlockPosition,
-        templateId: String,
-        route: AnalyticsEventsRouteKind
+        templateId: String
     ) -> BlockId? {
         
         let protobufDetails = details.reduce([String: Google_Protobuf_Value]()) { result, detail in
@@ -86,15 +85,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue(domain: .objectActionsService)
         
         guard let response = response else { return nil}
-
-        let type = details.first(applying: { item -> String? in
-            if case let .type(type) = item {
-                return type.rawValue
-            }
-            return nil
-        })
-        
-        AnytypeAnalytics.instance().logCreateObject(objectType: type ?? "", route: route)
 
         EventsBunch(event: response.event).send()
         return response.targetID
