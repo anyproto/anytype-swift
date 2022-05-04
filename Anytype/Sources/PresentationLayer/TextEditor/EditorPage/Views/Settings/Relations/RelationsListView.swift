@@ -30,16 +30,27 @@ struct RelationsListView: View {
                 editingMode.toggle()
             }
         } label: {
-            AnytypeText(editingMode ? "Done".localized : "Edit".localized, style: .uxBodyRegular, color: .textSecondary)
+            AnytypeText(
+                editingMode ? "Done".localized : "Edit".localized,
+                style: .uxBodyRegular,
+                color: viewModel.navigationBarButtonsDisabled ? .buttonInactive : .textSecondary
+            )
         }
+        .disabled(viewModel.navigationBarButtonsDisabled)
     }
     
     private var createNewRelationButton: some View {
         Button {
             viewModel.showAddNewRelationView()
         } label: {
-            Image.Relations.createOption.frame(width: 24, height: 24)
+            Image.Relations.createOption
+                .if(viewModel.navigationBarButtonsDisabled) {
+                    $0.renderingMode(.template)
+                        .foregroundColor(.buttonInactive)
+                }
+                .frame(width: 24, height: 24)
         }
+        .disabled(viewModel.navigationBarButtonsDisabled)
     }
     
     private var relationsList: some View {
@@ -68,7 +79,7 @@ struct RelationsListView: View {
     }
     
     private func row(with relation: Relation) -> some View {
-        RelationsListRowView(editingMode: $editingMode, relation: relation) {
+        RelationsListRowView(editingMode: $editingMode, starButtonAvailable: !viewModel.navigationBarButtonsDisabled, relation: relation) {
             viewModel.removeRelation(id: $0)
         } onStarTap: {
             viewModel.changeRelationFeaturedState(relationId: $0)

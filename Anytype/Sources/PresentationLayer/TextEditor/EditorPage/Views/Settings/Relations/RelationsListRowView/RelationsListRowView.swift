@@ -3,45 +3,57 @@ import SwiftUI
 struct RelationsListRowView: View {
     
     @Binding var editingMode: Bool
+    let starButtonAvailable: Bool
     let relation: Relation
     
     let onRemoveTap: (String) -> ()
     let onStarTap: (String) -> ()
     let onEditTap: (String) -> ()
     
+    @State private var size: CGSize = .zero
+    
     var body: some View {
-        GeometryReader { gr in
-            HStack(spacing: 8) {
-                if editingMode {
-                    if !relation.isBundled {
-                        removeButton
-                    } else {
-                        Spacer.fixedWidth(Constants.buttonWidth)
-                    }
+        row
+            .frame(height: 48)
+            .readSize { size = $0 }
+    }
+    
+    private var row: some View {
+        HStack(spacing: 8) {
+            if editingMode {
+                if !relation.isBundled {
+                    removeButton
+                } else {
+                    Spacer.fixedWidth(Constants.buttonWidth)
                 }
-                
-                // If we will use spacing more than 0 it will be added to
-                // `Spacer()` from both sides as a result
-                // `Spacer` will take up more space
-                HStack(spacing: 0) {
-                    name
-                        .frame(width: gr.size.width * 0.4, alignment: .leading)
-                    Spacer.fixedWidth(8)
-                    
-                    if relation.isEditable {
-                        valueViewButton
-                    } else {
-                        valueView
-                    }
-                    
-                    Spacer(minLength: 8)
-                    starImageView
-                }
-                .frame(height: gr.size.height)
-                .divider()
+            }
+            
+            contentView
+        }
+    }
+    
+    private var contentView: some View {
+        // If we will use spacing more than 0 it will be added to
+        // `Spacer()` from both sides as a result
+        // `Spacer` will take up more space
+        HStack(spacing: 0) {
+            name
+            
+            Spacer.fixedWidth(8)
+            
+            if relation.isEditable {
+                valueViewButton
+            } else {
+                valueView
+            }
+            
+            Spacer(minLength: 8)
+            if starButtonAvailable {
+                starImageView
             }
         }
-        .frame(height: 48)
+        .frame(height: size.height)
+        .divider()
     }
     
     private var name: some View {
@@ -55,6 +67,7 @@ struct RelationsListRowView: View {
                 }
                 AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
             }
+            .frame(width: size.width * 0.4, alignment: .leading)
         }
     }
     
@@ -108,6 +121,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
         VStack(spacing: 0) {
             RelationsListRowView(
                 editingMode: .constant(false),
+                starButtonAvailable: true,
                 relation: Relation.tag(
                     Relation.Tag(
                         id: "1",
@@ -183,6 +197,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
             )
             RelationsListRowView(
                 editingMode: .constant(false),
+                starButtonAvailable: true,
                 relation: Relation.text(
                     Relation.Text(
                         id: "1",

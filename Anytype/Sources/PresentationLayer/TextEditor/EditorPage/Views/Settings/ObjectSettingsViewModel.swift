@@ -43,7 +43,8 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
 
         self.relationsViewModel = RelationsListViewModel(
             router: router,
-            relationsService: RelationsService(objectId: document.objectId.value)
+            relationsService: RelationsService(objectId: document.objectId.value),
+            isObjectLocked: document.isLocked
         )
 
         self.objectActionsViewModel = ObjectActionsViewModel(
@@ -83,7 +84,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
         objectWillChange.send()
         if let details = document.details {
             objectActionsViewModel.details = details
-            relationsViewModel.update(with: document.parsedRelations)
+            relationsViewModel.update(with: document.parsedRelations, isObjectLocked: document.isLocked)
         }
         objectActionsViewModel.isLocked = document.isLocked
         objectActionsViewModel.objectRestrictions = document.objectRestrictions
