@@ -20,7 +20,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func checkbox(selected: Bool, blockId: BlockId)
     func toggle(blockId: BlockId)
     func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId)
-    func delete(blockId: BlockId)
+    func delete(blockIds: [BlockId])
     func moveToPage(blockId: BlockId, pageId: BlockId)
     func createEmptyBlock(parentId: BlockId)
     func setLink(url: URL?, range: NSRange, blockId: BlockId)
