@@ -52,16 +52,24 @@ final class EditorPageController: UIViewController {
         return recognizer
     }()
 
-    private lazy var navigationBarHelper = EditorNavigationBarHelper(
-        onSettingsBarButtonItemTap: { [weak self] in
+    private lazy var navigationBarHelper: EditorNavigationBarHelper = EditorNavigationBarHelper(
+        viewController: self,
+        onSettingsBarButtonItemTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
-            self?.viewModel.showSettings()
+            viewModel?.showSettings()
+        }, onDoneBarButtonItemTap:  { [weak viewModel] in
+            viewModel?.blocksStateManager.didSelectEditingMode()
+
         }
     )
 
     private let blocksSelectionOverlayView: BlocksSelectionOverlayView
     
-    var viewModel: EditorPageViewModelProtocol!
+    var viewModel: EditorPageViewModelProtocol! {
+        didSet {
+            viewModel.setupSubscriptions()
+        }
+    }
     private var cancellables = [AnyCancellable]()
     
     // MARK: - Initializers
@@ -97,7 +105,7 @@ final class EditorPageController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
         
-        navigationBarHelper.handleViewWillAppear(controllerForNavigationItems, collectionView)
+        navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
         
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView,
@@ -134,22 +142,21 @@ final class EditorPageController: UIViewController {
     }
 
     func bindViewModel() {
-        viewModel.blocksStateManager.editorEditingState.sink { [unowned self] state in
+        viewModel.blocksStateManager.editorEditingStatePublisher.sink { [unowned self] state in
+            navigationBarHelper.editorEditingStateDidChange(state)
+
             switch state {
-            case .selecting(let blockIds):
+            case .selecting:
                 view.endEditing(true)
                 setEditing(false, animated: true)
-                blockIds.forEach(selectBlock)
                 blocksSelectionOverlayView.isHidden = false
-                navigationBarHelper.canChangeSyncStatusAppearance = false
-                navigationBarHelper.setNavigationBarHidden(true)
+                collectionView.isLocked = false
             case .editing:
                 collectionView.deselectAllMovingItems()
                 dividerCursorController.movingMode = .none
                 setEditing(true, animated: true)
                 blocksSelectionOverlayView.isHidden = true
-                navigationBarHelper.setNavigationBarHidden(false)
-                navigationBarHelper.canChangeSyncStatusAppearance = true
+                collectionView.isLocked = false
             case .moving(let indexPaths):
                 dividerCursorController.movingMode = .drum
                 setEditing(false, animated: true)
@@ -157,7 +164,15 @@ final class EditorPageController: UIViewController {
                     collectionView.deselectItem(at: indexPath, animated: false)
                     collectionView.setItemIsMoving(true, at: indexPath)
                 }
+                collectionView.isLocked = false
+            case .locked:
+                view.endEditing(true)
+                collectionView.isLocked = true
             }
+        }.store(in: &cancellables)
+
+        viewModel.blocksStateManager.editorSelectedBlocks.sink { [unowned self] blockIds in
+            blockIds.forEach(selectBlock)
         }.store(in: &cancellables)
     }
 }
@@ -177,10 +192,7 @@ extension EditorPageController: EditorPageViewInput {
             }
         }
 
-        navigationBarHelper.configureNavigationBar(
-            using: header,
-            details: details
-        )
+        navigationBarHelper.configureNavigationBar(using: header, details: details)
     }
     
     func update(syncStatus: SyncStatus) {
@@ -239,7 +251,7 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func showDeletedScreen(_ show: Bool) {
-        navigationBarHelper.setNavigationBarHidden(show)
+        navigationController?.setNavigationBarHidden(show, animated: false)
         deletedScreen.isHidden = !show
         if show { UIApplication.shared.hideKeyboard() }
     }
@@ -311,20 +323,18 @@ private extension EditorPageController {
         case .header: break
         case .block(let blockViewModel):
             cell.contentConfiguration = blockViewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationLevel = blockViewModel.indentationLevel 
+            cell.indentationLevel = blockViewModel.info.metadata.indentationLevel
         case .system(let systemContentConfiguationProvider):
             cell.contentConfiguration = systemContentConfiguationProvider.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationLevel = systemContentConfiguationProvider.indentationLevel 
+            cell.indentationLevel = systemContentConfiguationProvider.indentationLevel
         }
     }
-
-
 
     func dataSourceItem(for blockId: BlockId) -> EditorItem? {
         dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
             case let .block(block):
-                return block.information.id == blockId
+                return block.info.id == blockId
             case .header, .system:
                 return false
             }
@@ -387,6 +397,7 @@ private extension EditorPageController {
             // UIKit bug. isSelected works fine, UIConfigurationStateCustomKey properties sometimes switch to adjacent cellsAnytype/Sources/PresentationLayer/TextEditor/BlocksViews/Base/CustomStateKeys.swift
             if let self = self {
                 (cell as? EditorViewListCell)?.isMoving = self.collectionView.indexPathsForMovingItems.contains(indexPath)
+                (cell as? EditorViewListCell)?.isLocked = self.collectionView.isLocked
             }
 
 
@@ -404,12 +415,14 @@ private extension EditorPageController {
     func createHeaderCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, ObjectHeader> {
         .init { [weak self] cell, _, item in
             guard let self = self else { return }
+            let contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
 
-            let topAdjustedContentInset = self.collectionView.adjustedContentInset.top
-
-            if var objectHeaderFilledConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width) as? ObjectHeaderFilledConfiguration {
+            if var objectHeaderFilledConfiguration = contentConfiguration as? ObjectHeaderFilledConfiguration {
+                let topAdjustedContentInset = self.collectionView.adjustedContentInset.top
                 objectHeaderFilledConfiguration.topAdjustedContentInset = topAdjustedContentInset
                 cell.contentConfiguration = objectHeaderFilledConfiguration
+            } else {
+                cell.contentConfiguration = contentConfiguration
             }
         }
     }
@@ -431,7 +444,7 @@ private extension EditorPageController {
     func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BlockViewModelProtocol) {
         cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         cell.indentationWidth = Constants.cellIndentationWidth
-        cell.indentationLevel = item.indentationLevel
+        cell.indentationLevel = item.info.metadata.indentationLevel
         cell.contentView.isUserInteractionEnabled = true
         
         cell.backgroundConfiguration = UIBackgroundConfiguration.clear()

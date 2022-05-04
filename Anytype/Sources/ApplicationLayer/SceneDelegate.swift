@@ -12,7 +12,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
     // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        #warning("Use a UIHostingController as window root view controller")
         guard let windowScene = scene as? UIWindowScene else {
             return
         }
@@ -22,8 +21,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         self.window = window
         
         let applicationCoordinator = ServiceLocator.shared.applicationCoordinator(window: window)
-        applicationCoordinator.start()
         windowHolder = applicationCoordinator
+        
+        applicationCoordinator.start()
 
         window.overrideUserInterfaceStyle = UserDefaultsConfig.userInterfaceStyle
     }

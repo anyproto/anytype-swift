@@ -23,6 +23,7 @@
 		3D6E9A40270F1B8C001B0A07 /* ContainerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D6E9A3F270F1B8C001B0A07 /* ContainerExtension.swift */; };
 		3DA4B0C426AF3D2B0000F243 /* AnytypeCore.h in Headers */ = {isa = PBXBuildFile; fileRef = 3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		3DA4B0F226AF41940000F243 /* Asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DA4B0F126AF41940000F243 /* Asserts.swift */; };
+		3DB1B32427D0F5C40058F7BA /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1B32327D0F5C40058F7BA /* Stack.swift */; };
 		3DB1CA4B272BE367000D2779 /* ProtobufExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB1CA4A272BE367000D2779 /* ProtobufExtensions.swift */; };
 		3DE6BCAD2770CDA10036F4C5 /* Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6BCAC2770CDA10036F4C5 /* Emoji.swift */; };
 		3DE6BCAF2770CDD50036F4C5 /* String+Emoji.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DE6BCAE2770CDD50036F4C5 /* String+Emoji.swift */; };
@@ -54,6 +55,7 @@
 		3DA4B0C226AF3D2B0000F243 /* AnytypeCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AnytypeCore.h; sourceTree = "<group>"; };
 		3DA4B0C326AF3D2B0000F243 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DA4B0F126AF41940000F243 /* Asserts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Asserts.swift; sourceTree = "<group>"; };
+		3DB1B32327D0F5C40058F7BA /* Stack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		3DB1CA4A272BE367000D2779 /* ProtobufExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProtobufExtensions.swift; sourceTree = "<group>"; };
 		3DE6BCAC2770CDA10036F4C5 /* Emoji.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Emoji.swift; sourceTree = "<group>"; };
 		3DE6BCAE2770CDD50036F4C5 /* String+Emoji.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+Emoji.swift"; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 		12F91CEA270DFFF300C92B28 /* Structs */ = {
 			isa = PBXGroup;
 			children = (
+				3DB1B32327D0F5C40058F7BA /* Stack.swift */,
 				3DE6BCAC2770CDA10036F4C5 /* Emoji.swift */,
 				12F91CEB270E000700C92B28 /* Hash.swift */,
 			);
@@ -311,6 +314,7 @@
 				C91AFEED270B4F4F005F9386 /* AssertionLogger.swift in Sources */,
 				3D513F1427958290007850D5 /* Localization.swift in Sources */,
 				53F5A3EE274C5E7100D132AB /* FeatureFlagsStorage.swift in Sources */,
+				3DB1B32427D0F5C40058F7BA /* Stack.swift in Sources */,
 				3DA4B0F226AF41940000F243 /* Asserts.swift in Sources */,
 				3DFE7F3C26E2294F0093EECB /* OptionalExtension.swift in Sources */,
 				3D53F03826B30356001A6EEE /* Logger.swift in Sources */,

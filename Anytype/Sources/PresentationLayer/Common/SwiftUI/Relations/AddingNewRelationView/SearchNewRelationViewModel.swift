@@ -3,61 +3,39 @@ import CoreGraphics
 import Combine
 import Amplitude
 
-
-// MARK: - Section model
-
-enum SearchNewRelationSectionType: Hashable, Identifiable {
-    case createNewRelation
-    case addFromLibriry([RelationMetadata])
-
-    var id: Self { self }
-
-    var headerName: String {
-        switch self {
-        case .createNewRelation:
-            return ""
-        case .addFromLibriry:
-            return "Your library".localized
-        }
-    }
-}
-
-// MARK: - View model
-
-class SearchNewRelationViewModel: ObservableObject, Dismissible {
-    let relationService: RelationsServiceProtocol
-    let usedObjectRelationsIds: Set<String> // Used for exclude relations that already has in object
-    var onSelect: (RelationMetadata) -> ()
+final class SearchNewRelationViewModel: ObservableObject, Dismissible {
+    
     var onDismiss: () -> () = {}
 
-    @Published var searchData: [SearchNewRelationSectionType] = [.createNewRelation]
-    @Published var shouldDismiss: Bool = false
+    @Published private(set) var searchData: [SearchNewRelationSectionType] = [.createNewRelation]
+    @Published private(set) var shouldDismiss: Bool = false
 
-    var createNewRelationViewModel: CreateNewRelationViewModel {
-        CreateNewRelationViewModel(
-            relationService: self.relationService,
-            onSelect: { [weak self] in
-                self?.shouldDismiss = true
-                self?.onSelect($0)
-            }
-        )
-    }
-
-    // MARK: - Init
-
+    // MARK: - Private variables
+    
+    // Used for exclude relations that already has in object
+    private let usedObjectRelationsIds: Set<String>
+    private let relationService: RelationsServiceProtocol
+    private let onSelect: ((RelationMetadata) -> ())?
+    
+    // MARK: - Initializers
+    
     init(
         relationService: RelationsServiceProtocol,
         objectRelations: ParsedRelations,
-        onSelect: @escaping (RelationMetadata) -> ()
+        onSelect: ((RelationMetadata) -> ())?
     ) {
         self.relationService = relationService
         self.onSelect = onSelect
 
         usedObjectRelationsIds = Set(objectRelations.all.map { $0.id })
     }
+    
+}
 
-    // MARK: - View model methods
+// MARK: - View model methods
 
+extension SearchNewRelationViewModel {
+    
     func search(text: String) {
         Amplitude.instance().logSearchQuery(.menuSearch, length: text.count)
         
@@ -92,7 +70,20 @@ class SearchNewRelationViewModel: ObservableObject, Dismissible {
 
     func addRelation(_ relation: RelationMetadata) {
         if let createdRelation = relationService.addRelation(relation: relation) {
-            onSelect(createdRelation)
+            onSelect?(createdRelation)
         }
     }
+    
+    var createNewRelationViewModel: CreateNewRelationViewModel {
+        CreateNewRelationViewModel(
+            relationService: relationService,
+            onSelect: { [weak self] in
+                guard let self = self else { return }
+                
+                self.shouldDismiss = true
+                self.onSelect?($0)
+            }
+        )
+    }
+    
 }

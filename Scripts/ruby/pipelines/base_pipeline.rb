@@ -10,7 +10,8 @@ require_relative '../codegen/file_formatter'
 class BasePipeline
   def self.work(artifactsDirectory)
     dependenciesDirectory = Constants::DEPENDENCIES_DIR_PATH
-    puts "Cleaning up dependencies directory #{dependenciesDirectory}"
+    puts "Cleaning up dependencies directory".colorize(:blue)
+    puts "#{dependenciesDirectory}"
     CleanupDependenciesDirectoryWorker.new(dependenciesDirectory).work
 
     puts "Moving files from  #{artifactsDirectory} to #{dependenciesDirectory}"
@@ -20,22 +21,22 @@ class BasePipeline
     FileUtils.cp_r(protobuf, dependenciesDirectory)    
     remove_gitignore(dependenciesDirectory)
     
-    puts "Copying protobuf files from Dependencies to ProtobufMessages"
+    puts "Copying protobuf files from Dependencies to ProtobufMessages".colorize(:blue)
     directory = File.join([dependenciesDirectory, Constants::PROTOBUF_DIRECTORY_NAME])
     DirHelper.allFiles(directory, "swift").each { |file|
       FileUtils.cp(file, Constants::PROTOBUF_MESSAGES_DIR)
     }
 
-    puts "Generating swift from protobuf"
+    puts "Generating swift from protobuf".colorize(:blue)
     CodegenRunner.run()
 
-    puts "Running swift format"
+    puts "Running swift format".colorize(:blue)
     FileFormatter.formatFiles()
   end
 
   # Remove when fixed on the middlewere side
   private_class_method def self.remove_gitignore(dependenciesDirectory)
-    gitignore_path = "#{dependenciesDirectory}/protobuf/.gitignore"
+    gitignore_path = "#{dependenciesDirectory}/#{Constants::PROTOBUF_DIRECTORY_NAME}/.gitignore"
     if File.file?(gitignore_path)
       FileUtils.rm(gitignore_path)
     end

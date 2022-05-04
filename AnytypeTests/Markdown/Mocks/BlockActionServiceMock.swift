@@ -1,6 +1,7 @@
 @testable import Anytype
 import BlocksModels
 import ProtobufMessages
+import XCTest
 
 struct SplitData {
     let string: NSAttributedString
@@ -11,7 +12,6 @@ struct SplitData {
 }
 
 final class BlockActionServiceMock: BlockActionServiceProtocol {
-    
     var splitStub = false
     var splitNumberOfCalls = 0
     var splitData: SplitData?
@@ -26,7 +26,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
                 newBlockContentType: newBlockContentType
             )
         } else {
-            assertionFailure()
+            XCTFail()
         }
     }
     
@@ -96,7 +96,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
             mergeNumberOfCalls += 1
             mergeSecondBlockId = secondBlockId
         } else {
-            assertionFailure()
+            XCTFail()
         }
     }
     
@@ -154,6 +154,5 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     func createAndFetchBookmark(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: String) {
         assertionFailure()
     }
-    
-    
+
 }

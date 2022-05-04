@@ -4,24 +4,20 @@ import AnytypeCore
 
 struct UnknownLabelViewModel: BlockViewModelProtocol {    
     let indentationLevel = 0
-    let information: BlockInformation
+    let info: BlockInformation
     
     var hashable: AnyHashable {
         [
             indentationLevel,
-            information
+            info
         ] as [AnyHashable]
-    }
-    
-    init(information: BlockInformation) {
-        self.information = information
     }
 
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         var contentConfiguration = UIListContentConfiguration.cell()
-        contentConfiguration.text = "\(information.content.identifier) -> \(information.id)"
+        contentConfiguration.text = "\(info.content.identifier) -> \(info.id)"
         return contentConfiguration
     }
     
-    func didSelectRowInTableView() { }
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 }

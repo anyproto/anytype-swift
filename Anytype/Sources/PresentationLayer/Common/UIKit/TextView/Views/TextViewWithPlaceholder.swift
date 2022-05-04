@@ -25,6 +25,7 @@ final class TextViewWithPlaceholder: UITextView {
     private var placeholderConstraints: [InsetEdgeType: NSLayoutConstraint] = [:]
     private let blockLayoutManager = TextBlockLayoutManager()
     private let onFirstResponderChange: (CustomTextViewFirstResponderChange) -> ()
+    var isLockedForEditing = false
 
     // MARK: - Internal variables
     
@@ -72,6 +73,11 @@ final class TextViewWithPlaceholder: UITextView {
             placeholderLabel.textAlignment = textAlignment
         }
     }
+
+    override var canBecomeFirstResponder: Bool {
+        let canBecome = super.canBecomeFirstResponder
+        return isLockedForEditing ? false : canBecome
+    }
     
     override func becomeFirstResponder() -> Bool {
         let value = super.becomeFirstResponder()
@@ -80,6 +86,14 @@ final class TextViewWithPlaceholder: UITextView {
         reloadGestures()
         onFirstResponderChange(.become)
         return value
+    }
+
+    override func canPerformAction(_ action: Selector, withSender sender: Any?) -> Bool {
+        // Force showing paste menu item in text view for other type than text
+        if action == #selector(TextViewWithPlaceholder.paste(_:)) {
+            return true
+        }
+        return super.canPerformAction(action, withSender: sender)
     }
 
     override func resignFirstResponder() -> Bool {
@@ -98,25 +112,21 @@ final class TextViewWithPlaceholder: UITextView {
             return super.paste(sender)
         }
 
-        let pasteboard = UIPasteboard.general
-        var htmlSlot: String? = nil
-        var textSlot: String? = nil
-
-        if pasteboard.contains(pasteboardTypes: [UTType.html.identifier], inItemSet: nil) {
-            if let data = pasteboard.data(forPasteboardType: UTType.html.identifier, inItemSet: nil)?.first as? Data {
-                htmlSlot = String(data: data, encoding: .utf8)
-            }
+        guard let customTextViewDelegate = customTextViewDelegate else {
+            return super.paste(sender)
         }
 
-        if pasteboard.contains(pasteboardTypes: [UTType.text.identifier]) {
-            textSlot = pasteboard.value(forPasteboardType: UTType.text.identifier) as? String
+        if customTextViewDelegate.shouldPaste(range: selectedRange) {
+            super.paste(sender)
+        }
+    }
+
+    override func copy(_ sender: Any?) {
+        guard FeatureFlags.clipboard else {
+            return super.copy(sender)
         }
 
-        if pasteboard.contains(pasteboardTypes: [UTType.image.identifier]) {
-
-        }
-        customTextViewDelegate?.paste(slots: .init(textSlot: textSlot, htmlSlot: htmlSlot, anySlot: nil, fileSlot: nil),
-                                      range: selectedRange)
+        customTextViewDelegate?.copy(range: selectedRange)
     }
 
     // MARK: - Initialization

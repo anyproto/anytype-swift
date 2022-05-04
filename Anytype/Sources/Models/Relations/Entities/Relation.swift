@@ -107,6 +107,27 @@ extension Relation: RelationProtocol {
     
 }
 
+extension Relation {
+    
+    var iconName: String {
+        switch self {
+        case .text: return RelationMetadata.Format.longText.iconName
+        case .number: return RelationMetadata.Format.number.iconName
+        case .status: return RelationMetadata.Format.status.iconName
+        case .date: return RelationMetadata.Format.date.iconName
+        case .object: return RelationMetadata.Format.object.iconName
+        case .checkbox: return RelationMetadata.Format.checkbox.iconName
+        case .url: return RelationMetadata.Format.url.iconName
+        case .email: return RelationMetadata.Format.email.iconName
+        case .phone: return RelationMetadata.Format.phone.iconName
+        case .tag: return RelationMetadata.Format.tag.iconName
+        case .file: return RelationMetadata.Format.file.iconName
+        case .unknown: return RelationMetadata.Format.unrecognized.iconName
+        }
+    }
+    
+}
+
 // MARK: - hint
 
 extension Relation {

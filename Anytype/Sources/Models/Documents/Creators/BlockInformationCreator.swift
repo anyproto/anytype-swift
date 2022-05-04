@@ -6,27 +6,27 @@ import ProtobufMessages
 struct BlockInformationCreator {
     
     private let validator: BlockValidator
-    private let blocksContainer: BlockContainerModelProtocol
+    private let infoContainer: InfoContainerProtocol
     
     init(
         validator: BlockValidator,
-        blocksContainer: BlockContainerModelProtocol
+        infoContainer: InfoContainerProtocol
     ) {
         self.validator = validator
-        self.blocksContainer = blocksContainer
+        self.infoContainer = infoContainer
     }
     
     func createBlockInformation(from newData: Anytype_Event.Block.Set.Text) -> BlockInformation? {
-        guard let blockModel = blocksContainer.model(id: newData.id) else {
+        guard let info = infoContainer.get(id: newData.id) else {
             anytypeAssertionFailure(
                 "Block model with id \(newData.id) not found in container",
                 domain: .blockInformationCreator
             )
             return nil
         }
-        guard case let .text(oldText) = blockModel.information.content else {
+        guard case let .text(oldText) = info.content else {
             anytypeAssertionFailure(
-                "Block model doesn't support text:\n \(blockModel.information)",
+                "Block model doesn't support text:\n \(info)",
                 domain: .blockInformationCreator
             )
             return nil
@@ -60,13 +60,12 @@ struct BlockInformationCreator {
         }
         textContent.number = oldText.number
         
-        var information = blockModel.information
-        information.content = .text(textContent)
-        return validator.validated(information: information)
+        let newInfo = info.updated(content: .text(textContent))
+        return validator.validated(information: newInfo)
     }
     
     func createBlockInformation(newAlignmentData: Anytype_Event.Block.Set.Align) -> BlockInformation? {
-        guard let blockModel = blocksContainer.model(id: newAlignmentData.id) else {
+        guard let info = infoContainer.get(id: newAlignmentData.id) else {
             anytypeAssertionFailure(
                 "Block model with id \(newAlignmentData.id) not found in container",
                 domain: .blockInformationCreator
@@ -74,7 +73,7 @@ struct BlockInformationCreator {
             return nil
         }
         guard let alignment = newAlignmentData.align.asBlockModel else { return nil }
-        return blockModel.information.updated(with: alignment)
+        return info.updated(alignment: alignment)
     }
     
     private func buildMarks(

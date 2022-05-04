@@ -6,25 +6,26 @@ import SwiftUI
 import FloatingPanel
 
 final class ObjectLayoutPickerViewModel: ObservableObject {
-        
-    @Published var details: ObjectDetails = ObjectDetails(id: "", values: [:])
-    
     var selectedLayout: DetailsLayout {
-        details.layout
+        document.details?.layout ?? .basic
     }
     
     // MARK: - Private variables
     
-    private(set) var popupLayout: FloatingPanelLayout = IntrinsicPopupLayout()
+    private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: false)
+    private weak var popup: AnytypePopupProxy?
     
-    private weak var сontentDelegate: AnytypePopupContentDelegate?
-    
-    private let detailsService: DetailsService
+    private let document: BaseDocumentProtocol
+    private let detailsService: DetailsServiceProtocol
+    private var subscription: AnyCancellable?
     
     // MARK: - Initializer
     
-    init(detailsService: DetailsService) {
+    init(document: BaseDocumentProtocol, detailsService: DetailsServiceProtocol) {
+        self.document = document
         self.detailsService = detailsService
+        
+        setupSubscription()
     }
     
     func didSelectLayout(_ layout: DetailsLayout) {
@@ -32,12 +33,23 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
         detailsService.setLayout(layout)
     }
     
+    func viewDidUpdateHeight(_ height: CGFloat) {
+        popupLayout = .constantHeight(height: height, floatingPanelStyle: false)
+        popup?.updateLayout(false)
+    }
+    
+    // MARK: - Private
+    private func setupSubscription() {
+        subscription = document.updatePublisher.sink { [weak self] _ in
+            self?.objectWillChange.send()
+        }
+    }
 }
 
 extension ObjectLayoutPickerViewModel: AnytypePopupViewModelProtocol {
     
-    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate) {
-        self.сontentDelegate = сontentDelegate
+    func onPopupInstall(_ popup: AnytypePopupProxy) {
+        self.popup = popup
     }
     
     func makeContentView() -> UIViewController {

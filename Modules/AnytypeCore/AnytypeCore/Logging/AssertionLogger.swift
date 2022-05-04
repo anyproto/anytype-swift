@@ -3,7 +3,12 @@ public enum ErrorDomain: String {
     case userDefaults
     case debug
     
-    case imageDownloader
+    case middlewareConfigurationProvider
+    case anytypeImageDownloader
+    case contentUrlBuilder
+    case imageGuideline
+    case imageViewWrapper
+    
     case imageCreation
     case colorCreation
     case fileLoader
@@ -24,7 +29,8 @@ public enum ErrorDomain: String {
     case blockDelegate
     case blocksConverter
     case blockValidator
-    
+
+    case unsplash
     case blockImage
     case unknownLabel
     case unsupportedBlock
@@ -65,14 +71,17 @@ public enum ErrorDomain: String {
     case subscriptionService
     case subscriptionStorage
     case detailsStorage
+    case dataviewService
     
     case homeView
     case baseDocument
     case protobufConverter
+    case restrictionsConverter
     
     case iconPicker
-    
     case appIcon
+    
+    case calendar
 }
 
 public protocol MessageLogger {

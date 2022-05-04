@@ -5,31 +5,43 @@ import UIKit
 import AnytypeCore
 
 final class RelationsListViewModel: ObservableObject {
+        
+    @Published private(set) var navigationBarButtonsDisabled: Bool = false
+    
+    var sections: [RelationsSection] {
+        sectionsBuilder.buildSections(from: parsedRelations)
+    }
     
     // MARK: - Private variables
     
-    @Published private(set) var sections: [RelationsSection]
+    @Published private var parsedRelations: ParsedRelations = .empty
+    
     private let sectionsBuilder = RelationsSectionBuilder()
-    private let relationsService: RelationsServiceProtocol 
+    private let relationsService: RelationsServiceProtocol
     
-    let onValueEditingTap: (String) -> ()
-    
+    private let router: EditorRouterProtocol
+        
     // MARK: - Initializers
     
     init(
+        router: EditorRouterProtocol,
         relationsService: RelationsServiceProtocol,
-        sections: [RelationsSection] = [],
-        onValueEditingTap: @escaping (String) -> ()
+        isObjectLocked: Bool
     ) {
+        self.router = router
         self.relationsService = relationsService
-        self.sections = sections
-        self.onValueEditingTap = onValueEditingTap
+        self.navigationBarButtonsDisabled = isObjectLocked
     }
     
-    // MARK: - Internal functions
+}
+
+// MARK: - Internal functions
+
+extension RelationsListViewModel {
     
-    func update(with parsedRelations: ParsedRelations) {
-        self.sections = sectionsBuilder.buildSections(from: parsedRelations)
+    func update(with parsedRelations: ParsedRelations, isObjectLocked: Bool) {
+        self.parsedRelations = parsedRelations
+        self.navigationBarButtonsDisabled = isObjectLocked
     }
     
     func changeRelationFeaturedState(relationId: String) {
@@ -45,7 +57,16 @@ final class RelationsListViewModel: ObservableObject {
         }
     }
     
+    func handleTapOnRelation(relationId: String) {
+        router.showRelationValueEditingView(key: relationId, source: .object)
+    }
+    
     func removeRelation(id: String) {
         relationsService.removeRelation(relationKey: id)
-    }    
+    }
+    
+    func showAddNewRelationView() {
+        router.showAddNewRelationView(onSelect: nil)
+    }
+    
 }

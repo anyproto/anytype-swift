@@ -1,4 +1,5 @@
 import BlocksModels
+import SwiftUI
 
 final class RelationEditingViewModelBuilder {
     
@@ -69,32 +70,67 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 service: RelationsService(objectId: objectId)
             )
         case .tag(let tag):
-            return RelationOptionsViewModel(
+            return RelationOptionsListViewModel(
                 source: source,
-                type: .tags(tag.allTags),
-                selectedOptions: tag.selectedTags,
+                selectedOptions: tag.selectedTags.map { tag in
+                    ListRowConfiguration(
+                        id: tag.id,
+                        contentHash: tag.hashValue
+                    ) {
+                        TagRelationRowView(
+                            viewModel: TagView.Model(text: tag.text, textColor: tag.textColor, backgroundColor: tag.backgroundColor)
+                        ).eraseToAnyView()
+                    }
+                },
+                emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
                 relation: relation,
+                searchModuleBuilder: TagsOptionsSearchModuleBuilder(allTags: tag.allTags),
                 service: RelationsService(objectId: objectId)
             )
         case .object(let object):
-            return RelationOptionsViewModel(
+            return RelationOptionsListViewModel(
                 source: source,
-                type: .objects,
-                selectedOptions: object.selectedObjects,
+                selectedOptions: object.selectedObjects.map { object in
+                    ListRowConfiguration(
+                        id: object.id,
+                        contentHash: object.hashValue
+                    ) {
+                        RelationObjectsRowView(object: object).eraseToAnyView()
+                    }
+                },
+                emptyOptionsPlaceholder: Constants.objectsOptionsPlaceholder,
                 relation: relation,
+                searchModuleBuilder: ObjectsOptionsSearchModuleBuilder(limitedObjectType: object.limitedObjectTypes),
                 service: RelationsService(objectId: objectId)
             )
         case .file(let file):
-            return RelationOptionsViewModel(
+            return RelationOptionsListViewModel(
                 source: source,
-                type: .files,
-                selectedOptions: file.files,
+                selectedOptions: file.files.map { file in
+                    ListRowConfiguration(
+                        id: file.id,
+                        contentHash: file.hashValue
+                    ) {
+                        RelationFilesRowView(file: file).eraseToAnyView()
+                    }
+                },
+                emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
                 relation: relation,
+                searchModuleBuilder: FilesOptionsSearchModuleBuilder(),
                 service: RelationsService(objectId: objectId)
             )
         default:
             return nil
         }
+    }
+    
+}
+
+private extension RelationEditingViewModelBuilder {
+    
+    enum Constants {
+        static let objectsOptionsPlaceholder = "Empty".localized
+        static let tagsOrFilesOptionsPlaceholder = "No related options here. You can add some".localized
     }
     
 }

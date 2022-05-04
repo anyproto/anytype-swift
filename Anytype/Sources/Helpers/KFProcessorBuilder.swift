@@ -1,42 +1,46 @@
-//
-//  KFProcessorBuilder.swift
-//  KFProcessorBuilder
-//
-//  Created by Konstantin Mordan on 30.08.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import Foundation
 import Kingfisher
 import UIKit
 
 struct KFProcessorBuilder {
-    let scalingType: KFScalingType
-    let targetSize: CGSize
-    let cornerRadius: RoundCornerImageProcessor.Radius?
+    let imageGuideline: ImageGuideline
+    let scalingType: KFScalingType?
 }
 
 extension KFProcessorBuilder {
     
-    var processor: Kingfisher.ImageProcessor {
+    func build() -> Kingfisher.ImageProcessor {
         let imageProcessor: ImageProcessor = {
             switch scalingType {
             case .resizing(let mode):
-                return ResizingImageProcessor(
-                    referenceSize: targetSize,
-                    mode: mode
-                )
-                |> CroppingImageProcessor(size: targetSize)
+                return ResizingImageProcessor(referenceSize: imageGuideline.size, mode: mode)
+                |> CroppingImageProcessor(size: imageGuideline.size)
             case .downsampling:
-                return DownsamplingImageProcessor(size: targetSize)
+                return DownsamplingImageProcessor(size: imageGuideline.size)
+            case .none:
+                return DefaultImageProcessor()
             }
         }()
         
-        if let cornerRadius = cornerRadius {
-            return imageProcessor |> RoundCornerImageProcessor(radius: cornerRadius)
-        } else {
-            return imageProcessor
+        if let cornersGuideline = imageGuideline.cornersGuideline {
+            return imageProcessor |> RoundCornerImageProcessor(
+                radius: cornersGuideline.radius.asRoundCornerImageProcessorRadius,
+                backgroundColor: nil
+            )
         }
+        
+        return imageProcessor
     }
     
 }
+
+private extension ImageCornersGuideline.Radius {
+    
+    var asRoundCornerImageProcessorRadius: RoundCornerImageProcessor.Radius {
+        switch self {
+        case .widthFraction(let widthFraction): return .widthFraction(widthFraction)
+        case .point(let point): return .point(point)
+        }
+    }
+}
+

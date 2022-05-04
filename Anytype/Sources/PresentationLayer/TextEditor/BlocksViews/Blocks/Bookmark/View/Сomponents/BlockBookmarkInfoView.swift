@@ -21,7 +21,12 @@ final class BlockBookmarkInfoView: UIView {
         
         titleView.text = payload.title
         descriptionView.text = payload.subtitle
+
         urlView.text = payload.url
+        
+        if payload.url.isEncoded {
+            urlView.text = payload.url.removingPercentEncoding
+        }
         
         layoutUsing.stack {
             $0.edgesToSuperview(insets: Layout.contentInsets)
@@ -62,26 +67,15 @@ final class BlockBookmarkInfoView: UIView {
         
         let imageGuideline = ImageGuideline(
             size: Layout.iconSize,
-            cornerRadius: 2,
+            radius: .point(2),
             backgroundColor: UIColor.backgroundPrimary
         )
         
-        let placeholder = ImageBuilder(imageGuideline).build()
-        
-        let processor = KFProcessorBuilder(
-            scalingType: .downsampling,
-            targetSize: Layout.iconSize,
-            cornerRadius: .point(2)
-        ).processor
-        
-        iconView.kf.setImage(
-            with: ImageID(
-                id: payload.faviconHash,
-                width: imageGuideline.size.width.asImageWidth
-            ).resolvedUrl,
-            placeholder: placeholder,
-            options: [.processor(processor), .transition(.fade(0.2))]
-        )
+        iconView.wrapper
+            .imageGuideline(imageGuideline)
+            .scalingType(.downsampling)
+            .animatedTransition(false)
+            .setImage(id: payload.faviconHash)
     }
     
     // MARK: - Views

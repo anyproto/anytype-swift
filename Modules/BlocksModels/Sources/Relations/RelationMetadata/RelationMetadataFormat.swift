@@ -4,6 +4,7 @@ import SwiftUI
 public extension RelationMetadata {
     
     enum Format: Hashable, CaseIterable {
+        case object
         case longText
         case shortText
         case number
@@ -15,9 +16,9 @@ public extension RelationMetadata {
         case email
         case phone
         case tag
-        case object
         case unrecognized
     }
+    
 }
 
 extension RelationMetadata.Format {

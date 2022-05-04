@@ -75,6 +75,14 @@ public struct Anytype_Event {
       set {value = .accountConfigUpdate(newValue)}
     }
 
+    public var accountUpdate: Anytype_Event.Account.Update {
+      get {
+        if case .accountUpdate(let v)? = value {return v}
+        return Anytype_Event.Account.Update()
+      }
+      set {value = .accountUpdate(newValue)}
+    }
+
     public var objectDetailsSet: Anytype_Event.Object.Details.Set {
       get {
         if case .objectDetailsSet(let v)? = value {return v}
@@ -457,6 +465,7 @@ public struct Anytype_Event {
       case accountShow(Anytype_Event.Account.Show)
       case accountDetails(Anytype_Event.Account.Details)
       case accountConfigUpdate(Anytype_Event.Account.Config.Update)
+      case accountUpdate(Anytype_Event.Account.Update)
       case objectDetailsSet(Anytype_Event.Object.Details.Set)
       case objectDetailsAmend(Anytype_Event.Object.Details.Amend)
       case objectDetailsUnset(Anytype_Event.Object.Details.Unset)
@@ -521,6 +530,10 @@ public struct Anytype_Event {
         }()
         case (.accountConfigUpdate, .accountConfigUpdate): return {
           guard case .accountConfigUpdate(let l) = lhs, case .accountConfigUpdate(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.accountUpdate, .accountUpdate): return {
+          guard case .accountUpdate(let l) = lhs, case .accountUpdate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.objectDetailsSet, .objectDetailsSet): return {
@@ -777,6 +790,7 @@ public struct Anytype_Event {
       fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
     }
 
+    /// Deprecated
     public struct Config {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -798,14 +812,55 @@ public struct Anytype_Event {
         /// Clears the value of `config`. Subsequent reads from it will return its default value.
         public mutating func clearConfig() {self._config = nil}
 
+        public var status: Anytype_Model_Account.Status {
+          get {return _status ?? Anytype_Model_Account.Status()}
+          set {_status = newValue}
+        }
+        /// Returns true if `status` has been explicitly set.
+        public var hasStatus: Bool {return self._status != nil}
+        /// Clears the value of `status`. Subsequent reads from it will return its default value.
+        public mutating func clearStatus() {self._status = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
 
         fileprivate var _config: Anytype_Model_Account.Config? = nil
+        fileprivate var _status: Anytype_Model_Account.Status? = nil
       }
 
       public init() {}
+    }
+
+    public struct Update {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var config: Anytype_Model_Account.Config {
+        get {return _config ?? Anytype_Model_Account.Config()}
+        set {_config = newValue}
+      }
+      /// Returns true if `config` has been explicitly set.
+      public var hasConfig: Bool {return self._config != nil}
+      /// Clears the value of `config`. Subsequent reads from it will return its default value.
+      public mutating func clearConfig() {self._config = nil}
+
+      public var status: Anytype_Model_Account.Status {
+        get {return _status ?? Anytype_Model_Account.Status()}
+        set {_status = newValue}
+      }
+      /// Returns true if `status` has been explicitly set.
+      public var hasStatus: Bool {return self._status != nil}
+      /// Clears the value of `status`. Subsequent reads from it will return its default value.
+      public mutating func clearStatus() {self._status = nil}
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+
+      fileprivate var _config: Anytype_Model_Account.Config? = nil
+      fileprivate var _status: Anytype_Model_Account.Status? = nil
     }
 
     public init() {}
@@ -3596,6 +3651,156 @@ extension Anytype_Model.Process.State: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Anytype_Event: @unchecked Sendable {}
+extension Anytype_Event.Message: @unchecked Sendable {}
+extension Anytype_Event.Message.OneOf_Value: @unchecked Sendable {}
+extension Anytype_Event.Account: @unchecked Sendable {}
+extension Anytype_Event.Account.Show: @unchecked Sendable {}
+extension Anytype_Event.Account.Details: @unchecked Sendable {}
+extension Anytype_Event.Account.Config: @unchecked Sendable {}
+extension Anytype_Event.Account.Config.Update: @unchecked Sendable {}
+extension Anytype_Event.Account.Update: @unchecked Sendable {}
+extension Anytype_Event.Object: @unchecked Sendable {}
+extension Anytype_Event.Object.Details: @unchecked Sendable {}
+extension Anytype_Event.Object.Details.Amend: @unchecked Sendable {}
+extension Anytype_Event.Object.Details.Amend.KeyValue: @unchecked Sendable {}
+extension Anytype_Event.Object.Details.Set: @unchecked Sendable {}
+extension Anytype_Event.Object.Details.Unset: @unchecked Sendable {}
+extension Anytype_Event.Object.Subscription: @unchecked Sendable {}
+extension Anytype_Event.Object.Subscription.Add: @unchecked Sendable {}
+extension Anytype_Event.Object.Subscription.Remove: @unchecked Sendable {}
+extension Anytype_Event.Object.Subscription.Position: @unchecked Sendable {}
+extension Anytype_Event.Object.Subscription.Counters: @unchecked Sendable {}
+extension Anytype_Event.Object.Relations: @unchecked Sendable {}
+extension Anytype_Event.Object.Relations.Set: @unchecked Sendable {}
+extension Anytype_Event.Object.Relations.Amend: @unchecked Sendable {}
+extension Anytype_Event.Object.Relations.Remove: @unchecked Sendable {}
+extension Anytype_Event.Object.Relation: @unchecked Sendable {}
+extension Anytype_Event.Object.Relation.Set: @unchecked Sendable {}
+extension Anytype_Event.Object.Relation.Remove: @unchecked Sendable {}
+extension Anytype_Event.Object.Show: @unchecked Sendable {}
+extension Anytype_Event.Object.Show.RelationWithValuePerObject: @unchecked Sendable {}
+extension Anytype_Event.Object.Remove: @unchecked Sendable {}
+extension Anytype_Event.Block: @unchecked Sendable {}
+extension Anytype_Event.Block.Add: @unchecked Sendable {}
+extension Anytype_Event.Block.FilesUpload: @unchecked Sendable {}
+extension Anytype_Event.Block.Delete: @unchecked Sendable {}
+extension Anytype_Event.Block.MarksInfo: @unchecked Sendable {}
+extension Anytype_Event.Block.Set: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Relation: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Relation.Key: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Fields: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.ChildrenIds: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Restrictions: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.BackgroundColor: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Align: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.Text: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.Style: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.Marks: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.Checked: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.Color: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.IconEmoji: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Text.IconImage: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Latex: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Latex.Text: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Div: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Div.Style: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.Name: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.Width: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.State: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.TypeMessage: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.Style: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.Hash: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.Mime: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.File.Size: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Link: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Link.TargetBlockId: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Link.Style: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Link.Fields: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.Url: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.Title: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.Description: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.ImageHash: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.FaviconHash: @unchecked Sendable {}
+extension Anytype_Event.Block.Set.Bookmark.TypeMessage: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Details: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.DatabaseRecords: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Fields: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.ChildrenIds: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Restrictions: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.BackgroundColor: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Align: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Text: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Text.Text: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Text.Style: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Text.Marks: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Text.Checked: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Text.Color: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Div: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Div.Style: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.File: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.File.Name: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.File.Width: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.File.State: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.File.TypeMessage: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.File.Style: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.File.Hash: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.File.Mime: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.File.Size: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Link: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Link.TargetBlockId: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Link.Style: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Link.Fields: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Bookmark: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Bookmark.Url: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Bookmark.Title: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Bookmark.Description: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Bookmark.ImageHash: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Bookmark.FaviconHash: @unchecked Sendable {}
+extension Anytype_Event.Block.Fill.Bookmark.TypeMessage: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewSet: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewDelete: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.ViewOrder: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.SourceSet: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.RelationDelete: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.RelationSet: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.RecordsSet: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.RecordsInsert: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.RecordsUpdate: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.RecordsDelete: @unchecked Sendable {}
+extension Anytype_Event.User: @unchecked Sendable {}
+extension Anytype_Event.User.Block: @unchecked Sendable {}
+extension Anytype_Event.User.Block.Join: @unchecked Sendable {}
+extension Anytype_Event.User.Block.Left: @unchecked Sendable {}
+extension Anytype_Event.User.Block.TextRange: @unchecked Sendable {}
+extension Anytype_Event.User.Block.SelectRange: @unchecked Sendable {}
+extension Anytype_Event.Ping: @unchecked Sendable {}
+extension Anytype_Event.Process: @unchecked Sendable {}
+extension Anytype_Event.Process.New: @unchecked Sendable {}
+extension Anytype_Event.Process.Update: @unchecked Sendable {}
+extension Anytype_Event.Process.Done: @unchecked Sendable {}
+extension Anytype_Event.Status: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread.SyncStatus: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread.Summary: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread.Cafe: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread.Cafe.PinStatus: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread.Account: @unchecked Sendable {}
+extension Anytype_Event.Status.Thread.Device: @unchecked Sendable {}
+extension Anytype_ResponseEvent: @unchecked Sendable {}
+extension Anytype_Model: @unchecked Sendable {}
+extension Anytype_Model.Process: @unchecked Sendable {}
+extension Anytype_Model.Process.TypeEnum: @unchecked Sendable {}
+extension Anytype_Model.Process.State: @unchecked Sendable {}
+extension Anytype_Model.Process.Progress: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "anytype"
@@ -3660,6 +3865,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     1: .same(proto: "accountShow"),
     201: .same(proto: "accountDetails"),
     202: .same(proto: "accountConfigUpdate"),
+    203: .same(proto: "accountUpdate"),
     16: .same(proto: "objectDetailsSet"),
     50: .same(proto: "objectDetailsAmend"),
     51: .same(proto: "objectDetailsUnset"),
@@ -4365,6 +4571,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .accountConfigUpdate(v)
         }
       }()
+      case 203: try {
+        var v: Anytype_Event.Account.Update?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .accountUpdate(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .accountUpdate(v)
+        }
+      }()
       default: break
       }
     }
@@ -4576,6 +4795,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       guard case .accountConfigUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 202)
     }()
+    case .accountUpdate?: try {
+      guard case .accountUpdate(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 203)
+    }()
     case nil: break
     }
     try unknownFields.traverse(visitor: &visitor)
@@ -4714,6 +4937,7 @@ extension Anytype_Event.Account.Config.Update: SwiftProtobuf.Message, SwiftProto
   public static let protoMessageName: String = Anytype_Event.Account.Config.protoMessageName + ".Update"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "config"),
+    2: .same(proto: "status"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -4723,6 +4947,7 @@ extension Anytype_Event.Account.Config.Update: SwiftProtobuf.Message, SwiftProto
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._config) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._status) }()
       default: break
       }
     }
@@ -4736,11 +4961,57 @@ extension Anytype_Event.Account.Config.Update: SwiftProtobuf.Message, SwiftProto
     try { if let v = self._config {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
+    try { if let v = self._status {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Event.Account.Config.Update, rhs: Anytype_Event.Account.Config.Update) -> Bool {
     if lhs._config != rhs._config {return false}
+    if lhs._status != rhs._status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Account.Update: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Account.protoMessageName + ".Update"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "config"),
+    2: .same(proto: "status"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._config) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._status) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._config {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._status {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Account.Update, rhs: Anytype_Event.Account.Update) -> Bool {
+    if lhs._config != rhs._config {return false}
+    if lhs._status != rhs._status {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

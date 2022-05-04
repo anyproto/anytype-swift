@@ -12,24 +12,17 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         let imageView: UIImageView
     }
     
-    var hashable: AnyHashable {
-        [
-            indentationLevel,
-            information
-        ] as [AnyHashable]
-    }
+    var hashable: AnyHashable { [ info ] as [AnyHashable] }
     
-    let information: BlockInformation
+    let info: BlockInformation
     let fileData: BlockFile
     
-    let indentationLevel: Int
     let showIconPicker: Action<BlockId>
     let onImageOpen: Action<ImageOpeningContext>?
     
     init?(
-        information: BlockInformation,
+        info: BlockInformation,
         fileData: BlockFile,
-        indentationLevel: Int,
         showIconPicker: @escaping (BlockId) -> (),
         onImageOpen: Action<ImageOpeningContext>?
     ) {
@@ -41,9 +34,8 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             return nil
         }
         
-        self.information = information
+        self.info = info
         self.fileData = fileData
-        self.indentationLevel = indentationLevel
         self.showIconPicker = showIconPicker
         self.onImageOpen = onImageOpen
     }
@@ -59,7 +51,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         case .done:
             return BlockImageConfiguration(
                 fileData: fileData,
-                alignmetn: information.alignment,
+                alignmetn: info.alignment,
                 maxWidth: maxWidth,
                 imageViewTapHandler: { [weak self] imageView in
                     self?.didTapOpenImage(imageView)
@@ -75,10 +67,11 @@ final class BlockImageViewModel: BlockViewModelProtocol {
             state: state
         ).asCellBlockConfiguration
     }
-    
-    func didSelectRowInTableView() {
+
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {
         switch fileData.state {
         case .empty, .error:
+            guard case .editing = editorEditingState else { return }
             showIconPicker(blockId)
         case .uploading, .done:
             return
@@ -87,20 +80,20 @@ final class BlockImageViewModel: BlockViewModelProtocol {
 
     private func downloadImage() {
         guard
-            let url = ImageID(id: fileData.metadata.hash, width: .original).resolvedUrl
+            let url = ImageMetadata(id: fileData.metadata.hash, width: .original).contentUrl
         else {
             return
         }
 
-        KingfisherManager.shared.retrieveImage(with: url) { result in
-            guard case let .success(success) = result else { return }
+        AnytypeImageDownloader.retrieveImage(with: url, options: nil) { image in
+            guard let image = image else { return }
 
-            UIImageWriteToSavedPhotosAlbum(success.image, nil, nil, nil)
+            UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil)
         }
     }
     
     private func didTapOpenImage(_ sender: UIImageView) {
-        let imageId = ImageID(id: fileData.metadata.hash, width: .original)
+        let imageId = ImageMetadata(id: fileData.metadata.hash, width: .original)
 
         onImageOpen?(.init(image: .middleware(imageId), imageView: sender))
     }

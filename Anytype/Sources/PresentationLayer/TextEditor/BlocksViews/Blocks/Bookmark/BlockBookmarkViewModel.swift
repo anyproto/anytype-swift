@@ -4,16 +4,9 @@ import UIKit
 
 // https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=106%3A745
 struct BlockBookmarkViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable {
-        [
-            indentationLevel,
-            information
-        ] as [AnyHashable]
-    }
+    var hashable: AnyHashable { [ info ] as [AnyHashable] }
     
-    let indentationLevel: Int
-    
-    let information: BlockInformation
+    let info: BlockInformation
     let bookmarkData: BlockBookmark
     
     let showBookmarkBar: (BlockInformation) -> ()
@@ -34,12 +27,15 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
         }
     }
     
-    func didSelectRowInTableView() {
-        guard let url = URL(string: bookmarkData.url) else {
-            showBookmarkBar(information)
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {
+        if let url = URL(string: bookmarkData.url) {
+            openUrl(url)
+
             return
         }
-        
-        openUrl(url)
+
+        guard case .editing = editorEditingState else { return }
+
+        showBookmarkBar(info)
     }
 }

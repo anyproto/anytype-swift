@@ -1,4 +1,4 @@
-import Foundation
+import BlocksModels
 import SwiftUI
 
 extension Relation {
@@ -11,22 +11,19 @@ extension Relation {
         let isBundled: Bool
         
         let selectedObjects: [Option]
+        let limitedObjectTypes: [String]
     }
     
 }
 
 extension Relation.Object {
 
-    struct Option: Hashable, Identifiable, RelationOptionProtocol {
+    struct Option: Hashable, Identifiable {
         let id: String
         
         let icon: ObjectIconImage
         let title: String
         let type: String
-        
-        func makeView() -> AnyView {
-            AnyView(RelationObjectsRowView(object: self))
-        }
     }
     
 }

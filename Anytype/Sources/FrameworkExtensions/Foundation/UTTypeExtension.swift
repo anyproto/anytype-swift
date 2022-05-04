@@ -33,4 +33,8 @@ extension UTType {
     static var xlsx: UTType {
         UTType.types(tag: "xlsx", tagClass: .filenameExtension, conformingTo: nil).first!
     }
+
+    static var blockSlot: UTType {
+        UTType("com.anytype.blockSlot")!
+    }
 }

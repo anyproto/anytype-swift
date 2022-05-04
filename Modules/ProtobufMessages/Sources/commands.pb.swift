@@ -9649,6 +9649,7 @@ public struct Anytype_Rpc {
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
+    /// TODO: use model from models.proto
     public struct Config {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -9741,32 +9742,33 @@ public struct Anytype_Rpc {
 
         /// Error while trying to create an account
         public var error: Anytype_Rpc.Account.Create.Response.Error {
-          get {return _storage._error ?? Anytype_Rpc.Account.Create.Response.Error()}
-          set {_uniqueStorage()._error = newValue}
+          get {return _error ?? Anytype_Rpc.Account.Create.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {return _storage._error != nil}
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {_uniqueStorage()._error = nil}
+        public mutating func clearError() {self._error = nil}
 
         /// A newly created account; In case of a failure, i.e. error is non-NULL, the account model should contain empty/default-value fields
         public var account: Anytype_Model_Account {
-          get {return _storage._account ?? Anytype_Model_Account()}
-          set {_uniqueStorage()._account = newValue}
+          get {return _account ?? Anytype_Model_Account()}
+          set {_account = newValue}
         }
         /// Returns true if `account` has been explicitly set.
-        public var hasAccount: Bool {return _storage._account != nil}
+        public var hasAccount: Bool {return self._account != nil}
         /// Clears the value of `account`. Subsequent reads from it will return its default value.
-        public mutating func clearAccount() {_uniqueStorage()._account = nil}
+        public mutating func clearAccount() {self._account = nil}
 
+        /// deprecated, use account
         public var config: Anytype_Rpc.Account.Config {
-          get {return _storage._config ?? Anytype_Rpc.Account.Config()}
-          set {_uniqueStorage()._config = newValue}
+          get {return _config ?? Anytype_Rpc.Account.Config()}
+          set {_config = newValue}
         }
         /// Returns true if `config` has been explicitly set.
-        public var hasConfig: Bool {return _storage._config != nil}
+        public var hasConfig: Bool {return self._config != nil}
         /// Clears the value of `config`. Subsequent reads from it will return its default value.
-        public mutating func clearConfig() {_uniqueStorage()._config = nil}
+        public mutating func clearConfig() {self._config = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -9853,7 +9855,9 @@ public struct Anytype_Rpc {
 
         public init() {}
 
-        fileprivate var _storage = _StorageClass.defaultInstance
+        fileprivate var _error: Anytype_Rpc.Account.Create.Response.Error? = nil
+        fileprivate var _account: Anytype_Model_Account? = nil
+        fileprivate var _config: Anytype_Rpc.Account.Config? = nil
       }
 
       public init() {}
@@ -9926,6 +9930,7 @@ public struct Anytype_Rpc {
             case walletRecoverNotPerformed // = 106
             case failedToStopRunningNode // = 107
             case anotherAnytypeProcessIsRunning // = 108
+            case accountIsDeleted // = 109
             case UNRECOGNIZED(Int)
 
             public init() {
@@ -9945,6 +9950,7 @@ public struct Anytype_Rpc {
               case 106: self = .walletRecoverNotPerformed
               case 107: self = .failedToStopRunningNode
               case 108: self = .anotherAnytypeProcessIsRunning
+              case 109: self = .accountIsDeleted
               default: self = .UNRECOGNIZED(rawValue)
               }
             }
@@ -9962,6 +9968,7 @@ public struct Anytype_Rpc {
               case .walletRecoverNotPerformed: return 106
               case .failedToStopRunningNode: return 107
               case .anotherAnytypeProcessIsRunning: return 108
+              case .accountIsDeleted: return 109
               case .UNRECOGNIZED(let i): return i
               }
             }
@@ -9974,6 +9981,115 @@ public struct Anytype_Rpc {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.Account.Recover.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    public struct Delete {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var revert: Bool = false
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// Error while trying to recover an account
+        public var error: Anytype_Rpc.Account.Delete.Response.Error {
+          get {return _error ?? Anytype_Rpc.Account.Delete.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var status: Anytype_Model_Account.Status {
+          get {return _status ?? Anytype_Model_Account.Status()}
+          set {_status = newValue}
+        }
+        /// Returns true if `status` has been explicitly set.
+        public var hasStatus: Bool {return self._status != nil}
+        /// Clears the value of `status`. Subsequent reads from it will return its default value.
+        public mutating func clearStatus() {self._status = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Account.Delete.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+
+            /// No error;
+            case null // = 0
+
+            /// Any other errors
+            case unknownError // = 1
+            case badInput // = 2
+            case accountIsAlreadyDeleted // = 101
+            case accountIsActive // = 102
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 101: self = .accountIsAlreadyDeleted
+              case 102: self = .accountIsActive
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .accountIsAlreadyDeleted: return 101
+              case .accountIsActive: return 102
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Account.Delete.Response.Error? = nil
+        fileprivate var _status: Anytype_Model_Account.Status? = nil
       }
 
       public init() {}
@@ -10014,32 +10130,33 @@ public struct Anytype_Rpc {
 
         /// Error while trying to launch/select an account
         public var error: Anytype_Rpc.Account.Select.Response.Error {
-          get {return _storage._error ?? Anytype_Rpc.Account.Select.Response.Error()}
-          set {_uniqueStorage()._error = newValue}
+          get {return _error ?? Anytype_Rpc.Account.Select.Response.Error()}
+          set {_error = newValue}
         }
         /// Returns true if `error` has been explicitly set.
-        public var hasError: Bool {return _storage._error != nil}
+        public var hasError: Bool {return self._error != nil}
         /// Clears the value of `error`. Subsequent reads from it will return its default value.
-        public mutating func clearError() {_uniqueStorage()._error = nil}
+        public mutating func clearError() {self._error = nil}
 
         /// Selected account
         public var account: Anytype_Model_Account {
-          get {return _storage._account ?? Anytype_Model_Account()}
-          set {_uniqueStorage()._account = newValue}
+          get {return _account ?? Anytype_Model_Account()}
+          set {_account = newValue}
         }
         /// Returns true if `account` has been explicitly set.
-        public var hasAccount: Bool {return _storage._account != nil}
+        public var hasAccount: Bool {return self._account != nil}
         /// Clears the value of `account`. Subsequent reads from it will return its default value.
-        public mutating func clearAccount() {_uniqueStorage()._account = nil}
+        public mutating func clearAccount() {self._account = nil}
 
+        /// deprecated, use account
         public var config: Anytype_Rpc.Account.Config {
-          get {return _storage._config ?? Anytype_Rpc.Account.Config()}
-          set {_uniqueStorage()._config = newValue}
+          get {return _config ?? Anytype_Rpc.Account.Config()}
+          set {_config = newValue}
         }
         /// Returns true if `config` has been explicitly set.
-        public var hasConfig: Bool {return _storage._config != nil}
+        public var hasConfig: Bool {return self._config != nil}
         /// Clears the value of `config`. Subsequent reads from it will return its default value.
-        public mutating func clearConfig() {_uniqueStorage()._config = nil}
+        public mutating func clearConfig() {self._config = nil}
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -10120,7 +10237,9 @@ public struct Anytype_Rpc {
 
         public init() {}
 
-        fileprivate var _storage = _StorageClass.defaultInstance
+        fileprivate var _error: Anytype_Rpc.Account.Select.Response.Error? = nil
+        fileprivate var _account: Anytype_Model_Account? = nil
+        fileprivate var _config: Anytype_Rpc.Account.Config? = nil
       }
 
       public init() {}
@@ -17844,6 +17963,18 @@ extension Anytype_Rpc.Account.Recover.Response.Error.Code: CaseIterable {
     .walletRecoverNotPerformed,
     .failedToStopRunningNode,
     .anotherAnytypeProcessIsRunning,
+    .accountIsDeleted,
+  ]
+}
+
+extension Anytype_Rpc.Account.Delete.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.Delete.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .accountIsAlreadyDeleted,
+    .accountIsActive,
   ]
 }
 
@@ -18510,6 +18641,833 @@ public struct Anytype_Empty {
 
   public init() {}
 }
+
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Anytype_Rpc: @unchecked Sendable {}
+extension Anytype_Rpc.Metrics: @unchecked Sendable {}
+extension Anytype_Rpc.Metrics.SetParameters: @unchecked Sendable {}
+extension Anytype_Rpc.Metrics.SetParameters.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Metrics.SetParameters.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Metrics.SetParameters.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Metrics.SetParameters.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ExternalDrop: @unchecked Sendable {}
+extension Anytype_Rpc.ExternalDrop.Files: @unchecked Sendable {}
+extension Anytype_Rpc.ExternalDrop.Files.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ExternalDrop.Files.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ExternalDrop.Files.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ExternalDrop.Files.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ExternalDrop.Content: @unchecked Sendable {}
+extension Anytype_Rpc.ExternalDrop.Content.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ExternalDrop.Content.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ExternalDrop.Content.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ExternalDrop.Content.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.ConvertChildrenToPages.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Move: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Move.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Move.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Move.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Move.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.MoveToNewPage: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.MoveToNewPage.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.MoveToNewPage.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.MoveToNewPage.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.MoveToNewPage.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Duplicate: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Duplicate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Duplicate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Duplicate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Duplicate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Style: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Style.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Style.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Style.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Style.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Color: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Color.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Color.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Color.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Color.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Mark: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Mark.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Mark.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Mark.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Text.Mark.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.BackgroundColor: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.BackgroundColor.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.BackgroundColor.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Align: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Align.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Align.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Align.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Align.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Fields: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Fields.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Fields.Request.BlockField: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Fields.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Fields.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Fields.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Div: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Div.Style: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Div.Style.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Div.Style.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.File: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.File.Style: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.File.Style.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.File.Style.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.File.Style.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.Set.File.Style.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.TurnInto: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.TurnInto.Request: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.TurnInto.Response: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.TurnInto.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.BlockList.TurnInto.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Replace: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Replace.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Replace.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Replace.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Replace.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.UpdateContent: @unchecked Sendable {}
+extension Anytype_Rpc.Block.UpdateContent.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.UpdateContent.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.UpdateContent.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.UpdateContent.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Split: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Split.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Split.Request.Mode: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Split.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Split.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Split.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Merge: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Merge.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Merge.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Merge.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Merge.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Copy: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Copy.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Copy.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Copy.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Copy.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Paste: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Paste.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Paste.Request.File: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Paste.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Paste.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Paste.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Cut: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Cut.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Cut.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Cut.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Cut.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ImportMarkdown: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ImportMarkdown.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ImportMarkdown.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ImportMarkdown.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ImportMarkdown.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Export: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Export.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Export.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Export.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Export.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Upload: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Upload.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Upload.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Upload.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Upload.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Download: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Download.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Download.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Download.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Download.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Fields: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Fields.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Fields.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Fields.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Fields.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Details: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Details.Detail: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Details.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Details.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Details.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Details.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Restrictions: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Restrictions.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Restrictions.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Restrictions.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Restrictions.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Page: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Page.IsArchived: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Page.IsArchived.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Page.IsArchived.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Page.IsArchived.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Page.IsArchived.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Latex: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Latex.Text: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Latex.Text.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Latex.Text.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Latex.Text.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Latex.Text.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Text: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Text.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Text.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Text.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Text.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Color: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Color.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Color.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Color.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Color.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Style: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Style.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Style.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Style.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Style.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Checked: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Checked.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Checked.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Checked.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Checked.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Icon: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Icon.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Icon.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Icon.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Text.Icon.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.File: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.File.Name: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.File.Name.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.File.Name.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.File.Name.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.File.Name.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Image: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Image.Name: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Image.Name.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Image.Name.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Image.Name.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Image.Name.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Image.Width: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Image.Width.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Image.Width.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Image.Width.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Image.Width.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Video: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Video.Name: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Video.Name.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Video.Name.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Video.Name.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Video.Name.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Video.Width: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Video.Width.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Video.Width.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Video.Width.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Video.Width.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Link: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Link.TargetBlockId: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Set.Link.TargetBlockId.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Relation: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Relation.SetKey: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Relation.SetKey.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Relation.SetKey.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Relation.SetKey.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Relation.SetKey.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Relation.Add: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Relation.Add.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Relation.Add.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Relation.Add.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Relation.Add.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ObjectType: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ObjectType.Set: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ObjectType.Set.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ObjectType.Set.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ObjectType.Set.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.ObjectType.Set.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Bookmark: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Bookmark.Fetch: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Bookmark.Fetch.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Bookmark.Fetch.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Bookmark.Fetch.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Bookmark.Fetch.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Bookmark.CreateAndFetch.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.File: @unchecked Sendable {}
+extension Anytype_Rpc.Block.File.CreateAndUpload: @unchecked Sendable {}
+extension Anytype_Rpc.Block.File.CreateAndUpload.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.File.CreateAndUpload.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.File.CreateAndUpload.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.File.CreateAndUpload.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewCreate: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewCreate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewCreate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewCreate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewCreate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewUpdate: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewUpdate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewUpdate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewUpdate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewUpdate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewDelete: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewDelete.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewDelete.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewDelete.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewDelete.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewSetPosition.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewSetActive: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewSetActive.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewSetActive.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewSetActive.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.ViewSetActive.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordUpdate: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordUpdate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordUpdate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordUpdate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordUpdate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordDelete: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordDelete.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordDelete.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordDelete.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordDelete.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordCreate: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordCreate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordCreate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordCreate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordCreate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationAdd: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationAdd.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationAdd.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationAdd.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationAdd.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationUpdate: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationUpdate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationUpdate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationUpdate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationUpdate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationDelete: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationDelete.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationDelete.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationDelete.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationDelete.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionAdd: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionAdd.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionAdd.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionAdd.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionAdd.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionUpdate: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionUpdate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionUpdate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionUpdate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionUpdate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionDelete: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionDelete.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionDelete.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionDelete.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RecordRelationOptionDelete.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationListAvailable: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationListAvailable.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationListAvailable.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationListAvailable.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.RelationListAvailable.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.SetSource: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.SetSource.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.SetSource.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.SetSource.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Dataview.SetSource.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Get: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Get.Marks: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Get.Marks.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Get.Marks.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Get.Marks.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Get.Marks.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.UndoRedoCounter: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Undo: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Undo.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Undo.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Undo.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Undo.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Redo: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Redo.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Redo.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Redo.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Redo.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Open: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Open.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Open.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Open.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Open.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Show: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Show.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Show.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Show.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Show.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.GetPublicWebURL: @unchecked Sendable {}
+extension Anytype_Rpc.Block.GetPublicWebURL.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.GetPublicWebURL.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.GetPublicWebURL.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.GetPublicWebURL.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.OpenBreadcrumbs: @unchecked Sendable {}
+extension Anytype_Rpc.Block.OpenBreadcrumbs.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.OpenBreadcrumbs.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.OpenBreadcrumbs.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.SetBreadcrumbs: @unchecked Sendable {}
+extension Anytype_Rpc.Block.SetBreadcrumbs.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.SetBreadcrumbs.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.SetBreadcrumbs.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.SetBreadcrumbs.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Create: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Create.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Create.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Create.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Create.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.CreatePage: @unchecked Sendable {}
+extension Anytype_Rpc.Block.CreatePage.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.CreatePage.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.CreatePage.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.CreatePage.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.CreateSet: @unchecked Sendable {}
+extension Anytype_Rpc.Block.CreateSet.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.CreateSet.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.CreateSet.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.CreateSet.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Unlink: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Unlink.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Unlink.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Unlink.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Unlink.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Close: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Close.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Close.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Close.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Block.Close.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.GetCurrent: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.GetCurrent.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.GetCurrent.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.GetCurrent.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.GetAll: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.GetAll.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.GetAll.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.GetAll.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.GetAll.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Create: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Create.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Create.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Create.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Create.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.SetIsHighlighted: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Select: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Select.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Select.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Select.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Workspace.Select.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Create: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Create.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Create.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Create.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Create.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Recover: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Recover.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Recover.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Recover.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Recover.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Convert: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Convert.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Convert.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Convert.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Wallet.Convert.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Account: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Config: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Create: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Create.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Create.Request.OneOf_Avatar: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Create.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Create.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Create.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Recover: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Recover.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Recover.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Recover.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Recover.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Delete: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Delete.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Delete.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Delete.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Delete.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Select: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Select.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Select.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Select.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Select.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Stop: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Stop.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Stop.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Stop.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Stop.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Log: @unchecked Sendable {}
+extension Anytype_Rpc.Log.Send: @unchecked Sendable {}
+extension Anytype_Rpc.Log.Send.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Log.Send.Request.Level: @unchecked Sendable {}
+extension Anytype_Rpc.Log.Send.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Log.Send.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Log.Send.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Version: @unchecked Sendable {}
+extension Anytype_Rpc.Version.Get: @unchecked Sendable {}
+extension Anytype_Rpc.Version.Get.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Version.Get.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Version.Get.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Version.Get.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.File: @unchecked Sendable {}
+extension Anytype_Rpc.File.Offload: @unchecked Sendable {}
+extension Anytype_Rpc.File.Offload.Request: @unchecked Sendable {}
+extension Anytype_Rpc.File.Offload.Response: @unchecked Sendable {}
+extension Anytype_Rpc.File.Offload.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.File.Offload.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.FileList: @unchecked Sendable {}
+extension Anytype_Rpc.FileList.Offload: @unchecked Sendable {}
+extension Anytype_Rpc.FileList.Offload.Request: @unchecked Sendable {}
+extension Anytype_Rpc.FileList.Offload.Response: @unchecked Sendable {}
+extension Anytype_Rpc.FileList.Offload.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.FileList.Offload.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Shutdown: @unchecked Sendable {}
+extension Anytype_Rpc.Shutdown.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Shutdown.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Shutdown.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Shutdown.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Config: @unchecked Sendable {}
+extension Anytype_Rpc.Config.Get: @unchecked Sendable {}
+extension Anytype_Rpc.Config.Get.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Config.Get.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Config.Get.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Config.Get.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Ping: @unchecked Sendable {}
+extension Anytype_Rpc.Ping.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Ping.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Ping.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Ping.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Process: @unchecked Sendable {}
+extension Anytype_Rpc.Process.Cancel: @unchecked Sendable {}
+extension Anytype_Rpc.Process.Cancel.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Process.Cancel.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Process.Cancel.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Process.Cancel.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.LinkPreview: @unchecked Sendable {}
+extension Anytype_Rpc.LinkPreview.Request: @unchecked Sendable {}
+extension Anytype_Rpc.LinkPreview.Response: @unchecked Sendable {}
+extension Anytype_Rpc.LinkPreview.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.LinkPreview.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.UploadFile: @unchecked Sendable {}
+extension Anytype_Rpc.UploadFile.Request: @unchecked Sendable {}
+extension Anytype_Rpc.UploadFile.Response: @unchecked Sendable {}
+extension Anytype_Rpc.UploadFile.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.UploadFile.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.DownloadFile: @unchecked Sendable {}
+extension Anytype_Rpc.DownloadFile.Request: @unchecked Sendable {}
+extension Anytype_Rpc.DownloadFile.Response: @unchecked Sendable {}
+extension Anytype_Rpc.DownloadFile.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.DownloadFile.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.Context: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.ListObjects: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.ListObjects.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.ListObjects.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.ListObjects.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.ListObjects.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.History: @unchecked Sendable {}
+extension Anytype_Rpc.History.Versions: @unchecked Sendable {}
+extension Anytype_Rpc.History.Versions.Version: @unchecked Sendable {}
+extension Anytype_Rpc.History.Versions.Request: @unchecked Sendable {}
+extension Anytype_Rpc.History.Versions.Response: @unchecked Sendable {}
+extension Anytype_Rpc.History.Versions.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.History.Versions.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.History.Show: @unchecked Sendable {}
+extension Anytype_Rpc.History.Show.Request: @unchecked Sendable {}
+extension Anytype_Rpc.History.Show.Response: @unchecked Sendable {}
+extension Anytype_Rpc.History.Show.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.History.Show.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.History.SetVersion: @unchecked Sendable {}
+extension Anytype_Rpc.History.SetVersion.Request: @unchecked Sendable {}
+extension Anytype_Rpc.History.SetVersion.Response: @unchecked Sendable {}
+extension Anytype_Rpc.History.SetVersion.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.History.SetVersion.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Page: @unchecked Sendable {}
+extension Anytype_Rpc.Page.Create: @unchecked Sendable {}
+extension Anytype_Rpc.Page.Create.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Page.Create.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Page.Create.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Page.Create.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Set: @unchecked Sendable {}
+extension Anytype_Rpc.Set.Create: @unchecked Sendable {}
+extension Anytype_Rpc.Set.Create.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Set.Create.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Set.Create.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Set.Create.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.List: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.List.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.List.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.List.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.List.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Create: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Create.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Create.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Create.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Create.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Add: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Add.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Add.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Remove: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Remove.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Remove.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Update: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Update.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Update.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Update.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.Update.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.List: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.List.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.List.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.List.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectType.Relation.List.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ShareByLink: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ShareByLink.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ShareByLink.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ShareByLink.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ShareByLink.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.AddWithObjectId: @unchecked Sendable {}
+extension Anytype_Rpc.Object.AddWithObjectId.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.AddWithObjectId.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.AddWithObjectId.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.AddWithObjectId.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationAdd: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationAdd.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationAdd.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationAdd.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationAdd.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationUpdate: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationUpdate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationUpdate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationUpdate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationUpdate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationDelete: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationDelete.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationDelete.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationDelete.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationDelete.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionAdd: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionAdd.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionAdd.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionAdd.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionAdd.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionUpdate: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionUpdate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionUpdate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionUpdate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionUpdate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionDelete: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionDelete.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionDelete.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionDelete.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationOptionDelete.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationListAvailable: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationListAvailable.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationListAvailable.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationListAvailable.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.RelationListAvailable.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Search: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Search.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Search.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Search.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Search.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Node: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Edge: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Edge.TypeEnum: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.Graph.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SearchSubscribe: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SearchSubscribe.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SearchSubscribe.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SearchSubscribe.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.IdsSubscribe: @unchecked Sendable {}
+extension Anytype_Rpc.Object.IdsSubscribe.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.IdsSubscribe.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.IdsSubscribe.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.IdsSubscribe.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SearchUnsubscribe: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SearchUnsubscribe.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SearchUnsubscribe.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetLayout: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetLayout.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetLayout.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetLayout.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetLayout.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetIsFavorite: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetIsFavorite.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetIsFavorite.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetIsFavorite.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetIsFavorite.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetIsArchived: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetIsArchived.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetIsArchived.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetIsArchived.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.SetIsArchived.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.FeaturedRelation: @unchecked Sendable {}
+extension Anytype_Rpc.Object.FeaturedRelation.Add: @unchecked Sendable {}
+extension Anytype_Rpc.Object.FeaturedRelation.Add.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.FeaturedRelation.Add.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.FeaturedRelation.Add.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.FeaturedRelation.Add.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.FeaturedRelation.Remove: @unchecked Sendable {}
+extension Anytype_Rpc.Object.FeaturedRelation.Remove.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ToSet: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ToSet.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ToSet.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ToSet.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Object.ToSet.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Delete: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Delete.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Delete.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Delete.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Delete.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Set: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Set.IsArchived: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Set.IsFavorite: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Export: @unchecked Sendable {}
+extension Anytype_Rpc.Export.Format: @unchecked Sendable {}
+extension Anytype_Rpc.Export.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Export.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Export.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Export.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ExportWorkspace: @unchecked Sendable {}
+extension Anytype_Rpc.ExportWorkspace.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ExportWorkspace.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ExportWorkspace.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ExportWorkspace.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ExportTemplates: @unchecked Sendable {}
+extension Anytype_Rpc.ExportTemplates.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ExportTemplates.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ExportTemplates.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ExportTemplates.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ExportLocalstore: @unchecked Sendable {}
+extension Anytype_Rpc.ExportLocalstore.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ExportLocalstore.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ExportLocalstore.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ExportLocalstore.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.MakeTemplate: @unchecked Sendable {}
+extension Anytype_Rpc.MakeTemplate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.MakeTemplate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.MakeTemplate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.MakeTemplate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.MakeTemplateByObjectType: @unchecked Sendable {}
+extension Anytype_Rpc.MakeTemplateByObjectType.Request: @unchecked Sendable {}
+extension Anytype_Rpc.MakeTemplateByObjectType.Response: @unchecked Sendable {}
+extension Anytype_Rpc.MakeTemplateByObjectType.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.MakeTemplateByObjectType.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.CloneTemplate: @unchecked Sendable {}
+extension Anytype_Rpc.CloneTemplate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.CloneTemplate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.CloneTemplate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.CloneTemplate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectDuplicate: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectDuplicate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectDuplicate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectDuplicate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ObjectDuplicate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.UnsplashSearch: @unchecked Sendable {}
+extension Anytype_Rpc.UnsplashSearch.Request: @unchecked Sendable {}
+extension Anytype_Rpc.UnsplashSearch.Response: @unchecked Sendable {}
+extension Anytype_Rpc.UnsplashSearch.Response.Picture: @unchecked Sendable {}
+extension Anytype_Rpc.UnsplashSearch.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.UnsplashSearch.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.UnsplashDownload: @unchecked Sendable {}
+extension Anytype_Rpc.UnsplashDownload.Request: @unchecked Sendable {}
+extension Anytype_Rpc.UnsplashDownload.Response: @unchecked Sendable {}
+extension Anytype_Rpc.UnsplashDownload.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.UnsplashDownload.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.ApplyTemplate: @unchecked Sendable {}
+extension Anytype_Rpc.ApplyTemplate.Request: @unchecked Sendable {}
+extension Anytype_Rpc.ApplyTemplate.Response: @unchecked Sendable {}
+extension Anytype_Rpc.ApplyTemplate.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.ApplyTemplate.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Debug: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.logInfo: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.threadInfo: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Sync: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Sync.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Sync.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Sync.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Sync.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Thread: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Thread.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Thread.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Thread.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Thread.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Tree: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Tree.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Tree.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Tree.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Debug.Tree.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.GenericErrorResponse: @unchecked Sendable {}
+extension Anytype_Rpc.GenericErrorResponse.Error: @unchecked Sendable {}
+extension Anytype_Rpc.GenericErrorResponse.Error.Code: @unchecked Sendable {}
+extension Anytype_Empty: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -32691,77 +33649,41 @@ extension Anytype_Rpc.Account.Create.Response: SwiftProtobuf.Message, SwiftProto
     3: .same(proto: "config"),
   ]
 
-  fileprivate class _StorageClass {
-    var _error: Anytype_Rpc.Account.Create.Response.Error? = nil
-    var _account: Anytype_Model_Account? = nil
-    var _config: Anytype_Rpc.Account.Config? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _error = source._error
-      _account = source._account
-      _config = source._config
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._error) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._account) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._config) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._account) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._config) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      try { if let v = _storage._error {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      } }()
-      try { if let v = _storage._account {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      } }()
-      try { if let v = _storage._config {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
-    }
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._account {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._config {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Create.Response, rhs: Anytype_Rpc.Account.Create.Response) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._error != rhs_storage._error {return false}
-        if _storage._account != rhs_storage._account {return false}
-        if _storage._config != rhs_storage._config {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._account != rhs._account {return false}
+    if lhs._config != rhs._config {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -32946,6 +33868,148 @@ extension Anytype_Rpc.Account.Recover.Response.Error.Code: SwiftProtobuf._ProtoN
     106: .same(proto: "WALLET_RECOVER_NOT_PERFORMED"),
     107: .same(proto: "FAILED_TO_STOP_RUNNING_NODE"),
     108: .same(proto: "ANOTHER_ANYTYPE_PROCESS_IS_RUNNING"),
+    109: .same(proto: "ACCOUNT_IS_DELETED"),
+  ]
+}
+
+extension Anytype_Rpc.Account.Delete: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Delete"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Delete, rhs: Anytype_Rpc.Account.Delete) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Delete.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.Delete.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "revert"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.revert) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.revert != false {
+      try visitor.visitSingularBoolField(value: self.revert, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Delete.Request, rhs: Anytype_Rpc.Account.Delete.Request) -> Bool {
+    if lhs.revert != rhs.revert {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Delete.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.Delete.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+    2: .same(proto: "status"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._status) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._status {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Delete.Response, rhs: Anytype_Rpc.Account.Delete.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs._status != rhs._status {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Delete.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.Delete.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Delete.Response.Error, rhs: Anytype_Rpc.Account.Delete.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Delete.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    101: .same(proto: "ACCOUNT_IS_ALREADY_DELETED"),
+    102: .same(proto: "ACCOUNT_IS_ACTIVE"),
   ]
 }
 
@@ -33014,77 +34078,41 @@ extension Anytype_Rpc.Account.Select.Response: SwiftProtobuf.Message, SwiftProto
     3: .same(proto: "config"),
   ]
 
-  fileprivate class _StorageClass {
-    var _error: Anytype_Rpc.Account.Select.Response.Error? = nil
-    var _account: Anytype_Model_Account? = nil
-    var _config: Anytype_Rpc.Account.Config? = nil
-
-    static let defaultInstance = _StorageClass()
-
-    private init() {}
-
-    init(copying source: _StorageClass) {
-      _error = source._error
-      _account = source._account
-      _config = source._config
-    }
-  }
-
-  fileprivate mutating func _uniqueStorage() -> _StorageClass {
-    if !isKnownUniquelyReferenced(&_storage) {
-      _storage = _StorageClass(copying: _storage)
-    }
-    return _storage
-  }
-
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    _ = _uniqueStorage()
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      while let fieldNumber = try decoder.nextFieldNumber() {
-        // The use of inline closures is to circumvent an issue where the compiler
-        // allocates stack space for every case branch when no optimizations are
-        // enabled. https://github.com/apple/swift-protobuf/issues/1034
-        switch fieldNumber {
-        case 1: try { try decoder.decodeSingularMessageField(value: &_storage._error) }()
-        case 2: try { try decoder.decodeSingularMessageField(value: &_storage._account) }()
-        case 3: try { try decoder.decodeSingularMessageField(value: &_storage._config) }()
-        default: break
-        }
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._account) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._config) }()
+      default: break
       }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    try withExtendedLifetime(_storage) { (_storage: _StorageClass) in
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every if/case branch local when no optimizations
-      // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
-      // https://github.com/apple/swift-protobuf/issues/1182
-      try { if let v = _storage._error {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
-      } }()
-      try { if let v = _storage._account {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
-      } }()
-      try { if let v = _storage._config {
-        try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
-      } }()
-    }
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try { if let v = self._account {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try { if let v = self._config {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Account.Select.Response, rhs: Anytype_Rpc.Account.Select.Response) -> Bool {
-    if lhs._storage !== rhs._storage {
-      let storagesAreEqual: Bool = withExtendedLifetime((lhs._storage, rhs._storage)) { (_args: (_StorageClass, _StorageClass)) in
-        let _storage = _args.0
-        let rhs_storage = _args.1
-        if _storage._error != rhs_storage._error {return false}
-        if _storage._account != rhs_storage._account {return false}
-        if _storage._config != rhs_storage._config {return false}
-        return true
-      }
-      if !storagesAreEqual {return false}
-    }
+    if lhs._error != rhs._error {return false}
+    if lhs._account != rhs._account {return false}
+    if lhs._config != rhs._config {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -52,7 +52,7 @@ final class ChangeTypeAccessoryViewModel {
         document.updatePublisher.sink { [weak self] _ in
             guard let self = self else { return }
             let filteredItems = self.allSupportedTypes.filter {
-                $0.id != self.document.objectDetails?.type
+                $0.id != self.document.details?.type
             }
             self.supportedTypes = filteredItems
         }.store(in: &cancellables)

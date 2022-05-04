@@ -1,4 +1,6 @@
 import BlocksModels
+import UIKit
+import AnytypeCore
 
 extension Array where Element == BlockRestrictions {
     var mergedOptions: Set<BlocksOptionItem> {
@@ -53,6 +55,28 @@ extension Array where Element == BlockInformation {
 
         if !isStyleAvailable || count > 1 {
             mergedItems.remove(.style)
+        }
+
+        if !FeatureFlags.objectPreview {
+            mergedItems.remove(.preview)
+        }
+
+        var isPreviewAvailable = false
+        if case .link = first?.content, count == 1 {
+            isPreviewAvailable = true
+        }
+
+        if !isPreviewAvailable {
+            mergedItems.remove(.preview)
+        }
+
+        if FeatureFlags.clipboard {
+            if !UIPasteboard.general.hasSlots {
+                mergedItems.remove(.paste)
+            }
+        } else {
+            mergedItems.remove(.copy)
+            mergedItems.remove(.paste)
         }
 
         return Array<BlocksOptionItem>(mergedItems).sorted()

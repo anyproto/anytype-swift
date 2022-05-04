@@ -67,7 +67,7 @@ public extension RelationMetadata {
         self.isBundled = BundledRelationKey(rawValue: middlewareRelation.key).isNotNil
     }
 
-    var middlewareModel: Anytype_Model_Relation {
+    var asMiddleware: Anytype_Model_Relation {
         let scope = Anytype_Model_Relation.Scope(rawValue: scope.rawValue) ?? .object
         let format = Anytype_Model_RelationFormat(rawValue: format.rawValue) ?? .longtext
 
@@ -83,12 +83,18 @@ public extension RelationMetadata {
             multi: isMulti,
             objectTypes: objectTypes,
             selectDict: selections.map {
-                $0.middlewareModel
+                $0.asMiddleware
             },
             maxCount: 0,
             description_p: "",
             scope: scope,
             creator: ""
         )
+    }
+}
+
+public extension Anytype_Model_Relation {
+    var asModel: RelationMetadata {
+        RelationMetadata(middlewareRelation: self)
     }
 }

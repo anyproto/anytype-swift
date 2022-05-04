@@ -12,7 +12,7 @@ final class BlockMediaUploadingWorker {
 
     let contentType: MediaPickerContentType
     
-    private let fileService = BlockActionsServiceFile()
+    private let fileService = FileActionsService()
     
     private let objectId: String
     private let blockId: String

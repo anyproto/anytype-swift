@@ -4,9 +4,9 @@ import FloatingPanel
 
 protocol AnytypePopupViewModelProtocol {
     
-    var popupLayout: FloatingPanelLayout { get }
+    var popupLayout: AnytypePopupLayoutType { get }
     
-    func setContentDelegate(_ сontentDelegate: AnytypePopupContentDelegate)
+    func onPopupInstall(_ popup: AnytypePopupProxy)
     
     func makeContentView() -> UIViewController
     

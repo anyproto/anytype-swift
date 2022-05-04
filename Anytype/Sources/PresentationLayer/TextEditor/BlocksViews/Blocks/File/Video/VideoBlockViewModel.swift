@@ -2,21 +2,16 @@ import BlocksModels
 import UIKit
 
 struct VideoBlockViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable {
-        [
-            indentationLevel,
-            information
-        ] as [AnyHashable]
-    }
+    var hashable: AnyHashable { [ info ] as [AnyHashable] }
     
-    let indentationLevel: Int
-    let information: BlockInformation
+    let info: BlockInformation
     let fileData: BlockFile
     
     let showVideoPicker: (BlockId) -> ()
-    let downloadVideo: (FileId) -> ()
     
-    func didSelectRowInTableView() {
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {
+        if case .locked = editorEditingState { return }
+
         switch fileData.state {
         case .empty, .error:
             showVideoPicker(blockId)

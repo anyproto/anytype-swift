@@ -1,12 +1,12 @@
 import BlocksModels
 import Combine
 import AnytypeCore
-import Foundation
 
 enum EditorEditingState {
     case editing
     case selecting(blocks: [BlockId])
     case moving(indexPaths: [IndexPath])
+    case locked
 }
 
 /// Blocks drag & drop protocol.
@@ -19,6 +19,7 @@ protocol EditorPageMovingManagerProtocol {
     func moveItem(at indexPath: IndexPath)
 
     func didSelectMovingIndexPaths(_ indexPaths: [IndexPath])
+    func didSelectEditingMode()
 }
 
 protocol EditorPageSelectionManagerProtocol {
@@ -29,8 +30,12 @@ protocol EditorPageSelectionManagerProtocol {
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath])
 }
 
-protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol {
-    var editorEditingState: AnyPublisher<EditorEditingState, Never> { get }
+protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol, AnyObject {
+    func checkDocumentLockField()
+
+    var editingState: EditorEditingState { get }
+    var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { get }
+    var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { get }
 }
 
 final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
@@ -39,21 +44,24 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case object(BlockId)
     }
 
-    var editorEditingState: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher()
-    }
+    var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
+    var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { $selectedBlocks.eraseToAnyPublisher() }
+
     @Published var editingState: EditorEditingState = .editing
+    @Published var selectedBlocks = [BlockId]()
 
     private(set) var selectedBlocksIndexPaths = [IndexPath]()
     private(set) var movingBlocksIndexPaths = [IndexPath]()
-    private var movingDestination: MovingDestination?
+    private var movingDestination: MovingDestination?   
 
     // We need to store interspace between root and all childs to disable cursor moving between those indexPaths
     private var movingBlocksWithChildsIndexPaths = [[IndexPath]]()
 
     private let document: BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
-    private let blockActionsService: BlockActionsServiceSingle
+    private let blockActionsServiceSingle: BlockActionsServiceSingleProtocol
     private let actionHandler: BlockActionHandlerProtocol
+    private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
 
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
@@ -64,18 +72,28 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         document: BaseDocumentProtocol,
         modelsHolder: EditorMainItemModelsHolder,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
-        blockActionsService: BlockActionsServiceSingle,
+        blockActionsServiceSingle: BlockActionsServiceSingleProtocol,
         actionHandler: BlockActionHandlerProtocol,
+        pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
         self.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
-        self.blockActionsService = blockActionsService
+        self.blockActionsServiceSingle = blockActionsServiceSingle
         self.actionHandler = actionHandler
+        self.pasteboardService = pasteboardService
         self.router = router
 
         setupEditingHandlers()
+    }
+
+    func checkDocumentLockField() {
+        if document.isLocked {
+            editingState = .locked
+        } else if case .locked = editingState, !document.isLocked {
+            editingState = .editing
+        }
     }
 
     // MARK: - EditorPageSelectionManagerProtocol
@@ -95,7 +113,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         guard canSelectBlock(at: indexPath) else { return }
 
         modelsHolder.blockViewModel(at: indexPath.row).map {
-            didSelectEditingState(on: $0.information)
+            didSelectEditingState(info: $0.info)
         }
     }
 
@@ -105,9 +123,13 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         blocksSelectionOverlayViewModel?.setSelectedBlocksCount(indexPaths.count)
 
         let blocksInformation = indexPaths.compactMap {
-            modelsHolder.blockViewModel(at: $0.row)?.information
+            modelsHolder.blockViewModel(at: $0.row)?.info
         }
-        updateSelectionContent(selectedBlocks: blocksInformation)
+        updateSelectionBarActions(selectedBlocks: blocksInformation)
+
+        if case .selecting = editingState {
+            editingState = .selecting(blocks: blocksInformation.map { $0.id })
+        }
     }
 
     // MARK: - EditorPageMovingManagerProtocol
@@ -148,6 +170,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         return false
     }
 
+    func didSelectEditingMode() {
+        editingState = .editing
+    }
+
     func canMoveItemsToObject(at indexPath: IndexPath) -> Bool {
         guard !movingBlocksWithChildsIndexPaths.flatMap({ $0 }).contains(indexPath),
               let element = modelsHolder.blockViewModel(at: indexPath.row) else { return false }
@@ -177,11 +203,14 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 blocksSelectionOverlayViewModel?.setNeedsUpdateForMovingState()
             case .editing:
                 movingBlocksIndexPaths.removeAll()
+            case .locked: break
             }
         }.store(in: &cancellables)
 
-        blocksSelectionOverlayViewModel?.endEditingModeHandler = { [weak self] in self?.editingState = .editing }
-        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.tapHandler = { [weak self] in self?.handleBlocksOptionItemSelection($0) }
+        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.tapHandler = { [weak self] in
+            self?.handleBlocksOptionItemSelection($0)
+
+        }
         blocksSelectionOverlayViewModel?.moveButtonHandler = { [weak self] in
             self?.startMoving()
         }
@@ -190,23 +219,22 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         }
     }
 
-    private func updateSelectionContent(selectedBlocks: [BlockInformation]) {
+    private func updateSelectionBarActions(selectedBlocks: [BlockInformation]) {
         blocksSelectionOverlayViewModel?.blocksOptionViewModel?.options = selectedBlocks.blocksOptionItems
     }
 
     func startMoving() {
         let position: BlockPosition
-        let contextId = document.objectId
         let targetId: BlockId
         let dropTargetId: BlockId
         switch movingDestination {
         case let .object(blockId):
-            if let model = document.blocksContainer.model(id: blockId),
-               case let .link(content) = model.information.content {
+            if let info = document.infoContainer.get(id: blockId),
+               case let .link(content) = info.content {
                 let document = BaseDocument(objectId: content.targetBlockID)
                 let _ = document.open()
 
-                guard let id = document.children.last?.information.id else { return }
+                guard let id = document.children.last?.id else { return }
 
                 targetId = document.objectId
                 dropTargetId = id
@@ -237,8 +265,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             .sorted()
             .compactMap { modelsHolder.blockViewModel(at: $0.row)?.blockId }
 
-        blockActionsService.move(
-            contextId: contextId,
+        blockActionsServiceSingle.move(
             blockIds: blockIds,
             targetContextID: targetId,
             dropTargetID: dropTargetId,
@@ -265,9 +292,9 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .turnInto:
             elements.forEach { actionHandler.turnIntoPage(blockId: $0.blockId) }
         case .moveTo:
-            router.showMoveTo { [weak self] targetId in
+            router.showMoveTo { [weak self] pageId in
                 elements.forEach {
-                    self?.actionHandler.moveTo(targetId: targetId, blockId: $0.blockId)
+                    self?.actionHandler.moveToPage(blockId: $0.blockId, pageId: pageId)
                 }
                 self?.editingState = .editing
             }
@@ -277,7 +304,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             let allMovingBlocks = selectedBlocksIndexPaths.map { indexPath -> [IndexPath] in
                 guard let model = modelsHolder.blockViewModel(at: indexPath.row) else { return [] }
 
-                var childIndexPaths = modelsHolder.allChildIndexes(for: model)
+                var childIndexPaths = modelsHolder.allChildIndexes(viewModel: model)
                     .map { IndexPath(row: $0, section: indexPath.section) }
 
                 onlyRootIndexPaths = onlyRootIndexPaths.filter { !childIndexPaths.contains($0) }
@@ -299,14 +326,23 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             )
 
             if case let .file(blockFile) = elements.first?.content,
-               let url = UrlResolver.resolvedUrl(.file(id: blockFile.metadata.hash)) {
+               let url = blockFile.metadata.contentUrl {
                 router.saveFile(fileURL: url, type: blockFile.contentType)
             }
         case .style:
             editingState = .editing
-            elements.first.map { router.showStyleMenu(information: $0.information) }
+            elements.first.map { router.showStyleMenu(information: $0.info) }
 
             return
+        case .paste:
+            let blockIds = elements.map(\.blockId)
+            pasteboardService.pasteInSelectedBlocks(selectedBlockIds: blockIds)
+
+        case .copy:
+            let blocksIds = elements.map(\.blockId)
+            pasteboardService.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
+        case .preview:
+            elements.first.map { router.showObjectPreview(information: $0.info) {} }
         }
 
         editingState = .editing
@@ -314,15 +350,16 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 }
 
 extension EditorPageBlocksStateManager: BlockSelectionHandler {
-    func didSelectEditingState(on block: BlockInformation) {
-        editingState = .selecting(blocks: [block.id])
-        updateSelectionContent(selectedBlocks: [block])
+    func didSelectEditingState(info: BlockInformation) {
+        editingState = .selecting(blocks: [info.id])
+        selectedBlocks = [info.id]
+        updateSelectionBarActions(selectedBlocks: [info])
     }
 }
 
 extension EditorMainItemModelsHolder {
-    func allChildIndexes(for block: BlockViewModelProtocol) -> [Int] {
-        allIndexes(for: block.information.childrenIds)
+    func allChildIndexes(viewModel: BlockViewModelProtocol) -> [Int] {
+        allIndexes(for: viewModel.info.childrenIds)
     }
 
     private func allIndexes(for childs: [BlockId]) -> [Int] {
@@ -335,7 +372,7 @@ extension EditorMainItemModelsHolder {
 
             indexes.append(index)
 
-            guard let modelChilds = blockViewModel(at: index)?.information.childrenIds else { continue }
+            guard let modelChilds = blockViewModel(at: index)?.info.childrenIds else { continue }
             indexes.append(contentsOf: allIndexes(for: modelChilds))
         }
 

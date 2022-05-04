@@ -8,7 +8,7 @@ final class BottomSheetsFactory {
     static func createStyleBottomSheet(
         parentViewController: UIViewController,
         delegate: FloatingPanelControllerDelegate,
-        blockModel: BlockModelProtocol,
+        info: BlockInformation,
         actionHandler: BlockActionHandlerProtocol,
         didShow: @escaping (FloatingPanelController) -> Void,
         showMarkupMenu: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void
@@ -38,24 +38,24 @@ final class BottomSheetsFactory {
         fpc.contentMode = .static
 
         // NOTE: This will be moved to coordinator in next pr
-        guard case let .text(textContentType) = blockModel.information.content.type else { return }
+        guard case let .text(textContentType) = info.content.type else { return }
 
         let askColor: () -> UIColor? = {
-            guard case let .text(textContent) = blockModel.information.content else { return nil }
+            guard case let .text(textContent) = info.content else { return nil }
             return textContent.color.map {
                 UIColor.Text.uiColor(from: $0)
             }
         }
         let askBackgroundColor: () -> UIColor? = {
-            return blockModel.information.backgroundColor.map {
+            return info.backgroundColor.map {
                 UIColor.Background.uiColor(from: $0)
             }
         }
 
-        let restrictions = BlockRestrictionsBuilder.build(content: blockModel.information.content)
+        let restrictions = BlockRestrictionsBuilder.build(content: info.content)
 
         let contentVC = StyleViewController(
-            blockId: blockModel.information.id,
+            blockId: info.id,
             viewControllerForPresenting: parentViewController,
             style: textContentType,
             restrictions: restrictions,

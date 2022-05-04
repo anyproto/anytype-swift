@@ -7,8 +7,7 @@ import SwiftUI
 final class EditorSetViewModel: ObservableObject {
     @Published var dataView = BlockDataview.empty
     @Published private var records: [ObjectDetails] = []
-    
-    @Published var showViewPicker = false
+    @Published private(set) var headerModel: ObjectHeaderViewModel!
     
     @Published var pagitationData = EditorSetPaginationData.empty
     
@@ -21,55 +20,55 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var colums: [RelationMetadata] {
-        dataView.relationsMetadataForView(activeView)
-            .filter { $0.isHidden == false }
+        sortedRelations.filter { $0.option.isVisible }.map(\.metadata)
+    }
+ 
+    var rows: [SetTableViewRowData] {
+        dataBuilder.rowData(records, dataView: dataView, activeView: activeView, colums: colums, isObjectLocked: document.isLocked)
     }
     
-    var rows: [SetTableViewRowData] {
-        records.map {
-            let relations = relationsBuilder.parsedRelations(
-                relationMetadatas: dataView.relationsMetadataForView(activeView),
-                objectId: $0.id
-            ).all
-            
-            let sortedRelations = colums.compactMap { colum in
-                relations.first { $0.id == colum.key }
-            }
-            
-            return SetTableViewRowData(
-                id: $0.id,
-                type: $0.editorViewType,
-                title: $0.title,
-                icon: $0.objectIconImage,
-                allRelations: sortedRelations,
-                colums: colums
-            )
-        }
+    var sortedRelations: [SetRelation] {
+        dataBuilder.sortedRelations(dataview: dataView, view: activeView)
     }
  
     var details: ObjectDetails {
-        document.objectDetails ?? .empty
+        document.details ?? .empty
     }
     var featuredRelations: [Relation] {
-        document.parsedRelations.featuredRelationsForEditor(type: details.objectType, objectRestriction: document.restrictionsContainer.restrinctions.objectRestriction)
+        document.featuredRelationsForEditor
     }
     
     let document: BaseDocument
-    var router: EditorRouterProtocol?
+    private var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
-    private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
-
+    private let dataBuilder = SetTableViewDataBuilder()
     
     init(document: BaseDocument) {
         self.document = document
-        setup()
+    }
+    
+    func setup(router: EditorRouterProtocol) {
+        self.router = router
+        self.headerModel = ObjectHeaderViewModel(document: document, router: router)
+        
+        subscription = document.updatePublisher.sink { [weak self] in
+            self?.onDataChange($0)
+        }
+        
+        document.open()
+        setupDataview()
     }
     
     func onAppear() {
+        guard document.isOpened else {
+            router.goBack()
+            return
+        }
         setupSubscriptions()
+        router?.setNavigationViewHidden(false, animated: true)
     }
     
     func onDisappear() {
@@ -77,24 +76,16 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     // MARK: - Private
-    private func setup() {
-        subscription = document.updatePublisher.sink { [weak self] in
-            self?.onDataChange($0)
-        }
-        
-        if !document.open() {
-            router?.goBack()
-        }
-        setupDataview()
-    }
     
-    private func onDataChange(_ data: EventsListenerUpdate) {
+    private func onDataChange(_ data: DocumentUpdate) {
         switch data {
         case .general:
             objectWillChange.send()
             setupDataview()
         case .syncStatus, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
+        case .header:
+            break // handled in ObjectHeaderViewModel
         }
     }
     
@@ -111,7 +102,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     func updateActiveViewId(_ id: BlockId) {
-        document.blocksContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
+        document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
             dataView.updated(activeViewId: id)
         }
         
@@ -150,5 +141,64 @@ final class EditorSetViewModel: ObservableObject {
             
             self.records.applySubscriptionUpdate(update)
         }
+    }
+}
+
+// MARK: - Routing
+extension EditorSetViewModel {
+    func showPage(_ data: EditorScreenData) {
+        router.showPage(data: data)
+    }
+    
+    func showRelationValueEditingView(key: String, source: RelationSource) {
+        router.showRelationValueEditingView(key: key, source: source)
+    }
+    
+    func showRelationValueEditingView(
+        objectId: BlockId,
+        source: RelationSource,
+        relation: Relation
+    ) {
+        router.showRelationValueEditingView(
+            objectId: objectId,
+            source: source,
+            relation: relation
+        )
+    }
+    
+    func showViewPicker() {
+        router.presentFullscreen(
+            AnytypePopup(viewModel: SetViewPickerViewModel(setModel: self))
+        )
+    }
+    
+    func showSetSettings() {
+        showViewSettings()
+#warning("TODO: Uncomment after filters and sorts will be completed")
+//        router.presentFullscreen(
+//            AnytypePopup(
+//                viewModel: EditorSetSettingsViewModel(setModel: self),
+//                floatingPanelStyle: true
+//            )
+//        )
+    }
+    
+    func showViewSettings() {
+        router.presentFullscreen(
+            AnytypePopup(
+                viewModel: EditorSetViewSettingsViewModel(
+                    setModel: self,
+                    service: DataviewService(objectId: document.objectId)
+                )
+            )
+        )
+    }
+    
+    func showObjectSettings() {
+        router.showSettings()
+    }
+    
+    func showAddNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
+        router.showAddNewRelationView(onSelect: onSelect)
     }
 }

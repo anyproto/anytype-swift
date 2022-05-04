@@ -29,7 +29,7 @@ extension NewRelationCell {
             case .createNew:
                 return Image.Relations.createOption
             case .relation(let realtionMetadata):
-                return Image.Relations.relationIcon(format: realtionMetadata.format)
+                return Image.createImage(realtionMetadata.format.iconName)
             }
         }
 

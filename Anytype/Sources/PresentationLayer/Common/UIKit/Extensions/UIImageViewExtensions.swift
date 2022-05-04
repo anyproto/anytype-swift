@@ -13,3 +13,11 @@ extension UIImageView {
     }
     
 }
+
+extension UIImageView {
+    
+    var wrapper: DownloadableImageViewWrapperProtocol {
+        DownloadableImageViewWrapper(imageView: self)
+    }
+    
+}

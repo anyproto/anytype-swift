@@ -2,27 +2,29 @@ import BlocksModels
 
 
 enum ObjectAction: Hashable, Identifiable {
-    
-
     // NOTE: When adding new case here, it case MUST be added in allCasesWith method
     case archive(isArchived: Bool)
     case favorite(isFavorite: Bool)
-//    case moveTo
-//    case template
-//    case search
+    case locked(isLocked: Bool)
 
     // When adding to case
-    static func allCasesWith(details: ObjectDetails, objectRestrictions: ObjectRestrictions) -> [Self] {
+    static func allCasesWith(
+        details: ObjectDetails,
+        objectRestrictions: ObjectRestrictions,
+        isLocked: Bool
+    ) -> [Self] {
         var allCases: [ObjectAction] = []
 
         // We shouldn't allow archive for profile
         if !objectRestrictions.objectRestriction.contains(.delete) {
             allCases.append(.archive(isArchived: details.isArchived))
         }
+
         allCases.append(.favorite(isFavorite: details.isFavorite))
-//        allCases.append(.moveTo)
-//        allCases.append(.template)
-//        allCases.append(.search)
+
+        if details.objectType.url != ObjectTemplateType.bundled(.set).rawValue {
+            allCases.append(.locked(isLocked: isLocked))
+        }
 
         return allCases
     }
@@ -33,6 +35,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "archive"
         case .favorite:
             return "favorite"
+        case .locked:
+            return "locked"
         }
     }
 }

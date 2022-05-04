@@ -34,7 +34,8 @@ final class RelationsBuilder {
     
     func parsedRelations(
         relationMetadatas: [RelationMetadata],
-        objectId: BlockId
+        objectId: BlockId,
+        isObjectLocked: Bool
     ) -> ParsedRelations {
         guard let objectDetails = storage.get(id: objectId) else {
             return .empty
@@ -48,7 +49,8 @@ final class RelationsBuilder {
             
             let value = relation(
                 relationMetadata: relationMetadata,
-                details: objectDetails
+                details: objectDetails,
+                isObjectLocked: isObjectLocked
             )
             
             if value.isFeatured {
@@ -67,39 +69,91 @@ final class RelationsBuilder {
 
 private extension RelationsBuilder {
     
-    func relation(relationMetadata: RelationMetadata, details: ObjectDetails) -> Relation {
+    func relation(
+        relationMetadata: RelationMetadata,
+        details: ObjectDetails,
+        isObjectLocked: Bool
+    ) -> Relation {
         switch relationMetadata.format {
         case .longText:
-            return textRelation(metadata: relationMetadata, details: details)
+            return textRelation(
+                metadata: relationMetadata,
+                details: details,
+                isObjectLocked: isObjectLocked
+            )
         case .shortText:
-            return textRelation(metadata: relationMetadata, details: details)
+            return textRelation(
+                metadata: relationMetadata,
+                details: details,
+                isObjectLocked: isObjectLocked
+            )
         case .number:
-            return numberRelation(metadata: relationMetadata, details: details)
+            return numberRelation(
+                metadata: relationMetadata,
+                details: details,
+                isObjectLocked: isObjectLocked
+            )
         case .status:
-            return statusRelation(metadata: relationMetadata, details: details)
+            return statusRelation(
+                metadata: relationMetadata,
+                details: details,
+                isObjectLocked: isObjectLocked
+            )
         case .date:
-            return dateRelation(metadata: relationMetadata, details: details)
+            return dateRelation(
+                metadata: relationMetadata,
+                details: details,
+                isObjectLocked: isObjectLocked
+            )
         case .file:
-            return fileRelation(metadata: relationMetadata, details: details)
+            return fileRelation(
+                metadata: relationMetadata,
+                details: details,
+                isObjectLocked: isObjectLocked
+            )
         case .checkbox:
-            return checkboxRelation(metadata: relationMetadata, details: details)
+            return checkboxRelation(
+                metadata: relationMetadata,
+                details: details,
+                isObjectLocked: isObjectLocked
+            )
         case .url:
-            return urlRelation(metadata: relationMetadata, details: details)
+            return urlRelation(
+                metadata: relationMetadata,
+                details: details,
+                isObjectLocked: isObjectLocked
+            )
         case .email:
-            return emailRelation(metadata: relationMetadata, details: details)
+            return emailRelation(
+                metadata: relationMetadata,
+                details: details,
+                isObjectLocked: isObjectLocked
+            )
         case .phone:
-            return phoneRelation(metadata: relationMetadata, details: details)
+            return phoneRelation(
+                metadata: relationMetadata,
+                details: details,
+                isObjectLocked: isObjectLocked
+            )
         case .tag:
-            return tagRelation(metadata: relationMetadata, details: details)
+            return tagRelation(
+                metadata: relationMetadata,
+                details: details,
+                isObjectLocked: isObjectLocked
+            )
         case .object:
-            return objectRelation(metadata: relationMetadata, details: details)
+            return objectRelation(
+                metadata: relationMetadata,
+                details: details,
+                isObjectLocked: isObjectLocked
+            )
         case .unrecognized:
             return .text(
                 Relation.Text(
                     id: relationMetadata.id,
                     name: relationMetadata.name,
                     isFeatured: relationMetadata.isFeatured(details: details),
-                    isEditable: relationMetadata.isEditable,
+                    isEditable: relationMetadata.isEditable(objectLocked: isObjectLocked),
                     isBundled: relationMetadata.isBundled,
                     value: "Unsupported value".localized
                 )
@@ -107,20 +161,28 @@ private extension RelationsBuilder {
         }
     }
     
-    func textRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+    func textRelation(
+        metadata: RelationMetadata,
+        details: ObjectDetails,
+        isObjectLocked: Bool
+    ) -> Relation {
         .text(
             Relation.Text(
                 id: metadata.id,
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
-                isEditable: metadata.isEditable,
+                isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.stringValue
             )
         )
     }
     
-    func numberRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+    func numberRelation(
+        metadata: RelationMetadata,
+        details: ObjectDetails,
+        isObjectLocked: Bool
+    ) -> Relation {
         let numberValue: String? = {
             let value = details.values[metadata.key]
             
@@ -134,53 +196,69 @@ private extension RelationsBuilder {
                 id: metadata.id,
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
-                isEditable: metadata.isEditable,
+                isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
                 value: numberValue
             )
         )
     }
     
-    func phoneRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+    func phoneRelation(
+        metadata: RelationMetadata,
+        details: ObjectDetails,
+        isObjectLocked: Bool
+    ) -> Relation {
         .phone(
             Relation.Text(
                 id: metadata.id,
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
-                isEditable: metadata.isEditable,
+                isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.stringValue
             )
         )
     }
     
-    func emailRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+    func emailRelation(
+        metadata: RelationMetadata,
+        details: ObjectDetails,
+        isObjectLocked: Bool
+    ) -> Relation {
         .email(
             Relation.Text(
                 id: metadata.id,
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
-                isEditable: metadata.isEditable,
+                isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.stringValue
             )
         )
     }
     
-    func urlRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+    func urlRelation(
+        metadata: RelationMetadata,
+        details: ObjectDetails,
+        isObjectLocked: Bool
+    ) -> Relation {
         .url(
             Relation.Text(
                 id: metadata.id,
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
-                isEditable: metadata.isEditable,
+                isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.stringValue
             )
         )
     }
     
-    func statusRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+    func statusRelation(
+        metadata: RelationMetadata,
+        details: ObjectDetails,
+        isObjectLocked: Bool
+    ) -> Relation {
         let options: [Relation.Status.Option] = metadata.selections.map {
             Relation.Status.Option(option: $0)
         }
@@ -200,7 +278,7 @@ private extension RelationsBuilder {
                 id: metadata.id,
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
-                isEditable: metadata.isEditable,
+                isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
                 value: selectedOption,
                 allOptions: options
@@ -208,7 +286,11 @@ private extension RelationsBuilder {
         )
     }
     
-    func dateRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+    func dateRelation(
+        metadata: RelationMetadata,
+        details: ObjectDetails,
+        isObjectLocked: Bool
+    ) -> Relation {
         let value: DateRelationValue? = {
             let value = details.values[metadata.key]
             
@@ -224,27 +306,35 @@ private extension RelationsBuilder {
                 id: metadata.id,
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
-                isEditable: metadata.isEditable,
+                isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
                 value: value
             )
         )
     }
     
-    func checkboxRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+    func checkboxRelation(
+        metadata: RelationMetadata,
+        details: ObjectDetails,
+        isObjectLocked: Bool
+    ) -> Relation {
         .checkbox(
             Relation.Checkbox(
                 id: metadata.id,
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
-                isEditable: metadata.isEditable,
+                isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
                 value: details.values[metadata.key]?.boolValue ?? false
             )
         )
     }
     
-    func tagRelation(metadata: RelationMetadata, details: ObjectDetails) -> Relation {
+    func tagRelation(
+        metadata: RelationMetadata,
+        details: ObjectDetails,
+        isObjectLocked: Bool
+    ) -> Relation {
         let tags: [Relation.Tag.Option] = metadata.selections.map { Relation.Tag.Option(option: $0) }
         
         let selectedTags: [Relation.Tag.Option] = {
@@ -266,7 +356,7 @@ private extension RelationsBuilder {
                 id: metadata.id,
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
-                isEditable: metadata.isEditable,
+                isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
                 selectedTags: selectedTags,
                 allTags: tags
@@ -276,7 +366,8 @@ private extension RelationsBuilder {
     
     func objectRelation(
         metadata: RelationMetadata,
-        details: ObjectDetails
+        details: ObjectDetails,
+        isObjectLocked: Bool
     ) -> Relation {
         let objectOptions: [Relation.Object.Option] = {
             let value = details.values[metadata.key]
@@ -323,16 +414,18 @@ private extension RelationsBuilder {
                 id: metadata.id,
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
-                isEditable: metadata.isEditable,
+                isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
-                selectedObjects: objectOptions
+                selectedObjects: objectOptions,
+                limitedObjectTypes: metadata.objectTypes
             )
         )
     }
     
     func fileRelation(
         metadata: RelationMetadata,
-        details: ObjectDetails
+        details: ObjectDetails,
+        isObjectLocked: Bool
     ) -> Relation {
         let fileOptions: [Relation.File.Option] = {
             let value = details.values[metadata.key]
@@ -389,7 +482,7 @@ private extension RelationsBuilder {
                 id: metadata.id,
                 name: metadata.name,
                 isFeatured: metadata.isFeatured(details: details),
-                isEditable: metadata.isEditable,
+                isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
                 files: fileOptions
             )
@@ -439,8 +532,10 @@ private extension RelationMetadata {
         details.featuredRelations.contains(self.id)
     }
     
-    var isEditable: Bool {
-        !self.isReadOnly
+    func isEditable(objectLocked: Bool) -> Bool {
+        guard !objectLocked else { return false }
+        
+        return !self.isReadOnly
     }
     
 }

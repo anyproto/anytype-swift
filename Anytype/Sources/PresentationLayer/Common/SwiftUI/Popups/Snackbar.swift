@@ -6,18 +6,18 @@ struct Snackbar: View {
     @Binding var isShowing: Bool
     private let presenting: AnyView
     private let text: AnytypeText
-    private let hideTimeout: Int
+    private let autohide: Autohide
     
     init<Presenting>(
         isShowing: Binding<Bool>,
         presenting: Presenting,
         text: AnytypeText,
-        hideTimeout: Int
+        autohide: Autohide
     ) where Presenting: View {
         _isShowing = isShowing
         self.presenting = presenting.eraseToAnyView()
         self.text = text
-        self.hideTimeout = hideTimeout
+        self.autohide = autohide
     }
 
     var body: some View {
@@ -42,17 +42,21 @@ struct Snackbar: View {
             Spacer()
         }
         .offset(x: 0, y: -20)
-        .onAppear { hideAfterTimeout() }
+        .onAppear { handleAutohide() }
         .onChange(of: isShowing) { isShowing in
             if isShowing == true {
-                hideAfterTimeout()
+                handleAutohide()
             }
         }
     }
     
-    private func hideAfterTimeout() {
-        DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(hideTimeout)) {
-            self.isShowing = false
+    private func handleAutohide() {
+        switch autohide {
+        case .disabled: return
+        case .enabled(let timeout):
+            DispatchQueue.main.asyncAfter(deadline: .now() + DispatchTimeInterval.seconds(timeout)) {
+                self.isShowing = false
+            }
         }
     }
     

@@ -3,14 +3,14 @@ import BlocksModels
 
 final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     
-    private let blocksContainer: BlockContainerModelProtocol
+    private let infoContainer: InfoContainerProtocol
     
-    init(blocksContainer: BlockContainerModelProtocol) {
-        self.blocksContainer = blocksContainer
+    init(infoContainer: InfoContainerProtocol) {
+        self.infoContainer = infoContainer
     }
     
     func toggleMarkup(_ markup: MarkupType, blockId: BlockId)  -> NSAttributedString? {
-        guard let info = blocksContainer.model(id: blockId)?.information else { return nil }
+        guard let info = infoContainer.get(id: blockId) else { return nil }
         guard case let .text(blockText) = info.content else { return nil }
         
         let range = blockText.anytypeText.attrString.wholeRange
@@ -19,7 +19,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     }
     
     func toggleMarkup(_ markup: MarkupType, blockId: BlockId, range: NSRange) -> NSAttributedString? {
-        guard let (model, content) = blockData(blockId: blockId) else { return nil }
+        guard let content = blockData(blockId: blockId) else { return nil }
 
         let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
 
@@ -31,7 +31,6 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         return apply(
             markup,
             shouldApplyMarkup: shouldApplyMarkup,
-            block: model,
             content: content,
             attributedText: attributedText,
             range: range
@@ -49,7 +48,7 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     private func updateMarkup(
         _ markup: MarkupType, shouldApplyMarkup: Bool, blockId: BlockId, range: NSRange
     ) -> NSAttributedString? {
-        guard let (model, content) = blockData(blockId: blockId) else { return nil }
+        guard let content = blockData(blockId: blockId) else { return nil }
 
         let restrictions = BlockRestrictionsBuilder.build(textContentType: content.contentType)
 
@@ -60,7 +59,6 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         return apply(
             markup,
             shouldApplyMarkup: shouldApplyMarkup,
-            block: model,
             content: content,
             attributedText: attributedText,
             range: range
@@ -71,7 +69,6 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
     private func apply(
         _ action: MarkupType,
         shouldApplyMarkup: Bool,
-        block: BlockModelProtocol,
         content: BlockText,
         attributedText: NSAttributedString,
         range: NSRange
@@ -88,15 +85,15 @@ final class BlockMarkupChanger: BlockMarkupChangerProtocol {
         return NSAttributedString(attributedString: modifier.attributedString)
     }
     
-    private func blockData(blockId: BlockId) -> (BlockModelProtocol, BlockText)? {
-        guard let model = blocksContainer.model(id: blockId) else {
+    private func blockData(blockId: BlockId) -> BlockText? {
+        guard let info = infoContainer.get(id: blockId) else {
             anytypeAssertionFailure("Can't find block with id: \(blockId)", domain: .blockMarkupChanger)
             return nil
         }
-        guard case let .text(content) = model.information.content else {
-            anytypeAssertionFailure("Unexpected block type \(model.information.content)", domain: .blockMarkupChanger)
+        guard case let .text(content) = info.content else {
+            anytypeAssertionFailure("Unexpected block type \(info.content)", domain: .blockMarkupChanger)
             return nil
         }
-        return (model, content)
+        return content
     }
 }

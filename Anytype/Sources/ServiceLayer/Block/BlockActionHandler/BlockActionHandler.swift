@@ -3,6 +3,7 @@ import BlocksModels
 import Combine
 import AnytypeCore
 import Amplitude
+import ProtobufMessages
 
 final class BlockActionHandler: BlockActionHandlerProtocol {
     weak var blockSelectionHandler: BlockSelectionHandler?
@@ -30,9 +31,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     // MARK: - Service proxy
-    func past(slots: PastboardSlots, blockId: BlockId, range: NSRange) {
-        service.paste(slots: slots, blockId: blockId, range: range)
-    }
 
     func turnIntoPage(blockId: BlockId) -> BlockId? {
         return service.turnIntoPage(blockId: blockId)
@@ -87,8 +85,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.delete(blockId: blockId)
     }
     
-    func moveTo(targetId: BlockId, blockId: BlockId) {
-        listService.moveTo(blockId: blockId, targetId: targetId)
+    func moveToPage(blockId: BlockId, pageId: BlockId) {
+        listService.moveToPage(blockId: blockId, pageId: pageId)
     }
     
     func createEmptyBlock(parentId: BlockId) {
@@ -97,7 +95,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     
     func addLink(targetId: BlockId, blockId: BlockId) {
         service.add(
-            info: BlockBuilder.createNewPageLink(targetBlockId: targetId),
+            info: .emptyLink(targetId: targetId),
             targetBlockId: blockId,
             position: .bottom
         )
@@ -152,7 +150,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId) {
-        guard let info = document.blocksContainer.model(id: blockId)?.information else { return }
+        guard let info = document.infoContainer.get(id: blockId) else { return }
 
         guard case .text = info.content else { return }
 
@@ -211,9 +209,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
-        guard let block = document.blocksContainer.model(id: targetId) else { return nil }
+        guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
-        if case .text(let blockText) = block.information.content, blockText.text.isEmpty {
+        if case .text(let blockText) = info.content, blockText.text.isEmpty {
             position = .replace
         } else {
             position = .bottom
@@ -230,15 +228,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         }
             
         guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
-        guard let info = document.blocksContainer.model(id: blockId)?.information else { return }
+        guard let info = document.infoContainer.get(id: blockId) else { return }
         
         let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
         
         service.add(info: newBlock, targetBlockId: info.id, position: position)
     }
 
-    func selectBlock(blockInformation: BlockInformation) {
-        blockSelectionHandler?.didSelectEditingState(on: blockInformation)
+    func selectBlock(info: BlockInformation) {
+        blockSelectionHandler?.didSelectEditingState(info: info)
     }
 
     func createAndFetchBookmark(

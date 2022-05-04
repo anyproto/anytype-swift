@@ -6,8 +6,7 @@ struct SetFullHeader: View {
     
     @EnvironmentObject private var model: EditorSetViewModel
     
-    private let bigCover: CGFloat = 230
-    private let smallCover: CGFloat = 150
+    private let minimizedHeaderHeight = ObjectHeaderConstants.minimizedHeaderHeight + UIApplication.shared.mainWindowInsets.top
     
     var body: some View {
         header
@@ -15,8 +14,10 @@ struct SetFullHeader: View {
     
     private var header: some View {
         VStack(alignment: .leading, spacing: 0) {
+            Rectangle().foregroundColor(.backgroundPrimary)
+                .frame(height: minimizedHeaderHeight)
+            
             cover
-            Spacer.fixedHeight(32)
             
             AnytypeText(model.details.title, style: .title, color: .textPrimary)
                 .fixedSize(horizontal: false, vertical: true)
@@ -49,57 +50,31 @@ struct SetFullHeader: View {
             viewModel: FlowRelationsViewModel(
                 relations: model.featuredRelations,
                 onRelationTap: { relation in
-                    model.router?.showRelationValueEditingView(key: relation.id, source: .object)
+                    model.showRelationValueEditingView(key: relation.id, source: .object)
                 }
             )
         )
             .padding(.horizontal, 20)
     }
     
-    private let iconBackgroundPadding: CGFloat = 4
-    private func iconView(icon: ObjectIconImage) -> some View {
-        ZStack {
-            if let guideline = ObjectIconImageUsecase.openedObject
-                .objectIconImageGuidelineSet
-                .imageGuideline(for: icon) {
-                let paddingFromBothSides = iconBackgroundPadding * 2
-                RoundedRectangle(cornerRadius: guideline.cornersGuideline.radius + iconBackgroundPadding).foregroundColor(.white)
-                    .frame(width: guideline.size.width + paddingFromBothSides, height: guideline.size.height + paddingFromBothSides)
-            }
-            
-            SwiftUIObjectIconImageView(iconImage: icon, usecase: .openedObject)
-                .frame(width: 96, height: 96)
-        }
-        .padding(.leading, -8 + 20) // 8 is default padding
-        .padding(.bottom, -8 - 16)
-    }
-    
     private var cover: some View {
         Group {
-            switch model.details.documentCover {
-            case .color(let color):
-                color.suColor.frame(height: bigCover)
-            case .gradient(let gradient):
-                gradient.asLinearGradient().frame(height: bigCover)
-            case .imageId(let imageId):
-                    if let url = ImageID(id: imageId, width: .custom(width)).resolvedUrl {
-                        KFImage(url)
-                            .resizable()
-                            .placeholder{ Color.strokePrimary }
-                            .frame(width: width, height: bigCover)
-                            .aspectRatio(contentMode: .fill)
+            switch model.headerModel.header {
+            case .empty(let data):
+                Button(action: data.onTap) {
+                    Color.backgroundPrimary
+                        .frame(height: ObjectHeaderConstants.emptyViewHeight)
                 }
-            case .none:
-                Color.backgroundPrimary
-                    .if(model.details.icon.isNotNil) {
-                        $0.frame(height: bigCover)
-                    } else: {
-                        $0.frame(height: smallCover)
-                    }
+            case .filled(let state):
+                ObjectHeaderFilledContentSwitfUIView(
+                    configuration: ObjectHeaderFilledConfiguration(
+                        state: state,
+                        width: width,
+                        topAdjustedContentInset: minimizedHeaderHeight
+                    )
+                )
+                    .frame(height: ObjectHeaderConstants.height)
             }
-        }
-        .ifLet(model.details.objectIconImage) { view, icon in
-            view.overlay(iconView(icon: icon), alignment: .bottomLeading)
         }
     }
 }

@@ -8,19 +8,26 @@ import AnytypeCore
 final class AnytypePopup: FloatingPanelController {
         
     private let viewModel: AnytypePopupViewModelProtocol
-    private let insetted: Bool
+    private let floatingPanelStyle: Bool
     
     // MARK: - Initializers
     
-    init(viewModel: AnytypePopupViewModelProtocol, insetted: Bool = false) {
+    init(viewModel: AnytypePopupViewModelProtocol, floatingPanelStyle: Bool = false) {
         self.viewModel = viewModel
-        self.insetted = insetted
+        self.floatingPanelStyle = floatingPanelStyle
         
         super.init(delegate: nil)
         
-        viewModel.setContentDelegate(self)
+        viewModel.onPopupInstall(self)
         
         setup()
+    }
+
+    convenience init<Content: View>(contentView: Content,
+                                    popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: true),
+                                    floatingPanelStyle: Bool = false) {
+        let popupView = AnytypePopupViewModel(contentView: contentView, popupLayout: popupLayout)
+        self.init(viewModel: popupView, floatingPanelStyle: floatingPanelStyle)
     }
     
     @available(*, unavailable)
@@ -32,9 +39,9 @@ final class AnytypePopup: FloatingPanelController {
 
 // MARK: - RelationDetailsViewModelDelegate
 
-extension AnytypePopup: AnytypePopupContentDelegate {
+extension AnytypePopup: AnytypePopupProxy {
     
-    func didAskInvalidateLayout(_ animated: Bool) {
+    func updateLayout(_ animated: Bool) {
         if animated {
             UIView.animate(withDuration: 0.3) {
                 self.invalidateLayout()
@@ -44,7 +51,7 @@ extension AnytypePopup: AnytypePopupContentDelegate {
         }
     }
     
-    func didAskToClose() {
+    func close() {
         hide(animated: true) {
             self.dismiss(animated: false)
         }
@@ -57,11 +64,11 @@ extension AnytypePopup: AnytypePopupContentDelegate {
 extension AnytypePopup: FloatingPanelControllerDelegate {
     
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor size: CGSize) -> FloatingPanelLayout {
-        viewModel.popupLayout
+        viewModel.popupLayout.layout
     }
     
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
-        viewModel.popupLayout
+        viewModel.popupLayout.layout
     }
     
 }
@@ -78,7 +85,10 @@ private extension AnytypePopup {
         contentMode = .static
         delegate = self
         
-        set(contentViewController: viewModel.makeContentView())
+        let contentView = viewModel.makeContentView()
+        contentView.view.backgroundColor = .backgroundSecondary
+        
+        set(contentViewController: contentView)
     }
     
     func setupGestures() {
@@ -95,7 +105,7 @@ private extension AnytypePopup {
         
         surfaceView.contentPadding = UIEdgeInsets(top: Constants.grabberHeight, left: 0, bottom: 0, right: 0)
         
-        if insetted {
+        if floatingPanelStyle {
             let horizontalInset = UIDevice.isPad ? 0.0 : 8.0
             surfaceView.containerMargins = UIEdgeInsets(top: 0, left: horizontalInset, bottom: Constants.bottomInset, right: horizontalInset)
         }
@@ -109,6 +119,7 @@ private extension AnytypePopup {
     
     func makeAppearance() -> SurfaceAppearance {
         let appearance = SurfaceAppearance()
+        appearance.backgroundColor = .backgroundSecondary
         appearance.cornerRadius = 16.0
         appearance.cornerCurve = .continuous
         

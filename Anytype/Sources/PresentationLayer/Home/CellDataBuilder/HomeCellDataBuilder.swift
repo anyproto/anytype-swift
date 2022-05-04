@@ -27,15 +27,14 @@ final class HomeCellDataBuilder {
                 }
                 
                 return ObjectTypeProvider.isSupported(typeUrl: details.type)
-
             }
             .map { buildHomeCellData(pageLink: $0) }
     }
     
-    private func blockToPageLink(_ blockModel: BlockModelProtocol) -> HomePageLink? {
-        guard case .link(let link) = blockModel.information.content else {
+    private func blockToPageLink(_ info: BlockInformation) -> HomePageLink? {
+        guard case .link(let link) = info.content else {
             anytypeAssertionFailure(
-                "Not link type in home screen dashboard: \(blockModel.information.content)",
+                "Not link type in home screen dashboard: \(info.content)",
                 domain: .homeView
             )
             return nil
@@ -43,7 +42,7 @@ final class HomeCellDataBuilder {
         
         let details = ObjectDetailsStorage.shared.get(id: link.targetBlockID)
         return HomePageLink(
-            blockId: blockModel.information.id,
+            blockId: info.id,
             targetBlockId: link.targetBlockID,
             details: details
         )

@@ -103,7 +103,7 @@ private extension EditorBrowserButton {
         static let animationDuration: TimeInterval = 0.1
         static let pressedScale: CGFloat = 0.8
         
-        static let minimumHitArea = CGSize(width: 44, height: 44)
+        static let minimumHitArea = CGSize(width: 66, height: 66)
     }
     
 }

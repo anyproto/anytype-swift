@@ -18,12 +18,21 @@ extension Image {
     
     static let ghost = createImage(ImageName.ghost)
     static let optionChecked = createImage("option_checked")
+    
+    static let plus = createImage("plus")
 }
 
 extension Image {
     enum `set` {
         static let forward = createImage("set_pagination_arrow_forward")
         static let back = createImage("set_pagination_arrow_backward")
+        static let settings = createImage("set_settings")
+        
+        static let filter = createImage("set_settins_filter")
+        static let group = createImage("set_settins_group")
+        static let viewSettings = createImage("set_settins_settings")
+        static let sort = createImage("set_settins_sort")
+        static let view = createImage("set_settins_view")
     }
     
     enum main {
@@ -69,9 +78,8 @@ extension Image {
         static let restore = createImage("restore")
         static let favorite = createImage("addToFavorites")
         static let unfavorite = createImage("unfavorite")
-        static let moveTo = createImage("moveTo")
-        static let template = createImage("addNew")
-        static let search = createImage("search")
+        static let lock = createImage("lock")
+        static let unlock = createImage("unlock")
     }
     
     enum LayoutSettings {
@@ -99,9 +107,9 @@ extension Image {
     }
 }
 
-private extension Image {
+extension Image {
     
-    private static func createImage(_ name: String) -> Image {
+    static func createImage(_ name: String) -> Image {
         guard let image = UIImage(named: name) else {
             anytypeAssertionFailure("No image named: \(name)", domain: .imageCreation)
             return .noImage
@@ -110,6 +118,10 @@ private extension Image {
         return Image(uiImage: image)
     }
     
+}
+
+private extension Image {
+    
     private static func createSystemImage(_ name: String) -> Image {
         guard let image = UIImage(systemName: name) else {
             anytypeAssertionFailure("No system image named: \(name)", domain: .imageCreation)
@@ -117,39 +129,5 @@ private extension Image {
         }
         
         return Image(uiImage: image)
-    }
-}
-
-extension Image.Relations {
-
-    static func relationIcon(format: RelationMetadata.Format) -> Image {
-        switch format {
-        case .longText:
-            return Image.createImage("format/text")
-        case .shortText:
-            return Image.createImage("format/text")
-        case .number:
-            return Image.createImage("format/number")
-        case .status:
-            return Image.createImage("format/status")
-        case .date:
-            return Image.createImage("format/date")
-        case .file:
-            return Image.createImage("format/attachment")
-        case .checkbox:
-            return Image.createImage("format/checkbox")
-        case .url:
-            return Image.createImage("format/url")
-        case .email:
-            return Image.createImage("format/email")
-        case .phone:
-            return Image.createImage("format/phone")
-        case .tag:
-            return Image.createImage("format/tag")
-        case .object:
-            return Image.createImage("format/object")
-        case .unrecognized:
-            return Image("")
-        }
     }
 }
