@@ -112,7 +112,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             ),
             previousBlock.content != .unsupported
         else {
-            delete(blockId: secondBlockId)
+            delete(blockIds: [secondBlockId])
             return
         }
         
@@ -121,15 +121,8 @@ final class BlockActionService: BlockActionServiceProtocol {
         }
     }
     
-    func delete(blockId: BlockId) {
-        let previousBlock = modelsHolder?.findModel(
-            beforeBlockId: blockId,
-            acceptingTypes: BlockContentType.allTextTypes
-        )
-
-        if singleService.delete(blockIds: [blockId]) {
-            previousBlock.map { setFocus(model: $0) }
-        }
+    func delete(blockIds: [BlockId]) {
+        singleService.delete(blockIds: blockIds)
     }
     
     func setFields(blockFields: BlockFields, blockId: BlockId) {

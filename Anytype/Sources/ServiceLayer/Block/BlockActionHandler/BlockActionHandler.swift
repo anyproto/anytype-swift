@@ -84,8 +84,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         listService.setAlign(blockIds: [blockId], alignment: alignment)
     }
     
-    func delete(blockId: BlockId) {
-        service.delete(blockId: blockId)
+    func delete(blockIds: [BlockId]) {
+        service.delete(blockIds: blockIds)
     }
     
     func moveToPage(blockId: BlockId, pageId: BlockId) {

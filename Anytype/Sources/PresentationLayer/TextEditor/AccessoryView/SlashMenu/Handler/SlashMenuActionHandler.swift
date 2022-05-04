@@ -112,7 +112,7 @@ final class SlashMenuActionHandler {
     private func handleActions(_ action: BlockAction, blockId: BlockId, selectedRange: NSRange) {
         switch action {
         case .delete:
-            actionHandler.delete(blockId: blockId)
+            actionHandler.delete(blockIds: [blockId])
         case .duplicate:
             actionHandler.duplicate(blockId: blockId)
         case .moveTo:

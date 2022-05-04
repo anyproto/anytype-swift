@@ -283,7 +283,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
         switch item {
         case .delete:
-            elements.forEach { actionHandler.delete(blockId: $0.blockId) }
+            actionHandler.delete(blockIds: elements.map { $0.blockId } )
         case .addBlockBelow:
             elements.forEach { actionHandler.addBlock(.text(.text), blockId: $0.blockId) }
         case .duplicate:
