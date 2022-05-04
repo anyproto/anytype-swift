@@ -50,9 +50,8 @@ jobs:
           xcode-version: '13.2.1'
 
       - name: Download Middleware
-        run: |
-          chsh -s /bin/zsh
-          ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
+        shell: zsh {0}
+        run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
       - name: Run unit tests
         run: bundle exec fastlane tests
