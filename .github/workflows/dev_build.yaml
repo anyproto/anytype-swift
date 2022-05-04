@@ -51,7 +51,7 @@ jobs:
 
       - name: Download Middleware
         shell: zsh {0}
-        run: arch -x86_64 ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
+        run: arch -arm64 ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
       - name: Run unit tests
         run: bundle exec fastlane tests
