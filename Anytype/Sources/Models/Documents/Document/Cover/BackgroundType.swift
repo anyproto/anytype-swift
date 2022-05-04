@@ -11,7 +11,7 @@ enum BackgroundType: Codable, Equatable {
     }
     
     static var `default`: BackgroundType {
-        .gradient(.pinkOrange)
+        .gradient(.sky)
     }
 }
 

@@ -97,7 +97,8 @@ final class EditorAssembly {
             service: blockActionService,
             listService: listService,
             toggleStorage: ToggleStorage.shared,
-            container: document.infoContainer
+            container: document.infoContainer,
+            modelsHolder: modelsHolder
         )
         
         let actionHandler = BlockActionHandler(
@@ -118,7 +119,8 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             router: router,
             pasteboardService: pasteboardService,
-            document: document
+            document: document,
+            modelsHolder: modelsHolder
         )
         
         let markdownListener = MarkdownListenerImpl()

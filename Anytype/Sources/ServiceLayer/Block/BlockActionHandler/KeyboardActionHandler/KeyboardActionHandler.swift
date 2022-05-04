@@ -14,17 +14,20 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private let listService: BlockListServiceProtocol
     private let toggleStorage: ToggleStorage
     private let container: InfoContainerProtocol
+    private let modelsHolder: EditorMainItemModelsHolder
     
     init(
         service: BlockActionServiceProtocol,
         listService: BlockListServiceProtocol,
         toggleStorage: ToggleStorage,
-        container: InfoContainerProtocol
+        container: InfoContainerProtocol,
+        modelsHolder: EditorMainItemModelsHolder
     ) {
         self.service = service
         self.listService = listService
         self.toggleStorage = toggleStorage
         self.container = container
+        self.modelsHolder = modelsHolder
     }
 
     func handle(info: BlockInformation, action: CustomTextView.KeyboardAction) {
@@ -93,7 +96,15 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             return
         }
         
-        guard isBlockDelitable(info: info, text: text, parent: parent) else { return }
+        guard isBlockDelitable(info: info, text: text, parent: parent) else {
+            modelsHolder
+                .findModel(
+                    beforeBlockId: info.id.value,
+                    acceptingTypes: BlockContentType.allTextTypes
+                )?
+                .set(focus: .end)
+            return
+        }
         
         if isLastChildOfBlock(info: info, container: container, parent: parent)
         {
@@ -178,6 +189,7 @@ private extension KeyboardActionHandler {
     
     func isBlockDelitable(info: BlockInformation, text: BlockText, parent: BlockInformation) -> Bool {
         if text.contentType == .title || text.contentType == .description {
+
             return false
         }
         

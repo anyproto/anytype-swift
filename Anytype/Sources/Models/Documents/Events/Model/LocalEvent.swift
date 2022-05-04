@@ -2,6 +2,7 @@ import BlocksModels
 import AnytypeCore
 
 enum LocalEvent {
+    case general
     case setStyle(blockId: AnytypeId)
     case setToggled(blockId: BlockId)
     case setText(blockId: BlockId, text: MiddlewareString)

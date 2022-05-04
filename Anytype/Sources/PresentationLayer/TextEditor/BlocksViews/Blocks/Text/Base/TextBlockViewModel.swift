@@ -93,7 +93,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
 
         return contentConfiguration.cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
-            dragConfiguration: content.contentType == .title ? nil : .init(id: info.id.value)
+            dragConfiguration:
+                content.contentType == .title ? nil : .init(id: info.id.value)
         )
     }
 
@@ -122,12 +123,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             handleKeyboardAction: { action in
                 actionHandler.handleKeyboardAction(action, info: info)
             },
-            becomeFirstResponder: {
-
-            },
-            resignFirstResponder: {
-                
-            },
+            becomeFirstResponder: { },
+            resignFirstResponder: { },
             textBlockSetNeedsLayout: { /* Nothing to update */ },
             textViewDidChangeText: { textView in
                 actionHandler.changeText(textView.attributedText, info: info)
@@ -205,11 +202,12 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private func attributedStringWithURL(
         attributedText: NSAttributedString,
         replacementURL: URL,
+        replacementText: String,
         range: NSRange
     ) -> NSAttributedString {
-        let newRange = NSRange(location: range.location, length: replacementURL.absoluteString.count)
+        let newRange = NSRange(location: range.location, length: replacementText.count)
         let mutableAttributedString = attributedText.mutable
-        mutableAttributedString.replaceCharacters(in: range, with: replacementURL.absoluteString)
+        mutableAttributedString.replaceCharacters(in: range, with: replacementText)
 
         let modifier = MarkStyleModifier(
             attributedString: mutableAttributedString,
@@ -228,48 +226,53 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     ) -> Bool {
         let previousTypingAttributes = textView.typingAttributes
         let originalAttributedString = textView.attributedText
+        var urlString = replacementText
 
-        if replacementText.isValidURL(), let url = URL(string: replacementText) {
-            let newText = attributedStringWithURL(
-                attributedText: textView.attributedText,
-                replacementURL: url,
-                range: range
-            )
-
-            actionHandler.changeTextForced(newText, blockId: blockId)
-            textView.attributedText = newText
-            textView.typingAttributes = previousTypingAttributes
-
-            let replacementRange = NSRange(location: range.location, length: replacementText.count)
-
-            guard let textRect = textView.textRectForRange(range: replacementRange) else { return true }
-
-            let urlIputParameters = TextBlockURLInputParameters(
-                textView: textView,
-                rect: textRect) { option in
-                    switch option {
-                    case .createBookmark:
-                        let position: BlockPosition = textView.text == replacementText ?
-                            .replace : .bottom
-                        actionHandler.createAndFetchBookmark(
-                            targetID: blockId,
-                            position: position,
-                            url: url.absoluteString
-                        )
-
-                        originalAttributedString.map {
-                            actionHandler.changeTextForced($0, blockId: blockId)
-                        }
-                    case .dismiss:
-                        break
-                    }
-                }
-
-            showURLBookmarkPopup(urlIputParameters)
-
-            return true
+        if !replacementText.isEncoded {
+            urlString = replacementText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? replacementText
         }
 
-        return false
+        guard urlString.isValidURL(), let url = URL(string: urlString) else {
+            return false
+        }
+
+        let newText = attributedStringWithURL(
+            attributedText: textView.attributedText,
+            replacementURL: url,
+            replacementText: replacementText,
+            range: range
+        )
+
+        actionHandler.changeTextForced(newText, blockId: blockId)
+        textView.attributedText = newText
+        textView.typingAttributes = previousTypingAttributes
+
+        let replacementRange = NSRange(location: range.location, length: replacementText.count)
+
+        guard let textRect = textView.textRectForRange(range: replacementRange) else { return true }
+
+        let urlIputParameters = TextBlockURLInputParameters(
+            textView: textView,
+            rect: textRect) { option in
+                switch option {
+                case .createBookmark:
+                    let position: BlockPosition = textView.text == replacementText ?
+                        .replace : .bottom
+                    actionHandler.createAndFetchBookmark(
+                        targetID: blockId,
+                        position: position,
+                        url: url.absoluteString
+                    )
+
+                    originalAttributedString.map {
+                        actionHandler.changeTextForced($0, blockId: blockId)
+                    }
+                case .dismiss:
+                    break
+                }
+            }
+        showURLBookmarkPopup(urlIputParameters)
+
+        return true
     }
 }
