@@ -51,7 +51,7 @@ jobs:
 
       - name: Download Middleware
         run: |
-          $ chsh -s /bin/zsh
+          chsh -s /bin/zsh
           ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
       - name: Run unit tests
