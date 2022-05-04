@@ -1,8 +1,7 @@
 import Foundation
-import Combine
-import UIKit
 import ProtobufMessages
 import BlocksModels
+import AnytypeCore
 
 final class TextService: TextServiceProtocol {    
     func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) {
@@ -35,11 +34,19 @@ final class TextService: TextServiceProtocol {
     
     func setStyle(contextId: BlockId, blockId: BlockId, style: Style) {
         AnytypeAnalytics.instance().logSetStyle(style)
-        Anytype_Rpc.Block.Set.Text.Style.Service
+        let event = Anytype_Rpc.Block.Set.Text.Style.Service
             .invoke(contextID: contextId, blockID: blockId, style: style.asMiddleware)
             .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .textService)?
-            .send()
+            .getValue(domain: .textService)
+
+        guard let anytypeId = AnytypeId(blockId) else { return }
+
+        EventsBunch(
+            contextId: contextId,
+            middlewareEvents: event?.middlewareEvents ?? [],
+            localEvents: [.setStyle(blockId: anytypeId)],
+            dataSourceEvents: []
+        ).send()
     }
     
     func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId? {

@@ -31,6 +31,7 @@ extension Anytype_Model_Block.Content.Text {
                 color: MiddlewareColor(rawValue: color),
                 contentType: contentType,
                 checked: checked,
+                number: 1,
                 iconEmoji: iconEmoji,
                 iconImage: iconImage
             )
