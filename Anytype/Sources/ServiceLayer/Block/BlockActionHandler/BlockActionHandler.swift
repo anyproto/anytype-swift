@@ -226,7 +226,6 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func addBlock(_ type: BlockContentType, blockId: BlockId) {
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead", domain: .blockActionsService)
-            _ = service.createPage(targetId: blockId, type: .bundled(.page), position: .bottom)
             return
         }
             
