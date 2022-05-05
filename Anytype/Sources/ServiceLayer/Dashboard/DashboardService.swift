@@ -17,6 +17,10 @@ final class DashboardService: DashboardServiceProtocol {
             position: .bottom,
             templateId: ""
         )
+
+        if id.isNotNil {
+            AnytypeAnalytics.instance().logCreateObject(objectType: defaultTypeUrl, route: .home)
+        }
         
         return id?.asAnytypeId
     }

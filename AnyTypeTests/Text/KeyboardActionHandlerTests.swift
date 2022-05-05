@@ -19,7 +19,8 @@ class KeyboardActionHandlerTests: XCTestCase {
             service: service,
             listService: listService,
             toggleStorage: toggleStorage,
-            container: infoContainer
+            container: infoContainer,
+            modelsHolder: .init()
         )
     }
 
