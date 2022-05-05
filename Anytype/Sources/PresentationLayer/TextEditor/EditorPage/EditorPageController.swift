@@ -13,6 +13,7 @@ final class EditorPageController: UIViewController {
         onBackTap: viewModel.router.goBack
     )
     private weak var firstResponderView: UIView?
+    private var isApplyingFirstTime: Bool = true // https://app.clickup.com/t/295523h
     
     let collectionView: EditorCollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -206,9 +207,8 @@ extension EditorPageController: EditorPageViewInput {
     func update(header: ObjectHeader, details: ObjectDetails?) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
-
         if #available(iOS 15.0, *) {
-            dataSource.apply(headerSnapshot, to: .header, animatingDifferences: false)
+            dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
         } else {
             UIView.performWithoutAnimation {
                 dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
@@ -479,7 +479,8 @@ private extension EditorPageController {
         let selectedCells = collectionView.indexPathsForSelectedItems
 
         if #available(iOS 15.0, *) {
-            dataSource.apply(snapshot, to: .main, animatingDifferences: false)
+            dataSource.apply(snapshot, to: .main, animatingDifferences: isApplyingFirstTime ? false : true)
+            isApplyingFirstTime = false
         } else {
             UIView.performWithoutAnimation {
                 dataSource.apply(snapshot, to: .main, animatingDifferences: true)

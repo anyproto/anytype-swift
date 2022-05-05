@@ -26,7 +26,7 @@ final class DynamicCollectionView: UICollectionView {
 
     override func reloadData() {
         super.reloadData()
-
+        
         collectionViewLayout.invalidateLayout()
         collectionViewLayout.prepare()
     }
