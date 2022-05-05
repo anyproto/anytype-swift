@@ -65,7 +65,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func delete(blockId: BlockId) {
+    func delete(blockIds: [BlockId]) {
         assertionFailure()
     }
     
