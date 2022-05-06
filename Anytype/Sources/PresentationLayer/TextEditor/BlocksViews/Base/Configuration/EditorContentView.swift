@@ -141,7 +141,21 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
         blockContentInsets.left = blockContentInsets.left + parentIndentaionPadding
 
+
+        contentStackView.backgroundColor = indentationSettings?.relativeBackgroundColor
+
+        guard blockConfiguration.isAnimationEnabled else {
+            contentConstraints?.update(with: blockContentInsets)
+            return
+        }
+
+        layoutIfNeeded() // Double layoutIfNeeded to not to animate background appearing
+
         contentConstraints?.update(with: blockContentInsets)
+
+        UIView.animate(withDuration: CATransaction.animationDuration()) { [weak self] in
+            self?.layoutIfNeeded()
+        } completion: { _ in }
     }
 
     private func update(with indentationSettings: IndentationSettings) {
@@ -272,7 +286,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     private func setupSubviews() {
         addSubview(wrapperView) {
             $0.pinToSuperview(excluding: [.bottom])
-            $0.bottom.equal(to: bottomAnchor, priority: .init(rawValue: 997))
+            $0.bottom.equal(to: bottomAnchor, priority: .init(rawValue: 999))
         }
 
         leadingView.isHidden = true
@@ -335,17 +349,11 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         let provider = NSItemProvider(object: dragConfiguration.id as NSItemProviderWriting)
         let item = UIDragItem(itemProvider: provider)
         item.localObject = dragConfiguration
-
-        contentStackView.backgroundColor = indentationSettings?.relativeBackgroundColor
         let dragPreview = UIDragPreview(view: contentStackView)
 
         item.previewProvider = { dragPreview }
 
         return [item]
-    }
-
-    func dragInteraction(_ interaction: UIDragInteraction, session: UIDragSession, didEndWith operation: UIDropOperation) {
-        contentStackView.backgroundColor = .clear
     }
 }
 
