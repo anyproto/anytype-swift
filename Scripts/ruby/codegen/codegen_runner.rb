@@ -7,6 +7,7 @@ class CodegenRunner
     generateErrorAdoption(CodegenConfig::CommandsFilePath)
     generateService(CodegenConfig::CommandsFilePath)
 
+    generateInit(CodegenConfig::CommandsFilePath)
     generateInit(CodegenConfig::ModelsFilePath)
     generateInit(CodegenConfig::EventsFilePath)
     generateInit(CodegenConfig::LocalstoreFilePath)
