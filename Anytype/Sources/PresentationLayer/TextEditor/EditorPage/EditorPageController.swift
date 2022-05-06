@@ -13,7 +13,9 @@ final class EditorPageController: UIViewController {
         onBackTap: viewModel.router.goBack
     )
     private weak var firstResponderView: UIView?
-    private var isApplyingFirstTime: Bool = true // https://app.clickup.com/t/295523h
+
+    private var didAppliedModelsOnce: Bool = false // https://app.clickup.com/t/295523h
+    private var didAppliedHeaderOnce: Bool = false
     
     let collectionView: EditorCollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -208,13 +210,15 @@ extension EditorPageController: EditorPageViewInput {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
         if #available(iOS 15.0, *) {
-            dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
+            dataSource.apply(headerSnapshot, to: .header, animatingDifferences: didAppliedHeaderOnce ? true : false)
+
         } else {
             UIView.performWithoutAnimation {
                 dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
             }
         }
 
+        didAppliedHeaderOnce = true
         navigationBarHelper.configureNavigationBar(using: header, details: details)
     }
     
@@ -479,14 +483,14 @@ private extension EditorPageController {
         let selectedCells = collectionView.indexPathsForSelectedItems
 
         if #available(iOS 15.0, *) {
-            dataSource.apply(snapshot, to: .main, animatingDifferences: isApplyingFirstTime ? false : true)
-            isApplyingFirstTime = false
+            dataSource.apply(snapshot, to: .main, animatingDifferences: didAppliedModelsOnce ? true : false)
         } else {
             UIView.performWithoutAnimation {
                 dataSource.apply(snapshot, to: .main, animatingDifferences: true)
             }
         }
 
+        didAppliedModelsOnce = true
         selectedCells?.forEach {
             self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
         }

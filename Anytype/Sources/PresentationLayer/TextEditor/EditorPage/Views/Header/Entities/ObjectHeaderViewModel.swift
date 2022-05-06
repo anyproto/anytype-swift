@@ -4,7 +4,7 @@ import Combine
 
 final class ObjectHeaderViewModel: ObservableObject {
     
-    @Published private(set) var header: ObjectHeader = .initialState
+    @Published private(set) var header: ObjectHeader?
     
     // MARK: - Private variables
     
@@ -33,7 +33,6 @@ final class ObjectHeaderViewModel: ObservableObject {
     init(document: BaseDocumentProtocol, router: EditorRouterProtocol) {
         self.document = document
         self.router = router
-        self.header = buildHeader()
         
         setupSubscription()
     }

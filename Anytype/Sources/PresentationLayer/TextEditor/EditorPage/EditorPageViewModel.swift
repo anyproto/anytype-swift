@@ -75,7 +75,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         }.store(in: &subscriptions)
         
         headerModel.$header.sink { [weak self] value in
-            self?.updateHeaderIfNeeded(headerModel: value)
+            guard let headerModel = value else { return }
+            self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
     }
     
