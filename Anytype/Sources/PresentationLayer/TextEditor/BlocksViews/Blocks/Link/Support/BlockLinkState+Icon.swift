@@ -13,7 +13,7 @@ extension BlockLinkState {
         case .noContent:
             return nil
         case let .icon(icon):
-            guard case .medium = objectPreviewFields.icon else { return nil }
+            guard relations.contains(.icon) else { return nil }
 
             switch icon {
             case let .basic(id):
@@ -82,8 +82,8 @@ private extension BlockLinkState {
     }
     
     func makeEmoji(with string: String) -> UIView {
-        switch objectPreviewFields.layout {
-        case .text:
+        switch cardStyle {
+        case .text, .inline:
             return makeLabelEmoji(with: string)
         case .card:
             return makeEmojiImageView(with: string)
@@ -125,8 +125,8 @@ private extension BlockLinkState {
             return Constants.TextLayout.imageViewSize
         }
         
-        switch objectPreviewFields.layout {
-        case .text:
+        switch cardStyle {
+        case .text, .inline:
             return Constants.TextLayout.imageViewSize
         case .card:
             switch style {

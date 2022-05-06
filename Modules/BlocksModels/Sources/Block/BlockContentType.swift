@@ -5,7 +5,7 @@ public enum BlockContentType: Hashable {
     case file(FileContentType)
     case divider(BlockDivider.Style)
     case bookmark(BlockBookmark.Style)
-    case link(BlockLink.Style)
+    case link(BlockLink.CardStyle)
     case layout(BlockLayout.Style)
     case featuredRelations
     case relation(key: String)

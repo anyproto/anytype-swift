@@ -27,7 +27,7 @@ public enum BlockContent: Hashable, CustomStringConvertible {
         case let .bookmark(bookmark):
             return .bookmark(bookmark.type)
         case let .link(link):
-            return .link(link.style)
+            return .link(link.cardStyle)
         case let .layout(layout):
             return .layout(layout.style)
         case .featuredRelations:
