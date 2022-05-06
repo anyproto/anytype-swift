@@ -66,7 +66,7 @@ private extension ApplicationCoordinator {
 extension ApplicationCoordinator: WindowHolder {
     
     func startNewRootView<ViewType: View>(_ view: ViewType) {
-        let controller = iOS14SwiftUINavigationController(
+        let controller = NavigationControllerWithSwiftUIContent(
             rootViewController: UIHostingController(rootView: view)
         )
         

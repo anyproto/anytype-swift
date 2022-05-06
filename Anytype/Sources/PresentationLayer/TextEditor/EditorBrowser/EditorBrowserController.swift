@@ -48,7 +48,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        if let navigationController = navigationController as? iOS14SwiftUINavigationController {
+        if let navigationController = navigationController as? NavigationControllerWithSwiftUIContent {
             navigationController.anytype_setNavigationBarHidden(true, animated: false)
         } else {
             navigationController?.setNavigationBarHidden(true, animated: false)
@@ -58,7 +58,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        if let navigationController = navigationController as? iOS14SwiftUINavigationController {
+        if let navigationController = navigationController as? NavigationControllerWithSwiftUIContent {
             navigationController.anytype_setNavigationBarHidden(false, animated: false)
         }
     }
