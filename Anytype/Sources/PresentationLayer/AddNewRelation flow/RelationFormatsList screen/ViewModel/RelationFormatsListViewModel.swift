@@ -6,9 +6,12 @@ final class RelationFormatsListViewModel: ObservableObject {
     
     private weak var output: RelationFormatsListModuleOutput?
     
-    init(output: RelationFormatsListModuleOutput) {
+    init(
+        selectedFormat: SupportedRelationFormat,
+        output: RelationFormatsListModuleOutput
+    ) {
         self.output = output
-        self.supportedFormatModels = SupportedRelationFormat.allCases.asRelationFormatListCellModels
+        self.supportedFormatModels = SupportedRelationFormat.allCases.asRelationFormatListCellModels(selectedFormat: selectedFormat)
     }
     
 }
@@ -28,9 +31,14 @@ extension RelationFormatsListViewModel {
 
 private extension Array where Element == SupportedRelationFormat {
     
-    var asRelationFormatListCellModels: [RelationFormatListCell.Model] {
+    func asRelationFormatListCellModels(selectedFormat: SupportedRelationFormat) -> [RelationFormatListCell.Model] {
         map {
-            RelationFormatListCell.Model(id: $0.id, title: $0.title, icon: $0.icon)
+            RelationFormatListCell.Model(
+                id: $0.id,
+                title: $0.title,
+                icon: $0.icon,
+                isSelected: $0 == selectedFormat
+            )
         }
     }
     

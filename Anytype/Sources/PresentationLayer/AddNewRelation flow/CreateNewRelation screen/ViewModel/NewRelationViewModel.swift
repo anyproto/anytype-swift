@@ -40,7 +40,7 @@ final class NewRelationViewModel: ObservableObject {
 extension NewRelationViewModel {
     
     func didTapFormatSection() {
-        output?.didAskToShowRelationFormats()
+        output?.didAskToShowRelationFormats(selectedFormat: format)
     }
     
     func didTapTypesRestrictionSection() {
