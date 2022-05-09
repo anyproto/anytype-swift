@@ -210,25 +210,13 @@ extension TextBlockIconView {
         let iconView = ObjectIconImageView()
 
         iconView.configure(model: model)
-
-        let action = UIAction { [weak self] action in
-            self?.action?()
-        }
-
-        let button = UIButton()
-        button.addAction(action, for: .touchUpInside)
-
-        addSubview(button) {
-            $0.pinToSuperview()
-        }
-
-        button.addSubview(iconView) {
+        addSubview(iconView) {
             $0.pinToSuperview()
         }
 
         iconView.isUserInteractionEnabled = false
 
-        return button
+        return iconView
     }
 }
 
