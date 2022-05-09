@@ -137,7 +137,7 @@ private extension BlockLinkView {
         let layout = configuration.state.cardStyle
 
         switch layout {
-        case .text, .inline:
+        case .text:
             setupTextLayout()
         case .card:
             setupCardLayout(backgroundColor: configuration.backgroundColor, iconInCenterY: configuration.state.style.isCheckmark)

@@ -83,7 +83,7 @@ private extension BlockLinkState {
     
     func makeEmoji(with string: String) -> UIView {
         switch cardStyle {
-        case .text, .inline:
+        case .text:
             return makeLabelEmoji(with: string)
         case .card:
             return makeEmojiImageView(with: string)
@@ -126,7 +126,7 @@ private extension BlockLinkState {
         }
         
         switch cardStyle {
-        case .text, .inline:
+        case .text:
             return Constants.TextLayout.imageViewSize
         case .card:
             switch style {

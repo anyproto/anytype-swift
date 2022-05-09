@@ -47,4 +47,5 @@ protocol BlockActionHandlerProtocol: AnyObject {
         position: BlockPosition,
         url: String
     )
+    func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance)
 }

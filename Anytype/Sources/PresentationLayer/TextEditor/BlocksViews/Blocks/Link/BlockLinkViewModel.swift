@@ -32,10 +32,10 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         self.state = details.flatMap {
             BlockLinkState(
                 details: $0,
-                cardStyle: content.cardStyle,
-                relations: content.relations,
-                iconSize: content.iconSize,
-                descriptionState: content.description
+                cardStyle: content.appearance.cardStyle,
+                relations: content.appearance.relations,
+                iconSize: content.appearance.iconSize,
+                descriptionState: content.appearance.description
             )
         } ?? .empty
     }

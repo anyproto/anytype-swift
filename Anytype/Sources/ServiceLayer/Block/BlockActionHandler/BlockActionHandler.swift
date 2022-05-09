@@ -254,4 +254,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             url: url
         )
     }
+
+    func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance) {
+        listService.setLinkAppearance(blockIds: [blockId], appearance: appearance)
+    }
 }

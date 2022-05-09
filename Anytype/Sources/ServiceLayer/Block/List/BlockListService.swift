@@ -5,6 +5,7 @@ import UIKit
 import ProtobufMessages
 import SwiftProtobuf
 import AnytypeCore
+import Kingfisher
 
 class BlockListService: BlockListServiceProtocol {
     private let contextId: BlockId
@@ -89,6 +90,20 @@ class BlockListService: BlockListServiceProtocol {
             targetContextID: pageId,
             dropTargetID: "",
             position: .bottom
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .blockListService)?
+            .send()
+    }
+
+    func setLinkAppearance(blockIds: [BlockId], appearance: BlockLink.Appearance) {
+        Anytype_Rpc.BlockList.Set.Link.Appearance.Service.invoke(
+            contextID: contextId,
+            blockIds: blockIds,
+            iconSize: appearance.iconSize.asMiddleware,
+            cardStyle: appearance.cardStyle.asMiddleware,
+            description_p: appearance.description.asMiddleware,
+            relations: appearance.relations.map(\.rawValue)
         )
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockListService)?
