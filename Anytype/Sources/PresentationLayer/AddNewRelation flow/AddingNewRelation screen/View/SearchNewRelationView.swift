@@ -10,7 +10,7 @@ struct SearchNewRelationView: View {
     @State private var showCreateNewRelation: Bool = false
 
     var body: some View {
-        VStack() {
+        VStack(spacing: 0) {
             DragIndicator()
             SearchBar(text: $searchText, focused: true, placeholder: "Find a relation".localized)
             content
