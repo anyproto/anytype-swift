@@ -829,6 +829,7 @@
 		53FF7CBE26FDD37D00A5A592 /* ObjectAction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */; };
 		A3940BB1245AB45600CD6F37 /* SearchTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */; };
 		C905B29A2828CA2F00F1106B /* ToastPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = C905B2992828CA2F00F1106B /* ToastPresenter.swift */; };
+		C905B2B128291C9100F1106B /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C905B2B028291C9100F1106B /* ToastView.swift */; };
 		C9099602281AB8240011682F /* BuildInViewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9099601281AB8240011682F /* BuildInViewCollectionViewCell.swift */; };
 		C9099607281AD5220011682F /* RelationItemModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9099606281AD5220011682F /* RelationItemModel.swift */; };
 		C910809E274CB02400EFA11C /* DividerCursorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C910809D274CB02400EFA11C /* DividerCursorController.swift */; };
@@ -1841,6 +1842,7 @@
 		53FF7CBD26FDD37D00A5A592 /* ObjectAction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectAction.swift; sourceTree = "<group>"; };
 		A3940BB0245AB45600CD6F37 /* SearchTextFieldView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchTextFieldView.swift; sourceTree = "<group>"; };
 		C905B2992828CA2F00F1106B /* ToastPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastPresenter.swift; sourceTree = "<group>"; };
+		C905B2B028291C9100F1106B /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		C9099601281AB8240011682F /* BuildInViewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuildInViewCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9099606281AD5220011682F /* RelationItemModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationItemModel.swift; sourceTree = "<group>"; };
 		C910809D274CB02400EFA11C /* DividerCursorController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DividerCursorController.swift; sourceTree = "<group>"; };
@@ -6123,6 +6125,7 @@
 			isa = PBXGroup;
 			children = (
 				C905B2992828CA2F00F1106B /* ToastPresenter.swift */,
+				C905B2B028291C9100F1106B /* ToastView.swift */,
 			);
 			path = ToastPresenter;
 			sourceTree = "<group>";
@@ -6865,6 +6868,7 @@
 				12C2A5802755F0CE00311854 /* DateRelationValue.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
 				53F7447427F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift in Sources */,
+				C905B2B128291C9100F1106B /* ToastView.swift in Sources */,
 				535E02B4275037B800E1AF8C /* RelationBlockRestrictions.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* EditorViewListCell.swift in Sources */,
 				EA2640CA26C3DDF6006071BD /* NSRange+Middleware.swift in Sources */,
