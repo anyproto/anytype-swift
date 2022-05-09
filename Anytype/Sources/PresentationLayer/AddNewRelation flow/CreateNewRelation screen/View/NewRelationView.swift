@@ -31,34 +31,44 @@ struct NewRelationView: View {
     }
     
     private var nameSection: some View {
-        VStack(alignment: .leading, spacing: 4) {
-            sectionTitle("Relation name".localized)
-            
-            TextField("No name".localized, text: $viewModel.name)
-                .foregroundColor(.textPrimary)
-                .font(AnytypeFontBuilder.font(anytypeFont: .heading))
-        }
-        .frame(height: 68)
-        .divider()
+        NewRelationSectionView(
+            title: "Relation name".localized,
+            contentViewBuilder: {
+                TextField("No name".localized, text: $viewModel.name)
+                    .foregroundColor(.textPrimary)
+                    .font(AnytypeFontBuilder.font(anytypeFont: .heading))
+            },
+            onTap: nil,
+            isArrowVisible: false
+        )
     }
     
     private var formatSection: some View {
-        NewRelationFormatSectionView(model: viewModel.formatModel) {
-            viewModel.didTapFormatSection()
-        }
+        NewRelationSectionView(
+            title: "Relation type".localized,
+            contentViewBuilder: {
+                NewRelationFormatSectionView(model: viewModel.formatModel)
+            },
+            onTap: {
+                viewModel.didTapFormatSection()
+            },
+            isArrowVisible: true
+        )
     }
     
     private var restrictionsSection: some View {
-        viewModel.objectTypesRestrictionModel.flatMap {
-            NewRelationRestrictionsSectionView(model: $0) {
-                viewModel.didTapTypesRestrictionSection()
-            }
+        viewModel.objectTypesRestrictionModel.flatMap { model in
+            NewRelationSectionView(
+                title: "Limit object types".localized,
+                contentViewBuilder: {
+                    NewRelationRestrictionsSectionView(model: model)
+                },
+                onTap: {
+                    viewModel.didTapTypesRestrictionSection()
+                },
+                isArrowVisible: true
+            )
         }
-    }
-    
-    private func sectionTitle(_ title: String) -> some View {
-        AnytypeText(title, style: .caption1Regular, color: .textSecondary)
-            .lineLimit(1)
     }
     
     private var button: some View {
