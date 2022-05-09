@@ -268,7 +268,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func presentUndoRedo() {
-        let undoRedoView = UndoRedoView(viewModel: .init(objectId: document.objectId))
+        guard let viewController = viewController else { return }
+
+        let toastPresenter = ToastPresenter(rootViewController: viewController)
+        let undoRedoView = UndoRedoView(
+            viewModel: .init(objectId: document.objectId, toastPresenter: toastPresenter)
+        )
         let popupViewController = AnytypePopup(
             contentView: undoRedoView,
             floatingPanelStyle: true,
@@ -276,7 +281,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         )
         popupViewController.backdropView.backgroundColor = .clear
 
-        viewController?.dismissAndPresent(viewController: popupViewController)
+        self.viewController?.dismissAndPresent(viewController: popupViewController)
     }
     
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool) {

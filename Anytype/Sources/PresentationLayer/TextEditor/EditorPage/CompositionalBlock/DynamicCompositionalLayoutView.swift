@@ -55,6 +55,8 @@ final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
             forCellWithReuseIdentifier: String(describing: BuildInViewCollectionViewCell.self)
         )
 
+        collectionView.backgroundColor = .clear
+
         collectionView.dataSource = self
 
         setupSizeHandlers()
