@@ -312,7 +312,7 @@
 		12B0FF78274FDB3700CA35FE /* oldSchool@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B0FF74274FDB3700CA35FE /* oldSchool@3x.png */; };
 		12B0FF79274FDB3700CA35FE /* art@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B0FF75274FDB3700CA35FE /* art@2x.png */; };
 		12B0FF7A274FDB3700CA35FE /* oldSchool@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 12B0FF76274FDB3700CA35FE /* oldSchool@2x.png */; };
-		12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */; };
+		12B20A63273BF0DE00C87F35 /* NavigationControllerWithSwiftUIContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B20A62273BF0DE00C87F35 /* NavigationControllerWithSwiftUIContent.swift */; };
 		12B691D227F4CB5D00A0C336 /* ImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B691D027F4CB5D00A0C336 /* ImageGuideline.swift */; };
 		12B691D327F4CB5D00A0C336 /* ImageCornersGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B691D127F4CB5D00A0C336 /* ImageCornersGuideline.swift */; };
 		12C0591A27F1DBA6004FFAAB /* Snackbar+Autohide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12C0591927F1DBA6004FFAAB /* Snackbar+Autohide.swift */; };
@@ -1329,7 +1329,7 @@
 		12B0FF74274FDB3700CA35FE /* oldSchool@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oldSchool@3x.png"; sourceTree = "<group>"; };
 		12B0FF75274FDB3700CA35FE /* art@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "art@2x.png"; sourceTree = "<group>"; };
 		12B0FF76274FDB3700CA35FE /* oldSchool@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "oldSchool@2x.png"; sourceTree = "<group>"; };
-		12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOS14SwiftUINavigationController.swift; sourceTree = "<group>"; };
+		12B20A62273BF0DE00C87F35 /* NavigationControllerWithSwiftUIContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationControllerWithSwiftUIContent.swift; sourceTree = "<group>"; };
 		12B691D027F4CB5D00A0C336 /* ImageGuideline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGuideline.swift; sourceTree = "<group>"; };
 		12B691D127F4CB5D00A0C336 /* ImageCornersGuideline.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageCornersGuideline.swift; sourceTree = "<group>"; };
 		12C0591927F1DBA6004FFAAB /* Snackbar+Autohide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Snackbar+Autohide.swift"; sourceTree = "<group>"; };
@@ -2284,7 +2284,7 @@
 				3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */,
 				0303ECFE22D8EDAA005C552B /* AppDelegate.swift */,
 				0303ED0022D8EDAA005C552B /* SceneDelegate.swift */,
-				12B20A62273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift */,
+				12B20A62273BF0DE00C87F35 /* NavigationControllerWithSwiftUIContent.swift */,
 			);
 			path = ApplicationLayer;
 			sourceTree = "<group>";
@@ -7355,7 +7355,7 @@
 				125B6EC926F235F400BCD7D6 /* MentionView.swift in Sources */,
 				0372AB4523A11861008CF5B9 /* SelectProfileView.swift in Sources */,
 				53FF7CBC26FDD36200A5A592 /* ObjectActionsViewModel.swift in Sources */,
-				12B20A63273BF0DE00C87F35 /* iOS14SwiftUINavigationController.swift in Sources */,
+				12B20A63273BF0DE00C87F35 /* NavigationControllerWithSwiftUIContent.swift in Sources */,
 				0A74E4F923A90E6300B6C406 /* DiskStorage.swift in Sources */,
 				C93B2D2A274E12B10008544D /* EditorCollectionView.swift in Sources */,
 				C9121A5E273B918900FFDA07 /* BlocksSelectionOverlayViewModel.swift in Sources */,

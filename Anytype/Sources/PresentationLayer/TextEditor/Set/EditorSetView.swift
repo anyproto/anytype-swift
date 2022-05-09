@@ -9,6 +9,7 @@ struct EditorSetView: View {
 
     var body: some View {
         content
+            .navigationBarBackButtonHidden(true)
             .environmentObject(model)
             .onAppear {
                 model.onAppear()

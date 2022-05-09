@@ -12,6 +12,7 @@ final class EditorSetHostingController: UIHostingController<EditorSetView> {
         self.model = model
         
         super.init(rootView: EditorSetView(model: model))
+        navigationItem.hidesBackButton = true
     }
     
     @MainActor @objc required dynamic init?(coder aDecoder: NSCoder) {
