@@ -279,7 +279,7 @@ extension EditorPageViewModel {
             alertModel: .undoAlertModel(
                 undoAction: { [weak self] in
                     guard let self = self else { return }
-                    self.objectActionsService.undo(objectId: self.document.objectId)
+                    try? self.objectActionsService.undo(objectId: self.document.objectId)
                 }
             )
         )

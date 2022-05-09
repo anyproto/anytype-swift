@@ -5,6 +5,20 @@ import BlocksModels
 import ProtobufMessages
 import AnytypeCore
 
+enum ObjectActionsServiceError: Error {
+    case nothingToUndo
+    case nothingToRedo
+
+    var message: String {
+        switch self {
+        case .nothingToUndo:
+            return "Nothing to undo".localized
+        case .nothingToRedo:
+            return "Nothing to redo".localized
+        }
+    }
+}
+
 
 final class ObjectActionsService: ObjectActionsServiceProtocol {
     private var deleteSubscription: AnyCancellable?
@@ -152,15 +166,28 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .send()
     }
 
-    func undo(objectId: AnytypeId) {
-        let _ = Anytype_Rpc.Block.Undo.Service
+    func undo(objectId: AnytypeId) throws {
+        let result = Anytype_Rpc.Block.Undo.Service
             .invoke(contextID: objectId.value)
             .map{ EventsBunch(event: $0.event).send() }
+
+        switch result {
+        case .success:
+            break
+        case .failure:
+            throw ObjectActionsServiceError.nothingToUndo
+        }
     }
 
-    func redo(objectId: AnytypeId) {
-        let _ = Anytype_Rpc.Block.Redo.Service.invoke(contextID: objectId.value)
+    func redo(objectId: AnytypeId) throws {
+        let result = Anytype_Rpc.Block.Redo.Service.invoke(contextID: objectId.value)
             .map { EventsBunch(event: $0.event).send() }
 
+        switch result {
+        case .success:
+            break
+        case .failure:
+            throw ObjectActionsServiceError.nothingToRedo
+        }
     }
 }
