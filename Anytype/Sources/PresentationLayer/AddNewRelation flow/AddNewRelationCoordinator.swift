@@ -87,8 +87,8 @@ extension AddNewRelationCoordinator: SearchNewRelationModuleOutput {
 
 extension AddNewRelationCoordinator: NewRelationModuleOutput {
     
-    func didAskToShowRelationFormats() {
-        let viewModel = RelationFormatsListViewModel(output: self)
+    func didAskToShowRelationFormats(selectedFormat: SupportedRelationFormat) {
+        let viewModel = RelationFormatsListViewModel(selectedFormat: selectedFormat, output: self)
         let view = RelationFormatsListView(viewModel: viewModel)
         
         presentSwiftUIView(view: view)

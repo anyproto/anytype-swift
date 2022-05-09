@@ -2,13 +2,13 @@ import Foundation
 import BlocksModels
 
 enum SupportedRelationFormat: String, Hashable, CaseIterable {
+    case object
     case text
-    case tag
-    case status
     case number
+    case status
+    case tag
     case date
     case file
-    case object
     case checkbox
     case url
     case email
