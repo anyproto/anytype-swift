@@ -7,12 +7,19 @@ struct NewRelationView: View {
     init(viewModel: NewRelationViewModel) {
         self.viewModel = viewModel
     }
-    
+
     var body: some View {
+        VStack(spacing: 0) {
+            DragIndicator()
+            TitleView(title: "New relation".localized)
+            content
+        }
+        .padding(.horizontal, 20)
+    }
+
+    private var content: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
-                DragIndicator()
-                TitleView(title: "New relation".localized)
                 nameSection
                 formatSection
                 restrictionsSection
@@ -20,8 +27,7 @@ struct NewRelationView: View {
                 Spacer()
                 button
             }
-            .padding(.horizontal, 20)
-        } 
+        }
     }
     
     private var nameSection: some View {
