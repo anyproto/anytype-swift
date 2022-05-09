@@ -8,7 +8,7 @@ struct NewRelationRestrictionsSectionView: View {
     
     var body: some View {
         NewRelationSectionView(
-            title: "Limit object type".localized,
+            title: "Limit object types".localized,
             contentViewBuilder: {
                 contentView
             },

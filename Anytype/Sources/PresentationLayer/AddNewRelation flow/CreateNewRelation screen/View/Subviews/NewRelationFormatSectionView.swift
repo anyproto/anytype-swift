@@ -7,7 +7,7 @@ struct NewRelationFormatSectionView: View {
     
     var body: some View {
         NewRelationSectionView(
-            title: "Connect with".localized,
+            title: "Relation type".localized,
             contentViewBuilder: {
                 contentView
             },

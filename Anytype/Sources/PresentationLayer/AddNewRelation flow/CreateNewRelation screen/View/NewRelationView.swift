@@ -26,7 +26,7 @@ struct NewRelationView: View {
     
     private var nameSection: some View {
         NewRelationSectionView(
-            title: "Name".localized,
+            title: "Relation name".localized,
             contentViewBuilder: {
                 TextField("No name".localized, text: $viewModel.name)
                     .foregroundColor(.textPrimary)
