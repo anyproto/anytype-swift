@@ -31,16 +31,15 @@ struct NewRelationView: View {
     }
     
     private var nameSection: some View {
-        NewRelationSectionView(
-            title: "Relation name".localized,
-            contentViewBuilder: {
-                TextField("No name".localized, text: $viewModel.name)
-                    .foregroundColor(.textPrimary)
-                    .font(AnytypeFontBuilder.font(anytypeFont: .heading))
-            },
-            onTap: nil,
-            isArrowVisible: false
-        )
+        VStack(alignment: .leading, spacing: 4) {
+            sectionTitle("Relation name".localized)
+            
+            TextField("No name".localized, text: $viewModel.name)
+                .foregroundColor(.textPrimary)
+                .font(AnytypeFontBuilder.font(anytypeFont: .heading))
+        }
+        .frame(height: 68)
+        .divider()
     }
     
     private var formatSection: some View {
@@ -55,6 +54,11 @@ struct NewRelationView: View {
                 viewModel.didTapTypesRestrictionSection()
             }
         }
+    }
+    
+    private func sectionTitle(_ title: String) -> some View {
+        AnytypeText(title, style: .caption1Regular, color: .textSecondary)
+            .lineLimit(1)
     }
     
     private var button: some View {
