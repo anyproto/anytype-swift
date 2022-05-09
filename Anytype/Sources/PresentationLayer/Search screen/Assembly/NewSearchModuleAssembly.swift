@@ -123,7 +123,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         )
         
         let viewModel = NewSearchViewModel(
-            title: "Limit object type".localized,
+            title: "Limit object types".localized,
             selectionMode: .multipleItems,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,
