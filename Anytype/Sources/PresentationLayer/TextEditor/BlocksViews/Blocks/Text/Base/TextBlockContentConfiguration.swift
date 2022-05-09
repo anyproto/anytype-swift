@@ -13,7 +13,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let openURL: (URL) -> Void
 
         let changeTextStyle: (MarkupType, NSRange) -> Void
-        let handleKeyboardAction: (CustomTextView.KeyboardAction) -> Void
+        let handleKeyboardAction: (CustomTextView.KeyboardAction, UITextView) -> Void
         let becomeFirstResponder: () -> Void
         let resignFirstResponder: () -> Void
 

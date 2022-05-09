@@ -120,8 +120,11 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             changeTextStyle: { attribute, range in
                 actionHandler.changeTextStyle(attribute, range: range, blockId: info.id.value)
             },
-            handleKeyboardAction: { action in
-                actionHandler.handleKeyboardAction(action, info: info)
+            handleKeyboardAction: { action, textView in
+                if content.contentType != .title {
+                    textView.attributedText = content.anytypeText.attrString
+                }
+                actionHandler.handleKeyboardAction(action, currentText: textView.attributedText, info: info)
             },
             becomeFirstResponder: { },
             resignFirstResponder: { },

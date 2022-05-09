@@ -33,7 +33,11 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setObjectTypeUrl(_ objectTypeUrl: String)
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId)
     func changeText(_ text: NSAttributedString, info: BlockInformation)
-    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation)
+    func handleKeyboardAction(
+        _ action: CustomTextView.KeyboardAction,
+        currentText: NSAttributedString,
+        info: BlockInformation
+    )
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)
