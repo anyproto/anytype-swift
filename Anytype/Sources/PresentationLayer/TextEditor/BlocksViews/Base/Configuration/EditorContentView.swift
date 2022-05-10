@@ -145,6 +145,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     }
 
     private func update(with indentationSettings: IndentationSettings) {
+        contentStackView.backgroundColor = indentationSettings.relativeBackgroundColor
         backgroundColorsStackView.axis = .horizontal
         backgroundColorsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         indentationViews.forEach { $0.removeFromSuperview() }
@@ -336,16 +337,11 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         let item = UIDragItem(itemProvider: provider)
         item.localObject = dragConfiguration
 
-        contentStackView.backgroundColor = indentationSettings?.relativeBackgroundColor
         let dragPreview = UIDragPreview(view: contentStackView)
 
         item.previewProvider = { dragPreview }
 
         return [item]
-    }
-
-    func dragInteraction(_ interaction: UIDragInteraction, session: UIDragSession, didEndWith operation: UIDropOperation) {
-        contentStackView.backgroundColor = .clear
     }
 }
 
