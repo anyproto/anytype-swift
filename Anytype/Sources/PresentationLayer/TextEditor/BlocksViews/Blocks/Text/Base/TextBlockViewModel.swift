@@ -106,11 +106,13 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 if pasteboardService.hasValidURL {
                     return true
                 }
-                showWaitingView("Paste processing...".localized)
 
                 pasteboardService.pasteInsideBlock(focusedBlockId: blockId, range: range) {
+                    showWaitingView("Paste processing...".localized)
+                } completion: {
                     hideWaitingView()
                 }
+
                 return false
             },
             copy: { range in
