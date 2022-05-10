@@ -7,7 +7,7 @@ struct NewRelationView: View {
     init(viewModel: NewRelationViewModel) {
         self.viewModel = viewModel
     }
-
+    
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
@@ -18,15 +18,15 @@ struct NewRelationView: View {
     }
 
     private var content: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 0) {
+        VStack(spacing: 0) {
+            ScrollView(.vertical, showsIndicators: false) {
                 nameSection
                 formatSection
                 restrictionsSection
                 Spacer.fixedHeight(10)
-                Spacer()
-                button
             }
+            Spacer()
+            button
         }
     }
     
@@ -50,6 +50,7 @@ struct NewRelationView: View {
                 NewRelationFormatSectionView(model: viewModel.formatModel)
             },
             onTap: {
+                UIApplication.shared.hideKeyboard()
                 viewModel.didTapFormatSection()
             },
             isArrowVisible: true
@@ -64,6 +65,7 @@ struct NewRelationView: View {
                     NewRelationRestrictionsSectionView(model: model)
                 },
                 onTap: {
+                    UIApplication.shared.hideKeyboard()
                     viewModel.didTapTypesRestrictionSection()
                 },
                 isArrowVisible: true
