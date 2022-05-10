@@ -55,12 +55,13 @@
 "Link" = "Link";
 "Text block subtitle" = "Just start writing with a plain text";
 "Title block subtitle" = "Big section heading";
-"Heading block subtitle" = "Just start writing with a plain text";
-"Subheading block subtitle" = "Just start writing with a plain text";
-"Highlighted block subtitle" = "Small section heading";
+"Heading block subtitle" = "Medium headline";
+"Subheading block subtitle" = "Small headline";
+"Any action or idea" = "Any action or idea";
+"Spotlight, that needs special attention" = "Spotlight, that needs special attention";
 "Checkbox block subtitle" = "Create and track task with to-do list";
 "Bulleted block subtitle" = "Simple list";
-"Numbered block subtitle" = "Simple list";
+"Numbered block subtitle" = "Numbered list";
 "Toggle block subtitle" = "Hide and show content inside";
 "File block subtitle" = "Store file in original state";
 "Picture block subtitle" = "Upload and enrich the page with image";
@@ -146,7 +147,7 @@
 "OrganizeEverythingDescription" = "With Anytype you can write notes and documents, manage tasks and save important content from the web.";
 "Sign up" = "Sign up";
 "Login" = "Login";
-"Login with phrase" = "Login with phrase";
+"Login with recovery phrase" = "Login with recovery phrase";
 "Enter phrase" = "Enter phrase";
 "Restore secret phrase from keychain" = "Restore secret phrase from keychain";
 "or Type your recovery phrase" = "or Type your recovery phrase";
