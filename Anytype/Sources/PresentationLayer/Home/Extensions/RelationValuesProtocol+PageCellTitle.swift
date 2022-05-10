@@ -15,11 +15,15 @@ extension BundledRelationsValueProvider {
     }
 
     var title: String {
+        if isDeleted {
+            return "Non-existent object".localized
+        }
+        
         let title: String
 
         switch layout {
         case .note:
-            title =  snippet
+            title = snippet
         default:
             title = name
         }
