@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 final class RelationFormatsListViewModel: ObservableObject {
     
@@ -22,6 +23,7 @@ extension RelationFormatsListViewModel {
     
     func didSelectFormat(id: String) {
         guard let format = SupportedRelationFormat(rawValue: id) else { return }
+        UISelectionFeedbackGenerator().selectionChanged()
         output?.didSelectFormat(format)
     }
     

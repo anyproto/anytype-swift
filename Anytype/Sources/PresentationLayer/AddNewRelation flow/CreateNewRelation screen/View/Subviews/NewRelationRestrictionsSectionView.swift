@@ -4,26 +4,12 @@ import AnytypeCore
 struct NewRelationRestrictionsSectionView: View {
     
     let model: [ObjectTypeModel]
-    let onTap: () -> Void
     
     var body: some View {
-        NewRelationSectionView(
-            title: "Limit object types".localized,
-            contentViewBuilder: {
-                contentView
-            },
-            onTap: onTap,
-            isArrowVisible: true
-        )
-    }
-    
-    private var contentView: some View {
-        Group {
-            if model.isNotEmpty {
-                filledView
-            } else {
-                emptyView
-            }
+        if model.isNotEmpty {
+            filledView
+        } else {
+            emptyView
         }
     }
     
@@ -99,8 +85,7 @@ struct NewRelationRestrictionsSectionView_Previews: PreviewProvider {
                     emoji: Emoji("🤡")!,
                     title: "title 2"
                 )
-            ],
-            onTap: {}
+            ]
         )
             
     }
