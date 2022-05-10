@@ -124,8 +124,9 @@ final class SlashMenuActionHandler {
         case .copy:
             pasteboardService.copy(blocksIds: [blockId], selectedTextRange: NSRange())
         case .paste:
-            router.showWaitingView(text: "Paste processing...".localized)
             pasteboardService.pasteInsideBlock(focusedBlockId: blockId, range: selectedRange) { [weak self] in
+                self?.router.showWaitingView(text: "Paste processing...".localized)
+            } completion: { [weak self] in
                 self?.router.hideWaitingView()
             }
         }
