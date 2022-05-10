@@ -5,7 +5,6 @@ import UIKit
 import ProtobufMessages
 import SwiftProtobuf
 import AnytypeCore
-import Kingfisher
 
 class BlockListService: BlockListServiceProtocol {
     private let contextId: BlockId
