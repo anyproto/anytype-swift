@@ -99,9 +99,9 @@ enum SlashActionStyle: CaseIterable {
         case .subheading:
             return "Subheading block subtitle".localized
         case .highlighted:
-            return "Highlighted block subtitle".localized
+            return "Spotlight, that needs special attention".localized
         case .callout:
-            return "Small section heading".localized
+            return "Any action or idea".localized
         case .checkbox:
             return "Checkbox block subtitle".localized
         case .bulleted:
