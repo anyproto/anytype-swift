@@ -102,6 +102,7 @@ private extension NewSearchViewModel {
             selectedRowIds.append(rowId)
         }
         
+        UISelectionFeedbackGenerator().selectionChanged()
         internalViewModel.handleRowsSelection(ids: selectedRowIds)
     }
     
