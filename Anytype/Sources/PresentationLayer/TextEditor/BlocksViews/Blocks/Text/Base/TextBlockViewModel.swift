@@ -28,6 +28,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
+    private let resetSubject = PassthroughSubject<BlockText, Never>()
     private let mentionDetecter = MentionTextDetector()
     private let markdownListener: MarkdownListener
 
@@ -88,6 +89,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             isChecked: content.checked,
             shouldDisplayPlaceholder: info.isToggled && info.childrenIds.isEmpty,
             focusPublisher: focusSubject.eraseToAnyPublisher(),
+            resetPublisher: resetSubject.eraseToAnyPublisher(),
             actions: action()
         )
 
@@ -121,9 +123,6 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 actionHandler.changeTextStyle(attribute, range: range, blockId: info.id.value)
             },
             handleKeyboardAction: { action, textView in
-                if content.contentType != .title {
-                    textView.attributedText = content.anytypeText.attrString
-                }
                 actionHandler.handleKeyboardAction(action, currentText: textView.attributedText, info: info)
             },
             becomeFirstResponder: { },
@@ -140,6 +139,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 blockDelegate?.didBeginEditing(view: textView)
             },
             textViewDidEndEditing: { textView in
+                resetSubject.send(content)
                 blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
             },
             textViewDidChangeCaretPosition: { caretPositionRange in
