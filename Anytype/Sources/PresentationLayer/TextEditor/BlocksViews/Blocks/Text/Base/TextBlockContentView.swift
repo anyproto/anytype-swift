@@ -19,6 +19,7 @@ final class TextBlockContentView: UIView, BlockContentView {
     private var topContentConstraint: NSLayoutConstraint?
     private var bottomContentnConstraint: NSLayoutConstraint?
     private var focusSubscription: AnyCancellable?
+    private var resetSubscription: AnyCancellable?
 
     private(set) var actions: TextBlockContentConfiguration.Actions?
 
@@ -99,6 +100,11 @@ final class TextBlockContentView: UIView, BlockContentView {
 
         focusSubscription = configuration.focusPublisher.sink { [weak self] focus in
             self?.textView.setFocus(focus)
+        }
+
+        resetSubscription = configuration.resetPublisher.sink { [weak self] blockText in
+            self?.textView.textView.textStorage.setAttributedString(blockText.anytypeText.attrString)
+
         }
     }
     

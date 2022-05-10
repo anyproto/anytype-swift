@@ -36,8 +36,9 @@ class KeyboardActionHandlerTests: XCTestCase {
     func test_enterInside() throws {
         let info = info()
         service.splitStub = true
-        
-        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 2))
+
+        let string = NSAttributedString(string: "123")
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 2)
@@ -50,8 +51,9 @@ class KeyboardActionHandlerTests: XCTestCase {
     func test_enterInside_at_the_start() throws {
         let info = info()
         service.splitStub = true
-        
-        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 0))
+
+        let string = NSAttributedString(string: "123")
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 0))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 0)
@@ -64,8 +66,9 @@ class KeyboardActionHandlerTests: XCTestCase {
     func test_enterInside_with_children() throws {
         let info = info(hasChild: true)
         service.splitStub = true
-        
-        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 2))
+
+        let string = NSAttributedString(string: "123")
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 2)
@@ -78,8 +81,9 @@ class KeyboardActionHandlerTests: XCTestCase {
     func test_enterInside_bullited() throws {
         let info = info(style: .bulleted)
         service.splitStub = true
-        
-        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 2))
+
+        let string = NSAttributedString(string: "123")
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 2)
@@ -93,7 +97,8 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .title)
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 2))
+        let string = NSAttributedString(string: "123")
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 2)
@@ -107,7 +112,8 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .description)
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 2))
+        let string = NSAttributedString(string: "123")
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 2)
@@ -121,7 +127,8 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .quote)
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 2))
+        let string = NSAttributedString(string: "123")
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 2)
@@ -135,7 +142,8 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .header)
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 2))
+        let string = NSAttributedString(string: "123")
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 2)
@@ -150,7 +158,8 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .toggle)
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 2))
+        let string = NSAttributedString(string: "123")
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 2)
@@ -164,7 +173,8 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .toggle)
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 2))
+        let string = NSAttributedString(string: "123")
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 2)
@@ -179,7 +189,8 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .toggle, hasChild: true)
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 2))
+        let string = NSAttributedString(string: "123")
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 2)
@@ -193,7 +204,8 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .toggle, hasChild: true)
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterInside(string: .init(string: "123"), position: 2))
+        let string = NSAttributedString(string: "123")
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 2)
@@ -208,7 +220,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info()
         service.splitStub = true
 
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "123")))
+        let string = NSAttributedString(string: "123")
+        handler.handle(
+            info: info,
+            currentString: string,
+            action: .enterAtTheEnd(string: string)
+        )
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 3)
@@ -222,7 +239,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .title)
         service.splitStub = true
 
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "123")))
+        let string = NSAttributedString(string: "123")
+        handler.handle(
+            info: info,
+            currentString: string,
+            action: .enterAtTheEnd(string: string)
+        )
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 3)
@@ -236,7 +258,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .header)
         service.splitStub = true
 
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "123")))
+        let string = NSAttributedString(string: "123")
+        handler.handle(
+            info: info,
+            currentString: string,
+            action: .enterAtTheEnd(string: string)
+        )
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 3)
@@ -250,7 +277,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .callout)
         service.splitStub = true
 
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "123")))
+        let string = NSAttributedString(string: "123")
+        handler.handle(
+            info: info,
+            currentString: string,
+            action: .enterAtTheEnd(string: string)
+        )
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 3)
@@ -264,7 +296,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .quote)
         service.splitStub = true
 
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "123")))
+        let string = NSAttributedString(string: "123")
+        handler.handle(
+            info: info,
+            currentString: string,
+            action: .enterAtTheEnd(string: string)
+        )
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 3)
@@ -278,7 +315,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .bulleted)
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "123")))
+        let string = NSAttributedString(string: "123")
+        handler.handle(
+            info: info,
+            currentString: string,
+            action: .enterAtTheEnd(string: string)
+        )
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 3)
@@ -293,7 +335,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.addStub = true
         let childInfo = BlockInformation.emptyText
 
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "123")))
+        let string = NSAttributedString(string: "123")
+        handler.handle(
+            info: info,
+            currentString: string,
+            action: .enterAtTheEnd(string: string)
+        )
 
         XCTAssertEqual(service.addNumberOfCalls, 1)
         XCTAssertEqual(service.addInfo!, childInfo)
@@ -308,7 +355,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.addChildStub = true
         let childInfo = BlockInformation.emptyText
 
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "123")))
+        let string = NSAttributedString(string: "123")
+        handler.handle(
+            info: info,
+            currentString: string,
+            action: .enterAtTheEnd(string: string)
+        )
 
         XCTAssertEqual(service.addChildNumberOfCalls, 1)
         XCTAssertEqual(service.addChildInfo!, childInfo)
@@ -319,7 +371,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .toggle)
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "123")))
+        let string = NSAttributedString(string: "123")
+        handler.handle(
+            info: info,
+            currentString: string,
+            action: .enterAtTheEnd(string: string)
+        )
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 3)
@@ -335,7 +392,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.addStub = true
         let childInfo = BlockInformation.emptyText
 
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "123")))
+        let string = NSAttributedString(string: "123")
+        handler.handle(
+            info: info,
+            currentString: string,
+            action: .enterAtTheEnd(string: string)
+        )
 
         XCTAssertEqual(service.addNumberOfCalls, 1)
         XCTAssertEqual(service.addInfo!, childInfo)
@@ -348,7 +410,12 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .toggle, hasChild: true)
         service.splitStub = true
         
-        handler.handle(info: info, action: .enterAtTheEnd(string: .init(string: "123")))
+        let string = NSAttributedString(string: "123")
+        handler.handle(
+            info: info,
+            currentString: string,
+            action: .enterAtTheEnd(string: string)
+        )
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 3)
@@ -363,7 +430,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .text)
         service.splitStub = true
 
-        handler.handle(info: info, action: .enterForEmpty)
+        handler.handle(info: info, currentString: .init(string: ""), action: .enterForEmpty)
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.position, 0)
@@ -377,7 +444,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .text, hasChild: true)
         service.addStub = true
 
-        handler.handle(info: info, action: .enterForEmpty)
+        handler.handle(info: info, currentString: .init(string: ""), action: .enterForEmpty)
 
         XCTAssertEqual(service.addNumberOfCalls, 1)
         XCTAssertEqual(service.addInfo!, .emptyText)
@@ -390,7 +457,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .bulleted)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .enterForEmpty)
+        handler.handle(info: info, currentString: .init(string: ""), action: .enterForEmpty)
 
         XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
         XCTAssertEqual(service.turnIntoStyle!, .text)
@@ -401,7 +468,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .bulleted, hasChild: true)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .enterForEmpty)
+        handler.handle(info: info, currentString: .init(string: ""), action: .enterForEmpty)
 
         XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
         XCTAssertEqual(service.turnIntoStyle!, .text)
@@ -413,7 +480,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .toggle)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .enterForEmpty)
+        handler.handle(info: info, currentString: .init(string: ""), action: .enterForEmpty)
 
         XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
         XCTAssertEqual(service.turnIntoStyle!, .text)
@@ -424,7 +491,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .toggle)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .enterForEmpty)
+        handler.handle(info: info, currentString: .init(string: ""), action: .enterForEmpty)
 
         XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
         XCTAssertEqual(service.turnIntoStyle!, .text)
@@ -436,7 +503,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .toggle, hasChild: true)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .enterForEmpty)
+        handler.handle(info: info, currentString: .init(string: ""), action: .enterForEmpty)
 
         XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
         XCTAssertEqual(service.turnIntoStyle!, .text)
@@ -447,7 +514,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .toggle, hasChild: true)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .enterForEmpty)
+        handler.handle(info: info, currentString: .init(string: ""), action: .enterForEmpty)
 
         XCTAssertEqual(service.turnIntoNumberOfCalls, 1)
         XCTAssertEqual(service.turnIntoStyle!, .text)
@@ -460,7 +527,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.addStub = true
         let childInfo = BlockInformation.emptyText
 
-        handler.handle(info: info, action: .enterAtTheBegining)
+        handler.handle(info: info, currentString: .init(string: ""), action: .enterForEmpty)
 
         XCTAssertEqual(service.addNumberOfCalls, 1)
         XCTAssertEqual(service.addInfo!, childInfo)
@@ -471,37 +538,38 @@ class KeyboardActionHandlerTests: XCTestCase {
     
     func test_enterAtTheBegining_bulleted() throws {
         let info = info(style: .bulleted, hasChild: true)
-        service.addStub = true
+        service.splitStub = true
         let childInfo = BlockInformation.emptyText
 
-        handler.handle(info: info, action: .enterAtTheBegining)
+        handler.handle(info: info, currentString: .init(string: "Title text"), action: .enterAtTheBegining)
 
-        XCTAssertEqual(service.addNumberOfCalls, 1)
-        XCTAssertEqual(service.addInfo!, childInfo)
-        XCTAssertEqual(service.addTargetBlockId, "id")
-        XCTAssertEqual(service.addPosition, .top)
-        XCTAssertEqual(service.addSetFocus, false)
+        XCTAssertEqual(service.splitNumberOfCalls, 1)
+        XCTAssertEqual(service.splitData!.string.string, "Title text")
+        XCTAssertEqual(service.splitData!.mode, .bottom)
+        XCTAssertEqual(service.splitData!.blockId, "id")
+        XCTAssertEqual(service.splitData!.newBlockContentType, .text)
+        XCTAssertEqual(service.splitData!.position, 0)
     }
     
     func test_enterAtTheBegining_toggle() throws {
         let info = info(style: .toggle, hasChild: true)
-        service.addStub = true
-        let childInfo = BlockInformation.emptyText
+        service.splitStub = true
 
-        handler.handle(info: info, action: .enterAtTheBegining)
+        handler.handle(info: info, currentString: .init(string: "Toogle"), action: .enterAtTheBegining)
 
-        XCTAssertEqual(service.addNumberOfCalls, 1)
-        XCTAssertEqual(service.addInfo!, childInfo)
-        XCTAssertEqual(service.addTargetBlockId, "id")
-        XCTAssertEqual(service.addPosition, .top)
-        XCTAssertEqual(service.addSetFocus, false)
+        XCTAssertEqual(service.splitNumberOfCalls, 1)
+        XCTAssertEqual(service.splitData!.string.string, "Toogle")
+        XCTAssertEqual(service.splitData!.mode, .bottom)
+        XCTAssertEqual(service.splitData!.blockId, "id")
+        XCTAssertEqual(service.splitData!.newBlockContentType, .text)
+        XCTAssertEqual(service.splitData!.position, 0)
     }
     
     func test_enterAtTheBegining_title() throws {
         let info = info(content: .text(.plain("Title text", contentType: .title)))
         service.splitStub = true
 
-        handler.handle(info: info, action: .enterAtTheBegining)
+        handler.handle(info: info, currentString: .init(string: "Title text"), action: .enterAtTheBegining)
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.string.string, "Title text")
@@ -512,10 +580,11 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     func test_enterAtTheBegining_description() throws {
-        let info = info(content: .text(.plain("description text", contentType: .description)))
+        let text = "description text"
+        let info = info(content: .text(.plain(text, contentType: .description)))
         service.splitStub = true
 
-        handler.handle(info: info, action: .enterAtTheBegining)
+        handler.handle(info: info, currentString: .init(string: text), action: .enterAtTheBegining)
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.string.string, "description text")
@@ -532,7 +601,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .text)
         service.mergeStub = true
 
-        handler.handle(info: info, action: .delete)
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
 
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "id")
@@ -542,7 +611,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .text, hasChild: true)
         service.mergeStub = true
 
-        handler.handle(info: info, action: .delete)
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
 
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "id")
@@ -551,20 +620,20 @@ class KeyboardActionHandlerTests: XCTestCase {
     func test_delete_title() throws {
         let info = info(style: .title)
 
-        handler.handle(info: info, action: .delete)
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
     }
     
     func test_delete_description() throws {
         let info = info(style: .description)
 
-        handler.handle(info: info, action: .delete)
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
     }
     
     func test_delete_bulleted() throws {
         let info = info(style: .bulleted)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .delete)
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
 
         validateTurnInto()
     }
@@ -573,7 +642,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .bulleted, hasChild: true)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .delete)
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
 
         validateTurnInto()
     }
@@ -582,7 +651,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .toggle)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .delete)
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
 
         validateTurnInto()
     }
@@ -591,7 +660,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .toggle, hasChild: true)
         service.turnIntoStub = true
 
-        handler.handle(info: info, action: .delete)
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
 
         validateTurnInto()
     }
@@ -602,7 +671,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .text)
         infoContainer.stubChildForParent(parentId: headerLayout.id.value, child: nil)
 
-        handler.handle(info: info, action: .delete)
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
         
         // No action
     }
@@ -614,7 +683,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         infoContainer.stubChildForParent(parentId: headerLayout.id.value, child: nil)
         service.mergeStub = true
         
-        handler.handle(info: info2, action: .delete)
+        handler.handle(info: info2, currentString: .init(string: ""), action: .delete)
         
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId!, "id2")
@@ -626,7 +695,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .text)
         service.mergeStub = true
 
-        handler.handle(info: info, action: .delete)
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
         
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId!, "id")
@@ -638,7 +707,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(style: .text)
         service.mergeStub = true
 
-        handler.handle(info: info, action: .delete)
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
         
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId!, "id")
@@ -650,7 +719,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         let child = info(id: "childId".asAnytypeId!, style: .text, parent: parent)
         listService.moveStub = true
         
-        handler.handle(info: child, action: .delete)
+        handler.handle(info: child, currentString: .init(string: ""), action: .delete)
         
         XCTAssertEqual(listService.moveNumberOfCalls, 1)
         XCTAssertEqual(listService.moveBlockId, "childId")
@@ -665,7 +734,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         listService.moveStub = true
         
         // when
-        handler.handle(info: child2, action: .delete)
+        handler.handle(info: child2, currentString: .init(string: ""), action: .delete)
         
         XCTAssertEqual(listService.moveNumberOfCalls, 1)
         XCTAssertEqual(listService.moveBlockId, "childId2")
@@ -681,7 +750,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.mergeStub = true
         
         // when
-        handler.handle(info: child1, action: .delete)
+        handler.handle(info: child1, currentString: .init(string: ""), action: .delete)
         
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "childId1")
@@ -703,7 +772,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.mergeStub = true
         
         // when
-        handler.handle(info: child, action: .delete)
+        handler.handle(info: child, currentString: .init(string: ""), action: .delete)
         
         XCTAssertEqual(service.mergeNumberOfCalls, 1)
         XCTAssertEqual(service.mergeSecondBlockId, "childId")

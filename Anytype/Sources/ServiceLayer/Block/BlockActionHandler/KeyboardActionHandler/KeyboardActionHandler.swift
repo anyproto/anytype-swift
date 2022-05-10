@@ -68,7 +68,6 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 position: position,
                 newBlockContentType: contentTypeForSplit(text.contentType, blockId: info.id.value)
             )
-
         case .enterAtTheEnd(let string):
             guard string.string.isNotEmpty else {
                 anytypeAssertionFailure("Empty sting in enterAtTheEnd", domain: .keyboardActionHandler)

@@ -158,7 +158,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation, newString attributedText: NSAttributedString) {
+    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, currentText: NSAttributedString, info: BlockInformation) {
         assertionFailure()
     }
 
