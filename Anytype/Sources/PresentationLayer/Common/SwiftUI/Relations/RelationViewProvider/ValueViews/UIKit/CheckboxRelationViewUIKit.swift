@@ -39,7 +39,7 @@ final class CheckboxRelationViewUIKit: UIView {
 
         addSubview(checkboxView) {
             $0.pinToSuperview(excluding: [.right])
-            $0.size(relationStyle.objectRelationStyle.size)
+            $0.size(relationStyle.checkboxSize)
         }
     }
 
