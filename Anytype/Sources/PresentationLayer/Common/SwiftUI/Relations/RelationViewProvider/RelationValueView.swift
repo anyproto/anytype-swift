@@ -32,7 +32,7 @@ struct RelationValueView: View {
             case .object(let object):
                 ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
             case .checkbox(let checkbox):
-                CheckboxRelationView(isChecked: checkbox.value)
+                CheckboxRelationView(isChecked: checkbox.value, style: style)
             case .url(let text):
                 TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
             case .email(let text):

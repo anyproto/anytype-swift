@@ -6,7 +6,7 @@ struct TagRelationRowView: View {
     
     var body: some View {
         HStack(spacing: 0) {
-            TagView(viewModel: viewModel, guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines)
+            TagView(viewModel: viewModel, style: .regular(allowMultiLine: false))
             Spacer()
         }
         .frame(height: 48)

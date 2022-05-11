@@ -66,7 +66,7 @@ private extension Array where Element == Relation.Tag.Option {
             ) {
                 TagSearchRowView(
                     viewModel: tag.asTagViewModel,
-                    guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines,
+                    relationStyle: .regular(allowMultiLine: false),
                     selectionIndicatorViewModel: SelectionIndicatorViewModelBuilder.buildModel(id: tag.id, selectedIds: selectedTagIds)
                 ).eraseToAnyView()
             }
