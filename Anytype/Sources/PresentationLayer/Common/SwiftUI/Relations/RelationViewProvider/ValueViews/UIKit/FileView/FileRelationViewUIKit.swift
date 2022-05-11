@@ -1,11 +1,12 @@
 import UIKit
 
 final class FileRelationViewUIKit: UIView {
-    let option: Relation.File.Option
-    let relationStyle: RelationStyle
+    private let iconView = ObjectIconImageView()
+    private var titleLabel: AnytypeLabel!
 
-    private var textView: AnytypeLabel!
-
+    private let option: Relation.File.Option
+    private let relationStyle: RelationStyle
+    
     init(options: Relation.File.Option, relationStyle: RelationStyle) {
         self.option = options
         self.relationStyle = relationStyle
@@ -20,40 +21,47 @@ final class FileRelationViewUIKit: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override var intrinsicContentSize: CGSize {
-        CGSize(
-            width: textView.intrinsicContentSize.width + relationStyle.objectRelationStyle.size.width,
-            height: textView.intrinsicContentSize.height
-        )
+}
+
+
+private extension FileRelationViewUIKit {
+    
+    func setupView() {
+        setupIconView()
+        setupTitleLabel()
+
+        setupLayout()
     }
-
-    private func setupView() {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = relationStyle.objectRelationStyle.hSpaсingObject
-
-        textView = AnytypeLabel(style: relationStyle.font)
-        textView.setText(option.title)
-        textView.setLineBreakMode(.byTruncatingTail)
-        textView.textColor = relationStyle.uiKitFontColor
-
+    
+    func setupIconView() {
         let model = ObjectIconImageModel(
             iconImage: option.icon,
-            usecase: .mention(.body)
+            usecase: .featuredRelationsBlock
         )
-        let icon = ObjectIconImageView()
-        icon.configure(model: model)
-
-        stackView.addArrangedSubview(icon)
-        stackView.addArrangedSubview(textView)
-
-        icon.layoutUsing.anchors {
-            $0.width.equal(to: relationStyle.objectRelationStyle.size.width)
-            $0.height.equal(to: relationStyle.objectRelationStyle.size.height, priority: .defaultHigh)
+        
+        iconView.configure(model: model)
+    }
+    
+    func setupTitleLabel() {
+        titleLabel = AnytypeLabel(style: relationStyle.font)
+        titleLabel.setText(option.title)
+        titleLabel.textColor = relationStyle.uiKitFontColor
+        titleLabel.setLineBreakMode(.byTruncatingTail)
+    }
+    
+    func setupLayout() {
+        self.layoutUsing.stack {
+            $0.hStack(
+                iconView,
+                $0.hGap(fixed: relationStyle.objectRelationStyle.hSpaсingObject),
+                titleLabel
+            )
         }
-
-        addSubview(stackView) {
-            $0.pinToSuperview()
+        
+        iconView.layoutUsing.anchors {
+            $0.size(relationStyle.objectRelationStyle.size)
         }
     }
+    
 }
+
