@@ -74,7 +74,7 @@ final class RelationValueViewUIKit: UIView {
         case .file(let file):
             return FileListRelationViewUIKit(options: file.files, hint: relation.hint, style: style)
         case .unknown(let unknown):
-            return RelationPlaceholderViewUIKit(hint: unknown.value, type: style.placeholderType)
+            return RelationPlaceholderViewUIKit(hint: unknown.value, style: style)
         }
     }
 }

@@ -13,7 +13,7 @@ struct TagRelationView: View {
                 scrollRelations
             }
         } else {
-            RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
+            RelationsListRowPlaceholderView(hint: hint, style: style)
         }
     }
 

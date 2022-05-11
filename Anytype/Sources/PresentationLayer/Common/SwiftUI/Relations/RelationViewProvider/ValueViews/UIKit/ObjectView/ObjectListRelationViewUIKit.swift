@@ -60,7 +60,7 @@ final class ObjectListRelationViewUIKit: UIView {
     }
 
     private func setupPlaceholder() {
-        let placeholder = RelationPlaceholderViewUIKit(hint: hint, type: style.placeholderType)
+        let placeholder = RelationPlaceholderViewUIKit(hint: hint, style: style)
 
         addSubview(placeholder) {
             $0.pinToSuperview()

@@ -9,7 +9,7 @@ struct FileRelationView: View {
         if options.isNotEmpty {
             objectsList
         } else {
-            RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
+            RelationsListRowPlaceholderView(hint: hint, style: style)
         }
     }
     
