@@ -76,7 +76,7 @@ extension RelationStyle {
         case .regular, .set:
             return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 8, hSpaсingObject: 6, size: .init(width: 20, height: 20))
         case .featuredRelationBlock:
-            return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: .init(width: 16, height: 16))
+            return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: .init(width: 18, height: 18))
         }
     }
     
