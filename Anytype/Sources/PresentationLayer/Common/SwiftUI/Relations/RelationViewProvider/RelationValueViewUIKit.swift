@@ -62,7 +62,7 @@ final class RelationValueViewUIKit: UIView {
         case .object(let object):
             return ObjectListRelationViewUIKit(options: object.selectedObjects, hint: relation.hint, style: style)
         case .checkbox(let checkbox):
-            return CheckboxRelationViewUIKit(isChecked: checkbox.value)
+            return CheckboxRelationViewUIKit(isChecked: checkbox.value, relationStyle: style)
         case .url(let text):
             return TextRelationFactory.uiKit(value: text.value, hint: relation.hint, style: style)
         case .email(let text):

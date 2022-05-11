@@ -9,16 +9,18 @@
 import UIKit
 
 final class CheckboxRelationViewUIKit: UIView {
-    let isChecked: Bool
-
+    
     private var checkboxView: UIButton!
-
+    
+    private let isChecked: Bool
+    private let relationStyle: RelationStyle
 
     // MARK: - Lifecycle
 
-    init(isChecked: Bool) {
+    init(isChecked: Bool, relationStyle: RelationStyle) {
         self.isChecked = isChecked
-
+        self.relationStyle = relationStyle
+        
         super.init(frame: .zero)
 
         setupViews()
@@ -36,8 +38,8 @@ final class CheckboxRelationViewUIKit: UIView {
         checkboxView = createCheckboxView()
 
         addSubview(checkboxView) {
-            $0.pinToSuperview()
-            $0.size(CGSize(width: 18, height: 18))
+            $0.pinToSuperview(excluding: [.right])
+            $0.size(relationStyle.objectRelationStyle.size)
         }
     }
 
