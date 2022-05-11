@@ -2,13 +2,13 @@ import UIKit
 
 final class ObjectRelationViewUIKit: UIView {
     let option: Relation.Object.Option
-    let objectRelationStyle: ObjectRelationView.ObjectRelationStyle
+    let relationStyle: RelationStyle
 
     private var textView: AnytypeLabel!
 
-    init(options: Relation.Object.Option, objectRelationStyle: ObjectRelationView.ObjectRelationStyle) {
+    init(options: Relation.Object.Option, relationStyle: RelationStyle) {
         self.option = options
-        self.objectRelationStyle = objectRelationStyle
+        self.relationStyle = relationStyle
 
         super.init(frame: .zero)
 
@@ -21,18 +21,21 @@ final class ObjectRelationViewUIKit: UIView {
     }
 
     override var intrinsicContentSize: CGSize {
-        CGSize(width: textView.intrinsicContentSize.width + objectRelationStyle.size.width, height: textView.intrinsicContentSize.height)
+        CGSize(
+            width: textView.intrinsicContentSize.width + relationStyle.objectRelationStyle.size.width + relationStyle.objectRelationStyle.hSpaсingObject,
+            height: textView.intrinsicContentSize.height
+        )
     }
 
     private func setupView() {
         let stackView = UIStackView()
         stackView.axis = .horizontal
-        stackView.spacing = objectRelationStyle.hSpaсingObject
+        stackView.spacing = relationStyle.objectRelationStyle.hSpaсingObject
 
-        textView = AnytypeLabel(style: .relation1Regular)
+        textView = AnytypeLabel(style: relationStyle.font)
         textView.setText(option.title)
         textView.setLineBreakMode(.byTruncatingTail)
-        textView.textColor = option.isDeleted ? .textTertiary : .textPrimary
+        textView.textColor = option.isDeleted ? .textTertiary : relationStyle.uiKitFontColor
 
         let model = ObjectIconImageModel(
             iconImage: option.icon,
@@ -45,8 +48,8 @@ final class ObjectRelationViewUIKit: UIView {
         stackView.addArrangedSubview(textView)
 
         icon.layoutUsing.anchors {
-            $0.width.equal(to: objectRelationStyle.size.width)
-            $0.height.equal(to: objectRelationStyle.size.height, priority: .defaultHigh)
+            $0.width.equal(to: relationStyle.objectRelationStyle.size.width)
+            $0.height.equal(to: relationStyle.objectRelationStyle.size.height, priority: .defaultHigh)
         }
 
         addSubview(stackView) {

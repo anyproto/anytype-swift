@@ -29,10 +29,6 @@ final class CheckboxRelationViewUIKit: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override var intrinsicContentSize: CGSize {
-        checkboxView.intrinsicContentSize
-    }
-
     // MARK: - Setup view
 
     private func setupViews() {
@@ -40,7 +36,8 @@ final class CheckboxRelationViewUIKit: UIView {
         checkboxView = createCheckboxView()
 
         addSubview(checkboxView) {
-            $0.pinToSuperview(excluding: [.right])
+            $0.pinToSuperview()
+            $0.size(CGSize(width: 18, height: 18))
         }
     }
 

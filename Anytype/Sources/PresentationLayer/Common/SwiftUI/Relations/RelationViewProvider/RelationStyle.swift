@@ -19,7 +19,7 @@ extension RelationStyle {
         case .set:
             return .relation2Regular
         case .featuredRelationBlock:
-            return .relation1Regular
+            return .relation2Regular
         }
     }
 
@@ -67,7 +67,7 @@ extension RelationStyle {
         case .regular, .set:
             return TagView.Guidlines(textPadding: 6, cornerRadius: 5, tagHeight: 20)
         case .featuredRelationBlock:
-            return TagView.Guidlines(textPadding: 6, cornerRadius: 4, tagHeight: 15)
+            return TagView.Guidlines(textPadding: 4, cornerRadius: 4, tagHeight: 18)
         }
     }
 
