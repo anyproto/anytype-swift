@@ -27,7 +27,8 @@ struct FileRelationView: View {
             SwiftUIObjectIconImageView(
                 iconImage: option.icon,
                 usecase: style.objectIconImageUsecase
-            )
+            ).frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+
             
             AnytypeText(
                 option.title,

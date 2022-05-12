@@ -29,10 +29,6 @@ final class ObjectIconImageView: UIView {
         }
     }
     
-    override var intrinsicContentSize: CGSize {
-        imageView.intrinsicContentSize
-    }
-    
 }
 
 // MARK: - ConfigurableView
