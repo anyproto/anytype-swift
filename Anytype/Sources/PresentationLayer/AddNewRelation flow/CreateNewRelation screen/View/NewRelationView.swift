@@ -32,7 +32,7 @@ struct NewRelationView: View {
     
     private var nameSection: some View {
         NewRelationSectionView(
-            title: "Relation name".localized,
+            title: "Name".localized,
             contentViewBuilder: {
                 TextField("No name".localized, text: $viewModel.name)
                     .foregroundColor(.textPrimary)
@@ -45,7 +45,7 @@ struct NewRelationView: View {
     
     private var formatSection: some View {
         NewRelationSectionView(
-            title: "Relation type".localized,
+            title: "Type".localized,
             contentViewBuilder: {
                 NewRelationFormatSectionView(model: viewModel.formatModel)
             },
