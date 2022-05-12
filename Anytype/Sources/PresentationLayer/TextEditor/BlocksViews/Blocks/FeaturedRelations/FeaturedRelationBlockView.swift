@@ -23,7 +23,7 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
                 insets: .init(top: 8, left: 0, bottom: 0, right: 0)
             )
         }
-    } 
+    }
 
     func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
         var views = [UIView]()
@@ -42,7 +42,7 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
 
                 label.text = "•"
                 label.textColor = .textSecondary
-                label.font = .systemFont(ofSize: 16)
+                label.font = .systemFont(ofSize: 13)
 
                 let heightConstraint = label.heightAnchor.constraint(equalToConstant: 18)
                 heightConstraint.priority = .defaultLow

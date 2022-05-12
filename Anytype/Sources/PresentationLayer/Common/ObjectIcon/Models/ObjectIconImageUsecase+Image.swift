@@ -95,12 +95,12 @@ extension ObjectIconImageUsecase {
             )
         case .featuredRelationsBlock:
             return ObjectIconImageGuidelineSet(
-                basicImageGuideline: BasicIconImageGuideline.x16,
-                profileImageGuideline: ProfileIconImageGuideline.x16,
-                emojiImageGuideline: EmojiIconImageGuideline.x16,
-                todoImageGuideline: TodoIconImageGuideline.x16,
+                basicImageGuideline: BasicIconImageGuideline.x18,
+                profileImageGuideline: ProfileIconImageGuideline.x18,
+                emojiImageGuideline: EmojiIconImageGuideline.x18,
+                todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
-                staticImageGuideline: StaticImageGuideline.x16
+                staticImageGuideline: StaticImageGuideline.x18
             )
         }
     }

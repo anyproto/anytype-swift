@@ -5,7 +5,6 @@ final class ObjectListRelationViewUIKit: UIView {
     let hint: String
     let style: RelationStyle
 
-    private lazy var textView = AnytypeLabel(style: style.font)
     private var stackView = UIStackView()
 
     // MARK: - Lifecycle
@@ -41,8 +40,7 @@ final class ObjectListRelationViewUIKit: UIView {
         stackView.spacing = 6
 
         options.prefix(Constants.maxShowingOptions).forEach { option in
-            let objectView = ObjectRelationViewUIKit(options: option,
-                                                  objectRelationStyle: style.objectRelationStyle)
+            let objectView = ObjectRelationViewUIKit(options: option, relationStyle: style)
             stackView.addArrangedSubview(objectView)
         }
         stackView.arrangedSubviews.first?.setContentCompressionResistancePriority(.required, for: .horizontal)
