@@ -228,10 +228,11 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     ) -> Bool {
         let previousTypingAttributes = textView.typingAttributes
         let originalAttributedString = textView.attributedText
-        var urlString = replacementText
+        let trimmedText = replacementText.trimmed
+        var urlString = trimmedText
 
-        if !replacementText.isEncoded {
-            urlString = replacementText.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? replacementText
+        if !urlString.isEncoded {
+            urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
         }
 
         guard urlString.isValidURL(), let url = URL(string: urlString) else {
@@ -241,7 +242,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         let newText = attributedStringWithURL(
             attributedText: textView.attributedText,
             replacementURL: url,
-            replacementText: replacementText,
+            replacementText: replacementText.trimmed,
             range: range
         )
 
@@ -249,7 +250,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         textView.attributedText = newText
         textView.typingAttributes = previousTypingAttributes
 
-        let replacementRange = NSRange(location: range.location, length: replacementText.count)
+        let replacementRange = NSRange(location: range.location, length: trimmedText.count)
 
         guard let textRect = textView.textRectForRange(range: replacementRange) else { return true }
 
@@ -258,7 +259,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             rect: textRect) { option in
                 switch option {
                 case .createBookmark:
-                    let position: BlockPosition = textView.text == replacementText ?
+                    let position: BlockPosition = textView.text == trimmedText ?
                         .replace : .bottom
                     actionHandler.createAndFetchBookmark(
                         targetID: blockId,
