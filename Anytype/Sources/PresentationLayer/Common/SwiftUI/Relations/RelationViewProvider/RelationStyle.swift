@@ -62,6 +62,15 @@ extension RelationStyle {
         }
     }
     
+    var hintFont: AnytypeFont {
+        switch self {
+        case .regular, .set:
+            return .callout
+        case .featuredRelationBlock:
+            return .relation2Regular
+        }
+    }
+    
     
     var tagViewGuidlines: TagView.Guidlines {
         switch self {

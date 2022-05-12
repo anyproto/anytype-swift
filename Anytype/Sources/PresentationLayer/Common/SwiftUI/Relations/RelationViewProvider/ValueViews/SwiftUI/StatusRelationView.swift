@@ -10,7 +10,7 @@ struct StatusRelationView: View {
             AnytypeText(statusOption.text, style: style.font, color: statusOption.color.suColor)
                 .lineLimit(1)
         } else {
-            RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
+            RelationsListRowPlaceholderView(hint: hint, style: style)
         }
     }
 }

@@ -44,7 +44,7 @@ struct RelationValueView: View {
             case .file(let file):
                 FileRelationView(options: file.files, hint: relation.hint, style: style)
             case .unknown(let unknown):
-                RelationsListRowPlaceholderView(hint: unknown.value, type: style.placeholderType)
+                RelationsListRowPlaceholderView(hint: unknown.value, style: style)
             }
             Spacer()
         }

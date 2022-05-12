@@ -47,7 +47,7 @@ final class StatusRelationViewUIKit: UIView {
             textView.setText(statusOption.text)
             currentView = textView
         } else {
-            let placeholder = RelationPlaceholderViewUIKit(hint: hint, type: style.placeholderType)
+            let placeholder = RelationPlaceholderViewUIKit(hint: hint, style: style)
             currentView = placeholder
         }
         addSubview(currentView) {
