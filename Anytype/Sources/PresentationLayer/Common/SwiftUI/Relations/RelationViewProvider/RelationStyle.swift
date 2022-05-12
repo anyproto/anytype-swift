@@ -12,6 +12,7 @@ enum RelationPlaceholderType {
 }
 
 extension RelationStyle {
+    
     var font: AnytypeFont {
         switch self {
         case .regular:
@@ -65,18 +66,27 @@ extension RelationStyle {
     var tagViewGuidlines: TagView.Guidlines {
         switch self {
         case .regular, .set:
-            return TagView.Guidlines(textPadding: 6, cornerRadius: 5, tagHeight: 20)
+            return TagView.Guidlines(textPadding: 6, cornerRadius: 5, tagHeight: Constants.size20.height)
         case .featuredRelationBlock:
-            return TagView.Guidlines(textPadding: 4, cornerRadius: 4, tagHeight: 18)
+            return TagView.Guidlines(textPadding: 4, cornerRadius: 4, tagHeight: Constants.size18.height)
         }
     }
 
     var objectRelationStyle: ObjectRelationView.ObjectRelationStyle {
         switch self {
         case .regular, .set:
-            return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 8, hSpaсingObject: 6, size: .init(width: 20, height: 20))
+            return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 8, hSpaсingObject: 6, size: Constants.size20)
         case .featuredRelationBlock:
-            return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: .init(width: 18, height: 18))
+            return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: Constants.size18)
+        }
+    }
+    
+    var checkboxSize: CGSize {
+        switch self {
+        case .regular, .set:
+            return Constants.size20
+        case .featuredRelationBlock:
+            return Constants.size18
         }
     }
     
@@ -89,6 +99,15 @@ extension RelationStyle {
         case .set:
             return .mention(.body)
         }
+    }
+    
+}
+
+private extension RelationStyle {
+    
+    enum Constants {
+        static let size20 = CGSize(width: 20, height: 20)
+        static let size18 = CGSize(width: 18, height: 18)
     }
     
 }
