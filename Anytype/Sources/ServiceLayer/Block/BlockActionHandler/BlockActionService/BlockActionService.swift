@@ -59,8 +59,6 @@ final class BlockActionService: BlockActionServiceProtocol {
         nsRange: NSRange,
         newBlockContentType: BlockText.Style
     ) {
-        let range = NSRange(location: position, length: 0)
-
         guard let blockId = textService.split(
             contextId: documentId,
             blockId: blockId,

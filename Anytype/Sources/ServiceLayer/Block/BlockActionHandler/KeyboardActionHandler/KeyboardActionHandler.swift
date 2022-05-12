@@ -65,7 +65,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 string,
                 blockId: info.id.value,
                 mode: splitMode(info),
-                position: position,
+                nsRange: nsRange,
                 newBlockContentType: contentTypeForSplit(text.contentType, blockId: info.id.value)
             )
 
@@ -75,10 +75,10 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 enterForEmpty(text: text, info: info)
                 return
             }
-            onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: string)
+            onEnterAtTheEndOfContent(info: info, text: text, nsRange: nsRange, action: action, newString: string)
             
-        case .enterAtTheBegining:
-            service.split(currentString, blockId: info.id.value, mode: .bottom, position: 0, newBlockContentType: .text)
+        case let .enterAtTheBegining(_, nsRange):
+            service.split(currentString, blockId: info.id.value, mode: .bottom, nsRange: nsRange, newBlockContentType: .text)
         case .delete:
             onDelete(text: text, info: info, parent: parent)
         }
@@ -122,6 +122,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private func onEnterAtTheEndOfContent(
         info: BlockInformation,
         text: BlockText,
+        nsRange: NSRange,
         action: CustomTextView.KeyboardAction,
         newString: NSAttributedString
     ) {
@@ -149,7 +150,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 newString,
                 blockId: info.id.value,
                 mode: splitMode(info),
-                nsRange: NSRange(location: newString.string.count, length: 0),
+                nsRange: nsRange,
                 newBlockContentType: type
             )
         }
