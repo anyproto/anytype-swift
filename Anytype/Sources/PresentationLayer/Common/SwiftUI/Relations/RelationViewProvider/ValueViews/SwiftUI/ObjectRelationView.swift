@@ -31,13 +31,12 @@ struct ObjectRelationView: View {
                     iconImage: option.icon,
                     usecase: style.objectIconImageUsecase
                 )
-                    .frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
             }
             
             AnytypeText(
                 option.title,
-                style: .relation1Regular,
-                color: option.isDeleted ? .textTertiary : .textPrimary
+                style: style.font,
+                color: option.isDeleted ? .textTertiary : style.fontColor
             )
                 .lineLimit(1)
         }

@@ -3,22 +3,22 @@ import SwiftUI
 struct TagView: View {
     
     let viewModel: Model
-    let guidlines: Guidlines
+    let style: RelationStyle
     
     var body: some View {
-        AnytypeText(viewModel.text, style: .relation1Regular, color: viewModel.textColor.suColor)
+        AnytypeText(viewModel.text, style: style.font, color: viewModel.textColor.suColor)
             .lineLimit(1)
-            .padding(.horizontal, guidlines.textPadding)
+            .padding(.horizontal, style.tagViewGuidlines.textPadding)
             .background(viewModel.backgroundColor.suColor)
-            .cornerRadius(guidlines.cornerRadius)
+            .cornerRadius(style.tagViewGuidlines.cornerRadius)
             .overlay(
-                RoundedRectangle(cornerRadius: guidlines.cornerRadius)
+                RoundedRectangle(cornerRadius: style.tagViewGuidlines.cornerRadius)
                     .stroke(
                         viewModel.backgroundColor == UIColor.TagBackground.default ? Color.strokePrimary : viewModel.backgroundColor.suColor,
                         lineWidth: 1
                     )
             )
-            .frame(height: guidlines.tagHeight)
+            .frame(height: style.tagViewGuidlines.tagHeight)
     }
 }
 
@@ -46,7 +46,7 @@ struct TagView_Previews: PreviewProvider {
                 textColor: UIColor.Background.amber,
                 backgroundColor: UIColor.Text.amber
             ),
-            guidlines: RelationStyle.set.tagViewGuidlines
+            style: .set
         )
     }
 }
