@@ -22,7 +22,7 @@ struct ObjectActionsView: View {
                         }
                     }
                 }
-            }
+            }.padding(.horizontal, 16)
         }
         .frame(height: 108)
     }
