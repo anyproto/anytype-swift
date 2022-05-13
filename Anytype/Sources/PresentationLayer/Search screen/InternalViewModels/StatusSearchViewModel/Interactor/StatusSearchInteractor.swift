@@ -28,6 +28,10 @@ extension StatusSearchInteractor {
         onCompletion(filteredStatuses)
     }
     
+    func isCreateButtonAvailable(searchText: String) -> Bool {
+        searchText.isNotEmpty && !allStatuses.contains { $0.text.lowercased() == searchText.lowercased() }
+    }
+    
 }
 
 private extension StatusSearchInteractor {

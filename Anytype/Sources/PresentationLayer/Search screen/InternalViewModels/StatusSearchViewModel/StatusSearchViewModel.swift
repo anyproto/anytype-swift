@@ -39,7 +39,7 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     func handleRowsSelection(ids: [String]) {}
     
     func isCreateButtonAvailable(searchText: String) -> Bool {
-        searchText.isNotEmpty && !statuses.contains { $0.text.lowercased() == searchText.lowercased() }
+        interactor.isCreateButtonAvailable(searchText: searchText)
     }
     
 }
