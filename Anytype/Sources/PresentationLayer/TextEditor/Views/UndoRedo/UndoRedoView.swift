@@ -40,10 +40,3 @@ private struct ItemView: View {
         }
     }
 }
-
-struct UndoRedoView_Previews: PreviewProvider {
-    static var previews: some View {
-        UndoRedoView(viewModel: .init(objectId: AnytypeId(UUID().uuidString)!))
-            .previewLayout(PreviewLayout.sizeThatFits)
-    }
-}

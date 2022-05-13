@@ -5,7 +5,7 @@ import Foundation
 import ProtobufMessages
 
 protocol KeyboardActionHandlerProtocol {
-    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction)
+    func handle(info: BlockInformation, currentString: NSAttributedString, action: CustomTextView.KeyboardAction)
 }
 
 final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
@@ -30,12 +30,11 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         self.modelsHolder = modelsHolder
     }
 
-    func handle(info: BlockInformation, action: CustomTextView.KeyboardAction) {
+    func handle(info: BlockInformation, currentString: NSAttributedString, action: CustomTextView.KeyboardAction) {
         guard case let .text(text) = info.content else {
             anytypeAssertionFailure("Only text block may send keyboard action", domain: .keyboardActionHandler)
             return
         }
-        
         guard let parentId = info.configurationData.parentId,
               let parent = container.get(id: parentId)
         else {
@@ -69,7 +68,6 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 position: position,
                 newBlockContentType: contentTypeForSplit(text.contentType, blockId: info.id.value)
             )
-
         case .enterAtTheEnd(let string):
             guard string.string.isNotEmpty else {
                 anytypeAssertionFailure("Empty sting in enterAtTheEnd", domain: .keyboardActionHandler)
@@ -79,12 +77,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
             onEnterAtTheEndOfContent(info: info, text: text, action: action, newString: string)
             
         case .enterAtTheBegining:
-            guard text.contentType != .title, text.contentType != .description else {
-                service.split(text.anytypeText.attrString, blockId: info.id.value, mode: .bottom, position: 0, newBlockContentType: .text)
-                return
-            }
-            service.add(info: .emptyText, targetBlockId: info.id.value, position: .top, setFocus: false)
-
+            service.split(currentString, blockId: info.id.value, mode: .bottom, position: 0, newBlockContentType: .text)
         case .delete:
             onDelete(text: text, info: info, parent: parent)
         }

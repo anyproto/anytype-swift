@@ -45,7 +45,7 @@ private extension ObjectRelationViewUIKit {
     func setupTitleLabel() {
         titleLabel = AnytypeLabel(style: relationStyle.font)
         titleLabel.setText(option.title)
-        titleLabel.textColor = option.isDeleted ? .textTertiary : relationStyle.uiKitFontColor
+        titleLabel.textColor = titleColor(option: option)
         titleLabel.setLineBreakMode(.byTruncatingTail)
     }
     
@@ -63,4 +63,11 @@ private extension ObjectRelationViewUIKit {
         }
     }
     
+    private func titleColor(option: Relation.Object.Option) -> UIColor {
+        if option.isDeleted || option.isArchived {
+            return .textTertiary
+        } else {
+            return .textPrimary
+        }
+    }
 }

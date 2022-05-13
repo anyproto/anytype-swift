@@ -18,6 +18,10 @@ extension EditorPageController: UICollectionViewDropDelegate {
         dividerCursorController.movingMode = .none
     }
 
+    func collectionView(_ collectionView: UICollectionView, dropSessionDidEnd session: UIDropSession) {
+        dividerCursorController.movingMode = .none
+    }
+
     func collectionView(
         _ collectionView: UICollectionView,
         dropSessionDidUpdate session: UIDropSession,

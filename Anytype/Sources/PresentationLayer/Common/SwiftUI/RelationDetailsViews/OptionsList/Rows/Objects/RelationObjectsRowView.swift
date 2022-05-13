@@ -32,7 +32,7 @@ struct RelationObjectsRowView: View {
             AnytypeText(
                 object.isDeleted ? "Non-existent object".localized : object.title,
                 style: .previewTitle2Medium,
-                color: object.isDeleted ? .textTertiary : .textPrimary
+                color: titleColor
             )
                 .lineLimit(1)
             
@@ -41,9 +41,25 @@ struct RelationObjectsRowView: View {
             AnytypeText(
                 object.isDeleted ? "Deleted".localized : object.type,
                 style: .relation2Regular,
-                color: object.isDeleted ? .textTertiary : .textSecondary
+                color: subtitleColor
             )
                 .lineLimit(1)
+        }
+    }
+    
+    private var titleColor: Color {
+        if object.isDeleted || object.isArchived {
+            return .textTertiary
+        } else {
+            return .textPrimary
+        }
+    }
+    
+    private var subtitleColor: Color {
+        if object.isDeleted || object.isArchived {
+            return .textTertiary
+        } else {
+            return .textSecondary
         }
     }
     
@@ -57,6 +73,7 @@ struct RelationObjectsRowView_Previews: PreviewProvider {
                 icon: .placeholder("r"),
                 title: "title",
                 type: "type",
+                isArchived: false,
                 isDeleted: false
             )
         )

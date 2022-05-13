@@ -9,19 +9,25 @@ struct NewRelationView: View {
     }
     
     var body: some View {
-        ScrollView(.vertical, showsIndicators: false) {
-            VStack(spacing: 0) {
-                DragIndicator()
-                TitleView(title: "New relation".localized)
+        VStack(spacing: 0) {
+            DragIndicator()
+            TitleView(title: "New relation".localized)
+            content
+        }
+        .padding(.horizontal, 20)
+    }
+
+    private var content: some View {
+        VStack(spacing: 0) {
+            ScrollView(.vertical, showsIndicators: false) {
                 nameSection
                 formatSection
                 restrictionsSection
                 Spacer.fixedHeight(10)
-                Spacer()
-                button
             }
-            .padding(.horizontal, 20)
-        } 
+            Spacer()
+            button
+        }
     }
     
     private var nameSection: some View {
@@ -38,16 +44,32 @@ struct NewRelationView: View {
     }
     
     private var formatSection: some View {
-        NewRelationFormatSectionView(model: viewModel.formatModel) {
-            viewModel.didTapFormatSection()
-        }
+        NewRelationSectionView(
+            title: "Type".localized,
+            contentViewBuilder: {
+                NewRelationFormatSectionView(model: viewModel.formatModel)
+            },
+            onTap: {
+                UIApplication.shared.hideKeyboard()
+                viewModel.didTapFormatSection()
+            },
+            isArrowVisible: true
+        )
     }
     
     private var restrictionsSection: some View {
-        viewModel.objectTypesRestrictionModel.flatMap {
-            NewRelationRestrictionsSectionView(model: $0) {
-                viewModel.didTapTypesRestrictionSection()
-            }
+        viewModel.objectTypesRestrictionModel.flatMap { model in
+            NewRelationSectionView(
+                title: "Limit object types".localized,
+                contentViewBuilder: {
+                    NewRelationRestrictionsSectionView(model: model)
+                },
+                onTap: {
+                    UIApplication.shared.hideKeyboard()
+                    viewModel.didTapTypesRestrictionSection()
+                },
+                isArrowVisible: true
+            )
         }
     }
     

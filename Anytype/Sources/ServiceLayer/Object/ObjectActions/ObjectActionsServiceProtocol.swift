@@ -26,6 +26,6 @@ protocol ObjectActionsServiceProtocol {
     
     func setObjectType(objectId: BlockId, objectTypeUrl: String)
 
-    func undo(objectId: AnytypeId)
-    func redo(objectId: AnytypeId)
+    func undo(objectId: AnytypeId) throws
+    func redo(objectId: AnytypeId) throws
 }
