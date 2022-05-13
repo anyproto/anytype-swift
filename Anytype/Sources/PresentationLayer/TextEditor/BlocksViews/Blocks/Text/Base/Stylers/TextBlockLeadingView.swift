@@ -52,14 +52,27 @@ final class TextBlockLeadingView: UIView {
             self.calloutIconView = innerView
 
             addSubview(innerView) {
+                $0.height.equal(to: 20)
+                $0.width.equal(to: 20)
+
                 $0.pinToSuperview(
+                    excluding: [.bottom],
                     insets: .init(
-                        top: 0,
+                        top: 2,
                         left: 12,
                         bottom: 0,
-                        right: -6 // 12 - contentStackView horizontal spaciing
+                        right: -6 // 12 subtract contentStackView horizontal spacing
                     )
                 )
+            }
+
+            let action = UIAction { _ in model.onTap() }
+
+            let button = UIButton()
+            button.addAction(action, for: .touchUpInside)
+
+            addSubview(button) {
+                $0.pinToSuperview()
             }
 
             return

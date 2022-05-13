@@ -13,21 +13,36 @@ final class UndoRedoViewModel: ObservableObject {
 
     private let objectId: AnytypeId
     private let objectActionsService: ObjectActionsServiceProtocol
+    private let toastPresenter: ToastPresenter
 
     init(
         objectId: AnytypeId,
-        objectActionsService: ObjectActionsServiceProtocol = ObjectActionsService()
+        objectActionsService: ObjectActionsServiceProtocol = ObjectActionsService(),
+        toastPresenter: ToastPresenter
     ) {
         self.objectId = objectId
         self.objectActionsService = objectActionsService
+        self.toastPresenter = toastPresenter
     }
 
     func undo() {
-        objectActionsService.undo(objectId: objectId)
+        do {
+            try objectActionsService.undo(objectId: objectId)
+        } catch let error as ObjectActionsServiceError {
+            toastPresenter.show(message: error.message)
+        } catch {
+            anytypeAssertionFailure("Unknown error", domain: .editorPage)
+        }
     }
 
     func redo() {
-        objectActionsService.redo(objectId: objectId)
+        do {
+            try objectActionsService.redo(objectId: objectId)
+        } catch let error as ObjectActionsServiceError {
+            toastPresenter.show(message: error.message)
+        } catch {
+            anytypeAssertionFailure("Unknown error", domain: .editorPage)
+        }
     }
 
     private func buildButtonModels() -> [ButtonModel] {

@@ -409,6 +409,7 @@ private extension RelationsBuilder {
                     icon: icon,
                     title: name,
                     type: objectDetail.objectType.name,
+                    isArchived: objectDetail.isArchived,
                     isDeleted: objectDetail.isDeleted
                 )
             }

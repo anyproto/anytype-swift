@@ -29,7 +29,7 @@ final class NewRelationViewModel: ObservableObject {
         self.output = output
         
         self.name = name
-        self.format = SupportedRelationFormat.text
+        self.format = SupportedRelationFormat.object
         handleFormatUpdate()
     }
     
@@ -40,7 +40,7 @@ final class NewRelationViewModel: ObservableObject {
 extension NewRelationViewModel {
     
     func didTapFormatSection() {
-        output?.didAskToShowRelationFormats()
+        output?.didAskToShowRelationFormats(selectedFormat: format)
     }
     
     func didTapTypesRestrictionSection() {

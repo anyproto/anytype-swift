@@ -61,13 +61,12 @@ final class TextService: TextServiceProtocol {
             return nil
         }
 
-        // Press enter on title block should move carret to a relation text block, split doesn't create any new blocks.
-        if response.event.messages.isNotEmpty {
-            EventsBunch(event: response.event).send()
-        } else {
-            EventsBunch(contextId: contextId, localEvents: [.general]).send()
-        }
-
+        EventsBunch(
+            contextId: contextId,
+            middlewareEvents: response.event.messages,
+            localEvents: [.general],
+            dataSourceEvents: []
+        ).send()
 
         return response.blockID
     }

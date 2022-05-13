@@ -9,12 +9,11 @@ class CreateNewProfileViewModel: ObservableObject {
     }
 
     func showSetupWallet(signUpData: SignUpData, showWaitingView: Binding<Bool>) -> some View {
-        try? seedService.saveSeed(signUpData.mnemonic)
-
         return WaitingOnCreatAccountView(
             viewModel: WaitingOnCreatAccountViewModel(
                 signUpData: signUpData,
-                showWaitingView: showWaitingView
+                showWaitingView: showWaitingView,
+                seedService: self.seedService
             )
         )
     }

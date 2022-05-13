@@ -37,9 +37,17 @@ struct ObjectRelationView: View {
             AnytypeText(
                 option.title,
                 style: style.font,
-                color: option.isDeleted ? .textTertiary : style.fontColor
+                color: titleColor(option: option)
             )
                 .lineLimit(1)
+        }
+    }
+    
+    private func titleColor(option: Relation.Object.Option) -> Color {
+        if option.isDeleted || option.isArchived {
+            return .textTertiary
+        } else {
+            return .textPrimary
         }
     }
 

@@ -11,9 +11,9 @@ struct NewRelationSectionView<Content: View>: View {
     var body: some View {
         Group {
             if let onTap = onTap {
-                Button { onTap() } label: { label }
+                Button { onTap() } label: { label }.divider()
             } else {
-                label
+                label.divider()
             }
         }
     }
@@ -25,14 +25,12 @@ struct NewRelationSectionView<Content: View>: View {
                 contentViewBuilder()
             }
             
-            Spacer()
-            
             if isArrowVisible {
+                Spacer()
                 Image.arrow.frame(width: 10, height: 24)
             }
         }
         .frame(height: 68)
-        .divider()
     }
     
     private var titleView: some View {

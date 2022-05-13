@@ -24,10 +24,14 @@ extension IndentationSettings {
         }
 
         let backgroundColor: UIColor?
-        if let middlewareColor = metadata.backgroundColor, middlewareColor != .default {
+        if metadata.indentationStyle == .callout { // Callout background engineering
+            if let middlewareColor = metadata.backgroundColor, middlewareColor != .default {
+                backgroundColor = UIColor.Background.uiColor(from: middlewareColor)
+            } else {
+                backgroundColor = UIColor.Background.grey
+            }
+        } else if let middlewareColor = metadata.backgroundColor, middlewareColor != .default {
             backgroundColor = UIColor.Background.uiColor(from: middlewareColor)
-        } else if metadata.backgroundColor == nil, metadata.indentationStyle == .callout {
-            backgroundColor = UIColor.Background.grey
         } else {
             backgroundColor = nil
         }

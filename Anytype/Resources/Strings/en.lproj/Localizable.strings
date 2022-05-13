@@ -55,12 +55,13 @@
 "Link" = "Link";
 "Text block subtitle" = "Just start writing with a plain text";
 "Title block subtitle" = "Big section heading";
-"Heading block subtitle" = "Just start writing with a plain text";
-"Subheading block subtitle" = "Just start writing with a plain text";
-"Highlighted block subtitle" = "Small section heading";
+"Heading block subtitle" = "Medium headline";
+"Subheading block subtitle" = "Small headline";
+"Any action or idea" = "Any action or idea";
+"Spotlight, that needs special attention" = "Spotlight, that needs special attention";
 "Checkbox block subtitle" = "Create and track task with to-do list";
 "Bulleted block subtitle" = "Simple list";
-"Numbered block subtitle" = "Simple list";
+"Numbered block subtitle" = "Numbered list";
 "Toggle block subtitle" = "Hide and show content inside";
 "File block subtitle" = "Store file in original state";
 "Picture block subtitle" = "Upload and enrich the page with image";
@@ -137,9 +138,9 @@
 "Recovery phrase" = "Recovery phrase";
 "Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
 "Recovery phrase copied to clipboard" = "Recovery phrase copied to clipboard";
-"Save keychain alert part 1" = "If you lose the passphrase and get logged out you will not be able to ";
+"Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
 "Save keychain alert part 2" = "ever access your data again";
-"Save keychain alert part 3" = ".\nSave this passphrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
+"Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
 
 // Auth
 "Welcome to Anytype" = "Welcome to Anytype";

@@ -13,7 +13,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let openURL: (URL) -> Void
 
         let changeTextStyle: (MarkupType, NSRange) -> Void
-        let handleKeyboardAction: (CustomTextView.KeyboardAction) -> Void
+        let handleKeyboardAction: (CustomTextView.KeyboardAction, UITextView) -> Void
         let becomeFirstResponder: () -> Void
         let resignFirstResponder: () -> Void
 
@@ -40,6 +40,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
     let isChecked: Bool
     let shouldDisplayPlaceholder: Bool
     @EquatableNoop private(set) var focusPublisher: AnyPublisher<BlockFocusPosition, Never>
+    @EquatableNoop private(set) var resetPublisher: AnyPublisher<BlockText, Never>
     let alignment: NSTextAlignment
 
     @EquatableNoop private(set) var actions: Actions
@@ -53,6 +54,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         isChecked: Bool,
         shouldDisplayPlaceholder: Bool,
         focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
+        resetPublisher: AnyPublisher<BlockText, Never>,
         actions: Actions
     ) {
         self.blockId = blockId
@@ -63,6 +65,8 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         self.isChecked = isChecked
         self.shouldDisplayPlaceholder = shouldDisplayPlaceholder
         self.focusPublisher = focusPublisher
+        self.resetPublisher = resetPublisher
+
         self.actions = actions
     }
 }
