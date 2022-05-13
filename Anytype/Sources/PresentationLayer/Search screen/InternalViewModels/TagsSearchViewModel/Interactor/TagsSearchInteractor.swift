@@ -29,6 +29,10 @@ extension TagsSearchInteractor {
         onCompletion(filteredTags)
     }
     
+    func isCreateButtonAvailable(searchText: String) -> Bool {
+        searchText.isNotEmpty && !allTags.contains { $0.text.lowercased() == searchText.lowercased() }
+    }
+    
 }
 
 private extension TagsSearchInteractor {

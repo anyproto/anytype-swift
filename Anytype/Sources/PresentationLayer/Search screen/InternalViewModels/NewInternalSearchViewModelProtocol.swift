@@ -9,4 +9,14 @@ protocol NewInternalSearchViewModelProtocol {
     
     func handleRowsSelection(ids: [String])
     
+    func isCreateButtonAvailable(searchText: String) -> Bool
+    
+}
+
+extension NewInternalSearchViewModelProtocol {
+    
+    func isCreateButtonAvailable(searchText: String) -> Bool {
+        searchText.isNotEmpty
+    }
+    
 }

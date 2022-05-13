@@ -36,8 +36,10 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
         }
     }
     
-    func handleRowsSelection(ids: [String]) {
-       
+    func handleRowsSelection(ids: [String]) {}
+    
+    func isCreateButtonAvailable(searchText: String) -> Bool {
+        interactor.isCreateButtonAvailable(searchText: searchText)
     }
     
 }
