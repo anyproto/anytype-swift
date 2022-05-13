@@ -44,6 +44,10 @@ extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
         selectedTagIds = ids
     }
     
+    func isCreateButtonAvailable(searchText: String) -> Bool {
+        searchText.isNotEmpty && !tags.contains { $0.text.lowercased() == searchText.lowercased() }
+    }
+    
 }
 
 private extension TagsSearchViewModel {

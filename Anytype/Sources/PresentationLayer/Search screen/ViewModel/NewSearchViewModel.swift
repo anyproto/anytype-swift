@@ -86,7 +86,7 @@ private extension NewSearchViewModel {
             return
         }
         
-        isCreateButtonAvailable = searchText.isNotEmpty
+        isCreateButtonAvailable = internalViewModel.isCreateButtonAvailable(searchText: searchText)
     }
     
     func updateAddButtonModel() {
