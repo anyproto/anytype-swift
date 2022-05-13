@@ -105,7 +105,7 @@ final class BlockViewModelBuilder {
             }
         case let .file(content):
             switch content.contentType {
-            case .file:
+            case .file, .none:
                 return BlockFileViewModel(
                     info: info,
                     fileData: content,
@@ -117,8 +117,6 @@ final class BlockViewModelBuilder {
                         router?.saveFile(fileURL: url, type: .file)
                     }
                 )
-            case .none:
-                return UnknownLabelViewModel(info: info)
             case .image:
                 return BlockImageViewModel(
                     info: info,
