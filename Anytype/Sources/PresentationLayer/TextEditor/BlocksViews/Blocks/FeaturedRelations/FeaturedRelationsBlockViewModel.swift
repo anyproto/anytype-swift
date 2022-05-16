@@ -1,8 +1,6 @@
-import Foundation
 import UIKit
 import BlocksModels
 
-#warning("Check if block updates when featuredRelations is changed. Waiting for new imp of flow layout")
 struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
     let indentationLevel: Int = 0
@@ -16,7 +14,6 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     var hashable: AnyHashable {
         [
             indentationLevel,
-            info,
             type,
             relationViewModels
         ] as [AnyHashable]
