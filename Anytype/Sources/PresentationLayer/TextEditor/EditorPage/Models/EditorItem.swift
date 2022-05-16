@@ -30,3 +30,19 @@ enum EditorItem: Hashable {
         }
     }
 }
+
+extension CollectionDifference where ChangeElement == EditorItem {
+    var canPerformAnimation: Bool {
+        !insertions.contains { item in
+            switch item.element {
+            case .block(let blockViewModel):
+                if case .featuredRelations = blockViewModel.content {
+                    return true
+                }
+
+                return false
+            default: return false
+            }
+        }
+    }
+}

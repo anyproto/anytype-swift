@@ -241,7 +241,8 @@ extension EditorPageController: EditorPageViewInput {
             }
         }
 
-        applyBlocksSectionSnapshot(blocksSnapshot)
+        let animatingDifferences = (changes?.canPerformAnimation ?? true) && didAppliedModelsOnce
+        applyBlocksSectionSnapshot(blocksSnapshot, animatingDifferences: animatingDifferences)
     }
 
     func selectBlock(blockId: BlockId) {
@@ -479,11 +480,12 @@ private extension EditorPageController {
 
 private extension EditorPageController {
     
-    func applyBlocksSectionSnapshot(_ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>) {
-        let selectedCells = collectionView.indexPathsForSelectedItems
-
+    func applyBlocksSectionSnapshot(
+        _ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>,
+        animatingDifferences: Bool
+    ) {
         if #available(iOS 15.0, *) {
-            dataSource.apply(snapshot, to: .main, animatingDifferences: didAppliedModelsOnce ? true : false)
+            dataSource.apply(snapshot, to: .main, animatingDifferences: animatingDifferences)
         } else {
             UIView.performWithoutAnimation {
                 dataSource.apply(snapshot, to: .main, animatingDifferences: true)
@@ -491,6 +493,8 @@ private extension EditorPageController {
         }
 
         didAppliedModelsOnce = true
+
+        let selectedCells = collectionView.indexPathsForSelectedItems
         selectedCells?.forEach {
             self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
         }
