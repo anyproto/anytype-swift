@@ -20,7 +20,7 @@ protocol BlockActionServiceProtocol {
         _ string: NSAttributedString,
         blockId: BlockId,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
-        nsRange: NSRange,
+        range: NSRange,
         newBlockContentType: BlockText.Style
     )
     

@@ -56,29 +56,29 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                     .init(string: ""),
                     blockId: info.id.value,
                     mode: .bottom,
-                    nsRange: NSRange(location: 0, length: 0),
+                    range: NSRange(location: 0, length: 0),
                     newBlockContentType: .text
                 )
             }
-        case let .enterInside(string, nsRange):
+        case let .enterInside(string, range):
             service.split(
                 string,
                 blockId: info.id.value,
                 mode: splitMode(info),
-                nsRange: nsRange,
+                range: range,
                 newBlockContentType: contentTypeForSplit(text.contentType, blockId: info.id.value)
             )
 
-        case let .enterAtTheEnd(string, nsRange):
+        case let .enterAtTheEnd(string, range):
             guard string.string.isNotEmpty else {
                 anytypeAssertionFailure("Empty sting in enterAtTheEnd", domain: .keyboardActionHandler)
                 enterForEmpty(text: text, info: info)
                 return
             }
-            onEnterAtTheEndOfContent(info: info, text: text, nsRange: nsRange, action: action, newString: string)
+            onEnterAtTheEndOfContent(info: info, text: text, range: range, action: action, newString: string)
             
-        case let .enterAtTheBegining(_, nsRange):
-            service.split(currentString, blockId: info.id.value, mode: .bottom, nsRange: nsRange, newBlockContentType: .text)
+        case let .enterAtTheBegining(_, range):
+            service.split(currentString, blockId: info.id.value, mode: .bottom, range: range, newBlockContentType: .text)
         case .delete:
             onDelete(text: text, info: info, parent: parent)
         }
@@ -122,7 +122,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private func onEnterAtTheEndOfContent(
         info: BlockInformation,
         text: BlockText,
-        nsRange: NSRange,
+        range: NSRange,
         action: CustomTextView.KeyboardAction,
         newString: NSAttributedString
     ) {
@@ -150,7 +150,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
                 newString,
                 blockId: info.id.value,
                 mode: splitMode(info),
-                nsRange: nsRange,
+                range: range,
                 newBlockContentType: type
             )
         }

@@ -56,13 +56,13 @@ final class BlockActionService: BlockActionServiceProtocol {
         _ string: NSAttributedString,
         blockId: BlockId,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
-        nsRange: NSRange,
+        range: NSRange,
         newBlockContentType: BlockText.Style
     ) {
         guard let blockId = textService.split(
             contextId: documentId,
             blockId: blockId,
-            nsRange: nsRange,
+            range: range,
             style: newBlockContentType,
             mode: mode
         ) else { return }
