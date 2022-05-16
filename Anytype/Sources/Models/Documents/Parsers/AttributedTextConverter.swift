@@ -48,8 +48,8 @@ enum AttributedTextConverter {
                 return nil
             }
 
-            let nsRange = NSRange(location: fromOffset, length: toOffset - fromOffset)
-            return (nsRange, markValue)
+            let range = NSRange(location: fromOffset, length: toOffset - fromOffset)
+            return (range, markValue)
         }
 
         let font = style.uiFont

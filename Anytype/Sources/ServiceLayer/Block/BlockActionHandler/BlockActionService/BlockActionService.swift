@@ -56,11 +56,9 @@ final class BlockActionService: BlockActionServiceProtocol {
         _ string: NSAttributedString,
         blockId: BlockId,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
-        position: Int,
+        range: NSRange,
         newBlockContentType: BlockText.Style
     ) {
-        let range = NSRange(location: position, length: 0)
-
         guard let blockId = textService.split(
             contextId: documentId,
             blockId: blockId,

@@ -4,9 +4,9 @@ import AnytypeCore
 extension CustomTextView {
     enum KeyboardAction {
         case enterForEmpty
-        case enterInside(string: NSAttributedString, position: Int)
-        case enterAtTheEnd(string: NSAttributedString)
-        case enterAtTheBegining
+        case enterInside(string: NSAttributedString, NSRange)
+        case enterAtTheEnd(string: NSAttributedString, NSRange)
+        case enterAtTheBegining(string: NSAttributedString, NSRange)
         
         case delete
     }
@@ -18,25 +18,24 @@ extension CustomTextView.KeyboardAction {
     
     static func build(attributedText: NSAttributedString, range: NSRange, replacement: String) -> Self? {
         let text = attributedText.string
-        guard let range = Range(range, in: text) else { return nil }
-
-        let emptyRange = range.isEmpty && range.lowerBound == text.startIndex
+        guard let textRange = Range(range, in: text) else { return nil }
+        
+        let emptyRange = textRange.isEmpty && textRange.lowerBound == text.startIndex
 
         if replacement == newLine {
             if emptyRange && text.isEmpty {
                 return .enterForEmpty
             }
 
-            if text.endIndex == range.upperBound {
-                return .enterAtTheEnd(string: attributedText)
+            if text.endIndex == textRange.upperBound {
+                return .enterAtTheEnd(string: attributedText, range)
             }
             
-            if text.startIndex == range.lowerBound {
-                return .enterAtTheBegining
+            if text.startIndex == textRange.lowerBound {
+                return .enterAtTheBegining(string: attributedText, range)
             }
             
-            let position = String(text[..<range.lowerBound]).count
-            return .enterInside(string: attributedText, position: position)
+            return .enterInside(string: attributedText, range)
         }
         
         if replacement == emptyString, emptyRange {
