@@ -99,7 +99,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     func canSelectBlock(at indexPath: IndexPath) -> Bool {
         guard let block = modelsHolder.blockViewModel(at: indexPath.row) else { return false }
 
-        if block.content.type == .text(.title) ||
+        if block.content.type == .text(.title) || block.content.type == .text(.description) ||
             block.content.type == .featuredRelations {
             return false
         }
