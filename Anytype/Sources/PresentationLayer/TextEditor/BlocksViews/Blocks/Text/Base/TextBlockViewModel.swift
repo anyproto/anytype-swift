@@ -93,10 +93,13 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             actions: action()
         )
 
+        let isDragConfigurationAvailable =
+            content.contentType != .description && content.contentType != .title
+
         return contentConfiguration.cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
             dragConfiguration:
-                content.contentType == .title ? nil : .init(id: info.id.value)
+                isDragConfigurationAvailable ? .init(id: info.id.value) : nil
         )
     }
 
