@@ -40,7 +40,7 @@ extension NSCollectionLayoutEdgeSpacing {
             leading: nil,
             top: nil,
             trailing: nil,
-            bottom: NSCollectionLayoutSpacing.fixed(8)
+            bottom: NSCollectionLayoutSpacing.fixed(0)
         )
     }
 }
