@@ -69,7 +69,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
     private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
             image: UIImage.blockFile.empty.video,
-            text: "Upload a audio".localized,
+            text: "Upload audio".localized,
             state: state
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
