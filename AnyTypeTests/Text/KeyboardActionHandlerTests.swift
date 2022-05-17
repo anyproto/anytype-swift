@@ -38,10 +38,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
 
         let string = NSAttributedString(string: "123")
-        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, NSRange(location: 1, length: 1)))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 2)
+        XCTAssertEqual(service.splitData!.range.location, 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -53,10 +53,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
 
         let string = NSAttributedString(string: "123")
-        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 0))
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, NSRange(location: 0, length: 0)))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 0)
+        XCTAssertEqual(service.splitData!.range.location, 0)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -68,10 +68,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
 
         let string = NSAttributedString(string: "123")
-        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, NSRange(location: 1, length: 1)))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 2)
+        XCTAssertEqual(service.splitData!.range.location, 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .inner)
@@ -83,10 +83,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
 
         let string = NSAttributedString(string: "123")
-        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, NSRange(location: 1, length: 1)))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 2)
+        XCTAssertEqual(service.splitData!.range.location, 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .bulleted)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -98,10 +98,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
         
         let string = NSAttributedString(string: "123")
-        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, NSRange(location: 1, length: 1)))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 2)
+        XCTAssertEqual(service.splitData!.range.location, 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -113,10 +113,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
         
         let string = NSAttributedString(string: "123")
-        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, NSRange(location: 1, length: 1)))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 2)
+        XCTAssertEqual(service.splitData!.range.location, 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -128,10 +128,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
         
         let string = NSAttributedString(string: "123")
-        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, NSRange(location: 1, length: 1)))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 2)
+        XCTAssertEqual(service.splitData!.range.location, 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .quote)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -143,10 +143,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
         
         let string = NSAttributedString(string: "123")
-        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, NSRange(location: 1, length: 1)))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 2)
+        XCTAssertEqual(service.splitData!.range.location, 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .header)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -159,10 +159,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
         
         let string = NSAttributedString(string: "123")
-        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, NSRange(location: 1, length: 1)))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 2)
+        XCTAssertEqual(service.splitData!.range.location, 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .inner)
@@ -174,10 +174,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
         
         let string = NSAttributedString(string: "123")
-        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, NSRange(location: 1, length: 1)))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 2)
+        XCTAssertEqual(service.splitData!.range.location, 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .toggle)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -190,10 +190,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
         
         let string = NSAttributedString(string: "123")
-        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, NSRange(location: 1, length: 1)))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 2)
+        XCTAssertEqual(service.splitData!.range.location, 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .inner)
@@ -205,10 +205,10 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
         
         let string = NSAttributedString(string: "123")
-        handler.handle(info: info, currentString: string, action: .enterInside(string: string, position: 2))
+        handler.handle(info: info, currentString: string, action: .enterInside(string: string, NSRange(location: 1, length: 1)))
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 2)
+        XCTAssertEqual(service.splitData!.range.location, 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .toggle)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -224,11 +224,11 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(
             info: info,
             currentString: string,
-            action: .enterAtTheEnd(string: string)
+            action: .enterAtTheEnd(string: string, NSRange(location: string.length - 1, length: 0))
         )
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 3)
+        XCTAssertEqual(service.splitData!.range.location, string.length - 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -243,11 +243,11 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(
             info: info,
             currentString: string,
-            action: .enterAtTheEnd(string: string)
+            action: .enterAtTheEnd(string: string, NSRange(location: string.length - 1, length: 0))
         )
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 3)
+        XCTAssertEqual(service.splitData!.range.location, string.length - 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -262,11 +262,11 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(
             info: info,
             currentString: string,
-            action: .enterAtTheEnd(string: string)
+            action: .enterAtTheEnd(string: string, NSRange(location: string.length - 1, length: 0))
         )
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 3)
+        XCTAssertEqual(service.splitData!.range.location, string.length - 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -281,11 +281,11 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(
             info: info,
             currentString: string,
-            action: .enterAtTheEnd(string: string)
+            action: .enterAtTheEnd(string: string, NSRange(location: string.length - 1, length: 0))
         )
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 3)
+        XCTAssertEqual(service.splitData!.range.location, string.length - 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -300,11 +300,11 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(
             info: info,
             currentString: string,
-            action: .enterAtTheEnd(string: string)
+            action: .enterAtTheEnd(string: string, NSRange(location: string.length - 1, length: 0))
         )
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 3)
+        XCTAssertEqual(service.splitData!.range.location, string.length - 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -319,11 +319,11 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(
             info: info,
             currentString: string,
-            action: .enterAtTheEnd(string: string)
+            action: .enterAtTheEnd(string: string, NSRange(location: string.length - 1, length: 0))
         )
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 3)
+        XCTAssertEqual(service.splitData!.range.location, string.length - 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .bulleted)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -339,7 +339,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(
             info: info,
             currentString: string,
-            action: .enterAtTheEnd(string: string)
+            action: .enterAtTheEnd(string: string, NSRange(location: string.length - 1, length: 0))
         )
 
         XCTAssertEqual(service.addNumberOfCalls, 1)
@@ -359,7 +359,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(
             info: info,
             currentString: string,
-            action: .enterAtTheEnd(string: string)
+            action: .enterAtTheEnd(string: string, NSRange(location: string.length - 1, length: 0))
         )
 
         XCTAssertEqual(service.addChildNumberOfCalls, 1)
@@ -375,11 +375,11 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(
             info: info,
             currentString: string,
-            action: .enterAtTheEnd(string: string)
+            action: .enterAtTheEnd(string: string, NSRange(location: string.length - 1, length: 0))
         )
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 3)
+        XCTAssertEqual(service.splitData!.range.location, string.length - 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .toggle)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -396,7 +396,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(
             info: info,
             currentString: string,
-            action: .enterAtTheEnd(string: string)
+            action: .enterAtTheEnd(string: string, NSRange(location: string.length - 1, length: 0))
         )
 
         XCTAssertEqual(service.addNumberOfCalls, 1)
@@ -414,11 +414,11 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(
             info: info,
             currentString: string,
-            action: .enterAtTheEnd(string: string)
+            action: .enterAtTheEnd(string: string, NSRange(location: string.length - 1, length: 0))
         )
         
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 3)
+        XCTAssertEqual(service.splitData!.range.location, string.length - 1)
         XCTAssertEqual(service.splitData!.newBlockContentType, .toggle)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -433,7 +433,7 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(info: info, currentString: .init(string: ""), action: .enterForEmpty)
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
-        XCTAssertEqual(service.splitData!.position, 0)
+        XCTAssertEqual(service.splitData!.range.location, 0)
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.mode, .bottom)
@@ -541,42 +541,48 @@ class KeyboardActionHandlerTests: XCTestCase {
         service.splitStub = true
         let childInfo = BlockInformation.emptyText
 
-        handler.handle(info: info, currentString: .init(string: "Title text"), action: .enterAtTheBegining)
+        let string = NSAttributedString(string: "Title text")
+        handler.handle(info: info, currentString: string,
+                       action: .enterAtTheBegining(string: string, NSRange(location: 0, length: 0)))
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.string.string, "Title text")
         XCTAssertEqual(service.splitData!.mode, .bottom)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
-        XCTAssertEqual(service.splitData!.position, 0)
+        XCTAssertEqual(service.splitData!.range.location, 0)
     }
     
     func test_enterAtTheBegining_toggle() throws {
         let info = info(style: .toggle, hasChild: true)
         service.splitStub = true
 
-        handler.handle(info: info, currentString: .init(string: "Toogle"), action: .enterAtTheBegining)
+        let string = NSAttributedString(string: "Toogle")
+        handler.handle(info: info, currentString: string,
+                       action: .enterAtTheBegining(string: string, NSRange(location: 0, length: 0)))
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.string.string, "Toogle")
         XCTAssertEqual(service.splitData!.mode, .bottom)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
-        XCTAssertEqual(service.splitData!.position, 0)
+        XCTAssertEqual(service.splitData!.range.location, 0)
     }
     
     func test_enterAtTheBegining_title() throws {
         let info = info(content: .text(.plain("Title text", contentType: .title)))
         service.splitStub = true
 
-        handler.handle(info: info, currentString: .init(string: "Title text"), action: .enterAtTheBegining)
+        let string = NSAttributedString(string: "Title text")
+        handler.handle(info: info, currentString: string,
+                       action: .enterAtTheBegining(string: string, NSRange(location: 0, length: 0)))
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.string.string, "Title text")
         XCTAssertEqual(service.splitData!.mode, .bottom)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
-        XCTAssertEqual(service.splitData!.position, 0)
+        XCTAssertEqual(service.splitData!.range.location, 0)
     }
     
     func test_enterAtTheBegining_description() throws {
@@ -584,14 +590,16 @@ class KeyboardActionHandlerTests: XCTestCase {
         let info = info(content: .text(.plain(text, contentType: .description)))
         service.splitStub = true
 
-        handler.handle(info: info, currentString: .init(string: text), action: .enterAtTheBegining)
+        let string = NSAttributedString(string: text)
+        handler.handle(info: info, currentString: string,
+                       action: .enterAtTheBegining(string: string, NSRange(location: 0, length: 0)))
 
         XCTAssertEqual(service.splitNumberOfCalls, 1)
         XCTAssertEqual(service.splitData!.string.string, "description text")
         XCTAssertEqual(service.splitData!.mode, .bottom)
         XCTAssertEqual(service.splitData!.blockId, "id")
         XCTAssertEqual(service.splitData!.newBlockContentType, .text)
-        XCTAssertEqual(service.splitData!.position, 0)
+        XCTAssertEqual(service.splitData!.range.location, 0)
     }
 
     
