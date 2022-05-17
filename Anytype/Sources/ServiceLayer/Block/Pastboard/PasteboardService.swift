@@ -68,6 +68,6 @@ final class PasteboardService: PasteboardServiceProtocol {
 
 private extension PasteboardService {
     enum Constants {
-        static let longOperationTime: Double = 1.0
+        static let longOperationTime: Double = 0.5
     }
 }
