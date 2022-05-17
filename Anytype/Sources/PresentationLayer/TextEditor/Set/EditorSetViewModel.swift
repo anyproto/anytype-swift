@@ -83,7 +83,7 @@ final class EditorSetViewModel: ObservableObject {
         case .general:
             objectWillChange.send()
             setupDataview()
-        case .syncStatus, .blocks, .details, .dataSourceUpdate:
+        case .syncStatus, .blocks, .details, .dataSourceUpdate, .changeType:
             objectWillChange.send()
         case .header:
             break // handled in ObjectHeaderViewModel

@@ -35,12 +35,18 @@ final class EditorAssembly {
         let document = BaseDocument(objectId: pageId)
         let model = EditorSetViewModel(document: document)
         let controller = EditorSetHostingController(objectId: pageId, model: model)
+        let searchService = SearchService()
         
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
             document: document,
-            assembly: self
+            assembly: self,
+            templatesCoordinator: TemplatesCoordinator(
+                rootViewController: controller,
+                keyboardHeightListener: .init(),
+                searchService: searchService
+            )
         )
         
         model.setup(router: router)
@@ -59,7 +65,12 @@ final class EditorAssembly {
             rootController: browser,
             viewController: controller,
             document: document,
-            assembly: self
+            assembly: self,
+            templatesCoordinator: TemplatesCoordinator(
+                rootViewController: controller,
+                keyboardHeightListener: .init(),
+                searchService: SearchService()
+            )
         )
 
         let viewModel = buildViewModel(
@@ -172,7 +183,8 @@ final class EditorAssembly {
             blockActionsService: blockActionsServiceSingle,
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager,
-            objectActionsService: ServiceLocator.shared.objectActionsService()
+            objectActionsService: ServiceLocator.shared.objectActionsService(),
+            searchService: ServiceLocator.shared.searchService()
         )
     }
 

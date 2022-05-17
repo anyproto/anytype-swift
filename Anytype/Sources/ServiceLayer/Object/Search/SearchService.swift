@@ -7,6 +7,7 @@ protocol SearchServiceProtocol {
     func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeUrls: [String]) -> [ObjectDetails]?
+    func searchTemplates(for type: ObjectTemplateType) -> [ObjectDetails]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -85,7 +86,16 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
     }
-    
+
+    func searchTemplates(for type: ObjectTemplateType) -> [ObjectDetails]? {
+        let objects = makeRequest(
+            filters: SearchHelper.templatesFilters(type: type),
+            sorts: [],
+            fullText: ""
+        )
+
+        return objects
+    }
 }
 
 private extension SearchService {

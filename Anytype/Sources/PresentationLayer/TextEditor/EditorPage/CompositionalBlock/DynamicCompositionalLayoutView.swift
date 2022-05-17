@@ -92,11 +92,7 @@ final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
 
         collectionView.reloadData()
 
-        if let height = iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[configuration.hashable] {
-            collectionViewHeightConstraint?.constant = height
-        } else {
-            collectionViewHeightConstraint?.constant = collectionView.intrinsicContentSize.height
-        }
+        collectionViewHeightConstraint?.constant = collectionView.intrinsicContentSize.height
 
         collectionViewHeightConstraint?.isActive = true
     }

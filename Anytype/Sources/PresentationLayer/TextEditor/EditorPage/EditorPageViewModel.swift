@@ -16,11 +16,12 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     let router: EditorRouterProtocol
     
-    private let cursorManager: EditorCursorManager
     let actionHandler: BlockActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
     let objectActionsService: ObjectActionsServiceProtocol
-    
+
+    private let searchService: SearchServiceProtocol
+    private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
     private lazy var subscriptions = [AnyCancellable]()
@@ -50,7 +51,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockActionsService: BlockActionsServiceSingleProtocol,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager,
-        objectActionsService: ObjectActionsServiceProtocol
+        objectActionsService: ObjectActionsServiceProtocol,
+        searchService: SearchServiceProtocol
     ) {
         self.viewInput = viewInput
         self.document = document
@@ -65,6 +67,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
         self.objectActionsService = objectActionsService
+        self.searchService = searchService
     }
 
     func setupSubscriptions() {
@@ -123,6 +126,11 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             modelsHolder.items = blocksViewModels
 
             viewInput?.update(changes: nil, allModels: blocksViewModels)
+        case let .changeType(objectTypeURL):
+            router.showTemplatesAvailabilityPopupIfNeeded(
+                document: document,
+                templatesTypeURL: .dynamic(objectTypeURL)
+            )
         case .header:
             break // supported in headerModel
         }

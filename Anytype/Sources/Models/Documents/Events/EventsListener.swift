@@ -79,9 +79,9 @@ final class EventsListener: EventsListenerProtocol {
             updates.append(.dataSourceUpdate)
         }
 
-        updates = updates.contains(.general) ? [.general] : updates
-
-        updates.forEach { update in
+        updates
+            .filteredUpdates
+            .forEach { update in
             if update.hasUpdate {
                 IndentationBuilder.build(
                     container: infoContainer,
@@ -90,6 +90,23 @@ final class EventsListener: EventsListenerProtocol {
             }
             
             onUpdateReceive?(update)
+        }
+    }
+}
+
+private extension Array where Element == DocumentUpdate {
+    var filteredUpdates: Self {
+        guard contains(.general) else {
+            return self
+        }
+
+        return filter { element in
+            switch element {
+            case .general, .changeType:
+                return true
+            case .syncStatus, .blocks, .details, .dataSourceUpdate, .header:
+                return false
+            }
         }
     }
 }
