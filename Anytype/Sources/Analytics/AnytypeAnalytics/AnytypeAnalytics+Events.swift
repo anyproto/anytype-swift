@@ -156,10 +156,16 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.count: count])
     }
 
-    func logAddRelation(format: RelationMetadata.Format, isNew: Bool) {
+    func logAddRelation(format: RelationMetadata.Format, isNew: Bool, type: AnalyticsEventsRelationType) {
         let eventName = isNew ? AnalyticsEventsName.createRelation : AnalyticsEventsName.addExistingRelation
         logEvent(eventName,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.format: format.analyticString])
+                 withEventProperties: [AnalyticsEventsPropertiesKey.format: format.analyticString,
+                                       AnalyticsEventsPropertiesKey.type: type.rawValue])
+    }
+
+    func logChangeRelationValue(type: AnalyticsEventsRelationType) {
+        logEvent(AnalyticsEventsName.changeRelationValue,
+                 withEventProperties: [AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
 
     func logCreateObject(objectType: String, route: AnalyticsEventsRouteKind) {
@@ -171,6 +177,8 @@ extension AnytypeAnalytics {
         }
 
         logEvent(AnalyticsEventsName.createObject,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.objectType: objectType])
+                 withEventProperties: [AnalyticsEventsPropertiesKey.type: objectType,
+                                       AnalyticsEventsPropertiesKey.route: route.rawValue
+                                      ])
     }
 }

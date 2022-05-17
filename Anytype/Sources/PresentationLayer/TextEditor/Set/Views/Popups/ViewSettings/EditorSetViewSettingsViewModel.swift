@@ -61,7 +61,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
     }
     
     func showAddNewRelationView() {
-        setModel.showAddNewRelationView { [weak self] relation in
+        setModel.showAddNewRelationView { [weak self] relation, isNew in
             guard let self = self else { return }
             
             if self.service.addRelation(relation) {
@@ -69,6 +69,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
                 let newView = self.setModel.activeView.updated(option: newOption)
                 self.service.updateView(newView)
             }
+            AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .set)
         }
     }
     

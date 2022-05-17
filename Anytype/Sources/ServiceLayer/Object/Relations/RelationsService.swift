@@ -50,7 +50,6 @@ extension RelationsService: RelationsServiceProtocol {
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .relationsService)?
             .send()
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.changeRelationValue)
     }
 
     func createRelation(relation: RelationMetadata) -> RelationMetadata? {
@@ -69,8 +68,6 @@ extension RelationsService: RelationsServiceProtocol {
         guard let response = response else { return nil }
 
         EventsBunch(event: response.event).send()
-
-        AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew)
 
         return RelationMetadata(middlewareRelation: response.relation)
     }

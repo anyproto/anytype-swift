@@ -50,6 +50,8 @@ struct SetTableViewRow: View {
     
     private func cell(_ relationData: Relation) -> some View {
         RelationValueView(relation: RelationItemModel(relation: relationData), style: .set) {
+            AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+
             model.showRelationValueEditingView(
                 objectId: data.id,
                 source: .dataview(contextId: model.document.objectId.value),
