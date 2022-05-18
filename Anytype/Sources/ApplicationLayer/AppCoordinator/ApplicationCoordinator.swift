@@ -50,13 +50,17 @@ private extension ApplicationCoordinator {
             return
         }
         
-        switch authService.selectAccount(id: userId) {
-        case .active:
-            WindowManager.shared.showHomeWindow()
-        case .pendingDeletion(progress: let progress):
-            WindowManager.shared.showDeletedAccountWindow(progress: progress)
-        case .deleted, .none:
-            WindowManager.shared.showAuthWindow()
+        WindowManager.shared.showLaunchWindow()
+        
+        authService.selectAccount(id: userId) { result in
+            switch result {
+            case .active:
+                WindowManager.shared.showHomeWindow()
+            case .pendingDeletion(progress: let progress):
+                WindowManager.shared.showDeletedAccountWindow(progress: progress)
+            case .deleted, .none:
+                WindowManager.shared.showAuthWindow()
+            }
         }
     }
 } 

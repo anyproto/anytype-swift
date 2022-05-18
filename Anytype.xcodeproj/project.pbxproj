@@ -389,6 +389,7 @@
 		12FD9D29276717CF00991886 /* RelationTag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD9D28276717CF00991886 /* RelationTag.swift */; };
 		12FD9D2B2767180A00991886 /* RelationUnknown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FD9D2A2767180A00991886 /* RelationUnknown.swift */; };
 		12FF0D0827C51ADD00562DD9 /* AnytypeTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FF0D0727C51ADD00562DD9 /* AnytypeTextField.swift */; };
+		2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
 		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
 		3D00F1E9278ECC3000863D7C /* Array+SubscriptionUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1E8278ECC3000863D7C /* Array+SubscriptionUpdate.swift */; };
@@ -1401,6 +1402,7 @@
 		12FD9D28276717CF00991886 /* RelationTag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationTag.swift; sourceTree = "<group>"; };
 		12FD9D2A2767180A00991886 /* RelationUnknown.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationUnknown.swift; sourceTree = "<group>"; };
 		12FF0D0727C51ADD00562DD9 /* AnytypeTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeTextField.swift; sourceTree = "<group>"; };
+		2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1E8278ECC3000863D7C /* Array+SubscriptionUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SubscriptionUpdate.swift"; sourceTree = "<group>"; };
@@ -2259,6 +2261,7 @@
 		038FB5C622D8F2DE002B90B8 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2AE4EDB42834CF4F00B61ABE /* Launch */,
 				C9CFFEBF2825429C00A66FC8 /* ToastPresenter */,
 				1289C50E2810278F005085E2 /* FileDownloading flow */,
 				1244790F27D8A35800581174 /* Search screen */,
@@ -3909,6 +3912,14 @@
 				12FF0D0727C51ADD00562DD9 /* AnytypeTextField.swift */,
 			);
 			path = TextField;
+			sourceTree = "<group>";
+		};
+		2AE4EDB42834CF4F00B61ABE /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */,
+			);
+			path = Launch;
 			sourceTree = "<group>";
 		};
 		3D00F1D3278D7CCF00863D7C /* Model */ = {
@@ -6583,6 +6594,7 @@
 				3D93850F26FAED20001C137F /* ObjectIconImageUsecase+Image.swift in Sources */,
 				EA57F41C26B99937007D4292 /* MarkupViewModel.swift in Sources */,
 				0A6F90062554546300B94AED /* BlockLayoutStyleConverter.swift in Sources */,
+				2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */,
 				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
 				53F7447227F7157A005C9BB0 /* CheckPopupView.swift in Sources */,

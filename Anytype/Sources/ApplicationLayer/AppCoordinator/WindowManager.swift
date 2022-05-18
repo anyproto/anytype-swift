@@ -12,6 +12,10 @@ final class WindowManager {
         windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
     }
     
+    func showLaunchWindow() {
+        windowHolder?.startNewRootView(LaunchView())
+    }
+    
     func showDeletedAccountWindow(progress: DeletionProgress) {
         windowHolder?.startNewRootView(DeletedAccountView(progress: progress))
     }
