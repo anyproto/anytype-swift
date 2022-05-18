@@ -49,14 +49,14 @@ struct ObjectPreviewView: View {
 
             ForEach(viewModel.objectPreviewSections.featuredRelation) { item in
                 featuredRelationsRow(item) { isEnabled in
-                    viewModel.toggleFeaturedRelation(id: item.id, isEnabled: isEnabled)
+                    viewModel.toggleFeaturedRelation(relation: item.id, isEnabled: isEnabled)
                 }
                 .divider()
             }
         }
     }
 
-    private func featuredRelationsRow(_ item: ObjectPreviewViewFeaturedSectionItem, onTap: @escaping (_ isEnabled: Bool) -> Void) -> some View {
+    private func featuredRelationsRow(_ item: ObjectPreviewViewSection.FeaturedSectionItem, onTap: @escaping (_ isEnabled: Bool) -> Void) -> some View {
         HStack(spacing: 0) {
             Image.createImage(item.iconName)
                 .frame(width: 24, height: 24)
@@ -71,7 +71,7 @@ struct ObjectPreviewView: View {
         .frame(height: 52)
     }
 
-    private func mainSectionRow(_ item: ObjectPreviewViewMainSectionItem, onTap: @escaping () -> Void) -> some View {
+    private func mainSectionRow(_ item: ObjectPreviewViewSection.MainSectionItem, onTap: @escaping () -> Void) -> some View {
         Button {
             onTap()
         } label: {
@@ -90,8 +90,7 @@ struct ObjectPreviewView: View {
 struct ObjectPreviewView_Previews: PreviewProvider {
     static var previews: some View {
         let router = ObjectPreviewRouter(viewController: UIViewController())
-        let viewModel = ObjectPreviewViewModel(featuredRelationsByIds: [:],
-                                               fields: .init(),
+        let viewModel = ObjectPreviewViewModel(appearance: .init(iconSize: .medium, cardStyle: .text, description: .none, relations: []),
                                                router: router,
                                                onSelect: {_ in })
         ObjectPreviewView(viewModel: viewModel)

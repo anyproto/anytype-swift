@@ -7,40 +7,34 @@ final class ObjectPreviewIconMenuViewModel: CheckPopuViewViewModelProtocol {
 
     // MARK: - Private variables
 
-    private var objectPreviewFields: ObjectPreviewFields
+    private var iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize
     private let objectPreviewModelBuilder = ObjectPreivewSectionBuilder()
-    private let onSelect: (ObjectPreviewFields) -> Void
+    private let onSelect: (ObjectPreviewViewSection.MainSectionItem.IconSize) -> Void
 
     // MARK: - Initializer
 
-    init(objectPreviewFields: ObjectPreviewFields, onSelect: @escaping (ObjectPreviewFields) -> Void) {
-        self.objectPreviewFields = objectPreviewFields
+    init(iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize,
+         onSelect: @escaping (ObjectPreviewViewSection.MainSectionItem.IconSize) -> Void) {
+        self.iconSize = iconSize
         self.onSelect = onSelect
-        self.updatePreviewFields(objectPreviewFields)
+        self.updatePreviewFields(iconSize)
     }
 
-    func updatePreviewFields(_ objectPreviewFields: ObjectPreviewFields) {
-        items = buildObjectPreviewPopupItem(objectPreviewFields: objectPreviewFields)
+    func updatePreviewFields(_ iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize) {
+        items = buildObjectPreviewPopupItem(iconSize: iconSize)
     }
 
-    func buildObjectPreviewPopupItem(objectPreviewFields: ObjectPreviewFields) -> [CheckPopupItem] {
-        ObjectPreviewFields.Icon.allCases.map { icon -> CheckPopupItem in
-            let isSelected = objectPreviewFields.icon == icon
+    func buildObjectPreviewPopupItem(iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize) -> [CheckPopupItem] {
+        ObjectPreviewViewSection.MainSectionItem.IconSize.allCases.map { icon -> CheckPopupItem in
+            let isSelected = iconSize == icon
             return CheckPopupItem(id: icon.rawValue, icon: nil, title: icon.name, subtitle: nil, isSelected: isSelected)
         }
     }
 
     func onTap(itemId: String) {
-        guard let icon = ObjectPreviewFields.Icon(rawValue: itemId) else { return }
+        guard let iconSize = ObjectPreviewViewSection.MainSectionItem.IconSize(rawValue: itemId) else { return }
 
-        objectPreviewFields = ObjectPreviewFields(
-            icon: icon,
-            layout: objectPreviewFields.layout,
-            withName: objectPreviewFields.withName,
-            featuredRelationsIds: objectPreviewFields.featuredRelationsIds
-        )
-
-        onSelect(objectPreviewFields)
-        updatePreviewFields(objectPreviewFields)
+        onSelect(iconSize)
+        updatePreviewFields(iconSize)
     }
 }

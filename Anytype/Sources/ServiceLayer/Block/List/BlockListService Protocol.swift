@@ -14,4 +14,5 @@ protocol BlockListServiceProtocol {
     func replace(blockIds: [BlockId], targetId: BlockId)
     func move(blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position)
     func moveToPage(blockId: BlockId, pageId: BlockId)
+    func setLinkAppearance(blockIds: [BlockId], appearance: BlockLink.Appearance)
 }
