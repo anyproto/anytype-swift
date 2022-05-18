@@ -67,7 +67,7 @@ private extension ObjectRelationViewUIKit {
         if option.isDeleted || option.isArchived {
             return .textTertiary
         } else {
-            return .textPrimary
+            return relationStyle.uiKitFontColor
         }
     }
 }
