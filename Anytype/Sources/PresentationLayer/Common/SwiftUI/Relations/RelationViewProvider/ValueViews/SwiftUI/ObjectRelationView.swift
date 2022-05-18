@@ -47,7 +47,7 @@ struct ObjectRelationView: View {
         if option.isDeleted || option.isArchived {
             return .textTertiary
         } else {
-            return .textPrimary
+            return style.fontColor
         }
     }
 
