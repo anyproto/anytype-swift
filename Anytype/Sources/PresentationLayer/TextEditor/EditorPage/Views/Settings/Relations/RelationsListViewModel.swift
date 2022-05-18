@@ -58,6 +58,7 @@ extension RelationsListViewModel {
     }
     
     func handleTapOnRelation(relationId: String) {
+        AnytypeAnalytics.instance().logChangeRelationValue(type: .menu)
         router.showRelationValueEditingView(key: relationId, source: .object)
     }
     
@@ -66,7 +67,9 @@ extension RelationsListViewModel {
     }
     
     func showAddNewRelationView() {
-        router.showAddNewRelationView(onSelect: nil)
+        router.showAddNewRelationView { relationMetadata, isNew in
+            AnytypeAnalytics.instance().logAddRelation(format: relationMetadata.format, isNew: isNew, type: .menu)
+        }
     }
     
 }

@@ -410,7 +410,7 @@ extension EditorRouter {
         viewController.topPresentedController.present(fpc, animated: true, completion: nil)
     }
 
-    func showAddNewRelationView(onSelect: ((RelationMetadata) -> Void)?) {
+    func showAddNewRelationView(onSelect: ((RelationMetadata, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
     }
 }

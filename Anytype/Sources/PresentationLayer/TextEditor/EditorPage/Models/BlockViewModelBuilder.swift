@@ -189,6 +189,7 @@ final class BlockViewModelBuilder {
                         }
                     )
                 } else {
+                    AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
                     self.router.showRelationValueEditingView(key: relation.id, source: .object)
                 }
             }
@@ -205,6 +206,7 @@ final class BlockViewModelBuilder {
                 info: info,
                 relation: relation
             ) { [weak self] in
+                AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
                 self?.router.showRelationValueEditingView(key: relation.id, source: .object)
             }
 
