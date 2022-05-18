@@ -1775,6 +1775,34 @@ extension Anytype_Rpc.BlockList.Set.File.Style.Response.Error {
   }
 }
 
+extension Anytype_Rpc.BlockList.Set.Link.Appearance.Request {
+  public init(
+    contextID: String, blockIds: [String], iconSize: Anytype_Model_Block.Content.Link.IconSize, cardStyle: Anytype_Model_Block.Content.Link.CardStyle,
+    description_p: Anytype_Model_Block.Content.Link.Description, relations: [String]
+  ) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+    self.iconSize = iconSize
+    self.cardStyle = cardStyle
+    self.description_p = description_p
+    self.relations = relations
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Link.Appearance.Response {
+  public init(error: Anytype_Rpc.BlockList.Set.Link.Appearance.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockList.Set.Link.Appearance.Response.Error {
+  public init(code: Anytype_Rpc.BlockList.Set.Link.Appearance.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.BlockList.Set.Text.Color.Request {
   public init(contextID: String, blockIds: [String], color: String) {
     self.contextID = contextID
@@ -1961,10 +1989,11 @@ extension Anytype_Rpc.Debug.Thread.Response.Error {
 }
 
 extension Anytype_Rpc.Debug.Tree.Request {
-  public init(blockID: String, path: String, unanonymized: Bool) {
+  public init(blockID: String, path: String, unanonymized: Bool, generateSvg: Bool) {
     self.blockID = blockID
     self.path = path
     self.unanonymized = unanonymized
+    self.generateSvg = generateSvg
   }
 }
 
@@ -2019,6 +2048,25 @@ extension Anytype_Rpc.Debug.threadInfo {
     self.totalRecords = totalRecords
     self.totalSize = totalSize
     self.error = error
+  }
+}
+
+extension Anytype_Rpc.DeviceState.Request {
+  public init(deviceState: Anytype_Rpc.DeviceState.Request.DeviceState) {
+    self.deviceState = deviceState
+  }
+}
+
+extension Anytype_Rpc.DeviceState.Response {
+  public init(error: Anytype_Rpc.DeviceState.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.DeviceState.Response.Error {
+  public init(code: Anytype_Rpc.DeviceState.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
   }
 }
 
@@ -2530,31 +2578,17 @@ extension Anytype_Rpc.Object.Graph.Edge {
   }
 }
 
-extension Anytype_Rpc.Object.Graph.Node {
-  public init(id: String, type: String, name: String, layout: Int32, description_p: String, iconImage: String, iconEmoji: String, done: Bool, relationFormat: Int32, snippet: String) {
-    self.id = id
-    self.type = type
-    self.name = name
-    self.layout = layout
-    self.description_p = description_p
-    self.iconImage = iconImage
-    self.iconEmoji = iconEmoji
-    self.done = done
-    self.relationFormat = relationFormat
-    self.snippet = snippet
-  }
-}
-
 extension Anytype_Rpc.Object.Graph.Request {
-  public init(filters: [Anytype_Model_Block.Content.Dataview.Filter], limit: Int32, objectTypeFilter: [String]) {
+  public init(filters: [Anytype_Model_Block.Content.Dataview.Filter], limit: Int32, objectTypeFilter: [String], keys: [String]) {
     self.filters = filters
     self.limit = limit
     self.objectTypeFilter = objectTypeFilter
+    self.keys = keys
   }
 }
 
 extension Anytype_Rpc.Object.Graph.Response {
-  public init(error: Anytype_Rpc.Object.Graph.Response.Error, nodes: [Anytype_Rpc.Object.Graph.Node], edges: [Anytype_Rpc.Object.Graph.Edge]) {
+  public init(error: Anytype_Rpc.Object.Graph.Response.Error, nodes: [SwiftProtobuf.Google_Protobuf_Struct], edges: [Anytype_Rpc.Object.Graph.Edge]) {
     self.error = error
     self.nodes = nodes
     self.edges = edges
@@ -2973,6 +3007,26 @@ extension Anytype_Rpc.ObjectList.Delete.Response {
 
 extension Anytype_Rpc.ObjectList.Delete.Response.Error {
   public init(code: Anytype_Rpc.ObjectList.Delete.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Duplicate.Request {
+  public init(objectIds: [String]) {
+    self.objectIds = objectIds
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Duplicate.Response {
+  public init(error: Anytype_Rpc.ObjectList.Duplicate.Response.Error, ids: [String]) {
+    self.error = error
+    self.ids = ids
+  }
+}
+
+extension Anytype_Rpc.ObjectList.Duplicate.Response.Error {
+  public init(code: Anytype_Rpc.ObjectList.Duplicate.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }

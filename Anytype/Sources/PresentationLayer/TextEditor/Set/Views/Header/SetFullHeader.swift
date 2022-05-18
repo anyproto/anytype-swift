@@ -52,6 +52,8 @@ struct SetFullHeader: View {
             viewModel: FlowRelationsViewModel(
                 relations: model.featuredRelations,
                 onRelationTap: { relation in
+                    AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+                    
                     model.showRelationValueEditingView(key: relation.id, source: .object)
                 }
             )

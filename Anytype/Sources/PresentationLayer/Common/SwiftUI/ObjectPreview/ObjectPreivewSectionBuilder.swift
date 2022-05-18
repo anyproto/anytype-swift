@@ -3,34 +3,37 @@ import SwiftUI
 
 final class ObjectPreivewSectionBuilder {
 
-    func build(featuredRelationsByIds: [String: Relation], objectPreviewFields: ObjectPreviewFields) -> ObjectPreviewViewSection {
-        var featuredRelationSection: [ObjectPreviewViewFeaturedSectionItem] = []
+    func build(appearance: BlockLink.Appearance) -> ObjectPreviewViewSection {
+        var featuredRelationSection: [ObjectPreviewViewSection.FeaturedSectionItem] = []
 
-        let layout = ObjectPreviewViewMainSectionItem(
+        let layout = ObjectPreviewViewSection.MainSectionItem(
             id: IDs.layout,
             name: "Preview layout".localized,
-            value: .layout(objectPreviewFields.layout)
+            value: .layout(.init(appearance.cardStyle))
         )
-        let icon = ObjectPreviewViewMainSectionItem(
+
+        let hasIcon = appearance.relations.contains(.icon)
+        let icon = ObjectPreviewViewSection.MainSectionItem(
             id: IDs.icon,
             name: "Icon".localized,
-            value: .icon(objectPreviewFields.icon))
+            value: .icon(hasIcon ? .medium : .none)
+        )
+
         let mainSection = [layout, icon]
 
-        let withNameRelation = ObjectPreviewViewFeaturedSectionItem(
-            id: BundledRelationKey.name.rawValue,
+        let withName = ObjectPreviewViewSection.FeaturedSectionItem(
+            id: .name,
             iconName: RelationMetadata.Format.shortText.iconName,
             name: "Name".localized,
-            isEnabled: objectPreviewFields.withName
+            isEnabled: appearance.relations.contains(.name)
         )
-        featuredRelationSection.append(withNameRelation)
+        featuredRelationSection.append(withName)
 
-        let isEnabledDescription = objectPreviewFields.featuredRelationsIds.contains(BundledRelationKey.description.rawValue)
-        let withDescription = ObjectPreviewViewFeaturedSectionItem(
-            id: BundledRelationKey.description.rawValue,
+        let withDescription = ObjectPreviewViewSection.FeaturedSectionItem(
+            id: .description,
             iconName: RelationMetadata.Format.longText.iconName,
             name: "Description".localized,
-            isEnabled: isEnabledDescription
+            isEnabled: appearance.description.hasDescription
         )
         featuredRelationSection.append(withDescription)
 

@@ -24,7 +24,7 @@ final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
                 origin: .zero,
                 size: .init(width: 370, height: 70) // just non-nil size
             ),
-            collectionViewLayout: UICollectionViewFlowLayout() // temporary layout
+            collectionViewLayout: UICollectionViewFlowLayout() // temporary layout, it will be configured at the time of configuration update
         )
 
         return collectionView

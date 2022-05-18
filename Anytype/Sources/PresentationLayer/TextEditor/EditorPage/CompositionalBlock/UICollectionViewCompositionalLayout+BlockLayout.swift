@@ -5,11 +5,13 @@ extension UICollectionViewCompositionalLayout {
         widthDimension: NSCollectionLayoutDimension = .estimated(20),
         heightDimension: NSCollectionLayoutDimension = .estimated(32),
         interItemSpacing: NSCollectionLayoutSpacing = .fixed(8),
-        groundEdgeSpacing: NSCollectionLayoutEdgeSpacing
+        groundEdgeSpacing: NSCollectionLayoutEdgeSpacing,
+        interGroupSpacing: CGFloat = 8
     ) -> UICollectionViewCompositionalLayout {
         UICollectionViewCompositionalLayout(
             sectionProvider: {
                 (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+
 
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: widthDimension,
@@ -26,6 +28,7 @@ extension UICollectionViewCompositionalLayout {
                 group.interItemSpacing = interItemSpacing
 
                 let section = NSCollectionLayoutSection(group: group)
+                section.interGroupSpacing = interGroupSpacing
 
                 return section
             },

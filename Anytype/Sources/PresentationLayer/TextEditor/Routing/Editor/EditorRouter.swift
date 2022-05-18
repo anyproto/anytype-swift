@@ -288,11 +288,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         rootController?.setNavigationViewHidden(isHidden, animated: animated)
     }
 
-    func showObjectPreview(information: BlockInformation, onSelect: @escaping (ObjectPreviewFields) -> Void) {
+    func showObjectPreview(blockLink: BlockLink, onSelect: @escaping (BlockLink.Appearance) -> Void) {
         let router = ObjectPreviewRouter(viewController: viewController)
-        let featuredRelationsByIds = document.parsedRelations.featuredRelations.toDictionary { $0.id }
-        let viewModel = ObjectPreviewViewModel(featuredRelationsByIds: featuredRelationsByIds,
-                                               fields: information.fields,
+        let viewModel = ObjectPreviewViewModel(appearance: blockLink.appearance,
                                                router: router,
                                                onSelect: onSelect)
         let contentView = ObjectPreviewView(viewModel: viewModel)
@@ -410,7 +408,7 @@ extension EditorRouter {
         viewController.topPresentedController.present(fpc, animated: true, completion: nil)
     }
 
-    func showAddNewRelationView(onSelect: ((RelationMetadata) -> Void)?) {
+    func showAddNewRelationView(onSelect: ((RelationMetadata, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
     }
 }
