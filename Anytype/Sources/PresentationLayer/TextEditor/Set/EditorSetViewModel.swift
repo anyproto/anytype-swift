@@ -152,6 +152,8 @@ extension EditorSetViewModel {
     }
     
     func showRelationValueEditingView(key: String, source: RelationSource) {
+        AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+
         router.showRelationValueEditingView(key: key, source: source)
     }
     
@@ -160,6 +162,8 @@ extension EditorSetViewModel {
         source: RelationSource,
         relation: Relation
     ) {
+        AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+        
         router.showRelationValueEditingView(
             objectId: objectId,
             source: source,
@@ -198,7 +202,7 @@ extension EditorSetViewModel {
         router.showSettings()
     }
     
-    func showAddNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
+    func showAddNewRelationView(onSelect: @escaping (RelationMetadata, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
     }
 }

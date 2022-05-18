@@ -156,3 +156,9 @@ enum AnalyticsEventsRouteKind: String {
     case powertool = "Powertool"
     case turnInto = "TurnInto"
 }
+
+enum AnalyticsEventsRelationType: String {
+    case menu = "menu"
+    case set = "set"
+    case block = "block"
+}
