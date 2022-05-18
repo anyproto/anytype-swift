@@ -60,4 +60,8 @@ final class BlockListServiceMock: BlockListServiceProtocol {
     func setFields(fields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) {
         assertionFailure()
     }
+
+    func setLinkAppearance(blockIds: [BlockId], appearance: BlockLink.Appearance) {
+        assertionFailure()
+    }
 }
