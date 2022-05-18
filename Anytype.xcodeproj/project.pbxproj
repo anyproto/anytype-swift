@@ -2261,7 +2261,6 @@
 		038FB5C622D8F2DE002B90B8 /* PresentationLayer */ = {
 			isa = PBXGroup;
 			children = (
-				2AE4EDB42834CF4F00B61ABE /* Launch */,
 				C9CFFEBF2825429C00A66FC8 /* ToastPresenter */,
 				1289C50E2810278F005085E2 /* FileDownloading flow */,
 				1244790F27D8A35800581174 /* Search screen */,
@@ -2278,6 +2277,7 @@
 		038FB5C722D8F304002B90B8 /* ApplicationLayer */ = {
 			isa = PBXGroup;
 			children = (
+				2AE4EDB42834CF4F00B61ABE /* Launch */,
 				3D1CEC3227F5D147000D36BA /* AppCoordinator */,
 				1215E8AF26A8608F0089AF7E /* AppConfigurators */,
 				3DC7862C265D251900498993 /* MiddlewareEventsListener.swift */,
