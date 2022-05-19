@@ -186,6 +186,10 @@ extension EditorSetViewModel {
 //            )
 //        )
     }
+
+    func createObject() {
+
+    }
     
     func showViewSettings() {
         router.presentFullscreen(

@@ -10,6 +10,8 @@ struct SetHeaderSettings: View {
             viewButton
             Spacer()
             settingButton
+            Spacer.fixedWidth(24)
+            createObjectButton
         }
         .padding(.horizontal, 20)
         .frame(height: settingsHeight)
@@ -20,6 +22,14 @@ struct SetHeaderSettings: View {
             model.showSetSettings()
         }) {
             Image.set.settings
+        }
+    }
+
+    private var createObjectButton: some View {
+        Button(action: {
+            model.createObject()
+        }) {
+            Image.plus
         }
     }
     
