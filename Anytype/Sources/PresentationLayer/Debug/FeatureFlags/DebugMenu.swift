@@ -15,9 +15,8 @@ struct DebugMenu: View {
             setPageCounter
             toggles
         }
-        .ignoresSafeArea()
-        .embedInNavigation()
         .navigationBarHidden(true)
+        .embedInNavigation()
     }
     
     @State var rowsPerPageInSet = "\(UserDefaultsConfig.rowsPerPageInSet)"
