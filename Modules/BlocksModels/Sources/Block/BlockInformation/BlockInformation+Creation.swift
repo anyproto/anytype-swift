@@ -23,7 +23,7 @@ public extension BlockInformation {
     }
     
     static func emptyLink(targetId: BlockId) -> BlockInformation {
-        let content: BlockContent = .link(.empty(targetBlockID: targetId))
+        let content: BlockContent = .link(BlockLink(targetBlockID: targetId, style: .page, fields: [:]))
         return BlockInformation.empty(content: content)
     }
     

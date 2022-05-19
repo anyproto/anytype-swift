@@ -28,16 +28,8 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         self.info = info
         self.content = content
         self.openLink = openLink
-
-        self.state = details.flatMap {
-            BlockLinkState(
-                details: $0,
-                cardStyle: content.appearance.cardStyle,
-                relations: content.appearance.relations,
-                iconSize: content.appearance.iconSize,
-                descriptionState: content.appearance.description
-            )
-        } ?? .empty
+        let objectPreviewFields = ObjectPreviewFields.convertToModel(fields: info.fields)
+        self.state = details.flatMap { BlockLinkState(details: $0, objectPreviewFields: objectPreviewFields) } ?? .empty
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {

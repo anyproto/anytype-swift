@@ -11,7 +11,7 @@ extension BlockLinkState {
             )
         }
 
-        guard relations.contains(.name) else {
+        guard objectPreviewFields.withName else {
             return NSAttributedString(string: .empty)
         }
         
@@ -22,7 +22,7 @@ extension BlockLinkState {
     }
 
     var attributedDescription: NSAttributedString {
-        guard !deleted, descriptionState.hasDescription, description.isNotEmpty else {
+        guard !deleted, hasDescription else {
             return NSAttributedString(string: .empty)
         }
 
@@ -42,7 +42,7 @@ extension BlockLinkState {
     }
     
     private var enabledAttributes: [NSAttributedString.Key : Any] {
-        let underlineStyle: NSUnderlineStyle = cardStyle == .card ? [] : .single
+        let underlineStyle: NSUnderlineStyle = objectPreviewFields.layout == .card ? [] : .single
 
         return [
             .font: UIFont.bodyRegular,

@@ -16,72 +16,70 @@ final class ObjectPreviewViewModel: ObservableObject {
 
     // MARK: - Private variables
 
-    private var appearance: BlockLink.Appearance
-
+    private var objectPreviewFields: ObjectPreviewFields
+    private var featuredRelationsByIds: [String: Relation]
     private let objectPreviewModelBuilder = ObjectPreivewSectionBuilder()
     private let router: ObjectPreviewRouter
-    private let onSelect: (BlockLink.Appearance) -> Void
+    private let onSelect: (ObjectPreviewFields) -> Void
 
     // MARK: - Initializer
 
-    init(appearance: BlockLink.Appearance,
+    init(featuredRelationsByIds: [String: Relation],
+         fields: BlockFields,
          router: ObjectPreviewRouter,
-         onSelect: @escaping (BlockLink.Appearance) -> Void) {
+         onSelect: @escaping (ObjectPreviewFields) -> Void) {
+        self.objectPreviewFields = ObjectPreviewFields.convertToModel(fields: fields)
         self.router = router
         self.onSelect = onSelect
-        self.appearance = appearance
+        self.featuredRelationsByIds = featuredRelationsByIds
 
-        updateObjectPreview(appearance: appearance)
+        updateObjectPreview(featuredRelationsByIds: featuredRelationsByIds, objectPreviewFields: objectPreviewFields)
     }
 
-    func updateObjectPreview(appearance: BlockLink.Appearance) {
-        objectPreviewSections = objectPreviewModelBuilder.build(appearance: appearance)
+    func updateObjectPreview(featuredRelationsByIds: [String: Relation], objectPreviewFields: ObjectPreviewFields) {
+        objectPreviewSections = objectPreviewModelBuilder.build(featuredRelationsByIds: featuredRelationsByIds,
+                                                                objectPreviewFields: objectPreviewFields)
     }
 
-    func toggleFeaturedRelation(relation: ObjectPreviewViewSection.FeaturedSectionItem.IDs, isEnabled: Bool) {
-
-        switch relation {
-        case .name:
-            if isEnabled {
-                appearance.relations.insert(.name)
-            } else {
-                appearance.relations.remove(.name)
-            }
-        case .description:
-            if isEnabled {
-                appearance.description = .added
-            } else {
-                appearance.description = .none
-            }
+    func toggleFeaturedRelation(id: String, isEnabled: Bool) {
+        var withName = objectPreviewFields.withName
+        if id == BundledRelationKey.name.rawValue {
+            withName = isEnabled
         }
 
-        self.onSelect(appearance)
-        updateObjectPreview(appearance: appearance)
+        var newFeaturedRelationsIds = Set(objectPreviewFields.featuredRelationsIds)
+
+        if isEnabled {
+            newFeaturedRelationsIds.insert(id)
+        } else {
+            newFeaturedRelationsIds.remove(id)
+        }
+
+        objectPreviewFields = ObjectPreviewFields(
+            icon: objectPreviewFields.icon,
+            layout: objectPreviewFields.layout,
+            withName: withName,
+            featuredRelationsIds: newFeaturedRelationsIds
+        )
+
+        self.onSelect(objectPreviewFields)
     }
 
     func showLayoutMenu() {
-        router.showLayoutMenu(cardStyle: .init(appearance.cardStyle)) { [weak self] cardStyle in
-            self?.appearance.cardStyle = cardStyle.asModel
-            self?.handleOnMainSelect()
+        router.showLayoutMenu(objectPreviewFields: objectPreviewFields) { [weak self] newObjectPreviewFields in
+            self?.handleOnSelect(newObjectPreviewFields: newObjectPreviewFields)
         }
     }
 
     func showIconMenu() {
-        let hasIcon = appearance.relations.contains(.icon)
-        router.showIconMenu(iconSize: hasIcon ? .medium : .none) { [weak self] iconSize in
-            switch iconSize {
-            case .none:
-                self?.appearance.relations.remove(.icon)
-            case .medium:
-                self?.appearance.relations.insert(.icon)
-                self?.appearance.iconSize = .medium
-            }
-            self?.handleOnMainSelect()
+        router.showIconMenu(objectPreviewFields: objectPreviewFields) { [weak self] newObjectPreviewFields in
+            self?.handleOnSelect(newObjectPreviewFields: newObjectPreviewFields)
         }
     }
 
-    private func handleOnMainSelect() {
-        onSelect(appearance)
-        updateObjectPreview(appearance: appearance)
+    private func handleOnSelect(newObjectPreviewFields: ObjectPreviewFields) {
+        objectPreviewFields = newObjectPreviewFields
+        onSelect(newObjectPreviewFields)
+        updateObjectPreview(featuredRelationsByIds: featuredRelationsByIds, objectPreviewFields: newObjectPreviewFields)
     }
 }

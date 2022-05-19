@@ -26,8 +26,8 @@ public enum BlockContent: Hashable, CustomStringConvertible {
             return .divider(divider.style)
         case let .bookmark(bookmark):
             return .bookmark(bookmark.type)
-        case let .link(content):
-            return .link(content.appearance)
+        case let .link(link):
+            return .link(link.style)
         case let .layout(layout):
             return .layout(layout.style)
         case .featuredRelations:
