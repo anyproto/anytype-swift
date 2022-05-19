@@ -618,48 +618,16 @@ extension Anytype_Event.Block.Set.Latex.Text {
 }
 
 extension Anytype_Event.Block.Set.Link {
-  public init(
-    id: String, targetBlockID: Anytype_Event.Block.Set.Link.TargetBlockId, style: Anytype_Event.Block.Set.Link.Style, fields: Anytype_Event.Block.Set.Link.Fields,
-    iconSize: Anytype_Event.Block.Set.Link.IconSize, cardStyle: Anytype_Event.Block.Set.Link.CardStyle, description_p: Anytype_Event.Block.Set.Link.Description,
-    relations: Anytype_Event.Block.Set.Link.Relations
-  ) {
+  public init(id: String, targetBlockID: Anytype_Event.Block.Set.Link.TargetBlockId, style: Anytype_Event.Block.Set.Link.Style, fields: Anytype_Event.Block.Set.Link.Fields) {
     self.id = id
     self.targetBlockID = targetBlockID
     self.style = style
     self.fields = fields
-    self.iconSize = iconSize
-    self.cardStyle = cardStyle
-    self.description_p = description_p
-    self.relations = relations
-  }
-}
-
-extension Anytype_Event.Block.Set.Link.CardStyle {
-  public init(value: Anytype_Model_Block.Content.Link.CardStyle) {
-    self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.Link.Description {
-  public init(value: Anytype_Model_Block.Content.Link.Description) {
-    self.value = value
   }
 }
 
 extension Anytype_Event.Block.Set.Link.Fields {
   public init(value: SwiftProtobuf.Google_Protobuf_Struct) {
-    self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.Link.IconSize {
-  public init(value: Anytype_Model_Block.Content.Link.IconSize) {
-    self.value = value
-  }
-}
-
-extension Anytype_Event.Block.Set.Link.Relations {
-  public init(value: [String]) {
     self.value = value
   }
 }
