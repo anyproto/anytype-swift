@@ -11,7 +11,12 @@ struct TextRelationFactory {
     static func uiKit(value: String?, hint: String, style: RelationStyle) -> UIView {
         let maxLength = maxLength(style: style)
         let text = TextRelationFactory.text(value: value, maxLength: maxLength)
-        return TextRelationViewUIKit(text: text, hint: hint, style: style)
+        
+        guard let text = text else {
+            return RelationPlaceholderViewUIKit(hint: hint, style: style)
+        }
+        
+        return TextRelationViewUIKit(text: text, style: style)
     }
 
     private static func text(value: String?, maxLength: Int?) -> String? {
