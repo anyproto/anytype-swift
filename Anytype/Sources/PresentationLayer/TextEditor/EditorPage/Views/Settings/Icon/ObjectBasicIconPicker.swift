@@ -60,7 +60,6 @@ struct ObjectBasicIconPicker: View {
             itemProvider.flatMap {
                 viewModel.uploadImage(from: $0)
             }
-            dismiss()
         }
         .transition(
             .asymmetric(

@@ -21,7 +21,6 @@ struct ObjectProfileIconPicker: View {
             itemProvider.flatMap {
                 viewModel.uploadImage(from: $0)
             }
-            dismiss()
         }
     }
     
