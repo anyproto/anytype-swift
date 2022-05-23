@@ -2,6 +2,7 @@ import UIKit
 import SwiftUI
 import Combine
 import BlocksModels
+import AnytypeCore
 
 final class TemplatesCoordinator {
     private let rootViewController: UIViewController
@@ -25,6 +26,8 @@ final class TemplatesCoordinator {
         document: BaseDocumentProtocol,
         templatesTypeURL: ObjectTemplateType
     ) {
+        guard FeatureFlags.isTemplatesAvailable else { return }
+
         guard let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
             return
         }
