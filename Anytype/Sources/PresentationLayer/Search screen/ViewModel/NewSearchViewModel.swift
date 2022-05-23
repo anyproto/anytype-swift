@@ -10,7 +10,6 @@ final class NewSearchViewModel: ObservableObject {
     @Published private(set) var addButtonModel: NewSearchView.AddButtonModel? = nil
     @Published private(set) var isCreateButtonAvailable: Bool = false
     
-    private let selectionMode: SelectionMode
     private let itemCreationMode: ItemCreationMode
     private let internalViewModel: NewInternalSearchViewModelProtocol
     private let onSelect: (_ ids: [String]) -> Void
@@ -25,13 +24,11 @@ final class NewSearchViewModel: ObservableObject {
     
     init(
         title: String? = nil,
-        selectionMode: SelectionMode,
         itemCreationMode: ItemCreationMode,
         internalViewModel: NewInternalSearchViewModelProtocol,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) {
         self.title = title
-        self.selectionMode = selectionMode
         self.itemCreationMode = itemCreationMode
         self.internalViewModel = internalViewModel
         self.onSelect = onSelect
@@ -47,7 +44,7 @@ extension NewSearchViewModel {
     }
     
     func didSelectRow(with id: String) {
-        switch selectionMode {
+        switch internalViewModel.selectionMode {
         case .singleItem:
             onSelect([id])
         case .multipleItems:
@@ -90,7 +87,7 @@ private extension NewSearchViewModel {
     }
     
     func updateAddButtonModel() {
-        guard case .multipleItems = selectionMode else { return }
+        guard case .multipleItems = internalViewModel.selectionMode else { return }
 
         addButtonModel = selectedRowIds.isEmpty ? .disabled : .enabled(counter: selectedRowIds.count)
     }

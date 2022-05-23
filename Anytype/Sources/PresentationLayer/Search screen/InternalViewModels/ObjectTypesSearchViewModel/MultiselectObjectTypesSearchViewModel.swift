@@ -36,6 +36,10 @@ extension MultiselectObjectTypesSearchViewModel: NewInternalSearchViewModelProto
         }.eraseToAnyPublisher()
     }
     
+    var selectionMode: NewSearchViewModel.SelectionMode {
+        return .multipleItems
+    }
+    
     func search(text: String) {
         interactor.search(text: text) { [weak self] objects in
             self?.objects = objects

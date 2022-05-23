@@ -4,16 +4,19 @@ import AnytypeCore
 import UIKit
 
 final class SlashMenuActionHandler {
+    private let document: BaseDocumentProtocol
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private weak var textView: UITextView?
     
     init(
+        document: BaseDocumentProtocol,
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouterProtocol,
         pasteboardService: PasteboardServiceProtocol
     ) {
+        self.document = document
         self.actionHandler = actionHandler
         self.router = router
         self.pasteboardService = pasteboardService
@@ -122,7 +125,7 @@ final class SlashMenuActionHandler {
         case .duplicate:
             actionHandler.duplicate(blockId: blockId)
         case .moveTo:
-            router.showMoveTo { [weak self] pageId in
+            router.showMoveTo(documentId: document.objectId.value) { [weak self] pageId in
                 self?.actionHandler.moveToPage(blockId: blockId, pageId: pageId)
             }
         case .copy:

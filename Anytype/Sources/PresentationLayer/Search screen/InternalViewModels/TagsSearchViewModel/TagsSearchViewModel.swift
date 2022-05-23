@@ -34,6 +34,10 @@ extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
         }.eraseToAnyPublisher()
     }
     
+    var selectionMode: NewSearchViewModel.SelectionMode {
+        return .multipleItems
+    }
+    
     func search(text: String) {
         interactor.search(text: text) { [weak self] tags in
             self?.tags = tags

@@ -49,6 +49,7 @@ struct AccessoryViewBuilder {
 
         let slashMenuViewModel = SlashMenuViewModel(
             handler: SlashMenuActionHandler(
+                document: document,
                 actionHandler: actionHandler,
                 router: router,
                 pasteboardService: pasteboardService

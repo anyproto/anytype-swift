@@ -29,6 +29,10 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
         }.eraseToAnyPublisher()
     }
     
+    var selectionMode: NewSearchViewModel.SelectionMode {
+        return .singleItem
+    }
+    
     func search(text: String) {
         interactor.search(text: text) { [weak self] objects in
             self?.objects = objects

@@ -30,6 +30,10 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
         }.eraseToAnyPublisher()
     }
     
+    var selectionMode: NewSearchViewModel.SelectionMode {
+        return .singleItem
+    }
+    
     func search(text: String) {
         interactor.search(text: text) { [weak self] statuses in
             self?.statuses = statuses

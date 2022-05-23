@@ -7,6 +7,12 @@ protocol SearchServiceProtocol {
     func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeUrls: [String]) -> [ObjectDetails]?
+    func searchObjects(
+        text: String,
+        excludedObjectIds: [String],
+        excludedTypeUrls: [String],
+        sortRelationKey: BundledRelationKey?
+    ) -> [ObjectDetails]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -86,6 +92,26 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
     }
     
+    func searchObjects(
+        text: String,
+        excludedObjectIds: [String],
+        excludedTypeUrls: [String],
+        sortRelationKey: BundledRelationKey?
+    ) -> [ObjectDetails]? {
+        let sort = SearchHelper.sort(
+            relation: sortRelationKey ?? .lastOpenedDate,
+            type: .desc
+        )
+        
+        var filters = buildFilters(
+            isArchived: false,
+            typeUrls: ObjectTypeProvider.supportedTypeUrls
+        )
+        filters.append(SearchHelper.excludedTypeFilter(excludedTypeUrls))
+        filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
+        
+        return makeRequest(filters: filters, sorts: [sort], fullText: text)
+    }
 }
 
 private extension SearchService {
