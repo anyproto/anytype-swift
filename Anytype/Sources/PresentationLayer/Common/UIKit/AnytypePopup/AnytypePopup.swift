@@ -128,6 +128,13 @@ private extension AnytypePopup {
         surfaceView.grabberHandle.backgroundColor = .strokePrimary
         surfaceView.grabberHandle.isHidden = !configuration.isGrabberVisible
 
+        surfaceView.contentPadding = UIEdgeInsets(
+            top: configuration.isGrabberVisible ? Constants.grabberHeight : 0,
+            left: 0,
+            bottom: 0,
+            right: 0
+        )
+
         updateSurfaceViewMargins()
 
         if FeatureFlags.rainbowViews {
