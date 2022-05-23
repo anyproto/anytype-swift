@@ -500,3 +500,4 @@ private extension EditorPageController {
         }
     }
 }
+

@@ -3,9 +3,9 @@ import UIKit
 import AnytypeCore
 
 final class EditorAssembly {
-    private weak var browser: EditorBrowserController!
+    private weak var browser: EditorBrowserController?
     
-    init(browser: EditorBrowserController) {
+    init(browser: EditorBrowserController?) {
         self.browser = browser
     }
     
@@ -22,19 +22,19 @@ final class EditorAssembly {
     ) -> (vc: UIViewController, router: EditorRouterProtocol) {
         switch data.type {
         case .page:
-            let module = buildPageModule(pageId: data.pageId)
+            let module = buildPageModule(data: data)
             module.0.browserViewInput = editorBrowserViewInput
             return module
         case .set:
-            return buildSetModule(pageId: data.pageId)
+            return buildSetModule(data: data)
         }
     }
     
     // MARK: - Set
-    private func buildSetModule(pageId: AnytypeId) -> (EditorSetHostingController, EditorRouterProtocol) {
-        let document = BaseDocument(objectId: pageId)
+    private func buildSetModule(data: EditorScreenData) -> (EditorSetHostingController, EditorRouterProtocol) {
+        let document = BaseDocument(objectId: data.pageId)
         let model = EditorSetViewModel(document: document)
-        let controller = EditorSetHostingController(objectId: pageId, model: model)
+        let controller = EditorSetHostingController(objectId: data.pageId, model: model)
         let searchService = SearchService()
         
         let router = EditorRouter(
@@ -56,11 +56,11 @@ final class EditorAssembly {
     
     // MARK: - Page
     
-    private func buildPageModule(pageId: AnytypeId) -> (EditorPageController, EditorRouterProtocol) {
+    private func buildPageModule(data: EditorScreenData) -> (EditorPageController, EditorRouterProtocol) {
         let blocksSelectionOverlayView = buildBlocksSelectionOverlayView()
 
         let controller = EditorPageController(blocksSelectionOverlayView: blocksSelectionOverlayView)
-        let document = BaseDocument(objectId: pageId)
+        let document = BaseDocument(objectId: data.pageId)
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
@@ -77,7 +77,8 @@ final class EditorAssembly {
             viewInput: controller,
             document: document,
             router: router,
-            blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel
+            blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel,
+            isOpenedForPreview: data.isOpenedForPreview
         )
 
         controller.viewModel = viewModel
@@ -89,7 +90,8 @@ final class EditorAssembly {
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter,
-        blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel
+        blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
+        isOpenedForPreview: Bool
     ) -> EditorPageViewModel {                
         let modelsHolder = EditorMainItemModelsHolder()
         
@@ -165,7 +167,8 @@ final class EditorAssembly {
             blockActionsServiceSingle: blockActionsServiceSingle,
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
-            router: router
+            router: router,
+            initialEditingState: isOpenedForPreview ? .locked : .editing
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager
@@ -184,7 +187,8 @@ final class EditorAssembly {
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager,
             objectActionsService: ServiceLocator.shared.objectActionsService(),
-            searchService: ServiceLocator.shared.searchService()
+            searchService: ServiceLocator.shared.searchService(),
+            isOpenedForPreview: isOpenedForPreview
         )
     }
 

@@ -63,6 +63,12 @@ final class BaseDocument: BaseDocumentProtocol {
         isOpened = blockActionsService.open()
         return isOpened
     }
+
+    @discardableResult
+    func openForPreview() -> Bool {
+        isOpened = blockActionsService.openForPreview()
+        return isOpened
+    }
     
     func close(){
         blockActionsService.close()
