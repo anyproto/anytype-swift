@@ -6,23 +6,61 @@
 //  Copyright © 2022 Anytype. All rights reserved.
 //
 
-import SwiftUI
-import AnytypeCore
+import UIKit
 
-struct CreateObjectView: View {
-    @State private var text: String = .empty
+final class CreateObjectView: UIView {
 
-    var body: some View {
-        HStack(spacing: 16) {
-            AnytypeTextField(style: .previewTitle1Medium, placeholder: "Untitled".localized, text: $text)
-            Spacer(minLength: 10)
+    let textField: UITextField = {
+        let textField = UITextField()
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.font = .previewTitle1Medium
+        textField.clearButtonMode = .always
+        textField.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Untitled".localized,
+            attributes: [
+                .font: UIFont.previewTitle1Medium,
+                .foregroundColor: UIColor.textSecondary
+            ]
+        )
+        return textField
+    }()
 
-            Button {
+    private lazy var button: ButtonWithImage = {
+        let button = ButtonsFactory.makeButton(image: .action.openToEdit)
 
-            } label: {
-                Image.set.openObject
-            }
+        button.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        return button
+    }()
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setupView()
+    }
+
+    func setupView() {
+        let hstack = UIStackView()
+        hstack.axis = .horizontal
+        hstack.alignment = .center
+
+        hstack.addArrangedSubview(textField)
+        hstack.addArrangedSubview(button)
+
+        addSubview(hstack) {
+            $0.pinToSuperview(insets: .init(top: 0, left: 20, bottom: 0, right: -20))
         }
-        .padding(.init(top: 21, leading: 20, bottom: 31, trailing: 20))
+
+        translatesAutoresizingMaskIntoConstraints = false
+        let heightConstraint = heightAnchor.constraint(equalToConstant: 84)
+        heightConstraint.priority = .init(rawValue: 999)
+        heightConstraint.isActive = true
     }
 }

@@ -12,7 +12,6 @@ final class AnytypePopupViewModel<Content: View>: AnytypePopupViewModelProtocol,
     private(set) var popupLayout: AnytypePopupLayoutType
     private weak var popup: AnytypePopupProxy?
     private let contentView: Content
-    private weak var viewController: UIViewController?
 
     init(contentView: Content, popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: true)) {
         self.contentView = contentView
@@ -31,7 +30,7 @@ final class AnytypePopupViewModel<Content: View>: AnytypePopupViewModelProtocol,
     }
 
     func makeContentView() -> UIViewController {
-        viewController = UIHostingController(rootView: InnerAnytypePopupView(viewModel: self, contentView: contentView))
+        UIHostingController(rootView: InnerAnytypePopupView(viewModel: self, contentView: contentView))
     }
 }
 
@@ -56,30 +55,3 @@ private extension AnytypePopupViewModel {
         }
     }
 }
-
-private extension AnytypePopupViewModel {
-
-    func setupKeyboardListener() {
-        let showAction: KeyboardEventsListnerHelper.Action = { [weak self] notification in
-            guard
-                let keyboardRect = notification.localKeyboardRect(for: UIResponder.keyboardFrameEndUserInfoKey)
-            else { return }
-
-            self?.adjustViewHeightBy(keyboardHeight: keyboardRect.height)
-        }
-
-        let willHideAction: KeyboardEventsListnerHelper.Action = { [weak self] _ in
-            self?.adjustViewHeightBy(keyboardHeight: 0)
-        }
-
-        self.keyboardListener = KeyboardEventsListnerHelper(
-            willShowAction: showAction,
-            willChangeFrame: showAction,
-            willHideAction: willHideAction
-        )
-    }
-
-    func adjustViewHeightBy(keyboardHeight: CGFloat) {
-        viewController?.keyboardDidUpdateHeight(keyboardHeight)
-        popup?.updateLayout(true)
-    }

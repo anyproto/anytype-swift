@@ -46,6 +46,13 @@ final class AnytypePopup: FloatingPanelController {
         let popupView = AnytypePopupViewModel(contentView: contentView, popupLayout: popupLayout)
         self.init(viewModel: popupView, floatingPanelStyle: floatingPanelStyle, configuration: configuration)
     }
+
+    convenience init<Content: UIView>(contentView: Content,
+                                      floatingPanelStyle: Bool = false,
+                                      configuration: Configuration = Constants.defaultConifguration) {
+        let viewModel = AnytypeAlertViewModel(contentView: contentView, keyboardListener: .init())
+        self.init(viewModel: viewModel, floatingPanelStyle: floatingPanelStyle, configuration: configuration)
+    }
     
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {

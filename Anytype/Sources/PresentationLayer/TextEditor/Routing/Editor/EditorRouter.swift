@@ -433,8 +433,10 @@ extension EditorRouter {
     func showCreateObject() {
         guard let viewController = viewController else { return }
 
-        let view = CreateObjectView()
-        let fpc = AnytypePopup(contentView: view, floatingPanelStyle: true)
+        let view = CreateObjectView()        
+        let fpc = AnytypePopup(contentView: view,
+                               floatingPanelStyle: true,
+                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: false, skipThroughGestures: true))
         viewController.topPresentedController.present(fpc, animated: true, completion: nil)
     }
 }

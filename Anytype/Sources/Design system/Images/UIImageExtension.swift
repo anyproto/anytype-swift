@@ -8,10 +8,13 @@ extension UIImage {
     static let more = createImage("more")
     
     static let ghost = createImage(ImageName.ghost)
-    
 }
 
 extension UIImage {
+    enum action {
+        static let openToEdit = createImage("open_to_edit")
+    }
+    
     enum editor {
         enum BlockOption {
             static let addBelow = createImage("TextEditor/BlocksOption/add_below")
