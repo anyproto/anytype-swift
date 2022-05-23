@@ -10,12 +10,19 @@ final class AnytypePopup: FloatingPanelController {
     struct Configuration {
         let isGrabberVisible: Bool
         let dismissOnBackdropView: Bool
+        let skipThroughGestures: Bool
+
+        init(isGrabberVisible: Bool, dismissOnBackdropView: Bool, skipThroughGestures: Bool = false) {
+            self.isGrabberVisible = isGrabberVisible
+            self.dismissOnBackdropView = dismissOnBackdropView
+            self.skipThroughGestures = skipThroughGestures
+        }
     }
         
     private let viewModel: AnytypePopupViewModelProtocol
     private let floatingPanelStyle: Bool
     private let configuration: Configuration
-    
+
     // MARK: - Initializers
     
     init(viewModel: AnytypePopupViewModelProtocol,
@@ -24,7 +31,7 @@ final class AnytypePopup: FloatingPanelController {
         self.viewModel = viewModel
         self.floatingPanelStyle = floatingPanelStyle
         self.configuration = configuration
-        
+
         super.init(delegate: nil)
         
         viewModel.onPopupInstall(self)
@@ -50,7 +57,11 @@ final class AnytypePopup: FloatingPanelController {
 // MARK: - RelationDetailsViewModelDelegate
 
 extension AnytypePopup: AnytypePopupProxy {
-    
+    func updateBottomInset() {
+        updateSurfaceViewMargins()
+        updateLayout(false)
+    }
+
     func updateLayout(_ animated: Bool) {
         if animated {
             UIView.animate(withDuration: 0.3) {
@@ -66,7 +77,6 @@ extension AnytypePopup: AnytypePopupProxy {
             self.dismiss(animated: false)
         }
     }
-    
 }
 
 // MARK: - FloatingPanelControllerDelegate
@@ -80,7 +90,6 @@ extension AnytypePopup: FloatingPanelControllerDelegate {
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
         viewModel.popupLayout.layout
     }
-    
 }
 
 // MARK: - Private extension
@@ -97,13 +106,18 @@ private extension AnytypePopup {
         
         let contentView = viewModel.makeContentView()
         contentView.view.backgroundColor = .backgroundSecondary
-        
+
         set(contentViewController: contentView)
     }
     
     func setupGestures() {
-        isRemovalInteractionEnabled = configuration.dismissOnBackdropView
-        backdropView.dismissalTapGestureRecognizer.isEnabled = configuration.dismissOnBackdropView
+        if configuration.skipThroughGestures {
+            backdropView.isHidden = true
+            isRemovalInteractionEnabled = true
+        } else {
+            isRemovalInteractionEnabled = configuration.dismissOnBackdropView
+            backdropView.dismissalTapGestureRecognizer.isEnabled = configuration.dismissOnBackdropView
+        }
     }
     
     func setupSurfaceView() {
@@ -114,22 +128,30 @@ private extension AnytypePopup {
         surfaceView.grabberHandle.backgroundColor = .strokePrimary
         surfaceView.grabberHandle.isHidden = !configuration.isGrabberVisible
 
-        surfaceView.contentPadding = UIEdgeInsets(
-            top: configuration.isGrabberVisible ? Constants.grabberHeight : 0,
-            left: 0,
-            bottom: 0,
-            right: 0
-        )
-        
-        if floatingPanelStyle {
-            let horizontalInset = UIDevice.isPad ? 0.0 : 8.0
-            surfaceView.containerMargins = UIEdgeInsets(top: 0, left: horizontalInset, bottom: Constants.bottomInset, right: horizontalInset)
-        }
+        updateSurfaceViewMargins()
 
         if FeatureFlags.rainbowViews {
             surfaceView.backgroundColor = .red
             surfaceView.grabberHandle.backgroundColor = .yellow
             surfaceView.containerView.backgroundColor = .green
+        }
+    }
+
+    func updateSurfaceViewMargins() {
+        if floatingPanelStyle {
+            let horizontalInset = UIDevice.isPad ? 0.0 : 8.0
+
+            switch viewModel.popupLayout {
+            case .alert(let height):
+                surfaceView.containerMargins = UIEdgeInsets(
+                    top: 0,
+                    left: horizontalInset,
+                    bottom: max(height + Constants.bottomAlertInset, Constants.bottomAlertMinimumInset),
+                    right: horizontalInset
+                )
+            default:
+                surfaceView.containerMargins = UIEdgeInsets(top: 0, left: horizontalInset, bottom: Constants.bottomInset, right: horizontalInset)
+            }
         }
     }
     
@@ -138,7 +160,8 @@ private extension AnytypePopup {
         appearance.backgroundColor = .backgroundSecondary
         appearance.cornerRadius = 16.0
         appearance.cornerCurve = .continuous
-        
+
+
         appearance.shadows = [makeShadow()]
         
         return appearance
@@ -153,7 +176,6 @@ private extension AnytypePopup {
 
         return shadow
     }
-    
 }
 
 extension AnytypePopup {
@@ -161,6 +183,8 @@ extension AnytypePopup {
     enum Constants {
         static let grabberHeight: CGFloat = 16
         static let bottomInset: CGFloat = 44
+        static let bottomAlertInset: CGFloat = 16
+        static let bottomAlertMinimumInset: CGFloat = 60
         static let defaultConifguration: Configuration = .init(isGrabberVisible: true, dismissOnBackdropView: true)
     }
     

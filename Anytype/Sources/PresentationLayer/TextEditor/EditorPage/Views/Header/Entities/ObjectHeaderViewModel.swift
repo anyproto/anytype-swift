@@ -50,7 +50,7 @@ final class ObjectHeaderViewModel: ObservableObject {
             header = buildHeader()
         case .header(let data):
             header = buildLoadingHeader(data)
-        case .blocks, .dataSourceUpdate, .syncStatus:
+        case .blocks, .dataSourceUpdate, .syncStatus, .changeType:
             break
         }
     }

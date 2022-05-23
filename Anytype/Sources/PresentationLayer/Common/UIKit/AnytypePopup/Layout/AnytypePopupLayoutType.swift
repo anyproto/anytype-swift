@@ -7,10 +7,11 @@ enum AnytypePopupLayoutType {
     case relationOptions
     case constantHeight(height: CGFloat, floatingPanelStyle: Bool)
     case adaptiveTextRelationDetails(layoutGuide: UILayoutGuide)
-    
+    case alert(height: CGFloat)
+
     var layout: FloatingPanelLayout {
         switch self {
-        case .intrinsic:
+        case .intrinsic, .alert:
             return IntrinsicPopupLayout()
         case .fullScreen:
             return FullScreenHeightPopupLayout()

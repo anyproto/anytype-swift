@@ -154,16 +154,25 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
     
     func setObjectType(objectId: BlockId, objectTypeUrl: String) {
-        Anytype_Rpc.Block.ObjectType.Set.Service.invoke(
+        let middlewareEvent = Anytype_Rpc.Block.ObjectType.Set.Service.invoke(
             contextID: objectId,
             objectTypeURL: objectTypeUrl
         )
-            .map { (result) -> EventsBunch in
+            .map { (result) -> Anytype_ResponseEvent in
                 AnytypeAnalytics.instance().logObjectTypeChange(objectTypeUrl)
-                return EventsBunch(event: result.event)
+                return result.event
             }
-            .getValue(domain: .objectActionsService)?
-            .send()
+            .getValue(domain: .objectActionsService)
+
+
+        let localEvent = LocalEvent.changeType(objectTypeURL: objectTypeUrl)
+
+        EventsBunch(
+            contextId: objectId,
+            middlewareEvents: middlewareEvent?.messages ?? [],
+            localEvents: [localEvent],
+            dataSourceEvents: []
+        ).send()
     }
 
     func undo(objectId: AnytypeId) throws {

@@ -9,6 +9,7 @@ public enum Feature: String, Codable {
     case objectPreview = "Object preview"
     case deletion = "Account deletion"
     case createNewRelation = "Create new relation"
+    case templates = "Show templates picker"
 }
 
 public final class FeatureFlags {
@@ -35,7 +36,8 @@ public final class FeatureFlags {
         .uikitRelationBlocks: true,
         .objectPreview: false,
         .deletion: false,
-        .createNewRelation: true
+        .createNewRelation: true,
+        .templates: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -81,5 +83,9 @@ public extension FeatureFlags {
     
     static var createNewRelation: Bool {
         features[.createNewRelation, default: true]
+    }
+
+    static var isTemplatesAvailable: Bool {
+        features[.templates, default: false]
     }
 }

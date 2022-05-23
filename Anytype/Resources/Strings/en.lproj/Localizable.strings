@@ -256,4 +256,12 @@
 
 // MARK: - Object Settings
 "Undo/Redo" = "Undo/Redo";
+
+
+// MARK: - Templates
+"Alert.Templates_Available.Title.First" = "This type has";
+"Alert.Templates_Available.Title.Second" = "templates";
+"Alert.Templates_Available.Description" = "Swipe down to skip";
+"Alert.Templates_Available.Button" = "Show";
+
 "To Bin" = "To Bin";

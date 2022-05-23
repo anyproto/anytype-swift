@@ -18,6 +18,7 @@ public enum BundledRelationKey: String {
     case layoutAlign
     case done
     case type
+    case targetObjectType
     case creator
     case createdDate
     case lastOpenedDate
