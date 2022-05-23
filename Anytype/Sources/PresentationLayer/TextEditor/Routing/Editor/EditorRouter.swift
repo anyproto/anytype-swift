@@ -426,6 +426,21 @@ extension EditorRouter {
     }
 }
 
+// MARK: - Set
+
+extension EditorRouter {
+
+    func showCreateObject() {
+        guard let viewController = viewController else { return }
+
+        let view = CreateObjectView()
+        let fpc = AnytypePopup(contentView: view, floatingPanelStyle: true)
+        viewController.topPresentedController.present(fpc, animated: true, completion: nil)
+    }
+}
+
+
+// MARK: - UIPopoverPresentationControllerDelegate
 
 extension EditorRouter: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

@@ -41,4 +41,10 @@ final class DataviewService: DataviewServiceProtocol {
             .getValue(domain: .dataviewService)?
             .send()
     }
+
+    func addRecord() {
+        Anytype_Rpc.Block.Dataview.RecordCreate.Service
+            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, record: .init(), templateID: .empty)
+            .getValue(domain: .dataviewService)
+    }
 }

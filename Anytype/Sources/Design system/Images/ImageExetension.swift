@@ -33,6 +33,7 @@ extension Image {
         static let viewSettings = createImage("set_settins_settings")
         static let sort = createImage("set_settins_sort")
         static let view = createImage("set_settins_view")
+        static let openObject = createImage("open_to_edit")
     }
     
     enum main {

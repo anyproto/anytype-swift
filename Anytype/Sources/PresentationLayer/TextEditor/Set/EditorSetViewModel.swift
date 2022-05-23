@@ -188,7 +188,7 @@ extension EditorSetViewModel {
     }
 
     func createObject() {
-
+        router.showCreateObject()
     }
     
     func showViewSettings() {
