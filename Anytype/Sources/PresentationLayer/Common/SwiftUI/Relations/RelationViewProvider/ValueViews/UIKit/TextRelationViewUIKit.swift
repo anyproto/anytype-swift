@@ -10,17 +10,14 @@ import UIKit
 
 final class TextRelationViewUIKit: UIView {
     let text: String
-    let hint: String
     let style: RelationStyle
 
     private lazy var textView = AnytypeLabel(style: style.font)
-
-
+  
     // MARK: - Lifecycle
 
-    init(text: String?, hint: String, style: RelationStyle) {
-        self.text = text ?? ""
-        self.hint = hint
+    init(text: String, style: RelationStyle) {
+        self.text = text
         self.style = style
 
         super.init(frame: .zero)
@@ -37,8 +34,8 @@ final class TextRelationViewUIKit: UIView {
 
     private func setupViews() {
         textView.textColor = style.uiKitFontColor
-        textView.setText(text)
-        textView.numberOfLines =  1
+        textView.setText(text) 
+        textView.numberOfLines = 1
         textView.numberOfLines = style.allowMultiLine ? 0 : 1
 
         addSubview(textView) {
