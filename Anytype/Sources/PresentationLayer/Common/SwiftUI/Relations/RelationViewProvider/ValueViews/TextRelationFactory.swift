@@ -12,7 +12,7 @@ struct TextRelationFactory {
         let maxLength = maxLength(style: style)
         let text = TextRelationFactory.text(value: value, maxLength: maxLength)
         
-        guard let text = text else {
+        guard let text = text, text.isNotEmpty else {
             return RelationPlaceholderViewUIKit(hint: hint, style: style)
         }
         
