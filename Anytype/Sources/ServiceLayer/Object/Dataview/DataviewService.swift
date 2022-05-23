@@ -42,9 +42,18 @@ final class DataviewService: DataviewServiceProtocol {
             .send()
     }
 
-    func addRecord() {
-        Anytype_Rpc.Block.Dataview.RecordCreate.Service
+    func addRecord() -> ObjectDetails? {
+        let response = Anytype_Rpc.Block.Dataview.RecordCreate.Service
             .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, record: .init(), templateID: .empty)
             .getValue(domain: .dataviewService)
+
+        guard let response = response else { return nil }
+
+        let idValue = response.record.fields[BundledRelationKey.id.rawValue]
+        let idString = idValue?.unwrapedListValue.stringValue
+
+        guard let id = idString?.asAnytypeId else { return nil }
+
+        return ObjectDetails(id: id, values: response.record.fields)
     }
 }

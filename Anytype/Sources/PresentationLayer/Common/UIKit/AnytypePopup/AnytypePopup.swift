@@ -97,6 +97,15 @@ extension AnytypePopup: FloatingPanelControllerDelegate {
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
         viewModel.popupLayout.layout
     }
+
+    func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
+        let surfaceOffset = fpc.surfaceLocation.y - fpc.surfaceLocation(for: .full).y
+        // If panel moved more than a half of its hight than hide panel
+        if fpc.surfaceView.bounds.height / 2 < surfaceOffset {
+            return true
+        }
+        return false
+    }
 }
 
 // MARK: - Private extension
@@ -118,11 +127,11 @@ private extension AnytypePopup {
     }
     
     func setupGestures() {
+        isRemovalInteractionEnabled = true
+
         if configuration.skipThroughGestures {
             backdropView.isHidden = true
-            isRemovalInteractionEnabled = true
         } else {
-            isRemovalInteractionEnabled = configuration.dismissOnBackdropView
             backdropView.dismissalTapGestureRecognizer.isEnabled = configuration.dismissOnBackdropView
         }
     }

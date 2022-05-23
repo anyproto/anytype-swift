@@ -33,7 +33,8 @@ final class EditorAssembly {
     // MARK: - Set
     private func buildSetModule(pageId: AnytypeId) -> (EditorSetHostingController, EditorRouterProtocol) {
         let document = BaseDocument(objectId: pageId)
-        let model = EditorSetViewModel(document: document)
+        let dataviewService = DataviewService(objectId: pageId.value)
+        let model = EditorSetViewModel(document: document, dataviewService: dataviewService)
         let controller = EditorSetHostingController(objectId: pageId, model: model)
         let searchService = SearchService()
         

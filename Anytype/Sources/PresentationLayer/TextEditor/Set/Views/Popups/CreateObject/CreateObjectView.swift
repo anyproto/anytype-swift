@@ -16,8 +16,6 @@ final class CreateObjectView: UIView {
         textField.autocorrectionType = .no
         textField.autocapitalizationType = .none
         textField.font = .previewTitle1Medium
-        textField.clearButtonMode = .always
-        textField.setContentHuggingPriority(.defaultLow, for: .horizontal)
         textField.attributedPlaceholder = NSAttributedString(
             string: "Untitled".localized,
             attributes: [
@@ -25,6 +23,7 @@ final class CreateObjectView: UIView {
                 .foregroundColor: UIColor.textSecondary
             ]
         )
+        textField.addTarget(self, action: #selector(textDidChange(textField:)), for: .editingChanged)
         return textField
     }()
 
@@ -36,31 +35,63 @@ final class CreateObjectView: UIView {
         return button
     }()
 
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupView()
-    }
+    private var workItem: DispatchWorkItem?
+    private var viewModel: CreateObjectViewModel
+    private var currentText: String = .empty
 
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
-        setupView()
-    }
+    init(viewModel: CreateObjectViewModel, openToEditAction: @escaping () -> Void) {
+        self.viewModel = viewModel
 
-    func setupView() {
-        let hstack = UIStackView()
-        hstack.axis = .horizontal
-        hstack.alignment = .center
+        super.init(frame: .zero)
 
-        hstack.addArrangedSubview(textField)
-        hstack.addArrangedSubview(button)
+        setupLayout()
+        
+        button.addAction { [weak self] _ in
+            guard let self = self else { return }
 
-        addSubview(hstack) {
-            $0.pinToSuperview(insets: .init(top: 0, left: 20, bottom: 0, right: -20))
+            self.workItem?.cancel()
+
+            if self.currentText != self.textField.text, let text = self.textField.text  {
+                self.viewModel.textDidChange(text)
+            }
+            openToEditAction()
         }
+    }
 
+    @available(*, unavailable)
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
+    private func setupLayout() {
+        layoutUsing.stack {
+            $0.alignment = .center
+            $0.edgesToSuperview(insets: .init(top: 0, left: 20, bottom: 0, right: 20))
+        } builder: {
+            $0.hStack(
+                textField,
+                $0.hGap(),
+                button
+            )
+        }
+        
         translatesAutoresizingMaskIntoConstraints = false
         let heightConstraint = heightAnchor.constraint(equalToConstant: 84)
         heightConstraint.priority = .init(rawValue: 999)
         heightConstraint.isActive = true
+    }
+
+    @objc private func textDidChange(textField: UITextField) {
+        workItem?.cancel()
+
+        guard let text = textField.text else { return }
+        currentText = text
+
+        let newWorkItem = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            self.viewModel.textDidChange(text)
+        }
+        workItem = newWorkItem
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: newWorkItem)
     }
 }
