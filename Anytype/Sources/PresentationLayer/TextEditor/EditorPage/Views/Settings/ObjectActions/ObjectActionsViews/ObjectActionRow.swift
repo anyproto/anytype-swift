@@ -37,7 +37,7 @@ private extension ObjectAction {
         case .undoRedo:
             return "Undo/Redo".localized
         case let .archive(isArchived):
-            return isArchived ? "Restore".localized : "Delete".localized
+            return isArchived ? "Restore".localized : "To Bin".localized
         case let .favorite(isFavorite):
             return isFavorite ? "Unfavorite".localized : "Favorite".localized
         case let .locked(isLocked):

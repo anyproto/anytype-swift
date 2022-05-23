@@ -13,13 +13,15 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let document: BaseDocumentProtocol
     private let settingAssembly = ObjectSettingAssembly()
     private let editorAssembly: EditorAssembly
+    private let templatesCoordinator: TemplatesCoordinator
     private lazy var relationEditingViewModelBuilder = RelationEditingViewModelBuilder(delegate: self)
     
     init(
         rootController: EditorBrowserController,
         viewController: UIViewController,
         document: BaseDocumentProtocol,
-        assembly: EditorAssembly
+        assembly: EditorAssembly,
+        templatesCoordinator: TemplatesCoordinator
     ) {
         self.rootController = rootController
         self.viewController = viewController
@@ -27,6 +29,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.editorAssembly = assembly
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
         self.addNewRelationCoordinator = AddNewRelationCoordinator(document: document, viewController: viewController)
+        self.templatesCoordinator = templatesCoordinator
     }
 
     func showPage(data: EditorScreenData) {
@@ -302,6 +305,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
         viewController?.topPresentedController.present(popup, animated: true, completion: nil)
 
+    }
+
+    func showTemplatesAvailabilityPopupIfNeeded(
+        document: BaseDocumentProtocol,
+        templatesTypeURL: ObjectTemplateType
+    ) {
+        templatesCoordinator.showTemplatesAvailabilityPopupIfNeeded(
+            document: document,
+            templatesTypeURL: templatesTypeURL
+        )
     }
     
     // MARK: - Settings

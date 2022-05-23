@@ -34,6 +34,8 @@ final class LocalEventConverter {
             return .blocks(blockIds: [blockId])
         case .header(let data):
             return .header(data)
+        case let .changeType(objectTypeURL):
+            return .changeType(objectTypeURL: objectTypeURL)
         }
     }
     

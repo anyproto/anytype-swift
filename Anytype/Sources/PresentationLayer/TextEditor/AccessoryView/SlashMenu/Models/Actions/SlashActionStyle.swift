@@ -101,7 +101,7 @@ enum SlashActionStyle: CaseIterable {
         case .highlighted:
             return "Spotlight, that needs special attention".localized
         case .callout:
-            return "Any action or idea".localized
+            return "Bordered text with icon".localized
         case .checkbox:
             return "Checkbox block subtitle".localized
         case .bulleted:

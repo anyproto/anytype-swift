@@ -131,5 +131,32 @@ class SearchHelper {
         
         return filter
     }
+
+    static func templatesFilters(type: ObjectTemplateType) -> [DataviewFilter] {
+        [
+            isArchivedFilter(isArchived: false),
+            isDeletedFilter(isDeleted: false),
+            templateScheme(),
+            templateTypeFilter(type: type.rawValue)
+        ]
+    }
+
+    private static func templateTypeFilter(type: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = type.protobufValue
+        filter.relationKey = BundledRelationKey.targetObjectType.rawValue
+
+        return filter
+    }
+
+    private static func templateScheme() -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.relationKey = BundledRelationKey.type.rawValue
+        filter.value = ObjectTemplateType.bundled(.template).rawValue.protobufValue
+
+        return filter
+    }
     
 }

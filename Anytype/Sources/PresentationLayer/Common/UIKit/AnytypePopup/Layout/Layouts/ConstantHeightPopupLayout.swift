@@ -10,7 +10,7 @@ final class ConstantHeightPopupLayout: AnytypePopupLayout {
         let anchors: [FloatingPanelState: FloatingPanelLayoutAnchoring] = [
             .full: FloatingPanelLayoutAnchor(absoluteInset: adjustedHeight, edge: .bottom, referenceGuide: .superview)
         ]
-        
+
         super.init(initialState: .full, anchors: anchors)
     }
     
