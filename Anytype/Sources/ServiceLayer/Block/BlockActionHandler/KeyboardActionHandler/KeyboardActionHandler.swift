@@ -85,7 +85,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     }
     
     private func onDelete(text: BlockText, info: BlockInformation, parent: BlockInformation) {
-        if text.contentType.isList {
+        if text.contentType.isList || text.contentType == .quote || text.contentType == .callout {
             service.turnInto(.text, blockId: info.id.value)
             return
         }

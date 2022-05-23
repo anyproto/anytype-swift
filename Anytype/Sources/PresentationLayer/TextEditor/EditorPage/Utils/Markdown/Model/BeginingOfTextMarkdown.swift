@@ -16,7 +16,7 @@ extension BeginingOfTextMarkdown {
         BeginingOfTextMarkdown(text: "# ", style: .header),
         BeginingOfTextMarkdown(text: "## ", style: .header2),
         BeginingOfTextMarkdown(text: "### ", style: .header3),
-        BeginingOfTextMarkdown(text: ["\" ", "\' ", "“ ", "‘ "], style: .quote),
+        BeginingOfTextMarkdown(text: ["\" ", "\' ", "“ ", "‘ ", "« "], style: .quote),
         BeginingOfTextMarkdown(text: ["* ", "- ", "+ "], style: .bulleted),
         BeginingOfTextMarkdown(text: "[] ", style: .checkbox),
         BeginingOfTextMarkdown(text: "1. ", style: .numbered),

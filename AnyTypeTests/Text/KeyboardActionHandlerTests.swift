@@ -637,6 +637,24 @@ class KeyboardActionHandlerTests: XCTestCase {
         handler.handle(info: info, currentString: .init(string: ""), action: .delete)
     }
     
+    func test_delete_callout() throws {
+        let info = info(style: .callout)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
+
+        validateTurnInto()
+    }
+    
+    func test_delete_quote() throws {
+        let info = info(style: .quote)
+        service.turnIntoStub = true
+
+        handler.handle(info: info, currentString: .init(string: ""), action: .delete)
+
+        validateTurnInto()
+    }
+    
     func test_delete_bulleted() throws {
         let info = info(style: .bulleted)
         service.turnIntoStub = true
