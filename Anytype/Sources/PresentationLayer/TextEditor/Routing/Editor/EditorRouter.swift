@@ -117,8 +117,13 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         viewController?.present(vc, animated: true, completion: nil)
     }
     
-    func showImagePicker(model: MediaPickerViewModel) {
-        let vc = MediaPicker(viewModel: model)
+    func showImagePicker(contentType: MediaPickerContentType, onSelect: @escaping (NSItemProvider?) -> Void) {
+        let vc = UIHostingController(
+            rootView: MediaPickerView(
+                contentType: contentType,
+                onSelect: onSelect
+            )
+        )
         viewController?.present(vc, animated: true, completion: nil)
     }
     

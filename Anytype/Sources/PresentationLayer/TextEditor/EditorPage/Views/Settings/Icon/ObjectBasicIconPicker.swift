@@ -56,8 +56,8 @@ struct ObjectBasicIconPicker: View {
     }
     
     private var uploadTabView: some View {
-        MediaPickerView(contentType: viewModel.mediaPickerContentType) { item in
-            item.flatMap {
+        MediaPickerView(contentType: viewModel.mediaPickerContentType) { itemProvider in
+            itemProvider.flatMap {
                 viewModel.uploadImage(from: $0)
             }
             dismiss()

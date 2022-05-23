@@ -17,4 +17,14 @@ class CreateNewProfileViewModel: ObservableObject {
             )
         )
     }
+    
+    func setImage(signUpData: SignUpData, itemProvider: NSItemProvider?) {
+        guard let itemProvider = itemProvider,
+              itemProvider.canLoadObject(ofClass: UIImage.self) else { return }
+        itemProvider.loadObject(ofClass: UIImage.self) { image, _ in
+            DispatchQueue.main.async {
+                signUpData.image = image as? UIImage
+            }
+        }
+    }
 }

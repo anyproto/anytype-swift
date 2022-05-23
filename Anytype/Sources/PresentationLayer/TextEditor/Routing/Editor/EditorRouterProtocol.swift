@@ -14,7 +14,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void)
     
     func showFilePicker(model: Picker.ViewModel)
-    func showImagePicker(model: MediaPickerViewModel)
+    func showImagePicker(contentType: MediaPickerContentType, onSelect: @escaping (NSItemProvider?) -> Void)
     
     func saveFile(fileURL: URL, type: FileContentType)
     
