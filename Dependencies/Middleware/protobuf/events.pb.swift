@@ -1911,42 +1911,6 @@ public struct Anytype_Event {
         /// Clears the value of `fields`. Subsequent reads from it will return its default value.
         public mutating func clearFields() {self._fields = nil}
 
-        public var iconSize: Anytype_Event.Block.Set.Link.IconSize {
-          get {return _iconSize ?? Anytype_Event.Block.Set.Link.IconSize()}
-          set {_iconSize = newValue}
-        }
-        /// Returns true if `iconSize` has been explicitly set.
-        public var hasIconSize: Bool {return self._iconSize != nil}
-        /// Clears the value of `iconSize`. Subsequent reads from it will return its default value.
-        public mutating func clearIconSize() {self._iconSize = nil}
-
-        public var cardStyle: Anytype_Event.Block.Set.Link.CardStyle {
-          get {return _cardStyle ?? Anytype_Event.Block.Set.Link.CardStyle()}
-          set {_cardStyle = newValue}
-        }
-        /// Returns true if `cardStyle` has been explicitly set.
-        public var hasCardStyle: Bool {return self._cardStyle != nil}
-        /// Clears the value of `cardStyle`. Subsequent reads from it will return its default value.
-        public mutating func clearCardStyle() {self._cardStyle = nil}
-
-        public var description_p: Anytype_Event.Block.Set.Link.Description {
-          get {return _description_p ?? Anytype_Event.Block.Set.Link.Description()}
-          set {_description_p = newValue}
-        }
-        /// Returns true if `description_p` has been explicitly set.
-        public var hasDescription_p: Bool {return self._description_p != nil}
-        /// Clears the value of `description_p`. Subsequent reads from it will return its default value.
-        public mutating func clearDescription_p() {self._description_p = nil}
-
-        public var relations: Anytype_Event.Block.Set.Link.Relations {
-          get {return _relations ?? Anytype_Event.Block.Set.Link.Relations()}
-          set {_relations = newValue}
-        }
-        /// Returns true if `relations` has been explicitly set.
-        public var hasRelations: Bool {return self._relations != nil}
-        /// Clears the value of `relations`. Subsequent reads from it will return its default value.
-        public mutating func clearRelations() {self._relations = nil}
-
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct TargetBlockId {
@@ -1994,63 +1958,11 @@ public struct Anytype_Event {
           fileprivate var _value: SwiftProtobuf.Google_Protobuf_Struct? = nil
         }
 
-        public struct IconSize {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var value: Anytype_Model_Block.Content.Link.IconSize = .small
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
-        }
-
-        public struct CardStyle {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var value: Anytype_Model_Block.Content.Link.CardStyle = .text
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
-        }
-
-        public struct Description {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var value: Anytype_Model_Block.Content.Link.Description = .none
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
-        }
-
-        public struct Relations {
-          // SwiftProtobuf.Message conformance is added in an extension below. See the
-          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
-          // methods supported on all messages.
-
-          public var value: [String] = []
-
-          public var unknownFields = SwiftProtobuf.UnknownStorage()
-
-          public init() {}
-        }
-
         public init() {}
 
         fileprivate var _targetBlockID: Anytype_Event.Block.Set.Link.TargetBlockId? = nil
         fileprivate var _style: Anytype_Event.Block.Set.Link.Style? = nil
         fileprivate var _fields: Anytype_Event.Block.Set.Link.Fields? = nil
-        fileprivate var _iconSize: Anytype_Event.Block.Set.Link.IconSize? = nil
-        fileprivate var _cardStyle: Anytype_Event.Block.Set.Link.CardStyle? = nil
-        fileprivate var _description_p: Anytype_Event.Block.Set.Link.Description? = nil
-        fileprivate var _relations: Anytype_Event.Block.Set.Link.Relations? = nil
       }
 
       public struct Bookmark {
@@ -3808,10 +3720,6 @@ extension Anytype_Event.Block.Set.Link: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Link.TargetBlockId: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Link.Style: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Link.Fields: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Link.IconSize: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Link.CardStyle: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Link.Description: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Link.Relations: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Bookmark: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Bookmark.Url: @unchecked Sendable {}
 extension Anytype_Event.Block.Set.Bookmark.Title: @unchecked Sendable {}
@@ -7175,10 +7083,6 @@ extension Anytype_Event.Block.Set.Link: SwiftProtobuf.Message, SwiftProtobuf._Me
     2: .same(proto: "targetBlockId"),
     3: .same(proto: "style"),
     4: .same(proto: "fields"),
-    5: .same(proto: "iconSize"),
-    6: .same(proto: "cardStyle"),
-    7: .same(proto: "description"),
-    8: .same(proto: "relations"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -7191,10 +7095,6 @@ extension Anytype_Event.Block.Set.Link: SwiftProtobuf.Message, SwiftProtobuf._Me
       case 2: try { try decoder.decodeSingularMessageField(value: &self._targetBlockID) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._style) }()
       case 4: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
-      case 5: try { try decoder.decodeSingularMessageField(value: &self._iconSize) }()
-      case 6: try { try decoder.decodeSingularMessageField(value: &self._cardStyle) }()
-      case 7: try { try decoder.decodeSingularMessageField(value: &self._description_p) }()
-      case 8: try { try decoder.decodeSingularMessageField(value: &self._relations) }()
       default: break
       }
     }
@@ -7217,18 +7117,6 @@ extension Anytype_Event.Block.Set.Link: SwiftProtobuf.Message, SwiftProtobuf._Me
     try { if let v = self._fields {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
     } }()
-    try { if let v = self._iconSize {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
-    } }()
-    try { if let v = self._cardStyle {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
-    } }()
-    try { if let v = self._description_p {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
-    } }()
-    try { if let v = self._relations {
-      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
-    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -7237,10 +7125,6 @@ extension Anytype_Event.Block.Set.Link: SwiftProtobuf.Message, SwiftProtobuf._Me
     if lhs._targetBlockID != rhs._targetBlockID {return false}
     if lhs._style != rhs._style {return false}
     if lhs._fields != rhs._fields {return false}
-    if lhs._iconSize != rhs._iconSize {return false}
-    if lhs._cardStyle != rhs._cardStyle {return false}
-    if lhs._description_p != rhs._description_p {return false}
-    if lhs._relations != rhs._relations {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -7341,134 +7225,6 @@ extension Anytype_Event.Block.Set.Link.Fields: SwiftProtobuf.Message, SwiftProto
 
   public static func ==(lhs: Anytype_Event.Block.Set.Link.Fields, rhs: Anytype_Event.Block.Set.Link.Fields) -> Bool {
     if lhs._value != rhs._value {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Block.Set.Link.IconSize: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Block.Set.Link.protoMessageName + ".IconSize"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "value"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.value != .small {
-      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Event.Block.Set.Link.IconSize, rhs: Anytype_Event.Block.Set.Link.IconSize) -> Bool {
-    if lhs.value != rhs.value {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Block.Set.Link.CardStyle: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Block.Set.Link.protoMessageName + ".CardStyle"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "value"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.value != .text {
-      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Event.Block.Set.Link.CardStyle, rhs: Anytype_Event.Block.Set.Link.CardStyle) -> Bool {
-    if lhs.value != rhs.value {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Block.Set.Link.Description: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Block.Set.Link.protoMessageName + ".Description"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "value"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.value != .none {
-      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Event.Block.Set.Link.Description, rhs: Anytype_Event.Block.Set.Link.Description) -> Bool {
-    if lhs.value != rhs.value {return false}
-    if lhs.unknownFields != rhs.unknownFields {return false}
-    return true
-  }
-}
-
-extension Anytype_Event.Block.Set.Link.Relations: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Event.Block.Set.Link.protoMessageName + ".Relations"
-  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    1: .same(proto: "value"),
-  ]
-
-  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let fieldNumber = try decoder.nextFieldNumber() {
-      // The use of inline closures is to circumvent an issue where the compiler
-      // allocates stack space for every case branch when no optimizations are
-      // enabled. https://github.com/apple/swift-protobuf/issues/1034
-      switch fieldNumber {
-      case 1: try { try decoder.decodeRepeatedStringField(value: &self.value) }()
-      default: break
-      }
-    }
-  }
-
-  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if !self.value.isEmpty {
-      try visitor.visitRepeatedStringField(value: self.value, fieldNumber: 1)
-    }
-    try unknownFields.traverse(visitor: &visitor)
-  }
-
-  public static func ==(lhs: Anytype_Event.Block.Set.Link.Relations, rhs: Anytype_Event.Block.Set.Link.Relations) -> Bool {
-    if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

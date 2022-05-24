@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import BlocksModels
 
 final class ObjectPreviewRouter {
     private let viewController: UIViewController?
@@ -16,16 +15,14 @@ final class ObjectPreviewRouter {
         self.viewController = viewController
     }
 
-    func showLayoutMenu(cardStyle: ObjectPreviewViewSection.MainSectionItem.CardStyle,
-                        onSelect: @escaping (ObjectPreviewViewSection.MainSectionItem.CardStyle) -> Void) {
-        let viewModel = ObjectPreviewLayoutMenuViewModel(cardStyle: cardStyle, onSelect: onSelect)
+    func showLayoutMenu(objectPreviewFields: ObjectPreviewFields, onSelect: @escaping (ObjectPreviewFields) -> Void) {
+        let viewModel = ObjectPreviewLayoutMenuViewModel(objectPreviewFields: objectPreviewFields, onSelect: onSelect)
         let view = PopupViewBuilder.createCheckPopup(viewModel: viewModel)
         viewController?.topPresentedController.present(view, animated: true, completion: nil)
     }
 
-    func showIconMenu(iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize,
-                      onSelect: @escaping (ObjectPreviewViewSection.MainSectionItem.IconSize) -> Void) {
-        let viewModel = ObjectPreviewIconMenuViewModel(iconSize: iconSize, onSelect: onSelect)
+    func showIconMenu(objectPreviewFields: ObjectPreviewFields, onSelect: @escaping (ObjectPreviewFields) -> Void) {
+        let viewModel = ObjectPreviewIconMenuViewModel(objectPreviewFields: objectPreviewFields, onSelect: onSelect)
         let view = PopupViewBuilder.createCheckPopup(viewModel: viewModel)
         viewController?.topPresentedController.present(view, animated: true, completion: nil)
     }

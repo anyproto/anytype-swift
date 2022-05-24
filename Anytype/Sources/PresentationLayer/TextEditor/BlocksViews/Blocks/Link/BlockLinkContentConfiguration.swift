@@ -14,7 +14,7 @@ extension BlockLinkContentConfiguration {
             return UIEdgeInsets(top: 5, left: 20, bottom: -5, right: -20)
         }
 
-        switch state.cardStyle {
+        switch state.objectPreviewFields.layout {
         case .text:
             return UIEdgeInsets(top: 5, left: 20, bottom: -5, right: -20)
         case .card:
