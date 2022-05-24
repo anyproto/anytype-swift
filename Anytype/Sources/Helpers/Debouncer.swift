@@ -11,16 +11,18 @@ import Foundation
 final class Debouncer {
     private var workItem: DispatchWorkItem?
 
-    /// - Parameters:
-    ///   - time: in milliseconds
-    func debounce(time: Int, debounce_ action: @escaping () -> Void) {
+    deinit {
+        workItem?.cancel()
+    }
+
+    func debounce(milliseconds: Int, action: @escaping () -> Void) {
         workItem?.cancel()
 
         let newWorkItem = DispatchWorkItem {
             action()
         }
         workItem = newWorkItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(time), execute: newWorkItem)
+        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(milliseconds), execute: newWorkItem)
     }
 
     func cancel() {

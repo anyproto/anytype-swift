@@ -443,12 +443,12 @@ extension EditorRouter {
         guard let viewController = viewController else { return }
 
         let relationService = RelationsService(objectId: pageId.value)
-        let viewModel = CreateObjectViewModel(relationService: relationService)
-        
-        let view = CreateObjectView(viewModel: viewModel) { [weak self] in
+        let viewModel = CreateObjectViewModel(relationService: relationService) { [weak self] in
             self?.viewController?.topPresentedController.dismiss(animated: true)
             self?.showPage(data: EditorScreenData(pageId: pageId, type: .page))
         }
+        
+        let view = CreateObjectView(viewModel: viewModel)
         let fpc = AnytypePopup(contentView: view,
                                floatingPanelStyle: true,
                                configuration: .init(isGrabberVisible: true, dismissOnBackdropView: false))

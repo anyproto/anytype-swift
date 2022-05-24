@@ -9,53 +9,19 @@
 import UIKit
 
 final class CreateObjectView: UIView {
+    private let textField = UITextField()
+    private let button = ButtonsFactory.makeButton(image: .action.openToEdit)
 
-    let textField: UITextField = {
-        let textField = UITextField()
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.autocorrectionType = .no
-        textField.autocapitalizationType = .none
-        textField.font = .previewTitle1Medium
-        textField.attributedPlaceholder = NSAttributedString(
-            string: "Untitled".localized,
-            attributes: [
-                .font: UIFont.previewTitle1Medium,
-                .foregroundColor: UIColor.textSecondary
-            ]
-        )
-        textField.addTarget(self, action: #selector(textDidChange(textField:)), for: .editingChanged)
-        return textField
-    }()
+    private let viewModel: CreateObjectViewModel
 
-    private lazy var button: ButtonWithImage = {
-        let button = ButtonsFactory.makeButton(image: .action.openToEdit)
-
-        button.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 24).isActive = true
-        return button
-    }()
-
-    private var debouncer = Debouncer()
-    private var viewModel: CreateObjectViewModel
-    private var currentText: String = .empty
-
-    init(viewModel: CreateObjectViewModel, openToEditAction: @escaping () -> Void) {
+    init(viewModel: CreateObjectViewModel) {
         self.viewModel = viewModel
 
         super.init(frame: .zero)
 
+        setupButton()
+        setupTextField()
         setupLayout()
-        
-        button.addAction { [weak self] _ in
-            guard let self = self else { return }
-
-            self.debouncer.cancel()
-
-            if self.currentText != self.textField.text, let text = self.textField.text  {
-                self.viewModel.textDidChange(text)
-            }
-            openToEditAction()
-        }
     }
 
     @available(*, unavailable)
@@ -74,20 +40,42 @@ final class CreateObjectView: UIView {
                 button
             )
         }
+
+        button.widthAnchor.constraint(equalToConstant: 24).isActive = true
+        button.heightAnchor.constraint(equalToConstant: 24).isActive = true
         
         translatesAutoresizingMaskIntoConstraints = false
-        let heightConstraint = heightAnchor.constraint(equalToConstant: 84)
+        let heightConstraint = heightAnchor.constraint(equalToConstant: 68)
         heightConstraint.priority = .init(rawValue: 999)
         heightConstraint.isActive = true
     }
 
+    private func setupButton() {
+        button.addAction { [weak self] _ in
+            guard let self = self else { return }
+
+            self.viewModel.openToEditAction(with: self.textField.text ?? .empty)
+        }
+    }
+
+    private func setupTextField() {
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.autocorrectionType = .no
+        textField.autocapitalizationType = .none
+        textField.font = .previewTitle1Medium
+        textField.attributedPlaceholder = NSAttributedString(
+            string: "Untitled".localized,
+            attributes: [
+                .font: UIFont.previewTitle1Medium,
+                .foregroundColor: UIColor.textSecondary
+            ]
+        )
+        textField.addTarget(self, action: #selector(textDidChange(textField:)), for: .editingChanged)
+        textField.becomeFirstResponder()
+    }
+
     @objc private func textDidChange(textField: UITextField) {
         guard let text = textField.text else { return }
-        currentText = text
-
-        debouncer.debounce(time: 100) { [weak self] in
-            guard let self = self else { return }
-            self.viewModel.textDidChange(text)
-        }
+        self.viewModel.textDidChange(text)
     }
 }
