@@ -1,4 +1,5 @@
 import BlocksModels
+import AnytypeCore
 import UIKit
 
 protocol AttachmentRouterProtocol {
@@ -54,4 +55,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         document: BaseDocumentProtocol,
         templatesTypeURL: ObjectTemplateType
     )
+
+    func showCreateObject(pageId: AnytypeId)
 }

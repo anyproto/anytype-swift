@@ -435,6 +435,30 @@ extension EditorRouter {
     }
 }
 
+// MARK: - Set
+
+extension EditorRouter {
+
+    func showCreateObject(pageId: AnytypeId) {
+        guard let viewController = viewController else { return }
+
+        let relationService = RelationsService(objectId: pageId.value)
+        let viewModel = CreateObjectViewModel(relationService: relationService)
+        
+        let view = CreateObjectView(viewModel: viewModel) { [weak self] in
+            self?.viewController?.topPresentedController.dismiss(animated: true)
+            self?.showPage(data: EditorScreenData(pageId: pageId, type: .page))
+        }
+        let fpc = AnytypePopup(contentView: view,
+                               floatingPanelStyle: true,
+                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: false))
+        
+        viewController.topPresentedController.present(fpc, animated: true, completion: nil)
+    }
+}
+
+
+// MARK: - UIPopoverPresentationControllerDelegate
 
 extension EditorRouter: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

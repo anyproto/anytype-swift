@@ -46,6 +46,13 @@ final class AnytypePopup: FloatingPanelController {
         let popupView = AnytypePopupViewModel(contentView: contentView, popupLayout: popupLayout)
         self.init(viewModel: popupView, floatingPanelStyle: floatingPanelStyle, configuration: configuration)
     }
+
+    convenience init<Content: UIView>(contentView: Content,
+                                      floatingPanelStyle: Bool = false,
+                                      configuration: Configuration = Constants.defaultConifguration) {
+        let viewModel = AnytypeAlertViewModel(contentView: contentView, keyboardListener: .init())
+        self.init(viewModel: viewModel, floatingPanelStyle: floatingPanelStyle, configuration: configuration)
+    }
     
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
@@ -90,6 +97,15 @@ extension AnytypePopup: FloatingPanelControllerDelegate {
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
         viewModel.popupLayout.layout
     }
+
+    func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
+        let surfaceOffset = fpc.surfaceLocation.y - fpc.surfaceLocation(for: .full).y
+        // If panel moved more than a half of its hight than hide panel
+        if fpc.surfaceView.bounds.height / 2 < surfaceOffset {
+            return true
+        }
+        return false
+    }
 }
 
 // MARK: - Private extension
@@ -111,11 +127,11 @@ private extension AnytypePopup {
     }
     
     func setupGestures() {
+        isRemovalInteractionEnabled = true
+
         if configuration.skipThroughGestures {
             backdropView.isHidden = true
-            isRemovalInteractionEnabled = true
         } else {
-            isRemovalInteractionEnabled = configuration.dismissOnBackdropView
             backdropView.dismissalTapGestureRecognizer.isEnabled = configuration.dismissOnBackdropView
         }
     }

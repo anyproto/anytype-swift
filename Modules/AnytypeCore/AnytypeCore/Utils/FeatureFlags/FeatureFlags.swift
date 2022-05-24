@@ -10,6 +10,7 @@ public enum Feature: String, Codable {
     case deletion = "Account deletion"
     case createNewRelation = "Create new relation"
     case templates = "Show templates picker"
+    case createObjectInSet = "Create object in Set"
 }
 
 public final class FeatureFlags {
@@ -37,7 +38,8 @@ public final class FeatureFlags {
         .objectPreview: false,
         .deletion: false,
         .createNewRelation: true,
-        .templates: false
+        .templates: false,
+        .createObjectInSet: false,
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -87,5 +89,9 @@ public extension FeatureFlags {
 
     static var isTemplatesAvailable: Bool {
         features[.templates, default: false]
+    }
+
+    static var isCreateObjectInSetAvailable: Bool {
+        features[.createObjectInSet, default: false]
     }
 }
