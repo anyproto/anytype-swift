@@ -35,7 +35,10 @@ private extension ObjectRelationViewUIKit {
     
     func setupIconViewIfNeeded() {
         let icon = option.icon
-        guard shouldShowIcon(icon: icon) else { return }
+        guard shouldShowIcon(icon: icon) else {
+            iconView.isHidden = true
+            return
+        }
         
         let model = ObjectIconImageModel(
             iconImage: icon,
@@ -43,6 +46,7 @@ private extension ObjectRelationViewUIKit {
         )
         
         iconView.configure(model: model)
+        iconView.isHidden = false
     }
     
     func setupTitleLabel() {
@@ -53,30 +57,16 @@ private extension ObjectRelationViewUIKit {
     }
     
     func setupLayout() {
-        if shouldShowIcon(icon: option.icon) {
-            setupLayoutWithIcon()
-        } else {
-            setupLayoutWithoutIcon()
-        }
-    }
-    
-    func setupLayoutWithIcon() {
         layoutUsing.stack {
             $0.hStack(
+                spacing: relationStyle.objectRelationStyle.hSpaсingObject,
                 iconView,
-                $0.hGap(fixed: relationStyle.objectRelationStyle.hSpaсingObject),
                 titleLabel
             )
         }
         
         iconView.layoutUsing.anchors {
             $0.size(relationStyle.objectRelationStyle.size)
-        }
-    }
-    
-    func setupLayoutWithoutIcon() {
-        layoutUsing.stack {
-            $0.hStack(titleLabel)
         }
     }
     
