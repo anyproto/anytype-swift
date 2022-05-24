@@ -125,7 +125,7 @@ final class SlashMenuActionHandler {
         case .duplicate:
             actionHandler.duplicate(blockId: blockId)
         case .moveTo:
-            router.showMoveTo(documentId: document.objectId.value) { [weak self] pageId in
+            router.showMoveTo(documentObjectId: document.objectId.value) { [weak self] pageId in
                 self?.actionHandler.moveToPage(blockId: blockId, pageId: pageId)
             }
         case .copy:

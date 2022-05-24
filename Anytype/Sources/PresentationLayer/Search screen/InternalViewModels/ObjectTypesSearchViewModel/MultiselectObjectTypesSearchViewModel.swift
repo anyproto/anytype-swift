@@ -5,6 +5,8 @@ import SwiftUI
 
 final class MultiselectObjectTypesSearchViewModel {
     
+    let selectionMode: NewSearchViewModel.SelectionMode = .multipleItems
+    
     @Published private var rows: [ListRowConfiguration] = []
     
     private var objects: [ObjectDetails] = [] {
@@ -34,10 +36,6 @@ extension MultiselectObjectTypesSearchViewModel: NewInternalSearchViewModelProto
         $rows.map { rows -> NewSearchView.ListModel in
             NewSearchView.ListModel.plain(rows: rows)
         }.eraseToAnyPublisher()
-    }
-    
-    var selectionMode: NewSearchViewModel.SelectionMode {
-        return .multipleItems
     }
     
     func search(text: String) {

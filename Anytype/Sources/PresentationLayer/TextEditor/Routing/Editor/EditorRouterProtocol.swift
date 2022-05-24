@@ -29,7 +29,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showTextIconPicker(contextId: BlockId, objectId: BlockId)
     func presentUndoRedo()
     
-    func showMoveTo(documentId: BlockId, onSelect: @escaping (BlockId) -> ())
+    func showMoveTo(documentObjectId: BlockId, onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId) -> ())
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())

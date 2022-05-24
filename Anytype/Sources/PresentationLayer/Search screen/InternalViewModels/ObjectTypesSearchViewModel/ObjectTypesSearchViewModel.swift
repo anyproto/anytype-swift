@@ -5,6 +5,8 @@ import SwiftUI
 
 final class ObjectTypesSearchViewModel {
     
+    let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
+    
     @Published private var rows: [ListRowConfiguration] = []
     
     private var objects: [ObjectDetails] = [] {
@@ -27,10 +29,6 @@ extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
         $rows.map { rows -> NewSearchView.ListModel in
             NewSearchView.ListModel.plain(rows: rows)
         }.eraseToAnyPublisher()
-    }
-    
-    var selectionMode: NewSearchViewModel.SelectionMode {
-        return .singleItem
     }
     
     func search(text: String) {

@@ -4,6 +4,8 @@ import SwiftUI
 
 final class TagsSearchViewModel {
     
+    let selectionMode: NewSearchViewModel.SelectionMode = .multipleItems
+    
     @Published private var sections: [ListSectionConfiguration] = []
     
     private var tags: [Relation.Tag.Option] = [] {
@@ -32,10 +34,6 @@ extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
         $sections.map { sections -> NewSearchView.ListModel in
             NewSearchView.ListModel.sectioned(sectinos: sections)
         }.eraseToAnyPublisher()
-    }
-    
-    var selectionMode: NewSearchViewModel.SelectionMode {
-        return .multipleItems
     }
     
     func search(text: String) {

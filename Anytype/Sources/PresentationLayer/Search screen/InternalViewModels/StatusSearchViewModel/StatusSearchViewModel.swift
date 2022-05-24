@@ -4,6 +4,8 @@ import Combine
 
 final class StatusSearchViewModel {
     
+    let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
+    
     @Published private var sections: [ListSectionConfiguration] = []
     
     private var statuses: [Relation.Status.Option] = [] {
@@ -28,10 +30,6 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
         $sections.map { sections -> NewSearchView.ListModel in
             NewSearchView.ListModel.sectioned(sectinos: sections)
         }.eraseToAnyPublisher()
-    }
-    
-    var selectionMode: NewSearchViewModel.SelectionMode {
-        return .singleItem
     }
     
     func search(text: String) {

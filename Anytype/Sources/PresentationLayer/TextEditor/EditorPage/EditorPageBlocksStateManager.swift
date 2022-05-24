@@ -291,7 +291,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case .turnInto:
             elements.forEach { actionHandler.turnIntoPage(blockId: $0.blockId) }
         case .moveTo:
-            router.showMoveTo(documentId: document.objectId.value) { [weak self] pageId in
+            router.showMoveTo(documentObjectId: document.objectId.value) { [weak self] pageId in
                 elements.forEach {
                     self?.actionHandler.moveToPage(blockId: $0.blockId, pageId: pageId)
                 }
