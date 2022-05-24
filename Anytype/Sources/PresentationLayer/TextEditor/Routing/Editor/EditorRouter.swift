@@ -176,11 +176,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         controller.selectBlock(blockId: information.id.value)
     }
     
-    func showMoveTo(documentObjectId: BlockId, onSelect: @escaping (BlockId) -> ()) {
+    func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
         
         let moveToView = NewSearchModuleAssembly.moveToObjectSearchModule(
             title: "Move to".localized,
-            excludedObjectIds: [documentObjectId]
+            excludedObjectIds: [document.objectId.value]
         ) { [weak self] blockId in
             onSelect(blockId)
             self?.viewController?.topPresentedController.dismiss(animated: true)
