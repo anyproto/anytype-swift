@@ -86,82 +86,109 @@ public extension UIView.Stack {
     /// Horizontally aligned stack view
     ///
     /// - Parameters:
+    ///   - spacing: Custom spacing after a view
     ///   - alignedTo: Layout transverse to the stacking axis
     ///   - distributedTo: Layout of the arrangedSubviews along the axis
     ///   - views: views to place inside the stack
     /// - Returns: Ready stack view
     @discardableResult
-    func hStack(alignedTo: UIStackView.Alignment = .fill,
-                distributedTo: UIStackView.Distribution = .fill,
-                _ views: UIView...) -> UIStackView {
-        
-        stack(axis: .horizontal,
-              alignedTo: alignedTo,
-              distributedTo: distributedTo,
-              views)
+    func hStack(
+        spacing: CGFloat = UIStackView.spacingUseDefault,
+        alignedTo: UIStackView.Alignment = .fill,
+        distributedTo: UIStackView.Distribution = .fill,
+        _ views: UIView...
+    ) -> UIStackView {
+        stack(
+            spacing: spacing,
+            axis: .horizontal,
+            alignedTo: alignedTo,
+            distributedTo: distributedTo,
+            views
+        )
     }
     
     /// Horizontally aligned stack view
     ///
     /// - Parameters:
+    ///   - spacing: Custom spacing after a view
     ///   - alignedTo: Layout transverse to the stacking axis
     ///   - distributedTo: Layout of the arrangedSubviews along the axis
     ///   - views: views to place inside the stack
     /// - Returns: Ready stack view
     @discardableResult
-    func hStack(alignedTo: UIStackView.Alignment = .fill,
-                distributedTo: UIStackView.Distribution = .fill,
-                _ views: [UIView]) -> UIStackView {
-        
-        stack(axis: .horizontal,
-              alignedTo: alignedTo,
-              distributedTo: distributedTo,
-              views)
+    func hStack(
+        spacing: CGFloat = UIStackView.spacingUseDefault,
+        alignedTo: UIStackView.Alignment = .fill,
+        distributedTo: UIStackView.Distribution = .fill,
+        _ views: [UIView]
+    ) -> UIStackView {
+        stack(
+            spacing: spacing,
+            axis: .horizontal,
+            alignedTo: alignedTo,
+            distributedTo: distributedTo,
+            views
+        )
     }
     
     /// Vertically aligned stack view
     ///
     /// - Parameters:
+    ///   - spacing: Custom spacing after a view
     ///   - alignedTo: Layout transverse to the stacking axis
     ///   - distributedTo: Layout of the arrangedSubviews along the axis
     ///   - views: views to place inside the stack
     /// - Returns: Ready stack view
     @discardableResult
-    func vStack(alignedTo: UIStackView.Alignment = .fill,
-                distributedTo: UIStackView.Distribution = .fill,
-                _ views: UIView...) -> UIStackView {
-        
-        stack(axis: .vertical,
-              alignedTo: alignedTo,
-              distributedTo: distributedTo,
-              views)
+    func vStack(
+        spacing: CGFloat = UIStackView.spacingUseDefault,
+        alignedTo: UIStackView.Alignment = .fill,
+        distributedTo: UIStackView.Distribution = .fill,
+        _ views: UIView...
+    ) -> UIStackView {
+        stack(
+            spacing: spacing,
+            axis: .vertical,
+            alignedTo: alignedTo,
+            distributedTo: distributedTo,
+            views
+        )
     }
     
     /// Vertically aligned stack view
     ///
     /// - Parameters:
+    ///   - spacing: Custom spacing after a view
     ///   - alignedTo: Layout transverse to the stacking axis
     ///   - distributedTo: Layout of the arrangedSubviews along the axis
     ///   - views: views to place inside the stack
     /// - Returns: Ready stack view
     @discardableResult
-    func vStack(alignedTo: UIStackView.Alignment = .fill,
-                distributedTo: UIStackView.Distribution = .fill,
-                _ views: [UIView]) -> UIStackView {
-        
-        stack(axis: .vertical,
-              alignedTo: alignedTo,
-              distributedTo: distributedTo,
-              views)
+    func vStack(
+        spacing: CGFloat = UIStackView.spacingUseDefault,
+        alignedTo: UIStackView.Alignment = .fill,
+        distributedTo: UIStackView.Distribution = .fill,
+        _ views: [UIView]
+    ) -> UIStackView {
+        stack(
+            spacing: spacing,
+            axis: .vertical,
+            alignedTo: alignedTo,
+            distributedTo: distributedTo,
+            views
+        )
     }
     
     @discardableResult
-    private func stack(axis: NSLayoutConstraint.Axis,
-                       alignedTo: UIStackView.Alignment = .fill,
-                       distributedTo: UIStackView.Distribution = .fill,
-                       _ views: [UIView]) -> UIStackView {
-        
+    private func stack(
+        spacing: CGFloat = UIStackView.spacingUseDefault,
+        axis: NSLayoutConstraint.Axis,
+        alignedTo: UIStackView.Alignment = .fill,
+        distributedTo: UIStackView.Distribution = .fill,
+        _ views: [UIView]
+    ) -> UIStackView {
         let stackView = UIStackView(arrangedSubviews: views)
+        stackView.spacing = spacing
         stackView.axis = axis
         stackView.alignment = alignedTo
         stackView.distribution = distributedTo
