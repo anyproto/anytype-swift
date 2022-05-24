@@ -35,7 +35,7 @@ final class CreateObjectView: UIView {
         return button
     }()
 
-    private var workItem: DispatchWorkItem?
+    private var debouncer = Debouncer()
     private var viewModel: CreateObjectViewModel
     private var currentText: String = .empty
 
@@ -49,7 +49,7 @@ final class CreateObjectView: UIView {
         button.addAction { [weak self] _ in
             guard let self = self else { return }
 
-            self.workItem?.cancel()
+            self.debouncer.cancel()
 
             if self.currentText != self.textField.text, let text = self.textField.text  {
                 self.viewModel.textDidChange(text)
@@ -82,16 +82,12 @@ final class CreateObjectView: UIView {
     }
 
     @objc private func textDidChange(textField: UITextField) {
-        workItem?.cancel()
-
         guard let text = textField.text else { return }
         currentText = text
 
-        let newWorkItem = DispatchWorkItem { [weak self] in
+        debouncer.debounce(time: 100) { [weak self] in
             guard let self = self else { return }
             self.viewModel.textDidChange(text)
         }
-        workItem = newWorkItem
-        DispatchQueue.main.asyncAfter(deadline: .now() + .milliseconds(100), execute: newWorkItem)
     }
 }

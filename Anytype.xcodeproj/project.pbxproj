@@ -708,6 +708,7 @@
 		531767D52666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531767D42666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift */; };
 		53178879260A29FC004F9F68 /* Inter.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 53178878260A29FC004F9F68 /* Inter.ttf */; };
 		531F0DE8283C44A2000A0B31 /* CreateObjectViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531F0DE7283C44A2000A0B31 /* CreateObjectViewModel.swift */; };
+		531F0DEA283CCD8D000A0B31 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 531F0DE9283CCD8D000A0B31 /* Debouncer.swift */; };
 		5326FB512630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */; };
 		532D1D592768FABC00A1E4D8 /* NewRelationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D1D582768FABC00A1E4D8 /* NewRelationCell.swift */; };
 		532D1D5B2768FAE600A1E4D8 /* SearchNewRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 532D1D5A2768FAE600A1E4D8 /* SearchNewRelationView.swift */; };
@@ -1727,6 +1728,7 @@
 		531767D42666899B00DF463A /* UICollectionViewDiffableDataSourceExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UICollectionViewDiffableDataSourceExtension.swift; sourceTree = "<group>"; };
 		53178878260A29FC004F9F68 /* Inter.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Inter.ttf; sourceTree = "<group>"; };
 		531F0DE7283C44A2000A0B31 /* CreateObjectViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObjectViewModel.swift; sourceTree = "<group>"; };
+		531F0DE9283CCD8D000A0B31 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		5326FB502630D8F500F4F7A2 /* NSLayoutConstraintExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSLayoutConstraintExtension.swift; sourceTree = "<group>"; };
 		532D1D582768FABC00A1E4D8 /* NewRelationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewRelationCell.swift; sourceTree = "<group>"; };
 		532D1D5A2768FAE600A1E4D8 /* SearchNewRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationView.swift; sourceTree = "<group>"; };
@@ -2221,6 +2223,7 @@
 				3DE8D5C326CFFFE4006F31C1 /* AlertHelper.swift */,
 				3D44984C26D54A64005A3E06 /* BindableGestureRecognizer.swift */,
 				124A1D8A28096CE30058FDAD /* AnytypeIdMock.swift */,
+				531F0DE9283CCD8D000A0B31 /* Debouncer.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -7215,6 +7218,7 @@
 				3D07ED34261DD62700C007E2 /* BlocksModelsConverter.swift in Sources */,
 				3D28A470271DAC9F009A0D48 /* HomeTabsHeader.swift in Sources */,
 				120F7D44267CD1AC00327734 /* ObjectCoverPicker.swift in Sources */,
+				531F0DEA283CCD8D000A0B31 /* Debouncer.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,
 				EA20CDD526122C9200DBA9FE /* VideoBlockContentView.swift in Sources */,
 				12F14CD52758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift in Sources */,
