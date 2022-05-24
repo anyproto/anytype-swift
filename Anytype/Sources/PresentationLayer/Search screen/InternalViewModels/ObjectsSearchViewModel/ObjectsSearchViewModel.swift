@@ -39,9 +39,7 @@ extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func search(text: String) {
-        interactor.search(text: text) { [weak self] objects in
-            self?.objects = objects
-        }
+        self.objects = interactor.search(text: text)
     }
     
     func handleRowsSelection(ids: [String]) {

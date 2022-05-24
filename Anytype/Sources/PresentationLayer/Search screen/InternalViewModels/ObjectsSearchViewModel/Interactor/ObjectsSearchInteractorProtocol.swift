@@ -3,6 +3,6 @@ import BlocksModels
 
 protocol ObjectsSearchInteractorProtocol {
     
-    func search(text: String, onCompletion: ([ObjectDetails]) -> ())
+    func search(text: String) -> [ObjectDetails]
     
 }

@@ -17,7 +17,7 @@ final class MoveToSearchInteractor {
 
 extension MoveToSearchInteractor: ObjectsSearchInteractorProtocol {
     
-    func search(text: String, onCompletion: ([ObjectDetails]) -> ()) {
+    func search(text: String) -> [ObjectDetails] {
         let response = searchService.searchObjects(
             text: text,
             excludedObjectIds: excludedObjectIds,
@@ -26,6 +26,6 @@ extension MoveToSearchInteractor: ObjectsSearchInteractorProtocol {
             ],
             sortRelationKey: .lastModifiedDate
         )
-        onCompletion(response ?? [])
+        return response ?? []
     }
 }
