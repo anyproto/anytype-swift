@@ -32,7 +32,6 @@ service ClientCommands {
     rpc LogSend (anytype.Rpc.Log.Send.Request) returns (anytype.Rpc.Log.Send.Response);
     rpc ConfigGet (anytype.Rpc.Config.Get.Request) returns (anytype.Rpc.Config.Get.Response);
     rpc Shutdown (anytype.Rpc.Shutdown.Request) returns (anytype.Rpc.Shutdown.Response);
-    rpc SetDeviceState (anytype.Rpc.DeviceState.Request) returns (anytype.Rpc.DeviceState.Response);
 
     rpc ExternalDropFiles (anytype.Rpc.ExternalDrop.Files.Request) returns (anytype.Rpc.ExternalDrop.Files.Response);
     rpc ExternalDropContent (anytype.Rpc.ExternalDrop.Content.Request) returns (anytype.Rpc.ExternalDrop.Content.Response);
@@ -75,7 +74,6 @@ service ClientCommands {
     rpc BlockListSetAlign (anytype.Rpc.BlockList.Set.Align.Request) returns (anytype.Rpc.BlockList.Set.Align.Response);
     rpc BlockListSetDivStyle (anytype.Rpc.BlockList.Set.Div.Style.Request) returns (anytype.Rpc.BlockList.Set.Div.Style.Response);
     rpc BlockListSetFileStyle (anytype.Rpc.BlockList.Set.File.Style.Request) returns (anytype.Rpc.BlockList.Set.File.Style.Response);
-    rpc BlockListSetLinkAppearance (anytype.Rpc.BlockList.Set.Link.Appearance.Request) returns (anytype.Rpc.BlockList.Set.Link.Appearance.Response);
 
     rpc BlockListTurnInto (anytype.Rpc.BlockList.TurnInto.Request) returns (anytype.Rpc.BlockList.TurnInto.Response);
 
@@ -163,7 +161,6 @@ service ClientCommands {
     // ObjectToSet creates new set from given object and removes object
     rpc ObjectToSet (anytype.Rpc.Object.ToSet.Request) returns (anytype.Rpc.Object.ToSet.Response);
 
-    rpc ObjectListDuplicate (anytype.Rpc.ObjectList.Duplicate.Request) returns (anytype.Rpc.ObjectList.Duplicate.Response);
     rpc ObjectListDelete (anytype.Rpc.ObjectList.Delete.Request) returns (anytype.Rpc.ObjectList.Delete.Response);
     rpc ObjectListSetIsArchived (anytype.Rpc.ObjectList.Set.IsArchived.Request) returns (anytype.Rpc.ObjectList.Set.IsArchived.Response);
     rpc ObjectListSetIsFavorite (anytype.Rpc.ObjectList.Set.IsFavorite.Request) returns (anytype.Rpc.ObjectList.Set.IsFavorite.Response);
@@ -204,7 +201,6 @@ service ClientCommands {
     rpc MakeTemplateByObjectType (anytype.Rpc.MakeTemplateByObjectType.Request) returns (anytype.Rpc.MakeTemplateByObjectType.Response);
     rpc CloneTemplate (anytype.Rpc.CloneTemplate.Request) returns (anytype.Rpc.CloneTemplate.Response);
     rpc ObjectDuplicate (anytype.Rpc.ObjectDuplicate.Request) returns (anytype.Rpc.ObjectDuplicate.Response);
-
     rpc UnsplashSearch (anytype.Rpc.UnsplashSearch.Request) returns (anytype.Rpc.UnsplashSearch.Response);
     // UnsplashDownload downloads picture from unsplash by ID, put it to the IPFS and returns the hash.
     // The artist info is available in the object details

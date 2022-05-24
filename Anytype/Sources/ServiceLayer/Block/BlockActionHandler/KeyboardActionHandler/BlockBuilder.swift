@@ -25,8 +25,8 @@ struct BlockBuilder {
             return .divider(.init(style: style))
         case let .file(type):
             return .file(.empty(contentType: type))
-        case .link:
-            return .link(.empty())
+        case let .link(style):
+            return .link(.empty(style: style))
         case let .relation(key: key):
             return .relation(.init(key: key))
         case .layout, .smartblock, .featuredRelations, .dataView:
