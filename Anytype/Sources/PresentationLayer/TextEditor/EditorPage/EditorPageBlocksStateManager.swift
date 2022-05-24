@@ -73,7 +73,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         blockActionsServiceSingle: BlockActionsServiceSingleProtocol,
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
-        router: EditorRouterProtocol
+        router: EditorRouterProtocol,
+        initialEditingState: EditorEditingState
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
@@ -82,6 +83,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.actionHandler = actionHandler
         self.pasteboardService = pasteboardService
         self.router = router
+        self.editingState = initialEditingState
 
         setupEditingHandlers()
     }

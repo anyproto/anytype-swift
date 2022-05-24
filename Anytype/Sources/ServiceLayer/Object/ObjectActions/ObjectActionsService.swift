@@ -175,6 +175,13 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         ).send()
     }
 
+    func applyTemplate(objectId: AnytypeId, templateId: AnytypeId) {
+        let _ = Anytype_Rpc.ApplyTemplate.Service.invoke(
+            contextID: objectId.value,
+            templateID: templateId.value
+        )
+    }
+
     func undo(objectId: AnytypeId) throws {
         let result = Anytype_Rpc.Block.Undo.Service
             .invoke(contextID: objectId.value)

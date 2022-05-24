@@ -55,7 +55,7 @@ final class EditorSetViewModel: ObservableObject {
     
     func setup(router: EditorRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderViewModel(document: document, router: router)
+        self.headerModel = ObjectHeaderViewModel(document: document, router: router, isOpenedForPreview: false)
         
         subscription = document.updatePublisher.sink { [weak self] in
             self?.onDataChange($0)

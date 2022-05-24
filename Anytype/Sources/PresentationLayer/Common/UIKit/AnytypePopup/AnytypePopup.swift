@@ -66,7 +66,7 @@ final class AnytypePopup: FloatingPanelController {
 extension AnytypePopup: AnytypePopupProxy {
     func updateBottomInset() {
         updateSurfaceViewMargins()
-        updateLayout(false)
+        updateLayout(true)
     }
 
     func updateLayout(_ animated: Bool) {
@@ -96,15 +96,6 @@ extension AnytypePopup: FloatingPanelControllerDelegate {
     
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
         viewModel.popupLayout.layout
-    }
-
-    func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
-        let surfaceOffset = fpc.surfaceLocation.y - fpc.surfaceLocation(for: .full).y
-        // If panel moved more than a half of its hight than hide panel
-        if fpc.surfaceView.bounds.height / 2 < surfaceOffset {
-            return true
-        }
-        return false
     }
 }
 
@@ -166,10 +157,11 @@ private extension AnytypePopup {
 
             switch viewModel.popupLayout {
             case .alert(let height):
+                let safeBottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
                 surfaceView.containerMargins = UIEdgeInsets(
                     top: 0,
                     left: horizontalInset,
-                    bottom: max(height + Constants.bottomAlertInset, Constants.bottomAlertMinimumInset),
+                    bottom: max(height + Constants.bottomAlertInset, Constants.bottomAlertMinimumInset + safeBottomInset),
                     right: horizontalInset
                 )
             default:

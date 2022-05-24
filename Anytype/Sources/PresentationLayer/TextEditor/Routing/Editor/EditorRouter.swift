@@ -17,7 +17,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private lazy var relationEditingViewModelBuilder = RelationEditingViewModelBuilder(delegate: self)
     
     init(
-        rootController: EditorBrowserController,
+        rootController: EditorBrowserController?,
         viewController: UIViewController,
         document: BaseDocumentProtocol,
         assembly: EditorAssembly,

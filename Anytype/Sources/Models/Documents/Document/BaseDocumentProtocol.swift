@@ -15,5 +15,8 @@ protocol BaseDocumentProtocol: AnyObject {
 
     @discardableResult
     func open() -> Bool
+
+    @discardableResult
+    func openForPreview() -> Bool
     func close()
 }

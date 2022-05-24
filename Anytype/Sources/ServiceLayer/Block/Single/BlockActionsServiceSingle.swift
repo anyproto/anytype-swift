@@ -15,10 +15,21 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         let event = Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: contextId, traceID: "")
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockActionsService)
-        
+
         guard let event = event else { return false }
         event.send()
-        
+
+        return true
+    }
+
+    func openForPreview() -> Bool {
+        let event = Anytype_Rpc.Block.Show.Service.invoke(contextID: contextId, blockID: contextId, traceID: "")
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .blockActionsService)
+
+        guard let event = event else { return false }
+        event.send()
+
         return true
     }
     
