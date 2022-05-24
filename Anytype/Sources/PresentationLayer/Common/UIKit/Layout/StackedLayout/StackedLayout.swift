@@ -86,7 +86,7 @@ public extension UIView.Stack {
     /// Horizontally aligned stack view
     ///
     /// - Parameters:
-    ///   - spacing: Custom spacing after a view
+    ///   - spacing: Inner spacing between views
     ///   - alignedTo: Layout transverse to the stacking axis
     ///   - distributedTo: Layout of the arrangedSubviews along the axis
     ///   - views: views to place inside the stack
@@ -110,7 +110,7 @@ public extension UIView.Stack {
     /// Horizontally aligned stack view
     ///
     /// - Parameters:
-    ///   - spacing: Custom spacing after a view
+    ///   - spacing: Inner spacing between views
     ///   - alignedTo: Layout transverse to the stacking axis
     ///   - distributedTo: Layout of the arrangedSubviews along the axis
     ///   - views: views to place inside the stack
@@ -134,7 +134,7 @@ public extension UIView.Stack {
     /// Vertically aligned stack view
     ///
     /// - Parameters:
-    ///   - spacing: Custom spacing after a view
+    ///   - spacing: Inner spacing between views
     ///   - alignedTo: Layout transverse to the stacking axis
     ///   - distributedTo: Layout of the arrangedSubviews along the axis
     ///   - views: views to place inside the stack
@@ -158,7 +158,7 @@ public extension UIView.Stack {
     /// Vertically aligned stack view
     ///
     /// - Parameters:
-    ///   - spacing: Custom spacing after a view
+    ///   - spacing: Inner spacing between views
     ///   - alignedTo: Layout transverse to the stacking axis
     ///   - distributedTo: Layout of the arrangedSubviews along the axis
     ///   - views: views to place inside the stack
