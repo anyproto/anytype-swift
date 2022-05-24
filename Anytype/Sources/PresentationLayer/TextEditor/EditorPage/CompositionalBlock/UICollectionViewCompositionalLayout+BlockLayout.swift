@@ -1,5 +1,12 @@
 import UIKit
 
+// https://stackoverflow.com/questions/32082726/the-behavior-of-the-uicollectionviewflowlayout-is-not-defined-because-the-cell
+final class CellCollectionViewCompositionalLayout: UICollectionViewCompositionalLayout {
+    override func shouldInvalidateLayout(forBoundsChange: CGRect) -> Bool {
+        return true
+    }
+}
+
 extension UICollectionViewCompositionalLayout {
     static func flexibleView(
         widthDimension: NSCollectionLayoutDimension = .estimated(20),
@@ -8,7 +15,7 @@ extension UICollectionViewCompositionalLayout {
         groundEdgeSpacing: NSCollectionLayoutEdgeSpacing,
         interGroupSpacing: CGFloat = 8
     ) -> UICollectionViewCompositionalLayout {
-        UICollectionViewCompositionalLayout(
+        CellCollectionViewCompositionalLayout(
             sectionProvider: {
                 (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
