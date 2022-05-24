@@ -61,6 +61,16 @@ class SearchHelper {
         return filter
     }
     
+    static func excludedTypeFilter(_ typeUrls: [String]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .notIn
+        filter.value = typeUrls.protobufValue
+        filter.relationKey = BundledRelationKey.type.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     static func layoutFilter(layouts: [Int]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in

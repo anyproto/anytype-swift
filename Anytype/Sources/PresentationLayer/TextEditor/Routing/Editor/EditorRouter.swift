@@ -182,12 +182,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let viewModel = ObjectSearchViewModel { data in
-            onSelect(data.blockId)
-        }
-        let moveToView = SearchView(title: "Move to".localized, context: .menuSearch, viewModel: viewModel)
         
-        presentSwiftUIView(view: moveToView, model: viewModel)
+        let moveToView = NewSearchModuleAssembly.moveToObjectSearchModule(
+            title: "Move to".localized,
+            excludedObjectIds: [document.objectId.value]
+        ) { [weak self] blockId in
+            onSelect(blockId)
+            self?.viewController?.topPresentedController.dismiss(animated: true)
+        }
+
+        presentSwiftUIView(view: moveToView, model: nil)
     }
 
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {
@@ -296,9 +300,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         rootController?.setNavigationViewHidden(isHidden, animated: animated)
     }
 
-    func showObjectPreview(blockLink: BlockLink, onSelect: @escaping (BlockLink.Appearance) -> Void) {
+    func showObjectPreview(information: BlockInformation, onSelect: @escaping (ObjectPreviewFields) -> Void) {
         let router = ObjectPreviewRouter(viewController: viewController)
-        let viewModel = ObjectPreviewViewModel(appearance: blockLink.appearance,
+        let featuredRelationsByIds = document.parsedRelations.featuredRelations.toDictionary { $0.id }
+        let viewModel = ObjectPreviewViewModel(featuredRelationsByIds: featuredRelationsByIds,
+                                               fields: information.fields,
                                                router: router,
                                                onSelect: onSelect)
         let contentView = ObjectPreviewView(viewModel: viewModel)
@@ -431,6 +437,30 @@ extension EditorRouter {
     }
 }
 
+// MARK: - Set
+
+extension EditorRouter {
+
+    func showCreateObject(pageId: AnytypeId) {
+        guard let viewController = viewController else { return }
+
+        let relationService = RelationsService(objectId: pageId.value)
+        let viewModel = CreateObjectViewModel(relationService: relationService)
+        
+        let view = CreateObjectView(viewModel: viewModel) { [weak self] in
+            self?.viewController?.topPresentedController.dismiss(animated: true)
+            self?.showPage(data: EditorScreenData(pageId: pageId, type: .page))
+        }
+        let fpc = AnytypePopup(contentView: view,
+                               floatingPanelStyle: true,
+                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: false))
+        
+        viewController.topPresentedController.present(fpc, animated: true, completion: nil)
+    }
+}
+
+
+// MARK: - UIPopoverPresentationControllerDelegate
 
 extension EditorRouter: UIPopoverPresentationControllerDelegate {
     func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {

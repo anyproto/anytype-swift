@@ -1,4 +1,4 @@
-import SwiftUI
+import UIKit
 
 final class TemplateAvailabilityPopupView: UIView {
 

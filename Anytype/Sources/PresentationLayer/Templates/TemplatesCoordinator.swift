@@ -63,7 +63,7 @@ final class TemplatesCoordinator {
             }
         }
 
-        popup.addPanel(toParent: rootViewController)
+        popup.addPanel(toParent: rootViewController, animated: true)
     }
 
     private func showTemplatesPicker(

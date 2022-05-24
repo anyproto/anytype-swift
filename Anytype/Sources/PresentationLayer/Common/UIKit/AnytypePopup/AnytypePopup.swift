@@ -46,6 +46,13 @@ final class AnytypePopup: FloatingPanelController {
         let popupView = AnytypePopupViewModel(contentView: contentView, popupLayout: popupLayout)
         self.init(viewModel: popupView, floatingPanelStyle: floatingPanelStyle, configuration: configuration)
     }
+
+    convenience init<Content: UIView>(contentView: Content,
+                                      floatingPanelStyle: Bool = false,
+                                      configuration: Configuration = Constants.defaultConifguration) {
+        let viewModel = AnytypeAlertViewModel(contentView: contentView, keyboardListener: .init())
+        self.init(viewModel: viewModel, floatingPanelStyle: floatingPanelStyle, configuration: configuration)
+    }
     
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
@@ -59,7 +66,7 @@ final class AnytypePopup: FloatingPanelController {
 extension AnytypePopup: AnytypePopupProxy {
     func updateBottomInset() {
         updateSurfaceViewMargins()
-        updateLayout(false)
+        updateLayout(true)
     }
 
     func updateLayout(_ animated: Bool) {
@@ -111,11 +118,11 @@ private extension AnytypePopup {
     }
     
     func setupGestures() {
+        isRemovalInteractionEnabled = true
+
         if configuration.skipThroughGestures {
             backdropView.isHidden = true
-            isRemovalInteractionEnabled = true
         } else {
-            isRemovalInteractionEnabled = configuration.dismissOnBackdropView
             backdropView.dismissalTapGestureRecognizer.isEnabled = configuration.dismissOnBackdropView
         }
     }

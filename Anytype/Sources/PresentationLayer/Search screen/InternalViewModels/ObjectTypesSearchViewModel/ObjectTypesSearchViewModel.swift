@@ -5,6 +5,8 @@ import SwiftUI
 
 final class ObjectTypesSearchViewModel {
     
+    let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
+    
     @Published private var rows: [ListRowConfiguration] = []
     
     private var objects: [ObjectDetails] = [] {

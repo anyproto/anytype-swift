@@ -33,7 +33,8 @@ final class EditorAssembly {
     // MARK: - Set
     private func buildSetModule(data: EditorScreenData) -> (EditorSetHostingController, EditorRouterProtocol) {
         let document = BaseDocument(objectId: data.pageId)
-        let model = EditorSetViewModel(document: document)
+        let dataviewService = DataviewService(objectId: data.pageId.value)
+        let model = EditorSetViewModel(document: document, dataviewService: dataviewService)
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
         let searchService = SearchService()
         
@@ -156,7 +157,11 @@ final class EditorAssembly {
             actionHandler: actionHandler
         )
         
-        let headerModel = ObjectHeaderViewModel(document: document, router: router)
+        let headerModel = ObjectHeaderViewModel(
+            document: document,
+            router: router,
+            isOpenedForPreview: isOpenedForPreview
+        )
         let blockActionsServiceSingle = ServiceLocator.shared
             .blockActionsServiceSingle(contextId: document.objectId.value)
 

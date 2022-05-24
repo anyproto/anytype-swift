@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct AnytypeTextField: View {
-    
+    var style: AnytypeFont = .uxBodyRegular
     let placeholder: String
     @Binding var text: String
     
@@ -10,11 +10,11 @@ struct AnytypeTextField: View {
     var body: some View {
         ZStack(alignment: .leading) {
             if text.isEmpty {
-                AnytypeText(placeholder, style: .uxBodyRegular, color: .buttonActive)
+                AnytypeText(placeholder, style: style, color: .buttonActive)
             }
             TextField("", text: $text)
                 .foregroundColor(.textPrimary)
-                .font(AnytypeFontBuilder.font(anytypeFont: .uxBodyRegular))
+                .font(AnytypeFontBuilder.font(anytypeFont: style))
                 .readSize {
                     textFieldHeight = $0.height
                 }
