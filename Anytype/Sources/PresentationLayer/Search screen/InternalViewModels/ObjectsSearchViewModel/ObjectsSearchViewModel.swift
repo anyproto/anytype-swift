@@ -5,23 +5,26 @@ import SwiftUI
 
 final class ObjectsSearchViewModel {
     
+    let selectionMode: NewSearchViewModel.SelectionMode
+    
     @Published private var rows: [ListRowConfiguration] = []
     
     private var objects: [ObjectDetails] = [] {
         didSet {
-            rows = objects.asRowConfigurations(with: selectedObjectIds)
+            rows = objects.asRowConfigurations(with: selectedObjectIds, selectionMode: selectionMode)
         }
     }
     
     private var selectedObjectIds: [String] = [] {
         didSet {
-            rows = objects.asRowConfigurations(with: selectedObjectIds)
+            rows = objects.asRowConfigurations(with: selectedObjectIds, selectionMode: selectionMode)
         }
     }
     
     private let interactor: ObjectsSearchInteractorProtocol
     
-    init(interactor: ObjectsSearchInteractorProtocol) {
+    init(selectionMode: NewSearchViewModel.SelectionMode, interactor: ObjectsSearchInteractorProtocol) {
+        self.selectionMode = selectionMode
         self.interactor = interactor
     }
     
@@ -36,9 +39,7 @@ extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
     }
     
     func search(text: String) {
-        interactor.search(text: text) { [weak self] objects in
-            self?.objects = objects
-        }
+        self.objects = interactor.search(text: text)
     }
     
     func handleRowsSelection(ids: [String]) {
@@ -49,7 +50,7 @@ extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
 
 private extension Array where Element == ObjectDetails {
 
-    func asRowConfigurations(with selectedIds: [String]) -> [ListRowConfiguration] {
+    func asRowConfigurations(with selectedIds: [String], selectionMode: NewSearchViewModel.SelectionMode) -> [ListRowConfiguration] {
         map { details in
             ListRowConfiguration(
                 id: details.id.value,
@@ -58,13 +59,27 @@ private extension Array where Element == ObjectDetails {
                 AnyView(
                     SearchObjectRowView(
                         viewModel: SearchObjectRowView.Model(details: details),
-                        selectionIndicatorViewModel: SelectionIndicatorViewModelBuilder.buildModel(id: details.id.value, selectedIds: selectedIds)
+                        selectionIndicatorViewModel: selectionMode.asSelectionIndicatorViewModel(
+                            details: details,
+                            selectedIds: selectedIds
+                        )
                     )
                 )
             }
         }
     }
+}
+
+private extension NewSearchViewModel.SelectionMode {
     
+    func asSelectionIndicatorViewModel(details: ObjectDetails, selectedIds: [String]) -> SelectionIndicatorView.Model? {
+        switch self {
+        case .multipleItems:
+            return SelectionIndicatorViewModelBuilder.buildModel(id: details.id.value, selectedIds: selectedIds)
+        case .singleItem:
+            return nil
+        }
+    }
 }
 
 private extension SearchObjectRowView.Model {

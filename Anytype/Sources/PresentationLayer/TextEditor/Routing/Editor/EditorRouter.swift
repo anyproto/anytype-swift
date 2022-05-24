@@ -182,12 +182,16 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
-        let viewModel = ObjectSearchViewModel { data in
-            onSelect(data.blockId)
-        }
-        let moveToView = SearchView(title: "Move to".localized, context: .menuSearch, viewModel: viewModel)
         
-        presentSwiftUIView(view: moveToView, model: viewModel)
+        let moveToView = NewSearchModuleAssembly.moveToObjectSearchModule(
+            title: "Move to".localized,
+            excludedObjectIds: [document.objectId.value]
+        ) { [weak self] blockId in
+            onSelect(blockId)
+            self?.viewController?.topPresentedController.dismiss(animated: true)
+        }
+
+        presentSwiftUIView(view: moveToView, model: nil)
     }
 
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {

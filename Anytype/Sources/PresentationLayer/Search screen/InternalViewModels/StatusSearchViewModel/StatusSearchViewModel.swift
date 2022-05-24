@@ -4,6 +4,8 @@ import Combine
 
 final class StatusSearchViewModel {
     
+    let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
+    
     @Published private var sections: [ListSectionConfiguration] = []
     
     private var statuses: [Relation.Status.Option] = [] {
