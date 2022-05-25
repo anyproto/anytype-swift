@@ -32,17 +32,12 @@ struct HomeCollectionView: View {
         OffsetAwareScrollView(showsIndicators: false, offsetChanged: offsetChanged) {
             LazyVGrid(columns: columns, alignment: .center) {
                 ForEach(cellData) { data in
-                    Button(
-                        action: { onTap(data) },
-                        label: {
-                            HomeCell(
-                                cellData: data,
-                                selected: viewModel.selectedPageIds.contains(data.id.value)
-                            )
-                        }
+                    HomeCell(
+                        cellData: data,
+                        selected: viewModel.selectedPageIds.contains(data.id.value)
                     )
+                    .onTapGesture { onTap(data) }
                     .disabled(data.isLoading)
-                    
                     .ifLet(dragAndDropDelegate) { view, delegate in
                         view.onDrag {
                             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
@@ -53,6 +48,11 @@ struct HomeCollectionView: View {
                             of: [UTType.text],
                             delegate: HomeCollectionDropInsideDelegate(dragAndDropDelegate: delegate, delegateData: data, cellData: cellData, data: $dropData)
                         )
+                    }
+                    .if(!data.isArchived) {
+                        $0.contextMenu {
+                            HomeContextMenuView(cellData: data)
+                        }
                     }
                 }
             }
