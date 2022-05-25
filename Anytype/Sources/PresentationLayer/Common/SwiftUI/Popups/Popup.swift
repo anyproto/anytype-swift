@@ -403,7 +403,7 @@ public struct Popup<Item: Equatable, PopupContent: View>: ViewModifier {
         return sheet
             .applyIf(dragToDismiss) {
                 $0.offset(y: dragOffset())
-                    .simultaneousGesture(drag)
+                    .highPriorityGesture(drag)
             }
         #else
         return sheet
