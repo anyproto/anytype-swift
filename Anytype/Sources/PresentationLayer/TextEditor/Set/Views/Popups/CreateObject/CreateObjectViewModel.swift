@@ -13,11 +13,15 @@ final class CreateObjectViewModel {
     private let relationService: RelationsServiceProtocol
     private let debouncer = Debouncer()
     private let openToEditAction: () -> Void
+    private let closeAction: () -> Void
     private var currentText: String = .empty
 
-    init(relationService: RelationsServiceProtocol, openToEditAction: @escaping () -> Void) {
+    init(relationService: RelationsServiceProtocol,
+         openToEditAction: @escaping () -> Void,
+         closeAction: @escaping () -> Void) {
         self.relationService = relationService
         self.openToEditAction = openToEditAction
+        self.closeAction = closeAction
     }
     
     func textDidChange(_ text: String) {
@@ -37,5 +41,9 @@ final class CreateObjectViewModel {
             relationService.updateRelation(relationKey: BundledRelationKey.name.rawValue, value: text.protobufValue)
         }
         openToEditAction()
+    }
+
+    func returnDidTap() {
+        closeAction()
     }
 }

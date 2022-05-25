@@ -70,12 +70,22 @@ final class CreateObjectView: UIView {
                 .foregroundColor: UIColor.textSecondary
             ]
         )
+        textField.delegate = self
         textField.addTarget(self, action: #selector(textDidChange(textField:)), for: .editingChanged)
         textField.becomeFirstResponder()
     }
 
     @objc private func textDidChange(textField: UITextField) {
         guard let text = textField.text else { return }
-        self.viewModel.textDidChange(text)
+        viewModel.textDidChange(text)
+    }
+}
+
+extension CreateObjectView: UITextFieldDelegate {
+
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        viewModel.returnDidTap()
+        return false
     }
 }

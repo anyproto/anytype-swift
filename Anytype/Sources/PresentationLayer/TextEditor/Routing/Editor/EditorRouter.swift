@@ -446,6 +446,8 @@ extension EditorRouter {
         let viewModel = CreateObjectViewModel(relationService: relationService) { [weak self] in
             self?.viewController?.topPresentedController.dismiss(animated: true)
             self?.showPage(data: EditorScreenData(pageId: pageId, type: .page))
+        } closeAction: { [weak self] in
+            self?.viewController?.topPresentedController.dismiss(animated: true)
         }
         
         let view = CreateObjectView(viewModel: viewModel)
