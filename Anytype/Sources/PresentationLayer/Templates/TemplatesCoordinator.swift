@@ -36,8 +36,6 @@ final class TemplatesCoordinator {
     ) {
         guard FeatureFlags.isTemplatesAvailable else { return }
 
-        currentPopup?.removePanelFromParent(animated: false, completion: nil)
-
         let isDraft = document.details?.isDraft ?? false
         guard isDraft, let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
             return
@@ -46,8 +44,12 @@ final class TemplatesCoordinator {
         guard availableTemplates.count >= Constants.minimumTemplatesAvailableToPick else {
             return
         }
-        
-        showTemplateAvailablitityPopup(availableTemplates: availableTemplates, document: document)
+
+        currentPopup?.removePanelFromParent(animated: false, completion: nil)
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            self?.showTemplateAvailablitityPopup(availableTemplates: availableTemplates, document: document)
+        }
     }
 
     private func showTemplateAvailablitityPopup(

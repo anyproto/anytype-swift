@@ -1,5 +1,6 @@
 import UIKit
 import Combine
+import BlocksModels
 
 final class ChangeTypeAccessoryViewModel {
     typealias TypeItem = HorizonalTypeListViewModel.Item
@@ -43,10 +44,24 @@ final class ChangeTypeAccessoryViewModel {
         let supportedTypes = searchService
             .searchObjectTypes(text: "", filteringTypeUrl: nil)?
             .map { object in
-                TypeItem(from: object, handler: { [weak handler] in handler?.setObjectTypeUrl(object.id.value) })
+                TypeItem(from: object, handler: { [weak self] in
+                    self?.onObjectTap(object: object)
+                })
             }
 
         supportedTypes.map { allSupportedTypes = $0 }
+    }
+
+    private func onObjectTap(object: ObjectDetails) {
+        let isDraft = document.details?.isDraft ?? false
+        if isDraft {
+            router.showTemplatesAvailabilityPopupIfNeeded(
+                document: document,
+                templatesTypeURL: .dynamic(object.id.value)
+            )
+        }
+
+        handler.setObjectTypeUrl(object.id.value)
     }
 
     private func subscribeOnDocumentChanges() {

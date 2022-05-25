@@ -1,5 +1,6 @@
 import BlocksModels
 import ProtobufMessages
+import SwiftProtobuf
 import Combine
 import AnytypeCore
 
@@ -43,8 +44,18 @@ final class DataviewService: DataviewServiceProtocol {
     }
 
     func addRecord() -> ObjectDetails? {
+        var protoFields = [String: Google_Protobuf_Value]()
+        protoFields[BundledRelationKey.isDraft.rawValue] = true
+
+        let protobufStruct: Google_Protobuf_Struct = .init(fields: protoFields)
+
         let response = Anytype_Rpc.Block.Dataview.RecordCreate.Service
-            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, record: .init(), templateID: .empty)
+            .invoke(
+                contextID: objectId,
+                blockID: SetConstants.dataviewBlockId,
+                record: protobufStruct,
+                templateID: .empty
+            )
             .getValue(domain: .dataviewService)
 
         guard let response = response else { return nil }
