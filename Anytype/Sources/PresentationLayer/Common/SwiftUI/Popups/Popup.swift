@@ -7,23 +7,52 @@
 //
 
 import SwiftUI
+import Combine
 
 extension View {
 
-    public func popup<PopupContent: View>(
-        isPresented: Binding<Bool>,
-        type: Popup<PopupContent>.PopupType = .`default`,
-        position: Popup<PopupContent>.Position = .bottom,
+    public func popup<Item: Equatable, PopupContent: View>(
+        item: Binding<Item?>,
+        type: Popup<Item, PopupContent>.PopupType = .`default`,
+        position: Popup<Item, PopupContent>.Position = .bottom,
         animation: Animation = Animation.easeOut(duration: 0.3),
         autohideIn: Double? = nil,
         dragToDismiss: Bool = true,
         closeOnTap: Bool = true,
         closeOnTapOutside: Bool = false,
-        backgroundOverlayColor: Color? = nil,
+        backgroundColor: Color = Color.clear,
         dismissCallback: @escaping () -> () = {},
-        view: @escaping () -> PopupContent) -> some View {
+        @ViewBuilder view: @escaping () -> PopupContent) -> some View {
+            self.modifier(
+                Popup(
+                    item: item,
+                    type: type,
+                    position: position,
+                    animation: animation,
+                    autohideIn: autohideIn,
+                    dragToDismiss: dragToDismiss,
+                    closeOnTap: closeOnTap,
+                    closeOnTapOutside: closeOnTapOutside,
+                    backgroundColor: backgroundColor,
+                    dismissCallback: dismissCallback,
+                    view: view)
+            )
+        }
+
+    public func popup<PopupContent: View>(
+        isPresented: Binding<Bool>,
+        type: Popup<Int, PopupContent>.PopupType = .`default`,
+        position: Popup<Int, PopupContent>.Position = .bottom,
+        animation: Animation = Animation.easeOut(duration: 0.3),
+        autohideIn: Double? = nil,
+        dragToDismiss: Bool = true,
+        closeOnTap: Bool = true,
+        closeOnTapOutside: Bool = false,
+        backgroundColor: Color = Color.clear,
+        dismissCallback: @escaping () -> () = {},
+        @ViewBuilder view: @escaping () -> PopupContent) -> some View {
         self.modifier(
-            Popup(
+            Popup<Int, PopupContent>(
                 isPresented: isPresented,
                 type: type,
                 position: position,
@@ -32,7 +61,7 @@ extension View {
                 dragToDismiss: dragToDismiss,
                 closeOnTap: closeOnTap,
                 closeOnTapOutside: closeOnTapOutside,
-                backgroundOverlayColor: backgroundOverlayColor,
+                backgroundColor: backgroundColor,
                 dismissCallback: dismissCallback,
                 view: view)
         )
@@ -65,8 +94,8 @@ extension View {
     }
 }
 
-public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
-    
+public struct Popup<Item: Equatable, PopupContent: View>: ViewModifier {
+
     init(isPresented: Binding<Bool>,
          type: PopupType,
          position: Position,
@@ -75,10 +104,11 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
          dragToDismiss: Bool,
          closeOnTap: Bool,
          closeOnTapOutside: Bool,
-         backgroundOverlayColor: Color?,
+         backgroundColor: Color,
          dismissCallback: @escaping () -> (),
          view: @escaping () -> PopupContent) {
         self._isPresented = isPresented
+        self._item = .constant(nil)
         self.type = type
         self.position = position
         self.animation = animation
@@ -86,17 +116,45 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
         self.dragToDismiss = dragToDismiss
         self.closeOnTap = closeOnTap
         self.closeOnTapOutside = closeOnTapOutside
-        self.backgroundOverlayColor = backgroundOverlayColor
+        self.backgroundColor = backgroundColor
         self.dismissCallback = dismissCallback
         self.view = view
         self.isPresentedRef = ClassReference(self.$isPresented)
+        self.itemRef = ClassReference(self.$item)
     }
-    
+
+    init(item: Binding<Item?>,
+         type: PopupType,
+         position: Position,
+         animation: Animation,
+         autohideIn: Double?,
+         dragToDismiss: Bool,
+         closeOnTap: Bool,
+         closeOnTapOutside: Bool,
+         backgroundColor: Color,
+         dismissCallback: @escaping () -> (),
+         view: @escaping () -> PopupContent) {
+        self._isPresented = .constant(false)
+        self._item = item
+        self.type = type
+        self.position = position
+        self.animation = animation
+        self.autohideIn = autohideIn
+        self.dragToDismiss = dragToDismiss
+        self.closeOnTap = closeOnTap
+        self.closeOnTapOutside = closeOnTapOutside
+        self.backgroundColor = backgroundColor
+        self.dismissCallback = dismissCallback
+        self.view = view
+        self.isPresentedRef = ClassReference(self.$isPresented)
+        self.itemRef = ClassReference(self.$item)
+    }
+
     public enum PopupType {
 
         case `default`
         case toast
-        case floater(verticalPadding: CGFloat = 50)
+        case floater(verticalPadding: CGFloat = 10, useSafeAreaInset: Bool = true)
 
         func shouldBeCentered() -> Bool {
             switch self {
@@ -140,13 +198,18 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
 
     /// Tells if the sheet should be presented or not
     @Binding var isPresented: Bool
+    @Binding var item: Item?
+
+    var sheetPresented: Bool {
+        item != nil || isPresented
+    }
 
     var type: PopupType
     var position: Position
 
     var animation: Animation
 
-    /// If nil - niver hides on its own
+    /// If nil - never hides on its own
     var autohideIn: Double?
 
     /// Should close on tap - default is `true`
@@ -157,9 +220,9 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
 
     /// Should close on tap outside - default is `true`
     var closeOnTapOutside: Bool
-    
-    /// Should show background overlay of color - default is `nil`
-    var backgroundOverlayColor: Color?
+
+    /// Background color for outside area - default is `Color.clear`
+    var backgroundColor: Color
 
     /// is called on any close action
     var dismissCallback: () -> ()
@@ -170,15 +233,18 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
     var dispatchWorkHolder = DispatchWorkHolder()
 
     // MARK: - Private Properties
-    
+
     /// Class reference for capturing a weak reference later in dispatch work holder.
     private var isPresentedRef: ClassReference<Binding<Bool>>?
+    private var itemRef: ClassReference<Binding<Item?>>?
 
-    /// The rect of the hosting controller
+    /// The rect and safe area of the hosting controller
     @State private var presenterContentRect: CGRect = .zero
+    @State private var presenterSafeArea: EdgeInsets = EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
 
-    /// The rect of popup content
+    /// The rect and safe area of popup content
     @State private var sheetContentRect: CGRect = .zero
+    @State private var sheetSafeArea: EdgeInsets = EdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
 
     /// Drag to dismiss gesture state
     @GestureState private var dragState = DragState.inactive
@@ -186,22 +252,28 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
     /// Last position for drag gesture
     @State private var lastDragPosition: CGFloat = 0
 
+    /// Show content for lazy loading
+    @State private var showContent: Bool = false
+
+    /// Should present the animated part of popup (sliding background)
+    @State private var animatedContentIsPresented: Bool = false
+
     /// The offset when the popup is displayed
     private var displayedOffset: CGFloat {
         switch type {
         case .`default`:
-            return  -presenterContentRect.midY + screenHeight/2
+            return -presenterContentRect.midY + screenHeight/2
         case .toast:
             if position == .bottom {
-                return screenHeight - presenterContentRect.midY - sheetContentRect.height/2
+                return presenterContentRect.minY + presenterSafeArea.bottom + presenterContentRect.height - presenterContentRect.midY - sheetContentRect.height/2
             } else {
-                return -presenterContentRect.midY + sheetContentRect.height/2
+                return presenterContentRect.minY - presenterSafeArea.top - presenterContentRect.midY + sheetContentRect.height/2
             }
-        case .floater(let verticalPadding):
+        case .floater(let verticalPadding, let useSafeAreaInset):
             if position == .bottom {
-                return screenHeight - presenterContentRect.midY - sheetContentRect.height/2 - verticalPadding
+                return presenterContentRect.minY + presenterSafeArea.bottom + presenterContentRect.height - presenterContentRect.midY - sheetContentRect.height/2 - verticalPadding + (useSafeAreaInset ? -presenterSafeArea.bottom : 0)
             } else {
-                return -presenterContentRect.midY + sheetContentRect.height/2 + verticalPadding
+                return presenterContentRect.minY - presenterSafeArea.top - presenterContentRect.midY + sheetContentRect.height/2 + verticalPadding + (useSafeAreaInset ? presenterSafeArea.top : 0)
             }
         }
     }
@@ -223,12 +295,17 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
 
     /// The current offset, based on the **presented** property
     private var currentOffset: CGFloat {
-        return isPresented ? displayedOffset : hiddenOffset
+        return animatedContentIsPresented ? displayedOffset : hiddenOffset
+    }
+
+    /// The current background opacity, based on the **presented** property
+    private var currentBackgroundOpacity: Double {
+        return animatedContentIsPresented ? 1.0 : 0.0
     }
 
     private var screenSize: CGSize {
         #if os(iOS) || os(tvOS)
-        return UIApplication.shared.keyWindow?.bounds.size ?? .zero
+        return UIScreen.main.bounds.size
         #elseif os(watchOS)
         return WKInterfaceDevice.current().screenBounds.size
         #else
@@ -243,41 +320,46 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
     // MARK: - Content Builders
 
     public func body(content: Content) -> some View {
+        main(content: content)
+            .onAppear {
+                appearAction(sheetPresented: sheetPresented)
+            }
+            .valueChanged(value: isPresented) { isPresented in
+                appearAction(sheetPresented: isPresented)
+            }
+            .valueChanged(value: item) { item in
+                appearAction(sheetPresented: item != nil)
+            }
+    }
+
+    private func main(content: Content) -> some View {
         ZStack {
             content
-                .addTapIfNotTV(if: closeOnTapOutside) {
-                    withAnimation(animation) {
-                        self.dispatchWorkHolder.work?.cancel()
-                        self.isPresented = false
-                        self.dismissCallback()
-                    }
-                }
-                .background(
-                    GeometryReader { proxy -> AnyView in
-                        let rect = proxy.frame(in: .global)
-                        // This avoids an infinite layout loop
-                        if rect.integral != self.presenterContentRect.integral {
-                            DispatchQueue.main.async {
-                                self.presenterContentRect = rect
-                            }
-                        }
-                        return AnyView(EmptyView())
-                    }
-            ).overlay(
-                backgroundOverlayColor.flatMap {
-                    $0.edgesIgnoringSafeArea(.all).transition(.opacity)
-                }
-                .addTapIfNotTV(if: closeOnTapOutside) {
-                    withAnimation(animation) {
-                        self.dispatchWorkHolder.work?.cancel()
-                        self.isPresented = false
-                        self.dismissCallback()
-                    }
-                }
-                .opacity(isPresented ? 1 : 0)
-            )
+                .frameGetter($presenterContentRect, $presenterSafeArea)
+
+            if showContent {
+                popupBackground()
+            }
         }
-        .overlay(sheet())
+        .overlay(
+            Group {
+                if showContent {
+                    sheet()
+                }
+            }
+        )
+    }
+
+    private func popupBackground() -> some View {
+        backgroundColor
+            .applyIf(closeOnTapOutside) { view in
+                view.contentShape(Rectangle())
+            }
+            .addTapIfNotTV(if: closeOnTapOutside) {
+                dismiss()
+            }
+            .edgesIgnoringSafeArea(.all)
+            .opacity(currentBackgroundOpacity)
     }
 
     /// This is the builder for the sheet content
@@ -286,47 +368,29 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
         // if needed, dispatch autohide and cancel previous one
         if let autohideIn = autohideIn {
             dispatchWorkHolder.work?.cancel()
-            
+
             // Weak reference to avoid the work item capturing the struct,
             // which would create a retain cycle with the work holder itself.
-            dispatchWorkHolder.work = DispatchWorkItem(block: { [weak isPresentedRef] in
+
+            let block = dismissCallback
+            dispatchWorkHolder.work = DispatchWorkItem(block: { [weak isPresentedRef, weak itemRef] in
                 isPresentedRef?.value.wrappedValue = false
-                dismissCallback()
+                itemRef?.value.wrappedValue = nil
+                block()
             })
-            if isPresented, let work = dispatchWorkHolder.work {
+            if sheetPresented, let work = dispatchWorkHolder.work {
                 DispatchQueue.main.asyncAfter(deadline: .now() + autohideIn, execute: work)
             }
         }
 
         let sheet = ZStack {
-            Group {
-                VStack {
-                    VStack {
-                        self.view()
-                            .addTapIfNotTV(if: closeOnTap) {
-                                withAnimation(animation) {
-                                    self.dispatchWorkHolder.work?.cancel()
-                                    self.isPresented = false
-                                    self.dismissCallback()
-                                }
-                            }
-                            .background(
-                                GeometryReader { proxy -> AnyView in
-                                    let rect = proxy.frame(in: .global)
-                                    // This avoids an infinite layout loop
-                                    if rect.integral != self.sheetContentRect.integral {
-                                        DispatchQueue.main.async {
-                                            self.sheetContentRect = rect
-                                        }
-                                    }
-                                    return AnyView(EmptyView())
-                                }
-                            )
-                    }
+            self.view()
+                .addTapIfNotTV(if: closeOnTap) {
+                    dismiss()
                 }
-                .frame(width: screenSize.width)
-                .offset(x: 0, y: currentOffset)
-            }
+                .frameGetter($sheetContentRect, $sheetSafeArea)
+                .offset(y: currentOffset)
+                .animation(animation)
         }
 
         #if !os(tvOS)
@@ -339,9 +403,8 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
         return sheet
             .applyIf(dragToDismiss) {
                 $0.offset(y: dragOffset())
-                    .highPriorityGesture(drag)
+                    .simultaneousGesture(drag)
             }
-            
         #else
         return sheet
         #endif
@@ -357,28 +420,89 @@ public struct Popup<PopupContent>: ViewModifier where PopupContent: View {
     }
 
     private func onDragEnded(drag: DragGesture.Value) {
-        let reference = sheetContentRect.height / 10
+        let reference = sheetContentRect.height / 3
         if (position == .bottom && drag.translation.height > reference) ||
             (position == .top && drag.translation.height < -reference) {
             lastDragPosition = drag.translation.height
-            withAnimation(animation) {
-                isPresented = false
+            withAnimation {
                 lastDragPosition = 0
             }
-            dismissCallback()
+            dismiss()
         }
     }
     #endif
+
+    private func appearAction(sheetPresented: Bool) {
+        if sheetPresented {
+            showContent = true
+            DispatchQueue.main.async {
+                animatedContentIsPresented = true
+            }
+        } else {
+            animatedContentIsPresented = false
+        }
+    }
+
+    private func dismiss() {
+        dispatchWorkHolder.work?.cancel()
+        isPresented = false
+        item = nil
+        dismissCallback()
+    }
 }
 
-class DispatchWorkHolder {
+final class DispatchWorkHolder {
     var work: DispatchWorkItem?
 }
 
 private final class ClassReference<T> {
-  var value: T
+    var value: T
 
-  init(_ value: T) {
-    self.value = value
-  }
+    init(_ value: T) {
+        self.value = value
+    }
+}
+
+
+extension View {
+
+    @ViewBuilder
+    fileprivate func valueChanged<T: Equatable>(value: T, onChange: @escaping (T) -> Void) -> some View {
+        if #available(iOS 14.0, tvOS 14.0, macOS 11.0, watchOS 7.0, *) {
+            self.onChange(of: value, perform: onChange)
+        } else {
+            self.onReceive(Just(value)) { value in
+                onChange(value)
+            }
+        }
+    }
+}
+
+extension View {
+    public func frameGetter(_ frame: Binding<CGRect>, _ safeArea: Binding<EdgeInsets>) -> some View {
+        modifier(FrameGetter(frame: frame, safeArea: safeArea))
+    }
+}
+
+struct FrameGetter: ViewModifier {
+
+    @Binding var frame: CGRect
+    @Binding var safeArea: EdgeInsets
+
+    func body(content: Content) -> some View {
+        content
+            .background(
+                GeometryReader { proxy -> AnyView in
+                    let rect = proxy.frame(in: .global)
+                    // This avoids an infinite layout loop
+                    if rect.integral != self.frame.integral {
+                        DispatchQueue.main.async {
+                            self.safeArea = proxy.safeAreaInsets
+                            self.frame = rect
+                        }
+                    }
+                    return AnyView(EmptyView())
+                }
+            )
+    }
 }
