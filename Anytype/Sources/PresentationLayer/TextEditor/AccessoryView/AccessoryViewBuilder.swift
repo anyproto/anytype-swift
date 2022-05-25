@@ -69,6 +69,15 @@ struct AccessoryViewBuilder {
             modelsHolder: modelsHolder
         )
 
+        accessoryViewSwitcher.onChangeTypeDismiss = {
+            guard let typeURL = document.details?.objectType else { return }
+
+            router.showTemplatesAvailabilityPopupIfNeeded(
+                document: document,
+                templatesTypeURL: .dynamic(typeURL.url)
+            )
+        }
+
         slashMenuViewModel.resetSlashMenuHandler = { [weak accessoryViewSwitcher] in
             accessoryViewSwitcher?.restoreDefaultState()
 

@@ -38,7 +38,8 @@ final class TemplatesCoordinator {
 
         currentPopup?.removePanelFromParent(animated: false, completion: nil)
 
-        guard let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
+        let isDraft = document.details?.isDraft ?? false
+        guard isDraft, let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
             return
         }
         
@@ -46,6 +47,13 @@ final class TemplatesCoordinator {
             return
         }
         
+        showTemplateAvailablitityPopup(availableTemplates: availableTemplates, document: document)
+    }
+
+    private func showTemplateAvailablitityPopup(
+        availableTemplates: [ObjectDetails],
+        document: BaseDocumentProtocol
+    ) {
         let view = TemplateAvailabilityPopupView()
         let viewModel = AnytypeAlertViewModel(contentView: view, keyboardListener: keyboardHeightListener)
 

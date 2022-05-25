@@ -4,8 +4,9 @@ import Combine
 final class ChangeTypeAccessoryViewModel {
     typealias TypeItem = HorizonalTypeListViewModel.Item
 
-    @Published private(set) var isTypesViewVisible: Bool = false
+    @Published private(set) var isTypesViewVisible: Bool = true
     @Published private(set) var supportedTypes = [TypeItem]()
+    var onDoneButtonTap: (() -> Void)?
 
     private var allSupportedTypes = [TypeItem]()
     private let router: EditorRouterProtocol
@@ -31,7 +32,7 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     func handleDoneButtonTap() {
-        UIApplication.shared.hideKeyboard()
+        onDoneButtonTap?()
     }
 
     func toggleChangeTypeState() {

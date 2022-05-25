@@ -222,7 +222,13 @@ extension HomeViewModel {
     }
     
     private func createNewPage() -> AnytypeId? {
-        guard let id = dashboardService.createNewPage() else {
+        let availableTemplates = searchService.searchTemplates(
+            for: .dynamic(ObjectTypeProvider.defaultObjectType.url)
+        )
+        let hasSingleTemplate = availableTemplates?.count == 1
+
+        
+        guard let id = dashboardService.createNewPage(isDraft: !hasSingleTemplate) else {
             anytypeAssertionFailure("No new block id in create new page response", domain: .homeView)
             return nil
         }
