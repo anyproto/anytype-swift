@@ -4,11 +4,11 @@ extension View {
     func bottomFloater<Content: View>(isPresented: Binding<Bool>, view: @escaping () -> Content) -> some View {
         return self.popup(
             isPresented: isPresented,
-            type: .floater(verticalPadding: 42),
+            type: .floater(verticalPadding: 42, useSafeAreaInset: false),
             animation: .fastSpring,
             closeOnTap: false,
             closeOnTapOutside: true,
-            backgroundOverlayColor: Color.black.opacity(0.25),
+            backgroundColor: Color.black.opacity(0.25),
             view: view
         )
     }
@@ -16,11 +16,11 @@ extension View {
     func bottomSheet<Content: View>(isPresented: Binding<Bool>, view: @escaping () -> Content) -> some View {
         return self.popup(
             isPresented: isPresented,
-            type: .floater(verticalPadding: 0),
+            type: .floater(verticalPadding: 0, useSafeAreaInset: false),
             animation: .fastSpring,
             closeOnTap: false,
             closeOnTapOutside: true,
-            backgroundOverlayColor: Color.black.opacity(0.25),
+            backgroundColor: Color.black.opacity(0.25),
             view: {
                 VStack(spacing: 0) {
                     view()
