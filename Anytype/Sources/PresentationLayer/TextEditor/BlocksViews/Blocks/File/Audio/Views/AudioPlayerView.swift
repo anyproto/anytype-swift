@@ -16,6 +16,7 @@ protocol AudioPlayerViewDelegate: AnyObject, HashableProvier {
     /// Track duration in seconds
     var duration: Double { get }
     var isPlaying: Bool { get }
+    var isPlayable: Bool { get }
     func playButtonDidPress(sliderValue: Double)
     func progressSliederChanged(value: Double, completion: @escaping () -> Void)
 }
@@ -57,8 +58,8 @@ final class AudioPlayerView: UIView {
 
     private func setupViews() {
         playButton.setImage(UIImage(systemName: "play.fill"))
-        playButton.imageView.tintColor = .textPrimary
         playButton.setMinHitTestArea(.init(width: 35, height: 35))
+        configurePlayButtonActivity()
 
         playButton.addAction(UIAction(handler: { [weak self] action in
             guard let self = self else { return }
@@ -82,6 +83,11 @@ final class AudioPlayerView: UIView {
         layer.cornerCurve = .continuous
         layer.borderWidth = 0.5
         layer.borderColor = UIColor.strokePrimary.cgColor
+    }
+    
+    private func configurePlayButtonActivity(_ isActive: Bool = true) {
+        playButton.imageView.tintColor = isActive ? .textPrimary : .textSecondary
+        playButton.isEnabled = isActive
     }
     
     private func setupLayout() {
@@ -146,6 +152,8 @@ final class AudioPlayerView: UIView {
         guard let delegate = delegate else {
             return
         }
+        
+        configurePlayButtonActivity(delegate.isPlayable)
 
         progressSlider.minimumValue = 0
         progressSlider.maximumValue = Float(delegate.duration)
