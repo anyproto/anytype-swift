@@ -94,18 +94,4 @@ class BlockListService: BlockListServiceProtocol {
             .getValue(domain: .blockListService)?
             .send()
     }
-
-    func setLinkAppearance(blockIds: [BlockId], appearance: BlockLink.Appearance) {
-        Anytype_Rpc.BlockList.Set.Link.Appearance.Service.invoke(
-            contextID: contextId,
-            blockIds: blockIds,
-            iconSize: appearance.iconSize.asMiddleware,
-            cardStyle: appearance.cardStyle.asMiddleware,
-            description_p: appearance.description.asMiddleware,
-            relations: appearance.relations.map(\.rawValue)
-        )
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockListService)?
-            .send()
-    }
 }

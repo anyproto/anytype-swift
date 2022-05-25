@@ -5,7 +5,7 @@ public enum BlockContentType: Hashable {
     case file(FileContentType)
     case divider(BlockDivider.Style)
     case bookmark(BlockBookmark.Style)
-    case link(BlockLink.Appearance)
+    case link(BlockLink.Style)
     case layout(BlockLayout.Style)
     case featuredRelations
     case relation(key: String)
@@ -23,8 +23,8 @@ public enum BlockContentType: Hashable {
             return String(describing: style)
         case let .bookmark(style):
             return String(describing: style)
-        case let .link(appearance):
-            return String(describing: appearance)
+        case let .link(style):
+            return String(describing: style)
         case let .layout(style):
             return String(describing: style)
         case .featuredRelations:

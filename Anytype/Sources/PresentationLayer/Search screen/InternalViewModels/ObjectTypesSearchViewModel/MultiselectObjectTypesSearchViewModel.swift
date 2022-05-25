@@ -5,6 +5,8 @@ import SwiftUI
 
 final class MultiselectObjectTypesSearchViewModel {
     
+    let selectionMode: NewSearchViewModel.SelectionMode = .multipleItems
+    
     @Published private var rows: [ListRowConfiguration] = []
     
     private var objects: [ObjectDetails] = [] {

@@ -19,7 +19,6 @@ extension Anytype_Rpc.BlockList.Set.Align.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Fields.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.Div.Style.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.Set.File.Style.Response.Error: Swift.Error {}
-extension Anytype_Rpc.BlockList.Set.Link.Appearance.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockList.TurnInto.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.Replace.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Block.UpdateContent.Response.Error: Swift.Error {}
@@ -101,7 +100,6 @@ extension Anytype_Rpc.Version.Get.Response.Error: Swift.Error {}
 extension Anytype_Rpc.File.Offload.Response.Error: Swift.Error {}
 extension Anytype_Rpc.FileList.Offload.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Shutdown.Response.Error: Swift.Error {}
-extension Anytype_Rpc.DeviceState.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Config.Get.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Ping.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Process.Cancel.Response.Error: Swift.Error {}
@@ -141,7 +139,6 @@ extension Anytype_Rpc.Object.SetIsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.FeaturedRelation.Add.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.FeaturedRelation.Remove.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.ToSet.Response.Error: Swift.Error {}
-extension Anytype_Rpc.ObjectList.Duplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ObjectList.Delete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ObjectList.Set.IsArchived.Response.Error: Swift.Error {}
 extension Anytype_Rpc.ObjectList.Set.IsFavorite.Response.Error: Swift.Error {}

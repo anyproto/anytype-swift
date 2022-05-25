@@ -27,19 +27,26 @@ final class ObjectRelationViewUIKit: UIView {
 private extension ObjectRelationViewUIKit {
     
     func setupView() {
-        setupIconView()
+        setupIconViewIfNeeded()
         setupTitleLabel()
 
         setupLayout()
     }
     
-    func setupIconView() {
+    func setupIconViewIfNeeded() {
+        let icon = option.icon
+        guard shouldShowIcon(icon: icon) else {
+            iconView.isHidden = true
+            return
+        }
+        
         let model = ObjectIconImageModel(
-            iconImage: option.icon,
+            iconImage: icon,
             usecase: .featuredRelationsBlock
         )
         
         iconView.configure(model: model)
+        iconView.isHidden = false
     }
     
     func setupTitleLabel() {
@@ -50,10 +57,10 @@ private extension ObjectRelationViewUIKit {
     }
     
     func setupLayout() {
-        self.layoutUsing.stack {
+        layoutUsing.stack {
             $0.hStack(
+                spacing: relationStyle.objectRelationStyle.hSpaсingObject,
                 iconView,
-                $0.hGap(fixed: relationStyle.objectRelationStyle.hSpaсingObject),
                 titleLabel
             )
         }
@@ -63,11 +70,25 @@ private extension ObjectRelationViewUIKit {
         }
     }
     
-    private func titleColor(option: Relation.Object.Option) -> UIColor {
+}
+
+private extension ObjectRelationViewUIKit {
+    
+    func titleColor(option: Relation.Object.Option) -> UIColor {
         if option.isDeleted || option.isArchived {
             return .textTertiary
         } else {
             return relationStyle.uiKitFontColor
         }
     }
+    
+    func shouldShowIcon(icon: ObjectIconImage) -> Bool {
+        switch icon {
+        case .icon, .todo, .staticImage, .image:
+            return true
+        case .placeholder:
+            return false
+        }
+    }
+    
 }

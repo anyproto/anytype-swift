@@ -5,6 +5,8 @@ protocol NewInternalSearchViewModelProtocol {
     
     var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> { get }
     
+    var selectionMode: NewSearchViewModel.SelectionMode { get }
+    
     func search(text: String)
     
     func handleRowsSelection(ids: [String])

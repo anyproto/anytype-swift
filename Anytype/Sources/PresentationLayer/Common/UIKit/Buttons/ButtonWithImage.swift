@@ -3,6 +3,8 @@ import BlocksModels
 
 
 final class ButtonWithImage: UIControl, CustomizableHitTestAreaView {
+    typealias ActionHandler = (_ action: UIAction) -> Void
+    
     private var borderEdges: UIRectEdge?
     private var borderWidth: CGFloat = 0.0
     private var borderColor: UIColor = .clear
@@ -146,6 +148,13 @@ final class ButtonWithImage: UIControl, CustomizableHitTestAreaView {
     }
 
     // MARK: - Public methods
+
+    func addAction(actionHandler: @escaping ActionHandler) {
+        let action = UIAction { action in
+            actionHandler(action)
+        }
+        addAction(action, for: .touchUpInside)
+    }
 
     func setBackgroundColor(_ backgroundColor: UIColor?, state: UIControl.State) {
         backgroundColorsMap[state.rawValue] = backgroundColor

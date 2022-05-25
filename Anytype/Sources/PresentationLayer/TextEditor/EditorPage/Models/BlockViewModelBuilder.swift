@@ -228,7 +228,7 @@ final class BlockViewModelBuilder {
     private var subscriptions = [AnyCancellable]()
 
     private func showMediaPicker(type: MediaPickerContentType, blockId: BlockId) {
-        let model = MediaPickerViewModel(type: type) { [weak self] itemProvider in
+        router.showImagePicker(contentType: type) { [weak self] itemProvider in
             guard let itemProvider = itemProvider else { return }
 
             self?.handler.uploadMediaFile(
@@ -237,8 +237,6 @@ final class BlockViewModelBuilder {
                 blockId: blockId
             )
         }
-
-        router.showImagePicker(model: model)
     }
 
     private func showFilePicker(blockId: BlockId, types: [UTType] = [.item]) {

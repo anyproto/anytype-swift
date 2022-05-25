@@ -25,6 +25,10 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
         }
     }
 
+    func update(with state: UICellConfigurationState) {
+        blocksView.isUserInteractionEnabled = !state.isLocked
+    }
+
     func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
         var views = [UIView]()
 

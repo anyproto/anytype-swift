@@ -263,5 +263,8 @@
 "Alert.Templates_Available.Title.Second" = "templates";
 "Alert.Templates_Available.Description" = "Swipe down to skip";
 "Alert.Templates_Available.Button" = "Show";
+"TemplatePicker.ChooseTemplate" = "Choose template";
+"TemplatePicker.Buttons.Skip" = "Skip";
+"TemplatePicker.Buttons.UseTemplate" = "Use template";
 
 "To Bin" = "To Bin";

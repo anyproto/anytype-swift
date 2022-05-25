@@ -73,7 +73,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         blockActionsServiceSingle: BlockActionsServiceSingleProtocol,
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
-        router: EditorRouterProtocol
+        router: EditorRouterProtocol,
+        initialEditingState: EditorEditingState
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
@@ -82,6 +83,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.actionHandler = actionHandler
         self.pasteboardService = pasteboardService
         self.router = router
+        self.editingState = initialEditingState
 
         setupEditingHandlers()
     }
@@ -351,10 +353,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             elements.first.map {
                 let blockId = $0.blockId
 
-                guard case let .link(blockLink) = $0.info.content else { return }
-
-                router.showObjectPreview(blockLink: blockLink) { [weak self] appearance in
-                    self?.actionHandler.setAppearance(blockId: blockId, appearance: appearance)
+                router.showObjectPreview(information: $0.info) { [weak self] newFields in
+                    self?.actionHandler.setFields(newFields, blockId: blockId)
                 }
             }
         }

@@ -46,14 +46,16 @@ final class EditorSetViewModel: ObservableObject {
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
     private let dataBuilder = SetTableViewDataBuilder()
+    private let dataviewService: DataviewServiceProtocol
     
-    init(document: BaseDocument) {
+    init(document: BaseDocument, dataviewService: DataviewServiceProtocol) {
         self.document = document
+        self.dataviewService = dataviewService
     }
     
     func setup(router: EditorRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderViewModel(document: document, router: router)
+        self.headerModel = ObjectHeaderViewModel(document: document, router: router, isOpenedForPreview: false)
         
         subscription = document.updatePublisher.sink { [weak self] in
             self?.onDataChange($0)
@@ -186,13 +188,19 @@ extension EditorSetViewModel {
 //            )
 //        )
     }
+
+    func createObject() {
+        guard let objectDetails = dataviewService.addRecord() else { return }
+        
+        router.showCreateObject(pageId: objectDetails.id)
+    }
     
     func showViewSettings() {
         router.presentFullscreen(
             AnytypePopup(
                 viewModel: EditorSetViewSettingsViewModel(
                     setModel: self,
-                    service: DataviewService(objectId: document.objectId.value)
+                    service: dataviewService
                 )
             )
         )

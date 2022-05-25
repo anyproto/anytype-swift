@@ -252,42 +252,6 @@ final class MiddlewareEventConverter {
                 }
             })
             return .blocks(blockIds: [data.id])
-        case .blockSetLink(let data):
-
-            infoContainer.update(blockId: data.id) { info in
-                switch info.content {
-                case let .link(blockLink):
-                    var blockLink = blockLink
-
-                    if data.hasIconSize {
-                        blockLink.appearance.iconSize = data.iconSize.value.asModel
-                    }
-
-                    if data.hasCardStyle {
-                        blockLink.appearance.cardStyle = data.cardStyle.value.asModel
-                    }
-
-                    if data.hasDescription_p {
-                        blockLink.appearance.description = data.description_p.value.asModel
-                    }
-
-                    if data.hasRelations {
-                        let relations = data.relations.value.compactMap(BlockLink.Relation.init(rawValue:))
-                        blockLink.appearance.relations = Set(relations)
-                    }
-
-                    if data.hasTargetBlockID {
-                        blockLink.targetBlockID = data.targetBlockID.value
-                    }
-
-                    return info.updated(content: .link(blockLink))
-
-                default:
-                    anytypeAssertionFailure("Wrong content \(info.content) in blockSetLink", domain: .middlewareEventConverter)
-                    return nil
-                }
-            }
-            return .blocks(blockIds: [data.id])
         
         case .objectShow(let data):
             guard data.rootID.isNotEmpty else {

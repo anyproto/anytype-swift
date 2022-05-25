@@ -1,4 +1,5 @@
 import BlocksModels
+import AnytypeCore
 import UIKit
 
 protocol AttachmentRouterProtocol {
@@ -14,7 +15,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void)
     
     func showFilePicker(model: Picker.ViewModel)
-    func showImagePicker(model: MediaPickerViewModel)
+    func showImagePicker(contentType: MediaPickerContentType, onSelect: @escaping (NSItemProvider?) -> Void)
     
     func saveFile(fileURL: URL, type: FileContentType)
     
@@ -34,7 +35,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
-    func showObjectPreview(blockLink: BlockLink, onSelect: @escaping (BlockLink.Appearance) -> Void)
+    func showObjectPreview(information: BlockInformation, onSelect: @escaping (ObjectPreviewFields) -> Void)
     
     func showRelationValueEditingView(key: String, source: RelationSource)
     func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)
@@ -54,4 +55,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         document: BaseDocumentProtocol,
         templatesTypeURL: ObjectTemplateType
     )
+
+    func showCreateObject(pageId: AnytypeId)
 }

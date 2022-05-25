@@ -24,6 +24,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
+    private let isOpenedForPreview: Bool
+
     private lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
@@ -52,7 +54,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager,
         objectActionsService: ObjectActionsServiceProtocol,
-        searchService: SearchServiceProtocol
+        searchService: SearchServiceProtocol,
+        isOpenedForPreview: Bool
     ) {
         self.viewInput = viewInput
         self.document = document
@@ -68,6 +71,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.cursorManager = cursorManager
         self.objectActionsService = objectActionsService
         self.searchService = searchService
+        self.isOpenedForPreview = isOpenedForPreview
     }
 
     func setupSubscriptions() {
@@ -135,7 +139,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             break // supported in headerModel
         }
 
-        blocksStateManager.checkDocumentLockField()
+        if !isOpenedForPreview {
+            blocksStateManager.checkDocumentLockField()
+        }
     }
     
     private func performGeneralUpdate() {
@@ -264,7 +270,9 @@ extension EditorPageViewModel {
             AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
         }
 
-        guard document.open() else {
+        let isDocumentOpened = isOpenedForPreview ? document.openForPreview() : document.open()
+
+        guard isDocumentOpened else {
             router.goBack()
             return
         }
@@ -278,9 +286,7 @@ extension EditorPageViewModel {
 
     func viewWillDisappear() {}
 
-    func viewDidDissapear() {
-        document.close()
-    }
+    func viewDidDissapear() {}
 
 
     func shakeMotionDidAppear() {

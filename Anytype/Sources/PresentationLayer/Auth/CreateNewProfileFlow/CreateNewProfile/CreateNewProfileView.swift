@@ -20,7 +20,9 @@ struct CreateNewProfileView: View {
         .navigationBarHidden(true)
         .navigationBarBackButtonHidden(true)
         .sheet(isPresented: $showImagePicker) {
-            ImagePicker(image: $signUpData.image)
+            MediaPickerView(contentType: .images) { itemProvider in
+                viewModel.setImage(signUpData: signUpData, itemProvider: itemProvider)
+            }
         }
         .onAppear {
             AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.authScreenShow)

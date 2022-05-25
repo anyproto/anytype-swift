@@ -46,6 +46,13 @@ final class AnytypePopup: FloatingPanelController {
         let popupView = AnytypePopupViewModel(contentView: contentView, popupLayout: popupLayout)
         self.init(viewModel: popupView, floatingPanelStyle: floatingPanelStyle, configuration: configuration)
     }
+
+    convenience init<Content: UIView>(contentView: Content,
+                                      floatingPanelStyle: Bool = false,
+                                      configuration: Configuration = Constants.defaultConifguration) {
+        let viewModel = AnytypeAlertViewModel(contentView: contentView, keyboardListener: .init())
+        self.init(viewModel: viewModel, floatingPanelStyle: floatingPanelStyle, configuration: configuration)
+    }
     
     @available(*, unavailable)
     required init?(coder aDecoder: NSCoder) {
@@ -59,7 +66,7 @@ final class AnytypePopup: FloatingPanelController {
 extension AnytypePopup: AnytypePopupProxy {
     func updateBottomInset() {
         updateSurfaceViewMargins()
-        updateLayout(false)
+        updateLayout(true)
     }
 
     func updateLayout(_ animated: Bool) {
@@ -111,11 +118,11 @@ private extension AnytypePopup {
     }
     
     func setupGestures() {
+        isRemovalInteractionEnabled = true
+
         if configuration.skipThroughGestures {
             backdropView.isHidden = true
-            isRemovalInteractionEnabled = true
         } else {
-            isRemovalInteractionEnabled = configuration.dismissOnBackdropView
             backdropView.dismissalTapGestureRecognizer.isEnabled = configuration.dismissOnBackdropView
         }
     }
@@ -127,6 +134,13 @@ private extension AnytypePopup {
         surfaceView.grabberHandleSize = CGSize(width: 48.0, height: 4.0)
         surfaceView.grabberHandle.backgroundColor = .strokePrimary
         surfaceView.grabberHandle.isHidden = !configuration.isGrabberVisible
+
+        surfaceView.contentPadding = UIEdgeInsets(
+            top: configuration.isGrabberVisible ? Constants.grabberHeight : 0,
+            left: 0,
+            bottom: 0,
+            right: 0
+        )
 
         updateSurfaceViewMargins()
 
@@ -143,10 +157,11 @@ private extension AnytypePopup {
 
             switch viewModel.popupLayout {
             case .alert(let height):
+                let safeBottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
                 surfaceView.containerMargins = UIEdgeInsets(
                     top: 0,
                     left: horizontalInset,
-                    bottom: max(height + Constants.bottomAlertInset, Constants.bottomAlertMinimumInset),
+                    bottom: max(height + Constants.bottomAlertInset, Constants.bottomAlertMinimumInset + safeBottomInset),
                     right: horizontalInset
                 )
             default:

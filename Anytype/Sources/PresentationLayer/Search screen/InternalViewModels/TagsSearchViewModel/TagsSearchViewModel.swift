@@ -4,6 +4,8 @@ import SwiftUI
 
 final class TagsSearchViewModel {
     
+    let selectionMode: NewSearchViewModel.SelectionMode = .multipleItems
+    
     @Published private var sections: [ListSectionConfiguration] = []
     
     private var tags: [Relation.Tag.Option] = [] {
