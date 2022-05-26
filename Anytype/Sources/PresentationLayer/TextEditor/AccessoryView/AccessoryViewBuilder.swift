@@ -69,7 +69,7 @@ struct AccessoryViewBuilder {
             modelsHolder: modelsHolder
         )
 
-        accessoryViewSwitcher.onChangeTypeDismiss = {
+        accessoryViewSwitcher.onDoneButton = {
             guard let typeURL = document.details?.objectType else { return }
 
             router.showTemplatesAvailabilityPopupIfNeeded(

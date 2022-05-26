@@ -13,7 +13,7 @@ protocol AccessoryViewSwitcherProtocol {
 }
 
 final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
-    var onChangeTypeDismiss: (() -> Void)?
+    var onDoneButton: (() -> Void)?
 
     private(set) var activeView = AccessoryViewType.none
     private(set) var data: TextBlockDelegateData?
@@ -149,7 +149,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         changeTypeView.viewModel.onDoneButtonTap = { [weak self] in
             self?.didChangeTypeDismissByUser = true
             self?.showDefaultView()
-            self?.onChangeTypeDismiss?()
+            self?.onDoneButton?()
         }
 
         mentionsView.dismissHandler = dismiss

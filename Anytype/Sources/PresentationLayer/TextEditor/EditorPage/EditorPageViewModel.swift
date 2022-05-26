@@ -130,12 +130,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             modelsHolder.items = blocksViewModels
 
             viewInput?.update(changes: nil, allModels: blocksViewModels)
-        case let .changeType(objectTypeURL):
-            router.showTemplatesAvailabilityPopupIfNeeded(
-                document: document,
-                templatesTypeURL: .dynamic(objectTypeURL)
-            )
-        case .header:
+        case .header, .changeType:
             break // supported in headerModel
         }
 

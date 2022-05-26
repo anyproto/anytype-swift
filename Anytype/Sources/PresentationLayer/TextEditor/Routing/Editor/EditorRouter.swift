@@ -320,7 +320,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     ) {
         templatesCoordinator.showTemplatesAvailabilityPopupIfNeeded(
             document: document,
-            templatesTypeURL: templatesTypeURL
+            templatesTypeURL: .dynamic(templatesTypeURL.rawValue)
         )
     }
     
