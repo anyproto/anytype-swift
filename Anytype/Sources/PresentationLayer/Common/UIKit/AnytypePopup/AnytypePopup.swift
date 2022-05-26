@@ -158,10 +158,14 @@ private extension AnytypePopup {
             switch viewModel.popupLayout {
             case .alert(let height):
                 let safeBottomInset = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0
+                let bottomInset = max(
+                    height + Constants.bottomAlertInset,
+                    Constants.bottomAlertMinimumInset + safeBottomInset
+                )
                 surfaceView.containerMargins = UIEdgeInsets(
                     top: 0,
                     left: horizontalInset,
-                    bottom: max(height + Constants.bottomAlertInset, Constants.bottomAlertMinimumInset + safeBottomInset),
+                    bottom: bottomInset,
                     right: horizontalInset
                 )
             default:
