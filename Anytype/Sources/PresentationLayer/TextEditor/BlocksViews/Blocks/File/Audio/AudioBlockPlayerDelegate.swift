@@ -24,6 +24,10 @@ extension AudioBlockViewModel: AudioPlayerViewDelegate {
     var isPlaying: Bool {
         audioPlayer.isPlaying(audioId: info.id.value)
     }
+    
+    var isPlayable: Bool {
+        playerItem?.asset.isPlayable ?? false
+    }
 
     func playButtonDidPress(sliderValue: Double) {
         if audioPlayer.isPlaying(audioId: info.id.value) {
