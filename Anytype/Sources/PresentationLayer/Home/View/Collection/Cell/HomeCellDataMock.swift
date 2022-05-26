@@ -12,6 +12,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            isFavorite: false,
             viewType: .page
         ),
         HomeCellData(
@@ -23,6 +24,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            isFavorite: false,
             viewType: .page
         ),
         HomeCellData(
@@ -34,6 +36,7 @@ struct HomeCellDataMock {
             isLoading: true,
             isArchived: true,
             isDeleted: false,
+            isFavorite: false,
             viewType: .page
         ),
         HomeCellData(
@@ -45,6 +48,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            isFavorite: false,
             viewType: .page
         ),
         HomeCellData(
@@ -56,6 +60,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            isFavorite: false,
             viewType: .page
         ),
         HomeCellData(
@@ -67,6 +72,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            isFavorite: false,
             viewType: .page
         ),
         
@@ -79,6 +85,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            isFavorite: false,
             viewType: .page
         ),
         
@@ -91,6 +98,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            isFavorite: false,
             viewType: .page
         ),
         
@@ -103,6 +111,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: false,
+            isFavorite: false,
             viewType: .page
         ),
         
@@ -115,6 +124,7 @@ struct HomeCellDataMock {
             isLoading: false,
             isArchived: true,
             isDeleted: true,
+            isFavorite: false,
             viewType: .page
         )
     ]

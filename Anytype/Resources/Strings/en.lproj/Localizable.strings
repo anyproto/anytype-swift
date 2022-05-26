@@ -268,3 +268,8 @@
 "TemplatePicker.Buttons.UseTemplate" = "Use template";
 
 "To Bin" = "To Bin";
+
+// MARK: - Context Menu
+"Remove From Favorite" = "Remove From Favorite";
+"Add To Favorite" = "Add To Favorite";
+"Move To Bin" = "Move To Bin";

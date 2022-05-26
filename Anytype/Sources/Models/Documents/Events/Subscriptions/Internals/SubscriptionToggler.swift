@@ -109,7 +109,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     }
 
     private let homeDetailsKeys: [BundledRelationKey] = [
-        .id, .iconEmoji, .iconImage, .name, .snippet, .description, .type, .layout, .isArchived, .isDeleted, .done
+        .id, .iconEmoji, .iconImage, .name, .snippet, .description, .type, .layout, .isArchived, .isDeleted, .done, .isFavorite
     ]
     private func makeRequest(
         subId: SubscriptionId,

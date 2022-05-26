@@ -17,4 +17,8 @@ struct HomePageLink {
     var isDeleted: Bool {
         details?.isDeleted ?? false
     }
+    
+    var isFavorite: Bool {
+        details?.isFavorite ?? false
+    }
 }
