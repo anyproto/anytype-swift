@@ -169,10 +169,17 @@ extension Anytype_Model_Block.Content.Layout {
 }
 
 extension Anytype_Model_Block.Content.Link {
-  public init(targetBlockID: String, style: Anytype_Model_Block.Content.Link.Style, fields: SwiftProtobuf.Google_Protobuf_Struct) {
+  public init(
+    targetBlockID: String, style: Anytype_Model_Block.Content.Link.Style, fields: SwiftProtobuf.Google_Protobuf_Struct, iconSize: Anytype_Model_Block.Content.Link.IconSize,
+    cardStyle: Anytype_Model_Block.Content.Link.CardStyle, description_p: Anytype_Model_Block.Content.Link.Description, relations: [String]
+  ) {
     self.targetBlockID = targetBlockID
     self.style = style
     self.fields = fields
+    self.iconSize = iconSize
+    self.cardStyle = cardStyle
+    self.description_p = description_p
+    self.relations = relations
   }
 }
 
