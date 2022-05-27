@@ -83,6 +83,8 @@ public enum ErrorDomain: String {
     
     case calendar
     case anytypeId
+    
+    case sceneLifecycleStateService
 }
 
 public protocol MessageLogger {
