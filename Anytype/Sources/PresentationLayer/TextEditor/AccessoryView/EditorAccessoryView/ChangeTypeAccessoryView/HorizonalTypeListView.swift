@@ -19,6 +19,7 @@ struct HorizonalTypeListView: View {
                 }
             }
         }
+        .ignoresSafeArea()
     }
 }
 
