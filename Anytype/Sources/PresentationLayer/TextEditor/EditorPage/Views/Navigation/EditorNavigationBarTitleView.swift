@@ -53,6 +53,7 @@ extension EditorNavigationBarTitleView: ConfigurableView {
         case let .modeTitle(text):
             titleLabel.text = text
             titleLabel.font = .uxTitle1Semibold
+            iconImageView.isHidden = true
         }
     }
 

@@ -1,5 +1,4 @@
 import SwiftUI
-import Amplitude
 import AnytypeCore
 
 struct HomeView: View {
@@ -18,7 +17,7 @@ struct HomeView: View {
             .environmentObject(model)
             .environmentObject(settingsModel)
             .onAppear {
-                Amplitude.instance().logEvent(AmplitudeEventsName.homeShow)
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.homeShow)
 
                 model.onAppear()
                 
@@ -41,7 +40,7 @@ struct HomeView: View {
                     withAnimation(.fastSpring) {
                         showSettings.toggle()
                         if showSettings {
-                            Amplitude.instance().logEvent(AmplitudeEventsName.settingsShow)
+                            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.settingsShow)
                         }
                     }
                 }) {
@@ -91,7 +90,7 @@ struct HomeView: View {
         .animation(.fastSpring, value: settingsModel.clearCacheAlert)
         .onChange(of: settingsModel.clearCacheAlert) { showClearCacheAlert in
             if showClearCacheAlert {
-                Amplitude.instance().logEvent(AmplitudeEventsName.clearFileCacheAlertShow)
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.clearFileCacheAlertShow)
             }
         }
         
@@ -104,7 +103,7 @@ struct HomeView: View {
             UserDefaultsConfig.showKeychainAlert = $0
 
             if isFirstLaunchAfterRegistration {
-                Amplitude.instance().logKeychainPhraseShow(.signup)
+                AnytypeAnalytics.instance().logKeychainPhraseShow(.signup)
             }
         }
         
@@ -118,7 +117,7 @@ struct HomeView: View {
             HomeSearchView()
                 .environmentObject(model)
                 .onChange(of: model.showSearch) { showSearch in
-                    Amplitude.instance().logEvent(AmplitudeEventsName.searchShow)
+                    AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.searchShow)
                 }
         }   
         
@@ -148,7 +147,9 @@ struct HomeView: View {
             ZStack {
                 Group {
                     DashboardWallpaper()
-                    newPageNavigation
+                    if let data = model.openedEditorScreenData {
+                        newPageNavigation(data: data)
+                    }
                     HomeProfileView()
                     
                     HomeBottomSheetView(containerHeight: geometry.size.height, state: $bottomSheetState) {
@@ -160,17 +161,17 @@ struct HomeView: View {
         }
     }
     
-    private var newPageNavigation: some View {
-        NavigationLink(
-            destination: model.createBrowser(),
-            isActive: $model.openedPageData.showing,
-            label: { EmptyView() }
-        )
+    private func newPageNavigation(data: EditorScreenData) -> some View {
+        NavigationLink(isActive: $model.showingEditorScreenData) {
+            model.createBrowser(data: data)
+        } label: {
+            EmptyView()
+        }
     }
 }
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(model: HomeViewModel())
+        HomeView(model: HomeViewModel(homeBlockId: AnytypeIdMock.id))
     }
 }

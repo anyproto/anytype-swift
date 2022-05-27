@@ -16,7 +16,10 @@ final class ObjectHeaderViewModel: ObservableObject {
     
     private lazy var onCoverTap = { [weak self] in
         guard let self = self else { return }
+        guard self.document.details?.layout != .note else { return }
+
         UISelectionFeedbackGenerator().selectionChanged()
+
         self.router.showCoverPicker()
     }
     

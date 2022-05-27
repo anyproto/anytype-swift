@@ -1,7 +1,5 @@
 import Foundation
 import SwiftUI
-import Amplitude
-
 
 class MainAuthViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
@@ -13,6 +11,8 @@ class MainAuthViewModel: ObservableObject {
             }
         }
     }
+    var enteredMnemonic: String = ""
+
     @Published var isShowingError: Bool = false
     @Published var showSignUpFlow: Bool = false
     
@@ -21,14 +21,15 @@ class MainAuthViewModel: ObservableObject {
         switch result {
         case .failure(let error):
             self.error = error.localizedDescription
-        case .success:
+        case .success(let mnemonic):
+            enteredMnemonic = mnemonic
             showSignUpFlow = true
         }
     }
     
     // MARK: - Coordinator
     func signUpFlow() -> some View {
-        return AlphaInviteCodeView(signUpData: SignUpData())
+        return AlphaInviteCodeView(signUpData: SignUpData(mnemonic: self.enteredMnemonic))
     }
     
     func loginView() -> some View {
@@ -37,6 +38,6 @@ class MainAuthViewModel: ObservableObject {
 
     // MARK: - View output
     func viewLoaded() {
-        Amplitude.instance().logEvent(AmplitudeEventsName.authScreenShow)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.authScreenShow)
     }
 }

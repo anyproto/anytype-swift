@@ -52,3 +52,11 @@ extension View {
       }
 }
 
+extension View {
+    
+    func transparencyEffect(edge: TransparencyEffect.Edge, length: CGFloat) -> some View {
+        modifier(TransparencyEffectModifier(edge: edge, length: length))
+    }
+    
+}
+

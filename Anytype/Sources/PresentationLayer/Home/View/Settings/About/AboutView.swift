@@ -1,7 +1,6 @@
 import Foundation
 import Combine
 import SwiftUI
-import Amplitude
 import AnytypeCore
 import AudioToolbox
 
@@ -12,7 +11,7 @@ struct AboutView: View {
     var body: some View {
         contentView
             .onAppear {
-                Amplitude.instance().logEvent(AmplitudeEventsName.aboutSettingsShow)
+                AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.aboutSettingsShow)
             }
     }
     

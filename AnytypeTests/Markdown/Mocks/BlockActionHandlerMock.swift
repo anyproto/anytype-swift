@@ -45,7 +45,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setFields(_ fields: [Anytype.BlockFields], blockId: BlockId) {
+    func setFields(_ fields: [BlockFields], blockId: BlockId) {
         assertionFailure()
     }
     
@@ -65,7 +65,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func delete(blockId: BlockId) {
+    func delete(blockIds: [BlockId]) {
         assertionFailure()
     }
     
@@ -158,11 +158,15 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation, newString attributedText: NSAttributedString) {
+    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, currentText: NSAttributedString, info: BlockInformation) {
         assertionFailure()
     }
 
     func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: String) {
+        assertionFailure()
+    }
+
+    func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId) {
         assertionFailure()
     }
 }

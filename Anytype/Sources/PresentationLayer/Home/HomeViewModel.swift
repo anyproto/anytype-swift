@@ -1,11 +1,9 @@
-
 import BlocksModels
 import Combine
 import Foundation
 import ProtobufMessages
 import AnytypeCore
 import SwiftUI
-import Amplitude
 
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [HomeCellData] = []
@@ -19,17 +17,19 @@ final class HomeViewModel: ObservableObject {
     @Published var setsCellData = [HomeCellData]()
     
     @Published var selectedPageIds: Set<BlockId> = []
-    @Published var openedPageData = OpenedPageData.cached
+    
+    @Published private(set) var openedEditorScreenData: EditorScreenData?
+    @Published var showingEditorScreenData: Bool = false
+    
     @Published var showSearch = false
     @Published var showPagesDeletionAlert = false
     @Published var snackBarData = SnackBarData.empty
     @Published var loadingAlertData = LoadingAlertData.empty
     
-    @Published private(set) var profileData = HomeProfileData.empty
+    @Published private(set) var profileData: HomeProfileData?
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
     let searchService = ServiceLocator.shared.searchService()
-    private let configurationService = MiddlewareConfigurationProvider.shared
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let subscriptionService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
     
@@ -42,13 +42,16 @@ final class HomeViewModel: ObservableObject {
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
     
-    init() {
-        let homeBlockId = configurationService.configuration.homeBlockID
+    init(homeBlockId: AnytypeId) {
         document = BaseDocument(objectId: homeBlockId)
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(update: $0)
         }.store(in: &cancellables)
         setupSubscriptions()
+        
+        let data = UserDefaultsConfig.screenDataFromLastSession
+        showingEditorScreenData = data != nil
+        openedEditorScreenData = data
     }
 
     // MARK: - View output
@@ -158,13 +161,16 @@ final class HomeViewModel: ObservableObject {
     }
 
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
-        guard let newDetails = ObjectDetailsStorage.shared.get(id: blockId) else {
+        guard
+            let id = blockId.asAnytypeId,
+            let newDetails = ObjectDetailsStorage.shared.get(id: id)
+        else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .homeView)
             return
         }
 
         favoritesCellData.enumerated()
-            .first { $0.element.destinationId == blockId }
+            .first { $0.element.destinationId.value == blockId }
             .flatMap { offset, data in
                 favoritesCellData[offset] = cellDataBuilder.updatedCellData(
                     newDetails: newDetails,
@@ -175,42 +181,53 @@ final class HomeViewModel: ObservableObject {
 }
 
 // MARK: - New page
+
 extension HomeViewModel {
+    
     func startSearch() {
         showSearch = true
     }
     
     func createAndShowNewPage() {
-        guard let blockId = createNewPage() else { return }
+        guard let id = createNewPage() else { return }
         
-        showPage(pageId: blockId, viewType: .page)
+        showPage(id: id, viewType: .page)
     }
     
-    func showPage(pageId: BlockId, viewType: EditorViewType) {
-        let data = EditorScreenData(pageId: pageId, type: viewType)
+    func showProfile() {
+        guard let id = profileData?.blockId else { return }
+        showPage(id: id, viewType: .page)
+    }
+    
+    func tryShowPage(id: String, viewType: EditorViewType) {
+        guard let anytypeId = id.asAnytypeId else { return }
+        showPage(id: anytypeId, viewType: viewType)
+    }
+    
+    func showPage(id: AnytypeId, viewType: EditorViewType) {
+        let data = EditorScreenData(pageId: id, type: viewType)
         
-        if openedPageData.showing {
+        if showingEditorScreenData {
             editorBrowser?.showPage(data: data)
         } else {
-            openedPageData.data = data
-            openedPageData.showing = true
+            openedEditorScreenData = data
+            showingEditorScreenData = true
         }
     }
     
-    func createBrowser() -> some View {
-        EditorBrowserAssembly().editor(data: openedPageData.data, model: self)
+    func createBrowser(data: EditorScreenData) -> some View {
+        EditorBrowserAssembly().editor(data: data, model: self)
             .eraseToAnyView()
             .edgesIgnoringSafeArea(.all)
     }
     
-    private func createNewPage() -> BlockId? {
-        guard let newBlockId = dashboardService.createNewPage() else { return nil }
-
-        if newBlockId.isEmpty {
+    private func createNewPage() -> AnytypeId? {
+        guard let id = dashboardService.createNewPage() else {
             anytypeAssertionFailure("No new block id in create new page response", domain: .homeView)
             return nil
         }
         
-        return newBlockId
+        return id
     }
+    
 }

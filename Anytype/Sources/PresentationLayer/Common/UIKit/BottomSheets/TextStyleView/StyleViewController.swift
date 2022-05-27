@@ -1,7 +1,6 @@
 import UIKit
 import FloatingPanel
 import BlocksModels
-import Amplitude
 
 
 // MARK: - Cell model
@@ -231,7 +230,7 @@ final class StyleViewController: UIViewController {
 
         let calloutImage = UIImage.imageWithText(
             "Callout".localized,
-        textColor: .code != self.style ? .textTertiary : .textPrimary,
+        textColor: .textPrimary,
             backgroundColor: .backgroundSelected,
             font: .uxCalloutRegular,
             size: .init(width: 63, height: 28),
@@ -240,8 +239,7 @@ final class StyleViewController: UIViewController {
 
         #warning("add restrictions when callout block will be introduced")
         let calloutButton = ButtonsFactory.roundedBorderуButton(image: calloutImage)
-        calloutButton.isEnabled = .code == self.style
-        setupAction(for: calloutButton, with: .code)
+        setupAction(for: calloutButton, with: .callout)
 
         if .quote != self.style {
             highlightedButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.quote))

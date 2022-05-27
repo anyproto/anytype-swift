@@ -1,7 +1,6 @@
 import BlocksModels
 import AnytypeCore
 import UIKit
-import Amplitude
 
 extension BrowserNavigationManager {
     private enum State {
@@ -24,7 +23,7 @@ final class BrowserNavigationManager {
         
         state = .movingForwardOnce
 
-        Amplitude.instance().logEvent(AmplitudeEventsName.goForward)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.goForward)
 
         return true
     }
@@ -36,7 +35,7 @@ final class BrowserNavigationManager {
             throw BrowserNavigationManagerError.moveForward(page: page)
         }
 
-        Amplitude.instance().logEvent(AmplitudeEventsName.goForward)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.goForward)
         
         state = .movingForward(index: index)
     }
@@ -46,7 +45,7 @@ final class BrowserNavigationManager {
             throw BrowserNavigationManagerError.moveBack(page: page)
         }
 
-        Amplitude.instance().logEvent(AmplitudeEventsName.goBack)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.goBack)
 
         state = .movingBack(index: index)
     }

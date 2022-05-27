@@ -20,10 +20,15 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let showPage: (EditorScreenData) -> Void
     private let openURL: (URL) -> Void
     private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
-    
+    private let showTextIconPicker: () -> Void
+
+    private let showWaitingView: (String) -> Void
+    private let hideWaitingView: () -> Void
+
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
+    private let resetSubject = PassthroughSubject<BlockText, Never>()
     private let mentionDetecter = MentionTextDetector()
     private let markdownListener: MarkdownListener
 
@@ -45,6 +50,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         showPage: @escaping (EditorScreenData) -> Void,
         openURL: @escaping (URL) -> Void,
         showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,
+        showTextIconPicker: @escaping () -> Void,
+        showWaitingView: @escaping (String) -> Void,
+        hideWaitingView: @escaping () -> Void,
         markdownListener: MarkdownListener,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     ) {
@@ -56,6 +64,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.showPage = showPage
         self.openURL = openURL
         self.showURLBookmarkPopup = showURLBookmarkPopup
+        self.showTextIconPicker = showTextIconPicker
+        self.showWaitingView = showWaitingView
+        self.hideWaitingView = hideWaitingView
         self.toggled = info.isToggled
         self.info = info
         self.markdownListener = markdownListener
@@ -70,19 +81,26 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         let contentConfiguration = TextBlockContentConfiguration(
-            blockId: info.id,
+            blockId: info.id.value,
             content: content,
             alignment: info.alignment.asNSTextAlignment,
-            backgroundColor: info.backgroundColor.map { UIColor.Background.uiColor(from: $0) },
             isCheckable: isCheckable,
             isToggled: info.isToggled,
             isChecked: content.checked,
             shouldDisplayPlaceholder: info.isToggled && info.childrenIds.isEmpty,
             focusPublisher: focusSubject.eraseToAnyPublisher(),
+            resetPublisher: resetSubject.eraseToAnyPublisher(),
             actions: action()
         )
 
-        return CellBlockConfiguration(blockConfiguration: contentConfiguration)
+        let isDragConfigurationAvailable =
+            content.contentType != .description && content.contentType != .title
+
+        return contentConfiguration.cellBlockConfiguration(
+            indentationSettings: .init(with: info.configurationData),
+            dragConfiguration:
+                isDragConfigurationAvailable ? .init(id: info.id.value) : nil
+        )
     }
 
     func action() -> TextBlockContentConfiguration.Actions {
@@ -91,31 +109,30 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 if pasteboardService.hasValidURL {
                     return true
                 }
-                
-                pasteboardService.pasteInsideBlock(focusedBlockId: blockId, range: range)
+
+                pasteboardService.pasteInsideBlock(focusedBlockId: blockId, range: range) {
+                    showWaitingView("Paste processing...".localized)
+                } completion: {
+                    hideWaitingView()
+                }
+
                 return false
             },
             copy: { range in
-                pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
+                pasteboardService.copy(blocksIds: [info.id.value], selectedTextRange: range)
             },
-            createEmptyBlock: { actionHandler.createEmptyBlock(parentId: info.id) },
+            createEmptyBlock: { actionHandler.createEmptyBlock(parentId: info.id.value) },
             showPage: showPage,
             openURL: openURL,
             changeTextStyle: { attribute, range in
-                actionHandler.changeTextStyle(attribute, range: range, blockId: info.id)
+                actionHandler.changeTextStyle(attribute, range: range, blockId: info.id.value)
             },
-            handleKeyboardAction: { action in
-                actionHandler.handleKeyboardAction(action, info: info)
+            handleKeyboardAction: { action, textView in
+                actionHandler.handleKeyboardAction(action, currentText: textView.attributedText, info: info)
             },
-            becomeFirstResponder: {
-
-            },
-            resignFirstResponder: {
-                
-            },
-            textBlockSetNeedsLayout: {
-                blockDelegate?.textBlockSetNeedsLayout()
-            },
+            becomeFirstResponder: { },
+            resignFirstResponder: { },
+            textBlockSetNeedsLayout: { /* Nothing to update */ },
             textViewDidChangeText: { textView in
                 actionHandler.changeText(textView.attributedText, info: info)
                 blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))
@@ -123,10 +140,11 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             textViewWillBeginEditing: { textView in
                 blockDelegate?.willBeginEditing(data: blockDelegateData(textView: textView))
             },
-            textViewDidBeginEditing: { _ in
-                blockDelegate?.didBeginEditing()
+            textViewDidBeginEditing: { textView in
+                blockDelegate?.didBeginEditing(view: textView)
             },
             textViewDidEndEditing: { textView in
+                resetSubject.send(content)
                 blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
             },
             textViewDidChangeCaretPosition: { caretPositionRange in
@@ -134,12 +152,13 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             },
             textViewShouldReplaceText: textViewShouldReplaceText,
             toggleCheckBox: {
-                actionHandler.checkbox(selected: !content.checked, blockId: info.id)
+                actionHandler.checkbox(selected: !content.checked, blockId: info.id.value)
             },
             toggleDropDown: {
                 info.toggle()
-                actionHandler.toggle(blockId: info.id)
-            }
+                actionHandler.toggle(blockId: info.id.value)
+            },
+            tapOnCalloutIcon: showTextIconPicker
         )
     }
 
@@ -175,8 +194,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 guard content.contentType != style else { return true }
                 guard BlockRestrictionsBuilder.build(content:  info.content).canApplyTextStyle(style) else { return true }
 
-                actionHandler.turnInto(style, blockId: info.id)
-                actionHandler.changeTextForced(newText, blockId: info.id)
+                actionHandler.turnInto(style, blockId: info.id.value)
+                actionHandler.changeTextForced(newText, blockId: info.id.value)
                 textView.setFocus(.beginning)
             case .setText(let text, let caretPosition):
                 break

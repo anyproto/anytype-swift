@@ -9,9 +9,7 @@ final class ApplicationCoordinator {
     private let window: UIWindow
     
     private let authService: AuthServiceProtocol
-    
-    private(set) lazy var rootNavigationController = createNavigationController()
-    
+        
     // MARK: - Initializers
     
     init(window: UIWindow, authService: AuthServiceProtocol) {
@@ -20,29 +18,10 @@ final class ApplicationCoordinator {
     }
 
     func start() {
-        window.rootViewController = rootNavigationController
-        window.makeKeyAndVisible()
-        
         runAtFirstLaunch()
         login()
     }
-        
-    fileprivate func createNavigationController() -> UINavigationController {
-        let controller: UINavigationController
-        
-        if #available(iOS 14.0, *) {
-            controller = iOS14SwiftUINavigationController()
-        } else {
-            controller = UINavigationController()
-        }
-        
-        let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.configureWithTransparentBackground()
-        
-        controller.modifyBarAppearance(navBarAppearance)
-
-        return controller
-    }
+ 
 }
 
 // MARK: - Private extension
@@ -87,19 +66,19 @@ private extension ApplicationCoordinator {
 extension ApplicationCoordinator: WindowHolder {
     
     func startNewRootView<ViewType: View>(_ view: ViewType) {
-        window.makeKeyAndVisible()
-        let rootNavigationController = createNavigationController()
-        rootNavigationController.setViewControllers(
-            [UIHostingController(rootView: view)],
-            animated: false
+        let controller = NavigationControllerWithSwiftUIContent(
+            rootViewController: UIHostingController(rootView: view)
         )
-        self.rootNavigationController = rootNavigationController
         
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.configureWithTransparentBackground()
+        controller.modifyBarAppearance(navBarAppearance)
         
-        window.rootViewController = rootNavigationController
+        window.rootViewController = controller
+        window.makeKeyAndVisible()
     }
     
     func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)?) {
-        rootNavigationController.topPresentedController.present(viewControllerToPresent, animated: flag, completion: completion)
+        window.rootViewController?.topPresentedController.present(viewControllerToPresent, animated: flag, completion: completion)
     }
 }

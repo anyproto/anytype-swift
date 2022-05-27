@@ -10,17 +10,14 @@ import UIKit
 
 final class TextRelationViewUIKit: UIView {
     let text: String
-    let hint: String
     let style: RelationStyle
 
     private lazy var textView = AnytypeLabel(style: style.font)
-
-
+  
     // MARK: - Lifecycle
 
-    init(text: String?, hint: String, style: RelationStyle) {
-        self.text = text ?? ""
-        self.hint = hint
+    init(text: String, style: RelationStyle) {
+        self.text = text
         self.style = style
 
         super.init(frame: .zero)
@@ -33,19 +30,17 @@ final class TextRelationViewUIKit: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override var intrinsicContentSize: CGSize {
-        textView.intrinsicContentSize
-    }
-
     // MARK: - Setup view
 
     private func setupViews() {
         textView.textColor = style.uiKitFontColor
-        textView.setText(text)
+        textView.setText(text) 
+        textView.numberOfLines = 1
         textView.numberOfLines = style.allowMultiLine ? 0 : 1
 
         addSubview(textView) {
-            $0.pinToSuperview()
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.greaterThanOrEqual(to: bottomAnchor, priority: .init(rawValue: 999))
         }
     }
 }

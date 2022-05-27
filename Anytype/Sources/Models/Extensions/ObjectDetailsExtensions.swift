@@ -48,24 +48,23 @@ extension BundledRelationsValueProvider {
         case .uploadedImage:
             return DocumentCover.imageId(coverId)
         case .color:
-            return CoverConstants.colors.first { $0.name == coverId }.flatMap {
-                DocumentCover.color(UIColor(hexString: $0.hex))
-            }
+            return CoverColor.allCases
+                .first { $0.data.name == coverId }
+                .flatMap { .color($0.uiColor) }
         case .gradient:
-            return CoverConstants.gradients.first { $0.name == coverId }.flatMap {
-                DocumentCover.gradient(
-                    GradientColor(
-                        start: UIColor(hexString: $0.startHex),
-                        end: UIColor(hexString: $0.endHex)
-                    )
-                )
-            }
+            return CoverGradient.allCases
+                .first { $0.data.name == coverId }
+                .flatMap { .gradient($0.gradientColor) }
         case .unsplash:
             return DocumentCover.imageId(coverId)
         }
     }
     
     var objectIconImage: ObjectIconImage? {
+        guard !isDeleted else {
+            return ObjectIconImage.staticImage(ImageName.ghost)
+        }
+        
         if let icon = icon {
             return .icon(icon)
         }
@@ -78,6 +77,10 @@ extension BundledRelationsValueProvider {
     }
     
     var objectType: ObjectType {
+        guard !isDeleted else {
+            return ObjectTypeProvider.defaultObjectType
+        }
+        
         let parsedType = ObjectTypeProvider.objectType(url: type)
         anytypeAssert(
             parsedType != nil,

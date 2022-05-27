@@ -82,6 +82,7 @@ class LoginViewModel: ObservableObject {
             case .failure(let error):
                 self?.error = error.localizedDescription
             case .success:
+                try? self?.seedService.saveSeed(string)
                 self?.showSelectProfile = true
             }
         }

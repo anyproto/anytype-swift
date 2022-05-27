@@ -56,7 +56,7 @@ final class BlockBookmarkOnlyUrlView: UIView, BlockContentView {
 
 private extension BlockBookmarkOnlyUrlView {
     enum Layout {
-        static let bookmarkViewInsets = UIEdgeInsets(top: 10, left: 20, bottom: -10, right: -20)
+        static let bookmarkViewInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
         static let contentInsets = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: -16)
     }
 }

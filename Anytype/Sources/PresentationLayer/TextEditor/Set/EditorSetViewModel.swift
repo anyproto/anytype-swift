@@ -31,9 +31,10 @@ final class EditorSetViewModel: ObservableObject {
         dataBuilder.sortedRelations(dataview: dataView, view: activeView)
     }
  
-    var details: ObjectDetails {
-        document.details ?? .empty
+    var details: ObjectDetails? {
+        document.details
     }
+    
     var featuredRelations: [Relation] {
         document.featuredRelationsForEditor
     }
@@ -151,6 +152,8 @@ extension EditorSetViewModel {
     }
     
     func showRelationValueEditingView(key: String, source: RelationSource) {
+        AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+
         router.showRelationValueEditingView(key: key, source: source)
     }
     
@@ -159,6 +162,8 @@ extension EditorSetViewModel {
         source: RelationSource,
         relation: Relation
     ) {
+        AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+        
         router.showRelationValueEditingView(
             objectId: objectId,
             source: source,
@@ -167,9 +172,8 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        router.presentFullscreen(
-            AnytypePopup(viewModel: SetViewPickerViewModel(setModel: self))
-        )
+        let vc = UIHostingController(rootView: EditorSetViewPicker(setModel: self))
+        router.presentSheet(vc)
     }
     
     func showSetSettings() {
@@ -188,7 +192,7 @@ extension EditorSetViewModel {
             AnytypePopup(
                 viewModel: EditorSetViewSettingsViewModel(
                     setModel: self,
-                    service: DataviewService(objectId: document.objectId)
+                    service: DataviewService(objectId: document.objectId.value)
                 )
             )
         )
@@ -198,7 +202,7 @@ extension EditorSetViewModel {
         router.showSettings()
     }
     
-    func showAddNewRelationView(onSelect: @escaping (RelationMetadata) -> Void) {
+    func showAddNewRelationView(onSelect: @escaping (RelationMetadata, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
     }
 }

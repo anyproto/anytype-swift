@@ -1,7 +1,6 @@
 import Foundation
 import BlocksModels
 import Combine
-import Amplitude
 import SwiftUI
 import FloatingPanel
 
@@ -11,9 +10,6 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     }
     
     // MARK: - Private variables
-    
-    private(set) var popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: false)
-    private weak var popup: AnytypePopupProxy?
     
     private let document: BaseDocumentProtocol
     private let detailsService: DetailsServiceProtocol
@@ -29,13 +25,8 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
     }
     
     func didSelectLayout(_ layout: DetailsLayout) {
-        Amplitude.instance().logLayoutChange(layout)
+        AnytypeAnalytics.instance().logLayoutChange(layout)
         detailsService.setLayout(layout)
-    }
-    
-    func viewDidUpdateHeight(_ height: CGFloat) {
-        popupLayout = .constantHeight(height: height, floatingPanelStyle: false)
-        popup?.updateLayout(false)
     }
     
     // MARK: - Private
@@ -44,16 +35,4 @@ final class ObjectLayoutPickerViewModel: ObservableObject {
             self?.objectWillChange.send()
         }
     }
-}
-
-extension ObjectLayoutPickerViewModel: AnytypePopupViewModelProtocol {
-    
-    func onPopupInstall(_ popup: AnytypePopupProxy) {
-        self.popup = popup
-    }
-    
-    func makeContentView() -> UIViewController {
-        UIHostingController(rootView: ObjectLayoutPicker(viewModel: self))
-    }
-    
 }

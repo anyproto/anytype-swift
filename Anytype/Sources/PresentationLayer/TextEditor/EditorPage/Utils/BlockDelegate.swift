@@ -1,9 +1,10 @@
 import BlocksModels
 import AnytypeCore
+import UIKit
 
 protocol BlockDelegate: AnyObject {
     func willBeginEditing(data: TextBlockDelegateData)
-    func didBeginEditing()
+    func didBeginEditing(view: UIView)
     func didEndEditing(data: TextBlockDelegateData)
 
     func textWillChange(changeType: TextChangeType)
@@ -27,8 +28,8 @@ final class BlockDelegateImpl: BlockDelegate {
         self.accessoryState = accessoryState
     }
 
-    func didBeginEditing() {
-        viewInput?.textBlockDidBeginEditing()
+    func didBeginEditing(view: UIView) {
+        viewInput?.textBlockDidBeginEditing(firstResponderView: view)
     }
 
     func willBeginEditing(data: TextBlockDelegateData) {
@@ -37,7 +38,7 @@ final class BlockDelegateImpl: BlockDelegate {
     }
     
     func didEndEditing(data: TextBlockDelegateData) {
-        viewInput?.blockDidFinishEditing(blockId: data.info.id)
+        viewInput?.blockDidFinishEditing(blockId: data.info.id.value)
         accessoryState.didEndEditing()
     }
     
@@ -54,7 +55,7 @@ final class BlockDelegateImpl: BlockDelegate {
     }
 
     func textBlockSetNeedsLayout() {
-        viewInput?.textBlockDidChangeFrame()
+        viewInput?.blockDidChangeFrame()
     }
 
     func selectionDidChange(range: NSRange) {

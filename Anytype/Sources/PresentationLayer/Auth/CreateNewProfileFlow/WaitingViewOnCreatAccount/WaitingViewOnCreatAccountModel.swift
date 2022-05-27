@@ -4,17 +4,21 @@ final class SignUpData: ObservableObject {
     @Published var userName: String
     @Published var image: UIImage?
     @Published var inviteCode: String
+    var mnemonic: String
     
-    init() {
+    init(mnemonic: String) {
         userName = ""
         image = nil
         inviteCode = ""
+
+        self.mnemonic = mnemonic
     }
 }
 
 class WaitingOnCreatAccountViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
     private let loginStateService = ServiceLocator.shared.loginStateService()
+    private let seedService: SeedServiceProtocol
     
     private let diskStorage = DiskStorage()
     
@@ -25,9 +29,11 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
     
     @Binding var showWaitingView: Bool
     
-    init(signUpData: SignUpData, showWaitingView: Binding<Bool>) {
+    init(signUpData: SignUpData, showWaitingView: Binding<Bool>, seedService: SeedServiceProtocol) {
         self.signUpData = signUpData
         self._showWaitingView = showWaitingView
+        self.seedService = seedService
+
     }
     
     func createAccount() {
@@ -50,6 +56,9 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
                     self.showError = true
                 case .success:
                     self.loginStateService.setupStateAfterRegistration()
+
+                    try? self.seedService.saveSeed(self.signUpData.mnemonic)
+
                     WindowManager.shared.showHomeWindow()
                 }
             }

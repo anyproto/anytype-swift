@@ -4,7 +4,6 @@ import SwiftProtobuf
 import UIKit
 import Kingfisher
 import AnytypeCore
-import Amplitude
 
 final class MentionsViewModel {
     weak var view: MentionsView!
@@ -32,18 +31,20 @@ final class MentionsViewModel {
         mentionService.filterString = string
         obtainMentions()
 
-        Amplitude.instance().logSearchQuery(.mention, length: string.count)
+        AnytypeAnalytics.instance().logSearchQuery(.mention, length: string.count)
     }
     
     func didSelectMention(_ mention: MentionObject, index: Int) {
         onSelect(mention)
         view?.dismiss()
 
-        Amplitude.instance().logSearchResult(index: index + 1, length: mentionService.filterString.count)
+        AnytypeAnalytics.instance().logSearchResult(index: index + 1, length: mentionService.filterString.count)
     }
     
     func didSelectCreateNewMention() {
         guard let newBlockId = pageService.createPage(name: mentionService.filterString) else { return }
+
+        AnytypeAnalytics.instance().logCreateObject(objectType: ObjectTypeProvider.defaultObjectType.url, route: .mention)
         
         let name = mentionService.filterString.isEmpty ? "Untitled".localized : mentionService.filterString
         let mention = MentionObject(

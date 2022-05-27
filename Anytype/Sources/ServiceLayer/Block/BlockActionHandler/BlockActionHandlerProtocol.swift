@@ -15,12 +15,12 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setTextColor(_ color: BlockColor, blockId: BlockId)
     func setBackgroundColor(_ color: BlockBackgroundColor, blockId: BlockId)
     func duplicate(blockId: BlockId)
-    func setFields(_ fields: [BlockFields], blockId: BlockId)
+    func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId)
     func fetch(url: URL, blockId: BlockId)
     func checkbox(selected: Bool, blockId: BlockId)
     func toggle(blockId: BlockId)
     func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId)
-    func delete(blockId: BlockId)
+    func delete(blockIds: [BlockId])
     func moveToPage(blockId: BlockId, pageId: BlockId)
     func createEmptyBlock(parentId: BlockId)
     func setLink(url: URL?, range: NSRange, blockId: BlockId)
@@ -33,7 +33,11 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setObjectTypeUrl(_ objectTypeUrl: String)
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId)
     func changeText(_ text: NSAttributedString, info: BlockInformation)
-    func handleKeyboardAction(_ action: CustomTextView.KeyboardAction, info: BlockInformation)
+    func handleKeyboardAction(
+        _ action: CustomTextView.KeyboardAction,
+        currentText: NSAttributedString,
+        info: BlockInformation
+    )
     func changeTextStyle(_ attribute: MarkupType, range: NSRange, blockId: BlockId)
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId)
     func uploadFileAt(localPath: String, blockId: BlockId)

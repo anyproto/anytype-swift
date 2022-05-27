@@ -77,7 +77,7 @@ final class PasteboardHelper {
     }
 
     var hasValidURL: Bool {
-        if let string = pasteboard.string, string.isValidURL() {
+        if let string = pasteboard.string, string.isValidURL(), !pasteboard.hasImages {
             return true
         }
         return false

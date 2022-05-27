@@ -80,7 +80,10 @@ struct RelationsListRowView: View {
     }
     
     private var valueView: some View {
-        RelationValueView(relation: relation, style: .regular(allowMultiLine: false), action: nil)
+        RelationValueView(
+            relation: RelationItemModel(relation: relation),
+            style: .regular(allowMultiLine: false), action: nil
+        )
     }
     
     private var removeButton: some View {

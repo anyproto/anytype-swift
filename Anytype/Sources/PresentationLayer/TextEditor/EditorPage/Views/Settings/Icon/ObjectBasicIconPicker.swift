@@ -1,10 +1,8 @@
 import SwiftUI
-import Amplitude
-
 
 struct ObjectBasicIconPicker: View {
-
-    @EnvironmentObject private var viewModel: ObjectIconPickerViewModel
+    let viewModel: ObjectIconPickerViewModelProtocol
+    
     @Environment(\.presentationMode) private var presentationMode
     @State private var selectedTab: Tab = .emoji
     
@@ -129,12 +127,5 @@ private extension ObjectBasicIconPicker {
             case .upload: return "Upload".localized
             }
         }
-    }
-    
-}
-
-struct DocumentIconPicker_Previews: PreviewProvider {
-    static var previews: some View {
-        ObjectBasicIconPicker()
     }
 }

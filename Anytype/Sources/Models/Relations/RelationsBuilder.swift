@@ -37,7 +37,10 @@ final class RelationsBuilder {
         objectId: BlockId,
         isObjectLocked: Bool
     ) -> ParsedRelations {
-        guard let objectDetails = storage.get(id: objectId) else {
+        guard
+            let id = objectId.asAnytypeId,
+            let objectDetails = storage.get(id: id)
+        else {
             return .empty
         }
         
@@ -382,8 +385,11 @@ private extension RelationsBuilder {
             }()
             
             let objectDetails: [ObjectDetails] = values.compactMap {
-                let objectId = $0.stringValue
-                guard objectId.isNotEmpty else { return nil }
+                let value = $0.stringValue
+                guard
+                    value.isNotEmpty,
+                    let objectId = value.asAnytypeId
+                else { return nil }
                 let objectDetails = storage.get(id: objectId)
                 return objectDetails
             }
@@ -399,10 +405,12 @@ private extension RelationsBuilder {
                 }()
                 
                 return Relation.Object.Option(
-                    id: objectDetail.id,
+                    id: objectDetail.id.value,
                     icon: icon,
                     title: name,
-                    type: objectDetail.objectType.name
+                    type: objectDetail.objectType.name,
+                    isArchived: objectDetail.isArchived,
+                    isDeleted: objectDetail.isDeleted
                 )
             }
             
@@ -432,9 +440,11 @@ private extension RelationsBuilder {
             guard let value = value else { return [] }
             
             let objectDetails: [ObjectDetails] = value.listValue.values.compactMap {
-                let objectId = $0.stringValue
-                guard objectId.isNotEmpty else { return nil }
-                
+                let value = $0.stringValue
+                guard
+                    value.isNotEmpty,
+                    let objectId = value.asAnytypeId
+                else { return nil }
                 let objectDetails = storage.get(id: objectId)
                 return objectDetails
             }
@@ -468,7 +478,7 @@ private extension RelationsBuilder {
                 }()
                 
                 return Relation.File.Option(
-                    id: objectDetail.id,
+                    id: objectDetail.id.value,
                     icon: icon,
                     title: fileName
                 )

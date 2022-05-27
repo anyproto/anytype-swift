@@ -10,6 +10,8 @@ final class TextViewWithPlaceholder: UITextView {
         case left
         case right
     }
+
+    override var undoManager: UndoManager? { nil }
     
     // MARK: - Views
     
@@ -24,7 +26,6 @@ final class TextViewWithPlaceholder: UITextView {
 
     private var placeholderConstraints: [InsetEdgeType: NSLayoutConstraint] = [:]
     private let blockLayoutManager = TextBlockLayoutManager()
-    private let onFirstResponderChange: (CustomTextViewFirstResponderChange) -> ()
     var isLockedForEditing = false
 
     // MARK: - Internal variables
@@ -82,9 +83,7 @@ final class TextViewWithPlaceholder: UITextView {
     override func becomeFirstResponder() -> Bool {
         let value = super.becomeFirstResponder()
 
-
         reloadGestures()
-        onFirstResponderChange(.become)
         return value
     }
 
@@ -98,10 +97,6 @@ final class TextViewWithPlaceholder: UITextView {
 
     override func resignFirstResponder() -> Bool {
         let value = super.resignFirstResponder()
-        onFirstResponderChange(.resign)
-        if value {
-            UIMenuController.shared.menuItems = nil
-        }
 
         reloadGestures()
         return value
@@ -126,18 +121,19 @@ final class TextViewWithPlaceholder: UITextView {
             return super.copy(sender)
         }
 
-        customTextViewDelegate?.copy(range: selectedRange)
+        guard let customTextViewDelegate = customTextViewDelegate else {
+            return super.copy(sender)
+        }
+
+        customTextViewDelegate.copy(range: selectedRange)
     }
 
     // MARK: - Initialization
         
-    init(
+    override init(
         frame: CGRect,
-        textContainer: NSTextContainer?,
-        onFirstResponderChange: @escaping (CustomTextViewFirstResponderChange) -> ()
+        textContainer: NSTextContainer?
     ) {
-        self.onFirstResponderChange = onFirstResponderChange
-        
         let textStorage = NSTextStorage()
         textStorage.addLayoutManager(blockLayoutManager)
         let container = textContainer ?? NSTextContainer()
@@ -149,11 +145,6 @@ final class TextViewWithPlaceholder: UITextView {
     }
     
     @available(*, unavailable)
-    override init(frame: CGRect, textContainer: NSTextContainer?) {
-        fatalError("Not implemented")
-    }
-    
-
     @available(*, unavailable)
     required init?(coder: NSCoder) {
         fatalError("Not implemented")
@@ -184,6 +175,8 @@ private extension TextViewWithPlaceholder {
         placeholderConstraints[.top]?.constant = textContainerInset.top
         placeholderConstraints[.bottom]?.constant = textContainerInset.bottom
     }
+
+
     
     private func syncPlaceholder() {
         self.placeholderLabel.isHidden = !self.text.isEmpty

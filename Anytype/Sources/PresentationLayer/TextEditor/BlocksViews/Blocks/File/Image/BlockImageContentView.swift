@@ -51,7 +51,6 @@ final class BlockImageContentView: UIView, BlockContentView {
             domain: .blockImage
         )
         setupImage(with: configuration)
-        invalidateIntrinsicContentSize()
     }
     
     func setupImage(with configuration: BlockImageConfiguration) {

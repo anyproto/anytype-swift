@@ -1,6 +1,5 @@
 import SwiftUI
 import AnytypeCore
-import Amplitude
 
 struct SettingsAccountView: View {
     @EnvironmentObject private var model: SettingsViewModel
@@ -19,7 +18,7 @@ struct SettingsAccountView: View {
         .cornerRadius(16, corners: .top)
         
         .onAppear {
-            Amplitude.instance().logEvent(AmplitudeEventsName.accountSettingsShow)
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.accountSettingsShow)
         }
     }
     
@@ -40,7 +39,7 @@ struct SettingsAccountView: View {
     
     private var recoveryPhrase: some View {
         SettingsSectionItemView(
-            name: "Keychain phrase".localized,
+            name: "Recovery phrase".localized,
             icon: .settings.keychain,
             pressed: $model.keychain
         )

@@ -78,6 +78,7 @@ extension Image {
         static let restore = createImage("restore")
         static let favorite = createImage("addToFavorites")
         static let unfavorite = createImage("unfavorite")
+        static let undoRedo = createImage("undoredo")
         static let lock = createImage("lock")
         static let unlock = createImage("unlock")
     }
@@ -104,6 +105,11 @@ extension Image {
         static let lockedSmall = createImage("relation_locked_small")
         
         static let createOption = createImage("relation_new")
+    }
+
+    enum ObjectPreview {
+        static let card = createImage(ImageName.ObjectPreview.card)
+        static let text = createImage(ImageName.ObjectPreview.text)
     }
 }
 

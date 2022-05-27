@@ -28,8 +28,7 @@ final class ChildrenInfoTreeBuilder {
                 if info.kind == .block { result.append(info) } // Skip meta blocks
                 
                 let children = findChildren(info: info)
-                updateBlockNumberCount(infos: children)
-                
+
                 for item in children.reversed() {
                     stack.push(item)
                 }
@@ -40,25 +39,10 @@ final class ChildrenInfoTreeBuilder {
     }
 
     private func findChildren(info: BlockInformation) -> [BlockInformation] {
-        if info.content.isToggle, ToggleStorage.shared.isToggled(blockId: info.id) == false {
+        if info.content.isToggle, ToggleStorage.shared.isToggled(blockId: info.id.value) == false {
             return [] // return no children for closed toggle
         }
         
-        return container.children(of: info.id)
-    }
-    
-    private func updateBlockNumberCount(infos: [BlockInformation]) {
-        var number: Int = 0
-        
-        infos.forEach { info in
-            switch info.content {
-            case let .text(text) where text.contentType == .numbered:
-                number += 1
-                let content = BlockContent.text(text.updated(number: number))
-                container.add(info.updated(content: content))
-            default:
-                number = 0
-            }
-        }
+        return container.children(of: info.id.value)
     }
 }

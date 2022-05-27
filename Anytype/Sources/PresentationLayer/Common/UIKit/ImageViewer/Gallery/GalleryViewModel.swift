@@ -1,11 +1,17 @@
 import Foundation
+import UIKit
+
+struct GalleryItemModel {
+    let imageSource: ImageSource
+    let previewImage: UIImage?
+}
 
 struct GalleryViewModel {
-    let imageSources: [ImageSource]
+    let items: [GalleryItemModel]
     let initialImageDisplayIndex: Int
 
-    init(imageSources: [ImageSource], initialImageDisplayIndex: Int) {
-        self.imageSources = imageSources
+    init(items: [GalleryItemModel], initialImageDisplayIndex: Int) {
+        self.items = items
         self.initialImageDisplayIndex = initialImageDisplayIndex
     }
 }

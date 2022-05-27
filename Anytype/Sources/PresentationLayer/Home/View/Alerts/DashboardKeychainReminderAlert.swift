@@ -1,21 +1,20 @@
 import SwiftUI
-import Amplitude
 
 struct DashboardKeychainReminderAlert: View {
-    var shownInContext: AmplitudeEventsKeychainContext
+    var shownInContext: AnalyticsEventsKeychainContext
     @EnvironmentObject private var model: HomeViewModel
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(23)
-            AnytypeText("Don’t forget to save your keychain phrase".localized, style: .heading, color: .textPrimary)
+            AnytypeText("Don’t forget to save your recovery phrase".localized, style: .heading, color: .textPrimary)
             Spacer.fixedHeight(11)
             description
             Spacer.fixedHeight(18)
             SeedPhraseView {
-                model.snackBarData = .init(text: "Keychain phrase copied to clipboard", showSnackBar: true)
+                model.snackBarData = .init(text: "Recovery phrase copied to clipboard", showSnackBar: true)
 
-                Amplitude.instance().logKeychainPhraseCopy(shownInContext)
+                AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
             }
             Spacer.fixedHeight(25)
         }

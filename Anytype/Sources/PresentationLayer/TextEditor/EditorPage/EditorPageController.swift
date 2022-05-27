@@ -2,9 +2,7 @@ import BlocksModels
 import UIKit
 import Combine
 import AnytypeCore
-
 import SwiftUI
-import Amplitude
 
 final class EditorPageController: UIViewController {
 
@@ -14,6 +12,7 @@ final class EditorPageController: UIViewController {
     private lazy var deletedScreen = EditorPageDeletedScreen(
         onBackTap: viewModel.router.goBack
     )
+    private weak var firstResponderView: UIView?
     
     let collectionView: EditorCollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -24,6 +23,7 @@ final class EditorPageController: UIViewController {
             frame: .zero,
             collectionViewLayout: layout
         )
+
         collectionView.allowsMultipleSelection = true
         collectionView.backgroundColor = .clear
 
@@ -48,7 +48,7 @@ final class EditorPageController: UIViewController {
     private lazy var longTapGestureRecognizer: UILongPressGestureRecognizer = {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(EditorPageController.handleLongPress))
 
-        recognizer.minimumPressDuration = 0.5
+        recognizer.minimumPressDuration = 0.2
         return recognizer
     }()
 
@@ -99,14 +99,14 @@ final class EditorPageController: UIViewController {
         bindViewModel()
         setEditing(true, animated: false)
         collectionView.allowsSelectionDuringEditing = true
+
+        navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
-        
-        navigationBarHelper.handleViewWillAppear(scrollView: collectionView)
-        
+
         insetsHelper = ScrollViewContentInsetsHelper(
             scrollView: collectionView,
             stateManager: viewModel.blocksStateManager
@@ -120,9 +120,16 @@ final class EditorPageController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
-        viewModel.viewWillDisappear()
-        
+
+        UIApplication.shared.hideKeyboard()
+        firstResponderView?.resignFirstResponder()
+        view.endEditing(true)
+    }
+
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        viewModel.viewDidDissapear()
+
         navigationBarHelper.handleViewWillDisappear()
         insetsHelper = nil
     }
@@ -139,6 +146,16 @@ final class EditorPageController: UIViewController {
         }
         
         return self
+    }
+
+    override func motionBegan(_ motion: UIEvent.EventSubtype, with event: UIEvent?) {
+        super.motionBegan(motion, with: event)
+
+        if motion == .motionShake {
+            viewModel.shakeMotionDidAppear()
+
+            UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
+        }
     }
 
     func bindViewModel() {
@@ -174,6 +191,12 @@ final class EditorPageController: UIViewController {
         viewModel.blocksStateManager.editorSelectedBlocks.sink { [unowned self] blockIds in
             blockIds.forEach(selectBlock)
         }.store(in: &cancellables)
+    }
+
+    override func present(_ viewControllerToPresent: UIViewController, animated flag: Bool, completion: (() -> Void)? = nil) {
+        view.endEditing(true)
+
+        super.present(viewControllerToPresent, animated: flag, completion: completion)
     }
 }
 
@@ -232,18 +255,18 @@ extension EditorPageController: EditorPageViewInput {
     }
     
     func textBlockWillBeginEditing() {
-        contentOffset = collectionView.contentOffset
+//        contentOffset = collectionView.contentOffset
     }
-    
-    func textBlockDidBeginEditing() {
-//        collectionView.setContentOffset(contentOffset, animated: false)
+    func textBlockDidBeginEditing(firstResponderView: UIView) {
+        self.firstResponderView = firstResponderView
     }
 
-    func textBlockDidChangeFrame() {
-        // Can be skipped now. But need to clarify if every iOS version is adapted for automatic layout invalidation.
-//        UIView.animate(withDuration: 0.3) {
-//            self.collectionView.collectionViewLayout.invalidateLayout()
-//        }
+    func blockDidChangeFrame() {
+        DispatchQueue.main.async { [weak self] in
+            UIView.performWithoutAnimation {
+                self?.collectionView.collectionViewLayout.invalidateLayout()
+            }
+        }
     }
 
     func textBlockDidChangeText() {
@@ -280,7 +303,6 @@ private extension EditorPageController {
     func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dropDelegate = self
-        collectionView.dragDelegate = self
         collectionView.addGestureRecognizer(self.listViewTapGestureRecognizer)
     }
     
@@ -323,10 +345,8 @@ private extension EditorPageController {
         case .header: break
         case .block(let blockViewModel):
             cell.contentConfiguration = blockViewModel.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationLevel = blockViewModel.info.metadata.indentationLevel
         case .system(let systemContentConfiguationProvider):
             cell.contentConfiguration = systemContentConfiguationProvider.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationLevel = systemContentConfiguationProvider.indentationLevel
         }
     }
 
@@ -334,7 +354,7 @@ private extension EditorPageController {
         dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
             case let .block(block):
-                return block.info.id == blockId
+                return block.info.id.value == blockId
             case .header, .system:
                 return false
             }
@@ -348,16 +368,16 @@ private extension EditorPageController {
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
         
-        viewModel.actionHandler.createEmptyBlock(parentId: viewModel.document.objectId)
+        viewModel.actionHandler.createEmptyBlock(parentId: viewModel.document.objectId.value)
     }
 
     @objc
     private func handleLongPress(gesture: UILongPressGestureRecognizer) {
         guard dividerCursorController.movingMode != .drum else { return }
 
-        guard gesture.state == .ended else { return }
+        guard gesture.state == .ended, !collectionView.isLocked else { return }
 
-        UIImpactFeedbackGenerator(style: .soft).impactOccurred()
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
         let location = gesture.location(in: collectionView)
         collectionView.indexPathForItem(at: location).map {
             viewModel.blocksStateManager.didLongTap(at: $0)
@@ -436,15 +456,11 @@ private extension EditorPageController {
     func createSystemCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, SystemContentConfiguationProvider> {
         .init { (cell, indexPath, item) in
             cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
-            cell.indentationWidth = Constants.cellIndentationWidth
-            cell.indentationLevel = item.indentationLevel
         }
     }
     
     func setupCell(cell: UICollectionViewListCell, indexPath: IndexPath, item: BlockViewModelProtocol) {
         cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
-        cell.indentationWidth = Constants.cellIndentationWidth
-        cell.indentationLevel = item.info.metadata.indentationLevel
         cell.contentView.isUserInteractionEnabled = true
         
         cell.backgroundConfiguration = UIBackgroundConfiguration.clear()
@@ -474,15 +490,4 @@ private extension EditorPageController {
             self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
         }
     }
-}
-
-
-// MARK: - Constants
-
-private extension EditorPageController {
-    
-    enum Constants {
-        static let cellIndentationWidth: CGFloat = 24
-    }
-    
 }

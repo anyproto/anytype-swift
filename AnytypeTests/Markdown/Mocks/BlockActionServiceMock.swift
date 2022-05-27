@@ -78,11 +78,11 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     
     var deleteStub = false
     var deleteNumberOfCalls = 0
-    var deleteBlockId: BlockId?
-    func delete(blockId: BlockId) {
-        if deleteStub {
+    var deleteBlocksId: [BlockId]?
+    func delete(blockIds: [BlockId]) {
+        if deleteStub { 
             deleteNumberOfCalls += 1
-            deleteBlockId = blockId
+            deleteBlocksId = blockIds
         } else {
             assertionFailure()
         }
@@ -134,7 +134,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    func setFields(blockFields: [Anytype.BlockFields]) {
+    func setFields(blockFields: [BlockFields]) {
         assertionFailure()
     }
     
@@ -152,6 +152,10 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     }
     
     func createAndFetchBookmark(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: String) {
+        assertionFailure()
+    }
+
+    func setFields(blockFields: BlockFields, blockId: BlockId) {
         assertionFailure()
     }
 

@@ -24,14 +24,14 @@ final class SetTableViewDataBuilder {
         colums: [RelationMetadata],
         isObjectLocked: Bool
     ) -> [SetTableViewRowData] {
-        datails.map { details in
+        datails.flatMap { details in
             let metadata = sortedRelations(dataview: dataView, view: activeView)
                 .filter { $0.option.isVisible == true }
                 .map { $0.metadata }
             let parsedRelations = relationsBuilder
                 .parsedRelations(
                     relationMetadatas: metadata,
-                    objectId: details.id,
+                    objectId: details.id.value,
                     isObjectLocked: isObjectLocked
                 )
                 .all
@@ -52,7 +52,7 @@ final class SetTableViewDataBuilder {
             let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
             
             return SetTableViewRowData(
-                id: details.id,
+                id: details.id.value,
                 title: details.title,
                 icon: details.objectIconImage,
                 relations: relations,

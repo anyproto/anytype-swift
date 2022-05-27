@@ -23,23 +23,38 @@ final class PasteboardService: PasteboardServiceProtocol {
         pasteboardHelper.hasValidURL
     }
     
-    func pasteInsideBlock(focusedBlockId: BlockId, range: NSRange) {
+    func pasteInsideBlock(focusedBlockId: BlockId,
+                          range: NSRange,
+                          handleLongOperation:  @escaping () -> Void,
+                          completion: @escaping () -> Void) {
         let context = PasteboardActionContext.focused(focusedBlockId, range)
-        paste(context: context)
+        paste(context: context, handleLongOperation: handleLongOperation, completion: completion)
     }
     
-    func pasteInSelectedBlocks(selectedBlockIds: [BlockId]) {
+    func pasteInSelectedBlocks(selectedBlockIds: [BlockId],
+                               handleLongOperation:  @escaping () -> Void,
+                               completion: @escaping () -> Void) {
         let context = PasteboardActionContext.selected(selectedBlockIds)
-        paste(context: context)
+        paste(context: context, handleLongOperation: handleLongOperation, completion: completion)
     }
     
-    private func paste(context: PasteboardActionContext) {
+    private func paste(context: PasteboardActionContext,
+                       handleLongOperation:  @escaping () -> Void,
+                       completion: @escaping () -> Void) {
+        let workItem = DispatchWorkItem {
+            handleLongOperation()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + Constants.longOperationTime, execute: workItem)
+
         let operation = PasteboardOperation (
             pasteboardHelper: pasteboardHelper,
             pasteboardMiddlewareService: pasteboardMiddlewareService,
             context: context
         ) { _ in
-            #warning("add completion")
+            DispatchQueue.main.async {
+                workItem.cancel()
+                completion()
+            }
         }
         pasteboardOperations.addOperation(operation)
     }
@@ -48,5 +63,11 @@ final class PasteboardService: PasteboardServiceProtocol {
         if let result = pasteboardMiddlewareService.copy(blocksIds: blocksIds, selectedTextRange: selectedTextRange) {
             pasteboardHelper.setItems(textSlot: result.textSlot, htmlSlot: result.htmlSlot, blocksSlots: result.blockSlot)
         }
+    }
+}
+
+private extension PasteboardService {
+    enum Constants {
+        static let longOperationTime: Double = 0.5
     }
 }

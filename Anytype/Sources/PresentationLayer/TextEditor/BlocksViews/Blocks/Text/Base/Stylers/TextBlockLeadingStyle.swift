@@ -1,3 +1,10 @@
+import AnytypeCore
+
+struct CalloutIconViewModel {
+    let onTap: () -> Void
+    let iconImageModel: ObjectIconImageModel
+}
+
 enum TextBlockLeadingStyle {
     struct TitleModel {
         let isCheckable: Bool
@@ -22,6 +29,7 @@ enum TextBlockLeadingStyle {
     case bulleted
     case quote
     case body
+    case callout(CalloutIconViewModel)
 
     init(with configuration: TextBlockContentConfiguration) {
         switch configuration.content.contentType {
@@ -51,9 +59,23 @@ enum TextBlockLeadingStyle {
             )
         case .numbered:
             self = .numbered(configuration.content.number)
-        case .quote:
-            self = .quote
-        case .header, .header2, .header3, .header4, .code, .description, .text, .callout:
+        case .callout:
+            let objectIconImage: ObjectIconImage
+
+            if let hash = Hash(configuration.content.iconImage) {
+                objectIconImage = .icon(.basic(hash.value))
+            } else {
+                objectIconImage = .icon(.emoji(Emoji(configuration.content.iconEmoji) ?? .lamp))
+            }
+
+            self = .callout(
+                .init(
+                    onTap: {
+                        configuration.actions.tapOnCalloutIcon()
+                    }, iconImageModel: .init(iconImage: objectIconImage, usecase: .editorCalloutBlock)
+                )
+            )
+        case .header, .header2, .header3, .header4, .code, .description, .text, .quote:
             self = .body
         }
     }

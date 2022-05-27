@@ -1,4 +1,5 @@
 import UIKit
+import AnytypeCore
 
 final class TextBlockLeadingView: UIView {
 
@@ -9,15 +10,22 @@ final class TextBlockLeadingView: UIView {
     private(set) var bulletedView: UIView?
     private(set) var quoteView: UIView?
     private(set) var bodyView: UIView?
+    private(set) var calloutIconView: UIView?
 
     func update(style: TextBlockLeadingStyle) {
         removeAllSubviews()
+        isHidden = false
 
         let innerView: UIView
         switch style {
         case .title(let titleModel):
-            innerView = TextBlockLeadingViewBuilder.leftTitleView(model: titleModel)
+            guard titleModel.isCheckable else {
+                isHidden = true
+                return
+            }
+            innerView = TextBlockLeadingViewBuilder.checkableLeftTitleView(model: titleModel)
             self.titleView = innerView
+
         case .toggle(let toggleModel):
             innerView = TextBlockLeadingViewBuilder.leftToggleView(model: toggleModel)
             self.toogleView = innerView
@@ -34,8 +42,40 @@ final class TextBlockLeadingView: UIView {
             innerView = TextBlockIconView(viewType: .quote)
             self.quoteView = innerView
         case .body:
-            innerView = TextBlockIconView(viewType: .empty)
-            self.bodyView = innerView
+            isHidden = true
+            return
+        case .callout(let model):
+            innerView = TextBlockIconView(
+                viewType: .callout(model: model.iconImageModel),
+                action: model.onTap
+            )
+            self.calloutIconView = innerView
+
+            addSubview(innerView) {
+                $0.height.equal(to: 20)
+                $0.width.equal(to: 20)
+
+                $0.pinToSuperview(
+                    excluding: [.bottom],
+                    insets: .init(
+                        top: 2,
+                        left: 12,
+                        bottom: 0,
+                        right: -6 // 12 subtract contentStackView horizontal spacing
+                    )
+                )
+            }
+
+            let action = UIAction { _ in model.onTap() }
+
+            let button = UIButton()
+            button.addAction(action, for: .touchUpInside)
+
+            addSubview(button) {
+                $0.pinToSuperview()
+            }
+
+            return
         }
 
         addSubview(innerView) {

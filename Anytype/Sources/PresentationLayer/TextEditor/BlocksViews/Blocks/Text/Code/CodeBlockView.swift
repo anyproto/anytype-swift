@@ -19,7 +19,7 @@ final class CodeBlockView: UIView, BlockContentView {
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
 
-        if previousTraitCollection?.userInterfaceStyle != traitCollection.userInterfaceStyle {
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
             textStorage.highlightr.setTheme(to: traitCollection.userInterfaceStyle.themeName)
         }
     }
@@ -39,7 +39,7 @@ final class CodeBlockView: UIView, BlockContentView {
 
     private func setupViews() {
         addSubview(contentView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 6, left: 10, bottom: -6, right: -10))
+            $0.pinToSuperview()
         }
         
         contentView.layoutUsing.stack {

@@ -45,7 +45,6 @@ struct UserIconView: View {
             .placeholder({
                 placeholderIcon(nil)
             })
-            .fade(duration: 0.25)
     }
     
     private func placeholderIcon(_ character: Character?) -> some View {

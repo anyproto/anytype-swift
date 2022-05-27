@@ -1,6 +1,5 @@
 import SwiftUI
-import Amplitude
-
+import AnytypeCore
 
 struct HomeProfileView: View {
     @EnvironmentObject var model: HomeViewModel
@@ -27,22 +26,24 @@ struct HomeProfileView: View {
     }
     
     var hiText: some View {
-        AnytypeText("Hi, \(model.profileData.name)", style: .title, color: .white)
+        AnytypeText("Hi, \(name)", style: .title, color: .white)
             .padding(.horizontal)
             .transition(.opacity)
     }
     
     private var avatar: some View {
-        Button(action: {
-            model.showPage(pageId: model.profileData.blockId, viewType: .page)
-        }){ userIcon }
+        Button {
+            model.showProfile()
+        } label: {
+            userIcon
+        }
     }
     
     private var userIcon: some View {
         let iconType: UserIconView.IconType = {
-            if let imageId = model.profileData.avatarId {
-                return UserIconView.IconType.image(id: imageId)
-            } else if let firstCharacter = model.profileData.name.uppercased().first {
+            if let imageId = model.profileData?.avatarId {
+                return UserIconView.IconType.image(id: imageId.value)
+            } else if let firstCharacter = name.uppercased().first {
                 return UserIconView.IconType.placeholder(firstCharacter)
             } else {
                 return UserIconView.IconType.placeholder(nil)
@@ -84,12 +85,16 @@ struct HomeProfileView: View {
             Spacer.fixedHeight(containerHeight / 5)
         }
     }
+    
+    private var name: String {
+        model.profileData?.name ?? HomeProfileData.defaultName
+    }
 }
 
 struct HomeProfileView_Previews: PreviewProvider {
     static var previews: some View {
         HomeProfileView()
-            .environmentObject(HomeViewModel())
+            .environmentObject(HomeViewModel(homeBlockId: AnytypeIdMock.id))
             .background(Color.System.blue)
     }
 }

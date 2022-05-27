@@ -3,7 +3,6 @@ import SwiftUI
 import Combine
 import os
 import BlocksModels
-import Amplitude
 import AnytypeCore
 
 final class EditorPageViewModel: EditorPageViewModelProtocol {
@@ -20,6 +19,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let cursorManager: EditorCursorManager
     let actionHandler: BlockActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
+    let objectActionsService: ObjectActionsServiceProtocol
     
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
@@ -32,7 +32,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         EventsBunch(
             contextId: MiddlewareConfigurationProvider.shared.configuration.homeBlockID,
-            localEvents: [.documentClosed(blockId: document.objectId)]
+            localEvents: [.documentClosed(blockId: document.objectId.value)]
         ).send()
     }
 
@@ -49,7 +49,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         headerModel: ObjectHeaderViewModel,
         blockActionsService: BlockActionsServiceSingleProtocol,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
-        cursorManager: EditorCursorManager
+        cursorManager: EditorCursorManager,
+        objectActionsService: ObjectActionsServiceProtocol
     ) {
         self.viewInput = viewInput
         self.document = document
@@ -63,6 +64,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.blockActionsService = blockActionsService
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
+        self.objectActionsService = objectActionsService
     }
 
     func setupSubscriptions() {
@@ -84,7 +86,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             performGeneralUpdate()
 
         case let .details(id):
-            guard id == document.objectId else {
+            guard id == document.objectId.value else {
                 #warning("call blocks update with new details to update mentions/links")
                 performGeneralUpdate()
                 return
@@ -95,6 +97,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
             let relationIds = allRelationsBlockViewModel.map(\.blockId)
             let diffrerence = difference(with: Set(relationIds))
+
+            guard !diffrerence.isEmpty else { return }
             modelsHolder.applyDifference(difference: diffrerence)
             viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
         case let .blocks(updatedIds):
@@ -178,7 +182,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModel(_ updatedBlockIds: Set<BlockId>) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id,
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id.value,
               updatedBlockIds.contains(blockIdWithMarkupMenu) else {
             return
         }
@@ -186,7 +190,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModel(newBlockViewModels: [BlockViewModelProtocol]) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id else {
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id.value else {
             return
         }
         let blockIds = Set(newBlockViewModels.map { $0.blockId })
@@ -212,7 +216,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
     private func handleGeneralUpdate(with models: [EditorItem]) {
         let difference = modelsHolder.difference(between: models)
-        if !difference.isEmpty {
+        if difference.insertions.isNotEmpty {
             modelsHolder.applyDifference(difference: difference)
         } else {
             modelsHolder.items = models
@@ -248,23 +252,37 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 extension EditorPageViewModel {
     func viewDidLoad() {
         if let objectDetails = document.details {
-            Amplitude.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
+            AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
         }
-    }
-    
-    func viewWillAppear() {
+
         guard document.open() else {
             router.goBack()
             return
         }
     }
+    
+    func viewWillAppear() { }
 
     func viewDidAppear() {
         cursorManager.didAppeared(with: modelsHolder.items, type: document.details?.type)
     }
-    
-    func viewWillDisappear() {
+
+    func viewWillDisappear() {}
+
+    func viewDidDissapear() {
         document.close()
+    }
+
+
+    func shakeMotionDidAppear() {
+        router.showAlert(
+            alertModel: .undoAlertModel(
+                undoAction: { [weak self] in
+                    guard let self = self else { return }
+                    try? self.objectActionsService.undo(objectId: self.document.objectId)
+                }
+            )
+        )
     }
 }
 

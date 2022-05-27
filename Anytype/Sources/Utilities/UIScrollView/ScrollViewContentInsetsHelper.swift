@@ -20,9 +20,12 @@ final class ScrollViewContentInsetsHelper: KeyboardEventsListnerHelper {
         let showAction: Action = { [weak scrollView] notification in
             guard let keyboardRect = notification.localKeyboardRect(for: UIResponder.keyboardFrameEndUserInfoKey) else { return }
             scrollView?.handleBottomInsetChange(keyboardRect.height)
+            scrollView?.verticalScrollIndicatorInsets.bottom = keyboardRect.height
+
         }
         let willHideAction: Action = { [weak scrollView] _ in
             scrollView?.handleBottomInsetChange(EditorScrollViewConstants.bottomEditorInsets)
+            scrollView?.verticalScrollIndicatorInsets.bottom = 0
         }
 
         stateManager.editorEditingStatePublisher.sink { [weak scrollView] state in
@@ -51,6 +54,5 @@ private extension UIScrollView {
         guard contentInset.bottom != keyboardHeight else { return }
         contentInset.bottom = keyboardHeight
         contentInset.top = 0
-        verticalScrollIndicatorInsets.bottom = keyboardHeight
     }
 }

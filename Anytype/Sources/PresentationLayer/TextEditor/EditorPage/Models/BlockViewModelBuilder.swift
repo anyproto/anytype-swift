@@ -44,9 +44,7 @@ final class BlockViewModelBuilder {
     }
 
     private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
-        infos.compactMap { info -> BlockViewModelProtocol? in
-            build(info: info)
-        }
+        infos.compactMap(build(info:))
     }
 
     func build(info: BlockInformation) -> BlockViewModelProtocol? {
@@ -58,7 +56,7 @@ final class BlockViewModelBuilder {
                     info: info,
                     content: content,
                     codeLanguage: CodeLanguage.create(
-                        middleware: info.fields[FieldName.codeLanguage]?.stringValue
+                        middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
                     ),
                     becomeFirstResponder: { _ in },
                     textDidChange: { block, textView in
@@ -66,11 +64,8 @@ final class BlockViewModelBuilder {
                     },
                     showCodeSelection: { [weak self] info in
                         self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in
-                            let fields = BlockFields(
-                                blockId: info.id,
-                                fields: [FieldName.codeLanguage: language.toMiddleware()]
-                            )
-                            self?.handler.setFields([fields], blockId: info.id)
+                            let fields = CodeBlockFields(language: language)
+                            self?.handler.setFields(fields, blockId: info.id.value)
                         }
                     }
                 )
@@ -92,13 +87,25 @@ final class BlockViewModelBuilder {
                     showURLBookmarkPopup: { [weak router] parameters in
                         router?.showLinkContextualMenu(inputParameters: parameters)
                     },
+                    showTextIconPicker: { [unowned router, unowned document] in
+                        router.showTextIconPicker(
+                            contextId: document.objectId.value,
+                            objectId: info.id.value
+                        )
+                    },
+                    showWaitingView: { [weak router] text in
+                        router?.showWaitingView(text: text)
+                    },
+                    hideWaitingView: {  [weak router] in
+                        router?.hideWaitingView()
+                    },
                     markdownListener: markdownListener,
-                    focusSubject: subjectsHolder.focusSubject(for: info.id)
+                    focusSubject: subjectsHolder.focusSubject(for: info.id.value)
                 )
             }
         case let .file(content):
             switch content.contentType {
-            case .file:
+            case .file, .none:
                 return BlockFileViewModel(
                     info: info,
                     fileData: content,
@@ -110,8 +117,6 @@ final class BlockViewModelBuilder {
                         router?.saveFile(fileURL: url, type: .file)
                     }
                 )
-            case .none:
-                return UnknownLabelViewModel(info: info)
             case .image:
                 return BlockImageViewModel(
                     info: info,
@@ -154,7 +159,9 @@ final class BlockViewModelBuilder {
                 }
             )
         case let .link(content):
-            let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID)
+            guard let id = content.targetBlockID.asAnytypeId else { return nil }
+            
+            let details = ObjectDetailsStorage.shared.get(id: id)
             return BlockLinkViewModel(
                 info: info,
                 content: content,
@@ -170,7 +177,8 @@ final class BlockViewModelBuilder {
             return FeaturedRelationsBlockViewModel(
                 info: info,
                 featuredRelation: featuredRelation,
-                type: objectType.name
+                type: objectType.name,
+                blockDelegate: delegate
             ) { [weak self] relation in
                 guard let self = self else { return }
 
@@ -181,6 +189,7 @@ final class BlockViewModelBuilder {
                         }
                     )
                 } else {
+                    AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
                     self.router.showRelationValueEditingView(key: relation.id, source: .object)
                 }
             }
@@ -196,13 +205,14 @@ final class BlockViewModelBuilder {
             return RelationBlockViewModel(
                 info: info,
                 relation: relation
-            ) { [weak self] relation in
+            ) { [weak self] in
+                AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
                 self?.router.showRelationValueEditingView(key: relation.id, source: .object)
             }
 
         case .smartblock, .layout, .dataView: return nil
         case .unsupported:
-            guard let parentId = info.metadata.parentId,
+            guard let parentId = info.configurationData.parentId,
                   let parent = document.infoContainer.get(id: parentId),
                   parent.content.type != .layout(.header)
             else {
@@ -244,7 +254,7 @@ final class BlockViewModelBuilder {
         router.showBookmarkBar() { [weak self] url in
             guard let self = self else { return }
 
-            self.handler.fetch(url: url, blockId: info.id)
+            self.handler.fetch(url: url, blockId: info.id.value)
         }
     }
 }

@@ -10,8 +10,8 @@ struct FlowRelationsView: View {
             alignment: viewModel.alignment,
             cell: { item, index in
                 HStack(spacing: 6) {
-                    RelationValueView(relation: item, style: .featuredRelationBlock(allowMultiLine: false)) { relation in
-                        viewModel.onRelationTap(relation)
+                    RelationValueView(relation: RelationItemModel(relation: item), style: .featuredRelationBlock(allowMultiLine: false)) {
+                        viewModel.onRelationTap(item)
                     }
 
                     if viewModel.relations.count - 1 > index {

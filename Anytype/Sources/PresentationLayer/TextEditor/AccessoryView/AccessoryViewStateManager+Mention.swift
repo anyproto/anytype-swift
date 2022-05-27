@@ -1,5 +1,4 @@
 import Foundation
-import Amplitude
 
 extension AccessoryViewStateManagerImpl: MentionViewDelegate {
     func selectMention(_ mention: MentionObject) {
@@ -25,8 +24,8 @@ extension AccessoryViewStateManagerImpl: MentionViewDelegate {
 
         textView.attributedText = newText
         textView.selectedRange = newCaretPosition
-        handler.changeTextForced(newText, blockId: info.id)
+        handler.changeTextForced(newText, blockId: info.id.value)
 
-        Amplitude.instance().logSetMarkup(.mention(MentionData.noDetails(blockId: "")))
+        AnytypeAnalytics.instance().logSetMarkup(.mention(MentionData.noDetails(blockId: "")))
     }
 }

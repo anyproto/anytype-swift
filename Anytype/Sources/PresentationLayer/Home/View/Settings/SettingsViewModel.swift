@@ -2,9 +2,9 @@ import SwiftUI
 import ProtobufMessages
 import AnytypeCore
 import Combine
-import Amplitude
 
 final class SettingsViewModel: ObservableObject {
+    
     @Published var loggingOut = false
     @Published var accountDeleting = false
     @Published var wallpaperPicker = false
@@ -30,21 +30,23 @@ final class SettingsViewModel: ObservableObject {
             UserDefaultsConfig.wallpaper = wallpaper
         }
     }
-    
+        
     private let authService: AuthServiceProtocol
-
+    
     init(authService: AuthServiceProtocol) {
         self.authService = authService
     }
 
     func logout(removeData: Bool) {
-        guard authService.logout(removeData: removeData) else {
-            UINotificationFeedbackGenerator().notificationOccurred(.error)
-            return
+        authService.logout(removeData: removeData) { isSuccess in
+            guard isSuccess else {
+                UINotificationFeedbackGenerator().notificationOccurred(.error)
+                return
+            }
+            
+            UINotificationFeedbackGenerator().notificationOccurred(.success)
+            WindowManager.shared.showAuthWindow()
         }
-        
-        UINotificationFeedbackGenerator().notificationOccurred(.success)
-        WindowManager.shared.showAuthWindow()
     }
     
     func accountDeletionConfirm() {
@@ -80,7 +82,7 @@ final class SettingsViewModel: ObservableObject {
                 case .success:
                     completion(true)
 
-                    Amplitude.instance().logEvent(AmplitudeEventsName.fileCacheCleared)
+                    AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.fileCacheCleared)
                 }
             }
     }

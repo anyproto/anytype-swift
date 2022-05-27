@@ -1,5 +1,6 @@
 public protocol InfoContainerProtocol: AnyObject {
     func children(of id: BlockId) -> [BlockInformation]
+    func recursiveChildren(of id: BlockId) -> [BlockInformation]
 
     func `get`(id: BlockId) -> BlockInformation?
     func add(_ info: BlockInformation)

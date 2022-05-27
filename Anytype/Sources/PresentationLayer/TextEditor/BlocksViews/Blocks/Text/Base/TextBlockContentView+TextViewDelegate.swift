@@ -46,11 +46,14 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
     
     func keyboardAction(_ action: CustomTextView.KeyboardAction) {        
-        actions?.handleKeyboardAction(action)
+        actions?.handleKeyboardAction(action, textView.textView)
     }
     
     func showPage(blockId: BlockId) {
-        guard let details = ObjectDetailsStorage.shared.get(id: blockId) else {
+        guard
+            let id = blockId.asAnytypeId,
+            let details = ObjectDetailsStorage.shared.get(id: id)
+        else {
             // Deleted objects goes here
             return
         }

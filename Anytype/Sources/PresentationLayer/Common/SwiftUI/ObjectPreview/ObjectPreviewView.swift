@@ -26,7 +26,12 @@ struct ObjectPreviewView: View {
         VStack(spacing: 0) {
             ForEach(viewModel.objectPreviewSections.main) { item in
                 mainSectionRow(item) {
-                    // TODO: will be impled in next pr
+                    switch item.value {
+                    case .icon:
+                        viewModel.showIconMenu()
+                    case .layout:
+                        viewModel.showLayoutMenu()
+                    }
                 }
                 .divider()
             }
@@ -44,7 +49,7 @@ struct ObjectPreviewView: View {
 
             ForEach(viewModel.objectPreviewSections.featuredRelation) { item in
                 featuredRelationsRow(item) { isEnabled in
-                    // TODO: will be impled in next pr
+                    viewModel.toggleFeaturedRelation(id: item.id, isEnabled: isEnabled)
                 }
                 .divider()
             }
@@ -53,7 +58,7 @@ struct ObjectPreviewView: View {
 
     private func featuredRelationsRow(_ item: ObjectPreviewViewFeaturedSectionItem, onTap: @escaping (_ isEnabled: Bool) -> Void) -> some View {
         HStack(spacing: 0) {
-            item.icon
+            Image.createImage(item.iconName)
                 .frame(width: 24, height: 24)
             Spacer.fixedWidth(10)
             AnytypeToggle(
@@ -73,7 +78,7 @@ struct ObjectPreviewView: View {
             HStack(spacing: 0) {
                 AnytypeText(item.name, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
-                AnytypeText(item.value, style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(item.value.name, style: .uxBodyRegular, color: .textSecondary)
                 Spacer.fixedWidth(10)
                 Image.arrow
             }
@@ -84,7 +89,11 @@ struct ObjectPreviewView: View {
 
 struct ObjectPreviewView_Previews: PreviewProvider {
     static var previews: some View {
-        let viewModel = ObjectPreviewViewModel(featuredRelations: [], fields: .init())
+        let router = ObjectPreviewRouter(viewController: UIViewController())
+        let viewModel = ObjectPreviewViewModel(featuredRelationsByIds: [:],
+                                               fields: .init(),
+                                               router: router,
+                                               onSelect: {_ in })
         ObjectPreviewView(viewModel: viewModel)
     }
 }

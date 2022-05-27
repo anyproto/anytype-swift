@@ -24,19 +24,12 @@ struct ItemPickerGridView<ViewModel: GridItemViewModelProtocol>: View {
             SearchBar(text: $searchText, focused: false, placeholder: placeholder)
         }
         ScrollView(showsIndicators: false) {
-            LazyVGrid(
-                columns: columns,
-                spacing: 0,
-                pinnedViews: [.sectionHeaders]
-            ) {
+            LazyVGrid(columns: columns, spacing: 0) {
                 sections
             }
         }
         .padding(.horizontal, 16)
         .onAppear { viewModel.onAppear() }
-        .onAppear {
-            viewModel.onAppear()
-        }
         .onChange(of: searchText) { newValue in
             viewModel.didChangeSearchQuery(query: newValue)
         }

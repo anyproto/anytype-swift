@@ -13,7 +13,7 @@ extension TagsOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProt
         onSelect: @escaping ([String]) -> Void,
         onCreate: @escaping (String) -> Void
     ) -> NewSearchView {
-        NewSearchModuleAssembly.buildTagsSearchModule(allTags: allTags, selectedTagIds: excludedOptionIds, onSelect: onSelect, onCreate: onCreate)
+        NewSearchModuleAssembly.tagsSearchModule(allTags: allTags, selectedTagIds: excludedOptionIds, onSelect: onSelect, onCreate: onCreate)
     }
     
 }

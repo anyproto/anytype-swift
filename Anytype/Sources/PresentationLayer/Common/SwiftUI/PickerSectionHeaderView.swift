@@ -9,7 +9,7 @@ struct PickerSectionHeaderView: View {
         AnytypeText(title, style: .caption1Medium, color: .textSecondary)
         .frame(maxWidth: .infinity)
         .padding(.top, 18)
-        .padding(.bottom, 12)
+        .padding(.bottom, -3)
         .background(Color.backgroundSecondary)
     }
 }

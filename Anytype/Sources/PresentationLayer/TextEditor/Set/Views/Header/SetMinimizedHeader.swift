@@ -35,13 +35,16 @@ struct SetMinimizedHeader: View {
     
     private var title: some View {
         Group {
-            if let icon = model.details.objectIconImage {
+            if let icon = model.details?.objectIconImage {
                 SwiftUIObjectIconImageView(iconImage: icon, usecase: .openedObjectNavigationBar)
                     .frame(width: 18, height: 18)
                 Spacer.fixedWidth(8)
             }
-            AnytypeText(model.details.title, style: .body, color: .textPrimary)
-                .lineLimit(1)
+            model.details.flatMap {
+                AnytypeText($0.title, style: .body, color: .textPrimary)
+                    .lineLimit(1)
+            }
+            
         }
         .opacity(opacity)
     }
@@ -50,7 +53,7 @@ struct SetMinimizedHeader: View {
         EditorBarButtonItem(
             image: .more,
             state: EditorBarItemState(
-                haveBackground: model.details.documentCover.isNotNil,
+                haveBackground: model.details?.documentCover.isNotNil ?? false,
                 opacity: opacity
             ),
             action: model.showObjectSettings

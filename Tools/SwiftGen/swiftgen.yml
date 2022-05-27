@@ -1,0 +1,12 @@
+xcassets:
+  inputs:
+    - ../../Anytype/Resources/SystemColors.xcassets
+    - ../../Anytype/Resources/ComponentColors.xcassets
+  outputs:
+    - templateName: swift5
+      output: ../../Anytype/Generated/Assets.swift
+    - templatePath: SwiftGen_SwiftGenCLI.bundle/Contents/Resources/templates/xcassets/swift5_UIColors
+      output: ../../Anytype/Generated/UIColor+Assets.swift
+    - templatePath: SwiftGen_SwiftGenCLI.bundle/Contents/Resources/templates/xcassets/swift5_SwiftUIColors
+      output: ../../Anytype/Generated/Color+Assets.swift
+      

@@ -1,12 +1,12 @@
 import SwiftUI
 
 class RelationNameValueViewModel: ObservableObject {
-    @Published var relation: Relation
+    @Published var relation: RelationItemModel
     @Published var isHighlighted: Bool = false
 
-    var action: ((_ relation: Relation) -> Void)?
+    var action: (() -> Void)?
 
-    init(relation: Relation, action: ((_ relation: Relation) -> Void)?) {
+    init(relation: RelationItemModel, action: @escaping () -> Void) {
         self.relation = relation
         self.action = action
     }

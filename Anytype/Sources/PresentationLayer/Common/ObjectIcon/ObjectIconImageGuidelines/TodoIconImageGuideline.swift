@@ -23,4 +23,9 @@ enum TodoIconImageGuideline {
         radius: .point(4)
     )
     
+    static let x16 = ImageGuideline(
+        size: CGSize(width: 16, height: 16),
+        radius: .point(4)
+    )
+    
 }

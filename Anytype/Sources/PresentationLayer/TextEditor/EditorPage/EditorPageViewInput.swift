@@ -1,4 +1,5 @@
 import BlocksModels
+import UIKit
 
 
 /// Input data for document view
@@ -14,9 +15,9 @@ protocol EditorPageViewInput: AnyObject {
     func showDeletedScreen(_ show: Bool)
 
     /// Tells the delegate when editing of the text block begins
-    func textBlockDidBeginEditing()
+    func textBlockDidBeginEditing(firstResponderView: UIView)
 
-    func textBlockDidChangeFrame()
+    func blockDidChangeFrame()
 
     func textBlockDidChangeText()
 

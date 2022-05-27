@@ -1,7 +1,6 @@
 import Foundation
 import BlocksModels
 import Combine
-import Amplitude
 
 final class ObjectCoverPickerViewModel: ObservableObject {
     
@@ -36,21 +35,21 @@ final class ObjectCoverPickerViewModel: ObservableObject {
 extension ObjectCoverPickerViewModel {
     
     func setColor(_ colorName: String) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.setCover)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
         detailsService.updateBundledDetails(
             [.coverType(CoverType.color), .coverId(colorName)]
         )
     }
     
     func setGradient(_ gradientName: String) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.setCover)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
         detailsService.updateBundledDetails(
             [.coverType(CoverType.gradient), .coverId(gradientName)]
         )
     }
 
     func setUnsplash(_ imageId: String) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.setCover)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
         detailsService.updateBundledDetails(
             ObjectHeaderImageUsecase.cover.updatedDetails(with: .init(imageId)!)
         )
@@ -58,11 +57,11 @@ extension ObjectCoverPickerViewModel {
     
     
     func uploadImage(from itemProvider: NSItemProvider) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.setCover)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: ObjectHeaderImageUploadingWorker(
-                objectId: document.objectId,
+                objectId: document.objectId.value,
                 detailsService: detailsService,
                 usecase: .cover
             )
@@ -71,9 +70,9 @@ extension ObjectCoverPickerViewModel {
     }
 
     func uploadUnplashCover(unsplashItem: UnsplashItem) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.setCover)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setCover)
         EventsBunch(
-            contextId: document.objectId,
+            contextId: document.objectId.value,
             localEvents: [unsplashItem.updateEvent]
         ).send()
 
@@ -87,7 +86,7 @@ extension ObjectCoverPickerViewModel {
     }
     
     func removeCover() {
-        Amplitude.instance().logEvent(AmplitudeEventsName.removeCover)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeCover)
         detailsService.updateBundledDetails(
             [.coverType(CoverType.none), .coverId("")]
         )

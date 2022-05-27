@@ -1,12 +1,8 @@
 import UIKit
 
 final class TextBlockLeadingViewBuilder {
-    static func leftTitleView(model: TextBlockLeadingStyle.TitleModel) -> UIView {
-        guard model.isCheckable else {
-            return TextBlockIconView(viewType: .empty)
-        }
-
-        return TextBlockIconView(viewType: .titleCheckbox(isSelected: model.checked)) {
+    static func checkableLeftTitleView(model: TextBlockLeadingStyle.TitleModel) -> UIView {
+        TextBlockIconView(viewType: .titleCheckbox(isSelected: model.checked)) {
             UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
             model.toggleAction()
         }

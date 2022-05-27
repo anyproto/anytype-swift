@@ -6,10 +6,7 @@ struct RelationObjectsRowView: View {
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
-            SwiftUIObjectIconImageView(
-                iconImage: object.icon,
-                usecase: .dashboardSearch
-            ).frame(width: 48, height: 48)
+            icon
             Spacer.fixedWidth(12)
             text
             Spacer()
@@ -17,16 +14,55 @@ struct RelationObjectsRowView: View {
         .frame(height: 68)
     }
     
+    private var icon: some View {
+        Group {
+            if object.isDeleted {
+                Image.ghost.resizable().frame(width: 28, height: 28)
+            } else {
+                SwiftUIObjectIconImageView(
+                    iconImage: object.icon,
+                    usecase: .dashboardSearch
+                )
+            }
+        }.frame(width: 48, height: 48)
+    }
+    
     private var text: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(object.title, style: .previewTitle2Medium, color: .textPrimary)
+            AnytypeText(
+                object.isDeleted ? "Non-existent object".localized : object.title,
+                style: .previewTitle2Medium,
+                color: titleColor
+            )
                 .lineLimit(1)
+            
             Spacer.fixedHeight(1)
             
-            AnytypeText(object.type, style: .relation2Regular, color: .textSecondary)
+            AnytypeText(
+                object.isDeleted ? "Deleted".localized : object.type,
+                style: .relation2Regular,
+                color: subtitleColor
+            )
                 .lineLimit(1)
         }
     }
+    
+    private var titleColor: Color {
+        if object.isDeleted || object.isArchived {
+            return .textTertiary
+        } else {
+            return .textPrimary
+        }
+    }
+    
+    private var subtitleColor: Color {
+        if object.isDeleted || object.isArchived {
+            return .textTertiary
+        } else {
+            return .textSecondary
+        }
+    }
+    
 }
 
 struct RelationObjectsRowView_Previews: PreviewProvider {
@@ -36,7 +72,9 @@ struct RelationObjectsRowView_Previews: PreviewProvider {
                 id: "",
                 icon: .placeholder("r"),
                 title: "title",
-                type: "type"
+                type: "type",
+                isArchived: false,
+                isDeleted: false
             )
         )
     }

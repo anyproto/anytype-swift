@@ -55,12 +55,13 @@
 "Link" = "Link";
 "Text block subtitle" = "Just start writing with a plain text";
 "Title block subtitle" = "Big section heading";
-"Heading block subtitle" = "Just start writing with a plain text";
-"Subheading block subtitle" = "Just start writing with a plain text";
-"Highlighted block subtitle" = "Small section heading";
+"Heading block subtitle" = "Medium headline";
+"Subheading block subtitle" = "Small headline";
+"Any action or idea" = "Any action or idea";
+"Spotlight, that needs special attention" = "Spotlight, that needs special attention";
 "Checkbox block subtitle" = "Create and track task with to-do list";
 "Bulleted block subtitle" = "Simple list";
-"Numbered block subtitle" = "Simple list";
+"Numbered block subtitle" = "Numbered list";
 "Toggle block subtitle" = "Hide and show content inside";
 "File block subtitle" = "Store file in original state";
 "Picture block subtitle" = "Upload and enrich the page with image";
@@ -100,6 +101,9 @@
 "Paste or type URL" = "Paste or type URL";
 "No items match filter" = "No items match filter";
 "Unsupported block" = "Unsupported block";
+"Name" = "Name";
+"Description" = "Description";
+"Paste processing..." = "Paste processing...";
 
 "selected block" = "selected block";
 "selected blocks" = "selected blocks";
@@ -114,7 +118,7 @@
 // Settings
 "Your public page" = "Your public page";
 "Wallpaper" = "Wallpaper";
-"Keychain phrase" = "Keychain phrase";
+"Recovery phrase" = "Recovery phrase";
 "Pin code" = "Pin code";
 "Log out" = "Log out";
 "Soon" = "Soon";
@@ -126,27 +130,27 @@
 "Archive" = "Archive";
 "Restore" = "Restore";
 
-"Have you backed up your keychain phrase?" = "Have you backed up your keychain phrase?";
-"Backup keychain phrase" = "Backup keychain phrase";
+"Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
+"Backup recovery phrase" = "Backup recovery phrase";
 
 
 // Keychain screen
-"Keychain phrase" = "Keychain phrase";
-"Keychain phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
-"Keychain phrase copied to clipboard" = "Keychain phrase copied to clipboard";
-"Save keychain alert part 1" = "If you lose the passphrase and get logged out you will not be able to ";
+"Recovery phrase" = "Recovery phrase";
+"Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
+"Recovery phrase copied to clipboard" = "Recovery phrase copied to clipboard";
+"Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
 "Save keychain alert part 2" = "ever access your data again";
-"Save keychain alert part 3" = ".\nSave this passphrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
+"Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
 
 // Auth
 "Welcome to Anytype" = "Welcome to Anytype";
 "OrganizeEverythingDescription" = "With Anytype you can write notes and documents, manage tasks and save important content from the web.";
 "Sign up" = "Sign up";
 "Login" = "Login";
-"Login with phrase" = "Login with phrase";
+"Login with recovery phrase" = "Login with recovery phrase";
 "Enter phrase" = "Enter phrase";
 "Restore secret phrase from keychain" = "Restore secret phrase from keychain";
-"or Type your keychain phrase" = "or Type your keychain phrase";
+"or Type your recovery phrase" = "or Type your recovery phrase";
 "Choose pin code" = "Choose pin code";
 "Do it later" = "Do it later";
 "Setting up the wallet" = "Setting up the wallet";
@@ -210,6 +214,9 @@
 "Note" = "Note";
 "Choose layout type" = "Choose layout type";
 
+"Undo typing" = "Undo typing";
+"Undo" = "Undo";
+
 // Object Type
 "Page" = "Page";
 "Set" = "Set";
@@ -247,3 +254,6 @@
 
 // MARK: - Deletion
 "Pending deletion text" = "We're sorry to see you go. Once you request your account to be deleted, you have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node, you won't be able to sign into Anytype on new devices.";
+
+// MARK: - Object Settings
+"Undo/Redo" = "Undo/Redo";

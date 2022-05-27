@@ -45,10 +45,11 @@ final class TextRelationDetailsViewController: UIViewController {
         super.loadView()
         setupView()
     }
-    
+        
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.updatePopupLayout(view.safeAreaLayoutGuide)
+        _ = textView.becomeFirstResponder()
     }
     
     override func viewDidLayoutSubviews() {
@@ -97,7 +98,7 @@ private extension TextRelationDetailsViewController {
     }
     
     static func makeTextView() -> TextViewWithPlaceholder {
-        let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil) { _ in }
+        let textView = TextViewWithPlaceholder(frame: .zero, textContainer: nil)
         textView.isScrollEnabled = false
         textView.font = AnytypeFont.uxBodyRegular.uiKitFont
         textView.textColor = UIColor.textPrimary

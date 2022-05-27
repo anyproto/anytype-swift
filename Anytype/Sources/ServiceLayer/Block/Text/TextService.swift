@@ -1,13 +1,11 @@
 import Foundation
-import Combine
-import UIKit
 import ProtobufMessages
 import BlocksModels
-import Amplitude
+import AnytypeCore
 
 final class TextService: TextServiceProtocol {    
     func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextText)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockSetTextText)
         Anytype_Rpc.Block.Set.Text.Text.Service.invoke(
             contextID: contextId,
             blockID: blockId,
@@ -21,7 +19,7 @@ final class TextService: TextServiceProtocol {
 
     @discardableResult
     func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockSetTextText)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockSetTextText)
         let event = Anytype_Rpc.Block.Set.Text.Text.Service
             .invoke(contextID: contextId, blockID: blockId, text: middlewareString.text, marks: middlewareString.marks)
             .map { EventsBunch(event: $0.event) }
@@ -35,17 +33,25 @@ final class TextService: TextServiceProtocol {
     }
     
     func setStyle(contextId: BlockId, blockId: BlockId, style: Style) {
-        Amplitude.instance().logSetStyle(style)
-        Anytype_Rpc.Block.Set.Text.Style.Service
+        AnytypeAnalytics.instance().logSetStyle(style)
+        let event = Anytype_Rpc.Block.Set.Text.Style.Service
             .invoke(contextID: contextId, blockID: blockId, style: style.asMiddleware)
             .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .textService)?
-            .send()
+            .getValue(domain: .textService)
+
+        guard let anytypeId = AnytypeId(blockId) else { return }
+
+        EventsBunch(
+            contextId: contextId,
+            middlewareEvents: event?.middlewareEvents ?? [],
+            localEvents: [.setStyle(blockId: anytypeId)],
+            dataSourceEvents: []
+        ).send()
     }
     
     func split(contextId: BlockId, blockId: BlockId, range: NSRange, style: Style, mode: SplitMode) -> BlockId? {
         let textContentType = BlockContent.text(.empty(contentType: style)).description
-        Amplitude.instance().logCreateBlock(type: textContentType, style: String(describing: style))
+        AnytypeAnalytics.instance().logCreateBlock(type: textContentType, style: String(describing: style))
 
         let response = Anytype_Rpc.Block.Split.Service
             .invoke(contextID: contextId, blockID: blockId, range: range.asMiddleware, style: style.asMiddleware, mode: mode)
@@ -55,7 +61,13 @@ final class TextService: TextServiceProtocol {
             return nil
         }
 
-        EventsBunch(event: response.event).send()
+        EventsBunch(
+            contextId: contextId,
+            middlewareEvents: response.event.messages,
+            localEvents: [.general],
+            dataSourceEvents: []
+        ).send()
+
         return response.blockID
     }
 
@@ -75,6 +87,24 @@ final class TextService: TextServiceProtocol {
             .invoke(contextID: contextId, blockID: blockId, checked: newValue)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .textService)?
+            .send()
+    }
+
+    func setTextIcon(
+        contextId: BlockId,
+        blockId: BlockId,
+        imageHash: String,
+        emojiUnicode: String
+    ) {
+        Anytype_Rpc.Block.Set.Text.Icon.Service.invoke(
+            contextID: contextId,
+            blockID: blockId,
+            iconImage: imageHash,
+            iconEmoji: emojiUnicode
+        )
+            .getValue(domain: .textService)
+            .map(\.event)
+            .map(EventsBunch.init)?
             .send()
     }
     

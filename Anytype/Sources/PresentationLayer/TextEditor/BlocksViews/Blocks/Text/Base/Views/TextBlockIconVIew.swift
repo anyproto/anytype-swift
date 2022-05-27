@@ -10,7 +10,7 @@ final class TextBlockIconView: UIView {
         case numbered(Int)
         case bulleted
         case quote
-        case empty
+        case callout(model: ObjectIconImageModel)
     }
 
     private var currentView: UIView?
@@ -79,6 +79,7 @@ final class TextBlockIconView: UIView {
             currentView = toggleView
             toggleView.isSelected = isToggled
             let action = UIAction(handler: { [weak toggleView, weak self] reciver in
+                UISelectionFeedbackGenerator().selectionChanged()
                 toggleView?.isSelected.toggle()
                 self?.action?()
             })
@@ -88,9 +89,8 @@ final class TextBlockIconView: UIView {
         case .quote:
             let quoteView = createQuoteView()
             currentView = quoteView
-        case .empty:
-            setContentHuggingPriority(.required, for: .horizontal)
-            return
+        case .callout(let model):
+            currentView = createCalloutView(model: model)
         }
     }
 }
@@ -200,13 +200,23 @@ extension TextBlockIconView {
             $0.bottom.equal(to: bottomAnchor)
         }
         layoutUsing.anchors {
-            $0.width.equal(to: Constants.size.width)
-            if let superview = superview {
-                $0.top.equal(to: superview.topAnchor)
-                $0.bottom.equal(to: superview.bottomAnchor)
-            }
+            $0.width.equal(to: Constants.size.width, priority: .defaultLow)
         }
+
         return quoteView
+    }
+
+    private func createCalloutView(model: ObjectIconImageModel) -> UIView {
+        let iconView = ObjectIconImageView()
+
+        iconView.configure(model: model)
+        addSubview(iconView) {
+            $0.pinToSuperview()
+        }
+
+        iconView.isUserInteractionEnabled = false
+
+        return iconView
     }
 }
 

@@ -42,7 +42,10 @@ final class BlocksSelectionOverlayView: UIView {
 
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         super.traitCollectionDidChange(previousTraitCollection)
-        applyShadow()
+        if traitCollection.hasDifferentColorAppearance(comparedTo: previousTraitCollection) {
+            applyShadow()
+        }
+       
     }
 
     // MARK: - Private
@@ -79,14 +82,14 @@ final class BlocksSelectionOverlayView: UIView {
 
     private func makeMovingButtonsView() -> TwoStandardButtonsView {
         TwoStandardButtonsView(
-            leftButtonData: StandardButtonData(
+            leftButtonData: StandardButtonModel(
                 text: "Cancel".localized,
                 style: .secondary,
                 action: { [weak viewModel] in
                     viewModel?.cancelButtonHandler?()
                 }
             ),
-            rightButtonData: StandardButtonData(
+            rightButtonData: StandardButtonModel(
                 text: "Move".localized,
                 style: .primary,
                 action: { [weak viewModel] in

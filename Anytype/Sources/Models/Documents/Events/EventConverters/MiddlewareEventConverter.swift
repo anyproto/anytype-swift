@@ -32,7 +32,7 @@ final class MiddlewareEventConverter {
             return SyncStatus(status.summary.status).flatMap { .syncStatus($0) }
         case let .blockSetFields(fields):
             infoContainer.update(blockId: fields.id) { info in
-                return info.updated(fields: fields.fields.toFieldTypeMap())
+                return info.updated(fields: fields.fields.fields)
             }
             return .blocks(blockIds: [fields.id])
         case let .blockAdd(value):
@@ -62,10 +62,14 @@ final class MiddlewareEventConverter {
         case let .blockSetBackgroundColor(updateData):
             infoContainer.update(blockId: updateData.id, update: { info in
                 return info.updated(
-                    backgroundColor: MiddlewareColor(rawValue: updateData.backgroundColor)
+                    backgroundColor: MiddlewareColor(rawValue: updateData.backgroundColor) ?? .default
                 )
             })
-            return .blocks(blockIds: [updateData.id])
+
+            var childIds = infoContainer.recursiveChildren(of: updateData.id).map { $0.id.value }
+            childIds.append(updateData.id)
+            
+            return .blocks(blockIds: Set(childIds))
             
         case let .blockSetAlign(value):
             let blockId = value.id
@@ -85,11 +89,15 @@ final class MiddlewareEventConverter {
         
         case let .objectDetailsSet(data):
             guard let details = detailsStorage.set(data: data) else { return nil }
-            return .details(id: details.id)
+            return .details(id: details.id.value)
             
         case let .objectDetailsAmend(data):
-            let oldDetails = detailsStorage.get(id: data.id)
-            let newDetails = detailsStorage.amend(data: data)
+            guard
+                let id = data.id.asAnytypeId,
+                let newDetails = detailsStorage.amend(data: data)
+            else { return nil }
+            
+            let oldDetails = detailsStorage.get(id: id)
             
             guard let oldDetails = oldDetails else {
                 return .details(id: data.id)
@@ -110,7 +118,7 @@ final class MiddlewareEventConverter {
             
         case let .objectDetailsUnset(data):
             guard let details = detailsStorage.unset(data: data) else { return nil }
-            return .details(id: details.id)
+            return .details(id: details.id.value)
             
         case .objectRelationsSet(let set):
             relationStorage.set(
@@ -254,8 +262,10 @@ final class MiddlewareEventConverter {
             let parsedBlocks = data.blocks.compactMap {
                 BlockInformationConverter.convert(block: $0)
             }
-            let parsedDetails = data.details.map {
-                ObjectDetails(id: $0.id, values: $0.details.fields)
+            
+            let parsedDetails: [ObjectDetails] = data.details.compactMap {
+                guard let id = $0.id.asAnytypeId else { return nil }
+                return ObjectDetails(id: id, values: $0.details.fields)
             }
 
 
@@ -390,13 +400,18 @@ final class MiddlewareEventConverter {
         let isOldStyleToggle = oldText.contentType == .toggle
         let isNewStyleToggle = textContent.contentType == .toggle
         let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
-        return toggleStyleChanged ? .general : .blocks(blockIds: [newData.id])
+
+
+        var childIds = infoContainer.recursiveChildren(of: newData.id).map { $0.id.value }
+        childIds.append(newData.id)
+
+        return toggleStyleChanged ? .general : .blocks(blockIds: Set(childIds))
     }
     
     private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: InfoContainerProtocol) {
         
         information.forEach { container.add($0) }
-        let roots = information.filter { $0.id == rootId }
+        let roots = information.filter { $0.id.value == rootId }
 
         guard roots.count != 0 else {
             anytypeAssertionFailure("Unknown situation. We can't have zero roots.", domain: .middlewareEventConverter)
@@ -413,7 +428,7 @@ final class MiddlewareEventConverter {
 
         let rootId = roots[0].id
 
-        IndentationBuilder.build(container: container, id: rootId)
+        IndentationBuilder.build(container: container, id: rootId.value)
     }
     
     private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {
@@ -429,7 +444,7 @@ final class MiddlewareEventConverter {
             WindowManager.shared.showDeletedAccountWindow(progress: progress)
         case .deleted:
             if UserDefaultsConfig.usersId.isNotEmpty {
-                _ = ServiceLocator.shared.authService().logout(removeData: true)
+                ServiceLocator.shared.authService().logout(removeData: true) { _ in }
                 WindowManager.shared.showAuthWindow()
             }
         }

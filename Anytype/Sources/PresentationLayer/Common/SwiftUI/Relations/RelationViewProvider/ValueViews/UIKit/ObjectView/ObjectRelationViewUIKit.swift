@@ -32,7 +32,7 @@ final class ObjectRelationViewUIKit: UIView {
         textView = AnytypeLabel(style: .relation1Regular)
         textView.setText(option.title)
         textView.setLineBreakMode(.byTruncatingTail)
-        textView.textColor = .textPrimary
+        textView.textColor = titleColor(option: option)
 
         let model = ObjectIconImageModel(
             iconImage: option.icon,
@@ -51,6 +51,14 @@ final class ObjectRelationViewUIKit: UIView {
 
         addSubview(stackView) {
             $0.pinToSuperview()
+        }
+    }
+    
+    private func titleColor(option: Relation.Object.Option) -> UIColor {
+        if option.isDeleted || option.isArchived {
+            return .textTertiary
+        } else {
+            return .textPrimary
         }
     }
 }

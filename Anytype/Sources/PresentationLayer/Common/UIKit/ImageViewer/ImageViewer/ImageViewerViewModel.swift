@@ -7,9 +7,11 @@ final class ImageViewerViewModel {
 
     private var cancellables = [AnyCancellable]()
 
-    init(imageSource: ImageSource) {
+    init(item: GalleryItemModel) {
+        image = item.previewImage
+
         isLoading = true
-        imageSource.image.sink { [weak self] _ in
+        item.imageSource.image.sink { [weak self] _ in
             self?.isLoading = false
         } receiveValue: { [weak self] image in
             self?.image = image

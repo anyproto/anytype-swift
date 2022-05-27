@@ -8,9 +8,9 @@ struct DashboardWallpaper: View {
         Group {
             switch model.wallpaper {
             case .color(let color):
-                Color(hex: color.hex).ignoresSafeArea()
+                Color(hex: color.data.hex).ignoresSafeArea()
             case .gradient(let gradient):
-                Gradients.create(topHexColor: gradient.startHex, bottomHexColor: gradient.endHex)
+                Gradients.create(topHexColor: gradient.data.startHex, bottomHexColor: gradient.data.endHex)
             }
         }
     }

@@ -5,7 +5,9 @@ struct AccessoryViewBuilder {
     static func accessoryState(
         actionHandler: BlockActionHandlerProtocol,
         router: EditorRouter,
-        document: BaseDocumentProtocol
+        pasteboardService: PasteboardServiceProtocol,
+        document: BaseDocumentProtocol,
+        modelsHolder: EditorMainItemModelsHolder
     ) -> AccessoryViewStateManager {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
@@ -48,7 +50,8 @@ struct AccessoryViewBuilder {
         let slashMenuViewModel = SlashMenuViewModel(
             handler: SlashMenuActionHandler(
                 actionHandler: actionHandler,
-                router: router
+                router: router,
+                pasteboardService: pasteboardService
             )
         )
         let slashMenuView = SlashMenuAssembly.menuView(
@@ -62,7 +65,8 @@ struct AccessoryViewBuilder {
             cursorModeAccessoryView: cursorModeAccessoryView,
             markupAccessoryView: markupModeAccessoryView,
             changeTypeView: changeTypeView,
-            document: document
+            document: document,
+            modelsHolder: modelsHolder
         )
 
         slashMenuViewModel.resetSlashMenuHandler = { [weak accessoryViewSwitcher] in

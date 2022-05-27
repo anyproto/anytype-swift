@@ -4,7 +4,6 @@ import BlocksModels
 import UIKit
 import ProtobufMessages
 import SwiftProtobuf
-import Amplitude
 import AnytypeCore
 
 class BlockListService: BlockListServiceProtocol {
@@ -21,17 +20,16 @@ class BlockListService: BlockListServiceProtocol {
             .send()
     }
     
-    func setFields(fields: [BlockFields]) {
-        let middleFields = fields.map { $0.convertToMiddle() }
+    func setFields(fields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) {
         Anytype_Rpc.BlockList.Set.Fields.Service
-            .invoke(contextID: contextId, blockFields: middleFields)
+            .invoke(contextID: contextId, blockFields: fields)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockListService)?
             .send()
     }
 
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.blockListSetBackgroundColor)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListSetBackgroundColor)
 
         Anytype_Rpc.BlockList.Set.BackgroundColor.Service
             .invoke(contextID: contextId, blockIds: blockIds, color: color.rawValue)
@@ -41,7 +39,7 @@ class BlockListService: BlockListServiceProtocol {
     }
 
     func setAlign(blockIds: [BlockId], alignment: LayoutAlignment) {
-        Amplitude.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
+        AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
 
         Anytype_Rpc.BlockList.Set.Align.Service
             .invoke(contextID: contextId, blockIds: blockIds, align: alignment.asMiddleware)

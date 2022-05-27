@@ -22,6 +22,7 @@ final class EditorNavigationBarHelper {
     
     private var startAppearingOffset: CGFloat = 0.0
     private var endAppearingOffset: CGFloat = 0.0
+    private var currentScrollViewOffset: CGFloat = 0.0
     var canChangeSyncStatusAppearance = true
 
     private var currentEditorState: EditorEditingState?
@@ -112,6 +113,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             controller?.navigationItem.leftBarButtonItem = syncStatusBarButtonItem
             lastTitleModel.map { navigationBarTitleView.configure(model: .title($0)) }
             navigationBarTitleView.setIsLocked(false)
+            updateNavigationBarAppearanceBasedOnContentOffset(currentScrollViewOffset)
         case .selecting(let blocks):
             navigationBarTitleView.setAlphaForSubviews(1)
             updateBarButtonItemsBackground(opacity: 1)
@@ -154,6 +156,7 @@ private extension EditorNavigationBarHelper {
     }
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {
+        currentScrollViewOffset = newOffset
         guard let opacity = countPercentOfNavigationBarAppearance(offset: newOffset) else { return }
 
         switch currentEditorState {

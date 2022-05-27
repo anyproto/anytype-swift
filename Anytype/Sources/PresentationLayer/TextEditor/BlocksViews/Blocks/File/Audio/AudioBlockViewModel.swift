@@ -54,12 +54,15 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             guard playerItem != nil else {
                 return emptyViewConfiguration(state: .error)
             }
-            audioPlayer.updateDelegate(audioId: info.id, delegate: self)
+            audioPlayer.updateDelegate(audioId: info.id.value, delegate: self)
             return AudioBlockContentConfiguration(
                 file: fileData,
-                trackId: info.id,
+                trackId: info.id.value,
                 audioPlayerViewDelegate: self
-            ).asCellBlockConfiguration
+            ).cellBlockConfiguration(
+                indentationSettings: .init(with: info.configurationData),
+                dragConfiguration: .init(id: info.id.value)
+            )
         }
     }
 
@@ -68,6 +71,9 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
             image: UIImage.blockFile.empty.video,
             text: "Upload a audio".localized,
             state: state
-        ).asCellBlockConfiguration
+        ).cellBlockConfiguration(
+            indentationSettings: .init(with: info.configurationData),
+            dragConfiguration: .init(id: info.id.value)
+        )
     }
 }

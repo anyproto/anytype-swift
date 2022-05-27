@@ -1,12 +1,11 @@
 import SwiftUI
 import BlocksModels
-import Amplitude
 
 struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
     @Environment(\.presentationMode) var presentationMode
 
     let title: String?
-    let context: AmplitudeEventsSearchContext
+    let context: AnalyticsEventsSearchContext
 
     @State private var searchText = ""
     @StateObject var viewModel: SearchViewModel
@@ -22,7 +21,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
         .onChange(of: searchText) {
             search(text: $0)
 
-            Amplitude.instance().logSearchQuery(context, length: searchText.count)
+            AnytypeAnalytics.instance().logSearchQuery(context, length: searchText.count)
         }
         .onAppear { search(text: searchText) }
     }
@@ -51,7 +50,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
                                     viewModel.onDismiss()
                                     viewModel.onSelect(searchData)
 
-                                    Amplitude.instance().logSearchResult(index: index + 1, length: searchText.count)
+                                    AnytypeAnalytics.instance().logSearchResult(index: index + 1, length: searchText.count)
                                 }
                             ) {
                                 SearchCell(data: searchData)
@@ -103,8 +102,8 @@ struct HomeSearchView_Previews: PreviewProvider {
     static var previews: some View {
         SearchView(
             title: "FOoo",
-            context: .general, viewModel: ObjectSearchViewModel(searchKind: .objects, onSelect: { _ in
-            })
+            context: .general, viewModel: ObjectSearchViewModel { _ in
+            }
         )
     }
 }

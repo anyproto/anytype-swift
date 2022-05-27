@@ -47,7 +47,13 @@ final class DateRelationDetailsViewModel: ObservableObject {
 extension DateRelationDetailsViewModel: AnytypePopupViewModelProtocol {
     
     func makeContentView() -> UIViewController {
-        UIHostingController(rootView:  DateRelationDetailsView(viewModel: self))
+        UIHostingController(
+            rootView:
+                DateRelationDetailsView(viewModel: self)
+                .highPriorityGesture(
+                    DragGesture()
+                )
+        )
     }
     
     func onPopupInstall(_ popup: AnytypePopupProxy) {

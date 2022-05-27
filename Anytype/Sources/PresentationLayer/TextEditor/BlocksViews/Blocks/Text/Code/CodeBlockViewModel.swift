@@ -19,7 +19,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
     let showCodeSelection: (BlockInformation) -> ()
 
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        return CodeBlockContentConfiguration(
+        CodeBlockContentConfiguration(
             content: content,
             backgroundColor: info.backgroundColor,
             codeLanguage: codeLanguage,
@@ -28,7 +28,10 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
                 textDidChange: { textView in textDidChange(info, textView) },
                 showCodeSelection: { showCodeSelection(info) }
             )
-        ).asCellBlockConfiguration
+        ).cellBlockConfiguration(
+            indentationSettings: .init(with: info.configurationData),
+            dragConfiguration: .init(id: info.id.value)
+        )
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}

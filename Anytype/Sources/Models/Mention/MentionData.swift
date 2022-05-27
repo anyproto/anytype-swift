@@ -7,7 +7,7 @@ struct MentionData: Equatable, Hashable {
     let isArchived: Bool
     
     static func noDetails(blockId: BlockId) -> MentionData {
-        return MentionData(image: nil, blockId: blockId, isDeleted: true, isArchived: false)
+        return MentionData(image: ObjectIconImage.staticImage(ImageName.ghost), blockId: blockId, isDeleted: true, isArchived: false)
     }
 }
 
@@ -15,7 +15,7 @@ extension MentionData {
     init(details: ObjectDetails) {
         self.init(
             image: details.objectIconImage,
-            blockId: details.id,
+            blockId: details.id.value,
             isDeleted: details.isDeleted,
             isArchived: details.isArchived
         )

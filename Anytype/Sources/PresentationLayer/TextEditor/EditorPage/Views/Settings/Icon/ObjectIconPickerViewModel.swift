@@ -1,10 +1,9 @@
 import Combine
 import UIKit
 import BlocksModels
-import Amplitude
 import AnytypeCore
 
-final class ObjectIconPickerViewModel: ObservableObject {
+final class ObjectIconPickerViewModel: ObservableObject, ObjectIconPickerViewModelProtocol {
     
     let mediaPickerContentType: MediaPickerContentType = .images
 
@@ -60,17 +59,17 @@ final class ObjectIconPickerViewModel: ObservableObject {
 
 extension ObjectIconPickerViewModel {
     func setEmoji(_ emojiUnicode: String) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.setIcon)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
         detailsService.updateBundledDetails([.iconEmoji(emojiUnicode), .iconImageHash(nil)])
     }
     
     func uploadImage(from itemProvider: NSItemProvider) {
-        Amplitude.instance().logEvent(AmplitudeEventsName.setIcon)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.setIcon)
 
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: ObjectHeaderImageUploadingWorker(
-                objectId: document.objectId,
+                objectId: document.objectId.value,
                 detailsService: detailsService,
                 usecase: .icon
             )
@@ -80,7 +79,7 @@ extension ObjectIconPickerViewModel {
     
     func removeIcon() {
         // Analytics
-        Amplitude.instance().logEvent(AmplitudeEventsName.removeIcon)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeIcon)
         
         detailsService.updateBundledDetails(
             [.iconEmoji(""), .iconImageHash(nil)]

@@ -24,6 +24,8 @@ extension Relation.Object {
         let icon: ObjectIconImage
         let title: String
         let type: String
+        let isArchived: Bool
+        let isDeleted: Bool
     }
     
 }

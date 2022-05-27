@@ -6,15 +6,24 @@ import Combine
 import AnytypeCore
 
 final class AnytypePopup: FloatingPanelController {
+
+    struct Configuration {
+        let isGrabberVisible: Bool
+        let dismissOnBackdropView: Bool
+    }
         
     private let viewModel: AnytypePopupViewModelProtocol
     private let floatingPanelStyle: Bool
+    private let configuration: Configuration
     
     // MARK: - Initializers
     
-    init(viewModel: AnytypePopupViewModelProtocol, floatingPanelStyle: Bool = false) {
+    init(viewModel: AnytypePopupViewModelProtocol,
+         floatingPanelStyle: Bool = false,
+         configuration: Configuration = Constants.defaultConifguration) {
         self.viewModel = viewModel
         self.floatingPanelStyle = floatingPanelStyle
+        self.configuration = configuration
         
         super.init(delegate: nil)
         
@@ -25,9 +34,10 @@ final class AnytypePopup: FloatingPanelController {
 
     convenience init<Content: View>(contentView: Content,
                                     popupLayout: AnytypePopupLayoutType = .constantHeight(height: 0, floatingPanelStyle: true),
-                                    floatingPanelStyle: Bool = false) {
+                                    floatingPanelStyle: Bool = false,
+                                    configuration: Configuration = Constants.defaultConifguration) {
         let popupView = AnytypePopupViewModel(contentView: contentView, popupLayout: popupLayout)
-        self.init(viewModel: popupView, floatingPanelStyle: floatingPanelStyle)
+        self.init(viewModel: popupView, floatingPanelStyle: floatingPanelStyle, configuration: configuration)
     }
     
     @available(*, unavailable)
@@ -92,8 +102,8 @@ private extension AnytypePopup {
     }
     
     func setupGestures() {
-        isRemovalInteractionEnabled = true
-        backdropView.dismissalTapGestureRecognizer.isEnabled = true
+        isRemovalInteractionEnabled = configuration.dismissOnBackdropView
+        backdropView.dismissalTapGestureRecognizer.isEnabled = configuration.dismissOnBackdropView
     }
     
     func setupSurfaceView() {
@@ -102,8 +112,14 @@ private extension AnytypePopup {
         surfaceView.grabberHandlePadding = 6.0
         surfaceView.grabberHandleSize = CGSize(width: 48.0, height: 4.0)
         surfaceView.grabberHandle.backgroundColor = .strokePrimary
-        
-        surfaceView.contentPadding = UIEdgeInsets(top: Constants.grabberHeight, left: 0, bottom: 0, right: 0)
+        surfaceView.grabberHandle.isHidden = !configuration.isGrabberVisible
+
+        surfaceView.contentPadding = UIEdgeInsets(
+            top: configuration.isGrabberVisible ? Constants.grabberHeight : 0,
+            left: 0,
+            bottom: 0,
+            right: 0
+        )
         
         if floatingPanelStyle {
             let horizontalInset = UIDevice.isPad ? 0.0 : 8.0
@@ -134,7 +150,7 @@ private extension AnytypePopup {
         shadow.offset = CGSize(width: 0, height: 0)
         shadow.radius = 40
         shadow.opacity = 1
-        
+
         return shadow
     }
     
@@ -145,6 +161,7 @@ extension AnytypePopup {
     enum Constants {
         static let grabberHeight: CGFloat = 16
         static let bottomInset: CGFloat = 44
+        static let defaultConifguration: Configuration = .init(isGrabberVisible: true, dismissOnBackdropView: true)
     }
     
 }

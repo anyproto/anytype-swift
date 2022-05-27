@@ -7,8 +7,8 @@ struct FilesOptionsSearchModuleBuilder: RelationOptionsSearchModuleBuilderProtoc
         onSelect: @escaping ([String]) -> Void,
         onCreate _ : @escaping (String) -> Void
     ) -> NewSearchView {
-        NewSearchModuleAssembly.buildFilesSearchModule(
-            selectedObjectIds: excludedOptionIds,
+        NewSearchModuleAssembly.filesSearchModule(
+            excludedFileIds: excludedOptionIds,
             onSelect: onSelect
         )
     }

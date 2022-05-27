@@ -1,5 +1,6 @@
 import BlocksModels
 import UIKit
+import AnytypeCore
 
 final class EditorAssembly {
     private weak var browser: EditorBrowserController!
@@ -30,7 +31,7 @@ final class EditorAssembly {
     }
     
     // MARK: - Set
-    private func buildSetModule(pageId: BlockId) -> (EditorSetHostingController, EditorRouterProtocol) {
+    private func buildSetModule(pageId: AnytypeId) -> (EditorSetHostingController, EditorRouterProtocol) {
         let document = BaseDocument(objectId: pageId)
         let model = EditorSetViewModel(document: document)
         let controller = EditorSetHostingController(objectId: pageId, model: model)
@@ -49,7 +50,7 @@ final class EditorAssembly {
     
     // MARK: - Page
     
-    private func buildPageModule(pageId: BlockId) -> (EditorPageController, EditorRouterProtocol) {
+    private func buildPageModule(pageId: AnytypeId) -> (EditorPageController, EditorRouterProtocol) {
         let blocksSelectionOverlayView = buildBlocksSelectionOverlayView()
 
         let controller = EditorPageController(blocksSelectionOverlayView: blocksSelectionOverlayView)
@@ -83,10 +84,10 @@ final class EditorAssembly {
         
         let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
         let cursorManager = EditorCursorManager()
-        let listService = BlockListService(contextId: document.objectId)
-        let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId)
+        let listService = BlockListService(contextId: document.objectId.value)
+        let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId.value)
         let blockActionService = BlockActionService(
-            documentId: document.objectId,
+            documentId: document.objectId.value,
             listService: listService,
             singleService: singleService,
             modelsHolder: modelsHolder,
@@ -96,7 +97,8 @@ final class EditorAssembly {
             service: blockActionService,
             listService: listService,
             toggleStorage: ToggleStorage.shared,
-            container: document.infoContainer
+            container: document.infoContainer,
+            modelsHolder: modelsHolder
         )
         
         let actionHandler = BlockActionHandler(
@@ -116,7 +118,9 @@ final class EditorAssembly {
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
             router: router,
-            document: document
+            pasteboardService: pasteboardService,
+            document: document,
+            modelsHolder: modelsHolder
         )
         
         let markdownListener = MarkdownListenerImpl()
@@ -141,7 +145,7 @@ final class EditorAssembly {
         
         let headerModel = ObjectHeaderViewModel(document: document, router: router)
         let blockActionsServiceSingle = ServiceLocator.shared
-            .blockActionsServiceSingle(contextId: document.objectId)
+            .blockActionsServiceSingle(contextId: document.objectId.value)
 
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
@@ -167,7 +171,8 @@ final class EditorAssembly {
             headerModel: headerModel,
             blockActionsService: blockActionsServiceSingle,
             blocksStateManager: blocksStateManager,
-            cursorManager: cursorManager
+            cursorManager: cursorManager,
+            objectActionsService: ServiceLocator.shared.objectActionsService()
         )
     }
 
