@@ -732,7 +732,43 @@ public struct Anytype_Model_Block {
       /// Clears the value of `fields`. Subsequent reads from it will return its default value.
       public mutating func clearFields() {self._fields = nil}
 
+      public var iconSize: Anytype_Model_Block.Content.Link.IconSize = .small
+
+      public var cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text
+
+      public var description_p: Anytype_Model_Block.Content.Link.Description = .none
+
+      public var relations: [String] = []
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public enum IconSize: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+        case small // = 0
+        case medium // = 1
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .small
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .small
+          case 1: self = .medium
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .small: return 0
+          case .medium: return 1
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
 
       public enum Style: SwiftProtobuf.Enum {
         public typealias RawValue = Int
@@ -764,6 +800,68 @@ public struct Anytype_Model_Block {
           case .dataview: return 1
           case .dashboard: return 2
           case .archive: return 3
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
+
+      public enum Description: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+        case none // = 0
+        case added // = 1
+        case content // = 2
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .none
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .none
+          case 1: self = .added
+          case 2: self = .content
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .none: return 0
+          case .added: return 1
+          case .content: return 2
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
+
+      public enum CardStyle: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+        case text // = 0
+        case card // = 1
+        case inline // = 2
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .text
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .text
+          case 1: self = .card
+          case 2: self = .inline
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .text: return 0
+          case .card: return 1
+          case .inline: return 2
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -906,17 +1004,15 @@ public struct Anytype_Model_Block {
         case quote // = 5
         case code // = 6
 
-        /// currently only only one block of this style can exists on a page
+        /// currently only one block of this style can exists on a page
         case title // = 7
         case checkbox // = 8
         case marked // = 9
         case numbered // = 10
         case toggle // = 11
 
-        /// currently only only one block of this style can exists on a page
+        /// currently only one block of this style can exists on a page
         case description_ // = 12
-
-        /// currently only only one block of this style can exists on a page
         case callout // = 13
         case UNRECOGNIZED(Int)
 
@@ -1678,6 +1774,14 @@ extension Anytype_Model_Block.Content.Layout.Style: CaseIterable {
   ]
 }
 
+extension Anytype_Model_Block.Content.Link.IconSize: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Link.IconSize] = [
+    .small,
+    .medium,
+  ]
+}
+
 extension Anytype_Model_Block.Content.Link.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Model_Block.Content.Link.Style] = [
@@ -1685,6 +1789,24 @@ extension Anytype_Model_Block.Content.Link.Style: CaseIterable {
     .dataview,
     .dashboard,
     .archive,
+  ]
+}
+
+extension Anytype_Model_Block.Content.Link.Description: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Link.Description] = [
+    .none,
+    .added,
+    .content,
+  ]
+}
+
+extension Anytype_Model_Block.Content.Link.CardStyle: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Link.CardStyle] = [
+    .text,
+    .card,
+    .inline,
   ]
 }
 
@@ -2774,7 +2896,10 @@ extension Anytype_Model_Block.Content: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Layout: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Layout.Style: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Link: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.IconSize: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Link.Style: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.Description: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.CardStyle: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Div: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Div.Style: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Bookmark: @unchecked Sendable {}
@@ -3441,6 +3566,10 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
     1: .same(proto: "targetBlockId"),
     2: .same(proto: "style"),
     3: .same(proto: "fields"),
+    4: .same(proto: "iconSize"),
+    5: .same(proto: "cardStyle"),
+    6: .same(proto: "description"),
+    7: .same(proto: "relations"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3452,6 +3581,10 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
       case 1: try { try decoder.decodeSingularStringField(value: &self.targetBlockID) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.style) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.iconSize) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.cardStyle) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.description_p) }()
+      case 7: try { try decoder.decodeRepeatedStringField(value: &self.relations) }()
       default: break
       }
     }
@@ -3471,6 +3604,18 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
     try { if let v = self._fields {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     } }()
+    if self.iconSize != .small {
+      try visitor.visitSingularEnumField(value: self.iconSize, fieldNumber: 4)
+    }
+    if self.cardStyle != .text {
+      try visitor.visitSingularEnumField(value: self.cardStyle, fieldNumber: 5)
+    }
+    if self.description_p != .none {
+      try visitor.visitSingularEnumField(value: self.description_p, fieldNumber: 6)
+    }
+    if !self.relations.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.relations, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3478,9 +3623,20 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
     if lhs.targetBlockID != rhs.targetBlockID {return false}
     if lhs.style != rhs.style {return false}
     if lhs._fields != rhs._fields {return false}
+    if lhs.iconSize != rhs.iconSize {return false}
+    if lhs.cardStyle != rhs.cardStyle {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.relations != rhs.relations {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Model_Block.Content.Link.IconSize: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Small"),
+    1: .same(proto: "Medium"),
+  ]
 }
 
 extension Anytype_Model_Block.Content.Link.Style: SwiftProtobuf._ProtoNameProviding {
@@ -3489,6 +3645,22 @@ extension Anytype_Model_Block.Content.Link.Style: SwiftProtobuf._ProtoNameProvid
     1: .same(proto: "Dataview"),
     2: .same(proto: "Dashboard"),
     3: .same(proto: "Archive"),
+  ]
+}
+
+extension Anytype_Model_Block.Content.Link.Description: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "None"),
+    1: .same(proto: "Added"),
+    2: .same(proto: "Content"),
+  ]
+}
+
+extension Anytype_Model_Block.Content.Link.CardStyle: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Text"),
+    1: .same(proto: "Card"),
+    2: .same(proto: "Inline"),
   ]
 }
 
