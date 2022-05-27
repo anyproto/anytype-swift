@@ -2,6 +2,7 @@
 import BlocksModels
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
+
     var blockSelectionHandler: BlockSelectionHandler? {
         get {
             assertionFailure()
@@ -169,4 +170,9 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId) {
         assertionFailure()
     }
+
+    func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance) {
+        assertionFailure()
+    }
+
 }

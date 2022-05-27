@@ -73,7 +73,7 @@ final class BlockLinkView: UIView, BlockContentView {
         titleView.setLineBreakMode(.byTruncatingTail)
         deletedLabel.isHidden = !configuration.state.archived
 
-        descriptionView.isHidden = !configuration.state.hasDescription
+        descriptionView.isHidden = !configuration.state.descriptionState.hasDescription
         descriptionView.setText(configuration.state.attributedDescription)
         descriptionView.setLineBreakMode(.byTruncatingTail)
     }
@@ -134,7 +134,7 @@ private extension BlockLinkView {
             return
         }
 
-        let layout = configuration.state.objectPreviewFields.layout
+        let layout = configuration.state.cardStyle
 
         switch layout {
         case .text:
