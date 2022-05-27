@@ -13,6 +13,8 @@ final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelP
         switch setting {
         case .settings:
             setModel.showViewSettings()
+        case .sort:
+            setModel.showSorts()
         }
     }
     
@@ -29,7 +31,6 @@ final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelP
         UIHostingController(
             rootView: EditorSetSettingsView()
                 .environmentObject(self)
-                .environmentObject(setModel)
         )
     }
 }

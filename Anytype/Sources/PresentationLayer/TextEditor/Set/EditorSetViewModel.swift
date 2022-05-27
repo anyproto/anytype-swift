@@ -179,14 +179,17 @@ extension EditorSetViewModel {
     }
     
     func showSetSettings() {
-        showViewSettings()
-#warning("TODO: Uncomment after filters and sorts will be completed")
-//        router.presentFullscreen(
-//            AnytypePopup(
-//                viewModel: EditorSetSettingsViewModel(setModel: self),
-//                floatingPanelStyle: true
-//            )
-//        )
+        if FeatureFlags.isFloatingSetMenuAvailable {
+            router.presentFullscreen(
+                AnytypePopup(
+                    viewModel: EditorSetSettingsViewModel(setModel: self),
+                    floatingPanelStyle: true,
+                    configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
+                )
+            )
+        } else {
+            showViewSettings()
+        }
     }
 
     func createObject() {
@@ -205,6 +208,8 @@ extension EditorSetViewModel {
             )
         )
     }
+    
+    func showSorts() {}
     
     func showObjectSettings() {
         router.showSettings()

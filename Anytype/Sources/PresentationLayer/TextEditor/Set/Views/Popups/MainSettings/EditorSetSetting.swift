@@ -5,7 +5,7 @@ enum EditorSetSetting: CaseIterable, Identifiable {
     
 //    case view
     case settings
-//    case sort
+    case sort
 //    case filter
 //    case group
     
@@ -15,8 +15,8 @@ enum EditorSetSetting: CaseIterable, Identifiable {
 //            return "View".localized
         case .settings:
             return "Settings".localized
-//        case .sort:
-//            return "Sort".localized
+        case .sort:
+            return "Sort".localized
 //        case .filter:
 //            return "Filter".localized
 //        case .group:
@@ -30,8 +30,8 @@ enum EditorSetSetting: CaseIterable, Identifiable {
 //            return .set.view
         case .settings:
             return .set.viewSettings
-//        case .sort:
-//            return .set.sort
+        case .sort:
+            return .set.sort
 //        case .filter:
 //            return .set.filter
 //        case .group:
