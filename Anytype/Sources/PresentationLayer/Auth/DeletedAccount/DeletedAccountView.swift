@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct DeletedAccountView: View {
-    let progress: DeletionProgress
-    @StateObject var model = DeletedAccountViewModel()
+    
+    @ObservedObject var viewModel: DeletedAccountViewModel
     
     var body: some View {
         ZStack {
@@ -34,28 +34,13 @@ struct DeletedAccountView: View {
         VStack(alignment: .leading, spacing: 0) {
             clock
             Spacer.fixedHeight(19)
-            title
+            AnytypeText(viewModel.title, style: .heading, color: .textPrimary)
             Spacer.fixedHeight(11)
             AnytypeText("Pending deletion text".localized, style: .uxCalloutRegular, color: .textPrimary)
             Spacer.fixedHeight(14)
-            SettingsButton(text: "Cancel deletion", textColor: .System.red) { model.cancel() }
-            SettingsButton(text: "Logout and clear data", textColor: .System.red) { model.logOut() }
+            SettingsButton(text: "Cancel deletion", textColor: .System.red) { viewModel.cancel() }
+            SettingsButton(text: "Logout and clear data", textColor: .System.red) { viewModel.logOut() }
         }
-    }
-    
-    private var title: some View {
-        let dayText: String
-        if progress.daysToDeletion == 0 {
-            dayText = "today".localized
-        } else if progress.daysToDeletion == 1 {
-            dayText = "tomorrow".localized
-        } else {
-            dayText =  "\("in".localized) \(progress.daysToDeletion) \("days".localized)"
-        }
-        
-        let localizedPrefix = "This account will be deleted".localized
-        let text = "\(localizedPrefix) \(dayText)"
-        return AnytypeText(text, style: .heading, color: .textPrimary)
     }
     
     @State private var clockProgress: CGFloat = 0
@@ -73,7 +58,7 @@ struct DeletedAccountView: View {
         }
         .onAppear {
             withAnimation(.spring(dampingFraction: 0.7).speed(0.4)) {
-                clockProgress = progress.deletionProgress
+                clockProgress = viewModel.deletionProgress
             }
         }
     }

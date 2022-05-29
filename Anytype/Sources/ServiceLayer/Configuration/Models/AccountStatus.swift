@@ -7,22 +7,6 @@ enum AccountStatus: Equatable {
     case deleted
 }
 
-
-struct DeletionProgress: Equatable {
-    let deadline: Date
-    private let maxDeadline = 30
-    
-    var deletionProgress: CGFloat {
-        return 1 - (CGFloat(daysToDeletion) / CGFloat(maxDeadline)).clamped(0.1, 0.9)
-    }
-    
-    var daysToDeletion: Int {
-        Calendar.current
-            .numberOfDaysBetween(Date(), and: deadline)
-            .clamped(0, maxDeadline)
-    }
-}
-
 extension Anytype_Model_Account.Status {
     var asModel: AccountStatus? {
         switch self.statusType {
@@ -31,11 +15,13 @@ extension Anytype_Model_Account.Status {
         case .active:
             return .active
         case .pendingDeletion:
-            return .pendingDeletion(
-                progress: DeletionProgress(
-                    deadline: Date(timeIntervalSince1970: TimeInterval(deletionDate))
-                )
+            let progress = DeletionProgress(
+                deadline: Date(timeIntervalSince1970: TimeInterval(deletionDate))
             )
+            progress.daysToDeletion
+            
+            
+            return .pendingDeletion(progress: progress)
         case .UNRECOGNIZED:
             return nil
         }

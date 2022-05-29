@@ -362,6 +362,7 @@
 		12EE02D02840E35F00223EB5 /* SceneLifecycleStateService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE02CF2840E35F00223EB5 /* SceneLifecycleStateService.swift */; };
 		12EE02D22840E55800223EB5 /* LifecycleStateTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE02D12840E55800223EB5 /* LifecycleStateTransition.swift */; };
 		12EE02D62840EB5600223EB5 /* LifecycleStateTransitionSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE02D52840EB5600223EB5 /* LifecycleStateTransitionSceneDelegate.swift */; };
+		12EE02EC2843892F00223EB5 /* DeletionProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE02EB2843892F00223EB5 /* DeletionProgress.swift */; };
 		12EEC36B26A0903F00C3C4B1 /* EmojiData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36726A0903F00C3C4B1 /* EmojiData.swift */; };
 		12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */; };
 		12EEC36D26A0903F00C3C4B1 /* EmojiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36926A0903F00C3C4B1 /* EmojiGroup.swift */; };
@@ -1389,6 +1390,7 @@
 		12EE02CF2840E35F00223EB5 /* SceneLifecycleStateService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneLifecycleStateService.swift; sourceTree = "<group>"; };
 		12EE02D12840E55800223EB5 /* LifecycleStateTransition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifecycleStateTransition.swift; sourceTree = "<group>"; };
 		12EE02D52840EB5600223EB5 /* LifecycleStateTransitionSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LifecycleStateTransitionSceneDelegate.swift; sourceTree = "<group>"; };
+		12EE02EB2843892F00223EB5 /* DeletionProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeletionProgress.swift; sourceTree = "<group>"; };
 		12EEC36726A0903F00C3C4B1 /* EmojiData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiData.swift; sourceTree = "<group>"; };
 		12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiProvider.swift; sourceTree = "<group>"; };
 		12EEC36926A0903F00C3C4B1 /* EmojiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiGroup.swift; sourceTree = "<group>"; };
@@ -4181,6 +4183,7 @@
 				3D1CEC2727F38A38000D36BA /* AccountStatus.swift */,
 				3DB1CA0C2729316F000D2779 /* AccountConfiguration.swift */,
 				3D1CEC4A27F70B2E000D36BA /* AccountData.swift */,
+				12EE02EB2843892F00223EB5 /* DeletionProgress.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -7045,6 +7048,7 @@
 				1211AF7B27F4B84800BACB88 /* KFProcessorBuilder.swift in Sources */,
 				03A90DF223A04C71000E3EFE /* CustomEnvironments.swift in Sources */,
 				125FD32326CE97BD00D21F5A /* ObjectIconImageUsecase.swift in Sources */,
+				12EE02EC2843892F00223EB5 /* DeletionProgress.swift in Sources */,
 				3D5A41692703170300F1F6A1 /* BlockColor.swift in Sources */,
 				12461BFC2767837000D47708 /* TagView.swift in Sources */,
 				3D2F9C1A271EAE5D0043C326 /* ObjectType.swift in Sources */,
