@@ -16,10 +16,10 @@ final class WindowManager {
         windowHolder?.startNewRootView(LaunchView())
     }
     
-    func showDeletedAccountWindow(progress: DeletionProgress) {
+    func showDeletedAccountWindow(deadline: Date) {
         windowHolder?.startNewRootView(
             DeletedAccountView(
-                viewModel: DeletedAccountViewModel(progress: progress)
+                viewModel: DeletedAccountViewModel(deadline: deadline)
             )
         )
     }

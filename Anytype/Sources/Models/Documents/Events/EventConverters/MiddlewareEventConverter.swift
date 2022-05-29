@@ -476,8 +476,8 @@ final class MiddlewareEventConverter {
         switch newStatus {
         case .active:
             break
-        case .pendingDeletion(let progress):
-            WindowManager.shared.showDeletedAccountWindow(progress: progress)
+        case .pendingDeletion(let deadline):
+            WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
         case .deleted:
             if UserDefaultsConfig.usersId.isNotEmpty {
                 ServiceLocator.shared.authService().logout(removeData: true) { _ in }
