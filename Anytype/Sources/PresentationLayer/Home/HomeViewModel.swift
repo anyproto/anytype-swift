@@ -42,8 +42,8 @@ final class HomeViewModel: ObservableObject {
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
     
-    init(homeBlockId: AnytypeId) {
-        document = BaseDocument(objectId: homeBlockId.value)
+    init(homeBlockId: BlockId) {
+        document = BaseDocument(objectId: homeBlockId)
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(update: $0)
         }.store(in: &cancellables)

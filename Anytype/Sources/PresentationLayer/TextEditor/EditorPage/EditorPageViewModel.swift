@@ -192,7 +192,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModel(_ updatedBlockIds: Set<BlockId>) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id.value,
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id,
               updatedBlockIds.contains(blockIdWithMarkupMenu) else {
             return
         }
@@ -200,7 +200,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModel(newBlockViewModels: [BlockViewModelProtocol]) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id.value else {
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id else {
             return
         }
         let blockIds = Set(newBlockViewModels.map { $0.blockId })

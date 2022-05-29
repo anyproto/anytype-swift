@@ -144,7 +144,7 @@ struct HomeTabsView: View {
 struct HomeTabsView_Previews: PreviewProvider {
     
     static var model: HomeViewModel {
-        let model = HomeViewModel(homeBlockId: AnytypeIdMock.id)
+        let model = HomeViewModel(homeBlockId: UUID().uuidString)
         return model
     }
     

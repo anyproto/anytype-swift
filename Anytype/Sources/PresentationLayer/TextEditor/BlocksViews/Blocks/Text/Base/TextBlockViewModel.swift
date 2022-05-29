@@ -81,7 +81,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         let contentConfiguration = TextBlockContentConfiguration(
-            blockId: info.id.value,
+            blockId: info.id,
             content: content,
             alignment: info.alignment.asNSTextAlignment,
             isCheckable: isCheckable,
@@ -99,7 +99,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         return contentConfiguration.cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
             dragConfiguration:
-                isDragConfigurationAvailable ? .init(id: info.id.value) : nil
+                isDragConfigurationAvailable ? .init(id: info.id) : nil
         )
     }
 
@@ -119,13 +119,13 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 return false
             },
             copy: { range in
-                pasteboardService.copy(blocksIds: [info.id.value], selectedTextRange: range)
+                pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
             },
-            createEmptyBlock: { actionHandler.createEmptyBlock(parentId: info.id.value) },
+            createEmptyBlock: { actionHandler.createEmptyBlock(parentId: info.id) },
             showPage: showPage,
             openURL: openURL,
             changeTextStyle: { attribute, range in
-                actionHandler.changeTextStyle(attribute, range: range, blockId: info.id.value)
+                actionHandler.changeTextStyle(attribute, range: range, blockId: info.id)
             },
             handleKeyboardAction: { action, textView in
                 actionHandler.handleKeyboardAction(action, currentText: textView.attributedText, info: info)
@@ -152,11 +152,11 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             },
             textViewShouldReplaceText: textViewShouldReplaceText,
             toggleCheckBox: {
-                actionHandler.checkbox(selected: !content.checked, blockId: info.id.value)
+                actionHandler.checkbox(selected: !content.checked, blockId: info.id)
             },
             toggleDropDown: {
                 info.toggle()
-                actionHandler.toggle(blockId: info.id.value)
+                actionHandler.toggle(blockId: info.id)
             },
             tapOnCalloutIcon: showTextIconPicker
         )
@@ -194,8 +194,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 guard content.contentType != style else { return true }
                 guard BlockRestrictionsBuilder.build(content:  info.content).canApplyTextStyle(style) else { return true }
 
-                actionHandler.turnInto(style, blockId: info.id.value)
-                actionHandler.changeTextForced(newText, blockId: info.id.value)
+                actionHandler.turnInto(style, blockId: info.id)
+                actionHandler.changeTextForced(newText, blockId: info.id)
                 textView.setFocus(.beginning)
             case .setText(let text, let caretPosition):
                 break

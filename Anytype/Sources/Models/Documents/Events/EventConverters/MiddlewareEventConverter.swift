@@ -66,7 +66,7 @@ final class MiddlewareEventConverter {
                 )
             })
 
-            var childIds = infoContainer.recursiveChildren(of: updateData.id).map { $0.id.value }
+            var childIds = infoContainer.recursiveChildren(of: updateData.id).map { $0.id }
             childIds.append(updateData.id)
             
             return .blocks(blockIds: Set(childIds))
@@ -299,10 +299,8 @@ final class MiddlewareEventConverter {
             }
             
             let parsedDetails: [ObjectDetails] = data.details.compactMap {
-                guard let id = $0.id.asAnytypeId else { return nil }
-                return ObjectDetails(id: id, values: $0.details.fields)
+                ObjectDetails(id: $0.id, values: $0.details.fields)
             }
-
 
             buildBlocksTree(information: parsedBlocks, rootId: data.rootID, container: infoContainer)
 
@@ -437,7 +435,7 @@ final class MiddlewareEventConverter {
         let toggleStyleChanged = isOldStyleToggle != isNewStyleToggle
 
 
-        var childIds = infoContainer.recursiveChildren(of: newData.id).map { $0.id.value }
+        var childIds = infoContainer.recursiveChildren(of: newData.id).map { $0.id }
         childIds.append(newData.id)
 
         return toggleStyleChanged ? .general : .blocks(blockIds: Set(childIds))
@@ -446,7 +444,7 @@ final class MiddlewareEventConverter {
     private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: InfoContainerProtocol) {
         
         information.forEach { container.add($0) }
-        let roots = information.filter { $0.id.value == rootId }
+        let roots = information.filter { $0.id == rootId }
 
         guard roots.count != 0 else {
             anytypeAssertionFailure("Unknown situation. We can't have zero roots.", domain: .middlewareEventConverter)
@@ -463,7 +461,7 @@ final class MiddlewareEventConverter {
 
         let rootId = roots[0].id
 
-        IndentationBuilder.build(container: container, id: rootId.value)
+        IndentationBuilder.build(container: container, id: rootId)
     }
     
     private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {

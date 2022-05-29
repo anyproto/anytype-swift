@@ -2,8 +2,8 @@ import BlocksModels
 import AnytypeCore
 
 struct HomePageLink {
-    let blockId: AnytypeId
-    let targetBlockId: AnytypeId // Id of linked page
+    let blockId: BlockId
+    let targetBlockId: BlockId // Id of linked page
     let details: ObjectDetails?
     
     var isLoading: Bool {

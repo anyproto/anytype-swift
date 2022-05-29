@@ -146,7 +146,7 @@ private extension SearchService {
             let idValue = search.fields["id"]
             let idString = idValue?.unwrapedListValue.stringValue
             
-            guard let id = idString?.asAnytypeId else { return nil }
+            guard let id = idString else { return nil }
             
             return ObjectDetails(id: id, values: search.fields)
         }

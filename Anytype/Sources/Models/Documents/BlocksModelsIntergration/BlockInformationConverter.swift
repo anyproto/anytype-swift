@@ -8,18 +8,16 @@ enum BlockInformationConverter {
         guard let content = block.content else {
             return nil
         }
-        
-        guard let id = block.id.asAnytypeId else { return nil }
-        
+                
         let blockContent = BlocksModelsConverter.convert(middleware: content) ?? .unsupported
         let alignment = block.align.asBlockModel ?? .left
         let color = MiddlewareColor(rawValue: block.backgroundColor)
         let info =  BlockInformation(
-            id: id,
+            id: block.id,
             content: blockContent,
             backgroundColor: MiddlewareColor(rawValue: block.backgroundColor),
             alignment: alignment,
-            childrenIds: block.childrenIds.compactMap { $0.asAnytypeId },
+            childrenIds: block.childrenIds,
             configurationData: .init(
                 backgroundColor: color,
                 indentationStyle: .none,
@@ -44,10 +42,10 @@ enum BlockInformationConverter {
         
         
         return Anytype_Model_Block(
-            id: id.value,
+            id: id,
             fields: fields,
             restrictions: restrictions,
-            childrenIds: childrenIds.map { $0.value },
+            childrenIds: childrenIds,
             backgroundColor: backgroundColor,
             align: alignment,
             content: content
