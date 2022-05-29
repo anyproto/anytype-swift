@@ -43,7 +43,7 @@ final class HomeViewModel: ObservableObject {
     private var quickActionsSubscription: AnyCancellable?
     
     init(homeBlockId: AnytypeId) {
-        document = BaseDocument(objectId: homeBlockId)
+        document = BaseDocument(objectId: homeBlockId.value)
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(update: $0)
         }.store(in: &cancellables)
@@ -162,15 +162,14 @@ final class HomeViewModel: ObservableObject {
 
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
         guard
-            let id = blockId.asAnytypeId,
-            let newDetails = ObjectDetailsStorage.shared.get(id: id)
+            let newDetails = ObjectDetailsStorage.shared.get(id: blockId)
         else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .homeView)
             return
         }
 
         favoritesCellData.enumerated()
-            .first { $0.element.destinationId.value == blockId }
+            .first { $0.element.destinationId == blockId }
             .flatMap { offset, data in
                 favoritesCellData[offset] = cellDataBuilder.updatedCellData(
                     newDetails: newDetails,
@@ -199,12 +198,7 @@ extension HomeViewModel {
         showPage(id: id, viewType: .page)
     }
     
-    func tryShowPage(id: String, viewType: EditorViewType) {
-        guard let anytypeId = id.asAnytypeId else { return }
-        showPage(id: anytypeId, viewType: viewType)
-    }
-    
-    func showPage(id: AnytypeId, viewType: EditorViewType) {
+    func showPage(id: BlockId, viewType: EditorViewType) {
         let data = EditorScreenData(pageId: id, type: viewType)
         
         if showingEditorScreenData {
@@ -221,7 +215,7 @@ extension HomeViewModel {
             .edgesIgnoringSafeArea(.all)
     }
     
-    private func createNewPage() -> AnytypeId? {
+    private func createNewPage() -> BlockId? {
         let availableTemplates = searchService.searchTemplates(
             for: .dynamic(ObjectTypeProvider.defaultObjectType.url)
         )

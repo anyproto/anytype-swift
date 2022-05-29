@@ -38,8 +38,7 @@ final class RelationsBuilder {
         isObjectLocked: Bool
     ) -> ParsedRelations {
         guard
-            let id = objectId.asAnytypeId,
-            let objectDetails = storage.get(id: id)
+            let objectDetails = storage.get(id: objectId)
         else {
             return .empty
         }
@@ -385,13 +384,7 @@ private extension RelationsBuilder {
             }()
             
             let objectDetails: [ObjectDetails] = values.compactMap {
-                let value = $0.stringValue
-                guard
-                    value.isNotEmpty,
-                    let objectId = value.asAnytypeId
-                else { return nil }
-                let objectDetails = storage.get(id: objectId)
-                return objectDetails
+                return storage.get(id: $0.stringValue)
             }
 
             let objectOptions: [Relation.Object.Option] = objectDetails.map { objectDetail in
@@ -405,7 +398,7 @@ private extension RelationsBuilder {
                 }()
                 
                 return Relation.Object.Option(
-                    id: objectDetail.id.value,
+                    id: objectDetail.id,
                     icon: icon,
                     title: name,
                     type: objectDetail.objectType.name,
@@ -440,13 +433,7 @@ private extension RelationsBuilder {
             guard let value = value else { return [] }
             
             let objectDetails: [ObjectDetails] = value.listValue.values.compactMap {
-                let value = $0.stringValue
-                guard
-                    value.isNotEmpty,
-                    let objectId = value.asAnytypeId
-                else { return nil }
-                let objectDetails = storage.get(id: objectId)
-                return objectDetails
+                return storage.get(id: $0.stringValue)
             }
 
             let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
@@ -478,7 +465,7 @@ private extension RelationsBuilder {
                 }()
                 
                 return Relation.File.Option(
-                    id: objectDetail.id.value,
+                    id: objectDetail.id,
                     icon: icon,
                     title: fileName
                 )

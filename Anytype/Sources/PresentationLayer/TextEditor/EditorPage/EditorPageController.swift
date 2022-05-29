@@ -373,7 +373,7 @@ private extension EditorPageController {
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
         
-        viewModel.actionHandler.createEmptyBlock(parentId: viewModel.document.objectId.value)
+        viewModel.actionHandler.createEmptyBlock(parentId: viewModel.document.objectId)
     }
 
     @objc

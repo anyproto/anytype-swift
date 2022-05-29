@@ -89,7 +89,7 @@ final class BlockViewModelBuilder {
                     },
                     showTextIconPicker: { [unowned router, unowned document] in
                         router.showTextIconPicker(
-                            contextId: document.objectId.value,
+                            contextId: document.objectId,
                             objectId: info.id.value
                         )
                     },
@@ -158,10 +158,8 @@ final class BlockViewModelBuilder {
                     self?.router.openUrl(url)
                 }
             )
-        case let .link(content):
-            guard let id = content.targetBlockID.asAnytypeId else { return nil }
-            
-            let details = ObjectDetailsStorage.shared.get(id: id)
+        case let .link(content):            
+            let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID)
             return BlockLinkViewModel(
                 info: info,
                 content: content,

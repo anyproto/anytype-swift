@@ -232,17 +232,16 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case let .object(blockId):
             if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
-                guard let objectId = content.targetBlockID.asAnytypeId else { return }
-                let document = BaseDocument(objectId: objectId)
+                let document = BaseDocument(objectId: content.targetBlockID)
                 let _ = document.open()
 
                 guard let id = document.children.last?.id else { return }
 
-                targetId = document.objectId.value
+                targetId = document.objectId
                 dropTargetId = id.value
                 position = .bottom
             } else {
-                targetId = document.objectId.value
+                targetId = document.objectId
                 position = .inner
                 dropTargetId = blockId
             }
@@ -257,7 +256,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 anytypeAssertionFailure("Unxpected case", domain: .editorPage)
                 return
             }
-            targetId = document.objectId.value
+            targetId = document.objectId
         case .none:
             anytypeAssertionFailure("Unxpected case", domain: .editorPage)
             return

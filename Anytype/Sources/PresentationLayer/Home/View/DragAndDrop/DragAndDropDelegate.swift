@@ -37,8 +37,8 @@ extension HomeViewModel: DragAndDropDelegate {
         
         objectActionsService.move(
             dashboadId: homeBlockId,
-            blockId: from.id.value,
-            dropPositionblockId: to.id.value,
+            blockId: from.id,
+            dropPositionblockId: to.id,
             position: direction.toBlockModel()
         )
 

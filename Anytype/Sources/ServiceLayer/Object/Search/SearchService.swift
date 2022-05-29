@@ -61,7 +61,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
                 ObjectTemplateType.BundledType.note.rawValue,
                 ObjectTemplateType.BundledType.task.rawValue
             ]
-        ) { $0.id.value }
+        ) { $0.id }
     }
     
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]? {

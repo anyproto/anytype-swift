@@ -53,7 +53,7 @@ private extension Array where Element == ObjectDetails {
     func asRowConfigurations(with selectedIds: [String], selectionMode: NewSearchViewModel.SelectionMode) -> [ListRowConfiguration] {
         map { details in
             ListRowConfiguration(
-                id: details.id.value,
+                id: details.id,
                 contentHash: details.hashValue
             ) {
                 AnyView(
@@ -75,7 +75,7 @@ private extension NewSearchViewModel.SelectionMode {
     func asSelectionIndicatorViewModel(details: ObjectDetails, selectedIds: [String]) -> SelectionIndicatorView.Model? {
         switch self {
         case .multipleItems:
-            return SelectionIndicatorViewModelBuilder.buildModel(id: details.id.value, selectedIds: selectedIds)
+            return SelectionIndicatorViewModelBuilder.buildModel(id: details.id, selectedIds: selectedIds)
         case .singleItem:
             return nil
         }

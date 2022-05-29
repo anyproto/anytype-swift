@@ -29,7 +29,7 @@ extension AddNewRelationCoordinator {
     func showAddNewRelationView(onCompletion: ((_ newRelation: RelationMetadata, _ isNew: Bool) -> Void)?) {
         self.onCompletion = onCompletion
         
-        let relationService = RelationsService(objectId: document.objectId.value)
+        let relationService = RelationsService(objectId: document.objectId)
 
         let viewModel = SearchNewRelationViewModel(
             objectRelations: document.parsedRelations,
@@ -62,7 +62,7 @@ extension AddNewRelationCoordinator: SearchNewRelationModuleOutput {
     private func showCreateNewRelationView(searchText: String) {
         let viewModel = NewRelationViewModel(
             name: searchText,
-            service: RelationsService(objectId: document.objectId.value),
+            service: RelationsService(objectId: document.objectId),
             output: self
         )
         let view = NewRelationView(viewModel: viewModel)

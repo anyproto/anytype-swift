@@ -31,7 +31,7 @@ final class SetTableViewDataBuilder {
             let parsedRelations = relationsBuilder
                 .parsedRelations(
                     relationMetadatas: metadata,
-                    objectId: details.id.value,
+                    objectId: details.id,
                     isObjectLocked: isObjectLocked
                 )
                 .all
@@ -52,7 +52,7 @@ final class SetTableViewDataBuilder {
             let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
             
             return SetTableViewRowData(
-                id: details.id.value,
+                id: details.id,
                 title: details.title,
                 icon: details.objectIconImage,
                 relations: relations,

@@ -19,7 +19,7 @@ struct ObjectSearchData: SearchDataProtocol {
         self.description = details.description
         self.callout = details.objectType.name
         
-        self.blockId = details.id.value
+        self.blockId = details.id
     }
 
 }

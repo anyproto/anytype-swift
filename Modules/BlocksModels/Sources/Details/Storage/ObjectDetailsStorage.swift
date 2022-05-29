@@ -6,10 +6,11 @@ import ProtobufMessages
 public final class ObjectDetailsStorage {
     public static let shared = ObjectDetailsStorage()
     
-    private var storage = SynchronizedDictionary<AnytypeId, ObjectDetails>()
+    private var storage = SynchronizedDictionary<BlockId, ObjectDetails>()
     
-    public func get(id: AnytypeId) -> ObjectDetails? {
-        storage[id]
+    public func get(id: BlockId) -> ObjectDetails? {
+        guard id.isValidId else { return nil }
+        return storage[id]
     }
     
     public func add(details: ObjectDetails) {
@@ -21,7 +22,8 @@ public final class ObjectDetailsStorage {
             anytypeAssertionFailure("No details in Object.Details.Set", domain: .detailsStorage)
             return nil
         }
-        guard let id = data.id.asAnytypeId else {
+        let id = data.id
+        guard id.isValidId else {
             anytypeAssertionFailure("Id is empty in details \(data.details)", domain: .detailsStorage)
             return nil
         }
@@ -35,7 +37,8 @@ public final class ObjectDetailsStorage {
     }
     
     public func unset(data: Anytype_Event.Object.Details.Unset) -> ObjectDetails? {
-        guard let id = data.id.asAnytypeId else {
+        let id = data.id
+        guard id.isValidId else {
             anytypeAssertionFailure("Id is empty in details \(data)", domain: .detailsStorage)
             return nil
         }
@@ -51,7 +54,8 @@ public final class ObjectDetailsStorage {
     }
     
     public func amend(data: Anytype_Event.Object.Details.Amend) -> ObjectDetails? {
-        guard let id = data.id.asAnytypeId else { return nil }
+        let id = data.id
+        guard id.isValidId else { return nil }
         
         return amend(id: id, values: data.details.asDetailsDictionary)
     }
@@ -61,7 +65,7 @@ public final class ObjectDetailsStorage {
         return amend(id: details.id, values: details.values)
     }
     
-    public func amend(id: AnytypeId, values: [String: Google_Protobuf_Value]) -> ObjectDetails {
+    public func amend(id: BlockId, values: [String: Google_Protobuf_Value]) -> ObjectDetails {
         let currentDetails = get(id: id) ?? ObjectDetails(id: id)
         let updatedDetails = currentDetails.updated(by: values)
         add(details: updatedDetails)

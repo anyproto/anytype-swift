@@ -5,8 +5,8 @@ import BlocksModels
 import AnytypeCore
 
 struct HomeCellData: Identifiable, IdProvider {
-    let id: AnytypeId
-    let destinationId: AnytypeId
+    let id: BlockId
+    let destinationId: BlockId
     let icon: ObjectIconType?
     let title: Title
     let type: String

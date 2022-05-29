@@ -89,15 +89,14 @@ final class MiddlewareEventConverter {
         
         case let .objectDetailsSet(data):
             guard let details = detailsStorage.set(data: data) else { return nil }
-            return .details(id: details.id.value)
+            return .details(id: details.id)
             
         case let .objectDetailsAmend(data):
             guard
-                let id = data.id.asAnytypeId,
                 let newDetails = detailsStorage.amend(data: data)
             else { return nil }
             
-            let oldDetails = detailsStorage.get(id: id)
+            let oldDetails = detailsStorage.get(id: data.id)
             
             guard let oldDetails = oldDetails else {
                 return .details(id: data.id)
@@ -118,7 +117,7 @@ final class MiddlewareEventConverter {
             
         case let .objectDetailsUnset(data):
             guard let details = detailsStorage.unset(data: data) else { return nil }
-            return .details(id: details.id.value)
+            return .details(id: details.id)
             
         case .objectRelationsSet(let set):
             relationStorage.set(

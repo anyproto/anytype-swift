@@ -6,7 +6,7 @@ public protocol BundledRelationsValueProvider {
     
     var values: [String: Google_Protobuf_Value] { get }
     
-    var id: AnytypeId { get }
+    var id: BlockId { get }
     var name: String { get }
     var snippet: String { get }
     var iconEmoji: String { get }

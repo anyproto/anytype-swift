@@ -4,19 +4,29 @@ import SwiftProtobuf
 
 public struct ObjectDetails: Hashable, BundledRelationsValueProvider {
     
-    public let id: AnytypeId
+    public let id: BlockId
     public let values: [String: Google_Protobuf_Value]
     
-    public init(id: AnytypeId, values: [String: Google_Protobuf_Value]) {
+    public init(id: BlockId, values: [String: Google_Protobuf_Value]) {
         self.id = id
         self.values = values
+    }
+    
+    public init(id: AnytypeId, values: [String: Google_Protobuf_Value]) {
+        self.id = id.value
+        self.values = values
+    }
+    
+    public init(id: AnytypeId) {
+        self.id = id.value
+        self.values = [:]
     }
     
 }
 
 public extension ObjectDetails {
     
-    init(id: AnytypeId) {
+    init(id: BlockId) {
         self.id = id
         self.values = [:]
     }

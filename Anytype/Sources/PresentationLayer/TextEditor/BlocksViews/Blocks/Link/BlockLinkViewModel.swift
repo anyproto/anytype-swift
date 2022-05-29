@@ -53,11 +53,8 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        if state.deleted || state.archived {
-            return
-        }
+        if state.deleted || state.archived { return }
         
-        guard let id = content.targetBlockID.asAnytypeId else { return }
-        openLink(EditorScreenData(pageId: id, type: state.viewType))
+        openLink(EditorScreenData(pageId: content.targetBlockID, type: state.viewType))
     }
 }

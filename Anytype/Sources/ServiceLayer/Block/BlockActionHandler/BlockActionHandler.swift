@@ -76,7 +76,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
     
     func toggle(blockId: BlockId) {
-        EventsBunch(contextId: document.objectId.value, localEvents: [.setToggled(blockId: blockId)])
+        EventsBunch(contextId: document.objectId, localEvents: [.setToggled(blockId: blockId)])
             .send()
     }
     
@@ -161,11 +161,11 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
 
         EventsBunch(
-            contextId: document.objectId.value,
+            contextId: document.objectId,
             localEvents: [.setText(blockId: info.id.value, text: middlewareString)]
         ).send()
 
-        service.setTextForced(contextId: document.objectId.value, blockId: info.id.value, middlewareString: middlewareString)
+        service.setTextForced(contextId: document.objectId, blockId: info.id.value, middlewareString: middlewareString)
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
@@ -174,24 +174,24 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         let middlewareString = AttributedTextConverter.asMiddleware(attributedText: text)
 
         EventsBunch(
-            contextId: document.objectId.value,
+            contextId: document.objectId,
             dataSourceUpdateEvents: [.setText(blockId: info.id.value, text: middlewareString)]
         ).send()
 
-        service.setText(contextId: document.objectId.value, blockId: info.id.value, middlewareString: middlewareString)
+        service.setText(contextId: document.objectId, blockId: info.id.value, middlewareString: middlewareString)
     }
     
     // MARK: - Public methods
     func uploadMediaFile(itemProvider: NSItemProvider, type: MediaPickerContentType, blockId: BlockId) {
         EventsBunch(
-            contextId: document.objectId.value,
+            contextId: document.objectId,
             localEvents: [.setLoadingState(blockId: blockId)]
         ).send()
         
         let operation = MediaFileUploadingOperation(
             itemProvider: itemProvider,
             worker: BlockMediaUploadingWorker(
-                objectId: document.objectId.value,
+                objectId: document.objectId,
                 blockId: blockId,
                 contentType: type
             )
@@ -205,7 +205,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         AnytypeAnalytics.instance().logUploadMedia(type: .file)
 
         EventsBunch(
-            contextId: document.objectId.value,
+            contextId: document.objectId,
             localEvents: [.setLoadingState(blockId: blockId)]
         ).send()
         
@@ -248,7 +248,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         url: String
     ) {
         service.createAndFetchBookmark(
-            contextID: document.objectId.value,
+            contextID: document.objectId,
             targetID: targetID,
             position: position,
             url: url

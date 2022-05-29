@@ -49,7 +49,7 @@ final class ServiceLocator {
         SearchService()
     }
     
-    func detailsService(objectId: AnytypeId) -> DetailsServiceProtocol {
+    func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
         DetailsService(objectId: objectId, service: objectActionsService())
     }
     

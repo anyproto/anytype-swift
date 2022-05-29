@@ -41,7 +41,7 @@ final class HomeCellDataBuilder {
         }
         guard let targetBlockId = link.targetBlockID.asAnytypeId else { return nil }
         
-        let details = ObjectDetailsStorage.shared.get(id: targetBlockId)
+        let details = ObjectDetailsStorage.shared.get(id: targetBlockId.value)
         return HomePageLink(
             blockId: info.id,
             targetBlockId: targetBlockId,
@@ -53,8 +53,8 @@ final class HomeCellDataBuilder {
         let type = ObjectTypeProvider.objectType(url: pageLink.details?.type)?.name ?? "Object".localized
         
         return HomeCellData(
-            id: pageLink.blockId,
-            destinationId: pageLink.targetBlockId,
+            id: pageLink.blockId.value,
+            destinationId: pageLink.targetBlockId.value,
             icon: pageLink.details?.icon,
             title: pageLink.details?.pageCellTitle ?? .default(title: ""),
             type: type,
