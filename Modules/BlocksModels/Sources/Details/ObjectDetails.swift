@@ -12,16 +12,6 @@ public struct ObjectDetails: Hashable, BundledRelationsValueProvider {
         self.values = values
     }
     
-    public init(id: AnytypeId, values: [String: Google_Protobuf_Value]) {
-        self.id = id.value
-        self.values = values
-    }
-    
-    public init(id: AnytypeId) {
-        self.id = id.value
-        self.values = [:]
-    }
-    
 }
 
 public extension ObjectDetails {
