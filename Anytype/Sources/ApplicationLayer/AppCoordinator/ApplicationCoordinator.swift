@@ -56,8 +56,8 @@ private extension ApplicationCoordinator {
             switch result {
             case .active:
                 WindowManager.shared.showHomeWindow()
-            case .pendingDeletion(progress: let progress):
-                WindowManager.shared.showDeletedAccountWindow(progress: progress)
+            case .pendingDeletion(let deadline):
+                WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
             case .deleted, .none:
                 WindowManager.shared.showAuthWindow()
             }
