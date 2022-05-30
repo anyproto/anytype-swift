@@ -56,5 +56,5 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         templatesTypeURL: ObjectTemplateType
     )
 
-    func showCreateObject(pageId: AnytypeId)
+    func showCreateObject(pageId: BlockId)
 }

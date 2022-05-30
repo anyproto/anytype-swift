@@ -35,7 +35,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
         EventsBunch(
             contextId: MiddlewareConfigurationProvider.shared.configuration.homeBlockID,
-            localEvents: [.documentClosed(blockId: document.objectId.value)]
+            localEvents: [.documentClosed(blockId: document.objectId)]
         ).send()
     }
 
@@ -94,7 +94,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             performGeneralUpdate()
 
         case let .details(id):
-            guard id == document.objectId.value else {
+            guard id == document.objectId else {
                 #warning("call blocks update with new details to update mentions/links")
                 performGeneralUpdate()
                 return
@@ -192,7 +192,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModel(_ updatedBlockIds: Set<BlockId>) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id.value,
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id,
               updatedBlockIds.contains(blockIdWithMarkupMenu) else {
             return
         }
@@ -200,7 +200,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModel(newBlockViewModels: [BlockViewModelProtocol]) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id.value else {
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id else {
             return
         }
         let blockIds = Set(newBlockViewModels.map { $0.blockId })

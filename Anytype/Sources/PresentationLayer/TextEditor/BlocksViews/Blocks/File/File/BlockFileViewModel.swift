@@ -34,7 +34,7 @@ struct BlockFileViewModel: BlockViewModelProtocol {
         case .done:
             return BlockFileConfiguration(data: fileData.mediaData).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id.value)
+                dragConfiguration: .init(id: info.id)
             )
         }
     }
@@ -46,7 +46,7 @@ struct BlockFileViewModel: BlockViewModelProtocol {
             state: state
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
-            dragConfiguration: .init(id: info.id.value)
+            dragConfiguration: .init(id: info.id)
         )
     }
 }

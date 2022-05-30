@@ -175,16 +175,16 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         ).send()
     }
 
-    func applyTemplate(objectId: AnytypeId, templateId: AnytypeId) {
+    func applyTemplate(objectId: BlockId, templateId: BlockId) {
         let _ = Anytype_Rpc.ApplyTemplate.Service.invoke(
-            contextID: objectId.value,
-            templateID: templateId.value
+            contextID: objectId,
+            templateID: templateId
         )
     }
 
-    func undo(objectId: AnytypeId) throws {
+    func undo(objectId: BlockId) throws {
         let result = Anytype_Rpc.Block.Undo.Service
-            .invoke(contextID: objectId.value)
+            .invoke(contextID: objectId)
             .map{ EventsBunch(event: $0.event).send() }
 
         switch result {
@@ -195,8 +195,8 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }
     }
 
-    func redo(objectId: AnytypeId) throws {
-        let result = Anytype_Rpc.Block.Redo.Service.invoke(contextID: objectId.value)
+    func redo(objectId: BlockId) throws {
+        let result = Anytype_Rpc.Block.Redo.Service.invoke(contextID: objectId)
             .map { EventsBunch(event: $0.event).send() }
 
         switch result {

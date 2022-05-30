@@ -1,6 +1,5 @@
 import SwiftProtobuf
 
-@available(*, deprecated, message: "Use AnytypeID instead")
 public typealias BlockId = String
 
 extension BlockId {

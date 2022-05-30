@@ -33,7 +33,7 @@ final class EditorAssembly {
     // MARK: - Set
     private func buildSetModule(data: EditorScreenData) -> (EditorSetHostingController, EditorRouterProtocol) {
         let document = BaseDocument(objectId: data.pageId)
-        let dataviewService = DataviewService(objectId: data.pageId.value)
+        let dataviewService = DataviewService(objectId: data.pageId)
         let model = EditorSetViewModel(document: document, dataviewService: dataviewService)
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
         let searchService = SearchService()
@@ -98,10 +98,10 @@ final class EditorAssembly {
         
         let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
         let cursorManager = EditorCursorManager()
-        let listService = BlockListService(contextId: document.objectId.value)
-        let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId.value)
+        let listService = BlockListService(contextId: document.objectId)
+        let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId)
         let blockActionService = BlockActionService(
-            documentId: document.objectId.value,
+            documentId: document.objectId,
             listService: listService,
             singleService: singleService,
             modelsHolder: modelsHolder,
@@ -163,7 +163,7 @@ final class EditorAssembly {
             isOpenedForPreview: isOpenedForPreview
         )
         let blockActionsServiceSingle = ServiceLocator.shared
-            .blockActionsServiceSingle(contextId: document.objectId.value)
+            .blockActionsServiceSingle(contextId: document.objectId)
 
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,

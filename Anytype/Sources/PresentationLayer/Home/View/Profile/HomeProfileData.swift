@@ -5,7 +5,7 @@ struct HomeProfileData {
     
     let name: String
     let avatarId: Hash?
-    let blockId: AnytypeId
+    let blockId: BlockId
     
 }
             

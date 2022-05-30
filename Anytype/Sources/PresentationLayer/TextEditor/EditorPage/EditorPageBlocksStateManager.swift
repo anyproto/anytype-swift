@@ -128,7 +128,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         updateSelectionBarActions(selectedBlocks: blocksInformation)
 
         if case .selecting = editingState {
-            editingState = .selecting(blocks: blocksInformation.map { $0.id.value })
+            editingState = .selecting(blocks: blocksInformation.map { $0.id })
         }
     }
 
@@ -232,17 +232,16 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         case let .object(blockId):
             if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
-                guard let objectId = content.targetBlockID.asAnytypeId else { return }
-                let document = BaseDocument(objectId: objectId)
+                let document = BaseDocument(objectId: content.targetBlockID)
                 let _ = document.open()
 
                 guard let id = document.children.last?.id else { return }
 
-                targetId = document.objectId.value
-                dropTargetId = id.value
+                targetId = document.objectId
+                dropTargetId = id
                 position = .bottom
             } else {
-                targetId = document.objectId.value
+                targetId = document.objectId
                 position = .inner
                 dropTargetId = blockId
             }
@@ -257,7 +256,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 anytypeAssertionFailure("Unxpected case", domain: .editorPage)
                 return
             }
-            targetId = document.objectId.value
+            targetId = document.objectId
         case .none:
             anytypeAssertionFailure("Unxpected case", domain: .editorPage)
             return
@@ -367,15 +366,15 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
 extension EditorPageBlocksStateManager: BlockSelectionHandler {
     func didSelectEditingState(info: BlockInformation) {
-        editingState = .selecting(blocks: [info.id.value])
-        selectedBlocks = [info.id.value]
+        editingState = .selecting(blocks: [info.id])
+        selectedBlocks = [info.id]
         updateSelectionBarActions(selectedBlocks: [info])
     }
 }
 
 extension EditorMainItemModelsHolder {
     func allChildIndexes(viewModel: BlockViewModelProtocol) -> [Int] {
-        allIndexes(for: viewModel.info.childrenIds.map { $0.value })
+        allIndexes(for: viewModel.info.childrenIds.map { $0 })
     }
 
     private func allIndexes(for childs: [BlockId]) -> [Int] {
@@ -389,7 +388,7 @@ extension EditorMainItemModelsHolder {
             indexes.append(index)
 
             guard let modelChilds = blockViewModel(at: index)?.info.childrenIds else { continue }
-            indexes.append(contentsOf: allIndexes(for: modelChilds.map { $0.value }))
+            indexes.append(contentsOf: allIndexes(for: modelChilds.map { $0 }))
         }
 
         return indexes
