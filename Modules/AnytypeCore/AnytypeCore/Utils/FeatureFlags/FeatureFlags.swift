@@ -39,8 +39,8 @@ public final class FeatureFlags {
         .objectPreview: false,
         .deletion: false,
         .createNewRelation: true,
-        .templates: false,
-        .createObjectInSet: false,
+        .templates: true,
+        .createObjectInSet: true,
         .floatingSetMenu: false
     ]
     
@@ -90,11 +90,11 @@ public extension FeatureFlags {
     }
 
     static var isTemplatesAvailable: Bool {
-        features[.templates, default: false]
+        features[.templates, default: true]
     }
 
     static var isCreateObjectInSetAvailable: Bool {
-        features[.createObjectInSet, default: false]
+        features[.createObjectInSet, default: true]
     }
     
     static var isFloatingSetMenuAvailable: Bool {
