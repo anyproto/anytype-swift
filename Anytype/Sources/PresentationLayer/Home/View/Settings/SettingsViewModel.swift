@@ -59,9 +59,9 @@ final class SettingsViewModel: ObservableObject {
         case .active:
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return
-        case .pendingDeletion(let progress):
+        case .pendingDeletion(let deadline):
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            WindowManager.shared.showDeletedAccountWindow(progress: progress)
+            WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
         case .deleted:
             logout(removeData: true)
         }

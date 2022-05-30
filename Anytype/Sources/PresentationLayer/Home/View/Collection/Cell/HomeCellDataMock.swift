@@ -4,8 +4,8 @@ import AnytypeCore
 struct HomeCellDataMock {
     static let data = [
         HomeCellData(
-            id: "\(UUID())".asAnytypeId!,
-            destinationId: "destinationId".asAnytypeId!,
+            id: UUID().uuidString,
+            destinationId: "destinationId",
             icon: .emoji(Emoji("📘")!),
             title: .default(title: "Ubik"),
             type: "Book",
@@ -16,8 +16,8 @@ struct HomeCellDataMock {
             viewType: .page
         ),
         HomeCellData(
-            id: "\(UUID())".asAnytypeId!,
-            destinationId: "destinationId".asAnytypeId!,
+            id: UUID().uuidString,
+            destinationId: "destinationId",
             icon: .none,
             title: .default(title: "The president’s American Family Plan, which remains in flux, does not currently include does not currently include does not currently include"),
             type: "Page",
@@ -28,8 +28,8 @@ struct HomeCellDataMock {
             viewType: .page
         ),
         HomeCellData(
-            id: "\(UUID())".asAnytypeId!,
-            destinationId: "destinationId".asAnytypeId!,
+            id: UUID().uuidString,
+            destinationId: "destinationId",
             icon: .none,
             title: .default(title: "GridItem"),
             type: "Component",
@@ -40,8 +40,8 @@ struct HomeCellDataMock {
             viewType: .page
         ),
         HomeCellData(
-            id: "\(UUID())".asAnytypeId!,
-            destinationId: "destinationId".asAnytypeId!,
+            id: UUID().uuidString,
+            destinationId: "destinationId",
             icon: .emoji(Emoji("🤡")!),
             title: .todo(title: "DO IT!", isChecked: false),
             type: "Task",
@@ -52,8 +52,8 @@ struct HomeCellDataMock {
             viewType: .page
         ),
         HomeCellData(
-            id: "\(UUID())".asAnytypeId!,
-            destinationId: "destinationId".asAnytypeId!,
+            id: UUID().uuidString,
+            destinationId: "destinationId",
             icon: .profile(.character("👽")),
             title: .default(title: "Neo"),
             type: "Character",
@@ -64,8 +64,8 @@ struct HomeCellDataMock {
             viewType: .page
         ),
         HomeCellData(
-            id: "\(UUID())".asAnytypeId!,
-            destinationId: "destinationId".asAnytypeId!,
+            id: UUID().uuidString,
+            destinationId: "destinationId",
             icon: .none,
             title: .todo(title: "Relax", isChecked: true),
             type: "Character",
@@ -77,8 +77,8 @@ struct HomeCellDataMock {
         ),
         
         HomeCellData(
-            id: "\(UUID())".asAnytypeId!,
-            destinationId: "destinationId".asAnytypeId!,
+            id: UUID().uuidString,
+            destinationId: "destinationId",
             icon: .none,
             title: .default(title: "Main"),
             type: "Void",
@@ -90,8 +90,8 @@ struct HomeCellDataMock {
         ),
         
         HomeCellData(
-            id: "\(UUID())".asAnytypeId!,
-            destinationId: "destinationId".asAnytypeId!,
+            id: UUID().uuidString,
+            destinationId: "destinationId",
             icon: .profile(.character("A")),
             title: .default(title: "Anton"),
             type: "Humanoid",
@@ -103,8 +103,8 @@ struct HomeCellDataMock {
         ),
         
         HomeCellData(
-            id: "\(UUID())".asAnytypeId!,
-            destinationId: "destinationId".asAnytypeId!,
+            id: UUID().uuidString,
+            destinationId: "destinationId",
             icon: .none,
             title: .todo(title: "TodoTodoTodoTodoTodoTodoTodoTodoTodo", isChecked: true),
             type: "Void",
@@ -116,8 +116,8 @@ struct HomeCellDataMock {
         ),
         
         HomeCellData(
-            id: "\(UUID())".asAnytypeId!,
-            destinationId: "destinationId".asAnytypeId!,
+            id: UUID().uuidString,
+            destinationId: "destinationId",
             icon: .none,
             title: .todo(title: "TodoTodoTodoTodoTodoTodoTodoTodoTodo", isChecked: true),
             type: "Void",

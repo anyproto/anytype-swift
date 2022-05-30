@@ -7,9 +7,9 @@ final class DetailsService {
     
     private let service: ObjectActionsServiceProtocol
 
-    private let objectId: AnytypeId
+    private let objectId: BlockId
         
-    init(objectId: AnytypeId, service: ObjectActionsServiceProtocol) {
+    init(objectId: BlockId, service: ObjectActionsServiceProtocol) {
         self.objectId = objectId
         self.service = service
     }
@@ -19,11 +19,11 @@ final class DetailsService {
 extension DetailsService: DetailsServiceProtocol {
     
     func updateBundledDetails(_ bundledDpdates: [BundledDetails]) {
-        service.updateBundledDetails(contextID: objectId.value, details: bundledDpdates)
+        service.updateBundledDetails(contextID: objectId, details: bundledDpdates)
     }
 
     func setLayout(_ detailsLayout: DetailsLayout) {
-        service.updateLayout(contextID: objectId.value, value: detailsLayout.rawValue)
+        service.updateLayout(contextID: objectId, value: detailsLayout.rawValue)
     }
     
 }

@@ -120,7 +120,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func delete(blockIds: [BlockId]) {
-        singleService.delete(blockIds: blockIds)
+        _ = singleService.delete(blockIds: blockIds)
     }
     
     func setFields(blockFields: BlockFields, blockId: BlockId) {

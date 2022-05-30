@@ -31,7 +31,7 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
         case .done:
             return VideoBlockConfiguration(file: fileData).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id.value)
+                dragConfiguration: .init(id: info.id)
             )
         }
     }
@@ -43,7 +43,7 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
             state: state
         ).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id.value)
+                dragConfiguration: .init(id: info.id)
             )
     }
 }

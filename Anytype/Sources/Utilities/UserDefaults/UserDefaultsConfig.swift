@@ -62,7 +62,7 @@ extension UserDefaultsConfig {
     
     static func storeOpenedScreenData(_ data: EditorScreenData?) {
         initializeScreenDataFromLastSession()
-        _lastOpenedPageId = data?.pageId.value
+        _lastOpenedPageId = data?.pageId
         _lastOpenedViewType = data?.type.rawValue
     }
     
@@ -71,7 +71,7 @@ extension UserDefaultsConfig {
         _screenDataFromLastSessionInitialized = true
         
         guard let type = _lastOpenedViewType.flatMap ({ EditorViewType(rawValue: $0) }) else { return }
-        guard let pageId = _lastOpenedPageId?.asAnytypeId else { return }
+        guard let pageId = _lastOpenedPageId else { return }
                 
         _screenDataFromLastSession = EditorScreenData(pageId: pageId, type: type)
     }

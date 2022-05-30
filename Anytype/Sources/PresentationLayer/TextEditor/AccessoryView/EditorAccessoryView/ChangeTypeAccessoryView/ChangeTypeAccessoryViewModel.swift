@@ -57,11 +57,11 @@ final class ChangeTypeAccessoryViewModel {
         if isDraft {
             router.showTemplatesAvailabilityPopupIfNeeded(
                 document: document,
-                templatesTypeURL: .dynamic(object.id.value)
+                templatesTypeURL: .dynamic(object.id)
             )
         }
 
-        handler.setObjectTypeUrl(object.id.value)
+        handler.setObjectTypeUrl(object.id)
     }
 
     private func subscribeOnDocumentChanges() {

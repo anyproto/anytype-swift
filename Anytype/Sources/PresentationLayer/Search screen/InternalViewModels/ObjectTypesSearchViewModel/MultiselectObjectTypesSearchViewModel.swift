@@ -55,12 +55,12 @@ private extension Array where Element == ObjectDetails {
     func asRowConfigurations(with selectedIds: [String]) -> [ListRowConfiguration] {
         map { details in
             ListRowConfiguration(
-                id: details.id.value,
+                id: details.id,
                 contentHash: details.hashValue
             ) {
                 SearchObjectRowView(
                     viewModel: SearchObjectRowView.Model(details: details),
-                    selectionIndicatorViewModel: SelectionIndicatorViewModelBuilder.buildModel(id: details.id.value, selectedIds: selectedIds)
+                    selectionIndicatorViewModel: SelectionIndicatorViewModelBuilder.buildModel(id: details.id, selectedIds: selectedIds)
                 ).eraseToAnyView()
             }
         }

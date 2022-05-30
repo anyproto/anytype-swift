@@ -78,7 +78,6 @@ struct SearchNewRelationView: View {
                             .padding(.horizontal, 20)
                             .frame(height: 52)
                         })
-
                     }
                 }
             }

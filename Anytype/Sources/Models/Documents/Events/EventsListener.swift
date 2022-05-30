@@ -12,7 +12,7 @@ final class EventsListener: EventsListenerProtocol {
         
     // MARK: - Private variables
     
-    private let objectId: AnytypeId
+    private let objectId: BlockId
      
     private let infoContainer: InfoContainerProtocol
     
@@ -25,7 +25,7 @@ final class EventsListener: EventsListenerProtocol {
     // MARK: - Initializers
     
     init(
-        objectId: AnytypeId,
+        objectId: BlockId,
         infoContainer: InfoContainerProtocol,
         relationStorage: RelationsMetadataStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer
@@ -61,7 +61,7 @@ final class EventsListener: EventsListenerProtocol {
             object: nil
         )
             .compactMap { $0.object as? EventsBunch }
-            .filter { $0.contextId == self.objectId.value }
+            .filter { $0.contextId == self.objectId }
             .sink { [weak self] events in
                 self?.handle(events: events)
             }
@@ -85,7 +85,7 @@ final class EventsListener: EventsListenerProtocol {
             if update.hasUpdate {
                 IndentationBuilder.build(
                     container: infoContainer,
-                    id: objectId.value
+                    id: objectId
                 )
             }
             

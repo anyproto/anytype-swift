@@ -4,11 +4,11 @@ public extension BlockInformation {
     }
     
     var isToggled: Bool {
-        ToggleStorage.shared.isToggled(blockId: id.value)
+        ToggleStorage.shared.isToggled(blockId: id)
     }
 
     func toggle() {
-        ToggleStorage.shared.toggle(blockId: id.value)
+        ToggleStorage.shared.toggle(blockId: id)
     }
     
     var kind: BlockKind {
@@ -44,7 +44,7 @@ public extension BlockInformation {
     }
     
     func headerLayout(container: InfoContainerProtocol) -> BlockInformation? {
-        container.children(of: id.value).first { info in
+        container.children(of: id).first { info in
             info.content == .layout(.init(style: .header))
         }
     }

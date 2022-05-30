@@ -33,8 +33,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showPage(data: EditorScreenData) {
-        if let id = data.pageId.value.asAnytypeId,
-           let details = ObjectDetailsStorage.shared.get(id: id) {
+        if let details = ObjectDetailsStorage.shared.get(id: data.pageId) {
             guard ObjectTypeProvider.isSupported(typeUrl: details.type) else {
                 showUnsupportedTypeAlert(typeUrl: details.type)
                 return
@@ -140,7 +139,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func showStyleMenu(information: BlockInformation) {
         guard let controller = viewController,
               let rootController = rootController,
-              let info = document.infoContainer.get(id: information.id.value) else { return }
+              let info = document.infoContainer.get(id: information.id) else { return }
         guard let controller = controller as? EditorPageController else {
             anytypeAssertionFailure("Not supported type of controller: \(controller)", domain: .editorPage)
             return
@@ -178,14 +177,14 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
                 )
             }
         )
-        controller.selectBlock(blockId: information.id.value)
+        controller.selectBlock(blockId: information.id)
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
         
         let moveToView = NewSearchModuleAssembly.moveToObjectSearchModule(
             title: "Move to".localized,
-            excludedObjectIds: [document.objectId.value]
+            excludedObjectIds: [document.objectId]
         ) { [weak self] blockId in
             onSelect(blockId)
             self?.viewController?.topPresentedController.dismiss(animated: true)
@@ -229,8 +228,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
         let viewModel = ObjectSearchViewModel { data in
-            guard let id = data.blockId.asAnytypeId else { return }
-            onSelect(EditorScreenData(pageId: id, type: data.viewType))
+            onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
         let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)
         
@@ -408,7 +406,7 @@ extension EditorRouter {
         let relation = document.parsedRelations.all.first { $0.id == key }
         guard let relation = relation else { return }
         
-        showRelationValueEditingView(objectId: document.objectId.value, source: source, relation: relation)
+        showRelationValueEditingView(objectId: document.objectId, source: source, relation: relation)
     }
     
     func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation) {
@@ -439,10 +437,10 @@ extension EditorRouter {
 
 extension EditorRouter {
 
-    func showCreateObject(pageId: AnytypeId) {
+    func showCreateObject(pageId: BlockId) {
         guard let viewController = viewController else { return }
 
-        let relationService = RelationsService(objectId: pageId.value)
+        let relationService = RelationsService(objectId: pageId)
         let viewModel = CreateObjectViewModel(relationService: relationService) { [weak self] in
             self?.viewController?.topPresentedController.dismiss(animated: true)
             self?.showPage(data: EditorScreenData(pageId: pageId, type: .page))

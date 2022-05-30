@@ -359,7 +359,7 @@ private extension EditorPageController {
         dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
             case let .block(block):
-                return block.info.id.value == blockId
+                return block.info.id == blockId
             case .header, .system:
                 return false
             }
@@ -373,7 +373,7 @@ private extension EditorPageController {
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
         
-        viewModel.actionHandler.createEmptyBlock(parentId: viewModel.document.objectId.value)
+        viewModel.actionHandler.createEmptyBlock(parentId: viewModel.document.objectId)
     }
 
     @objc

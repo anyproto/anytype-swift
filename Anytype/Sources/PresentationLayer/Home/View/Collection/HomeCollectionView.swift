@@ -34,7 +34,7 @@ struct HomeCollectionView: View {
                 ForEach(cellData) { data in
                     HomeCell(
                         cellData: data,
-                        selected: viewModel.selectedPageIds.contains(data.id.value)
+                        selected: viewModel.selectedPageIds.contains(data.id)
                     )
                     .onTapGesture { onTap(data) }
                     .disabled(data.isLoading)
@@ -42,7 +42,7 @@ struct HomeCollectionView: View {
                         view.onDrag {
                             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                             dropData.draggingCellData = data
-                            return NSItemProvider(object: data.id.value as NSString)
+                            return NSItemProvider(object: data.id as NSString)
                         }
                         .onDrop(
                             of: [UTType.text],
@@ -64,6 +64,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView(cellData: [], dragAndDropDelegate: HomeViewModel(homeBlockId: AnytypeIdMock.id), offsetChanged: { _ in }, onTap: { _ in })
+        HomeCollectionView(cellData: [], dragAndDropDelegate: HomeViewModel(homeBlockId: UUID().uuidString), offsetChanged: { _ in }, onTap: { _ in })
     }
 }

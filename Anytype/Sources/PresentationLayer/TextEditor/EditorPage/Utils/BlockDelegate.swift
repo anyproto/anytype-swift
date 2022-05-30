@@ -38,7 +38,7 @@ final class BlockDelegateImpl: BlockDelegate {
     }
     
     func didEndEditing(data: TextBlockDelegateData) {
-        viewInput?.blockDidFinishEditing(blockId: data.info.id.value)
+        viewInput?.blockDidFinishEditing(blockId: data.info.id)
         accessoryState.didEndEditing()
     }
     

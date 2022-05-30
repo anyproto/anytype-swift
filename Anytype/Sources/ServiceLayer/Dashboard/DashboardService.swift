@@ -8,7 +8,7 @@ final class DashboardService: DashboardServiceProtocol {
     
     private let objectsService = ServiceLocator.shared.objectActionsService()
     
-    func createNewPage(isDraft: Bool) -> AnytypeId? {
+    func createNewPage(isDraft: Bool) -> BlockId? {
         let defaultTypeUrl = ObjectTypeProvider.defaultObjectType.url
         let id = objectsService.createPage(
             contextId: "",
@@ -22,7 +22,7 @@ final class DashboardService: DashboardServiceProtocol {
             AnytypeAnalytics.instance().logCreateObject(objectType: defaultTypeUrl, route: .home)
         }
         
-        return id?.asAnytypeId
+        return id
     }
     
 }

@@ -13,7 +13,7 @@ enum AttributedTextConverter {
         // we need parse marks as if it utf16 string
         let textUTF16 = text.utf16
         // Map attributes to our internal format.
-        var markAttributes = marks.marks.compactMap { mark -> (range: NSRange, markAction: MarkupType)? in
+        var markAttributes: [(range: NSRange, markAction: MarkupType)] = marks.marks.compactMap { mark -> (range: NSRange, markAction: MarkupType)? in
             let middlewareTuple = MiddlewareTuple(
                 attribute: mark.type,
                 value: mark.param
@@ -63,7 +63,6 @@ enum AttributedTextConverter {
         // If we will add mentions after other markup and starting from tail of string
         // it will not break ranges
         var mentionMarks = [(range: NSRange, markAction: MarkupType)]()
-        
         markAttributes.removeAll { (range, markAction) -> Bool in
             if case .mention = markAction {
                 mentionMarks.append((range: range, markAction: markAction))

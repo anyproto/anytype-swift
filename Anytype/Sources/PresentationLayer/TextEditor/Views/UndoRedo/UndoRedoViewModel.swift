@@ -11,12 +11,12 @@ final class UndoRedoViewModel: ObservableObject {
 
     lazy var buttonModels = buildButtonModels()
 
-    private let objectId: AnytypeId
+    private let objectId: String
     private let objectActionsService: ObjectActionsServiceProtocol
     private let toastPresenter: ToastPresenter
 
     init(
-        objectId: AnytypeId,
+        objectId: String,
         objectActionsService: ObjectActionsServiceProtocol = ObjectActionsService(),
         toastPresenter: ToastPresenter
     ) {

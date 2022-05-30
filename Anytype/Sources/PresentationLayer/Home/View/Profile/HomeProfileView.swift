@@ -94,7 +94,7 @@ struct HomeProfileView: View {
 struct HomeProfileView_Previews: PreviewProvider {
     static var previews: some View {
         HomeProfileView()
-            .environmentObject(HomeViewModel(homeBlockId: AnytypeIdMock.id))
+            .environmentObject(HomeViewModel(homeBlockId: UUID().uuidString))
             .background(Color.System.blue)
     }
 }

@@ -46,7 +46,7 @@ private extension Array where Element == ObjectDetails {
     func asRowConfigurations(with selectedIds: [String]) -> [ListRowConfiguration] {
         map { details in
             ListRowConfiguration(
-                id: details.id.value,
+                id: details.id,
                 contentHash: details.hashValue
             ) {
                 SearchObjectRowView(

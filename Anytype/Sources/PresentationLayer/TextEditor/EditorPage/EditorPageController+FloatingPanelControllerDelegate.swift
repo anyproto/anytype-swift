@@ -23,13 +23,12 @@ extension EditorPageController: FloatingPanelControllerDelegate {
                 blockViewModel.set(focus: .end)
             }
         case .header, .system:
-            #warning("implement")
             return
         }
     }
 
     func adjustContentOffset(fpc: FloatingPanelController) {
-        let selectedItems = collectionView.indexPathsForSelectedItems ?? []
+        let selectedItems: [IndexPath] = collectionView.indexPathsForSelectedItems ?? []
 
         // find first visible blocks
         let closestItem = selectedItems.first { indexPath in

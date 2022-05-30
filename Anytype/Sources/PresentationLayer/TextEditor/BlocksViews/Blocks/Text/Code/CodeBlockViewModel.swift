@@ -30,7 +30,7 @@ struct CodeBlockViewModel: BlockViewModelProtocol {
             )
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
-            dragConfiguration: .init(id: info.id.value)
+            dragConfiguration: .init(id: info.id)
         )
     }
     

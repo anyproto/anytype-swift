@@ -21,7 +21,7 @@ struct UnsupportedBlockViewModel: BlockViewModelProtocol {
         UnsupportedBlockContentConfiguration(text: "Unsupported block".localized)
             .cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id.value)
+                dragConfiguration: .init(id: info.id)
             )
     }
 

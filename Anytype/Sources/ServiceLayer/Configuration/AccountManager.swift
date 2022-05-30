@@ -1,7 +1,6 @@
 import Foundation
 import ProtobufMessages
 
-
 final class AccountManager: ObservableObject {
     static let shared = AccountManager()
     

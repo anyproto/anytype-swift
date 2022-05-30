@@ -43,7 +43,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
 
         self.relationsViewModel = RelationsListViewModel(
             router: router,
-            relationsService: RelationsService(objectId: document.objectId.value),
+            relationsService: RelationsService(objectId: document.objectId),
             isObjectLocked: document.isLocked
         )
 

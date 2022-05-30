@@ -39,12 +39,10 @@ final class TextService: TextServiceProtocol {
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .textService)
 
-        guard let anytypeId = AnytypeId(blockId) else { return }
-
         EventsBunch(
             contextId: contextId,
             middlewareEvents: event?.middlewareEvents ?? [],
-            localEvents: [.setStyle(blockId: anytypeId)],
+            localEvents: [.setStyle(blockId: blockId)],
             dataSourceEvents: []
         ).send()
     }
