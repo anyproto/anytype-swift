@@ -693,9 +693,9 @@ class KeyboardActionHandlerTests: XCTestCase {
     
     // MARK: - Delitable
     func test_delete_text_first_block_in_page_without_title_and_description() throws {
-        let headerLayout = info(id: "headerLayout".asAnytypeId!, content: .layout(.init(style: .header)))
+        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)))
         let info = info(style: .text)
-        infoContainer.stubChildForParent(parentId: headerLayout.id.value, child: nil)
+        infoContainer.stubChildForParent(parentId: headerLayout.id, child: nil)
 
         handler.handle(info: info, currentString: .init(string: ""), action: .delete)
         
@@ -703,10 +703,10 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     func test_delete_text_second_block_in_page_without_title_and_description() throws {
-        let headerLayout = info(id: "headerLayout".asAnytypeId!, content: .layout(.init(style: .header)))
-        let info1 = info(id: "id1".asAnytypeId!, style: .text)
-        let info2 = info(id: "id2".asAnytypeId!, style: .text)
-        infoContainer.stubChildForParent(parentId: headerLayout.id.value, child: nil)
+        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)))
+        let info1 = info(id: "id1", style: .text)
+        let info2 = info(id: "id2", style: .text)
+        infoContainer.stubChildForParent(parentId: headerLayout.id, child: nil)
         service.mergeStub = true
         
         handler.handle(info: info2, currentString: .init(string: ""), action: .delete)
@@ -716,8 +716,8 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     func test_delete_text_first_block_in_page_without_title_with_description() throws {
-        let headerLayout = info(id: "headerLayout".asAnytypeId!, content: .layout(.init(style: .header)))
-        let description = info(id: "description".asAnytypeId!, style: .description, parent: headerLayout)
+        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)))
+        let description = info(id: "description", style: .description, parent: headerLayout)
         let info = info(style: .text)
         service.mergeStub = true
 
@@ -728,8 +728,8 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     func test_delete_text_first_block_in_page_with_title_without_description() throws {
-        let headerLayout = info(id: "headerLayout".asAnytypeId!, content: .layout(.init(style: .header)))
-        let title = info(id: "title".asAnytypeId!, style: .description, parent: headerLayout)
+        let headerLayout = info(id: "headerLayout", content: .layout(.init(style: .header)))
+        let title = info(id: "title", style: .description, parent: headerLayout)
         let info = info(style: .text)
         service.mergeStub = true
 
@@ -741,8 +741,8 @@ class KeyboardActionHandlerTests: XCTestCase {
     
     // MARK: - Nested blocks
     func test_deleteAtTheBegining_one_children() throws {
-        let parent = info(id: "parentId".asAnytypeId!, style: .toggle, hasChild: true)
-        let child = info(id: "childId".asAnytypeId!, style: .text, parent: parent)
+        let parent = info(id: "parentId", style: .toggle, hasChild: true)
+        let child = info(id: "childId", style: .text, parent: parent)
         listService.moveStub = true
         
         handler.handle(info: child, currentString: .init(string: ""), action: .delete)
@@ -754,9 +754,9 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     func test_deleteAtTheBegining_last_children() throws {
-        let parent = info(id: "parentId".asAnytypeId!, style: .toggle, hasChild: true)
-        let child1 = info(id: "childId1".asAnytypeId!, style: .text, parent: parent)
-        let child2 = info(id: "childId2".asAnytypeId!, style: .text, parent: parent)
+        let parent = info(id: "parentId", style: .toggle, hasChild: true)
+        let child1 = info(id: "childId1", style: .text, parent: parent)
+        let child2 = info(id: "childId2", style: .text, parent: parent)
         listService.moveStub = true
         
         // when
@@ -769,9 +769,9 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     func test_deleteAtTheBegining_not_last_children() throws {
-        let parent = info(id: "parentId".asAnytypeId!, style: .toggle, hasChild: true)
-        let child1 = info(id: "childId1".asAnytypeId!, style: .text, parent: parent)
-        let child2 = info(id: "childId2".asAnytypeId!, style: .text, parent: parent)
+        let parent = info(id: "parentId", style: .toggle, hasChild: true)
+        let child1 = info(id: "childId1", style: .text, parent: parent)
+        let child2 = info(id: "childId2", style: .text, parent: parent)
         
         service.mergeStub = true
         
@@ -783,9 +783,9 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     func test_deleteAtTheBegining_one_children_of_page() throws {
-        let childId = "childId".asAnytypeId!
+        let childId = "childId"
         let parent = BlockInformation(
-            id: "parentId".asAnytypeId!,
+            id: "parentId",
             content: .smartblock(.init(style: .page)),
             backgroundColor: nil,
             alignment: .center,
@@ -812,7 +812,7 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     private func info(
-        id: AnytypeId = "id".asAnytypeId!,
+        id: BlockId = "id",
         style: BlockText.Style = .text,
         hasChild: Bool = false,
         parent: BlockInformation = .empty(id: "pageId", content: .smartblock(.init(style: .page)))
@@ -821,7 +821,7 @@ class KeyboardActionHandlerTests: XCTestCase {
     }
     
     private func info(
-        id: AnytypeId = "id".asAnytypeId!,
+        id: BlockId = "id",
         content: BlockContent,
         hasChild: Bool = false,
         parent: BlockInformation? = nil
@@ -833,22 +833,22 @@ class KeyboardActionHandlerTests: XCTestCase {
             content: content,
             backgroundColor: nil,
             alignment: .center,
-            childrenIds: hasChild ? ["childId".asAnytypeId!] : [],
-            configurationData: .init(parentId: parent.id.value, backgroundColor: nil, indentationStyle: .none, calloutBackgroundColor: nil),
+            childrenIds: hasChild ? ["childId"] : [],
+            configurationData: .init(parentId: parent.id, backgroundColor: nil, indentationStyle: .none, calloutBackgroundColor: nil),
             fields: [:]
         )
         
-        infoContainer.getReturnInfo[parent.id.value] = parent
-        infoContainer.stubChildForParent(parentId: parent.id.value, child: info)
+        infoContainer.getReturnInfo[parent.id] = parent
+        infoContainer.stubChildForParent(parentId: parent.id, child: info)
         
-        infoContainer.getReturnInfo[id.value] = info
+        infoContainer.getReturnInfo[id] = info
         
         return info
     }
     
     private func pageInfo() -> BlockInformation {
         let info = BlockInformation(
-            id: "pageId".asAnytypeId!,
+            id: "pageId",
             content: .smartblock(.init(style: .page)),
             backgroundColor: nil,
             alignment: .center,
