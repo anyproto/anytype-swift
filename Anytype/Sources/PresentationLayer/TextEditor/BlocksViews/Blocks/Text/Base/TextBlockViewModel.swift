@@ -197,7 +197,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 actionHandler.turnInto(style, blockId: info.id)
                 actionHandler.changeTextForced(newText, blockId: info.id)
                 textView.setFocus(.beginning)
-            case .setText(let text, let caretPosition):
+            case .setText:
                 break
             }
 

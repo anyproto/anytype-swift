@@ -10,8 +10,6 @@ public extension BlockLink {
     enum CardStyle: CaseIterable {
         case text
         case card
-        #warning("uncomment when support")
-//        case inline
     }
 
     enum Description {

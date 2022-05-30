@@ -24,7 +24,7 @@ final class SetTableViewDataBuilder {
         colums: [RelationMetadata],
         isObjectLocked: Bool
     ) -> [SetTableViewRowData] {
-        datails.flatMap { details in
+        datails.compactMap { details in
             let metadata = sortedRelations(dataview: dataView, view: activeView)
                 .filter { $0.option.isVisible == true }
                 .map { $0.metadata }
