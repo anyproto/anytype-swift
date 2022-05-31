@@ -33,12 +33,7 @@ extension StatusSearchInteractor {
             return .success(filteredStatuses)
         }
         
-        return .failure(
-            NewSearchError(
-                title: "\"\(text)\" \("is already selected".localized)",
-                subtitle: nil
-            )
-        )
+        return .failure(NewSearchError.alreadySelected(searchText: text))
     }
     
     func isCreateButtonAvailable(searchText: String) -> Bool {

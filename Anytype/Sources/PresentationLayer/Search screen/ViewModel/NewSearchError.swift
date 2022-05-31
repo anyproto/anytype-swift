@@ -24,4 +24,11 @@ extension NewSearchError {
         )
     }
     
+    static func alreadySelected(searchText: String) -> NewSearchError {
+        NewSearchError(
+            title: "\"\(searchText)\" \("is already selected".localized)",
+            subtitle: nil
+        )
+    }
+    
 }

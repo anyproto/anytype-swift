@@ -14,10 +14,9 @@ final class TagsSearchInteractor {
 
 extension TagsSearchInteractor {
     
-    func search(text: String, onCompletion: ([Relation.Tag.Option]) -> ()) {
+    func search(text: String) -> Result<[Relation.Tag.Option], NewSearchError> {
         guard text.isNotEmpty else {
-            onCompletion(availableTags)
-            return
+            return .success(availableTags)
         }
 
         let filteredTags: [Relation.Tag.Option] = availableTags.filter {
@@ -26,7 +25,18 @@ extension TagsSearchInteractor {
             return $0.text.lowercased().contains(text.lowercased())
         }
         
-        onCompletion(filteredTags)
+        if filteredTags.isEmpty {
+            let isSearchedTagSelected = allTags.filter { tag in
+                selectedTagIds.contains { $0 == tag.id }
+            }
+                .contains { $0.text.lowercased() == text.lowercased() }
+            
+            return isSearchedTagSelected ?
+                .failure(.alreadySelected(searchText: text)) :
+                .success(filteredTags)
+        }
+        
+        return .success(filteredTags)
     }
     
     func isCreateButtonAvailable(searchText: String) -> Bool {

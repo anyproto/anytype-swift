@@ -23,7 +23,13 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
         let result = interactor.search(text: text)
         switch result {
         case .success(let statuses):
-            handleSearchResults(statuses)
+            self.statuses = statuses
+            
+            let sections = NewSearchSectionsBuilder.makeSections(statuses) {
+                $0.asRowsConfigurations
+            }
+            viewStateSubject.send(.resultsList(.sectioned(sectinos: sections)))
+            
         case .failure(let error):
             viewStateSubject.send(.error(error))
         }
@@ -33,19 +39,6 @@ extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     
     func isCreateButtonAvailable(searchText: String) -> Bool {
         interactor.isCreateButtonAvailable(searchText: searchText)
-    }
-    
-}
-
-private extension StatusSearchViewModel {
-    
-    func handleSearchResults(_ statuses: [Relation.Status.Option]) {
-        self.statuses = statuses
-        
-        let sections = NewSearchSectionsBuilder.makeSections(statuses) {
-            $0.asRowsConfigurations
-        }
-        viewStateSubject.send(.resultsList(.sectioned(sectinos: sections)))
     }
     
 }
