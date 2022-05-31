@@ -1,12 +1,12 @@
 import UIKit
 
 final class TagViewUIKit: UIView {
-    let relationTag: Relation.Tag.Option
-    let guidlines: TagView.Guidlines
+    private let relationTag: Relation.Tag.Option
+    private let style: RelationStyle
 
-    init(tag: Relation.Tag.Option, guidlines: TagView.Guidlines) {
+    init(tag: Relation.Tag.Option, style: RelationStyle) {
         self.relationTag = tag
-        self.guidlines = guidlines
+        self.style = style
 
         super.init(frame: .zero)
 
@@ -22,24 +22,24 @@ final class TagViewUIKit: UIView {
 
 
     override var intrinsicContentSize: CGSize {
-        CGSize(width: textView.intrinsicContentSize.width + guidlines.textPadding * 2, height: textView.intrinsicContentSize.height)
+        CGSize(width: textView.intrinsicContentSize.width + style.tagViewGuidlines.textPadding * 2, height: textView.intrinsicContentSize.height)
     }
 
     private func setupView() {
         backgroundColor = relationTag.backgroundColor
 
         layer.cornerCurve = .continuous
-        layer.cornerRadius = guidlines.cornerRadius
-
-        textView = AnytypeLabel(style: .relation2Regular)
+        layer.cornerRadius = style.tagViewGuidlines.cornerRadius
+        
+        textView = AnytypeLabel(style: style.font)
         textView.setText(relationTag.text)
         textView.textColor = relationTag.textColor
 
         textView.setLineBreakMode(.byTruncatingTail)
 
         addSubview(textView) {
-            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: guidlines.textPadding, bottom: 0, right: -guidlines.textPadding))
-            $0.height.equal(to: guidlines.tagHeight, priority: .defaultHigh)
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: style.tagViewGuidlines.textPadding, bottom: 0, right: -style.tagViewGuidlines.textPadding))
+            $0.height.equal(to: style.tagViewGuidlines.tagHeight, priority: .defaultHigh)
         }
     }
 }
