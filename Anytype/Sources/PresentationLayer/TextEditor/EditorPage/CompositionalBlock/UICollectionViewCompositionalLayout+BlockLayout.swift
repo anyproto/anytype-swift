@@ -42,6 +42,43 @@ extension UICollectionViewCompositionalLayout {
             configuration: UICollectionViewCompositionalLayoutConfiguration()
         )
     }
+
+    static func staticWidth(
+        width: CGFloat,
+        fullWidth: CGFloat,
+        interItemSpacing: NSCollectionLayoutSpacing = .fixed(0),
+        groundEdgeSpacing: NSCollectionLayoutEdgeSpacing,
+        interGroupSpacing: CGFloat = 8
+    ) -> UICollectionViewCompositionalLayout {
+        UICollectionViewCompositionalLayout(
+            sectionProvider: {
+                (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+
+
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .absolute(width),
+                    heightDimension: .estimated(50)
+                )
+
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .absolute(fullWidth),
+                    heightDimension: .estimated(50)
+                )
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 4)
+            
+//                group.edgeSpacing = groundEdgeSpacing
+//                group.interItemSpacing = interItemSpacing
+
+                let section = NSCollectionLayoutSection(group: group)
+//                section.interGroupSpacing = interGroupSpacing
+
+                return section
+            },
+            configuration: UICollectionViewCompositionalLayoutConfiguration()
+        )
+    }
 }
 
 extension NSCollectionLayoutEdgeSpacing {

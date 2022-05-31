@@ -6,13 +6,15 @@ final class DynamicCollectionView: UICollectionView {
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
 
-        isScrollEnabled = false
+//        isScrollEnabled = false
+        isDirectionalLockEnabled = true
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        isScrollEnabled = false
+//        isScrollEnabled = false
+        isDirectionalLockEnabled = true
     }
 
     override func layoutSubviews() {

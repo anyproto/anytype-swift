@@ -20,4 +20,14 @@ class BuildInViewCollectionViewCell: UICollectionViewCell {
     required init?(coder: NSCoder) {
         super.init(coder: coder)
     }
+
+//    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {
+//        var fittingSize = UIView.layoutFittingExpandedSize
+//        fittingSize.width = layoutAttributes.size.width
+//        let fitSize = systemLayoutSizeFitting(fittingSize, withHorizontalFittingPriority: .required, verticalFittingPriority: .required)
+//        var fitFrame = layoutAttributes.frame
+//        fitFrame.size.height = fitSize.height
+//        layoutAttributes.frame = fitFrame
+//        return layoutAttributes
+//    }
 }

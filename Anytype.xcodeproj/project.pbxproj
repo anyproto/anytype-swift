@@ -912,6 +912,7 @@
 		C9F0A4772805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F0A4762805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift */; };
 		C9F0A47D28057D8F00FA16DD /* TextIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F0A47C28057D8F00FA16DD /* TextIconPickerViewModel.swift */; };
 		C9F44C7F27E351400078E709 /* TextBlockLeadingViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F44C7E27E351400078E709 /* TextBlockLeadingViewBuilder.swift */; };
+		C9FF0BB12844BD3900050379 /* TestBlock.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9FF0BB02844BD3900050379 /* TestBlock.swift */; };
 		EA0261152624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */; };
 		EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */; };
 		EA0261242625CE0800AE6D86 /* TextBlockRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EA0261232625CE0800AE6D86 /* TextBlockRestrictions.swift */; };
@@ -1936,6 +1937,7 @@
 		C9F0A4762805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconPickerViewModelProtocol.swift; sourceTree = "<group>"; };
 		C9F0A47C28057D8F00FA16DD /* TextIconPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextIconPickerViewModel.swift; sourceTree = "<group>"; };
 		C9F44C7E27E351400078E709 /* TextBlockLeadingViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLeadingViewBuilder.swift; sourceTree = "<group>"; };
+		C9FF0BB02844BD3900050379 /* TestBlock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestBlock.swift; sourceTree = "<group>"; };
 		EA0261142624AC4100AE6D86 /* ApplicationWindowInsetsProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationWindowInsetsProvider.swift; sourceTree = "<group>"; };
 		EA0261202625CCD200AE6D86 /* BlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockRestrictions.swift; sourceTree = "<group>"; };
 		EA0261232625CE0800AE6D86 /* TextBlockRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockRestrictions.swift; sourceTree = "<group>"; };
@@ -2587,6 +2589,7 @@
 		0A10CC5A248EC2EE000FF498 /* Blocks */ = {
 			isa = PBXGroup;
 			children = (
+				C9FF0BAC2844BD3000050379 /* TestBlock */,
 				C96B6C9F27B0F8B700C453EB /* Spacer */,
 				535E02A3274FE53900E1AF8C /* Relation */,
 				1223C8F9272693C600C34616 /* FeaturedRelations */,
@@ -6246,6 +6249,14 @@
 			path = GenericIconPickerViewModel;
 			sourceTree = "<group>";
 		};
+		C9FF0BAC2844BD3000050379 /* TestBlock */ = {
+			isa = PBXGroup;
+			children = (
+				C9FF0BB02844BD3900050379 /* TestBlock.swift */,
+			);
+			path = TestBlock;
+			sourceTree = "<group>";
+		};
 		EA02611A2625B1DB00AE6D86 /* Restrictions */ = {
 			isa = PBXGroup;
 			children = (
@@ -7329,6 +7340,7 @@
 				1244791427D8A37000581174 /* NewSearchView.swift in Sources */,
 				C9CD66A427EAFD3E001F1860 /* GridItemViewModel.swift in Sources */,
 				3DE8D5C426CFFFE4006F31C1 /* AlertHelper.swift in Sources */,
+				C9FF0BB12844BD3900050379 /* TestBlock.swift in Sources */,
 				12F3B84827E9C6E200360CA3 /* SearchNewRelationSectionType.swift in Sources */,
 				3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */,
 				3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */,

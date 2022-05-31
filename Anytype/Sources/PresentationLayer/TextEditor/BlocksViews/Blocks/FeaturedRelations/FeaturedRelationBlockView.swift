@@ -39,29 +39,34 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
                 action: configuration.onRelationTap
             )
 
+            relationView.backgroundColor = .randomColor()
+
             views.append(relationView)
 
             if item != configuration.featuredRelations.last {
-                let label = UILabel()
+                let label = UIView()
 
-                label.text = "•"
-                label.textColor = .textSecondary
-                label.font = .systemFont(ofSize: 13)
+//                label.text = "•"
+//                label.textColor = .textSecondary
+//                label.font = .systemFont(ofSize: 13)
+                label.backgroundColor = .randomColor()
 
-                let heightConstraint = label.heightAnchor.constraint(equalToConstant: 18)
-                heightConstraint.priority = .defaultLow
-                heightConstraint.isActive = true
+//                let heightConstraint = label.heightAnchor.constraint(equalToConstant: 18)
+//                heightConstraint.priority = .defaultLow
+//                heightConstraint.isActive = true
 
-                label.translatesAutoresizingMaskIntoConstraints = false
+//                label.translatesAutoresizingMaskIntoConstraints = false
 
                 views.append(label)
             }
         }
 
+        
+
         blocksView.update(
             with: .init(
                 hashable: AnyHashable(configuration),
-                compositionalLayout: .flexibleView(groundEdgeSpacing: .defaultBlockEdgeSpacing),
+                compositionalLayout: .staticWidth(width: 100, fullWidth: 400, groundEdgeSpacing: NSCollectionLayoutEdgeSpacing.defaultBlockEdgeSpacing),
                 views: views,
                 heightDidChanged: configuration.heightDidChanged
             )

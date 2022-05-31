@@ -34,13 +34,17 @@ final class TextRelationViewUIKit: UIView {
 
     private func setupViews() {
         textView.textColor = style.uiKitFontColor
-        textView.setText(text) 
-        textView.numberOfLines = 1
-        textView.numberOfLines = style.allowMultiLine ? 0 : 1
+        textView.setText(text)
+        textView.numberOfLines = 0
+//        textView.numberOfLines = style.allowMultiLine ? 0 : 1
 
         addSubview(textView) {
             $0.pinToSuperview(excluding: [.bottom])
             $0.bottom.greaterThanOrEqual(to: bottomAnchor, priority: .init(rawValue: 999))
         }
+
+//        textView.setContentHuggingPriority(.required, for: .vertical)
+//        textView.setContentCompressionResistancePriority(.init(rawValue: 999), for: .vertical)
+//        setContentCompressionResistancePriority(.init(rawValue: 999), for: .vertical)
     }
 }
