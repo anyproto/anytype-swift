@@ -43,9 +43,9 @@ extension UICollectionViewCompositionalLayout {
         )
     }
 
-    static func staticWidth(
-        width: CGFloat,
-        fullWidth: CGFloat,
+    static func spreadsheet(
+        groupItemsCount: Int,
+        itemsWidths: [CGFloat],
         interItemSpacing: NSCollectionLayoutSpacing = .fixed(0),
         groundEdgeSpacing: NSCollectionLayoutEdgeSpacing,
         interGroupSpacing: CGFloat = 8
@@ -54,21 +54,23 @@ extension UICollectionViewCompositionalLayout {
             sectionProvider: {
                 (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
+                let items = itemsWidths.map { width -> NSCollectionLayoutItem in
+                    let layoutSize = NSCollectionLayoutSize(
+                        widthDimension: .absolute(width),
+                        heightDimension: .estimated(50)
+                    )
 
-                let itemSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(width),
-                    heightDimension: .estimated(50)
-                )
+                    return NSCollectionLayoutItem(
+                        layoutSize: layoutSize
+                    )
+                }
 
-                let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-                
-
+                let absoluteWidth = itemsWidths.reduce(0, +)
                 let groupSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(fullWidth),
+                    widthDimension: .absolute(absoluteWidth),
                     heightDimension: .estimated(50)
                 )
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 4)
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: items)
             
 //                group.edgeSpacing = groundEdgeSpacing
 //                group.interItemSpacing = interItemSpacing
