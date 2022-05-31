@@ -7,21 +7,11 @@ final class ObjectsSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode
     
-    @Published private var rows: [ListRowConfiguration] = []
-    
-    private var objects: [ObjectDetails] = [] {
-        didSet {
-            rows = objects.asRowConfigurations(with: selectedObjectIds, selectionMode: selectionMode)
-        }
-    }
-    
-    private var selectedObjectIds: [String] = [] {
-        didSet {
-            rows = objects.asRowConfigurations(with: selectedObjectIds, selectionMode: selectionMode)
-        }
-    }
-    
+    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     private let interactor: ObjectsSearchInteractorProtocol
+    
+    private var objects: [ObjectDetails] = []
+    private var selectedObjectIds: [String] = []
     
     init(selectionMode: NewSearchViewModel.SelectionMode, interactor: ObjectsSearchInteractorProtocol) {
         self.selectionMode = selectionMode
@@ -33,17 +23,44 @@ final class ObjectsSearchViewModel {
 extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
     
     var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> {
-        $rows.map { rows -> NewSearchViewState in
-            NewSearchViewState.resultsList(NewSearchView.ListModel.plain(rows: rows))
-        }.eraseToAnyPublisher()
+        viewStateSubject.eraseToAnyPublisher()
     }
     
     func search(text: String) {
-        self.objects = interactor.search(text: text)
+        let objects = interactor.search(text: text)
+        
+        if objects.isEmpty {
+            handleError(for: text)
+        } else {
+            handleSearchResults(objects)
+        }
+        
+        self.objects = objects
     }
     
     func handleRowsSelection(ids: [String]) {
+        guard objects.isNotEmpty else { return }
+        
         self.selectedObjectIds = ids
+        handleSearchResults(objects)
+    }
+    
+}
+
+private extension ObjectsSearchViewModel {
+    
+    func handleError(for text: String) {
+        viewStateSubject.send(.error(.noObjectError(searchText: text)))
+    }
+    
+    func handleSearchResults(_ objects: [ObjectDetails]) {
+        viewStateSubject.send(
+            .resultsList(
+                .plain(
+                    rows: objects.asRowConfigurations(with: selectedObjectIds, selectionMode: selectionMode)
+                )
+            )
+        )
     }
     
 }
