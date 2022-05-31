@@ -3,7 +3,7 @@ import Combine
 
 protocol NewInternalSearchViewModelProtocol {
     
-    var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> { get }
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> { get }
     
     var selectionMode: NewSearchViewModel.SelectionMode { get }
     

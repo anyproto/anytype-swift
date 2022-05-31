@@ -25,9 +25,9 @@ final class ObjectTypesSearchViewModel {
 
 extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> {
-        $rows.map { rows -> NewSearchView.ListModel in
-            NewSearchView.ListModel.plain(rows: rows)
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> {
+        $rows.map { rows -> NewSearchViewState in
+            NewSearchViewState.resultsList(NewSearchView.ListModel.plain(rows: rows))
         }.eraseToAnyPublisher()
     }
     

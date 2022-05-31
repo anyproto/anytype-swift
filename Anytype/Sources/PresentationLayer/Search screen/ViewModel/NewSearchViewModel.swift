@@ -72,8 +72,8 @@ private extension NewSearchViewModel {
     }
     
     func setupInternalViewModel() {
-        cancellable = internalViewModel.listModelPublisher.sink { [weak self] listModel in
-            self?.state = .resultsList(listModel)
+        cancellable = internalViewModel.viewStatePublisher.sink { [weak self] state in
+            self?.state = state
         }
     }
     

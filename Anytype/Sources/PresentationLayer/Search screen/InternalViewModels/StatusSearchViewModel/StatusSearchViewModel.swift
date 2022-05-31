@@ -26,9 +26,9 @@ final class StatusSearchViewModel {
 
 extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> {
-        $sections.map { sections -> NewSearchView.ListModel in
-            NewSearchView.ListModel.sectioned(sectinos: sections)
+    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> {
+        $sections.map { sections -> NewSearchViewState in
+            NewSearchViewState.resultsList(NewSearchView.ListModel.sectioned(sectinos: sections))
         }.eraseToAnyPublisher()
     }
     

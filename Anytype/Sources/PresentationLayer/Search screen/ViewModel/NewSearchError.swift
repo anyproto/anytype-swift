@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct NewSearchError {
+struct NewSearchError: Error {
     
     let title: String
     let subtitle: String?
