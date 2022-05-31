@@ -6,7 +6,7 @@ final class NewSearchViewModel: ObservableObject {
     
     let title: String?
     
-    @Published private(set) var listModel: NewSearchView.ListModel = .plain(rows: [])
+    @Published private(set) var state: NewSearchViewState = .resultsList(.plain(rows: []))
     @Published private(set) var addButtonModel: NewSearchView.AddButtonModel? = nil
     @Published private(set) var isCreateButtonAvailable: Bool = false
     
@@ -73,7 +73,7 @@ private extension NewSearchViewModel {
     
     func setupInternalViewModel() {
         cancellable = internalViewModel.listModelPublisher.sink { [weak self] listModel in
-            self?.listModel = listModel
+            self?.state = .resultsList(listModel)
         }
     }
     

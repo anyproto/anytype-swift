@@ -24,10 +24,11 @@ struct NewSearchView: View {
     
     private var content: some View {
         Group {
-            if viewModel.listModel.isEmpty && !viewModel.isCreateButtonAvailable {
+            switch viewModel.state {
+            case .resultsList(let model):
+                searchResults(model: model)
+            case .error:
                 emptyState
-            } else {
-                searchResults
             }
         }
     }
@@ -52,7 +53,7 @@ struct NewSearchView: View {
         .padding(.horizontal)
     }
     
-    private var searchResults: some View {
+    private func searchResults(model: ListModel) -> some View {
         ScrollView {
             LazyVStack(spacing: 0) {
                 if viewModel.isCreateButtonAvailable {
@@ -60,7 +61,7 @@ struct NewSearchView: View {
                         viewModel.didTapCreateButton(title: searchText)
                     }
                 }
-                switch viewModel.listModel {
+                switch model {
                 case .plain(let rows):
                     rowViews(rows: rows)
                 case .sectioned(let sections):
