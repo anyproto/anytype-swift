@@ -1,5 +1,5 @@
 //
-//  NewSearchViewState.swift
+//  NewSearchError.swift
 //  Anytype
 //
 //  Created by Konstantin Mordan on 31.05.2022.
@@ -8,7 +8,9 @@
 
 import Foundation
 
-enum NewSearchViewState {
-    case resultsList(NewSearchView.ListModel)
-    case error(NewSearchError)
+struct NewSearchError {
+    
+    let title: String
+    let subtitle: String?
+    
 }

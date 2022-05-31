@@ -27,27 +27,30 @@ struct NewSearchView: View {
             switch viewModel.state {
             case .resultsList(let model):
                 searchResults(model: model)
-            case .error:
-                emptyState
+            case .error(let error):
+                errorState(error)
             }
         }
     }
     
-    private var emptyState: some View {
+    private func errorState(_ error: NewSearchError) -> some View {
         VStack(alignment: .center) {
             Spacer()
             AnytypeText(
-                "\("There is no object named".localized) \"\(searchText)\"",
+                error.title,//"\("There is no object named".localized) \"\(searchText)\"",
                 style: .uxBodyRegular,
                 color: .textPrimary
             )
             .multilineTextAlignment(.center)
-            AnytypeText(
-                "Try to create a new one or search for something else".localized,
-                style: .uxBodyRegular,
-                color: .textSecondary
-            )
-            .multilineTextAlignment(.center)
+            error.subtitle.flatMap {
+                AnytypeText(
+                    $0,// "Try to create a new one or search for something else".localized,
+                    style: .uxBodyRegular,
+                    color: .textSecondary
+                )
+                .multilineTextAlignment(.center)
+            }
+            
             Spacer()
         }
         .padding(.horizontal)
