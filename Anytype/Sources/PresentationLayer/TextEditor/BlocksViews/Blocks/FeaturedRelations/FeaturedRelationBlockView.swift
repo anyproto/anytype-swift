@@ -11,6 +11,8 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
         setupSubview()
     }
 
+    private var configuration: Configuration?
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
@@ -32,10 +34,12 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
     func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
         var views = [UIView]()
 
+        self.configuration = configuration
+
         configuration.featuredRelations.forEach { item in
             let relationView = RelationValueViewUIKit(
                 relation: item,
-                style: .featuredRelationBlock(allowMultiLine: false),
+                style: .featuredRelationBlock(allowMultiLine: true),
                 action: configuration.onRelationTap
             )
 
@@ -44,12 +48,16 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
             views.append(relationView)
 
             if item != configuration.featuredRelations.last {
-                let label = UIView()
+                let textView = UITextView()
 
-//                label.text = "•"
+//                textView.numberOfLines = 0
+                textView.text = "Lorem ipsum dolor sit amet"
 //                label.textColor = .textSecondary
 //                label.font = .systemFont(ofSize: 13)
-                label.backgroundColor = .randomColor()
+                textView.backgroundColor = .randomColor()
+                textView.delegate = self
+                textView.isScrollEnabled = false
+
 
 //                let heightConstraint = label.heightAnchor.constraint(equalToConstant: 18)
 //                heightConstraint.priority = .defaultLow
@@ -57,8 +65,17 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
 
 //                label.translatesAutoresizingMaskIntoConstraints = false
 
-                views.append(label)
+                views.append(textView)
             }
+
+
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [unowned self] in
+//                self.blocksView.collectionView.collectionViewLayout.invalidateLayout()
+//                self.blocksView.collectionView.collectionViewLayout.prepare()
+//
+//            }
+
+
         }
 
         
@@ -71,5 +88,15 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
                 heightDidChanged: configuration.heightDidChanged
             )
         )
+    }
+}
+
+extension FeaturedRelationBlockView: UITextViewDelegate {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        blocksView.collectionView.collectionViewLayout.invalidateLayout()
+        blocksView.collectionView.collectionViewLayout.prepare()
+        configuration?.heightDidChanged()
+
+        return true
     }
 }

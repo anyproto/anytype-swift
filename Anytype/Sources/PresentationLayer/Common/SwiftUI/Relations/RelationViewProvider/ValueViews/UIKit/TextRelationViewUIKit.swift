@@ -12,7 +12,7 @@ final class TextRelationViewUIKit: UIView {
     let text: String
     let style: RelationStyle
 
-    private lazy var textView = AnytypeLabel(style: style.font)
+    private lazy var textView = UITextView()
   
     // MARK: - Lifecycle
 
@@ -34,17 +34,19 @@ final class TextRelationViewUIKit: UIView {
 
     private func setupViews() {
         textView.textColor = style.uiKitFontColor
-        textView.setText(text)
-        textView.numberOfLines = 0
+        textView.isScrollEnabled = false
+        textView.text = "123 123 123"
+//        textView.setText(text)
+//        textView.numberOfLines = 0
 //        textView.numberOfLines = style.allowMultiLine ? 0 : 1
 
         addSubview(textView) {
-            $0.pinToSuperview(excluding: [.bottom])
-            $0.bottom.greaterThanOrEqual(to: bottomAnchor, priority: .init(rawValue: 999))
+            $0.pinToSuperview()
+//            $0.bottom.greaterThanOrEqual(to: bottomAnchor, priority: .init(rawValue: 1000))
         }
 
 //        textView.setContentHuggingPriority(.required, for: .vertical)
-//        textView.setContentCompressionResistancePriority(.init(rawValue: 999), for: .vertical)
+//        setContentCompressionResistancePriority(.required, for: .vertical)
 //        setContentCompressionResistancePriority(.init(rawValue: 999), for: .vertical)
     }
 }
