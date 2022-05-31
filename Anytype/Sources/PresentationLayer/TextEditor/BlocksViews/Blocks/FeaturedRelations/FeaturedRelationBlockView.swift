@@ -37,13 +37,33 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
         self.configuration = configuration
 
         configuration.featuredRelations.forEach { item in
-            let relationView = RelationValueViewUIKit(
-                relation: item,
-                style: .featuredRelationBlock(allowMultiLine: true),
-                action: configuration.onRelationTap
-            )
+//            let relationView = RelationValueViewUIKit(
+//                relation: item,
+//                style: .featuredRelationBlock(allowMultiLine: true),
+//                action: configuration.onRelationTap
+//            )
+//
+//            relationView.backgroundColor = .backgroundPrimary
+//
+//            views.append(relationView)
 
-            relationView.backgroundColor = .randomColor()
+            let relationView = UITextView()
+
+            //                textView.numberOfLines = 0
+            relationView.text = "Lorem ipsum dolor sit amet"
+
+            //                label.textColor = .textSecondary
+            //                label.font = .systemFont(ofSize: 13)
+            //                textView.backgroundColor = .randomColor()
+            relationView.delegate = self
+            relationView.isScrollEnabled = false
+
+
+            //                let heightConstraint = label.heightAnchor.constraint(equalToConstant: 18)
+            //                heightConstraint.priority = .defaultLow
+            //                heightConstraint.isActive = true
+
+            //                label.translatesAutoresizingMaskIntoConstraints = false
 
             views.append(relationView)
 
@@ -52,9 +72,10 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
 
 //                textView.numberOfLines = 0
                 textView.text = "Lorem ipsum dolor sit amet"
+
 //                label.textColor = .textSecondary
 //                label.font = .systemFont(ofSize: 13)
-                textView.backgroundColor = .randomColor()
+//                textView.backgroundColor = .randomColor()
                 textView.delegate = self
                 textView.isScrollEnabled = false
 
@@ -89,13 +110,27 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
             )
         )
     }
+
+    private let debouncer = Debouncer()
 }
 
 extension FeaturedRelationBlockView: UITextViewDelegate {
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        blocksView.collectionView.collectionViewLayout.invalidateLayout()
-        blocksView.collectionView.collectionViewLayout.prepare()
-        configuration?.heightDidChanged()
+        debouncer.debounce(milliseconds: 25) { [unowned self] in 
+            blocksView.collectionView.collectionViewLayout.invalidateLayout()
+            blocksView.collectionView.collectionViewLayout.prepare()
+            configuration?.heightDidChanged()
+
+            blocksView.collectionView.backgroundColor = .red
+
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                blocksView.collectionView.collectionViewLayout.invalidateLayout()
+                blocksView.collectionView.collectionViewLayout.prepare()
+            }
+
+        }
+
+
 
         return true
     }

@@ -62,7 +62,8 @@ extension UICollectionViewCompositionalLayout {
 
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
 
-                
+
+                item.contentInsets = .init(top: 0.5, leading: 0.5, bottom: 0.5, trailing: 0.5)
 
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .absolute(fullWidth),
@@ -70,11 +71,14 @@ extension UICollectionViewCompositionalLayout {
                 )
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: 4)
             
-//                group.edgeSpacing = groundEdgeSpacing
-//                group.interItemSpacing = interItemSpacing
+                group.edgeSpacing = .init(
+                    leading: .fixed(0.5),
+                    top: .fixed(0),
+                    trailing: .fixed(0.5),
+                    bottom: .fixed(0.5)
+                )
 
                 let section = NSCollectionLayoutSection(group: group)
-//                section.interGroupSpacing = interGroupSpacing
 
                 return section
             },
