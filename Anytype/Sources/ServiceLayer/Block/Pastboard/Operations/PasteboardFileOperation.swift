@@ -16,13 +16,18 @@ final class PasteboardFileOperation: AsyncOperation {
     private let itemProvider: NSItemProvider
     private let context: PasteboardActionContext
     private let pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol
+    private let completion: (PasteboardPasteResult?) -> Void
 
     // MARK: - Initializers
 
-    init(itemProvider: NSItemProvider, context: PasteboardActionContext, pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol) {
+    init(itemProvider: NSItemProvider,
+         context: PasteboardActionContext,
+         pasteboardMiddlewareService: PasteboardMiddlewareServiceProtocol,
+         completion: @escaping (PasteboardPasteResult?) -> Void) {
         self.itemProvider = itemProvider
         self.context = context
         self.pasteboardMiddlewareService = pasteboardMiddlewareService
+        self.completion = completion
 
         super.init()
     }
@@ -48,7 +53,10 @@ final class PasteboardFileOperation: AsyncOperation {
             return
         }
 
-        pasteboardMiddlewareService.pasteFile(localPath: temporaryUrl, name: itemProvider.suggestedName ?? "", context: context)
+        let result = pasteboardMiddlewareService.pasteFile(localPath: temporaryUrl,
+                                                           name: itemProvider.suggestedName ?? "",
+                                                           context: context)
+        completion(result)
         state = .finished
     }
 }

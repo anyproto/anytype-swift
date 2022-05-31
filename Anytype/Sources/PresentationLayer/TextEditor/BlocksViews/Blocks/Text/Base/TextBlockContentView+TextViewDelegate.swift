@@ -5,7 +5,7 @@ import BlocksModels
 extension TextBlockContentView: CustomTextViewDelegate {
 
     func shouldPaste(range: NSRange) -> Bool {
-        actions?.shouldPaste(range) ?? true
+        actions?.shouldPaste(range, textView.textView) ?? true
     }
 
     func copy(range: NSRange) {
