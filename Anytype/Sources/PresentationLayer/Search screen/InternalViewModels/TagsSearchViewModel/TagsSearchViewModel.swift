@@ -5,7 +5,7 @@ import SwiftUI
 final class TagsSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode = .multipleItems
-    
+    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never> ()
     @Published private var sections: [ListSectionConfiguration] = []
     
     private var tags: [Relation.Tag.Option] = [] {

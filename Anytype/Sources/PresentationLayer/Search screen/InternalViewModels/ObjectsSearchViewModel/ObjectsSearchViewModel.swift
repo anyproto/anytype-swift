@@ -6,8 +6,8 @@ import SwiftUI
 final class ObjectsSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode
-    
-    private let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+
     private let interactor: ObjectsSearchInteractorProtocol
     
     private var objects: [ObjectDetails] = []
@@ -21,10 +21,6 @@ final class ObjectsSearchViewModel {
 }
 
 extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
-    
-    var viewStatePublisher: AnyPublisher<NewSearchViewState, Never> {
-        viewStateSubject.eraseToAnyPublisher()
-    }
     
     func search(text: String) {
         let objects = interactor.search(text: text)

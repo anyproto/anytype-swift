@@ -6,7 +6,8 @@ import SwiftUI
 final class ObjectTypesSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
-    
+    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+
     @Published private var rows: [ListRowConfiguration] = []
     
     private var objects: [ObjectDetails] = [] {

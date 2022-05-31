@@ -5,7 +5,8 @@ import Combine
 final class StatusSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
-    
+    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+
     @Published private var sections: [ListSectionConfiguration] = []
     
     private var statuses: [Relation.Status.Option] = [] {
