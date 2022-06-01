@@ -15,10 +15,20 @@ class BuildInViewCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
+
+        setup()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+
+        setup()
+    }
+
+    private func setup() {
+        
+//        layer.borderWidth = 0.5
+//        layer.borderColor = UIColor.red.cgColor
     }
 
 //    override func preferredLayoutAttributesFitting(_ layoutAttributes: UICollectionViewLayoutAttributes) -> UICollectionViewLayoutAttributes {

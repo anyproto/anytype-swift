@@ -44,7 +44,25 @@ final class BlockViewModelBuilder {
     }
 
     private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
-        infos.compactMap(build(info:))
+        var blocks = infos.compactMap(build(info:))
+
+
+        var textBlocks = [TextBlockViewModel]()
+        blocks.forEach { item in
+            if let viewModel = item as? TextBlockViewModel {
+                textBlocks.append(viewModel)
+            }
+        }
+
+        let simpleTable = SimpleTableBlockViewModel(
+            info: .empty(id: "fqwfwqegqwioegjqiowegjiojcoiqwejoijqwfijw44444344224", content: .divider(.init(style: .line))),
+            textBlocks: textBlocks,
+            blockDelegate: delegate
+        )
+
+        blocks.insert(simpleTable, at: 2)
+
+        return blocks
     }
 
     func build(info: BlockInformation) -> BlockViewModelProtocol? {

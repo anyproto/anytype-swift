@@ -38,6 +38,8 @@ final class TextBlockContentView: UIView, BlockContentView {
     func update(with configuration: TextBlockContentConfiguration) {
         actions = configuration.actions
         applyNewConfiguration(configuration: configuration)
+
+        backgroundColor = .randomColor()
     }
 
     func update(with state: UICellConfigurationState) {

@@ -11,6 +11,8 @@ struct TextBlockURLInputParameters {
 struct TextBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
 
+    let setNeedsLayoutSubject = PassthroughSubject<UITextView, Never>()
+
     private let content: BlockText
     private let isCheckable: Bool
     private let toggled: Bool
@@ -78,9 +80,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
-    
-    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        let contentConfiguration = TextBlockContentConfiguration(
+
+    func textBlockContentConfiguration() -> TextBlockContentConfiguration {
+        TextBlockContentConfiguration(
             blockId: info.id,
             content: content,
             alignment: info.alignment.asNSTextAlignment,
@@ -92,6 +94,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             resetPublisher: resetSubject.eraseToAnyPublisher(),
             actions: action()
         )
+    }
+    
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
+        let contentConfiguration = textBlockContentConfiguration()
 
         let isDragConfigurationAvailable =
             content.contentType != .description && content.contentType != .title
@@ -132,7 +138,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             },
             becomeFirstResponder: { },
             resignFirstResponder: { },
-            textBlockSetNeedsLayout: { /* Nothing to update */ },
+            textBlockSetNeedsLayout: { setNeedsLayoutSubject.send($0) },
             textViewDidChangeText: { textView in
                 actionHandler.changeText(textView.attributedText, info: info)
                 blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))

@@ -51,7 +51,7 @@ final class EditorPageController: UIViewController {
     private lazy var longTapGestureRecognizer: UILongPressGestureRecognizer = {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(EditorPageController.handleLongPress))
 
-        recognizer.minimumPressDuration = 0.2
+        recognizer.minimumPressDuration = 0.6
         return recognizer
     }()
 
@@ -269,7 +269,7 @@ extension EditorPageController: EditorPageViewInput {
     func blockDidChangeFrame() {
         collectionView.setContentOffset(collectionView.contentOffset, animated:false)
         DispatchQueue.main.async { [weak self] in
-            UIView.performWithoutAnimation {
+            UIView.performWithoutAnimation { [weak self] in
                 self?.collectionView.collectionViewLayout.invalidateLayout()
             }
         }

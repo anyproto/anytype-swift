@@ -866,6 +866,7 @@
 		C93B2D2A274E12B10008544D /* EditorCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B2D29274E12B10008544D /* EditorCollectionView.swift */; };
 		C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B2D2E274E41390008544D /* CustomStateKeys.swift */; };
 		C93B2D32274E4FA70008544D /* TwoStandardButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B2D31274E4FA70008544D /* TwoStandardButtonsView.swift */; };
+		C946681728462EB000A8A6F5 /* SimpleTableBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946681628462EB000A8A6F5 /* SimpleTableBlockView.swift */; };
 		C94668202846310F00A8A6F5 /* SimpleTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946681F2846310F00A8A6F5 /* SimpleTable.swift */; };
 		C9473C37273CEE6700B248AF /* BaseSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9473C36273CEE6700B248AF /* BaseSelectionView.swift */; };
 		C96149522718189000360840 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96149512718189000360840 /* GalleryViewController.swift */; };
@@ -1892,6 +1893,7 @@
 		C93B2D29274E12B10008544D /* EditorCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCollectionView.swift; sourceTree = "<group>"; };
 		C93B2D2E274E41390008544D /* CustomStateKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStateKeys.swift; sourceTree = "<group>"; };
 		C93B2D31274E4FA70008544D /* TwoStandardButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoStandardButtonsView.swift; sourceTree = "<group>"; };
+		C946681628462EB000A8A6F5 /* SimpleTableBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableBlockView.swift; sourceTree = "<group>"; };
 		C946681F2846310F00A8A6F5 /* SimpleTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTable.swift; sourceTree = "<group>"; };
 		C9473C36273CEE6700B248AF /* BaseSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSelectionView.swift; sourceTree = "<group>"; };
 		C96149512718189000360840 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
@@ -6087,6 +6089,7 @@
 		C946681E284630F000A8A6F5 /* SimpleTable */ = {
 			isa = PBXGroup;
 			children = (
+				C946681628462EB000A8A6F5 /* SimpleTableBlockView.swift */,
 				C946681F2846310F00A8A6F5 /* SimpleTable.swift */,
 			);
 			path = SimpleTable;
@@ -6898,6 +6901,7 @@
 				53FF7C4826F7562B00A5A592 /* AnytypeAudioPlayer.swift in Sources */,
 				3D1CEC4B27F70B2E000D36BA /* AccountData.swift in Sources */,
 				EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */,
+				C946681728462EB000A8A6F5 /* SimpleTableBlockView.swift in Sources */,
 				53F7449D27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift in Sources */,
 				3DB3EC642754FFF1002781DA /* DashboardLoadingAlert.swift in Sources */,
 				EA2F0D6D264EBA1B0039C1CB /* TextChangeType.swift in Sources */,

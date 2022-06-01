@@ -44,13 +44,9 @@ extension UICollectionViewCompositionalLayout {
     }
 
     static func spreadsheet(
-        groupItemsCount: Int,
-        itemsWidths: [CGFloat],
-        interItemSpacing: NSCollectionLayoutSpacing = .fixed(0),
-        groundEdgeSpacing: NSCollectionLayoutEdgeSpacing,
-        interGroupSpacing: CGFloat = 8
+        itemsWidths: [CGFloat]
     ) -> UICollectionViewCompositionalLayout {
-        CellCollectionViewCompositionalLayout(
+        UICollectionViewCompositionalLayout(
             sectionProvider: {
                 (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
@@ -60,10 +56,15 @@ extension UICollectionViewCompositionalLayout {
                         heightDimension: .estimated(50)
                     )
 
-                    return NSCollectionLayoutItem(
+                    let item = NSCollectionLayoutItem(
                         layoutSize: layoutSize
                     )
+
+                    item.contentInsets = .init(top: 0.5, leading: 0.5, bottom: 0.5, trailing: 0.5)
+
+                    return item
                 }
+
 
                 let absoluteWidth = itemsWidths.reduce(0, +)
                 let groupSize = NSCollectionLayoutSize(
@@ -72,11 +73,14 @@ extension UICollectionViewCompositionalLayout {
                 )
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: items)
             
-//                group.edgeSpacing = groundEdgeSpacing
-//                group.interItemSpacing = interItemSpacing
+                group.edgeSpacing = .init(
+                    leading: .fixed(0.5),
+                    top: .fixed(0),
+                    trailing: .fixed(0.5),
+                    bottom: .fixed(-1)
+                )
 
                 let section = NSCollectionLayoutSection(group: group)
-//                section.interGroupSpacing = interGroupSpacing
 
                 return section
             },

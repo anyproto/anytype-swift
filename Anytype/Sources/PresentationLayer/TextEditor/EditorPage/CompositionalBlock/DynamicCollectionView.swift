@@ -28,7 +28,8 @@ final class DynamicCollectionView: UICollectionView {
 
     override func reloadData() {
         super.reloadData()
-        
+
+//        backgroundColor = .red
         collectionViewLayout.invalidateLayout()
         collectionViewLayout.prepare()
     }
