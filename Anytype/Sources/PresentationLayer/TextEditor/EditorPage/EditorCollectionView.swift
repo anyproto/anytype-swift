@@ -1,3 +1,4 @@
+import Combine
 import UIKit
 
 class EditorCollectionView: UICollectionView {
@@ -8,10 +9,6 @@ class EditorCollectionView: UICollectionView {
                 ($0 as? CustomTypesAccessable)?.isLocked = isLocked
             }
         }
-    }
-
-    override func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
-        
     }
 
     func deselectAllMovingItems() {

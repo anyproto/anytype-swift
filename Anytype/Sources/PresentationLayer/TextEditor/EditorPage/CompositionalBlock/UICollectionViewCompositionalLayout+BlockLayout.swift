@@ -15,7 +15,7 @@ extension UICollectionViewCompositionalLayout {
         groundEdgeSpacing: NSCollectionLayoutEdgeSpacing,
         interGroupSpacing: CGFloat = 8
     ) -> UICollectionViewCompositionalLayout {
-        CellCollectionViewCompositionalLayout(
+        UICollectionViewCompositionalLayout(
             sectionProvider: {
                 (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
@@ -36,63 +36,6 @@ extension UICollectionViewCompositionalLayout {
 
                 let section = NSCollectionLayoutSection(group: group)
                 section.interGroupSpacing = interGroupSpacing
-
-                return section
-            },
-            configuration: UICollectionViewCompositionalLayoutConfiguration()
-        )
-    }
-
-    static func spreadsheet(
-        itemsWidths: [CGFloat],
-        views: [[UIView]]
-    ) -> UICollectionViewCompositionalLayout {
-        CellCollectionViewCompositionalLayout(
-            sectionProvider: {
-                (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-
-                var sectionMaxHeight: CGFloat = 0
-
-                let items = itemsWidths.enumerated().map { info -> NSCollectionLayoutItem in
-                    guard let view = views[sectionIndex][safe: info.offset] else {
-                        return .init(layoutSize: .init(widthDimension: .absolute(info.element), heightDimension: .absolute(32)))
-                    }
-
-                    let maxSize = CGSize(width: info.element, height: .greatestFiniteMagnitude)
-                    let size = view.systemLayoutSizeFitting(
-                        maxSize,
-                        withHorizontalFittingPriority: .required,
-                        verticalFittingPriority: .fittingSizeLevel
-                    )
-
-                    let layoutSize = NSCollectionLayoutSize(
-                        widthDimension: .absolute(info.element),
-                        heightDimension: .estimated(size.height)
-                    )
-
-                    view.frame = .init(origin: .zero, size: size)
-                    let item = NSCollectionLayoutItem(
-                        layoutSize: layoutSize
-                    )
-
-//                    item.contentInsets = .init(top: 0.5, leading: 0.5, bottom: 0.5, trailing: 0.5)
-
-                    if sectionMaxHeight < size.height {
-                        sectionMaxHeight = size.height
-                    }
-
-                    return item
-                }
-
-
-                let absoluteWidth = itemsWidths.reduce(0, +)
-                let groupSize = NSCollectionLayoutSize(
-                    widthDimension: .absolute(absoluteWidth),
-                    heightDimension: .estimated(sectionMaxHeight)
-                )
-                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: items)
-
-                let section = NSCollectionLayoutSection(group: group)
 
                 return section
             },

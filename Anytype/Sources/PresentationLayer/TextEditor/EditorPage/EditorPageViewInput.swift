@@ -3,7 +3,7 @@ import UIKit
 
 
 /// Input data for document view
-protocol EditorPageViewInput: AnyObject {
+protocol EditorPageViewInput: AnyObject, RelativePositionProvider {
     
     func update(header: ObjectHeader, details: ObjectDetails?)
     func update(

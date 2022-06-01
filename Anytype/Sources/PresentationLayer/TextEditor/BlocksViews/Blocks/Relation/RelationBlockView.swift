@@ -5,9 +5,7 @@ final class RelationBlockView: UIView, BlockContentView {
     private var bottomConstraint: NSLayoutConstraint!
 
     // MARK: - Views
-    private lazy var relationValueView = RelationValueViewUIKit(relation: .unknown(.empty(id: "", name: "")),
-                                                               style: .regular(allowMultiLine: true),
-                                                               action: nil)
+    private lazy var relationValueView = RelationValueViewUIKit()
 
     private let relationNameView = AnytypeLabel(style: .relation1Regular)
     private let relationLockedView = UIImageView(image: .Relations.Icons.locked)
@@ -31,13 +29,20 @@ final class RelationBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: RelationBlockContentConfiguration) {
-        relationValueView.removeFromSuperview()
-        relationValueView = RelationValueViewUIKit(relation: configuration.relation,
-                                                   style: .regular(allowMultiLine: true),
-                                                   action: configuration.actionOnValue)
         relationNameView.setText(configuration.relation.name)
         relationLockedView.isHidden = configuration.relation.isEditable
+        relationValueView.update(
+            with: .init(
+                relation: configuration.relation,
+                style: .regular(allowMultiLine: true),
+                action: configuration.actionOnValue
+            )
+        )
+    }
 
+    // MARK: - Setup view
+
+    private func setupLayout() {
         containerView.addSubview(relationValueView) {
             $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: LayoutConstants.topBottomInset,
                                                                        left: 0,
@@ -45,11 +50,7 @@ final class RelationBlockView: UIView, BlockContentView {
                                                                        right: 0))
             $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
         }
-    }
 
-    // MARK: - Setup view
-
-    private func setupLayout() {
         relationNameStack.axis = .horizontal
         relationNameStack.spacing = 6
         relationNameStack.alignment = .center

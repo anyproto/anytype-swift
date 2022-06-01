@@ -30,41 +30,37 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
-        var views = [UIView]()
+//        var compositionalModels = [CompositionalClass]()
 
-        configuration.featuredRelations.forEach { item in
-            let relationView = RelationValueViewUIKit(
-                relation: item,
-                style: .featuredRelationBlock(allowMultiLine: false),
-                action: configuration.onRelationTap
-            )
+//        configuration.featuredRelations.forEach { item in
+//            let configuration = RelationValueViewConfiguration(
+//                relation: item,
+//                style: .featuredRelationBlock(allowMultiLine: false),
+//                action: configuration.onRelationTap
+//            )
+//
+//            compositionalModels.append(.init(item: <#T##BlockConfiguration#>, backgroundColor: <#T##UIColor?#>, width: <#T##CGFloat#>))
+//
+//            if item != configuration.relation.last {
+//
+//                let separatorConfiguration = SeparatorItemConfiguration(style: .dot, height: 18)
+//
+//
+//                compositionalModels.append(label)
+//            }
+//        }
 
-            views.append(relationView)
 
-            if item != configuration.featuredRelations.last {
-                let label = UILabel()
 
-                label.text = "•"
-                label.textColor = .textSecondary
-                label.font = .systemFont(ofSize: 13)
-
-                let heightConstraint = label.heightAnchor.constraint(equalToConstant: 18)
-                heightConstraint.priority = .defaultLow
-                heightConstraint.isActive = true
-
-                label.translatesAutoresizingMaskIntoConstraints = false
-
-                views.append(label)
-            }
-        }
 
 //        blocksView.update(
 //            with: .init(
 //                hashable: AnyHashable(configuration),
 //                compositionalLayout: .flexibleView(groundEdgeSpacing: .defaultBlockEdgeSpacing),
-//                views: views,
+//                views: [views],
 //                heightDidChanged: configuration.heightDidChanged
 //            )
 //        )
     }
 }
+

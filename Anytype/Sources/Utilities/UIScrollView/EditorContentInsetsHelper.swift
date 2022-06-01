@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-final class ScrollViewContentInsetsHelper: KeyboardEventsListnerHelper {
+final class EditorContentInsetsHelper: KeyboardEventsListnerHelper {
     private struct EditorScrollViewConstants {
         static let bottomEditorInsets: CGFloat = 150
         static let movingInsents: UIEdgeInsets =

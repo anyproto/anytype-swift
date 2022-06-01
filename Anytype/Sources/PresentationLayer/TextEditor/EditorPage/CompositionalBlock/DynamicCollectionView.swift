@@ -16,10 +16,8 @@ final class DynamicCollectionView: UICollectionView {
     }
 
     private func setup() {
-        isScrollEnabled = true
+        backgroundColor = .backgroundPrimary
         isDirectionalLockEnabled = true
-
-        backgroundColor = UIColor.strokePrimary.withAlphaComponent(0.3)
     }
 
     override func layoutSubviews() {
@@ -34,7 +32,6 @@ final class DynamicCollectionView: UICollectionView {
     override func reloadData() {
         super.reloadData()
 
-//        backgroundColor = .red
         collectionViewLayout.invalidateLayout()
         collectionViewLayout.prepare()
     }

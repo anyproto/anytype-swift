@@ -34,6 +34,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     }
 
     func textViewDidChangeText(_ textView: UITextView) {
+        onHeightDidChange?()
         actions?.textViewDidChangeText(textView)
 
         if textView.isLayoutNeeded {

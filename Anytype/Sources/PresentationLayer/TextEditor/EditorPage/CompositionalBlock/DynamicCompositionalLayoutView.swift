@@ -9,10 +9,10 @@ private final class iOS14CompositionalContentHeightStorage {
 }
 
 struct DynamicCompositionalLayoutConfiguration: Hashable {
-    var hashable: AnyHashable
+    let hashable: AnyHashable
 
-    @EquatableNoop var compositionalLayout: UICollectionViewCompositionalLayout
-    @EquatableNoop var views: [[UIView]]
+    @EquatableNoop var views: [[Dequebale]]
+    @EquatableNoop var compositionalLayout: UICollectionViewLayout
     @EquatableNoop var heightDidChanged: () -> Void
 }
 
@@ -46,14 +46,9 @@ final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
     private func setupView() {
         addSubview(collectionView) {
             $0.pinToSuperview(excluding: [.bottom])
-            collectionViewHeightConstraint = $0.height.equal(to: 60, priority: .init(rawValue: 999))
+            collectionViewHeightConstraint = $0.height.equal(to: 500, priority: .init(rawValue: 999))
             $0.bottom.greaterThanOrEqual(to: bottomAnchor, priority: .defaultLow)
         }
-
-        collectionView.register(
-            BuildInViewCollectionViewCell.self,
-            forCellWithReuseIdentifier: String(describing: BuildInViewCollectionViewCell.self)
-        )
 
         collectionView.backgroundColor = .clear
 
@@ -118,13 +113,13 @@ final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
         _ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath
     ) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: String(describing: BuildInViewCollectionViewCell.self),
+        guard let dequable = configuration?.views[indexPath.section][indexPath.row] else {
+            return UICollectionViewCell()
+        }
+
+        return dequable.dequeueReusableCell(
+            collectionView: collectionView,
             for: indexPath
-        ) as? BuildInViewCollectionViewCell
-
-
-        cell?.innerView = configuration?.views[indexPath.section][indexPath.row]
-        return cell ?? UICollectionViewCell()
+        )
     }
 }

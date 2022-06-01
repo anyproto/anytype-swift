@@ -5,7 +5,6 @@ import AnytypeCore
 import SwiftUI
 
 final class EditorPageController: UIViewController {
-
     weak var browserViewInput: EditorBrowserViewInputProtocol?
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     
@@ -33,8 +32,7 @@ final class EditorPageController: UIViewController {
         return collectionView
     }()
     
-    private(set) var insetsHelper: ScrollViewContentInsetsHelper?
-    private var contentOffset: CGPoint = .zero
+    private(set) var insetsHelper: EditorContentInsetsHelper?
     lazy var dividerCursorController = DividerCursorController(
         movingManager: viewModel.blocksStateManager,
         view: view,
@@ -48,10 +46,12 @@ final class EditorPageController: UIViewController {
         return recognizer
     }()
 
+    @Published var offsetDidChanged: CGPoint = .zero
+
     private lazy var longTapGestureRecognizer: UILongPressGestureRecognizer = {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(EditorPageController.handleLongPress))
 
-        recognizer.minimumPressDuration = 0.6
+        recognizer.minimumPressDuration = 0.3
         return recognizer
     }()
 
@@ -110,7 +110,7 @@ final class EditorPageController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
 
-        insetsHelper = ScrollViewContentInsetsHelper(
+        insetsHelper = EditorContentInsetsHelper(
             scrollView: collectionView,
             stateManager: viewModel.blocksStateManager
         )
@@ -206,6 +206,14 @@ final class EditorPageController: UIViewController {
 // MARK: - EditorPageViewInput
 
 extension EditorPageController: EditorPageViewInput {
+    var contentOffsetDidChangedStatePublisher: AnyPublisher<CGPoint, Never> {
+        $offsetDidChanged.eraseToAnyPublisher()
+    }
+
+    func visibleRect(to view: UIView) -> CGRect {
+        return collectionView.convert(collectionView.bounds, to: view)
+    }
+
     func update(header: ObjectHeader, details: ObjectDetails?) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
@@ -259,18 +267,20 @@ extension EditorPageController: EditorPageViewInput {
         )
     }
     
-    func textBlockWillBeginEditing() {
-//        contentOffset = collectionView.contentOffset
-    }
+    func textBlockWillBeginEditing() { }
     func textBlockDidBeginEditing(firstResponderView: UIView) {
         self.firstResponderView = firstResponderView
     }
 
     func blockDidChangeFrame() {
         DispatchQueue.main.async { [weak self] in
-            UIView.performWithoutAnimation { [weak self] in
-                self?.collectionView.collectionViewLayout.invalidateLayout()
-            }
+//            UIView.performWithoutAnimation { [weak self] in
+                guard let self = self else { return }
+                let currentSnapshot = self.dataSource.snapshot()
+                self.dataSource.apply(currentSnapshot, animatingDifferences: true, completion: nil)
+//                self.dataSource.app ly(currentItems)
+//                self?.collectionView.collectionViewLayout.invalidateLayout()
+//            }
         }
     }
 

@@ -1,11 +1,40 @@
 import UIKit
 
-protocol BlockConfiguration: Hashable where View.Configuration == Self {
+protocol BlockConfiguration: Hashable, Dequebale where View.Configuration == Self {
     associatedtype View: BlockContentView
 
     var isAnimationEnabled: Bool { get }
-
     var contentInsets: UIEdgeInsets { get }
+}
+
+protocol Dequebale {
+    func dequeueReusableCell(
+        collectionView: UICollectionView,
+        for indexPath: IndexPath
+    ) -> UICollectionViewCell
+}
+
+extension Dequebale where Self: BlockConfiguration {
+    func dequeueReusableCell(
+        collectionView: UICollectionView,
+        for indexPath: IndexPath
+    ) -> UICollectionViewCell {
+//        collectionView.register(
+//            GenericCollectionViewCell<Self.View>.self,
+//            forCellWithReuseIdentifier: Self.View.reusableIdentifier
+//        )
+
+        let collectionViewCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: Self.View.reusableIdentifier,
+            for: indexPath
+        ) as? GenericCollectionViewCell<Self.View>
+
+        print("+--+ reuse identifier \(Self.View.reusableIdentifier)")
+
+        collectionViewCell?.update(with: self)
+
+        return collectionViewCell ?? UICollectionViewCell()
+    }
 }
 
 extension BlockConfiguration {

@@ -4,7 +4,6 @@ import BlocksModels
 
 
 final class TextBlockContentView: UIView, BlockContentView {
-
     // MARK: - Views
     private let contentView = UIView()
     private(set) lazy var textView = CustomTextView()
@@ -20,6 +19,8 @@ final class TextBlockContentView: UIView, BlockContentView {
     private var bottomContentnConstraint: NSLayoutConstraint?
     private var focusSubscription: AnyCancellable?
     private var resetSubscription: AnyCancellable?
+
+    var onHeightDidChange: (() -> Void)?
 
     private(set) var actions: TextBlockContentConfiguration.Actions?
 
@@ -38,8 +39,6 @@ final class TextBlockContentView: UIView, BlockContentView {
     func update(with configuration: TextBlockContentConfiguration) {
         actions = configuration.actions
         applyNewConfiguration(configuration: configuration)
-
-        backgroundColor = .randomColor()
     }
 
     func update(with state: UICellConfigurationState) {

@@ -58,12 +58,13 @@ extension EditorPageController: UICollectionViewDelegate {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        offsetDidChanged = scrollView.contentOffset
         let yTranslation = scrollView.panGestureRecognizer.translation(in: scrollView.superview).y
-//        browserViewInput?.onScroll(bottom: yTranslation < 0)
-//
-//        NotificationCenter.default.post(
-//            name: .editorCollectionContentOffsetChangeNotification,
-//            object: scrollView.contentOffset.y
-//        )
+        browserViewInput?.onScroll(bottom: yTranslation < 0)
+
+        NotificationCenter.default.post(
+            name: .editorCollectionContentOffsetChangeNotification,
+            object: scrollView.contentOffset.y
+        )
     }
 }
