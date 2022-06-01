@@ -39,6 +39,17 @@ final class EditorSetViewModel: ObservableObject {
         document.featuredRelationsForEditor
     }
     
+    var sorts: [SetSort] {
+        activeView.sorts.compactMap { sort in
+            let metadata = dataView.relations.first { relation in
+                sort.relationKey == relation.key
+            }
+            guard let metadata = metadata else { return nil }
+            
+            return SetSort(metadata: metadata, sort: sort)
+        }
+    }
+    
     let document: BaseDocument
     private var router: EditorRouterProtocol!
 
@@ -78,48 +89,12 @@ final class EditorSetViewModel: ObservableObject {
         subscriptionService.stopAllSubscriptions()
     }
     
-    // MARK: - Private
-    
-    private func onDataChange(_ data: DocumentUpdate) {
-        switch data {
-        case .general:
-            objectWillChange.send()
-            setupDataview()
-        case .syncStatus, .blocks, .details, .dataSourceUpdate, .changeType:
-            objectWillChange.send()
-        case .header:
-            break // handled in ObjectHeaderViewModel
-        }
-    }
-    
-    func setupDataview() {
-        anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
-        document.dataviews.first.flatMap { dataView in
-            anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
-        }
-        
-        self.dataView = document.dataviews.first ?? .empty
-        
-        updateActiveViewId()
-        setupSubscriptions()
-    }
-    
     func updateActiveViewId(_ id: BlockId) {
         document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
             dataView.updated(activeViewId: id)
         }
         
         setupDataview()
-    }
-    
-    private func updateActiveViewId() {
-        if let activeViewId = dataView.views.first(where: { $0.isSupported })?.id {
-            if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
-                self.dataView.activeViewId = activeViewId
-            }
-        } else {
-            dataView.activeViewId = ""
-        }
     }
     
     func setupSubscriptions() {
@@ -141,8 +116,44 @@ final class EditorSetViewModel: ObservableObject {
                 self.updatePageCount(count)
                 return
             }
-            
+            // здесь меняется массив records на новую data из initialData (SubscriptionUpdate)
             self.records.applySubscriptionUpdate(update)
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func onDataChange(_ data: DocumentUpdate) {
+        switch data {
+        case .general:
+            objectWillChange.send()
+            setupDataview()
+        case .syncStatus, .blocks, .details, .dataSourceUpdate, .changeType:
+            objectWillChange.send()
+        case .header:
+            break // handled in ObjectHeaderViewModel
+        }
+    }
+    
+    private func setupDataview() {
+        anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
+        document.dataviews.first.flatMap { dataView in
+            anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
+        }
+        
+        self.dataView = document.dataviews.first ?? .empty
+        
+        updateActiveViewId()
+        setupSubscriptions()
+    }
+    
+    private func updateActiveViewId() {
+        if let activeViewId = dataView.views.first(where: { $0.isSupported })?.id {
+            if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
+                self.dataView.activeViewId = activeViewId
+            }
+        } else {
+            dataView.activeViewId = ""
         }
     }
 }
@@ -209,7 +220,13 @@ extension EditorSetViewModel {
         )
     }
     
-    func showSorts() {}
+    func showSorts() {
+        router.presentFullscreen(
+            AnytypePopup(
+                viewModel: SetSortsListViewModel(setModel: self)
+            )
+        )
+    }
     
     func showObjectSettings() {
         router.showSettings()

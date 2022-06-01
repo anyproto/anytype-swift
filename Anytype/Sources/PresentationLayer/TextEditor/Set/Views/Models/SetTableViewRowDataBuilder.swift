@@ -18,16 +18,17 @@ final class SetTableViewDataBuilder {
     }
     
     func rowData(
-        _ datails: [ObjectDetails],
+        _ details: [ObjectDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
         colums: [RelationMetadata],
         isObjectLocked: Bool
     ) -> [SetTableViewRowData] {
-        datails.compactMap { details in
-            let metadata = sortedRelations(dataview: dataView, view: activeView)
-                .filter { $0.option.isVisible == true }
-                .map { $0.metadata }
+        
+        let metadata = sortedRelations(dataview: dataView, view: activeView)
+            .filter { $0.option.isVisible == true }
+            .map { $0.metadata }
+        return details.compactMap { details in
             let parsedRelations = relationsBuilder
                 .parsedRelations(
                     relationMetadatas: metadata,
