@@ -70,6 +70,7 @@ extension UICollectionViewCompositionalLayout {
                         heightDimension: .estimated(size.height)
                     )
 
+                    view.frame = .init(origin: .zero, size: size)
                     let item = NSCollectionLayoutItem(
                         layoutSize: layoutSize
                     )
@@ -79,8 +80,6 @@ extension UICollectionViewCompositionalLayout {
                     if sectionMaxHeight < size.height {
                         sectionMaxHeight = size.height
                     }
-
-                    print("+--+ \(size)")
 
                     return item
                 }

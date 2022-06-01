@@ -267,11 +267,9 @@ extension EditorPageController: EditorPageViewInput {
     }
 
     func blockDidChangeFrame() {
-//        collectionView.setContentOffset(collectionView.contentOffset, animated:false)
         DispatchQueue.main.async { [weak self] in
             UIView.performWithoutAnimation { [weak self] in
                 self?.collectionView.collectionViewLayout.invalidateLayout()
-                self?.collectionView.collectionViewLayout.prepare()
             }
         }
     }

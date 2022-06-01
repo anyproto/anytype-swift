@@ -18,6 +18,8 @@ final class DynamicCollectionView: UICollectionView {
     private func setup() {
         isScrollEnabled = true
         isDirectionalLockEnabled = true
+
+        backgroundColor = UIColor.strokePrimary.withAlphaComponent(0.3)
     }
 
     override func layoutSubviews() {

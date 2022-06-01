@@ -51,9 +51,11 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
             $0.textBlockContentConfiguration()
         }
 
+        let configurations = contentConfigurations.chunked(into: 8)
+        print("+--+ \(configurations.count)")
 
         return SimpleTableBlockContentConfiguration(
-            contentConfigurations: contentConfigurations.chunked(into: 3),
+            contentConfigurations: configurations,
             resetPublisher: resetSubject.eraseToAnyPublisher(),
             heightDidChanged: blockDelegate.textBlockSetNeedsLayout
         ).cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
@@ -109,7 +111,7 @@ final class SimpleTableBlockView: UIView, BlockContentView {
 
 
         let layout = UICollectionViewCompositionalLayout.spreadsheet(
-            itemsWidths: [100, 300, 40],
+            itemsWidths: [300, 200, 300, 200, 300, 200, 300, 200],
             views: views
         )
 
