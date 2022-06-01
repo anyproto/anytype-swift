@@ -451,9 +451,11 @@ extension EditorRouter {
         let view = CreateObjectView(viewModel: viewModel)
         let fpc = AnytypePopup(contentView: view,
                                floatingPanelStyle: true,
-                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: false))
-        
-        viewController.topPresentedController.present(fpc, animated: true, completion: nil)
+                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true ))
+
+        viewController.topPresentedController.present(fpc, animated: true) {
+            view.becomeFirstResponder()
+        }
     }
 }
 
