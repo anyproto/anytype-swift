@@ -18,7 +18,7 @@ extension RelationsService: RelationsServiceProtocol {
     func addFeaturedRelation(relationKey: String) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.addFeatureRelation)
 
-        Anytype_Rpc.Object.FeaturedRelation.Add.Service.invoke(
+        Anytype_Rpc.ObjectRelation.AddFeatured.Service.invoke(
             contextID: objectId,
             relations: [relationKey]
         ).map { EventsBunch(event: $0.event) }
@@ -28,8 +28,7 @@ extension RelationsService: RelationsServiceProtocol {
     
     func removeFeaturedRelation(relationKey: String) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.removeFeatureRelation)
-
-        Anytype_Rpc.Object.FeaturedRelation.Remove.Service.invoke(
+        Anytype_Rpc.ObjectRelation.RemoveFeatured.Service.invoke(
             contextID: objectId,
             relations: [relationKey]
         ).map { EventsBunch(event: $0.event) }
@@ -38,10 +37,10 @@ extension RelationsService: RelationsServiceProtocol {
     }
     
     func updateRelation(relationKey: String, value: Google_Protobuf_Value) {
-        Anytype_Rpc.Block.Set.Details.Service.invoke(
+        Anytype_Rpc.Object.SetDetails.Service.invoke(
             contextID: objectId,
             details: [
-                Anytype_Rpc.Block.Set.Details.Detail(
+                Anytype_Rpc.Object.SetDetails.Detail(
                     key: relationKey,
                     value: value
                 )
@@ -61,7 +60,7 @@ extension RelationsService: RelationsServiceProtocol {
     }
 
     private func addRelation(relation: RelationMetadata, isNew: Bool) -> RelationMetadata? {
-        let response = Anytype_Rpc.Object.RelationAdd.Service
+        let response = Anytype_Rpc.ObjectRelation.Add.Service
             .invoke(contextID: objectId, relation: relation.asMiddleware)
             .getValue(domain: .relationsService)
 
@@ -73,7 +72,7 @@ extension RelationsService: RelationsServiceProtocol {
     }
     
     func removeRelation(relationKey: String) {
-        Anytype_Rpc.Object.RelationDelete.Service
+        Anytype_Rpc.ObjectRelation.Delete.Service
             .invoke(contextID: objectId, relationKey: relationKey)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .relationsService)?
@@ -92,7 +91,7 @@ extension RelationsService: RelationsServiceProtocol {
         
         switch source {
         case .object:
-            let response = Anytype_Rpc.Object.RelationOptionAdd.Service.invoke(
+            let response = Anytype_Rpc.ObjectRelationOption.Add.Service.invoke(
                 contextID: objectId,
                 relationKey: relationKey,
                 option: option
@@ -105,7 +104,7 @@ extension RelationsService: RelationsServiceProtocol {
             
             return response.option.id
         case .dataview(let contextId):
-            let response = Anytype_Rpc.Block.Dataview.RecordRelationOptionAdd.Service.invoke(
+            let response = Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Service.invoke(
                 contextID: contextId,
                 blockID: SetConstants.dataviewBlockId,
                 relationKey: relationKey,
@@ -122,7 +121,7 @@ extension RelationsService: RelationsServiceProtocol {
     }
 
     func availableRelations() -> [RelationMetadata]? {
-        let relations = Anytype_Rpc.Object.RelationListAvailable.Service
+        let relations = Anytype_Rpc.ObjectRelation.ListAvailable.Service
             .invoke(contextID: objectId)
             .map { $0.relations }
             .getValue(domain: .relationsService)

@@ -9,12 +9,13 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Model_Account {
-  public init(id: String, name: String, avatar: Anytype_Model_Account.Avatar, config: Anytype_Model_Account.Config, status: Anytype_Model_Account.Status) {
+  public init(id: String, name: String, avatar: Anytype_Model_Account.Avatar, config: Anytype_Model_Account.Config, status: Anytype_Model_Account.Status, info: Anytype_Model_Account.Info) {
     self.id = id
     self.name = name
     self.avatar = avatar
     self.config = config
     self.status = status
+    self.info = info
   }
 }
 
@@ -31,6 +32,22 @@ extension Anytype_Model_Account.Config {
     self.enableReleaseChannelSwitch = enableReleaseChannelSwitch
     self.enableSpaces = enableSpaces
     self.extra = extra
+  }
+}
+
+extension Anytype_Model_Account.Info {
+  public init(
+    homeObjectID: String, archiveObjectID: String, profileObjectID: String, marketplaceTypeObjectID: String, marketplaceRelationObjectID: String, marketplaceTemplateObjectID: String, deviceID: String,
+    gatewayURL: String
+  ) {
+    self.homeObjectID = homeObjectID
+    self.archiveObjectID = archiveObjectID
+    self.profileObjectID = profileObjectID
+    self.marketplaceTypeObjectID = marketplaceTypeObjectID
+    self.marketplaceRelationObjectID = marketplaceRelationObjectID
+    self.marketplaceTemplateObjectID = marketplaceTemplateObjectID
+    self.deviceID = deviceID
+    self.gatewayURL = gatewayURL
   }
 }
 

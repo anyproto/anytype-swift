@@ -11,7 +11,7 @@ struct UnsplashItem {
 // MARK: - Unsplash + Middleware
 
 extension UnsplashItem {
-    init?(model: Anytype_Rpc.UnsplashSearch.Response.Picture) {
+    init?(model: Anytype_Rpc.Unsplash.Search.Response.Picture) {
         guard let url = URL(string: model.url),
               let artistsURL = URL(string: model.artistURL) else {
                   return nil

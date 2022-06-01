@@ -93,9 +93,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func turnIntoPage(blockId: BlockId) -> BlockId? {
-        return pageService
-            .convertChildrenToPages(contextID: documentId, blocksIds: [blockId], objectType: "")?
-            .first
+        return pageService.convertChildrenToPages(contextID: documentId, blocksIds: [blockId])
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
@@ -124,7 +122,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func setFields(blockFields: BlockFields, blockId: BlockId) {
-        let setFieldsRequest = Anytype_Rpc.BlockList.Set.Fields.Request.BlockField(blockID: blockId, fields: .init(fields: blockFields))
+        let setFieldsRequest = Anytype_Rpc.Block.ListSetFields.Request.BlockField(blockID: blockId, fields: .init(fields: blockFields))
         listService.setFields(fields: [setFieldsRequest])
     }
     

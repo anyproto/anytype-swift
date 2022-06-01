@@ -40,7 +40,7 @@ final class FileActionsService: FileActionsServiceProtocol {
     }
     
     func syncUploadImageAt(localPath: String) -> Hash? {
-        Anytype_Rpc.UploadFile.Service.invoke(
+        Anytype_Rpc.File.Upload.Service.invoke(
             url: "",
             localPath: localPath,
             type: FileContentType.image.asMiddleware,
@@ -52,7 +52,7 @@ final class FileActionsService: FileActionsServiceProtocol {
     }
 
     func asyncUploadImage(at localPathURL: URL) -> AnyPublisher<Hash?, Error> {
-        Anytype_Rpc.UploadFile.Service.invoke(
+        Anytype_Rpc.File.Upload.Service.invoke(
             url: "",
             localPath: localPathURL.relativePath,
             type: FileContentType.image.asMiddleware,

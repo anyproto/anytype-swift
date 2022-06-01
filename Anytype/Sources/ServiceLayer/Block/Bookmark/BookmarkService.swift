@@ -3,7 +3,7 @@ import BlocksModels
 
 class BookmarkService: BookmarkServiceProtocol {
     func fetchBookmark(contextID: BlockId, blockID: BlockId, url: String) {
-        Anytype_Rpc.Block.Bookmark.Fetch.Service
+        Anytype_Rpc.BlockBookmark.Fetch.Service
             .invoke(contextID: contextID, blockID: blockID, url: url)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .bookmarkService)?
@@ -16,7 +16,7 @@ class BookmarkService: BookmarkServiceProtocol {
         position: BlockPosition,
         url: String
     ) {
-        Anytype_Rpc.Block.Bookmark.CreateAndFetch.Service
+        Anytype_Rpc.BlockBookmark.CreateAndFetch.Service
             .invoke(
                 contextID: contextID,
                 targetID: targetID,

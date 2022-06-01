@@ -59,7 +59,7 @@ final class HomeViewModel: ObservableObject {
     func onAppear() {
         document.open()
         subscriptionService.startSubscription(
-            data: .profile(id: MiddlewareConfigurationProvider.shared.configuration.profileBlockId)
+            data: .profile(id: AccountManager.shared.account.info.profileObjectID)
         ) { [weak self] id, update in
             withAnimation {
                 self?.onProfileUpdate(update: update)

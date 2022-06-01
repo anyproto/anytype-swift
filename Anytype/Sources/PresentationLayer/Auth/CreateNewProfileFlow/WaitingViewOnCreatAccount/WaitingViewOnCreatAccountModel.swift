@@ -55,8 +55,6 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
                     self.error = error.localizedDescription
                     self.showError = true
                 case .success:
-                    self.loginStateService.setupStateAfterRegistration()
-
                     try? self.seedService.saveSeed(self.signUpData.mnemonic)
 
                     WindowManager.shared.showHomeWindow()
