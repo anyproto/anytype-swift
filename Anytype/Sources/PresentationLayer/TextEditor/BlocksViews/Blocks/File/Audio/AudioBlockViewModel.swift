@@ -68,7 +68,7 @@ final class AudioBlockViewModel: BlockViewModelProtocol {
 
     private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
-            image: UIImage.blockFile.empty.video,
+            imageName: EmptyFileIconConstants.video,
             text: "Upload audio".localized,
             state: state
         ).cellBlockConfiguration(

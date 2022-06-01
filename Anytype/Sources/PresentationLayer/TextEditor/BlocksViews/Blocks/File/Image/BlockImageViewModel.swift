@@ -65,7 +65,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         
     private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
-            image: UIImage.blockFile.empty.image,
+            imageName: EmptyFileIconConstants.image,
             text: "Upload a picture".localized,
             state: state
         ).cellBlockConfiguration(

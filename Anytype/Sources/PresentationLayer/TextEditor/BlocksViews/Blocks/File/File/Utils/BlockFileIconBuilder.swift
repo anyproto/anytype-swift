@@ -22,72 +22,60 @@ struct BlockFileIconBuilder {
         }
 
         guard let fileType = fileType else {
-            return Constants.other
+            return FileIconConstants.other
         }
 
         return dictionary.first { type, image in
             type == fileType || fileType.isSubtype(of: type)
-        }?.value ?? Constants.other
+        }?.value ?? FileIconConstants.other
     }
     
     private static let dictionary: [UTType: String] = [
-        .text: Constants.text,
-        .plainText: Constants.text,
-        .doc: Constants.text,
-        .docx: Constants.text,
-        .csv: Constants.text,
-        .json: Constants.text,
+        .text: FileIconConstants.text,
+        .plainText: FileIconConstants.text,
+        .doc: FileIconConstants.text,
+        .docx: FileIconConstants.text,
+        .csv: FileIconConstants.text,
+        .json: FileIconConstants.text,
 
-        .spreadsheet: Constants.spreadsheet,
-        .xls: Constants.spreadsheet,
-        .xlsx: Constants.spreadsheet,
+        .spreadsheet: FileIconConstants.spreadsheet,
+        .xls: FileIconConstants.spreadsheet,
+        .xlsx: FileIconConstants.spreadsheet,
 
-        .presentation: Constants.presentation,
-        .pdf: Constants.pdf,
+        .presentation: FileIconConstants.presentation,
+        .pdf: FileIconConstants.pdf,
 
-        .audio: Constants.audio,
-        .mp3: Constants.audio,
-        .mpeg4Audio: Constants.audio,
-        .wav: Constants.audio,
-        .aiff: Constants.audio,
-        .midi: Constants.audio,
+        .audio: FileIconConstants.audio,
+        .mp3: FileIconConstants.audio,
+        .mpeg4Audio: FileIconConstants.audio,
+        .wav: FileIconConstants.audio,
+        .aiff: FileIconConstants.audio,
+        .midi: FileIconConstants.audio,
         
         // Image
-        .image: Constants.image,
-        .ico: Constants.image,
-        .icns: Constants.image,
-        .png: Constants.image,
-        .jpeg: Constants.image,
-        .webP: Constants.image,
-        .tiff: Constants.image,
-        .bmp: Constants.image,
-        .svg: Constants.image,
-        .rawImage: Constants.image,
+        .image: FileIconConstants.image,
+        .ico: FileIconConstants.image,
+        .icns: FileIconConstants.image,
+        .png: FileIconConstants.image,
+        .jpeg: FileIconConstants.image,
+        .webP: FileIconConstants.image,
+        .tiff: FileIconConstants.image,
+        .bmp: FileIconConstants.image,
+        .svg: FileIconConstants.image,
+        .rawImage: FileIconConstants.image,
         
         // Video
-        .movie: Constants.video,
-        .video: Constants.video,
-        .quickTimeMovie: Constants.video,
-        .mpeg: Constants.video,
-        .mpeg2Video: Constants.video,
-        .mpeg2TransportStream: Constants.video,
-        .mpeg4Movie: Constants.video,
-        .appleProtectedMPEG4Video: Constants.video,
-        .avi: Constants.video,
+        .movie: FileIconConstants.video,
+        .video: FileIconConstants.video,
+        .quickTimeMovie: FileIconConstants.video,
+        .mpeg: FileIconConstants.video,
+        .mpeg2Video: FileIconConstants.video,
+        .mpeg2TransportStream: FileIconConstants.video,
+        .mpeg4Movie: FileIconConstants.video,
+        .appleProtectedMPEG4Video: FileIconConstants.video,
+        .avi: FileIconConstants.video,
         
-        .archive: Constants.archive
+        .archive: FileIconConstants.archive
     ]
     
-    enum Constants {
-        static let text = "TextEditor/BlockFile/Content/Text"
-        static let spreadsheet = "TextEditor/BlockFile/Content/Spreadsheet"
-        static let presentation = "TextEditor/BlockFile/Content/Presentation"
-        static let pdf = "TextEditor/BlockFile/Content/PDF"
-        static let image = "TextEditor/BlockFile/Content/Image"
-        static let audio = "TextEditor/BlockFile/Content/Audio"
-        static let video = "TextEditor/BlockFile/Content/Video"
-        static let archive = "TextEditor/BlockFile/Content/Archive"
-        static let other = "TextEditor/BlockFile/Content/Other"
-    }
-
 }

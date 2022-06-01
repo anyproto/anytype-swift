@@ -458,7 +458,7 @@ private extension RelationsBuilder {
                     let fileName = objectDetail.values[BundledRelationKey.name.rawValue]?.stringValue
 
                     guard let fileMimeType = fileMimeType, let fileName = fileName else {
-                        return .staticImage(BlockFileIconBuilder.Constants.other)
+                        return .staticImage(FileIconConstants.other)
                     }
                     
                     return .staticImage(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
