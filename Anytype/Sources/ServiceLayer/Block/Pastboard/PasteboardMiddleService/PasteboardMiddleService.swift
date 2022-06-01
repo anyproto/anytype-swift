@@ -9,7 +9,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
         self.document = document
     }
 
-    func pasteText(_ text: String, context: PasteboardActionContext) {
+    func pasteText(_ text: String, context: PasteboardActionContext) -> PasteboardPasteResult? {
         paste(contextId: document.objectId,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
@@ -21,7 +21,7 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
               fileSlots: [])
     }
 
-    func pasteHTML(_ html: String, context: PasteboardActionContext) {
+    func pasteHTML(_ html: String, context: PasteboardActionContext) -> PasteboardPasteResult? {
         paste(contextId: document.objectId,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
@@ -33,22 +33,22 @@ final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
               fileSlots: [])
     }
 
-    func pasteBlock(_ blocks: [String], context: PasteboardActionContext) {
+    func pasteBlock(_ blocks: [String], context: PasteboardActionContext) -> PasteboardPasteResult? {
         let blocksSlots = blocks.compactMap { blockJSONSlot in
             try? Anytype_Model_Block(jsonString: blockJSONSlot)
         }
-        paste(contextId: document.objectId,
-              focusedBlockId: context.focusedBlockId,
-              selectedTextRange: context.selectedRange,
-              selectedBlockIds: context.selectedBlocksIds,
-              isPartOfBlock: context.focusedBlockId.isNotEmpty,
-              textSlot: "",
-              htmlSlot: "",
-              anySlots:  blocksSlots,
-              fileSlots: [])
+        return paste(contextId: document.objectId,
+                     focusedBlockId: context.focusedBlockId,
+                     selectedTextRange: context.selectedRange,
+                     selectedBlockIds: context.selectedBlocksIds,
+                     isPartOfBlock: context.focusedBlockId.isNotEmpty,
+                     textSlot: "",
+                     htmlSlot: "",
+                     anySlots:  blocksSlots,
+                     fileSlots: [])
     }
 
-    func pasteFile(localPath: String, name: String, context: PasteboardActionContext) {
+    func pasteFile(localPath: String, name: String, context: PasteboardActionContext)  -> PasteboardPasteResult? {
         paste(contextId: document.objectId,
               focusedBlockId: context.focusedBlockId,
               selectedTextRange: context.selectedRange,
@@ -94,7 +94,7 @@ private extension PasteboardMiddleService {
                        textSlot: String,
                        htmlSlot: String,
                        anySlots:  [Anytype_Model_Block],
-                       fileSlots: [Anytype_Rpc.Block.Paste.Request.File]) {
+                       fileSlots: [Anytype_Rpc.Block.Paste.Request.File]) -> PasteboardPasteResult? {
 
         let result = Anytype_Rpc.Block.Paste.Service.invoke(
             contextID: contextId,
@@ -113,5 +113,13 @@ private extension PasteboardMiddleService {
             EventsBunch(event: $0.event)
         }
         events?.send()
+
+        guard let result = result else {
+            return nil
+        }
+
+        return PasteboardPasteResult(caretPosition: Int(result.caretPosition),
+                                     isSameBlockCaret: result.isSameBlockCaret,
+                                     blockIds: result.blockIds)
     }
 }

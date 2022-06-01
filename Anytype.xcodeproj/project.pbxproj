@@ -765,6 +765,7 @@
 		538F172D272C2F75009528E7 /* ObjectSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 538F172C272C2F74009528E7 /* ObjectSearchViewModel.swift */; };
 		5391687D2632DCC600AD5C5F /* StyleCellContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5391687C2632DCC600AD5C5F /* StyleCellContentView.swift */; };
 		539168852632DD5200AD5C5F /* StyleCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 539168842632DD5200AD5C5F /* StyleCellView.swift */; };
+		5392CACF28469E1000F56F10 /* PasteboardPasteResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5392CACE28469E1000F56F10 /* PasteboardPasteResult.swift */; };
 		53960C0F242BD74E001E9D1F /* KeychainPhraseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */; };
 		5396534F2600D1B100A74C11 /* TextBlockLayoutManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5396534E2600D1B100A74C11 /* TextBlockLayoutManager.swift */; };
 		5398C4342804D63B00983C79 /* WaitingPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5398C4332804D63B00983C79 /* WaitingPopupView.swift */; };
@@ -1787,6 +1788,7 @@
 		538F172C272C2F74009528E7 /* ObjectSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchViewModel.swift; sourceTree = "<group>"; };
 		5391687C2632DCC600AD5C5F /* StyleCellContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleCellContentView.swift; sourceTree = "<group>"; };
 		539168842632DD5200AD5C5F /* StyleCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StyleCellView.swift; sourceTree = "<group>"; };
+		5392CACE28469E1000F56F10 /* PasteboardPasteResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasteboardPasteResult.swift; sourceTree = "<group>"; };
 		53960C0E242BD74E001E9D1F /* KeychainPhraseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainPhraseViewModel.swift; sourceTree = "<group>"; };
 		5396534E2600D1B100A74C11 /* TextBlockLayoutManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLayoutManager.swift; sourceTree = "<group>"; };
 		5398C4332804D63B00983C79 /* WaitingPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitingPopupView.swift; sourceTree = "<group>"; };
@@ -5654,6 +5656,7 @@
 				53D408CE27F1D44F00495335 /* PasteboardCopyResult.swift */,
 				535FDE2827E9C6770098DBFA /* PasteboardMiddlewareServiceProtocol.swift */,
 				535FDE2A27E9C6A60098DBFA /* PasteboardMiddleService.swift */,
+				5392CACE28469E1000F56F10 /* PasteboardPasteResult.swift */,
 			);
 			path = PasteboardMiddleService;
 			sourceTree = "<group>";
@@ -7129,6 +7132,7 @@
 				0A78328624BDEB5900A1B6F6 /* MarkupType.swift in Sources */,
 				3DE0D01426F8BABD003A606A /* AnytypeText+Mention.swift in Sources */,
 				5356072926E61E2E001464A4 /* UnsupportedBlockContentConfiguration.swift in Sources */,
+				5392CACF28469E1000F56F10 /* PasteboardPasteResult.swift in Sources */,
 				1215E8B426A860ED0089AF7E /* AppConfiguratorProtocol.swift in Sources */,
 				3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */,
 				C9614958271829A200360840 /* ImageViewerViewModel.swift in Sources */,
