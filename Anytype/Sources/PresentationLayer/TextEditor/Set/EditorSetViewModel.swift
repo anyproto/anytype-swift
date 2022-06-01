@@ -116,7 +116,7 @@ final class EditorSetViewModel: ObservableObject {
                 self.updatePageCount(count)
                 return
             }
-            // здесь меняется массив records на новую data из initialData (SubscriptionUpdate)
+            
             self.records.applySubscriptionUpdate(update)
         }
     }
