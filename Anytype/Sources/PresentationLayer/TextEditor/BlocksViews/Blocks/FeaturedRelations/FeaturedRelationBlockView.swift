@@ -58,13 +58,13 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
             }
         }
 
-        blocksView.update(
-            with: .init(
-                hashable: AnyHashable(configuration),
-                compositionalLayout: .flexibleView(groundEdgeSpacing: .defaultBlockEdgeSpacing),
-                views: views,
-                heightDidChanged: configuration.heightDidChanged
-            )
-        )
+//        blocksView.update(
+//            with: .init(
+//                hashable: AnyHashable(configuration),
+//                compositionalLayout: .flexibleView(groundEdgeSpacing: .defaultBlockEdgeSpacing),
+//                views: views,
+//                heightDidChanged: configuration.heightDidChanged
+//            )
+//        )
     }
 }

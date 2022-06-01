@@ -7,7 +7,7 @@ final class EditorMainItemModelsHolder {
         didSet {
             blocksMapping = Dictionary(uniqueKeysWithValues: items.compactMap { item in
                 guard case let .block(blockViewModel) = item else { return nil }
-
+                print("\(blockViewModel.blockId)")
                 return (blockViewModel.blockId, blockViewModel)
             })
         }

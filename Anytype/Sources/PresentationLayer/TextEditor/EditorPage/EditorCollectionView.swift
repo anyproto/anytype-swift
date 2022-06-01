@@ -10,6 +10,10 @@ class EditorCollectionView: UICollectionView {
         }
     }
 
+    override func setContentOffset(_ contentOffset: CGPoint, animated: Bool) {
+        
+    }
+
     func deselectAllMovingItems() {
         indexPathsForMovingItems.forEach { indexPath in
             setItemIsMoving(false, at: indexPath)

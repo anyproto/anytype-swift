@@ -138,7 +138,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             },
             becomeFirstResponder: { },
             resignFirstResponder: { },
-            textBlockSetNeedsLayout: { setNeedsLayoutSubject.send($0) },
+            textBlockSetNeedsLayout: { textView in setNeedsLayoutSubject.send(textView) },
             textViewDidChangeText: { textView in
                 actionHandler.changeText(textView.attributedText, info: info)
                 blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))
@@ -150,7 +150,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 blockDelegate?.didBeginEditing(view: textView)
             },
             textViewDidEndEditing: { textView in
-                resetSubject.send(content)
+//                resetSubject.send(content)
                 blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
             },
             textViewDidChangeCaretPosition: { caretPositionRange in

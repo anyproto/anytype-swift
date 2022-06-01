@@ -12,7 +12,7 @@ struct DynamicCompositionalLayoutConfiguration: Hashable {
     var hashable: AnyHashable
 
     @EquatableNoop var compositionalLayout: UICollectionViewCompositionalLayout
-    @EquatableNoop var views: [UIView]
+    @EquatableNoop var views: [[UIView]]
     @EquatableNoop var heightDidChanged: () -> Void
 }
 
@@ -103,11 +103,15 @@ final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
 
     // MARK: - UICollectionViewDataSource
 
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        configuration?.views.count ?? 0
+    }
+
     func collectionView(
         _ collectionView: UICollectionView,
         numberOfItemsInSection section: Int
     ) -> Int {
-        configuration?.views.count ?? 0
+        configuration?.views[section].count ?? 0
     }
 
     func collectionView(
@@ -120,7 +124,7 @@ final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
         ) as? BuildInViewCollectionViewCell
 
 
-        cell?.innerView = configuration?.views[indexPath.row]
+        cell?.innerView = configuration?.views[indexPath.section][indexPath.row]
         return cell ?? UICollectionViewCell()
     }
 }

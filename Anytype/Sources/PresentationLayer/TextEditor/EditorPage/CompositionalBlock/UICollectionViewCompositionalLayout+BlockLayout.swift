@@ -44,23 +44,43 @@ extension UICollectionViewCompositionalLayout {
     }
 
     static func spreadsheet(
-        itemsWidths: [CGFloat]
+        itemsWidths: [CGFloat],
+        views: [[UIView]]
     ) -> UICollectionViewCompositionalLayout {
-        UICollectionViewCompositionalLayout(
+        CellCollectionViewCompositionalLayout(
             sectionProvider: {
                 (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 
-                let items = itemsWidths.map { width -> NSCollectionLayoutItem in
+                var sectionMaxHeight: CGFloat = 0
+
+                let items = itemsWidths.enumerated().map { info -> NSCollectionLayoutItem in
+                    guard let view = views[sectionIndex][safe: info.offset] else {
+                        return .init(layoutSize: .init(widthDimension: .absolute(info.element), heightDimension: .absolute(32)))
+                    }
+
+                    let maxSize = CGSize(width: info.element, height: .greatestFiniteMagnitude)
+                    let size = view.systemLayoutSizeFitting(
+                        maxSize,
+                        withHorizontalFittingPriority: .required,
+                        verticalFittingPriority: .fittingSizeLevel
+                    )
+
                     let layoutSize = NSCollectionLayoutSize(
-                        widthDimension: .absolute(width),
-                        heightDimension: .estimated(50)
+                        widthDimension: .absolute(info.element),
+                        heightDimension: .estimated(size.height)
                     )
 
                     let item = NSCollectionLayoutItem(
                         layoutSize: layoutSize
                     )
 
-                    item.contentInsets = .init(top: 0.5, leading: 0.5, bottom: 0.5, trailing: 0.5)
+//                    item.contentInsets = .init(top: 0.5, leading: 0.5, bottom: 0.5, trailing: 0.5)
+
+                    if sectionMaxHeight < size.height {
+                        sectionMaxHeight = size.height
+                    }
+
+                    print("+--+ \(size)")
 
                     return item
                 }
@@ -69,16 +89,9 @@ extension UICollectionViewCompositionalLayout {
                 let absoluteWidth = itemsWidths.reduce(0, +)
                 let groupSize = NSCollectionLayoutSize(
                     widthDimension: .absolute(absoluteWidth),
-                    heightDimension: .estimated(50)
+                    heightDimension: .estimated(sectionMaxHeight)
                 )
                 let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: items)
-            
-                group.edgeSpacing = .init(
-                    leading: .fixed(0.5),
-                    top: .fixed(0),
-                    trailing: .fixed(0.5),
-                    bottom: .fixed(-1)
-                )
 
                 let section = NSCollectionLayoutSection(group: group)
 

@@ -14,13 +14,15 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
 
     var hashable: AnyHashable {
-        textBlocks
-            .map { $0.hashable } as [AnyHashable]
+        [
+            info.id
+        ] as [AnyHashable]
     }
 
     private let textBlocks: [TextBlockViewModel]
     private let blockDelegate: BlockDelegate
-    private let cancellables: [AnyCancellable]
+    private var cancellables: [AnyCancellable]
+    private let resetSubject: PassthroughSubject<Void, Never>
 
     init(
         info: BlockInformation,
@@ -30,10 +32,16 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
         self.info = info
         self.textBlocks = textBlocks
         self.blockDelegate = blockDelegate
+        self.cancellables = [AnyCancellable]()
 
-        self.cancellables = textBlocks.map {
-            $0.setNeedsLayoutSubject.sink { _ in
-                blockDelegate.textBlockSetNeedsLayout()
+        let resetSubject = PassthroughSubject<Void, Never>()
+        self.resetSubject = resetSubject
+
+        self.cancellables = textBlocks.map { textBlockViewModel -> AnyCancellable in
+            textBlockViewModel.setNeedsLayoutSubject.eraseToAnyPublisher().sink { _ in
+                print("+-+ textBlockSetNeedsLayout")
+                resetSubject.send(())
+//                blockDelegate.textBlockSetNeedsLayout()
             }
         }
     }
@@ -43,8 +51,10 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
             $0.textBlockContentConfiguration()
         }
 
+
         return SimpleTableBlockContentConfiguration(
-            contentConfigurations: contentConfigurations,
+            contentConfigurations: contentConfigurations.chunked(into: 3),
+            resetPublisher: resetSubject.eraseToAnyPublisher(),
             heightDidChanged: blockDelegate.textBlockSetNeedsLayout
         ).cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
     }
@@ -58,7 +68,8 @@ struct SimpleTableBlockContentConfiguration: BlockConfiguration {
     typealias View = SimpleTableBlockView
 
 
-    let contentConfigurations: [TextBlockContentConfiguration]
+    let contentConfigurations: [[TextBlockContentConfiguration]]
+    @EquatableNoop private(set) var resetPublisher: AnyPublisher<Void, Never>
 
     @EquatableNoop var heightDidChanged: () -> Void
 }
@@ -66,7 +77,7 @@ struct SimpleTableBlockContentConfiguration: BlockConfiguration {
 
 final class SimpleTableBlockView: UIView, BlockContentView {
     private lazy var dynamicLayoutView = DynamicCompositionalLayoutView(frame: .zero)
-    
+    private var resetSubscription: AnyCancellable?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -80,20 +91,34 @@ final class SimpleTableBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: SimpleTableBlockContentConfiguration) {
-        var views = [UIView]()
+        var views = [[UIView]]()
 
-        configuration.contentConfigurations.forEach { item in
 
-            let view = TextBlockContentConfiguration.View(frame: .zero)
-            view.update(with: item)
+        for section in configuration.contentConfigurations {
+            var sectionViews = [UIView]()
 
-            views.append(view)
+            for item in section {
+                let view = TextBlockContentConfiguration.View(frame: .zero)
+                view.update(with: item)
+
+                sectionViews.append(view)
+            }
+
+            views.append(sectionViews)
         }
 
+
         let layout = UICollectionViewCompositionalLayout.spreadsheet(
-            itemsWidths: [100, 300, 40]
+            itemsWidths: [100, 300, 40],
+            views: views
         )
-        self.backgroundColor = .green
+
+//        self.backgroundColor = .green
+
+        resetSubscription = configuration.resetPublisher.sink { [weak self] _ in
+            self?.dynamicLayoutView.collectionView.collectionViewLayout.invalidateLayout()
+            self?.dynamicLayoutView.collectionView.collectionViewLayout.prepare()
+        }
 
         dynamicLayoutView.update(
             with: .init(
@@ -108,8 +133,16 @@ final class SimpleTableBlockView: UIView, BlockContentView {
     private func setupSubview() {
         addSubview(dynamicLayoutView) {
             $0.pinToSuperview(
-                insets: .init(top: 10, left: 0, bottom: -10, right: 0)
+                insets: .init(top: 10, left: 20, bottom: -10, right: -20)
             )
+        }
+    }
+}
+
+extension Array {
+    func chunked(into size: Int) -> [[Element]] {
+        return stride(from: 0, to: count, by: size).map {
+            Array(self[$0 ..< Swift.min($0 + size, count)])
         }
     }
 }
