@@ -5,7 +5,8 @@ import BlocksModels
 import UniformTypeIdentifiers
 
 struct BlockFileIconBuilder {
-    static func convert(mime: String, fileName: String) -> UIImage {
+    
+    static func convert(mime: String, fileName: String) -> String {
         var fileType = UTType(mimeType: mime)
         let isArchive = fileType?.isSubtype(of: .archive) ?? false
 
@@ -21,60 +22,72 @@ struct BlockFileIconBuilder {
         }
 
         guard let fileType = fileType else {
-            return UIImage.blockFile.content.other
+            return Constants.other
         }
 
         return dictionary.first { type, image in
             type == fileType || fileType.isSubtype(of: type)
-        }?.value ?? UIImage.blockFile.content.other
+        }?.value ?? Constants.other
     }
     
-    private static let dictionary: [UTType: UIImage?] = [
-        .text: UIImage.blockFile.content.text,
-        .plainText: UIImage.blockFile.content.text,
-        .doc: UIImage.blockFile.content.text,
-        .docx: UIImage.blockFile.content.text,
-        .csv: UIImage.blockFile.content.text,
-        .json: UIImage.blockFile.content.text,
+    private static let dictionary: [UTType: String] = [
+        .text: Constants.text,
+        .plainText: Constants.text,
+        .doc: Constants.text,
+        .docx: Constants.text,
+        .csv: Constants.text,
+        .json: Constants.text,
 
-        .spreadsheet: UIImage.blockFile.content.spreadsheet,
-        .xls: UIImage.blockFile.content.spreadsheet,
-        .xlsx: UIImage.blockFile.content.spreadsheet,
+        .spreadsheet: Constants.spreadsheet,
+        .xls: Constants.spreadsheet,
+        .xlsx: Constants.spreadsheet,
 
-        .presentation: UIImage.blockFile.content.presentation,
-        .pdf: UIImage.blockFile.content.pdf,
+        .presentation: Constants.presentation,
+        .pdf: Constants.pdf,
 
-        .audio: UIImage.blockFile.content.audio,
-        .mp3: UIImage.blockFile.content.audio,
-        .mpeg4Audio: UIImage.blockFile.content.audio,
-        .wav: UIImage.blockFile.content.audio,
-        .aiff: UIImage.blockFile.content.audio,
-        .midi: UIImage.blockFile.content.audio,
+        .audio: Constants.audio,
+        .mp3: Constants.audio,
+        .mpeg4Audio: Constants.audio,
+        .wav: Constants.audio,
+        .aiff: Constants.audio,
+        .midi: Constants.audio,
         
         // Image
-        .image: UIImage.blockFile.content.image,
-        .ico: UIImage.blockFile.content.image,
-        .icns: UIImage.blockFile.content.image,
-        .png: UIImage.blockFile.content.image,
-        .jpeg: UIImage.blockFile.content.image,
-        .webP: UIImage.blockFile.content.image,
-        .tiff: UIImage.blockFile.content.image,
-        .bmp: UIImage.blockFile.content.image,
-        .svg: UIImage.blockFile.content.image,
-        .rawImage: UIImage.blockFile.content.image,
+        .image: Constants.image,
+        .ico: Constants.image,
+        .icns: Constants.image,
+        .png: Constants.image,
+        .jpeg: Constants.image,
+        .webP: Constants.image,
+        .tiff: Constants.image,
+        .bmp: Constants.image,
+        .svg: Constants.image,
+        .rawImage: Constants.image,
         
         // Video
-        .movie: UIImage.blockFile.content.video,
-        .video: UIImage.blockFile.content.video,
-        .quickTimeMovie: UIImage.blockFile.content.video,
-        .mpeg: UIImage.blockFile.content.video,
-        .mpeg2Video: UIImage.blockFile.content.video,
-        .mpeg2TransportStream: UIImage.blockFile.content.video,
-        .mpeg4Movie: UIImage.blockFile.content.video,
-        .appleProtectedMPEG4Video: UIImage.blockFile.content.video,
-        .avi: UIImage.blockFile.content.video,
+        .movie: Constants.video,
+        .video: Constants.video,
+        .quickTimeMovie: Constants.video,
+        .mpeg: Constants.video,
+        .mpeg2Video: Constants.video,
+        .mpeg2TransportStream: Constants.video,
+        .mpeg4Movie: Constants.video,
+        .appleProtectedMPEG4Video: Constants.video,
+        .avi: Constants.video,
         
-        .archive: UIImage.blockFile.content.archive
+        .archive: Constants.archive
     ]
+    
+    enum Constants {
+        static let text = "TextEditor/BlockFile/Content/Text"
+        static let spreadsheet = "TextEditor/BlockFile/Content/Spreadsheet"
+        static let presentation = "TextEditor/BlockFile/Content/Presentation"
+        static let pdf = "TextEditor/BlockFile/Content/PDF"
+        static let image = "TextEditor/BlockFile/Content/Image"
+        static let audio = "TextEditor/BlockFile/Content/Audio"
+        static let video = "TextEditor/BlockFile/Content/Video"
+        static let archive = "TextEditor/BlockFile/Content/Archive"
+        static let other = "TextEditor/BlockFile/Content/Other"
+    }
 
 }
