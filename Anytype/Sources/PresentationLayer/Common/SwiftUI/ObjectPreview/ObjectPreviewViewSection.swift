@@ -20,12 +20,24 @@ extension ObjectPreviewViewSection {
 
         enum IconSize: String, CaseIterable {
             case none
+            case small
             case medium
+
+            init(_ iconSize: BlockLink.IconSize) {
+                switch iconSize {
+                case .small:
+                    self = .small
+                case .medium:
+                    self = .medium
+                }
+            }
 
             var name: String {
                 switch self {
                 case .none:
                     return "None".localized
+                case .small:
+                    return "Small".localized
                 case .medium:
                     return "Medium".localized
                 }

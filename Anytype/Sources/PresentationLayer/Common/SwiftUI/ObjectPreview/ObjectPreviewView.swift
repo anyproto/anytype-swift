@@ -27,8 +27,8 @@ struct ObjectPreviewView: View {
             ForEach(viewModel.objectPreviewSections.main) { item in
                 mainSectionRow(item) {
                     switch item.value {
-                    case .icon:
-                        viewModel.showIconMenu()
+                    case let .icon(iconSize):
+                        viewModel.showIconMenu(currentIconSize: iconSize)
                     case .layout:
                         viewModel.showLayoutMenu()
                     }

@@ -24,8 +24,11 @@ final class ObjectPreviewRouter {
     }
 
     func showIconMenu(iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize,
+                      cardStyle: ObjectPreviewViewSection.MainSectionItem.CardStyle,
                       onSelect: @escaping (ObjectPreviewViewSection.MainSectionItem.IconSize) -> Void) {
-        let viewModel = ObjectPreviewIconMenuViewModel(iconSize: iconSize, onSelect: onSelect)
+        let viewModel = ObjectPreviewIconMenuViewModel(iconSize: iconSize,
+                                                       cardStyle: cardStyle,
+                                                       onSelect: onSelect)
         let view = PopupViewBuilder.createCheckPopup(viewModel: viewModel)
         viewController?.topPresentedController.present(view, animated: true, completion: nil)
     }

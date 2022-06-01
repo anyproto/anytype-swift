@@ -9,26 +9,38 @@ final class ObjectPreviewIconMenuViewModel: CheckPopupViewViewModelProtocol {
     // MARK: - Private variables
 
     private var iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize
+    private var cardStyle: ObjectPreviewViewSection.MainSectionItem.CardStyle
     private let objectPreviewModelBuilder = ObjectPreivewSectionBuilder()
     private let onSelect: (ObjectPreviewViewSection.MainSectionItem.IconSize) -> Void
 
     // MARK: - Initializer
 
     init(iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize,
+         cardStyle: ObjectPreviewViewSection.MainSectionItem.CardStyle,
          onSelect: @escaping (ObjectPreviewViewSection.MainSectionItem.IconSize) -> Void) {
         self.iconSize = iconSize
+        self.cardStyle = cardStyle
         self.onSelect = onSelect
         self.updatePreviewFields(iconSize)
     }
 
-    func updatePreviewFields(_ iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize) {
-        items = buildObjectPreviewPopupItem(iconSize: iconSize)
+    func updatePreviewFields(_ currentIconSize: ObjectPreviewViewSection.MainSectionItem.IconSize) {
+        items = buildObjectPreviewPopupItem(currentIconSize: currentIconSize)
     }
 
-    func buildObjectPreviewPopupItem(iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize) -> [CheckPopupItem] {
-        ObjectPreviewViewSection.MainSectionItem.IconSize.allCases.map { icon -> CheckPopupItem in
-            let isSelected = iconSize == icon
-            return CheckPopupItem(id: icon.rawValue, icon: nil, title: icon.name, subtitle: nil, isSelected: isSelected)
+    func buildObjectPreviewPopupItem(currentIconSize: ObjectPreviewViewSection.MainSectionItem.IconSize) -> [CheckPopupItem] {
+        availableIconSizes().map { iconSize in
+            let isSelected = currentIconSize == iconSize
+            return CheckPopupItem(id: iconSize.rawValue, icon: nil, title: iconSize.name, subtitle: nil, isSelected: isSelected)
+        }
+    }
+
+    func availableIconSizes() -> [ObjectPreviewViewSection.MainSectionItem.IconSize] {
+        switch cardStyle {
+        case .text:
+            return [.small, .none]
+        case .card:
+            return [.medium, .none]
         }
     }
 

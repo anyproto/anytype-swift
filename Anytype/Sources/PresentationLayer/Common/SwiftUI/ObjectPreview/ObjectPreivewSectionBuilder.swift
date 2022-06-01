@@ -6,20 +6,21 @@ final class ObjectPreivewSectionBuilder {
     func build(appearance: BlockLink.Appearance) -> ObjectPreviewViewSection {
         var featuredRelationSection: [ObjectPreviewViewSection.FeaturedSectionItem] = []
 
-        let layout = ObjectPreviewViewSection.MainSectionItem(
+        let layoutItem = ObjectPreviewViewSection.MainSectionItem(
             id: IDs.layout,
             name: "Preview layout".localized,
             value: .layout(.init(appearance.cardStyle))
         )
 
         let hasIcon = appearance.relations.contains(.icon)
-        let icon = ObjectPreviewViewSection.MainSectionItem(
+        let iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize = hasIcon ? .init(appearance.iconSize) : .none
+        let iconItem = ObjectPreviewViewSection.MainSectionItem(
             id: IDs.icon,
             name: "Icon".localized,
-            value: .icon(hasIcon ? .medium : .none)
+            value: .icon(iconSize)
         )
 
-        let mainSection = [layout, icon]
+        let mainSection = [layoutItem, iconItem]
 
         let withName = ObjectPreviewViewSection.FeaturedSectionItem(
             id: .name,

@@ -274,6 +274,13 @@
 "Add To Favorite" = "Add To Favorite";
 "Move To Bin" = "Move To Bin";
 
+// MARK: - Link appearance
+
+"None" = "None";
+"Small" = "Small";
+"Medium" = "Medium";
+"Card" = "Card";
+
 // MARK: - Sets
 "EditSorts.Popup.NavigationView.Title" = "Sorts";
 "EditSorts.Popup.EmptyView.Title" = "No sorts here. You can add some";

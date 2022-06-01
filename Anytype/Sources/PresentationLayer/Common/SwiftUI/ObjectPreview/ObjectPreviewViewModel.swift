@@ -61,17 +61,31 @@ final class ObjectPreviewViewModel: ObservableObject {
 
     func showLayoutMenu() {
         router.showLayoutMenu(cardStyle: .init(appearance.cardStyle)) { [weak self] cardStyle in
-            self?.appearance.cardStyle = cardStyle.asModel
-            self?.handleOnMainSelect()
+            guard let self = self else { return }
+
+            if self.appearance.relations.contains(.icon) {
+                switch cardStyle {
+                case .card:
+                    self.appearance.iconSize = .medium
+                case .text:
+                    self.appearance.iconSize = .small
+                }
+            }
+            self.appearance.cardStyle = cardStyle.asModel
+            self.handleOnMainSelect()
         }
     }
 
-    func showIconMenu() {
-        let hasIcon = appearance.relations.contains(.icon)
-        router.showIconMenu(iconSize: hasIcon ? .medium : .none) { [weak self] iconSize in
+    func showIconMenu(currentIconSize: ObjectPreviewViewSection.MainSectionItem.IconSize) {
+        let currentCardStyle = ObjectPreviewViewSection.MainSectionItem.CardStyle(appearance.cardStyle)
+
+        router.showIconMenu(iconSize: currentIconSize, cardStyle: currentCardStyle) { [weak self] iconSize in
             switch iconSize {
             case .none:
                 self?.appearance.relations.remove(.icon)
+            case .small:
+                self?.appearance.relations.insert(.icon)
+                self?.appearance.iconSize = .small
             case .medium:
                 self?.appearance.relations.insert(.icon)
                 self?.appearance.iconSize = .medium
