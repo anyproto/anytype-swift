@@ -72,7 +72,7 @@ struct ObjectPreviewView: View {
                     onTap($0)
                 }
             }
-            Spacer()
+            Spacer(minLength: 0)
         }
         .frame(height: 52)
     }
