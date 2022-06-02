@@ -43,7 +43,7 @@ class BlocksFileEmptyView: UIView, BlockContentView {
     
     // MARK: - New configuration
     func apply(configuration: BlocksFileEmptyViewConfiguration) {
-        icon.image = configuration.image
+        icon.image = UIImage.createImage(configuration.imageName)
         
         switch configuration.state {
         case .default:

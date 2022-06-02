@@ -368,6 +368,8 @@
 		12EEC36C26A0903F00C3C4B1 /* EmojiProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */; };
 		12EEC36D26A0903F00C3C4B1 /* EmojiGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36926A0903F00C3C4B1 /* EmojiGroup.swift */; };
 		12EEC36E26A0903F00C3C4B1 /* EmojiGridView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EEC36A26A0903F00C3C4B1 /* EmojiGridView.swift */; };
+		12F0E0B528479BA200B7EEE0 /* FileIconConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F0E0B428479BA200B7EEE0 /* FileIconConstants.swift */; };
+		12F0E0BA28479BE500B7EEE0 /* EmptyFileIconConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F0E0B928479BE500B7EEE0 /* EmptyFileIconConstants.swift */; };
 		12F14CD02758D09F00B976B5 /* RelationEditingViewModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F14CCF2758D09F00B976B5 /* RelationEditingViewModelBuilder.swift */; };
 		12F14CD52758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F14CD42758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift */; };
 		12F3B83827E888C300360CA3 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 12F3B83727E888C300360CA3 /* FirebaseAnalytics */; };
@@ -1398,6 +1400,8 @@
 		12EEC36826A0903F00C3C4B1 /* EmojiProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiProvider.swift; sourceTree = "<group>"; };
 		12EEC36926A0903F00C3C4B1 /* EmojiGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiGroup.swift; sourceTree = "<group>"; };
 		12EEC36A26A0903F00C3C4B1 /* EmojiGridView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiGridView.swift; sourceTree = "<group>"; };
+		12F0E0B428479BA200B7EEE0 /* FileIconConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileIconConstants.swift; sourceTree = "<group>"; };
+		12F0E0B928479BE500B7EEE0 /* EmptyFileIconConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyFileIconConstants.swift; sourceTree = "<group>"; };
 		12F14CCF2758D09F00B976B5 /* RelationEditingViewModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEditingViewModelBuilder.swift; sourceTree = "<group>"; };
 		12F14CD42758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationEditingViewModelBuilderProtocol.swift; sourceTree = "<group>"; };
 		12F3B84727E9C6E200360CA3 /* SearchNewRelationSectionType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchNewRelationSectionType.swift; sourceTree = "<group>"; };
@@ -4623,6 +4627,7 @@
 			children = (
 				C96B6C9C27B0F33100C453EB /* BlocksFileEmptyViewConfiguration.swift */,
 				0ACDB06925599A0C00B8B0D8 /* BlocksFileEmptyView.swift */,
+				12F0E0B928479BE500B7EEE0 /* EmptyFileIconConstants.swift */,
 			);
 			path = EmptyView;
 			sourceTree = "<group>";
@@ -4820,6 +4825,7 @@
 			children = (
 				3DDD3D0D26AEB55700B5673A /* BlockFile+MediaData.swift */,
 				0A005AAB24C4731D000520AA /* BlockFileIconBuilder.swift */,
+				12F0E0B428479BA200B7EEE0 /* FileIconConstants.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -6930,6 +6936,7 @@
 				1256840427E0C606003A8251 /* NewSearchViewModel+ItemCreationMode.swift in Sources */,
 				EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
+				12F0E0B528479BA200B7EEE0 /* FileIconConstants.swift in Sources */,
 				3D93851726FAF46E001C137F /* MentionAssembly.swift in Sources */,
 				53F8210D26528D1A003FEB0B /* CustomTextViewDelegate.swift in Sources */,
 				12C8440426FCE92D00D64B8D /* ObjectHeaderEmptyContentView.swift in Sources */,
@@ -7473,6 +7480,7 @@
 				EA0261302625D0AB00AE6D86 /* CodeBlockRestrictions.swift in Sources */,
 				538269F426F4E4D400040156 /* AudioPlaybackConfigurator.swift in Sources */,
 				0ACFCCF7249C17B5002E0477 /* BlockListService Protocol.swift in Sources */,
+				12F0E0BA28479BE500B7EEE0 /* EmptyFileIconConstants.swift in Sources */,
 				3D1CEC3127F5A8CA000D36BA /* DeletedAccountViewModel.swift in Sources */,
 				C91AFF0F270C3D1A005F9386 /* LoggerEventsMarkupHelper.swift in Sources */,
 				535F799A274705C30050A1B8 /* FlowRelationsViewModel.swift in Sources */,
