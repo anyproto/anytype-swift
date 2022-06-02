@@ -43,7 +43,7 @@ final class DataviewService: DataviewServiceProtocol {
             .send()
     }
 
-    func addRecord() -> ObjectDetails? {
+    func addRecord(templateId: BlockId) -> ObjectDetails? {
         var protoFields = [String: Google_Protobuf_Value]()
         protoFields[BundledRelationKey.isDraft.rawValue] = true
 
@@ -54,7 +54,7 @@ final class DataviewService: DataviewServiceProtocol {
                 contextID: objectId,
                 blockID: SetConstants.dataviewBlockId,
                 record: protobufStruct,
-                templateID: .empty
+                templateID: templateId
             )
             .getValue(domain: .dataviewService)
 

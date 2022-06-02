@@ -8,14 +8,18 @@ final class DashboardService: DashboardServiceProtocol {
     
     private let objectsService = ServiceLocator.shared.objectActionsService()
     
-    func createNewPage(isDraft: Bool) -> BlockId? {
+    func createNewPage(isDraft: Bool, templateId: BlockId?) -> BlockId? {
         let defaultTypeUrl = ObjectTypeProvider.defaultObjectType.url
         let id = objectsService.createPage(
             contextId: "",
             targetId: "",
-            details: [.name(""), .isDraft(isDraft), .type(.dynamic(defaultTypeUrl))],
+            details: [
+                .name(""),
+                .isDraft(isDraft),
+                .type(.dynamic(defaultTypeUrl))
+            ],
             position: .bottom,
-            templateId: ""
+            templateId: templateId ?? ""
         )
 
         if id.isNotNil {
