@@ -3,6 +3,8 @@ import BlocksModels
 
 struct SetSortRow: View {
     
+    @Environment(\.editMode)  var editMode
+    
     let sort: SetSort
     let onTap: () -> Void
     
@@ -12,6 +14,7 @@ struct SetSortRow: View {
         } label: {
             content
         }
+        .disabled(editMode?.wrappedValue != .inactive)
     }
     
     private var content: some View {
@@ -32,7 +35,9 @@ struct SetSortRow: View {
             
             Spacer()
             
-            Image.arrow
+            if editMode?.wrappedValue == .inactive {
+                Image.arrow
+            }
         }
         .frame(height: 68)
     }
