@@ -26,7 +26,8 @@ final class ObjectPreivewSectionBuilder {
             id: .name,
             iconName: RelationMetadata.Format.shortText.iconName,
             name: "Name".localized,
-            isEnabled: appearance.relations.contains(.name)
+            isEnabled: appearance.relations.contains(.name),
+            isLocked: true
         )
         featuredRelationSection.append(withName)
 
@@ -34,7 +35,8 @@ final class ObjectPreivewSectionBuilder {
             id: .description,
             iconName: RelationMetadata.Format.longText.iconName,
             name: "Description".localized,
-            isEnabled: appearance.description.hasDescription
+            isEnabled: appearance.description.hasDescription,
+            isLocked: false
         )
         featuredRelationSection.append(withDescription)
 

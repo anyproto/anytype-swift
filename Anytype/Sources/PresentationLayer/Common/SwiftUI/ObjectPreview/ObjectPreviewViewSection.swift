@@ -119,5 +119,6 @@ extension ObjectPreviewViewSection {
         let iconName: String
         let name: String
         let isEnabled: Bool
+        let isLocked: Bool
     }
 }

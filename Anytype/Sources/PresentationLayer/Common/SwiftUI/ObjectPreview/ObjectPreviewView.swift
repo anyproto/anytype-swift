@@ -61,12 +61,18 @@ struct ObjectPreviewView: View {
             Image.createImage(item.iconName)
                 .frame(width: 24, height: 24)
             Spacer.fixedWidth(10)
-            AnytypeToggle(
-                title: item.name,
-                isOn: item.isEnabled
-            ) {
-                onTap($0)
+
+            if item.isLocked {
+                AnytypeText(item.name.localized, style: .uxBodyRegular, color: .textPrimary)
+            } else {
+                AnytypeToggle(
+                    title: item.name,
+                    isOn: item.isEnabled
+                ) {
+                    onTap($0)
+                }
             }
+            Spacer()
         }
         .frame(height: 52)
     }

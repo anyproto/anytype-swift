@@ -10,10 +10,6 @@ extension BlockLinkState {
                 attributes: disabledAttributes
             )
         }
-
-        guard relations.contains(.name) else {
-            return NSAttributedString(string: .empty)
-        }
         
         return NSAttributedString(
             string: !title.isEmpty ? title : "Untitled".localized,

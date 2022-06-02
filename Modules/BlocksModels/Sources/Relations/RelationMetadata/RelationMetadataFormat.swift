@@ -67,7 +67,7 @@ public extension RelationMetadata.Format {
         case .longText:
             return "format/text"
         case .shortText:
-            return "format/text"
+            return "format/name"
         case .number:
             return "format/number"
         case .status:
