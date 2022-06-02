@@ -16,7 +16,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
         switch bookmarkData.blockBookmarkState {
         case .none:
             return BlocksFileEmptyViewConfiguration(
-                image: UIImage.blockFile.empty.bookmark,
+                imageName: EmptyFileIconConstants.bookmark,
                 text: "Add a web bookmark".localized,
                 state: .default
             ).cellBlockConfiguration(

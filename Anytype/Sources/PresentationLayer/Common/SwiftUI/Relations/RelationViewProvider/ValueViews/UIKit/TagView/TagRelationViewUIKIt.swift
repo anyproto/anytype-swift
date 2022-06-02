@@ -42,7 +42,7 @@ final class TagRelationViewUIKIt: UIView {
         stackView.distribution = .fillProportionally
 
         tags.prefix(Constants.maxShowingTag).forEach { tag in
-            let tagView = TagViewUIKit(tag: tag, guidlines: style.tagViewGuidlines)
+            let tagView = TagViewUIKit(tag: tag, style: style)
             stackView.addArrangedSubview(tagView)
         }
         stackView.arrangedSubviews.first?.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -55,7 +55,7 @@ final class TagRelationViewUIKIt: UIView {
                                                textColor: .textSecondary,
                                                backgroundColor: .strokeTertiary,
                                                scope: .local)
-            let moreTagsView = TagViewUIKit(tag: moreTags, guidlines: style.tagViewGuidlines)
+            let moreTagsView = TagViewUIKit(tag: moreTags, style: style)
             moreTagsView.setContentCompressionResistancePriority(.required + 1, for: .horizontal)
             stackView.addArrangedSubview(moreTagsView)
         }

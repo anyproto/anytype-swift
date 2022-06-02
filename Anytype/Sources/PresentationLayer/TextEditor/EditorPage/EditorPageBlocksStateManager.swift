@@ -341,7 +341,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
             pasteboardService.pasteInSelectedBlocks(selectedBlockIds: blockIds) { [weak self] in
                 self?.router.showWaitingView(text: "Paste processing...".localized)
-            } completion: { [weak self] in
+            } completion: { [weak self] _ in
                 self?.router.hideWaitingView()
             }
 

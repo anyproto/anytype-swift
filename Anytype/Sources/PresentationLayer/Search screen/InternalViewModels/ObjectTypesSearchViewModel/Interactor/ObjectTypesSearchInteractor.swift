@@ -15,12 +15,11 @@ final class ObjectTypesSearchInteractor {
 
 extension ObjectTypesSearchInteractor {
     
-    func search(text: String, onCompletion: ([ObjectDetails]) -> ()) {
-        let response = searchService.searchObjectTypes(
+    func search(text: String) -> [ObjectDetails] {
+        searchService.searchObjectTypes(
             text: text,
             filteringTypeUrl: excludedObjectTypeId
-        )
-        onCompletion(response ?? [])
+        ) ?? []
     }
     
 }

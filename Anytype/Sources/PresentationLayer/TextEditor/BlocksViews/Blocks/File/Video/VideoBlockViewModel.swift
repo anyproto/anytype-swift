@@ -38,7 +38,7 @@ struct VideoBlockViewModel: BlockViewModelProtocol {
     
     private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
-            image: UIImage.blockFile.empty.video,
+            imageName: EmptyFileIconConstants.video,
             text: "Upload a video".localized,
             state: state
         ).cellBlockConfiguration(

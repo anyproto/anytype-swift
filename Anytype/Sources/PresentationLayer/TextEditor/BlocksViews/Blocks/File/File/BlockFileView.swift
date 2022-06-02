@@ -2,12 +2,12 @@ import UIKit
 import Combine
 
 struct BlockFileMediaData: Hashable {
-    var size: String
-    var name: String
-    var typeIcon: UIImage
+    let size: String
+    let name: String
+    let iconImageName: String
 }
 
-class BlockFileView: UIView, BlockContentView {
+final class BlockFileView: UIView, BlockContentView {
 
     private let dividerView = DividerBlockView()
 
@@ -52,7 +52,7 @@ class BlockFileView: UIView, BlockContentView {
     
     func handle(data: BlockFileMediaData) {
         titleView.text = data.name
-        imageView.image = data.typeIcon
+        imageView.image = UIImage(named: data.iconImageName)
         sizeView.text = data.size
     }
     

@@ -71,7 +71,7 @@ struct LoginView: View {
     private var enterMnemonic: some View {
         ZStack(alignment: .topLeading) {
             if(viewModel.seed.isEmpty) {
-                AnytypeText("or Type your recovery phrase".localized, style: .codeBlock, color: .textSecondary)
+                AnytypeText("or type your recovery phrase".localized, style: .codeBlock, color: .textSecondary)
                     .padding(.top, 17)
             }
             

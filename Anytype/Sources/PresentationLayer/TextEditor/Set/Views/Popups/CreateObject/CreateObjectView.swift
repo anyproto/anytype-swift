@@ -29,6 +29,10 @@ final class CreateObjectView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
+    override func becomeFirstResponder() -> Bool {
+        textField.becomeFirstResponder()
+    }
+
     private func setupLayout() {
         layoutUsing.stack {
             $0.alignment = .center
@@ -72,7 +76,6 @@ final class CreateObjectView: UIView {
         )
         textField.delegate = self
         textField.addTarget(self, action: #selector(textDidChange(textField:)), for: .editingChanged)
-        textField.becomeFirstResponder()
     }
 
     @objc private func textDidChange(textField: UITextField) {
