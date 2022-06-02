@@ -61,12 +61,6 @@ extension UIImage {
         static let dots = createImage("TextEditor/Divider/Dots")
     }
     
-    enum blockFile {
-        static let noImage = createImage("no_image")
-        
-        
-    }
-    
     enum ObjectIcon {
         static let checkbox = createImage("todo_checkbox")
         static let checkmark = createImage("todo_checkmark")
