@@ -8,7 +8,7 @@ struct SetSort: Identifiable, Equatable, Hashable {
     
     var type: String {
         switch metadata.format {
-        case .tag, .status:
+        case .object, .tag, .status:
             if sort.type == .asc {
                 return "EditSorts.Popup.Sort.Type.Order.Asc".localized
             } else {
@@ -20,7 +20,7 @@ struct SetSort: Identifiable, Equatable, Hashable {
             } else {
                 return "EditSorts.Popup.Sort.Type.Number.Desc".localized
             }
-        case .object, .longText, .shortText, .file, .url, .email, .unrecognized:
+        case .longText, .shortText, .file, .url, .email, .unrecognized:
             if sort.type == .asc {
                 return "EditSorts.Popup.Sort.Type.Text.Asc".localized
             } else {
