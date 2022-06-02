@@ -9,16 +9,16 @@ final class LoginStateService {
         self.seedService = seedService
     }
     
-    func setupStateAfterLoginOrAuth() {
+    func setupStateAfterLoginOrAuth(account: AccountData) {
         ObjectTypeProvider.loadObjects()
-        MiddlewareConfigurationProvider.shared.removeCachedConfiguration()
+        MiddlewareConfigurationProvider.shared.setupConfiguration(account: account)
     }
     
-    func setupStateAfterRegistration() {
+    func setupStateAfterRegistration(account: AccountData) {
         isFirstLaunchAfterRegistration = true
         UserDefaultsConfig.showKeychainAlert = true
         ObjectTypeProvider.loadObjects()
-        MiddlewareConfigurationProvider.shared.removeCachedConfiguration()
+        MiddlewareConfigurationProvider.shared.setupConfiguration(account: account)
     }
     
     func cleanStateAfterLogout() {

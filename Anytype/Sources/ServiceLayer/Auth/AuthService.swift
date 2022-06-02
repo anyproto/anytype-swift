@@ -81,6 +81,8 @@ final class AuthService: AuthServiceProtocol {
         
         AccountManager.shared.account = response.account.asModel
         
+        loginStateService.setupStateAfterRegistration(account: AccountManager.shared.account)
+        
         return .success(Void())
     }
 
@@ -153,7 +155,7 @@ final class AuthService: AuthServiceProtocol {
             AnytypeAnalytics.instance().logAccountSelect(accountId)
             UserDefaultsConfig.usersId = accountId
             
-            loginStateService.setupStateAfterLoginOrAuth()
+            loginStateService.setupStateAfterLoginOrAuth(account: AccountManager.shared.account)
             return response.account.status.asModel
         case .failure:
             return nil

@@ -2051,6 +2051,15 @@ public struct Anytype_Model_Account {
   /// Clears the value of `status`. Subsequent reads from it will return its default value.
   public mutating func clearStatus() {_uniqueStorage()._status = nil}
 
+  public var info: Anytype_Model_Account.Info {
+    get {return _storage._info ?? Anytype_Model_Account.Info()}
+    set {_uniqueStorage()._info = newValue}
+  }
+  /// Returns true if `info` has been explicitly set.
+  public var hasInfo: Bool {return _storage._info != nil}
+  /// Clears the value of `info`. Subsequent reads from it will return its default value.
+  public mutating func clearInfo() {_uniqueStorage()._info = nil}
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum StatusType: SwiftProtobuf.Enum {
@@ -2182,6 +2191,39 @@ public struct Anytype_Model_Account {
     public var statusType: Anytype_Model_Account.StatusType = .active
 
     public var deletionDate: Int64 = 0
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct Info {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// home dashboard block id
+    public var homeObjectID: String = String()
+
+    /// archive block id
+    public var archiveObjectID: String = String()
+
+    /// profile block id
+    public var profileObjectID: String = String()
+
+    /// marketplace type id
+    public var marketplaceTypeObjectID: String = String()
+
+    /// marketplace relation id
+    public var marketplaceRelationObjectID: String = String()
+
+    /// marketplace template id
+    public var marketplaceTemplateObjectID: String = String()
+
+    public var deviceID: String = String()
+
+    /// gateway url for fetching static files
+    public var gatewayURL: String = String()
 
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2938,6 +2980,7 @@ extension Anytype_Model_Account.Avatar: @unchecked Sendable {}
 extension Anytype_Model_Account.Avatar.OneOf_Avatar: @unchecked Sendable {}
 extension Anytype_Model_Account.Config: @unchecked Sendable {}
 extension Anytype_Model_Account.Status: @unchecked Sendable {}
+extension Anytype_Model_Account.Info: @unchecked Sendable {}
 extension Anytype_Model_LinkPreview: @unchecked Sendable {}
 extension Anytype_Model_LinkPreview.TypeEnum: @unchecked Sendable {}
 extension Anytype_Model_Restrictions: @unchecked Sendable {}
@@ -4659,6 +4702,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     3: .same(proto: "avatar"),
     4: .same(proto: "config"),
     5: .same(proto: "status"),
+    6: .same(proto: "info"),
   ]
 
   fileprivate class _StorageClass {
@@ -4667,6 +4711,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     var _avatar: Anytype_Model_Account.Avatar? = nil
     var _config: Anytype_Model_Account.Config? = nil
     var _status: Anytype_Model_Account.Status? = nil
+    var _info: Anytype_Model_Account.Info? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -4678,6 +4723,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       _avatar = source._avatar
       _config = source._config
       _status = source._status
+      _info = source._info
     }
   }
 
@@ -4701,6 +4747,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         case 3: try { try decoder.decodeSingularMessageField(value: &_storage._avatar) }()
         case 4: try { try decoder.decodeSingularMessageField(value: &_storage._config) }()
         case 5: try { try decoder.decodeSingularMessageField(value: &_storage._status) }()
+        case 6: try { try decoder.decodeSingularMessageField(value: &_storage._info) }()
         default: break
         }
       }
@@ -4728,6 +4775,9 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       try { if let v = _storage._status {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
       } }()
+      try { if let v = _storage._info {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -4742,6 +4792,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         if _storage._avatar != rhs_storage._avatar {return false}
         if _storage._config != rhs_storage._config {return false}
         if _storage._status != rhs_storage._status {return false}
+        if _storage._info != rhs_storage._info {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -4918,6 +4969,80 @@ extension Anytype_Model_Account.Status: SwiftProtobuf.Message, SwiftProtobuf._Me
   public static func ==(lhs: Anytype_Model_Account.Status, rhs: Anytype_Model_Account.Status) -> Bool {
     if lhs.statusType != rhs.statusType {return false}
     if lhs.deletionDate != rhs.deletionDate {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Account.protoMessageName + ".Info"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    2: .same(proto: "homeObjectId"),
+    3: .same(proto: "archiveObjectId"),
+    4: .same(proto: "profileObjectId"),
+    5: .same(proto: "marketplaceTypeObjectId"),
+    6: .same(proto: "marketplaceRelationObjectId"),
+    7: .same(proto: "marketplaceTemplateObjectId"),
+    8: .same(proto: "deviceId"),
+    101: .same(proto: "gatewayUrl"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 2: try { try decoder.decodeSingularStringField(value: &self.homeObjectID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.archiveObjectID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.profileObjectID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.marketplaceTypeObjectID) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.marketplaceRelationObjectID) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.marketplaceTemplateObjectID) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
+      case 101: try { try decoder.decodeSingularStringField(value: &self.gatewayURL) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.homeObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.homeObjectID, fieldNumber: 2)
+    }
+    if !self.archiveObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.archiveObjectID, fieldNumber: 3)
+    }
+    if !self.profileObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.profileObjectID, fieldNumber: 4)
+    }
+    if !self.marketplaceTypeObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.marketplaceTypeObjectID, fieldNumber: 5)
+    }
+    if !self.marketplaceRelationObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.marketplaceRelationObjectID, fieldNumber: 6)
+    }
+    if !self.marketplaceTemplateObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.marketplaceTemplateObjectID, fieldNumber: 7)
+    }
+    if !self.deviceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.deviceID, fieldNumber: 8)
+    }
+    if !self.gatewayURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.gatewayURL, fieldNumber: 101)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Account.Info, rhs: Anytype_Model_Account.Info) -> Bool {
+    if lhs.homeObjectID != rhs.homeObjectID {return false}
+    if lhs.archiveObjectID != rhs.archiveObjectID {return false}
+    if lhs.profileObjectID != rhs.profileObjectID {return false}
+    if lhs.marketplaceTypeObjectID != rhs.marketplaceTypeObjectID {return false}
+    if lhs.marketplaceRelationObjectID != rhs.marketplaceRelationObjectID {return false}
+    if lhs.marketplaceTemplateObjectID != rhs.marketplaceTemplateObjectID {return false}
+    if lhs.deviceID != rhs.deviceID {return false}
+    if lhs.gatewayURL != rhs.gatewayURL {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

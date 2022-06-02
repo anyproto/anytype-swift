@@ -70,7 +70,7 @@ final class SettingsViewModel: ObservableObject {
     
     private var clearCacheSubscription: AnyCancellable?
     func clearCache(completion: @escaping (Bool) -> ()) {
-        clearCacheSubscription = Anytype_Rpc.FileList.Offload.Service.invoke(
+        clearCacheSubscription = Anytype_Rpc.File.ListOffload.Service.invoke(
             onlyIds: [], includeNotPinned: false, queue: DispatchQueue.global(qos: .userInitiated)
         )
             .receiveOnMain()

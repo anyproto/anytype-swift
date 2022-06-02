@@ -15,7 +15,8 @@ final class AccountManager: ObservableObject {
             name: account.name,
             avatar: account.avatar,
             config: update.config.asModel,
-            status: update.status.asModel ?? account.status
+            status: update.status.asModel ?? account.status,
+            info: account.info
         )
     }
 }

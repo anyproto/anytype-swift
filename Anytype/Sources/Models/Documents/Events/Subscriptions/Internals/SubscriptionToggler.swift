@@ -35,7 +35,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     
     // MARK: - Private
     private func startProfileSubscription(blockId: BlockId) -> SubscriptionTogglerResult? {
-        let response = Anytype_Rpc.Object.IdsSubscribe.Service.invoke(
+        let response = Anytype_Rpc.Object.SubscribeIds.Service.invoke(
             subID: SubscriptionId.profile.rawValue,
             ids: [blockId],
             keys: [BundledRelationKey.id.rawValue, BundledRelationKey.name.rawValue, BundledRelationKey.iconImage.rawValue],

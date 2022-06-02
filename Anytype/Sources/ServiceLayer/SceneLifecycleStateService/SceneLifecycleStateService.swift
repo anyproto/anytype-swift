@@ -19,17 +19,17 @@ final class SceneLifecycleStateService {
     func handleStateTransition(_ transition: LifecycleStateTransition) {
         switch transition {
         case .willEnterForeground:
-            let result = Anytype_Rpc.DeviceState.Service.invoke(deviceState: .foreground)
+            let result = Anytype_Rpc.App.SetDeviceState.Service.invoke(deviceState: .foreground)
             handleResult(result)
         case .didEnterBackground:
-            let result = Anytype_Rpc.DeviceState.Service.invoke(deviceState: .background)
+            let result = Anytype_Rpc.App.SetDeviceState.Service.invoke(deviceState: .background)
             handleResult(result)
         }
     }
     
     // MARK: - Private func
     
-    private func handleResult(_ result: Result<Anytype_Rpc.DeviceState.Response, Error>) {
+    private func handleResult(_ result: Result<Anytype_Rpc.App.SetDeviceState.Response, Error>) {
         switch result {
         case .success(let response):
             let error = response.error
