@@ -54,7 +54,13 @@ struct SetSortsListView: View {
     private var sortsList: some View {
         List {
             ForEach(setModel.sorts) {
-                row(with: $0)
+                if #available(iOS 15.0, *) {
+                    row(with: $0)
+                        .divider(leadingPadding: 60)
+                        .listRowSeparator(.hidden)
+                } else {
+                    row(with: $0)
+                }
             }
             .onMove { from, to in
                 viewModel.move(from: from, to: to)
@@ -76,18 +82,7 @@ struct SetSortsListView: View {
     private func row(with sort: SetSort) -> some View {
         SetSortRow(sort: sort, onTap: {})
             .environment(\.editMode, $editMode)
-            .customDivider()
             .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
     }
     
-}
-
-private extension View {
-    func customDivider() -> some View {
-        Group {
-            if #available(iOS 15.0, *) {
-                divider(leadingPadding: 60).listRowSeparator(.hidden)
-            }
-        }
-    }
 }
