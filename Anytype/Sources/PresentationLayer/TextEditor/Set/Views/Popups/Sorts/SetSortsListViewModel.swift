@@ -8,7 +8,7 @@ final class SetSortsListViewModel: ObservableObject {
     @Published var isSearchPresented: Bool = false
     private let setModel: EditorSetViewModel
     
-    private(set) var popupLayout = AnytypePopupLayoutType.relationOptions
+    private(set) var popupLayout = AnytypePopupLayoutType.fullScreen
     private weak var popup: AnytypePopupProxy?
 
     
