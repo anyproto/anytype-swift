@@ -220,13 +220,13 @@ extension HomeViewModel {
             for: .dynamic(ObjectTypeProvider.defaultObjectType.url)
         )
         let hasSingleTemplate = availableTemplates?.count == 1
-
+        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
         
-        guard let id = dashboardService.createNewPage(isDraft: !hasSingleTemplate) else {
+        guard let id = dashboardService.createNewPage(isDraft: !hasSingleTemplate, templateId: templateId) else {
             anytypeAssertionFailure("No new block id in create new page response", domain: .homeView)
             return nil
         }
-        
+
         return id
     }
     

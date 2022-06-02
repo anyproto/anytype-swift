@@ -47,10 +47,16 @@ final class EditorSetViewModel: ObservableObject {
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
     private let dataBuilder = SetTableViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
+    private let searchService: SearchServiceProtocol
     
-    init(document: BaseDocument, dataviewService: DataviewServiceProtocol) {
+    init(
+        document: BaseDocument,
+        dataviewService: DataviewServiceProtocol,
+        searchService: SearchServiceProtocol
+    ) {
         self.document = document
         self.dataviewService = dataviewService
+        self.searchService = searchService
     }
     
     func setup(router: EditorRouterProtocol) {
@@ -193,7 +199,13 @@ extension EditorSetViewModel {
     }
 
     func createObject() {
-        guard let objectDetails = dataviewService.addRecord() else { return }
+        let availableTemplates = searchService.searchTemplates(
+            for: .dynamic(ObjectTypeProvider.defaultObjectType.url)
+        )
+        let hasSingleTemplate = availableTemplates?.count == 1
+        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+
+        guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
         
         router.showCreateObject(pageId: objectDetails.id)
     }
