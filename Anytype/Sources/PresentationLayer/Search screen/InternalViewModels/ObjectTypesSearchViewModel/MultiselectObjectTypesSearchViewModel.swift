@@ -6,20 +6,10 @@ import SwiftUI
 final class MultiselectObjectTypesSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode = .multipleItems
+    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
-    @Published private var rows: [ListRowConfiguration] = []
-    
-    private var objects: [ObjectDetails] = [] {
-        didSet {
-            rows = objects.asRowConfigurations(with: selectedObjectTypeIds)
-        }
-    }
-    
-    private var selectedObjectTypeIds: [String] = [] {
-        didSet {
-            rows = objects.asRowConfigurations(with: selectedObjectTypeIds)
-        }
-    }
+    private var objects: [ObjectDetails] = []
+    private var selectedObjectTypeIds: [String] = []
     
     private let interactor: ObjectTypesSearchInteractor
     
@@ -32,20 +22,39 @@ final class MultiselectObjectTypesSearchViewModel {
 
 extension MultiselectObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> {
-        $rows.map { rows -> NewSearchView.ListModel in
-            NewSearchView.ListModel.plain(rows: rows)
-        }.eraseToAnyPublisher()
-    }
-    
     func search(text: String) {
-        interactor.search(text: text) { [weak self] objects in
-            self?.objects = objects
+        let objects = interactor.search(text: text)
+        
+        if objects.isEmpty {
+            handleError(for: text)
+        } else {
+            handleSearchResults(objects)
         }
+        
+        self.objects = objects
     }
     
     func handleRowsSelection(ids: [String]) {
+        guard objects.isNotEmpty else { return }
+        
         self.selectedObjectTypeIds = ids
+        handleSearchResults(objects)
+    }
+    
+}
+
+private extension MultiselectObjectTypesSearchViewModel {
+    
+    func handleError(for text: String) {
+        viewStateSubject.send(.error(.noObjectError(searchText: text)))
+    }
+    
+    func handleSearchResults(_ objects: [ObjectDetails]) {
+        viewStateSubject.send(
+            .resultsList(
+                .plain(rows: objects.asRowConfigurations(with: selectedObjectTypeIds))
+            )
+        )
     }
     
 }

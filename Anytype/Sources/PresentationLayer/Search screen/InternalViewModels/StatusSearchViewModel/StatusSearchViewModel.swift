@@ -5,16 +5,9 @@ import Combine
 final class StatusSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
+    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
-    @Published private var sections: [ListSectionConfiguration] = []
-    
-    private var statuses: [Relation.Status.Option] = [] {
-        didSet {
-            sections = NewSearchSectionsBuilder.makeSections(statuses) {
-                $0.asRowsConfigurations
-            }
-        }
-    }
+    private var statuses: [Relation.Status.Option] = []
     
     private let interactor: StatusSearchInteractor
     
@@ -26,15 +19,19 @@ final class StatusSearchViewModel {
 
 extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> {
-        $sections.map { sections -> NewSearchView.ListModel in
-            NewSearchView.ListModel.sectioned(sectinos: sections)
-        }.eraseToAnyPublisher()
-    }
-    
     func search(text: String) {
-        interactor.search(text: text) { [weak self] statuses in
-            self?.statuses = statuses
+        let result = interactor.search(text: text)
+        switch result {
+        case .success(let statuses):
+            self.statuses = statuses
+            
+            let sections = NewSearchSectionsBuilder.makeSections(statuses) {
+                $0.asRowsConfigurations
+            }
+            viewStateSubject.send(.resultsList(.sectioned(sectinos: sections)))
+            
+        case .failure(let error):
+            viewStateSubject.send(.error(error))
         }
     }
     

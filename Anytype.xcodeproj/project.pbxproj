@@ -246,6 +246,8 @@
 		1270CE9326DA84A600B2D443 /* GradientImageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270CE9226DA84A600B2D443 /* GradientImageBuilder.swift */; };
 		1270CE9526DA85BB00B2D443 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270CE9426DA85BB00B2D443 /* GradientColor.swift */; };
 		1270CE9726DA85E900B2D443 /* GradientPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1270CE9626DA85E900B2D443 /* GradientPoint.swift */; };
+		127240D72846249600C6F8E2 /* NewSearchViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127240D62846249600C6F8E2 /* NewSearchViewState.swift */; };
+		127240DC2846306E00C6F8E2 /* NewSearchError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127240DB2846306E00C6F8E2 /* NewSearchError.swift */; };
 		127EABA32734FD6E00C731F2 /* CheckboxRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */; };
 		127EABB72735254500C731F2 /* StatusRelationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABB62735254500C731F2 /* StatusRelationView.swift */; };
 		127EABD9273745C000C731F2 /* AnytypeColorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */; };
@@ -1274,6 +1276,8 @@
 		1270CE9226DA84A600B2D443 /* GradientImageBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientImageBuilder.swift; sourceTree = "<group>"; };
 		1270CE9426DA85BB00B2D443 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
 		1270CE9626DA85E900B2D443 /* GradientPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientPoint.swift; sourceTree = "<group>"; };
+		127240D62846249600C6F8E2 /* NewSearchViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchViewState.swift; sourceTree = "<group>"; };
+		127240DB2846306E00C6F8E2 /* NewSearchError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSearchError.swift; sourceTree = "<group>"; };
 		127EABA22734FD6E00C731F2 /* CheckboxRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxRelationView.swift; sourceTree = "<group>"; };
 		127EABB62735254500C731F2 /* StatusRelationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusRelationView.swift; sourceTree = "<group>"; };
 		127EABD8273745C000C731F2 /* AnytypeColorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeColorProtocol.swift; sourceTree = "<group>"; };
@@ -3293,6 +3297,8 @@
 				1244793E27DC633700581174 /* NewSearchViewModel.swift */,
 				125683F127DF808E003A8251 /* NewSearchViewModel+SelectionMode.swift */,
 				1256840327E0C606003A8251 /* NewSearchViewModel+ItemCreationMode.swift */,
+				127240D62846249600C6F8E2 /* NewSearchViewState.swift */,
+				127240DB2846306E00C6F8E2 /* NewSearchError.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -6786,6 +6792,7 @@
 				3DCC548F26D3B4B9002517AC /* BlockBookmarkImageView.swift in Sources */,
 				3DA12E78263737200085D008 /* HomeCellDataMock.swift in Sources */,
 				3DF80F3726EF8F5C000492F3 /* TextBlockLayout.swift in Sources */,
+				127240DC2846306E00C6F8E2 /* NewSearchError.swift in Sources */,
 				3D24912C27BD271900821595 /* EventsListener.swift in Sources */,
 				53F2F61C270DF53000D6CA9B /* AudioBlockPlayerDelegate.swift in Sources */,
 				535F79BD274C087A0050A1B8 /* UTTypeExtension.swift in Sources */,
@@ -7323,6 +7330,7 @@
 				125B6ECE26F235F400BCD7D6 /* DismissableInputAccessoryView.swift in Sources */,
 				3D24913427BD271900821595 /* LocalEvent.swift in Sources */,
 				12AA74FC27B26C100098BC94 /* GeometryProxyExtensions.swift in Sources */,
+				127240D72846249600C6F8E2 /* NewSearchViewState.swift in Sources */,
 				0A74E4FA23A90E7B00B6C406 /* MainAuthViewModel.swift in Sources */,
 				12FD9D212767174E00991886 /* RelationCheckbox.swift in Sources */,
 				0A74E4F823A90E5100B6C406 /* Gradients.swift in Sources */,
