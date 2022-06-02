@@ -38,7 +38,7 @@ jobs:
 
       - uses: maxim-lobanov/setup-xcode@v1.4.1
         with:
-          xcode-version: '13.2'
+          xcode-version: '13.4'
 
       - name: Download Middleware
         run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
