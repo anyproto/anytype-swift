@@ -20,6 +20,8 @@ extension MiddlewareConfigurationProvider {
             return configuration
         }
         
+        anytypeAssertionFailure("Middleware configurations is empty", domain: .middlewareConfigurationProvider)
+        
         return MiddlewareConfiguration.empty
     }
     

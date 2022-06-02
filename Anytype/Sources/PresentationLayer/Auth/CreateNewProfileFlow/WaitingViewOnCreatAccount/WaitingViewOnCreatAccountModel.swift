@@ -17,7 +17,6 @@ final class SignUpData: ObservableObject {
 
 class WaitingOnCreatAccountViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
-    private let loginStateService = ServiceLocator.shared.loginStateService()
     private let seedService: SeedServiceProtocol
     
     private let diskStorage = DiskStorage()
