@@ -2,7 +2,7 @@ import ProtobufMessages
 import BlocksModels
 import AnytypeCore
 
-struct ObjectType: Equatable, Hashable {
+struct ObjectType: Equatable, Hashable, Codable {
     let url: String
     let name: String
     let iconEmoji: Emoji
@@ -44,3 +44,5 @@ extension ObjectType {
         )
     }
 }
+
+extension Anytype_Model_SmartBlockType: Codable {}

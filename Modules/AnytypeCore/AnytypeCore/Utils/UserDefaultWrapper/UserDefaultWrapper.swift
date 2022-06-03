@@ -12,7 +12,7 @@ private protocol AnyOptional {
 extension Optional: AnyOptional { }
 
 @propertyWrapper
-public struct UserDefault<T> {
+public struct UserDefault<T: Codable> {
     private let key: String
     private let defaultValue: T
 
@@ -23,13 +23,25 @@ public struct UserDefault<T> {
 
     public var wrappedValue: T {
         get {
-            return UserDefaults.standard.object(forKey: key) as? T ?? defaultValue
+            // Read value from UserDefaults
+            guard let data = UserDefaults.standard.object(forKey: key) as? Data else {
+                // Return defaultValue when no data in UserDefaults
+                return defaultValue
+            }
+            
+            // Convert data to the desire data type
+            let value = try? JSONDecoder().decode(T.self, from: data)
+            return value ?? defaultValue
         }
         set {
             if let optional = newValue as? AnyOptional, optional.isNil {
                 UserDefaults.standard.removeObject(forKey: key)
             } else {
-                UserDefaults.standard.set(newValue, forKey: key)
+                // Convert newValue to data
+                let data = try? JSONEncoder().encode(newValue)
+                
+                // Set value to UserDefaults
+                UserDefaults.standard.set(data, forKey: key)
             }
         }
     }
