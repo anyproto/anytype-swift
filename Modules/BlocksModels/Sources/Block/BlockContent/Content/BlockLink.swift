@@ -3,6 +3,7 @@ import AnytypeCore
 public extension BlockLink {
 
     enum IconSize {
+        case none
         case small
         case medium
     }

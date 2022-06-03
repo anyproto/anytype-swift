@@ -42,9 +42,10 @@ extension BlockLink {
 extension Anytype_Model_Block.Content.Link.IconSize {
     var asModel: BlockLink.IconSize {
         switch self {
-        case .small: return .small
-        case .medium: return .medium
-        case .UNRECOGNIZED: return .small
+        case .sizeMedium: return .small
+        case .sizeSmall: return .medium
+        case .sizeNone: return .none
+        case .UNRECOGNIZED: return .none
         }
     }
 }
@@ -52,8 +53,9 @@ extension Anytype_Model_Block.Content.Link.IconSize {
 extension BlockLink.IconSize {
     var asMiddleware: Anytype_Model_Block.Content.Link.IconSize {
         switch self {
-        case .small: return .small
-        case .medium: return .medium
+        case .small: return .sizeSmall
+        case .medium: return .sizeMedium
+        case .none: return .sizeNone
         }
     }
 }

@@ -25,6 +25,8 @@ extension ObjectPreviewViewSection {
 
             init(_ iconSize: BlockLink.IconSize) {
                 switch iconSize {
+                case .none:
+                    self = .none
                 case .small:
                     self = .small
                 case .medium:

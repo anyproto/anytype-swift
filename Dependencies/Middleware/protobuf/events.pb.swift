@@ -1998,7 +1998,7 @@ public struct Anytype_Event {
           // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
           // methods supported on all messages.
 
-          public var value: Anytype_Model_Block.Content.Link.IconSize = .small
+          public var value: Anytype_Model_Block.Content.Link.IconSize = .sizeNone
 
           public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -7364,7 +7364,7 @@ extension Anytype_Event.Block.Set.Link.IconSize: SwiftProtobuf.Message, SwiftPro
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
-    if self.value != .small {
+    if self.value != .sizeNone {
       try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
     }
     try unknownFields.traverse(visitor: &visitor)

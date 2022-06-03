@@ -288,9 +288,10 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Request {
 }
 
 extension Anytype_Rpc.Block.ListConvertToObjects.Response {
-  public init(error: Anytype_Rpc.Block.ListConvertToObjects.Response.Error, linkIds: [String]) {
+  public init(error: Anytype_Rpc.Block.ListConvertToObjects.Response.Error, linkIds: [String], event: Anytype_ResponseEvent) {
     self.error = error
     self.linkIds = linkIds
+    self.event = event
   }
 }
 
