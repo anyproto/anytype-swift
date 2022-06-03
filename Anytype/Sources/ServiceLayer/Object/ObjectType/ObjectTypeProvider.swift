@@ -12,8 +12,8 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             .page, .profilePage, .anytypeProfile, .set
         ]
         
-        return objectTypes(smartblockTypes: smartblockTypes).map { $0.url } +
-        [ObjectTemplateType.BundledType.note.rawValue]
+        return objectTypes(smartblockTypes: smartblockTypes).map { $0.url }
+        
     }
     
     static var defaultObjectType: ObjectType {
