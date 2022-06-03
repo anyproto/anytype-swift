@@ -17,7 +17,7 @@ on:
 
 jobs:
   main:
-    runs-on: macOS-11
+    runs-on: macOS-12
     timeout-minutes: 20
     env:
         APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}

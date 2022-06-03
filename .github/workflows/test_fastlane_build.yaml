@@ -10,7 +10,7 @@ on:
 
 jobs:
   main:
-    runs-on: macOS-11
+    runs-on: macOS-12
     timeout-minutes: 20
 
     steps:
@@ -51,7 +51,7 @@ jobs:
 
   # dsyms:
   #   needs: main
-  #   runs-on: macOS-11
+  #   runs-on: macOS-12
   #   timeout-minutes: 20
     
   #   steps:
