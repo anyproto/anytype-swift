@@ -13,22 +13,21 @@ struct ObjectType: Equatable, Hashable {
     let isArchived: Bool
     
     let types: [Anytype_Model_SmartBlockType]
+}
 
-//    let relations
-//    let layout
+extension ObjectType {
     
-    static var fallbackType: ObjectType {
-        ObjectType(
-            url: ObjectTemplateType.bundled(.note).rawValue,
-            name: "Note".localized,
-            iconEmoji: .default,
-            description: "Blank canvas with no title".localized,
-            hidden: false,
-            readonly: false,
-            isArchived: false,
-            types: []
-        )
-    }
+    static let fallbackType: ObjectType = ObjectType(
+        url: ObjectTemplateType.bundled(.note).rawValue,
+        name: "Note".localized,
+        iconEmoji: .default,
+        description: "Blank canvas with no title".localized,
+        hidden: false,
+        readonly: false,
+        isArchived: false,
+        types: []
+    )
+    
 }
 
 extension ObjectType {

@@ -3,20 +3,14 @@ import SwiftProtobuf
 import AnytypeCore
 import BlocksModels
 
-protocol ObjectTypeProviderProtocol {
-    static var supportedTypeUrls: [String] { get }
-    static var defaultObjectType: ObjectType { get }
-    
-    static func isSupported(typeUrl: String) -> Bool
-    
-    static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType]
-    static func objectType(url: String?) -> ObjectType?
-}
-
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
+    // MARK: - Internal vars
+    
     static var supportedTypeUrls: [String] {
-        let smartblockTypes: [Anytype_Model_SmartBlockType] = [.page, .profilePage, .anytypeProfile, .set]
+        let smartblockTypes: [Anytype_Model_SmartBlockType] = [
+            .page, .profilePage, .anytypeProfile, .set
+        ]
         
         return objectTypes(smartblockTypes: smartblockTypes).map { $0.url } +
         [ObjectTemplateType.BundledType.note.rawValue]
@@ -26,11 +20,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         objectType(url: UserDefaultsConfig.defaultObjectType) ?? .fallbackType
     }
     
-    static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType] {
-        loadObjects().filter {
-            !Set($0.types).intersection(smartblockTypes).isEmpty
-        }
-    }
+    // MARK: - Internal func
     
     static func isSupported(typeUrl: String) -> Bool {
         supportedTypeUrls.contains(typeUrl)
@@ -43,6 +33,14 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         
         return loadObjects().filter { $0.url == url }.first
     }
+    
+    static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType] {
+        loadObjects().filter {
+            !Set($0.types).intersection(smartblockTypes).isEmpty
+        }
+    }
+    
+    // MARK: - Private func
     
     private static func loadObjects() -> [ObjectType]  {
         let result = Anytype_Rpc.ObjectType.List.Service.invoke()
