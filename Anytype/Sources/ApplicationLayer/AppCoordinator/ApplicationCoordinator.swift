@@ -29,14 +29,6 @@ final class ApplicationCoordinator {
 private extension ApplicationCoordinator {
  
     func runAtFirstLaunch() {
-        if UserDefaultsConfig.defaultObjectType.isEmpty {
-            if UserDefaultsConfig.installedAtDate.isNil { // First launch
-                UserDefaultsConfig.defaultObjectType = ObjectTemplateType.bundled(.note).rawValue
-            } else {
-                UserDefaultsConfig.defaultObjectType = ObjectTemplateType.bundled(.page).rawValue
-            }
-        }
-        
         if UserDefaultsConfig.installedAtDate.isNil {
             UserDefaultsConfig.installedAtDate = Date()
         }

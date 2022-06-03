@@ -17,7 +17,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     }
     
     static var defaultObjectType: ObjectType {
-        objectType(url: UserDefaultsConfig.defaultObjectType) ?? .fallbackType
+        UserDefaultsConfig.defaultObjectType
     }
     
     // MARK: - Internal func

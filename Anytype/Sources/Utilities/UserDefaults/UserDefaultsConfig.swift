@@ -19,10 +19,10 @@ struct UserDefaultsConfig {
     @UserDefault("App.AnalyticsUserConsent", defaultValue: false)
     public static var analyticsUserConsent: Bool
     
-    @UserDefault("UserData.DefaultObjectType", defaultValue: "")
-    static var defaultObjectType: String {
+    @UserDefault("UserData.DefaultObjectType", defaultValue: ObjectType.fallbackType)
+    static var defaultObjectType: ObjectType {
         didSet {
-            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType)
+            AnytypeAnalytics.instance().logDefaultObjectTypeChange(defaultObjectType.url)
         }
     }
     
