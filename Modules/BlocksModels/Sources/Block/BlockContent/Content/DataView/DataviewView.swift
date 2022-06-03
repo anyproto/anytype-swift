@@ -36,14 +36,15 @@ public struct DataviewView: Hashable, Identifiable {
     
     public func updated(
         hideIcon: Bool? = nil,
-        options: [DataviewRelationOption]? = nil
+        options: [DataviewRelationOption]? = nil,
+        sorts: [DataviewSort]? = nil
     ) -> DataviewView {
         DataviewView(
             id: id,
             name: name,
             type: type,
             options: options ?? self.options,
-            sorts: sorts,
+            sorts: sorts ?? self.sorts,
             filters: filters,
             coverRelationKey: coverRelationKey,
             hideIcon: hideIcon ?? self.hideIcon,

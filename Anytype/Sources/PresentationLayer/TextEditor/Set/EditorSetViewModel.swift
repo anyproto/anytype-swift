@@ -235,7 +235,10 @@ extension EditorSetViewModel {
     func showSorts() {
         router.presentFullscreen(
             AnytypePopup(
-                viewModel: SetSortsListViewModel(setModel: self)
+                viewModel: SetSortsListViewModel(
+                    setModel: self,
+                    service: dataviewService
+                )
             )
         )
     }
