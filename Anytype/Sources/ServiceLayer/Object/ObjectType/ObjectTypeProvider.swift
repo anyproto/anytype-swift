@@ -31,18 +31,18 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
             return nil
         }
         
-        return loadObjects().filter { $0.url == url }.first
+        return loadObjectTypes().filter { $0.url == url }.first
     }
     
     static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType] {
-        loadObjects().filter {
+        loadObjectTypes().filter {
             !Set($0.types).intersection(smartblockTypes).isEmpty
         }
     }
     
     // MARK: - Private func
     
-    private static func loadObjects() -> [ObjectType]  {
+    private static func loadObjectTypes() -> [ObjectType] {
         let result = Anytype_Rpc.ObjectType.List.Service.invoke()
         switch result {
         case .success(let response):

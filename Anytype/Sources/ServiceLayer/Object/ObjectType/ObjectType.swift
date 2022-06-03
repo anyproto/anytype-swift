@@ -25,7 +25,7 @@ extension ObjectType {
         hidden: false,
         readonly: false,
         isArchived: false,
-        types: []
+        types: [.page]
     )
     
 }

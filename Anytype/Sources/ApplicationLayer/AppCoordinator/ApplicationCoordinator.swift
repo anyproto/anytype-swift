@@ -37,7 +37,6 @@ private extension ApplicationCoordinator {
             }
         }
         
-        
         if UserDefaultsConfig.installedAtDate.isNil {
             UserDefaultsConfig.installedAtDate = Date()
         }
