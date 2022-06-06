@@ -10,14 +10,12 @@ final class LoginStateService {
     }
     
     func setupStateAfterLoginOrAuth(account: AccountData) {
-        ObjectTypeProvider.loadObjects()
         MiddlewareConfigurationProvider.shared.setupConfiguration(account: account)
     }
     
     func setupStateAfterRegistration(account: AccountData) {
         isFirstLaunchAfterRegistration = true
         UserDefaultsConfig.showKeychainAlert = true
-        ObjectTypeProvider.loadObjects()
         MiddlewareConfigurationProvider.shared.setupConfiguration(account: account)
     }
     
