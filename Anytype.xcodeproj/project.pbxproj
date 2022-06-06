@@ -403,6 +403,7 @@
 		2E412D0528466B1C00C973FF /* SetSortsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D0428466B1C00C973FF /* SetSortsListViewModel.swift */; };
 		2E412D102847806F00C973FF /* SetSortRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D0F2847806F00C973FF /* SetSortRow.swift */; };
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
+		2EEA3EA3284E00E100D241D1 /* SetSortTypesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA3EA2284E00E100D241D1 /* SetSortTypesListViewModel.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
 		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
 		3D00F1E9278ECC3000863D7C /* Array+SubscriptionUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1E8278ECC3000863D7C /* Array+SubscriptionUpdate.swift */; };
@@ -814,7 +815,7 @@
 		53F7442F27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7442E27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift */; };
 		53F7443127F4BC7B005C9BB0 /* ObjectPreviewLayoutMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7443027F4BC7B005C9BB0 /* ObjectPreviewLayoutMenuViewModel.swift */; };
 		53F7447227F7157A005C9BB0 /* CheckPopupView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7447127F7157A005C9BB0 /* CheckPopupView.swift */; };
-		53F7447427F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7447327F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift */; };
+		53F7447427F71737005C9BB0 /* CheckPopupViewViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7447327F71737005C9BB0 /* CheckPopupViewViewModelProtocol.swift */; };
 		53F7447627F71789005C9BB0 /* CheckPopupItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7447527F71789005C9BB0 /* CheckPopupItem.swift */; };
 		53F7447927F71A83005C9BB0 /* PopupViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7447827F71A83005C9BB0 /* PopupViewBuilder.swift */; };
 		53F7449D27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 53F7449C27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift */; };
@@ -1439,6 +1440,7 @@
 		2E412D0428466B1C00C973FF /* SetSortsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsListViewModel.swift; sourceTree = "<group>"; };
 		2E412D0F2847806F00C973FF /* SetSortRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortRow.swift; sourceTree = "<group>"; };
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
+		2EEA3EA2284E00E100D241D1 /* SetSortTypesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortTypesListViewModel.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1E8278ECC3000863D7C /* Array+SubscriptionUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SubscriptionUpdate.swift"; sourceTree = "<group>"; };
@@ -1850,7 +1852,7 @@
 		53F7442E27F4BBE9005C9BB0 /* ObjectPreviewRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewRouter.swift; sourceTree = "<group>"; };
 		53F7443027F4BC7B005C9BB0 /* ObjectPreviewLayoutMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewLayoutMenuViewModel.swift; sourceTree = "<group>"; };
 		53F7447127F7157A005C9BB0 /* CheckPopupView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPopupView.swift; sourceTree = "<group>"; };
-		53F7447327F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPopuViewViewModelProtocol.swift; sourceTree = "<group>"; };
+		53F7447327F71737005C9BB0 /* CheckPopupViewViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPopupViewViewModelProtocol.swift; sourceTree = "<group>"; };
 		53F7447527F71789005C9BB0 /* CheckPopupItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckPopupItem.swift; sourceTree = "<group>"; };
 		53F7447827F71A83005C9BB0 /* PopupViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupViewBuilder.swift; sourceTree = "<group>"; };
 		53F7449C27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectPreviewIconMenuViewModel.swift; sourceTree = "<group>"; };
@@ -4005,6 +4007,7 @@
 				2E412D0228466B0900C973FF /* SetSortsListView.swift */,
 				2E412D0428466B1C00C973FF /* SetSortsListViewModel.swift */,
 				2E412D0F2847806F00C973FF /* SetSortRow.swift */,
+				2EEA3EA2284E00E100D241D1 /* SetSortTypesListViewModel.swift */,
 			);
 			path = Sorts;
 			sourceTree = "<group>";
@@ -5932,7 +5935,7 @@
 			isa = PBXGroup;
 			children = (
 				53F7447127F7157A005C9BB0 /* CheckPopupView.swift */,
-				53F7447327F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift */,
+				53F7447327F71737005C9BB0 /* CheckPopupViewViewModelProtocol.swift */,
 				53F7447527F71789005C9BB0 /* CheckPopupItem.swift */,
 			);
 			path = CheckPopupView;
@@ -6957,6 +6960,7 @@
 				537F49722677EB6700C81BA0 /* BlockDelegate.swift in Sources */,
 				535F79732746AAD40050A1B8 /* FlowLayout.swift in Sources */,
 				EA57F3D526B84592007D4292 /* MarkupViewModelAction.swift in Sources */,
+				2EEA3EA3284E00E100D241D1 /* SetSortTypesListViewModel.swift in Sources */,
 				3D67F945269DF79B00883681 /* DragAndDropDelegate.swift in Sources */,
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				535E02AD274FF0B100E1AF8C /* RelationValueView.swift in Sources */,
@@ -7004,7 +7008,7 @@
 				12C2A5692754E90800311854 /* DateRelationDetailsRowView.swift in Sources */,
 				12C2A5802755F0CE00311854 /* DateRelationValue.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
-				53F7447427F71737005C9BB0 /* CheckPopuViewViewModelProtocol.swift in Sources */,
+				53F7447427F71737005C9BB0 /* CheckPopupViewViewModelProtocol.swift in Sources */,
 				C905B2B128291C9100F1106B /* ToastView.swift in Sources */,
 				535E02B4275037B800E1AF8C /* RelationBlockRestrictions.swift in Sources */,
 				53D6EE2E265D7DD600C47263 /* EditorViewListCell.swift in Sources */,

@@ -3,7 +3,7 @@ import BlocksModels
 
 struct SetSortRow: View {
     
-    @Environment(\.editMode)  var editMode
+    @Environment(\.editMode) var editMode
     
     let sort: SetSort
     let onTap: () -> Void
@@ -30,7 +30,7 @@ struct SetSortRow: View {
             
             VStack(alignment: .leading, spacing: 2) {
                 AnytypeText(sort.metadata.name, style: .uxTitle2Medium, color: .textPrimary)
-                AnytypeText(sort.type, style: .relation1Regular, color: .textSecondary)
+                AnytypeText(sort.typeTitle(), style: .relation1Regular, color: .textSecondary)
             }
             
             Spacer()

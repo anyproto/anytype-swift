@@ -80,7 +80,7 @@ struct SetSortsListView: View {
     }
     
     private func row(with sort: SetSort) -> some View {
-        SetSortRow(sort: sort, onTap: {})
+        SetSortRow(sort: sort, onTap: { viewModel.sortRowTapped(sort) })
             .environment(\.editMode, $editMode)
             .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
     }
