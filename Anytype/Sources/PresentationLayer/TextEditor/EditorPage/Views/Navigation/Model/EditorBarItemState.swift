@@ -26,5 +26,9 @@ struct EditorBarItemState: Equatable {
         return color.withAlphaComponent(1 - opacity)
     }
     
+    var textIsHidden: Bool {
+        return opacity == 1.0
+    }
+    
     static var initial = EditorBarItemState(haveBackground: false, opacity: 0)
 }
