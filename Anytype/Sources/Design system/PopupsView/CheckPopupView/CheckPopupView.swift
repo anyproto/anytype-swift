@@ -65,7 +65,7 @@ struct CheckPopupView_Previews: PreviewProvider {
         
         func onTap(itemId: String) {
         }
-        
+
         var items: [CheckPopupItem] = [
             .init(id: "1", icon: ImageName.ObjectPreview.text, title: "Some title", subtitle: "Long subtitle", isSelected: true),
             .init(id: "2", icon: ImageName.ObjectPreview.text, title: "Other title", subtitle: "Long subtitle", isSelected: false)
