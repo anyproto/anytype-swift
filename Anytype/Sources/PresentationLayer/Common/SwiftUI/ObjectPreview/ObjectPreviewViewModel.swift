@@ -12,90 +12,84 @@ import FloatingPanel
 
 final class ObjectPreviewViewModel: ObservableObject {
 
-    @Published var objectPreviewSections = ObjectPreviewViewSection(main: [], featuredRelation: [])
+    @Published private(set) var objectPreviewModel: ObjectPreviewModel
 
     // MARK: - Private variables
 
-    private var appearance: BlockLink.Appearance
-
-    private let objectPreviewModelBuilder = ObjectPreivewSectionBuilder()
     private let router: ObjectPreviewRouter
     private let onSelect: (BlockLink.Appearance) -> Void
 
     // MARK: - Initializer
 
-    init(appearance: BlockLink.Appearance,
+    init(objectPreviewModel: ObjectPreviewModel,
          router: ObjectPreviewRouter,
          onSelect: @escaping (BlockLink.Appearance) -> Void) {
         self.router = router
         self.onSelect = onSelect
-        self.appearance = appearance
-
-        updateObjectPreview(appearance: appearance)
+        self.objectPreviewModel = objectPreviewModel
     }
 
-    func updateObjectPreview(appearance: BlockLink.Appearance) {
-        objectPreviewSections = objectPreviewModelBuilder.build(appearance: appearance)
-    }
+    func toggleFeaturedRelation(relation: ObjectPreviewModel.Relation, isEnabled: Bool) {
+        var updatedRelations = objectPreviewModel.relations
 
-    func toggleFeaturedRelation(relation: ObjectPreviewViewSection.FeaturedSectionItem.IDs, isEnabled: Bool) {
-
-        switch relation {
-        case .name:
-            if isEnabled {
-                appearance.relations.insert(.name)
-            } else {
-                appearance.relations.remove(.name)
-            }
-        case .description:
-            if isEnabled {
-                appearance.description = .added
-            } else {
-                appearance.description = .none
-            }
+        if isEnabled {
+            updatedRelations.insert(relation)
+        } else {
+            updatedRelations.remove(relation)
         }
 
-        self.onSelect(appearance)
-        updateObjectPreview(appearance: appearance)
+        objectPreviewModel = ObjectPreviewModel(iconSize: objectPreviewModel.iconSize,
+                                                cardStyle: objectPreviewModel.cardStyle,
+                                                description: objectPreviewModel.description,
+                                                relations: updatedRelations)
+
+        self.onSelect(objectPreviewModel.asBlockLinkAppearance)
     }
 
     func showLayoutMenu() {
-        router.showLayoutMenu(cardStyle: .init(appearance.cardStyle)) { [weak self] cardStyle in
+        router.showLayoutMenu(cardStyle: objectPreviewModel.cardStyle) { [weak self] cardStyle in
             guard let self = self else { return }
 
-            if self.appearance.relations.contains(.icon) {
+            var iconSize = self.objectPreviewModel.iconSize
+            
+            if iconSize.hasIcon {
                 switch cardStyle {
                 case .card:
-                    self.appearance.iconSize = .medium
+                    iconSize = .medium
                 case .text:
-                    self.appearance.iconSize = .small
+                    iconSize = .small
                 }
             }
-            self.appearance.cardStyle = cardStyle.asModel
-            self.handleOnMainSelect()
+
+            self.objectPreviewModel = ObjectPreviewModel(iconSize: iconSize,
+                                           cardStyle: cardStyle,
+                                           description: self.objectPreviewModel.description,
+                                           relations: self.objectPreviewModel.relations)
+            self.onSelect(self.objectPreviewModel.asBlockLinkAppearance)
         }
     }
 
-    func showIconMenu(currentIconSize: ObjectPreviewViewSection.MainSectionItem.IconSize) {
-        let currentCardStyle = ObjectPreviewViewSection.MainSectionItem.CardStyle(appearance.cardStyle)
+    func showIconMenu() {
+        router.showIconMenu(iconSize: objectPreviewModel.iconSize, cardStyle: objectPreviewModel.cardStyle) { [weak self] iconSize in
+            guard let self = self else { return }
 
-        router.showIconMenu(iconSize: currentIconSize, cardStyle: currentCardStyle) { [weak self] iconSize in
-            switch iconSize {
-            case .none:
-                self?.appearance.relations.remove(.icon)
-            case .small:
-                self?.appearance.relations.insert(.icon)
-                self?.appearance.iconSize = .small
-            case .medium:
-                self?.appearance.relations.insert(.icon)
-                self?.appearance.iconSize = .medium
-            }
-            self?.handleOnMainSelect()
+            self.objectPreviewModel = ObjectPreviewModel(iconSize: iconSize,
+                                           cardStyle: self.objectPreviewModel.cardStyle,
+                                           description: self.objectPreviewModel.description,
+                                           relations: self.objectPreviewModel.relations)
+            self.onSelect(self.objectPreviewModel.asBlockLinkAppearance)
         }
     }
 
-    private func handleOnMainSelect() {
-        onSelect(appearance)
-        updateObjectPreview(appearance: appearance)
+    func showDescriptionMenu() {
+        router.showDescriptionMenu(currentDescription: objectPreviewModel.description) { [weak self] description in
+            guard let self = self else { return }
+
+            self.objectPreviewModel = ObjectPreviewModel(iconSize: self.objectPreviewModel.iconSize,
+                                           cardStyle: self.objectPreviewModel.cardStyle,
+                                           description: description,
+                                           relations: self.objectPreviewModel.relations)
+            self.onSelect(self.objectPreviewModel.asBlockLinkAppearance)
+        }
     }
 }

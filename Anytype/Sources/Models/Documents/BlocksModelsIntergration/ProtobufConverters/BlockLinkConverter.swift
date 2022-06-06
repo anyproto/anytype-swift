@@ -5,7 +5,6 @@ import ProtobufMessages
 
 extension Anytype_Model_Block.Content.Link {
     var blockContent: BlockContent? {
-        let relations = relations.compactMap(BlockLink.Relation.init(rawValue:))
 
         return .link(
             BlockLink(
@@ -14,7 +13,7 @@ extension Anytype_Model_Block.Content.Link {
                     iconSize: iconSize.asModel,
                     cardStyle: cardStyle.asModel,
                     description: description_p.asModel,
-                    relations: Set(relations)
+                    relations: relations
                 )
             )
         )
@@ -23,7 +22,6 @@ extension Anytype_Model_Block.Content.Link {
 
 extension BlockLink {
     var asMiddleware: Anytype_Model_Block.OneOf_Content {
-        let relations = appearance.relations.map(\.rawValue)
 
         return .link(
             .init(targetBlockID: targetBlockID,
@@ -32,7 +30,7 @@ extension BlockLink {
                   iconSize: appearance.iconSize.asMiddleware,
                   cardStyle: appearance.cardStyle.asMiddleware,
                   description_p: appearance.description.asMiddleware,
-                  relations: relations)
+                  relations: appearance.relations)
         )
     }
 }
@@ -67,7 +65,7 @@ extension Anytype_Model_Block.Content.Link.CardStyle {
         switch self {
         case .text: return .text
         case .card: return .card
-        case .inline: return .text // add .inline when will be supported
+        case .inline: return .card // add .inline when will be supported
         case .UNRECOGNIZED: return .text
         }
     }

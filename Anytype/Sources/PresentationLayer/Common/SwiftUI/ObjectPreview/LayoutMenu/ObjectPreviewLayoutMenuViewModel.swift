@@ -16,32 +16,31 @@ final class ObjectPreviewLayoutMenuViewModel: CheckPopupViewViewModelProtocol {
 
     // MARK: - Private variables
 
-    private var cardStyle: ObjectPreviewViewSection.MainSectionItem.CardStyle
-    private let objectPreviewModelBuilder = ObjectPreivewSectionBuilder()
-    private let onSelect: (ObjectPreviewViewSection.MainSectionItem.CardStyle) -> Void
+    private var cardStyle: ObjectPreviewModel.CardStyle
+    private let onSelect: (ObjectPreviewModel.CardStyle) -> Void
 
     // MARK: - Initializer
 
-    init(cardStyle: ObjectPreviewViewSection.MainSectionItem.CardStyle,
-         onSelect: @escaping (ObjectPreviewViewSection.MainSectionItem.CardStyle) -> Void) {
+    init(cardStyle: ObjectPreviewModel.CardStyle,
+         onSelect: @escaping (ObjectPreviewModel.CardStyle) -> Void) {
         self.onSelect = onSelect
         self.cardStyle = cardStyle
         self.updatePreviewFields(cardStyle)
     }
 
-    func updatePreviewFields(_ cardStyle: ObjectPreviewViewSection.MainSectionItem.CardStyle) {
+    func updatePreviewFields(_ cardStyle: ObjectPreviewModel.CardStyle) {
         items = buildObjectPreviewPopupItem(cardStyle: cardStyle)
     }
 
-    func buildObjectPreviewPopupItem(cardStyle: ObjectPreviewViewSection.MainSectionItem.CardStyle) -> [CheckPopupItem] {
-        ObjectPreviewViewSection.MainSectionItem.CardStyle.allCases.map { layout -> CheckPopupItem in
+    func buildObjectPreviewPopupItem(cardStyle: ObjectPreviewModel.CardStyle) -> [CheckPopupItem] {
+        ObjectPreviewModel.CardStyle.allCases.map { layout -> CheckPopupItem in
             let isSelected = cardStyle == layout
             return CheckPopupItem(id: layout.rawValue, icon: layout.iconName, title: layout.name, subtitle: nil, isSelected: isSelected)
         }
     }
 
     func onTap(itemId: String) {
-        guard let layout = ObjectPreviewViewSection.MainSectionItem.CardStyle(rawValue: itemId) else { return }
+        guard let layout = ObjectPreviewModel.CardStyle(rawValue: itemId) else { return }
 
         onSelect(layout)
         updatePreviewFields(layout)

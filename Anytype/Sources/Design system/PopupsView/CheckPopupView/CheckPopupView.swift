@@ -42,7 +42,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
                 Spacer.fixedWidth(12)
             }
 
-            VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(item.title, style: .uxBodyRegular, color: .textPrimary)
 
                 if let subtitle = item.subtitle {

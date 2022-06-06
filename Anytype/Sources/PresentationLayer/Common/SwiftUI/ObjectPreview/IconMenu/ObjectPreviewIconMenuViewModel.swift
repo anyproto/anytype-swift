@@ -8,34 +8,33 @@ final class ObjectPreviewIconMenuViewModel: CheckPopupViewViewModelProtocol {
 
     // MARK: - Private variables
 
-    private var iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize
-    private var cardStyle: ObjectPreviewViewSection.MainSectionItem.CardStyle
-    private let objectPreviewModelBuilder = ObjectPreivewSectionBuilder()
-    private let onSelect: (ObjectPreviewViewSection.MainSectionItem.IconSize) -> Void
+    private var iconSize: ObjectPreviewModel.IconSize
+    private var cardStyle: ObjectPreviewModel.CardStyle
+    private let onSelect: (ObjectPreviewModel.IconSize) -> Void
 
     // MARK: - Initializer
 
-    init(iconSize: ObjectPreviewViewSection.MainSectionItem.IconSize,
-         cardStyle: ObjectPreviewViewSection.MainSectionItem.CardStyle,
-         onSelect: @escaping (ObjectPreviewViewSection.MainSectionItem.IconSize) -> Void) {
+    init(iconSize: ObjectPreviewModel.IconSize,
+         cardStyle: ObjectPreviewModel.CardStyle,
+         onSelect: @escaping (ObjectPreviewModel.IconSize) -> Void) {
         self.iconSize = iconSize
         self.cardStyle = cardStyle
         self.onSelect = onSelect
         self.updatePreviewFields(iconSize)
     }
 
-    func updatePreviewFields(_ currentIconSize: ObjectPreviewViewSection.MainSectionItem.IconSize) {
+    func updatePreviewFields(_ currentIconSize: ObjectPreviewModel.IconSize) {
         items = buildObjectPreviewPopupItem(currentIconSize: currentIconSize)
     }
 
-    func buildObjectPreviewPopupItem(currentIconSize: ObjectPreviewViewSection.MainSectionItem.IconSize) -> [CheckPopupItem] {
+    func buildObjectPreviewPopupItem(currentIconSize: ObjectPreviewModel.IconSize) -> [CheckPopupItem] {
         availableIconSizes().map { iconSize in
             let isSelected = currentIconSize == iconSize
             return CheckPopupItem(id: iconSize.rawValue, icon: nil, title: iconSize.name, subtitle: nil, isSelected: isSelected)
         }
     }
 
-    func availableIconSizes() -> [ObjectPreviewViewSection.MainSectionItem.IconSize] {
+    func availableIconSizes() -> [ObjectPreviewModel.IconSize] {
         switch cardStyle {
         case .text:
             return [.small, .none]
@@ -45,7 +44,7 @@ final class ObjectPreviewIconMenuViewModel: CheckPopupViewViewModelProtocol {
     }
 
     func onTap(itemId: String) {
-        guard let iconSize = ObjectPreviewViewSection.MainSectionItem.IconSize(rawValue: itemId) else { return }
+        guard let iconSize = ObjectPreviewModel.IconSize(rawValue: itemId) else { return }
 
         onSelect(iconSize)
         updatePreviewFields(iconSize)

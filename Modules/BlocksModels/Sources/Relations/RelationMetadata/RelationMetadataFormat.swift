@@ -93,7 +93,7 @@ public extension RelationMetadata.Format {
         }
     }
     
-    var analyticString: String {
+    var name: String {
         switch self {
         case .longText: return "Text"
         case .shortText: return "Text"

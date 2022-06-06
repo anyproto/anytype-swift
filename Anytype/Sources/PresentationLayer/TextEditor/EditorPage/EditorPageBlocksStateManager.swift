@@ -353,8 +353,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 let blockId = $0.blockId
 
                 guard case let .link(blockLink) = $0.info.content else { return }
-
-                router.showObjectPreview(blockLink: blockLink) { [weak self] appearance in
+                
+                router.showObjectPreview(blockLinkAppearance: blockLink.appearance) { [weak self] appearance in
                     self?.actionHandler.setAppearance(blockId: blockId, appearance: appearance)
                 }
             }
