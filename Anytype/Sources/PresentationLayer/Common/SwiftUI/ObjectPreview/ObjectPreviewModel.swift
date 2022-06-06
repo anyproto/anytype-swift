@@ -183,11 +183,11 @@ extension ObjectPreviewModel {
         var name: String {
             switch self {
             case .none:
-                return "None".localized
+                return "LinkAppearance.Description.None.Title".localized
             case .added:
-                return "Only Added".localized
+                return "LinkAppearance.Description.Added.Title".localized
             case .content:
-                return "Content preview"
+                return "LinkAppearance.Description.Content.Title".localized
             }
         }
 
@@ -198,11 +198,11 @@ extension ObjectPreviewModel {
         var subtitle: String {
             switch self {
             case .none:
-                return "Don't show description".localized
+                return "LinkAppearance.Description.None.Subtitle".localized
             case .added:
-                return "Show only added description".localized
+                return "LinkAppearance.Description.Added.Subtitle".localized
             case .content:
-                return "Show first sentenses of the object".localized
+                return "LinkAppearance.Description.Content.Subtitle".localized
             }
         }
     }

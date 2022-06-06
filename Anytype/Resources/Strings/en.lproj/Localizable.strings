@@ -281,6 +281,13 @@
 "Medium" = "Medium";
 "Card" = "Card";
 
+"LinkAppearance.Description.None.Title" = "None";
+"LinkAppearance.Description.Added.Title" = "Only Added";
+"LinkAppearance.Description.Content.Title" = "Content preview";
+"LinkAppearance.Description.None.Subtitle" = "Don't show description";
+"LinkAppearance.Description.Added.Subtitle" = "Show only added description";
+"LinkAppearance.Description.Content.Subtitle" = "Show first sentenses of the object";
+
 // MARK: - Sets
 "EditSorts.Popup.NavigationView.Title" = "Sorts";
 "EditSorts.Popup.EmptyView.Title" = "No sorts here. You can add some";
