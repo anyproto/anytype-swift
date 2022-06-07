@@ -6,28 +6,32 @@ struct SetSort: Identifiable, Equatable, Hashable {
     
     var id: String { metadata.id }
     
-    var type: String {
+    func typeTitle() -> String {
+        typeTitle(for: sort.type)
+    }
+    
+    func typeTitle(for sortType: DataviewSort.TypeEnum) -> String {
         switch metadata.format {
         case .object, .tag, .status:
-            if sort.type == .asc {
+            if sortType == .asc {
                 return "EditSorts.Popup.Sort.Type.Order.Asc".localized
             } else {
                 return "EditSorts.Popup.Sort.Type.Order.Desc".localized
             }
         case .number, .date, .phone:
-            if sort.type == .asc {
+            if sortType == .asc {
                 return "EditSorts.Popup.Sort.Type.Number.Asc".localized
             } else {
                 return "EditSorts.Popup.Sort.Type.Number.Desc".localized
             }
         case .longText, .shortText, .file, .url, .email, .unrecognized:
-            if sort.type == .asc {
+            if sortType == .asc {
                 return "EditSorts.Popup.Sort.Type.Text.Asc".localized
             } else {
                 return "EditSorts.Popup.Sort.Type.Text.Desc".localized
             }
         case .checkbox:
-            if sort.type == .asc {
+            if sortType == .asc {
                 return "EditSorts.Popup.Sort.Type.Checkbox.Asc".localized
             } else {
                 return "EditSorts.Popup.Sort.Type.Checkbox.Desc".localized

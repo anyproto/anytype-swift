@@ -237,7 +237,8 @@ extension EditorSetViewModel {
             AnytypePopup(
                 viewModel: SetSortsListViewModel(
                     setModel: self,
-                    service: dataviewService
+                    service: dataviewService,
+                    router: router
                 )
             )
         )

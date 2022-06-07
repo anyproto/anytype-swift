@@ -8,7 +8,8 @@
 
 import SwiftUI
 
-protocol CheckPopuViewViewModelProtocol: ObservableObject {
+protocol CheckPopupViewViewModelProtocol: ObservableObject {
+    var title: String { get }
     var items: [CheckPopupItem] { get }
 
     func onTap(itemId: String)
