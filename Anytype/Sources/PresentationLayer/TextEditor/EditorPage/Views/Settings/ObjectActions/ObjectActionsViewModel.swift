@@ -22,7 +22,7 @@ final class ObjectActionsViewModel: ObservableObject {
     let popScreenAction: () -> ()
     var dismissSheet: () -> () = {}
     let undoRedoAction: () -> ()
-    let openScreenAction: (_ screenData: EditorScreenData) -> ()
+    let openPageAction: (_ screenData: EditorScreenData) -> ()
     
     private let objectId: BlockId
     private let service = ServiceLocator.shared.objectActionsService()
@@ -31,12 +31,12 @@ final class ObjectActionsViewModel: ObservableObject {
         objectId: BlockId,
         popScreenAction: @escaping () -> (),
         undoRedoAction: @escaping () -> (),
-        openScreenAction: @escaping (_ screenData: EditorScreenData) -> ()
+        openPageAction: @escaping (_ screenData: EditorScreenData) -> ()
     ) {
         self.objectId = objectId
         self.popScreenAction = popScreenAction
         self.undoRedoAction = undoRedoAction
-        self.openScreenAction = openScreenAction
+        self.openPageAction = openPageAction
     }
 
     func changeArchiveState() {
@@ -67,7 +67,7 @@ final class ObjectActionsViewModel: ObservableObject {
         
         let screenData = EditorScreenData(pageId: duplicatedId, type: details.editorViewType)
         dismissSheet()
-        openScreenAction(screenData)
+        openPageAction(screenData)
     }
 
     func moveTo() {

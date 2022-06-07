@@ -55,7 +55,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
             undoRedoAction: { [weak router] in
                 router?.presentUndoRedo()
             },
-            openScreenAction: { [weak router] screenData in
+            openPageAction: { [weak router] screenData in
                 router?.showPage(data: screenData)
             }
         )
