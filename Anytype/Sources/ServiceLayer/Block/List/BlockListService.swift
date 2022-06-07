@@ -102,7 +102,7 @@ class BlockListService: BlockListServiceProtocol {
             iconSize: appearance.iconSize.asMiddleware,
             cardStyle: appearance.cardStyle.asMiddleware,
             description_p: appearance.description.asMiddleware,
-            relations: appearance.relations
+            relations: appearance.relations.map(\.rawValue)
         )
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockListService)?

@@ -17,12 +17,12 @@ struct ObjectPreviewModel {
     let cardStyle: CardStyle
     let description: Description
 
-    let relations: OrderedSet<ListItem>
+    let relations: [ListItem]
 
     init(iconSize: ObjectPreviewModel.IconSize,
          cardStyle: ObjectPreviewModel.CardStyle,
          description: ObjectPreviewModel.Description,
-         relations: OrderedSet<ObjectPreviewModel.ListItem>) {
+         relations: [ObjectPreviewModel.ListItem]) {
         self.iconSize = iconSize
         self.cardStyle = cardStyle
         self.description = description
@@ -37,10 +37,10 @@ struct ObjectPreviewModel {
     }
 
     var asBlockLinkAppearance: BlockLink.Appearance {
-        let relations: [String] = relations.compactMap { item in
+        let relations: [BlockLink.Relation] = relations.compactMap { item in
             guard let relation = item.relation, relation.isEnabled else { return nil }
 
-            return relation.key
+            return BlockLink.Relation(rawValue: relation.key)
         }
 
         return BlockLink.Appearance(iconSize: iconSize.asBlockLink,
@@ -49,17 +49,17 @@ struct ObjectPreviewModel {
                                     relations: relations)
     }
 
-    private static func buildRealtions(linkApperance: BlockLink.Appearance) -> OrderedSet<ListItem> {
+    private static func buildRealtions(linkApperance: BlockLink.Appearance) -> [ListItem] {
         let nameRelation = Relation(key: BundledRelationKey.name.rawValue,
                                     name: "Name".localized,
                                     iconName: RelationMetadata.Format.shortText.iconName,
                                     isLocked: true,
-                                    isEnabled: linkApperance.relations.contains(BundledRelationKey.name.rawValue))
+                                    isEnabled: linkApperance.relations.contains(.name))
         let typeRelation = Relation(key: BundledRelationKey.type.rawValue,
                                     name: "LinkAppearance.ObjectType.Title".localized,
                                     iconName: RelationMetadata.Format.object.iconName,
                                     isLocked: false,
-                                    isEnabled: linkApperance.relations.contains(BundledRelationKey.type.rawValue))
+                                    isEnabled: linkApperance.relations.contains(.type))
 
         return [.relation(nameRelation), .description, .relation(typeRelation)]
     }
@@ -87,7 +87,7 @@ extension ObjectPreviewModel {
         let name: String
         let iconName: String
         let isLocked: Bool
-        let isEnabled: Bool
+        var isEnabled: Bool
     }
 }
 

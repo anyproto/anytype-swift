@@ -31,17 +31,12 @@ final class ObjectPreviewViewModel: ObservableObject {
 
     func toggleFeaturedRelation(relation: ObjectPreviewModel.Relation, isEnabled: Bool) {
         var updatedRelations = objectPreviewModel.relations
+        var newRelation = relation
+        newRelation.isEnabled = isEnabled
 
-        let newRelation = ObjectPreviewModel.Relation(
-            key: relation.key,
-            name: relation.name,
-            iconName: relation.iconName,
-            isLocked: relation.isLocked,
-            isEnabled: isEnabled
-        )
-
-        updatedRelations.remove(.relation(relation))
-        updatedRelations.append(.relation(newRelation))
+        if let index = objectPreviewModel.relations.firstIndex(of: .relation(relation)) {
+            updatedRelations[index] = .relation(newRelation)
+        }
 
         objectPreviewModel = ObjectPreviewModel(iconSize: objectPreviewModel.iconSize,
                                                 cardStyle: objectPreviewModel.cardStyle,

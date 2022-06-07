@@ -5,6 +5,7 @@ import ProtobufMessages
 
 extension Anytype_Model_Block.Content.Link {
     var blockContent: BlockContent? {
+        let relations = relations.compactMap(BlockLink.Relation.init(rawValue:))
 
         return .link(
             BlockLink(
@@ -22,6 +23,7 @@ extension Anytype_Model_Block.Content.Link {
 
 extension BlockLink {
     var asMiddleware: Anytype_Model_Block.OneOf_Content {
+        let relations = appearance.relations.map(\.rawValue)
 
         return .link(
             .init(targetBlockID: targetBlockID,
@@ -30,7 +32,7 @@ extension BlockLink {
                   iconSize: appearance.iconSize.asMiddleware,
                   cardStyle: appearance.cardStyle.asMiddleware,
                   description_p: appearance.description.asMiddleware,
-                  relations: appearance.relations)
+                  relations: relations)
         )
     }
 }
