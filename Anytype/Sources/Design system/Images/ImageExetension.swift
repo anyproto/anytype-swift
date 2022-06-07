@@ -81,6 +81,7 @@ extension Image {
         static let undoRedo = createImage("undoredo")
         static let lock = createImage("lock")
         static let unlock = createImage("unlock")
+        static let duplicate = createImage("duplicate")
     }
     
     enum LayoutSettings {

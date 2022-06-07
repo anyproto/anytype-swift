@@ -114,6 +114,13 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue(domain: .objectActionsService)?
             .send()
     }
+    
+    func duplicate(objectId: BlockId) -> BlockId? {
+        let result = Anytype_Rpc.Object.Duplicate.Service
+            .invoke(contextID: objectId)
+            .getValue(domain: .objectActionsService)
+        return result?.id
+    }
 
     // MARK: - ObjectActionsService / SetDetails
     
