@@ -66,7 +66,7 @@ public struct BlockLink: Hashable, Equatable {
     public static func empty(targetBlockID: String = .empty) -> BlockLink {
         BlockLink(
             targetBlockID: targetBlockID,
-            appearance: .init(iconSize: .small, cardStyle: .text, description: .none, relations: [.name, .type])
+            appearance: .init(iconSize: .medium, cardStyle: .card, description: .content, relations: [.name])
         )
     }
 }
