@@ -20,25 +20,21 @@ extension MiddlewareConfigurationProvider {
             return configuration
         }
         
-        // Error will be returned if we try to get MiddlewareConfiguration without authorization
-        let config: MiddlewareConfiguration? = Anytype_Rpc.Config.Get.Service.invoke()
-            .map { MiddlewareConfiguration(response: $0) }
-            .getValue(domain: .middlewareConfigurationProvider)
+        anytypeAssertionFailure("Middleware configurations is empty", domain: .middlewareConfigurationProvider)
         
-        guard let config = config else {
-            return MiddlewareConfiguration.empty
-        }
-        
-        cachedConfiguration = config
-        return config
+        return MiddlewareConfiguration.empty
     }
     
     func removeCachedConfiguration() {
         cachedConfiguration = nil
     }
     
+    func setupConfiguration(account: AccountData) {
+        cachedConfiguration = MiddlewareConfiguration(info: account.info)
+    }
+    
     func libraryVersion() -> String? {
-        return try? Anytype_Rpc.Version.Get.Service.invoke().get().version
+        return try? Anytype_Rpc.App.GetVersion.Service.invoke().get().version
     }
     
 }

@@ -13,15 +13,15 @@ class BlockListService: BlockListServiceProtocol {
     }
     
     func setBlockColor(blockIds: [BlockId], color: MiddlewareColor) {
-        Anytype_Rpc.BlockList.Set.Text.Color.Service
+        Anytype_Rpc.BlockText.ListSetColor.Service
             .invoke(contextID: contextId, blockIds: blockIds, color: color.rawValue)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockListService)?
             .send()
     }
     
-    func setFields(fields: [Anytype_Rpc.BlockList.Set.Fields.Request.BlockField]) {
-        Anytype_Rpc.BlockList.Set.Fields.Service
+    func setFields(fields: [Anytype_Rpc.Block.ListSetFields.Request.BlockField]) {
+        Anytype_Rpc.Block.ListSetFields.Service
             .invoke(contextID: contextId, blockFields: fields)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockListService)?
@@ -31,7 +31,7 @@ class BlockListService: BlockListServiceProtocol {
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListSetBackgroundColor)
 
-        Anytype_Rpc.BlockList.Set.BackgroundColor.Service
+        Anytype_Rpc.Block.ListSetBackgroundColor.Service
             .invoke(contextID: contextId, blockIds: blockIds, color: color.rawValue)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockListService)?
@@ -41,7 +41,7 @@ class BlockListService: BlockListServiceProtocol {
     func setAlign(blockIds: [BlockId], alignment: LayoutAlignment) {
         AnytypeAnalytics.instance().logSetAlignment(alignment, isBlock: blockIds.isNotEmpty)
 
-        Anytype_Rpc.BlockList.Set.Align.Service
+        Anytype_Rpc.Block.ListSetAlign.Service
             .invoke(contextID: contextId, blockIds: blockIds, align: alignment.asMiddleware)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockListService)?
@@ -49,7 +49,7 @@ class BlockListService: BlockListServiceProtocol {
     }
 
     func setDivStyle(blockIds: [BlockId], style: BlockDivider.Style) {
-        Anytype_Rpc.BlockList.Set.Div.Style.Service
+        Anytype_Rpc.BlockDiv.ListSetStyle.Service
             .invoke(contextID: contextId, blockIds: blockIds, style: style.asMiddleware)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockListService)?
@@ -57,7 +57,7 @@ class BlockListService: BlockListServiceProtocol {
     }
 
     func replace(blockIds: [BlockId], targetId: BlockId) {
-        Anytype_Rpc.BlockList.Move.Service.invoke(
+        Anytype_Rpc.Block.ListMoveToExistingObject.Service.invoke(
             contextID: contextId,
             blockIds: blockIds,
             targetContextID: contextId,
@@ -70,7 +70,7 @@ class BlockListService: BlockListServiceProtocol {
     }
     
     func move(blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position) {
-        Anytype_Rpc.BlockList.Move.Service.invoke(
+        Anytype_Rpc.Block.ListMoveToExistingObject.Service.invoke(
             contextID: contextId,
             blockIds: [blockId],
             targetContextID: contextId,
@@ -83,7 +83,7 @@ class BlockListService: BlockListServiceProtocol {
     }
     
     func moveToPage(blockId: BlockId, pageId: BlockId) {
-        Anytype_Rpc.BlockList.Move.Service.invoke(
+        Anytype_Rpc.Block.ListMoveToExistingObject.Service.invoke(
             contextID: contextId,
             blockIds: [blockId],
             targetContextID: pageId,
@@ -96,7 +96,7 @@ class BlockListService: BlockListServiceProtocol {
     }
 
     func setLinkAppearance(blockIds: [BlockId], appearance: BlockLink.Appearance) {
-        Anytype_Rpc.BlockList.Set.Link.Appearance.Service.invoke(
+        Anytype_Rpc.BlockLink.ListSetAppearance.Service.invoke(
             contextID: contextId,
             blockIds: blockIds,
             iconSize: appearance.iconSize.asMiddleware,

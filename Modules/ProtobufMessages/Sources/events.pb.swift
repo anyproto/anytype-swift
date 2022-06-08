@@ -790,7 +790,6 @@ public struct Anytype_Event {
       fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
     }
 
-    /// Deprecated
     public struct Config {
       // SwiftProtobuf.Message conformance is added in an extension below. See the
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for

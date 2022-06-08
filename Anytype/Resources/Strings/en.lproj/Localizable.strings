@@ -149,7 +149,7 @@
 "Login" = "Login";
 "Enter phrase" = "Enter phrase";
 "Restore secret phrase from keychain" = "Restore secret phrase from keychain";
-"or Type your recovery phrase" = "or Type your recovery phrase";
+"or type your recovery phrase" = "or type your recovery phrase";
 "Choose pin code" = "Choose pin code";
 "Do it later" = "Do it later";
 "Setting up the wallet" = "Setting up the wallet";
@@ -273,3 +273,15 @@
 "Remove From Favorite" = "Remove From Favorite";
 "Add To Favorite" = "Add To Favorite";
 "Move To Bin" = "Move To Bin";
+
+// MARK: - Sets
+"EditSorts.Popup.NavigationView.Title" = "Sorts";
+"EditSorts.Popup.EmptyView.Title" = "No sorts here. You can add some";
+"EditSorts.Popup.Sort.Type.Order.Asc" = "First → Last";
+"EditSorts.Popup.Sort.Type.Order.Desc" = "Last → First";
+"EditSorts.Popup.Sort.Type.Text.Asc" = "A → Z";
+"EditSorts.Popup.Sort.Type.Text.Desc" = "Z → A";
+"EditSorts.Popup.Sort.Type.Number.Asc" = "1 → 9";
+"EditSorts.Popup.Sort.Type.Number.Desc" = "9 → 1";
+"EditSorts.Popup.Sort.Type.Checkbox.Asc" = "Checked → Unchecked";
+"EditSorts.Popup.Sort.Type.Checkbox.Desc" = "Unchecked → Checked";

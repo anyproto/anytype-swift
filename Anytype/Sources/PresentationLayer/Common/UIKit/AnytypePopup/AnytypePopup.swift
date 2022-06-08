@@ -97,6 +97,30 @@ extension AnytypePopup: FloatingPanelControllerDelegate {
     func floatingPanel(_ fpc: FloatingPanelController, layoutFor newCollection: UITraitCollection) -> FloatingPanelLayout {
         viewModel.popupLayout.layout
     }
+
+    func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
+        let surfaceOffset = fpc.surfaceLocation.y - fpc.surfaceLocation(for: .full).y
+        // If panel moved more than a half of its hight than hide panel
+        if let contentHeight = fpc.surfaceView.contentView?.bounds.height,
+           contentHeight / 2 < surfaceOffset {
+            return true
+        }
+
+        guard let threshold = fpc.behavior.removalInteractionVelocityThreshold else {
+            return false
+        }
+
+        switch fpc.layout.position {
+        case .top:
+            return (velocity.dy <= -threshold)
+        case .left:
+            return (velocity.dx <= -threshold)
+        case .bottom:
+            return (velocity.dy >= threshold)
+        case .right:
+            return (velocity.dx >= threshold)
+        }
+    }
 }
 
 // MARK: - Private extension

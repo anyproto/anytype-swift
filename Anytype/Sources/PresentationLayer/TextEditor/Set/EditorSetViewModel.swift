@@ -39,6 +39,17 @@ final class EditorSetViewModel: ObservableObject {
         document.featuredRelationsForEditor
     }
     
+    var sorts: [SetSort] {
+        activeView.sorts.compactMap { sort in
+            let metadata = dataView.relations.first { relation in
+                sort.relationKey == relation.key
+            }
+            guard let metadata = metadata else { return nil }
+            
+            return SetSort(metadata: metadata, sort: sort)
+        }
+    }
+    
     let document: BaseDocument
     private var router: EditorRouterProtocol!
 
@@ -47,10 +58,16 @@ final class EditorSetViewModel: ObservableObject {
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
     private let dataBuilder = SetTableViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
+    private let searchService: SearchServiceProtocol
     
-    init(document: BaseDocument, dataviewService: DataviewServiceProtocol) {
+    init(
+        document: BaseDocument,
+        dataviewService: DataviewServiceProtocol,
+        searchService: SearchServiceProtocol
+    ) {
         self.document = document
         self.dataviewService = dataviewService
+        self.searchService = searchService
     }
     
     func setup(router: EditorRouterProtocol) {
@@ -78,48 +95,12 @@ final class EditorSetViewModel: ObservableObject {
         subscriptionService.stopAllSubscriptions()
     }
     
-    // MARK: - Private
-    
-    private func onDataChange(_ data: DocumentUpdate) {
-        switch data {
-        case .general:
-            objectWillChange.send()
-            setupDataview()
-        case .syncStatus, .blocks, .details, .dataSourceUpdate, .changeType:
-            objectWillChange.send()
-        case .header:
-            break // handled in ObjectHeaderViewModel
-        }
-    }
-    
-    func setupDataview() {
-        anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
-        document.dataviews.first.flatMap { dataView in
-            anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
-        }
-        
-        self.dataView = document.dataviews.first ?? .empty
-        
-        updateActiveViewId()
-        setupSubscriptions()
-    }
-    
     func updateActiveViewId(_ id: BlockId) {
         document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
             dataView.updated(activeViewId: id)
         }
         
         setupDataview()
-    }
-    
-    private func updateActiveViewId() {
-        if let activeViewId = dataView.views.first(where: { $0.isSupported })?.id {
-            if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
-                self.dataView.activeViewId = activeViewId
-            }
-        } else {
-            dataView.activeViewId = ""
-        }
     }
     
     func setupSubscriptions() {
@@ -143,6 +124,42 @@ final class EditorSetViewModel: ObservableObject {
             }
             
             self.records.applySubscriptionUpdate(update)
+        }
+    }
+    
+    // MARK: - Private
+    
+    private func onDataChange(_ data: DocumentUpdate) {
+        switch data {
+        case .general:
+            objectWillChange.send()
+            setupDataview()
+        case .syncStatus, .blocks, .details, .dataSourceUpdate, .changeType:
+            objectWillChange.send()
+        case .header:
+            break // handled in ObjectHeaderViewModel
+        }
+    }
+    
+    private func setupDataview() {
+        anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
+        document.dataviews.first.flatMap { dataView in
+            anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
+        }
+        
+        self.dataView = document.dataviews.first ?? .empty
+        
+        updateActiveViewId()
+        setupSubscriptions()
+    }
+    
+    private func updateActiveViewId() {
+        if let activeViewId = dataView.views.first(where: { $0.isSupported })?.id {
+            if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
+                self.dataView.activeViewId = activeViewId
+            }
+        } else {
+            dataView.activeViewId = ""
         }
     }
 }
@@ -193,7 +210,13 @@ extension EditorSetViewModel {
     }
 
     func createObject() {
-        guard let objectDetails = dataviewService.addRecord() else { return }
+        let availableTemplates = searchService.searchTemplates(
+            for: .dynamic(ObjectTypeProvider.defaultObjectType.url)
+        )
+        let hasSingleTemplate = availableTemplates?.count == 1
+        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+
+        guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
         
         router.showCreateObject(pageId: objectDetails.id)
     }
@@ -209,7 +232,17 @@ extension EditorSetViewModel {
         )
     }
     
-    func showSorts() {}
+    func showSorts() {
+        router.presentFullscreen(
+            AnytypePopup(
+                viewModel: SetSortsListViewModel(
+                    setModel: self,
+                    service: dataviewService,
+                    router: router
+                )
+            )
+        )
+    }
     
     func showObjectSettings() {
         router.showSettings()

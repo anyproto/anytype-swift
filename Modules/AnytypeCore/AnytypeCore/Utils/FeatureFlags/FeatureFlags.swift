@@ -11,7 +11,7 @@ public enum Feature: String, Codable {
     case createNewRelation = "Create new relation"
     case templates = "Show templates picker"
     case createObjectInSet = "Create object in Set"
-    case floatingSetMenu = "Floating set menu"
+    case floatingSetMenu = "Floating Set menu"
 }
 
 public final class FeatureFlags {

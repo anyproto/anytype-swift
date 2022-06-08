@@ -19,6 +19,8 @@ struct ObjectActionsView: View {
                             viewModel.changeLockState()
                         case .undoRedo:
                             viewModel.undoRedoAction()
+                        case .duplicate:
+                            viewModel.duplicateAction()
                         }
                     }
                 }

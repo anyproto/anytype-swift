@@ -25,8 +25,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
 
     func delete(objectIds: [BlockId], completion: @escaping (Bool) -> ()) {
         AnytypeAnalytics.instance().logDeletion(count: objectIds.count)
-        
-        deleteSubscription = Anytype_Rpc.ObjectList.Delete.Service
+        deleteSubscription = Anytype_Rpc.Object.ListDelete.Service
             .invoke(objectIds: objectIds, queue: DispatchQueue.global(qos: .userInitiated))
             .receiveOnMain()
             .sinkWithResult { result in
@@ -45,7 +44,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
     
     func setArchive(objectIds: [BlockId], _ isArchived: Bool) {
-        _ = Anytype_Rpc.ObjectList.Set.IsArchived.Service.invoke(objectIds: objectIds, isArchived: isArchived)
+        _ = Anytype_Rpc.Object.ListSetIsArchived.Service.invoke(objectIds: objectIds, isArchived: isArchived)
 
         AnytypeAnalytics.instance().logMoveToBin(isArchived)
     }
@@ -62,12 +61,12 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         protoFields[BlockFieldBundledKey.isLocked.rawValue] = isLocked.protobufValue
 
         let protobufStruct: Google_Protobuf_Struct = .init(fields: protoFields)
-        let blockField = Anytype_Rpc.BlockList.Set.Fields.Request.BlockField(
+        let blockField = Anytype_Rpc.Block.ListSetFields.Request.BlockField(
             blockID: objectId,
             fields: protobufStruct
         )
 
-        _ = Anytype_Rpc.BlockList.Set.Fields.Service.invoke(
+        _ = Anytype_Rpc.Block.ListSetFields.Service.invoke(
             contextID: objectId,
             blockFields: [blockField]
         ).map { EventsBunch(event: $0.event) }
@@ -91,7 +90,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         }
         let protobufStruct = Google_Protobuf_Struct(fields: protobufDetails)
         
-        let response = Anytype_Rpc.Block.CreatePage.Service
+        let response = Anytype_Rpc.BlockLink.CreateWithObject.Service
             .invoke(
                 contextID: contextId, details: protobufStruct, templateID: templateId,
                 targetID: targetId, position: position.asMiddleware, fields: .init()
@@ -115,14 +114,21 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue(domain: .objectActionsService)?
             .send()
     }
+    
+    func duplicate(objectId: BlockId) -> BlockId? {
+        let result = Anytype_Rpc.Object.Duplicate.Service
+            .invoke(contextID: objectId)
+            .getValue(domain: .objectActionsService)
+        return result?.id
+    }
 
     // MARK: - ObjectActionsService / SetDetails
     
     func updateBundledDetails(contextID: BlockId, details: [BundledDetails]) {
-        Anytype_Rpc.Block.Set.Details.Service.invoke(
+        Anytype_Rpc.Object.SetDetails.Service.invoke(
             contextID: contextID,
             details: details.map {
-                Anytype_Rpc.Block.Set.Details.Detail(
+                Anytype_Rpc.Object.SetDetails.Detail(
                     key: $0.key,
                     value: $0.value
                 )
@@ -133,17 +139,23 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .send()
     }
 
-    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
-        AnytypeAnalytics.instance().logCreateObject(objectType: objectType, route: .turnInto)
+    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId]) -> BlockId? {
+        AnytypeAnalytics.instance().logCreateObject(objectType: "", route: .turnInto)
 
-        return Anytype_Rpc.BlockList.ConvertChildrenToPages.Service
-            .invoke(contextID: contextID, blockIds: blocksIds, objectType: objectType)
-            .map { $0.linkIds }
+        return Anytype_Rpc.Block.ListMoveToNewObject.Service
+            .invoke(
+                contextID: contextID,
+                blockIds: blocksIds,
+                details: Google_Protobuf_Struct(),
+                dropTargetID: "",
+                position: .none
+            )
+            .map { $0.linkID }
             .getValue(domain: .objectActionsService)
     }
     
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) {
-        Anytype_Rpc.BlockList.Move.Service
+        Anytype_Rpc.Block.ListMoveToExistingObject.Service
             .invoke(
                 contextID: dashboadId, blockIds: [blockId], targetContextID: dashboadId,
                 dropTargetID: dropPositionblockId, position: position
@@ -154,7 +166,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
     
     func setObjectType(objectId: BlockId, objectTypeUrl: String) {
-        let middlewareEvent = Anytype_Rpc.Block.ObjectType.Set.Service.invoke(
+        let middlewareEvent = Anytype_Rpc.Object.SetObjectType.Service.invoke(
             contextID: objectId,
             objectTypeURL: objectTypeUrl
         )
@@ -176,14 +188,14 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     func applyTemplate(objectId: BlockId, templateId: BlockId) {
-        let _ = Anytype_Rpc.ApplyTemplate.Service.invoke(
+        let _ = Anytype_Rpc.Object.ApplyTemplate.Service.invoke(
             contextID: objectId,
             templateID: templateId
         )
     }
 
     func undo(objectId: BlockId) throws {
-        let result = Anytype_Rpc.Block.Undo.Service
+        let result = Anytype_Rpc.Object.Undo.Service
             .invoke(contextID: objectId)
             .map{ EventsBunch(event: $0.event).send() }
 
@@ -196,7 +208,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
     }
 
     func redo(objectId: BlockId) throws {
-        let result = Anytype_Rpc.Block.Redo.Service.invoke(contextID: objectId)
+        let result = Anytype_Rpc.Object.Redo.Service.invoke(contextID: objectId)
             .map { EventsBunch(event: $0.event).send() }
 
         switch result {

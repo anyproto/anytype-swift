@@ -109,17 +109,25 @@ struct TextBlockViewModel: BlockViewModelProtocol {
 
     func action() -> TextBlockContentConfiguration.Actions {
         return .init(
-            shouldPaste: { range in
+            shouldPaste: { range, textView in
                 if pasteboardService.hasValidURL {
                     return true
                 }
 
                 pasteboardService.pasteInsideBlock(focusedBlockId: blockId, range: range) {
                     showWaitingView("Paste processing...".localized)
-                } completion: {
-                    hideWaitingView()
-                }
+                } completion: { pasteResult in
+                    defer {
+                        hideWaitingView()
+                    }
 
+                    guard let pasteResult = pasteResult else { return }
+
+                    if pasteResult.isSameBlockCaret || pasteResult.blockIds.isEmpty {
+                        let range = NSRange(location: pasteResult.caretPosition, length: 0)
+                        textView.setFocus(.at(range))
+                    }
+                }
                 return false
             },
             copy: { range in

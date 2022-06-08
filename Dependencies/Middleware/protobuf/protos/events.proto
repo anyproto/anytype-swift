@@ -97,7 +97,6 @@ message Event {
             google.protobuf.Struct details = 2;
         }
 
-        // Deprecated
         message Config {
             message Update {
                 anytype.model.Account.Config config = 1;

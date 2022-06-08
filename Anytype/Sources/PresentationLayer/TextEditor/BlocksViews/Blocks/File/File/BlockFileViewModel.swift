@@ -41,7 +41,7 @@ struct BlockFileViewModel: BlockViewModelProtocol {
     
     private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
-            image: UIImage.blockFile.empty.file,
+            imageName: EmptyFileIconConstants.file,
             text: "Upload a file",
             state: state
         ).cellBlockConfiguration(

@@ -6,7 +6,7 @@ import AnytypeCore
 final class TextService: TextServiceProtocol {    
     func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockSetTextText)
-        Anytype_Rpc.Block.Set.Text.Text.Service.invoke(
+        Anytype_Rpc.BlockText.SetText.Service.invoke(
             contextID: contextId,
             blockID: blockId,
             text: middlewareString.text,
@@ -20,7 +20,7 @@ final class TextService: TextServiceProtocol {
     @discardableResult
     func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockSetTextText)
-        let event = Anytype_Rpc.Block.Set.Text.Text.Service
+        let event = Anytype_Rpc.BlockText.SetText.Service
             .invoke(contextID: contextId, blockID: blockId, text: middlewareString.text, marks: middlewareString.marks)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .textService)
@@ -34,7 +34,7 @@ final class TextService: TextServiceProtocol {
     
     func setStyle(contextId: BlockId, blockId: BlockId, style: Style) {
         AnytypeAnalytics.instance().logSetStyle(style)
-        let event = Anytype_Rpc.Block.Set.Text.Style.Service
+        let event = Anytype_Rpc.BlockText.SetStyle.Service
             .invoke(contextID: contextId, blockID: blockId, style: style.asMiddleware)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .textService)
@@ -81,7 +81,7 @@ final class TextService: TextServiceProtocol {
     }
     
     func checked(contextId: BlockId, blockId: BlockId, newValue: Bool) {
-        Anytype_Rpc.Block.Set.Text.Checked.Service
+        Anytype_Rpc.BlockText.SetChecked.Service
             .invoke(contextID: contextId, blockID: blockId, checked: newValue)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .textService)?
@@ -94,7 +94,7 @@ final class TextService: TextServiceProtocol {
         imageHash: String,
         emojiUnicode: String
     ) {
-        Anytype_Rpc.Block.Set.Text.Icon.Service.invoke(
+        Anytype_Rpc.BlockText.SetIcon.Service.invoke(
             contextID: contextId,
             blockID: blockId,
             iconImage: imageHash,

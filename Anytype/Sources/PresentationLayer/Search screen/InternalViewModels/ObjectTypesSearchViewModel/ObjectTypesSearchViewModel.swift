@@ -6,15 +6,9 @@ import SwiftUI
 final class ObjectTypesSearchViewModel {
     
     let selectionMode: NewSearchViewModel.SelectionMode = .singleItem
+    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
     
-    @Published private var rows: [ListRowConfiguration] = []
-    
-    private var objects: [ObjectDetails] = [] {
-        didSet {
-            rows = objects.asRowConfigurations(with: [])
-        }
-    }
-    
+    private var objects: [ObjectDetails] = []
     private let interactor: ObjectTypesSearchInteractor
     
     init(interactor: ObjectTypesSearchInteractor) {
@@ -25,25 +19,41 @@ final class ObjectTypesSearchViewModel {
 
 extension ObjectTypesSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> {
-        $rows.map { rows -> NewSearchView.ListModel in
-            NewSearchView.ListModel.plain(rows: rows)
-        }.eraseToAnyPublisher()
-    }
-    
     func search(text: String) {
-        interactor.search(text: text) { [weak self] objects in
-            self?.objects = objects
+        let objects = interactor.search(text: text)
+        
+        if objects.isEmpty {
+            handleError(for: text)
+        } else {
+            handleSearchResults(objects)
         }
+        
+        self.objects = objects
     }
     
     func handleRowsSelection(ids: [String]) {}
     
 }
 
+private extension ObjectTypesSearchViewModel {
+    
+    func handleError(for text: String) {
+        viewStateSubject.send(.error(.noObjectError(searchText: text)))
+    }
+    
+    func handleSearchResults(_ objects: [ObjectDetails]) {
+        viewStateSubject.send(
+            .resultsList(
+                .plain(rows: objects.asRowConfigurations())
+            )
+        )
+    }
+    
+}
+
 private extension Array where Element == ObjectDetails {
 
-    func asRowConfigurations(with selectedIds: [String]) -> [ListRowConfiguration] {
+    func asRowConfigurations() -> [ListRowConfiguration] {
         map { details in
             ListRowConfiguration(
                 id: details.id,

@@ -14,10 +14,9 @@ final class StatusSearchInteractor {
 
 extension StatusSearchInteractor {
     
-    func search(text: String, onCompletion: ([Relation.Status.Option]) -> ()) {
+    func search(text: String) -> Result<[Relation.Status.Option], NewSearchError> {
         guard text.isNotEmpty else {
-            onCompletion(availableStatuses)
-            return
+            return .success(availableStatuses)
         }
 
         let filteredStatuses: [Relation.Status.Option] = availableStatuses.filter {
@@ -25,7 +24,16 @@ extension StatusSearchInteractor {
             
             return $0.text.lowercased().contains(text.lowercased())
         }
-        onCompletion(filteredStatuses)
+        
+        guard
+            filteredStatuses.isEmpty,
+            let selectedStatus = selectedStatus,
+            selectedStatus.text.lowercased() == text.lowercased()
+        else {
+            return .success(filteredStatuses)
+        }
+        
+        return .failure(NewSearchError.alreadySelected(searchText: text))
     }
     
     func isCreateButtonAvailable(searchText: String) -> Bool {
