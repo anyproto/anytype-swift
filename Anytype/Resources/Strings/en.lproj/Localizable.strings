@@ -287,6 +287,7 @@
 "LinkAppearance.Description.None.Subtitle" = "Don't show description";
 "LinkAppearance.Description.Added.Subtitle" = "Show only added description";
 "LinkAppearance.Description.Content.Subtitle" = "Show first sentenses of the object";
+"LinkAppearance.ObjectType.Title" = "Object type";
 
 // MARK: - Sets
 "EditSorts.Popup.NavigationView.Title" = "Sorts";

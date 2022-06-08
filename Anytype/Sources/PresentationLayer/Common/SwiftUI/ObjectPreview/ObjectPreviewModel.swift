@@ -8,6 +8,7 @@
 
 import SwiftUI
 import BlocksModels
+import OrderedCollections
 
 
 struct ObjectPreviewModel {
@@ -16,12 +17,12 @@ struct ObjectPreviewModel {
     let cardStyle: CardStyle
     let description: Description
 
-    let relations: Set<Relation>
+    let relations: [ListItem]
 
     init(iconSize: ObjectPreviewModel.IconSize,
          cardStyle: ObjectPreviewModel.CardStyle,
          description: ObjectPreviewModel.Description,
-         relations: Set<ObjectPreviewModel.Relation>) {
+         relations: [ObjectPreviewModel.ListItem]) {
         self.iconSize = iconSize
         self.cardStyle = cardStyle
         self.description = description
@@ -36,23 +37,48 @@ struct ObjectPreviewModel {
     }
 
     var asBlockLinkAppearance: BlockLink.Appearance {
-        BlockLink.Appearance(iconSize: iconSize.asBlockLink,
-                             cardStyle: cardStyle.asBlockLink,
-                             description: description.asBlockLink,
-                             relations: relations.map(\.key))
+        let relations: [BlockLink.Relation] = relations.compactMap { item in
+            guard let relation = item.relation, relation.isEnabled else { return nil }
+
+            return BlockLink.Relation(rawValue: relation.key)
+        }
+
+        return BlockLink.Appearance(iconSize: iconSize.asBlockLink,
+                                    cardStyle: cardStyle.asBlockLink,
+                                    description: description.asBlockLink,
+                                    relations: relations)
     }
 
-    private static func buildRealtions(linkApperance: BlockLink.Appearance) -> Set<Relation> {
+    private static func buildRealtions(linkApperance: BlockLink.Appearance) -> [ListItem] {
         let nameRelation = Relation(key: BundledRelationKey.name.rawValue,
                                     name: "Name".localized,
                                     iconName: RelationMetadata.Format.shortText.iconName,
                                     isLocked: true,
-                                    isEnabled: linkApperance.relations.contains(BundledRelationKey.name.rawValue))
-        return [nameRelation]
+                                    isEnabled: linkApperance.relations.contains(.name))
+        let typeRelation = Relation(key: BundledRelationKey.type.rawValue,
+                                    name: "LinkAppearance.ObjectType.Title".localized,
+                                    iconName: RelationMetadata.Format.object.iconName,
+                                    isLocked: false,
+                                    isEnabled: linkApperance.relations.contains(.type))
+
+        return [.relation(nameRelation), .description, .relation(typeRelation)]
     }
 }
 
 extension ObjectPreviewModel {
+
+    enum ListItem: Hashable {
+        case relation(Relation)
+        case description
+
+        var relation: Relation? {
+            guard case let .relation(relation) = self else {
+                return nil
+            }
+            return relation
+        }
+    }
+
     struct Relation: Hashable, Identifiable {
         var id: String {
             return key
@@ -61,7 +87,7 @@ extension ObjectPreviewModel {
         let name: String
         let iconName: String
         let isLocked: Bool
-        let isEnabled: Bool
+        var isEnabled: Bool
     }
 }
 
@@ -153,7 +179,7 @@ extension ObjectPreviewModel {
         }
     }
 
-    enum Description: String, CaseIterable {
+    enum Description: String, CaseIterable, Hashable {
         case none
         case added
         case content

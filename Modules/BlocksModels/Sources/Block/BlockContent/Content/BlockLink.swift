@@ -33,13 +33,18 @@ public extension BlockLink {
         }
     }
 
+    enum Relation: String {
+        case name
+        case type
+    }
+
     struct Appearance: Hashable {
         public var iconSize: IconSize
         public var cardStyle: CardStyle
         public var description: Description
-        public var relations: [String]
+        public var relations: [Relation]
 
-        public init(iconSize: BlockLink.IconSize, cardStyle: BlockLink.CardStyle, description: BlockLink.Description, relations: [String]) {
+        public init(iconSize: BlockLink.IconSize, cardStyle: BlockLink.CardStyle, description: BlockLink.Description, relations: [Relation]) {
             self.iconSize = iconSize
             self.cardStyle = cardStyle
             self.description = description
@@ -61,7 +66,7 @@ public struct BlockLink: Hashable, Equatable {
     public static func empty(targetBlockID: String = .empty) -> BlockLink {
         BlockLink(
             targetBlockID: targetBlockID,
-            appearance: .init(iconSize: .small, cardStyle: .text, description: .none, relations: [BundledRelationKey.name.rawValue])
+            appearance: .init(iconSize: .medium, cardStyle: .card, description: .content, relations: [.name])
         )
     }
 }

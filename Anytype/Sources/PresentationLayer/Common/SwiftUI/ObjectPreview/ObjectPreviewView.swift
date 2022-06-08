@@ -58,15 +58,20 @@ struct ObjectPreviewView: View {
             }
             .frame(height: 52)
 
-            ForEach(Array(viewModel.objectPreviewModel.relations)) { item in
-                featuredRelationsRow(item) { isEnabled in
-                    viewModel.toggleFeaturedRelation(relation: item, isEnabled: isEnabled)
-                }
-                .divider()
-            }
+            ForEach(viewModel.objectPreviewModel.relations.indices, id: \.self) { index in
+                let item = viewModel.objectPreviewModel.relations[index]
 
-            description(viewModel.objectPreviewModel.description)
-                .divider()
+                switch item {
+                case .relation(let relation):
+                    featuredRelationsRow(relation) { isEnabled in
+                        viewModel.toggleFeaturedRelation(relation: relation, isEnabled: isEnabled)
+                    }
+                    .divider()
+                case .description:
+                    description(viewModel.objectPreviewModel.description)
+                        .divider()
+                }
+            }
         }
     }
 

@@ -10,7 +10,7 @@ import BlocksModels
 import SwiftUI
 import FloatingPanel
 
-final class ObjectPreviewDescriptionMenuViewModel: CheckPopuViewViewModelProtocol {
+final class ObjectPreviewDescriptionMenuViewModel: CheckPopupViewViewModelProtocol {
     let title: String = "Description".localized
 
     @Published private(set) var items: [CheckPopupItem] = []

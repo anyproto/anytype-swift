@@ -9,7 +9,7 @@ struct BlockLinkState: Hashable, Equatable {
 
     // appearance style
     let cardStyle: BlockLink.CardStyle
-    let relations: [String]
+    let relations: [BlockLink.Relation]
     let iconSize: BlockLink.IconSize
     let descriptionState: BlockLink.Description
 
@@ -18,7 +18,7 @@ struct BlockLinkState: Hashable, Equatable {
     
     init(details: ObjectDetails,
          cardStyle: BlockLink.CardStyle,
-         relations: [String],
+         relations: [BlockLink.Relation],
          iconSize: BlockLink.IconSize,
          descriptionState: BlockLink.Description
     ) {
@@ -47,7 +47,7 @@ struct BlockLinkState: Hashable, Equatable {
          archived: Bool,
          deleted: Bool,
          cardStyle: BlockLink.CardStyle,
-         relations: [String],
+         relations: [BlockLink.Relation],
          iconSize: BlockLink.IconSize,
          descriptionState: BlockLink.Description
     ) {
