@@ -13,8 +13,6 @@ protocol BlockContentView where Self: UIView {
 
 extension BlockContentView {
     static var reusableIdentifier: String { String(describing: Self.self) }
-
-    var onHeightDidChange: (() -> Void)? { get { nil } set {} }
 }
 
 extension BlockContentView {

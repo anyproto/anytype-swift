@@ -5,8 +5,6 @@ class GenericCollectionViewCell<Component: BlockContentView>: UICollectionViewCe
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-
-        print("+--+ override init(frame: CGRect) \(self)")
         setup()
     }
 
@@ -18,12 +16,6 @@ class GenericCollectionViewCell<Component: BlockContentView>: UICollectionViewCe
         super.init(coder: coder)
 
         setup()
-    }
-
-    override func prepareForReuse() {
-        print("+--+ prepareForReuse \(self)")
-
-        super.prepareForReuse()
     }
 
     func update(with configuration: Component.Configuration) {

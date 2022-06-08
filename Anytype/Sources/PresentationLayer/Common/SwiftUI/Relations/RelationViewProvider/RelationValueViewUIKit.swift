@@ -1,11 +1,3 @@
-//
-//  RelationValueViewUIKit.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 08.02.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import UIKit
 import AnytypeCore
 
@@ -19,8 +11,6 @@ struct RelationValueViewConfiguration: BlockConfiguration {
 }
 
 final class RelationValueViewUIKit: UIView, BlockContentView {
-    private var action: ((_ relation: RelationItemModel) -> Void)?
-
     private var relationView = UIView()
 
     func update(with configuration: RelationValueViewConfiguration) {
@@ -28,13 +18,10 @@ final class RelationValueViewUIKit: UIView, BlockContentView {
 
         relationView = obtainRelationView(configuration.relation, style: configuration.style)
 
-        if action.isNotNil && configuration.relation.isEditable {
-            relationView.addTapGesture { [weak self] _ in
-                guard let self = self else { return }
-
-                self.action?(configuration.relation)
+        if configuration.action.isNotNil && configuration.relation.isEditable {
+            relationView.addTapGesture { _ in
+                configuration.action?(configuration.relation)
             }
-
         }
 
         addSubview(relationView) {

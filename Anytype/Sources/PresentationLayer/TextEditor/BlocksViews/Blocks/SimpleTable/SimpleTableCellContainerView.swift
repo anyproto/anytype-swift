@@ -1,7 +1,7 @@
 import UIKit
 
 // Would be rewrited to same generic behaviour to use reusable feature properly
-class SimpleTableCellContainerView: UIView, BlockContentView {
+final class SimpleTableCellContainerView: UIView, BlockContentView {
     private enum Constants {
         static let edges = UIEdgeInsets(top: 9, left: 12, bottom: -9, right: -12)
     }

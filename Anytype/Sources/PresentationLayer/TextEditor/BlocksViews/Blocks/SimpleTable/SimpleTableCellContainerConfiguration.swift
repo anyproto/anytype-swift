@@ -25,10 +25,6 @@ final class SimpleTableCellConfiguration: BlockConfiguration {
 
             return itemView
         }
-
-        itemView.onHeightDidChange = { [weak self] in
-            self?.onHeightDidChange?(item.hashValue)
-        }
     }
 
     static func == (lhs: SimpleTableCellConfiguration, rhs: SimpleTableCellConfiguration) -> Bool {

@@ -23,9 +23,6 @@ extension Dequebale where Self: BlockConfiguration {
             withReuseIdentifier: Self.View.reusableIdentifier,
             for: indexPath
         ) as? GenericCollectionViewCell<Self.View>
-
-        print("+--+ reuse identifier \(Self.View.reusableIdentifier)")
-
         collectionViewCell?.update(with: self)
 
         return collectionViewCell ?? UICollectionViewCell()
