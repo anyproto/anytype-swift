@@ -7,6 +7,7 @@ enum ObjectAction: Hashable, Identifiable {
     case archive(isArchived: Bool)
     case favorite(isFavorite: Bool)
     case locked(isLocked: Bool)
+    case duplicate
 
     // When adding to case
     static func allCasesWith(
@@ -22,7 +23,8 @@ enum ObjectAction: Hashable, Identifiable {
         }
 
         allCases.append(.favorite(isFavorite: details.isFavorite))
-
+        allCases.append(.duplicate)
+        
         if details.objectType.url != ObjectTemplateType.bundled(.set).rawValue {
             allCases.append(.undoRedo)
             allCases.append(.locked(isLocked: isLocked))
@@ -41,6 +43,8 @@ enum ObjectAction: Hashable, Identifiable {
             return "favorite"
         case .locked:
             return "locked"
+        case .duplicate:
+            return "duplicate"
         }
     }
 }
