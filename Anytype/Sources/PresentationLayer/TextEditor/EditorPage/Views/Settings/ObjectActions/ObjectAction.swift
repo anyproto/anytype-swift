@@ -23,10 +23,7 @@ enum ObjectAction: Hashable, Identifiable {
         }
 
         allCases.append(.favorite(isFavorite: details.isFavorite))
-
-        if details.objectType.url != ObjectTemplateType.bundled(.profile).rawValue {
-            allCases.append(.duplicate)
-        }
+        allCases.append(.duplicate)
         
         if details.objectType.url != ObjectTemplateType.bundled(.set).rawValue {
             allCases.append(.undoRedo)
