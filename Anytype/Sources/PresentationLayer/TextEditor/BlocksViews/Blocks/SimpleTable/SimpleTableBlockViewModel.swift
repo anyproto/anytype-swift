@@ -1,6 +1,7 @@
 import BlocksModels
 import Combine
 import UIKit
+import AnytypeCore
 
 struct SimpleTableBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
@@ -15,7 +16,7 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
     private let textBlocks: [TextBlockViewModel]
     private let blockDelegate: BlockDelegate
     private var cancellables: [AnyCancellable]
-    private let resetSubject: PassthroughSubject<Void, Never>
+    private let resetSubject = PassthroughSubject<Void, Never>()
     private weak var relativePositionProvider: RelativePositionProvider?
 
     init(
@@ -29,16 +30,6 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
         self.blockDelegate = blockDelegate
         self.relativePositionProvider = relativePositionProvider
         self.cancellables = [AnyCancellable]()
-
-        let resetSubject = PassthroughSubject<Void, Never>()
-        self.resetSubject = resetSubject
-
-        self.cancellables = textBlocks.map { textBlockViewModel -> AnyCancellable in
-            textBlockViewModel.setNeedsLayoutSubject.eraseToAnyPublisher().sink { _ in
-                resetSubject.send(())
-                blockDelegate.textBlockSetNeedsLayout()
-            }
-        }
     }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {

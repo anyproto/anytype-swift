@@ -1,6 +1,6 @@
 import UIKit
 
-protocol BlockContentView: DynamicHeightView {
+protocol BlockContentView where Self: UIView {
     associatedtype Configuration: BlockConfiguration
 
     static var reusableIdentifier: String { get }
@@ -9,10 +9,6 @@ protocol BlockContentView: DynamicHeightView {
 
     // Optional
     func update(with state: UICellConfigurationState)
-}
-
-protocol DynamicHeightView where Self: UIView {
-    var onHeightDidChange: (() -> Void)? { get set }
 }
 
 extension BlockContentView {

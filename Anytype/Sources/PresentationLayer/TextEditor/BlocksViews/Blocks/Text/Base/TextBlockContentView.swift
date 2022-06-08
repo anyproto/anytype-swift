@@ -20,8 +20,6 @@ final class TextBlockContentView: UIView, BlockContentView {
     private var focusSubscription: AnyCancellable?
     private var resetSubscription: AnyCancellable?
 
-    var onHeightDidChange: (() -> Void)?
-
     private(set) var actions: TextBlockContentConfiguration.Actions?
 
     override init(frame: CGRect) {

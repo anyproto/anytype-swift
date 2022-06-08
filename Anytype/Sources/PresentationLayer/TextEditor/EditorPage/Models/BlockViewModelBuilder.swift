@@ -21,7 +21,7 @@ final class BlockViewModelBuilder {
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
         markdownListener: MarkdownListener,
-        relativePositionProvider: RelativePositionProvider
+        relativePositionProvider: RelativePositionProvider?
     ) {
         self.document = document
         self.handler = handler
@@ -34,7 +34,7 @@ final class BlockViewModelBuilder {
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
         let blockViewModels = build(infos)
-        var editorItems = blockViewModels.map(EditorItem.block)
+        var editorItems = blockViewModels.map (EditorItem.block)
 
         let featureRelationsIndex = blockViewModels.firstIndex { $0.content == .featuredRelations }
 
@@ -47,26 +47,7 @@ final class BlockViewModelBuilder {
     }
 
     private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
-        var blocks = infos.compactMap(build(info:))
-
-
-        var textBlocks = [TextBlockViewModel]()
-        blocks.forEach { item in
-            if let viewModel = item as? TextBlockViewModel {
-                textBlocks.append(viewModel)
-            }
-        }
-
-        let simpleTable = SimpleTableBlockViewModel(
-            info: .empty(id: "fqwfwqegqwioegjqiowegjiojcoiqwejoijqwfijw44444344224", content: .divider(.init(style: .line))),
-            textBlocks: textBlocks,
-            blockDelegate: delegate,
-            relativePositionProvider: relativePositionProvider
-        )
-
-        blocks.insert(simpleTable, at: 2)
-
-        return blocks
+        infos.compactMap(build(info:))
     }
 
     func build(info: BlockInformation) -> BlockViewModelProtocol? {

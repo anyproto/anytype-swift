@@ -15,7 +15,7 @@ extension UICollectionViewCompositionalLayout {
         groundEdgeSpacing: NSCollectionLayoutEdgeSpacing,
         interGroupSpacing: CGFloat = 8
     ) -> UICollectionViewCompositionalLayout {
-        UICollectionViewCompositionalLayout(
+        CellCollectionViewCompositionalLayout(
             sectionProvider: {
                 (sectionIndex: Int, layoutEnvironment: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
 

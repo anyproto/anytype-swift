@@ -1,5 +1,6 @@
 import UIKit
 import Combine
+import AnytypeCore
 
 protocol RelativePositionProvider: AnyObject {
     var contentOffsetDidChangedStatePublisher: AnyPublisher<CGPoint, Never> { get }
@@ -15,7 +16,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
             relativePositionProvider?
                 .contentOffsetDidChangedStatePublisher
                 .sink { [weak self] _ in
-                    self?.invalidateLayout(with: SomeGoodInvalidationContext())
+                    self?.invalidateLayout(with: SpreadsheetInvalidationContext())
                 }.store(in: &cancellables)
         }
     }
@@ -32,14 +33,13 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     private var attributes: [UICollectionViewLayoutAttributes] = []
     private var contentSize = CGSize.zero
 
+    override var collectionViewContentSize: CGSize { contentSize }
+
     override func layoutAttributesForElements(
         in rect: CGRect
     ) -> [UICollectionViewLayoutAttributes]? {
-        guard let collectionView = collectionView else {
-            return nil
-        }
-
-        guard let visibleRect = relativePositionProvider?.visibleRect(to: collectionView) else {
+        guard let collectionView = collectionView,
+              let visibleRect = relativePositionProvider?.visibleRect(to: collectionView)  else {
             return nil
         }
 
@@ -61,15 +61,6 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         return attributes
     }
 
-    override func shouldInvalidateLayout(forBoundsChange: CGRect) -> Bool {
-        print("----+ shouldInvalidateLayout(forBoundsChange")
-        return true
-    }
-
-    override var collectionViewContentSize: CGSize {
-        contentSize
-    }
-
     override func prepare() {
         guard let collectionView = collectionView, let items = items else {
             return
@@ -85,7 +76,6 @@ final class SpreadsheetLayout: UICollectionViewLayout {
                     let cachedSize = cachedValue[row] {
                     size = cachedSize
                 } else {
-
                     let cell = items[sectionIndex][row].dequeueReusableCell(
                         collectionView: collectionView,
                         for: indexPath
@@ -128,7 +118,10 @@ final class SpreadsheetLayout: UICollectionViewLayout {
                     .values
                     .map(\.height)
                     .max() else {
-                        assertionFailure("Something is not good")
+                        anytypeAssertionFailure(
+                            "Reload attributes cache broken logic",
+                            domain: .simpleTables
+                        )
                         return
                     }
 
@@ -155,10 +148,4 @@ final class SpreadsheetLayout: UICollectionViewLayout {
 
         contentSize = .init(width: itemWidths.reduce(0, +), height: fullHeight)
     }
-}
-
-final class SomeGoodInvalidationContext: UICollectionViewLayoutInvalidationContext {
-    override var invalidateEverything: Bool { false }
-
-    override var invalidateDataSourceCounts: Bool { true }
 }

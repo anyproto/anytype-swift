@@ -1,11 +1,9 @@
 import UIKit
 import BlocksModels
-import Combine
 
 final class SimpleTableBlockView: UIView, BlockContentView {
     private lazy var dynamicLayoutView = DynamicCompositionalLayoutView(frame: .zero)
     private lazy var spreadsheetLayout = SpreadsheetLayout()
-    private var resetSubscription: AnyCancellable?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -48,14 +46,6 @@ final class SimpleTableBlockView: UIView, BlockContentView {
     private func setupSubview() {
         addSubview(dynamicLayoutView) {
             $0.pinToSuperview()
-        }
-    }
-}
-
-extension Array {
-    func chunked(into size: Int) -> [[Element]] {
-        return stride(from: 0, to: count, by: size).map {
-            Array(self[$0 ..< Swift.min($0 + size, count)])
         }
     }
 }

@@ -103,8 +103,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             #warning("also we should check if blocks in current object contains mantions/link to current object if YES we must update blocks with updated details")
 
             let allRelationsBlockViewModel = modelsHolder.items.allRelationViewModel
-            var relationIds = allRelationsBlockViewModel.map(\.blockId)
-            relationIds.append("fqwfwqegqwioegjqiowegjiojcoiqwejoijqwfijw44444344224")
+            let relationIds = allRelationsBlockViewModel.map(\.blockId)
             let diffrerence = difference(with: Set(relationIds))
 
             guard !diffrerence.isEmpty else { return }

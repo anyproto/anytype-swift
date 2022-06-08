@@ -11,8 +11,6 @@ struct TextBlockURLInputParameters {
 struct TextBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
 
-    let setNeedsLayoutSubject = PassthroughSubject<UITextView, Never>()
-
     private let content: BlockText
     private let isCheckable: Bool
     private let toggled: Bool
@@ -138,7 +136,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             },
             becomeFirstResponder: { },
             resignFirstResponder: { },
-            textBlockSetNeedsLayout: { textView in setNeedsLayoutSubject.send(textView) },
+            textBlockSetNeedsLayout: { _ in /* Nothing to update */  },
             textViewDidChangeText: { textView in
                 actionHandler.changeText(textView.attributedText, info: info)
                 blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))
@@ -150,7 +148,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 blockDelegate?.didBeginEditing(view: textView)
             },
             textViewDidEndEditing: { textView in
-//                resetSubject.send(content)
+                resetSubject.send(content)
                 blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
             },
             textViewDidChangeCaretPosition: { caretPositionRange in

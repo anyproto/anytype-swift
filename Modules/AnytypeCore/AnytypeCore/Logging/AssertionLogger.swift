@@ -85,6 +85,8 @@ public enum ErrorDomain: String {
     case anytypeId
     
     case sceneLifecycleStateService
+
+    case simpleTables
 }
 
 public protocol MessageLogger {

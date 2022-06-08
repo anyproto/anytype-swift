@@ -19,11 +19,6 @@ extension Dequebale where Self: BlockConfiguration {
         collectionView: UICollectionView,
         for indexPath: IndexPath
     ) -> UICollectionViewCell {
-//        collectionView.register(
-//            GenericCollectionViewCell<Self.View>.self,
-//            forCellWithReuseIdentifier: Self.View.reusableIdentifier
-//        )
-
         let collectionViewCell = collectionView.dequeueReusableCell(
             withReuseIdentifier: Self.View.reusableIdentifier,
             for: indexPath

@@ -22,7 +22,7 @@ final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
         let collectionView = DynamicCollectionView(
             frame: .init(
                 origin: .zero,
-                size: .init(width: 370, height: 70) // just non-nil size
+                size: .init(width: 370, height: 70) // just non-zero size
             ),
             collectionViewLayout: UICollectionViewFlowLayout() // temporary layout, it will be configured at the time of configuration update
         )

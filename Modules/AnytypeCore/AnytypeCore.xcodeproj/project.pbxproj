@@ -34,6 +34,7 @@
 		C91AFEED270B4F4F005F9386 /* AssertionLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFEEC270B4F4F005F9386 /* AssertionLogger.swift */; };
 		C91AFEEF270B4FAA005F9386 /* AnytypeLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFEEE270B4FAA005F9386 /* AnytypeLogger.swift */; };
 		C91AFEF9270B560E005F9386 /* LogEventStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFEF8270B560E005F9386 /* LogEventStorage.swift */; };
+		C98282342850B24F00C4E1D4 /* Array+Chunked.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98282332850B24F00C4E1D4 /* Array+Chunked.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,6 +67,7 @@
 		C91AFEEC270B4F4F005F9386 /* AssertionLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AssertionLogger.swift; sourceTree = "<group>"; };
 		C91AFEEE270B4FAA005F9386 /* AnytypeLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeLogger.swift; sourceTree = "<group>"; };
 		C91AFEF8270B560E005F9386 /* LogEventStorage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEventStorage.swift; sourceTree = "<group>"; };
+		C98282332850B24F00C4E1D4 /* Array+Chunked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Chunked.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -215,6 +217,7 @@
 				3D6E9A3F270F1B8C001B0A07 /* ContainerExtension.swift */,
 				3DB1CA4A272BE367000D2779 /* ProtobufExtensions.swift */,
 				3DE6BCAE2770CDD50036F4C5 /* String+Emoji.swift */,
+				C98282332850B24F00C4E1D4 /* Array+Chunked.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -322,6 +325,7 @@
 				3DB1CA4B272BE367000D2779 /* ProtobufExtensions.swift in Sources */,
 				3DE6BCB12770CE120036F4C5 /* CharacterExtensions.swift in Sources */,
 				3D17025E271726710079B65B /* AtomicProperty.swift in Sources */,
+				C98282342850B24F00C4E1D4 /* Array+Chunked.swift in Sources */,
 				3DE6BCAF2770CDD50036F4C5 /* String+Emoji.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
