@@ -42,8 +42,8 @@ extension BlockLink {
 extension Anytype_Model_Block.Content.Link.IconSize {
     var asModel: BlockLink.IconSize {
         switch self {
-        case .sizeMedium: return .small
-        case .sizeSmall: return .medium
+        case .sizeSmall: return .small
+        case .sizeMedium: return .medium
         case .sizeNone: return .none
         case .UNRECOGNIZED: return .none
         }
