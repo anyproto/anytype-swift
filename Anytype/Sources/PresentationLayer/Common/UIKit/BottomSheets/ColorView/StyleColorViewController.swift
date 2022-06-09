@@ -33,12 +33,12 @@ final class StyleColorViewController: UIViewController {
         colorView = ColorView(
             color: color,
             backgroundColor: backgroundColor,
-            colorViewSelectedAction: { colorItem in
+            colorViewSelectedAction: { [weak actionHandler] colorItem in
                 switch colorItem {
                 case .text(let blockColor):
-                    actionHandler.setTextColor(blockColor, blockId: blockId)
+                    actionHandler?.setTextColor(blockColor, blockId: blockId)
                 case .background(let blockBackgroundColor):
-                    actionHandler.setBackgroundColor(blockBackgroundColor, blockId: blockId)
+                    actionHandler?.setBackgroundColor(blockBackgroundColor, blockId: blockId)
                 }
             },
             viewDidClose: { [weak self] in

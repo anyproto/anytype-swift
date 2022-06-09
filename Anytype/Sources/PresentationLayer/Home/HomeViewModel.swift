@@ -129,8 +129,8 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Private methods
     private func setupSubscriptions() {
         // visual delay on application launch
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { [weak self] action in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            self?.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { action in
                 switch action {
                 case .newNote:
                     self?.createAndShowNewPage()

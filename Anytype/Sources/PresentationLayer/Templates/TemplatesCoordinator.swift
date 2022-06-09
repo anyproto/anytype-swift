@@ -9,7 +9,7 @@ final class TemplatesCoordinator {
         static let minimumTemplatesAvailableToPick = 2
     }
 
-    private let rootViewController: UIViewController
+    private weak var rootViewController: UIViewController?
 
     private let searchService: SearchServiceProtocol
     private let editorPageAssembly: EditorAssembly
@@ -56,6 +56,10 @@ final class TemplatesCoordinator {
         availableTemplates: [ObjectDetails],
         document: BaseDocumentProtocol
     ) {
+        guard let rootViewController = rootViewController else {
+            return
+        }
+
         let view = TemplateAvailabilityPopupView()
         let viewModel = AnytypeAlertViewModel(contentView: view, keyboardListener: keyboardHeightListener)
 
@@ -80,6 +84,10 @@ final class TemplatesCoordinator {
         document: BaseDocumentProtocol,
         availableTemplates: [ObjectDetails]
     ) {
+        guard let rootViewController = rootViewController else {
+            return
+        }
+
         let items = availableTemplates.enumerated().map { info -> TemplatePickerViewModel.Item in
             let item = info.element
             let data = EditorScreenData(pageId: item.id, type: .page, isOpenedForPreview: true)

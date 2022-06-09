@@ -7,7 +7,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
 
     private let type: String
     private let featuredRelations: [Relation]
-    private let blockDelegate: BlockDelegate
+    private weak var blockDelegate: BlockDelegate?
     private let onRelationTap: (Relation) -> Void
     private let relationViewModels: [RelationItemModel]
     
@@ -44,7 +44,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
                     .first { $0.id == item.id }
                     .map(onRelationTap)
             },
-            heightDidChanged: { blockDelegate.textBlockSetNeedsLayout() }
+            heightDidChanged: { blockDelegate?.textBlockSetNeedsLayout() }
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
             dragConfiguration: nil

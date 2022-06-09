@@ -15,7 +15,7 @@ import Combine
 final class MarkupAccessoryView: UIView {
     private var cancellables = [AnyCancellable]()
     
-    private let viewModel: MarkupAccessoryViewModel
+    private weak var viewModel: MarkupAccessoryViewModel?
     private var colorView: ColorView!
 
     // MARK: - Lifecycle
@@ -25,43 +25,44 @@ final class MarkupAccessoryView: UIView {
 
         super.init(frame: CGRect(origin: .zero, size: CGSize(width: .zero, height: 48)))
 
-        self.colorView = createColorView()
-        setupViews()
-        bindViewModel()
+        self.colorView = createColorView(viewModel: viewModel)
+        setupViews(viewModel: viewModel)
+        bindViewModel(viewModel: viewModel)
     }
 
-    private func createColorView() -> ColorView {
+    private func createColorView(viewModel: MarkupAccessoryViewModel) -> ColorView {
         let color = viewModel.currentText?.colorState(range: viewModel.range) ?? UIColor.Text.default
         let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? UIColor.Background.default
 
         let colorView = ColorView(color: color,
-                                  backgroundColor: backgroundColor) { [weak self] item in
-            self?.viewModel.handleSelectedColorItem(item)
-        } viewDidClose: { [weak self] in
-            self?.viewModel.showColorView = false
+                                  backgroundColor: backgroundColor) { [weak viewModel] item in
+            viewModel?.handleSelectedColorItem(item)
+        } viewDidClose: { [weak viewModel] in
+            viewModel?.showColorView = false
         }
 
         return colorView
     }
 
-    private func setupViews() {
+    private func setupViews(viewModel: MarkupAccessoryViewModel) {
         autoresizingMask = .flexibleHeight
         backgroundColor = .backgroundPrimary
-        let contentView = MarkupAccessoryContentView(viewModel: self.viewModel).asUIView()
-        
+        let contentView = MarkupAccessoryContentView(viewModel: viewModel).asUIView()
+
         addSubview(contentView) {
             $0.pinToSuperviewPreservingReadability()
         }
     }
 
 
-    private func bindViewModel() {
+    private func bindViewModel(viewModel: MarkupAccessoryViewModel) {
         viewModel.$showColorView.sink { [weak self] shouldShowColorView in
             guard let self = self else {  return }
 
             if shouldShowColorView {
+                guard let viewModel = self.viewModel else { return }
                 let view = UIApplication.shared.windows[UIApplication.shared.windows.count - 1]
-                let topAnchorConstant = self.viewModel.colorButtonFrame?.maxY ?? 0
+                let topAnchorConstant = viewModel.colorButtonFrame?.maxY ?? 0
 
                 view.addSubview(self.colorView) {
                     $0.pinToSuperview()
@@ -73,8 +74,8 @@ final class MarkupAccessoryView: UIView {
                     $0.top.equal(to: view.topAnchor, constant: topAnchorConstant + 8)
                 }
 
-                let color = self.viewModel.currentText?.colorState(range: self.viewModel.range) ?? UIColor.Text.default
-                let backgroundColor = self.viewModel.currentText?.backgroundColor(range: self.viewModel.range) ?? UIColor.Background.default
+                let color = viewModel.currentText?.colorState(range: viewModel.range) ?? UIColor.Text.default
+                let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? UIColor.Background.default
 
                 self.colorView.selectedTextColor = color
                 self.colorView.selectedBackgroundColor = backgroundColor
@@ -90,11 +91,11 @@ final class MarkupAccessoryView: UIView {
     // MARK: - Public methos
 
     func selectionChanged(range: NSRange) {
-        viewModel.updateRange(range: range)
+        viewModel?.updateRange(range: range)
     }
 
     func update(info: BlockInformation, textView: UITextView) {
-        viewModel.selectBlock(info, text: textView.attributedText, range: textView.selectedRange)
+        viewModel?.selectBlock(info, text: textView.attributedText, range: textView.selectedRange)
     }
 
     // MARK: - Unavailable
@@ -111,14 +112,14 @@ struct MarkupAccessoryContentView: View {
     var body: some View {
         HStack {
             ForEach(viewModel.markupItems, id:\.id) { item in
-                Button {
-                    viewModel.action(item.markupItem)
+                Button { [weak viewModel] in
+                    viewModel?.action(item.markupItem)
                 } label: {
                     Group {
                         if case .color = item.markupItem {
                             item.markupItem.icon
-                                .background(GeometryReader { gp -> Color in
-                                    viewModel.colorButtonFrame = gp.frame(in: .global) // in window
+                                .background(GeometryReader { [weak viewModel] gp -> Color in
+                                    viewModel?.colorButtonFrame = gp.frame(in: .global) // in window
                                     return Color.clear
                                 })
                         } else {
