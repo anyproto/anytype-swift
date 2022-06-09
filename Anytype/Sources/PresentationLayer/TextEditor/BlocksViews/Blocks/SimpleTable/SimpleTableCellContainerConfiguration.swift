@@ -1,37 +1,40 @@
 import UIKit
 
-// Would be rewrited to same generic behaviour to use reusable feature properly
-final class SimpleTableCellConfiguration: BlockConfiguration {
-    typealias View = SimpleTableCellContainerView
+protocol SimpleTableBlockProtocol: Dequebale, HashableProvier {}
 
-    lazy var view: UIView = viewHandler()
+struct SimpleTableCellConfiguration<Configuration: BlockConfiguration>: SimpleTableBlockProtocol {
+    let item: Configuration
     let backgroundColor: UIColor?
-    let hashable: AnyHashable
 
-    @EquatableNoop var onHeightDidChange: ((AnyHashable) -> Void)?
-    @EquatableNoop private var viewHandler: () -> UIView
+    var hashable: AnyHashable { item.hashValue as AnyHashable }
 
-    init<Item: BlockConfiguration>(
-        item: Item,
+    init(
+        item: Configuration,
         backgroundColor: UIColor?
     ) {
-        self.hashable = item.hashValue as AnyHashable
+        self.item = item
         self.backgroundColor = backgroundColor
-
-        let itemView = Item.View(frame: .zero)
-
-        self.viewHandler = {
-            itemView.update(with: item)
-
-            return itemView
-        }
     }
+}
 
-    static func == (lhs: SimpleTableCellConfiguration, rhs: SimpleTableCellConfiguration) -> Bool {
-        lhs.hashable == rhs.hashable
+extension SimpleTableCellConfiguration: ReusableContent {
+    static var reusableIdentifier: String {
+        Configuration.View.reusableIdentifier
     }
+}
 
-    func hash(into hasher: inout Hasher) {
-        hasher.combine(hashable)
+extension SimpleTableCellConfiguration {
+    func dequeueReusableCell(
+        collectionView: UICollectionView,
+        for indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: Self.reusableIdentifier,
+            for: indexPath
+        ) as? SimpleTableCollectionViewCell<Configuration.View>
+
+        cell?.update(with: item)
+
+        return cell ?? UICollectionViewCell()
     }
 }

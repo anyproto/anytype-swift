@@ -43,13 +43,20 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
         let widths: [CGFloat] = [400, 150, 100, 200, 300]
         let configurations = contentConfigurations.chunked(into: widths.count)
 
-        return SimpleTableBlockContentConfiguration(
+        let contentConfiguration = SimpleTableBlockContentConfiguration(
             widths: widths,
             items: configurations,
             relativePositionProvider: relativePositionProvider,
             resetPublisher: resetSubject.eraseToAnyPublisher(),
             heightDidChanged: blockDelegate.textBlockSetNeedsLayout
-        ).cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
+        )
+
+        return CellBlockConfiguration(
+            blockConfiguration: contentConfiguration,
+            indentationSettings: nil,
+            dragConfiguration: nil
+        )
+
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}

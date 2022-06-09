@@ -8,15 +8,15 @@ private final class iOS14CompositionalContentHeightStorage {
     var blockHeightConstant = [AnyHashable: CGFloat]()
 }
 
-struct DynamicCompositionalLayoutConfiguration: Hashable {
+struct DynamicLayoutConfiguration: Hashable {
     let hashable: AnyHashable
 
     @EquatableNoop var views: [[Dequebale]]
-    @EquatableNoop var compositionalLayout: UICollectionViewLayout
+    @EquatableNoop var layout: UICollectionViewLayout
     @EquatableNoop var heightDidChanged: () -> Void
 }
 
-final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
+final class DynamicCollectionLayoutView: UIView, UICollectionViewDataSource {
 
     private(set) lazy var collectionView: DynamicCollectionView = {
         let collectionView = DynamicCollectionView(
@@ -31,7 +31,7 @@ final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
     }()
 
     private var collectionViewHeightConstraint: NSLayoutConstraint?
-    private var configuration: DynamicCompositionalLayoutConfiguration?
+    private var configuration: DynamicLayoutConfiguration?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -76,14 +76,14 @@ final class DynamicCompositionalLayoutView: UIView, UICollectionViewDataSource {
         }
     }
 
-    private func saveBlockHeight(configuration: DynamicCompositionalLayoutConfiguration) {
+    private func saveBlockHeight(configuration: DynamicLayoutConfiguration) {
         iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[configuration.hashable] = self.collectionView.intrinsicContentSize.height
     }
 
-    func update(with configuration: DynamicCompositionalLayoutConfiguration) {
+    func update(with configuration: DynamicLayoutConfiguration) {
         self.configuration = configuration
 
-        collectionView.collectionViewLayout = configuration.compositionalLayout
+        collectionView.collectionViewLayout = configuration.layout
 
         collectionView.reloadData()
 

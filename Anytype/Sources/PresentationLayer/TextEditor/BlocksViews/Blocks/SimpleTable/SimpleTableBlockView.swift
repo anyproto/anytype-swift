@@ -2,7 +2,7 @@ import UIKit
 import BlocksModels
 
 final class SimpleTableBlockView: UIView, BlockContentView {
-    private lazy var dynamicLayoutView = DynamicCompositionalLayoutView(frame: .zero)
+    private lazy var dynamicLayoutView = DynamicCollectionLayoutView(frame: .zero)
     private lazy var spreadsheetLayout = SpreadsheetLayout()
 
     override init(frame: CGRect) {
@@ -17,11 +17,6 @@ final class SimpleTableBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: SimpleTableBlockContentConfiguration) {
-        dynamicLayoutView.collectionView.register(
-            GenericCollectionViewCell<SimpleTableCellContainerView>.self,
-            forCellWithReuseIdentifier: SimpleTableCellContainerView.reusableIdentifier
-        )
-
         spreadsheetLayout.itemWidths = configuration.widths
         spreadsheetLayout.items = configuration.items
         spreadsheetLayout.relativePositionProvider = configuration.relativePositionProvider
@@ -30,16 +25,9 @@ final class SimpleTableBlockView: UIView, BlockContentView {
             with: .init(
                 hashable: AnyHashable(configuration),
                 views: configuration.items,
-                compositionalLayout: spreadsheetLayout,
+                layout: spreadsheetLayout,
                 heightDidChanged: configuration.heightDidChanged
             )
-        )
-
-        dynamicLayoutView.collectionView.contentInset = .init(
-            top: 0,
-            left: 20,
-            bottom: 0,
-            right: 20
         )
     }
 
@@ -47,5 +35,17 @@ final class SimpleTableBlockView: UIView, BlockContentView {
         addSubview(dynamicLayoutView) {
             $0.pinToSuperview()
         }
+
+        dynamicLayoutView.collectionView.contentInset = .init(
+            top: 0,
+            left: 20,
+            bottom: 0,
+            right: 20
+        )
+
+        dynamicLayoutView.collectionView.register(
+            SimpleTableCollectionViewCell<TextBlockContentView>.self,
+            forCellWithReuseIdentifier: SimpleTableCellConfiguration<TextBlockContentConfiguration>.reusableIdentifier
+        )
     }
 }

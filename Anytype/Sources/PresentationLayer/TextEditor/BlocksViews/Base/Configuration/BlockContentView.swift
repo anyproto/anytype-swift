@@ -1,9 +1,11 @@
 import UIKit
 
-protocol BlockContentView where Self: UIView {
-    associatedtype Configuration: BlockConfiguration
-
+protocol ReusableContent {
     static var reusableIdentifier: String { get }
+}
+
+protocol BlockContentView: ReusableContent where Self: UIView {
+    associatedtype Configuration: BlockConfiguration
 
     func update(with configuration: Configuration)
 

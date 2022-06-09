@@ -1,7 +1,7 @@
 import UIKit
 
 final class SeparatorItemView: UIView, BlockContentView {
-    private lazy var label = UILabel(frame: .zero)
+    private let label = UILabel(frame: .zero)
     private var heightConstraint: NSLayoutConstraint?
 
     // MARK: Initialization

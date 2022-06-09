@@ -1,13 +1,13 @@
 import Combine
 import UIKit
 
+
 struct SimpleTableBlockContentConfiguration: BlockConfiguration {
     typealias View = SimpleTableBlockView
 
-
     let widths: [CGFloat]
-    let items: [[SimpleTableCellConfiguration]]
 
+    @EquatableNoop private(set) var items: [[SimpleTableBlockProtocol]]
     @EquatableNoop private(set) var relativePositionProvider: RelativePositionProvider?
     @EquatableNoop private(set) var resetPublisher: AnyPublisher<Void, Never>
     @EquatableNoop private(set) var heightDidChanged: () -> Void

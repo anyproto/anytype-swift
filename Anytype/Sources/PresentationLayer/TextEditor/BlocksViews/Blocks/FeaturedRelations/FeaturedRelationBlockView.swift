@@ -3,7 +3,7 @@ import UIKit
 import SwiftUI
 
 final class FeaturedRelationBlockView: UIView, BlockContentView {
-    private lazy var blocksView = DynamicCompositionalLayoutView(frame: .zero)
+    private let blocksView = DynamicCollectionLayoutView(frame: .zero)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -46,7 +46,7 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
             with: .init(
                 hashable: configuration,
                 views: [dequebale],
-                compositionalLayout: layout,
+                layout: layout,
                 heightDidChanged: configuration.heightDidChanged
             )
         )

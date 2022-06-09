@@ -1,17 +1,13 @@
 import UIKit
 
 class GenericCollectionViewCell<Component: BlockContentView>: UICollectionViewCell {
-    private lazy var componentView = Component(frame: .zero)
+    private let componentView = Component(frame: .zero)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-
-    override var reuseIdentifier: String? {
-        return Component.reusableIdentifier
-    }
-
+    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
 
