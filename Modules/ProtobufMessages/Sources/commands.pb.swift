@@ -10565,6 +10565,15 @@ public struct Anytype_Rpc {
 
         public var linkIds: [String] = []
 
+        public var event: Anytype_ResponseEvent {
+          get {return _event ?? Anytype_ResponseEvent()}
+          set {_event = newValue}
+        }
+        /// Returns true if `event` has been explicitly set.
+        public var hasEvent: Bool {return self._event != nil}
+        /// Clears the value of `event`. Subsequent reads from it will return its default value.
+        public mutating func clearEvent() {self._event = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Error {
@@ -10617,6 +10626,7 @@ public struct Anytype_Rpc {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.Block.ListConvertToObjects.Response.Error? = nil
+        fileprivate var _event: Anytype_ResponseEvent? = nil
       }
 
       public init() {}
@@ -13156,7 +13166,7 @@ public struct Anytype_Rpc {
 
         public var blockIds: [String] = []
 
-        public var iconSize: Anytype_Model_Block.Content.Link.IconSize = .small
+        public var iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone
 
         public var cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text
 
@@ -34048,6 +34058,7 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Response: SwiftProtobuf.Message
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "error"),
     2: .same(proto: "linkIds"),
+    3: .same(proto: "event"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -34058,6 +34069,7 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Response: SwiftProtobuf.Message
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
       case 2: try { try decoder.decodeRepeatedStringField(value: &self.linkIds) }()
+      case 3: try { try decoder.decodeSingularMessageField(value: &self._event) }()
       default: break
       }
     }
@@ -34074,12 +34086,16 @@ extension Anytype_Rpc.Block.ListConvertToObjects.Response: SwiftProtobuf.Message
     if !self.linkIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.linkIds, fieldNumber: 2)
     }
+    try { if let v = self._event {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Block.ListConvertToObjects.Response, rhs: Anytype_Rpc.Block.ListConvertToObjects.Response) -> Bool {
     if lhs._error != rhs._error {return false}
     if lhs.linkIds != rhs.linkIds {return false}
+    if lhs._event != rhs._event {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -37883,7 +37899,7 @@ extension Anytype_Rpc.BlockLink.ListSetAppearance.Request: SwiftProtobuf.Message
     if !self.blockIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.blockIds, fieldNumber: 2)
     }
-    if self.iconSize != .small {
+    if self.iconSize != .sizeNone {
       try visitor.visitSingularEnumField(value: self.iconSize, fieldNumber: 4)
     }
     if self.cardStyle != .text {

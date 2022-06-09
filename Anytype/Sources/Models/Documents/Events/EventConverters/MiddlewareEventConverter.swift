@@ -271,8 +271,7 @@ final class MiddlewareEventConverter {
                     }
 
                     if data.hasRelations {
-                        let relations = data.relations.value.compactMap(BlockLink.Relation.init(rawValue:))
-                        blockLink.appearance.relations = Set(relations)
+                        blockLink.appearance.relations = data.relations.value.compactMap(BlockLink.Relation.init(rawValue:))
                     }
 
                     if data.hasTargetBlockID {

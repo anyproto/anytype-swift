@@ -37,6 +37,13 @@ final class BlockLinkView: UIView, BlockContentView {
         view.isUserInteractionEnabled = false
         return view
     }()
+
+    private let typeView: AnytypeLabel = {
+        let view = AnytypeLabel(style: .relation2Regular)
+        view.numberOfLines = 1
+        view.isUserInteractionEnabled = false
+        return view
+    }()
     
     // MARK: - Initializers
     
@@ -76,6 +83,9 @@ final class BlockLinkView: UIView, BlockContentView {
         descriptionView.isHidden = !configuration.state.descriptionState.hasDescription
         descriptionView.setText(configuration.state.attributedDescription)
         descriptionView.setLineBreakMode(.byTruncatingTail)
+
+        typeView.isHidden = !configuration.state.relations.contains(.type)
+        typeView.setText(configuration.state.attributedType)
     }
     
 }
@@ -119,7 +129,12 @@ private extension BlockLinkView {
                     $0.vGap(fixed: .zero, relatedTo: descriptionView) { [weak self] view in
                         self?.vGap = view
                     },
-                    descriptionView
+                    descriptionView,
+
+                    $0.vGap(fixed: .zero, relatedTo: typeView) { [weak self] view in
+                        self?.vGap = view
+                    },
+                    typeView
                 )
             )
         }

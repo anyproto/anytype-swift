@@ -14,7 +14,7 @@ extension Anytype_Model_Block.Content.Link {
                     iconSize: iconSize.asModel,
                     cardStyle: cardStyle.asModel,
                     description: description_p.asModel,
-                    relations: Set(relations)
+                    relations: relations
                 )
             )
         )
@@ -42,9 +42,10 @@ extension BlockLink {
 extension Anytype_Model_Block.Content.Link.IconSize {
     var asModel: BlockLink.IconSize {
         switch self {
-        case .small: return .small
-        case .medium: return .medium
-        case .UNRECOGNIZED: return .small
+        case .sizeSmall: return .small
+        case .sizeMedium: return .medium
+        case .sizeNone: return .none
+        case .UNRECOGNIZED: return .none
         }
     }
 }
@@ -52,8 +53,9 @@ extension Anytype_Model_Block.Content.Link.IconSize {
 extension BlockLink.IconSize {
     var asMiddleware: Anytype_Model_Block.Content.Link.IconSize {
         switch self {
-        case .small: return .small
-        case .medium: return .medium
+        case .small: return .sizeSmall
+        case .medium: return .sizeMedium
+        case .none: return .sizeNone
         }
     }
 }
@@ -65,7 +67,7 @@ extension Anytype_Model_Block.Content.Link.CardStyle {
         switch self {
         case .text: return .text
         case .card: return .card
-        case .inline: return .text // add .inline when will be supported
+        case .inline: return .card // add .inline when will be supported
         case .UNRECOGNIZED: return .text
         }
     }

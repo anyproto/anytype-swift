@@ -732,7 +732,7 @@ public struct Anytype_Model_Block {
       /// Clears the value of `fields`. Subsequent reads from it will return its default value.
       public mutating func clearFields() {self._fields = nil}
 
-      public var iconSize: Anytype_Model_Block.Content.Link.IconSize = .small
+      public var iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone
 
       public var cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text
 
@@ -744,26 +744,29 @@ public struct Anytype_Model_Block {
 
       public enum IconSize: SwiftProtobuf.Enum {
         public typealias RawValue = Int
-        case small // = 0
-        case medium // = 1
+        case sizeNone // = 0
+        case sizeSmall // = 1
+        case sizeMedium // = 2
         case UNRECOGNIZED(Int)
 
         public init() {
-          self = .small
+          self = .sizeNone
         }
 
         public init?(rawValue: Int) {
           switch rawValue {
-          case 0: self = .small
-          case 1: self = .medium
+          case 0: self = .sizeNone
+          case 1: self = .sizeSmall
+          case 2: self = .sizeMedium
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
 
         public var rawValue: Int {
           switch self {
-          case .small: return 0
-          case .medium: return 1
+          case .sizeNone: return 0
+          case .sizeSmall: return 1
+          case .sizeMedium: return 2
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -1592,6 +1595,8 @@ public struct Anytype_Model_Block {
         /// Clears the value of `value`. Subsequent reads from it will return its default value.
         public mutating func clearValue() {self._value = nil}
 
+        public var quickOption: Anytype_Model_Block.Content.Dataview.Filter.QuickOption = .exactDate
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum Operator: SwiftProtobuf.Enum {
@@ -1689,6 +1694,64 @@ public struct Anytype_Model_Block {
 
         }
 
+        public enum QuickOption: SwiftProtobuf.Enum {
+          public typealias RawValue = Int
+          case exactDate // = 0
+          case yesterday // = 1
+          case today // = 2
+          case tomorrow // = 3
+          case lastWeek // = 4
+          case currentWeek // = 5
+          case nextWeek // = 6
+          case lastMonth // = 7
+          case currentMonth // = 8
+          case nextMonth // = 9
+          case numberOfDaysAgo // = 10
+          case numberOfDaysNow // = 11
+          case UNRECOGNIZED(Int)
+
+          public init() {
+            self = .exactDate
+          }
+
+          public init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .exactDate
+            case 1: self = .yesterday
+            case 2: self = .today
+            case 3: self = .tomorrow
+            case 4: self = .lastWeek
+            case 5: self = .currentWeek
+            case 6: self = .nextWeek
+            case 7: self = .lastMonth
+            case 8: self = .currentMonth
+            case 9: self = .nextMonth
+            case 10: self = .numberOfDaysAgo
+            case 11: self = .numberOfDaysNow
+            default: self = .UNRECOGNIZED(rawValue)
+            }
+          }
+
+          public var rawValue: Int {
+            switch self {
+            case .exactDate: return 0
+            case .yesterday: return 1
+            case .today: return 2
+            case .tomorrow: return 3
+            case .lastWeek: return 4
+            case .currentWeek: return 5
+            case .nextWeek: return 6
+            case .lastMonth: return 7
+            case .currentMonth: return 8
+            case .nextMonth: return 9
+            case .numberOfDaysAgo: return 10
+            case .numberOfDaysNow: return 11
+            case .UNRECOGNIZED(let i): return i
+            }
+          }
+
+        }
+
         public init() {}
 
         fileprivate var _value: SwiftProtobuf.Google_Protobuf_Value? = nil
@@ -1777,8 +1840,9 @@ extension Anytype_Model_Block.Content.Layout.Style: CaseIterable {
 extension Anytype_Model_Block.Content.Link.IconSize: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Model_Block.Content.Link.IconSize] = [
-    .small,
-    .medium,
+    .sizeNone,
+    .sizeSmall,
+    .sizeMedium,
   ]
 }
 
@@ -1958,6 +2022,24 @@ extension Anytype_Model_Block.Content.Dataview.Filter.Condition: CaseIterable {
     .notEmpty,
     .allIn,
     .notAllIn,
+  ]
+}
+
+extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Filter.QuickOption] = [
+    .exactDate,
+    .yesterday,
+    .today,
+    .tomorrow,
+    .lastWeek,
+    .currentWeek,
+    .nextWeek,
+    .lastMonth,
+    .currentMonth,
+    .nextMonth,
+    .numberOfDaysAgo,
+    .numberOfDaysNow,
   ]
 }
 
@@ -2969,6 +3051,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: @unchecked Sendabl
 extension Anytype_Model_Block.Content.Dataview.Filter: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Filter.Operator: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Filter.Condition: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Relation: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Latex: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.TableOfContents: @unchecked Sendable {}
@@ -3647,7 +3730,7 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
     try { if let v = self._fields {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     } }()
-    if self.iconSize != .small {
+    if self.iconSize != .sizeNone {
       try visitor.visitSingularEnumField(value: self.iconSize, fieldNumber: 4)
     }
     if self.cardStyle != .text {
@@ -3677,8 +3760,9 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
 
 extension Anytype_Model_Block.Content.Link.IconSize: SwiftProtobuf._ProtoNameProviding {
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
-    0: .same(proto: "Small"),
-    1: .same(proto: "Medium"),
+    0: .same(proto: "SizeNone"),
+    1: .same(proto: "SizeSmall"),
+    2: .same(proto: "SizeMedium"),
   ]
 }
 
@@ -4452,6 +4536,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     5: .same(proto: "relationProperty"),
     3: .same(proto: "condition"),
     4: .same(proto: "value"),
+    6: .same(proto: "quickOption"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -4465,6 +4550,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
       case 3: try { try decoder.decodeSingularEnumField(value: &self.condition) }()
       case 4: try { try decoder.decodeSingularMessageField(value: &self._value) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.relationProperty) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.quickOption) }()
       default: break
       }
     }
@@ -4490,6 +4576,9 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     if !self.relationProperty.isEmpty {
       try visitor.visitSingularStringField(value: self.relationProperty, fieldNumber: 5)
     }
+    if self.quickOption != .exactDate {
+      try visitor.visitSingularEnumField(value: self.quickOption, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4499,6 +4588,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     if lhs.relationProperty != rhs.relationProperty {return false}
     if lhs.condition != rhs.condition {return false}
     if lhs._value != rhs._value {return false}
+    if lhs.quickOption != rhs.quickOption {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -4528,6 +4618,23 @@ extension Anytype_Model_Block.Content.Dataview.Filter.Condition: SwiftProtobuf._
     12: .same(proto: "NotEmpty"),
     13: .same(proto: "AllIn"),
     14: .same(proto: "NotAllIn"),
+  ]
+}
+
+extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "ExactDate"),
+    1: .same(proto: "Yesterday"),
+    2: .same(proto: "Today"),
+    3: .same(proto: "Tomorrow"),
+    4: .same(proto: "LastWeek"),
+    5: .same(proto: "CurrentWeek"),
+    6: .same(proto: "NextWeek"),
+    7: .same(proto: "LastMonth"),
+    8: .same(proto: "CurrentMonth"),
+    9: .same(proto: "NextMonth"),
+    10: .same(proto: "NumberOfDaysAgo"),
+    11: .same(proto: "NumberOfDaysNow"),
   ]
 }
 

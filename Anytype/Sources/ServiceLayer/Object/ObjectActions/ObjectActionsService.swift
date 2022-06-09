@@ -139,19 +139,22 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .send()
     }
 
-    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId]) -> BlockId? {
-        AnytypeAnalytics.instance().logCreateObject(objectType: "", route: .turnInto)
+    func convertChildrenToPages(contextID: BlockId, blocksIds: [BlockId], objectType: String) -> [BlockId]? {
+        AnytypeAnalytics.instance().logCreateObject(objectType: objectType, route: .turnInto)
 
-        return Anytype_Rpc.Block.ListMoveToNewObject.Service
+        let response = Anytype_Rpc.Block.ListConvertToObjects.Service
             .invoke(
                 contextID: contextID,
                 blockIds: blocksIds,
-                details: Google_Protobuf_Struct(),
-                dropTargetID: "",
-                position: .none
+                objectType: objectType
             )
-            .map { $0.linkID }
             .getValue(domain: .objectActionsService)
+
+        guard let response = response else { return nil }
+
+        EventsBunch(event: response.event).send()
+
+        return response.linkIds
     }
     
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position) {

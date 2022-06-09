@@ -93,7 +93,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func turnIntoPage(blockId: BlockId) -> BlockId? {
-        return pageService.convertChildrenToPages(contextID: documentId, blocksIds: [blockId])
+        return pageService.convertChildrenToPages(contextID: documentId, blocksIds: [blockId], objectType: "")?.first
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
