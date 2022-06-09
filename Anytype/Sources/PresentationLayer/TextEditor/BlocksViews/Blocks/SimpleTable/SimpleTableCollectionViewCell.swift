@@ -5,7 +5,7 @@ private enum Constants {
 }
 
 final class SimpleTableCollectionViewCell<View: BlockContentView>: UICollectionViewCell {
-    private let containerView = View(frame: .zero)
+    let containerView = View(frame: .zero)
 
     override init(frame: CGRect) {
         super.init(frame: frame)

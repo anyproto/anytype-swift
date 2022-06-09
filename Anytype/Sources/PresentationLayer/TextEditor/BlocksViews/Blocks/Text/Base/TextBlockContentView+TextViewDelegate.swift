@@ -37,6 +37,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
         actions?.textViewDidChangeText(textView)
 
         if textView.isLayoutNeeded {
+            heightDidChanged?()
             actions?.textBlockSetNeedsLayout(textView)
         }
     }

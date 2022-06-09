@@ -4,6 +4,10 @@ protocol ReusableContent {
     static var reusableIdentifier: String { get }
 }
 
+protocol DynamicHeightView: AnyObject {
+    var heightDidChanged: (() -> Void)? { get set }
+}
+
 protocol BlockContentView: ReusableContent where Self: UIView {
     associatedtype Configuration: BlockConfiguration
 

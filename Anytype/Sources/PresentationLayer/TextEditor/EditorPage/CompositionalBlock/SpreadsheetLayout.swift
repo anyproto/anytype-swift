@@ -24,7 +24,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
 
     var itemWidths = [CGFloat]() {
         didSet {
-            invalidateLayout()
+            reset()
         }
     }
 
@@ -33,7 +33,21 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     private var attributes: [UICollectionViewLayoutAttributes] = []
     private var contentSize = CGSize.zero
 
+    // Move to invalidate layout then
+    func reset() {
+        cachedSectionHeights.removeAll()
+        cachedSectionRowHeights.removeAll()
+    }
+
     override var collectionViewContentSize: CGSize { contentSize }
+
+    override class var invalidationContextClass: AnyClass {
+        SpreadsheetInvalidationContext.self
+    }
+
+    override func invalidateLayout() {
+        super.invalidateLayout()
+    }
 
     override func layoutAttributesForElements(
         in rect: CGRect
@@ -147,5 +161,31 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         }
 
         contentSize = .init(width: itemWidths.reduce(0, +), height: fullHeight)
+    }
+}
+
+extension SpreadsheetLayout {
+    func setNeedsLayout(indexPath: IndexPath) {
+        guard let existingCell = collectionView?.cellForItem(at: indexPath) else { return }
+        cachedSectionHeights[indexPath.section] = nil
+
+        let columnWidth = itemWidths[indexPath.row]
+
+        let maxSize = CGSize(
+            width: columnWidth,
+            height: .greatestFiniteMagnitude
+        )
+        let size = existingCell.systemLayoutSizeFitting(
+            maxSize,
+            withHorizontalFittingPriority: .required,
+            verticalFittingPriority: .fittingSizeLevel
+        )
+
+        var sectionRowHeights = cachedSectionRowHeights[indexPath.section]
+        sectionRowHeights?[indexPath.row] = size
+
+        cachedSectionRowHeights[indexPath.section] = sectionRowHeights
+
+        reloadAttributesCache()
     }
 }
