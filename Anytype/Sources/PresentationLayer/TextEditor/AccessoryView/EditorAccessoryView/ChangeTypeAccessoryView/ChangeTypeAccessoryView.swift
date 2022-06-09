@@ -141,8 +141,8 @@ private final class ChangeButton: UIButton {
             return
         }
 
-        UIView.animate(withDuration: 0.4) {
-            self.imageView?.transform = transform
+        UIView.animate(withDuration: 0.4) { [weak self] in
+            self?.imageView?.transform = transform
         }
     }
 }

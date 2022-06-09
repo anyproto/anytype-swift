@@ -128,8 +128,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
             modelsHolder.items = blocksViewModels
-
-            viewInput?.update(changes: nil, allModels: blocksViewModels)
         case .header, .changeType:
             break // supported in headerModel
         }

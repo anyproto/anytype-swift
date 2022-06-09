@@ -14,7 +14,7 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
     private let listService: BlockListServiceProtocol
     private let toggleStorage: ToggleStorage
     private let container: InfoContainerProtocol
-    private let modelsHolder: EditorMainItemModelsHolder
+    private weak var modelsHolder: EditorMainItemModelsHolder?
     
     init(
         service: BlockActionServiceProtocol,
@@ -91,12 +91,10 @@ final class KeyboardActionHandler: KeyboardActionHandlerProtocol {
         }
         
         guard isBlockDelitable(info: info, text: text, parent: parent) else {
-            modelsHolder
-                .findModel(
-                    beforeBlockId: info.id,
-                    acceptingTypes: BlockContentType.allTextTypes
-                )?
-                .set(focus: .end)
+
+            let model = modelsHolder?.findModel(beforeBlockId: info.id, acceptingTypes: BlockContentType.allTextTypes)
+
+            model?.set(focus: .end)
             return
         }
         
