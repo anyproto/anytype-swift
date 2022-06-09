@@ -85,6 +85,9 @@ public enum ErrorDomain: String {
     case anytypeId
     
     case sceneLifecycleStateService
+
+    case simpleTables
+    
     case objectTypeProvider
 }
 

@@ -78,9 +78,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
-    
-    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
-        let contentConfiguration = TextBlockContentConfiguration(
+
+    func textBlockContentConfiguration() -> TextBlockContentConfiguration {
+        TextBlockContentConfiguration(
             blockId: info.id,
             content: content,
             alignment: info.alignment.asNSTextAlignment,
@@ -92,6 +92,10 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             resetPublisher: resetSubject.eraseToAnyPublisher(),
             actions: action()
         )
+    }
+    
+    func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
+        let contentConfiguration = textBlockContentConfiguration()
 
         let isDragConfigurationAvailable =
             content.contentType != .description && content.contentType != .title
@@ -140,7 +144,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             },
             becomeFirstResponder: { },
             resignFirstResponder: { },
-            textBlockSetNeedsLayout: { blockDelegate?.textBlockSetNeedsLayout() },
+            textBlockSetNeedsLayout: { _ in blockDelegate?.textBlockSetNeedsLayout() },
             textViewDidChangeText: { textView in
                 actionHandler.changeText(textView.attributedText, info: info)
                 blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))

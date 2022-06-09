@@ -12,6 +12,7 @@ final class BlockViewModelBuilder {
     private let pageService = PageService()
     private let subjectsHolder = FocusSubjectsHolder()
     private let markdownListener: MarkdownListener
+    private weak var relativePositionProvider: RelativePositionProvider?
 
     init(
         document: BaseDocumentProtocol,
@@ -19,7 +20,8 @@ final class BlockViewModelBuilder {
         pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
-        markdownListener: MarkdownListener
+        markdownListener: MarkdownListener,
+        relativePositionProvider: RelativePositionProvider?
     ) {
         self.document = document
         self.handler = handler
@@ -27,6 +29,7 @@ final class BlockViewModelBuilder {
         self.router = router
         self.delegate = delegate
         self.markdownListener = markdownListener
+        self.relativePositionProvider = relativePositionProvider
     }
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {

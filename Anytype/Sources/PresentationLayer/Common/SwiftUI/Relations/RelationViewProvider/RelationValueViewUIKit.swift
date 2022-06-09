@@ -1,47 +1,27 @@
-//
-//  RelationValueViewUIKit.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 08.02.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import UIKit
 import AnytypeCore
 
 
-final class RelationValueViewUIKit: UIView {
+struct RelationValueViewConfiguration: BlockConfiguration {
+    typealias View = RelationValueViewUIKit
+
     let relation: RelationItemModel
     let style: RelationStyle
-    let action: ((_ relation: RelationItemModel) -> Void)?
+    @EquatableNoop private(set) var action: ((RelationItemModel) -> Void)?
+}
 
+final class RelationValueViewUIKit: UIView, BlockContentView {
     private var relationView = UIView()
 
-    init(relation: RelationItemModel, style: RelationStyle, action: ((RelationItemModel) -> Void)?) {
-        self.relation = relation
-        self.style = style
-        self.action = action
+    func update(with configuration: RelationValueViewConfiguration) {
+        relationView.removeFromSuperview()
 
-        super.init(frame: .zero)
+        relationView = obtainRelationView(configuration.relation, style: configuration.style)
 
-        setupView()
-    }
-
-    @available(*, unavailable)
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-
-    private func setupView() {
-        relationView = obtainRelationView(relation, style: style)
-
-        if action.isNotNil && relation.isEditable {
-            relationView.addTapGesture { [weak self] _ in
-                guard let self = self else { return }
-
-                self.action?(self.relation)
+        if configuration.action.isNotNil && configuration.relation.isEditable {
+            relationView.addTapGesture { _ in
+                configuration.action?(configuration.relation)
             }
-
         }
 
         addSubview(relationView) {

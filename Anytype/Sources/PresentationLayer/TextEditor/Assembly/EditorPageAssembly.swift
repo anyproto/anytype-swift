@@ -156,7 +156,8 @@ final class EditorAssembly {
             pasteboardService: pasteboardService,
             router: router,
             delegate: blockDelegate,
-            markdownListener: markdownListener
+            markdownListener: markdownListener,
+            relativePositionProvider: viewInput
         )
          
         let wholeBlockMarkupViewModel = MarkupViewModel(

@@ -6,13 +6,18 @@ final class DynamicCollectionView: UICollectionView {
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
 
-        isScrollEnabled = false
+        setup()
     }
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        isScrollEnabled = false
+        setup()
+    }
+
+    private func setup() {
+        backgroundColor = .backgroundPrimary
+        isDirectionalLockEnabled = true
     }
 
     override func layoutSubviews() {
@@ -26,7 +31,7 @@ final class DynamicCollectionView: UICollectionView {
 
     override func reloadData() {
         super.reloadData()
-        
+
         collectionViewLayout.invalidateLayout()
         collectionViewLayout.prepare()
     }

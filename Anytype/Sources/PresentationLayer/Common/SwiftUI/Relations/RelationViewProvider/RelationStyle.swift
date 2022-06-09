@@ -1,6 +1,6 @@
 import SwiftUI
 
-enum RelationStyle {
+enum RelationStyle: Hashable {
     case regular(allowMultiLine: Bool)
     case featuredRelationBlock(allowMultiLine: Bool)
     case set

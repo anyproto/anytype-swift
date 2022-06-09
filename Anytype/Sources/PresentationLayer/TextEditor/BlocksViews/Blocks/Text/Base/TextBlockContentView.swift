@@ -4,7 +4,6 @@ import BlocksModels
 
 
 final class TextBlockContentView: UIView, BlockContentView {
-
     // MARK: - Views
     private let contentView = UIView()
     private(set) lazy var textView = CustomTextView()
