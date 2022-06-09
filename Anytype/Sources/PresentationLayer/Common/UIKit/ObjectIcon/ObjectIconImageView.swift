@@ -96,7 +96,10 @@ extension ObjectIconImageView: ConfigurableView {
             imageView.wrapper.setImage(nil)
             return
         }
-        
+
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = imageGuideline.cornerRadius
+
         imageView.wrapper
             .imageGuideline(imageGuideline)
             .setImage(id: imageId)

@@ -13,6 +13,7 @@ final class ChangeTypeAccessoryViewModel {
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
     private let searchService: SearchServiceProtocol
+    private let objectService: ObjectActionsServiceProtocol
     private let document: BaseDocumentProtocol
 
     private var cancellables = [AnyCancellable]()
@@ -21,11 +22,13 @@ final class ChangeTypeAccessoryViewModel {
         router: EditorRouterProtocol,
         handler: BlockActionHandlerProtocol,
         searchService: SearchServiceProtocol,
+        objectService: ObjectActionsServiceProtocol,
         document: BaseDocumentProtocol
     ) {
         self.router = router
         self.handler = handler
         self.searchService = searchService
+        self.objectService = objectService
         self.document = document
 
         fetchSupportedTypes()
@@ -62,6 +65,17 @@ final class ChangeTypeAccessoryViewModel {
         }
 
         handler.setObjectTypeUrl(object.id)
+        applyDefaultTemplateIfNeeded(typeDetails: object)
+    }
+    
+    private func applyDefaultTemplateIfNeeded(typeDetails: ObjectDetails) {
+        let availableTemplates = searchService.searchTemplates(for: .dynamic(typeDetails.id))
+        
+        guard availableTemplates?.count == 1,
+                let firstTemplate = availableTemplates?.first
+            else { return }
+        
+        objectService.applyTemplate(objectId: document.objectId, templateId: firstTemplate.id)
     }
 
     private func subscribeOnDocumentChanges() {

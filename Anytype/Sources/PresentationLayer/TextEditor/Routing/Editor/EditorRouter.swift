@@ -298,9 +298,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         rootController?.setNavigationViewHidden(isHidden, animated: animated)
     }
 
-    func showObjectPreview(blockLink: BlockLink, onSelect: @escaping (BlockLink.Appearance) -> Void) {
+    func showObjectPreview(blockLinkAppearance: BlockLink.Appearance, onSelect: @escaping (BlockLink.Appearance) -> Void) {
+        let previewModel = ObjectPreviewModel(linkApperance: blockLinkAppearance)
         let router = ObjectPreviewRouter(viewController: viewController)
-        let viewModel = ObjectPreviewViewModel(appearance: blockLink.appearance,
+        let viewModel = ObjectPreviewViewModel(objectPreviewModel: previewModel,
                                                router: router,
                                                onSelect: onSelect)
         let contentView = ObjectPreviewView(viewModel: viewModel)

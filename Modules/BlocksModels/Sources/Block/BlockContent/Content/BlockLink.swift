@@ -3,8 +3,14 @@ import AnytypeCore
 public extension BlockLink {
 
     enum IconSize {
+        case none
         case small
         case medium
+
+        public var hasIcon: Bool {
+            guard case .none = self else { return true }
+            return false
+        }
     }
 
     enum CardStyle: CaseIterable {
@@ -29,16 +35,16 @@ public extension BlockLink {
 
     enum Relation: String {
         case name
-        case icon
+        case type
     }
 
     struct Appearance: Hashable {
         public var iconSize: IconSize
         public var cardStyle: CardStyle
         public var description: Description
-        public var relations: Set<Relation>
+        public var relations: [Relation]
 
-        public init(iconSize: BlockLink.IconSize, cardStyle: BlockLink.CardStyle, description: BlockLink.Description, relations: Set<BlockLink.Relation>) {
+        public init(iconSize: BlockLink.IconSize, cardStyle: BlockLink.CardStyle, description: BlockLink.Description, relations: [Relation]) {
             self.iconSize = iconSize
             self.cardStyle = cardStyle
             self.description = description
@@ -60,7 +66,7 @@ public struct BlockLink: Hashable, Equatable {
     public static func empty(targetBlockID: String = .empty) -> BlockLink {
         BlockLink(
             targetBlockID: targetBlockID,
-            appearance: .init(iconSize: .small, cardStyle: .text, description: .none, relations: [.name, .icon])
+            appearance: .init(iconSize: .medium, cardStyle: .card, description: .content, relations: [.name])
         )
     }
 }

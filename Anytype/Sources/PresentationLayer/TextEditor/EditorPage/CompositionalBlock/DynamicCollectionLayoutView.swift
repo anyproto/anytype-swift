@@ -46,7 +46,7 @@ final class DynamicCollectionLayoutView: UIView, UICollectionViewDataSource {
     private func setupView() {
         addSubview(collectionView) {
             $0.pinToSuperview(excluding: [.bottom])
-            collectionViewHeightConstraint = $0.height.equal(to: 500, priority: .init(rawValue: 999))
+            collectionViewHeightConstraint = $0.height.equal(to: 100, priority: .init(rawValue: 999))
             $0.bottom.greaterThanOrEqual(to: bottomAnchor, priority: .defaultLow)
         }
 

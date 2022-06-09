@@ -144,7 +144,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             },
             becomeFirstResponder: { },
             resignFirstResponder: { },
-            textBlockSetNeedsLayout: { _ in /* Nothing to update */  },
+            textBlockSetNeedsLayout: { _ in blockDelegate?.textBlockSetNeedsLayout() },
             textViewDidChangeText: { textView in
                 actionHandler.changeText(textView.attributedText, info: info)
                 blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))

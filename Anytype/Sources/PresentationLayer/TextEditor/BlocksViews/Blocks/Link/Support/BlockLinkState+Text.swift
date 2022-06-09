@@ -10,10 +10,6 @@ extension BlockLinkState {
                 attributes: disabledAttributes
             )
         }
-
-        guard relations.contains(.name) else {
-            return NSAttributedString(string: .empty)
-        }
         
         return NSAttributedString(
             string: !title.isEmpty ? title : "Untitled".localized,
@@ -28,6 +24,17 @@ extension BlockLinkState {
 
         return NSAttributedString(
             string: description,
+            attributes: archived ? disabledDescriptionAttributes : enabledDescriptionAttributes
+        )
+    }
+
+    var attributedType: NSAttributedString {
+        guard !deleted, let type = type else {
+            return NSAttributedString(string: .empty)
+        }
+
+        return NSAttributedString(
+            string: type.name,
             attributes: archived ? disabledDescriptionAttributes : enabledDescriptionAttributes
         )
     }

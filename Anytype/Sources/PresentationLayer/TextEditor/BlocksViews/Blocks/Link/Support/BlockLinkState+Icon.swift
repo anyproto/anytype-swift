@@ -13,7 +13,7 @@ extension BlockLinkState {
         case .noContent:
             return nil
         case let .icon(icon):
-            guard relations.contains(.icon) else { return nil }
+            guard iconSize.hasIcon else { return nil }
 
             switch icon {
             case let .basic(id):

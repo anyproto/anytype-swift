@@ -96,13 +96,14 @@ extension Anytype_Model_Block.Content.Dataview {
 extension Anytype_Model_Block.Content.Dataview.Filter {
   public init(
     `operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator, relationKey: String, relationProperty: String, condition: Anytype_Model_Block.Content.Dataview.Filter.Condition,
-    value: SwiftProtobuf.Google_Protobuf_Value
+    value: SwiftProtobuf.Google_Protobuf_Value, quickOption: Anytype_Model_Block.Content.Dataview.Filter.QuickOption
   ) {
     self.`operator` = `operator`
     self.relationKey = relationKey
     self.relationProperty = relationProperty
     self.condition = condition
     self.value = value
+    self.quickOption = quickOption
   }
 }
 

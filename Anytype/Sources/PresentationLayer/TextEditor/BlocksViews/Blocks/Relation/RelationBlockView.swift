@@ -5,7 +5,7 @@ final class RelationBlockView: UIView, BlockContentView {
     private var bottomConstraint: NSLayoutConstraint!
 
     // MARK: - Views
-    private lazy var relationValueView = RelationValueViewUIKit()
+    private let relationValueView = RelationValueViewUIKit()
 
     private let relationNameView = AnytypeLabel(style: .relation1Regular)
     private let relationLockedView = UIImageView(image: .Relations.Icons.locked)

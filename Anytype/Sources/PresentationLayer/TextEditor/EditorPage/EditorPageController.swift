@@ -274,9 +274,9 @@ extension EditorPageController: EditorPageViewInput {
 
     func blockDidChangeFrame() {
         DispatchQueue.main.async { [weak self] in
-            UIView.performWithoutAnimation {
-                self?.collectionView.collectionViewLayout.invalidateLayout()
-            }
+            guard let self = self else { return }
+            let currentSnapshot = self.dataSource.snapshot()
+            self.dataSource.apply(currentSnapshot, animatingDifferences: true)
         }
     }
 
