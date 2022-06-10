@@ -8051,7 +8051,7 @@
 				MARKETING_VERSION = 0.6.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.anytypeio.anytype.dev;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "Anytype Dev";
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore com.anytypeio.anytype.dev";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
