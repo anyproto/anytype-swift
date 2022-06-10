@@ -480,7 +480,6 @@
 		3D2F9C07271EA78F0043C326 /* HomeTabsSelectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C06271EA78F0043C326 /* HomeTabsSelectionHeader.swift */; };
 		3D2F9C17271EAE4D0043C326 /* SearchHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C15271EAE4D0043C326 /* SearchHelper.swift */; };
 		3D2F9C18271EAE4D0043C326 /* SearchService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C16271EAE4D0043C326 /* SearchService.swift */; };
-		3D2F9C1A271EAE5D0043C326 /* ObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C19271EAE5D0043C326 /* ObjectType.swift */; };
 		3D2F9C1C271EAE7D0043C326 /* BlockActionServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C1B271EAE7D0043C326 /* BlockActionServiceProtocol.swift */; };
 		3D2F9C1E271EAE8E0043C326 /* FirebaseNonFatalLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C1D271EAE8E0043C326 /* FirebaseNonFatalLogger.swift */; };
 		3D2F9C22271EAEAE0043C326 /* BlockBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2F9C21271EAEAE0043C326 /* BlockBuilder.swift */; };
@@ -1528,7 +1527,6 @@
 		3D2F9C06271EA78F0043C326 /* HomeTabsSelectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTabsSelectionHeader.swift; sourceTree = "<group>"; };
 		3D2F9C15271EAE4D0043C326 /* SearchHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHelper.swift; sourceTree = "<group>"; };
 		3D2F9C16271EAE4D0043C326 /* SearchService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchService.swift; sourceTree = "<group>"; };
-		3D2F9C19271EAE5D0043C326 /* ObjectType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ObjectType.swift; sourceTree = "<group>"; };
 		3D2F9C1B271EAE7D0043C326 /* BlockActionServiceProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockActionServiceProtocol.swift; sourceTree = "<group>"; };
 		3D2F9C1D271EAE8E0043C326 /* FirebaseNonFatalLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseNonFatalLogger.swift; sourceTree = "<group>"; };
 		3D2F9C21271EAEAE0043C326 /* BlockBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlockBuilder.swift; sourceTree = "<group>"; };
@@ -5475,7 +5473,6 @@
 		3DE8D5AE26CD76CF006F31C1 /* ObjectType */ = {
 			isa = PBXGroup;
 			children = (
-				3D2F9C19271EAE5D0043C326 /* ObjectType.swift */,
 				12E286E72849EF5D00BF64EB /* ObjectTypeProviderProtocol.swift */,
 				3DE8D5AF26CD76E2006F31C1 /* ObjectTypeProvider.swift */,
 			);
@@ -7162,7 +7159,6 @@
 				125FD32326CE97BD00D21F5A /* ObjectIconImageUsecase.swift in Sources */,
 				3D5A41692703170300F1F6A1 /* BlockColor.swift in Sources */,
 				12461BFC2767837000D47708 /* TagView.swift in Sources */,
-				3D2F9C1A271EAE5D0043C326 /* ObjectType.swift in Sources */,
 				3D5A415F2703132800F1F6A1 /* SlashActionAlignment.swift in Sources */,
 				0A0965EE25BEF5B000C004BD /* EditorPageViewModel.swift in Sources */,
 				0A996BD123F0342A000FDC9C /* PlistReader.swift in Sources */,

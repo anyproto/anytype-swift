@@ -27,6 +27,10 @@
 		12B69C8D265D10F600D047E3 /* CoverType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B69C8C265D10F600D047E3 /* CoverType.swift */; };
 		12EE02E42843722700223EB5 /* StringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12EE02E32843722700223EB5 /* StringExtensions.swift */; };
 		12F91CF1270E015900C92B28 /* ObjectDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12F91CF0270E015900C92B28 /* ObjectDetails.swift */; };
+		12FE54FF28535F3F006E0AAF /* ObjectType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FE54FE28535F3F006E0AAF /* ObjectType.swift */; };
+		12FE550128535F7A006E0AAF /* SmartBlockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FE550028535F7A006E0AAF /* SmartBlockType.swift */; };
+		12FE5507285365FF006E0AAF /* ObjectTypesServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FE5506285365FF006E0AAF /* ObjectTypesServiceProtocol.swift */; };
+		12FE55092853660C006E0AAF /* ObjectTypesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FE55082853660C006E0AAF /* ObjectTypesService.swift */; };
 		3D00F1E1278DEBB900863D7C /* ObjectDetails+Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1E0278DEBB900863D7C /* ObjectDetails+Parsing.swift */; };
 		3D0BCABF26663B12002F7A0D /* InfoContainerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCABE26663B12002F7A0D /* InfoContainerProtocol.swift */; };
 		3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCAE026666C0E002F7A0D /* BlockLink.swift */; };
@@ -94,6 +98,10 @@
 		12B69C8C265D10F600D047E3 /* CoverType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoverType.swift; sourceTree = "<group>"; };
 		12EE02E32843722700223EB5 /* StringExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtensions.swift; sourceTree = "<group>"; };
 		12F91CF0270E015900C92B28 /* ObjectDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectDetails.swift; sourceTree = "<group>"; };
+		12FE54FE28535F3F006E0AAF /* ObjectType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectType.swift; sourceTree = "<group>"; };
+		12FE550028535F7A006E0AAF /* SmartBlockType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartBlockType.swift; sourceTree = "<group>"; };
+		12FE5506285365FF006E0AAF /* ObjectTypesServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesServiceProtocol.swift; sourceTree = "<group>"; };
+		12FE55082853660C006E0AAF /* ObjectTypesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesService.swift; sourceTree = "<group>"; };
 		3D00F1E0278DEBB900863D7C /* ObjectDetails+Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectDetails+Parsing.swift"; sourceTree = "<group>"; };
 		3D0BCABE26663B12002F7A0D /* InfoContainerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainerProtocol.swift; sourceTree = "<group>"; };
 		3D0BCAE026666C0E002F7A0D /* BlockLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLink.swift; sourceTree = "<group>"; };
@@ -161,6 +169,7 @@
 		0A6D536A25D9C99E002F3F82 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				12FE5505285365CA006E0AAF /* Services */,
 				3D17023C2715C1FB0079B65B /* SyncStatus.swift */,
 				3D00F1DF278DEBA200863D7C /* Extensions */,
 				531605C6272191440057B7C1 /* ObjectRestrictions */,
@@ -169,6 +178,8 @@
 				0A6D537D25D9C99E002F3F82 /* Aliases.swift */,
 				129D788C2694964800DA6757 /* Common */,
 				3D70BF1E261B0551008CED9E /* Block */,
+				12FE54FE28535F3F006E0AAF /* ObjectType.swift */,
+				12FE550028535F7A006E0AAF /* SmartBlockType.swift */,
 			);
 			path = Sources;
 			sourceTree = "<group>";
@@ -258,6 +269,15 @@
 				12B69C8B265D10E600D047E3 /* Entities */,
 			);
 			path = Details;
+			sourceTree = "<group>";
+		};
+		12FE5505285365CA006E0AAF /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				12FE5506285365FF006E0AAF /* ObjectTypesServiceProtocol.swift */,
+				12FE55082853660C006E0AAF /* ObjectTypesService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		3D00F1DF278DEBA200863D7C /* Extensions */ = {
@@ -508,6 +528,7 @@
 				3DB692B52697647700149864 /* MiddlewareColor.swift in Sources */,
 				12B69C8D265D10F600D047E3 /* CoverType.swift in Sources */,
 				127D1E222722F7490050FCB7 /* BundledRelationKey.swift in Sources */,
+				12FE55092853660C006E0AAF /* ObjectTypesService.swift in Sources */,
 				3DB7DCAB2639DC7100635E4C /* InfoContainer.swift in Sources */,
 				3D22B2192687804000C78C28 /* BlockFile.swift in Sources */,
 				3D22B220268781C300C78C28 /* BlockContentLayout.swift in Sources */,
@@ -526,6 +547,7 @@
 				3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */,
 				12206713273164890051A331 /* RelationsMetadataStorage.swift in Sources */,
 				531605CA2721982E0057B7C1 /* MiddlewareObjectRestrictionsConverter.swift in Sources */,
+				12FE5507285365FF006E0AAF /* ObjectTypesServiceProtocol.swift in Sources */,
 				C9ACFE7327FECD5600E748A4 /* IndentationStyleRecursiveData.swift in Sources */,
 				124E2BC92731249600A2D534 /* RelationMetadataFormat.swift in Sources */,
 				124E2BCD273125C400A2D534 /* RelationMetadataOption.swift in Sources */,
@@ -534,8 +556,10 @@
 				3D30417A27EB240200FFE0EB /* DataviewViewType.swift in Sources */,
 				3D22B2172687802800C78C28 /* BlockContentSmartblock.swift in Sources */,
 				0A6D538C25D9C99F002F3F82 /* IndentationBuilder.swift in Sources */,
+				12FE54FF28535F3F006E0AAF /* ObjectType.swift in Sources */,
 				3D30407C27D90D8900FFE0EB /* BlockInformation+Creation.swift in Sources */,
 				0A6D539225D9C99F002F3F82 /* BlockContent.swift in Sources */,
+				12FE550128535F7A006E0AAF /* SmartBlockType.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

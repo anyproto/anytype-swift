@@ -50,8 +50,8 @@ final class HomeCellDataBuilder {
     }
     
     private func buildHomeCellData(pageLink: HomePageLink) -> HomeCellData {
-        let type = ObjectTypeProvider.objectType(url: pageLink.details?.type)?.name ?? "Object".localized
-        
+        let type = pageLink.details?.objectType.name ?? "Object".localized
+
         return HomeCellData(
             id: pageLink.blockId,
             destinationId: pageLink.targetBlockId,
