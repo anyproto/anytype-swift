@@ -32,7 +32,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let filters = buildFilters(
             isArchived: false,
-            typeUrls: ObjectTypeProvider.supportedTypeUrls
+            typeUrls: ObjectTypeProvider.shared.supportedTypeUrls
         )
         
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
@@ -46,7 +46,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         var filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.supportedObjectTypeUrlsFilter(
-                ObjectTypeProvider.supportedTypeUrls
+                ObjectTypeProvider.shared.supportedTypeUrls
             ),
             SearchHelper.excludedObjectTypeUrlFilter(ObjectTemplateType.BundledType.set.rawValue)
         ]
@@ -86,7 +86,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .desc
         )
         
-        let typeUrls: [String] = limitedTypeUrls.isNotEmpty ? limitedTypeUrls : ObjectTypeProvider.supportedTypeUrls
+        let typeUrls: [String] = limitedTypeUrls.isNotEmpty ? limitedTypeUrls : ObjectTypeProvider.shared.supportedTypeUrls
         var filters = buildFilters(isArchived: false, typeUrls: typeUrls)
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
@@ -116,7 +116,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         var filters = buildFilters(
             isArchived: false,
-            typeUrls: ObjectTypeProvider.supportedTypeUrls
+            typeUrls: ObjectTypeProvider.shared.supportedTypeUrls
         )
         filters.append(SearchHelper.excludedTypeFilter(excludedTypeUrls))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))

@@ -34,7 +34,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
     func showPage(data: EditorScreenData) {
         if let details = ObjectDetailsStorage.shared.get(id: data.pageId) {
-            guard ObjectTypeProvider.isSupported(typeUrl: details.type) else {
+            guard ObjectTypeProvider.shared.isSupported(typeUrl: details.type) else {
                 showUnsupportedTypeAlert(typeUrl: details.type)
                 return
             }
@@ -50,7 +50,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     private func showUnsupportedTypeAlert(typeUrl: String) {
-        let typeName = ObjectTypeProvider.objectType(url: typeUrl)?.name ?? "Unknown".localized
+        let typeName = ObjectTypeProvider.shared.objectType(url: typeUrl)?.name ?? "Unknown".localized
         
         AlertHelper.showToast(
             title: "Not supported type \"\(typeName)\"",

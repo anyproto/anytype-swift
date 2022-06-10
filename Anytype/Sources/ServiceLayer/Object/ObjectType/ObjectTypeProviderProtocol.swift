@@ -7,14 +7,14 @@
 //
 
 import Foundation
-import ProtobufMessages
+import BlocksModels
 
 protocol ObjectTypeProviderProtocol {
-    static var supportedTypeUrls: [String] { get }
-    static var defaultObjectType: ObjectType { get }
+    var supportedTypeUrls: [String] { get }
+    var defaultObjectType: ObjectType { get }
     
-    static func isSupported(typeUrl: String) -> Bool
-    static func objectType(url: String?) -> ObjectType?
+    func isSupported(typeUrl: String) -> Bool
+    func objectType(url: String?) -> ObjectType?
     
-    static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType]
+    func objectTypes(smartblockTypes: Set<SmartBlockType>) -> [ObjectType]
 }
