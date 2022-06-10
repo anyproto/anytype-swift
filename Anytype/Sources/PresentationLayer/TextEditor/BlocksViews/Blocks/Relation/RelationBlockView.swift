@@ -43,14 +43,6 @@ final class RelationBlockView: UIView, BlockContentView {
     // MARK: - Setup view
 
     private func setupLayout() {
-        containerView.addSubview(relationValueView) {
-            $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: LayoutConstants.topBottomInset,
-                                                                       left: 0,
-                                                                       bottom: -LayoutConstants.topBottomInset,
-                                                                       right: 0))
-            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
-        }
-
         relationNameStack.axis = .horizontal
         relationNameStack.spacing = 6
         relationNameStack.alignment = .center
@@ -73,12 +65,18 @@ final class RelationBlockView: UIView, BlockContentView {
             $0.leading.equal(to: containerView.leadingAnchor)
             $0.width.equal(to: containerView.widthAnchor, multiplier: 0.4)
         }
+
         containerView.addSubview(relationValueView) {
-            $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: LayoutConstants.topBottomInset,
-                                                                       left: 0,
-                                                                       bottom: -LayoutConstants.topBottomInset,
-                                                                       right: 0))
-            $0.leading.equal(to: relationNameStack.trailingAnchor, constant: 2)
+            $0.pinToSuperview(
+                excluding: [.left],
+                insets: UIEdgeInsets(
+                    top: LayoutConstants.topBottomInset,
+                    left: 0,
+                    bottom: -LayoutConstants.topBottomInset,
+                    right: 0
+                )
+            )
+            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
         }
     }
 
