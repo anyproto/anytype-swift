@@ -53,7 +53,7 @@ struct BlockLinkState: Hashable, Equatable {
     ) {
         self.title = title
         self.style = style
-        self.type = ObjectTypeProvider.objectType(url: typeUrl)
+        self.type = ObjectTypeProvider.shared.objectType(url: typeUrl)
         self.viewType = viewType
         self.archived = archived
         self.deleted = deleted

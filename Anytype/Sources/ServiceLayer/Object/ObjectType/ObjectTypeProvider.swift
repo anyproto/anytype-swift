@@ -4,48 +4,48 @@ import ProtobufMessages
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         
-    static let service = ObjectTypesService()
+    static let shared = ObjectTypeProvider()
     
-    // MARK: - Internal vars
+    // MARK: - Private variables
     
-    static var supportedTypeUrls: [String] {
-        let smartblockTypes: [SmartBlockType] = [
-            .page, .profilePage, .anytypeProfile, .set
-        ]
-        
-        return objectTypes(smartblockTypes: smartblockTypes).map { $0.url }
-        
+    private let service = ObjectTypesService()
+    private let supportedSmartblockTypes: Set<SmartBlockType> = [.page, .profilePage, .anytypeProfile, .set]
+    
+    private lazy var obtainedObjectTypes: Set<ObjectType> = {
+        service.obtainObjectTypes()
+    }()
+    
+    private lazy var cachedSupportedTypeUrls: Set<String> = {
+        let result = obtainedObjectTypes.filter {
+                $0.smartBlockTypes.intersection(supportedSmartblockTypes).isNotEmpty
+            }.map { $0.url }
+        return Set(result)
+    }()
+    
+    // MARK: - ObjectTypeProviderProtocol
+    
+    var supportedTypeUrls: [String] {
+        Array(cachedSupportedTypeUrls)
     }
     
-    static var defaultObjectType: ObjectType {
+    func isSupported(typeUrl: String) -> Bool {
+        cachedSupportedTypeUrls.contains(typeUrl)
+    }
+    
+    var defaultObjectType: ObjectType {
         UserDefaultsConfig.defaultObjectType
     }
     
-    // MARK: - Internal func
-    
-    static func isSupported(typeUrl: String) -> Bool {
-        supportedTypeUrls.contains(typeUrl)
-    }
-    
-    static func objectType(url: String?) -> ObjectType? {
-        guard let url = url else {
-            return nil
-        }
+    func objectType(url: String?) -> ObjectType? {
+        guard let url = url else { return nil }
         
-        return loadObjectTypes().filter { $0.url == url }.first
+        return obtainedObjectTypes.filter { $0.url == url }.first
     }
     
-    static func objectTypes(smartblockTypes: [SmartBlockType]) -> [ObjectType] {
-        //implement filterring at once on fetching
-        loadObjectTypes().filter {
+    func objectTypes(smartblockTypes: Set<SmartBlockType>) -> [ObjectType] {
+        obtainedObjectTypes.filter {
             $0.smartBlockTypes.intersection(smartblockTypes).isNotEmpty
         }
-    }
-    
-    // MARK: - Private func
-    
-    private static func loadObjectTypes() -> Set<ObjectType> {
-        service.obtainObjectTypes()
     }
     
 }

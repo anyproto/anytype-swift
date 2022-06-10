@@ -9,7 +9,7 @@ final class DashboardService: DashboardServiceProtocol {
     private let objectsService = ServiceLocator.shared.objectActionsService()
     
     func createNewPage(isDraft: Bool, templateId: BlockId?) -> BlockId? {
-        let defaultTypeUrl = ObjectTypeProvider.defaultObjectType.url
+        let defaultTypeUrl = ObjectTypeProvider.shared.defaultObjectType.url
         let id = objectsService.createPage(
             contextId: "",
             targetId: "",

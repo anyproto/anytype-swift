@@ -26,7 +26,7 @@ final class HomeCellDataBuilder {
                     return true
                 }
                 
-                return ObjectTypeProvider.isSupported(typeUrl: details.type)
+                return ObjectTypeProvider.shared.isSupported(typeUrl: details.type)
             }
             .map { buildHomeCellData(pageLink: $0) }
     }

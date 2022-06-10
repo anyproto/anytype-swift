@@ -7,7 +7,7 @@ final class PageService {
         let details = Google_Protobuf_Struct(
             fields: [
                 BundledRelationKey.name.rawValue: name.protobufValue,
-                BundledRelationKey.type.rawValue: ObjectTypeProvider.defaultObjectType.url.protobufValue
+                BundledRelationKey.type.rawValue: ObjectTypeProvider.shared.defaultObjectType.url.protobufValue
             ]
         )
         

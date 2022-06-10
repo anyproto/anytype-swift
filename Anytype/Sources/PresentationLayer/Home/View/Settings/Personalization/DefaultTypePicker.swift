@@ -9,7 +9,7 @@ struct DefaultTypePicker: View {
             title: "Choose default object type".localized,
             excludedObjectTypeId: nil
         ) { [weak model] id in
-            ObjectTypeProvider.objectType(url: id).flatMap {
+            ObjectTypeProvider.shared.objectType(url: id).flatMap {
                 UserDefaultsConfig.defaultObjectType = $0
             }
             model?.defaultType = false
