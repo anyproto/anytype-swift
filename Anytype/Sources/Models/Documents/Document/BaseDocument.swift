@@ -60,6 +60,7 @@ final class BaseDocument: BaseDocumentProtocol {
 
     @discardableResult
     func open() -> Bool {
+        ObjectTypeProvider.shared.resetCache()
         isOpened = blockActionsService.open()
         return isOpened
     }

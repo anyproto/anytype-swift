@@ -11,25 +11,17 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private let service = ObjectTypesService()
     private let supportedSmartblockTypes: Set<SmartBlockType> = [.page, .profilePage, .anytypeProfile, .set]
     
-    private lazy var obtainedObjectTypes: Set<ObjectType> = {
-        service.obtainObjectTypes()
-    }()
-    
-    private lazy var cachedSupportedTypeUrls: Set<String> = {
-        let result = obtainedObjectTypes.filter {
-                $0.smartBlockTypes.intersection(supportedSmartblockTypes).isNotEmpty
-            }.map { $0.url }
-        return Set(result)
-    }()
+    private var cachedObtainedObjectTypes: Set<ObjectType> = []
+    private var cachedSupportedTypeUrls: Set<String> = []
     
     // MARK: - ObjectTypeProviderProtocol
     
     var supportedTypeUrls: [String] {
-        Array(cachedSupportedTypeUrls)
+        Array(obtainedSupportedTypeUrls)
     }
     
     func isSupported(typeUrl: String) -> Bool {
-        cachedSupportedTypeUrls.contains(typeUrl)
+        obtainedSupportedTypeUrls.contains(typeUrl)
     }
     
     var defaultObjectType: ObjectType {
@@ -46,6 +38,32 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         obtainedObjectTypes.filter {
             $0.smartBlockTypes.intersection(smartblockTypes).isNotEmpty
         }
+    }
+    
+    // MARK: - Internal func
+    
+    func resetCache() {
+        cachedObtainedObjectTypes = []
+        cachedSupportedTypeUrls = []
+    }
+    
+    private var obtainedObjectTypes: Set<ObjectType> {
+        if cachedObtainedObjectTypes.isEmpty {
+            cachedObtainedObjectTypes = service.obtainObjectTypes()
+        }
+        
+        return cachedObtainedObjectTypes
+    }
+    
+    private var obtainedSupportedTypeUrls: Set<String> {
+        if cachedSupportedTypeUrls.isEmpty {
+            let result = obtainedObjectTypes.filter {
+                    $0.smartBlockTypes.intersection(supportedSmartblockTypes).isNotEmpty
+                }.map { $0.url }
+            cachedSupportedTypeUrls = Set(result)
+        }
+        
+        return cachedSupportedTypeUrls
     }
     
 }
