@@ -12,6 +12,7 @@ public enum BlockContent: Hashable, CustomStringConvertible {
     case featuredRelations
     case relation(BlockRelation)
     case dataView(BlockDataview)
+    case tableOfContents(BlockTableOfContents)
     case unsupported
     
     public var type: BlockContentType {
@@ -35,6 +36,9 @@ public enum BlockContent: Hashable, CustomStringConvertible {
         case let .relation(content):
             return .relation(key: content.key)
         case .dataView:
+            return .dataView
+        case .tableOfContents:
+            // TODO: add toc
             return .dataView
         case .unsupported:
             return .text(.text)
@@ -63,6 +67,8 @@ public enum BlockContent: Hashable, CustomStringConvertible {
             return "relationBlock"
         case .dataView:
             return "dataView"
+        case .tableOfContents:
+            return "toc"
         case .unsupported:
             return "unknown"
         }
