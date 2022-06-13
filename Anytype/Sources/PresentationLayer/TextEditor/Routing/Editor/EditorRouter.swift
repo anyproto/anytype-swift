@@ -155,7 +155,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             if fpc.state == FloatingPanelState.full {
                 controller.view.endEditing(true)
             }
-            controller.adjustContentOffset(fpc: fpc)
+            controller.collectionView.adjustContentOffsetForSelectedItem(relatively: fpc.surfaceView)
         }
 
         BottomSheetsFactory.createStyleBottomSheet(
