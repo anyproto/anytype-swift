@@ -24,6 +24,13 @@ extension NewSearchError {
         )
     }
     
+    static func noObjectErrorWithoutSubtitle(searchText: String) -> NewSearchError {
+        NewSearchError(
+            title: "\("There is no object named".localized) \"\(searchText)\"",
+            subtitle: nil
+        )
+    }
+    
     static func alreadySelected(searchText: String) -> NewSearchError {
         NewSearchError(
             title: "\"\(searchText)\" \("is already selected".localized)",

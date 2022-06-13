@@ -1,4 +1,5 @@
 import Foundation
+import BlocksModels
 
 final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
  
@@ -151,6 +152,26 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             }
         )
 
+        return NewSearchView(viewModel: viewModel)
+    }
+    
+    static func setSortsSearchModule(
+        relations: [RelationMetadata],
+        onSelect: @escaping (_ id: String) -> Void
+    ) -> NewSearchView {
+        let interactor = SetSortsSearchInteractor(relations: relations)
+        
+        let internalViewModel = SetSortsSearchViewModel(interactor: interactor)
+        
+        let viewModel = NewSearchViewModel(
+            itemCreationMode: .unavailable,
+            internalViewModel: internalViewModel,
+            onSelect: { ids in
+                guard let id = ids.first else { return }
+                onSelect(id)
+            }
+        )
+        
         return NewSearchView(viewModel: viewModel)
     }
 }
