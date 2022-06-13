@@ -211,8 +211,7 @@ final class BlockViewModelBuilder {
                 self?.router.showRelationValueEditingView(key: relation.id, source: .object)
             }
         case let .tableOfContents(content):
-            // TODO:
-            return nil
+            return TableOfContentsViewModel(info: info)
         case .smartblock, .layout, .dataView: return nil
         case .unsupported:
             guard let parentId = info.configurationData.parentId,
