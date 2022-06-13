@@ -1,10 +1,15 @@
 import UIKit
+import Combine
 
-protocol SimpleTableBlockProtocol: Dequebale, HashableProvier {}
+protocol SimpleTableBlockProtocol: Dequebale, HashableProvier {
+    var heightDidChangedSubject: PassthroughSubject<Void, Never> { get }
+}
 
-struct SimpleTableCellConfiguration<Configuration: BlockConfiguration>: SimpleTableBlockProtocol {
+struct SimpleTableCellConfiguration<Configuration: BlockConfiguration>: Hashable, SimpleTableBlockProtocol {
     let item: Configuration
     let backgroundColor: UIColor?
+
+    @EquatableNoop var heightDidChangedSubject = PassthroughSubject<Void, Never>()
 
     var hashable: AnyHashable { item.hashValue as AnyHashable }
 
@@ -34,6 +39,13 @@ extension SimpleTableCellConfiguration {
         ) as? SimpleTableCollectionViewCell<Configuration.View>
 
         cell?.update(with: item)
+        cell?.backgroundColor = backgroundColor
+
+        if let dynamicHeightView = cell?.containerView as? DynamicHeightView {
+            dynamicHeightView.heightDidChanged = {
+                heightDidChangedSubject.send()
+            }
+        }
 
         return cell ?? UICollectionViewCell()
     }

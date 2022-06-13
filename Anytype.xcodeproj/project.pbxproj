@@ -930,6 +930,8 @@
 		C9D5F7BD281A79C30076A47F /* DynamicCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D5F7BC281A79C30076A47F /* DynamicCollectionView.swift */; };
 		C9D5F7BF281A79F70076A47F /* UICollectionViewCompositionalLayout+BlockLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D5F7BE281A79F70076A47F /* UICollectionViewCompositionalLayout+BlockLayout.swift */; };
 		C9D655E427B4D10D00E09F38 /* EditorContextualMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D655E327B4D10D00E09F38 /* EditorContextualMenu.swift */; };
+		C9E939D428538B600089CB98 /* TextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E939D328538B600089CB98 /* TextBlockActionHandler.swift */; };
+		C9E939D9285390B70089CB98 /* TextBlockActionHandler+Actions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E939D8285390B70089CB98 /* TextBlockActionHandler+Actions.swift */; };
 		C9E9F5E427FC7E7F008163D9 /* InsetConstraints.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9E9F5E327FC7E7F008163D9 /* InsetConstraints.swift */; };
 		C9F0A4772805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F0A4762805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift */; };
 		C9F0A47D28057D8F00FA16DD /* TextIconPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F0A47C28057D8F00FA16DD /* TextIconPickerViewModel.swift */; };
@@ -1973,6 +1975,8 @@
 		C9D5F7BC281A79C30076A47F /* DynamicCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCollectionView.swift; sourceTree = "<group>"; };
 		C9D5F7BE281A79F70076A47F /* UICollectionViewCompositionalLayout+BlockLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionViewCompositionalLayout+BlockLayout.swift"; sourceTree = "<group>"; };
 		C9D655E327B4D10D00E09F38 /* EditorContextualMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorContextualMenu.swift; sourceTree = "<group>"; };
+		C9E939D328538B600089CB98 /* TextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockActionHandler.swift; sourceTree = "<group>"; };
+		C9E939D8285390B70089CB98 /* TextBlockActionHandler+Actions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextBlockActionHandler+Actions.swift"; sourceTree = "<group>"; };
 		C9E9F5E327FC7E7F008163D9 /* InsetConstraints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsetConstraints.swift; sourceTree = "<group>"; };
 		C9F0A4762805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectIconPickerViewModelProtocol.swift; sourceTree = "<group>"; };
 		C9F0A47C28057D8F00FA16DD /* TextIconPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextIconPickerViewModel.swift; sourceTree = "<group>"; };
@@ -6454,6 +6458,8 @@
 				3DF80F3C26EFA365000492F3 /* Stylers */,
 				530470F42682044000C9EE78 /* Views */,
 				EAED57A5269F346D00374A46 /* TextBlockViewModel.swift */,
+				C9E939D328538B600089CB98 /* TextBlockActionHandler.swift */,
+				C9E939D8285390B70089CB98 /* TextBlockActionHandler+Actions.swift */,
 				EAED57A9269F375B00374A46 /* TextBlockContentConfiguration.swift */,
 				EA45749625F8D2EB007D6C83 /* TextBlockContentView.swift */,
 				EAED57CF26A1A33500374A46 /* TextBlockContentView+TextViewDelegate.swift */,
@@ -6932,6 +6938,7 @@
 				125B6ECA26F235F400BCD7D6 /* AccessoryViewBuilder.swift in Sources */,
 				12CAF33E26D63473001E56B2 /* ObjectIconImage.swift in Sources */,
 				3D93D57C270CC88300614E29 /* EditorBrowserButton.swift in Sources */,
+				C9E939D9285390B70089CB98 /* TextBlockActionHandler+Actions.swift in Sources */,
 				12B0FF71274FD6D700CA35FE /* AppIconManager.swift in Sources */,
 				3D16841426DD672E008B9DFF /* BlockSmartblockConverter.swift in Sources */,
 				C96149542718286E00360840 /* GalleryViewModel.swift in Sources */,
@@ -7345,6 +7352,7 @@
 				3D155274264D976A00B0E976 /* Snackbar.swift in Sources */,
 				C961495C27182F8900360840 /* GalleryViewTransitionAnimator.swift in Sources */,
 				12B691D227F4CB5D00A0C336 /* ImageGuideline.swift in Sources */,
+				C9E939D428538B600089CB98 /* TextBlockActionHandler.swift in Sources */,
 				12FD9D29276717CF00991886 /* RelationTag.swift in Sources */,
 				53D4088827EC9EFE00495335 /* ObjectPreviewView.swift in Sources */,
 				12EB9AF12771CD6600BA732F /* RelationOptionsListViewModel.swift in Sources */,

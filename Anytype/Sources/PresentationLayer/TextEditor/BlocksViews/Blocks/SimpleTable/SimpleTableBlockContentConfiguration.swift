@@ -6,11 +6,32 @@ struct SimpleTableBlockContentConfiguration: BlockConfiguration {
     typealias View = SimpleTableBlockView
 
     let widths: [CGFloat]
-
-    @EquatableNoop private(set) var items: [[SimpleTableBlockProtocol]]
+    let items: [[SimpleTableBlockProtocol]]
+    
+    @EquatableNoop private(set) var blockDelegate: BlockDelegate
     @EquatableNoop private(set) var relativePositionProvider: RelativePositionProvider?
-    @EquatableNoop private(set) var resetPublisher: AnyPublisher<Void, Never>
-    @EquatableNoop private(set) var heightDidChanged: () -> Void
+
+    static func == (
+        lhs: SimpleTableBlockContentConfiguration,
+        rhs: SimpleTableBlockContentConfiguration
+    ) -> Bool {
+        lhs.items.hashable == rhs.items.hashable &&
+        lhs.widths == rhs.widths
+    }
+
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(items.hashable)
+        hasher.combine(widths)
+    }
+}
+
+private extension Array where Element == [SimpleTableBlockProtocol] {
+    var hashable: AnyHashable {
+        map { sections -> AnyHashable in
+            return sections.map { $0.hashable }
+        }
+
+    }
 }
 
 extension SimpleTableBlockContentConfiguration {
