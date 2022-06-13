@@ -22,7 +22,16 @@ struct BlockLinkState: Hashable, Equatable {
          iconSize: BlockLink.IconSize,
          descriptionState: BlockLink.Description
     ) {
-        let description = details.description.isEmpty ? details.snippet : details.description
+        var description = ""
+
+        switch descriptionState {
+        case .content:
+            description = details.snippet
+        case .added:
+            description = details.description
+        case .none:
+            description = ""
+        }
 
         self.init(
             title: details.name,
