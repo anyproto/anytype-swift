@@ -3,6 +3,8 @@ import UIKit
 
 class TableOfContentsView: UIView, BlockContentView {
     
+    // MARK: - Private properties
+    
     private enum Constants {
         static let levelLeftOffset: CGFloat = 20
         static let verticalBoundsInset: CGFloat = 6
@@ -10,6 +12,8 @@ class TableOfContentsView: UIView, BlockContentView {
     }
     
     private var labels = [UILabel]()
+    
+    // MARK: - BlockContentView
     
     func update(with configuration: TableOfContentsConfiguration) {
         let content = TableOfContentsSampleData.sampleData()
