@@ -26,7 +26,7 @@ final class HomeCellDataBuilder {
                     return true
                 }
                 
-                return ObjectTypeProvider.isSupported(typeUrl: details.type)
+                return ObjectTypeProvider.shared.isSupported(typeUrl: details.type)
             }
             .map { buildHomeCellData(pageLink: $0) }
     }
@@ -50,8 +50,8 @@ final class HomeCellDataBuilder {
     }
     
     private func buildHomeCellData(pageLink: HomePageLink) -> HomeCellData {
-        let type = ObjectTypeProvider.objectType(url: pageLink.details?.type)?.name ?? "Object".localized
-        
+        let type = pageLink.details?.objectType.name ?? "Object".localized
+
         return HomeCellData(
             id: pageLink.blockId,
             destinationId: pageLink.targetBlockId,

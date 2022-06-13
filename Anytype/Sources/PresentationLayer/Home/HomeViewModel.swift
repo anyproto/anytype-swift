@@ -217,7 +217,7 @@ extension HomeViewModel {
     
     private func createNewPage() -> BlockId? {
         let availableTemplates = searchService.searchTemplates(
-            for: .dynamic(ObjectTypeProvider.defaultObjectType.url)
+            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
         )
         let hasSingleTemplate = availableTemplates?.count == 1
         let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""

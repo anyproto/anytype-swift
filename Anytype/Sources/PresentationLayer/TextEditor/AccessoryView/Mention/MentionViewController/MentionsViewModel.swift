@@ -44,7 +44,7 @@ final class MentionsViewModel {
     func didSelectCreateNewMention() {
         guard let newBlockId = pageService.createPage(name: mentionService.filterString) else { return }
 
-        AnytypeAnalytics.instance().logCreateObject(objectType: ObjectTypeProvider.defaultObjectType.url, route: .mention)
+        AnytypeAnalytics.instance().logCreateObject(objectType: ObjectTypeProvider.shared.defaultObjectType.url, route: .mention)
         
         let name = mentionService.filterString.isEmpty ? "Untitled".localized : mentionService.filterString
         let mention = MentionObject(

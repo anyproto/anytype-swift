@@ -28,7 +28,7 @@ struct PersonalizationView: View {
             HStack(spacing: 0) {
                 AnytypeText("Default object type".localized, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
-                AnytypeText(ObjectTypeProvider.defaultObjectType.name, style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(ObjectTypeProvider.shared.defaultObjectType.name, style: .uxBodyRegular, color: .textSecondary)
                 Spacer.fixedWidth(10)
                 Image.arrow.foregroundColor(.textTertiary)
             }

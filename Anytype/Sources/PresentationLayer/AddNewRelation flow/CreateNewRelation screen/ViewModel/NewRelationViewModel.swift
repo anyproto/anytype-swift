@@ -80,7 +80,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
     
     func updateTypesRestriction(objectTypeIds: [String]) {
         objectTypes = objectTypeIds.compactMap {
-            ObjectTypeProvider.objectType(url: $0)
+            ObjectTypeProvider.shared.objectType(url: $0)
         }
     }
     

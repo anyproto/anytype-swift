@@ -74,21 +74,14 @@ final class BlockViewModelBuilder {
                 )
             default:
                 let isCheckable = content.contentType == .title ? document.details?.layout == .todo : false
-                return TextBlockViewModel(
+
+                let textBlockActionHandler = TextBlockActionHandler(
                     info: info,
-                    content: content,
-                    isCheckable: isCheckable,
-                    blockDelegate: delegate,
-                    actionHandler: handler,
-                    pasteboardService: pasteboardService,
                     showPage: { [weak self] data in
                         self?.router.showPage(data: data)
                     },
                     openURL: { [weak router] url in
                         router?.openUrl(url)
-                    },
-                    showURLBookmarkPopup: { [weak router] parameters in
-                        router?.showLinkContextualMenu(inputParameters: parameters)
                     },
                     showTextIconPicker: { [unowned router, unowned document] in
                         router.showTextIconPicker(
@@ -102,8 +95,22 @@ final class BlockViewModelBuilder {
                     hideWaitingView: {  [weak router] in
                         router?.hideWaitingView()
                     },
+                    content: content,
+                    showURLBookmarkPopup: { [weak router] parameters in
+                        router?.showLinkContextualMenu(inputParameters: parameters)
+                    },
+                    actionHandler: handler,
+                    pasteboardService: pasteboardService,
                     markdownListener: markdownListener,
-                    focusSubject: subjectsHolder.focusSubject(for: info.id)
+                    blockDelegate: delegate
+                )
+
+                return TextBlockViewModel(
+                    info: info,
+                    content: content,
+                    isCheckable: isCheckable,
+                    focusSubject: subjectsHolder.focusSubject(for: info.id),
+                    actionHandler: textBlockActionHandler
                 )
             }
         case let .file(content):
