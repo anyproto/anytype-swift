@@ -80,7 +80,7 @@ final class BlockLinkView: UIView, BlockContentView {
         titleView.setLineBreakMode(.byTruncatingTail)
         deletedLabel.isHidden = !configuration.state.archived
 
-        descriptionView.isHidden = !configuration.state.descriptionState.hasDescription
+        descriptionView.isHidden = configuration.state.description.isEmpty
         descriptionView.setText(configuration.state.attributedDescription)
         descriptionView.setLineBreakMode(.byTruncatingTail)
 

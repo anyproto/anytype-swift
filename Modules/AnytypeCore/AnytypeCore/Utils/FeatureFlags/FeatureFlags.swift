@@ -36,7 +36,7 @@ public final class FeatureFlags {
         .middlewareLogs: false,
         .clipboard: true,
         .uikitRelationBlocks: true,
-        .objectPreview: false,
+        .objectPreview: true,
         .deletion: false,
         .createNewRelation: true,
         .templates: true,
@@ -78,7 +78,7 @@ public extension FeatureFlags {
     }
 
     static var objectPreview: Bool {
-        features[.objectPreview, default: false]
+        features[.objectPreview, default: true]
     }
     
     static var deletion: Bool {
