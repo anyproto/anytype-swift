@@ -37,7 +37,7 @@ struct SearchObjectRowView: View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeText(
                 viewModel.title,
-                style: viewModel.subtitle != nil ? .previewTitle2Medium : .uxBodyRegular,
+                style: viewModel.subtitle.isNotNil ? .previewTitle2Medium : .uxBodyRegular,
                 color: .textPrimary
             ).lineLimit(1)
             if let subtitle = viewModel.subtitle {
