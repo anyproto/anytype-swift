@@ -5,7 +5,6 @@ import FloatingPanel
 
 final class SetSortsListViewModel: ObservableObject {
     
-    @Published var isSearchPresented: Bool = false
     private let setModel: EditorSetViewModel
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
@@ -28,8 +27,20 @@ final class SetSortsListViewModel: ObservableObject {
 
 extension SetSortsListViewModel {
     
+    // MARK: - Routing
+    
     func addButtonTapped() {
-        isSearchPresented = true
+        router.presentSheet(
+            AnytypePopup(
+                viewModel: SetSortsSearchViewPopupModel(
+                    setModel: setModel,
+                    onSelect: { [weak self] key in
+                        self?.addNewSort(with: key)
+                    }
+                ),
+                configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
+            )
+        )
     }
     
     func sortRowTapped(_ setSort: SetSort) {
@@ -50,16 +61,7 @@ extension SetSortsListViewModel {
         )
     }
     
-    func updateSorts(with setSort: SetSort) {
-        let sorts: [SetSort] = setModel.sorts.map { sort in
-            if sort.metadata.key == setSort.metadata.key {
-                return setSort
-            } else {
-                return sort
-            }
-        }
-        updateView(with: sorts)
-    }
+    // MARK: - Actions
     
     func delete(_ indexSet: IndexSet) {
         var sorts = setModel.sorts
@@ -73,11 +75,34 @@ extension SetSortsListViewModel {
         updateView(with: sorts)
     }
     
-    @ViewBuilder
-    func makeSearchView() -> some View {}
+    func addNewSort(with key: String) {
+        var dataviewSorts = setModel.sorts.map { $0.sort }
+        dataviewSorts.append(
+            DataviewSort(
+                relationKey: key,
+                type: .asc
+            )
+        )
+        updateView(with: dataviewSorts)
+    }
+    
+    private func updateSorts(with setSort: SetSort) {
+        let sorts: [SetSort] = setModel.sorts.map { sort in
+            if sort.metadata.key == setSort.metadata.key {
+                return setSort
+            } else {
+                return sort
+            }
+        }
+        updateView(with: sorts)
+    }
     
     private func updateView(with sorts: [SetSort]) {
         let dataviewSorts = sorts.map { $0.sort }
+        updateView(with: dataviewSorts)
+    }
+    
+    private func updateView(with dataviewSorts: [DataviewSort]) {
         let newView = setModel.activeView.updated(sorts: dataviewSorts)
         service.updateView(newView)
     }

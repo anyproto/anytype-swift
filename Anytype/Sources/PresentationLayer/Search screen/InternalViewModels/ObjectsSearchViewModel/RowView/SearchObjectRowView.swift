@@ -35,11 +35,16 @@ struct SearchObjectRowView: View {
     
     private var text: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText(viewModel.title, style: .previewTitle2Medium, color: .textPrimary)
-                .lineLimit(1)
-            Spacer.fixedHeight(1)
-            AnytypeText(viewModel.subtitle, style: .relation2Regular, color: .textSecondary)
-                .lineLimit(1)
+            AnytypeText(
+                viewModel.title,
+                style: viewModel.subtitle.isNotNil ? .previewTitle2Medium : .uxBodyRegular,
+                color: .textPrimary
+            ).lineLimit(1)
+            if let subtitle = viewModel.subtitle {
+                Spacer.fixedHeight(1)
+                AnytypeText(subtitle, style: .relation2Regular, color: .textSecondary)
+                    .lineLimit(1)
+            }
         }
     }
     
@@ -50,7 +55,7 @@ extension SearchObjectRowView {
     struct Model {
         let icon: ObjectIconImage
         let title: String
-        let subtitle: String
+        let subtitle: String?
     }
     
 }

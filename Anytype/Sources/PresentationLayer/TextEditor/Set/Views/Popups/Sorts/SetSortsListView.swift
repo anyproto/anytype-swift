@@ -13,7 +13,11 @@ struct SetSortsListView: View {
                 .navigationTitle("EditSorts.Popup.NavigationView.Title".localized)
                 .navigationBarTitleDisplayMode(.inline)
                 .environment(\.editMode, $editMode)
-                .sheet(isPresented: $viewModel.isSearchPresented) { viewModel.makeSearchView() }
+                .onChange(of: setModel.sorts) { newValue in
+                    if editMode == .active && setModel.sorts.count == 0 {
+                        editMode = .inactive
+                    }
+                }
         }
         .navigationViewStyle(.stack)
     }
@@ -43,12 +47,11 @@ struct SetSortsListView: View {
                     .frame(height: 68)
             }
         }
-// @joe_pusya: will be implement in the next PRs
-//        .toolbar {
-//            ToolbarItem(placement: .navigationBarTrailing) {
-//                addButton
-//            }
-//        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                addButton
+            }
+        }
     }
     
     private var sortsList: some View {
