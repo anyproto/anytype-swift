@@ -44,16 +44,16 @@ class EditorCollectionView: UICollectionView {
 
 
         let viewRectInCollection = relativeView.convert(relativeView.bounds, to: self)
-        let intersectView = viewRectInCollection.intersects(itemAttributes.frame)
+        let isRelativeViewIntersectedByCell = viewRectInCollection.intersects(itemAttributes.frame)
 
-        // take in account top of adjustedContentInset
+        // take in account top of collection adjustedContentInset
         let adjustedCollectionY = bounds.origin.y + adjustedContentInset.top
         let adjustedCollectionBounds = CGRect(origin: .init(x: bounds.origin.x, y: adjustedCollectionY), size: bounds.size)
         let visibleInCollection = itemAttributes.frame.intersects(adjustedCollectionBounds)
 
 
-        // if visible block or intersect view than do nothing
-        if !intersectView, visibleInCollection {
+        // if cell is visible and not intersects relativeView than do nothing
+        if !isRelativeViewIntersectedByCell, visibleInCollection {
             contentInset.bottom = relativeView.bounds.height
             return
         }
@@ -63,7 +63,7 @@ class EditorCollectionView: UICollectionView {
         // if cell is above of view show view on the top edge of the collection view
         if itemAttributes.frame.maxY < viewRectInCollection.minY {
             yOffset = itemAttributes.frame.minY - adjustedContentInset.top
-        } else { // if cell is below view show selected item above this view
+        } else { // if cell is below relative view show selected item above this view
             yOffset = itemAttributes.frame.maxY - bounds.height + relativeView.bounds.height + relativeView.layoutMargins.bottom
         }
 
