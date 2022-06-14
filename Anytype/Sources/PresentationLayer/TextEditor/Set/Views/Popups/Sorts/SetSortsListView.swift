@@ -61,6 +61,7 @@ struct SetSortsListView: View {
                     row(with: $0)
                         .divider(leadingPadding: 60)
                         .listRowSeparator(.hidden)
+                        .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
                 } else {
                     row(with: $0)
                 }
@@ -85,7 +86,6 @@ struct SetSortsListView: View {
     private func row(with sort: SetSort) -> some View {
         SetSortRow(sort: sort, onTap: { viewModel.sortRowTapped(sort) })
             .environment(\.editMode, $editMode)
-            .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
     }
     
 }
