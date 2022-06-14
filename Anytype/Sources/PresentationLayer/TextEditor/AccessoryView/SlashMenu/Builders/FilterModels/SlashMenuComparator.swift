@@ -4,6 +4,7 @@ import Foundation
 protocol ComparableDisplayData {
     var title: String? { get }
     var subtitle: String? { get }
+    var aliases: [String]? { get }
 }
 
 struct SlashMenuComparator {
@@ -29,7 +30,11 @@ struct SlashMenuComparator {
             SlashMenuComparator(
                 predicate: { subtitle?.contains($0) ?? false },
                 result: .subtitleSubstring
-            )
+            ),
+            SlashMenuComparator(
+                predicate: { search in data.aliases?.contains { $0.contains(search) } ?? false },
+                result: .aliaseSubstring
+            ),
         ]
         
         return comparators.first { $0.predicate(string.lowercased()) }?.result

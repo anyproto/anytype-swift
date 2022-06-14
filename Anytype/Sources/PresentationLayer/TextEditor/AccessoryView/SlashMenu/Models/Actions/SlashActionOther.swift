@@ -39,6 +39,15 @@ enum SlashActionOther: CaseIterable {
         }
     }
     
+    var searchAliases: [String] {
+        switch self {
+        case .dotsDivider, .lineDivider:
+            return []
+        case .tableOfContents:
+            return ["toc"]
+        }
+    }
+    
     static var allCases: Self.AllCases {
         if FeatureFlags.isTableOfContentsAvailable {
             return [.lineDivider, .dotsDivider, .tableOfContents]

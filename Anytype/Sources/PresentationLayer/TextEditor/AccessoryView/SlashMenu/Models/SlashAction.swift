@@ -37,7 +37,7 @@ enum SlashAction {
             )
         case let .other(other):
             return .titleSubtitleDisplayData(
-                SlashMenuItemDisplayData(iconData: .staticImage(other.iconName), title: other.title)
+                SlashMenuItemDisplayData(iconData: .staticImage(other.iconName), title: other.title, searchAliases: other.searchAliases)
             )
         case let .objects(object):
             switch object {
