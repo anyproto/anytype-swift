@@ -217,7 +217,7 @@ final class BlockViewModelBuilder {
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
                 self?.router.showRelationValueEditingView(key: relation.id, source: .object)
             }
-        case let .tableOfContents(content):
+        case .tableOfContents:
             return TableOfContentsViewModel(info: info)
         case .smartblock, .layout, .dataView: return nil
         case .unsupported:

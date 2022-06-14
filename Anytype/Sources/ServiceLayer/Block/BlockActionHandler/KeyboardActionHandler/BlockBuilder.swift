@@ -29,6 +29,8 @@ struct BlockBuilder {
             return .link(.empty())
         case let .relation(key: key):
             return .relation(.init(key: key))
+        case .tableOfContents:
+            return .tableOfContents(.init())
         case .layout, .smartblock, .featuredRelations, .dataView:
             anytypeAssertionFailure("Unsupported type \(type)", domain: .blockBuilder)
             return nil

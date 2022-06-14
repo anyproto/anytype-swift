@@ -38,8 +38,7 @@ public enum BlockContent: Hashable, CustomStringConvertible {
         case .dataView:
             return .dataView
         case .tableOfContents:
-            // TODO: add toc
-            return .dataView
+            return .tableOfContents
         case .unsupported:
             return .text(.text)
         }
@@ -68,7 +67,7 @@ public enum BlockContent: Hashable, CustomStringConvertible {
         case .dataView:
             return "dataView"
         case .tableOfContents:
-            return "toc"
+            return "tableOfContents"
         case .unsupported:
             return "unknown"
         }

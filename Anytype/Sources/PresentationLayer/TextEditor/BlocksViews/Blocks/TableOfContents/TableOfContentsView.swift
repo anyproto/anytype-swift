@@ -23,7 +23,7 @@ class TableOfContentsView: UIView, BlockContentView {
         labels.removeAll()
         
         addLabels(content: content, level: 0, cache: &cache)
-        labels.last?.layoutUsing.anchors { $0.bottom.equal(to: bottomAnchor, constant: Constants.verticalBoundsInset) }
+        labels.last?.layoutUsing.anchors { $0.bottom.equal(to: bottomAnchor, constant: -Constants.verticalBoundsInset) }
     }
     
     // MARK: - Private
@@ -34,7 +34,7 @@ class TableOfContentsView: UIView, BlockContentView {
             let label = cache.popLast() ?? createLabel()
             label.attributedText = makeAttributedText(for: data.title)
             label.addTapGesture { _ in
-                print("label tap")
+                // TODO: Add scroll to header
             }
             
             addSubview(label) {
