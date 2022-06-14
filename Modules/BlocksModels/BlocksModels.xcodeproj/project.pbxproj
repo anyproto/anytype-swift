@@ -31,7 +31,6 @@
 		12FE550128535F7A006E0AAF /* SmartBlockType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FE550028535F7A006E0AAF /* SmartBlockType.swift */; };
 		12FE5507285365FF006E0AAF /* ObjectTypesServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FE5506285365FF006E0AAF /* ObjectTypesServiceProtocol.swift */; };
 		12FE55092853660C006E0AAF /* ObjectTypesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12FE55082853660C006E0AAF /* ObjectTypesService.swift */; };
-		2A83ED782853454100612723 /* BlockTableOfContents.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A83ED772853454100612723 /* BlockTableOfContents.swift */; };
 		3D00F1E1278DEBB900863D7C /* ObjectDetails+Parsing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1E0278DEBB900863D7C /* ObjectDetails+Parsing.swift */; };
 		3D0BCABF26663B12002F7A0D /* InfoContainerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCABE26663B12002F7A0D /* InfoContainerProtocol.swift */; };
 		3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D0BCAE026666C0E002F7A0D /* BlockLink.swift */; };
@@ -103,7 +102,6 @@
 		12FE550028535F7A006E0AAF /* SmartBlockType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmartBlockType.swift; sourceTree = "<group>"; };
 		12FE5506285365FF006E0AAF /* ObjectTypesServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesServiceProtocol.swift; sourceTree = "<group>"; };
 		12FE55082853660C006E0AAF /* ObjectTypesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesService.swift; sourceTree = "<group>"; };
-		2A83ED772853454100612723 /* BlockTableOfContents.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTableOfContents.swift; sourceTree = "<group>"; };
 		3D00F1E0278DEBB900863D7C /* ObjectDetails+Parsing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectDetails+Parsing.swift"; sourceTree = "<group>"; };
 		3D0BCABE26663B12002F7A0D /* InfoContainerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContainerProtocol.swift; sourceTree = "<group>"; };
 		3D0BCAE026666C0E002F7A0D /* BlockLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockLink.swift; sourceTree = "<group>"; };
@@ -314,7 +312,6 @@
 				3D22B21D2687812F00C78C28 /* BlockContentBookmark.swift */,
 				3D22B21F268781C300C78C28 /* BlockContentLayout.swift */,
 				535E02B527503B7500E1AF8C /* BlockRelation.swift */,
-				2A83ED772853454100612723 /* BlockTableOfContents.swift */,
 			);
 			path = Content;
 			sourceTree = "<group>";
@@ -549,7 +546,6 @@
 				3D6E9A5227102E30001B0A07 /* BlockTextStyle.swift in Sources */,
 				3D0BCAE126666C0E002F7A0D /* BlockLink.swift in Sources */,
 				12206713273164890051A331 /* RelationsMetadataStorage.swift in Sources */,
-				2A83ED782853454100612723 /* BlockTableOfContents.swift in Sources */,
 				531605CA2721982E0057B7C1 /* MiddlewareObjectRestrictionsConverter.swift in Sources */,
 				12FE5507285365FF006E0AAF /* ObjectTypesServiceProtocol.swift in Sources */,
 				C9ACFE7327FECD5600E748A4 /* IndentationStyleRecursiveData.swift in Sources */,

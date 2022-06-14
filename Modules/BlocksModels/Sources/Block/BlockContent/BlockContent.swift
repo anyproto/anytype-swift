@@ -12,7 +12,7 @@ public enum BlockContent: Hashable, CustomStringConvertible {
     case featuredRelations
     case relation(BlockRelation)
     case dataView(BlockDataview)
-    case tableOfContents(BlockTableOfContents)
+    case tableOfContents
     case unsupported
     
     public var type: BlockContentType {

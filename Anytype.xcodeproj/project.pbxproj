@@ -395,7 +395,6 @@
 		2A176438283E2211002853D3 /* AnytypePopupProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176437283E2211002853D3 /* AnytypePopupProxy.swift */; };
 		2A17643A283E2245002853D3 /* ContentUrlBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A176439283E2245002853D3 /* ContentUrlBuilder.swift */; };
 		2A2D4A2B283CCE47005E70E4 /* HomeContextMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2D4A2A283CCE47005E70E4 /* HomeContextMenuView.swift */; };
-		2A83ED762853448800612723 /* BlockTableOfContentsConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A83ED752853448800612723 /* BlockTableOfContentsConverter.swift */; };
 		2ABA0E07283BC420008369DC /* MoveToSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA0E06283BC420008369DC /* MoveToSearchInteractor.swift */; };
 		2AD06B7C2857271D0006C255 /* TableOfContentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */; };
 		2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */; };
@@ -1450,7 +1449,6 @@
 		2A176437283E2211002853D3 /* AnytypePopupProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypePopupProxy.swift; sourceTree = "<group>"; };
 		2A176439283E2245002853D3 /* ContentUrlBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContentUrlBuilder.swift; sourceTree = "<group>"; };
 		2A2D4A2A283CCE47005E70E4 /* HomeContextMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContextMenuView.swift; sourceTree = "<group>"; };
-		2A83ED752853448800612723 /* BlockTableOfContentsConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockTableOfContentsConverter.swift; sourceTree = "<group>"; };
 		2ABA0E06283BC420008369DC /* MoveToSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToSearchInteractor.swift; sourceTree = "<group>"; };
 		2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsViewModel.swift; sourceTree = "<group>"; };
 		2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsConfiguration.swift; sourceTree = "<group>"; };
@@ -4721,7 +4719,6 @@
 				3D16840D26DD672E008B9DFF /* BlockSmartblockConverter.swift */,
 				3D16840E26DD672E008B9DFF /* BlockTextConverter.swift */,
 				535E02B727503D7D00E1AF8C /* BlockRelationConverter.swift */,
-				2A83ED752853448800612723 /* BlockTableOfContentsConverter.swift */,
 			);
 			path = ProtobufConverters;
 			sourceTree = "<group>";
@@ -6767,7 +6764,6 @@
 				3D2F9C17271EAE4D0043C326 /* SearchHelper.swift in Sources */,
 				03CB3F01230C10E9003D5DFD /* AuthServiceProtocol.swift in Sources */,
 				03527A0722F7A44B004F0418 /* KeychainPhraseView.swift in Sources */,
-				2A83ED762853448800612723 /* BlockTableOfContentsConverter.swift in Sources */,
 				EA4AC46B261CBDE4002E961E /* FileLoadingState.swift in Sources */,
 				0AA00C4424CB02D400870C18 /* DividerBlockContentConfiguration.swift in Sources */,
 				3D850B9F26458CC2005805A8 /* DragIndicator.swift in Sources */,
