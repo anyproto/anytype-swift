@@ -58,6 +58,9 @@ struct HomeProfileView: View {
             Button {
                 UISelectionFeedbackGenerator().selectionChanged()
                 model.showSettings.toggle()
+                if model.showSettings {
+                    AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.settingsShow)
+                }
             } label: {
                 HomeProfileViewButtonImage(
                     image: Image.main.settings.renderingMode(.template)
