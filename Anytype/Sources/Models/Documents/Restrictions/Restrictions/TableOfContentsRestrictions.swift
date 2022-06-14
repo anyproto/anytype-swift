@@ -10,5 +10,5 @@ struct TableOfContentsRestrictions: BlockRestrictions {
     let canApplyEmoji = false
     let canDeleteOrDuplicate = true
     let turnIntoStyles = [BlockContentType]()
-    let availableAlignments = LayoutAlignment.allCases
+    let availableAlignments = [LayoutAlignment]()
 }
