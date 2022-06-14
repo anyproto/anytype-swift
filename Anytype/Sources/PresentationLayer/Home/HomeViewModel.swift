@@ -21,6 +21,7 @@ final class HomeViewModel: ObservableObject {
     @Published private(set) var openedEditorScreenData: EditorScreenData?
     @Published var showingEditorScreenData: Bool = false
     
+    @Published var showSettings = false
     @Published var showSearch = false
     @Published var showPagesDeletionAlert = false
     @Published var snackBarData = SnackBarData.empty
