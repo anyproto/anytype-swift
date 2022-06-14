@@ -102,7 +102,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             onHomeTap: { [weak self] in
                 self?.goToHome(animated: true)
             },
-            onSearchTap: { [weak self] in
+            onCreateObjectTap: { [weak self] in
                 self?.router.showSearch { data in
                     self?.router.showPage(data: data)
                 }
