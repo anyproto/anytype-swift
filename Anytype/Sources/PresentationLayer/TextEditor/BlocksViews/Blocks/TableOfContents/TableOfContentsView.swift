@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-class TableOfContentsView: UIView, BlockContentView {
+final class TableOfContentsView: UIView, BlockContentView {
     
     // MARK: - Private properties
     
