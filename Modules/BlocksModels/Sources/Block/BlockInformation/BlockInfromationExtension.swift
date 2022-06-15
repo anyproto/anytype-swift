@@ -15,7 +15,8 @@ public extension BlockInformation {
         switch content {
         case .smartblock, .layout:
             return .meta
-        case .text, .file, .divider, .bookmark, .link, .featuredRelations, .relation, .dataView, .unsupported:
+        case .text, .file, .divider, .bookmark, .link, .featuredRelations, .relation, .dataView,
+                .tableOfContents, .unsupported:
             return .block
         }
     }
