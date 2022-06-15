@@ -300,3 +300,4 @@
 "EditSorts.Popup.Sort.Type.Number.Desc" = "9 → 1";
 "EditSorts.Popup.Sort.Type.Checkbox.Asc" = "Checked → Unchecked";
 "EditSorts.Popup.Sort.Type.Checkbox.Desc" = "Unchecked → Checked";
+"EditSorts.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
