@@ -4045,7 +4045,6 @@
 				2E9EFDE5285335CC00C8E47A /* SetSortsSearchViewModel.swift */,
 				2E9EFDFA285762BD00C8E47A /* SetSortsSearchInteractor.swift */,
 				2E9EFE0B2857A11800C8E47A /* SetSortsSearchViewPopupModel.swift */,
-				2E9EFE102857A6D400C8E47A /* ExceptionalSetSort.swift */,
 			);
 			path = Sorts;
 			sourceTree = "<group>";
@@ -4503,6 +4502,7 @@
 				3D30417127EA689F00FFE0EB /* SetTableViewRowDataBuilder.swift */,
 				3D30418027EC877F00FFE0EB /* SetRelation.swift */,
 				2E412D142847B15C00C973FF /* SetSort.swift */,
+				2E9EFE102857A6D400C8E47A /* ExceptionalSetSort.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
