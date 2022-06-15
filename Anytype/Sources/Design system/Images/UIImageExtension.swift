@@ -39,7 +39,7 @@ extension UIImage {
     
     enum editorNavigation {
         static let home = createImage("TextEditor/home")
-        static let search = createImage("TextEditor/search")
+        static let draft = createImage("draft")
         static let backArrow = createImage("TextEditor/backArrow")
         static let forwardArrow = createImage("TextEditor/forwardArrow")
         static let lockedObject = createImage("TextEditor/locked_object")

@@ -30,7 +30,7 @@ final class HomeViewModel: ObservableObject {
     @Published private(set) var profileData: HomeProfileData?
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
-    let searchService = ServiceLocator.shared.searchService()
+    
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let subscriptionService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
     
@@ -189,7 +189,7 @@ extension HomeViewModel {
     }
     
     func createAndShowNewPage() {
-        guard let id = createNewPage() else { return }
+        guard let id = dashboardService.createNewPage() else { return }
         
         showPage(id: id, viewType: .page)
     }
@@ -214,21 +214,6 @@ extension HomeViewModel {
         EditorBrowserAssembly().editor(data: data, model: self)
             .eraseToAnyView()
             .edgesIgnoringSafeArea(.all)
-    }
-    
-    private func createNewPage() -> BlockId? {
-        let availableTemplates = searchService.searchTemplates(
-            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
-        )
-        let hasSingleTemplate = availableTemplates?.count == 1
-        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
-        
-        guard let id = dashboardService.createNewPage(isDraft: !hasSingleTemplate, templateId: templateId) else {
-            anytypeAssertionFailure("No new block id in create new page response", domain: .homeView)
-            return nil
-        }
-
-        return id
     }
     
 }

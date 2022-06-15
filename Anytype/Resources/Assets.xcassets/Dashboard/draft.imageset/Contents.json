@@ -1,17 +1,8 @@
 {
   "images" : [
     {
-      "filename" : "add doc.pdf",
-      "idiom" : "universal",
-      "scale" : "1x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x"
+      "filename" : "add_doc.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

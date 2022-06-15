@@ -82,7 +82,6 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         position: BlockPosition,
         templateId: String
     ) -> BlockId? {
-        
         let protobufDetails = details.reduce([String: Google_Protobuf_Value]()) { result, detail in
             var result = result
             result[detail.key] = detail.value
@@ -97,7 +96,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             )
             .getValue(domain: .objectActionsService)
         
-        guard let response = response else { return nil}
+        guard let response = response else { return nil }
 
         EventsBunch(event: response.event).send()
         return response.targetID

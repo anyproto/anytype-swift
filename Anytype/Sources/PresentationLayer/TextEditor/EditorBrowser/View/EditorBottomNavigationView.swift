@@ -8,12 +8,12 @@ final class EditorBottomNavigationView: UIView {
     private let onForwardTap: () -> ()
     private let onForwardPageTap: (BrowserPage) -> ()
     private let onHomeTap: () -> ()
-    private let onSearchTap: () -> ()
+    private let onCreateObjectTap: () -> ()
     
     private lazy var backButton = createBackButton()
     private lazy var forwardButton = createForwardButton()
     private lazy var homeButton = createHomeButton()
-    private lazy var searchButton = createSearchButton()
+    private lazy var сreateObjectButton = createCreateObjectButton()
     
     init(
         onBackTap: @escaping () -> (),
@@ -21,14 +21,14 @@ final class EditorBottomNavigationView: UIView {
         onForwardTap: @escaping () -> (),
         onForwardPageTap: @escaping (BrowserPage) -> (),
         onHomeTap: @escaping () -> (),
-        onSearchTap: @escaping () -> ()
+        onCreateObjectTap: @escaping () -> ()
     ) {
         self.onBackTap = onBackTap
         self.onBackPageTap = onBackPageTap
         self.onForwardTap = onForwardTap
         self.onForwardPageTap = onForwardPageTap
         self.onHomeTap = onHomeTap
-        self.onSearchTap = onSearchTap
+        self.onCreateObjectTap = onCreateObjectTap
         
         super.init(frame: .zero)
         
@@ -62,7 +62,7 @@ final class EditorBottomNavigationView: UIView {
                     homeButton,
                     backButton,
                     forwardButton,
-                    searchButton
+                    сreateObjectButton
                 ]
             )
         }
@@ -123,10 +123,10 @@ final class EditorBottomNavigationView: UIView {
         }
     }
     
-    private func createSearchButton() -> UIView {
-        EditorBrowserButton(image: .editorNavigation.search) { [weak self] in
+    private func createCreateObjectButton() -> UIView {
+        EditorBrowserButton(image: .editorNavigation.draft) { [weak self] in
             UISelectionFeedbackGenerator().selectionChanged()
-            self?.onSearchTap()
+            self?.onCreateObjectTap()
         }
     }
     
