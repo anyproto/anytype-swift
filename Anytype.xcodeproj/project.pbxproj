@@ -405,7 +405,6 @@
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
 		2E9EFDE6285335CC00C8E47A /* SetSortsSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFDE5285335CC00C8E47A /* SetSortsSearchViewModel.swift */; };
 		2E9EFDFB285762BD00C8E47A /* SetSortsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFDFA285762BD00C8E47A /* SetSortsSearchInteractor.swift */; };
-		2E9EFE0C2857A11800C8E47A /* SetSortsSearchViewPopupModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE0B2857A11800C8E47A /* SetSortsSearchViewPopupModel.swift */; };
 		2E9EFE112857A6D400C8E47A /* ExceptionalSetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE102857A6D400C8E47A /* ExceptionalSetSort.swift */; };
 		2E9EFE39285A013500C8E47A /* SortOptionsPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE38285A013500C8E47A /* SortOptionsPopupLayout.swift */; };
 		2EEA3EA3284E00E100D241D1 /* SetSortTypesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA3EA2284E00E100D241D1 /* SetSortTypesListViewModel.swift */; };
@@ -1459,7 +1458,6 @@
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
 		2E9EFDE5285335CC00C8E47A /* SetSortsSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsSearchViewModel.swift; sourceTree = "<group>"; };
 		2E9EFDFA285762BD00C8E47A /* SetSortsSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsSearchInteractor.swift; sourceTree = "<group>"; };
-		2E9EFE0B2857A11800C8E47A /* SetSortsSearchViewPopupModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsSearchViewPopupModel.swift; sourceTree = "<group>"; };
 		2E9EFE102857A6D400C8E47A /* ExceptionalSetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionalSetSort.swift; sourceTree = "<group>"; };
 		2E9EFE38285A013500C8E47A /* SortOptionsPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptionsPopupLayout.swift; sourceTree = "<group>"; };
 		2EEA3EA2284E00E100D241D1 /* SetSortTypesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortTypesListViewModel.swift; sourceTree = "<group>"; };
@@ -4046,7 +4044,6 @@
 				2EEA3EA2284E00E100D241D1 /* SetSortTypesListViewModel.swift */,
 				2E9EFDE5285335CC00C8E47A /* SetSortsSearchViewModel.swift */,
 				2E9EFDFA285762BD00C8E47A /* SetSortsSearchInteractor.swift */,
-				2E9EFE0B2857A11800C8E47A /* SetSortsSearchViewPopupModel.swift */,
 				2E9EFE102857A6D400C8E47A /* ExceptionalSetSort.swift */,
 			);
 			path = Sorts;
@@ -7525,7 +7522,6 @@
 				3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */,
 				12F3E765270C6EE4002EE52F /* ObjectHeaderImageUsecase.swift in Sources */,
 				3D932D5726317EFC00C7D1EA /* CommonViews+Pickers+File+UIKit.swift in Sources */,
-				2E9EFE0C2857A11800C8E47A /* SetSortsSearchViewPopupModel.swift in Sources */,
 				125683F227DF808E003A8251 /* NewSearchViewModel+SelectionMode.swift in Sources */,
 				C9CD66AC27EB3BDE001F1860 /* UnsplashItemsViewModel.swift in Sources */,
 				3DAE1C89273E6A59009A72F3 /* String+Range.swift in Sources */,
