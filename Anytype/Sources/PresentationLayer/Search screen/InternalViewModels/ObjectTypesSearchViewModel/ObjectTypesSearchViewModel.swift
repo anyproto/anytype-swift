@@ -82,6 +82,7 @@ private extension SearchObjectRowView.Model {
         }()
         self.title = title
         self.subtitle = details.description
+        self.style = .default
     }
     
 }
