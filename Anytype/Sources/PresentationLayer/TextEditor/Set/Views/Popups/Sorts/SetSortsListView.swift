@@ -39,18 +39,26 @@ struct SetSortsListView: View {
             if setModel.sorts.isNotEmpty {
                 sortsList
             } else {
-                AnytypeText(
-                    "EditSorts.Popup.EmptyView.Title".localized,
-                    style: .uxCalloutRegular,
-                    color: .textSecondary
-                )
-                    .frame(height: 68)
+                emptyState
             }
         }
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 addButton
             }
+        }
+    }
+    
+    private var emptyState: some View {
+        VStack {
+            Spacer.fixedHeight(20)
+            AnytypeText(
+                "EditSorts.Popup.EmptyView.Title".localized,
+                style: .uxCalloutRegular,
+                color: .textSecondary
+            )
+                .frame(height: 68)
+            Spacer()
         }
     }
     

@@ -9,7 +9,7 @@ final class SetSortsListViewModel: ObservableObject {
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
     
-    private(set) var popupLayout = AnytypePopupLayoutType.fullScreen
+    private(set) var popupLayout = AnytypePopupLayoutType.sortOptions
     private weak var popup: AnytypePopupProxy?
 
     
