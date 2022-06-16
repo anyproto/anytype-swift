@@ -7,6 +7,8 @@
 //
 
 import AnytypeCore
+import Combine
+import Foundation
 import os
 
 final class EventsLogViewModel: ObservableObject {

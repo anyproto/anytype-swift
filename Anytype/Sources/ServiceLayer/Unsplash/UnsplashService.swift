@@ -1,5 +1,6 @@
 import ProtobufMessages
 import Combine
+import Foundation
 
 protocol UnslpashItemDownloader {
     func downloadImage(id: String) -> AnyPublisher<String, Error>

@@ -1,6 +1,7 @@
 import BlocksModels
 import Combine
 import AnytypeCore
+import NotificationCenter
 
 final class SubscriptionsService: SubscriptionsServiceProtocol {
     private var subscription: AnyCancellable?

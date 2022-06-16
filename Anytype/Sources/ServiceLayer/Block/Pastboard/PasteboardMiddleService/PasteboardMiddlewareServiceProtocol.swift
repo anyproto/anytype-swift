@@ -7,6 +7,7 @@
 //
 
 import BlocksModels
+import Foundation
 
 protocol PasteboardMiddlewareServiceProtocol: AnyObject {
     func pasteText(_ text: String, context: PasteboardActionContext) -> PasteboardPasteResult?

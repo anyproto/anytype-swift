@@ -1,4 +1,5 @@
 import ProtobufMessages
+import Foundation
 
 extension NSRange {
     init(_ range: Anytype_Model_Range) {

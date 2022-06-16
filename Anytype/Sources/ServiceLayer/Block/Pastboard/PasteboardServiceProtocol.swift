@@ -7,6 +7,7 @@
 //
 
 import BlocksModels
+import Foundation
 
 protocol PasteboardServiceProtocol {
     var hasValidURL: Bool { get }

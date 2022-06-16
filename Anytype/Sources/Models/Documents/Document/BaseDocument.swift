@@ -1,6 +1,7 @@
 import BlocksModels
 import Combine
 import AnytypeCore
+import Foundation
 
 final class BaseDocument: BaseDocumentProtocol {
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }

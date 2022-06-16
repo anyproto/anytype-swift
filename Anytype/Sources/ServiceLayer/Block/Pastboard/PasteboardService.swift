@@ -1,4 +1,5 @@
 import BlocksModels
+import Foundation
 
 final class PasteboardService: PasteboardServiceProtocol {
     private let document: BaseDocumentProtocol

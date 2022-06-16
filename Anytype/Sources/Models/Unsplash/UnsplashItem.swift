@@ -1,4 +1,5 @@
 import ProtobufMessages
+import Foundation
 
 struct UnsplashItem {
     let id: String
