@@ -15,6 +15,8 @@ final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelP
             setModel.showViewSettings()
         case .sort:
             setModel.showSorts()
+        case .filter:
+            setModel.showFilters()
         }
     }
     

@@ -11,7 +11,8 @@ public enum Feature: String, Codable {
     case createNewRelation = "Create new relation"
     case templates = "Show templates picker"
     case createObjectInSet = "Create object in Set"
-    case floatingSetMenu = "Floating Set menu"
+    case setSorts = "Set sorts"
+    case setFilters = "Set filters"
     case tableOfContents = "Table of contents"
 }
 
@@ -42,7 +43,8 @@ public final class FeatureFlags {
         .createNewRelation: true,
         .templates: true,
         .createObjectInSet: true,
-        .floatingSetMenu: true,
+        .setSorts: true,
+        .setFilters: false,
         .tableOfContents: false
     ]
     
@@ -99,8 +101,12 @@ public extension FeatureFlags {
         features[.createObjectInSet, default: true]
     }
     
-    static var isFloatingSetMenuAvailable: Bool {
-        features[.floatingSetMenu, default: true]
+    static var isSetSortsAvailable: Bool {
+        features[.setSorts, default: true]
+    }
+    
+    static var isSetFiltersAvailable: Bool {
+        features[.setFilters, default: false]
     }
     
     static var isTableOfContentsAvailable: Bool {
