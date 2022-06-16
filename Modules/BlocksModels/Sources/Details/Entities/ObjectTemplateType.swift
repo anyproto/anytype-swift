@@ -8,6 +8,7 @@ public enum ObjectTemplateType: RawRepresentable {
         case set = "_otset"
         case task = "_ottask"
         case template = "_ottemplate"
+        case bookmark = "_otbookmark"
     }
 
     public init?(rawValue: String) {

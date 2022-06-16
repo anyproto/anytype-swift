@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import BlocksModels
 
 struct DefaultTypePicker: View {
     @EnvironmentObject private var model: SettingsViewModel
@@ -7,7 +8,7 @@ struct DefaultTypePicker: View {
     var body: some View {
         NewSearchModuleAssembly.objectTypeSearchModule(
             title: "Choose default object type".localized,
-            excludedObjectTypeId: nil
+            excludedObjectTypeId: ObjectTemplateType.BundledType.bookmark.rawValue
         ) { [weak model] id in
             ObjectTypeProvider.shared.objectType(url: id).flatMap {
                 UserDefaultsConfig.defaultObjectType = $0
