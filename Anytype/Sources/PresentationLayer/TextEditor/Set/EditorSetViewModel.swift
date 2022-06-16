@@ -189,6 +189,11 @@ final class EditorSetViewModel: ObservableObject {
         relationMetadata.format != .file &&
         relationMetadata.format != .unrecognized
     }
+    
+    private func isFloatingSetMenuAvailable() -> Bool {
+        FeatureFlags.isSetSortsAvailable ||
+        FeatureFlags.isSetFiltersAvailable
+    }
 }
 
 // MARK: - Routing
@@ -223,7 +228,7 @@ extension EditorSetViewModel {
     }
     
     func showSetSettings() {
-        if FeatureFlags.isFloatingSetMenuAvailable {
+        if isFloatingSetMenuAvailable() {
             router.presentFullscreen(
                 AnytypePopup(
                     viewModel: EditorSetSettingsViewModel(setModel: self),
@@ -274,6 +279,8 @@ extension EditorSetViewModel {
             )
         )
     }
+    
+    func showFilters() {}
     
     func showObjectSettings() {
         router.showSettings()
