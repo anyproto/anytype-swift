@@ -1,5 +1,6 @@
 @testable import Anytype
 import BlocksModels
+import Foundation
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
 
