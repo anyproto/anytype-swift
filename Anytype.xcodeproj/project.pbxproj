@@ -410,8 +410,8 @@
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
 		2E9EFDE6285335CC00C8E47A /* SetSortsSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFDE5285335CC00C8E47A /* SetSortsSearchViewModel.swift */; };
 		2E9EFDFB285762BD00C8E47A /* SetSortsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFDFA285762BD00C8E47A /* SetSortsSearchInteractor.swift */; };
-		2E9EFE112857A6D400C8E47A /* ExceptionalSetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE102857A6D400C8E47A /* ExceptionalSetSort.swift */; };
 		2E9EFE39285A013500C8E47A /* SortOptionsPopupLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE38285A013500C8E47A /* SortOptionsPopupLayout.swift */; };
+		2E9EFE62285B45C500C8E47A /* ExceptionalSetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */; };
 		2EEA3EA3284E00E100D241D1 /* SetSortTypesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA3EA2284E00E100D241D1 /* SetSortTypesListViewModel.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
 		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
@@ -1468,8 +1468,8 @@
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
 		2E9EFDE5285335CC00C8E47A /* SetSortsSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsSearchViewModel.swift; sourceTree = "<group>"; };
 		2E9EFDFA285762BD00C8E47A /* SetSortsSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsSearchInteractor.swift; sourceTree = "<group>"; };
-		2E9EFE102857A6D400C8E47A /* ExceptionalSetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExceptionalSetSort.swift; sourceTree = "<group>"; };
 		2E9EFE38285A013500C8E47A /* SortOptionsPopupLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortOptionsPopupLayout.swift; sourceTree = "<group>"; };
+		2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionalSetSort.swift; sourceTree = "<group>"; };
 		2EEA3EA2284E00E100D241D1 /* SetSortTypesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortTypesListViewModel.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
@@ -4066,7 +4066,6 @@
 				2EEA3EA2284E00E100D241D1 /* SetSortTypesListViewModel.swift */,
 				2E9EFDE5285335CC00C8E47A /* SetSortsSearchViewModel.swift */,
 				2E9EFDFA285762BD00C8E47A /* SetSortsSearchInteractor.swift */,
-				2E9EFE102857A6D400C8E47A /* ExceptionalSetSort.swift */,
 			);
 			path = Sorts;
 			sourceTree = "<group>";
@@ -4522,10 +4521,10 @@
 		3D30417027EA688E00FFE0EB /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */,
 				3D30417127EA689F00FFE0EB /* SetTableViewRowDataBuilder.swift */,
 				3D30418027EC877F00FFE0EB /* SetRelation.swift */,
 				2E412D142847B15C00C973FF /* SetSort.swift */,
-				2E9EFE102857A6D400C8E47A /* ExceptionalSetSort.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -7237,7 +7236,6 @@
 				C93B2D32274E4FA70008544D /* TwoStandardButtonsView.swift in Sources */,
 				120E818E26A05946006FE84E /* ObjectIconPickerViewModel.swift in Sources */,
 				3DB692B12697645C00149864 /* MiddlewareColorConverter.swift in Sources */,
-				2E9EFE112857A6D400C8E47A /* ExceptionalSetSort.swift in Sources */,
 				EA3D1DEE26CDAFBD001A31D9 /* BlockMarkupChangerProtocol.swift in Sources */,
 				122FFD43272BA7420069129A /* ObjectHeaderFilledState.swift in Sources */,
 				3D30416F27EA5EA700FFE0EB /* DataviewServiceProtocol.swift in Sources */,
@@ -7662,6 +7660,7 @@
 				C9367A9D27313692007D687A /* AccessoryViewSwitcher.swift in Sources */,
 				03C5C55122E0A3E800DD91DE /* KeychainError.swift in Sources */,
 				3DC7862D265D251900498993 /* MiddlewareEventsListener.swift in Sources */,
+				2E9EFE62285B45C500C8E47A /* ExceptionalSetSort.swift in Sources */,
 				12C6343026600C2600E1DF6F /* TapGestureRecognizerWithClosure.swift in Sources */,
 				126F3D8A273E4E4F00AEF39A /* RelationsService.swift in Sources */,
 				3D471E3D26C69D2100457DE5 /* HomeSearchView.swift in Sources */,
