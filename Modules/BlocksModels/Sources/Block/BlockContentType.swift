@@ -10,6 +10,7 @@ public enum BlockContentType: Hashable {
     case featuredRelations
     case relation(key: String)
     case dataView
+    case tableOfContents
 
     public var style: String {
         switch self {
@@ -33,6 +34,8 @@ public enum BlockContentType: Hashable {
             return "relationBlock \(key)"
         case .dataView:
             return "dataView"
+        case .tableOfContents:
+            return "tableOfContents"
         }
     }
 }

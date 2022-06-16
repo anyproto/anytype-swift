@@ -12,6 +12,7 @@ public enum Feature: String, Codable {
     case templates = "Show templates picker"
     case createObjectInSet = "Create object in Set"
     case floatingSetMenu = "Floating Set menu"
+    case tableOfContents = "Table of contents"
 }
 
 public final class FeatureFlags {
@@ -41,7 +42,8 @@ public final class FeatureFlags {
         .createNewRelation: true,
         .templates: true,
         .createObjectInSet: true,
-        .floatingSetMenu: true
+        .floatingSetMenu: true,
+        .tableOfContents: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -99,5 +101,9 @@ public extension FeatureFlags {
     
     static var isFloatingSetMenuAvailable: Bool {
         features[.floatingSetMenu, default: true]
+    }
+    
+    static var isTableOfContentsAvailable: Bool {
+        features[.tableOfContents, default: false]
     }
 }

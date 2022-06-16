@@ -11,6 +11,7 @@ extension BlockContent {
         case .featuredRelations: return ".featuredRelations"
         case .relation: return ".relation"
         case .dataView: return ".dataView"
+        case .tableOfContents: return ".tableOfContents"
         case .unsupported: return "unsupported"
         }
     }
