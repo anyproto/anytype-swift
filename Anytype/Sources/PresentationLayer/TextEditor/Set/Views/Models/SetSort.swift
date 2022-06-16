@@ -39,3 +39,13 @@ struct SetSort: Identifiable, Equatable, Hashable {
         }
     }
 }
+
+extension Array where Element == DataviewSort {
+    func uniqued() -> [DataviewSort] {
+        var dict = [String: Bool]()
+
+        return filter {
+            dict.updateValue(true, forKey: $0.relationKey) == nil
+        }
+    }
+}

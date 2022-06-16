@@ -22,6 +22,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     private lazy var navigationView: EditorBottomNavigationView = createNavigationView()
     private var navigationViewBottomConstaint: NSLayoutConstraint?
     
+    private let dashboardService = ServiceLocator.shared.dashboardService()
     private let stateManager = BrowserNavigationManager()
     
     init() {
@@ -102,10 +103,11 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             onHomeTap: { [weak self] in
                 self?.goToHome(animated: true)
             },
-            onSearchTap: { [weak self] in
-                self?.router.showSearch { data in
-                    self?.router.showPage(data: data)
-                }
+            onCreateObjectTap: { [weak self] in
+                guard let self = self else { return }
+                guard let id = self.dashboardService.createNewPage() else { return }
+                
+                self.router.showPage(data: EditorScreenData(pageId: id, type: .page))
             }
         )
     }

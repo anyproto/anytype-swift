@@ -6,20 +6,27 @@ import AnytypeCore
 
 final class DashboardService: DashboardServiceProtocol {
     
+    private let searchService = ServiceLocator.shared.searchService()
     private let objectsService = ServiceLocator.shared.objectActionsService()
     
-    func createNewPage(isDraft: Bool, templateId: BlockId?) -> BlockId? {
+    func createNewPage() -> BlockId? {
+        let availableTemplates = searchService.searchTemplates(
+            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
+        )
+        let hasSingleTemplate = availableTemplates?.count == 1
+        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+
         let defaultTypeUrl = ObjectTypeProvider.shared.defaultObjectType.url
         let id = objectsService.createPage(
             contextId: "",
             targetId: "",
             details: [
                 .name(""),
-                .isDraft(isDraft),
+                .isDraft(!hasSingleTemplate),
                 .type(.dynamic(defaultTypeUrl))
             ],
             position: .bottom,
-            templateId: templateId ?? ""
+            templateId: templateId
         )
 
         if id.isNotNil {

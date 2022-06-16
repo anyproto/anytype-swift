@@ -40,7 +40,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     var sorts: [SetSort] {
-        activeView.sorts.compactMap { sort in
+        activeView.sorts.uniqued().compactMap { sort in
             let metadata = dataView.relations.first { relation in
                 sort.relationKey == relation.key
             }
