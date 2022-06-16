@@ -70,8 +70,6 @@
 "Add a web bookmark" = "Add a web bookmark";
 "Code block subtitle" = "Capture code snippet";
 "Upload a picture" = "Upload a picture";
-"Line divider" = "Line divider";
-"Dots divider" = "Dots divider";
 "Align right" = "Align right";
 "Align left" = "Align left";
 "Align center" = "Align center";
@@ -300,3 +298,8 @@
 "EditSorts.Popup.Sort.Type.Number.Desc" = "9 → 1";
 "EditSorts.Popup.Sort.Type.Checkbox.Asc" = "Checked → Unchecked";
 "EditSorts.Popup.Sort.Type.Checkbox.Desc" = "Unchecked → Checked";
+
+// MARK: Slash Menu
+"SlashMenu.DotsDivider" = "Dots divider";
+"SlashMenu.LineDivider" = "Line divider";
+"SlashMenu.TableOfContents" = "Table of contents";
