@@ -32,7 +32,7 @@ final class TemplatesCoordinator {
 
     func showTemplatesAvailabilityPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTemplateType
+        templatesTypeURL: ObjectTypeUrl
     ) {
         guard FeatureFlags.isTemplatesAvailable else { return }
 

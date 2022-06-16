@@ -25,7 +25,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
 extension ObjectType {
     
     public static let fallbackType: ObjectType = ObjectType(
-        url: ObjectTemplateType.bundled(.note).rawValue,
+        url: ObjectTypeUrl.bundled(.note).rawValue,
         name: "Note".localized,
         iconEmoji: .default,
         description: "Blank canvas with no title".localized,

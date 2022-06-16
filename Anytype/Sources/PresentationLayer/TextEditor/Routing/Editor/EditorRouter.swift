@@ -313,7 +313,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
     func showTemplatesAvailabilityPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTemplateType
+        templatesTypeURL: ObjectTypeUrl
     ) {
         templatesCoordinator.showTemplatesAvailabilityPopupIfNeeded(
             document: document,
