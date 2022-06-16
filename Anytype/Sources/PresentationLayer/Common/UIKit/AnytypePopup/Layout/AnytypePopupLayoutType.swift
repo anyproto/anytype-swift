@@ -5,6 +5,7 @@ enum AnytypePopupLayoutType {
     case intrinsic
     case fullScreen
     case relationOptions
+    case sortOptions
     case constantHeight(height: CGFloat, floatingPanelStyle: Bool)
     case adaptiveTextRelationDetails(layoutGuide: UILayoutGuide)
     case alert(height: CGFloat)
@@ -17,6 +18,8 @@ enum AnytypePopupLayoutType {
             return FullScreenHeightPopupLayout()
         case .relationOptions:
             return RelationOptionsPopupLayout()
+        case .sortOptions:
+            return SortOptionsPopupLayout()
         case .constantHeight(let height, let floatingPanelStyle):
             return ConstantHeightPopupLayout(height: height, floatingPanelStyle: floatingPanelStyle)
         case .adaptiveTextRelationDetails(let layoutGuide):

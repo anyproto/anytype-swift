@@ -458,6 +458,25 @@ extension EditorRouter {
             view.becomeFirstResponder()
         }
     }
+    
+    func showSortsSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void) {
+        let vc = UIHostingController(
+            rootView: NewSearchModuleAssembly.setSortsSearchModule(
+                relations: relations,
+                onSelect: { [weak self] key in
+                    onSelect(key)
+                    self?.viewController?.topPresentedController.dismiss(animated: true)
+                }
+            )
+        )
+        if #available(iOS 15.0, *) {
+            if let sheet = vc.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.selectedDetentIdentifier = .large
+            }
+        }
+        viewController?.topPresentedController.present(vc, animated: true)
+    }
 }
 
 

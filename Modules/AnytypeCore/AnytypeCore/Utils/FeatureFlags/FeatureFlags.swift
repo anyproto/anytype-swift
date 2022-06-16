@@ -42,7 +42,7 @@ public final class FeatureFlags {
         .createNewRelation: true,
         .templates: true,
         .createObjectInSet: true,
-        .floatingSetMenu: false,
+        .floatingSetMenu: true,
         .tableOfContents: false
     ]
     
@@ -100,7 +100,7 @@ public extension FeatureFlags {
     }
     
     static var isFloatingSetMenuAvailable: Bool {
-        features[.floatingSetMenu, default: false]
+        features[.floatingSetMenu, default: true]
     }
     
     static var isTableOfContentsAvailable: Bool {
