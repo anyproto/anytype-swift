@@ -64,6 +64,7 @@ private extension SearchObjectRowView.Model {
         self.icon = .staticImage(relation.format.iconName)
         self.title = relation.name
         self.subtitle = nil
+        self.style = .compact
     }
     
 }

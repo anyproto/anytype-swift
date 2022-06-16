@@ -10,6 +10,7 @@ import SwiftUI
 import BlocksModels
 
 struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: ViewModel
     @State private var scrollViewContentSize: CGSize = .zero
 
@@ -26,6 +27,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
         VStack(spacing: 0) {
             ForEach(viewModel.items) { item in
                 Button {
+                    presentationMode.wrappedValue.dismiss()
                     viewModel.onTap(itemId: item.id)
                 } label: {
                     mainSectionRow(item)

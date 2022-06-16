@@ -10,7 +10,7 @@ struct NewSearchView: View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: viewModel.title)
-            SearchBar(text: $searchText, focused: true)
+            SearchBar(text: $searchText, focused: true, placeholder: viewModel.searchPlaceholder)
             content
             
             viewModel.addButtonModel.flatMap {

@@ -228,7 +228,11 @@ extension EditorSetViewModel {
                 AnytypePopup(
                     viewModel: EditorSetSettingsViewModel(setModel: self),
                     floatingPanelStyle: true,
-                    configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
+                    configuration: .init(
+                        isGrabberVisible: false,
+                        dismissOnBackdropView: false,
+                        skipThroughGestures: true
+                    )
                 )
             )
         } else {
