@@ -1,4 +1,6 @@
 /// A thread-safe dictionary.
+import Foundation
+
 public final class SynchronizedDictionary<K, V> where K: Hashable {
 
     private var dictionary: [K: V] = [:]

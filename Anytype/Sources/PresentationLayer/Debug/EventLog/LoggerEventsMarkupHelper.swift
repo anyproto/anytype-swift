@@ -7,6 +7,7 @@
 //
 
 import AnytypeCore
+import Foundation
 import os
 
 final class LoggerEventsMarkupHelper {

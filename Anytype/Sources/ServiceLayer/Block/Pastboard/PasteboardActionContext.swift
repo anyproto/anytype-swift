@@ -1,4 +1,5 @@
 import BlocksModels
+import Foundation
 
 enum PasteboardActionContext {
     case focused(BlockId, NSRange)

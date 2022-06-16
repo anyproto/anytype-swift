@@ -1,6 +1,7 @@
 import BlocksModels
 import Combine
 import AnytypeCore
+import Foundation
 
 enum EditorEditingState {
     case editing

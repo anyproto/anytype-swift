@@ -1,6 +1,7 @@
 import BlocksModels
 import ProtobufMessages
 import AnytypeCore
+import Foundation
 
 final class PasteboardMiddleService: PasteboardMiddlewareServiceProtocol {
     private let document: BaseDocumentProtocol

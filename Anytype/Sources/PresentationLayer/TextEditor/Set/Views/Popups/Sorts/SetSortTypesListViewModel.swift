@@ -1,4 +1,5 @@
 import BlocksModels
+import Combine
 
 final class SetSortTypesListViewModel: CheckPopupViewViewModelProtocol {
     let title: String

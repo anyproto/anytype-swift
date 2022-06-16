@@ -1,5 +1,6 @@
 import ProtobufMessages
 import CoreGraphics
+import Foundation
 
 enum AccountStatus: Equatable {
     case active

@@ -1,4 +1,5 @@
 import BlocksModels
+import Foundation
 
 final class SetTableViewDataBuilder {
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])

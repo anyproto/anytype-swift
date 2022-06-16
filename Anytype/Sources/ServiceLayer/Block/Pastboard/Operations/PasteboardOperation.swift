@@ -7,6 +7,7 @@
 //
 
 import AnytypeCore
+import Foundation
 
 final class PasteboardOperation: AsyncOperation {
 

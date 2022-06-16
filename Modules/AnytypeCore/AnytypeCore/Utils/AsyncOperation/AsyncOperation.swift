@@ -4,6 +4,7 @@
 //
 //  Created by Konstantin Mordan on 27.09.2021.
 //
+import Foundation
 
 open class AsyncOperation: Operation {
     
