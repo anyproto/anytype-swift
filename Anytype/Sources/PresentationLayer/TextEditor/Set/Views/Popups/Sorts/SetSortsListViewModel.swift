@@ -9,7 +9,7 @@ final class SetSortsListViewModel: ObservableObject {
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
     
-    private(set) var popupLayout = AnytypePopupLayoutType.fullScreen
+    private(set) var popupLayout = AnytypePopupLayoutType.sortOptions
     private weak var popup: AnytypePopupProxy?
 
     
@@ -30,17 +30,9 @@ extension SetSortsListViewModel {
     // MARK: - Routing
     
     func addButtonTapped() {
-        router.presentSheet(
-            AnytypePopup(
-                viewModel: SetSortsSearchViewPopupModel(
-                    setModel: setModel,
-                    onSelect: { [weak self] key in
-                        self?.addNewSort(with: key)
-                    }
-                ),
-                configuration: .init(isGrabberVisible: false, dismissOnBackdropView: true)
-            )
-        )
+        router.showSortsSearch(relations: setModel.relations) { [weak self] key in
+            self?.addNewSort(with: key)
+        }
     }
     
     func sortRowTapped(_ setSort: SetSort) {
