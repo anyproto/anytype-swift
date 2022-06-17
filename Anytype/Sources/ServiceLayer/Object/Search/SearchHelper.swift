@@ -132,7 +132,7 @@ class SearchHelper {
         return filter
     }
 
-    static func templatesFilters(type: ObjectTemplateType) -> [DataviewFilter] {
+    static func templatesFilters(type: ObjectTypeUrl) -> [DataviewFilter] {
         [
             isArchivedFilter(isArchived: false),
             isDeletedFilter(isDeleted: false),
@@ -154,7 +154,7 @@ class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.relationKey = BundledRelationKey.type.rawValue
-        filter.value = ObjectTemplateType.bundled(.template).rawValue.protobufValue
+        filter.value = ObjectTypeUrl.bundled(.template).rawValue.protobufValue
 
         return filter
     }

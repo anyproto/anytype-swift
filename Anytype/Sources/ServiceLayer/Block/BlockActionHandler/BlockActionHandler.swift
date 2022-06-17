@@ -212,7 +212,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         upload(blockId: blockId, filePath: localPath)
     }
     
-    func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeUrl) -> BlockId? {
         guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
         if case .text(let blockText) = info.content, blockText.text.isEmpty {

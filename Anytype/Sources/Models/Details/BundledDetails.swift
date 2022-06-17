@@ -18,7 +18,7 @@ enum BundledDetails {
     case iconImageHash(Hash?)
     case coverId(String)
     case coverType(CoverType)
-    case type(ObjectTemplateType)
+    case type(ObjectTypeUrl)
     case isDraft(Bool)
 }
 
@@ -43,7 +43,7 @@ extension BundledDetails {
         case .iconImageHash(let hash): return (hash?.value ?? "").protobufValue
         case .coverId(let string): return string.protobufValue
         case .coverType(let coverType): return coverType.rawValue.protobufValue
-        case .type(let objectTemplateType): return objectTemplateType.rawValue.protobufValue
+        case .type(let ObjectTypeUrl): return ObjectTypeUrl.rawValue.protobufValue
         case .isDraft(let bool): return bool.protobufValue
         }
     }

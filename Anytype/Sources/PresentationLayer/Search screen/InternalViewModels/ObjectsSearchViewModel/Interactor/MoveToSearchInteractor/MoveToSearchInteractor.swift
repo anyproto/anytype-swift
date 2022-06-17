@@ -22,7 +22,7 @@ extension MoveToSearchInteractor: ObjectsSearchInteractorProtocol {
             text: text,
             excludedObjectIds: excludedObjectIds,
             excludedTypeUrls: [
-                ObjectTemplateType.BundledType.set.rawValue
+                ObjectTypeUrl.bundled(.set).rawValue
             ],
             sortRelationKey: .lastModifiedDate
         )

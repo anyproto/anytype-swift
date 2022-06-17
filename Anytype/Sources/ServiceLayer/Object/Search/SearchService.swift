@@ -7,7 +7,7 @@ protocol SearchServiceProtocol {
     func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeUrls: [String]) -> [ObjectDetails]?
-    func searchTemplates(for type: ObjectTemplateType) -> [ObjectDetails]?
+    func searchTemplates(for type: ObjectTypeUrl) -> [ObjectDetails]?
     func searchObjects(
         text: String,
         excludedObjectIds: [String],
@@ -48,7 +48,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.supportedObjectTypeUrlsFilter(
                 ObjectTypeProvider.shared.supportedTypeUrls
             ),
-            SearchHelper.excludedObjectTypeUrlFilter(ObjectTemplateType.BundledType.set.rawValue)
+            SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.set).rawValue)
         ]
         filteringTypeUrl.map { filters.append(SearchHelper.excludedObjectTypeUrlFilter($0)) }
 
@@ -57,9 +57,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         return result?.reordered(
             by: [
-                ObjectTemplateType.BundledType.page.rawValue,
-                ObjectTemplateType.BundledType.note.rawValue,
-                ObjectTemplateType.BundledType.task.rawValue
+                ObjectTypeUrl.bundled(.page).rawValue,
+                ObjectTypeUrl.bundled(.note).rawValue,
+                ObjectTypeUrl.bundled(.task).rawValue
             ]
         ) { $0.id }
     }
@@ -93,7 +93,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
     }
 
-    func searchTemplates(for type: ObjectTemplateType) -> [ObjectDetails]? {
+    func searchTemplates(for type: ObjectTypeUrl) -> [ObjectDetails]? {
         let objects = makeRequest(
             filters: SearchHelper.templatesFilters(type: type),
             sorts: [],

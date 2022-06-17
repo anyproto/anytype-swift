@@ -103,7 +103,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeUrl) -> BlockId? {
         assertionFailure()
         return nil
     }

@@ -53,7 +53,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
     func showTemplatesAvailabilityPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTemplateType
+        templatesTypeURL: ObjectTypeUrl
     )
 
     func showCreateObject(pageId: BlockId)
