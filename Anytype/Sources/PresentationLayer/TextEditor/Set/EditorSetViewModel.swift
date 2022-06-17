@@ -63,6 +63,17 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
+    var filters: [SetFilter] {
+        activeView.filters.compactMap { filter in
+            let metadata = dataView.relations.first { relation in
+                filter.relationKey == relation.key
+            }
+            guard let metadata = metadata else { return nil }
+            
+            return SetFilter(metadata: metadata, filter: filter)
+        }
+    }
+    
     let document: BaseDocument
     private var router: EditorRouterProtocol!
 
@@ -280,7 +291,17 @@ extension EditorSetViewModel {
         )
     }
     
-    func showFilters() {}
+    func showFilters() {
+        router.presentFullscreen(
+            AnytypePopup(
+                viewModel: SetFiltersListViewModel(
+                    setModel: self,
+                    service: dataviewService,
+                    router: router
+                )
+            )
+        )
+    }
     
     func showObjectSettings() {
         router.showSettings()
