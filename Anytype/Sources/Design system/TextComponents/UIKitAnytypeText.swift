@@ -28,9 +28,7 @@ final class UIKitAnytypeText: Hashable {
         newAttrString.addAttribute(.paragraphStyle, value: paragraphStyle, range: range)
 
         // set kern
-        if let kern = style.kern {
-            newAttrString.addAttribute(.kern, value: kern, range: range)
-        }
+        newAttrString.addAttribute(.kern, value: style.kern, range: range)
         newAttrString.addAttribute(.font, value: font, range: range)
 
         attrString = newAttrString
@@ -43,7 +41,7 @@ final class UIKitAnytypeText: Hashable {
             return [
                 .font: anytypeFont.uiKitFont,
                 .paragraphStyle: paragraphStyle,
-                .kern: anytypeFont.kern ?? 0
+                .kern: anytypeFont.kern
             ]
         } else {
             let characterBeforeCursor = cursorPosition - 1
