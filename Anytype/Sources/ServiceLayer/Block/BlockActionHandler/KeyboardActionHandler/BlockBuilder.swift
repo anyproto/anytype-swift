@@ -34,6 +34,12 @@ struct BlockBuilder {
         case .layout, .smartblock, .featuredRelations, .dataView:
             anytypeAssertionFailure("Unsupported type \(type)", domain: .blockBuilder)
             return nil
+        case .table:
+            return .table
+        case .tableColumn:
+            return .tableColumn
+        case .tableRow:
+            return .tableRow
         }
     }
 }

@@ -754,6 +754,13 @@ extension Anytype_Event.Block.Set.Text.Text {
   }
 }
 
+extension Anytype_Event.Block.Set.VerticalAlign {
+  public init(id: String, verticalAlign: Anytype_Model_Block.VerticalAlign) {
+    self.id = id
+    self.verticalAlign = verticalAlign
+  }
+}
+
 extension Anytype_Event.Message {
   public init(value: Anytype_Event.Message.OneOf_Value?) {
     self.value = value

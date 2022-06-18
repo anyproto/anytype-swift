@@ -11,7 +11,11 @@ struct SimpleTableCellConfiguration<Configuration: BlockConfiguration>: Hashable
 
     @EquatableNoop var heightDidChangedSubject = PassthroughSubject<Void, Never>()
 
-    var hashable: AnyHashable { item.hashValue as AnyHashable }
+    var hashable: AnyHashable {
+        [
+            item.hashValue, backgroundColor.hashValue
+        ].compactMap { $0 } as AnyHashable
+    }
 
     init(
         item: Configuration,

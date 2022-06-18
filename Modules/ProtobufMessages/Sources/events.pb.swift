@@ -307,6 +307,14 @@ public struct Anytype_Event {
       set {value = .blockSetLatex(newValue)}
     }
 
+    public var blockSetVerticalAlign: Anytype_Event.Block.Set.VerticalAlign {
+      get {
+        if case .blockSetVerticalAlign(let v)? = value {return v}
+        return Anytype_Event.Block.Set.VerticalAlign()
+      }
+      set {value = .blockSetVerticalAlign(newValue)}
+    }
+
     public var blockDataviewRecordsSet: Anytype_Event.Block.Dataview.RecordsSet {
       get {
         if case .blockDataviewRecordsSet(let v)? = value {return v}
@@ -494,6 +502,7 @@ public struct Anytype_Event {
       case blockSetDiv(Anytype_Event.Block.Set.Div)
       case blockSetRelation(Anytype_Event.Block.Set.Relation)
       case blockSetLatex(Anytype_Event.Block.Set.Latex)
+      case blockSetVerticalAlign(Anytype_Event.Block.Set.VerticalAlign)
       case blockDataviewRecordsSet(Anytype_Event.Block.Dataview.RecordsSet)
       case blockDataviewRecordsUpdate(Anytype_Event.Block.Dataview.RecordsUpdate)
       case blockDataviewRecordsInsert(Anytype_Event.Block.Dataview.RecordsInsert)
@@ -646,6 +655,10 @@ public struct Anytype_Event {
         }()
         case (.blockSetLatex, .blockSetLatex): return {
           guard case .blockSetLatex(let l) = lhs, case .blockSetLatex(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetVerticalAlign, .blockSetVerticalAlign): return {
+          guard case .blockSetVerticalAlign(let l) = lhs, case .blockSetVerticalAlign(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.blockDataviewRecordsSet, .blockDataviewRecordsSet): return {
@@ -1445,6 +1458,20 @@ public struct Anytype_Event {
         public var id: String = String()
 
         public var align: Anytype_Model_Block.Align = .left
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct VerticalAlign {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var id: String = String()
+
+        public var verticalAlign: Anytype_Model_Block.VerticalAlign = .top
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -3738,160 +3765,6 @@ extension Anytype_Model.Process.State: CaseIterable {
 
 #endif  // swift(>=4.2)
 
-#if swift(>=5.5) && canImport(_Concurrency)
-extension Anytype_Event: @unchecked Sendable {}
-extension Anytype_Event.Message: @unchecked Sendable {}
-extension Anytype_Event.Message.OneOf_Value: @unchecked Sendable {}
-extension Anytype_Event.Account: @unchecked Sendable {}
-extension Anytype_Event.Account.Show: @unchecked Sendable {}
-extension Anytype_Event.Account.Details: @unchecked Sendable {}
-extension Anytype_Event.Account.Config: @unchecked Sendable {}
-extension Anytype_Event.Account.Config.Update: @unchecked Sendable {}
-extension Anytype_Event.Account.Update: @unchecked Sendable {}
-extension Anytype_Event.Object: @unchecked Sendable {}
-extension Anytype_Event.Object.Details: @unchecked Sendable {}
-extension Anytype_Event.Object.Details.Amend: @unchecked Sendable {}
-extension Anytype_Event.Object.Details.Amend.KeyValue: @unchecked Sendable {}
-extension Anytype_Event.Object.Details.Set: @unchecked Sendable {}
-extension Anytype_Event.Object.Details.Unset: @unchecked Sendable {}
-extension Anytype_Event.Object.Subscription: @unchecked Sendable {}
-extension Anytype_Event.Object.Subscription.Add: @unchecked Sendable {}
-extension Anytype_Event.Object.Subscription.Remove: @unchecked Sendable {}
-extension Anytype_Event.Object.Subscription.Position: @unchecked Sendable {}
-extension Anytype_Event.Object.Subscription.Counters: @unchecked Sendable {}
-extension Anytype_Event.Object.Relations: @unchecked Sendable {}
-extension Anytype_Event.Object.Relations.Set: @unchecked Sendable {}
-extension Anytype_Event.Object.Relations.Amend: @unchecked Sendable {}
-extension Anytype_Event.Object.Relations.Remove: @unchecked Sendable {}
-extension Anytype_Event.Object.Relation: @unchecked Sendable {}
-extension Anytype_Event.Object.Relation.Set: @unchecked Sendable {}
-extension Anytype_Event.Object.Relation.Remove: @unchecked Sendable {}
-extension Anytype_Event.Object.Show: @unchecked Sendable {}
-extension Anytype_Event.Object.Show.RelationWithValuePerObject: @unchecked Sendable {}
-extension Anytype_Event.Object.Remove: @unchecked Sendable {}
-extension Anytype_Event.Block: @unchecked Sendable {}
-extension Anytype_Event.Block.Add: @unchecked Sendable {}
-extension Anytype_Event.Block.FilesUpload: @unchecked Sendable {}
-extension Anytype_Event.Block.Delete: @unchecked Sendable {}
-extension Anytype_Event.Block.MarksInfo: @unchecked Sendable {}
-extension Anytype_Event.Block.Set: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Relation: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Relation.Key: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Fields: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.ChildrenIds: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Restrictions: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.BackgroundColor: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Align: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Text: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Text.Text: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Text.Style: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Text.Marks: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Text.Checked: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Text.Color: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Text.IconEmoji: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Text.IconImage: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Latex: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Latex.Text: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Div: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Div.Style: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.File: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.File.Name: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.File.Width: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.File.State: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.File.TypeMessage: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.File.Style: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.File.Hash: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.File.Mime: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.File.Size: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Link: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Link.TargetBlockId: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Link.Style: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Link.Fields: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Link.IconSize: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Link.CardStyle: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Link.Description: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Link.Relations: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Bookmark: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Bookmark.Url: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Bookmark.Title: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Bookmark.Description: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Bookmark.ImageHash: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Bookmark.FaviconHash: @unchecked Sendable {}
-extension Anytype_Event.Block.Set.Bookmark.TypeMessage: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Details: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.DatabaseRecords: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Fields: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.ChildrenIds: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Restrictions: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.BackgroundColor: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Align: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Text: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Text.Text: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Text.Style: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Text.Marks: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Text.Checked: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Text.Color: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Div: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Div.Style: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.File: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.File.Name: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.File.Width: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.File.State: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.File.TypeMessage: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.File.Style: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.File.Hash: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.File.Mime: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.File.Size: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Link: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Link.TargetBlockId: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Link.Style: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Link.Fields: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Bookmark: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Bookmark.Url: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Bookmark.Title: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Bookmark.Description: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Bookmark.ImageHash: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Bookmark.FaviconHash: @unchecked Sendable {}
-extension Anytype_Event.Block.Fill.Bookmark.TypeMessage: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.ViewSet: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.ViewDelete: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.ViewOrder: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.SourceSet: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.RelationDelete: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.RelationSet: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.RecordsSet: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.RecordsInsert: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.RecordsUpdate: @unchecked Sendable {}
-extension Anytype_Event.Block.Dataview.RecordsDelete: @unchecked Sendable {}
-extension Anytype_Event.User: @unchecked Sendable {}
-extension Anytype_Event.User.Block: @unchecked Sendable {}
-extension Anytype_Event.User.Block.Join: @unchecked Sendable {}
-extension Anytype_Event.User.Block.Left: @unchecked Sendable {}
-extension Anytype_Event.User.Block.TextRange: @unchecked Sendable {}
-extension Anytype_Event.User.Block.SelectRange: @unchecked Sendable {}
-extension Anytype_Event.Ping: @unchecked Sendable {}
-extension Anytype_Event.Process: @unchecked Sendable {}
-extension Anytype_Event.Process.New: @unchecked Sendable {}
-extension Anytype_Event.Process.Update: @unchecked Sendable {}
-extension Anytype_Event.Process.Done: @unchecked Sendable {}
-extension Anytype_Event.Status: @unchecked Sendable {}
-extension Anytype_Event.Status.Thread: @unchecked Sendable {}
-extension Anytype_Event.Status.Thread.SyncStatus: @unchecked Sendable {}
-extension Anytype_Event.Status.Thread.Summary: @unchecked Sendable {}
-extension Anytype_Event.Status.Thread.Cafe: @unchecked Sendable {}
-extension Anytype_Event.Status.Thread.Cafe.PinStatus: @unchecked Sendable {}
-extension Anytype_Event.Status.Thread.Account: @unchecked Sendable {}
-extension Anytype_Event.Status.Thread.Device: @unchecked Sendable {}
-extension Anytype_ResponseEvent: @unchecked Sendable {}
-extension Anytype_Model: @unchecked Sendable {}
-extension Anytype_Model.Process: @unchecked Sendable {}
-extension Anytype_Model.Process.TypeEnum: @unchecked Sendable {}
-extension Anytype_Model.Process.State: @unchecked Sendable {}
-extension Anytype_Model.Process.Progress: @unchecked Sendable {}
-#endif  // swift(>=5.5) && canImport(_Concurrency)
-
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "anytype"
@@ -3985,6 +3858,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     17: .same(proto: "blockSetDiv"),
     21: .same(proto: "blockSetRelation"),
     25: .same(proto: "blockSetLatex"),
+    36: .same(proto: "blockSetVerticalAlign"),
     18: .same(proto: "blockDataviewRecordsSet"),
     26: .same(proto: "blockDataviewRecordsUpdate"),
     27: .same(proto: "blockDataviewRecordsInsert"),
@@ -4454,6 +4328,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .blockDataviewSourceSet(v)
         }
       }()
+      case 36: try {
+        var v: Anytype_Event.Block.Set.VerticalAlign?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .blockSetVerticalAlign(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .blockSetVerticalAlign(v)
+        }
+      }()
       case 50: try {
         var v: Anytype_Event.Object.Details.Amend?
         var hadOneofValue = false
@@ -4821,6 +4708,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .blockDataviewSourceSet?: try {
       guard case .blockDataviewSourceSet(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 35)
+    }()
+    case .blockSetVerticalAlign?: try {
+      guard case .blockSetVerticalAlign(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 36)
     }()
     case .objectDetailsAmend?: try {
       guard case .objectDetailsAmend(let v)? = self.value else { preconditionFailure() }
@@ -6374,6 +6265,44 @@ extension Anytype_Event.Block.Set.Align: SwiftProtobuf.Message, SwiftProtobuf._M
   public static func ==(lhs: Anytype_Event.Block.Set.Align, rhs: Anytype_Event.Block.Set.Align) -> Bool {
     if lhs.id != rhs.id {return false}
     if lhs.align != rhs.align {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.VerticalAlign: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.protoMessageName + ".VerticalAlign"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "verticalAlign"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularEnumField(value: &self.verticalAlign) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    if self.verticalAlign != .top {
+      try visitor.visitSingularEnumField(value: self.verticalAlign, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.VerticalAlign, rhs: Anytype_Event.Block.Set.VerticalAlign) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.verticalAlign != rhs.verticalAlign {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -61,7 +61,7 @@ extension Anytype_Model_Account.Status {
 extension Anytype_Model_Block {
   public init(
     id: String, fields: SwiftProtobuf.Google_Protobuf_Struct, restrictions: Anytype_Model_Block.Restrictions, childrenIds: [String], backgroundColor: String, align: Anytype_Model_Block.Align,
-    content: OneOf_Content?
+    verticalAlign: Anytype_Model_Block.VerticalAlign, content: OneOf_Content?
   ) {
     self.id = id
     self.fields = fields
@@ -69,6 +69,7 @@ extension Anytype_Model_Block {
     self.childrenIds = childrenIds
     self.backgroundColor = backgroundColor
     self.align = align
+    self.verticalAlign = verticalAlign
     self.content = content
   }
 }

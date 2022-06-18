@@ -6,6 +6,7 @@ final class SimpleTableBlockView: UIView, BlockContentView {
     private lazy var dynamicLayoutView = DynamicCollectionLayoutView(frame: .zero)
     private lazy var spreadsheetLayout = SpreadsheetLayout()
     private var heightDidChangedSubscriptions = [AnyCancellable]()
+    private var configuration: SimpleTableBlockContentConfiguration?
     private weak var blockDelegate: BlockDelegate?
 
     override init(frame: CGRect) {
@@ -21,10 +22,10 @@ final class SimpleTableBlockView: UIView, BlockContentView {
 
     func update(with configuration: SimpleTableBlockContentConfiguration) {
         self.blockDelegate = configuration.blockDelegate
+        self.configuration = configuration
 
-        spreadsheetLayout.reset()
         spreadsheetLayout.itemWidths = configuration.widths
-        spreadsheetLayout.items = configuration.items
+        spreadsheetLayout.setItems(items: configuration.items)
         spreadsheetLayout.relativePositionProvider = configuration.relativePositionProvider
 
         dynamicLayoutView.update(
@@ -35,7 +36,6 @@ final class SimpleTableBlockView: UIView, BlockContentView {
                 heightDidChanged: { [weak self] in self?.blockDelegate?.textBlockSetNeedsLayout() }
             )
         )
-
         setupHeightChangeHandlers(configuration: configuration)
     }
 
@@ -60,7 +60,7 @@ final class SimpleTableBlockView: UIView, BlockContentView {
 
     private func setupSubview() {
         addSubview(dynamicLayoutView) {
-            $0.pinToSuperview()
+            $0.pinToSuperview(insets: .init(top: 10, left: 0, bottom: 0, right: 0))
         }
 
         dynamicLayoutView.collectionView.contentInset = .init(
@@ -73,6 +73,11 @@ final class SimpleTableBlockView: UIView, BlockContentView {
         dynamicLayoutView.collectionView.register(
             SimpleTableCollectionViewCell<TextBlockContentView>.self,
             forCellWithReuseIdentifier: SimpleTableCellConfiguration<TextBlockContentConfiguration>.reusableIdentifier
+        )
+
+        dynamicLayoutView.collectionView.register(
+            SimpleTableCollectionViewCell<EmptyRowView>.self,
+            forCellWithReuseIdentifier: SimpleTableCellConfiguration<EmptyRowConfiguration>.reusableIdentifier
         )
     }
 }

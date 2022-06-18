@@ -36,10 +36,6 @@ extension CollectionDifference where ChangeElement == EditorItem {
         !insertions.contains { item in
             switch item.element {
             case .block(let blockViewModel):
-                if let _ = blockViewModel as? SimpleTableBlockViewModel {
-                    return true
-                }
-
                 if case .featuredRelations = blockViewModel.content {
                     return true
                 }

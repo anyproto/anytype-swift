@@ -640,31 +640,6 @@ public struct Anytype_Change {
   fileprivate var _snapshot: Anytype_Change.Snapshot? = nil
 }
 
-#if swift(>=5.5) && canImport(_Concurrency)
-extension Anytype_Change: @unchecked Sendable {}
-extension Anytype_Change.Snapshot: @unchecked Sendable {}
-extension Anytype_Change.FileKeys: @unchecked Sendable {}
-extension Anytype_Change.Content: @unchecked Sendable {}
-extension Anytype_Change.Content.OneOf_Value: @unchecked Sendable {}
-extension Anytype_Change.BlockCreate: @unchecked Sendable {}
-extension Anytype_Change.BlockUpdate: @unchecked Sendable {}
-extension Anytype_Change.BlockRemove: @unchecked Sendable {}
-extension Anytype_Change.BlockMove: @unchecked Sendable {}
-extension Anytype_Change.BlockDuplicate: @unchecked Sendable {}
-extension Anytype_Change.DetailsSet: @unchecked Sendable {}
-extension Anytype_Change.DetailsUnset: @unchecked Sendable {}
-extension Anytype_Change.RelationAdd: @unchecked Sendable {}
-extension Anytype_Change.RelationUpdate: @unchecked Sendable {}
-extension Anytype_Change.RelationUpdate.OneOf_Value: @unchecked Sendable {}
-extension Anytype_Change.RelationUpdate.Dict: @unchecked Sendable {}
-extension Anytype_Change.RelationUpdate.ObjectTypes: @unchecked Sendable {}
-extension Anytype_Change.RelationRemove: @unchecked Sendable {}
-extension Anytype_Change.ObjectTypeAdd: @unchecked Sendable {}
-extension Anytype_Change.ObjectTypeRemove: @unchecked Sendable {}
-extension Anytype_Change.StoreKeySet: @unchecked Sendable {}
-extension Anytype_Change.StoreKeyUnset: @unchecked Sendable {}
-#endif  // swift(>=5.5) && canImport(_Concurrency)
-
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "anytype"

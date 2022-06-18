@@ -5,6 +5,7 @@ import UIKit
 protocol EditorPageViewInput: AnyObject, RelativePositionProvider {
     
     func update(header: ObjectHeader, details: ObjectDetails?)
+    func update(changes: CollectionDifference<EditorItem>?)
     func update(
         changes: CollectionDifference<EditorItem>?,
         allModels: [EditorItem]

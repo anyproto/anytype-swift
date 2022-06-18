@@ -2,6 +2,7 @@ import Foundation
 import BlocksModels
 import Combine
 import UniformTypeIdentifiers
+import AnytypeCore
 
 final class BlockViewModelBuilder {
     private let document: BaseDocumentProtocol
@@ -9,10 +10,11 @@ final class BlockViewModelBuilder {
     private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
     private let delegate: BlockDelegate
-    private let pageService = PageService()
-    private let subjectsHolder = FocusSubjectsHolder()
+    private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: MarkdownListener
-    private weak var relativePositionProvider: RelativePositionProvider?
+    private let simpleTablesBuilder: SimpleTableViewModelBuilder
+
+    private let pageService = PageService()
 
     init(
         document: BaseDocumentProtocol,
@@ -21,7 +23,8 @@ final class BlockViewModelBuilder {
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
         markdownListener: MarkdownListener,
-        relativePositionProvider: RelativePositionProvider?
+        simpleTablesBuilder: SimpleTableViewModelBuilder,
+        subjectsHolder: FocusSubjectsHolder
     ) {
         self.document = document
         self.handler = handler
@@ -29,7 +32,8 @@ final class BlockViewModelBuilder {
         self.router = router
         self.delegate = delegate
         self.markdownListener = markdownListener
-        self.relativePositionProvider = relativePositionProvider
+        self.simpleTablesBuilder = simpleTablesBuilder
+        self.subjectsHolder = subjectsHolder
     }
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
@@ -219,7 +223,13 @@ final class BlockViewModelBuilder {
             }
         case .tableOfContents:
             return TableOfContentsViewModel(info: info)
-        case .smartblock, .layout, .dataView: return nil
+        case .smartblock, .layout, .dataView, .tableRow, .tableColumn: return nil
+        case .table:
+            guard FeatureFlags.isSimpleTablesAvailable else {
+                fallthrough
+            }
+
+            return simpleTablesBuilder.buildViewModel(from: info)
         case .unsupported:
             guard let parentId = info.configurationData.parentId,
                   let parent = document.infoContainer.get(id: parentId),
@@ -228,7 +238,7 @@ final class BlockViewModelBuilder {
                 return nil
             }
             
-            return  UnsupportedBlockViewModel(info: info)
+            return UnsupportedBlockViewModel(info: info)
         }
     }
 

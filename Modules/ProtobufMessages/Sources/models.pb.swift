@@ -353,6 +353,11 @@ public struct Anytype_Model_Block {
     set {_uniqueStorage()._align = newValue}
   }
 
+  public var verticalAlign: Anytype_Model_Block.VerticalAlign {
+    get {return _storage._verticalAlign}
+    set {_uniqueStorage()._verticalAlign = newValue}
+  }
+
   public var content: OneOf_Content? {
     get {return _storage._content}
     set {_uniqueStorage()._content = newValue}
@@ -462,6 +467,30 @@ public struct Anytype_Model_Block {
     set {_uniqueStorage()._content = .tableOfContents(newValue)}
   }
 
+  public var table: Anytype_Model_Block.Content.Table {
+    get {
+      if case .table(let v)? = _storage._content {return v}
+      return Anytype_Model_Block.Content.Table()
+    }
+    set {_uniqueStorage()._content = .table(newValue)}
+  }
+
+  public var tableColumn: Anytype_Model_Block.Content.TableColumn {
+    get {
+      if case .tableColumn(let v)? = _storage._content {return v}
+      return Anytype_Model_Block.Content.TableColumn()
+    }
+    set {_uniqueStorage()._content = .tableColumn(newValue)}
+  }
+
+  public var tableRow: Anytype_Model_Block.Content.TableRow {
+    get {
+      if case .tableRow(let v)? = _storage._content {return v}
+      return Anytype_Model_Block.Content.TableRow()
+    }
+    set {_uniqueStorage()._content = .tableRow(newValue)}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public enum OneOf_Content: Equatable {
@@ -478,6 +507,9 @@ public struct Anytype_Model_Block {
     case featuredRelations(Anytype_Model_Block.Content.FeaturedRelations)
     case latex(Anytype_Model_Block.Content.Latex)
     case tableOfContents(Anytype_Model_Block.Content.TableOfContents)
+    case table(Anytype_Model_Block.Content.Table)
+    case tableColumn(Anytype_Model_Block.Content.TableColumn)
+    case tableRow(Anytype_Model_Block.Content.TableRow)
 
   #if !swift(>=4.1)
     public static func ==(lhs: Anytype_Model_Block.OneOf_Content, rhs: Anytype_Model_Block.OneOf_Content) -> Bool {
@@ -535,6 +567,18 @@ public struct Anytype_Model_Block {
       }()
       case (.tableOfContents, .tableOfContents): return {
         guard case .tableOfContents(let l) = lhs, case .tableOfContents(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.table, .table): return {
+        guard case .table(let l) = lhs, case .table(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.tableColumn, .tableColumn): return {
+        guard case .tableColumn(let l) = lhs, case .tableColumn(let r) = rhs else { preconditionFailure() }
+        return l == r
+      }()
+      case (.tableRow, .tableRow): return {
+        guard case .tableRow(let l) = lhs, case .tableRow(let r) = rhs else { preconditionFailure() }
         return l == r
       }()
       default: return false
@@ -634,6 +678,37 @@ public struct Anytype_Model_Block {
 
   }
 
+  public enum VerticalAlign: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+    case top // = 0
+    case middle // = 1
+    case bottom // = 2
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .top
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .top
+      case 1: self = .middle
+      case 2: self = .bottom
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .top: return 0
+      case .middle: return 1
+      case .bottom: return 2
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
   public struct Restrictions {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
@@ -679,6 +754,8 @@ public struct Anytype_Model_Block {
         case column // = 1
         case div // = 2
         case header // = 3
+        case tableRows // = 4
+        case tableColumns // = 5
         case UNRECOGNIZED(Int)
 
         public init() {
@@ -691,6 +768,8 @@ public struct Anytype_Model_Block {
           case 1: self = .column
           case 2: self = .div
           case 3: self = .header
+          case 4: self = .tableRows
+          case 5: self = .tableColumns
           default: self = .UNRECOGNIZED(rawValue)
           }
         }
@@ -701,6 +780,8 @@ public struct Anytype_Model_Block {
           case .column: return 1
           case .div: return 2
           case .header: return 3
+          case .tableRows: return 4
+          case .tableColumns: return 5
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -1794,6 +1875,36 @@ public struct Anytype_Model_Block {
       public init() {}
     }
 
+    public struct Table {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public struct TableColumn {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
+    public struct TableRow {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public init() {}
+    }
+
     public init() {}
   }
 
@@ -1827,6 +1938,15 @@ extension Anytype_Model_Block.Align: CaseIterable {
   ]
 }
 
+extension Anytype_Model_Block.VerticalAlign: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.VerticalAlign] = [
+    .top,
+    .middle,
+    .bottom,
+  ]
+}
+
 extension Anytype_Model_Block.Content.Layout.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Model_Block.Content.Layout.Style] = [
@@ -1834,6 +1954,8 @@ extension Anytype_Model_Block.Content.Layout.Style: CaseIterable {
     .column,
     .div,
     .header,
+    .tableRows,
+    .tableColumns,
   ]
 }
 
@@ -3007,84 +3129,6 @@ public struct Anytype_Model_RelationOptions {
   public init() {}
 }
 
-#if swift(>=5.5) && canImport(_Concurrency)
-extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
-extension Anytype_Model_RelationFormat: @unchecked Sendable {}
-extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
-extension Anytype_Model_Block: @unchecked Sendable {}
-extension Anytype_Model_Block.OneOf_Content: @unchecked Sendable {}
-extension Anytype_Model_Block.Position: @unchecked Sendable {}
-extension Anytype_Model_Block.Align: @unchecked Sendable {}
-extension Anytype_Model_Block.Restrictions: @unchecked Sendable {}
-extension Anytype_Model_Block.Content: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Layout: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Layout.Style: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Link: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Link.IconSize: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Link.Style: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Link.Description: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Link.CardStyle: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Div: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Div.Style: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Bookmark: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Icon: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.FeaturedRelations: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Text: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Text.Style: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Text.Marks: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Text.Mark: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.File: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.File.TypeEnum: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.File.Style: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.File.State: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Smartblock: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.View: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.View.Size: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.Relation: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.Relation.DateFormat: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.Sort: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.Filter: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.Filter.Operator: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.Filter.Condition: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Relation: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.Latex: @unchecked Sendable {}
-extension Anytype_Model_Block.Content.TableOfContents: @unchecked Sendable {}
-extension Anytype_Model_BlockMetaOnly: @unchecked Sendable {}
-extension Anytype_Model_Range: @unchecked Sendable {}
-extension Anytype_Model_Account: @unchecked Sendable {}
-extension Anytype_Model_Account.StatusType: @unchecked Sendable {}
-extension Anytype_Model_Account.Avatar: @unchecked Sendable {}
-extension Anytype_Model_Account.Avatar.OneOf_Avatar: @unchecked Sendable {}
-extension Anytype_Model_Account.Config: @unchecked Sendable {}
-extension Anytype_Model_Account.Status: @unchecked Sendable {}
-extension Anytype_Model_Account.Info: @unchecked Sendable {}
-extension Anytype_Model_LinkPreview: @unchecked Sendable {}
-extension Anytype_Model_LinkPreview.TypeEnum: @unchecked Sendable {}
-extension Anytype_Model_Restrictions: @unchecked Sendable {}
-extension Anytype_Model_Restrictions.ObjectRestriction: @unchecked Sendable {}
-extension Anytype_Model_Restrictions.DataviewRestriction: @unchecked Sendable {}
-extension Anytype_Model_Restrictions.DataviewRestrictions: @unchecked Sendable {}
-extension Anytype_Model_ThreadDeeplinkPayload: @unchecked Sendable {}
-extension Anytype_Model_ThreadCreateQueueEntry: @unchecked Sendable {}
-extension Anytype_Model_ObjectType: @unchecked Sendable {}
-extension Anytype_Model_ObjectType.Layout: @unchecked Sendable {}
-extension Anytype_Model_Layout: @unchecked Sendable {}
-extension Anytype_Model_RelationWithValue: @unchecked Sendable {}
-extension Anytype_Model_Relation: @unchecked Sendable {}
-extension Anytype_Model_Relation.Scope: @unchecked Sendable {}
-extension Anytype_Model_Relation.DataSource: @unchecked Sendable {}
-extension Anytype_Model_Relation.Option: @unchecked Sendable {}
-extension Anytype_Model_Relation.Option.Scope: @unchecked Sendable {}
-extension Anytype_Model_Relations: @unchecked Sendable {}
-extension Anytype_Model_RelationOptions: @unchecked Sendable {}
-#endif  // swift(>=5.5) && canImport(_Concurrency)
-
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "anytype.model"
@@ -3210,6 +3254,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     4: .same(proto: "childrenIds"),
     5: .same(proto: "backgroundColor"),
     6: .same(proto: "align"),
+    7: .same(proto: "verticalAlign"),
     11: .same(proto: "smartblock"),
     14: .same(proto: "text"),
     15: .same(proto: "file"),
@@ -3223,6 +3268,9 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     23: .same(proto: "featuredRelations"),
     24: .same(proto: "latex"),
     25: .same(proto: "tableOfContents"),
+    26: .same(proto: "table"),
+    27: .same(proto: "tableColumn"),
+    28: .same(proto: "tableRow"),
   ]
 
   fileprivate class _StorageClass {
@@ -3232,6 +3280,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
     var _childrenIds: [String] = []
     var _backgroundColor: String = String()
     var _align: Anytype_Model_Block.Align = .left
+    var _verticalAlign: Anytype_Model_Block.VerticalAlign = .top
     var _content: Anytype_Model_Block.OneOf_Content?
 
     static let defaultInstance = _StorageClass()
@@ -3245,6 +3294,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       _childrenIds = source._childrenIds
       _backgroundColor = source._backgroundColor
       _align = source._align
+      _verticalAlign = source._verticalAlign
       _content = source._content
     }
   }
@@ -3270,6 +3320,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
         case 4: try { try decoder.decodeRepeatedStringField(value: &_storage._childrenIds) }()
         case 5: try { try decoder.decodeSingularStringField(value: &_storage._backgroundColor) }()
         case 6: try { try decoder.decodeSingularEnumField(value: &_storage._align) }()
+        case 7: try { try decoder.decodeSingularEnumField(value: &_storage._verticalAlign) }()
         case 11: try {
           var v: Anytype_Model_Block.Content.Smartblock?
           var hadOneofValue = false
@@ -3439,6 +3490,45 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
             _storage._content = .tableOfContents(v)
           }
         }()
+        case 26: try {
+          var v: Anytype_Model_Block.Content.Table?
+          var hadOneofValue = false
+          if let current = _storage._content {
+            hadOneofValue = true
+            if case .table(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._content = .table(v)
+          }
+        }()
+        case 27: try {
+          var v: Anytype_Model_Block.Content.TableColumn?
+          var hadOneofValue = false
+          if let current = _storage._content {
+            hadOneofValue = true
+            if case .tableColumn(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._content = .tableColumn(v)
+          }
+        }()
+        case 28: try {
+          var v: Anytype_Model_Block.Content.TableRow?
+          var hadOneofValue = false
+          if let current = _storage._content {
+            hadOneofValue = true
+            if case .tableRow(let m) = current {v = m}
+          }
+          try decoder.decodeSingularMessageField(value: &v)
+          if let v = v {
+            if hadOneofValue {try decoder.handleConflictingOneOf()}
+            _storage._content = .tableRow(v)
+          }
+        }()
         default: break
         }
       }
@@ -3468,6 +3558,9 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
       }
       if _storage._align != .left {
         try visitor.visitSingularEnumField(value: _storage._align, fieldNumber: 6)
+      }
+      if _storage._verticalAlign != .top {
+        try visitor.visitSingularEnumField(value: _storage._verticalAlign, fieldNumber: 7)
       }
       switch _storage._content {
       case .smartblock?: try {
@@ -3522,6 +3615,18 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
         guard case .tableOfContents(let v)? = _storage._content else { preconditionFailure() }
         try visitor.visitSingularMessageField(value: v, fieldNumber: 25)
       }()
+      case .table?: try {
+        guard case .table(let v)? = _storage._content else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 26)
+      }()
+      case .tableColumn?: try {
+        guard case .tableColumn(let v)? = _storage._content else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 27)
+      }()
+      case .tableRow?: try {
+        guard case .tableRow(let v)? = _storage._content else { preconditionFailure() }
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 28)
+      }()
       case nil: break
       }
     }
@@ -3539,6 +3644,7 @@ extension Anytype_Model_Block: SwiftProtobuf.Message, SwiftProtobuf._MessageImpl
         if _storage._childrenIds != rhs_storage._childrenIds {return false}
         if _storage._backgroundColor != rhs_storage._backgroundColor {return false}
         if _storage._align != rhs_storage._align {return false}
+        if _storage._verticalAlign != rhs_storage._verticalAlign {return false}
         if _storage._content != rhs_storage._content {return false}
         return true
       }
@@ -3567,6 +3673,14 @@ extension Anytype_Model_Block.Align: SwiftProtobuf._ProtoNameProviding {
     0: .same(proto: "AlignLeft"),
     1: .same(proto: "AlignCenter"),
     2: .same(proto: "AlignRight"),
+  ]
+}
+
+extension Anytype_Model_Block.VerticalAlign: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "VerticalAlignTop"),
+    1: .same(proto: "VerticalAlignMiddle"),
+    2: .same(proto: "VerticalAlignBottom"),
   ]
 }
 
@@ -3683,6 +3797,8 @@ extension Anytype_Model_Block.Content.Layout.Style: SwiftProtobuf._ProtoNameProv
     1: .same(proto: "Column"),
     2: .same(proto: "Div"),
     3: .same(proto: "Header"),
+    4: .same(proto: "TableRows"),
+    5: .same(proto: "TableColumns"),
   ]
 }
 
@@ -4716,6 +4832,63 @@ extension Anytype_Model_Block.Content.TableOfContents: SwiftProtobuf.Message, Sw
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.TableOfContents, rhs: Anytype_Model_Block.Content.TableOfContents) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.Table: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".Table"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Table, rhs: Anytype_Model_Block.Content.Table) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.TableColumn: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".TableColumn"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.TableColumn, rhs: Anytype_Model_Block.Content.TableColumn) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.TableRow: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".TableRow"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.TableRow, rhs: Anytype_Model_Block.Content.TableRow) -> Bool {
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

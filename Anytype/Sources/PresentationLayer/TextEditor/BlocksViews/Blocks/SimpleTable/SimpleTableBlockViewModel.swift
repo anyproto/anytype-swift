@@ -5,50 +5,43 @@ import AnytypeCore
 
 struct SimpleTableBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
+    let models: [[SimpleTableBlockProtocol]]
 
     var hashable: AnyHashable {
-        [
-            [info.id],
-            textBlocks.map { $0.content }
-        ].compactMap { $0 } as [AnyHashable]
+        [info.id, modelsHashable] as [AnyHashable]
     }
 
-    private let textBlocks: [TextBlockViewModel]
     private let blockDelegate: BlockDelegate
 
     private weak var relativePositionProvider: RelativePositionProvider?
 
     init(
         info: BlockInformation,
-        textBlocks: [TextBlockViewModel],
+        models: [[SimpleTableBlockProtocol]],
         blockDelegate: BlockDelegate,
         relativePositionProvider: RelativePositionProvider?
     ) {
         self.info = info
-        self.textBlocks = textBlocks
+        self.models = models
         self.blockDelegate = blockDelegate
         self.relativePositionProvider = relativePositionProvider
+
+        self.modelsHashable = models.hashable
     }
 
+    private let modelsHashable: AnyHashable
+
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        let widths: [CGFloat] = [400, 150, 100, 200, 300]
+        let numberOfColumns = models.first?.count ?? 0
 
-        let textBlocksChunked = textBlocks.chunked(into: widths.count)
-
-        let items = textBlocksChunked.map { sections -> [SimpleTableBlockProtocol] in
-            return sections.map { row -> SimpleTableBlockProtocol in
-                let tableBlock = SimpleTableCellConfiguration(
-                    item: row.textBlockContentConfiguration(),
-                    backgroundColor: row.info.backgroundColor.map { UIColor.Background.uiColor(from: $0) }
-                )
-
-                return tableBlock
-            }
+        var widths = [CGFloat]()
+        for _ in 0..<numberOfColumns {
+            widths.append(170)
         }
 
         let contentConfiguration = SimpleTableBlockContentConfiguration(
             widths: widths,
-            items: items,
+            items: models,
             blockDelegate: blockDelegate,
             relativePositionProvider: relativePositionProvider
         )

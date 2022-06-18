@@ -20,11 +20,12 @@ public struct BlockDataview: Hashable {
             relations: relations ?? self.relations
         )
     }
-    
+
+
     public static var empty: BlockDataview {
         BlockDataview(activeViewId: "", source: [], views: [], relations: [])
     }
-    
+
     var asMiddleware: MiddlewareDataview {
         MiddlewareDataview(
             source: source,

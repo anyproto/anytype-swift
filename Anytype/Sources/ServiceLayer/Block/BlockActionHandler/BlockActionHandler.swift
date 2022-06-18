@@ -12,6 +12,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let listService: BlockListServiceProtocol
     private let markupChanger: BlockMarkupChangerProtocol
     private let keyboardHandler: KeyboardActionHandlerProtocol
+    private let blockTableService: BlockTableServiceProtocol
     
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
     
@@ -20,13 +21,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         markupChanger: BlockMarkupChangerProtocol,
         service: BlockActionServiceProtocol,
         listService: BlockListServiceProtocol,
-        keyboardHandler: KeyboardActionHandlerProtocol
+        keyboardHandler: KeyboardActionHandlerProtocol,
+        blockTableService: BlockTableServiceProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger
         self.service = service
         self.listService = listService
         self.keyboardHandler = keyboardHandler
+        self.blockTableService = blockTableService
     }
 
     // MARK: - Service proxy
@@ -225,16 +228,29 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     }
 
     func addBlock(_ type: BlockContentType, blockId: BlockId) {
+        guard let info = document.infoContainer.get(id: blockId) else { return }
+        let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
+
+        if type == .table {
+            blockTableService.createTable(
+                contextId: document.objectId,
+                targetId: blockId,
+                position: position,
+                rowsCount: 3,
+                columnsCount: 3
+            )
+
+            return
+        }
+
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead", domain: .blockActionsService)
             return
         }
             
         guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
-        guard let info = document.infoContainer.get(id: blockId) else { return }
-        
-        let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
-        
+
+
         service.add(info: newBlock, targetBlockId: info.id, position: position)
     }
 

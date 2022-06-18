@@ -468,6 +468,28 @@ extension Anytype_Rpc.Block.ListSetFields.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Block.ListSetVerticalAlign.Request {
+  public init(contextID: String, blockIds: [String], verticalAlign: Anytype_Model_Block.VerticalAlign) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+    self.verticalAlign = verticalAlign
+  }
+}
+
+extension Anytype_Rpc.Block.ListSetVerticalAlign.Response {
+  public init(error: Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error {
+  public init(code: Anytype_Rpc.Block.ListSetVerticalAlign.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Block.ListTurnInto.Request {
   public init(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) {
     self.contextID = contextID
@@ -1326,6 +1348,317 @@ extension Anytype_Rpc.BlockRelation.SetKey.Response {
 
 extension Anytype_Rpc.BlockRelation.SetKey.Response.Error {
   public init(code: Anytype_Rpc.BlockRelation.SetKey.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnCreate.Request {
+  public init(contextID: String, targetID: String, position: Anytype_Model_Block.Position) {
+    self.contextID = contextID
+    self.targetID = targetID
+    self.position = position
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnCreate.Response {
+  public init(error: Anytype_Rpc.BlockTable.ColumnCreate.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnCreate.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.ColumnCreate.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnDelete.Request {
+  public init(contextID: String, targetID: String) {
+    self.contextID = contextID
+    self.targetID = targetID
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnDelete.Response {
+  public init(error: Anytype_Rpc.BlockTable.ColumnDelete.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.ColumnDelete.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnDuplicate.Request {
+  public init(contextID: String, targetID: String, blockID: String, position: Anytype_Model_Block.Position) {
+    self.contextID = contextID
+    self.targetID = targetID
+    self.blockID = blockID
+    self.position = position
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response {
+  public init(error: Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error, blockID: String, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.blockID = blockID
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnMove.Request {
+  public init(contextID: String, targetID: String, dropTargetID: String, position: Anytype_Model_Block.Position) {
+    self.contextID = contextID
+    self.targetID = targetID
+    self.dropTargetID = dropTargetID
+    self.position = position
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnMove.Response {
+  public init(error: Anytype_Rpc.BlockTable.ColumnMove.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnMove.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.ColumnMove.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.Create.Request {
+  public init(contextID: String, targetID: String, position: Anytype_Model_Block.Position, rows: UInt32, columns: UInt32) {
+    self.contextID = contextID
+    self.targetID = targetID
+    self.position = position
+    self.rows = rows
+    self.columns = columns
+  }
+}
+
+extension Anytype_Rpc.BlockTable.Create.Response {
+  public init(error: Anytype_Rpc.BlockTable.Create.Response.Error, blockID: String, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.blockID = blockID
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.Create.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.Create.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.Expand.Request {
+  public init(contextID: String, targetID: String, columns: UInt32, rows: UInt32) {
+    self.contextID = contextID
+    self.targetID = targetID
+    self.columns = columns
+    self.rows = rows
+  }
+}
+
+extension Anytype_Rpc.BlockTable.Expand.Response {
+  public init(error: Anytype_Rpc.BlockTable.Expand.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.Expand.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.Expand.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowCreate.Request {
+  public init(contextID: String, targetID: String, position: Anytype_Model_Block.Position) {
+    self.contextID = contextID
+    self.targetID = targetID
+    self.position = position
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowCreate.Response {
+  public init(error: Anytype_Rpc.BlockTable.RowCreate.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowCreate.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.RowCreate.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowDelete.Request {
+  public init(contextID: String, targetID: String) {
+    self.contextID = contextID
+    self.targetID = targetID
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowDelete.Response {
+  public init(error: Anytype_Rpc.BlockTable.RowDelete.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowDelete.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.RowDelete.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowDuplicate.Request {
+  public init(contextID: String, targetID: String, blockID: String, position: Anytype_Model_Block.Position) {
+    self.contextID = contextID
+    self.targetID = targetID
+    self.blockID = blockID
+    self.position = position
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowDuplicate.Response {
+  public init(error: Anytype_Rpc.BlockTable.RowDuplicate.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowDuplicate.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.RowDuplicate.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowListClean.Request {
+  public init(contextID: String, blockIds: [String]) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowListClean.Response {
+  public init(error: Anytype_Rpc.BlockTable.RowListClean.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowListClean.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.RowListClean.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowListFill.Request {
+  public init(contextID: String, blockIds: [String]) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowListFill.Response {
+  public init(error: Anytype_Rpc.BlockTable.RowListFill.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowListFill.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.RowListFill.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowMove.Request {
+  public init(contextID: String, targetID: String, dropTargetID: String, position: Anytype_Model_Block.Position) {
+    self.contextID = contextID
+    self.targetID = targetID
+    self.dropTargetID = dropTargetID
+    self.position = position
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowMove.Response {
+  public init(error: Anytype_Rpc.BlockTable.RowMove.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowMove.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.RowMove.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockText.ListClearContent.Request {
+  public init(contextID: String, blockIds: [String]) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+  }
+}
+
+extension Anytype_Rpc.BlockText.ListClearContent.Response {
+  public init(error: Anytype_Rpc.BlockText.ListClearContent.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockText.ListClearContent.Response.Error {
+  public init(code: Anytype_Rpc.BlockText.ListClearContent.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockText.ListClearStyle.Request {
+  public init(contextID: String, blockIds: [String]) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+  }
+}
+
+extension Anytype_Rpc.BlockText.ListClearStyle.Response {
+  public init(error: Anytype_Rpc.BlockText.ListClearStyle.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockText.ListClearStyle.Response.Error {
+  public init(code: Anytype_Rpc.BlockText.ListClearStyle.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }

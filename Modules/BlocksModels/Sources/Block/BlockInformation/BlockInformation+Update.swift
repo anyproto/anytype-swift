@@ -14,7 +14,7 @@ public extension BlockInformation {
             id: id,
             content: content ?? self.content,
             backgroundColor: backgroundColor ?? self.backgroundColor,
-            alignment: alignment ?? self.alignment,
+            alignment: alignment ?? self.horizontalAlignment,
             childrenIds: childrenIds ?? self.childrenIds,
             configurationData: metadata ?? self.configurationData,
             fields: fields ?? self.fields

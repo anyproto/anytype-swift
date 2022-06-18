@@ -14,6 +14,8 @@ public enum Feature: String, Codable {
     case setSorts = "Set sorts"
     case setFilters = "Set filters"
     case tableOfContents = "Table of contents"
+    case floatingSetMenu = "Floating Set menu"
+    case simpleTables = "Simple tables"
 }
 
 public final class FeatureFlags {
@@ -45,7 +47,9 @@ public final class FeatureFlags {
         .createObjectInSet: true,
         .setSorts: true,
         .setFilters: false,
-        .tableOfContents: false
+        .tableOfContents: false,
+        .floatingSetMenu: false,
+        .simpleTables: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -111,5 +115,9 @@ public extension FeatureFlags {
     
     static var isTableOfContentsAvailable: Bool {
         features[.tableOfContents, default: false]
+    }
+
+    static var isSimpleTablesAvailable: Bool {
+        features[.simpleTables, default: false]
     }
 }

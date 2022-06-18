@@ -25,7 +25,7 @@ struct SimpleTableBlockContentConfiguration: BlockConfiguration {
     }
 }
 
-private extension Array where Element == [SimpleTableBlockProtocol] {
+extension Array where Element == [SimpleTableBlockProtocol] {
     var hashable: AnyHashable {
         map { sections -> AnyHashable in
             return sections.map { $0.hashable }

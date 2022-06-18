@@ -73,6 +73,5 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
             )
         }
     }
-
 }
 

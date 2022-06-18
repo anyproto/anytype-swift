@@ -122,7 +122,7 @@ private extension TextBlockContentView {
     static func makeMainStackView() -> UIStackView {
         let mainStackView = UIStackView()
         mainStackView.axis = .vertical
-        mainStackView.alignment = .leading
+        mainStackView.alignment = .fill
         return mainStackView
     }
     
@@ -131,7 +131,7 @@ private extension TextBlockContentView {
         contentStackView.axis = .horizontal
         contentStackView.distribution = .fill
         contentStackView.spacing = 4
-        contentStackView.alignment = .top
+        contentStackView.alignment = .fill
         return contentStackView
     }
     

@@ -2508,6 +2508,31 @@ message Rpc {
             }
         }
 
+        message ListSetVerticalAlign {
+            message Request {
+                string contextId = 1; // id of the context object
+                repeated string blockIds = 2;
+                anytype.model.Block.VerticalAlign verticalAlign = 3;
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
         message ListSetFields {
             message Request {
                 string contextId = 1;
@@ -2984,6 +3009,357 @@ message Rpc {
                 string contextId = 1;
                 repeated string blockIds = 2;
                 anytype.model.Block.Content.Text.Mark mark = 3;
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
+        message ListClearStyle {
+            message Request {
+                string contextId = 1;
+                repeated string blockIds = 2;
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
+        message ListClearContent {
+            message Request {
+                string contextId = 1;
+                repeated string blockIds = 2;
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+    }
+
+    message BlockTable {
+        message Create {
+            message Request {
+                string contextId = 1; // id of the context object
+                string targetId = 2; // id of the closest block
+                anytype.model.Block.Position position = 3;
+                uint32 rows = 4;
+                uint32 columns = 5;
+            }
+
+            message Response {
+                Error error = 1;
+                string blockId = 2;
+                ResponseEvent event = 3;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+        message RowCreate {
+            message Request {
+                string contextId = 1; // id of the context object
+                string targetId = 2; // id of the closest row
+                anytype.model.Block.Position position = 3;
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
+        message RowListFill {
+            message Request {
+                string contextId = 1; // id of the context object
+                repeated string blockIds = 2;
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+        message RowListClean {
+            message Request {
+                string contextId = 1; // id of the context object
+                repeated string blockIds = 2;
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
+        message ColumnCreate {
+            message Request {
+                string contextId = 1; // id of the context object
+                string targetId = 2; // id of the closest column
+                anytype.model.Block.Position position = 3;
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+        message RowDelete {
+            message Request {
+                string contextId = 1; // id of the context object
+                string targetId = 2; // id of the closest row
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+        message ColumnDelete {
+            message Request {
+                string contextId = 1; // id of the context object
+                string targetId = 2; // id of the closest column
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
+        message RowMove {
+            message Request {
+                string contextId = 1;
+                string targetId = 2;
+                string dropTargetId = 3;
+                anytype.model.Block.Position position = 4;
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
+        message ColumnMove {
+            message Request {
+                string contextId = 1;
+                string targetId = 2;
+                string dropTargetId = 3;
+                anytype.model.Block.Position position = 4;
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
+        message RowDuplicate {
+            message Request {
+                string contextId = 1; // id of the context object
+                string targetId = 2;
+                string blockId = 3; // block to duplicate
+                anytype.model.Block.Position position = 4;
+            }
+
+            message Response {
+                Error error = 1;
+                ResponseEvent event = 2;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
+        message ColumnDuplicate {
+            message Request {
+                string contextId = 1; // id of the context object
+                string targetId = 2;
+                string blockId = 3; // block to duplicate
+                anytype.model.Block.Position position = 4;
+            }
+
+            message Response {
+                Error error = 1;
+                string blockId = 2;
+                ResponseEvent event = 3;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+                        // ...
+                    }
+                }
+            }
+        }
+
+        message Expand {
+            message Request {
+                string contextId = 1; // id of the context object
+                string targetId = 2;
+                uint32 columns = 3; // number of columns to append
+                uint32 rows = 4; // number of rows to append
             }
 
             message Response {

@@ -70,9 +70,7 @@ final class DynamicCollectionLayoutView: UIView, UICollectionViewDataSource {
 
             self.configuration.map(self.saveBlockHeight(configuration:))
 
-            if #available(iOS 15.0, *) { } else {
-                self.configuration?.heightDidChanged()
-            }
+            self.configuration?.heightDidChanged()
         }
     }
 

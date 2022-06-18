@@ -10,7 +10,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let toggled: Bool
 
     private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
-    private let actionHandler: TextBlockActionHandler
+    private let actionHandler: TextBlockActionHandlerProtocol
 
     var hashable: AnyHashable {
         [info, isCheckable, toggled] as [AnyHashable]
@@ -21,7 +21,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         content: BlockText,
         isCheckable: Bool,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>,
-        actionHandler: TextBlockActionHandler
+        actionHandler: TextBlockActionHandlerProtocol
     ) {
         self.content = content
         self.isCheckable = isCheckable
@@ -42,14 +42,14 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         TextBlockContentConfiguration(
             blockId: info.id,
             content: content,
-            alignment: info.alignment.asNSTextAlignment,
+            alignment: info.horizontalAlignment.asNSTextAlignment,
             isCheckable: isCheckable,
             isToggled: info.isToggled,
             isChecked: content.checked,
             shouldDisplayPlaceholder: info.isToggled && info.childrenIds.isEmpty,
             focusPublisher: focusSubject.eraseToAnyPublisher(),
             resetPublisher: actionHandler.resetSubject.eraseToAnyPublisher(),
-            actions: TextBlockContentConfiguration.Actions(handler: actionHandler)
+            actions: actionHandler.textBlockActions()
         )
     }
     

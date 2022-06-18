@@ -29,7 +29,7 @@ final class SimpleTableCollectionViewCell<View: BlockContentView>: UICollectionV
 
         addSubview(containerView) {
             $0.pinToSuperview(excluding: [.bottom], insets: Constants.edges)
-            $0.bottom.greaterThanOrEqual(
+            $0.bottom.equal(
                 to: bottomAnchor,
                 constant: Constants.edges.bottom,
                 priority: .init(999)

@@ -1,14 +1,8 @@
+import BlocksModels
 import Combine
 import UIKit
-import BlocksModels
 
-struct TextBlockURLInputParameters {
-    let textView: UITextView
-    let rect: CGRect
-    let optionHandler: (EditorContextualOption) -> Void
-}
-
-struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
+struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     let info: BlockInformation
 
     let showPage: (EditorScreenData) -> Void
@@ -243,9 +237,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
         )
     }
 
-    private func textBlockSetNeedsLayout(textView: UITextView) {
-        blockDelegate?.textBlockSetNeedsLayout()
-    }
+    private func textBlockSetNeedsLayout(textView: UITextView) { }
 
     private func textViewDidChangeText(textView: UITextView) {
         actionHandler.changeText(textView.attributedText, info: info)
@@ -261,7 +253,6 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func textViewDidEndEditing(textView: UITextView) {
-        resetSubject.send(content)
         blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
     }
 

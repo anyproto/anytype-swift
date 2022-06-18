@@ -219,17 +219,6 @@ public struct Anytype_Model_ObjectStoreChecksums {
   public init() {}
 }
 
-#if swift(>=5.5) && canImport(_Concurrency)
-extension Anytype_Model_ObjectInfo: @unchecked Sendable {}
-extension Anytype_Model_ObjectDetails: @unchecked Sendable {}
-extension Anytype_Model_ObjectLinks: @unchecked Sendable {}
-extension Anytype_Model_ObjectLinksInfo: @unchecked Sendable {}
-extension Anytype_Model_ObjectInfoWithLinks: @unchecked Sendable {}
-extension Anytype_Model_ObjectInfoWithOutboundLinks: @unchecked Sendable {}
-extension Anytype_Model_ObjectInfoWithOutboundLinksIDs: @unchecked Sendable {}
-extension Anytype_Model_ObjectStoreChecksums: @unchecked Sendable {}
-#endif  // swift(>=5.5) && canImport(_Concurrency)
-
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "anytype.model"

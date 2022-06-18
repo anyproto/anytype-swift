@@ -1,10 +1,11 @@
 import BlocksModels
 import AnytypeCore
 
-enum SlashActionOther: CaseIterable {
+enum SlashActionOther: CaseIterable, Equatable {
     case lineDivider
     case dotsDivider
     case tableOfContents
+    case table
     
     var title: String {
         switch self {
@@ -14,6 +15,8 @@ enum SlashActionOther: CaseIterable {
             return "SlashMenu.LineDivider".localized
         case .tableOfContents:
             return "SlashMenu.TableOfContents".localized
+        case .table:
+            return "SlashMenu.Table".localized
         }
     }
     
@@ -25,6 +28,8 @@ enum SlashActionOther: CaseIterable {
             return ImageName.slashMenu.other.line_divider
         case .tableOfContents:
             return ImageName.slashMenu.other.table_of_contents
+        case .table:
+            return ImageName.slashMenu.other.line_divider
         }
     }
     
@@ -36,23 +41,17 @@ enum SlashActionOther: CaseIterable {
             return .divider(.line)
         case .tableOfContents:
             return .tableOfContents
+        case .table:
+            return .table
         }
     }
     
     var searchAliases: [String] {
         switch self {
-        case .dotsDivider, .lineDivider:
+        case .dotsDivider, .lineDivider, .table:
             return []
         case .tableOfContents:
             return ["toc"]
-        }
-    }
-    
-    static var allCases: Self.AllCases {
-        if FeatureFlags.isTableOfContentsAvailable {
-            return [.lineDivider, .dotsDivider, .tableOfContents]
-        } else {
-            return [.lineDivider, .dotsDivider]
         }
     }
 }

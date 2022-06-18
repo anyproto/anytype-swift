@@ -101,9 +101,10 @@ final class EditorAssembly {
         isOpenedForPreview: Bool
     ) -> EditorPageViewModel {                
         let modelsHolder = EditorMainItemModelsHolder()
-        
         let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
-        let cursorManager = EditorCursorManager()
+        let focusSubjectHolder = FocusSubjectsHolder()
+
+        let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
         let listService = BlockListService(contextId: document.objectId)
         let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId)
         let blockActionService = BlockActionService(
@@ -126,7 +127,8 @@ final class EditorAssembly {
             markupChanger: markupChanger,
             service: blockActionService,
             listService: listService,
-            keyboardHandler: keyboardHandler
+            keyboardHandler: keyboardHandler,
+            blockTableService: BlockTableService()
         )
 
         let pasteboardMiddlewareService = PasteboardMiddleService(document: document)
@@ -149,6 +151,18 @@ final class EditorAssembly {
             viewInput: viewInput,
             accessoryState: accessoryState
         )
+
+        let simpleTablesBuilder = SimpleTableViewModelBuilder(
+            document: document,
+            router: router,
+            handler: actionHandler,
+            pasteboardService: pasteboardService,
+            delegate: blockDelegate,
+            markdownListener: markdownListener,
+            relativePositionProvider: viewInput,
+            cursorManager: cursorManager,
+            focusSubjectHolder: focusSubjectHolder
+        )
         
         let blocksConverter = BlockViewModelBuilder(
             document: document,
@@ -157,7 +171,8 @@ final class EditorAssembly {
             router: router,
             delegate: blockDelegate,
             markdownListener: markdownListener,
-            relativePositionProvider: viewInput
+            simpleTablesBuilder: simpleTablesBuilder,
+            subjectsHolder: focusSubjectHolder
         )
          
         let wholeBlockMarkupViewModel = MarkupViewModel(

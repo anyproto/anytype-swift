@@ -128,6 +128,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
             modelsHolder.items = blocksViewModels
+
         case .header, .changeType:
             break // supported in headerModel
         }
@@ -170,18 +171,35 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         with blockIds: Set<BlockId>
     ) -> CollectionDifference<EditorItem> {
         var currentModels = modelsHolder.items
-        
+
         for (offset, model) in modelsHolder.items.enumerated() {
             guard case let .block(blockViewModel) = model else { continue }
             for blockId in blockIds {
+
                 if blockViewModel.blockId == blockId {
                     guard let model = document.infoContainer.get(id: blockId),
                           let newViewModel = blockBuilder.build(info: model) else {
-                              continue
-                          }
+                        continue
+                    }
 
 
                     currentModels[offset] = .block(newViewModel)
+                }
+
+                if let tableViewModel = blockViewModel as? SimpleTableBlockViewModel {
+                    let doesContainChildId = tableViewModel.info.containsChildId(
+                        id: blockId,
+                        infoContainer: document.infoContainer
+                    )
+
+                    if doesContainChildId {
+                        guard let model = document.infoContainer.get(id: tableViewModel.info.id),
+                              let newViewModel = blockBuilder.build(info: model) else {
+                            continue
+                        }
+
+                        currentModels[offset] = .block(newViewModel)
+                    }
                 }
             }
         }
@@ -236,12 +254,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
 
     private func updateCursorIfNeeded() {
-        if let blockFocus = cursorManager.blockFocus,
-           let block = modelsHolder.contentProvider(for: blockFocus.id) {
-
-            block.set(focus: blockFocus.position)
-            cursorManager.blockFocus = nil
-        }
+        cursorManager.applyCurrentFocus()
     }
 
     // iOS 14 bug fix applying header section while editing
@@ -319,6 +332,19 @@ extension EditorPageViewModel {
     
     func showCoverPicker() {
         router.showCoverPicker()
+    }
+}
+
+// MARK: - Private
+private extension BlockInformation {
+    func containsChildId(
+        id: BlockId,
+        infoContainer: InfoContainerProtocol
+    ) -> Bool {
+        infoContainer.recursiveChildren(of: self.id)
+            .contains {
+                $0.id == id
+            }
     }
 }
 

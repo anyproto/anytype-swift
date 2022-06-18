@@ -234,6 +234,18 @@ extension EditorPageController: EditorPageViewInput {
         navigationBarHelper.updateSyncStatus(syncStatus)
     }
 
+    func update(changes: CollectionDifference<EditorItem>?) {
+        let currentSnapshot = dataSource.snapshot(for: .main)
+
+        if let changes = changes {
+            for change in changes.insertions {
+                guard currentSnapshot.isVisible(change.element) else { continue }
+
+                reloadCell(for: change.element)
+            }
+        }
+    }
+
     func update(
         changes: CollectionDifference<EditorItem>?,
         allModels: [EditorItem]

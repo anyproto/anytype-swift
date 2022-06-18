@@ -54,6 +54,7 @@ message Event {
             Block.Set.Div blockSetDiv = 17;
             Block.Set.Relation blockSetRelation = 21;
             Block.Set.Latex blockSetLatex = 25;
+            Block.Set.VerticalAlign blockSetVerticalAlign = 36;
 
             Block.Dataview.RecordsSet blockDataviewRecordsSet = 18;
             Block.Dataview.RecordsUpdate blockDataviewRecordsUpdate = 26;
@@ -299,6 +300,11 @@ message Event {
             message Align {
                 string id = 1;
                 anytype.model.Block.Align align = 2;
+            }
+
+            message VerticalAlign {
+                string id = 1;
+                anytype.model.Block.VerticalAlign verticalAlign = 2;
             }
 
 

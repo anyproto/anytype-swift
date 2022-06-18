@@ -38,7 +38,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         FeaturedRelationsBlockContentConfiguration(
             featuredRelations: relationViewModels,
             type: type,
-            alignment: info.alignment.asNSTextAlignment,
+            alignment: info.horizontalAlignment.asNSTextAlignment,
             onRelationTap: { item in
                 featuredRelations
                     .first { $0.id == item.id }

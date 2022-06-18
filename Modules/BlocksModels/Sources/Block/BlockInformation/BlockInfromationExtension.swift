@@ -13,9 +13,9 @@ public extension BlockInformation {
     
     var kind: BlockKind {
         switch content {
-        case .smartblock, .layout:
+        case .smartblock, .layout, .tableRow, .tableColumn:
             return .meta
-        case .text, .file, .divider, .bookmark, .link, .featuredRelations, .relation, .dataView,
+        case .text, .file, .divider, .bookmark, .link, .featuredRelations, .relation, .dataView, .table,
                 .tableOfContents, .unsupported:
             return .block
         }
