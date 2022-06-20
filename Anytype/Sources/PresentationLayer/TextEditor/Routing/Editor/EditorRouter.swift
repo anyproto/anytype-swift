@@ -491,6 +491,20 @@ extension EditorRouter {
         }
     }
     
+    func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
+        let viewModel = SetSortsListViewModel(
+            setModel: setModel,
+            service: dataviewService,
+            router: self
+        )
+        let vc = UIHostingController(
+            rootView: SetSortsListView()
+                .environmentObject(viewModel)
+                .environmentObject(setModel)
+        )
+        presentSheet(vc)
+    }
+    
     private func showSetSettingsPopup(setModel: EditorSetViewModel) {
         let popup = AnytypePopup(
             viewModel: EditorSetSettingsViewModel(setModel: setModel),

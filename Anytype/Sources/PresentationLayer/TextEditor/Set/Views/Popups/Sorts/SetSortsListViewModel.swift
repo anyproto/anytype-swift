@@ -9,10 +9,6 @@ final class SetSortsListViewModel: ObservableObject {
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
     
-    private(set) var popupLayout = AnytypePopupLayoutType.sortOptions
-    private weak var popup: AnytypePopupProxy?
-
-    
     init(
         setModel: EditorSetViewModel,
         service: DataviewServiceProtocol,
@@ -98,21 +94,4 @@ extension SetSortsListViewModel {
         let newView = setModel.activeView.updated(sorts: dataviewSorts)
         service.updateView(newView)
     }
-}
-
-extension SetSortsListViewModel: AnytypePopupViewModelProtocol {
-    
-    func makeContentView() -> UIViewController {
-        UIHostingController(
-            rootView:
-                SetSortsListView()
-                .environmentObject(self)
-                .environmentObject(setModel)
-        )
-    }
-    
-    func onPopupInstall(_ popup: AnytypePopupProxy) {
-        self.popup = popup
-    }
-    
 }
