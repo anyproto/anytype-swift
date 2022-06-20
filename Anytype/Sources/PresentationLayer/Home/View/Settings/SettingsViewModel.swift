@@ -20,6 +20,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var debugMenu = false
     @Published var currentStyle = UserDefaultsConfig.userInterfaceStyle {
         didSet {
+            UISelectionFeedbackGenerator().selectionChanged()
             UserDefaultsConfig.userInterfaceStyle = currentStyle
             UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = currentStyle
         }
