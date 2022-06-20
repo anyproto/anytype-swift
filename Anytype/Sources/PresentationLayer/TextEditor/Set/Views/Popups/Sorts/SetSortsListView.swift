@@ -13,8 +13,8 @@ struct SetSortsListView: View {
                 .navigationTitle("EditSorts.Popup.NavigationView.Title".localized)
                 .navigationBarTitleDisplayMode(.inline)
                 .environment(\.editMode, $editMode)
-                .onChange(of: setModel.sorts) { newValue in
-                    if editMode == .active && setModel.sorts.count == 0 {
+                .onChange(of: viewModel.rows) { newValue in
+                    if editMode == .active && viewModel.rows.count == 0 {
                         editMode = .inactive
                     }
                 }
@@ -36,7 +36,7 @@ struct SetSortsListView: View {
     
     private var content: some View {
         Group {
-            if setModel.sorts.isNotEmpty {
+            if viewModel.rows.isNotEmpty {
                 sortsList
             } else {
                 emptyState
@@ -64,7 +64,7 @@ struct SetSortsListView: View {
     
     private var sortsList: some View {
         List {
-            ForEach(setModel.sorts) {
+            ForEach(viewModel.rows) {
                 if #available(iOS 15.0, *) {
                     row(with: $0)
                         .divider(leadingPadding: 60)
@@ -91,8 +91,8 @@ struct SetSortsListView: View {
         }
     }
     
-    private func row(with sort: SetSort) -> some View {
-        SetSortRow(sort: sort, onTap: { viewModel.sortRowTapped(sort) })
+    private func row(with configuration: SetSortRowConfiguration) -> some View {
+        SetSortRow(configuration: configuration, onTap: { viewModel.rowTapped(configuration.id) })
             .environment(\.editMode, $editMode)
     }
     
