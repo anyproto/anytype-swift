@@ -12,6 +12,16 @@ final class SetSortsListViewModel: ObservableObject {
     private(set) var popupLayout = AnytypePopupLayoutType.sortOptions
     private weak var popup: AnytypePopupProxy?
 
+    var rows: [SetSortRowConfiguration] {
+        setModel.sorts.map {
+            SetSortRowConfiguration(
+                id: $0.id,
+                title: $0.metadata.name,
+                subtitle: $0.typeTitle(),
+                iconName: $0.metadata.format.iconName
+            )
+        }
+    }
     
     init(
         setModel: EditorSetViewModel,
@@ -35,7 +45,10 @@ extension SetSortsListViewModel {
         }
     }
     
-    func sortRowTapped(_ setSort: SetSort) {
+    func rowTapped(_ id: String) {
+        guard let setSort = setModel.sorts.first(where: { $0.id == id }) else {
+            return
+        }
         let view = CheckPopupView(viewModel: SetSortTypesListViewModel(
             sort: setSort,
             onSelect: { [weak self] sort in
