@@ -1,51 +1,28 @@
 import SwiftUI
 import BlocksModels
 
-struct SetSortsListView: View {
+struct SetFiltersListView: View {
     @EnvironmentObject var setModel: EditorSetViewModel
-    @EnvironmentObject var viewModel: SetSortsListViewModel
+    @EnvironmentObject var viewModel: SetFiltersListViewModel
     
     @State private var editMode = EditMode.inactive
     
     var body: some View {
-        DragIndicator()
         NavigationView {
             content
-                .navigationTitle("EditSorts.Popup.NavigationView.Title".localized)
+                .navigationTitle("EditFilters.Popup.NavigationView.Title".localized)
                 .navigationBarTitleDisplayMode(.inline)
                 .environment(\.editMode, $editMode)
-                .onChange(of: viewModel.rows) { newValue in
-                    if editMode == .active && viewModel.rows.count == 0 {
-                        editMode = .inactive
-                    }
-                }
         }
         .navigationViewStyle(.stack)
-    }
-    
-    private var addButton: some View {
-        Group {
-            if editMode == .inactive {
-                Button {
-                    viewModel.addButtonTapped()
-                } label: {
-                    Image.Relations.createOption.frame(width: 24, height: 24)
-                }
-            }
-        }
     }
     
     private var content: some View {
         Group {
             if viewModel.rows.isNotEmpty {
-                sortsList
+                filtersList
             } else {
                 emptyState
-            }
-        }
-        .toolbar {
-            ToolbarItem(placement: .navigationBarTrailing) {
-                addButton
             }
         }
     }
@@ -54,7 +31,7 @@ struct SetSortsListView: View {
         VStack {
             Spacer.fixedHeight(20)
             AnytypeText(
-                "EditSorts.Popup.EmptyView.Title".localized,
+                "EditFilters.Popup.EmptyView.Title".localized,
                 style: .uxCalloutRegular,
                 color: .textSecondary
             )
@@ -63,7 +40,7 @@ struct SetSortsListView: View {
         }
     }
     
-    private var sortsList: some View {
+    private var filtersList: some View {
         List {
             ForEach(viewModel.rows) {
                 if #available(iOS 15.0, *) {
@@ -74,9 +51,6 @@ struct SetSortsListView: View {
                 } else {
                     row(with: $0)
                 }
-            }
-            .onMove { from, to in
-                viewModel.move(from: from, to: to)
             }
             .onDelete {
                 viewModel.delete($0)
@@ -92,8 +66,8 @@ struct SetSortsListView: View {
         }
     }
     
-    private func row(with configuration: SetSortRowConfiguration) -> some View {
-        SetSortRow(configuration: configuration, onTap: { viewModel.rowTapped(configuration.id) })
+    private func row(with configuration: SetFilterRowConfiguration) -> some View {
+        SetFilterRow(configuration: configuration, onTap: { })
             .environment(\.editMode, $editMode)
     }
     

@@ -300,6 +300,9 @@
 "EditSorts.Popup.Sort.Type.Checkbox.Desc" = "Unchecked → Checked";
 "EditSorts.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
+"EditFilters.Popup.NavigationView.Title" = "Filters";
+"EditFilters.Popup.EmptyView.Title" = "No filters here. You can add some";
+
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";
