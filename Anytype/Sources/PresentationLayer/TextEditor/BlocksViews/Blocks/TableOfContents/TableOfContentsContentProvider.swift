@@ -4,12 +4,16 @@ import BlocksModels
 
 final class TableOfContentsContentProvider {
     
+    // MARK: - Private properties
+    
     private enum Constants {
         static let sortedHeaderStyles: [BlockText.Style] = [.header, .header2, .header3, .header4]
     }
     
     private let document: BaseDocumentProtocol
     private lazy var subscriptions = [AnyCancellable]()
+    
+    // MARK: - Public properties
     
     @Published private(set) var content: [TableOfContentItem] = []
     

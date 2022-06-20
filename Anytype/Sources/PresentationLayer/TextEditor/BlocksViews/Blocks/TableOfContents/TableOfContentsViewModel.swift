@@ -23,7 +23,6 @@ struct TableOfContentsViewModel: BlockViewModelProtocol {
     
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         return TableOfContentsConfiguration(
-            blockId: info.id,
             contentProviderBuilder: contentProviderBuilder,
             blockSetNeedsLayout: blockSetNeedsLayout
         ).cellBlockConfiguration(
