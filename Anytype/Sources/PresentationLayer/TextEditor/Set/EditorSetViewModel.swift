@@ -229,17 +229,7 @@ extension EditorSetViewModel {
     
     func showSetSettings() {
         if isFloatingSetMenuAvailable() {
-            router.presentFullscreen(
-                AnytypePopup(
-                    viewModel: EditorSetSettingsViewModel(setModel: self),
-                    floatingPanelStyle: true,
-                    configuration: .init(
-                        isGrabberVisible: false,
-                        dismissOnBackdropView: false,
-                        skipThroughGestures: true
-                    )
-                )
-            )
+            router.showSetSettings(setModel: self)
         } else {
             showViewSettings()
         }

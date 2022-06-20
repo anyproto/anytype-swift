@@ -15,6 +15,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let editorAssembly: EditorAssembly
     private let templatesCoordinator: TemplatesCoordinator
     private lazy var relationEditingViewModelBuilder = RelationEditingViewModelBuilder(delegate: self)
+    private weak var currentSetPopup: AnytypePopup?
     
     init(
         rootController: EditorBrowserController?,
@@ -476,6 +477,32 @@ extension EditorRouter {
             }
         }
         viewController?.topPresentedController.present(vc, animated: true)
+    }
+    
+    func showSetSettings(setModel: EditorSetViewModel) {
+        guard let currentSetPopup = currentSetPopup else {
+            showSetSettingsPopup(setModel: setModel)
+            return
+        }
+        currentSetPopup.dismiss(animated: false) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                self?.showSetSettingsPopup(setModel: setModel)
+            }
+        }
+    }
+    
+    private func showSetSettingsPopup(setModel: EditorSetViewModel) {
+        let popup = AnytypePopup(
+            viewModel: EditorSetSettingsViewModel(setModel: setModel),
+            floatingPanelStyle: true,
+            configuration: .init(
+                isGrabberVisible: false,
+                dismissOnBackdropView: false,
+                skipThroughGestures: true
+            )
+        )
+        currentSetPopup = popup
+        presentFullscreen(popup)
     }
 }
 

@@ -58,5 +58,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
 
     func showCreateObject(pageId: BlockId)
     
+    func showSetSettings(setModel: EditorSetViewModel)
     func showSortsSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void)
 }
