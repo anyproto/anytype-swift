@@ -9,9 +9,6 @@ final class SetFiltersListViewModel: ObservableObject {
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
     
-    private(set) var popupLayout = AnytypePopupLayoutType.sortOptions
-    private weak var popup: AnytypePopupProxy?
-    
     var rows: [SetFilterRowConfiguration] {
         setModel.filters.map {
             SetFilterRowConfiguration(
@@ -55,21 +52,4 @@ extension SetFiltersListViewModel {
         let newView = setModel.activeView.updated(filters: dataviewFilters)
         service.updateView(newView)
     }
-}
-
-extension SetFiltersListViewModel: AnytypePopupViewModelProtocol {
-    
-    func makeContentView() -> UIViewController {
-        UIHostingController(
-            rootView:
-                SetFiltersListView()
-                .environmentObject(self)
-                .environmentObject(setModel)
-        )
-    }
-    
-    func onPopupInstall(_ popup: AnytypePopupProxy) {
-        self.popup = popup
-    }
-    
 }
