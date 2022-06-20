@@ -41,8 +41,8 @@ final class TableOfContentsView: UIView, BlockContentView {
            
             let label = cache.popLast() ?? createLabel()
             label.attributedText = makeAttributedText(for: data.title)
-            label.addTapGesture { _ in
-                // TODO: Add scroll to header
+            label.addTapGesture { [weak self] _ in
+                self?.configuration?.onTap(data.blockId)
             }
             
             addSubview(label) {

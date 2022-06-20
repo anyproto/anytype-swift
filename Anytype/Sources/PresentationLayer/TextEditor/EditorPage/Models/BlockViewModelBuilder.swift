@@ -221,6 +221,9 @@ final class BlockViewModelBuilder {
             return TableOfContentsViewModel(
                 info: info,
                 document: document,
+				onTap: { [weak self] blockId in
+                    self?.delegate.scrollToBlock(blockId: blockId)
+                },
                 blockSetNeedsLayout: { [weak self] in
                     self?.delegate.textBlockSetNeedsLayout()
                 }

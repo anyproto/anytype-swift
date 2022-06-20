@@ -69,7 +69,7 @@ final class TableOfContentsContentProvider {
                 for index in position+1..<hasHeader.count {
                     hasHeader[index] = false
                 }
-                items.append(TableOfContentItem(title: content.text, level: depth))
+                items.append(TableOfContentItem(blockId: child.id, title: content.text, level: depth))
             default:
                 break
             }
