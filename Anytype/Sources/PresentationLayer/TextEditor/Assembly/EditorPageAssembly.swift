@@ -160,7 +160,7 @@ final class EditorAssembly {
             delegate: blockDelegate,
             markdownListener: markdownListener,
             relativePositionProvider: viewInput,
-            cursorManager: cursorManager,
+            cursorManager: EditorCursorManager(focusSubjectHolder: focusSubjectHolder),
             focusSubjectHolder: focusSubjectHolder
         )
         

@@ -3,9 +3,13 @@ import BlocksModels
 import Combine
 
 final class SimpleTableBlockView: UIView, BlockContentView {
+    private let dataSource = AnytypeCollectionViewDataSource(views: [])
     private lazy var dynamicLayoutView = DynamicCollectionLayoutView(frame: .zero)
     private lazy var spreadsheetLayout = SpreadsheetLayout()
+
+    private var viewModel: SimpleTableViewModel?
     private var heightDidChangedSubscriptions = [AnyCancellable]()
+    private var modelsSubscriptions = [AnyCancellable]()
     private var configuration: SimpleTableBlockContentConfiguration?
     private weak var blockDelegate: BlockDelegate?
 
@@ -20,29 +24,51 @@ final class SimpleTableBlockView: UIView, BlockContentView {
         setupSubview()
     }
 
+    func prepareForReuse() {
+        modelsSubscriptions.removeAll()
+    }
+
     func update(with configuration: SimpleTableBlockContentConfiguration) {
         self.blockDelegate = configuration.blockDelegate
         self.configuration = configuration
 
-        spreadsheetLayout.itemWidths = configuration.widths
-        spreadsheetLayout.setItems(items: configuration.items)
+        viewModel = configuration.viewModelBuilder()
+
+        modelsSubscriptions.removeAll()
+
+        viewModel?.$cells.sink { [weak self] items in
+            self?.spreadsheetLayout.setItems(items: items)
+            self?.dataSource.views = items
+            self?.dynamicLayoutView.collectionView.reloadData()
+
+            self?.setupHeightChangeHandlers(items: items)
+        }.store(in: &modelsSubscriptions)
+
+        viewModel?.$widths.sink { [weak self] width in
+            self?.spreadsheetLayout.itemWidths = width
+        }.store(in: &modelsSubscriptions)
+
+        viewModel?.onDataSourceUpdate = { [weak self] items in
+            self?.dataSource.views = items
+        }
+
         spreadsheetLayout.relativePositionProvider = configuration.relativePositionProvider
 
         dynamicLayoutView.update(
             with: .init(
                 hashable: AnyHashable(configuration),
-                views: configuration.items,
+                dataSource: dataSource,
                 layout: spreadsheetLayout,
                 heightDidChanged: { [weak self] in self?.blockDelegate?.textBlockSetNeedsLayout() }
             )
         )
-        setupHeightChangeHandlers(configuration: configuration)
     }
 
-    private func setupHeightChangeHandlers(configuration: SimpleTableBlockContentConfiguration) {
+    private func setupHeightChangeHandlers(items: [[SimpleTableBlockProtocol]]) {
+        heightDidChangedSubscriptions.removeAll()
         DispatchQueue.global().async { [weak self] in
             guard let self = self else { return }
-            for (sectionIndex, section) in configuration.items.enumerated() {
+            for (sectionIndex, section) in items.enumerated() {
                 for (rowIndex, element) in section.enumerated() {
                     element.heightDidChangedSubject.sink { [weak self] in
                         let indexPath = IndexPath(row: rowIndex, section: sectionIndex)

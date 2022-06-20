@@ -45,7 +45,7 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
         blocksView.update(
             with: .init(
                 hashable: configuration,
-                views: [dequebale],
+                dataSource: .init(views: [dequebale]),
                 layout: layout,
                 heightDidChanged: configuration.heightDidChanged
             )

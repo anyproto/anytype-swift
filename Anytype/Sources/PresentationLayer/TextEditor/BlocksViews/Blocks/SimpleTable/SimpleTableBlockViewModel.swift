@@ -4,44 +4,40 @@ import UIKit
 import AnytypeCore
 
 struct SimpleTableBlockViewModel: BlockViewModelProtocol {
+
     let info: BlockInformation
-    let models: [[SimpleTableBlockProtocol]]
 
     var hashable: AnyHashable {
-        [info.id, modelsHashable] as [AnyHashable]
+        info.id as AnyHashable
     }
 
     private let blockDelegate: BlockDelegate
-
+    private let simpleTableViewModelBuilder: () -> SimpleTableViewModel
     private weak var relativePositionProvider: RelativePositionProvider?
 
     init(
+        document: BaseDocumentProtocol,
         info: BlockInformation,
-        models: [[SimpleTableBlockProtocol]],
+        cellsBuilder: SimpleTableCellsBuilder,
         blockDelegate: BlockDelegate,
+        cursorManager: EditorCursorManager,
         relativePositionProvider: RelativePositionProvider?
     ) {
         self.info = info
-        self.models = models
         self.blockDelegate = blockDelegate
         self.relativePositionProvider = relativePositionProvider
-
-        self.modelsHashable = models.hashable
+        self.simpleTableViewModelBuilder = { SimpleTableViewModel(
+            document: document,
+            tableBlockInfo: info,
+            cellBuilder: cellsBuilder,
+            cursorManager: cursorManager
+            )
+        }
     }
 
-    private let modelsHashable: AnyHashable
-
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        let numberOfColumns = models.first?.count ?? 0
-
-        var widths = [CGFloat]()
-        for _ in 0..<numberOfColumns {
-            widths.append(170)
-        }
-
         let contentConfiguration = SimpleTableBlockContentConfiguration(
-            widths: widths,
-            items: models,
+            viewModelBuilder: simpleTableViewModelBuilder,
             blockDelegate: blockDelegate,
             relativePositionProvider: relativePositionProvider
         )

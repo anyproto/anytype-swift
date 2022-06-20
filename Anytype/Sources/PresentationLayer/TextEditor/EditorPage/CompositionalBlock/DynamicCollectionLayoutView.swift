@@ -8,15 +8,48 @@ private final class iOS14CompositionalContentHeightStorage {
     var blockHeightConstant = [AnyHashable: CGFloat]()
 }
 
+final class AnytypeCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+    var views: [[Dequebale]]
+
+    init(views: [[Dequebale]]) {
+        self.views = views
+    }
+
+    // MARK: - UICollectionViewDataSource
+
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        views.count
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        numberOfItemsInSection section: Int
+    ) -> Int {
+        views[section].count
+    }
+
+    func collectionView(
+        _ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        let dequable = views[indexPath.section][indexPath.row]
+
+        return dequable.dequeueReusableCell(
+            collectionView: collectionView,
+            for: indexPath
+        )
+    }
+}
+
 struct DynamicLayoutConfiguration: Hashable {
     let hashable: AnyHashable
 
-    @EquatableNoop var views: [[Dequebale]]
+    @EquatableNoop var dataSource: AnytypeCollectionViewDataSource
     @EquatableNoop var layout: UICollectionViewLayout
     @EquatableNoop var heightDidChanged: () -> Void
 }
 
-final class DynamicCollectionLayoutView: UIView, UICollectionViewDataSource {
+final class DynamicCollectionLayoutView: UIView {
 
     private(set) lazy var collectionView: DynamicCollectionView = {
         let collectionView = DynamicCollectionView(
@@ -52,8 +85,6 @@ final class DynamicCollectionLayoutView: UIView, UICollectionViewDataSource {
 
         collectionView.backgroundColor = .clear
 
-        collectionView.dataSource = self
-
         setupSizeHandlers()
     }
 
@@ -82,6 +113,7 @@ final class DynamicCollectionLayoutView: UIView, UICollectionViewDataSource {
         self.configuration = configuration
 
         collectionView.collectionViewLayout = configuration.layout
+        collectionView.dataSource = configuration.dataSource
 
         collectionView.reloadData()
 
@@ -92,32 +124,5 @@ final class DynamicCollectionLayoutView: UIView, UICollectionViewDataSource {
         }
 
         collectionViewHeightConstraint?.isActive = true
-    }
-
-    // MARK: - UICollectionViewDataSource
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        configuration?.views.count ?? 0
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        configuration?.views[section].count ?? 0
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard let dequable = configuration?.views[indexPath.section][indexPath.row] else {
-            return UICollectionViewCell()
-        }
-
-        return dequable.dequeueReusableCell(
-            collectionView: collectionView,
-            for: indexPath
-        )
     }
 }

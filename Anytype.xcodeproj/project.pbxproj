@@ -881,6 +881,7 @@
 		C91AFF11270C3E2F005F9386 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */; };
 		C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */; };
 		C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91FAF5E2812C2510055BC4A /* AlertModel.swift */; };
+		C922F68E2860973900DF2EF5 /* SimpleTableCellsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C922F68D2860973900DF2EF5 /* SimpleTableCellsBuilder.swift */; };
 		C92DCD682728561900A03D91 /* HorizonalTypeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD672728561900A03D91 /* HorizonalTypeListViewModel.swift */; };
 		C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD90272990CE00A03D91 /* ChangeTypeAccessoryView.swift */; };
 		C92DCD93272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD92272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift */; };
@@ -896,6 +897,7 @@
 		C93B2D2A274E12B10008544D /* EditorCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B2D29274E12B10008544D /* EditorCollectionView.swift */; };
 		C93B2D2F274E41390008544D /* CustomStateKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B2D2E274E41390008544D /* CustomStateKeys.swift */; };
 		C93B2D32274E4FA70008544D /* TwoStandardButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C93B2D31274E4FA70008544D /* TwoStandardButtonsView.swift */; };
+		C940A9A6286033C0008B500B /* SimpleTableViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C940A9A5286033C0008B500B /* SimpleTableViewModel.swift */; };
 		C9432719285DE08200D82F3F /* SimpleTablesTextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9432718285DE08200D82F3F /* SimpleTablesTextBlockActionHandler.swift */; };
 		C946681728462EB000A8A6F5 /* SimpleTableBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946681628462EB000A8A6F5 /* SimpleTableBlockView.swift */; };
 		C9473C37273CEE6700B248AF /* BaseSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9473C36273CEE6700B248AF /* BaseSelectionView.swift */; };
@@ -919,7 +921,7 @@
 		C97B5D6427F499D200EA7E33 /* IndentationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B5D6327F499D200EA7E33 /* IndentationSettings.swift */; };
 		C97B5D6627F49F6100EA7E33 /* CellBlockConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B5D6527F49F6100EA7E33 /* CellBlockConfiguration.swift */; };
 		C97CD703272AA3C90085AE64 /* EditorСursorManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97CD702272AA3C90085AE64 /* EditorСursorManager.swift */; };
-		C98282362850B36A00C4E1D4 /* SimpleTableCellContainerConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98282352850B36A00C4E1D4 /* SimpleTableCellContainerConfiguration.swift */; };
+		C98282362850B36A00C4E1D4 /* SimpleTableCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98282352850B36A00C4E1D4 /* SimpleTableCellConfiguration.swift */; };
 		C98282382850B3CF00C4E1D4 /* SpreadsheetInvalidationContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98282372850B3CF00C4E1D4 /* SpreadsheetInvalidationContext.swift */; };
 		C9892C3D284E22E2006E3BE3 /* SpreadsheetLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9892C3C284E22E2006E3BE3 /* SpreadsheetLayout.swift */; };
 		C98F6A6C27A90F210063DD7A /* BlockConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C98F6A6B27A90F210063DD7A /* BlockConfiguration.swift */; };
@@ -1932,6 +1934,7 @@
 		C91AFF10270C3E2F005F9386 /* ActivityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoViewModel.swift; sourceTree = "<group>"; };
 		C91FAF5E2812C2510055BC4A /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
+		C922F68D2860973900DF2EF5 /* SimpleTableCellsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableCellsBuilder.swift; sourceTree = "<group>"; };
 		C92DCD672728561900A03D91 /* HorizonalTypeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonalTypeListViewModel.swift; sourceTree = "<group>"; };
 		C92DCD90272990CE00A03D91 /* ChangeTypeAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeAccessoryView.swift; sourceTree = "<group>"; };
 		C92DCD92272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeAccessoryViewModel.swift; sourceTree = "<group>"; };
@@ -1947,6 +1950,7 @@
 		C93B2D29274E12B10008544D /* EditorCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorCollectionView.swift; sourceTree = "<group>"; };
 		C93B2D2E274E41390008544D /* CustomStateKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomStateKeys.swift; sourceTree = "<group>"; };
 		C93B2D31274E4FA70008544D /* TwoStandardButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TwoStandardButtonsView.swift; sourceTree = "<group>"; };
+		C940A9A5286033C0008B500B /* SimpleTableViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableViewModel.swift; sourceTree = "<group>"; };
 		C9432718285DE08200D82F3F /* SimpleTablesTextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTablesTextBlockActionHandler.swift; sourceTree = "<group>"; };
 		C946681628462EB000A8A6F5 /* SimpleTableBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableBlockView.swift; sourceTree = "<group>"; };
 		C9473C36273CEE6700B248AF /* BaseSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSelectionView.swift; sourceTree = "<group>"; };
@@ -1970,7 +1974,7 @@
 		C97B5D6327F499D200EA7E33 /* IndentationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndentationSettings.swift; sourceTree = "<group>"; };
 		C97B5D6527F49F6100EA7E33 /* CellBlockConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellBlockConfiguration.swift; sourceTree = "<group>"; };
 		C97CD702272AA3C90085AE64 /* EditorСursorManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "EditorСursorManager.swift"; sourceTree = "<group>"; };
-		C98282352850B36A00C4E1D4 /* SimpleTableCellContainerConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableCellContainerConfiguration.swift; sourceTree = "<group>"; };
+		C98282352850B36A00C4E1D4 /* SimpleTableCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableCellConfiguration.swift; sourceTree = "<group>"; };
 		C98282372850B3CF00C4E1D4 /* SpreadsheetInvalidationContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpreadsheetInvalidationContext.swift; sourceTree = "<group>"; };
 		C9892C3C284E22E2006E3BE3 /* SpreadsheetLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpreadsheetLayout.swift; sourceTree = "<group>"; };
 		C98F6A6B27A90F210063DD7A /* BlockConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockConfiguration.swift; sourceTree = "<group>"; };
@@ -6165,17 +6169,51 @@
 			path = ButtonsView;
 			sourceTree = "<group>";
 		};
-		C946681E284630F000A8A6F5 /* SimpleTable */ = {
+		C940A9A728603795008B500B /* Block */ = {
 			isa = PBXGroup;
 			children = (
 				C946681628462EB000A8A6F5 /* SimpleTableBlockView.swift */,
-				C9A4268D28489D1F00F388FC /* SimpleTableCollectionViewCell.swift */,
-				C98282352850B36A00C4E1D4 /* SimpleTableCellContainerConfiguration.swift */,
-				C9A4268B28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift */,
-				C9A4268628489CAD00F388FC /* SimpleTableBlockViewModel.swift */,
-				C973E1AC285C567F00978BC4 /* SimpleTableViewModelBuilder.swift */,
+				C940A9A5286033C0008B500B /* SimpleTableViewModel.swift */,
+				C922F68D2860973900DF2EF5 /* SimpleTableCellsBuilder.swift */,
+				C940A9AA28603816008B500B /* TextBlock */,
+				C940A9A9286037D4008B500B /* Cell */,
+				C940A9A8286037C2008B500B /* EmptyRow */,
+			);
+			path = Block;
+			sourceTree = "<group>";
+		};
+		C940A9A8286037C2008B500B /* EmptyRow */ = {
+			isa = PBXGroup;
+			children = (
 				C973E1A7285B3A5C00978BC4 /* EmptyRowViewViewModel.swift */,
+			);
+			path = EmptyRow;
+			sourceTree = "<group>";
+		};
+		C940A9A9286037D4008B500B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				C98282352850B36A00C4E1D4 /* SimpleTableCellConfiguration.swift */,
+				C9A4268D28489D1F00F388FC /* SimpleTableCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		C940A9AA28603816008B500B /* TextBlock */ = {
+			isa = PBXGroup;
+			children = (
 				C9432718285DE08200D82F3F /* SimpleTablesTextBlockActionHandler.swift */,
+			);
+			path = TextBlock;
+			sourceTree = "<group>";
+		};
+		C946681E284630F000A8A6F5 /* SimpleTable */ = {
+			isa = PBXGroup;
+			children = (
+				C9A4268628489CAD00F388FC /* SimpleTableBlockViewModel.swift */,
+				C9A4268B28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift */,
+				C973E1AC285C567F00978BC4 /* SimpleTableViewModelBuilder.swift */,
+				C940A9A728603795008B500B /* Block */,
 			);
 			path = SimpleTable;
 			sourceTree = "<group>";
@@ -6798,6 +6836,7 @@
 				3D1CEC2227F38871000D36BA /* DashboardAccountDeletionAlert.swift in Sources */,
 				3DE5121626728C0F00153962 /* BaseDocumentProtocol.swift in Sources */,
 				127EAC19273A438900C731F2 /* RelationsListRowHintView.swift in Sources */,
+				C940A9A6286033C0008B500B /* SimpleTableViewModel.swift in Sources */,
 				3D932D4126317E3A00C7D1EA /* HomeView.swift in Sources */,
 				12887F3A274BB32600228330 /* BundledDetails.swift in Sources */,
 				3D1CEC2D27F48301000D36BA /* SettingsButton.swift in Sources */,
@@ -7272,7 +7311,7 @@
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
 				1244794327DC8F8000581174 /* ListSectionConfiguration.swift in Sources */,
 				C9767C0628193E2300AEF728 /* DynamicCollectionLayoutView.swift in Sources */,
-				C98282362850B36A00C4E1D4 /* SimpleTableCellContainerConfiguration.swift in Sources */,
+				C98282362850B36A00C4E1D4 /* SimpleTableCellConfiguration.swift in Sources */,
 				53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */,
 				1255DF842702098300870B95 /* MediaFileUploadingOperation.swift in Sources */,
 				038A81FD23A0158B00B71388 /* LoginViewModel.swift in Sources */,
@@ -7552,6 +7591,7 @@
 				C9432719285DE08200D82F3F /* SimpleTablesTextBlockActionHandler.swift in Sources */,
 				535E02B827503D7D00E1AF8C /* BlockRelationConverter.swift in Sources */,
 				1244794527DC931900581174 /* NewSearchSectionsBuilder.swift in Sources */,
+				C922F68E2860973900DF2EF5 /* SimpleTableCellsBuilder.swift in Sources */,
 				1270CE9526DA85BB00B2D443 /* GradientColor.swift in Sources */,
 				539E019A2758422800067A24 /* SlashMenuRealtionView.swift in Sources */,
 				EA4AC463261C9AAB002E961E /* FileLoader.swift in Sources */,
