@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import Combine
 
 final class TableOfContentsView: UIView, BlockContentView {
     
@@ -9,26 +10,33 @@ final class TableOfContentsView: UIView, BlockContentView {
         static let levelLeftOffset: CGFloat = 20
         static let verticalBoundsInset: CGFloat = 6
         static let verticalInnerInset: CGFloat = 12
+        static let emptySize = CGSize(width: 20, height: 50)
     }
     
+    private lazy var subscriptions = [AnyCancellable]()
+    private var configuration: TableOfContentsConfiguration?
+    private var contentProvider: TableOfContentsContentProvider?
     private var labels = [UILabel]()
     
     // MARK: - BlockContentView
     
     func update(with configuration: TableOfContentsConfiguration) {
-        let content = TableOfContentsSampleData.sampleData()
+        subscriptions.removeAll()
         
+        contentProvider = configuration.contentProviderBuilder()
+        
+        contentProvider?.$content.sink { [weak self] content in
+            self?.updateView(content: content)
+        }.store(in: &subscriptions)
+        
+        self.configuration = configuration
+    }
+    
+    private func updateView(content: [TableOfContentItem]) {
         removeAllSubviews()
         var cache: [UILabel] = labels.reversed()
         labels.removeAll()
         
-        addLabels(content: content, level: 0, cache: &cache)
-        labels.last?.layoutUsing.anchors { $0.bottom.equal(to: bottomAnchor, constant: -Constants.verticalBoundsInset) }
-    }
-    
-    // MARK: - Private
-    
-    private func addLabels(content: [TableOfContentsSampleData], level: Int, cache: inout [UILabel]) {
         for data in content {
            
             let label = cache.popLast() ?? createLabel()
@@ -39,7 +47,7 @@ final class TableOfContentsView: UIView, BlockContentView {
             
             addSubview(label) {
                 $0.trailing.equal(to: trailingAnchor)
-                $0.leading.equal(to: leadingAnchor, constant: Constants.levelLeftOffset * CGFloat(level))
+                $0.leading.equal(to: leadingAnchor, constant: Constants.levelLeftOffset * CGFloat(data.level))
                 if let prevBottomAnchor = labels.last?.bottomAnchor {
                     $0.top.equal(to: prevBottomAnchor, constant: Constants.verticalInnerInset)
                 } else {
@@ -47,9 +55,10 @@ final class TableOfContentsView: UIView, BlockContentView {
                 }
             }
             labels.append(label)
-            
-            addLabels(content: data.children, level: level + 1, cache: &cache)
         }
+        
+        labels.last?.layoutUsing.anchors { $0.bottom.equal(to: bottomAnchor, constant: -Constants.verticalBoundsInset, priority: .defaultLow) }
+        configuration?.blockSetNeedsLayout()
     }
     
     private func createLabel() -> UILabel {
@@ -65,5 +74,9 @@ final class TableOfContentsView: UIView, BlockContentView {
             .foregroundColor: UIColor.textSecondary,
             .font: UIFont.calloutRegular
         ])
+    }
+    
+    override var intrinsicContentSize: CGSize {
+        return subviews.isEmpty ? Constants.emptySize : super.intrinsicContentSize
     }
 }
