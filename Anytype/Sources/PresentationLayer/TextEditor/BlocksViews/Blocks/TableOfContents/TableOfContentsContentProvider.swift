@@ -15,7 +15,7 @@ final class TableOfContentsContentProvider {
     
     // MARK: - Public properties
     
-    @Published private(set) var content: [TableOfContentItem] = []
+    @Published private(set) var content: TableOfContentData = .empty("")
     
     init(document: BaseDocumentProtocol) {
         self.document = document
@@ -54,7 +54,7 @@ final class TableOfContentsContentProvider {
         content = newContent
     }
     
-    private func buildTableOfContents() -> [TableOfContentItem] {
+    private func buildTableOfContents() -> TableOfContentData {
         var hasHeader = [Bool](repeating: false, count: Constants.sortedHeaderStyles.count)
         
         var items = [TableOfContentItem]()
@@ -74,6 +74,11 @@ final class TableOfContentsContentProvider {
                 break
             }
         }
-        return items
+        
+        if items.isEmpty {
+            return .empty("TalbeOfContents.Empty".localized)
+        } else {
+            return .items(items)
+        }
     }
 }
