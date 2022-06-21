@@ -505,6 +505,20 @@ extension EditorRouter {
         presentSheet(vc)
     }
     
+    func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
+        let viewModel = SetFiltersListViewModel(
+            setModel: setModel,
+            service: dataviewService,
+            router: self
+        )
+        let vc = UIHostingController(
+            rootView: SetFiltersListView()
+                .environmentObject(viewModel)
+                .environmentObject(setModel)
+        )
+        presentSheet(vc)
+    }
+    
     private func showSetSettingsPopup(setModel: EditorSetViewModel) {
         let popup = AnytypePopup(
             viewModel: EditorSetSettingsViewModel(setModel: setModel),

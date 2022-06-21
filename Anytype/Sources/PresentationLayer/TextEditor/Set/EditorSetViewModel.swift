@@ -277,14 +277,9 @@ extension EditorSetViewModel {
     }
     
     func showFilters() {
-        router.presentFullscreen(
-            AnytypePopup(
-                viewModel: SetFiltersListViewModel(
-                    setModel: self,
-                    service: dataviewService,
-                    router: router
-                )
-            )
+        router.showFilters(
+            setModel: self,
+            dataviewService: dataviewService
         )
     }
     
