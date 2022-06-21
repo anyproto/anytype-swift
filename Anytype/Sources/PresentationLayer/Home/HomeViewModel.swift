@@ -191,6 +191,11 @@ extension HomeViewModel {
     func createAndShowNewPage() {
         guard let id = dashboardService.createNewPage() else { return }
         
+        AnytypeAnalytics.instance().logCreateObject(
+            objectType: ObjectTypeProvider.shared.defaultObjectType.url,
+            route: .home
+        )
+        
         showPage(id: id, viewType: .page)
     }
     
