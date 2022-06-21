@@ -61,7 +61,7 @@ struct HomeProfileView: View {
 
             }
             Button(action: {
-                model.snackBarData = .init(text: "Store is available in desktop app", showSnackBar: true)
+                model.snackBarData = .init(text: "Home.Snackbar.Library".localized, showSnackBar: true)
             }) {
                 HomeProfileViewButtonImage(
                     image: Image.main.marketplace.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
