@@ -287,7 +287,7 @@
 "LinkAppearance.Description.Content.Subtitle" = "Show first sentenses of the object";
 "LinkAppearance.ObjectType.Title" = "Object type";
 
-// MARK: - Sets
+// MARK: - Sets: Sorts
 "EditSorts.Popup.NavigationView.Title" = "Sorts";
 "EditSorts.Popup.EmptyView.Title" = "No sorts here. You can add some";
 "EditSorts.Popup.Sort.Type.Order.Asc" = "First → Last";
@@ -300,8 +300,34 @@
 "EditSorts.Popup.Sort.Type.Checkbox.Desc" = "Unchecked → Checked";
 "EditSorts.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
+// MARK: - Sets: Filters
 "EditFilters.Popup.NavigationView.Title" = "Filters";
 "EditFilters.Popup.EmptyView.Title" = "No filters here. You can add some";
+
+// MARK: - Sets: Filters.Conditions
+"EditSorts.Popup.Filter.Condition.Text.Equal" = "Is";
+"EditSorts.Popup.Filter.Condition.Text.NotEqual" = "Is not";
+"EditSorts.Popup.Filter.Condition.Text.Like" = "Contains";
+"EditSorts.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+
+"EditSorts.Popup.Filter.Condition.Number.Equal" = "Is equal to";
+"EditSorts.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
+"EditSorts.Popup.Filter.Condition.Number.Greater" = "Is greater than";
+"EditSorts.Popup.Filter.Condition.Number.Less" = "Is less than";
+"EditSorts.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
+"EditSorts.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+
+"EditSorts.Popup.Filter.Condition.Selected.In" = "Has any of";
+"EditSorts.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
+"EditSorts.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
+"EditSorts.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+
+"EditSorts.Popup.Filter.Condition.Checkbox.Equal" = "Is";
+"EditSorts.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+
+"EditSorts.Popup.Filter.Condition.General.Empty" = "Is empty";
+"EditSorts.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
+"EditSorts.Popup.Filter.Condition.General.None" = "All";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";

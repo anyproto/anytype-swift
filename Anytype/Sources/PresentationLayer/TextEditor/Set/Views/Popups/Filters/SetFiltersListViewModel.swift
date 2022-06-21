@@ -13,7 +13,8 @@ final class SetFiltersListViewModel: ObservableObject {
         setModel.filters.map {
             SetFilterRowConfiguration(
                 id: $0.metadata.id,
-                name: $0.metadata.name,
+                title: $0.metadata.name,
+                subtitle: $0.conditionString,
                 iconName: $0.metadata.format.iconName
             )
         }

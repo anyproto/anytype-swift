@@ -29,7 +29,10 @@ struct SetFilterRow: View {
             Spacer.fixedWidth(12)
             
             VStack(alignment: .leading, spacing: 2) {
-                AnytypeText(configuration.name, style: .uxTitle2Medium, color: .textPrimary)
+                AnytypeText(configuration.title, style: .uxTitle2Medium, color: .textPrimary)
+                if let subtitle = configuration.subtitle, subtitle.isNotEmpty {
+                    AnytypeText(subtitle, style: .relation1Regular, color: .textSecondary)
+                }
             }
             
             Spacer()
