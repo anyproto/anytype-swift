@@ -181,4 +181,16 @@ extension AnytypeAnalytics {
                                        AnalyticsEventsPropertiesKey.route: route.rawValue
                                       ])
     }
+    
+    func logCreateObjectNavBar(objectType: String) {
+        var objectType = objectType
+
+        // suppose that bundled type start with underscore
+        if !objectType.starts(with: "_") {
+            objectType = AnalyticsEventsTypeValues.customType
+        }
+
+        logEvent(AnalyticsEventsName.createObjectNavBar,
+                 withEventProperties: [AnalyticsEventsPropertiesKey.type: objectType])
+    }
 }

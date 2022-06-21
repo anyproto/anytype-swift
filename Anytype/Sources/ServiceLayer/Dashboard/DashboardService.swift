@@ -16,22 +16,17 @@ final class DashboardService: DashboardServiceProtocol {
         let hasSingleTemplate = availableTemplates?.count == 1
         let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
 
-        let defaultTypeUrl = ObjectTypeProvider.shared.defaultObjectType.url
         let id = objectsService.createPage(
             contextId: "",
             targetId: "",
             details: [
                 .name(""),
                 .isDraft(!hasSingleTemplate),
-                .type(.dynamic(defaultTypeUrl))
+                .type(.dynamic(ObjectTypeProvider.shared.defaultObjectType.url))
             ],
             position: .bottom,
             templateId: templateId
         )
-
-        if id.isNotNil {
-            AnytypeAnalytics.instance().logCreateObject(objectType: defaultTypeUrl, route: .home)
-        }
         
         return id
     }
