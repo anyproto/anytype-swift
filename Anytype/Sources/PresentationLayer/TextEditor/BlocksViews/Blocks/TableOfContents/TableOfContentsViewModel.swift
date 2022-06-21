@@ -31,7 +31,7 @@ struct TableOfContentsViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         return TableOfContentsConfiguration(
             contentProviderBuilder: contentProviderBuilder,
-			onTap: onTap,
+            onTap: onTap,
             blockSetNeedsLayout: blockSetNeedsLayout
         ).cellBlockConfiguration(
             indentationSettings: IndentationSettings(with: info.configurationData),
