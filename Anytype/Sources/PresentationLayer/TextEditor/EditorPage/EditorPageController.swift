@@ -60,9 +60,10 @@ final class EditorPageController: UIViewController {
         onSettingsBarButtonItemTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSettings()
-        }, onDoneBarButtonItemTap:  { [weak viewModel] in
+        },
+        onDoneBarButtonItemTap:  { [weak viewModel] in
             viewModel?.blocksStateManager.didSelectEditingMode()
-
+            
         }
     )
 

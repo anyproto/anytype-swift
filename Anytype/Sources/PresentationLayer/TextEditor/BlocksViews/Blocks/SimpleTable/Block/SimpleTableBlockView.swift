@@ -39,7 +39,14 @@ final class SimpleTableBlockView: UIView, BlockContentView {
         viewModel?.$cells.sink { [weak self] items in
             self?.spreadsheetLayout.setItems(items: items)
             self?.dataSource.views = items
+//            self?.dynamicLayoutView.collectionView
             self?.dynamicLayoutView.collectionView.reloadData()
+
+//            if self?.dynamicLayoutView.collectionView.visibleCells.count > 0 {
+//                self?.dynamicLayoutView.collectionView.reloadItems(at: <#T##[IndexPath]#>)
+//            } else {
+//                self?.dynamicLayoutView.collectionView.reloadData()
+//            }
 
             self?.setupHeightChangeHandlers(items: items)
         }.store(in: &modelsSubscriptions)
@@ -94,16 +101,6 @@ final class SimpleTableBlockView: UIView, BlockContentView {
             left: 20,
             bottom: 0,
             right: 20
-        )
-
-        dynamicLayoutView.collectionView.register(
-            SimpleTableCollectionViewCell<TextBlockContentView>.self,
-            forCellWithReuseIdentifier: SimpleTableCellConfiguration<TextBlockContentConfiguration>.reusableIdentifier
-        )
-
-        dynamicLayoutView.collectionView.register(
-            SimpleTableCollectionViewCell<EmptyRowView>.self,
-            forCellWithReuseIdentifier: SimpleTableCellConfiguration<EmptyRowConfiguration>.reusableIdentifier
         )
     }
 }

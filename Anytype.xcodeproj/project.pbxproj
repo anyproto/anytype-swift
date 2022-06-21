@@ -882,6 +882,8 @@
 		C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */; };
 		C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C91FAF5E2812C2510055BC4A /* AlertModel.swift */; };
 		C922F68E2860973900DF2EF5 /* SimpleTableCellsBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C922F68D2860973900DF2EF5 /* SimpleTableCellsBuilder.swift */; };
+		C922F6902861AE5600DF2EF5 /* DynamicCollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C922F68F2861AE5600DF2EF5 /* DynamicCollectionItem.swift */; };
+		C922F692286205B300DF2EF5 /* SpreadSheetContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C922F691286205B300DF2EF5 /* SpreadSheetContentConfiguration.swift */; };
 		C92DCD682728561900A03D91 /* HorizonalTypeListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD672728561900A03D91 /* HorizonalTypeListViewModel.swift */; };
 		C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD90272990CE00A03D91 /* ChangeTypeAccessoryView.swift */; };
 		C92DCD93272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C92DCD92272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift */; };
@@ -932,7 +934,7 @@
 		C99DCEDE283D0E820051F99D /* TemplatePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DCEDD283D0E820051F99D /* TemplatePickerViewModel.swift */; };
 		C9A4268728489CAD00F388FC /* SimpleTableBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4268628489CAD00F388FC /* SimpleTableBlockViewModel.swift */; };
 		C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4268B28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift */; };
-		C9A4268E28489D1F00F388FC /* SimpleTableCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4268D28489D1F00F388FC /* SimpleTableCollectionViewCell.swift */; };
+		C9A4268E28489D1F00F388FC /* SpreadsheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4268D28489D1F00F388FC /* SpreadsheetView.swift */; };
 		C9A59DEA27E0F40B0063D3E1 /* TextBlockLeadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A59DE927E0F40B0063D3E1 /* TextBlockLeadingStyle.swift */; };
 		C9A59DEF27E0F4D30063D3E1 /* TextBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A59DEE27E0F4D30063D3E1 /* TextBlockLeadingView.swift */; };
 		C9BE9FCF279EEA1800D91348 /* Document+Dataview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC2D2C2279817B100437E04 /* Document+Dataview.swift */; };
@@ -1935,6 +1937,8 @@
 		C91FAF5C2812865B0055BC4A /* UndoRedoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoRedoViewModel.swift; sourceTree = "<group>"; };
 		C91FAF5E2812C2510055BC4A /* AlertModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertModel.swift; sourceTree = "<group>"; };
 		C922F68D2860973900DF2EF5 /* SimpleTableCellsBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableCellsBuilder.swift; sourceTree = "<group>"; };
+		C922F68F2861AE5600DF2EF5 /* DynamicCollectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DynamicCollectionItem.swift; sourceTree = "<group>"; };
+		C922F691286205B300DF2EF5 /* SpreadSheetContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpreadSheetContentConfiguration.swift; sourceTree = "<group>"; };
 		C92DCD672728561900A03D91 /* HorizonalTypeListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HorizonalTypeListViewModel.swift; sourceTree = "<group>"; };
 		C92DCD90272990CE00A03D91 /* ChangeTypeAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeAccessoryView.swift; sourceTree = "<group>"; };
 		C92DCD92272990FD00A03D91 /* ChangeTypeAccessoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeTypeAccessoryViewModel.swift; sourceTree = "<group>"; };
@@ -1985,7 +1989,7 @@
 		C99DCEDD283D0E820051F99D /* TemplatePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePickerViewModel.swift; sourceTree = "<group>"; };
 		C9A4268628489CAD00F388FC /* SimpleTableBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableBlockViewModel.swift; sourceTree = "<group>"; };
 		C9A4268B28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableBlockContentConfiguration.swift; sourceTree = "<group>"; };
-		C9A4268D28489D1F00F388FC /* SimpleTableCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableCollectionViewCell.swift; sourceTree = "<group>"; };
+		C9A4268D28489D1F00F388FC /* SpreadsheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpreadsheetView.swift; sourceTree = "<group>"; };
 		C9A59DE927E0F40B0063D3E1 /* TextBlockLeadingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLeadingStyle.swift; sourceTree = "<group>"; };
 		C9A59DEE27E0F4D30063D3E1 /* TextBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLeadingView.swift; sourceTree = "<group>"; };
 		C9C0A99D274FB04E0002FA30 /* EditorPageBlocksStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageBlocksStateManager.swift; sourceTree = "<group>"; };
@@ -6194,7 +6198,8 @@
 			isa = PBXGroup;
 			children = (
 				C98282352850B36A00C4E1D4 /* SimpleTableCellConfiguration.swift */,
-				C9A4268D28489D1F00F388FC /* SimpleTableCollectionViewCell.swift */,
+				C9A4268D28489D1F00F388FC /* SpreadsheetView.swift */,
+				C922F691286205B300DF2EF5 /* SpreadSheetContentConfiguration.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -6368,6 +6373,7 @@
 			isa = PBXGroup;
 			children = (
 				C9767C0228193E2100AEF728 /* DynamicCollectionLayoutView.swift */,
+				C922F68F2861AE5600DF2EF5 /* DynamicCollectionItem.swift */,
 				C9099601281AB8240011682F /* GenericCollectionViewCell.swift */,
 				C9D5F7BE281A79F70076A47F /* UICollectionViewCompositionalLayout+BlockLayout.swift */,
 				C9892C3C284E22E2006E3BE3 /* SpreadsheetLayout.swift */,
@@ -6972,6 +6978,7 @@
 				125B6ECA26F235F400BCD7D6 /* AccessoryViewBuilder.swift in Sources */,
 				12CAF33E26D63473001E56B2 /* ObjectIconImage.swift in Sources */,
 				3D93D57C270CC88300614E29 /* EditorBrowserButton.swift in Sources */,
+				C922F692286205B300DF2EF5 /* SpreadSheetContentConfiguration.swift in Sources */,
 				C9E939D9285390B70089CB98 /* TextBlockActionHandlerProtocol.swift in Sources */,
 				12B0FF71274FD6D700CA35FE /* AppIconManager.swift in Sources */,
 				3D16841426DD672E008B9DFF /* BlockSmartblockConverter.swift in Sources */,
@@ -7165,6 +7172,7 @@
 				3DB6E247268B5F8900C303E5 /* BlockViewModelProtocol.swift in Sources */,
 				120EB4E326E8F618003A0C2B /* ObjectHeaderIconView.swift in Sources */,
 				53F80EFA27BD8A0A00E9E12A /* TagViewUIKit.swift in Sources */,
+				C922F6902861AE5600DF2EF5 /* DynamicCollectionItem.swift in Sources */,
 				3DB1C9CA2726A6E7000D2779 /* BlockLinkState+Text.swift in Sources */,
 				3DCC549226D3B568002517AC /* BlockBookmarkOnlyUrlConfiguration.swift in Sources */,
 				129C54D227FC7A2800C390C7 /* RelationFormatsListViewModel.swift in Sources */,
@@ -7294,7 +7302,7 @@
 				3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */,
 				12B0FF6F274FD67F00CA35FE /* AppIcon.swift in Sources */,
 				3D2F9C7827206CE40043C326 /* QuickActionsStorage.swift in Sources */,
-				C9A4268E28489D1F00F388FC /* SimpleTableCollectionViewCell.swift in Sources */,
+				C9A4268E28489D1F00F388FC /* SpreadsheetView.swift in Sources */,
 				3DE0CFCD26F8591E003A606A /* SlashMenuCellData.swift in Sources */,
 				53C9F69226C166AF00209CA1 /* TitleBlockRestrictions.swift in Sources */,
 				3D16841226DD672E008B9DFF /* BlockDividerConverter.swift in Sources */,
