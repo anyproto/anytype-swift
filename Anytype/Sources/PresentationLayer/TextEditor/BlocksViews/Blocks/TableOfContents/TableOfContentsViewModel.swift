@@ -21,7 +21,7 @@ struct TableOfContentsViewModel: BlockViewModelProtocol {
     ) {
         self.info = info
         self.document = document
-		self.onTap = onTap
+        self.onTap = onTap
         self.blockSetNeedsLayout = blockSetNeedsLayout
         contentProviderBuilder = {
             TableOfContentsContentProvider(document: document)
