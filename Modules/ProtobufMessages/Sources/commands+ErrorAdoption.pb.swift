@@ -15,6 +15,7 @@ extension Anytype_Rpc.Account.Recover.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Delete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Select.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Stop.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Account.Move.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.GetAll.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.Create.Response.Error: Swift.Error {}

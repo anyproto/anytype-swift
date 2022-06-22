@@ -11,31 +11,10 @@ struct SetSort: Identifiable, Equatable, Hashable {
     }
     
     func typeTitle(for sortType: DataviewSort.TypeEnum) -> String {
-        switch metadata.format {
-        case .object, .tag, .status:
-            if sortType == .asc {
-                return "EditSorts.Popup.Sort.Type.Order.Asc".localized
-            } else {
-                return "EditSorts.Popup.Sort.Type.Order.Desc".localized
-            }
-        case .number, .date, .phone:
-            if sortType == .asc {
-                return "EditSorts.Popup.Sort.Type.Number.Asc".localized
-            } else {
-                return "EditSorts.Popup.Sort.Type.Number.Desc".localized
-            }
-        case .longText, .shortText, .file, .url, .email, .unrecognized:
-            if sortType == .asc {
-                return "EditSorts.Popup.Sort.Type.Text.Asc".localized
-            } else {
-                return "EditSorts.Popup.Sort.Type.Text.Desc".localized
-            }
-        case .checkbox:
-            if sortType == .asc {
-                return "EditSorts.Popup.Sort.Type.Checkbox.Asc".localized
-            } else {
-                return "EditSorts.Popup.Sort.Type.Checkbox.Desc".localized
-            }
+        if sortType == .asc {
+            return "EditSorts.Popup.Sort.Type.Ascending".localized
+        } else {
+            return "EditSorts.Popup.Sort.Type.Descending".localized
         }
     }
 }

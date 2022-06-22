@@ -240,6 +240,10 @@
 "There is no object named" = "There is no object named";
 "Try to create a new one or search for something else" = "Try to create a new one or search for something else";
 
+// MARK: - Home
+
+"Home.Snackbar.Library" = "Library is available in desktop app";
+
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Settings";
 "Alert.CameraPermissions.GoToSettings" = "Go to Settings?";
@@ -290,14 +294,8 @@
 // MARK: - Sets: Sorts
 "EditSorts.Popup.NavigationView.Title" = "Sorts";
 "EditSorts.Popup.EmptyView.Title" = "No sorts here. You can add some";
-"EditSorts.Popup.Sort.Type.Order.Asc" = "First → Last";
-"EditSorts.Popup.Sort.Type.Order.Desc" = "Last → First";
-"EditSorts.Popup.Sort.Type.Text.Asc" = "A → Z";
-"EditSorts.Popup.Sort.Type.Text.Desc" = "Z → A";
-"EditSorts.Popup.Sort.Type.Number.Asc" = "1 → 9";
-"EditSorts.Popup.Sort.Type.Number.Desc" = "9 → 1";
-"EditSorts.Popup.Sort.Type.Checkbox.Asc" = "Checked → Unchecked";
-"EditSorts.Popup.Sort.Type.Checkbox.Desc" = "Unchecked → Checked";
+"EditSorts.Popup.Sort.Type.Ascending" = "Ascending";
+"EditSorts.Popup.Sort.Type.Descending" = "Descending";
 "EditSorts.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
 // MARK: - Sets: Filters
@@ -333,3 +331,6 @@
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";
 "SlashMenu.TableOfContents" = "Table of contents";
+
+// MARK: Table of Contents
+"TalbeOfContents.Empty" = "Add heading to create Table of contents";

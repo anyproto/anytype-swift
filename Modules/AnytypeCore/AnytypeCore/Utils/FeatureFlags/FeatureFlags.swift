@@ -14,6 +14,7 @@ public enum Feature: String, Codable {
     case setSorts = "Set sorts"
     case setFilters = "Set filters"
     case tableOfContents = "Table of contents"
+    case objectDuplicate = "Object duplicate"
 }
 
 public final class FeatureFlags {
@@ -45,7 +46,8 @@ public final class FeatureFlags {
         .createObjectInSet: true,
         .setSorts: true,
         .setFilters: false,
-        .tableOfContents: false
+        .tableOfContents: false,
+        .objectDuplicate: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -111,5 +113,9 @@ public extension FeatureFlags {
     
     static var isTableOfContentsAvailable: Bool {
         features[.tableOfContents, default: false]
+    }
+    
+    static var isObjectDuplicateAvailable: Bool {
+        features[.objectDuplicate, default: false]
     }
 }

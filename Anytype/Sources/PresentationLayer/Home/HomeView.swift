@@ -7,7 +7,7 @@ struct HomeView: View {
     @StateObject private var settingsModel = SettingsViewModel(authService: ServiceLocator.shared.authService())
     
     @State var bottomSheetState = HomeBottomSheetViewState.closed
-    
+    @State private var showSettings = false
     @State private var showKeychainAlert = UserDefaultsConfig.showKeychainAlert
     @State private var isFirstLaunchAfterRegistration = ServiceLocator.shared.loginStateService().isFirstLaunchAfterRegistration
 
@@ -32,7 +32,23 @@ struct HomeView: View {
         contentView
         .edgesIgnoringSafeArea(.all)
         .coordinateSpace(name: model.bottomSheetCoordinateSpaceName)
-        .bottomFloater(isPresented: $model.showSettings) {
+
+        .toolbar {
+            ToolbarItem {
+                Button(action: {
+                    UISelectionFeedbackGenerator().selectionChanged()
+                    withAnimation(.fastSpring) {
+                        showSettings.toggle()
+                        if showSettings {
+                            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.settingsShow)
+                        }
+                    }
+                }) {
+                    Image.main.settings
+                }
+            }
+        }
+        .bottomFloater(isPresented: $showSettings) {
             SettingsView()
                 .horizontalReadabilityPadding(8)
         }

@@ -55,36 +55,22 @@ struct HomeProfileView: View {
     
     private var buttons: some View {
         HStack(spacing: 20) {
-            Button {
-                UISelectionFeedbackGenerator().selectionChanged()
-                model.showSettings.toggle()
-                if model.showSettings {
-                    AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.settingsShow)
-                }
-            } label: {
+            Button(action: model.startSearch) {
+                HomeProfileViewButtonImage(image: Image.main.search.renderingMode(.template)
+                                            .foregroundColor(.textPrimary))
+
+            }
+            Button(action: {
+                model.snackBarData = .init(text: "Home.Snackbar.Library".localized, showSnackBar: true)
+            }) {
                 HomeProfileViewButtonImage(
-                    image: Image.main.settings.renderingMode(.template)
-                        .foregroundColor(.textPrimary)
+                    image: Image.main.marketplace.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
                 )
             }
-            
-            Button {
-                model.startSearch()
-            } label: {
-                HomeProfileViewButtonImage(
-                    image: Image.main.search.renderingMode(.template)
-                        .foregroundColor(.textPrimary)
-                )
-            }
-            
-            Button {
-                model.createAndShowNewPage()
-            } label: {
-                HomeProfileViewButtonImage(
-                    image: Image.main.draft.renderingMode(.template)
-                        .foregroundColor(.textPrimary)
-                )
-                
+            Button(action: model.createAndShowNewPage) {
+                HomeProfileViewButtonImage(image: Image.main.draft.renderingMode(.template)
+                                            .foregroundColor(.textPrimary))
+
             }
         }
     }
