@@ -4,7 +4,7 @@ private enum Constants {
     static let edges = UIEdgeInsets(top: 9, left: 12, bottom: -9, right: -12)
 }
 
-struct SpreadSheetBlockConfiguration<Configuration: BlockConfiguration>: UIContentConfiguration {
+struct SpreadsheetBlockConfiguration<Configuration: BlockConfiguration>: UIContentConfiguration {
     func makeContentView() -> UIView & UIContentView {
         SpreadsheetView<Configuration.View>(configuration: self)
     }

@@ -36,7 +36,7 @@ final class SimpleTableCellsBuilder {
 
     func buildItems(
         from info: BlockInformation
-    ) -> [[SimpleTableBlockProtocol]] {
+    ) -> [[ContentConfigurationProvider]] {
         var tableColumnsBlockInfo: BlockInformation?
         var tableRowsBlockInfo: BlockInformation?
 
@@ -68,9 +68,9 @@ final class SimpleTableCellsBuilder {
     private func buildModels(
         tableColumnsBlockInfo: BlockInformation,
         tableRowsBlockInfo: BlockInformation
-    ) -> [[SimpleTableBlockProtocol]] {
+    ) -> [[ContentConfigurationProvider]] {
         let numberOfColumns = tableColumnsBlockInfo.childrenIds.count
-        var blocks = [[SimpleTableBlockProtocol]]()
+        var blocks = [[ContentConfigurationProvider]]()
 
         for rowId in tableRowsBlockInfo.childrenIds {
             guard let childInformation = infoContainer.get(id: rowId) else {
@@ -79,19 +79,16 @@ final class SimpleTableCellsBuilder {
             }
 
             if childInformation.content == .tableRow {
-                var rowBlocks = [SimpleTableBlockProtocol]()
+                var rowBlocks = [ContentConfigurationProvider]()
 
                 for column in 0..<numberOfColumns {
                     if let rowChildInformation = childInformation.childrenIds[safe: column],
                        let rowChildInformation = infoContainer.get(id: rowChildInformation) {
                         if case .text = rowChildInformation.content {
 
-                            let cellConfiguration = SimpleTableCellConfiguration(
-                                item: textBlockConfiguration(information: rowChildInformation),
-                                backgroundColor: rowChildInformation.backgroundColor.map(UIColor.Background.uiColor(from:)) ?? nil
+                            rowBlocks.append(
+                                textBlockConfiguration(information: rowChildInformation)
                             )
-
-                            rowBlocks.append(cellConfiguration)
                         }
                     } else {
                         let columnId = tableColumnsBlockInfo.childrenIds[column]
@@ -114,22 +111,17 @@ final class SimpleTableCellsBuilder {
     private func makeEmptyContentCellConfiguration(
         columnId: BlockId,
         info: BlockInformation
-    ) -> SimpleTableBlockProtocol {
-        let configuration = EmptyRowViewViewModel(
+    ) -> ContentConfigurationProvider {
+        EmptyRowViewViewModel(
             contextId: document.objectId,
             info: info,
             columnRowId: "\(info.id)-\(columnId)",
             tablesService: BlockTableService(),
             cursorManager: cursorManager
-        ).emptyRowConfiguration()
-
-        return SimpleTableCellConfiguration(
-            item: configuration,
-            backgroundColor: .backgroundPrimary // get column background
         )
     }
 
-    private func textBlockConfiguration(information: BlockInformation) -> TextBlockContentConfiguration {
+    private func textBlockConfiguration(information: BlockInformation) -> ContentConfigurationProvider {
         guard case let .text(content) = information.content else {
             fatalError()
         }
@@ -172,6 +164,6 @@ final class SimpleTableCellsBuilder {
             isCheckable: isCheckable,
             focusSubject: focusSubjectHolder.focusSubject(for: information.id),
             actionHandler: textBlockActionHandler
-        ).textBlockContentConfiguration()
+        )
     }
 }

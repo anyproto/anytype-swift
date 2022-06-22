@@ -2,12 +2,6 @@ import UIKit
 import Combine
 import AnytypeCore
 
-private extension SimpleTableBlockProtocol {
-    func spreadsheethashable(width: CGFloat) -> AnyHashable {
-        return [hashable, width] as AnyHashable
-    }
-}
-
 protocol RelativePositionProvider: AnyObject {
     var contentOffsetDidChangedStatePublisher: AnyPublisher<CGPoint, Never> { get }
 
@@ -15,7 +9,7 @@ protocol RelativePositionProvider: AnyObject {
 }
 
 final class SpreadsheetLayout: UICollectionViewLayout {
-    private var items: [[SimpleTableBlockProtocol]]?
+    private let dataSoruce: SpreadsheetViewDataSource
     var currentVisibleRect: CGRect = .zero
     weak var relativePositionProvider: RelativePositionProvider? {
         didSet {
@@ -38,26 +32,6 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     private var cachedSectionHeights = [Int: CGFloat]()
     private var attributes: [UICollectionViewLayoutAttributes] = []
     private var contentSize = CGSize.zero
-
-    func setItems(items: [[SimpleTableBlockProtocol]]) {
-        defer {
-            self.items = items
-        }
-
-        guard let currentItems = self.items else {
-            return
-        }
-
-        let sectionsInvalidation = currentItems.difference(from: items, by: { rhs, lhs in
-            rhs.map { $0.hashable } == lhs.map { $0.hashable }
-        })
-
-        sectionsInvalidation.removals.forEach {
-            cachedSectionHeights[$0.offset] = nil
-        }
-
-        self.items = items
-    }
 
     override var collectionViewContentSize: CGSize { contentSize }
 
@@ -92,9 +66,11 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     }
 
     override func prepare() {
-        guard let collectionView = collectionView, let items = items else {
+        guard let collectionView = collectionView else {
             return
         }
+
+        dataSoruce.collectionView.numberOfSections
 
         items.enumerated().forEach { sectionIndex, sectionItems in
             var sectionMaxHeight: CGFloat = 0
@@ -112,6 +88,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
 
                     sectionMaxHeight = size.height > sectionMaxHeight ? size.height : sectionMaxHeight
                 } else {
+
                     let cell = row.dequeueReusableCell(collectionView: collectionView, for: indexPath)
 
                     let maxSize = CGSize(
@@ -183,7 +160,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
 
 extension SpreadsheetLayout {
     func setNeedsLayout(indexPath: IndexPath) {
-        guard let existingCell = collectionView?.cellForItem(at: indexPath), let items = items else { return }
+        guard let existingCell = collectionView?.cellForItem(at: indexPath), let cell = dataSoruce else { return }
         cachedSectionHeights[indexPath.section] = nil
 
         let columnWidth = itemWidths[indexPath.row]

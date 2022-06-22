@@ -1,6 +1,6 @@
 import UIKit
 
-final class DynamicCollectionView: UICollectionView {
+final class DynamicCollectionView: EditorCollectionView {
     var onChangeHandler: (() -> Void)?
 
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {

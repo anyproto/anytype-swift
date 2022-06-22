@@ -22,48 +22,48 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
-        var dequebale = [Dequebale]()
+//        var dequebale = [Dequebale]()
 
-        configuration.featuredRelations.forEach {
-            let valueViewConfiguration = RelationValueViewConfiguration(
-                relation: $0,
-                style: .featuredRelationBlock(allowMultiLine: false),
-                action: configuration.onRelationTap
-            )
-
-            dequebale.append(valueViewConfiguration)
-
-            let separatorConfiguration = SeparatorItemConfiguration(style: .dot, height: 18)
-
-            if $0 != configuration.featuredRelations.last {
-                dequebale.append(separatorConfiguration)
-            }
-        }
-
-        let layout = UICollectionViewCompositionalLayout.flexibleView(groundEdgeSpacing: .defaultBlockEdgeSpacing)
-
-        blocksView.update(
-            with: .init(
-                hashable: configuration,
-                dataSource: .init(views: [dequebale]),
-                layout: layout,
-                heightDidChanged: configuration.heightDidChanged
-            )
-        )
+//        configuration.featuredRelations.forEach {
+//            let valueViewConfiguration = RelationValueViewConfiguration(
+//                relation: $0,
+//                style: .featuredRelationBlock(allowMultiLine: false),
+//                action: configuration.onRelationTap
+//            )
+//
+//            dequebale.append(valueViewConfiguration)
+//
+//            let separatorConfiguration = SeparatorItemConfiguration(style: .dot, height: 18)
+//
+//            if $0 != configuration.featuredRelations.last {
+//                dequebale.append(separatorConfiguration)
+//            }
+//        }
+//
+//        let layout = UICollectionViewCompositionalLayout.flexibleView(groundEdgeSpacing: .defaultBlockEdgeSpacing)
+//
+//        blocksView.update(
+//            with: .init(
+//                hashable: configuration,
+//                dataSource: .init(views: [dequebale]),
+//                layout: layout,
+//                heightDidChanged: configuration.heightDidChanged
+//            )
+//        )
     }
 
     private func setupSubview() {
         setupLayout()
 
-        blocksView.collectionView.register(
-            GenericCollectionViewCell<RelationValueViewUIKit>.self,
-            forCellWithReuseIdentifier: RelationValueViewUIKit.reusableIdentifier
-        )
-
-        blocksView.collectionView.register(
-            GenericCollectionViewCell<SeparatorItemView>.self,
-            forCellWithReuseIdentifier: SeparatorItemView.reusableIdentifier
-        )
+//        blocksView.collectionView.register(
+//            GenericCollectionViewCell<RelationValueViewUIKit>.self,
+//            forCellWithReuseIdentifier: RelationValueViewUIKit.reusableIdentifier
+//        )
+//
+//        blocksView.collectionView.register(
+//            GenericCollectionViewCell<SeparatorItemView>.self,
+//            forCellWithReuseIdentifier: SeparatorItemView.reusableIdentifier
+//        )
     }
 
     private func setupLayout() {

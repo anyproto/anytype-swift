@@ -1,7 +1,6 @@
-typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing & IndentationProvider)
+typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing)
 
 enum EditorItem: Hashable {
-    
     case header(ObjectHeader)
     case block(BlockViewModelProtocol)
     case system(SystemContentConfiguationProvider)
@@ -9,7 +8,7 @@ enum EditorItem: Hashable {
     static func == (lhs: EditorItem, rhs: EditorItem) -> Bool {
         switch (lhs, rhs) {
         case let (.block(lhsBlock), .block(rhsBlock)):
-            return lhsBlock.info.id == rhsBlock.info.id
+            return lhsBlock.hashable == rhsBlock.hashable
         case let (.header(lhsHeader), .header(rhsHeader)):
             return lhsHeader == rhsHeader
         case let (.system(rhsSystem), .system(lhsSystem)):

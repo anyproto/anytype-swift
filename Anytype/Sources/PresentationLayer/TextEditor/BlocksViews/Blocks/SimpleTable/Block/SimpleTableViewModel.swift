@@ -2,15 +2,15 @@ import UIKit
 import Combine
 import BlocksModels
 
+
+
 final class SimpleTableViewModel {
     private let document: BaseDocumentProtocol
     private let cellBuilder: SimpleTableCellsBuilder
     private let cursorManager: EditorCursorManager
     private var tableBlockInfo: BlockInformation
 
-    @Published var cells = [[SimpleTableBlockProtocol]]()
     @Published var widths = [CGFloat]()
-    var onDataSourceUpdate: (([[SimpleTableBlockProtocol]]) -> Void)?
 
     private var cancellables = [AnyCancellable]()
 
@@ -56,7 +56,7 @@ final class SimpleTableViewModel {
 
             let cells = cellBuilder.buildItems(from: newInfo)
             
-            onDataSourceUpdate?(cells)
+//            onDataSourceUpdate?(cells)
         }
     }
 
@@ -78,7 +78,7 @@ final class SimpleTableViewModel {
             self.widths = widths
         }
 
-        self.cells = cells
+//        self.cells = cells
 
         if shouldApplyFocus {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in

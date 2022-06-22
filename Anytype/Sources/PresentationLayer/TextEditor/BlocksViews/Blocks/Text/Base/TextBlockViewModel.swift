@@ -36,7 +36,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         focusSubject.send(focus)
     }
     
-    func didSelectRowInTableView(editorEditingState: EditorEditingState) { }
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 
     func textBlockContentConfiguration() -> TextBlockContentConfiguration {
         TextBlockContentConfiguration(

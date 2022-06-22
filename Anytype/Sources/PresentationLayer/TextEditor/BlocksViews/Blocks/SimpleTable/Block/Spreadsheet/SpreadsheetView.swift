@@ -2,7 +2,7 @@ import UIKit
 import UIKit
 
 final class SpreadsheetView<View: BlockContentView>: UIView & UIContentView, UIDragInteractionDelegate {
-    typealias Configuration = SpreadSheetBlockConfiguration<View.Configuration>
+    typealias Configuration = SpreadsheetBlockConfiguration<View.Configuration>
 
     var configuration: UIContentConfiguration {
         get {

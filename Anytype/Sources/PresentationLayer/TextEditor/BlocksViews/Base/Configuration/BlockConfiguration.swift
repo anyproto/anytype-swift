@@ -29,4 +29,14 @@ extension BlockConfiguration {
             dragConfiguration: dragConfiguration
         )
     }
+
+    func spreadsheetConfiguration(
+        dragConfiguration: BlockDragConfiguration?
+    ) -> SpreadsheetBlockConfiguration<Self> {
+        SpreadsheetBlockConfiguration(
+            blockConfiguration: self,
+            currentConfigurationState: nil,
+            dragConfiguration: dragConfiguration
+        )
+    }
 }

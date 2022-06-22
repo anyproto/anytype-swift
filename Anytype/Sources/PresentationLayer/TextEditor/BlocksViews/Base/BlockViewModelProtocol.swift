@@ -1,23 +1,27 @@
 import UIKit
 import BlocksModels
 
+
 protocol BlockViewModelProtocol:
-    HashableProvier,
     ContentConfigurationProvider,
-    BlockInformationProvider,
-    BlockFocusing
+    BlockInformationProvider
 { }
 
 protocol HashableProvier {
     var hashable: AnyHashable { get }
 }
 
-protocol ContentConfigurationProvider {
+protocol ContentConfigurationProvider: HashableProvier, BlockFocusing {
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration
+
+    func makeSpreadsheetConfiguration() -> UIContentConfiguration
 }
 
-protocol IndentationProvider {
-    var indentationLevel: Int { get }
+extension ContentConfigurationProvider {
+    func makeSpreadsheetConfiguration() -> UIContentConfiguration {
+        EmptyRowConfiguration(action: {} )
+            .spreadsheetConfiguration(dragConfiguration: nil)
+    }
 }
 
 protocol BlockFocusing {

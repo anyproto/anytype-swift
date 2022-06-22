@@ -2,7 +2,11 @@ import UIKit
 import BlocksModels
 import CoreGraphics
 
-struct EmptyRowViewViewModel {
+struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
+    var hashable: AnyHashable {
+        String(describing: Self.self) as AnyHashable
+    }
+
     init(
         contextId: BlockId,
         info: BlockInformation,
@@ -23,6 +27,10 @@ struct EmptyRowViewViewModel {
     private let tablesService: BlockTableService
     private let cursorManager: EditorCursorManager
 
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {
+
+    }
+
     func emptyRowConfiguration() -> EmptyRowConfiguration {
         EmptyRowConfiguration {
             tablesService.rowListFill(
@@ -32,6 +40,18 @@ struct EmptyRowViewViewModel {
 
             cursorManager.blockFocus = .init(id: columnRowId, position: .beginning)
         }
+    }
+
+    func makeSpreadsheetConfiguration() -> UIContentConfiguration {
+        emptyRowConfiguration()
+            .cellBlockConfiguration(
+                indentationSettings: nil,
+                dragConfiguration: nil
+            )
+    }
+
+    func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
+        emptyRowConfiguration().spreadsheetConfiguration(dragConfiguration: nil)
     }
 }
 
