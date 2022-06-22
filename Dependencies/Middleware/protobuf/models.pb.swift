@@ -2307,6 +2307,9 @@ public struct Anytype_Model_Account {
     /// gateway url for fetching static files
     public var gatewayURL: String = String()
 
+    /// path to local storage
+    public var localStoragePath: String = String()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -2427,9 +2430,18 @@ public struct Anytype_Model_Restrictions {
 
     /// restricts work with details
     case details // = 4
+
+    /// restricts type changing
     case typeChange // = 5
+
+    /// restricts layout changing
     case layoutChange // = 6
+
+    /// restricts template creation from this object
     case template // = 7
+
+    /// restricts duplicate object
+    case duplicate // = 8
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -2446,6 +2458,7 @@ public struct Anytype_Model_Restrictions {
       case 5: self = .typeChange
       case 6: self = .layoutChange
       case 7: self = .template
+      case 8: self = .duplicate
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -2460,6 +2473,7 @@ public struct Anytype_Model_Restrictions {
       case .typeChange: return 5
       case .layoutChange: return 6
       case .template: return 7
+      case .duplicate: return 8
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -2530,6 +2544,7 @@ extension Anytype_Model_Restrictions.ObjectRestriction: CaseIterable {
     .typeChange,
     .layoutChange,
     .template,
+    .duplicate,
   ]
 }
 
@@ -3007,6 +3022,64 @@ public struct Anytype_Model_RelationOptions {
   public init() {}
 }
 
+public struct Anytype_Model_InternalFlag {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var value: Anytype_Model_InternalFlag.Value = .editorDeleteEmpty
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  /// Use such a weird construction due to the issue with imported repeated enum type
+  /// Look https://github.com/golang/protobuf/issues/1135 for more information.
+  public enum Value: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+    case editorDeleteEmpty // = 0
+    case editorSelectType // = 1
+    case editorSelectTemplate // = 2
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .editorDeleteEmpty
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .editorDeleteEmpty
+      case 1: self = .editorSelectType
+      case 2: self = .editorSelectTemplate
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .editorDeleteEmpty: return 0
+      case .editorSelectType: return 1
+      case .editorSelectTemplate: return 2
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  public init() {}
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_InternalFlag.Value: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_InternalFlag.Value] = [
+    .editorDeleteEmpty,
+    .editorSelectType,
+    .editorSelectTemplate,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 extension Anytype_Model_RelationFormat: @unchecked Sendable {}
@@ -3083,6 +3156,8 @@ extension Anytype_Model_Relation.Option: @unchecked Sendable {}
 extension Anytype_Model_Relation.Option.Scope: @unchecked Sendable {}
 extension Anytype_Model_Relations: @unchecked Sendable {}
 extension Anytype_Model_RelationOptions: @unchecked Sendable {}
+extension Anytype_Model_InternalFlag: @unchecked Sendable {}
+extension Anytype_Model_InternalFlag.Value: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -5092,6 +5167,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     7: .same(proto: "marketplaceTemplateObjectId"),
     8: .same(proto: "deviceId"),
     101: .same(proto: "gatewayUrl"),
+    103: .same(proto: "localStoragePath"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5108,6 +5184,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 7: try { try decoder.decodeSingularStringField(value: &self.marketplaceTemplateObjectID) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
       case 101: try { try decoder.decodeSingularStringField(value: &self.gatewayURL) }()
+      case 103: try { try decoder.decodeSingularStringField(value: &self.localStoragePath) }()
       default: break
       }
     }
@@ -5138,6 +5215,9 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.gatewayURL.isEmpty {
       try visitor.visitSingularStringField(value: self.gatewayURL, fieldNumber: 101)
     }
+    if !self.localStoragePath.isEmpty {
+      try visitor.visitSingularStringField(value: self.localStoragePath, fieldNumber: 103)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5150,6 +5230,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.marketplaceTemplateObjectID != rhs.marketplaceTemplateObjectID {return false}
     if lhs.deviceID != rhs.deviceID {return false}
     if lhs.gatewayURL != rhs.gatewayURL {return false}
+    if lhs.localStoragePath != rhs.localStoragePath {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5274,6 +5355,7 @@ extension Anytype_Model_Restrictions.ObjectRestriction: SwiftProtobuf._ProtoName
     5: .same(proto: "TypeChange"),
     6: .same(proto: "LayoutChange"),
     7: .same(proto: "Template"),
+    8: .same(proto: "Duplicate"),
   ]
 }
 
@@ -5848,4 +5930,44 @@ extension Anytype_Model_RelationOptions: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Model_InternalFlag: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".InternalFlag"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != .editorDeleteEmpty {
+      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_InternalFlag, rhs: Anytype_Model_InternalFlag) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_InternalFlag.Value: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "editorDeleteEmpty"),
+    1: .same(proto: "editorSelectType"),
+    2: .same(proto: "editorSelectTemplate"),
+  ]
 }

@@ -20,9 +20,10 @@ extension Anytype_Rpc.Account.Config {
 }
 
 extension Anytype_Rpc.Account.Create.Request {
-  public init(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, alphaInviteCode: String) {
+  public init(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, storePath: String, alphaInviteCode: String) {
     self.name = name
     self.avatar = avatar
+    self.storePath = storePath
     self.alphaInviteCode = alphaInviteCode
   }
 }
@@ -57,6 +58,25 @@ extension Anytype_Rpc.Account.Delete.Response {
 
 extension Anytype_Rpc.Account.Delete.Response.Error {
   public init(code: Anytype_Rpc.Account.Delete.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Account.Move.Request {
+  public init(newPath: String) {
+    self.newPath = newPath
+  }
+}
+
+extension Anytype_Rpc.Account.Move.Response {
+  public init(error: Anytype_Rpc.Account.Move.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Account.Move.Response.Error {
+  public init(code: Anytype_Rpc.Account.Move.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -1232,11 +1252,13 @@ extension Anytype_Rpc.BlockLatex.SetText.Response.Error {
 
 extension Anytype_Rpc.BlockLink.CreateWithObject.Request {
   public init(
-    contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, targetID: String, position: Anytype_Model_Block.Position, fields: SwiftProtobuf.Google_Protobuf_Struct
+    contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, internalFlags: [Anytype_Model_InternalFlag], targetID: String, position: Anytype_Model_Block.Position,
+    fields: SwiftProtobuf.Google_Protobuf_Struct
   ) {
     self.contextID = contextID
     self.details = details
     self.templateID = templateID
+    self.internalFlags = internalFlags
     self.targetID = targetID
     self.position = position
     self.fields = fields
@@ -2097,8 +2119,10 @@ extension Anytype_Rpc.Object.Close.Response.Error {
 }
 
 extension Anytype_Rpc.Object.Create.Request {
-  public init(details: SwiftProtobuf.Google_Protobuf_Struct) {
+  public init(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag], templateID: String) {
     self.details = details
+    self.internalFlags = internalFlags
+    self.templateID = templateID
   }
 }
 
@@ -2118,10 +2142,11 @@ extension Anytype_Rpc.Object.Create.Response.Error {
 }
 
 extension Anytype_Rpc.Object.CreateSet.Request {
-  public init(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String) {
+  public init(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, internalFlags: [Anytype_Model_InternalFlag]) {
     self.source = source
     self.details = details
     self.templateID = templateID
+    self.internalFlags = internalFlags
   }
 }
 

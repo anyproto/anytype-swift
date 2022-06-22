@@ -7,6 +7,7 @@ public enum ObjectRestriction: Int {
     case typechange
     case layoutchange
     case template
+    case duplicate
 }
 
 public enum DataViewRestriction: Int {

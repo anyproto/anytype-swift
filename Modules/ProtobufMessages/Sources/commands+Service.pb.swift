@@ -324,11 +324,13 @@ extension Anytype_Rpc.Account.Create {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, alphaInviteCode: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(name: name, avatar: avatar, alphaInviteCode: alphaInviteCode), on: queue)
+    public static func invoke(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, storePath: String, alphaInviteCode: String, queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(parameters: .init(name: name, avatar: avatar, storePath: storePath, alphaInviteCode: alphaInviteCode), on: queue)
     }
-    public static func invoke(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, alphaInviteCode: String) -> Result<Response, Error> {
-      self.result(.init(name: name, avatar: avatar, alphaInviteCode: alphaInviteCode))
+    public static func invoke(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, storePath: String, alphaInviteCode: String) -> Result<Response, Error> {
+      self.result(.init(name: name, avatar: avatar, storePath: storePath, alphaInviteCode: alphaInviteCode))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -529,6 +531,56 @@ extension Anytype_Rpc.Account.Stop {
     }
     public static func invoke(removeData: Bool) -> Result<Response, Error> {
       self.result(.init(removeData: removeData))
+    }
+    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(self.request(parameters)))
+          }
+        } else {
+          promise(self.result(self.request(parameters)))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Account.Move {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceAccountMove(data) }
+  }
+
+  public enum Service {
+    public typealias RequestParameters = Request
+    private static func request(_ parameters: RequestParameters) -> Request {
+      parameters
+    }
+    public static func invoke(newPath: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(newPath: newPath), on: queue)
+    }
+    public static func invoke(newPath: String) -> Result<Response, Error> {
+      self.result(.init(newPath: newPath))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -1024,11 +1076,11 @@ extension Anytype_Rpc.Object.Create {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(details: details), on: queue)
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag], templateID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(parameters: .init(details: details, internalFlags: internalFlags, templateID: templateID), on: queue)
     }
-    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
-      self.result(.init(details: details))
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag], templateID: String) -> Result<Response, Error> {
+      self.result(.init(details: details, internalFlags: internalFlags, templateID: templateID))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -1074,11 +1126,13 @@ extension Anytype_Rpc.Object.CreateSet {
     private static func request(_ parameters: RequestParameters) -> Request {
       parameters
     }
-    public static func invoke(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(source: source, details: details, templateID: templateID), on: queue)
+    public static func invoke(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, internalFlags: [Anytype_Model_InternalFlag], queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(parameters: .init(source: source, details: details, templateID: templateID, internalFlags: internalFlags), on: queue)
     }
-    public static func invoke(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String) -> Result<Response, Error> {
-      self.result(.init(source: source, details: details, templateID: templateID))
+    public static func invoke(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, internalFlags: [Anytype_Model_InternalFlag]) -> Result<Response, Error> {
+      self.result(.init(source: source, details: details, templateID: templateID, internalFlags: internalFlags))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -5676,15 +5730,16 @@ extension Anytype_Rpc.BlockLink.CreateWithObject {
       parameters
     }
     public static func invoke(
-      contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, targetID: String, position: Anytype_Model_Block.Position, fields: SwiftProtobuf.Google_Protobuf_Struct,
-      queue: DispatchQueue? = nil
+      contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, internalFlags: [Anytype_Model_InternalFlag], targetID: String, position: Anytype_Model_Block.Position,
+      fields: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil
     ) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, details: details, templateID: templateID, targetID: targetID, position: position, fields: fields), on: queue)
+      self.invoke(parameters: .init(contextID: contextID, details: details, templateID: templateID, internalFlags: internalFlags, targetID: targetID, position: position, fields: fields), on: queue)
     }
     public static func invoke(
-      contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, targetID: String, position: Anytype_Model_Block.Position, fields: SwiftProtobuf.Google_Protobuf_Struct
+      contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, internalFlags: [Anytype_Model_InternalFlag], targetID: String, position: Anytype_Model_Block.Position,
+      fields: SwiftProtobuf.Google_Protobuf_Struct
     ) -> Result<Response, Error> {
-      self.result(.init(contextID: contextID, details: details, templateID: templateID, targetID: targetID, position: position, fields: fields))
+      self.result(.init(contextID: contextID, details: details, templateID: templateID, internalFlags: internalFlags, targetID: targetID, position: position, fields: fields))
     }
     private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in

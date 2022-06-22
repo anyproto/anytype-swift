@@ -24,7 +24,7 @@ enum ObjectAction: Hashable, Identifiable {
 
         allCases.append(.favorite(isFavorite: details.isFavorite))
         
-        if FeatureFlags.isObjectDuplicateAvailable {
+        if FeatureFlags.isObjectDuplicateAvailable, !objectRestrictions.objectRestriction.contains(.duplicate) {
             allCases.append(.duplicate)
         }
         
