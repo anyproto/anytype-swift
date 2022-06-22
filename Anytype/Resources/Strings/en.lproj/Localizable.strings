@@ -303,7 +303,10 @@
 "EditFilters.Popup.NavigationView.Title" = "Filters";
 "EditFilters.Popup.EmptyView.Title" = "No filters here. You can add some";
 
-// MARK: Slash Menu
+// MARK: - Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";
 "SlashMenu.TableOfContents" = "Table of contents";
+
+// MARK: Table of Contents
+"TalbeOfContents.Empty" = "Add heading to create Table of contents";

@@ -411,7 +411,7 @@
 		2AD06B7C2857271D0006C255 /* TableOfContentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */; };
 		2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */; };
 		2AD06B8328572A520006C255 /* TableOfContentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B8228572A520006C255 /* TableOfContentsView.swift */; };
-		2AD06B8B28573D5B0006C255 /* TableOfContentItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B8A28573D5B0006C255 /* TableOfContentItem.swift */; };
+		2AD06B8B28573D5B0006C255 /* TableOfContentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B8A28573D5B0006C255 /* TableOfContentData.swift */; };
 		2AD06B9928576E890006C255 /* TableOfContentsRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B9828576E890006C255 /* TableOfContentsRestrictions.swift */; };
 		2AD8592D283CE60C008BCE4B /* HomeView+ContextMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD8592C283CE60C008BCE4B /* HomeView+ContextMenu.swift */; };
 		2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */; };
@@ -1464,7 +1464,7 @@
 		2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsViewModel.swift; sourceTree = "<group>"; };
 		2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsConfiguration.swift; sourceTree = "<group>"; };
 		2AD06B8228572A520006C255 /* TableOfContentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsView.swift; sourceTree = "<group>"; };
-		2AD06B8A28573D5B0006C255 /* TableOfContentItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentItem.swift; sourceTree = "<group>"; };
+		2AD06B8A28573D5B0006C255 /* TableOfContentData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentData.swift; sourceTree = "<group>"; };
 		2AD06B9828576E890006C255 /* TableOfContentsRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsRestrictions.swift; sourceTree = "<group>"; };
 		2AD8592C283CE60C008BCE4B /* HomeView+ContextMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeView+ContextMenu.swift"; sourceTree = "<group>"; };
 		2AE4EDB82834CF5D00B61ABE /* LaunchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchView.swift; sourceTree = "<group>"; };
@@ -2637,7 +2637,6 @@
 		0A0965BE25BEF5B000C004BD /* EditorPage */ = {
 			isa = PBXGroup;
 			children = (
-				2A90C477285C675000B6B44E /* Extensions */,
 				C9D5F7B8281A79B00076A47F /* CompositionalBlock */,
 				3D36B0A526A71B4A0046C90F /* Utils */,
 				3D180220264E9C0000224815 /* Models */,
@@ -4020,17 +4019,10 @@
 				2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */,
 				2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */,
 				2AD06B8228572A520006C255 /* TableOfContentsView.swift */,
-				2AD06B8A28573D5B0006C255 /* TableOfContentItem.swift */,
+				2AD06B8A28573D5B0006C255 /* TableOfContentData.swift */,
 				2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */,
 			);
 			path = TableOfContents;
-			sourceTree = "<group>";
-		};
-		2A90C477285C675000B6B44E /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 		2ABA0E05283BC420008369DC /* MoveToSearchInteractor */ = {
@@ -7507,7 +7499,7 @@
 				125683E027DF1D3C003A8251 /* ObjectsSearchInteractorProtocol.swift in Sources */,
 				0A0965E525BEF5B000C004BD /* FileDownloadingCoordinator.swift in Sources */,
 				2E412D0328466B0900C973FF /* SetSortsListView.swift in Sources */,
-				2AD06B8B28573D5B0006C255 /* TableOfContentItem.swift in Sources */,
+				2AD06B8B28573D5B0006C255 /* TableOfContentData.swift in Sources */,
 				C965247F2720781C00254057 /* HorizonalTypeListView.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
 				129C54D427FC83C000C390C7 /* SupportedRelationFormat.swift in Sources */,
