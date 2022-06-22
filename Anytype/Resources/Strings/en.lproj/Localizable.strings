@@ -294,14 +294,8 @@
 // MARK: - Sets
 "EditSorts.Popup.NavigationView.Title" = "Sorts";
 "EditSorts.Popup.EmptyView.Title" = "No sorts here. You can add some";
-"EditSorts.Popup.Sort.Type.Order.Asc" = "First → Last";
-"EditSorts.Popup.Sort.Type.Order.Desc" = "Last → First";
-"EditSorts.Popup.Sort.Type.Text.Asc" = "A → Z";
-"EditSorts.Popup.Sort.Type.Text.Desc" = "Z → A";
-"EditSorts.Popup.Sort.Type.Number.Asc" = "1 → 9";
-"EditSorts.Popup.Sort.Type.Number.Desc" = "9 → 1";
-"EditSorts.Popup.Sort.Type.Checkbox.Asc" = "Checked → Unchecked";
-"EditSorts.Popup.Sort.Type.Checkbox.Desc" = "Unchecked → Checked";
+"EditSorts.Popup.Sort.Type.Ascending" = "Ascending";
+"EditSorts.Popup.Sort.Type.Descending" = "Descending";
 "EditSorts.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
 "EditFilters.Popup.NavigationView.Title" = "Filters";
