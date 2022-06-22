@@ -9,4 +9,11 @@ xcassets:
       output: ../../Anytype/Generated/UIColor+Assets.swift
     - templatePath: SwiftGen_SwiftGenCLI.bundle/Contents/Resources/templates/xcassets/swift5_SwiftUIColors
       output: ../../Anytype/Generated/Color+Assets.swift
-      
+strings:
+  inputs: 
+    - ../../Anytype/Resources/Strings/en.lproj/Localizable.strings
+  outputs:
+    - templateName: structured-swift5
+      output: ../../Anytype/Generated/Strings.swift
+      params:
+        enumName: Loc

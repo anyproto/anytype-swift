@@ -28,7 +28,7 @@ extension BundledRelationsValueProvider {
             title = name
         }
 
-        return title.isEmpty ? "Untitled".localized : title
+        return title.isEmpty ? Loc.untitled.localized : title
     }
     
     var mentionTitle: String {
