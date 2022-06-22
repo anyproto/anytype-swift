@@ -69,7 +69,8 @@ final class TableOfContentsContentProvider {
                 for index in position+1..<hasHeader.count {
                     hasHeader[index] = false
                 }
-                items.append(TableOfContentItem(blockId: child.id, title: content.text, level: depth))
+                let title = content.text.isEmpty ? "Untitled".localized : content.text
+                items.append(TableOfContentItem(blockId: child.id, title: title, level: depth))
             default:
                 break
             }
