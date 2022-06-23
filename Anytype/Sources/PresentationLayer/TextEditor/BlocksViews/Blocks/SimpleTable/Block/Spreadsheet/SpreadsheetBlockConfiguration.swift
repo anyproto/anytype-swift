@@ -1,12 +1,9 @@
 import UIKit
-
-private enum Constants {
-    static let edges = UIEdgeInsets(top: 9, left: 12, bottom: -9, right: -12)
-}
+import Combine
 
 struct SpreadsheetBlockConfiguration<Configuration: BlockConfiguration>: UIContentConfiguration {
     func makeContentView() -> UIView & UIContentView {
-        SpreadsheetView<Configuration.View>(configuration: self)
+        SpreadsheetBlockView<Configuration.View>(configuration: self)
     }
 
     func updated(for state: UIConfigurationState) -> Self {
@@ -19,8 +16,12 @@ struct SpreadsheetBlockConfiguration<Configuration: BlockConfiguration>: UIConte
         return updatedConfig
     }
 
-    let edgesInsets = Constants.edges
     let blockConfiguration: Configuration
+    let styleConfiguration: SpreadsheetStyleConfiguration
     var currentConfigurationState: UICellConfigurationState?
     let dragConfiguration: BlockDragConfiguration?
+}
+
+struct SpreadsheetStyleConfiguration: Hashable {
+    let backgroundColor: UIColor
 }

@@ -932,11 +932,13 @@
 		C99DCEDE283D0E820051F99D /* TemplatePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C99DCEDD283D0E820051F99D /* TemplatePickerViewModel.swift */; };
 		C9A4268728489CAD00F388FC /* SimpleTableBlockViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4268628489CAD00F388FC /* SimpleTableBlockViewModel.swift */; };
 		C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4268B28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift */; };
-		C9A4268E28489D1F00F388FC /* SpreadsheetView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4268D28489D1F00F388FC /* SpreadsheetView.swift */; };
+		C9A4268E28489D1F00F388FC /* SpreadsheetBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A4268D28489D1F00F388FC /* SpreadsheetBlockView.swift */; };
 		C9A59DEA27E0F40B0063D3E1 /* TextBlockLeadingStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A59DE927E0F40B0063D3E1 /* TextBlockLeadingStyle.swift */; };
 		C9A59DEF27E0F4D30063D3E1 /* TextBlockLeadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A59DEE27E0F4D30063D3E1 /* TextBlockLeadingView.swift */; };
 		C9BE9FCF279EEA1800D91348 /* Document+Dataview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC2D2C2279817B100437E04 /* Document+Dataview.swift */; };
 		C9C0A99E274FB04E0002FA30 /* EditorPageBlocksStateManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C0A99D274FB04E0002FA30 /* EditorPageBlocksStateManager.swift */; };
+		C9C283802864724900F035C5 /* FeaturedRelationBlockItemsDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C2837F2864724900F035C5 /* FeaturedRelationBlockItemsDataSource.swift */; };
+		C9C283822864727C00F035C5 /* GenericCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C283812864727C00F035C5 /* GenericCollectionViewCell.swift */; };
 		C9C49A82270499B500D86463 /* CameraPermissionVerifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C49A81270499B500D86463 /* CameraPermissionVerifier.swift */; };
 		C9C49A8527049D0200D86463 /* AlertsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C49A8427049D0200D86463 /* AlertsFactory.swift */; };
 		C9C5368E276A3A07003CD3F3 /* TagRelationRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C5368A276A3A07003CD3F3 /* TagRelationRowView.swift */; };
@@ -1985,10 +1987,12 @@
 		C99DCEDD283D0E820051F99D /* TemplatePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatePickerViewModel.swift; sourceTree = "<group>"; };
 		C9A4268628489CAD00F388FC /* SimpleTableBlockViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableBlockViewModel.swift; sourceTree = "<group>"; };
 		C9A4268B28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableBlockContentConfiguration.swift; sourceTree = "<group>"; };
-		C9A4268D28489D1F00F388FC /* SpreadsheetView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpreadsheetView.swift; sourceTree = "<group>"; };
+		C9A4268D28489D1F00F388FC /* SpreadsheetBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpreadsheetBlockView.swift; sourceTree = "<group>"; };
 		C9A59DE927E0F40B0063D3E1 /* TextBlockLeadingStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLeadingStyle.swift; sourceTree = "<group>"; };
 		C9A59DEE27E0F4D30063D3E1 /* TextBlockLeadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextBlockLeadingView.swift; sourceTree = "<group>"; };
 		C9C0A99D274FB04E0002FA30 /* EditorPageBlocksStateManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorPageBlocksStateManager.swift; sourceTree = "<group>"; };
+		C9C2837F2864724900F035C5 /* FeaturedRelationBlockItemsDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturedRelationBlockItemsDataSource.swift; sourceTree = "<group>"; };
+		C9C283812864727C00F035C5 /* GenericCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9C49A81270499B500D86463 /* CameraPermissionVerifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraPermissionVerifier.swift; sourceTree = "<group>"; };
 		C9C49A8427049D0200D86463 /* AlertsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertsFactory.swift; sourceTree = "<group>"; };
 		C9C5368A276A3A07003CD3F3 /* TagRelationRowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagRelationRowView.swift; sourceTree = "<group>"; };
@@ -2959,6 +2963,7 @@
 				C96AFFCC284A383A0048B8EB /* SeparatorItem */,
 				1223C8FD272693E600C34616 /* FeaturedRelationsBlockViewModel.swift */,
 				1223C8FF2726BE1C00C34616 /* FeaturedRelationBlockView.swift */,
+				C9C2837F2864724900F035C5 /* FeaturedRelationBlockItemsDataSource.swift */,
 				1223C9012726BEB000C34616 /* FeaturedRelationsBlockContentConfiguration.swift */,
 			);
 			path = FeaturedRelations;
@@ -6193,7 +6198,7 @@
 		C940A9A9286037D4008B500B /* Spreadsheet */ = {
 			isa = PBXGroup;
 			children = (
-				C9A4268D28489D1F00F388FC /* SpreadsheetView.swift */,
+				C9A4268D28489D1F00F388FC /* SpreadsheetBlockView.swift */,
 				C922F691286205B300DF2EF5 /* SpreadsheetBlockConfiguration.swift */,
 			);
 			path = Spreadsheet;
@@ -6370,6 +6375,7 @@
 				C9767C0228193E2100AEF728 /* DynamicCollectionLayoutView.swift */,
 				C9235F812862F573004D86BA /* SpreadsheetDataSource.swift */,
 				C9D5F7BE281A79F70076A47F /* UICollectionViewCompositionalLayout+BlockLayout.swift */,
+				C9C283812864727C00F035C5 /* GenericCollectionViewCell.swift */,
 				C9892C3C284E22E2006E3BE3 /* SpreadsheetLayout.swift */,
 				C98282372850B3CF00C4E1D4 /* SpreadsheetInvalidationContext.swift */,
 				C9D5F7BC281A79C30076A47F /* DynamicCollectionView.swift */,
@@ -6784,6 +6790,7 @@
 				EAAD6E0026CD436F005CE1E7 /* BlockMarkupChanger.swift in Sources */,
 				039F669923C7FD1D00DBE36A /* GeometryExtension.swift in Sources */,
 				3DB1CA5F272BF43F000D2779 /* DashboardWallpaper.swift in Sources */,
+				C9C283802864724900F035C5 /* FeaturedRelationBlockItemsDataSource.swift in Sources */,
 				5338E7EC25DC723D008CB97D /* KeyboardActionHandler.swift in Sources */,
 				1244794127DC735A00581174 /* NewSearchView+ListModel.swift in Sources */,
 				539E01922757CD0600067A24 /* SlashActionRelations.swift in Sources */,
@@ -7295,7 +7302,7 @@
 				3D0BFB58263C3559007CC856 /* Array+Identifiable.swift in Sources */,
 				12B0FF6F274FD67F00CA35FE /* AppIcon.swift in Sources */,
 				3D2F9C7827206CE40043C326 /* QuickActionsStorage.swift in Sources */,
-				C9A4268E28489D1F00F388FC /* SpreadsheetView.swift in Sources */,
+				C9A4268E28489D1F00F388FC /* SpreadsheetBlockView.swift in Sources */,
 				3DE0CFCD26F8591E003A606A /* SlashMenuCellData.swift in Sources */,
 				53C9F69226C166AF00209CA1 /* TitleBlockRestrictions.swift in Sources */,
 				3D16841226DD672E008B9DFF /* BlockDividerConverter.swift in Sources */,
@@ -7520,6 +7527,7 @@
 				EAC6BA9926270FE0004C8C06 /* DividerBlockRestrictions.swift in Sources */,
 				3D2F9C44271F106A0043C326 /* DashboardLogoutAlert.swift in Sources */,
 				53F820C22648B257003FEB0B /* BlockActionService.swift in Sources */,
+				C9C283822864727C00F035C5 /* GenericCollectionViewCell.swift in Sources */,
 				3D3040CE27DF664600FFE0EB /* ObjectSettingBuilder.swift in Sources */,
 				3DB1C9E12727DAEF000D2779 /* UIView+SpookyShake.swift in Sources */,
 				127EABF42739440200C731F2 /* TagRelationView.swift in Sources */,

@@ -18,8 +18,6 @@ extension ObjectHeader: ContentConfigurationProvider {
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
 
     }
-
-    var indentationLevel: Int { 0 }
     
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         switch self {

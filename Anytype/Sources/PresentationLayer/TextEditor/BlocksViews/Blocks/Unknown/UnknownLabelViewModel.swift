@@ -3,12 +3,10 @@ import UIKit
 import AnytypeCore
 
 struct UnknownLabelViewModel: BlockViewModelProtocol {    
-    let indentationLevel = 0
     let info: BlockInformation
     
     var hashable: AnyHashable {
         [
-            indentationLevel,
             info
         ] as [AnyHashable]
     }

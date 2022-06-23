@@ -5,9 +5,18 @@ import UIKit
 struct SimpleTableBlockContentConfiguration: BlockConfiguration {
     typealias View = SimpleTableBlockView
 
-    @EquatableNoop private(set) var viewModelBuilder: () -> SimpleTableViewModel
-    @EquatableNoop private(set) var blockDelegate: BlockDelegate
-    @EquatableNoop private(set) var relativePositionProvider: RelativePositionProvider?
+    weak var blockDelegate: BlockDelegate?
+    let viewModelBuilder: () -> SimpleTableViewModel
+    let relativePositionProvider: RelativePositionProvider?
+
+    static func == (
+        lhs: SimpleTableBlockContentConfiguration,
+        rhs: SimpleTableBlockContentConfiguration
+    ) -> Bool {
+        return false
+    }
+
+    func hash(into hasher: inout Hasher) {}
 }
 
 extension SimpleTableBlockContentConfiguration {

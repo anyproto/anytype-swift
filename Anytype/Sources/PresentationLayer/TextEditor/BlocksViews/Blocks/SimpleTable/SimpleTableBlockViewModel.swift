@@ -11,7 +11,7 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
         info.id as AnyHashable
     }
 
-    private let blockDelegate: BlockDelegate
+    private weak var blockDelegate: BlockDelegate?
     private let simpleTableViewModelBuilder: () -> SimpleTableViewModel
     private weak var relativePositionProvider: RelativePositionProvider?
 
@@ -37,8 +37,8 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         let contentConfiguration = SimpleTableBlockContentConfiguration(
-            viewModelBuilder: simpleTableViewModelBuilder,
             blockDelegate: blockDelegate,
+            viewModelBuilder: simpleTableViewModelBuilder,
             relativePositionProvider: relativePositionProvider
         )
 

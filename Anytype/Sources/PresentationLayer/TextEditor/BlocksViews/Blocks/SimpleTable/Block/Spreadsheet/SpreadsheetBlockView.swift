@@ -1,13 +1,19 @@
 import UIKit
-import UIKit
 
-final class SpreadsheetView<View: BlockContentView>: UIView & UIContentView, UIDragInteractionDelegate {
+private enum Constants {
+    static let edges = UIEdgeInsets(top: 9, left: 12, bottom: -9, right: -12)
+}
+
+final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView, UIDragInteractionDelegate, DynamicHeightView {
     typealias Configuration = SpreadsheetBlockConfiguration<View.Configuration>
+
+    var heightDidChanged: (() -> Void)?
 
     var configuration: UIContentConfiguration {
         get {
             Configuration(
                 blockConfiguration: blockConfiguration,
+                styleConfiguration: styleConfiguration,
                 currentConfigurationState: currentConfigurationState,
                 dragConfiguration: dragConfiguration
             )
@@ -23,7 +29,17 @@ final class SpreadsheetView<View: BlockContentView>: UIView & UIContentView, UID
                 currentConfigurationState = newConfiguration.currentConfigurationState
             }
 
+            if newConfiguration.styleConfiguration != styleConfiguration {
+                styleConfiguration = newConfiguration.styleConfiguration
+            }
+
             dragConfiguration = newConfiguration.dragConfiguration
+        }
+    }
+
+    private var styleConfiguration: SpreadsheetStyleConfiguration {
+        didSet {
+            updateStyleConfiguration(configuration: styleConfiguration)
         }
     }
 
@@ -56,6 +72,7 @@ final class SpreadsheetView<View: BlockContentView>: UIView & UIContentView, UID
         self.blockConfiguration = configuration.blockConfiguration
         self.currentConfigurationState = configuration.currentConfigurationState
         self.dragConfiguration = configuration.dragConfiguration
+        self.styleConfiguration = configuration.styleConfiguration
 
         super.init(frame: .zero)
 
@@ -69,6 +86,10 @@ final class SpreadsheetView<View: BlockContentView>: UIView & UIContentView, UID
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+
+    private func updateStyleConfiguration(configuration: SpreadsheetStyleConfiguration) {
+        backgroundColor = configuration.backgroundColor
     }
 
     // MARK: - UICollectionView configuration
@@ -95,13 +116,22 @@ final class SpreadsheetView<View: BlockContentView>: UIView & UIContentView, UID
     // MARK: - Subviews setup
 
     private func setupSubviews() {
+        layer.borderWidth = 0.5
+        layer.borderColor = UIColor.strokePrimary.cgColor
+
         addSubview(blockView) {
-            $0.pinToSuperview(excluding: [.bottom], insets: blockConfiguration.contentInsets)
+            $0.pinToSuperview(excluding: [.bottom], insets: Constants.edges)
             $0.bottom.equal(
                 to: bottomAnchor,
-                constant: blockConfiguration.contentInsets.bottom,
+                constant: Constants.edges.bottom,
                 priority: .init(999)
             )
+        }
+
+        if let dynamicHeightBlockView = blockView as? DynamicHeightView {
+            dynamicHeightBlockView.heightDidChanged = { [weak self] in
+                self?.heightDidChanged?()
+            }
         }
     }
 

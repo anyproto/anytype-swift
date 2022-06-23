@@ -1,6 +1,6 @@
 import UIKit
 
-protocol BlockConfiguration: Hashable where View.Configuration == Self {
+protocol BlockConfiguration: Hashable, Dequebale where View.Configuration == Self {
     associatedtype View: BlockContentView
 
     var isAnimationEnabled: Bool { get }
@@ -31,12 +31,36 @@ extension BlockConfiguration {
     }
 
     func spreadsheetConfiguration(
-        dragConfiguration: BlockDragConfiguration?
+        dragConfiguration: BlockDragConfiguration?,
+        styleConfiguration: SpreadsheetStyleConfiguration
     ) -> SpreadsheetBlockConfiguration<Self> {
         SpreadsheetBlockConfiguration(
             blockConfiguration: self,
+            styleConfiguration: styleConfiguration,
             currentConfigurationState: nil,
             dragConfiguration: dragConfiguration
         )
+    }
+}
+
+protocol Dequebale {
+    func dequeueReusableCell(
+        collectionView: UICollectionView,
+        for indexPath: IndexPath
+    ) -> UICollectionViewCell
+}
+
+extension Dequebale where Self: BlockConfiguration {
+    func dequeueReusableCell(
+        collectionView: UICollectionView,
+        for indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        let collectionViewCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: Self.View.reusableIdentifier,
+            for: indexPath
+        ) as? GenericCollectionViewCell<Self.View>
+        collectionViewCell?.update(with: self)
+
+        return collectionViewCell ?? UICollectionViewCell()
     }
 }

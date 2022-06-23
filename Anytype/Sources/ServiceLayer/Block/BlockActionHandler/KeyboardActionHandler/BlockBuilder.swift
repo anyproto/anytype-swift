@@ -9,7 +9,7 @@ struct BlockBuilder {
         let info = BlockInformation.empty(content: content)
         
         if case .file(let blockFile) = content, case .image = blockFile.contentType {
-            return info.updated(alignment: .center)
+            return info.updated(horizontalAlignment: .center)
         }
 
         return info

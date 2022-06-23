@@ -2,9 +2,13 @@ import UIKit
 import Combine
 import BlocksModels
 
-
-
 final class SimpleTableViewModel {
+    weak var dataSource: SpreadsheetViewDataSource? {
+        didSet {
+            forceUpdate(shouldApplyFocus: true)
+        }
+    }
+
     private let document: BaseDocumentProtocol
     private let cellBuilder: SimpleTableCellsBuilder
     private let cursorManager: EditorCursorManager
@@ -37,17 +41,20 @@ final class SimpleTableViewModel {
 
     private func handleUpdate(update: DocumentUpdate) {
         switch update {
-        case .general:
+        case .general, .details:
             forceUpdate(shouldApplyFocus: true)
-        case .details, .syncStatus, .header, .changeType: break
+        case .syncStatus, .header, .changeType: break
         case .blocks(let blockIds):
             let container = document.infoContainer
+
             let allChilds = container.recursiveChildren(of: tableBlockInfo.id).map(\.id)
-
-
-            if blockIds.intersection(Set(allChilds)).isNotEmpty {
-                forceUpdate(shouldApplyFocus: true)
+            guard blockIds.intersection(Set(allChilds)).isNotEmpty else {
+                return
             }
+
+            let newItems = cellBuilder.buildItems(from: tableBlockInfo)
+
+           updateDifference(newItems: newItems)
         case .dataSourceUpdate:
             guard let newInfo = document.infoContainer.get(id: tableBlockInfo.id) else {
                 return
@@ -55,9 +62,24 @@ final class SimpleTableViewModel {
             tableBlockInfo = newInfo
 
             let cells = cellBuilder.buildItems(from: newInfo)
-            
-//            onDataSourceUpdate?(cells)
+
+            dataSource?.allModels = cells
         }
+    }
+
+    private func updateDifference(newItems: [[EditorItem]]) {
+        let newItems = cellBuilder.buildItems(from: tableBlockInfo)
+
+        var itemsToUpdate = [EditorItem]()
+        zip(newItems, dataSource!.allModels).forEach { newSections, currentSections in
+            zip(newSections, currentSections).forEach { newItem, currentItem in
+                if newItem.hashValue != currentItem.hashValue {
+                    itemsToUpdate.append(newItem)
+                }
+            }
+        }
+
+        dataSource?.update(changes: newItems.flatMap { $0 }, allModels: newItems)
     }
 
     private func forceUpdate(shouldApplyFocus: Bool) {
@@ -69,22 +91,19 @@ final class SimpleTableViewModel {
         let cells = cellBuilder.buildItems(from: newInfo)
         let numberOfColumns = cells.first?.count ?? 0
 
-        var widths = [CGFloat]()
-        for _ in 0..<numberOfColumns {
-            widths.append(170)
-        }
+        let widths = [CGFloat](repeating: 170, count: numberOfColumns)
 
-        if self.widths != widths {
-            self.widths = widths
-        }
+        if self.widths != widths { self.widths = widths }
 
-//        self.cells = cells
+        dataSource?.update(
+            changes: cells.flatMap { $0 },
+            allModels: cells
+        )
 
         if shouldApplyFocus {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
                 self?.cursorManager.applyCurrentFocus()
             }
-
         }
     }
 }

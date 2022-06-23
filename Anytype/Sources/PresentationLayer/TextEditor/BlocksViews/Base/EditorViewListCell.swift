@@ -1,12 +1,6 @@
 import UIKit
 
 final class EditorViewListCell: UICollectionViewListCell, CustomTypesAccessable {
-    override func prepareForReuse() {
-        super.prepareForReuse()
-
-        print("I AM \(reuseIdentifier) with content view like \(contentConfiguration)")
-    }
-
     var isMoving: Bool = false {
         didSet {
             // Ensure that an update is performed whenever this property changes.

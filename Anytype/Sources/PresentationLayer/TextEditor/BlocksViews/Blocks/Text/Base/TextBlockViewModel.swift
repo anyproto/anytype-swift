@@ -65,4 +65,16 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 isDragConfigurationAvailable ? .init(id: info.id) : nil
         )
     }
+
+    func makeSpreadsheetConfiguration() -> UIContentConfiguration {
+        let color = info.configurationData.backgroundColor.map {
+            UIColor.Background.uiColor(from: $0)
+        } ?? .backgroundPrimary
+
+        return textBlockContentConfiguration()
+            .spreadsheetConfiguration(
+                dragConfiguration: .init(id: info.id),
+                styleConfiguration: .init(backgroundColor: color)
+            )
+    }
 }

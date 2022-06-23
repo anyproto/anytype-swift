@@ -18,6 +18,8 @@ final class DynamicCollectionView: EditorCollectionView {
     private func setup() {
         backgroundColor = .backgroundPrimary
         isDirectionalLockEnabled = true
+        allowsMultipleSelection = true
+        allowsSelectionDuringEditing = true
     }
 
     override func layoutSubviews() {

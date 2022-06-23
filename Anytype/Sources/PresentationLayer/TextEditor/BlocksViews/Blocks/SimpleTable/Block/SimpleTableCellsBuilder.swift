@@ -36,7 +36,7 @@ final class SimpleTableCellsBuilder {
 
     func buildItems(
         from info: BlockInformation
-    ) -> [[ContentConfigurationProvider]] {
+    ) -> [[EditorItem]] {
         var tableColumnsBlockInfo: BlockInformation?
         var tableRowsBlockInfo: BlockInformation?
 
@@ -68,9 +68,9 @@ final class SimpleTableCellsBuilder {
     private func buildModels(
         tableColumnsBlockInfo: BlockInformation,
         tableRowsBlockInfo: BlockInformation
-    ) -> [[ContentConfigurationProvider]] {
+    ) -> [[EditorItem]] {
         let numberOfColumns = tableColumnsBlockInfo.childrenIds.count
-        var blocks = [[ContentConfigurationProvider]]()
+        var blocks = [[EditorItem]]()
 
         for rowId in tableRowsBlockInfo.childrenIds {
             guard let childInformation = infoContainer.get(id: rowId) else {
@@ -79,7 +79,7 @@ final class SimpleTableCellsBuilder {
             }
 
             if childInformation.content == .tableRow {
-                var rowBlocks = [ContentConfigurationProvider]()
+                var rowBlocks = [EditorItem]()
 
                 for column in 0..<numberOfColumns {
                     if let rowChildInformation = childInformation.childrenIds[safe: column],
@@ -111,17 +111,19 @@ final class SimpleTableCellsBuilder {
     private func makeEmptyContentCellConfiguration(
         columnId: BlockId,
         info: BlockInformation
-    ) -> ContentConfigurationProvider {
-        EmptyRowViewViewModel(
-            contextId: document.objectId,
-            info: info,
-            columnRowId: "\(info.id)-\(columnId)",
-            tablesService: BlockTableService(),
-            cursorManager: cursorManager
+    ) -> EditorItem {
+        .system(
+            EmptyRowViewViewModel(
+                contextId: document.objectId,
+                info: info,
+                columnRowId: "\(info.id)-\(columnId)",
+                tablesService: BlockTableService(),
+                cursorManager: cursorManager
+            )
         )
     }
 
-    private func textBlockConfiguration(information: BlockInformation) -> ContentConfigurationProvider {
+    private func textBlockConfiguration(information: BlockInformation) -> EditorItem {
         guard case let .text(content) = information.content else {
             fatalError()
         }
@@ -158,12 +160,14 @@ final class SimpleTableCellsBuilder {
             blockDelegate: delegate
         )
 
-        return TextBlockViewModel(
+        let viewModel = TextBlockViewModel(
             info: information,
             content: content,
             isCheckable: isCheckable,
             focusSubject: focusSubjectHolder.focusSubject(for: information.id),
             actionHandler: textBlockActionHandler
         )
+
+        return EditorItem.block(viewModel)
     }
 }

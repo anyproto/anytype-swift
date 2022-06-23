@@ -105,7 +105,6 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView {
 
         resetSubscription = configuration.resetPublisher.sink { [weak self] blockText in
             self?.textView.textView.textStorage.setAttributedString(blockText.anytypeText.attrString)
-
         }
     }
     

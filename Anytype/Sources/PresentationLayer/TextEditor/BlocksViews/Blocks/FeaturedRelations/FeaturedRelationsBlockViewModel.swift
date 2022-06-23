@@ -3,7 +3,6 @@ import BlocksModels
 
 struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     let info: BlockInformation
-    let indentationLevel: Int = 0
 
     private let type: String
     private let featuredRelations: [Relation]
@@ -13,7 +12,6 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
     
     var hashable: AnyHashable {
         [
-            indentationLevel,
             type,
             relationViewModels
         ] as [AnyHashable]

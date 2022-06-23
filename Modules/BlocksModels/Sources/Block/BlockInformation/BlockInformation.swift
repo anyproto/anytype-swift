@@ -16,7 +16,7 @@ public struct BlockInformation: Hashable {
         id: BlockId,
         content: BlockContent,
         backgroundColor: MiddlewareColor?,
-        alignment: LayoutAlignment,
+        horizontalAlignment: LayoutAlignment,
         childrenIds: [BlockId],
         configurationData: BlockInformationMetadata,
         fields: BlockFields
@@ -24,7 +24,7 @@ public struct BlockInformation: Hashable {
         self.id = id
         self.content = content
         self.backgroundColor = backgroundColor
-        self.horizontalAlignment = alignment
+        self.horizontalAlignment = horizontalAlignment
         self.childrenIds = childrenIds
         self.fields = fields
         self.configurationData = configurationData

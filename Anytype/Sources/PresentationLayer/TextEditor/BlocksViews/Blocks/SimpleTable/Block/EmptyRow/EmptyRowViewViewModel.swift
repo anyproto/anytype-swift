@@ -4,7 +4,11 @@ import CoreGraphics
 
 struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     var hashable: AnyHashable {
-        String(describing: Self.self) as AnyHashable
+        [
+            contextId,
+            info.id,
+            columnRowId
+        ] as [AnyHashable]
     }
 
     init(
@@ -43,15 +47,14 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     }
 
     func makeSpreadsheetConfiguration() -> UIContentConfiguration {
-        emptyRowConfiguration()
-            .cellBlockConfiguration(
-                indentationSettings: nil,
-                dragConfiguration: nil
-            )
+        emptyRowConfiguration().spreadsheetConfiguration(
+            dragConfiguration: nil,
+            styleConfiguration: .init(backgroundColor: .backgroundPrimary)
+        )
     }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        emptyRowConfiguration().spreadsheetConfiguration(dragConfiguration: nil)
+        makeSpreadsheetConfiguration()
     }
 }
 
@@ -62,7 +65,9 @@ struct EmptyRowConfiguration: BlockConfiguration {
 }
 
 final class EmptyRowView: UIView, BlockContentView {
+    let button = UIButton()
     private var actionHandler: (() -> Void)?
+    static var size: CGSize?
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -78,15 +83,7 @@ final class EmptyRowView: UIView, BlockContentView {
         self.actionHandler = configuration.action
     }
 
-    static var size: CGSize?
-
     func setup() {
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
-
-        addGestureRecognizer(tapGestureRecognizer)
-
-        translatesAutoresizingMaskIntoConstraints = false
-
         if EmptyRowView.size == nil {
             let textView = TextBlockContentView(frame: .zero)
             let maxSize = CGSize(
@@ -100,9 +97,12 @@ final class EmptyRowView: UIView, BlockContentView {
             )
         }
 
-        let constraint = heightAnchor.constraint(equalToConstant: EmptyRowView.size?.height ?? 15)
-        
-        constraint.isActive = true
+        addSubview(button) {
+            $0.pinToSuperview()
+            $0.height.equal(to: EmptyRowView.size?.height ?? 15)
+        }
+
+        button.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
     }
 
     @objc func handleTap() {

@@ -10,13 +10,13 @@ enum BlockInformationConverter {
         }
 
         let blockContent = BlocksModelsConverter.convert(middleware: content) ?? .unsupported
-        let alignment = block.align.asBlockModel ?? .left
+        let horizontalAlignment = block.align.asBlockModel ?? .left
         let color = MiddlewareColor(rawValue: block.backgroundColor)
         let info =  BlockInformation(
             id: block.id,
             content: blockContent,
             backgroundColor: MiddlewareColor(rawValue: block.backgroundColor),
-            alignment: alignment,
+            horizontalAlignment: horizontalAlignment,
             childrenIds: block.childrenIds,
             configurationData: .init(
                 backgroundColor: color,
@@ -38,7 +38,7 @@ enum BlockInformationConverter {
         let restrictions = Anytype_Model_Block.Restrictions()
         let childrenIds = information.childrenIds
         let backgroundColor = information.backgroundColor?.rawValue ?? ""
-        let alignment = information.horizontalAlignment.asMiddleware
+        let horizontalAlignment = information.horizontalAlignment.asMiddleware
         
         
         return Anytype_Model_Block(
@@ -47,7 +47,7 @@ enum BlockInformationConverter {
             restrictions: restrictions,
             childrenIds: childrenIds,
             backgroundColor: backgroundColor,
-            align: alignment,
+            align: horizontalAlignment,
             verticalAlign: .top,
             content: content
         )

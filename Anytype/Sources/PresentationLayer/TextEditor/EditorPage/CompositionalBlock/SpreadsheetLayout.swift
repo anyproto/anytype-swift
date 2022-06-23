@@ -9,7 +9,8 @@ protocol RelativePositionProvider: AnyObject {
 }
 
 final class SpreadsheetLayout: UICollectionViewLayout {
-    private let dataSoruce: SpreadsheetViewDataSource
+    private let dataSource: SpreadsheetViewDataSource
+
     var currentVisibleRect: CGRect = .zero
     weak var relativePositionProvider: RelativePositionProvider? {
         didSet {
@@ -37,6 +38,16 @@ final class SpreadsheetLayout: UICollectionViewLayout {
 
     override class var invalidationContextClass: AnyClass {
         SpreadsheetInvalidationContext.self
+    }
+
+    init(dataSource: SpreadsheetViewDataSource) {
+        self.dataSource = dataSource
+
+        super.init()
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
 
     override func layoutAttributesForElements(
@@ -70,26 +81,24 @@ final class SpreadsheetLayout: UICollectionViewLayout {
             return
         }
 
-        dataSoruce.collectionView.numberOfSections
-
-        items.enumerated().forEach { sectionIndex, sectionItems in
+        for sectionIndex in 0..<collectionView.numberOfSections {
             var sectionMaxHeight: CGFloat = 0
 
-            sectionItems.enumerated().forEach { rowIndex, row in
+            for rowIndex in 0..<collectionView.numberOfItems(inSection: sectionIndex) {
                 let indexPath = IndexPath(row: rowIndex, section: sectionIndex)
-
                 let columnWidth = itemWidths[rowIndex]
 
-                let size: CGSize
-                let hashable = row.spreadsheethashable(width: columnWidth)
+                guard let item = dataSource.contentConfigurationProvider(at: indexPath) else {
+                    continue
+                }
+                let hashable = item.spreadsheethashable(width: columnWidth)
 
+                let size: CGSize
                 if let cachedValue = cachedSectionRowHeights[hashable] {
                     size = .init(width: columnWidth, height: cachedValue)
 
-                    sectionMaxHeight = size.height > sectionMaxHeight ? size.height : sectionMaxHeight
                 } else {
-
-                    let cell = row.dequeueReusableCell(collectionView: collectionView, for: indexPath)
+                    let cell = dataSource.dequeueCell(at: indexPath)
 
                     let maxSize = CGSize(
                         width: columnWidth,
@@ -101,10 +110,10 @@ final class SpreadsheetLayout: UICollectionViewLayout {
                         verticalFittingPriority: .fittingSizeLevel
                     )
 
-                    let spreadSheethashable = row.spreadsheethashable(width: columnWidth)
-                    cachedSectionRowHeights[spreadSheethashable] = size.height
-                    sectionMaxHeight = size.height > sectionMaxHeight ? size.height : sectionMaxHeight
+                    cachedSectionRowHeights[hashable] = size.height
                 }
+
+                sectionMaxHeight = size.height > sectionMaxHeight ? size.height : sectionMaxHeight
             }
 
             cachedSectionHeights[sectionIndex] = sectionMaxHeight
@@ -160,8 +169,10 @@ final class SpreadsheetLayout: UICollectionViewLayout {
 
 extension SpreadsheetLayout {
     func setNeedsLayout(indexPath: IndexPath) {
-        guard let existingCell = collectionView?.cellForItem(at: indexPath), let cell = dataSoruce else { return }
+        guard let item = dataSource.contentConfigurationProvider(at: indexPath) else { return }
         cachedSectionHeights[indexPath.section] = nil
+
+        let existingCell = dataSource.dequeueCell(at: indexPath)
 
         let columnWidth = itemWidths[indexPath.row]
 
@@ -175,12 +186,17 @@ extension SpreadsheetLayout {
             verticalFittingPriority: .fittingSizeLevel
         )
 
-        let item = items[indexPath.section][indexPath.row]
         let hashable = item.spreadsheethashable(width: columnWidth)
 
         cachedSectionRowHeights[hashable] = size.height
-
         prepare()
         invalidateLayout()
+    }
+}
+
+
+private extension ContentConfigurationProvider {
+    func spreadsheethashable(width: CGFloat) -> AnyHashable {
+        return [hashable, width as AnyHashable]
     }
 }

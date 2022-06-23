@@ -82,7 +82,6 @@ final class DynamicCollectionLayoutView: UIView {
         self.configuration = configuration
 
         collectionView.collectionViewLayout = configuration.layout
-        collectionView.reloadItems(at: [IndexPath(row: 0, section: 0)])
 
         if let height = iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[configuration.hashable] {
             collectionViewHeightConstraint?.constant = height
