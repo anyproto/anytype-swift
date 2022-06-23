@@ -38,8 +38,8 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         let contentConfiguration = SimpleTableBlockContentConfiguration(
             blockDelegate: blockDelegate,
-            viewModelBuilder: simpleTableViewModelBuilder,
-            relativePositionProvider: relativePositionProvider
+            relativePositionProvider: relativePositionProvider,
+            viewModelBuilder: simpleTableViewModelBuilder
         )
 
         return CellBlockConfiguration(

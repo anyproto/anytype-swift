@@ -10,7 +10,6 @@ final class SimpleTableBlockView: UIView, BlockContentView {
     )
 
     private var viewModel: SimpleTableViewModel?
-    private var heightDidChangedSubscriptions = [AnyCancellable]()
     private var modelsSubscriptions = [AnyCancellable]()
     private var configuration: SimpleTableBlockContentConfiguration?
     private weak var blockDelegate: BlockDelegate?
@@ -38,15 +37,15 @@ final class SimpleTableBlockView: UIView, BlockContentView {
 
         dynamicLayoutView.update(
             with: .init(
-                hashable: AnyHashable(configuration),
+                hashable: configuration.hashValue,
                 layout: spreadsheetLayout,
                 heightDidChanged: { [weak self] in self?.blockDelegate?.textBlockSetNeedsLayout() }
             )
         )
 
         modelsSubscriptions.removeAll()
-        viewModel?.$widths.sink { [weak self] width in
-            self?.spreadsheetLayout.itemWidths = width
+        viewModel?.$widths.sink { [weak spreadsheetLayout] width in
+            spreadsheetLayout?.itemWidths = width
         }.store(in: &modelsSubscriptions)
 
         spreadsheetLayout.relativePositionProvider = configuration.relativePositionProvider

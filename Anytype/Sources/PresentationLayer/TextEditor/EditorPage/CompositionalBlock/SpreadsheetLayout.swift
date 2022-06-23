@@ -9,7 +9,7 @@ protocol RelativePositionProvider: AnyObject {
 }
 
 final class SpreadsheetLayout: UICollectionViewLayout {
-    private let dataSource: SpreadsheetViewDataSource
+    private weak var dataSource: SpreadsheetViewDataSource?
 
     var currentVisibleRect: CGRect = .zero
     weak var relativePositionProvider: RelativePositionProvider? {
@@ -77,7 +77,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     }
 
     override func prepare() {
-        guard let collectionView = collectionView else {
+        guard let collectionView = collectionView, let dataSource = dataSource else {
             return
         }
 
@@ -169,7 +169,8 @@ final class SpreadsheetLayout: UICollectionViewLayout {
 
 extension SpreadsheetLayout {
     func setNeedsLayout(indexPath: IndexPath) {
-        guard let item = dataSource.contentConfigurationProvider(at: indexPath) else { return }
+        guard let dataSource = dataSource,
+              let item = dataSource.contentConfigurationProvider(at: indexPath) else { return }
         cachedSectionHeights[indexPath.section] = nil
 
         let existingCell = dataSource.dequeueCell(at: indexPath)

@@ -75,7 +75,7 @@ final class DynamicCollectionLayoutView: UIView {
     }
 
     private func saveBlockHeight(configuration: DynamicLayoutConfiguration) {
-        iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[configuration.hashable] = self.collectionView.intrinsicContentSize.height
+        iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[configuration.hashValue] = self.collectionView.intrinsicContentSize.height
     }
 
     func update(with configuration: DynamicLayoutConfiguration) {
@@ -83,7 +83,7 @@ final class DynamicCollectionLayoutView: UIView {
 
         collectionView.collectionViewLayout = configuration.layout
 
-        if let height = iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[configuration.hashable] {
+        if let height = iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[configuration.hashValue] {
             collectionViewHeightConstraint?.constant = height
         } else {
             collectionViewHeightConstraint?.constant = collectionView.intrinsicContentSize.height

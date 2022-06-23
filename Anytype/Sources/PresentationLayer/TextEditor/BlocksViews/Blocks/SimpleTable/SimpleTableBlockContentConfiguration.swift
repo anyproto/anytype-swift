@@ -6,8 +6,9 @@ struct SimpleTableBlockContentConfiguration: BlockConfiguration {
     typealias View = SimpleTableBlockView
 
     weak var blockDelegate: BlockDelegate?
+    weak var relativePositionProvider: RelativePositionProvider?
+
     let viewModelBuilder: () -> SimpleTableViewModel
-    let relativePositionProvider: RelativePositionProvider?
 
     static func == (
         lhs: SimpleTableBlockContentConfiguration,

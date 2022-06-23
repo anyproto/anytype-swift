@@ -7,18 +7,18 @@ final class SimpleTableCellsBuilder {
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
-    private let delegate: BlockDelegate
     private let markdownListener: MarkdownListener
     private let cursorManager: EditorCursorManager
     private let focusSubjectHolder: FocusSubjectsHolder
     private let infoContainer: InfoContainerProtocol
+    private weak var delegate: BlockDelegate?
 
     init(
         document: BaseDocumentProtocol,
         router: EditorRouterProtocol,
         handler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
-        delegate: BlockDelegate,
+        delegate: BlockDelegate?,
         markdownListener: MarkdownListener,
         cursorManager: EditorCursorManager,
         focusSubjectHolder: FocusSubjectsHolder
