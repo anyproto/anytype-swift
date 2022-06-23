@@ -86,9 +86,8 @@ final class SimpleTableCellsBuilder {
                        let rowChildInformation = infoContainer.get(id: rowChildInformation) {
                         if case .text = rowChildInformation.content {
 
-                            rowBlocks.append(
-                                textBlockConfiguration(information: rowChildInformation)
-                            )
+                            textBlockConfiguration(information: rowChildInformation)
+                                .map { rowBlocks.append($0) }
                         }
                     } else {
                         let columnId = tableColumnsBlockInfo.childrenIds[column]
@@ -123,9 +122,9 @@ final class SimpleTableCellsBuilder {
         )
     }
 
-    private func textBlockConfiguration(information: BlockInformation) -> EditorItem {
+    private func textBlockConfiguration(information: BlockInformation) -> EditorItem? {
         guard case let .text(content) = information.content else {
-            fatalError()
+            return nil
         }
 
         let isCheckable = content.contentType == .title ? document.details?.layout == .todo : false

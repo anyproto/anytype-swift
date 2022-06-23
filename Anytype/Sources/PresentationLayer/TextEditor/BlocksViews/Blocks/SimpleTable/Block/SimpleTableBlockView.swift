@@ -45,7 +45,6 @@ final class SimpleTableBlockView: UIView, BlockContentView {
         )
 
         modelsSubscriptions.removeAll()
-
         viewModel?.$widths.sink { [weak self] width in
             self?.spreadsheetLayout.itemWidths = width
         }.store(in: &modelsSubscriptions)

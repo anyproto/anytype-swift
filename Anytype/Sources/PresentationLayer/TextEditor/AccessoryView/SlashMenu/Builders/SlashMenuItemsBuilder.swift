@@ -91,8 +91,6 @@ struct SlashMenuItemsBuilder {
         }
         let children: [SlashAction] = allOtherSlashActions.map { .other($0) }
 
-
-
         return SlashMenuItem(type: .other, children: children)
     }
     

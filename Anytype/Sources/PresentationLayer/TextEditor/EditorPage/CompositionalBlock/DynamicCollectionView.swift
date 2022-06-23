@@ -20,6 +20,7 @@ final class DynamicCollectionView: EditorCollectionView {
         isDirectionalLockEnabled = true
         allowsMultipleSelection = true
         allowsSelectionDuringEditing = true
+        isEditing = true
     }
 
     override func layoutSubviews() {
