@@ -8,6 +8,10 @@ protocol ReusableContent {
     static var reusableIdentifier: String { get }
 }
 
+protocol FirstResponder: AnyObject {
+    var isFirstResponderValueChangeHandler: ((Bool) -> Void)? { get set }
+}
+
 protocol BlockContentView: ReusableContent where Self: UIView {
     associatedtype Configuration: BlockConfiguration
 

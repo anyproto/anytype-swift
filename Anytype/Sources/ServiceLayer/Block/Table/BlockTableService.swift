@@ -10,6 +10,11 @@ protocol BlockTableServiceProtocol {
         rowsCount: Int,
         columnsCount: Int
     )
+
+    func rowListFill(
+        contextId: BlockId,
+        targetIds: [BlockId]
+    )
 }
 
 final class BlockTableService: BlockTableServiceProtocol {
@@ -43,6 +48,30 @@ final class BlockTableService: BlockTableServiceProtocol {
         )
         .getValue(domain: .simpleTablesService)
         .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+
+    func columnCreate(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
+        let eventsBunch = Anytype_Rpc.BlockTable.ColumnCreate.Service.invoke(
+            contextID: contextId,
+            targetID: targetId,
+            position: position.asMiddleware
+        )
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+
+    func rowCreate(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
+        let eventsBunch = Anytype_Rpc.BlockTable.RowCreate.Service.invoke(
+            contextID: contextId,
+            targetID: targetId,
+            position: position.asMiddleware
+        )
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
 
         eventsBunch?.send()
     }

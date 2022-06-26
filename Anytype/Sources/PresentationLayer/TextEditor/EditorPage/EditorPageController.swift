@@ -63,7 +63,6 @@ final class EditorPageController: UIViewController {
         },
         onDoneBarButtonItemTap:  { [weak viewModel] in
             viewModel?.blocksStateManager.didSelectEditingMode()
-            
         }
     )
 

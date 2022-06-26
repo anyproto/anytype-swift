@@ -236,8 +236,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
                 contextId: document.objectId,
                 targetId: blockId,
                 position: position,
-                rowsCount: 3,
-                columnsCount: 3
+                rowsCount: 15,
+                columnsCount: 15
             )
 
             return

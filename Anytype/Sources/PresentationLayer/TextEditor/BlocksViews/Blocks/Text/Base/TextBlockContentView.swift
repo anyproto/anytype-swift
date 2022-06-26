@@ -3,9 +3,13 @@ import Combine
 import BlocksModels
 
 
-final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView {
+final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, FirstResponder {
+    // MARK: - DynamicHeightView
     var heightDidChanged: (() -> Void)?
-    
+
+    // MARK: - FirstResponder
+    var isFirstResponderValueChangeHandler: ((Bool) -> Void)?
+
     // MARK: - Views
     private let contentView = UIView()
     private(set) lazy var textView = CustomTextView()

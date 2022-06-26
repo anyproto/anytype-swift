@@ -23,7 +23,9 @@ final class SpreadsheetViewDataSource {
         )
     }
 
-    func contentConfigurationProvider(at indexPath: IndexPath) -> ContentConfigurationProvider? {
+    func contentConfigurationProvider(
+        at indexPath: IndexPath
+    ) -> ContentConfigurationProvider? {
         let item = allModels[indexPath.section][indexPath.row]
 
         return item.contentConfigurationProvider

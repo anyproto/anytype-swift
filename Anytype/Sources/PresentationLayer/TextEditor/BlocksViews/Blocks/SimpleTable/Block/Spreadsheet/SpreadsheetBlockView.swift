@@ -65,7 +65,7 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
     }
 
     private lazy var blockView = View(frame: .zero)
-    private lazy var selectionView = BaseSelectionView()
+    private lazy var selectionView = SpreadsheetSelectionView()
     private lazy var viewDragInteraction = UIDragInteraction(delegate: self)
 
     init(configuration: Configuration) {
@@ -113,12 +113,29 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
         addInteraction(viewDragInteraction)
     }
 
+
     // MARK: - Subviews setup
 
     private func setupSubviews() {
+        setupLayout()
+
         layer.borderWidth = 0.5
         layer.borderColor = UIColor.strokePrimary.cgColor
 
+        if let dynamicHeightBlockView = blockView as? DynamicHeightView {
+            dynamicHeightBlockView.heightDidChanged = { [weak self] in
+                self?.heightDidChanged?()
+            }
+        }
+
+        if let firstReponderChangeHandler = blockView as? FirstResponder {
+            firstReponderChangeHandler.isFirstResponderValueChangeHandler = { [weak self] isFirstResponder in
+                self?.selectionView.updateStyle(isSelected: isFirstResponder)
+            }
+        }
+    }
+
+    private func setupLayout() {
         addSubview(blockView) {
             $0.pinToSuperview(excluding: [.bottom], insets: Constants.edges)
             $0.bottom.equal(
@@ -128,10 +145,8 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
             )
         }
 
-        if let dynamicHeightBlockView = blockView as? DynamicHeightView {
-            dynamicHeightBlockView.heightDidChanged = { [weak self] in
-                self?.heightDidChanged?()
-            }
+        addSubview(selectionView) {
+            $0.pinToSuperview()
         }
     }
 

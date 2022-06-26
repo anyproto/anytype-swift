@@ -27,10 +27,12 @@ extension TextBlockContentView: CustomTextViewDelegate {
 
     func didBeginEditing() {
         actions?.textViewDidBeginEditing(textView.textView)
+        isFirstResponderValueChangeHandler?(true)
     }
     
     func didEndEditing() {
         actions?.textViewDidEndEditing(textView.textView)
+        isFirstResponderValueChangeHandler?(false)
     }
 
     func textViewDidChangeText(_ textView: UITextView) {
