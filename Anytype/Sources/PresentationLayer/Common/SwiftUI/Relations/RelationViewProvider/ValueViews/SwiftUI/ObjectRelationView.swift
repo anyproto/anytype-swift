@@ -7,7 +7,11 @@ struct ObjectRelationView: View {
     
     var body: some View {
         if options.isNotEmpty {
-            objectsList
+            if maxOptions > 0 {
+                moreObjectsView
+            } else {
+                objectsList
+            }
         } else {
             RelationsListRowPlaceholderView(hint: hint, style: style)
         }
@@ -43,6 +47,38 @@ struct ObjectRelationView: View {
         }
     }
     
+    private var moreObjectsView: some View {
+        let moreObjectsCount = (options.count - maxOptions) > 0 ? options.count - maxOptions : 0
+
+        return HStack(spacing: style.objectRelationStyle.hSpaсingObject) {
+            objectView(options: Array(options.prefix(maxOptions)))
+
+            if moreObjectsCount > 0 {
+                countView(count: moreObjectsCount)
+            }
+        }
+        .padding(.horizontal, 1)
+    }
+    
+    private func objectView(options: [Relation.Object.Option]) -> some View {
+        ForEach(options) { option in
+            objectView(option: option)
+        }
+    }
+    
+    private func countView(count: Int) -> some View {
+        let optionsCount = "+\(count)"
+
+        return TagView(
+            viewModel: TagView.Model(
+                text: optionsCount,
+                textColor: .textSecondary,
+                backgroundColor: UIColor.TagBackground.grey
+            ),
+            style: style
+        )
+    }
+    
     private func titleColor(option: Relation.Object.Option) -> Color {
         if option.isDeleted || option.isArchived {
             return .textTertiary
@@ -62,6 +98,13 @@ extension ObjectRelationView {
         let hSpaсingList: CGFloat
         let hSpaсingObject: CGFloat
         let size: CGSize
+    }
+    
+    private var maxOptions: Int {
+        switch style {
+        case .regular, .set, .featuredRelationBlock: return 0
+        case .filter: return 1
+        }
     }
 }
 
