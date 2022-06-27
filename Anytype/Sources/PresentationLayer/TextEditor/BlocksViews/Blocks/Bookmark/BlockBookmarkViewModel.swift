@@ -13,6 +13,8 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     let openUrl: (URL) -> ()
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
+        let backgroundColor = info.backgroundColor.map(UIColor.Background.uiColor(from:)) ?? nil
+
         switch bookmarkData.blockBookmarkState {
         case .none:
             return BlocksFileEmptyViewConfiguration(
@@ -24,7 +26,10 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
                 dragConfiguration: .init(id: info.id)
             )
         case let .fetched(payload):
-            return BlockBookmarkConfiguration(payload: payload)
+            return BlockBookmarkConfiguration(
+                payload: payload,
+                backgroundColor: backgroundColor
+            )
                 .cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
                 dragConfiguration: .init(id: info.id)

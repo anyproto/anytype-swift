@@ -5,10 +5,21 @@ struct BlockLinkContentConfiguration: BlockConfiguration {
     typealias View = BlockLinkView
 
     let state: BlockLinkState
-    let backgroundColor: UIColor
+    let backgroundColor: UIColor?
 }
 
 extension BlockLinkContentConfiguration {
+    var hasOwnBackground: Bool {
+        let layout = state.cardStyle
+
+        switch layout {
+        case .text:
+            return false
+        case .card:
+            return true
+        }
+    }
+
     var contentInsets: UIEdgeInsets {
         guard !state.deleted else {
             return UIEdgeInsets(top: 5, left: 20, bottom: -5, right: -20)
