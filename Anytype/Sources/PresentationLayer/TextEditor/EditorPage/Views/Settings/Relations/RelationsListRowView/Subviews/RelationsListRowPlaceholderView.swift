@@ -11,6 +11,8 @@ struct RelationsListRowPlaceholderView: View {
                 RelationsListRowHintView(hint: hint, style: style)
             case .empty:
                 Color.backgroundPrimary
+            case .emptyHint:
+                RelationsListRowHintView(hint: "Relation.View.Hint.Empty".localized, style: style)
             }
         }
     }

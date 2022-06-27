@@ -45,14 +45,13 @@ struct SetFilterRow: View {
     private var filterConditionView: some View {
         Group {
             if let subtitle = configuration.subtitle,
-                subtitle.isNotEmpty,
-                let relation = configuration.relation
+                subtitle.isNotEmpty
             {
                 HStack(spacing: 8) {
                     AnytypeText(subtitle, style: .relation1Regular, color: .textSecondary)
                     RelationValueView(
-                        relation: RelationItemModel(relation: relation),
-                        style: .featuredRelationBlock(allowMultiLine: false),
+                        relation: RelationItemModel(relation: configuration.relation),
+                        style: .filter,
                         action: nil
                     )
                 }
