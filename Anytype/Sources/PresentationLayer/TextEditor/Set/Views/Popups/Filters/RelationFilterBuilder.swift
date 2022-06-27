@@ -247,15 +247,19 @@ private extension RelationFilterBuilder {
         metadata: RelationMetadata,
         filter: DataviewFilter
     ) -> Relation {
-        let options: [Relation.Status.Option] = metadata.selections.map {
+        let statuses: [Relation.Status.Option] = metadata.selections.map {
             Relation.Status.Option(option: $0)
         }
         
-        let selectedOption: Relation.Status.Option? = {
-            let optionId = filter.value.unwrapedListValue.stringValue
-            guard optionId.isNotEmpty else { return nil }
+        let selectedStatuses: [Relation.Status.Option] = {
+            let selectedSatusesIds: [String] = filter.value.listValue.values.compactMap {
+                let statusId = $0.stringValue
+                return statusId.isEmpty ? nil : statusId
+            }
             
-            return options.first { $0.id == optionId }
+            return selectedSatusesIds.compactMap { id in
+                statuses.first { $0.id == id }
+            }
         }()
         
         return .status(
@@ -265,8 +269,8 @@ private extension RelationFilterBuilder {
                 isFeatured: false,
                 isEditable: false,
                 isBundled: metadata.isBundled,
-                value: selectedOption,
-                allOptions: options
+                values: selectedStatuses,
+                allOptions: statuses
             )
         )
     }

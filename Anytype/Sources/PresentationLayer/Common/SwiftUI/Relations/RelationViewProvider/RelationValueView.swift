@@ -26,7 +26,7 @@ struct RelationValueView: View {
             case .number(let text):
                 TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
             case .status(let status):
-                StatusRelationView(statusOption: status.value, hint: relation.hint, style: style)
+                StatusRelationView(options: status.values, hint: relation.hint, style: style)
             case .date(let date):
                 TextRelationFactory.swiftUI(value: date.textValue, hint: relation.hint, style: style)
             case .object(let object):
