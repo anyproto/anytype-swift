@@ -30,9 +30,7 @@ struct SetFilterRow: View {
             
             VStack(alignment: .leading, spacing: 2) {
                 AnytypeText(configuration.title, style: .uxTitle2Medium, color: .textPrimary)
-                if let subtitle = configuration.subtitle, subtitle.isNotEmpty {
-                    AnytypeText(subtitle, style: .relation1Regular, color: .textSecondary)
-                }
+                filterConditionView
             }
             
             Spacer()
@@ -42,5 +40,23 @@ struct SetFilterRow: View {
             }
         }
         .frame(height: 68)
+    }
+    
+    private var filterConditionView: some View {
+        Group {
+            if let subtitle = configuration.subtitle,
+                subtitle.isNotEmpty,
+                let relation = configuration.relation
+            {
+                HStack(spacing: 8) {
+                    AnytypeText(subtitle, style: .relation1Regular, color: .textSecondary)
+                    RelationValueView(
+                        relation: RelationItemModel(relation: relation),
+                        style: .featuredRelationBlock(allowMultiLine: false),
+                        action: nil
+                    )
+                }
+            }
+        }
     }
 }
