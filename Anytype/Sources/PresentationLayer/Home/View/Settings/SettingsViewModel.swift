@@ -97,13 +97,13 @@ extension UIUserInterfaceStyle: Identifiable {
     var title: String {
         switch self {
         case .light:
-            return "Light"
+            return Loc.InterfaceStyle.light
         case .dark:
-            return "Dark"
+            return Loc.InterfaceStyle.dark
         case .unspecified:
             fallthrough
         @unknown default:
-            return "System"
+            return Loc.InterfaceStyle.system
         }
     }
 

@@ -6,7 +6,7 @@ struct DashboardDeletionAlert: View {
     var body: some View {
         FloaterAlertView(
             title: Loc.areYouSureYouWantToDelete(model.numberOfSelectedPages),
-            description: "These objects will be deleted irrevocably. You can’t undo this action.".localized,
+            description: Loc.theseObjectsWillBeDeletedIrrevocably,
             leftButtonData: StandardButtonModel(text: Loc.cancel, style: .secondary) {
                 model.showPagesDeletionAlert = false
             },

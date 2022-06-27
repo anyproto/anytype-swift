@@ -38,8 +38,8 @@ struct DeletedAccountView: View {
             Spacer.fixedHeight(11)
             AnytypeText(Loc.pendingDeletionText, style: .uxCalloutRegular, color: .textPrimary)
             Spacer.fixedHeight(14)
-            SettingsButton(text: "Cancel deletion", textColor: .System.red) { viewModel.cancel() }
-            SettingsButton(text: "Logout and clear data", textColor: .System.red) { viewModel.logOut() }
+            SettingsButton(text: Loc.cancelDeletion, textColor: .System.red) { viewModel.cancel() }
+            SettingsButton(text: Loc.logoutAndClearData, textColor: .System.red) { viewModel.logOut() }
         }
     }
     

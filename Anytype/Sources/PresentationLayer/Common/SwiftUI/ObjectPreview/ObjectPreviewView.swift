@@ -82,7 +82,7 @@ struct ObjectPreviewView: View {
             Spacer.fixedWidth(10)
 
             if item.isLocked {
-                AnytypeText(item.name.localized, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(item.name, style: .uxBodyRegular, color: .textPrimary)
             } else {
                 AnytypeToggle(
                     title: item.name,

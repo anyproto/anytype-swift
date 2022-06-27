@@ -20,6 +20,8 @@ internal enum Loc {
   internal static let accessToSecretPhraseFromKeychain = Loc.tr("Localizable", "Access to secret phrase from keychain")
   /// Account
   internal static let account = Loc.tr("Localizable", "Account")
+  /// Account & data
+  internal static let accountData = Loc.tr("Localizable", "Account & data")
   /// Account deleted
   internal static let accountDeleted = Loc.tr("Localizable", "Account deleted")
   /// Account is deleted
@@ -132,6 +134,8 @@ internal enum Loc {
   internal static let callout = Loc.tr("Localizable", "Callout")
   /// Cancel
   internal static let cancel = Loc.tr("Localizable", "Cancel")
+  /// Cancel deletion
+  internal static let cancelDeletion = Loc.tr("Localizable", "Cancel deletion")
   /// Card
   internal static let card = Loc.tr("Localizable", "Card")
   /// Change cover
@@ -227,6 +231,8 @@ internal enum Loc {
   internal static let defaultObjectType = Loc.tr("Localizable", "Default object type")
   /// Delete
   internal static let delete = Loc.tr("Localizable", "Delete")
+  /// Delete account
+  internal static let deleteAccount = Loc.tr("Localizable", "Delete account")
   /// Deleted
   internal static let deleted = Loc.tr("Localizable", "Deleted")
   /// Deletion error
@@ -245,6 +251,8 @@ internal enum Loc {
   internal static let doNotHaveInvite = Loc.tr("Localizable", "Do not have invite")
   /// Done
   internal static let done = Loc.tr("Localizable", "Done")
+  /// Don’t forget to save your recovery phrase
+  internal static let donTForgetToSaveYourRecoveryPhrase = Loc.tr("Localizable", "Don’t forget to save your recovery phrase")
   /// Download
   internal static let download = Loc.tr("Localizable", "Download")
   /// Downloading or uploading data to some node
@@ -309,6 +317,8 @@ internal enum Loc {
   internal static let featuredRelations = Loc.tr("Localizable", "Featured relations")
   /// File
   internal static let file = Loc.tr("Localizable", "File")
+  /// File & Media
+  internal static let fileMedia = Loc.tr("Localizable", "File & Media")
   /// Store file in original state
   internal static let fileBlockSubtitle = Loc.tr("Localizable", "File block subtitle")
   /// Filter
@@ -393,6 +403,8 @@ internal enum Loc {
   internal static let login = Loc.tr("Localizable", "Login")
   /// Login error
   internal static let loginError = Loc.tr("Localizable", "Login error")
+  /// Logout and clear data
+  internal static let logoutAndClearData = Loc.tr("Localizable", "Logout and clear data")
   /// Logout error
   internal static let logoutError = Loc.tr("Localizable", "Logout error")
   /// Media
@@ -575,6 +587,9 @@ internal enum Loc {
   internal static let `set` = Loc.tr("Localizable", "Set")
   /// Sets
   internal static let sets = Loc.tr("Localizable", "Sets")
+  /// Setting up encrypted storage
+  /// Please wait
+  internal static let settingUpEncryptedStoragePleaseWait = Loc.tr("Localizable", "Setting up encrypted storage\nPlease wait")
   /// Setting up the wallet
   internal static let settingUpTheWallet = Loc.tr("Localizable", "Setting up the wallet")
   /// Settings
@@ -643,6 +658,10 @@ internal enum Loc {
   internal static func thereIsNoRelationNamed(_ p1: UnsafePointer<CChar>) -> String {
     return Loc.tr("Localizable", "There is no relation named", p1)
   }
+  /// These objects will be deleted irrevocably. You can’t undo this action.
+  internal static let theseObjectsWillBeDeletedIrrevocably = Loc.tr("Localizable", "These objects will be deleted irrevocably")
+  /// This object doesn't exist
+  internal static let thisObjectDoesnTExist = Loc.tr("Localizable", "This object doesn't exist")
   /// Title
   internal static let title = Loc.tr("Localizable", "Title")
   /// Big section heading
@@ -746,11 +765,9 @@ internal enum Loc {
       internal static let button = Loc.tr("Localizable", "Alert.Templates_Available.Button")
       /// Swipe down to skip
       internal static let description = Loc.tr("Localizable", "Alert.Templates_Available.Description")
-      internal enum Title {
-        /// This type has
-        internal static let first = Loc.tr("Localizable", "Alert.Templates_Available.Title.First")
-        /// templates
-        internal static let second = Loc.tr("Localizable", "Alert.Templates_Available.Title.Second")
+      /// This type has %d templates
+      internal static func title(_ p1: Int) -> String {
+        return Loc.tr("Localizable", "Alert.Templates_Available.Title", p1)
       }
     }
   }
@@ -758,6 +775,24 @@ internal enum Loc {
   internal enum Auth {
     /// Camera access required to scan QR code
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle")
+  }
+
+  internal enum DataviewType {
+    /// gallery
+    internal static let gallery = Loc.tr("Localizable", "DataviewType.gallery")
+    /// kanban
+    internal static let kanban = Loc.tr("Localizable", "DataviewType.kanban")
+    /// list
+    internal static let list = Loc.tr("Localizable", "DataviewType.list")
+    /// table
+    internal static let table = Loc.tr("Localizable", "DataviewType.table")
+  }
+
+  internal enum DeletionAlert {
+    /// You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently
+    internal static let description = Loc.tr("Localizable", "DeletionAlert.description")
+    /// Are you sure to delete account?
+    internal static let title = Loc.tr("Localizable", "DeletionAlert.title")
   }
 
   internal enum EditFilters {
@@ -839,6 +874,15 @@ internal enum Loc {
     internal static let duplicate = Loc.tr("Localizable", "General.Duplicate")
   }
 
+  internal enum InterfaceStyle {
+    /// Dark
+    internal static let dark = Loc.tr("Localizable", "InterfaceStyle.dark")
+    /// Light
+    internal static let light = Loc.tr("Localizable", "InterfaceStyle.light")
+    /// System
+    internal static let system = Loc.tr("Localizable", "InterfaceStyle.system")
+  }
+
   internal enum LinkAppearance {
     internal enum Description {
       internal enum Added {
@@ -864,6 +908,27 @@ internal enum Loc {
       /// Object type
       internal static let title = Loc.tr("Localizable", "LinkAppearance.ObjectType.Title")
     }
+  }
+
+  internal enum ObjectType {
+    /// Blank canvas with no title
+    internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription")
+  }
+
+  internal enum QuickAction {
+    /// Create %s
+    internal static func create(_ p1: UnsafePointer<CChar>) -> String {
+      return Loc.tr("Localizable", "QuickAction.create", p1)
+    }
+  }
+
+  internal enum RedactedText {
+    /// Wake up, Neo
+    internal static let pageTitle = Loc.tr("Localizable", "RedactedText.pageTitle")
+    /// Red pill
+    internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType")
+    /// You wake up in your bed and believe whatever you want to. You take the red pill, you stay in Wonderland, and I show you how deep the rabbit hole goes.
+    internal static let seedPhrase = Loc.tr("Localizable", "RedactedText.seedPhrase")
   }
 
   internal enum SlashMenu {

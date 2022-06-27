@@ -134,6 +134,7 @@
 "Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
 "Save keychain alert part 2" = "ever access your data again";
 "Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
+"Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
 
 // Auth
 "Welcome to Anytype" = "Welcome to Anytype";
@@ -251,8 +252,7 @@
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title.First" = "This type has";
-"Alert.Templates_Available.Title.Second" = "templates";
+"Alert.Templates_Available.Title" = "This type has %d templates";
 "Alert.Templates_Available.Description" = "Swipe down to skip";
 "Alert.Templates_Available.Button" = "Show";
 "TemplatePicker.ChooseTemplate" = "Choose template";
@@ -449,3 +449,37 @@
 "Connection refused" = "Connection refused. Please, try again";
 "Companies, contacts, friends and family" = "Companies, contacts, friends and family";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";
+"This object doesn't exist" = "This object doesn't exist";
+"Account & data" = "Account & data";
+"File & Media" = "File & Media";
+"Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
+"These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
+"Delete account" = "Delete account";
+"Cancel deletion" = "Cancel deletion";
+"Logout and clear data" = "Logout and clear data";
+
+// MARK: - DeletionAlert
+"DeletionAlert.title" = "Are you sure to delete account?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
+
+// MARK: - DataviewType
+"DataviewType.table" = "table";
+"DataviewType.list" = "list";
+"DataviewType.gallery" = "gallery";
+"DataviewType.kanban" = "kanban";
+
+// MARK: - ObjectType
+"ObjectType.fallbackDescription" = "Blank canvas with no title";
+
+// MARK: - QuickAction
+"QuickAction.create" = "Create %s";
+
+// MARK: - RedactedText
+"RedactedText.seedPhrase" = "You wake up in your bed and believe whatever you want to. You take the red pill, you stay in Wonderland, and I show you how deep the rabbit hole goes.";
+"RedactedText.pageTitle" = "Wake up, Neo";
+"RedactedText.pageType" = "Red pill";
+
+// MARK: - InterfaceStyle
+"InterfaceStyle.light" = "Light";
+"InterfaceStyle.dark" = "Dark";
+"InterfaceStyle.system" = "System";

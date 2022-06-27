@@ -58,7 +58,7 @@ struct EditorSetViewSettingsView: View {
             AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .textPrimary)
             Spacer.fixedHeight(12)
             
-            AnytypeToggle(title: "Icon", isOn: !setModel.activeView.hideIcon) {
+            AnytypeToggle(title: Loc.icon, isOn: !setModel.activeView.hideIcon) {
                 model.onShowIconChange($0)
             }
             .padding(.bottom, 10)

@@ -7,7 +7,7 @@ struct DashboardLogoutAlert: View {
     
     var body: some View {
         FloaterAlertView(
-            title: "Have you backed up your recovery phrase?".localized,
+            title: Loc.haveYouBackedUpYourRecoveryPhrase,
             description: Loc.recoveryPhraseDescription,
             leftButtonData: StandardButtonModel(disabled: isLogoutInProgress, text: Loc.backUpPhrase, style: .secondary) {
                 model.keychain = true

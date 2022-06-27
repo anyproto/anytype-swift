@@ -25,7 +25,7 @@ struct SettingsAccountView: View {
     private var header: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(12)
-            AnytypeText("Account & data".localized, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(Loc.accountData, style: .uxTitle1Semibold, color: .textPrimary)
             Spacer.fixedHeight(12)
         }
     }
@@ -55,7 +55,7 @@ struct SettingsAccountView: View {
     private var dataBlock: some View {
         VStack(spacing: 0) {
             section(Loc.data)
-            SettingsButton(text: "Clear file cache", textColor: .textPrimary) {
+            SettingsButton(text: Loc.clearFileCache, textColor: .textPrimary) {
                 model.clearCacheAlert = true
             }
         }
@@ -65,11 +65,11 @@ struct SettingsAccountView: View {
         VStack(spacing: 0) {
             section(Loc.account)
             if FeatureFlags.deletion {
-                SettingsButton(text: "Delete account", textColor: .textPrimary) {
+                SettingsButton(text: Loc.deleteAccount, textColor: .textPrimary) {
                     model.accountDeleting = true
                 }
             }
-            SettingsButton(text: "Log out", textColor: .System.red) {
+            SettingsButton(text: Loc.logOut, textColor: .System.red) {
                 model.loggingOut = true
             }
          }

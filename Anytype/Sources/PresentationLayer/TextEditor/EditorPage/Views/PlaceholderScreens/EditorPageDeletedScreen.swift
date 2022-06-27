@@ -31,7 +31,7 @@ final class EditorPageDeletedScreen: UIView {
     // MARK: - Views
     private func buildText() -> AnytypeLabel {
         let view = AnytypeLabel(style: .heading)
-        view.setText("This object doesn't exist".localized)
+        view.setText(Loc.thisObjectDoesnTExist)
         view.textColor = .textPrimary
         view.textAlignment = .center
         return view

@@ -72,7 +72,7 @@ struct SettingsAppearanceView: View {
                 .padding(.bottom, 8)
 
             AnytypeText(
-                style.title.localized,
+                style.title,
                 style: .caption2Regular,
                 color: .textSecondary
             ).frame(maxWidth: .infinity)

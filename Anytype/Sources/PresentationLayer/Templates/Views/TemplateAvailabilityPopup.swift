@@ -23,7 +23,7 @@ final class TemplateAvailabilityPopupView: UIView {
         with templatesCount: Int,
         onShowAction: @escaping () -> Void
     ) {
-        titleLabel.text = "Alert.Templates_Available.Title.First".localized + " \(templatesCount) " + "Alert.Templates_Available.Title.Second".localized
+        titleLabel.text = Loc.Alert.TemplatesAvailable.title(templatesCount)
 
         let action = UIAction { _ in
             onShowAction()
@@ -36,11 +36,11 @@ final class TemplateAvailabilityPopupView: UIView {
         titleLabel.font = .bodyRegular
         titleLabel.textColor = .textPrimary
 
-        descriptionLabel.text = "Alert.Templates_Available.Description".localized
+        descriptionLabel.text = Loc.Alert.TemplatesAvailable.description
         descriptionLabel.font = .relation3Regular
         descriptionLabel.textColor = .textSecondary
 
-        button.setTitle("Alert.Templates_Available.Button".localized, for: .normal)
+        button.setTitle(Loc.Alert.TemplatesAvailable.button, for: .normal)
         button.setTitleColor(.textPrimary, for: .normal)
         button.titleLabel?.font = .calloutRegular
         button.widthAnchor.constraint(equalToConstant: 80).isActive = true

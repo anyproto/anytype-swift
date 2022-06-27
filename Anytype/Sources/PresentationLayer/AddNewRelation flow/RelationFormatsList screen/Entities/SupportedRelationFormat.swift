@@ -45,7 +45,7 @@ extension SupportedRelationFormat {
         case .number: return Loc.numbers
         case .status: return Loc.status
         case .date: return Loc.date
-        case .file: return "File & Media".localized
+        case .file: return Loc.fileMedia
         case .checkbox: return Loc.checkbox
         case .url: return Loc.url
         case .email: return Loc.email
