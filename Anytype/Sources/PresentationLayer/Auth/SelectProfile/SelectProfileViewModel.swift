@@ -87,9 +87,9 @@ private extension SelectProfileViewModel {
             case .pendingDeletion(let deadline):
                 WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
             case .deleted:
-                self.errorText = "Account deleted".localized
+                self.errorText = Loc.accountDeleted
             case .none:
-                self.errorText = "Select account error".localized
+                self.errorText = Loc.selectAccountError
             }
         }
     }

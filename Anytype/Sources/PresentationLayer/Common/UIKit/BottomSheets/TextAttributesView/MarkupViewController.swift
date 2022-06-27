@@ -50,11 +50,11 @@ final class MarkupsViewController: UIViewController {
         self?.viewModel.handle(action: .toggleMarkup(.strikethrough))
     }.addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
 
-    private lazy var codeButton = makeButton(text: "Code".localized) { [weak self] in
+    private lazy var codeButton = makeButton(text: Loc.code) { [weak self] in
         self?.viewModel.handle(action: .toggleMarkup(.keyboard))
     }.addBorders(edges: [.right, .bottom], width: 1, color: .strokePrimary)
 
-    private lazy var urlButton = makeButton(text: "Link".localized, action: {})
+    private lazy var urlButton = makeButton(text: Loc.link, action: {})
         .addBorders(edges: [.bottom], width: 1, color: .strokePrimary)
 
     private lazy var leftAlignButton: ButtonWithImage = {

@@ -46,27 +46,27 @@ enum BlockColor: CaseIterable {
     var title: String {
         switch self {
         case .black:
-            return "Black".localized
+            return Loc.black
         case .lemon:
-            return "Yellow".localized
+            return Loc.yellow
         case .amber:
-            return "Amber".localized
+            return Loc.amber
         case .red:
-            return "Red".localized
+            return Loc.red
         case .pink:
-            return "Pink".localized
+            return Loc.pink
         case .purple:
-            return "Purple".localized
+            return Loc.purple
         case .blue:
-            return "Blue".localized
+            return Loc.blue
         case .sky:
-            return "Sky".localized
+            return Loc.sky
         case .teal:
-            return "Teal".localized
+            return Loc.teal
         case .green:
-            return "Green".localized
+            return Loc.green
         case .gray:
-            return "Grey".localized
+            return Loc.grey
         }
     }
     

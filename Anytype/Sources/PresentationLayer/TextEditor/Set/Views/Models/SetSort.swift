@@ -14,27 +14,27 @@ struct SetSort: Identifiable, Equatable, Hashable {
         switch metadata.format {
         case .object, .tag, .status:
             if sortType == .asc {
-                return "EditSorts.Popup.Sort.Type.Order.Asc".localized
+                return Loc.EditSorts.Popup.SortType.Order.asc
             } else {
-                return "EditSorts.Popup.Sort.Type.Order.Desc".localized
+                return Loc.EditSorts.Popup.SortType.Order.desc
             }
         case .number, .date, .phone:
             if sortType == .asc {
-                return "EditSorts.Popup.Sort.Type.Number.Asc".localized
+                return Loc.EditSorts.Popup.SortType.Number.asc
             } else {
-                return "EditSorts.Popup.Sort.Type.Number.Desc".localized
+                return Loc.EditSorts.Popup.SortType.Number.desc
             }
         case .longText, .shortText, .file, .url, .email, .unrecognized:
             if sortType == .asc {
-                return "EditSorts.Popup.Sort.Type.Text.Asc".localized
+                return Loc.EditSorts.Popup.SortType.Text.asc
             } else {
-                return "EditSorts.Popup.Sort.Type.Text.Desc".localized
+                return Loc.EditSorts.Popup.SortType.Text.desc
             }
         case .checkbox:
             if sortType == .asc {
-                return "EditSorts.Popup.Sort.Type.Checkbox.Asc".localized
+                return Loc.EditSorts.Popup.SortType.Checkbox.asc
             } else {
-                return "EditSorts.Popup.Sort.Type.Checkbox.Desc".localized
+                return Loc.EditSorts.Popup.SortType.Checkbox.desc
             }
         }
     }

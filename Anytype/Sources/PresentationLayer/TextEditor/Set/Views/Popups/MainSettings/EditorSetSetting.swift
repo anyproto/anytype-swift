@@ -13,15 +13,15 @@ enum EditorSetSetting: CaseIterable, Identifiable {
     var name: String {
         switch self {
 //        case .view:
-//            return "View".localized
+//            return Loc.view
         case .settings:
-            return "Settings".localized
+            return Loc.settings
         case .sort:
-            return "Sort".localized
+            return Loc.sort
         case .filter:
-            return "Filter".localized
+            return Loc.filter
 //        case .group:
-//            return "Group".localized
+//            return Loc.group
         }
     }
     

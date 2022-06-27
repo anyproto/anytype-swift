@@ -37,7 +37,7 @@ final class EditorNavigationBarHelper {
         self.settingsItem = UIEditorBarButtonItem(image: .more, action: onSettingsBarButtonItemTap)
 
         self.doneBarButtonItem = UIBarButtonItem(
-            title: "Done".localized,
+            title: Loc.done,
             image: nil,
             primaryAction: UIAction(handler: { _ in onDoneBarButtonItemTap() }),
             menu: nil
@@ -123,14 +123,14 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             let title: String
             switch blocks.count {
             case 1:
-                title = "\(blocks.count) " + "selected block".localized
+                title = "\(blocks.count) " + Loc.selectedBlock
             default:
-                title = "\(blocks.count) " + "selected blocks".localized
+                title = "\(blocks.count) " + Loc.selectedBlocks
             }
             navigationBarTitleView.configure(model: .modeTitle(title))
             navigationBarTitleView.setIsLocked(false)
         case .moving:
-            let title = "Editor.MovingState.ScrollToSelectedPlace".localized
+            let title = Loc.Editor.MovingState.scrollToSelectedPlace
             navigationBarTitleView.configure(model: .modeTitle(title))
             controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
             navigationBarTitleView.setIsLocked(false)

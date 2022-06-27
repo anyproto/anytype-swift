@@ -55,7 +55,7 @@ struct HomeCell: View {
     }
     
     private func defaultTitle(with text: String, lineLimit: Int?) -> some View {
-        var titleString = text.isEmpty ? "Untitled".localized : text
+        var titleString = text.isEmpty ? Loc.untitled : text
         titleString = isRedacted ? RedactedText.pageTitle : titleString
         
         return AnytypeText(titleString, style: .previewTitle2Medium, color: .textPrimary)

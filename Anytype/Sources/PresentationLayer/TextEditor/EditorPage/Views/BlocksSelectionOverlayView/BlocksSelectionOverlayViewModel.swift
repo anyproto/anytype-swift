@@ -16,16 +16,16 @@ final class BlocksSelectionOverlayViewModel {
         isBlocksOptionViewVisible = count != 0
         switch count {
         case 1:
-            navigationTitle = "\(count) " + "selected block".localized
+            navigationTitle = "\(count) " + Loc.selectedBlock
         default:
-            navigationTitle = "\(count) " + "selected blocks".localized
+            navigationTitle = "\(count) " + Loc.selectedBlocks
         }
     }
 
     func setNeedsUpdateForMovingState() {
         isMovingButtonsVisible = true
         isBlocksOptionViewVisible = false
-        navigationTitle = "Editor.MovingState.ScrollToSelectedPlace".localized
+        navigationTitle = Loc.Editor.MovingState.scrollToSelectedPlace
     }
 }
 

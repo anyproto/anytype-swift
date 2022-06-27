@@ -46,7 +46,7 @@ struct CreateNewProfileView: View {
             Spacer.fixedHeight(11)
             
             HStack {
-                AnytypeText("New profile".localized, style: .caption1Regular, color: .textSecondary)
+                AnytypeText(Loc.newProfile, style: .caption1Regular, color: .textSecondary)
                 Spacer()
             }
             Spacer.fixedHeight(6)
@@ -55,7 +55,7 @@ struct CreateNewProfileView: View {
                 .foregroundColor(.textPrimary)
                 .font(AnytypeFontBuilder.font(anytypeFont: .heading))
                 .placeholder(when: signUpData.userName.isEmpty) {
-                    AnytypeText("Enter your name".localized, style: .heading, color: .textTertiary)
+                    AnytypeText(Loc.enterYourName, style: .heading, color: .textTertiary)
                 }
                 .disableAutocorrection(true)
                 .divider(spacing: 10)
@@ -70,14 +70,14 @@ struct CreateNewProfileView: View {
     
     private var buttons: some View {
         HStack(spacing: 10) {
-            StandardButton(disabled: false, text: "Back".localized, style: .secondary) {
+            StandardButton(disabled: false, text: Loc.back, style: .secondary) {
                 self.presentationMode.wrappedValue.dismiss()
             }
             
             NavigationLink(
                 destination: viewModel.showSetupWallet(signUpData: signUpData, showWaitingView: $showCreateNewProfile)
             ) {
-                StandardButtonView(disabled: signUpData.userName.isEmpty, text: "Create".localized, style: .primary)
+                StandardButtonView(disabled: signUpData.userName.isEmpty, text: Loc.create, style: .primary)
             }
             .disabled(signUpData.userName.isEmpty)
             .buttonStyle(ShrinkingButtonStyle())

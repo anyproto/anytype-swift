@@ -14,7 +14,7 @@ struct ObjectPreviewView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            TitleView(title: "Preview".localized)
+            TitleView(title: Loc.preview)
             mainSection
             featuredRealtionSection
         }
@@ -32,19 +32,19 @@ struct ObjectPreviewView: View {
     }
 
     private func iconSize(_ iconSize: ObjectPreviewModel.IconSize) -> some View {
-        menuRow(name: "Icon".localized, value: iconSize.name) {
+        menuRow(name: Loc.icon, value: iconSize.name) {
             viewModel.showIconMenu()
         }
     }
 
     private func cardStyle(_ cardStyle: ObjectPreviewModel.CardStyle) -> some View {
-        menuRow(name: "Preview layout".localized, value: cardStyle.name) {
+        menuRow(name: Loc.previewLayout, value: cardStyle.name) {
             viewModel.showLayoutMenu()
         }
     }
 
     private func description(_ description: ObjectPreviewModel.Description) -> some View {
-        menuRow(name: "Description".localized, icon: description.iconName, value: description.name) {
+        menuRow(name: Loc.description, icon: description.iconName, value: description.name) {
             viewModel.showDescriptionMenu()
         }
     }
@@ -53,7 +53,7 @@ struct ObjectPreviewView: View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(spacing: 0) {
                 Spacer()
-                AnytypeText("Featured relations".localized, style: .caption1Regular, color: .textSecondary)
+                AnytypeText(Loc.featuredRelations, style: .caption1Regular, color: .textSecondary)
                     .padding(.bottom, 8)
             }
             .frame(height: 52)

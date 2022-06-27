@@ -36,7 +36,7 @@ struct StatusRelationDetailsView: View {
                     StatusSearchRowView(viewModel: currentStatusModel)
                 }
             } else {
-                AnytypeText("No related options here. You can add some".localized, style: .uxCalloutRegular, color: .textTertiary)
+                AnytypeText(Loc.NoRelatedOptionsHere.youCanAddSome, style: .uxCalloutRegular, color: .textTertiary)
                     .frame(height: 48)
             }
         }
@@ -54,7 +54,7 @@ private extension StatusRelationDetailsView {
                 viewModel.didTapClearButton()
             }
         } label: {
-            AnytypeText("Clear".localized, style: .uxBodyRegular, color: .buttonActive)
+            AnytypeText(Loc.clear, style: .uxBodyRegular, color: .buttonActive)
         }
     }
     

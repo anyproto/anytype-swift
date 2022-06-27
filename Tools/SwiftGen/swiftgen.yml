@@ -12,6 +12,7 @@ xcassets:
 strings:
   inputs: 
     - ../../Anytype/Resources/Strings/en.lproj/Localizable.strings
+    - ../../Anytype/Resources/Strings/en.lproj/Localizable.stringsdict
   outputs:
     - templateName: structured-swift5
       output: ../../Anytype/Generated/Strings.swift

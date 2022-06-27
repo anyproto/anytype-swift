@@ -10,10 +10,10 @@ struct KeychainPhraseView: View {
         VStack(alignment: .center, spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(53)
-            AnytypeText("Back up your recovery phrase".localized, style: .title, color: .textPrimary)
+            AnytypeText(Loc.backUpYourRecoveryPhrase, style: .title, color: .textPrimary)
                 .multilineTextAlignment(.center)
             Spacer.fixedHeight(25)
-            AnytypeText("Recovery phrase description".localized, style: .uxBodyRegular, color: .textPrimary)
+            AnytypeText(Loc.recoveryPhraseDescription, style: .uxBodyRegular, color: .textPrimary)
             Spacer.fixedHeight(34)
             SeedPhraseView {
                 showSnackbar = true
@@ -29,7 +29,7 @@ struct KeychainPhraseView: View {
         }
         .snackbar(
             isShowing: $showSnackbar,
-            text: AnytypeText("Recovery phrase copied to clipboard".localized, style: .uxCalloutRegular, color: .textPrimary)
+            text: AnytypeText(Loc.recoveryPhraseCopiedToClipboard, style: .uxCalloutRegular, color: .textPrimary)
         )
 
     }

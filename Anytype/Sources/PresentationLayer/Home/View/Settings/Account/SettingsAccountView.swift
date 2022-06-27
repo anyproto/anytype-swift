@@ -32,14 +32,14 @@ struct SettingsAccountView: View {
     
     private var accessBlock: some View {
         VStack(spacing: 0) {
-            section("Access".localized)
+            section(Loc.access)
             recoveryPhrase
         }
     }
     
     private var recoveryPhrase: some View {
         SettingsSectionItemView(
-            name: "Recovery phrase".localized,
+            name: Loc.recoveryPhrase,
             icon: .settings.keychain,
             pressed: $model.keychain
         )
@@ -54,7 +54,7 @@ struct SettingsAccountView: View {
     
     private var dataBlock: some View {
         VStack(spacing: 0) {
-            section("Data".localized)
+            section(Loc.data)
             SettingsButton(text: "Clear file cache", textColor: .textPrimary) {
                 model.clearCacheAlert = true
             }
@@ -63,7 +63,7 @@ struct SettingsAccountView: View {
 
     private var accountBlock: some View {
         VStack(spacing: 0) {
-            section("Account".localized)
+            section(Loc.account)
             if FeatureFlags.deletion {
                 SettingsButton(text: "Delete account", textColor: .textPrimary) {
                     model.accountDeleting = true

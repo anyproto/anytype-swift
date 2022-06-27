@@ -8,7 +8,7 @@ struct WallpaperPickerView: View {
         VStack(alignment: .center) {
             DragIndicator()
             Spacer.fixedHeight(12)
-            AnytypeText("Change wallpaper".localized, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(Loc.changeWallpaper, style: .uxTitle1Semibold, color: .textPrimary)
             Spacer.fixedHeight(12)
             WallpaperColorsGridView() { background in
                 model.wallpaper = background

@@ -22,7 +22,7 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     var onDismiss: () -> () = { }
 
     var placeholder: String {
-        return "Paste link or search objects".localized
+        return Loc.pasteLinkOrSearchObjects
     }
 
     func search(text: String) {
@@ -41,18 +41,18 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
                 searchTitle: text,
                 iconImage: .image(icon))
 
-            let webSection = SearchDataSection(searchData: [webSearchData], sectionName: "Web pages".localized)
+            let webSection = SearchDataSection(searchData: [webSearchData], sectionName: Loc.webPages)
             searchData.append(webSection)
 
             let createObjectIcon = UIImage.createImage("createNewObject")
-            let title = "Create object".localized + "  " + "\"" + text + "\""
+            let title = Loc.createObject + "  " + "\"" + text + "\""
             let createObjectData = LinkToObjectSearchData(searchKind: .createObject(text),
                                                           searchTitle: title,
                                                           iconImage: .image(createObjectIcon))
             objectData?.insert(createObjectData, at: 0)
         }
 
-        searchData.append(SearchDataSection(searchData: objectData ?? [], sectionName: "Objects".localized))
+        searchData.append(SearchDataSection(searchData: objectData ?? [], sectionName: Loc.objects))
     }
 
     init(onSelect: @escaping (SearchDataType) -> ()) {

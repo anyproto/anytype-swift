@@ -129,8 +129,8 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
 private extension RelationEditingViewModelBuilder {
     
     enum Constants {
-        static let objectsOptionsPlaceholder = "Empty".localized
-        static let tagsOrFilesOptionsPlaceholder = "No related options here. You can add some".localized
+        static let objectsOptionsPlaceholder = Loc.empty
+        static let tagsOrFilesOptionsPlaceholder = Loc.NoRelatedOptionsHere.youCanAddSome
     }
     
 }

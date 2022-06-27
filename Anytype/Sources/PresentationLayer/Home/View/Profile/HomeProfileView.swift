@@ -91,7 +91,7 @@ struct HomeProfileView: View {
     
     private func slogan(containerHeight: CGFloat) -> some View {
         Group {
-            AnytypeText("The future will be the one you build".localized, style: .title, color: .white)
+            AnytypeText(Loc.theFutureWillBeTheOneYouBuild, style: .title, color: .white)
                 .padding()
                 .multilineTextAlignment(.center)
                 .lineLimit(nil)

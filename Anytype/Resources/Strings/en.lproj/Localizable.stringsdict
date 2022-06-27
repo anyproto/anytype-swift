@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Are you sure you want to delete</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@object@</string>
+		<key>object</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>Are you sure you want to delete %d object?</string>
+			<key>other</key>
+			<string>Are you sure you want to delete %d objects?</string>
+		</dict>
+	</dict>
+	<key>Object selected</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@object@</string>
+		<key>object</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d object selected</string>
+			<key>other</key>
+			<string>%d objects selected</string>
+		</dict>
+	</dict>
+</dict>
+</plist>

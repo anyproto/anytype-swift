@@ -16,7 +16,7 @@ enum AuthServiceError: Error, LocalizedError {
         case .recoverAccountError(let code):
             switch code {
             case .accountIsDeleted:
-                return "Account is deleted".localized
+                return Loc.accountIsDeleted
             case .badInput, .anotherAnytypeProcessIsRunning, .failedToCreateLocalRepo, .failedToRunNode, .failedToStopRunningNode, .unknownError, .noAccountsFound, .needToRecoverWalletFirst, .localRepoExistsButCorrupted, .walletRecoverNotPerformed:
                 return Loc.accountRecoverError
             case .UNRECOGNIZED, .null:

@@ -7,7 +7,7 @@ struct DefaultTypePicker: View {
     
     var body: some View {
         NewSearchModuleAssembly.objectTypeSearchModule(
-            title: "Choose default object type".localized,
+            title: Loc.chooseDefaultObjectType,
             excludedObjectTypeId: ObjectTypeUrl.bundled(.bookmark).rawValue
         ) { [weak model] id in
             ObjectTypeProvider.shared.objectType(url: id).flatMap {

@@ -65,7 +65,7 @@ class LoginViewModel: ObservableObject {
     }
 
     func restoreFromkeychain() {
-        LocalAuth.auth(reason: "Restore secret phrase from keychain".localized) { [unowned self] didComplete in
+        LocalAuth.auth(reason: Loc.restoreSecretPhraseFromKeychain) { [unowned self] didComplete in
             guard didComplete,
                   let phrase = try? seedService.obtainSeed() else {
                 return

@@ -74,27 +74,27 @@ enum BlockBackgroundColor: CaseIterable {
     var title: String {
         switch self {
         case .lemon:
-            return "Yellow background".localized
+            return Loc.yellowBackground
         case .default:
-            return "Default background".localized
+            return Loc.defaultBackground
         case .amber:
-            return "Amber background".localized
+            return Loc.amberBackground
         case .red:
-            return "Red background".localized
+            return Loc.redBackground
         case .pink:
-            return "Pink background".localized
+            return Loc.pinkBackground
         case .purple:
-            return "Purple background".localized
+            return Loc.purpleBackground
         case .sky:
-            return "Sky background".localized
+            return Loc.skyBackground
         case .blue:
-            return "Blue background".localized
+            return Loc.blueBackground
         case .teal:
-            return "Teal background".localized
+            return Loc.tealBackground
         case .green:
-            return "Green background".localized
+            return Loc.greenBackground
         case .gray:
-            return "Grey background".localized
+            return Loc.greyBackground
         }
     }
     

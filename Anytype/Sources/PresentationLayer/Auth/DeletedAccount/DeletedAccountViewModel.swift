@@ -24,14 +24,14 @@ final class DeletedAccountViewModel: ObservableObject {
     var title: String {
         let dayText: String
         if daysToDeletion == 0 {
-            dayText = "today".localized
+            dayText = Loc.DeleteAccount.today
         } else if daysToDeletion == 1 {
-            dayText = "tomorrow".localized
+            dayText = Loc.DeleteAccount.tomorrow
         } else {
-            dayText = "\("in".localized) \(daysToDeletion) \("days".localized)"
+            dayText = "\(Loc.in) \(daysToDeletion) \(Loc.days)"
         }
         
-        let localizedPrefix = "This account will be deleted".localized
+        let localizedPrefix = Loc.thisAccountWillBeDeleted
         return "\(localizedPrefix) \(dayText)"
     }
     

@@ -12,9 +12,9 @@ enum ObjectActionsServiceError: Error {
     var message: String {
         switch self {
         case .nothingToUndo:
-            return "Nothing to undo".localized
+            return Loc.nothingToUndo
         case .nothingToRedo:
-            return "Nothing to redo".localized
+            return Loc.nothingToRedo
         }
     }
 }
