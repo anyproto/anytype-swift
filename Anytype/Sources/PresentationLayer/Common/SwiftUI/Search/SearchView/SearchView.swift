@@ -78,7 +78,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
         VStack(alignment: .center) {
             Spacer()
             AnytypeText(
-                "\(Loc.thereIsNoObjectNamed) \"\(searchText)\"",
+                Loc.thereIsNoObjectNamed(searchText),
                 style: .uxBodyRegular,
                 color: .textPrimary
             )

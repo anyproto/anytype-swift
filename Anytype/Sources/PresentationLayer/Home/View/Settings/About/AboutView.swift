@@ -48,7 +48,7 @@ struct AboutView: View {
         Button {
             UISelectionFeedbackGenerator().selectionChanged()
             UIPasteboard.general.string = value
-            homeModel.snackBarData = .init(text: "\(label) " + Loc.copiedToClipboard, showSnackBar: true)
+            homeModel.snackBarData = .init(text: Loc.copiedToClipboard(label), showSnackBar: true)
         } label: {
             HStack(alignment: .top) {
                 AnytypeText(label, style: .uxBodyRegular, color: .textSecondary)

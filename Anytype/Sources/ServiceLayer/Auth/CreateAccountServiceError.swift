@@ -42,8 +42,8 @@ extension CreateAccountServiceError {
         case .unknownError: return Loc.unknownError
         case .badInviteCode: return Loc.invalidInvitationCode
         case .networkError: return Loc.failedToCreateYourAccountDueToANetworkError
-        case .networkConnectionRefused: return Loc.ConnectionRefused.pleaseTryAgain
-        case .networkOffline: return Loc.YourDeviceSeemsToBeOffline.pleaseCheckYourConnectionAndTryAgain
+        case .networkConnectionRefused: return Loc.connectionRefused
+        case .networkOffline: return Loc.yourDeviceSeemsToBeOffline
         }
     }
     

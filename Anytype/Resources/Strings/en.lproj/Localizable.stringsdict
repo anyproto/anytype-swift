@@ -5,7 +5,7 @@
 	<key>Are you sure you want to delete</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
-		<string>%#@object@</string>
+		<string>Are you sure you want to delete %#@object@?</string>
 		<key>object</key>
 		<dict>
 			<key>NSStringFormatSpecTypeKey</key>
@@ -13,12 +13,28 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>Are you sure you want to delete %d object?</string>
+			<string>%d object</string>
 			<key>other</key>
-			<string>Are you sure you want to delete %d objects?</string>
+			<string>%d objects</string>
 		</dict>
 	</dict>
 	<key>Object selected</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>%#@object@ selected</string>
+		<key>object</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>one</key>
+			<string>%d object</string>
+			<key>other</key>
+			<string>%d objects</string>
+		</dict>
+	</dict>
+	<key>Selected blocks</key>
 	<dict>
 		<key>NSStringLocalizedFormatKey</key>
 		<string>%#@object@</string>
@@ -29,9 +45,27 @@
 			<key>NSStringFormatValueTypeKey</key>
 			<string>d</string>
 			<key>one</key>
-			<string>%d object selected</string>
+			<string>%d selected block</string>
 			<key>other</key>
-			<string>%d objects selected</string>
+			<string>%d selected blocks</string>
+		</dict>
+	</dict>
+	<key>Days to deletion account</key>
+	<dict>
+		<key>NSStringLocalizedFormatKey</key>
+		<string>This account will be deleted %#@days@</string>
+		<key>days</key>
+		<dict>
+			<key>NSStringFormatSpecTypeKey</key>
+			<string>NSStringPluralRuleType</string>
+			<key>NSStringFormatValueTypeKey</key>
+			<string>d</string>
+			<key>zero</key>
+			<string>today</string>
+			<key>one</key>
+			<string>tomorrow</string>
+			<key>other</key>
+			<string>in %d days</string>
 		</dict>
 	</dict>
 </dict>

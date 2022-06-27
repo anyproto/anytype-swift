@@ -102,9 +102,6 @@
 "Description" = "Description";
 "Paste processing..." = "Paste processing...";
 
-"selected block" = "selected block";
-"selected blocks" = "selected blocks";
-
 // Home
 "Favorites" = "Favorites";
 "Recent" = "Recent";
@@ -154,7 +151,6 @@
 "Create" = "Create";
 "Let’s start!" = "Let’s start!";
 "Choose profile" = "Choose profile";
-"no peers" = "no peers";
 "Add profile" = "Add profile";
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Camera access required to scan QR code";
@@ -235,7 +231,7 @@
 "Paste link or search objects" = "Paste link or search objects";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named";
+"There is no object named" = "There is no object named %s";
 "Try to create a new one or search for something else" = "Try to create a new one or search for something else";
 
 // MARK: - Alerts
@@ -245,7 +241,7 @@
 // MARK: - Relation
 "Featured relations" = "Featured relations";
 "Create from scratch" = "Create from scratch";
-"Create relation" = "Create relation";
+"Create relation" = "Create relation \"%s\"";
 
 // MARK: - Deletion
 "Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
@@ -331,7 +327,7 @@
 "Enter number" = "Enter number";
 "Enter text" = "Enter text";
 "Unsupported value" = "Unsupported value";
-"There is no relation named" = "There is no relation named";
+"There is no relation named" = "There is no relation named %s";
 "Find a relation" = "Find a relation";
 "Your library" = "Your library";
 "Select relation type" = "Select relation type";
@@ -362,7 +358,7 @@
 "Clear file cache" = "Clear file cache";
 "Application icon" = "Application icon";
 "Mode" = "Mode";
-"copied to clipboard" = "copied to clipboard";
+"copied to clipboard" = "%s copied to clipboard";
 "Access to secret phrase from keychain" = "Access to secret phrase from keychain";
 "Back up your recovery phrase" = "Back up your recovery phrase";
 "Account" = "Account";
@@ -374,11 +370,6 @@
 "Deletion error" = "Deletion error";
 "Start" = "Start";
 "On analytics" = "On analytics";
-"This account will be deleted" = "This account will be deleted";
-"days" = "days";
-"in" = "in";
-"DeleteAccount.tomorrow" = "tomorrow";
-"DeleteAccount.today" = "today";
 "Select account error" = "Select account error";
 "Account deleted" = "Account deleted";
 "Restore from keychain" = "Restore from keychain";
@@ -422,7 +413,7 @@
 "Video" = "Video";
 "Picture" = "Picture";
 "File" = "File";
-"No related options here. You can add some" = "No related options here. You can add some";
+"No related options here" = "No related options here. You can add some";
 "Empty" = "Empty";
 "Link to" = "Link to";
 "Unknown" = "Unknown";
@@ -444,7 +435,7 @@
 "Today" = "Today";
 "No date" = "No date";
 "Clear" = "Clear";
-"Create option" = "Create option";
+"Create option" = "Create option %s";
 "Add URL" = "Add URL";
 "Add email" = "Add email";
 "Add phone number" = "Add phone number";
@@ -452,9 +443,9 @@
 "Add text" = "Add text";
 "Ok" = "Ok";
 "Error occurred. Please try again" = "Error occurred. Please try again";
-"is already selected" = "is already selected";
+"is already selected" = "%s is already selected";
 "Add" = "Add";
-"Your device seems to be offline. Please, check your connection and try again" = "Your device seems to be offline. Please, check your connection and try again";
-"Connection refused. Please, try again" = "Connection refused. Please, try again";
+"Your device seems to be offline" = "Your device seems to be offline. Please, check your connection and try again";
+"Connection refused" = "Connection refused. Please, try again";
 "Companies, contacts, friends and family" = "Companies, contacts, friends and family";
 "Failed to sync, trying again..." = "Failed to sync, trying again...";

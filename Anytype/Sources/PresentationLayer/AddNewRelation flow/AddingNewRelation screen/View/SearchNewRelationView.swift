@@ -88,7 +88,7 @@ struct SearchNewRelationView: View {
         VStack(alignment: .center) {
             Spacer()
             AnytypeText(
-                "\(Loc.thereIsNoRelationNamed) \"\(searchText)\"",
+                Loc.thereIsNoRelationNamed(searchText),
                 style: .uxBodyRegular,
                 color: .textPrimary
             )

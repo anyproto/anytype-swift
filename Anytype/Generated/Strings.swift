@@ -80,7 +80,7 @@ internal enum Loc {
   internal static let applicationIcon = Loc.tr("Localizable", "Application icon")
   /// Archive
   internal static let archive = Loc.tr("Localizable", "Archive")
-  /// Plural format key: "%#@object@"
+  /// Plural format key: "Are you sure you want to delete %#@object@?"
   internal static func areYouSureYouWantToDelete(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Are you sure you want to delete", p1)
   }
@@ -181,8 +181,12 @@ internal enum Loc {
   internal static let color = Loc.tr("Localizable", "Color")
   /// Companies, contacts, friends and family
   internal static let companiesContactsFriendsAndFamily = Loc.tr("Localizable", "Companies, contacts, friends and family")
-  /// copied to clipboard
-  internal static let copiedToClipboard = Loc.tr("Localizable", "copied to clipboard")
+  /// Connection refused. Please, try again
+  internal static let connectionRefused = Loc.tr("Localizable", "Connection refused")
+  /// %s copied to clipboard
+  internal static func copiedToClipboard(_ p1: UnsafePointer<CChar>) -> String {
+    return Loc.tr("Localizable", "copied to clipboard", p1)
+  }
   /// Copy
   internal static let copy = Loc.tr("Localizable", "Copy")
   /// Cover
@@ -199,18 +203,24 @@ internal enum Loc {
   internal static let createNewObject = Loc.tr("Localizable", "Create new object")
   /// Create object
   internal static let createObject = Loc.tr("Localizable", "Create object")
-  /// Create option
-  internal static let createOption = Loc.tr("Localizable", "Create option")
+  /// Create option %s
+  internal static func createOption(_ p1: UnsafePointer<CChar>) -> String {
+    return Loc.tr("Localizable", "Create option", p1)
+  }
   /// Create pin code
   internal static let createPinCode = Loc.tr("Localizable", "Create pin code")
-  /// Create relation
-  internal static let createRelation = Loc.tr("Localizable", "Create relation")
+  /// Create relation "%s"
+  internal static func createRelation(_ p1: UnsafePointer<CChar>) -> String {
+    return Loc.tr("Localizable", "Create relation", p1)
+  }
   /// Data
   internal static let data = Loc.tr("Localizable", "Data")
   /// Date
   internal static let date = Loc.tr("Localizable", "Date")
-  /// days
-  internal static let days = Loc.tr("Localizable", "days")
+  /// Plural format key: "This account will be deleted %#@days@"
+  internal static func daysToDeletionAccount(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Days to deletion account", p1)
+  }
   /// Default background
   internal static let defaultBackground = Loc.tr("Localizable", "Default background")
   /// Default object type
@@ -339,16 +349,16 @@ internal enum Loc {
   internal static let home = Loc.tr("Localizable", "Home")
   /// Icon
   internal static let icon = Loc.tr("Localizable", "Icon")
-  /// in
-  internal static let `in` = Loc.tr("Localizable", "in")
   /// In this object
   internal static let inThisObject = Loc.tr("Localizable", "In this object")
   /// Initializing sync
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync")
   /// Invalid invitation code
   internal static let invalidInvitationCode = Loc.tr("Localizable", "Invalid invitation code")
-  /// is already selected
-  internal static let isAlreadySelected = Loc.tr("Localizable", "is already selected")
+  /// %s is already selected
+  internal static func isAlreadySelected(_ p1: UnsafePointer<CChar>) -> String {
+    return Loc.tr("Localizable", "is already selected", p1)
+  }
   /// Italic
   internal static let italic = Loc.tr("Localizable", "Italic")
   /// Layout
@@ -411,8 +421,8 @@ internal enum Loc {
   internal static let noItemsMatchFilter = Loc.tr("Localizable", "No items match filter")
   /// No name
   internal static let noName = Loc.tr("Localizable", "No name")
-  /// no peers
-  internal static let noPeers = Loc.tr("Localizable", "no peers")
+  /// No related options here. You can add some
+  internal static let noRelatedOptionsHere = Loc.tr("Localizable", "No related options here")
   /// node failed to start
   internal static let nodeFailedToStart = Loc.tr("Localizable", "node failed to start")
   /// Non-existent object
@@ -437,7 +447,7 @@ internal enum Loc {
   internal static let numbers = Loc.tr("Localizable", "Numbers")
   /// Object
   internal static let object = Loc.tr("Localizable", "Object")
-  /// Plural format key: "%#@object@"
+  /// Plural format key: "%#@object@ selected"
   internal static func objectSelected(_ p1: Int) -> String {
     return Loc.tr("Localizable", "Object selected", p1)
   }
@@ -557,10 +567,10 @@ internal enum Loc {
   internal static let selectStatus = Loc.tr("Localizable", "Select status")
   /// Select tags
   internal static let selectTags = Loc.tr("Localizable", "Select tags")
-  /// selected block
-  internal static let selectedBlock = Loc.tr("Localizable", "selected block")
-  /// selected blocks
-  internal static let selectedBlocks = Loc.tr("Localizable", "selected blocks")
+  /// Plural format key: "%#@object@"
+  internal static func selectedBlocks(_ p1: Int) -> String {
+    return Loc.tr("Localizable", "Selected blocks", p1)
+  }
   /// Set
   internal static let `set` = Loc.tr("Localizable", "Set")
   /// Sets
@@ -625,12 +635,14 @@ internal enum Loc {
   internal static let theFutureWillBeTheOneYouBuild = Loc.tr("Localizable", "The future will be the one you build")
   /// There is no emoji named
   internal static let thereIsNoEmojiNamed = Loc.tr("Localizable", "There is no emoji named")
-  /// There is no object named
-  internal static let thereIsNoObjectNamed = Loc.tr("Localizable", "There is no object named")
-  /// There is no relation named
-  internal static let thereIsNoRelationNamed = Loc.tr("Localizable", "There is no relation named")
-  /// This account will be deleted
-  internal static let thisAccountWillBeDeleted = Loc.tr("Localizable", "This account will be deleted")
+  /// There is no object named %s
+  internal static func thereIsNoObjectNamed(_ p1: UnsafePointer<CChar>) -> String {
+    return Loc.tr("Localizable", "There is no object named", p1)
+  }
+  /// There is no relation named %s
+  internal static func thereIsNoRelationNamed(_ p1: UnsafePointer<CChar>) -> String {
+    return Loc.tr("Localizable", "There is no relation named", p1)
+  }
   /// Title
   internal static let title = Loc.tr("Localizable", "Title")
   /// Big section heading
@@ -715,6 +727,8 @@ internal enum Loc {
   internal static let yellowBackground = Loc.tr("Localizable", "Yellow background")
   /// Yesterday
   internal static let yesterday = Loc.tr("Localizable", "Yesterday")
+  /// Your device seems to be offline. Please, check your connection and try again
+  internal static let yourDeviceSeemsToBeOffline = Loc.tr("Localizable", "Your device seems to be offline")
   /// Your library
   internal static let yourLibrary = Loc.tr("Localizable", "Your library")
   /// Your public page
@@ -744,18 +758,6 @@ internal enum Loc {
   internal enum Auth {
     /// Camera access required to scan QR code
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle")
-  }
-
-  internal enum ConnectionRefused {
-    /// Connection refused. Please, try again
-    internal static let pleaseTryAgain = Loc.tr("Localizable", "Connection refused. Please, try again")
-  }
-
-  internal enum DeleteAccount {
-    /// today
-    internal static let today = Loc.tr("Localizable", "DeleteAccount.today")
-    /// tomorrow
-    internal static let tomorrow = Loc.tr("Localizable", "DeleteAccount.tomorrow")
   }
 
   internal enum EditFilters {
@@ -864,11 +866,6 @@ internal enum Loc {
     }
   }
 
-  internal enum NoRelatedOptionsHere {
-    /// No related options here. You can add some
-    internal static let youCanAddSome = Loc.tr("Localizable", "No related options here. You can add some")
-  }
-
   internal enum SlashMenu {
     /// Dots divider
     internal static let dotsDivider = Loc.tr("Localizable", "SlashMenu.DotsDivider")
@@ -905,11 +902,6 @@ internal enum Loc {
   internal enum ToggleEmpty {
     /// Toggle empty. Tap to create block.
     internal static let tapToCreateBlock = Loc.tr("Localizable", "Toggle empty. Tap to create block.")
-  }
-
-  internal enum YourDeviceSeemsToBeOffline {
-    /// Your device seems to be offline. Please, check your connection and try again
-    internal static let pleaseCheckYourConnectionAndTryAgain = Loc.tr("Localizable", "Your device seems to be offline. Please, check your connection and try again")
   }
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length

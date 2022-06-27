@@ -14,12 +14,7 @@ final class BlocksSelectionOverlayViewModel {
     func setSelectedBlocksCount(_ count: Int) {
         isMovingButtonsVisible = false
         isBlocksOptionViewVisible = count != 0
-        switch count {
-        case 1:
-            navigationTitle = "\(count) " + Loc.selectedBlock
-        default:
-            navigationTitle = "\(count) " + Loc.selectedBlocks
-        }
+        navigationTitle = Loc.selectedBlocks(count)
     }
 
     func setNeedsUpdateForMovingState() {

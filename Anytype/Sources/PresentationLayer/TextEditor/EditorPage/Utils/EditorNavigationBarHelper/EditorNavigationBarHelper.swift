@@ -120,13 +120,7 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             fakeNavigationBarBackgroundView.alpha = 1
             controller?.navigationItem.leftBarButtonItem = nil
             controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
-            let title: String
-            switch blocks.count {
-            case 1:
-                title = "\(blocks.count) " + Loc.selectedBlock
-            default:
-                title = "\(blocks.count) " + Loc.selectedBlocks
-            }
+            let title = Loc.selectedBlocks(blocks.count)
             navigationBarTitleView.configure(model: .modeTitle(title))
             navigationBarTitleView.setIsLocked(false)
         case .moving:

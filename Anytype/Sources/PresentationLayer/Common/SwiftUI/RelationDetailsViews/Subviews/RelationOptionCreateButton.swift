@@ -10,7 +10,7 @@ struct RelationOptionCreateButton: View {
         } label: {
             HStack(spacing: 8) {
                 Image.Relations.createOption.frame(width: 24, height: 24)
-                AnytypeText("\(Loc.createOption) \"\(text)\"", style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(Loc.createOption(text), style: .uxBodyRegular, color: .textSecondary)
                     .lineLimit(1)
                 Spacer()
             }

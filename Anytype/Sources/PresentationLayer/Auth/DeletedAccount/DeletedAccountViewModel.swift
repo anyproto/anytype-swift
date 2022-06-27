@@ -22,17 +22,7 @@ final class DeletedAccountViewModel: ObservableObject {
     }
     
     var title: String {
-        let dayText: String
-        if daysToDeletion == 0 {
-            dayText = Loc.DeleteAccount.today
-        } else if daysToDeletion == 1 {
-            dayText = Loc.DeleteAccount.tomorrow
-        } else {
-            dayText = "\(Loc.in) \(daysToDeletion) \(Loc.days)"
-        }
-        
-        let localizedPrefix = Loc.thisAccountWillBeDeleted
-        return "\(localizedPrefix) \(dayText)"
+        return Loc.daysToDeletionAccount(daysToDeletion)
     }
     
     // MARK: - Internal funcs

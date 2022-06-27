@@ -47,7 +47,7 @@ extension NewRelationCell {
                 if searchText.isEmpty {
                     return Loc.createFromScratch
                 }
-                return Loc.createRelation + " \"\(searchText)\""
+                return Loc.createRelation(searchText)
             case let .relation(realtionMetadata):
                 return realtionMetadata.name
             }

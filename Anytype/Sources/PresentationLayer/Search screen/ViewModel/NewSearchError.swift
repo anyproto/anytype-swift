@@ -19,21 +19,21 @@ extension NewSearchError {
     
     static func noObjectError(searchText: String) -> NewSearchError {
         NewSearchError(
-            title: "\(Loc.thereIsNoObjectNamed) \"\(searchText)\"",
+            title: Loc.thereIsNoObjectNamed(searchText),
             subtitle: Loc.tryToCreateANewOneOrSearchForSomethingElse
         )
     }
     
     static func noObjectErrorWithoutSubtitle(searchText: String) -> NewSearchError {
         NewSearchError(
-            title: "\(Loc.thereIsNoObjectNamed) \"\(searchText)\"",
+            title: Loc.thereIsNoObjectNamed(searchText),
             subtitle: nil
         )
     }
     
     static func alreadySelected(searchText: String) -> NewSearchError {
         NewSearchError(
-            title: "\"\(searchText)\" \(Loc.isAlreadySelected)",
+            title: Loc.isAlreadySelected(searchText),
             subtitle: nil
         )
     }

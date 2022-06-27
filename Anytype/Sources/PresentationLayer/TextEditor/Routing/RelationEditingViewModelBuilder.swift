@@ -130,7 +130,7 @@ private extension RelationEditingViewModelBuilder {
     
     enum Constants {
         static let objectsOptionsPlaceholder = Loc.empty
-        static let tagsOrFilesOptionsPlaceholder = Loc.NoRelatedOptionsHere.youCanAddSome
+        static let tagsOrFilesOptionsPlaceholder = Loc.noRelatedOptionsHere
     }
     
 }
