@@ -24,4 +24,6 @@ protocol EditorPageViewInput: AnyObject, RelativePositionProvider {
     func textBlockWillBeginEditing()
 
     func blockDidFinishEditing(blockId: BlockId)
+    
+    func scrollToBlock(blockId: BlockId)
 }

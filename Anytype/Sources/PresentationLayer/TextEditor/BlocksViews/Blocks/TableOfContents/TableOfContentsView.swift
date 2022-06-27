@@ -10,7 +10,6 @@ final class TableOfContentsView: UIView, BlockContentView {
         static let levelLeftOffset: CGFloat = 20
         static let verticalBoundsInset: CGFloat = 6
         static let verticalInnerInset: CGFloat = 12
-        static let emptySize = CGSize(width: 20, height: 50)
     }
     
     private lazy var subscriptions = [AnyCancellable]()
@@ -32,17 +31,45 @@ final class TableOfContentsView: UIView, BlockContentView {
         self.configuration = configuration
     }
     
-    private func updateView(content: [TableOfContentItem]) {
+    private func updateView(content: TableOfContentData) {
         removeAllSubviews()
+        
+        switch content {
+        case let .items(items):
+            showItems(items: items)
+        case let .empty(title):
+            showEmptyState(title: title)
+        }
+        
+        configuration?.blockSetNeedsLayout()
+    }
+    
+    private func showEmptyState(title: String) {
+        let label: UILabel = createLabel()
+        label.font = .calloutRegular
+        label.textColor = .textTertiary
+        label.text = title
+        addSubview(label) {
+            $0.pinToSuperview(insets: UIEdgeInsets(
+                top: Constants.verticalBoundsInset,
+                left: 0,
+                bottom: -Constants.verticalBoundsInset,
+                right: 0
+            ))
+        }
+    }
+    
+    private func showItems(items: [TableOfContentItem]) {
+        
         var cache: [UILabel] = labels.reversed()
         labels.removeAll()
         
-        for data in content {
+        for data in items {
            
             let label = cache.popLast() ?? createLabel()
             label.attributedText = makeAttributedText(for: data.title)
-            label.addTapGesture { _ in
-                // TODO: Add scroll to header
+            label.addTapGesture { [weak self] _ in
+                self?.configuration?.onTap(data.blockId)
             }
             
             addSubview(label) {
@@ -58,7 +85,6 @@ final class TableOfContentsView: UIView, BlockContentView {
         }
         
         labels.last?.layoutUsing.anchors { $0.bottom.equal(to: bottomAnchor, constant: -Constants.verticalBoundsInset, priority: .defaultLow) }
-        configuration?.blockSetNeedsLayout()
     }
     
     private func createLabel() -> UILabel {
@@ -74,9 +100,5 @@ final class TableOfContentsView: UIView, BlockContentView {
             .foregroundColor: UIColor.textSecondary,
             .font: UIFont.calloutRegular
         ])
-    }
-    
-    override var intrinsicContentSize: CGSize {
-        return subviews.isEmpty ? Constants.emptySize : super.intrinsicContentSize
     }
 }

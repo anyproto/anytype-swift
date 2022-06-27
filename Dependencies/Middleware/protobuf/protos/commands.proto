@@ -198,6 +198,7 @@ message Rpc {
                 oneof avatar {
                     string avatarLocalPath = 2; // Path to an image, that will be used as an avatar of this account
                 }
+                string storePath = 3; // Path to local storage
 
 
                 string alphaInviteCode = 20;
@@ -223,6 +224,8 @@ message Rpc {
                         ACCOUNT_CREATED_BUT_FAILED_TO_SET_NAME = 102;
                         ACCOUNT_CREATED_BUT_FAILED_TO_SET_AVATAR = 103;
                         FAILED_TO_STOP_RUNNING_NODE = 104;
+                        FAILED_TO_WRITE_CONFIG = 105;
+                        FAILED_TO_CREATE_LOCAL_REPO = 106;
 
                         BAD_INVITE_CODE = 900;
 
@@ -360,6 +363,37 @@ message Rpc {
                         ACCOUNT_IS_NOT_RUNNING = 101;
                         FAILED_TO_STOP_NODE = 102;
                         FAILED_TO_REMOVE_ACCOUNT_DATA = 103;
+                    }
+                }
+            }
+        }
+
+        message Move {
+            /**
+            * Front-end-to-middleware request to move a account to a new disk location
+            */
+            message Request {
+                string newPath = 1;
+            }
+
+            message Response {
+                Error error = 1;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+
+                        FAILED_TO_STOP_NODE = 101;
+                        FAILED_TO_IDENTIFY_ACCOUNT_DIR = 102;
+                        FAILED_TO_REMOVE_ACCOUNT_DATA = 103;
+                        FAILED_TO_CREATE_LOCAL_REPO = 104;
+                        FAILED_TO_WRITE_CONFIG = 105;
+                        FAILED_TO_GET_CONFIG = 106;
                     }
                 }
             }
@@ -595,6 +629,8 @@ message Rpc {
         message Create {
             message Request {
                 google.protobuf.Struct details = 1; // object details
+                repeated anytype.model.InternalFlag internalFlags = 2;
+                string templateId = 3;
             }
 
             message Response {
@@ -621,6 +657,7 @@ message Rpc {
                 repeated string source = 1;
                 google.protobuf.Struct details = 2; // if omitted the name of page will be the same with object type
                 string templateId = 3; // optional template id for creating from template
+                repeated anytype.model.InternalFlag internalFlags = 4;
             }
 
             message Response {
@@ -3189,6 +3226,7 @@ message Rpc {
                 string contextId = 1; // id of the context object
                 google.protobuf.Struct details = 3; // new object details
                 string templateId = 5; // optional template id for creating from template
+                repeated anytype.model.InternalFlag internalFlags = 7;
 
                 // link block params
                 string targetId = 2; // id of the closest simple block

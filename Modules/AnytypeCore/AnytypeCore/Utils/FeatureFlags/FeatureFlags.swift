@@ -14,6 +14,7 @@ public enum Feature: String, Codable {
     case setSorts = "Set sorts"
     case setFilters = "Set filters"
     case tableOfContents = "Table of contents"
+    case objectDuplicate = "Object duplicate"
 }
 
 public final class FeatureFlags {
@@ -39,13 +40,14 @@ public final class FeatureFlags {
         .clipboard: true,
         .uikitRelationBlocks: true,
         .objectPreview: false,
-        .deletion: false,
+        .deletion: true,
         .createNewRelation: true,
         .templates: true,
         .createObjectInSet: true,
         .setSorts: true,
         .setFilters: false,
-        .tableOfContents: false
+        .tableOfContents: false,
+        .objectDuplicate: true
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -86,7 +88,7 @@ public extension FeatureFlags {
     }
     
     static var deletion: Bool {
-        features[.deletion, default: false]
+        features[.deletion, default: true]
     }
     
     static var createNewRelation: Bool {
@@ -111,5 +113,9 @@ public extension FeatureFlags {
     
     static var isTableOfContentsAvailable: Bool {
         features[.tableOfContents, default: false]
+    }
+    
+    static var isObjectDuplicateAvailable: Bool {
+        features[.objectDuplicate, default: true]
     }
 }

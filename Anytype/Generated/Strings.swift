@@ -823,31 +823,11 @@ internal enum Loc {
           /// Сhoose a relation to sort
           internal static let searchPlaceholder = Loc.tr("Localizable", "EditSorts.Popup.Sort.Add.SearchPlaceholder")
         }
-      }
-      internal enum SortType {
-        internal enum Checkbox {
-          /// Checked → Unchecked
-          internal static let asc = Loc.tr("Localizable", "EditSorts.Popup.SortType.Checkbox.Asc")
-          /// Unchecked → Checked
-          internal static let desc = Loc.tr("Localizable", "EditSorts.Popup.SortType.Checkbox.Desc")
-        }
-        internal enum Number {
-          /// 1 → 9
-          internal static let asc = Loc.tr("Localizable", "EditSorts.Popup.SortType.Number.Asc")
-          /// 9 → 1
-          internal static let desc = Loc.tr("Localizable", "EditSorts.Popup.SortType.Number.Desc")
-        }
-        internal enum Order {
-          /// First → Last
-          internal static let asc = Loc.tr("Localizable", "EditSorts.Popup.SortType.Order.Asc")
-          /// Last → First
-          internal static let desc = Loc.tr("Localizable", "EditSorts.Popup.SortType.Order.Desc")
-        }
-        internal enum Text {
-          /// A → Z
-          internal static let asc = Loc.tr("Localizable", "EditSorts.Popup.SortType.Text.Asc")
-          /// Z → A
-          internal static let desc = Loc.tr("Localizable", "EditSorts.Popup.SortType.Text.Desc")
+        internal enum Types {
+          /// Ascending
+          internal static let ascending = Loc.tr("Localizable", "EditSorts.Popup.Sort.Types.Ascending")
+          /// Descending
+          internal static let descending = Loc.tr("Localizable", "EditSorts.Popup.Sort.Types.Descending")
         }
       }
     }
@@ -872,6 +852,13 @@ internal enum Loc {
     internal static let delete = Loc.tr("Localizable", "General.Delete")
     /// Duplicate
     internal static let duplicate = Loc.tr("Localizable", "General.Duplicate")
+  }
+
+  internal enum Home {
+    internal enum Snackbar {
+      /// Library is available in desktop app
+      internal static let library = Loc.tr("Localizable", "Home.Snackbar.Library")
+    }
   }
 
   internal enum InterfaceStyle {
@@ -951,6 +938,11 @@ internal enum Loc {
     internal static let turnInto = Loc.tr("Localizable", "Specific.TurnInto")
     /// Turn into Page
     internal static let turnIntoPage = Loc.tr("Localizable", "Specific.TurnIntoPage")
+  }
+
+  internal enum TalbeOfContents {
+    /// Add heading to create Table of contents
+    internal static let empty = Loc.tr("Localizable", "TalbeOfContents.Empty")
   }
 
   internal enum TemplatePicker {

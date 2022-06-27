@@ -32,6 +32,7 @@ service ClientCommands {
     rpc AccountDelete (anytype.Rpc.Account.Delete.Request) returns (anytype.Rpc.Account.Delete.Response);
     rpc AccountSelect (anytype.Rpc.Account.Select.Request) returns (anytype.Rpc.Account.Select.Response);
     rpc AccountStop (anytype.Rpc.Account.Stop.Request) returns (anytype.Rpc.Account.Stop.Response);
+    rpc AccountMove (anytype.Rpc.Account.Move.Request) returns (anytype.Rpc.Account.Move.Response);
 
     // Object
     // ***

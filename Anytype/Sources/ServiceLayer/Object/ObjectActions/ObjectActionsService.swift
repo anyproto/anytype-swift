@@ -91,8 +91,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         
         let response = Anytype_Rpc.BlockLink.CreateWithObject.Service
             .invoke(
-                contextID: contextId, details: protobufStruct, templateID: templateId,
-                targetID: targetId, position: position.asMiddleware, fields: .init()
+                contextID: contextId, details: protobufStruct, templateID: templateId, internalFlags: [], targetID: targetId, position: position.asMiddleware, fields: .init()
             )
             .getValue(domain: .objectActionsService)
         

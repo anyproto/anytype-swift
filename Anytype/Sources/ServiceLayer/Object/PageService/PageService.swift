@@ -11,7 +11,8 @@ final class PageService {
             ]
         )
         
-        guard let response = Anytype_Rpc.Object.Create.Service.invoke(details: details).getValue(domain: .pageService) else {
+        guard let response = Anytype_Rpc.Object.Create.Service.invoke(details: details, internalFlags: [], templateID: "")
+            .getValue(domain: .pageService) else {
             return nil
         }
         

@@ -740,6 +740,9 @@ public struct Anytype_Rpc {
           set {avatar = .avatarLocalPath(newValue)}
         }
 
+        /// Path to local storage
+        public var storePath: String = String()
+
         public var alphaInviteCode: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
@@ -831,6 +834,8 @@ public struct Anytype_Rpc {
             case accountCreatedButFailedToSetName // = 102
             case accountCreatedButFailedToSetAvatar // = 103
             case failedToStopRunningNode // = 104
+            case failedToWriteConfig // = 105
+            case failedToCreateLocalRepo // = 106
             case badInviteCode // = 900
 
             /// means general network error
@@ -856,6 +861,8 @@ public struct Anytype_Rpc {
               case 102: self = .accountCreatedButFailedToSetName
               case 103: self = .accountCreatedButFailedToSetAvatar
               case 104: self = .failedToStopRunningNode
+              case 105: self = .failedToWriteConfig
+              case 106: self = .failedToCreateLocalRepo
               case 900: self = .badInviteCode
               case 901: self = .netError
               case 902: self = .netConnectionRefused
@@ -873,6 +880,8 @@ public struct Anytype_Rpc {
               case .accountCreatedButFailedToSetName: return 102
               case .accountCreatedButFailedToSetAvatar: return 103
               case .failedToStopRunningNode: return 104
+              case .failedToWriteConfig: return 105
+              case .failedToCreateLocalRepo: return 106
               case .badInviteCode: return 900
               case .netError: return 901
               case .netConnectionRefused: return 902
@@ -1381,6 +1390,114 @@ public struct Anytype_Rpc {
         public init() {}
 
         fileprivate var _error: Anytype_Rpc.Account.Stop.Response.Error? = nil
+      }
+
+      public init() {}
+    }
+
+    public struct Move {
+      // SwiftProtobuf.Message conformance is added in an extension below. See the
+      // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+      // methods supported on all messages.
+
+      public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      ///*
+      /// Front-end-to-middleware request to move a account to a new disk location
+      public struct Request {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var newPath: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Response {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var error: Anytype_Rpc.Account.Move.Response.Error {
+          get {return _error ?? Anytype_Rpc.Account.Move.Response.Error()}
+          set {_error = newValue}
+        }
+        /// Returns true if `error` has been explicitly set.
+        public var hasError: Bool {return self._error != nil}
+        /// Clears the value of `error`. Subsequent reads from it will return its default value.
+        public mutating func clearError() {self._error = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct Error {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var code: Anytype_Rpc.Account.Move.Response.Error.Code = .null
+
+          public var description_p: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public enum Code: SwiftProtobuf.Enum {
+            public typealias RawValue = Int
+            case null // = 0
+            case unknownError // = 1
+            case badInput // = 2
+            case failedToStopNode // = 101
+            case failedToIdentifyAccountDir // = 102
+            case failedToRemoveAccountData // = 103
+            case failedToCreateLocalRepo // = 104
+            case failedToWriteConfig // = 105
+            case failedToGetConfig // = 106
+            case UNRECOGNIZED(Int)
+
+            public init() {
+              self = .null
+            }
+
+            public init?(rawValue: Int) {
+              switch rawValue {
+              case 0: self = .null
+              case 1: self = .unknownError
+              case 2: self = .badInput
+              case 101: self = .failedToStopNode
+              case 102: self = .failedToIdentifyAccountDir
+              case 103: self = .failedToRemoveAccountData
+              case 104: self = .failedToCreateLocalRepo
+              case 105: self = .failedToWriteConfig
+              case 106: self = .failedToGetConfig
+              default: self = .UNRECOGNIZED(rawValue)
+              }
+            }
+
+            public var rawValue: Int {
+              switch self {
+              case .null: return 0
+              case .unknownError: return 1
+              case .badInput: return 2
+              case .failedToStopNode: return 101
+              case .failedToIdentifyAccountDir: return 102
+              case .failedToRemoveAccountData: return 103
+              case .failedToCreateLocalRepo: return 104
+              case .failedToWriteConfig: return 105
+              case .failedToGetConfig: return 106
+              case .UNRECOGNIZED(let i): return i
+              }
+            }
+
+          }
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _error: Anytype_Rpc.Account.Move.Response.Error? = nil
       }
 
       public init() {}
@@ -2332,6 +2449,10 @@ public struct Anytype_Rpc {
         /// Clears the value of `details`. Subsequent reads from it will return its default value.
         public mutating func clearDetails() {self._details = nil}
 
+        public var internalFlags: [Anytype_Model_InternalFlag] = []
+
+        public var templateID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -2448,6 +2569,8 @@ public struct Anytype_Rpc {
 
         /// optional template id for creating from template
         public var templateID: String = String()
+
+        public var internalFlags: [Anytype_Model_InternalFlag] = []
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -13042,6 +13165,8 @@ public struct Anytype_Rpc {
         /// optional template id for creating from template
         public var templateID: String = String()
 
+        public var internalFlags: [Anytype_Model_InternalFlag] = []
+
         /// link block params
         public var targetID: String = String()
 
@@ -16765,6 +16890,8 @@ extension Anytype_Rpc.Account.Create.Response.Error.Code: CaseIterable {
     .accountCreatedButFailedToSetName,
     .accountCreatedButFailedToSetAvatar,
     .failedToStopRunningNode,
+    .failedToWriteConfig,
+    .failedToCreateLocalRepo,
     .badInviteCode,
     .netError,
     .netConnectionRefused,
@@ -16827,6 +16954,21 @@ extension Anytype_Rpc.Account.Stop.Response.Error.Code: CaseIterable {
     .accountIsNotRunning,
     .failedToStopNode,
     .failedToRemoveAccountData,
+  ]
+}
+
+extension Anytype_Rpc.Account.Move.Response.Error.Code: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Rpc.Account.Move.Response.Error.Code] = [
+    .null,
+    .unknownError,
+    .badInput,
+    .failedToStopNode,
+    .failedToIdentifyAccountDir,
+    .failedToRemoveAccountData,
+    .failedToCreateLocalRepo,
+    .failedToWriteConfig,
+    .failedToGetConfig,
   ]
 }
 
@@ -18215,6 +18357,11 @@ extension Anytype_Rpc.Account.Stop.Request: @unchecked Sendable {}
 extension Anytype_Rpc.Account.Stop.Response: @unchecked Sendable {}
 extension Anytype_Rpc.Account.Stop.Response.Error: @unchecked Sendable {}
 extension Anytype_Rpc.Account.Stop.Response.Error.Code: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Move: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Move.Request: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Move.Response: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Move.Response.Error: @unchecked Sendable {}
+extension Anytype_Rpc.Account.Move.Response.Error.Code: @unchecked Sendable {}
 extension Anytype_Rpc.Account.GetConfig: @unchecked Sendable {}
 extension Anytype_Rpc.Account.GetConfig.Get: @unchecked Sendable {}
 extension Anytype_Rpc.Account.GetConfig.Get.Request: @unchecked Sendable {}
@@ -19946,6 +20093,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "name"),
     2: .same(proto: "avatarLocalPath"),
+    3: .same(proto: "storePath"),
     20: .same(proto: "alphaInviteCode"),
   ]
 
@@ -19964,6 +20112,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
           self.avatar = .avatarLocalPath(v)
         }
       }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.storePath) }()
       case 20: try { try decoder.decodeSingularStringField(value: &self.alphaInviteCode) }()
       default: break
       }
@@ -19981,6 +20130,9 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
     try { if case .avatarLocalPath(let v)? = self.avatar {
       try visitor.visitSingularStringField(value: v, fieldNumber: 2)
     } }()
+    if !self.storePath.isEmpty {
+      try visitor.visitSingularStringField(value: self.storePath, fieldNumber: 3)
+    }
     if !self.alphaInviteCode.isEmpty {
       try visitor.visitSingularStringField(value: self.alphaInviteCode, fieldNumber: 20)
     }
@@ -19990,6 +20142,7 @@ extension Anytype_Rpc.Account.Create.Request: SwiftProtobuf.Message, SwiftProtob
   public static func ==(lhs: Anytype_Rpc.Account.Create.Request, rhs: Anytype_Rpc.Account.Create.Request) -> Bool {
     if lhs.name != rhs.name {return false}
     if lhs.avatar != rhs.avatar {return false}
+    if lhs.storePath != rhs.storePath {return false}
     if lhs.alphaInviteCode != rhs.alphaInviteCode {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -20091,6 +20244,8 @@ extension Anytype_Rpc.Account.Create.Response.Error.Code: SwiftProtobuf._ProtoNa
     102: .same(proto: "ACCOUNT_CREATED_BUT_FAILED_TO_SET_NAME"),
     103: .same(proto: "ACCOUNT_CREATED_BUT_FAILED_TO_SET_AVATAR"),
     104: .same(proto: "FAILED_TO_STOP_RUNNING_NODE"),
+    105: .same(proto: "FAILED_TO_WRITE_CONFIG"),
+    106: .same(proto: "FAILED_TO_CREATE_LOCAL_REPO"),
     900: .same(proto: "BAD_INVITE_CODE"),
     901: .same(proto: "NET_ERROR"),
     902: .same(proto: "NET_CONNECTION_REFUSED"),
@@ -20660,6 +20815,145 @@ extension Anytype_Rpc.Account.Stop.Response.Error.Code: SwiftProtobuf._ProtoName
     101: .same(proto: "ACCOUNT_IS_NOT_RUNNING"),
     102: .same(proto: "FAILED_TO_STOP_NODE"),
     103: .same(proto: "FAILED_TO_REMOVE_ACCOUNT_DATA"),
+  ]
+}
+
+extension Anytype_Rpc.Account.Move: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.protoMessageName + ".Move"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Move, rhs: Anytype_Rpc.Account.Move) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Move.Request: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.Move.protoMessageName + ".Request"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "newPath"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.newPath) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.newPath.isEmpty {
+      try visitor.visitSingularStringField(value: self.newPath, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Move.Request, rhs: Anytype_Rpc.Account.Move.Request) -> Bool {
+    if lhs.newPath != rhs.newPath {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Move.Response: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.Move.protoMessageName + ".Response"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "error"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularMessageField(value: &self._error) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    try { if let v = self._error {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Move.Response, rhs: Anytype_Rpc.Account.Move.Response) -> Bool {
+    if lhs._error != rhs._error {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Move.Response.Error: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Rpc.Account.Move.Response.protoMessageName + ".Error"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "code"),
+    2: .same(proto: "description"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.code) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.description_p) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.code != .null {
+      try visitor.visitSingularEnumField(value: self.code, fieldNumber: 1)
+    }
+    if !self.description_p.isEmpty {
+      try visitor.visitSingularStringField(value: self.description_p, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Rpc.Account.Move.Response.Error, rhs: Anytype_Rpc.Account.Move.Response.Error) -> Bool {
+    if lhs.code != rhs.code {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Rpc.Account.Move.Response.Error.Code: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "NULL"),
+    1: .same(proto: "UNKNOWN_ERROR"),
+    2: .same(proto: "BAD_INPUT"),
+    101: .same(proto: "FAILED_TO_STOP_NODE"),
+    102: .same(proto: "FAILED_TO_IDENTIFY_ACCOUNT_DIR"),
+    103: .same(proto: "FAILED_TO_REMOVE_ACCOUNT_DATA"),
+    104: .same(proto: "FAILED_TO_CREATE_LOCAL_REPO"),
+    105: .same(proto: "FAILED_TO_WRITE_CONFIG"),
+    106: .same(proto: "FAILED_TO_GET_CONFIG"),
   ]
 }
 
@@ -22040,6 +22334,8 @@ extension Anytype_Rpc.Object.Create.Request: SwiftProtobuf.Message, SwiftProtobu
   public static let protoMessageName: String = Anytype_Rpc.Object.Create.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "details"),
+    2: .same(proto: "internalFlags"),
+    3: .same(proto: "templateId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -22049,6 +22345,8 @@ extension Anytype_Rpc.Object.Create.Request: SwiftProtobuf.Message, SwiftProtobu
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.internalFlags) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.templateID) }()
       default: break
       }
     }
@@ -22062,11 +22360,19 @@ extension Anytype_Rpc.Object.Create.Request: SwiftProtobuf.Message, SwiftProtobu
     try { if let v = self._details {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 1)
     } }()
+    if !self.internalFlags.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.internalFlags, fieldNumber: 2)
+    }
+    if !self.templateID.isEmpty {
+      try visitor.visitSingularStringField(value: self.templateID, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Object.Create.Request, rhs: Anytype_Rpc.Object.Create.Request) -> Bool {
     if lhs._details != rhs._details {return false}
+    if lhs.internalFlags != rhs.internalFlags {return false}
+    if lhs.templateID != rhs.templateID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -22191,6 +22497,7 @@ extension Anytype_Rpc.Object.CreateSet.Request: SwiftProtobuf.Message, SwiftProt
     1: .same(proto: "source"),
     2: .same(proto: "details"),
     3: .same(proto: "templateId"),
+    4: .same(proto: "internalFlags"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -22202,6 +22509,7 @@ extension Anytype_Rpc.Object.CreateSet.Request: SwiftProtobuf.Message, SwiftProt
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.source) }()
       case 2: try { try decoder.decodeSingularMessageField(value: &self._details) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.templateID) }()
+      case 4: try { try decoder.decodeRepeatedMessageField(value: &self.internalFlags) }()
       default: break
       }
     }
@@ -22221,6 +22529,9 @@ extension Anytype_Rpc.Object.CreateSet.Request: SwiftProtobuf.Message, SwiftProt
     if !self.templateID.isEmpty {
       try visitor.visitSingularStringField(value: self.templateID, fieldNumber: 3)
     }
+    if !self.internalFlags.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.internalFlags, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -22228,6 +22539,7 @@ extension Anytype_Rpc.Object.CreateSet.Request: SwiftProtobuf.Message, SwiftProt
     if lhs.source != rhs.source {return false}
     if lhs._details != rhs._details {return false}
     if lhs.templateID != rhs.templateID {return false}
+    if lhs.internalFlags != rhs.internalFlags {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -37685,6 +37997,7 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Request: SwiftProtobuf.Message,
     1: .same(proto: "contextId"),
     3: .same(proto: "details"),
     5: .same(proto: "templateId"),
+    7: .same(proto: "internalFlags"),
     2: .same(proto: "targetId"),
     4: .same(proto: "position"),
     6: .same(proto: "fields"),
@@ -37702,6 +38015,7 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Request: SwiftProtobuf.Message,
       case 4: try { try decoder.decodeSingularEnumField(value: &self.position) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.templateID) }()
       case 6: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.internalFlags) }()
       default: break
       }
     }
@@ -37730,6 +38044,9 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Request: SwiftProtobuf.Message,
     try { if let v = self._fields {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
     } }()
+    if !self.internalFlags.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.internalFlags, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -37737,6 +38054,7 @@ extension Anytype_Rpc.BlockLink.CreateWithObject.Request: SwiftProtobuf.Message,
     if lhs.contextID != rhs.contextID {return false}
     if lhs._details != rhs._details {return false}
     if lhs.templateID != rhs.templateID {return false}
+    if lhs.internalFlags != rhs.internalFlags {return false}
     if lhs.targetID != rhs.targetID {return false}
     if lhs.position != rhs.position {return false}
     if lhs._fields != rhs._fields {return false}

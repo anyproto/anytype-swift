@@ -235,6 +235,10 @@
 "There is no object named" = "There is no object named %s";
 "Try to create a new one or search for something else" = "Try to create a new one or search for something else";
 
+// MARK: - Home
+
+"Home.Snackbar.Library" = "Library is available in desktop app";
+
 // MARK: - Alerts
 "Alert.CameraPermissions.Settings" = "Settings";
 "Alert.CameraPermissions.GoToSettings" = "Go to Settings?";
@@ -284,20 +288,13 @@
 // MARK: - Sets
 "EditSorts.Popup.NavigationView.Title" = "Sorts";
 "EditSorts.Popup.EmptyView.Title" = "No sorts here. You can add some";
-"EditSorts.Popup.SortType.Order.Asc" = "First → Last";
-"EditSorts.Popup.SortType.Order.Desc" = "Last → First";
-"EditSorts.Popup.SortType.Text.Asc" = "A → Z";
-"EditSorts.Popup.SortType.Text.Desc" = "Z → A";
-"EditSorts.Popup.SortType.Number.Asc" = "1 → 9";
-"EditSorts.Popup.SortType.Number.Desc" = "9 → 1";
-"EditSorts.Popup.SortType.Checkbox.Asc" = "Checked → Unchecked";
-"EditSorts.Popup.SortType.Checkbox.Desc" = "Unchecked → Checked";
+"EditSorts.Popup.Sort.Types.Ascending" = "Ascending";
+"EditSorts.Popup.Sort.Types.Descending" = "Descending";
 "EditSorts.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
-
 "EditFilters.Popup.NavigationView.Title" = "Filters";
 "EditFilters.Popup.EmptyView.Title" = "No filters here. You can add some";
 
-// MARK: Slash Menu
+// MARK: - Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";
 "SlashMenu.TableOfContents" = "Table of contents";
@@ -483,3 +480,6 @@
 "InterfaceStyle.light" = "Light";
 "InterfaceStyle.dark" = "Dark";
 "InterfaceStyle.system" = "System";
+
+// MARK: Table of Contents
+"TalbeOfContents.Empty" = "Add heading to create Table of contents";

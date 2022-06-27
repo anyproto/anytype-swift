@@ -38,7 +38,7 @@ extension Anytype_Model_Account.Config {
 extension Anytype_Model_Account.Info {
   public init(
     homeObjectID: String, archiveObjectID: String, profileObjectID: String, marketplaceTypeObjectID: String, marketplaceRelationObjectID: String, marketplaceTemplateObjectID: String, deviceID: String,
-    gatewayURL: String
+    gatewayURL: String, localStoragePath: String
   ) {
     self.homeObjectID = homeObjectID
     self.archiveObjectID = archiveObjectID
@@ -48,6 +48,7 @@ extension Anytype_Model_Account.Info {
     self.marketplaceTemplateObjectID = marketplaceTemplateObjectID
     self.deviceID = deviceID
     self.gatewayURL = gatewayURL
+    self.localStoragePath = localStoragePath
   }
 }
 
@@ -247,6 +248,12 @@ extension Anytype_Model_BlockMetaOnly {
   public init(id: String, fields: SwiftProtobuf.Google_Protobuf_Struct) {
     self.id = id
     self.fields = fields
+  }
+}
+
+extension Anytype_Model_InternalFlag {
+  public init(value: Anytype_Model_InternalFlag.Value) {
+    self.value = value
   }
 }
 
