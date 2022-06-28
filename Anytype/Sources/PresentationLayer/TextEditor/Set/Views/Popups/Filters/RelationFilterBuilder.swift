@@ -96,7 +96,7 @@ final class RelationFilterBuilder {
                     isFeatured: false,
                     isEditable: false,
                     isBundled: metadata.isBundled,
-                    value: "Unsupported value".localized
+                    value: Loc.unsupportedValue
                 )
             )
         }

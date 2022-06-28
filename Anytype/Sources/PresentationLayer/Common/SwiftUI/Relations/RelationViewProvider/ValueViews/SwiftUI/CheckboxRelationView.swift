@@ -31,8 +31,8 @@ struct CheckboxRelationView: View {
     private var filterText: some View {
         Group {
             AnytypeText(
-                isChecked ? "EditSorts.Popup.Filter.Value.Checked".localized :
-                    "EditSorts.Popup.Filter.Value.Unchecked".localized,
+                isChecked ? Loc.EditSorts.Popup.Filter.Value.checked :
+                    Loc.EditSorts.Popup.Filter.Value.unchecked,
                 style: .relation1Regular,
                 color: .textSecondary
             )

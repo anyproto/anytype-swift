@@ -9,7 +9,7 @@ final class ObjectSearchViewModel: SearchViewModelProtocol {
     var onSelect: (ObjectSearchData) -> ()
     var onDismiss: () -> () = {}
 
-    let placeholder: String = "Search".localized
+    let placeholder: String = Loc.search
     
     private let service = SearchService()
     

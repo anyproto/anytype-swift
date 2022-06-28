@@ -6,13 +6,13 @@ extension BlockLinkState {
     var attributedTitle: NSAttributedString {
         if deleted {
             return NSAttributedString(
-                string: "Non-existent object".localized,
+                string: Loc.nonExistentObject,
                 attributes: disabledAttributes
             )
         }
         
         return NSAttributedString(
-            string: !title.isEmpty ? title : "Untitled".localized,
+            string: !title.isEmpty ? title : Loc.untitled,
             attributes: archived ? disabledAttributes : enabledAttributes
         )
     }

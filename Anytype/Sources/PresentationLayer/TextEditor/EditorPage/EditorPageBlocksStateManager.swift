@@ -341,7 +341,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             let blockIds = elements.map(\.blockId)
 
             pasteboardService.pasteInSelectedBlocks(selectedBlockIds: blockIds) { [weak self] in
-                self?.router.showWaitingView(text: "Paste processing...".localized)
+                self?.router.showWaitingView(text: Loc.pasteProcessing)
             } completion: { [weak self] _ in
                 self?.router.hideWaitingView()
             }

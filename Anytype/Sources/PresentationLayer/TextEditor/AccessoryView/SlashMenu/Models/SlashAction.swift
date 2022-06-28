@@ -45,8 +45,8 @@ enum SlashAction {
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
                         iconData: .staticImage(ImageName.slashMenu.link_to),
-                        title: "Link to object".localized,
-                        subtitle: "Link to existing object".localized
+                        title: Loc.linkToObject,
+                        subtitle: Loc.linkToExistingObject
                     )
                 )
             case .objectType(let objectType):
@@ -64,7 +64,7 @@ enum SlashAction {
                 return .titleSubtitleDisplayData(
                     SlashMenuItemDisplayData(
                         iconData: .staticImage(ImageName.slashMenu.relations.addRelation),
-                        title: "New relation".localized
+                        title: Loc.newRelation
                     )
                 )
             case .relation(let relation):

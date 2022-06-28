@@ -41,9 +41,9 @@ final class TableOfContentsContentProvider {
                 updateContent()
                 break
             }
-        case .dataSourceUpdate:
+        case .dataSourceUpdate, .general:
             updateContent()
-        case .header, .changeType, .general, .syncStatus, .details:
+        case .header, .changeType, .syncStatus, .details:
             break
         }
     }
@@ -69,7 +69,7 @@ final class TableOfContentsContentProvider {
                 for index in position+1..<hasHeader.count {
                     hasHeader[index] = false
                 }
-                let title = content.text.isEmpty ? "Untitled".localized : content.text
+                let title = content.text.isEmpty ? Loc.untitled : content.text
                 items.append(TableOfContentItem(blockId: child.id, title: title, level: depth))
             default:
                 break
@@ -77,7 +77,7 @@ final class TableOfContentsContentProvider {
         }
         
         if items.isEmpty {
-            return .empty("TalbeOfContents.Empty".localized)
+            return .empty(Loc.TalbeOfContents.empty)
         } else {
             return .items(items)
         }

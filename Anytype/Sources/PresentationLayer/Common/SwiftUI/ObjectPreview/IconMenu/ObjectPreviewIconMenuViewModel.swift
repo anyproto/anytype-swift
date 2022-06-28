@@ -3,7 +3,7 @@ import SwiftUI
 import FloatingPanel
 
 final class ObjectPreviewIconMenuViewModel: CheckPopupViewViewModelProtocol {
-    let title = "Icon".localized
+    let title = Loc.icon
     @Published private(set) var items: [CheckPopupItem] = []
 
     // MARK: - Private variables

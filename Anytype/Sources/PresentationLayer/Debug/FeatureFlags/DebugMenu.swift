@@ -10,7 +10,7 @@ struct DebugMenu: View {
     var body: some View {
         VStack {
             DragIndicator()
-            AnytypeText("Debug menu 👻".localized, style: .title, color: .textPrimary)
+            AnytypeText("Debug menu 👻", style: .title, color: .textPrimary)
             buttons
             setPageCounter
             toggles

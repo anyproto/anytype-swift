@@ -3,15 +3,15 @@ import SwiftUI
 struct SearchBar: View {
     @Binding var text: String
     let focused: Bool
-    var placeholder: String = "Search"
+    var placeholder: String = Loc.search
 
     var body: some View {
         Group {
             if focused {
-                AutofocusedTextField(placeholder: placeholder.localized, text: $text)
+                AutofocusedTextField(placeholder: placeholder, text: $text)
                     .disableAutocorrection(true)
             } else {
-                AnytypeTextField(placeholder: placeholder.localized, text: $text)
+                AnytypeTextField(placeholder: placeholder, text: $text)
                     .disableAutocorrection(true)
             }
         }

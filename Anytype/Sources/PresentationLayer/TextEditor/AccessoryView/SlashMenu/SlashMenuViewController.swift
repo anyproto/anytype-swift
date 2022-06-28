@@ -78,7 +78,7 @@ final class SlashMenuViewController: UIViewController {
         label.textColor = .textSecondary
         label.lineBreakMode = .byWordWrapping
         label.numberOfLines = 0
-        label.text = "No items match filter".localized
+        label.text = Loc.noItemsMatchFilter
         return label
     }()
     

@@ -6,7 +6,7 @@ final class UnsplashViewModel: GridItemViewModelProtocol {
     typealias Item = UnsplashItemViewModel
     typealias Section = GridItemSection<Item>
 
-    let searchAvailability: SearchAvailability = .available(placeholder: "Search".localized)
+    let searchAvailability: SearchAvailability = .available(placeholder: Loc.search)
     let onItemSelect: (UnsplashItem) -> ()
 
     @Published var sections = [Section]()

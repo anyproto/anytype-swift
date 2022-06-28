@@ -43,41 +43,41 @@ struct SetFilter: Identifiable, Equatable, Hashable {
         }
         
         private static let textData: [DataviewFilter.Condition: String] = [
-            .equal: "EditSorts.Popup.Filter.Condition.Text.Equal".localized,
-            .notEqual: "EditSorts.Popup.Filter.Condition.Text.NotEqual".localized,
-            .like: "EditSorts.Popup.Filter.Condition.Text.Like".localized,
-            .notLike: "EditSorts.Popup.Filter.Condition.Text.NotLike".localized,
-            .empty: "EditSorts.Popup.Filter.Condition.General.Empty".localized,
-            .notEmpty: "EditSorts.Popup.Filter.Condition.General.NotEmpty".localized,
-            .none: "EditSorts.Popup.Filter.Condition.General.None".localized
+            .equal: Loc.EditSorts.Popup.Filter.Condition.Text.equal,
+            .notEqual: Loc.EditSorts.Popup.Filter.Condition.Text.notEqual,
+            .like: Loc.EditSorts.Popup.Filter.Condition.Text.like,
+            .notLike: Loc.EditSorts.Popup.Filter.Condition.Text.notLike,
+            .empty: Loc.EditSorts.Popup.Filter.Condition.General.empty,
+            .notEmpty: Loc.EditSorts.Popup.Filter.Condition.General.notEmpty,
+            .none: Loc.EditSorts.Popup.Filter.Condition.General.none
         ]
         
         private static let numberData: [DataviewFilter.Condition: String] = [
-            .equal: "EditSorts.Popup.Filter.Condition.Number.Equal".localized,
-            .notEqual: "EditSorts.Popup.Filter.Condition.Number.NotEqual".localized,
-            .greater: "EditSorts.Popup.Filter.Condition.Number.Greater".localized,
-            .less: "EditSorts.Popup.Filter.Condition.Number.Less".localized,
-            .greaterOrEqual: "EditSorts.Popup.Filter.Condition.Number.GreaterOrEqual".localized,
-            .lessOrEqual: "EditSorts.Popup.Filter.Condition.Number.LessOrEqual".localized,
-            .empty: "EditSorts.Popup.Filter.Condition.General.Empty".localized,
-            .notEmpty: "EditSorts.Popup.Filter.Condition.General.NotEmpty".localized,
-            .none: "EditSorts.Popup.Filter.Condition.General.None".localized
+            .equal: Loc.EditSorts.Popup.Filter.Condition.Number.equal,
+            .notEqual: Loc.EditSorts.Popup.Filter.Condition.Number.notEqual,
+            .greater: Loc.EditSorts.Popup.Filter.Condition.Number.greater,
+            .less: Loc.EditSorts.Popup.Filter.Condition.Number.less,
+            .greaterOrEqual: Loc.EditSorts.Popup.Filter.Condition.Number.greaterOrEqual,
+            .lessOrEqual: Loc.EditSorts.Popup.Filter.Condition.Number.lessOrEqual,
+            .empty: Loc.EditSorts.Popup.Filter.Condition.General.empty,
+            .notEmpty: Loc.EditSorts.Popup.Filter.Condition.General.notEmpty,
+            .none: Loc.EditSorts.Popup.Filter.Condition.General.none
         ]
         
         private static let selectedData: [DataviewFilter.Condition: String] = [
-            .in: "EditSorts.Popup.Filter.Condition.Selected.In".localized,
-            .allIn: "EditSorts.Popup.Filter.Condition.Selected.AllIn".localized,
-            .equal: "EditSorts.Popup.Filter.Condition.Selected.Equal".localized,
-            .notIn: "EditSorts.Popup.Filter.Condition.Selected.NotIn".localized,
-            .empty: "EditSorts.Popup.Filter.Condition.General.Empty".localized,
-            .notEmpty: "EditSorts.Popup.Filter.Condition.General.NotEmpty".localized,
-            .none: "EditSorts.Popup.Filter.Condition.General.None".localized
+            .in: Loc.EditSorts.Popup.Filter.Condition.Selected.in,
+            .allIn: Loc.EditSorts.Popup.Filter.Condition.Selected.allIn,
+            .equal: Loc.EditSorts.Popup.Filter.Condition.Selected.equal,
+            .notIn: Loc.EditSorts.Popup.Filter.Condition.Selected.notIn,
+            .empty: Loc.EditSorts.Popup.Filter.Condition.General.empty,
+            .notEmpty: Loc.EditSorts.Popup.Filter.Condition.General.notEmpty,
+            .none: Loc.EditSorts.Popup.Filter.Condition.General.none
         ]
         
         private static let checkboxData: [DataviewFilter.Condition: String] = [
-            .equal: "EditSorts.Popup.Filter.Condition.Checkbox.Equal".localized,
-            .notEqual: "EditSorts.Popup.Filter.Condition.Checkbox.NotEqual".localized,
-            .none: "EditSorts.Popup.Filter.Condition.General.None".localized
+            .equal: Loc.EditSorts.Popup.Filter.Condition.Checkbox.equal,
+            .notEqual: Loc.EditSorts.Popup.Filter.Condition.Checkbox.notEqual,
+            .none: Loc.EditSorts.Popup.Filter.Condition.General.none
         ]
     }
 }

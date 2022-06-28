@@ -14,17 +14,17 @@ struct AlertModel {
 }
 
 extension AlertModel.ButtonModel {
-    static var cancel: Self = .init(title: "Cancel".localized, style: .cancel, action: { })
+    static var cancel: Self = .init(title: Loc.cancel, style: .cancel, action: { })
 }
 
 extension AlertModel {
     static func undoAlertModel(undoAction: @escaping () -> Void) -> AlertModel {
         AlertModel(
-            title: "Undo typing".localized,
+            title: Loc.undoTyping,
             message: nil,
             buttons: [
                 .cancel,
-                .init(title: "Undo".localized, style: .default, action: undoAction)
+                .init(title: Loc.undo, style: .default, action: undoAction)
             ]
         )
     }

@@ -19,7 +19,7 @@ struct NewRelationCell: View {
     
     private var title: some View {
         AnytypeText(
-            cellKind.title.isNotEmpty ? cellKind.title : "Untitled".localized,
+            cellKind.title.isNotEmpty ? cellKind.title : Loc.untitled,
             style: .uxBodyRegular,
             color: cellKind.title.isNotEmpty ? Color.textPrimary : Color.textSecondary
         )
@@ -45,9 +45,9 @@ extension NewRelationCell {
             switch self {
             case let .createNew(searchText):
                 if searchText.isEmpty {
-                    return "Create from scratch".localized
+                    return Loc.createFromScratch
                 }
-                return "Create relation".localized + " \"\(searchText)\""
+                return Loc.createRelation(searchText)
             case let .relation(realtionMetadata):
                 return realtionMetadata.name
             }

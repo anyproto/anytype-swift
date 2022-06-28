@@ -16,7 +16,7 @@ extension BundledRelationsValueProvider {
 
     var title: String {
         if isDeleted {
-            return "Non-existent object".localized
+            return Loc.nonExistentObject
         }
         
         let title: String
@@ -28,7 +28,7 @@ extension BundledRelationsValueProvider {
             title = name
         }
 
-        return title.isEmpty ? "Untitled".localized : title
+        return title.isEmpty ? Loc.untitled : title
     }
     
     var mentionTitle: String {

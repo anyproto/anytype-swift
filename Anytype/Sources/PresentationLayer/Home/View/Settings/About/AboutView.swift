@@ -48,7 +48,7 @@ struct AboutView: View {
         Button {
             UISelectionFeedbackGenerator().selectionChanged()
             UIPasteboard.general.string = value
-            homeModel.snackBarData = .init(text: "\(label) " + "copied to clipboard".localized, showSnackBar: true)
+            homeModel.snackBarData = .init(text: Loc.copiedToClipboard(label), showSnackBar: true)
         } label: {
             HStack(alignment: .top) {
                 AnytypeText(label, style: .uxBodyRegular, color: .textSecondary)
@@ -64,7 +64,7 @@ struct AboutView: View {
     
     @State private var titleTapCount = 0
     var title: some View {
-        AnytypeText("About".localized, style: .uxTitle1Semibold, color: .textPrimary)
+        AnytypeText(Loc.about, style: .uxTitle1Semibold, color: .textPrimary)
             .onTapGesture {
                 titleTapCount += 1
                 if titleTapCount == 10 {

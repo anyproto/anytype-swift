@@ -52,18 +52,18 @@ enum RelationItemModel: Hashable {
 
     var hint: String {
         switch self {
-        case .text: return "Enter text".localized
-        case .number: return "Enter number".localized
-        case .date: return "Enter date".localized
-        case .object: return "Select objects".localized
-        case .url: return "Enter URL".localized
-        case .email: return "Enter e-mail".localized
-        case .phone: return "Enter phone".localized
-        case .status: return "Select status".localized
-        case .tag: return "Select tags".localized
-        case .file: return "Select files".localized
+        case .text: return Loc.enterText
+        case .number: return Loc.enterNumber
+        case .date: return Loc.enterDate
+        case .object: return Loc.selectObjects
+        case .url: return Loc.enterURL
+        case .email: return Loc.enterEMail
+        case .phone: return Loc.enterPhone
+        case .status: return Loc.selectStatus
+        case .tag: return Loc.selectTags
+        case .file: return Loc.selectFiles
         case .checkbox: return ""
-        case .unknown: return "Enter value".localized
+        case .unknown: return Loc.enterValue
         }
     }
 

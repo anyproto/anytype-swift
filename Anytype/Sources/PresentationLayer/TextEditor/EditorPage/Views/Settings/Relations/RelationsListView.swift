@@ -31,7 +31,7 @@ struct RelationsListView: View {
             }
         } label: {
             AnytypeText(
-                editingMode ? "Done".localized : "Edit".localized,
+                editingMode ? Loc.done : Loc.edit,
                 style: .uxBodyRegular,
                 color: viewModel.navigationBarButtonsDisabled ? .buttonInactive : .textSecondary
             )

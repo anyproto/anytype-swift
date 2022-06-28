@@ -40,14 +40,14 @@ public final class FeatureFlags {
         .clipboard: true,
         .uikitRelationBlocks: true,
         .objectPreview: false,
-        .deletion: false,
+        .deletion: true,
         .createNewRelation: true,
         .templates: true,
         .createObjectInSet: true,
         .setSorts: true,
         .setFilters: false,
         .tableOfContents: false,
-        .objectDuplicate: false
+        .objectDuplicate: true
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -88,7 +88,7 @@ public extension FeatureFlags {
     }
     
     static var deletion: Bool {
-        features[.deletion, default: false]
+        features[.deletion, default: true]
     }
     
     static var createNewRelation: Bool {
@@ -116,6 +116,6 @@ public extension FeatureFlags {
     }
     
     static var isObjectDuplicateAvailable: Bool {
-        features[.objectDuplicate, default: false]
+        features[.objectDuplicate, default: true]
     }
 }
