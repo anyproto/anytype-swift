@@ -941,7 +941,7 @@ internal enum Loc {
   }
 
   internal enum TalbeOfContents {
-    /// Add heading to create Table of contents
+    /// Add headings to create a table of contents
     internal static let empty = Loc.tr("Localizable", "TalbeOfContents.Empty")
   }
 
