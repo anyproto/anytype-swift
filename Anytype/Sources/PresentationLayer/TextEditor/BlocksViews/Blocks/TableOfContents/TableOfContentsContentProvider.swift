@@ -41,9 +41,9 @@ final class TableOfContentsContentProvider {
                 updateContent()
                 break
             }
-        case .dataSourceUpdate:
+        case .dataSourceUpdate, .general:
             updateContent()
-        case .header, .changeType, .general, .syncStatus, .details:
+        case .header, .changeType, .syncStatus, .details:
             break
         }
     }
