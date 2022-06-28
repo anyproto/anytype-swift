@@ -247,6 +247,7 @@
 "Featured relations" = "Featured relations";
 "Create from scratch" = "Create from scratch";
 "Create relation" = "Create relation \"%s\"";
+"Relation.View.Hint.Empty" = "empty";
 
 // MARK: - Deletion
 "Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
@@ -285,16 +286,46 @@
 "LinkAppearance.Description.Content.Subtitle" = "Show first sentenses of the object";
 "LinkAppearance.ObjectType.Title" = "Object type";
 
-// MARK: - Sets
+// MARK: - Sets: Sorts
 "EditSorts.Popup.NavigationView.Title" = "Sorts";
 "EditSorts.Popup.EmptyView.Title" = "No sorts here. You can add some";
 "EditSorts.Popup.Sort.Types.Ascending" = "Ascending";
 "EditSorts.Popup.Sort.Types.Descending" = "Descending";
 "EditSorts.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
+
+// MARK: - Sets: Filters
 "EditFilters.Popup.NavigationView.Title" = "Filters";
 "EditFilters.Popup.EmptyView.Title" = "No filters here. You can add some";
 
-// MARK: - Slash Menu
+// MARK: - Sets: Filters.Conditions
+"EditSorts.Popup.Filter.Condition.Text.Equal" = "Is";
+"EditSorts.Popup.Filter.Condition.Text.NotEqual" = "Is not";
+"EditSorts.Popup.Filter.Condition.Text.Like" = "Contains";
+"EditSorts.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+
+"EditSorts.Popup.Filter.Condition.Number.Equal" = "Is equal to";
+"EditSorts.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
+"EditSorts.Popup.Filter.Condition.Number.Greater" = "Is greater than";
+"EditSorts.Popup.Filter.Condition.Number.Less" = "Is less than";
+"EditSorts.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
+"EditSorts.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+
+"EditSorts.Popup.Filter.Condition.Selected.In" = "Has any of";
+"EditSorts.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
+"EditSorts.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
+"EditSorts.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+
+"EditSorts.Popup.Filter.Condition.Checkbox.Equal" = "Is";
+"EditSorts.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+
+"EditSorts.Popup.Filter.Condition.General.Empty" = "Is empty";
+"EditSorts.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
+"EditSorts.Popup.Filter.Condition.General.None" = "All";
+
+"EditSorts.Popup.Filter.Value.Checked" = "checked";
+"EditSorts.Popup.Filter.Value.Unchecked" = "unchecked";
+
+// MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";
 "SlashMenu.TableOfContents" = "Table of contents";

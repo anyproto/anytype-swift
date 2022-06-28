@@ -36,7 +36,7 @@ final class RelationValueViewUIKit: UIView, BlockContentView {
         case .number(let text):
             return TextRelationFactory.uiKit(value: text.value, hint: relation.hint, style: style)
         case .status(let status):
-            return StatusRelationViewUIKit(statusOption: status.value, hint: relation.hint, style: style)
+            return StatusRelationViewUIKit(statusOption: status.values.first, hint: relation.hint, style: style)
         case .date(let date):
             return TextRelationFactory.uiKit(value: date.textValue, hint: relation.hint, style: style)
         case .object(let object):

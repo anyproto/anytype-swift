@@ -433,6 +433,7 @@
 		2E9EFE74285B641E00C8E47A /* SetFilterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE73285B641E00C8E47A /* SetFilterRow.swift */; };
 		2EAF19DB285C9355006B6F27 /* SetFilterRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF19DA285C9354006B6F27 /* SetFilterRowConfiguration.swift */; };
 		2EAF19DD285CA074006B6F27 /* SetSortRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF19DC285CA074006B6F27 /* SetSortRowConfiguration.swift */; };
+		2EAF19E12864659A006B6F27 /* RelationFilterBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EAF19E02864659A006B6F27 /* RelationFilterBuilder.swift */; };
 		2EEA3EA3284E00E100D241D1 /* SetSortTypesListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EEA3EA2284E00E100D241D1 /* SetSortTypesListViewModel.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
 		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
@@ -1490,6 +1491,7 @@
 		2E9EFE73285B641E00C8E47A /* SetFilterRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilterRow.swift; sourceTree = "<group>"; };
 		2EAF19DA285C9354006B6F27 /* SetFilterRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilterRowConfiguration.swift; sourceTree = "<group>"; };
 		2EAF19DC285CA074006B6F27 /* SetSortRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortRowConfiguration.swift; sourceTree = "<group>"; };
+		2EAF19E02864659A006B6F27 /* RelationFilterBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationFilterBuilder.swift; sourceTree = "<group>"; };
 		2EEA3EA2284E00E100D241D1 /* SetSortTypesListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortTypesListViewModel.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
@@ -4073,6 +4075,7 @@
 				2E9EFE6F285B616400C8E47A /* SetFiltersListViewModel.swift */,
 				2E9EFE73285B641E00C8E47A /* SetFilterRow.swift */,
 				2EAF19DA285C9354006B6F27 /* SetFilterRowConfiguration.swift */,
+				2EAF19E02864659A006B6F27 /* RelationFilterBuilder.swift */,
 			);
 			path = Filters;
 			sourceTree = "<group>";
@@ -7675,6 +7678,7 @@
 				12887F26274B94A600228330 /* DetailsServiceProtocol.swift in Sources */,
 				C9F44C7F27E351400078E709 /* TextBlockLeadingViewBuilder.swift in Sources */,
 				53FF7CB526FCCDE800A5A592 /* ObjectActionRow.swift in Sources */,
+				2EAF19E12864659A006B6F27 /* RelationFilterBuilder.swift in Sources */,
 				125FD2E926CD6D2100D21F5A /* EditorNavigationBarHelper.swift in Sources */,
 				3D5A41792704541900F1F6A1 /* SearchView.swift in Sources */,
 				53F80EF427BD3BE300E9E12A /* TagRelationViewUIKIt.swift in Sources */,

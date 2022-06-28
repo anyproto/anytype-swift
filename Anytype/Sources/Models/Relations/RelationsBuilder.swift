@@ -274,7 +274,10 @@ private extension RelationsBuilder {
             
             return options.first { $0.id == optionId }
         }()
-        
+        var values = [Relation.Status.Option]()
+        if let selectedOption = selectedOption {
+            values.append(selectedOption)
+        }
         return .status(
             Relation.Status(
                 id: metadata.id,
@@ -282,7 +285,7 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
-                value: selectedOption,
+                values: values,
                 allOptions: options
             )
         )

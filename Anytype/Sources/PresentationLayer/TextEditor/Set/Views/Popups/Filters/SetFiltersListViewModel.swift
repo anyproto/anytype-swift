@@ -8,13 +8,19 @@ final class SetFiltersListViewModel: ObservableObject {
     private let setModel: EditorSetViewModel
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
+    private let relationFilterBuilder = RelationFilterBuilder()
     
     var rows: [SetFilterRowConfiguration] {
-        setModel.filters.map {
+        setModel.filters.enumerated().map { index, filter in
             SetFilterRowConfiguration(
-                id: $0.metadata.id,
-                name: $0.metadata.name,
-                iconName: $0.metadata.format.iconName
+                id: "\(filter.metadata.id)_\(index)",
+                title: filter.metadata.name,
+                subtitle: filter.conditionString,
+                iconName: filter.metadata.format.iconName,
+                relation: relationFilterBuilder.relation(
+                    metadata: filter.metadata,
+                    filter: filter.filter
+                )
             )
         }
     }

@@ -814,6 +814,64 @@ internal enum Loc {
         /// No sorts here. You can add some
         internal static let title = Loc.tr("Localizable", "EditSorts.Popup.EmptyView.Title")
       }
+      internal enum Filter {
+        internal enum Condition {
+          internal enum Checkbox {
+            /// Is
+            internal static let equal = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Checkbox.Equal")
+            /// Is not
+            internal static let notEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Checkbox.NotEqual")
+          }
+          internal enum General {
+            /// Is empty
+            internal static let empty = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.General.Empty")
+            /// All
+            internal static let `none` = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.General.None")
+            /// Is not empty
+            internal static let notEmpty = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.General.NotEmpty")
+          }
+          internal enum Number {
+            /// Is equal to
+            internal static let equal = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.Equal")
+            /// Is greater than
+            internal static let greater = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.Greater")
+            /// Is greater than or equal to
+            internal static let greaterOrEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.GreaterOrEqual")
+            /// Is less than
+            internal static let less = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.Less")
+            /// Is less than or equal to
+            internal static let lessOrEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.LessOrEqual")
+            /// Is not equal to
+            internal static let notEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.NotEqual")
+          }
+          internal enum Selected {
+            /// Has all of
+            internal static let allIn = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Selected.AllIn")
+            /// Is exactly
+            internal static let equal = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Selected.Equal")
+            /// Has any of
+            internal static let `in` = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Selected.In")
+            /// Has none of
+            internal static let notIn = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Selected.NotIn")
+          }
+          internal enum Text {
+            /// Is
+            internal static let equal = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.Equal")
+            /// Contains
+            internal static let like = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.Like")
+            /// Is not
+            internal static let notEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.NotEqual")
+            /// Doesn't contain
+            internal static let notLike = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.NotLike")
+          }
+        }
+        internal enum Value {
+          /// checked
+          internal static let checked = Loc.tr("Localizable", "EditSorts.Popup.Filter.Value.Checked")
+          /// unchecked
+          internal static let unchecked = Loc.tr("Localizable", "EditSorts.Popup.Filter.Value.Unchecked")
+        }
+      }
       internal enum NavigationView {
         /// Sorts
         internal static let title = Loc.tr("Localizable", "EditSorts.Popup.NavigationView.Title")
@@ -916,6 +974,15 @@ internal enum Loc {
     internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType")
     /// You wake up in your bed and believe whatever you want to. You take the red pill, you stay in Wonderland, and I show you how deep the rabbit hole goes.
     internal static let seedPhrase = Loc.tr("Localizable", "RedactedText.seedPhrase")
+  }
+
+  internal enum Relation {
+    internal enum View {
+      internal enum Hint {
+        /// empty
+        internal static let empty = Loc.tr("Localizable", "Relation.View.Hint.Empty")
+      }
+    }
   }
 
   internal enum SlashMenu {
