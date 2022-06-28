@@ -11,7 +11,7 @@ struct SetSortsListView: View {
         DragIndicator()
         NavigationView {
             content
-                .navigationTitle("EditSorts.Popup.NavigationView.Title".localized)
+                .navigationTitle(Loc.EditSorts.Popup.NavigationView.title)
                 .navigationBarTitleDisplayMode(.inline)
                 .environment(\.editMode, $editMode)
                 .onChange(of: viewModel.rows) { newValue in
@@ -54,7 +54,7 @@ struct SetSortsListView: View {
         VStack {
             Spacer.fixedHeight(20)
             AnytypeText(
-                "EditSorts.Popup.EmptyView.Title".localized,
+                Loc.EditSorts.Popup.EmptyView.title,
                 style: .uxCalloutRegular,
                 color: .textSecondary
             )

@@ -11,7 +11,7 @@ import SwiftUI
 import FloatingPanel
 
 final class ObjectPreviewLayoutMenuViewModel: CheckPopupViewViewModelProtocol {
-    let title = "Preview layout".localized
+    let title = Loc.previewLayout
     @Published private(set) var items: [CheckPopupItem] = []
 
     // MARK: - Private variables

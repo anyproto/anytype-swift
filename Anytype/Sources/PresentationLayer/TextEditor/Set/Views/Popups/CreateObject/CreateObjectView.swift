@@ -68,7 +68,7 @@ final class CreateObjectView: UIView {
         textField.autocapitalizationType = .none
         textField.font = .previewTitle1Medium
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Untitled".localized,
+            string: Loc.untitled,
             attributes: [
                 .font: UIFont.previewTitle1Medium,
                 .foregroundColor: UIColor.textSecondary

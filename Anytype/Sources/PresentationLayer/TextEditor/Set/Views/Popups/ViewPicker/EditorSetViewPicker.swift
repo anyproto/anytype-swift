@@ -9,7 +9,7 @@ struct EditorSetViewPicker: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: "Views".localized)
+            TitleView(title: Loc.views)
             ScrollView(.vertical, showsIndicators: false) {
                 VStack(alignment: .center, spacing: 0) {
                     Spacer.fixedHeight(10)

@@ -11,17 +11,17 @@ enum SlashActionMedia: CaseIterable {
     var title: String {
         switch self {
         case .file:
-            return "File".localized
+            return Loc.file
         case .pictre:
-            return "Picture".localized
+            return Loc.picture
         case .video:
-            return "Video".localized
+            return Loc.video
         case .audio:
-            return "Audio".localized
+            return Loc.audio
         case .bookmark:
-            return "Bookmark".localized
+            return Loc.bookmark
         case .codeSnippet:
-            return "Code snippet".localized
+            return Loc.codeSnippet
         }
     }
     
@@ -45,17 +45,17 @@ enum SlashActionMedia: CaseIterable {
     var subtitle: String {
         switch self {
         case .file:
-            return "File block subtitle".localized
+            return Loc.fileBlockSubtitle
         case .pictre:
-            return "Picture block subtitle".localized
+            return Loc.pictureBlockSubtitle
         case .video:
-            return "Video block subtitle".localized
+            return Loc.videoBlockSubtitle
         case .audio:
-            return "Upload playable audio".localized
+            return Loc.uploadPlayableAudio
         case .bookmark:
-            return "Bookmark block subtitle".localized
+            return Loc.bookmarkBlockSubtitle
         case .codeSnippet:
-            return "Code block subtitle".localized
+            return Loc.codeBlockSubtitle
         }
     }
     

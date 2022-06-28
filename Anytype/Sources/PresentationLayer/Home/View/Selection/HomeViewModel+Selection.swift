@@ -51,7 +51,7 @@ extension HomeViewModel {
                 self?.selectAll(false)
             } else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
-                self?.snackBarData = .init(text: "Deletion error".localized, showSnackBar: true)
+                self?.snackBarData = .init(text: Loc.deletionError, showSnackBar: true)
             }
         }
     }

@@ -37,14 +37,14 @@ struct NewSearchView: View {
         VStack(alignment: .center) {
             Spacer()
             AnytypeText(
-                error.title,//"\("There is no object named".localized) \"\(searchText)\"",
+                error.title,//"\(Loc.thereIsNoObjectNamed) \"\(searchText)\"",
                 style: .uxBodyRegular,
                 color: .textPrimary
             )
             .multilineTextAlignment(.center)
             error.subtitle.flatMap {
                 AnytypeText(
-                    $0,// "Try to create a new one or search for something else".localized,
+                    $0,// Loc.tryToCreateANewOneOrSearchForSomethingElse,
                     style: .uxBodyRegular,
                     color: .textSecondary
                 )
@@ -90,7 +90,7 @@ struct NewSearchView: View {
     }
     
     private func addButton(model: AddButtonModel) -> some View {
-        StandardButton(disabled: model.isDisabled, text: "Add".localized, style: .primary) {
+        StandardButton(disabled: model.isDisabled, text: Loc.add, style: .primary) {
             viewModel.didTapAddButton()
         }
         .if(!model.isDisabled) {

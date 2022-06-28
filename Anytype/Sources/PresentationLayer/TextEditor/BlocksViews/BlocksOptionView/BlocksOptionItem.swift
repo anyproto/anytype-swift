@@ -47,27 +47,27 @@ extension BlocksOptionItem {
     var title: String {
         switch self {
         case .style:
-            return "Style".localized
+            return Loc.style
         case .delete:
-            return "Delete".localized
+            return Loc.delete
         case .addBlockBelow:
-            return "Add below".localized
+            return Loc.addBelow
         case .duplicate:
-            return "Duplicate".localized
+            return Loc.duplicate
         case .turnInto:
-            return "Turn into".localized
+            return Loc.turnInto
         case .moveTo:
-            return "Move to".localized
+            return Loc.moveTo
         case .move:
-            return "Move".localized
+            return Loc.move
         case .download:
-            return "Download".localized
+            return Loc.download
         case .paste:
-            return "Paste".localized
+            return Loc.paste
         case .copy:
-            return "Copy".localized
+            return Loc.copy
         case .preview:
-            return "Preview".localized
+            return Loc.preview
         }
     }
 }

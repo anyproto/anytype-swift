@@ -27,17 +27,17 @@ struct HomeTabsHeader: View {
     
     private var defaultTabHeader: some View {
         HStack(spacing: 0) {
-            tabButton(text: "Favorites".localized, tab: .favourites)
+            tabButton(text: Loc.favorites, tab: .favourites)
             Spacer().frame(maxWidth: 15)
-            tabButton(text: "History".localized, tab: .history)
+            tabButton(text: Loc.history, tab: .history)
             Spacer().frame(maxWidth: 15)
-            tabButton(text: "Sets".localized, tab: .sets)
+            tabButton(text: Loc.sets, tab: .sets)
             Spacer().frame(maxWidth: 15)
             if AccountManager.shared.account.config.enableSpaces {
-                tabButton(text: "Shared".localized, tab: .shared)
+                tabButton(text: Loc.shared, tab: .shared)
                 Spacer().frame(maxWidth: 15)
             }
-            tabButton(text: "Bin".localized, tab: .bin)
+            tabButton(text: Loc.bin, tab: .bin)
             Spacer()
         }
     }

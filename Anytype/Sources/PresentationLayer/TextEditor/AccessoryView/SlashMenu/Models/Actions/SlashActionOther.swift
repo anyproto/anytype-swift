@@ -9,11 +9,11 @@ enum SlashActionOther: CaseIterable {
     var title: String {
         switch self {
         case .dotsDivider:
-            return "SlashMenu.DotsDivider".localized
+            return Loc.SlashMenu.dotsDivider
         case .lineDivider:
-            return "SlashMenu.LineDivider".localized
+            return Loc.SlashMenu.lineDivider
         case .tableOfContents:
-            return "SlashMenu.TableOfContents".localized
+            return Loc.SlashMenu.tableOfContents
         }
     }
     

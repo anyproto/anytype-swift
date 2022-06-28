@@ -22,7 +22,7 @@ struct AnytypeToggle: View {
     
     var body: some View {
         Toggle(isOn: $model.isOn) {
-            AnytypeText(title.localized, style: .uxBodyRegular, color: .textPrimary)
+            AnytypeText(title, style: .uxBodyRegular, color: .textPrimary)
         }
         .toggleStyle(SwitchToggleStyle(tint: .System.amber50))
         

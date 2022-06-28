@@ -12,7 +12,7 @@ struct SearchNewRelationView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            SearchBar(text: $searchText, focused: true, placeholder: "Find a relation".localized)
+            SearchBar(text: $searchText, focused: true, placeholder: Loc.findARelation)
             content
         }
         .onChange(of: searchText) { search(text: $0) }
@@ -88,13 +88,13 @@ struct SearchNewRelationView: View {
         VStack(alignment: .center) {
             Spacer()
             AnytypeText(
-                "\("There is no relation named".localized) \"\(searchText)\"",
+                Loc.thereIsNoRelationNamed(searchText),
                 style: .uxBodyRegular,
                 color: .textPrimary
             )
             .multilineTextAlignment(.center)
             AnytypeText(
-                "Try to create a new one or search for something else".localized,
+                Loc.tryToCreateANewOneOrSearchForSomethingElse,
                 style: .uxBodyRegular,
                 color: .textSecondary
             )

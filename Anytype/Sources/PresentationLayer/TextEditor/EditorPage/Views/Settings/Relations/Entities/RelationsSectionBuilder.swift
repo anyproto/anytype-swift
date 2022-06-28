@@ -26,7 +26,7 @@ final class RelationsSectionBuilder {
             sections.append(
                 RelationsSection(
                     id: Constants.featuredRelationsSectionId,
-                    title: "Featured relations".localized,
+                    title: Loc.featuredRelations,
                     relations: featuredRelations
                 )
             )
@@ -34,8 +34,8 @@ final class RelationsSectionBuilder {
 
         if otherRelations.isNotEmpty {
             let otherRelationsSectionTitle = featuredRelations.isNotEmpty ?
-            "Other relations".localized :
-            "In this object".localized
+            Loc.otherRelations :
+            Loc.inThisObject
 
             sections.append(
                 RelationsSection(

@@ -67,7 +67,7 @@ struct ObjectCoverPicker: View {
     
     private var navigationBarView: some View {
         InlineNavigationBar {
-            AnytypeText("Change cover".localized, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(Loc.changeCover, style: .uxTitle1Semibold, color: .textPrimary)
                 .multilineTextAlignment(.center)
         } rightButton: {
             if viewModel.isRemoveButtonAvailable {
@@ -75,7 +75,7 @@ struct ObjectCoverPicker: View {
                     viewModel.removeCover()
                     dismiss()
                 } label: {
-                    AnytypeText("Remove".localized, style: .uxBodyRegular, color: Color.System.red)
+                    AnytypeText(Loc.remove, style: .uxBodyRegular, color: Color.System.red)
                 }
             } else {
                 EmptyView()
@@ -125,9 +125,9 @@ private extension ObjectCoverPicker {
 
         var title: String {
             switch self {
-            case .gallery: return "Gallery".localized
-            case .unsplash: return "Unsplash".localized
-            case .upload: return "Upload".localized
+            case .gallery: return Loc.gallery
+            case .unsplash: return Loc.unsplash
+            case .upload: return Loc.upload
             }
         }
     }

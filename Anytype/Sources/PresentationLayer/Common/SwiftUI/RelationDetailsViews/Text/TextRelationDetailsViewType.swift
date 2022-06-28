@@ -25,11 +25,11 @@ extension TextRelationDetailsViewType {
     
     var placeholder: String {
         switch self {
-        case .text: return "Add text".localized
-        case .number: return "Add number".localized
-        case .phone: return "Add phone number".localized
-        case .email: return "Add email".localized
-        case .url: return "Add URL".localized
+        case .text: return Loc.addText
+        case .number: return Loc.addNumber
+        case .phone: return Loc.addPhoneNumber
+        case .email: return Loc.addEmail
+        case .url: return Loc.addURL
         }
     }
     
