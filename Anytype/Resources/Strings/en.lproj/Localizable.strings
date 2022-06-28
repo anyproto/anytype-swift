@@ -482,4 +482,4 @@
 "InterfaceStyle.system" = "System";
 
 // MARK: Table of Contents
-"TalbeOfContents.Empty" = "Add heading to create Table of contents";
+"TalbeOfContents.Empty" = "Add headings to create a table of contents";
