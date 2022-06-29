@@ -20,7 +20,7 @@ extension Anytype_Model_Block.Content.Bookmark.State {
         case .fetching: return .fetching
         case .done: return .done
         case .error: return .error
-        case .UNRECOGNIZED: return .empty
+        case .UNRECOGNIZED: return .error
         }
     }
 }
