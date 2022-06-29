@@ -75,13 +75,18 @@ extension Anytype_Model_Block {
 }
 
 extension Anytype_Model_Block.Content.Bookmark {
-  public init(url: String, title: String, description_p: String, imageHash: String, faviconHash: String, type: Anytype_Model_LinkPreview.TypeEnum) {
+  public init(
+    url: String, title: String, description_p: String, imageHash: String, faviconHash: String, type: Anytype_Model_LinkPreview.TypeEnum, targetObjectID: String,
+    state: Anytype_Model_Block.Content.Bookmark.State
+  ) {
     self.url = url
     self.title = title
     self.description_p = description_p
     self.imageHash = imageHash
     self.faviconHash = faviconHash
     self.type = type
+    self.targetObjectID = targetObjectID
+    self.state = state
   }
 }
 
