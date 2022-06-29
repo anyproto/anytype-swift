@@ -325,6 +325,9 @@
 "EditSorts.Popup.Filter.Value.Checked" = "checked";
 "EditSorts.Popup.Filter.Value.Unchecked" = "unchecked";
 
+// MARK: - Set.Bookmarks
+"Set.Bookmark.Create.Placeholder" = "Paste link";
+
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";

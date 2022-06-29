@@ -27,4 +27,8 @@ class BookmarkService: BookmarkServiceProtocol {
             .getValue(domain: .bookmarkService)?
             .send()
     }
+    
+    func createBookmarkObject(url: String) {
+        let _ = Anytype_Rpc.Object.CreateBookmark.Service.invoke(url: url)
+    }
 }

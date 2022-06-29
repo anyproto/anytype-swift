@@ -57,6 +57,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     )
 
     func showCreateObject(pageId: BlockId)
+    func showCreateBookmarkObject()
     
     func showSetSettings(setModel: EditorSetViewModel)
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)

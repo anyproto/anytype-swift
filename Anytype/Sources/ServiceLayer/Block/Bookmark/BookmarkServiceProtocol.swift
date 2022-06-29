@@ -10,4 +10,5 @@ protocol BookmarkServiceProtocol {
         position: BlockPosition,
         url: String
     )
+    func createBookmarkObject(url: String)
 }

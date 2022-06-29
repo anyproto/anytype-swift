@@ -985,6 +985,15 @@ internal enum Loc {
     }
   }
 
+  internal enum Set {
+    internal enum Bookmark {
+      internal enum Create {
+        /// Paste link
+        internal static let placeholder = Loc.tr("Localizable", "Set.Bookmark.Create.Placeholder")
+      }
+    }
+  }
+
   internal enum SlashMenu {
     /// Dots divider
     internal static let dotsDivider = Loc.tr("Localizable", "SlashMenu.DotsDivider")

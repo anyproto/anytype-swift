@@ -247,15 +247,12 @@ extension EditorSetViewModel {
     }
 
     func createObject() {
-        let availableTemplates = searchService.searchTemplates(
-            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
-        )
-        let hasSingleTemplate = availableTemplates?.count == 1
-        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
-
-        guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
-        
-        router.showCreateObject(pageId: objectDetails.id)
+//        switch set.type {
+//        case .bookmark:
+            createBookmarkObject()
+//        default:
+//            createDefaultObject()
+//        }
     }
     
     func showViewSettings() {
@@ -289,5 +286,21 @@ extension EditorSetViewModel {
     
     func showAddNewRelationView(onSelect: @escaping (RelationMetadata, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
+    }
+    
+    private func createDefaultObject() {
+        let availableTemplates = searchService.searchTemplates(
+            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
+        )
+        let hasSingleTemplate = availableTemplates?.count == 1
+        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+
+        guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
+        
+        router.showCreateObject(pageId: objectDetails.id)
+    }
+    
+    private func createBookmarkObject() {
+        router.showCreateBookmarkObject()
     }
 }
