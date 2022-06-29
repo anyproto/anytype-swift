@@ -727,6 +727,28 @@ extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error {
   }
 }
 
+extension Anytype_Rpc.BlockDataview.CreateBookmark.Request {
+  public init(contextID: String, blockID: String, url: String) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.url = url
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.CreateBookmark.Response {
+  public init(error: Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error, id: String) {
+    self.error = error
+    self.id = id
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error {
+  public init(code: Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.BlockDataview.Relation.Add.Request {
   public init(contextID: String, blockID: String, relation: Anytype_Model_Relation) {
     self.contextID = contextID
@@ -2098,6 +2120,26 @@ extension Anytype_Rpc.Object.ApplyTemplate.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Object.BookmarkFetch.Request {
+  public init(contextID: String, url: String) {
+    self.contextID = contextID
+    self.url = url
+  }
+}
+
+extension Anytype_Rpc.Object.BookmarkFetch.Response {
+  public init(error: Anytype_Rpc.Object.BookmarkFetch.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Object.BookmarkFetch.Response.Error {
+  public init(code: Anytype_Rpc.Object.BookmarkFetch.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Object.Close.Request {
   public init(contextID: String, objectID: String) {
     self.contextID = contextID
@@ -2136,6 +2178,26 @@ extension Anytype_Rpc.Object.Create.Response {
 
 extension Anytype_Rpc.Object.Create.Response.Error {
   public init(code: Anytype_Rpc.Object.Create.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.CreateBookmark.Request {
+  public init(url: String) {
+    self.url = url
+  }
+}
+
+extension Anytype_Rpc.Object.CreateBookmark.Response {
+  public init(error: Anytype_Rpc.Object.CreateBookmark.Response.Error, pageID: String) {
+    self.error = error
+    self.pageID = pageID
+  }
+}
+
+extension Anytype_Rpc.Object.CreateBookmark.Response.Error {
+  public init(code: Anytype_Rpc.Object.CreateBookmark.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -2698,6 +2760,27 @@ extension Anytype_Rpc.Object.SubscribeIds.Response {
 
 extension Anytype_Rpc.Object.SubscribeIds.Response.Error {
   public init(code: Anytype_Rpc.Object.SubscribeIds.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.ToBookmark.Request {
+  public init(contextID: String, url: String) {
+    self.contextID = contextID
+    self.url = url
+  }
+}
+
+extension Anytype_Rpc.Object.ToBookmark.Response {
+  public init(error: Anytype_Rpc.Object.ToBookmark.Response.Error, objectID: String) {
+    self.error = error
+    self.objectID = objectID
+  }
+}
+
+extension Anytype_Rpc.Object.ToBookmark.Response.Error {
+  public init(code: Anytype_Rpc.Object.ToBookmark.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }

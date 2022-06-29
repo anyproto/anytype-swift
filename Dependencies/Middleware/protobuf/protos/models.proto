@@ -178,6 +178,16 @@ message Block {
             string imageHash = 4;
             string faviconHash = 5;
             LinkPreview.Type type = 6;
+            string targetObjectId = 7;
+
+            State state = 8;
+
+            enum State {
+                Empty = 0;
+                Fetching = 1;
+                Done = 2;
+                Error = 3;
+            }
         }
 
         message Icon {
@@ -563,6 +573,7 @@ message ObjectType {
         image = 8;
         note = 9;
         space = 10;
+        bookmark = 11;
 
         database = 20; // to be released later
     }
