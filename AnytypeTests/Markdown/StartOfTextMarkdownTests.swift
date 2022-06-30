@@ -21,7 +21,7 @@ class StartOfTextMarkdownTests: XCTestCase {
     func testTypingALotTextOnce() {
         BeginingOfTextMarkdown.all.forEach { shortcut in
             shortcut.text.forEach { text in
-                testTypingALotTextOnce(insetText: text + "testtext", expectedText: "testtext", style: shortcut.style)
+                testTypingALotTextOnce(insertedText: text + "testtext", expectedText: "testtext", style: shortcut.style)
             }
         }
     }
@@ -60,7 +60,7 @@ class StartOfTextMarkdownTests: XCTestCase {
     }
     
     private func testTypingALotTextOnce(
-        insetText: String,
+        insertedText: String,
         expectedText: String,
         style: BlockText.Style
     ) {
@@ -68,7 +68,7 @@ class StartOfTextMarkdownTests: XCTestCase {
 
         let markdownChange = listener.markdownChange(
             textView: data.textView,
-            replacementText: insetText,
+            replacementText: insertedText,
             range: data.textView.selectedRange
         )
 
