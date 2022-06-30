@@ -44,7 +44,7 @@ public final class FeatureFlags {
         .createNewRelation: true,
         .templates: true,
         .createObjectInSet: true,
-        .setSorts: true,
+        .setSorts: false,
         .setFilters: false,
         .tableOfContents: false,
         .objectDuplicate: true
@@ -104,7 +104,7 @@ public extension FeatureFlags {
     }
     
     static var isSetSortsAvailable: Bool {
-        features[.setSorts, default: true]
+        features[.setSorts, default: false]
     }
     
     static var isSetFiltersAvailable: Bool {
