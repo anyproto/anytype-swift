@@ -2,25 +2,26 @@ import BlocksModels
 
 struct BeginingOfTextMarkdown {
     let text: [String]
-    let style: BlockText.Style
+    let type: BlockContentType
 }
 
 extension BeginingOfTextMarkdown {
-    init(text: String, style: BlockText.Style) {
-        self.init(text: [text], style: style)
+    init(text: String, type: BlockContentType) {
+        self.init(text: [text], type: type)
     }
 }
 
 extension BeginingOfTextMarkdown {
     static let all: [BeginingOfTextMarkdown] = [
-        BeginingOfTextMarkdown(text: "# ", style: .header),
-        BeginingOfTextMarkdown(text: "## ", style: .header2),
-        BeginingOfTextMarkdown(text: "### ", style: .header3),
-        BeginingOfTextMarkdown(text: ["\" ", "\' ", "“ ", "‘ ", "« "], style: .quote),
-        BeginingOfTextMarkdown(text: ["* ", "- ", "+ "], style: .bulleted),
-        BeginingOfTextMarkdown(text: "[] ", style: .checkbox),
-        BeginingOfTextMarkdown(text: "1. ", style: .numbered),
-        BeginingOfTextMarkdown(text: "> ", style: .toggle),
-        BeginingOfTextMarkdown(text: ["``` ", "““ ", "‘‘‘ "], style: .code),
+        BeginingOfTextMarkdown(text: "# ", type: .text(.header)),
+        BeginingOfTextMarkdown(text: "## ", type: .text(.header2)),
+        BeginingOfTextMarkdown(text: "### ", type: .text(.header3)),
+        BeginingOfTextMarkdown(text: ["\" ", "\' ", "“ ", "‘ ", "« "], type: .text(.quote)),
+        BeginingOfTextMarkdown(text: ["* ", "- ", "+ "], type: .text(.bulleted)),
+        BeginingOfTextMarkdown(text: "[] ", type: .text(.checkbox)),
+        BeginingOfTextMarkdown(text: "1. ", type: .text(.numbered)),
+        BeginingOfTextMarkdown(text: "> ", type: .text(.toggle)),
+        BeginingOfTextMarkdown(text: ["``` ", "““ ", "‘‘‘ "], type: .text(.code)),
+        BeginingOfTextMarkdown(text: ["--- ", "—- "], type: .divider(.line)),
     ]
 }
