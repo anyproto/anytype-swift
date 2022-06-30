@@ -991,6 +991,12 @@ internal enum Loc {
         /// Paste link
         internal static let placeholder = Loc.tr("Localizable", "Set.Bookmark.Create.Placeholder")
       }
+      internal enum Error {
+        /// Please try again
+        internal static let message = Loc.tr("Localizable", "Set.Bookmark.Error.Message")
+        /// Oops - something went wrong
+        internal static let title = Loc.tr("Localizable", "Set.Bookmark.Error.Title")
+      }
     }
   }
 

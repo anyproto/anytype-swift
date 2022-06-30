@@ -327,6 +327,8 @@
 
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Paste link";
+"Set.Bookmark.Error.Title" = "Oops - something went wrong";
+"Set.Bookmark.Error.Message" = "Please try again";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
