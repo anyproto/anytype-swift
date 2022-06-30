@@ -51,7 +51,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     private func showUnsupportedTypeAlert(typeUrl: String) {
-        let typeName = ObjectTypeProvider.shared.objectType(url: typeUrl)?.name ?? "Unknown".localized
+        let typeName = ObjectTypeProvider.shared.objectType(url: typeUrl)?.name ?? Loc.unknown
         
         AlertHelper.showToast(
             title: "Not supported type \"\(typeName)\"",
@@ -184,7 +184,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
         
         let moveToView = NewSearchModuleAssembly.moveToObjectSearchModule(
-            title: "Move to".localized,
+            title: Loc.moveTo,
             excludedObjectIds: [document.objectId]
         ) { [weak self] blockId in
             onSelect(blockId)
@@ -198,7 +198,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let viewModel = LinkToObjectSearchViewModel { data in
             onSelect(data.searchKind)
         }
-        let linkToView = SearchView(title: "Link to".localized, context: .menuSearch, viewModel: viewModel)
+        let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
 
         presentSwiftUIView(view: linkToView, model: viewModel)
     }
@@ -207,7 +207,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let viewModel = ObjectSearchViewModel { data in
             onSelect(data.blockId)
         }
-        let linkToView = SearchView(title: "Link to".localized, context: .menuSearch, viewModel: viewModel)
+        let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
         
         presentSwiftUIView(view: linkToView, model: viewModel)
     }
@@ -238,7 +238,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
         let view = NewSearchModuleAssembly.objectTypeSearchModule(
-            title: "Change type".localized,
+            title: Loc.changeType,
             excludedObjectTypeId: document.details?.type
         ) { [weak self] id in
             onSelect(id)
@@ -460,7 +460,7 @@ extension EditorRouter {
         }
     }
     
-    func showSortsSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void) {
+    func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void) {
         let vc = UIHostingController(
             rootView: NewSearchModuleAssembly.setSortsSearchModule(
                 relations: relations,

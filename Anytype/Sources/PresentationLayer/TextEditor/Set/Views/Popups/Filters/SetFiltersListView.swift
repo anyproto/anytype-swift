@@ -11,11 +11,28 @@ struct SetFiltersListView: View {
         DragIndicator()
         NavigationView {
             content
-                .navigationTitle("EditFilters.Popup.NavigationView.Title".localized)
+                .navigationTitle(Loc.EditFilters.Popup.NavigationView.title)
                 .navigationBarTitleDisplayMode(.inline)
                 .environment(\.editMode, $editMode)
+                .onChange(of: viewModel.rows) { newValue in
+                    if editMode == .active && viewModel.rows.count == 0 {
+                        editMode = .inactive
+                    }
+                }
         }
         .navigationViewStyle(.stack)
+    }
+    
+    private var addButton: some View {
+        Group {
+            if editMode == .inactive {
+                Button {
+                    viewModel.addButtonTapped()
+                } label: {
+                    Image.Relations.createOption.frame(width: 24, height: 24)
+                }
+            }
+        }
     }
     
     private var content: some View {
@@ -26,13 +43,18 @@ struct SetFiltersListView: View {
                 emptyState
             }
         }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                addButton
+            }
+        }
     }
     
     private var emptyState: some View {
         VStack {
             Spacer.fixedHeight(20)
             AnytypeText(
-                "EditFilters.Popup.EmptyView.Title".localized,
+                Loc.EditFilters.Popup.EmptyView.title,
                 style: .uxCalloutRegular,
                 color: .textSecondary
             )

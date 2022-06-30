@@ -937,7 +937,45 @@ public struct Anytype_Model_Block {
 
       public var type: Anytype_Model_LinkPreview.TypeEnum = .unknown
 
+      public var targetObjectID: String = String()
+
+      public var state: Anytype_Model_Block.Content.Bookmark.State = .empty
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public enum State: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+        case empty // = 0
+        case fetching // = 1
+        case done // = 2
+        case error // = 3
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .empty
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .empty
+          case 1: self = .fetching
+          case 2: self = .done
+          case 3: self = .error
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .empty: return 0
+          case .fetching: return 1
+          case .done: return 2
+          case .error: return 3
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
 
       public init() {}
     }
@@ -1882,6 +1920,16 @@ extension Anytype_Model_Block.Content.Div.Style: CaseIterable {
   ]
 }
 
+extension Anytype_Model_Block.Content.Bookmark.State: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Bookmark.State] = [
+    .empty,
+    .fetching,
+    .done,
+    .error,
+  ]
+}
+
 extension Anytype_Model_Block.Content.Text.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Model_Block.Content.Text.Style] = [
@@ -2633,6 +2681,7 @@ public struct Anytype_Model_ObjectType {
     case image // = 8
     case note // = 9
     case space // = 10
+    case bookmark // = 11
 
     /// to be released later
     case database // = 20
@@ -2655,6 +2704,7 @@ public struct Anytype_Model_ObjectType {
       case 8: self = .image
       case 9: self = .note
       case 10: self = .space
+      case 11: self = .bookmark
       case 20: self = .database
       default: self = .UNRECOGNIZED(rawValue)
       }
@@ -2673,6 +2723,7 @@ public struct Anytype_Model_ObjectType {
       case .image: return 8
       case .note: return 9
       case .space: return 10
+      case .bookmark: return 11
       case .database: return 20
       case .UNRECOGNIZED(let i): return i
       }
@@ -2699,6 +2750,7 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .image,
     .note,
     .space,
+    .bookmark,
     .database,
   ]
 }
@@ -3100,6 +3152,7 @@ extension Anytype_Model_Block.Content.Link.CardStyle: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Div: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Div.Style: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Bookmark: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Bookmark.State: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Icon: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.FeaturedRelations: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Text: @unchecked Sendable {}
@@ -3914,6 +3967,8 @@ extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProt
     4: .same(proto: "imageHash"),
     5: .same(proto: "faviconHash"),
     6: .same(proto: "type"),
+    7: .same(proto: "targetObjectId"),
+    8: .same(proto: "state"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3928,6 +3983,8 @@ extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProt
       case 4: try { try decoder.decodeSingularStringField(value: &self.imageHash) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.faviconHash) }()
       case 6: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.targetObjectID) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.state) }()
       default: break
       }
     }
@@ -3952,6 +4009,12 @@ extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProt
     if self.type != .unknown {
       try visitor.visitSingularEnumField(value: self.type, fieldNumber: 6)
     }
+    if !self.targetObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.targetObjectID, fieldNumber: 7)
+    }
+    if self.state != .empty {
+      try visitor.visitSingularEnumField(value: self.state, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3962,9 +4025,20 @@ extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProt
     if lhs.imageHash != rhs.imageHash {return false}
     if lhs.faviconHash != rhs.faviconHash {return false}
     if lhs.type != rhs.type {return false}
+    if lhs.targetObjectID != rhs.targetObjectID {return false}
+    if lhs.state != rhs.state {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Model_Block.Content.Bookmark.State: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Empty"),
+    1: .same(proto: "Fetching"),
+    2: .same(proto: "Done"),
+    3: .same(proto: "Error"),
+  ]
 }
 
 extension Anytype_Model_Block.Content.Icon: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -5581,6 +5655,7 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     8: .same(proto: "image"),
     9: .same(proto: "note"),
     10: .same(proto: "space"),
+    11: .same(proto: "bookmark"),
     20: .same(proto: "database"),
   ]
 }

@@ -184,7 +184,7 @@ struct TextBlockActionHandler {
         }
 
         pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) {
-            showWaitingView("Paste processing...".localized)
+            showWaitingView(Loc.pasteProcessing)
         } completion: { pasteResult in
             defer {
                 hideWaitingView()

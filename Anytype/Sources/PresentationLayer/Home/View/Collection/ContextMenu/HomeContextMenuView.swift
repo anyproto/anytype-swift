@@ -10,21 +10,21 @@ struct HomeContextMenuView: View {
     var body: some View {
         Group {
             if cellData.isFavorite {
-                Button("Remove From Favorite".localized) {
+                Button(Loc.removeFromFavorite) {
                     viewModel.removeFromFavorite(data: cellData)
                 }
             } else {
-                Button("Add To Favorite".localized) {
+                Button(Loc.addToFavorite) {
                     viewModel.addToFavorite(data: cellData)
                 }
             }
             
             if #available(iOS 15.0, *) {
-                Button("Move To Bin".localized, role: .destructive) {
+                Button(Loc.moveToBin, role: .destructive) {
                     viewModel.moveToBin(data: cellData)
                 }
             } else {
-                Button("Move To Bin".localized) {
+                Button(Loc.moveToBin) {
                     viewModel.moveToBin(data: cellData)
                 }
             }

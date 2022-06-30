@@ -25,7 +25,7 @@ final class DeletedLabel: UIView {
         let view = UILabel()
         view.textColor = .textSecondary
         view.font = .relation2Regular
-        view.text = "Deleted".localized
+        view.text = Loc.deleted
         return view
     }()
     

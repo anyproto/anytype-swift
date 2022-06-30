@@ -42,14 +42,14 @@ struct EmojiGridView: View {
     private func makeEmptySearchResultView(placeholder: String) -> some View {
         VStack(spacing: 0) {
             AnytypeText(
-                "There is no emoji named".localized + " \"\(placeholder)\"",
+                Loc.thereIsNoEmojiNamed + " \"\(placeholder)\"",
                 style: .uxBodyRegular,
                 color: .textPrimary
             )
             .multilineTextAlignment(.center)
             
             AnytypeText(
-                "Try to find a new one or upload your image".localized,
+                Loc.tryToFindANewOneOrUploadYourImage,
                 style: .uxBodyRegular,
                 color: .textSecondary
             )

@@ -8,7 +8,7 @@ struct ObjectLayoutPicker: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            TitleView(title: "Choose layout type".localized)
+            TitleView(title: Loc.chooseLayoutType)
             layoutList
         }
         .background(Color.backgroundSecondary)

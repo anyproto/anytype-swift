@@ -13,7 +13,7 @@ final class EmptyToggleButtonBuilder {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setAttributedTitle(
             .init(
-                string: "Toggle empty. Tap to create block.".localized,
+                string: Loc.ToggleEmpty.tapToCreateBlock,
                 attributes: [
                     .font: UIFont.bodyRegular,
                     .foregroundColor: UIColor.textSecondary
