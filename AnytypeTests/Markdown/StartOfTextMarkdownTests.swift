@@ -18,6 +18,14 @@ class StartOfTextMarkdownTests: XCTestCase {
         }
     }
     
+    func testTypingALotTextOnce() {
+        BeginingOfTextMarkdown.all.forEach { shortcut in
+            shortcut.text.forEach { text in
+                testTypingALotTextOnce(insetText: text + "abcdef", expectedText: "abcdef", style: shortcut.style)
+            }
+        }
+    }
+    
     private func testEnteringSpaceAfterTextMarkdown(
         shortcut: String,
         style: BlockText.Style,
@@ -49,6 +57,30 @@ class StartOfTextMarkdownTests: XCTestCase {
            XCTAssertNil(markdownChange)
         }
         
+    }
+    
+    private func testTypingALotTextOnce(
+        insetText: String,
+        expectedText: String,
+        style: BlockText.Style
+    ) {
+        let data = buildData(text: "", carretPosition: 0)
+
+        let markdownChange = listener.markdownChange(
+            textView: data.textView,
+            replacementText: insetText,
+            range: data.textView.selectedRange
+        )
+
+        switch markdownChange {
+        case .setText:
+            break // Not implemented. It is about inline markups
+        case let .turnInto(newStyle, text: newText):
+            XCTAssertEqual(newStyle, style)
+            XCTAssertEqual(newText.string, expectedText)
+        default:
+            XCTFail("Wrong case")
+        }
     }
 
     private func buildData(text: String, carretPosition: Int) -> TextBlockDelegateData {
