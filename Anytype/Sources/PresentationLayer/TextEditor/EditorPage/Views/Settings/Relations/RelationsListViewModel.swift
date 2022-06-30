@@ -55,6 +55,7 @@ extension RelationsListViewModel {
         } else {
             relationsService.addFeaturedRelation(relationKey: relationRowData.id)
         }
+        UISelectionFeedbackGenerator().selectionChanged()
     }
     
     func handleTapOnRelation(relationId: String) {

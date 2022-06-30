@@ -1,5 +1,6 @@
 import ProtobufMessages
 import BlocksModels
+import Foundation
 
 struct EventsBunch {
     let contextId: BlockId

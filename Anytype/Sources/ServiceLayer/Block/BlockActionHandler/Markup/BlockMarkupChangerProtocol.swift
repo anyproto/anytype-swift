@@ -1,4 +1,5 @@
 import BlocksModels
+import Foundation
 
 protocol BlockMarkupChangerProtocol {
     func toggleMarkup(_ markup: MarkupType, blockId: BlockId) -> NSAttributedString?

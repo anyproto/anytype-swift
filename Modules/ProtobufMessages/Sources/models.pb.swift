@@ -732,7 +732,46 @@ public struct Anytype_Model_Block {
       /// Clears the value of `fields`. Subsequent reads from it will return its default value.
       public mutating func clearFields() {self._fields = nil}
 
+      public var iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone
+
+      public var cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text
+
+      public var description_p: Anytype_Model_Block.Content.Link.Description = .none
+
+      public var relations: [String] = []
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public enum IconSize: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+        case sizeNone // = 0
+        case sizeSmall // = 1
+        case sizeMedium // = 2
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .sizeNone
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .sizeNone
+          case 1: self = .sizeSmall
+          case 2: self = .sizeMedium
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .sizeNone: return 0
+          case .sizeSmall: return 1
+          case .sizeMedium: return 2
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
 
       public enum Style: SwiftProtobuf.Enum {
         public typealias RawValue = Int
@@ -764,6 +803,68 @@ public struct Anytype_Model_Block {
           case .dataview: return 1
           case .dashboard: return 2
           case .archive: return 3
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
+
+      public enum Description: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+        case none // = 0
+        case added // = 1
+        case content // = 2
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .none
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .none
+          case 1: self = .added
+          case 2: self = .content
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .none: return 0
+          case .added: return 1
+          case .content: return 2
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
+
+      public enum CardStyle: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+        case text // = 0
+        case card // = 1
+        case inline // = 2
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .text
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .text
+          case 1: self = .card
+          case 2: self = .inline
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .text: return 0
+          case .card: return 1
+          case .inline: return 2
           case .UNRECOGNIZED(let i): return i
           }
         }
@@ -906,17 +1007,15 @@ public struct Anytype_Model_Block {
         case quote // = 5
         case code // = 6
 
-        /// currently only only one block of this style can exists on a page
+        /// currently only one block of this style can exists on a page
         case title // = 7
         case checkbox // = 8
         case marked // = 9
         case numbered // = 10
         case toggle // = 11
 
-        /// currently only only one block of this style can exists on a page
+        /// currently only one block of this style can exists on a page
         case description_ // = 12
-
-        /// currently only only one block of this style can exists on a page
         case callout // = 13
         case UNRECOGNIZED(Int)
 
@@ -1496,6 +1595,8 @@ public struct Anytype_Model_Block {
         /// Clears the value of `value`. Subsequent reads from it will return its default value.
         public mutating func clearValue() {self._value = nil}
 
+        public var quickOption: Anytype_Model_Block.Content.Dataview.Filter.QuickOption = .exactDate
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum Operator: SwiftProtobuf.Enum {
@@ -1593,6 +1694,64 @@ public struct Anytype_Model_Block {
 
         }
 
+        public enum QuickOption: SwiftProtobuf.Enum {
+          public typealias RawValue = Int
+          case exactDate // = 0
+          case yesterday // = 1
+          case today // = 2
+          case tomorrow // = 3
+          case lastWeek // = 4
+          case currentWeek // = 5
+          case nextWeek // = 6
+          case lastMonth // = 7
+          case currentMonth // = 8
+          case nextMonth // = 9
+          case numberOfDaysAgo // = 10
+          case numberOfDaysNow // = 11
+          case UNRECOGNIZED(Int)
+
+          public init() {
+            self = .exactDate
+          }
+
+          public init?(rawValue: Int) {
+            switch rawValue {
+            case 0: self = .exactDate
+            case 1: self = .yesterday
+            case 2: self = .today
+            case 3: self = .tomorrow
+            case 4: self = .lastWeek
+            case 5: self = .currentWeek
+            case 6: self = .nextWeek
+            case 7: self = .lastMonth
+            case 8: self = .currentMonth
+            case 9: self = .nextMonth
+            case 10: self = .numberOfDaysAgo
+            case 11: self = .numberOfDaysNow
+            default: self = .UNRECOGNIZED(rawValue)
+            }
+          }
+
+          public var rawValue: Int {
+            switch self {
+            case .exactDate: return 0
+            case .yesterday: return 1
+            case .today: return 2
+            case .tomorrow: return 3
+            case .lastWeek: return 4
+            case .currentWeek: return 5
+            case .nextWeek: return 6
+            case .lastMonth: return 7
+            case .currentMonth: return 8
+            case .nextMonth: return 9
+            case .numberOfDaysAgo: return 10
+            case .numberOfDaysNow: return 11
+            case .UNRECOGNIZED(let i): return i
+            }
+          }
+
+        }
+
         public init() {}
 
         fileprivate var _value: SwiftProtobuf.Google_Protobuf_Value? = nil
@@ -1678,6 +1837,15 @@ extension Anytype_Model_Block.Content.Layout.Style: CaseIterable {
   ]
 }
 
+extension Anytype_Model_Block.Content.Link.IconSize: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Link.IconSize] = [
+    .sizeNone,
+    .sizeSmall,
+    .sizeMedium,
+  ]
+}
+
 extension Anytype_Model_Block.Content.Link.Style: CaseIterable {
   // The compiler won't synthesize support with the UNRECOGNIZED case.
   public static var allCases: [Anytype_Model_Block.Content.Link.Style] = [
@@ -1685,6 +1853,24 @@ extension Anytype_Model_Block.Content.Link.Style: CaseIterable {
     .dataview,
     .dashboard,
     .archive,
+  ]
+}
+
+extension Anytype_Model_Block.Content.Link.Description: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Link.Description] = [
+    .none,
+    .added,
+    .content,
+  ]
+}
+
+extension Anytype_Model_Block.Content.Link.CardStyle: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Link.CardStyle] = [
+    .text,
+    .card,
+    .inline,
   ]
 }
 
@@ -1839,6 +2025,24 @@ extension Anytype_Model_Block.Content.Dataview.Filter.Condition: CaseIterable {
   ]
 }
 
+extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Dataview.Filter.QuickOption] = [
+    .exactDate,
+    .yesterday,
+    .today,
+    .tomorrow,
+    .lastWeek,
+    .currentWeek,
+    .nextWeek,
+    .lastMonth,
+    .currentMonth,
+    .nextMonth,
+    .numberOfDaysAgo,
+    .numberOfDaysNow,
+  ]
+}
+
 #endif  // swift(>=4.2)
 
 ///
@@ -1928,6 +2132,15 @@ public struct Anytype_Model_Account {
   public var hasStatus: Bool {return _storage._status != nil}
   /// Clears the value of `status`. Subsequent reads from it will return its default value.
   public mutating func clearStatus() {_uniqueStorage()._status = nil}
+
+  public var info: Anytype_Model_Account.Info {
+    get {return _storage._info ?? Anytype_Model_Account.Info()}
+    set {_uniqueStorage()._info = newValue}
+  }
+  /// Returns true if `info` has been explicitly set.
+  public var hasInfo: Bool {return _storage._info != nil}
+  /// Clears the value of `info`. Subsequent reads from it will return its default value.
+  public mutating func clearInfo() {_uniqueStorage()._info = nil}
 
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2066,6 +2279,42 @@ public struct Anytype_Model_Account {
     public init() {}
   }
 
+  public struct Info {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// home dashboard block id
+    public var homeObjectID: String = String()
+
+    /// archive block id
+    public var archiveObjectID: String = String()
+
+    /// profile block id
+    public var profileObjectID: String = String()
+
+    /// marketplace type id
+    public var marketplaceTypeObjectID: String = String()
+
+    /// marketplace relation id
+    public var marketplaceRelationObjectID: String = String()
+
+    /// marketplace template id
+    public var marketplaceTemplateObjectID: String = String()
+
+    public var deviceID: String = String()
+
+    /// gateway url for fetching static files
+    public var gatewayURL: String = String()
+
+    /// path to local storage
+    public var localStoragePath: String = String()
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
   public init() {}
 
   fileprivate var _storage = _StorageClass.defaultInstance
@@ -2181,9 +2430,18 @@ public struct Anytype_Model_Restrictions {
 
     /// restricts work with details
     case details // = 4
+
+    /// restricts type changing
     case typeChange // = 5
+
+    /// restricts layout changing
     case layoutChange // = 6
+
+    /// restricts template creation from this object
     case template // = 7
+
+    /// restricts duplicate object
+    case duplicate // = 8
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -2200,6 +2458,7 @@ public struct Anytype_Model_Restrictions {
       case 5: self = .typeChange
       case 6: self = .layoutChange
       case 7: self = .template
+      case 8: self = .duplicate
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -2214,6 +2473,7 @@ public struct Anytype_Model_Restrictions {
       case .typeChange: return 5
       case .layoutChange: return 6
       case .template: return 7
+      case .duplicate: return 8
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -2284,6 +2544,7 @@ extension Anytype_Model_Restrictions.ObjectRestriction: CaseIterable {
     .typeChange,
     .layoutChange,
     .template,
+    .duplicate,
   ]
 }
 
@@ -2761,6 +3022,64 @@ public struct Anytype_Model_RelationOptions {
   public init() {}
 }
 
+public struct Anytype_Model_InternalFlag {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var value: Anytype_Model_InternalFlag.Value = .editorDeleteEmpty
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  /// Use such a weird construction due to the issue with imported repeated enum type
+  /// Look https://github.com/golang/protobuf/issues/1135 for more information.
+  public enum Value: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+    case editorDeleteEmpty // = 0
+    case editorSelectType // = 1
+    case editorSelectTemplate // = 2
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .editorDeleteEmpty
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .editorDeleteEmpty
+      case 1: self = .editorSelectType
+      case 2: self = .editorSelectTemplate
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .editorDeleteEmpty: return 0
+      case .editorSelectType: return 1
+      case .editorSelectTemplate: return 2
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  public init() {}
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_InternalFlag.Value: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_InternalFlag.Value] = [
+    .editorDeleteEmpty,
+    .editorSelectType,
+    .editorSelectTemplate,
+  ]
+}
+
+#endif  // swift(>=4.2)
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 extension Anytype_Model_RelationFormat: @unchecked Sendable {}
@@ -2774,7 +3093,10 @@ extension Anytype_Model_Block.Content: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Layout: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Layout.Style: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Link: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.IconSize: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Link.Style: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.Description: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.CardStyle: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Div: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Div.Style: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Bookmark: @unchecked Sendable {}
@@ -2802,6 +3124,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: @unchecked Sendabl
 extension Anytype_Model_Block.Content.Dataview.Filter: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Filter.Operator: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Filter.Condition: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Relation: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Latex: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.TableOfContents: @unchecked Sendable {}
@@ -2813,6 +3136,7 @@ extension Anytype_Model_Account.Avatar: @unchecked Sendable {}
 extension Anytype_Model_Account.Avatar.OneOf_Avatar: @unchecked Sendable {}
 extension Anytype_Model_Account.Config: @unchecked Sendable {}
 extension Anytype_Model_Account.Status: @unchecked Sendable {}
+extension Anytype_Model_Account.Info: @unchecked Sendable {}
 extension Anytype_Model_LinkPreview: @unchecked Sendable {}
 extension Anytype_Model_LinkPreview.TypeEnum: @unchecked Sendable {}
 extension Anytype_Model_Restrictions: @unchecked Sendable {}
@@ -2832,6 +3156,8 @@ extension Anytype_Model_Relation.Option: @unchecked Sendable {}
 extension Anytype_Model_Relation.Option.Scope: @unchecked Sendable {}
 extension Anytype_Model_Relations: @unchecked Sendable {}
 extension Anytype_Model_RelationOptions: @unchecked Sendable {}
+extension Anytype_Model_InternalFlag: @unchecked Sendable {}
+extension Anytype_Model_InternalFlag.Value: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -3441,6 +3767,10 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
     1: .same(proto: "targetBlockId"),
     2: .same(proto: "style"),
     3: .same(proto: "fields"),
+    4: .same(proto: "iconSize"),
+    5: .same(proto: "cardStyle"),
+    6: .same(proto: "description"),
+    7: .same(proto: "relations"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3452,6 +3782,10 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
       case 1: try { try decoder.decodeSingularStringField(value: &self.targetBlockID) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.style) }()
       case 3: try { try decoder.decodeSingularMessageField(value: &self._fields) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.iconSize) }()
+      case 5: try { try decoder.decodeSingularEnumField(value: &self.cardStyle) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.description_p) }()
+      case 7: try { try decoder.decodeRepeatedStringField(value: &self.relations) }()
       default: break
       }
     }
@@ -3471,6 +3805,18 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
     try { if let v = self._fields {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
     } }()
+    if self.iconSize != .sizeNone {
+      try visitor.visitSingularEnumField(value: self.iconSize, fieldNumber: 4)
+    }
+    if self.cardStyle != .text {
+      try visitor.visitSingularEnumField(value: self.cardStyle, fieldNumber: 5)
+    }
+    if self.description_p != .none {
+      try visitor.visitSingularEnumField(value: self.description_p, fieldNumber: 6)
+    }
+    if !self.relations.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.relations, fieldNumber: 7)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -3478,9 +3824,21 @@ extension Anytype_Model_Block.Content.Link: SwiftProtobuf.Message, SwiftProtobuf
     if lhs.targetBlockID != rhs.targetBlockID {return false}
     if lhs.style != rhs.style {return false}
     if lhs._fields != rhs._fields {return false}
+    if lhs.iconSize != rhs.iconSize {return false}
+    if lhs.cardStyle != rhs.cardStyle {return false}
+    if lhs.description_p != rhs.description_p {return false}
+    if lhs.relations != rhs.relations {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Model_Block.Content.Link.IconSize: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "SizeNone"),
+    1: .same(proto: "SizeSmall"),
+    2: .same(proto: "SizeMedium"),
+  ]
 }
 
 extension Anytype_Model_Block.Content.Link.Style: SwiftProtobuf._ProtoNameProviding {
@@ -3489,6 +3847,22 @@ extension Anytype_Model_Block.Content.Link.Style: SwiftProtobuf._ProtoNameProvid
     1: .same(proto: "Dataview"),
     2: .same(proto: "Dashboard"),
     3: .same(proto: "Archive"),
+  ]
+}
+
+extension Anytype_Model_Block.Content.Link.Description: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "None"),
+    1: .same(proto: "Added"),
+    2: .same(proto: "Content"),
+  ]
+}
+
+extension Anytype_Model_Block.Content.Link.CardStyle: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Text"),
+    1: .same(proto: "Card"),
+    2: .same(proto: "Inline"),
   ]
 }
 
@@ -4237,6 +4611,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     5: .same(proto: "relationProperty"),
     3: .same(proto: "condition"),
     4: .same(proto: "value"),
+    6: .same(proto: "quickOption"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -4250,6 +4625,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
       case 3: try { try decoder.decodeSingularEnumField(value: &self.condition) }()
       case 4: try { try decoder.decodeSingularMessageField(value: &self._value) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.relationProperty) }()
+      case 6: try { try decoder.decodeSingularEnumField(value: &self.quickOption) }()
       default: break
       }
     }
@@ -4275,6 +4651,9 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     if !self.relationProperty.isEmpty {
       try visitor.visitSingularStringField(value: self.relationProperty, fieldNumber: 5)
     }
+    if self.quickOption != .exactDate {
+      try visitor.visitSingularEnumField(value: self.quickOption, fieldNumber: 6)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4284,6 +4663,7 @@ extension Anytype_Model_Block.Content.Dataview.Filter: SwiftProtobuf.Message, Sw
     if lhs.relationProperty != rhs.relationProperty {return false}
     if lhs.condition != rhs.condition {return false}
     if lhs._value != rhs._value {return false}
+    if lhs.quickOption != rhs.quickOption {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -4313,6 +4693,23 @@ extension Anytype_Model_Block.Content.Dataview.Filter.Condition: SwiftProtobuf._
     12: .same(proto: "NotEmpty"),
     13: .same(proto: "AllIn"),
     14: .same(proto: "NotAllIn"),
+  ]
+}
+
+extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "ExactDate"),
+    1: .same(proto: "Yesterday"),
+    2: .same(proto: "Today"),
+    3: .same(proto: "Tomorrow"),
+    4: .same(proto: "LastWeek"),
+    5: .same(proto: "CurrentWeek"),
+    6: .same(proto: "NextWeek"),
+    7: .same(proto: "LastMonth"),
+    8: .same(proto: "CurrentMonth"),
+    9: .same(proto: "NextMonth"),
+    10: .same(proto: "NumberOfDaysAgo"),
+    11: .same(proto: "NumberOfDaysNow"),
   ]
 }
 
@@ -4487,6 +4884,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     3: .same(proto: "avatar"),
     4: .same(proto: "config"),
     5: .same(proto: "status"),
+    6: .same(proto: "info"),
   ]
 
   fileprivate class _StorageClass {
@@ -4495,6 +4893,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     var _avatar: Anytype_Model_Account.Avatar? = nil
     var _config: Anytype_Model_Account.Config? = nil
     var _status: Anytype_Model_Account.Status? = nil
+    var _info: Anytype_Model_Account.Info? = nil
 
     static let defaultInstance = _StorageClass()
 
@@ -4506,6 +4905,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       _avatar = source._avatar
       _config = source._config
       _status = source._status
+      _info = source._info
     }
   }
 
@@ -4529,6 +4929,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         case 3: try { try decoder.decodeSingularMessageField(value: &_storage._avatar) }()
         case 4: try { try decoder.decodeSingularMessageField(value: &_storage._config) }()
         case 5: try { try decoder.decodeSingularMessageField(value: &_storage._status) }()
+        case 6: try { try decoder.decodeSingularMessageField(value: &_storage._info) }()
         default: break
         }
       }
@@ -4556,6 +4957,9 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
       try { if let v = _storage._status {
         try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
       } }()
+      try { if let v = _storage._info {
+        try visitor.visitSingularMessageField(value: v, fieldNumber: 6)
+      } }()
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -4570,6 +4974,7 @@ extension Anytype_Model_Account: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
         if _storage._avatar != rhs_storage._avatar {return false}
         if _storage._config != rhs_storage._config {return false}
         if _storage._status != rhs_storage._status {return false}
+        if _storage._info != rhs_storage._info {return false}
         return true
       }
       if !storagesAreEqual {return false}
@@ -4751,6 +5156,86 @@ extension Anytype_Model_Account.Status: SwiftProtobuf.Message, SwiftProtobuf._Me
   }
 }
 
+extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Account.protoMessageName + ".Info"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    2: .same(proto: "homeObjectId"),
+    3: .same(proto: "archiveObjectId"),
+    4: .same(proto: "profileObjectId"),
+    5: .same(proto: "marketplaceTypeObjectId"),
+    6: .same(proto: "marketplaceRelationObjectId"),
+    7: .same(proto: "marketplaceTemplateObjectId"),
+    8: .same(proto: "deviceId"),
+    101: .same(proto: "gatewayUrl"),
+    103: .same(proto: "localStoragePath"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 2: try { try decoder.decodeSingularStringField(value: &self.homeObjectID) }()
+      case 3: try { try decoder.decodeSingularStringField(value: &self.archiveObjectID) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.profileObjectID) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.marketplaceTypeObjectID) }()
+      case 6: try { try decoder.decodeSingularStringField(value: &self.marketplaceRelationObjectID) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.marketplaceTemplateObjectID) }()
+      case 8: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
+      case 101: try { try decoder.decodeSingularStringField(value: &self.gatewayURL) }()
+      case 103: try { try decoder.decodeSingularStringField(value: &self.localStoragePath) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.homeObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.homeObjectID, fieldNumber: 2)
+    }
+    if !self.archiveObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.archiveObjectID, fieldNumber: 3)
+    }
+    if !self.profileObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.profileObjectID, fieldNumber: 4)
+    }
+    if !self.marketplaceTypeObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.marketplaceTypeObjectID, fieldNumber: 5)
+    }
+    if !self.marketplaceRelationObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.marketplaceRelationObjectID, fieldNumber: 6)
+    }
+    if !self.marketplaceTemplateObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.marketplaceTemplateObjectID, fieldNumber: 7)
+    }
+    if !self.deviceID.isEmpty {
+      try visitor.visitSingularStringField(value: self.deviceID, fieldNumber: 8)
+    }
+    if !self.gatewayURL.isEmpty {
+      try visitor.visitSingularStringField(value: self.gatewayURL, fieldNumber: 101)
+    }
+    if !self.localStoragePath.isEmpty {
+      try visitor.visitSingularStringField(value: self.localStoragePath, fieldNumber: 103)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Account.Info, rhs: Anytype_Model_Account.Info) -> Bool {
+    if lhs.homeObjectID != rhs.homeObjectID {return false}
+    if lhs.archiveObjectID != rhs.archiveObjectID {return false}
+    if lhs.profileObjectID != rhs.profileObjectID {return false}
+    if lhs.marketplaceTypeObjectID != rhs.marketplaceTypeObjectID {return false}
+    if lhs.marketplaceRelationObjectID != rhs.marketplaceRelationObjectID {return false}
+    if lhs.marketplaceTemplateObjectID != rhs.marketplaceTemplateObjectID {return false}
+    if lhs.deviceID != rhs.deviceID {return false}
+    if lhs.gatewayURL != rhs.gatewayURL {return false}
+    if lhs.localStoragePath != rhs.localStoragePath {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
 extension Anytype_Model_LinkPreview: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".LinkPreview"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
@@ -4870,6 +5355,7 @@ extension Anytype_Model_Restrictions.ObjectRestriction: SwiftProtobuf._ProtoName
     5: .same(proto: "TypeChange"),
     6: .same(proto: "LayoutChange"),
     7: .same(proto: "Template"),
+    8: .same(proto: "Duplicate"),
   ]
 }
 
@@ -5444,4 +5930,44 @@ extension Anytype_Model_RelationOptions: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Model_InternalFlag: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".InternalFlag"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != .editorDeleteEmpty {
+      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_InternalFlag, rhs: Anytype_Model_InternalFlag) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_InternalFlag.Value: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "editorDeleteEmpty"),
+    1: .same(proto: "editorSelectType"),
+    2: .same(proto: "editorSelectTemplate"),
+  ]
 }

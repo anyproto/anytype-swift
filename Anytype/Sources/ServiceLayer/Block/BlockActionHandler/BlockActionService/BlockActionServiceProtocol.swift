@@ -14,13 +14,13 @@ protocol BlockActionServiceProtocol {
     
     func delete(blockIds: [BlockId])
 
-    func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId?
+    func createPage(targetId: BlockId, type: ObjectTypeUrl, position: BlockPosition) -> BlockId?
     
     func split(
         _ string: NSAttributedString,
         blockId: BlockId,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
-        position: Int,
+        range: NSRange,
         newBlockContentType: BlockText.Style
     )
     

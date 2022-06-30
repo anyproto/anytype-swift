@@ -23,7 +23,6 @@ struct ObjectSettingsView: View {
             settingsList
 
             ObjectActionsView(viewModel: viewModel.objectActionsViewModel)
-                .padding(.horizontal, Constants.edgeInset)
         }
     }
     

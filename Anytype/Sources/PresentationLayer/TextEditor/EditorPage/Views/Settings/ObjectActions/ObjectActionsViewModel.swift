@@ -22,25 +22,28 @@ final class ObjectActionsViewModel: ObservableObject {
     let popScreenAction: () -> ()
     var dismissSheet: () -> () = {}
     let undoRedoAction: () -> ()
+    let openPageAction: (_ screenData: EditorScreenData) -> ()
     
-    private let objectId: AnytypeId
+    private let objectId: BlockId
     private let service = ServiceLocator.shared.objectActionsService()
     
     init(
-        objectId: AnytypeId,
+        objectId: BlockId,
         popScreenAction: @escaping () -> (),
-        undoRedoAction: @escaping () -> ()
+        undoRedoAction: @escaping () -> (),
+        openPageAction: @escaping (_ screenData: EditorScreenData) -> ()
     ) {
         self.objectId = objectId
         self.popScreenAction = popScreenAction
         self.undoRedoAction = undoRedoAction
+        self.openPageAction = openPageAction
     }
 
     func changeArchiveState() {
         guard let details = details else { return }
         
         let isArchived = !details.isArchived
-        service.setArchive(objectId: objectId.value, isArchived)
+        service.setArchive(objectId: objectId, isArchived)
         if isArchived {
             popScreenAction()
             dismissSheet()
@@ -50,11 +53,21 @@ final class ObjectActionsViewModel: ObservableObject {
     func changeFavoriteSate() {
         guard let details = details else { return }
 
-        service.setFavorite(objectId: objectId.value, !details.isFavorite)
+        service.setFavorite(objectId: objectId, !details.isFavorite)
     }
 
     func changeLockState() {
-        service.setLocked(!isLocked, objectId: objectId.value)
+        service.setLocked(!isLocked, objectId: objectId)
+    }
+    
+    func duplicateAction() {
+        guard let details = details,
+              let duplicatedId = service.duplicate(objectId: objectId)
+            else { return }
+        
+        let screenData = EditorScreenData(pageId: duplicatedId, type: details.editorViewType)
+        dismissSheet()
+        openPageAction(screenData)
     }
 
     func moveTo() {

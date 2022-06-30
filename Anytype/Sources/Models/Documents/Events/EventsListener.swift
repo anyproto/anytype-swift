@@ -12,7 +12,7 @@ final class EventsListener: EventsListenerProtocol {
         
     // MARK: - Private variables
     
-    private let objectId: AnytypeId
+    private let objectId: BlockId
      
     private let infoContainer: InfoContainerProtocol
     
@@ -25,7 +25,7 @@ final class EventsListener: EventsListenerProtocol {
     // MARK: - Initializers
     
     init(
-        objectId: AnytypeId,
+        objectId: BlockId,
         infoContainer: InfoContainerProtocol,
         relationStorage: RelationsMetadataStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer
@@ -61,7 +61,7 @@ final class EventsListener: EventsListenerProtocol {
             object: nil
         )
             .compactMap { $0.object as? EventsBunch }
-            .filter { $0.contextId == self.objectId.value }
+            .filter { [weak self] in $0.contextId == self?.objectId ?? "" }
             .sink { [weak self] events in
                 self?.handle(events: events)
             }
@@ -79,17 +79,34 @@ final class EventsListener: EventsListenerProtocol {
             updates.append(.dataSourceUpdate)
         }
 
-        updates = updates.contains(.general) ? [.general] : updates
-
-        updates.forEach { update in
+        updates
+            .filteredUpdates
+            .forEach { update in
             if update.hasUpdate {
                 IndentationBuilder.build(
                     container: infoContainer,
-                    id: objectId.value
+                    id: objectId
                 )
             }
             
             onUpdateReceive?(update)
+        }
+    }
+}
+
+private extension Array where Element == DocumentUpdate {
+    var filteredUpdates: Self {
+        guard contains(.general) else {
+            return self
+        }
+
+        return filter { element in
+            switch element {
+            case .general, .changeType:
+                return true
+            case .syncStatus, .blocks, .details, .dataSourceUpdate, .header:
+                return false
+            }
         }
     }
 }

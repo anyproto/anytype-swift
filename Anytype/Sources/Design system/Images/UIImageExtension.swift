@@ -8,10 +8,13 @@ extension UIImage {
     static let more = createImage("more")
     
     static let ghost = createImage(ImageName.ghost)
-    
 }
 
 extension UIImage {
+    enum action {
+        static let openToEdit = createImage("open_to_edit")
+    }
+    
     enum editor {
         enum BlockOption {
             static let addBelow = createImage("TextEditor/BlocksOption/add_below")
@@ -36,7 +39,7 @@ extension UIImage {
     
     enum editorNavigation {
         static let home = createImage("TextEditor/home")
-        static let search = createImage("TextEditor/search")
+        static let draft = createImage("draft")
         static let backArrow = createImage("TextEditor/backArrow")
         static let forwardArrow = createImage("TextEditor/forwardArrow")
         static let lockedObject = createImage("TextEditor/locked_object")
@@ -56,29 +59,6 @@ extension UIImage {
     
     enum divider {
         static let dots = createImage("TextEditor/Divider/Dots")
-    }
-    
-    enum blockFile {
-        static let noImage = createImage("no_image")
-        
-        enum empty {
-            static let image = createImage("TextEditor/BlockFile/Empty/Image")
-            static let video = createImage("TextEditor/BlockFile/Empty/Video")
-            static let file = createImage("TextEditor/BlockFile/Empty/File")
-            static let bookmark = createImage("TextEditor/BlockFile/Empty/Bookmark")
-        }
-        
-        enum content {
-            static let text = createImage("TextEditor/BlockFile/Content/Text")
-            static let spreadsheet = createImage("TextEditor/BlockFile/Content/Spreadsheet")
-            static let presentation = createImage("TextEditor/BlockFile/Content/Presentation")
-            static let pdf = createImage("TextEditor/BlockFile/Content/PDF")
-            static let image = createImage("TextEditor/BlockFile/Content/Image")
-            static let audio = createImage("TextEditor/BlockFile/Content/Audio")
-            static let video = createImage("TextEditor/BlockFile/Content/Video")
-            static let archive = createImage("TextEditor/BlockFile/Content/Archive")
-            static let other = createImage("TextEditor/BlockFile/Content/Other")
-        }
     }
     
     enum ObjectIcon {

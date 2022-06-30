@@ -12,18 +12,29 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     }
 
     func open() -> Bool {
-        let event = Anytype_Rpc.Block.Open.Service.invoke(contextID: contextId, blockID: contextId, traceID: "")
+        let event = Anytype_Rpc.Object.Open.Service.invoke(contextID: contextId, objectID: contextId, traceID: "")
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockActionsService)
-        
+
         guard let event = event else { return false }
         event.send()
-        
+
+        return true
+    }
+
+    func openForPreview() -> Bool {
+        let event = Anytype_Rpc.Object.Show.Service.invoke(contextID: contextId, objectID: contextId, traceID: "")
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .blockActionsService)
+
+        guard let event = event else { return false }
+        event.send()
+
         return true
     }
     
     func close() {
-        _ = Anytype_Rpc.Block.Close.Service.invoke(contextID: contextId, blockID: contextId)
+        _ = Anytype_Rpc.Object.Close.Service.invoke(contextID: contextId, objectID: contextId)
     }
     
     func add(targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {
@@ -45,7 +56,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     
     func delete(blockIds: [BlockId]) -> Bool {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockDelete)
-        let event = Anytype_Rpc.Block.Unlink.Service.invoke(contextID: contextId, blockIds: blockIds)
+        let event = Anytype_Rpc.Block.ListDelete.Service.invoke(contextID: contextId, blockIds: blockIds)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockActionsService)
         
@@ -57,8 +68,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
     func duplicate(targetId: BlockId, blockIds: [BlockId], position: BlockPosition) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListDuplicate)
-
-        Anytype_Rpc.BlockList.Duplicate.Service
+        Anytype_Rpc.Block.ListDuplicate.Service
             .invoke(contextID: contextId, targetID: targetId, blockIds: blockIds, position: position.asMiddleware)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockActionsService)?
@@ -72,7 +82,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         dropTargetID: String,
         position: BlockPosition
     ) {
-        let event = Anytype_Rpc.BlockList.Move.Service
+        let event = Anytype_Rpc.Block.ListMoveToExistingObject.Service
             .invoke(
                 contextID: contextId,
                 blockIds: blockIds,

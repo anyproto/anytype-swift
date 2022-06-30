@@ -1,61 +1,69 @@
-import ProtobufMessages
-import SwiftProtobuf
 import AnytypeCore
 import BlocksModels
-
-protocol ObjectTypeProviderProtocol {
-    static var supportedTypeUrls: [String] { get }
-    static var defaultObjectType: ObjectType { get }
-    
-    static func loadObjects()
-    
-    static func isSupported(typeUrl: String) -> Bool
-    
-    static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType]
-    static func objectType(url: String?) -> ObjectType?
-}
+import ProtobufMessages
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
-    static var supportedTypeUrls: [String] {
-        let smartblockTypes: [Anytype_Model_SmartBlockType] = [.page, .profilePage, .anytypeProfile, .set]
         
-        return objectTypes(smartblockTypes: smartblockTypes).map { $0.url } +
-        [ObjectTemplateType.BundledType.note.rawValue]
+    static let shared = ObjectTypeProvider()
+    
+    // MARK: - Private variables
+    
+    private let service = ObjectTypesService()
+    private let supportedSmartblockTypes: Set<SmartBlockType> = [.page, .profilePage, .anytypeProfile, .set]
+    
+    private var cachedObtainedObjectTypes: Set<ObjectType> = []
+    private var cachedSupportedTypeUrls: Set<String> = []
+    
+    // MARK: - ObjectTypeProviderProtocol
+    
+    var supportedTypeUrls: [String] {
+        Array(obtainedSupportedTypeUrls)
     }
     
-    static var defaultObjectType: ObjectType {
-        objectType(url: UserDefaultsConfig.defaultObjectType) ?? .fallbackType
+    func isSupported(typeUrl: String) -> Bool {
+        obtainedSupportedTypeUrls.contains(typeUrl)
     }
     
-    static func objectTypes(smartblockTypes: [Anytype_Model_SmartBlockType]) -> [ObjectType] {
-        types.filter {
-            !Set($0.types).intersection(smartblockTypes).isEmpty
+    var defaultObjectType: ObjectType {
+        UserDefaultsConfig.defaultObjectType
+    }
+    
+    func objectType(url: String?) -> ObjectType? {
+        guard let url = url else { return nil }
+        
+        return obtainedObjectTypes.filter { $0.url == url }.first
+    }
+    
+    func objectTypes(smartblockTypes: Set<SmartBlockType>) -> [ObjectType] {
+        obtainedObjectTypes.filter {
+            $0.smartBlockTypes.intersection(smartblockTypes).isNotEmpty
         }
     }
     
-    static func isSupported(typeUrl: String) -> Bool {
-        supportedTypeUrls.contains(typeUrl)
+    // MARK: - Internal func
+    
+    func resetCache() {
+        cachedObtainedObjectTypes = []
+        cachedSupportedTypeUrls = []
     }
     
-    static func objectType(url: String?) -> ObjectType? {
-        guard let url = url else {
-            return nil
+    private var obtainedObjectTypes: Set<ObjectType> {
+        if cachedObtainedObjectTypes.isEmpty {
+            cachedObtainedObjectTypes = service.obtainObjectTypes()
         }
         
-        return types.filter { $0.url == url }.first
+        return cachedObtainedObjectTypes
     }
     
-    static func loadObjects() {
-        guard let types = try? Anytype_Rpc.ObjectType.List.Service.invoke().get().objectTypes else {
-            return
+    private var obtainedSupportedTypeUrls: Set<String> {
+        if cachedSupportedTypeUrls.isEmpty {
+            let result = obtainedObjectTypes.filter {
+                    $0.smartBlockTypes.intersection(supportedSmartblockTypes).isNotEmpty
+                }.map { $0.url }
+            cachedSupportedTypeUrls = Set(result)
         }
         
-        cachedTypes = types.map { ObjectType(model: $0) }
+        return cachedSupportedTypeUrls
     }
     
-    private static var cachedTypes = [ObjectType]()
-    private static var types: [ObjectType] = {
-        loadObjects()
-        return cachedTypes
-    }()
 }

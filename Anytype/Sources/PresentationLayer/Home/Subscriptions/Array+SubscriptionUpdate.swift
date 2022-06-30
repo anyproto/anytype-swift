@@ -2,7 +2,7 @@ import BlocksModels
 import AnytypeCore
 
 protocol IdProvider {
-    var id: AnytypeId { get }
+    var id: BlockId { get }
 }
 
 extension ObjectDetails: IdProvider {}
@@ -20,7 +20,7 @@ extension Array where Element: IdProvider {
             self = data.map { transform($0) }
         case .update(let data):
             let newData = transform(data)
-            guard let index = indexInCollection(blockId: newData.id.value, assert: false) else { return }
+            guard let index = indexInCollection(blockId: newData.id, assert: false) else { return }
             self[index] = newData
         case .remove(let blockId):
             guard let index = indexInCollection(blockId: blockId) else { return }
@@ -45,7 +45,7 @@ extension Array where Element: IdProvider {
     }
 
     private func indexInCollection(blockId: BlockId, assert: Bool = true) -> Int? {
-        guard let index = self.firstIndex(where: { $0.id.value == blockId }) else {
+        guard let index = self.firstIndex(where: { $0.id == blockId }) else {
             if assert {
                 anytypeAssertionFailure("No history cell found for blockId: \(blockId)", domain: .homeView)
             }

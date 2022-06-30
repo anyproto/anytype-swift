@@ -1,4 +1,6 @@
 /// A thread-safe array.
+import Foundation
+
 public final class SynchronizedArray<T> {
 
     // MARK: - Private variables

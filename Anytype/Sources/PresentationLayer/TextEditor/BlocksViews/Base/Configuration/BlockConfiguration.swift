@@ -1,13 +1,38 @@
 import UIKit
 
-protocol BlockConfiguration: Hashable where View.Configuration == Self {
+protocol BlockConfiguration: Hashable, Dequebale where View.Configuration == Self {
     associatedtype View: BlockContentView
 
+    var isAnimationEnabled: Bool { get }
     var contentInsets: UIEdgeInsets { get }
+}
+
+protocol Dequebale {
+    func dequeueReusableCell(
+        collectionView: UICollectionView,
+        for indexPath: IndexPath
+    ) -> UICollectionViewCell
+}
+
+extension Dequebale where Self: BlockConfiguration {
+    func dequeueReusableCell(
+        collectionView: UICollectionView,
+        for indexPath: IndexPath
+    ) -> UICollectionViewCell {
+        let collectionViewCell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: Self.View.reusableIdentifier,
+            for: indexPath
+        ) as? GenericCollectionViewCell<Self.View>
+        collectionViewCell?.update(with: self)
+
+        return collectionViewCell ?? UICollectionViewCell()
+    }
 }
 
 extension BlockConfiguration {
     var contentInsets: UIEdgeInsets { .init(top: 2, left: 20, bottom: -2, right: -20) }
+
+    var isAnimationEnabled: Bool { true }
 }
 
 struct BlockDragConfiguration {

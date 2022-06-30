@@ -1,3 +1,5 @@
+import Foundation
+
 public final class MetadataProvider {
     public static var appVersion: String? {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String

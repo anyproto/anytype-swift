@@ -29,15 +29,6 @@ final class ApplicationCoordinator {
 private extension ApplicationCoordinator {
  
     func runAtFirstLaunch() {
-        if UserDefaultsConfig.defaultObjectType.isEmpty {
-            if UserDefaultsConfig.installedAtDate.isNil { // First launch
-                UserDefaultsConfig.defaultObjectType = ObjectTemplateType.bundled(.note).rawValue
-            } else {
-                UserDefaultsConfig.defaultObjectType = ObjectTemplateType.bundled(.page).rawValue
-            }
-        }
-        
-        
         if UserDefaultsConfig.installedAtDate.isNil {
             UserDefaultsConfig.installedAtDate = Date()
         }
@@ -50,13 +41,17 @@ private extension ApplicationCoordinator {
             return
         }
         
-        switch authService.selectAccount(id: userId) {
-        case .active:
-            WindowManager.shared.showHomeWindow()
-        case .pendingDeletion(progress: let progress):
-            WindowManager.shared.showDeletedAccountWindow(progress: progress)
-        case .deleted, .none:
-            WindowManager.shared.showAuthWindow()
+        WindowManager.shared.showLaunchWindow()
+        
+        authService.selectAccount(id: userId) { result in
+            switch result {
+            case .active:
+                WindowManager.shared.showHomeWindow()
+            case .pendingDeletion(let deadline):
+                WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
+            case .deleted, .none:
+                WindowManager.shared.showAuthWindow()
+            }
         }
     }
 } 

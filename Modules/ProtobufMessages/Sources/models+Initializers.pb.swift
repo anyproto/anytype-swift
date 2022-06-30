@@ -9,12 +9,13 @@ import Foundation
 import SwiftProtobuf
 
 extension Anytype_Model_Account {
-  public init(id: String, name: String, avatar: Anytype_Model_Account.Avatar, config: Anytype_Model_Account.Config, status: Anytype_Model_Account.Status) {
+  public init(id: String, name: String, avatar: Anytype_Model_Account.Avatar, config: Anytype_Model_Account.Config, status: Anytype_Model_Account.Status, info: Anytype_Model_Account.Info) {
     self.id = id
     self.name = name
     self.avatar = avatar
     self.config = config
     self.status = status
+    self.info = info
   }
 }
 
@@ -31,6 +32,23 @@ extension Anytype_Model_Account.Config {
     self.enableReleaseChannelSwitch = enableReleaseChannelSwitch
     self.enableSpaces = enableSpaces
     self.extra = extra
+  }
+}
+
+extension Anytype_Model_Account.Info {
+  public init(
+    homeObjectID: String, archiveObjectID: String, profileObjectID: String, marketplaceTypeObjectID: String, marketplaceRelationObjectID: String, marketplaceTemplateObjectID: String, deviceID: String,
+    gatewayURL: String, localStoragePath: String
+  ) {
+    self.homeObjectID = homeObjectID
+    self.archiveObjectID = archiveObjectID
+    self.profileObjectID = profileObjectID
+    self.marketplaceTypeObjectID = marketplaceTypeObjectID
+    self.marketplaceRelationObjectID = marketplaceRelationObjectID
+    self.marketplaceTemplateObjectID = marketplaceTemplateObjectID
+    self.deviceID = deviceID
+    self.gatewayURL = gatewayURL
+    self.localStoragePath = localStoragePath
   }
 }
 
@@ -79,13 +97,14 @@ extension Anytype_Model_Block.Content.Dataview {
 extension Anytype_Model_Block.Content.Dataview.Filter {
   public init(
     `operator`: Anytype_Model_Block.Content.Dataview.Filter.Operator, relationKey: String, relationProperty: String, condition: Anytype_Model_Block.Content.Dataview.Filter.Condition,
-    value: SwiftProtobuf.Google_Protobuf_Value
+    value: SwiftProtobuf.Google_Protobuf_Value, quickOption: Anytype_Model_Block.Content.Dataview.Filter.QuickOption
   ) {
     self.`operator` = `operator`
     self.relationKey = relationKey
     self.relationProperty = relationProperty
     self.condition = condition
     self.value = value
+    self.quickOption = quickOption
   }
 }
 
@@ -169,10 +188,17 @@ extension Anytype_Model_Block.Content.Layout {
 }
 
 extension Anytype_Model_Block.Content.Link {
-  public init(targetBlockID: String, style: Anytype_Model_Block.Content.Link.Style, fields: SwiftProtobuf.Google_Protobuf_Struct) {
+  public init(
+    targetBlockID: String, style: Anytype_Model_Block.Content.Link.Style, fields: SwiftProtobuf.Google_Protobuf_Struct, iconSize: Anytype_Model_Block.Content.Link.IconSize,
+    cardStyle: Anytype_Model_Block.Content.Link.CardStyle, description_p: Anytype_Model_Block.Content.Link.Description, relations: [String]
+  ) {
     self.targetBlockID = targetBlockID
     self.style = style
     self.fields = fields
+    self.iconSize = iconSize
+    self.cardStyle = cardStyle
+    self.description_p = description_p
+    self.relations = relations
   }
 }
 
@@ -222,6 +248,12 @@ extension Anytype_Model_BlockMetaOnly {
   public init(id: String, fields: SwiftProtobuf.Google_Protobuf_Struct) {
     self.id = id
     self.fields = fields
+  }
+}
+
+extension Anytype_Model_InternalFlag {
+  public init(value: Anytype_Model_InternalFlag.Value) {
+    self.value = value
   }
 }
 

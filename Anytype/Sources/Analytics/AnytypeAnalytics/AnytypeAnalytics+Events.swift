@@ -159,7 +159,7 @@ extension AnytypeAnalytics {
     func logAddRelation(format: RelationMetadata.Format, isNew: Bool, type: AnalyticsEventsRelationType) {
         let eventName = isNew ? AnalyticsEventsName.createRelation : AnalyticsEventsName.addExistingRelation
         logEvent(eventName,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.format: format.analyticString,
+                 withEventProperties: [AnalyticsEventsPropertiesKey.format: format.name,
                                        AnalyticsEventsPropertiesKey.type: type.rawValue])
     }
 
@@ -180,5 +180,17 @@ extension AnytypeAnalytics {
                  withEventProperties: [AnalyticsEventsPropertiesKey.type: objectType,
                                        AnalyticsEventsPropertiesKey.route: route.rawValue
                                       ])
+    }
+    
+    func logCreateObjectNavBar(objectType: String) {
+        var objectType = objectType
+
+        // suppose that bundled type start with underscore
+        if !objectType.starts(with: "_") {
+            objectType = AnalyticsEventsTypeValues.customType
+        }
+
+        logEvent(AnalyticsEventsName.createObjectNavBar,
+                 withEventProperties: [AnalyticsEventsPropertiesKey.type: objectType])
     }
 }

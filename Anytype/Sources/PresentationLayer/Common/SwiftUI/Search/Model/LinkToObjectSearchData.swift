@@ -15,7 +15,7 @@ struct LinkToObjectSearchData: SearchDataProtocol {
     let viewType: EditorViewType
 
     init(details: ObjectDetails) {
-        self.searchKind = .object(details.id.value)
+        self.searchKind = .object(details.id)
         self.title = details.title
         self.description = details.description
         self.callout = details.objectType.name

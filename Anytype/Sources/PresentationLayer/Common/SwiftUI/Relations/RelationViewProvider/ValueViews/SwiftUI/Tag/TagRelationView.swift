@@ -13,7 +13,7 @@ struct TagRelationView: View {
                 scrollRelations
             }
         } else {
-            RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
+            RelationsListRowPlaceholderView(hint: hint, style: style)
         }
     }
 
@@ -47,7 +47,7 @@ struct TagRelationView: View {
                     textColor: tag.textColor,
                     backgroundColor: tag.backgroundColor
                 ),
-                guidlines: style.tagViewGuidlines
+                style: style
             )
         }
     }
@@ -57,7 +57,7 @@ struct TagRelationView: View {
 
         return AnytypeText(leftTagsCount, style: .relation2Regular, color: .textSecondary)
             .lineLimit(1)
-            .frame(width: 24, height: 19)
+            .frame(width: 24, height: 18)
             .background(Color.strokeTertiary)
             .cornerRadius(3)
     }

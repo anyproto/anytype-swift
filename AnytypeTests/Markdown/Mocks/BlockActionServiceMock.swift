@@ -2,12 +2,13 @@
 import BlocksModels
 import ProtobufMessages
 import XCTest
+import Foundation
 
 struct SplitData {
     let string: NSAttributedString
     let blockId: BlockId
     let mode: Anytype_Rpc.Block.Split.Request.Mode
-    let position: Int
+    let range: NSRange
     let newBlockContentType: BlockText.Style
 }
 
@@ -15,14 +16,14 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     var splitStub = false
     var splitNumberOfCalls = 0
     var splitData: SplitData?
-    func split(_ string: NSAttributedString, blockId: BlockId, mode: Anytype_Rpc.Block.Split.Request.Mode, position: Int, newBlockContentType: BlockText.Style) {
+    func split(_ string: NSAttributedString, blockId: BlockId, mode: Anytype_Rpc.Block.Split.Request.Mode, range: NSRange, newBlockContentType: BlockText.Style) {
         if splitStub {
             splitNumberOfCalls += 1
             splitData = .init(
                 string: string,
                 blockId: blockId,
                 mode: mode,
-                position: position,
+                range: range,
                 newBlockContentType: newBlockContentType
             )
         } else {
@@ -109,7 +110,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         return nil
     }
     
-    func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeUrl, position: BlockPosition) -> BlockId? {
         assertionFailure()
         return nil
     }

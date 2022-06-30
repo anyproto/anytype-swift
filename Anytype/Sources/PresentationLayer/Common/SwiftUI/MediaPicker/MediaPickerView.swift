@@ -4,7 +4,11 @@ import SwiftUI
 struct MediaPickerView: UIViewControllerRepresentable {
 
     let contentType: MediaPickerContentType
-    let onMediaSelect: (NSItemProvider?) -> Void
+    let onSelect: (NSItemProvider?) -> Void
+    
+    func makeCoordinator() -> Coordinator {
+        Coordinator(onSelect: onSelect)
+    }
     
     func makeUIViewController(context: Context) -> PHPickerViewController {
         var configuration = PHPickerConfiguration()
@@ -18,22 +22,25 @@ struct MediaPickerView: UIViewControllerRepresentable {
     }
     
     func updateUIViewController(_ uiViewController: PHPickerViewController, context: Context) {}
-    
-    func makeCoordinator() -> Coordinator {
-        Coordinator(self)
-    }
-    
+}
+
+extension MediaPickerView {
     // Use a Coordinator to act as your PHPickerViewControllerDelegate
     class Coordinator: PHPickerViewControllerDelegate {
         
-        private let parent: MediaPickerView
+        private let onSelect: (NSItemProvider?) -> Void
         
-        init(_ parent: MediaPickerView) {
-            self.parent = parent
+        init(onSelect: @escaping (NSItemProvider?) -> Void) {
+            self.onSelect = onSelect
         }
         
         func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
-            parent.onMediaSelect(results.first?.itemProvider)
+            onSelect(results.first?.itemProvider)
+            picker.dismiss(animated: true)
+        }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            picker.dismiss(animated: true)
         }
     }
 }

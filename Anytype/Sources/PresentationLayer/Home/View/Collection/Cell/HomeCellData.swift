@@ -5,14 +5,15 @@ import BlocksModels
 import AnytypeCore
 
 struct HomeCellData: Identifiable, IdProvider {
-    let id: AnytypeId
-    let destinationId: AnytypeId
+    let id: BlockId
+    let destinationId: BlockId
     let icon: ObjectIconType?
     let title: Title
     let type: String
     let isLoading: Bool
     let isArchived: Bool
     let isDeleted: Bool
+    let isFavorite: Bool
     let viewType: EditorViewType
     
     static func create(details: ObjectDetails) -> HomeCellData {
@@ -25,6 +26,7 @@ struct HomeCellData: Identifiable, IdProvider {
             isLoading: false,
             isArchived: details.isArchived,
             isDeleted: details.isDeleted,
+            isFavorite: details.isFavorite,
             viewType: details.editorViewType
         )
     }

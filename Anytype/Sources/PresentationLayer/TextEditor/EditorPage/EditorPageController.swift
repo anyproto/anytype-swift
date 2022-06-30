@@ -5,7 +5,6 @@ import AnytypeCore
 import SwiftUI
 
 final class EditorPageController: UIViewController {
-
     weak var browserViewInput: EditorBrowserViewInputProtocol?
     private(set) lazy var dataSource = makeCollectionViewDataSource()
     
@@ -13,6 +12,9 @@ final class EditorPageController: UIViewController {
         onBackTap: viewModel.router.goBack
     )
     private weak var firstResponderView: UIView?
+
+    private var didAppliedModelsOnce: Bool = false // https://app.clickup.com/t/295523h
+    private var didAppliedHeaderOnce: Bool = false
     
     let collectionView: EditorCollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -30,8 +32,7 @@ final class EditorPageController: UIViewController {
         return collectionView
     }()
     
-    private(set) var insetsHelper: ScrollViewContentInsetsHelper?
-    private var contentOffset: CGPoint = .zero
+    private(set) var insetsHelper: EditorContentInsetsHelper?
     lazy var dividerCursorController = DividerCursorController(
         movingManager: viewModel.blocksStateManager,
         view: view,
@@ -45,10 +46,12 @@ final class EditorPageController: UIViewController {
         return recognizer
     }()
 
+    @Published var offsetDidChanged: CGPoint = .zero
+
     private lazy var longTapGestureRecognizer: UILongPressGestureRecognizer = {
         let recognizer = UILongPressGestureRecognizer(target: self, action: #selector(EditorPageController.handleLongPress))
 
-        recognizer.minimumPressDuration = 0.2
+        recognizer.minimumPressDuration = 0.3
         return recognizer
     }()
 
@@ -107,7 +110,7 @@ final class EditorPageController: UIViewController {
         super.viewWillAppear(animated)
         viewModel.viewWillAppear()
 
-        insetsHelper = ScrollViewContentInsetsHelper(
+        insetsHelper = EditorContentInsetsHelper(
             scrollView: collectionView,
             stateManager: viewModel.blocksStateManager
         )
@@ -203,18 +206,27 @@ final class EditorPageController: UIViewController {
 // MARK: - EditorPageViewInput
 
 extension EditorPageController: EditorPageViewInput {
+    var contentOffsetDidChangedStatePublisher: AnyPublisher<CGPoint, Never> {
+        $offsetDidChanged.eraseToAnyPublisher()
+    }
+
+    func visibleRect(to view: UIView) -> CGRect {
+        return collectionView.convert(collectionView.bounds, to: view)
+    }
+
     func update(header: ObjectHeader, details: ObjectDetails?) {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
-
         if #available(iOS 15.0, *) {
-            dataSource.apply(headerSnapshot, to: .header, animatingDifferences: false)
+            dataSource.apply(headerSnapshot, to: .header, animatingDifferences: didAppliedHeaderOnce ? true : false)
+
         } else {
             UIView.performWithoutAnimation {
                 dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
             }
         }
 
+        didAppliedHeaderOnce = true
         navigationBarHelper.configureNavigationBar(using: header, details: details)
     }
     
@@ -237,9 +249,16 @@ extension EditorPageController: EditorPageViewInput {
             }
         }
 
-        applyBlocksSectionSnapshot(blocksSnapshot)
+        let animatingDifferences = (changes?.canPerformAnimation ?? true) && didAppliedModelsOnce
+        applyBlocksSectionSnapshot(blocksSnapshot, animatingDifferences: animatingDifferences)
     }
 
+    func scrollToBlock(blockId: BlockId) {
+        guard let item = dataSourceItem(for: blockId),
+              let indexPath = dataSource.indexPath(for: item) else { return }
+        collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+    }
+    
     func selectBlock(blockId: BlockId) {
         if let item = dataSourceItem(for: blockId),
             let indexPath = dataSource.indexPath(for: item) {
@@ -254,18 +273,16 @@ extension EditorPageController: EditorPageViewInput {
         )
     }
     
-    func textBlockWillBeginEditing() {
-//        contentOffset = collectionView.contentOffset
-    }
+    func textBlockWillBeginEditing() { }
     func textBlockDidBeginEditing(firstResponderView: UIView) {
         self.firstResponderView = firstResponderView
     }
 
     func blockDidChangeFrame() {
         DispatchQueue.main.async { [weak self] in
-            UIView.performWithoutAnimation {
-                self?.collectionView.collectionViewLayout.invalidateLayout()
-            }
+            guard let self = self else { return }
+            let currentSnapshot = self.dataSource.snapshot()
+            self.dataSource.apply(currentSnapshot, animatingDifferences: true)
         }
     }
 
@@ -354,7 +371,7 @@ private extension EditorPageController {
         dataSource.snapshot().itemIdentifiers.first {
             switch $0 {
             case let .block(block):
-                return block.info.id.value == blockId
+                return block.info.id == blockId
             case .header, .system:
                 return false
             }
@@ -368,7 +385,7 @@ private extension EditorPageController {
         let cellIndexPath = collectionView.indexPathForItem(at: location)
         guard cellIndexPath == nil else { return }
         
-        viewModel.actionHandler.createEmptyBlock(parentId: viewModel.document.objectId.value)
+        viewModel.actionHandler.createEmptyBlock(parentId: viewModel.document.objectId)
     }
 
     @objc
@@ -475,19 +492,24 @@ private extension EditorPageController {
 
 private extension EditorPageController {
     
-    func applyBlocksSectionSnapshot(_ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>) {
-        let selectedCells = collectionView.indexPathsForSelectedItems
-
+    func applyBlocksSectionSnapshot(
+        _ snapshot: NSDiffableDataSourceSectionSnapshot<EditorItem>,
+        animatingDifferences: Bool
+    ) {
         if #available(iOS 15.0, *) {
-            dataSource.apply(snapshot, to: .main, animatingDifferences: false)
+            dataSource.apply(snapshot, to: .main, animatingDifferences: animatingDifferences)
         } else {
             UIView.performWithoutAnimation {
                 dataSource.apply(snapshot, to: .main, animatingDifferences: true)
             }
         }
 
+        didAppliedModelsOnce = true
+
+        let selectedCells = collectionView.indexPathsForSelectedItems
         selectedCells?.forEach {
             self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
         }
     }
 }
+

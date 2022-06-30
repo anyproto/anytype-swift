@@ -12,8 +12,16 @@ final class WindowManager {
         windowHolder?.startNewRootView(MainAuthView(viewModel: MainAuthViewModel()))
     }
     
-    func showDeletedAccountWindow(progress: DeletionProgress) {
-        windowHolder?.startNewRootView(DeletedAccountView(progress: progress))
+    func showLaunchWindow() {
+        windowHolder?.startNewRootView(LaunchView())
+    }
+    
+    func showDeletedAccountWindow(deadline: Date) {
+        windowHolder?.startNewRootView(
+            DeletedAccountView(
+                viewModel: DeletedAccountViewModel(deadline: deadline)
+            )
+        )
     }
     
     func presentOnTop(_ viewControllerToPresent: UIViewController, animated flag: Bool) {

@@ -34,19 +34,19 @@ struct BlockFileViewModel: BlockViewModelProtocol {
         case .done:
             return BlockFileConfiguration(data: fileData.mediaData).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id.value)
+                dragConfiguration: .init(id: info.id)
             )
         }
     }
     
     private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
-            image: UIImage.blockFile.empty.file,
+            imageName: EmptyFileIconConstants.file,
             text: "Upload a file",
             state: state
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
-            dragConfiguration: .init(id: info.id.value)
+            dragConfiguration: .init(id: info.id)
         )
     }
 }

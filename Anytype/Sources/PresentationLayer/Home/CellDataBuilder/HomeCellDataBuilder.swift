@@ -26,7 +26,7 @@ final class HomeCellDataBuilder {
                     return true
                 }
                 
-                return ObjectTypeProvider.isSupported(typeUrl: details.type)
+                return ObjectTypeProvider.shared.isSupported(typeUrl: details.type)
             }
             .map { buildHomeCellData(pageLink: $0) }
     }
@@ -39,8 +39,8 @@ final class HomeCellDataBuilder {
             )
             return nil
         }
-        guard let targetBlockId = link.targetBlockID.asAnytypeId else { return nil }
         
+        let targetBlockId = link.targetBlockID
         let details = ObjectDetailsStorage.shared.get(id: targetBlockId)
         return HomePageLink(
             blockId: info.id,
@@ -50,8 +50,8 @@ final class HomeCellDataBuilder {
     }
     
     private func buildHomeCellData(pageLink: HomePageLink) -> HomeCellData {
-        let type = ObjectTypeProvider.objectType(url: pageLink.details?.type)?.name ?? "Object".localized
-        
+        let type = pageLink.details?.objectType.name ?? "Object".localized
+
         return HomeCellData(
             id: pageLink.blockId,
             destinationId: pageLink.targetBlockId,
@@ -61,6 +61,7 @@ final class HomeCellDataBuilder {
             isLoading: pageLink.isLoading,
             isArchived: pageLink.isArchived,
             isDeleted: pageLink.isDeleted,
+            isFavorite: pageLink.isFavorite,
             viewType: pageLink.details?.editorViewType ?? .page
         )
     }
@@ -75,6 +76,7 @@ final class HomeCellDataBuilder {
             isLoading: false,
             isArchived: newDetails.isArchived,
             isDeleted: newDetails.isDeleted,
+            isFavorite: newDetails.isFavorite,
             viewType: newDetails.editorViewType
         )
     }

@@ -9,7 +9,7 @@ struct ObjectRelationView: View {
         if options.isNotEmpty {
             objectsList
         } else {
-            RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
+            RelationsListRowPlaceholderView(hint: hint, style: style)
         }
     }
     
@@ -30,13 +30,13 @@ struct ObjectRelationView: View {
                 SwiftUIObjectIconImageView(
                     iconImage: option.icon,
                     usecase: style.objectIconImageUsecase
-                )
-                    .frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+                ).frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+
             }
             
             AnytypeText(
                 option.title,
-                style: .relation1Regular,
+                style: style.font,
                 color: titleColor(option: option)
             )
                 .lineLimit(1)
@@ -47,7 +47,7 @@ struct ObjectRelationView: View {
         if option.isDeleted || option.isArchived {
             return .textTertiary
         } else {
-            return .textPrimary
+            return style.fontColor
         }
     }
 

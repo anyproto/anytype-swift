@@ -13,6 +13,8 @@ protocol AccessoryViewSwitcherProtocol {
 }
 
 final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
+    var onDoneButton: (() -> Void)?
+
     private(set) var activeView = AccessoryViewType.none
     private(set) var data: TextBlockDelegateData?
     
@@ -24,6 +26,8 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     
     private let document: BaseDocumentProtocol
     private let modelsHolder: EditorMainItemModelsHolder
+    private var documentUpdateSubscription: AnyCancellable?
+    private var didChangeTypeDismissByUser = false
 
     init(
         mentionsView: MentionView,
@@ -81,10 +85,16 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func showDefaultView() {
         markupAccessoryView.selectionChanged(range: .zero)
 
-        let accessoryView: AccessoryViewType = modelsHolder.isDocumentEmpty && !document.objectRestrictions.objectRestriction.contains(.typechange)
-                ? .changeType(changeTypeView) : .default(cursorModeAccessoryView)
+        let isDraft = document.details?.isDraft ?? false
 
-        showAccessoryView(accessoryView, animation: activeView.animation)
+        if isDraft &&
+            modelsHolder.isDocumentEmpty &&
+            !document.objectRestrictions.objectRestriction.contains(.typechange),
+            !didChangeTypeDismissByUser {
+            showAccessoryView(.changeType(changeTypeView), animation: activeView.animation)
+        } else {
+            showAccessoryView(.default(cursorModeAccessoryView), animation: activeView.animation)
+        }
     }
     
     func restoreDefaultState() {
@@ -134,6 +144,12 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         let dismiss = { [weak self] in
             guard let self = self else { return }
             self.restoreDefaultState()
+        }
+
+        changeTypeView.viewModel.onDoneButtonTap = { [weak self] in
+            self?.didChangeTypeDismissByUser = true
+            self?.showDefaultView()
+            self?.onDoneButton?()
         }
 
         mentionsView.dismissHandler = dismiss

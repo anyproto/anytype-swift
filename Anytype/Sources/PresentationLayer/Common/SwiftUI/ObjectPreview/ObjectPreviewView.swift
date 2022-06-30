@@ -24,17 +24,28 @@ struct ObjectPreviewView: View {
 
     private var mainSection: some View {
         VStack(spacing: 0) {
-            ForEach(viewModel.objectPreviewSections.main) { item in
-                mainSectionRow(item) {
-                    switch item.value {
-                    case .icon:
-                        viewModel.showIconMenu()
-                    case .layout:
-                        viewModel.showLayoutMenu()
-                    }
-                }
+            cardStyle(viewModel.objectPreviewModel.cardStyle)
                 .divider()
-            }
+            iconSize(viewModel.objectPreviewModel.iconSize)
+                .divider()
+        }
+    }
+
+    private func iconSize(_ iconSize: ObjectPreviewModel.IconSize) -> some View {
+        menuRow(name: "Icon".localized, value: iconSize.name) {
+            viewModel.showIconMenu()
+        }
+    }
+
+    private func cardStyle(_ cardStyle: ObjectPreviewModel.CardStyle) -> some View {
+        menuRow(name: "Preview layout".localized, value: cardStyle.name) {
+            viewModel.showLayoutMenu()
+        }
+    }
+
+    private func description(_ description: ObjectPreviewModel.Description) -> some View {
+        menuRow(name: "Description".localized, icon: description.iconName, value: description.name) {
+            viewModel.showDescriptionMenu()
         }
     }
 
@@ -47,38 +58,58 @@ struct ObjectPreviewView: View {
             }
             .frame(height: 52)
 
-            ForEach(viewModel.objectPreviewSections.featuredRelation) { item in
-                featuredRelationsRow(item) { isEnabled in
-                    viewModel.toggleFeaturedRelation(id: item.id, isEnabled: isEnabled)
+            ForEach(viewModel.objectPreviewModel.relations.indices, id: \.self) { index in
+                let item = viewModel.objectPreviewModel.relations[index]
+
+                switch item {
+                case .relation(let relation):
+                    featuredRelationsRow(relation) { isEnabled in
+                        viewModel.toggleFeaturedRelation(relation: relation, isEnabled: isEnabled)
+                    }
+                    .divider()
+                case .description:
+                    description(viewModel.objectPreviewModel.description)
+                        .divider()
                 }
-                .divider()
             }
         }
     }
 
-    private func featuredRelationsRow(_ item: ObjectPreviewViewFeaturedSectionItem, onTap: @escaping (_ isEnabled: Bool) -> Void) -> some View {
+    private func featuredRelationsRow(_ item: ObjectPreviewModel.Relation, onTap: @escaping (_ isEnabled: Bool) -> Void) -> some View {
         HStack(spacing: 0) {
             Image.createImage(item.iconName)
                 .frame(width: 24, height: 24)
             Spacer.fixedWidth(10)
-            AnytypeToggle(
-                title: item.name,
-                isOn: item.isEnabled
-            ) {
-                onTap($0)
+
+            if item.isLocked {
+                AnytypeText(item.name.localized, style: .uxBodyRegular, color: .textPrimary)
+            } else {
+                AnytypeToggle(
+                    title: item.name,
+                    isOn: item.isEnabled
+                ) {
+                    onTap($0)
+                }
             }
+            Spacer(minLength: 0)
         }
         .frame(height: 52)
     }
 
-    private func mainSectionRow(_ item: ObjectPreviewViewMainSectionItem, onTap: @escaping () -> Void) -> some View {
+    private func menuRow(name: String, icon: String? = nil, value: String, onTap: @escaping () -> Void) -> some View {
         Button {
             onTap()
         } label: {
             HStack(spacing: 0) {
-                AnytypeText(item.name, style: .uxBodyRegular, color: .textPrimary)
+                if let icon = icon {
+                    Image.createImage(icon)
+                        .frame(width: 24, height: 24)
+                    Spacer.fixedWidth(10)
+                }
+
+                AnytypeText(name, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
-                AnytypeText(item.value.name, style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(value, style: .uxBodyRegular, color: .textSecondary)
                 Spacer.fixedWidth(10)
                 Image.arrow
             }
@@ -90,8 +121,7 @@ struct ObjectPreviewView: View {
 struct ObjectPreviewView_Previews: PreviewProvider {
     static var previews: some View {
         let router = ObjectPreviewRouter(viewController: UIViewController())
-        let viewModel = ObjectPreviewViewModel(featuredRelationsByIds: [:],
-                                               fields: .init(),
+        let viewModel = ObjectPreviewViewModel(objectPreviewModel: .init(iconSize: .medium, cardStyle: .text, description: .none, relations: []),
                                                router: router,
                                                onSelect: {_ in })
         ObjectPreviewView(viewModel: viewModel)

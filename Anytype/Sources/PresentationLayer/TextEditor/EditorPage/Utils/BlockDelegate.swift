@@ -11,6 +11,7 @@ protocol BlockDelegate: AnyObject {
     func textDidChange(data: TextBlockDelegateData)
     func textBlockSetNeedsLayout()
     func selectionDidChange(range: NSRange)
+    func scrollToBlock(blockId: BlockId)
 }
 
 final class BlockDelegateImpl: BlockDelegate {
@@ -38,7 +39,7 @@ final class BlockDelegateImpl: BlockDelegate {
     }
     
     func didEndEditing(data: TextBlockDelegateData) {
-        viewInput?.blockDidFinishEditing(blockId: data.info.id.value)
+        viewInput?.blockDidFinishEditing(blockId: data.info.id)
         accessoryState.didEndEditing()
     }
     
@@ -60,5 +61,9 @@ final class BlockDelegateImpl: BlockDelegate {
 
     func selectionDidChange(range: NSRange) {
         accessoryState.selectionDidChange(range: range)
+    }
+    
+    func scrollToBlock(blockId: BlockId) {
+        viewInput?.scrollToBlock(blockId: blockId)
     }
 }

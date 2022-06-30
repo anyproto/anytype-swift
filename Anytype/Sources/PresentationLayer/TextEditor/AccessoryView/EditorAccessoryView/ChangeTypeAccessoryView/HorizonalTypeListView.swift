@@ -7,7 +7,7 @@ struct HorizonalTypeListView: View {
 
     var body: some View {
         AnytypeDivider()
-        ScrollView(.horizontal) {
+        ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 0) {
                 ForEach(viewModel.items) { item in
                     Button {
@@ -19,6 +19,7 @@ struct HorizonalTypeListView: View {
                 }
             }
         }
+        .ignoresSafeArea()
     }
 }
 

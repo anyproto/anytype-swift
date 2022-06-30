@@ -12,6 +12,7 @@ final class BlockViewModelBuilder {
     private let pageService = PageService()
     private let subjectsHolder = FocusSubjectsHolder()
     private let markdownListener: MarkdownListener
+    private weak var relativePositionProvider: RelativePositionProvider?
 
     init(
         document: BaseDocumentProtocol,
@@ -19,7 +20,8 @@ final class BlockViewModelBuilder {
         pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
-        markdownListener: MarkdownListener
+        markdownListener: MarkdownListener,
+        relativePositionProvider: RelativePositionProvider?
     ) {
         self.document = document
         self.handler = handler
@@ -27,6 +29,7 @@ final class BlockViewModelBuilder {
         self.router = router
         self.delegate = delegate
         self.markdownListener = markdownListener
+        self.relativePositionProvider = relativePositionProvider
     }
 
     func buildEditorItems(infos: [BlockInformation]) -> [EditorItem] {
@@ -65,32 +68,25 @@ final class BlockViewModelBuilder {
                     showCodeSelection: { [weak self] info in
                         self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in
                             let fields = CodeBlockFields(language: language)
-                            self?.handler.setFields(fields, blockId: info.id.value)
+                            self?.handler.setFields(fields, blockId: info.id)
                         }
                     }
                 )
             default:
                 let isCheckable = content.contentType == .title ? document.details?.layout == .todo : false
-                return TextBlockViewModel(
+
+                let textBlockActionHandler = TextBlockActionHandler(
                     info: info,
-                    content: content,
-                    isCheckable: isCheckable,
-                    blockDelegate: delegate,
-                    actionHandler: handler,
-                    pasteboardService: pasteboardService,
                     showPage: { [weak self] data in
                         self?.router.showPage(data: data)
                     },
                     openURL: { [weak router] url in
                         router?.openUrl(url)
                     },
-                    showURLBookmarkPopup: { [weak router] parameters in
-                        router?.showLinkContextualMenu(inputParameters: parameters)
-                    },
                     showTextIconPicker: { [unowned router, unowned document] in
                         router.showTextIconPicker(
-                            contextId: document.objectId.value,
-                            objectId: info.id.value
+                            contextId: document.objectId,
+                            objectId: info.id
                         )
                     },
                     showWaitingView: { [weak router] text in
@@ -99,8 +95,22 @@ final class BlockViewModelBuilder {
                     hideWaitingView: {  [weak router] in
                         router?.hideWaitingView()
                     },
+                    content: content,
+                    showURLBookmarkPopup: { [weak router] parameters in
+                        router?.showLinkContextualMenu(inputParameters: parameters)
+                    },
+                    actionHandler: handler,
+                    pasteboardService: pasteboardService,
                     markdownListener: markdownListener,
-                    focusSubject: subjectsHolder.focusSubject(for: info.id.value)
+                    blockDelegate: delegate
+                )
+
+                return TextBlockViewModel(
+                    info: info,
+                    content: content,
+                    isCheckable: isCheckable,
+                    focusSubject: subjectsHolder.focusSubject(for: info.id),
+                    actionHandler: textBlockActionHandler
                 )
             }
         case let .file(content):
@@ -158,10 +168,8 @@ final class BlockViewModelBuilder {
                     self?.router.openUrl(url)
                 }
             )
-        case let .link(content):
-            guard let id = content.targetBlockID.asAnytypeId else { return nil }
-            
-            let details = ObjectDetailsStorage.shared.get(id: id)
+        case let .link(content):            
+            let details = ObjectDetailsStorage.shared.get(id: content.targetBlockID)
             return BlockLinkViewModel(
                 info: info,
                 content: content,
@@ -209,7 +217,17 @@ final class BlockViewModelBuilder {
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
                 self?.router.showRelationValueEditingView(key: relation.id, source: .object)
             }
-
+        case .tableOfContents:
+            return TableOfContentsViewModel(
+                info: info,
+                document: document,
+                onTap: { [weak self] blockId in
+                    self?.delegate.scrollToBlock(blockId: blockId)
+                },
+                blockSetNeedsLayout: { [weak self] in
+                    self?.delegate.textBlockSetNeedsLayout()
+                }
+            )
         case .smartblock, .layout, .dataView: return nil
         case .unsupported:
             guard let parentId = info.configurationData.parentId,
@@ -228,7 +246,7 @@ final class BlockViewModelBuilder {
     private var subscriptions = [AnyCancellable]()
 
     private func showMediaPicker(type: MediaPickerContentType, blockId: BlockId) {
-        let model = MediaPickerViewModel(type: type) { [weak self] itemProvider in
+        router.showImagePicker(contentType: type) { [weak self] itemProvider in
             guard let itemProvider = itemProvider else { return }
 
             self?.handler.uploadMediaFile(
@@ -237,8 +255,6 @@ final class BlockViewModelBuilder {
                 blockId: blockId
             )
         }
-
-        router.showImagePicker(model: model)
     }
 
     private func showFilePicker(blockId: BlockId, types: [UTType] = [.item]) {
@@ -254,7 +270,7 @@ final class BlockViewModelBuilder {
         router.showBookmarkBar() { [weak self] url in
             guard let self = self else { return }
 
-            self.handler.fetch(url: url, blockId: info.id.value)
+            self.handler.fetch(url: url, blockId: info.id)
         }
     }
 }

@@ -61,7 +61,7 @@ struct HomeProfileView: View {
 
             }
             Button(action: {
-                model.snackBarData = .init(text: "Store is available in desktop app", showSnackBar: true)
+                model.snackBarData = .init(text: "Home.Snackbar.Library".localized, showSnackBar: true)
             }) {
                 HomeProfileViewButtonImage(
                     image: Image.main.marketplace.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
@@ -94,7 +94,7 @@ struct HomeProfileView: View {
 struct HomeProfileView_Previews: PreviewProvider {
     static var previews: some View {
         HomeProfileView()
-            .environmentObject(HomeViewModel(homeBlockId: AnytypeIdMock.id))
+            .environmentObject(HomeViewModel(homeBlockId: UUID().uuidString))
             .background(Color.System.blue)
     }
 }

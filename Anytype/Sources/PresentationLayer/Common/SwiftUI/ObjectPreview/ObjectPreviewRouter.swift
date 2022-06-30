@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BlocksModels
 
 final class ObjectPreviewRouter {
     private let viewController: UIViewController?
@@ -15,14 +16,27 @@ final class ObjectPreviewRouter {
         self.viewController = viewController
     }
 
-    func showLayoutMenu(objectPreviewFields: ObjectPreviewFields, onSelect: @escaping (ObjectPreviewFields) -> Void) {
-        let viewModel = ObjectPreviewLayoutMenuViewModel(objectPreviewFields: objectPreviewFields, onSelect: onSelect)
+    func showLayoutMenu(cardStyle: ObjectPreviewModel.CardStyle,
+                        onSelect: @escaping (ObjectPreviewModel.CardStyle) -> Void) {
+        let viewModel = ObjectPreviewLayoutMenuViewModel(cardStyle: cardStyle, onSelect: onSelect)
         let view = PopupViewBuilder.createCheckPopup(viewModel: viewModel)
         viewController?.topPresentedController.present(view, animated: true, completion: nil)
     }
 
-    func showIconMenu(objectPreviewFields: ObjectPreviewFields, onSelect: @escaping (ObjectPreviewFields) -> Void) {
-        let viewModel = ObjectPreviewIconMenuViewModel(objectPreviewFields: objectPreviewFields, onSelect: onSelect)
+    func showIconMenu(iconSize: ObjectPreviewModel.IconSize,
+                      cardStyle: ObjectPreviewModel.CardStyle,
+                      onSelect: @escaping (ObjectPreviewModel.IconSize) -> Void) {
+        let viewModel = ObjectPreviewIconMenuViewModel(iconSize: iconSize,
+                                                       cardStyle: cardStyle,
+                                                       onSelect: onSelect)
+        let view = PopupViewBuilder.createCheckPopup(viewModel: viewModel)
+        viewController?.topPresentedController.present(view, animated: true, completion: nil)
+    }
+
+    func showDescriptionMenu(currentDescription: ObjectPreviewModel.Description,
+                             onSelect: @escaping (ObjectPreviewModel.Description) -> Void) {
+        let viewModel = ObjectPreviewDescriptionMenuViewModel(description: currentDescription,
+                                                              onSelect: onSelect)
         let view = PopupViewBuilder.createCheckPopup(viewModel: viewModel)
         viewController?.topPresentedController.present(view, animated: true, completion: nil)
     }

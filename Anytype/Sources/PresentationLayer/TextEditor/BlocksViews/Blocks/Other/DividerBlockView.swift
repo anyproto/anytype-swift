@@ -77,32 +77,35 @@ class DividerBlockView: UIView {
     // MARK: Layout
     private func addLayout() {
         if let view = self.contentView, let superview = view.superview {
-            NSLayoutConstraint.activate([
+            let constraints: [NSLayoutConstraint] = [
                 view.leadingAnchor.constraint(equalTo: superview.leadingAnchor, constant: dividerViewInsets.left),
                 view.trailingAnchor.constraint(equalTo: superview.trailingAnchor, constant: -dividerViewInsets.right),
                 view.topAnchor.constraint(equalTo: superview.topAnchor, constant: dividerViewInsets.top),
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor, constant: -dividerViewInsets.bottom)
-            ])
+            ]
+            NSLayoutConstraint.activate(constraints)
         }
         
         if let view = self.lineView, let superview = view.superview {
-            NSLayoutConstraint.activate([
+            let constraints: [NSLayoutConstraint] = [
                 view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                 view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
                 view.topAnchor.constraint(equalTo: superview.topAnchor),
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
                 view.heightAnchor.constraint(equalToConstant: dividerHeight)
-            ])
+            ]
+            NSLayoutConstraint.activate(constraints)
         }
         
         if let view = self.dotsView, let superview = view.superview {
-            NSLayoutConstraint.activate([
+            let constraints: [NSLayoutConstraint] = [
                 view.leadingAnchor.constraint(equalTo: superview.leadingAnchor),
                 view.trailingAnchor.constraint(equalTo: superview.trailingAnchor),
                 view.topAnchor.constraint(equalTo: superview.topAnchor),
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
                 view.heightAnchor.constraint(equalToConstant: dividerHeight)
-            ])
+            ]
+            NSLayoutConstraint.activate(constraints)
         }
         
         let leftImageView = self.dotsImageViews[0]
@@ -111,33 +114,36 @@ class DividerBlockView: UIView {
         
         if let superview = centerImageView.superview {
             let view = centerImageView
-            NSLayoutConstraint.activate([
+            let constraints: [NSLayoutConstraint] = [
                 view.centerXAnchor.constraint(equalTo: superview.centerXAnchor),
                 view.topAnchor.constraint(equalTo: superview.topAnchor),
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor)
-            ])
+            ]
+            NSLayoutConstraint.activate(constraints)
         }
         
         if let superview = leftImageView.superview {
             let view = leftImageView
             let rightView = centerImageView
-            NSLayoutConstraint.activate([
+            let constraints: [NSLayoutConstraint] = [
                 view.topAnchor.constraint(equalTo: superview.topAnchor),
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
                 view.leadingAnchor.constraint(greaterThanOrEqualTo: superview.leadingAnchor),
                 view.trailingAnchor.constraint(equalTo: rightView.leadingAnchor, constant: -10)
-            ])
+            ]
+            NSLayoutConstraint.activate(constraints)
         }
         
         if let superview = rightImageView.superview {
             let view = rightImageView
             let leftView = centerImageView
-            NSLayoutConstraint.activate([
+            let constraints: [NSLayoutConstraint] = [
                 view.topAnchor.constraint(equalTo: superview.topAnchor),
                 view.bottomAnchor.constraint(equalTo: superview.bottomAnchor),
                 view.leadingAnchor.constraint(equalTo: leftView.trailingAnchor, constant: 10),
                 view.trailingAnchor.constraint(lessThanOrEqualTo: superview.trailingAnchor)
-            ])
+            ]
+            NSLayoutConstraint.activate(constraints)
         }
 
     }

@@ -5,10 +5,10 @@ public extension BlockInformation {
     }
     
     static func empty(
-        id: BlockId = Constants.newBlockId, content: BlockContent
+        id: BlockId = "", content: BlockContent
     ) -> BlockInformation {
         BlockInformation(
-            id: id.asAnytypeId!,
+            id: id,
             content: content,
             backgroundColor: nil,
             alignment: .left,
@@ -23,16 +23,8 @@ public extension BlockInformation {
     }
     
     static func emptyLink(targetId: BlockId) -> BlockInformation {
-        let content: BlockContent = .link(BlockLink(targetBlockID: targetId, style: .page, fields: [:]))
+        let content: BlockContent = .link(.empty(targetBlockID: targetId))
         return BlockInformation.empty(content: content)
-    }
-    
-}
-
-public extension BlockInformation {
-    
-    enum Constants {
-        public static let newBlockId = "new_block_id"
     }
     
 }

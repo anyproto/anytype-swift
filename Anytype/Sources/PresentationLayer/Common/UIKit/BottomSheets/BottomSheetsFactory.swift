@@ -55,7 +55,7 @@ final class BottomSheetsFactory {
         let restrictions = BlockRestrictionsBuilder.build(content: info.content)
 
         let contentVC = StyleViewController(
-            blockId: info.id.value,
+            blockId: info.id,
             viewControllerForPresenting: parentViewController,
             style: textContentType,
             restrictions: restrictions,

@@ -4,18 +4,19 @@ public extension BlockInformation {
     }
     
     var isToggled: Bool {
-        ToggleStorage.shared.isToggled(blockId: id.value)
+        ToggleStorage.shared.isToggled(blockId: id)
     }
 
     func toggle() {
-        ToggleStorage.shared.toggle(blockId: id.value)
+        ToggleStorage.shared.toggle(blockId: id)
     }
     
     var kind: BlockKind {
         switch content {
         case .smartblock, .layout:
             return .meta
-        case .text, .file, .divider, .bookmark, .link, .featuredRelations, .relation, .dataView, .unsupported:
+        case .text, .file, .divider, .bookmark, .link, .featuredRelations, .relation, .dataView,
+                .tableOfContents, .unsupported:
             return .block
         }
     }
@@ -44,7 +45,7 @@ public extension BlockInformation {
     }
     
     func headerLayout(container: InfoContainerProtocol) -> BlockInformation? {
-        container.children(of: id.value).first { info in
+        container.children(of: id).first { info in
             info.content == .layout(.init(style: .header))
         }
     }

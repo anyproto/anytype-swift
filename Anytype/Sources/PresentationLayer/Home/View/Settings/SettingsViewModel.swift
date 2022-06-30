@@ -20,6 +20,7 @@ final class SettingsViewModel: ObservableObject {
     @Published var debugMenu = false
     @Published var currentStyle = UserDefaultsConfig.userInterfaceStyle {
         didSet {
+            UISelectionFeedbackGenerator().selectionChanged()
             UserDefaultsConfig.userInterfaceStyle = currentStyle
             UIApplication.shared.keyWindow?.overrideUserInterfaceStyle = currentStyle
         }
@@ -59,9 +60,9 @@ final class SettingsViewModel: ObservableObject {
         case .active:
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return
-        case .pendingDeletion(let progress):
+        case .pendingDeletion(let deadline):
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            WindowManager.shared.showDeletedAccountWindow(progress: progress)
+            WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
         case .deleted:
             logout(removeData: true)
         }
@@ -70,7 +71,7 @@ final class SettingsViewModel: ObservableObject {
     
     private var clearCacheSubscription: AnyCancellable?
     func clearCache(completion: @escaping (Bool) -> ()) {
-        clearCacheSubscription = Anytype_Rpc.FileList.Offload.Service.invoke(
+        clearCacheSubscription = Anytype_Rpc.File.ListOffload.Service.invoke(
             onlyIds: [], includeNotPinned: false, queue: DispatchQueue.global(qos: .userInitiated)
         )
             .receiveOnMain()

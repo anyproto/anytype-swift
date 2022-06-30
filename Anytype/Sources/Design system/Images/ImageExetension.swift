@@ -7,7 +7,7 @@ extension Image {
     static let oldSchoolAppIcon = Image(uiImage: UIImage(imageLiteralResourceName: "oldSchool")) 
     static let artAppIcon = Image(uiImage: UIImage(imageLiteralResourceName: "art"))
     static let logo = createImage("logo")
-    static let splashLogo = createImage("splashLogo")
+    static let splashLogo = createImage("splash_logo")
     
     static let arrow = createImage("arrowForward")
     static let arrowDown = createImage("arrowDown")
@@ -81,6 +81,7 @@ extension Image {
         static let undoRedo = createImage("undoredo")
         static let lock = createImage("lock")
         static let unlock = createImage("unlock")
+        static let duplicate = createImage("duplicate")
     }
     
     enum LayoutSettings {

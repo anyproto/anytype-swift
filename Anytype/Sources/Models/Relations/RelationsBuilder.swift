@@ -38,8 +38,7 @@ final class RelationsBuilder {
         isObjectLocked: Bool
     ) -> ParsedRelations {
         guard
-            let id = objectId.asAnytypeId,
-            let objectDetails = storage.get(id: id)
+            let objectDetails = storage.get(id: objectId)
         else {
             return .empty
         }
@@ -385,13 +384,7 @@ private extension RelationsBuilder {
             }()
             
             let objectDetails: [ObjectDetails] = values.compactMap {
-                let value = $0.stringValue
-                guard
-                    value.isNotEmpty,
-                    let objectId = value.asAnytypeId
-                else { return nil }
-                let objectDetails = storage.get(id: objectId)
-                return objectDetails
+                return storage.get(id: $0.stringValue)
             }
 
             let objectOptions: [Relation.Object.Option] = objectDetails.map { objectDetail in
@@ -405,7 +398,7 @@ private extension RelationsBuilder {
                 }()
                 
                 return Relation.Object.Option(
-                    id: objectDetail.id.value,
+                    id: objectDetail.id,
                     icon: icon,
                     title: name,
                     type: objectDetail.objectType.name,
@@ -440,13 +433,7 @@ private extension RelationsBuilder {
             guard let value = value else { return [] }
             
             let objectDetails: [ObjectDetails] = value.listValue.values.compactMap {
-                let value = $0.stringValue
-                guard
-                    value.isNotEmpty,
-                    let objectId = value.asAnytypeId
-                else { return nil }
-                let objectDetails = storage.get(id: objectId)
-                return objectDetails
+                return storage.get(id: $0.stringValue)
             }
 
             let objectOptions: [Relation.File.Option] = objectDetails.map { objectDetail in
@@ -471,14 +458,14 @@ private extension RelationsBuilder {
                     let fileName = objectDetail.values[BundledRelationKey.name.rawValue]?.stringValue
 
                     guard let fileMimeType = fileMimeType, let fileName = fileName else {
-                        return .image(UIImage.blockFile.content.other)
+                        return .staticImage(FileIconConstants.other)
                     }
                     
-                    return .image(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
+                    return .staticImage(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
                 }()
                 
                 return Relation.File.Option(
-                    id: objectDetail.id.value,
+                    id: objectDetail.id,
                     icon: icon,
                     title: fileName
                 )

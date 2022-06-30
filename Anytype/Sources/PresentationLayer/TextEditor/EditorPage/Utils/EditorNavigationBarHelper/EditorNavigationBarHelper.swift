@@ -157,16 +157,21 @@ private extension EditorNavigationBarHelper {
     
     func updateNavigationBarAppearanceBasedOnContentOffset(_ newOffset: CGFloat) {
         currentScrollViewOffset = newOffset
-        guard let opacity = countPercentOfNavigationBarAppearance(offset: newOffset) else { return }
+        guard let percent = countPercentOfNavigationBarAppearance(offset: newOffset) else { return }
 
         switch currentEditorState {
             case .editing, .locked: break
             default: return
         }
-
-        navigationBarTitleView.setAlphaForSubviews(opacity)
-        updateBarButtonItemsBackground(opacity: opacity)
-        fakeNavigationBarBackgroundView.alpha = opacity
+        
+        // From 0 to 0.5 percent -> opacity 0..1
+        let barButtonsOpacity = min(percent, 0.5) * 2
+        // From 0.5 to 1 percent -> alpha 0..1
+        let titleAlpha = (max(percent, 0.5) - 0.5) * 2
+        
+        navigationBarTitleView.setAlphaForSubviews(titleAlpha)
+        updateBarButtonItemsBackground(opacity: barButtonsOpacity)
+        fakeNavigationBarBackgroundView.alpha = percent
     }
     
     private func countPercentOfNavigationBarAppearance(offset: CGFloat) -> CGFloat? {

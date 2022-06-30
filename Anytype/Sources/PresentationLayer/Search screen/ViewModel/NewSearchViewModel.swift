@@ -5,12 +5,12 @@ import Combine
 final class NewSearchViewModel: ObservableObject {
     
     let title: String?
+    let searchPlaceholder: String
     
-    @Published private(set) var listModel: NewSearchView.ListModel = .plain(rows: [])
+    @Published private(set) var state: NewSearchViewState = .resultsList(.plain(rows: []))
     @Published private(set) var addButtonModel: NewSearchView.AddButtonModel? = nil
     @Published private(set) var isCreateButtonAvailable: Bool = false
     
-    private let selectionMode: SelectionMode
     private let itemCreationMode: ItemCreationMode
     private let internalViewModel: NewInternalSearchViewModelProtocol
     private let onSelect: (_ ids: [String]) -> Void
@@ -25,13 +25,13 @@ final class NewSearchViewModel: ObservableObject {
     
     init(
         title: String? = nil,
-        selectionMode: SelectionMode,
+        searchPlaceholder: String = "Search".localized,
         itemCreationMode: ItemCreationMode,
         internalViewModel: NewInternalSearchViewModelProtocol,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) {
         self.title = title
-        self.selectionMode = selectionMode
+        self.searchPlaceholder = searchPlaceholder
         self.itemCreationMode = itemCreationMode
         self.internalViewModel = internalViewModel
         self.onSelect = onSelect
@@ -47,7 +47,7 @@ extension NewSearchViewModel {
     }
     
     func didSelectRow(with id: String) {
-        switch selectionMode {
+        switch internalViewModel.selectionMode {
         case .singleItem:
             onSelect([id])
         case .multipleItems:
@@ -75,8 +75,8 @@ private extension NewSearchViewModel {
     }
     
     func setupInternalViewModel() {
-        cancellable = internalViewModel.listModelPublisher.sink { [weak self] listModel in
-            self?.listModel = listModel
+        cancellable = internalViewModel.viewStateSubject.sink { [weak self] state in
+            self?.state = state
         }
     }
     
@@ -86,11 +86,11 @@ private extension NewSearchViewModel {
             return
         }
         
-        isCreateButtonAvailable = searchText.isNotEmpty
+        isCreateButtonAvailable = internalViewModel.isCreateButtonAvailable(searchText: searchText)
     }
     
     func updateAddButtonModel() {
-        guard case .multipleItems = selectionMode else { return }
+        guard case .multipleItems = internalViewModel.selectionMode else { return }
 
         addButtonModel = selectedRowIds.isEmpty ? .disabled : .enabled(counter: selectedRowIds.count)
     }

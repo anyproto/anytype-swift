@@ -9,13 +9,14 @@
 import SwiftUI
 import BlocksModels
 
-struct CheckPopupView<ViewModel: CheckPopuViewViewModelProtocol>: View {
+struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
+    @Environment(\.presentationMode) var presentationMode
     @ObservedObject var viewModel: ViewModel
     @State private var scrollViewContentSize: CGSize = .zero
 
     var body: some View {
         VStack(spacing: 0) {
-            TitleView(title: "Preview layout".localized)
+            TitleView(title: viewModel.title)
             mainSection
         }
         .background(Color.backgroundSecondary)
@@ -26,6 +27,7 @@ struct CheckPopupView<ViewModel: CheckPopuViewViewModelProtocol>: View {
         VStack(spacing: 0) {
             ForEach(viewModel.items) { item in
                 Button {
+                    presentationMode.wrappedValue.dismiss()
                     viewModel.onTap(itemId: item.id)
                 } label: {
                     mainSectionRow(item)
@@ -42,7 +44,7 @@ struct CheckPopupView<ViewModel: CheckPopuViewViewModelProtocol>: View {
                 Spacer.fixedWidth(12)
             }
 
-            VStack(spacing: 0) {
+            VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(item.title, style: .uxBodyRegular, color: .textPrimary)
 
                 if let subtitle = item.subtitle {
@@ -60,7 +62,9 @@ struct CheckPopupView<ViewModel: CheckPopuViewViewModelProtocol>: View {
 }
 
 struct CheckPopupView_Previews: PreviewProvider {
-    final class CheckPopupTestViewModel: CheckPopuViewViewModelProtocol {
+    final class CheckPopupTestViewModel: CheckPopupViewViewModelProtocol {
+        let title: String = "Title"
+        
         func onTap(itemId: String) {
         }
 

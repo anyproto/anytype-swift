@@ -52,7 +52,7 @@ final class AuthService: AuthServiceProtocol {
 
     func createAccount(name: String, imagePath: String, alphaInviteCode: String) -> Result<Void, CreateAccountServiceError> {
         let result = Anytype_Rpc.Account.Create.Service
-            .invoke(name: name, avatar: .avatarLocalPath(imagePath), alphaInviteCode: alphaInviteCode)
+            .invoke(name: name, avatar: .avatarLocalPath(imagePath), storePath: "", alphaInviteCode: alphaInviteCode)
         
         switch result {
         case .success(let response):
@@ -80,6 +80,8 @@ final class AuthService: AuthServiceProtocol {
         UserDefaultsConfig.usersId = accountId
         
         AccountManager.shared.account = response.account.asModel
+        
+        loginStateService.setupStateAfterRegistration(account: AccountManager.shared.account)
         
         return .success(Void())
     }
@@ -153,7 +155,7 @@ final class AuthService: AuthServiceProtocol {
             AnytypeAnalytics.instance().logAccountSelect(accountId)
             UserDefaultsConfig.usersId = accountId
             
-            loginStateService.setupStateAfterLoginOrAuth()
+            loginStateService.setupStateAfterLoginOrAuth(account: AccountManager.shared.account)
             return response.account.status.asModel
         case .failure:
             return nil

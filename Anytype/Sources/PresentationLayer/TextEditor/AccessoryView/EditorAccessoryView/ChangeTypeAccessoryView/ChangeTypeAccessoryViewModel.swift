@@ -1,16 +1,19 @@
 import UIKit
 import Combine
+import BlocksModels
 
 final class ChangeTypeAccessoryViewModel {
     typealias TypeItem = HorizonalTypeListViewModel.Item
 
-    @Published private(set) var isTypesViewVisible: Bool = false
+    @Published private(set) var isTypesViewVisible: Bool = true
     @Published private(set) var supportedTypes = [TypeItem]()
+    var onDoneButtonTap: (() -> Void)?
 
     private var allSupportedTypes = [TypeItem]()
     private let router: EditorRouterProtocol
     private let handler: BlockActionHandlerProtocol
     private let searchService: SearchServiceProtocol
+    private let objectService: ObjectActionsServiceProtocol
     private let document: BaseDocumentProtocol
 
     private var cancellables = [AnyCancellable]()
@@ -19,11 +22,13 @@ final class ChangeTypeAccessoryViewModel {
         router: EditorRouterProtocol,
         handler: BlockActionHandlerProtocol,
         searchService: SearchServiceProtocol,
+        objectService: ObjectActionsServiceProtocol,
         document: BaseDocumentProtocol
     ) {
         self.router = router
         self.handler = handler
         self.searchService = searchService
+        self.objectService = objectService
         self.document = document
 
         fetchSupportedTypes()
@@ -31,7 +36,7 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     func handleDoneButtonTap() {
-        UIApplication.shared.hideKeyboard()
+        onDoneButtonTap?()
     }
 
     func toggleChangeTypeState() {
@@ -42,10 +47,35 @@ final class ChangeTypeAccessoryViewModel {
         let supportedTypes = searchService
             .searchObjectTypes(text: "", filteringTypeUrl: nil)?
             .map { object in
-                TypeItem(from: object, handler: { [weak handler] in handler?.setObjectTypeUrl(object.id.value) })
+                TypeItem(from: object, handler: { [weak self] in
+                    self?.onObjectTap(object: object)
+                })
             }
 
         supportedTypes.map { allSupportedTypes = $0 }
+    }
+
+    private func onObjectTap(object: ObjectDetails) {
+        let isDraft = document.details?.isDraft ?? false
+        if isDraft {
+            router.showTemplatesAvailabilityPopupIfNeeded(
+                document: document,
+                templatesTypeURL: .dynamic(object.id)
+            )
+        }
+
+        handler.setObjectTypeUrl(object.id)
+        applyDefaultTemplateIfNeeded(typeDetails: object)
+    }
+    
+    private func applyDefaultTemplateIfNeeded(typeDetails: ObjectDetails) {
+        let availableTemplates = searchService.searchTemplates(for: .dynamic(typeDetails.id))
+        
+        guard availableTemplates?.count == 1,
+                let firstTemplate = availableTemplates?.first
+            else { return }
+        
+        objectService.applyTemplate(objectId: document.objectId, templateId: firstTemplate.id)
     }
 
     private func subscribeOnDocumentChanges() {

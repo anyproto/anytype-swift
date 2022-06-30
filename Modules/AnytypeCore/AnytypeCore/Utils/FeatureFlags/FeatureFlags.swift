@@ -9,6 +9,12 @@ public enum Feature: String, Codable {
     case objectPreview = "Object preview"
     case deletion = "Account deletion"
     case createNewRelation = "Create new relation"
+    case templates = "Show templates picker"
+    case createObjectInSet = "Create object in Set"
+    case setSorts = "Set sorts"
+    case setFilters = "Set filters"
+    case tableOfContents = "Table of contents"
+    case objectDuplicate = "Object duplicate"
 }
 
 public final class FeatureFlags {
@@ -34,8 +40,14 @@ public final class FeatureFlags {
         .clipboard: true,
         .uikitRelationBlocks: true,
         .objectPreview: false,
-        .deletion: false,
-        .createNewRelation: true
+        .deletion: true,
+        .createNewRelation: true,
+        .templates: true,
+        .createObjectInSet: true,
+        .setSorts: false,
+        .setFilters: false,
+        .tableOfContents: false,
+        .objectDuplicate: true
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -76,10 +88,34 @@ public extension FeatureFlags {
     }
     
     static var deletion: Bool {
-        features[.deletion, default: false]
+        features[.deletion, default: true]
     }
     
     static var createNewRelation: Bool {
         features[.createNewRelation, default: true]
+    }
+
+    static var isTemplatesAvailable: Bool {
+        features[.templates, default: true]
+    }
+
+    static var isCreateObjectInSetAvailable: Bool {
+        features[.createObjectInSet, default: true]
+    }
+    
+    static var isSetSortsAvailable: Bool {
+        features[.setSorts, default: false]
+    }
+    
+    static var isSetFiltersAvailable: Bool {
+        features[.setFilters, default: false]
+    }
+    
+    static var isTableOfContentsAvailable: Bool {
+        features[.tableOfContents, default: false]
+    }
+    
+    static var isObjectDuplicateAvailable: Bool {
+        features[.objectDuplicate, default: true]
     }
 }

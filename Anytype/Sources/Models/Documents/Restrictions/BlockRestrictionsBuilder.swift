@@ -28,6 +28,8 @@ struct BlockRestrictionsBuilder {
             return DummyRestrictions()
         case .relation:
             return RelationBlockRestrictions()
+        case .tableOfContents:
+            return TableOfContentsRestrictions()
         }
     }
     

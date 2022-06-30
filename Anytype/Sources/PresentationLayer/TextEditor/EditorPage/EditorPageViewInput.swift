@@ -1,9 +1,8 @@
 import BlocksModels
 import UIKit
 
-
 /// Input data for document view
-protocol EditorPageViewInput: AnyObject {
+protocol EditorPageViewInput: AnyObject, RelativePositionProvider {
     
     func update(header: ObjectHeader, details: ObjectDetails?)
     func update(
@@ -25,4 +24,6 @@ protocol EditorPageViewInput: AnyObject {
     func textBlockWillBeginEditing()
 
     func blockDidFinishEditing(blockId: BlockId)
+    
+    func scrollToBlock(blockId: BlockId)
 }

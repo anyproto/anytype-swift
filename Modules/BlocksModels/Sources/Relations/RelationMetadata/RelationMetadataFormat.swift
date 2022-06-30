@@ -67,7 +67,7 @@ public extension RelationMetadata.Format {
         case .longText:
             return "format/text"
         case .shortText:
-            return "format/text"
+            return "format/name"
         case .number:
             return "format/number"
         case .status:
@@ -93,7 +93,7 @@ public extension RelationMetadata.Format {
         }
     }
     
-    var analyticString: String {
+    var name: String {
         switch self {
         case .longText: return "Text"
         case .shortText: return "Text"

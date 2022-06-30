@@ -15,7 +15,7 @@ enum QuickAction: String, CaseIterable {
     private var title: String {
         switch self {
         case .newNote:
-            let defaultObjectName = ObjectTypeProvider.defaultObjectType.name
+            let defaultObjectName = ObjectTypeProvider.shared.defaultObjectType.name
             return "Create \(defaultObjectName)".localized
         }
     }

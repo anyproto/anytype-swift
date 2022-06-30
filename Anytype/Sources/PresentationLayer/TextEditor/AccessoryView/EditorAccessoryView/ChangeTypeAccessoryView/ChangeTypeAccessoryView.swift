@@ -7,6 +7,8 @@ class ChangeTypeAccessoryView: UIView {
         static let padding: CGFloat = 16
         static let topViewHeight: CGFloat = 48
         static let doneButtonWidth: CGFloat = 45
+        static let expandedHeight: CGFloat = 144
+        static let minimizedHeight: CGFloat = 48
     }
     
 
@@ -32,7 +34,6 @@ class ChangeTypeAccessoryView: UIView {
     }
 
     private func setupViews() {
-        autoresizingMask = .flexibleHeight
         backgroundColor = .backgroundPrimary
 
         addSubview(stackView) {
@@ -58,14 +59,28 @@ class ChangeTypeAccessoryView: UIView {
         stackView.addArrangedSubview(topView)
         stackView.addArrangedSubview(changeTypeView)
 
+        let changeTypeViewHeightConstraint = changeTypeView.heightAnchor.constraint(equalToConstant: 96)
+        changeTypeViewHeightConstraint.isActive = true
+
+        changeTypeView.translatesAutoresizingMaskIntoConstraints = false
+        translatesAutoresizingMaskIntoConstraints = false
+
         let changeTypeAction = UIAction { [weak viewModel] _ in
             viewModel?.toggleChangeTypeState()
         }
+
+
         changeButton.addAction(changeTypeAction, for: .touchUpInside)
     }
 
     private func bindViewModel() {
+        let heightConstraint = heightAnchor.constraint(equalToConstant: Constants.expandedHeight)
+        heightConstraint.isActive = true
+
         viewModel.$isTypesViewVisible.sink { [weak self] isVisible in
+            // For some known reason swiftUI view can't layout itself because its position is under the keyboard in an initialization moment. Use static height values is an workaround
+            heightConstraint.constant = isVisible ? Constants.expandedHeight : Constants.minimizedHeight
+
             UIView.animate(withDuration: 0.2) {
                 self?.changeTypeView.isHidden = !isVisible
                 self?.stackView.layoutIfNeeded()
@@ -126,8 +141,8 @@ private final class ChangeButton: UIButton {
             return
         }
 
-        UIView.animate(withDuration: 0.4) {
-            self.imageView?.transform = transform
+        UIView.animate(withDuration: 0.4) { [weak self] in
+            self?.imageView?.transform = transform
         }
     }
 }

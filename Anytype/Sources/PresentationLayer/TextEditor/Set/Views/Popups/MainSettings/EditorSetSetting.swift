@@ -1,12 +1,13 @@
 import SwiftUI
+import AnytypeCore
 
 enum EditorSetSetting: CaseIterable, Identifiable {
     var id: String { name }
     
 //    case view
     case settings
-//    case sort
-//    case filter
+    case sort
+    case filter
 //    case group
     
     var name: String {
@@ -15,10 +16,10 @@ enum EditorSetSetting: CaseIterable, Identifiable {
 //            return "View".localized
         case .settings:
             return "Settings".localized
-//        case .sort:
-//            return "Sort".localized
-//        case .filter:
-//            return "Filter".localized
+        case .sort:
+            return "Sort".localized
+        case .filter:
+            return "Filter".localized
 //        case .group:
 //            return "Group".localized
         }
@@ -30,12 +31,23 @@ enum EditorSetSetting: CaseIterable, Identifiable {
 //            return .set.view
         case .settings:
             return .set.viewSettings
-//        case .sort:
-//            return .set.sort
-//        case .filter:
-//            return .set.filter
+        case .sort:
+            return .set.sort
+        case .filter:
+            return .set.filter
 //        case .group:
 //            return .set.group
         }
+    }
+    
+    static var allCases: Self.AllCases {
+        var cases = [EditorSetSetting.settings]
+        if FeatureFlags.isSetSortsAvailable {
+            cases.append(.sort)
+        }
+        if FeatureFlags.isSetFiltersAvailable {
+            cases.append(.filter)
+        }
+        return cases
     }
 }

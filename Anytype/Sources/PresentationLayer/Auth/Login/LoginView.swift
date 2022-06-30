@@ -39,7 +39,7 @@ struct LoginView: View {
     private var keychainPhraseView: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText("Login with recovery phrase".localized, style: .heading, color: .textPrimary)
+                AnytypeText("Login".localized, style: .heading, color: .textPrimary)
                 Spacer.fixedHeight(19)
                 scanQR
                 if viewModel.canRestoreFromKeychain {
@@ -71,7 +71,7 @@ struct LoginView: View {
     private var enterMnemonic: some View {
         ZStack(alignment: .topLeading) {
             if(viewModel.seed.isEmpty) {
-                AnytypeText("or Type your recovery phrase".localized, style: .codeBlock, color: .textSecondary)
+                AnytypeText("or type your recovery phrase".localized, style: .codeBlock, color: .textSecondary)
                     .padding(.top, 17)
             }
             

@@ -4,19 +4,11 @@ import SwiftUI
 
 final class TagsSearchViewModel {
     
-    @Published private var sections: [ListSectionConfiguration] = []
+    let selectionMode: NewSearchViewModel.SelectionMode = .multipleItems
+    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never> ()
     
-    private var tags: [Relation.Tag.Option] = [] {
-        didSet {
-            sections = makeSections(tags: tags, selectedTagIds: selectedTagIds)
-        }
-    }
-    
-    private var selectedTagIds: [String] = [] {
-        didSet {
-            sections = makeSections(tags: tags, selectedTagIds: selectedTagIds)
-        }
-    }
+    private var tags: [Relation.Tag.Option] = []
+    private var selectedTagIds: [String] = []
     
     private let interactor: TagsSearchInteractor
     
@@ -28,25 +20,36 @@ final class TagsSearchViewModel {
 
 extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> {
-        $sections.map { sections -> NewSearchView.ListModel in
-            NewSearchView.ListModel.sectioned(sectinos: sections)
-        }.eraseToAnyPublisher()
-    }
-    
     func search(text: String) {
-        interactor.search(text: text) { [weak self] tags in
-            self?.tags = tags
+        let result = interactor.search(text: text)
+        switch result {
+        case .success(let tags):
+            self.tags = tags
+            handleSearchedTags()
+        case .failure(let error):
+            viewStateSubject.send(.error(error))
         }
     }
     
     func handleRowsSelection(ids: [String]) {
+        guard tags.isNotEmpty else { return }
+        
         selectedTagIds = ids
+        handleSearchedTags()
+    }
+    
+    func isCreateButtonAvailable(searchText: String) -> Bool {
+        interactor.isCreateButtonAvailable(searchText: searchText)
     }
     
 }
 
 private extension TagsSearchViewModel {
+    
+    func handleSearchedTags() {
+        let sections = makeSections(tags: tags, selectedTagIds: selectedTagIds)
+        viewStateSubject.send(.resultsList(.sectioned(sectinos: sections)))
+    }
     
     func makeSections(tags: [Relation.Tag.Option], selectedTagIds: [String]) -> [ListSectionConfiguration] {
         NewSearchSectionsBuilder.makeSections(tags) {
@@ -66,7 +69,7 @@ private extension Array where Element == Relation.Tag.Option {
             ) {
                 TagSearchRowView(
                     viewModel: tag.asTagViewModel,
-                    guidlines: RelationStyle.regular(allowMultiLine: false).tagViewGuidlines,
+                    relationStyle: .regular(allowMultiLine: false),
                     selectionIndicatorViewModel: SelectionIndicatorViewModelBuilder.buildModel(id: tag.id, selectedIds: selectedTagIds)
                 ).eraseToAnyView()
             }

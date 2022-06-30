@@ -43,7 +43,7 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
 
         self.relationsViewModel = RelationsListViewModel(
             router: router,
-            relationsService: RelationsService(objectId: document.objectId.value),
+            relationsService: RelationsService(objectId: document.objectId),
             isObjectLocked: document.isLocked
         )
 
@@ -54,6 +54,9 @@ final class ObjectSettingsViewModel: ObservableObject, Dismissible {
             },
             undoRedoAction: { [weak router] in
                 router?.presentUndoRedo()
+            },
+            openPageAction: { [weak router] screenData in
+                router?.showPage(data: screenData)
             }
         )
         

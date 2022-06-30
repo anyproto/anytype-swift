@@ -10,7 +10,7 @@ struct NewSearchView: View {
         VStack(spacing: 0) {
             DragIndicator()
             TitleView(title: viewModel.title)
-            SearchBar(text: $searchText, focused: true)
+            SearchBar(text: $searchText, focused: true, placeholder: viewModel.searchPlaceholder)
             content
             
             viewModel.addButtonModel.flatMap {
@@ -24,35 +24,39 @@ struct NewSearchView: View {
     
     private var content: some View {
         Group {
-            if viewModel.listModel.isEmpty && !viewModel.isCreateButtonAvailable {
-                emptyState
-            } else {
-                searchResults
+            switch viewModel.state {
+            case .resultsList(let model):
+                searchResults(model: model)
+            case .error(let error):
+                errorState(error)
             }
         }
     }
     
-    private var emptyState: some View {
+    private func errorState(_ error: NewSearchError) -> some View {
         VStack(alignment: .center) {
             Spacer()
             AnytypeText(
-                "\("There is no object named".localized) \"\(searchText)\"",
+                error.title,//"\("There is no object named".localized) \"\(searchText)\"",
                 style: .uxBodyRegular,
                 color: .textPrimary
             )
             .multilineTextAlignment(.center)
-            AnytypeText(
-                "Try to create a new one or search for something else".localized,
-                style: .uxBodyRegular,
-                color: .textSecondary
-            )
-            .multilineTextAlignment(.center)
+            error.subtitle.flatMap {
+                AnytypeText(
+                    $0,// "Try to create a new one or search for something else".localized,
+                    style: .uxBodyRegular,
+                    color: .textSecondary
+                )
+                .multilineTextAlignment(.center)
+            }
+            
             Spacer()
         }
         .padding(.horizontal)
     }
     
-    private var searchResults: some View {
+    private func searchResults(model: ListModel) -> some View {
         ScrollView {
             LazyVStack(spacing: 0) {
                 if viewModel.isCreateButtonAvailable {
@@ -60,7 +64,7 @@ struct NewSearchView: View {
                         viewModel.didTapCreateButton(title: searchText)
                     }
                 }
-                switch viewModel.listModel {
+                switch model {
                 case .plain(let rows):
                     rowViews(rows: rows)
                 case .sectioned(let sections):

@@ -26,6 +26,7 @@ struct AccessoryViewBuilder {
             router: router,
             handler: actionHandler,
             searchService: SearchService(),
+            objectService: ServiceLocator.shared.objectActionsService(),
             document: document
         )
 
@@ -68,6 +69,15 @@ struct AccessoryViewBuilder {
             document: document,
             modelsHolder: modelsHolder
         )
+
+        accessoryViewSwitcher.onDoneButton = {
+            guard let typeURL = document.details?.objectType else { return }
+
+            router.showTemplatesAvailabilityPopupIfNeeded(
+                document: document,
+                templatesTypeURL: .dynamic(typeURL.url)
+            )
+        }
 
         slashMenuViewModel.resetSlashMenuHandler = { [weak accessoryViewSwitcher] in
             accessoryViewSwitcher?.restoreDefaultState()

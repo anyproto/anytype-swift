@@ -7,11 +7,12 @@ final class PageService {
         let details = Google_Protobuf_Struct(
             fields: [
                 BundledRelationKey.name.rawValue: name.protobufValue,
-                BundledRelationKey.type.rawValue: ObjectTypeProvider.defaultObjectType.url.protobufValue
+                BundledRelationKey.type.rawValue: ObjectTypeProvider.shared.defaultObjectType.url.protobufValue
             ]
         )
         
-        guard let response = Anytype_Rpc.Page.Create.Service.invoke(details: details).getValue(domain: .pageService) else {
+        guard let response = Anytype_Rpc.Object.Create.Service.invoke(details: details, internalFlags: [], templateID: "")
+            .getValue(domain: .pageService) else {
             return nil
         }
         

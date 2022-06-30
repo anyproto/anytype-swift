@@ -1,4 +1,5 @@
 import BlocksModels
+import Foundation
 
 final class PasteboardService: PasteboardServiceProtocol {
     private let document: BaseDocumentProtocol
@@ -26,21 +27,21 @@ final class PasteboardService: PasteboardServiceProtocol {
     func pasteInsideBlock(focusedBlockId: BlockId,
                           range: NSRange,
                           handleLongOperation:  @escaping () -> Void,
-                          completion: @escaping () -> Void) {
+                          completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void) {
         let context = PasteboardActionContext.focused(focusedBlockId, range)
         paste(context: context, handleLongOperation: handleLongOperation, completion: completion)
     }
     
     func pasteInSelectedBlocks(selectedBlockIds: [BlockId],
                                handleLongOperation:  @escaping () -> Void,
-                               completion: @escaping () -> Void) {
+                               completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void) {
         let context = PasteboardActionContext.selected(selectedBlockIds)
         paste(context: context, handleLongOperation: handleLongOperation, completion: completion)
     }
     
     private func paste(context: PasteboardActionContext,
                        handleLongOperation:  @escaping () -> Void,
-                       completion: @escaping () -> Void) {
+                       completion: @escaping (_ pasteResult: PasteboardPasteResult?) -> Void) {
         let workItem = DispatchWorkItem {
             handleLongOperation()
         }
@@ -50,10 +51,10 @@ final class PasteboardService: PasteboardServiceProtocol {
             pasteboardHelper: pasteboardHelper,
             pasteboardMiddlewareService: pasteboardMiddlewareService,
             context: context
-        ) { _ in
+        ) { pasteResult in
             DispatchQueue.main.async {
                 workItem.cancel()
-                completion()
+                completion(pasteResult)
             }
         }
         pasteboardOperations.addOperation(operation)

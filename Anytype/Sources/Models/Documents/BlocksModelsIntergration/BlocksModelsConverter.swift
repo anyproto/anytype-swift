@@ -17,8 +17,8 @@ enum BlocksModelsConverter {
         case .featuredRelations: return .featuredRelations
         case .dataview(let data): return data.blockContent
         case .relation(let data): return data.blockContent
-            
-        case .icon, .latex, .tableOfContents:
+        case .tableOfContents: return FeatureFlags.isTableOfContentsAvailable ? .tableOfContents : .unsupported
+        case .icon, .latex:
             return .unsupported
         }
     }
@@ -33,6 +33,7 @@ enum BlocksModelsConverter {
         case .divider(let data): return data.asMiddleware
         case .layout(let data): return data.asMiddleware
         case .relation(let data): return data.asMiddleware
+        case .tableOfContents: return .tableOfContents(Anytype_Model_Block.Content.TableOfContents())
         case .featuredRelations:
             anytypeAssertionFailure(
                 "Not suppoted converter from featuredRelations to middleware",

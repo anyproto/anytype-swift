@@ -32,27 +32,27 @@ struct HomeCollectionView: View {
         OffsetAwareScrollView(showsIndicators: false, offsetChanged: offsetChanged) {
             LazyVGrid(columns: columns, alignment: .center) {
                 ForEach(cellData) { data in
-                    Button(
-                        action: { onTap(data) },
-                        label: {
-                            HomeCell(
-                                cellData: data,
-                                selected: viewModel.selectedPageIds.contains(data.id.value)
-                            )
-                        }
+                    HomeCell(
+                        cellData: data,
+                        selected: viewModel.selectedPageIds.contains(data.id)
                     )
+                    .onTapGesture { onTap(data) }
                     .disabled(data.isLoading)
-                    
                     .ifLet(dragAndDropDelegate) { view, delegate in
                         view.onDrag {
                             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
                             dropData.draggingCellData = data
-                            return NSItemProvider(object: data.id.value as NSString)
+                            return NSItemProvider(object: data.id as NSString)
                         }
                         .onDrop(
                             of: [UTType.text],
                             delegate: HomeCollectionDropInsideDelegate(dragAndDropDelegate: delegate, delegateData: data, cellData: cellData, data: $dropData)
                         )
+                    }
+                    .if(!data.isArchived) {
+                        $0.contextMenu {
+                            HomeContextMenuView(cellData: data)
+                        }
                     }
                 }
             }
@@ -64,6 +64,6 @@ struct HomeCollectionView: View {
 
 struct HomeCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeCollectionView(cellData: [], dragAndDropDelegate: HomeViewModel(homeBlockId: AnytypeIdMock.id), offsetChanged: { _ in }, onTap: { _ in })
+        HomeCollectionView(cellData: [], dragAndDropDelegate: HomeViewModel(homeBlockId: UUID().uuidString), offsetChanged: { _ in }, onTap: { _ in })
     }
 }

@@ -78,7 +78,10 @@ struct SetFullHeader: View {
                     )
                 )
                     .frame(height: ObjectHeaderConstants.height)
+            default:
+                EmptyView()
             }
+
         }
     }
 }

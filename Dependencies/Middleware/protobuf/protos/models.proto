@@ -124,6 +124,16 @@ message Block {
             string targetBlockId = 1; // id of the target block
             Style style = 2; // deprecated
             google.protobuf.Struct fields = 3;
+            IconSize iconSize = 4;
+            CardStyle cardStyle = 5;
+            Description description = 6;
+            repeated string relations = 7;
+
+            enum IconSize {
+                SizeNone = 0;
+                SizeSmall = 1;
+                SizeMedium = 2;
+            }
 
             enum Style {
                 Page = 0;
@@ -131,6 +141,18 @@ message Block {
                 Dashboard = 2;
                 Archive = 3;
                 // ...
+            }
+
+            enum Description {
+                None = 0;
+                Added = 1;
+                Content = 2;
+            }
+
+            enum CardStyle {
+                Text = 0;
+                Card = 1;
+                Inline = 2;
             }
         }
 
@@ -206,13 +228,13 @@ message Block {
                 Header4 = 4; // deprecated
                 Quote = 5;
                 Code = 6;
-                Title = 7; // currently only only one block of this style can exists on a page
+                Title = 7; // currently only one block of this style can exists on a page
                 Checkbox = 8;
                 Marked = 9;
                 Numbered = 10;
                 Toggle = 11;
-                Description = 12; // currently only only one block of this style can exists on a page
-                Callout = 13; // currently only only one block of this style can exists on a page
+                Description = 12; // currently only one block of this style can exists on a page
+                Callout = 13;
 
             }
         }
@@ -269,7 +291,7 @@ message Block {
                 repeated Filter filters = 5;
                 repeated Relation relations = 6; // relations fields/columns options, also used to provide the order
 				string coverRelationKey = 7; // Relation used for cover in gallery
-                bool hideIcon = 8; // Hide icon near name 
+                bool hideIcon = 8; // Hide icon near name
                 Size cardSize = 9; // Gallery card size
                 bool coverFit = 10; // Image fits container
 
@@ -327,6 +349,7 @@ message Block {
                 string relationProperty = 5;
                 Condition condition = 3;
                 google.protobuf.Value value = 4;
+                QuickOption quickOption = 6;
 
                 enum Operator {
                     And = 0;
@@ -349,6 +372,21 @@ message Block {
                     NotEmpty = 12;
                     AllIn = 13;
                     NotAllIn = 14;
+                }
+
+                enum QuickOption {
+                    ExactDate = 0;
+                    Yesterday = 1;
+                    Today = 2;
+                    Tomorrow = 3;
+                    LastWeek = 4;
+                    CurrentWeek = 5;
+                    NextWeek = 6;
+                    LastMonth = 7;
+                    CurrentMonth = 8;
+                    NextMonth = 9;
+                    NumberOfDaysAgo = 10;
+                    NumberOfDaysNow = 11;
                 }
             }
         }
@@ -391,6 +429,7 @@ message Account {
     Avatar avatar = 3; // Avatar of a user's account
     Config config = 4;
     Status status = 5;
+    Info info = 6;
 
     /**
     * Avatar of a user's account. It could be an image or color
@@ -401,7 +440,6 @@ message Account {
             string color = 2; // Color of the avatar, used if image not set.
         }
     }
-
     message Config {
         bool enableDataview = 1;
         bool enableDebug = 2;
@@ -422,6 +460,19 @@ message Account {
         StartedDeletion = 2;
         Deleted = 3;
     }
+
+    message Info {
+        string homeObjectId = 2; // home dashboard block id
+        string archiveObjectId = 3; // archive block id
+        string profileObjectId = 4; // profile block id
+        string marketplaceTypeObjectId = 5; // marketplace type id
+        string marketplaceRelationObjectId = 6; // marketplace relation id
+        string marketplaceTemplateObjectId = 7; // marketplace template id
+        string deviceId = 8;
+        string gatewayUrl = 101; // gateway url for fetching static files
+        string localStoragePath = 103; // path to local storage
+    }
+
 }
 
 message LinkPreview {
@@ -454,9 +505,14 @@ message Restrictions {
         Blocks = 3;
         // restricts work with details
         Details = 4;
+        // restricts type changing
         TypeChange = 5;
+        // restricts layout changing
         LayoutChange = 6;
+        // restricts template creation from this object
         Template = 7;
+        // restricts duplicate object
+        Duplicate = 8;
     }
 
 
@@ -607,3 +663,14 @@ message RelationOptions {
     repeated Relation.Option options = 1;
 }
 
+message InternalFlag {
+    Value value = 1;
+
+    // Use such a weird construction due to the issue with imported repeated enum type
+    // Look https://github.com/golang/protobuf/issues/1135 for more information.
+    enum Value {
+        editorDeleteEmpty = 0;
+        editorSelectType = 1;
+        editorSelectTemplate = 2;
+    }
+}

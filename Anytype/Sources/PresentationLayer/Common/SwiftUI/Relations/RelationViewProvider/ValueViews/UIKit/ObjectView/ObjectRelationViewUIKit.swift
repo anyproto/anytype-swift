@@ -1,14 +1,16 @@
 import UIKit
 
 final class ObjectRelationViewUIKit: UIView {
-    let option: Relation.Object.Option
-    let objectRelationStyle: ObjectRelationView.ObjectRelationStyle
+    
+    private let iconView = ObjectIconImageView()
+    private var titleLabel: AnytypeLabel!
 
-    private var textView: AnytypeLabel!
-
-    init(options: Relation.Object.Option, objectRelationStyle: ObjectRelationView.ObjectRelationStyle) {
+    private let option: Relation.Object.Option
+    private let relationStyle: RelationStyle
+    
+    init(options: Relation.Object.Option, relationStyle: RelationStyle) {
         self.option = options
-        self.objectRelationStyle = objectRelationStyle
+        self.relationStyle = relationStyle
 
         super.init(frame: .zero)
 
@@ -20,45 +22,73 @@ final class ObjectRelationViewUIKit: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override var intrinsicContentSize: CGSize {
-        CGSize(width: textView.intrinsicContentSize.width + objectRelationStyle.size.width, height: textView.intrinsicContentSize.height)
+}
+
+private extension ObjectRelationViewUIKit {
+    
+    func setupView() {
+        setupIconViewIfNeeded()
+        setupTitleLabel()
+
+        setupLayout()
     }
-
-    private func setupView() {
-        let stackView = UIStackView()
-        stackView.axis = .horizontal
-        stackView.spacing = objectRelationStyle.hSpaсingObject
-
-        textView = AnytypeLabel(style: .relation1Regular)
-        textView.setText(option.title)
-        textView.setLineBreakMode(.byTruncatingTail)
-        textView.textColor = titleColor(option: option)
-
-        let model = ObjectIconImageModel(
-            iconImage: option.icon,
-            usecase: .mention(.body)
-        )
-        let icon = ObjectIconImageView()
-        icon.configure(model: model)
-
-        stackView.addArrangedSubview(icon)
-        stackView.addArrangedSubview(textView)
-
-        icon.layoutUsing.anchors {
-            $0.width.equal(to: objectRelationStyle.size.width)
-            $0.height.equal(to: objectRelationStyle.size.height, priority: .defaultHigh)
+    
+    func setupIconViewIfNeeded() {
+        let icon = option.icon
+        guard shouldShowIcon(icon: icon) else {
+            iconView.isHidden = true
+            return
         }
-
-        addSubview(stackView) {
-            $0.pinToSuperview()
+        
+        let model = ObjectIconImageModel(
+            iconImage: icon,
+            usecase: .featuredRelationsBlock
+        )
+        
+        iconView.configure(model: model)
+        iconView.isHidden = false
+    }
+    
+    func setupTitleLabel() {
+        titleLabel = AnytypeLabel(style: relationStyle.font)
+        titleLabel.setText(option.title)
+        titleLabel.textColor = titleColor(option: option)
+        titleLabel.setLineBreakMode(.byTruncatingTail)
+    }
+    
+    func setupLayout() {
+        layoutUsing.stack {
+            $0.hStack(
+                spacing: relationStyle.objectRelationStyle.hSpaсingObject,
+                iconView,
+                titleLabel
+            )
+        }
+        
+        iconView.layoutUsing.anchors {
+            $0.size(relationStyle.objectRelationStyle.size)
         }
     }
     
-    private func titleColor(option: Relation.Object.Option) -> UIColor {
+}
+
+private extension ObjectRelationViewUIKit {
+    
+    func titleColor(option: Relation.Object.Option) -> UIColor {
         if option.isDeleted || option.isArchived {
             return .textTertiary
         } else {
-            return .textPrimary
+            return relationStyle.uiKitFontColor
         }
     }
+    
+    func shouldShowIcon(icon: ObjectIconImage) -> Bool {
+        switch icon {
+        case .icon, .todo, .staticImage, .image:
+            return true
+        case .placeholder:
+            return false
+        }
+    }
+    
 }

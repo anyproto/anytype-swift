@@ -39,6 +39,41 @@ final class EditorSetViewModel: ObservableObject {
         document.featuredRelationsForEditor
     }
     
+    var sorts: [SetSort] {
+        activeView.sorts.uniqued().compactMap { sort in
+            let metadata = dataView.relations.first { relation in
+                sort.relationKey == relation.key
+            }
+            guard let metadata = metadata else { return nil }
+            
+            return SetSort(metadata: metadata, sort: sort)
+        }
+    }
+    
+    var relations: [RelationMetadata] {
+        activeView.options.compactMap { option in
+            let metadata = dataView.relations.first { relation in
+                option.key == relation.key
+            }
+            
+            guard let metadata = metadata,
+                  shouldAddRelationMetadata(metadata) else { return nil }
+            
+            return metadata
+        }
+    }
+    
+    var filters: [SetFilter] {
+        activeView.filters.compactMap { filter in
+            let metadata = dataView.relations.first { relation in
+                filter.relationKey == relation.key
+            }
+            guard let metadata = metadata else { return nil }
+            
+            return SetFilter(metadata: metadata, filter: filter)
+        }
+    }
+    
     let document: BaseDocument
     private var router: EditorRouterProtocol!
 
@@ -46,14 +81,23 @@ final class EditorSetViewModel: ObservableObject {
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
     private let dataBuilder = SetTableViewDataBuilder()
+    private let dataviewService: DataviewServiceProtocol
+    private let searchService: SearchServiceProtocol
     
-    init(document: BaseDocument) {
+    init(
+        document: BaseDocument,
+        dataviewService: DataviewServiceProtocol,
+        searchService: SearchServiceProtocol
+    ) {
+        ObjectTypeProvider.shared.resetCache()
         self.document = document
+        self.dataviewService = dataviewService
+        self.searchService = searchService
     }
     
     func setup(router: EditorRouterProtocol) {
         self.router = router
-        self.headerModel = ObjectHeaderViewModel(document: document, router: router)
+        self.headerModel = ObjectHeaderViewModel(document: document, router: router, isOpenedForPreview: false)
         
         subscription = document.updatePublisher.sink { [weak self] in
             self?.onDataChange($0)
@@ -76,48 +120,12 @@ final class EditorSetViewModel: ObservableObject {
         subscriptionService.stopAllSubscriptions()
     }
     
-    // MARK: - Private
-    
-    private func onDataChange(_ data: DocumentUpdate) {
-        switch data {
-        case .general:
-            objectWillChange.send()
-            setupDataview()
-        case .syncStatus, .blocks, .details, .dataSourceUpdate:
-            objectWillChange.send()
-        case .header:
-            break // handled in ObjectHeaderViewModel
-        }
-    }
-    
-    func setupDataview() {
-        anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
-        document.dataviews.first.flatMap { dataView in
-            anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
-        }
-        
-        self.dataView = document.dataviews.first ?? .empty
-        
-        updateActiveViewId()
-        setupSubscriptions()
-    }
-    
     func updateActiveViewId(_ id: BlockId) {
         document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
             dataView.updated(activeViewId: id)
         }
         
         setupDataview()
-    }
-    
-    private func updateActiveViewId() {
-        if let activeViewId = dataView.views.first(where: { $0.isSupported })?.id {
-            if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
-                self.dataView.activeViewId = activeViewId
-            }
-        } else {
-            dataView.activeViewId = ""
-        }
     }
     
     func setupSubscriptions() {
@@ -142,6 +150,60 @@ final class EditorSetViewModel: ObservableObject {
             
             self.records.applySubscriptionUpdate(update)
         }
+    }
+    
+    // MARK: - Private
+    
+    private func onDataChange(_ data: DocumentUpdate) {
+        switch data {
+        case .general:
+            objectWillChange.send()
+            setupDataview()
+        case .syncStatus, .blocks, .details, .dataSourceUpdate, .changeType:
+            objectWillChange.send()
+        case .header:
+            break // handled in ObjectHeaderViewModel
+        }
+    }
+    
+    private func setupDataview() {
+        anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
+        document.dataviews.first.flatMap { dataView in
+            anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
+        }
+        
+        self.dataView = document.dataviews.first ?? .empty
+        
+        updateActiveViewId()
+        setupSubscriptions()
+    }
+    
+    private func updateActiveViewId() {
+        if let activeViewId = dataView.views.first(where: { $0.isSupported })?.id {
+            if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
+                self.dataView.activeViewId = activeViewId
+            }
+        } else {
+            dataView.activeViewId = ""
+        }
+    }
+    
+    private func shouldAddRelationMetadata(_ relationMetadata: RelationMetadata) -> Bool {
+        guard sorts.first(where: { $0.metadata.key == relationMetadata.key }) == nil else {
+            return false
+        }
+        guard relationMetadata.key != ExceptionalSetSort.name.rawValue,
+              relationMetadata.key != ExceptionalSetSort.done.rawValue else {
+            return true
+        }
+        return !relationMetadata.isHidden &&
+        relationMetadata.format != .file &&
+        relationMetadata.format != .unrecognized
+    }
+    
+    private func isFloatingSetMenuAvailable() -> Bool {
+        FeatureFlags.isSetSortsAvailable ||
+        FeatureFlags.isSetFiltersAvailable
     }
 }
 
@@ -177,14 +239,23 @@ extension EditorSetViewModel {
     }
     
     func showSetSettings() {
-        showViewSettings()
-#warning("TODO: Uncomment after filters and sorts will be completed")
-//        router.presentFullscreen(
-//            AnytypePopup(
-//                viewModel: EditorSetSettingsViewModel(setModel: self),
-//                floatingPanelStyle: true
-//            )
-//        )
+        if isFloatingSetMenuAvailable() {
+            router.showSetSettings(setModel: self)
+        } else {
+            showViewSettings()
+        }
+    }
+
+    func createObject() {
+        let availableTemplates = searchService.searchTemplates(
+            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
+        )
+        let hasSingleTemplate = availableTemplates?.count == 1
+        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+
+        guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
+        
+        router.showCreateObject(pageId: objectDetails.id)
     }
     
     func showViewSettings() {
@@ -192,9 +263,23 @@ extension EditorSetViewModel {
             AnytypePopup(
                 viewModel: EditorSetViewSettingsViewModel(
                     setModel: self,
-                    service: DataviewService(objectId: document.objectId.value)
+                    service: dataviewService
                 )
             )
+        )
+    }
+    
+    func showSorts() {
+        router.showSorts(
+            setModel: self,
+            dataviewService: dataviewService
+        )
+    }
+    
+    func showFilters() {
+        router.showFilters(
+            setModel: self,
+            dataviewService: dataviewService
         )
     }
     

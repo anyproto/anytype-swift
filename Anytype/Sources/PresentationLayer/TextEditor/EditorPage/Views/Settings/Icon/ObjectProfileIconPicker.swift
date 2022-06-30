@@ -17,9 +17,10 @@ struct ObjectProfileIconPicker: View {
     }
     
     private var mediaPickerView: some View {
-        MediaPickerView(contentType: viewModel.mediaPickerContentType) { item in
-            item.flatMap { viewModel.uploadImage(from: $0) }
-            dismiss()
+        MediaPickerView(contentType: viewModel.mediaPickerContentType) { itemProvider in
+            itemProvider.flatMap {
+                viewModel.uploadImage(from: $0)
+            }
         }
     }
     

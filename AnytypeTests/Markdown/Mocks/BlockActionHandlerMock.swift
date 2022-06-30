@@ -1,7 +1,9 @@
 @testable import Anytype
 import BlocksModels
+import Foundation
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
+
     var blockSelectionHandler: BlockSelectionHandler? {
         get {
             assertionFailure()
@@ -101,7 +103,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func createPage(targetId: BlockId, type: ObjectTemplateType) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeUrl) -> BlockId? {
         assertionFailure()
         return nil
     }
@@ -169,4 +171,9 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId) {
         assertionFailure()
     }
+
+    func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance) {
+        assertionFailure()
+    }
+
 }

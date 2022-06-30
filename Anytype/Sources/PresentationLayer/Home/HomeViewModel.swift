@@ -29,7 +29,7 @@ final class HomeViewModel: ObservableObject {
     @Published private(set) var profileData: HomeProfileData?
     
     let objectActionsService: ObjectActionsServiceProtocol = ServiceLocator.shared.objectActionsService()
-    let searchService = ServiceLocator.shared.searchService()
+    
     private let dashboardService: DashboardServiceProtocol = ServiceLocator.shared.dashboardService()
     private let subscriptionService: SubscriptionsServiceProtocol = ServiceLocator.shared.subscriptionService()
     
@@ -42,7 +42,7 @@ final class HomeViewModel: ObservableObject {
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
     
-    init(homeBlockId: AnytypeId) {
+    init(homeBlockId: BlockId) {
         document = BaseDocument(objectId: homeBlockId)
         document.updatePublisher.sink { [weak self] in
             self?.onDashboardChange(update: $0)
@@ -59,7 +59,7 @@ final class HomeViewModel: ObservableObject {
     func onAppear() {
         document.open()
         subscriptionService.startSubscription(
-            data: .profile(id: MiddlewareConfigurationProvider.shared.configuration.profileBlockId)
+            data: .profile(id: AccountManager.shared.account.info.profileObjectID)
         ) { [weak self] id, update in
             withAnimation {
                 self?.onProfileUpdate(update: update)
@@ -129,8 +129,8 @@ final class HomeViewModel: ObservableObject {
     // MARK: - Private methods
     private func setupSubscriptions() {
         // visual delay on application launch
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            self.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { [weak self] action in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+            self?.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { action in
                 switch action {
                 case .newNote:
                     self?.createAndShowNewPage()
@@ -153,7 +153,7 @@ final class HomeViewModel: ObservableObject {
                 updateFavoritesCellWithTargetId(detailId)
             case .syncStatus:
                 break
-            case .dataSourceUpdate, .header:
+            case .dataSourceUpdate, .header, .changeType:
                 anytypeAssertionFailure("Unsupported event \(update)", domain: .homeView)
                 break
             }
@@ -162,15 +162,14 @@ final class HomeViewModel: ObservableObject {
 
     private func updateFavoritesCellWithTargetId(_ blockId: BlockId) {
         guard
-            let id = blockId.asAnytypeId,
-            let newDetails = ObjectDetailsStorage.shared.get(id: id)
+            let newDetails = ObjectDetailsStorage.shared.get(id: blockId)
         else {
             anytypeAssertionFailure("Could not find object with id: \(blockId)", domain: .homeView)
             return
         }
 
         favoritesCellData.enumerated()
-            .first { $0.element.destinationId.value == blockId }
+            .first { $0.element.destinationId == blockId }
             .flatMap { offset, data in
                 favoritesCellData[offset] = cellDataBuilder.updatedCellData(
                     newDetails: newDetails,
@@ -189,7 +188,12 @@ extension HomeViewModel {
     }
     
     func createAndShowNewPage() {
-        guard let id = createNewPage() else { return }
+        guard let id = dashboardService.createNewPage() else { return }
+        
+        AnytypeAnalytics.instance().logCreateObject(
+            objectType: ObjectTypeProvider.shared.defaultObjectType.url,
+            route: .home
+        )
         
         showPage(id: id, viewType: .page)
     }
@@ -199,12 +203,7 @@ extension HomeViewModel {
         showPage(id: id, viewType: .page)
     }
     
-    func tryShowPage(id: String, viewType: EditorViewType) {
-        guard let anytypeId = id.asAnytypeId else { return }
-        showPage(id: anytypeId, viewType: viewType)
-    }
-    
-    func showPage(id: AnytypeId, viewType: EditorViewType) {
+    func showPage(id: BlockId, viewType: EditorViewType) {
         let data = EditorScreenData(pageId: id, type: viewType)
         
         if showingEditorScreenData {
@@ -219,15 +218,6 @@ extension HomeViewModel {
         EditorBrowserAssembly().editor(data: data, model: self)
             .eraseToAnyView()
             .edgesIgnoringSafeArea(.all)
-    }
-    
-    private func createNewPage() -> AnytypeId? {
-        guard let id = dashboardService.createNewPage() else {
-            anytypeAssertionFailure("No new block id in create new page response", domain: .homeView)
-            return nil
-        }
-        
-        return id
     }
     
 }

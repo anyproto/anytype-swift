@@ -16,13 +16,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     
     let router: EditorRouterProtocol
     
-    private let cursorManager: EditorCursorManager
     let actionHandler: BlockActionHandlerProtocol
     let wholeBlockMarkupViewModel: MarkupViewModel
     let objectActionsService: ObjectActionsServiceProtocol
-    
+
+    private let searchService: SearchServiceProtocol
+    private let cursorManager: EditorCursorManager
     private let blockBuilder: BlockViewModelBuilder
     private let headerModel: ObjectHeaderViewModel
+    private let isOpenedForPreview: Bool
+
     private lazy var subscriptions = [AnyCancellable]()
 
     private let blockActionsService: BlockActionsServiceSingleProtocol
@@ -31,8 +34,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockActionsService.close()
 
         EventsBunch(
-            contextId: MiddlewareConfigurationProvider.shared.configuration.homeBlockID,
-            localEvents: [.documentClosed(blockId: document.objectId.value)]
+            contextId: AccountManager.shared.account.info.homeObjectID,
+            localEvents: [.documentClosed(blockId: document.objectId)]
         ).send()
     }
 
@@ -50,7 +53,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         blockActionsService: BlockActionsServiceSingleProtocol,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager,
-        objectActionsService: ObjectActionsServiceProtocol
+        objectActionsService: ObjectActionsServiceProtocol,
+        searchService: SearchServiceProtocol,
+        isOpenedForPreview: Bool
     ) {
         self.viewInput = viewInput
         self.document = document
@@ -65,6 +70,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.blocksStateManager = blocksStateManager
         self.cursorManager = cursorManager
         self.objectActionsService = objectActionsService
+        self.searchService = searchService
+        self.isOpenedForPreview = isOpenedForPreview
     }
 
     func setupSubscriptions() {
@@ -75,7 +82,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         }.store(in: &subscriptions)
         
         headerModel.$header.sink { [weak self] value in
-            self?.updateHeaderIfNeeded(headerModel: value)
+            guard let headerModel = value else { return }
+            self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
     }
     
@@ -86,7 +94,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             performGeneralUpdate()
 
         case let .details(id):
-            guard id == document.objectId.value else {
+            guard id == document.objectId else {
                 #warning("call blocks update with new details to update mentions/links")
                 performGeneralUpdate()
                 return
@@ -120,13 +128,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
             modelsHolder.items = blocksViewModels
-
-            viewInput?.update(changes: nil, allModels: blocksViewModels)
-        case .header:
+        case .header, .changeType:
             break // supported in headerModel
         }
 
-        blocksStateManager.checkDocumentLockField()
+        if !isOpenedForPreview {
+            blocksStateManager.checkDocumentLockField()
+        }
     }
     
     private func performGeneralUpdate() {
@@ -182,7 +190,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModel(_ updatedBlockIds: Set<BlockId>) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id.value,
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id,
               updatedBlockIds.contains(blockIdWithMarkupMenu) else {
             return
         }
@@ -190,7 +198,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
     
     private func updateMarkupViewModel(newBlockViewModels: [BlockViewModelProtocol]) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id.value else {
+        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id else {
             return
         }
         let blockIds = Set(newBlockViewModels.map { $0.blockId })
@@ -255,7 +263,9 @@ extension EditorPageViewModel {
             AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
         }
 
-        guard document.open() else {
+        let isDocumentOpened = isOpenedForPreview ? document.openForPreview() : document.open()
+
+        guard isDocumentOpened else {
             router.goBack()
             return
         }
@@ -269,9 +279,7 @@ extension EditorPageViewModel {
 
     func viewWillDisappear() {}
 
-    func viewDidDissapear() {
-        document.close()
-    }
+    func viewDidDissapear() {}
 
 
     func shakeMotionDidAppear() {

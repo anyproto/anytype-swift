@@ -35,7 +35,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     
     // MARK: - Private
     private func startProfileSubscription(blockId: BlockId) -> SubscriptionTogglerResult? {
-        let response = Anytype_Rpc.Object.IdsSubscribe.Service.invoke(
+        let response = Anytype_Rpc.Object.SubscribeIds.Service.invoke(
             subID: SubscriptionId.profile.rawValue,
             ids: [blockId],
             keys: [BundledRelationKey.id.rawValue, BundledRelationKey.name.rawValue, BundledRelationKey.iconImage.rawValue],
@@ -63,7 +63,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         )
         var filters = buildFilters(
             isArchived: false,
-            typeUrls: ObjectTypeProvider.supportedTypeUrls
+            typeUrls: ObjectTypeProvider.shared.supportedTypeUrls
         )
         filters.append(SearchHelper.lastOpenedDateNotNilFilter())
         
@@ -78,7 +78,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         
         let filters = buildFilters(
             isArchived: true,
-            typeUrls: ObjectTypeProvider.supportedTypeUrls
+            typeUrls: ObjectTypeProvider.shared.supportedTypeUrls
         )
         
         return makeRequest(subId: .archiveTab, filters: filters, sorts: [sort])
@@ -89,7 +89,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
         )
-        var filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.supportedTypeUrls)
+        var filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.shared.supportedTypeUrls)
         filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
         
         return makeRequest(subId: .sharedTab, filters: filters, sorts: [sort])
@@ -102,14 +102,14 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         )
         let filters = buildFilters(
             isArchived: false,
-            typeUrls: ObjectTypeProvider.objectTypes(smartblockTypes: [.set]).map { $0.url }
+            typeUrls: ObjectTypeProvider.shared.objectTypes(smartblockTypes: [.set]).map { $0.url }
         )
         
         return makeRequest(subId: .setsTab, filters: filters, sorts: [sort])
     }
 
     private let homeDetailsKeys: [BundledRelationKey] = [
-        .id, .iconEmoji, .iconImage, .name, .snippet, .description, .type, .layout, .isArchived, .isDeleted, .done
+        .id, .iconEmoji, .iconImage, .name, .snippet, .description, .type, .layout, .isArchived, .isDeleted, .done, .isFavorite
     ]
     private func makeRequest(
         subId: SubscriptionId,

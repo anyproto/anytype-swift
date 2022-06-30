@@ -3,9 +3,9 @@ import UIKit
 import AnytypeCore
 
 final class EditorAssembly {
-    private weak var browser: EditorBrowserController!
+    private weak var browser: EditorBrowserController?
     
-    init(browser: EditorBrowserController) {
+    init(browser: EditorBrowserController?) {
         self.browser = browser
     }
     
@@ -22,25 +22,38 @@ final class EditorAssembly {
     ) -> (vc: UIViewController, router: EditorRouterProtocol) {
         switch data.type {
         case .page:
-            let module = buildPageModule(pageId: data.pageId)
+            let module = buildPageModule(data: data)
             module.0.browserViewInput = editorBrowserViewInput
             return module
         case .set:
-            return buildSetModule(pageId: data.pageId)
+            return buildSetModule(data: data)
         }
     }
     
     // MARK: - Set
-    private func buildSetModule(pageId: AnytypeId) -> (EditorSetHostingController, EditorRouterProtocol) {
-        let document = BaseDocument(objectId: pageId)
-        let model = EditorSetViewModel(document: document)
-        let controller = EditorSetHostingController(objectId: pageId, model: model)
+    private func buildSetModule(data: EditorScreenData) -> (EditorSetHostingController, EditorRouterProtocol) {
+        let searchService = SearchService()
+        let document = BaseDocument(objectId: data.pageId)
+        let dataviewService = DataviewService(objectId: data.pageId)
+
+        let model = EditorSetViewModel(
+            document: document,
+            dataviewService: dataviewService,
+            searchService: searchService
+        )
+        let controller = EditorSetHostingController(objectId: data.pageId, model: model)
+
         
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
             document: document,
-            assembly: self
+            assembly: self,
+            templatesCoordinator: TemplatesCoordinator(
+                rootViewController: controller,
+                keyboardHeightListener: .init(),
+                searchService: searchService
+            )
         )
         
         model.setup(router: router)
@@ -50,23 +63,29 @@ final class EditorAssembly {
     
     // MARK: - Page
     
-    private func buildPageModule(pageId: AnytypeId) -> (EditorPageController, EditorRouterProtocol) {
+    private func buildPageModule(data: EditorScreenData) -> (EditorPageController, EditorRouterProtocol) {
         let blocksSelectionOverlayView = buildBlocksSelectionOverlayView()
 
         let controller = EditorPageController(blocksSelectionOverlayView: blocksSelectionOverlayView)
-        let document = BaseDocument(objectId: pageId)
+        let document = BaseDocument(objectId: data.pageId)
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
             document: document,
-            assembly: self
+            assembly: self,
+            templatesCoordinator: TemplatesCoordinator(
+                rootViewController: controller,
+                keyboardHeightListener: .init(),
+                searchService: SearchService()
+            )
         )
 
         let viewModel = buildViewModel(
             viewInput: controller,
             document: document,
             router: router,
-            blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel
+            blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel,
+            isOpenedForPreview: data.isOpenedForPreview
         )
 
         controller.viewModel = viewModel
@@ -78,16 +97,17 @@ final class EditorAssembly {
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter,
-        blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel
+        blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
+        isOpenedForPreview: Bool
     ) -> EditorPageViewModel {                
         let modelsHolder = EditorMainItemModelsHolder()
         
         let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
         let cursorManager = EditorCursorManager()
-        let listService = BlockListService(contextId: document.objectId.value)
-        let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId.value)
+        let listService = BlockListService(contextId: document.objectId)
+        let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId)
         let blockActionService = BlockActionService(
-            documentId: document.objectId.value,
+            documentId: document.objectId,
             listService: listService,
             singleService: singleService,
             modelsHolder: modelsHolder,
@@ -136,16 +156,21 @@ final class EditorAssembly {
             pasteboardService: pasteboardService,
             router: router,
             delegate: blockDelegate,
-            markdownListener: markdownListener
+            markdownListener: markdownListener,
+            relativePositionProvider: viewInput
         )
          
         let wholeBlockMarkupViewModel = MarkupViewModel(
             actionHandler: actionHandler
         )
         
-        let headerModel = ObjectHeaderViewModel(document: document, router: router)
+        let headerModel = ObjectHeaderViewModel(
+            document: document,
+            router: router,
+            isOpenedForPreview: isOpenedForPreview
+        )
         let blockActionsServiceSingle = ServiceLocator.shared
-            .blockActionsServiceSingle(contextId: document.objectId.value)
+            .blockActionsServiceSingle(contextId: document.objectId)
 
         let blocksStateManager = EditorPageBlocksStateManager(
             document: document,
@@ -154,7 +179,8 @@ final class EditorAssembly {
             blockActionsServiceSingle: blockActionsServiceSingle,
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
-            router: router
+            router: router,
+            initialEditingState: isOpenedForPreview ? .locked : .editing
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager
@@ -172,7 +198,9 @@ final class EditorAssembly {
             blockActionsService: blockActionsServiceSingle,
             blocksStateManager: blocksStateManager,
             cursorManager: cursorManager,
-            objectActionsService: ServiceLocator.shared.objectActionsService()
+            objectActionsService: ServiceLocator.shared.objectActionsService(),
+            searchService: ServiceLocator.shared.searchService(),
+            isOpenedForPreview: isOpenedForPreview
         )
     }
 

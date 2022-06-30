@@ -28,8 +28,16 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         self.info = info
         self.content = content
         self.openLink = openLink
-        let objectPreviewFields = ObjectPreviewFields.convertToModel(fields: info.fields)
-        self.state = details.flatMap { BlockLinkState(details: $0, objectPreviewFields: objectPreviewFields) } ?? .empty
+
+        self.state = details.flatMap {
+            BlockLinkState(
+                details: $0,
+                cardStyle: content.appearance.cardStyle,
+                relations: content.appearance.relations,
+                iconSize: content.appearance.iconSize,
+                descriptionState: content.appearance.description
+            )
+        } ?? .empty
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
@@ -40,16 +48,13 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
         return BlockLinkContentConfiguration(state: state, backgroundColor: backgroundColor)
             .cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id.value)
+                dragConfiguration: .init(id: info.id)
             )
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        if state.deleted || state.archived {
-            return
-        }
+        if state.deleted || state.archived { return }
         
-        guard let id = content.targetBlockID.asAnytypeId else { return }
-        openLink(EditorScreenData(pageId: id, type: state.viewType))
+        openLink(EditorScreenData(pageId: content.targetBlockID, type: state.viewType))
     }
 }

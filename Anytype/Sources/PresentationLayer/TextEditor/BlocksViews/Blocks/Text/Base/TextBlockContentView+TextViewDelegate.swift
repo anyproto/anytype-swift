@@ -5,7 +5,7 @@ import BlocksModels
 extension TextBlockContentView: CustomTextViewDelegate {
 
     func shouldPaste(range: NSRange) -> Bool {
-        actions?.shouldPaste(range) ?? true
+        actions?.shouldPaste(range, textView.textView) ?? true
     }
 
     func copy(range: NSRange) {
@@ -37,7 +37,8 @@ extension TextBlockContentView: CustomTextViewDelegate {
         actions?.textViewDidChangeText(textView)
 
         if textView.isLayoutNeeded {
-            actions?.textBlockSetNeedsLayout()
+            heightDidChanged?()
+            actions?.textBlockSetNeedsLayout(textView)
         }
     }
     
@@ -51,8 +52,7 @@ extension TextBlockContentView: CustomTextViewDelegate {
     
     func showPage(blockId: BlockId) {
         guard
-            let id = blockId.asAnytypeId,
-            let details = ObjectDetailsStorage.shared.get(id: id)
+            let details = ObjectDetailsStorage.shared.get(id: blockId)
         else {
             // Deleted objects goes here
             return

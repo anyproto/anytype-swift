@@ -2,7 +2,6 @@ import SwiftUI
 import BlocksModels
 
 struct EditorSetSettingsView: View {
-    @EnvironmentObject private var setModel: EditorSetViewModel
     @EnvironmentObject private var model: EditorSetSettingsViewModel
     
     var body: some View {
@@ -23,7 +22,7 @@ struct EditorSetSettingsView: View {
             VStack(spacing: 0) {
                 ZStack(alignment: .center) {
                     RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(.strokeTertiary)
+                        .foregroundColor(Color.backgroundSelected)
                     setting.image
                 }
                 .frame(width: 52, height: 52)

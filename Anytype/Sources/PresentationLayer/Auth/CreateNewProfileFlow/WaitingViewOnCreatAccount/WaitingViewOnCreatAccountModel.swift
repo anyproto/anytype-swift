@@ -17,7 +17,6 @@ final class SignUpData: ObservableObject {
 
 class WaitingOnCreatAccountViewModel: ObservableObject {
     private let authService = ServiceLocator.shared.authService()
-    private let loginStateService = ServiceLocator.shared.loginStateService()
     private let seedService: SeedServiceProtocol
     
     private let diskStorage = DiskStorage()
@@ -55,8 +54,6 @@ class WaitingOnCreatAccountViewModel: ObservableObject {
                     self.error = error.localizedDescription
                     self.showError = true
                 case .success:
-                    self.loginStateService.setupStateAfterRegistration()
-
                     try? self.seedService.saveSeed(self.signUpData.mnemonic)
 
                     WindowManager.shared.showHomeWindow()

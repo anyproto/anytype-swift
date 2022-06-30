@@ -4,10 +4,9 @@ import AnytypeCore
 final class HomeViewAssembly {
     
     func createHomeView() -> HomeView? {
-        let homeBlockId = MiddlewareConfigurationProvider.shared.configuration.homeBlockID
-        guard let id = homeBlockId.asAnytypeId else { return nil }
+        let homeObjectId = AccountManager.shared.account.info.homeObjectID
         
-        return HomeView(model: HomeViewModel(homeBlockId: id))
+        return HomeView(model: HomeViewModel(homeBlockId: homeObjectId))
     }
     
 }

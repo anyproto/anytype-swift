@@ -17,13 +17,13 @@ final class ObjectsSearchInteractor {
 
 extension ObjectsSearchInteractor: ObjectsSearchInteractorProtocol {
     
-    func search(text: String, onCompletion: ([ObjectDetails]) -> ()) {
+    func search(text: String) -> [ObjectDetails] {
         let response = searchService.searchObjects(
             text: text,
             excludedObjectIds: excludedObjectIds,
             limitedTypeUrls: limitedObjectType
         )
-        onCompletion(response ?? [])
+        return response ?? []
     }
     
 }

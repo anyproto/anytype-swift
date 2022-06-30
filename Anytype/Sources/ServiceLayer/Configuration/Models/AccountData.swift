@@ -7,9 +7,10 @@ struct AccountData {
     let avatar: Anytype_Model_Account.Avatar
     let config: AccountConfiguration
     let status: AccountStatus
+    let info: AccountInfo
     
     static var empty: AccountData {
-        AccountData(id: "", name: "", avatar: .init(), config: .empty, status: .active)
+        AccountData(id: "", name: "", avatar: .init(), config: .empty, status: .active, info: .empty)
     }
 }
 
@@ -20,7 +21,8 @@ extension Anytype_Model_Account {
             name: name,
             avatar: avatar,
             config: config.asModel,
-            status: status.asModel ?? .active
+            status: status.asModel ?? .active,
+            info: info.asModel
         )
     }
 }

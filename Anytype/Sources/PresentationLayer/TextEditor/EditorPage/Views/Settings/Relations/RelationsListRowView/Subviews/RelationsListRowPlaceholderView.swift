@@ -2,13 +2,13 @@ import SwiftUI
 
 struct RelationsListRowPlaceholderView: View {
     let hint: String
-    let type: RelationPlaceholderType
+    let style: RelationStyle
     
     var body: some View {
         Group {
-            switch type {
+            switch style.placeholderType {
             case .hint:
-                RelationsListRowHintView(hint: hint)
+                RelationsListRowHintView(hint: hint, style: style)
             case .empty:
                 Color.backgroundPrimary
             }
@@ -18,6 +18,6 @@ struct RelationsListRowPlaceholderView: View {
 
 struct RelationsListRowPlaceholderView_Previews: PreviewProvider {
     static var previews: some View {
-        RelationsListRowHintView(hint: "hint")
+        RelationsListRowHintView(hint: "hint", style: .set)
     }
 }

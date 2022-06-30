@@ -1,6 +1,14 @@
 import UIKit
 
-protocol BlockContentView where Self: UIView {
+protocol ReusableContent {
+    static var reusableIdentifier: String { get }
+}
+
+protocol DynamicHeightView: AnyObject {
+    var heightDidChanged: (() -> Void)? { get set }
+}
+
+protocol BlockContentView: ReusableContent where Self: UIView {
     associatedtype Configuration: BlockConfiguration
 
     func update(with configuration: Configuration)
@@ -10,5 +18,10 @@ protocol BlockContentView where Self: UIView {
 }
 
 extension BlockContentView {
+    static var reusableIdentifier: String { String(describing: Self.self) }
+}
+
+extension BlockContentView {
     func update(with state: UICellConfigurationState) {}
 }
+

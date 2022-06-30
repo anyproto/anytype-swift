@@ -10,7 +10,7 @@ public extension Optional {
         }
     }
     
-    var isNotNil: Bool {
+   var isNotNil: Bool {
         return !isNil
     }
 

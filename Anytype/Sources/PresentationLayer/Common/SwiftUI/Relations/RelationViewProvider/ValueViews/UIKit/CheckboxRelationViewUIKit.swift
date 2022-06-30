@@ -9,16 +9,18 @@
 import UIKit
 
 final class CheckboxRelationViewUIKit: UIView {
-    let isChecked: Bool
-
+    
     private var checkboxView: UIButton!
-
+    
+    private let isChecked: Bool
+    private let relationStyle: RelationStyle
 
     // MARK: - Lifecycle
 
-    init(isChecked: Bool) {
+    init(isChecked: Bool, relationStyle: RelationStyle) {
         self.isChecked = isChecked
-
+        self.relationStyle = relationStyle
+        
         super.init(frame: .zero)
 
         setupViews()
@@ -29,10 +31,6 @@ final class CheckboxRelationViewUIKit: UIView {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override var intrinsicContentSize: CGSize {
-        checkboxView.intrinsicContentSize
-    }
-
     // MARK: - Setup view
 
     private func setupViews() {
@@ -41,6 +39,7 @@ final class CheckboxRelationViewUIKit: UIView {
 
         addSubview(checkboxView) {
             $0.pinToSuperview(excluding: [.right])
+            $0.size(relationStyle.checkboxSize)
         }
     }
 

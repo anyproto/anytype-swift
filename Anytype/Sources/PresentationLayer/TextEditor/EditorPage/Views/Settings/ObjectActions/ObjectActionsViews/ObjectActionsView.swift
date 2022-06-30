@@ -19,10 +19,12 @@ struct ObjectActionsView: View {
                             viewModel.changeLockState()
                         case .undoRedo:
                             viewModel.undoRedoAction()
+                        case .duplicate:
+                            viewModel.duplicateAction()
                         }
                     }
                 }
-            }
+            }.padding(.horizontal, 16)
         }
         .frame(height: 108)
     }

@@ -83,7 +83,16 @@ private extension StatusRelationDetailsViewModel {
         guard
             let newStatusId = ids.first,
             let newStatus = allStatuses.first(where: { $0.id ==  newStatusId })
-        else { return }
+        else {
+            ids.first.flatMap {
+                service.updateRelation(
+                    relationKey: relation.id,
+                    value: $0.protobufValue
+                )
+            }
+            popup?.close()
+            return
+        }
         
         selectedStatus = newStatus
         service.updateRelation(relationKey: relation.id, value: newStatusId.protobufValue)
@@ -91,7 +100,9 @@ private extension StatusRelationDetailsViewModel {
     
     func handleCreateOption(title: String) {
         let optionId = service.addRelationOption(source: source, relationKey: relation.id, optionText: title)
-        guard let optionId = optionId else { return}
+        guard let optionId = optionId else {
+            return
+        }
 
         handleSelectedOptionIds([optionId])
     }

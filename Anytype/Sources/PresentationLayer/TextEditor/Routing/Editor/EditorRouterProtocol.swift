@@ -1,4 +1,5 @@
 import BlocksModels
+import AnytypeCore
 import UIKit
 
 protocol AttachmentRouterProtocol {
@@ -14,7 +15,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void)
     
     func showFilePicker(model: Picker.ViewModel)
-    func showImagePicker(model: MediaPickerViewModel)
+    func showImagePicker(contentType: MediaPickerContentType, onSelect: @escaping (NSItemProvider?) -> Void)
     
     func saveFile(fileURL: URL, type: FileContentType)
     
@@ -34,7 +35,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
-    func showObjectPreview(information: BlockInformation, onSelect: @escaping (ObjectPreviewFields) -> Void)
+    func showObjectPreview(blockLinkAppearance: BlockLink.Appearance, onSelect: @escaping (BlockLink.Appearance) -> Void)
     
     func showRelationValueEditingView(key: String, source: RelationSource)
     func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation)
@@ -50,4 +51,16 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func presentSheet(_ vc: UIViewController)
     func presentFullscreen(_ vc: UIViewController)
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
+    func showTemplatesAvailabilityPopupIfNeeded(
+        document: BaseDocumentProtocol,
+        templatesTypeURL: ObjectTypeUrl
+    )
+
+    func showCreateObject(pageId: BlockId)
+    
+    func showSetSettings(setModel: EditorSetViewModel)
+    func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
+    func showSortsSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void)
+    
+    func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
 }

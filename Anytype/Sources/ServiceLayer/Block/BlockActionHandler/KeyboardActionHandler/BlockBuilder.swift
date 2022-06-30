@@ -25,10 +25,12 @@ struct BlockBuilder {
             return .divider(.init(style: style))
         case let .file(type):
             return .file(.empty(contentType: type))
-        case let .link(style):
-            return .link(.empty(style: style))
+        case .link:
+            return .link(.empty())
         case let .relation(key: key):
             return .relation(.init(key: key))
+        case .tableOfContents:
+            return .tableOfContents
         case .layout, .smartblock, .featuredRelations, .dataView:
             anytypeAssertionFailure("Unsupported type \(type)", domain: .blockBuilder)
             return nil

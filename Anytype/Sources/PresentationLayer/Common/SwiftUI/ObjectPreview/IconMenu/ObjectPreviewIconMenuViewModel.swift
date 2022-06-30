@@ -2,45 +2,51 @@ import BlocksModels
 import SwiftUI
 import FloatingPanel
 
-final class ObjectPreviewIconMenuViewModel: CheckPopuViewViewModelProtocol {
+final class ObjectPreviewIconMenuViewModel: CheckPopupViewViewModelProtocol {
+    let title = "Icon".localized
     @Published private(set) var items: [CheckPopupItem] = []
 
     // MARK: - Private variables
 
-    private var objectPreviewFields: ObjectPreviewFields
-    private let objectPreviewModelBuilder = ObjectPreivewSectionBuilder()
-    private let onSelect: (ObjectPreviewFields) -> Void
+    private var iconSize: ObjectPreviewModel.IconSize
+    private var cardStyle: ObjectPreviewModel.CardStyle
+    private let onSelect: (ObjectPreviewModel.IconSize) -> Void
 
     // MARK: - Initializer
 
-    init(objectPreviewFields: ObjectPreviewFields, onSelect: @escaping (ObjectPreviewFields) -> Void) {
-        self.objectPreviewFields = objectPreviewFields
+    init(iconSize: ObjectPreviewModel.IconSize,
+         cardStyle: ObjectPreviewModel.CardStyle,
+         onSelect: @escaping (ObjectPreviewModel.IconSize) -> Void) {
+        self.iconSize = iconSize
+        self.cardStyle = cardStyle
         self.onSelect = onSelect
-        self.updatePreviewFields(objectPreviewFields)
+        self.updatePreviewFields(iconSize)
     }
 
-    func updatePreviewFields(_ objectPreviewFields: ObjectPreviewFields) {
-        items = buildObjectPreviewPopupItem(objectPreviewFields: objectPreviewFields)
+    func updatePreviewFields(_ currentIconSize: ObjectPreviewModel.IconSize) {
+        items = buildObjectPreviewPopupItem(currentIconSize: currentIconSize)
     }
 
-    func buildObjectPreviewPopupItem(objectPreviewFields: ObjectPreviewFields) -> [CheckPopupItem] {
-        ObjectPreviewFields.Icon.allCases.map { icon -> CheckPopupItem in
-            let isSelected = objectPreviewFields.icon == icon
-            return CheckPopupItem(id: icon.rawValue, icon: nil, title: icon.name, subtitle: nil, isSelected: isSelected)
+    func buildObjectPreviewPopupItem(currentIconSize: ObjectPreviewModel.IconSize) -> [CheckPopupItem] {
+        availableIconSizes().map { iconSize in
+            let isSelected = currentIconSize == iconSize
+            return CheckPopupItem(id: iconSize.rawValue, icon: nil, title: iconSize.name, subtitle: nil, isSelected: isSelected)
+        }
+    }
+
+    func availableIconSizes() -> [ObjectPreviewModel.IconSize] {
+        switch cardStyle {
+        case .text:
+            return [.small, .none]
+        case .card:
+            return [.medium, .none]
         }
     }
 
     func onTap(itemId: String) {
-        guard let icon = ObjectPreviewFields.Icon(rawValue: itemId) else { return }
+        guard let iconSize = ObjectPreviewModel.IconSize(rawValue: itemId) else { return }
 
-        objectPreviewFields = ObjectPreviewFields(
-            icon: icon,
-            layout: objectPreviewFields.layout,
-            withName: objectPreviewFields.withName,
-            featuredRelationsIds: objectPreviewFields.featuredRelationsIds
-        )
-
-        onSelect(objectPreviewFields)
-        updatePreviewFields(objectPreviewFields)
+        onSelect(iconSize)
+        updatePreviewFields(iconSize)
     }
 }

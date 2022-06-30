@@ -56,11 +56,9 @@ final class BlockActionService: BlockActionServiceProtocol {
         _ string: NSAttributedString,
         blockId: BlockId,
         mode: Anytype_Rpc.Block.Split.Request.Mode,
-        position: Int,
+        range: NSRange,
         newBlockContentType: BlockText.Style
     ) {
-        let range = NSRange(location: position, length: 0)
-
         guard let blockId = textService.split(
             contextId: documentId,
             blockId: blockId,
@@ -78,7 +76,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
 
 
-    func createPage(targetId: BlockId, type: ObjectTemplateType, position: BlockPosition) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeUrl, position: BlockPosition) -> BlockId? {
         guard let newBlockId = pageService.createPage(
             contextId: documentId,
             targetId: targetId,
@@ -95,9 +93,7 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func turnIntoPage(blockId: BlockId) -> BlockId? {
-        return pageService
-            .convertChildrenToPages(contextID: documentId, blocksIds: [blockId], objectType: "")?
-            .first
+        return pageService.convertChildrenToPages(contextID: documentId, blocksIds: [blockId], objectType: "")?.first
     }
     
     func checked(blockId: BlockId, newValue: Bool) {
@@ -122,11 +118,11 @@ final class BlockActionService: BlockActionServiceProtocol {
     }
     
     func delete(blockIds: [BlockId]) {
-        singleService.delete(blockIds: blockIds)
+        _ = singleService.delete(blockIds: blockIds)
     }
     
     func setFields(blockFields: BlockFields, blockId: BlockId) {
-        let setFieldsRequest = Anytype_Rpc.BlockList.Set.Fields.Request.BlockField(blockID: blockId, fields: .init(fields: blockFields))
+        let setFieldsRequest = Anytype_Rpc.Block.ListSetFields.Request.BlockField(blockID: blockId, fields: .init(fields: blockFields))
         listService.setFields(fields: [setFieldsRequest])
     }
     

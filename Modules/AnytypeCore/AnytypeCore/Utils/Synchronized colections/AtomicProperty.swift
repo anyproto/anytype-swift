@@ -1,3 +1,5 @@
+import Foundation
+
 public final class AtomicProperty<T> {
     private var _value: T
     private let lock = NSLock()

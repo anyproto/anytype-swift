@@ -14,6 +14,7 @@ protocol ObjectActionsServiceProtocol {
     func move(dashboadId: BlockId, blockId: BlockId, dropPositionblockId: BlockId, position: Anytype_Model_Block.Position)
     func setLocked(_ isLocked: Bool, objectId: BlockId)
     func updateLayout(contextID: BlockId, value: Int)
+    func duplicate(objectId: BlockId) -> BlockId?
     
     /// NOTE: `CreatePage` action will return block of type `.link(.page)`. (!!!)
     func createPage(
@@ -25,7 +26,8 @@ protocol ObjectActionsServiceProtocol {
     ) -> BlockId?
     
     func setObjectType(objectId: BlockId, objectTypeUrl: String)
-
-    func undo(objectId: AnytypeId) throws
-    func redo(objectId: AnytypeId) throws
+    func applyTemplate(objectId: BlockId, templateId: BlockId)
+    
+    func undo(objectId: BlockId) throws
+    func redo(objectId: BlockId) throws
 }

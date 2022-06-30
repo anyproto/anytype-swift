@@ -37,11 +37,13 @@ private extension ObjectAction {
         case .undoRedo:
             return "Undo/Redo".localized
         case let .archive(isArchived):
-            return isArchived ? "Restore".localized : "Delete".localized
+            return isArchived ? "Restore".localized : "To Bin".localized
         case let .favorite(isFavorite):
             return isFavorite ? "Unfavorite".localized : "Favorite".localized
         case let .locked(isLocked):
             return isLocked ? "Unlock".localized : "Lock".localized
+        case .duplicate:
+            return "Duplicate".localized
         }
     }
 
@@ -55,6 +57,8 @@ private extension ObjectAction {
             return isFavorite ? .ObjectAction.unfavorite : .ObjectAction.favorite
         case let .locked(isLocked):
             return isLocked ? .ObjectAction.unlock : .ObjectAction.lock
+        case .duplicate:
+            return .ObjectAction.duplicate
         }
     }
 }

@@ -4,10 +4,10 @@ import AnytypeCore
 
 final class EditorSetHostingController: UIHostingController<EditorSetView> {
     
-    let objectId: AnytypeId
+    let objectId: BlockId
     let model: EditorSetViewModel
     
-    init(objectId: AnytypeId, model: EditorSetViewModel) {
+    init(objectId: BlockId, model: EditorSetViewModel) {
         self.objectId = objectId
         self.model = model
         

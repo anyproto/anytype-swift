@@ -26,6 +26,8 @@ final class EditorSyncStatusItem: UIView {
         setup()
     }
     
+    // MARK: - Private
+    
     private func setup() {
         backgroundView.backgroundColor = .black.withAlphaComponent(0.35)
         backgroundView.layer.cornerRadius = 7
@@ -48,19 +50,25 @@ final class EditorSyncStatusItem: UIView {
         addSubview(button) {
             $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 9, bottom: 0, right: -10))
         }
+        button.setContentCompressionResistancePriority(.required, for: .horizontal)
     }
     
     private func updateButtonState() {
         button.setImage(status.image, for: .normal)
         button.setImage(status.image, for: .highlighted)
         button.setImage(status.image, for: .selected)
-        button.setTitle(status.title, for: .normal)
+        updateTitle()
         button.menu = UIMenu(title: "", children: [ UIAction(title: status.description) { _ in } ] )
     }
     
     private func updateState() {
         backgroundView.alpha = state.backgroundAlpha
         button.setTitleColor(state.hiddableTextColor, for: .normal)
+        updateTitle()
+    }
+    
+    private func updateTitle() {
+        button.setTitle(state.textIsHidden ? nil : status.title, for: .normal)
     }
     
     // MARK: - Unavailable

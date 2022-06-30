@@ -7,6 +7,13 @@ protocol SearchServiceProtocol {
     func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeUrls: [String]) -> [ObjectDetails]?
+    func searchTemplates(for type: ObjectTypeUrl) -> [ObjectDetails]?
+    func searchObjects(
+        text: String,
+        excludedObjectIds: [String],
+        excludedTypeUrls: [String],
+        sortRelationKey: BundledRelationKey?
+    ) -> [ObjectDetails]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -25,7 +32,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         let filters = buildFilters(
             isArchived: false,
-            typeUrls: ObjectTypeProvider.supportedTypeUrls
+            typeUrls: ObjectTypeProvider.shared.supportedTypeUrls
         )
         
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
@@ -39,9 +46,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         var filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
             SearchHelper.supportedObjectTypeUrlsFilter(
-                ObjectTypeProvider.supportedTypeUrls
+                ObjectTypeProvider.shared.supportedTypeUrls
             ),
-            SearchHelper.excludedObjectTypeUrlFilter(ObjectTemplateType.BundledType.set.rawValue)
+            SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.set).rawValue)
         ]
         filteringTypeUrl.map { filters.append(SearchHelper.excludedObjectTypeUrlFilter($0)) }
 
@@ -50,11 +57,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         
         return result?.reordered(
             by: [
-                ObjectTemplateType.BundledType.page.rawValue,
-                ObjectTemplateType.BundledType.note.rawValue,
-                ObjectTemplateType.BundledType.task.rawValue
+                ObjectTypeUrl.bundled(.page).rawValue,
+                ObjectTypeUrl.bundled(.note).rawValue,
+                ObjectTypeUrl.bundled(.task).rawValue
             ]
-        ) { $0.id.value }
+        ) { $0.id }
     }
     
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]? {
@@ -79,13 +86,43 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             type: .desc
         )
         
-        let typeUrls: [String] = limitedTypeUrls.isNotEmpty ? limitedTypeUrls : ObjectTypeProvider.supportedTypeUrls
+        let typeUrls: [String] = limitedTypeUrls.isNotEmpty ? limitedTypeUrls : ObjectTypeProvider.shared.supportedTypeUrls
         var filters = buildFilters(isArchived: false, typeUrls: typeUrls)
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
     }
-    
+
+    func searchTemplates(for type: ObjectTypeUrl) -> [ObjectDetails]? {
+        let objects = makeRequest(
+            filters: SearchHelper.templatesFilters(type: type),
+            sorts: [],
+            fullText: ""
+        )
+
+        return objects
+    }
+	
+    func searchObjects(
+        text: String,
+        excludedObjectIds: [String],
+        excludedTypeUrls: [String],
+        sortRelationKey: BundledRelationKey?
+    ) -> [ObjectDetails]? {
+        let sort = SearchHelper.sort(
+            relation: sortRelationKey ?? .lastOpenedDate,
+            type: .desc
+        )
+        
+        var filters = buildFilters(
+            isArchived: false,
+            typeUrls: ObjectTypeProvider.shared.supportedTypeUrls
+        )
+        filters.append(SearchHelper.excludedTypeFilter(excludedTypeUrls))
+        filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
+        
+        return makeRequest(filters: filters, sorts: [sort], fullText: text)
+    }
 }
 
 private extension SearchService {
@@ -109,7 +146,7 @@ private extension SearchService {
             let idValue = search.fields["id"]
             let idString = idValue?.unwrapedListValue.stringValue
             
-            guard let id = idString?.asAnytypeId else { return nil }
+            guard let id = idString else { return nil }
             
             return ObjectDetails(id: id, values: search.fields)
         }

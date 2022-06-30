@@ -5,23 +5,16 @@ import SwiftUI
 
 final class ObjectsSearchViewModel {
     
-    @Published private var rows: [ListRowConfiguration] = []
-    
-    private var objects: [ObjectDetails] = [] {
-        didSet {
-            rows = objects.asRowConfigurations(with: selectedObjectIds)
-        }
-    }
-    
-    private var selectedObjectIds: [String] = [] {
-        didSet {
-            rows = objects.asRowConfigurations(with: selectedObjectIds)
-        }
-    }
-    
+    let selectionMode: NewSearchViewModel.SelectionMode
+    let viewStateSubject = PassthroughSubject<NewSearchViewState, Never>()
+
     private let interactor: ObjectsSearchInteractorProtocol
     
-    init(interactor: ObjectsSearchInteractorProtocol) {
+    private var objects: [ObjectDetails] = []
+    private var selectedObjectIds: [String] = []
+    
+    init(selectionMode: NewSearchViewModel.SelectionMode, interactor: ObjectsSearchInteractorProtocol) {
+        self.selectionMode = selectionMode
         self.interactor = interactor
     }
     
@@ -29,42 +22,77 @@ final class ObjectsSearchViewModel {
 
 extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
     
-    var listModelPublisher: AnyPublisher<NewSearchView.ListModel, Never> {
-        $rows.map { rows -> NewSearchView.ListModel in
-            NewSearchView.ListModel.plain(rows: rows)
-        }.eraseToAnyPublisher()
-    }
-    
     func search(text: String) {
-        interactor.search(text: text) { [weak self] objects in
-            self?.objects = objects
+        let objects = interactor.search(text: text)
+        
+        if objects.isEmpty {
+            handleError(for: text)
+        } else {
+            handleSearchResults(objects)
         }
+        
+        self.objects = objects
     }
     
     func handleRowsSelection(ids: [String]) {
+        guard objects.isNotEmpty else { return }
+        
         self.selectedObjectIds = ids
+        handleSearchResults(objects)
+    }
+    
+}
+
+private extension ObjectsSearchViewModel {
+    
+    func handleError(for text: String) {
+        viewStateSubject.send(.error(.noObjectError(searchText: text)))
+    }
+    
+    func handleSearchResults(_ objects: [ObjectDetails]) {
+        viewStateSubject.send(
+            .resultsList(
+                .plain(
+                    rows: objects.asRowConfigurations(with: selectedObjectIds, selectionMode: selectionMode)
+                )
+            )
+        )
     }
     
 }
 
 private extension Array where Element == ObjectDetails {
 
-    func asRowConfigurations(with selectedIds: [String]) -> [ListRowConfiguration] {
+    func asRowConfigurations(with selectedIds: [String], selectionMode: NewSearchViewModel.SelectionMode) -> [ListRowConfiguration] {
         map { details in
             ListRowConfiguration(
-                id: details.id.value,
+                id: details.id,
                 contentHash: details.hashValue
             ) {
                 AnyView(
                     SearchObjectRowView(
                         viewModel: SearchObjectRowView.Model(details: details),
-                        selectionIndicatorViewModel: SelectionIndicatorViewModelBuilder.buildModel(id: details.id.value, selectedIds: selectedIds)
+                        selectionIndicatorViewModel: selectionMode.asSelectionIndicatorViewModel(
+                            details: details,
+                            selectedIds: selectedIds
+                        )
                     )
                 )
             }
         }
     }
+}
+
+private extension NewSearchViewModel.SelectionMode {
     
+    func asSelectionIndicatorViewModel(details: ObjectDetails, selectedIds: [String]) -> SelectionIndicatorView.Model? {
+        switch self {
+        case .multipleItems:
+            return SelectionIndicatorViewModelBuilder.buildModel(id: details.id, selectedIds: selectedIds)
+        case .singleItem:
+            return nil
+        }
+    }
 }
 
 private extension SearchObjectRowView.Model {
@@ -80,6 +108,7 @@ private extension SearchObjectRowView.Model {
         }()
         self.title = title
         self.subtitle = details.objectType.name
+        self.style = .default
     }
     
 }

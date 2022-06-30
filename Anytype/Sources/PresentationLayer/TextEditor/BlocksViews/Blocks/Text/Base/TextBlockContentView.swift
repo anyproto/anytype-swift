@@ -3,8 +3,9 @@ import Combine
 import BlocksModels
 
 
-final class TextBlockContentView: UIView, BlockContentView {
-
+final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView {
+    var heightDidChanged: (() -> Void)?
+    
     // MARK: - Views
     private let contentView = UIView()
     private(set) lazy var textView = CustomTextView()
@@ -12,7 +13,7 @@ final class TextBlockContentView: UIView, BlockContentView {
         self?.actions?.createEmptyBlock()
     }
     private lazy var textBlockLeadingView = TextBlockLeadingView()
-    
+
     private let mainStackView: UIStackView = makeMainStackView()
     private let contentStackView: UIStackView = makeContentStackView()
 

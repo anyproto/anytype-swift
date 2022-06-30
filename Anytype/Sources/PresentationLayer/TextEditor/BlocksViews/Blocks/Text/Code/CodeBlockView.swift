@@ -30,7 +30,7 @@ final class CodeBlockView: UIView, BlockContentView {
     }
 
     func update(with state: UICellConfigurationState) {
-        textView.isLockedForEditing = state.isLocked
+        textView.isOpenedForPreview = state.isLocked
         codeSelectButton.isUserInteractionEnabled = !state.isLocked
         textView.isUserInteractionEnabled = state.isEditing
     }
@@ -118,10 +118,10 @@ final class CodeBlockView: UIView, BlockContentView {
 }
 
 private class LockableTextView: UITextView {
-    var isLockedForEditing = false
+    var isOpenedForPreview = false
 
     override var canBecomeFirstResponder: Bool {
-        isLockedForEditing
+        isOpenedForPreview
             ? false
             : super.canBecomeFirstResponder
     }

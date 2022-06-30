@@ -1,11 +1,13 @@
 import Foundation
 import BlocksModels
 import AnytypeCore
+import UIKit
 
 final class SlashMenuActionHandler {
     private let actionHandler: BlockActionHandlerProtocol
     private let router: EditorRouterProtocol
     private let pasteboardService: PasteboardServiceProtocol
+    private weak var textView: UITextView?
     
     init(
         actionHandler: BlockActionHandlerProtocol,
@@ -17,10 +19,10 @@ final class SlashMenuActionHandler {
         self.pasteboardService = pasteboardService
     }
     
-    func handle(_ action: SlashAction, blockId: BlockId, selectedRange: NSRange) {
+    func handle(_ action: SlashAction, textView: UITextView?, blockId: BlockId, selectedRange: NSRange) {
         switch action {
         case let .actions(action):
-            handleActions(action, blockId: blockId, selectedRange: selectedRange)
+            handleActions(action, textView: textView, blockId: blockId, selectedRange: selectedRange)
         case let .alignment(alignmnet):
             handleAlignment(alignmnet, blockId: blockId)
         case let .style(style):
@@ -35,10 +37,9 @@ final class SlashMenuActionHandler {
                 }
             case .objectType(let object):
                 actionHandler
-                    .createPage(targetId: blockId, type: .dynamic(object.id.value))
-                    .flatMap { $0.asAnytypeId }
+                    .createPage(targetId: blockId, type: .dynamic(object.id))
                     .flatMap { id in
-                        AnytypeAnalytics.instance().logCreateObject(objectType: object.id.value, route: .powertool)
+                        AnytypeAnalytics.instance().logCreateObject(objectType: object.id, route: .powertool)
 
                         router.showPage(data: EditorScreenData(pageId: id, type: .page))
                     }
@@ -64,7 +65,7 @@ final class SlashMenuActionHandler {
     }
     
     func changeText(_ text: NSAttributedString, info: BlockInformation) {
-        actionHandler.changeTextForced(text, blockId: info.id.value)
+        actionHandler.changeTextForced(text, blockId: info.id)
     }
     
     private func handleAlignment(_ alignment: SlashActionAlignment, blockId: BlockId) {
@@ -113,7 +114,7 @@ final class SlashMenuActionHandler {
         }
     }
     
-    private func handleActions(_ action: BlockAction, blockId: BlockId, selectedRange: NSRange) {
+    private func handleActions(_ action: BlockAction, textView: UITextView?, blockId: BlockId, selectedRange: NSRange) {
         switch action {
         case .delete:
             actionHandler.delete(blockIds: [blockId])
@@ -126,11 +127,7 @@ final class SlashMenuActionHandler {
         case .copy:
             pasteboardService.copy(blocksIds: [blockId], selectedTextRange: NSRange())
         case .paste:
-            pasteboardService.pasteInsideBlock(focusedBlockId: blockId, range: selectedRange) { [weak self] in
-                self?.router.showWaitingView(text: "Paste processing...".localized)
-            } completion: { [weak self] in
-                self?.router.hideWaitingView()
-            }
+            textView?.paste(self)
         }
     }
 }

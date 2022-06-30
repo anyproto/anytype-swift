@@ -28,7 +28,9 @@ extension CreateAccountServiceError {
         case .netOffline:
             self = .networkOffline
             
-        case .unknownError, .badInput, .accountCreatedButFailedToStartNode , .accountCreatedButFailedToSetName, .accountCreatedButFailedToSetAvatar, .failedToStopRunningNode, .UNRECOGNIZED:
+        case .unknownError, .badInput, .accountCreatedButFailedToStartNode , .accountCreatedButFailedToSetName,
+                .accountCreatedButFailedToSetAvatar, .failedToStopRunningNode, .UNRECOGNIZED,
+                .failedToWriteConfig, .failedToCreateLocalRepo:
             self = .unknownError
         }
     }

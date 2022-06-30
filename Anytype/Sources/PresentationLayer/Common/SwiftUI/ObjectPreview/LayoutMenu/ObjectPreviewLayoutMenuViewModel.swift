@@ -10,45 +10,39 @@ import BlocksModels
 import SwiftUI
 import FloatingPanel
 
-final class ObjectPreviewLayoutMenuViewModel: CheckPopuViewViewModelProtocol {
+final class ObjectPreviewLayoutMenuViewModel: CheckPopupViewViewModelProtocol {
+    let title = "Preview layout".localized
     @Published private(set) var items: [CheckPopupItem] = []
 
     // MARK: - Private variables
 
-    private var objectPreviewFields: ObjectPreviewFields
-    private let objectPreviewModelBuilder = ObjectPreivewSectionBuilder()
-    private let onSelect: (ObjectPreviewFields) -> Void
+    private var cardStyle: ObjectPreviewModel.CardStyle
+    private let onSelect: (ObjectPreviewModel.CardStyle) -> Void
 
     // MARK: - Initializer
 
-    init(objectPreviewFields: ObjectPreviewFields, onSelect: @escaping (ObjectPreviewFields) -> Void) {
+    init(cardStyle: ObjectPreviewModel.CardStyle,
+         onSelect: @escaping (ObjectPreviewModel.CardStyle) -> Void) {
         self.onSelect = onSelect
-        self.objectPreviewFields = objectPreviewFields
-        self.updatePreviewFields(objectPreviewFields)
+        self.cardStyle = cardStyle
+        self.updatePreviewFields(cardStyle)
     }
 
-    func updatePreviewFields(_ objectPreviewFields: ObjectPreviewFields) {
-        items = buildObjectPreviewPopupItem(objectPreviewFields: objectPreviewFields)
+    func updatePreviewFields(_ cardStyle: ObjectPreviewModel.CardStyle) {
+        items = buildObjectPreviewPopupItem(cardStyle: cardStyle)
     }
 
-    func buildObjectPreviewPopupItem(objectPreviewFields: ObjectPreviewFields) -> [CheckPopupItem] {
-        ObjectPreviewFields.Layout.allCases.map { layout -> CheckPopupItem in
-            let isSelected = objectPreviewFields.layout == layout
+    func buildObjectPreviewPopupItem(cardStyle: ObjectPreviewModel.CardStyle) -> [CheckPopupItem] {
+        ObjectPreviewModel.CardStyle.allCases.map { layout -> CheckPopupItem in
+            let isSelected = cardStyle == layout
             return CheckPopupItem(id: layout.rawValue, icon: layout.iconName, title: layout.name, subtitle: nil, isSelected: isSelected)
         }
     }
 
     func onTap(itemId: String) {
-        guard let layout = ObjectPreviewFields.Layout(rawValue: itemId) else { return }
+        guard let layout = ObjectPreviewModel.CardStyle(rawValue: itemId) else { return }
 
-        objectPreviewFields = ObjectPreviewFields(
-            icon: objectPreviewFields.icon,
-            layout: layout,
-            withName: objectPreviewFields.withName,
-            featuredRelationsIds: objectPreviewFields.featuredRelationsIds
-        )
-
-        onSelect(objectPreviewFields)
-        updatePreviewFields(objectPreviewFields)
+        onSelect(layout)
+        updatePreviewFields(layout)
     }
 }

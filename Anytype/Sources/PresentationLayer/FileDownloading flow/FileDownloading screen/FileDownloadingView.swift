@@ -20,7 +20,7 @@ struct FileDownloadingView: View {
             Spacer.fixedHeight(15)
         }
         .padding(.horizontal, 20)
-        .background(Color.backgroundPrimary)
+        .background(Color.backgroundSecondary)
     }
     
     private var errorView: some View {

@@ -1,22 +1,21 @@
-import Foundation
 import UIKit
 import BlocksModels
 
-#warning("Check if block updates when featuredRelations is changed. Waiting for new imp of flow layout")
 struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
-    let indentationLevel: Int = 0
     let info: BlockInformation
-    let type: String
-    var featuredRelations: [Relation]
-    let blockDelegate: BlockDelegate
-    let onRelationTap: (Relation) -> Void
+    let indentationLevel: Int = 0
+
+    private let type: String
+    private let featuredRelations: [Relation]
+    private weak var blockDelegate: BlockDelegate?
+    private let onRelationTap: (Relation) -> Void
+    private let relationViewModels: [RelationItemModel]
     
     var hashable: AnyHashable {
         [
             indentationLevel,
-            info,
             type,
-            featuredRelations
+            relationViewModels
         ] as [AnyHashable]
     }
     
@@ -32,11 +31,12 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
         self.type = type
         self.blockDelegate = blockDelegate
         self.onRelationTap = onRelationTap
+        self.relationViewModels = featuredRelations.map(RelationItemModel.init)
     }
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
         FeaturedRelationsBlockContentConfiguration(
-            featuredRelations: featuredRelations.map(RelationItemModel.init),
+            featuredRelations: relationViewModels,
             type: type,
             alignment: info.alignment.asNSTextAlignment,
             onRelationTap: { item in
@@ -44,7 +44,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
                     .first { $0.id == item.id }
                     .map(onRelationTap)
             },
-            heightDidChanged: { blockDelegate.textBlockSetNeedsLayout() }
+            heightDidChanged: { blockDelegate?.textBlockSetNeedsLayout() }
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
             dragConfiguration: nil

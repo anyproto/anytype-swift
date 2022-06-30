@@ -3,7 +3,7 @@ import AnytypeCore
 
 protocol DocumentDetaisProvider {
     
-    var objectId: AnytypeId { get }
+    var objectId: BlockId { get }
     var screenData: EditorScreenData { get }
     var details: ObjectDetails? { get }
     
@@ -11,7 +11,7 @@ protocol DocumentDetaisProvider {
 
 extension EditorPageController: DocumentDetaisProvider {
     
-    var objectId: AnytypeId {
+    var objectId: BlockId {
         viewModel.document.objectId
     }
     

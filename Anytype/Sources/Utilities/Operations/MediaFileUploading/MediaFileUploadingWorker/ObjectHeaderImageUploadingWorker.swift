@@ -29,9 +29,7 @@ extension ObjectHeaderImageUploadingWorker: MediaFileUploadingWorkerProtocol {
         .images
     }
 
-    func cancel() {
-        #warning("Implement")
-    }
+    func cancel() {}
     
     func prepare() {
         EventsBunch(

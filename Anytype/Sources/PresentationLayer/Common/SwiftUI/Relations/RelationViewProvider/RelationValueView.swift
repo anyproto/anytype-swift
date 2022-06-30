@@ -32,7 +32,7 @@ struct RelationValueView: View {
             case .object(let object):
                 ObjectRelationView(options: object.selectedObjects, hint: relation.hint, style: style)
             case .checkbox(let checkbox):
-                CheckboxRelationView(isChecked: checkbox.value)
+                CheckboxRelationView(isChecked: checkbox.value, style: style)
             case .url(let text):
                 TextRelationFactory.swiftUI(value: text.value, hint: relation.hint, style: style)
             case .email(let text):
@@ -44,7 +44,7 @@ struct RelationValueView: View {
             case .file(let file):
                 FileRelationView(options: file.files, hint: relation.hint, style: style)
             case .unknown(let unknown):
-                RelationsListRowPlaceholderView(hint: unknown.value, type: style.placeholderType)
+                RelationsListRowPlaceholderView(hint: unknown.value, style: style)
             }
             Spacer()
         }

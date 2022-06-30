@@ -11,3 +11,7 @@ struct FeaturedRelationsBlockContentConfiguration: BlockConfiguration {
     @EquatableNoop private(set) var onRelationTap: (RelationItemModel) -> Void
     @EquatableNoop var heightDidChanged: () -> Void
 }
+
+extension FeaturedRelationsBlockContentConfiguration {
+    var isAnimationEnabled: Bool { false }
+}

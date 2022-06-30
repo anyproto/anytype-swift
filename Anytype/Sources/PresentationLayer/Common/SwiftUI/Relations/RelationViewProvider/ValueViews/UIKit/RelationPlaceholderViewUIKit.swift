@@ -9,17 +9,19 @@
 import UIKit
 
 final class RelationPlaceholderViewUIKit: UIView {
-    let hint: String
-    let type: RelationPlaceholderType
+    
+    private lazy var textView: AnytypeLabel = {
+        AnytypeLabel(style: style.hintFont)
+    }()
 
-    private lazy var textView = AnytypeLabel(style: .callout)
-
+    private let hint: String
+    private let style: RelationStyle
 
     // MARK: - Lifecycle
 
-    init(hint: String, type: RelationPlaceholderType) {
+    init(hint: String, style: RelationStyle) {
         self.hint = hint
-        self.type = type
+        self.style = style
 
         super.init(frame: .zero)
 
@@ -48,7 +50,7 @@ final class RelationPlaceholderViewUIKit: UIView {
     private func setupStyle() {
         textView.numberOfLines = 1
 
-        switch type {
+        switch style.placeholderType {
         case .hint:
             textView.textColor = .textTertiary
             textView.setText(hint)

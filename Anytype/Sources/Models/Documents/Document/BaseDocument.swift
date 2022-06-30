@@ -1,10 +1,11 @@
 import BlocksModels
 import Combine
 import AnytypeCore
+import Foundation
 
 final class BaseDocument: BaseDocumentProtocol {
     var updatePublisher: AnyPublisher<DocumentUpdate, Never> { updateSubject.eraseToAnyPublisher() }
-    let objectId: AnytypeId
+    let objectId: BlockId
     private(set) var isOpened = false
 
     let infoContainer: InfoContainerProtocol = InfoContainer()
@@ -14,7 +15,7 @@ final class BaseDocument: BaseDocumentProtocol {
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
 
     var isLocked: Bool {
-        guard let isLockedField = infoContainer.get(id: objectId.value)?
+        guard let isLockedField = infoContainer.get(id: objectId)?
                 .fields[BlockFieldBundledKey.isLocked.rawValue],
               case let .boolValue(isLocked) = isLockedField.kind else {
             return false
@@ -32,12 +33,12 @@ final class BaseDocument: BaseDocumentProtocol {
     var parsedRelations: ParsedRelations {
         relationBuilder.parsedRelations(
             relationMetadatas: relationsStorage.relations,
-            objectId: objectId.value,
+            objectId: objectId,
             isObjectLocked: isLocked
         )
     }
         
-    init(objectId: AnytypeId) {
+    init(objectId: BlockId) {
         self.objectId = objectId
         
         self.eventsListener = EventsListener(
@@ -47,7 +48,7 @@ final class BaseDocument: BaseDocumentProtocol {
             restrictionsContainer: restrictionsContainer
         )
         
-        self.blockActionsService = ServiceLocator.shared.blockActionsServiceSingle(contextId: objectId.value)
+        self.blockActionsService = ServiceLocator.shared.blockActionsServiceSingle(contextId: objectId)
         
         setup()
     }
@@ -60,7 +61,14 @@ final class BaseDocument: BaseDocumentProtocol {
 
     @discardableResult
     func open() -> Bool {
+        ObjectTypeProvider.shared.resetCache()
         isOpened = blockActionsService.open()
+        return isOpened
+    }
+
+    @discardableResult
+    func openForPreview() -> Bool {
+        isOpened = blockActionsService.openForPreview()
         return isOpened
     }
     
@@ -73,7 +81,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     var children: [BlockInformation] {
-        guard let model = infoContainer.get(id: objectId.value) else {
+        guard let model = infoContainer.get(id: objectId) else {
             anytypeAssertionFailure("getModels. Our document is not ready yet", domain: .baseDocument)
             return []
         }

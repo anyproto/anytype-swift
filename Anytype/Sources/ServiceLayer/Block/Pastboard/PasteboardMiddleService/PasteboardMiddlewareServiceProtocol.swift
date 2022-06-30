@@ -7,11 +7,12 @@
 //
 
 import BlocksModels
+import Foundation
 
 protocol PasteboardMiddlewareServiceProtocol: AnyObject {
-    func pasteText(_ text: String, context: PasteboardActionContext)
-    func pasteHTML(_ html: String, context: PasteboardActionContext)
-    func pasteBlock(_ blocks: [String], context: PasteboardActionContext)
-    func pasteFile(localPath: String, name: String, context: PasteboardActionContext)
+    func pasteText(_ text: String, context: PasteboardActionContext) -> PasteboardPasteResult?
+    func pasteHTML(_ html: String, context: PasteboardActionContext) -> PasteboardPasteResult?
+    func pasteBlock(_ blocks: [String], context: PasteboardActionContext) -> PasteboardPasteResult?
+    func pasteFile(localPath: String, name: String, context: PasteboardActionContext) -> PasteboardPasteResult?
     func copy(blocksIds: [BlockId], selectedTextRange: NSRange) -> PasteboardCopyResult?
 }

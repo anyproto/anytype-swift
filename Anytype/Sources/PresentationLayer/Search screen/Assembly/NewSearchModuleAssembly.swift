@@ -1,4 +1,5 @@
 import Foundation
+import BlocksModels
 
 final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
  
@@ -15,7 +16,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let internalViewModel = StatusSearchViewModel(interactor: interactor)
         let viewModel = NewSearchViewModel(
-            selectionMode: .singleItem,
             itemCreationMode: .available(action: onCreate),
             internalViewModel: internalViewModel,
             onSelect: onSelect
@@ -36,7 +36,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let internalViewModel = TagsSearchViewModel(interactor: interactor)
         let viewModel = NewSearchViewModel(
-            selectionMode: .multipleItems,
             itemCreationMode: .available(action: onCreate),
             internalViewModel: internalViewModel,
             onSelect: onSelect
@@ -55,9 +54,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             limitedObjectType: limitedObjectType
         )
         
-        let internalViewModel = ObjectsSearchViewModel(interactor: interactor)
+        let internalViewModel = ObjectsSearchViewModel(selectionMode: .multipleItems, interactor: interactor)
         let viewModel = NewSearchViewModel(
-            selectionMode: .multipleItems,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,
             onSelect: onSelect
@@ -74,9 +72,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             excludedFileIds: excludedFileIds
         )
         
-        let internalViewModel = ObjectsSearchViewModel(interactor: interactor)
+        let internalViewModel = ObjectsSearchViewModel(selectionMode: .multipleItems, interactor: interactor)
         let viewModel = NewSearchViewModel(
-            selectionMode: .multipleItems,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,
             onSelect: onSelect
@@ -97,7 +94,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         let internalViewModel = ObjectTypesSearchViewModel(interactor: interactor)
         let viewModel = NewSearchViewModel(
             title: title,
-            selectionMode: .singleItem,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel
         ) { ids in
@@ -124,7 +120,6 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         
         let viewModel = NewSearchViewModel(
             title: "Limit object types".localized,
-            selectionMode: .multipleItems,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,
             onSelect: onSelect
@@ -133,4 +128,51 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         return NewSearchView(viewModel: viewModel)
     }
     
+    static func moveToObjectSearchModule(
+        title: String,
+        excludedObjectIds: [String],
+        onSelect: @escaping (_ id: String) -> Void
+    ) -> NewSearchView {
+        let interactor = MoveToSearchInteractor(
+            searchService: SearchService(),
+            excludedObjectIds: excludedObjectIds
+        )
+
+        let internalViewModel = ObjectsSearchViewModel(
+            selectionMode: .singleItem,
+            interactor: interactor
+        )
+        let viewModel = NewSearchViewModel(
+            title: title,
+            itemCreationMode: .unavailable,
+            internalViewModel: internalViewModel,
+            onSelect: { ids in
+                guard let id = ids.first else { return }
+                onSelect(id)
+            }
+        )
+
+        return NewSearchView(viewModel: viewModel)
+    }
+    
+    static func setSortsSearchModule(
+        relations: [RelationMetadata],
+        onSelect: @escaping (_ id: String) -> Void
+    ) -> NewSearchView {
+        let interactor = SetSortsSearchInteractor(relations: relations)
+        
+        let internalViewModel = SetSortsSearchViewModel(interactor: interactor)
+        
+        let viewModel = NewSearchViewModel(
+            searchPlaceholder: "EditSorts.Popup.Sort.Add.SearchPlaceholder".localized,
+            itemCreationMode: .unavailable,
+            internalViewModel: internalViewModel,
+            onSelect: { ids in
+                guard let id = ids.first else { return }
+                onSelect(id)
+            }
+        )
+        
+        return NewSearchView(viewModel: viewModel)
+    }
 }

@@ -9,7 +9,7 @@ struct FileRelationView: View {
         if options.isNotEmpty {
             objectsList
         } else {
-            RelationsListRowPlaceholderView(hint: hint, type: style.placeholderType)
+            RelationsListRowPlaceholderView(hint: hint, style: style)
         }
     }
     
@@ -26,14 +26,14 @@ struct FileRelationView: View {
         HStack(spacing: style.objectRelationStyle.hSpaсingObject) {
             SwiftUIObjectIconImageView(
                 iconImage: option.icon,
-                usecase: .mention(.body)
-            )
-                .frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+                usecase: style.objectIconImageUsecase
+            ).frame(width: style.objectRelationStyle.size.width, height: style.objectRelationStyle.size.height)
+
             
             AnytypeText(
                 option.title,
-                style: .relation1Regular,
-                color: .textPrimary
+                style: style.font,
+                color: style.fontColor
             )
                 .lineLimit(1)
         }

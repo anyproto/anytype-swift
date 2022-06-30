@@ -15,7 +15,7 @@ extension MentionData {
     init(details: ObjectDetails) {
         self.init(
             image: details.objectIconImage,
-            blockId: details.id.value,
+            blockId: details.id,
             isDeleted: details.isDeleted,
             isArchived: details.isArchived
         )

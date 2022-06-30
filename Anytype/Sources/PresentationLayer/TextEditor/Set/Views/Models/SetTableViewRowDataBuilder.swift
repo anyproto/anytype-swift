@@ -1,4 +1,5 @@
 import BlocksModels
+import Foundation
 
 final class SetTableViewDataBuilder {
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
@@ -18,20 +19,21 @@ final class SetTableViewDataBuilder {
     }
     
     func rowData(
-        _ datails: [ObjectDetails],
+        _ details: [ObjectDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
         colums: [RelationMetadata],
         isObjectLocked: Bool
     ) -> [SetTableViewRowData] {
-        datails.flatMap { details in
-            let metadata = sortedRelations(dataview: dataView, view: activeView)
-                .filter { $0.option.isVisible == true }
-                .map { $0.metadata }
+        
+        let metadata = sortedRelations(dataview: dataView, view: activeView)
+            .filter { $0.option.isVisible == true }
+            .map { $0.metadata }
+        return details.compactMap { details in
             let parsedRelations = relationsBuilder
                 .parsedRelations(
                     relationMetadatas: metadata,
-                    objectId: details.id.value,
+                    objectId: details.id,
                     isObjectLocked: isObjectLocked
                 )
                 .all
@@ -52,7 +54,7 @@ final class SetTableViewDataBuilder {
             let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
             
             return SetTableViewRowData(
-                id: details.id.value,
+                id: details.id,
                 title: details.title,
                 icon: details.objectIconImage,
                 relations: relations,

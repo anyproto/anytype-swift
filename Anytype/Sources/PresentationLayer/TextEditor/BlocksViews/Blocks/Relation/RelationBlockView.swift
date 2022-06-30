@@ -5,9 +5,7 @@ final class RelationBlockView: UIView, BlockContentView {
     private var bottomConstraint: NSLayoutConstraint!
 
     // MARK: - Views
-    private lazy var relationValueView = RelationValueViewUIKit(relation: .unknown(.empty(id: "", name: "")),
-                                                               style: .regular(allowMultiLine: true),
-                                                               action: nil)
+    private let relationValueView = RelationValueViewUIKit()
 
     private let relationNameView = AnytypeLabel(style: .relation1Regular)
     private let relationLockedView = UIImageView(image: .Relations.Icons.locked)
@@ -31,20 +29,15 @@ final class RelationBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: RelationBlockContentConfiguration) {
-        relationValueView.removeFromSuperview()
-        relationValueView = RelationValueViewUIKit(relation: configuration.relation,
-                                                   style: .regular(allowMultiLine: true),
-                                                   action: configuration.actionOnValue)
         relationNameView.setText(configuration.relation.name)
         relationLockedView.isHidden = configuration.relation.isEditable
-
-        containerView.addSubview(relationValueView) {
-            $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: LayoutConstants.topBottomInset,
-                                                                       left: 0,
-                                                                       bottom: -LayoutConstants.topBottomInset,
-                                                                       right: 0))
-            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
-        }
+        relationValueView.update(
+            with: .init(
+                relation: configuration.relation,
+                style: .regular(allowMultiLine: true),
+                action: configuration.actionOnValue
+            )
+        )
     }
 
     // MARK: - Setup view
@@ -72,12 +65,18 @@ final class RelationBlockView: UIView, BlockContentView {
             $0.leading.equal(to: containerView.leadingAnchor)
             $0.width.equal(to: containerView.widthAnchor, multiplier: 0.4)
         }
+
         containerView.addSubview(relationValueView) {
-            $0.pinToSuperview(excluding: [.left], insets: UIEdgeInsets(top: LayoutConstants.topBottomInset,
-                                                                       left: 0,
-                                                                       bottom: -LayoutConstants.topBottomInset,
-                                                                       right: 0))
-            $0.leading.equal(to: relationNameStack.trailingAnchor, constant: 2)
+            $0.pinToSuperview(
+                excluding: [.left],
+                insets: UIEdgeInsets(
+                    top: LayoutConstants.topBottomInset,
+                    left: 0,
+                    bottom: -LayoutConstants.topBottomInset,
+                    right: 0
+                )
+            )
+            $0.leading.equal(to: relationNameView.trailingAnchor, constant: 2)
         }
     }
 

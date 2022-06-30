@@ -5,7 +5,7 @@ struct BlocksOptionView: View {
     @ObservedObject var viewModel: BlocksOptionViewModel
 
     var body: some View {
-        ScrollView(.horizontal) {
+        ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 0) {
                 ForEach(viewModel.options, id: \.self) { item in
                     Button {
@@ -18,7 +18,8 @@ struct BlocksOptionView: View {
                     }
                     .frame(width: 68, height: 100)
                 }
-            }.padding(EdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8))
+            }
+            .padding(.horizontal, 8)
         }
         .background(Color.backgroundSecondary)
     }

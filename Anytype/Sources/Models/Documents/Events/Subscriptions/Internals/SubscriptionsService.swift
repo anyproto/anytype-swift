@@ -1,6 +1,7 @@
 import BlocksModels
 import Combine
 import AnytypeCore
+import NotificationCenter
 
 final class SubscriptionsService: SubscriptionsServiceProtocol {
     private var subscription: AnyCancellable?
@@ -88,8 +89,7 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
                 sendUpdate(update, subId: position.subID)
             case .subscriptionAdd(let data):
                 guard
-                    let id = data.id.asAnytypeId,
-                    let details = storage.get(id: id)
+                    let details = storage.get(id: data.id)
                 else {
                     anytypeAssertionFailure("No details found for id \(data.id)", domain: .subscriptionStorage)
                     return

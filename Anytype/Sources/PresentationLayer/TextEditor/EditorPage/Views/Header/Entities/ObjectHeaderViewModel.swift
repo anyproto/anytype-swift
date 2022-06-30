@@ -4,19 +4,20 @@ import Combine
 
 final class ObjectHeaderViewModel: ObservableObject {
     
-    @Published private(set) var header: ObjectHeader = .initialState
-    
+    @Published private(set) var header: ObjectHeader?
+
     // MARK: - Private variables
     
     private lazy var onIconTap = { [weak self] in
-        guard let self = self else { return }
+        guard let self = self, !self.isOpenedForPreview else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         self.router.showIconPicker()
     }
     
     private lazy var onCoverTap = { [weak self] in
-        guard let self = self else { return }
+        guard let self = self, !self.isOpenedForPreview else { return }
         guard self.document.details?.layout != .note else { return }
+
 
         UISelectionFeedbackGenerator().selectionChanged()
 
@@ -27,13 +28,14 @@ final class ObjectHeaderViewModel: ObservableObject {
     private let router: EditorRouterProtocol
     
     private var subscription: AnyCancellable?
+    private let isOpenedForPreview: Bool
     
     // MARK: - Initializers
     
-    init(document: BaseDocumentProtocol, router: EditorRouterProtocol) {
+    init(document: BaseDocumentProtocol, router: EditorRouterProtocol, isOpenedForPreview: Bool) {
         self.document = document
         self.router = router
-        self.header = buildHeader()
+        self.isOpenedForPreview = isOpenedForPreview
         
         setupSubscription()
     }
@@ -51,7 +53,7 @@ final class ObjectHeaderViewModel: ObservableObject {
             header = buildHeader()
         case .header(let data):
             header = buildLoadingHeader(data)
-        case .blocks, .dataSourceUpdate, .syncStatus:
+        case .blocks, .dataSourceUpdate, .syncStatus, .changeType:
             break
         }
     }

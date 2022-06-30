@@ -41,8 +41,7 @@ final class FileListRelationViewUIKit: UIView {
         stackView.spacing = 6
 
         options.prefix(Constants.maxShowingOptions).forEach { option in
-            let fileView = FileRelationViewUIKit(options: option,
-                                                   objectRelationStyle: style.objectRelationStyle)
+            let fileView = FileRelationViewUIKit(options: option, relationStyle: style)
             stackView.addArrangedSubview(fileView)
         }
         stackView.arrangedSubviews.first?.setContentCompressionResistancePriority(.required, for: .horizontal)
@@ -62,7 +61,7 @@ final class FileListRelationViewUIKit: UIView {
     }
 
     private func setupPlaceholder() {
-        let placeholder = RelationPlaceholderViewUIKit(hint: hint, type: style.placeholderType)
+        let placeholder = RelationPlaceholderViewUIKit(hint: hint, style: style)
 
         addSubview(placeholder) {
             $0.pinToSuperview()

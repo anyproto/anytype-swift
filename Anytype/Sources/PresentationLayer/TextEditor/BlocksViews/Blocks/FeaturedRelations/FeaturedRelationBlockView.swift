@@ -3,7 +3,7 @@ import UIKit
 import SwiftUI
 
 final class FeaturedRelationBlockView: UIView, BlockContentView {
-    private lazy var blocksView = DynamicCompositionalLayoutView(frame: .zero)
+    private let blocksView = DynamicCollectionLayoutView(frame: .zero)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -17,7 +17,56 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
         setupSubview()
     }
 
-    func setupSubview() {
+    func update(with state: UICellConfigurationState) {
+        blocksView.isUserInteractionEnabled = !state.isLocked
+    }
+
+    func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
+        var dequebale = [Dequebale]()
+
+        configuration.featuredRelations.forEach {
+            let valueViewConfiguration = RelationValueViewConfiguration(
+                relation: $0,
+                style: .featuredRelationBlock(allowMultiLine: false),
+                action: configuration.onRelationTap
+            )
+
+            dequebale.append(valueViewConfiguration)
+
+            let separatorConfiguration = SeparatorItemConfiguration(style: .dot, height: 18)
+
+            if $0 != configuration.featuredRelations.last {
+                dequebale.append(separatorConfiguration)
+            }
+        }
+
+        let layout = UICollectionViewCompositionalLayout.flexibleView(groundEdgeSpacing: .defaultBlockEdgeSpacing)
+
+        blocksView.update(
+            with: .init(
+                hashable: configuration,
+                views: [dequebale],
+                layout: layout,
+                heightDidChanged: configuration.heightDidChanged
+            )
+        )
+    }
+
+    private func setupSubview() {
+        setupLayout()
+
+        blocksView.collectionView.register(
+            GenericCollectionViewCell<RelationValueViewUIKit>.self,
+            forCellWithReuseIdentifier: RelationValueViewUIKit.reusableIdentifier
+        )
+
+        blocksView.collectionView.register(
+            GenericCollectionViewCell<SeparatorItemView>.self,
+            forCellWithReuseIdentifier: SeparatorItemView.reusableIdentifier
+        )
+    }
+
+    private func setupLayout() {
         addSubview(blocksView) {
             $0.pinToSuperview(
                 insets: .init(top: 8, left: 0, bottom: 0, right: 0)
@@ -25,42 +74,5 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
         }
     }
 
-    func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
-        var views = [UIView]()
-
-        configuration.featuredRelations.forEach { item in
-            let relationView = RelationValueViewUIKit(
-                relation: item,
-                style: .featuredRelationBlock(allowMultiLine: false),
-                action: configuration.onRelationTap
-            )
-
-            views.append(relationView)
-
-            if item != configuration.featuredRelations.last {
-                let label = UILabel()
-
-                label.text = "•"
-                label.textColor = .textSecondary
-                label.font = .systemFont(ofSize: 16)
-
-                let heightConstraint = label.heightAnchor.constraint(equalToConstant: 18)
-                heightConstraint.priority = .defaultLow
-                heightConstraint.isActive = true
-
-                label.translatesAutoresizingMaskIntoConstraints = false
-
-                views.append(label)
-            }
-        }
-
-        blocksView.update(
-            with: .init(
-                hashable: AnyHashable(configuration),
-                compositionalLayout: .flexibleView(groundEdgeSpacing: .defaultBlockEdgeSpacing),
-                views: views,
-                heightDidChanged: configuration.heightDidChanged
-            )
-        )
-    }
 }
+
