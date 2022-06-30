@@ -21,7 +21,7 @@ class StartOfTextMarkdownTests: XCTestCase {
     func testTypingALotTextOnce() {
         BeginingOfTextMarkdown.all.forEach { shortcut in
             shortcut.text.forEach { text in
-                testTypingALotTextOnce(insetText: text + "abcdef", expectedText: "abcdef", style: shortcut.style)
+                testTypingALotTextOnce(insetText: text + "testtext", expectedText: "testtext", style: shortcut.style)
             }
         }
     }
