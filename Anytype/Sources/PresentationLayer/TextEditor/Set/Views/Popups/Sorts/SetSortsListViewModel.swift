@@ -37,7 +37,7 @@ extension SetSortsListViewModel {
     // MARK: - Routing
     
     func addButtonTapped() {
-        router.showSortsSearch(relations: setModel.relations) { [weak self] key in
+        router.showRelationSearch(relations: setModel.relations) { [weak self] key in
             self?.addNewSort(with: key)
         }
     }

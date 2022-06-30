@@ -41,6 +41,10 @@ extension SetFiltersListViewModel {
     
     // MARK: - Actions
     
+    func addButtonTapped() {
+        router.showRelationSearch(relations: setModel.relations) { _ in }
+    }
+    
     func rowTapped(_ filter: SetFilter) {}
     
     func delete(_ indexSet: IndexSet) {
