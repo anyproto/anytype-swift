@@ -92,7 +92,7 @@ struct TextBlockActionHandler {
                 textView.setFocus(.beginning)
             case let .addBlock(type, newText):
                 actionHandler.changeTextForced(newText, blockId: info.id)
-                actionHandler.addBlock(type, blockId: info.id)
+                actionHandler.addBlock(type, blockId: info.id, position: .top)
             }
 
             return false

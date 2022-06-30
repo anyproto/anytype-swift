@@ -26,7 +26,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setLink(url: URL?, range: NSRange, blockId: BlockId)
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId)
     func addLink(targetId: BlockId, blockId: BlockId)
-    func addBlock(_ type: BlockContentType, blockId: BlockId)
+    func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?)
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
     func upload(blockId: BlockId, filePath: String)
     func createPage(targetId: BlockId, type: ObjectTypeUrl) -> BlockId?
@@ -48,4 +48,10 @@ protocol BlockActionHandlerProtocol: AnyObject {
         url: String
     )
     func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance)
+}
+
+extension BlockActionHandlerProtocol {
+    func addBlock(_ type: BlockContentType, blockId: BlockId) {
+        addBlock(type, blockId: blockId, position: nil)
+    }
 }
