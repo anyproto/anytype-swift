@@ -205,6 +205,10 @@ final class EditorSetViewModel: ObservableObject {
         FeatureFlags.isSetSortsAvailable ||
         FeatureFlags.isSetFiltersAvailable
     }
+    
+    private func isBookmarkObject() -> Bool {
+        dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
+    }
 }
 
 // MARK: - Routing
@@ -247,12 +251,11 @@ extension EditorSetViewModel {
     }
 
     func createObject() {
-//        switch set.type {
-//        case .bookmark:
+        if isBookmarkObject() {
             createBookmarkObject()
-//        default:
-//            createDefaultObject()
-//        }
+        } else {
+            createDefaultObject()
+        }
     }
     
     func showViewSettings() {
