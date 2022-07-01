@@ -91,7 +91,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addBlock(_ type: BlockContentType, blockId: BlockId) {
+    func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?) {
         assertionFailure()
     }
     

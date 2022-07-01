@@ -5,7 +5,7 @@ import AnytypeCore
 
 enum MarkdownChange {
     case turnInto(BlockText.Style, text: NSAttributedString)
-    case setText(text: NSAttributedString, caretPosition: NSRange)
+    case addBlock(type: BlockContentType, text: NSAttributedString)
 }
 
 protocol MarkdownListener {
@@ -38,8 +38,8 @@ final class MarkdownListenerImpl: MarkdownListener {
                 ) {
                     let replacedText = textView.attributedText.mutable
                     replacedText.replaceCharacters(in: range, with: replacementText)
-                    return applyStyle(
-                        shortcut.style,
+                    return makeMarkdownChange(
+                        type: shortcut.type,
                         string: replacedText,
                         shortcutLength: shortcutText.count
                     )
@@ -67,21 +67,32 @@ final class MarkdownListenerImpl: MarkdownListener {
         return replacedText.hasPrefix(shortcut) && shortcut.count >= offsetToCaretPosition
     }
 
-    
-    private func applyStyle(_ style: BlockText.Style, string: NSAttributedString, shortcutLength: Int) -> MarkdownChange {
+    private func makeMarkdownChange(
+        type: BlockContentType,
+        string: NSAttributedString,
+        shortcutLength: Int
+    ) -> MarkdownChange {
+        
         let text = string.mutable
         
         anytypeAssert(
             shortcutLength <= text.string.count,
-            "Shortcut length: \(shortcutLength) for style: \(style) is bigger then  string length: \(text.string)",
+            "Shortcut length: \(shortcutLength) for type: \(type) is bigger then  string length: \(text.string)",
             domain: .markdownListener
         )
-        
         
         text.mutableString.deleteCharacters(
             in: NSMakeRange(0, min(shortcutLength, text.string.count))
         )
-
-        return .turnInto(style, text: text)
+        
+        switch type {
+        case let .text(style):
+            return .turnInto(style, text: text)
+        case .divider:
+            return .addBlock(type: type, text: text)
+        default:
+            anytypeAssertionFailure("Markdown change not supported. Type: \(type)", domain: .markdownListener)
+            return .turnInto(.text, text: string)
+        }
     }
 }
