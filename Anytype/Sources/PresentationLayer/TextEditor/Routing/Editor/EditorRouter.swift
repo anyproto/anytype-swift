@@ -440,8 +440,6 @@ extension EditorRouter {
 extension EditorRouter {
 
     func showCreateObject(pageId: BlockId) {
-        guard let viewController = viewController else { return }
-
         let relationService = RelationsService(objectId: pageId)
         let viewModel = CreateObjectViewModel(relationService: relationService) { [weak self] in
             self?.viewController?.topPresentedController.dismiss(animated: true)
@@ -450,14 +448,24 @@ extension EditorRouter {
             self?.viewController?.topPresentedController.dismiss(animated: true)
         }
         
-        let view = CreateObjectView(viewModel: viewModel)
-        let fpc = AnytypePopup(contentView: view,
-                               floatingPanelStyle: true,
-                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true ))
-
-        viewController.topPresentedController.present(fpc, animated: true) {
-            view.becomeFirstResponder()
-        }
+        showCreateObject(with: viewModel)
+    }
+    
+    func showCreateBookmarkObject() {
+        let viewModel = CreateBookmarkViewModel(
+            bookmarkService: BookmarkService(),
+            closeAction: { [weak self] withError in
+                self?.viewController?.topPresentedController.dismiss(animated: true, completion: {
+                    guard withError else { return }
+                    AlertHelper.showToast(
+                        title: Loc.Set.Bookmark.Error.title,
+                        message: Loc.Set.Bookmark.Error.message
+                    )
+                })
+            }
+        )
+        
+        showCreateObject(with: viewModel)
     }
     
     func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void) {
@@ -517,6 +525,19 @@ extension EditorRouter {
                 .environmentObject(setModel)
         )
         presentSheet(vc)
+    }
+    
+    private func showCreateObject(with viewModel: CreateObjectViewModelProtocol) {
+        guard let viewController = viewController else { return }
+        
+        let view = CreateObjectView(viewModel: viewModel)
+        let fpc = AnytypePopup(contentView: view,
+                               floatingPanelStyle: true,
+                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true ))
+
+        viewController.topPresentedController.present(fpc, animated: true) {
+            _ = view.becomeFirstResponder()
+        }
     }
     
     private func showSetSettingsPopup(setModel: EditorSetViewModel) {

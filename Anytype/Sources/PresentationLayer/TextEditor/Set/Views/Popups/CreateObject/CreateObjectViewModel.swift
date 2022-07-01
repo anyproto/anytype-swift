@@ -1,15 +1,9 @@
-//
-//  CreateObjectViewModel.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 24.05.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import BlocksModels
 import AnytypeCore
 
-final class CreateObjectViewModel {
+final class CreateObjectViewModel: CreateObjectViewModelProtocol {
+    let style = CreateObjectView.Style.default
+    
     private let relationService: RelationsServiceProtocol
     private let debouncer = Debouncer()
     private let openToEditAction: () -> Void
@@ -34,7 +28,7 @@ final class CreateObjectViewModel {
         }
     }
 
-    func openToEditAction(with text: String) {
+    func actionButtonTapped(with text: String) {
         debouncer.cancel()
         
         if currentText != text {

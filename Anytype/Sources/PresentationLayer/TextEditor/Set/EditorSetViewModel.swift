@@ -205,6 +205,10 @@ final class EditorSetViewModel: ObservableObject {
         FeatureFlags.isSetSortsAvailable ||
         FeatureFlags.isSetFiltersAvailable
     }
+    
+    private func isBookmarkObject() -> Bool {
+        dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
+    }
 }
 
 // MARK: - Routing
@@ -247,15 +251,11 @@ extension EditorSetViewModel {
     }
 
     func createObject() {
-        let availableTemplates = searchService.searchTemplates(
-            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
-        )
-        let hasSingleTemplate = availableTemplates?.count == 1
-        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
-
-        guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
-        
-        router.showCreateObject(pageId: objectDetails.id)
+        if isBookmarkObject() {
+            createBookmarkObject()
+        } else {
+            createDefaultObject()
+        }
     }
     
     func showViewSettings() {
@@ -289,5 +289,21 @@ extension EditorSetViewModel {
     
     func showAddNewRelationView(onSelect: @escaping (RelationMetadata, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
+    }
+    
+    private func createDefaultObject() {
+        let availableTemplates = searchService.searchTemplates(
+            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
+        )
+        let hasSingleTemplate = availableTemplates?.count == 1
+        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+
+        guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
+        
+        router.showCreateObject(pageId: objectDetails.id)
+    }
+    
+    private func createBookmarkObject() {
+        router.showCreateBookmarkObject()
     }
 }

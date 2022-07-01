@@ -419,6 +419,8 @@
 		2AFB542328634FC5004F7458 /* Localizable.stringsdict in Resources */ = {isa = PBXBuildFile; fileRef = 2AFB542128634FC5004F7458 /* Localizable.stringsdict */; };
 		2AFB5467286997C6004F7458 /* DataviewType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB5466286997C6004F7458 /* DataviewType+Extensions.swift */; };
 		2AFB54692869989D004F7458 /* ObjectType+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AFB54682869989D004F7458 /* ObjectType+Extensions.swift */; };
+		2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */; };
+		2E330C54286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */; };
 		2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */; };
 		2E412D0328466B0900C973FF /* SetSortsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D0228466B0900C973FF /* SetSortsListView.swift */; };
 		2E412D0528466B1C00C973FF /* SetSortsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D0428466B1C00C973FF /* SetSortsListViewModel.swift */; };
@@ -1478,6 +1480,8 @@
 		2AFB542228634FC5004F7458 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.stringsdict; name = en; path = en.lproj/Localizable.stringsdict; sourceTree = "<group>"; };
 		2AFB5466286997C6004F7458 /* DataviewType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewType+Extensions.swift"; sourceTree = "<group>"; };
 		2AFB54682869989D004F7458 /* ObjectType+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObjectType+Extensions.swift"; sourceTree = "<group>"; };
+		2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookmarkViewModel.swift; sourceTree = "<group>"; };
+		2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObjectViewModelProtocol.swift; sourceTree = "<group>"; };
 		2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerContentType.swift; sourceTree = "<group>"; };
 		2E412D0228466B0900C973FF /* SetSortsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsListView.swift; sourceTree = "<group>"; };
 		2E412D0428466B1C00C973FF /* SetSortsListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsListViewModel.swift; sourceTree = "<group>"; };
@@ -5975,6 +5979,8 @@
 			children = (
 				53EDA87F2837EC4000887804 /* CreateObjectView.swift */,
 				531F0DE7283C44A2000A0B31 /* CreateObjectViewModel.swift */,
+				2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */,
+				2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */,
 			);
 			path = CreateObject;
 			sourceTree = "<group>";
@@ -6995,6 +7001,7 @@
 				1211D65A2667CED000541D9C /* ActivityIndicatorView.swift in Sources */,
 				125683E227DF1E7D003A8251 /* SearchObjectRowView.swift in Sources */,
 				C9121A5A273B549B00FFDA07 /* BlockRestrictions+BlocksOptionItem.swift in Sources */,
+				2E330C54286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift in Sources */,
 				1270CE9726DA85E900B2D443 /* GradientPoint.swift in Sources */,
 				3D2D4C6327BA76270070A4C6 /* EditorRouterProtocol.swift in Sources */,
 				12A52E2926CAA17B000F0333 /* AnimatableView.swift in Sources */,
@@ -7088,6 +7095,7 @@
 				5386E3CD27B51BA7004D8221 /* CheckboxRelationViewUIKit.swift in Sources */,
 				2AD06B7C2857271D0006C255 /* TableOfContentsViewModel.swift in Sources */,
 				53A4878827D6AC0900A2E627 /* PasteboardService.swift in Sources */,
+				2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */,
 				12C2A5672754E1C400311854 /* DateRelationDetailsValue.swift in Sources */,
 				12CAF32026D53866001E56B2 /* ObjectIconImagePainter.swift in Sources */,
 				12C2A5692754E90800311854 /* DateRelationDetailsRowView.swift in Sources */,
