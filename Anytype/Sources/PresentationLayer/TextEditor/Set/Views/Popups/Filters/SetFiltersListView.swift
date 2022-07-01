@@ -14,8 +14,25 @@ struct SetFiltersListView: View {
                 .navigationTitle(Loc.EditFilters.Popup.NavigationView.title)
                 .navigationBarTitleDisplayMode(.inline)
                 .environment(\.editMode, $editMode)
+                .onChange(of: viewModel.rows) { newValue in
+                    if editMode == .active && viewModel.rows.count == 0 {
+                        editMode = .inactive
+                    }
+                }
         }
         .navigationViewStyle(.stack)
+    }
+    
+    private var addButton: some View {
+        Group {
+            if editMode == .inactive {
+                Button {
+                    viewModel.addButtonTapped()
+                } label: {
+                    Image.Relations.createOption.frame(width: 24, height: 24)
+                }
+            }
+        }
     }
     
     private var content: some View {
@@ -24,6 +41,11 @@ struct SetFiltersListView: View {
                 filtersList
             } else {
                 emptyState
+            }
+        }
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                addButton
             }
         }
     }

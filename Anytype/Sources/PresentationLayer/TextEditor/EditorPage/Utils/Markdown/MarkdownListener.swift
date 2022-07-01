@@ -27,25 +27,27 @@ final class MarkdownListenerImpl: MarkdownListener {
         replacementText: String,
         range: NSRange
     ) -> MarkdownChange? {
-        var markdown: MarkdownChange?
-        BeginingOfTextMarkdown.all.forEach { shortcut in
-            shortcut.text.forEach { text in
+        
+        for shortcut in BeginingOfTextMarkdown.all {
+            for shortcutText in shortcut.text {
                 if beginingOfTextHaveShortcutAndCarretInsideIt(
-                    text,
+                    shortcutText,
                     textView: textView,
                     replacementText: replacementText,
                     range: range
                 ) {
-                    markdown = makeMarkdownChange(
+                    let replacedText = textView.attributedText.mutable
+                    replacedText.replaceCharacters(in: range, with: replacementText)
+                    return makeMarkdownChange(
                         type: shortcut.type,
-                        string: textView.attributedText,
-                        shortcutLength: text.count - replacementText.count
+                        string: replacedText,
+                        shortcutLength: shortcutText.count
                     )
                 }
             }
         }
 
-        return markdown
+        return nil
     }
     
     private func beginingOfTextHaveShortcutAndCarretInsideIt(

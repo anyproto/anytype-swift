@@ -460,7 +460,7 @@ extension EditorRouter {
         }
     }
     
-    func showSortsSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void) {
+    func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void) {
         let vc = UIHostingController(
             rootView: NewSearchModuleAssembly.setSortsSearchModule(
                 relations: relations,

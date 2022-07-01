@@ -62,8 +62,9 @@ final class BlockViewModelBuilder {
                         middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
                     ),
                     becomeFirstResponder: { _ in },
-                    textDidChange: { block, textView in
-                        self.handler.changeText(textView.attributedText, info: info)
+                    textDidChange: { [weak self] block, textView in
+                        self?.handler.changeText(textView.attributedText, info: info)
+                        self?.delegate.textBlockSetNeedsLayout()
                     },
                     showCodeSelection: { [weak self] info in
                         self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in

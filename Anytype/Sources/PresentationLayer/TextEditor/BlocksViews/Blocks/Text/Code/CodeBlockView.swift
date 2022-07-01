@@ -105,6 +105,7 @@ final class CodeBlockView: UIView, BlockContentView {
         button.label.textColor = .darkGray
         let image = UIImage.codeBlock.arrow
         button.setImage(image)
+        button.setContentCompressionResistancePriority(.required, for: .vertical)
         
         button.addAction(
             UIAction { [weak self] _ in
