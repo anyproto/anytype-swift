@@ -75,7 +75,7 @@ final class EditorBottomNavigationView: UIView {
             .reversed()
             .map { buildUIAction(page: $0, action: onBackPageTap) }
         
-        let homeAction = UIAction(title: "Home".localized) { [weak self] _ in
+        let homeAction = UIAction(title: Loc.home) { [weak self] _ in
             self?.onHomeTap()
         }
         openedItems.append(homeAction)
@@ -90,12 +90,12 @@ final class EditorBottomNavigationView: UIView {
     
     private func buildUIAction(page: BrowserPage, action: @escaping (BrowserPage) -> ()) -> UIAction {
         if #available(iOS 15.0, *) {
-            return UIAction(title: page.title ?? "Untitled".localized, subtitle: page.subtitle ?? "") { _ in
+            return UIAction(title: page.title ?? Loc.untitled, subtitle: page.subtitle ?? "") { _ in
                 UISelectionFeedbackGenerator().selectionChanged()
                 action(page)
             }
         } else {
-            return UIAction(title: page.title ?? "Untitled".localized) { _ in
+            return UIAction(title: page.title ?? Loc.untitled) { _ in
                 UISelectionFeedbackGenerator().selectionChanged()
                 action(page)
             }

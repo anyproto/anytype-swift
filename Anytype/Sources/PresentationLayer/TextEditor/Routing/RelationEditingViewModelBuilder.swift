@@ -64,7 +64,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         case .status(let status):
             return StatusRelationDetailsViewModel(
                 source: source,
-                selectedStatus: status.value,
+                selectedStatus: status.values.first,
                 allStatuses: status.allOptions,
                 relation: relation,
                 service: RelationsService(objectId: objectId)
@@ -129,8 +129,8 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
 private extension RelationEditingViewModelBuilder {
     
     enum Constants {
-        static let objectsOptionsPlaceholder = "Empty".localized
-        static let tagsOrFilesOptionsPlaceholder = "No related options here. You can add some".localized
+        static let objectsOptionsPlaceholder = Loc.empty
+        static let tagsOrFilesOptionsPlaceholder = Loc.noRelatedOptionsHere
     }
     
 }

@@ -27,7 +27,7 @@ struct WallpaperColorsGridView: View {
     }
     
     private var colorsSection: some View {
-        Section(header: PickerSectionHeaderView(title: "Solid colors".localized)) {
+        Section(header: PickerSectionHeaderView(title: Loc.solidColors)) {
             ForEach(CoverColor.allCases) { color in
                 colorView(color)
             }
@@ -35,7 +35,7 @@ struct WallpaperColorsGridView: View {
     }
     
     private var gradientsSection: some View {
-        Section(header: PickerSectionHeaderView(title: "Gradients".localized)) {
+        Section(header: PickerSectionHeaderView(title: Loc.gradients)) {
             ForEach(CoverGradient.allCases) { gradient in
                 gradientView(gradient)
             }

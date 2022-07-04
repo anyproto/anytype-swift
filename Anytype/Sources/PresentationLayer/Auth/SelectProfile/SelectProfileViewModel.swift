@@ -35,7 +35,7 @@ final class SelectProfileViewModel: ObservableObject {
         DispatchQueue.main.asyncAfter(deadline: .now() + 10) { [weak self] in
             guard let self = self, self.isAccountRecovering else { return }
             
-            self.snackBarData = .init(text: "Setting up encrypted storage\nPlease wait".localized, showSnackBar: true)
+            self.snackBarData = .init(text: Loc.settingUpEncryptedStoragePleaseWait, showSnackBar: true)
         }
     }
     
@@ -87,9 +87,9 @@ private extension SelectProfileViewModel {
             case .pendingDeletion(let deadline):
                 WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
             case .deleted:
-                self.errorText = "Account deleted".localized
+                self.errorText = Loc.accountDeleted
             case .none:
-                self.errorText = "Select account error".localized
+                self.errorText = Loc.selectAccountError
             }
         }
     }

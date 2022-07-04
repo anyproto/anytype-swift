@@ -6,30 +6,30 @@ extension SyncStatus {
     var title: String {
         switch self {
         case .unknown:
-            return "Preparing...".localized
+            return Loc.preparing
         case .offline:
-            return "No connection".localized
+            return Loc.noConnection
         case .syncing:
-            return "Syncing...".localized
+            return Loc.syncing
         case .synced:
-            return "Synced".localized
+            return Loc.synced
         case .failed:
-            return "Not syncing".localized
+            return Loc.notSyncing
         }
     }
     
     var description: String {
         switch self {
         case .unknown:
-            return "Initializing sync".localized
+            return Loc.initializingSync
         case .offline:
-            return "Anytype node is not connected".localized
+            return Loc.anytypeNodeIsNotConnected
         case .syncing:
-            return "Downloading or uploading data to some node".localized
+            return Loc.downloadingOrUploadingDataToSomeNode
         case .synced:
-            return "Backed up on one node at least".localized
+            return Loc.backedUpOnOneNodeAtLeast
         case .failed:
-            return "Failed to sync, trying again...".localized
+            return Loc.failedToSyncTryingAgain
         }
     }
     

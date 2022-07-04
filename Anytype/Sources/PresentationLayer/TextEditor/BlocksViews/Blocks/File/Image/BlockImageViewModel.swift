@@ -66,7 +66,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
     private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
             imageName: EmptyFileIconConstants.image,
-            text: "Upload a picture".localized,
+            text: Loc.uploadAPicture,
             state: state
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),

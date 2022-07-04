@@ -21,10 +21,10 @@ private extension StyleViewController {
             let title: BlockText.Style = selectedStyle == .title ? .title : .header
 
             return [
-                Item(kind: title, text: "Title".localized, font: .title),
-                Item(kind: .header2, text: "Heading".localized, font: .heading),
-                Item(kind: .header3, text: "Subheading".localized, font: .subheading),
-                Item(kind: .text, text: "Text".localized, font: UIFont.bodyRegular)
+                Item(kind: title, text: Loc.title, font: .title),
+                Item(kind: .header2, text: Loc.heading, font: .heading),
+                Item(kind: .header3, text: Loc.subheading, font: .subheading),
+                Item(kind: .text, text: Loc.text, font: UIFont.bodyRegular)
             ]
         }
     }
@@ -229,7 +229,7 @@ final class StyleViewController: UIViewController {
         setupAction(for: highlightedButton, with: .quote)
 
         let calloutImage = UIImage.imageWithText(
-            "Callout".localized,
+            Loc.callout,
         textColor: .textPrimary,
             backgroundColor: .backgroundSelected,
             font: .uxCalloutRegular,
@@ -436,7 +436,7 @@ private extension UIImage {
         nameLabel.textAlignment = .right
         nameLabel.textColor = .buttonSelected
         nameLabel.font = AnytypeFont.uxCalloutRegular.uiKitFont
-        nameLabel.text = "Highlight".localized
+        nameLabel.text = Loc.highlight
 
         let backgroundView = UIView(frame: .init(x: 9, y: 4, width: 0, height: 0))
         backgroundView.addSubview(nameLabel)

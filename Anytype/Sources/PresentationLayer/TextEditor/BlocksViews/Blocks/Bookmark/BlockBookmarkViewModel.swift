@@ -19,7 +19,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
         case .none:
             return BlocksFileEmptyViewConfiguration(
                 imageName: EmptyFileIconConstants.bookmark,
-                text: "Add a web bookmark".localized,
+                text: Loc.addAWebBookmark,
                 state: .default
             ).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),

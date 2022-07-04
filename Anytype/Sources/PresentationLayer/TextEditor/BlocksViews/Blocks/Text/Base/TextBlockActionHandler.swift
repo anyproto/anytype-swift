@@ -90,8 +90,9 @@ struct TextBlockActionHandler {
                 actionHandler.turnInto(style, blockId: info.id)
                 actionHandler.changeTextForced(newText, blockId: info.id)
                 textView.setFocus(.beginning)
-            case .setText:
-                break
+            case let .addBlock(type, newText):
+                actionHandler.changeTextForced(newText, blockId: info.id)
+                actionHandler.addBlock(type, blockId: info.id, position: .top)
             }
 
             return false
@@ -184,7 +185,7 @@ struct TextBlockActionHandler {
         }
 
         pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) {
-            showWaitingView("Paste processing...".localized)
+            showWaitingView(Loc.pasteProcessing)
         } completion: { pasteResult in
             defer {
                 hideWaitingView()

@@ -11,7 +11,7 @@ extension Relation {
         let isEditable: Bool
         let isBundled: Bool
         
-        let value: Option?
+        let values: [Option]
         let allOptions: [Option]
     }
     

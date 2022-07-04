@@ -6,7 +6,7 @@ struct WaitingOnCreatAccountView: View {
     var body: some View {
         VStack {
             WaitingView(
-                text: "Setting up the wallet".localized,
+                text: Loc.settingUpTheWallet,
                 showError: $viewModel.showError,
                 errorText: $viewModel.error,
                 onErrorTap: {

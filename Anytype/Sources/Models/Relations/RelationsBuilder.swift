@@ -157,7 +157,7 @@ private extension RelationsBuilder {
                     isFeatured: relationMetadata.isFeatured(details: details),
                     isEditable: relationMetadata.isEditable(objectLocked: isObjectLocked),
                     isBundled: relationMetadata.isBundled,
-                    value: "Unsupported value".localized
+                    value: Loc.unsupportedValue
                 )
             )
         }
@@ -274,7 +274,10 @@ private extension RelationsBuilder {
             
             return options.first { $0.id == optionId }
         }()
-        
+        var values = [Relation.Status.Option]()
+        if let selectedOption = selectedOption {
+            values.append(selectedOption)
+        }
         return .status(
             Relation.Status(
                 id: metadata.id,
@@ -282,7 +285,7 @@ private extension RelationsBuilder {
                 isFeatured: metadata.isFeatured(details: details),
                 isEditable: metadata.isEditable(objectLocked: isObjectLocked),
                 isBundled: metadata.isBundled,
-                value: selectedOption,
+                values: values,
                 allOptions: options
             )
         )
@@ -493,31 +496,31 @@ extension RelationMetadata.Format {
     var hint: String {
         switch self {
         case .longText:
-            return "Enter text".localized
+            return Loc.enterText
         case .shortText:
-            return "Enter text".localized
+            return Loc.enterText
         case .number:
-            return "Enter number".localized
+            return Loc.enterNumber
         case .date:
-            return "Enter date".localized
+            return Loc.enterDate
         case .url:
-            return "Enter URL".localized
+            return Loc.enterURL
         case .email:
-            return "Enter e-mail".localized
+            return Loc.enterEMail
         case .phone:
-            return "Enter phone".localized
+            return Loc.enterPhone
         case .status:
-            return "Select status".localized
+            return Loc.selectStatus
         case .tag:
-            return "Select tags".localized
+            return Loc.selectTags
         case .file:
-            return "Select files".localized
+            return Loc.selectFiles
         case .object:
-            return "Select objects".localized
+            return Loc.selectObjects
         case .checkbox:
             return ""
         case .unrecognized:
-            return "Enter value".localized
+            return Loc.enterValue
         }
     }
     

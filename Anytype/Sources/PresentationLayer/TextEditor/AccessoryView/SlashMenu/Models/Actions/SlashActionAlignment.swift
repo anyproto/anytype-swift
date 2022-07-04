@@ -20,11 +20,11 @@ enum SlashActionAlignment: CaseIterable {
     var title: String {
         switch self {
         case .left:
-            return "Align left".localized
+            return Loc.alignLeft
         case .center:
-            return "Align center".localized
+            return Loc.alignCenter
         case .right:
-            return "Align right".localized
+            return Loc.alignRight
         }
     }
     

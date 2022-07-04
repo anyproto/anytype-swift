@@ -14,11 +14,11 @@ extension DateRelationDetailsValue {
     
     var title: String {
         switch self {
-        case .noDate: return "No date".localized
-        case .today: return "Today".localized
-        case .yesterday: return "Yesterday".localized
-        case .tomorrow: return "Tomorrow".localized
-        case .exactDay: return "Exact day".localized
+        case .noDate: return Loc.noDate
+        case .today: return Loc.today
+        case .yesterday: return Loc.yesterday
+        case .tomorrow: return Loc.tomorrow
+        case .exactDay: return Loc.exactDay
         }
     }
     

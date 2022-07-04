@@ -61,7 +61,7 @@ struct HomeProfileView: View {
 
             }
             Button(action: {
-                model.snackBarData = .init(text: "Home.Snackbar.Library".localized, showSnackBar: true)
+                model.snackBarData = .init(text: Loc.Home.Snackbar.library, showSnackBar: true)
             }) {
                 HomeProfileViewButtonImage(
                     image: Image.main.marketplace.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
@@ -77,7 +77,7 @@ struct HomeProfileView: View {
     
     private func slogan(containerHeight: CGFloat) -> some View {
         Group {
-            AnytypeText("The future will be the one you build".localized, style: .title, color: .white)
+            AnytypeText(Loc.theFutureWillBeTheOneYouBuild, style: .title, color: .white)
                 .padding()
                 .multilineTextAlignment(.center)
                 .lineLimit(nil)

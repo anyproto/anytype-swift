@@ -51,7 +51,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     private func showUnsupportedTypeAlert(typeUrl: String) {
-        let typeName = ObjectTypeProvider.shared.objectType(url: typeUrl)?.name ?? "Unknown".localized
+        let typeName = ObjectTypeProvider.shared.objectType(url: typeUrl)?.name ?? Loc.unknown
         
         AlertHelper.showToast(
             title: "Not supported type \"\(typeName)\"",
@@ -184,7 +184,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
         
         let moveToView = NewSearchModuleAssembly.moveToObjectSearchModule(
-            title: "Move to".localized,
+            title: Loc.moveTo,
             excludedObjectIds: [document.objectId]
         ) { [weak self] blockId in
             onSelect(blockId)
@@ -198,7 +198,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let viewModel = LinkToObjectSearchViewModel { data in
             onSelect(data.searchKind)
         }
-        let linkToView = SearchView(title: "Link to".localized, context: .menuSearch, viewModel: viewModel)
+        let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
 
         presentSwiftUIView(view: linkToView, model: viewModel)
     }
@@ -207,7 +207,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let viewModel = ObjectSearchViewModel { data in
             onSelect(data.blockId)
         }
-        let linkToView = SearchView(title: "Link to".localized, context: .menuSearch, viewModel: viewModel)
+        let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
         
         presentSwiftUIView(view: linkToView, model: viewModel)
     }
@@ -238,7 +238,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     
     func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
         let view = NewSearchModuleAssembly.objectTypeSearchModule(
-            title: "Change type".localized,
+            title: Loc.changeType,
             excludedObjectTypeId: document.details?.type
         ) { [weak self] id in
             onSelect(id)
@@ -440,8 +440,6 @@ extension EditorRouter {
 extension EditorRouter {
 
     func showCreateObject(pageId: BlockId) {
-        guard let viewController = viewController else { return }
-
         let relationService = RelationsService(objectId: pageId)
         let viewModel = CreateObjectViewModel(relationService: relationService) { [weak self] in
             self?.viewController?.topPresentedController.dismiss(animated: true)
@@ -450,17 +448,27 @@ extension EditorRouter {
             self?.viewController?.topPresentedController.dismiss(animated: true)
         }
         
-        let view = CreateObjectView(viewModel: viewModel)
-        let fpc = AnytypePopup(contentView: view,
-                               floatingPanelStyle: true,
-                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true ))
-
-        viewController.topPresentedController.present(fpc, animated: true) {
-            view.becomeFirstResponder()
-        }
+        showCreateObject(with: viewModel)
     }
     
-    func showSortsSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void) {
+    func showCreateBookmarkObject() {
+        let viewModel = CreateBookmarkViewModel(
+            bookmarkService: BookmarkService(),
+            closeAction: { [weak self] withError in
+                self?.viewController?.topPresentedController.dismiss(animated: true, completion: {
+                    guard withError else { return }
+                    AlertHelper.showToast(
+                        title: Loc.Set.Bookmark.Error.title,
+                        message: Loc.Set.Bookmark.Error.message
+                    )
+                })
+            }
+        )
+        
+        showCreateObject(with: viewModel)
+    }
+    
+    func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void) {
         let vc = UIHostingController(
             rootView: NewSearchModuleAssembly.setSortsSearchModule(
                 relations: relations,
@@ -517,6 +525,19 @@ extension EditorRouter {
                 .environmentObject(setModel)
         )
         presentSheet(vc)
+    }
+    
+    private func showCreateObject(with viewModel: CreateObjectViewModelProtocol) {
+        guard let viewController = viewController else { return }
+        
+        let view = CreateObjectView(viewModel: viewModel)
+        let fpc = AnytypePopup(contentView: view,
+                               floatingPanelStyle: true,
+                               configuration: .init(isGrabberVisible: true, dismissOnBackdropView: true ))
+
+        viewController.topPresentedController.present(fpc, animated: true) {
+            _ = view.becomeFirstResponder()
+        }
     }
     
     private func showSetSettingsPopup(setModel: EditorSetViewModel) {

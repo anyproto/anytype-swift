@@ -51,12 +51,12 @@ struct ObjectPreviewModel {
 
     private static func buildRealtions(linkApperance: BlockLink.Appearance) -> [ListItem] {
         let nameRelation = Relation(key: BundledRelationKey.name.rawValue,
-                                    name: "Name".localized,
+                                    name: Loc.name,
                                     iconName: RelationMetadata.Format.shortText.iconName,
                                     isLocked: true,
                                     isEnabled: linkApperance.relations.contains(.name))
         let typeRelation = Relation(key: BundledRelationKey.type.rawValue,
-                                    name: "LinkAppearance.ObjectType.Title".localized,
+                                    name: Loc.LinkAppearance.ObjectType.title,
                                     iconName: RelationMetadata.Format.object.iconName,
                                     isLocked: false,
                                     isEnabled: linkApperance.relations.contains(.type))
@@ -122,11 +122,11 @@ extension ObjectPreviewModel {
         var name: String {
             switch self {
             case .none:
-                return "None".localized
+                return Loc.none
             case .small:
-                return "Small".localized
+                return Loc.small
             case .medium:
-                return "Medium".localized
+                return Loc.medium
             }
         }
 
@@ -163,9 +163,9 @@ extension ObjectPreviewModel {
         var name: String {
             switch self {
             case .text:
-                return "Text".localized
+                return Loc.text
             case .card:
-                return "Card".localized
+                return Loc.card
             }
         }
 
@@ -209,11 +209,11 @@ extension ObjectPreviewModel {
         var name: String {
             switch self {
             case .none:
-                return "LinkAppearance.Description.None.Title".localized
+                return Loc.LinkAppearance.Description.None.title
             case .added:
-                return "LinkAppearance.Description.Added.Title".localized
+                return Loc.LinkAppearance.Description.Added.title
             case .content:
-                return "LinkAppearance.Description.Content.Title".localized
+                return Loc.LinkAppearance.Description.Content.title
             }
         }
 
@@ -224,11 +224,11 @@ extension ObjectPreviewModel {
         var subtitle: String {
             switch self {
             case .none:
-                return "LinkAppearance.Description.None.Subtitle".localized
+                return Loc.LinkAppearance.Description.None.subtitle
             case .added:
-                return "LinkAppearance.Description.Added.Subtitle".localized
+                return Loc.LinkAppearance.Description.Added.subtitle
             case .content:
-                return "LinkAppearance.Description.Content.Subtitle".localized
+                return Loc.LinkAppearance.Description.Content.subtitle
             }
         }
     }

@@ -119,7 +119,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         )
         
         let viewModel = NewSearchViewModel(
-            title: "Limit object types".localized,
+            title: Loc.limitObjectTypes,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,
             onSelect: onSelect
@@ -164,7 +164,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         let internalViewModel = SetSortsSearchViewModel(interactor: interactor)
         
         let viewModel = NewSearchViewModel(
-            searchPlaceholder: "EditSorts.Popup.Sort.Add.SearchPlaceholder".localized,
+            searchPlaceholder: Loc.EditSorts.Popup.Sort.Add.searchPlaceholder,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,
             onSelect: { ids in
