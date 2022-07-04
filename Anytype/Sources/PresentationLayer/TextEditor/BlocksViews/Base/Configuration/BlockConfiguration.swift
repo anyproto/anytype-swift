@@ -3,6 +3,8 @@ import UIKit
 protocol BlockConfiguration: Hashable, Dequebale where View.Configuration == Self {
     associatedtype View: BlockContentView
 
+    var hasOwnBackground: Bool { get }
+
     var isAnimationEnabled: Bool { get }
     var contentInsets: UIEdgeInsets { get }
 }
@@ -30,6 +32,8 @@ extension Dequebale where Self: BlockConfiguration {
 }
 
 extension BlockConfiguration {
+    var hasOwnBackground: Bool { false }
+
     var contentInsets: UIEdgeInsets { .init(top: 2, left: 20, bottom: -2, right: -20) }
 
     var isAnimationEnabled: Bool { true }

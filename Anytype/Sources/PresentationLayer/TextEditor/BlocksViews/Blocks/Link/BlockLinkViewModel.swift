@@ -43,7 +43,7 @@ struct BlockLinkViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
         let backgroundColor = info.backgroundColor.map {
             UIColor.Background.uiColor(from: $0)
-        } ?? .clear
+        }
 
         return BlockLinkContentConfiguration(state: state, backgroundColor: backgroundColor)
             .cellBlockConfiguration(

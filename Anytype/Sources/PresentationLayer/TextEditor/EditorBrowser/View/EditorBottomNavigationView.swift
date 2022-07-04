@@ -57,6 +57,7 @@ final class EditorBottomNavigationView: UIView {
             }
         ) {
             $0.hStack(
+                alignedTo: .center,
                 distributedTo: .equalSpacing,
                 [
                     homeButton,
