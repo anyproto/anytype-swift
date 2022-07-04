@@ -12,7 +12,7 @@ final class URLInputView: UIView {
         textField.clearButtonMode = .always
         textField.setContentHuggingPriority(.defaultLow, for: .horizontal)
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Paste or type URL".localized,
+            string: Loc.pasteOrTypeURL,
             attributes: [
                 .font: UIFont.uxBodyRegular,
                 .foregroundColor: UIColor.textSecondary
@@ -25,12 +25,12 @@ final class URLInputView: UIView {
         let button = UIButton(type: .system)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setAttributedTitle(NSAttributedString(
-                                    string: "Done".localized,
+                                    string: Loc.done,
                                     attributes: [.font: UIFont.uxBodyRegular,
                                                  .foregroundColor: UIColor.System.amber]),
                                   for: .normal)
         button.setAttributedTitle(NSAttributedString(
-                                    string: "Done".localized,
+                                    string: Loc.done,
                                     attributes: [.font: UIFont.uxBodyRegular,
                                                  .foregroundColor: UIColor.Background.amber]),
                                   for: .disabled)

@@ -107,6 +107,10 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
                 guard let self = self else { return }
                 guard let id = self.dashboardService.createNewPage() else { return }
                 
+                AnytypeAnalytics.instance().logCreateObjectNavBar(
+                    objectType: ObjectTypeProvider.shared.defaultObjectType.url
+                )
+                
                 self.router.showPage(data: EditorScreenData(pageId: id, type: .page))
             }
         )

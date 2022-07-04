@@ -39,6 +39,7 @@ extension Image {
         static let draft = createImage("draft")
         static let search = createImage("main_search")
         static let settings = createImage("main_settings")
+        static let marketplace = createImage("marketplace")
         static let selection = createImage("selection")
     }
     

@@ -30,7 +30,7 @@ struct RelationObjectsRowView: View {
     private var text: some View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeText(
-                object.isDeleted ? "Non-existent object".localized : object.title,
+                object.isDeleted ? Loc.nonExistentObject : object.title,
                 style: .previewTitle2Medium,
                 color: titleColor
             )
@@ -39,7 +39,7 @@ struct RelationObjectsRowView: View {
             Spacer.fixedHeight(1)
             
             AnytypeText(
-                object.isDeleted ? "Deleted".localized : object.type,
+                object.isDeleted ? Loc.deleted : object.type,
                 style: .relation2Regular,
                 color: subtitleColor
             )

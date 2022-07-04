@@ -25,7 +25,7 @@ final class NewSearchViewModel: ObservableObject {
     
     init(
         title: String? = nil,
-        searchPlaceholder: String = "Search".localized,
+        searchPlaceholder: String = Loc.search,
         itemCreationMode: ItemCreationMode,
         internalViewModel: NewInternalSearchViewModelProtocol,
         onSelect: @escaping (_ ids: [String]) -> Void

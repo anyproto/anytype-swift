@@ -52,7 +52,7 @@ final class AuthService: AuthServiceProtocol {
 
     func createAccount(name: String, imagePath: String, alphaInviteCode: String) -> Result<Void, CreateAccountServiceError> {
         let result = Anytype_Rpc.Account.Create.Service
-            .invoke(name: name, avatar: .avatarLocalPath(imagePath), alphaInviteCode: alphaInviteCode)
+            .invoke(name: name, avatar: .avatarLocalPath(imagePath), storePath: "", alphaInviteCode: alphaInviteCode)
         
         switch result {
         case .success(let response):

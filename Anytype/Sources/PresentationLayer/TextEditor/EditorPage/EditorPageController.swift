@@ -265,6 +265,12 @@ extension EditorPageController: EditorPageViewInput {
         applyBlocksSectionSnapshot(blocksSnapshot, animatingDifferences: animatingDifferences)
     }
 
+    func scrollToBlock(blockId: BlockId) {
+        guard let item = dataSourceItem(for: blockId),
+              let indexPath = dataSource.indexPath(for: item) else { return }
+        collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+    }
+    
     func selectBlock(blockId: BlockId) {
         if let item = dataSourceItem(for: blockId),
             let indexPath = dataSource.indexPath(for: item) {

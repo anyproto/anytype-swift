@@ -61,7 +61,7 @@ class CursorModeAccessoryView: UIView {
             }
         }
 
-        addBarButtonItem(title: "Done".localized) { [weak self] _ in
+        addBarButtonItem(title: Loc.done) { [weak self] _ in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.viewModel.handle(.keyboardDismiss)
         }

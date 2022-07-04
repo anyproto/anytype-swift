@@ -52,12 +52,12 @@ struct MainAuthView: View {
     
     private var analyticsConsentView: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText("On analytics".localized, style: .heading, color: .textPrimary)
+            AnytypeText(Loc.onAnalytics, style: .heading, color: .textPrimary)
             Spacer.fixedHeight(11)
-            AnytypeText("Analytics constent text".localized, style: .uxCalloutRegular, color: .textPrimary)
+            AnytypeText(Loc.analyticsConstentText, style: .uxCalloutRegular, color: .textPrimary)
                 .padding(.trailing, 5)
             Spacer.fixedHeight(18)
-            StandardButton(text: "Start".localized, style: .primary) {
+            StandardButton(text: Loc.start, style: .primary) {
                 UISelectionFeedbackGenerator().selectionChanged()
                 withAnimation(.fastSpring) {
                     userAnalyticsConsent = true
@@ -71,9 +71,9 @@ struct MainAuthView: View {
     
     private var standartContent: some View {
         VStack(alignment: .leading, spacing: 0) {
-            AnytypeText("Welcome to Anytype".localized, style: .heading, color: .textPrimary)
+            AnytypeText(Loc.welcomeToAnytype, style: .heading, color: .textPrimary)
             Spacer.fixedHeight(11)
-            AnytypeText("OrganizeEverythingDescription".localized, style: .uxCalloutRegular, color: .textPrimary)
+            AnytypeText(Loc.organizeEverythingDescription, style: .uxCalloutRegular, color: .textPrimary)
             Spacer.fixedHeight(18)
             buttons
         }
@@ -81,12 +81,12 @@ struct MainAuthView: View {
     
     private var buttons: some View {
         HStack(spacing: 10) {
-            StandardButton(text: "Sign up".localized, style: .secondary) {
+            StandardButton(text: Loc.signUp, style: .secondary) {
                 viewModel.singUp()
             }
             
             NavigationLink(destination: viewModel.loginView()) {
-                StandardButtonView(text: "Login".localized, style: .primary)
+                StandardButtonView(text: Loc.login, style: .primary)
             }
             .buttonStyle(ShrinkingButtonStyle())
         }

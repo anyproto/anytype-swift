@@ -66,8 +66,9 @@ final class BlockViewModelBuilder {
                         middleware: info.fields[CodeBlockFields.FieldName.codeLanguage]?.stringValue
                     ),
                     becomeFirstResponder: { _ in },
-                    textDidChange: { block, textView in
-                        self.handler.changeText(textView.attributedText, info: info)
+                    textDidChange: { [weak self] block, textView in
+                        self?.handler.changeText(textView.attributedText, info: info)
+                        self?.delegate.textBlockSetNeedsLayout()
                     },
                     showCodeSelection: { [weak self] info in
                         self?.router.showCodeLanguageView(languages: CodeLanguage.allCases) { language in
@@ -222,7 +223,16 @@ final class BlockViewModelBuilder {
                 self?.router.showRelationValueEditingView(key: relation.id, source: .object)
             }
         case .tableOfContents:
-            return TableOfContentsViewModel(info: info)
+            return TableOfContentsViewModel(
+                info: info,
+                document: document,
+                onTap: { [weak self] blockId in
+                    self?.delegate.scrollToBlock(blockId: blockId)
+                },
+                blockSetNeedsLayout: { [weak self] in
+                    self?.delegate.textBlockSetNeedsLayout()
+                }
+            )
         case .smartblock, .layout, .dataView, .tableRow, .tableColumn: return nil
         case .table:
             guard FeatureFlags.isSimpleTablesAvailable else {
@@ -237,7 +247,7 @@ final class BlockViewModelBuilder {
             else {
                 return nil
             }
-            
+
             return UnsupportedBlockViewModel(info: info)
         }
     }

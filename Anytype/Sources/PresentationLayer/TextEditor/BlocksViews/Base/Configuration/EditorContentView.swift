@@ -141,8 +141,11 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
         blockContentInsets.left = blockContentInsets.left + parentIndentaionPadding
 
-
-        contentStackView.backgroundColor = indentationSettings?.relativeBackgroundColor
+        if blockConfiguration.hasOwnBackground {
+            contentStackView.backgroundColor = nil
+        } else {
+            contentStackView.backgroundColor = indentationSettings?.relativeBackgroundColor
+        }
 
         guard blockConfiguration.isAnimationEnabled else {
             contentConstraints?.update(with: blockContentInsets)
@@ -159,7 +162,6 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     }
 
     private func update(with indentationSettings: IndentationSettings) {
-        contentStackView.backgroundColor = indentationSettings.relativeBackgroundColor
         backgroundColorsStackView.axis = .horizontal
         backgroundColorsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         indentationViews.forEach { $0.removeFromSuperview() }
@@ -202,7 +204,9 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
         let lastBackgroundColor = indentationSettings.backgroundColor ?? indentationSettings.parentBlocksInfo.last.flatMap { $0.color }
 
-        addBackgroundColorView(color: lastBackgroundColor, width: nil)
+        if !blockConfiguration.hasOwnBackground {
+            addBackgroundColorView(color: lastBackgroundColor, width: nil)
+        }
     }
 
     private func shouldMakeAdditionalPadding(for style: BlockIndentationStyle) -> Bool {
@@ -355,6 +359,8 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
         item.previewProvider = { dragPreview }
 
+        UIImpactFeedbackGenerator(style: .light).impactOccurred()
+        
         return [item]
     }
 }

@@ -9,7 +9,7 @@ struct SettingsAppearanceView: View {
             DragIndicator()
             
             Spacer.fixedHeight(12)
-            AnytypeText("Appearance".localized, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(Loc.appearance, style: .uxTitle1Semibold, color: .textPrimary)
             Spacer.fixedHeight(12)
             
             wallpaper
@@ -28,7 +28,7 @@ struct SettingsAppearanceView: View {
     
     private var wallpaper: some View {
         SettingsSectionItemView(
-            name: "Wallpaper".localized,
+            name: Loc.wallpaper,
             icon: .settings.wallpaper,
             pressed: $model.wallpaperPicker
         )
@@ -40,7 +40,7 @@ struct SettingsAppearanceView: View {
 
     private var appearanceType: some View {
         VStack(alignment: .center) {
-            AnytypeText("Mode".localized, style: .caption1Medium, color: .textSecondary)
+            AnytypeText(Loc.mode, style: .caption1Medium, color: .textSecondary)
                 .frame(alignment: .center)
             HStack() {
                 ForEach(UIUserInterfaceStyle.allCases) { style in
@@ -72,7 +72,7 @@ struct SettingsAppearanceView: View {
                 .padding(.bottom, 8)
 
             AnytypeText(
-                style.title.localized,
+                style.title,
                 style: .caption2Regular,
                 color: .textSecondary
             ).frame(maxWidth: .infinity)
@@ -81,7 +81,7 @@ struct SettingsAppearanceView: View {
 
     private var iconPicker: some View {
         VStack(alignment: .center) {
-            AnytypeText("Application icon".localized, style: .caption1Medium, color: .textSecondary).padding(.bottom, 6)
+            AnytypeText(Loc.applicationIcon, style: .caption1Medium, color: .textSecondary).padding(.bottom, 6)
             HStack {
                 ForEach(AppIcon.allCases, id: \.self) { icon in
                     appIcon(icon)
@@ -123,7 +123,7 @@ struct SettingsAppearanceView: View {
     var clearCache: some View {
         Button(action: { model.clearCacheAlert = true }) {
             HStack(spacing: 0) {
-                AnytypeText("Clear file cache".localized, style: .uxBodyRegular, color: Color.System.red)
+                AnytypeText(Loc.clearFileCache, style: .uxBodyRegular, color: Color.System.red)
                 Spacer()
             }
             .padding(.vertical, 14)

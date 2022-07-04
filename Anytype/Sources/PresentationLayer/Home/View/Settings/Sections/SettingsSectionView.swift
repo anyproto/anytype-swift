@@ -7,25 +7,25 @@ struct SettingsSectionView: View {
     var body: some View {
         VStack(spacing: 0) {
             SettingsSectionItemView(
-                name: "Account & data".localized,
+                name: Loc.accountData,
                 icon: .settings.account,
                 pressed: $viewModel.account
             )
             
             SettingsSectionItemView(
-                name: "Personalization".localized,
+                name: Loc.personalization,
                 icon: .settings.personalization,
                 pressed: $viewModel.personalization
             )
             
             SettingsSectionItemView(
-                name: "Appearance".localized,
+                name: Loc.appearance,
                 icon: .settings.appearance,
                 pressed: $viewModel.appearance
             )
 
             SettingsSectionItemView(
-                name: "About".localized,
+                name: Loc.about,
                 icon: .settings.about,
                 pressed: $viewModel.about
             )

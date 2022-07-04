@@ -1,5 +1,5 @@
 import BlocksModels
-
+import AnytypeCore
 
 enum ObjectAction: Hashable, Identifiable {
     // NOTE: When adding new case here, it case MUST be added in allCasesWith method
@@ -23,7 +23,10 @@ enum ObjectAction: Hashable, Identifiable {
         }
 
         allCases.append(.favorite(isFavorite: details.isFavorite))
-        allCases.append(.duplicate)
+        
+        if FeatureFlags.isObjectDuplicateAvailable, !objectRestrictions.objectRestriction.contains(.duplicate) {
+            allCases.append(.duplicate)
+        }
         
         if details.objectType.url != ObjectTypeUrl.bundled(.set).rawValue {
             allCases.append(.undoRedo)

@@ -4,18 +4,20 @@ enum RelationStyle: Hashable {
     case regular(allowMultiLine: Bool)
     case featuredRelationBlock(allowMultiLine: Bool)
     case set
+    case filter
 }
 
 enum RelationPlaceholderType {
     case hint
     case empty
+    case emptyHint
 }
 
 extension RelationStyle {
     
     var font: AnytypeFont {
         switch self {
-        case .regular:
+        case .regular, .filter:
             return .relation1Regular
         case .set:
             return .relation2Regular
@@ -28,7 +30,7 @@ extension RelationStyle {
         switch self {
         case .regular, .set:
             return .textPrimary
-        case .featuredRelationBlock:
+        case .featuredRelationBlock, .filter:
             return .textSecondary
         }
     }
@@ -37,7 +39,7 @@ extension RelationStyle {
         switch self {
         case .regular, .set:
             return .textPrimary
-        case .featuredRelationBlock:
+        case .featuredRelationBlock, .filter:
             return .textSecondary
         }
     }
@@ -48,7 +50,7 @@ extension RelationStyle {
             return value
         case let .featuredRelationBlock(value):
             return value
-        case .set:
+        case .set, .filter:
             return false
         }
     }
@@ -59,6 +61,8 @@ extension RelationStyle {
             return .hint
         case .set:
             return .empty
+        case .filter:
+            return .emptyHint
         }
     }
     
@@ -68,6 +72,8 @@ extension RelationStyle {
             return .callout
         case .featuredRelationBlock:
             return .relation2Regular
+        case .filter:
+            return .relation1Regular
         }
     }
     
@@ -76,14 +82,14 @@ extension RelationStyle {
         switch self {
         case .regular, .set:
             return TagView.Guidlines(textPadding: 6, cornerRadius: 5, tagHeight: Constants.size20.height)
-        case .featuredRelationBlock:
+        case .featuredRelationBlock, .filter:
             return TagView.Guidlines(textPadding: 4, cornerRadius: 4, tagHeight: Constants.size18.height)
         }
     }
 
     var objectRelationStyle: ObjectRelationView.ObjectRelationStyle {
         switch self {
-        case .regular, .set:
+        case .regular, .set, .filter:
             return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 8, hSpaсingObject: 6, size: Constants.size20)
         case .featuredRelationBlock:
             return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: Constants.size18)
@@ -92,7 +98,7 @@ extension RelationStyle {
     
     var checkboxSize: CGSize {
         switch self {
-        case .regular, .set:
+        case .regular, .set, .filter:
             return Constants.size20
         case .featuredRelationBlock:
             return Constants.size18
@@ -101,12 +107,10 @@ extension RelationStyle {
     
     var objectIconImageUsecase: ObjectIconImageUsecase {
         switch self {
-        case .regular:
+        case .regular, .set:
             return .mention(.body)
-        case .featuredRelationBlock:
+        case .featuredRelationBlock, .filter:
             return .featuredRelationsBlock
-        case .set:
-            return .mention(.body)
         }
     }
     

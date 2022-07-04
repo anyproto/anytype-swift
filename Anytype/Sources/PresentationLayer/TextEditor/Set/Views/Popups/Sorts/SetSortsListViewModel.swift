@@ -9,9 +9,16 @@ final class SetSortsListViewModel: ObservableObject {
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
     
-    private(set) var popupLayout = AnytypePopupLayoutType.sortOptions
-    private weak var popup: AnytypePopupProxy?
-
+    var rows: [SetSortRowConfiguration] {
+        setModel.sorts.map {
+            SetSortRowConfiguration(
+                id: $0.id,
+                title: $0.metadata.name,
+                subtitle: $0.typeTitle(),
+                iconName: $0.metadata.format.iconName
+            )
+        }
+    }
     
     init(
         setModel: EditorSetViewModel,
@@ -30,12 +37,15 @@ extension SetSortsListViewModel {
     // MARK: - Routing
     
     func addButtonTapped() {
-        router.showSortsSearch(relations: setModel.relations) { [weak self] key in
+        router.showRelationSearch(relations: setModel.relations) { [weak self] key in
             self?.addNewSort(with: key)
         }
     }
     
-    func sortRowTapped(_ setSort: SetSort) {
+    func rowTapped(_ id: String) {
+        guard let setSort = setModel.sorts.first(where: { $0.id == id }) else {
+            return
+        }
         let view = CheckPopupView(viewModel: SetSortTypesListViewModel(
             sort: setSort,
             onSelect: { [weak self] sort in
@@ -98,21 +108,4 @@ extension SetSortsListViewModel {
         let newView = setModel.activeView.updated(sorts: dataviewSorts)
         service.updateView(newView)
     }
-}
-
-extension SetSortsListViewModel: AnytypePopupViewModelProtocol {
-    
-    func makeContentView() -> UIViewController {
-        UIHostingController(
-            rootView:
-                SetSortsListView()
-                .environmentObject(self)
-                .environmentObject(setModel)
-        )
-    }
-    
-    func onPopupInstall(_ popup: AnytypePopupProxy) {
-        self.popup = popup
-    }
-    
 }

@@ -53,13 +53,27 @@ struct TagRelationView: View {
     }
 
     private func moreTagsView(count: Int) -> some View {
-        let leftTagsCount = "+\(count)"
+        Group {
+            let leftTagsCount = "+\(count)"
 
-        return AnytypeText(leftTagsCount, style: .relation2Regular, color: .textSecondary)
-            .lineLimit(1)
-            .frame(width: 24, height: 18)
-            .background(Color.strokeTertiary)
-            .cornerRadius(3)
+            switch style {
+            case .regular, .featuredRelationBlock, .set:
+                AnytypeText(leftTagsCount, style: .relation2Regular, color: .textSecondary)
+                    .lineLimit(1)
+                    .frame(width: 24, height: 18)
+                    .background(Color.strokeTertiary)
+                    .cornerRadius(3)
+            case .filter:
+                TagView(
+                    viewModel: TagView.Model(
+                        text: leftTagsCount,
+                        textColor: .textSecondary,
+                        backgroundColor: UIColor.TagBackground.grey
+                    ),
+                    style: style
+                )
+            }
+        }
     }
 }
 
@@ -69,12 +83,13 @@ private extension TagRelationView {
         switch style {
         case .regular, .set: return 0
         case .featuredRelationBlock: return 3
+        case .filter: return 1
         }
     }
     
     private var hSpacing: CGFloat {
         switch style {
-        case .regular, .set: return 8
+        case .regular, .set, .filter: return 8
         case .featuredRelationBlock: return 6
         }
     }

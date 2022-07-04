@@ -14,8 +14,12 @@ public enum Feature: String, Codable {
     case setSorts = "Set sorts"
     case setFilters = "Set filters"
     case tableOfContents = "Table of contents"
+<<<<<<< HEAD
     case floatingSetMenu = "Floating Set menu"
     case simpleTables = "Simple tables"
+=======
+    case objectDuplicate = "Object duplicate"
+>>>>>>> a5303323eccc0843b5b6ea8d94eb8b7fe40b9506
 }
 
 public final class FeatureFlags {
@@ -41,15 +45,16 @@ public final class FeatureFlags {
         .clipboard: true,
         .uikitRelationBlocks: true,
         .objectPreview: false,
-        .deletion: false,
+        .deletion: true,
         .createNewRelation: true,
         .templates: true,
         .createObjectInSet: true,
-        .setSorts: true,
+        .setSorts: false,
         .setFilters: false,
         .tableOfContents: false,
         .floatingSetMenu: false,
-        .simpleTables: false
+        .simpleTables: false,
+        .objectDuplicate: true
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -90,7 +95,7 @@ public extension FeatureFlags {
     }
     
     static var deletion: Bool {
-        features[.deletion, default: false]
+        features[.deletion, default: true]
     }
     
     static var createNewRelation: Bool {
@@ -106,7 +111,7 @@ public extension FeatureFlags {
     }
     
     static var isSetSortsAvailable: Bool {
-        features[.setSorts, default: true]
+        features[.setSorts, default: false]
     }
     
     static var isSetFiltersAvailable: Bool {
@@ -119,5 +124,9 @@ public extension FeatureFlags {
 
     static var isSimpleTablesAvailable: Bool {
         features[.simpleTables, default: false]
+    }
+    
+    static var isObjectDuplicateAvailable: Bool {
+        features[.objectDuplicate, default: true]
     }
 }

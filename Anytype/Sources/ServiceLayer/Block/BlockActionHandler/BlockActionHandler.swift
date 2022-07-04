@@ -227,6 +227,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         return service.createPage(targetId: targetId, type: type, position: position)
     }
 
+
     func createTable(
         blockId: BlockId,
         rowsCount: Int,
@@ -244,10 +245,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         )
     }
 
-    func addBlock(_ type: BlockContentType, blockId: BlockId) {
-        guard let info = document.infoContainer.get(id: blockId) else { return }
-        let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
 
+    func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?) {
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead", domain: .blockActionsService)
             return
@@ -255,6 +254,9 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             
         guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
 
+        guard let info = document.infoContainer.get(id: blockId) else { return }
+        
+        let position: BlockPosition = info.isTextAndEmpty ? .replace : (position ?? .bottom)
 
         service.add(info: newBlock, targetBlockId: info.id, position: position)
     }

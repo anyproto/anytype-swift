@@ -11,7 +11,7 @@ enum ButtonsFactory {
         })
         backButton.setAttributedTitle(
             NSAttributedString(
-                string: "Back".localized,
+                string: Loc.back,
                 attributes: [.font: UIFont.caption1Regular]
             ),
             for: .normal
@@ -35,8 +35,8 @@ enum ButtonsFactory {
         return backButton
     }
     
-    static func makeButton(image: UIImage? = nil, text: String? = nil) -> ButtonWithImage {
-        let button = ButtonWithImage()
+    static func makeButton(image: UIImage? = nil, text: String? = nil, textStyle: ButtonWithImage.TextStyle = .default) -> ButtonWithImage {
+        let button = ButtonWithImage(textStyle: textStyle)
         button.setImage(image)
         button.setText(text ?? "")
         button.setBackgroundColor(.clear, state: .normal)

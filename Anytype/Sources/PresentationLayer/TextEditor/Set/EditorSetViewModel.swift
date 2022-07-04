@@ -63,6 +63,17 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
+    var filters: [SetFilter] {
+        activeView.filters.compactMap { filter in
+            let metadata = dataView.relations.first { relation in
+                filter.relationKey == relation.key
+            }
+            guard let metadata = metadata else { return nil }
+            
+            return SetFilter(metadata: metadata, filter: filter)
+        }
+    }
+    
     let document: BaseDocument
     private var router: EditorRouterProtocol!
 
@@ -194,6 +205,10 @@ final class EditorSetViewModel: ObservableObject {
         FeatureFlags.isSetSortsAvailable ||
         FeatureFlags.isSetFiltersAvailable
     }
+    
+    private func isBookmarkObject() -> Bool {
+        dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
+    }
 }
 
 // MARK: - Routing
@@ -229,32 +244,18 @@ extension EditorSetViewModel {
     
     func showSetSettings() {
         if isFloatingSetMenuAvailable() {
-            router.presentFullscreen(
-                AnytypePopup(
-                    viewModel: EditorSetSettingsViewModel(setModel: self),
-                    floatingPanelStyle: true,
-                    configuration: .init(
-                        isGrabberVisible: false,
-                        dismissOnBackdropView: false,
-                        skipThroughGestures: true
-                    )
-                )
-            )
+            router.showSetSettings(setModel: self)
         } else {
             showViewSettings()
         }
     }
 
     func createObject() {
-        let availableTemplates = searchService.searchTemplates(
-            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
-        )
-        let hasSingleTemplate = availableTemplates?.count == 1
-        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
-
-        guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
-        
-        router.showCreateObject(pageId: objectDetails.id)
+        if isBookmarkObject() {
+            createBookmarkObject()
+        } else {
+            createDefaultObject()
+        }
     }
     
     func showViewSettings() {
@@ -269,18 +270,18 @@ extension EditorSetViewModel {
     }
     
     func showSorts() {
-        router.presentFullscreen(
-            AnytypePopup(
-                viewModel: SetSortsListViewModel(
-                    setModel: self,
-                    service: dataviewService,
-                    router: router
-                )
-            )
+        router.showSorts(
+            setModel: self,
+            dataviewService: dataviewService
         )
     }
     
-    func showFilters() {}
+    func showFilters() {
+        router.showFilters(
+            setModel: self,
+            dataviewService: dataviewService
+        )
+    }
     
     func showObjectSettings() {
         router.showSettings()
@@ -288,5 +289,21 @@ extension EditorSetViewModel {
     
     func showAddNewRelationView(onSelect: @escaping (RelationMetadata, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
+    }
+    
+    private func createDefaultObject() {
+        let availableTemplates = searchService.searchTemplates(
+            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
+        )
+        let hasSingleTemplate = availableTemplates?.count == 1
+        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+
+        guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
+        
+        router.showCreateObject(pageId: objectDetails.id)
+    }
+    
+    private func createBookmarkObject() {
+        router.showCreateBookmarkObject()
     }
 }

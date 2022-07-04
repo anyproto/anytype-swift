@@ -79,30 +79,30 @@ private extension DetailsLayout {
     var title: String {
         switch self {
         case .basic:
-            return "Basic".localized
+            return Loc.basic
         case .profile:
-            return "Profile".localized
+            return Loc.profile
         case .todo:
-            return "Task".localized
+            return Loc.task
         case .note:
-            return "Note".localized
+            return Loc.note
         case .set:
-            return "Set".localized
+            return Loc.set
         }
     }
     
     var description: String {
         switch self {
         case .basic:
-            return "Standard layout for canvas blocks".localized
+            return Loc.standardLayoutForCanvasBlocks
         case .profile:
-            return "Companies, contacts, friends and family".localized
+            return Loc.companiesContactsFriendsAndFamily
         case .todo:
-            return "Action-focused layout with a checkbox".localized
+            return Loc.actionFocusedLayoutWithACheckbox
         case .note:
-            return "Designed to capture thoughts quickly".localized
+            return Loc.designedToCaptureThoughtsQuickly
         case .set:
-            return "Collection of objects".localized
+            return Loc.collectionOfObjects
         }
     }
     

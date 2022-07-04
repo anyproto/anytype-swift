@@ -78,13 +78,13 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
         VStack(alignment: .center) {
             Spacer()
             AnytypeText(
-                "\("There is no object named".localized) \"\(searchText)\"",
+                Loc.thereIsNoObjectNamed(searchText),
                 style: .uxBodyRegular,
                 color: .textPrimary
             )
             .multilineTextAlignment(.center)
             AnytypeText(
-                "Try to create a new one or search for something else".localized,
+                Loc.tryToCreateANewOneOrSearchForSomethingElse,
                 style: .uxBodyRegular,
                 color: .textSecondary
             )

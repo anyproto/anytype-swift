@@ -12,9 +12,9 @@ enum ObjectActionsServiceError: Error {
     var message: String {
         switch self {
         case .nothingToUndo:
-            return "Nothing to undo".localized
+            return Loc.nothingToUndo
         case .nothingToRedo:
-            return "Nothing to redo".localized
+            return Loc.nothingToRedo
         }
     }
 }
@@ -91,8 +91,7 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
         
         let response = Anytype_Rpc.BlockLink.CreateWithObject.Service
             .invoke(
-                contextID: contextId, details: protobufStruct, templateID: templateId,
-                targetID: targetId, position: position.asMiddleware, fields: .init()
+                contextID: contextId, details: protobufStruct, templateID: templateId, internalFlags: [], targetID: targetId, position: position.asMiddleware, fields: .init()
             )
             .getValue(domain: .objectActionsService)
         

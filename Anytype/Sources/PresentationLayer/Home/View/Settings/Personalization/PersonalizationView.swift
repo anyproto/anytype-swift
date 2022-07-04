@@ -9,7 +9,7 @@ struct PersonalizationView: View {
             DragIndicator()
             
             Spacer.fixedHeight(12)
-            AnytypeText("Personalization".localized, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(Loc.personalization, style: .uxTitle1Semibold, color: .textPrimary)
             Spacer.fixedHeight(12)
             
             defaultType
@@ -26,7 +26,7 @@ struct PersonalizationView: View {
     private var defaultType: some View {
         Button(action: { model.defaultType = true }) {
             HStack(spacing: 0) {
-                AnytypeText("Default object type".localized, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(Loc.defaultObjectType, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
                 AnytypeText(ObjectTypeProvider.shared.defaultObjectType.name, style: .uxBodyRegular, color: .textSecondary)
                 Spacer.fixedWidth(10)

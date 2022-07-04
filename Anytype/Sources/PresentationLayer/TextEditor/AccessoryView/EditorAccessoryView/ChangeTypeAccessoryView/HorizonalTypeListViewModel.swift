@@ -49,7 +49,7 @@ extension HorizonalTypeListViewModel.Item {
 
         return .init(
             id: "Search",
-            title: "Search".localized,
+            title: Loc.search,
             image: ObjectIconImage.image(image),
             action: onTap
         )

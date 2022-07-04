@@ -43,10 +43,12 @@ private extension ObjectHeaderEmptyContentView  {
     }
     
     func setupLayout() {
-        layoutUsing.anchors {
+        let emptyView = UIView()
+
+        addSubview(emptyView) {
+            $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.equal(to: bottomAnchor, priority: .init(rawValue: 999))
             $0.height.equal(to: ObjectHeaderConstants.emptyViewHeight)
         }
-        translatesAutoresizingMaskIntoConstraints = true
     }
-    
 }

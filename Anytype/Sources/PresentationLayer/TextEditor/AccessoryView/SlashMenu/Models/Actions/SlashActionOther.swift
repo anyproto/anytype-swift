@@ -14,13 +14,14 @@ enum SlashActionOther: CaseIterable, Equatable {
     var title: String {
         switch self {
         case .dotsDivider:
-            return "SlashMenu.DotsDivider".localized
+            return Loc.SlashMenu.dotsDivider
         case .lineDivider:
-            return "SlashMenu.LineDivider".localized
+            return Loc.SlashMenu.lineDivider
         case .tableOfContents:
-            return "SlashMenu.TableOfContents".localized
+            return Loc.SlashMenu.tableOfContents
         case let .table(rowsCount, columnsCount):
-            return "SlashMenu.Table".localized + " \(rowsCount)x\(columnsCount)"
+            return Loc.SlashMenu.tableOfContents
+//            return "SlashMenu.Table".localized + " \(rowsCount)x\(columnsCount)"
         }
     }
     

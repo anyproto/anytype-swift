@@ -83,7 +83,7 @@ final class StyleColorContentView: UIView, UIContentView {
             colorView.setTitleColor(.textTertiary, for: .normal)
             colorView.backgroundColor = configuration.colorItem.color
         case .text:
-            colorView.setTitle("A".localized, for: .normal)
+            colorView.setTitle(Loc.a, for: .normal)
             colorView.titleLabel?.font = .bodyRegular
             colorView.setTitleColor(configuration.colorItem.color, for: .normal)
             colorView.backgroundColor = .clear

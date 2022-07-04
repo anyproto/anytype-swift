@@ -11,7 +11,7 @@ import SwiftUI
 import FloatingPanel
 
 final class ObjectPreviewDescriptionMenuViewModel: CheckPopupViewViewModelProtocol {
-    let title: String = "Description".localized
+    let title: String = Loc.description
 
     @Published private(set) var items: [CheckPopupItem] = []
 

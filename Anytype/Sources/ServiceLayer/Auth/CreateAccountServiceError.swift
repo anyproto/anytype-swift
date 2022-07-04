@@ -28,7 +28,9 @@ extension CreateAccountServiceError {
         case .netOffline:
             self = .networkOffline
             
-        case .unknownError, .badInput, .accountCreatedButFailedToStartNode , .accountCreatedButFailedToSetName, .accountCreatedButFailedToSetAvatar, .failedToStopRunningNode, .UNRECOGNIZED:
+        case .unknownError, .badInput, .accountCreatedButFailedToStartNode , .accountCreatedButFailedToSetName,
+                .accountCreatedButFailedToSetAvatar, .failedToStopRunningNode, .UNRECOGNIZED,
+                .failedToWriteConfig, .failedToCreateLocalRepo:
             self = .unknownError
         }
     }
@@ -39,11 +41,11 @@ extension CreateAccountServiceError {
     
     var localizedDescription: String {
         switch self {
-        case .unknownError: return "Unknown error".localized
-        case .badInviteCode: return "Invalid invitation code".localized
-        case .networkError: return "Failed to create your account due to a network error".localized
-        case .networkConnectionRefused: return "Connection refused. Please, try again".localized
-        case .networkOffline: return "Your device seems to be offline. Please, check your connection and try again".localized
+        case .unknownError: return Loc.unknownError
+        case .badInviteCode: return Loc.invalidInvitationCode
+        case .networkError: return Loc.failedToCreateYourAccountDueToANetworkError
+        case .networkConnectionRefused: return Loc.connectionRefused
+        case .networkOffline: return Loc.yourDeviceSeemsToBeOffline
         }
     }
     

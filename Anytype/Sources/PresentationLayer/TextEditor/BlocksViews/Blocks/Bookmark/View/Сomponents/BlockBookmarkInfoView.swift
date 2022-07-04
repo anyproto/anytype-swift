@@ -3,18 +3,6 @@ import Combine
 import Kingfisher
 
 final class BlockBookmarkInfoView: UIView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        backgroundColor = .backgroundPrimary
-    }
-    
-    @available(*, unavailable)
-    required init(coder: NSCoder) {
-        fatalError("Not implemented")
-    }
-    
     func update(payload: BlockBookmarkPayload) {
         updateIcon(payload: payload)
         removeAllSubviews()
@@ -68,7 +56,7 @@ final class BlockBookmarkInfoView: UIView {
         let imageGuideline = ImageGuideline(
             size: Layout.iconSize,
             radius: .point(2),
-            backgroundColor: UIColor.backgroundPrimary
+            backgroundColor: .clear
         )
         
         iconView.wrapper
@@ -93,7 +81,7 @@ final class BlockBookmarkInfoView: UIView {
         view.numberOfLines = 2
         view.lineBreakMode = .byWordWrapping
         view.textColor = .textPrimary
-        view.backgroundColor = .backgroundPrimary
+        view.backgroundColor = .clear
         return view
     }()
     
@@ -103,14 +91,14 @@ final class BlockBookmarkInfoView: UIView {
         view.lineBreakMode = .byWordWrapping
         view.font = .relation2Regular
         view.textColor = .textSecondary
-        view.backgroundColor = .backgroundPrimary
+        view.backgroundColor = .clear
         return view
     }()
     
     private let iconView: UIImageView = {
         let view = UIImageView()
         view.clipsToBounds = true
-        view.backgroundColor = .backgroundPrimary
+        view.backgroundColor = .clear
         view.layoutUsing.anchors {
             $0.size(Layout.iconSize)
         }
@@ -121,7 +109,7 @@ final class BlockBookmarkInfoView: UIView {
         let view = UILabel()
         view.font = .relation3Regular
         view.textColor = .textSecondary
-        view.backgroundColor = .backgroundPrimary
+        view.backgroundColor = .clear
         return view
     }()
 }
