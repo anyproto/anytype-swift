@@ -24,7 +24,9 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
                 currentConfigurationState = newConfiguration.currentConfigurationState
             }
 
-            indentationSettings = newConfiguration.indentationSettings
+            if newConfiguration.indentationSettings != indentationSettings {
+                indentationSettings = newConfiguration.indentationSettings
+            }
 
             dragConfiguration = newConfiguration.dragConfiguration
 
