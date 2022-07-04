@@ -56,7 +56,12 @@ final class SlashMenuActionHandler {
                 actionHandler.addBlock(.relation(key: relation.id), blockId: blockId)
             }
         case let .other(other):
-            actionHandler.addBlock(other.blockViewsType, blockId: blockId)
+            switch other {
+            case .table(let rowsCount, let columnsCount):
+                actionHandler.createTable(blockId: blockId, rowsCount: rowsCount, columnsCount: columnsCount)
+            default:
+                actionHandler.addBlock(other.blockViewsType, blockId: blockId)
+            }
         case let .color(color):
             actionHandler.setTextColor(color, blockId: blockId)
         case let .background(color):

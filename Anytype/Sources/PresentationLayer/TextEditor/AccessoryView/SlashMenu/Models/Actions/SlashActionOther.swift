@@ -2,10 +2,14 @@ import BlocksModels
 import AnytypeCore
 
 enum SlashActionOther: CaseIterable, Equatable {
+    static var allCases: [SlashActionOther] {
+        [.lineDivider, .dotsDivider, .tableOfContents, .table(rowsCount: 3, columnsCount: 3)]
+    }
+
     case lineDivider
     case dotsDivider
     case tableOfContents
-    case table
+    case table(rowsCount: Int, columnsCount: Int)
     
     var title: String {
         switch self {
@@ -15,8 +19,8 @@ enum SlashActionOther: CaseIterable, Equatable {
             return "SlashMenu.LineDivider".localized
         case .tableOfContents:
             return "SlashMenu.TableOfContents".localized
-        case .table:
-            return "SlashMenu.Table".localized
+        case let .table(rowsCount, columnsCount):
+            return "SlashMenu.Table".localized + " \(rowsCount)x\(columnsCount)"
         }
     }
     

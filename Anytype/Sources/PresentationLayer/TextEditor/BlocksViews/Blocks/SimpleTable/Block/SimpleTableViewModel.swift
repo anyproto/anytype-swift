@@ -18,6 +18,10 @@ final class SimpleTableViewModel {
 
     private var cancellables = [AnyCancellable]()
 
+    deinit {
+        document.close()
+    }
+
     init(
         document: BaseDocumentProtocol,
         tableBlockInfo: BlockInformation,

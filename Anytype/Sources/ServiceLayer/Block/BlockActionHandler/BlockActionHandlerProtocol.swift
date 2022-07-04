@@ -48,4 +48,9 @@ protocol BlockActionHandlerProtocol: AnyObject {
         url: String
     )
     func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance)
+    func createTable(
+        blockId: BlockId,
+        rowsCount: Int,
+        columnsCount: Int
+    )
 }

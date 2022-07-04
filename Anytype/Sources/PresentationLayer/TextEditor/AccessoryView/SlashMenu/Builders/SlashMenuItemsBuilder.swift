@@ -80,10 +80,11 @@ struct SlashMenuItemsBuilder {
     }
     
     private var otherMenuItem: SlashMenuItem {
-        var allOtherSlashActions = SlashActionOther.allCases
+        let defaultTableAction: SlashActionOther = .table(rowsCount: 3, columnsCount: 3)
+        var allOtherSlashActions: [SlashActionOther] = [.lineDivider, .dotsDivider, .tableOfContents, defaultTableAction]
 
         if !FeatureFlags.isSimpleTablesAvailable {
-            allOtherSlashActions = allOtherSlashActions.filter { $0 == .table }
+            allOtherSlashActions = allOtherSlashActions.filter { $0 == defaultTableAction }
         }
 
         if !FeatureFlags.isTableOfContentsAvailable {

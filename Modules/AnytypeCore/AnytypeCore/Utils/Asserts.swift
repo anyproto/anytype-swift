@@ -13,7 +13,7 @@ public func anytypeAssertionFailure(
             showAssertionAlert(message)
         }
     #elseif DEBUG
-//        assertionFailure(message, file: file, line: line)
+        assertionFailure(message, file: file, line: line)
     #endif
 }
 
@@ -27,7 +27,7 @@ public func anytypeAssert(
     if condition() != true {
         anytypeAssertionFailure(message, domain: domain, file: file, line: line)
     }
-}
+} 
 
 // MARK:- Private
 private func showAssertionAlert(_ message: String) {
