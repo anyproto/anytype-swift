@@ -11,7 +11,7 @@ on:
 jobs:
   main:
     runs-on: macOS-12
-    timeout-minutes: 20
+    timeout-minutes: 35
 
     steps:
       - name: Checkout branch
@@ -25,53 +25,41 @@ jobs:
           ssh-private-key: ${{ secrets.SSH_KEY_FASTLANE_COMMIT }}
 
       - name: Setup ruby
-        uses: ruby/setup-ruby@v1.81.0
+        uses: ruby/setup-ruby@v1.100.0
         with:
           ruby-version: 2.7.2
           bundler-cache: true
+
+      - name: Update git config
+        run: |
+          git config --global url.ssh://git@github.com/.insteadOf https://github.com/
+          git config --global user.name "William Blake"
+          git config --global user.email "iosteam@anytype.io"
 
       - uses: maxim-lobanov/setup-xcode@v1.4.1
         with:
           xcode-version: '13.4'
 
-      - name: Download Middleware
-        run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
+      #- name: Download Middleware
+      #  run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
-      - name: Build
+      #- name: Run unit tests
+      #  run: bundle exec fastlane tests
+      #  continue-on-error: true
+      #  env:
+      #    FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
+      #    FASTLANE_XCODE_LIST_TIMEOUT: 900
+
+      - name: Build and upload to Testflight
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8
-          bundle exec fastlane test_build
+          bundle exec fastlane dev
         env:
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.SSH_KEY_FASTLANE_MATCH }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
           APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
           APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
           APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
-
-  # dsyms:
-  #   needs: main
-  #   runs-on: macOS-12
-  #   timeout-minutes: 20
-    
-  #   steps:
-  #     - name: Checkout branch
-  #       uses: actions/checkout@v2.3.4
-  #       with:
-  #         ref: ${{ github.event.inputs.branch }}
-          
-  #     - name: Setup ruby
-  #       uses: ruby/setup-ruby@v1.81.0
-  #       with:
-  #           ruby-version: 2.7.2
-  #           bundler-cache: true
-
-  #     - name: Download and Upload DSYMs
-  #       run: |
-  #         export LC_ALL=en_US.UTF-8
-  #         export LANG=en_US.UTF-8
-  #         bundle exec fastlane refresh_dev_dsyms
-  #       env:
-  #         APP_STORE_CONNECT_KEY_ID: ${{ secrets.APP_STORE_CONNECT_API_KEY_ID }}
-  #         APP_STORE_CONNECT_ISSUER_ID: ${{ secrets.APP_STORE_CONNECT_API_ISSUER_ID }}
-  #         APP_STORE_CONNECT_KEY_CONTENT: ${{ secrets.APP_STORE_CONNECT_API_PRIVATE_KEY }}
+          FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
+          FASTLANE_XCODEBUILD_SETTINGS_RETRIES: 4
