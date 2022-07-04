@@ -21,12 +21,14 @@ struct SetMinimizedHeader: View {
             Spacer.fixedHeight(UIApplication.shared.mainWindowInsets.top)
             HStack(alignment: .center, spacing: 0) {
                 Rectangle().frame(width: 1, height: 1).foregroundColor(.clear) // sync status here
+                Spacer.fixedWidth(8)
                 Spacer()
                 title
                 Spacer()
                 settingsButton
             }
-            .padding(.horizontal, 10)
+            .padding(.leading, 10)
+            .padding(.trailing, 2)
         }
         .frame(height: minimizedHeaderHeight)
         .background(Color.backgroundPrimary.opacity(opacity))
@@ -56,9 +58,12 @@ struct SetMinimizedHeader: View {
                 haveBackground: model.details?.documentCover.isNotNil ?? false,
                 opacity: opacity
             ),
-            action: model.showObjectSettings
+            action: {
+                UISelectionFeedbackGenerator().selectionChanged()
+                model.showObjectSettings()
+            }
         )
-        .frame(width: 28, height: 28)
+        .frame(width: 44, height: 44)
     }
 
     private var opacity: Double {
