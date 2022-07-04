@@ -918,6 +918,7 @@
 		C973E1AD285C567F00978BC4 /* SimpleTableViewModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C973E1AC285C567F00978BC4 /* SimpleTableViewModelBuilder.swift */; };
 		C9767C0628193E2300AEF728 /* DynamicCollectionLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9767C0228193E2100AEF728 /* DynamicCollectionLayoutView.swift */; };
 		C97A9A162872F2040032DE3E /* SimpleTableComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A9A152872F2040032DE3E /* SimpleTableComparator.swift */; };
+		C97A9A19287300080032DE3E /* SimpleTableMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A9A18287300080032DE3E /* SimpleTableMenuView.swift */; };
 		C97B5D5D27F4989600EA7E33 /* BlockContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B5D5C27F4989600EA7E33 /* BlockContentView.swift */; };
 		C97B5D6227F498C600EA7E33 /* EditorContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B5D6127F498C600EA7E33 /* EditorContentView.swift */; };
 		C97B5D6427F499D200EA7E33 /* IndentationSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97B5D6327F499D200EA7E33 /* IndentationSettings.swift */; };
@@ -1974,6 +1975,7 @@
 		C973E1AC285C567F00978BC4 /* SimpleTableViewModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableViewModelBuilder.swift; sourceTree = "<group>"; };
 		C9767C0228193E2100AEF728 /* DynamicCollectionLayoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicCollectionLayoutView.swift; sourceTree = "<group>"; };
 		C97A9A152872F2040032DE3E /* SimpleTableComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableComparator.swift; sourceTree = "<group>"; };
+		C97A9A18287300080032DE3E /* SimpleTableMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableMenuView.swift; sourceTree = "<group>"; };
 		C97B5D5C27F4989600EA7E33 /* BlockContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockContentView.swift; sourceTree = "<group>"; };
 		C97B5D6127F498C600EA7E33 /* EditorContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorContentView.swift; sourceTree = "<group>"; };
 		C97B5D6327F499D200EA7E33 /* IndentationSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndentationSettings.swift; sourceTree = "<group>"; };
@@ -6218,10 +6220,11 @@
 		C946681E284630F000A8A6F5 /* SimpleTable */ = {
 			isa = PBXGroup;
 			children = (
+				C940A9A728603795008B500B /* Block */,
+				C97A9A172872FFD30032DE3E /* AdditionalViews */,
 				C9A4268628489CAD00F388FC /* SimpleTableBlockViewModel.swift */,
 				C9A4268B28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift */,
 				C973E1AC285C567F00978BC4 /* SimpleTableViewModelBuilder.swift */,
-				C940A9A728603795008B500B /* Block */,
 			);
 			path = SimpleTable;
 			sourceTree = "<group>";
@@ -6295,6 +6298,14 @@
 				C971EB2127E9DCFE002FF3BE /* UnsplashItem.swift */,
 			);
 			path = Unsplash;
+			sourceTree = "<group>";
+		};
+		C97A9A172872FFD30032DE3E /* AdditionalViews */ = {
+			isa = PBXGroup;
+			children = (
+				C97A9A18287300080032DE3E /* SimpleTableMenuView.swift */,
+			);
+			path = AdditionalViews;
 			sourceTree = "<group>";
 		};
 		C98F6A6727A90F080063DD7A /* Configuration */ = {
@@ -6811,6 +6822,7 @@
 				1247BC6827FDC440005F2DB4 /* NewRelationModuleInput.swift in Sources */,
 				C9C5368E276A3A07003CD3F3 /* TagRelationRowView.swift in Sources */,
 				53728CFB273596750092A8CF /* MarkupKind.swift in Sources */,
+				C97A9A19287300080032DE3E /* SimpleTableMenuView.swift in Sources */,
 				3D4125FA26A014E1007A6880 /* TextContent+Font.swift in Sources */,
 				12A8CCEE26BD5F3B00090468 /* EditorItem.swift in Sources */,
 				3D7F7173279F0829003FE893 /* EditorSetPaginationData.swift in Sources */,

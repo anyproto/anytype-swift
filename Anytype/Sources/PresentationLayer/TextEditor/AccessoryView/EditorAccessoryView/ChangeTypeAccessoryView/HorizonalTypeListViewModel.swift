@@ -18,17 +18,11 @@ final class HorizonalTypeListViewModel: ObservableObject {
 
     @Published var items = [Item]()
 
-    private let searchHandler: () -> Void
     private var cancellables = [AnyCancellable]()
-    private lazy var searchItem = Item.searchItem { [weak self] in self?.searchHandler() }
 
-    init(itemProvider: TypeListItemProvider, searchHandler: @escaping () -> Void) {
-        self.searchHandler = searchHandler
-
+    init(itemProvider: TypeListItemProvider) {
         itemProvider.typesPublisher.sink { [weak self] types in
-            guard let self = self else { return }
-
-            self.items = [self.searchItem] + types
+            self?.items = types
         }.store(in: &cancellables)
     }
 }

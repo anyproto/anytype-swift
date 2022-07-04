@@ -56,7 +56,7 @@ struct HorizonalTypeListView_Previews: PreviewProvider {
 
     static var previews: some View {
         HorizonalTypeListView(
-            viewModel: .init(itemProvider: ItemProvider(), searchHandler: {})
+            viewModel: .init(itemProvider: ItemProvider())
         )
         .previewLayout(.fixed(width: 300, height: 96))
     }

@@ -79,7 +79,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func blockDelegateData(textView: UITextView) -> TextBlockDelegateData {
-        .init(textView: textView, info: info, text: content.anytypeText)
+        .init(textView: textView, info: info, text: content.anytypeText, usecase: .editor)
     }
 
     private func textViewShouldReplaceText(

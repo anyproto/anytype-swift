@@ -54,7 +54,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func updateData(data: TextBlockDelegateData) {
         self.data = data
         
-        cursorModeAccessoryView.update(info: data.info, textView: data.textView)
+        cursorModeAccessoryView.update(info: data.info, textView: data.textView, usecase: data.usecase)
         markupAccessoryView.update(info: data.info, textView: data.textView)
         slashMenuView.update(info: data.info, relations: document.parsedRelations.all)
 
