@@ -57,7 +57,7 @@ extension StatusRelationDetailsViewModel {
     func makeSearchView() -> some View {
         NewSearchModuleAssembly.statusSearchModule(
             allStatuses: allStatuses,
-            selectedStatus: selectedStatus
+            selectedStatuses: selectedStatus.flatMap { [$0] } ?? []
         ) { [weak self] ids in
             self?.handleSelectedOptionIds(ids)
         } onCreate: { [weak self] title in

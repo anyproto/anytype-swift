@@ -19,7 +19,9 @@ final class SetFiltersSearchViewBuilder {
         case .tag:
             buildTagsSearchView(onSelect: onSelect)
         case .object:
-            buildObjectSearchView(onSelect: onSelect)
+            buildObjectsSearchView(onSelect: onSelect)
+        case .status:
+            buildStatusesSearchView(onSelect: onSelect)
         default:
             EmptyView()
         }
@@ -39,7 +41,7 @@ final class SetFiltersSearchViewBuilder {
         )
     }
     
-    private func buildObjectSearchView(
+    private func buildObjectsSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
         NewSearchModuleAssembly.objectsSearchModule(
@@ -47,6 +49,19 @@ final class SetFiltersSearchViewBuilder {
             excludedObjectIds: [],
             limitedObjectType: [],
             onSelect: onSelect
+        )
+    }
+    
+    private func buildStatusesSearchView(
+        onSelect: @escaping (_ ids: [String]) -> Void
+    ) -> some View {
+        NewSearchModuleAssembly.statusSearchModule(
+            style: .embedded,
+            selectionMode: .multipleItems,
+            allStatuses: filter.metadata.selections.map { Relation.Status.Option(option: $0) },
+            selectedStatuses: [],
+            onSelect: onSelect,
+            onCreate: { _ in }
         )
     }
 }
