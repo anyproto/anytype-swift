@@ -94,12 +94,9 @@ extension SetFiltersListViewModel {
         return SetFilter(
             metadata: metadata,
             filter: DataviewFilter(
-                operator: .and,
                 relationKey: id,
-                relationProperty: "",
                 condition: SetFilter.defaultCondition(for: metadata),
-                value: "".protobufValue,
-                quickOption: .exactDate
+                value: "".protobufValue
             )
         )
     }
