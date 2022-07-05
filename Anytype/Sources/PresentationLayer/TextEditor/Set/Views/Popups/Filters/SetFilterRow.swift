@@ -6,11 +6,10 @@ struct SetFilterRow: View {
     @Environment(\.editMode) var editMode
     
     let configuration: SetFilterRowConfiguration
-    let onTap: () -> Void
     
     var body: some View {
         Button {
-            onTap()
+            configuration.onTap()
         } label: {
             content
         }

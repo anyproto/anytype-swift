@@ -325,6 +325,9 @@
 "EditSorts.Popup.Filter.Value.Checked" = "checked";
 "EditSorts.Popup.Filter.Value.Unchecked" = "unchecked";
 
+// MARK: - Sets: Filters search
+"Set.Filters.Search.Button.Title" = "Apply";
+
 // MARK: - Set.Bookmarks
 "Set.Bookmark.Create.Placeholder" = "Paste link";
 "Set.Bookmark.Error.Title" = "Oops - something went wrong";
