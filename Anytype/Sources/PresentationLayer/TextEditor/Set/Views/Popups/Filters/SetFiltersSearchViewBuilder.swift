@@ -30,22 +30,10 @@ final class SetFiltersSearchViewBuilder {
     private func buildTagsSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
-        let allTags = filter.metadata.selections.map { Relation.Tag.Option(option: $0) }
-        
-        let selectedTagIds: [String] = {
-            let selectedTagIds: [String] = filter.filter.value.listValue.values.compactMap {
-                let tagId = $0.stringValue
-                return tagId.isEmpty ? nil : tagId
-            }
-            
-            return selectedTagIds.compactMap { id in
-                allTags.first { $0.id == id }?.id
-            }
-        }()
-        return NewSearchModuleAssembly.tagsSearchModule(
+        NewSearchModuleAssembly.tagsSearchModule(
             style: .embedded,
-            allTags: allTags,
-            selectedTagIds: selectedTagIds,
+            allTags: filter.metadata.selections.map { Relation.Tag.Option(option: $0) },
+            selectedTagIds: [],
             onSelect: onSelect,
             onCreate: { _ in }
         )
@@ -54,21 +42,9 @@ final class SetFiltersSearchViewBuilder {
     private func buildObjectSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
-        let selectedObjects: [String] = {
-            let value = filter.filter.value
-            let values: [Google_Protobuf_Value] = {
-                if case let .listValue(listValue) = value.kind {
-                    return listValue.values
-                }
-                
-                return [value]
-            }()
-            
-            return values.map { $0.stringValue }
-        }()
-        return NewSearchModuleAssembly.objectsSearchModule(
+        NewSearchModuleAssembly.objectsSearchModule(
             style: .embedded,
-            excludedObjectIds: selectedObjects,
+            excludedObjectIds: [],
             limitedObjectType: [],
             onSelect: onSelect
         )
