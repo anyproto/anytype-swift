@@ -55,6 +55,8 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         document: BaseDocumentProtocol,
         templatesTypeURL: ObjectTypeUrl
     )
+    
+    func showViewPicker(setModel: EditorSetViewModel)
 
     func showCreateObject(pageId: BlockId)
     func showCreateBookmarkObject()

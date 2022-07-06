@@ -427,6 +427,8 @@
 		2E412D102847806F00C973FF /* SetSortRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D0F2847806F00C973FF /* SetSortRow.swift */; };
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
 		2E61D470286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */; };
+		2E975EC72874BB18004DE574 /* EditorSetViewPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */; };
+		2E975EC92874BBC5004DE574 /* EditorSetViewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */; };
 		2E9EFDE6285335CC00C8E47A /* SetSortsSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFDE5285335CC00C8E47A /* SetSortsSearchViewModel.swift */; };
 		2E9EFDFB285762BD00C8E47A /* SetSortsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFDFA285762BD00C8E47A /* SetSortsSearchInteractor.swift */; };
 		2E9EFE62285B45C500C8E47A /* ExceptionalSetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */; };
@@ -1488,6 +1490,8 @@
 		2E412D0F2847806F00C973FF /* SetSortRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortRow.swift; sourceTree = "<group>"; };
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
 		2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkStateConverter.swift; sourceTree = "<group>"; };
+		2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewPickerViewModel.swift; sourceTree = "<group>"; };
+		2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E9EFDE5285335CC00C8E47A /* SetSortsSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsSearchViewModel.swift; sourceTree = "<group>"; };
 		2E9EFDFA285762BD00C8E47A /* SetSortsSearchInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSortsSearchInteractor.swift; sourceTree = "<group>"; };
 		2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionalSetSort.swift; sourceTree = "<group>"; };
@@ -4490,6 +4494,8 @@
 			isa = PBXGroup;
 			children = (
 				3D513F0E27956E2B007850D5 /* EditorSetViewPicker.swift */,
+				2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */,
+				2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */,
 			);
 			path = ViewPicker;
 			sourceTree = "<group>";
@@ -7124,6 +7130,7 @@
 				53FF7C6D26F8F8E400A5A592 /* iCloudBackupConfigurator.swift in Sources */,
 				53F80F1227BDA96E00E9E12A /* FileRelationViewUIKit.swift in Sources */,
 				3DAA6C90264A918F0029CD39 /* AnytypeText.swift in Sources */,
+				2E975EC92874BBC5004DE574 /* EditorSetViewRowConfiguration.swift in Sources */,
 				3D155270264D8DB800B0E976 /* SeedPhraseView.swift in Sources */,
 				3DA626532657ADA700942249 /* PopupExtension.swift in Sources */,
 				3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */,
@@ -7257,6 +7264,7 @@
 				12DE405F264AE455007B5074 /* LayoutProxy.swift in Sources */,
 				120F7D80267F8A2B00327734 /* BlockBookmarkState.swift in Sources */,
 				127EAC0C273A353A00C731F2 /* Relation.swift in Sources */,
+				2E975EC72874BB18004DE574 /* EditorSetViewPickerViewModel.swift in Sources */,
 				1215E8B626A8610C0089AF7E /* KingfisherConfigurator.swift in Sources */,
 				3D2D4C5B27BA54030070A4C6 /* Divider.swift in Sources */,
 				12B0FF60274FC5E200CA35FE /* TextRelationActionButtonViewModelDelegate.swift in Sources */,
