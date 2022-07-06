@@ -103,8 +103,9 @@ final class EditorSetViewModel: ObservableObject {
             self?.onDataChange($0)
         }
         
-        document.open()
-        setupDataview()
+        document.open { [weak self] _ in
+            self?.setupDataview()
+        }
     }
     
     func onAppear() {

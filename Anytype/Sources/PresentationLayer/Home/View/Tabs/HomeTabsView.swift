@@ -31,6 +31,7 @@ struct HomeTabsView: View {
     private let cornerRadius: CGFloat = 16
 
     @EnvironmentObject var model: HomeViewModel
+    @Environment(\.redactionReasons) private var reasons
     @State private var tabSelection = UserDefaultsConfig.selectedTab
     
     let offsetChanged: (CGPoint) -> Void
@@ -130,7 +131,9 @@ struct HomeTabsView: View {
             onTabSelection()
         }
         .onAppear {
-            onTabSelection()
+            if reasons.isEmpty {
+                onTabSelection()
+            }
         }
     }
     

@@ -96,5 +96,10 @@ struct HomeProfileView_Previews: PreviewProvider {
         HomeProfileView()
             .environmentObject(HomeViewModel(homeBlockId: UUID().uuidString))
             .background(Color.System.blue)
+        
+        HomeProfileView()
+            .environmentObject(HomeViewModel(homeBlockId: UUID().uuidString))
+            .background(Color.System.blue)
+            .redacted(reason: .placeholder)
     }
 }

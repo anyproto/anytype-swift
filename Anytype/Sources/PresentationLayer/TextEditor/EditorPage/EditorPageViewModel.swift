@@ -262,12 +262,17 @@ extension EditorPageViewModel {
         if let objectDetails = document.details {
             AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
         }
-
-        let isDocumentOpened = isOpenedForPreview ? document.openForPreview() : document.open()
-
-        guard isDocumentOpened else {
-            router.goBack()
-            return
+        
+        let completion: (Bool) -> Void = { [weak self] isDocumentOpened in
+            if !isDocumentOpened {
+                self?.router.goBack()
+            }
+        }
+        
+        if isOpenedForPreview {
+            document.openForPreview(completion: completion)
+        } else {
+            document.open(completion: completion)
         }
     }
     

@@ -13,10 +13,7 @@ protocol BaseDocumentProtocol: AnyObject {
     var parsedRelations: ParsedRelations { get }
     var isLocked: Bool { get }
 
-    @discardableResult
-    func open() -> Bool
-
-    @discardableResult
-    func openForPreview() -> Bool
+    func open(completion: @escaping (Bool) -> Void)
+    func openForPreview(completion: @escaping (Bool) -> Void)
     func close()
 }

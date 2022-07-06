@@ -9,6 +9,7 @@ protocol BlockActionsServiceSingleProtocol {
     func add(targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId?
     func close()
     func open() -> Bool
-    func openForPreview() -> Bool
+    func open(completion: @escaping (Bool) -> Void)
+    func openForPreview(completion: @escaping (Bool) -> Void)
     func move(blockIds: [String], targetContextID: BlockId, dropTargetID: String, position: BlockPosition)
 }

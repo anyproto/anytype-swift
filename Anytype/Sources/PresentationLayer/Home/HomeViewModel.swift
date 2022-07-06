@@ -25,6 +25,7 @@ final class HomeViewModel: ObservableObject {
     @Published var showPagesDeletionAlert = false
     @Published var snackBarData = SnackBarData.empty
     @Published var loadingAlertData = LoadingAlertData.empty
+    @Published var loadingDocument = true
     
     @Published private(set) var profileData: HomeProfileData?
     
@@ -44,10 +45,6 @@ final class HomeViewModel: ObservableObject {
     
     init(homeBlockId: BlockId) {
         document = BaseDocument(objectId: homeBlockId)
-        document.updatePublisher.sink { [weak self] in
-            self?.onDashboardChange(update: $0)
-        }.store(in: &cancellables)
-        setupSubscriptions()
         
         let data = UserDefaultsConfig.screenDataFromLastSession
         showingEditorScreenData = data != nil
@@ -57,13 +54,10 @@ final class HomeViewModel: ObservableObject {
     // MARK: - View output
 
     func onAppear() {
-        document.open()
-        subscriptionService.startSubscription(
-            data: .profile(id: AccountManager.shared.account.info.profileObjectID)
-        ) { [weak self] id, update in
-            withAnimation {
-                self?.onProfileUpdate(update: update)
-            }
+        loadingDocument = true
+        document.open { [weak self] _ in
+            self?.loadingDocument = false
+            self?.setupSubscriptions()
         }
     }
     
@@ -128,6 +122,18 @@ final class HomeViewModel: ObservableObject {
     
     // MARK: - Private methods
     private func setupSubscriptions() {
+        
+        document.updatePublisher.sink { [weak self] in
+            self?.onDashboardChange(update: $0)
+        }.store(in: &cancellables)
+        
+        subscriptionService.startSubscription(
+            data: .profile(id: AccountManager.shared.account.info.profileObjectID)
+        ) { [weak self] id, update in
+            withAnimation {
+                self?.onProfileUpdate(update: update)
+            }
+        }
         // visual delay on application launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
             self?.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { action in

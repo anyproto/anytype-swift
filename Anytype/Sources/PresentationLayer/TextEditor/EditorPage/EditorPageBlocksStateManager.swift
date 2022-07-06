@@ -234,13 +234,14 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
                 let document = BaseDocument(objectId: content.targetBlockID)
-                let _ = document.open()
-
+                
                 guard let id = document.children.last?.id else { return }
 
                 targetId = document.objectId
                 dropTargetId = id
                 position = .bottom
+                
+                document.open(completion: { _ in })
             } else {
                 targetId = document.objectId
                 position = .inner
