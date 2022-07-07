@@ -473,8 +473,9 @@ extension EditorRouter {
             rootView: NewSearchModuleAssembly.setSortsSearchModule(
                 relations: relations,
                 onSelect: { [weak self] key in
-                    onSelect(key)
-                    self?.viewController?.topPresentedController.dismiss(animated: true)
+                    self?.viewController?.topPresentedController.dismiss(animated: false) {
+                        onSelect(key)
+                    }
                 }
             )
         )
@@ -516,7 +517,7 @@ extension EditorRouter {
     func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
         let viewModel = SetFiltersListViewModel(
             setModel: setModel,
-            service: dataviewService,
+            dataviewService: dataviewService,
             router: self
         )
         let vc = UIHostingController(
@@ -552,6 +553,24 @@ extension EditorRouter {
         )
         currentSetPopup = popup
         presentFullscreen(popup)
+    }
+    
+    func showFilterSearch(
+        filter: SetFilter,
+        onSelect: @escaping (_ ids: [String]) -> Void)
+    {
+        let viewModel = SetFiltersSearchViewModel(
+            filter: filter,
+            onSelect: { [weak self] ids in
+                onSelect(ids)
+                self?.viewController?.topPresentedController.dismiss(animated: true)
+            }
+        )
+        let vc = UIHostingController(
+            rootView: SetFiltersSearchView()
+                .environmentObject(viewModel)
+        )
+        presentSheet(vc)
     }
 }
 

@@ -10,7 +10,21 @@ struct SetFilter: Identifiable, Equatable, Hashable {
         conditionType.data[filter.condition]
     }
     
+    static func defaultCondition(for metadata: RelationMetadata) -> DataviewFilter.Condition {
+        let conditionType =  Self.conditionType(for: metadata)
+        switch conditionType {
+        case .text, .number, .checkbox:
+            return .equal
+        case .selected:
+            return .in
+        }
+    }
+    
     private var conditionType: Condition {
+        Self.conditionType(for: metadata)
+    }
+    
+    private static func conditionType(for metadata: RelationMetadata) -> Condition {
         switch metadata.format {
         case .shortText, .longText, .url, .email, .file, .unrecognized:
             return .text

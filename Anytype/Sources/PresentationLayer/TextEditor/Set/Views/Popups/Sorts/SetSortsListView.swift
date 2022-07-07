@@ -1,5 +1,4 @@
 import SwiftUI
-import BlocksModels
 
 struct SetSortsListView: View {
     @EnvironmentObject var setModel: EditorSetViewModel
