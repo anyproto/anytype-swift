@@ -1,5 +1,4 @@
 import SwiftUI
-import BlocksModels
 
 struct SetFiltersListView: View {
     @EnvironmentObject var setModel: EditorSetViewModel
@@ -90,7 +89,7 @@ struct SetFiltersListView: View {
     }
     
     private func row(with configuration: SetFilterRowConfiguration) -> some View {
-        SetFilterRow(configuration: configuration, onTap: { })
+        SetFilterRow(configuration: configuration)
             .environment(\.editMode, $editMode)
     }
     

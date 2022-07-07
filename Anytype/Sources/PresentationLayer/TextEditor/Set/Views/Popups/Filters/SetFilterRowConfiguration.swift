@@ -4,4 +4,5 @@ struct SetFilterRowConfiguration: Identifiable, Equatable {
     let subtitle: String?
     let iconName: String
     let relation: Relation
+    @EquatableNoop var onTap: () -> Void
 }

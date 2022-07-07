@@ -6,6 +6,7 @@ final class NewSearchViewModel: ObservableObject {
     
     let title: String?
     let searchPlaceholder: String
+    let style: NewSearchView.Style
     
     @Published private(set) var state: NewSearchViewState = .resultsList(.plain(rows: []))
     @Published private(set) var addButtonModel: NewSearchView.AddButtonModel? = nil
@@ -26,12 +27,14 @@ final class NewSearchViewModel: ObservableObject {
     init(
         title: String? = nil,
         searchPlaceholder: String = Loc.search,
+        style: NewSearchView.Style = .default,
         itemCreationMode: ItemCreationMode,
         internalViewModel: NewInternalSearchViewModelProtocol,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) {
         self.title = title
         self.searchPlaceholder = searchPlaceholder
+        self.style = style
         self.itemCreationMode = itemCreationMode
         self.internalViewModel = internalViewModel
         self.onSelect = onSelect
