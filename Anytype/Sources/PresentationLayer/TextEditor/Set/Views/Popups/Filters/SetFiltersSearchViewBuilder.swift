@@ -59,7 +59,7 @@ final class SetFiltersSearchViewBuilder {
             style: .embedded,
             selectionMode: .multipleItems,
             allStatuses: filter.metadata.selections.map { Relation.Status.Option(option: $0) },
-            selectedStatuses: [],
+            selectedStatusesIds: [],
             onSelect: onSelect,
             onCreate: { _ in }
         )

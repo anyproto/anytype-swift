@@ -3,11 +3,11 @@ import Foundation
 final class StatusSearchInteractor {
     
     private let allStatuses: [Relation.Status.Option]
-    private let selectedStatuses: [Relation.Status.Option]
+    private let selectedStatusesIds: [String]
     
-    init(allStatuses: [Relation.Status.Option], selectedStatuses: [Relation.Status.Option]) {
+    init(allStatuses: [Relation.Status.Option], selectedStatusesIds: [String]) {
         self.allStatuses = allStatuses
-        self.selectedStatuses = selectedStatuses
+        self.selectedStatusesIds = selectedStatusesIds
     }
     
 }
@@ -27,7 +27,7 @@ extension StatusSearchInteractor {
         
         if filteredStatuses.isEmpty {
             let isSearchedStatusSelected = allStatuses.filter { status in
-                selectedStatuses.contains { $0.id == status.id }
+                selectedStatusesIds.contains { $0 == status.id }
             }.contains { $0.text.lowercased() == text.lowercased() }
             return isSearchedStatusSelected ?
                 .failure(.alreadySelected(searchText: text)) :
@@ -46,10 +46,10 @@ extension StatusSearchInteractor {
 private extension StatusSearchInteractor {
     
     var availableStatuses: [Relation.Status.Option] {
-        guard selectedStatuses.isNotEmpty else { return allStatuses }
+        guard selectedStatusesIds.isNotEmpty else { return allStatuses }
         
         return allStatuses.filter { status in
-            !selectedStatuses.contains { $0.id == status.id }
+            !selectedStatusesIds.contains { $0 == status.id }
         }
     }
     

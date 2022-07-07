@@ -6,7 +6,7 @@ protocol NewSearchModuleAssemblyProtocol {
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
         allStatuses: [Relation.Status.Option],
-        selectedStatuses: [Relation.Status.Option],
+        selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
     ) -> NewSearchView

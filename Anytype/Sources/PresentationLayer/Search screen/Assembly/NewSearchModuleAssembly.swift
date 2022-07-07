@@ -7,13 +7,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .singleItem,
         allStatuses: [Relation.Status.Option],
-        selectedStatuses: [Relation.Status.Option],
+        selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
     ) -> NewSearchView {
         let interactor = StatusSearchInteractor(
             allStatuses: allStatuses,
-            selectedStatuses: selectedStatuses
+            selectedStatusesIds: selectedStatusesIds
         )
         
         let internalViewModel = StatusSearchViewModel(selectionMode: selectionMode, interactor: interactor)
