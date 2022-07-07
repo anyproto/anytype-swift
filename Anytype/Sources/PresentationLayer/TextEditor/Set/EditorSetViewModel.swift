@@ -238,8 +238,7 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        let vc = UIHostingController(rootView: EditorSetViewPicker(setModel: self))
-        router.presentSheet(vc)
+        router.showViewPicker(setModel: self)
     }
     
     func showSetSettings() {

@@ -438,6 +438,14 @@ extension EditorRouter {
 // MARK: - Set
 
 extension EditorRouter {
+    
+    func showViewPicker(setModel: EditorSetViewModel) {
+        let viewModel = EditorSetViewPickerViewModel(setModel: setModel)
+        let vc = UIHostingController(
+            rootView: EditorSetViewPicker(viewModel: viewModel)
+        )
+        presentSheet(vc)
+    }
 
     func showCreateObject(pageId: BlockId) {
         let relationService = RelationsService(objectId: pageId)
