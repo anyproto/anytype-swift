@@ -21,6 +21,7 @@ protocol ObjectActionsServiceProtocol {
         contextId: BlockId,
         targetId: BlockId,
         details: [BundledDetails],
+        shouldDeleteEmptyObject: Bool,
         position: BlockPosition,
         templateId: String
     ) -> BlockId?

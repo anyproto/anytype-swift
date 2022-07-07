@@ -20,7 +20,7 @@ extension TextBlockContentConfiguration.Actions {
             textViewDidChangeCaretPosition: handler.textViewDidChangeCaretPosition(range:),
             textViewShouldReplaceText: handler.textViewShouldReplaceText(textView:replacementText:range:),
             toggleCheckBox: handler.toggleCheckBox,
-            toggleDropDown: handler.toggleCheckBox,
+            toggleDropDown: handler.toggleDropdownView,
             tapOnCalloutIcon: handler.showTextIconPicker
         )
     }
