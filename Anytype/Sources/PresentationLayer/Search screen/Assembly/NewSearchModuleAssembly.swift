@@ -5,17 +5,18 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
  
     static func statusSearchModule(
         style: NewSearchView.Style = .default,
+        selectionMode: NewSearchViewModel.SelectionMode = .singleItem,
         allStatuses: [Relation.Status.Option],
-        selectedStatus: Relation.Status.Option?,
+        selectedStatusesIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
     ) -> NewSearchView {
         let interactor = StatusSearchInteractor(
             allStatuses: allStatuses,
-            selectedStatus: selectedStatus
+            selectedStatusesIds: selectedStatusesIds
         )
         
-        let internalViewModel = StatusSearchViewModel(interactor: interactor)
+        let internalViewModel = StatusSearchViewModel(selectionMode: selectionMode, interactor: interactor)
         let viewModel = NewSearchViewModel(
             style: style,
             itemCreationMode: style == .default ? .available(action: onCreate) : .unavailable,

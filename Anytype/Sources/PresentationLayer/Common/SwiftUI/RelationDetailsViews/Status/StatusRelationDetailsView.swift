@@ -33,7 +33,7 @@ struct StatusRelationDetailsView: View {
                 Button {
                     viewModel.didTapAddButton()
                 } label: {
-                    StatusSearchRowView(viewModel: currentStatusModel)
+                    StatusSearchRowView(viewModel: currentStatusModel, selectionIndicatorViewModel: nil)
                 }
             } else {
                 AnytypeText(Loc.noRelatedOptionsHere, style: .uxCalloutRegular, color: .textTertiary)
