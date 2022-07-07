@@ -141,5 +141,12 @@ extension NewSearchView {
             case .embedded: return .clear
             }
         }
+        
+        var isCreationModeAvailable: Bool {
+            switch self {
+            case .default: return true
+            case .embedded: return false
+            }
+        }
     }
 }

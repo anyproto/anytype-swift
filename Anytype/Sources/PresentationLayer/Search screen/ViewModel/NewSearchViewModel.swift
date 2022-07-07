@@ -13,6 +13,7 @@ final class NewSearchViewModel: ObservableObject {
     @Published private(set) var isCreateButtonAvailable: Bool = false
     
     private let itemCreationMode: ItemCreationMode
+    private let selectionMode: SelectionMode
     private let internalViewModel: NewInternalSearchViewModelProtocol
     private let onSelect: (_ ids: [String]) -> Void
     
@@ -29,6 +30,7 @@ final class NewSearchViewModel: ObservableObject {
         searchPlaceholder: String = Loc.search,
         style: NewSearchView.Style = .default,
         itemCreationMode: ItemCreationMode,
+        selectionMode: SelectionMode = .multipleItems(),
         internalViewModel: NewInternalSearchViewModelProtocol,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) {
@@ -36,6 +38,7 @@ final class NewSearchViewModel: ObservableObject {
         self.searchPlaceholder = searchPlaceholder
         self.style = style
         self.itemCreationMode = itemCreationMode
+        self.selectionMode = selectionMode
         self.internalViewModel = internalViewModel
         self.onSelect = onSelect
         setup()
@@ -74,6 +77,7 @@ private extension NewSearchViewModel {
     func setup() {
         setupInternalViewModel()
         updateCreateItemButtonState(searchText: "")
+        updateSelectedRowIds()
         updateAddButtonModel()
     }
     
@@ -92,10 +96,21 @@ private extension NewSearchViewModel {
         isCreateButtonAvailable = internalViewModel.isCreateButtonAvailable(searchText: searchText)
     }
     
+    func updateSelectedRowIds() {
+        switch selectionMode {
+        case .singleItem:
+            break
+        case let .multipleItems(preselectedIds):
+            self.selectedRowIds = preselectedIds
+        }
+    }
+    
     func updateAddButtonModel() {
         guard case .multipleItems = internalViewModel.selectionMode else { return }
 
-        addButtonModel = selectedRowIds.isEmpty ? .disabled : .enabled(counter: selectedRowIds.count)
+        addButtonModel = selectedRowIds.isEmpty && !selectionMode.isPreselectModeAvailable ?
+            .disabled :
+            .enabled(counter: selectedRowIds.count)
     }
     
     func handleMultipleRowsSelection(rowId: String) {

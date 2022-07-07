@@ -4,10 +4,16 @@ final class StatusSearchInteractor {
     
     private let allStatuses: [Relation.Status.Option]
     private let selectedStatusesIds: [String]
+    private let isPreselectModeAvailable: Bool
     
-    init(allStatuses: [Relation.Status.Option], selectedStatusesIds: [String]) {
+    init(
+        allStatuses: [Relation.Status.Option],
+        selectedStatusesIds: [String],
+        isPreselectModeAvailable: Bool
+    ) {
         self.allStatuses = allStatuses
         self.selectedStatusesIds = selectedStatusesIds
+        self.isPreselectModeAvailable = isPreselectModeAvailable
     }
     
 }
@@ -46,7 +52,7 @@ extension StatusSearchInteractor {
 private extension StatusSearchInteractor {
     
     var availableStatuses: [Relation.Status.Option] {
-        guard selectedStatusesIds.isNotEmpty else { return allStatuses }
+        guard selectedStatusesIds.isNotEmpty, !isPreselectModeAvailable else { return allStatuses }
         
         return allStatuses.filter { status in
             !selectedStatusesIds.contains { $0 == status.id }

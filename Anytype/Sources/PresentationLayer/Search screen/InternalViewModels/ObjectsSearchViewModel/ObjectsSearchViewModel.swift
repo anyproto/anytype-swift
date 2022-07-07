@@ -16,8 +16,17 @@ final class ObjectsSearchViewModel {
     init(selectionMode: NewSearchViewModel.SelectionMode, interactor: ObjectsSearchInteractorProtocol) {
         self.selectionMode = selectionMode
         self.interactor = interactor
+        self.setup()
     }
     
+    private func setup() {
+        switch selectionMode {
+        case .singleItem:
+            break
+        case let .multipleItems(preselectedIds):
+            selectedObjectIds = preselectedIds
+        }
+    }
 }
 
 extension ObjectsSearchViewModel: NewInternalSearchViewModelProtocol {
