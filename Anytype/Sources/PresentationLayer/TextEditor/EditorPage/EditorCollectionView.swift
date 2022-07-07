@@ -38,6 +38,10 @@ class EditorCollectionView: UICollectionView {
         cell?.isMoving = isMoving
     }
 
+    override func selectItem(at indexPath: IndexPath?, animated: Bool, scrollPosition: UICollectionView.ScrollPosition) {
+        super.selectItem(at: indexPath, animated: animated, scrollPosition: scrollPosition)
+    }
+
     func adjustContentOffsetForSelectedItem(relatively relativeView: UIView) {
         guard let firstSelectedItem = indexPathsForSelectedItems?.first else { return }
         guard let itemAttributes = layoutAttributesForItem(at: firstSelectedItem)  else { return }

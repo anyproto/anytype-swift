@@ -3,7 +3,7 @@ import Combine
 import BlocksModels
 
 final class ChangeTypeAccessoryViewModel {
-    typealias TypeItem = HorizonalTypeListViewModel.Item
+    typealias TypeItem = HorizontalListItem
 
     @Published private(set) var isTypesViewVisible: Bool = true
     @Published private(set) var supportedTypes = [TypeItem]()
@@ -16,7 +16,7 @@ final class ChangeTypeAccessoryViewModel {
     private let objectService: ObjectActionsServiceProtocol
     private let document: BaseDocumentProtocol
     private let searchHandler: () -> Void
-    private lazy var searchItem = HorizonalTypeListViewModel.Item.searchItem { [weak self] in self?.searchHandler() }
+    private lazy var searchItem = TypeItem.searchItem { [weak self] in self?.searchHandler() }
 
     private var cancellables = [AnyCancellable]()
 
@@ -94,7 +94,7 @@ final class ChangeTypeAccessoryViewModel {
 }
 
 extension ChangeTypeAccessoryViewModel: TypeListItemProvider {
-    var typesPublisher: AnyPublisher<[HorizonalTypeListViewModel.Item], Never> {
+    var typesPublisher: AnyPublisher<[HorizontalListItem], Never> {
         $supportedTypes.eraseToAnyPublisher()
     }
 }

@@ -46,12 +46,12 @@ private struct TypeView: View {
 
 struct HorizonalTypeListView_Previews: PreviewProvider {
     private final class ItemProvider: TypeListItemProvider {
-        var typesPublisher: AnyPublisher<[HorizonalTypeListViewModel.Item], Never> {
+        var typesPublisher: AnyPublisher<[HorizontalListItem], Never> {
             $items.eraseToAnyPublisher()
         }
 
-        @Published var items: [HorizonalTypeListViewModel.Item] =
-        [HorizonalTypeListViewModel.Item.searchItem {}]
+        @Published var items: [HorizontalListItem] =
+        [HorizontalListItem.searchItem {}]
     }
 
     static var previews: some View {

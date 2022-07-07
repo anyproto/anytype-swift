@@ -315,6 +315,14 @@ public struct Anytype_Event {
       set {value = .blockSetVerticalAlign(newValue)}
     }
 
+    public var blockSetTableRow: Anytype_Event.Block.Set.TableRow {
+      get {
+        if case .blockSetTableRow(let v)? = value {return v}
+        return Anytype_Event.Block.Set.TableRow()
+      }
+      set {value = .blockSetTableRow(newValue)}
+    }
+
     public var blockDataviewRecordsSet: Anytype_Event.Block.Dataview.RecordsSet {
       get {
         if case .blockDataviewRecordsSet(let v)? = value {return v}
@@ -503,6 +511,7 @@ public struct Anytype_Event {
       case blockSetRelation(Anytype_Event.Block.Set.Relation)
       case blockSetLatex(Anytype_Event.Block.Set.Latex)
       case blockSetVerticalAlign(Anytype_Event.Block.Set.VerticalAlign)
+      case blockSetTableRow(Anytype_Event.Block.Set.TableRow)
       case blockDataviewRecordsSet(Anytype_Event.Block.Dataview.RecordsSet)
       case blockDataviewRecordsUpdate(Anytype_Event.Block.Dataview.RecordsUpdate)
       case blockDataviewRecordsInsert(Anytype_Event.Block.Dataview.RecordsInsert)
@@ -659,6 +668,10 @@ public struct Anytype_Event {
         }()
         case (.blockSetVerticalAlign, .blockSetVerticalAlign): return {
           guard case .blockSetVerticalAlign(let l) = lhs, case .blockSetVerticalAlign(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockSetTableRow, .blockSetTableRow): return {
+          guard case .blockSetTableRow(let l) = lhs, case .blockSetTableRow(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.blockDataviewRecordsSet, .blockDataviewRecordsSet): return {
@@ -1221,6 +1234,15 @@ public struct Anytype_Event {
       /// Clears the value of `restrictions`. Subsequent reads from it will return its default value.
       public mutating func clearRestrictions() {self._restrictions = nil}
 
+      public var history: Anytype_Event.Object.Show.HistorySize {
+        get {return _history ?? Anytype_Event.Object.Show.HistorySize()}
+        set {_history = newValue}
+      }
+      /// Returns true if `history` has been explicitly set.
+      public var hasHistory: Bool {return self._history != nil}
+      /// Clears the value of `history`. Subsequent reads from it will return its default value.
+      public mutating func clearHistory() {self._history = nil}
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public struct RelationWithValuePerObject {
@@ -1237,9 +1259,24 @@ public struct Anytype_Event {
         public init() {}
       }
 
+      public struct HistorySize {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var undo: Int32 = 0
+
+        public var redo: Int32 = 0
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
       public init() {}
 
       fileprivate var _restrictions: Anytype_Model_Restrictions? = nil
+      fileprivate var _history: Anytype_Event.Object.Show.HistorySize? = nil
     }
 
     public struct Remove {
@@ -2140,6 +2177,24 @@ public struct Anytype_Event {
         /// Clears the value of `type`. Subsequent reads from it will return its default value.
         public mutating func clearType() {self._type = nil}
 
+        public var targetObjectID: Anytype_Event.Block.Set.Bookmark.TargetObjectId {
+          get {return _targetObjectID ?? Anytype_Event.Block.Set.Bookmark.TargetObjectId()}
+          set {_targetObjectID = newValue}
+        }
+        /// Returns true if `targetObjectID` has been explicitly set.
+        public var hasTargetObjectID: Bool {return self._targetObjectID != nil}
+        /// Clears the value of `targetObjectID`. Subsequent reads from it will return its default value.
+        public mutating func clearTargetObjectID() {self._targetObjectID = nil}
+
+        public var state: Anytype_Event.Block.Set.Bookmark.State {
+          get {return _state ?? Anytype_Event.Block.Set.Bookmark.State()}
+          set {_state = newValue}
+        }
+        /// Returns true if `state` has been explicitly set.
+        public var hasState: Bool {return self._state != nil}
+        /// Clears the value of `state`. Subsequent reads from it will return its default value.
+        public mutating func clearState() {self._state = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Url {
@@ -2214,6 +2269,30 @@ public struct Anytype_Event {
           public init() {}
         }
 
+        public struct TargetObjectId {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
+        public struct State {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: Anytype_Model_Block.Content.Bookmark.State = .empty
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
         public init() {}
 
         fileprivate var _url: Anytype_Event.Block.Set.Bookmark.Url? = nil
@@ -2222,6 +2301,43 @@ public struct Anytype_Event {
         fileprivate var _imageHash: Anytype_Event.Block.Set.Bookmark.ImageHash? = nil
         fileprivate var _faviconHash: Anytype_Event.Block.Set.Bookmark.FaviconHash? = nil
         fileprivate var _type: Anytype_Event.Block.Set.Bookmark.TypeMessage? = nil
+        fileprivate var _targetObjectID: Anytype_Event.Block.Set.Bookmark.TargetObjectId? = nil
+        fileprivate var _state: Anytype_Event.Block.Set.Bookmark.State? = nil
+      }
+
+      public struct TableRow {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var id: String = String()
+
+        public var isHeader: Anytype_Event.Block.Set.TableRow.IsHeader {
+          get {return _isHeader ?? Anytype_Event.Block.Set.TableRow.IsHeader()}
+          set {_isHeader = newValue}
+        }
+        /// Returns true if `isHeader` has been explicitly set.
+        public var hasIsHeader: Bool {return self._isHeader != nil}
+        /// Clears the value of `isHeader`. Subsequent reads from it will return its default value.
+        public mutating func clearIsHeader() {self._isHeader = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public struct IsHeader {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: Bool = false
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
+        public init() {}
+
+        fileprivate var _isHeader: Anytype_Event.Block.Set.TableRow.IsHeader? = nil
       }
 
       public init() {}
@@ -2854,6 +2970,15 @@ public struct Anytype_Event {
         /// Clears the value of `type`. Subsequent reads from it will return its default value.
         public mutating func clearType() {self._type = nil}
 
+        public var targetObjectID: Anytype_Event.Block.Fill.Bookmark.TargetObjectId {
+          get {return _targetObjectID ?? Anytype_Event.Block.Fill.Bookmark.TargetObjectId()}
+          set {_targetObjectID = newValue}
+        }
+        /// Returns true if `targetObjectID` has been explicitly set.
+        public var hasTargetObjectID: Bool {return self._targetObjectID != nil}
+        /// Clears the value of `targetObjectID`. Subsequent reads from it will return its default value.
+        public mutating func clearTargetObjectID() {self._targetObjectID = nil}
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public struct Url {
@@ -2928,6 +3053,18 @@ public struct Anytype_Event {
           public init() {}
         }
 
+        public struct TargetObjectId {
+          // SwiftProtobuf.Message conformance is added in an extension below. See the
+          // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+          // methods supported on all messages.
+
+          public var value: String = String()
+
+          public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+          public init() {}
+        }
+
         public init() {}
 
         fileprivate var _url: Anytype_Event.Block.Fill.Bookmark.Url? = nil
@@ -2936,6 +3073,7 @@ public struct Anytype_Event {
         fileprivate var _imageHash: Anytype_Event.Block.Fill.Bookmark.ImageHash? = nil
         fileprivate var _faviconHash: Anytype_Event.Block.Fill.Bookmark.FaviconHash? = nil
         fileprivate var _type: Anytype_Event.Block.Fill.Bookmark.TypeMessage? = nil
+        fileprivate var _targetObjectID: Anytype_Event.Block.Fill.Bookmark.TargetObjectId? = nil
       }
 
       public init() {}
@@ -3859,6 +3997,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     21: .same(proto: "blockSetRelation"),
     25: .same(proto: "blockSetLatex"),
     36: .same(proto: "blockSetVerticalAlign"),
+    37: .same(proto: "blockSetTableRow"),
     18: .same(proto: "blockDataviewRecordsSet"),
     26: .same(proto: "blockDataviewRecordsUpdate"),
     27: .same(proto: "blockDataviewRecordsInsert"),
@@ -4341,6 +4480,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .blockSetVerticalAlign(v)
         }
       }()
+      case 37: try {
+        var v: Anytype_Event.Block.Set.TableRow?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .blockSetTableRow(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .blockSetTableRow(v)
+        }
+      }()
       case 50: try {
         var v: Anytype_Event.Object.Details.Amend?
         var hadOneofValue = false
@@ -4712,6 +4864,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .blockSetVerticalAlign?: try {
       guard case .blockSetVerticalAlign(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 36)
+    }()
+    case .blockSetTableRow?: try {
+      guard case .blockSetTableRow(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 37)
     }()
     case .objectDetailsAmend?: try {
       guard case .objectDetailsAmend(let v)? = self.value else { preconditionFailure() }
@@ -5694,6 +5850,7 @@ extension Anytype_Event.Object.Show: SwiftProtobuf.Message, SwiftProtobuf._Messa
     5: .same(proto: "objectTypes"),
     7: .same(proto: "relations"),
     8: .same(proto: "restrictions"),
+    9: .same(proto: "history"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5709,6 +5866,7 @@ extension Anytype_Event.Object.Show: SwiftProtobuf.Message, SwiftProtobuf._Messa
       case 5: try { try decoder.decodeRepeatedMessageField(value: &self.objectTypes) }()
       case 7: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
       case 8: try { try decoder.decodeSingularMessageField(value: &self._restrictions) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._history) }()
       default: break
       }
     }
@@ -5740,6 +5898,9 @@ extension Anytype_Event.Object.Show: SwiftProtobuf.Message, SwiftProtobuf._Messa
     try { if let v = self._restrictions {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
     } }()
+    try { if let v = self._history {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5751,6 +5912,7 @@ extension Anytype_Event.Object.Show: SwiftProtobuf.Message, SwiftProtobuf._Messa
     if lhs.objectTypes != rhs.objectTypes {return false}
     if lhs.relations != rhs.relations {return false}
     if lhs._restrictions != rhs._restrictions {return false}
+    if lhs._history != rhs._history {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5789,6 +5951,44 @@ extension Anytype_Event.Object.Show.RelationWithValuePerObject: SwiftProtobuf.Me
   public static func ==(lhs: Anytype_Event.Object.Show.RelationWithValuePerObject, rhs: Anytype_Event.Object.Show.RelationWithValuePerObject) -> Bool {
     if lhs.objectID != rhs.objectID {return false}
     if lhs.relations != rhs.relations {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Object.Show.HistorySize: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Object.Show.protoMessageName + ".HistorySize"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "undo"),
+    2: .same(proto: "redo"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.undo) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.redo) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.undo != 0 {
+      try visitor.visitSingularInt32Field(value: self.undo, fieldNumber: 1)
+    }
+    if self.redo != 0 {
+      try visitor.visitSingularInt32Field(value: self.redo, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Object.Show.HistorySize, rhs: Anytype_Event.Object.Show.HistorySize) -> Bool {
+    if lhs.undo != rhs.undo {return false}
+    if lhs.redo != rhs.redo {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -7412,6 +7612,8 @@ extension Anytype_Event.Block.Set.Bookmark: SwiftProtobuf.Message, SwiftProtobuf
     5: .same(proto: "imageHash"),
     6: .same(proto: "faviconHash"),
     7: .same(proto: "type"),
+    8: .same(proto: "targetObjectId"),
+    9: .same(proto: "state"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -7427,6 +7629,8 @@ extension Anytype_Event.Block.Set.Bookmark: SwiftProtobuf.Message, SwiftProtobuf
       case 5: try { try decoder.decodeSingularMessageField(value: &self._imageHash) }()
       case 6: try { try decoder.decodeSingularMessageField(value: &self._faviconHash) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._type) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._targetObjectID) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._state) }()
       default: break
       }
     }
@@ -7458,6 +7662,12 @@ extension Anytype_Event.Block.Set.Bookmark: SwiftProtobuf.Message, SwiftProtobuf
     try { if let v = self._type {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
     } }()
+    try { if let v = self._targetObjectID {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
+    try { if let v = self._state {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -7469,6 +7679,8 @@ extension Anytype_Event.Block.Set.Bookmark: SwiftProtobuf.Message, SwiftProtobuf
     if lhs._imageHash != rhs._imageHash {return false}
     if lhs._faviconHash != rhs._faviconHash {return false}
     if lhs._type != rhs._type {return false}
+    if lhs._targetObjectID != rhs._targetObjectID {return false}
+    if lhs._state != rhs._state {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -7660,6 +7872,144 @@ extension Anytype_Event.Block.Set.Bookmark.TypeMessage: SwiftProtobuf.Message, S
   }
 
   public static func ==(lhs: Anytype_Event.Block.Set.Bookmark.TypeMessage, rhs: Anytype_Event.Block.Set.Bookmark.TypeMessage) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.TargetObjectId: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.Bookmark.protoMessageName + ".TargetObjectId"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.Bookmark.TargetObjectId, rhs: Anytype_Event.Block.Set.Bookmark.TargetObjectId) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.State: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.Bookmark.protoMessageName + ".State"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != .empty {
+      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.Bookmark.State, rhs: Anytype_Event.Block.Set.Bookmark.State) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.TableRow: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.protoMessageName + ".TableRow"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "isHeader"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._isHeader) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try { if let v = self._isHeader {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.TableRow, rhs: Anytype_Event.Block.Set.TableRow) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs._isHeader != rhs._isHeader {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Set.TableRow.IsHeader: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Set.TableRow.protoMessageName + ".IsHeader"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != false {
+      try visitor.visitSingularBoolField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Set.TableRow.IsHeader, rhs: Anytype_Event.Block.Set.TableRow.IsHeader) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
@@ -8765,6 +9115,7 @@ extension Anytype_Event.Block.Fill.Bookmark: SwiftProtobuf.Message, SwiftProtobu
     5: .same(proto: "imageHash"),
     6: .same(proto: "faviconHash"),
     7: .same(proto: "type"),
+    8: .same(proto: "targetObjectId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -8780,6 +9131,7 @@ extension Anytype_Event.Block.Fill.Bookmark: SwiftProtobuf.Message, SwiftProtobu
       case 5: try { try decoder.decodeSingularMessageField(value: &self._imageHash) }()
       case 6: try { try decoder.decodeSingularMessageField(value: &self._faviconHash) }()
       case 7: try { try decoder.decodeSingularMessageField(value: &self._type) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._targetObjectID) }()
       default: break
       }
     }
@@ -8811,6 +9163,9 @@ extension Anytype_Event.Block.Fill.Bookmark: SwiftProtobuf.Message, SwiftProtobu
     try { if let v = self._type {
       try visitor.visitSingularMessageField(value: v, fieldNumber: 7)
     } }()
+    try { if let v = self._targetObjectID {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -8822,6 +9177,7 @@ extension Anytype_Event.Block.Fill.Bookmark: SwiftProtobuf.Message, SwiftProtobu
     if lhs._imageHash != rhs._imageHash {return false}
     if lhs._faviconHash != rhs._faviconHash {return false}
     if lhs._type != rhs._type {return false}
+    if lhs._targetObjectID != rhs._targetObjectID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -9013,6 +9369,38 @@ extension Anytype_Event.Block.Fill.Bookmark.TypeMessage: SwiftProtobuf.Message, 
   }
 
   public static func ==(lhs: Anytype_Event.Block.Fill.Bookmark.TypeMessage, rhs: Anytype_Event.Block.Fill.Bookmark.TypeMessage) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Fill.Bookmark.TargetObjectId: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Fill.Bookmark.protoMessageName + ".TargetObjectId"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.value.isEmpty {
+      try visitor.visitSingularStringField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Fill.Bookmark.TargetObjectId, rhs: Anytype_Event.Block.Fill.Bookmark.TargetObjectId) -> Bool {
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

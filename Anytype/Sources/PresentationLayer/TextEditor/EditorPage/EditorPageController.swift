@@ -185,7 +185,7 @@ final class EditorPageController: UIViewController {
                     collectionView.setItemIsMoving(true, at: indexPath)
                 }
                 collectionView.isLocked = false
-            case .locked:
+            case .locked, .simpleTablesSelection:
                 view.endEditing(true)
                 collectionView.isLocked = true
             }

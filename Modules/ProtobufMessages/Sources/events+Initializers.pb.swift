@@ -211,7 +211,8 @@ extension Anytype_Event.Block.Fill.BackgroundColor {
 extension Anytype_Event.Block.Fill.Bookmark {
   public init(
     id: String, url: Anytype_Event.Block.Fill.Bookmark.Url, title: Anytype_Event.Block.Fill.Bookmark.Title, description_p: Anytype_Event.Block.Fill.Bookmark.Description,
-    imageHash: Anytype_Event.Block.Fill.Bookmark.ImageHash, faviconHash: Anytype_Event.Block.Fill.Bookmark.FaviconHash, type: Anytype_Event.Block.Fill.Bookmark.TypeMessage
+    imageHash: Anytype_Event.Block.Fill.Bookmark.ImageHash, faviconHash: Anytype_Event.Block.Fill.Bookmark.FaviconHash, type: Anytype_Event.Block.Fill.Bookmark.TypeMessage,
+    targetObjectID: Anytype_Event.Block.Fill.Bookmark.TargetObjectId
   ) {
     self.id = id
     self.url = url
@@ -220,6 +221,7 @@ extension Anytype_Event.Block.Fill.Bookmark {
     self.imageHash = imageHash
     self.faviconHash = faviconHash
     self.type = type
+    self.targetObjectID = targetObjectID
   }
 }
 
@@ -236,6 +238,12 @@ extension Anytype_Event.Block.Fill.Bookmark.FaviconHash {
 }
 
 extension Anytype_Event.Block.Fill.Bookmark.ImageHash {
+  public init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Fill.Bookmark.TargetObjectId {
   public init(value: String) {
     self.value = value
   }
@@ -465,7 +473,8 @@ extension Anytype_Event.Block.Set.BackgroundColor {
 extension Anytype_Event.Block.Set.Bookmark {
   public init(
     id: String, url: Anytype_Event.Block.Set.Bookmark.Url, title: Anytype_Event.Block.Set.Bookmark.Title, description_p: Anytype_Event.Block.Set.Bookmark.Description,
-    imageHash: Anytype_Event.Block.Set.Bookmark.ImageHash, faviconHash: Anytype_Event.Block.Set.Bookmark.FaviconHash, type: Anytype_Event.Block.Set.Bookmark.TypeMessage
+    imageHash: Anytype_Event.Block.Set.Bookmark.ImageHash, faviconHash: Anytype_Event.Block.Set.Bookmark.FaviconHash, type: Anytype_Event.Block.Set.Bookmark.TypeMessage,
+    targetObjectID: Anytype_Event.Block.Set.Bookmark.TargetObjectId, state: Anytype_Event.Block.Set.Bookmark.State
   ) {
     self.id = id
     self.url = url
@@ -474,6 +483,8 @@ extension Anytype_Event.Block.Set.Bookmark {
     self.imageHash = imageHash
     self.faviconHash = faviconHash
     self.type = type
+    self.targetObjectID = targetObjectID
+    self.state = state
   }
 }
 
@@ -490,6 +501,18 @@ extension Anytype_Event.Block.Set.Bookmark.FaviconHash {
 }
 
 extension Anytype_Event.Block.Set.Bookmark.ImageHash {
+  public init(value: String) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.State {
+  public init(value: Anytype_Model_Block.Content.Bookmark.State) {
+    self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.Bookmark.TargetObjectId {
   public init(value: String) {
     self.value = value
   }
@@ -696,6 +719,19 @@ extension Anytype_Event.Block.Set.Restrictions {
   }
 }
 
+extension Anytype_Event.Block.Set.TableRow {
+  public init(id: String, isHeader: Anytype_Event.Block.Set.TableRow.IsHeader) {
+    self.id = id
+    self.isHeader = isHeader
+  }
+}
+
+extension Anytype_Event.Block.Set.TableRow.IsHeader {
+  public init(value: Bool) {
+    self.value = value
+  }
+}
+
 extension Anytype_Event.Block.Set.Text {
   public init(
     id: String, text: Anytype_Event.Block.Set.Text.Text, style: Anytype_Event.Block.Set.Text.Style, marks: Anytype_Event.Block.Set.Text.Marks, checked: Anytype_Event.Block.Set.Text.Checked,
@@ -843,7 +879,7 @@ extension Anytype_Event.Object.Remove {
 extension Anytype_Event.Object.Show {
   public init(
     rootID: String, blocks: [Anytype_Model_Block], details: [Anytype_Event.Object.Details.Set], type: Anytype_Model_SmartBlockType, objectTypes: [Anytype_Model_ObjectType],
-    relations: [Anytype_Model_Relation], restrictions: Anytype_Model_Restrictions
+    relations: [Anytype_Model_Relation], restrictions: Anytype_Model_Restrictions, history: Anytype_Event.Object.Show.HistorySize
   ) {
     self.rootID = rootID
     self.blocks = blocks
@@ -852,6 +888,14 @@ extension Anytype_Event.Object.Show {
     self.objectTypes = objectTypes
     self.relations = relations
     self.restrictions = restrictions
+    self.history = history
+  }
+}
+
+extension Anytype_Event.Object.Show.HistorySize {
+  public init(undo: Int32, redo: Int32) {
+    self.undo = undo
+    self.redo = redo
   }
 }
 

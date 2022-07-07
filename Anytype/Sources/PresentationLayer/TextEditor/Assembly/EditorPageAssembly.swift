@@ -64,7 +64,13 @@ final class EditorAssembly {
     // MARK: - Page
     
     private func buildPageModule(data: EditorScreenData) -> (EditorPageController, EditorRouterProtocol) {
-        let blocksSelectionOverlayView = buildBlocksSelectionOverlayView()
+        let simpleTableMenuViewModel = SimpleTableMenuViewModel()
+        let blocksOptionViewModel = SelectionOptionsViewModel()
+
+        let blocksSelectionOverlayView = buildBlocksSelectionOverlayView(
+            simleTableMenuViewModel: simpleTableMenuViewModel,
+            blockOptionsViewViewModel: blocksOptionViewModel
+        )
 
         let controller = EditorPageController(blocksSelectionOverlayView: blocksSelectionOverlayView)
         let document = BaseDocument(objectId: data.pageId)
@@ -84,6 +90,8 @@ final class EditorAssembly {
             viewInput: controller,
             document: document,
             router: router,
+            blocksOptionViewModel: blocksOptionViewModel,
+            simpleTableMenuViewModel: simpleTableMenuViewModel,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel,
             isOpenedForPreview: data.isOpenedForPreview
         )
@@ -97,6 +105,8 @@ final class EditorAssembly {
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter,
+        blocksOptionViewModel: SelectionOptionsViewModel,
+        simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         isOpenedForPreview: Bool
     ) -> EditorPageViewModel {                
@@ -142,7 +152,8 @@ final class EditorAssembly {
             router: router,
             pasteboardService: pasteboardService,
             document: document,
-            modelsHolder: modelsHolder
+            onShowStyleMenu: router.showStyleMenu(information:),
+            onBlockSelection: actionHandler.selectBlock(info:)
         )
         
         let markdownListener = MarkdownListenerImpl()
@@ -152,16 +163,32 @@ final class EditorAssembly {
             accessoryState: accessoryState
         )
 
+        let simpleTablesStateManager = SimpleTableStateManager()
+        let simpleTablesAccessoryState = AccessoryViewBuilder.accessoryState(
+            actionHandler: actionHandler,
+            router: router,
+            pasteboardService: pasteboardService,
+            document: document,
+            onShowStyleMenu: { _ in } ,
+            onBlockSelection: simpleTablesStateManager.didSelectEditingState(info:)
+        )
+
+        let simpleTablesBlockDelegate = BlockDelegateImpl(
+            viewInput: viewInput,
+            accessoryState: simpleTablesAccessoryState
+        )
+
         let simpleTablesBuilder = SimpleTableViewModelBuilder(
             document: document,
             router: router,
             handler: actionHandler,
             pasteboardService: pasteboardService,
-            delegate: blockDelegate,
+            delegate: simpleTablesBlockDelegate,
             markdownListener: markdownListener,
             relativePositionProvider: viewInput,
             cursorManager: EditorCursorManager(focusSubjectHolder: focusSubjectHolder),
-            focusSubjectHolder: focusSubjectHolder
+            focusSubjectHolder: focusSubjectHolder,
+            stateManager: simpleTablesStateManager
         )
         
         let blocksConverter = BlockViewModelBuilder(
@@ -199,6 +226,12 @@ final class EditorAssembly {
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager
+
+        blocksStateManager.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
+        blocksStateManager.blocksOptionViewModel = blocksOptionViewModel
+
+        simpleTablesStateManager.menuViewModel = simpleTableMenuViewModel
+        simpleTablesStateManager.mainEditorSelectionManager = blocksStateManager
         
         return EditorPageViewModel(
             document: document,
@@ -219,16 +252,17 @@ final class EditorAssembly {
         )
     }
 
-    private func buildBlocksSelectionOverlayView() -> BlocksSelectionOverlayView {
-        let blocksOptionViewModel = BlocksOptionViewModel()
-        let blocksOptionView = BlocksOptionView(viewModel: blocksOptionViewModel)
+    private func buildBlocksSelectionOverlayView(
+        simleTableMenuViewModel: SimpleTableMenuViewModel,
+        blockOptionsViewViewModel: SelectionOptionsViewModel
+    ) -> BlocksSelectionOverlayView {
+        let blocksOptionView = SelectionOptionsView(viewModel: blockOptionsViewViewModel)
         let blocksSelectionOverlayViewModel = BlocksSelectionOverlayViewModel()
-
-        blocksSelectionOverlayViewModel.blocksOptionViewModel = blocksOptionViewModel
 
         return BlocksSelectionOverlayView(
             viewModel: blocksSelectionOverlayViewModel,
-            blocksOptionView: blocksOptionView
+            blocksOptionView: blocksOptionView,
+            simpleTablesOptionView: SimpleTableMenuView(viewModel: simleTableMenuViewModel)
         )
     }
 }

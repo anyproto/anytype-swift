@@ -38,7 +38,7 @@ extension Anytype_Model_Account.Config {
 extension Anytype_Model_Account.Info {
   public init(
     homeObjectID: String, archiveObjectID: String, profileObjectID: String, marketplaceTypeObjectID: String, marketplaceRelationObjectID: String, marketplaceTemplateObjectID: String, deviceID: String,
-    gatewayURL: String
+    gatewayURL: String, localStoragePath: String
   ) {
     self.homeObjectID = homeObjectID
     self.archiveObjectID = archiveObjectID
@@ -48,6 +48,7 @@ extension Anytype_Model_Account.Info {
     self.marketplaceTemplateObjectID = marketplaceTemplateObjectID
     self.deviceID = deviceID
     self.gatewayURL = gatewayURL
+    self.localStoragePath = localStoragePath
   }
 }
 
@@ -75,13 +76,18 @@ extension Anytype_Model_Block {
 }
 
 extension Anytype_Model_Block.Content.Bookmark {
-  public init(url: String, title: String, description_p: String, imageHash: String, faviconHash: String, type: Anytype_Model_LinkPreview.TypeEnum) {
+  public init(
+    url: String, title: String, description_p: String, imageHash: String, faviconHash: String, type: Anytype_Model_LinkPreview.TypeEnum, targetObjectID: String,
+    state: Anytype_Model_Block.Content.Bookmark.State
+  ) {
     self.url = url
     self.title = title
     self.description_p = description_p
     self.imageHash = imageHash
     self.faviconHash = faviconHash
     self.type = type
+    self.targetObjectID = targetObjectID
+    self.state = state
   }
 }
 
@@ -208,6 +214,12 @@ extension Anytype_Model_Block.Content.Relation {
   }
 }
 
+extension Anytype_Model_Block.Content.TableRow {
+  public init(isHeader: Bool) {
+    self.isHeader = isHeader
+  }
+}
+
 extension Anytype_Model_Block.Content.Text {
   public init(text: String, style: Anytype_Model_Block.Content.Text.Style, marks: Anytype_Model_Block.Content.Text.Marks, checked: Bool, color: String, iconEmoji: String, iconImage: String) {
     self.text = text
@@ -248,6 +260,12 @@ extension Anytype_Model_BlockMetaOnly {
   public init(id: String, fields: SwiftProtobuf.Google_Protobuf_Struct) {
     self.id = id
     self.fields = fields
+  }
+}
+
+extension Anytype_Model_InternalFlag {
+  public init(value: Anytype_Model_InternalFlag.Value) {
+    self.value = value
   }
 }
 

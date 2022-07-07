@@ -10,6 +10,8 @@ import BlocksModels
 import SwiftUI
 import Combine
 
+typealias RoutingAction<T> = (_ arg: T) -> Void // Move to common
+
 struct MarkupItem: Identifiable, Equatable {
     let id = UUID()
     let markupItem: MarkupAccessoryViewModel.MarkupKind
@@ -31,9 +33,10 @@ final class MarkupAccessoryViewModel: ObservableObject {
     private(set) var restrictions: BlockRestrictions?
     private(set) var actionHandler: BlockActionHandlerProtocol
     private(set) var blockId: BlockId = ""
-    private let router: EditorRouterProtocol
     private let pageService = PageService()
     private let document: BaseDocumentProtocol
+
+    private let onShowLinkToObject: RoutingAction<(LinkToObjectSearchViewModel.SearchKind) -> ()>
 
     @Published private(set) var range: NSRange = .zero
     @Published private(set) var currentText: NSAttributedString?
@@ -43,13 +46,14 @@ final class MarkupAccessoryViewModel: ObservableObject {
 
     private var cancellables = [AnyCancellable]()
 
-    init(document: BaseDocumentProtocol,
-         actionHandler: BlockActionHandlerProtocol,
-         router: EditorRouterProtocol
+    init(
+        document: BaseDocumentProtocol,
+        actionHandler: BlockActionHandlerProtocol,
+        onLinkToObject: @escaping (@escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) -> ()
     ) {
         self.actionHandler = actionHandler
-        self.router = router
         self.document = document
+        self.onShowLinkToObject = onLinkToObject
         self.subscribeOnBlocksChanges()
     }
 
@@ -116,7 +120,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
     }
 
     private func showLinkToSearch(blockId: BlockId, range: NSRange) {
-        router.showLinkToObject { [weak self] searchKind in
+        onShowLinkToObject { [weak self] searchKind in
             switch searchKind {
             case let .object(linkBlockId):
                 self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)

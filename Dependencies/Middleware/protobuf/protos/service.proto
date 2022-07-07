@@ -32,6 +32,7 @@ service ClientCommands {
     rpc AccountDelete (anytype.Rpc.Account.Delete.Request) returns (anytype.Rpc.Account.Delete.Response);
     rpc AccountSelect (anytype.Rpc.Account.Select.Request) returns (anytype.Rpc.Account.Select.Response);
     rpc AccountStop (anytype.Rpc.Account.Stop.Request) returns (anytype.Rpc.Account.Stop.Response);
+    rpc AccountMove (anytype.Rpc.Account.Move.Request) returns (anytype.Rpc.Account.Move.Response);
 
     // Object
     // ***
@@ -40,6 +41,7 @@ service ClientCommands {
     rpc ObjectShow (anytype.Rpc.Object.Show.Request) returns (anytype.Rpc.Object.Show.Response);
     // ObjectCreate just creates the new page, without adding the link to it from some other page
     rpc ObjectCreate (anytype.Rpc.Object.Create.Request) returns (anytype.Rpc.Object.Create.Response);
+    rpc ObjectCreateBookmark (anytype.Rpc.Object.CreateBookmark.Request) returns (anytype.Rpc.Object.CreateBookmark.Response);
     // ObjectCreateSet just creates the new set, without adding the link to it from some other page
     rpc ObjectCreateSet (anytype.Rpc.Object.CreateSet.Request) returns (anytype.Rpc.Object.CreateSet.Response);
     rpc ObjectGraph (anytype.Rpc.Object.Graph.Request) returns (anytype.Rpc.Object.Graph.Response);
@@ -69,6 +71,8 @@ service ClientCommands {
     rpc ObjectRedo (anytype.Rpc.Object.Redo.Request) returns (anytype.Rpc.Object.Redo.Response);
     rpc ObjectImportMarkdown (anytype.Rpc.Object.ImportMarkdown.Request) returns (anytype.Rpc.Object.ImportMarkdown.Response);
     rpc ObjectListExport (anytype.Rpc.Object.ListExport.Request) returns (anytype.Rpc.Object.ListExport.Response);
+    rpc ObjectBookmarkFetch (anytype.Rpc.Object.BookmarkFetch.Request) returns (anytype.Rpc.Object.BookmarkFetch.Response);
+    rpc ObjectToBookmark (anytype.Rpc.Object.ToBookmark.Request) returns (anytype.Rpc.Object.ToBookmark.Response);
 
     // Object Relations
     // ***
@@ -189,15 +193,17 @@ service ClientCommands {
     rpc BlockTableCreate (anytype.Rpc.BlockTable.Create.Request) returns (anytype.Rpc.BlockTable.Create.Response);
     rpc BlockTableExpand (anytype.Rpc.BlockTable.Expand.Request) returns (anytype.Rpc.BlockTable.Expand.Response);
     rpc BlockTableRowCreate (anytype.Rpc.BlockTable.RowCreate.Request) returns (anytype.Rpc.BlockTable.RowCreate.Response);
-    rpc BlockTableRowMove (anytype.Rpc.BlockTable.RowMove.Request) returns (anytype.Rpc.BlockTable.RowMove.Response);
     rpc BlockTableRowDelete (anytype.Rpc.BlockTable.RowDelete.Request) returns (anytype.Rpc.BlockTable.RowDelete.Response);
     rpc BlockTableRowDuplicate (anytype.Rpc.BlockTable.RowDuplicate.Request) returns (anytype.Rpc.BlockTable.RowDuplicate.Response);
+    rpc BlockTableRowSetHeader (anytype.Rpc.BlockTable.RowSetHeader.Request) returns (anytype.Rpc.BlockTable.RowSetHeader.Response);
     rpc BlockTableColumnCreate (anytype.Rpc.BlockTable.ColumnCreate.Request) returns (anytype.Rpc.BlockTable.ColumnCreate.Response);
     rpc BlockTableColumnMove (anytype.Rpc.BlockTable.ColumnMove.Request) returns (anytype.Rpc.BlockTable.ColumnMove.Response);
     rpc BlockTableColumnDelete (anytype.Rpc.BlockTable.ColumnDelete.Request) returns (anytype.Rpc.BlockTable.ColumnDelete.Response);
     rpc BlockTableColumnDuplicate (anytype.Rpc.BlockTable.ColumnDuplicate.Request) returns (anytype.Rpc.BlockTable.ColumnDuplicate.Response);
     rpc BlockTableRowListFill (anytype.Rpc.BlockTable.RowListFill.Request) returns (anytype.Rpc.BlockTable.RowListFill.Response);
     rpc BlockTableRowListClean (anytype.Rpc.BlockTable.RowListClean.Request) returns (anytype.Rpc.BlockTable.RowListClean.Response);
+    rpc BlockTableColumnListFill (anytype.Rpc.BlockTable.ColumnListFill.Request) returns (anytype.Rpc.BlockTable.ColumnListFill.Response);
+    rpc BlockTableSort (anytype.Rpc.BlockTable.Sort.Request) returns (anytype.Rpc.BlockTable.Sort.Response);
 
     // Other specific block commands
     // ***

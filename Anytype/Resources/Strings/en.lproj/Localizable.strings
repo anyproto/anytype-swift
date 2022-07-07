@@ -521,3 +521,22 @@
 
 // MARK: Table of Contents
 "TalbeOfContents.Empty" = "Add headings to create a table of contents";
+
+// MARK: - Simple tables
+"SimpleTableMenu.Item.clearContents" = "Clear contents";
+"SimpleTableMenu.Item.color" = "Color";
+"SimpleTableMenu.Item.style" = "Style";
+"SimpleTableMenu.Item.clearStyle" = "Clear style";
+
+"SimpleTableMenu.Item.InsertLeft" = "Insert left";
+"SimpleTableMenu.Item.InsertRight" = "Insert right";
+"SimpleTableMenu.Item.MoveLeft" = "Move left";
+"SimpleTableMenu.Item.MoveRight" = "Move right";
+"SimpleTableMenu.Item.Duplicate" = "Duplicate";
+"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.Sort" = "Sort";
+
+"SimpleTableMenu.Item.InsertAbove" = "Insert above";
+"SimpleTableMenu.Item.InsertBelow" = "Insert below";
+"SimpleTableMenu.Item.MoveUp" = "Move up";
+"SimpleTableMenu.Item.MoveDown" = "Move down";

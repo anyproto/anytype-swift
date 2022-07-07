@@ -130,6 +130,8 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
 
         if let firstReponderChangeHandler = blockView as? FirstResponder {
             firstReponderChangeHandler.isFirstResponderValueChangeHandler = { [weak self] isFirstResponder in
+                guard !(self?.currentConfigurationState?.isSelected ?? false) else { return }
+                
                 self?.selectionView.updateStyle(isSelected: isFirstResponder)
             }
         }

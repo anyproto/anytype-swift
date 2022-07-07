@@ -88,6 +88,47 @@ final class BaseDocument: BaseDocumentProtocol {
         return model.flatChildrenTree(container: infoContainer)
     }
 
+    var isEmpty: Bool {
+        guard let details = details else {
+            return false
+        }
+
+        let allTextChilds = children.filter(\.isText)
+        if allTextChilds.count > 1 { return false }
+
+        return allTextChilds.first?.content.isEmpty ?? true
+
+//        switch details.layout {
+//        case .note:
+//
+//        case .basic, .profile, .todo, .set:
+//            return
+//        }
+//
+//
+//        let hasNonTextAndRelationBlocks = items.onlyBlockViewModels.contains {
+//            switch $0.content {
+//            case .text, .featuredRelations:
+//                return false
+//            default:
+//                return true
+//            }
+//        }
+//
+//        if hasNonTextAndRelationBlocks { return false }
+//
+//        let textBlocks = items.onlyBlockViewModels.filter { $0.content.isText }
+//
+//        switch textBlocks.count {
+//        case 0, 1:
+//            return true
+//        case 2:
+//            return textBlocks.last?.content.isEmpty ?? false
+//        default:
+//            return false
+//        }
+    }
+
     // MARK: - Private methods
     private func setup() {
         eventsListener.onUpdateReceive = { [weak self] update in

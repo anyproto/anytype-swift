@@ -20,8 +20,7 @@ enum SlashActionOther: CaseIterable, Equatable {
         case .tableOfContents:
             return Loc.SlashMenu.tableOfContents
         case let .table(rowsCount, columnsCount):
-            return Loc.SlashMenu.tableOfContents
-//            return "SlashMenu.Table".localized + " \(rowsCount)x\(columnsCount)"
+            return Loc.SlashMenu.table + " \(rowsCount)x\(columnsCount)"
         }
     }
     

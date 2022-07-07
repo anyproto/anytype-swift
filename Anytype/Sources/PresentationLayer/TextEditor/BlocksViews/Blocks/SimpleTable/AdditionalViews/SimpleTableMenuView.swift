@@ -1,64 +1,16 @@
 import SwiftUI
 import Combine
 
-enum SimpleTableCellMenuItem: CaseIterable {
-    case clearContents
-    case color
-    case style
-    case clearStyle
-}
-
-enum SimpleTableColumnMenuItem: CaseIterable {
-    case insertLeft
-    case insertRight
-    case moveLeft
-    case moveRight
-    case duplicate
-    case delete
-    case clearContents
-    case sort
-    case color
-    case style
-}
-
-enum SimpleTableRowMenuItem: CaseIterable {
-    case insertAbove
-    case insertBelow
-    case moveUp
-    case moveDown
-    case duplicate
-    case delete
-    case clearContents
-    case color
-    case style
-}
-
-final class SimpleTablesMenuItemsProvider: TypeListItemProvider {
-    var typesPublisher: AnyPublisher<[HorizonalTypeListViewModel.Item], Never> { $items.eraseToAnyPublisher() }
-    @Published private var items = [HorizonalTypeListViewModel.Item]()
+final class SimpleTableMenuViewModel: TypeListItemProvider {
+    var typesPublisher: AnyPublisher<[HorizontalListItem], Never> { $items.eraseToAnyPublisher() }
+    @Published var items = [HorizontalListItem]()
 
     private var selectedIndexPaths = [IndexPath]()
 
+    weak var delegate: SimpleTableMenuDelegate?
+
     func didSelectTab(tab: SimpleTableMenuView.Tab) {
-        switch tab {
-        case .cell:
-            self.items = SimpleTableCellMenuItem.allCases.map {
-                HorizonalTypeListViewModel.Item.init(
-                    id: "\($0.hashValue)",
-                    title: <#T##String#>,
-                    image: <#T##ObjectIconImage#>,
-                    action: <#T##() -> Void#>
-                )
-            }
-        case .row:
-
-        case .column:
-
-        }
-    }
-
-    func didChangeSelectedIndexPaths(indexPaths: [IndexPath]) {
-        self.selectedIndexPaths = indexPaths
+        delegate?.didSelectTab(tab: tab)
     }
 }
 
@@ -80,13 +32,13 @@ struct SimpleTableMenuView: View {
         }
     }
 
+    let viewModel: SimpleTableMenuViewModel
     @State private var index: Int = 0
-    let horizontalList: HorizonalTypeListView
 
     var body: some View {
         VStack {
             tabHeaders
-            horizontalList
+
         }
     }
 
@@ -103,7 +55,7 @@ struct SimpleTableMenuView: View {
         Button {
             UISelectionFeedbackGenerator().selectionChanged()
             withAnimation {
-                horizontalList.viewModel
+                viewModel.didSelectTab(tab: tab)
                 index = tab.rawValue
             }
         } label: {

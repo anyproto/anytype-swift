@@ -1,17 +1,17 @@
 import SwiftUI
 
 // https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=5469%3A0
-struct BlocksOptionView: View {
-    @ObservedObject var viewModel: BlocksOptionViewModel
+struct SelectionOptionsView: View {
+    @ObservedObject var viewModel: SelectionOptionsViewModel
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 0) {
                 ForEach(viewModel.options, id: \.self) { item in
                     Button {
-                        viewModel.tapHandler?(item)
+                        item.action()
                     } label: {
-                        BlocksOptionItemView(
+                        SelectionOptionsItemView(
                             image: item.image,
                             title: item.title
                         )
@@ -25,13 +25,16 @@ struct BlocksOptionView: View {
     }
 }
 
-private struct BlocksOptionItemView: View {
-    let image: UIImage
+private struct SelectionOptionsItemView: View {
+    let image: ObjectIconImage
     let title: String
 
     var body: some View {
         VStack(spacing: 5) {
-            Image(uiImage: image)
+            SwiftUIObjectIconImageView(
+                iconImage: image,
+                usecase: .editorMenu
+            )
                 .frame(width: 52, height: 52)
                 .background(Color.backgroundSelected)
                 .cornerRadius(10.5)
@@ -41,9 +44,9 @@ private struct BlocksOptionItemView: View {
     }
 }
 
-struct BlocksOptionView_Previews: PreviewProvider {
+struct SelectionOptionsView_Previews: PreviewProvider {
     static var previews: some View {
-        BlocksOptionView(viewModel: .init())
+        SelectionOptionsView(viewModel: .init())
             .previewLayout(.fixed(width: 340, height: 100))
     }
 }

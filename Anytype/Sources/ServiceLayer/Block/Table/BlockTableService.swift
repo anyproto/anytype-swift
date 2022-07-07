@@ -30,7 +30,8 @@ final class BlockTableService: BlockTableServiceProtocol {
             targetID: targetId,
             position: BlockPosition.replace.asMiddleware,
             rows: UInt32(rowsCount),
-            columns: UInt32(columnsCount)
+            columns: UInt32(columnsCount),
+            withHeaderRow: false
         )
             .getValue(domain: .simpleTablesService)
             .map { EventsBunch(event: $0.event) }

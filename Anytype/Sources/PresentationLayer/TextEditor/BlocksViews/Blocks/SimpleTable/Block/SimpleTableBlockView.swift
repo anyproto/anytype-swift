@@ -14,6 +14,8 @@ final class SimpleTableBlockView: UIView, BlockContentView {
     private var configuration: SimpleTableBlockContentConfiguration?
     private weak var blockDelegate: BlockDelegate?
 
+    private var cancellables = [AnyCancellable]()
+
     override init(frame: CGRect) {
         super.init(frame: frame)
 
@@ -51,6 +53,40 @@ final class SimpleTableBlockView: UIView, BlockContentView {
         spreadsheetLayout.relativePositionProvider = configuration.relativePositionProvider
 
         viewModel?.dataSource = dataSource
+    }
+
+    override func endEditing(_ force: Bool) -> Bool {
+        super.endEditing(force)
+    }
+
+    private func setupHandlers() {
+        viewModel?.stateManager.editorEditingStatePublisher.sink { [unowned self] state in
+            switch state {
+            case .selecting:
+                dynamicLayoutView.collectionView.isEditing = false
+                dynamicLayoutView.collectionView.isLocked = false
+            case .editing:
+                dynamicLayoutView.collectionView.isEditing = true
+                dynamicLayoutView.collectionView.isLocked = false
+            case .moving:
+                fatalError()
+            case .locked, .simpleTablesSelection:
+                dynamicLayoutView.collectionView.isEditing = false
+                dynamicLayoutView.collectionView.isLocked = true
+            }
+        }.store(in: &cancellables)
+
+        viewModel?.stateManager.editorSelectedBlocks.sink { [unowned self] blockIds in
+            blockIds.forEach(selectBlock)
+        }.store(in: &cancellables)
+    }
+
+    private func selectBlock(blockId: BlockId) {
+        guard let indexPath = dataSource.indexPath(for: blockId) else {
+            return
+        }
+
+        dynamicLayoutView.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
     }
 
     private func setupSubview() {

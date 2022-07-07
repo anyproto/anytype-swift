@@ -4,19 +4,20 @@ import BlocksModels
 import SwiftUI
 import AnytypeCore
 
+struct HorizontalListItem: Identifiable, Hashable {
+    let id: String
+    let title: String
+    let image: ObjectIconImage
+
+    @EquatableNoop var action: () -> Void
+}
+
 protocol TypeListItemProvider: AnyObject {
-    var typesPublisher: AnyPublisher<[HorizonalTypeListViewModel.Item], Never> { get }
+    var typesPublisher: AnyPublisher<[HorizontalListItem], Never> { get }
 }
 
 final class HorizonalTypeListViewModel: ObservableObject {
-    struct Item: Identifiable {
-        let id: String
-        let title: String
-        let image: ObjectIconImage
-        let action: () -> Void
-    }
-
-    @Published var items = [Item]()
+    @Published var items = [HorizontalListItem]()
 
     private var cancellables = [AnyCancellable]()
 
@@ -27,7 +28,7 @@ final class HorizonalTypeListViewModel: ObservableObject {
     }
 }
 
-extension HorizonalTypeListViewModel.Item {
+extension HorizontalListItem {
     init(from details: ObjectDetails, handler: @escaping () -> Void) {
         let emoji = Emoji(details.iconEmoji).map { ObjectIconImage.icon(.emoji($0)) } ??  ObjectIconImage.image(UIImage())
 

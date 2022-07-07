@@ -1018,7 +1018,45 @@ public struct Anytype_Model_Block {
 
       public var type: Anytype_Model_LinkPreview.TypeEnum = .unknown
 
+      public var targetObjectID: String = String()
+
+      public var state: Anytype_Model_Block.Content.Bookmark.State = .empty
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+      public enum State: SwiftProtobuf.Enum {
+        public typealias RawValue = Int
+        case empty // = 0
+        case fetching // = 1
+        case done // = 2
+        case error // = 3
+        case UNRECOGNIZED(Int)
+
+        public init() {
+          self = .empty
+        }
+
+        public init?(rawValue: Int) {
+          switch rawValue {
+          case 0: self = .empty
+          case 1: self = .fetching
+          case 2: self = .done
+          case 3: self = .error
+          default: self = .UNRECOGNIZED(rawValue)
+          }
+        }
+
+        public var rawValue: Int {
+          switch self {
+          case .empty: return 0
+          case .fetching: return 1
+          case .done: return 2
+          case .error: return 3
+          case .UNRECOGNIZED(let i): return i
+          }
+        }
+
+      }
 
       public init() {}
     }
@@ -1900,6 +1938,8 @@ public struct Anytype_Model_Block {
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
+      public var isHeader: Bool = false
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public init() {}
@@ -2001,6 +2041,16 @@ extension Anytype_Model_Block.Content.Div.Style: CaseIterable {
   public static var allCases: [Anytype_Model_Block.Content.Div.Style] = [
     .line,
     .dots,
+  ]
+}
+
+extension Anytype_Model_Block.Content.Bookmark.State: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_Block.Content.Bookmark.State] = [
+    .empty,
+    .fetching,
+    .done,
+    .error,
   ]
 }
 
@@ -2429,6 +2479,9 @@ public struct Anytype_Model_Account {
     /// gateway url for fetching static files
     public var gatewayURL: String = String()
 
+    /// path to local storage
+    public var localStoragePath: String = String()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -2549,9 +2602,18 @@ public struct Anytype_Model_Restrictions {
 
     /// restricts work with details
     case details // = 4
+
+    /// restricts type changing
     case typeChange // = 5
+
+    /// restricts layout changing
     case layoutChange // = 6
+
+    /// restricts template creation from this object
     case template // = 7
+
+    /// restricts duplicate object
+    case duplicate // = 8
     case UNRECOGNIZED(Int)
 
     public init() {
@@ -2568,6 +2630,7 @@ public struct Anytype_Model_Restrictions {
       case 5: self = .typeChange
       case 6: self = .layoutChange
       case 7: self = .template
+      case 8: self = .duplicate
       default: self = .UNRECOGNIZED(rawValue)
       }
     }
@@ -2582,6 +2645,7 @@ public struct Anytype_Model_Restrictions {
       case .typeChange: return 5
       case .layoutChange: return 6
       case .template: return 7
+      case .duplicate: return 8
       case .UNRECOGNIZED(let i): return i
       }
     }
@@ -2652,6 +2716,7 @@ extension Anytype_Model_Restrictions.ObjectRestriction: CaseIterable {
     .typeChange,
     .layoutChange,
     .template,
+    .duplicate,
   ]
 }
 
@@ -2740,6 +2805,7 @@ public struct Anytype_Model_ObjectType {
     case image // = 8
     case note // = 9
     case space // = 10
+    case bookmark // = 11
 
     /// to be released later
     case database // = 20
@@ -2762,6 +2828,7 @@ public struct Anytype_Model_ObjectType {
       case 8: self = .image
       case 9: self = .note
       case 10: self = .space
+      case 11: self = .bookmark
       case 20: self = .database
       default: self = .UNRECOGNIZED(rawValue)
       }
@@ -2780,6 +2847,7 @@ public struct Anytype_Model_ObjectType {
       case .image: return 8
       case .note: return 9
       case .space: return 10
+      case .bookmark: return 11
       case .database: return 20
       case .UNRECOGNIZED(let i): return i
       }
@@ -2806,6 +2874,7 @@ extension Anytype_Model_ObjectType.Layout: CaseIterable {
     .image,
     .note,
     .space,
+    .bookmark,
     .database,
   ]
 }
@@ -3128,6 +3197,64 @@ public struct Anytype_Model_RelationOptions {
 
   public init() {}
 }
+
+public struct Anytype_Model_InternalFlag {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  public var value: Anytype_Model_InternalFlag.Value = .editorDeleteEmpty
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  /// Use such a weird construction due to the issue with imported repeated enum type
+  /// Look https://github.com/golang/protobuf/issues/1135 for more information.
+  public enum Value: SwiftProtobuf.Enum {
+    public typealias RawValue = Int
+    case editorDeleteEmpty // = 0
+    case editorSelectType // = 1
+    case editorSelectTemplate // = 2
+    case UNRECOGNIZED(Int)
+
+    public init() {
+      self = .editorDeleteEmpty
+    }
+
+    public init?(rawValue: Int) {
+      switch rawValue {
+      case 0: self = .editorDeleteEmpty
+      case 1: self = .editorSelectType
+      case 2: self = .editorSelectTemplate
+      default: self = .UNRECOGNIZED(rawValue)
+      }
+    }
+
+    public var rawValue: Int {
+      switch self {
+      case .editorDeleteEmpty: return 0
+      case .editorSelectType: return 1
+      case .editorSelectTemplate: return 2
+      case .UNRECOGNIZED(let i): return i
+      }
+    }
+
+  }
+
+  public init() {}
+}
+
+#if swift(>=4.2)
+
+extension Anytype_Model_InternalFlag.Value: CaseIterable {
+  // The compiler won't synthesize support with the UNRECOGNIZED case.
+  public static var allCases: [Anytype_Model_InternalFlag.Value] = [
+    .editorDeleteEmpty,
+    .editorSelectType,
+    .editorSelectTemplate,
+  ]
+}
+
+#endif  // swift(>=4.2)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -3955,6 +4082,8 @@ extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProt
     4: .same(proto: "imageHash"),
     5: .same(proto: "faviconHash"),
     6: .same(proto: "type"),
+    7: .same(proto: "targetObjectId"),
+    8: .same(proto: "state"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -3969,6 +4098,8 @@ extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProt
       case 4: try { try decoder.decodeSingularStringField(value: &self.imageHash) }()
       case 5: try { try decoder.decodeSingularStringField(value: &self.faviconHash) }()
       case 6: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 7: try { try decoder.decodeSingularStringField(value: &self.targetObjectID) }()
+      case 8: try { try decoder.decodeSingularEnumField(value: &self.state) }()
       default: break
       }
     }
@@ -3993,6 +4124,12 @@ extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProt
     if self.type != .unknown {
       try visitor.visitSingularEnumField(value: self.type, fieldNumber: 6)
     }
+    if !self.targetObjectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.targetObjectID, fieldNumber: 7)
+    }
+    if self.state != .empty {
+      try visitor.visitSingularEnumField(value: self.state, fieldNumber: 8)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4003,9 +4140,20 @@ extension Anytype_Model_Block.Content.Bookmark: SwiftProtobuf.Message, SwiftProt
     if lhs.imageHash != rhs.imageHash {return false}
     if lhs.faviconHash != rhs.faviconHash {return false}
     if lhs.type != rhs.type {return false}
+    if lhs.targetObjectID != rhs.targetObjectID {return false}
+    if lhs.state != rhs.state {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Model_Block.Content.Bookmark.State: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "Empty"),
+    1: .same(proto: "Fetching"),
+    2: .same(proto: "Done"),
+    3: .same(proto: "Error"),
+  ]
 }
 
 extension Anytype_Model_Block.Content.Icon: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
@@ -4877,18 +5025,31 @@ extension Anytype_Model_Block.Content.TableColumn: SwiftProtobuf.Message, SwiftP
 
 extension Anytype_Model_Block.Content.TableRow: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Model_Block.Content.protoMessageName + ".TableRow"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "isHeader"),
+  ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
-    while let _ = try decoder.nextFieldNumber() {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.isHeader) }()
+      default: break
+      }
     }
   }
 
   public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.isHeader != false {
+      try visitor.visitSingularBoolField(value: self.isHeader, fieldNumber: 1)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.TableRow, rhs: Anytype_Model_Block.Content.TableRow) -> Bool {
+    if lhs.isHeader != rhs.isHeader {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5265,6 +5426,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     7: .same(proto: "marketplaceTemplateObjectId"),
     8: .same(proto: "deviceId"),
     101: .same(proto: "gatewayUrl"),
+    103: .same(proto: "localStoragePath"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5281,6 +5443,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 7: try { try decoder.decodeSingularStringField(value: &self.marketplaceTemplateObjectID) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
       case 101: try { try decoder.decodeSingularStringField(value: &self.gatewayURL) }()
+      case 103: try { try decoder.decodeSingularStringField(value: &self.localStoragePath) }()
       default: break
       }
     }
@@ -5311,6 +5474,9 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.gatewayURL.isEmpty {
       try visitor.visitSingularStringField(value: self.gatewayURL, fieldNumber: 101)
     }
+    if !self.localStoragePath.isEmpty {
+      try visitor.visitSingularStringField(value: self.localStoragePath, fieldNumber: 103)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5323,6 +5489,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.marketplaceTemplateObjectID != rhs.marketplaceTemplateObjectID {return false}
     if lhs.deviceID != rhs.deviceID {return false}
     if lhs.gatewayURL != rhs.gatewayURL {return false}
+    if lhs.localStoragePath != rhs.localStoragePath {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5447,6 +5614,7 @@ extension Anytype_Model_Restrictions.ObjectRestriction: SwiftProtobuf._ProtoName
     5: .same(proto: "TypeChange"),
     6: .same(proto: "LayoutChange"),
     7: .same(proto: "Template"),
+    8: .same(proto: "Duplicate"),
   ]
 }
 
@@ -5672,6 +5840,7 @@ extension Anytype_Model_ObjectType.Layout: SwiftProtobuf._ProtoNameProviding {
     8: .same(proto: "image"),
     9: .same(proto: "note"),
     10: .same(proto: "space"),
+    11: .same(proto: "bookmark"),
     20: .same(proto: "database"),
   ]
 }
@@ -6021,4 +6190,44 @@ extension Anytype_Model_RelationOptions: SwiftProtobuf.Message, SwiftProtobuf._M
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
+}
+
+extension Anytype_Model_InternalFlag: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".InternalFlag"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "value"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularEnumField(value: &self.value) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.value != .editorDeleteEmpty {
+      try visitor.visitSingularEnumField(value: self.value, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_InternalFlag, rhs: Anytype_Model_InternalFlag) -> Bool {
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_InternalFlag.Value: SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    0: .same(proto: "editorDeleteEmpty"),
+    1: .same(proto: "editorSelectType"),
+    2: .same(proto: "editorSelectTemplate"),
+  ]
 }

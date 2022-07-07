@@ -20,9 +20,10 @@ extension Anytype_Rpc.Account.Config {
 }
 
 extension Anytype_Rpc.Account.Create.Request {
-  public init(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, alphaInviteCode: String) {
+  public init(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, storePath: String, alphaInviteCode: String) {
     self.name = name
     self.avatar = avatar
+    self.storePath = storePath
     self.alphaInviteCode = alphaInviteCode
   }
 }
@@ -57,6 +58,25 @@ extension Anytype_Rpc.Account.Delete.Response {
 
 extension Anytype_Rpc.Account.Delete.Response.Error {
   public init(code: Anytype_Rpc.Account.Delete.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Account.Move.Request {
+  public init(newPath: String) {
+    self.newPath = newPath
+  }
+}
+
+extension Anytype_Rpc.Account.Move.Response {
+  public init(error: Anytype_Rpc.Account.Move.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Account.Move.Response.Error {
+  public init(code: Anytype_Rpc.Account.Move.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -729,6 +749,28 @@ extension Anytype_Rpc.BlockBookmark.Fetch.Response.Error {
   }
 }
 
+extension Anytype_Rpc.BlockDataview.CreateBookmark.Request {
+  public init(contextID: String, blockID: String, url: String) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.url = url
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.CreateBookmark.Response {
+  public init(error: Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error, id: String) {
+    self.error = error
+    self.id = id
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error {
+  public init(code: Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.BlockDataview.Relation.Add.Request {
   public init(contextID: String, blockID: String, relation: Anytype_Model_Relation) {
     self.contextID = contextID
@@ -1254,11 +1296,13 @@ extension Anytype_Rpc.BlockLatex.SetText.Response.Error {
 
 extension Anytype_Rpc.BlockLink.CreateWithObject.Request {
   public init(
-    contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, targetID: String, position: Anytype_Model_Block.Position, fields: SwiftProtobuf.Google_Protobuf_Struct
+    contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, internalFlags: [Anytype_Model_InternalFlag], targetID: String, position: Anytype_Model_Block.Position,
+    fields: SwiftProtobuf.Google_Protobuf_Struct
   ) {
     self.contextID = contextID
     self.details = details
     self.templateID = templateID
+    self.internalFlags = internalFlags
     self.targetID = targetID
     self.position = position
     self.fields = fields
@@ -1420,6 +1464,27 @@ extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error {
   }
 }
 
+extension Anytype_Rpc.BlockTable.ColumnListFill.Request {
+  public init(contextID: String, blockIds: [String]) {
+    self.contextID = contextID
+    self.blockIds = blockIds
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnListFill.Response {
+  public init(error: Anytype_Rpc.BlockTable.ColumnListFill.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnListFill.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.ColumnListFill.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.BlockTable.ColumnMove.Request {
   public init(contextID: String, targetID: String, dropTargetID: String, position: Anytype_Model_Block.Position) {
     self.contextID = contextID
@@ -1444,12 +1509,13 @@ extension Anytype_Rpc.BlockTable.ColumnMove.Response.Error {
 }
 
 extension Anytype_Rpc.BlockTable.Create.Request {
-  public init(contextID: String, targetID: String, position: Anytype_Model_Block.Position, rows: UInt32, columns: UInt32) {
+  public init(contextID: String, targetID: String, position: Anytype_Model_Block.Position, rows: UInt32, columns: UInt32, withHeaderRow: Bool) {
     self.contextID = contextID
     self.targetID = targetID
     self.position = position
     self.rows = rows
     self.columns = columns
+    self.withHeaderRow = withHeaderRow
   }
 }
 
@@ -1599,24 +1665,45 @@ extension Anytype_Rpc.BlockTable.RowListFill.Response.Error {
   }
 }
 
-extension Anytype_Rpc.BlockTable.RowMove.Request {
-  public init(contextID: String, targetID: String, dropTargetID: String, position: Anytype_Model_Block.Position) {
+extension Anytype_Rpc.BlockTable.RowSetHeader.Request {
+  public init(contextID: String, targetID: String, isHeader: Bool) {
     self.contextID = contextID
     self.targetID = targetID
-    self.dropTargetID = dropTargetID
-    self.position = position
+    self.isHeader = isHeader
   }
 }
 
-extension Anytype_Rpc.BlockTable.RowMove.Response {
-  public init(error: Anytype_Rpc.BlockTable.RowMove.Response.Error, event: Anytype_ResponseEvent) {
+extension Anytype_Rpc.BlockTable.RowSetHeader.Response {
+  public init(error: Anytype_Rpc.BlockTable.RowSetHeader.Response.Error, event: Anytype_ResponseEvent) {
     self.error = error
     self.event = event
   }
 }
 
-extension Anytype_Rpc.BlockTable.RowMove.Response.Error {
-  public init(code: Anytype_Rpc.BlockTable.RowMove.Response.Error.Code, description_p: String) {
+extension Anytype_Rpc.BlockTable.RowSetHeader.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.RowSetHeader.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockTable.Sort.Request {
+  public init(contextID: String, columnID: String, type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum) {
+    self.contextID = contextID
+    self.columnID = columnID
+    self.type = type
+  }
+}
+
+extension Anytype_Rpc.BlockTable.Sort.Response {
+  public init(error: Anytype_Rpc.BlockTable.Sort.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockTable.Sort.Response.Error {
+  public init(code: Anytype_Rpc.BlockTable.Sort.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }
@@ -2409,6 +2496,26 @@ extension Anytype_Rpc.Object.ApplyTemplate.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Object.BookmarkFetch.Request {
+  public init(contextID: String, url: String) {
+    self.contextID = contextID
+    self.url = url
+  }
+}
+
+extension Anytype_Rpc.Object.BookmarkFetch.Response {
+  public init(error: Anytype_Rpc.Object.BookmarkFetch.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Object.BookmarkFetch.Response.Error {
+  public init(code: Anytype_Rpc.Object.BookmarkFetch.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Object.Close.Request {
   public init(contextID: String, objectID: String) {
     self.contextID = contextID
@@ -2430,8 +2537,10 @@ extension Anytype_Rpc.Object.Close.Response.Error {
 }
 
 extension Anytype_Rpc.Object.Create.Request {
-  public init(details: SwiftProtobuf.Google_Protobuf_Struct) {
+  public init(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag], templateID: String) {
     self.details = details
+    self.internalFlags = internalFlags
+    self.templateID = templateID
   }
 }
 
@@ -2450,11 +2559,32 @@ extension Anytype_Rpc.Object.Create.Response.Error {
   }
 }
 
+extension Anytype_Rpc.Object.CreateBookmark.Request {
+  public init(url: String) {
+    self.url = url
+  }
+}
+
+extension Anytype_Rpc.Object.CreateBookmark.Response {
+  public init(error: Anytype_Rpc.Object.CreateBookmark.Response.Error, pageID: String) {
+    self.error = error
+    self.pageID = pageID
+  }
+}
+
+extension Anytype_Rpc.Object.CreateBookmark.Response.Error {
+  public init(code: Anytype_Rpc.Object.CreateBookmark.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Object.CreateSet.Request {
-  public init(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String) {
+  public init(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, internalFlags: [Anytype_Model_InternalFlag]) {
     self.source = source
     self.details = details
     self.templateID = templateID
+    self.internalFlags = internalFlags
   }
 }
 
@@ -3006,6 +3136,27 @@ extension Anytype_Rpc.Object.SubscribeIds.Response {
 
 extension Anytype_Rpc.Object.SubscribeIds.Response.Error {
   public init(code: Anytype_Rpc.Object.SubscribeIds.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.ToBookmark.Request {
+  public init(contextID: String, url: String) {
+    self.contextID = contextID
+    self.url = url
+  }
+}
+
+extension Anytype_Rpc.Object.ToBookmark.Response {
+  public init(error: Anytype_Rpc.Object.ToBookmark.Response.Error, objectID: String) {
+    self.error = error
+    self.objectID = objectID
+  }
+}
+
+extension Anytype_Rpc.Object.ToBookmark.Response.Error {
+  public init(code: Anytype_Rpc.Object.ToBookmark.Response.Error.Code, description_p: String) {
     self.code = code
     self.description_p = description_p
   }

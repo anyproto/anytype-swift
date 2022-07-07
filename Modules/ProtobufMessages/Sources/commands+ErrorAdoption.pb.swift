@@ -15,6 +15,7 @@ extension Anytype_Rpc.Account.Recover.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Delete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Select.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Account.Stop.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Account.Move.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.GetCurrent.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.GetAll.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.Create.Response.Error: Swift.Error {}
@@ -25,6 +26,9 @@ extension Anytype_Rpc.Object.Open.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Close.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Show.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Create.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.CreateBookmark.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.BookmarkFetch.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.ToBookmark.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.CreateSet.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Duplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error: Swift.Error {}
@@ -118,16 +122,18 @@ extension Anytype_Rpc.BlockText.ListClearStyle.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockText.ListClearContent.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockTable.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockTable.RowCreate.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockTable.RowSetHeader.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockTable.RowListFill.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockTable.RowListClean.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockTable.ColumnListFill.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockTable.ColumnCreate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockTable.RowDelete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockTable.ColumnDelete.Response.Error: Swift.Error {}
-extension Anytype_Rpc.BlockTable.RowMove.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockTable.ColumnMove.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockTable.RowDuplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockTable.ColumnDuplicate.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockTable.Expand.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockTable.Sort.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockFile.SetName.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockFile.CreateAndUpload.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockFile.ListSetStyle.Response.Error: Swift.Error {}
@@ -152,6 +158,7 @@ extension Anytype_Rpc.BlockDataview.Relation.Update.Response.Error: Swift.Error 
 extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockDataviewRecord.Update.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockDataviewRecord.Delete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockDataviewRecord.Create.Response.Error: Swift.Error {}

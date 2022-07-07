@@ -13,6 +13,8 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
 
     private weak var blockDelegate: BlockDelegate?
     private let simpleTableViewModelBuilder: () -> SimpleTableViewModel
+    private let stateManager: EditorPageBlocksStateManagerProtocol
+
     private weak var relativePositionProvider: RelativePositionProvider?
 
     init(
@@ -21,15 +23,18 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
         cellsBuilder: SimpleTableCellsBuilder,
         blockDelegate: BlockDelegate,
         cursorManager: EditorCursorManager,
+        stateManager: EditorPageBlocksStateManagerProtocol,
         relativePositionProvider: RelativePositionProvider?
     ) {
         self.info = info
         self.blockDelegate = blockDelegate
         self.relativePositionProvider = relativePositionProvider
+        self.stateManager = stateManager
         self.simpleTableViewModelBuilder = { SimpleTableViewModel(
             document: document,
             tableBlockInfo: info,
             cellBuilder: cellsBuilder,
+            stateManager: stateManager,
             cursorManager: cursorManager
             )
         }
@@ -37,6 +42,7 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         let contentConfiguration = SimpleTableBlockContentConfiguration(
+            stateManager: stateManager,
             blockDelegate: blockDelegate,
             relativePositionProvider: relativePositionProvider,
             viewModelBuilder: simpleTableViewModelBuilder

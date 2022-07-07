@@ -7,19 +7,21 @@ struct AccessoryViewBuilder {
         router: EditorRouter,
         pasteboardService: PasteboardServiceProtocol,
         document: BaseDocumentProtocol,
-        modelsHolder: EditorMainItemModelsHolder
+        onShowStyleMenu: @escaping RoutingAction<BlockInformation>,
+        onBlockSelection: @escaping RoutingAction<BlockInformation>
     ) -> AccessoryViewStateManager {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
         let cursorModeAccessoryViewModel = CursorModeAccessoryViewModel(
-            router: router,
-            handler: actionHandler
+            handler: actionHandler,
+            onShowStyleMenu: onShowStyleMenu,
+            onBlockSelection: onBlockSelection
         )
         
         let markupViewModel = MarkupAccessoryViewModel(
             document: document,
             actionHandler: actionHandler,
-            router: router
+            onLinkToObject: router.showLinkToObject(onSelect:)
         )
 
         let changeTypeViewModel = ChangeTypeAccessoryViewModel(
@@ -64,8 +66,7 @@ struct AccessoryViewBuilder {
             cursorModeAccessoryView: cursorModeAccessoryView,
             markupAccessoryView: markupModeAccessoryView,
             changeTypeView: changeTypeView,
-            document: document,
-            modelsHolder: modelsHolder
+            document: document
         )
 
         accessoryViewSwitcher.onDoneButton = {

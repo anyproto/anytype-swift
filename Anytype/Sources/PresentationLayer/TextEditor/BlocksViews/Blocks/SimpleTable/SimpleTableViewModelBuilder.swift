@@ -11,6 +11,7 @@ final class SimpleTableViewModelBuilder {
     private let markdownListener: MarkdownListener
     private let cursorManager: EditorCursorManager
     private let focusSubjectHolder: FocusSubjectsHolder
+    private let stateManager: SimpleTableStateManager
 
     private weak var relativePositionProvider: RelativePositionProvider?
 
@@ -23,7 +24,8 @@ final class SimpleTableViewModelBuilder {
         markdownListener: MarkdownListener,
         relativePositionProvider: RelativePositionProvider?,
         cursorManager: EditorCursorManager,
-        focusSubjectHolder: FocusSubjectsHolder
+        focusSubjectHolder: FocusSubjectsHolder,
+        stateManager: SimpleTableStateManager
     ) {
         self.document = document
         self.router = router
@@ -34,10 +36,11 @@ final class SimpleTableViewModelBuilder {
         self.relativePositionProvider = relativePositionProvider
         self.cursorManager = cursorManager
         self.focusSubjectHolder = focusSubjectHolder
+        self.stateManager = stateManager
     }
 
     func buildViewModel(from tableInfo: BlockInformation) -> SimpleTableBlockViewModel {
-        SimpleTableBlockViewModel(
+        let viewModel = SimpleTableBlockViewModel(
             document: document,
             info: tableInfo,
             cellsBuilder: .init(
@@ -52,7 +55,12 @@ final class SimpleTableViewModelBuilder {
             ),
             blockDelegate: delegate,
             cursorManager: cursorManager,
+            stateManager: stateManager,
             relativePositionProvider: relativePositionProvider
         )
+
+        stateManager.tableBlockInformation = tableInfo
+
+        return viewModel
     }
 }

@@ -3,6 +3,7 @@ import Combine
 import BlocksModels
 
 final class SimpleTableViewModel {
+    let stateManager: EditorPageBlocksStateManagerProtocol
     weak var dataSource: SpreadsheetViewDataSource? {
         didSet {
             forceUpdate(shouldApplyFocus: true)
@@ -26,11 +27,13 @@ final class SimpleTableViewModel {
         document: BaseDocumentProtocol,
         tableBlockInfo: BlockInformation,
         cellBuilder: SimpleTableCellsBuilder,
+        stateManager: EditorPageBlocksStateManagerProtocol,
         cursorManager: EditorCursorManager
     ) {
         self.document = document
         self.tableBlockInfo = tableBlockInfo
         self.cellBuilder = cellBuilder
+        self.stateManager = stateManager
         self.cursorManager = cursorManager
 
         forceUpdate(shouldApplyFocus: false)

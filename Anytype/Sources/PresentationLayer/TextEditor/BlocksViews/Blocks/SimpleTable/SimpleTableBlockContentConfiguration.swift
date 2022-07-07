@@ -5,6 +5,7 @@ import UIKit
 struct SimpleTableBlockContentConfiguration: BlockConfiguration {
     typealias View = SimpleTableBlockView
 
+    var stateManager: EditorPageBlocksStateManagerProtocol
     weak var blockDelegate: BlockDelegate?
     weak var relativePositionProvider: RelativePositionProvider?
 

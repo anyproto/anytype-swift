@@ -25,7 +25,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     private let markupAccessoryView: MarkupAccessoryView
     
     private let document: BaseDocumentProtocol
-    private let modelsHolder: EditorMainItemModelsHolder
     private var documentUpdateSubscription: AnyCancellable?
     private var didChangeTypeDismissByUser = false
 
@@ -35,8 +34,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         cursorModeAccessoryView: CursorModeAccessoryView,
         markupAccessoryView: MarkupAccessoryView,
         changeTypeView: ChangeTypeAccessoryView,
-        document: BaseDocumentProtocol,
-        modelsHolder: EditorMainItemModelsHolder
+        document: BaseDocumentProtocol
     ) {
         self.slashMenuView = slashMenuView
         self.cursorModeAccessoryView = cursorModeAccessoryView
@@ -44,7 +42,6 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         self.changeTypeView = changeTypeView
         self.mentionsView = mentionsView
         self.document = document
-        self.modelsHolder = modelsHolder
         
         setupDismissHandlers()
     }
@@ -88,7 +85,7 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
         let isDraft = document.details?.isDraft ?? false
 
         if isDraft &&
-            modelsHolder.isDocumentEmpty &&
+            document.isEmpty &&
             !document.objectRestrictions.objectRestriction.contains(.typechange),
             !didChangeTypeDismissByUser {
             showAccessoryView(.changeType(changeTypeView), animation: activeView.animation)

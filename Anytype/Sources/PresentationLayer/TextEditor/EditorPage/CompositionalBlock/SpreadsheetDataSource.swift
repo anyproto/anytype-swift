@@ -1,5 +1,6 @@
 import AnytypeCore
 import UIKit
+import BlocksModels
 
 final class SpreadsheetViewDataSource {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, EditorItem>
@@ -66,6 +67,22 @@ final class SpreadsheetViewDataSource {
         setupCell(cell: cell, indexPath: indexPath, item: item.contentConfigurationProvider)
     }
 
+    func dataSourceItem(for blockId: BlockId) -> EditorItem? {
+        dataSource.snapshot().itemIdentifiers.first {
+            switch $0 {
+            case let .block(block):
+                return block.info.id == blockId
+            case .header, .system:
+                return false
+            }
+        }
+    }
+
+    func indexPath(for blockId: BlockId) -> IndexPath? {
+        guard let item = dataSourceItem(for: blockId) else { return nil }
+
+        return dataSource.indexPath(for: item)
+    }
 
     private func createCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, ContentConfigurationProvider> {
         .init { [weak self] cell, indexPath, item in

@@ -14,12 +14,9 @@ public enum Feature: String, Codable {
     case setSorts = "Set sorts"
     case setFilters = "Set filters"
     case tableOfContents = "Table of contents"
-<<<<<<< HEAD
     case floatingSetMenu = "Floating Set menu"
     case simpleTables = "Simple tables"
-=======
     case objectDuplicate = "Object duplicate"
->>>>>>> a5303323eccc0843b5b6ea8d94eb8b7fe40b9506
 }
 
 public final class FeatureFlags {
