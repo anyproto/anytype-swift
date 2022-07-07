@@ -96,7 +96,7 @@ extension SetFiltersListViewModel {
             filter: DataviewFilter(
                 relationKey: id,
                 condition: SetFilter.defaultCondition(for: metadata),
-                value: "".protobufValue
+                value: [String]().protobufValue
             )
         )
     }

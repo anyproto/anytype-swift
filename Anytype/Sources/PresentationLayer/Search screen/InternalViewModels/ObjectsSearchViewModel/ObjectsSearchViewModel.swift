@@ -20,11 +20,8 @@ final class ObjectsSearchViewModel {
     }
     
     private func setup() {
-        switch selectionMode {
-        case .singleItem:
-            break
-        case let .multipleItems(preselectedIds):
-            selectedObjectIds = preselectedIds
+        if case let .multipleItems(preselectedIds) = selectionMode {
+            self.selectedObjectIds = preselectedIds
         }
     }
 }

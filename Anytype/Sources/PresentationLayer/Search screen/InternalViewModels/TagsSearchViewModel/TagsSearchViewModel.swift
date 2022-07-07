@@ -19,11 +19,8 @@ final class TagsSearchViewModel {
     }
     
     private func setup() {
-        switch selectionMode {
-        case .singleItem:
-            break
-        case let .multipleItems(preselectedIds):
-            selectedTagIds = preselectedIds
+        if case let .multipleItems(preselectedIds) = selectionMode {
+            self.selectedTagIds = preselectedIds
         }
     }
 }

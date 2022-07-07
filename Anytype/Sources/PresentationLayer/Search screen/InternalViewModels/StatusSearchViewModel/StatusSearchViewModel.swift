@@ -19,11 +19,8 @@ final class StatusSearchViewModel {
     }
     
     private func setup() {
-        switch selectionMode {
-        case .singleItem:
-            break
-        case let .multipleItems(preselectedIds):
-            selectedStatusesIds = preselectedIds
+        if case let .multipleItems(preselectedIds) = selectionMode {
+            self.selectedStatusesIds = preselectedIds
         }
     }
 }

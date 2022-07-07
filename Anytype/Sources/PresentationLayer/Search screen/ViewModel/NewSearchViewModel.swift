@@ -97,10 +97,7 @@ private extension NewSearchViewModel {
     }
     
     func updateSelectedRowIds() {
-        switch selectionMode {
-        case .singleItem:
-            break
-        case let .multipleItems(preselectedIds):
+        if case let .multipleItems(preselectedIds) = selectionMode {
             self.selectedRowIds = preselectedIds
         }
     }
