@@ -61,17 +61,22 @@ final class BaseDocument: BaseDocumentProtocol {
 
     func open(completion: @escaping (Bool) -> Void) {
         ObjectTypeProvider.shared.resetCache()
-        blockActionsService.open(completion: completion)
+        blockActionsService.open { [weak self] result in
+            self?.isOpened = result
+            completion(result)
+        }
     }
     
     func openForPreview(completion: @escaping (Bool) -> Void) {
         blockActionsService.openForPreview { [weak self] result in
             self?.isOpened = result
+            completion(result)
         }
     }
     
-    func close(){
+    func close() {
         blockActionsService.close()
+        isOpened = false
     }
     
     var details: ObjectDetails? {

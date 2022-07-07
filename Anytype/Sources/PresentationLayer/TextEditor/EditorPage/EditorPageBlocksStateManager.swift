@@ -8,6 +8,7 @@ enum EditorEditingState {
     case selecting(blocks: [BlockId])
     case moving(indexPaths: [IndexPath])
     case locked
+    case loading
 }
 
 /// Blocks drag & drop protocol.
@@ -31,7 +32,8 @@ protocol EditorPageSelectionManagerProtocol {
 
 protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol, AnyObject {
     func checkDocumentLockField()
-
+    func checkOpenedState()
+    
     var editingState: EditorEditingState { get }
     var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { get }
     var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { get }
@@ -95,6 +97,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         } else if case .locked = editingState, !document.isLocked {
             editingState = .editing
         }
+    }
+    
+    func checkOpenedState() {
+        editingState = document.isOpened ? .editing : .loading
     }
 
     // MARK: - EditorPageSelectionManagerProtocol
@@ -204,7 +210,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 blocksSelectionOverlayViewModel?.setNeedsUpdateForMovingState()
             case .editing:
                 movingBlocksIds.removeAll()
-            case .locked: break
+            case .locked, .loading: break
             }
         }.store(in: &cancellables)
 

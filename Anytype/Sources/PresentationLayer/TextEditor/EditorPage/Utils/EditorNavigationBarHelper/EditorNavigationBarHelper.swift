@@ -130,6 +130,11 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             navigationBarTitleView.setIsLocked(false)
         case .locked:
             navigationBarTitleView.setIsLocked(true)
+        case .loading:
+            controller?.navigationItem.titleView = navigationBarTitleView
+            controller?.navigationItem.rightBarButtonItem = nil
+            controller?.navigationItem.leftBarButtonItem = syncStatusBarButtonItem
+            navigationBarTitleView.setIsLocked(true)
         }
     }
 }

@@ -263,7 +263,10 @@ extension EditorPageViewModel {
             AnytypeAnalytics.instance().logShowObject(type: objectDetails.type, layout: objectDetails.layout)
         }
         
+        blocksStateManager.checkOpenedState()
+        
         let completion: (Bool) -> Void = { [weak self] isDocumentOpened in
+            self?.blocksStateManager.checkOpenedState()
             if !isDocumentOpened {
                 self?.router.goBack()
             }

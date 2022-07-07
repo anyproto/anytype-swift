@@ -30,7 +30,7 @@ final class EditorContentInsetsHelper: KeyboardEventsListnerHelper {
 
         stateManager.editorEditingStatePublisher.sink { [weak scrollView] state in
             switch state {
-            case .editing, .selecting, .locked:
+            case .editing, .selecting, .locked, .loading:
                 scrollView?.handleBottomInsetChange(EditorScrollViewConstants.bottomEditorInsets)
             case .moving:
                 scrollView?.contentInset = EditorScrollViewConstants.movingInsents
