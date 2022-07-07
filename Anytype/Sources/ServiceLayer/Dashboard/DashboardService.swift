@@ -21,9 +21,9 @@ final class DashboardService: DashboardServiceProtocol {
             targetId: "",
             details: [
                 .name(""),
-                .isDraft(!hasSingleTemplate),
                 .type(.dynamic(ObjectTypeProvider.shared.defaultObjectType.url))
             ],
+            shouldDeleteEmptyObject: true,
             position: .bottom,
             templateId: templateId
         )
