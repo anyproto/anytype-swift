@@ -8,7 +8,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var dataView = BlockDataview.empty
     @Published private var records: [ObjectDetails] = []
     @Published private(set) var headerModel: ObjectHeaderViewModel!
-    
+    @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
     
     var isEmpty: Bool {
@@ -103,16 +103,26 @@ final class EditorSetViewModel: ObservableObject {
             self?.onDataChange($0)
         }
         
-        document.open { [weak self] _ in
-            self?.setupDataview()
+        document.open { [weak self] result in
+            self?.loadingDocument = false
+            if result {
+                self?.setupDataview()
+            } else {
+                router.goBack()
+            }
         }
     }
     
+//    private func setupDocument() {
+//        headerModel = ObjectHeaderViewModel(document: document, router: router, isOpenedForPreview: false)
+//        setupDataview()
+//    }
+    
     func onAppear() {
-        guard document.isOpened else {
-            router.goBack()
-            return
-        }
+//        guard document.isOpened else {
+//
+//            return
+//        }
         setupSubscriptions()
         router?.setNavigationViewHidden(false, animated: true)
     }
