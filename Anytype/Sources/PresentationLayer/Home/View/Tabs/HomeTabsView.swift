@@ -31,7 +31,6 @@ struct HomeTabsView: View {
     private let cornerRadius: CGFloat = 16
 
     @EnvironmentObject var model: HomeViewModel
-    @Environment(\.redactionReasons) private var reasons
     
     let offsetChanged: (CGPoint) -> Void
     let onDrag: (CGSize) -> Void

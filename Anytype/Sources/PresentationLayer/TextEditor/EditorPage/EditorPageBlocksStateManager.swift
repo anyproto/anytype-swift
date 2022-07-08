@@ -231,29 +231,22 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     func startMoving() {
-        let position: BlockPosition
-        let targetId: BlockId
-        let dropTargetId: BlockId
-
         switch movingDestination {
         case let .object(blockId):
             if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
-                let document = BaseDocument(objectId: content.targetBlockID)
+                let targetDocument = BaseDocument(objectId: content.targetBlockID)
                 
-                guard let id = document.children.last?.id else { return }
-
-                targetId = document.objectId
-                dropTargetId = id
-                position = .bottom
-                
-                document.open(completion: { _ in })
+                targetDocument.open { [weak self] _ in
+                    guard let id = targetDocument.children.last?.id else { return }
+                    self?.move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
+                }
             } else {
-                targetId = document.objectId
-                position = .inner
-                dropTargetId = blockId
+                move(position: .inner, targetId: document.objectId, dropTargetId: blockId)
             }
         case let .position(positionIndexPath):
+            let position: BlockPosition
+            let dropTargetId: BlockId
             if let targetBlock = modelsHolder.blockViewModel(at: positionIndexPath.row) {
                 position = .top
                 dropTargetId = targetBlock.blockId
@@ -264,12 +257,14 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 anytypeAssertionFailure("Unxpected case", domain: .editorPage)
                 return
             }
-            targetId = document.objectId
+            move(position: position, targetId: document.objectId, dropTargetId: dropTargetId)
         case .none:
             anytypeAssertionFailure("Unxpected case", domain: .editorPage)
             return
         }
-
+    }
+    
+    private func move(position: BlockPosition, targetId: BlockId, dropTargetId: BlockId) {
         guard !movingBlocksIds.contains(dropTargetId) else { return }
 
         blockActionsServiceSingle.move(
