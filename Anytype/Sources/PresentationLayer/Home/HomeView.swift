@@ -26,6 +26,8 @@ struct HomeView: View {
             .onDisappear {
                 model.onDisappear()
             }
+            .redacted(reason: model.loadingDocument ? .placeholder : [])
+            .allowsHitTesting(!model.loadingDocument)
     }
     
     private var navigationView: some View {
@@ -44,8 +46,9 @@ struct HomeView: View {
                         }
                     }
                 }) {
-                    Image.main.settings
+                    model.loadingDocument ? nil : Image.main.settings
                 }
+                .allowsHitTesting(!model.loadingDocument)
             }
         }
         .bottomFloater(isPresented: $showSettings) {

@@ -54,26 +54,31 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     deinit {
-        close()
+        close(completion: { _ in })
     }
 
     // MARK: - BaseDocumentProtocol
 
-    @discardableResult
-    func open() -> Bool {
+    func open(completion: @escaping (Bool) -> Void) {
         ObjectTypeProvider.shared.resetCache()
-        isOpened = blockActionsService.open()
-        return isOpened
-    }
-
-    @discardableResult
-    func openForPreview() -> Bool {
-        isOpened = blockActionsService.openForPreview()
-        return isOpened
+        blockActionsService.open { [weak self] result in
+            self?.isOpened = result
+            completion(result)
+        }
     }
     
-    func close(){
-        blockActionsService.close()
+    func openForPreview(completion: @escaping (Bool) -> Void) {
+        blockActionsService.openForPreview { [weak self] result in
+            self?.isOpened = result
+            completion(result)
+        }
+    }
+    
+    func close(completion: @escaping (Bool) -> Void) {
+        blockActionsService.close { [weak self] result in
+            self?.isOpened = false
+            completion(result)
+        }
     }
     
     var details: ObjectDetails? {

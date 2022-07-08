@@ -8,6 +8,7 @@ enum EditorEditingState {
     case selecting(blocks: [BlockId])
     case moving(indexPaths: [IndexPath])
     case locked
+    case loading
 }
 
 /// Blocks drag & drop protocol.
@@ -31,7 +32,8 @@ protocol EditorPageSelectionManagerProtocol {
 
 protocol EditorPageBlocksStateManagerProtocol: EditorPageSelectionManagerProtocol, EditorPageMovingManagerProtocol, AnyObject {
     func checkDocumentLockField()
-
+    func checkOpenedState()
+    
     var editingState: EditorEditingState { get }
     var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { get }
     var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { get }
@@ -95,6 +97,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         } else if case .locked = editingState, !document.isLocked {
             editingState = .editing
         }
+    }
+    
+    func checkOpenedState() {
+        editingState = document.isOpened ? .editing : .loading
     }
 
     // MARK: - EditorPageSelectionManagerProtocol
@@ -204,7 +210,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 blocksSelectionOverlayViewModel?.setNeedsUpdateForMovingState()
             case .editing:
                 movingBlocksIds.removeAll()
-            case .locked: break
+            case .locked, .loading: break
             }
         }.store(in: &cancellables)
 
@@ -225,28 +231,22 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     func startMoving() {
-        let position: BlockPosition
-        let targetId: BlockId
-        let dropTargetId: BlockId
-
         switch movingDestination {
         case let .object(blockId):
             if let info = document.infoContainer.get(id: blockId),
                case let .link(content) = info.content {
-                let document = BaseDocument(objectId: content.targetBlockID)
-                let _ = document.open()
-
-                guard let id = document.children.last?.id else { return }
-
-                targetId = document.objectId
-                dropTargetId = id
-                position = .bottom
+                let targetDocument = BaseDocument(objectId: content.targetBlockID)
+                
+                targetDocument.open { [weak self] _ in
+                    guard let id = targetDocument.children.last?.id else { return }
+                    self?.move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
+                }
             } else {
-                targetId = document.objectId
-                position = .inner
-                dropTargetId = blockId
+                move(position: .inner, targetId: document.objectId, dropTargetId: blockId)
             }
         case let .position(positionIndexPath):
+            let position: BlockPosition
+            let dropTargetId: BlockId
             if let targetBlock = modelsHolder.blockViewModel(at: positionIndexPath.row) {
                 position = .top
                 dropTargetId = targetBlock.blockId
@@ -257,12 +257,14 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 anytypeAssertionFailure("Unxpected case", domain: .editorPage)
                 return
             }
-            targetId = document.objectId
+            move(position: position, targetId: document.objectId, dropTargetId: dropTargetId)
         case .none:
             anytypeAssertionFailure("Unxpected case", domain: .editorPage)
             return
         }
-
+    }
+    
+    private func move(position: BlockPosition, targetId: BlockId, dropTargetId: BlockId) {
         guard !movingBlocksIds.contains(dropTargetId) else { return }
 
         blockActionsServiceSingle.move(

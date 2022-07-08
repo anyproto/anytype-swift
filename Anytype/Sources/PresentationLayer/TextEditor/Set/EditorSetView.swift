@@ -8,15 +8,22 @@ struct EditorSetView: View {
     @State private var offset = CGPoint.zero
 
     var body: some View {
-        content
-            .navigationBarBackButtonHidden(true)
-            .environmentObject(model)
-            .onAppear {
-                model.onAppear()
+        Group {
+            if model.loadingDocument {
+                placeholder
+            } else {
+                content
             }
-            .onDisappear {
-                model.onDisappear()
-            }
+        }
+        .navigationBarHidden(true)
+        .navigationBarBackButtonHidden(true)
+        .environmentObject(model)
+        .onAppear {
+            model.onAppear()
+        }
+        .onDisappear {
+            model.onDisappear()
+        }
     }
     
     private var content: some View {
@@ -36,6 +43,9 @@ struct EditorSetView: View {
             Rectangle().frame(height: 40).foregroundColor(.backgroundPrimary) // Navigation view stub
         }
         .ignoresSafeArea(edges: .top)
-        .navigationBarHidden(true)
+    }
+    
+    private var placeholder: some View {
+        EmptyView()
     }
 }

@@ -13,9 +13,23 @@ extension UserIconView {
 
 struct UserIconView: View {
     
+    @Environment(\.redactionReasons) private var reasons
+    
     let icon: IconType
     
     var body: some View {
+        Group {
+            if reasons.isEmpty {
+                iconView
+            } else {
+                placeholderIcon(nil)
+            }
+        }
+        .frame(width: Constants.size.width, height: Constants.size.height)
+        
+    }
+    
+    var iconView: some View {
         Group {
             switch icon {
             case let .image(id):
@@ -24,8 +38,6 @@ struct UserIconView: View {
                 placeholderIcon(character)
             }
         }
-        .frame(width: Constants.size.width, height: Constants.size.height)
-        
     }
     
     private func imageIcon(_ imageId: String) -> some View {
@@ -83,6 +95,12 @@ struct SimpleViews_Previews: PreviewProvider {
                 icon: .placeholder("A")
             )
             .frame(width: 100, height: 100)
+            
+            UserIconView(
+                icon: .placeholder("A")
+            )
+            .frame(width: 100, height: 100)
+            .redacted(reason: .placeholder)
         }
         .previewLayout(.sizeThatFits)
     }
