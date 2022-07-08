@@ -32,7 +32,6 @@ struct HomeTabsView: View {
 
     @EnvironmentObject var model: HomeViewModel
     @Environment(\.redactionReasons) private var reasons
-    @State private var tabSelection = UserDefaultsConfig.selectedTab
     
     let offsetChanged: (CGPoint) -> Void
     let onDrag: (CGSize) -> Void
@@ -40,7 +39,7 @@ struct HomeTabsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HomeTabsHeader(tabSelection: $tabSelection)
+            HomeTabsHeader(tabSelection: $model.selectedTab)
                 .cornerRadius(cornerRadius, corners: .top)
                 .highPriorityGesture(
                     DragGesture(coordinateSpace: .named(model.bottomSheetCoordinateSpaceName))
@@ -68,7 +67,7 @@ struct HomeTabsView: View {
     }
     
     private var tabs: some View {
-        TabView(selection: $tabSelection) {
+        TabView(selection: $model.selectedTab) {
             HomeCollectionView(
                 cellData: model.notDeletedFavoritesCellData,
                 dragAndDropDelegate: model,
@@ -125,22 +124,6 @@ struct HomeTabsView: View {
         .background(BlurEffect())
         .blurEffectStyle(UIBlurEffect.Style.systemMaterial)
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        
-        .onChange(of: tabSelection) { tab in
-            UserDefaultsConfig.selectedTab = tab
-            onTabSelection()
-        }
-        .onAppear {
-            if reasons.isEmpty {
-                onTabSelection()
-            }
-        }
-    }
-    
-    private func onTabSelection() {
-        model.selectAll(false)
-        model.onTabChange(tab: tabSelection)
-        AnytypeAnalytics.instance().logHomeTabSelection(tabSelection)
     }
 }
 

@@ -15,6 +15,7 @@ final class HomeViewModel: ObservableObject {
     @Published var binCellData = [HomeCellData]()
     @Published var sharedCellData = [HomeCellData]()
     @Published var setsCellData = [HomeCellData]()
+    @Published var selectedTab = UserDefaultsConfig.selectedTab
     
     @Published var selectedPageIds: Set<BlockId> = []
     
@@ -55,19 +56,23 @@ final class HomeViewModel: ObservableObject {
     // MARK: - View output
 
     func onAppear() {
-        loadingDocument = true
-        document.open { [weak self] _ in
+        document.open { [weak self] result in
             self?.loadingDocument = false
             self?.setupProfileSubscriptions()
+            self?.updateCurrentTab()
         }
     }
     
     func onDisappear() {
-        subscriptionService.stopAllSubscriptions()
-        document.close()
+        document.close { [weak self] result in
+            self?.subscriptionService.stopAllSubscriptions()
+        }
     }
     
     func onTabChange(tab: HomeTabsView.Tab) {
+        selectAll(false)
+        
+        UserDefaultsConfig.selectedTab = tab
         subscriptionService.stopSubscriptions(ids: [.sharedTab, .setsTab, .archiveTab, .historyTab])
         tab.subscriptionId.flatMap { subId in
             subscriptionService.startSubscription(data: subId) { [weak self] id, update in
@@ -80,6 +85,8 @@ final class HomeViewModel: ObservableObject {
         if tab == .favourites {
             updateFavoritesTab()
         }
+        
+        AnytypeAnalytics.instance().logHomeTabSelection(tab)
     }
     
     private func onProfileUpdate(update: SubscriptionUpdate) {
@@ -128,6 +135,10 @@ final class HomeViewModel: ObservableObject {
             self?.onDashboardChange(update: $0)
         }.store(in: &cancellables)
         
+        $selectedTab.sink { [weak self] in
+            self?.onTabChange(tab: $0)
+        }.store(in: &cancellables)
+        
         // visual delay on application launch
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
             self?.quickActionsSubscription = QuickActionsStorage.shared.$action.sink { action in
@@ -140,6 +151,10 @@ final class HomeViewModel: ObservableObject {
                 }
             }
         }
+    }
+    
+    private func updateCurrentTab() {
+        onTabChange(tab: selectedTab)
     }
     
     private func setupProfileSubscriptions() {

@@ -16,5 +16,5 @@ protocol BaseDocumentProtocol: AnyObject {
 
     func open(completion: @escaping (Bool) -> Void)
     func openForPreview(completion: @escaping (Bool) -> Void)
-    func close()
+    func close(completion: @escaping (Bool) -> Void)
 }

@@ -54,7 +54,7 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     deinit {
-        close()
+        close(completion: { _ in })
     }
 
     // MARK: - BaseDocumentProtocol
@@ -74,9 +74,11 @@ final class BaseDocument: BaseDocumentProtocol {
         }
     }
     
-    func close() {
-        blockActionsService.close()
-        isOpened = false
+    func close(completion: @escaping (Bool) -> Void) {
+        blockActionsService.close { [weak self] result in
+            self?.isOpened = false
+            completion(result)
+        }
     }
     
     var details: ObjectDetails? {

@@ -31,7 +31,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let blockActionsService: BlockActionsServiceSingleProtocol
 
     deinit {
-        blockActionsService.close()
+        blockActionsService.close(completion: { _ in })
 
         EventsBunch(
             contextId: AccountManager.shared.account.info.homeObjectID,

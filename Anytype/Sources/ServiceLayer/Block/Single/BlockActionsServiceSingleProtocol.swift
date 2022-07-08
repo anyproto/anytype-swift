@@ -7,8 +7,7 @@ protocol BlockActionsServiceSingleProtocol {
     func delete(blockIds: [BlockId]) -> Bool
     func duplicate(targetId: BlockId, blockIds: [BlockId], position: BlockPosition)
     func add(targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId?
-    func close()
-    func open() -> Bool
+    func close(completion: @escaping (Bool) -> Void)
     func open(completion: @escaping (Bool) -> Void)
     func openForPreview(completion: @escaping (Bool) -> Void)
     func move(blockIds: [String], targetContextID: BlockId, dropTargetID: String, position: BlockPosition)
