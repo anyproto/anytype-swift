@@ -113,16 +113,7 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-//    private func setupDocument() {
-//        headerModel = ObjectHeaderViewModel(document: document, router: router, isOpenedForPreview: false)
-//        setupDataview()
-//    }
-    
     func onAppear() {
-//        guard document.isOpened else {
-//
-//            return
-//        }
         setupSubscriptions()
         router?.setNavigationViewHidden(false, animated: true)
     }
