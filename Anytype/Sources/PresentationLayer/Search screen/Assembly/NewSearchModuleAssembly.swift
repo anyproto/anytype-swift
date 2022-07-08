@@ -13,13 +13,16 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         let interactor = StatusSearchInteractor(
             allStatuses: allStatuses,
-            selectedStatusesIds: selectedStatusesIds
+            selectedStatusesIds: selectedStatusesIds,
+            isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
         )
         
         let internalViewModel = StatusSearchViewModel(selectionMode: selectionMode, interactor: interactor)
+        
         let viewModel = NewSearchViewModel(
             style: style,
-            itemCreationMode: style == .default ? .available(action: onCreate) : .unavailable,
+            itemCreationMode: style.isCreationModeAvailable ? .available(action: onCreate) : .unavailable,
+            selectionMode: selectionMode,
             internalViewModel: internalViewModel,
             onSelect: onSelect
         )
@@ -28,6 +31,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     
     static func tagsSearchModule(
         style: NewSearchView.Style = .default,
+        selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
         allTags: [Relation.Tag.Option],
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -35,13 +39,16 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     ) -> NewSearchView {
         let interactor = TagsSearchInteractor(
             allTags: allTags,
-            selectedTagIds: selectedTagIds
+            selectedTagIds: selectedTagIds,
+            isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
         )
         
-        let internalViewModel = TagsSearchViewModel(interactor: interactor)
+        let internalViewModel = TagsSearchViewModel(selectionMode: selectionMode, interactor: interactor)
+        
         let viewModel = NewSearchViewModel(
             style: style,
-            itemCreationMode: style == .default ? .available(action: onCreate) : .unavailable,
+            itemCreationMode: style.isCreationModeAvailable ? .available(action: onCreate) : .unavailable,
+            selectionMode: selectionMode,
             internalViewModel: internalViewModel,
             onSelect: onSelect
         )
@@ -50,6 +57,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     
     static func objectsSearchModule(
         style: NewSearchView.Style = .default,
+        selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
         excludedObjectIds: [String],
         limitedObjectType: [String],
         onSelect: @escaping (_ ids: [String]) -> Void
@@ -60,10 +68,12 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             limitedObjectType: limitedObjectType
         )
         
-        let internalViewModel = ObjectsSearchViewModel(selectionMode: .multipleItems, interactor: interactor)
+        let internalViewModel = ObjectsSearchViewModel(selectionMode: selectionMode, interactor: interactor)
+        
         let viewModel = NewSearchViewModel(
             style: style,
             itemCreationMode: .unavailable,
+            selectionMode: selectionMode,
             internalViewModel: internalViewModel,
             onSelect: onSelect
         )
@@ -80,7 +90,8 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
             excludedFileIds: excludedFileIds
         )
         
-        let internalViewModel = ObjectsSearchViewModel(selectionMode: .multipleItems, interactor: interactor)
+        let internalViewModel = ObjectsSearchViewModel(selectionMode: .multipleItems(), interactor: interactor)
+        
         let viewModel = NewSearchViewModel(
             style: style,
             itemCreationMode: .unavailable,

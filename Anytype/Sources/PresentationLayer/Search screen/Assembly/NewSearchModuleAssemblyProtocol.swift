@@ -13,6 +13,7 @@ protocol NewSearchModuleAssemblyProtocol {
     
     static func tagsSearchModule(
         style: NewSearchView.Style,
+        selectionMode: NewSearchViewModel.SelectionMode,
         allTags: [Relation.Tag.Option],
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
@@ -21,6 +22,7 @@ protocol NewSearchModuleAssemblyProtocol {
     
     static func objectsSearchModule(
         style: NewSearchView.Style,
+        selectionMode: NewSearchViewModel.SelectionMode,
         excludedObjectIds: [String],
         limitedObjectType: [String],
         onSelect: @escaping (_ ids: [String]) -> Void

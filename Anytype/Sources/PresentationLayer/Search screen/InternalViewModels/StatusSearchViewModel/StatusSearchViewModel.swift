@@ -15,8 +15,14 @@ final class StatusSearchViewModel {
     init(selectionMode: NewSearchViewModel.SelectionMode, interactor: StatusSearchInteractor) {
         self.selectionMode = selectionMode
         self.interactor = interactor
+        self.setup()
     }
     
+    private func setup() {
+        if case let .multipleItems(preselectedIds) = selectionMode {
+            self.selectedStatusesIds = preselectedIds
+        }
+    }
 }
 
 extension StatusSearchViewModel: NewInternalSearchViewModelProtocol {
