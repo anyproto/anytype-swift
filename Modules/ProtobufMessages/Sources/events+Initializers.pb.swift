@@ -719,6 +719,19 @@ extension Anytype_Event.Block.Set.Restrictions {
   }
 }
 
+extension Anytype_Event.Block.Set.TableRow {
+  public init(id: String = String(), isHeader: Anytype_Event.Block.Set.TableRow.IsHeader) {
+    self.id = id
+    self.isHeader = isHeader
+  }
+}
+
+extension Anytype_Event.Block.Set.TableRow.IsHeader {
+  public init(value: Bool = false) {
+    self.value = value
+  }
+}
+
 extension Anytype_Event.Block.Set.Text {
   public init(
     id: String = String(), text: Anytype_Event.Block.Set.Text.Text, style: Anytype_Event.Block.Set.Text.Style, marks: Anytype_Event.Block.Set.Text.Marks, checked: Anytype_Event.Block.Set.Text.Checked,
@@ -774,6 +787,13 @@ extension Anytype_Event.Block.Set.Text.Style {
 extension Anytype_Event.Block.Set.Text.Text {
   public init(value: String = String()) {
     self.value = value
+  }
+}
+
+extension Anytype_Event.Block.Set.VerticalAlign {
+  public init(id: String = String(), verticalAlign: Anytype_Model_Block.VerticalAlign = .top) {
+    self.id = id
+    self.verticalAlign = verticalAlign
   }
 }
 

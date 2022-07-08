@@ -4406,6 +4406,52 @@ extension Anytype_Rpc.Block.ListSetAlign {
   }
 }
 
+extension Anytype_Rpc.Block.ListSetVerticalAlign {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListSetVerticalAlign(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], verticalAlign: Anytype_Model_Block.VerticalAlign = .top, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, verticalAlign: verticalAlign), on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], verticalAlign: Anytype_Model_Block.VerticalAlign = .top) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds, verticalAlign: verticalAlign))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
 extension Anytype_Rpc.Block.ListSetFields {
   private struct Invocation {
     static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockListSetFields(data) }
@@ -5173,6 +5219,755 @@ extension Anytype_Rpc.BlockText.ListSetMark {
     }
     public static func invoke(contextID: String = String(), blockIds: [String] = [], mark: Anytype_Model_Block.Content.Text.Mark) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, mark: mark))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockText.ListClearStyle {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTextListClearStyle(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds), on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockText.ListClearContent {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTextListClearContent(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds), on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.Create {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableCreate(data) }
+  }
+
+  public enum Service {
+    public static func invoke(
+      contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, rows: UInt32 = 0, columns: UInt32 = 0, withHeaderRow: Bool = false,
+      queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, position: position, rows: rows, columns: columns, withHeaderRow: withHeaderRow), on: queue)
+    }
+    public static func invoke(
+      contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, rows: UInt32 = 0, columns: UInt32 = 0, withHeaderRow: Bool = false
+    ) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, position: position, rows: rows, columns: columns, withHeaderRow: withHeaderRow))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowCreate {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableRowCreate(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, position: position), on: queue)
+    }
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, position: position))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowSetHeader {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableRowSetHeader(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), targetID: String = String(), isHeader: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, isHeader: isHeader), on: queue)
+    }
+    public static func invoke(contextID: String = String(), targetID: String = String(), isHeader: Bool = false) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, isHeader: isHeader))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowListFill {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableRowListFill(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds), on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowListClean {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableRowListClean(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds), on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnListFill {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableColumnListFill(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds), on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockIds: blockIds))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnCreate {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableColumnCreate(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, position: position), on: queue)
+    }
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, position: position))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowDelete {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableRowDelete(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), targetID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID), on: queue)
+    }
+    public static func invoke(contextID: String = String(), targetID: String = String()) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnDelete {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableColumnDelete(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), targetID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID), on: queue)
+    }
+    public static func invoke(contextID: String = String(), targetID: String = String()) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnMove {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableColumnMove(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), targetID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, dropTargetID: dropTargetID, position: position), on: queue)
+    }
+    public static func invoke(contextID: String = String(), targetID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, dropTargetID: dropTargetID, position: position))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.RowDuplicate {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableRowDuplicate(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, blockID: blockID, position: position), on: queue)
+    }
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, blockID: blockID, position: position))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.ColumnDuplicate {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableColumnDuplicate(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, blockID: blockID, position: position), on: queue)
+    }
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, blockID: blockID, position: position))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.Expand {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableExpand(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), targetID: String = String(), columns: UInt32 = 0, rows: UInt32 = 0, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, columns: columns, rows: rows), on: queue)
+    }
+    public static func invoke(contextID: String = String(), targetID: String = String(), columns: UInt32 = 0, rows: UInt32 = 0) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, targetID: targetID, columns: columns, rows: rows))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockTable.Sort {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockTableSort(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), columnID: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc, queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(request: .init(contextID: contextID, columnID: columnID, type: type), on: queue)
+    }
+    public static func invoke(contextID: String = String(), columnID: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, columnID: columnID, type: type))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in

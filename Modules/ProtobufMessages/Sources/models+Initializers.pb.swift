@@ -38,7 +38,7 @@ extension Anytype_Model_Account.Config {
 extension Anytype_Model_Account.Info {
   public init(
     homeObjectID: String = String(), archiveObjectID: String = String(), profileObjectID: String = String(), marketplaceTypeObjectID: String = String(), marketplaceRelationObjectID: String = String(),
-    marketplaceTemplateObjectID: String = String(), deviceID: String = String(), gatewayURL: String = String(), localStoragePath: String = String()
+    marketplaceTemplateObjectID: String = String(), deviceID: String = String(), gatewayURL: String = String(), localStoragePath: String = String(), timeZone: String = String()
   ) {
     self.homeObjectID = homeObjectID
     self.archiveObjectID = archiveObjectID
@@ -49,6 +49,7 @@ extension Anytype_Model_Account.Info {
     self.deviceID = deviceID
     self.gatewayURL = gatewayURL
     self.localStoragePath = localStoragePath
+    self.timeZone = timeZone
   }
 }
 
@@ -62,7 +63,7 @@ extension Anytype_Model_Account.Status {
 extension Anytype_Model_Block {
   public init(
     id: String, fields: SwiftProtobuf.Google_Protobuf_Struct, restrictions: Anytype_Model_Block.Restrictions, childrenIds: [String], backgroundColor: String, align: Anytype_Model_Block.Align,
-    content: OneOf_Content?
+    verticalAlign: Anytype_Model_Block.VerticalAlign, content: OneOf_Content?
   ) {
     self.id = id
     self.fields = fields
@@ -70,6 +71,7 @@ extension Anytype_Model_Block {
     self.childrenIds = childrenIds
     self.backgroundColor = backgroundColor
     self.align = align
+    self.verticalAlign = verticalAlign
     self.content = content
   }
 }
@@ -213,6 +215,12 @@ extension Anytype_Model_Block.Content.Link {
 extension Anytype_Model_Block.Content.Relation {
   public init(key: String = String()) {
     self.key = key
+  }
+}
+
+extension Anytype_Model_Block.Content.TableRow {
+  public init(isHeader: Bool = false) {
+    self.isHeader = isHeader
   }
 }
 

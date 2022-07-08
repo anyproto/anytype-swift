@@ -54,6 +54,8 @@ message Event {
             Block.Set.Div blockSetDiv = 17;
             Block.Set.Relation blockSetRelation = 21;
             Block.Set.Latex blockSetLatex = 25;
+            Block.Set.VerticalAlign blockSetVerticalAlign = 36;
+            Block.Set.TableRow blockSetTableRow = 37;
 
             Block.Dataview.RecordsSet blockDataviewRecordsSet = 18;
             Block.Dataview.RecordsUpdate blockDataviewRecordsUpdate = 26;
@@ -307,6 +309,11 @@ message Event {
                 anytype.model.Block.Align align = 2;
             }
 
+            message VerticalAlign {
+                string id = 1;
+                anytype.model.Block.VerticalAlign verticalAlign = 2;
+            }
+
 
             message Text {
                 string id = 1;
@@ -489,6 +496,15 @@ message Event {
 
                 message State {
                     anytype.model.Block.Content.Bookmark.State value = 1;
+                }
+            }
+
+            message TableRow {
+                string id = 1;
+                IsHeader isHeader = 2;
+
+                message IsHeader {
+                    bool value = 1;
                 }
             }
         }

@@ -20,6 +20,8 @@ enum BlocksModelsConverter {
         case .tableOfContents: return FeatureFlags.isTableOfContentsAvailable ? .tableOfContents : .unsupported
         case .icon, .latex:
             return .unsupported
+        case .table, .tableRow, .tableColumn:
+            return .unsupported
         }
     }
 
