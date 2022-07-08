@@ -33,6 +33,7 @@ service ClientCommands {
     rpc AccountSelect (anytype.Rpc.Account.Select.Request) returns (anytype.Rpc.Account.Select.Response);
     rpc AccountStop (anytype.Rpc.Account.Stop.Request) returns (anytype.Rpc.Account.Stop.Response);
     rpc AccountMove (anytype.Rpc.Account.Move.Request) returns (anytype.Rpc.Account.Move.Response);
+    rpc AccountConfigUpdate(anytype.Rpc.Account.ConfigUpdate.Request) returns (anytype.Rpc.Account.ConfigUpdate.Response);
 
     // Object
     // ***
@@ -144,6 +145,7 @@ service ClientCommands {
     rpc BlockListDuplicate (anytype.Rpc.Block.ListDuplicate.Request) returns (anytype.Rpc.Block.ListDuplicate.Response);
     rpc BlockListSetBackgroundColor (anytype.Rpc.Block.ListSetBackgroundColor.Request) returns (anytype.Rpc.Block.ListSetBackgroundColor.Response);
     rpc BlockListSetAlign (anytype.Rpc.Block.ListSetAlign.Request) returns (anytype.Rpc.Block.ListSetAlign.Response);
+    rpc BlockListSetVerticalAlign (anytype.Rpc.Block.ListSetVerticalAlign.Request) returns (anytype.Rpc.Block.ListSetVerticalAlign.Response);
     rpc BlockListTurnInto (anytype.Rpc.Block.ListTurnInto.Request) returns (anytype.Rpc.Block.ListTurnInto.Response);
 
     // Text Block commands
@@ -156,6 +158,8 @@ service ClientCommands {
     rpc BlockTextListSetColor (anytype.Rpc.BlockText.ListSetColor.Request) returns (anytype.Rpc.BlockText.ListSetColor.Response);
     rpc BlockTextListSetMark (anytype.Rpc.BlockText.ListSetMark.Request) returns (anytype.Rpc.BlockText.ListSetMark.Response);
     rpc BlockTextListSetStyle (anytype.Rpc.BlockText.ListSetStyle.Request) returns (anytype.Rpc.BlockText.ListSetStyle.Response);
+    rpc BlockTextListClearStyle (anytype.Rpc.BlockText.ListClearStyle.Request) returns (anytype.Rpc.BlockText.ListClearStyle.Response);
+    rpc BlockTextListClearContent (anytype.Rpc.BlockText.ListClearContent.Request) returns (anytype.Rpc.BlockText.ListClearContent.Response);
 
     // File block commands
     // ***
@@ -184,6 +188,23 @@ service ClientCommands {
     rpc BlockDataviewRecordRelationOptionAdd (anytype.Rpc.BlockDataviewRecord.RelationOption.Add.Request) returns (anytype.Rpc.BlockDataviewRecord.RelationOption.Add.Response);
     rpc BlockDataviewRecordRelationOptionUpdate (anytype.Rpc.BlockDataviewRecord.RelationOption.Update.Request) returns (anytype.Rpc.BlockDataviewRecord.RelationOption.Update.Response);
     rpc BlockDataviewRecordRelationOptionDelete (anytype.Rpc.BlockDataviewRecord.RelationOption.Delete.Request) returns (anytype.Rpc.BlockDataviewRecord.RelationOption.Delete.Response);
+
+    // Simple table block commands
+    // ***
+    rpc BlockTableCreate (anytype.Rpc.BlockTable.Create.Request) returns (anytype.Rpc.BlockTable.Create.Response);
+    rpc BlockTableExpand (anytype.Rpc.BlockTable.Expand.Request) returns (anytype.Rpc.BlockTable.Expand.Response);
+    rpc BlockTableRowCreate (anytype.Rpc.BlockTable.RowCreate.Request) returns (anytype.Rpc.BlockTable.RowCreate.Response);
+    rpc BlockTableRowDelete (anytype.Rpc.BlockTable.RowDelete.Request) returns (anytype.Rpc.BlockTable.RowDelete.Response);
+    rpc BlockTableRowDuplicate (anytype.Rpc.BlockTable.RowDuplicate.Request) returns (anytype.Rpc.BlockTable.RowDuplicate.Response);
+    rpc BlockTableRowSetHeader (anytype.Rpc.BlockTable.RowSetHeader.Request) returns (anytype.Rpc.BlockTable.RowSetHeader.Response);
+    rpc BlockTableColumnCreate (anytype.Rpc.BlockTable.ColumnCreate.Request) returns (anytype.Rpc.BlockTable.ColumnCreate.Response);
+    rpc BlockTableColumnMove (anytype.Rpc.BlockTable.ColumnMove.Request) returns (anytype.Rpc.BlockTable.ColumnMove.Response);
+    rpc BlockTableColumnDelete (anytype.Rpc.BlockTable.ColumnDelete.Request) returns (anytype.Rpc.BlockTable.ColumnDelete.Response);
+    rpc BlockTableColumnDuplicate (anytype.Rpc.BlockTable.ColumnDuplicate.Request) returns (anytype.Rpc.BlockTable.ColumnDuplicate.Response);
+    rpc BlockTableRowListFill (anytype.Rpc.BlockTable.RowListFill.Request) returns (anytype.Rpc.BlockTable.RowListFill.Response);
+    rpc BlockTableRowListClean (anytype.Rpc.BlockTable.RowListClean.Request) returns (anytype.Rpc.BlockTable.RowListClean.Response);
+    rpc BlockTableColumnListFill (anytype.Rpc.BlockTable.ColumnListFill.Request) returns (anytype.Rpc.BlockTable.ColumnListFill.Response);
+    rpc BlockTableSort (anytype.Rpc.BlockTable.Sort.Request) returns (anytype.Rpc.BlockTable.Sort.Response);
 
     // Other specific block commands
     // ***

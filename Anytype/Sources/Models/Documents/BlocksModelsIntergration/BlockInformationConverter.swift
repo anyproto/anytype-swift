@@ -48,6 +48,7 @@ enum BlockInformationConverter {
             childrenIds: childrenIds,
             backgroundColor: backgroundColor,
             align: alignment,
+            verticalAlign: .middle,
             content: content
         )
     }
