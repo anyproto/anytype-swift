@@ -65,7 +65,7 @@ final class SetFiltersSearchViewBuilder {
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
             excludedObjectIds: [],
-            limitedObjectType: [],
+            limitedObjectType: filter.metadata.objectTypes,
             onSelect: onSelect
         )
     }
