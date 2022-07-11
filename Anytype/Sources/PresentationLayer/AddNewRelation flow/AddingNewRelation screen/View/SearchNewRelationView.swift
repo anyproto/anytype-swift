@@ -52,10 +52,9 @@ struct SearchNewRelationView: View {
                             .frame(maxWidth: .infinity)
                             .divider(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading)
                         }
-                    case let .addFromLibriry(relationsMetaData):
+                    case let .addFromLibriry(relationsMetadata):
                         Section(content: {
-                            ForEach(relationsMetaData.indices, id: \.self) { index in
-                                let relationMetadata = relationsMetaData[index]
+                            ForEach(Array(relationsMetadata.enumerated()), id: \.element) { index, relationMetadata in
                                 Button(
                                     action: {
                                         viewModel.addRelation(relationMetadata)

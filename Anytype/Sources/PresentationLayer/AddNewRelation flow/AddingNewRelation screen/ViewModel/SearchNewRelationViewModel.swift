@@ -55,7 +55,7 @@ extension SearchNewRelationViewModel {
             searchData.removeAll()
 
             let filteredRelationsMetadata = relationsMetadata.filter { relationMetadata in
-                relationMetadata.name.contains(text)
+                relationMetadata.name.range(of: text, options: .caseInsensitive) != nil
             }
             
             if FeatureFlags.createNewRelation {
