@@ -1,9 +1,10 @@
 import SwiftUI
 import Combine
 
-final class SimpleTableMenuViewModel: TypeListItemProvider {
+final class SimpleTableMenuViewModel: ObservableObject, TypeListItemProvider {
     var typesPublisher: AnyPublisher<[HorizontalListItem], Never> { $items.eraseToAnyPublisher() }
     @Published var items = [HorizontalListItem]()
+    @Published var index: Int = 0
 
     private var selectedIndexPaths = [IndexPath]()
 
@@ -32,23 +33,22 @@ struct SimpleTableMenuView: View {
         }
     }
 
-    let viewModel: SimpleTableMenuViewModel
-    @State private var index: Int = 0
+    @ObservedObject var viewModel: SimpleTableMenuViewModel
 
     var body: some View {
         VStack {
+            Spacer.fixedHeight(17)
             tabHeaders
-
+            HorizonalTypeListView(viewModel: .init(itemProvider: viewModel))
         }
     }
 
     private var tabHeaders: some View {
-        HStack {
+        HStack(alignment: .center, spacing: 17) {
             tabHeaderButton(.cell)
             tabHeaderButton(.column)
             tabHeaderButton(.row)
-        }
-        .frame(height: 48)
+        }.frame(height: 24, alignment: .center)
     }
 
     private func tabHeaderButton(_ tab: Tab) -> some View {
@@ -56,15 +56,14 @@ struct SimpleTableMenuView: View {
             UISelectionFeedbackGenerator().selectionChanged()
             withAnimation {
                 viewModel.didSelectTab(tab: tab)
-                index = tab.rawValue
+                viewModel.index = tab.rawValue
             }
         } label: {
             AnytypeText(
                 tab.title,
-                style: .uxBodyRegular,
-                color: index == tab.rawValue ? Color.buttonSelected : Color.buttonActive
+                style: .subheading,
+                color: viewModel.index == tab.rawValue ? Color.buttonSelected : Color.buttonActive
             )
         }
-        .frame(maxWidth: .infinity)
     }
 }

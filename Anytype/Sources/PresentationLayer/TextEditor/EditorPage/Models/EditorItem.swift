@@ -45,3 +45,16 @@ extension CollectionDifference where ChangeElement == EditorItem {
         }
     }
 }
+
+extension EditorItem {
+    func didSelect(in state: EditorEditingState) {
+        switch self {
+        case .header(let objectHeader):
+            objectHeader.didSelectRowInTableView(editorEditingState: state)
+        case .block(let blockViewModel):
+            blockViewModel.didSelectRowInTableView(editorEditingState: state)
+        case .system(let systemContentConfiguationProvider):
+            systemContentConfiguationProvider.didSelectRowInTableView(editorEditingState: state)
+        }
+    }
+}

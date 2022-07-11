@@ -15,6 +15,9 @@ protocol BlockTableServiceProtocol {
         contextId: BlockId,
         targetIds: [BlockId]
     )
+
+    func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition)
+    func insertColumn(contextId: BlockId, targetId: BlockId, position: BlockPosition)
 }
 
 final class BlockTableService: BlockTableServiceProtocol {
@@ -66,6 +69,30 @@ final class BlockTableService: BlockTableServiceProtocol {
     }
 
     func rowCreate(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
+        let eventsBunch = Anytype_Rpc.BlockTable.RowCreate.Service.invoke(
+            contextID: contextId,
+            targetID: targetId,
+            position: position.asMiddleware
+        )
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+
+    func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
+        let eventsBunch = Anytype_Rpc.BlockTable.RowCreate.Service.invoke(
+            contextID: contextId,
+            targetID: targetId,
+            position: position.asMiddleware
+        )
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+
+    func insertColumn(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
         let eventsBunch = Anytype_Rpc.BlockTable.RowCreate.Service.invoke(
             contextID: contextId,
             targetID: targetId,

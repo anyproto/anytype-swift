@@ -6,7 +6,6 @@ struct HorizonalTypeListView: View {
     @StateObject var viewModel: HorizonalTypeListViewModel
 
     var body: some View {
-        AnytypeDivider()
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 0) {
                 ForEach(viewModel.items) { item in

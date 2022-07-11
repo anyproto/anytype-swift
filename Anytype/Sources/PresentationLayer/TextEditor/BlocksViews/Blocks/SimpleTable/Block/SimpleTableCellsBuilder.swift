@@ -69,64 +69,44 @@ final class SimpleTableCellsBuilder {
         tableColumnsBlockInfo: BlockInformation,
         tableRowsBlockInfo: BlockInformation
     ) -> [[EditorItem]] {
-        let numberOfColumns = tableColumnsBlockInfo.childrenIds.count
-        var blocks = [[EditorItem]]()
+        let computedTable = ComputedTable(
+            infoContainer: infoContainer,
+            tableColumnsBlockInfo: tableColumnsBlockInfo,
+            tableRowsBlockInfo: tableRowsBlockInfo
+        )
 
-        for rowId in tableRowsBlockInfo.childrenIds {
-            guard let childInformation = infoContainer.get(id: rowId) else {
-                anytypeAssertionFailure("Missing column or rows information", domain: .simpleTables)
-                return blocks
-            }
-
-            if childInformation.content == .tableRow {
-                var rowBlocks = [EditorItem]()
-
-                for column in 0..<numberOfColumns {
-                    if let rowChildInformation = childInformation.childrenIds[safe: column],
-                       let rowChildInformation = infoContainer.get(id: rowChildInformation) {
-                        if case .text = rowChildInformation.content {
-
-                            textBlockConfiguration(information: rowChildInformation)
-                                .map { rowBlocks.append($0) }
-                        }
-                    } else {
-                        let columnId = tableColumnsBlockInfo.childrenIds[column]
-
-                        let cellConfiguration = makeEmptyContentCellConfiguration(
-                            columnId: columnId,
-                            info: childInformation
-                        )
-                        rowBlocks.append(cellConfiguration)
-                    }
+        return computedTable.cells.map {
+            $0.map { item in
+                guard let blockInformation = item.blockInformation else {
+                    return makeEmptyContentCellConfiguration(columnId: item.columnId, rowId: item.rowId)
                 }
-
-                blocks.append(rowBlocks)
+                switch item.blockInformation?.content {
+                case let .text(content):
+                    return textBlockConfiguration(information: blockInformation, content: content)
+                default:
+                    anytypeAssertionFailure("Wrong path", domain: .simpleTables)
+                    return makeEmptyContentCellConfiguration(columnId: item.columnId, rowId: item.rowId)
+                }
             }
         }
-
-        return blocks
     }
 
     private func makeEmptyContentCellConfiguration(
         columnId: BlockId,
-        info: BlockInformation
+        rowId: BlockId
     ) -> EditorItem {
         .system(
             EmptyRowViewViewModel(
                 contextId: document.objectId,
-                info: info,
-                columnRowId: "\(info.id)-\(columnId)",
+                rowId: rowId,
+                columnId: columnId,
                 tablesService: BlockTableService(),
                 cursorManager: cursorManager
             )
         )
     }
 
-    private func textBlockConfiguration(information: BlockInformation) -> EditorItem? {
-        guard case let .text(content) = information.content else {
-            return nil
-        }
-
+    private func textBlockConfiguration(information: BlockInformation, content: BlockText) -> EditorItem {
         let isCheckable = content.contentType == .title ? document.details?.layout == .todo : false
 
         let textBlockActionHandler = SimpleTablesTextBlockActionHandler(
@@ -168,5 +148,49 @@ final class SimpleTableCellsBuilder {
         )
 
         return EditorItem.block(viewModel)
+    }
+}
+
+struct ComputedTable {
+    struct Cell {
+        let rowId: BlockId
+        let columnId: BlockId
+        let blockInformation: BlockInformation?
+    }
+
+    let cells: [[Cell]]
+
+    init(
+        infoContainer: InfoContainerProtocol,
+        tableColumnsBlockInfo: BlockInformation,
+        tableRowsBlockInfo: BlockInformation
+    ) {
+        let numberOfColumns = tableColumnsBlockInfo.childrenIds.count
+        var blocks = [[Cell]]()
+
+        for rowId in tableRowsBlockInfo.childrenIds {
+            guard let childInformation = infoContainer.get(id: rowId) else {
+                anytypeAssertionFailure("Missing column or rows information", domain: .simpleTables)
+                fatalError()
+            }
+
+            if childInformation.content == .tableRow {
+                var rowBlocks = [Cell]()
+
+                for column in 0..<numberOfColumns {
+                    let columnId = tableColumnsBlockInfo.childrenIds[column]
+
+                    let rowChildInformation = childInformation.childrenIds[safe: column]
+                    let child = rowChildInformation.map { infoContainer.get(id: $0) }.flatMap { $0 }
+
+                    let cell = Cell(rowId: rowId, columnId: columnId, blockInformation: child)
+                    rowBlocks.append(cell)
+                }
+
+                blocks.append(rowBlocks)
+            }
+        }
+
+        self.cells = blocks
     }
 }

@@ -29,16 +29,24 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         }
     }
 
+    private var selection: SimpleTableMenuView.Tab = .cell
     private var cachedSectionRowHeights = [AnyHashable: CGFloat]()
     private var cachedSectionHeights = [Int: CGFloat]()
     private var attributes: [UICollectionViewLayoutAttributes] = []
     private var contentSize = CGSize.zero
+    private lazy var selectionAttributes = SelectionDecorationAttributes(
+        forSupplementaryViewOfKind: SelectionDecorationView.reusableIdentifier,
+        with: IndexPath(row: 0, section: 0)
+    )
 
     override var collectionViewContentSize: CGSize { contentSize }
 
     override class var invalidationContextClass: AnyClass {
         SpreadsheetInvalidationContext.self
     }
+
+    private var lastHashableItems = 0
+    private var lastSelectedIndexPaths = [IndexPath]()
 
     init(dataSource: SpreadsheetViewDataSource) {
         self.dataSource = dataSource
@@ -68,12 +76,35 @@ final class SpreadsheetLayout: UICollectionViewLayout {
             height = visibleRect.size.height
         }
 
-
         let newRect = CGRect(x: rect.origin.x, y: y, width: rect.width, height: height)
+        let attributes = (attributes + [selectionAttributes]).filter { $0.frame.intersects(newRect) }
 
-        let attributes = attributes.filter { $0.frame.intersects(newRect) }
 
         return attributes
+    }
+    
+    func reselectSelectedCells(selection: SimpleTableMenuView.Tab) {
+        self.selection = selection
+        guard let collectionView = collectionView else { return }
+        let selectedIndexPaths = collectionView.indexPathsForSelectedItems ?? []
+
+        // Bad implementation
+        guard lastHashableItems != attributes.hashValue || lastSelectedIndexPaths != selectedIndexPaths else {
+            return
+        }
+
+        let unionIndexPaths = SpreadsheetSelectionHelper.groupSelected(indexPaths: selectedIndexPaths)
+
+        selectionAttributes.selectedRects = unionIndexPaths.map { indexPaths in // It could be slow. Need improvements.
+            indexPaths.compactMap { indexPath in
+                let attribute = attributes.first(where: { $0.indexPath == indexPath })
+
+                return attribute?.frame ?? .zero
+            }
+        }
+
+        self.lastSelectedIndexPaths = selectedIndexPaths
+
     }
 
     override func prepare() {
@@ -96,7 +127,6 @@ final class SpreadsheetLayout: UICollectionViewLayout {
                 let size: CGSize
                 if let cachedValue = cachedSectionRowHeights[hashable] {
                     size = .init(width: columnWidth, height: cachedValue)
-
                 } else {
                     let cell = dataSource.dequeueCell(at: indexPath)
 
@@ -132,7 +162,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         guard let collectionView = collectionView else { return }
 
         var fullHeight: CGFloat = 0
-        var originY: CGFloat = 0
+        var originY: CGFloat = 2
         for sectionIndex in 0..<collectionView.numberOfSections {
             guard let maxSectionHeight = cachedSectionHeights[sectionIndex] else {
                         anytypeAssertionFailure(
@@ -142,7 +172,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
                         return
                     }
 
-            var originX: CGFloat = 0
+            var originX: CGFloat = 2
             fullHeight = fullHeight + maxSectionHeight
 
             for row in 0..<collectionView.numberOfItems(inSection: sectionIndex) {
@@ -163,7 +193,14 @@ final class SpreadsheetLayout: UICollectionViewLayout {
             originY = originY + maxSectionHeight
         }
 
-        contentSize = .init(width: itemWidths.reduce(0, +), height: fullHeight + 10)
+        selectionAttributes.frame = .init(origin: .zero, size: contentSize)
+        selectionAttributes.zIndex = 14
+
+        contentSize = .init(width: itemWidths.reduce(0, +) + 4, height: fullHeight + 10 + 2)
+
+        reselectSelectedCells(selection: selection)
+
+        self.lastHashableItems = attributes.hashValue
     }
 }
 

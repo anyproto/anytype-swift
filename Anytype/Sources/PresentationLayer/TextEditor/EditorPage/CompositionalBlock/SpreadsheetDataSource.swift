@@ -84,9 +84,19 @@ final class SpreadsheetViewDataSource {
         return dataSource.indexPath(for: item)
     }
 
+    func item(for indexPath: IndexPath) -> EditorItem? {
+        dataSource.itemIdentifier(for: indexPath)
+    }
+
     private func createCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, ContentConfigurationProvider> {
         .init { [weak self] cell, indexPath, item in
             self?.setupCell(cell: cell, indexPath: indexPath, item: item)
+        }
+    }
+
+    func decorationRegistration() -> UICollectionView.SupplementaryRegistration<SelectionDecorationView> {
+        .init(elementKind: SelectionDecorationView.reusableIdentifier) { supplementaryView, elementKind, indexPath in
+            
         }
     }
 
@@ -112,6 +122,7 @@ final class SpreadsheetViewDataSource {
 
     func makeCollectionViewDataSource() -> DataSource {
         let cellRegistration = createCellRegistration()
+        let decorationRegistration = decorationRegistration()
 
         let dataSource = DataSource(
             collectionView: collectionView
@@ -124,12 +135,21 @@ final class SpreadsheetViewDataSource {
 
             // UIKit bug. isSelected works fine, UIConfigurationStateCustomKey properties sometimes switch to adjacent cellsAnytype/Sources/PresentationLayer/TextEditor/BlocksViews/Base/CustomStateKeys.swift
             if let self = self {
-                (cell as? EditorViewListCell)?.isMoving = self.collectionView.indexPathsForMovingItems.contains(indexPath)
-                (cell as? EditorViewListCell)?.isLocked = self.collectionView.isLocked
+                cell.isMoving = self.collectionView.indexPathsForMovingItems.contains(indexPath)
+                cell.isLocked = self.collectionView.isLocked
             }
 
 
             return cell
+        }
+
+        dataSource.supplementaryViewProvider = { (collectionView, kind, indexPath) in
+            switch kind {
+            case SelectionDecorationView.reusableIdentifier:
+                return collectionView.dequeueConfiguredReusableSupplementary(using: decorationRegistration, for: indexPath)
+            default:
+                return nil
+            }
         }
 
         return dataSource
@@ -154,7 +174,7 @@ final class SpreadsheetViewDataSource {
     }
 }
 
-private extension EditorItem {
+extension EditorItem {
     var contentConfigurationProvider: ContentConfigurationProvider {
         switch self {
         case .header(let viewModel):
@@ -165,4 +185,146 @@ private extension EditorItem {
             return systemContentConfiguationProvider
         }
     }
+}
+
+
+private extension IndexPath {
+    var topIndexPath: IndexPath {
+        .init(row: row, section: section - 1)
+    }
+
+    var bottomIndexPath: IndexPath {
+        .init(row: row, section: section + 1)
+    }
+
+    var leftIndexPath: IndexPath {
+        .init(row: row - 1, section: section)
+    }
+
+    var rightIndexPath: IndexPath {
+        .init(row: row + 1, section: section)
+    }
+}
+
+struct SpreadsheetSelectionHelper {
+    static func columnSelected(
+        indexPaths: [IndexPath],
+        sectionsCount: Int
+    ) -> [[IndexPath]] {
+        let selectedColumns = Set(indexPaths.map { $0.row })
+        var allGroups = [[IndexPath]]()
+
+        var currentGroup = [IndexPath]()
+
+        for i in 0...(selectedColumns.max() ?? 0) {
+            if selectedColumns.contains(i) {
+                currentGroup.append(contentsOf: allIndexPaths(for: i, sectionsCount: sectionsCount))
+            } else {
+                continue
+            }
+
+            if !selectedColumns.contains(i + 1) {
+                allGroups.append(currentGroup)
+                currentGroup.removeAll()
+            }
+        }
+
+        return allGroups
+    }
+
+    static func rowsSelected(
+        indexPaths: [IndexPath],
+        rowsCount: Int
+    ) -> [[IndexPath]] {
+        let selectedRows = Set(indexPaths.map { $0.section })
+        var allGroups = [[IndexPath]]()
+
+        var currentGroup = [IndexPath]()
+
+        for i in 0...(selectedRows.max() ?? 0) {
+            if selectedRows.contains(i) {
+                currentGroup.append(contentsOf: allIndexPaths(for: i, rowsCount: rowsCount))
+            } else {
+                continue
+            }
+
+            if !selectedRows.contains(i + 1) {
+                allGroups.append(currentGroup)
+                currentGroup.removeAll()
+            }
+        }
+
+        return allGroups
+    }
+
+    static func allIndexPaths(for rowIndex: Int, sectionsCount: Int) -> [IndexPath] {
+        (0...sectionsCount).map {
+            IndexPath(row: rowIndex, section: $0)
+        }
+    }
+
+    static func allIndexPaths(for sectionIndex: Int, rowsCount: Int) -> [IndexPath] {
+        (0...rowsCount).map {
+            IndexPath(row: $0, section: sectionIndex)
+        }
+    }
+
+    static func groupSelected(indexPaths: [IndexPath]) -> [[IndexPath]] {
+        let selectedIndexPaths = Set(indexPaths)
+        var alreadyUsedIndexPaths = Set<IndexPath>()
+        var allNearbyIndexPaths = [[IndexPath]]()
+
+        for indexPath in indexPaths {
+            guard !alreadyUsedIndexPaths.contains(indexPath) else { continue }
+
+            let nearbyIndexPaths = nearbyIndexPaths(
+                indexPath: indexPath,
+                selectedIndexPaths: selectedIndexPaths,
+                alreadyUsedIndexPaths: &alreadyUsedIndexPaths
+            )
+
+            allNearbyIndexPaths.append(nearbyIndexPaths)
+        }
+
+        return allNearbyIndexPaths
+    }
+
+    private static func nearbyIndexPaths(
+        indexPath: IndexPath,
+        selectedIndexPaths: Set<IndexPath>,
+        alreadyUsedIndexPaths: inout Set<IndexPath>
+    ) -> [IndexPath] {
+        alreadyUsedIndexPaths.insert(indexPath)
+
+        let adjacentIndexPaths: Set<IndexPath> = [
+            indexPath.topIndexPath,
+            indexPath.leftIndexPath,
+            indexPath.rightIndexPath,
+            indexPath.bottomIndexPath
+        ]
+
+        let intersections = selectedIndexPaths
+            .intersection(adjacentIndexPaths)
+            .subtracting(alreadyUsedIndexPaths)
+
+        var indexPaths = [IndexPath]()
+        intersections.forEach { intersectionIndexPath in
+            alreadyUsedIndexPaths.insert(intersectionIndexPath)
+
+            indexPaths.append(intersectionIndexPath)
+
+            let nearbyIndexPaths = nearbyIndexPaths(
+                indexPath: intersectionIndexPath,
+                selectedIndexPaths: selectedIndexPaths,
+                alreadyUsedIndexPaths: &alreadyUsedIndexPaths
+            )
+
+            indexPaths.append(contentsOf: nearbyIndexPaths)
+        }
+
+        indexPaths.append(indexPath)
+
+        return indexPaths
+    }
+
 }

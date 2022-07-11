@@ -231,11 +231,11 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func handleKeyboardAction(action: CustomTextView.KeyboardAction, textView: UITextView) {
-        actionHandler.handleKeyboardAction(
-            action,
-            currentText: textView.attributedText,
-            info: info
-        )
+//        actionHandler.handleKeyboardAction(
+//            action,
+//            currentText: textView.attributedText,
+//            info: info
+//        )
     }
 
     private func textBlockSetNeedsLayout(textView: UITextView) { }

@@ -6,28 +6,28 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     var hashable: AnyHashable {
         [
             contextId,
-            info.id,
-            columnRowId
+            rowId,
+            columnId
         ] as [AnyHashable]
     }
 
     init(
         contextId: BlockId,
-        info: BlockInformation,
-        columnRowId: BlockId,
+        rowId: BlockId,
+        columnId: BlockId,
         tablesService: BlockTableService,
         cursorManager: EditorCursorManager
     ) {
         self.contextId = contextId
-        self.info = info
-        self.columnRowId = columnRowId
+        self.rowId = rowId
+        self.columnId = columnId
         self.tablesService = tablesService
         self.cursorManager = cursorManager
     }
 
     private let contextId: BlockId
-    private let info: BlockInformation
-    private let columnRowId: BlockId
+    private let rowId: BlockId
+    private let columnId: BlockId
     private let tablesService: BlockTableService
     private let cursorManager: EditorCursorManager
 
@@ -39,10 +39,10 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
         EmptyRowConfiguration {
             tablesService.rowListFill(
                 contextId: contextId,
-                targetIds: [info.id]
+                targetIds: [rowId]
             )
 
-            cursorManager.blockFocus = .init(id: columnRowId, position: .beginning)
+            cursorManager.blockFocus = .init(id: "\(rowId)-\(columnId)", position: .beginning)
         }
     }
 
@@ -81,6 +81,10 @@ final class EmptyRowView: UIView, BlockContentView {
 
     func update(with configuration: EmptyRowConfiguration) {
         self.actionHandler = configuration.action
+    }
+
+    func update(with state: UICellConfigurationState) {
+        button.isHidden = !state.isEditing
     }
 
     func setup() {

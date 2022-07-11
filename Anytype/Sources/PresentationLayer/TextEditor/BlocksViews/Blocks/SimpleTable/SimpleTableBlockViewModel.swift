@@ -13,7 +13,7 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
 
     private weak var blockDelegate: BlockDelegate?
     private let simpleTableViewModelBuilder: () -> SimpleTableViewModel
-    private let stateManager: EditorPageBlocksStateManagerProtocol
+    private let stateManager: SimpleTableStateManager
 
     private weak var relativePositionProvider: RelativePositionProvider?
 
@@ -23,7 +23,7 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
         cellsBuilder: SimpleTableCellsBuilder,
         blockDelegate: BlockDelegate,
         cursorManager: EditorCursorManager,
-        stateManager: EditorPageBlocksStateManagerProtocol,
+        stateManager: SimpleTableStateManager,
         relativePositionProvider: RelativePositionProvider?
     ) {
         self.info = info
@@ -42,6 +42,7 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         let contentConfiguration = SimpleTableBlockContentConfiguration(
+            blockId: blockId,
             stateManager: stateManager,
             blockDelegate: blockDelegate,
             relativePositionProvider: relativePositionProvider,

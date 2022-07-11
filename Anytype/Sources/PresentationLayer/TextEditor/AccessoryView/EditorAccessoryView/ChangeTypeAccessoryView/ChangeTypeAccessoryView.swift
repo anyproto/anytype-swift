@@ -55,8 +55,13 @@ class ChangeTypeAccessoryView: UIView {
             $0.centerY.equal(to: topView.centerYAnchor)
         }
 
+        let dividerView = UIView()
+        dividerView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        dividerView.backgroundColor = .strokePrimary
+
         stackView.axis = .vertical
         stackView.addArrangedSubview(topView)
+        stackView.addArrangedSubview(dividerView)
         stackView.addArrangedSubview(changeTypeView)
 
         let changeTypeViewHeightConstraint = changeTypeView.heightAnchor.constraint(equalToConstant: 96)

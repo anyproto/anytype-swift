@@ -50,7 +50,6 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
         createEmptyBlockButton.isEnabled = !state.isLocked
         textBlockLeadingView.checkboxView?.isUserInteractionEnabled = !state.isLocked
         textBlockLeadingView.calloutIconView?.isUserInteractionEnabled = !state.isLocked
-
         textView.textView.isUserInteractionEnabled = state.isEditing
     }
 

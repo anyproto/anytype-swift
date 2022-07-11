@@ -131,14 +131,15 @@ final class EditorAssembly {
             container: document.infoContainer,
             modelsHolder: modelsHolder
         )
-        
+
+        let blockTableService = BlockTableService()
         let actionHandler = BlockActionHandler(
             document: document,
             markupChanger: markupChanger,
             service: blockActionService,
             listService: listService,
             keyboardHandler: keyboardHandler,
-            blockTableService: BlockTableService()
+            blockTableService: blockTableService
         )
 
         let pasteboardMiddlewareService = PasteboardMiddleService(document: document)
@@ -163,7 +164,10 @@ final class EditorAssembly {
             accessoryState: accessoryState
         )
 
-        let simpleTablesStateManager = SimpleTableStateManager()
+        let simpleTablesStateManager = SimpleTableStateManager(
+            document: document,
+            tableService: blockTableService
+        )
         let simpleTablesAccessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
             router: router,
@@ -173,8 +177,10 @@ final class EditorAssembly {
             onBlockSelection: simpleTablesStateManager.didSelectEditingState(info:)
         )
 
+        simpleTableMenuViewModel.delegate = simpleTablesStateManager
+
         let simpleTablesBlockDelegate = BlockDelegateImpl(
-            viewInput: viewInput,
+            viewInput: nil,
             accessoryState: simpleTablesAccessoryState
         )
 
@@ -222,7 +228,8 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
             router: router,
-            initialEditingState: isOpenedForPreview ? .locked : .editing
+            initialEditingState: isOpenedForPreview ? .locked : .editing,
+            childsStateManagers: [simpleTablesStateManager]
         )
 
         actionHandler.blockSelectionHandler = blocksStateManager

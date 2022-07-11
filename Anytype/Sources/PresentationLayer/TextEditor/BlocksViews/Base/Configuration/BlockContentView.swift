@@ -25,6 +25,6 @@ extension BlockContentView {
     func update(with state: UICellConfigurationState) {}
 }
 
-extension BlockContentView {
+extension ReusableContent {
     static var reusableIdentifier: String { String(describing: Self.self) }
 }

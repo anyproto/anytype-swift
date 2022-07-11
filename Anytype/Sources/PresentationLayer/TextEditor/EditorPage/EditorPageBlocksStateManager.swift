@@ -63,6 +63,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
+    private let childsStateManagers: [EditorPageBlocksStateManagerProtocol]
 
     weak var blocksOptionViewModel: SelectionOptionsViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
@@ -77,7 +78,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol,
-        initialEditingState: EditorEditingState
+        initialEditingState: EditorEditingState,
+        childsStateManagers: [EditorPageBlocksStateManagerProtocol]
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
@@ -87,6 +89,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.pasteboardService = pasteboardService
         self.router = router
         self.editingState = initialEditingState
+        self.childsStateManagers = childsStateManagers
 
         setupEditingHandlers()
     }
@@ -176,6 +179,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     func didSelectEditingMode() {
         editingState = .editing
+
+        childsStateManagers.forEach {
+
+            $0.didSelectEditingMode()
+        }
     }
 
     func canMoveItemsToObject(at indexPath: IndexPath) -> Bool {

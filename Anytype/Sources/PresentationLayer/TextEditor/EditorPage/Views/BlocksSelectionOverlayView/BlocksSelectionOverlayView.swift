@@ -73,8 +73,8 @@ final class BlocksSelectionOverlayView: UIView {
         }
 
         addSubview(shadowedSimpleTablesOptionView) {
-            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: -10, right: -10))
-            $0.height.equal(to: 186)
+            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: -20, right: -10))
+            $0.height.equal(to: 174)
         }
 
         addSubview(movingButtonsUIView) {
@@ -119,7 +119,7 @@ final class BlocksSelectionOverlayView: UIView {
             switch state {
             case .hidden:
                 self.isHidden = true
-
+//                self.simpleTablesOptionView.viewModel.index = 0
                 return
             case .moving:
                 self.movingButtonsUIView.isHidden = false

@@ -95,6 +95,7 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
     // MARK: - UICollectionView configuration
 
     private func update(with state: UICellConfigurationState) {
+//        selectionView.updateStyle(isSelected: state.isSelected)
         isUserInteractionEnabled = state.isEditing
         viewDragInteraction.isEnabled = !state.isLocked
         if state.isMoving {

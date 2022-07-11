@@ -7,28 +7,41 @@ protocol SimpleTableSelectionHandler: AnyObject {
     func didStopSimpleTableSelectionMode()
 }
 
-enum SimpleTableSelectionType {
-    case cells(indexPaths: [IndexPath])
-    case rows(rowIndexes: [Int])
-    case columns(columnIndexes: [Int])
-}
-
 protocol SimpleTableMenuDelegate: AnyObject {
     func didSelectTab(tab: SimpleTableMenuView.Tab)
 }
 
-final class SimpleTableStateManager: EditorPageBlocksStateManagerProtocol, SimpleTableMenuDelegate {
-    var tableBlockInformation: BlockInformation?
+protocol SimpleTableStateManagerProtocol: EditorPageBlocksStateManagerProtocol {
+    var selectedMenuTabPublisher: AnyPublisher<SimpleTableMenuView.Tab, Never> { get }
+    var selectedMenuTab: SimpleTableMenuView.Tab { get }
+}
 
+final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTableMenuDelegate {
     var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
+    var selectedMenuTabPublisher: AnyPublisher<SimpleTableMenuView.Tab, Never> { $selectedMenuTab.eraseToAnyPublisher() }
     var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { $selectedBlocks.eraseToAnyPublisher() }
+
+    var tableBlockInformation: BlockInformation?
     var selectedBlocksIndexPaths = [IndexPath]()
 
     @Published var editingState: EditorEditingState = .editing
+    @Published var selectedMenuTab: SimpleTableMenuView.Tab = .cell
     @Published private var selectedBlocks = [BlockId]()
+
+    private let document: BaseDocumentProtocol
+    private let tableService: BlockTableServiceProtocol
 
     weak var menuViewModel: SimpleTableMenuViewModel?
     weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
+    weak var dataSource: SpreadsheetViewDataSource?
+
+    init(
+        document: BaseDocumentProtocol,
+        tableService: BlockTableServiceProtocol
+    ) {
+        self.document = document
+        self.tableService = tableService
+    }
 
     func checkDocumentLockField() {
 
@@ -43,7 +56,22 @@ final class SimpleTableStateManager: EditorPageBlocksStateManagerProtocol, Simpl
     }
 
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
+        guard case .selecting = editingState else { return }
+        guard let dataSource = dataSource else {
+            return
+        }
 
+        let items = indexPaths.compactMap(dataSource.item(for:))
+        let blockIds = items.compactMap { $0.blockId }
+
+        guard let tableBlockInformation = tableBlockInformation else {
+            return
+        }
+
+        mainEditorSelectionManager?.didStartSimpleTableSelectionMode(
+            simpleTableBlockId: tableBlockInformation.id,
+            selectedBlockIds: blockIds
+        )
     }
 
     func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool {
@@ -59,18 +87,23 @@ final class SimpleTableStateManager: EditorPageBlocksStateManagerProtocol, Simpl
     }
 
     func didSelectMovingIndexPaths(_ indexPaths: [IndexPath]) {
-
     }
 
     func didSelectEditingMode() {
-
+        editingState = .editing
     }
 
 
     // MARK: - SimpleTableMenuDelegate
 
     func didSelectTab(tab: SimpleTableMenuView.Tab) {
-        switch tab {
+        self.selectedMenuTab = tab
+
+        updateMenuItems()
+    }
+
+    private func updateMenuItems() {
+        switch selectedMenuTab {
         case .cell:
             menuViewModel?.items = SimpleTableCellMenuItem.allCases.map {
                 HorizontalListItem.init(
@@ -81,24 +114,53 @@ final class SimpleTableStateManager: EditorPageBlocksStateManagerProtocol, Simpl
                 )
             }
         case .row:
-            menuViewModel?.items = SimpleTableRowMenuItem.allCases.map {
+            menuViewModel?.items = SimpleTableRowMenuItem.allCases.map { item in
                 HorizontalListItem.init(
-                    id: "\($0.hashValue)",
-                    title: $0.title,
+                    id: "\(item.hashValue)",
+                    title: item.title,
                     image: .icon(.emoji(.lamp)),
-                    action: { }
+                    action: { [weak self] in self?.handleRowAction(action: item) }
                 )
             }
         case .column:
-            menuViewModel?.items = SimpleTableColumnMenuItem.allCases.map {
+            menuViewModel?.items = SimpleTableColumnMenuItem.allCases.map { item in
                 HorizontalListItem.init(
-                    id: "\($0.hashValue)",
-                    title: $0.title,
+                    id: "\(item.hashValue)",
+                    title: item.title,
                     image: .icon(.emoji(.lamp)),
-                    action: { }
+                    action: { [weak self] in self?.handleColumnAction(action: item) }
                 )
             }
         }
+    }
+
+    private func handleColumnAction(action: SimpleTableColumnMenuItem) {
+        switch action {
+        case .insertLeft:
+            selectedBlocksIndexPaths
+        case .insertRight:
+            break
+        case .moveLeft:
+            break
+        case .moveRight:
+            break
+        case .duplicate:
+            break
+        case .delete:
+            break
+        case .clearContents:
+            break
+        case .sort:
+            break
+        case .color:
+            break
+        case .style:
+            break
+        }
+    }
+
+    private func handleRowAction(action: SimpleTableRowMenuItem) {
+
     }
 }
 
@@ -112,6 +174,19 @@ extension SimpleTableStateManager: BlockSelectionHandler {
                 simpleTableBlockId: $0.id,
                 selectedBlockIds: [info.id]
             )
+        }
+    }
+}
+
+private extension EditorItem {
+     var blockId: BlockId? {
+        switch self {
+        case .header(let objectHeader):
+            return nil
+        case .block(let blockViewModel):
+            return blockViewModel.blockId
+        case .system(let systemContentConfiguationProvider):
+            return nil
         }
     }
 }

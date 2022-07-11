@@ -1,11 +1,13 @@
 import Combine
 import UIKit
+import BlocksModels
 
 
 struct SimpleTableBlockContentConfiguration: BlockConfiguration {
     typealias View = SimpleTableBlockView
 
-    var stateManager: EditorPageBlocksStateManagerProtocol
+    let blockId: BlockId
+    let stateManager: SimpleTableStateManager
     weak var blockDelegate: BlockDelegate?
     weak var relativePositionProvider: RelativePositionProvider?
 
@@ -15,7 +17,7 @@ struct SimpleTableBlockContentConfiguration: BlockConfiguration {
         lhs: SimpleTableBlockContentConfiguration,
         rhs: SimpleTableBlockContentConfiguration
     ) -> Bool {
-        return false
+        lhs.blockId == rhs.blockId
     }
 
     func hash(into hasher: inout Hasher) {}
