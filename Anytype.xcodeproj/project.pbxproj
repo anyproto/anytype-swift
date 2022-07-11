@@ -433,7 +433,6 @@
 		2E975EDE287C2325004DE574 /* SetFilterRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED4287C2325004DE574 /* SetFilterRowConfiguration.swift */; };
 		2E975EDF287C2325004DE574 /* SetFiltersSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED6287C2325004DE574 /* SetFiltersSearchView.swift */; };
 		2E975EE0287C2325004DE574 /* SetFiltersSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED7287C2325004DE574 /* SetFiltersSearchViewModel.swift */; };
-		2E975EE1287C2325004DE574 /* SetFiltersSearchHeaderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED8287C2325004DE574 /* SetFiltersSearchHeaderConfiguration.swift */; };
 		2E975EE2287C2325004DE574 /* SetFiltersSearchViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED9287C2325004DE574 /* SetFiltersSearchViewBuilder.swift */; };
 		2E975EEC287C23DA004DE574 /* SetSortsSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EE4287C23DA004DE574 /* SetSortsSearchInteractor.swift */; };
 		2E975EED287C23DA004DE574 /* SetSortsSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EE5287C23DA004DE574 /* SetSortsSearchViewModel.swift */; };
@@ -442,6 +441,10 @@
 		2E975EF0287C23DA004DE574 /* SetSortsListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EE9287C23DA004DE574 /* SetSortsListViewModel.swift */; };
 		2E975EF1287C23DA004DE574 /* SetSortsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EEA287C23DA004DE574 /* SetSortsListView.swift */; };
 		2E975EF2287C23DA004DE574 /* SetSortRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EEB287C23DA004DE574 /* SetSortRow.swift */; };
+		2E975EF4287C2557004DE574 /* SetFilterConditionsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EF3287C2557004DE574 /* SetFilterConditionsViewModel.swift */; };
+		2E975EFD287C65EF004DE574 /* SetFiltersSearchHeaderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EFA287C65EF004DE574 /* SetFiltersSearchHeaderConfiguration.swift */; };
+		2E975EFE287C65EF004DE574 /* SetFiltersSearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EFB287C65EF004DE574 /* SetFiltersSearchHeaderView.swift */; };
+		2E975EFF287C65EF004DE574 /* SetFiltersSearchHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EFC287C65EF004DE574 /* SetFiltersSearchHeaderViewModel.swift */; };
 		2E9EFE62285B45C500C8E47A /* ExceptionalSetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */; };
 		2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE71285B62E500C8E47A /* SetFilter.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
@@ -1500,7 +1503,6 @@
 		2E975ED4287C2325004DE574 /* SetFilterRowConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterRowConfiguration.swift; sourceTree = "<group>"; };
 		2E975ED6287C2325004DE574 /* SetFiltersSearchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchView.swift; sourceTree = "<group>"; };
 		2E975ED7287C2325004DE574 /* SetFiltersSearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchViewModel.swift; sourceTree = "<group>"; };
-		2E975ED8287C2325004DE574 /* SetFiltersSearchHeaderConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchHeaderConfiguration.swift; sourceTree = "<group>"; };
 		2E975ED9287C2325004DE574 /* SetFiltersSearchViewBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchViewBuilder.swift; sourceTree = "<group>"; };
 		2E975EE4287C23DA004DE574 /* SetSortsSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetSortsSearchInteractor.swift; sourceTree = "<group>"; };
 		2E975EE5287C23DA004DE574 /* SetSortsSearchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetSortsSearchViewModel.swift; sourceTree = "<group>"; };
@@ -1509,6 +1511,10 @@
 		2E975EE9287C23DA004DE574 /* SetSortsListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetSortsListViewModel.swift; sourceTree = "<group>"; };
 		2E975EEA287C23DA004DE574 /* SetSortsListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetSortsListView.swift; sourceTree = "<group>"; };
 		2E975EEB287C23DA004DE574 /* SetSortRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetSortRow.swift; sourceTree = "<group>"; };
+		2E975EF3287C2557004DE574 /* SetFilterConditionsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilterConditionsViewModel.swift; sourceTree = "<group>"; };
+		2E975EFA287C65EF004DE574 /* SetFiltersSearchHeaderConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchHeaderConfiguration.swift; sourceTree = "<group>"; };
+		2E975EFB287C65EF004DE574 /* SetFiltersSearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchHeaderView.swift; sourceTree = "<group>"; };
+		2E975EFC287C65EF004DE574 /* SetFiltersSearchHeaderViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchHeaderViewModel.swift; sourceTree = "<group>"; };
 		2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionalSetSort.swift; sourceTree = "<group>"; };
 		2E9EFE71285B62E500C8E47A /* SetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilter.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
@@ -4096,10 +4102,11 @@
 		2E975ED5287C2325004DE574 /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				2E975EF9287C65EF004DE574 /* Header */,
 				2E975ED6287C2325004DE574 /* SetFiltersSearchView.swift */,
 				2E975ED7287C2325004DE574 /* SetFiltersSearchViewModel.swift */,
-				2E975ED8287C2325004DE574 /* SetFiltersSearchHeaderConfiguration.swift */,
 				2E975ED9287C2325004DE574 /* SetFiltersSearchViewBuilder.swift */,
+				2E975EF3287C2557004DE574 /* SetFilterConditionsViewModel.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -4123,6 +4130,16 @@
 				2E975EEB287C23DA004DE574 /* SetSortRow.swift */,
 			);
 			path = List;
+			sourceTree = "<group>";
+		};
+		2E975EF9287C65EF004DE574 /* Header */ = {
+			isa = PBXGroup;
+			children = (
+				2E975EFA287C65EF004DE574 /* SetFiltersSearchHeaderConfiguration.swift */,
+				2E975EFB287C65EF004DE574 /* SetFiltersSearchHeaderView.swift */,
+				2E975EFC287C65EF004DE574 /* SetFiltersSearchHeaderViewModel.swift */,
+			);
+			path = Header;
 			sourceTree = "<group>";
 		};
 		2E9EFE69285B576400C8E47A /* Filters */ = {
@@ -6839,6 +6856,7 @@
 				EAC5728A2621C4A200F25949 /* UICollectionView+Convenience.swift in Sources */,
 				12FD9D1D2767168800991886 /* RelationProtocol.swift in Sources */,
 				53F80F5D27BEAFEA00E9E12A /* DepricatedRelationBlockContentConfiguration.swift in Sources */,
+				2E975EFF287C65EF004DE574 /* SetFiltersSearchHeaderViewModel.swift in Sources */,
 				039F6D78239580A10097560A /* LoginView.swift in Sources */,
 				53D408B027F0BF7600495335 /* FieldsConvertibleProtocol.swift in Sources */,
 				3DB1CA0F27293733000D2779 /* AccountManager.swift in Sources */,
@@ -7024,6 +7042,7 @@
 				C96149542718286E00360840 /* GalleryViewModel.swift in Sources */,
 				3DCC549426D3B58E002517AC /* BlockBookmarkOnlyUrlView.swift in Sources */,
 				534785622743D4550097CA30 /* RelationsSectionBuilder.swift in Sources */,
+				2E975EFE287C65EF004DE574 /* SetFiltersSearchHeaderView.swift in Sources */,
 				125B6ED726F2386900BCD7D6 /* ObjectIconImageMentionType.swift in Sources */,
 				125B6ED526F235F400BCD7D6 /* SlashMenuViewController+TableView.swift in Sources */,
 				12FD9D27276717B200991886 /* RelationObject.swift in Sources */,
@@ -7225,6 +7244,7 @@
 				12F6072D26D7F6E500876C92 /* SwiftUIObjectIconImageView.swift in Sources */,
 				03C5C54D22E0A0C200DD91DE /* InternetProtocol.swift in Sources */,
 				C961582027AC2AD400AE8848 /* FocusSubjectsHolder.swift in Sources */,
+				2E975EF4287C2557004DE574 /* SetFilterConditionsViewModel.swift in Sources */,
 				1247BC8727FEE504005F2DB4 /* MultiselectObjectTypesSearchViewModel.swift in Sources */,
 				3D2F9C22271EAEAE0043C326 /* BlockBuilder.swift in Sources */,
 				03507435239E72F3001CF477 /* CreateNewProfileViewModel.swift in Sources */,
@@ -7466,6 +7486,7 @@
 				0A1F0D9324DDCE0100A8B488 /* AboutView.swift in Sources */,
 				EA6279AB26317CCA00670715 /* UIScreen+Convenience.swift in Sources */,
 				3D2D4C6527BAA2EF0070A4C6 /* SetConstants.swift in Sources */,
+				2E975EFD287C65EF004DE574 /* SetFiltersSearchHeaderConfiguration.swift in Sources */,
 				3D16840926DD671D008B9DFF /* BlockInformationConverter.swift in Sources */,
 				0ABB73A92549975800F32C6F /* FirebaseConfigurator.swift in Sources */,
 				535E02A8274FE5A600E1AF8C /* RelationBlockContentConfiguration.swift in Sources */,
@@ -7477,7 +7498,6 @@
 				3D07ED34261DD62700C007E2 /* BlocksModelsConverter.swift in Sources */,
 				3D28A470271DAC9F009A0D48 /* HomeTabsHeader.swift in Sources */,
 				C99DCE95283B6D1F0051F99D /* TemplatePickerView.swift in Sources */,
-				2E975EE1287C2325004DE574 /* SetFiltersSearchHeaderConfiguration.swift in Sources */,
 				120F7D44267CD1AC00327734 /* ObjectCoverPicker.swift in Sources */,
 				531F0DEA283CCD8D000A0B31 /* Debouncer.swift in Sources */,
 				EA77E541262DEC3F009F91D9 /* ButtonsFactory.swift in Sources */,

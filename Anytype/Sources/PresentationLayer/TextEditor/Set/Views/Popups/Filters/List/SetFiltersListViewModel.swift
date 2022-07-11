@@ -78,15 +78,6 @@ extension SetFiltersListViewModel {
         dataviewService.updateView(newView)
     }
     
-    private func showFilterSearch(with filter: SetFilter, index: Int? = nil) {
-        router.showFilterSearch(
-            filter: filter,
-            onSelect: { [weak self] ids in
-                self?.handleFilterSearch(with: ids, filter: filter, index: index)
-            }
-        )
-    }
-    
     private func makeSetFilter(with id: String) -> SetFilter? {
         guard let metadata = setModel.relations.first(where: { $0.id == id }) else {
             return nil
@@ -101,19 +92,27 @@ extension SetFiltersListViewModel {
         )
     }
     
-    private func handleFilterSearch(with ids: [String], filter: SetFilter, index: Int?) {
-        var updatedFilter = filter.filter
-        updatedFilter.value = ids.protobufValue
-        
+    private func handleFilterSearch(_ updatedFilter: SetFilter, index: Int?) {
         var filters = setModel.filters.map { $0.filter }
         
         if let index = index,
             let filter = filters[safe: index],
-           filter.relationKey == updatedFilter.relationKey {
-            filters[index] = updatedFilter
+           filter.relationKey == filter.relationKey {
+            filters[index] = updatedFilter.filter
         } else {
-            filters.append(updatedFilter)
+            filters.append(updatedFilter.filter)
         }
         updateView(with: filters)
+    }
+    
+    // MARK: - Routing
+    
+    private func showFilterSearch(with filter: SetFilter, index: Int? = nil) {
+        router.showFilterSearch(
+            filter: filter,
+            onApply: { [weak self] updatedFilter in
+                self?.handleFilterSearch(updatedFilter, index: index)
+            }
+        )
     }
 }

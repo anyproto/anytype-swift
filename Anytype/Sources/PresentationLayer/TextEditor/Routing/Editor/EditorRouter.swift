@@ -565,12 +565,13 @@ extension EditorRouter {
     
     func showFilterSearch(
         filter: SetFilter,
-        onSelect: @escaping (_ ids: [String]) -> Void)
-    {
+        onApply: @escaping (SetFilter) -> Void
+    ) {
         let viewModel = SetFiltersSearchViewModel(
             filter: filter,
-            onSelect: { [weak self] ids in
-                onSelect(ids)
+            router: self,
+            onApply: { [weak self] filter in
+                onApply(filter)
                 self?.viewController?.topPresentedController.dismiss(animated: true)
             }
         )
