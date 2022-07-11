@@ -70,6 +70,8 @@ final class HomeViewModel: ObservableObject {
     }
     
     func onTabChange(tab: HomeTabsView.Tab) {
+        guard !loadingDocument else { return }
+        
         selectAll(false)
         
         UserDefaultsConfig.selectedTab = tab
