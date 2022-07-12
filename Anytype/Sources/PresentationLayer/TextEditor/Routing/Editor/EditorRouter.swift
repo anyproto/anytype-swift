@@ -15,7 +15,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let editorAssembly: EditorAssembly
     private let templatesCoordinator: TemplatesCoordinator
     private lazy var relationEditingViewModelBuilder = RelationEditingViewModelBuilder(delegate: self)
-    private weak var currentSetPopup: AnytypePopup?
+    private weak var currentSetSettingsPopup: AnytypePopup?
     
     init(
         rootController: EditorBrowserController?,
@@ -497,15 +497,19 @@ extension EditorRouter {
     }
     
     func showSetSettings(setModel: EditorSetViewModel) {
-        guard let currentSetPopup = currentSetPopup else {
+        guard let currentSetSettingsPopup = currentSetSettingsPopup else {
             showSetSettingsPopup(setModel: setModel)
             return
         }
-        currentSetPopup.dismiss(animated: false) {
+        currentSetSettingsPopup.dismiss(animated: false) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
                 self?.showSetSettingsPopup(setModel: setModel)
             }
         }
+    }
+    
+    func dismissSetSettingsIfNeeded() {
+        currentSetSettingsPopup?.dismiss(animated: false)
     }
     
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
@@ -559,7 +563,7 @@ extension EditorRouter {
                 skipThroughGestures: true
             )
         )
-        currentSetPopup = popup
+        currentSetSettingsPopup = popup
         presentFullscreen(popup)
     }
     
