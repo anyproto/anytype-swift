@@ -120,6 +120,7 @@ final class EditorSetViewModel: ObservableObject {
     
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
+        router.dismissSetSettingsIfNeeded()
     }
     
     func updateActiveViewId(_ id: BlockId) {
