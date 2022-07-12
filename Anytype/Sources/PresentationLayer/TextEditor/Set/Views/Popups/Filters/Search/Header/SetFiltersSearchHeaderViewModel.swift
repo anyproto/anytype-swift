@@ -4,9 +4,10 @@ import BlocksModels
 final class SetFiltersSearchHeaderViewModel: ObservableObject {
     @Published var headerConfiguration: SetFiltersSearchHeaderConfiguration
     
+    var onConditionChanged: ((DataviewFilter.Condition) -> Void)?
+    
     private var filter: SetFilter
     private let router: EditorRouterProtocol
-    var onConditionChanged: ((DataviewFilter.Condition) -> Void)?
     
     init(
         filter: SetFilter,
@@ -33,12 +34,9 @@ final class SetFiltersSearchHeaderViewModel: ObservableObject {
     }
     
     private func updateFilter(with condition: DataviewFilter.Condition) {
-        filter = SetFilter(
-            metadata: filter.metadata,
-            filter: DataviewFilter(
-                relationKey: filter.metadata.id,
-                condition: condition,
-                value: filter.filter.value
+        filter = filter.updated(
+            filter: filter.filter.updated(
+                condition: condition
             )
         )
         headerConfiguration = Self.headerConfiguration(with: filter)

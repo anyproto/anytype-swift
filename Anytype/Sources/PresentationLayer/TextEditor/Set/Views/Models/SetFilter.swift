@@ -1,4 +1,5 @@
 import BlocksModels
+import SwiftProtobuf
 
 struct SetFilter: Identifiable, Equatable, Hashable {
     let metadata: RelationMetadata
@@ -93,6 +94,31 @@ struct SetFilter: Identifiable, Equatable, Hashable {
             .notEqual: Loc.EditSorts.Popup.Filter.Condition.Checkbox.notEqual,
             .none: Loc.EditSorts.Popup.Filter.Condition.General.none
         ]
+    }
+}
+
+extension SetFilter {
+    func updated(
+        metadata: RelationMetadata? = nil,
+        filter: DataviewFilter? = nil
+    ) -> SetFilter {
+        SetFilter(
+            metadata: metadata ?? self.metadata,
+            filter: filter ?? self.filter
+        )
+    }
+}
+
+extension DataviewFilter {
+    func updated(
+        condition: DataviewFilter.Condition? = nil,
+        value: SwiftProtobuf.Google_Protobuf_Value? = nil
+    ) -> DataviewFilter {
+        DataviewFilter(
+            relationKey: self.relationKey,
+            condition: condition ?? self.condition,
+            value: value ?? self.value
+        )
     }
 }
 

@@ -37,10 +37,8 @@ final class SetFiltersSearchViewModel: ObservableObject {
     }
     
     func handleSelectedIds(_ ids: [String]) {
-        let filter = SetFilter(
-            metadata: filter.metadata,
-            filter: DataviewFilter(
-                relationKey: filter.metadata.id,
+        let filter = filter.updated(
+            filter: filter.filter.updated(
                 condition: condition,
                 value: ids.protobufValue
             )

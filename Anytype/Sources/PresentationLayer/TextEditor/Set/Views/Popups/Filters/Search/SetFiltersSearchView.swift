@@ -23,7 +23,7 @@ struct SetFiltersSearchView<Content: View>: View {
        
     }
     
-    var button: some View {
+    private var button: some View {
         StandardButton(disabled: false, text: Loc.Set.Filters.Search.Button.title, style: .primary) {
             viewModel.handleSelectedIds([])
         }

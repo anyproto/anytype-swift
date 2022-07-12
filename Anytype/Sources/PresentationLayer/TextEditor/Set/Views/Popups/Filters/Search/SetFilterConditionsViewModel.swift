@@ -2,8 +2,8 @@ import BlocksModels
 import Combine
 
 final class SetFilterConditionsViewModel: CheckPopupViewViewModelProtocol {
-    let title: String
     @Published private(set) var items: [CheckPopupItem] = []
+    let title: String
 
     private let filter: SetFilter
     private var selectedCondition: DataviewFilter.Condition
