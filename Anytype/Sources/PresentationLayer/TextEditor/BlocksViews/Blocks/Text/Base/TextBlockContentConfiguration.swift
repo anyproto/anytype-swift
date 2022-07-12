@@ -40,7 +40,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
     let isChecked: Bool
     let shouldDisplayPlaceholder: Bool
     @EquatableNoop private(set) var focusPublisher: AnyPublisher<BlockFocusPosition, Never>
-    @EquatableNoop private(set) var resetPublisher: AnyPublisher<BlockText, Never>
+    @EquatableNoop private(set) var resetPublisher: AnyPublisher<TextBlockContentConfiguration, Never>
     let alignment: NSTextAlignment
 
     @EquatableNoop private(set) var actions: Actions
@@ -54,7 +54,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         isChecked: Bool,
         shouldDisplayPlaceholder: Bool,
         focusPublisher: AnyPublisher<BlockFocusPosition, Never>,
-        resetPublisher: AnyPublisher<BlockText, Never>,
+        resetPublisher: AnyPublisher<TextBlockContentConfiguration, Never>,
         actions: Actions
     ) {
         self.blockId = blockId

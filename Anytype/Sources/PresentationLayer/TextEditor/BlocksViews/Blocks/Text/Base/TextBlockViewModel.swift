@@ -39,18 +39,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView(editorEditingState: EditorEditingState) { }
 
     func textBlockContentConfiguration() -> TextBlockContentConfiguration {
-        TextBlockContentConfiguration(
-            blockId: info.id,
-            content: content,
-            alignment: info.alignment.asNSTextAlignment,
-            isCheckable: isCheckable,
-            isToggled: info.isToggled,
-            isChecked: content.checked,
-            shouldDisplayPlaceholder: info.isToggled && info.childrenIds.isEmpty,
-            focusPublisher: focusSubject.eraseToAnyPublisher(),
-            resetPublisher: actionHandler.resetSubject.eraseToAnyPublisher(),
-            actions: TextBlockContentConfiguration.Actions(handler: actionHandler)
-        )
+        return textBlockContentConfiguration(content: content)
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
@@ -63,6 +52,23 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             indentationSettings: .init(with: info.configurationData),
             dragConfiguration:
                 isDragConfigurationAvailable ? .init(id: info.id) : nil
+        )
+    }
+    
+    private func textBlockContentConfiguration(content: BlockText) -> TextBlockContentConfiguration {
+        TextBlockContentConfiguration(
+            blockId: info.id,
+            content: content,
+            alignment: info.alignment.asNSTextAlignment,
+            isCheckable: isCheckable,
+            isToggled: info.isToggled,
+            isChecked: content.checked,
+            shouldDisplayPlaceholder: info.isToggled && info.childrenIds.isEmpty,
+            focusPublisher: focusSubject.eraseToAnyPublisher(),
+            resetPublisher: actionHandler.resetSubject
+                .map { textBlockContentConfiguration(content: $0) }
+                .eraseToAnyPublisher(),
+            actions: TextBlockContentConfiguration.Actions(handler: actionHandler)
         )
     }
 }
