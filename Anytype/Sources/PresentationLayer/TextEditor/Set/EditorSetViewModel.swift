@@ -224,12 +224,8 @@ final class EditorSetViewModel: ObservableObject {
         dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
     }
     
-    private func isTasksObject() -> Bool {
-        dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.task.rawValue)
-    }
-    
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
-        guard isTasksObject() else { return }
+        guard details.layout == .todo else { return }
         detailsService.updateBundledDetails(
             contextID: details.id,
             bundledDpdates: [.done(!details.isDone)]
