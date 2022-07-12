@@ -126,7 +126,8 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         case .moving:
             let title = Loc.Editor.MovingState.scrollToSelectedPlace
             navigationBarTitleView.configure(model: .modeTitle(title))
-            controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
+            controller?.navigationItem.leftBarButtonItem = nil
+            controller?.navigationItem.rightBarButtonItem = nil
             navigationBarTitleView.setIsLocked(false)
         case .locked:
             navigationBarTitleView.setIsLocked(true)
