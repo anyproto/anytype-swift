@@ -40,6 +40,7 @@ extension Anytype_Rpc.Object.AddWithObjectId.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Search.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.Graph.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SearchSubscribe.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Object.RelationSearchDistinct.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SubscribeIds.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SearchUnsubscribe.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Object.SetLayout.Response.Error: Swift.Error {}
@@ -159,6 +160,8 @@ extension Anytype_Rpc.BlockDataview.Relation.Update.Response.Error: Swift.Error 
 extension Anytype_Rpc.BlockDataview.Relation.Delete.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error: Swift.Error {}
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockDataviewRecord.Update.Response.Error: Swift.Error {}
 extension Anytype_Rpc.BlockDataviewRecord.Delete.Response.Error: Swift.Error {}

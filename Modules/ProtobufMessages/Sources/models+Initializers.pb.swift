@@ -93,11 +93,22 @@ extension Anytype_Model_Block.Content.Bookmark {
 }
 
 extension Anytype_Model_Block.Content.Dataview {
-  public init(source: [String] = [], views: [Anytype_Model_Block.Content.Dataview.View] = [], relations: [Anytype_Model_Relation] = [], activeView: String = String()) {
+  public init(
+    source: [String] = [], views: [Anytype_Model_Block.Content.Dataview.View] = [], relations: [Anytype_Model_Relation] = [], activeView: String = String(),
+    groupOrders: [Anytype_Model_Block.Content.Dataview.GroupOrder] = [], objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = []
+  ) {
     self.source = source
     self.views = views
     self.relations = relations
     self.activeView = activeView
+    self.groupOrders = groupOrders
+    self.objectOrders = objectOrders
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Checkbox {
+  public init(checked: Bool = false) {
+    self.checked = checked
   }
 }
 
@@ -113,6 +124,28 @@ extension Anytype_Model_Block.Content.Dataview.Filter {
     self.condition = condition
     self.value = value
     self.quickOption = quickOption
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Group {
+  public init(id: String = String(), value: Anytype_Model_Block.Content.Dataview.Group.OneOf_Value? = nil) {
+    self.id = id
+    self.value = value
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.GroupOrder {
+  public init(viewID: String = String(), viewGroups: [Anytype_Model_Block.Content.Dataview.ViewGroup] = []) {
+    self.viewID = viewID
+    self.viewGroups = viewGroups
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.ObjectOrder {
+  public init(viewID: String = String(), groupID: String = String(), objectIds: [String] = []) {
+    self.viewID = viewID
+    self.groupID = groupID
+    self.objectIds = objectIds
   }
 }
 
@@ -137,11 +170,23 @@ extension Anytype_Model_Block.Content.Dataview.Sort {
   }
 }
 
+extension Anytype_Model_Block.Content.Dataview.Status {
+  public init(id: String = String()) {
+    self.id = id
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Tag {
+  public init(ids: [String] = []) {
+    self.ids = ids
+  }
+}
+
 extension Anytype_Model_Block.Content.Dataview.View {
   public init(
     id: String = String(), type: Anytype_Model_Block.Content.Dataview.View.TypeEnum = .table, name: String = String(), sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [],
     filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], relations: [Anytype_Model_Block.Content.Dataview.Relation] = [], coverRelationKey: String = String(), hideIcon: Bool = false,
-    cardSize: Anytype_Model_Block.Content.Dataview.View.Size = .small, coverFit: Bool = false
+    cardSize: Anytype_Model_Block.Content.Dataview.View.Size = .small, coverFit: Bool = false, groupRelationKey: String = String()
   ) {
     self.id = id
     self.type = type
@@ -153,6 +198,15 @@ extension Anytype_Model_Block.Content.Dataview.View {
     self.hideIcon = hideIcon
     self.cardSize = cardSize
     self.coverFit = coverFit
+    self.groupRelationKey = groupRelationKey
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.ViewGroup {
+  public init(groupID: String = String(), index: Int32 = 0, hidden: Bool = false) {
+    self.groupID = groupID
+    self.index = index
+    self.hidden = hidden
   }
 }
 

@@ -1449,6 +1449,10 @@ public struct Anytype_Model_Block {
       /// saved within a session
       public var activeView: String = String()
 
+      public var groupOrders: [Anytype_Model_Block.Content.Dataview.GroupOrder] = []
+
+      public var objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = []
+
       public var unknownFields = SwiftProtobuf.UnknownStorage()
 
       public struct View {
@@ -1480,6 +1484,8 @@ public struct Anytype_Model_Block {
 
         /// Image fits container
         public var coverFit: Bool = false
+
+        public var groupRelationKey: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1763,6 +1769,8 @@ public struct Anytype_Model_Block {
           case notEmpty // = 12
           case allIn // = 13
           case notAllIn // = 14
+          case exactIn // = 15
+          case notExactIn // = 16
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -1786,6 +1794,8 @@ public struct Anytype_Model_Block {
             case 12: self = .notEmpty
             case 13: self = .allIn
             case 14: self = .notAllIn
+            case 15: self = .exactIn
+            case 16: self = .notExactIn
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -1807,6 +1817,8 @@ public struct Anytype_Model_Block {
             case .notEmpty: return 12
             case .allIn: return 13
             case .notAllIn: return 14
+            case .exactIn: return 15
+            case .notExactIn: return 16
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -1874,6 +1886,178 @@ public struct Anytype_Model_Block {
         public init() {}
 
         fileprivate var _value: SwiftProtobuf.Google_Protobuf_Value? = nil
+      }
+
+      public struct GroupOrder {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var viewID: String = String()
+
+        public var viewGroups: [Anytype_Model_Block.Content.Dataview.ViewGroup] = []
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct ViewGroup {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var groupID: String = String()
+
+        public var index: Int32 = 0
+
+        public var hidden: Bool = false
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct ObjectOrder {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var viewID: String = String()
+
+        public var groupID: String = String()
+
+        public var objectIds: [String] = []
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Group {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var id: String = String()
+
+        public var value: Anytype_Model_Block.Content.Dataview.Group.OneOf_Value? = nil
+
+        public var status: Anytype_Model_Block.Content.Dataview.Status {
+          get {
+            if case .status(let v)? = value {return v}
+            return Anytype_Model_Block.Content.Dataview.Status()
+          }
+          set {value = .status(newValue)}
+        }
+
+        public var tag: Anytype_Model_Block.Content.Dataview.Tag {
+          get {
+            if case .tag(let v)? = value {return v}
+            return Anytype_Model_Block.Content.Dataview.Tag()
+          }
+          set {value = .tag(newValue)}
+        }
+
+        public var checkbox: Anytype_Model_Block.Content.Dataview.Checkbox {
+          get {
+            if case .checkbox(let v)? = value {return v}
+            return Anytype_Model_Block.Content.Dataview.Checkbox()
+          }
+          set {value = .checkbox(newValue)}
+        }
+
+        public var date: Anytype_Model_Block.Content.Dataview.Date {
+          get {
+            if case .date(let v)? = value {return v}
+            return Anytype_Model_Block.Content.Dataview.Date()
+          }
+          set {value = .date(newValue)}
+        }
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public enum OneOf_Value: Equatable {
+          case status(Anytype_Model_Block.Content.Dataview.Status)
+          case tag(Anytype_Model_Block.Content.Dataview.Tag)
+          case checkbox(Anytype_Model_Block.Content.Dataview.Checkbox)
+          case date(Anytype_Model_Block.Content.Dataview.Date)
+
+        #if !swift(>=4.1)
+          public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Group.OneOf_Value, rhs: Anytype_Model_Block.Content.Dataview.Group.OneOf_Value) -> Bool {
+            // The use of inline closures is to circumvent an issue where the compiler
+            // allocates stack space for every case branch when no optimizations are
+            // enabled. https://github.com/apple/swift-protobuf/issues/1034
+            switch (lhs, rhs) {
+            case (.status, .status): return {
+              guard case .status(let l) = lhs, case .status(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            case (.tag, .tag): return {
+              guard case .tag(let l) = lhs, case .tag(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            case (.checkbox, .checkbox): return {
+              guard case .checkbox(let l) = lhs, case .checkbox(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            case (.date, .date): return {
+              guard case .date(let l) = lhs, case .date(let r) = rhs else { preconditionFailure() }
+              return l == r
+            }()
+            default: return false
+            }
+          }
+        #endif
+        }
+
+        public init() {}
+      }
+
+      public struct Status {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var id: String = String()
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Tag {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var ids: [String] = []
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Checkbox {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var checked: Bool = false
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+      }
+
+      public struct Date {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
       }
 
       public init() {}
@@ -2194,6 +2378,8 @@ extension Anytype_Model_Block.Content.Dataview.Filter.Condition: CaseIterable {
     .notEmpty,
     .allIn,
     .notAllIn,
+    .exactIn,
+    .notExactIn,
   ]
 }
 
@@ -3306,6 +3492,15 @@ extension Anytype_Model_Block.Content.Dataview.Filter: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Filter.Operator: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Filter.Condition: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.GroupOrder: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.ViewGroup: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.ObjectOrder: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Group: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Group.OneOf_Value: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Status: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Tag: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Checkbox: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Date: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Relation: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.Latex: @unchecked Sendable {}
 extension Anytype_Model_Block.Content.TableOfContents: @unchecked Sendable {}
@@ -4610,6 +4805,8 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
     2: .same(proto: "views"),
     4: .same(proto: "relations"),
     3: .same(proto: "activeView"),
+    12: .same(proto: "groupOrders"),
+    13: .same(proto: "objectOrders"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -4622,6 +4819,8 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
       case 2: try { try decoder.decodeRepeatedMessageField(value: &self.views) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.activeView) }()
       case 4: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
+      case 12: try { try decoder.decodeRepeatedMessageField(value: &self.groupOrders) }()
+      case 13: try { try decoder.decodeRepeatedMessageField(value: &self.objectOrders) }()
       default: break
       }
     }
@@ -4640,6 +4839,12 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
     if !self.relations.isEmpty {
       try visitor.visitRepeatedMessageField(value: self.relations, fieldNumber: 4)
     }
+    if !self.groupOrders.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.groupOrders, fieldNumber: 12)
+    }
+    if !self.objectOrders.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.objectOrders, fieldNumber: 13)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4648,6 +4853,8 @@ extension Anytype_Model_Block.Content.Dataview: SwiftProtobuf.Message, SwiftProt
     if lhs.views != rhs.views {return false}
     if lhs.relations != rhs.relations {return false}
     if lhs.activeView != rhs.activeView {return false}
+    if lhs.groupOrders != rhs.groupOrders {return false}
+    if lhs.objectOrders != rhs.objectOrders {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -4666,6 +4873,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     8: .same(proto: "hideIcon"),
     9: .same(proto: "cardSize"),
     10: .same(proto: "coverFit"),
+    11: .same(proto: "groupRelationKey"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -4684,6 +4892,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       case 8: try { try decoder.decodeSingularBoolField(value: &self.hideIcon) }()
       case 9: try { try decoder.decodeSingularEnumField(value: &self.cardSize) }()
       case 10: try { try decoder.decodeSingularBoolField(value: &self.coverFit) }()
+      case 11: try { try decoder.decodeSingularStringField(value: &self.groupRelationKey) }()
       default: break
       }
     }
@@ -4720,6 +4929,9 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if self.coverFit != false {
       try visitor.visitSingularBoolField(value: self.coverFit, fieldNumber: 10)
     }
+    if !self.groupRelationKey.isEmpty {
+      try visitor.visitSingularStringField(value: self.groupRelationKey, fieldNumber: 11)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4734,6 +4946,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if lhs.hideIcon != rhs.hideIcon {return false}
     if lhs.cardSize != rhs.cardSize {return false}
     if lhs.coverFit != rhs.coverFit {return false}
+    if lhs.groupRelationKey != rhs.groupRelationKey {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -4970,6 +5183,8 @@ extension Anytype_Model_Block.Content.Dataview.Filter.Condition: SwiftProtobuf._
     12: .same(proto: "NotEmpty"),
     13: .same(proto: "AllIn"),
     14: .same(proto: "NotAllIn"),
+    15: .same(proto: "ExactIn"),
+    16: .same(proto: "NotExactIn"),
   ]
 }
 
@@ -4988,6 +5203,359 @@ extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: SwiftProtobuf
     10: .same(proto: "NumberOfDaysAgo"),
     11: .same(proto: "NumberOfDaysNow"),
   ]
+}
+
+extension Anytype_Model_Block.Content.Dataview.GroupOrder: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".GroupOrder"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "viewId"),
+    2: .same(proto: "viewGroups"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.viewGroups) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.viewID.isEmpty {
+      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 1)
+    }
+    if !self.viewGroups.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.viewGroups, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Dataview.GroupOrder, rhs: Anytype_Model_Block.Content.Dataview.GroupOrder) -> Bool {
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.viewGroups != rhs.viewGroups {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.ViewGroup: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".ViewGroup"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "groupId"),
+    2: .same(proto: "index"),
+    3: .same(proto: "hidden"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.groupID) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.index) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.hidden) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.groupID.isEmpty {
+      try visitor.visitSingularStringField(value: self.groupID, fieldNumber: 1)
+    }
+    if self.index != 0 {
+      try visitor.visitSingularInt32Field(value: self.index, fieldNumber: 2)
+    }
+    if self.hidden != false {
+      try visitor.visitSingularBoolField(value: self.hidden, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Dataview.ViewGroup, rhs: Anytype_Model_Block.Content.Dataview.ViewGroup) -> Bool {
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.index != rhs.index {return false}
+    if lhs.hidden != rhs.hidden {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.ObjectOrder: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".ObjectOrder"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "viewId"),
+    2: .same(proto: "groupId"),
+    3: .same(proto: "objectIds"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.viewID) }()
+      case 2: try { try decoder.decodeSingularStringField(value: &self.groupID) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.objectIds) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.viewID.isEmpty {
+      try visitor.visitSingularStringField(value: self.viewID, fieldNumber: 1)
+    }
+    if !self.groupID.isEmpty {
+      try visitor.visitSingularStringField(value: self.groupID, fieldNumber: 2)
+    }
+    if !self.objectIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.objectIds, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Dataview.ObjectOrder, rhs: Anytype_Model_Block.Content.Dataview.ObjectOrder) -> Bool {
+    if lhs.viewID != rhs.viewID {return false}
+    if lhs.groupID != rhs.groupID {return false}
+    if lhs.objectIds != rhs.objectIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Group: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".Group"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "status"),
+    3: .same(proto: "tag"),
+    4: .same(proto: "checkbox"),
+    5: .same(proto: "date"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try {
+        var v: Anytype_Model_Block.Content.Dataview.Status?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .status(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .status(v)
+        }
+      }()
+      case 3: try {
+        var v: Anytype_Model_Block.Content.Dataview.Tag?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .tag(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .tag(v)
+        }
+      }()
+      case 4: try {
+        var v: Anytype_Model_Block.Content.Dataview.Checkbox?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .checkbox(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .checkbox(v)
+        }
+      }()
+      case 5: try {
+        var v: Anytype_Model_Block.Content.Dataview.Date?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .date(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .date(v)
+        }
+      }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    switch self.value {
+    case .status?: try {
+      guard case .status(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    }()
+    case .tag?: try {
+      guard case .tag(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 3)
+    }()
+    case .checkbox?: try {
+      guard case .checkbox(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 4)
+    }()
+    case .date?: try {
+      guard case .date(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
+    }()
+    case nil: break
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Group, rhs: Anytype_Model_Block.Content.Dataview.Group) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.value != rhs.value {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Status: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".Status"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Status, rhs: Anytype_Model_Block.Content.Dataview.Status) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Tag: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".Tag"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "ids"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.ids) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.ids.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.ids, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Tag, rhs: Anytype_Model_Block.Content.Dataview.Tag) -> Bool {
+    if lhs.ids != rhs.ids {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Checkbox: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".Checkbox"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "checked"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularBoolField(value: &self.checked) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.checked != false {
+      try visitor.visitSingularBoolField(value: self.checked, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Checkbox, rhs: Anytype_Model_Block.Content.Dataview.Checkbox) -> Bool {
+    if lhs.checked != rhs.checked {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_Block.Content.Dataview.Date: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_Block.Content.Dataview.protoMessageName + ".Date"
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap()
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let _ = try decoder.nextFieldNumber() {
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Date, rhs: Anytype_Model_Block.Content.Dataview.Date) -> Bool {
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
 }
 
 extension Anytype_Model_Block.Content.Relation: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {

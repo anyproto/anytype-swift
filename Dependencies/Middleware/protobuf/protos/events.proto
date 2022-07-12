@@ -68,6 +68,7 @@ message Event {
             Block.Dataview.ViewOrder blockDataviewViewOrder = 29;
             Block.Dataview.RelationDelete blockDataviewRelationDelete = 24;
             Block.Dataview.RelationSet blockDataviewRelationSet = 23;
+            Block.Dataview.GroupOrderUpdate blockDataViewGroupOrderUpdate = 38;
 
 
             User.Block.Join userBlockJoin = 31;
@@ -759,6 +760,11 @@ message Event {
                 string id = 1; // dataview block's id
                 string viewId = 2; // view id, client should double check this to make sure client doesn't switch the active view in the middle
                 repeated string removed = 6;
+            }
+
+            message GroupOrderUpdate {
+                string id = 1; // dataview block's id
+                anytype.model.Block.Content.Dataview.GroupOrder groupOrder = 2;
             }
         }
     }
