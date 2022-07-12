@@ -576,7 +576,7 @@ extension EditorRouter {
             }
         )
         let vc = UIHostingController(
-            rootView: SetFiltersSearchView()
+            rootView: SetFiltersSearchView(searchView: viewModel.makeSearchView)
                 .environmentObject(viewModel)
         )
         presentSheet(vc)

@@ -21,6 +21,7 @@ final class SetFiltersListViewModel: ObservableObject {
                     metadata: filter.metadata,
                     filter: filter.filter
                 ),
+                hasValues: filter.filter.condition.hasValues,
                 onTap: { [weak self] in
                     self?.rowTapped(filter.metadata.id, index: index)
                 }

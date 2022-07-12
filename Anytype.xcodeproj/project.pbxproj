@@ -445,6 +445,7 @@
 		2E975EFD287C65EF004DE574 /* SetFiltersSearchHeaderConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EFA287C65EF004DE574 /* SetFiltersSearchHeaderConfiguration.swift */; };
 		2E975EFE287C65EF004DE574 /* SetFiltersSearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EFB287C65EF004DE574 /* SetFiltersSearchHeaderView.swift */; };
 		2E975EFF287C65EF004DE574 /* SetFiltersSearchHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EFC287C65EF004DE574 /* SetFiltersSearchHeaderViewModel.swift */; };
+		2E975F01287D98F7004DE574 /* SetFiltersSearchViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975F00287D98F7004DE574 /* SetFiltersSearchViewState.swift */; };
 		2E9EFE62285B45C500C8E47A /* ExceptionalSetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */; };
 		2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE71285B62E500C8E47A /* SetFilter.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
@@ -1515,6 +1516,7 @@
 		2E975EFA287C65EF004DE574 /* SetFiltersSearchHeaderConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchHeaderConfiguration.swift; sourceTree = "<group>"; };
 		2E975EFB287C65EF004DE574 /* SetFiltersSearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchHeaderView.swift; sourceTree = "<group>"; };
 		2E975EFC287C65EF004DE574 /* SetFiltersSearchHeaderViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchHeaderViewModel.swift; sourceTree = "<group>"; };
+		2E975F00287D98F7004DE574 /* SetFiltersSearchViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchViewState.swift; sourceTree = "<group>"; };
 		2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionalSetSort.swift; sourceTree = "<group>"; };
 		2E9EFE71285B62E500C8E47A /* SetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilter.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
@@ -4107,6 +4109,7 @@
 				2E975ED7287C2325004DE574 /* SetFiltersSearchViewModel.swift */,
 				2E975ED9287C2325004DE574 /* SetFiltersSearchViewBuilder.swift */,
 				2E975EF3287C2557004DE574 /* SetFilterConditionsViewModel.swift */,
+				2E975F00287D98F7004DE574 /* SetFiltersSearchViewState.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -7544,6 +7547,7 @@
 				C91FAF5F2812C2510055BC4A /* AlertModel.swift in Sources */,
 				C9A4268C28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift in Sources */,
 				12EE02D02840E35F00223EB5 /* SceneLifecycleStateService.swift in Sources */,
+				2E975F01287D98F7004DE574 /* SetFiltersSearchViewState.swift in Sources */,
 				3D07ED6C261F49ED00C007E2 /* DividerBlockViewModel.swift in Sources */,
 				53FF7C4E26F7DB3C00A5A592 /* AnytypeSharedAudioplayer.swift in Sources */,
 				3D8D41B62742840000F8EBF3 /* DocumentDetaisProvider.swift in Sources */,
