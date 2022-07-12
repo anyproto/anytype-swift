@@ -399,6 +399,62 @@ message Rpc {
             }
         }
 
+        message ConfigUpdate {
+            message Request {
+                string timeZone = 1;
+            }
+
+            message Response {
+                Error error = 1;
+
+                message Error {
+                    Code code = 1;
+                    string description = 2;
+
+                    enum Code {
+                        NULL = 0;
+                        UNKNOWN_ERROR = 1;
+                        BAD_INPUT = 2;
+
+                        ACCOUNT_IS_NOT_RUNNING = 101;
+                        FAILED_TO_WRITE_CONFIG = 102;
+                        FAILED_TO_GET_CONFIG = 103;
+                    }
+                }
+            }
+
+            enum Timezones {
+                GMT = 0;
+                ECT = 1;
+                EET = 2;
+                EAT = 3;
+                MET = 4;
+                NET = 5;
+                PLT = 6;
+                IST = 7;
+                BST = 8;
+                VST = 9;
+                CTT = 10;
+                JST = 11;
+                ACT = 12;
+                AET = 13;
+                SST = 14;
+                NST = 15;
+                MIT = 16;
+                HST = 17;
+                AST = 18;
+                PST = 19;
+                MST = 20;
+                CST = 21;
+                IET = 22;
+                PRT = 23;
+                CNT = 24;
+                BET = 25;
+                BRT = 26;
+                CAT = 27;
+            }
+        }
+
         message GetConfig {
             message Get {
                 message Request {

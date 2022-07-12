@@ -25,6 +25,7 @@ enum SimpleTableCellMenuItem: CaseIterable {
     var image: UIImage {
         switch self {
         case .clearContents:
+            return UIImage.editorNavigation.lockedObject
             return BlockOptionImage.cellMenuClear
         case .color:
             return UIImage.editorNavigation.lockedObject

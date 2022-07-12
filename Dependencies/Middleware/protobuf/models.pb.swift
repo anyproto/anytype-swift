@@ -2482,6 +2482,9 @@ public struct Anytype_Model_Account {
     /// path to local storage
     public var localStoragePath: String = String()
 
+    /// time zone from config
+    public var timeZone: String = String()
+
     public var unknownFields = SwiftProtobuf.UnknownStorage()
 
     public init() {}
@@ -3255,6 +3258,91 @@ extension Anytype_Model_InternalFlag.Value: CaseIterable {
 }
 
 #endif  // swift(>=4.2)
+
+#if swift(>=5.5) && canImport(_Concurrency)
+extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
+extension Anytype_Model_RelationFormat: @unchecked Sendable {}
+extension Anytype_Model_SmartBlockSnapshotBase: @unchecked Sendable {}
+extension Anytype_Model_Block: @unchecked Sendable {}
+extension Anytype_Model_Block.OneOf_Content: @unchecked Sendable {}
+extension Anytype_Model_Block.Position: @unchecked Sendable {}
+extension Anytype_Model_Block.Align: @unchecked Sendable {}
+extension Anytype_Model_Block.VerticalAlign: @unchecked Sendable {}
+extension Anytype_Model_Block.Restrictions: @unchecked Sendable {}
+extension Anytype_Model_Block.Content: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Layout: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Layout.Style: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.IconSize: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.Style: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.Description: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Link.CardStyle: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Div: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Div.Style: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Bookmark: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Bookmark.State: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Icon: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.FeaturedRelations: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Text: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Text.Style: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Text.Marks: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Text.Mark: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Text.Mark.TypeEnum: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.File: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.File.TypeEnum: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.File.Style: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.File.State: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Smartblock: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.View: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.View.TypeEnum: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.View.Size: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Relation: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Relation.DateFormat: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Relation.TimeFormat: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Sort: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Filter: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Filter.Operator: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Filter.Condition: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Dataview.Filter.QuickOption: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Relation: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Latex: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.TableOfContents: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.Table: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.TableColumn: @unchecked Sendable {}
+extension Anytype_Model_Block.Content.TableRow: @unchecked Sendable {}
+extension Anytype_Model_BlockMetaOnly: @unchecked Sendable {}
+extension Anytype_Model_Range: @unchecked Sendable {}
+extension Anytype_Model_Account: @unchecked Sendable {}
+extension Anytype_Model_Account.StatusType: @unchecked Sendable {}
+extension Anytype_Model_Account.Avatar: @unchecked Sendable {}
+extension Anytype_Model_Account.Avatar.OneOf_Avatar: @unchecked Sendable {}
+extension Anytype_Model_Account.Config: @unchecked Sendable {}
+extension Anytype_Model_Account.Status: @unchecked Sendable {}
+extension Anytype_Model_Account.Info: @unchecked Sendable {}
+extension Anytype_Model_LinkPreview: @unchecked Sendable {}
+extension Anytype_Model_LinkPreview.TypeEnum: @unchecked Sendable {}
+extension Anytype_Model_Restrictions: @unchecked Sendable {}
+extension Anytype_Model_Restrictions.ObjectRestriction: @unchecked Sendable {}
+extension Anytype_Model_Restrictions.DataviewRestriction: @unchecked Sendable {}
+extension Anytype_Model_Restrictions.DataviewRestrictions: @unchecked Sendable {}
+extension Anytype_Model_ThreadDeeplinkPayload: @unchecked Sendable {}
+extension Anytype_Model_ThreadCreateQueueEntry: @unchecked Sendable {}
+extension Anytype_Model_ObjectType: @unchecked Sendable {}
+extension Anytype_Model_ObjectType.Layout: @unchecked Sendable {}
+extension Anytype_Model_Layout: @unchecked Sendable {}
+extension Anytype_Model_RelationWithValue: @unchecked Sendable {}
+extension Anytype_Model_Relation: @unchecked Sendable {}
+extension Anytype_Model_Relation.Scope: @unchecked Sendable {}
+extension Anytype_Model_Relation.DataSource: @unchecked Sendable {}
+extension Anytype_Model_Relation.Option: @unchecked Sendable {}
+extension Anytype_Model_Relation.Option.Scope: @unchecked Sendable {}
+extension Anytype_Model_Relations: @unchecked Sendable {}
+extension Anytype_Model_RelationOptions: @unchecked Sendable {}
+extension Anytype_Model_InternalFlag: @unchecked Sendable {}
+extension Anytype_Model_InternalFlag.Value: @unchecked Sendable {}
+#endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
@@ -5427,6 +5515,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     8: .same(proto: "deviceId"),
     101: .same(proto: "gatewayUrl"),
     103: .same(proto: "localStoragePath"),
+    104: .same(proto: "timeZone"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5444,6 +5533,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
       case 8: try { try decoder.decodeSingularStringField(value: &self.deviceID) }()
       case 101: try { try decoder.decodeSingularStringField(value: &self.gatewayURL) }()
       case 103: try { try decoder.decodeSingularStringField(value: &self.localStoragePath) }()
+      case 104: try { try decoder.decodeSingularStringField(value: &self.timeZone) }()
       default: break
       }
     }
@@ -5477,6 +5567,9 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if !self.localStoragePath.isEmpty {
       try visitor.visitSingularStringField(value: self.localStoragePath, fieldNumber: 103)
     }
+    if !self.timeZone.isEmpty {
+      try visitor.visitSingularStringField(value: self.timeZone, fieldNumber: 104)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5490,6 +5583,7 @@ extension Anytype_Model_Account.Info: SwiftProtobuf.Message, SwiftProtobuf._Mess
     if lhs.deviceID != rhs.deviceID {return false}
     if lhs.gatewayURL != rhs.gatewayURL {return false}
     if lhs.localStoragePath != rhs.localStoragePath {return false}
+    if lhs.timeZone != rhs.timeZone {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

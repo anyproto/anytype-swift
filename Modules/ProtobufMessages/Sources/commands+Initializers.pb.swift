@@ -19,6 +19,25 @@ extension Anytype_Rpc.Account.Config {
   }
 }
 
+extension Anytype_Rpc.Account.ConfigUpdate.Request {
+  public init(timeZone: String) {
+    self.timeZone = timeZone
+  }
+}
+
+extension Anytype_Rpc.Account.ConfigUpdate.Response {
+  public init(error: Anytype_Rpc.Account.ConfigUpdate.Response.Error) {
+    self.error = error
+  }
+}
+
+extension Anytype_Rpc.Account.ConfigUpdate.Response.Error {
+  public init(code: Anytype_Rpc.Account.ConfigUpdate.Response.Error.Code, description_p: String) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.Account.Create.Request {
   public init(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, storePath: String, alphaInviteCode: String) {
     self.name = name

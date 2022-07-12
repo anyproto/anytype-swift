@@ -89,44 +89,14 @@ final class BaseDocument: BaseDocumentProtocol {
     }
 
     var isEmpty: Bool {
-        guard let details = details else {
-            return false
-        }
+        let filteredBlocks = children.filter { $0.isFeaturedRelations || $0.isText }
 
+        if filteredBlocks.count > 0 { return false }
         let allTextChilds = children.filter(\.isText)
+
         if allTextChilds.count > 1 { return false }
 
-        return allTextChilds.first?.content.isEmpty ?? true
-
-//        switch details.layout {
-//        case .note:
-//
-//        case .basic, .profile, .todo, .set:
-//            return
-//        }
-//
-//
-//        let hasNonTextAndRelationBlocks = items.onlyBlockViewModels.contains {
-//            switch $0.content {
-//            case .text, .featuredRelations:
-//                return false
-//            default:
-//                return true
-//            }
-//        }
-//
-//        if hasNonTextAndRelationBlocks { return false }
-//
-//        let textBlocks = items.onlyBlockViewModels.filter { $0.content.isText }
-//
-//        switch textBlocks.count {
-//        case 0, 1:
-//            return true
-//        case 2:
-//            return textBlocks.last?.content.isEmpty ?? false
-//        default:
-//            return false
-//        }
+        return allTextChilds.first?.content.isEmpty ?? false
     }
 
     // MARK: - Private methods

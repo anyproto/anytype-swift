@@ -38,7 +38,7 @@ extension Anytype_Model_Account.Config {
 extension Anytype_Model_Account.Info {
   public init(
     homeObjectID: String, archiveObjectID: String, profileObjectID: String, marketplaceTypeObjectID: String, marketplaceRelationObjectID: String, marketplaceTemplateObjectID: String, deviceID: String,
-    gatewayURL: String, localStoragePath: String
+    gatewayURL: String, localStoragePath: String, timeZone: String
   ) {
     self.homeObjectID = homeObjectID
     self.archiveObjectID = archiveObjectID
@@ -49,6 +49,7 @@ extension Anytype_Model_Account.Info {
     self.deviceID = deviceID
     self.gatewayURL = gatewayURL
     self.localStoragePath = localStoragePath
+    self.timeZone = timeZone
   }
 }
 

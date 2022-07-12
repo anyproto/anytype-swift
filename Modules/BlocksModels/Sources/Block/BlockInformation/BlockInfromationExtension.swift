@@ -43,6 +43,15 @@ public extension BlockInformation {
             return false
         }
     }
+
+    var isFeaturedRelations: Bool {
+        switch content {
+        case .featuredRelations:
+            return true
+        default:
+            return false
+        }
+    }
     
     func headerLayout(container: InfoContainerProtocol) -> BlockInformation? {
         container.children(of: id).first { info in
