@@ -9,7 +9,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     // MARK: - Private variables
     
     private let service = ObjectTypesService()
-    private let supportedSmartblockTypes: Set<SmartBlockType> = [.page, .profilePage, .anytypeProfile, .set]
+    private let supportedSmartblockTypes: Set<SmartBlockType> = [.page, .profilePage, .anytypeProfile, .set, .file]
     
     private var cachedObtainedObjectTypes: Set<ObjectType> = []
     private var cachedSupportedTypeUrls: Set<String> = []
