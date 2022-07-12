@@ -4,7 +4,7 @@ import BlocksModels
 struct AccessoryViewBuilder {
     static func accessoryState(
         actionHandler: BlockActionHandlerProtocol,
-        router: EditorRouter,
+        router: EditorRouterProtocol,
         pasteboardService: PasteboardServiceProtocol,
         document: BaseDocumentProtocol,
         onShowStyleMenu: @escaping RoutingAction<BlockInformation>,

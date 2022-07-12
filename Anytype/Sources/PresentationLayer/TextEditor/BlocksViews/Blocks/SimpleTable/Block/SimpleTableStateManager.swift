@@ -3,7 +3,11 @@ import Foundation
 import BlocksModels
 
 protocol SimpleTableSelectionHandler: AnyObject {
-    func didStartSimpleTableSelectionMode(simpleTableBlockId: BlockId, selectedBlockIds: [BlockId])
+    func didStartSimpleTableSelectionMode(
+        simpleTableBlockId: BlockId,
+        selectedBlockIds: [BlockId],
+        menuModel: SimpleTableMenuModel
+    )
     func didStopSimpleTableSelectionMode()
 }
 
@@ -20,27 +24,30 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
     var editorEditingStatePublisher: AnyPublisher<EditorEditingState, Never> { $editingState.eraseToAnyPublisher() }
     var selectedMenuTabPublisher: AnyPublisher<SimpleTableMenuView.Tab, Never> { $selectedMenuTab.eraseToAnyPublisher() }
     var editorSelectedBlocks: AnyPublisher<[BlockId], Never> { $selectedBlocks.eraseToAnyPublisher() }
-
-    var tableBlockInformation: BlockInformation?
     var selectedBlocksIndexPaths = [IndexPath]()
 
     @Published var editingState: EditorEditingState = .editing
     @Published var selectedMenuTab: SimpleTableMenuView.Tab = .cell
     @Published private var selectedBlocks = [BlockId]()
 
+    private let tableBlockInformation: BlockInformation
+
     private let document: BaseDocumentProtocol
     private let tableService: BlockTableServiceProtocol
+    private weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
 
-    weak var menuViewModel: SimpleTableMenuViewModel?
-    weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
-    weak var dataSource: SpreadsheetViewDataSource?
+    weak var dataSource: SpreadsheetViewDataSource? // DO WE NEED IT STILL?? ? ? ? ? ?? ?
 
     init(
         document: BaseDocumentProtocol,
-        tableService: BlockTableServiceProtocol
+        tableBlockInformation: BlockInformation,
+        tableService: BlockTableServiceProtocol,
+        mainEditorSelectionManager: SimpleTableSelectionHandler?
     ) {
         self.document = document
+        self.tableBlockInformation = tableBlockInformation
         self.tableService = tableService
+        self.mainEditorSelectionManager = mainEditorSelectionManager
     }
 
     func checkDocumentLockField() {
@@ -57,21 +64,9 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
 
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
         guard case .selecting = editingState else { return }
-        guard let dataSource = dataSource else {
-            return
-        }
+        selectedBlocksIndexPaths = indexPaths
 
-        let items = indexPaths.compactMap(dataSource.item(for:))
-        let blockIds = items.compactMap { $0.blockId }
-
-        guard let tableBlockInformation = tableBlockInformation else {
-            return
-        }
-
-        mainEditorSelectionManager?.didStartSimpleTableSelectionMode(
-            simpleTableBlockId: tableBlockInformation.id,
-            selectedBlockIds: blockIds
-        )
+        updateMenuItems(for: selectedBlocksIndexPaths)
     }
 
     func canPlaceDividerAtIndexPath(_ indexPath: IndexPath) -> Bool {
@@ -91,6 +86,8 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
 
     func didSelectEditingMode() {
         editingState = .editing
+
+        selectedBlocksIndexPaths.removeAll()
     }
 
 
@@ -99,82 +96,261 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
     func didSelectTab(tab: SimpleTableMenuView.Tab) {
         self.selectedMenuTab = tab
 
-        updateMenuItems()
+        updateMenuItems(for: selectedBlocksIndexPaths)
     }
 
-    private func updateMenuItems() {
+    private func updateMenuItems(for selectedBlocks: [IndexPath]) {
+        guard let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer) else {
+            return
+        }
+        let horizontalListItems: [HorizontalListItem]
+
         switch selectedMenuTab {
         case .cell:
-            menuViewModel?.items = SimpleTableCellMenuItem.allCases.map {
-                HorizontalListItem.init(
-                    id: "\($0.hashValue)",
-                    title: $0.title,
-                    image: .icon(.emoji(.lamp)),
-                    action: { }
-                )
-            }
-        case .row:
-            menuViewModel?.items = SimpleTableRowMenuItem.allCases.map { item in
+            horizontalListItems = SimpleTableCellMenuItem.allCases.map { item in
                 HorizontalListItem.init(
                     id: "\(item.hashValue)",
                     title: item.title,
-                    image: .icon(.emoji(.lamp)),
+                    image: .image(item.image),
+                    action: { [weak self] in self?.handleCellAction(action: item) }
+                )
+            }
+        case .row:
+            horizontalListItems = SimpleTableRowMenuItem.allCases.map { item in
+                HorizontalListItem.init(
+                    id: "\(item.hashValue)",
+                    title: item.title,
+                    image: .image(item.image),
                     action: { [weak self] in self?.handleRowAction(action: item) }
                 )
             }
         case .column:
-            menuViewModel?.items = SimpleTableColumnMenuItem.allCases.map { item in
+            horizontalListItems = SimpleTableColumnMenuItem.allCases.map { item in
                 HorizontalListItem.init(
                     id: "\(item.hashValue)",
                     title: item.title,
-                    image: .icon(.emoji(.lamp)),
+                    image: .image(item.image),
                     action: { [weak self] in self?.handleColumnAction(action: item) }
                 )
             }
         }
+
+        let blockIds = computedTable.cells.blockIds(for: selectedBlocks)
+
+        mainEditorSelectionManager?.didStartSimpleTableSelectionMode(
+            simpleTableBlockId: tableBlockInformation.id,
+            selectedBlockIds: blockIds,
+            menuModel: .init(
+                tabs: tabs(),
+                items: horizontalListItems,
+                onDone: { [weak self] in self?.didSelectEditingMode() }
+            )
+        )
+    }
+
+    private func tabs() -> [SimpleTableMenuModel.TabModel] {
+        SimpleTableMenuView.Tab.allCases.map { item in
+            SimpleTableMenuModel.TabModel(
+                id: item.rawValue,
+                title: item.title,
+                isSelected: selectedMenuTab == item,
+                action: { [weak self] in self?.didSelectTab(tab: item) }
+            )
+        }
     }
 
     private func handleColumnAction(action: SimpleTableColumnMenuItem) {
+        guard let table = ComputedTable(
+                blockInformation: tableBlockInformation,
+                infoContainer: document.infoContainer
+              ) else { return }
+
+        let selectedColumns = selectedBlocksIndexPaths
+            .map { table.cells[$0.section][$0.row].columnId }
+        let uniqueColumns = Set(selectedColumns)
+
+        let selectedBlockIds = selectedBlocksIndexPaths
+            .compactMap { table.cells[$0.section][$0.row].blockInformation?.id }
+
         switch action {
         case .insertLeft:
-            selectedBlocksIndexPaths
+            uniqueColumns.forEach {
+                tableService.insertColumn(contextId: document.objectId, targetId: $0, position: .left)
+            }
         case .insertRight:
-            break
+            uniqueColumns.forEach {
+                tableService.insertColumn(contextId: document.objectId, targetId: $0, position: .right)
+            }
         case .moveLeft:
-            break
+            let allColumnIds = table.allColumnIds
+            let dropColumnIds = uniqueColumns.compactMap { item -> BlockId? in
+                guard let index = allColumnIds.firstIndex(of: item) else { return nil }
+                let indexBefore = allColumnIds.index(before: index)
+
+                return allColumnIds[safe: indexBefore]
+            }
+
+            zip(uniqueColumns, dropColumnIds).forEach { targetId, dropColumnId in
+                tableService.columnMove(contextId: document.objectId, targetId: targetId, dropTargetID: dropColumnId, position: .left)
+
+            }
         case .moveRight:
-            break
+            let allColumnIds = table.allColumnIds
+            let dropColumnIds = uniqueColumns.compactMap { item -> BlockId? in
+                guard let index = allColumnIds.firstIndex(of: item) else { return nil }
+                let indexBefore = allColumnIds.index(after: index)
+
+                return allColumnIds[safe: indexBefore]
+            }
+
+            zip(uniqueColumns, dropColumnIds).forEach { targetId, dropColumnId in
+                tableService.columnMove(contextId: document.objectId, targetId: targetId, dropTargetID: dropColumnId, position: .right)
+
+            }
         case .duplicate:
-            break
+            uniqueColumns.forEach {
+                tableService.columnDuplicate(contextId: document.objectId, targetId: $0)
+            }
+
         case .delete:
-            break
+            uniqueColumns.forEach {
+                tableService.deleteColumn(contextId: document.objectId, targetId: $0)
+            }
         case .clearContents:
-            break
+            tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
         case .sort:
-            break
+            uniqueColumns.forEach {
+                tableService.columnSort(contextId: document.objectId, columnId: $0, blocksSortType: .desc)
+            }
         case .color:
             break
         case .style:
             break
         }
+
+        editingState = .editing
+        mainEditorSelectionManager?.didStopSimpleTableSelectionMode()
+        selectedMenuTab = .cell
     }
 
     private func handleRowAction(action: SimpleTableRowMenuItem) {
+        guard let table = ComputedTable(
+            blockInformation: tableBlockInformation,
+            infoContainer: document.infoContainer
+        ) else { return }
 
+        let selectedRowIds = selectedBlocksIndexPaths
+            .map { table.cells[$0.section][$0.row].rowId }
+        let uniqueRows = Set(selectedRowIds)
+
+        let selectedBlockIds = selectedBlocksIndexPaths
+            .compactMap { table.cells[$0.section][$0.row].blockInformation?.id }
+
+        switch action {
+        case .insertAbove:
+            uniqueRows.forEach {
+                tableService.insertRow(contextId: document.objectId, targetId: $0, position: .top)
+            }
+        case .insertBelow:
+            uniqueRows.forEach {
+                tableService.insertRow(contextId: document.objectId, targetId: $0, position: .bottom)
+            }
+        case .moveUp:
+            return
+        case .moveDown:
+            return
+        case .duplicate:
+            uniqueRows.forEach {
+                tableService.rowDuplicate(contextId: document.objectId, targetId: $0)
+            }
+        case .delete:
+            uniqueRows.forEach {
+                tableService.deleteRow(contextId: document.objectId, targetId: $0)
+            }
+        case .clearContents:
+            tableService.clearContents(contextId: document.objectId, blockIds: Array(uniqueRows))
+        case .color:
+            return
+        case .style:
+            return
+        }
+
+        editingState = .editing
+        mainEditorSelectionManager?.didStopSimpleTableSelectionMode()
+        selectedMenuTab = .cell
+    }
+
+    private func handleCellAction(action: SimpleTableCellMenuItem) {
+        guard let table = ComputedTable(
+            blockInformation: tableBlockInformation,
+            infoContainer: document.infoContainer
+        ) else { return }
+
+
+        let selectedBlockIds = selectedBlocksIndexPaths
+            .compactMap { table.cells[$0.section][$0.row].blockInformation?.id }
+
+        switch action {
+        case .clearContents:
+            return
+            tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
+        case .color:
+            return
+        case .style:
+            return
+        case .clearStyle:
+            return
+        }
+
+        editingState = .editing
+        mainEditorSelectionManager?.didStopSimpleTableSelectionMode()
+        selectedMenuTab = .cell
     }
 }
 
 extension SimpleTableStateManager: BlockSelectionHandler {
     func didSelectEditingState(info: BlockInformation) {
+        guard let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer),
+              let selectedIndexPath = computedTable.cells.indexPaths(for: info) else {
+            return
+        }
+
         editingState = .selecting(blocks: [info.id])
         selectedBlocks = [info.id]
 
-        tableBlockInformation.map {
-            mainEditorSelectionManager?.didStartSimpleTableSelectionMode(
-                simpleTableBlockId: $0.id,
-                selectedBlockIds: [info.id]
-            )
+        updateMenuItems(for: [selectedIndexPath])
+    }
+}
+
+extension Array where Element == [ComputedTable.Cell] {
+    func indexPaths(for blockInformation: BlockInformation) -> IndexPath? {
+        for (sectionIndex, sections) in self.enumerated() {
+            for (rowIndex, item) in sections.enumerated() {
+                if item.blockInformation?.id == blockInformation.id {
+                    return IndexPath(item: rowIndex, section: sectionIndex)
+                }
+            }
         }
+
+        return nil
+    }
+
+    func blockIds(for indexPaths: [IndexPath]) -> [BlockId] {
+        var blockIds = [BlockId]()
+
+        for (sectionIndex, sections) in self.enumerated() {
+            for (rowIndex, item) in sections.enumerated() {
+                if indexPaths.contains(where: { $0.section == sectionIndex && $0.row == rowIndex }) {
+                    if let blockInformation = item.blockInformation {
+                        blockIds.append(blockInformation.id)
+                    } else {
+                        blockIds.append("\(item.rowId)-\(item.columnId)")
+                    }
+                }
+            }
+        }
+
+        return blockIds
     }
 }
 

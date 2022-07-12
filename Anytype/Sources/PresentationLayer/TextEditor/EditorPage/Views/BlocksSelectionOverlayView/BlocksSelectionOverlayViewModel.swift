@@ -2,7 +2,7 @@ import Combine
 
 enum BlocksSelectionOverlayState {
     case moving
-    case simpleTableMenu(selectedBlocksCount: Int)
+    case simpleTableMenu(selectedBlocksCount: Int, model: SimpleTableMenuModel)
     case editorMenu(selectedBlocksCount: Int)
     case hidden
 }

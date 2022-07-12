@@ -65,7 +65,7 @@ final class EditorAssembly {
     
     private func buildPageModule(data: EditorScreenData) -> (EditorPageController, EditorRouterProtocol) {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
-        let blocksOptionViewModel = SelectionOptionsViewModel()
+        let blocksOptionViewModel = HorizonalTypeListViewModel(itemProvider: nil)
 
         let blocksSelectionOverlayView = buildBlocksSelectionOverlayView(
             simleTableMenuViewModel: simpleTableMenuViewModel,
@@ -105,7 +105,7 @@ final class EditorAssembly {
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter,
-        blocksOptionViewModel: SelectionOptionsViewModel,
+        blocksOptionViewModel: HorizonalTypeListViewModel,
         simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         isOpenedForPreview: Bool
@@ -164,39 +164,17 @@ final class EditorAssembly {
             accessoryState: accessoryState
         )
 
-        let simpleTablesStateManager = SimpleTableStateManager(
-            document: document,
-            tableService: blockTableService
-        )
-        let simpleTablesAccessoryState = AccessoryViewBuilder.accessoryState(
-            actionHandler: actionHandler,
-            router: router,
-            pasteboardService: pasteboardService,
-            document: document,
-            onShowStyleMenu: { _ in } ,
-            onBlockSelection: simpleTablesStateManager.didSelectEditingState(info:)
-        )
-
-        simpleTableMenuViewModel.delegate = simpleTablesStateManager
-
-        let simpleTablesBlockDelegate = BlockDelegateImpl(
-            viewInput: nil,
-            accessoryState: simpleTablesAccessoryState
-        )
-
         let simpleTablesBuilder = SimpleTableViewModelBuilder(
             document: document,
             router: router,
             handler: actionHandler,
             pasteboardService: pasteboardService,
-            delegate: simpleTablesBlockDelegate,
             markdownListener: markdownListener,
             relativePositionProvider: viewInput,
             cursorManager: EditorCursorManager(focusSubjectHolder: focusSubjectHolder),
-            focusSubjectHolder: focusSubjectHolder,
-            stateManager: simpleTablesStateManager
+            focusSubjectHolder: focusSubjectHolder
         )
-        
+
         let blocksConverter = BlockViewModelBuilder(
             document: document,
             handler: actionHandler,
@@ -207,11 +185,11 @@ final class EditorAssembly {
             simpleTablesBuilder: simpleTablesBuilder,
             subjectsHolder: focusSubjectHolder
         )
-         
+
         let wholeBlockMarkupViewModel = MarkupViewModel(
             actionHandler: actionHandler
         )
-        
+
         let headerModel = ObjectHeaderViewModel(
             document: document,
             router: router,
@@ -228,17 +206,14 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
             router: router,
-            initialEditingState: isOpenedForPreview ? .locked : .editing,
-            childsStateManagers: [simpleTablesStateManager]
+            initialEditingState: isOpenedForPreview ? .locked : .editing
         )
 
+        simpleTablesBuilder.mainEditorSelectionManager = blocksStateManager
         actionHandler.blockSelectionHandler = blocksStateManager
 
         blocksStateManager.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
         blocksStateManager.blocksOptionViewModel = blocksOptionViewModel
-
-        simpleTablesStateManager.menuViewModel = simpleTableMenuViewModel
-        simpleTablesStateManager.mainEditorSelectionManager = blocksStateManager
         
         return EditorPageViewModel(
             document: document,
@@ -261,7 +236,7 @@ final class EditorAssembly {
 
     private func buildBlocksSelectionOverlayView(
         simleTableMenuViewModel: SimpleTableMenuViewModel,
-        blockOptionsViewViewModel: SelectionOptionsViewModel
+        blockOptionsViewViewModel: HorizonalTypeListViewModel
     ) -> BlocksSelectionOverlayView {
         let blocksOptionView = SelectionOptionsView(viewModel: blockOptionsViewViewModel)
         let blocksSelectionOverlayViewModel = BlocksSelectionOverlayViewModel()

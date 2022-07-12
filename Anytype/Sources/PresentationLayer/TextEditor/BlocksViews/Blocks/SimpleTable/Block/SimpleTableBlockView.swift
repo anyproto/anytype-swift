@@ -65,9 +65,6 @@ final class SimpleTableBlockView: UIView, BlockContentView {
 
     private func setupHandlers() {
         viewModel?.stateManager.editorEditingStatePublisher.sink { [unowned self] state in
-
-            print("-- isEditing dsadas \(state)")
-
             switch state {
             case .selecting:
                 UIApplication.shared.hideKeyboard()

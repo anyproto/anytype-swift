@@ -16,8 +16,18 @@ protocol BlockTableServiceProtocol {
         targetIds: [BlockId]
     )
 
-    func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition)
+
     func insertColumn(contextId: BlockId, targetId: BlockId, position: BlockPosition)
+    func deleteColumn(contextId: BlockId, targetId: BlockId)
+    func columnDuplicate(contextId: BlockId, targetId: BlockId)
+    func columnSort(contextId: BlockId, columnId: BlockId, blocksSortType: BlocksSortType)
+    func columnMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition)
+
+    func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition)
+    func deleteRow(contextId: BlockId, targetId: BlockId)
+    func rowDuplicate(contextId: BlockId, targetId: BlockId)
+
+    func clearContents(contextId: BlockId, blockIds: [BlockId])
 }
 
 final class BlockTableService: BlockTableServiceProtocol {
@@ -93,7 +103,7 @@ final class BlockTableService: BlockTableServiceProtocol {
     }
 
     func insertColumn(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
-        let eventsBunch = Anytype_Rpc.BlockTable.RowCreate.Service.invoke(
+        let eventsBunch = Anytype_Rpc.BlockTable.ColumnCreate.Service.invoke(
             contextID: contextId,
             targetID: targetId,
             position: position.asMiddleware
@@ -102,5 +112,96 @@ final class BlockTableService: BlockTableServiceProtocol {
             .map { EventsBunch(event: $0.event) }
 
         eventsBunch?.send()
+    }
+
+    func deleteColumn(contextId: BlockId, targetId: BlockId) {
+        let eventsBunch = Anytype_Rpc.BlockTable.ColumnDelete.Service.invoke(
+            contextID: contextId,
+            targetID: targetId
+        )
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+
+    func columnDuplicate(contextId: BlockId, targetId: BlockId) {
+        let eventsBunch = Anytype_Rpc.BlockTable.ColumnDuplicate.Service.invoke(
+            contextID: contextId,
+            targetID: targetId,
+            blockID: targetId,
+            position: BlockPosition.left.asMiddleware
+        )
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+
+    func columnSort(contextId: BlockId, columnId: BlockId, blocksSortType: BlocksSortType) {
+        let eventsBunch = Anytype_Rpc.BlockTable.Sort.Service.invoke(contextID: contextId, columnID: columnId, type: blocksSortType.asMiddleware)
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+
+    func clearContents(contextId: BlockId, blockIds: [BlockId]) {
+        let eventsBunch = Anytype_Rpc.BlockTable.RowListClean.Service.invoke(contextID: contextId, blockIds: blockIds)
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+
+    func columnMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) {
+        let eventsBunch = Anytype_Rpc.BlockTable.ColumnMove.Service.invoke(
+            contextID: contextId,
+            targetID: targetId,
+            dropTargetID: dropTargetID,
+            position: position.asMiddleware
+        )
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+
+    func deleteRow(contextId: BlockId, targetId: BlockId) {
+        let eventsBunch = Anytype_Rpc.BlockTable.RowDelete.Service.invoke(
+            contextID: contextId,
+            targetID: targetId
+        )
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+
+    func rowDuplicate(contextId: BlockId, targetId: BlockId) {
+        let eventsBunch = Anytype_Rpc.BlockTable.RowDuplicate.Service.invoke(
+            contextID: contextId,
+            targetID: targetId,
+            blockID: targetId,
+            position: BlockPosition.bottom.asMiddleware
+        )
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+}
+
+enum BlocksSortType {
+    case asc
+    case desc
+
+    var asMiddleware: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum {
+        switch self {
+        case .asc:
+            return .asc
+        case .desc:
+            return .desc
+        }
     }
 }

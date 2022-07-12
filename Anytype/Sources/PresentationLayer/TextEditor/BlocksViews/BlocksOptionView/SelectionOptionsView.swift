@@ -2,12 +2,12 @@ import SwiftUI
 
 // https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=5469%3A0
 struct SelectionOptionsView: View {
-    @ObservedObject var viewModel: SelectionOptionsViewModel
+    @ObservedObject var viewModel: HorizonalTypeListViewModel
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 0) {
-                ForEach(viewModel.options, id: \.self) { item in
+                ForEach(viewModel.items, id: \.self) { item in
                     Button {
                         item.action()
                     } label: {
@@ -44,9 +44,9 @@ private struct SelectionOptionsItemView: View {
     }
 }
 
-struct SelectionOptionsView_Previews: PreviewProvider {
-    static var previews: some View {
-        SelectionOptionsView(viewModel: .init())
-            .previewLayout(.fixed(width: 340, height: 100))
-    }
-}
+//struct SelectionOptionsView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        SelectionOptionsView(viewModel: .init(itemProvider: ))
+//            .previewLayout(.fixed(width: 340, height: 100))
+//    }
+//}

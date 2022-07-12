@@ -8,7 +8,7 @@ enum EditorEditingState {
     case selecting(blocks: [BlockId])
     case moving(indexPaths: [IndexPath])
     case locked
-    case simpleTablesSelection(block: BlockId, selectedBlocks: [BlockId])
+    case simpleTablesSelection(block: BlockId, selectedBlocks: [BlockId], simpleTableMenuModel: SimpleTableMenuModel)
 }
 
 /// Blocks drag & drop protocol.
@@ -63,9 +63,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
-    private let childsStateManagers: [EditorPageBlocksStateManagerProtocol]
 
-    weak var blocksOptionViewModel: SelectionOptionsViewModel?
+    weak var blocksOptionViewModel: HorizonalTypeListViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
 
     private var cancellables = [AnyCancellable]()
@@ -78,8 +77,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol,
-        initialEditingState: EditorEditingState,
-        childsStateManagers: [EditorPageBlocksStateManagerProtocol]
+        initialEditingState: EditorEditingState
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
@@ -89,7 +87,6 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.pasteboardService = pasteboardService
         self.router = router
         self.editingState = initialEditingState
-        self.childsStateManagers = childsStateManagers
 
         setupEditingHandlers()
     }
@@ -178,12 +175,11 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     func didSelectEditingMode() {
-        editingState = .editing
-
-        childsStateManagers.forEach {
-
-            $0.didSelectEditingMode()
+        if case let .simpleTablesSelection(_, _, simpleTableMenuModel) = editingState {
+            simpleTableMenuModel.onDone()
         }
+
+        editingState = .editing
     }
 
     func canMoveItemsToObject(at indexPath: IndexPath) -> Bool {
@@ -215,8 +211,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 movingBlocksIds.removeAll()
             case .locked:
                 break
-            case .simpleTablesSelection(_, let blocks):
-                blocksSelectionOverlayViewModel?.state = .simpleTableMenu(selectedBlocksCount: blocks.count)
+            case let .simpleTablesSelection(_,  blocks, model):
+                blocksSelectionOverlayViewModel?.state = .simpleTableMenu(selectedBlocksCount: blocks.count, model: model)
             }
         }.store(in: &cancellables)
 
@@ -242,7 +238,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
         }
 
-        blocksOptionViewModel?.options = horizontalItems
+        blocksOptionViewModel?.items = horizontalItems
     }
 
     func startMoving() {
@@ -387,15 +383,16 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 }
 
 extension EditorPageBlocksStateManager: SimpleTableSelectionHandler {
-    func didStartSimpleTableSelectionMode(simpleTableBlockId: BlockId, selectedBlockIds: [BlockId]) {
+    func didStartSimpleTableSelectionMode(simpleTableBlockId: BlockId, selectedBlockIds: [BlockId], menuModel: SimpleTableMenuModel) {
         editingState = .simpleTablesSelection(
             block: simpleTableBlockId,
-            selectedBlocks: selectedBlockIds
+            selectedBlocks: selectedBlockIds,
+            simpleTableMenuModel: menuModel
         )
     }
 
     func didStopSimpleTableSelectionMode() {
-        checkDocumentLockField()
+        editingState = .editing
     }
 }
 

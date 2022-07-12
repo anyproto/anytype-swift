@@ -1,6 +1,7 @@
-import Foundation
+import UIKit
 
 private typealias L10n = Loc.SimpleTableMenu.Item
+private typealias BlockOptionImage = UIImage.editor.BlockOption
 
 enum SimpleTableCellMenuItem: CaseIterable {
     case clearContents
@@ -18,6 +19,22 @@ enum SimpleTableCellMenuItem: CaseIterable {
             return L10n.style
         case .clearStyle:
             return L10n.clearStyle
+        }
+    }
+
+    var image: UIImage {
+        switch self {
+        case .clearContents:
+            return BlockOptionImage.cellMenuClear
+        case .color:
+            return UIImage.editorNavigation.lockedObject
+            return BlockOptionImage.cellMenuColor
+        case .style:
+            return UIImage.editorNavigation.lockedObject
+            return UIImage.edititngToolbar.style
+        case .clearStyle:
+            return UIImage.editorNavigation.lockedObject
+            return BlockOptionImage.cellMenuClear
         }
     }
 }
@@ -58,6 +75,33 @@ enum SimpleTableColumnMenuItem: CaseIterable {
             return L10n.style
         }
     }
+
+    var image: UIImage {
+        switch self {
+        case .insertLeft:
+            return BlockOptionImage.columnInsertLeft
+        case .insertRight:
+            return BlockOptionImage.columnInsertRight
+        case .moveLeft:
+            return BlockOptionImage.columnMoveLeft
+        case .moveRight:
+            return BlockOptionImage.columnMoveRight
+        case .duplicate:
+            return BlockOptionImage.duplicate
+        case .delete:
+            return BlockOptionImage.delete
+        case .clearContents:
+            return BlockOptionImage.cellMenuClear
+        case .sort:
+            return BlockOptionImage.columnSort
+        case .color:
+            return UIImage.editorNavigation.lockedObject
+            return BlockOptionImage.cellMenuColor
+        case .style:
+            return UIImage.editorNavigation.lockedObject
+            return UIImage.edititngToolbar.style
+        }
+    }
 }
 
 enum SimpleTableRowMenuItem: CaseIterable {
@@ -91,6 +135,33 @@ enum SimpleTableRowMenuItem: CaseIterable {
             return L10n.color
         case .style:
             return L10n.style
+        }
+    }
+
+    var image: UIImage {
+        switch self {
+        case .insertAbove:
+            return BlockOptionImage.rowInsertAbove
+        case .insertBelow:
+            return BlockOptionImage.rowInsertBelow
+        case .moveUp:
+            return UIImage.editorNavigation.lockedObject
+            return BlockOptionImage.rowMoveUp
+        case .moveDown:
+            return UIImage.editorNavigation.lockedObject
+            return BlockOptionImage.rowMoveDown
+        case .duplicate:
+            return BlockOptionImage.duplicate
+        case .delete:
+            return BlockOptionImage.delete
+        case .clearContents:
+            return BlockOptionImage.cellMenuClear
+        case .color:
+            return UIImage.editorNavigation.lockedObject
+            return BlockOptionImage.cellMenuColor
+        case .style:
+            return UIImage.editorNavigation.lockedObject
+            return UIImage.edititngToolbar.style
         }
     }
 }

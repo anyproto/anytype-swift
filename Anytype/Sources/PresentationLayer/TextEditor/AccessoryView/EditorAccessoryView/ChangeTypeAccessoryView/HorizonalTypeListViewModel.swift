@@ -21,8 +21,8 @@ final class HorizonalTypeListViewModel: ObservableObject {
 
     private var cancellables = [AnyCancellable]()
 
-    init(itemProvider: TypeListItemProvider) {
-        itemProvider.typesPublisher.sink { [weak self] types in
+    init(itemProvider: TypeListItemProvider?) {
+        itemProvider?.typesPublisher.sink { [weak self] types in
             self?.items = types
         }.store(in: &cancellables)
     }

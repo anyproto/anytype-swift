@@ -258,13 +258,13 @@ struct SpreadsheetSelectionHelper {
     }
 
     static func allIndexPaths(for rowIndex: Int, sectionsCount: Int) -> [IndexPath] {
-        (0...sectionsCount).map {
+        (0...sectionsCount - 1).map {
             IndexPath(row: rowIndex, section: $0)
         }
     }
 
     static func allIndexPaths(for sectionIndex: Int, rowsCount: Int) -> [IndexPath] {
-        (0...rowsCount).map {
+        (0...rowsCount - 1).map {
             IndexPath(row: $0, section: sectionIndex)
         }
     }

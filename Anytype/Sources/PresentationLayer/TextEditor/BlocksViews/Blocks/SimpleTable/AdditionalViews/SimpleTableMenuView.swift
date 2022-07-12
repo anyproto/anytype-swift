@@ -1,22 +1,32 @@
 import SwiftUI
 import Combine
 
+struct SimpleTableMenuModel {
+    struct TabModel: Identifiable {
+        let id: Int
+        let title: String
+        let isSelected: Bool
+        let action: () -> Void
+    }
+
+    let tabs: [TabModel]
+    let items: [HorizontalListItem]
+    let onDone: () -> Void
+}
+
 final class SimpleTableMenuViewModel: ObservableObject, TypeListItemProvider {
     var typesPublisher: AnyPublisher<[HorizontalListItem], Never> { $items.eraseToAnyPublisher() }
     @Published var items = [HorizontalListItem]()
-    @Published var index: Int = 0
+    @Published var tabModels = [SimpleTableMenuModel.TabModel]()
 
-    private var selectedIndexPaths = [IndexPath]()
-
-    weak var delegate: SimpleTableMenuDelegate?
-
-    func didSelectTab(tab: SimpleTableMenuView.Tab) {
-        delegate?.didSelectTab(tab: tab)
+    func update(with model: SimpleTableMenuModel) {
+        self.items = model.items
+        self.tabModels = model.tabs
     }
 }
 
 struct SimpleTableMenuView: View {
-    enum Tab: Int {
+    enum Tab: Int, CaseIterable {
         case cell
         case column
         case row
@@ -39,30 +49,31 @@ struct SimpleTableMenuView: View {
         VStack {
             Spacer.fixedHeight(17)
             tabHeaders
-            HorizonalTypeListView(viewModel: .init(itemProvider: viewModel))
+            SelectionOptionsView(viewModel: .init(itemProvider: viewModel))
         }
     }
 
     private var tabHeaders: some View {
         HStack(alignment: .center, spacing: 17) {
-            tabHeaderButton(.cell)
-            tabHeaderButton(.column)
-            tabHeaderButton(.row)
+            ForEach(viewModel.tabModels) { item in
+                tabHeaderButton(item: item)
+            }
+
         }.frame(height: 24, alignment: .center)
     }
 
-    private func tabHeaderButton(_ tab: Tab) -> some View {
+    private func tabHeaderButton(item: SimpleTableMenuModel.TabModel) -> some View {
         Button {
+            guard !item.isSelected else { return }
             UISelectionFeedbackGenerator().selectionChanged()
             withAnimation {
-                viewModel.didSelectTab(tab: tab)
-                viewModel.index = tab.rawValue
+                item.action()
             }
         } label: {
             AnytypeText(
-                tab.title,
+                item.title,
                 style: .subheading,
-                color: viewModel.index == tab.rawValue ? Color.buttonSelected : Color.buttonActive
+                color: item.isSelected ? Color.buttonSelected : Color.buttonActive
             )
         }
     }

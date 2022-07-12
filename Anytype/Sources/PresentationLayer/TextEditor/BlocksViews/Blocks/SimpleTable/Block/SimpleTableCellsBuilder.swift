@@ -37,44 +37,14 @@ final class SimpleTableCellsBuilder {
     func buildItems(
         from info: BlockInformation
     ) -> [[EditorItem]] {
-        var tableColumnsBlockInfo: BlockInformation?
-        var tableRowsBlockInfo: BlockInformation?
-
-        for childId in info.childrenIds {
-            guard let childInformation = infoContainer.get(id: childId) else {
-                anytypeAssertionFailure("Can't find child of table view", domain: .simpleTables)
-                return []
-            }
-
-            if childInformation.content == .layout(.init(style: .tableRows)) {
-                tableRowsBlockInfo = childInformation
-            } else if childInformation.content == .layout(.init(style: .tableColumns)) {
-                tableColumnsBlockInfo = childInformation
-            }
-        }
-
-        guard let tableColumnsBlockInfo = tableColumnsBlockInfo,
-              let tableRowsBlockInfo = tableRowsBlockInfo else {
-            anytypeAssertionFailure("Missing column or rows information", domain: .simpleTables)
+        guard let computedTable = ComputedTable(blockInformation: info, infoContainer: infoContainer) else {
             return []
         }
 
-        return buildModels(
-            tableColumnsBlockInfo: tableColumnsBlockInfo,
-            tableRowsBlockInfo: tableRowsBlockInfo
-        )
+        return buildModels(computedTable: computedTable)
     }
 
-    private func buildModels(
-        tableColumnsBlockInfo: BlockInformation,
-        tableRowsBlockInfo: BlockInformation
-    ) -> [[EditorItem]] {
-        let computedTable = ComputedTable(
-            infoContainer: infoContainer,
-            tableColumnsBlockInfo: tableColumnsBlockInfo,
-            tableRowsBlockInfo: tableRowsBlockInfo
-        )
-
+    private func buildModels(computedTable: ComputedTable) -> [[EditorItem]] {
         return computedTable.cells.map {
             $0.map { item in
                 guard let blockInformation = item.blockInformation else {
@@ -177,12 +147,10 @@ struct ComputedTable {
             if childInformation.content == .tableRow {
                 var rowBlocks = [Cell]()
 
-                for column in 0..<numberOfColumns {
-                    let columnId = tableColumnsBlockInfo.childrenIds[column]
+                for columnIndex in 0..<numberOfColumns {
+                    let columnId = tableColumnsBlockInfo.childrenIds[columnIndex]
 
-                    let rowChildInformation = childInformation.childrenIds[safe: column]
-                    let child = rowChildInformation.map { infoContainer.get(id: $0) }.flatMap { $0 }
-
+                    let child = infoContainer.get(id: "\(rowId)-\(columnId)")
                     let cell = Cell(rowId: rowId, columnId: columnId, blockInformation: child)
                     rowBlocks.append(cell)
                 }
@@ -192,5 +160,45 @@ struct ComputedTable {
         }
 
         self.cells = blocks
+    }
+}
+
+extension ComputedTable {
+    init?(blockInformation: BlockInformation, infoContainer: InfoContainerProtocol) {
+        var tableColumnsBlockInfo: BlockInformation?
+        var tableRowsBlockInfo: BlockInformation?
+
+        for childId in blockInformation.childrenIds {
+            guard let childInformation = infoContainer.get(id: childId) else {
+                anytypeAssertionFailure("Can't find child of table view", domain: .simpleTables)
+                return nil
+            }
+
+            if childInformation.content == .layout(.init(style: .tableRows)) {
+                tableRowsBlockInfo = childInformation
+            } else if childInformation.content == .layout(.init(style: .tableColumns)) {
+                tableColumnsBlockInfo = childInformation
+            }
+        }
+
+        guard let tableColumnsBlockInfo = tableColumnsBlockInfo,
+              let tableRowsBlockInfo = tableRowsBlockInfo else {
+            anytypeAssertionFailure("Missing column or rows information", domain: .simpleTables)
+            return nil
+        }
+
+        self.init(infoContainer: infoContainer, tableColumnsBlockInfo: tableColumnsBlockInfo, tableRowsBlockInfo: tableRowsBlockInfo)
+    }
+}
+
+extension ComputedTable {
+    var allColumnIds: [BlockId] {
+        cells.first?.compactMap { $0.columnId } ?? []
+    }
+
+    var allRowIds: [BlockId] {
+        cells.compactMap {
+            $0.first.map { $0.columnId }
+        }
     }
 }

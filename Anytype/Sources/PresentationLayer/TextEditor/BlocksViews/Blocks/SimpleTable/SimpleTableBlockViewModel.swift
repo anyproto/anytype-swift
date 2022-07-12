@@ -11,7 +11,7 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
         info.id as AnyHashable
     }
 
-    private weak var blockDelegate: BlockDelegate?
+    private let blockDelegate: BlockDelegate
     private let simpleTableViewModelBuilder: () -> SimpleTableViewModel
     private let stateManager: SimpleTableStateManager
 
@@ -30,6 +30,7 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
         self.blockDelegate = blockDelegate
         self.relativePositionProvider = relativePositionProvider
         self.stateManager = stateManager
+
         self.simpleTableViewModelBuilder = { SimpleTableViewModel(
             document: document,
             tableBlockInfo: info,

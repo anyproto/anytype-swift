@@ -79,7 +79,6 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         let newRect = CGRect(x: rect.origin.x, y: y, width: rect.width, height: height)
         let attributes = (attributes + [selectionAttributes]).filter { $0.frame.intersects(newRect) }
 
-
         return attributes
     }
     
