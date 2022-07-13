@@ -304,6 +304,8 @@ message Block {
             // index 3 is deprecated, was used for schemaURL in old-format sets
             repeated model.Relation relations = 4;
             string activeView = 3; // saved within a session
+            repeated GroupOrder groupOrders = 12;
+            repeated ObjectOrder objectOrders = 13;
 
             message View {
                 string id = 1;
@@ -312,10 +314,11 @@ message Block {
                 repeated Sort sorts = 4;
                 repeated Filter filters = 5;
                 repeated Relation relations = 6; // relations fields/columns options, also used to provide the order
-				string coverRelationKey = 7; // Relation used for cover in gallery
+				        string coverRelationKey = 7; // Relation used for cover in gallery
                 bool hideIcon = 8; // Hide icon near name
                 Size cardSize = 9; // Gallery card size
                 bool coverFit = 10; // Image fits container
+                string groupRelationKey = 11;
 
                 enum Type {
                     Table = 0;
@@ -394,6 +397,8 @@ message Block {
                     NotEmpty = 12;
                     AllIn = 13;
                     NotAllIn = 14;
+                    ExactIn = 15;
+                    NotExactIn = 16;
                 }
 
                 enum QuickOption {
@@ -410,6 +415,48 @@ message Block {
                     NumberOfDaysAgo = 10;
                     NumberOfDaysNow = 11;
                 }
+            }
+
+            message GroupOrder {
+                string viewId = 1;
+                repeated ViewGroup viewGroups = 2;
+            }
+
+            message ViewGroup {
+                string groupId = 1;
+                int32 index = 2;
+                bool hidden = 3;
+            }
+
+            message ObjectOrder {
+                string viewId = 1;
+                string groupId = 2;
+                repeated string objectIds = 3;
+            }
+
+            message Group {
+                string id = 1;
+                oneof Value {
+                    Status status = 2;
+                    Tag tag = 3;
+                    Checkbox checkbox = 4;
+                    Date date = 5;
+                }
+            }
+
+            message Status {
+                string id = 1;
+            }
+
+            message Tag {
+                repeated string ids = 1;
+            }
+
+            message Checkbox {
+                bool checked = 1;
+            }
+
+            message Date {
             }
         }
 

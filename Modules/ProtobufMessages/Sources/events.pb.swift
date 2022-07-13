@@ -403,6 +403,14 @@ public struct Anytype_Event {
       set {value = .blockDataviewRelationSet(newValue)}
     }
 
+    public var blockDataViewGroupOrderUpdate: Anytype_Event.Block.Dataview.GroupOrderUpdate {
+      get {
+        if case .blockDataViewGroupOrderUpdate(let v)? = value {return v}
+        return Anytype_Event.Block.Dataview.GroupOrderUpdate()
+      }
+      set {value = .blockDataViewGroupOrderUpdate(newValue)}
+    }
+
     public var userBlockJoin: Anytype_Event.User.Block.Join {
       get {
         if case .userBlockJoin(let v)? = value {return v}
@@ -522,6 +530,7 @@ public struct Anytype_Event {
       case blockDataviewViewOrder(Anytype_Event.Block.Dataview.ViewOrder)
       case blockDataviewRelationDelete(Anytype_Event.Block.Dataview.RelationDelete)
       case blockDataviewRelationSet(Anytype_Event.Block.Dataview.RelationSet)
+      case blockDataViewGroupOrderUpdate(Anytype_Event.Block.Dataview.GroupOrderUpdate)
       case userBlockJoin(Anytype_Event.User.Block.Join)
       case userBlockLeft(Anytype_Event.User.Block.Left)
       case userBlockSelectRange(Anytype_Event.User.Block.SelectRange)
@@ -712,6 +721,10 @@ public struct Anytype_Event {
         }()
         case (.blockDataviewRelationSet, .blockDataviewRelationSet): return {
           guard case .blockDataviewRelationSet(let l) = lhs, case .blockDataviewRelationSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.blockDataViewGroupOrderUpdate, .blockDataViewGroupOrderUpdate): return {
+          guard case .blockDataViewGroupOrderUpdate(let l) = lhs, case .blockDataViewGroupOrderUpdate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.userBlockJoin, .userBlockJoin): return {
@@ -3299,6 +3312,30 @@ public struct Anytype_Event {
         public init() {}
       }
 
+      public struct GroupOrderUpdate {
+        // SwiftProtobuf.Message conformance is added in an extension below. See the
+        // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+        // methods supported on all messages.
+
+        /// dataview block's id
+        public var id: String = String()
+
+        public var groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder {
+          get {return _groupOrder ?? Anytype_Model_Block.Content.Dataview.GroupOrder()}
+          set {_groupOrder = newValue}
+        }
+        /// Returns true if `groupOrder` has been explicitly set.
+        public var hasGroupOrder: Bool {return self._groupOrder != nil}
+        /// Clears the value of `groupOrder`. Subsequent reads from it will return its default value.
+        public mutating func clearGroupOrder() {self._groupOrder = nil}
+
+        public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+        public init() {}
+
+        fileprivate var _groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder? = nil
+      }
+
       public init() {}
     }
 
@@ -4037,6 +4074,7 @@ extension Anytype_Event.Block.Dataview.RecordsSet: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.RecordsInsert: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.RecordsUpdate: @unchecked Sendable {}
 extension Anytype_Event.Block.Dataview.RecordsDelete: @unchecked Sendable {}
+extension Anytype_Event.Block.Dataview.GroupOrderUpdate: @unchecked Sendable {}
 extension Anytype_Event.User: @unchecked Sendable {}
 extension Anytype_Event.User.Block: @unchecked Sendable {}
 extension Anytype_Event.User.Block.Join: @unchecked Sendable {}
@@ -4169,6 +4207,7 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     29: .same(proto: "blockDataviewViewOrder"),
     24: .same(proto: "blockDataviewRelationDelete"),
     23: .same(proto: "blockDataviewRelationSet"),
+    38: .same(proto: "blockDataViewGroupOrderUpdate"),
     31: .same(proto: "userBlockJoin"),
     32: .same(proto: "userBlockLeft"),
     33: .same(proto: "userBlockSelectRange"),
@@ -4654,6 +4693,19 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
           self.value = .blockSetTableRow(v)
         }
       }()
+      case 38: try {
+        var v: Anytype_Event.Block.Dataview.GroupOrderUpdate?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .blockDataViewGroupOrderUpdate(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .blockDataViewGroupOrderUpdate(v)
+        }
+      }()
       case 50: try {
         var v: Anytype_Event.Object.Details.Amend?
         var hadOneofValue = false
@@ -5029,6 +5081,10 @@ extension Anytype_Event.Message: SwiftProtobuf.Message, SwiftProtobuf._MessageIm
     case .blockSetTableRow?: try {
       guard case .blockSetTableRow(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 37)
+    }()
+    case .blockDataViewGroupOrderUpdate?: try {
+      guard case .blockDataViewGroupOrderUpdate(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 38)
     }()
     case .objectDetailsAmend?: try {
       guard case .objectDetailsAmend(let v)? = self.value else { preconditionFailure() }
@@ -10066,6 +10122,48 @@ extension Anytype_Event.Block.Dataview.RecordsDelete: SwiftProtobuf.Message, Swi
     if lhs.id != rhs.id {return false}
     if lhs.viewID != rhs.viewID {return false}
     if lhs.removed != rhs.removed {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Event.Block.Dataview.GroupOrderUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Event.Block.Dataview.protoMessageName + ".GroupOrderUpdate"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "groupOrder"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._groupOrder) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try { if let v = self._groupOrder {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Event.Block.Dataview.GroupOrderUpdate, rhs: Anytype_Event.Block.Dataview.GroupOrderUpdate) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs._groupOrder != rhs._groupOrder {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

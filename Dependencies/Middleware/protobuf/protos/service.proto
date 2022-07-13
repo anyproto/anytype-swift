@@ -48,6 +48,7 @@ service ClientCommands {
     rpc ObjectGraph (anytype.Rpc.Object.Graph.Request) returns (anytype.Rpc.Object.Graph.Response);
     rpc ObjectSearch (anytype.Rpc.Object.Search.Request) returns (anytype.Rpc.Object.Search.Response);
     rpc ObjectSearchSubscribe (anytype.Rpc.Object.SearchSubscribe.Request) returns (anytype.Rpc.Object.SearchSubscribe.Response);
+    rpc ObjectRelationSearchDistinct (anytype.Rpc.Object.RelationSearchDistinct.Request) returns (anytype.Rpc.Object.RelationSearchDistinct.Response);
     rpc ObjectSubscribeIds (anytype.Rpc.Object.SubscribeIds.Request) returns (anytype.Rpc.Object.SubscribeIds.Response);
     rpc ObjectSearchUnsubscribe (anytype.Rpc.Object.SearchUnsubscribe.Request) returns (anytype.Rpc.Object.SearchUnsubscribe.Response);
     rpc ObjectSetDetails (anytype.Rpc.Object.SetDetails.Request) returns (anytype.Rpc.Object.SetDetails.Response);
@@ -181,6 +182,8 @@ service ClientCommands {
     rpc BlockDataviewRelationUpdate (anytype.Rpc.BlockDataview.Relation.Update.Request) returns (anytype.Rpc.BlockDataview.Relation.Update.Response);
     rpc BlockDataviewRelationDelete (anytype.Rpc.BlockDataview.Relation.Delete.Request) returns (anytype.Rpc.BlockDataview.Relation.Delete.Response);
     rpc BlockDataviewRelationListAvailable (anytype.Rpc.BlockDataview.Relation.ListAvailable.Request) returns (anytype.Rpc.BlockDataview.Relation.ListAvailable.Response);
+    rpc BlockDataviewGroupOrderUpdate (anytype.Rpc.BlockDataview.GroupOrder.Update.Request) returns (anytype.Rpc.BlockDataview.GroupOrder.Update.Response);
+    rpc BlockDataviewObjectOrderUpdate (anytype.Rpc.BlockDataview.ObjectOrder.Update.Request) returns (anytype.Rpc.BlockDataview.ObjectOrder.Update.Response);
 
     rpc BlockDataviewRecordCreate (anytype.Rpc.BlockDataviewRecord.Create.Request) returns (anytype.Rpc.BlockDataviewRecord.Create.Response);
     rpc BlockDataviewRecordUpdate (anytype.Rpc.BlockDataviewRecord.Update.Request) returns (anytype.Rpc.BlockDataviewRecord.Update.Response);

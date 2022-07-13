@@ -101,6 +101,13 @@ extension Anytype_Event.Block.Add {
   }
 }
 
+extension Anytype_Event.Block.Dataview.GroupOrderUpdate {
+  public init(id: String = String(), groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder) {
+    self.id = id
+    self.groupOrder = groupOrder
+  }
+}
+
 extension Anytype_Event.Block.Dataview.RecordsDelete {
   public init(id: String = String(), viewID: String = String(), removed: [String] = []) {
     self.id = id

@@ -793,6 +793,50 @@ extension Anytype_Rpc.BlockDataview.CreateBookmark.Response.Error {
   }
 }
 
+extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Request {
+  public init(contextID: String = String(), blockID: String = String(), groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.groupOrder = groupOrder
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response {
+  public init(error: Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error {
+  public init(code: Anytype_Rpc.BlockDataview.GroupOrder.Update.Response.Error.Code = .null, description_p: String = String()) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Request {
+  public init(contextID: String = String(), blockID: String = String(), objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = []) {
+    self.contextID = contextID
+    self.blockID = blockID
+    self.objectOrders = objectOrders
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response {
+  public init(error: Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error, event: Anytype_ResponseEvent) {
+    self.error = error
+    self.event = event
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error {
+  public init(code: Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error.Code = .null, description_p: String = String()) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
 extension Anytype_Rpc.BlockDataview.Relation.Add.Request {
   public init(contextID: String, blockID: String, relation: Anytype_Model_Relation) {
     self.contextID = contextID
@@ -2880,6 +2924,27 @@ extension Anytype_Rpc.Object.Redo.Response {
 
 extension Anytype_Rpc.Object.Redo.Response.Error {
   public init(code: Anytype_Rpc.Object.Redo.Response.Error.Code = .null, description_p: String = String()) {
+    self.code = code
+    self.description_p = description_p
+  }
+}
+
+extension Anytype_Rpc.Object.RelationSearchDistinct.Request {
+  public init(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = []) {
+    self.relationKey = relationKey
+    self.filters = filters
+  }
+}
+
+extension Anytype_Rpc.Object.RelationSearchDistinct.Response {
+  public init(error: Anytype_Rpc.Object.RelationSearchDistinct.Response.Error, groups: [Anytype_Model_Block.Content.Dataview.Group] = []) {
+    self.error = error
+    self.groups = groups
+  }
+}
+
+extension Anytype_Rpc.Object.RelationSearchDistinct.Response.Error {
+  public init(code: Anytype_Rpc.Object.RelationSearchDistinct.Response.Error.Code = .null, description_p: String = String()) {
     self.code = code
     self.description_p = description_p
   }
