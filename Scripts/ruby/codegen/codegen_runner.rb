@@ -18,12 +18,12 @@ class CodegenRunner
     outputFilePath = append_suffix("+ErrorAdoption", filePath, dirPath)
     templateFilePath = CodegenConfig::CodegenTemplatesPath + "/" +  "error.stencill"
 
-    args = "generateErrorAdoption" +
+    args = "generateObjectExtension" +
       " --filePath #{filePath}" +
       " --outputFilePath #{outputFilePath}" +
       " --templateFilePath #{templateFilePath}"
     
-    puts "Run generateErrorAdoption for #{filePath}"
+    puts "Run generate error extensions for #{filePath}"
     ShellExecutor.run_command_line_silent "#{CodegenConfig::CodegenPath} #{args}"
   end
 
@@ -32,12 +32,12 @@ class CodegenRunner
     outputFilePath = append_suffix("+Initializers", filePath, dirPath)
     templateFilePath = CodegenConfig::CodegenTemplatesPath + "/" +  "initializer.stencill"
 
-    args = "generateInitializes" +
+    args = "generateObjectExtension" +
         " --filePath #{filePath}" +
         " --outputFilePath #{outputFilePath}" +
         " --templateFilePath #{templateFilePath}"
     
-    puts "Run generateInitializes for #{filePath}"
+    puts "Run generate initializes for #{filePath}"
     ShellExecutor.run_command_line_silent "#{CodegenConfig::CodegenPath} #{args}"
   end
 

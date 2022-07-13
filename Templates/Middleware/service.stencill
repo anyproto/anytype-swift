@@ -1,3 +1,10 @@
+// DO NOT EDIT
+//
+// Generated automatically by the AnytypeSwiftCodegen.
+//
+// For more info see:
+// https://github.com/anytypeio/anytype-swift-codegen
+
 import Combine
 import Foundation
 import Lib
