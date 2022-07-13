@@ -26,8 +26,10 @@ protocol BlockTableServiceProtocol {
     func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition)
     func deleteRow(contextId: BlockId, targetId: BlockId)
     func rowDuplicate(contextId: BlockId, targetId: BlockId)
+    func rowMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition)
 
     func clearContents(contextId: BlockId, blockIds: [BlockId])
+    func clearStyle(contextId: BlockId, blocksIds: [BlockId])
 }
 
 final class BlockTableService: BlockTableServiceProtocol {
@@ -146,18 +148,24 @@ final class BlockTableService: BlockTableServiceProtocol {
         eventsBunch?.send()
     }
 
-    func clearContents(contextId: BlockId, blockIds: [BlockId]) {
-        let eventsBunch = Anytype_Rpc.BlockTable.RowListClean.Service.invoke(contextID: contextId, blockIds: blockIds)
+    func columnMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) {
+        let eventsBunch = Anytype_Rpc.BlockTable.ColumnMove.Service.invoke(
+            contextID: contextId,
+            targetID: targetId,
+            dropTargetID: dropTargetID,
+            position: position.asMiddleware
+        )
             .getValue(domain: .simpleTablesService)
             .map { EventsBunch(event: $0.event) }
 
         eventsBunch?.send()
     }
 
-    func columnMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) {
-        let eventsBunch = Anytype_Rpc.BlockTable.ColumnMove.Service.invoke(
+    func rowMove(contextId: BlockId, targetId: BlockId, dropTargetID: BlockId, position: BlockPosition) {
+        let eventsBunch = Anytype_Rpc.Block.ListMoveToExistingObject.Service.invoke(
             contextID: contextId,
-            targetID: targetId,
+            blockIds: [targetId],
+            targetContextID: contextId,
             dropTargetID: dropTargetID,
             position: position.asMiddleware
         )
@@ -184,6 +192,28 @@ final class BlockTableService: BlockTableServiceProtocol {
             targetID: targetId,
             blockID: targetId,
             position: BlockPosition.bottom.asMiddleware
+        )
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+
+    func clearContents(contextId: BlockId, blockIds: [BlockId]) {
+        let eventsBunch = Anytype_Rpc.BlockText.ListClearContent.Service.invoke(
+            contextID: contextId,
+            blockIds: blockIds
+        )
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
+
+        eventsBunch?.send()
+    }
+
+    func clearStyle(contextId: BlockId, blocksIds: [BlockId]) {
+        let eventsBunch = Anytype_Rpc.BlockText.ListClearStyle.Service.invoke(
+            contextID: contextId,
+            blockIds: blocksIds
         )
             .getValue(domain: .simpleTablesService)
             .map { EventsBunch(event: $0.event) }

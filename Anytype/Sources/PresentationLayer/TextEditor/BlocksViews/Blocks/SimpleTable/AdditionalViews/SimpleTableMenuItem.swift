@@ -25,7 +25,6 @@ enum SimpleTableCellMenuItem: CaseIterable {
     var image: UIImage {
         switch self {
         case .clearContents:
-            return UIImage.editorNavigation.lockedObject
             return BlockOptionImage.cellMenuClear
         case .color:
             return UIImage.editorNavigation.lockedObject
@@ -34,7 +33,6 @@ enum SimpleTableCellMenuItem: CaseIterable {
             return UIImage.editorNavigation.lockedObject
             return UIImage.edititngToolbar.style
         case .clearStyle:
-            return UIImage.editorNavigation.lockedObject
             return BlockOptionImage.cellMenuClear
         }
     }
@@ -146,10 +144,8 @@ enum SimpleTableRowMenuItem: CaseIterable {
         case .insertBelow:
             return BlockOptionImage.rowInsertBelow
         case .moveUp:
-            return UIImage.editorNavigation.lockedObject
             return BlockOptionImage.rowMoveUp
         case .moveDown:
-            return UIImage.editorNavigation.lockedObject
             return BlockOptionImage.rowMoveDown
         case .duplicate:
             return BlockOptionImage.duplicate

@@ -283,10 +283,6 @@ extension EditorPageController: EditorPageViewInput {
 
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         }
-
-        collectionView.indexPathsForSelectedItems.map(
-            viewModel.blocksStateManager.didUpdateSelectedIndexPaths
-        )
     }
     
     func textBlockWillBeginEditing() { }

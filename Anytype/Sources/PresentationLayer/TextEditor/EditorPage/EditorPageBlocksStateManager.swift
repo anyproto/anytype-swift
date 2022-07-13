@@ -235,7 +235,6 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             ) { [weak self] in
                 self?.handleBlocksOptionItemSelection(item)
             }
-
         }
 
         blocksOptionViewModel?.items = horizontalItems

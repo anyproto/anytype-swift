@@ -198,7 +198,7 @@ extension ComputedTable {
 
     var allRowIds: [BlockId] {
         cells.compactMap {
-            $0.first.map { $0.columnId }
+            $0.first.map { $0.rowId }
         }
     }
 }

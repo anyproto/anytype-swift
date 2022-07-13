@@ -256,9 +256,39 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
                 tableService.insertRow(contextId: document.objectId, targetId: $0, position: .bottom)
             }
         case .moveUp:
-            return
+            let allRowIds = table.allRowIds
+            let dropRowIds = uniqueRows.compactMap { item -> BlockId? in
+                guard let index = allRowIds.firstIndex(of: item) else { return nil }
+                let indexBefore = allRowIds.index(before: index)
+
+                return allRowIds[safe: indexBefore]
+            }
+
+            zip(uniqueRows, dropRowIds).forEach { targetId, dropColumnId in
+                tableService.rowMove(
+                    contextId: document.objectId,
+                    targetId: targetId,
+                    dropTargetID: dropColumnId,
+                    position: .top
+                )
+            }
         case .moveDown:
-            return
+            let allRowIds = table.allRowIds
+            let dropRowIds = uniqueRows.compactMap { item -> BlockId? in
+                guard let index = allRowIds.firstIndex(of: item) else { return nil }
+                let indexAfter = allRowIds.index(after: index)
+
+                return allRowIds[safe: indexAfter]
+            }
+
+            zip(uniqueRows, dropRowIds).forEach { targetId, dropColumnId in
+                tableService.rowMove(
+                    contextId: document.objectId,
+                    targetId: targetId,
+                    dropTargetID: dropColumnId,
+                    position: .bottom
+                )
+            }
         case .duplicate:
             uniqueRows.forEach {
                 tableService.rowDuplicate(contextId: document.objectId, targetId: $0)
@@ -268,7 +298,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
                 tableService.deleteRow(contextId: document.objectId, targetId: $0)
             }
         case .clearContents:
-            tableService.clearContents(contextId: document.objectId, blockIds: Array(uniqueRows))
+            tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
         case .color:
             return
         case .style:
@@ -292,14 +322,13 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
 
         switch action {
         case .clearContents:
-            return
             tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
         case .color:
             return
         case .style:
             return
         case .clearStyle:
-            return
+            tableService.clearStyle(contextId: document.objectId, blocksIds: selectedBlockIds)
         }
 
         editingState = .editing
