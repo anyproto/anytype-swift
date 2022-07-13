@@ -8,6 +8,7 @@ struct SetTableViewRowData: Identifiable, Hashable {
     let relations: [Relation]
     let screenData: EditorScreenData
     let showIcon: Bool
+    @EquatableNoop var onIconTap: () -> Void
     
     init(
         id: BlockId,
@@ -15,7 +16,8 @@ struct SetTableViewRowData: Identifiable, Hashable {
         icon: ObjectIconImage?,
         relations: [Relation],
         screenData: EditorScreenData,
-        showIcon: Bool
+        showIcon: Bool,
+        onIconTap: @escaping () -> Void
     ) {
         self.id = id
         self.title = title
@@ -23,5 +25,6 @@ struct SetTableViewRowData: Identifiable, Hashable {
         self.relations = relations
         self.screenData = screenData
         self.showIcon = showIcon
+        self.onIconTap = onIconTap
     }
 }

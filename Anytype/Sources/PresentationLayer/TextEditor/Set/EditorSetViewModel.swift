@@ -24,7 +24,16 @@ final class EditorSetViewModel: ObservableObject {
     }
  
     var rows: [SetTableViewRowData] {
-        dataBuilder.rowData(records, dataView: dataView, activeView: activeView, colums: colums, isObjectLocked: document.isLocked)
+        dataBuilder.rowData(
+            records,
+            dataView: dataView,
+            activeView: activeView,
+            colums: colums,
+            isObjectLocked: document.isLocked,
+            onIconTap: { [weak self] details in
+                self?.updateDetailsIfNeeded(details)
+            }
+        )
     }
     
     var sortedRelations: [SetRelation] {
@@ -83,16 +92,19 @@ final class EditorSetViewModel: ObservableObject {
     private let dataBuilder = SetTableViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
+    private let detailsService: DetailsServiceProtocol
     
     init(
         document: BaseDocument,
         dataviewService: DataviewServiceProtocol,
-        searchService: SearchServiceProtocol
+        searchService: SearchServiceProtocol,
+        detailsService: DetailsServiceProtocol
     ) {
         ObjectTypeProvider.shared.resetCache()
         self.document = document
         self.dataviewService = dataviewService
         self.searchService = searchService
+        self.detailsService = detailsService
     }
     
     func setup(router: EditorRouterProtocol) {
@@ -211,6 +223,14 @@ final class EditorSetViewModel: ObservableObject {
     
     private func isBookmarkObject() -> Bool {
         dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
+    }
+    
+    private func updateDetailsIfNeeded(_ details: ObjectDetails) {
+        guard details.layout == .todo else { return }
+        detailsService.updateBundledDetails(
+            contextID: details.id,
+            bundledDpdates: [.done(!details.isDone)]
+        )
     }
 }
 
