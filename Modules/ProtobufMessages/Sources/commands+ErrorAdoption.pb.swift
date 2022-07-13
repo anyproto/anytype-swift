@@ -1,9 +1,4 @@
-// DO NOT EDIT
-//
-// Generated automatically by the AnytypeSwiftCodegen.
-//
-// For more info see:
-// https://github.com/anytypeio/anytype-swift-codegen
+
 extension Anytype_Rpc.App.GetVersion.Response.Error: Swift.Error {}
 extension Anytype_Rpc.App.SetDeviceState.Response.Error: Swift.Error {}
 extension Anytype_Rpc.App.Shutdown.Response.Error: Swift.Error {}

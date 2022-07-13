@@ -16,9 +16,12 @@ class CodegenRunner
   private_class_method def self.generateErrorAdoption(filePath)
     dirPath = Pathname.new(filePath).dirname.to_s
     outputFilePath = append_suffix("+ErrorAdoption", filePath, dirPath)
+    templateFilePath = CodegenConfig::CodegenTemplatesPath + "/" +  "error.stencill"
+
     args = "generateErrorAdoption" +
       " --filePath #{filePath}" +
-      " --outputFilePath #{outputFilePath}"
+      " --outputFilePath #{outputFilePath}" +
+      " --templateFilePath #{templateFilePath}"
     
     puts "Run generateErrorAdoption for #{filePath}"
     ShellExecutor.run_command_line_silent "#{CodegenConfig::CodegenPath} #{args}"
@@ -27,12 +30,12 @@ class CodegenRunner
   private_class_method def self.generateInit(filePath)
     dirPath = Pathname.new(filePath).dirname.to_s
     outputFilePath = append_suffix("+Initializers", filePath, dirPath)
-    importsFilePath = append_suffix("+Initializers+Import", filePath, CodegenConfig::CodegenTemplatesPath)
+    templateFilePath = CodegenConfig::CodegenTemplatesPath + "/" +  "initializer.stencill"
 
     args = "generateInitializes" +
         " --filePath #{filePath}" +
         " --outputFilePath #{outputFilePath}" +
-        " --importsFilePath #{importsFilePath}"
+        " --templateFilePath #{templateFilePath}"
     
     puts "Run generateInitializes for #{filePath}"
     ShellExecutor.run_command_line_silent "#{CodegenConfig::CodegenPath} #{args}"
@@ -41,14 +44,12 @@ class CodegenRunner
   private_class_method def self.generateService(filePath)
     dirPath = Pathname.new(filePath).dirname.to_s
     outputFilePath = append_suffix("+Service", filePath, dirPath)
-    importsFilePath = append_suffix("+Service+Import", filePath, CodegenConfig::CodegenTemplatesPath)
-    templateFilePath = append_suffix("+Service+Template", filePath, CodegenConfig::CodegenTemplatesPath)
+    templateFilePath = CodegenConfig::CodegenTemplatesPath + "/" + "service.stencill"
     serviceFilePath = File.expand_path("#{__dir__}/../../../Dependencies/Middleware/#{Constants::PROTOBUF_DIRECTORY_NAME}/protos/service.proto")
 
     args = "generateService" +
       " --filePath #{filePath}" +
       " --outputFilePath #{outputFilePath}" +
-      " --importsFilePath #{importsFilePath}" +
       " --templateFilePath #{templateFilePath}" +
       " --serviceFilePath #{serviceFilePath}"
     
