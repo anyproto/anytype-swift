@@ -50,7 +50,7 @@ struct SetFilterRow: View {
                     AnytypeText(subtitle, style: .relation1Regular, color: .textSecondary)
                     RelationValueView(
                         relation: RelationItemModel(relation: configuration.relation),
-                        style: .filter,
+                        style: .filter(hasValues: configuration.hasValues),
                         action: nil
                     )
                 }

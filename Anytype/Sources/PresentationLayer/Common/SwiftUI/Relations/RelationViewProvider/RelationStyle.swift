@@ -4,13 +4,13 @@ enum RelationStyle: Hashable {
     case regular(allowMultiLine: Bool)
     case featuredRelationBlock(allowMultiLine: Bool)
     case set
-    case filter
+    case filter(hasValues: Bool)
 }
 
 enum RelationPlaceholderType {
     case hint
     case empty
-    case emptyHint
+    case clear(withHint: Bool)
 }
 
 extension RelationStyle {
@@ -61,8 +61,8 @@ extension RelationStyle {
             return .hint
         case .set:
             return .empty
-        case .filter:
-            return .emptyHint
+        case let .filter(hasValues):
+            return .clear(withHint: hasValues)
         }
     }
     
