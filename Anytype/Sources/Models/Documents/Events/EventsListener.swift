@@ -102,7 +102,7 @@ private extension Array where Element == DocumentUpdate {
 
         return filter { element in
             switch element {
-            case .general, .changeType:
+            case .general:
                 return true
             case .syncStatus, .blocks, .details, .dataSourceUpdate, .header:
                 return false

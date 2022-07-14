@@ -1,7 +1,7 @@
 import UIKit
 import Combine
 
-struct SpreadsheetBlockConfiguration<Configuration: BlockConfiguration>: UIContentConfiguration {
+struct SpreadsheetBlockConfiguration<Configuration: BlockConfiguration>: UIContentConfiguration, HashableProvier {
     func makeContentView() -> UIView & UIContentView {
         SpreadsheetBlockView<Configuration.View>(configuration: self)
     }
@@ -15,6 +15,8 @@ struct SpreadsheetBlockConfiguration<Configuration: BlockConfiguration>: UIConte
 
         return updatedConfig
     }
+
+    var hashable: AnyHashable { blockConfiguration }
 
     let blockConfiguration: Configuration
     let styleConfiguration: SpreadsheetStyleConfiguration

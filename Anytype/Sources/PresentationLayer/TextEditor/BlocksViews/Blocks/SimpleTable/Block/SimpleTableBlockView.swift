@@ -11,7 +11,6 @@ final class SimpleTableBlockView: UIView, BlockContentView {
 
     private var viewModel: SimpleTableViewModel?
     private var modelsSubscriptions = [AnyCancellable]()
-    private var configuration: SimpleTableBlockContentConfiguration?
     private weak var blockDelegate: BlockDelegate?
 
     private var cancellables = [AnyCancellable]()
@@ -32,15 +31,15 @@ final class SimpleTableBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: SimpleTableBlockContentConfiguration) {
-        self.blockDelegate = configuration.blockDelegate
-        self.configuration = configuration
+        let dependencies = configuration.dependenciesBuilder.buildDependenciesContainer(blockInformation: configuration.info)
 
-        viewModel = configuration.viewModelBuilder()
+        self.blockDelegate = dependencies.blockDelegate
+        self.viewModel = dependencies.viewModel
 
         collectionView.delegate = self
         dynamicLayoutView.update(
             with: .init(
-                hashable: configuration.hashValue,
+                layoutHeightMemory: .none,
                 layout: spreadsheetLayout,
                 heightDidChanged: { [weak self] in self?.blockDelegate?.textBlockSetNeedsLayout() }
             )
@@ -51,10 +50,10 @@ final class SimpleTableBlockView: UIView, BlockContentView {
             spreadsheetLayout?.itemWidths = width
         }.store(in: &modelsSubscriptions)
 
-        spreadsheetLayout.relativePositionProvider = configuration.relativePositionProvider
+        spreadsheetLayout.relativePositionProvider = dependencies.relativePositionProvider
 
         viewModel?.dataSource = dataSource
-        configuration.stateManager.dataSource = dataSource
+        dependencies.stateManager.dataSource = dataSource
 
         setupHandlers()
     }
@@ -70,7 +69,7 @@ final class SimpleTableBlockView: UIView, BlockContentView {
                 UIApplication.shared.hideKeyboard()
                 dynamicLayoutView.collectionView.isEditing = false
                 dynamicLayoutView.collectionView.isLocked = false
-                spreadsheetLayout.reselectSelectedCells(selection: viewModel?.stateManager.selectedMenuTab ?? .cell)
+                spreadsheetLayout.reselectSelectedCells()
             case .editing:
                 dynamicLayoutView.collectionView.isEditing = true
                 dynamicLayoutView.collectionView.isLocked = false
@@ -86,24 +85,23 @@ final class SimpleTableBlockView: UIView, BlockContentView {
                 isEditing = true
             }
 
-            print("-- isEditing dsadas \(isEditing)")
 
             collectionView.isEditing = isEditing
         }.store(in: &cancellables)
 
         viewModel?.stateManager.editorSelectedBlocks.sink { [unowned self] blockIds in
             blockIds.forEach(selectBlock)
-            spreadsheetLayout.reselectSelectedCells(selection: viewModel?.stateManager.selectedMenuTab ?? .cell)
+            spreadsheetLayout.reselectSelectedCells()
         }.store(in: &cancellables)
 
-        viewModel?.stateManager.selectedMenuTabPublisher.sink { [unowned self] selectedTab in
+        viewModel?.stateManager.selectedMenuTabPublisher.sink { [unowned self] _ in
 
             collectionView.deselectAllSelectedItems()
 
             let indexPathsForSelectedItemsNew = collectionView.indexPathsForSelectedItems ?? []
             viewModel?.stateManager.didUpdateSelectedIndexPaths(indexPathsForSelectedItemsNew)
 
-            spreadsheetLayout.reselectSelectedCells(selection: selectedTab)
+            spreadsheetLayout.reselectSelectedCells()
         }.store(in: &cancellables)
     }
 
@@ -113,6 +111,9 @@ final class SimpleTableBlockView: UIView, BlockContentView {
         }
 
         dynamicLayoutView.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
+
+        let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems ?? []
+        viewModel?.stateManager.didUpdateSelectedIndexPaths(indexPathsForSelectedItems)
     }
 
     private func setupSubview() {
@@ -183,7 +184,7 @@ extension SimpleTableBlockView: UICollectionViewDelegate {
             let indexPathsForSelectedItemsNew = collectionView.indexPathsForSelectedItems ?? []
 
             viewModel?.stateManager.didUpdateSelectedIndexPaths(indexPathsForSelectedItemsNew)
-            spreadsheetLayout.reselectSelectedCells(selection: viewModel?.stateManager.selectedMenuTab ?? .cell)
+            spreadsheetLayout.reselectSelectedCells()
         }
     }
 
@@ -229,7 +230,7 @@ extension SimpleTableBlockView: UICollectionViewDelegate {
             viewModel?.stateManager.didUpdateSelectedIndexPaths(indexPathsForSelectedItems)
         }
 
-        spreadsheetLayout.reselectSelectedCells(selection: viewModel?.stateManager.selectedMenuTab ?? .cell)
+        spreadsheetLayout.reselectSelectedCells()
     }
 
     func collectionView(

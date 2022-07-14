@@ -37,7 +37,6 @@ class SelectionDecorationView: UICollectionReusableView, ReusableContent {
 
         attributes.$selectedRects.sink { [weak self] rects in
 
-            print("Union will draw \(rects.count) rect")
             self?.redraw(selectedFrames: rects)
         }.store(in: &cancellables)
     }

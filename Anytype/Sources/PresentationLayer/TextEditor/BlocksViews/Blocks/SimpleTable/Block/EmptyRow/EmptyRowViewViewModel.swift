@@ -36,7 +36,7 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     }
 
     func emptyRowConfiguration() -> EmptyRowConfiguration {
-        EmptyRowConfiguration {
+        EmptyRowConfiguration(id: "\(rowId)-\(columnId)") {
             tablesService.rowListFill(
                 contextId: contextId,
                 targetIds: [rowId]
@@ -60,6 +60,8 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
 
 struct EmptyRowConfiguration: BlockConfiguration {
     typealias View = EmptyRowView
+
+    let id: BlockId
 
     @EquatableNoop private(set) var action: () -> Void
 }
@@ -107,7 +109,7 @@ final class EmptyRowView: UIView, BlockContentView {
         }
 
         button.addTarget(self, action: #selector(handleTap), for: .touchUpInside)
-    }
+}
 
     @objc func handleTap() {
         actionHandler?()

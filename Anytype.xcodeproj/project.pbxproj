@@ -928,7 +928,7 @@
 		C971EA4627E9C696002FF3BE /* UnsplashService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C971EA4527E9C696002FF3BE /* UnsplashService.swift */; };
 		C971EB2227E9DCFE002FF3BE /* UnsplashItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = C971EB2127E9DCFE002FF3BE /* UnsplashItem.swift */; };
 		C973E1A8285B3A5C00978BC4 /* EmptyRowViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C973E1A7285B3A5C00978BC4 /* EmptyRowViewViewModel.swift */; };
-		C973E1AD285C567F00978BC4 /* SimpleTableViewModelBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C973E1AC285C567F00978BC4 /* SimpleTableViewModelBuilder.swift */; };
+		C973E1AD285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C973E1AC285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift */; };
 		C9767C0628193E2300AEF728 /* DynamicCollectionLayoutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9767C0228193E2100AEF728 /* DynamicCollectionLayoutView.swift */; };
 		C97A9A162872F2040032DE3E /* SimpleTableComparator.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A9A152872F2040032DE3E /* SimpleTableComparator.swift */; };
 		C97A9A19287300080032DE3E /* SimpleTableMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C97A9A18287300080032DE3E /* SimpleTableMenuView.swift */; };
@@ -2001,7 +2001,7 @@
 		C971EA4527E9C696002FF3BE /* UnsplashService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashService.swift; sourceTree = "<group>"; };
 		C971EB2127E9DCFE002FF3BE /* UnsplashItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnsplashItem.swift; sourceTree = "<group>"; };
 		C973E1A7285B3A5C00978BC4 /* EmptyRowViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyRowViewViewModel.swift; sourceTree = "<group>"; };
-		C973E1AC285C567F00978BC4 /* SimpleTableViewModelBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableViewModelBuilder.swift; sourceTree = "<group>"; };
+		C973E1AC285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableDependenciesBuilder.swift; sourceTree = "<group>"; };
 		C9767C0228193E2100AEF728 /* DynamicCollectionLayoutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DynamicCollectionLayoutView.swift; sourceTree = "<group>"; };
 		C97A9A152872F2040032DE3E /* SimpleTableComparator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableComparator.swift; sourceTree = "<group>"; };
 		C97A9A18287300080032DE3E /* SimpleTableMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableMenuView.swift; sourceTree = "<group>"; };
@@ -6277,7 +6277,7 @@
 				C97A9A172872FFD30032DE3E /* AdditionalViews */,
 				C9A4268628489CAD00F388FC /* SimpleTableBlockViewModel.swift */,
 				C9A4268B28489CC800F388FC /* SimpleTableBlockContentConfiguration.swift */,
-				C973E1AC285C567F00978BC4 /* SimpleTableViewModelBuilder.swift */,
+				C973E1AC285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift */,
 			);
 			path = SimpleTable;
 			sourceTree = "<group>";
@@ -7450,7 +7450,7 @@
 				129C54CB27FC694A00C390C7 /* NewRelationSectionView.swift in Sources */,
 				3D38CC9626D632C500E4F7BF /* ObjectHeaderViewModel.swift in Sources */,
 				C92DCD91272990CE00A03D91 /* ChangeTypeAccessoryView.swift in Sources */,
-				C973E1AD285C567F00978BC4 /* SimpleTableViewModelBuilder.swift in Sources */,
+				C973E1AD285C567F00978BC4 /* SimpleTableDependenciesBuilder.swift in Sources */,
 				12C2A5602754E13000311854 /* DateRelationDetailsView.swift in Sources */,
 				12EEC36B26A0903F00C3C4B1 /* EmojiData.swift in Sources */,
 				12DE403A264AD006007B5074 /* ConfigurableView.swift in Sources */,

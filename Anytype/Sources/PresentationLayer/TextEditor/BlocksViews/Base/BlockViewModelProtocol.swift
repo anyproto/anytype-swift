@@ -23,7 +23,7 @@ extension ContentConfigurationProvider {
             "This content configuration doesn't support spreadsheet",
             domain: .simpleTables
         )
-        return EmptyRowConfiguration(action: {} )
+        return EmptyRowConfiguration(id: "", action: {} )
             .spreadsheetConfiguration(
                 dragConfiguration: nil,
                 styleConfiguration: .init(backgroundColor: .backgroundPrimary)

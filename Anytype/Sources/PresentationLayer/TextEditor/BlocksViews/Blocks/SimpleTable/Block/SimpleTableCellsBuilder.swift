@@ -11,7 +11,7 @@ final class SimpleTableCellsBuilder {
     private let cursorManager: EditorCursorManager
     private let focusSubjectHolder: FocusSubjectsHolder
     private let infoContainer: InfoContainerProtocol
-    private weak var delegate: BlockDelegate?
+    private let delegate: BlockDelegate?
 
     init(
         document: BaseDocumentProtocol,
@@ -123,6 +123,7 @@ final class SimpleTableCellsBuilder {
 
 struct ComputedTable {
     struct Cell {
+        var blockId: BlockId { "\(rowId)-\(columnId)" }
         let rowId: BlockId
         let columnId: BlockId
         let blockInformation: BlockInformation?
@@ -130,7 +131,7 @@ struct ComputedTable {
 
     let cells: [[Cell]]
 
-    init(
+    private init(
         infoContainer: InfoContainerProtocol,
         tableColumnsBlockInfo: BlockInformation,
         tableRowsBlockInfo: BlockInformation
@@ -160,15 +161,25 @@ struct ComputedTable {
         }
 
         self.cells = blocks
+
+        let rowsIsEmpty = cells.compactMap {
+            $0.first.map { $0.blockInformation.isNil ? "\($0.rowId) empty" : "something" }
+        }
+
+        let columnsIds = cells.first?.compactMap { $0.columnId } ?? []
+
+        print("+++++ rows \(rowsIsEmpty)")
+        print("+++++ columns \(columnsIds)")
     }
 }
 
 extension ComputedTable {
     init?(blockInformation: BlockInformation, infoContainer: InfoContainerProtocol) {
+        guard let newBlockInformation = infoContainer.get(id: blockInformation.id) else { return nil }
         var tableColumnsBlockInfo: BlockInformation?
         var tableRowsBlockInfo: BlockInformation?
 
-        for childId in blockInformation.childrenIds {
+        for childId in newBlockInformation.childrenIds {
             guard let childInformation = infoContainer.get(id: childId) else {
                 anytypeAssertionFailure("Can't find child of table view", domain: .simpleTables)
                 return nil

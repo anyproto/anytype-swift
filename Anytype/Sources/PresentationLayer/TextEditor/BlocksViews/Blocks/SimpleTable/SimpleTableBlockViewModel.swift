@@ -11,51 +11,30 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
         info.id as AnyHashable
     }
 
-    private let blockDelegate: BlockDelegate
-    private let simpleTableViewModelBuilder: () -> SimpleTableViewModel
-    private let stateManager: SimpleTableStateManager
-
-    private weak var relativePositionProvider: RelativePositionProvider?
+    private let dependenciesBuilder: SimpleTableDependenciesBuilder
 
     init(
-        document: BaseDocumentProtocol,
         info: BlockInformation,
-        cellsBuilder: SimpleTableCellsBuilder,
-        blockDelegate: BlockDelegate,
-        cursorManager: EditorCursorManager,
-        stateManager: SimpleTableStateManager,
-        relativePositionProvider: RelativePositionProvider?
+        simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
     ) {
         self.info = info
-        self.blockDelegate = blockDelegate
-        self.relativePositionProvider = relativePositionProvider
-        self.stateManager = stateManager
-
-        self.simpleTableViewModelBuilder = { SimpleTableViewModel(
-            document: document,
-            tableBlockInfo: info,
-            cellBuilder: cellsBuilder,
-            stateManager: stateManager,
-            cursorManager: cursorManager
-            )
-        }
+        self.dependenciesBuilder = simpleTableDependenciesBuilder
     }
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        let contentConfiguration = SimpleTableBlockContentConfiguration(
-            blockId: blockId,
-            stateManager: stateManager,
-            blockDelegate: blockDelegate,
-            relativePositionProvider: relativePositionProvider,
-            viewModelBuilder: simpleTableViewModelBuilder
-        )
-
-        return CellBlockConfiguration(
-            blockConfiguration: contentConfiguration,
-            indentationSettings: nil,
-            dragConfiguration: nil
-        )
+        SimpleTableBlockContentConfiguration(
+            info: info,
+            dependenciesBuilder: dependenciesBuilder
+        ).cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
     }
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
+}
+
+
+func measureTime(for problem: String, closure: () -> ()) {
+    let start = CFAbsoluteTimeGetCurrent()
+    closure()
+    let diff = CFAbsoluteTimeGetCurrent() - start
+    print("Took \(diff) seconds for \(problem)")
 }

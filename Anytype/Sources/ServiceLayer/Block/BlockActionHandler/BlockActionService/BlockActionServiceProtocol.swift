@@ -26,8 +26,8 @@ protocol BlockActionServiceProtocol {
     
     func bookmarkFetch(blockId: BlockId, url: String)
     
-    func setBackgroundColor(blockId: BlockId, color: BlockBackgroundColor)
-    func setBackgroundColor(blockId: BlockId, color: MiddlewareColor)
+    func setBackgroundColor(blockIds: [BlockId], color: BlockBackgroundColor)
+    func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor)
     
     func checked(blockId: BlockId, newValue: Bool)
     

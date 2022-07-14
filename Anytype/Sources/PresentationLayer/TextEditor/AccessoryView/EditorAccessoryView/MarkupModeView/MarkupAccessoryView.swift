@@ -34,8 +34,10 @@ final class MarkupAccessoryView: UIView {
         let color = viewModel.currentText?.colorState(range: viewModel.range) ?? UIColor.Text.default
         let backgroundColor = viewModel.currentText?.backgroundColor(range: viewModel.range) ?? UIColor.Background.default
 
-        let colorView = ColorView(color: color,
-                                  backgroundColor: backgroundColor) { [weak viewModel] item in
+        let colorView = ColorView(
+            selectedColor: color,
+            selectedBackgroundColor: backgroundColor
+        ) { [weak viewModel] item in
             viewModel?.handleSelectedColorItem(item)
         } viewDidClose: { [weak viewModel] in
             viewModel?.showColorView = false

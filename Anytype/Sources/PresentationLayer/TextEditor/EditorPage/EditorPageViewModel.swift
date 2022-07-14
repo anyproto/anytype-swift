@@ -128,7 +128,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
 
             let items = blockBuilder.buildEditorItems(infos: models)
             modelsHolder.items = items
-        case .header, .changeType:
+        case .header:
             break // supported in headerModel
         }
 

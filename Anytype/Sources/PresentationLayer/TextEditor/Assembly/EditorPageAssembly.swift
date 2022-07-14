@@ -164,28 +164,6 @@ final class EditorAssembly {
             accessoryState: accessoryState
         )
 
-        let simpleTablesBuilder = SimpleTableViewModelBuilder(
-            document: document,
-            router: router,
-            handler: actionHandler,
-            pasteboardService: pasteboardService,
-            markdownListener: markdownListener,
-            relativePositionProvider: viewInput,
-            cursorManager: EditorCursorManager(focusSubjectHolder: focusSubjectHolder),
-            focusSubjectHolder: focusSubjectHolder
-        )
-
-        let blocksConverter = BlockViewModelBuilder(
-            document: document,
-            handler: actionHandler,
-            pasteboardService: pasteboardService,
-            router: router,
-            delegate: blockDelegate,
-            markdownListener: markdownListener,
-            simpleTablesBuilder: simpleTablesBuilder,
-            subjectsHolder: focusSubjectHolder
-        )
-
         let wholeBlockMarkupViewModel = MarkupViewModel(
             actionHandler: actionHandler
         )
@@ -209,7 +187,28 @@ final class EditorAssembly {
             initialEditingState: isOpenedForPreview ? .locked : .editing
         )
 
-        simpleTablesBuilder.mainEditorSelectionManager = blocksStateManager
+        let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(
+            document: document,
+            router: router,
+            handler: actionHandler,
+            pasteboardService: pasteboardService,
+            markdownListener: markdownListener,
+            focusSubjectHolder: focusSubjectHolder,
+            viewInput: viewInput,
+            mainEditorSelectionManager: blocksStateManager
+        )
+
+        let blocksConverter = BlockViewModelBuilder(
+            document: document,
+            handler: actionHandler,
+            pasteboardService: pasteboardService,
+            router: router,
+            delegate: blockDelegate,
+            markdownListener: markdownListener,
+            simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
+            subjectsHolder: focusSubjectHolder
+        )
+
         actionHandler.blockSelectionHandler = blocksStateManager
 
         blocksStateManager.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel

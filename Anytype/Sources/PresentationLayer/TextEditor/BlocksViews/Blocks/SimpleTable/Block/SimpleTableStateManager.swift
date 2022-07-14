@@ -1,6 +1,7 @@
 import Combine
 import Foundation
 import BlocksModels
+import UIKit
 
 protocol SimpleTableSelectionHandler: AnyObject {
     func didStartSimpleTableSelectionMode(
@@ -34,6 +35,8 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
 
     private let document: BaseDocumentProtocol
     private let tableService: BlockTableServiceProtocol
+    private let router: EditorRouterProtocol
+    private let actionHandler: BlockActionHandlerProtocol
     private weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
 
     weak var dataSource: SpreadsheetViewDataSource? // DO WE NEED IT STILL?? ? ? ? ? ?? ?
@@ -42,11 +45,15 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         document: BaseDocumentProtocol,
         tableBlockInformation: BlockInformation,
         tableService: BlockTableServiceProtocol,
+        router: EditorRouterProtocol,
+        actionHandler: BlockActionHandlerProtocol,
         mainEditorSelectionManager: SimpleTableSelectionHandler?
     ) {
         self.document = document
         self.tableBlockInformation = tableBlockInformation
         self.tableService = tableService
+        self.router = router
+        self.actionHandler = actionHandler
         self.mainEditorSelectionManager = mainEditorSelectionManager
     }
 
@@ -170,7 +177,9 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         let uniqueColumns = Set(selectedColumns)
 
         let selectedBlockIds = selectedBlocksIndexPaths
-            .compactMap { table.cells[$0.section][$0.row].blockInformation?.id }
+            .compactMap { table.cells[$0.section][$0.row].blockId }
+
+        fillSelectedRows()
 
         switch action {
         case .insertLeft:
@@ -223,7 +232,8 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
                 tableService.columnSort(contextId: document.objectId, columnId: $0, blocksSortType: .desc)
             }
         case .color:
-            break
+            onColorSelection(for: selectedBlockIds)
+            return
         case .style:
             break
         }
@@ -231,6 +241,42 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         editingState = .editing
         mainEditorSelectionManager?.didStopSimpleTableSelectionMode()
         selectedMenuTab = .cell
+    }
+
+    private func onColorSelection(for selectedBlockIds: [BlockId]) {
+        measureTime(for: "onColorSelection") {
+            let blockInformations = selectedBlockIds.compactMap(document.infoContainer.get(id:))
+
+            let backgroundColors = blockInformations.map(\.backgroundColor)
+            let textColors = blockInformations.compactMap { blockInformation -> MiddlewareColor in
+                if case let .text(blockText) = blockInformation.content {
+                    return blockText.color ?? .default
+                }
+
+                return MiddlewareColor.default
+            }
+
+            let uniqueBackgroundColors = Set(backgroundColors)
+            let uniqueTextColors = Set(textColors)
+
+            let backgroundColor = uniqueBackgroundColors.count > 1 ? nil : (uniqueBackgroundColors.first ?? .default)
+            let textColor = uniqueTextColors.count > 1 ? nil : (uniqueTextColors.first ?? .default)
+
+            router.showColorPicker(
+                onColorSelection: { [weak actionHandler] colorItem in
+                    measureTime(for: "colorItem") {
+                        switch colorItem {
+                        case .text(let blockColor):
+                            actionHandler?.setTextColor(blockColor, blockIds: selectedBlockIds)
+                        case .background(let blockBackgroundColor):
+                            actionHandler?.setBackgroundColor(blockBackgroundColor, blockIds: selectedBlockIds)
+                        }
+                    }
+                },
+                selectedColor: textColor.map(UIColor.Text.uiColor(from:)) ?? nil,
+                selectedBackgroundColor: backgroundColor.map(UIColor.Background.uiColor(from:)) ?? nil
+            )
+        }
     }
 
     private func handleRowAction(action: SimpleTableRowMenuItem) {
@@ -244,7 +290,9 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         let uniqueRows = Set(selectedRowIds)
 
         let selectedBlockIds = selectedBlocksIndexPaths
-            .compactMap { table.cells[$0.section][$0.row].blockInformation?.id }
+            .compactMap { table.cells[$0.section][$0.row].blockId }
+
+        fillSelectedRows()
 
         switch action {
         case .insertAbove:
@@ -300,6 +348,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         case .clearContents:
             tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
         case .color:
+            onColorSelection(for: selectedBlockIds)
             return
         case .style:
             return
@@ -318,12 +367,15 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
 
 
         let selectedBlockIds = selectedBlocksIndexPaths
-            .compactMap { table.cells[$0.section][$0.row].blockInformation?.id }
+            .compactMap { table.cells[$0.section][$0.row].blockId }
+
+        fillSelectedRows()
 
         switch action {
         case .clearContents:
             tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
         case .color:
+            onColorSelection(for: selectedBlockIds)
             return
         case .style:
             return
@@ -334,6 +386,20 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         editingState = .editing
         mainEditorSelectionManager?.didStopSimpleTableSelectionMode()
         selectedMenuTab = .cell
+    }
+
+    private func fillSelectedRows() {
+        guard let table = ComputedTable(
+            blockInformation: tableBlockInformation,
+            infoContainer: document.infoContainer
+        ) else { return }
+
+        let selectedRows = Set(
+            selectedBlocksIndexPaths
+                .compactMap { table.cells[$0.section][$0.row].rowId }
+        )
+
+        tableService.rowListFill(contextId: document.objectId, targetIds: Array(selectedRows))
     }
 }
 

@@ -64,4 +64,9 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void)
     
     func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
+    func showColorPicker(
+        onColorSelection: @escaping (ColorView.ColorItem) -> Void,
+        selectedColor: UIColor?,
+        selectedBackgroundColor: UIColor?
+    )
 }

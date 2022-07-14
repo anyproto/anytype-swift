@@ -29,7 +29,6 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         }
     }
 
-    private var selection: SimpleTableMenuView.Tab = .cell
     private var cachedSectionRowHeights = [AnyHashable: CGFloat]()
     private var cachedSectionHeights = [Int: CGFloat]()
     private var attributes: [UICollectionViewLayoutAttributes] = []
@@ -82,13 +81,13 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         return attributes
     }
     
-    func reselectSelectedCells(selection: SimpleTableMenuView.Tab) {
-        self.selection = selection
-        guard let collectionView = collectionView else { return }
+    func reselectSelectedCells() {
+        guard let collectionView = collectionView, let dataSource = dataSource else { return }
         let selectedIndexPaths = collectionView.indexPathsForSelectedItems ?? []
 
         // Bad implementation
-        guard lastHashableItems != attributes.hashValue || lastSelectedIndexPaths != selectedIndexPaths else {
+
+        guard lastHashableItems != dataSource.allModels.hashValue || lastSelectedIndexPaths != selectedIndexPaths else {
             return
         }
 
@@ -102,53 +101,56 @@ final class SpreadsheetLayout: UICollectionViewLayout {
             }
         }
 
+        self.lastHashableItems = dataSource.allModels.hashValue
         self.lastSelectedIndexPaths = selectedIndexPaths
 
     }
 
     override func prepare() {
-        guard let collectionView = collectionView, let dataSource = dataSource else {
-            return
-        }
-
-        for sectionIndex in 0..<collectionView.numberOfSections {
-            var sectionMaxHeight: CGFloat = 0
-
-            for rowIndex in 0..<collectionView.numberOfItems(inSection: sectionIndex) {
-                let indexPath = IndexPath(row: rowIndex, section: sectionIndex)
-                let columnWidth = itemWidths[rowIndex]
-
-                guard let item = dataSource.contentConfigurationProvider(at: indexPath) else {
-                    continue
-                }
-                let hashable = item.spreadsheethashable(width: columnWidth)
-
-                let size: CGSize
-                if let cachedValue = cachedSectionRowHeights[hashable] {
-                    size = .init(width: columnWidth, height: cachedValue)
-                } else {
-                    let cell = dataSource.dequeueCell(at: indexPath)
-
-                    let maxSize = CGSize(
-                        width: columnWidth,
-                        height: .greatestFiniteMagnitude
-                    )
-                    size = cell.systemLayoutSizeFitting(
-                        maxSize,
-                        withHorizontalFittingPriority: .required,
-                        verticalFittingPriority: .fittingSizeLevel
-                    )
-
-                    cachedSectionRowHeights[hashable] = size.height
-                }
-
-                sectionMaxHeight = size.height > sectionMaxHeight ? size.height : sectionMaxHeight
+        measureTime(for: "Layout prepare") {
+            guard let collectionView = collectionView, let dataSource = dataSource else {
+                return
             }
 
-            cachedSectionHeights[sectionIndex] = sectionMaxHeight
-        }
+            for sectionIndex in 0..<collectionView.numberOfSections {
+                var sectionMaxHeight: CGFloat = 0
 
-        reloadAttributesCache()
+                for rowIndex in 0..<collectionView.numberOfItems(inSection: sectionIndex) {
+                    let indexPath = IndexPath(row: rowIndex, section: sectionIndex)
+                    let columnWidth = itemWidths[rowIndex]
+
+                    guard let item = dataSource.contentConfigurationProvider(at: indexPath) else {
+                        continue
+                    }
+                    let hashable = item.spreadsheethashable(width: columnWidth)
+
+                    let size: CGSize
+                    if let cachedValue = cachedSectionRowHeights[hashable] {
+                        size = .init(width: columnWidth, height: cachedValue)
+                    } else {
+                        let cell = dataSource.dequeueCell(at: indexPath)
+
+                        let maxSize = CGSize(
+                            width: columnWidth,
+                            height: .greatestFiniteMagnitude
+                        )
+                        size = cell.systemLayoutSizeFitting(
+                            maxSize,
+                            withHorizontalFittingPriority: .required,
+                            verticalFittingPriority: .fittingSizeLevel
+                        )
+
+                        cachedSectionRowHeights[hashable] = size.height
+                    }
+
+                    sectionMaxHeight = size.height > sectionMaxHeight ? size.height : sectionMaxHeight
+                }
+
+                cachedSectionHeights[sectionIndex] = sectionMaxHeight
+            }
+
+            reloadAttributesCache()
+        }
     }
 
     private func reset() {
@@ -195,11 +197,11 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         selectionAttributes.frame = .init(origin: .zero, size: contentSize)
         selectionAttributes.zIndex = 14
 
+        reselectSelectedCells()
+
         contentSize = .init(width: itemWidths.reduce(0, +) + 4, height: fullHeight + 10 + 2)
+        dataSource.map { lastHashableItems = $0.allModels.hashValue }
 
-        reselectSelectedCells(selection: selection)
-
-        self.lastHashableItems = attributes.hashValue
     }
 }
 
@@ -234,6 +236,11 @@ extension SpreadsheetLayout {
 
 private extension ContentConfigurationProvider {
     func spreadsheethashable(width: CGFloat) -> AnyHashable {
-        return [hashable, width as AnyHashable]
+        // Should be rewrited
+        guard let configuration = makeSpreadsheetConfiguration() as? HashableProvier else {
+            return ""
+        }
+
+        return configuration.hashable
     }
 }

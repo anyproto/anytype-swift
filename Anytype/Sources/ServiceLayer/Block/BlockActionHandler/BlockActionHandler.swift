@@ -50,12 +50,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.setObjectTypeUrl(objectTypeUrl)
     }
     
-    func setTextColor(_ color: BlockColor, blockId: BlockId) {
-        listService.setBlockColor(blockIds: [blockId], color: color.middleware)
+    func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
+        listService.setBlockColor(blockIds: blockIds, color: color.middleware)
     }
     
-    func setBackgroundColor(_ color: BlockBackgroundColor, blockId: BlockId) {
-        service.setBackgroundColor(blockId: blockId, color: color)
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId]) {
+        service.setBackgroundColor(blockIds: blockIds, color: color)
     }
     
     func duplicate(blockId: BlockId) {

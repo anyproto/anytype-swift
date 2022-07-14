@@ -45,7 +45,7 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
 
         blocksView.update(
             with: .init(
-                hashable: configuration,
+                layoutHeightMemory: .hashable(configuration),
                 layout: layout,
                 heightDidChanged: configuration.heightDidChanged
             )

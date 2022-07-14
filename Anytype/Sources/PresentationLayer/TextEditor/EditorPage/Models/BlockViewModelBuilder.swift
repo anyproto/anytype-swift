@@ -12,7 +12,7 @@ final class BlockViewModelBuilder {
     private let delegate: BlockDelegate
     private let subjectsHolder: FocusSubjectsHolder
     private let markdownListener: MarkdownListener
-    private let simpleTablesBuilder: SimpleTableViewModelBuilder
+    private let simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder
 
     private let pageService = PageService()
 
@@ -23,7 +23,7 @@ final class BlockViewModelBuilder {
         router: EditorRouterProtocol,
         delegate: BlockDelegate,
         markdownListener: MarkdownListener,
-        simpleTablesBuilder: SimpleTableViewModelBuilder,
+        simpleTableDependenciesBuilder: SimpleTableDependenciesBuilder,
         subjectsHolder: FocusSubjectsHolder
     ) {
         self.document = document
@@ -32,7 +32,7 @@ final class BlockViewModelBuilder {
         self.router = router
         self.delegate = delegate
         self.markdownListener = markdownListener
-        self.simpleTablesBuilder = simpleTablesBuilder
+        self.simpleTableDependenciesBuilder = simpleTableDependenciesBuilder
         self.subjectsHolder = subjectsHolder
     }
 
@@ -239,7 +239,10 @@ final class BlockViewModelBuilder {
                 fallthrough
             }
 
-            return simpleTablesBuilder.buildViewModel(from: info)
+            return SimpleTableBlockViewModel(
+                info: info,
+                simpleTableDependenciesBuilder: simpleTableDependenciesBuilder
+            )
         case .unsupported:
             guard let parentId = info.configurationData.parentId,
                   let parent = document.infoContainer.get(id: parentId),

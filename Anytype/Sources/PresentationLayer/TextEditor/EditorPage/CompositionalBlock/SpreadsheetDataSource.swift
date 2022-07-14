@@ -49,10 +49,9 @@ final class SpreadsheetViewDataSource {
             snapshot.appendItems(sectionModels, toSection: index)
         }
 
+        print("UPDATE!!!!!!!!")
         self.allModels = allModels
         applyBlocksSectionSnapshot(snapshot, animatingDifferences: true)
-
-        collectionView.collectionViewLayout.prepare()
     }
 
     func reloadCell(for indexPath: IndexPath) {
@@ -159,6 +158,8 @@ final class SpreadsheetViewDataSource {
         _ snapshot: Snapshot,
         animatingDifferences: Bool
     ) {
+        let selectedIndexPath = collectionView.indexPathsForSelectedItems
+
         if #available(iOS 15.0, *) {
             dataSource.apply(snapshot, animatingDifferences: animatingDifferences)
         } else {
@@ -167,8 +168,7 @@ final class SpreadsheetViewDataSource {
             }
         }
 
-        let selectedCells = collectionView.indexPathsForSelectedItems
-        selectedCells?.forEach {
+        selectedIndexPath?.forEach {
             self.collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
         }
     }

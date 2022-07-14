@@ -43,10 +43,12 @@ final class SimpleTableViewModel {
     }
 
     private func handleUpdate(update: DocumentUpdate) {
+        print("-- update \(update)")
+
         switch update {
         case .general, .details:
             forceUpdate(shouldApplyFocus: true)
-        case .syncStatus, .header, .changeType: break
+        case .syncStatus, .header: break
         case .blocks(let blockIds):
             let container = document.infoContainer
 

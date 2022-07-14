@@ -9,10 +9,32 @@ private final class iOS14CompositionalContentHeightStorage {
 }
 
 struct DynamicLayoutConfiguration: Hashable {
-    let hashable: AnyHashable
+    enum LayoutHeightMemory {
+        case none
+        case hashable(AnyHashable)
+    }
 
+    let layoutHeightMemory: LayoutHeightMemory
     @EquatableNoop var layout: UICollectionViewLayout
     @EquatableNoop var heightDidChanged: () -> Void
+
+    static func == (lhs: DynamicLayoutConfiguration, rhs: DynamicLayoutConfiguration) -> Bool {
+        switch (lhs.layoutHeightMemory, rhs.layoutHeightMemory) {
+        case let (.hashable(lhsHash), .hashable(rhsHash)):
+            return lhsHash == rhsHash
+        default:
+            return false
+        }
+    }
+
+    func hash(into hasher: inout Hasher) {
+        switch layoutHeightMemory {
+        case .none:
+            break
+        case .hashable(let anyHashable):
+            hasher.combine(anyHashable)
+        }
+    }
 }
 
 final class DynamicCollectionLayoutView: UIView {
@@ -75,7 +97,12 @@ final class DynamicCollectionLayoutView: UIView {
     }
 
     private func saveBlockHeight(configuration: DynamicLayoutConfiguration) {
-        iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[configuration.hashValue] = self.collectionView.intrinsicContentSize.height
+        switch configuration.layoutHeightMemory {
+        case .none:
+            return
+        case .hashable(let hashValue):
+            iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[hashValue] = self.collectionView.intrinsicContentSize.height
+        }
     }
 
     func update(with configuration: DynamicLayoutConfiguration) {
@@ -83,10 +110,15 @@ final class DynamicCollectionLayoutView: UIView {
 
         collectionView.collectionViewLayout = configuration.layout
 
-        if let height = iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[configuration.hashValue] {
-            collectionViewHeightConstraint?.constant = height
-        } else {
-            collectionViewHeightConstraint?.constant = collectionView.intrinsicContentSize.height
+        switch configuration.layoutHeightMemory {
+        case let .hashable(hashable):
+            if let height = iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[hashable] {
+                collectionViewHeightConstraint?.constant = height
+            } else {
+                collectionViewHeightConstraint?.constant = collectionView.intrinsicContentSize.height
+            }
+        case .none:
+            return
         }
 
         collectionViewHeightConstraint?.isActive = true

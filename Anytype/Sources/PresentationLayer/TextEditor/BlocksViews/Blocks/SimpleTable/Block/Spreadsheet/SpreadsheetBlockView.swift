@@ -82,6 +82,7 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
         configuration.currentConfigurationState.map { blockView.update(with: $0) }
 
         setupDragInteraction()
+        updateStyleConfiguration(configuration: styleConfiguration)
     }
 
     required init?(coder: NSCoder) {
@@ -95,13 +96,12 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
     // MARK: - UICollectionView configuration
 
     private func update(with state: UICellConfigurationState) {
-//        selectionView.updateStyle(isSelected: state.isSelected)
         isUserInteractionEnabled = state.isEditing
         viewDragInteraction.isEnabled = !state.isLocked
         if state.isMoving {
             backgroundColor = UIColor.Background.blue
         } else {
-            backgroundColor = .clear
+            backgroundColor = styleConfiguration.backgroundColor
         }
     }
 

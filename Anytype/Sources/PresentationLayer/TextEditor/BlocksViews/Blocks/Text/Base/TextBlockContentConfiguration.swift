@@ -32,8 +32,7 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         let toggleDropDown: () -> Void
         let tapOnCalloutIcon: () -> Void
     }
-
-    let blockId: BlockId
+    
     let content: BlockText
     let isCheckable: Bool
     let isToggled: Bool
@@ -46,7 +45,6 @@ struct TextBlockContentConfiguration: BlockConfiguration {
     @EquatableNoop private(set) var actions: Actions
 
     init(
-        blockId: BlockId,
         content: BlockText,
         alignment: NSTextAlignment,
         isCheckable: Bool,
@@ -57,7 +55,6 @@ struct TextBlockContentConfiguration: BlockConfiguration {
         resetPublisher: AnyPublisher<BlockText, Never>,
         actions: Actions
     ) {
-        self.blockId = blockId
         self.content = content
         self.alignment = alignment
         self.isCheckable = isCheckable

@@ -2,22 +2,17 @@ import Combine
 import UIKit
 import BlocksModels
 
-
 struct SimpleTableBlockContentConfiguration: BlockConfiguration {
     typealias View = SimpleTableBlockView
 
-    let blockId: BlockId
-    let stateManager: SimpleTableStateManager
-    weak var blockDelegate: BlockDelegate?
-    weak var relativePositionProvider: RelativePositionProvider?
-
-    let viewModelBuilder: () -> SimpleTableViewModel
+    let info: BlockInformation
+    let dependenciesBuilder: SimpleTableDependenciesBuilder
 
     static func == (
         lhs: SimpleTableBlockContentConfiguration,
         rhs: SimpleTableBlockContentConfiguration
     ) -> Bool {
-        lhs.blockId == rhs.blockId
+        lhs.info.id == rhs.info.id
     }
 
     func hash(into hasher: inout Hasher) {}
