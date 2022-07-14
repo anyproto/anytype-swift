@@ -2,39 +2,64 @@ import Combine
 import BlocksModels
 import ProtobufMessages
 import AnytypeCore
+import Foundation
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     private let contextId: BlockId
-
+    private var subscriptions: [AnyCancellable] = []
+    
     init(contextId: BlockId) {
         self.contextId = contextId
     }
-
-    func open() -> Bool {
-        let event = Anytype_Rpc.Object.Open.Service.invoke(contextID: contextId, objectID: contextId, traceID: "")
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockActionsService)
-
-        guard let event = event else { return false }
-        event.send()
-
-        return true
+    
+    func open(completion: @escaping (Bool) -> Void) {
+        Anytype_Rpc.Object.Open.Service.invoke(contextID: self.contextId, objectID: contextId, traceID: "", queue: .global(qos: .userInitiated))
+            .receiveOnMain()
+            .sinkWithResult { result in
+                switch result {
+                case let .success(data):
+                    let event = EventsBunch(event: data.event)
+                    event.send()
+                    completion(true)
+                case let .failure(error):
+                    anytypeAssertionFailure(error.localizedDescription, domain: .blockActionsService)
+                    completion(false)
+                }
+            }
+            .store(in: &self.subscriptions)
     }
 
-    func openForPreview() -> Bool {
-        let event = Anytype_Rpc.Object.Show.Service.invoke(contextID: contextId, objectID: contextId, traceID: "")
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockActionsService)
-
-        guard let event = event else { return false }
-        event.send()
-
-        return true
+    func openForPreview(completion: @escaping (Bool) -> Void) {
+        Anytype_Rpc.Object.Show.Service.invoke(contextID: contextId, objectID: contextId, traceID: "", queue: .global(qos: .userInitiated))
+            .receiveOnMain()
+            .sinkWithResult { result in
+                switch result {
+                case let .success(data):
+                    let event = EventsBunch(event: data.event)
+                    event.send()
+                    completion(true)
+                case let .failure(error):
+                    anytypeAssertionFailure(error.localizedDescription, domain: .blockActionsService)
+                    completion(false)
+                }
+            }
+            .store(in: &subscriptions)
     }
     
-    func close() {
-        _ = Anytype_Rpc.Object.Close.Service.invoke(contextID: contextId, objectID: contextId)
+    func close(completion: @escaping (Bool) -> Void) {
+        Anytype_Rpc.Object.Close.Service.invoke(contextID: contextId, objectID: contextId, queue: .global(qos: .userInitiated))
+            .receiveOnMain()
+            .sinkWithResult { result in
+                switch result {
+                case .success:
+                    completion(true)
+                case let .failure(error):
+                    anytypeAssertionFailure(error.localizedDescription, domain: .blockActionsService)
+                    completion(false)
+                }
+            }
+            .store(in: &subscriptions)
     }
     
     func add(targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {

@@ -8,7 +8,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var dataView = BlockDataview.empty
     @Published private var records: [ObjectDetails] = []
     @Published private(set) var headerModel: ObjectHeaderViewModel!
-    
+    @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
     
     var isEmpty: Bool {
@@ -24,7 +24,16 @@ final class EditorSetViewModel: ObservableObject {
     }
  
     var rows: [SetTableViewRowData] {
-        dataBuilder.rowData(records, dataView: dataView, activeView: activeView, colums: colums, isObjectLocked: document.isLocked)
+        dataBuilder.rowData(
+            records,
+            dataView: dataView,
+            activeView: activeView,
+            colums: colums,
+            isObjectLocked: document.isLocked,
+            onIconTap: { [weak self] details in
+                self?.updateDetailsIfNeeded(details)
+            }
+        )
     }
     
     var sortedRelations: [SetRelation] {
@@ -83,16 +92,19 @@ final class EditorSetViewModel: ObservableObject {
     private let dataBuilder = SetTableViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
+    private let detailsService: DetailsServiceProtocol
     
     init(
         document: BaseDocument,
         dataviewService: DataviewServiceProtocol,
-        searchService: SearchServiceProtocol
+        searchService: SearchServiceProtocol,
+        detailsService: DetailsServiceProtocol
     ) {
         ObjectTypeProvider.shared.resetCache()
         self.document = document
         self.dataviewService = dataviewService
         self.searchService = searchService
+        self.detailsService = detailsService
     }
     
     func setup(router: EditorRouterProtocol) {
@@ -103,21 +115,24 @@ final class EditorSetViewModel: ObservableObject {
             self?.onDataChange($0)
         }
         
-        document.open()
-        setupDataview()
+        document.open { [weak self] result in
+            self?.loadingDocument = false
+            if result {
+                self?.setupDataview()
+            } else {
+                router.goBack()
+            }
+        }
     }
     
     func onAppear() {
-        guard document.isOpened else {
-            router.goBack()
-            return
-        }
         setupSubscriptions()
         router?.setNavigationViewHidden(false, animated: true)
     }
     
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
+        router.dismissSetSettingsIfNeeded()
     }
     
     func updateActiveViewId(_ id: BlockId) {
@@ -209,6 +224,14 @@ final class EditorSetViewModel: ObservableObject {
     private func isBookmarkObject() -> Bool {
         dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
     }
+    
+    private func updateDetailsIfNeeded(_ details: ObjectDetails) {
+        guard details.layout == .todo else { return }
+        detailsService.updateBundledDetails(
+            contextID: details.id,
+            bundledDpdates: [.done(!details.isDone)]
+        )
+    }
 }
 
 // MARK: - Routing
@@ -238,8 +261,7 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        let vc = UIHostingController(rootView: EditorSetViewPicker(setModel: self))
-        router.presentSheet(vc)
+        router.showViewPicker(setModel: self)
     }
     
     func showSetSettings() {

@@ -16,8 +16,8 @@ extension Anytype_Model_ObjectDetails {
 
 extension Anytype_Model_ObjectInfo {
   public init(
-    id: String, objectTypeUrls: [String], details: SwiftProtobuf.Google_Protobuf_Struct, relations: [Anytype_Model_Relation], snippet: String, hasInboundLinks_p: Bool,
-    objectType: Anytype_Model_SmartBlockType
+    id: String = String(), objectTypeUrls: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, relations: [Anytype_Model_Relation] = [], snippet: String = String(),
+    hasInboundLinks_p: Bool = false, objectType: Anytype_Model_SmartBlockType = .accountOld
   ) {
     self.id = id
     self.objectTypeUrls = objectTypeUrls
@@ -30,7 +30,7 @@ extension Anytype_Model_ObjectInfo {
 }
 
 extension Anytype_Model_ObjectInfoWithLinks {
-  public init(id: String, info: Anytype_Model_ObjectInfo, links: Anytype_Model_ObjectLinksInfo) {
+  public init(id: String = String(), info: Anytype_Model_ObjectInfo, links: Anytype_Model_ObjectLinksInfo) {
     self.id = id
     self.info = info
     self.links = links
@@ -38,7 +38,7 @@ extension Anytype_Model_ObjectInfoWithLinks {
 }
 
 extension Anytype_Model_ObjectInfoWithOutboundLinks {
-  public init(id: String, info: Anytype_Model_ObjectInfo, outboundLinks: [Anytype_Model_ObjectInfo]) {
+  public init(id: String = String(), info: Anytype_Model_ObjectInfo, outboundLinks: [Anytype_Model_ObjectInfo] = []) {
     self.id = id
     self.info = info
     self.outboundLinks = outboundLinks
@@ -46,7 +46,7 @@ extension Anytype_Model_ObjectInfoWithOutboundLinks {
 }
 
 extension Anytype_Model_ObjectInfoWithOutboundLinksIDs {
-  public init(id: String, info: Anytype_Model_ObjectInfo, outboundLinks: [String]) {
+  public init(id: String = String(), info: Anytype_Model_ObjectInfo, outboundLinks: [String] = []) {
     self.id = id
     self.info = info
     self.outboundLinks = outboundLinks
@@ -54,14 +54,14 @@ extension Anytype_Model_ObjectInfoWithOutboundLinksIDs {
 }
 
 extension Anytype_Model_ObjectLinks {
-  public init(inboundIds: [String], outboundIds: [String]) {
+  public init(inboundIds: [String] = [], outboundIds: [String] = []) {
     self.inboundIds = inboundIds
     self.outboundIds = outboundIds
   }
 }
 
 extension Anytype_Model_ObjectLinksInfo {
-  public init(inbound: [Anytype_Model_ObjectInfo], outbound: [Anytype_Model_ObjectInfo]) {
+  public init(inbound: [Anytype_Model_ObjectInfo] = [], outbound: [Anytype_Model_ObjectInfo] = []) {
     self.inbound = inbound
     self.outbound = outbound
   }
@@ -69,8 +69,8 @@ extension Anytype_Model_ObjectLinksInfo {
 
 extension Anytype_Model_ObjectStoreChecksums {
   public init(
-    bundledObjectTypes: String, bundledRelations: String, bundledLayouts: String, objectsForceReindexCounter: Int32, filesForceReindexCounter: Int32, idxRebuildCounter: Int32, fulltextRebuild: Int32,
-    bundledTemplates: String, bundledObjects: Int32
+    bundledObjectTypes: String = String(), bundledRelations: String = String(), bundledLayouts: String = String(), objectsForceReindexCounter: Int32 = 0, filesForceReindexCounter: Int32 = 0,
+    idxRebuildCounter: Int32 = 0, fulltextRebuild: Int32 = 0, bundledTemplates: String = String(), bundledObjects: Int32 = 0
   ) {
     self.bundledObjectTypes = bundledObjectTypes
     self.bundledRelations = bundledRelations

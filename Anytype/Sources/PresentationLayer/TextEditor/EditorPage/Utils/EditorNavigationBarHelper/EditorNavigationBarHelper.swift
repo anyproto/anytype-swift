@@ -126,7 +126,8 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
         case .moving:
             let title = Loc.Editor.MovingState.scrollToSelectedPlace
             navigationBarTitleView.configure(model: .modeTitle(title))
-            controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
+            controller?.navigationItem.leftBarButtonItem = nil
+            controller?.navigationItem.rightBarButtonItem = nil
             navigationBarTitleView.setIsLocked(false)
         case .locked:
             navigationBarTitleView.setIsLocked(true)
@@ -139,6 +140,11 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             let title = Loc.selectedBlocks(selectedBlocks.count)
             navigationBarTitleView.configure(model: .modeTitle(title))
             navigationBarTitleView.setIsLocked(false)
+        case .loading:
+            controller?.navigationItem.titleView = navigationBarTitleView
+            controller?.navigationItem.rightBarButtonItem = nil
+            controller?.navigationItem.leftBarButtonItem = syncStatusBarButtonItem
+            navigationBarTitleView.setIsLocked(true)
         }
     }
 }

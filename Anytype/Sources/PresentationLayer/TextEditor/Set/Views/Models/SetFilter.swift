@@ -1,4 +1,5 @@
 import BlocksModels
+import SwiftProtobuf
 
 struct SetFilter: Identifiable, Equatable, Hashable {
     let metadata: RelationMetadata
@@ -10,7 +11,21 @@ struct SetFilter: Identifiable, Equatable, Hashable {
         conditionType.data[filter.condition]
     }
     
-    private var conditionType: Condition {
+    static func defaultCondition(for metadata: RelationMetadata) -> DataviewFilter.Condition {
+        let conditionType =  Self.conditionType(for: metadata)
+        switch conditionType {
+        case .text, .number, .checkbox:
+            return .equal
+        case .selected:
+            return .in
+        }
+    }
+    
+    var conditionType: Condition {
+        Self.conditionType(for: metadata)
+    }
+    
+    static func conditionType(for metadata: RelationMetadata) -> Condition {
         switch metadata.format {
         case .shortText, .longText, .url, .email, .file, .unrecognized:
             return .text
@@ -23,7 +38,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
         }
     }
     
-    private enum Condition {
+    enum Condition {
         case text
         case number
         case selected
@@ -42,7 +57,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
             }
         }
         
-        private static let textData: [DataviewFilter.Condition: String] = [
+        static let textData: [DataviewFilter.Condition: String] = [
             .equal: Loc.EditSorts.Popup.Filter.Condition.Text.equal,
             .notEqual: Loc.EditSorts.Popup.Filter.Condition.Text.notEqual,
             .like: Loc.EditSorts.Popup.Filter.Condition.Text.like,
@@ -52,7 +67,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
             .none: Loc.EditSorts.Popup.Filter.Condition.General.none
         ]
         
-        private static let numberData: [DataviewFilter.Condition: String] = [
+        static let numberData: [DataviewFilter.Condition: String] = [
             .equal: Loc.EditSorts.Popup.Filter.Condition.Number.equal,
             .notEqual: Loc.EditSorts.Popup.Filter.Condition.Number.notEqual,
             .greater: Loc.EditSorts.Popup.Filter.Condition.Number.greater,
@@ -64,7 +79,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
             .none: Loc.EditSorts.Popup.Filter.Condition.General.none
         ]
         
-        private static let selectedData: [DataviewFilter.Condition: String] = [
+        static let selectedData: [DataviewFilter.Condition: String] = [
             .in: Loc.EditSorts.Popup.Filter.Condition.Selected.in,
             .allIn: Loc.EditSorts.Popup.Filter.Condition.Selected.allIn,
             .equal: Loc.EditSorts.Popup.Filter.Condition.Selected.equal,
@@ -74,10 +89,46 @@ struct SetFilter: Identifiable, Equatable, Hashable {
             .none: Loc.EditSorts.Popup.Filter.Condition.General.none
         ]
         
-        private static let checkboxData: [DataviewFilter.Condition: String] = [
+        static let checkboxData: [DataviewFilter.Condition: String] = [
             .equal: Loc.EditSorts.Popup.Filter.Condition.Checkbox.equal,
             .notEqual: Loc.EditSorts.Popup.Filter.Condition.Checkbox.notEqual,
             .none: Loc.EditSorts.Popup.Filter.Condition.General.none
         ]
+    }
+}
+
+extension SetFilter {
+    func updated(
+        metadata: RelationMetadata? = nil,
+        filter: DataviewFilter? = nil
+    ) -> SetFilter {
+        SetFilter(
+            metadata: metadata ?? self.metadata,
+            filter: filter ?? self.filter
+        )
+    }
+}
+
+extension DataviewFilter {
+    func updated(
+        condition: DataviewFilter.Condition? = nil,
+        value: SwiftProtobuf.Google_Protobuf_Value? = nil
+    ) -> DataviewFilter {
+        DataviewFilter(
+            relationKey: self.relationKey,
+            condition: condition ?? self.condition,
+            value: value ?? self.value
+        )
+    }
+}
+
+extension DataviewFilter.Condition {
+    var hasValues: Bool {
+        switch self {
+        case .none, .empty, .notEmpty:
+            return false
+        default:
+            return true
+        }
     }
 }

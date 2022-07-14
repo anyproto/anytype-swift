@@ -15,7 +15,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let editorAssembly: EditorAssembly
     private let templatesCoordinator: TemplatesCoordinator
     private lazy var relationEditingViewModelBuilder = RelationEditingViewModelBuilder(delegate: self)
-    private weak var currentSetPopup: AnytypePopup?
+    private weak var currentSetSettingsPopup: AnytypePopup?
     
     init(
         rootController: EditorBrowserController?,
@@ -466,6 +466,14 @@ extension EditorRouter {
 // MARK: - Set
 
 extension EditorRouter {
+    
+    func showViewPicker(setModel: EditorSetViewModel) {
+        let viewModel = EditorSetViewPickerViewModel(setModel: setModel)
+        let vc = UIHostingController(
+            rootView: EditorSetViewPicker(viewModel: viewModel)
+        )
+        presentSheet(vc)
+    }
 
     func showCreateObject(pageId: BlockId) {
         let relationService = RelationsService(objectId: pageId)
@@ -501,8 +509,9 @@ extension EditorRouter {
             rootView: NewSearchModuleAssembly.setSortsSearchModule(
                 relations: relations,
                 onSelect: { [weak self] key in
-                    onSelect(key)
-                    self?.viewController?.topPresentedController.dismiss(animated: true)
+                    self?.viewController?.topPresentedController.dismiss(animated: false) {
+                        onSelect(key)
+                    }
                 }
             )
         )
@@ -516,15 +525,19 @@ extension EditorRouter {
     }
     
     func showSetSettings(setModel: EditorSetViewModel) {
-        guard let currentSetPopup = currentSetPopup else {
+        guard let currentSetSettingsPopup = currentSetSettingsPopup else {
             showSetSettingsPopup(setModel: setModel)
             return
         }
-        currentSetPopup.dismiss(animated: false) {
+        currentSetSettingsPopup.dismiss(animated: false) {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
                 self?.showSetSettingsPopup(setModel: setModel)
             }
         }
+    }
+    
+    func dismissSetSettingsIfNeeded() {
+        currentSetSettingsPopup?.dismiss(animated: false)
     }
     
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
@@ -544,7 +557,7 @@ extension EditorRouter {
     func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
         let viewModel = SetFiltersListViewModel(
             setModel: setModel,
-            service: dataviewService,
+            dataviewService: dataviewService,
             router: self
         )
         let vc = UIHostingController(
@@ -578,8 +591,27 @@ extension EditorRouter {
                 skipThroughGestures: true
             )
         )
-        currentSetPopup = popup
+        currentSetSettingsPopup = popup
         presentFullscreen(popup)
+    }
+    
+    func showFilterSearch(
+        filter: SetFilter,
+        onApply: @escaping (SetFilter) -> Void
+    ) {
+        let viewModel = SetFiltersSearchViewModel(
+            filter: filter,
+            router: self,
+            onApply: { [weak self] filter in
+                onApply(filter)
+                self?.viewController?.topPresentedController.dismiss(animated: true)
+            }
+        )
+        let vc = UIHostingController(
+            rootView: SetFiltersSearchView(searchView: viewModel.makeSearchView)
+                .environmentObject(viewModel)
+        )
+        presentSheet(vc)
     }
 }
 

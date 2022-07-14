@@ -81,6 +81,7 @@ final class BlockActionService: BlockActionServiceProtocol {
             contextId: documentId,
             targetId: targetId,
             details: [.name(""), .type(type)],
+            shouldDeleteEmptyObject: false,
             position: position,
             templateId: ""
         ) else { return nil }

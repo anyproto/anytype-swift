@@ -23,6 +23,8 @@ enum BlocksModelsConverter {
         case .tableRow: return BlockContent.tableRow
         case .icon, .latex:
             return .unsupported
+        case .table, .tableRow, .tableColumn:
+            return .unsupported
         }
     }
 

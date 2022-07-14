@@ -6,12 +6,14 @@ final class NewSearchViewModel: ObservableObject {
     
     let title: String?
     let searchPlaceholder: String
+    let style: NewSearchView.Style
     
     @Published private(set) var state: NewSearchViewState = .resultsList(.plain(rows: []))
     @Published private(set) var addButtonModel: NewSearchView.AddButtonModel? = nil
     @Published private(set) var isCreateButtonAvailable: Bool = false
     
     private let itemCreationMode: ItemCreationMode
+    private let selectionMode: SelectionMode
     private let internalViewModel: NewInternalSearchViewModelProtocol
     private let onSelect: (_ ids: [String]) -> Void
     
@@ -26,13 +28,17 @@ final class NewSearchViewModel: ObservableObject {
     init(
         title: String? = nil,
         searchPlaceholder: String = Loc.search,
+        style: NewSearchView.Style = .default,
         itemCreationMode: ItemCreationMode,
+        selectionMode: SelectionMode = .multipleItems(),
         internalViewModel: NewInternalSearchViewModelProtocol,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) {
         self.title = title
         self.searchPlaceholder = searchPlaceholder
+        self.style = style
         self.itemCreationMode = itemCreationMode
+        self.selectionMode = selectionMode
         self.internalViewModel = internalViewModel
         self.onSelect = onSelect
         setup()
@@ -71,6 +77,7 @@ private extension NewSearchViewModel {
     func setup() {
         setupInternalViewModel()
         updateCreateItemButtonState(searchText: "")
+        updateSelectedRowIds()
         updateAddButtonModel()
     }
     
@@ -89,10 +96,18 @@ private extension NewSearchViewModel {
         isCreateButtonAvailable = internalViewModel.isCreateButtonAvailable(searchText: searchText)
     }
     
+    func updateSelectedRowIds() {
+        if case let .multipleItems(preselectedIds) = selectionMode {
+            self.selectedRowIds = preselectedIds
+        }
+    }
+    
     func updateAddButtonModel() {
         guard case .multipleItems = internalViewModel.selectionMode else { return }
 
-        addButtonModel = selectedRowIds.isEmpty ? .disabled : .enabled(counter: selectedRowIds.count)
+        addButtonModel = selectedRowIds.isEmpty && !selectionMode.isPreselectModeAvailable ?
+            .disabled :
+            .enabled(counter: selectedRowIds.count)
     }
     
     func handleMultipleRowsSelection(rowId: String) {

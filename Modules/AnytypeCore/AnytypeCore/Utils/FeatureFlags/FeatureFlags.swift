@@ -48,7 +48,7 @@ public final class FeatureFlags {
         .createObjectInSet: true,
         .setSorts: false,
         .setFilters: false,
-        .tableOfContents: false,
+        .tableOfContents: true,
         .floatingSetMenu: false,
         .simpleTables: false,
         .objectDuplicate: true
@@ -116,7 +116,7 @@ public extension FeatureFlags {
     }
     
     static var isTableOfContentsAvailable: Bool {
-        features[.tableOfContents, default: false]
+        features[.tableOfContents, default: true]
     }
 
     static var isSimpleTablesAvailable: Bool {

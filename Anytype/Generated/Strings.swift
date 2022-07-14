@@ -998,6 +998,14 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Set.Bookmark.Error.Title")
       }
     }
+    internal enum Filters {
+      internal enum Search {
+        internal enum Button {
+          /// Apply
+          internal static let title = Loc.tr("Localizable", "Set.Filters.Search.Button.Title")
+        }
+      }
+    }
   }
 
   internal enum SimpleTableMenu {

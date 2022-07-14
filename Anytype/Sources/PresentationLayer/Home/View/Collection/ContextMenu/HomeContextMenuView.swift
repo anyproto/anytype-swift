@@ -11,23 +11,31 @@ struct HomeContextMenuView: View {
         Group {
             if cellData.isFavorite {
                 Button(Loc.removeFromFavorite) {
+                    generateFeedback()
                     viewModel.removeFromFavorite(data: cellData)
                 }
             } else {
                 Button(Loc.addToFavorite) {
+                    generateFeedback()
                     viewModel.addToFavorite(data: cellData)
                 }
             }
             
             if #available(iOS 15.0, *) {
                 Button(Loc.moveToBin, role: .destructive) {
+                    generateFeedback()
                     viewModel.moveToBin(data: cellData)
                 }
             } else {
                 Button(Loc.moveToBin) {
+                    generateFeedback()
                     viewModel.moveToBin(data: cellData)
                 }
             }
         }
+    }
+    
+    private func generateFeedback() {
+        UISelectionFeedbackGenerator().selectionChanged()
     }
 }

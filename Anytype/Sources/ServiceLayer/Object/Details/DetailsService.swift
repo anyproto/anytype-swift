@@ -21,6 +21,10 @@ extension DetailsService: DetailsServiceProtocol {
     func updateBundledDetails(_ bundledDpdates: [BundledDetails]) {
         service.updateBundledDetails(contextID: objectId, details: bundledDpdates)
     }
+    
+    func updateBundledDetails(contextID: String, bundledDpdates: [BundledDetails]) {
+        service.updateBundledDetails(contextID: contextID, details: bundledDpdates)
+    }
 
     func setLayout(_ detailsLayout: DetailsLayout) {
         service.updateLayout(contextID: objectId, value: detailsLayout.rawValue)

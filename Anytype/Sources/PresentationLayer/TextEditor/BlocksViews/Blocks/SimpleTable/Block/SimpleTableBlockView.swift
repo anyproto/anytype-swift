@@ -73,8 +73,8 @@ final class SimpleTableBlockView: UIView, BlockContentView {
             case .editing:
                 dynamicLayoutView.collectionView.isEditing = true
                 dynamicLayoutView.collectionView.isLocked = false
-            case .moving:
-                fatalError()
+            case .moving, .loading:
+                return
             case .locked, .simpleTablesSelection:
                 dynamicLayoutView.collectionView.isEditing = false
                 dynamicLayoutView.collectionView.isLocked = true

@@ -6,11 +6,10 @@ struct SetFilterRow: View {
     @Environment(\.editMode) var editMode
     
     let configuration: SetFilterRowConfiguration
-    let onTap: () -> Void
     
     var body: some View {
         Button {
-            onTap()
+            configuration.onTap()
         } label: {
             content
         }
@@ -51,7 +50,7 @@ struct SetFilterRow: View {
                     AnytypeText(subtitle, style: .relation1Regular, color: .textSecondary)
                     RelationValueView(
                         relation: RelationItemModel(relation: configuration.relation),
-                        style: .filter,
+                        style: .filter(hasValues: configuration.hasValues),
                         action: nil
                     )
                 }

@@ -20,24 +20,20 @@ extension Anytype_Rpc.App.GetVersion {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(), on: queue)
+      self.invoke(request: .init(), on: queue)
     }
     public static func invoke() -> Result<Response, Error> {
       self.result(.init())
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -70,24 +66,20 @@ extension Anytype_Rpc.App.SetDeviceState {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(deviceState: Anytype_Rpc.App.SetDeviceState.Request.DeviceState = .background, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(deviceState: deviceState), on: queue)
     }
-    public static func invoke(deviceState: Anytype_Rpc.App.SetDeviceState.Request.DeviceState, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(deviceState: deviceState), on: queue)
-    }
-    public static func invoke(deviceState: Anytype_Rpc.App.SetDeviceState.Request.DeviceState) -> Result<Response, Error> {
+    public static func invoke(deviceState: Anytype_Rpc.App.SetDeviceState.Request.DeviceState = .background) -> Result<Response, Error> {
       self.result(.init(deviceState: deviceState))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -120,24 +112,20 @@ extension Anytype_Rpc.App.Shutdown {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(), on: queue)
+      self.invoke(request: .init(), on: queue)
     }
     public static func invoke() -> Result<Response, Error> {
       self.result(.init())
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -170,24 +158,20 @@ extension Anytype_Rpc.Wallet.Create {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(rootPath: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(rootPath: rootPath), on: queue)
     }
-    public static func invoke(rootPath: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(rootPath: rootPath), on: queue)
-    }
-    public static func invoke(rootPath: String) -> Result<Response, Error> {
+    public static func invoke(rootPath: String = String()) -> Result<Response, Error> {
       self.result(.init(rootPath: rootPath))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -220,24 +204,20 @@ extension Anytype_Rpc.Wallet.Recover {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(rootPath: String = String(), mnemonic: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(rootPath: rootPath, mnemonic: mnemonic), on: queue)
     }
-    public static func invoke(rootPath: String, mnemonic: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(rootPath: rootPath, mnemonic: mnemonic), on: queue)
-    }
-    public static func invoke(rootPath: String, mnemonic: String) -> Result<Response, Error> {
+    public static func invoke(rootPath: String = String(), mnemonic: String = String()) -> Result<Response, Error> {
       self.result(.init(rootPath: rootPath, mnemonic: mnemonic))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -270,24 +250,20 @@ extension Anytype_Rpc.Wallet.Convert {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(mnemonic: String = String(), entropy: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(mnemonic: mnemonic, entropy: entropy), on: queue)
     }
-    public static func invoke(mnemonic: String, entropy: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(mnemonic: mnemonic, entropy: entropy), on: queue)
-    }
-    public static func invoke(mnemonic: String, entropy: String) -> Result<Response, Error> {
+    public static func invoke(mnemonic: String = String(), entropy: String = String()) -> Result<Response, Error> {
       self.result(.init(mnemonic: mnemonic, entropy: entropy))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -320,26 +296,24 @@ extension Anytype_Rpc.Account.Create {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(
+      name: String = String(), avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar? = nil, storePath: String = String(), alphaInviteCode: String = String(), queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(name: name, avatar: avatar, storePath: storePath, alphaInviteCode: alphaInviteCode), on: queue)
     }
-    public static func invoke(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, storePath: String, alphaInviteCode: String, queue: DispatchQueue? = nil) -> Future<
+    public static func invoke(name: String = String(), avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar? = nil, storePath: String = String(), alphaInviteCode: String = String()) -> Result<
       Response, Error
     > {
-      self.invoke(parameters: .init(name: name, avatar: avatar, storePath: storePath, alphaInviteCode: alphaInviteCode), on: queue)
-    }
-    public static func invoke(name: String, avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar?, storePath: String, alphaInviteCode: String) -> Result<Response, Error> {
       self.result(.init(name: name, avatar: avatar, storePath: storePath, alphaInviteCode: alphaInviteCode))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -372,24 +346,20 @@ extension Anytype_Rpc.Account.Recover {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(), on: queue)
+      self.invoke(request: .init(), on: queue)
     }
     public static func invoke() -> Result<Response, Error> {
       self.result(.init())
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -422,24 +392,20 @@ extension Anytype_Rpc.Account.Delete {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(revert: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(revert: revert), on: queue)
     }
-    public static func invoke(revert: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(revert: revert), on: queue)
-    }
-    public static func invoke(revert: Bool) -> Result<Response, Error> {
+    public static func invoke(revert: Bool = false) -> Result<Response, Error> {
       self.result(.init(revert: revert))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -472,24 +438,20 @@ extension Anytype_Rpc.Account.Select {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(id: String = String(), rootPath: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(id: id, rootPath: rootPath), on: queue)
     }
-    public static func invoke(id: String, rootPath: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(id: id, rootPath: rootPath), on: queue)
-    }
-    public static func invoke(id: String, rootPath: String) -> Result<Response, Error> {
+    public static func invoke(id: String = String(), rootPath: String = String()) -> Result<Response, Error> {
       self.result(.init(id: id, rootPath: rootPath))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -522,24 +484,20 @@ extension Anytype_Rpc.Account.Stop {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(removeData: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(removeData: removeData), on: queue)
     }
-    public static func invoke(removeData: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(removeData: removeData), on: queue)
-    }
-    public static func invoke(removeData: Bool) -> Result<Response, Error> {
+    public static func invoke(removeData: Bool = false) -> Result<Response, Error> {
       self.result(.init(removeData: removeData))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -572,24 +530,20 @@ extension Anytype_Rpc.Account.Move {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(newPath: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(newPath: newPath), on: queue)
     }
-    public static func invoke(newPath: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(newPath: newPath), on: queue)
-    }
-    public static func invoke(newPath: String) -> Result<Response, Error> {
+    public static func invoke(newPath: String = String()) -> Result<Response, Error> {
       self.result(.init(newPath: newPath))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -622,24 +576,20 @@ extension Anytype_Rpc.Workspace.GetCurrent {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(), on: queue)
+      self.invoke(request: .init(), on: queue)
     }
     public static func invoke() -> Result<Response, Error> {
       self.result(.init())
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -672,24 +622,20 @@ extension Anytype_Rpc.Workspace.GetAll {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(), on: queue)
+      self.invoke(request: .init(), on: queue)
     }
     public static func invoke() -> Result<Response, Error> {
       self.result(.init())
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -722,24 +668,20 @@ extension Anytype_Rpc.Workspace.Create {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(name: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(name: name), on: queue)
     }
-    public static func invoke(name: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(name: name), on: queue)
-    }
-    public static func invoke(name: String) -> Result<Response, Error> {
+    public static func invoke(name: String = String()) -> Result<Response, Error> {
       self.result(.init(name: name))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -772,24 +714,20 @@ extension Anytype_Rpc.Workspace.SetIsHighlighted {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectID: String = String(), isHighlighted: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectID: objectID, isHighlighted: isHighlighted), on: queue)
     }
-    public static func invoke(objectID: String, isHighlighted: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectID: objectID, isHighlighted: isHighlighted), on: queue)
-    }
-    public static func invoke(objectID: String, isHighlighted: Bool) -> Result<Response, Error> {
+    public static func invoke(objectID: String = String(), isHighlighted: Bool = false) -> Result<Response, Error> {
       self.result(.init(objectID: objectID, isHighlighted: isHighlighted))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -822,24 +760,20 @@ extension Anytype_Rpc.Workspace.Select {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(workspaceID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(workspaceID: workspaceID), on: queue)
     }
-    public static func invoke(workspaceID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(workspaceID: workspaceID), on: queue)
-    }
-    public static func invoke(workspaceID: String) -> Result<Response, Error> {
+    public static func invoke(workspaceID: String = String()) -> Result<Response, Error> {
       self.result(.init(workspaceID: workspaceID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -872,24 +806,20 @@ extension Anytype_Rpc.Workspace.Export {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(path: String = String(), workspaceID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(path: path, workspaceID: workspaceID), on: queue)
     }
-    public static func invoke(path: String, workspaceID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(path: path, workspaceID: workspaceID), on: queue)
-    }
-    public static func invoke(path: String, workspaceID: String) -> Result<Response, Error> {
+    public static func invoke(path: String = String(), workspaceID: String = String()) -> Result<Response, Error> {
       self.result(.init(path: path, workspaceID: workspaceID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -922,24 +852,20 @@ extension Anytype_Rpc.Object.Open {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, objectID: objectID, traceID: traceID), on: queue)
     }
-    public static func invoke(contextID: String, objectID: String, traceID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, objectID: objectID, traceID: traceID), on: queue)
-    }
-    public static func invoke(contextID: String, objectID: String, traceID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, objectID: objectID, traceID: traceID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -972,24 +898,20 @@ extension Anytype_Rpc.Object.Close {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), objectID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, objectID: objectID), on: queue)
     }
-    public static func invoke(contextID: String, objectID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, objectID: objectID), on: queue)
-    }
-    public static func invoke(contextID: String, objectID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), objectID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, objectID: objectID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1022,24 +944,20 @@ extension Anytype_Rpc.Object.Show {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, objectID: objectID, traceID: traceID), on: queue)
     }
-    public static func invoke(contextID: String, objectID: String, traceID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, objectID: objectID, traceID: traceID), on: queue)
-    }
-    public static func invoke(contextID: String, objectID: String, traceID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, objectID: objectID, traceID: traceID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1072,24 +990,22 @@ extension Anytype_Rpc.Object.Create {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag] = [], templateID: String = String(), queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(request: .init(details: details, internalFlags: internalFlags, templateID: templateID), on: queue)
     }
-    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag], templateID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(details: details, internalFlags: internalFlags, templateID: templateID), on: queue)
-    }
-    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag], templateID: String) -> Result<Response, Error> {
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag] = [], templateID: String = String()) -> Result<Response, Error> {
       self.result(.init(details: details, internalFlags: internalFlags, templateID: templateID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1122,24 +1038,20 @@ extension Anytype_Rpc.Object.CreateBookmark {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(url: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(url: url), on: queue)
     }
-    public static func invoke(url: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(url: url), on: queue)
-    }
-    public static func invoke(url: String) -> Result<Response, Error> {
+    public static func invoke(url: String = String()) -> Result<Response, Error> {
       self.result(.init(url: url))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1172,24 +1084,20 @@ extension Anytype_Rpc.Object.BookmarkFetch {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), url: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, url: url), on: queue)
     }
-    public static func invoke(contextID: String, url: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, url: url), on: queue)
-    }
-    public static func invoke(contextID: String, url: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), url: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, url: url))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1222,24 +1130,20 @@ extension Anytype_Rpc.Object.ToBookmark {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), url: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, url: url), on: queue)
     }
-    public static func invoke(contextID: String, url: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, url: url), on: queue)
-    }
-    public static func invoke(contextID: String, url: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), url: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, url: url))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1272,26 +1176,24 @@ extension Anytype_Rpc.Object.CreateSet {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(
+      source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(source: source, details: details, templateID: templateID, internalFlags: internalFlags), on: queue)
     }
-    public static func invoke(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, internalFlags: [Anytype_Model_InternalFlag], queue: DispatchQueue? = nil) -> Future<
+    public static func invoke(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> Result<
       Response, Error
     > {
-      self.invoke(parameters: .init(source: source, details: details, templateID: templateID, internalFlags: internalFlags), on: queue)
-    }
-    public static func invoke(source: [String], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, internalFlags: [Anytype_Model_InternalFlag]) -> Result<Response, Error> {
       self.result(.init(source: source, details: details, templateID: templateID, internalFlags: internalFlags))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1324,24 +1226,20 @@ extension Anytype_Rpc.Object.Duplicate {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID), on: queue)
     }
-    public static func invoke(contextID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID), on: queue)
-    }
-    public static func invoke(contextID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1374,24 +1272,20 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), traceID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, traceID: traceID), on: queue)
     }
-    public static func invoke(contextID: String, traceID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, traceID: traceID), on: queue)
-    }
-    public static func invoke(contextID: String, traceID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), traceID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, traceID: traceID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1424,24 +1318,20 @@ extension Anytype_Rpc.Object.SetBreadcrumbs {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(breadcrumbsID: String = String(), ids: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(breadcrumbsID: breadcrumbsID, ids: ids), on: queue)
     }
-    public static func invoke(breadcrumbsID: String, ids: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(breadcrumbsID: breadcrumbsID, ids: ids), on: queue)
-    }
-    public static func invoke(breadcrumbsID: String, ids: [String]) -> Result<Response, Error> {
+    public static func invoke(breadcrumbsID: String = String(), ids: [String] = []) -> Result<Response, Error> {
       self.result(.init(breadcrumbsID: breadcrumbsID, ids: ids))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1474,24 +1364,20 @@ extension Anytype_Rpc.Object.ImportMarkdown {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), importPath: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, importPath: importPath), on: queue)
     }
-    public static func invoke(contextID: String, importPath: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, importPath: importPath), on: queue)
-    }
-    public static func invoke(contextID: String, importPath: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), importPath: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, importPath: importPath))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1524,24 +1410,20 @@ extension Anytype_Rpc.Object.ShareByLink {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectID: objectID), on: queue)
     }
-    public static func invoke(objectID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectID: objectID), on: queue)
-    }
-    public static func invoke(objectID: String) -> Result<Response, Error> {
+    public static func invoke(objectID: String = String()) -> Result<Response, Error> {
       self.result(.init(objectID: objectID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1574,24 +1456,20 @@ extension Anytype_Rpc.Object.AddWithObjectId {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectID: String = String(), payload: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectID: objectID, payload: payload), on: queue)
     }
-    public static func invoke(objectID: String, payload: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectID: objectID, payload: payload), on: queue)
-    }
-    public static func invoke(objectID: String, payload: String) -> Result<Response, Error> {
+    public static func invoke(objectID: String = String(), payload: String = String()) -> Result<Response, Error> {
       self.result(.init(objectID: objectID, payload: payload))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1624,30 +1502,26 @@ extension Anytype_Rpc.Object.Search {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(
-      filters: [Anytype_Model_Block.Content.Dataview.Filter], sorts: [Anytype_Model_Block.Content.Dataview.Sort], fullText: String, offset: Int32, limit: Int32, objectTypeFilter: [String],
-      keys: [String], queue: DispatchQueue? = nil
+      filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], fullText: String = String(), offset: Int32 = 0, limit: Int32 = 0,
+      objectTypeFilter: [String] = [], keys: [String] = [], queue: DispatchQueue? = nil
     ) -> Future<Response, Error> {
-      self.invoke(parameters: .init(filters: filters, sorts: sorts, fullText: fullText, offset: offset, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys), on: queue)
+      self.invoke(request: .init(filters: filters, sorts: sorts, fullText: fullText, offset: offset, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys), on: queue)
     }
     public static func invoke(
-      filters: [Anytype_Model_Block.Content.Dataview.Filter], sorts: [Anytype_Model_Block.Content.Dataview.Sort], fullText: String, offset: Int32, limit: Int32, objectTypeFilter: [String],
-      keys: [String]
+      filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], fullText: String = String(), offset: Int32 = 0, limit: Int32 = 0,
+      objectTypeFilter: [String] = [], keys: [String] = []
     ) -> Result<Response, Error> {
       self.result(.init(filters: filters, sorts: sorts, fullText: fullText, offset: offset, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1680,25 +1554,22 @@ extension Anytype_Rpc.Object.Graph {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
-    public static func invoke(filters: [Anytype_Model_Block.Content.Dataview.Filter], limit: Int32, objectTypeFilter: [String], keys: [String], queue: DispatchQueue? = nil) -> Future<Response, Error>
+    public static func invoke(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = [], queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
     {
-      self.invoke(parameters: .init(filters: filters, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys), on: queue)
+      self.invoke(request: .init(filters: filters, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys), on: queue)
     }
-    public static func invoke(filters: [Anytype_Model_Block.Content.Dataview.Filter], limit: Int32, objectTypeFilter: [String], keys: [String]) -> Result<Response, Error> {
+    public static func invoke(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = []) -> Result<Response, Error> {
       self.result(.init(filters: filters, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1731,36 +1602,79 @@ extension Anytype_Rpc.Object.SearchSubscribe {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(
-      subID: String, filters: [Anytype_Model_Block.Content.Dataview.Filter], sorts: [Anytype_Model_Block.Content.Dataview.Sort], limit: Int64, offset: Int64, keys: [String], afterID: String,
-      beforeID: String, source: [String], ignoreWorkspace: String, noDepSubscription: Bool, queue: DispatchQueue? = nil
+      subID: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], limit: Int64 = 0, offset: Int64 = 0,
+      keys: [String] = [], afterID: String = String(), beforeID: String = String(), source: [String] = [], ignoreWorkspace: String = String(), noDepSubscription: Bool = false,
+      queue: DispatchQueue? = nil
     ) -> Future<Response, Error> {
       self.invoke(
-        parameters: .init(
+        request: .init(
           subID: subID, filters: filters, sorts: sorts, limit: limit, offset: offset, keys: keys, afterID: afterID, beforeID: beforeID, source: source, ignoreWorkspace: ignoreWorkspace,
           noDepSubscription: noDepSubscription), on: queue)
     }
     public static func invoke(
-      subID: String, filters: [Anytype_Model_Block.Content.Dataview.Filter], sorts: [Anytype_Model_Block.Content.Dataview.Sort], limit: Int64, offset: Int64, keys: [String], afterID: String,
-      beforeID: String, source: [String], ignoreWorkspace: String, noDepSubscription: Bool
+      subID: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], limit: Int64 = 0, offset: Int64 = 0,
+      keys: [String] = [], afterID: String = String(), beforeID: String = String(), source: [String] = [], ignoreWorkspace: String = String(), noDepSubscription: Bool = false
     ) -> Result<Response, Error> {
       self.result(
         .init(
           subID: subID, filters: filters, sorts: sorts, limit: limit, offset: offset, keys: keys, afterID: afterID, beforeID: beforeID, source: source, ignoreWorkspace: ignoreWorkspace,
           noDepSubscription: noDepSubscription))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.Object.RelationSearchDistinct {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceObjectRelationSearchDistinct(data) }
+  }
+
+  public enum Service {
+    public static func invoke(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(relationKey: relationKey, filters: filters), on: queue)
+    }
+    public static func invoke(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = []) -> Result<Response, Error> {
+      self.result(.init(relationKey: relationKey, filters: filters))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
         }
       }
     }
@@ -1793,24 +1707,20 @@ extension Anytype_Rpc.Object.SubscribeIds {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(subID: String = String(), ids: [String] = [], keys: [String] = [], ignoreWorkspace: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(subID: subID, ids: ids, keys: keys, ignoreWorkspace: ignoreWorkspace), on: queue)
     }
-    public static func invoke(subID: String, ids: [String], keys: [String], ignoreWorkspace: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(subID: subID, ids: ids, keys: keys, ignoreWorkspace: ignoreWorkspace), on: queue)
-    }
-    public static func invoke(subID: String, ids: [String], keys: [String], ignoreWorkspace: String) -> Result<Response, Error> {
+    public static func invoke(subID: String = String(), ids: [String] = [], keys: [String] = [], ignoreWorkspace: String = String()) -> Result<Response, Error> {
       self.result(.init(subID: subID, ids: ids, keys: keys, ignoreWorkspace: ignoreWorkspace))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1843,24 +1753,20 @@ extension Anytype_Rpc.Object.SearchUnsubscribe {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(subIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(subIds: subIds), on: queue)
     }
-    public static func invoke(subIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(subIds: subIds), on: queue)
-    }
-    public static func invoke(subIds: [String]) -> Result<Response, Error> {
+    public static func invoke(subIds: [String] = []) -> Result<Response, Error> {
       self.result(.init(subIds: subIds))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1893,24 +1799,20 @@ extension Anytype_Rpc.Object.SetLayout {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), layout: Anytype_Model_ObjectType.Layout = .basic, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, layout: layout), on: queue)
     }
-    public static func invoke(contextID: String, layout: Anytype_Model_ObjectType.Layout, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, layout: layout), on: queue)
-    }
-    public static func invoke(contextID: String, layout: Anytype_Model_ObjectType.Layout) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), layout: Anytype_Model_ObjectType.Layout = .basic) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, layout: layout))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1943,24 +1845,20 @@ extension Anytype_Rpc.Object.SetIsFavorite {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), isFavorite: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, isFavorite: isFavorite), on: queue)
     }
-    public static func invoke(contextID: String, isFavorite: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, isFavorite: isFavorite), on: queue)
-    }
-    public static func invoke(contextID: String, isFavorite: Bool) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), isFavorite: Bool = false) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, isFavorite: isFavorite))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -1993,24 +1891,20 @@ extension Anytype_Rpc.Object.SetIsArchived {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), isArchived: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, isArchived: isArchived), on: queue)
     }
-    public static func invoke(contextID: String, isArchived: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, isArchived: isArchived), on: queue)
-    }
-    public static func invoke(contextID: String, isArchived: Bool) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), isArchived: Bool = false) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, isArchived: isArchived))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2043,24 +1937,20 @@ extension Anytype_Rpc.Object.SetObjectType {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), objectTypeURL: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, objectTypeURL: objectTypeURL), on: queue)
     }
-    public static func invoke(contextID: String, objectTypeURL: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, objectTypeURL: objectTypeURL), on: queue)
-    }
-    public static func invoke(contextID: String, objectTypeURL: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), objectTypeURL: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, objectTypeURL: objectTypeURL))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2093,24 +1983,20 @@ extension Anytype_Rpc.Object.SetDetails {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), details: [Anytype_Rpc.Object.SetDetails.Detail] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, details: details), on: queue)
     }
-    public static func invoke(contextID: String, details: [Anytype_Rpc.Object.SetDetails.Detail], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, details: details), on: queue)
-    }
-    public static func invoke(contextID: String, details: [Anytype_Rpc.Object.SetDetails.Detail]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), details: [Anytype_Rpc.Object.SetDetails.Detail] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, details: details))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2143,24 +2029,20 @@ extension Anytype_Rpc.Object.ToSet {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), source: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, source: source), on: queue)
     }
-    public static func invoke(contextID: String, source: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, source: source), on: queue)
-    }
-    public static func invoke(contextID: String, source: [String]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), source: [String] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, source: source))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2193,24 +2075,20 @@ extension Anytype_Rpc.Object.Undo {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID), on: queue)
     }
-    public static func invoke(contextID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID), on: queue)
-    }
-    public static func invoke(contextID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2243,24 +2121,20 @@ extension Anytype_Rpc.Object.Redo {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID), on: queue)
     }
-    public static func invoke(contextID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID), on: queue)
-    }
-    public static func invoke(contextID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2293,24 +2167,20 @@ extension Anytype_Rpc.Object.ListDuplicate {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectIds: objectIds), on: queue)
     }
-    public static func invoke(objectIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectIds: objectIds), on: queue)
-    }
-    public static func invoke(objectIds: [String]) -> Result<Response, Error> {
+    public static func invoke(objectIds: [String] = []) -> Result<Response, Error> {
       self.result(.init(objectIds: objectIds))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2343,24 +2213,20 @@ extension Anytype_Rpc.Object.ListDelete {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectIds: objectIds), on: queue)
     }
-    public static func invoke(objectIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectIds: objectIds), on: queue)
-    }
-    public static func invoke(objectIds: [String]) -> Result<Response, Error> {
+    public static func invoke(objectIds: [String] = []) -> Result<Response, Error> {
       self.result(.init(objectIds: objectIds))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2393,24 +2259,20 @@ extension Anytype_Rpc.Object.ListSetIsArchived {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectIds: [String] = [], isArchived: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectIds: objectIds, isArchived: isArchived), on: queue)
     }
-    public static func invoke(objectIds: [String], isArchived: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectIds: objectIds, isArchived: isArchived), on: queue)
-    }
-    public static func invoke(objectIds: [String], isArchived: Bool) -> Result<Response, Error> {
+    public static func invoke(objectIds: [String] = [], isArchived: Bool = false) -> Result<Response, Error> {
       self.result(.init(objectIds: objectIds, isArchived: isArchived))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2443,24 +2305,20 @@ extension Anytype_Rpc.Object.ListSetIsFavorite {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectIds: [String] = [], isFavorite: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectIds: objectIds, isFavorite: isFavorite), on: queue)
     }
-    public static func invoke(objectIds: [String], isFavorite: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectIds: objectIds, isFavorite: isFavorite), on: queue)
-    }
-    public static func invoke(objectIds: [String], isFavorite: Bool) -> Result<Response, Error> {
+    public static func invoke(objectIds: [String] = [], isFavorite: Bool = false) -> Result<Response, Error> {
       self.result(.init(objectIds: objectIds, isFavorite: isFavorite))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2493,24 +2351,20 @@ extension Anytype_Rpc.Object.ApplyTemplate {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), templateID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, templateID: templateID), on: queue)
     }
-    public static func invoke(contextID: String, templateID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, templateID: templateID), on: queue)
-    }
-    public static func invoke(contextID: String, templateID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), templateID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, templateID: templateID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2543,26 +2397,25 @@ extension Anytype_Rpc.Object.ListExport {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(
+      path: String = String(), objectIds: [String] = [], format: Anytype_Rpc.Object.ListExport.Format = .markdown, zip: Bool = false, includeNested: Bool = false, includeFiles: Bool = false,
+      queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(path: path, objectIds: objectIds, format: format, zip: zip, includeNested: includeNested, includeFiles: includeFiles), on: queue)
     }
-    public static func invoke(path: String, objectIds: [String], format: Anytype_Rpc.Object.ListExport.Format, zip: Bool, includeNested: Bool, includeFiles: Bool, queue: DispatchQueue? = nil)
-      -> Future<Response, Error>
-    {
-      self.invoke(parameters: .init(path: path, objectIds: objectIds, format: format, zip: zip, includeNested: includeNested, includeFiles: includeFiles), on: queue)
-    }
-    public static func invoke(path: String, objectIds: [String], format: Anytype_Rpc.Object.ListExport.Format, zip: Bool, includeNested: Bool, includeFiles: Bool) -> Result<Response, Error> {
+    public static func invoke(
+      path: String = String(), objectIds: [String] = [], format: Anytype_Rpc.Object.ListExport.Format = .markdown, zip: Bool = false, includeNested: Bool = false, includeFiles: Bool = false
+    ) -> Result<Response, Error> {
       self.result(.init(path: path, objectIds: objectIds, format: format, zip: zip, includeNested: includeNested, includeFiles: includeFiles))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2595,24 +2448,20 @@ extension Anytype_Rpc.ObjectRelation.Add {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, relation: relation), on: queue)
     }
-    public static func invoke(contextID: String, relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, relation: relation), on: queue)
-    }
-    public static func invoke(contextID: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), relation: Anytype_Model_Relation) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, relation: relation))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2645,24 +2494,20 @@ extension Anytype_Rpc.ObjectRelation.Update {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(contextID: String, relationKey: String, relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, relationKey: relationKey, relation: relation), on: queue)
+      self.invoke(request: .init(contextID: contextID, relationKey: relationKey, relation: relation), on: queue)
     }
     public static func invoke(contextID: String, relationKey: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, relationKey: relationKey, relation: relation))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2695,24 +2540,20 @@ extension Anytype_Rpc.ObjectRelation.Delete {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), relationKey: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, relationKey: relationKey), on: queue)
     }
-    public static func invoke(contextID: String, relationKey: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, relationKey: relationKey), on: queue)
-    }
-    public static func invoke(contextID: String, relationKey: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), relationKey: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, relationKey: relationKey))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2745,24 +2586,20 @@ extension Anytype_Rpc.ObjectRelation.ListAvailable {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID), on: queue)
     }
-    public static func invoke(contextID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID), on: queue)
-    }
-    public static func invoke(contextID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2795,24 +2632,20 @@ extension Anytype_Rpc.ObjectRelation.AddFeatured {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), relations: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, relations: relations), on: queue)
     }
-    public static func invoke(contextID: String, relations: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, relations: relations), on: queue)
-    }
-    public static func invoke(contextID: String, relations: [String]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), relations: [String] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, relations: relations))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2845,24 +2678,20 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), relations: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, relations: relations), on: queue)
     }
-    public static func invoke(contextID: String, relations: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, relations: relations), on: queue)
-    }
-    public static func invoke(contextID: String, relations: [String]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), relations: [String] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, relations: relations))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2895,24 +2724,20 @@ extension Anytype_Rpc.ObjectRelationOption.Add {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, relationKey: relationKey, option: option), on: queue)
     }
-    public static func invoke(contextID: String, relationKey: String, option: Anytype_Model_Relation.Option, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, relationKey: relationKey, option: option), on: queue)
-    }
-    public static func invoke(contextID: String, relationKey: String, option: Anytype_Model_Relation.Option) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, relationKey: relationKey, option: option))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2945,24 +2770,20 @@ extension Anytype_Rpc.ObjectRelationOption.Update {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, relationKey: relationKey, option: option), on: queue)
     }
-    public static func invoke(contextID: String, relationKey: String, option: Anytype_Model_Relation.Option, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, relationKey: relationKey, option: option), on: queue)
-    }
-    public static func invoke(contextID: String, relationKey: String, option: Anytype_Model_Relation.Option) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, relationKey: relationKey, option: option))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -2995,24 +2816,22 @@ extension Anytype_Rpc.ObjectRelationOption.Delete {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), relationKey: String = String(), optionID: String = String(), confirmRemoveAllValuesInRecords: Bool = false, queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, relationKey: relationKey, optionID: optionID, confirmRemoveAllValuesInRecords: confirmRemoveAllValuesInRecords), on: queue)
     }
-    public static func invoke(contextID: String, relationKey: String, optionID: String, confirmRemoveAllValuesInRecords: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, relationKey: relationKey, optionID: optionID, confirmRemoveAllValuesInRecords: confirmRemoveAllValuesInRecords), on: queue)
-    }
-    public static func invoke(contextID: String, relationKey: String, optionID: String, confirmRemoveAllValuesInRecords: Bool) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), relationKey: String = String(), optionID: String = String(), confirmRemoveAllValuesInRecords: Bool = false) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, relationKey: relationKey, optionID: optionID, confirmRemoveAllValuesInRecords: confirmRemoveAllValuesInRecords))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3045,24 +2864,20 @@ extension Anytype_Rpc.ObjectType.List {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(), on: queue)
+      self.invoke(request: .init(), on: queue)
     }
     public static func invoke() -> Result<Response, Error> {
       self.result(.init())
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3095,24 +2910,20 @@ extension Anytype_Rpc.ObjectType.Create {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(objectType: Anytype_Model_ObjectType, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectType: objectType), on: queue)
+      self.invoke(request: .init(objectType: objectType), on: queue)
     }
     public static func invoke(objectType: Anytype_Model_ObjectType) -> Result<Response, Error> {
       self.result(.init(objectType: objectType))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3145,24 +2956,20 @@ extension Anytype_Rpc.ObjectType.Relation.Add {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectTypeURL: String = String(), relations: [Anytype_Model_Relation] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectTypeURL: objectTypeURL, relations: relations), on: queue)
     }
-    public static func invoke(objectTypeURL: String, relations: [Anytype_Model_Relation], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectTypeURL: objectTypeURL, relations: relations), on: queue)
-    }
-    public static func invoke(objectTypeURL: String, relations: [Anytype_Model_Relation]) -> Result<Response, Error> {
+    public static func invoke(objectTypeURL: String = String(), relations: [Anytype_Model_Relation] = []) -> Result<Response, Error> {
       self.result(.init(objectTypeURL: objectTypeURL, relations: relations))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3195,24 +3002,20 @@ extension Anytype_Rpc.ObjectType.Relation.Remove {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectTypeURL: String = String(), relationKey: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectTypeURL: objectTypeURL, relationKey: relationKey), on: queue)
     }
-    public static func invoke(objectTypeURL: String, relationKey: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectTypeURL: objectTypeURL, relationKey: relationKey), on: queue)
-    }
-    public static func invoke(objectTypeURL: String, relationKey: String) -> Result<Response, Error> {
+    public static func invoke(objectTypeURL: String = String(), relationKey: String = String()) -> Result<Response, Error> {
       self.result(.init(objectTypeURL: objectTypeURL, relationKey: relationKey))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3245,24 +3048,20 @@ extension Anytype_Rpc.ObjectType.Relation.Update {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectTypeURL: String = String(), relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectTypeURL: objectTypeURL, relation: relation), on: queue)
     }
-    public static func invoke(objectTypeURL: String, relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectTypeURL: objectTypeURL, relation: relation), on: queue)
-    }
-    public static func invoke(objectTypeURL: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
+    public static func invoke(objectTypeURL: String = String(), relation: Anytype_Model_Relation) -> Result<Response, Error> {
       self.result(.init(objectTypeURL: objectTypeURL, relation: relation))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3295,24 +3094,20 @@ extension Anytype_Rpc.ObjectType.Relation.List {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectTypeURL: String = String(), appendRelationsFromOtherTypes: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectTypeURL: objectTypeURL, appendRelationsFromOtherTypes: appendRelationsFromOtherTypes), on: queue)
     }
-    public static func invoke(objectTypeURL: String, appendRelationsFromOtherTypes: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectTypeURL: objectTypeURL, appendRelationsFromOtherTypes: appendRelationsFromOtherTypes), on: queue)
-    }
-    public static func invoke(objectTypeURL: String, appendRelationsFromOtherTypes: Bool) -> Result<Response, Error> {
+    public static func invoke(objectTypeURL: String = String(), appendRelationsFromOtherTypes: Bool = false) -> Result<Response, Error> {
       self.result(.init(objectTypeURL: objectTypeURL, appendRelationsFromOtherTypes: appendRelationsFromOtherTypes))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3345,24 +3140,20 @@ extension Anytype_Rpc.History.GetVersions {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(pageID: String = String(), lastVersionID: String = String(), limit: Int32 = 0, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(pageID: pageID, lastVersionID: lastVersionID, limit: limit), on: queue)
     }
-    public static func invoke(pageID: String, lastVersionID: String, limit: Int32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(pageID: pageID, lastVersionID: lastVersionID, limit: limit), on: queue)
-    }
-    public static func invoke(pageID: String, lastVersionID: String, limit: Int32) -> Result<Response, Error> {
+    public static func invoke(pageID: String = String(), lastVersionID: String = String(), limit: Int32 = 0) -> Result<Response, Error> {
       self.result(.init(pageID: pageID, lastVersionID: lastVersionID, limit: limit))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3395,24 +3186,20 @@ extension Anytype_Rpc.History.ShowVersion {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(pageID: String = String(), versionID: String = String(), traceID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(pageID: pageID, versionID: versionID, traceID: traceID), on: queue)
     }
-    public static func invoke(pageID: String, versionID: String, traceID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(pageID: pageID, versionID: versionID, traceID: traceID), on: queue)
-    }
-    public static func invoke(pageID: String, versionID: String, traceID: String) -> Result<Response, Error> {
+    public static func invoke(pageID: String = String(), versionID: String = String(), traceID: String = String()) -> Result<Response, Error> {
       self.result(.init(pageID: pageID, versionID: versionID, traceID: traceID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3445,24 +3232,20 @@ extension Anytype_Rpc.History.SetVersion {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(pageID: String = String(), versionID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(pageID: pageID, versionID: versionID), on: queue)
     }
-    public static func invoke(pageID: String, versionID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(pageID: pageID, versionID: versionID), on: queue)
-    }
-    public static func invoke(pageID: String, versionID: String) -> Result<Response, Error> {
+    public static func invoke(pageID: String = String(), versionID: String = String()) -> Result<Response, Error> {
       self.result(.init(pageID: pageID, versionID: versionID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3495,24 +3278,20 @@ extension Anytype_Rpc.File.Offload {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(id: String = String(), includeNotPinned: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(id: id, includeNotPinned: includeNotPinned), on: queue)
     }
-    public static func invoke(id: String, includeNotPinned: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(id: id, includeNotPinned: includeNotPinned), on: queue)
-    }
-    public static func invoke(id: String, includeNotPinned: Bool) -> Result<Response, Error> {
+    public static func invoke(id: String = String(), includeNotPinned: Bool = false) -> Result<Response, Error> {
       self.result(.init(id: id, includeNotPinned: includeNotPinned))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3545,24 +3324,20 @@ extension Anytype_Rpc.File.ListOffload {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(onlyIds: [String] = [], includeNotPinned: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(onlyIds: onlyIds, includeNotPinned: includeNotPinned), on: queue)
     }
-    public static func invoke(onlyIds: [String], includeNotPinned: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(onlyIds: onlyIds, includeNotPinned: includeNotPinned), on: queue)
-    }
-    public static func invoke(onlyIds: [String], includeNotPinned: Bool) -> Result<Response, Error> {
+    public static func invoke(onlyIds: [String] = [], includeNotPinned: Bool = false) -> Result<Response, Error> {
       self.result(.init(onlyIds: onlyIds, includeNotPinned: includeNotPinned))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3595,28 +3370,26 @@ extension Anytype_Rpc.File.Upload {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(
+      url: String = String(), localPath: String = String(), type: Anytype_Model_Block.Content.File.TypeEnum = .none, disableEncryption: Bool = false,
+      style: Anytype_Model_Block.Content.File.Style = .auto, queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(url: url, localPath: localPath, type: type, disableEncryption: disableEncryption, style: style), on: queue)
     }
     public static func invoke(
-      url: String, localPath: String, type: Anytype_Model_Block.Content.File.TypeEnum, disableEncryption: Bool, style: Anytype_Model_Block.Content.File.Style, queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
-      self.invoke(parameters: .init(url: url, localPath: localPath, type: type, disableEncryption: disableEncryption, style: style), on: queue)
-    }
-    public static func invoke(url: String, localPath: String, type: Anytype_Model_Block.Content.File.TypeEnum, disableEncryption: Bool, style: Anytype_Model_Block.Content.File.Style) -> Result<
-      Response, Error
-    > {
+      url: String = String(), localPath: String = String(), type: Anytype_Model_Block.Content.File.TypeEnum = .none, disableEncryption: Bool = false,
+      style: Anytype_Model_Block.Content.File.Style = .auto
+    ) -> Result<Response, Error> {
       self.result(.init(url: url, localPath: localPath, type: type, disableEncryption: disableEncryption, style: style))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3649,24 +3422,20 @@ extension Anytype_Rpc.File.Download {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(hash: String = String(), path: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(hash: hash, path: path), on: queue)
     }
-    public static func invoke(hash: String, path: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(hash: hash, path: path), on: queue)
-    }
-    public static func invoke(hash: String, path: String) -> Result<Response, Error> {
+    public static func invoke(hash: String = String(), path: String = String()) -> Result<Response, Error> {
       self.result(.init(hash: hash, path: path))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3699,24 +3468,22 @@ extension Anytype_Rpc.File.Drop {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, localFilePaths: [String] = [], queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, dropTargetID: dropTargetID, position: position, localFilePaths: localFilePaths), on: queue)
     }
-    public static func invoke(contextID: String, dropTargetID: String, position: Anytype_Model_Block.Position, localFilePaths: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, dropTargetID: dropTargetID, position: position, localFilePaths: localFilePaths), on: queue)
-    }
-    public static func invoke(contextID: String, dropTargetID: String, position: Anytype_Model_Block.Position, localFilePaths: [String]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, localFilePaths: [String] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, dropTargetID: dropTargetID, position: position, localFilePaths: localFilePaths))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3749,24 +3516,22 @@ extension Anytype_Rpc.Navigation.ListObjects {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(context: Anytype_Rpc.Navigation.Context = .navigation, fullText: String = String(), limit: Int32 = 0, offset: Int32 = 0, queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(request: .init(context: context, fullText: fullText, limit: limit, offset: offset), on: queue)
     }
-    public static func invoke(context: Anytype_Rpc.Navigation.Context, fullText: String, limit: Int32, offset: Int32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(context: context, fullText: fullText, limit: limit, offset: offset), on: queue)
-    }
-    public static func invoke(context: Anytype_Rpc.Navigation.Context, fullText: String, limit: Int32, offset: Int32) -> Result<Response, Error> {
+    public static func invoke(context: Anytype_Rpc.Navigation.Context = .navigation, fullText: String = String(), limit: Int32 = 0, offset: Int32 = 0) -> Result<Response, Error> {
       self.result(.init(context: context, fullText: fullText, limit: limit, offset: offset))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3799,24 +3564,20 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectID: String = String(), context: Anytype_Rpc.Navigation.Context = .navigation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectID: objectID, context: context), on: queue)
     }
-    public static func invoke(objectID: String, context: Anytype_Rpc.Navigation.Context, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectID: objectID, context: context), on: queue)
-    }
-    public static func invoke(objectID: String, context: Anytype_Rpc.Navigation.Context) -> Result<Response, Error> {
+    public static func invoke(objectID: String = String(), context: Anytype_Rpc.Navigation.Context = .navigation) -> Result<Response, Error> {
       self.result(.init(objectID: objectID, context: context))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3849,24 +3610,20 @@ extension Anytype_Rpc.Template.CreateFromObject {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID), on: queue)
     }
-    public static func invoke(contextID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID), on: queue)
-    }
-    public static func invoke(contextID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3899,24 +3656,20 @@ extension Anytype_Rpc.Template.CreateFromObjectType {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectType: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectType: objectType), on: queue)
     }
-    public static func invoke(objectType: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectType: objectType), on: queue)
-    }
-    public static func invoke(objectType: String) -> Result<Response, Error> {
+    public static func invoke(objectType: String = String()) -> Result<Response, Error> {
       self.result(.init(objectType: objectType))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3949,24 +3702,20 @@ extension Anytype_Rpc.Template.Clone {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID), on: queue)
     }
-    public static func invoke(contextID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID), on: queue)
-    }
-    public static func invoke(contextID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -3999,24 +3748,20 @@ extension Anytype_Rpc.Template.ExportAll {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(path: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(path: path), on: queue)
     }
-    public static func invoke(path: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(path: path), on: queue)
-    }
-    public static func invoke(path: String) -> Result<Response, Error> {
+    public static func invoke(path: String = String()) -> Result<Response, Error> {
       self.result(.init(path: path))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4049,24 +3794,20 @@ extension Anytype_Rpc.LinkPreview {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(url: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(url: url), on: queue)
     }
-    public static func invoke(url: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(url: url), on: queue)
-    }
-    public static func invoke(url: String) -> Result<Response, Error> {
+    public static func invoke(url: String = String()) -> Result<Response, Error> {
       self.result(.init(url: url))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4099,24 +3840,20 @@ extension Anytype_Rpc.Unsplash.Search {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(query: String = String(), limit: Int32 = 0, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(query: query, limit: limit), on: queue)
     }
-    public static func invoke(query: String, limit: Int32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(query: query, limit: limit), on: queue)
-    }
-    public static func invoke(query: String, limit: Int32) -> Result<Response, Error> {
+    public static func invoke(query: String = String(), limit: Int32 = 0) -> Result<Response, Error> {
       self.result(.init(query: query, limit: limit))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4149,24 +3886,20 @@ extension Anytype_Rpc.Unsplash.Download {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(pictureID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(pictureID: pictureID), on: queue)
     }
-    public static func invoke(pictureID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(pictureID: pictureID), on: queue)
-    }
-    public static func invoke(pictureID: String) -> Result<Response, Error> {
+    public static func invoke(pictureID: String = String()) -> Result<Response, Error> {
       self.result(.init(pictureID: pictureID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4199,24 +3932,20 @@ extension Anytype_Rpc.Block.Replace {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), block: Anytype_Model_Block, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, block: block), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, block: Anytype_Model_Block, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, block: block), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, block: Anytype_Model_Block) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), block: Anytype_Model_Block) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, block: block))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4249,28 +3978,26 @@ extension Anytype_Rpc.Block.Split {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(
+      contextID: String = String(), blockID: String = String(), range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style = .paragraph,
+      mode: Anytype_Rpc.Block.Split.Request.Mode = .bottom, queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode), on: queue)
     }
     public static func invoke(
-      contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style, mode: Anytype_Rpc.Block.Split.Request.Mode, queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style, mode: Anytype_Rpc.Block.Split.Request.Mode) -> Result<
-      Response, Error
-    > {
+      contextID: String = String(), blockID: String = String(), range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style = .paragraph,
+      mode: Anytype_Rpc.Block.Split.Request.Mode = .bottom
+    ) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4303,24 +4030,20 @@ extension Anytype_Rpc.Block.Merge {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), firstBlockID: String = String(), secondBlockID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID), on: queue)
     }
-    public static func invoke(contextID: String, firstBlockID: String, secondBlockID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID), on: queue)
-    }
-    public static func invoke(contextID: String, firstBlockID: String, secondBlockID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), firstBlockID: String = String(), secondBlockID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4353,24 +4076,20 @@ extension Anytype_Rpc.Block.Copy {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blocks: [Anytype_Model_Block] = [], selectedTextRange: Anytype_Model_Range, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange), on: queue)
     }
-    public static func invoke(contextID: String, blocks: [Anytype_Model_Block], selectedTextRange: Anytype_Model_Range, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange), on: queue)
-    }
-    public static func invoke(contextID: String, blocks: [Anytype_Model_Block], selectedTextRange: Anytype_Model_Range) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blocks: [Anytype_Model_Block] = [], selectedTextRange: Anytype_Model_Range) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4403,36 +4122,32 @@ extension Anytype_Rpc.Block.Paste {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(
-      contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String], isPartOfBlock: Bool, textSlot: String, htmlSlot: String,
-      anySlot: [Anytype_Model_Block], fileSlot: [Anytype_Rpc.Block.Paste.Request.File], queue: DispatchQueue? = nil
+      contextID: String = String(), focusedBlockID: String = String(), selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String] = [], isPartOfBlock: Bool = false,
+      textSlot: String = String(), htmlSlot: String = String(), anySlot: [Anytype_Model_Block] = [], fileSlot: [Anytype_Rpc.Block.Paste.Request.File] = [], queue: DispatchQueue? = nil
     ) -> Future<Response, Error> {
       self.invoke(
-        parameters: .init(
+        request: .init(
           contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot,
           htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot), on: queue)
     }
     public static func invoke(
-      contextID: String, focusedBlockID: String, selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String], isPartOfBlock: Bool, textSlot: String, htmlSlot: String,
-      anySlot: [Anytype_Model_Block], fileSlot: [Anytype_Rpc.Block.Paste.Request.File]
+      contextID: String = String(), focusedBlockID: String = String(), selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String] = [], isPartOfBlock: Bool = false,
+      textSlot: String = String(), htmlSlot: String = String(), anySlot: [Anytype_Model_Block] = [], fileSlot: [Anytype_Rpc.Block.Paste.Request.File] = []
     ) -> Result<Response, Error> {
       self.result(
         .init(
           contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot,
           htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4465,24 +4180,20 @@ extension Anytype_Rpc.Block.Cut {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blocks: [Anytype_Model_Block] = [], selectedTextRange: Anytype_Model_Range, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange), on: queue)
     }
-    public static func invoke(contextID: String, blocks: [Anytype_Model_Block], selectedTextRange: Anytype_Model_Range, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange), on: queue)
-    }
-    public static func invoke(contextID: String, blocks: [Anytype_Model_Block], selectedTextRange: Anytype_Model_Range) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blocks: [Anytype_Model_Block] = [], selectedTextRange: Anytype_Model_Range) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4515,24 +4226,20 @@ extension Anytype_Rpc.Block.Upload {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), filePath: String = String(), url: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, filePath: filePath, url: url), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, filePath: String, url: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, filePath: filePath, url: url), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, filePath: String, url: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), filePath: String = String(), url: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, filePath: filePath, url: url))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4565,24 +4272,22 @@ extension Anytype_Rpc.Block.Create {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, block: block, position: position), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, block: block, position: position), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String, block: Anytype_Model_Block, position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, block: block, position: position))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4615,24 +4320,20 @@ extension Anytype_Rpc.Block.ListDelete {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4665,24 +4366,20 @@ extension Anytype_Rpc.Block.SetFields {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), fields: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, fields: fields), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, fields: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, fields: fields), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, fields: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), fields: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, fields: fields))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4715,24 +4412,20 @@ extension Anytype_Rpc.Block.ListSetAlign {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], align: Anytype_Model_Block.Align = .left, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, align: align), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, align: align), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String], align: Anytype_Model_Block.Align) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], align: Anytype_Model_Block.Align = .left) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, align: align))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4765,24 +4458,20 @@ extension Anytype_Rpc.Block.ListSetVerticalAlign {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], verticalAlign: Anytype_Model_Block.VerticalAlign = .top, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, verticalAlign: verticalAlign), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], verticalAlign: Anytype_Model_Block.VerticalAlign, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, verticalAlign: verticalAlign), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String], verticalAlign: Anytype_Model_Block.VerticalAlign) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], verticalAlign: Anytype_Model_Block.VerticalAlign = .top) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, verticalAlign: verticalAlign))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4815,24 +4504,20 @@ extension Anytype_Rpc.Block.ListSetFields {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockFields: [Anytype_Rpc.Block.ListSetFields.Request.BlockField] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockFields: blockFields), on: queue)
     }
-    public static func invoke(contextID: String, blockFields: [Anytype_Rpc.Block.ListSetFields.Request.BlockField], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockFields: blockFields), on: queue)
-    }
-    public static func invoke(contextID: String, blockFields: [Anytype_Rpc.Block.ListSetFields.Request.BlockField]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockFields: [Anytype_Rpc.Block.ListSetFields.Request.BlockField] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockFields: blockFields))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4865,24 +4550,22 @@ extension Anytype_Rpc.Block.ListDuplicate {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String, blockIds: [String], position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4915,24 +4598,20 @@ extension Anytype_Rpc.Block.ListConvertToObjects {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], objectType: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, objectType: objectType), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], objectType: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, objectType: objectType), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String], objectType: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], objectType: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, objectType: objectType))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -4965,26 +4644,25 @@ extension Anytype_Rpc.Block.ListMoveToExistingObject {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(
+      contextID: String = String(), blockIds: [String] = [], targetContextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none,
+      queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], targetContextID: String, dropTargetID: String, position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil) -> Future<
-      Response, Error
-    > {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String], targetContextID: String, dropTargetID: String, position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+    public static func invoke(
+      contextID: String = String(), blockIds: [String] = [], targetContextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none
+    ) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5017,28 +4695,25 @@ extension Anytype_Rpc.Block.ListMoveToNewObject {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(
+      contextID: String = String(), blockIds: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none,
+      queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, details: details, dropTargetID: dropTargetID, position: position), on: queue)
     }
     public static func invoke(
-      contextID: String, blockIds: [String], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String, position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, details: details, dropTargetID: dropTargetID, position: position), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String, position: Anytype_Model_Block.Position) -> Result<
-      Response, Error
-    > {
+      contextID: String = String(), blockIds: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none
+    ) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, details: details, dropTargetID: dropTargetID, position: position))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5071,24 +4746,21 @@ extension Anytype_Rpc.Block.ListTurnInto {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph, queue: DispatchQueue? = nil) -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, style: style))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5121,24 +4793,20 @@ extension Anytype_Rpc.Block.ListSetBackgroundColor {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], color: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, color: color), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], color: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, color: color), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String], color: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], color: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, color: color))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5171,24 +4839,20 @@ extension Anytype_Rpc.Block.Export {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blocks: [Anytype_Model_Block] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blocks: blocks), on: queue)
     }
-    public static func invoke(contextID: String, blocks: [Anytype_Model_Block], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blocks: blocks), on: queue)
-    }
-    public static func invoke(contextID: String, blocks: [Anytype_Model_Block]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blocks: [Anytype_Model_Block] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blocks: blocks))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5221,24 +4885,20 @@ extension Anytype_Rpc.BlockLatex.SetText {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), text: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, text: text), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, text: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, text: text), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, text: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), text: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, text: text))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5271,24 +4931,22 @@ extension Anytype_Rpc.BlockText.SetText {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), text: String = String(), marks: Anytype_Model_Block.Content.Text.Marks, queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, text: text, marks: marks), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, text: text, marks: marks), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, text: String, marks: Anytype_Model_Block.Content.Text.Marks) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), text: String = String(), marks: Anytype_Model_Block.Content.Text.Marks) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, text: text, marks: marks))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5321,24 +4979,20 @@ extension Anytype_Rpc.BlockText.SetColor {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), color: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, color: color), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, color: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, color: color), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, color: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), color: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, color: color))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5371,24 +5025,22 @@ extension Anytype_Rpc.BlockText.SetStyle {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), style: Anytype_Model_Block.Content.Text.Style = .paragraph, queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, style: style), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, style: style), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, style: Anytype_Model_Block.Content.Text.Style) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, style: style))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5421,24 +5073,20 @@ extension Anytype_Rpc.BlockText.SetChecked {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), checked: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, checked: checked), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, checked: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, checked: checked), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, checked: Bool) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), checked: Bool = false) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, checked: checked))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5471,24 +5119,22 @@ extension Anytype_Rpc.BlockText.SetIcon {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), iconImage: String = String(), iconEmoji: String = String(), queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, iconImage: iconImage, iconEmoji: iconEmoji), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, iconImage: String, iconEmoji: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, iconImage: iconImage, iconEmoji: iconEmoji), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, iconImage: String, iconEmoji: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), iconImage: String = String(), iconEmoji: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, iconImage: iconImage, iconEmoji: iconEmoji))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5521,24 +5167,21 @@ extension Anytype_Rpc.BlockText.ListSetStyle {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph, queue: DispatchQueue? = nil) -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Text.Style) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, style: style))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5571,24 +5214,20 @@ extension Anytype_Rpc.BlockText.ListSetColor {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], color: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, color: color), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], color: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, color: color), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String], color: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], color: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, color: color))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5621,24 +5260,20 @@ extension Anytype_Rpc.BlockText.ListSetMark {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], mark: Anytype_Model_Block.Content.Text.Mark, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, mark: mark), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], mark: Anytype_Model_Block.Content.Text.Mark, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, mark: mark), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String], mark: Anytype_Model_Block.Content.Text.Mark) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], mark: Anytype_Model_Block.Content.Text.Mark) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, mark: mark))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5671,24 +5306,20 @@ extension Anytype_Rpc.BlockText.ListClearStyle {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5721,24 +5352,20 @@ extension Anytype_Rpc.BlockText.ListClearContent {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5771,26 +5398,25 @@ extension Anytype_Rpc.BlockTable.Create {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(
+      contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, rows: UInt32 = 0, columns: UInt32 = 0, withHeaderRow: Bool = false,
+      queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, position: position, rows: rows, columns: columns, withHeaderRow: withHeaderRow), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, position: Anytype_Model_Block.Position, rows: UInt32, columns: UInt32, withHeaderRow: Bool, queue: DispatchQueue? = nil) -> Future<
-      Response, Error
-    > {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, position: position, rows: rows, columns: columns, withHeaderRow: withHeaderRow), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String, position: Anytype_Model_Block.Position, rows: UInt32, columns: UInt32, withHeaderRow: Bool) -> Result<Response, Error> {
+    public static func invoke(
+      contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, rows: UInt32 = 0, columns: UInt32 = 0, withHeaderRow: Bool = false
+    ) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, position: position, rows: rows, columns: columns, withHeaderRow: withHeaderRow))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5823,24 +5449,20 @@ extension Anytype_Rpc.BlockTable.RowCreate {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, position: position), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, position: position), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String, position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, position: position))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5873,24 +5495,20 @@ extension Anytype_Rpc.BlockTable.RowSetHeader {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), targetID: String = String(), isHeader: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, isHeader: isHeader), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, isHeader: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, isHeader: isHeader), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String, isHeader: Bool) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), isHeader: Bool = false) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, isHeader: isHeader))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5923,24 +5541,20 @@ extension Anytype_Rpc.BlockTable.RowListFill {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -5973,24 +5587,20 @@ extension Anytype_Rpc.BlockTable.RowListClean {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6023,24 +5633,20 @@ extension Anytype_Rpc.BlockTable.ColumnListFill {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6073,24 +5679,20 @@ extension Anytype_Rpc.BlockTable.ColumnCreate {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, position: position), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, position: position), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String, position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, position: position))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6123,24 +5725,20 @@ extension Anytype_Rpc.BlockTable.RowDelete {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), targetID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6173,24 +5771,20 @@ extension Anytype_Rpc.BlockTable.ColumnDelete {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), targetID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6223,24 +5817,22 @@ extension Anytype_Rpc.BlockTable.ColumnMove {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), targetID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, dropTargetID: dropTargetID, position: position), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, dropTargetID: String, position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, dropTargetID: dropTargetID, position: position), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String, dropTargetID: String, position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, dropTargetID: dropTargetID, position: position))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6273,24 +5865,22 @@ extension Anytype_Rpc.BlockTable.RowDuplicate {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, blockID: blockID, position: position), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, blockID: String, position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, blockID: blockID, position: position), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String, blockID: String, position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, blockID: blockID, position: position))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6323,24 +5913,22 @@ extension Anytype_Rpc.BlockTable.ColumnDuplicate {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, blockID: blockID, position: position), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, blockID: String, position: Anytype_Model_Block.Position, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, blockID: blockID, position: position), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String, blockID: String, position: Anytype_Model_Block.Position) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, blockID: blockID, position: position))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6373,24 +5961,20 @@ extension Anytype_Rpc.BlockTable.Expand {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), targetID: String = String(), columns: UInt32 = 0, rows: UInt32 = 0, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, columns: columns, rows: rows), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, columns: UInt32, rows: UInt32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, columns: columns, rows: rows), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String, columns: UInt32, rows: UInt32) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), columns: UInt32 = 0, rows: UInt32 = 0) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, columns: columns, rows: rows))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6423,24 +6007,22 @@ extension Anytype_Rpc.BlockTable.Sort {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), columnID: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc, queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(request: .init(contextID: contextID, columnID: columnID, type: type), on: queue)
     }
-    public static func invoke(contextID: String, columnID: String, type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, columnID: columnID, type: type), on: queue)
-    }
-    public static func invoke(contextID: String, columnID: String, type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), columnID: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, columnID: columnID, type: type))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6473,24 +6055,20 @@ extension Anytype_Rpc.BlockFile.SetName {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), name: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, name: name), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, name: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, name: name), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, name: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), name: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, name: name))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6523,28 +6101,26 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(
+      contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String(), localPath: String = String(),
+      fileType: Anytype_Model_Block.Content.File.TypeEnum = .none, queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, position: position, url: url, localPath: localPath, fileType: fileType), on: queue)
     }
     public static func invoke(
-      contextID: String, targetID: String, position: Anytype_Model_Block.Position, url: String, localPath: String, fileType: Anytype_Model_Block.Content.File.TypeEnum, queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, position: position, url: url, localPath: localPath, fileType: fileType), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String, position: Anytype_Model_Block.Position, url: String, localPath: String, fileType: Anytype_Model_Block.Content.File.TypeEnum)
-      -> Result<Response, Error>
-    {
+      contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String(), localPath: String = String(),
+      fileType: Anytype_Model_Block.Content.File.TypeEnum = .none
+    ) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, position: position, url: url, localPath: localPath, fileType: fileType))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6577,24 +6153,20 @@ extension Anytype_Rpc.BlockFile.ListSetStyle {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.File.Style = .auto, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.File.Style, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.File.Style) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.File.Style = .auto) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, style: style))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6627,24 +6199,20 @@ extension Anytype_Rpc.BlockImage.SetName {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), name: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, name: name), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, name: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, name: name), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, name: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), name: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, name: name))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6677,24 +6245,20 @@ extension Anytype_Rpc.BlockVideo.SetName {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), name: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, name: name), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, name: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, name: name), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, name: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), name: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, name: name))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6727,30 +6291,26 @@ extension Anytype_Rpc.BlockLink.CreateWithObject {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(
-      contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, internalFlags: [Anytype_Model_InternalFlag], targetID: String, position: Anytype_Model_Block.Position,
-      fields: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil
+      contextID: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], targetID: String = String(),
+      position: Anytype_Model_Block.Position = .none, fields: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil
     ) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, details: details, templateID: templateID, internalFlags: internalFlags, targetID: targetID, position: position, fields: fields), on: queue)
+      self.invoke(request: .init(contextID: contextID, details: details, templateID: templateID, internalFlags: internalFlags, targetID: targetID, position: position, fields: fields), on: queue)
     }
     public static func invoke(
-      contextID: String, details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, internalFlags: [Anytype_Model_InternalFlag], targetID: String, position: Anytype_Model_Block.Position,
-      fields: SwiftProtobuf.Google_Protobuf_Struct
+      contextID: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], targetID: String = String(),
+      position: Anytype_Model_Block.Position = .none, fields: SwiftProtobuf.Google_Protobuf_Struct
     ) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, details: details, templateID: templateID, internalFlags: internalFlags, targetID: targetID, position: position, fields: fields))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6783,30 +6343,26 @@ extension Anytype_Rpc.BlockLink.ListSetAppearance {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(
-      contextID: String, blockIds: [String], iconSize: Anytype_Model_Block.Content.Link.IconSize, cardStyle: Anytype_Model_Block.Content.Link.CardStyle,
-      description_p: Anytype_Model_Block.Content.Link.Description, relations: [String], queue: DispatchQueue? = nil
+      contextID: String = String(), blockIds: [String] = [], iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone, cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text,
+      description_p: Anytype_Model_Block.Content.Link.Description = .none, relations: [String] = [], queue: DispatchQueue? = nil
     ) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, iconSize: iconSize, cardStyle: cardStyle, description_p: description_p, relations: relations), on: queue)
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, iconSize: iconSize, cardStyle: cardStyle, description_p: description_p, relations: relations), on: queue)
     }
     public static func invoke(
-      contextID: String, blockIds: [String], iconSize: Anytype_Model_Block.Content.Link.IconSize, cardStyle: Anytype_Model_Block.Content.Link.CardStyle,
-      description_p: Anytype_Model_Block.Content.Link.Description, relations: [String]
+      contextID: String = String(), blockIds: [String] = [], iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone, cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text,
+      description_p: Anytype_Model_Block.Content.Link.Description = .none, relations: [String] = []
     ) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, iconSize: iconSize, cardStyle: cardStyle, description_p: description_p, relations: relations))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6839,24 +6395,20 @@ extension Anytype_Rpc.BlockRelation.SetKey {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), key: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, key: key), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, key: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, key: key), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, key: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), key: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, key: key))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6889,24 +6441,20 @@ extension Anytype_Rpc.BlockRelation.Add {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(contextID: String, blockID: String, relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, relation: relation), on: queue)
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, relation: relation), on: queue)
     }
     public static func invoke(contextID: String, blockID: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, relation: relation))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6939,24 +6487,20 @@ extension Anytype_Rpc.BlockBookmark.Fetch {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), url: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, url: url), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, url: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, url: url), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, url: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), url: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, url: url))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -6989,24 +6533,22 @@ extension Anytype_Rpc.BlockBookmark.CreateAndFetch {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String(), queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(request: .init(contextID: contextID, targetID: targetID, position: position, url: url), on: queue)
     }
-    public static func invoke(contextID: String, targetID: String, position: Anytype_Model_Block.Position, url: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, targetID: targetID, position: position, url: url), on: queue)
-    }
-    public static func invoke(contextID: String, targetID: String, position: Anytype_Model_Block.Position, url: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, position: position, url: url))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7039,24 +6581,20 @@ extension Anytype_Rpc.BlockDiv.ListSetStyle {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Div.Style = .line, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
     }
-    public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Div.Style, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
-    }
-    public static func invoke(contextID: String, blockIds: [String], style: Anytype_Model_Block.Content.Div.Style) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Div.Style = .line) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, style: style))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7089,24 +6627,20 @@ extension Anytype_Rpc.BlockDataview.View.Create {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, view: view), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, view: Anytype_Model_Block.Content.Dataview.View, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, view: view), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, view: Anytype_Model_Block.Content.Dataview.View) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, view: view))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7139,24 +6673,22 @@ extension Anytype_Rpc.BlockDataview.View.Update {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), view: Anytype_Model_Block.Content.Dataview.View, queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, viewID: viewID, view: view), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, viewID: String, view: Anytype_Model_Block.Content.Dataview.View, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, viewID: viewID, view: view), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, viewID: String, view: Anytype_Model_Block.Content.Dataview.View) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, viewID: viewID, view: view))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7189,24 +6721,20 @@ extension Anytype_Rpc.BlockDataview.View.Delete {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, viewID: viewID), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, viewID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, viewID: viewID), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, viewID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, viewID: viewID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7239,24 +6767,22 @@ extension Anytype_Rpc.BlockDataview.View.SetActive {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), offset: UInt32 = 0, limit: UInt32 = 0, queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, viewID: viewID, offset: offset, limit: limit), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, viewID: String, offset: UInt32, limit: UInt32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, viewID: viewID, offset: offset, limit: limit), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, viewID: String, offset: UInt32, limit: UInt32) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), offset: UInt32 = 0, limit: UInt32 = 0) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, viewID: viewID, offset: offset, limit: limit))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7289,24 +6815,20 @@ extension Anytype_Rpc.BlockDataview.Relation.Add {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(contextID: String, blockID: String, relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, relation: relation), on: queue)
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, relation: relation), on: queue)
     }
     public static func invoke(contextID: String, blockID: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, relation: relation))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7339,24 +6861,20 @@ extension Anytype_Rpc.BlockDataview.Relation.Update {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
-    }
     public static func invoke(contextID: String, blockID: String, relationKey: String, relation: Anytype_Model_Relation, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, relationKey: relationKey, relation: relation), on: queue)
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, relationKey: relationKey, relation: relation), on: queue)
     }
     public static func invoke(contextID: String, blockID: String, relationKey: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, relationKey: relationKey, relation: relation))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7389,24 +6907,20 @@ extension Anytype_Rpc.BlockDataview.Relation.Delete {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, relationKey: relationKey), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, relationKey: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, relationKey: relationKey), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, relationKey: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, relationKey: relationKey))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7439,24 +6953,20 @@ extension Anytype_Rpc.BlockDataview.Relation.ListAvailable {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7489,24 +6999,116 @@ extension Anytype_Rpc.BlockDataview.SetSource {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), source: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, source: source), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, source: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, source: source), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, source: [String]) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), source: [String] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, source: source))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.GroupOrder.Update {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockDataviewGroupOrderUpdate(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder, queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, groupOrder: groupOrder), on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, groupOrder: groupOrder))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
+        }
+      }
+    }
+    private static func result(_ request: Request) -> Result<Response, Error> {
+      guard let result = self.invoke(request) else {
+        // get first Not Null (not equal 0) case.
+        return .failure(Response.Error(code: .unknownError, description_p: "Unknown error during parsing"))
+      }
+      // get first zero case.
+      if result.error.code != .null {
+        let domain = Anytype_Middleware_Error.domain
+        let code = result.error.code.rawValue
+        let description = result.error.description_p
+        return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+      } else {
+        return .success(result)
+      }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+      Invocation.invoke(try? request.serializedData()).flatMap {
+        try? Response(serializedData: $0)
+      }
+    }
+  }
+}
+
+extension Anytype_Rpc.BlockDataview.ObjectOrder.Update {
+  private struct Invocation {
+    static func invoke(_ data: Data?) -> Data? { Lib.ServiceBlockDataviewObjectOrderUpdate(data) }
+  }
+
+  public enum Service {
+    public static func invoke(contextID: String = String(), blockID: String = String(), objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = [], queue: DispatchQueue? = nil) -> Future<
+      Response, Error
+    > {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, objectOrders: objectOrders), on: queue)
+    }
+    public static func invoke(contextID: String = String(), blockID: String = String(), objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = []) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, blockID: blockID, objectOrders: objectOrders))
+    }
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
+      .init { promise in
+        if let queue = queue {
+          queue.async {
+            promise(self.result(request))
+          }
+        } else {
+          promise(self.result(request))
         }
       }
     }
@@ -7539,24 +7141,22 @@ extension Anytype_Rpc.BlockDataviewRecord.Update {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, recordID: recordID, record: record), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, recordID: String, record: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, recordID: recordID, record: record), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, recordID: String, record: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, recordID: recordID, record: record))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7589,24 +7189,20 @@ extension Anytype_Rpc.BlockDataviewRecord.Delete {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, recordID: recordID), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, recordID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, recordID: recordID), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, recordID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, recordID: recordID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7639,24 +7235,22 @@ extension Anytype_Rpc.BlockDataviewRecord.Create {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(contextID: String = String(), blockID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), queue: DispatchQueue? = nil)
+      -> Future<Response, Error>
+    {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, record: record, templateID: templateID), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, record: record, templateID: templateID), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, record: record, templateID: templateID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7689,25 +7283,24 @@ extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Add {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(
+      contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String(), queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, relationKey: String, option: Anytype_Model_Relation.Option, recordID: String, queue: DispatchQueue? = nil) -> Future<Response, Error>
-    {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, relationKey: String, option: Anytype_Model_Relation.Option, recordID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> Result<
+      Response, Error
+    > {
       self.result(.init(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7740,25 +7333,24 @@ extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Update {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(
+      contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String(), queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, relationKey: String, option: Anytype_Model_Relation.Option, recordID: String, queue: DispatchQueue? = nil) -> Future<Response, Error>
-    {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, relationKey: String, option: Anytype_Model_Relation.Option, recordID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> Result<
+      Response, Error
+    > {
       self.result(.init(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7791,24 +7383,24 @@ extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Delete {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(
+      contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String(), queue: DispatchQueue? = nil
+    ) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, blockID: blockID, relationKey: relationKey, optionID: optionID, recordID: recordID), on: queue)
     }
-    public static func invoke(contextID: String, blockID: String, relationKey: String, optionID: String, recordID: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(contextID: contextID, blockID: blockID, relationKey: relationKey, optionID: optionID, recordID: recordID), on: queue)
-    }
-    public static func invoke(contextID: String, blockID: String, relationKey: String, optionID: String, recordID: String) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String()) -> Result<
+      Response, Error
+    > {
       self.result(.init(contextID: contextID, blockID: blockID, relationKey: relationKey, optionID: optionID, recordID: recordID))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7841,24 +7433,20 @@ extension Anytype_Rpc.Debug.Sync {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(recordsTraverseLimit: Int32 = 0, skipEmptyLogs: Bool = false, tryToDownloadRemoteRecords: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(recordsTraverseLimit: recordsTraverseLimit, skipEmptyLogs: skipEmptyLogs, tryToDownloadRemoteRecords: tryToDownloadRemoteRecords), on: queue)
     }
-    public static func invoke(recordsTraverseLimit: Int32, skipEmptyLogs: Bool, tryToDownloadRemoteRecords: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(recordsTraverseLimit: recordsTraverseLimit, skipEmptyLogs: skipEmptyLogs, tryToDownloadRemoteRecords: tryToDownloadRemoteRecords), on: queue)
-    }
-    public static func invoke(recordsTraverseLimit: Int32, skipEmptyLogs: Bool, tryToDownloadRemoteRecords: Bool) -> Result<Response, Error> {
+    public static func invoke(recordsTraverseLimit: Int32 = 0, skipEmptyLogs: Bool = false, tryToDownloadRemoteRecords: Bool = false) -> Result<Response, Error> {
       self.result(.init(recordsTraverseLimit: recordsTraverseLimit, skipEmptyLogs: skipEmptyLogs, tryToDownloadRemoteRecords: tryToDownloadRemoteRecords))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7891,24 +7479,20 @@ extension Anytype_Rpc.Debug.Thread {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(threadID: String = String(), skipEmptyLogs: Bool = false, tryToDownloadRemoteRecords: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(threadID: threadID, skipEmptyLogs: skipEmptyLogs, tryToDownloadRemoteRecords: tryToDownloadRemoteRecords), on: queue)
     }
-    public static func invoke(threadID: String, skipEmptyLogs: Bool, tryToDownloadRemoteRecords: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(threadID: threadID, skipEmptyLogs: skipEmptyLogs, tryToDownloadRemoteRecords: tryToDownloadRemoteRecords), on: queue)
-    }
-    public static func invoke(threadID: String, skipEmptyLogs: Bool, tryToDownloadRemoteRecords: Bool) -> Result<Response, Error> {
+    public static func invoke(threadID: String = String(), skipEmptyLogs: Bool = false, tryToDownloadRemoteRecords: Bool = false) -> Result<Response, Error> {
       self.result(.init(threadID: threadID, skipEmptyLogs: skipEmptyLogs, tryToDownloadRemoteRecords: tryToDownloadRemoteRecords))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7941,24 +7525,20 @@ extension Anytype_Rpc.Debug.Tree {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(objectID: String = String(), path: String = String(), unanonymized: Bool = false, generateSvg: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(objectID: objectID, path: path, unanonymized: unanonymized, generateSvg: generateSvg), on: queue)
     }
-    public static func invoke(objectID: String, path: String, unanonymized: Bool, generateSvg: Bool, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(objectID: objectID, path: path, unanonymized: unanonymized, generateSvg: generateSvg), on: queue)
-    }
-    public static func invoke(objectID: String, path: String, unanonymized: Bool, generateSvg: Bool) -> Result<Response, Error> {
+    public static func invoke(objectID: String = String(), path: String = String(), unanonymized: Bool = false, generateSvg: Bool = false) -> Result<Response, Error> {
       self.result(.init(objectID: objectID, path: path, unanonymized: unanonymized, generateSvg: generateSvg))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -7991,24 +7571,20 @@ extension Anytype_Rpc.Debug.ExportLocalstore {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(path: String = String(), docIds: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(path: path, docIds: docIds), on: queue)
     }
-    public static func invoke(path: String, docIds: [String], queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(path: path, docIds: docIds), on: queue)
-    }
-    public static func invoke(path: String, docIds: [String]) -> Result<Response, Error> {
+    public static func invoke(path: String = String(), docIds: [String] = []) -> Result<Response, Error> {
       self.result(.init(path: path, docIds: docIds))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -8041,24 +7617,20 @@ extension Anytype_Rpc.Debug.Ping {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(index: Int32 = 0, numberOfEventsToSend: Int32 = 0, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(index: index, numberOfEventsToSend: numberOfEventsToSend), on: queue)
     }
-    public static func invoke(index: Int32, numberOfEventsToSend: Int32, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(index: index, numberOfEventsToSend: numberOfEventsToSend), on: queue)
-    }
-    public static func invoke(index: Int32, numberOfEventsToSend: Int32) -> Result<Response, Error> {
+    public static func invoke(index: Int32 = 0, numberOfEventsToSend: Int32 = 0) -> Result<Response, Error> {
       self.result(.init(index: index, numberOfEventsToSend: numberOfEventsToSend))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -8091,24 +7663,20 @@ extension Anytype_Rpc.Metrics.SetParameters {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(platform: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(platform: platform), on: queue)
     }
-    public static func invoke(platform: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(platform: platform), on: queue)
-    }
-    public static func invoke(platform: String) -> Result<Response, Error> {
+    public static func invoke(platform: String = String()) -> Result<Response, Error> {
       self.result(.init(platform: platform))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -8141,24 +7709,20 @@ extension Anytype_Rpc.Log.Send {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(message: String = String(), level: Anytype_Rpc.Log.Send.Request.Level = .debug, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(message: message, level: level), on: queue)
     }
-    public static func invoke(message: String, level: Anytype_Rpc.Log.Send.Request.Level, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(message: message, level: level), on: queue)
-    }
-    public static func invoke(message: String, level: Anytype_Rpc.Log.Send.Request.Level) -> Result<Response, Error> {
+    public static func invoke(message: String = String(), level: Anytype_Rpc.Log.Send.Request.Level = .debug) -> Result<Response, Error> {
       self.result(.init(message: message, level: level))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }
@@ -8191,24 +7755,20 @@ extension Anytype_Rpc.Process.Cancel {
   }
 
   public enum Service {
-    public typealias RequestParameters = Request
-    private static func request(_ parameters: RequestParameters) -> Request {
-      parameters
+    public static func invoke(id: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(id: id), on: queue)
     }
-    public static func invoke(id: String, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-      self.invoke(parameters: .init(id: id), on: queue)
-    }
-    public static func invoke(id: String) -> Result<Response, Error> {
+    public static func invoke(id: String = String()) -> Result<Response, Error> {
       self.result(.init(id: id))
     }
-    private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+    private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
         if let queue = queue {
           queue.async {
-            promise(self.result(self.request(parameters)))
+            promise(self.result(request))
           }
         } else {
-          promise(self.result(self.request(parameters)))
+          promise(self.result(request))
         }
       }
     }

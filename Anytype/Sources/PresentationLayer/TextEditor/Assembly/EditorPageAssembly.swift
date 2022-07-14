@@ -35,11 +35,13 @@ final class EditorAssembly {
         let searchService = SearchService()
         let document = BaseDocument(objectId: data.pageId)
         let dataviewService = DataviewService(objectId: data.pageId)
+        let detailsService = ServiceLocator.shared.detailsService(objectId: data.pageId)
 
         let model = EditorSetViewModel(
             document: document,
             dataviewService: dataviewService,
-            searchService: searchService
+            searchService: searchService,
+            detailsService: detailsService
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 

@@ -57,9 +57,9 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         self.mainEditorSelectionManager = mainEditorSelectionManager
     }
 
-    func checkDocumentLockField() {
+    func checkOpenedState() {}
 
-    }
+    func checkDocumentLockField() {}
 
     func canSelectBlock(at indexPath: IndexPath) -> Bool {
         return true

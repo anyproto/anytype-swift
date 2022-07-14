@@ -1,12 +1,12 @@
-        private static func invoke(parameters: RequestParameters, on queue: DispatchQueue?) -> Future<Response, Error> {
+        private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
             .init { promise in
                 if let queue = queue {
                     queue.async {
-                        promise(self.result(self.request(parameters)))
+                        promise(self.result(request))
                     }
                 }
                 else {
-                    promise(self.result(self.request(parameters)))
+                    promise(self.result(request))
                 }
             }
         }

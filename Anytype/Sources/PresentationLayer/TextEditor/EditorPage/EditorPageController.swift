@@ -171,12 +171,14 @@ final class EditorPageController: UIViewController {
                 setEditing(false, animated: true)
                 blocksSelectionOverlayView.isHidden = false
                 collectionView.isLocked = false
+                view.isUserInteractionEnabled = true
             case .editing:
                 collectionView.deselectAllMovingItems()
                 dividerCursorController.movingMode = .none
                 setEditing(true, animated: true)
                 blocksSelectionOverlayView.isHidden = true
                 collectionView.isLocked = false
+                view.isUserInteractionEnabled = true
             case .moving(let indexPaths):
                 dividerCursorController.movingMode = .drum
                 setEditing(false, animated: true)
@@ -185,6 +187,7 @@ final class EditorPageController: UIViewController {
                     collectionView.setItemIsMoving(true, at: indexPath)
                 }
                 collectionView.isLocked = false
+                view.isUserInteractionEnabled = true
             case .locked:
                 view.endEditing(true)
                 collectionView.isLocked = true
@@ -192,6 +195,9 @@ final class EditorPageController: UIViewController {
                 browserViewInput?.multiselectActive(true)
                 view.endEditing(true)
                 collectionView.isLocked = true
+            case .loading:
+                view.endEditing(true)
+                view.isUserInteractionEnabled = false
             }
         }.store(in: &cancellables)
 

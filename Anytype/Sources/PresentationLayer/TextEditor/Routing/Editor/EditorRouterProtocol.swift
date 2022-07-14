@@ -55,13 +55,17 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         document: BaseDocumentProtocol,
         templatesTypeURL: ObjectTypeUrl
     )
+    
+    func showViewPicker(setModel: EditorSetViewModel)
 
     func showCreateObject(pageId: BlockId)
     func showCreateBookmarkObject()
     
     func showSetSettings(setModel: EditorSetViewModel)
+    func dismissSetSettingsIfNeeded()
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
     func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void)
+    func showFilterSearch(filter: SetFilter, onApply: @escaping (SetFilter) -> Void)
     
     func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
     func showColorPicker(
