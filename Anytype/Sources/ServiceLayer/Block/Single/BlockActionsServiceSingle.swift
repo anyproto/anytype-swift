@@ -13,53 +13,27 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         self.contextId = contextId
     }
     
-    func open(completion: @escaping (Bool) -> Void) {
-        Anytype_Rpc.Object.Open.Service.invoke(contextID: self.contextId, objectID: contextId, traceID: "", queue: .global(qos: .userInitiated))
-            .receiveOnMain()
-            .sinkWithResult { result in
-                switch result {
-                case let .success(data):
-                    let event = EventsBunch(event: data.event)
-                    event.send()
-                    completion(true)
-                case let .failure(error):
-                    anytypeAssertionFailure(error.localizedDescription, domain: .blockActionsService)
-                    completion(false)
-                }
-            }
-            .store(in: &self.subscriptions)
+    func open() async throws {
+        let result = try await Anytype_Rpc.Object.Open.Service
+            .invocation(contextID: self.contextId, objectID: contextId)
+            .invoke(errorDomain: .blockActionsService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
 
-    func openForPreview(completion: @escaping (Bool) -> Void) {
-        Anytype_Rpc.Object.Show.Service.invoke(contextID: contextId, objectID: contextId, traceID: "", queue: .global(qos: .userInitiated))
-            .receiveOnMain()
-            .sinkWithResult { result in
-                switch result {
-                case let .success(data):
-                    let event = EventsBunch(event: data.event)
-                    event.send()
-                    completion(true)
-                case let .failure(error):
-                    anytypeAssertionFailure(error.localizedDescription, domain: .blockActionsService)
-                    completion(false)
-                }
-            }
-            .store(in: &subscriptions)
+    func openForPreview() async throws {
+        let result = try await Anytype_Rpc.Object.Show.Service
+            .invocation(contextID: contextId, objectID: contextId)
+            .invoke(errorDomain: .blockActionsService)
+        let event = EventsBunch(event: result.event)
+        event.send()
     }
     
-    func close(completion: @escaping (Bool) -> Void) {
-        Anytype_Rpc.Object.Close.Service.invoke(contextID: contextId, objectID: contextId, queue: .global(qos: .userInitiated))
-            .receiveOnMain()
-            .sinkWithResult { result in
-                switch result {
-                case .success:
-                    completion(true)
-                case let .failure(error):
-                    anytypeAssertionFailure(error.localizedDescription, domain: .blockActionsService)
-                    completion(false)
-                }
-            }
-            .store(in: &subscriptions)
+    func close() async throws {
+        _ = try await Anytype_Rpc.Object.Close.Service
+            .invocation(contextID: contextId, objectID: contextId)
+            .invoke(errorDomain: .blockActionsService)
+        print("did close")
     }
     
     func add(targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {

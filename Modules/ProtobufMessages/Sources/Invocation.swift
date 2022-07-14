@@ -6,6 +6,15 @@ enum Anytype_Middleware_Error: Error {
     static let domain: String = "org.anytype.middleware.services"
 }
 
+private extension DispatchQueue {
+    /// Middleware provide a save access to one object and parallel access to different
+    static let invocationQueue = DispatchQueue(
+        label: "com.middlewate-invocation",
+        qos: .userInitiated,
+        attributes: .concurrent
+    )
+}
+
 public struct Invocation<Response> where Response: ResultWithError, Response.Error.ErrorCode.RawValue == Int {
     
     private let invokeTask: () -> Response?
@@ -17,7 +26,7 @@ public struct Invocation<Response> where Response: ResultWithError, Response.Err
     public func invoke() async throws -> Response {
         typealias Continuation = CheckedContinuation<Response, Error>
         return try await withCheckedThrowingContinuation { (continuation: Continuation) in
-            Task.detached(priority: .userInitiated) {
+            DispatchQueue.invocationQueue.async {
                 let result = self.result()
                 switch result {
                 case let .success(data):
