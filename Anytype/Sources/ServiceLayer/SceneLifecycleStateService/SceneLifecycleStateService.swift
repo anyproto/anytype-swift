@@ -17,30 +17,15 @@ final class SceneLifecycleStateService {
     // MARK: - Internal func
     
     func handleStateTransition(_ transition: LifecycleStateTransition) {
-        switch transition {
-        case .willEnterForeground:
-            let result = Anytype_Rpc.App.SetDeviceState.Service.invoke(deviceState: .foreground)
-            handleResult(result)
-        case .didEnterBackground:
-            let result = Anytype_Rpc.App.SetDeviceState.Service.invoke(deviceState: .background)
-            handleResult(result)
-        }
-    }
-    
-    // MARK: - Private func
-    
-    private func handleResult(_ result: Result<Anytype_Rpc.App.SetDeviceState.Response, Error>) {
-        switch result {
-        case .success(let response):
-            let error = response.error
-            switch error.code {
-            case .null: return
-            case .unknownError, .badInput, .nodeNotStarted, .UNRECOGNIZED:
-                anytypeAssertionFailure(error.description_p, domain: .sceneLifecycleStateService)
+        let deviceState: Anytype_Rpc.App.SetDeviceState.Request.DeviceState = {
+            switch transition {
+            case .willEnterForeground: return .foreground
+            case .didEnterBackground: return .background
             }
-        case .failure(let error):
-            anytypeAssertionFailure(error.localizedDescription, domain: .sceneLifecycleStateService)
-        }
+        }()
+        
+        _ = Anytype_Rpc.App.SetDeviceState.Service.invoke(deviceState: deviceState)
+            .getValue(domain: .sceneLifecycleStateService)
     }
     
 }
