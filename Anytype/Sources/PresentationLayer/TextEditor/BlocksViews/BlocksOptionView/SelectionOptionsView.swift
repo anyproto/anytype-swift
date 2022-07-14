@@ -43,10 +43,3 @@ private struct SelectionOptionsItemView: View {
         .padding(EdgeInsets(top: 16, leading: 0, bottom: 13, trailing: 0))
     }
 }
-
-//struct SelectionOptionsView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        SelectionOptionsView(viewModel: .init(itemProvider: ))
-//            .previewLayout(.fixed(width: 340, height: 100))
-//    }
-//}

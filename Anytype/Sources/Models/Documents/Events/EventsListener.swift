@@ -96,17 +96,28 @@ final class EventsListener: EventsListenerProtocol {
 
 private extension Array where Element == DocumentUpdate {
     var filteredUpdates: Self {
-        guard contains(.general) else {
-            return self
-        }
-
-        return filter { element in
-            switch element {
-            case .general:
-                return true
-            case .syncStatus, .blocks, .details, .dataSourceUpdate, .header:
+        var newUpdates = filter {
+            if case .blocks = $0 {
                 return false
             }
+
+            return true
         }
+
+        var blockIdsUpdates = Set<BlockId>()
+
+        forEach {
+            if case let .blocks(blocksSet) = $0 {
+                blocksSet.forEach { blockIdsUpdates.insert($0) }
+            }
+        }
+
+        newUpdates.append(.blocks(blockIds: blockIdsUpdates))
+
+        guard contains(.general) else {
+            return newUpdates
+        }
+
+        return [.general]
     }
 }

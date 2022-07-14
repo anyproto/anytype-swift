@@ -17,11 +17,7 @@ protocol TypeListItemProvider: AnyObject {
 }
 
 final class HorizonalTypeListViewModel: ObservableObject {
-    @Published var items = [HorizontalListItem]() {
-        didSet {
-            
-        }
-    }
+    @Published var items = [HorizontalListItem]()
 
     private var cancellables = [AnyCancellable]()
 

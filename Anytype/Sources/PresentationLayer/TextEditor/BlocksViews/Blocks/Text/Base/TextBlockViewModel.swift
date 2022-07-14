@@ -40,6 +40,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
 
     func textBlockContentConfiguration() -> TextBlockContentConfiguration {
         TextBlockContentConfiguration(
+            blockId: info.id,
             content: content,
             alignment: info.horizontalAlignment.asNSTextAlignment,
             isCheckable: isCheckable,
