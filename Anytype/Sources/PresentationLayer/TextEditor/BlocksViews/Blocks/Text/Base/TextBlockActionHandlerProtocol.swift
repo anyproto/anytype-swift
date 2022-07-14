@@ -2,7 +2,7 @@ import BlocksModels
 import Combine
 
 protocol TextBlockActionHandlerProtocol {
-    var resetSubject: PassthroughSubject<BlockText, Never> { get }
+    var resetSubject: PassthroughSubject<Void, Never> { get }
 
     func textBlockActions() -> TextBlockContentConfiguration.Actions
 }

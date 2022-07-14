@@ -130,9 +130,12 @@ final class EditorSetViewModel: ObservableObject {
         router?.setNavigationViewHidden(false, animated: true)
     }
     
+    func onWillDisappear() {
+        router.dismissSetSettingsIfNeeded()
+    }
+    
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
-        router.dismissSetSettingsIfNeeded()
     }
     
     func updateActiveViewId(_ id: BlockId) {

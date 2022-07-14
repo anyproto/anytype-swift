@@ -106,8 +106,8 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, F
             self?.textView.setFocus(focus)
         }
 
-        resetSubscription = configuration.resetPublisher.sink { [weak self] blockText in
-            self?.textView.textView.textStorage.setAttributedString(blockText.anytypeText.attrString)
+        resetSubscription = configuration.resetPublisher.sink { [weak self] configuration in
+            self?.applyNewConfiguration(configuration: configuration)
         }
     }
     

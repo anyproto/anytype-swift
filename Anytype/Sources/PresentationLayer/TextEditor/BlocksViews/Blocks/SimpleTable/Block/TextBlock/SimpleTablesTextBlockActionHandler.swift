@@ -8,7 +8,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     let showPage: (EditorScreenData) -> Void
     let openURL: (URL) -> Void
     let showTextIconPicker: () -> Void
-    let resetSubject = PassthroughSubject<BlockText, Never>()
+    let resetSubject = PassthroughSubject<Void, Never>()
 
     private let showWaitingView: (String) -> Void
     private let hideWaitingView: () -> Void

@@ -296,14 +296,10 @@ extension Anytype_Rpc.Account.Create {
   }
 
   public enum Service {
-    public static func invoke(
-      name: String = String(), avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar? = nil, storePath: String = String(), alphaInviteCode: String = String(), queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(name: String = String(), avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar? = nil, storePath: String = String(), alphaInviteCode: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(name: name, avatar: avatar, storePath: storePath, alphaInviteCode: alphaInviteCode), on: queue)
     }
-    public static func invoke(name: String = String(), avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar? = nil, storePath: String = String(), alphaInviteCode: String = String()) -> Result<
-      Response, Error
-    > {
+    public static func invoke(name: String = String(), avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar? = nil, storePath: String = String(), alphaInviteCode: String = String()) -> Result<Response, Error> {
       self.result(.init(name: name, avatar: avatar, storePath: storePath, alphaInviteCode: alphaInviteCode))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -990,9 +986,7 @@ extension Anytype_Rpc.Object.Create {
   }
 
   public enum Service {
-    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag] = [], templateID: String = String(), queue: DispatchQueue? = nil) -> Future<
-      Response, Error
-    > {
+    public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag] = [], templateID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(details: details, internalFlags: internalFlags, templateID: templateID), on: queue)
     }
     public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag] = [], templateID: String = String()) -> Result<Response, Error> {
@@ -1176,14 +1170,10 @@ extension Anytype_Rpc.Object.CreateSet {
   }
 
   public enum Service {
-    public static func invoke(
-      source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(source: source, details: details, templateID: templateID, internalFlags: internalFlags), on: queue)
     }
-    public static func invoke(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> Result<
-      Response, Error
-    > {
+    public static func invoke(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> Result<Response, Error> {
       self.result(.init(source: source, details: details, templateID: templateID, internalFlags: internalFlags))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -1502,16 +1492,10 @@ extension Anytype_Rpc.Object.Search {
   }
 
   public enum Service {
-    public static func invoke(
-      filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], fullText: String = String(), offset: Int32 = 0, limit: Int32 = 0,
-      objectTypeFilter: [String] = [], keys: [String] = [], queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], fullText: String = String(), offset: Int32 = 0, limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(filters: filters, sorts: sorts, fullText: fullText, offset: offset, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys), on: queue)
     }
-    public static func invoke(
-      filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], fullText: String = String(), offset: Int32 = 0, limit: Int32 = 0,
-      objectTypeFilter: [String] = [], keys: [String] = []
-    ) -> Result<Response, Error> {
+    public static func invoke(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], fullText: String = String(), offset: Int32 = 0, limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = []) -> Result<Response, Error> {
       self.result(.init(filters: filters, sorts: sorts, fullText: fullText, offset: offset, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -1554,9 +1538,7 @@ extension Anytype_Rpc.Object.Graph {
   }
 
   public enum Service {
-    public static func invoke(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = [], queue: DispatchQueue? = nil)
-      -> Future<Response, Error>
-    {
+    public static func invoke(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(filters: filters, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys), on: queue)
     }
     public static func invoke(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = []) -> Result<Response, Error> {
@@ -1602,24 +1584,11 @@ extension Anytype_Rpc.Object.SearchSubscribe {
   }
 
   public enum Service {
-    public static func invoke(
-      subID: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], limit: Int64 = 0, offset: Int64 = 0,
-      keys: [String] = [], afterID: String = String(), beforeID: String = String(), source: [String] = [], ignoreWorkspace: String = String(), noDepSubscription: Bool = false,
-      queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
-      self.invoke(
-        request: .init(
-          subID: subID, filters: filters, sorts: sorts, limit: limit, offset: offset, keys: keys, afterID: afterID, beforeID: beforeID, source: source, ignoreWorkspace: ignoreWorkspace,
-          noDepSubscription: noDepSubscription), on: queue)
+    public static func invoke(subID: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], limit: Int64 = 0, offset: Int64 = 0, keys: [String] = [], afterID: String = String(), beforeID: String = String(), source: [String] = [], ignoreWorkspace: String = String(), noDepSubscription: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(subID: subID, filters: filters, sorts: sorts, limit: limit, offset: offset, keys: keys, afterID: afterID, beforeID: beforeID, source: source, ignoreWorkspace: ignoreWorkspace, noDepSubscription: noDepSubscription), on: queue)
     }
-    public static func invoke(
-      subID: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], limit: Int64 = 0, offset: Int64 = 0,
-      keys: [String] = [], afterID: String = String(), beforeID: String = String(), source: [String] = [], ignoreWorkspace: String = String(), noDepSubscription: Bool = false
-    ) -> Result<Response, Error> {
-      self.result(
-        .init(
-          subID: subID, filters: filters, sorts: sorts, limit: limit, offset: offset, keys: keys, afterID: afterID, beforeID: beforeID, source: source, ignoreWorkspace: ignoreWorkspace,
-          noDepSubscription: noDepSubscription))
+    public static func invoke(subID: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], limit: Int64 = 0, offset: Int64 = 0, keys: [String] = [], afterID: String = String(), beforeID: String = String(), source: [String] = [], ignoreWorkspace: String = String(), noDepSubscription: Bool = false) -> Result<Response, Error> {
+      self.result(.init(subID: subID, filters: filters, sorts: sorts, limit: limit, offset: offset, keys: keys, afterID: afterID, beforeID: beforeID, source: source, ignoreWorkspace: ignoreWorkspace, noDepSubscription: noDepSubscription))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -2397,15 +2366,10 @@ extension Anytype_Rpc.Object.ListExport {
   }
 
   public enum Service {
-    public static func invoke(
-      path: String = String(), objectIds: [String] = [], format: Anytype_Rpc.Object.ListExport.Format = .markdown, zip: Bool = false, includeNested: Bool = false, includeFiles: Bool = false,
-      queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(path: String = String(), objectIds: [String] = [], format: Anytype_Rpc.Object.ListExport.Format = .markdown, zip: Bool = false, includeNested: Bool = false, includeFiles: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(path: path, objectIds: objectIds, format: format, zip: zip, includeNested: includeNested, includeFiles: includeFiles), on: queue)
     }
-    public static func invoke(
-      path: String = String(), objectIds: [String] = [], format: Anytype_Rpc.Object.ListExport.Format = .markdown, zip: Bool = false, includeNested: Bool = false, includeFiles: Bool = false
-    ) -> Result<Response, Error> {
+    public static func invoke(path: String = String(), objectIds: [String] = [], format: Anytype_Rpc.Object.ListExport.Format = .markdown, zip: Bool = false, includeNested: Bool = false, includeFiles: Bool = false) -> Result<Response, Error> {
       self.result(.init(path: path, objectIds: objectIds, format: format, zip: zip, includeNested: includeNested, includeFiles: includeFiles))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -2816,9 +2780,7 @@ extension Anytype_Rpc.ObjectRelationOption.Delete {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), relationKey: String = String(), optionID: String = String(), confirmRemoveAllValuesInRecords: Bool = false, queue: DispatchQueue? = nil)
-      -> Future<Response, Error>
-    {
+    public static func invoke(contextID: String = String(), relationKey: String = String(), optionID: String = String(), confirmRemoveAllValuesInRecords: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, relationKey: relationKey, optionID: optionID, confirmRemoveAllValuesInRecords: confirmRemoveAllValuesInRecords), on: queue)
     }
     public static func invoke(contextID: String = String(), relationKey: String = String(), optionID: String = String(), confirmRemoveAllValuesInRecords: Bool = false) -> Result<Response, Error> {
@@ -3370,16 +3332,10 @@ extension Anytype_Rpc.File.Upload {
   }
 
   public enum Service {
-    public static func invoke(
-      url: String = String(), localPath: String = String(), type: Anytype_Model_Block.Content.File.TypeEnum = .none, disableEncryption: Bool = false,
-      style: Anytype_Model_Block.Content.File.Style = .auto, queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(url: String = String(), localPath: String = String(), type: Anytype_Model_Block.Content.File.TypeEnum = .none, disableEncryption: Bool = false, style: Anytype_Model_Block.Content.File.Style = .auto, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(url: url, localPath: localPath, type: type, disableEncryption: disableEncryption, style: style), on: queue)
     }
-    public static func invoke(
-      url: String = String(), localPath: String = String(), type: Anytype_Model_Block.Content.File.TypeEnum = .none, disableEncryption: Bool = false,
-      style: Anytype_Model_Block.Content.File.Style = .auto
-    ) -> Result<Response, Error> {
+    public static func invoke(url: String = String(), localPath: String = String(), type: Anytype_Model_Block.Content.File.TypeEnum = .none, disableEncryption: Bool = false, style: Anytype_Model_Block.Content.File.Style = .auto) -> Result<Response, Error> {
       self.result(.init(url: url, localPath: localPath, type: type, disableEncryption: disableEncryption, style: style))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -3468,9 +3424,7 @@ extension Anytype_Rpc.File.Drop {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, localFilePaths: [String] = [], queue: DispatchQueue? = nil)
-      -> Future<Response, Error>
-    {
+    public static func invoke(contextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, localFilePaths: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, dropTargetID: dropTargetID, position: position, localFilePaths: localFilePaths), on: queue)
     }
     public static func invoke(contextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, localFilePaths: [String] = []) -> Result<Response, Error> {
@@ -3516,9 +3470,7 @@ extension Anytype_Rpc.Navigation.ListObjects {
   }
 
   public enum Service {
-    public static func invoke(context: Anytype_Rpc.Navigation.Context = .navigation, fullText: String = String(), limit: Int32 = 0, offset: Int32 = 0, queue: DispatchQueue? = nil) -> Future<
-      Response, Error
-    > {
+    public static func invoke(context: Anytype_Rpc.Navigation.Context = .navigation, fullText: String = String(), limit: Int32 = 0, offset: Int32 = 0, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(context: context, fullText: fullText, limit: limit, offset: offset), on: queue)
     }
     public static func invoke(context: Anytype_Rpc.Navigation.Context = .navigation, fullText: String = String(), limit: Int32 = 0, offset: Int32 = 0) -> Result<Response, Error> {
@@ -3978,16 +3930,10 @@ extension Anytype_Rpc.Block.Split {
   }
 
   public enum Service {
-    public static func invoke(
-      contextID: String = String(), blockID: String = String(), range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style = .paragraph,
-      mode: Anytype_Rpc.Block.Split.Request.Mode = .bottom, queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style = .paragraph, mode: Anytype_Rpc.Block.Split.Request.Mode = .bottom, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode), on: queue)
     }
-    public static func invoke(
-      contextID: String = String(), blockID: String = String(), range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style = .paragraph,
-      mode: Anytype_Rpc.Block.Split.Request.Mode = .bottom
-    ) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style = .paragraph, mode: Anytype_Rpc.Block.Split.Request.Mode = .bottom) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -4122,23 +4068,11 @@ extension Anytype_Rpc.Block.Paste {
   }
 
   public enum Service {
-    public static func invoke(
-      contextID: String = String(), focusedBlockID: String = String(), selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String] = [], isPartOfBlock: Bool = false,
-      textSlot: String = String(), htmlSlot: String = String(), anySlot: [Anytype_Model_Block] = [], fileSlot: [Anytype_Rpc.Block.Paste.Request.File] = [], queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
-      self.invoke(
-        request: .init(
-          contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot,
-          htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot), on: queue)
+    public static func invoke(contextID: String = String(), focusedBlockID: String = String(), selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String] = [], isPartOfBlock: Bool = false, textSlot: String = String(), htmlSlot: String = String(), anySlot: [Anytype_Model_Block] = [], fileSlot: [Anytype_Rpc.Block.Paste.Request.File] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
+      self.invoke(request: .init(contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot, htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot), on: queue)
     }
-    public static func invoke(
-      contextID: String = String(), focusedBlockID: String = String(), selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String] = [], isPartOfBlock: Bool = false,
-      textSlot: String = String(), htmlSlot: String = String(), anySlot: [Anytype_Model_Block] = [], fileSlot: [Anytype_Rpc.Block.Paste.Request.File] = []
-    ) -> Result<Response, Error> {
-      self.result(
-        .init(
-          contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot,
-          htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot))
+    public static func invoke(contextID: String = String(), focusedBlockID: String = String(), selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String] = [], isPartOfBlock: Bool = false, textSlot: String = String(), htmlSlot: String = String(), anySlot: [Anytype_Model_Block] = [], fileSlot: [Anytype_Rpc.Block.Paste.Request.File] = []) -> Result<Response, Error> {
+      self.result(.init(contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot, htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
       .init { promise in
@@ -4272,9 +4206,7 @@ extension Anytype_Rpc.Block.Create {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
-      -> Future<Response, Error>
-    {
+    public static func invoke(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, targetID: targetID, block: block, position: position), on: queue)
     }
     public static func invoke(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
@@ -4550,9 +4482,7 @@ extension Anytype_Rpc.Block.ListDuplicate {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
-      -> Future<Response, Error>
-    {
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position), on: queue)
     }
     public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
@@ -4644,15 +4574,10 @@ extension Anytype_Rpc.Block.ListMoveToExistingObject {
   }
 
   public enum Service {
-    public static func invoke(
-      contextID: String = String(), blockIds: [String] = [], targetContextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none,
-      queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], targetContextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position), on: queue)
     }
-    public static func invoke(
-      contextID: String = String(), blockIds: [String] = [], targetContextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none
-    ) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], targetContextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -4695,15 +4620,10 @@ extension Anytype_Rpc.Block.ListMoveToNewObject {
   }
 
   public enum Service {
-    public static func invoke(
-      contextID: String = String(), blockIds: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none,
-      queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockIds: blockIds, details: details, dropTargetID: dropTargetID, position: position), on: queue)
     }
-    public static func invoke(
-      contextID: String = String(), blockIds: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none
-    ) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, details: details, dropTargetID: dropTargetID, position: position))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -4746,8 +4666,7 @@ extension Anytype_Rpc.Block.ListTurnInto {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph, queue: DispatchQueue? = nil) -> Future<Response, Error>
-    {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
     }
     public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> Result<Response, Error> {
@@ -4931,9 +4850,7 @@ extension Anytype_Rpc.BlockText.SetText {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), text: String = String(), marks: Anytype_Model_Block.Content.Text.Marks, queue: DispatchQueue? = nil) -> Future<
-      Response, Error
-    > {
+    public static func invoke(contextID: String = String(), blockID: String = String(), text: String = String(), marks: Anytype_Model_Block.Content.Text.Marks, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, text: text, marks: marks), on: queue)
     }
     public static func invoke(contextID: String = String(), blockID: String = String(), text: String = String(), marks: Anytype_Model_Block.Content.Text.Marks) -> Result<Response, Error> {
@@ -5025,9 +4942,7 @@ extension Anytype_Rpc.BlockText.SetStyle {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), style: Anytype_Model_Block.Content.Text.Style = .paragraph, queue: DispatchQueue? = nil) -> Future<
-      Response, Error
-    > {
+    public static func invoke(contextID: String = String(), blockID: String = String(), style: Anytype_Model_Block.Content.Text.Style = .paragraph, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, style: style), on: queue)
     }
     public static func invoke(contextID: String = String(), blockID: String = String(), style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> Result<Response, Error> {
@@ -5119,9 +5034,7 @@ extension Anytype_Rpc.BlockText.SetIcon {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), iconImage: String = String(), iconEmoji: String = String(), queue: DispatchQueue? = nil) -> Future<
-      Response, Error
-    > {
+    public static func invoke(contextID: String = String(), blockID: String = String(), iconImage: String = String(), iconEmoji: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, iconImage: iconImage, iconEmoji: iconEmoji), on: queue)
     }
     public static func invoke(contextID: String = String(), blockID: String = String(), iconImage: String = String(), iconEmoji: String = String()) -> Result<Response, Error> {
@@ -5167,8 +5080,7 @@ extension Anytype_Rpc.BlockText.ListSetStyle {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph, queue: DispatchQueue? = nil) -> Future<Response, Error>
-    {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockIds: blockIds, style: style), on: queue)
     }
     public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> Result<Response, Error> {
@@ -5398,15 +5310,10 @@ extension Anytype_Rpc.BlockTable.Create {
   }
 
   public enum Service {
-    public static func invoke(
-      contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, rows: UInt32 = 0, columns: UInt32 = 0, withHeaderRow: Bool = false,
-      queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, rows: UInt32 = 0, columns: UInt32 = 0, withHeaderRow: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, targetID: targetID, position: position, rows: rows, columns: columns, withHeaderRow: withHeaderRow), on: queue)
     }
-    public static func invoke(
-      contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, rows: UInt32 = 0, columns: UInt32 = 0, withHeaderRow: Bool = false
-    ) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, rows: UInt32 = 0, columns: UInt32 = 0, withHeaderRow: Bool = false) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, position: position, rows: rows, columns: columns, withHeaderRow: withHeaderRow))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -5817,9 +5724,7 @@ extension Anytype_Rpc.BlockTable.ColumnMove {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), targetID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
-      -> Future<Response, Error>
-    {
+    public static func invoke(contextID: String = String(), targetID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, targetID: targetID, dropTargetID: dropTargetID, position: position), on: queue)
     }
     public static func invoke(contextID: String = String(), targetID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
@@ -5865,9 +5770,7 @@ extension Anytype_Rpc.BlockTable.RowDuplicate {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
-      -> Future<Response, Error>
-    {
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, targetID: targetID, blockID: blockID, position: position), on: queue)
     }
     public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
@@ -5913,9 +5816,7 @@ extension Anytype_Rpc.BlockTable.ColumnDuplicate {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil)
-      -> Future<Response, Error>
-    {
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, targetID: targetID, blockID: blockID, position: position), on: queue)
     }
     public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
@@ -6007,9 +5908,7 @@ extension Anytype_Rpc.BlockTable.Sort {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), columnID: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc, queue: DispatchQueue? = nil) -> Future<
-      Response, Error
-    > {
+    public static func invoke(contextID: String = String(), columnID: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, columnID: columnID, type: type), on: queue)
     }
     public static func invoke(contextID: String = String(), columnID: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc) -> Result<Response, Error> {
@@ -6101,16 +6000,10 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload {
   }
 
   public enum Service {
-    public static func invoke(
-      contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String(), localPath: String = String(),
-      fileType: Anytype_Model_Block.Content.File.TypeEnum = .none, queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String(), localPath: String = String(), fileType: Anytype_Model_Block.Content.File.TypeEnum = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, targetID: targetID, position: position, url: url, localPath: localPath, fileType: fileType), on: queue)
     }
-    public static func invoke(
-      contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String(), localPath: String = String(),
-      fileType: Anytype_Model_Block.Content.File.TypeEnum = .none
-    ) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String(), localPath: String = String(), fileType: Anytype_Model_Block.Content.File.TypeEnum = .none) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, targetID: targetID, position: position, url: url, localPath: localPath, fileType: fileType))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -6291,16 +6184,10 @@ extension Anytype_Rpc.BlockLink.CreateWithObject {
   }
 
   public enum Service {
-    public static func invoke(
-      contextID: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], targetID: String = String(),
-      position: Anytype_Model_Block.Position = .none, fields: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(contextID: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], targetID: String = String(), position: Anytype_Model_Block.Position = .none, fields: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, details: details, templateID: templateID, internalFlags: internalFlags, targetID: targetID, position: position, fields: fields), on: queue)
     }
-    public static func invoke(
-      contextID: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], targetID: String = String(),
-      position: Anytype_Model_Block.Position = .none, fields: SwiftProtobuf.Google_Protobuf_Struct
-    ) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], targetID: String = String(), position: Anytype_Model_Block.Position = .none, fields: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, details: details, templateID: templateID, internalFlags: internalFlags, targetID: targetID, position: position, fields: fields))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -6343,16 +6230,10 @@ extension Anytype_Rpc.BlockLink.ListSetAppearance {
   }
 
   public enum Service {
-    public static func invoke(
-      contextID: String = String(), blockIds: [String] = [], iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone, cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text,
-      description_p: Anytype_Model_Block.Content.Link.Description = .none, relations: [String] = [], queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone, cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text, description_p: Anytype_Model_Block.Content.Link.Description = .none, relations: [String] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockIds: blockIds, iconSize: iconSize, cardStyle: cardStyle, description_p: description_p, relations: relations), on: queue)
     }
-    public static func invoke(
-      contextID: String = String(), blockIds: [String] = [], iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone, cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text,
-      description_p: Anytype_Model_Block.Content.Link.Description = .none, relations: [String] = []
-    ) -> Result<Response, Error> {
+    public static func invoke(contextID: String = String(), blockIds: [String] = [], iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone, cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text, description_p: Anytype_Model_Block.Content.Link.Description = .none, relations: [String] = []) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockIds: blockIds, iconSize: iconSize, cardStyle: cardStyle, description_p: description_p, relations: relations))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -6533,9 +6414,7 @@ extension Anytype_Rpc.BlockBookmark.CreateAndFetch {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String(), queue: DispatchQueue? = nil) -> Future<
-      Response, Error
-    > {
+    public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, targetID: targetID, position: position, url: url), on: queue)
     }
     public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String()) -> Result<Response, Error> {
@@ -6673,9 +6552,7 @@ extension Anytype_Rpc.BlockDataview.View.Update {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), view: Anytype_Model_Block.Content.Dataview.View, queue: DispatchQueue? = nil)
-      -> Future<Response, Error>
-    {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), view: Anytype_Model_Block.Content.Dataview.View, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, viewID: viewID, view: view), on: queue)
     }
     public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) -> Result<Response, Error> {
@@ -6767,9 +6644,7 @@ extension Anytype_Rpc.BlockDataview.View.SetActive {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), offset: UInt32 = 0, limit: UInt32 = 0, queue: DispatchQueue? = nil) -> Future<
-      Response, Error
-    > {
+    public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), offset: UInt32 = 0, limit: UInt32 = 0, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, viewID: viewID, offset: offset, limit: limit), on: queue)
     }
     public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), offset: UInt32 = 0, limit: UInt32 = 0) -> Result<Response, Error> {
@@ -7045,9 +6920,7 @@ extension Anytype_Rpc.BlockDataview.GroupOrder.Update {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder, queue: DispatchQueue? = nil) -> Future<
-      Response, Error
-    > {
+    public static func invoke(contextID: String = String(), blockID: String = String(), groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, groupOrder: groupOrder), on: queue)
     }
     public static func invoke(contextID: String = String(), blockID: String = String(), groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder) -> Result<Response, Error> {
@@ -7093,9 +6966,7 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Update {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = [], queue: DispatchQueue? = nil) -> Future<
-      Response, Error
-    > {
+    public static func invoke(contextID: String = String(), blockID: String = String(), objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = [], queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, objectOrders: objectOrders), on: queue)
     }
     public static func invoke(contextID: String = String(), blockID: String = String(), objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = []) -> Result<Response, Error> {
@@ -7141,9 +7012,7 @@ extension Anytype_Rpc.BlockDataviewRecord.Update {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil)
-      -> Future<Response, Error>
-    {
+    public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, recordID: recordID, record: record), on: queue)
     }
     public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
@@ -7235,9 +7104,7 @@ extension Anytype_Rpc.BlockDataviewRecord.Create {
   }
 
   public enum Service {
-    public static func invoke(contextID: String = String(), blockID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), queue: DispatchQueue? = nil)
-      -> Future<Response, Error>
-    {
+    public static func invoke(contextID: String = String(), blockID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, record: record, templateID: templateID), on: queue)
     }
     public static func invoke(contextID: String = String(), blockID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String()) -> Result<Response, Error> {
@@ -7283,14 +7150,10 @@ extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Add {
   }
 
   public enum Service {
-    public static func invoke(
-      contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String(), queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID), on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> Result<
-      Response, Error
-    > {
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -7333,14 +7196,10 @@ extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Update {
   }
 
   public enum Service {
-    public static func invoke(
-      contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String(), queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID), on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> Result<
-      Response, Error
-    > {
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -7383,14 +7242,10 @@ extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Delete {
   }
 
   public enum Service {
-    public static func invoke(
-      contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String(), queue: DispatchQueue? = nil
-    ) -> Future<Response, Error> {
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
       self.invoke(request: .init(contextID: contextID, blockID: blockID, relationKey: relationKey, optionID: optionID, recordID: recordID), on: queue)
     }
-    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String()) -> Result<
-      Response, Error
-    > {
+    public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String()) -> Result<Response, Error> {
       self.result(.init(contextID: contextID, blockID: blockID, relationKey: relationKey, optionID: optionID, recordID: recordID))
     }
     private static func invoke(request: Request, on queue: DispatchQueue?) -> Future<Response, Error> {
@@ -7794,3 +7649,4 @@ extension Anytype_Rpc.Process.Cancel {
     }
   }
 }
+

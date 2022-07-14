@@ -5,7 +5,7 @@ require_relative '../constants'
 require_relative 'download_middleware'
 
 require_relative '../codegen/codegen_runner'
-require_relative '../codegen/file_formatter'
+require_relative '../library/dir_helper'
 
 class CodegenPipeline
   def self.work()
@@ -18,8 +18,5 @@ class CodegenPipeline
 
     puts "Generating swift from protobuf".colorize(:blue)
     CodegenRunner.run()
-
-    puts "Running swift format".colorize(:blue)
-    FileFormatter.formatFiles()
   end
 end

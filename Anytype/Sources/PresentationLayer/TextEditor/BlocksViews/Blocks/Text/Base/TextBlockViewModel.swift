@@ -48,7 +48,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
             isChecked: content.checked,
             shouldDisplayPlaceholder: info.isToggled && info.childrenIds.isEmpty,
             focusPublisher: focusSubject.eraseToAnyPublisher(),
-            resetPublisher: actionHandler.resetSubject.eraseToAnyPublisher(),
+            resetPublisher: actionHandler.resetSubject
+                .map { _ in textBlockContentConfiguration() }
+                .eraseToAnyPublisher(),
             actions: actionHandler.textBlockActions()
         )
     }
