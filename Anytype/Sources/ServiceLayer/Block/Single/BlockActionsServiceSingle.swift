@@ -33,7 +33,6 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         _ = try await Anytype_Rpc.Object.Close.Service
             .invocation(contextID: contextId, objectID: contextId)
             .invoke(errorDomain: .blockActionsService)
-        print("did close")
     }
     
     func add(targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {
