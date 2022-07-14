@@ -107,50 +107,48 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     }
 
     override func prepare() {
-        measureTime(for: "Layout prepare") {
-            guard let collectionView = collectionView, let dataSource = dataSource else {
-                return
-            }
+        guard let collectionView = collectionView, let dataSource = dataSource else {
+            return
+        }
 
-            for sectionIndex in 0..<collectionView.numberOfSections {
-                var sectionMaxHeight: CGFloat = 0
+        for sectionIndex in 0..<collectionView.numberOfSections {
+            var sectionMaxHeight: CGFloat = 0
 
-                for rowIndex in 0..<collectionView.numberOfItems(inSection: sectionIndex) {
-                    let indexPath = IndexPath(row: rowIndex, section: sectionIndex)
-                    let columnWidth = itemWidths[rowIndex]
+            for rowIndex in 0..<collectionView.numberOfItems(inSection: sectionIndex) {
+                let indexPath = IndexPath(row: rowIndex, section: sectionIndex)
+                let columnWidth = itemWidths[rowIndex]
 
-                    guard let item = dataSource.contentConfigurationProvider(at: indexPath) else {
-                        continue
-                    }
-                    let hashable = item.spreadsheethashable(width: columnWidth)
+                guard let item = dataSource.contentConfigurationProvider(at: indexPath) else {
+                    continue
+                }
+                let hashable = item.spreadsheethashable(width: columnWidth)
 
-                    let size: CGSize
-                    if let cachedValue = cachedSectionRowHeights[hashable] {
-                        size = .init(width: columnWidth, height: cachedValue)
-                    } else {
-                        let cell = dataSource.dequeueCell(at: indexPath)
+                let size: CGSize
+                if let cachedValue = cachedSectionRowHeights[hashable] {
+                    size = .init(width: columnWidth, height: cachedValue)
+                } else {
+                    let cell = dataSource.dequeueCell(at: indexPath)
 
-                        let maxSize = CGSize(
-                            width: columnWidth,
-                            height: .greatestFiniteMagnitude
-                        )
-                        size = cell.systemLayoutSizeFitting(
-                            maxSize,
-                            withHorizontalFittingPriority: .required,
-                            verticalFittingPriority: .fittingSizeLevel
-                        )
+                    let maxSize = CGSize(
+                        width: columnWidth,
+                        height: .greatestFiniteMagnitude
+                    )
+                    size = cell.systemLayoutSizeFitting(
+                        maxSize,
+                        withHorizontalFittingPriority: .required,
+                        verticalFittingPriority: .fittingSizeLevel
+                    )
 
-                        cachedSectionRowHeights[hashable] = size.height
-                    }
-
-                    sectionMaxHeight = size.height > sectionMaxHeight ? size.height : sectionMaxHeight
+                    cachedSectionRowHeights[hashable] = size.height
                 }
 
-                cachedSectionHeights[sectionIndex] = sectionMaxHeight
+                sectionMaxHeight = size.height > sectionMaxHeight ? size.height : sectionMaxHeight
             }
 
-            reloadAttributesCache()
+            cachedSectionHeights[sectionIndex] = sectionMaxHeight
         }
+
+        reloadAttributesCache()
     }
 
     private func reset() {
@@ -201,7 +199,6 @@ final class SpreadsheetLayout: UICollectionViewLayout {
 
         contentSize = .init(width: itemWidths.reduce(0, +) + 4, height: fullHeight + 10 + 2)
         dataSource.map { lastHashableItems = $0.allModels.hashValue }
-
     }
 }
 

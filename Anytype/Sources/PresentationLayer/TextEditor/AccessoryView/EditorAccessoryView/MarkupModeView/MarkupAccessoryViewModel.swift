@@ -1,16 +1,7 @@
-//
-//  MarkupAccessoryViewModel.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 05.11.2021.
-//  Copyright © 2021 Anytype. All rights reserved.
-//
-
 import BlocksModels
 import SwiftUI
 import Combine
-
-typealias RoutingAction<T> = (_ arg: T) -> Void // Move to common
+import AnytypeCore
 
 struct MarkupItem: Identifiable, Equatable {
     let id = UUID()

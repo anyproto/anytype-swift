@@ -39,8 +39,9 @@ final class EditorCursorManager {
 
     func applyCurrentFocus() {
         guard let blockFocus = blockFocus else { return }
+        let focusSubject = focusSubjectHolder.focusSubject(for: blockFocus.id)
 
-        focusSubjectHolder.setFocus(blockId: blockFocus.id, position: blockFocus.position)
+        focusSubject.send(blockFocus.position)
 
         self.blockFocus = nil
     }

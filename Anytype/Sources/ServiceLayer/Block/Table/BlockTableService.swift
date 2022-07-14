@@ -58,28 +58,14 @@ final class BlockTableService: BlockTableServiceProtocol {
         contextId: BlockId,
         targetIds: [BlockId]
     ) {
-        print("+++++ rowListFill \(targetIds)")
-
-
         let eventsBunch = Anytype_Rpc.BlockTable.RowListFill.Service.invoke(
             contextID: contextId,
             blockIds: targetIds
         )
-                .getValue(domain: .simpleTablesService)
-                .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .simpleTablesService)
+            .map { EventsBunch(event: $0.event) }
 
-                eventsBunch?.send()
-//
-//        switch eventsBunch {
-//        case let .success(response):
-//            EventsBunch(event: response.event).send()
-//        case .failure:
-//            break
-//        }
-////        .getValue(domain: .simpleTablesService)
-////        .map { EventsBunch(event: $0.event) }
-//
-//        eventsBunch?.send()
+        eventsBunch?.send()
     }
 
     func columnCreate(contextId: BlockId, targetId: BlockId, position: BlockPosition) {

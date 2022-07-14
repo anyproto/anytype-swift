@@ -119,7 +119,6 @@ final class BlocksSelectionOverlayView: UIView {
             switch state {
             case .hidden:
                 self.isHidden = true
-//                self.simpleTablesOptionView.viewModel.index = 0
                 return
             case .moving:
                 self.movingButtonsUIView.isHidden = false

@@ -43,8 +43,6 @@ final class SimpleTableViewModel {
     }
 
     private func handleUpdate(update: DocumentUpdate) {
-        print("-- update \(update)")
-
         switch update {
         case .general, .details:
             forceUpdate(shouldApplyFocus: true)

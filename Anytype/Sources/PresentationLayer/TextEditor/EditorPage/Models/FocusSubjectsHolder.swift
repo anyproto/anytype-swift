@@ -1,13 +1,8 @@
 import BlocksModels
 import Combine
 
-final class FocusSubjectsHolder { // This class should be merged somehow with EditorCursorManager
+final class FocusSubjectsHolder {
     var blocksFocusSubjects = Dictionary<BlockId, PassthroughSubject<BlockFocusPosition, Never>>()
-
-    func setFocus(blockId: BlockId, position: BlockFocusPosition) {
-        blocksFocusSubjects[blockId]?
-            .send(position)
-    }
 
     func focusSubject(for blockId: BlockId) -> PassthroughSubject<BlockFocusPosition, Never> {
         if let focusSubject = blocksFocusSubjects[blockId] {

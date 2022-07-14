@@ -39,8 +39,6 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
     private let actionHandler: BlockActionHandlerProtocol
     private weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
 
-    weak var dataSource: SpreadsheetViewDataSource? // DO WE NEED IT STILL?? ? ? ? ? ?? ?
-
     init(
         document: BaseDocumentProtocol,
         tableBlockInformation: BlockInformation,
@@ -244,39 +242,35 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
     }
 
     private func onColorSelection(for selectedBlockIds: [BlockId]) {
-        measureTime(for: "onColorSelection") {
-            let blockInformations = selectedBlockIds.compactMap(document.infoContainer.get(id:))
+        let blockInformations = selectedBlockIds.compactMap(document.infoContainer.get(id:))
 
-            let backgroundColors = blockInformations.map(\.backgroundColor)
-            let textColors = blockInformations.compactMap { blockInformation -> MiddlewareColor in
-                if case let .text(blockText) = blockInformation.content {
-                    return blockText.color ?? .default
-                }
-
-                return MiddlewareColor.default
+        let backgroundColors = blockInformations.map(\.backgroundColor)
+        let textColors = blockInformations.compactMap { blockInformation -> MiddlewareColor in
+            if case let .text(blockText) = blockInformation.content {
+                return blockText.color ?? .default
             }
 
-            let uniqueBackgroundColors = Set(backgroundColors)
-            let uniqueTextColors = Set(textColors)
-
-            let backgroundColor = uniqueBackgroundColors.count > 1 ? nil : (uniqueBackgroundColors.first ?? .default)
-            let textColor = uniqueTextColors.count > 1 ? nil : (uniqueTextColors.first ?? .default)
-
-            router.showColorPicker(
-                onColorSelection: { [weak actionHandler] colorItem in
-                    measureTime(for: "colorItem") {
-                        switch colorItem {
-                        case .text(let blockColor):
-                            actionHandler?.setTextColor(blockColor, blockIds: selectedBlockIds)
-                        case .background(let blockBackgroundColor):
-                            actionHandler?.setBackgroundColor(blockBackgroundColor, blockIds: selectedBlockIds)
-                        }
-                    }
-                },
-                selectedColor: textColor.map(UIColor.Text.uiColor(from:)) ?? nil,
-                selectedBackgroundColor: backgroundColor.map(UIColor.Background.uiColor(from:)) ?? nil
-            )
+            return MiddlewareColor.default
         }
+
+        let uniqueBackgroundColors = Set(backgroundColors)
+        let uniqueTextColors = Set(textColors)
+
+        let backgroundColor = uniqueBackgroundColors.count > 1 ? nil : (uniqueBackgroundColors.first ?? .default)
+        let textColor = uniqueTextColors.count > 1 ? nil : (uniqueTextColors.first ?? .default)
+
+        router.showColorPicker(
+            onColorSelection: { [weak actionHandler] colorItem in
+                switch colorItem {
+                case .text(let blockColor):
+                    actionHandler?.setTextColor(blockColor, blockIds: selectedBlockIds)
+                case .background(let blockBackgroundColor):
+                    actionHandler?.setBackgroundColor(blockBackgroundColor, blockIds: selectedBlockIds)
+                }
+            },
+            selectedColor: textColor.map(UIColor.Text.uiColor(from:)) ?? nil,
+            selectedBackgroundColor: backgroundColor.map(UIColor.Background.uiColor(from:)) ?? nil
+        )
     }
 
     private func handleRowAction(action: SimpleTableRowMenuItem) {

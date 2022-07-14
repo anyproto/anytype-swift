@@ -53,7 +53,6 @@ final class SimpleTableBlockView: UIView, BlockContentView {
         spreadsheetLayout.relativePositionProvider = dependencies.relativePositionProvider
 
         viewModel?.dataSource = dataSource
-        dependencies.stateManager.dataSource = dataSource
 
         setupHandlers()
     }
@@ -245,16 +244,6 @@ extension SimpleTableBlockView: UICollectionViewDelegate {
         shouldSelectItemAt indexPath: IndexPath
     ) -> Bool {
         return true
-//        guard let item = dataSource.item(for: indexPath) else { return false }
-//
-//        switch item {
-//        case let .block(block):
-//            if case .text = block.content, collectionView.isEditing { return false }
-//
-//            return viewModel?.stateManager.canSelectBlock(at: indexPath) ?? false
-//        case .header, .system:
-//            return true
-//        }
     }
 
     func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {

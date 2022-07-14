@@ -3,10 +3,6 @@ import UIKit
 class GenericCollectionViewCell<Component: BlockContentView>: UICollectionViewCell {
     private let componentView = Component(frame: .zero)
 
-    override var reuseIdentifier: String? {
-        Component.reusableIdentifier
-    }
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()

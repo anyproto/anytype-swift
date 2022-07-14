@@ -1,4 +1,3 @@
-import Combine
 import UIKit
 import BlocksModels
 
@@ -15,7 +14,9 @@ struct SimpleTableBlockContentConfiguration: BlockConfiguration {
         lhs.info.id == rhs.info.id
     }
 
-    func hash(into hasher: inout Hasher) {}
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(info.id)
+    }
 }
 
 extension SimpleTableBlockContentConfiguration {

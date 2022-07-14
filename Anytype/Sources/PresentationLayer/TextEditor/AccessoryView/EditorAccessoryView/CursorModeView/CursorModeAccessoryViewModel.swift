@@ -1,5 +1,6 @@
 import UIKit
 import BlocksModels
+import AnytypeCore
 
 enum CursorModeAccessoryViewAction {
     /// Slash button pressed

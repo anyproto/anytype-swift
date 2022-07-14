@@ -131,7 +131,7 @@ struct ComputedTable {
 
     let cells: [[Cell]]
 
-    private init(
+    private init?(
         infoContainer: InfoContainerProtocol,
         tableColumnsBlockInfo: BlockInformation,
         tableRowsBlockInfo: BlockInformation
@@ -142,7 +142,7 @@ struct ComputedTable {
         for rowId in tableRowsBlockInfo.childrenIds {
             guard let childInformation = infoContainer.get(id: rowId) else {
                 anytypeAssertionFailure("Missing column or rows information", domain: .simpleTables)
-                fatalError()
+                return nil
             }
 
             if childInformation.content == .tableRow {
@@ -161,15 +161,6 @@ struct ComputedTable {
         }
 
         self.cells = blocks
-
-        let rowsIsEmpty = cells.compactMap {
-            $0.first.map { $0.blockInformation.isNil ? "\($0.rowId) empty" : "something" }
-        }
-
-        let columnsIds = cells.first?.compactMap { $0.columnId } ?? []
-
-        print("+++++ rows \(rowsIsEmpty)")
-        print("+++++ columns \(columnsIds)")
     }
 }
 

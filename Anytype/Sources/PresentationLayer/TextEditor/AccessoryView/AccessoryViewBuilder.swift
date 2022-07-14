@@ -1,5 +1,6 @@
 import UIKit
 import BlocksModels
+import AnytypeCore
 
 struct AccessoryViewBuilder {
     static func accessoryState(

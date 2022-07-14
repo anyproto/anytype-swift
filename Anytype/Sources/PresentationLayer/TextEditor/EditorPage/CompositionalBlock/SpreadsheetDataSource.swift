@@ -49,7 +49,6 @@ final class SpreadsheetViewDataSource {
             snapshot.appendItems(sectionModels, toSection: index)
         }
 
-        print("UPDATE!!!!!!!!")
         self.allModels = allModels
         applyBlocksSectionSnapshot(snapshot, animatingDifferences: true)
     }

@@ -15,9 +15,7 @@ extension ObjectHeader: ContentConfigurationProvider {
         hashValue as AnyHashable
     }
 
-    func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-
-    }
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
     
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         switch self {

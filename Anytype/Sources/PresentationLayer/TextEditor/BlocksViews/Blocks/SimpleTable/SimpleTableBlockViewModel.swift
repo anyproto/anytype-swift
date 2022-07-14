@@ -30,11 +30,3 @@ struct SimpleTableBlockViewModel: BlockViewModelProtocol {
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 }
-
-
-func measureTime(for problem: String, closure: () -> ()) {
-    let start = CFAbsoluteTimeGetCurrent()
-    closure()
-    let diff = CFAbsoluteTimeGetCurrent() - start
-    print("Took \(diff) seconds for \(problem)")
-}
