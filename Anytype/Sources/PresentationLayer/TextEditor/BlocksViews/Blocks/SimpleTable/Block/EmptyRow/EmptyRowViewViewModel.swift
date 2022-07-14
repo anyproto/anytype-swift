@@ -64,6 +64,8 @@ struct EmptyRowConfiguration: BlockConfiguration {
     let id: BlockId
 
     @EquatableNoop private(set) var action: () -> Void
+
+    var spreadsheetInsets: UIEdgeInsets { .zero }
 }
 
 final class EmptyRowView: UIView, BlockContentView {

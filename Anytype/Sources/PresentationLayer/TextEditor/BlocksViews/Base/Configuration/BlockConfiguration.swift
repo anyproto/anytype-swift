@@ -7,12 +7,16 @@ protocol BlockConfiguration: Hashable, Dequebale where View.Configuration == Sel
 
     var isAnimationEnabled: Bool { get }
     var contentInsets: UIEdgeInsets { get }
+
+    var spreadsheetInsets: UIEdgeInsets { get }
 }
 
 extension BlockConfiguration {
     var hasOwnBackground: Bool { false }
 
     var contentInsets: UIEdgeInsets { .init(top: 2, left: 20, bottom: -2, right: -20) }
+
+    var spreadsheetInsets: UIEdgeInsets { .init(top: 9, left: 12, bottom: -9, right: -12) }
 
     var isAnimationEnabled: Bool { true }
 }

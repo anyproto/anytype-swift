@@ -1,9 +1,5 @@
 import UIKit
 
-private enum Constants {
-    static let edges = UIEdgeInsets(top: 9, left: 12, bottom: -9, right: -12)
-}
-
 final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView, UIDragInteractionDelegate, DynamicHeightView {
     typealias Configuration = SpreadsheetBlockConfiguration<View.Configuration>
 
@@ -140,10 +136,10 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
 
     private func setupLayout() {
         addSubview(blockView) {
-            $0.pinToSuperview(excluding: [.bottom], insets: Constants.edges)
+            $0.pinToSuperview(excluding: [.bottom], insets: blockConfiguration.spreadsheetInsets)
             $0.bottom.equal(
                 to: bottomAnchor,
-                constant: Constants.edges.bottom,
+                constant: blockConfiguration.spreadsheetInsets.bottom,
                 priority: .init(999)
             )
         }

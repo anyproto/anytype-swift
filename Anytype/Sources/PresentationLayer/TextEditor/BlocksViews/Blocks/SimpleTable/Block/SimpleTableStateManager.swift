@@ -393,6 +393,8 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
                 .compactMap { table.cells[$0.section][$0.row].rowId }
         )
 
+        guard selectedRows.count > 0 else { return }
+
         tableService.rowListFill(contextId: document.objectId, targetIds: Array(selectedRows))
     }
 }
