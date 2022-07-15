@@ -36,7 +36,7 @@ platform :ios do
 
     upload_symbols_to_crashlytics(
       gsp_path: options[:gsp_path],
-      binary_path: './Scripts/upload-symbols',
+      binary_path: './Scripts/firebase/upload-symbols',
       debug: true
     )
   end

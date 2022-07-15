@@ -32,6 +32,7 @@ jobs:
 
       - name: Update git config
         run: |
+          nproc
           git config --global url.ssh://git@github.com/.insteadOf https://github.com/
           git config --global user.name "William Blake"
           git config --global user.email "iosteam@anytype.io"
