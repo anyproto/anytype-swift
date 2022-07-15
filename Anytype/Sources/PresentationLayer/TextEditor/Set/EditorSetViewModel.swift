@@ -32,6 +32,9 @@ final class EditorSetViewModel: ObservableObject {
             isObjectLocked: document.isLocked,
             onIconTap: { [weak self] details in
                 self?.updateDetailsIfNeeded(details)
+            },
+            onRowTap: { [weak self] details in
+                self?.rowTapped(details)
             }
         )
     }
@@ -235,14 +238,26 @@ final class EditorSetViewModel: ObservableObject {
             bundledDpdates: [.done(!details.isDone)]
         )
     }
+    
+    private func rowTapped(_ details: ObjectDetails) {
+        if isBookmarkObject(),
+           let url = url(from: details) {
+            router.openUrl(url)
+        } else {
+            let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
+            router.showPage(data: screenData)
+        }
+    }
+    
+    private func url(from details: ObjectDetails) -> URL? {
+        let urlString = details.values[BundledRelationKey.url.rawValue]?.stringValue ?? ""
+        return URL(string: urlString)
+    }
 }
 
 // MARK: - Routing
 extension EditorSetViewModel {
-    func showPage(_ data: EditorScreenData) {
-        router.showPage(data: data)
-    }
-    
+
     func showRelationValueEditingView(key: String, source: RelationSource) {
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
 

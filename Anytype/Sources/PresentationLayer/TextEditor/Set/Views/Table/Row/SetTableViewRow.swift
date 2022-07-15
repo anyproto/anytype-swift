@@ -42,7 +42,7 @@ struct SetTableViewRow: View {
     
     private var title: some View {
         Button {
-            model.showPage(data.screenData)
+            data.onRowTap()
         } label: {
             AnytypeText(data.title, style: .previewTitle2Medium, color: .textPrimary)
                 .lineLimit(1)
