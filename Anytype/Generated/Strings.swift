@@ -1008,11 +1008,48 @@ internal enum Loc {
     }
   }
 
+  internal enum SimpleTableMenu {
+    internal enum Item {
+      /// Clear contents
+      internal static let clearContents = Loc.tr("Localizable", "SimpleTableMenu.Item.clearContents")
+      /// Clear style
+      internal static let clearStyle = Loc.tr("Localizable", "SimpleTableMenu.Item.clearStyle")
+      /// Color
+      internal static let color = Loc.tr("Localizable", "SimpleTableMenu.Item.color")
+      /// Delete
+      internal static let delete = Loc.tr("Localizable", "SimpleTableMenu.Item.Delete")
+      /// Duplicate
+      internal static let duplicate = Loc.tr("Localizable", "SimpleTableMenu.Item.Duplicate")
+      /// Insert above
+      internal static let insertAbove = Loc.tr("Localizable", "SimpleTableMenu.Item.InsertAbove")
+      /// Insert below
+      internal static let insertBelow = Loc.tr("Localizable", "SimpleTableMenu.Item.InsertBelow")
+      /// Insert left
+      internal static let insertLeft = Loc.tr("Localizable", "SimpleTableMenu.Item.InsertLeft")
+      /// Insert right
+      internal static let insertRight = Loc.tr("Localizable", "SimpleTableMenu.Item.InsertRight")
+      /// Move down
+      internal static let moveDown = Loc.tr("Localizable", "SimpleTableMenu.Item.MoveDown")
+      /// Move left
+      internal static let moveLeft = Loc.tr("Localizable", "SimpleTableMenu.Item.MoveLeft")
+      /// Move right
+      internal static let moveRight = Loc.tr("Localizable", "SimpleTableMenu.Item.MoveRight")
+      /// Move up
+      internal static let moveUp = Loc.tr("Localizable", "SimpleTableMenu.Item.MoveUp")
+      /// Sort
+      internal static let sort = Loc.tr("Localizable", "SimpleTableMenu.Item.Sort")
+      /// Style
+      internal static let style = Loc.tr("Localizable", "SimpleTableMenu.Item.style")
+    }
+  }
+
   internal enum SlashMenu {
     /// Dots divider
     internal static let dotsDivider = Loc.tr("Localizable", "SlashMenu.DotsDivider")
     /// Line divider
     internal static let lineDivider = Loc.tr("Localizable", "SlashMenu.LineDivider")
+    /// Table
+    internal static let table = Loc.tr("Localizable", "SlashMenu.Table")
     /// Table of contents
     internal static let tableOfContents = Loc.tr("Localizable", "SlashMenu.TableOfContents")
   }

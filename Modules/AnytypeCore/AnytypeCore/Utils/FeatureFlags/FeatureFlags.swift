@@ -14,6 +14,8 @@ public enum Feature: String, Codable {
     case setSorts = "Set sorts"
     case setFilters = "Set filters"
     case tableOfContents = "Table of contents"
+    case floatingSetMenu = "Floating Set menu"
+    case simpleTables = "Simple tables"
     case objectDuplicate = "Object duplicate"
 }
 
@@ -47,6 +49,8 @@ public final class FeatureFlags {
         .setSorts: false,
         .setFilters: false,
         .tableOfContents: true,
+        .floatingSetMenu: false,
+        .simpleTables: false,
         .objectDuplicate: true
     ]
     
@@ -113,6 +117,10 @@ public extension FeatureFlags {
     
     static var isTableOfContentsAvailable: Bool {
         features[.tableOfContents, default: true]
+    }
+
+    static var isSimpleTablesAvailable: Bool {
+        features[.simpleTables, default: false]
     }
     
     static var isObjectDuplicateAvailable: Bool {

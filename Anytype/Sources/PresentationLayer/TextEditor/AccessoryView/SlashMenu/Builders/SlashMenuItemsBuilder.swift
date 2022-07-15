@@ -1,4 +1,5 @@
 import BlocksModels
+import AnytypeCore
 
 struct SlashMenuItemsBuilder {
     
@@ -79,7 +80,18 @@ struct SlashMenuItemsBuilder {
     }
     
     private var otherMenuItem: SlashMenuItem {
-        let children: [SlashAction] = SlashActionOther.allCases.map { .other($0) }
+        let defaultTableAction: SlashActionOther = .table(rowsCount: 3, columnsCount: 3)
+        var allOtherSlashActions: [SlashActionOther] = [.lineDivider, .dotsDivider, .tableOfContents, defaultTableAction]
+
+        if !FeatureFlags.isSimpleTablesAvailable {
+            allOtherSlashActions = allOtherSlashActions.filter { $0 == defaultTableAction }
+        }
+
+        if !FeatureFlags.isTableOfContentsAvailable {
+            allOtherSlashActions = allOtherSlashActions.filter { $0 == .tableOfContents }
+        }
+        let children: [SlashAction] = allOtherSlashActions.map { .other($0) }
+
         return SlashMenuItem(type: .other, children: children)
     }
     

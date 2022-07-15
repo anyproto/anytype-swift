@@ -131,6 +131,15 @@ extension EditorNavigationBarHelper: EditorNavigationBarHelperProtocol {
             navigationBarTitleView.setIsLocked(false)
         case .locked:
             navigationBarTitleView.setIsLocked(true)
+        case let .simpleTablesSelection(_, selectedBlocks, _):
+            navigationBarTitleView.setAlphaForSubviews(1)
+            updateBarButtonItemsBackground(opacity: 1)
+            fakeNavigationBarBackgroundView.alpha = 1
+            controller?.navigationItem.leftBarButtonItem = nil
+            controller?.navigationItem.rightBarButtonItem = doneBarButtonItem
+            let title = Loc.selectedBlocks(selectedBlocks.count)
+            navigationBarTitleView.configure(model: .modeTitle(title))
+            navigationBarTitleView.setIsLocked(false)
         case .loading:
             controller?.navigationItem.titleView = navigationBarTitleView
             controller?.navigationItem.rightBarButtonItem = nil

@@ -27,6 +27,21 @@ extension UIImage {
             static let paste = createImage("TextEditor/BlocksOption/paste")
             static let copy = createImage("TextEditor/BlocksOption/copy")
             static let preview = createImage("TextEditor/BlocksOption/view")
+
+            // Simple table
+            static let cellMenuClear = createImage("TextEditor/BlocksOption/cell_menu_clear")
+            static let cellMenuColor = createImage("TextEditor/BlocksOption/cell_menu_color")
+            
+            static let columnInsertLeft = createImage("TextEditor/BlocksOption/column_insert_left")
+            static let columnInsertRight = createImage("TextEditor/BlocksOption/column_insert_right")
+            static let columnMoveLeft = createImage("TextEditor/BlocksOption/column_move_left")
+            static let columnMoveRight = createImage("TextEditor/BlocksOption/column_move_right")
+            static let columnSort = createImage("TextEditor/BlocksOption/column_sort")
+
+            static let rowMoveDown = createImage("TextEditor/BlocksOption/row_move_down")
+            static let rowMoveUp = createImage("TextEditor/BlocksOption/row_move_up")
+            static let rowInsertAbove = createImage("TextEditor/BlocksOption/row_insert_above")
+            static let rowInsertBelow = createImage("TextEditor/BlocksOption/row_insert_below")
         }
 
         enum UndoRedo {

@@ -18,6 +18,9 @@ enum BlocksModelsConverter {
         case .dataview(let data): return data.blockContent
         case .relation(let data): return data.blockContent
         case .tableOfContents: return FeatureFlags.isTableOfContentsAvailable ? .tableOfContents : .unsupported
+        case .table: return BlockContent.table
+        case .tableColumn: return BlockContent.tableColumn
+        case .tableRow: return BlockContent.tableRow
         case .icon, .latex:
             return .unsupported
         case .table, .tableRow, .tableColumn:
@@ -54,6 +57,13 @@ enum BlocksModelsConverter {
                 domain: .blocksConverter
             )
             return nil
+        case .table, .tableRow, .tableColumn:
+            anytypeAssertionFailure(
+                "Not suppoted",
+                domain: .blocksConverter
+            )
+            return nil
         }
     }
 }
+

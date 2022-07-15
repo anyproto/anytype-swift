@@ -27,7 +27,7 @@ public func anytypeAssert(
     if condition() != true {
         anytypeAssertionFailure(message, domain: domain, file: file, line: line)
     }
-}
+} 
 
 // MARK:- Private
 private func showAssertionAlert(_ message: String) {

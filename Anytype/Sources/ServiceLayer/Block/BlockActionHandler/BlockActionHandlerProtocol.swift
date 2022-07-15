@@ -12,8 +12,8 @@ protocol BlockActionHandlerProtocol: AnyObject {
     @discardableResult
     func turnIntoPage(blockId: BlockId) -> BlockId?
     
-    func setTextColor(_ color: BlockColor, blockId: BlockId)
-    func setBackgroundColor(_ color: BlockBackgroundColor, blockId: BlockId)
+    func setTextColor(_ color: BlockColor, blockIds: [BlockId])
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId])
     func duplicate(blockId: BlockId)
     func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId)
     func fetch(url: URL, blockId: BlockId)
@@ -48,6 +48,11 @@ protocol BlockActionHandlerProtocol: AnyObject {
         url: String
     )
     func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance)
+    func createTable(
+        blockId: BlockId,
+        rowsCount: Int,
+        columnsCount: Int
+    )
 }
 
 extension BlockActionHandlerProtocol {

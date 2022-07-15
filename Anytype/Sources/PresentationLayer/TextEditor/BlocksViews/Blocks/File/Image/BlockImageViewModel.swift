@@ -51,7 +51,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         case .done:
             return BlockImageConfiguration(
                 fileData: fileData,
-                alignmetn: info.alignment,
+                alignmetn: info.horizontalAlignment,
                 maxWidth: maxWidth,
                 imageViewTapHandler: { [weak self] imageView in
                     self?.didTapOpenImage(imageView)

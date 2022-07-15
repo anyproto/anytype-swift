@@ -380,13 +380,22 @@ final class StyleViewController: UIViewController {
         let backgroundColor = askBackgroundColor() ?? .backgroundPrimary
 
         let contentVC = StyleColorViewController(
-            blockId: blockId,
-            color: color,
-            backgroundColor: backgroundColor,
-            actionHandler: actionHandler
-        ) {
-            button.isSelected = false
-        }
+            selectedColor: color,
+            selectedBackgroundColor: backgroundColor,
+            onColorSelection: { [weak self] colorItem in
+                guard let blockId = self?.blockId else { return }
+                switch colorItem {
+                case .text(let blockColor):
+                    self?.actionHandler.setTextColor(blockColor, blockIds: [blockId])
+                case .background(let blockBackgroundColor):
+                    self?.actionHandler.setBackgroundColor(blockBackgroundColor, blockIds: [blockId])
+                }
+            },
+            viewDidClose: { _ in
+                button.isSelected = false
+            }
+        )
+        
         viewControllerForPresenting.embedChild(contentVC)
 
         contentVC.view.pinAllEdges(to: viewControllerForPresenting.view)

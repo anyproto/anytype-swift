@@ -11,7 +11,7 @@ public extension BlockInformation {
             id: id,
             content: content,
             backgroundColor: nil,
-            alignment: .left,
+            horizontalAlignment: .left,
             childrenIds: [],
             configurationData: BlockInformationMetadata(
                 backgroundColor: .default,

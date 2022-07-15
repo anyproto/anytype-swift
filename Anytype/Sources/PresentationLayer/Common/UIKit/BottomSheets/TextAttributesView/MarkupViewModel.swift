@@ -53,7 +53,7 @@ final class MarkupViewModel {
             anytypeText: anytypeText,
             from: textContent,
             range: range.range(for: anytypeText.attrString),
-            alignment: blockInformation.alignment
+            alignment: blockInformation.horizontalAlignment
         )
         view?.setMarkupState(displayState)
     }

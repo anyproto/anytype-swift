@@ -3,7 +3,7 @@ import Combine
 import BlocksModels
 
 final class ChangeTypeAccessoryViewModel {
-    typealias TypeItem = HorizonalTypeListViewModel.Item
+    typealias TypeItem = HorizontalListItem
 
     @Published private(set) var isTypesViewVisible: Bool = true
     @Published private(set) var supportedTypes = [TypeItem]()
@@ -15,6 +15,8 @@ final class ChangeTypeAccessoryViewModel {
     private let searchService: SearchServiceProtocol
     private let objectService: ObjectActionsServiceProtocol
     private let document: BaseDocumentProtocol
+    private let searchHandler: () -> Void
+    private lazy var searchItem = TypeItem.searchItem { [weak self] in self?.searchHandler() }
 
     private var cancellables = [AnyCancellable]()
 
@@ -23,13 +25,15 @@ final class ChangeTypeAccessoryViewModel {
         handler: BlockActionHandlerProtocol,
         searchService: SearchServiceProtocol,
         objectService: ObjectActionsServiceProtocol,
-        document: BaseDocumentProtocol
+        document: BaseDocumentProtocol,
+        searchHandler: @escaping () -> Void
     ) {
         self.router = router
         self.handler = handler
         self.searchService = searchService
         self.objectService = objectService
         self.document = document
+        self.searchHandler = searchHandler
 
         fetchSupportedTypes()
         subscribeOnDocumentChanges()
@@ -84,13 +88,13 @@ final class ChangeTypeAccessoryViewModel {
             let filteredItems = self.allSupportedTypes.filter {
                 $0.id != self.document.details?.type
             }
-            self.supportedTypes = filteredItems
+            self.supportedTypes = [self.searchItem] + filteredItems
         }.store(in: &cancellables)
     }
 }
 
 extension ChangeTypeAccessoryViewModel: TypeListItemProvider {
-    var typesPublisher: AnyPublisher<[HorizonalTypeListViewModel.Item], Never> {
+    var typesPublisher: AnyPublisher<[HorizontalListItem], Never> {
         $supportedTypes.eraseToAnyPublisher()
     }
 }

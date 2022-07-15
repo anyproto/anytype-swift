@@ -66,7 +66,13 @@ final class EditorAssembly {
     // MARK: - Page
     
     private func buildPageModule(data: EditorScreenData) -> (EditorPageController, EditorRouterProtocol) {
-        let blocksSelectionOverlayView = buildBlocksSelectionOverlayView()
+        let simpleTableMenuViewModel = SimpleTableMenuViewModel()
+        let blocksOptionViewModel = HorizonalTypeListViewModel(itemProvider: nil)
+
+        let blocksSelectionOverlayView = buildBlocksSelectionOverlayView(
+            simleTableMenuViewModel: simpleTableMenuViewModel,
+            blockOptionsViewViewModel: blocksOptionViewModel
+        )
 
         let controller = EditorPageController(blocksSelectionOverlayView: blocksSelectionOverlayView)
         let document = BaseDocument(objectId: data.pageId)
@@ -86,6 +92,8 @@ final class EditorAssembly {
             viewInput: controller,
             document: document,
             router: router,
+            blocksOptionViewModel: blocksOptionViewModel,
+            simpleTableMenuViewModel: simpleTableMenuViewModel,
             blocksSelectionOverlayViewModel: blocksSelectionOverlayView.viewModel,
             isOpenedForPreview: data.isOpenedForPreview
         )
@@ -99,13 +107,16 @@ final class EditorAssembly {
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter,
+        blocksOptionViewModel: HorizonalTypeListViewModel,
+        simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         isOpenedForPreview: Bool
     ) -> EditorPageViewModel {                
         let modelsHolder = EditorMainItemModelsHolder()
-        
         let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
-        let cursorManager = EditorCursorManager()
+        let focusSubjectHolder = FocusSubjectsHolder()
+
+        let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
         let listService = BlockListService(contextId: document.objectId)
         let singleService = ServiceLocator.shared.blockActionsServiceSingle(contextId: document.objectId)
         let blockActionService = BlockActionService(
@@ -122,13 +133,15 @@ final class EditorAssembly {
             container: document.infoContainer,
             modelsHolder: modelsHolder
         )
-        
+
+        let blockTableService = BlockTableService()
         let actionHandler = BlockActionHandler(
             document: document,
             markupChanger: markupChanger,
             service: blockActionService,
             listService: listService,
-            keyboardHandler: keyboardHandler
+            keyboardHandler: keyboardHandler,
+            blockTableService: blockTableService
         )
 
         let pasteboardMiddlewareService = PasteboardMiddleService(document: document)
@@ -142,7 +155,8 @@ final class EditorAssembly {
             router: router,
             pasteboardService: pasteboardService,
             document: document,
-            modelsHolder: modelsHolder
+            onShowStyleMenu: router.showStyleMenu(information:),
+            onBlockSelection: actionHandler.selectBlock(info:)
         )
         
         let markdownListener = MarkdownListenerImpl()
@@ -151,21 +165,11 @@ final class EditorAssembly {
             viewInput: viewInput,
             accessoryState: accessoryState
         )
-        
-        let blocksConverter = BlockViewModelBuilder(
-            document: document,
-            handler: actionHandler,
-            pasteboardService: pasteboardService,
-            router: router,
-            delegate: blockDelegate,
-            markdownListener: markdownListener,
-            relativePositionProvider: viewInput
-        )
-         
+
         let wholeBlockMarkupViewModel = MarkupViewModel(
             actionHandler: actionHandler
         )
-        
+
         let headerModel = ObjectHeaderViewModel(
             document: document,
             router: router,
@@ -185,7 +189,32 @@ final class EditorAssembly {
             initialEditingState: isOpenedForPreview ? .locked : .editing
         )
 
+        let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(
+            document: document,
+            router: router,
+            handler: actionHandler,
+            pasteboardService: pasteboardService,
+            markdownListener: markdownListener,
+            focusSubjectHolder: focusSubjectHolder,
+            viewInput: viewInput,
+            mainEditorSelectionManager: blocksStateManager
+        )
+
+        let blocksConverter = BlockViewModelBuilder(
+            document: document,
+            handler: actionHandler,
+            pasteboardService: pasteboardService,
+            router: router,
+            delegate: blockDelegate,
+            markdownListener: markdownListener,
+            simpleTableDependenciesBuilder: simpleTableDependenciesBuilder,
+            subjectsHolder: focusSubjectHolder
+        )
+
         actionHandler.blockSelectionHandler = blocksStateManager
+
+        blocksStateManager.blocksSelectionOverlayViewModel = blocksSelectionOverlayViewModel
+        blocksStateManager.blocksOptionViewModel = blocksOptionViewModel
         
         return EditorPageViewModel(
             document: document,
@@ -206,16 +235,17 @@ final class EditorAssembly {
         )
     }
 
-    private func buildBlocksSelectionOverlayView() -> BlocksSelectionOverlayView {
-        let blocksOptionViewModel = BlocksOptionViewModel()
-        let blocksOptionView = BlocksOptionView(viewModel: blocksOptionViewModel)
+    private func buildBlocksSelectionOverlayView(
+        simleTableMenuViewModel: SimpleTableMenuViewModel,
+        blockOptionsViewViewModel: HorizonalTypeListViewModel
+    ) -> BlocksSelectionOverlayView {
+        let blocksOptionView = SelectionOptionsView(viewModel: blockOptionsViewViewModel)
         let blocksSelectionOverlayViewModel = BlocksSelectionOverlayViewModel()
-
-        blocksSelectionOverlayViewModel.blocksOptionViewModel = blocksOptionViewModel
 
         return BlocksSelectionOverlayView(
             viewModel: blocksSelectionOverlayViewModel,
-            blocksOptionView: blocksOptionView
+            blocksOptionView: blocksOptionView,
+            simpleTablesOptionView: SimpleTableMenuView(viewModel: simleTableMenuViewModel)
         )
     }
 }

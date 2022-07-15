@@ -11,7 +11,8 @@ struct SlashMenuComparator {
     private let predicate: (String) -> Bool
     private let result: SlashMenuItemFilterMatch
     
-    static func match(data: ComparableDisplayData, string: String) -> SlashMenuItemFilterMatch? {
+    static func match(slashAction: SlashAction, string: String) -> SlashActionFilterMatch? {
+        let data = slashAction.displayData
         let lowecasedTitle = data.title?.lowercased()
         let subtitle = data.subtitle?.lowercased()
         let comparators = [
@@ -36,7 +37,11 @@ struct SlashMenuComparator {
                 result: .aliaseSubstring
             ),
         ]
-        
-        return comparators.first { $0.predicate(string.lowercased()) }?.result
+
+        guard let result = comparators.first { $0.predicate(string.lowercased()) }?.result else {
+            return nil
+        }
+
+        return .init(action: slashAction, filterMatch: result)
     }
 }

@@ -18,13 +18,13 @@ struct BlockValidator {
         }
         
         let backgroundColor = restrictions.canApplyBackgroundColor ? info.backgroundColor : nil
-        let alignment = validatedAlignment(alignment: info.alignment, restrictions: restrictions)
+        let horizontalAlignment = validatedAlignment(alignment: info.horizontalAlignment, restrictions: restrictions)
         
         return BlockInformation(
             id: info.id,
             content: content,
             backgroundColor: backgroundColor,
-            alignment: alignment,
+            horizontalAlignment: horizontalAlignment,
             childrenIds: info.childrenIds,
             configurationData: info.configurationData,
             fields: info.fields

@@ -26,7 +26,7 @@ final class ChildrenInfoTreeBuilder {
         while !stack.isEmpty {
             if let info = stack.pop() {
                 if info.kind == .block { result.append(info) } // Skip meta blocks
-                
+
                 let children = findChildren(info: info)
 
                 for item in children.reversed() {
@@ -39,6 +39,9 @@ final class ChildrenInfoTreeBuilder {
     }
 
     private func findChildren(info: BlockInformation) -> [BlockInformation] {
+        if info.content == .tableRow || info.content == .tableColumn {
+            return []
+        }
         if info.content.isToggle, ToggleStorage.shared.isToggled(blockId: info.id) == false {
             return [] // return no children for closed toggle
         }

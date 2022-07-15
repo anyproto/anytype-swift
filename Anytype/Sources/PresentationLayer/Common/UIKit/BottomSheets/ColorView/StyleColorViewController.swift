@@ -7,10 +7,7 @@ final class StyleColorViewController: UIViewController {
     private(set) var colorView: ColorView!
 
     // MARK: - Properties
-
-    private let blockId: BlockId
-    private var actionHandler: BlockActionHandlerProtocol
-    private var viewDidCloseHandler: () -> Void
+    private var viewDidCloseHandler: (UIViewController) -> Void
 
     // MARK: - Lifecycle
 
@@ -18,32 +15,22 @@ final class StyleColorViewController: UIViewController {
     /// - Parameter color: Foreground color
     /// - Parameter backgroundColor: Background color
     init(
-        blockId: BlockId,
-        color: UIColor = .textPrimary,
-        backgroundColor: UIColor = .backgroundPrimary,
-        actionHandler: BlockActionHandlerProtocol,
-        viewDidClose: @escaping () -> Void
+        selectedColor: UIColor?,
+        selectedBackgroundColor: UIColor?,
+        onColorSelection: @escaping (ColorView.ColorItem) -> Void,
+        viewDidClose: @escaping (UIViewController) -> Void
     ) {
-        self.blockId = blockId
-        self.actionHandler = actionHandler
         self.viewDidCloseHandler = viewDidClose
 
         super.init(nibName: nil, bundle: nil)
 
         colorView = ColorView(
-            color: color,
-            backgroundColor: backgroundColor,
-            colorViewSelectedAction: { [weak actionHandler] colorItem in
-                switch colorItem {
-                case .text(let blockColor):
-                    actionHandler?.setTextColor(blockColor, blockId: blockId)
-                case .background(let blockBackgroundColor):
-                    actionHandler?.setBackgroundColor(blockBackgroundColor, blockId: blockId)
-                }
-            },
+            selectedColor: selectedColor,
+            selectedBackgroundColor: selectedBackgroundColor,
+            colorViewSelectedAction: onColorSelection,
             viewDidClose: { [weak self] in
                 self?.removeFromParentEmbed()
-                self?.viewDidCloseHandler()
+                self.map { self?.viewDidCloseHandler($0) }
             })
     }
 

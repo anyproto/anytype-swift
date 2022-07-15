@@ -1,10 +1,15 @@
 import BlocksModels
 import AnytypeCore
 
-enum SlashActionOther: CaseIterable {
+enum SlashActionOther: CaseIterable, Equatable {
+    static var allCases: [SlashActionOther] {
+        [.lineDivider, .dotsDivider, .tableOfContents, .table(rowsCount: 3, columnsCount: 3)]
+    }
+
     case lineDivider
     case dotsDivider
     case tableOfContents
+    case table(rowsCount: Int, columnsCount: Int)
     
     var title: String {
         switch self {
@@ -14,6 +19,8 @@ enum SlashActionOther: CaseIterable {
             return Loc.SlashMenu.lineDivider
         case .tableOfContents:
             return Loc.SlashMenu.tableOfContents
+        case let .table(rowsCount, columnsCount):
+            return Loc.SlashMenu.table + " \(rowsCount)x\(columnsCount)"
         }
     }
     
@@ -25,6 +32,8 @@ enum SlashActionOther: CaseIterable {
             return ImageName.slashMenu.other.line_divider
         case .tableOfContents:
             return ImageName.slashMenu.other.table_of_contents
+        case .table:
+            return ImageName.slashMenu.other.line_divider
         }
     }
     
@@ -36,23 +45,17 @@ enum SlashActionOther: CaseIterable {
             return .divider(.line)
         case .tableOfContents:
             return .tableOfContents
+        case .table:
+            return .table
         }
     }
     
     var searchAliases: [String] {
         switch self {
-        case .dotsDivider, .lineDivider:
+        case .dotsDivider, .lineDivider, .table:
             return []
         case .tableOfContents:
             return ["toc"]
-        }
-    }
-    
-    static var allCases: Self.AllCases {
-        if FeatureFlags.isTableOfContentsAvailable {
-            return [.lineDivider, .dotsDivider, .tableOfContents]
-        } else {
-            return [.lineDivider, .dotsDivider]
         }
     }
 }

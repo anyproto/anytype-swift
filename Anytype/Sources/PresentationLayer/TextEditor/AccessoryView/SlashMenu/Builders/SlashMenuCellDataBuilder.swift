@@ -36,7 +36,7 @@ final class SlashMenuCellDataBuilder {
         guard !filteredActions.isEmpty else { return nil }
 
         filteredActions.sort { $0.filterMatch < $1.filterMatch }
-        
+
         return SlashMenuFilteredItem(
             title: item.type.title,
             topMatch: filteredActions.first!.filterMatch,
@@ -46,11 +46,16 @@ final class SlashMenuCellDataBuilder {
     
     private func filterActions(item: SlashMenuItem, filter: String) -> [SlashActionFilterMatch] {
         return item.children.compactMap {
-            guard let match = SlashMenuComparator.match(data: $0.displayData, string: filter) else {
-                return nil
+            switch $0 {
+            case let .other(otherAction):
+                if case .table = otherAction {
+                    return SimpleTableSlashMenuComparator.matchDefaultTable(slashAction: $0, inputString: filter)
+                }
+
+                fallthrough
+            default:
+                return SlashMenuComparator.match(slashAction: $0, string: filter)
             }
-                    
-            return SlashActionFilterMatch(action: $0, filterMatch: match)
         }
     }
     

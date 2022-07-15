@@ -342,6 +342,34 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         let popup = settingAssembly.layoutPicker(document: document)
         viewController?.topPresentedController.present(popup, animated: true, completion: nil)
     }
+
+    func showColorPicker(
+        onColorSelection: @escaping (ColorView.ColorItem) -> Void,
+        selectedColor: UIColor?,
+        selectedBackgroundColor: UIColor?
+    ) {
+        guard let rootController = rootController else {
+            return
+        }
+
+        let styleColorViewController = StyleColorViewController(
+            selectedColor: selectedColor,
+            selectedBackgroundColor: selectedBackgroundColor,
+            onColorSelection: onColorSelection) { viewController in
+                viewController.removeFromParentEmbed()
+            }
+
+        rootController.embedChild(styleColorViewController)
+
+        styleColorViewController.view.pinAllEdges(to: rootController.view)
+        styleColorViewController.colorView.containerView.layoutUsing.anchors {
+            $0.width.equal(to: 260)
+            $0.height.equal(to: 176)
+            $0.centerX.equal(to: rootController.view.centerXAnchor, constant: 10)
+            $0.bottom.equal(to: rootController.view.bottomAnchor, constant: -50)
+        }
+        UISelectionFeedbackGenerator().selectionChanged()
+    }
     
     // MARK: - Private
 

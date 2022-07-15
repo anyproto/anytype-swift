@@ -1,6 +1,6 @@
 import UIKit
 
-final class DynamicCollectionView: UICollectionView {
+final class DynamicCollectionView: EditorCollectionView {
     var onChangeHandler: (() -> Void)?
 
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -18,6 +18,9 @@ final class DynamicCollectionView: UICollectionView {
     private func setup() {
         backgroundColor = .backgroundPrimary
         isDirectionalLockEnabled = true
+        allowsMultipleSelection = true
+        allowsSelectionDuringEditing = true
+        isEditing = true
     }
 
     override func layoutSubviews() {
@@ -27,13 +30,6 @@ final class DynamicCollectionView: UICollectionView {
             invalidateIntrinsicContentSize()
             onChangeHandler?()
         }
-    }
-
-    override func reloadData() {
-        super.reloadData()
-
-        collectionViewLayout.invalidateLayout()
-        collectionViewLayout.prepare()
     }
 
     override var intrinsicContentSize: CGSize { collectionViewLayout.collectionViewContentSize }

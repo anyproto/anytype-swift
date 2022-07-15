@@ -1,11 +1,15 @@
 import UIKit
 
+protocol DynamicHeightView: AnyObject {
+    var heightDidChanged: (() -> Void)? { get set }
+}
+
 protocol ReusableContent {
     static var reusableIdentifier: String { get }
 }
 
-protocol DynamicHeightView: AnyObject {
-    var heightDidChanged: (() -> Void)? { get set }
+protocol FirstResponder: AnyObject {
+    var isFirstResponderValueChangeHandler: ((Bool) -> Void)? { get set }
 }
 
 protocol BlockContentView: ReusableContent where Self: UIView {
@@ -18,10 +22,9 @@ protocol BlockContentView: ReusableContent where Self: UIView {
 }
 
 extension BlockContentView {
-    static var reusableIdentifier: String { String(describing: Self.self) }
-}
-
-extension BlockContentView {
     func update(with state: UICellConfigurationState) {}
 }
 
+extension ReusableContent {
+    static var reusableIdentifier: String { String(describing: Self.self) }
+}

@@ -180,7 +180,7 @@ final class HomeViewModel: ObservableObject {
                 updateFavoritesCellWithTargetId(detailId)
             case .syncStatus:
                 break
-            case .dataSourceUpdate, .header, .changeType:
+            case .dataSourceUpdate, .header:
                 anytypeAssertionFailure("Unsupported event \(update)", domain: .homeView)
                 break
             }

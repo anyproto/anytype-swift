@@ -11,7 +11,11 @@ enum ObjectHeader: Hashable {
     }
 }
 extension ObjectHeader: ContentConfigurationProvider {
-    var indentationLevel: Int { 0 }
+    var hashable: AnyHashable {
+        hashValue as AnyHashable
+    }
+
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
     
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         switch self {

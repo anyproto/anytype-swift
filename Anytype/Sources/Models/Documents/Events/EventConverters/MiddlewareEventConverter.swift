@@ -83,7 +83,7 @@ final class MiddlewareEventConverter {
             }
             
             infoContainer.update(blockId: blockId) { info in
-                info.updated(alignment: modelAlignment)
+                info.updated(horizontalAlignment: modelAlignment)
             }
             return .blocks(blockIds: [blockId])
         

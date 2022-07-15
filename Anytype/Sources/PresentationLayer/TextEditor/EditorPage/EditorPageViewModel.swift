@@ -126,9 +126,9 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         case .dataSourceUpdate:
             let models = document.children
 
-            let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
-            modelsHolder.items = blocksViewModels
-        case .header, .changeType:
+            let items = blockBuilder.buildEditorItems(infos: models)
+            modelsHolder.items = items
+        case .header:
             break // supported in headerModel
         }
 
@@ -170,15 +170,16 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         with blockIds: Set<BlockId>
     ) -> CollectionDifference<EditorItem> {
         var currentModels = modelsHolder.items
-        
+
         for (offset, model) in modelsHolder.items.enumerated() {
             guard case let .block(blockViewModel) = model else { continue }
             for blockId in blockIds {
+
                 if blockViewModel.blockId == blockId {
                     guard let model = document.infoContainer.get(id: blockId),
                           let newViewModel = blockBuilder.build(info: model) else {
-                              continue
-                          }
+                        continue
+                    }
 
 
                     currentModels[offset] = .block(newViewModel)
@@ -236,12 +237,7 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     }
 
     private func updateCursorIfNeeded() {
-        if let blockFocus = cursorManager.blockFocus,
-           let block = modelsHolder.contentProvider(for: blockFocus.id) {
-
-            block.set(focus: blockFocus.position)
-            cursorManager.blockFocus = nil
-        }
+        cursorManager.applyCurrentFocus()
     }
 
     // iOS 14 bug fix applying header section while editing

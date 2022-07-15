@@ -60,9 +60,9 @@ final class EditorPageController: UIViewController {
         onSettingsBarButtonItemTap: { [weak viewModel] in
             UISelectionFeedbackGenerator().selectionChanged()
             viewModel?.showSettings()
-        }, onDoneBarButtonItemTap:  { [weak viewModel] in
+        },
+        onDoneBarButtonItemTap:  { [weak viewModel] in
             viewModel?.blocksStateManager.didSelectEditingMode()
-
         }
     )
 
@@ -191,11 +191,13 @@ final class EditorPageController: UIViewController {
             case .locked:
                 view.endEditing(true)
                 collectionView.isLocked = true
-                view.isUserInteractionEnabled = true
+            case .simpleTablesSelection:
+                browserViewInput?.multiselectActive(true)
+                view.endEditing(true)
+                collectionView.isLocked = true
             case .loading:
                 view.endEditing(true)
                 view.isUserInteractionEnabled = false
-                
             }
         }.store(in: &cancellables)
 
@@ -242,6 +244,18 @@ extension EditorPageController: EditorPageViewInput {
         navigationBarHelper.updateSyncStatus(syncStatus)
     }
 
+    func update(changes: CollectionDifference<EditorItem>?) {
+        let currentSnapshot = dataSource.snapshot(for: .main)
+
+        if let changes = changes {
+            for change in changes.insertions {
+                guard currentSnapshot.isVisible(change.element) else { continue }
+
+                reloadCell(for: change.element)
+            }
+        }
+    }
+
     func update(
         changes: CollectionDifference<EditorItem>?,
         allModels: [EditorItem]
@@ -275,10 +289,6 @@ extension EditorPageController: EditorPageViewInput {
 
             collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
         }
-
-        collectionView.indexPathsForSelectedItems.map(
-            viewModel.blocksStateManager.didUpdateSelectedIndexPaths
-        )
     }
     
     func textBlockWillBeginEditing() { }

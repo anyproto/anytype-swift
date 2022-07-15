@@ -1,36 +1,21 @@
-import Combine
 import UIKit
-
+import BlocksModels
 
 struct SimpleTableBlockContentConfiguration: BlockConfiguration {
     typealias View = SimpleTableBlockView
 
-    let widths: [CGFloat]
-    let items: [[SimpleTableBlockProtocol]]
-    
-    @EquatableNoop private(set) var blockDelegate: BlockDelegate
-    @EquatableNoop private(set) var relativePositionProvider: RelativePositionProvider?
+    let info: BlockInformation
+    let dependenciesBuilder: SimpleTableDependenciesBuilder
 
     static func == (
         lhs: SimpleTableBlockContentConfiguration,
         rhs: SimpleTableBlockContentConfiguration
     ) -> Bool {
-        lhs.items.hashable == rhs.items.hashable &&
-        lhs.widths == rhs.widths
+        lhs.info.id == rhs.info.id
     }
 
     func hash(into hasher: inout Hasher) {
-        hasher.combine(items.hashable)
-        hasher.combine(widths)
-    }
-}
-
-private extension Array where Element == [SimpleTableBlockProtocol] {
-    var hashable: AnyHashable {
-        map { sections -> AnyHashable in
-            return sections.map { $0.hashable }
-        }
-
+        hasher.combine(info.id)
     }
 }
 

@@ -93,6 +93,17 @@ final class BaseDocument: BaseDocumentProtocol {
         return model.flatChildrenTree(container: infoContainer)
     }
 
+    var isEmpty: Bool {
+        let filteredBlocks = children.filter { $0.isFeaturedRelations || $0.isText }
+
+        if filteredBlocks.count > 0 { return false }
+        let allTextChilds = children.filter(\.isText)
+
+        if allTextChilds.count > 1 { return false }
+
+        return allTextChilds.first?.content.isEmpty ?? false
+    }
+
     // MARK: - Private methods
     private func setup() {
         eventsListener.onUpdateReceive = { [weak self] update in

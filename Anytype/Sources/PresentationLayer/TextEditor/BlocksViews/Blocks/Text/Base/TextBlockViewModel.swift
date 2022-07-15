@@ -10,7 +10,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     private let toggled: Bool
 
     private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
-    private let actionHandler: TextBlockActionHandler
+    private let actionHandler: TextBlockActionHandlerProtocol
 
     var hashable: AnyHashable {
         [info, isCheckable, toggled] as [AnyHashable]
@@ -21,7 +21,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         content: BlockText,
         isCheckable: Bool,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>,
-        actionHandler: TextBlockActionHandler
+        actionHandler: TextBlockActionHandlerProtocol
     ) {
         self.content = content
         self.isCheckable = isCheckable
@@ -36,10 +36,23 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         focusSubject.send(focus)
     }
     
-    func didSelectRowInTableView(editorEditingState: EditorEditingState) { }
+    func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 
     func textBlockContentConfiguration() -> TextBlockContentConfiguration {
-        return textBlockContentConfiguration(content: content)
+        TextBlockContentConfiguration(
+            blockId: info.id,
+            content: content,
+            alignment: info.horizontalAlignment.asNSTextAlignment,
+            isCheckable: isCheckable,
+            isToggled: info.isToggled,
+            isChecked: content.checked,
+            shouldDisplayPlaceholder: info.isToggled && info.childrenIds.isEmpty,
+            focusPublisher: focusSubject.eraseToAnyPublisher(),
+            resetPublisher: actionHandler.resetSubject
+                .map { _ in textBlockContentConfiguration() }
+                .eraseToAnyPublisher(),
+            actions: actionHandler.textBlockActions()
+        )
     }
     
     func makeContentConfiguration(maxWidth _ : CGFloat) -> UIContentConfiguration {
@@ -54,21 +67,16 @@ struct TextBlockViewModel: BlockViewModelProtocol {
                 isDragConfigurationAvailable ? .init(id: info.id) : nil
         )
     }
-    
-    private func textBlockContentConfiguration(content: BlockText) -> TextBlockContentConfiguration {
-        TextBlockContentConfiguration(
-            blockId: info.id,
-            content: content,
-            alignment: info.alignment.asNSTextAlignment,
-            isCheckable: isCheckable,
-            isToggled: info.isToggled,
-            isChecked: content.checked,
-            shouldDisplayPlaceholder: info.isToggled && info.childrenIds.isEmpty,
-            focusPublisher: focusSubject.eraseToAnyPublisher(),
-            resetPublisher: actionHandler.resetSubject
-                .map { textBlockContentConfiguration(content: $0) }
-                .eraseToAnyPublisher(),
-            actions: TextBlockContentConfiguration.Actions(handler: actionHandler)
-        )
+
+    func makeSpreadsheetConfiguration() -> UIContentConfiguration {
+        let color = info.configurationData.backgroundColor.map {
+            UIColor.Background.uiColor(from: $0)
+        } ?? .backgroundPrimary
+
+        return textBlockContentConfiguration()
+            .spreadsheetConfiguration(
+                dragConfiguration: .init(id: info.id),
+                styleConfiguration: .init(backgroundColor: color)
+            )
     }
 }

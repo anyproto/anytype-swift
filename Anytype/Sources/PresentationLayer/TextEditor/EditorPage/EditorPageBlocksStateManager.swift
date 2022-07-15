@@ -8,6 +8,7 @@ enum EditorEditingState {
     case selecting(blocks: [BlockId])
     case moving(indexPaths: [IndexPath])
     case locked
+    case simpleTablesSelection(block: BlockId, selectedBlocks: [BlockId], simpleTableMenuModel: SimpleTableMenuModel)
     case loading
 }
 
@@ -65,6 +66,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
 
+    weak var blocksOptionViewModel: HorizonalTypeListViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
 
     private var cancellables = [AnyCancellable]()
@@ -127,7 +129,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath]) {
         selectedBlocksIndexPaths = indexPaths
 
-        blocksSelectionOverlayViewModel?.setSelectedBlocksCount(indexPaths.count)
+        blocksSelectionOverlayViewModel?.state = .editorMenu(selectedBlocksCount: indexPaths.count)
 
         let blocksInformation = indexPaths.compactMap {
             modelsHolder.blockViewModel(at: $0.row)?.info
@@ -179,6 +181,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     func didSelectEditingMode() {
+        if case let .simpleTablesSelection(_, _, simpleTableMenuModel) = editingState {
+            simpleTableMenuModel.onDone()
+        }
+
         editingState = .editing
     }
 
@@ -204,20 +210,19 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         $editingState.sink { [unowned self] state in
             switch state {
             case .selecting(let blocks):
-                movingBlocksWithChildsIndexPaths.removeAll()
-                blocksSelectionOverlayViewModel?.setSelectedBlocksCount(blocks.count)
+                blocksSelectionOverlayViewModel?.state = .editorMenu(selectedBlocksCount: blocks.count)
             case .moving:
-                blocksSelectionOverlayViewModel?.setNeedsUpdateForMovingState()
+                blocksSelectionOverlayViewModel?.state = .moving
             case .editing:
                 movingBlocksIds.removeAll()
             case .locked, .loading: break
+                break
+            case let .simpleTablesSelection(_,  blocks, model):
+                blocksSelectionOverlayViewModel?.state = .simpleTableMenu(selectedBlocksCount: blocks.count, model: model)
             }
         }.store(in: &cancellables)
 
-        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.tapHandler = { [weak self] in
-            self?.handleBlocksOptionItemSelection($0)
 
-        }
         blocksSelectionOverlayViewModel?.moveButtonHandler = { [weak self] in
             self?.startMoving()
         }
@@ -227,7 +232,18 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     }
 
     private func updateSelectionBarActions(selectedBlocks: [BlockInformation]) {
-        blocksSelectionOverlayViewModel?.blocksOptionViewModel?.options = selectedBlocks.blocksOptionItems
+        let availableItems = selectedBlocks.blocksOptionItems
+        let horizontalItems = availableItems.map { item in
+            HorizontalListItem(
+                id: "\(item.hashValue)",
+                title: item.title,
+                image: .image(item.image)
+            ) { [weak self] in
+                self?.handleBlocksOptionItemSelection(item)
+            }
+        }
+
+        blocksOptionViewModel?.items = horizontalItems
     }
 
     func startMoving() {
@@ -363,6 +379,20 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
         }
 
+        editingState = .editing
+    }
+}
+
+extension EditorPageBlocksStateManager: SimpleTableSelectionHandler {
+    func didStartSimpleTableSelectionMode(simpleTableBlockId: BlockId, selectedBlockIds: [BlockId], menuModel: SimpleTableMenuModel) {
+        editingState = .simpleTablesSelection(
+            block: simpleTableBlockId,
+            selectedBlocks: selectedBlockIds,
+            simpleTableMenuModel: menuModel
+        )
+    }
+
+    func didStopSimpleTableSelectionMode() {
         editingState = .editing
     }
 }

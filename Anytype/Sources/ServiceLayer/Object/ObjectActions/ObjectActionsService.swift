@@ -185,12 +185,10 @@ final class ObjectActionsService: ObjectActionsServiceProtocol {
             .getValue(domain: .objectActionsService)
 
 
-        let localEvent = LocalEvent.changeType(objectTypeURL: objectTypeUrl)
-
         EventsBunch(
             contextId: objectId,
             middlewareEvents: middlewareEvent?.messages ?? [],
-            localEvents: [localEvent],
+            localEvents: [],
             dataSourceEvents: []
         ).send()
     }

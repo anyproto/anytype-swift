@@ -68,7 +68,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     private lazy var leadingView = TextBlockIconView(viewType: .quote)
     private lazy var blockView = View(frame: .zero)
 
-    private lazy var selectionView = BaseSelectionView()
+    private lazy var selectionView = EditorSelectionView()
     
     private lazy var indentationViews = [UIView]()
 
