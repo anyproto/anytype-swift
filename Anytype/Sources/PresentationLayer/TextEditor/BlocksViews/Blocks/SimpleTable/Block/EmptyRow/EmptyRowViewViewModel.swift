@@ -102,7 +102,7 @@ final class EmptyRowView: UIView, BlockContentView {
                 maxSize,
                 withHorizontalFittingPriority: .required,
                 verticalFittingPriority: .fittingSizeLevel
-            )
+            ) + .init(width: 0, height: 18) // Spreadsheet top and bottom insets
         }
 
         addSubview(button) {
