@@ -21,21 +21,20 @@ struct SimpleTableSlashMenuComparator {
             return .init(action: slashAction, filterMatch: .titleSubstring)
         }
 
-        let range = 1...25
-
-        guard range ~= firstNumber else {
-            return .init(action: slashAction, filterMatch: .titleSubstring)
-        }
+        let validFirstNumber = validRangeValue(number: firstNumber)
 
         guard let secondPart = numberParts[safe: 1],
-              let secondNumber = Int(secondPart),
-              range ~= secondNumber  else {
-            return .init(action: .other(.table(rowsCount: firstNumber, columnsCount: 3)), filterMatch: .fullTitle)
+              let secondNumber = Int(secondPart) else {
+            return .init(action: .other(.table(rowsCount: validFirstNumber, columnsCount: 3)), filterMatch: .fullTitle)
         }
 
         return .init(
-            action: .other(.table(rowsCount: firstNumber, columnsCount: secondNumber)),
+            action: .other(.table(rowsCount: validFirstNumber, columnsCount: validRangeValue(number: secondNumber))),
             filterMatch: .fullTitle
         )
+    }
+
+    private static func validRangeValue(number: Int) -> Int {
+        max(1, min(25, number))
     }
 }
