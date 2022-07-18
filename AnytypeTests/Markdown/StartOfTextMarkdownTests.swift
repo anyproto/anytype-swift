@@ -92,6 +92,6 @@ class StartOfTextMarkdownTests: XCTestCase {
         
         let text = UIKitAnytypeText(text: text, style: .body)
         
-        return TextBlockDelegateData(textView: textView, info: .emptyText, text: text)
+        return TextBlockDelegateData(textView: textView, info: .emptyText, text: text, usecase: .editor)
     }
 }

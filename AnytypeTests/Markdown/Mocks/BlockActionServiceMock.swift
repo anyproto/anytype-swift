@@ -119,11 +119,11 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    func setBackgroundColor(blockId: BlockId, color: BlockBackgroundColor) {
+    func setBackgroundColor(blockIds: [BlockId], color: BlockBackgroundColor) {
         assertionFailure()
     }
-    
-    func setBackgroundColor(blockId: BlockId, color: MiddlewareColor) {
+
+    func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
         assertionFailure()
     }
     
