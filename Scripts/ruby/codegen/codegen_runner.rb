@@ -5,6 +5,7 @@ require 'pathname'
 class CodegenRunner
   def self.run()
     generateErrorAdoption(CodegenConfig::CommandsFilePath)
+    generateInvocationAdoption(CodegenConfig::CommandsFilePath)
     generateService(CodegenConfig::CommandsFilePath)
 
     generateInit(CodegenConfig::CommandsFilePath)
@@ -54,6 +55,20 @@ class CodegenRunner
       " --serviceFilePath #{serviceFilePath}"
     
     puts "Run generateService for #{filePath}"
+    ShellExecutor.run_command_line_silent "#{CodegenConfig::CodegenPath} #{args}"
+  end
+
+  private_class_method def self.generateInvocationAdoption(filePath)
+    dirPath = Pathname.new(filePath).dirname.to_s
+    outputFilePath = append_suffix("+InvocationAdoption", filePath, dirPath)
+    templateFilePath = CodegenConfig::CodegenTemplatesPath + "/" +  "invocation-adoption.stencill"
+
+    args = "generateObjectExtension" +
+      " --filePath #{filePath}" +
+      " --outputFilePath #{outputFilePath}" +
+      " --templateFilePath #{templateFilePath}"
+    
+    puts "Run generate error extensions for #{filePath}"
     ShellExecutor.run_command_line_silent "#{CodegenConfig::CodegenPath} #{args}"
   end
 

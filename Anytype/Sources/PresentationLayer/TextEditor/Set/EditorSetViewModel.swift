@@ -118,11 +118,12 @@ final class EditorSetViewModel: ObservableObject {
             self?.onDataChange($0)
         }
         
-        document.open { [weak self] result in
-            self?.loadingDocument = false
-            if result {
-                self?.setupDataview()
-            } else {
+        Task { @MainActor in
+            do {
+                try await document.open()
+                loadingDocument = false
+                setupDataview()
+            } catch {
                 router.goBack()
             }
         }

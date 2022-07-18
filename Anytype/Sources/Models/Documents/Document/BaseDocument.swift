@@ -54,31 +54,30 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     deinit {
-        close(completion: { _ in })
+        Task.detached(priority: .userInitiated) { [blockActionsService] in
+            try await blockActionsService.close()
+        }
     }
 
     // MARK: - BaseDocumentProtocol
-
-    func open(completion: @escaping (Bool) -> Void) {
+    
+    @MainActor
+    func open() async throws {
         ObjectTypeProvider.shared.resetCache()
-        blockActionsService.open { [weak self] result in
-            self?.isOpened = result
-            completion(result)
-        }
+        try await blockActionsService.open()
+        isOpened = true
     }
     
-    func openForPreview(completion: @escaping (Bool) -> Void) {
-        blockActionsService.openForPreview { [weak self] result in
-            self?.isOpened = result
-            completion(result)
-        }
+    @MainActor
+    func openForPreview() async throws {
+        try await blockActionsService.openForPreview()
+        isOpened = true
     }
     
-    func close(completion: @escaping (Bool) -> Void) {
-        blockActionsService.close { [weak self] result in
-            self?.isOpened = false
-            completion(result)
-        }
+    @MainActor
+    func close() async throws {
+        try await blockActionsService.close()
+        isOpened = false
     }
     
     var details: ObjectDetails? {

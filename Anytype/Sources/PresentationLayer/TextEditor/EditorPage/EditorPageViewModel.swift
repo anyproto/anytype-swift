@@ -31,12 +31,13 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     private let blockActionsService: BlockActionsServiceSingleProtocol
 
     deinit {
-        blockActionsService.close(completion: { _ in })
-
-        EventsBunch(
-            contextId: AccountManager.shared.account.info.homeObjectID,
-            localEvents: [.documentClosed(blockId: document.objectId)]
-        ).send()
+        Task.detached(priority: .userInitiated) { [document, blockActionsService] in
+            try await blockActionsService.close()
+            EventsBunch(
+                contextId: AccountManager.shared.account.info.homeObjectID,
+                localEvents: [.documentClosed(blockId: document.objectId)]
+            ).send()
+        }
     }
 
     // MARK: - Initialization
@@ -260,18 +261,18 @@ extension EditorPageViewModel {
         }
         
         blocksStateManager.checkOpenedState()
-        
-        let completion: (Bool) -> Void = { [weak self] isDocumentOpened in
-            self?.blocksStateManager.checkOpenedState()
-            if !isDocumentOpened {
-                self?.router.goBack()
+    
+        Task { @MainActor in
+            do {
+                if isOpenedForPreview {
+                    try await document.openForPreview()
+                } else {
+                    try await document.open()
+                }
+                blocksStateManager.checkOpenedState()
+            } catch {
+                router.goBack()
             }
-        }
-        
-        if isOpenedForPreview {
-            document.openForPreview(completion: completion)
-        } else {
-            document.open(completion: completion)
         }
     }
     

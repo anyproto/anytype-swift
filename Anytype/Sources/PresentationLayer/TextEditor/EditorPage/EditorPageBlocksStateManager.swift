@@ -253,9 +253,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                case let .link(content) = info.content {
                 let targetDocument = BaseDocument(objectId: content.targetBlockID)
                 
-                targetDocument.open { [weak self] _ in
+                Task { @MainActor in
+                    try? await targetDocument.open()
                     guard let id = targetDocument.children.last?.id else { return }
-                    self?.move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
+                    move(position: .bottom, targetId: targetDocument.objectId, dropTargetId: id)
                 }
             } else {
                 move(position: .inner, targetId: document.objectId, dropTargetId: blockId)

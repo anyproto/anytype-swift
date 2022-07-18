@@ -15,7 +15,10 @@ protocol BaseDocumentProtocol: AnyObject {
     var isEmpty: Bool { get }
     var isOpened: Bool { get }
 
-    func open(completion: @escaping (Bool) -> Void)
-    func openForPreview(completion: @escaping (Bool) -> Void)
-    func close(completion: @escaping (Bool) -> Void)
+    @MainActor
+    func open() async throws
+    @MainActor
+    func openForPreview() async throws
+    @MainActor
+    func close() async throws
 }

@@ -5,6 +5,7 @@ import ProtobufMessages
 import AnytypeCore
 import SwiftUI
 
+@MainActor
 final class HomeViewModel: ObservableObject {
     @Published var favoritesCellData: [HomeCellData] = []
     var notDeletedFavoritesCellData: [HomeCellData] {
@@ -44,28 +45,32 @@ final class HomeViewModel: ObservableObject {
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
     
-    init(homeBlockId: BlockId) {
+    nonisolated init(homeBlockId: BlockId) {
         document = BaseDocument(objectId: homeBlockId)
-        setupSubscriptions()
+        Task { @MainActor in
+            setupSubscriptions()
         
-        let data = UserDefaultsConfig.screenDataFromLastSession
-        showingEditorScreenData = data != nil
-        openedEditorScreenData = data
+            let data = UserDefaultsConfig.screenDataFromLastSession
+            showingEditorScreenData = data != nil
+            openedEditorScreenData = data
+        }
     }
 
     // MARK: - View output
 
     func onAppear() {
-        document.open { [weak self] result in
-            self?.loadingDocument = false
-            self?.setupProfileSubscriptions()
-            self?.updateCurrentTab()
+        Task {
+            try await document.open()
+            loadingDocument = false
+            setupProfileSubscriptions()
+            updateCurrentTab()
         }
     }
     
     func onDisappear() {
-        document.close { [weak self] result in
-            self?.subscriptionService.stopAllSubscriptions()
+        Task {
+            try await document.close()
+            subscriptionService.stopAllSubscriptions()
         }
     }
     
