@@ -166,10 +166,6 @@ final class EditorAssembly {
             accessoryState: accessoryState
         )
 
-        let wholeBlockMarkupViewModel = MarkupViewModel(
-            actionHandler: actionHandler
-        )
-
         let headerModel = ObjectHeaderViewModel(
             document: document,
             router: router,
@@ -224,7 +220,6 @@ final class EditorAssembly {
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,
             actionHandler: actionHandler,
-            wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
             headerModel: headerModel,
             blockActionsService: blockActionsServiceSingle,
             blocksStateManager: blocksStateManager,

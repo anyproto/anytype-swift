@@ -83,8 +83,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             .send()
     }
     
-    func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId) {
-        listService.setAlign(blockIds: [blockId], alignment: alignment)
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
+        listService.setAlign(blockIds: blockIds, alignment: alignment)
     }
     
     func delete(blockIds: [BlockId]) {

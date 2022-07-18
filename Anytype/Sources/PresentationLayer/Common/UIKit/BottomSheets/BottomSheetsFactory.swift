@@ -75,19 +75,27 @@ final class BottomSheetsFactory {
     static func showMarkupBottomSheet(
         parentViewController: UIViewController,
         styleView: UIView,
-        blockInformation: BlockInformation,
-        viewModel: MarkupViewModel,
+        selectedMarkups: [MarkupType : AttributeState],
+        selectedHorizontalAlignment: [LayoutAlignment : AttributeState],
+        onMarkupAction: @escaping (MarkupViewModelAction) -> Void,
         viewDidClose: @escaping () -> Void
     ) {
-        viewModel.blockInformation = blockInformation
-        viewModel.setRange(.whole)
-        let markupsViewController = MarkupsViewController(viewModel: viewModel, viewDidClose: viewDidClose)
-        viewModel.view = markupsViewController
+        let viewModel = MarkupViewModel(
+            selectedMarkups: selectedMarkups,
+            selectedHorizontalAlignment: selectedHorizontalAlignment,
+            onMarkupAction: onMarkupAction
+        )
+        let viewController = MarkupsViewController(
+            viewModel: viewModel,
+            viewDidClose: viewDidClose
+        )
 
-        parentViewController.embedChild(markupsViewController)
+        viewModel.view = viewController
 
-        markupsViewController.view.pinAllEdges(to: parentViewController.view)
-        markupsViewController.containerShadowView.layoutUsing.anchors {
+        parentViewController.embedChild(viewController)
+
+        viewController.view.pinAllEdges(to: parentViewController.view)
+        viewController.containerShadowView.layoutUsing.anchors {
             $0.width.equal(to: 240)
             $0.height.equal(to: 158)
             $0.trailing.equal(to: styleView.trailingAnchor, constant: -8)

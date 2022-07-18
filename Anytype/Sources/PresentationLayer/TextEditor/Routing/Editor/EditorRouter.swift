@@ -165,15 +165,24 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             info: info,
             actionHandler: controller.viewModel.actionHandler,
             didShow: didShow,
-            showMarkupMenu: { [weak controller, weak rootController] styleView, viewDidClose in
+            showMarkupMenu: { [weak controller, weak rootController, unowned document] styleView, viewDidClose in
                 guard let controller = controller else { return }
                 guard let rootController = rootController else { return }
+                guard let info = document.infoContainer.get(id: information.id) else { return }
 
                 BottomSheetsFactory.showMarkupBottomSheet(
                     parentViewController: rootController,
                     styleView: styleView,
-                    blockInformation: info,
-                    viewModel: controller.viewModel.wholeBlockMarkupViewModel,
+                    selectedMarkups: AttributeState.markupAttributes(from: [info]),
+                    selectedHorizontalAlignment: AttributeState.alignmentAttributes(from: [info]),
+                    onMarkupAction: { [unowned controller] action in
+                        switch action {
+                        case let .selectAlignment(alignment):
+                            controller.viewModel.actionHandler.setAlignment(alignment, blockIds: [info.id])
+                        case let .toggleMarkup(markup):
+                            controller.viewModel.actionHandler.toggleWholeBlockMarkup(markup, blockId: info.id)
+                        }
+                    },
                     viewDidClose: viewDidClose
                 )
             }

@@ -17,7 +17,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
     let router: EditorRouterProtocol
     
     let actionHandler: BlockActionHandlerProtocol
-    let wholeBlockMarkupViewModel: MarkupViewModel
     let objectActionsService: ObjectActionsServiceProtocol
 
     private let searchService: SearchServiceProtocol
@@ -48,7 +47,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         modelsHolder: EditorMainItemModelsHolder,
         blockBuilder: BlockViewModelBuilder,
         actionHandler: BlockActionHandler,
-        wholeBlockMarkupViewModel: MarkupViewModel,
         headerModel: ObjectHeaderViewModel,
         blockActionsService: BlockActionsServiceSingleProtocol,
         blocksStateManager: EditorPageBlocksStateManagerProtocol,
@@ -64,7 +62,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.blockBuilder = blockBuilder
         self.actionHandler = actionHandler
         self.blockDelegate = blockDelegate
-        self.wholeBlockMarkupViewModel = wholeBlockMarkupViewModel
         self.headerModel = headerModel
         self.blockActionsService = blockActionsService
         self.blocksStateManager = blocksStateManager
@@ -115,7 +112,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             }
             
             let diffrerence = difference(with: updatedIds)
-            updateMarkupViewModel(updatedIds)
 
             modelsHolder.applyDifference(difference: diffrerence)
             viewInput?.update(changes: diffrerence, allModels: modelsHolder.items)
@@ -145,8 +141,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         let blocksViewModels = blockBuilder.buildEditorItems(infos: models)
         
         handleGeneralUpdate(with: blocksViewModels)
-        
-        updateMarkupViewModel(newBlockViewModels: blocksViewModels.onlyBlockViewModels)
 
         if !document.isLocked {
             cursorManager.handleGeneralUpdate(with: modelsHolder.items, type: document.details?.type)
@@ -188,39 +182,6 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         }
 
         return modelsHolder.difference(between: currentModels)
-    }
-    
-    private func updateMarkupViewModel(_ updatedBlockIds: Set<BlockId>) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id,
-              updatedBlockIds.contains(blockIdWithMarkupMenu) else {
-            return
-        }
-        updateMarkupViewModelWith(informationBy: blockIdWithMarkupMenu)
-    }
-    
-    private func updateMarkupViewModel(newBlockViewModels: [BlockViewModelProtocol]) {
-        guard let blockIdWithMarkupMenu = wholeBlockMarkupViewModel.blockInformation?.id else {
-            return
-        }
-        let blockIds = Set(newBlockViewModels.map { $0.blockId })
-        guard blockIds.contains(blockIdWithMarkupMenu) else {
-            wholeBlockMarkupViewModel.removeInformationAndDismiss()
-            return
-        }
-        updateMarkupViewModelWith(informationBy: blockIdWithMarkupMenu)
-    }
-    
-    private func updateMarkupViewModelWith(informationBy blockId: BlockId) {
-        guard let currentInformation = document.infoContainer.get(id: blockId) else {
-            wholeBlockMarkupViewModel.removeInformationAndDismiss()
-            AnytypeLogger(category: "Editor page view model").debug("Could not find object with id: \(blockId)")
-            return
-        }
-        guard case .text = currentInformation.content else {
-            wholeBlockMarkupViewModel.removeInformationAndDismiss()
-            return
-        }
-        wholeBlockMarkupViewModel.blockInformation = currentInformation
     }
 
     private func handleGeneralUpdate(with models: [EditorItem]) {

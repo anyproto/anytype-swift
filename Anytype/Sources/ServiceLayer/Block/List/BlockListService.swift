@@ -28,6 +28,18 @@ class BlockListService: BlockListServiceProtocol {
             .send()
     }
 
+    func changeMarkup(
+        blockIds: [BlockId],
+        mark: Anytype_Model_Block.Content.Text.Mark
+    ) {
+        Anytype_Rpc.BlockText.ListSetMark.Service
+            .invoke(contextID: contextId, blockIds: blockIds, mark: mark
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .blockListService)?
+            .send()
+    }
+
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListSetBackgroundColor)
 
