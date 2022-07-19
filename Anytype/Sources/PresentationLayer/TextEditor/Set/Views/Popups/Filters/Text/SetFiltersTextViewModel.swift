@@ -2,6 +2,8 @@ import SwiftUI
 import BlocksModels
 
 final class SetFiltersTextViewModel: ObservableObject {
+    @Published var input = ""
+    
     let keyboardType: UIKeyboardType
     let onApplyText: (String) -> Void
     let onKeyboardHeightChange: (CGFloat) -> Void
@@ -13,14 +15,15 @@ final class SetFiltersTextViewModel: ObservableObject {
         onApplyText: @escaping (String) -> Void,
         onKeyboardHeightChange: @escaping (CGFloat) -> Void)
     {
+        self.input = Self.initialValue(from: filter)
         self.keyboardType = Self.keybordType(for: filter)
         self.onApplyText = onApplyText
         self.onKeyboardHeightChange = onKeyboardHeightChange
         self.setupKeyboardListener()
     }
 
-    func handleText(_ text: String) {
-        onApplyText(text)
+    func handleText() {
+        onApplyText(input)
     }
     
     private func setupKeyboardListener() {
@@ -49,6 +52,20 @@ final class SetFiltersTextViewModel: ObservableObject {
         case .email: return .emailAddress
         case .phone: return .phonePad
         default: return .default
+        }
+    }
+    
+    private static func initialValue(from filter: SetFilter) -> String {
+        switch filter.conditionType {
+        case .number:
+            if let doubleValue = filter.filter.value.safeDoubleValue {
+                return "\(doubleValue)"
+            } else {
+                return ""
+            }
+        case .text:
+            return filter.filter.value.stringValue
+        default: return ""
         }
     }
 }

@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct SetFiltersTextView: View {
-    let viewModel: SetFiltersTextViewModel
-    @State private var input = ""
+    @ObservedObject var viewModel: SetFiltersTextViewModel
     
     var body: some View {
         VStack(spacing: 0) {
@@ -17,7 +16,7 @@ struct SetFiltersTextView: View {
     var textField: some View {
         AutofocusedTextField(
             placeholder: Loc.EditFilters.Popup.TextView.placeholder,
-            text: $input
+            text: $viewModel.input
         )
         .keyboardType(viewModel.keyboardType)
         .frame(height: 48)
@@ -25,8 +24,8 @@ struct SetFiltersTextView: View {
     }
     
     private var button: some View {
-        StandardButton(disabled: input.isEmpty, text: Loc.Set.Filters.Search.Button.title, style: .primary) {
-            viewModel.handleText(input)
+        StandardButton(disabled: viewModel.input.isEmpty, text: Loc.Set.Filters.Search.Button.title, style: .primary) {
+            viewModel.handleText()
         }
         .padding(.top, 10)
     }
