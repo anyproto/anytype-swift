@@ -24,7 +24,7 @@ struct KeychainPhraseView: View {
             Spacer()
         }
         .cornerRadius(12)
-        .padding(.horizontal)
+        .padding(.horizontal, 20)
         .onAppear {
             AnytypeAnalytics.instance().logKeychainPhraseShow(shownInContext)
         }
