@@ -7,11 +7,12 @@ struct KeychainPhraseView: View {
     @State private var showSnackbar = false
     
     var body: some View {
-        VStack(alignment: .center, spacing: 0) {
+        VStack(alignment: .leading, spacing: 0) {
             DragIndicator()
             Spacer.fixedHeight(53)
             AnytypeText(Loc.backUpYourRecoveryPhrase, style: .title, color: .textPrimary)
                 .multilineTextAlignment(.center)
+                .frame(maxWidth: .infinity, alignment: .center)
             Spacer.fixedHeight(25)
             AnytypeText(Loc.recoveryPhraseDescription, style: .uxBodyRegular, color: .textPrimary)
             Spacer.fixedHeight(34)

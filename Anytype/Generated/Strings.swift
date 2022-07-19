@@ -928,6 +928,11 @@ internal enum Loc {
     internal static let system = Loc.tr("Localizable", "InterfaceStyle.system")
   }
 
+  internal enum KeychainPhrase {
+    /// witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair
+    internal static let seedPhrasePlaceholder = Loc.tr("Localizable", "KeychainPhrase.SeedPhrasePlaceholder")
+  }
+
   internal enum LinkAppearance {
     internal enum Description {
       internal enum Added {
@@ -972,8 +977,6 @@ internal enum Loc {
     internal static let pageTitle = Loc.tr("Localizable", "RedactedText.pageTitle")
     /// Red pill
     internal static let pageType = Loc.tr("Localizable", "RedactedText.pageType")
-    /// You wake up in your bed and believe whatever you want to. You take the red pill, you stay in Wonderland, and I show you how deep the rabbit hole goes.
-    internal static let seedPhrase = Loc.tr("Localizable", "RedactedText.seedPhrase")
   }
 
   internal enum Relation {

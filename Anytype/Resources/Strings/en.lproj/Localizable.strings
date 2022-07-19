@@ -513,7 +513,6 @@
 "QuickAction.create" = "Create %s";
 
 // MARK: - RedactedText
-"RedactedText.seedPhrase" = "You wake up in your bed and believe whatever you want to. You take the red pill, you stay in Wonderland, and I show you how deep the rabbit hole goes.";
 "RedactedText.pageTitle" = "Wake up, Neo";
 "RedactedText.pageType" = "Red pill";
 
@@ -543,3 +542,6 @@
 "SimpleTableMenu.Item.InsertBelow" = "Insert below";
 "SimpleTableMenu.Item.MoveUp" = "Move up";
 "SimpleTableMenu.Item.MoveDown" = "Move down";
+
+// MARK: - KeychainPhrase
+"KeychainPhrase.SeedPhrasePlaceholder" = "witch collapse practice feed shame open despair creek road again ice least lake tree young address brain despair";

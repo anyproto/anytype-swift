@@ -7,10 +7,10 @@ struct SeedPhraseView: View {
     
     var body: some View {
         Button(action: { model.onSeedViewTap(onTap: onTap) }) {
-            VStack(alignment: .center) {
+            VStack(alignment: .leading) {
                 Spacer.fixedHeight(10)
                 AnytypeText(
-                    model.recoveryPhrase ?? Loc.RedactedText.seedPhrase,
+                    model.recoveryPhrase ?? Loc.KeychainPhrase.seedPhrasePlaceholder,
                     style: .codeBlock,
                     color: .Text.sky
                 )
@@ -19,7 +19,6 @@ struct SeedPhraseView: View {
                     .padding(.horizontal, 20)
                 Spacer.fixedHeight(10)
             }
-            .frame(maxWidth: .infinity)
             .background(Color.strokeTransperent)
             .cornerRadius(4)
         }
