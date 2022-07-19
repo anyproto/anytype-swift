@@ -89,6 +89,7 @@ final class EditorAssembly {
         )
 
         let viewModel = buildViewModel(
+            scrollView: controller.collectionView,
             viewInput: controller,
             document: document,
             router: router,
@@ -104,6 +105,7 @@ final class EditorAssembly {
     }
     
     private func buildViewModel(
+        scrollView: UIScrollView,
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter,
@@ -111,7 +113,7 @@ final class EditorAssembly {
         simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         isOpenedForPreview: Bool
-    ) -> EditorPageViewModel {                
+    ) -> EditorPageViewModel {
         let modelsHolder = EditorMainItemModelsHolder()
         let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
         let focusSubjectHolder = FocusSubjectsHolder()
@@ -187,6 +189,7 @@ final class EditorAssembly {
             isOpenedForPreview: isOpenedForPreview
         )
 
+        let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
         let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(
             document: document,
             router: router,
@@ -195,7 +198,8 @@ final class EditorAssembly {
             markdownListener: markdownListener,
             focusSubjectHolder: focusSubjectHolder,
             viewInput: viewInput,
-            mainEditorSelectionManager: blocksStateManager
+            mainEditorSelectionManager: blocksStateManager,
+            responderScrollViewHelper: responderScrollViewHelper
         )
 
         let blocksConverter = BlockViewModelBuilder(

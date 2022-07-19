@@ -12,6 +12,7 @@ final class SimpleTableCellsBuilder {
     private let focusSubjectHolder: FocusSubjectsHolder
     private let infoContainer: InfoContainerProtocol
     private let blockTableService: BlockTableServiceProtocol
+    private let responderScrollViewHelper: ResponderScrollViewHelper
     private let delegate: BlockDelegate?
 
     init(
@@ -23,6 +24,7 @@ final class SimpleTableCellsBuilder {
         markdownListener: MarkdownListener,
         cursorManager: EditorCursorManager,
         focusSubjectHolder: FocusSubjectsHolder,
+        responderScrollViewHelper: ResponderScrollViewHelper,
         blockTableService: BlockTableServiceProtocol = BlockTableService()
     ) {
         self.document = document
@@ -34,6 +36,7 @@ final class SimpleTableCellsBuilder {
         self.cursorManager = cursorManager
         self.focusSubjectHolder = focusSubjectHolder
         self.infoContainer = document.infoContainer
+        self.responderScrollViewHelper = responderScrollViewHelper
         self.blockTableService = blockTableService
     }
 
@@ -112,7 +115,8 @@ final class SimpleTableCellsBuilder {
             blockDelegate: delegate,
             onKeyboardAction: { [weak self] action in
                 self?.handleKeyboardAction(table: table, block: information, action: action)
-            }
+            },
+            responderScrollViewHelper: responderScrollViewHelper
         )
 
         let viewModel = TextBlockViewModel(

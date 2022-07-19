@@ -20,7 +20,9 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let pasteboardService: PasteboardServiceProtocol
     private let mentionDetecter = MentionTextDetector()
     private let markdownListener: MarkdownListener
+    private let responderScrollViewHelper: ResponderScrollViewHelper
     private weak var blockDelegate: BlockDelegate?
+
 
     init(
         info: BlockInformation,
@@ -35,7 +37,8 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         pasteboardService: PasteboardServiceProtocol,
         markdownListener: MarkdownListener,
         blockDelegate: BlockDelegate?,
-        onKeyboardAction: @escaping (CustomTextView.KeyboardAction) -> Void
+        onKeyboardAction: @escaping (CustomTextView.KeyboardAction) -> Void,
+        responderScrollViewHelper: ResponderScrollViewHelper
     ) {
         self.info = info
         self.showPage = showPage
@@ -50,6 +53,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         self.markdownListener = markdownListener
         self.blockDelegate = blockDelegate
         self.onKeyboardAction = onKeyboardAction
+        self.responderScrollViewHelper = responderScrollViewHelper
     }
 
     func textBlockActions() -> TextBlockContentConfiguration.Actions {
@@ -242,6 +246,8 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private func textViewDidChangeText(textView: UITextView) {
         actionHandler.changeText(textView.attributedText, info: info)
         blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))
+
+        responderScrollViewHelper.textViewDidBeginEditing(textView: textView)
     }
 
     private func textViewWillBeginEditing(textView: UITextView) {
@@ -250,6 +256,10 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
 
     private func textViewDidBeginEditing(textView: UITextView) {
         blockDelegate?.didBeginEditing(view: textView)
+
+        DispatchQueue.main.async {
+            responderScrollViewHelper.textViewDidBeginEditing(textView: textView)
+        }
     }
 
     private func textViewDidEndEditing(textView: UITextView) {

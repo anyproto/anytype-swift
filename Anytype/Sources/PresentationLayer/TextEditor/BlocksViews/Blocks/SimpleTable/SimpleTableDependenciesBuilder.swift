@@ -17,6 +17,7 @@ final class SimpleTableDependenciesBuilder {
     private let markdownListener: MarkdownListener
     private let focusSubjectHolder: FocusSubjectsHolder
     private let tableService = BlockTableService()
+    private let responderScrollViewHelper: ResponderScrollViewHelper
 
     weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
     weak var viewInput: (EditorPageViewInput & RelativePositionProvider)?
@@ -29,7 +30,8 @@ final class SimpleTableDependenciesBuilder {
         markdownListener: MarkdownListener,
         focusSubjectHolder: FocusSubjectsHolder,
         viewInput: (EditorPageViewInput & RelativePositionProvider)?,
-        mainEditorSelectionManager: SimpleTableSelectionHandler?
+        mainEditorSelectionManager: SimpleTableSelectionHandler?,
+        responderScrollViewHelper: ResponderScrollViewHelper
     ) {
         self.document = document
         self.router = router
@@ -39,6 +41,7 @@ final class SimpleTableDependenciesBuilder {
         self.focusSubjectHolder = focusSubjectHolder
         self.viewInput = viewInput
         self.mainEditorSelectionManager = mainEditorSelectionManager
+        self.responderScrollViewHelper = responderScrollViewHelper
     }
 
     func buildDependenciesContainer(blockInformation: BlockInformation) -> SimpleTableDependenciesContainer {
@@ -77,7 +80,8 @@ final class SimpleTableDependenciesBuilder {
             delegate: simpleTablesBlockDelegate,
             markdownListener: markdownListener,
             cursorManager: cursorManager,
-            focusSubjectHolder: focusSubjectHolder
+            focusSubjectHolder: focusSubjectHolder,
+            responderScrollViewHelper: responderScrollViewHelper
         )
 
         let viewModel = SimpleTableViewModel(
