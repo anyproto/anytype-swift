@@ -35,23 +35,31 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
 
     private let document: BaseDocumentProtocol
     private let tableService: BlockTableServiceProtocol
+    private let listService: BlockListServiceProtocol
     private let router: EditorRouterProtocol
     private let actionHandler: BlockActionHandlerProtocol
+    private let cursorManager: EditorCursorManager
+
     private weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
+    weak var viewInput: EditorPageViewInput?
 
     init(
         document: BaseDocumentProtocol,
         tableBlockInformation: BlockInformation,
         tableService: BlockTableServiceProtocol,
+        listService: BlockListServiceProtocol,
         router: EditorRouterProtocol,
         actionHandler: BlockActionHandlerProtocol,
+        cursorManager: EditorCursorManager,
         mainEditorSelectionManager: SimpleTableSelectionHandler?
     ) {
         self.document = document
         self.tableBlockInformation = tableBlockInformation
         self.tableService = tableService
+        self.listService = listService
         self.router = router
         self.actionHandler = actionHandler
+        self.cursorManager = cursorManager
         self.mainEditorSelectionManager = mainEditorSelectionManager
     }
 
@@ -233,7 +241,8 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
             onColorSelection(for: selectedBlockIds)
             return
         case .style:
-            break
+            onStyleSelection(for: selectedBlockIds)
+            return
         }
 
         editingState = .editing
@@ -270,6 +279,26 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
             },
             selectedColor: textColor.map(UIColor.Text.uiColor(from:)) ?? nil,
             selectedBackgroundColor: backgroundColor.map(UIColor.Background.uiColor(from:)) ?? nil
+        )
+    }
+
+    private func onStyleSelection(for selectedBlockIds: [BlockId]) {
+        let blockInformations = selectedBlockIds.compactMap(document.infoContainer.get(id:))
+
+        router.showMarkupBottomSheet(
+            selectedMarkups: AttributeState.markupAttributes(from: blockInformations),
+            selectedHorizontalAlignment: AttributeState.alignmentAttributes(from: blockInformations),
+            onMarkupAction: { [weak listService, weak actionHandler] action in
+                switch action {
+                case .toggleMarkup(let markupType):
+                    listService?.changeMarkup(blockIds: selectedBlockIds, markType: markupType)
+                case .selectAlignment(let layoutAlignment):
+                    actionHandler?.setAlignment(layoutAlignment, blockIds: selectedBlockIds)
+                }
+            },
+            viewDidClose: {
+                //
+            }
         )
     }
 
@@ -345,6 +374,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
             onColorSelection(for: selectedBlockIds)
             return
         case .style:
+            onStyleSelection(for: selectedBlockIds)
             return
         }
 
@@ -372,6 +402,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
             onColorSelection(for: selectedBlockIds)
             return
         case .style:
+            onStyleSelection(for: selectedBlockIds)
             return
         case .clearStyle:
             tableService.clearStyle(contextId: document.objectId, blocksIds: selectedBlockIds)
@@ -408,8 +439,26 @@ extension SimpleTableStateManager: BlockSelectionHandler {
 
         editingState = .selecting(blocks: [info.id])
         selectedBlocks = [info.id]
+        selectedBlocksIndexPaths = [selectedIndexPath]
 
         updateMenuItems(for: [selectedIndexPath])
+    }
+
+    func didSelectStyleSelection(info: BlockInformation) {
+        selectedBlocks = [info.id]
+        editingState = .selecting(blocks: [info.id])
+
+        router.showStyleMenu(
+            information: info,
+            restrictions: SimpleTableTextCellRestrictions(),
+            didShow: { presentedView in
+                //
+            },
+            onDismiss: { [weak self] in
+                self?.editingState = .editing
+                self?.cursorManager.focus(at: info.id)
+            }
+        )
     }
 }
 

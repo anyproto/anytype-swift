@@ -149,13 +149,28 @@ final class EditorAssembly {
         let pasteboardService = PasteboardService(document: document,
                                                   pasteboardHelper: pasteboardHelper,
                                                   pasteboardMiddlewareService: pasteboardMiddlewareService)
+
+        let blockActionsServiceSingle = ServiceLocator.shared
+            .blockActionsServiceSingle(contextId: document.objectId)
+
+        let blocksStateManager = EditorPageBlocksStateManager(
+            document: document,
+            modelsHolder: modelsHolder,
+            blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
+            blockActionsServiceSingle: blockActionsServiceSingle,
+            actionHandler: actionHandler,
+            pasteboardService: pasteboardService,
+            router: router,
+            initialEditingState: isOpenedForPreview ? .locked : .editing,
+            viewInput: viewInput
+        )
         
         let accessoryState = AccessoryViewBuilder.accessoryState(
             actionHandler: actionHandler,
             router: router,
             pasteboardService: pasteboardService,
             document: document,
-            onShowStyleMenu: router.showStyleMenu(information:),
+            onShowStyleMenu: blocksStateManager.didSelectStyleSelection(info:),
             onBlockSelection: actionHandler.selectBlock(info:)
         )
         
@@ -170,19 +185,6 @@ final class EditorAssembly {
             document: document,
             router: router,
             isOpenedForPreview: isOpenedForPreview
-        )
-        let blockActionsServiceSingle = ServiceLocator.shared
-            .blockActionsServiceSingle(contextId: document.objectId)
-
-        let blocksStateManager = EditorPageBlocksStateManager(
-            document: document,
-            modelsHolder: modelsHolder,
-            blocksSelectionOverlayViewModel: blocksSelectionOverlayViewModel,
-            blockActionsServiceSingle: blockActionsServiceSingle,
-            actionHandler: actionHandler,
-            pasteboardService: pasteboardService,
-            router: router,
-            initialEditingState: isOpenedForPreview ? .locked : .editing
         )
 
         let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(

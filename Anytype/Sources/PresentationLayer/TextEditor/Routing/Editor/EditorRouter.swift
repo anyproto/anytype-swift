@@ -137,7 +137,12 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         viewController?.present(searchListViewController, animated: true)
     }
     
-    func showStyleMenu(information: BlockInformation) {
+    func showStyleMenu(
+        information: BlockInformation,
+        restrictions: BlockRestrictions,
+        didShow: @escaping (UIView) -> Void,
+        onDismiss: @escaping () -> Void
+    ) {
         guard let controller = viewController,
               let rootController = rootController,
               let info = document.infoContainer.get(id: information.id) else { return }
@@ -146,25 +151,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             return
         }
 
-        controller.view.endEditing(true)
-
-        let didShow: (FloatingPanelController) -> Void  = { fpc in
-            // Initialy keyboard is shown and we open context menu, so keyboard moves away
-            // Then we select "Style" item from menu and display bottom sheet
-            // Then system call "becomeFirstResponder" on UITextView which was firstResponder
-            // and keyboard covers bottom sheet, this method helps us to unsure bottom sheet is visible
-            if fpc.state == FloatingPanelState.full {
-                controller.view.endEditing(true)
-            }
-            controller.collectionView.adjustContentOffsetForSelectedItem(relatively: fpc.surfaceView)
-        }
-
-        BottomSheetsFactory.createStyleBottomSheet(
+        let popup = BottomSheetsFactory.createStyleBottomSheet(
             parentViewController: rootController,
-            delegate: controller,
             info: info,
             actionHandler: controller.viewModel.actionHandler,
-            didShow: didShow,
+            restrictions: restrictions,
             showMarkupMenu: { [weak controller, weak rootController, unowned document] styleView, viewDidClose in
                 guard let controller = controller else { return }
                 guard let rootController = rootController else { return }
@@ -185,9 +176,17 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
                     },
                     viewDidClose: viewDidClose
                 )
-            }
+            },
+            onDismiss: onDismiss
         )
-        controller.selectBlock(blockId: information.id)
+
+        guard let popup = popup else {
+            return
+        }
+
+        popup.addPanel(toParent: controller, animated: true) {
+            didShow(popup.surfaceView)
+        }
     }
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ()) {
@@ -357,9 +356,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         selectedColor: UIColor?,
         selectedBackgroundColor: UIColor?
     ) {
-        guard let rootController = rootController else {
-            return
-        }
+        guard let rootController = rootController else { return }
 
         let styleColorViewController = StyleColorViewController(
             selectedColor: selectedColor,
@@ -378,6 +375,37 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             $0.bottom.equal(to: rootController.view.bottomAnchor, constant: -50)
         }
         UISelectionFeedbackGenerator().selectionChanged()
+    }
+
+    func showMarkupBottomSheet(
+        selectedMarkups: [MarkupType : AttributeState],
+        selectedHorizontalAlignment: [LayoutAlignment : AttributeState],
+        onMarkupAction: @escaping (MarkupViewModelAction) -> Void,
+        viewDidClose: @escaping () -> Void
+    ) {
+        guard let rootController = rootController else { return }
+
+        let viewModel = MarkupViewModel(
+            selectedMarkups: selectedMarkups,
+            selectedHorizontalAlignment: selectedHorizontalAlignment,
+            onMarkupAction: onMarkupAction
+        )
+        let viewController = MarkupsViewController(
+            viewModel: viewModel,
+            viewDidClose: viewDidClose
+        )
+
+        viewModel.view = viewController
+
+        rootController.embedChild(viewController)
+
+        viewController.view.pinAllEdges(to: rootController.view)
+        viewController.containerShadowView.layoutUsing.anchors {
+            $0.width.equal(to: 240)
+            $0.height.equal(to: 158)
+            $0.centerX.equal(to: rootController.view.centerXAnchor, constant: 10)
+            $0.bottom.equal(to: rootController.view.bottomAnchor, constant: -50)
+        }
     }
     
     // MARK: - Private

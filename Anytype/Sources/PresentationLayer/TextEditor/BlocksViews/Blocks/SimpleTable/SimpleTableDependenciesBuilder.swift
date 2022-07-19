@@ -42,12 +42,16 @@ final class SimpleTableDependenciesBuilder {
     }
 
     func buildDependenciesContainer(blockInformation: BlockInformation) -> SimpleTableDependenciesContainer {
+        let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
+
         let stateManager = SimpleTableStateManager(
             document: document,
             tableBlockInformation: blockInformation,
             tableService: tableService,
+            listService: BlockListService(contextId: document.objectId),
             router: router,
             actionHandler: handler,
+            cursorManager: cursorManager,
             mainEditorSelectionManager: mainEditorSelectionManager
         )
 
@@ -56,7 +60,7 @@ final class SimpleTableDependenciesBuilder {
             router: router,
             pasteboardService: pasteboardService,
             document: document,
-            onShowStyleMenu: { _ in } ,
+            onShowStyleMenu: stateManager.didSelectStyleSelection(info:),
             onBlockSelection: stateManager.didSelectEditingState(info:)
         )
 
@@ -64,8 +68,6 @@ final class SimpleTableDependenciesBuilder {
             viewInput: viewInput,
             accessoryState: simpleTablesAccessoryState
         )
-
-        let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
 
         let cellsBuilder = SimpleTableCellsBuilder(
             document: document,

@@ -3,42 +3,18 @@ import FloatingPanel
 import BlocksModels
 import UIKit
 
-
 final class BottomSheetsFactory {
     static func createStyleBottomSheet(
         parentViewController: UIViewController,
-        delegate: FloatingPanelControllerDelegate,
         info: BlockInformation,
         actionHandler: BlockActionHandlerProtocol,
-        didShow: @escaping (FloatingPanelController) -> Void,
-        showMarkupMenu: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void
-    ) {
-        let fpc = FloatingPanelController()
-        fpc.delegate = delegate
-        let appearance = SurfaceAppearance()
-        appearance.cornerRadius = 16.0
-        // Define shadows
-        let shadow = SurfaceAppearance.Shadow()
-        shadow.color = UIColor.shadowPrimary
-        shadow.offset = CGSize(width: 0, height: 0)
-        shadow.radius = 40
-        shadow.opacity = 1
-        appearance.shadows = [shadow]
-
-        fpc.surfaceView.layer.cornerCurve = .continuous
-
-        fpc.surfaceView.containerMargins = .init(top: 0, left: 10.0, bottom: 44.0, right: 10.0)
-        fpc.surfaceView.grabberHandleSize = .init(width: 48.0, height: 4.0)
-        fpc.surfaceView.grabberHandle.layer.cornerRadius = 6.0
-        fpc.surfaceView.grabberHandle.barColor = .strokePrimary
-        fpc.surfaceView.appearance = appearance
-        fpc.isRemovalInteractionEnabled = true
-        fpc.backdropView.dismissalTapGestureRecognizer.isEnabled = true
-        fpc.backdropView.backgroundColor = .clear
-        fpc.contentMode = .static
-
+        restrictions: BlockRestrictions,
+        showMarkupMenu: @escaping (_ styleView: UIView, _ viewDidClose: @escaping () -> Void) -> Void,
+        onDismiss: (() -> Void)? = nil
+    ) -> AnytypePopup? {
         // NOTE: This will be moved to coordinator in next pr
-        guard case let .text(textContentType) = info.content.type else { return }
+        // :(
+        guard case let .text(textContentType) = info.content.type else { return nil }
 
         let askColor: () -> UIColor? = {
             guard case let .text(textContent) = info.content else { return nil }
@@ -51,10 +27,8 @@ final class BottomSheetsFactory {
                 UIColor.Background.uiColor(from: $0)
             }
         }
-
-        let restrictions = BlockRestrictionsBuilder.build(content: info.content)
-
-        let contentVC = StyleViewController(
+        
+        let styleView = StyleView(
             blockId: info.id,
             viewControllerForPresenting: parentViewController,
             style: textContentType,
@@ -64,12 +38,21 @@ final class BottomSheetsFactory {
             didTapMarkupButton: showMarkupMenu,
             actionHandler: actionHandler
         )
-        fpc.layout = StylePanelLayout(layoutGuide: contentVC.layoutGuide)
-        
-        fpc.set(contentViewController: contentVC)
-        fpc.addPanel(toParent: parentViewController, animated: true) {
-            didShow(fpc)
-        }
+
+        let popup = AnytypePopup(
+            contentView: styleView,
+            floatingPanelStyle: true,
+            configuration: .init(
+                isGrabberVisible: true,
+                dismissOnBackdropView: true,
+                skipThroughGestures: false
+            ),
+            onDismiss: onDismiss
+        )
+
+        popup.backdropView.backgroundColor = .clear
+
+        return popup
     }
     
     static func showMarkupBottomSheet(

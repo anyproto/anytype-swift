@@ -3,6 +3,7 @@ import BlocksModels
 
 protocol BlockSelectionHandler: AnyObject {
     func didSelectEditingState(info: BlockInformation)
+    func didSelectStyleSelection(info: BlockInformation)
 }
 
 protocol BlockActionHandlerProtocol: AnyObject {
