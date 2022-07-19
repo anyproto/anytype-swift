@@ -12,6 +12,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
 
     private let showWaitingView: (String) -> Void
     private let hideWaitingView: () -> Void
+    private let onKeyboardAction: (CustomTextView.KeyboardAction) -> Void
 
     private let content: BlockText
     private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
@@ -33,7 +34,8 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
         markdownListener: MarkdownListener,
-        blockDelegate: BlockDelegate?
+        blockDelegate: BlockDelegate?,
+        onKeyboardAction: @escaping (CustomTextView.KeyboardAction) -> Void
     ) {
         self.info = info
         self.showPage = showPage
@@ -47,6 +49,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         self.pasteboardService = pasteboardService
         self.markdownListener = markdownListener
         self.blockDelegate = blockDelegate
+        self.onKeyboardAction = onKeyboardAction
     }
 
     func textBlockActions() -> TextBlockContentConfiguration.Actions {
@@ -231,11 +234,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     }
 
     private func handleKeyboardAction(action: CustomTextView.KeyboardAction, textView: UITextView) {
-//        actionHandler.handleKeyboardAction(
-//            action,
-//            currentText: textView.attributedText,
-//            info: info
-//        )
+        onKeyboardAction(action)
     }
 
     private func textBlockSetNeedsLayout(textView: UITextView) { }

@@ -43,6 +43,8 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
     private weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
     weak var viewInput: EditorPageViewInput?
 
+    private var currentSortType: BlocksSortType = .asc
+
     init(
         document: BaseDocumentProtocol,
         tableBlockInformation: BlockInformation,
@@ -101,8 +103,8 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         editingState = .editing
 
         selectedBlocksIndexPaths.removeAll()
+        selectedMenuTab = .cell
     }
-
 
     // MARK: - SimpleTableMenuDelegate
 
@@ -122,7 +124,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         case .cell:
             horizontalListItems = SimpleTableCellMenuItem.allCases.map { item in
                 HorizontalListItem.init(
-                    id: "\(item.hashValue)",
+                    id: "cell \(item.hashValue)",
                     title: item.title,
                     image: .image(item.image),
                     action: { [weak self] in self?.handleCellAction(action: item) }
@@ -131,7 +133,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         case .row:
             horizontalListItems = SimpleTableRowMenuItem.allCases.map { item in
                 HorizontalListItem.init(
-                    id: "\(item.hashValue)",
+                    id: "row \(item.hashValue)",
                     title: item.title,
                     image: .image(item.image),
                     action: { [weak self] in self?.handleRowAction(action: item) }
@@ -140,7 +142,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         case .column:
             horizontalListItems = SimpleTableColumnMenuItem.allCases.map { item in
                 HorizontalListItem.init(
-                    id: "\(item.hashValue)",
+                    id: "column \(item.hashValue)",
                     title: item.title,
                     image: .image(item.image),
                     action: { [weak self] in self?.handleColumnAction(action: item) }
@@ -235,8 +237,12 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
             tableService.clearContents(contextId: document.objectId, blockIds: selectedBlockIds)
         case .sort:
             uniqueColumns.forEach {
-                tableService.columnSort(contextId: document.objectId, columnId: $0, blocksSortType: .desc)
+                tableService.columnSort(contextId: document.objectId, columnId: $0, blocksSortType: currentSortType)
             }
+
+            currentSortType = currentSortType == .asc ? .desc : .asc
+
+            return
         case .color:
             onColorSelection(for: selectedBlockIds)
             return
@@ -245,6 +251,10 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
             return
         }
 
+        resetToEditingMode()
+    }
+
+    private func resetToEditingMode() {
         editingState = .editing
         mainEditorSelectionManager?.didStopSimpleTableSelectionMode()
         selectedMenuTab = .cell
@@ -378,9 +388,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
             return
         }
 
-        editingState = .editing
-        mainEditorSelectionManager?.didStopSimpleTableSelectionMode()
-        selectedMenuTab = .cell
+        resetToEditingMode()
     }
 
     private func handleCellAction(action: SimpleTableCellMenuItem) {
@@ -408,9 +416,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
             tableService.clearStyle(contextId: document.objectId, blocksIds: selectedBlockIds)
         }
 
-        editingState = .editing
-        mainEditorSelectionManager?.didStopSimpleTableSelectionMode()
-        selectedMenuTab = .cell
+        resetToEditingMode()
     }
 
     private func fillSelectedRows() {

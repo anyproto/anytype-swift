@@ -924,7 +924,6 @@
 		C9432719285DE08200D82F3F /* SimpleTablesTextBlockActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9432718285DE08200D82F3F /* SimpleTablesTextBlockActionHandler.swift */; };
 		C946681728462EB000A8A6F5 /* SimpleTableBlockView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C946681628462EB000A8A6F5 /* SimpleTableBlockView.swift */; };
 		C9473C37273CEE6700B248AF /* EditorSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9473C36273CEE6700B248AF /* EditorSelectionView.swift */; };
-		C955AF212885AFB600AF23B5 /* StylePopupViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C955AF202885AFB600AF23B5 /* StylePopupViewModel.swift */; };
 		C955AF232886A61700AF23B5 /* SimpleTableTextCellRestrictions.swift in Sources */ = {isa = PBXBuildFile; fileRef = C955AF222886A61700AF23B5 /* SimpleTableTextCellRestrictions.swift */; };
 		C96149522718189000360840 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96149512718189000360840 /* GalleryViewController.swift */; };
 		C96149542718286E00360840 /* GalleryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96149532718286E00360840 /* GalleryViewModel.swift */; };
@@ -2008,7 +2007,6 @@
 		C9432718285DE08200D82F3F /* SimpleTablesTextBlockActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTablesTextBlockActionHandler.swift; sourceTree = "<group>"; };
 		C946681628462EB000A8A6F5 /* SimpleTableBlockView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableBlockView.swift; sourceTree = "<group>"; };
 		C9473C36273CEE6700B248AF /* EditorSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSelectionView.swift; sourceTree = "<group>"; };
-		C955AF202885AFB600AF23B5 /* StylePopupViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StylePopupViewModel.swift; sourceTree = "<group>"; };
 		C955AF222886A61700AF23B5 /* SimpleTableTextCellRestrictions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleTableTextCellRestrictions.swift; sourceTree = "<group>"; };
 		C96149512718189000360840 /* GalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewController.swift; sourceTree = "<group>"; };
 		C96149532718286E00360840 /* GalleryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryViewModel.swift; sourceTree = "<group>"; };
@@ -5723,7 +5721,6 @@
 				53EA4A6F26371D6400968B8E /* ColorView */,
 				531629332632BD0A000D6780 /* TextStyleView */,
 				53F8215A2655C871003FEB0B /* BottomSheetsFactory.swift */,
-				C955AF202885AFB600AF23B5 /* StylePopupViewModel.swift */,
 			);
 			path = BottomSheets;
 			sourceTree = "<group>";
@@ -7199,7 +7196,6 @@
 				3D2F9C01271EA5FB0043C326 /* HomeViewModel+Selection.swift in Sources */,
 				1215E8B126A860D20089AF7E /* AppConfigurator.swift in Sources */,
 				2E975EDE287C2325004DE574 /* SetFilterRowConfiguration.swift in Sources */,
-				C955AF212885AFB600AF23B5 /* StylePopupViewModel.swift in Sources */,
 				3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */,
 				C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */,
 				3D8311072705899000CA6308 /* SlashActionObject.swift in Sources */,

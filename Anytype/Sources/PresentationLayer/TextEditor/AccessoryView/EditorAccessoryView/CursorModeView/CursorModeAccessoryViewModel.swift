@@ -61,7 +61,6 @@ final class CursorModeAccessoryViewModel {
             
             delegate.showSlashMenuView()
         case .editingMode:
-            textView.resignFirstResponder()
             onBlockSelection(info)
         }
     }
