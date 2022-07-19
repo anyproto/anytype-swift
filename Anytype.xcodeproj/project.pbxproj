@@ -447,6 +447,8 @@
 		2E975EFE287C65EF004DE574 /* SetFiltersSearchHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EFB287C65EF004DE574 /* SetFiltersSearchHeaderView.swift */; };
 		2E975EFF287C65EF004DE574 /* SetFiltersSearchHeaderViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EFC287C65EF004DE574 /* SetFiltersSearchHeaderViewModel.swift */; };
 		2E975F01287D98F7004DE574 /* SetFiltersSearchViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975F00287D98F7004DE574 /* SetFiltersSearchViewState.swift */; };
+		2E975F04287F00BC004DE574 /* SetFiltersTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975F03287F00BC004DE574 /* SetFiltersTextView.swift */; };
+		2E975F06287F00E6004DE574 /* SetFiltersTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975F05287F00E6004DE574 /* SetFiltersTextViewModel.swift */; };
 		2E9EFE62285B45C500C8E47A /* ExceptionalSetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */; };
 		2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE71285B62E500C8E47A /* SetFilter.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
@@ -1531,6 +1533,8 @@
 		2E975EFB287C65EF004DE574 /* SetFiltersSearchHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchHeaderView.swift; sourceTree = "<group>"; };
 		2E975EFC287C65EF004DE574 /* SetFiltersSearchHeaderViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchHeaderViewModel.swift; sourceTree = "<group>"; };
 		2E975F00287D98F7004DE574 /* SetFiltersSearchViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersSearchViewState.swift; sourceTree = "<group>"; };
+		2E975F03287F00BC004DE574 /* SetFiltersTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersTextView.swift; sourceTree = "<group>"; };
+		2E975F05287F00E6004DE574 /* SetFiltersTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersTextViewModel.swift; sourceTree = "<group>"; };
 		2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionalSetSort.swift; sourceTree = "<group>"; };
 		2E9EFE71285B62E500C8E47A /* SetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilter.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
@@ -4174,9 +4178,19 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		2E975F02287EFFB5004DE574 /* Text */ = {
+			isa = PBXGroup;
+			children = (
+				2E975F03287F00BC004DE574 /* SetFiltersTextView.swift */,
+				2E975F05287F00E6004DE574 /* SetFiltersTextViewModel.swift */,
+			);
+			path = Text;
+			sourceTree = "<group>";
+		};
 		2E9EFE69285B576400C8E47A /* Filters */ = {
 			isa = PBXGroup;
 			children = (
+				2E975F02287EFFB5004DE574 /* Text */,
 				2E975ECF287C2325004DE574 /* List */,
 				2E975ED5287C2325004DE574 /* Search */,
 			);
@@ -7049,6 +7063,7 @@
 				3D44985A26D57456005A3E06 /* ObjectIconPicker.swift in Sources */,
 				3D93D55F270B1F8800614E29 /* EditorBottomNavigationView.swift in Sources */,
 				EA0261212625CCD200AE6D86 /* BlockRestrictions.swift in Sources */,
+				2E975F06287F00E6004DE574 /* SetFiltersTextViewModel.swift in Sources */,
 				53040A4626D80DFD0023AC73 /* UIKitAnytypeText.swift in Sources */,
 				3D8D41BE2743D32000F8EBF3 /* EditorScreenData.swift in Sources */,
 				125B6ECB26F235F400BCD7D6 /* FilterableItemsView.swift in Sources */,
@@ -7207,6 +7222,7 @@
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,
 				125683DC27DF1C2B003A8251 /* ObjectsSearchInteractor.swift in Sources */,
 				534FFA6A277231AB00C51056 /* RelationFormatListCell.swift in Sources */,
+				2E975F04287F00BC004DE574 /* SetFiltersTextView.swift in Sources */,
 				3DE0CFD526F8593D003A606A /* SlashActionFilterMatch.swift in Sources */,
 				3DA7AD842712CF8400EA45F6 /* NSRange+Zero.swift in Sources */,
 				EAC5728D2621D38A00F25949 /* UIApplicationExtension.swift in Sources */,

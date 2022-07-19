@@ -805,6 +805,10 @@ internal enum Loc {
         /// Filters
         internal static let title = Loc.tr("Localizable", "EditFilters.Popup.NavigationView.Title")
       }
+      internal enum TextView {
+        /// Value
+        internal static let placeholder = Loc.tr("Localizable", "EditFilters.Popup.TextView.Placeholder")
+      }
     }
   }
 

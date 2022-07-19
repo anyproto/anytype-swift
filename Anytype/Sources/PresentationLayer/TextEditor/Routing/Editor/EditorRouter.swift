@@ -607,11 +607,11 @@ extension EditorRouter {
                 self?.viewController?.topPresentedController.dismiss(animated: true)
             }
         )
-        let vc = UIHostingController(
-            rootView: SetFiltersSearchView(searchView: viewModel.makeSearchView)
-                .environmentObject(viewModel)
+        presentFullscreen(
+            AnytypePopup(
+                viewModel: viewModel
+            )
         )
-        presentSheet(vc)
     }
 }
 
