@@ -178,7 +178,10 @@ private extension RelationFilterBuilder {
         filter: DataviewFilter
     ) -> Relation {
         var numberValue: String? = {
-            guard let number = filter.value.safeDoubleValue else { return nil }
+            guard let number = filter.value.safeDoubleValue,
+                    filter.condition.hasValues else {
+                return nil
+            }
             
             return numberFormatter.string(from: NSNumber(floatLiteral: number))
         }()
@@ -409,6 +412,9 @@ private extension RelationFilterBuilder {
     }
     
     private func valueString(from filter: DataviewFilter) -> String? {
-        filter.value.stringValue.isNotEmpty ? "“\(filter.value.stringValue)“" : nil
+        guard filter.condition.hasValues else {
+            return nil
+        }
+        return "“\(filter.value.stringValue)“"
     }
 }

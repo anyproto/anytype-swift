@@ -2,6 +2,7 @@ import SwiftUI
 import BlocksModels
 import Combine
 import SwiftProtobuf
+import UIKit
 
 final class SetFiltersSearchViewModel: ObservableObject {
     @Published var state: SetFiltersSearchViewState {
@@ -57,7 +58,7 @@ final class SetFiltersSearchViewModel: ObservableObject {
         case .text, .number:
             SetFiltersTextView(
                 viewModel: SetFiltersTextViewModel(
-                    isDecimalPad: filter.conditionType == .number,
+                    filter: filter,
                     onApplyText: { [weak self] in
                         self?.handleText($0)
                     },
@@ -80,14 +81,23 @@ final class SetFiltersSearchViewModel: ObservableObject {
     }
     
     func handleText(_ text: String) {
-        handleValue(text.protobufValue)
+        switch filter.conditionType {
+        case .number:
+            if let double = Double(text) {
+                handleValue(double.protobufValue)
+            }
+        default:
+            handleValue(text.protobufValue)
+        }
     }
     
     func handleEmptyValue() {
         switch filter.conditionType {
         case .selected:
             handleSelectedIds([])
-        case .number, .text:
+        case .number:
+            handleText("0")
+        case .text:
             handleText("")
         case .checkbox:
             break

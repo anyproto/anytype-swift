@@ -2,18 +2,18 @@ import SwiftUI
 import BlocksModels
 
 final class SetFiltersTextViewModel: ObservableObject {
-    let isDecimalPad: Bool
+    let keyboardType: UIKeyboardType
     let onApplyText: (String) -> Void
     let onKeyboardHeightChange: (CGFloat) -> Void
     
     private var keyboardListenerHelper: KeyboardEventsListnerHelper?
     
     init(
-        isDecimalPad: Bool,
+        filter: SetFilter,
         onApplyText: @escaping (String) -> Void,
         onKeyboardHeightChange: @escaping (CGFloat) -> Void)
     {
-        self.isDecimalPad = isDecimalPad
+        self.keyboardType = Self.keybordType(for: filter)
         self.onApplyText = onApplyText
         self.onKeyboardHeightChange = onKeyboardHeightChange
         self.setupKeyboardListener()
@@ -40,5 +40,15 @@ final class SetFiltersTextViewModel: ObservableObject {
             willChangeFrame: action,
             willHideAction: willHideAction
         )
+    }
+    
+    private static func keybordType(for filter: SetFilter) -> UIKeyboardType {
+        switch filter.metadata.format {
+        case .number: return .decimalPad
+        case .url: return .URL
+        case .email: return .emailAddress
+        case .phone: return .phonePad
+        default: return .default
+        }
     }
 }

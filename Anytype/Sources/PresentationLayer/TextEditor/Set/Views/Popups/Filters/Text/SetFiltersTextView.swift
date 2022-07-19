@@ -19,7 +19,7 @@ struct SetFiltersTextView: View {
             placeholder: Loc.EditFilters.Popup.TextView.placeholder,
             text: $input
         )
-        .keyboardType(viewModel.isDecimalPad ? .decimalPad : .default)
+        .keyboardType(viewModel.keyboardType)
         .frame(height: 48)
         .divider()
     }

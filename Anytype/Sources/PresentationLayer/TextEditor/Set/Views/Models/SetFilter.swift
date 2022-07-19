@@ -27,9 +27,9 @@ struct SetFilter: Identifiable, Equatable, Hashable {
     
     static func conditionType(for metadata: RelationMetadata) -> Condition {
         switch metadata.format {
-        case .shortText, .longText, .url, .email, .file, .unrecognized:
+        case .shortText, .longText, .url, .email, .file, .unrecognized, .phone:
             return .text
-        case .number, .date, .phone:
+        case .number, .date:
             return .number
         case .tag, .status, .object:
             return .selected
