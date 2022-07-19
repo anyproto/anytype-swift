@@ -110,9 +110,6 @@ final class SimpleTableBlockView: UIView, BlockContentView {
         }
 
         dynamicLayoutView.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
-
-        let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems ?? []
-        viewModel?.stateManager.didUpdateSelectedIndexPaths(indexPathsForSelectedItems)
     }
 
     private func setupSubview() {

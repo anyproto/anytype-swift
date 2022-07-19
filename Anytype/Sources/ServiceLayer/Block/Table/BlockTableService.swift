@@ -93,6 +93,8 @@ final class BlockTableService: BlockTableServiceProtocol {
     }
 
     func insertRow(contextId: BlockId, targetId: BlockId, position: BlockPosition) {
+
+
         let eventsBunch = Anytype_Rpc.BlockTable.RowCreate.Service.invoke(
             contextID: contextId,
             targetID: targetId,

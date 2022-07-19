@@ -27,4 +27,10 @@ protocol EditorPageViewInput: AnyObject, RelativePositionProvider {
     func blockDidFinishEditing(blockId: BlockId)
     
     func scrollToBlock(blockId: BlockId)
+
+    func endEditing()
+
+    func adjustContentOffset(relatively: UIView)
+
+    func restoreEditingState()
 }

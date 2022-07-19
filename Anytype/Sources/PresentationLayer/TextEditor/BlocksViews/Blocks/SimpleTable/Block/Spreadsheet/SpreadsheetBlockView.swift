@@ -104,6 +104,7 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
     // MARK: - Drag&Drop
 
     private func setupDragInteraction() {
+        return // Disabled
         guard dragConfiguration != nil, viewDragInteraction.view == nil else { return }
 
         viewDragInteraction.isEnabled = currentConfigurationState.map { $0.isLocked } ?? true

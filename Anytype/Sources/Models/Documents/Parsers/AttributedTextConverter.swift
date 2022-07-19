@@ -98,7 +98,7 @@ enum AttributedTextConverter {
             
             // Discussion:
             // This algorithm uses API and feature of `IndexSet` structure.
-            // `IndexSet` combines all ranges into contigous range if possible and minimizes count of data it keeps.
+            // `IndexSet` combines all ranges into contiguous range if possible and minimizes count of data it keeps.
             // So, instead of enumerate over all ranges and add them, we just add them to current NSIndexSet.
             //
             // Consider following set of ranges:

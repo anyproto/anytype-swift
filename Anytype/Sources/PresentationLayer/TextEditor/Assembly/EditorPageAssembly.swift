@@ -89,6 +89,7 @@ final class EditorAssembly {
         )
 
         let viewModel = buildViewModel(
+            scrollView: controller.collectionView,
             viewInput: controller,
             document: document,
             router: router,
@@ -104,6 +105,7 @@ final class EditorAssembly {
     }
     
     private func buildViewModel(
+        scrollView: UIScrollView,
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter,
@@ -111,7 +113,7 @@ final class EditorAssembly {
         simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         isOpenedForPreview: Bool
-    ) -> EditorPageViewModel {                
+    ) -> EditorPageViewModel {
         let modelsHolder = EditorMainItemModelsHolder()
         let markupChanger = BlockMarkupChanger(infoContainer: document.infoContainer)
         let focusSubjectHolder = FocusSubjectsHolder()
@@ -149,32 +151,7 @@ final class EditorAssembly {
         let pasteboardService = PasteboardService(document: document,
                                                   pasteboardHelper: pasteboardHelper,
                                                   pasteboardMiddlewareService: pasteboardMiddlewareService)
-        
-        let accessoryState = AccessoryViewBuilder.accessoryState(
-            actionHandler: actionHandler,
-            router: router,
-            pasteboardService: pasteboardService,
-            document: document,
-            onShowStyleMenu: router.showStyleMenu(information:),
-            onBlockSelection: actionHandler.selectBlock(info:)
-        )
-        
-        let markdownListener = MarkdownListenerImpl()
-        
-        let blockDelegate = BlockDelegateImpl(
-            viewInput: viewInput,
-            accessoryState: accessoryState
-        )
 
-        let wholeBlockMarkupViewModel = MarkupViewModel(
-            actionHandler: actionHandler
-        )
-
-        let headerModel = ObjectHeaderViewModel(
-            document: document,
-            router: router,
-            isOpenedForPreview: isOpenedForPreview
-        )
         let blockActionsServiceSingle = ServiceLocator.shared
             .blockActionsServiceSingle(contextId: document.objectId)
 
@@ -186,9 +163,33 @@ final class EditorAssembly {
             actionHandler: actionHandler,
             pasteboardService: pasteboardService,
             router: router,
-            initialEditingState: isOpenedForPreview ? .locked : .editing
+            initialEditingState: isOpenedForPreview ? .locked : .editing,
+            viewInput: viewInput
+        )
+        
+        let accessoryState = AccessoryViewBuilder.accessoryState(
+            actionHandler: actionHandler,
+            router: router,
+            pasteboardService: pasteboardService,
+            document: document,
+            onShowStyleMenu: blocksStateManager.didSelectStyleSelection(info:),
+            onBlockSelection: actionHandler.selectBlock(info:)
+        )
+        
+        let markdownListener = MarkdownListenerImpl()
+        
+        let blockDelegate = BlockDelegateImpl(
+            viewInput: viewInput,
+            accessoryState: accessoryState
         )
 
+        let headerModel = ObjectHeaderViewModel(
+            document: document,
+            router: router,
+            isOpenedForPreview: isOpenedForPreview
+        )
+
+        let responderScrollViewHelper = ResponderScrollViewHelper(scrollView: scrollView)
         let simpleTableDependenciesBuilder = SimpleTableDependenciesBuilder(
             document: document,
             router: router,
@@ -197,7 +198,8 @@ final class EditorAssembly {
             markdownListener: markdownListener,
             focusSubjectHolder: focusSubjectHolder,
             viewInput: viewInput,
-            mainEditorSelectionManager: blocksStateManager
+            mainEditorSelectionManager: blocksStateManager,
+            responderScrollViewHelper: responderScrollViewHelper
         )
 
         let blocksConverter = BlockViewModelBuilder(
@@ -224,7 +226,6 @@ final class EditorAssembly {
             modelsHolder: modelsHolder,
             blockBuilder: blocksConverter,
             actionHandler: actionHandler,
-            wholeBlockMarkupViewModel: wholeBlockMarkupViewModel,
             headerModel: headerModel,
             blockActionsService: blockActionsServiceSingle,
             blocksStateManager: blocksStateManager,

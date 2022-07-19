@@ -68,6 +68,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     weak var blocksOptionViewModel: HorizonalTypeListViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
+    weak var viewInput: EditorPageViewInput?
 
     private var cancellables = [AnyCancellable]()
 
@@ -79,7 +80,8 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
         router: EditorRouterProtocol,
-        initialEditingState: EditorEditingState
+        initialEditingState: EditorEditingState,
+        viewInput: EditorPageViewInput
     ) {
         self.document = document
         self.modelsHolder = modelsHolder
@@ -89,6 +91,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         self.pasteboardService = pasteboardService
         self.router = router
         self.editingState = initialEditingState
+        self.viewInput = viewInput
 
         setupEditingHandlers()
     }
@@ -353,7 +356,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
         case .style:
             editingState = .editing
-            elements.first.map { router.showStyleMenu(information: $0.info) }
+            elements.first.map { didSelectStyleSelection(info: $0.info) }
 
             return
         case .paste:
@@ -403,6 +406,18 @@ extension EditorPageBlocksStateManager: BlockSelectionHandler {
         editingState = .selecting(blocks: [info.id])
         selectedBlocks = [info.id]
         updateSelectionBarActions(selectedBlocks: [info])
+    }
+
+    func didSelectStyleSelection(info: BlockInformation) {
+        viewInput?.endEditing()
+        selectedBlocks = [info.id]
+
+        let restrictions = BlockRestrictionsBuilder.build(content: info.content)
+        router.showStyleMenu(information: info, restrictions: restrictions) { [weak self] presentedView in
+            self?.viewInput?.adjustContentOffset(relatively: presentedView)
+        } onDismiss: { [weak self] in
+            self?.viewInput?.restoreEditingState()
+        }
     }
 }
 

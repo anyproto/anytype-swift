@@ -3,6 +3,7 @@ import BlocksModels
 
 protocol BlockSelectionHandler: AnyObject {
     func didSelectEditingState(info: BlockInformation)
+    func didSelectStyleSelection(info: BlockInformation)
 }
 
 protocol BlockActionHandlerProtocol: AnyObject {
@@ -19,7 +20,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func fetch(url: URL, blockId: BlockId)
     func checkbox(selected: Bool, blockId: BlockId)
     func toggle(blockId: BlockId)
-    func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId)
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId])
     func delete(blockIds: [BlockId])
     func moveToPage(blockId: BlockId, pageId: BlockId)
     func createEmptyBlock(parentId: BlockId)

@@ -20,8 +20,10 @@ final class SimpleTableMenuViewModel: ObservableObject, TypeListItemProvider {
     @Published var tabModels = [SimpleTableMenuModel.TabModel]()
 
     func update(with model: SimpleTableMenuModel) {
-        self.items = model.items
-        self.tabModels = model.tabs
+        withAnimation(.fastSpring) {
+            self.items = model.items
+            self.tabModels = model.tabs
+        }
     }
 }
 

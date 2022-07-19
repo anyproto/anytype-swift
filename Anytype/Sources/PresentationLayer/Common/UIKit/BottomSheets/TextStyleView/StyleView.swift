@@ -5,7 +5,7 @@ import BlocksModels
 
 // MARK: - Cell model
 
-private extension StyleViewController {
+private extension StyleView {
     enum Section: Hashable {
         case main
     }
@@ -48,7 +48,7 @@ private extension StyleViewController {
 
 // MARK: - StyleViewController
 
-final class StyleViewController: UIViewController {
+final class StyleView: UIView {
 
     // MARK: - Views
 
@@ -70,7 +70,7 @@ final class StyleViewController: UIViewController {
 
         }, configuration: config)
 
-        let styleCollectionView = UICollectionView(frame: view.bounds, collectionViewLayout: layout)
+        let styleCollectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
         styleCollectionView.translatesAutoresizingMaskIntoConstraints = false
         styleCollectionView.backgroundColor = .backgroundSecondary
         styleCollectionView.alwaysBounceVertical = false
@@ -149,7 +149,10 @@ final class StyleViewController: UIViewController {
         self.actionHandler = actionHandler
         self.restrictions = restrictions
 
-        super.init(nibName: nil, bundle: nil)
+        super.init(frame: .zero)
+
+        setupViews()
+        configureStyleDataSource()
     }
 
     @available(*, unavailable)
@@ -157,17 +160,10 @@ final class StyleViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        setupViews()
-        configureStyleDataSource()
-    }
-
     // MARK: - Setup views
 
     private func setupViews() {
-        view.backgroundColor = .backgroundSecondary
+        backgroundColor = .backgroundSecondary
 
         containerStackView.addArrangedSubview(listStackView)
         containerStackView.addArrangedSubview(otherStyleStackView)
@@ -179,8 +175,8 @@ final class StyleViewController: UIViewController {
             $0.height.equal(to: 52)
         }
 
-        view.addSubview(styleCollectionView)
-        view.addSubview(containerStackView)
+        addSubview(styleCollectionView)
+        addSubview(containerStackView)
 
         setupListStackView()
         setupOtherStyleStackView()
@@ -190,22 +186,22 @@ final class StyleViewController: UIViewController {
 
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            styleCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            styleCollectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
-            styleCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            styleCollectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            styleCollectionView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            styleCollectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             styleCollectionView.heightAnchor.constraint(equalToConstant: 52),
 
-            containerStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
-            containerStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            containerStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            containerStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             containerStackView.topAnchor.constraint(equalTo: styleCollectionView.bottomAnchor, constant: 16),
 
-            view.heightAnchor.constraint(equalToConstant: 232)
+            heightAnchor.constraint(equalToConstant: 208)
         ])
-        view.addLayoutGuide(layoutGuide)
+        addLayoutGuide(layoutGuide)
     }
 
     private func setupLayoutGuide() {
-        view.addLayoutGuide(layoutGuide)
+        addLayoutGuide(layoutGuide)
     }
 
     private func setupListStackView() {
@@ -228,18 +224,19 @@ final class StyleViewController: UIViewController {
         highlightedButton.setImageTintColor(.textSecondary, state: .disabled)
         setupAction(for: highlightedButton, with: .quote)
 
+        let isCalloutEnabled = style == .callout ? true : restrictions.turnIntoStyles.contains(.text(.callout))
         let calloutImage = UIImage.imageWithText(
             Loc.callout,
-        textColor: .textPrimary,
+            textColor: isCalloutEnabled ? .textPrimary : .buttonInactive,
             backgroundColor: .backgroundSelected,
             font: .uxCalloutRegular,
             size: .init(width: 63, height: 28),
             cornerRadius: 6
         )
 
-        #warning("add restrictions when callout block will be introduced")
         let calloutButton = ButtonsFactory.roundedBorderуButton(image: calloutImage)
         setupAction(for: calloutButton, with: .callout)
+        calloutButton.isEnabled = isCalloutEnabled
 
         if .quote != self.style {
             highlightedButton.isEnabled = restrictions.turnIntoStyles.contains(.text(.quote))
@@ -262,7 +259,7 @@ final class StyleViewController: UIViewController {
             moreButton.isSelected = true
 
             // show markup view
-            self.didTapMarkupButton(self.view) {
+            self.didTapMarkupButton(self) {
                 // unselect button on closing markup view
                 moreButton.isSelected = false
             }
@@ -402,8 +399,8 @@ final class StyleViewController: UIViewController {
         contentVC.colorView.containerView.layoutUsing.anchors {
             $0.width.equal(to: 260)
             $0.height.equal(to: 176)
-            $0.trailing.equal(to: view.trailingAnchor, constant: -10)
-            $0.top.equal(to: view.topAnchor, constant: -8)
+            $0.trailing.equal(to: trailingAnchor, constant: -10)
+            $0.top.equal(to: topAnchor, constant: -8)
         }
         UISelectionFeedbackGenerator().selectionChanged()
     }
@@ -411,7 +408,7 @@ final class StyleViewController: UIViewController {
 
 // MARK: - UICollectionViewDelegate
 
-extension StyleViewController: UICollectionViewDelegate {
+extension StyleView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         UISelectionFeedbackGenerator().selectionChanged()
         guard let style = styleDataSource?.itemIdentifier(for: indexPath) else {
@@ -427,7 +424,7 @@ extension StyleViewController: UICollectionViewDelegate {
 
 // MARK: - FloatingPanelControllerDelegate
 
-extension StyleViewController: FloatingPanelControllerDelegate {
+extension StyleView: FloatingPanelControllerDelegate {
     func floatingPanel(_ fpc: FloatingPanelController, shouldRemoveAt location: CGPoint, with velocity: CGVector) -> Bool {
         let surfaceOffset = fpc.surfaceLocation.y - fpc.surfaceLocation(for: .full).y
         // If panel moved more than a half of its hight than hide panel

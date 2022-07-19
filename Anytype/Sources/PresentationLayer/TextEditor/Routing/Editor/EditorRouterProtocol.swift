@@ -21,7 +21,19 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
     
-    func showStyleMenu(information: BlockInformation)
+    func showStyleMenu(
+        information: BlockInformation,
+        restrictions: BlockRestrictions,
+        didShow: @escaping (UIView) -> Void,
+        onDismiss: @escaping () -> Void
+    )
+
+    func showMarkupBottomSheet(
+        selectedMarkups: [MarkupType : AttributeState],
+        selectedHorizontalAlignment: [LayoutAlignment : AttributeState],
+        onMarkupAction: @escaping (MarkupViewModelAction) -> Void,
+        viewDidClose: @escaping () -> Void
+    )
     
     func showSettings()
     func showCoverPicker()

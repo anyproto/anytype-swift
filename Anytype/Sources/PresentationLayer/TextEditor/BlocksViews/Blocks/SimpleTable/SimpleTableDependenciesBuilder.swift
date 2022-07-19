@@ -17,6 +17,7 @@ final class SimpleTableDependenciesBuilder {
     private let markdownListener: MarkdownListener
     private let focusSubjectHolder: FocusSubjectsHolder
     private let tableService = BlockTableService()
+    private let responderScrollViewHelper: ResponderScrollViewHelper
 
     weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
     weak var viewInput: (EditorPageViewInput & RelativePositionProvider)?
@@ -29,7 +30,8 @@ final class SimpleTableDependenciesBuilder {
         markdownListener: MarkdownListener,
         focusSubjectHolder: FocusSubjectsHolder,
         viewInput: (EditorPageViewInput & RelativePositionProvider)?,
-        mainEditorSelectionManager: SimpleTableSelectionHandler?
+        mainEditorSelectionManager: SimpleTableSelectionHandler?,
+        responderScrollViewHelper: ResponderScrollViewHelper
     ) {
         self.document = document
         self.router = router
@@ -39,15 +41,20 @@ final class SimpleTableDependenciesBuilder {
         self.focusSubjectHolder = focusSubjectHolder
         self.viewInput = viewInput
         self.mainEditorSelectionManager = mainEditorSelectionManager
+        self.responderScrollViewHelper = responderScrollViewHelper
     }
 
     func buildDependenciesContainer(blockInformation: BlockInformation) -> SimpleTableDependenciesContainer {
+        let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
+
         let stateManager = SimpleTableStateManager(
             document: document,
             tableBlockInformation: blockInformation,
             tableService: tableService,
+            listService: BlockListService(contextId: document.objectId),
             router: router,
             actionHandler: handler,
+            cursorManager: cursorManager,
             mainEditorSelectionManager: mainEditorSelectionManager
         )
 
@@ -56,7 +63,7 @@ final class SimpleTableDependenciesBuilder {
             router: router,
             pasteboardService: pasteboardService,
             document: document,
-            onShowStyleMenu: { _ in } ,
+            onShowStyleMenu: stateManager.didSelectStyleSelection(info:),
             onBlockSelection: stateManager.didSelectEditingState(info:)
         )
 
@@ -64,8 +71,6 @@ final class SimpleTableDependenciesBuilder {
             viewInput: viewInput,
             accessoryState: simpleTablesAccessoryState
         )
-
-        let cursorManager = EditorCursorManager(focusSubjectHolder: focusSubjectHolder)
 
         let cellsBuilder = SimpleTableCellsBuilder(
             document: document,
@@ -75,7 +80,8 @@ final class SimpleTableDependenciesBuilder {
             delegate: simpleTablesBlockDelegate,
             markdownListener: markdownListener,
             cursorManager: cursorManager,
-            focusSubjectHolder: focusSubjectHolder
+            focusSubjectHolder: focusSubjectHolder,
+            responderScrollViewHelper: responderScrollViewHelper
         )
 
         let viewModel = SimpleTableViewModel(
