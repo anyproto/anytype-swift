@@ -133,6 +133,7 @@ final class BlocksSelectionOverlayView: UIView {
                 self.movingButtonsUIView.isHidden = true
                 self.shadowedSimpleTablesOptionView.isHidden = true
                 self.shadowedBlocksOptionView.isHidden = selectedBlocksCount == 0
+                return
             }
 
             self.isHidden = false
