@@ -4,7 +4,7 @@ import SwiftProtobuf
 import UIKit
 import SwiftUI
 
-final class SetFiltersSearchViewBuilder {
+final class SetFiltersContentViewBuilder {
     let filter: SetFilter
     
     init(filter: SetFilter) {
@@ -12,10 +12,29 @@ final class SetFiltersSearchViewBuilder {
     }
     
     @ViewBuilder
-    func buildSearchView(
+    func buildContentView(
+        onSelect: @escaping (_ ids: [String]) -> Void,
+        onApplyText: @escaping (_ text: String) -> Void,
+        onKeyboardHeightChange: @escaping (_ height: CGFloat) -> Void
+    ) -> some View {
+        switch filter.conditionType {
+        case let .selected(format):
+            buildSearchView(with: format, onSelect: onSelect)
+        case .text, .number:
+            buildTextView(onApplyText: onApplyText, onKeyboardHeightChange: onKeyboardHeightChange)
+        case .checkbox:
+            EmptyView()
+        }
+    }
+    
+    // MARK: - Private methods: Search
+    
+    @ViewBuilder
+    private func buildSearchView(
+        with format: RelationMetadata.Format,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
-        switch filter.metadata.format {
+        switch format {
         case .tag:
             buildTagsSearchView(onSelect: onSelect)
         case .object:
@@ -26,8 +45,6 @@ final class SetFiltersSearchViewBuilder {
             EmptyView()
         }
     }
-    
-    // MARK: - Private methods
     
     private func buildTagsSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
@@ -85,6 +102,21 @@ final class SetFiltersSearchViewBuilder {
             selectedStatusesIds: [],
             onSelect: onSelect,
             onCreate: { _ in }
+        )
+    }
+    
+    // MARK: - Private methods: Text
+    
+    func buildTextView(
+        onApplyText: @escaping (_ text: String) -> Void,
+        onKeyboardHeightChange: @escaping (_ height: CGFloat) -> Void
+    ) -> some View {
+        SetFiltersTextView(
+            viewModel: SetFiltersTextViewModel(
+                filter: filter,
+                onApplyText: onApplyText,
+                onKeyboardHeightChange: onKeyboardHeightChange
+            )
         )
     }
     

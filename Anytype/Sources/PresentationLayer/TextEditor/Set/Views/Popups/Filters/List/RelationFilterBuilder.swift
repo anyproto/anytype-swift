@@ -1,7 +1,6 @@
 import Foundation
 import BlocksModels
 import SwiftProtobuf
-import UIKit
 
 final class RelationFilterBuilder {
     
@@ -168,7 +167,7 @@ private extension RelationFilterBuilder {
                 isFeatured: false,
                 isEditable: false,
                 isBundled: metadata.isBundled,
-                value: "“\(filter.value.stringValue)“"
+                value: valueString(from: filter)
             )
         )
     }
@@ -177,12 +176,17 @@ private extension RelationFilterBuilder {
         metadata: RelationMetadata,
         filter: DataviewFilter
     ) -> Relation {
-        let numberValue: String? = {
-            guard let number = filter.value.safeDoubleValue else { return nil }
+        var numberValue: String? = {
+            guard let number = filter.value.safeDoubleValue,
+                    filter.condition.hasValues else {
+                return nil
+            }
             
             return numberFormatter.string(from: NSNumber(floatLiteral: number))
         }()
-        
+        if let numberValueString = numberValue {
+            numberValue = "“\(numberValueString)“"
+        }
         return .number(
             Relation.Text(
                 id: metadata.id,
@@ -190,7 +194,7 @@ private extension RelationFilterBuilder {
                 isFeatured: false,
                 isEditable: false,
                 isBundled: metadata.isBundled,
-                value: "“\(numberValue ?? "")“"
+                value: numberValue
             )
         )
     }
@@ -206,7 +210,7 @@ private extension RelationFilterBuilder {
                 isFeatured: false,
                 isEditable: false,
                 isBundled: metadata.isBundled,
-                value: "“\(filter.value.stringValue)“"
+                value: valueString(from: filter)
             )
         )
     }
@@ -222,7 +226,7 @@ private extension RelationFilterBuilder {
                 isFeatured: false,
                 isEditable: false,
                 isBundled: metadata.isBundled,
-                value: "“\(filter.value.stringValue)“"
+                value: valueString(from: filter)
             )
         )
     }
@@ -238,7 +242,7 @@ private extension RelationFilterBuilder {
                 isFeatured: false,
                 isEditable: false,
                 isBundled: metadata.isBundled,
-                value: "“\(filter.value.stringValue)“"
+                value: valueString(from: filter)
             )
         )
     }
@@ -404,5 +408,12 @@ private extension RelationFilterBuilder {
                 value: filter.value.boolValue
             )
         )
+    }
+    
+    private func valueString(from filter: DataviewFilter) -> String? {
+        guard filter.condition.hasValues else {
+            return nil
+        }
+        return "“\(filter.value.stringValue)“"
     }
 }
