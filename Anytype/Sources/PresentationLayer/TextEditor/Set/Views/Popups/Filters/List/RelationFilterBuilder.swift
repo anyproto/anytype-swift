@@ -1,7 +1,6 @@
 import Foundation
 import BlocksModels
 import SwiftProtobuf
-import UIKit
 
 final class RelationFilterBuilder {
     
