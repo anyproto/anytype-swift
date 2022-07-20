@@ -62,7 +62,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId) {
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
         assertionFailure()
     }
     

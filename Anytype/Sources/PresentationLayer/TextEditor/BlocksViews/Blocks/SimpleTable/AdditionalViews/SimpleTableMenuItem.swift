@@ -94,7 +94,6 @@ enum SimpleTableColumnMenuItem: CaseIterable {
         case .color:
             return BlockOptionImage.cellMenuColor
         case .style:
-            return UIImage.editorNavigation.lockedObject
             return UIImage.edititngToolbar.style
         }
     }
