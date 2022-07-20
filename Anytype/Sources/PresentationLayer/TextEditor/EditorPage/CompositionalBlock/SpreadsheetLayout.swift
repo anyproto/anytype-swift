@@ -12,6 +12,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     private weak var dataSource: SpreadsheetViewDataSource?
 
     var currentVisibleRect: CGRect = .zero
+
     weak var relativePositionProvider: RelativePositionProvider? {
         didSet {
             relativePositionProvider?
@@ -57,6 +58,14 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         fatalError("init(coder:) has not been implemented")
     }
 
+    func invalidateEverything() {
+        attributes.removeAll()
+        lastHashableItems = 0
+        lastSelectedIndexPaths = []
+        cachedSectionRowHeights.removeAll()
+        cachedSectionHeights.removeAll()
+    }
+
     override func layoutAttributesForElements(
         in rect: CGRect
     ) -> [UICollectionViewLayoutAttributes]? {
@@ -87,7 +96,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
 
         // Bad implementation
 
-        guard lastHashableItems != dataSource.allModels.hashValue || lastSelectedIndexPaths != selectedIndexPaths else {
+        guard lastHashableItems != dataSource.allModelsHash || lastSelectedIndexPaths != selectedIndexPaths else {
             return
         }
 
@@ -101,26 +110,27 @@ final class SpreadsheetLayout: UICollectionViewLayout {
             }
         }
 
-        self.lastHashableItems = dataSource.allModels.hashValue
+        self.lastHashableItems = dataSource.allModelsHash
         self.lastSelectedIndexPaths = selectedIndexPaths
 
     }
 
     override func prepare() {
-        guard let collectionView = collectionView, let dataSource = dataSource else {
+        guard let dataSource = dataSource else {
             return
         }
 
-        for sectionIndex in 0..<collectionView.numberOfSections {
+        for sectionIndex in 0..<dataSource.allModels.count {
             var sectionMaxHeight: CGFloat = 0
 
-            for rowIndex in 0..<collectionView.numberOfItems(inSection: sectionIndex) {
+            for rowIndex in 0..<dataSource.allModels[sectionIndex].count {
                 let indexPath = IndexPath(row: rowIndex, section: sectionIndex)
-                let columnWidth = itemWidths[rowIndex]
 
                 guard let item = dataSource.contentConfigurationProvider(at: indexPath) else {
                     continue
                 }
+                let columnWidth = itemWidths[rowIndex]
+
                 let hashable = item.spreadsheethashable(width: columnWidth)
 
                 let size: CGSize
@@ -158,11 +168,13 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     private func reloadAttributesCache() {
         attributes.removeAll()
 
-        guard let collectionView = collectionView else { return }
+        guard let dataSource = dataSource else {
+            return
+        }
 
         var fullHeight: CGFloat = 0
         var originY: CGFloat = 2
-        for sectionIndex in 0..<collectionView.numberOfSections {
+        for sectionIndex in 0..<dataSource.allModels.count {
             guard let maxSectionHeight = cachedSectionHeights[sectionIndex] else {
                         anytypeAssertionFailure(
                             "Reload attributes cache broken logic",
@@ -174,7 +186,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
             var originX: CGFloat = 2
             fullHeight = fullHeight + maxSectionHeight
 
-            for row in 0..<collectionView.numberOfItems(inSection: sectionIndex) {
+            for row in 0..<dataSource.allModels[sectionIndex].count {
                 let rowWidth = itemWidths[row]
                 let indexPath = IndexPath(row: row, section: sectionIndex)
 
@@ -198,7 +210,6 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         reselectSelectedCells()
 
         contentSize = .init(width: itemWidths.reduce(0, +) + 4, height: fullHeight + 10 + 2)
-        dataSource.map { lastHashableItems = $0.allModels.hashValue }
     }
 }
 

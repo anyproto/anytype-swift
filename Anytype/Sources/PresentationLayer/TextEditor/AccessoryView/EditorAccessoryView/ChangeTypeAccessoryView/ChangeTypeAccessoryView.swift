@@ -66,6 +66,7 @@ class ChangeTypeAccessoryView: UIView {
 
         let changeTypeViewHeightConstraint = changeTypeView.heightAnchor.constraint(equalToConstant: 96)
         changeTypeViewHeightConstraint.isActive = true
+        changeTypeViewHeightConstraint.priority = .init(rawValue: 999)
 
         changeTypeView.translatesAutoresizingMaskIntoConstraints = false
         translatesAutoresizingMaskIntoConstraints = false
