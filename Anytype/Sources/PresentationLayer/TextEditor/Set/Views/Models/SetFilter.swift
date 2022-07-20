@@ -28,21 +28,21 @@ struct SetFilter: Identifiable, Equatable, Hashable {
     static func conditionType(for metadata: RelationMetadata) -> Condition {
         switch metadata.format {
         case .shortText, .longText, .url, .email, .file, .unrecognized, .phone:
-            return .text
+            return .text(metadata.format)
         case .number, .date:
-            return .number
+            return .number(metadata.format)
         case .tag, .status, .object:
-            return .selected
+            return .selected(metadata.format)
         case .checkbox:
-            return .checkbox
+            return .checkbox(metadata.format)
         }
     }
     
     enum Condition {
-        case text
-        case number
-        case selected
-        case checkbox
+        case text(RelationMetadata.Format)
+        case number(RelationMetadata.Format)
+        case selected(RelationMetadata.Format)
+        case checkbox(RelationMetadata.Format)
         
         var data: [DataviewFilter.Condition: String] {
             switch self {

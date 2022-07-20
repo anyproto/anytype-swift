@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct SetFiltersSearchView<Content: View>: View {
-    @EnvironmentObject var viewModel: SetFiltersSearchViewModel
+struct SetFiltersSelectionView<Content: View>: View {
+    @EnvironmentObject var viewModel: SetFiltersSelectionViewModel
     
     private let content: Content
     
@@ -11,7 +11,7 @@ struct SetFiltersSearchView<Content: View>: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            SetFiltersSearchHeaderView(viewModel: viewModel.headerViewModel)
+            SetFiltersSelectionHeaderView(viewModel: viewModel.headerViewModel)
             switch viewModel.state {
             case .content:
                 content

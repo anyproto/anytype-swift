@@ -599,7 +599,7 @@ extension EditorRouter {
         filter: SetFilter,
         onApply: @escaping (SetFilter) -> Void
     ) {
-        let viewModel = SetFiltersSearchViewModel(
+        let viewModel = SetFiltersSelectionViewModel(
             filter: filter,
             router: self,
             onApply: { [weak self] filter in
