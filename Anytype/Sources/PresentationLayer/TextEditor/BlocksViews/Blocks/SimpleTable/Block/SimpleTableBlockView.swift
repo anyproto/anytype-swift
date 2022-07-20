@@ -26,11 +26,11 @@ final class SimpleTableBlockView: UIView, BlockContentView {
         setupSubview()
     }
 
-    func prepareForReuse() {
-        modelsSubscriptions.removeAll()
-    }
-
     func update(with configuration: SimpleTableBlockContentConfiguration) {
+        spreadsheetLayout.invalidateEverything()
+        dataSource.update(changes: [], allModels: [])
+        modelsSubscriptions.removeAll()
+
         let dependencies = configuration.dependenciesBuilder.buildDependenciesContainer(blockInformation: configuration.info)
 
         self.blockDelegate = dependencies.blockDelegate

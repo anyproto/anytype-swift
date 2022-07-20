@@ -6,7 +6,12 @@ final class SpreadsheetViewDataSource {
     typealias DataSource = UICollectionViewDiffableDataSource<Int, EditorItem>
     typealias Snapshot = NSDiffableDataSourceSnapshot<Int, EditorItem>
 
-    var allModels = [[EditorItem]]()
+    private(set) var allModelsHash: Int = 0
+    var allModels = [[EditorItem]]() {
+        didSet {
+            allModelsHash = allModels.hashValue
+        }
+    }
     private lazy var dataSource: DataSource = makeCollectionViewDataSource()
     private let collectionView: EditorCollectionView
 
