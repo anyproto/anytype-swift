@@ -65,6 +65,7 @@ final class ImageName {
             static let dots_divider = "slash_menu_dots_divider"
             static let line_divider = "slash_menu_line_divider"
             static let table_of_contents = "slash_menu_table_of_contents"
+            static let table = "slash_menu_table" 
         }
     }
 

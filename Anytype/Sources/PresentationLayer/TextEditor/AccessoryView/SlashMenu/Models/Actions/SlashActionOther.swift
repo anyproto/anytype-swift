@@ -33,7 +33,7 @@ enum SlashActionOther: CaseIterable, Equatable {
         case .tableOfContents:
             return ImageName.slashMenu.other.table_of_contents
         case .table:
-            return ImageName.slashMenu.other.line_divider
+            return ImageName.slashMenu.other.table
         }
     }
     
