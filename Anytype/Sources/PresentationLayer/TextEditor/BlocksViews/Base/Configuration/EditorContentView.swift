@@ -337,8 +337,8 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         }
 
         addSubview(selectionView) {
-            $0.pin(to: contentStackView, excluding: [.bottom], insets: .init(top: 0, left: -8, bottom: 0, right: 8))
-            $0.bottom.equal(to: blockView.bottomAnchor, constant: 0)
+            $0.pin(to: contentStackView, excluding: [.bottom], insets: blockConfiguration.selectionInsets)
+            $0.bottom.equal(to: blockView.bottomAnchor, constant: blockConfiguration.selectionInsets.bottom)
         }
 
         bringSubviewToFront(wrapperView)

@@ -2,11 +2,16 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
+final class SimpleTableHeightCacheContainer {
+    var cachedSectionRowHeights = [AnyHashable: CGFloat]()
+}
+
 struct SimpleTableDependenciesContainer {
     let blockDelegate: BlockDelegate?
     let relativePositionProvider: RelativePositionProvider?
     let stateManager: SimpleTableStateManager
     let viewModel: SimpleTableViewModel
+    let cacheContainer: SimpleTableHeightCacheContainer
 }
 
 final class SimpleTableDependenciesBuilder {
@@ -18,6 +23,7 @@ final class SimpleTableDependenciesBuilder {
     private let focusSubjectHolder: FocusSubjectsHolder
     private let tableService = BlockTableService()
     private let responderScrollViewHelper: ResponderScrollViewHelper
+    private let cacheContainer = SimpleTableHeightCacheContainer()
 
     weak var mainEditorSelectionManager: SimpleTableSelectionHandler?
     weak var viewInput: (EditorPageViewInput & RelativePositionProvider)?
@@ -96,7 +102,8 @@ final class SimpleTableDependenciesBuilder {
             blockDelegate: simpleTablesBlockDelegate,
             relativePositionProvider: viewInput,
             stateManager: stateManager,
-            viewModel: viewModel
+            viewModel: viewModel,
+            cacheContainer: cacheContainer
         )
     }
 }

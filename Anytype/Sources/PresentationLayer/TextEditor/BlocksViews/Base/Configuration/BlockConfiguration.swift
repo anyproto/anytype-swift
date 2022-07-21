@@ -6,8 +6,9 @@ protocol BlockConfiguration: Hashable, Dequebale where View.Configuration == Sel
     var hasOwnBackground: Bool { get }
 
     var isAnimationEnabled: Bool { get }
+    
     var contentInsets: UIEdgeInsets { get }
-
+    var selectionInsets: UIEdgeInsets { get }
     var spreadsheetInsets: UIEdgeInsets { get }
 }
 
@@ -15,7 +16,7 @@ extension BlockConfiguration {
     var hasOwnBackground: Bool { false }
 
     var contentInsets: UIEdgeInsets { .init(top: 2, left: 20, bottom: -2, right: -20) }
-
+    var selectionInsets: UIEdgeInsets { .init(top: 0, left: -8, bottom: 0, right: 8) }
     var spreadsheetInsets: UIEdgeInsets { .init(top: 9, left: 12, bottom: -9, right: -12) }
 
     var isAnimationEnabled: Bool { true }

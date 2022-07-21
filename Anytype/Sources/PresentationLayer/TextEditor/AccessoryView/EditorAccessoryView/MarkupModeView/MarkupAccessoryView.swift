@@ -85,8 +85,6 @@ final class MarkupAccessoryView: UIView {
                 self.colorView.removeFromSuperview()
                 self.colorView.containerView.removeFromSuperview()
             }
-
-            UISelectionFeedbackGenerator().selectionChanged()
         }.store(in: &cancellables)
     }
 

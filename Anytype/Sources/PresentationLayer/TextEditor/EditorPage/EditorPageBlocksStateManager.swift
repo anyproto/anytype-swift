@@ -198,7 +198,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
         switch element.content.type {
         case .file, .divider, .relation,
                 .dataView, .featuredRelations,
-                .bookmark, .smartblock, .text(.title):
+                .bookmark, .smartblock, .text(.title), .table:
             return false
         default:
             movingDestination = .object(element.blockId)

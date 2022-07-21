@@ -4,7 +4,7 @@ import Combine
 
 final class SimpleTableBlockView: UIView, BlockContentView {
     private lazy var dynamicLayoutView = DynamicCollectionLayoutView(frame: .zero)
-    private lazy var spreadsheetLayout = SpreadsheetLayout(dataSource: dataSource)
+    private lazy var spreadsheetLayout = SpreadsheetLayout()
     private lazy var dataSource = SpreadsheetViewDataSource(
         collectionView: dynamicLayoutView.collectionView
     )
@@ -27,16 +27,21 @@ final class SimpleTableBlockView: UIView, BlockContentView {
     }
 
     func update(with configuration: SimpleTableBlockContentConfiguration) {
+        viewModel = nil
         spreadsheetLayout.invalidateEverything()
-        dataSource.update(changes: [], allModels: [])
         modelsSubscriptions.removeAll()
+        dataSource.allModels = []
 
         let dependencies = configuration.dependenciesBuilder.buildDependenciesContainer(blockInformation: configuration.info)
 
+        self.spreadsheetLayout.dataSource = dataSource
+        self.spreadsheetLayout.cacheContainer = dependencies.cacheContainer
         self.blockDelegate = dependencies.blockDelegate
         self.viewModel = dependencies.viewModel
 
         collectionView.delegate = self
+        spreadsheetLayout.relativePositionProvider = dependencies.relativePositionProvider
+
         dynamicLayoutView.update(
             with: .init(
                 layoutHeightMemory: .none,
@@ -45,12 +50,9 @@ final class SimpleTableBlockView: UIView, BlockContentView {
             )
         )
 
-        modelsSubscriptions.removeAll()
         viewModel?.$widths.sink { [weak spreadsheetLayout] width in
             spreadsheetLayout?.itemWidths = width
         }.store(in: &modelsSubscriptions)
-
-        spreadsheetLayout.relativePositionProvider = dependencies.relativePositionProvider
 
         viewModel?.dataSource = dataSource
 
@@ -83,7 +85,6 @@ final class SimpleTableBlockView: UIView, BlockContentView {
             if case .editing = state {
                 isEditing = true
             }
-
 
             collectionView.isEditing = isEditing
         }.store(in: &cancellables)

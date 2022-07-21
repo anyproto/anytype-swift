@@ -9,12 +9,10 @@ protocol RelativePositionProvider: AnyObject {
 }
 
 final class SpreadsheetLayout: UICollectionViewLayout {
-    private weak var dataSource: SpreadsheetViewDataSource?
-
-    var currentVisibleRect: CGRect = .zero
-
+    weak var dataSource: SpreadsheetViewDataSource?
     weak var relativePositionProvider: RelativePositionProvider? {
         didSet {
+            cancellables.removeAll()
             relativePositionProvider?
                 .contentOffsetDidChangedStatePublisher
                 .sink { [weak self] _ in
@@ -22,15 +20,13 @@ final class SpreadsheetLayout: UICollectionViewLayout {
                 }.store(in: &cancellables)
         }
     }
-    private var cancellables = [AnyCancellable]()
-
+    var cacheContainer: SimpleTableHeightCacheContainer?
     var itemWidths = [CGFloat]() {
         didSet {
             reset()
         }
     }
 
-    private var cachedSectionRowHeights = [AnyHashable: CGFloat]()
     private var cachedSectionHeights = [Int: CGFloat]()
     private var attributes: [UICollectionViewLayoutAttributes] = []
     private var contentSize = CGSize.zero
@@ -40,30 +36,22 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     )
 
     override var collectionViewContentSize: CGSize { contentSize }
+    private var cancellables = [AnyCancellable]()
 
-    override class var invalidationContextClass: AnyClass {
-        SpreadsheetInvalidationContext.self
-    }
-
-    private var lastHashableItems = 0
-    private var lastSelectedIndexPaths = [IndexPath]()
-
-    init(dataSource: SpreadsheetViewDataSource) {
-        self.dataSource = dataSource
-
-        super.init()
-    }
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    private var lastSelectedAttributes = [UICollectionViewLayoutAttributes]()
 
     func invalidateEverything() {
+        dataSource = nil
+        cancellables.removeAll()
         attributes.removeAll()
-        lastHashableItems = 0
-        lastSelectedIndexPaths = []
-        cachedSectionRowHeights.removeAll()
         cachedSectionHeights.removeAll()
+        contentSize = .zero
+        lastSelectedAttributes.removeAll()
+    }
+
+    override func invalidateLayout() {
+        super.invalidateLayout()
+        attributes.removeAll()
     }
 
     override func layoutAttributesForElements(
@@ -91,16 +79,15 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     }
     
     func reselectSelectedCells() {
-        guard let collectionView = collectionView, let dataSource = dataSource else { return }
+        guard let collectionView = collectionView else { return }
         let selectedIndexPaths = collectionView.indexPathsForSelectedItems ?? []
 
-        // Bad implementation
+        let selectedAttributes = attributes.filter { selectedIndexPaths.contains($0.indexPath) }
+        let unionIndexPaths = SpreadsheetSelectionHelper.groupSelected(indexPaths: selectedIndexPaths)
 
-        guard lastHashableItems != dataSource.allModelsHash || lastSelectedIndexPaths != selectedIndexPaths else {
+        guard lastSelectedAttributes != selectedAttributes else {
             return
         }
-
-        let unionIndexPaths = SpreadsheetSelectionHelper.groupSelected(indexPaths: selectedIndexPaths)
 
         selectionAttributes.selectedRects = unionIndexPaths.map { indexPaths in // It could be slow. Need improvements.
             indexPaths.compactMap { indexPath in
@@ -110,9 +97,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
             }
         }
 
-        self.lastHashableItems = dataSource.allModelsHash
-        self.lastSelectedIndexPaths = selectedIndexPaths
-
+        lastSelectedAttributes = selectedAttributes
     }
 
     override func prepare() {
@@ -134,7 +119,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
                 let hashable = item.spreadsheethashable(width: columnWidth)
 
                 let size: CGSize
-                if let cachedValue = cachedSectionRowHeights[hashable] {
+                if let cachedValue = cacheContainer?.cachedSectionRowHeights[hashable] {
                     size = .init(width: columnWidth, height: cachedValue)
                 } else {
                     let cell = dataSource.dequeueCell(at: indexPath)
@@ -149,7 +134,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
                         verticalFittingPriority: .fittingSizeLevel
                     )
 
-                    cachedSectionRowHeights[hashable] = size.height
+                    cacheContainer?.cachedSectionRowHeights[hashable] = size.height
                 }
 
                 sectionMaxHeight = size.height > sectionMaxHeight ? size.height : sectionMaxHeight
@@ -162,7 +147,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
     }
 
     private func reset() {
-        cachedSectionHeights.removeAll()
+        prepare()
     }
 
     private func reloadAttributesCache() {
@@ -235,7 +220,7 @@ extension SpreadsheetLayout {
 
         let hashable = item.spreadsheethashable(width: columnWidth)
 
-        cachedSectionRowHeights[hashable] = size.height
+        cacheContainer?.cachedSectionRowHeights[hashable] = size.height
         prepare()
         invalidateLayout()
     }
@@ -243,6 +228,10 @@ extension SpreadsheetLayout {
 
 
 private extension ContentConfigurationProvider {
+    var asConfigurationHashable: AnyHashable {
+        (makeSpreadsheetConfiguration() as? HashableProvier)?.hashable ?? "" as AnyHashable
+    }
+
     func spreadsheethashable(width: CGFloat) -> AnyHashable {
         // Should be rewrited
         guard let configuration = makeSpreadsheetConfiguration() as? HashableProvier else {
