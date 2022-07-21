@@ -45,15 +45,13 @@ final class HomeViewModel: ObservableObject {
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
     
-    nonisolated init(homeBlockId: BlockId) {
+    init(homeBlockId: BlockId) {
         document = BaseDocument(objectId: homeBlockId)
-        Task { @MainActor in
-            setupSubscriptions()
+        setupSubscriptions()
         
-            let data = UserDefaultsConfig.screenDataFromLastSession
-            showingEditorScreenData = data != nil
-            openedEditorScreenData = data
-        }
+        let data = UserDefaultsConfig.screenDataFromLastSession
+        showingEditorScreenData = data != nil
+        openedEditorScreenData = data
     }
 
     // MARK: - View output

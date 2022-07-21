@@ -1,6 +1,7 @@
 import Combine
 import UIKit
 
+@MainActor
 final class DeletedAccountViewModel: ObservableObject {
     
     private let service = ServiceLocator.shared.authService()

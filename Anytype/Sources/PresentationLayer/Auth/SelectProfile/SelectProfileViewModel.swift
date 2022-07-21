@@ -2,6 +2,7 @@ import SwiftUI
 import Combine
 import ProtobufMessages
 
+@MainActor
 final class SelectProfileViewModel: ObservableObject {
     
     @Published var showError: Bool = false
