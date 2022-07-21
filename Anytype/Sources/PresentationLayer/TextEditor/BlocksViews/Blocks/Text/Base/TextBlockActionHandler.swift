@@ -73,7 +73,7 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
               textViewDidChangeCaretPosition: textViewDidChangeCaretPosition(range:),
               textViewShouldReplaceText: textViewShouldReplaceText(textView:replacementText:range:),
               toggleCheckBox: toggleCheckBox,
-              toggleDropDown: toggleCheckBox,
+              toggleDropDown: toggleDropdownView,
               tapOnCalloutIcon: showTextIconPicker
         )
     }
