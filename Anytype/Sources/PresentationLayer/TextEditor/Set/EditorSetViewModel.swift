@@ -333,11 +333,16 @@ extension EditorSetViewModel {
     }
     
     private func createDefaultObject() {
-        let availableTemplates = searchService.searchTemplates(
-            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
-        )
-        let hasSingleTemplate = availableTemplates?.count == 1
-        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+        let templateId: String
+        if let objectType = dataView.source.first {
+            let availableTemplates = searchService.searchTemplates(
+                for: .dynamic(objectType)
+            )
+            let hasSingleTemplate = availableTemplates?.count == 1
+            templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+        } else {
+            templateId = ""
+        }
 
         guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
         
