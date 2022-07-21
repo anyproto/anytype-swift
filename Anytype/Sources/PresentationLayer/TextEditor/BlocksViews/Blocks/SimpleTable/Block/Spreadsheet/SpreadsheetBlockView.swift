@@ -1,6 +1,6 @@
 import UIKit
 
-final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView, UIDragInteractionDelegate, DynamicHeightView {
+final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView, DynamicHeightView {
     typealias Configuration = SpreadsheetBlockConfiguration<View.Configuration>
 
     var heightDidChanged: (() -> Void)?
@@ -11,7 +11,7 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
                 blockConfiguration: blockConfiguration,
                 styleConfiguration: styleConfiguration,
                 currentConfigurationState: currentConfigurationState,
-                dragConfiguration: dragConfiguration
+                dragConfiguration: nil
             )
         }
         set {
@@ -28,8 +28,6 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
             if newConfiguration.styleConfiguration != styleConfiguration {
                 styleConfiguration = newConfiguration.styleConfiguration
             }
-
-            dragConfiguration = newConfiguration.dragConfiguration
         }
     }
 
@@ -45,12 +43,6 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
         }
     }
 
-    private var dragConfiguration: BlockDragConfiguration? {
-        didSet {
-            setupDragInteraction()
-        }
-    }
-
     private var currentConfigurationState: UICellConfigurationState? {
         didSet {
             currentConfigurationState.map {
@@ -62,12 +54,10 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
 
     private lazy var blockView = View(frame: .zero)
     private lazy var selectionView = SpreadsheetSelectionView()
-    private lazy var viewDragInteraction = UIDragInteraction(delegate: self)
 
     init(configuration: Configuration) {
         self.blockConfiguration = configuration.blockConfiguration
         self.currentConfigurationState = configuration.currentConfigurationState
-        self.dragConfiguration = configuration.dragConfiguration
         self.styleConfiguration = configuration.styleConfiguration
 
         super.init(frame: .zero)
@@ -77,7 +67,6 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
         blockView.update(with: configuration.blockConfiguration)
         configuration.currentConfigurationState.map { blockView.update(with: $0) }
 
-        setupDragInteraction()
         updateStyleConfiguration(configuration: styleConfiguration)
     }
 
@@ -93,26 +82,12 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
 
     private func update(with state: UICellConfigurationState) {
         isUserInteractionEnabled = state.isEditing
-        viewDragInteraction.isEnabled = !state.isLocked
         if state.isMoving {
             backgroundColor = UIColor.Background.blue
         } else {
             backgroundColor = styleConfiguration.backgroundColor
         }
     }
-
-    // MARK: - Drag&Drop
-
-    private func setupDragInteraction() {
-        return // Disabled
-        /*
-        guard dragConfiguration != nil, viewDragInteraction.view == nil else { return }
-
-        viewDragInteraction.isEnabled = currentConfigurationState.map { $0.isLocked } ?? true
-        addInteraction(viewDragInteraction)
-         */
-    }
-
 
     // MARK: - Subviews setup
 
@@ -150,23 +125,5 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
         addSubview(selectionView) {
             $0.pinToSuperview()
         }
-    }
-
-    // MARK: - UIDragInteractionDelegate
-
-    func dragInteraction(_ interaction: UIDragInteraction, itemsForBeginning session: UIDragSession) -> [UIDragItem] {
-        guard let dragConfiguration = dragConfiguration else {
-            return []
-        }
-
-        let provider = NSItemProvider(object: dragConfiguration.id as NSItemProviderWriting)
-        let item = UIDragItem(itemProvider: provider)
-        item.localObject = dragConfiguration
-
-        let dragPreview = UIDragPreview(view: self)
-
-        item.previewProvider = { dragPreview }
-
-        return [item]
     }
 }
