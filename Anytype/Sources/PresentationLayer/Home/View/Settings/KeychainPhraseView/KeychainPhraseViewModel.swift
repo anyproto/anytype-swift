@@ -14,8 +14,9 @@ class KeychainPhraseViewModel: ObservableObject {
             }
             
             DispatchQueue.main.async { [weak self] in
-                self?.recoveryPhrase = phrase
-                self?.onSuccessfullRecovery(recoveryPhrase: phrase, onTap: onTap)
+                guard let self = self else { return }
+                self.recoveryPhrase = phrase
+                self.onSuccessfullRecovery(recoveryPhrase: phrase, onTap: onTap)
             }
         }
     }
