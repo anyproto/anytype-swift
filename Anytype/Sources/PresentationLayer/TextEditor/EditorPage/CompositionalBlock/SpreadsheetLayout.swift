@@ -111,10 +111,10 @@ final class SpreadsheetLayout: UICollectionViewLayout {
             for rowIndex in 0..<dataSource.allModels[sectionIndex].count {
                 let indexPath = IndexPath(row: rowIndex, section: sectionIndex)
 
-                guard let item = dataSource.contentConfigurationProvider(at: indexPath) else {
+                guard let item = dataSource.contentConfigurationProvider(at: indexPath),
+                      let columnWidth = itemWidths[safe: rowIndex] else {
                     continue
                 }
-                let columnWidth = itemWidths[rowIndex]
 
                 let hashable = item.spreadsheethashable(width: columnWidth)
 
@@ -172,7 +172,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
             fullHeight = fullHeight + maxSectionHeight
 
             for row in 0..<dataSource.allModels[sectionIndex].count {
-                let rowWidth = itemWidths[row]
+                guard let rowWidth = itemWidths[safe: row] else { continue }
                 let indexPath = IndexPath(row: row, section: sectionIndex)
 
                 let rowLayoutAttributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
