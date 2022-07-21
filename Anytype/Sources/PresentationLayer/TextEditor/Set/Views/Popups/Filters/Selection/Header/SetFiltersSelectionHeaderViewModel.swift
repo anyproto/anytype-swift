@@ -1,8 +1,8 @@
 import SwiftUI
 import BlocksModels
 
-final class SetFiltersSearchHeaderViewModel: ObservableObject {
-    @Published var headerConfiguration: SetFiltersSearchHeaderConfiguration
+final class SetFiltersSelectionHeaderViewModel: ObservableObject {
+    @Published var headerConfiguration: SetFiltersSelectionHeaderConfiguration
     
     var onConditionChanged: ((DataviewFilter.Condition) -> Void)?
     
@@ -24,8 +24,8 @@ final class SetFiltersSearchHeaderViewModel: ObservableObject {
     
     // MARK: - Private methods
     
-    private static func headerConfiguration(with filter: SetFilter) -> SetFiltersSearchHeaderConfiguration {
-        SetFiltersSearchHeaderConfiguration(
+    private static func headerConfiguration(with filter: SetFilter) -> SetFiltersSelectionHeaderConfiguration {
+        SetFiltersSelectionHeaderConfiguration(
             id: filter.id,
             title: filter.metadata.name,
             condition: filter.conditionString ?? "",

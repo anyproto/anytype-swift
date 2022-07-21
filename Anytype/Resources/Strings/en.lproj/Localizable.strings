@@ -296,6 +296,7 @@
 // MARK: - Sets: Filters
 "EditFilters.Popup.NavigationView.Title" = "Filters";
 "EditFilters.Popup.EmptyView.Title" = "No filters here. You can add some";
+"EditFilters.Popup.TextView.Placeholder" = "Value";
 
 // MARK: - Sets: Filters.Conditions
 "EditSorts.Popup.Filter.Condition.Text.Equal" = "Is";

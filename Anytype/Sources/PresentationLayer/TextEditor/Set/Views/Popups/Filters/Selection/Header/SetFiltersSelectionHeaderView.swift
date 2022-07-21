@@ -1,7 +1,7 @@
 import SwiftUI
 
-struct SetFiltersSearchHeaderView: View {
-    @ObservedObject var viewModel: SetFiltersSearchHeaderViewModel
+struct SetFiltersSelectionHeaderView: View {
+    @ObservedObject var viewModel: SetFiltersSelectionHeaderViewModel
     
     var body: some View {
         HStack(spacing: 12) {

@@ -48,6 +48,7 @@ struct SetFilterRow: View {
             {
                 HStack(spacing: 8) {
                     AnytypeText(subtitle, style: .relation1Regular, color: .textSecondary)
+                        .layoutPriority(1)
                     RelationValueView(
                         relation: RelationItemModel(relation: configuration.relation),
                         style: .filter(hasValues: configuration.hasValues),

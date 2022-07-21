@@ -36,9 +36,10 @@ open class AnytypePopupLayout: FloatingPanelLayout {
 
 extension AnytypePopupLayout {
     
-    static func adjustedPopupHeight(_ height: CGFloat, insetted: Bool) -> CGFloat {
+    static func adjustedPopupHeight(_ height: CGFloat, insetted: Bool, needBottomInset: Bool) -> CGFloat {
         let adjustedHeight = height + AnytypePopup.Constants.grabberHeight
-        return adjustedHeight + AnytypePopup.Constants.bottomInset
+        let bottomInset = needBottomInset ? AnytypePopup.Constants.bottomInset : 0
+        return adjustedHeight + bottomInset
     }
     
 }
