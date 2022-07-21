@@ -11,7 +11,7 @@ import UIKit
 
 final class ResponderScrollViewHelper: KeyboardHeightListener {
 
-    private let scrollView: UIScrollView
+    private weak var scrollView: UIScrollView?
 
     init(scrollView: UIScrollView) {
         self.scrollView = scrollView
@@ -20,7 +20,7 @@ final class ResponderScrollViewHelper: KeyboardHeightListener {
     }
 
     func textViewDidBeginEditing(textView: UITextView) {
-        guard let window = textView.window else {
+        guard let window = textView.window, let scrollView = scrollView else {
             return
         }
 
@@ -32,8 +32,8 @@ final class ResponderScrollViewHelper: KeyboardHeightListener {
         let distance = textViewFrame.maxY - currentKeyboardFrame.minY
 
         if distance > -Constants.minSpacingAboveKeyboard {
-            UIView.animate(withDuration: CATransaction.animationDuration()) { [weak self] in
-                self?.scrollView.contentOffset.y += distance + Constants.minSpacingAboveKeyboard
+            UIView.animate(withDuration: CATransaction.animationDuration()) { [weak scrollView] in
+                scrollView?.contentOffset.y += distance + Constants.minSpacingAboveKeyboard
             }
         }
     }
