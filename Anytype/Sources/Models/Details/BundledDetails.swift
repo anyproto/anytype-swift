@@ -19,7 +19,6 @@ enum BundledDetails {
     case coverId(String)
     case coverType(CoverType)
     case type(ObjectTypeUrl)
-    case isDraft(Bool)
     case done(Bool)
 }
 
@@ -33,7 +32,6 @@ extension BundledDetails {
         case .coverId: return BundledRelationKey.coverId.rawValue
         case .coverType: return BundledRelationKey.coverType.rawValue
         case .type: return BundledRelationKey.type.rawValue
-        case .isDraft: return BundledRelationKey.isDraft.rawValue
         case .done: return BundledRelationKey.done.rawValue
         }
     }
@@ -46,7 +44,6 @@ extension BundledDetails {
         case .coverId(let string): return string.protobufValue
         case .coverType(let coverType): return coverType.rawValue.protobufValue
         case .type(let ObjectTypeUrl): return ObjectTypeUrl.rawValue.protobufValue
-        case .isDraft(let bool): return bool.protobufValue
         case .done(let bool): return bool.protobufValue
         }
     }

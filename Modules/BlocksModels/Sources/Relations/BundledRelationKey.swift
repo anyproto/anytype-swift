@@ -32,7 +32,6 @@ public enum BundledRelationKey: String {
     case isArchived
     case isHidden
     case isReadonly
-    case isDraft
     case isHighlighted
     
     case workspaceId

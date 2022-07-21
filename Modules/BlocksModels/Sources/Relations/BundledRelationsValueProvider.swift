@@ -21,7 +21,6 @@ public protocol BundledRelationsValueProvider {
     var layoutAlign: LayoutAlignment { get }
     var isDone: Bool { get }
     var type: String { get }
-    var isDraft: Bool { get }
     var isDeleted: Bool { get }
     var featuredRelations: [String] { get }
     var isSelectType: Bool { get }
@@ -102,10 +101,6 @@ public extension BundledRelationsValueProvider {
     
     var type: String {
         stringValue(with: .type)
-    }
-    
-    var isDraft: Bool {
-        boolValue(with: .isDraft)
     }
     
     var isDeleted: Bool {
