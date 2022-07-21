@@ -218,7 +218,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 blocksSelectionOverlayViewModel?.state = .moving
             case .editing:
                 movingBlocksIds.removeAll()
-            case .locked, .loading: break
+            case .locked, .loading:
                 break
             case let .simpleTablesSelection(_,  blocks, model):
                 blocksSelectionOverlayViewModel?.state = .simpleTableMenu(selectedBlocksCount: blocks.count, model: model)

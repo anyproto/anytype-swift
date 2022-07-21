@@ -105,10 +105,12 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
 
     private func setupDragInteraction() {
         return // Disabled
+        /*
         guard dragConfiguration != nil, viewDragInteraction.view == nil else { return }
 
         viewDragInteraction.isEnabled = currentConfigurationState.map { $0.isLocked } ?? true
         addInteraction(viewDragInteraction)
+         */
     }
 
 

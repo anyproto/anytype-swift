@@ -2,7 +2,7 @@ import BlocksModels
 import UIKit
 
 /// Input data for document view
-protocol EditorPageViewInput: AnyObject, RelativePositionProvider {
+protocol EditorPageViewInput: RelativePositionProvider {
     
     func update(header: ObjectHeader, details: ObjectDetails?)
     func update(changes: CollectionDifference<EditorItem>?)
