@@ -1,6 +1,7 @@
 import Foundation
 import AnytypeCore
 import SwiftProtobuf
+import ProtobufMessages
 
 public protocol BundledRelationsValueProvider {
     
@@ -23,6 +24,8 @@ public protocol BundledRelationsValueProvider {
     var isDraft: Bool { get }
     var isDeleted: Bool { get }
     var featuredRelations: [String] { get }
+    var isSelectType: Bool { get }
+    var isSelectTemplate: Bool { get }
 }
 
 
@@ -121,6 +124,15 @@ public extension BundledRelationsValueProvider {
         return ids
     }
     
+    var isSelectType: Bool {
+        return internalFlag(with: .editorSelectType)
+    }
+    
+    var isSelectTemplate: Bool {
+        return internalFlag(with: .editorSelectTemplate)
+    }
+    
+    // MARK: - Private
     
     private func stringValue(with key: BundledRelationKey) -> String {
         guard let value = values[key.rawValue] else { return "" }
@@ -130,5 +142,14 @@ public extension BundledRelationsValueProvider {
     private func boolValue(with key: BundledRelationKey) -> Bool {
         guard let value = values[key.rawValue] else { return false }
         return value.unwrapedListValue.boolValue
+    }
+    
+    private func internalFlag(with flag: Anytype_Model_InternalFlag.Value) -> Bool {
+        guard let value = values[BundledRelationKey.internalFlags.rawValue] else { return false }
+        let rawValues = value.listValue.values
+        let internalFlags = rawValues
+            .compactMap { $0.safeIntValue }
+            .compactMap { Anytype_Model_InternalFlag.Value(rawValue: $0) }
+        return internalFlags.contains(flag)
     }
 }
