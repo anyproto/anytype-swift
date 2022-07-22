@@ -4,6 +4,7 @@ final class WindowManager {
     static let shared = WindowManager()
     private let homeAssembly = HomeViewAssembly()
     
+    @MainActor
     func showHomeWindow() {
         windowHolder?.startNewRootView(homeAssembly.createHomeView())
     }
@@ -16,6 +17,7 @@ final class WindowManager {
         windowHolder?.startNewRootView(LaunchView())
     }
     
+    @MainActor
     func showDeletedAccountWindow(deadline: Date) {
         windowHolder?.startNewRootView(
             DeletedAccountView(
