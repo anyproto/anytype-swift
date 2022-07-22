@@ -8,11 +8,23 @@ platform :ios do
     setup_ci
     match(readonly: true)
 
+    desc "Runs all the tests"
+    scan(
+     devices: ["iPhone 8"], 
+      scheme: "AnytypeTests",
+      slack_url: "https://hooks.slack.com/services/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",
+      slack_only_on_failure: true,
+      fail_build: false,
+      derived_data_path: "./derived_data",
+      skip_build: true
+    )
+
     build_app(
       scheme: "Anytype", 
       configuration: "Dev-Release",
-      include_symbols: true,
-      use_system_scm: true
+      include_symbols: false,
+      use_system_scm: true,
+      derived_data_path: "./derived_data"
     )
 
   end

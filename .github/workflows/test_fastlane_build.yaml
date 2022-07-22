@@ -41,8 +41,8 @@ jobs:
         with:
           xcode-version: '13.4'
 
-      #- name: Download Middleware
-      #  run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
+      - name: Download Middleware
+       run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
       #- name: Run unit tests
       #  run: bundle exec fastlane tests
@@ -55,7 +55,7 @@ jobs:
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8
-          bundle exec fastlane dev
+          bundle exec fastlane test_build
         env:
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.SSH_KEY_FASTLANE_MATCH }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}
