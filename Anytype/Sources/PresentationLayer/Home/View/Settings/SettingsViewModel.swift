@@ -3,6 +3,7 @@ import ProtobufMessages
 import AnytypeCore
 import Combine
 
+@MainActor
 final class SettingsViewModel: ObservableObject {
     
     @Published var loggingOut = false
