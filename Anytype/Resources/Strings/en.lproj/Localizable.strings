@@ -323,8 +323,8 @@
 "EditSorts.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
 "EditSorts.Popup.Filter.Condition.General.None" = "All";
 
-"EditSorts.Popup.Filter.Value.Checked" = "checked";
-"EditSorts.Popup.Filter.Value.Unchecked" = "unchecked";
+"EditSet.Popup.Filter.Value.Checked" = "Checked";
+"EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
 
 // MARK: - Sets: Filters search
 "Set.Filters.Search.Button.Title" = "Apply";

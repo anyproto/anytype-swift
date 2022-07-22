@@ -812,6 +812,19 @@ internal enum Loc {
     }
   }
 
+  internal enum EditSet {
+    internal enum Popup {
+      internal enum Filter {
+        internal enum Value {
+          /// Checked
+          internal static let checked = Loc.tr("Localizable", "EditSet.Popup.Filter.Value.Checked")
+          /// Unchecked
+          internal static let unchecked = Loc.tr("Localizable", "EditSet.Popup.Filter.Value.Unchecked")
+        }
+      }
+    }
+  }
+
   internal enum EditSorts {
     internal enum Popup {
       internal enum EmptyView {
@@ -868,12 +881,6 @@ internal enum Loc {
             /// Doesn't contain
             internal static let notLike = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.NotLike")
           }
-        }
-        internal enum Value {
-          /// checked
-          internal static let checked = Loc.tr("Localizable", "EditSorts.Popup.Filter.Value.Checked")
-          /// unchecked
-          internal static let unchecked = Loc.tr("Localizable", "EditSorts.Popup.Filter.Value.Unchecked")
         }
       }
       internal enum NavigationView {
