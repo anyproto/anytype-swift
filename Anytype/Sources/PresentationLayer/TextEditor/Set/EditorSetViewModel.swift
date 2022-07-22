@@ -251,7 +251,10 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func url(from details: ObjectDetails) -> URL? {
-        let urlString = details.values[BundledRelationKey.url.rawValue]?.stringValue ?? ""
+        var urlString = details.values[BundledRelationKey.url.rawValue]?.stringValue ?? ""
+        if !urlString.isEncoded {
+            urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
+        }
         return URL(string: urlString)
     }
 }
