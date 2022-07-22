@@ -14,7 +14,6 @@ jobs:
     timeout-minutes: 35
 
     steps:
-      - name: Checkout branch
         uses: actions/checkout@v2.4.0
         with:
           ref: ${{ github.event.inputs.branch }}
