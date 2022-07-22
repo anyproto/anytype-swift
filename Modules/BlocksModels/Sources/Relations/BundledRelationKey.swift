@@ -26,12 +26,12 @@ public enum BundledRelationKey: String {
     case lastModifiedDate
     case addedDate
     case featuredRelations
+    case internalFlags
     
     case isDeleted
     case isArchived
     case isHidden
     case isReadonly
-    case isDraft
     case isHighlighted
     
     case workspaceId

@@ -82,10 +82,9 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func showDefaultView() {
         markupAccessoryView.selectionChanged(range: .zero)
 
-        let isDraft = document.details?.isDraft ?? false
-
-        if isDraft &&
-            document.isEmpty &&
+        let isSelectType = document.details?.isSelectType ?? false
+        
+        if isSelectType &&
             !document.objectRestrictions.objectRestriction.contains(.typechange),
             !didChangeTypeDismissByUser {
             showAccessoryView(.changeType(changeTypeView), animation: activeView.animation)

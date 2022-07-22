@@ -44,9 +44,13 @@ final class DataviewService: DataviewServiceProtocol {
     }
 
     func addRecord(templateId: BlockId) -> ObjectDetails? {
-        var protoFields = [String: Google_Protobuf_Value]()
-        protoFields[BundledRelationKey.isDraft.rawValue] = true
-
+        let internalFlags: [Int] = [
+            Anytype_Model_InternalFlag(value: .editorSelectTemplate).value.rawValue,
+            Anytype_Model_InternalFlag(value: .editorSelectType).value.rawValue
+        ]
+        let protoFields: [String: Google_Protobuf_Value] = [
+            BundledRelationKey.internalFlags.rawValue: internalFlags.protobufValue
+        ]
         let protobufStruct: Google_Protobuf_Struct = .init(fields: protoFields)
 
         let response = Anytype_Rpc.BlockDataviewRecord.Create.Service

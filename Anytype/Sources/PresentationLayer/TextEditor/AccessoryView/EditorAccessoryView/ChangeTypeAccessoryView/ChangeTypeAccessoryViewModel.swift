@@ -60,8 +60,8 @@ final class ChangeTypeAccessoryViewModel {
     }
 
     private func onObjectTap(object: ObjectDetails) {
-        let isDraft = document.details?.isDraft ?? false
-        if isDraft {
+        let isSelectTemplate = document.details?.isSelectTemplate ?? false
+        if isSelectTemplate {
             router.showTemplatesAvailabilityPopupIfNeeded(
                 document: document,
                 templatesTypeURL: .dynamic(object.id)

@@ -82,6 +82,8 @@ final class BlockActionService: BlockActionServiceProtocol {
             targetId: targetId,
             details: [.name(""), .type(type)],
             shouldDeleteEmptyObject: false,
+            shouldSelectType: false,
+            shouldSelectTemplate: false,
             position: position,
             templateId: ""
         ) else { return nil }
