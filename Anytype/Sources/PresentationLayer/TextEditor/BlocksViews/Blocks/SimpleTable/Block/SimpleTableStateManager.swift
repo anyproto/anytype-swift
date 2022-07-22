@@ -503,11 +503,11 @@ extension Array where Element == [ComputedTable.Cell] {
 private extension EditorItem {
      var blockId: BlockId? {
         switch self {
-        case .header(let objectHeader):
+        case .header:
             return nil
         case .block(let blockViewModel):
             return blockViewModel.blockId
-        case .system(let systemContentConfiguationProvider):
+        case .system:
             return nil
         }
     }
