@@ -1,4 +1,5 @@
-enum SetFiltersCheckboxState: CaseIterable, Identifiable {
+import Combine
+enum SetFiltersCheckboxValue: CaseIterable, Identifiable {
     case checked
     case unchecked
     

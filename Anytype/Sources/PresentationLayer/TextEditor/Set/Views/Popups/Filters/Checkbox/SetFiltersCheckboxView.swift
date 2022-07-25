@@ -14,33 +14,33 @@ struct SetFiltersCheckboxView: View {
     
     private var rows: some View {
         VStack(spacing: 0) {
-            ForEach(SetFiltersCheckboxState.allCases) { state in
+            ForEach(SetFiltersCheckboxValue.allCases) { value in
                 Button {
-                    viewModel.changeState()
+                    viewModel.changeState(with: value)
                 } label: {
-                    row(for: state)
+                    row(for: value)
                 }
                 .divider()
             }
         }
     }
     
-    private func row(for state: SetFiltersCheckboxState) -> some View {
+    private func row(for value: SetFiltersCheckboxValue) -> some View {
         HStack(spacing: 0) {
             AnytypeText(
-                state.title,
+                value.title,
                 style: .uxBodyRegular,
                 color: .textPrimary
             )
             Spacer()
-            icon(for: state)
+            icon(for: value)
         }
         .frame(height: 48)
     }
     
-    private func icon(for state: SetFiltersCheckboxState) -> some View {
+    private func icon(for value: SetFiltersCheckboxValue) -> some View {
         Group {
-            if viewModel.stateIsChecked(state) {
+            if viewModel.value == value {
                 icon
             } else {
                 EmptyView()

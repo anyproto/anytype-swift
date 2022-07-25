@@ -2,24 +2,23 @@ import SwiftUI
 import BlocksModels
 
 final class SetFiltersCheckboxViewModel: ObservableObject {
-    @Published var isChecked = true
+    @Published var value: SetFiltersCheckboxValue = .checked
     
     let onApplyCheckbox: (Bool) -> Void
     
     init(filter: SetFilter, onApplyCheckbox: @escaping (Bool) -> Void) {
-        self.isChecked = filter.filter.value.boolValue
+        self.value = filter.filter.value.boolValue ? .checked : .unchecked
         self.onApplyCheckbox = onApplyCheckbox
     }
     
-    func changeState() {
-        isChecked = !isChecked
+    func changeState(with value: SetFiltersCheckboxValue) {
+        guard self.value != value else {
+            return
+        }
+        self.value = value
     }
 
     func handleCheckbox() {
-        onApplyCheckbox(isChecked)
-    }
-    
-    func stateIsChecked(_ state: SetFiltersCheckboxState) -> Bool {
-        (state == .checked && isChecked) || (state == .unchecked && !isChecked)
+        onApplyCheckbox(value == .checked)
     }
 }

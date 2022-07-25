@@ -430,7 +430,7 @@
 		2E2D256628880EB300E3DFD1 /* SetFiltersContentHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D256528880EB300E3DFD1 /* SetFiltersContentHandler.swift */; };
 		2E2D256B288ACA3400E3DFD1 /* SetFiltersCheckboxView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D256A288ACA3400E3DFD1 /* SetFiltersCheckboxView.swift */; };
 		2E2D256D288ACA5100E3DFD1 /* SetFiltersCheckboxViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D256C288ACA5100E3DFD1 /* SetFiltersCheckboxViewModel.swift */; };
-		2E2D256F288AD08100E3DFD1 /* SetFiltersCheckboxState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D256E288AD08100E3DFD1 /* SetFiltersCheckboxState.swift */; };
+		2E2D256F288AD08100E3DFD1 /* SetFiltersCheckboxValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D256E288AD08100E3DFD1 /* SetFiltersCheckboxValue.swift */; };
 		2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */; };
 		2E330C54286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */; };
 		2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */; };
@@ -1521,7 +1521,7 @@
 		2E2D256528880EB300E3DFD1 /* SetFiltersContentHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersContentHandler.swift; sourceTree = "<group>"; };
 		2E2D256A288ACA3400E3DFD1 /* SetFiltersCheckboxView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersCheckboxView.swift; sourceTree = "<group>"; };
 		2E2D256C288ACA5100E3DFD1 /* SetFiltersCheckboxViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersCheckboxViewModel.swift; sourceTree = "<group>"; };
-		2E2D256E288AD08100E3DFD1 /* SetFiltersCheckboxState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersCheckboxState.swift; sourceTree = "<group>"; };
+		2E2D256E288AD08100E3DFD1 /* SetFiltersCheckboxValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersCheckboxValue.swift; sourceTree = "<group>"; };
 		2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookmarkViewModel.swift; sourceTree = "<group>"; };
 		2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObjectViewModelProtocol.swift; sourceTree = "<group>"; };
 		2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerContentType.swift; sourceTree = "<group>"; };
@@ -4151,7 +4151,7 @@
 			children = (
 				2E2D256A288ACA3400E3DFD1 /* SetFiltersCheckboxView.swift */,
 				2E2D256C288ACA5100E3DFD1 /* SetFiltersCheckboxViewModel.swift */,
-				2E2D256E288AD08100E3DFD1 /* SetFiltersCheckboxState.swift */,
+				2E2D256E288AD08100E3DFD1 /* SetFiltersCheckboxValue.swift */,
 			);
 			path = Checkbox;
 			sourceTree = "<group>";
@@ -7233,7 +7233,7 @@
 				EAC6BA9F262711D2004C8C06 /* BlockValidator.swift in Sources */,
 				C946681728462EB000A8A6F5 /* SimpleTableBlockView.swift in Sources */,
 				53F7449D27FB9006005C9BB0 /* ObjectPreviewIconMenuViewModel.swift in Sources */,
-				2E2D256F288AD08100E3DFD1 /* SetFiltersCheckboxState.swift in Sources */,
+				2E2D256F288AD08100E3DFD1 /* SetFiltersCheckboxValue.swift in Sources */,
 				3DB3EC642754FFF1002781DA /* DashboardLoadingAlert.swift in Sources */,
 				EA2F0D6D264EBA1B0039C1CB /* TextChangeType.swift in Sources */,
 				3D2F9C01271EA5FB0043C326 /* HomeViewModel+Selection.swift in Sources */,
