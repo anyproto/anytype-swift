@@ -40,6 +40,7 @@ final class BlockTableService: BlockTableServiceProtocol {
         rowsCount: Int,
         columnsCount: Int
     ) {
+        AnytypeAnalytics.instance().logCreateBlock(type: AnalyticsConstants.simpleTableBlock)
         let eventsBunch = Anytype_Rpc.BlockTable.Create.Service.invoke(
             contextID: contextId,
             targetID: targetId,
@@ -236,4 +237,8 @@ enum BlocksSortType {
             return .desc
         }
     }
+}
+
+private enum AnalyticsConstants {
+    static let simpleTableBlock = "simple_table"
 }

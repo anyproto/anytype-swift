@@ -20,7 +20,7 @@ enum BlocksModelsConverter {
         case .tableOfContents: return FeatureFlags.isTableOfContentsAvailable ? .tableOfContents : .unsupported
         case .table: return BlockContent.table
         case .tableColumn: return BlockContent.tableColumn
-        case .tableRow: return BlockContent.tableRow
+        case .tableRow(let data): return data.blockContent
         case .icon, .latex:
             return .unsupported
         }
@@ -55,7 +55,9 @@ enum BlocksModelsConverter {
                 domain: .blocksConverter
             )
             return nil
-        case .table, .tableRow, .tableColumn:
+        case .table:
+            return .table(Anytype_Model_Block.Content.Table())
+        case .tableRow, .tableColumn:
             anytypeAssertionFailure(
                 "Not suppoted",
                 domain: .blocksConverter
