@@ -40,14 +40,18 @@ struct SetFiltersCheckboxView: View {
     
     private func icon(for state: SetFiltersCheckboxState) -> some View {
         Group {
-            if state == viewModel.state {
-                Image.optionChecked
-                    .frame(width: 24, height: 24)
-                    .foregroundColor(.buttonSelected)
+            if viewModel.stateIsChecked(state) {
+                icon
             } else {
                 EmptyView()
             }
         }
+    }
+    
+    private var icon: some View {
+        Image.optionChecked
+            .frame(width: 24, height: 24)
+            .foregroundColor(.buttonSelected)
     }
     
     private var button: some View {
