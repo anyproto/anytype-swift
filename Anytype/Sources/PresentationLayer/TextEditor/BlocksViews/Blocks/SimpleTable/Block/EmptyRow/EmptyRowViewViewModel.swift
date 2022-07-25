@@ -7,7 +7,8 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
         [
             contextId,
             rowId,
-            columnId
+            columnId,
+            isHeaderRow
         ] as [AnyHashable]
     }
 
@@ -16,13 +17,15 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
         rowId: BlockId,
         columnId: BlockId,
         tablesService: BlockTableServiceProtocol,
-        cursorManager: EditorCursorManager
+        cursorManager: EditorCursorManager,
+        isHeaderRow: Bool
     ) {
         self.contextId = contextId
         self.rowId = rowId
         self.columnId = columnId
         self.tablesService = tablesService
         self.cursorManager = cursorManager
+        self.isHeaderRow = isHeaderRow
     }
 
     private let contextId: BlockId
@@ -30,6 +33,7 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     private let columnId: BlockId
     private let tablesService: BlockTableServiceProtocol
     private let cursorManager: EditorCursorManager
+    private let isHeaderRow: Bool
 
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
 
@@ -44,7 +48,7 @@ struct EmptyRowViewViewModel: SystemContentConfiguationProvider {
     func makeSpreadsheetConfiguration() -> UIContentConfiguration {
         emptyRowConfiguration().spreadsheetConfiguration(
             dragConfiguration: nil,
-            styleConfiguration: .init(backgroundColor: .backgroundPrimary)
+            styleConfiguration: .init(backgroundColor: isHeaderRow ? UIColor.headerRowColor : .backgroundPrimary)
         )
     }
 

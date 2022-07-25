@@ -124,7 +124,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         case .cell:
             horizontalListItems = SimpleTableCellMenuItem.allCases.map { item in
                 HorizontalListItem.init(
-                    id: "cell \(item.hashValue)",
+                    id: "\(UUID().uuidString) \(item.hashValue)", // sometimes SwiftUI view do not update items with equal hashes and action doesn't work. This class could be deinited whilte reusing cell.s
                     title: item.title,
                     image: .image(item.image),
                     action: { [weak self] in self?.handleCellAction(action: item) }
@@ -133,7 +133,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         case .row:
             horizontalListItems = SimpleTableRowMenuItem.allCases.map { item in
                 HorizontalListItem.init(
-                    id: "row \(item.hashValue)",
+                    id: "\(UUID().uuidString) \(item.hashValue)",
                     title: item.title,
                     image: .image(item.image),
                     action: { [weak self] in self?.handleRowAction(action: item) }
@@ -142,7 +142,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         case .column:
             horizontalListItems = SimpleTableColumnMenuItem.allCases.map { item in
                 HorizontalListItem.init(
-                    id: "column \(item.hashValue)",
+                    id: "\(UUID().uuidString) \(item.hashValue)",
                     title: item.title,
                     image: .image(item.image),
                     action: { [weak self] in self?.handleColumnAction(action: item) }

@@ -54,14 +54,14 @@ final class SimpleTableCellsBuilder {
         return computedTable.cells.map {
             $0.map { item in
                 guard let blockInformation = item.blockInformation else {
-                    return makeEmptyContentCellConfiguration(columnId: item.columnId, rowId: item.rowId)
+                    return makeEmptyContentCellConfiguration(columnId: item.columnId, rowId: item.rowId, isHeaderRow: item.isHeaderRow)
                 }
                 switch item.blockInformation?.content {
                 case let .text(content):
-                    return textBlockConfiguration(information: blockInformation, content: content, table: computedTable)
+                    return textBlockConfiguration(information: blockInformation, content: content, table: computedTable, isHeaderRow: item.isHeaderRow)
                 default:
                     anytypeAssertionFailure("Wrong path", domain: .simpleTables)
-                    return makeEmptyContentCellConfiguration(columnId: item.columnId, rowId: item.rowId)
+                    return makeEmptyContentCellConfiguration(columnId: item.columnId, rowId: item.rowId, isHeaderRow: item.isHeaderRow)
                 }
             }
         }
@@ -69,7 +69,8 @@ final class SimpleTableCellsBuilder {
 
     private func makeEmptyContentCellConfiguration(
         columnId: BlockId,
-        rowId: BlockId
+        rowId: BlockId,
+        isHeaderRow: Bool
     ) -> EditorItem {
         .system(
             EmptyRowViewViewModel(
@@ -77,12 +78,18 @@ final class SimpleTableCellsBuilder {
                 rowId: rowId,
                 columnId: columnId,
                 tablesService: blockTableService,
-                cursorManager: cursorManager
+                cursorManager: cursorManager,
+                isHeaderRow: isHeaderRow
             )
         )
     }
 
-    private func textBlockConfiguration(information: BlockInformation, content: BlockText, table: ComputedTable) -> EditorItem {
+    private func textBlockConfiguration(
+        information: BlockInformation,
+        content: BlockText,
+        table: ComputedTable,
+        isHeaderRow: Bool
+    ) -> EditorItem {
         let isCheckable = content.contentType == .title ? document.details?.layout == .todo : false
 
         let textBlockActionHandler = SimpleTablesTextBlockActionHandler(
@@ -106,9 +113,6 @@ final class SimpleTableCellsBuilder {
                 router?.hideWaitingView()
             },
             content: content,
-            showURLBookmarkPopup: { [weak router] parameters in
-                router?.showLinkContextualMenu(inputParameters: parameters)
-            },
             actionHandler: handler,
             pasteboardService: pasteboardService,
             markdownListener: markdownListener,
@@ -124,7 +128,8 @@ final class SimpleTableCellsBuilder {
             content: content,
             isCheckable: isCheckable,
             focusSubject: focusSubjectHolder.focusSubject(for: information.id),
-            actionHandler: textBlockActionHandler
+            actionHandler: textBlockActionHandler,
+            customBackgroundColor: isHeaderRow ? UIColor.headerRowColor : nil
         )
 
         return EditorItem.block(viewModel)
@@ -170,6 +175,7 @@ struct ComputedTable {
         var blockId: BlockId { "\(rowId)-\(columnId)" }
         let rowId: BlockId
         let columnId: BlockId
+        let isHeaderRow: Bool
         let blockInformation: BlockInformation?
     }
 
@@ -191,14 +197,14 @@ struct ComputedTable {
                 return nil
             }
 
-            if childInformation.content == .tableRow {
+            if case let .tableRow(tableRow) = childInformation.content {
                 var rowBlocks = [Cell]()
 
                 for columnIndex in 0..<numberOfColumns {
                     let columnId = tableColumnsBlockInfo.childrenIds[columnIndex]
 
                     let child = infoContainer.get(id: "\(rowId)-\(columnId)")
-                    let cell = Cell(rowId: rowId, columnId: columnId, blockInformation: child)
+                    let cell = Cell(rowId: rowId, columnId: columnId, isHeaderRow: tableRow.isHeader, blockInformation: child)
                     rowBlocks.append(cell)
                 }
 
@@ -249,5 +255,11 @@ extension ComputedTable {
         cells.compactMap {
             $0.first.map { $0.rowId }
         }
+    }
+}
+
+extension UIColor {
+    static var headerRowColor: UIColor {
+        UIColor(hexString: "#353a3a").withAlphaComponent(0.3)
     }
 }

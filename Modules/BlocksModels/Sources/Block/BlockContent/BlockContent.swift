@@ -1,6 +1,5 @@
 import Foundation
 
-
 public enum BlockContent: Hashable, CustomStringConvertible {
     case smartblock(BlockSmartblock)
     case text(BlockText)
@@ -15,7 +14,7 @@ public enum BlockContent: Hashable, CustomStringConvertible {
     case tableOfContents
     case table
     case tableColumn
-    case tableRow
+    case tableRow(BlockTableRow)
     case unsupported
     
     public var type: BlockContentType {

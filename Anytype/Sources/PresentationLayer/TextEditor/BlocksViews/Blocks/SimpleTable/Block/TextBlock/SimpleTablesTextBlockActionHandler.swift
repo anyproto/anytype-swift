@@ -13,9 +13,7 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
     private let showWaitingView: (String) -> Void
     private let hideWaitingView: () -> Void
     private let onKeyboardAction: (CustomTextView.KeyboardAction) -> Void
-
     private let content: BlockText
-    private let showURLBookmarkPopup: (TextBlockURLInputParameters) -> Void
     private let actionHandler: BlockActionHandlerProtocol
     private let pasteboardService: PasteboardServiceProtocol
     private let mentionDetecter = MentionTextDetector()
@@ -32,7 +30,6 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         showWaitingView: @escaping (String) -> Void,
         hideWaitingView: @escaping () -> Void,
         content: BlockText,
-        showURLBookmarkPopup: @escaping (TextBlockURLInputParameters) -> Void,
         actionHandler: BlockActionHandlerProtocol,
         pasteboardService: PasteboardServiceProtocol,
         markdownListener: MarkdownListener,
@@ -47,7 +44,6 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         self.showWaitingView = showWaitingView
         self.hideWaitingView = hideWaitingView
         self.content = content
-        self.showURLBookmarkPopup = showURLBookmarkPopup
         self.actionHandler = actionHandler
         self.pasteboardService = pasteboardService
         self.markdownListener = markdownListener
@@ -151,7 +147,6 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         range: NSRange
     ) -> Bool {
         let previousTypingAttributes = textView.typingAttributes
-        let originalAttributedString = textView.attributedText
         let trimmedText = replacementText.trimmed
         var urlString = trimmedText
 
@@ -173,32 +168,6 @@ struct SimpleTablesTextBlockActionHandler: TextBlockActionHandlerProtocol {
         actionHandler.changeTextForced(newText, blockId: info.id)
         textView.attributedText = newText
         textView.typingAttributes = previousTypingAttributes
-
-        let replacementRange = NSRange(location: range.location, length: trimmedText.count)
-
-        guard let textRect = textView.textRectForRange(range: replacementRange) else { return true }
-
-        let urlIputParameters = TextBlockURLInputParameters(
-            textView: textView,
-            rect: textRect) { option in
-                switch option {
-                case .createBookmark:
-                    let position: BlockPosition = textView.text == trimmedText ?
-                        .replace : .bottom
-                    actionHandler.createAndFetchBookmark(
-                        targetID: info.id,
-                        position: position,
-                        url: url.absoluteString
-                    )
-
-                    originalAttributedString.map {
-                        actionHandler.changeTextForced($0, blockId: info.id)
-                    }
-                case .dismiss:
-                    break
-                }
-            }
-        showURLBookmarkPopup(urlIputParameters)
 
         return true
     }
