@@ -15,6 +15,7 @@ final class SetFiltersContentViewBuilder {
     func buildContentView(
         onSelect: @escaping (_ ids: [String]) -> Void,
         onApplyText: @escaping (_ text: String) -> Void,
+        onApplyCheckbox: @escaping (Bool) -> Void,
         onKeyboardHeightChange: @escaping (_ height: CGFloat) -> Void
     ) -> some View {
         switch filter.conditionType {
@@ -23,7 +24,7 @@ final class SetFiltersContentViewBuilder {
         case .text, .number:
             buildTextView(onApplyText: onApplyText, onKeyboardHeightChange: onKeyboardHeightChange)
         case .checkbox:
-            EmptyView()
+            buildCheckboxView(onApplyCheckbox: onApplyCheckbox)
         }
     }
     
@@ -116,6 +117,19 @@ final class SetFiltersContentViewBuilder {
                 filter: filter,
                 onApplyText: onApplyText,
                 onKeyboardHeightChange: onKeyboardHeightChange
+            )
+        )
+    }
+    
+    // MARK: - Private methods: Checkbox
+    
+    func buildCheckboxView(
+        onApplyCheckbox: @escaping (Bool) -> Void
+    ) -> some View {
+        SetFiltersCheckboxView(
+            viewModel: SetFiltersCheckboxViewModel(
+                filter: filter,
+                onApplyCheckbox: onApplyCheckbox
             )
         )
     }
