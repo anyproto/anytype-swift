@@ -52,7 +52,7 @@
 // MARK: - Implementation Details
 {% if resourceCount.image > 0 %}
 
-{{accessModifier}} struct {{imageType}} {
+{{accessModifier}} struct {{imageType}}: Hashable {
   {{accessModifier}} let name: String
 }
 {% endif %}

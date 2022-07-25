@@ -13,7 +13,8 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
     
     func todoImage(isChecked: Bool, imageGuideline: ImageGuideline) -> UIImage {
         let hash = "todo.\(isChecked).\(imageGuideline.identifier)"
-        let image = isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
+        let image = UIImage(asset: isChecked ? .todoCheckmark : .todoCheckbox) ?? UIImage()
+//        let image = isChecked ?   UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
         return draw(hash: hash, image: image, imageGuideline: imageGuideline)
     }
     

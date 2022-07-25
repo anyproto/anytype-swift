@@ -6,5 +6,6 @@ enum ObjectIconImage: Hashable {
     case todo(Bool)
     case placeholder(Character?)
     case staticImage(String)
+    case imageAsset(ImageAsset)
     case image(UIImage)
 }

@@ -49,6 +49,8 @@ extension ObjectIconAttachementLoader {
             setImage(image: image, processor: processor)
         case .image(let image):
             setImage(image: image, processor: processor)
+        case .imageAsset(let imageAsset):
+            setImage(image: UIImage(asset: imageAsset), processor: processor)
         }
     }
     

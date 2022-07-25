@@ -126,7 +126,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
                 HorizontalListItem.init(
                     id: "cell \(item.hashValue)",
                     title: item.title,
-                    image: .image(item.image),
+                    image: .imageAsset(item.imageAsset),
                     action: { [weak self] in self?.handleCellAction(action: item) }
                 )
             }
@@ -135,7 +135,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
                 HorizontalListItem.init(
                     id: "row \(item.hashValue)",
                     title: item.title,
-                    image: .image(item.image),
+                    image: .imageAsset(item.imageAsset),
                     action: { [weak self] in self?.handleRowAction(action: item) }
                 )
             }
@@ -144,7 +144,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
                 HorizontalListItem.init(
                     id: "column \(item.hashValue)",
                     title: item.title,
-                    image: .image(item.image),
+                    image: .imageAsset(item.imageAsset),
                     action: { [weak self] in self?.handleColumnAction(action: item) }
                 )
             }

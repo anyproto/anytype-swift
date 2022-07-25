@@ -26,7 +26,7 @@ struct ObjectIconImageGuidelineSet {
             return placeholderImageGuideline
         case .staticImage:
             return staticImageGuideline
-        case .image:
+        case .image, .imageAsset:
             return nil
         }
     }

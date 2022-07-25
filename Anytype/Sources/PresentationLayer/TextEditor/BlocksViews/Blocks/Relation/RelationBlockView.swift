@@ -8,7 +8,7 @@ final class RelationBlockView: UIView, BlockContentView {
     private let relationValueView = RelationValueViewUIKit()
 
     private let relationNameView = AnytypeLabel(style: .relation1Regular)
-    private let relationLockedView = UIImageView(image: .Relations.Icons.locked)
+    private let relationLockedView = UIImageView(asset: .relationLocked)
     private let containerView = UIView()
     private let relationNameStack = UIStackView()
 

@@ -4,8 +4,12 @@ import SwiftUI
 import AnytypeCore
 
 extension UIImage {
+    convenience init?(asset: ImageAsset) {
+        self.init(named: asset.name, in: BundleToken.bundle, compatibleWith: nil)
+    }
+    
     static func from(asset: ImageAsset) -> UIImage {
-        guard let image = UIImage(named: asset.name, in: BundleToken.bundle, compatibleWith: nil) else {
+        guard let image = UIImage(asset: asset) else {
             anytypeAssertionFailure("No image named: \(asset.name)", domain: .imageCreation)
             return UIImage()
         }
@@ -15,7 +19,7 @@ extension UIImage {
 
 extension UIImageView {
     convenience init(asset: ImageAsset) {
-        let image = UIImage.from(asset: asset)
+        let image = UIImage(asset: asset)
         self.init(image: image)
     }
 }
@@ -26,8 +30,6 @@ extension Image {
     }
 }
 
-
-// swiftlint:disable convenience_type
 private final class BundleToken {
   static let bundle: Bundle = {
     #if SWIFT_PACKAGE

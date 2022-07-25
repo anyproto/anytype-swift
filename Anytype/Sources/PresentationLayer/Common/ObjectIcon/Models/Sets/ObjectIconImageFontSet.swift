@@ -28,7 +28,7 @@ struct ObjectIconImageFontSet {
             }
         case .placeholder:
             return placeholderImageFont
-        case .todo, .image, .staticImage:
+        case .todo, .image, .staticImage, .imageAsset:
             return nil
         }
     }

@@ -6,7 +6,7 @@
 //  Copyright © 2021 Anytype. All rights reserved.
 //
 
-import SwiftUI
+import Foundation
 
 
 extension MarkupAccessoryViewModel {
@@ -35,20 +35,20 @@ extension MarkupAccessoryViewModel {
 
 extension MarkupAccessoryViewModel.MarkupKind {
 
-    var icon: Image {
+    var iconAsset: ImageAsset {
         switch self {
         case .fontStyle(.bold):
-            return Image(uiImage: .textAttributes.bold)
+            return .TextAttributes.bold
         case .fontStyle(.italic):
-            return Image(uiImage: .textAttributes.italic)
+            return .TextAttributes.italic
         case .fontStyle(.strikethrough):
-            return Image(uiImage: .textAttributes.strikethrough)
+            return .TextAttributes.strikethrough
         case .fontStyle(.keyboard):
-            return Image(uiImage: .textAttributes.code)
+            return .TextAttributes.code
         case .link:
-            return Image(uiImage: .textAttributes.url)
+            return .TextAttributes.url
         case .color:
-            return Image(uiImage: .textAttributes.color)
+            return .StyleBottomSheet.color
         }
     }
 

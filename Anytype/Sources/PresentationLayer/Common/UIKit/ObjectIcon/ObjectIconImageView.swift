@@ -58,6 +58,8 @@ extension ObjectIconImageView: ConfigurableView {
             imageView.wrapper.setImage(image)
         case .image(let image):
             imageView.wrapper.setImage(image)
+        case .imageAsset(let imageAsset):
+            imageView.wrapper.setImage(UIImage(asset: imageAsset))
         }
 
         currentModel = model

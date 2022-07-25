@@ -6,7 +6,7 @@ extension Image {
     static let appIcon = createImage("AppIcon")
     static let oldSchoolAppIcon = Image(uiImage: UIImage(imageLiteralResourceName: "oldSchool")) 
     static let artAppIcon = Image(uiImage: UIImage(imageLiteralResourceName: "art"))
-    static let logo = createImage("logo")
+//    static let logo = createImage("logo")
     static let splashLogo = createImage("splash_logo")
     
     static let arrow = createImage("arrowForward")

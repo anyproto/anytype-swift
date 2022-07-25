@@ -240,7 +240,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             HorizontalListItem(
                 id: "\(item.hashValue)",
                 title: item.title,
-                image: .image(item.image)
+                image: .imageAsset(item.imageAsset)
             ) { [weak self] in
                 self?.handleBlocksOptionItemSelection(item)
             }

@@ -231,6 +231,6 @@ internal extension ImageAsset {
 
 // MARK: - Implementation Details
 
-internal struct ImageAsset {
+internal struct ImageAsset: Hashable {
   internal let name: String
 }
