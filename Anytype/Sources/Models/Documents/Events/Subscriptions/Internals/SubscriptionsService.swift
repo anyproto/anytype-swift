@@ -46,11 +46,13 @@ final class SubscriptionsService: SubscriptionsServiceProtocol {
         
         turnedOnSubs[data.identifier] = update
         
-        guard let (details, count) = toggler.startSubscription(data: data) else { return }
+        guard let result = toggler.startSubscription(data: data) else { return }
         
-        details.forEach { storage.amend(details: $0) }
-        update(data.identifier, .initialData(details))
-        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(count)))
+        result.records.forEach { storage.amend(details: $0) }
+        result.dependencies.forEach { storage.amend(details: $0) }
+        
+        update(data.identifier, .initialData(result.records))
+        update(data.identifier, .pageCount(numberOfPagesFromTotalCount(result.count)))
     }
  
     // MARK: - Private
