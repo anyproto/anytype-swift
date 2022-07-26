@@ -22,6 +22,10 @@ final class TextRelationDetailsViewModel: ObservableObject {
         }
     }
     
+    var isEditable: Bool {
+        return relation.isEditable
+    }
+    
     let type: TextRelationDetailsViewType
     
     let actionButtonViewModel: TextRelationActionButtonViewModel?
