@@ -17,7 +17,7 @@ struct RelationObjectsRowView: View {
     private var icon: some View {
         Group {
             if object.isDeleted {
-                Image.ghost.resizable().frame(width: 28, height: 28)
+                Image(asset: .ghost).resizable().frame(width: 28, height: 28)
             } else {
                 SwiftUIObjectIconImageView(
                     iconImage: object.icon,

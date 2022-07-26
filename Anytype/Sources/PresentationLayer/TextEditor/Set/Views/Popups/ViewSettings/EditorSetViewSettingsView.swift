@@ -46,7 +46,7 @@ struct EditorSetViewSettingsView: View {
                     withAnimation { editMode = .inactive }
                     model.showAddNewRelationView()
                 }) {
-                    Image.plus
+                    Image(asset: .plus)
                 }
             }
         }

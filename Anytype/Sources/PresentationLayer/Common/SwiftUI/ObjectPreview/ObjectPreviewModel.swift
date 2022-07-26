@@ -6,7 +6,6 @@
 //  Copyright © 2022 Anytype. All rights reserved.
 //
 
-import SwiftUI
 import BlocksModels
 import OrderedCollections
 
@@ -169,12 +168,12 @@ extension ObjectPreviewModel {
             }
         }
 
-        var iconName: String {
+        var iconAsset: ImageAsset {
             switch self {
             case .text:
-                return ImageName.ObjectPreview.text
+                return .text
             case .card:
-                return ImageName.ObjectPreview.card
+                return .card
             }
         }
     }

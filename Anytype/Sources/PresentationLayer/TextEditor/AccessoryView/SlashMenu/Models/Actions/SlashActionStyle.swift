@@ -53,38 +53,38 @@ enum SlashActionStyle: CaseIterable {
         }
     }
     
-    var iconName: String {
+    var iconAsset: ImageAsset {
         switch self {
         case .text:
-            return ImageName.slashMenu.style.text
+            return .slashMenuStyleText
         case .title:
-            return ImageName.slashMenu.style.title
+            return .slashMenuStyleTitle
         case .heading:
-            return ImageName.slashMenu.style.heading
+            return .slashMenuStyleHeading
         case .subheading:
-            return ImageName.slashMenu.style.subheading
+            return .slashMenuStyleSubheading
         case .highlighted:
-            return ImageName.slashMenu.style.highlighted
+            return .slashMenuStyleHighlighted
         case .callout:
-            return ImageName.slashMenu.style.callout
+            return .slashMenuStyleCallout
         case .checkbox:
-            return ImageName.slashMenu.style.checkbox
+            return .slashMenuStyleCheckbox
         case .bulleted:
-            return ImageName.slashMenu.style.bulleted
+            return .slashMenuStyleBulleted
         case .numberedList:
-            return ImageName.slashMenu.style.numbered
+            return .slashMenuStyleNumbered
         case .toggle:
-            return ImageName.slashMenu.style.toggle
+            return .slashMenuStyleToggle
         case .bold:
-            return ImageName.slashMenu.style.bold
+            return .slashMenuStyleBold
         case .italic:
-            return ImageName.slashMenu.style.italic
+            return .slashMenuStyleItalic
         case .strikethrough:
-            return ImageName.slashMenu.style.strikethrough
+            return .slashMenuStyleStrikethrough
         case .code:
-            return ImageName.slashMenu.style.code
+            return .slashMenuStyleCode
         case .link:
-            return ImageName.slashMenu.style.link
+            return .slashMenuStyleLink
         }
     }
     

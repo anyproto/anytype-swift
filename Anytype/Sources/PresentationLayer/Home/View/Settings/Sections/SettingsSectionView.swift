@@ -8,25 +8,25 @@ struct SettingsSectionView: View {
         VStack(spacing: 0) {
             SettingsSectionItemView(
                 name: Loc.accountData,
-                icon: .settings.account,
+                imageAsset: .settingsAccountAndData,
                 pressed: $viewModel.account
             )
             
             SettingsSectionItemView(
                 name: Loc.personalization,
-                icon: .settings.personalization,
+                imageAsset: .settingsPersonalization,
                 pressed: $viewModel.personalization
             )
             
             SettingsSectionItemView(
                 name: Loc.appearance,
-                icon: .settings.appearance,
+                imageAsset: .settingsAppearance,
                 pressed: $viewModel.appearance
             )
 
             SettingsSectionItemView(
                 name: Loc.about,
-                icon: .settings.about,
+                imageAsset: .settingsAbout,
                 pressed: $viewModel.about
             )
             
@@ -37,7 +37,7 @@ struct SettingsSectionView: View {
             #if !RELEASE
             SettingsSectionItemView(
                 name: "Debug",
-                icon: .settings.debug,
+                imageAsset: .settingsDebug,
                 pressed: $viewModel.debugMenu
             )
             #endif

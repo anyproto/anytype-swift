@@ -28,6 +28,10 @@ extension Image {
     init(asset: ImageAsset) {
         self.init(asset.name, bundle: BundleToken.bundle)
     }
+    
+    init(systemAsset: SystemImageAsset) {
+        self.init(systemName: systemAsset.name)
+    }
 }
 
 private final class BundleToken {

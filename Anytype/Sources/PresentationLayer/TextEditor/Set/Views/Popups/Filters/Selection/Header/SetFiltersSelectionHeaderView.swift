@@ -20,7 +20,7 @@ struct SetFiltersSelectionHeaderView: View {
                 } label: {
                     HStack(alignment: .center, spacing: 5) {
                         AnytypeText(viewModel.headerConfiguration.condition, style: .relation1Regular, color: .textSecondary)
-                        Image.arrowDown.foregroundColor(.textSecondary).padding(.top, 2)
+                        Image(asset: .arrowDown).foregroundColor(.textSecondary).padding(.top, 2)
                     }
                 }
             }

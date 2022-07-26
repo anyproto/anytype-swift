@@ -36,7 +36,7 @@ struct SetSortRow: View {
             Spacer()
             
             if editMode?.wrappedValue == .inactive {
-                Image.arrow
+                Image(asset: .arrowForward)
             }
         }
         .frame(height: 68)

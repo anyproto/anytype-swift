@@ -62,7 +62,7 @@ extension RelationMetadata.Format {
 
 public extension RelationMetadata.Format {
 
-    var iconName: String {
+    var iconAsset: String {
         switch self {
         case .longText:
             return "format/text"

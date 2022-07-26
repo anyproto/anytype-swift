@@ -37,7 +37,7 @@ final class ObjectPreviewDescriptionMenuViewModel: CheckPopupViewViewModelProtoc
         ObjectPreviewModel.Description.allCases.map { description -> CheckPopupItem in
             let isSelected = description == currentDescription
             return CheckPopupItem(id: description.rawValue,
-                                  icon: nil,
+                                  iconAsset: nil,
                                   title: description.name,
                                   subtitle: description.subtitle,
                                   isSelected: isSelected)

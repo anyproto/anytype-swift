@@ -11,7 +11,7 @@ struct UndoRedoView: View {
                     buttonModel.action()
                 } label: {
                     ItemView(
-                        image: buttonModel.image,
+                        imageAsset: buttonModel.imageAsset,
                         title: buttonModel.title
                     )
                 }
@@ -22,12 +22,12 @@ struct UndoRedoView: View {
 }
 
 private struct ItemView: View {
-    let image: UIImage
+    let imageAsset: ImageAsset
     let title: String
 
     var body: some View {
         VStack(spacing: 5) {
-            Image(uiImage: image)
+            Image(asset: imageAsset)
                 .frame(height: 52)
                 .frame(
                     minWidth: 0,

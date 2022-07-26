@@ -111,7 +111,7 @@ struct ObjectPreviewView: View {
                 Spacer()
                 AnytypeText(value, style: .uxBodyRegular, color: .textSecondary)
                 Spacer.fixedWidth(10)
-                Image.arrow
+                Image(asset: .arrowForward)
             }
             .frame(height: 52)
         }

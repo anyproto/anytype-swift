@@ -2,12 +2,12 @@ import UIKit
 import AnytypeCore
 
 extension UIImage {
-    static let backArrow = createImage("backArrow")
-    static let slashMenuBackArrow = createImage("slash_back_arrow")
-    static let searchIcon = createImage("searchTextFieldIcon")
-    static let more = createImage("more")
+//    static let backArrow = createImage("backArrow")
+//    static let slashMenuBackArrow = createImage("slash_back_arrow")
+//    static let searchIcon = createImage("searchTextFieldIcon")
+//    static let more = createImage("more")
     
-    static let ghost = createImage(ImageName.ghost)
+//    static let ghost = createImage(ImageName.ghost)
 }
 
 extension UIImage {
@@ -44,12 +44,12 @@ extension UIImage {
 //            static let rowInsertBelow = createImage("TextEditor/BlocksOption/row_insert_below")
 //        }
 
-        enum UndoRedo {
-            static let undo = createImage("undo")
-            static let redo = createImage("redo")
-        }
+//        enum UndoRedo {
+//            static let undo = createImage("undo")
+//            static let redo = createImage("redo")
+//        }
 
-        static let bigGhost = createImage("TextEditor/bigGhost")
+//        static let bigGhost = createImage("TextEditor/bigGhost")
     }
     
 //    enum editorNavigation {
@@ -62,14 +62,14 @@ extension UIImage {
     
     enum edititngToolbar {
         enum ChangeType {
-            static let search = createImage("search")
+//            static let search = createImage("search")
         }
 
-        static let addNew = createImage("EditingToolbar/add_new")
-        static let style = createImage("EditingToolbar/style")
-        static let move = createImage("EditingToolbar/move")
-        static let mention = createImage("EditingToolbar/mention")
-        static let actions = createImage("EditingToolbar/actions")
+//        static let addNew = createImage("EditingToolbar/add_new")
+//        static let style = createImage("EditingToolbar/style")
+//        static let move = createImage("EditingToolbar/move")
+//        static let mention = createImage("EditingToolbar/mention")
+//        static let actions = createImage("EditingToolbar/actions")
     }
     
 //    enum divider {

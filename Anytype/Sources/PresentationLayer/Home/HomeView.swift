@@ -46,7 +46,7 @@ struct HomeView: View {
                         }
                     }
                 }) {
-                    model.loadingDocument ? nil : Image.main.settings
+                    model.loadingDocument ? nil : Image(asset: .mainSearch)
                 }
                 .allowsHitTesting(!model.loadingDocument)
             }
