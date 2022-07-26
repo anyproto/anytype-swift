@@ -477,7 +477,7 @@ extension EditorRouter {
     }
     
     func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation) {
-        guard relation.isEditable else { return }
+        guard relation.isEditable || relation.hasDetails else { return }
         
         if case .checkbox(let checkbox) = relation {
             let relationsService = RelationsService(objectId: objectId)

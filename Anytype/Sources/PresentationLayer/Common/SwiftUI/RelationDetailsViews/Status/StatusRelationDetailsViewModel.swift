@@ -16,6 +16,9 @@ final class StatusRelationDetailsViewModel: ObservableObject {
             updateSelectedStatusViewModel()
         }
     }
+    var isEditable: Bool {
+        return relation.isEditable
+    }
     private let allStatuses: [Relation.Status.Option]
     private let relation: Relation
     private let service: RelationsServiceProtocol
