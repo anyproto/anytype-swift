@@ -67,7 +67,20 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
 
     func checkOpenedState() {}
 
-    func checkDocumentLockField() {}
+    func checkDocumentLockField() {
+        switch editingState {
+        case .editing, .locked, .loading:
+            break
+        default:
+            return // Unable to change state while moving or selecting blocks
+        }
+
+        if document.isLocked {
+            editingState = .locked
+        } else if case .locked = editingState, !document.isLocked {
+            editingState = .editing
+        }
+    }
 
     func canSelectBlock(at indexPath: IndexPath) -> Bool {
         return true

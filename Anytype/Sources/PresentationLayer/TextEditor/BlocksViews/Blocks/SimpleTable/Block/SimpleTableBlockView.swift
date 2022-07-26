@@ -68,25 +68,17 @@ final class SimpleTableBlockView: UIView, BlockContentView {
             switch state {
             case .selecting:
                 UIApplication.shared.hideKeyboard()
-                dynamicLayoutView.collectionView.isEditing = false
-                dynamicLayoutView.collectionView.isLocked = false
+                collectionView.isEditing = false
+                collectionView.isLocked = false
                 spreadsheetLayout.reselectSelectedCells()
             case .editing:
-                dynamicLayoutView.collectionView.isEditing = true
+                collectionView.isEditing = true
                 dynamicLayoutView.collectionView.isLocked = false
             case .moving, .loading:
                 return
             case .locked, .simpleTablesSelection:
-                dynamicLayoutView.collectionView.isEditing = false
-                dynamicLayoutView.collectionView.isLocked = true
+                collectionView.isLocked = true
             }
-
-            var isEditing = false
-            if case .editing = state {
-                isEditing = true
-            }
-
-            collectionView.isEditing = isEditing
         }.store(in: &cancellables)
 
         viewModel?.stateManager.editorSelectedBlocks.sink { [unowned self] blockIds in

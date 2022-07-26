@@ -68,6 +68,8 @@ final class SimpleTableViewModel {
 
             dataSource?.allModels = cells
         }
+
+        stateManager.checkDocumentLockField()
     }
 
     private func updateDifference(newItems: [[EditorItem]]) {

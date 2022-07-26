@@ -100,7 +100,7 @@ final class EmptyRowView: UIView, BlockContentView {
     }
 
     func update(with state: UICellConfigurationState) {
-        button.isHidden = !state.isEditing
+        button.isHidden = state.isLocked
     }
 
     func setup() {
