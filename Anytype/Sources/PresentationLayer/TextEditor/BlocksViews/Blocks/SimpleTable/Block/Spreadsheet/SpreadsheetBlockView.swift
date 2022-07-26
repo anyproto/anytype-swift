@@ -81,6 +81,8 @@ final class SpreadsheetBlockView<View: BlockContentView>: UIView & UIContentView
     // MARK: - UICollectionView configuration
 
     private func update(with state: UICellConfigurationState) {
+        blockView.update(with: state)
+
         isUserInteractionEnabled = state.isEditing
         if state.isMoving {
             backgroundColor = UIColor.Background.blue

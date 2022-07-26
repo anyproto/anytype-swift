@@ -20,7 +20,7 @@ final class MentionMarkupEventProvider {
     
     func updateMentionsEvent() -> DocumentUpdate {
         let blockIds = infoContainer
-            .children(of: objectId)
+            .recursiveChildren(of: objectId)
             .compactMap { updateIfNeeded(info: $0) }
         
         return .blocks(blockIds: Set(blockIds))
