@@ -10,8 +10,7 @@ private extension DispatchQueue {
     /// Middleware provide a save access to one object and parallel access to different
     static let invocationQueue = DispatchQueue(
         label: "com.middlewate-invocation",
-        qos: .userInitiated,
-        attributes: .concurrent
+        qos: .userInitiated
     )
 }
 
