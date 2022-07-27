@@ -195,7 +195,7 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                if relation.id == BundledRelationKey.type.rawValue {
+                if relation.id == BundledRelationKey.type.rawValue && !self.document.isLocked {
                     self.router.showTypesSearch(
                         onSelect: { [weak self] id in
                             self?.handler.setObjectTypeUrl(id)

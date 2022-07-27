@@ -18,7 +18,7 @@ final class RelationValueViewUIKit: UIView, BlockContentView {
 
         relationView = obtainRelationView(configuration.relation, style: configuration.style)
 
-        if configuration.action.isNotNil && configuration.relation.isEditable {
+        if configuration.action.isNotNil {
             relationView.addTapGesture { _ in
                 configuration.action?(configuration.relation)
             }
