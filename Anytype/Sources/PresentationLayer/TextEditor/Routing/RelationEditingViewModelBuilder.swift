@@ -5,7 +5,9 @@ final class RelationEditingViewModelBuilder {
     
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
-    init(delegate: TextRelationActionButtonViewModelDelegate?) {
+    init(
+        delegate: TextRelationActionButtonViewModelDelegate?
+    ) {
         self.delegate = delegate
     }
     
@@ -13,7 +15,12 @@ final class RelationEditingViewModelBuilder {
 
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
-    func buildViewModel(source: RelationSource, objectId: BlockId, relation: Relation) -> AnytypePopupViewModelProtocol? {
+    func buildViewModel(
+        source: RelationSource,
+        objectId: BlockId,
+        relation: Relation,
+        onTap: @escaping () -> Void
+    ) -> AnytypePopupViewModelProtocol? {
         switch relation {
         case .text(let text):
             return TextRelationDetailsViewModel(
@@ -95,7 +102,12 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                         id: object.id,
                         contentHash: object.hashValue
                     ) {
-                        RelationObjectsRowView(object: object).eraseToAnyView()
+                        RelationObjectsRowView(
+                            object: object,
+                            action: {
+                                onTap()
+                            }
+                        ).eraseToAnyView()
                     }
                 },
                 emptyOptionsPlaceholder: Constants.objectsOptionsPlaceholder,

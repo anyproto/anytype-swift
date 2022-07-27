@@ -488,7 +488,7 @@ extension EditorRouter {
         guard let viewController = viewController else { return }
         
         let contentViewModel = relationEditingViewModelBuilder
-            .buildViewModel(source: source, objectId: objectId, relation: relation)
+            .buildViewModel(source: source, objectId: objectId, relation: relation, onTap: {})
         guard let contentViewModel = contentViewModel else { return }
         
         let fpc = AnytypePopup(viewModel: contentViewModel)

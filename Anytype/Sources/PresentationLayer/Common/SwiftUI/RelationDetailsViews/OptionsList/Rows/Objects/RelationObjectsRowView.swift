@@ -3,13 +3,18 @@ import SwiftUI
 struct RelationObjectsRowView: View {
     
     let object: Relation.Object.Option
+    let action: (() -> Void)
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
-            icon
-            Spacer.fixedWidth(12)
-            text
-            Spacer()
+            Button {
+                action()
+            } label: {
+                icon
+                Spacer.fixedWidth(12)
+                text
+                Spacer()
+            }
         }
         .frame(height: 68)
     }
@@ -75,7 +80,8 @@ struct RelationObjectsRowView_Previews: PreviewProvider {
                 type: "type",
                 isArchived: false,
                 isDeleted: false
-            )
+            ),
+            action: {}
         )
     }
 }
