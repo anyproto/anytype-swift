@@ -8,9 +8,9 @@
 
 import Foundation
 
-enum EmptyFileIconConstants {
-    static let image = "TextEditor/BlockFile/Empty/Image"
-    static let video = "TextEditor/BlockFile/Empty/Video"
-    static let file = "TextEditor/BlockFile/Empty/File"
-    static let bookmark = "TextEditor/BlockFile/Empty/Bookmark"
-}
+//enum EmptyFileIconConstants {
+//    static let image = "TextEditor/BlockFile/Empty/Image"
+//    static let video = "TextEditor/BlockFile/Empty/Video"
+//    static let file = "TextEditor/BlockFile/Empty/File"
+//    static let bookmark = "TextEditor/BlockFile/Empty/Bookmark"
+//}

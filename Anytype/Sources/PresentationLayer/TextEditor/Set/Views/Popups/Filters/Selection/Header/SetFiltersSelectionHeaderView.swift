@@ -8,7 +8,7 @@ struct SetFiltersSelectionHeaderView: View {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color.backgroundSelected)
-                Image.createImage(viewModel.headerConfiguration.iconName)
+                Image(asset: viewModel.headerConfiguration.iconAsset)
             }
             .frame(width: 48, height: 48)
             

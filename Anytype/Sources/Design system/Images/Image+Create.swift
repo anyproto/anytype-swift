@@ -5,12 +5,18 @@ import AnytypeCore
 
 extension UIImage {
     convenience init?(asset: ImageAsset) {
-        self.init(named: asset.name, in: BundleToken.bundle, compatibleWith: nil)
+        switch asset {
+        case let .bundle(name):
+            self.init(named: name, in: BundleToken.bundle, compatibleWith: nil)
+        case let .system(name):
+            self.init(systemName: name)
+        }
+        
     }
     
     static func from(asset: ImageAsset) -> UIImage {
         guard let image = UIImage(asset: asset) else {
-            anytypeAssertionFailure("No image named: \(asset.name)", domain: .imageCreation)
+            anytypeAssertionFailure("No image named: \(asset)", domain: .imageCreation)
             return UIImage()
         }
         return image
@@ -26,11 +32,13 @@ extension UIImageView {
 
 extension Image {
     init(asset: ImageAsset) {
-        self.init(asset.name, bundle: BundleToken.bundle)
-    }
-    
-    init(systemAsset: SystemImageAsset) {
-        self.init(systemName: systemAsset.name)
+        switch asset {
+        case let .bundle(name):
+            self.init(name, bundle: BundleToken.bundle)
+        case let .system(name):
+            self.init(systemName: name)
+        }
+        
     }
 }
 

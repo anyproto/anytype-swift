@@ -108,12 +108,12 @@ extension UIImage {
 //        static let checkboxUnchecked = createImage("relation_checkbox_unchecked")
 //    }
     
-    static func createImage(_ name: String) -> UIImage {
-        guard let image = UIImage(named: name) else {
-            anytypeAssertionFailure("No image named: \(name)", domain: .imageCreation)
-            return UIImage()
-        }
-        
-        return image
-    }
+//    static func createImage(_ name: String) -> UIImage {
+//        guard let image = UIImage(named: name) else {
+//            anytypeAssertionFailure("No image named: \(name)", domain: .imageCreation)
+//            return UIImage()
+//        }
+//        
+//        return image
+//    }
 }

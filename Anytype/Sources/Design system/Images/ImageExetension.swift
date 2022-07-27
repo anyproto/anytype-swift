@@ -2,12 +2,8 @@ import SwiftUI
 import AnytypeCore
 import BlocksModels
 
-struct SystemImageAsset {
-    let name: String
-}
-
-extension SystemImageAsset {
-    static let multiplyCircleFill = SystemImageAsset(name: "multiply.circle.fill")
+extension ImageAsset {
+    static let multiplyCircleFill = ImageAsset.system(name: "multiply.circle.fill")
 }
 
 extension Image {
@@ -26,5 +22,15 @@ extension Image {
         
         return Image(uiImage: image)
     }
-    
+}
+
+extension ImageAsset {
+    var identifier: String {
+        switch self {
+        case let .bundle(name):
+            return name
+        case let .system(name):
+            return name
+        }
+    }
 }

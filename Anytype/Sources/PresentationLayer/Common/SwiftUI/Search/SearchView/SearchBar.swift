@@ -39,7 +39,7 @@ struct SearchBar: View {
             
             if !text.isEmpty {
                 Button(action: { text = "" }) {
-                    Image(systemAsset: .multiplyCircleFill)
+                    Image(asset: .multiplyCircleFill)
                         .renderingMode(.template)
                         .foregroundColor(.buttonActive)
                         .padding(.trailing, 8)

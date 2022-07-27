@@ -16,7 +16,7 @@ final class SetFiltersListViewModel: ObservableObject {
                 id: "\(filter.metadata.id)_\(index)",
                 title: filter.metadata.name,
                 subtitle: filter.conditionString,
-                iconName: filter.metadata.format.iconName,
+                iconAsset: filter.metadata.format.iconAsset,
                 relation: relationFilterBuilder.relation(
                     metadata: filter.metadata,
                     filter: filter.filter

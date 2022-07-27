@@ -21,7 +21,7 @@ struct SetFilterRow: View {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color.backgroundSelected)
-                Image.createImage(configuration.iconName)
+                Image(asset: configuration.iconAsset)
             }
             .frame(width: 48, height: 48)
             

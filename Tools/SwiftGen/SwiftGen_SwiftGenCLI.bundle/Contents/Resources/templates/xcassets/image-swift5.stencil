@@ -25,7 +25,7 @@
 {% macro casesBlock assets %}
   {% for asset in assets %}
   {% if asset.type == "image" %}
-  static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{imageType}}(name: "{{asset.value}}")
+  static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{imageType}}.bundle(name: "{{asset.value}}")
   {% elif asset.items and ( forceNamespaces == "true" or asset.isNamespaced == "true" ) %}
   enum {{asset.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
     {% filter indent:2 %}{% call casesBlock asset.items %}{% endfilter %}
@@ -52,8 +52,9 @@
 // MARK: - Implementation Details
 {% if resourceCount.image > 0 %}
 
-{{accessModifier}} struct {{imageType}}: Hashable {
-  {{accessModifier}} let name: String
+{{accessModifier}} enum {{imageType}}: Hashable {
+  case bundle(name: String)
+  case system(name: String)
 }
 {% endif %}
 {% else %}

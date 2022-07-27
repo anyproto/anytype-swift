@@ -84,7 +84,7 @@ private extension ObjectRelationViewUIKit {
     
     func shouldShowIcon(icon: ObjectIconImage) -> Bool {
         switch icon {
-        case .icon, .todo, .staticImage, .image, .imageAsset:
+        case .icon, .todo, .image, .imageAsset:
             return true
         case .placeholder:
             return false

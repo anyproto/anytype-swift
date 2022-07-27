@@ -60,59 +60,6 @@ extension RelationMetadata.Format {
     }
 }
 
-public extension RelationMetadata.Format {
-
-    var iconName: String {
-        switch self {
-        case .longText:
-            return "format/text"
-        case .shortText:
-            return "format/name"
-        case .number:
-            return "format/number"
-        case .status:
-            return "format/status"
-        case .date:
-            return "format/date"
-        case .file:
-            return "format/attachment"
-        case .checkbox:
-            return "format/checkbox"
-        case .url:
-            return "format/url"
-        case .email:
-            return "format/email"
-        case .phone:
-            return "format/phone"
-        case .tag:
-            return "format/tag"
-        case .object:
-            return "format/object"
-        case .unrecognized:
-            return "format/unknown"
-        }
-    }
-    
-    var name: String {
-        switch self {
-        case .longText: return "Text"
-        case .shortText: return "Text"
-        case .number: return "Numbers"
-        case .status: return "Status"
-        case .date: return "Date"
-        case .file: return "File & Media"
-        case .checkbox: return "Checkbox"
-        case .url: return "URL"
-        case .email: return "Email"
-        case .phone: return "Phone number"
-        case .tag: return "Tag"
-        case .object: return "Object"
-        case .unrecognized: return "Unknown"
-        }
-    }
-
-}
-
 extension RelationMetadata.Format: Identifiable {
 
     public var id: Self {
