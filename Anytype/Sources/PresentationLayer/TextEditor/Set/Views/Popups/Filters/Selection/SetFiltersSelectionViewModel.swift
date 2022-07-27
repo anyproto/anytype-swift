@@ -57,6 +57,9 @@ final class SetFiltersSelectionViewModel: ObservableObject {
             onApplyCheckbox: { [contentHandler] in
                 contentHandler.handleCheckbox($0)
             },
+            onApplyOption: { [contentHandler] in
+                contentHandler.handleDate($0)
+            },
             onKeyboardHeightChange: { [weak self] height in
                 self?.keyboardHeight = height
                 // fix simultaneous update of popup height and content
@@ -94,7 +97,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
                 floatingPanelStyle: false,
                 needBottomInset: false
             )
-        case .selected:
+        case .selected, .date:
             popupLayout = .fullScreen
         case .checkbox:
             popupLayout = .constantHeight(height: Constants.checkboxStateHeight, floatingPanelStyle: false)

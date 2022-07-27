@@ -10,7 +10,7 @@ struct SetFiltersListView: View {
         DragIndicator()
         NavigationView {
             content
-                .navigationTitle(Loc.EditFilters.Popup.NavigationView.title)
+                .navigationTitle(Loc.EditSet.Popup.Filters.NavigationView.title)
                 .navigationBarTitleDisplayMode(.inline)
                 .environment(\.editMode, $editMode)
                 .onChange(of: viewModel.rows) { newValue in
@@ -53,7 +53,7 @@ struct SetFiltersListView: View {
         VStack {
             Spacer.fixedHeight(20)
             AnytypeText(
-                Loc.EditFilters.Popup.EmptyView.title,
+                Loc.EditSet.Popup.Filters.EmptyView.title,
                 style: .uxCalloutRegular,
                 color: .textSecondary
             )

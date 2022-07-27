@@ -795,26 +795,101 @@ internal enum Loc {
     internal static let title = Loc.tr("Localizable", "DeletionAlert.title")
   }
 
-  internal enum EditFilters {
-    internal enum Popup {
-      internal enum EmptyView {
-        /// No filters here. You can add some
-        internal static let title = Loc.tr("Localizable", "EditFilters.Popup.EmptyView.Title")
-      }
-      internal enum NavigationView {
-        /// Filters
-        internal static let title = Loc.tr("Localizable", "EditFilters.Popup.NavigationView.Title")
-      }
-      internal enum TextView {
-        /// Value
-        internal static let placeholder = Loc.tr("Localizable", "EditFilters.Popup.TextView.Placeholder")
-      }
-    }
-  }
-
   internal enum EditSet {
     internal enum Popup {
       internal enum Filter {
+        internal enum Condition {
+          internal enum Checkbox {
+            /// Is
+            internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Checkbox.Equal")
+            /// Is not
+            internal static let notEqual = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Checkbox.NotEqual")
+          }
+          internal enum Date {
+            /// Is after
+            internal static let after = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.After")
+            /// Is before
+            internal static let before = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.Before")
+            /// Is
+            internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.Equal")
+            /// Is within
+            internal static let `in` = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.In")
+            /// Is on or after
+            internal static let onOrAfter = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.OnOrAfter")
+            /// Is on or before
+            internal static let onOrBefore = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.OnOrBefore")
+          }
+          internal enum General {
+            /// Is empty
+            internal static let empty = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.General.Empty")
+            /// All
+            internal static let `none` = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.General.None")
+            /// Is not empty
+            internal static let notEmpty = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.General.NotEmpty")
+          }
+          internal enum Number {
+            /// Is equal to
+            internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.Equal")
+            /// Is greater than
+            internal static let greater = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.Greater")
+            /// Is greater than or equal to
+            internal static let greaterOrEqual = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.GreaterOrEqual")
+            /// Is less than
+            internal static let less = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.Less")
+            /// Is less than or equal to
+            internal static let lessOrEqual = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.LessOrEqual")
+            /// Is not equal to
+            internal static let notEqual = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.NotEqual")
+          }
+          internal enum Selected {
+            /// Has all of
+            internal static let allIn = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.AllIn")
+            /// Is exactly
+            internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.Equal")
+            /// Has any of
+            internal static let `in` = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.In")
+            /// Has none of
+            internal static let notIn = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.NotIn")
+          }
+          internal enum Text {
+            /// Is
+            internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Text.Equal")
+            /// Contains
+            internal static let like = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Text.Like")
+            /// Is not
+            internal static let notEqual = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Text.NotEqual")
+            /// Doesn't contain
+            internal static let notLike = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Text.NotLike")
+          }
+        }
+        internal enum Date {
+          internal enum Option {
+            /// Current month
+            internal static let currentMonth = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.CurrentMonth")
+            /// Current week
+            internal static let currentWeek = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.CurrentWeek")
+            /// Exact date
+            internal static let exactDate = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.ExactDate")
+            /// Last month
+            internal static let lastMonth = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.LastMonth")
+            /// Last week
+            internal static let lastWeek = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.LastWeek")
+            /// Next month
+            internal static let nextMonth = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NextMonth")
+            /// Next week
+            internal static let nextWeek = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NextWeek")
+            /// Number of days ago
+            internal static let numberOfDaysAgo = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo")
+            /// Number of days from now
+            internal static let numberOfDaysFromNow = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow")
+            /// Today
+            internal static let today = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Today")
+            /// Tomorrow
+            internal static let tomorrow = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Tomorrow")
+            /// Yesterday
+            internal static let yesterday = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Yesterday")
+          }
+        }
         internal enum Value {
           /// Checked
           internal static let checked = Loc.tr("Localizable", "EditSet.Popup.Filter.Value.Checked")
@@ -822,81 +897,40 @@ internal enum Loc {
           internal static let unchecked = Loc.tr("Localizable", "EditSet.Popup.Filter.Value.Unchecked")
         }
       }
-    }
-  }
-
-  internal enum EditSorts {
-    internal enum Popup {
-      internal enum EmptyView {
-        /// No sorts here. You can add some
-        internal static let title = Loc.tr("Localizable", "EditSorts.Popup.EmptyView.Title")
-      }
-      internal enum Filter {
-        internal enum Condition {
-          internal enum Checkbox {
-            /// Is
-            internal static let equal = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Checkbox.Equal")
-            /// Is not
-            internal static let notEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Checkbox.NotEqual")
-          }
-          internal enum General {
-            /// Is empty
-            internal static let empty = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.General.Empty")
-            /// All
-            internal static let `none` = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.General.None")
-            /// Is not empty
-            internal static let notEmpty = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.General.NotEmpty")
-          }
-          internal enum Number {
-            /// Is equal to
-            internal static let equal = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.Equal")
-            /// Is greater than
-            internal static let greater = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.Greater")
-            /// Is greater than or equal to
-            internal static let greaterOrEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.GreaterOrEqual")
-            /// Is less than
-            internal static let less = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.Less")
-            /// Is less than or equal to
-            internal static let lessOrEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.LessOrEqual")
-            /// Is not equal to
-            internal static let notEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.NotEqual")
-          }
-          internal enum Selected {
-            /// Has all of
-            internal static let allIn = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Selected.AllIn")
-            /// Is exactly
-            internal static let equal = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Selected.Equal")
-            /// Has any of
-            internal static let `in` = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Selected.In")
-            /// Has none of
-            internal static let notIn = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Selected.NotIn")
-          }
-          internal enum Text {
-            /// Is
-            internal static let equal = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.Equal")
-            /// Contains
-            internal static let like = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.Like")
-            /// Is not
-            internal static let notEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.NotEqual")
-            /// Doesn't contain
-            internal static let notLike = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.NotLike")
-          }
+      internal enum Filters {
+        internal enum EmptyView {
+          /// No filters here. You can add some
+          internal static let title = Loc.tr("Localizable", "EditSet.Popup.Filters.EmptyView.Title")
         }
-      }
-      internal enum NavigationView {
-        /// Sorts
-        internal static let title = Loc.tr("Localizable", "EditSorts.Popup.NavigationView.Title")
+        internal enum NavigationView {
+          /// Filters
+          internal static let title = Loc.tr("Localizable", "EditSet.Popup.Filters.NavigationView.Title")
+        }
+        internal enum TextView {
+          /// Value
+          internal static let placeholder = Loc.tr("Localizable", "EditSet.Popup.Filters.TextView.Placeholder")
+        }
       }
       internal enum Sort {
         internal enum Add {
           /// Сhoose a relation to sort
-          internal static let searchPlaceholder = Loc.tr("Localizable", "EditSorts.Popup.Sort.Add.SearchPlaceholder")
+          internal static let searchPlaceholder = Loc.tr("Localizable", "EditSet.Popup.Sort.Add.SearchPlaceholder")
         }
         internal enum Types {
           /// Ascending
-          internal static let ascending = Loc.tr("Localizable", "EditSorts.Popup.Sort.Types.Ascending")
+          internal static let ascending = Loc.tr("Localizable", "EditSet.Popup.Sort.Types.Ascending")
           /// Descending
-          internal static let descending = Loc.tr("Localizable", "EditSorts.Popup.Sort.Types.Descending")
+          internal static let descending = Loc.tr("Localizable", "EditSet.Popup.Sort.Types.Descending")
+        }
+      }
+      internal enum Sorts {
+        internal enum EmptyView {
+          /// No sorts here. You can add some
+          internal static let title = Loc.tr("Localizable", "EditSet.Popup.Sorts.EmptyView.Title")
+        }
+        internal enum NavigationView {
+          /// Sorts
+          internal static let title = Loc.tr("Localizable", "EditSet.Popup.Sorts.NavigationView.Title")
         }
       }
     }

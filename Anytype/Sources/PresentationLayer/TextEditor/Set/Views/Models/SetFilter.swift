@@ -14,7 +14,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
     static func defaultCondition(for metadata: RelationMetadata) -> DataviewFilter.Condition {
         let conditionType =  Self.conditionType(for: metadata)
         switch conditionType {
-        case .text, .number, .checkbox:
+        case .text, .number, .checkbox, .date:
             return .equal
         case .selected:
             return .in
@@ -28,21 +28,24 @@ struct SetFilter: Identifiable, Equatable, Hashable {
     static func conditionType(for metadata: RelationMetadata) -> Condition {
         switch metadata.format {
         case .shortText, .longText, .url, .email, .file, .unrecognized, .phone:
-            return .text(metadata.format)
-        case .number, .date:
-            return .number(metadata.format)
+            return .text
+        case .number:
+            return .number
         case .tag, .status, .object:
             return .selected(metadata.format)
         case .checkbox:
-            return .checkbox(metadata.format)
+            return .checkbox
+        case .date:
+            return .date
         }
     }
     
     enum Condition {
-        case text(RelationMetadata.Format)
-        case number(RelationMetadata.Format)
+        case text
+        case number
         case selected(RelationMetadata.Format)
-        case checkbox(RelationMetadata.Format)
+        case checkbox
+        case date
         
         var data: [DataviewFilter.Condition: String] {
             switch self {
@@ -54,45 +57,59 @@ struct SetFilter: Identifiable, Equatable, Hashable {
                 return Self.selectedData
             case .checkbox:
                 return Self.checkboxData
+            case .date:
+                return Self.dateData
             }
         }
         
         static let textData: [DataviewFilter.Condition: String] = [
-            .equal: Loc.EditSorts.Popup.Filter.Condition.Text.equal,
-            .notEqual: Loc.EditSorts.Popup.Filter.Condition.Text.notEqual,
-            .like: Loc.EditSorts.Popup.Filter.Condition.Text.like,
-            .notLike: Loc.EditSorts.Popup.Filter.Condition.Text.notLike,
-            .empty: Loc.EditSorts.Popup.Filter.Condition.General.empty,
-            .notEmpty: Loc.EditSorts.Popup.Filter.Condition.General.notEmpty,
-            .none: Loc.EditSorts.Popup.Filter.Condition.General.none
+            .equal: Loc.EditSet.Popup.Filter.Condition.Text.equal,
+            .notEqual: Loc.EditSet.Popup.Filter.Condition.Text.notEqual,
+            .like: Loc.EditSet.Popup.Filter.Condition.Text.like,
+            .notLike: Loc.EditSet.Popup.Filter.Condition.Text.notLike,
+            .empty: Loc.EditSet.Popup.Filter.Condition.General.empty,
+            .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty,
+            .none: Loc.EditSet.Popup.Filter.Condition.General.none
         ]
         
         static let numberData: [DataviewFilter.Condition: String] = [
-            .equal: Loc.EditSorts.Popup.Filter.Condition.Number.equal,
-            .notEqual: Loc.EditSorts.Popup.Filter.Condition.Number.notEqual,
-            .greater: Loc.EditSorts.Popup.Filter.Condition.Number.greater,
-            .less: Loc.EditSorts.Popup.Filter.Condition.Number.less,
-            .greaterOrEqual: Loc.EditSorts.Popup.Filter.Condition.Number.greaterOrEqual,
-            .lessOrEqual: Loc.EditSorts.Popup.Filter.Condition.Number.lessOrEqual,
-            .empty: Loc.EditSorts.Popup.Filter.Condition.General.empty,
-            .notEmpty: Loc.EditSorts.Popup.Filter.Condition.General.notEmpty,
-            .none: Loc.EditSorts.Popup.Filter.Condition.General.none
+            .equal: Loc.EditSet.Popup.Filter.Condition.Number.equal,
+            .notEqual: Loc.EditSet.Popup.Filter.Condition.Number.notEqual,
+            .greater: Loc.EditSet.Popup.Filter.Condition.Number.greater,
+            .less: Loc.EditSet.Popup.Filter.Condition.Number.less,
+            .greaterOrEqual: Loc.EditSet.Popup.Filter.Condition.Number.greaterOrEqual,
+            .lessOrEqual: Loc.EditSet.Popup.Filter.Condition.Number.lessOrEqual,
+            .empty: Loc.EditSet.Popup.Filter.Condition.General.empty,
+            .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty,
+            .none: Loc.EditSet.Popup.Filter.Condition.General.none
         ]
         
         static let selectedData: [DataviewFilter.Condition: String] = [
-            .in: Loc.EditSorts.Popup.Filter.Condition.Selected.in,
-            .allIn: Loc.EditSorts.Popup.Filter.Condition.Selected.allIn,
-            .equal: Loc.EditSorts.Popup.Filter.Condition.Selected.equal,
-            .notIn: Loc.EditSorts.Popup.Filter.Condition.Selected.notIn,
-            .empty: Loc.EditSorts.Popup.Filter.Condition.General.empty,
-            .notEmpty: Loc.EditSorts.Popup.Filter.Condition.General.notEmpty,
-            .none: Loc.EditSorts.Popup.Filter.Condition.General.none
+            .in: Loc.EditSet.Popup.Filter.Condition.Selected.in,
+            .allIn: Loc.EditSet.Popup.Filter.Condition.Selected.allIn,
+            .equal: Loc.EditSet.Popup.Filter.Condition.Selected.equal,
+            .notIn: Loc.EditSet.Popup.Filter.Condition.Selected.notIn,
+            .empty: Loc.EditSet.Popup.Filter.Condition.General.empty,
+            .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty,
+            .none: Loc.EditSet.Popup.Filter.Condition.General.none
         ]
         
         static let checkboxData: [DataviewFilter.Condition: String] = [
-            .equal: Loc.EditSorts.Popup.Filter.Condition.Checkbox.equal,
-            .notEqual: Loc.EditSorts.Popup.Filter.Condition.Checkbox.notEqual,
-            .none: Loc.EditSorts.Popup.Filter.Condition.General.none
+            .equal: Loc.EditSet.Popup.Filter.Condition.Checkbox.equal,
+            .notEqual: Loc.EditSet.Popup.Filter.Condition.Checkbox.notEqual,
+            .none: Loc.EditSet.Popup.Filter.Condition.General.none
+        ]
+        
+        static let dateData: [DataviewFilter.Condition: String] = [
+            .equal: Loc.EditSet.Popup.Filter.Condition.Date.equal,
+            .greater: Loc.EditSet.Popup.Filter.Condition.Date.after,
+            .less: Loc.EditSet.Popup.Filter.Condition.Date.before,
+            .greaterOrEqual: Loc.EditSet.Popup.Filter.Condition.Date.onOrAfter,
+            .lessOrEqual: Loc.EditSet.Popup.Filter.Condition.Date.onOrBefore,
+            .in: Loc.EditSet.Popup.Filter.Condition.Date.in,
+            .empty: Loc.EditSet.Popup.Filter.Condition.General.empty,
+            .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty,
+            .none: Loc.EditSet.Popup.Filter.Condition.General.none
         ]
     }
 }
@@ -112,12 +129,14 @@ extension SetFilter {
 extension DataviewFilter {
     func updated(
         condition: DataviewFilter.Condition? = nil,
-        value: SwiftProtobuf.Google_Protobuf_Value? = nil
+        value: SwiftProtobuf.Google_Protobuf_Value? = nil,
+        quickOption: DataviewFilter.QuickOption? = nil
     ) -> DataviewFilter {
         DataviewFilter(
             relationKey: self.relationKey,
             condition: condition ?? self.condition,
-            value: value ?? self.value
+            value: value ?? self.value,
+            quickOption: quickOption ?? self.quickOption
         )
     }
 }
@@ -129,6 +148,39 @@ extension DataviewFilter.Condition {
             return false
         default:
             return true
+        }
+    }
+}
+
+extension DataviewFilter.QuickOption {
+    var title: String {
+        switch self {
+        case .yesterday:
+            return Loc.EditSet.Popup.Filter.Date.Option.yesterday
+        case .today:
+            return Loc.EditSet.Popup.Filter.Date.Option.today
+        case .tomorrow:
+            return Loc.EditSet.Popup.Filter.Date.Option.tomorrow
+        case .lastWeek:
+            return Loc.EditSet.Popup.Filter.Date.Option.lastWeek
+        case .currentWeek:
+            return Loc.EditSet.Popup.Filter.Date.Option.currentWeek
+        case .nextWeek:
+            return Loc.EditSet.Popup.Filter.Date.Option.nextWeek
+        case .lastMonth:
+            return Loc.EditSet.Popup.Filter.Date.Option.lastMonth
+        case .currentMonth:
+            return Loc.EditSet.Popup.Filter.Date.Option.currentMonth
+        case .nextMonth:
+            return Loc.EditSet.Popup.Filter.Date.Option.nextMonth
+        case .numberOfDaysAgo:
+            return Loc.EditSet.Popup.Filter.Date.Option.numberOfDaysAgo
+        case .numberOfDaysNow:
+            return Loc.EditSet.Popup.Filter.Date.Option.numberOfDaysFromNow
+        case .exactDate:
+            return Loc.EditSet.Popup.Filter.Date.Option.exactDate
+        case .UNRECOGNIZED(_):
+            return ""
         }
     }
 }

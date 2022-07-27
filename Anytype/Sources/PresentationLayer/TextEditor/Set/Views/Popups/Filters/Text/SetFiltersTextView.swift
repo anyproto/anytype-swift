@@ -15,7 +15,7 @@ struct SetFiltersTextView: View {
     
     var textField: some View {
         AutofocusedTextField(
-            placeholder: Loc.EditFilters.Popup.TextView.placeholder,
+            placeholder: Loc.EditSet.Popup.Filters.TextView.placeholder,
             text: $viewModel.input
         )
         .keyboardType(viewModel.keyboardType)

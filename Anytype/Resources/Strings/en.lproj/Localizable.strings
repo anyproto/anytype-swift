@@ -287,44 +287,64 @@
 "LinkAppearance.ObjectType.Title" = "Object type";
 
 // MARK: - Sets: Sorts
-"EditSorts.Popup.NavigationView.Title" = "Sorts";
-"EditSorts.Popup.EmptyView.Title" = "No sorts here. You can add some";
-"EditSorts.Popup.Sort.Types.Ascending" = "Ascending";
-"EditSorts.Popup.Sort.Types.Descending" = "Descending";
-"EditSorts.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
+"EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
+"EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
+"EditSet.Popup.Sort.Types.Ascending" = "Ascending";
+"EditSet.Popup.Sort.Types.Descending" = "Descending";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
 // MARK: - Sets: Filters
-"EditFilters.Popup.NavigationView.Title" = "Filters";
-"EditFilters.Popup.EmptyView.Title" = "No filters here. You can add some";
-"EditFilters.Popup.TextView.Placeholder" = "Value";
+"EditSet.Popup.Filters.NavigationView.Title" = "Filters";
+"EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
+"EditSet.Popup.Filters.TextView.Placeholder" = "Value";
 
 // MARK: - Sets: Filters.Conditions
-"EditSorts.Popup.Filter.Condition.Text.Equal" = "Is";
-"EditSorts.Popup.Filter.Condition.Text.NotEqual" = "Is not";
-"EditSorts.Popup.Filter.Condition.Text.Like" = "Contains";
-"EditSorts.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Text.Like" = "Contains";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
 
-"EditSorts.Popup.Filter.Condition.Number.Equal" = "Is equal to";
-"EditSorts.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
-"EditSorts.Popup.Filter.Condition.Number.Greater" = "Is greater than";
-"EditSorts.Popup.Filter.Condition.Number.Less" = "Is less than";
-"EditSorts.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
-"EditSorts.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+"EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "Is greater than";
+"EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
 
-"EditSorts.Popup.Filter.Condition.Selected.In" = "Has any of";
-"EditSorts.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
-"EditSorts.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
-"EditSorts.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Date.After" = "Is after";
+"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
+"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
 
-"EditSorts.Popup.Filter.Condition.Checkbox.Equal" = "Is";
-"EditSorts.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Selected.In" = "Has any of";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
 
-"EditSorts.Popup.Filter.Condition.General.Empty" = "Is empty";
-"EditSorts.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
-"EditSorts.Popup.Filter.Condition.General.None" = "All";
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+
+"EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
+"EditSet.Popup.Filter.Condition.General.None" = "All";
 
 "EditSet.Popup.Filter.Value.Checked" = "Checked";
 "EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
+
+"EditSet.Popup.Filter.Date.Option.Today" = "Today";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "Yesterday";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Tomorrow";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "Last week";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Current week";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "Next week";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "Last month";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Current month";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "Next month";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
 
 // MARK: - Sets: Filters search
 "Set.Filters.Search.Button.Title" = "Apply";

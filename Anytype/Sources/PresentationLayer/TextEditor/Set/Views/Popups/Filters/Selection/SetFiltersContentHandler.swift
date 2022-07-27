@@ -5,6 +5,7 @@ protocol SetFiltersContentHandlerProtocol {
     func handleSelectedIds(_ ids: [String])
     func handleText(_ text: String)
     func handleCheckbox(_ isChecked: Bool)
+    func handleDate(_ option: DataviewFilter.QuickOption)
     func handleEmptyValue()
     func updateCondition(_ condition: DataviewFilter.Condition)
 }
@@ -39,6 +40,16 @@ final class SetFiltersContentHandler: SetFiltersContentHandlerProtocol {
         handleValue(isChecked.protobufValue)
     }
     
+    func handleDate(_ option: DataviewFilter.QuickOption) {
+        let filter = filter.updated(
+            filter: filter.filter.updated(
+                condition: condition,
+                quickOption: option
+            )
+        )
+        onApply(filter)
+    }
+    
     func handleEmptyValue() {
         switch filter.conditionType {
         case .selected:
@@ -49,6 +60,8 @@ final class SetFiltersContentHandler: SetFiltersContentHandlerProtocol {
             handleText("")
         case .checkbox:
             handleCheckbox(false)
+        case .date:
+            handleText("0")
         }
     }
     
