@@ -33,6 +33,7 @@ final class SimpleTableViewModel {
         self.cursorManager = cursorManager
 
         forceUpdate(shouldApplyFocus: false)
+        stateManager.checkDocumentLockField()
         setupHandlers()
     }
 
