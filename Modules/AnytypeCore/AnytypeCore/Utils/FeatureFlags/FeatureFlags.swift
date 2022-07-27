@@ -53,7 +53,7 @@ public final class FeatureFlags {
         .setFilters: false,
         .tableOfContents: true,
         .floatingSetMenu: false,
-        .simpleTables: false,
+        .simpleTables: true,
         .objectDuplicate: true,
         .relationDetails: false
     ]
@@ -124,7 +124,7 @@ public extension FeatureFlags {
     }
 
     static var isSimpleTablesAvailable: Bool {
-        features[.simpleTables, default: false]
+        features[.simpleTables, default: true]
     }
     
     static var isObjectDuplicateAvailable: Bool {
