@@ -57,12 +57,10 @@ enum BlocksModelsConverter {
             return nil
         case .table:
             return .table(Anytype_Model_Block.Content.Table())
-        case .tableRow, .tableColumn:
-            anytypeAssertionFailure(
-                "Not suppoted",
-                domain: .blocksConverter
-            )
-            return nil
+        case .tableRow(let data):
+            return .tableRow(.init(isHeader: data.isHeader))
+        case .tableColumn:
+            return .tableColumn(.init())
         }
     }
 }

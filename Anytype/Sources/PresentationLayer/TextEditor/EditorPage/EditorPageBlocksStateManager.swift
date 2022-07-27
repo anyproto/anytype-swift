@@ -369,7 +369,17 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
             }
 
         case .copy:
-            let blocksIds = elements.map(\.blockId)
+            var blocksIds = elements.map(\.blockId)
+
+            let blockInformations = blocksIds.compactMap(document.infoContainer.get(id:))
+
+            blockInformations.forEach { blockInformation in
+                if blockInformation.content == .table {
+                    let recursiveChilds = document.infoContainer.recursiveChildren(of: blockInformation.id).map { $0.id }
+                    blocksIds.append(contentsOf: recursiveChilds)
+                }
+            }
+
             pasteboardService.copy(blocksIds: blocksIds, selectedTextRange: NSRange())
         case .preview:
             elements.first.map {
