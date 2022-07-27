@@ -44,7 +44,7 @@ final class SimpleTableBlockView: UIView, BlockContentView {
 
         dynamicLayoutView.update(
             with: .init(
-                layoutHeightMemory: .none,
+                layoutHeightMemory: .hashable(configuration.info.id as AnyHashable),
                 layout: spreadsheetLayout,
                 heightDidChanged: { [weak self] in self?.blockDelegate?.textBlockSetNeedsLayout() }
             )
@@ -68,25 +68,17 @@ final class SimpleTableBlockView: UIView, BlockContentView {
             switch state {
             case .selecting:
                 UIApplication.shared.hideKeyboard()
-                dynamicLayoutView.collectionView.isEditing = false
-                dynamicLayoutView.collectionView.isLocked = false
+                collectionView.isEditing = false
+                collectionView.isLocked = false
                 spreadsheetLayout.reselectSelectedCells()
             case .editing:
-                dynamicLayoutView.collectionView.isEditing = true
+                collectionView.isEditing = true
                 dynamicLayoutView.collectionView.isLocked = false
             case .moving, .loading:
                 return
             case .locked, .simpleTablesSelection:
-                dynamicLayoutView.collectionView.isEditing = false
-                dynamicLayoutView.collectionView.isLocked = true
+                collectionView.isLocked = true
             }
-
-            var isEditing = false
-            if case .editing = state {
-                isEditing = true
-            }
-
-            collectionView.isEditing = isEditing
         }.store(in: &cancellables)
 
         viewModel?.stateManager.editorSelectedBlocks.sink { [unowned self] blockIds in
@@ -152,7 +144,6 @@ extension SimpleTableBlockView: UICollectionViewDelegate {
                 break
             case .row:
                 if let ip = indexPathsForSelectedItems.first(where: { $0.section == indexPath.section}) {
-                    // deselect all
 
                     let allRowIndexPaths = SpreadsheetSelectionHelper.allIndexPaths(
                         for: ip.section,
@@ -165,7 +156,6 @@ extension SimpleTableBlockView: UICollectionViewDelegate {
                 }
             case .column:
                 if let ip = indexPathsForSelectedItems.first(where: { $0.row == indexPath.row}) {
-                    // deselect all
 
                     let allColumnIndexPaths = SpreadsheetSelectionHelper.allIndexPaths(
                         for: ip.row,
@@ -197,7 +187,6 @@ extension SimpleTableBlockView: UICollectionViewDelegate {
             break
         case .row:
             if let ip = indexPathsForSelectedItems.first(where: { $0.section == indexPath.section}) {
-                // deselect all
 
                 let allRowIndexPaths = SpreadsheetSelectionHelper.allIndexPaths(
                     for: ip.section,
@@ -210,7 +199,6 @@ extension SimpleTableBlockView: UICollectionViewDelegate {
             }
         case .column:
             if let ip = indexPathsForSelectedItems.first(where: { $0.row == indexPath.row}) {
-                // deselect all
 
                 let allColumnIndexPaths = SpreadsheetSelectionHelper.allIndexPaths(
                     for: ip.row,

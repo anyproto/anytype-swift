@@ -2,8 +2,6 @@ import ProtobufMessages
 import BlocksModels
 import AnytypeCore
 
-typealias SubscriptionTogglerResult = (details: [ObjectDetails], total: Int64)
-
 protocol SubscriptionTogglerProtocol {
     func startSubscription(data: SubscriptionData) -> SubscriptionTogglerResult?
     func stopSubscription(id: SubscriptionId)
@@ -45,8 +43,12 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         guard let result = response.getValue(domain: .subscriptionService) else {
             return nil
         }
-        
-        return (details: result.records.asDetais, total: 1)
+
+        return SubscriptionTogglerResult(
+            records: result.records.asDetais,
+            dependencies: result.dependencies.asDetais,
+            count: 1
+        )
     }
     
     private func startSetSubscription(data: SetSubsriptionData) -> SubscriptionTogglerResult? {
@@ -139,7 +141,11 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             return nil
         }
         
-        return (details: result.records.asDetais, total: result.counters.total)
+        return SubscriptionTogglerResult(
+            records: result.records.asDetais,
+            dependencies: result.dependencies.asDetais,
+            count: result.counters.total
+        )
     }
     
     private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {

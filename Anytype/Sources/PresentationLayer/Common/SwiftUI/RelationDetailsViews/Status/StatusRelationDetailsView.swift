@@ -56,6 +56,7 @@ private extension StatusRelationDetailsView {
         } label: {
             AnytypeText(Loc.clear, style: .uxBodyRegular, color: .buttonActive)
         }
+        .disabled(!viewModel.isEditable)
     }
     
     var addButton: some View {
@@ -64,6 +65,7 @@ private extension StatusRelationDetailsView {
         } label: {
             Image(asset: .relationNew).frame(width: 24, height: 24)
         }
+        .disabled(!viewModel.isEditable)
     }
     
 }

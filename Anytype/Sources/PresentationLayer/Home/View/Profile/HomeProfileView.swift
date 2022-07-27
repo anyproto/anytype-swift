@@ -55,8 +55,8 @@ struct HomeProfileView: View {
     
     private var buttons: some View {
         HStack(spacing: 20) {
-            Button(action: model.startSearch) {
-                HomeProfileViewButtonImage(image: Image(asset: .mainSearch).renderingMode(.template)
+            Button(action: { model.startSearch() }) {
+                HomeProfileViewButtonImage(image: Image.main.search.renderingMode(.template)
                                             .foregroundColor(.textPrimary))
 
             }
@@ -64,11 +64,11 @@ struct HomeProfileView: View {
                 model.snackBarData = .init(text: Loc.Home.Snackbar.library, showSnackBar: true)
             }) {
                 HomeProfileViewButtonImage(
-                    image: Image(asset: .marketplace).renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
+                    image: Image.main.marketplace.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
                 )
             }
-            Button(action: model.createAndShowNewPage) {
-                HomeProfileViewButtonImage(image: Image(asset: .draft).renderingMode(.template)
+            Button(action: { model.createAndShowNewPage() } ) {
+                HomeProfileViewButtonImage(image: Image.main.draft.renderingMode(.template)
                                             .foregroundColor(.textPrimary))
 
             }

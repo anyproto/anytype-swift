@@ -30,13 +30,3 @@ struct StatusRelationDetailsRowView: View {
         }
     }
 }
-
-//struct StatusRelationRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StatusRelationDetailsRowView(
-//            status: Relation.Status.Option(id: "", text: "text", color: UIColor.System.teal, scope: .local),
-//            isSelected: true,
-//            onTap: {}
-//        )
-//    }
-//}

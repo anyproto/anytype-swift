@@ -12,6 +12,7 @@ struct EditorSetViewSettingsView: View {
                 .padding(.horizontal, 20)
         }
         .background(Color.backgroundSecondary)
+        .navigationViewStyle(.stack)
     
         .animation(.default, value: setModel.activeView)
         .animation(.default, value: setModel.sortedRelations)

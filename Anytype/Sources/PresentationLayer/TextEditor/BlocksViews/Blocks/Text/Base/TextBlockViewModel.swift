@@ -11,6 +11,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
 
     private let focusSubject: PassthroughSubject<BlockFocusPosition, Never>
     private let actionHandler: TextBlockActionHandlerProtocol
+    private let customBackgroundColor: UIColor?
 
     var hashable: AnyHashable {
         [info, isCheckable, toggled] as [AnyHashable]
@@ -21,7 +22,8 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         content: BlockText,
         isCheckable: Bool,
         focusSubject: PassthroughSubject<BlockFocusPosition, Never>,
-        actionHandler: TextBlockActionHandlerProtocol
+        actionHandler: TextBlockActionHandlerProtocol,
+        customBackgroundColor: UIColor? = nil
     ) {
         self.content = content
         self.isCheckable = isCheckable
@@ -30,6 +32,7 @@ struct TextBlockViewModel: BlockViewModelProtocol {
         self.info = info
         self.focusSubject = focusSubject
         self.actionHandler = actionHandler
+        self.customBackgroundColor = customBackgroundColor
     }
 
     func set(focus: BlockFocusPosition) {
@@ -69,9 +72,9 @@ struct TextBlockViewModel: BlockViewModelProtocol {
     }
 
     func makeSpreadsheetConfiguration() -> UIContentConfiguration {
-        let color = info.configurationData.backgroundColor.map {
-            UIColor.Background.uiColor(from: $0)
-        } ?? .backgroundPrimary
+        let color: UIColor = info.configurationData.backgroundColor.map { UIColor.Background.uiColor(from: $0) }
+            ?? customBackgroundColor
+            ?? .backgroundPrimary
 
         return textBlockContentConfiguration()
             .spreadsheetConfiguration(

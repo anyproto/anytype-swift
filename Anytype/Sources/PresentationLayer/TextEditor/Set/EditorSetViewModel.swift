@@ -251,7 +251,10 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func url(from details: ObjectDetails) -> URL? {
-        let urlString = details.values[BundledRelationKey.url.rawValue]?.stringValue ?? ""
+        var urlString = details.values[BundledRelationKey.url.rawValue]?.stringValue ?? ""
+        if !urlString.isEncoded {
+            urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
+        }
         return URL(string: urlString)
     }
 }
@@ -333,11 +336,16 @@ extension EditorSetViewModel {
     }
     
     private func createDefaultObject() {
-        let availableTemplates = searchService.searchTemplates(
-            for: .dynamic(ObjectTypeProvider.shared.defaultObjectType.url)
-        )
-        let hasSingleTemplate = availableTemplates?.count == 1
-        let templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+        let templateId: String
+        if let objectType = dataView.source.first {
+            let availableTemplates = searchService.searchTemplates(
+                for: .dynamic(objectType)
+            )
+            let hasSingleTemplate = availableTemplates?.count == 1
+            templateId = hasSingleTemplate ? (availableTemplates?.first?.id ?? "") : ""
+        } else {
+            templateId = ""
+        }
 
         guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
         

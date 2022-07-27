@@ -14,8 +14,7 @@ jobs:
     timeout-minutes: 35
 
     steps:
-      - name: Checkout branch
-        uses: actions/checkout@v2.4.0
+      - uses: actions/checkout@v2.4.0
         with:
           ref: ${{ github.event.inputs.branch }}
 
@@ -32,7 +31,6 @@ jobs:
 
       - name: Update git config
         run: |
-          nproc
           git config --global url.ssh://git@github.com/.insteadOf https://github.com/
           git config --global user.name "William Blake"
           git config --global user.email "iosteam@anytype.io"
@@ -41,21 +39,14 @@ jobs:
         with:
           xcode-version: '13.4'
 
-      #- name: Download Middleware
-      #  run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
-
-      #- name: Run unit tests
-      #  run: bundle exec fastlane tests
-      #  continue-on-error: true
-      #  env:
-      #    FASTLANE_XCODEBUILD_SETTINGS_TIMEOUT: 900
-      #    FASTLANE_XCODE_LIST_TIMEOUT: 900
+      - name: Download Middleware
+        run: ruby ./Scripts/middleware.rb --token ${{ secrets.ANYTYPE_MIDDLEWARE_ACCESS_TOKEN }}
 
       - name: Build and upload to Testflight
         run: |
           export LC_ALL=en_US.UTF-8
           export LANG=en_US.UTF-8
-          bundle exec fastlane dev
+          bundle exec fastlane test_build
         env:
           MATCH_GIT_PRIVATE_KEY: ${{ secrets.SSH_KEY_FASTLANE_MATCH }}
           MATCH_PASSWORD: ${{ secrets.MATCH_PASSWORD }}

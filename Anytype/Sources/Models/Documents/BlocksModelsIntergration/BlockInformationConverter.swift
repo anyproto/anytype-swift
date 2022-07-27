@@ -39,8 +39,7 @@ enum BlockInformationConverter {
         let childrenIds = information.childrenIds
         let backgroundColor = information.backgroundColor?.rawValue ?? ""
         let horizontalAlignment = information.horizontalAlignment.asMiddleware
-        
-        
+
         return Anytype_Model_Block(
             id: id,
             fields: fields,

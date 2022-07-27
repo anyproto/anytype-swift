@@ -84,11 +84,11 @@ struct SlashMenuItemsBuilder {
         var allOtherSlashActions: [SlashActionOther] = [.lineDivider, .dotsDivider, .tableOfContents, defaultTableAction]
 
         if !FeatureFlags.isSimpleTablesAvailable {
-            allOtherSlashActions = allOtherSlashActions.filter { $0 == defaultTableAction }
+            allOtherSlashActions = allOtherSlashActions.filter { $0 != defaultTableAction }
         }
 
         if !FeatureFlags.isTableOfContentsAvailable {
-            allOtherSlashActions = allOtherSlashActions.filter { $0 == .tableOfContents }
+            allOtherSlashActions = allOtherSlashActions.filter { $0 != .tableOfContents }
         }
         let children: [SlashAction] = allOtherSlashActions.map { .other($0) }
 

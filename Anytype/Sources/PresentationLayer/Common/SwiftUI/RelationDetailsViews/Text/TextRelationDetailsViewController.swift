@@ -125,6 +125,7 @@ private extension TextRelationDetailsViewController {
     
     func setupTextView() {
         textView.text = viewModel.value
+        textView.isEditable = viewModel.isEditable
         textView.keyboardType = viewModel.type.keyboardType
         textView.update(
             placeholder: NSAttributedString(

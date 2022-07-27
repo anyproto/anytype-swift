@@ -67,7 +67,20 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
 
     func checkOpenedState() {}
 
-    func checkDocumentLockField() {}
+    func checkDocumentLockField() {
+        switch editingState {
+        case .editing, .locked, .loading:
+            break
+        default:
+            return // Unable to change state while moving or selecting blocks
+        }
+
+        if document.isLocked {
+            editingState = .locked
+        } else if case .locked = editingState, !document.isLocked {
+            editingState = .editing
+        }
+    }
 
     func canSelectBlock(at indexPath: IndexPath) -> Bool {
         return true
@@ -124,7 +137,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         case .cell:
             horizontalListItems = SimpleTableCellMenuItem.allCases.map { item in
                 HorizontalListItem.init(
-                    id: "cell \(item.hashValue)",
+                    id: "\(UUID().uuidString) \(item.hashValue)", // sometimes SwiftUI view do not update items with equal hashes and action doesn't work. This class could be deinited whilte reusing cell.s
                     title: item.title,
                     image: .imageAsset(item.imageAsset),
                     action: { [weak self] in self?.handleCellAction(action: item) }
@@ -133,7 +146,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         case .row:
             horizontalListItems = SimpleTableRowMenuItem.allCases.map { item in
                 HorizontalListItem.init(
-                    id: "row \(item.hashValue)",
+                    id: "\(UUID().uuidString) \(item.hashValue)",
                     title: item.title,
                     image: .imageAsset(item.imageAsset),
                     action: { [weak self] in self?.handleRowAction(action: item) }
@@ -142,7 +155,7 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         case .column:
             horizontalListItems = SimpleTableColumnMenuItem.allCases.map { item in
                 HorizontalListItem.init(
-                    id: "column \(item.hashValue)",
+                    id: "\(UUID().uuidString) \(item.hashValue)",
                     title: item.title,
                     image: .imageAsset(item.imageAsset),
                     action: { [weak self] in self?.handleColumnAction(action: item) }
@@ -503,11 +516,11 @@ extension Array where Element == [ComputedTable.Cell] {
 private extension EditorItem {
      var blockId: BlockId? {
         switch self {
-        case .header(let objectHeader):
+        case .header:
             return nil
         case .block(let blockViewModel):
             return blockViewModel.blockId
-        case .system(let systemContentConfiguationProvider):
+        case .system:
             return nil
         }
     }

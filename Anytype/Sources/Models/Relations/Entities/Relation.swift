@@ -104,4 +104,21 @@ extension Relation: RelationProtocol {
         case .unknown(let unknown): return unknown.isFeatured
         }
     }
+    
+    var hasDetails: Bool {
+        switch self {
+        case .text: return true
+        case .number: return true
+        case .status: return true
+        case .date: return false
+        case .object: return true
+        case .checkbox: return false
+        case .url: return true
+        case .email: return true
+        case .phone: return true
+        case .tag: return true
+        case .file: return true
+        case .unknown: return false
+        }
+    }
 }

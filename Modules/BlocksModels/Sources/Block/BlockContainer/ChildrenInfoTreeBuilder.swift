@@ -39,9 +39,12 @@ final class ChildrenInfoTreeBuilder {
     }
 
     private func findChildren(info: BlockInformation) -> [BlockInformation] {
-        if info.content == .tableRow || info.content == .tableColumn {
+        switch info.content {
+        case .tableRow, .tableColumn:
             return []
+        default: break
         }
+        
         if info.content.isToggle, ToggleStorage.shared.isToggled(blockId: info.id) == false {
             return [] // return no children for closed toggle
         }

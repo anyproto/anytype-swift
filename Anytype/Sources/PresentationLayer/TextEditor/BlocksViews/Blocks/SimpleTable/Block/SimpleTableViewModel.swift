@@ -33,6 +33,7 @@ final class SimpleTableViewModel {
         self.cursorManager = cursorManager
 
         forceUpdate(shouldApplyFocus: false)
+        stateManager.checkDocumentLockField()
         setupHandlers()
     }
 
@@ -68,6 +69,8 @@ final class SimpleTableViewModel {
 
             dataSource?.allModels = cells
         }
+
+        stateManager.checkDocumentLockField()
     }
 
     private func updateDifference(newItems: [[EditorItem]]) {

@@ -11,6 +11,10 @@ for_lane :dev do
 	app_identifier("com.anytypeio.anytype.dev") 
 end
 
+for_lane :test_build do
+	app_identifier("com.anytypeio.anytype.dev") 
+end
+
 for_lane :update_dev_symbols do
 	app_identifier("com.anytypeio.anytype.dev") 
 end

@@ -4,6 +4,7 @@ import BlocksModels
 protocol SetFiltersContentHandlerProtocol {
     func handleSelectedIds(_ ids: [String])
     func handleText(_ text: String)
+    func handleCheckbox(_ isChecked: Bool)
     func handleEmptyValue()
     func updateCondition(_ condition: DataviewFilter.Condition)
 }
@@ -34,6 +35,10 @@ final class SetFiltersContentHandler: SetFiltersContentHandlerProtocol {
         }
     }
     
+    func handleCheckbox(_ isChecked: Bool) {
+        handleValue(isChecked.protobufValue)
+    }
+    
     func handleEmptyValue() {
         switch filter.conditionType {
         case .selected:
@@ -43,7 +48,7 @@ final class SetFiltersContentHandler: SetFiltersContentHandlerProtocol {
         case .text:
             handleText("")
         case .checkbox:
-            break
+            handleCheckbox(false)
         }
     }
     

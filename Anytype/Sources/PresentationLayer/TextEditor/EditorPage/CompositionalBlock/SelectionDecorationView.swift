@@ -36,8 +36,9 @@ class SelectionDecorationView: UICollectionReusableView, ReusableContent {
         }
 
         attributes.$selectedRects.sink { [weak self] rects in
-
-            self?.redraw(selectedFrames: rects)
+            UIView.performWithoutAnimation {
+                self?.redraw(selectedFrames: rects)
+            }
         }.store(in: &cancellables)
     }
 
@@ -49,6 +50,8 @@ class SelectionDecorationView: UICollectionReusableView, ReusableContent {
         addSubview(drawingView) {
             $0.pinToSuperview()
         }
+
+        layoutIfNeeded()
     }
 }
 

@@ -54,6 +54,9 @@ final class SetFiltersSelectionViewModel: ObservableObject {
             onApplyText: { [contentHandler] in
                 contentHandler.handleText($0)
             },
+            onApplyCheckbox: { [contentHandler] in
+                contentHandler.handleCheckbox($0)
+            },
             onKeyboardHeightChange: { [weak self] height in
                 self?.keyboardHeight = height
                 // fix simultaneous update of popup height and content

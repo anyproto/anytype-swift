@@ -41,9 +41,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             LazyVStack(spacing: 0) {
                 ForEach(viewModel.searchData) { section in
                     Section(content: {
-                        ForEach(section.searchData.indices) { index in
-                            let searchData = section.searchData[index]
-                            
+                        ForEach(Array(section.searchData.enumerated()), id:\.offset) { index, searchData in
                             Button(
                                 action: {
                                     presentationMode.wrappedValue.dismiss()

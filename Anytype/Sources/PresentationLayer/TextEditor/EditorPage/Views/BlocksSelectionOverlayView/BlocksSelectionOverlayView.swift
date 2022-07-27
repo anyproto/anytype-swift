@@ -124,7 +124,7 @@ final class BlocksSelectionOverlayView: UIView {
                 self.movingButtonsUIView.isHidden = false
                 self.shadowedSimpleTablesOptionView.isHidden = true
                 self.shadowedBlocksOptionView.isHidden = true
-            case let .simpleTableMenu(selectedBlocksCount, model):
+            case let .simpleTableMenu(_, model):
                 self.movingButtonsUIView.isHidden = true
                 self.shadowedBlocksOptionView.isHidden = true
                 self.shadowedSimpleTablesOptionView.isHidden = false
