@@ -402,6 +402,7 @@
 		2A2C331D2892B627008BC326 /* RelationValueModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C331C2892B627008BC326 /* RelationValueModuleAssembly.swift */; };
 		2A2C331F2892B669008BC326 /* RelationValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C331E2892B669008BC326 /* RelationValueViewModel.swift */; };
 		2A2C33212892BA36008BC326 /* RelationValueViewModelOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */; };
+		2A2C33232892C63B008BC326 /* RelationValueCoordinatorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33222892C63B008BC326 /* RelationValueCoordinatorOutput.swift */; };
 		2A2D4A2B283CCE47005E70E4 /* HomeContextMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2D4A2A283CCE47005E70E4 /* HomeContextMenuView.swift */; };
 		2A6ED166285B44DB00AAA21C /* AnytypeCore in Frameworks */ = {isa = PBXBuildFile; productRef = 2A6ED165285B44DB00AAA21C /* AnytypeCore */; };
 		2A6ED167285B44DB00AAA21C /* AnytypeCore in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A6ED165285B44DB00AAA21C /* AnytypeCore */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -1517,6 +1518,7 @@
 		2A2C331C2892B627008BC326 /* RelationValueModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueModuleAssembly.swift; sourceTree = "<group>"; };
 		2A2C331E2892B669008BC326 /* RelationValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModel.swift; sourceTree = "<group>"; };
 		2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModelOutput.swift; sourceTree = "<group>"; };
+		2A2C33222892C63B008BC326 /* RelationValueCoordinatorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorOutput.swift; sourceTree = "<group>"; };
 		2A2D4A2A283CCE47005E70E4 /* HomeContextMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContextMenuView.swift; sourceTree = "<group>"; };
 		2A6ED162285B448700AAA21C /* ProtobufMessages */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = ProtobufMessages; path = Modules/ProtobufMessages; sourceTree = "<group>"; };
 		2A6ED163285B449000AAA21C /* BlocksModels */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BlocksModels; path = Modules/BlocksModels; sourceTree = "<group>"; };
@@ -4109,6 +4111,7 @@
 				2A2C330628928B24008BC326 /* RelationEditingViewModelBuilder */,
 				2A2C330228928668008BC326 /* RelationValueCoordinator.swift */,
 				2A2C330428928A7C008BC326 /* RelationValueCoordinatorAssembly.swift */,
+				2A2C33222892C63B008BC326 /* RelationValueCoordinatorOutput.swift */,
 			);
 			path = RelationValueFlow;
 			sourceTree = "<group>";
@@ -7621,6 +7624,7 @@
 				3DFD1B4026EB1F8B00F893FC /* StaticImageGuideline.swift in Sources */,
 				0AD6B24524CF12CC0097A841 /* BookmarkServiceProtocol.swift in Sources */,
 				12A52E1B26CA88CD000F0333 /* UIEditorBarButtonItem.swift in Sources */,
+				2A2C33232892C63B008BC326 /* RelationValueCoordinatorOutput.swift in Sources */,
 				538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */,
 				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,

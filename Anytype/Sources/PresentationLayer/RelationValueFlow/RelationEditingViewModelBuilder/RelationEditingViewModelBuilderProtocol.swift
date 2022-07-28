@@ -7,7 +7,7 @@ protocol RelationEditingViewModelBuilderProtocol {
         source: RelationSource,
         objectId: BlockId,
         relation: Relation,
-        onTap: @escaping () -> Void
+        onTap: @escaping (_ pageId: BlockId, _ viewType: EditorViewType) -> Void
     ) -> AnytypePopupViewModelProtocol?
     
 }

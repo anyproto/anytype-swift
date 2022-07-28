@@ -138,7 +138,8 @@ private extension RelationFilterBuilder {
                     title: name,
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
-                    isDeleted: objectDetail.isDeleted
+                    isDeleted: objectDetail.isDeleted,
+                    editorViewType: objectDetail.editorViewType
                 )
             }
             

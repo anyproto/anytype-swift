@@ -3,7 +3,12 @@ import BlocksModels
 import UIKit
 
 protocol RelationValueCoordinatorProtocol: AnyObject {
-    func startFlow(objectId: BlockId, source: RelationSource, relation: Relation)
+    func startFlow(
+        objectId: BlockId,
+        source: RelationSource,
+        relation: Relation,
+        output: RelationValueCoordinatorOutput
+    )
 }
 
 final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
@@ -13,6 +18,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     private weak var viewController: UIViewController?
     private let relationValueModuleAssembly: RelationValueModuleAssemblyProtocol
     private let urlOpener: URLOpenerProtocol
+    private weak var output: RelationValueCoordinatorOutput?
     
     init(
         viewController: UIViewController?,
@@ -26,7 +32,14 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     
     // MARK: - RelationValueCoordinatorProtocol
     
-    func startFlow(objectId: BlockId, source: RelationSource, relation: Relation) {
+    func startFlow(
+        objectId: BlockId,
+        source: RelationSource,
+        relation: Relation,
+        output: RelationValueCoordinatorOutput
+    ) {
+        self.output = output
+        
         guard relation.isEditable || relation.hasDetails else { return }
         
         if case .checkbox(let checkbox) = relation {
@@ -58,7 +71,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
     
     // MARK: - RelationValueViewModelOutput
     
-    func onTapRelation() {
-        print("on tap")
+    func onTapRelation(pageId: BlockId, viewType: EditorViewType) {
+        output?.openObject(pageId: pageId, viewType: viewType)
     }
 }

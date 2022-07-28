@@ -79,7 +79,8 @@ struct RelationObjectsRowView_Previews: PreviewProvider {
                 title: "title",
                 type: "type",
                 isArchived: false,
-                isDeleted: false
+                isDeleted: false,
+                editorViewType: .page
             ),
             action: {}
         )

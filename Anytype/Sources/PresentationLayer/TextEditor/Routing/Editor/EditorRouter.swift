@@ -461,14 +461,6 @@ extension EditorRouter: AttachmentRouterProtocol {
     }
 }
 
-//extension EditorRouter: TextRelationActionButtonViewModelDelegate {
-//
-//    func canOpenUrl(_ url: URL) -> Bool {
-//        UIApplication.shared.canOpenURL(url.urlByAddingHttpIfSchemeIsEmpty())
-//    }
-//
-//}
-
 // MARK: - Relations
 extension EditorRouter {
     func showRelationValueEditingView(key: String, source: RelationSource) {
@@ -479,27 +471,18 @@ extension EditorRouter {
     }
     
     func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation) {
-        relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation)
-//        guard relation.isEditable || relation.hasDetails else { return }
-//
-//        if case .checkbox(let checkbox) = relation {
-//            let relationsService = RelationsService(objectId: objectId)
-//            relationsService.updateRelation(relationKey: checkbox.id, value: (!checkbox.value).protobufValue)
-//            return
-//        }
-//
-//        guard let viewController = viewController else { return }
-//
-//        let contentViewModel = relationEditingViewModelBuilder
-//            .buildViewModel(source: source, objectId: objectId, relation: relation, onTap: {})
-//        guard let contentViewModel = contentViewModel else { return }
-//
-//        let fpc = AnytypePopup(viewModel: contentViewModel)
-//        viewController.topPresentedController.present(fpc, animated: true, completion: nil)
+        relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation, output: self)
     }
 
     func showAddNewRelationView(onSelect: ((RelationMetadata, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
+    }
+}
+
+extension EditorRouter: RelationValueCoordinatorOutput {
+    func openObject(pageId: BlockId, viewType: EditorViewType) {
+        viewController?.dismiss(animated: true)
+        showPage(data: EditorScreenData(pageId: pageId, type: viewType))
     }
 }
 

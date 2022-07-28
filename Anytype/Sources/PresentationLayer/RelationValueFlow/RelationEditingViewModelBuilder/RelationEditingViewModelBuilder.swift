@@ -19,7 +19,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
         source: RelationSource,
         objectId: BlockId,
         relation: Relation,
-        onTap: @escaping () -> Void
+        onTap: @escaping (_ id: BlockId, _ viewType: EditorViewType) -> Void
     ) -> AnytypePopupViewModelProtocol? {
         switch relation {
         case .text(let text):
@@ -105,7 +105,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                         RelationObjectsRowView(
                             object: object,
                             action: {
-                                onTap()
+                                onTap(object.id, object.editorViewType)
                             }
                         ).eraseToAnyView()
                     }
