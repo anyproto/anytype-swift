@@ -464,7 +464,7 @@ private extension RelationsBuilder {
                         return .imageAsset(FileIconConstants.other)
                     }
                     
-                    return .staticImage(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
+                    return .imageAsset(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
                 }()
                 
                 return Relation.File.Option(
