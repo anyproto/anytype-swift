@@ -183,4 +183,19 @@ extension DataviewFilter.QuickOption {
             return ""
         }
     }
+    
+    static let orderedCases: [DataviewFilter.QuickOption] = [
+        .today,
+        .tomorrow,
+        .yesterday,
+        .currentWeek,
+        .lastWeek,
+        .nextWeek,
+        .currentMonth,
+        .lastMonth,
+        .nextMonth,
+        .numberOfDaysAgo,
+        .numberOfDaysNow,
+        .exactDate
+    ]
 }

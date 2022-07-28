@@ -9,7 +9,7 @@ final class SetFiltersDateViewModel: ObservableObject {
     private let filter: SetFilter
     
     var rows: [SetFiltersDateRowConfiguration] {
-        DataviewFilter.QuickOption.allCases.map { option in
+        DataviewFilter.QuickOption.orderedCases.map { option in
             SetFiltersDateRowConfiguration(
                 id: option.rawValue,
                 title: option.title,
