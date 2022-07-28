@@ -16,36 +16,16 @@ struct SetFiltersDateView: View {
         ScrollView {
             VStack(spacing: 0) {
                 ForEach(viewModel.rows) { configuration in
-                    Button {
-                        configuration.onTap()
-                    } label: {
-                        row(for: configuration)
-                    }
-                    .divider()
+                    row(for: configuration)
+                        .divider()
                 }
             }
         }
     }
     
     private func row(for configuration: SetFiltersDateRowConfiguration) -> some View {
-        HStack(spacing: 0) {
-            AnytypeText(
-                configuration.title,
-                style: .uxBodyRegular,
-                color: .textPrimary
-            )
-            Spacer()
-            if configuration.isChecked {
-                icon
-            }
-        }
+        SetFiltersDateRowView(configuration: configuration, date: $viewModel.date)
         .frame(height: 48)
-    }
-    
-    private var icon: some View {
-        Image.optionChecked
-            .frame(width: 24, height: 24)
-            .foregroundColor(.buttonSelected)
     }
     
     private var button: some View {

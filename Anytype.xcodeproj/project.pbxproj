@@ -440,6 +440,9 @@
 		2E7C445D2891753B0062287C /* SetFiltersDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445C2891753B0062287C /* SetFiltersDateView.swift */; };
 		2E7C445F2891755A0062287C /* SetFiltersDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */; };
 		2E7C4461289184BA0062287C /* SetFiltersDateRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4460289184BA0062287C /* SetFiltersDateRowConfiguration.swift */; };
+		2E7C44672892CFCA0062287C /* SetFiltersDateRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */; };
+		2E7C44692892D73C0062287C /* SetFiltersDateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44682892D73C0062287C /* SetFiltersDateType.swift */; };
+		2E7C446B2892E66D0062287C /* SetFiltersDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C446A2892E66D0062287C /* SetFiltersDate.swift */; };
 		2E975EC72874BB18004DE574 /* EditorSetViewPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */; };
 		2E975EC92874BBC5004DE574 /* EditorSetViewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */; };
 		2E975EDA287C2325004DE574 /* SetFilterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED0287C2325004DE574 /* SetFilterRow.swift */; };
@@ -1535,6 +1538,9 @@
 		2E7C445C2891753B0062287C /* SetFiltersDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateView.swift; sourceTree = "<group>"; };
 		2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateViewModel.swift; sourceTree = "<group>"; };
 		2E7C4460289184BA0062287C /* SetFiltersDateRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateRowConfiguration.swift; sourceTree = "<group>"; };
+		2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateRowView.swift; sourceTree = "<group>"; };
+		2E7C44682892D73C0062287C /* SetFiltersDateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateType.swift; sourceTree = "<group>"; };
+		2E7C446A2892E66D0062287C /* SetFiltersDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDate.swift; sourceTree = "<group>"; };
 		2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewPickerViewModel.swift; sourceTree = "<group>"; };
 		2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E975ED0287C2325004DE574 /* SetFilterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterRow.swift; sourceTree = "<group>"; };
@@ -4179,6 +4185,9 @@
 				2E7C445C2891753B0062287C /* SetFiltersDateView.swift */,
 				2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */,
 				2E7C4460289184BA0062287C /* SetFiltersDateRowConfiguration.swift */,
+				2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */,
+				2E7C44682892D73C0062287C /* SetFiltersDateType.swift */,
+				2E7C446A2892E66D0062287C /* SetFiltersDate.swift */,
 			);
 			path = Date;
 			sourceTree = "<group>";
@@ -6979,6 +6988,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E7C44692892D73C0062287C /* SetFiltersDateType.swift in Sources */,
 				EA4B6E232689F07900F717D3 /* BlockFileIconBuilder.swift in Sources */,
 				3D68564226E0E1A000AA36A9 /* Spacer+FixedSize.swift in Sources */,
 				53D408CF27F1D44F00495335 /* PasteboardCopyResult.swift in Sources */,
@@ -7581,6 +7591,7 @@
 				1247BC8027FE05C4005F2DB4 /* TransparencyEffect.swift in Sources */,
 				1247BC7527FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift in Sources */,
 				C91AFF0A270C3AF2005F9386 /* EventsLogViewModel.swift in Sources */,
+				2E7C446B2892E66D0062287C /* SetFiltersDate.swift in Sources */,
 				538F172D272C2F75009528E7 /* ObjectSearchViewModel.swift in Sources */,
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
 				3D5A415B2703132800F1F6A1 /* SlashActionOther.swift in Sources */,
@@ -7754,6 +7765,7 @@
 				1244791427D8A37000581174 /* NewSearchView.swift in Sources */,
 				C9CD66A427EAFD3E001F1860 /* GridItemViewModel.swift in Sources */,
 				3DE8D5C426CFFFE4006F31C1 /* AlertHelper.swift in Sources */,
+				2E7C44672892CFCA0062287C /* SetFiltersDateRowView.swift in Sources */,
 				12F3B84827E9C6E200360CA3 /* SearchNewRelationSectionType.swift in Sources */,
 				3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */,
 				3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */,

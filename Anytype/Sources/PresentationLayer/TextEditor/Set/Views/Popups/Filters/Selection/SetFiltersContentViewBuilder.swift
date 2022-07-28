@@ -16,7 +16,7 @@ final class SetFiltersContentViewBuilder {
         onSelect: @escaping (_ ids: [String]) -> Void,
         onApplyText: @escaping (_ text: String) -> Void,
         onApplyCheckbox: @escaping (Bool) -> Void,
-        onApplyOption: @escaping (DataviewFilter.QuickOption) -> Void,
+        onApplyDate: @escaping (SetFiltersDate) -> Void,
         onKeyboardHeightChange: @escaping (_ height: CGFloat) -> Void
     ) -> some View {
         switch filter.conditionType {
@@ -27,7 +27,7 @@ final class SetFiltersContentViewBuilder {
         case .checkbox:
             buildCheckboxView(onApplyCheckbox: onApplyCheckbox)
         case .date:
-            buildDateView(onApplyOption: onApplyOption)
+            buildDateView(onApplyDate: onApplyDate)
         }
     }
     
@@ -140,12 +140,12 @@ final class SetFiltersContentViewBuilder {
     // MARK: - Private methods: Date
     
     func buildDateView(
-        onApplyOption: @escaping (DataviewFilter.QuickOption) -> Void
+        onApplyDate: @escaping (SetFiltersDate) -> Void
     ) -> some View {
         SetFiltersDateView(
             viewModel: SetFiltersDateViewModel(
                 filter: filter,
-                onApplyOption: onApplyOption
+                onApplyDate: onApplyDate
             )
         )
     }

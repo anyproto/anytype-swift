@@ -2,7 +2,9 @@ import SwiftUI
 import BlocksModels
 
 final class SetFiltersDateViewModel: ObservableObject {
-    @Published var quickOption: DataviewFilter.QuickOption = .today
+    @Published var quickOption: DataviewFilter.QuickOption
+    @Published var date: Date
+    @Published var numberOfDays: Int
     
     private let filter: SetFilter
     
@@ -11,23 +13,55 @@ final class SetFiltersDateViewModel: ObservableObject {
             SetFiltersDateRowConfiguration(
                 id: option.rawValue,
                 title: option.title,
-                isChecked: option == quickOption,
+                isSelected: option == quickOption,
+                dateType: dateType(for: option),
                 onTap: { [weak self] in
-                    self?.quickOption = option
+                    self?.handleOptionTap(option)
                 }
             )
         }
     }
     
-    let onApplyOption: (DataviewFilter.QuickOption) -> Void
+    let onApplyDate: (SetFiltersDate) -> Void
     
-    init(filter: SetFilter, onApplyOption: @escaping (DataviewFilter.QuickOption) -> Void) {
+    init(
+        filter: SetFilter,
+        onApplyDate: @escaping (SetFiltersDate) -> Void)
+    {
         self.filter = filter
         self.quickOption = filter.filter.quickOption
-        self.onApplyOption = onApplyOption
+        if let timeInterval = filter.filter.value.safeDoubleValue, !timeInterval.isZero {
+            self.date =  Date(timeIntervalSince1970: timeInterval)
+        } else {
+            self.date = Date()
+        }
+        self.numberOfDays = Int(filter.filter.value.safeDoubleValue ?? 0)
+        self.onApplyDate = onApplyDate
     }
     
-    func handleDate(){
-        onApplyOption(quickOption)
+    func handleDate() {
+        onApplyDate(
+            SetFiltersDate(
+                quickOption: quickOption,
+                numberOfDays: numberOfDays,
+                date: date
+            )
+        )
+    }
+     
+    private func handleOptionTap(_ option: DataviewFilter.QuickOption) {
+        quickOption = option
+    }
+    
+    private func dateType(for option: DataviewFilter.QuickOption) -> SetFiltersDateType {
+        switch option {
+        case .numberOfDaysAgo, .numberOfDaysNow:
+            let count = Int(filter.filter.value.safeDoubleValue ?? 0)
+            return .days(count: "\(count)")
+        case .exactDate:
+            return .exactDate
+        default:
+            return .default
+        }
     }
 }

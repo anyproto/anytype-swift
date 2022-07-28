@@ -57,7 +57,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
             onApplyCheckbox: { [contentHandler] in
                 contentHandler.handleCheckbox($0)
             },
-            onApplyOption: { [contentHandler] in
+            onApplyDate: { [contentHandler] in
                 contentHandler.handleDate($0)
             },
             onKeyboardHeightChange: { [weak self] height in
