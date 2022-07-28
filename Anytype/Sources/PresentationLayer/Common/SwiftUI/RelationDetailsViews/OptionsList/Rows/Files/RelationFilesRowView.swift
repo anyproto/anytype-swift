@@ -3,6 +3,7 @@ import SwiftUI
 struct RelationFilesRowView: View {
     
     let file: Relation.File.Option
+    let action: (() -> Void)
     
     var body: some View {
         HStack(alignment: .center, spacing: 9) {
@@ -15,7 +16,9 @@ struct RelationFilesRowView: View {
             AnytypeText(file.title, style: .previewTitle2Medium, color: .textPrimary)
                 .lineLimit(1)
         }
-        .frame(height: 48)
+        .onTapGesture {
+            action()
+        }
     }
     
 }
@@ -27,7 +30,8 @@ struct RelationFilesRowView_Previews: PreviewProvider {
                 id: "s",
                 icon: .todo(false),
                 title: "title"
-            )
+            ),
+            action: {}
         )
     }
 }

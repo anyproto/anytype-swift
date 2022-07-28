@@ -123,7 +123,12 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                         id: file.id,
                         contentHash: file.hashValue
                     ) {
-                        RelationFilesRowView(file: file).eraseToAnyView()
+                        RelationFilesRowView(
+                            file: file,
+                            action: {
+                                onTap(file.id, .page)
+                            }
+                        ).eraseToAnyView()
                     }
                 },
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
