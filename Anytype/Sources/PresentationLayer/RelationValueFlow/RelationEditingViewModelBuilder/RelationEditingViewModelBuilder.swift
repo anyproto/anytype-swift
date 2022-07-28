@@ -5,9 +5,7 @@ final class RelationEditingViewModelBuilder {
     
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
-    init(
-        delegate: TextRelationActionButtonViewModelDelegate?
-    ) {
+    init(delegate: TextRelationActionButtonViewModelDelegate?) {
         self.delegate = delegate
     }
     
@@ -104,9 +102,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     ) {
                         RelationObjectsRowView(
                             object: object,
-                            action: {
-                                onTap(object.id, object.editorViewType)
-                            }
+                            action: { onTap(object.id, object.editorViewType) }
                         ).eraseToAnyView()
                     }
                 },
@@ -125,9 +121,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     ) {
                         RelationFilesRowView(
                             file: file,
-                            action: {
-                                onTap(file.id, .page)
-                            }
+                            action: { onTap(file.id, .page) }
                         ).eraseToAnyView()
                     }
                 },

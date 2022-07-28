@@ -16,7 +16,6 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let templatesCoordinator: TemplatesCoordinator
     private let urlOpener: URLOpenerProtocol
     private let relationValueCoordinator: RelationValueCoordinatorProtocol
-//    private lazy var relationEditingViewModelBuilder = RelationEditingViewModelBuilder(delegate: self)
     private weak var currentSetSettingsPopup: AnytypePopup?
     
     init(

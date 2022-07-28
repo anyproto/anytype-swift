@@ -2,7 +2,7 @@ import Foundation
 import UIKit
 import SafariServices
 
-protocol URLOpenerProtocol {
+protocol URLOpenerProtocol: AnyObject {
     func canOpenUrl(_ url: URL) -> Bool
     func openUrl(_ url: URL)
 }

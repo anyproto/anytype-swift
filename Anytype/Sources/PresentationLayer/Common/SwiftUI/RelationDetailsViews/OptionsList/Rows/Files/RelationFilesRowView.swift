@@ -16,6 +16,7 @@ struct RelationFilesRowView: View {
             AnytypeText(file.title, style: .previewTitle2Medium, color: .textPrimary)
                 .lineLimit(1)
         }
+        .frame(height: 48)
         .onTapGesture {
             action()
         }

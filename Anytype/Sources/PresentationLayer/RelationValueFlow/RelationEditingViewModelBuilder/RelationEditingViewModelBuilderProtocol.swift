@@ -1,7 +1,7 @@
 import Foundation
 import BlocksModels
 
-protocol RelationEditingViewModelBuilderProtocol {
+protocol RelationEditingViewModelBuilderProtocol: AnyObject {
 
     func buildViewModel(
         source: RelationSource,

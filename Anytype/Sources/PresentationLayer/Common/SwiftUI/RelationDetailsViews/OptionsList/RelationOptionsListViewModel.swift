@@ -75,13 +75,12 @@ extension RelationOptionsListViewModel {
     
     func makeSearchView() -> some View {
         searchModuleBuilder.buildModule(
-            excludedOptionIds: selectedOptionIds,
-            onSelect: { [weak self] ids in
-                self?.handleNewOptionIds(ids)
-            },
-            onCreate: { [weak self] title in
-                self?.handleCreateOption(title: title)
-            })
+            excludedOptionIds: selectedOptionIds
+        ) { [weak self] ids in
+            self?.handleNewOptionIds(ids)
+        } onCreate: { [weak self] title in
+            self?.handleCreateOption(title: title)
+        }
     }
     
 }

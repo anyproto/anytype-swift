@@ -400,7 +400,6 @@
 		2A2C33162892B2A3008BC326 /* HomeViewModel+Preview.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33152892B2A3008BC326 /* HomeViewModel+Preview.swift */; };
 		2A2C33182892B3BB008BC326 /* DIAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33172892B3BB008BC326 /* DIAssembly.swift */; };
 		2A2C331D2892B627008BC326 /* RelationValueModuleAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C331C2892B627008BC326 /* RelationValueModuleAssembly.swift */; };
-		2A2C331F2892B669008BC326 /* RelationValueViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C331E2892B669008BC326 /* RelationValueViewModel.swift */; };
 		2A2C33212892BA36008BC326 /* RelationValueViewModelOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */; };
 		2A2C33232892C63B008BC326 /* RelationValueCoordinatorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33222892C63B008BC326 /* RelationValueCoordinatorOutput.swift */; };
 		2A2D4A2B283CCE47005E70E4 /* HomeContextMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2D4A2A283CCE47005E70E4 /* HomeContextMenuView.swift */; };
@@ -1516,7 +1515,6 @@
 		2A2C33152892B2A3008BC326 /* HomeViewModel+Preview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HomeViewModel+Preview.swift"; sourceTree = "<group>"; };
 		2A2C33172892B3BB008BC326 /* DIAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DIAssembly.swift; sourceTree = "<group>"; };
 		2A2C331C2892B627008BC326 /* RelationValueModuleAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueModuleAssembly.swift; sourceTree = "<group>"; };
-		2A2C331E2892B669008BC326 /* RelationValueViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModel.swift; sourceTree = "<group>"; };
 		2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModelOutput.swift; sourceTree = "<group>"; };
 		2A2C33222892C63B008BC326 /* RelationValueCoordinatorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorOutput.swift; sourceTree = "<group>"; };
 		2A2D4A2A283CCE47005E70E4 /* HomeContextMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContextMenuView.swift; sourceTree = "<group>"; };
@@ -4148,7 +4146,6 @@
 			isa = PBXGroup;
 			children = (
 				2A2C331C2892B627008BC326 /* RelationValueModuleAssembly.swift */,
-				2A2C331E2892B669008BC326 /* RelationValueViewModel.swift */,
 				2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */,
 			);
 			path = RelationValueModule;
@@ -8011,7 +8008,6 @@
 				3D5A415E2703132800F1F6A1 /* SlashActionStyle.swift in Sources */,
 				03C5C53822DF6C9900DD91DE /* KeychainStore.swift in Sources */,
 				2AD8592D283CE60C008BCE4B /* HomeView+ContextMenu.swift in Sources */,
-				2A2C331F2892B669008BC326 /* RelationValueViewModel.swift in Sources */,
 				0ACDB07C255AA40900B8B0D8 /* FileActionsServiceProtocol.swift in Sources */,
 				03A24B8C231EC07700DA7369 /* ArrayExtension.swift in Sources */,
 				129D78C52694B7E700DA6757 /* ObjectLayoutRow.swift in Sources */,
