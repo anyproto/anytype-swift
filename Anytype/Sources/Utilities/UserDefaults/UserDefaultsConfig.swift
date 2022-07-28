@@ -116,12 +116,6 @@ extension UserDefaultsConfig {
                 return wallpaper
             }
             
-            if let oldWallpaper = try? JSONDecoder().decode(OldBackgroundType.self, from: rawWallpaper),
-               let wallpaper = oldWallpaper.newType {
-                self.wallpaper = wallpaper
-                return wallpaper
-            }
-            
             return .default
         }
         set {
