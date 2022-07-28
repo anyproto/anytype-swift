@@ -45,8 +45,11 @@ final class HomeViewModel: ObservableObject {
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
     
-    init(homeBlockId: BlockId) {
+    private let editorBrowserAssembly: EditorBrowserAssembly
+    
+    init(homeBlockId: BlockId, editorBrowserAssembly: EditorBrowserAssembly) {
         document = BaseDocument(objectId: homeBlockId)
+        self.editorBrowserAssembly = editorBrowserAssembly
         setupSubscriptions()
         
         let data = UserDefaultsConfig.screenDataFromLastSession
@@ -245,7 +248,7 @@ extension HomeViewModel {
     }
     
     func createBrowser(data: EditorScreenData) -> some View {
-        EditorBrowserAssembly().editor(data: data, model: self)
+        editorBrowserAssembly.editor(data: data, model: self)
             .eraseToAnyView()
             .edgesIgnoringSafeArea(.all)
     }

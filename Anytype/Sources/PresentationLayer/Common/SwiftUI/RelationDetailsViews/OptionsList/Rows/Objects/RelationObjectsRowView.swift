@@ -6,17 +6,17 @@ struct RelationObjectsRowView: View {
     let action: (() -> Void)
     
     var body: some View {
-        HStack(alignment: .center, spacing: 0) {
-            Button {
-                action()
-            } label: {
+        Button {
+            action()
+        } label: {
+            HStack(alignment: .center, spacing: 0) {
                 icon
                 Spacer.fixedWidth(12)
                 text
                 Spacer()
             }
+            .frame(height: 68)
         }
-        .frame(height: 68)
     }
     
     private var icon: some View {

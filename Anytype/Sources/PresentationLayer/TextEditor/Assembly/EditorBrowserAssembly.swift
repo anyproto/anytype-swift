@@ -4,15 +4,21 @@ import Combine
 
 final class EditorBrowserAssembly {
     
+    private let coordinatorsAssembly: CoordinatorsAssemblyProtocol
+    
+    init(coordinatorsAssembly: CoordinatorsAssemblyProtocol) {
+        self.coordinatorsAssembly = coordinatorsAssembly
+    }
+    
     func editor(data: EditorScreenData, model: HomeViewModel) -> some View {
-        EditorViewRepresentable(data: data, model: model).eraseToAnyView()
+        EditorViewRepresentable(data: data, model: model, editorBrowserAssembly: self).eraseToAnyView()
     }
     
     func buildEditorBrowser(data: EditorScreenData) -> EditorBrowserController {
         let browser = EditorBrowserController()
 
-        let (page, router) = EditorAssembly(browser: browser)
-            .buildEditorModule(data: data, editorBrowserViewInput: browser)
+        let (page, router) = coordinatorsAssembly.editor
+            .buildEditorModule(browser: browser, data: data, editorBrowserViewInput: browser)
         
         browser.childNavigation = navigationStack(rootPage: page)
         browser.router = router

@@ -3,35 +3,46 @@ import UIKit
 import AnytypeCore
 
 final class EditorAssembly {
-    private weak var browser: EditorBrowserController?
     
-    init(browser: EditorBrowserController?) {
-        self.browser = browser
+    private let servicesAssembly: ServicesAssemblyProtocol
+    private let coordinatorsAssembly: CoordinatorsAssemblyProtocol
+    
+    init(
+        servicesAssembly: ServicesAssemblyProtocol,
+        coordinatorsAssembly: CoordinatorsAssemblyProtocol
+    ) {
+        self.servicesAssembly = servicesAssembly
+        self.coordinatorsAssembly = coordinatorsAssembly
     }
     
     func buildEditorController(
+        browser: EditorBrowserController?,
         data: EditorScreenData,
         editorBrowserViewInput: EditorBrowserViewInputProtocol?
     ) -> UIViewController {
-        buildEditorModule(data: data, editorBrowserViewInput: editorBrowserViewInput).vc
+        buildEditorModule(browser: browser, data: data, editorBrowserViewInput: editorBrowserViewInput).vc
     }
 
     func buildEditorModule(
+        browser: EditorBrowserController?,
         data: EditorScreenData,
         editorBrowserViewInput: EditorBrowserViewInputProtocol?
     ) -> (vc: UIViewController, router: EditorRouterProtocol) {
         switch data.type {
         case .page:
-            let module = buildPageModule(data: data)
+            let module = buildPageModule(browser: browser, data: data)
             module.0.browserViewInput = editorBrowserViewInput
             return module
         case .set:
-            return buildSetModule(data: data)
+            return buildSetModule(browser: browser, data: data)
         }
     }
     
     // MARK: - Set
-    private func buildSetModule(data: EditorScreenData) -> (EditorSetHostingController, EditorRouterProtocol) {
+    private func buildSetModule(
+        browser: EditorBrowserController?,
+        data: EditorScreenData
+    ) -> (EditorSetHostingController, EditorRouterProtocol) {
         let searchService = SearchService()
         let document = BaseDocument(objectId: data.pageId)
         let dataviewService = DataviewService(objectId: data.pageId)
@@ -45,17 +56,14 @@ final class EditorAssembly {
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 
-        
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
             document: document,
             assembly: self,
-            templatesCoordinator: TemplatesCoordinator(
-                rootViewController: controller,
-                keyboardHeightListener: .init(),
-                searchService: searchService
-            )
+            templatesCoordinator: coordinatorsAssembly.templates.make(viewController: controller),
+            urlOpener: URLOpener(viewController: browser),
+            relationValueCoordinator: coordinatorsAssembly.relationValue.make(viewController: controller)
         )
         
         model.setup(router: router)
@@ -65,7 +73,10 @@ final class EditorAssembly {
     
     // MARK: - Page
     
-    private func buildPageModule(data: EditorScreenData) -> (EditorPageController, EditorRouterProtocol) {
+    private func buildPageModule(
+        browser: EditorBrowserController?,
+        data: EditorScreenData
+    ) -> (EditorPageController, EditorRouterProtocol) {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
         let blocksOptionViewModel = HorizonalTypeListViewModel(itemProvider: nil)
 
@@ -81,11 +92,9 @@ final class EditorAssembly {
             viewController: controller,
             document: document,
             assembly: self,
-            templatesCoordinator: TemplatesCoordinator(
-                rootViewController: controller,
-                keyboardHeightListener: .init(),
-                searchService: SearchService()
-            )
+            templatesCoordinator: coordinatorsAssembly.templates.make(viewController: controller),
+            urlOpener: URLOpener(viewController: browser),
+            relationValueCoordinator: coordinatorsAssembly.relationValue.make(viewController: controller)
         )
 
         let viewModel = buildViewModel(
