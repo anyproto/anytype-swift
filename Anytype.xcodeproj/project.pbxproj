@@ -443,6 +443,8 @@
 		2E7C44672892CFCA0062287C /* SetFiltersDateRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */; };
 		2E7C44692892D73C0062287C /* SetFiltersDateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44682892D73C0062287C /* SetFiltersDateType.swift */; };
 		2E7C446B2892E66D0062287C /* SetFiltersDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C446A2892E66D0062287C /* SetFiltersDate.swift */; };
+		2E7C446D2893F96A0062287C /* SetFiltersDaysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C446C2893F96A0062287C /* SetFiltersDaysViewModel.swift */; };
+		2E7C446F289409610062287C /* TextRelationDetailsViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C446E289409610062287C /* TextRelationDetailsViewModelProtocol.swift */; };
 		2E975EC72874BB18004DE574 /* EditorSetViewPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */; };
 		2E975EC92874BBC5004DE574 /* EditorSetViewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */; };
 		2E975EDA287C2325004DE574 /* SetFilterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED0287C2325004DE574 /* SetFilterRow.swift */; };
@@ -1541,6 +1543,8 @@
 		2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateRowView.swift; sourceTree = "<group>"; };
 		2E7C44682892D73C0062287C /* SetFiltersDateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateType.swift; sourceTree = "<group>"; };
 		2E7C446A2892E66D0062287C /* SetFiltersDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDate.swift; sourceTree = "<group>"; };
+		2E7C446C2893F96A0062287C /* SetFiltersDaysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDaysViewModel.swift; sourceTree = "<group>"; };
+		2E7C446E289409610062287C /* TextRelationDetailsViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsViewModelProtocol.swift; sourceTree = "<group>"; };
 		2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewPickerViewModel.swift; sourceTree = "<group>"; };
 		2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E975ED0287C2325004DE574 /* SetFilterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterRow.swift; sourceTree = "<group>"; };
@@ -3652,6 +3656,7 @@
 				123949E6279EC1D40080E1CF /* TextRelationActionButtonViewModel.swift */,
 				12B0FF5F274FC5E200CA35FE /* TextRelationActionButtonViewModelDelegate.swift */,
 				123949EB279EEF830080E1CF /* TextRelationDetailsService */,
+				2E7C446E289409610062287C /* TextRelationDetailsViewModelProtocol.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -4188,6 +4193,7 @@
 				2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */,
 				2E7C44682892D73C0062287C /* SetFiltersDateType.swift */,
 				2E7C446A2892E66D0062287C /* SetFiltersDate.swift */,
+				2E7C446C2893F96A0062287C /* SetFiltersDaysViewModel.swift */,
 			);
 			path = Date;
 			sourceTree = "<group>";
@@ -7067,6 +7073,7 @@
 				C982025E28746DBF00065EBE /* SimpleTableStateManager.swift in Sources */,
 				C91989ED2811673600CC6BEB /* UndoRedoView.swift in Sources */,
 				C9121A5C273B8E2F00FFDA07 /* RoundedShadowView.swift in Sources */,
+				2E7C446F289409610062287C /* TextRelationDetailsViewModelProtocol.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				12F6072826D7DF0D00876C92 /* ObjectIconImageView.swift in Sources */,
 				3D3040B027DBAD3500FFE0EB /* EditorBarButtonItem.swift in Sources */,
@@ -7456,6 +7463,7 @@
 				C905B29A2828CA2F00F1106B /* ToastPresenter.swift in Sources */,
 				12A7B6C226C3E47200544037 /* CoverColor.swift in Sources */,
 				1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */,
+				2E7C446D2893F96A0062287C /* SetFiltersDaysViewModel.swift in Sources */,
 				2E975EDB287C2325004DE574 /* SetFiltersListViewModel.swift in Sources */,
 				3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */,
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,

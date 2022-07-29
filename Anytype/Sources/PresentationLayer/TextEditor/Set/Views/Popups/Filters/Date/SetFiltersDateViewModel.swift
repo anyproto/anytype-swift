@@ -7,6 +7,7 @@ final class SetFiltersDateViewModel: ObservableObject {
     @Published var numberOfDays: Int
     
     private let filter: SetFilter
+    private let router: EditorRouterProtocol
     
     var rows: [SetFiltersDateRowConfiguration] {
         DataviewFilter.QuickOption.orderedCases.map { option in
@@ -26,16 +27,27 @@ final class SetFiltersDateViewModel: ObservableObject {
     
     init(
         filter: SetFilter,
+        router: EditorRouterProtocol,
         onApplyDate: @escaping (SetFiltersDate) -> Void)
     {
         self.filter = filter
+        self.router = router
         self.quickOption = filter.filter.quickOption
-        if let timeInterval = filter.filter.value.safeDoubleValue, !timeInterval.isZero {
+        
+        if filter.filter.quickOption == .exactDate,
+           let timeInterval = filter.filter.value.safeDoubleValue,
+            !timeInterval.isZero {
             self.date =  Date(timeIntervalSince1970: timeInterval)
         } else {
             self.date = Date()
         }
-        self.numberOfDays = Int(filter.filter.value.safeDoubleValue ?? 0)
+        
+        if filter.filter.quickOption == .exactDate {
+            self.numberOfDays = 0
+        } else {
+            self.numberOfDays = Int(Double(filter.filter.value.safeDoubleValue ?? 0))
+        }
+        
         self.onApplyDate = onApplyDate
     }
     
@@ -51,17 +63,37 @@ final class SetFiltersDateViewModel: ObservableObject {
      
     private func handleOptionTap(_ option: DataviewFilter.QuickOption) {
         quickOption = option
+        
+        switch option {
+        case .numberOfDaysAgo, .numberOfDaysNow:
+            showFiltersDaysView()
+        default:
+            break
+        }
     }
     
     private func dateType(for option: DataviewFilter.QuickOption) -> SetFiltersDateType {
         switch option {
         case .numberOfDaysAgo, .numberOfDaysNow:
-            let count = Int(filter.filter.value.safeDoubleValue ?? 0)
-            return .days(count: "\(count)")
+            return .days(count: "\(numberOfDays)")
         case .exactDate:
             return .exactDate
         default:
             return .default
         }
+    }
+    
+    private func showFiltersDaysView() {
+        router.presentFullscreen(
+            AnytypePopup(
+                viewModel: SetFiltersDaysViewModel(
+                    title: quickOption.title,
+                    value: "\(numberOfDays)",
+                    onValueChanged: { [weak self] value in
+                        self?.numberOfDays = Int(Double(value) ?? 0)
+                    }
+                )
+            )
+        )
     }
 }

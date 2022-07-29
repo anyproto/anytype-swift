@@ -8,7 +8,7 @@ final class TextRelationDetailsViewController: UIViewController {
     private let textView = makeTextView()
     private let actionButton = UIButton(type: .custom)
     
-    private let viewModel: TextRelationDetailsViewModel
+    private let viewModel: TextRelationDetailsViewModelProtocol
     
     private var textViewTrailingConstraint: NSLayoutConstraint?
     private var textViewBottomConstraint: NSLayoutConstraint?
@@ -18,7 +18,7 @@ final class TextRelationDetailsViewController: UIViewController {
     
     // MARK: - Initializers
     
-    init(viewModel: TextRelationDetailsViewModel) {
+    init(viewModel: TextRelationDetailsViewModelProtocol) {
         self.viewModel = viewModel
         self.maxViewHeight = {
             guard let window = UIApplication.shared.keyWindow else {
@@ -198,7 +198,7 @@ private extension TextRelationDetailsViewController {
 extension TextRelationDetailsViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-        viewModel.value = textView.text
+        viewModel.updateValue(textView.text)
         updateActionButtonVisibility()
     }
     

@@ -48,6 +48,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     @ViewBuilder
     func makeContentView() -> some View {
         contentViewBuilder.buildContentView(
+            router: router,
             onSelect: { [contentHandler] ids in
                 contentHandler.handleSelectedIds(ids)
             },

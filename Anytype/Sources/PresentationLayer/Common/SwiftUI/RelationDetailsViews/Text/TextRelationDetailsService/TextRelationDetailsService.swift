@@ -27,7 +27,7 @@ extension TextRelationDetailsService: TextRelationDetailsServiceProtocol {
         switch textType {
         case .text:
             service.updateRelation(relationKey: key, value: value.protobufValue)
-        case .number:
+        case .number, .numberOfDays:
             guard let number = numberFormatter.number(from: value)?.doubleValue else { return }
             service.updateRelation(relationKey: key, value: number.protobufValue)
         case .phone, .email, .url:

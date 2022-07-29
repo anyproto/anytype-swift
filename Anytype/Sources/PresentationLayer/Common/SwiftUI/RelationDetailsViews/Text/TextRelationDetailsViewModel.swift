@@ -4,8 +4,7 @@ import SwiftUI
 import Combine
 import FloatingPanel
 
-final class TextRelationDetailsViewModel: ObservableObject {
-          
+final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsViewModelProtocol {     
     weak var viewController: TextRelationDetailsViewController?
     
     private weak var popup: AnytypePopupProxy?
@@ -16,14 +15,14 @@ final class TextRelationDetailsViewModel: ObservableObject {
         }
     }
     
-    @Published var value: String = "" {
-        didSet {
-            handleValueUpdate(value: value)
-        }
-    }
+    @Published var value: String = ""
     
     var isEditable: Bool {
         return relation.isEditable
+    }
+    
+    var title: String {
+        relation.name
     }
     
     let type: TextRelationDetailsViewType
@@ -62,10 +61,10 @@ final class TextRelationDetailsViewModel: ObservableObject {
         handleValueUpdate(value: value)
     }
     
-    var title: String {
-        relation.name
+    func updateValue(_ text: String) {
+        value = text
+        handleValueUpdate(value: value)
     }
-    
 }
 
 extension TextRelationDetailsViewModel {
