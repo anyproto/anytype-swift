@@ -251,7 +251,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func url(from details: ObjectDetails) -> URL? {
-        var urlString = details.values[BundledRelationKey.url.rawValue]?.stringValue ?? ""
+        var urlString = details.values[EditorSetViewModel.urlRelationKey]?.stringValue ?? ""
         if !urlString.isEncoded {
             urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
         }
@@ -355,4 +355,8 @@ extension EditorSetViewModel {
     private func createBookmarkObject() {
         router.showCreateBookmarkObject()
     }
+}
+
+extension EditorSetViewModel {
+    static let urlRelationKey = "url"
 }
