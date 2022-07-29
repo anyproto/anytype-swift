@@ -51,18 +51,13 @@ extension ObjectIconImageView: ConfigurableView {
                 backgroundColor: model.usecase.placeholderBackgroundColor
             )
             imageView.wrapper.setImage(image)
-        case .staticImage(let name):
+        case .imageAsset(let imageAsset):
             let image: UIImage? = model.imageGuideline.flatMap {
-                painter.staticImage(name: name, imageGuideline: $0)
+                painter.staticImage(imageAsset: imageAsset, imageGuideline: $0)
             }
             imageView.wrapper.setImage(image)
         case .image(let image):
             imageView.wrapper.setImage(image)
-        case .imageAsset(let imageAsset):
-//            let image: UIImage? = model.imageGuideline.flatMap {
-//                painter.staticImage(name: name, imageGuideline: $0)
-//            }
-            imageView.wrapper.setImage(UIImage(asset: imageAsset))
         }
 
         currentModel = model

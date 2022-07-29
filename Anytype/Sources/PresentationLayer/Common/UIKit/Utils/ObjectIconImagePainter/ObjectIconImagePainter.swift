@@ -17,9 +17,9 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
         return draw(hash: hash, image: image, imageGuideline: imageGuideline)
     }
     
-    func staticImage(name: String, imageGuideline: ImageGuideline) -> UIImage {
-        let hash = "staticImage.\(name).\(imageGuideline.identifier)"
-        let image = UIImage.createImage(name)
+    func staticImage(imageAsset: ImageAsset, imageGuideline: ImageGuideline) -> UIImage {
+        let hash = "staticImage.\(imageAsset.identifier).\(imageGuideline.identifier)"
+        let image = UIImage(asset: imageAsset) ?? UIImage()
         return draw(hash: hash, image: image, imageGuideline: imageGuideline)
     }
     
