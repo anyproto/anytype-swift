@@ -50,9 +50,15 @@ struct SetTableView: View {
     }
     
     private var content: some View {
-        Section(header: compoundHeader) {
-            ForEach(model.rows) { row in
-                SetTableViewRow(data: row, xOffset: xOffset)
+        Group {
+            if model.isEmpty {
+                EmptyView()
+            } else {
+                Section(header: compoundHeader) {
+                    ForEach(model.rows) { row in
+                        SetTableViewRow(data: row, xOffset: xOffset)
+                    }
+                }
             }
         }
     }
