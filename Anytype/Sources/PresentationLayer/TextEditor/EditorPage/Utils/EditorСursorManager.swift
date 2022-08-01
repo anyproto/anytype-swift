@@ -6,10 +6,15 @@ struct BlockFocus {
 }
 
 final class EditorCursorManager {
+    private let focusSubjectHolder: FocusSubjectsHolder
     private var currentType: String?
     private var didAppearedOnce = false
 
     var blockFocus: BlockFocus?
+
+    init(focusSubjectHolder: FocusSubjectsHolder) {
+        self.focusSubjectHolder = focusSubjectHolder
+    }
 
     func didAppeared(with blocks: [EditorItem], type: String?) {
         currentType = type
@@ -29,6 +34,21 @@ final class EditorCursorManager {
         self.currentType = type
         setFocusOnFirstTextBlock(blocks: blocks)
 
+    }
+
+    func applyCurrentFocus() {
+        guard let blockFocus = blockFocus else { return }
+        let focusSubject = focusSubjectHolder.focusSubject(for: blockFocus.id)
+
+        focusSubject.send(blockFocus.position)
+
+        self.blockFocus = nil
+    }
+
+    func focus(at blockId: BlockId, position: BlockFocusPosition = .end) {
+        let focusSubject = focusSubjectHolder.focusSubject(for: blockId)
+
+        focusSubject.send(position)
     }
 
     private func setFocusOnFirstTextBlock(blocks: [EditorItem]) {

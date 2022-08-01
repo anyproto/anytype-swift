@@ -4,6 +4,7 @@ import SwiftUI
 
 final class FeaturedRelationBlockView: UIView, BlockContentView {
     private let blocksView = DynamicCollectionLayoutView(frame: .zero)
+    private lazy var dataSource = FeaturedRelationBlockItemsDataSource(collectionView: blocksView.collectionView)
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,26 +45,17 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
 
         blocksView.update(
             with: .init(
-                hashable: configuration,
-                views: [dequebale],
+                layoutHeightMemory: .hashable(configuration),
                 layout: layout,
                 heightDidChanged: configuration.heightDidChanged
             )
         )
+
+        dataSource.items = dequebale // It is important to updates items after layout change!
     }
 
     private func setupSubview() {
         setupLayout()
-
-        blocksView.collectionView.register(
-            GenericCollectionViewCell<RelationValueViewUIKit>.self,
-            forCellWithReuseIdentifier: RelationValueViewUIKit.reusableIdentifier
-        )
-
-        blocksView.collectionView.register(
-            GenericCollectionViewCell<SeparatorItemView>.self,
-            forCellWithReuseIdentifier: SeparatorItemView.reusableIdentifier
-        )
     }
 
     private func setupLayout() {
@@ -73,6 +65,4 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
             )
         }
     }
-
 }
-

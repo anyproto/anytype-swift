@@ -19,7 +19,6 @@ final class MarkStyleModifier {
         
     func apply(_ action: MarkupType, shouldApplyMarkup: Bool, range: NSRange) {
         guard attributedString.isRangeValid(range) else {
-            anytypeAssertionFailure("Range out of bounds in \(#function)", domain: .markStyleModifier)
             return
         }
         

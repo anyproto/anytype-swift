@@ -72,8 +72,8 @@ struct BlockInformationCreator {
             )
             return nil
         }
-        guard let alignment = newAlignmentData.align.asBlockModel else { return nil }
-        return info.updated(alignment: alignment)
+        guard let horizontalAlignment = newAlignmentData.align.asBlockModel else { return nil }
+        return info.updated(horizontalAlignment: horizontalAlignment)
     }
     
     private func buildMarks(

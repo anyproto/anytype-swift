@@ -19,25 +19,25 @@ final class TextBlockTextViewStyler {
     private static func updateText(textView: CustomTextView, configuration: TextBlockContentConfiguration) {
         switch configuration.content.contentType {
         case .title:
-            setupText(in: textView, placeholer: "Untitled".localized, textStyle: configuration.content.anytypeText)
+            setupText(in: textView, placeholer: Loc.untitled, textStyle: configuration.content.anytypeText)
         case .description:
-            setupText(in: textView, placeholer: "Add a description".localized, textStyle: configuration.content.anytypeText)
+            setupText(in: textView, placeholer: Loc.addADescription, textStyle: configuration.content.anytypeText)
         case .toggle:
-            setupText(in: textView, placeholer: "Toggle block".localized, textStyle: configuration.content.anytypeText)
+            setupText(in: textView, placeholer: Loc.toggleBlock, textStyle: configuration.content.anytypeText)
         case .bulleted:
-            setupText(in: textView, placeholer: "Bulleted placeholder".localized, textStyle: configuration.content.anytypeText)
+            setupText(in: textView, placeholer: Loc.bulletedPlaceholder, textStyle: configuration.content.anytypeText)
         case .checkbox:
-            setupText(in: textView, placeholer: "Checkbox".localized, textStyle: configuration.content.anytypeText)
+            setupText(in: textView, placeholer: Loc.checkbox, textStyle: configuration.content.anytypeText)
         case .numbered:
-            setupText(in: textView, placeholer: "Numbered placeholder".localized, textStyle: configuration.content.anytypeText)
+            setupText(in: textView, placeholer: Loc.numberedPlaceholder, textStyle: configuration.content.anytypeText)
         case .quote:
-            setupText(in: textView, placeholer: "Highlighted text".localized, textStyle: configuration.content.anytypeText)
+            setupText(in: textView, placeholer: Loc.highlightedText, textStyle: configuration.content.anytypeText)
         case .header:
-            setupText(in: textView, placeholer: "Title".localized, textStyle: configuration.content.anytypeText)
+            setupText(in: textView, placeholer: Loc.title, textStyle: configuration.content.anytypeText)
         case .header2:
-            setupText(in: textView, placeholer: "Heading".localized, textStyle: configuration.content.anytypeText)
+            setupText(in: textView, placeholer: Loc.heading, textStyle: configuration.content.anytypeText)
         case .header3:
-            setupText(in: textView, placeholer: "Subheading".localized, textStyle: configuration.content.anytypeText)
+            setupText(in: textView, placeholer: Loc.subheading, textStyle: configuration.content.anytypeText)
         case .header4, .code, .text, .callout:
             setupText(in: textView, placeholer: "", textStyle: configuration.content.anytypeText)
         }

@@ -12,6 +12,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     private let listService: BlockListServiceProtocol
     private let markupChanger: BlockMarkupChangerProtocol
     private let keyboardHandler: KeyboardActionHandlerProtocol
+    private let blockTableService: BlockTableServiceProtocol
     
     private let fileUploadingDemon = MediaFileUploadingDemon.shared
     
@@ -20,13 +21,15 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         markupChanger: BlockMarkupChangerProtocol,
         service: BlockActionServiceProtocol,
         listService: BlockListServiceProtocol,
-        keyboardHandler: KeyboardActionHandlerProtocol
+        keyboardHandler: KeyboardActionHandlerProtocol,
+        blockTableService: BlockTableServiceProtocol
     ) {
         self.document = document
         self.markupChanger = markupChanger
         self.service = service
         self.listService = listService
         self.keyboardHandler = keyboardHandler
+        self.blockTableService = blockTableService
     }
 
     // MARK: - Service proxy
@@ -47,12 +50,12 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.setObjectTypeUrl(objectTypeUrl)
     }
     
-    func setTextColor(_ color: BlockColor, blockId: BlockId) {
-        listService.setBlockColor(blockIds: [blockId], color: color.middleware)
+    func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
+        listService.setBlockColor(blockIds: blockIds, color: color.middleware)
     }
     
-    func setBackgroundColor(_ color: BlockBackgroundColor, blockId: BlockId) {
-        service.setBackgroundColor(blockId: blockId, color: color)
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId]) {
+        service.setBackgroundColor(blockIds: blockIds, color: color)
     }
     
     func duplicate(blockId: BlockId) {
@@ -80,8 +83,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
             .send()
     }
     
-    func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId) {
-        listService.setAlign(blockIds: [blockId], alignment: alignment)
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
+        listService.setAlign(blockIds: blockIds, alignment: alignment)
     }
     
     func delete(blockIds: [BlockId]) {
@@ -224,17 +227,37 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         return service.createPage(targetId: targetId, type: type, position: position)
     }
 
-    func addBlock(_ type: BlockContentType, blockId: BlockId) {
+
+    func createTable(
+        blockId: BlockId,
+        rowsCount: Int,
+        columnsCount: Int
+    ) {
+        guard let info = document.infoContainer.get(id: blockId) else { return }
+        let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
+
+        blockTableService.createTable(
+            contextId: document.objectId,
+            targetId: blockId,
+            position: position,
+            rowsCount: rowsCount,
+            columnsCount: columnsCount
+        )
+    }
+
+
+    func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?) {
         guard type != .smartblock(.page) else {
             anytypeAssertionFailure("Use createPage func instead", domain: .blockActionsService)
             return
         }
             
         guard let newBlock = BlockBuilder.createNewBlock(type: type) else { return }
+
         guard let info = document.infoContainer.get(id: blockId) else { return }
         
-        let position: BlockPosition = info.isTextAndEmpty ? .replace : .bottom
-        
+        let position: BlockPosition = info.isTextAndEmpty ? .replace : (position ?? .bottom)
+
         service.add(info: newBlock, targetBlockId: info.id, position: position)
     }
 

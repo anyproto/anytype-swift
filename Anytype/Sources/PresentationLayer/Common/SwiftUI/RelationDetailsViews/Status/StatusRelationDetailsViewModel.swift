@@ -16,6 +16,9 @@ final class StatusRelationDetailsViewModel: ObservableObject {
             updateSelectedStatusViewModel()
         }
     }
+    var isEditable: Bool {
+        return relation.isEditable
+    }
     private let allStatuses: [Relation.Status.Option]
     private let relation: Relation
     private let service: RelationsServiceProtocol
@@ -57,7 +60,7 @@ extension StatusRelationDetailsViewModel {
     func makeSearchView() -> some View {
         NewSearchModuleAssembly.statusSearchModule(
             allStatuses: allStatuses,
-            selectedStatus: selectedStatus
+            selectedStatusesIds: selectedStatus.flatMap { [$0.id] } ?? []
         ) { [weak self] ids in
             self?.handleSelectedOptionIds(ids)
         } onCreate: { [weak self] title in

@@ -46,7 +46,7 @@ final class MentionsViewModel {
 
         AnytypeAnalytics.instance().logCreateObject(objectType: ObjectTypeProvider.shared.defaultObjectType.url, route: .mention)
         
-        let name = mentionService.filterString.isEmpty ? "Untitled".localized : mentionService.filterString
+        let name = mentionService.filterString.isEmpty ? Loc.untitled : mentionService.filterString
         let mention = MentionObject(
             id: newBlockId,
             objectIcon: .placeholder(name.first),

@@ -79,7 +79,7 @@ final class TextBlockLeadingView: UIView {
         }
 
         addSubview(innerView) {
-            $0.pinToSuperview()
+            $0.pinToSuperview(excluding: [.bottom])
         }
     }
 }

@@ -8,6 +8,7 @@ final class RelationOptionsListViewModel: ObservableObject {
     @Published var selectedOptions: [ListRowConfiguration] = []
     @Published var isSearchPresented: Bool = false
     
+    let isEditable: Bool
     let title: String
     let emptyPlaceholder: String
     
@@ -39,6 +40,7 @@ final class RelationOptionsListViewModel: ObservableObject {
         self.relationId = relation.id
         self.searchModuleBuilder = searchModuleBuilder
         self.service = service
+        self.isEditable = relation.isEditable
         
         updateLayout()
     }

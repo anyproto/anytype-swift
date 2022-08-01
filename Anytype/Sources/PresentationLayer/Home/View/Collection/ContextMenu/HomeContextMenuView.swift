@@ -10,24 +10,32 @@ struct HomeContextMenuView: View {
     var body: some View {
         Group {
             if cellData.isFavorite {
-                Button("Remove From Favorite".localized) {
+                Button(Loc.removeFromFavorite) {
+                    generateFeedback()
                     viewModel.removeFromFavorite(data: cellData)
                 }
             } else {
-                Button("Add To Favorite".localized) {
+                Button(Loc.addToFavorite) {
+                    generateFeedback()
                     viewModel.addToFavorite(data: cellData)
                 }
             }
             
             if #available(iOS 15.0, *) {
-                Button("Move To Bin".localized, role: .destructive) {
+                Button(Loc.moveToBin, role: .destructive) {
+                    generateFeedback()
                     viewModel.moveToBin(data: cellData)
                 }
             } else {
-                Button("Move To Bin".localized) {
+                Button(Loc.moveToBin) {
+                    generateFeedback()
                     viewModel.moveToBin(data: cellData)
                 }
             }
         }
+    }
+    
+    private func generateFeedback() {
+        UISelectionFeedbackGenerator().selectionChanged()
     }
 }

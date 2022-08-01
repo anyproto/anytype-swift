@@ -1,7 +1,6 @@
-typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing & IndentationProvider)
+typealias SystemContentConfiguationProvider = (ContentConfigurationProvider & HashableProvier & BlockFocusing)
 
 enum EditorItem: Hashable {
-    
     case header(ObjectHeader)
     case block(BlockViewModelProtocol)
     case system(SystemContentConfiguationProvider)
@@ -36,10 +35,6 @@ extension CollectionDifference where ChangeElement == EditorItem {
         !insertions.contains { item in
             switch item.element {
             case .block(let blockViewModel):
-                if let _ = blockViewModel as? SimpleTableBlockViewModel {
-                    return true
-                }
-
                 if case .featuredRelations = blockViewModel.content {
                     return true
                 }
@@ -47,6 +42,19 @@ extension CollectionDifference where ChangeElement == EditorItem {
                 return false
             default: return false
             }
+        }
+    }
+}
+
+extension EditorItem {
+    func didSelect(in state: EditorEditingState) {
+        switch self {
+        case .header(let objectHeader):
+            objectHeader.didSelectRowInTableView(editorEditingState: state)
+        case .block(let blockViewModel):
+            blockViewModel.didSelectRowInTableView(editorEditingState: state)
+        case .system(let systemContentConfiguationProvider):
+            systemContentConfiguationProvider.didSelectRowInTableView(editorEditingState: state)
         }
     }
 }

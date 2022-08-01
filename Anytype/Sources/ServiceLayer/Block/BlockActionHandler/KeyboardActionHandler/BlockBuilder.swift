@@ -9,7 +9,7 @@ struct BlockBuilder {
         let info = BlockInformation.empty(content: content)
         
         if case .file(let blockFile) = content, case .image = blockFile.contentType {
-            return info.updated(alignment: .center)
+            return info.updated(horizontalAlignment: .center)
         }
 
         return info
@@ -34,6 +34,12 @@ struct BlockBuilder {
         case .layout, .smartblock, .featuredRelations, .dataView:
             anytypeAssertionFailure("Unsupported type \(type)", domain: .blockBuilder)
             return nil
+        case .table:
+            return .table
+        case .tableColumn:
+            return .tableColumn
+        case .tableRow:
+            return .tableRow(BlockTableRow(isHeader: false))
         }
     }
 }

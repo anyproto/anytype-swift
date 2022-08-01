@@ -24,6 +24,8 @@ final class DashboardService: DashboardServiceProtocol {
                 .type(.dynamic(ObjectTypeProvider.shared.defaultObjectType.url))
             ],
             shouldDeleteEmptyObject: true,
+            shouldSelectType: true,
+            shouldSelectTemplate: true,
             position: .bottom,
             templateId: templateId
         )

@@ -102,6 +102,15 @@ extension ObjectIconImageUsecase {
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x18
             )
+        case .editorMenu:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x40,
+                profileImageGuideline: ProfileIconImageGuideline.x40,
+                emojiImageGuideline: EmojiIconImageGuideline.x40,
+                todoImageGuideline: nil,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: StaticImageGuideline.x40
+            )
         }
     }
     

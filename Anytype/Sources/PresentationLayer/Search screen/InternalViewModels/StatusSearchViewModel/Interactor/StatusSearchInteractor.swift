@@ -3,11 +3,17 @@ import Foundation
 final class StatusSearchInteractor {
     
     private let allStatuses: [Relation.Status.Option]
-    private let selectedStatus: Relation.Status.Option?
+    private let selectedStatusesIds: [String]
+    private let isPreselectModeAvailable: Bool
     
-    init(allStatuses: [Relation.Status.Option], selectedStatus: Relation.Status.Option?) {
+    init(
+        allStatuses: [Relation.Status.Option],
+        selectedStatusesIds: [String],
+        isPreselectModeAvailable: Bool
+    ) {
         self.allStatuses = allStatuses
-        self.selectedStatus = selectedStatus
+        self.selectedStatusesIds = selectedStatusesIds
+        self.isPreselectModeAvailable = isPreselectModeAvailable
     }
     
 }
@@ -25,15 +31,16 @@ extension StatusSearchInteractor {
             return $0.text.lowercased().contains(text.lowercased())
         }
         
-        guard
-            filteredStatuses.isEmpty,
-            let selectedStatus = selectedStatus,
-            selectedStatus.text.lowercased() == text.lowercased()
-        else {
+        if filteredStatuses.isEmpty {
+            let isSearchedStatusSelected = allStatuses.filter { status in
+                selectedStatusesIds.contains { $0 == status.id }
+            }.contains { $0.text.lowercased() == text.lowercased() }
+            return isSearchedStatusSelected ?
+                .failure(.alreadySelected(searchText: text)) :
+                .success(filteredStatuses)
+        } else {
             return .success(filteredStatuses)
         }
-        
-        return .failure(NewSearchError.alreadySelected(searchText: text))
     }
     
     func isCreateButtonAvailable(searchText: String) -> Bool {
@@ -45,11 +52,11 @@ extension StatusSearchInteractor {
 private extension StatusSearchInteractor {
     
     var availableStatuses: [Relation.Status.Option] {
-        guard let selectedStatus = selectedStatus else {
-            return allStatuses
-        }
+        guard selectedStatusesIds.isNotEmpty, !isPreselectModeAvailable else { return allStatuses }
         
-        return allStatuses.filter { $0.id != selectedStatus.id }
+        return allStatuses.filter { status in
+            !selectedStatusesIds.contains { $0 == status.id }
+        }
     }
     
 }

@@ -24,7 +24,7 @@ final class SlashMenuActionHandler {
         case let .actions(action):
             handleActions(action, textView: textView, blockId: blockId, selectedRange: selectedRange)
         case let .alignment(alignmnet):
-            handleAlignment(alignmnet, blockId: blockId)
+            handleAlignment(alignmnet, blockIds: [blockId])
         case let .style(style):
             handleStyle(style, blockId: blockId)
         case let .media(media):
@@ -56,11 +56,16 @@ final class SlashMenuActionHandler {
                 actionHandler.addBlock(.relation(key: relation.id), blockId: blockId)
             }
         case let .other(other):
-            actionHandler.addBlock(other.blockViewsType, blockId: blockId)
+            switch other {
+            case .table(let rowsCount, let columnsCount):
+                actionHandler.createTable(blockId: blockId, rowsCount: rowsCount, columnsCount: columnsCount)
+            default:
+                actionHandler.addBlock(other.blockViewsType, blockId: blockId)
+            }
         case let .color(color):
-            actionHandler.setTextColor(color, blockId: blockId)
+            actionHandler.setTextColor(color, blockIds: [blockId])
         case let .background(color):
-            actionHandler.setBackgroundColor(color, blockId: blockId)
+            actionHandler.setBackgroundColor(color, blockIds: [blockId])
         }
     }
     
@@ -68,14 +73,14 @@ final class SlashMenuActionHandler {
         actionHandler.changeTextForced(text, blockId: info.id)
     }
     
-    private func handleAlignment(_ alignment: SlashActionAlignment, blockId: BlockId) {
+    private func handleAlignment(_ alignment: SlashActionAlignment, blockIds: [BlockId]) {
         switch alignment {
         case .left :
-            actionHandler.setAlignment(.left, blockId: blockId)
+            actionHandler.setAlignment(.left, blockIds: blockIds)
         case .right:
-            actionHandler.setAlignment(.right, blockId: blockId)
+            actionHandler.setAlignment(.right, blockIds: blockIds)
         case .center:
-            actionHandler.setAlignment(.center, blockId: blockId)
+            actionHandler.setAlignment(.center, blockIds: blockIds)
         }
     }
     

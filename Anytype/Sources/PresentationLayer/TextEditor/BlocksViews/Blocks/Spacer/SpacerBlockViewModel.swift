@@ -13,7 +13,6 @@ struct SpacerBlockViewModel: SystemContentConfiguationProvider {
         ] as [AnyHashable]
     }
 
-    let indentationLevel = 0
     let usage: SpacerCase
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {

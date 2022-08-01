@@ -7,7 +7,7 @@ struct RelationFormatsListView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: "Select relation type".localized)
+            TitleView(title: Loc.selectRelationType)
             list
         }
     }

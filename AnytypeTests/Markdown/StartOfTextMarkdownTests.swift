@@ -13,14 +13,22 @@ class StartOfTextMarkdownTests: XCTestCase {
     func testStartOfTextMarkdowns() throws {
         BeginingOfTextMarkdown.all.forEach { shortcut in
             shortcut.text.forEach { text in
-                testEnteringSpaceAfterTextMarkdown(shortcut: text, style: shortcut.style)
+                testEnteringSpaceAfterTextMarkdown(shortcut: text, type: shortcut.type)
+            }
+        }
+    }
+    
+    func testTypingALotTextOnce() {
+        BeginingOfTextMarkdown.all.forEach { shortcut in
+            shortcut.text.forEach { text in
+                testTypingALotTextOnce(insertedText: text + "testtext", expectedText: "testtext", type: shortcut.type)
             }
         }
     }
     
     private func testEnteringSpaceAfterTextMarkdown(
         shortcut: String,
-        style: BlockText.Style,
+        type: BlockContentType,
         success: Bool = true
     ) {
         let shortcutByDeletingSpaces = shortcut.replacingOccurrences(of: " ", with: "")
@@ -36,11 +44,12 @@ class StartOfTextMarkdownTests: XCTestCase {
         )
 
         if success {
-            switch markdownChange {
-            case .setText:
-                break // Not implemented. It is about inline markups
-            case let .turnInto(newStyle, text: newText):
+            switch (markdownChange, type) {
+            case let (.turnInto(newStyle, text: newText), .text(style)):
                 XCTAssertEqual(newStyle, style)
+                XCTAssertEqual(newText.string, "")
+            case let (.addBlock(newType, newText), type):
+                XCTAssertEqual(newType, type)
                 XCTAssertEqual(newText.string, "")
             default:
                 XCTFail("Wrong case")
@@ -50,6 +59,31 @@ class StartOfTextMarkdownTests: XCTestCase {
         }
         
     }
+    
+    private func testTypingALotTextOnce(
+        insertedText: String,
+        expectedText: String,
+        type: BlockContentType
+    ) {
+        let data = buildData(text: "", carretPosition: 0)
+
+        let markdownChange = listener.markdownChange(
+            textView: data.textView,
+            replacementText: insertedText,
+            range: data.textView.selectedRange
+        )
+
+        switch (markdownChange, type) {
+        case let (.turnInto(newStyle, text: newText), .text(style)):
+            XCTAssertEqual(newStyle, style)
+            XCTAssertEqual(newText.string, expectedText)
+        case let (.addBlock(newType, newText), type):
+            XCTAssertEqual(newType, type)
+            XCTAssertEqual(newText.string, expectedText)
+        default:
+            XCTFail("Wrong case")
+        }
+    }
 
     private func buildData(text: String, carretPosition: Int) -> TextBlockDelegateData {
         let textView = UITextView()
@@ -58,6 +92,6 @@ class StartOfTextMarkdownTests: XCTestCase {
         
         let text = UIKitAnytypeText(text: text, style: .body)
         
-        return TextBlockDelegateData(textView: textView, info: .emptyText, text: text)
+        return TextBlockDelegateData(textView: textView, info: .emptyText, text: text, usecase: .editor)
     }
 }

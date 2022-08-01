@@ -19,8 +19,8 @@ final class CoverColorsGridViewModel: GridItemViewModelProtocol {
 
     private func backgroundSections() -> [Section] {
         [
-            Section(title: "Gradients".localized, items: BackgroundType.allGradients),
-            Section(title: "Solid colors".localized, items: BackgroundType.allColors )
+            Section(title: Loc.gradients, items: BackgroundType.allGradients),
+            Section(title: Loc.solidColors, items: BackgroundType.allColors )
         ]
     }
 }

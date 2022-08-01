@@ -36,8 +36,8 @@ final class TemplatesCoordinator {
     ) {
         guard FeatureFlags.isTemplatesAvailable else { return }
 
-        let isDraft = document.details?.isDraft ?? false
-        guard isDraft, let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
+        let isSelectTemplate = document.details?.isSelectTemplate ?? false
+        guard isSelectTemplate, let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
             return
         }
         

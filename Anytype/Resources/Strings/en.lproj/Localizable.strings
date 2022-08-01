@@ -44,7 +44,6 @@
 "Heading" = "Heading";
 "Subheading" = "Subheading";
 "Highlighted" = "Highlighted";
-"Checkbox" = "Checkbox";
 "Bulleted" = "Bulleted";
 "Numbered list" = "Numbered list";
 "Toggle" = "Toggle";
@@ -103,9 +102,6 @@
 "Description" = "Description";
 "Paste processing..." = "Paste processing...";
 
-"selected block" = "selected block";
-"selected blocks" = "selected blocks";
-
 // Home
 "Favorites" = "Favorites";
 "Recent" = "Recent";
@@ -116,7 +112,6 @@
 // Settings
 "Your public page" = "Your public page";
 "Wallpaper" = "Wallpaper";
-"Recovery phrase" = "Recovery phrase";
 "Pin code" = "Pin code";
 "Log out" = "Log out";
 "Soon" = "Soon";
@@ -139,6 +134,7 @@
 "Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
 "Save keychain alert part 2" = "ever access your data again";
 "Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
+"Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
 
 // Auth
 "Welcome to Anytype" = "Welcome to Anytype";
@@ -156,7 +152,6 @@
 "Create" = "Create";
 "Let’s start!" = "Let’s start!";
 "Choose profile" = "Choose profile";
-"no peers" = "no peers";
 "Add profile" = "Add profile";
 "Scan QR code" = "Scan QR code";
 "Auth.CameraPermissionTitle" = "Camera access required to scan QR code";
@@ -237,7 +232,7 @@
 "Paste link or search objects" = "Paste link or search objects";
 
 // MARK: - Main search
-"There is no object named" = "There is no object named";
+"There is no object named" = "There is no object named %s";
 "Try to create a new one or search for something else" = "Try to create a new one or search for something else";
 
 // MARK: - Home
@@ -251,7 +246,8 @@
 // MARK: - Relation
 "Featured relations" = "Featured relations";
 "Create from scratch" = "Create from scratch";
-"Create relation" = "Create relation";
+"Create relation" = "Create relation \"%s\"";
+"Relation.View.Hint.Empty" = "empty";
 
 // MARK: - Deletion
 "Pending deletion text" = "We're sorry to see you go. You have 30 days to cancel this request. After 30 days, your encrypted account data is permanently removed from the backup node.";
@@ -261,8 +257,7 @@
 
 
 // MARK: - Templates
-"Alert.Templates_Available.Title.First" = "This type has";
-"Alert.Templates_Available.Title.Second" = "templates";
+"Alert.Templates_Available.Title" = "This type has %d templates";
 "Alert.Templates_Available.Description" = "Swipe down to skip";
 "Alert.Templates_Available.Button" = "Show";
 "TemplatePicker.ChooseTemplate" = "Choose template";
@@ -291,20 +286,261 @@
 "LinkAppearance.Description.Content.Subtitle" = "Show first sentenses of the object";
 "LinkAppearance.ObjectType.Title" = "Object type";
 
-// MARK: - Sets
+// MARK: - Sets: Sorts
 "EditSorts.Popup.NavigationView.Title" = "Sorts";
 "EditSorts.Popup.EmptyView.Title" = "No sorts here. You can add some";
-"EditSorts.Popup.Sort.Type.Ascending" = "Ascending";
-"EditSorts.Popup.Sort.Type.Descending" = "Descending";
+"EditSorts.Popup.Sort.Types.Ascending" = "Ascending";
+"EditSorts.Popup.Sort.Types.Descending" = "Descending";
 "EditSorts.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
+// MARK: - Sets: Filters
 "EditFilters.Popup.NavigationView.Title" = "Filters";
 "EditFilters.Popup.EmptyView.Title" = "No filters here. You can add some";
+"EditFilters.Popup.TextView.Placeholder" = "Value";
 
-// MARK: - Slash Menu
+// MARK: - Sets: Filters.Conditions
+"EditSorts.Popup.Filter.Condition.Text.Equal" = "Is";
+"EditSorts.Popup.Filter.Condition.Text.NotEqual" = "Is not";
+"EditSorts.Popup.Filter.Condition.Text.Like" = "Contains";
+"EditSorts.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+
+"EditSorts.Popup.Filter.Condition.Number.Equal" = "Is equal to";
+"EditSorts.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
+"EditSorts.Popup.Filter.Condition.Number.Greater" = "Is greater than";
+"EditSorts.Popup.Filter.Condition.Number.Less" = "Is less than";
+"EditSorts.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
+"EditSorts.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+
+"EditSorts.Popup.Filter.Condition.Selected.In" = "Has any of";
+"EditSorts.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
+"EditSorts.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
+"EditSorts.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+
+"EditSorts.Popup.Filter.Condition.Checkbox.Equal" = "Is";
+"EditSorts.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+
+"EditSorts.Popup.Filter.Condition.General.Empty" = "Is empty";
+"EditSorts.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
+"EditSorts.Popup.Filter.Condition.General.None" = "All";
+
+"EditSet.Popup.Filter.Value.Checked" = "Checked";
+"EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
+
+// MARK: - Sets: Filters search
+"Set.Filters.Search.Button.Title" = "Apply";
+
+// MARK: - Set.Bookmarks
+"Set.Bookmark.Create.Placeholder" = "Paste link";
+"Set.Bookmark.Error.Title" = "Oops - something went wrong";
+"Set.Bookmark.Error.Message" = "Please try again";
+
+// MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";
 "SlashMenu.TableOfContents" = "Table of contents";
+"SlashMenu.Table" = "Table";
+
+"Failed to create your account due to a network error" = "Failed to create your account due to a network error";
+"Invalid invitation code" = "Invalid invitation code";
+"Unknown error" = "Unknown error";
+"Account is deleted" = "Account is deleted";
+"Nothing to redo" = "Nothing to redo";
+"Nothing to undo" = "Nothing to undo";
+"Progress..." = "Progress...";
+"Grey" = "Grey";
+"Sky" = "Sky";
+"Yellow" = "Yellow";
+"Grey background" = "Grey background";
+"Teal background" = "Teal background";
+"Sky background" = "Sky background";
+"Yellow background" = "Yellow background";
+"Enter value" = "Enter value";
+"Select objects" = "Select objects";
+"Select files" = "Select files";
+"Select tags" = "Select tags";
+"Select status" = "Select status";
+"Enter phone" = "Enter phone";
+"Enter e-mail" = "Enter e-mail";
+"Enter URL" = "Enter URL";
+"Enter date" = "Enter date";
+"Enter number" = "Enter number";
+"Enter text" = "Enter text";
+"Unsupported value" = "Unsupported value";
+"There is no relation named" = "There is no relation named %s";
+"Find a relation" = "Find a relation";
+"Your library" = "Your library";
+"Select relation type" = "Select relation type";
+"Object" = "Object";
+"Tag" = "Tag";
+"Phone number" = "Phone number";
+"Email" = "Email";
+"URL" = "URL";
+"Date" = "Date";
+"Status" = "Status";
+"Numbers" = "Numbers";
+"Limit object types" = "Limit object types";
+"Type" = "Type";
+"No name" = "No name";
+"New relation" = "New relation";
+"Non-existent object" = "Non-existent object";
+"Select all" = "Select all";
+"Deselect all" = "Deselect all";
+"Shared" = "Shared";
+"Sets" = "Sets";
+"History" = "History";
+"Default object type" = "Default object type";
+"Personalization" = "Personalization";
+"Choose default object type" = "Choose default object type";
+"About" = "About";
+"Appearance" = "Appearance";
+"Change wallpaper" = "Change wallpaper";
+"Clear file cache" = "Clear file cache";
+"Application icon" = "Application icon";
+"Mode" = "Mode";
+"copied to clipboard" = "%s copied to clipboard";
+"Access to secret phrase from keychain" = "Access to secret phrase from keychain";
+"Back up your recovery phrase" = "Back up your recovery phrase";
+"Account" = "Account";
+"Data" = "Data";
+"Access" = "Access";
+"Back up phrase" = "Back up phrase";
+"Removing cache" = "Removing cache";
+"Clear cache" = "Clear cache";
+"Deletion error" = "Deletion error";
+"Start" = "Start";
+"On analytics" = "On analytics";
+"Select account error" = "Select account error";
+"Account deleted" = "Account deleted";
+"Restore from keychain" = "Restore from keychain";
+"Edit" = "Edit";
+"In this object" = "In this object";
+"Other relations" = "Other relations";
+"Collection of objects" = "Collection of objects";
+"Designed to capture thoughts quickly" = "Designed to capture thoughts quickly";
+"Action-focused layout with a checkbox" = "Action-focused layout with a checkbox";
+"Standard layout for canvas blocks" = "Standard layout for canvas blocks";
+"List of related objects" = "List of related objects";
+"Lock" = "Lock";
+"Unlock" = "Unlock";
+"Favorite" = "Favorite";
+"Unfavorite" = "Unfavorite";
+"Unsplash" = "Unsplash";
+"Go back" = "Go back";
+"Dismiss" = "Dismiss";
+"Create bookmark" = "Create bookmark";
+"Backed up on one node at least" = "Backed up on one node at least";
+"Downloading or uploading data to some node" = "Downloading or uploading data to some node";
+"Anytype node is not connected" = "Anytype node is not connected";
+"Initializing sync" = "Initializing sync";
+"Not syncing" = "Not syncing";
+"Synced" = "Synced";
+"Syncing..." = "Syncing...";
+"No connection" = "No connection";
+"Preparing..." = "Preparing...";
+"Upload audio" = "Upload audio";
+"Deleted" = "Deleted";
+"Download" = "Download";
+"Turn into" = "Turn into";
+"Add below" = "Add below";
+"Change type" = "Change type";
+"Link to existing object" = "Link to existing object";
+"Link to object" = "Link to object";
+"Upload playable audio" = "Upload playable audio";
+"Code snippet" = "Code snippet";
+"Bookmark" = "Bookmark";
+"Audio" = "Audio";
+"Video" = "Video";
+"Picture" = "Picture";
+"File" = "File";
+"No related options here" = "No related options here. You can add some";
+"Empty" = "Empty";
+"Link to" = "Link to";
+"Unknown" = "Unknown";
+"Settings" = "Settings";
+"Views" = "Views";
+"Group" = "Group";
+"Filter" = "Filter";
+"Sort" = "Sort";
+"View" = "View";
+"Home" = "Home";
+"Highlight" = "Highlight";
+"Create object" = "Create object";
+"Web pages" = "Web pages";
+"Preview layout" = "Preview layout";
+"Everywhere" = "Everywhere";
+"Exact day" = "Exact day";
+"Tomorrow" = "Tomorrow";
+"Yesterday" = "Yesterday";
+"Today" = "Today";
+"No date" = "No date";
+"Clear" = "Clear";
+"Create option" = "Create option %s";
+"Add URL" = "Add URL";
+"Add email" = "Add email";
+"Add phone number" = "Add phone number";
+"Add number" = "Add number";
+"Add text" = "Add text";
+"Ok" = "Ok";
+"Error occurred. Please try again" = "Error occurred. Please try again";
+"is already selected" = "%s is already selected";
+"Add" = "Add";
+"Your device seems to be offline" = "Your device seems to be offline. Please, check your connection and try again";
+"Connection refused" = "Connection refused. Please, try again";
+"Companies, contacts, friends and family" = "Companies, contacts, friends and family";
+"Failed to sync, trying again..." = "Failed to sync, trying again...";
+"This object doesn't exist" = "This object doesn't exist";
+"Account & data" = "Account & data";
+"File & Media" = "File & Media";
+"Setting up encrypted storage\nPlease wait" = "Setting up encrypted storage\nPlease wait";
+"These objects will be deleted irrevocably" = "These objects will be deleted irrevocably. You can’t undo this action.";
+"Delete account" = "Delete account";
+"Cancel deletion" = "Cancel deletion";
+"Logout and clear data" = "Logout and clear data";
+
+// MARK: - DeletionAlert
+"DeletionAlert.title" = "Are you sure to delete account?";
+"DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
+
+// MARK: - DataviewType
+"DataviewType.table" = "table";
+"DataviewType.list" = "list";
+"DataviewType.gallery" = "gallery";
+"DataviewType.kanban" = "kanban";
+
+// MARK: - ObjectType
+"ObjectType.fallbackDescription" = "Blank canvas with no title";
+
+// MARK: - QuickAction
+"QuickAction.create" = "Create %s";
+
+// MARK: - RedactedText
+"RedactedText.seedPhrase" = "You wake up in your bed and believe whatever you want to. You take the red pill, you stay in Wonderland, and I show you how deep the rabbit hole goes.";
+"RedactedText.pageTitle" = "Wake up, Neo";
+"RedactedText.pageType" = "Red pill";
+
+// MARK: - InterfaceStyle
+"InterfaceStyle.light" = "Light";
+"InterfaceStyle.dark" = "Dark";
+"InterfaceStyle.system" = "System";
 
 // MARK: Table of Contents
-"TalbeOfContents.Empty" = "Add heading to create Table of contents";
+"TalbeOfContents.Empty" = "Add headings to create a table of contents";
+
+// MARK: - Simple tables
+"SimpleTableMenu.Item.clearContents" = "Clear contents";
+"SimpleTableMenu.Item.color" = "Color";
+"SimpleTableMenu.Item.style" = "Style";
+"SimpleTableMenu.Item.clearStyle" = "Clear style";
+
+"SimpleTableMenu.Item.InsertLeft" = "Insert left";
+"SimpleTableMenu.Item.InsertRight" = "Insert right";
+"SimpleTableMenu.Item.MoveLeft" = "Move left";
+"SimpleTableMenu.Item.MoveRight" = "Move right";
+"SimpleTableMenu.Item.Duplicate" = "Duplicate";
+"SimpleTableMenu.Item.Delete" = "Delete";
+"SimpleTableMenu.Item.Sort" = "Sort";
+
+"SimpleTableMenu.Item.InsertAbove" = "Insert above";
+"SimpleTableMenu.Item.InsertBelow" = "Insert below";
+"SimpleTableMenu.Item.MoveUp" = "Move up";
+"SimpleTableMenu.Item.MoveDown" = "Move down";

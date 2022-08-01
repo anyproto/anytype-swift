@@ -8,7 +8,7 @@ struct DummyRestrictions: BlockRestrictions {
     let canApplyBackgroundColor = false
     let canApplyMention = false
     let canApplyEmoji = false
-    let canDeleteOrDuplicate = false
+    let canDeleteOrDuplicate = true
     let turnIntoStyles: [BlockContentType] = []
     let availableAlignments: [LayoutAlignment] = []
 }

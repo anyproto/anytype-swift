@@ -23,7 +23,9 @@ final class SetTableViewDataBuilder {
         dataView: BlockDataview,
         activeView: DataviewView,
         colums: [RelationMetadata],
-        isObjectLocked: Bool
+        isObjectLocked: Bool,
+        onIconTap: @escaping (ObjectDetails) -> Void,
+        onRowTap: @escaping (ObjectDetails) -> Void
     ) -> [SetTableViewRowData] {
         
         let metadata = sortedRelations(dataview: dataView, view: activeView)
@@ -51,15 +53,18 @@ final class SetTableViewDataBuilder {
                 return relation
             }
             
-            let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
-            
             return SetTableViewRowData(
                 id: details.id,
                 title: details.title,
                 icon: details.objectIconImage,
                 relations: relations,
-                screenData: screenData,
-                showIcon: !activeView.hideIcon
+                showIcon: !activeView.hideIcon,
+                onIconTap: {
+                    onIconTap(details)
+                },
+                onRowTap: {
+                    onRowTap(details)
+                }
             )
         }
     }

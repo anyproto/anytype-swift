@@ -14,7 +14,12 @@ public enum Feature: String, Codable {
     case setSorts = "Set sorts"
     case setFilters = "Set filters"
     case tableOfContents = "Table of contents"
+    case floatingSetMenu = "Floating Set menu"
+    case simpleTables = "Simple tables"
     case objectDuplicate = "Object duplicate"
+    // Author: m@anytype.io
+    // Release: 0.17.0
+    case relationDetails = "Relation details in read only mode"
 }
 
 public final class FeatureFlags {
@@ -44,10 +49,13 @@ public final class FeatureFlags {
         .createNewRelation: true,
         .templates: true,
         .createObjectInSet: true,
-        .setSorts: false,
+        .setSorts: true,
         .setFilters: false,
-        .tableOfContents: false,
-        .objectDuplicate: true
+        .tableOfContents: true,
+        .floatingSetMenu: false,
+        .simpleTables: true,
+        .objectDuplicate: true,
+        .relationDetails: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -104,7 +112,7 @@ public extension FeatureFlags {
     }
     
     static var isSetSortsAvailable: Bool {
-        features[.setSorts, default: false]
+        features[.setSorts, default: true]
     }
     
     static var isSetFiltersAvailable: Bool {
@@ -112,10 +120,18 @@ public extension FeatureFlags {
     }
     
     static var isTableOfContentsAvailable: Bool {
-        features[.tableOfContents, default: false]
+        features[.tableOfContents, default: true]
+    }
+
+    static var isSimpleTablesAvailable: Bool {
+        features[.simpleTables, default: true]
     }
     
     static var isObjectDuplicateAvailable: Bool {
         features[.objectDuplicate, default: true]
+    }
+    
+    static var relationDetails: Bool {
+        features[.relationDetails, default: false]
     }
 }

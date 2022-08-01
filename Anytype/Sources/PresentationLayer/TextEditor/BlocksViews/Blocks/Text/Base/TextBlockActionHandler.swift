@@ -8,13 +8,13 @@ struct TextBlockURLInputParameters {
     let optionHandler: (EditorContextualOption) -> Void
 }
 
-struct TextBlockActionHandler {
+struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
     let info: BlockInformation
 
     let showPage: (EditorScreenData) -> Void
     let openURL: (URL) -> Void
     let showTextIconPicker: () -> Void
-    let resetSubject = PassthroughSubject<BlockText, Never>()
+    let resetSubject = PassthroughSubject<Void, Never>()
 
     private let showWaitingView: (String) -> Void
     private let hideWaitingView: () -> Void
@@ -55,11 +55,34 @@ struct TextBlockActionHandler {
         self.blockDelegate = blockDelegate
     }
 
-    private func blockDelegateData(textView: UITextView) -> TextBlockDelegateData {
-        .init(textView: textView, info: info, text: content.anytypeText)
+    func textBlockActions() -> TextBlockContentConfiguration.Actions {
+        .init(shouldPaste: shouldPaste(range:textView:),
+              copy: copy(range:),
+              createEmptyBlock: createEmptyBlock,
+              showPage: showPage,
+              openURL: openURL,
+              changeTextStyle: changeStyle(type:on:),
+              handleKeyboardAction: handleKeyboardAction(action:textView:),
+              becomeFirstResponder: { },
+              resignFirstResponder: { },
+              textBlockSetNeedsLayout: textBlockSetNeedsLayout(textView:),
+              textViewDidChangeText: textViewDidChangeText(textView:),
+              textViewWillBeginEditing: textViewWillBeginEditing(textView:),
+              textViewDidBeginEditing: textViewDidBeginEditing(textView:),
+              textViewDidEndEditing: textViewDidEndEditing(textView:),
+              textViewDidChangeCaretPosition: textViewDidChangeCaretPosition(range:),
+              textViewShouldReplaceText: textViewShouldReplaceText(textView:replacementText:range:),
+              toggleCheckBox: toggleCheckBox,
+              toggleDropDown: toggleDropdownView,
+              tapOnCalloutIcon: showTextIconPicker
+        )
     }
 
-    func textViewShouldReplaceText(
+    private func blockDelegateData(textView: UITextView) -> TextBlockDelegateData {
+        .init(textView: textView, info: info, text: content.anytypeText, usecase: .editor)
+    }
+
+    private func textViewShouldReplaceText(
         textView: UITextView,
         replacementText: String,
         range: NSRange
@@ -90,8 +113,9 @@ struct TextBlockActionHandler {
                 actionHandler.turnInto(style, blockId: info.id)
                 actionHandler.changeTextForced(newText, blockId: info.id)
                 textView.setFocus(.beginning)
-            case .setText:
-                break
+            case let .addBlock(type, newText):
+                actionHandler.changeTextForced(newText, blockId: info.id)
+                actionHandler.addBlock(type, blockId: info.id, position: .top)
             }
 
             return false
@@ -100,7 +124,7 @@ struct TextBlockActionHandler {
         return true
     }
 
-    func attributedStringWithURL(
+    private func attributedStringWithURL(
         attributedText: NSAttributedString,
         replacementURL: URL,
         replacementText: String,
@@ -120,7 +144,7 @@ struct TextBlockActionHandler {
         return NSAttributedString(attributedString: modifier.attributedString)
     }
 
-    func shouldCreateBookmark(
+    private func shouldCreateBookmark(
         textView: UITextView,
         replacementText: String,
         range: NSRange
@@ -178,13 +202,13 @@ struct TextBlockActionHandler {
         return true
     }
 
-    func shouldPaste(range: NSRange, textView: UITextView) -> Bool {
+    private func shouldPaste(range: NSRange, textView: UITextView) -> Bool {
         if pasteboardService.hasValidURL {
             return true
         }
 
         pasteboardService.pasteInsideBlock(focusedBlockId: info.id, range: range) {
-            showWaitingView("Paste processing...".localized)
+            showWaitingView(Loc.pasteProcessing)
         } completion: { pasteResult in
             defer {
                 hideWaitingView()
@@ -200,19 +224,19 @@ struct TextBlockActionHandler {
         return false
     }
 
-    func copy(range: NSRange) {
+    private func copy(range: NSRange) {
         pasteboardService.copy(blocksIds: [info.id], selectedTextRange: range)
     }
 
-    func createEmptyBlock() {
+    private func createEmptyBlock() {
         actionHandler.createEmptyBlock(parentId: info.id)
     }
 
-    func changeStyle(type: MarkupType, on range: NSRange) {
+    private func changeStyle(type: MarkupType, on range: NSRange) {
         actionHandler.changeTextStyle(type, range: range, blockId: info.id)
     }
 
-    func handleKeyboardAction(action: CustomTextView.KeyboardAction, textView: UITextView) {
+    private func handleKeyboardAction(action: CustomTextView.KeyboardAction, textView: UITextView) {
         actionHandler.handleKeyboardAction(
             action,
             currentText: textView.attributedText,
@@ -220,37 +244,37 @@ struct TextBlockActionHandler {
         )
     }
 
-    func textBlockSetNeedsLayout(textView: UITextView) {
+    private func textBlockSetNeedsLayout(textView: UITextView) {
         blockDelegate?.textBlockSetNeedsLayout()
     }
 
-    func textViewDidChangeText(textView: UITextView) {
+    private func textViewDidChangeText(textView: UITextView) {
         actionHandler.changeText(textView.attributedText, info: info)
         blockDelegate?.textDidChange(data: blockDelegateData(textView: textView))
     }
 
-    func textViewWillBeginEditing(textView: UITextView) {
+    private func textViewWillBeginEditing(textView: UITextView) {
         blockDelegate?.willBeginEditing(data: blockDelegateData(textView: textView))
     }
 
-    func textViewDidBeginEditing(textView: UITextView) {
+    private func textViewDidBeginEditing(textView: UITextView) {
         blockDelegate?.didBeginEditing(view: textView)
     }
 
-    func textViewDidEndEditing(textView: UITextView) {
-        resetSubject.send(content)
+    private func textViewDidEndEditing(textView: UITextView) {
+        resetSubject.send()
         blockDelegate?.didEndEditing(data: blockDelegateData(textView: textView))
     }
 
-    func textViewDidChangeCaretPosition(range: NSRange) {
+    private func textViewDidChangeCaretPosition(range: NSRange) {
         blockDelegate?.selectionDidChange(range: range)
     }
 
-    func toggleCheckBox() {
+    private func toggleCheckBox() {
         actionHandler.checkbox(selected: !content.checked, blockId: info.id)
     }
 
-    func toggleDropdownView() {
+    private func toggleDropdownView() {
         info.toggle()
         actionHandler.toggle(blockId: info.id)
     }

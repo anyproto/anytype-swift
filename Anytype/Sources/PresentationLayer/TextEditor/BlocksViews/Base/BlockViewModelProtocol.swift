@@ -1,23 +1,34 @@
 import UIKit
 import BlocksModels
+import AnytypeCore
 
 protocol BlockViewModelProtocol:
-    HashableProvier,
     ContentConfigurationProvider,
-    BlockInformationProvider,
-    BlockFocusing
+    BlockInformationProvider
 { }
 
 protocol HashableProvier {
     var hashable: AnyHashable { get }
 }
 
-protocol ContentConfigurationProvider {
+protocol ContentConfigurationProvider: HashableProvier, BlockFocusing {
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration
+
+    func makeSpreadsheetConfiguration() -> UIContentConfiguration
 }
 
-protocol IndentationProvider {
-    var indentationLevel: Int { get }
+extension ContentConfigurationProvider {
+    func makeSpreadsheetConfiguration() -> UIContentConfiguration {
+        anytypeAssertionFailure(
+            "This content configuration doesn't support spreadsheet",
+            domain: .simpleTables
+        )
+        return EmptyRowConfiguration(id: "", action: {} )
+            .spreadsheetConfiguration(
+                dragConfiguration: nil,
+                styleConfiguration: .init(backgroundColor: .backgroundPrimary)
+            )
+    }
 }
 
 protocol BlockFocusing {

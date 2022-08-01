@@ -1,6 +1,7 @@
 import Combine
 import UIKit
 
+@MainActor
 final class DeletedAccountViewModel: ObservableObject {
     
     private let service = ServiceLocator.shared.authService()
@@ -22,17 +23,7 @@ final class DeletedAccountViewModel: ObservableObject {
     }
     
     var title: String {
-        let dayText: String
-        if daysToDeletion == 0 {
-            dayText = "today".localized
-        } else if daysToDeletion == 1 {
-            dayText = "tomorrow".localized
-        } else {
-            dayText = "\("in".localized) \(daysToDeletion) \("days".localized)"
-        }
-        
-        let localizedPrefix = "This account will be deleted".localized
-        return "\(localizedPrefix) \(dayText)"
+        return Loc.daysToDeletionAccount(daysToDeletion)
     }
     
     // MARK: - Internal funcs

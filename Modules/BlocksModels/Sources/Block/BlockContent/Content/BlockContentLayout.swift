@@ -8,6 +8,8 @@ public struct BlockLayout: Hashable {
         case column
         case div
         case header
+        case tableRows
+        case tableColumns
     }
     
     public var style: Style

@@ -17,6 +17,7 @@ final class ApplicationCoordinator {
         self.authService = authService
     }
 
+    @MainActor
     func start() {
         runAtFirstLaunch()
         login()
@@ -34,6 +35,7 @@ private extension ApplicationCoordinator {
         }
     }
 
+    @MainActor
     func login() {
         let userId = UserDefaultsConfig.usersId
         guard userId.isNotEmpty else {

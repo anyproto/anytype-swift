@@ -17,9 +17,9 @@ enum EditorContextualOption: Int, Identifiable {
     var localisedString: String {
         switch self {
         case .createBookmark:
-            return "Create bookmark".localized
+            return Loc.createBookmark
         case .dismiss:
-            return "Dismiss".localized
+            return Loc.dismiss
         }
     }
 }

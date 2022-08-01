@@ -3,9 +3,13 @@ import Combine
 import BlocksModels
 
 
-final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView {
+final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView, FirstResponder {
+    // MARK: - DynamicHeightView
     var heightDidChanged: (() -> Void)?
-    
+
+    // MARK: - FirstResponder
+    var isFirstResponderValueChangeHandler: ((Bool) -> Void)?
+
     // MARK: - Views
     private let contentView = UIView()
     private(set) lazy var textView = CustomTextView()
@@ -46,7 +50,6 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView {
         createEmptyBlockButton.isEnabled = !state.isLocked
         textBlockLeadingView.checkboxView?.isUserInteractionEnabled = !state.isLocked
         textBlockLeadingView.calloutIconView?.isUserInteractionEnabled = !state.isLocked
-
         textView.textView.isUserInteractionEnabled = state.isEditing
     }
 
@@ -103,9 +106,8 @@ final class TextBlockContentView: UIView, BlockContentView, DynamicHeightView {
             self?.textView.setFocus(focus)
         }
 
-        resetSubscription = configuration.resetPublisher.sink { [weak self] blockText in
-            self?.textView.textView.textStorage.setAttributedString(blockText.anytypeText.attrString)
-
+        resetSubscription = configuration.resetPublisher.sink { [weak self] configuration in
+            self?.applyNewConfiguration(configuration: configuration)
         }
     }
     
@@ -122,7 +124,7 @@ private extension TextBlockContentView {
     static func makeMainStackView() -> UIStackView {
         let mainStackView = UIStackView()
         mainStackView.axis = .vertical
-        mainStackView.alignment = .leading
+        mainStackView.alignment = .fill
         return mainStackView
     }
     
@@ -131,7 +133,7 @@ private extension TextBlockContentView {
         contentStackView.axis = .horizontal
         contentStackView.distribution = .fill
         contentStackView.spacing = 4
-        contentStackView.alignment = .top
+        contentStackView.alignment = .fill
         return contentStackView
     }
     

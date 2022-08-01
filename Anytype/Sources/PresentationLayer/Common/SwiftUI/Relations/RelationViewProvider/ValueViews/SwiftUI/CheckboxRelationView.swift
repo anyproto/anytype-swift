@@ -10,6 +10,8 @@ struct CheckboxRelationView: View {
             icon
         case .featuredRelationBlock:
             featuredRelationBlockIcon
+        case .filter:
+            filterText
         }
     }
     
@@ -23,6 +25,17 @@ struct CheckboxRelationView: View {
     private var icon: some View {
         Group {
             isChecked ? Image.Relations.checkboxChecked : Image.Relations.checkboxUnchecked
+        }
+    }
+    
+    private var filterText: some View {
+        Group {
+            AnytypeText(
+                isChecked ? Loc.EditSet.Popup.Filter.Value.checked.lowercased() :
+                    Loc.EditSet.Popup.Filter.Value.unchecked.lowercased(),
+                style: .relation1Regular,
+                color: .textSecondary
+            )
         }
     }
 }

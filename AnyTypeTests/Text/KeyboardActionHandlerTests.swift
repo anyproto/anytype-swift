@@ -788,7 +788,7 @@ class KeyboardActionHandlerTests: XCTestCase {
             id: "parentId",
             content: .smartblock(.init(style: .page)),
             backgroundColor: nil,
-            alignment: .center,
+            horizontalAlignment: .center,
             childrenIds: [childId],
             configurationData: .init(parentId: "parentId", backgroundColor: nil, indentationStyle: .none, calloutBackgroundColor: nil),
             fields: [:]
@@ -832,7 +832,7 @@ class KeyboardActionHandlerTests: XCTestCase {
             id: id,
             content: content,
             backgroundColor: nil,
-            alignment: .center,
+            horizontalAlignment: .center,
             childrenIds: hasChild ? ["childId"] : [],
             configurationData: .init(parentId: parent.id, backgroundColor: nil, indentationStyle: .none, calloutBackgroundColor: nil),
             fields: [:]
@@ -851,7 +851,7 @@ class KeyboardActionHandlerTests: XCTestCase {
             id: "pageId",
             content: .smartblock(.init(style: .page)),
             backgroundColor: nil,
-            alignment: .center,
+            horizontalAlignment: .center,
             childrenIds: [],
             configurationData: .init(backgroundColor: nil, indentationStyle: .none, calloutBackgroundColor: nil),
             fields: [:]

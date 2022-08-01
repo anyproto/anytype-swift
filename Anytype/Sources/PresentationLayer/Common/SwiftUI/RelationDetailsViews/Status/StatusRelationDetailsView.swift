@@ -33,10 +33,10 @@ struct StatusRelationDetailsView: View {
                 Button {
                     viewModel.didTapAddButton()
                 } label: {
-                    StatusSearchRowView(viewModel: currentStatusModel)
+                    StatusSearchRowView(viewModel: currentStatusModel, selectionIndicatorViewModel: nil)
                 }
             } else {
-                AnytypeText("No related options here. You can add some".localized, style: .uxCalloutRegular, color: .textTertiary)
+                AnytypeText(Loc.noRelatedOptionsHere, style: .uxCalloutRegular, color: .textTertiary)
                     .frame(height: 48)
             }
         }
@@ -54,8 +54,9 @@ private extension StatusRelationDetailsView {
                 viewModel.didTapClearButton()
             }
         } label: {
-            AnytypeText("Clear".localized, style: .uxBodyRegular, color: .buttonActive)
+            AnytypeText(Loc.clear, style: .uxBodyRegular, color: .buttonActive)
         }
+        .disabled(!viewModel.isEditable)
     }
     
     var addButton: some View {
@@ -64,6 +65,7 @@ private extension StatusRelationDetailsView {
         } label: {
             Image.Relations.createOption.frame(width: 24, height: 24)
         }
+        .disabled(!viewModel.isEditable)
     }
     
 }

@@ -14,4 +14,8 @@ platform :ios do
     match(force_for_new_devices: true)
   end
 
+  lane :generate_appstore_profiles do
+    match(force: true)
+  end
+
 end

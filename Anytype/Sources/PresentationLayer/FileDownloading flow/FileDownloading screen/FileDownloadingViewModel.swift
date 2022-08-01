@@ -127,7 +127,7 @@ private extension FileDownloadingViewModel {
 private extension FileDownloadingViewModel {
     
     enum Constants {
-        static let defaultErrorMessage = "Error occurred. Please try again".localized
+        static let defaultErrorMessage = Loc.ErrorOccurred.pleaseTryAgain
     }
     
 }

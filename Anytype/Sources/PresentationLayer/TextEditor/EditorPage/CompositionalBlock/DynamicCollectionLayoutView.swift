@@ -9,14 +9,35 @@ private final class iOS14CompositionalContentHeightStorage {
 }
 
 struct DynamicLayoutConfiguration: Hashable {
-    let hashable: AnyHashable
+    enum LayoutHeightMemory {
+        case none
+        case hashable(AnyHashable)
+    }
 
-    @EquatableNoop var views: [[Dequebale]]
+    let layoutHeightMemory: LayoutHeightMemory
     @EquatableNoop var layout: UICollectionViewLayout
     @EquatableNoop var heightDidChanged: () -> Void
+
+    static func == (lhs: DynamicLayoutConfiguration, rhs: DynamicLayoutConfiguration) -> Bool {
+        switch (lhs.layoutHeightMemory, rhs.layoutHeightMemory) {
+        case let (.hashable(lhsHash), .hashable(rhsHash)):
+            return lhsHash == rhsHash
+        default:
+            return false
+        }
+    }
+
+    func hash(into hasher: inout Hasher) {
+        switch layoutHeightMemory {
+        case .none:
+            break
+        case .hashable(let anyHashable):
+            hasher.combine(anyHashable)
+        }
+    }
 }
 
-final class DynamicCollectionLayoutView: UIView, UICollectionViewDataSource {
+final class DynamicCollectionLayoutView: UIView {
 
     private(set) lazy var collectionView: DynamicCollectionView = {
         let collectionView = DynamicCollectionView(
@@ -46,13 +67,14 @@ final class DynamicCollectionLayoutView: UIView, UICollectionViewDataSource {
     private func setupView() {
         addSubview(collectionView) {
             $0.pinToSuperview(excluding: [.bottom])
-            collectionViewHeightConstraint = $0.height.equal(to: 100, priority: .init(rawValue: 999))
+            collectionViewHeightConstraint = $0.height.equal(
+                to: 100,
+                priority: .init(rawValue: 999)
+            )
             $0.bottom.greaterThanOrEqual(to: bottomAnchor, priority: .defaultLow)
         }
 
         collectionView.backgroundColor = .clear
-
-        collectionView.dataSource = self
 
         setupSizeHandlers()
     }
@@ -70,14 +92,17 @@ final class DynamicCollectionLayoutView: UIView, UICollectionViewDataSource {
 
             self.configuration.map(self.saveBlockHeight(configuration:))
 
-            if #available(iOS 15.0, *) { } else {
-                self.configuration?.heightDidChanged()
-            }
+            self.configuration?.heightDidChanged()
         }
     }
 
     private func saveBlockHeight(configuration: DynamicLayoutConfiguration) {
-        iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[configuration.hashable] = self.collectionView.intrinsicContentSize.height
+        switch configuration.layoutHeightMemory {
+        case .none:
+            return
+        case .hashable(let hashValue):
+            iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[hashValue] = self.collectionView.intrinsicContentSize.height
+        }
     }
 
     func update(with configuration: DynamicLayoutConfiguration) {
@@ -85,41 +110,17 @@ final class DynamicCollectionLayoutView: UIView, UICollectionViewDataSource {
 
         collectionView.collectionViewLayout = configuration.layout
 
-        collectionView.reloadData()
-
-        if let height = iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[configuration.hashable] {
-            collectionViewHeightConstraint?.constant = height
-        } else {
-            collectionViewHeightConstraint?.constant = collectionView.intrinsicContentSize.height
+        switch configuration.layoutHeightMemory {
+        case let .hashable(hashable):
+            if let height = iOS14CompositionalContentHeightStorage.shared.blockHeightConstant[hashable] {
+                collectionViewHeightConstraint?.constant = height
+            } else {
+                collectionViewHeightConstraint?.constant = collectionView.intrinsicContentSize.height
+            }
+        case .none:
+            return
         }
 
         collectionViewHeightConstraint?.isActive = true
-    }
-
-    // MARK: - UICollectionViewDataSource
-
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        configuration?.views.count ?? 0
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        numberOfItemsInSection section: Int
-    ) -> Int {
-        configuration?.views[section].count ?? 0
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        cellForItemAt indexPath: IndexPath
-    ) -> UICollectionViewCell {
-        guard let dequable = configuration?.views[indexPath.section][indexPath.row] else {
-            return UICollectionViewCell()
-        }
-
-        return dequable.dequeueReusableCell(
-            collectionView: collectionView,
-            for: indexPath
-        )
     }
 }

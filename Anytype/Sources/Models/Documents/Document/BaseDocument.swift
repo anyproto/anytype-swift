@@ -54,26 +54,30 @@ final class BaseDocument: BaseDocumentProtocol {
     }
     
     deinit {
-        close()
+        Task.detached(priority: .userInitiated) { [blockActionsService] in
+            try await blockActionsService.close()
+        }
     }
 
     // MARK: - BaseDocumentProtocol
-
-    @discardableResult
-    func open() -> Bool {
+    
+    @MainActor
+    func open() async throws {
         ObjectTypeProvider.shared.resetCache()
-        isOpened = blockActionsService.open()
-        return isOpened
-    }
-
-    @discardableResult
-    func openForPreview() -> Bool {
-        isOpened = blockActionsService.openForPreview()
-        return isOpened
+        try await blockActionsService.open()
+        isOpened = true
     }
     
-    func close(){
-        blockActionsService.close()
+    @MainActor
+    func openForPreview() async throws {
+        try await blockActionsService.openForPreview()
+        isOpened = true
+    }
+    
+    @MainActor
+    func close() async throws {
+        try await blockActionsService.close()
+        isOpened = false
     }
     
     var details: ObjectDetails? {
@@ -86,6 +90,17 @@ final class BaseDocument: BaseDocumentProtocol {
             return []
         }
         return model.flatChildrenTree(container: infoContainer)
+    }
+
+    var isEmpty: Bool {
+        let filteredBlocks = children.filter { $0.isFeaturedRelations || $0.isText }
+
+        if filteredBlocks.count > 0 { return false }
+        let allTextChilds = children.filter(\.isText)
+
+        if allTextChilds.count > 1 { return false }
+
+        return allTextChilds.first?.content.isEmpty ?? false
     }
 
     // MARK: - Private methods

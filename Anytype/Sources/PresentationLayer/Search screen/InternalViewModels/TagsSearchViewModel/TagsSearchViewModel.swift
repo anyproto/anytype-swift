@@ -4,7 +4,7 @@ import SwiftUI
 
 final class TagsSearchViewModel {
     
-    let selectionMode: NewSearchViewModel.SelectionMode = .multipleItems
+    let selectionMode: NewSearchViewModel.SelectionMode
     let viewStateSubject = PassthroughSubject<NewSearchViewState, Never> ()
     
     private var tags: [Relation.Tag.Option] = []
@@ -12,10 +12,17 @@ final class TagsSearchViewModel {
     
     private let interactor: TagsSearchInteractor
     
-    init(interactor: TagsSearchInteractor) {
+    init(selectionMode: NewSearchViewModel.SelectionMode, interactor: TagsSearchInteractor) {
+        self.selectionMode = selectionMode
         self.interactor = interactor
+        self.setup()
     }
     
+    private func setup() {
+        if case let .multipleItems(preselectedIds) = selectionMode {
+            self.selectedTagIds = preselectedIds
+        }
+    }
 }
 
 extension TagsSearchViewModel: NewInternalSearchViewModelProtocol {

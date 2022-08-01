@@ -63,7 +63,7 @@ final class MentionsViewController: UITableViewController {
         EditorSearchCellConfiguration(
             cellData: EditorSearchCellData(
                 title: mention.name,
-                subtitle: mention.type?.name ?? "Object".localized,
+                subtitle: mention.type?.name ?? Loc.object,
                 icon: mention.objectIcon,
                 expandedIcon: false
             )
@@ -72,7 +72,7 @@ final class MentionsViewController: UITableViewController {
     
     private func createNewObjectContentConfiguration() -> UIContentConfiguration {
         var configuration = UIListContentConfiguration.cell()
-        configuration.text = "Create new object".localized
+        configuration.text = Loc.createNewObject
         configuration.textProperties.font = .uxTitle2Regular
         configuration.textProperties.color = .textSecondary
         

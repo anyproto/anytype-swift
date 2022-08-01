@@ -82,6 +82,8 @@ final class BlockActionService: BlockActionServiceProtocol {
             targetId: targetId,
             details: [.name(""), .type(type)],
             shouldDeleteEmptyObject: false,
+            shouldSelectType: false,
+            shouldSelectTemplate: false,
             position: position,
             templateId: ""
         ) else { return nil }
@@ -179,12 +181,12 @@ extension BlockActionService {
 // MARK: - SetBackgroundColor
 
 extension BlockActionService {
-    func setBackgroundColor(blockId: BlockId, color: BlockBackgroundColor) {
-        setBackgroundColor(blockId: blockId, color: color.middleware)
+    func setBackgroundColor(blockIds: [BlockId], color: BlockBackgroundColor) {
+        setBackgroundColor(blockIds: blockIds, color: color.middleware)
     }
     
-    func setBackgroundColor(blockId: BlockId, color: MiddlewareColor) {
-        listService.setBackgroundColor(blockIds: [blockId], color: color)
+    func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
+        listService.setBackgroundColor(blockIds: blockIds, color: color)
     }
 }
 

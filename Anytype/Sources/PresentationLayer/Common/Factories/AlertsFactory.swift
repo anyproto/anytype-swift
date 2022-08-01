@@ -12,12 +12,12 @@ final class AlertsFactory {
     static func goToSettingsAlert(title: String) -> Alert {
         Alert(
             title: Text(title),
-            message: Text("Alert.CameraPermissions.GoToSettings".localized),
+            message: Text(Loc.Alert.CameraPermissions.goToSettings),
             primaryButton:
-                    .default(Text("Alert.CameraPermissions.Settings".localized)) {
+                    .default(Text(Loc.Alert.CameraPermissions.settings)) {
                         UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!)
                     },
-            secondaryButton: .default(Text("Cancel".localized))
+            secondaryButton: .default(Text(Loc.cancel))
         )
     }
 

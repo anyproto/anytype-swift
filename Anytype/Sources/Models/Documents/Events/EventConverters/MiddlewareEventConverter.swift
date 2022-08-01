@@ -83,7 +83,7 @@ final class MiddlewareEventConverter {
             }
             
             infoContainer.update(blockId: blockId) { info in
-                info.updated(alignment: modelAlignment)
+                info.updated(horizontalAlignment: modelAlignment)
             }
             return .blocks(blockIds: [blockId])
         
@@ -473,7 +473,9 @@ final class MiddlewareEventConverter {
         case .active:
             break
         case .pendingDeletion(let deadline):
-            WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
+            Task { @MainActor in
+                WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
+            }
         case .deleted:
             if UserDefaultsConfig.usersId.isNotEmpty {
                 ServiceLocator.shared.authService().logout(removeData: true) { _ in }

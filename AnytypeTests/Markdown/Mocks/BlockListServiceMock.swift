@@ -36,8 +36,12 @@ final class BlockListServiceMock: BlockListServiceProtocol {
     func setDivStyle(blockIds: [BlockId], style: BlockDivider.Style) {
         assertionFailure()
     }
-    
+
     func setAlign(blockIds: [BlockId], alignment: LayoutAlignment) {
+        assertionFailure()
+    }
+
+    func changeMarkup(blockIds: [BlockId], markType: MarkupType) {
         assertionFailure()
     }
     

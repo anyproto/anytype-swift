@@ -10,7 +10,7 @@ struct SetTableViewRow: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(18)
-            title
+            details
             Spacer.fixedHeight(18)
             cells
             Spacer.fixedHeight(12)
@@ -18,21 +18,35 @@ struct SetTableViewRow: View {
         }
     }
     
-    private var title: some View {
-        Button {
-            model.showPage(data.screenData)
-        } label: {
-            HStack(spacing: 0) {
-                if let icon = data.icon, data.showIcon {
+    private var details: some View {
+        HStack(spacing: 0) {
+            icon
+            title
+        }
+        .padding(.horizontal, 16)
+        .offset(x: xOffset, y: 0)
+    }
+    
+    private var icon: some View {
+        Group {
+            if let icon = data.icon, data.showIcon {
+                Button {
+                    data.onIconTap()
+                } label: {
                     SwiftUIObjectIconImageView(iconImage: icon, usecase: .setRow).frame(width: 18, height: 18)
                     Spacer.fixedWidth(8)
                 }
-                AnytypeText(data.title, style: .previewTitle2Medium, color: .textPrimary)
-                    .lineLimit(1)
             }
-            .padding(.horizontal, 16)
         }
-        .offset(x: xOffset, y: 0)
+    }
+    
+    private var title: some View {
+        Button {
+            data.onRowTap()
+        } label: {
+            AnytypeText(data.title, style: .previewTitle2Medium, color: .textPrimary)
+                .lineLimit(1)
+        }
     }
     
     private var cells: some View {

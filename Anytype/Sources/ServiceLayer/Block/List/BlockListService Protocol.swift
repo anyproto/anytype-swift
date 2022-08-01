@@ -1,10 +1,7 @@
-import Foundation
-import Combine
 import BlocksModels
-import UIKit
 import ProtobufMessages
 
-protocol BlockListServiceProtocol {
+protocol BlockListServiceProtocol: AnyObject {
     func setDivStyle(blockIds: [BlockId], style: BlockDivider.Style)
     func setAlign(blockIds: [BlockId], alignment: LayoutAlignment)
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor)
@@ -15,4 +12,5 @@ protocol BlockListServiceProtocol {
     func move(blockId: BlockId, targetId: BlockId, position: Anytype_Model_Block.Position)
     func moveToPage(blockId: BlockId, pageId: BlockId)
     func setLinkAppearance(blockIds: [BlockId], appearance: BlockLink.Appearance)
+    func changeMarkup(blockIds: [BlockId], markType: MarkupType)
 }

@@ -38,15 +38,8 @@ struct RelationsListRowView: View {
         // `Spacer` will take up more space
         HStack(spacing: 0) {
             name
-            
             Spacer.fixedWidth(8)
-            
-            if relation.isEditable {
-                valueViewButton
-            } else {
-                valueView
-            }
-            
+            valueViewButton
             Spacer(minLength: 8)
             if starButtonAvailable {
                 starImageView

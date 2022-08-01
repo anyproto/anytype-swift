@@ -1,5 +1,6 @@
 import UIKit
 import BlocksModels
+import AnytypeCore
 
 enum CursorModeAccessoryViewAction {
     /// Slash button pressed
@@ -20,13 +21,20 @@ final class CursorModeAccessoryViewModel {
     
     weak var textView: UITextView?
     weak var delegate: CursorModeAccessoryViewDelegate?
+
+    private let onShowStyleMenu: RoutingAction<BlockInformation>
+    private let onBlockSelection: RoutingAction<BlockInformation>
     
     private let handler: BlockActionHandlerProtocol
-    private let router: EditorRouter
-    
-    init(router: EditorRouter, handler: BlockActionHandlerProtocol) {
-        self.router = router
+
+    init(
+        handler: BlockActionHandlerProtocol,
+        onShowStyleMenu: @escaping RoutingAction<BlockInformation>,
+        onBlockSelection: @escaping RoutingAction<BlockInformation>
+    ) {
         self.handler = handler
+        self.onShowStyleMenu = onShowStyleMenu
+        self.onBlockSelection = onBlockSelection
     }
     
     func handle(_ action: CursorModeAccessoryViewAction) {
@@ -36,7 +44,7 @@ final class CursorModeAccessoryViewModel {
 
         switch action {
         case .showStyleMenu:
-            router.showStyleMenu(information: info)
+            onShowStyleMenu(info)
         case .keyboardDismiss:
             UIApplication.shared.hideKeyboard()
         case .mention:
@@ -53,7 +61,7 @@ final class CursorModeAccessoryViewModel {
             
             delegate.showSlashMenuView()
         case .editingMode:
-            handler.selectBlock(info: info)
+            onBlockSelection(info)
         }
     }
     
