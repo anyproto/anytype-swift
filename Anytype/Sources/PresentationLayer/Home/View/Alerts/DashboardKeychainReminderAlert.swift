@@ -3,16 +3,17 @@ import SwiftUI
 struct DashboardKeychainReminderAlert: View {
     var shownInContext: AnalyticsEventsKeychainContext
     @EnvironmentObject private var model: HomeViewModel
+    @StateObject private var keychainModel = KeychainPhraseViewModel()
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             Spacer.fixedHeight(23)
-            AnytypeText(Loc.donTForgetToSaveYourRecoveryPhrase, style: .heading, color: .textPrimary)
+            AnytypeText(Loc.Keychain.donTForgetToSaveYourRecoveryPhrase, style: .heading, color: .textPrimary)
             Spacer.fixedHeight(11)
             description
             Spacer.fixedHeight(18)
-            SeedPhraseView {
-                model.snackBarData = .init(text: Loc.recoveryPhraseCopiedToClipboard, showSnackBar: true)
+            SeedPhraseView(model: keychainModel) {
+                model.snackBarData = .init(text: Loc.Keychain.recoveryPhraseCopiedToClipboard, showSnackBar: true)
 
                 AnytypeAnalytics.instance().logKeychainPhraseCopy(shownInContext)
             }
@@ -24,13 +25,13 @@ struct DashboardKeychainReminderAlert: View {
     }
     
     private var description: some View {
-        Text(Loc.saveKeychainAlertPart1)
+        Text(Loc.Keychain.saveKeychainAlertPart1)
             .font(AnytypeFontBuilder.font(anytypeFont: .uxCalloutRegular))
         +
-        Text(Loc.saveKeychainAlertPart2)
+        Text(Loc.Keychain.saveKeychainAlertPart2)
             .font(AnytypeFontBuilder.font(anytypeFont: .uxCalloutMedium))
         +
-        Text(Loc.saveKeychainAlertPart3)
+        Text(Loc.Keychain.saveKeychainAlertPart3)
             .font(AnytypeFontBuilder.font(anytypeFont: .uxCalloutRegular))
     }
 }
