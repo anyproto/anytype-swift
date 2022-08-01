@@ -12,7 +12,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var pagitationData = EditorSetPaginationData.empty
     
     var isEmpty: Bool {
-        dataView.views.filter { $0.isSupported }.isEmpty
+        dataView.views.isEmpty
     }
     
     var activeView: DataviewView {
@@ -201,7 +201,8 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func updateActiveViewId() {
-        if let activeViewId = dataView.views.first(where: { $0.isSupported })?.id {
+        let activeViewId = dataView.views.first(where: { $0.isSupported })?.id ?? dataView.views.first?.id
+        if let activeViewId = activeViewId {
             if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
                 self.dataView.activeViewId = activeViewId
             }
@@ -251,7 +252,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func url(from details: ObjectDetails) -> URL? {
-        var urlString = details.values[BundledRelationKey.url.rawValue]?.stringValue ?? ""
+        var urlString = details.values[EditorSetViewModel.urlRelationKey]?.stringValue ?? ""
         if !urlString.isEncoded {
             urlString = urlString.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? urlString
         }
@@ -355,4 +356,8 @@ extension EditorSetViewModel {
     private func createBookmarkObject() {
         router.showCreateBookmarkObject()
     }
+}
+
+extension EditorSetViewModel {
+    static let urlRelationKey = "url"
 }
