@@ -888,6 +888,18 @@ internal enum Loc {
             internal static let tomorrow = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Tomorrow")
             /// Yesterday
             internal static let yesterday = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Yesterday")
+            internal enum NumberOfDaysAgo {
+              /// %s days ago
+              internal static func short(_ p1: UnsafePointer<CChar>) -> String {
+                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short", p1)
+              }
+            }
+            internal enum NumberOfDaysFromNow {
+              /// %s days from now
+              internal static func short(_ p1: UnsafePointer<CChar>) -> String {
+                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short", p1)
+              }
+            }
           }
         }
         internal enum Value {

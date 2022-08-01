@@ -3,7 +3,12 @@ struct SetFilterRowConfiguration: Identifiable, Equatable {
     let title: String
     let subtitle: String?
     let iconName: String
-    let relation: Relation?
+    let type: SetFilterRowType
     let hasValues: Bool
     @EquatableNoop var onTap: () -> Void
+}
+
+enum SetFilterRowType: Equatable {
+    case relation(Relation?)
+    case date(String)
 }

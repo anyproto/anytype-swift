@@ -45,7 +45,7 @@ final class SetFiltersDateViewModel: ObservableObject {
         if filter.filter.quickOption == .exactDate {
             self.numberOfDays = 0
         } else {
-            self.numberOfDays = Int(Double(filter.filter.value.safeDoubleValue ?? 0))
+            self.numberOfDays = filter.filter.value.safeIntValue ?? 0
         }
         
         self.onApplyDate = onApplyDate

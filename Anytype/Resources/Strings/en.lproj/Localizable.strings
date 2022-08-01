@@ -346,6 +346,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
 "EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
 
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%s days ago";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%s days from now";
+
 // MARK: - Sets: Filters search
 "Set.Filters.Search.Button.Title" = "Apply";
 
