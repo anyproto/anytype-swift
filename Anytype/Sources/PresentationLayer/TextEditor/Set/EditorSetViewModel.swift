@@ -11,10 +11,6 @@ final class EditorSetViewModel: ObservableObject {
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
     
-    var isEmpty: Bool {
-        dataView.views.filter { $0.isSupported }.isEmpty
-    }
-    
     var activeView: DataviewView {
         dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
     }
@@ -152,7 +148,6 @@ final class EditorSetViewModel: ObservableObject {
     
     func setupSubscriptions() {
         subscriptionService.stopAllSubscriptions()
-        guard !isEmpty else { return }
         
         subscriptionService.startSubscription(
             data: .set(
@@ -201,7 +196,8 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func updateActiveViewId() {
-        if let activeViewId = dataView.views.first(where: { $0.isSupported })?.id {
+        let activeViewId = dataView.views.first(where: { $0.isSupported })?.id ?? dataView.views.first?.id
+        if let activeViewId = activeViewId {
             if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
                 self.dataView.activeViewId = activeViewId
             }
