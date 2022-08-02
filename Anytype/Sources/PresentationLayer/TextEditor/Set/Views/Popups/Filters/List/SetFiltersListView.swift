@@ -28,7 +28,7 @@ struct SetFiltersListView: View {
                 Button {
                     viewModel.addButtonTapped()
                 } label: {
-                    Image.Relations.createOption.frame(width: 24, height: 24)
+                    Image(asset: .relationNew).frame(width: 24, height: 24)
                 }
             }
         }

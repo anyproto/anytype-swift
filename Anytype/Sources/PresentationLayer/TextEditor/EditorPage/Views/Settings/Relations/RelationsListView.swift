@@ -43,7 +43,7 @@ struct RelationsListView: View {
         Button {
             viewModel.showAddNewRelationView()
         } label: {
-            Image.Relations.createOption
+            Image(asset: .relationNew)
                 .if(viewModel.navigationBarButtonsDisabled) {
                     $0.renderingMode(.template)
                         .foregroundColor(.buttonInactive)

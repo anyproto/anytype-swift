@@ -37,17 +37,17 @@ enum SlashMenuItemType {
     var iconName: ObjectIconImage {
         switch self {
         case .style:
-            return .staticImage(ImageName.slashMenu.groups.style)
+            return .imageAsset(.slashMenuGroupStyle)
         case .media:
-            return .staticImage(ImageName.slashMenu.groups.media)
+            return .imageAsset(.slashMenuGroupMedia)
         case .objects:
-            return .staticImage(ImageName.slashMenu.groups.objects)
+            return .imageAsset(.slashMenuGroupObjects)
         case .relations:
-            return .staticImage(ImageName.slashMenu.groups.relation)
+            return .imageAsset(.slashMenuGroupRelation)
         case .other:
-            return .staticImage(ImageName.slashMenu.groups.other)
+            return .imageAsset(.slashMenuGroupOther)
         case .actions:
-            return .staticImage(ImageName.slashMenu.groups.actions)
+            return .imageAsset(.slashMenuGroupActions)
         case .color:
             let image = UIImage.circleImage(
                 size: .init(width: 22, height: 22),
@@ -65,7 +65,7 @@ enum SlashMenuItemType {
             )
             return .image(image)
         case .alignment:
-            return .staticImage(ImageName.slashMenu.groups.alignment)
+            return .imageAsset(.slashMenuAlignmentLeft)
         }
     }
 

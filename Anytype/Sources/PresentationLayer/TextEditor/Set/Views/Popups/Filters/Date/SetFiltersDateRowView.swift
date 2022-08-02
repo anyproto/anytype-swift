@@ -19,7 +19,7 @@ struct SetFiltersDateRowView: View {
                 
                 if configuration.isSelected {
                     valueView
-                    Image.optionChecked
+                    Image(asset: .optionChecked)
                         .frame(width: 24, height: 24)
                         .foregroundColor(.buttonSelected)
                 }

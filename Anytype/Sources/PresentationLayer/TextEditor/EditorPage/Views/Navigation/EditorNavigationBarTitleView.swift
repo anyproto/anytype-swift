@@ -80,7 +80,7 @@ private extension EditorNavigationBarTitleView {
         
         stackView.axis = .horizontal
         stackView.spacing = 8
-        lockImageView.image = .editorNavigation.lockedObject
+        lockImageView.image =  UIImage(asset: .TextEditor.lockedObject)
         lockImageView.contentMode = .center
         
         setupLayout()        

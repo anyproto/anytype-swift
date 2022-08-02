@@ -100,7 +100,7 @@ struct CreateNewProfileView: View {
                         .clipShape(Circle())
                         .frame(width: imageWidth, height: imageWidth)
                 }
-                Image.auth.photo
+                Image(asset: .authPhotoIcon)
             }
         }
     }

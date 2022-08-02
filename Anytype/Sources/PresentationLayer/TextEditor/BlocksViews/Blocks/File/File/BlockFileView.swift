@@ -4,7 +4,7 @@ import Combine
 struct BlockFileMediaData: Hashable {
     let size: String
     let name: String
-    let iconImageName: String
+    let iconImageName: ImageAsset
 }
 
 final class BlockFileView: UIView, BlockContentView {
@@ -52,7 +52,7 @@ final class BlockFileView: UIView, BlockContentView {
     
     func handle(data: BlockFileMediaData) {
         titleView.text = data.name
-        imageView.image = UIImage(named: data.iconImageName)
+        imageView.image = UIImage(asset: data.iconImageName)
         sizeView.text = data.size
     }
     

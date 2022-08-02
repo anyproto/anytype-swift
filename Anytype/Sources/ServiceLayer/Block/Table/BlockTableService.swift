@@ -240,5 +240,5 @@ enum BlocksSortType {
 }
 
 private enum AnalyticsConstants {
-    static let simpleTableBlock = "simple_table"
+    static let simpleTableBlock = "table"
 }

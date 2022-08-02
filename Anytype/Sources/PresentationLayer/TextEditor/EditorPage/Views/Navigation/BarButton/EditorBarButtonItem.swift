@@ -1,12 +1,12 @@
 import SwiftUI
 
 struct EditorBarButtonItem: UIViewRepresentable {
-    let image: UIImage
+    let imageAsset: ImageAsset
     let state: EditorBarItemState
     let action: () -> ()
     
     func makeUIView(context: Context) -> UIEditorBarButtonItemContainer {
-        return UIEditorBarButtonItemContainer(image: image, action: action)
+        return UIEditorBarButtonItemContainer(imageAsset: imageAsset, action: action)
     }
     
     func updateUIView(_ item: UIEditorBarButtonItemContainer, context: Context) {
@@ -19,8 +19,8 @@ final class UIEditorBarButtonItemContainer: UIView {
 
     override var intrinsicContentSize: CGSize { .init(width: 44, height: 44) }
 
-    required init(image: UIImage, action: @escaping () -> Void) {
-        button = .init(image: image, action: action)
+    required init(imageAsset: ImageAsset, action: @escaping () -> Void) {
+        button = .init(imageAsset: imageAsset, action: action)
         super.init(frame: .zero)
         addSubview(button) {
             $0.centerX.equal(to: centerXAnchor)

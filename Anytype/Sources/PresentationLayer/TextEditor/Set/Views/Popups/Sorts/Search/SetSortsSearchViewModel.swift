@@ -61,7 +61,7 @@ private extension Array where Element == RelationMetadata {
 private extension SearchObjectRowView.Model {
     
     init(relation: RelationMetadata) {
-        self.icon = .staticImage(relation.format.iconName)
+        self.icon = .imageAsset(relation.format.iconAsset)
         self.title = relation.name
         self.subtitle = nil
         self.style = .compact

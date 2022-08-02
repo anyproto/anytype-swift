@@ -13,13 +13,13 @@ extension ObjectIconImagePainter: ObjectIconImagePainterProtocol {
     
     func todoImage(isChecked: Bool, imageGuideline: ImageGuideline) -> UIImage {
         let hash = "todo.\(isChecked).\(imageGuideline.identifier)"
-        let image = isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
+        let image = UIImage(asset: isChecked ? .todoCheckmark : .todoCheckbox) ?? UIImage()
         return draw(hash: hash, image: image, imageGuideline: imageGuideline)
     }
     
-    func staticImage(name: String, imageGuideline: ImageGuideline) -> UIImage {
-        let hash = "staticImage.\(name).\(imageGuideline.identifier)"
-        let image = UIImage.createImage(name)
+    func staticImage(imageAsset: ImageAsset, imageGuideline: ImageGuideline) -> UIImage {
+        let hash = "staticImage.\(imageAsset.identifier).\(imageGuideline.identifier)"
+        let image = UIImage(asset: imageAsset) ?? UIImage()
         return draw(hash: hash, image: image, imageGuideline: imageGuideline)
     }
     

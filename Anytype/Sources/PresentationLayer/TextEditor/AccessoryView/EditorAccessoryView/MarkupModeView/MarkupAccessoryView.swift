@@ -117,13 +117,13 @@ struct MarkupAccessoryContentView: View {
                 } label: {
                     Group {
                         if case .color = item.markupItem {
-                            item.markupItem.icon
+                            Image(asset: item.markupItem.iconAsset)
                                 .background(GeometryReader { [weak viewModel] gp -> Color in
                                     viewModel?.colorButtonFrame = gp.frame(in: .global) // in window
                                     return Color.clear
                                 })
                         } else {
-                            item.markupItem.icon
+                            Image(asset: item.markupItem.iconAsset)
                                 .renderingMode(.template)
                                 .foregroundColor(viewModel.iconColor(for: item.markupItem))
                         }

@@ -17,14 +17,14 @@ struct CheckboxRelationView: View {
     
     private var featuredRelationBlockIcon: some View {
         Group {
-            isChecked ? Image.Relations.checkboxChecked.resizable() : Image.Relations.checkboxUnchecked.resizable()
+            isChecked ? Image(asset: .relationCheckboxChecked).resizable() : Image(asset: .relationCheckboxUnchecked).resizable()
         }.frame(width: style.checkboxSize.width, height: style.checkboxSize.height)
         
     }
     
     private var icon: some View {
         Group {
-            isChecked ? Image.Relations.checkboxChecked : Image.Relations.checkboxUnchecked
+            isChecked ? Image(asset: .relationCheckboxChecked) : Image(asset: .relationCheckboxUnchecked)
         }
     }
     

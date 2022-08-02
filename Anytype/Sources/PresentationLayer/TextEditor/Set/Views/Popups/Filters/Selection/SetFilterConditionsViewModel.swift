@@ -26,7 +26,7 @@ final class SetFilterConditionsViewModel: CheckPopupViewViewModelProtocol {
         filter.conditionType.data.compactMap { condition, title in
             CheckPopupItem(
                 id: String(condition.rawValue),
-                icon: nil,
+                iconAsset: nil,
                 title: title,
                 subtitle: nil,
                 isSelected: selectedCondition == condition

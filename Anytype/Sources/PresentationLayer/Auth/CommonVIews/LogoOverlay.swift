@@ -9,7 +9,7 @@ struct LogoOverlay: ViewModifier {
         content
             .overlay(
                 HStack {
-                    Image.logo
+                    Image(asset: .logo)
                         .onTapGesture(perform: onTap)
                     Spacer()
                 }

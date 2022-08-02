@@ -23,7 +23,7 @@ struct EditorSetSettingsView: View {
                 ZStack(alignment: .center) {
                     RoundedRectangle(cornerRadius: 10)
                         .foregroundColor(Color.backgroundSelected)
-                    setting.image
+                    Image(asset: setting.imageAsset)
                 }
                 .frame(width: 52, height: 52)
                 

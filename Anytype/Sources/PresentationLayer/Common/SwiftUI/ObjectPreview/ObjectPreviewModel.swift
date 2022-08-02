@@ -6,7 +6,6 @@
 //  Copyright © 2022 Anytype. All rights reserved.
 //
 
-import SwiftUI
 import BlocksModels
 import OrderedCollections
 
@@ -52,12 +51,12 @@ struct ObjectPreviewModel {
     private static func buildRealtions(linkApperance: BlockLink.Appearance) -> [ListItem] {
         let nameRelation = Relation(key: BundledRelationKey.name.rawValue,
                                     name: Loc.name,
-                                    iconName: RelationMetadata.Format.shortText.iconName,
+                                    iconAsset: RelationMetadata.Format.shortText.iconAsset,
                                     isLocked: true,
                                     isEnabled: linkApperance.relations.contains(.name))
         let typeRelation = Relation(key: BundledRelationKey.type.rawValue,
                                     name: Loc.LinkAppearance.ObjectType.title,
-                                    iconName: RelationMetadata.Format.object.iconName,
+                                    iconAsset: RelationMetadata.Format.object.iconAsset,
                                     isLocked: false,
                                     isEnabled: linkApperance.relations.contains(.type))
 
@@ -85,7 +84,7 @@ extension ObjectPreviewModel {
         }
         let key: String
         let name: String
-        let iconName: String
+        let iconAsset: ImageAsset
         let isLocked: Bool
         var isEnabled: Bool
     }
@@ -169,12 +168,12 @@ extension ObjectPreviewModel {
             }
         }
 
-        var iconName: String {
+        var iconAsset: ImageAsset {
             switch self {
             case .text:
-                return ImageName.ObjectPreview.text
+                return .text
             case .card:
-                return ImageName.ObjectPreview.card
+                return .card
             }
         }
     }
@@ -217,8 +216,8 @@ extension ObjectPreviewModel {
             }
         }
 
-        var iconName: String {
-            RelationMetadata.Format.longText.iconName
+        var iconAsset: ImageAsset {
+            RelationMetadata.Format.longText.iconAsset
         }
 
         var subtitle: String {

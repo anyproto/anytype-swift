@@ -6,7 +6,7 @@ import UniformTypeIdentifiers
 
 struct BlockFileIconBuilder {
     
-    static func convert(mime: String, fileName: String) -> String {
+    static func convert(mime: String, fileName: String) -> ImageAsset {
         var fileType = UTType(mimeType: mime)
         let isArchive = fileType?.isSubtype(of: .archive) ?? false
 
@@ -30,7 +30,7 @@ struct BlockFileIconBuilder {
         }?.value ?? FileIconConstants.other
     }
     
-    private static let dictionary: [UTType: String] = [
+    private static let dictionary: [UTType: ImageAsset] = [
         .text: FileIconConstants.text,
         .plainText: FileIconConstants.text,
         .doc: FileIconConstants.text,

@@ -39,8 +39,8 @@ struct SettingsAccountView: View {
     
     private var recoveryPhrase: some View {
         SettingsSectionItemView(
-            name: Loc.recoveryPhrase,
-            icon: .settings.keychain,
+            name: Loc.Keychain.recoveryPhrase,
+            imageAsset: .settingsSetKeychainPhrase,
             pressed: $model.keychain
         )
         .sheet(isPresented: $model.keychain) {

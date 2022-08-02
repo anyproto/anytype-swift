@@ -35,9 +35,9 @@ extension NewRelationCell {
         var icon: Image {
             switch self {
             case .createNew:
-                return Image.Relations.createOption
+                return Image(asset: .relationNew)
             case .relation(let realtionMetadata):
-                return Image.createImage(realtionMetadata.format.iconName)
+                return Image(asset: realtionMetadata.format.iconAsset)
             }
         }
 

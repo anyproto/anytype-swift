@@ -37,6 +37,4 @@ public enum BundledRelationKey: String {
     case workspaceId
     case fileExt
     case fileMimeType
-    
-    case url
 }

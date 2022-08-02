@@ -16,7 +16,7 @@ final class SetFiltersListViewModel: ObservableObject {
                 id: "\(filter.metadata.id)_\(index)",
                 title: filter.metadata.name,
                 subtitle: filter.conditionString,
-                iconName: filter.metadata.format.iconName,
+                iconAsset: filter.metadata.format.iconAsset,
                 type: type(for: filter),
                 hasValues: filter.filter.condition.hasValues,
                 onTap: { [weak self] in

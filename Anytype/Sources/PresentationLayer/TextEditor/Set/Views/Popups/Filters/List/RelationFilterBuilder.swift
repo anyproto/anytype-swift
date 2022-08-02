@@ -145,7 +145,8 @@ private extension RelationFilterBuilder {
                     title: name,
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
-                    isDeleted: objectDetail.isDeleted
+                    isDeleted: objectDetail.isDeleted,
+                    editorViewType: objectDetail.editorViewType
                 )
             }
             
@@ -357,10 +358,10 @@ private extension RelationFilterBuilder {
                     let fileName = objectDetail.values[BundledRelationKey.name.rawValue]?.stringValue
 
                     guard let fileMimeType = fileMimeType, let fileName = fileName else {
-                        return .staticImage(FileIconConstants.other)
+                        return .imageAsset(FileIconConstants.other)
                     }
                     
-                    return .staticImage(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
+                    return .imageAsset(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
                 }()
                 
                 return Relation.File.Option(

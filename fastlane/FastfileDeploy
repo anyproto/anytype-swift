@@ -40,7 +40,8 @@ platform :ios do
 
     commit_version_bump(
       message: "Bump version #{version}(#{build_number})",
-      xcodeproj: "Anytype.xcodeproj"
+      xcodeproj: "Anytype.xcodeproj",
+      no_verify: true
     )
 
     if !options[:release] 

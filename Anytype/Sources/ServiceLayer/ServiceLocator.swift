@@ -3,6 +3,7 @@ import UIKit
 import BlocksModels
 import AnytypeCore
 
+// TODO: Migrate to ServicesDI
 final class ServiceLocator {
     static let shared = ServiceLocator()
     
