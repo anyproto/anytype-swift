@@ -123,18 +123,16 @@
 "Archive" = "Archive";
 "Restore" = "Restore";
 
-"Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
-"Backup recovery phrase" = "Backup recovery phrase";
-
-
 // Keychain screen
-"Recovery phrase" = "Recovery phrase";
-"Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
-"Recovery phrase copied to clipboard" = "Recovery phrase copied to clipboard";
-"Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
-"Save keychain alert part 2" = "ever access your data again";
-"Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
-"Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
+"Keychain.Recovery phrase" = "Recovery phrase";
+"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied to clipboard";
+"Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
+"Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
+"Keychain.Save keychain alert part 2" = "ever access your data again";
+"Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
+"Keychain.Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
+"Keychain.Show and copy phrase" = "Show and copy phrase";
+"Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
 
 // Auth
 "Welcome to Anytype" = "Welcome to Anytype";

@@ -102,8 +102,6 @@ internal enum Loc {
   internal static let background = Loc.tr("Localizable", "Background")
   /// Background picture
   internal static let backgroundPicture = Loc.tr("Localizable", "Background picture")
-  /// Backup recovery phrase
-  internal static let backupRecoveryPhrase = Loc.tr("Localizable", "Backup recovery phrase")
   /// Basic
   internal static let basic = Loc.tr("Localizable", "Basic")
   /// Bin
@@ -251,8 +249,6 @@ internal enum Loc {
   internal static let doNotHaveInvite = Loc.tr("Localizable", "Do not have invite")
   /// Done
   internal static let done = Loc.tr("Localizable", "Done")
-  /// Don’t forget to save your recovery phrase
-  internal static let donTForgetToSaveYourRecoveryPhrase = Loc.tr("Localizable", "Don’t forget to save your recovery phrase")
   /// Download
   internal static let download = Loc.tr("Localizable", "Download")
   /// Downloading or uploading data to some node
@@ -341,8 +337,6 @@ internal enum Loc {
   internal static let greyBackground = Loc.tr("Localizable", "Grey background")
   /// Group
   internal static let group = Loc.tr("Localizable", "Group")
-  /// Have you backed up your recovery phrase?
-  internal static let haveYouBackedUpYourRecoveryPhrase = Loc.tr("Localizable", "Have you backed up your recovery phrase?")
   /// Heading
   internal static let heading = Loc.tr("Localizable", "Heading")
   /// Medium headline
@@ -523,12 +517,6 @@ internal enum Loc {
   internal static let recent = Loc.tr("Localizable", "Recent")
   /// Recovery pharse is nil
   internal static let recoveryPharseIsNil = Loc.tr("Localizable", "Recovery pharse is nil")
-  /// Recovery phrase
-  internal static let recoveryPhrase = Loc.tr("Localizable", "Recovery phrase")
-  /// Recovery phrase copied to clipboard
-  internal static let recoveryPhraseCopiedToClipboard = Loc.tr("Localizable", "Recovery phrase copied to clipboard")
-  /// You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.
-  internal static let recoveryPhraseDescription = Loc.tr("Localizable", "Recovery phrase description")
   /// Red
   internal static let red = Loc.tr("Localizable", "Red")
   /// Red background
@@ -549,14 +537,6 @@ internal enum Loc {
   internal static let restoreFromKeychain = Loc.tr("Localizable", "Restore from keychain")
   /// Restore secret phrase from keychain
   internal static let restoreSecretPhraseFromKeychain = Loc.tr("Localizable", "Restore secret phrase from keychain")
-  /// If you lose the recovery phrase and get logged out you will not be able to 
-  internal static let saveKeychainAlertPart1 = Loc.tr("Localizable", "Save keychain alert part 1")
-  /// ever access your data again
-  internal static let saveKeychainAlertPart2 = Loc.tr("Localizable", "Save keychain alert part 2")
-  /// .
-  /// Save this recovery phrase outside of Anytype for data recovery.
-  /// We recommend using a secure data vault, password manager or piece of paper in the safe.
-  internal static let saveKeychainAlertPart3 = Loc.tr("Localizable", "Save keychain alert part 3")
   /// Scan QR code
   internal static let scanQRCode = Loc.tr("Localizable", "Scan QR code")
   /// Search
@@ -937,6 +917,29 @@ internal enum Loc {
     internal static let light = Loc.tr("Localizable", "InterfaceStyle.light")
     /// System
     internal static let system = Loc.tr("Localizable", "InterfaceStyle.system")
+  }
+
+  internal enum Keychain {
+    /// Don’t forget to save your recovery phrase
+    internal static let donTForgetToSaveYourRecoveryPhrase = Loc.tr("Localizable", "Keychain.Don’t forget to save your recovery phrase")
+    /// Have you backed up your recovery phrase?
+    internal static let haveYouBackedUpYourRecoveryPhrase = Loc.tr("Localizable", "Keychain.Have you backed up your recovery phrase?")
+    /// Recovery phrase
+    internal static let recoveryPhrase = Loc.tr("Localizable", "Keychain.Recovery phrase")
+    /// Recovery phrase copied to clipboard
+    internal static let recoveryPhraseCopiedToClipboard = Loc.tr("Localizable", "Keychain.Recovery phrase copied to clipboard")
+    /// You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.
+    internal static let recoveryPhraseDescription = Loc.tr("Localizable", "Keychain.Recovery phrase description")
+    /// If you lose the recovery phrase and get logged out you will not be able to 
+    internal static let saveKeychainAlertPart1 = Loc.tr("Localizable", "Keychain.Save keychain alert part 1")
+    /// ever access your data again
+    internal static let saveKeychainAlertPart2 = Loc.tr("Localizable", "Keychain.Save keychain alert part 2")
+    /// .
+    /// Save this recovery phrase outside of Anytype for data recovery.
+    /// We recommend using a secure data vault, password manager or piece of paper in the safe.
+    internal static let saveKeychainAlertPart3 = Loc.tr("Localizable", "Keychain.Save keychain alert part 3")
+    /// Show and copy phrase
+    internal static let showAndCopyPhrase = Loc.tr("Localizable", "Keychain.Show and copy phrase")
   }
 
   internal enum LinkAppearance {
