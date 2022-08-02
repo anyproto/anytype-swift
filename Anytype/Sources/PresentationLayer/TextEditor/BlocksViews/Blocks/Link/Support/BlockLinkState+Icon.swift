@@ -26,7 +26,6 @@ extension BlockLinkState {
                 
             }
         case let .checkmark(isChecked):
-//            let image = isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
             let image = UIImage(asset: isChecked ? .todoCheckmark : .todoCheckbox)
             return makeIconImageView(image)
         }

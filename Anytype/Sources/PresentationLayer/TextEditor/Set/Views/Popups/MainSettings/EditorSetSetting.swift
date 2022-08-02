@@ -29,7 +29,7 @@ enum EditorSetSetting: CaseIterable, Identifiable {
 //        case .view:
 //            return .set.view
         case .settings:
-            return .setSettinsSettings
+            return .setSettingsSettings
         case .sort:
             return .setSettinsSort
         case .filter:

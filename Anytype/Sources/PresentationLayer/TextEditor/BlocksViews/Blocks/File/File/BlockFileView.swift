@@ -52,7 +52,6 @@ final class BlockFileView: UIView, BlockContentView {
     
     func handle(data: BlockFileMediaData) {
         titleView.text = data.name
-        // TODO: check UIImage(named: data.iconImageName)
         imageView.image = UIImage(asset: data.iconImageName)
         sizeView.text = data.size
     }
