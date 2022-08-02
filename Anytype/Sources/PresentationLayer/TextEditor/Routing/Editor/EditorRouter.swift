@@ -14,7 +14,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     private let settingAssembly = ObjectSettingAssembly()
     private let editorAssembly: EditorAssembly
     private let templatesCoordinator: TemplatesCoordinator
-    private lazy var relationEditingViewModelBuilder = RelationEditingViewModelBuilder(delegate: self)
+    private let urlOpener: URLOpenerProtocol
+    private let relationValueCoordinator: RelationValueCoordinatorProtocol
     private weak var currentSetSettingsPopup: AnytypePopup?
     
     init(
@@ -22,7 +23,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         viewController: UIViewController,
         document: BaseDocumentProtocol,
         assembly: EditorAssembly,
-        templatesCoordinator: TemplatesCoordinator
+        templatesCoordinator: TemplatesCoordinator,
+        urlOpener: URLOpenerProtocol,
+        relationValueCoordinator: RelationValueCoordinatorProtocol
     ) {
         self.rootController = rootController
         self.viewController = viewController
@@ -31,6 +34,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         self.fileCoordinator = FileDownloadingCoordinator(viewController: viewController)
         self.addNewRelationCoordinator = AddNewRelationCoordinator(document: document, viewController: viewController)
         self.templatesCoordinator = templatesCoordinator
+        self.urlOpener = urlOpener
+        self.relationValueCoordinator = relationValueCoordinator
     }
 
     func showPage(data: EditorScreenData) {
@@ -41,7 +46,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
             }
         }
         
-        let controller = editorAssembly.buildEditorController(data: data, editorBrowserViewInput: rootController)
+        let controller = editorAssembly.buildEditorController(
+            browser: rootController,
+            data: data,
+            editorBrowserViewInput: rootController
+        )
         viewController?.navigationController?.pushViewController(controller, animated: true)
     }
 
@@ -90,15 +99,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func openUrl(_ url: URL) {
-        let url = url.urlByAddingHttpIfSchemeIsEmpty()
-        if url.containsHttpProtocol {
-            let safariController = SFSafariViewController(url: url)
-            viewController?.topPresentedController.present(safariController, animated: true)
-            return
-        }
-        if UIApplication.shared.canOpenURL(url) {
-            UIApplication.shared.open(url)
-        }
+        urlOpener.openUrl(url)
     }
     
     func showBookmarkBar(completion: @escaping (URL) -> ()) {
@@ -459,14 +460,6 @@ extension EditorRouter: AttachmentRouterProtocol {
     }
 }
 
-extension EditorRouter: TextRelationActionButtonViewModelDelegate {
-    
-    func canOpenUrl(_ url: URL) -> Bool {
-        UIApplication.shared.canOpenURL(url.urlByAddingHttpIfSchemeIsEmpty())
-    }
-
-}
-
 // MARK: - Relations
 extension EditorRouter {
     func showRelationValueEditingView(key: String, source: RelationSource) {
@@ -477,26 +470,18 @@ extension EditorRouter {
     }
     
     func showRelationValueEditingView(objectId: BlockId, source: RelationSource, relation: Relation) {
-        guard relation.isEditable || (relation.hasDetails && FeatureFlags.relationDetails) else { return }
-        
-        if case .checkbox(let checkbox) = relation {
-            let relationsService = RelationsService(objectId: objectId)
-            relationsService.updateRelation(relationKey: checkbox.id, value: (!checkbox.value).protobufValue)
-            return
-        }
-        
-        guard let viewController = viewController else { return }
-        
-        let contentViewModel = relationEditingViewModelBuilder
-            .buildViewModel(source: source, objectId: objectId, relation: relation)
-        guard let contentViewModel = contentViewModel else { return }
-        
-        let fpc = AnytypePopup(viewModel: contentViewModel)
-        viewController.topPresentedController.present(fpc, animated: true, completion: nil)
+        relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation, output: self)
     }
 
     func showAddNewRelationView(onSelect: ((RelationMetadata, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
+    }
+}
+
+extension EditorRouter: RelationValueCoordinatorOutput {
+    func openObject(pageId: BlockId, viewType: EditorViewType) {
+        viewController?.dismiss(animated: true)
+        showPage(data: EditorScreenData(pageId: pageId, type: viewType))
     }
 }
 
