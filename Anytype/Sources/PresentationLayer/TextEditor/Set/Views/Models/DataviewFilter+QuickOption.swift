@@ -27,7 +27,7 @@ extension DataviewFilter.QuickOption {
             return Loc.EditSet.Popup.Filter.Date.Option.numberOfDaysFromNow
         case .exactDate:
             return Loc.EditSet.Popup.Filter.Date.Option.exactDate
-        case .UNRECOGNIZED(_):
+        case .UNRECOGNIZED:
             return ""
         }
     }

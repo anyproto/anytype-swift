@@ -66,7 +66,7 @@ final class SetFiltersContentHandler: SetFiltersContentHandlerProtocol {
         case .checkbox:
             handleCheckbox(false)
         case .date:
-            handleText("0")
+            handleValue(0.protobufValue)
         }
     }
     
