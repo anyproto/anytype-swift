@@ -3,16 +3,16 @@ import AnytypeCore
 
 final class HomeViewAssembly {
     
-    private let coordinatorsAssembly: CoordinatorsAssemblyProtocol
+    private let coordinatorsDI: CoordinatorsDIProtocol
     
-    init(coordinatorsAssembly: CoordinatorsAssemblyProtocol) {
-        self.coordinatorsAssembly = coordinatorsAssembly
+    init(coordinatorsDI: CoordinatorsDIProtocol) {
+        self.coordinatorsDI = coordinatorsDI
     }
     
     @MainActor
     func createHomeView() -> HomeView? {
         let homeObjectId = AccountManager.shared.account.info.homeObjectID
-        let model = HomeViewModel(homeBlockId: homeObjectId, editorBrowserAssembly: coordinatorsAssembly.browser)
+        let model = HomeViewModel(homeBlockId: homeObjectId, editorBrowserAssembly: coordinatorsDI.browser)
         return HomeView(model: model)
     }
     

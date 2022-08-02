@@ -4,15 +4,15 @@ import AnytypeCore
 
 final class EditorAssembly {
     
-    private let servicesAssembly: ServicesAssemblyProtocol
-    private let coordinatorsAssembly: CoordinatorsAssemblyProtocol
+    private let serviceLocator: ServiceLocator
+    private let coordinatorsDI: CoordinatorsDIProtocol
     
     init(
-        servicesAssembly: ServicesAssemblyProtocol,
-        coordinatorsAssembly: CoordinatorsAssemblyProtocol
+        serviceLocator: ServiceLocator,
+        coordinatorsDI: CoordinatorsDIProtocol
     ) {
-        self.servicesAssembly = servicesAssembly
-        self.coordinatorsAssembly = coordinatorsAssembly
+        self.serviceLocator = serviceLocator
+        self.coordinatorsDI = coordinatorsDI
     }
     
     func buildEditorController(
@@ -61,9 +61,9 @@ final class EditorAssembly {
             viewController: controller,
             document: document,
             assembly: self,
-            templatesCoordinator: coordinatorsAssembly.templates.make(viewController: controller),
+            templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
-            relationValueCoordinator: coordinatorsAssembly.relationValue.make(viewController: controller)
+            relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller)
         )
         
         model.setup(router: router)
@@ -92,9 +92,9 @@ final class EditorAssembly {
             viewController: controller,
             document: document,
             assembly: self,
-            templatesCoordinator: coordinatorsAssembly.templates.make(viewController: controller),
+            templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
             urlOpener: URLOpener(viewController: browser),
-            relationValueCoordinator: coordinatorsAssembly.relationValue.make(viewController: controller)
+            relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller)
         )
 
         let viewModel = buildViewModel(

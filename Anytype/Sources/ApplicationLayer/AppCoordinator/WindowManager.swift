@@ -2,11 +2,11 @@ import UIKit
 
 final class WindowManager {
     static let shared = WindowManager()
-    private let diAssembly: DIAssemblyProtocol = DIAssembly()
+    private let di: DIProtocol = DI()
     
     @MainActor
     func showHomeWindow() {
-        let homeAssembly = diAssembly.coordinatorsAssembly.homeViewAssemby
+        let homeAssembly = di.coordinatorsDI.homeViewAssemby
         windowHolder?.startNewRootView(homeAssembly.createHomeView())
     }
     

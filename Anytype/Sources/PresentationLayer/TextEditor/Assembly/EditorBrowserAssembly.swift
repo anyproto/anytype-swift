@@ -4,10 +4,10 @@ import Combine
 
 final class EditorBrowserAssembly {
     
-    private let coordinatorsAssembly: CoordinatorsAssemblyProtocol
+    private let coordinatorsDI: CoordinatorsDIProtocol
     
-    init(coordinatorsAssembly: CoordinatorsAssemblyProtocol) {
-        self.coordinatorsAssembly = coordinatorsAssembly
+    init(coordinatorsDI: CoordinatorsDIProtocol) {
+        self.coordinatorsDI = coordinatorsDI
     }
     
     func editor(data: EditorScreenData, model: HomeViewModel) -> some View {
@@ -17,7 +17,7 @@ final class EditorBrowserAssembly {
     func buildEditorBrowser(data: EditorScreenData) -> EditorBrowserController {
         let browser = EditorBrowserController()
 
-        let (page, router) = coordinatorsAssembly.editor
+        let (page, router) = coordinatorsDI.editor
             .buildEditorModule(browser: browser, data: data, editorBrowserViewInput: browser)
         
         browser.childNavigation = navigationStack(rootPage: page)

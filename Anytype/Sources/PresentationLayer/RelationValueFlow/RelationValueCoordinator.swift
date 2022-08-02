@@ -3,15 +3,6 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
-protocol RelationValueCoordinatorProtocol: AnyObject {
-    func startFlow(
-        objectId: BlockId,
-        source: RelationSource,
-        relation: Relation,
-        output: RelationValueCoordinatorOutput
-    )
-}
-
 final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
                                       TextRelationActionButtonViewModelDelegate,
                                       RelationValueViewModelOutput {
