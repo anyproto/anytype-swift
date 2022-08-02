@@ -3,6 +3,7 @@ import SwiftUI
 struct RelationObjectsRowView: View {
     
     let object: Relation.Object.Option
+    let action: (() -> Void)
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
@@ -12,6 +13,9 @@ struct RelationObjectsRowView: View {
             Spacer()
         }
         .frame(height: 68)
+        .onTapGesture {
+            action()
+        }
     }
     
     private var icon: some View {
@@ -74,8 +78,10 @@ struct RelationObjectsRowView_Previews: PreviewProvider {
                 title: "title",
                 type: "type",
                 isArchived: false,
-                isDeleted: false
-            )
+                isDeleted: false,
+                editorViewType: .page
+            ),
+            action: {}
         )
     }
 }

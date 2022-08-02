@@ -13,7 +13,12 @@ final class RelationEditingViewModelBuilder {
 
 extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtocol {
     
-    func buildViewModel(source: RelationSource, objectId: BlockId, relation: Relation) -> AnytypePopupViewModelProtocol? {
+    func buildViewModel(
+        source: RelationSource,
+        objectId: BlockId,
+        relation: Relation,
+        onTap: @escaping (_ id: BlockId, _ viewType: EditorViewType) -> Void
+    ) -> AnytypePopupViewModelProtocol? {
         switch relation {
         case .text(let text):
             return TextRelationDetailsViewModel(
@@ -95,7 +100,10 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                         id: object.id,
                         contentHash: object.hashValue
                     ) {
-                        RelationObjectsRowView(object: object).eraseToAnyView()
+                        RelationObjectsRowView(
+                            object: object,
+                            action: { onTap(object.id, object.editorViewType) }
+                        ).eraseToAnyView()
                     }
                 },
                 emptyOptionsPlaceholder: Constants.objectsOptionsPlaceholder,
@@ -111,7 +119,10 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                         id: file.id,
                         contentHash: file.hashValue
                     ) {
-                        RelationFilesRowView(file: file).eraseToAnyView()
+                        RelationFilesRowView(
+                            file: file,
+                            action: { onTap(file.id, .page) }
+                        ).eraseToAnyView()
                     }
                 },
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,

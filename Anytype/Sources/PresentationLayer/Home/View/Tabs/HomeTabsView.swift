@@ -128,16 +128,11 @@ struct HomeTabsView: View {
 
 struct HomeTabsView_Previews: PreviewProvider {
     
-    static var model: HomeViewModel {
-        let model = HomeViewModel(homeBlockId: UUID().uuidString)
-        return model
-    }
-    
     static var previews: some View {
         ZStack {
             Color.blue
             HomeTabsView(offsetChanged: { _ in }, onDrag: { _ in}, onDragEnd: { _ in })
-                .environmentObject(model)
+                .environmentObject(HomeViewModel.makeForPreview())
         }
     }
 }

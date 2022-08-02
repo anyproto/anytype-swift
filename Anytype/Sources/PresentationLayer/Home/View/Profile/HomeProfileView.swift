@@ -96,11 +96,11 @@ struct HomeProfileView: View {
 struct HomeProfileView_Previews: PreviewProvider {
     static var previews: some View {
         HomeProfileView()
-            .environmentObject(HomeViewModel(homeBlockId: UUID().uuidString))
+            .environmentObject(HomeViewModel.makeForPreview())
             .background(Color.System.blue)
         
         HomeProfileView()
-            .environmentObject(HomeViewModel(homeBlockId: UUID().uuidString))
+            .environmentObject(HomeViewModel.makeForPreview())
             .background(Color.System.blue)
             .redacted(reason: .placeholder)
     }

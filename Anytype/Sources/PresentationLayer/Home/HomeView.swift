@@ -175,6 +175,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(model: HomeViewModel(homeBlockId: UUID().uuidString))
+        HomeView(model: HomeViewModel.makeForPreview())
     }
 }
