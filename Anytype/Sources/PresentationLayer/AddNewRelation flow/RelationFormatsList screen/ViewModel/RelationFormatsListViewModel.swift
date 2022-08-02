@@ -38,7 +38,7 @@ private extension Array where Element == SupportedRelationFormat {
             RelationFormatListCell.Model(
                 id: $0.id,
                 title: $0.title,
-                icon: $0.icon,
+                iconAsset: $0.iconAsset,
                 isSelected: $0 == selectedFormat
             )
         }

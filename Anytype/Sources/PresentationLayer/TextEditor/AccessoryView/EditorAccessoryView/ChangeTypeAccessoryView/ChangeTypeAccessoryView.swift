@@ -132,7 +132,7 @@ private final class ChangeButton: UIButton {
 
     private func setup() {
         setTitle(Loc.changeType, for: .normal)
-        setImage(.codeBlock.arrow, for: .normal)
+        setImage(UIImage(asset: .TextEditor.turnIntoArrow), for: .normal)
         titleLabel?.font = .bodyRegular
         setTitleColor(.buttonActive, for: .normal)
         setTitleColor(.textPrimary, for: .highlighted)

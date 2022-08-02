@@ -24,8 +24,8 @@ struct HomeProfileViewButtonImage<Image: View>: View {
 struct HomeProfileViewButtonImage_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            HomeProfileViewButtonImage(image: Image.main.search)
-            HomeProfileViewButtonImage(image: Image.main.search)
+            HomeProfileViewButtonImage(image: Image(asset: .mainSearch))
+            HomeProfileViewButtonImage(image: Image(asset: .mainSearch))
                 .redacted(reason: .placeholder)
         }
         .previewLayout(.sizeThatFits)

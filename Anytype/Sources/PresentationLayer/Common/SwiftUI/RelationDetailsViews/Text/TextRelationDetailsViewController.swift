@@ -147,7 +147,8 @@ private extension TextRelationDetailsViewController {
         }
         
         actionButton.adjustsImageWhenHighlighted = false
-        actionButton.setImage(actionButtonViewModel.icon.withRenderingMode(.alwaysTemplate), for: .normal)
+        let image = UIImage(asset: actionButtonViewModel.iconAsset)?.withRenderingMode(.alwaysTemplate)
+        actionButton.setImage(image, for: .normal)
         actionButton.tintColor = .buttonActive
         
         actionButton.addAction(

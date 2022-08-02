@@ -6,7 +6,7 @@ struct NewRelationFormatSectionView: View {
     
     var body: some View {
         HStack(spacing: 5) {
-            Image(model.icon).frame(width: 24, height: 24)
+            Image(asset: model.icon).frame(width: 24, height: 24)
             AnytypeText(model.title, style: .uxBodyRegular, color: .textPrimary)
                 .lineLimit(1)
         }
@@ -17,7 +17,7 @@ struct NewRelationFormatSectionView: View {
 extension NewRelationFormatSectionView {
     
     struct Model: Hashable {
-        let icon: String
+        let icon: ImageAsset
         let title: String
     }
     
@@ -26,7 +26,7 @@ extension NewRelationFormatSectionView {
 struct NewRelationFormatSectionView_Previews: PreviewProvider {
     static var previews: some View {
         NewRelationFormatSectionView(
-            model: NewRelationFormatSectionView.Model(icon: "format/text", title: "Text")
+            model: NewRelationFormatSectionView.Model(icon: .Format.text, title: "Text")
         )
     }
 }

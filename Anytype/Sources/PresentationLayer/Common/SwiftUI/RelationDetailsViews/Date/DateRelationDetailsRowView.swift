@@ -33,7 +33,7 @@ struct DateRelationDetailsRowView: View {
                         Spacer.fixedWidth(4)
                     }
                     
-                    Image.optionChecked.foregroundColor(.textSecondary)
+                    Image(asset: .optionChecked).foregroundColor(.textSecondary)
                 }
             }
         }

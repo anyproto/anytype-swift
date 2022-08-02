@@ -15,12 +15,12 @@ enum BlocksOptionItem: CaseIterable, Comparable {
 }
 
 extension BlocksOptionItem {
-    private typealias BlockOptionImage = UIImage.editor.BlockOption
+    private typealias BlockOptionImage = ImageAsset.TextEditor.BlocksOption
 
-    var image: UIImage {
+    var imageAsset: ImageAsset {
         switch self {
         case .style:
-            return UIImage.edititngToolbar.style
+            return .EditingToolbar.style
         case .delete:
             return BlockOptionImage.delete
         case .addBlockBelow:
@@ -28,7 +28,7 @@ extension BlocksOptionItem {
         case .duplicate:
             return BlockOptionImage.duplicate
         case .turnInto:
-            return BlockOptionImage.turnInto
+            return BlockOptionImage.turnIntoObject
         case .moveTo:
             return BlockOptionImage.moveTo
         case .move:
@@ -40,7 +40,7 @@ extension BlocksOptionItem {
         case .copy:
             return BlockOptionImage.copy
         case .preview:
-            return BlockOptionImage.preview
+            return BlockOptionImage.view
         }
     }
 

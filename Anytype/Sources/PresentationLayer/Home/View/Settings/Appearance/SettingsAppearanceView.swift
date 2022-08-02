@@ -29,7 +29,7 @@ struct SettingsAppearanceView: View {
     private var wallpaper: some View {
         SettingsSectionItemView(
             name: Loc.wallpaper,
-            icon: .settings.wallpaper,
+            imageAsset: .settingsSetWallpaper,
             pressed: $model.wallpaperPicker
         )
         .sheet(isPresented: $model.wallpaperPicker) {

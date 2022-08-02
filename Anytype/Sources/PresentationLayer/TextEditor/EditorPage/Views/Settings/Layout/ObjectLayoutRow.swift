@@ -27,7 +27,7 @@ struct ObjectLayoutRow: View {
     
     private var row: some View {
         HStack(spacing: 0) {
-            layout.icon.frame(width: 44, height: 44)
+            Image(asset: layout.iconAsset).frame(width: 44, height: 44)
             
             Spacer.fixedWidth(12)
             
@@ -45,7 +45,7 @@ struct ObjectLayoutRow: View {
                     Spacer(minLength: 12)
                     
                     if isSelected {
-                        Image.optionChecked.frame(width: 24, height: 24).foregroundColor(.buttonSelected)
+                        Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.buttonSelected)
                     }
                 }
                 
@@ -61,16 +61,16 @@ struct ObjectLayoutRow: View {
 
 private extension DetailsLayout {
     
-    var icon: Image {
+    var iconAsset: ImageAsset {
         switch self {
         case .basic:
-            return .LayoutSettings.basic
+            return .layoutSettingsBasic
         case .profile:
-            return .LayoutSettings.profile
+            return .layoutSettingsProfile
         case .todo:
-            return .LayoutSettings.todo
+            return .layoutSettingsTodo
         case .note:
-            return .LayoutSettings.note
+            return .layoutSettingsNote
         case .set:
             return .noImage
         }

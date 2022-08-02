@@ -8,7 +8,7 @@ struct RelationFormatListCell: View {
 
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
-            Image(model.icon).frame(width: 24, height: 24)
+            Image(asset: model.iconAsset).frame(width: 24, height: 24)
 
             AnytypeText(model.title, style: .uxBodyRegular, color: .textPrimary)
                 .lineLimit(1)
@@ -16,7 +16,7 @@ struct RelationFormatListCell: View {
             Spacer()
 
             if model.isSelected {
-                Image.optionChecked.frame(width: 24, height: 24).foregroundColor(.textPrimary)
+                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.textPrimary)
             }
         }
         .frame(height: 52)
@@ -30,7 +30,7 @@ extension RelationFormatListCell {
         let id: String
         
         let title: String
-        let icon: String
+        let iconAsset: ImageAsset
         let isSelected: Bool
     }
     

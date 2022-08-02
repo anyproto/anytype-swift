@@ -40,7 +40,7 @@ struct SettingsAccountView: View {
     private var recoveryPhrase: some View {
         SettingsSectionItemView(
             name: Loc.Keychain.recoveryPhrase,
-            icon: .settings.keychain,
+            imageAsset: .settingsSetKeychainPhrase,
             pressed: $model.keychain
         )
         .sheet(isPresented: $model.keychain) {

@@ -37,16 +37,16 @@ extension ObjectSetting {
         }
     }
     
-    var image: Image {
+    var imageAsset: ImageAsset {
         switch self {
         case .icon:
-            return Image.ObjectSettings.icon
+            return .objectSettingsIcon
         case .cover:
-            return Image.ObjectSettings.cover
+            return .objectSettingsCover
         case .layout:
-            return Image.ObjectSettings.layout
+            return .objectSettingsLayout
         case .relations:
-            return Image.ObjectSettings.relations
+            return .objectSettingsRelations
         }
     }
 }

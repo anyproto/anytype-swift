@@ -23,7 +23,7 @@ struct StatusRelationDetailsRowView: View {
                 Spacer()
                 
                 if selectedStatus == status {
-                    Image.optionChecked.foregroundColor(.textSecondary)
+                    Image(asset: .optionChecked).foregroundColor(.textSecondary)
                 }
             }
             .frame(height: 20)

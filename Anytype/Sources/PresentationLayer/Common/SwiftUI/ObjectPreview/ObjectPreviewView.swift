@@ -44,7 +44,7 @@ struct ObjectPreviewView: View {
     }
 
     private func description(_ description: ObjectPreviewModel.Description) -> some View {
-        menuRow(name: Loc.description, icon: description.iconName, value: description.name) {
+        menuRow(name: Loc.description, icon: description.iconAsset, value: description.name) {
             viewModel.showDescriptionMenu()
         }
     }
@@ -77,7 +77,7 @@ struct ObjectPreviewView: View {
 
     private func featuredRelationsRow(_ item: ObjectPreviewModel.Relation, onTap: @escaping (_ isEnabled: Bool) -> Void) -> some View {
         HStack(spacing: 0) {
-            Image.createImage(item.iconName)
+            Image(asset: item.iconAsset)
                 .frame(width: 24, height: 24)
             Spacer.fixedWidth(10)
 
@@ -96,13 +96,13 @@ struct ObjectPreviewView: View {
         .frame(height: 52)
     }
 
-    private func menuRow(name: String, icon: String? = nil, value: String, onTap: @escaping () -> Void) -> some View {
+    private func menuRow(name: String, icon: ImageAsset? = nil, value: String, onTap: @escaping () -> Void) -> some View {
         Button {
             onTap()
         } label: {
             HStack(spacing: 0) {
                 if let icon = icon {
-                    Image.createImage(icon)
+                    Image(asset: icon)
                         .frame(width: 24, height: 24)
                     Spacer.fixedWidth(10)
                 }
@@ -111,7 +111,7 @@ struct ObjectPreviewView: View {
                 Spacer()
                 AnytypeText(value, style: .uxBodyRegular, color: .textSecondary)
                 Spacer.fixedWidth(10)
-                Image.arrow
+                Image(asset: .arrowForward)
             }
             .frame(height: 52)
         }

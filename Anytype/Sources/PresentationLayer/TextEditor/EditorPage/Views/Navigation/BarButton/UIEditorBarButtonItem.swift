@@ -9,9 +9,9 @@ final class UIEditorBarButtonItem: UIView, CustomizableHitTestAreaView {
     
     private var state = EditorBarItemState.initial
     
-    init(image: UIImage, action: @escaping () -> Void) {
+    init(imageAsset: ImageAsset, action: @escaping () -> Void) {
         super.init(frame: .zero)
-        setup(image: image, action: action)
+        setup(imageAsset: imageAsset, action: action)
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
@@ -33,9 +33,9 @@ final class UIEditorBarButtonItem: UIView, CustomizableHitTestAreaView {
 
 private extension UIEditorBarButtonItem {
     
-    func setup(image: UIImage, action: @escaping () -> Void) {
+    func setup(imageAsset: ImageAsset, action: @escaping () -> Void) {
         setupBackgroundView()
-        setupButton(image: image, action: action)
+        setupButton(imageAsset: imageAsset, action: action)
         setupLayout()
         
         updateState()
@@ -46,9 +46,9 @@ private extension UIEditorBarButtonItem {
         backgroundView.layer.cornerRadius = 7
     }
     
-    func setupButton(image: UIImage, action: @escaping () -> Void) {
+    func setupButton(imageAsset: ImageAsset, action: @escaping () -> Void) {
         button.adjustsImageWhenHighlighted = false
-        button.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.setImage(UIImage(asset: imageAsset)?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.addAction(
             UIAction(handler: { _ in action() } ),
             for: .touchUpInside

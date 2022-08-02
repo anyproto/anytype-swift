@@ -12,11 +12,11 @@ final class EditorBrowserButton: UIView, CustomizableHitTestAreaView {
 
     private let button = UIButton(type: .custom)
     
-    init(image: UIImage, isEnabled: Bool = true, action: @escaping () -> Void) {
+    init(imageAsset: ImageAsset, isEnabled: Bool = true, action: @escaping () -> Void) {
         self.isEnabled = isEnabled
         super.init(frame: .zero)
         
-        setupView(image: image, action: action)
+        setupView(imageAsset: imageAsset, action: action)
     }
 
     func updateMenu(_ menu: UIMenu) {
@@ -27,8 +27,8 @@ final class EditorBrowserButton: UIView, CustomizableHitTestAreaView {
         return containsCustomHitTestArea(point) ? self.button : nil
     }
     
-    private func setupView(image: UIImage, action: @escaping () -> Void) {
-        setupButton(image: image, action: action)
+    private func setupView(imageAsset: ImageAsset, action: @escaping () -> Void) {
+        setupButton(imageAsset: imageAsset, action: action)
         setupLayout()
         handleEnableUpdate()
         
@@ -38,8 +38,9 @@ final class EditorBrowserButton: UIView, CustomizableHitTestAreaView {
         )
     }
     
-    private func setupButton(image: UIImage, action: @escaping () -> Void) {
-        button.setImage(image.withRenderingMode(.alwaysTemplate), for: .normal)
+    private func setupButton(imageAsset: ImageAsset, action: @escaping () -> Void) {
+        let image = UIImage(asset: imageAsset)
+        button.setImage(image?.withRenderingMode(.alwaysTemplate), for: .normal)
         button.adjustsImageWhenHighlighted = false
         
         button.addAction(

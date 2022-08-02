@@ -99,7 +99,7 @@ struct LoginView: View {
             HStack {
                 AnytypeText(Loc.scanQRCode, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
-                Image.arrow
+                Image(asset: .arrowForward)
             }
             .frame(height: 48)
             .divider()

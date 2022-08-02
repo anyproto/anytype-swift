@@ -30,7 +30,7 @@ final class ObjectPreviewIconMenuViewModel: CheckPopupViewViewModelProtocol {
     func buildObjectPreviewPopupItem(currentIconSize: ObjectPreviewModel.IconSize) -> [CheckPopupItem] {
         availableIconSizes().map { iconSize in
             let isSelected = currentIconSize == iconSize
-            return CheckPopupItem(id: iconSize.rawValue, icon: nil, title: iconSize.name, subtitle: nil, isSelected: isSelected)
+            return CheckPopupItem(id: iconSize.rawValue, iconAsset: nil, title: iconSize.name, subtitle: nil, isSelected: isSelected)
         }
     }
 

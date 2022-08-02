@@ -47,7 +47,7 @@ struct EditorSetViewSettingsView: View {
                     withAnimation { editMode = .inactive }
                     model.showAddNewRelationView()
                 }) {
-                    Image.plus
+                    Image(asset: .plus)
                 }
             }
         }
@@ -90,7 +90,7 @@ struct EditorSetViewSettingsView: View {
     
     private func relationRow(_ relation: SetRelation) -> some View {
         HStack(spacing: 0) {
-            Image(relation.metadata.format.iconName)
+            Image(asset: relation.metadata.format.iconAsset)
                 .frame(width: 24, height: 24)
             Spacer.fixedWidth(10)
             AnytypeToggle(

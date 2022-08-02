@@ -15,7 +15,7 @@ final class SetSortsListViewModel: ObservableObject {
                 id: $0.id,
                 title: $0.metadata.name,
                 subtitle: $0.typeTitle(),
-                iconName: $0.metadata.format.iconName
+                iconAsset: $0.metadata.format.iconAsset
             )
         }
     }
