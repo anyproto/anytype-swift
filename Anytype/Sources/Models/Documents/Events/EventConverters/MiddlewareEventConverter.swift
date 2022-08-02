@@ -92,11 +92,11 @@ final class MiddlewareEventConverter {
             return .details(id: details.id)
             
         case let .objectDetailsAmend(data):
-            guard
-                let newDetails = detailsStorage.amend(data: data)
-            else { return nil }
             
             let oldDetails = detailsStorage.get(id: data.id)
+            
+            guard let newDetails = detailsStorage.amend(data: data) else { return nil }
+
             
             guard let oldDetails = oldDetails else {
                 return .details(id: data.id)
