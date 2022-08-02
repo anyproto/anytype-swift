@@ -63,7 +63,7 @@ private extension TextRelationActionButtonViewModel {
         
         init?(type: TextRelationDetailsViewType) {
             switch type {
-            case .text, .number:
+            case .text, .number, .numberOfDays:
                 return nil
             case .phone:
                 self = .phone

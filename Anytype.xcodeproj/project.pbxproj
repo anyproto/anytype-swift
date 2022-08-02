@@ -457,6 +457,17 @@
 		2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */; };
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
 		2E61D470286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */; };
+		2E7C445D2891753B0062287C /* SetFiltersDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445C2891753B0062287C /* SetFiltersDateView.swift */; };
+		2E7C445F2891755A0062287C /* SetFiltersDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */; };
+		2E7C4461289184BA0062287C /* SetFiltersDateRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4460289184BA0062287C /* SetFiltersDateRowConfiguration.swift */; };
+		2E7C44672892CFCA0062287C /* SetFiltersDateRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */; };
+		2E7C44692892D73C0062287C /* SetFiltersDateType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44682892D73C0062287C /* SetFiltersDateType.swift */; };
+		2E7C446B2892E66D0062287C /* SetFiltersDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C446A2892E66D0062287C /* SetFiltersDate.swift */; };
+		2E7C446D2893F96A0062287C /* SetFiltersDaysViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C446C2893F96A0062287C /* SetFiltersDaysViewModel.swift */; };
+		2E7C446F289409610062287C /* TextRelationDetailsViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C446E289409610062287C /* TextRelationDetailsViewModelProtocol.swift */; };
+		2E7C4471289842E10062287C /* DataviewFilter+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4470289842E10062287C /* DataviewFilter+Update.swift */; };
+		2E7C4473289843220062287C /* DataviewFilter+Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4472289843220062287C /* DataviewFilter+Condition.swift */; };
+		2E7C44752898434A0062287C /* DataviewFilter+QuickOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */; };
 		2E975EC72874BB18004DE574 /* EditorSetViewPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */; };
 		2E975EC92874BBC5004DE574 /* EditorSetViewRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */; };
 		2E975EDA287C2325004DE574 /* SetFilterRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975ED0287C2325004DE574 /* SetFilterRow.swift */; };
@@ -1567,6 +1578,17 @@
 		2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerContentType.swift; sourceTree = "<group>"; };
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
 		2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkStateConverter.swift; sourceTree = "<group>"; };
+		2E7C445C2891753B0062287C /* SetFiltersDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateView.swift; sourceTree = "<group>"; };
+		2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateViewModel.swift; sourceTree = "<group>"; };
+		2E7C4460289184BA0062287C /* SetFiltersDateRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateRowConfiguration.swift; sourceTree = "<group>"; };
+		2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateRowView.swift; sourceTree = "<group>"; };
+		2E7C44682892D73C0062287C /* SetFiltersDateType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateType.swift; sourceTree = "<group>"; };
+		2E7C446A2892E66D0062287C /* SetFiltersDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDate.swift; sourceTree = "<group>"; };
+		2E7C446C2893F96A0062287C /* SetFiltersDaysViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDaysViewModel.swift; sourceTree = "<group>"; };
+		2E7C446E289409610062287C /* TextRelationDetailsViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationDetailsViewModelProtocol.swift; sourceTree = "<group>"; };
+		2E7C4470289842E10062287C /* DataviewFilter+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+Update.swift"; sourceTree = "<group>"; };
+		2E7C4472289843220062287C /* DataviewFilter+Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+Condition.swift"; sourceTree = "<group>"; };
+		2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataviewFilter+QuickOption.swift"; sourceTree = "<group>"; };
 		2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewPickerViewModel.swift; sourceTree = "<group>"; };
 		2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewRowConfiguration.swift; sourceTree = "<group>"; };
 		2E975ED0287C2325004DE574 /* SetFilterRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetFilterRow.swift; sourceTree = "<group>"; };
@@ -3677,6 +3699,7 @@
 				123949E6279EC1D40080E1CF /* TextRelationActionButtonViewModel.swift */,
 				12B0FF5F274FC5E200CA35FE /* TextRelationActionButtonViewModelDelegate.swift */,
 				123949EB279EEF830080E1CF /* TextRelationDetailsService */,
+				2E7C446E289409610062287C /* TextRelationDetailsViewModelProtocol.swift */,
 			);
 			path = Text;
 			sourceTree = "<group>";
@@ -4276,6 +4299,20 @@
 			path = Sorts;
 			sourceTree = "<group>";
 		};
+		2E7C445B28916D810062287C /* Date */ = {
+			isa = PBXGroup;
+			children = (
+				2E7C445C2891753B0062287C /* SetFiltersDateView.swift */,
+				2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */,
+				2E7C4460289184BA0062287C /* SetFiltersDateRowConfiguration.swift */,
+				2E7C44662892CFCA0062287C /* SetFiltersDateRowView.swift */,
+				2E7C44682892D73C0062287C /* SetFiltersDateType.swift */,
+				2E7C446A2892E66D0062287C /* SetFiltersDate.swift */,
+				2E7C446C2893F96A0062287C /* SetFiltersDaysViewModel.swift */,
+			);
+			path = Date;
+			sourceTree = "<group>";
+		};
 		2E975ECF287C2325004DE574 /* List */ = {
 			isa = PBXGroup;
 			children = (
@@ -4321,6 +4358,7 @@
 		2E9EFE69285B576400C8E47A /* Filters */ = {
 			isa = PBXGroup;
 			children = (
+				2E7C445B28916D810062287C /* Date */,
 				2E2D2569288AC9E500E3DFD1 /* Checkbox */,
 				2E2D255328880C8D00E3DFD1 /* Selection */,
 				2E975F02287EFFB5004DE574 /* Text */,
@@ -4789,6 +4827,9 @@
 				3D30418027EC877F00FFE0EB /* SetRelation.swift */,
 				2E412D142847B15C00C973FF /* SetSort.swift */,
 				2E9EFE71285B62E500C8E47A /* SetFilter.swift */,
+				2E7C4470289842E10062287C /* DataviewFilter+Update.swift */,
+				2E7C4472289843220062287C /* DataviewFilter+Condition.swift */,
+				2E7C44742898434A0062287C /* DataviewFilter+QuickOption.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -7072,6 +7113,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2E7C44692892D73C0062287C /* SetFiltersDateType.swift in Sources */,
 				EA4B6E232689F07900F717D3 /* BlockFileIconBuilder.swift in Sources */,
 				3D68564226E0E1A000AA36A9 /* Spacer+FixedSize.swift in Sources */,
 				53D408CF27F1D44F00495335 /* PasteboardCopyResult.swift in Sources */,
@@ -7149,6 +7191,7 @@
 				C982025E28746DBF00065EBE /* SimpleTableStateManager.swift in Sources */,
 				C91989ED2811673600CC6BEB /* UndoRedoView.swift in Sources */,
 				C9121A5C273B8E2F00FFDA07 /* RoundedShadowView.swift in Sources */,
+				2E7C446F289409610062287C /* TextRelationDetailsViewModelProtocol.swift in Sources */,
 				03E2AD5523A93D3800C701CE /* UserIconView.swift in Sources */,
 				12F6072826D7DF0D00876C92 /* ObjectIconImageView.swift in Sources */,
 				3D3040B027DBAD3500FFE0EB /* EditorBarButtonItem.swift in Sources */,
@@ -7213,6 +7256,7 @@
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */,
 				3DB1CA0B27293156000D2779 /* MiddlewareConfiguration.swift in Sources */,
+				2E7C4471289842E10062287C /* DataviewFilter+Update.swift in Sources */,
 				3DCC549026D3B4B9002517AC /* BlockBookmarkInfoView.swift in Sources */,
 				3D44985A26D57456005A3E06 /* ObjectIconPicker.swift in Sources */,
 				3D93D55F270B1F8800614E29 /* EditorBottomNavigationView.swift in Sources */,
@@ -7309,6 +7353,7 @@
 				C9235F822862F573004D86BA /* SpreadsheetDataSource.swift in Sources */,
 				C9E939D9285390B70089CB98 /* TextBlockActionHandlerProtocol.swift in Sources */,
 				2E975EEC287C23DA004DE574 /* SetSortsSearchInteractor.swift in Sources */,
+				2E7C445F2891755A0062287C /* SetFiltersDateViewModel.swift in Sources */,
 				12B0FF71274FD6D700CA35FE /* AppIconManager.swift in Sources */,
 				3D16841426DD672E008B9DFF /* BlockSmartblockConverter.swift in Sources */,
 				C96149542718286E00360840 /* GalleryViewModel.swift in Sources */,
@@ -7445,6 +7490,7 @@
 				2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */,
 				12C2A5672754E1C400311854 /* DateRelationDetailsValue.swift in Sources */,
 				12CAF32026D53866001E56B2 /* ObjectIconImagePainter.swift in Sources */,
+				2E7C445D2891753B0062287C /* SetFiltersDateView.swift in Sources */,
 				12C2A5692754E90800311854 /* DateRelationDetailsRowView.swift in Sources */,
 				12C2A5802755F0CE00311854 /* DateRelationValue.swift in Sources */,
 				3DDC6A6A26270998004F5EA4 /* BlockLinkContentConfiguration.swift in Sources */,
@@ -7543,6 +7589,7 @@
 				C905B29A2828CA2F00F1106B /* ToastPresenter.swift in Sources */,
 				12A7B6C226C3E47200544037 /* CoverColor.swift in Sources */,
 				1215E8C126A86CAC0089AF7E /* ImageSource.swift in Sources */,
+				2E7C446D2893F96A0062287C /* SetFiltersDaysViewModel.swift in Sources */,
 				2E975EDB287C2325004DE574 /* SetFiltersListViewModel.swift in Sources */,
 				3D932D4526317E3A00C7D1EA /* HomeProfileView.swift in Sources */,
 				3D829182265E92760007C152 /* OffsetAwareScrollView.swift in Sources */,
@@ -7682,6 +7729,7 @@
 				1247BC8027FE05C4005F2DB4 /* TransparencyEffect.swift in Sources */,
 				1247BC7527FDD3D4005F2DB4 /* NewSearchModuleAssemblyProtocol.swift in Sources */,
 				C91AFF0A270C3AF2005F9386 /* EventsLogViewModel.swift in Sources */,
+				2E7C446B2892E66D0062287C /* SetFiltersDate.swift in Sources */,
 				538F172D272C2F75009528E7 /* ObjectSearchViewModel.swift in Sources */,
 				12DE405D264AE455007B5074 /* LayoutProperty.swift in Sources */,
 				3D5A415B2703132800F1F6A1 /* SlashActionOther.swift in Sources */,
@@ -7734,6 +7782,7 @@
 				3DB1CA6E272C0C19000D2779 /* WallpaperColorsGridView.swift in Sources */,
 				53EA4A7F2637639F00968B8E /* StyleColorCellConfiguration.swift in Sources */,
 				53F80F0D27BDA5B700E9E12A /* ObjectRelationViewUIKit.swift in Sources */,
+				2E7C4461289184BA0062287C /* SetFiltersDateRowConfiguration.swift in Sources */,
 				3D24912D27BD271900821595 /* EventsListenerProtocol.swift in Sources */,
 				129C54D027FC79F900C390C7 /* RelationFormatsListView.swift in Sources */,
 				12A8CCE326BC055400090468 /* ImageBlockRestrictions.swift in Sources */,
@@ -7857,6 +7906,7 @@
 				1244791427D8A37000581174 /* NewSearchView.swift in Sources */,
 				C9CD66A427EAFD3E001F1860 /* GridItemViewModel.swift in Sources */,
 				3DE8D5C426CFFFE4006F31C1 /* AlertHelper.swift in Sources */,
+				2E7C44672892CFCA0062287C /* SetFiltersDateRowView.swift in Sources */,
 				12F3B84827E9C6E200360CA3 /* SearchNewRelationSectionType.swift in Sources */,
 				3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */,
 				3D568FC4266A714900DC7881 /* UIColor+Convenience.swift in Sources */,
@@ -7900,6 +7950,7 @@
 				0A0965E525BEF5B000C004BD /* FileDownloadingCoordinator.swift in Sources */,
 				2AECFD3928993AD8000E9CFB /* ModulesDIProtocol.swift in Sources */,
 				2AD06B8B28573D5B0006C255 /* TableOfContentData.swift in Sources */,
+				2E7C44752898434A0062287C /* DataviewFilter+QuickOption.swift in Sources */,
 				C965247F2720781C00254057 /* HorizonalTypeListView.swift in Sources */,
 				C973E1A8285B3A5C00978BC4 /* EmptyRowViewViewModel.swift in Sources */,
 				3D929B2B263302160063F1BE /* TypographyExample.swift in Sources */,
@@ -8089,6 +8140,7 @@
 				12B691D327F4CB5D00A0C336 /* ImageCornersGuideline.swift in Sources */,
 				12E05EEF2796A9C10037B667 /* AnytypePopup.swift in Sources */,
 				12450D4727A918A90026F004 /* AdaptiveTextRelationDetailsPopupLayout.swift in Sources */,
+				2E7C4473289843220062287C /* DataviewFilter+Condition.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -49,14 +49,27 @@ struct SetFilterRow: View {
                 HStack(spacing: 8) {
                     AnytypeText(subtitle, style: .relation1Regular, color: .textSecondary)
                         .layoutPriority(1)
-                    if let relation = configuration.relation {
-                        RelationValueView(
-                            relation: RelationItemModel(relation: relation),
-                            style: .filter(hasValues: configuration.hasValues),
-                            action: nil
-                        )
+                    switch configuration.type {
+                    case let .relation(relation):
+                        relationValueView(for: relation)
+                    case let .date(date):
+                        AnytypeText(date, style: .relation1Regular, color: .textSecondary)
                     }
                 }
+            }
+        }
+    }
+    
+    private func relationValueView(for relation: Relation?) -> some View {
+        Group {
+            if let relation = relation {
+                RelationValueView(
+                    relation: RelationItemModel(relation: relation),
+                    style: .filter(hasValues: configuration.hasValues),
+                    action: nil
+                )
+            } else {
+                EmptyView()
             }
         }
     }

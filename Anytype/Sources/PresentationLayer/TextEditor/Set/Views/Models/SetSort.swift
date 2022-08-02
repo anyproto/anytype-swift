@@ -12,9 +12,9 @@ struct SetSort: Identifiable, Equatable, Hashable {
     
     func typeTitle(for sortType: DataviewSort.TypeEnum) -> String {
         if sortType == .asc {
-            return Loc.EditSorts.Popup.Sort.Types.ascending
+            return Loc.EditSet.Popup.Sort.Types.ascending
         } else {
-            return Loc.EditSorts.Popup.Sort.Types.descending
+            return Loc.EditSet.Popup.Sort.Types.descending
         }
     }
 }
