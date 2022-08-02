@@ -18,10 +18,6 @@ final class FeaturedRelationBlockView: UIView, BlockContentView {
         setupSubview()
     }
 
-    func update(with state: UICellConfigurationState) {
-        blocksView.isUserInteractionEnabled = !state.isLocked
-    }
-
     func update(with configuration: FeaturedRelationsBlockContentConfiguration) {
         var dequebale = [Dequebale]()
 

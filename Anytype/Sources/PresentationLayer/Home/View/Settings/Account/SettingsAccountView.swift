@@ -39,7 +39,7 @@ struct SettingsAccountView: View {
     
     private var recoveryPhrase: some View {
         SettingsSectionItemView(
-            name: Loc.recoveryPhrase,
+            name: Loc.Keychain.recoveryPhrase,
             imageAsset: .settingsSetKeychainPhrase,
             pressed: $model.keychain
         )

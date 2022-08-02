@@ -465,7 +465,6 @@ final class MiddlewareEventConverter {
     
     private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {
         let currentStatus = AccountManager.shared.account.status
-        AccountManager.shared.updateAccount(update)
         let newStatus = AccountManager.shared.account.status
         guard currentStatus != newStatus else { return }
         
