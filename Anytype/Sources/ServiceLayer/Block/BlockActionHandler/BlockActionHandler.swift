@@ -103,7 +103,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.add(
             info: .emptyLink(targetId: targetId),
             targetBlockId: blockId,
-            position: .bottom
+            position: .replace
         )
     }
     
