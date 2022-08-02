@@ -13,14 +13,6 @@ extension UIImage {
         }
         
     }
-    
-    static func from(asset: ImageAsset) -> UIImage {
-        guard let image = UIImage(asset: asset) else {
-            anytypeAssertionFailure("No image named: \(asset)", domain: .imageCreation)
-            return UIImage()
-        }
-        return image
-    }
 }
 
 extension UIImageView {

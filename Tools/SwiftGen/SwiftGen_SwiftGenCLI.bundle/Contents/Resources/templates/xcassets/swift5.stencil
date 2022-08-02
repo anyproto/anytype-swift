@@ -73,7 +73,7 @@
   {% if asset.type == "arresourcegroup" %}
   {{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{arResourceGroupType}}(name: "{{asset.value}}")
   {% elif asset.type == "color" %}
-  {{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{colorType}}(name: "{{asset.value}}")
+  static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{colorType}}(name: "{{asset.value}}")
   {% elif asset.type == "data" %}
   {{accessModifier}} static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = {{dataType}}(name: "{{asset.value}}")
   {% elif asset.type == "image" %}
@@ -85,6 +85,8 @@
     {% filter indent:2 %}{% call casesBlock asset.items %}{% endfilter %}
   }
   {% elif asset.items %}
+
+  // MARK: - {{asset.name}}
   {% call casesBlock asset.items %}
   {% endif %}
   {% endfor %}
@@ -103,15 +105,9 @@
 {% endmacro %}
 // swiftlint:disable identifier_name line_length nesting type_body_length type_name
 {{accessModifier}} enum {{enumName}} {
-  {% if catalogs.count > 1 or param.forceFileNameEnum %}
   {% for catalog in catalogs %}
-  {{accessModifier}} enum {{catalog.name|swiftIdentifier:"pretty"|escapeReservedKeywords}} {
-    {% filter indent:2 %}{% call enumBlock catalog.assets %}{% endfilter %}
-  }
+  {% call enumBlock catalog.assets %}
   {% endfor %}
-  {% else %}
-  {% call enumBlock catalogs.first.assets %}
-  {% endif %}
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name
 
@@ -164,12 +160,7 @@
   #endif
 
   @available(iOS 11.0, tvOS 11.0, watchOS 4.0, macOS 10.13, *)
-  {{accessModifier}} private(set) lazy var color: Color = {
-    guard let color = Color(asset: self) else {
-      fatalError("Unable to load color asset named \(name).")
-    }
-    return color
-  }()
+  {{accessModifier}} private(set) lazy var color = Color(asset: self)
 
   #if os(iOS) || os(tvOS)
   @available(iOS 11.0, tvOS 11.0, *)
@@ -189,19 +180,27 @@
 
 {{accessModifier}} extension {{colorType}}.Color {
   @available(iOS 11.0, tvOS 11.0, watchOS 4.0, macOS 10.13, *)
-  convenience init?(asset: {{colorType}}) {
+  convenience init(asset: {{colorType}}) {
     let bundle = {{param.bundle|default:"BundleToken.bundle"}}
     #if os(iOS) || os(tvOS)
-    self.init(named: asset.name, in: bundle, compatibleWith: nil)
+    self.init(named: asset.name, in: bundle, compatibleWith: nil)!
     #elseif os(macOS)
-    self.init(named: NSColor.Name(asset.name), bundle: bundle)
+    self.init(named: NSColor.Name(asset.name), bundle: bundle)!
     #elseif os(watchOS)
-    self.init(named: asset.name)
+    self.init(named: asset.name)!
     #endif
   }
 }
 {% endif %}
 {% if resourceCount.data > 0 %}
+
+import SwiftUI
+{{accessModifier}} extension Color {
+    init(asset: ColorAsset) {
+        let bundle = {{param.bundle|default:"BundleToken.bundle"}}
+        self.init(asset.name, bundle: bundle)!
+    }
+}
 
 {{accessModifier}} struct {{dataType}} {
   {{accessModifier}} fileprivate(set) var name: String
@@ -335,3 +334,10 @@ private final class BundleToken {
 {% else %}
 // No assets found
 {% endif %}
+
+import SwiftUI
+extension Color {
+    init(asset: ColorAsset) {
+        self.init(asset.name, bundle: BundleToken.bundle)
+    }
+}
