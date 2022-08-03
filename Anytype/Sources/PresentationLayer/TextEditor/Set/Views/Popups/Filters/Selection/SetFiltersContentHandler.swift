@@ -59,14 +59,12 @@ final class SetFiltersContentHandler: SetFiltersContentHandlerProtocol {
         switch filter.conditionType {
         case .selected:
             handleSelectedIds([])
-        case .number:
-            handleText("0")
+        case .number, .date:
+            handleValue(0.protobufValue)
         case .text:
-            handleText("")
+            handleValue("".protobufValue)
         case .checkbox:
             handleCheckbox(false)
-        case .date:
-            handleValue(0.protobufValue)
         }
     }
     
