@@ -1,5 +1,6 @@
 import BlocksModels
 import SwiftProtobuf
+import OrderedCollections
 
 struct SetFilter: Identifiable, Equatable, Hashable {
     let metadata: RelationMetadata
@@ -47,7 +48,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
         case checkbox
         case date
         
-        var data: [DataviewFilter.Condition: String] {
+        var data: OrderedDictionary<DataviewFilter.Condition, String> {
             switch self {
             case .text:
                 return Self.textData
@@ -62,17 +63,18 @@ struct SetFilter: Identifiable, Equatable, Hashable {
             }
         }
         
-        static let textData: [DataviewFilter.Condition: String] = [
+        static let textData: OrderedDictionary<DataviewFilter.Condition, String> = [
+            .none: Loc.EditSet.Popup.Filter.Condition.General.none,
             .equal: Loc.EditSet.Popup.Filter.Condition.Text.equal,
             .notEqual: Loc.EditSet.Popup.Filter.Condition.Text.notEqual,
             .like: Loc.EditSet.Popup.Filter.Condition.Text.like,
             .notLike: Loc.EditSet.Popup.Filter.Condition.Text.notLike,
             .empty: Loc.EditSet.Popup.Filter.Condition.General.empty,
-            .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty,
-            .none: Loc.EditSet.Popup.Filter.Condition.General.none
+            .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty
         ]
         
-        static let numberData: [DataviewFilter.Condition: String] = [
+        static let numberData: OrderedDictionary<DataviewFilter.Condition, String> = [
+            .none: Loc.EditSet.Popup.Filter.Condition.General.none,
             .equal: Loc.EditSet.Popup.Filter.Condition.Number.equal,
             .notEqual: Loc.EditSet.Popup.Filter.Condition.Number.notEqual,
             .greater: Loc.EditSet.Popup.Filter.Condition.Number.greater,
@@ -80,27 +82,27 @@ struct SetFilter: Identifiable, Equatable, Hashable {
             .greaterOrEqual: Loc.EditSet.Popup.Filter.Condition.Number.greaterOrEqual,
             .lessOrEqual: Loc.EditSet.Popup.Filter.Condition.Number.lessOrEqual,
             .empty: Loc.EditSet.Popup.Filter.Condition.General.empty,
-            .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty,
-            .none: Loc.EditSet.Popup.Filter.Condition.General.none
+            .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty
         ]
         
-        static let selectedData: [DataviewFilter.Condition: String] = [
+        static let selectedData: OrderedDictionary<DataviewFilter.Condition, String> = [
+            .none: Loc.EditSet.Popup.Filter.Condition.General.none,
             .in: Loc.EditSet.Popup.Filter.Condition.Selected.in,
             .allIn: Loc.EditSet.Popup.Filter.Condition.Selected.allIn,
             .equal: Loc.EditSet.Popup.Filter.Condition.Selected.equal,
             .notIn: Loc.EditSet.Popup.Filter.Condition.Selected.notIn,
             .empty: Loc.EditSet.Popup.Filter.Condition.General.empty,
-            .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty,
-            .none: Loc.EditSet.Popup.Filter.Condition.General.none
+            .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty
         ]
         
-        static let checkboxData: [DataviewFilter.Condition: String] = [
+        static let checkboxData: OrderedDictionary<DataviewFilter.Condition, String> = [
+            .none: Loc.EditSet.Popup.Filter.Condition.General.none,
             .equal: Loc.EditSet.Popup.Filter.Condition.Checkbox.equal,
             .notEqual: Loc.EditSet.Popup.Filter.Condition.Checkbox.notEqual,
-            .none: Loc.EditSet.Popup.Filter.Condition.General.none
         ]
         
-        static let dateData: [DataviewFilter.Condition: String] = [
+        static let dateData: OrderedDictionary<DataviewFilter.Condition, String> = [
+            .none: Loc.EditSet.Popup.Filter.Condition.General.none,
             .equal: Loc.EditSet.Popup.Filter.Condition.Date.equal,
             .greater: Loc.EditSet.Popup.Filter.Condition.Date.after,
             .less: Loc.EditSet.Popup.Filter.Condition.Date.before,
@@ -108,8 +110,7 @@ struct SetFilter: Identifiable, Equatable, Hashable {
             .lessOrEqual: Loc.EditSet.Popup.Filter.Condition.Date.onOrBefore,
             .in: Loc.EditSet.Popup.Filter.Condition.Date.in,
             .empty: Loc.EditSet.Popup.Filter.Condition.General.empty,
-            .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty,
-            .none: Loc.EditSet.Popup.Filter.Condition.General.none
+            .notEmpty: Loc.EditSet.Popup.Filter.Condition.General.notEmpty
         ]
     }
 }
