@@ -13,7 +13,7 @@ struct SetFiltersDateView: View {
     }
     
     private var rows: some View {
-        ScrollView {
+        ScrollView(.vertical, showsIndicators: false) {
             VStack(spacing: 0) {
                 ForEach(viewModel.rows) { configuration in
                     row(for: configuration)
