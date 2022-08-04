@@ -38,15 +38,8 @@ struct RelationsListRowView: View {
         // `Spacer` will take up more space
         HStack(spacing: 0) {
             name
-            
             Spacer.fixedWidth(8)
-            
-            if relation.isEditable {
-                valueViewButton
-            } else {
-                valueView
-            }
-            
+            valueViewButton
             Spacer(minLength: 8)
             if starButtonAvailable {
                 starImageView
@@ -62,7 +55,7 @@ struct RelationsListRowView: View {
         } label: {
             HStack(spacing: 6) {
                 if !relation.isEditable {
-                    Image.Relations.locked
+                    Image(asset: .relationLocked)
                         .frame(width: 15, height: 12)
                 }
                 AnytypeText(relation.name, style: .relation1Regular, color: .textSecondary).lineLimit(1)
@@ -102,8 +95,8 @@ struct RelationsListRowView: View {
             onStarTap(relation.id)
         } label: {
             relation.isFeatured ?
-            Image.Relations.removeFromFeatured :
-            Image.Relations.addToFeatured
+                Image(asset: .relationRemoveFromFeatured) :
+                Image(asset: .relationAddToFeatured)
         }.frame(width: Constants.buttonWidth, height: Constants.buttonWidth)
     }
 }

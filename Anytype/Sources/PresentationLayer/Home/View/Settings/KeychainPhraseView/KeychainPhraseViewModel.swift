@@ -7,15 +7,16 @@ class KeychainPhraseViewModel: ObservableObject {
     private let seedService = ServiceLocator.shared.seedService()
 
     private func obtainRecoveryPhrase(onTap: @escaping () -> ()) {
-        LocalAuth.auth(reason: "Access to secret phrase from keychain".localized) { [unowned self] didComplete in
+        LocalAuth.auth(reason: Loc.accessToSecretPhraseFromKeychain) { [unowned self] didComplete in
             guard didComplete,
                   let phrase = try? seedService.obtainSeed() else {
                 return
             }
             
-            DispatchQueue.main.async {
-                recoveryPhrase = phrase
-                onSuccessfullRecovery(recoveryPhrase: phrase, onTap: onTap)
+            DispatchQueue.main.async { [weak self] in
+                guard let self = self else { return }
+                self.recoveryPhrase = phrase
+                self.onSuccessfullRecovery(recoveryPhrase: phrase, onTap: onTap)
             }
         }
     }

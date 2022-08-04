@@ -14,7 +14,7 @@ struct ObjectPreviewView: View {
 
     var body: some View {
         VStack(spacing: 0) {
-            TitleView(title: "Preview".localized)
+            TitleView(title: Loc.preview)
             mainSection
             featuredRealtionSection
         }
@@ -32,19 +32,19 @@ struct ObjectPreviewView: View {
     }
 
     private func iconSize(_ iconSize: ObjectPreviewModel.IconSize) -> some View {
-        menuRow(name: "Icon".localized, value: iconSize.name) {
+        menuRow(name: Loc.icon, value: iconSize.name) {
             viewModel.showIconMenu()
         }
     }
 
     private func cardStyle(_ cardStyle: ObjectPreviewModel.CardStyle) -> some View {
-        menuRow(name: "Preview layout".localized, value: cardStyle.name) {
+        menuRow(name: Loc.previewLayout, value: cardStyle.name) {
             viewModel.showLayoutMenu()
         }
     }
 
     private func description(_ description: ObjectPreviewModel.Description) -> some View {
-        menuRow(name: "Description".localized, icon: description.iconName, value: description.name) {
+        menuRow(name: Loc.description, icon: description.iconAsset, value: description.name) {
             viewModel.showDescriptionMenu()
         }
     }
@@ -53,7 +53,7 @@ struct ObjectPreviewView: View {
         VStack(alignment: .leading, spacing: 0) {
             VStack(spacing: 0) {
                 Spacer()
-                AnytypeText("Featured relations".localized, style: .caption1Regular, color: .textSecondary)
+                AnytypeText(Loc.featuredRelations, style: .caption1Regular, color: .textSecondary)
                     .padding(.bottom, 8)
             }
             .frame(height: 52)
@@ -77,12 +77,12 @@ struct ObjectPreviewView: View {
 
     private func featuredRelationsRow(_ item: ObjectPreviewModel.Relation, onTap: @escaping (_ isEnabled: Bool) -> Void) -> some View {
         HStack(spacing: 0) {
-            Image.createImage(item.iconName)
+            Image(asset: item.iconAsset)
                 .frame(width: 24, height: 24)
             Spacer.fixedWidth(10)
 
             if item.isLocked {
-                AnytypeText(item.name.localized, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(item.name, style: .uxBodyRegular, color: .textPrimary)
             } else {
                 AnytypeToggle(
                     title: item.name,
@@ -96,13 +96,13 @@ struct ObjectPreviewView: View {
         .frame(height: 52)
     }
 
-    private func menuRow(name: String, icon: String? = nil, value: String, onTap: @escaping () -> Void) -> some View {
+    private func menuRow(name: String, icon: ImageAsset? = nil, value: String, onTap: @escaping () -> Void) -> some View {
         Button {
             onTap()
         } label: {
             HStack(spacing: 0) {
                 if let icon = icon {
-                    Image.createImage(icon)
+                    Image(asset: icon)
                         .frame(width: 24, height: 24)
                     Spacer.fixedWidth(10)
                 }
@@ -111,7 +111,7 @@ struct ObjectPreviewView: View {
                 Spacer()
                 AnytypeText(value, style: .uxBodyRegular, color: .textSecondary)
                 Spacer.fixedWidth(10)
-                Image.arrow
+                Image(asset: .arrowForward)
             }
             .frame(height: 52)
         }

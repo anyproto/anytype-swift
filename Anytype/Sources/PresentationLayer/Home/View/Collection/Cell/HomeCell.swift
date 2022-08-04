@@ -27,7 +27,7 @@ struct HomeCell: View {
         
         .if(selected) {
             $0.overlay(
-                Image.main.selection
+                Image(asset: .selection)
                     .frame(width: 20, height: 20)
                     .padding([.trailing, .bottom], 10),
                 alignment: .bottomTrailing
@@ -55,8 +55,8 @@ struct HomeCell: View {
     }
     
     private func defaultTitle(with text: String, lineLimit: Int?) -> some View {
-        var titleString = text.isEmpty ? "Untitled".localized : text
-        titleString = isRedacted ? RedactedText.pageTitle : titleString
+        var titleString = text.isEmpty ? Loc.untitled : text
+        titleString = isRedacted ? Loc.RedactedText.pageTitle : titleString
         
         return AnytypeText(titleString, style: .previewTitle2Medium, color: .textPrimary)
             .lineLimit(lineLimit)
@@ -74,7 +74,7 @@ struct HomeCell: View {
     }
     
     private var type: some View {
-        let type = isRedacted ? RedactedText.pageType : cellData.type
+        let type = isRedacted ? Loc.RedactedText.pageType : cellData.type
         return AnytypeText(type, style: .relation3Regular, color: .textSecondary)
             .if(cellData.title.isTodo) {
                 $0.padding(.leading, 5)

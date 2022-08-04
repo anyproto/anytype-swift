@@ -27,20 +27,25 @@ class CursorModeAccessoryView: UIView {
         viewModel.delegate = delegate
     }
     
-    func update(info: BlockInformation, textView: UITextView) {
+    func update(info: BlockInformation, textView: UITextView, usecase: TextBlockUsecase) {
         viewModel.textView = textView
         viewModel.info = info
         
-        updateMenuItems(info: info)
+        updateMenuItems(info: info, usecase: usecase)
     }
 
     // MARK: - Private methods
-    private func updateMenuItems(info: BlockInformation) {
+    private func updateMenuItems(info: BlockInformation, usecase: TextBlockUsecase) {
         let items: [Item]
         if info.content.type == .text(.title) {
             items = [.style]
         } else {
-            items = [.slash, .style, .actions, .mention]
+            switch usecase {
+            case .editor:
+                items = [.slash, .style, .actions, .mention]
+            case .simpleTable:
+                items = [.style, .actions, .mention]
+            }
         }
         
         stackView.arrangedSubviews.forEach { view in
@@ -56,7 +61,7 @@ class CursorModeAccessoryView: UIView {
             }
         }
 
-        addBarButtonItem(title: "Done".localized) { [weak self] _ in
+        addBarButtonItem(title: Loc.done) { [weak self] _ in
             UISelectionFeedbackGenerator().selectionChanged()
             self?.viewModel.handle(.keyboardDismiss)
         }

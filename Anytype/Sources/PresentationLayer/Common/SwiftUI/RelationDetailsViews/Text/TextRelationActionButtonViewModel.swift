@@ -1,11 +1,10 @@
 import Foundation
-import UIKit
 
 final class TextRelationActionButtonViewModel {
     
     var text: String = ""
     
-    var icon: UIImage { type.icon }
+    var iconAsset: ImageAsset { type.iconAsset }
     
     private let type: SupportedTextType
     
@@ -64,7 +63,7 @@ private extension TextRelationActionButtonViewModel {
         
         init?(type: TextRelationDetailsViewType) {
             switch type {
-            case .text, .number:
+            case .text, .number, .numberOfDays:
                 return nil
             case .phone:
                 self = .phone
@@ -80,11 +79,11 @@ private extension TextRelationActionButtonViewModel {
 
 private extension TextRelationActionButtonViewModel.SupportedTextType {
     
-    var icon: UIImage {
+    var iconAsset: ImageAsset {
         switch self {
-        case .phone: return UIImage.Relations.Icons.phone
-        case .email: return UIImage.Relations.Icons.email
-        case .url: return UIImage.Relations.Icons.goToURL
+        case .phone: return .relationSmallPhoneIcon
+        case .email: return .relationSmallEmailIcon
+        case .url: return  .relationSmallGoToUrlIcon
         }
     }
     

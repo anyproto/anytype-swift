@@ -50,7 +50,7 @@ class DividerBlockView: UIView {
             let view = UIView()
             view.translatesAutoresizingMaskIntoConstraints = false
             /// Add imageViews
-            let image = UIImage.divider.dots
+            let image = UIImage(asset: .TextEditor.Divider.dots)
             let leftImageView: UIImageView = .init(image: image)
             let centerImageView: UIImageView = .init(image: image)
             let rightImageView: UIImageView = .init(image: image)

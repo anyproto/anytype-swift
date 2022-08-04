@@ -10,7 +10,7 @@ enum SearchNewRelationSectionType: Hashable, Identifiable {
     var headerName: String {
         switch self {
         case .createNewRelation: return ""
-        case .addFromLibriry: return "Your library".localized
+        case .addFromLibriry: return Loc.yourLibrary
         }
     }
 }

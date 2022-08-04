@@ -12,7 +12,7 @@ struct SearchNewRelationView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            SearchBar(text: $searchText, focused: true, placeholder: "Find a relation".localized)
+            SearchBar(text: $searchText, focused: true, placeholder: Loc.findARelation)
             content
         }
         .onChange(of: searchText) { search(text: $0) }
@@ -52,10 +52,9 @@ struct SearchNewRelationView: View {
                             .frame(maxWidth: .infinity)
                             .divider(spacing: 0, leadingPadding: 20, trailingPadding: 20, alignment: .leading)
                         }
-                    case let .addFromLibriry(relationsMetaData):
+                    case let .addFromLibriry(relationsMetadata):
                         Section(content: {
-                            ForEach(relationsMetaData.indices, id: \.self) { index in
-                                let relationMetadata = relationsMetaData[index]
+                            ForEach(Array(relationsMetadata.enumerated()), id: \.element) { index, relationMetadata in
                                 Button(
                                     action: {
                                         viewModel.addRelation(relationMetadata)
@@ -88,13 +87,13 @@ struct SearchNewRelationView: View {
         VStack(alignment: .center) {
             Spacer()
             AnytypeText(
-                "\("There is no relation named".localized) \"\(searchText)\"",
+                Loc.thereIsNoRelationNamed(searchText),
                 style: .uxBodyRegular,
                 color: .textPrimary
             )
             .multilineTextAlignment(.center)
             AnytypeText(
-                "Try to create a new one or search for something else".localized,
+                Loc.tryToCreateANewOneOrSearchForSomethingElse,
                 style: .uxBodyRegular,
                 color: .textSecondary
             )

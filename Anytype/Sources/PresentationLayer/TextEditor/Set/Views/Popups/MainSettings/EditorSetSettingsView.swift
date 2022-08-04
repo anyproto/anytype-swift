@@ -12,8 +12,7 @@ struct EditorSetSettingsView: View {
             Spacer()
         }
         .background(Color.backgroundSecondary)
-        .padding(.top, 16)
-        .padding(.bottom, 13)
+        .padding(.vertical, 13)
         .padding(.horizontal, 16)
     }
     
@@ -23,7 +22,7 @@ struct EditorSetSettingsView: View {
                 ZStack(alignment: .center) {
                     RoundedRectangle(cornerRadius: 10)
                         .foregroundColor(Color.backgroundSelected)
-                    setting.image
+                    Image(asset: setting.imageAsset)
                 }
                 .frame(width: 52, height: 52)
                 

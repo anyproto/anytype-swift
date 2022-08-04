@@ -8,7 +8,9 @@ struct NewSearchView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            DragIndicator()
+            if viewModel.style.needDragIndicator {
+                DragIndicator()
+            }
             TitleView(title: viewModel.title)
             SearchBar(text: $searchText, focused: true, placeholder: viewModel.searchPlaceholder)
             content
@@ -17,7 +19,7 @@ struct NewSearchView: View {
                 addButton(model: $0)
             }
         }
-        .background(Color.backgroundSecondary)
+        .background(viewModel.style.backgroundColor)
         .onChange(of: searchText) { viewModel.didAskToSearch(text: $0) }
         .onAppear { viewModel.didAskToSearch(text: searchText) }
     }
@@ -37,14 +39,14 @@ struct NewSearchView: View {
         VStack(alignment: .center) {
             Spacer()
             AnytypeText(
-                error.title,//"\("There is no object named".localized) \"\(searchText)\"",
+                error.title,//"\(Loc.thereIsNoObjectNamed) \"\(searchText)\"",
                 style: .uxBodyRegular,
                 color: .textPrimary
             )
             .multilineTextAlignment(.center)
             error.subtitle.flatMap {
                 AnytypeText(
-                    $0,// "Try to create a new one or search for something else".localized,
+                    $0,// Loc.tryToCreateANewOneOrSearchForSomethingElse,
                     style: .uxBodyRegular,
                     color: .textSecondary
                 )
@@ -90,7 +92,7 @@ struct NewSearchView: View {
     }
     
     private func addButton(model: AddButtonModel) -> some View {
-        StandardButton(disabled: model.isDisabled, text: "Add".localized, style: .primary) {
+        StandardButton(disabled: model.isDisabled, text: viewModel.style.buttonTitle, style: .primary) {
             viewModel.didTapAddButton()
         }
         .if(!model.isDisabled) {
@@ -114,8 +116,37 @@ struct NewSearchView: View {
     
 }
 
-//struct NewSearchView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        NewSearchView()
-//    }
-//}
+extension NewSearchView {
+    enum Style {
+        case `default`
+        case embedded
+        
+        var needDragIndicator: Bool {
+            switch self {
+            case .default: return true
+            case .embedded: return false
+            }
+        }
+        
+        var buttonTitle: String {
+            switch self {
+            case .default: return Loc.add
+            case .embedded: return Loc.Set.Filters.Search.Button.title
+            }
+        }
+        
+        var backgroundColor: Color {
+            switch self {
+            case .default: return .backgroundSecondary
+            case .embedded: return .clear
+            }
+        }
+        
+        var isCreationModeAvailable: Bool {
+            switch self {
+            case .default: return true
+            case .embedded: return false
+            }
+        }
+    }
+}

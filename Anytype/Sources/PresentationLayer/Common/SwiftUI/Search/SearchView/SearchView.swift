@@ -41,9 +41,7 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
             LazyVStack(spacing: 0) {
                 ForEach(viewModel.searchData) { section in
                     Section(content: {
-                        ForEach(section.searchData.indices) { index in
-                            let searchData = section.searchData[index]
-                            
+                        ForEach(Array(section.searchData.enumerated()), id:\.offset) { index, searchData in
                             Button(
                                 action: {
                                     presentationMode.wrappedValue.dismiss()
@@ -78,13 +76,13 @@ struct SearchView<SearchViewModel: SearchViewModelProtocol>: View {
         VStack(alignment: .center) {
             Spacer()
             AnytypeText(
-                "\("There is no object named".localized) \"\(searchText)\"",
+                Loc.thereIsNoObjectNamed(searchText),
                 style: .uxBodyRegular,
                 color: .textPrimary
             )
             .multilineTextAlignment(.center)
             AnytypeText(
-                "Try to create a new one or search for something else".localized,
+                Loc.tryToCreateANewOneOrSearchForSomethingElse,
                 style: .uxBodyRegular,
                 color: .textSecondary
             )

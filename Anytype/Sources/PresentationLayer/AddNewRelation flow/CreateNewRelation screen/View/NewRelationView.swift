@@ -11,7 +11,7 @@ struct NewRelationView: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: "New relation".localized)
+            TitleView(title: Loc.newRelation)
             content
         }
         .padding(.horizontal, 20)
@@ -32,9 +32,9 @@ struct NewRelationView: View {
     
     private var nameSection: some View {
         NewRelationSectionView(
-            title: "Name".localized,
+            title: Loc.name,
             contentViewBuilder: {
-                TextField("No name".localized, text: $viewModel.name)
+                TextField(Loc.noName, text: $viewModel.name)
                     .foregroundColor(.textPrimary)
                     .font(AnytypeFontBuilder.font(anytypeFont: .heading))
             },
@@ -45,7 +45,7 @@ struct NewRelationView: View {
     
     private var formatSection: some View {
         NewRelationSectionView(
-            title: "Type".localized,
+            title: Loc.type,
             contentViewBuilder: {
                 NewRelationFormatSectionView(model: viewModel.formatModel)
             },
@@ -60,7 +60,7 @@ struct NewRelationView: View {
     private var restrictionsSection: some View {
         viewModel.objectTypesRestrictionModel.flatMap { model in
             NewRelationSectionView(
-                title: "Limit object types".localized,
+                title: Loc.limitObjectTypes,
                 contentViewBuilder: {
                     NewRelationRestrictionsSectionView(model: model)
                 },
@@ -74,7 +74,7 @@ struct NewRelationView: View {
     }
     
     private var button: some View {
-        StandardButton(disabled: !viewModel.isCreateButtonActive, text: "Create".localized, style: .primary) {
+        StandardButton(disabled: !viewModel.isCreateButtonActive, text: Loc.create, style: .primary) {
             viewModel.didTapAddButton()
         }
         .padding(.vertical, 10)

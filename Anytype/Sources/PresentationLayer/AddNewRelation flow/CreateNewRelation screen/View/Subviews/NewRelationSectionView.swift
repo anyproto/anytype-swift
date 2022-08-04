@@ -27,7 +27,7 @@ struct NewRelationSectionView<Content: View>: View {
             
             if isArrowVisible {
                 Spacer()
-                Image.arrow.frame(width: 10, height: 24)
+                Image(asset: .arrowForward).frame(width: 10, height: 24)
             }
         }
         .frame(height: 68)

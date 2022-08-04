@@ -31,14 +31,14 @@ final class EditorPageDeletedScreen: UIView {
     // MARK: - Views
     private func buildText() -> AnytypeLabel {
         let view = AnytypeLabel(style: .heading)
-        view.setText("This object doesn't exist".localized)
+        view.setText(Loc.thisObjectDoesnTExist)
         view.textColor = .textPrimary
         view.textAlignment = .center
         return view
     }
 
     private func buildGhost() -> UIImageView {
-        let view = UIImageView(image: UIImage.editor.bigGhost)
+        let view = UIImageView(asset: .TextEditor.bigGhost)
         view.addTapGesture { [weak view] _ in
             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
             view?.spookyShake()
@@ -55,7 +55,7 @@ final class EditorPageDeletedScreen: UIView {
                 }
             )
         )
-        button.setTitle("Go back".localized, for: .normal)
+        button.setTitle(Loc.goBack, for: .normal)
         button.setTitleColor(.textPrimary, for: .normal)
         button.titleLabel?.font = .uxBodyRegular
         button.contentEdgeInsets = UIEdgeInsets(top: 10, left: 16, bottom: 10, right: 16)

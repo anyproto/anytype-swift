@@ -83,7 +83,7 @@ final class MiddlewareEventConverter {
             }
             
             infoContainer.update(blockId: blockId) { info in
-                info.updated(alignment: modelAlignment)
+                info.updated(horizontalAlignment: modelAlignment)
             }
             return .blocks(blockIds: [blockId])
         
@@ -92,12 +92,10 @@ final class MiddlewareEventConverter {
             return .details(id: details.id)
             
         case let .objectDetailsAmend(data):
-            guard
-                let newDetails = detailsStorage.amend(data: data)
-            else { return nil }
-            
             let oldDetails = detailsStorage.get(id: data.id)
             
+            guard let newDetails = detailsStorage.amend(data: data) else { return nil }
+
             guard let oldDetails = oldDetails else {
                 return .details(id: data.id)
             }
@@ -465,7 +463,6 @@ final class MiddlewareEventConverter {
     
     private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {
         let currentStatus = AccountManager.shared.account.status
-        AccountManager.shared.updateAccount(update)
         let newStatus = AccountManager.shared.account.status
         guard currentStatus != newStatus else { return }
         
@@ -473,7 +470,9 @@ final class MiddlewareEventConverter {
         case .active:
             break
         case .pendingDeletion(let deadline):
-            WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
+            Task { @MainActor in
+                WindowManager.shared.showDeletedAccountWindow(deadline: deadline)
+            }
         case .deleted:
             if UserDefaultsConfig.usersId.isNotEmpty {
                 ServiceLocator.shared.authService().logout(removeData: true) { _ in }

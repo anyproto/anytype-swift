@@ -26,6 +26,8 @@ struct HomeView: View {
             .onDisappear {
                 model.onDisappear()
             }
+            .redacted(reason: model.loadingDocument ? .placeholder : [])
+            .allowsHitTesting(!model.loadingDocument)
     }
     
     private var navigationView: some View {
@@ -44,8 +46,9 @@ struct HomeView: View {
                         }
                     }
                 }) {
-                    Image.main.settings
+                    model.loadingDocument ? nil : Image(asset: .mainSettings)
                 }
+                .allowsHitTesting(!model.loadingDocument)
             }
         }
         .bottomFloater(isPresented: $showSettings) {
@@ -172,6 +175,6 @@ struct HomeView: View {
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
-        HomeView(model: HomeViewModel(homeBlockId: UUID().uuidString))
+        HomeView(model: HomeViewModel.makeForPreview())
     }
 }

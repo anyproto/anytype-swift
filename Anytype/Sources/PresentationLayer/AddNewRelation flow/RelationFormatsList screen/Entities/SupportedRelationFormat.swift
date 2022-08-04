@@ -23,35 +23,35 @@ extension SupportedRelationFormat: Identifiable {
 
 extension SupportedRelationFormat {
 
-    var icon: String {
+    var iconAsset: ImageAsset {
         switch self {
-        case .text: return RelationMetadata.Format.longText.iconName
-        case .tag: return RelationMetadata.Format.tag.iconName
-        case .status:  return RelationMetadata.Format.status.iconName
-        case .number:  return RelationMetadata.Format.number.iconName
-        case .date:  return RelationMetadata.Format.date.iconName
-        case .file:  return RelationMetadata.Format.file.iconName
-        case .object:  return RelationMetadata.Format.object.iconName
-        case .checkbox: return RelationMetadata.Format.checkbox.iconName
-        case .url:  return RelationMetadata.Format.url.iconName
-        case .email: return RelationMetadata.Format.email.iconName
-        case .phone: return RelationMetadata.Format.phone.iconName
+        case .text: return RelationMetadata.Format.longText.iconAsset
+        case .tag: return RelationMetadata.Format.tag.iconAsset
+        case .status:  return RelationMetadata.Format.status.iconAsset
+        case .number:  return RelationMetadata.Format.number.iconAsset
+        case .date:  return RelationMetadata.Format.date.iconAsset
+        case .file:  return RelationMetadata.Format.file.iconAsset
+        case .object:  return RelationMetadata.Format.object.iconAsset
+        case .checkbox: return RelationMetadata.Format.checkbox.iconAsset
+        case .url:  return RelationMetadata.Format.url.iconAsset
+        case .email: return RelationMetadata.Format.email.iconAsset
+        case .phone: return RelationMetadata.Format.phone.iconAsset
         }
     }
 
     var title: String {
         switch self {
-        case .text: return "Text".localized
-        case .number: return "Numbers".localized
-        case .status: return "Status".localized
-        case .date: return "Date".localized
-        case .file: return "File & Media".localized
-        case .checkbox: return "Checkbox".localized
-        case .url: return "URL".localized
-        case .email: return "Email".localized
-        case .phone: return "Phone number".localized
-        case .tag: return "Tag".localized
-        case .object: return "Object".localized
+        case .text: return Loc.text
+        case .number: return Loc.numbers
+        case .status: return Loc.status
+        case .date: return Loc.date
+        case .file: return Loc.fileMedia
+        case .checkbox: return Loc.checkbox
+        case .url: return Loc.url
+        case .email: return Loc.email
+        case .phone: return Loc.phoneNumber
+        case .tag: return Loc.tag
+        case .object: return Loc.object
         }
     }
 }

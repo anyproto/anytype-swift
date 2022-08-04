@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct SeedPhraseView: View {
-    @StateObject private var model = KeychainPhraseViewModel()
     
+    @ObservedObject var model: KeychainPhraseViewModel
     let onTap: () -> ()
     
     var body: some View {
@@ -10,7 +10,7 @@ struct SeedPhraseView: View {
             VStack(alignment: .center) {
                 Spacer.fixedHeight(10)
                 AnytypeText(
-                    model.recoveryPhrase ?? RedactedText.seedPhrase.localized,
+                    model.recoveryPhrase ?? Loc.RedactedText.seedPhrase,
                     style: .codeBlock,
                     color: .Text.sky
                 )
@@ -28,7 +28,7 @@ struct SeedPhraseView: View {
 
 struct SeedPhraseView_Previews: PreviewProvider {
     static var previews: some View {
-        SeedPhraseView(onTap: {}).padding()
+        SeedPhraseView(model: KeychainPhraseViewModel(), onTap: {}).padding()
     }
 }
 

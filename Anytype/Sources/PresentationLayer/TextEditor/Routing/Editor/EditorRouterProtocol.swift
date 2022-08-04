@@ -21,7 +21,19 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func showCodeLanguageView(languages: [CodeLanguage], completion: @escaping (CodeLanguage) -> Void)
     
-    func showStyleMenu(information: BlockInformation)
+    func showStyleMenu(
+        information: BlockInformation,
+        restrictions: BlockRestrictions,
+        didShow: @escaping (UIView) -> Void,
+        onDismiss: @escaping () -> Void
+    )
+
+    func showMarkupBottomSheet(
+        selectedMarkups: [MarkupType : AttributeState],
+        selectedHorizontalAlignment: [LayoutAlignment : AttributeState],
+        onMarkupAction: @escaping (MarkupViewModelAction) -> Void,
+        viewDidClose: @escaping () -> Void
+    )
     
     func showSettings()
     func showCoverPicker()
@@ -55,12 +67,22 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         document: BaseDocumentProtocol,
         templatesTypeURL: ObjectTypeUrl
     )
+    
+    func showViewPicker(setModel: EditorSetViewModel)
 
     func showCreateObject(pageId: BlockId)
+    func showCreateBookmarkObject()
     
     func showSetSettings(setModel: EditorSetViewModel)
+    func dismissSetSettingsIfNeeded()
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
-    func showSortsSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void)
+    func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void)
+    func showFilterSearch(filter: SetFilter, onApply: @escaping (SetFilter) -> Void)
     
     func showFilters(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
+    func showColorPicker(
+        onColorSelection: @escaping (ColorView.ColorItem) -> Void,
+        selectedColor: UIColor?,
+        selectedBackgroundColor: UIColor?
+    )
 }

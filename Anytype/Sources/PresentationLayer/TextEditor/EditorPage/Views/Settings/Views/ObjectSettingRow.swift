@@ -19,7 +19,7 @@ struct ObjectSettingRow: View {
 
     private var settingButton: some View {
         HStack(spacing: Constants.space) {
-            setting.image.frame(width: Constants.iconWidth, height: Constants.iconWidth)
+            Image(asset: setting.imageAsset).frame(width: Constants.iconWidth, height: Constants.iconWidth)
 
             VStack(alignment: .leading, spacing: 0) {
                 AnytypeText(setting.title, style: .uxTitle2Medium, color: .textPrimary)
@@ -29,7 +29,7 @@ struct ObjectSettingRow: View {
 
             Spacer()
 
-            Image.arrow
+            Image(asset: .arrowForward)
         }
         .frame(height: 60)
     }

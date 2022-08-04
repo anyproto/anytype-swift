@@ -20,22 +20,22 @@ enum SlashActionAlignment: CaseIterable {
     var title: String {
         switch self {
         case .left:
-            return "Align left".localized
+            return Loc.alignLeft
         case .center:
-            return "Align center".localized
+            return Loc.alignCenter
         case .right:
-            return "Align right".localized
+            return Loc.alignRight
         }
     }
     
-    var iconName: String {
+    var iconAsset: ImageAsset {
         switch self {
         case .left:
-            return ImageName.slashMenu.alignment.left
+            return .slashMenuAlignmentLeft
         case .center:
-            return ImageName.slashMenu.alignment.center
+            return .slashMenuAlignmentCenter
         case .right:
-            return ImageName.slashMenu.alignment.right
+            return .slashMenuAlignmentRight
         }
     }
 }

@@ -10,34 +10,34 @@ enum BlockAction: CaseIterable {
     var title: String {
         switch self {
         case .delete:
-            return "Delete".localized
+            return Loc.delete
         case .duplicate:
-            return "Duplicate".localized
+            return Loc.duplicate
         case .copy:
-            return "Copy".localized
+            return Loc.copy
         case .paste:
-            return "Paste".localized
+            return Loc.paste
 //        case .move:
-//            return "Move".localized
+//            return Loc.move
         case .moveTo:
-            return "Move to".localized
+            return Loc.moveTo
         }
     }
     
-    var iconName: String {
+    var iconAsset: ImageAsset {
         switch self {
         case .delete:
-            return ImageName.slashMenu.actions.delete
+            return .delete
         case .duplicate:
-            return ImageName.slashMenu.actions.duplicate
+            return .slashMenuActionDuplicate
         case .copy:
-            return ImageName.slashMenu.actions.copy
+            return .slashMenuActionCopy
         case .paste:
-            return ImageName.slashMenu.actions.paste
+            return .slashMenuActionPaste
 //        case .move:
 //            return ImageName.slashMenu.actions.move
         case .moveTo:
-            return ImageName.slashMenu.actions.moveTo
+            return .slashMenuActionMoveTo
         }
     }
 }

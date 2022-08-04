@@ -14,39 +14,39 @@ extension ObjectSetting {
     var title: String {
         switch self {
         case .icon:
-            return "Icon".localized
+            return Loc.icon
         case .cover:
-            return "Cover".localized
+            return Loc.cover
         case .layout:
-            return "Layout".localized
+            return Loc.layout
         case .relations:
-            return "Relations".localized
+            return Loc.relations
         }
     }
     
     var description: String {
         switch self {
         case .icon:
-            return "Emoji or image for object".localized
+            return Loc.emojiOrImageForObject
         case .cover:
-            return "Background picture".localized
+            return Loc.backgroundPicture
         case .layout:
-            return "Arrangement of objects on a canvas".localized
+            return Loc.arrangementOfObjectsOnACanvas
         case .relations:
-            return "List of related objects".localized
+            return Loc.listOfRelatedObjects
         }
     }
     
-    var image: Image {
+    var imageAsset: ImageAsset {
         switch self {
         case .icon:
-            return Image.ObjectSettings.icon
+            return .objectSettingsIcon
         case .cover:
-            return Image.ObjectSettings.cover
+            return .objectSettingsCover
         case .layout:
-            return Image.ObjectSettings.layout
+            return .objectSettingsLayout
         case .relations:
-            return Image.ObjectSettings.relations
+            return .objectSettingsRelations
         }
     }
 }

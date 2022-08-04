@@ -6,7 +6,6 @@
 //  Copyright © 2022 Anytype. All rights reserved.
 //
 
-import SwiftUI
 import BlocksModels
 import OrderedCollections
 
@@ -51,13 +50,13 @@ struct ObjectPreviewModel {
 
     private static func buildRealtions(linkApperance: BlockLink.Appearance) -> [ListItem] {
         let nameRelation = Relation(key: BundledRelationKey.name.rawValue,
-                                    name: "Name".localized,
-                                    iconName: RelationMetadata.Format.shortText.iconName,
+                                    name: Loc.name,
+                                    iconAsset: RelationMetadata.Format.shortText.iconAsset,
                                     isLocked: true,
                                     isEnabled: linkApperance.relations.contains(.name))
         let typeRelation = Relation(key: BundledRelationKey.type.rawValue,
-                                    name: "LinkAppearance.ObjectType.Title".localized,
-                                    iconName: RelationMetadata.Format.object.iconName,
+                                    name: Loc.LinkAppearance.ObjectType.title,
+                                    iconAsset: RelationMetadata.Format.object.iconAsset,
                                     isLocked: false,
                                     isEnabled: linkApperance.relations.contains(.type))
 
@@ -85,7 +84,7 @@ extension ObjectPreviewModel {
         }
         let key: String
         let name: String
-        let iconName: String
+        let iconAsset: ImageAsset
         let isLocked: Bool
         var isEnabled: Bool
     }
@@ -122,11 +121,11 @@ extension ObjectPreviewModel {
         var name: String {
             switch self {
             case .none:
-                return "None".localized
+                return Loc.none
             case .small:
-                return "Small".localized
+                return Loc.small
             case .medium:
-                return "Medium".localized
+                return Loc.medium
             }
         }
 
@@ -163,18 +162,18 @@ extension ObjectPreviewModel {
         var name: String {
             switch self {
             case .text:
-                return "Text".localized
+                return Loc.text
             case .card:
-                return "Card".localized
+                return Loc.card
             }
         }
 
-        var iconName: String {
+        var iconAsset: ImageAsset {
             switch self {
             case .text:
-                return ImageName.ObjectPreview.text
+                return .text
             case .card:
-                return ImageName.ObjectPreview.card
+                return .card
             }
         }
     }
@@ -209,26 +208,26 @@ extension ObjectPreviewModel {
         var name: String {
             switch self {
             case .none:
-                return "LinkAppearance.Description.None.Title".localized
+                return Loc.LinkAppearance.Description.None.title
             case .added:
-                return "LinkAppearance.Description.Added.Title".localized
+                return Loc.LinkAppearance.Description.Added.title
             case .content:
-                return "LinkAppearance.Description.Content.Title".localized
+                return Loc.LinkAppearance.Description.Content.title
             }
         }
 
-        var iconName: String {
-            RelationMetadata.Format.longText.iconName
+        var iconAsset: ImageAsset {
+            RelationMetadata.Format.longText.iconAsset
         }
 
         var subtitle: String {
             switch self {
             case .none:
-                return "LinkAppearance.Description.None.Subtitle".localized
+                return Loc.LinkAppearance.Description.None.subtitle
             case .added:
-                return "LinkAppearance.Description.Added.Subtitle".localized
+                return Loc.LinkAppearance.Description.Added.subtitle
             case .content:
-                return "LinkAppearance.Description.Content.Subtitle".localized
+                return Loc.LinkAppearance.Description.Content.subtitle
             }
         }
     }

@@ -7,26 +7,26 @@ struct SettingsSectionView: View {
     var body: some View {
         VStack(spacing: 0) {
             SettingsSectionItemView(
-                name: "Account & data".localized,
-                icon: .settings.account,
+                name: Loc.accountData,
+                imageAsset: .settingsAccountAndData,
                 pressed: $viewModel.account
             )
             
             SettingsSectionItemView(
-                name: "Personalization".localized,
-                icon: .settings.personalization,
+                name: Loc.personalization,
+                imageAsset: .settingsPersonalization,
                 pressed: $viewModel.personalization
             )
             
             SettingsSectionItemView(
-                name: "Appearance".localized,
-                icon: .settings.appearance,
+                name: Loc.appearance,
+                imageAsset: .settingsAppearance,
                 pressed: $viewModel.appearance
             )
 
             SettingsSectionItemView(
-                name: "About".localized,
-                icon: .settings.about,
+                name: Loc.about,
+                imageAsset: .settingsAbout,
                 pressed: $viewModel.about
             )
             
@@ -37,7 +37,7 @@ struct SettingsSectionView: View {
             #if !RELEASE
             SettingsSectionItemView(
                 name: "Debug",
-                icon: .settings.debug,
+                imageAsset: .settingsDebug,
                 pressed: $viewModel.debugMenu
             )
             #endif

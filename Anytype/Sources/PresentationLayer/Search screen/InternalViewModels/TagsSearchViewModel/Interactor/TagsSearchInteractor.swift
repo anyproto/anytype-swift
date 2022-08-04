@@ -4,10 +4,16 @@ final class TagsSearchInteractor {
     
     private let allTags: [Relation.Tag.Option]
     private let selectedTagIds: [String]
+    private let isPreselectModeAvailable: Bool
     
-    init(allTags: [Relation.Tag.Option], selectedTagIds: [String]) {
+    init(
+        allTags: [Relation.Tag.Option],
+        selectedTagIds: [String],
+        isPreselectModeAvailable: Bool = false
+    ) {
         self.allTags = allTags
         self.selectedTagIds = selectedTagIds
+        self.isPreselectModeAvailable = isPreselectModeAvailable
     }
     
 }
@@ -48,7 +54,7 @@ extension TagsSearchInteractor {
 private extension TagsSearchInteractor {
     
     var availableTags: [Relation.Tag.Option] {
-        guard selectedTagIds.isNotEmpty else { return allTags }
+        guard selectedTagIds.isNotEmpty, !isPreselectModeAvailable else { return allTags }
         
         return allTags.filter { tag in
             !selectedTagIds.contains { $0 == tag.id }

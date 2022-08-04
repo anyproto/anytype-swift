@@ -3,7 +3,6 @@ import BlocksModels
 import Foundation
 
 final class BlockActionHandlerMock: BlockActionHandlerProtocol {
-
     var blockSelectionHandler: BlockSelectionHandler? {
         get {
             assertionFailure()
@@ -35,11 +34,11 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         return nil
     }
     
-    func setTextColor(_ color: BlockColor, blockId: BlockId) {
+    func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
         assertionFailure()
     }
-    
-    func setBackgroundColor(_ color: BlockBackgroundColor, blockId: BlockId) {
+
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId]) {
         assertionFailure()
     }
     
@@ -63,7 +62,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId) {
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId]) {
         assertionFailure()
     }
     
@@ -91,7 +90,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func addBlock(_ type: BlockContentType, blockId: BlockId) {
+    func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?) {
         assertionFailure()
     }
     
@@ -176,4 +175,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
+    func createTable(blockId: BlockId, rowsCount: Int, columnsCount: Int) {
+        assertionFailure()
+    }
 }

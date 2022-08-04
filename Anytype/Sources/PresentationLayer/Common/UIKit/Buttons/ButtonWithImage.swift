@@ -3,6 +3,19 @@ import BlocksModels
 
 
 final class ButtonWithImage: UIControl, CustomizableHitTestAreaView {
+    enum TextStyle {
+        case `default`
+        case body
+        
+        var font: UIFont {
+            switch self {
+            case .default: return .uxCalloutRegular
+            case .body: return .uxBodyRegular
+            }
+        }
+    }
+    private let textStyle: TextStyle
+    
     typealias ActionHandler = (_ action: UIAction) -> Void
     
     private var borderEdges: UIRectEdge?
@@ -20,7 +33,9 @@ final class ButtonWithImage: UIControl, CustomizableHitTestAreaView {
 
     // MARK: - Lifecycle
 
-    init() {
+    init(textStyle: ButtonWithImage.TextStyle = .default) {
+        self.textStyle = textStyle
+        
         super.init(frame: .zero)
 
         setupViews()
@@ -107,7 +122,7 @@ final class ButtonWithImage: UIControl, CustomizableHitTestAreaView {
         imageView.isHidden = true
         imageView.isUserInteractionEnabled = false
 
-        label.font = .uxCalloutRegular
+        label.font = textStyle.font
         label.isHidden = true
         label.textColor = UIColor.Text.uiColor(from: MiddlewareColor.grey)
         label.isUserInteractionEnabled = false

@@ -2,39 +2,37 @@ import Combine
 import BlocksModels
 import ProtobufMessages
 import AnytypeCore
+import Foundation
 
 // MARK: Actions
 final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     private let contextId: BlockId
-
+    private var subscriptions: [AnyCancellable] = []
+    
     init(contextId: BlockId) {
         self.contextId = contextId
     }
-
-    func open() -> Bool {
-        let event = Anytype_Rpc.Object.Open.Service.invoke(contextID: contextId, objectID: contextId, traceID: "")
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockActionsService)
-
-        guard let event = event else { return false }
+    
+    func open() async throws {
+        let result = try await Anytype_Rpc.Object.Open.Service
+            .invocation(contextID: self.contextId, objectID: contextId)
+            .invoke(errorDomain: .blockActionsService)
+        let event = EventsBunch(event: result.event)
         event.send()
-
-        return true
     }
 
-    func openForPreview() -> Bool {
-        let event = Anytype_Rpc.Object.Show.Service.invoke(contextID: contextId, objectID: contextId, traceID: "")
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .blockActionsService)
-
-        guard let event = event else { return false }
+    func openForPreview() async throws {
+        let result = try await Anytype_Rpc.Object.Show.Service
+            .invocation(contextID: contextId, objectID: contextId)
+            .invoke(errorDomain: .blockActionsService)
+        let event = EventsBunch(event: result.event)
         event.send()
-
-        return true
     }
     
-    func close() {
-        _ = Anytype_Rpc.Object.Close.Service.invoke(contextID: contextId, objectID: contextId)
+    func close() async throws {
+        _ = try await Anytype_Rpc.Object.Close.Service
+            .invocation(contextID: contextId, objectID: contextId)
+            .invoke(errorDomain: .blockActionsService)
     }
     
     func add(targetId: BlockId, info: BlockInformation, position: BlockPosition) -> BlockId? {

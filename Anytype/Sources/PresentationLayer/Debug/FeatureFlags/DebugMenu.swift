@@ -10,7 +10,7 @@ struct DebugMenu: View {
     var body: some View {
         VStack {
             DragIndicator()
-            AnytypeText("Debug menu 👻".localized, style: .title, color: .textPrimary)
+            AnytypeText("Debug menu 👻", style: .title, color: .textPrimary)
             buttons
             setPageCounter
             toggles
@@ -72,11 +72,11 @@ struct DebugMenu: View {
     }
     
     var toggles: some View {
-        List(flags.indices) { index in
+        List(Array(flags.enumerated()), id:\.offset) { index, flag in
             Toggle(
                 isOn: $flags[index].onChange(FeatureFlags.update).value
             ) {
-                AnytypeText(flags[index].key.rawValue, style: .body, color: .textPrimary)
+                AnytypeText(flag.key.rawValue, style: .body, color: .textPrimary)
             }
             .padding()
         }

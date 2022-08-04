@@ -2,6 +2,19 @@ import CoreGraphics
 import UIKit
 
 extension UIImage {
+    
+    static func dynamicImage(light: UIImage, dark: UIImage) -> UIImage {
+        let imageAsset = UIImageAsset()
+            
+        let lightMode = UITraitCollection(traitsFrom: [.init(userInterfaceStyle: .light), .init(displayScale: light.scale)])
+        imageAsset.register(light, with: lightMode)
+        
+        let darkMode = UITraitCollection(traitsFrom: [.init(userInterfaceStyle: .dark), .init(displayScale: light.scale)])
+        imageAsset.register(dark, with: darkMode)
+        
+        return imageAsset.image(with: .current)
+   }
+
     func circleImage(width: CGFloat, opaque: Bool = false, backgroundColor: CGColor? = nil) -> UIImage {
         cropToSquare()
         .scaled(to: CGSize(width: width, height: width))
@@ -149,27 +162,26 @@ extension UIImage {
         side: CGFloat,
         backgroundColor: UIColor?
     ) -> UIImage {
-        let size = CGSize(width: side, height: side)
-        let renderer = UIGraphicsImageRenderer(size: size)
-
-        return renderer.image { actions in
-            let context = actions.cgContext
-
-            let rect = CGRect(origin: .zero, size: size)
-            let rectPath = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
-            context.addPath(rectPath.cgPath)
-            backgroundColor.map { context.setFillColor($0.cgColor) }
-            context.fillPath()
-
-            let x = (size.width - imageSize.width) / 2
-            let y = (size.height - imageSize.height) / 2
-
-            scaled(to: imageSize).draw(
-                at: .init(x: x, y: y),
-                blendMode: .normal,
-                alpha: 1.0
-            )
+        
+        let lightImage = imageDraw(
+            imageSize: imageSize,
+            cornerRadius: cornerRadius,
+            side: side,
+            backgroundColor: backgroundColor?.light.cgColor
+        )
+        
+        guard let backgroundColor = backgroundColor, backgroundColor.light != backgroundColor.dark else {
+            return lightImage
         }
+        
+        let darkImage = imageDraw(
+            imageSize: imageSize,
+            cornerRadius: cornerRadius,
+            side: side,
+            backgroundColor: backgroundColor.dark.cgColor
+        )
+        
+        return UIImage.dynamicImage(light: lightImage, dark: darkImage)
     }
 
     func rotate(radians: Float) -> UIImage {
@@ -257,5 +269,36 @@ extension UIImage {
         }
 
         return img
+    }
+    
+    // MARK: - Private
+    
+    private func imageDraw(
+        imageSize: CGSize,
+        cornerRadius: CGFloat,
+        side: CGFloat,
+        backgroundColor: CGColor?
+    ) -> UIImage {
+        let size = CGSize(width: side, height: side)
+        let renderer = UIGraphicsImageRenderer(size: size)
+
+        return renderer.image { actions in
+            let context = actions.cgContext
+
+            let rect = CGRect(origin: .zero, size: size)
+            let rectPath = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
+            context.addPath(rectPath.cgPath)
+            backgroundColor.map { context.setFillColor($0) }
+            context.fillPath()
+
+            let x = (size.width - imageSize.width) / 2
+            let y = (size.height - imageSize.height) / 2
+
+            scaled(to: imageSize).draw(
+                at: .init(x: x, y: y),
+                blendMode: .normal,
+                alpha: 1.0
+            )
+        }
     }
 }

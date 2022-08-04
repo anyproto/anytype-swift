@@ -3,7 +3,7 @@ import SwiftUI
 import FloatingPanel
 
 final class ObjectPreviewIconMenuViewModel: CheckPopupViewViewModelProtocol {
-    let title = "Icon".localized
+    let title = Loc.icon
     @Published private(set) var items: [CheckPopupItem] = []
 
     // MARK: - Private variables
@@ -30,7 +30,7 @@ final class ObjectPreviewIconMenuViewModel: CheckPopupViewViewModelProtocol {
     func buildObjectPreviewPopupItem(currentIconSize: ObjectPreviewModel.IconSize) -> [CheckPopupItem] {
         availableIconSizes().map { iconSize in
             let isSelected = currentIconSize == iconSize
-            return CheckPopupItem(id: iconSize.rawValue, icon: nil, title: iconSize.name, subtitle: nil, isSelected: isSelected)
+            return CheckPopupItem(id: iconSize.rawValue, iconAsset: nil, title: iconSize.name, subtitle: nil, isSelected: isSelected)
         }
     }
 

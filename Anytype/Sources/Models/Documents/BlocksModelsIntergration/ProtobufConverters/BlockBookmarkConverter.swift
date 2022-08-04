@@ -12,7 +12,9 @@ extension Anytype_Model_Block.Content.Bookmark {
                         theDescription: description_p,
                         imageHash: imageHash,
                         faviconHash: faviconHash,
-                        type: $0
+                        type: $0,
+                        targetObjectID: targetObjectID,
+                        state: state.asModel
                     )
                 )
             }
@@ -29,7 +31,9 @@ extension BlockBookmark {
                 description_p: theDescription,
                 imageHash: imageHash,
                 faviconHash: faviconHash,
-                type: type.asMiddleware
+                type: type.asMiddleware,
+                targetObjectID: targetObjectID,
+                state: state.asMiddleware
             )
         )
     }

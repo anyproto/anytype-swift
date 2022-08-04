@@ -2,9 +2,11 @@ import UIKit
 
 final class WindowManager {
     static let shared = WindowManager()
-    private let homeAssembly = HomeViewAssembly()
+    private let di: DIProtocol = DI()
     
+    @MainActor
     func showHomeWindow() {
+        let homeAssembly = di.coordinatorsDI.homeViewAssemby
         windowHolder?.startNewRootView(homeAssembly.createHomeView())
     }
     
@@ -16,6 +18,7 @@ final class WindowManager {
         windowHolder?.startNewRootView(LaunchView())
     }
     
+    @MainActor
     func showDeletedAccountWindow(deadline: Date) {
         windowHolder?.startNewRootView(
             DeletedAccountView(

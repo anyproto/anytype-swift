@@ -1,4 +1,3 @@
-import SwiftUI
 import AnytypeCore
 
 enum EditorSetSetting: CaseIterable, Identifiable {
@@ -13,28 +12,28 @@ enum EditorSetSetting: CaseIterable, Identifiable {
     var name: String {
         switch self {
 //        case .view:
-//            return "View".localized
+//            return Loc.view
         case .settings:
-            return "Settings".localized
+            return Loc.settings
         case .sort:
-            return "Sort".localized
+            return Loc.sort
         case .filter:
-            return "Filter".localized
+            return Loc.filter
 //        case .group:
-//            return "Group".localized
+//            return Loc.group
         }
     }
     
-    var image: Image {
+    var imageAsset: ImageAsset {
         switch self {
 //        case .view:
 //            return .set.view
         case .settings:
-            return .set.viewSettings
+            return .setSettingsSettings
         case .sort:
-            return .set.sort
+            return .setSettinsSort
         case .filter:
-            return .set.filter
+            return .setSettinsFilter
 //        case .group:
 //            return .set.group
         }

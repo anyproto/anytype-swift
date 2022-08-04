@@ -62,7 +62,7 @@ extension BundledRelationsValueProvider {
     
     var objectIconImage: ObjectIconImage? {
         guard !isDeleted else {
-            return ObjectIconImage.staticImage(ImageName.ghost)
+            return ObjectIconImage.imageAsset(.ghost)
         }
         
         if let icon = icon {

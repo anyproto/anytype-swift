@@ -1,0 +1,12 @@
+// DO NOT EDIT
+//
+// Generated automatically by the AnytypeSwiftCodegen.
+//
+// For more info see:
+// https://github.com/anytypeio/anytype-swift-codegen
+
+{% for object in objects %}
+{% if object.type == "Error" %}
+extension {{ object.fullType }}: Swift.Error {}
+{% endif %}
+{% endfor %}

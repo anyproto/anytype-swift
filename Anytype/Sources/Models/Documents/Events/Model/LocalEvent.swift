@@ -10,5 +10,4 @@ enum LocalEvent {
     case reload(blockId: BlockId)
     case documentClosed(blockId: BlockId)
     case header(ObjectHeaderUpdate)
-    case changeType(objectTypeURL: String)
 }

@@ -52,7 +52,7 @@ struct EditorSetPaginationView: View {
         Group {
             if model.pagitationData.canGoBackward {
                 Button(action: { model.goBackwardRow() }) {
-                    Image.set.back
+                    Image(asset: .setPaginationArrowBackward)
                 }
             } else {
                 EmptyView()
@@ -64,7 +64,7 @@ struct EditorSetPaginationView: View {
         Group {
             if model.pagitationData.canGoForward {
                 Button(action: { model.goForwardRow() }) {
-                    Image.set.forward
+                    Image(asset: .setPaginationArrowForward)
                 }
             } else {
                 EmptyView()

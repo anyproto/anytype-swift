@@ -31,7 +31,6 @@ struct HomeTabsView: View {
     private let cornerRadius: CGFloat = 16
 
     @EnvironmentObject var model: HomeViewModel
-    @State private var tabSelection = UserDefaultsConfig.selectedTab
     
     let offsetChanged: (CGPoint) -> Void
     let onDrag: (CGSize) -> Void
@@ -39,7 +38,7 @@ struct HomeTabsView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            HomeTabsHeader(tabSelection: $tabSelection)
+            HomeTabsHeader(tabSelection: $model.selectedTab)
                 .cornerRadius(cornerRadius, corners: .top)
                 .highPriorityGesture(
                     DragGesture(coordinateSpace: .named(model.bottomSheetCoordinateSpaceName))
@@ -67,7 +66,7 @@ struct HomeTabsView: View {
     }
     
     private var tabs: some View {
-        TabView(selection: $tabSelection) {
+        TabView(selection: $model.selectedTab) {
             HomeCollectionView(
                 cellData: model.notDeletedFavoritesCellData,
                 dragAndDropDelegate: model,
@@ -124,35 +123,16 @@ struct HomeTabsView: View {
         .background(BlurEffect())
         .blurEffectStyle(UIBlurEffect.Style.systemMaterial)
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
-        
-        .onChange(of: tabSelection) { tab in
-            UserDefaultsConfig.selectedTab = tab
-            onTabSelection()
-        }
-        .onAppear {
-            onTabSelection()
-        }
-    }
-    
-    private func onTabSelection() {
-        model.selectAll(false)
-        model.onTabChange(tab: tabSelection)
-        AnytypeAnalytics.instance().logHomeTabSelection(tabSelection)
     }
 }
 
 struct HomeTabsView_Previews: PreviewProvider {
     
-    static var model: HomeViewModel {
-        let model = HomeViewModel(homeBlockId: UUID().uuidString)
-        return model
-    }
-    
     static var previews: some View {
         ZStack {
             Color.blue
             HomeTabsView(offsetChanged: { _ in }, onDrag: { _ in}, onDragEnd: { _ in })
-                .environmentObject(model)
+                .environmentObject(HomeViewModel.makeForPreview())
         }
     }
 }

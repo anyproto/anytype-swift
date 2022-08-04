@@ -7,13 +7,13 @@ struct DashboardLogoutAlert: View {
     
     var body: some View {
         FloaterAlertView(
-            title: "Have you backed up your recovery phrase?".localized,
-            description: "Recovery phrase description".localized,
-            leftButtonData: StandardButtonModel(disabled: isLogoutInProgress, text: "Back up phrase".localized, style: .secondary) {
+            title: Loc.Keychain.haveYouBackedUpYourRecoveryPhrase,
+            description: Loc.Keychain.recoveryPhraseDescription,
+            leftButtonData: StandardButtonModel(disabled: isLogoutInProgress, text: Loc.backUpPhrase, style: .secondary) {
                 model.keychain = true
                 model.loggingOut = false
             },
-            rightButtonData: StandardButtonModel(inProgress: isLogoutInProgress, text: "Log out".localized, style: .destructive) {
+            rightButtonData: StandardButtonModel(inProgress: isLogoutInProgress, text: Loc.logOut, style: .destructive) {
                 isLogoutInProgress = true
                 model.logout(removeData: false)
             }

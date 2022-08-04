@@ -30,7 +30,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
             dragConfiguration = newConfiguration.dragConfiguration
 
-            updateIndentationPaddings()
+            updateIndentationPaddings(animated: true)
         }
     }
 
@@ -68,7 +68,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
     private lazy var leadingView = TextBlockIconView(viewType: .quote)
     private lazy var blockView = View(frame: .zero)
 
-    private lazy var selectionView = BaseSelectionView()
+    private lazy var selectionView = EditorSelectionView()
     
     private lazy var indentationViews = [UIView]()
 
@@ -94,7 +94,7 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         indentationSettings.map(update(with:))
 
         setupDragInteraction()
-        updateIndentationPaddings()
+        updateIndentationPaddings(animated: false)
     }
 
     required init?(coder: NSCoder) {
@@ -126,7 +126,8 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
     // MARK: - Indentation
 
-    private func updateIndentationPaddings() {
+    private var currentBlockInsets: UIEdgeInsets?
+    private func updateIndentationPaddings(animated: Bool) {
         var blockContentInsets = blockConfiguration.contentInsets
         var indentationLevel = indentationSettings?.parentBlocksInfo.count ?? 0
 
@@ -141,25 +142,24 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
         blockContentInsets.left = blockContentInsets.left + parentIndentaionPadding
 
+        if blockConfiguration.hasOwnBackground {
+            contentStackView.backgroundColor = nil
+        } else {
+            contentStackView.backgroundColor = indentationSettings?.relativeBackgroundColor
+        }
 
-        contentStackView.backgroundColor = indentationSettings?.relativeBackgroundColor
-
-        guard blockConfiguration.isAnimationEnabled else {
+        guard animated && blockConfiguration.isAnimationEnabled, currentBlockInsets != blockContentInsets else {
             contentConstraints?.update(with: blockContentInsets)
             return
         }
 
-        layoutIfNeeded() // Double layoutIfNeeded to not to animate background appearing
-
+        currentBlockInsets = blockContentInsets
         contentConstraints?.update(with: blockContentInsets)
 
-        UIView.animate(withDuration: CATransaction.animationDuration()) { [weak self] in
-            self?.layoutIfNeeded()
-        } completion: { _ in }
+        // Something wrong with constraints, we can't make an animation
     }
 
     private func update(with indentationSettings: IndentationSettings) {
-        contentStackView.backgroundColor = indentationSettings.relativeBackgroundColor
         backgroundColorsStackView.axis = .horizontal
         backgroundColorsStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
         indentationViews.forEach { $0.removeFromSuperview() }
@@ -202,7 +202,9 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
 
         let lastBackgroundColor = indentationSettings.backgroundColor ?? indentationSettings.parentBlocksInfo.last.flatMap { $0.color }
 
-        addBackgroundColorView(color: lastBackgroundColor, width: nil)
+        if !blockConfiguration.hasOwnBackground {
+            addBackgroundColorView(color: lastBackgroundColor, width: nil)
+        }
     }
 
     private func shouldMakeAdditionalPadding(for style: BlockIndentationStyle) -> Bool {
@@ -314,7 +316,10 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
             let leadingConstraint = $0.leading.equal(to: wrapperView.leadingAnchor)
             let trailingConstraint = $0.trailing.equal(to: wrapperView.trailingAnchor)
             let topConstraint = $0.top.equal(to: wrapperView.topAnchor)
-            $0.bottom.equal(to: bottomColoredView.topAnchor)
+            $0.bottom.equal(
+                to: bottomColoredView.topAnchor,
+                priority: .init(rawValue: 999)
+            )
 
             if let bottomConstraint = blockViewToContentbottomConstraint {
                 contentConstraints = .init(
@@ -332,8 +337,8 @@ final class EditorContentView<View: BlockContentView>: UIView & UIContentView, U
         }
 
         addSubview(selectionView) {
-            $0.pin(to: contentStackView, excluding: [.bottom], insets: .init(top: 0, left: -8, bottom: 0, right: 8))
-            $0.bottom.equal(to: blockView.bottomAnchor, constant: 0)
+            $0.pin(to: contentStackView, excluding: [.bottom], insets: blockConfiguration.selectionInsets)
+            $0.bottom.equal(to: blockView.bottomAnchor, constant: blockConfiguration.selectionInsets.bottom)
         }
 
         bringSubviewToFront(wrapperView)

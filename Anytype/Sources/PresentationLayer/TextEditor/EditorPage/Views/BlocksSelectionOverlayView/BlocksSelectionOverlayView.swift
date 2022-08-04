@@ -7,8 +7,12 @@ final class BlocksSelectionOverlayView: UIView {
     let viewModel: BlocksSelectionOverlayViewModel
 
     // MARK: - UI elements
-    private let blocksOptionView: BlocksOptionView
+    private let blocksOptionView: SelectionOptionsView
+    private let simpleTablesOptionView: SimpleTableMenuView
+
     private lazy var shadowedBlocksOptionView = RoundedShadowView(view: blocksOptionView.asUIView(), cornerRadius: 16)
+    private lazy var shadowedSimpleTablesOptionView = RoundedShadowView(view: simpleTablesOptionView.asUIView(), cornerRadius: 16)
+
     private lazy var movingButtonsView: TwoStandardButtonsView = makeMovingButtonsView()
     private lazy var movingButtonsUIView: UIView = movingButtonsView.asUIView()
     private lazy var statusBarOverlayView = UIView()
@@ -19,10 +23,12 @@ final class BlocksSelectionOverlayView: UIView {
 
     init(
         viewModel: BlocksSelectionOverlayViewModel,
-        blocksOptionView: BlocksOptionView
+        blocksOptionView: SelectionOptionsView,
+        simpleTablesOptionView: SimpleTableMenuView
     ) {
         self.viewModel = viewModel
         self.blocksOptionView = blocksOptionView
+        self.simpleTablesOptionView = simpleTablesOptionView
 
         super.init(frame: .zero)
         setupView()
@@ -66,6 +72,11 @@ final class BlocksSelectionOverlayView: UIView {
             $0.height.equal(to: 100)
         }
 
+        addSubview(shadowedSimpleTablesOptionView) {
+            $0.pinToSuperview(excluding: [.top], insets: .init(top: 0, left: 10, bottom: -20, right: -10))
+            $0.height.equal(to: 174)
+        }
+
         addSubview(movingButtonsUIView) {
             $0.pinToSuperview(excluding: [.top], insets: .zero)
         }
@@ -74,23 +85,25 @@ final class BlocksSelectionOverlayView: UIView {
     }
 
     private func applyShadow() {
-        shadowedBlocksOptionView.shadowLayer.fillColor = UIColor.shadowPrimary.cgColor
-        shadowedBlocksOptionView.shadowLayer.shadowOffset = .init(width: 0, height: 0)
-        shadowedBlocksOptionView.shadowLayer.shadowOpacity = 1
-        shadowedBlocksOptionView.shadowLayer.shadowRadius = 40
+        [shadowedBlocksOptionView, shadowedSimpleTablesOptionView].forEach {
+            $0.shadowLayer.fillColor = UIColor.shadowPrimary.cgColor
+            $0.shadowLayer.shadowOffset = .init(width: 0, height: 0)
+            $0.shadowLayer.shadowOpacity = 1
+            $0.shadowLayer.shadowRadius = 40
+        }
     }
 
     private func makeMovingButtonsView() -> TwoStandardButtonsView {
         TwoStandardButtonsView(
             leftButtonData: StandardButtonModel(
-                text: "Cancel".localized,
+                text: Loc.cancel,
                 style: .secondary,
                 action: { [weak viewModel] in
                     viewModel?.cancelButtonHandler?()
                 }
             ),
             rightButtonData: StandardButtonModel(
-                text: "Move".localized,
+                text: Loc.move,
                 style: .primary,
                 action: { [weak viewModel] in
                     viewModel?.moveButtonHandler?()
@@ -98,14 +111,32 @@ final class BlocksSelectionOverlayView: UIView {
             )
         )
     }
-
+    
     private func bindActions() {
-        viewModel.$isBlocksOptionViewVisible.sink { [unowned self] isVisible in
-            shadowedBlocksOptionView.isHidden = !isVisible
-        }.store(in: &cancellables)
+        viewModel.$state.sink { [weak self] state in
+            guard let self = self else { return }
 
-        viewModel.$isMovingButtonsVisible.sink { [unowned self] isVisible in
-            movingButtonsUIView.isHidden = !isVisible
+            switch state {
+            case .hidden:
+                self.isHidden = true
+                return
+            case .moving:
+                self.movingButtonsUIView.isHidden = false
+                self.shadowedSimpleTablesOptionView.isHidden = true
+                self.shadowedBlocksOptionView.isHidden = true
+            case let .simpleTableMenu(_, model):
+                self.movingButtonsUIView.isHidden = true
+                self.shadowedBlocksOptionView.isHidden = true
+                self.shadowedSimpleTablesOptionView.isHidden = false
+                self.simpleTablesOptionView.viewModel.update(with: model)
+            case let .editorMenu(selectedBlocksCount):
+                self.movingButtonsUIView.isHidden = true
+                self.shadowedSimpleTablesOptionView.isHidden = true
+                self.shadowedBlocksOptionView.isHidden = selectedBlocksCount == 0
+                return
+            }
+
+            self.isHidden = false
         }.store(in: &cancellables)
     }
 }

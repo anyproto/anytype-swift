@@ -12,11 +12,13 @@ protocol BaseDocumentProtocol: AnyObject {
     var children: [BlockInformation] { get }
     var parsedRelations: ParsedRelations { get }
     var isLocked: Bool { get }
+    var isEmpty: Bool { get }
+    var isOpened: Bool { get }
 
-    @discardableResult
-    func open() -> Bool
-
-    @discardableResult
-    func openForPreview() -> Bool
-    func close()
+    @MainActor
+    func open() async throws
+    @MainActor
+    func openForPreview() async throws
+    @MainActor
+    func close() async throws
 }

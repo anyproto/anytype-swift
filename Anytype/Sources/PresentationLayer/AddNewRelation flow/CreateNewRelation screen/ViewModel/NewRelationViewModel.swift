@@ -105,7 +105,7 @@ private extension NewRelationViewModel {
 private extension SupportedRelationFormat {
     
     var asViewModel: NewRelationFormatSectionView.Model {
-        NewRelationFormatSectionView.Model(icon: self.icon, title: self.title)
+        NewRelationFormatSectionView.Model(icon: self.iconAsset, title: self.title)
     }
     
     var asRelationMetadataFormat: RelationMetadata.Format {

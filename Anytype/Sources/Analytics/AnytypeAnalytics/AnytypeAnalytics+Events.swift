@@ -135,10 +135,14 @@ extension AnytypeAnalytics {
         }
     }
 
-    func logCreateBlock(type: String, style: String) {
-        logEvent(AnalyticsEventsName.blockCreate,
-                 withEventProperties: [AnalyticsEventsPropertiesKey.type: type,
-                                       AnalyticsEventsPropertiesKey.blockStyle: style])
+    func logCreateBlock(type: String, style: String? = nil) {
+        var props = [String: String]()
+        props[AnalyticsEventsPropertiesKey.type] = type
+        if let style = style {
+            props[AnalyticsEventsPropertiesKey.blockStyle] = style
+        }
+
+        logEvent(AnalyticsEventsName.blockCreate, withEventProperties: props)
     }
 
     func logUploadMedia(type: FileContentType) {

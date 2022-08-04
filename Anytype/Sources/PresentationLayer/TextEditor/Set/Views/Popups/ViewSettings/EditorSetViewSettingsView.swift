@@ -12,6 +12,7 @@ struct EditorSetViewSettingsView: View {
                 .padding(.horizontal, 20)
         }
         .background(Color.backgroundSecondary)
+        .navigationViewStyle(.stack)
     
         .animation(.default, value: setModel.activeView)
         .animation(.default, value: setModel.sortedRelations)
@@ -46,7 +47,7 @@ struct EditorSetViewSettingsView: View {
                     withAnimation { editMode = .inactive }
                     model.showAddNewRelationView()
                 }) {
-                    Image.plus
+                    Image(asset: .plus)
                 }
             }
         }
@@ -55,10 +56,10 @@ struct EditorSetViewSettingsView: View {
     private var settingsSection: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(12)
-            AnytypeText("Settings".localized, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .textPrimary)
             Spacer.fixedHeight(12)
             
-            AnytypeToggle(title: "Icon", isOn: !setModel.activeView.hideIcon) {
+            AnytypeToggle(title: Loc.icon, isOn: !setModel.activeView.hideIcon) {
                 model.onShowIconChange($0)
             }
             .padding(.bottom, 10)
@@ -69,7 +70,7 @@ struct EditorSetViewSettingsView: View {
     private var relationsHeader: some View {
         VStack(spacing: 0) {
             Spacer.fixedHeight(12)
-            AnytypeText("Relations".localized, style: .uxTitle1Semibold, color: .textPrimary)
+            AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .textPrimary)
             Spacer.fixedHeight(12)
         }
     }
@@ -89,7 +90,7 @@ struct EditorSetViewSettingsView: View {
     
     private func relationRow(_ relation: SetRelation) -> some View {
         HStack(spacing: 0) {
-            Image(relation.metadata.format.iconName)
+            Image(asset: relation.metadata.format.iconAsset)
                 .frame(width: 24, height: 24)
             Spacer.fixedWidth(10)
             AnytypeToggle(

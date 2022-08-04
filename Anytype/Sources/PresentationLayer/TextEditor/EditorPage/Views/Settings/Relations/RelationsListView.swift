@@ -31,7 +31,7 @@ struct RelationsListView: View {
             }
         } label: {
             AnytypeText(
-                editingMode ? "Done".localized : "Edit".localized,
+                editingMode ? Loc.done : Loc.edit,
                 style: .uxBodyRegular,
                 color: viewModel.navigationBarButtonsDisabled ? .buttonInactive : .textSecondary
             )
@@ -43,7 +43,7 @@ struct RelationsListView: View {
         Button {
             viewModel.showAddNewRelationView()
         } label: {
-            Image.Relations.createOption
+            Image(asset: .relationNew)
                 .if(viewModel.navigationBarButtonsDisabled) {
                     $0.renderingMode(.template)
                         .foregroundColor(.buttonInactive)

@@ -3,6 +3,7 @@ import BlocksModels
 
 protocol BlockSelectionHandler: AnyObject {
     func didSelectEditingState(info: BlockInformation)
+    func didSelectStyleSelection(info: BlockInformation)
 }
 
 protocol BlockActionHandlerProtocol: AnyObject {
@@ -12,21 +13,21 @@ protocol BlockActionHandlerProtocol: AnyObject {
     @discardableResult
     func turnIntoPage(blockId: BlockId) -> BlockId?
     
-    func setTextColor(_ color: BlockColor, blockId: BlockId)
-    func setBackgroundColor(_ color: BlockBackgroundColor, blockId: BlockId)
+    func setTextColor(_ color: BlockColor, blockIds: [BlockId])
+    func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId])
     func duplicate(blockId: BlockId)
     func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId)
     func fetch(url: URL, blockId: BlockId)
     func checkbox(selected: Bool, blockId: BlockId)
     func toggle(blockId: BlockId)
-    func setAlignment(_ alignment: LayoutAlignment, blockId: BlockId)
+    func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId])
     func delete(blockIds: [BlockId])
     func moveToPage(blockId: BlockId, pageId: BlockId)
     func createEmptyBlock(parentId: BlockId)
     func setLink(url: URL?, range: NSRange, blockId: BlockId)
     func setLinkToObject(linkBlockId: BlockId?, range: NSRange, blockId: BlockId)
     func addLink(targetId: BlockId, blockId: BlockId)
-    func addBlock(_ type: BlockContentType, blockId: BlockId)
+    func addBlock(_ type: BlockContentType, blockId: BlockId, position: BlockPosition?)
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
     func upload(blockId: BlockId, filePath: String)
     func createPage(targetId: BlockId, type: ObjectTypeUrl) -> BlockId?
@@ -48,4 +49,15 @@ protocol BlockActionHandlerProtocol: AnyObject {
         url: String
     )
     func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance)
+    func createTable(
+        blockId: BlockId,
+        rowsCount: Int,
+        columnsCount: Int
+    )
+}
+
+extension BlockActionHandlerProtocol {
+    func addBlock(_ type: BlockContentType, blockId: BlockId) {
+        addBlock(type, blockId: blockId, position: nil)
+    }
 }

@@ -11,7 +11,7 @@ import SwiftUI
 import FloatingPanel
 
 final class ObjectPreviewDescriptionMenuViewModel: CheckPopupViewViewModelProtocol {
-    let title: String = "Description".localized
+    let title: String = Loc.description
 
     @Published private(set) var items: [CheckPopupItem] = []
 
@@ -37,7 +37,7 @@ final class ObjectPreviewDescriptionMenuViewModel: CheckPopupViewViewModelProtoc
         ObjectPreviewModel.Description.allCases.map { description -> CheckPopupItem in
             let isSelected = description == currentDescription
             return CheckPopupItem(id: description.rawValue,
-                                  icon: nil,
+                                  iconAsset: nil,
                                   title: description.name,
                                   subtitle: description.subtitle,
                                   isSelected: isSelected)

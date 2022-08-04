@@ -1,25 +1,28 @@
 import UIKit
 import BlocksModels
+import AnytypeCore
 
 struct AccessoryViewBuilder {
     static func accessoryState(
         actionHandler: BlockActionHandlerProtocol,
-        router: EditorRouter,
+        router: EditorRouterProtocol,
         pasteboardService: PasteboardServiceProtocol,
         document: BaseDocumentProtocol,
-        modelsHolder: EditorMainItemModelsHolder
+        onShowStyleMenu: @escaping RoutingAction<BlockInformation>,
+        onBlockSelection: @escaping RoutingAction<BlockInformation>
     ) -> AccessoryViewStateManager {
         let mentionsView = MentionView(frame: CGRect(origin: .zero, size: menuActionsViewSize))
         
         let cursorModeAccessoryViewModel = CursorModeAccessoryViewModel(
-            router: router,
-            handler: actionHandler
+            handler: actionHandler,
+            onShowStyleMenu: onShowStyleMenu,
+            onBlockSelection: onBlockSelection
         )
         
         let markupViewModel = MarkupAccessoryViewModel(
             document: document,
             actionHandler: actionHandler,
-            router: router
+            onLinkToObject: router.showLinkToObject(onSelect:)
         )
 
         let changeTypeViewModel = ChangeTypeAccessoryViewModel(
@@ -28,15 +31,13 @@ struct AccessoryViewBuilder {
             searchService: SearchService(),
             objectService: ServiceLocator.shared.objectActionsService(),
             document: document
-        )
-
-        let typeListViewModel = HorizonalTypeListViewModel(
-            itemProvider: changeTypeViewModel
         ) { [weak router, weak actionHandler] in
             router?.showTypesSearch(onSelect: { id in
                 actionHandler?.setObjectTypeUrl(id)
             })
         }
+
+        let typeListViewModel = HorizonalTypeListViewModel(itemProvider: changeTypeViewModel)
 
         let horizontalTypeListView = HorizonalTypeListView(viewModel: typeListViewModel)
 
@@ -66,8 +67,7 @@ struct AccessoryViewBuilder {
             cursorModeAccessoryView: cursorModeAccessoryView,
             markupAccessoryView: markupModeAccessoryView,
             changeTypeView: changeTypeView,
-            document: document,
-            modelsHolder: modelsHolder
+            document: document
         )
 
         accessoryViewSwitcher.onDoneButton = {

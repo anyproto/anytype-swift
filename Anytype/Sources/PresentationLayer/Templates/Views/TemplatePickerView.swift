@@ -15,7 +15,7 @@ struct TemplatePickerView: View {
         }
         .padding([.horizontal], 16)
         Spacer.fixedHeight(11)
-        AnytypeText("TemplatePicker.ChooseTemplate".localized, style: .caption1Medium, color: .primary)
+        AnytypeText(Loc.TemplatePicker.chooseTemplate, style: .caption1Medium, color: .primary)
             .frame(alignment: .center)
 
         TabView(selection: $index) {
@@ -47,10 +47,10 @@ struct TemplatePickerView: View {
 
     var buttons: some View {
         HStack(spacing: 10) {
-            StandardButton(text: "TemplatePicker.Buttons.Skip".localized, style: .secondary) { [weak viewModel] in
+            StandardButton(text: Loc.TemplatePicker.Buttons.skip, style: .secondary) { [weak viewModel] in
                 viewModel?.onSkipButton()
             }
-            StandardButton(text: "TemplatePicker.Buttons.UseTemplate".localized, style: .primary) { [weak viewModel] in
+            StandardButton(text: Loc.TemplatePicker.Buttons.useTemplate, style: .primary) { [weak viewModel] in
                 viewModel?.onApplyButton()
             }
             .buttonStyle(ShrinkingButtonStyle())

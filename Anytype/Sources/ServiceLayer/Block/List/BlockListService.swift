@@ -28,6 +28,20 @@ class BlockListService: BlockListServiceProtocol {
             .send()
     }
 
+    func changeMarkup(
+        blockIds: [BlockId],
+        markType: MarkupType
+    ) {
+        guard let middlewareType = markType.asMiddleware else { return }
+        let mark = Anytype_Model_Block.Content.Text.Mark.init(range: .init(), type: middlewareType, param: "")
+        Anytype_Rpc.BlockText.ListSetMark.Service
+            .invoke(contextID: contextId, blockIds: blockIds, mark: mark
+        )
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .blockListService)?
+            .send()
+    }
+
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockListSetBackgroundColor)
 
@@ -107,5 +121,24 @@ class BlockListService: BlockListServiceProtocol {
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .blockListService)?
             .send()
+    }
+}
+
+private extension MarkupType {
+    var asMiddleware: Anytype_Model_Block.Content.Text.Mark.TypeEnum? {
+        switch self {
+        case .bold:
+            return .bold
+        case .italic:
+            return .italic
+        case .keyboard:
+            return .keyboard
+        case .strikethrough:
+            return .strikethrough
+        case .underscored:
+            return .underscored
+        default:
+            return nil
+        }
     }
 }

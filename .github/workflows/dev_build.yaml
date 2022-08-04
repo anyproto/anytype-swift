@@ -2,8 +2,8 @@ name: Anytype Dev
 
 on:
   schedule:
-    # Triggers the workflow every day at 00:00 UTC:
-    - cron:  '0 0 * * *'
+    # Triggers the workflow every weekdays at 00:00 UTC:
+    - cron:  '0 0 * * 1-5'
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -33,11 +33,6 @@ jobs:
         with:
           ruby-version: 2.7.2
           bundler-cache: true
-
-      # - name: Install dependencies for badge plugin imagemagick
-      #   run: |
-      #     brew install imagemagick
-      #     brew install librsvg
 
       - name: Update git config
         run: |

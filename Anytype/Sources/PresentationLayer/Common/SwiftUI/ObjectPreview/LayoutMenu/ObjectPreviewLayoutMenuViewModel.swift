@@ -11,7 +11,7 @@ import SwiftUI
 import FloatingPanel
 
 final class ObjectPreviewLayoutMenuViewModel: CheckPopupViewViewModelProtocol {
-    let title = "Preview layout".localized
+    let title = Loc.previewLayout
     @Published private(set) var items: [CheckPopupItem] = []
 
     // MARK: - Private variables
@@ -35,7 +35,7 @@ final class ObjectPreviewLayoutMenuViewModel: CheckPopupViewViewModelProtocol {
     func buildObjectPreviewPopupItem(cardStyle: ObjectPreviewModel.CardStyle) -> [CheckPopupItem] {
         ObjectPreviewModel.CardStyle.allCases.map { layout -> CheckPopupItem in
             let isSelected = cardStyle == layout
-            return CheckPopupItem(id: layout.rawValue, icon: layout.iconName, title: layout.name, subtitle: nil, isSelected: isSelected)
+            return CheckPopupItem(id: layout.rawValue, iconAsset: layout.iconAsset, title: layout.name, subtitle: nil, isSelected: isSelected)
         }
     }
 

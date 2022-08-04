@@ -11,18 +11,18 @@ enum AuthServiceError: Error, LocalizedError {
     
     var errorDescription: String? {
         switch self {
-        case .createWalletError: return "Error creating wallet".localized
-        case .recoverWalletError: return "Error wallet recover account".localized
+        case .createWalletError: return Loc.errorCreatingWallet
+        case .recoverWalletError: return Loc.errorWalletRecoverAccount
         case .recoverAccountError(let code):
             switch code {
             case .accountIsDeleted:
-                return "Account is deleted".localized
+                return Loc.accountIsDeleted
             case .badInput, .anotherAnytypeProcessIsRunning, .failedToCreateLocalRepo, .failedToRunNode, .failedToStopRunningNode, .unknownError, .noAccountsFound, .needToRecoverWalletFirst, .localRepoExistsButCorrupted, .walletRecoverNotPerformed:
-                return "Account recover error".localized
+                return Loc.accountRecoverError
             case .UNRECOGNIZED, .null:
-                return "Account recover error no internet".localized
+                return Loc.accountRecoverErrorNoInternet
             }
-        case .selectAccountError: return "Error select account".localized
+        case .selectAccountError: return Loc.errorSelectAccount
         }
     }
 }

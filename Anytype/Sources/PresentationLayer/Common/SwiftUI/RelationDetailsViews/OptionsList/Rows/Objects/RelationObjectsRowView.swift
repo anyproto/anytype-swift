@@ -3,6 +3,7 @@ import SwiftUI
 struct RelationObjectsRowView: View {
     
     let object: Relation.Object.Option
+    let action: (() -> Void)
     
     var body: some View {
         HStack(alignment: .center, spacing: 0) {
@@ -12,12 +13,15 @@ struct RelationObjectsRowView: View {
             Spacer()
         }
         .frame(height: 68)
+        .onTapGesture {
+            action()
+        }
     }
     
     private var icon: some View {
         Group {
             if object.isDeleted {
-                Image.ghost.resizable().frame(width: 28, height: 28)
+                Image(asset: .ghost).resizable().frame(width: 28, height: 28)
             } else {
                 SwiftUIObjectIconImageView(
                     iconImage: object.icon,
@@ -30,7 +34,7 @@ struct RelationObjectsRowView: View {
     private var text: some View {
         VStack(alignment: .leading, spacing: 0) {
             AnytypeText(
-                object.isDeleted ? "Non-existent object".localized : object.title,
+                object.isDeleted ? Loc.nonExistentObject : object.title,
                 style: .previewTitle2Medium,
                 color: titleColor
             )
@@ -39,7 +43,7 @@ struct RelationObjectsRowView: View {
             Spacer.fixedHeight(1)
             
             AnytypeText(
-                object.isDeleted ? "Deleted".localized : object.type,
+                object.isDeleted ? Loc.deleted : object.type,
                 style: .relation2Regular,
                 color: subtitleColor
             )
@@ -74,8 +78,10 @@ struct RelationObjectsRowView_Previews: PreviewProvider {
                 title: "title",
                 type: "type",
                 isArchived: false,
-                isDeleted: false
-            )
+                isDeleted: false,
+                editorViewType: .page
+            ),
+            action: {}
         )
     }
 }

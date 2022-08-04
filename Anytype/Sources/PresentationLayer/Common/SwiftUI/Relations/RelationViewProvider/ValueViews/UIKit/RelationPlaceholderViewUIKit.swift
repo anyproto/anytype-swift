@@ -56,6 +56,11 @@ final class RelationPlaceholderViewUIKit: UIView {
             textView.setText(hint)
         case .empty:
             backgroundColor = .backgroundPrimary
+        case let .clear(withHint):
+            textView.textColor = .textSecondary
+            if withHint {
+                textView.setText(hint)
+            }
         }
     }
 }

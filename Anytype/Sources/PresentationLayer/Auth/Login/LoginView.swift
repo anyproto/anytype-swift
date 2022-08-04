@@ -17,7 +17,7 @@ struct LoginView: View {
             view.errorToast(isShowing: $viewModel.showError, errorText: error)
         }
         .alert(isPresented: $viewModel.openSettingsURL) {
-            AlertsFactory.goToSettingsAlert(title: "Auth.CameraPermissionTitle".localized)
+            AlertsFactory.goToSettingsAlert(title: Loc.Auth.cameraPermissionTitle)
         }
         .sheet(isPresented: $viewModel.showQrCodeView) {
             QRCodeScannerView(qrCode: self.$viewModel.entropy, error: self.$viewModel.error)
@@ -39,7 +39,7 @@ struct LoginView: View {
     private var keychainPhraseView: some View {
         VStack(spacing: 0) {
             VStack(alignment: .leading, spacing: 0) {
-                AnytypeText("Login".localized, style: .heading, color: .textPrimary)
+                AnytypeText(Loc.login, style: .heading, color: .textPrimary)
                 Spacer.fixedHeight(19)
                 scanQR
                 if viewModel.canRestoreFromKeychain {
@@ -56,11 +56,11 @@ struct LoginView: View {
     
     private var buttons: some View {
         HStack(spacing: 12) {
-            StandardButton(text: "Back".localized, style: .secondary) {
+            StandardButton(text: Loc.back, style: .secondary) {
                 self.presentationMode.wrappedValue.dismiss()
             }
 
-            StandardButton(disabled: viewModel.seed.isEmpty, text: "Login".localized, style: .primary) {
+            StandardButton(disabled: viewModel.seed.isEmpty, text: Loc.login, style: .primary) {
                 self.viewModel.recoverWallet()
             }
         }
@@ -71,7 +71,7 @@ struct LoginView: View {
     private var enterMnemonic: some View {
         ZStack(alignment: .topLeading) {
             if(viewModel.seed.isEmpty) {
-                AnytypeText("or type your recovery phrase".localized, style: .codeBlock, color: .textSecondary)
+                AnytypeText(Loc.orTypeYourRecoveryPhrase, style: .codeBlock, color: .textSecondary)
                     .padding(.top, 17)
             }
             
@@ -97,9 +97,9 @@ struct LoginView: View {
             }
         ) {
             HStack {
-                AnytypeText("Scan QR code".localized, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(Loc.scanQRCode, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
-                Image.arrow
+                Image(asset: .arrowForward)
             }
             .frame(height: 48)
             .divider()
@@ -114,7 +114,7 @@ struct LoginView: View {
             }
         ) {
             HStack {
-                AnytypeText("Restore from keychain".localized, style: .button1Regular, color: Color.System.amber125)
+                AnytypeText(Loc.restoreFromKeychain, style: .button1Regular, color: Color.System.amber125)
                 Spacer()
                 Image(systemName: "key")
                     .foregroundColor(Color.System.amber125)

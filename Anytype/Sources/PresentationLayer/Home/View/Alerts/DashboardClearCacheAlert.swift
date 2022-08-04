@@ -6,13 +6,13 @@ struct DashboardClearCacheAlert: View {
     
     var body: some View {
         FloaterAlertView(
-            title: "Clear cache".localized,
-            description: "Clear cache description".localized,
-            leftButtonData: StandardButtonModel(text: "Cancel".localized, style: .secondary) {
+            title: Loc.clearCache,
+            description: Loc.clearCacheDescription,
+            leftButtonData: StandardButtonModel(text: Loc.cancel, style: .secondary) {
                 settingsModel.clearCacheAlert = false
             },
             rightButtonData: StandardButtonModel(text: "Clear", style: .destructive) {
-                homeModel.loadingAlertData = .init(text: "Removing cache".localized, showAlert: true)
+                homeModel.loadingAlertData = .init(text: Loc.removingCache, showAlert: true)
                 
                 settingsModel.clearCache { clearCacheSuccessful in
                     homeModel.loadingAlertData = .empty

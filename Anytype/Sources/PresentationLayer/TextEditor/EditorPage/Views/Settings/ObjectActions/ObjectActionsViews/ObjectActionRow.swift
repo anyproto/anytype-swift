@@ -12,7 +12,7 @@ struct ObjectActionRow: View {
         }
         label: {
             VStack(spacing: Constants.space) {
-                setting.image
+                Image(asset: setting.imageAsset)
                     .frame(width: 52, height: 52)
                     .background(Color.backgroundSelected)
                     .cornerRadius(10)
@@ -35,30 +35,30 @@ private extension ObjectAction {
     var title: String {
         switch self {
         case .undoRedo:
-            return "Undo/Redo".localized
+            return Loc.undoRedo
         case let .archive(isArchived):
-            return isArchived ? "Restore".localized : "To Bin".localized
+            return isArchived ? Loc.restore : Loc.toBin
         case let .favorite(isFavorite):
-            return isFavorite ? "Unfavorite".localized : "Favorite".localized
+            return isFavorite ? Loc.unfavorite : Loc.favorite
         case let .locked(isLocked):
-            return isLocked ? "Unlock".localized : "Lock".localized
+            return isLocked ? Loc.unlock : Loc.lock
         case .duplicate:
-            return "Duplicate".localized
+            return Loc.duplicate
         }
     }
 
-    var image: Image {
+    var imageAsset: ImageAsset {
         switch self {
         case .undoRedo:
-            return .ObjectAction.undoRedo
+            return .undoredo
         case let .archive(isArchived):
-            return isArchived ? .ObjectAction.restore : .ObjectAction.archive
+            return isArchived ? .restore : .delete
         case let .favorite(isFavorite):
-            return isFavorite ? .ObjectAction.unfavorite : .ObjectAction.favorite
+            return isFavorite ? .unfavorite : .addToFavorites
         case let .locked(isLocked):
-            return isLocked ? .ObjectAction.unlock : .ObjectAction.lock
+            return isLocked ? .unlock : .lock
         case .duplicate:
-            return .ObjectAction.duplicate
+            return .duplicate
         }
     }
 }

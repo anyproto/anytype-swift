@@ -2,7 +2,7 @@ import SwiftUI
 
 struct SettingsSectionItemView: View {
     let name: String
-    let icon: Image
+    let imageAsset: ImageAsset
     
     @Binding var pressed: Bool
     
@@ -12,11 +12,11 @@ struct SettingsSectionItemView: View {
     var body: some View {
         Button(action: { pressed = true }) {
             HStack(alignment: .center, spacing: 0) {
-                icon.imageScale(.large).frame(width: iconWidth, height: iconWidth)
+                Image(asset: imageAsset).imageScale(.large).frame(width: iconWidth, height: iconWidth)
                 Spacer.fixedWidth(iconSpacing)
                 AnytypeText(name, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
-                Image.arrow
+                Image(asset: .arrowForward)
                     .renderingMode(.template)
                     .foregroundColor(.textTertiary)
             }
@@ -28,6 +28,6 @@ struct SettingsSectionItemView: View {
 
 struct SettingsSectionItemView_Preview: PreviewProvider {
     static var previews: some View {
-        SettingsSectionItemView(name: "keychain", icon: Image.settings.pin, pressed: .constant(false))
+        SettingsSectionItemView(name: "keychain", imageAsset: .settingsSetPinCode, pressed: .constant(false))
     }
 }

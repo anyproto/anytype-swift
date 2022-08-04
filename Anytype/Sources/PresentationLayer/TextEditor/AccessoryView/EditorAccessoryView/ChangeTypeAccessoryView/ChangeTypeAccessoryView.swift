@@ -55,12 +55,18 @@ class ChangeTypeAccessoryView: UIView {
             $0.centerY.equal(to: topView.centerYAnchor)
         }
 
+        let dividerView = UIView()
+        dividerView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        dividerView.backgroundColor = .strokePrimary
+
         stackView.axis = .vertical
         stackView.addArrangedSubview(topView)
+        stackView.addArrangedSubview(dividerView)
         stackView.addArrangedSubview(changeTypeView)
 
         let changeTypeViewHeightConstraint = changeTypeView.heightAnchor.constraint(equalToConstant: 96)
         changeTypeViewHeightConstraint.isActive = true
+        changeTypeViewHeightConstraint.priority = .init(rawValue: 999)
 
         changeTypeView.translatesAutoresizingMaskIntoConstraints = false
         translatesAutoresizingMaskIntoConstraints = false
@@ -95,7 +101,7 @@ class ChangeTypeAccessoryView: UIView {
             self?.viewModel.handleDoneButtonTap()
         }
 
-        button.setTitle("Done".localized, for: .normal)
+        button.setTitle(Loc.done, for: .normal)
         button.setTitleColor(UIColor.System.amber, for: .normal)
         button.addAction(primaryAction, for: .touchUpInside)
 
@@ -125,8 +131,8 @@ private final class ChangeButton: UIButton {
     }
 
     private func setup() {
-        setTitle("Change type".localized, for: .normal)
-        setImage(.codeBlock.arrow, for: .normal)
+        setTitle(Loc.changeType, for: .normal)
+        setImage(UIImage(asset: .TextEditor.turnIntoArrow), for: .normal)
         titleLabel?.font = .bodyRegular
         setTitleColor(.buttonActive, for: .normal)
         setTitleColor(.textPrimary, for: .highlighted)

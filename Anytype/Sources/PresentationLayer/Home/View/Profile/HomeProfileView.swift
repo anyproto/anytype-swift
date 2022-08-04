@@ -55,21 +55,23 @@ struct HomeProfileView: View {
     
     private var buttons: some View {
         HStack(spacing: 20) {
-            Button(action: model.startSearch) {
-                HomeProfileViewButtonImage(image: Image.main.search.renderingMode(.template)
-                                            .foregroundColor(.textPrimary))
+            Button(action: { model.startSearch() }) {
+                HomeProfileViewButtonImage(
+                    image: Image(asset: .mainSearch).renderingMode(.template).foregroundColor(.textPrimary)
+                )
 
             }
             Button(action: {
-                model.snackBarData = .init(text: "Home.Snackbar.Library".localized, showSnackBar: true)
+                model.snackBarData = .init(text: Loc.Home.Snackbar.library, showSnackBar: true)
             }) {
                 HomeProfileViewButtonImage(
-                    image: Image.main.marketplace.renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
+                    image: Image(asset: .marketplace).renderingMode(.template).foregroundColor(Color.gray.opacity(0.4))
                 )
             }
-            Button(action: model.createAndShowNewPage) {
-                HomeProfileViewButtonImage(image: Image.main.draft.renderingMode(.template)
-                                            .foregroundColor(.textPrimary))
+            Button(action: { model.createAndShowNewPage() } ) {
+                HomeProfileViewButtonImage(
+                    image: Image(asset: .draft).renderingMode(.template).foregroundColor(.textPrimary)
+                )
 
             }
         }
@@ -77,7 +79,7 @@ struct HomeProfileView: View {
     
     private func slogan(containerHeight: CGFloat) -> some View {
         Group {
-            AnytypeText("The future will be the one you build".localized, style: .title, color: .white)
+            AnytypeText(Loc.theFutureWillBeTheOneYouBuild, style: .title, color: .white)
                 .padding()
                 .multilineTextAlignment(.center)
                 .lineLimit(nil)
@@ -94,7 +96,12 @@ struct HomeProfileView: View {
 struct HomeProfileView_Previews: PreviewProvider {
     static var previews: some View {
         HomeProfileView()
-            .environmentObject(HomeViewModel(homeBlockId: UUID().uuidString))
+            .environmentObject(HomeViewModel.makeForPreview())
             .background(Color.System.blue)
+        
+        HomeProfileView()
+            .environmentObject(HomeViewModel.makeForPreview())
+            .background(Color.System.blue)
+            .redacted(reason: .placeholder)
     }
 }

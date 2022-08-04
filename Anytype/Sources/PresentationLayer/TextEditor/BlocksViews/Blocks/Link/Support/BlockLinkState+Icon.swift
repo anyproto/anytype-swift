@@ -6,7 +6,7 @@ extension BlockLinkState {
     
     func makeIconView() -> UIView? {
         if deleted {
-            return makeIconImageView(.ghost)
+            return makeIconImageView(UIImage(asset: .ghost))
         }
         
         switch style {
@@ -26,8 +26,7 @@ extension BlockLinkState {
                 
             }
         case let .checkmark(isChecked):
-            let image = isChecked ? UIImage.ObjectIcon.checkmark : UIImage.ObjectIcon.checkbox
-            
+            let image = UIImage(asset: isChecked ? .todoCheckmark : .todoCheckbox)
             return makeIconImageView(image)
         }
     }

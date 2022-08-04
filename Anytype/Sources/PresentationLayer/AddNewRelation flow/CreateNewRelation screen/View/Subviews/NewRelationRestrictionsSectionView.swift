@@ -14,7 +14,7 @@ struct NewRelationRestrictionsSectionView: View {
     }
     
     private var emptyView: some View {
-        AnytypeText("None".localized, style: .uxBodyRegular, color: .textPrimary)
+        AnytypeText(Loc.none, style: .uxBodyRegular, color: .textPrimary)
             .lineLimit(1)
     }
     

@@ -20,7 +20,7 @@ final class NewSearchSectionsBuilder {
             sections.append(
                 ListSectionConfiguration(
                     id: "localOptionsSectionID",
-                    title: "In this object".localized,
+                    title: Loc.inThisObject,
                     rows: rowsBuilder(localOptions)
                 )
             )
@@ -30,7 +30,7 @@ final class NewSearchSectionsBuilder {
             sections.append(
                 ListSectionConfiguration(
                     id: "otherOptionsSectionID",
-                    title: "Everywhere".localized,
+                    title: Loc.everywhere,
                     rows: rowsBuilder(otherOptions)
                 )
             )

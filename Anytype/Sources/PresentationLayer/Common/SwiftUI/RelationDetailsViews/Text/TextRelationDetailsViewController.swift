@@ -8,7 +8,7 @@ final class TextRelationDetailsViewController: UIViewController {
     private let textView = makeTextView()
     private let actionButton = UIButton(type: .custom)
     
-    private let viewModel: TextRelationDetailsViewModel
+    private let viewModel: TextRelationDetailsViewModelProtocol
     
     private var textViewTrailingConstraint: NSLayoutConstraint?
     private var textViewBottomConstraint: NSLayoutConstraint?
@@ -18,7 +18,7 @@ final class TextRelationDetailsViewController: UIViewController {
     
     // MARK: - Initializers
     
-    init(viewModel: TextRelationDetailsViewModel) {
+    init(viewModel: TextRelationDetailsViewModelProtocol) {
         self.viewModel = viewModel
         self.maxViewHeight = {
             guard let window = UIApplication.shared.keyWindow else {
@@ -125,6 +125,7 @@ private extension TextRelationDetailsViewController {
     
     func setupTextView() {
         textView.text = viewModel.value
+        textView.isEditable = viewModel.isEditable
         textView.keyboardType = viewModel.type.keyboardType
         textView.update(
             placeholder: NSAttributedString(
@@ -146,7 +147,8 @@ private extension TextRelationDetailsViewController {
         }
         
         actionButton.adjustsImageWhenHighlighted = false
-        actionButton.setImage(actionButtonViewModel.icon.withRenderingMode(.alwaysTemplate), for: .normal)
+        let image = UIImage(asset: actionButtonViewModel.iconAsset)?.withRenderingMode(.alwaysTemplate)
+        actionButton.setImage(image, for: .normal)
         actionButton.tintColor = .buttonActive
         
         actionButton.addAction(
@@ -197,7 +199,7 @@ private extension TextRelationDetailsViewController {
 extension TextRelationDetailsViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-        viewModel.value = textView.text
+        viewModel.updateValue(textView.text)
         updateActionButtonVisibility()
     }
     

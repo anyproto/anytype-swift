@@ -1,21 +1,32 @@
-//
-//  CreateObjectView.swift
-//  Anytype
-//
-//  Created by Denis Batvinkin on 20.05.2022.
-//  Copyright © 2022 Anytype. All rights reserved.
-//
-
 import UIKit
 
 final class CreateObjectView: UIView {
+    enum Style {
+        case `default`
+        case bookmark
+        
+        var placeholder: String {
+            switch self {
+            case .default: return Loc.untitled
+            case .bookmark: return Loc.Set.Bookmark.Create.placeholder
+            }
+        }
+    }
+    
     private let textField = UITextField()
-    private let button = ButtonsFactory.makeButton(image: .action.openToEdit)
+    private let button: ButtonWithImage
 
-    private let viewModel: CreateObjectViewModel
+    private let viewModel: CreateObjectViewModelProtocol
 
-    init(viewModel: CreateObjectViewModel) {
+    init(viewModel: CreateObjectViewModelProtocol) {
         self.viewModel = viewModel
+
+        switch viewModel.style {
+        case .default:
+            button = ButtonsFactory.makeButton(image: UIImage(asset: .openToEdit))
+        case .bookmark:
+            button = ButtonsFactory.makeButton(text: Loc.create, textStyle: .body)
+        }
 
         super.init(frame: .zero)
 
@@ -40,13 +51,15 @@ final class CreateObjectView: UIView {
         } builder: {
             $0.hStack(
                 textField,
-                $0.hGap(),
+                $0.hGap(fixed: 8),
                 button
             )
         }
 
-        button.widthAnchor.constraint(equalToConstant: 24).isActive = true
-        button.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        if viewModel.style == .default {
+            button.widthAnchor.constraint(equalToConstant: 24).isActive = true
+            button.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        }
         
         translatesAutoresizingMaskIntoConstraints = false
         let heightConstraint = heightAnchor.constraint(equalToConstant: 68)
@@ -58,7 +71,7 @@ final class CreateObjectView: UIView {
         button.addAction { [weak self] _ in
             guard let self = self else { return }
 
-            self.viewModel.openToEditAction(with: self.textField.text ?? .empty)
+            self.viewModel.actionButtonTapped(with: self.textField.text ?? .empty)
         }
     }
 
@@ -68,7 +81,7 @@ final class CreateObjectView: UIView {
         textField.autocapitalizationType = .none
         textField.font = .previewTitle1Medium
         textField.attributedPlaceholder = NSAttributedString(
-            string: "Untitled".localized,
+            string: viewModel.style.placeholder,
             attributes: [
                 .font: UIFont.previewTitle1Medium,
                 .foregroundColor: UIColor.textSecondary

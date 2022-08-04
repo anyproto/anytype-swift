@@ -1,6 +1,5 @@
 import Foundation
 
-
 public enum BlockContent: Hashable, CustomStringConvertible {
     case smartblock(BlockSmartblock)
     case text(BlockText)
@@ -13,6 +12,9 @@ public enum BlockContent: Hashable, CustomStringConvertible {
     case relation(BlockRelation)
     case dataView(BlockDataview)
     case tableOfContents
+    case table
+    case tableColumn
+    case tableRow(BlockTableRow)
     case unsupported
     
     public var type: BlockContentType {
@@ -39,6 +41,12 @@ public enum BlockContent: Hashable, CustomStringConvertible {
             return .dataView
         case .tableOfContents:
             return .tableOfContents
+        case .table:
+            return .table
+        case .tableColumn:
+            return .tableColumn
+        case .tableRow:
+            return .tableRow
         case .unsupported:
             return .text(.text)
         }
@@ -68,6 +76,12 @@ public enum BlockContent: Hashable, CustomStringConvertible {
             return "dataView"
         case .tableOfContents:
             return "tableOfContents"
+        case .table:
+            return "table"
+        case .tableColumn:
+            return "tableColumn"
+        case .tableRow:
+            return "tableRow"
         case .unsupported:
             return "unknown"
         }

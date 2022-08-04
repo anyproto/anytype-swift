@@ -25,7 +25,7 @@ struct SetHeaderSettings: View {
         Button(action: {
             model.showSetSettings()
         }) {
-            Image.set.settings
+            Image(asset: .setSettings)
         }
     }
 
@@ -33,7 +33,7 @@ struct SetHeaderSettings: View {
         Button(action: {
             model.createObject()
         }) {
-            Image.plus
+            Image(asset: .plus)
         }
     }
     
@@ -46,7 +46,7 @@ struct SetHeaderSettings: View {
             HStack(alignment: .center, spacing: 0) {
                 AnytypeText(model.activeView.name, style: .subheading, color: .textPrimary)
                 Spacer.fixedWidth(4)
-                Image.arrowDown.foregroundColor(.textPrimary)
+                Image(asset: .arrowDown).foregroundColor(.textPrimary)
             }
         }
     }

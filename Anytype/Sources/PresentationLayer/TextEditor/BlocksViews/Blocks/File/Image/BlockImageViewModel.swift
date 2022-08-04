@@ -51,7 +51,7 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         case .done:
             return BlockImageConfiguration(
                 fileData: fileData,
-                alignmetn: info.alignment,
+                alignmetn: info.horizontalAlignment,
                 maxWidth: maxWidth,
                 imageViewTapHandler: { [weak self] imageView in
                     self?.didTapOpenImage(imageView)
@@ -65,8 +65,8 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         
     private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
-            imageName: EmptyFileIconConstants.image,
-            text: "Upload a picture".localized,
+            imageAsset: .TextEditor.BlockFile.Empty.image,
+            text: Loc.uploadAPicture,
             state: state
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),

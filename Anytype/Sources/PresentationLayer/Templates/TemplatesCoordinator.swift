@@ -22,7 +22,7 @@ final class TemplatesCoordinator {
         rootViewController: UIViewController,
         keyboardHeightListener: KeyboardHeightListener,
         searchService: SearchServiceProtocol,
-        editorPageAssembly: EditorAssembly = EditorAssembly(browser: nil)
+        editorPageAssembly: EditorAssembly
     ) {
         self.rootViewController = rootViewController
         self.keyboardHeightListener = keyboardHeightListener
@@ -36,8 +36,8 @@ final class TemplatesCoordinator {
     ) {
         guard FeatureFlags.isTemplatesAvailable else { return }
 
-        let isDraft = document.details?.isDraft ?? false
-        guard isDraft, let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
+        let isSelectTemplate = document.details?.isSelectTemplate ?? false
+        guard isSelectTemplate, let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
             return
         }
         
@@ -92,7 +92,7 @@ final class TemplatesCoordinator {
             let item = info.element
             let data = EditorScreenData(pageId: item.id, type: .page, isOpenedForPreview: true)
 
-            let editorController = editorPageAssembly.buildEditorController(data: data, editorBrowserViewInput: nil)
+            let editorController = editorPageAssembly.buildEditorController(browser: nil, data: data, editorBrowserViewInput: nil)
 
             return TemplatePickerViewModel.Item(
                 id: info.offset,

@@ -10,6 +10,7 @@ import ProtobufMessages
 import AnytypeCore
 
 public struct ObjectType: Equatable, Hashable, Codable {
+    
     public let url: String
     public let name: String
     public let iconEmoji: Emoji
@@ -20,21 +21,26 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let isArchived: Bool
     
     public let smartBlockTypes: Set<SmartBlockType>
-}
-
-extension ObjectType {
     
-    public static let fallbackType: ObjectType = ObjectType(
-        url: ObjectTypeUrl.bundled(.note).rawValue,
-        name: "Note".localized,
-        iconEmoji: .default,
-        description: "Blank canvas with no title".localized,
-        hidden: false,
-        readonly: false,
-        isArchived: false,
-        smartBlockTypes: [.page]
-    )
-    
+    public init(
+        url: String,
+        name: String,
+        iconEmoji: Emoji,
+        description: String,
+        hidden: Bool,
+        readonly: Bool,
+        isArchived: Bool,
+        smartBlockTypes: Set<SmartBlockType>
+    ) {
+        self.url = url
+        self.name = name
+        self.iconEmoji = iconEmoji
+        self.description = description
+        self.hidden = hidden
+        self.readonly = readonly
+        self.isArchived = isArchived
+        self.smartBlockTypes = smartBlockTypes
+    }
 }
 
 extension ObjectType {

@@ -23,20 +23,10 @@ struct StatusRelationDetailsRowView: View {
                 Spacer()
                 
                 if selectedStatus == status {
-                    Image.optionChecked.foregroundColor(.textSecondary)
+                    Image(asset: .optionChecked).foregroundColor(.textSecondary)
                 }
             }
             .frame(height: 20)
         }
     }
 }
-
-//struct StatusRelationRowView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        StatusRelationDetailsRowView(
-//            status: Relation.Status.Option(id: "", text: "text", color: UIColor.System.teal, scope: .local),
-//            isSelected: true,
-//            onTap: {}
-//        )
-//    }
-//}

@@ -141,8 +141,14 @@ private extension BlockLinkView {
     }
 
     func setLayout(configuration: BlockLinkContentConfiguration) {
-        contentView.layer.borderColor = nil
-        contentView.layer.borderWidth = .zero
+        if let backgroundColor = configuration.backgroundColor, backgroundColor != .backgroundPrimary {
+            contentView.backgroundColor = backgroundColor
+            contentView.layer.borderWidth = .zero
+        } else {
+            contentView.backgroundColor = nil
+            contentView.layer.borderColor = UIColor.strokePrimary.cgColor
+            contentView.layer.borderWidth = 1
+        }
 
         guard !configuration.state.deleted else {
             setupTextLayout()
@@ -161,6 +167,7 @@ private extension BlockLinkView {
 
     func setupTextLayout() {
         contentView.layer.cornerRadius = 0
+        contentView.layer.borderWidth = .zero
         containerHeightConstraint.isActive = false
         stackView.alignment = Constants.TextLayout.stackAlignment
         titleView.numberOfLines = 1
@@ -177,12 +184,9 @@ private extension BlockLinkView {
         stackViewBottomConstraint.constant = Constants.TextLayout.stackViewEdgeInsets.bottom
     }
 
-    func setupCardLayout(backgroundColor: UIColor, iconInCenterY: Bool) {
-        if backgroundColor == .clear || backgroundColor == UIColor.backgroundPrimary {
-            contentView.layer.borderColor = UIColor.strokePrimary.cgColor
-            contentView.layer.borderWidth = 0.5
-        }
+    func setupCardLayout(backgroundColor: UIColor?, iconInCenterY: Bool) {
         contentView.layer.cornerRadius = 16
+        contentView.layer.masksToBounds = true
         containerHeightConstraint.isActive = true
         titleView.numberOfLines = 2
         stackView.alignment = Constants.CardLayout.stackAlignment

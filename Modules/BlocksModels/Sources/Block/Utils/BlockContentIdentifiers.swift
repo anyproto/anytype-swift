@@ -12,6 +12,9 @@ extension BlockContent {
         case .relation: return ".relation"
         case .dataView: return ".dataView"
         case .tableOfContents: return ".tableOfContents"
+        case .table: return ".table"
+        case .tableColumn: return ".tableColumn"
+        case .tableRow: return ".tableRow"
         case .unsupported: return "unsupported"
         }
     }

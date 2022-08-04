@@ -14,6 +14,8 @@ final class BlockBookmarkView: UIView, BlockContentView {
     }
 
     func update(with configuration: BlockBookmarkConfiguration) {
+        backgroundView.backgroundColor = configuration.backgroundColor
+
         apply(payload: configuration.payload)
     }
 

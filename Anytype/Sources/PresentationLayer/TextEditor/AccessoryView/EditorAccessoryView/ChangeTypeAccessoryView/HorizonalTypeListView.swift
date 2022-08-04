@@ -6,7 +6,6 @@ struct HorizonalTypeListView: View {
     @StateObject var viewModel: HorizonalTypeListViewModel
 
     var body: some View {
-        AnytypeDivider()
         ScrollView(.horizontal, showsIndicators: false) {
             LazyHStack(spacing: 0) {
                 ForEach(viewModel.items) { item in
@@ -46,17 +45,17 @@ private struct TypeView: View {
 
 struct HorizonalTypeListView_Previews: PreviewProvider {
     private final class ItemProvider: TypeListItemProvider {
-        var typesPublisher: AnyPublisher<[HorizonalTypeListViewModel.Item], Never> {
+        var typesPublisher: AnyPublisher<[HorizontalListItem], Never> {
             $items.eraseToAnyPublisher()
         }
 
-        @Published var items: [HorizonalTypeListViewModel.Item] =
-        [HorizonalTypeListViewModel.Item.searchItem {}]
+        @Published var items: [HorizontalListItem] =
+        [HorizontalListItem.searchItem {}]
     }
 
     static var previews: some View {
         HorizonalTypeListView(
-            viewModel: .init(itemProvider: ItemProvider(), searchHandler: {})
+            viewModel: .init(itemProvider: ItemProvider())
         )
         .previewLayout(.fixed(width: 300, height: 96))
     }

@@ -14,40 +14,40 @@ enum SlashMenuItemType {
     var title: String {
         switch self {
         case .style:
-            return "Style".localized
+            return Loc.style
         case .media:
-            return "Media".localized
+            return Loc.media
         case .objects:
-            return "Objects".localized
+            return Loc.objects
         case .relations:
-            return "Relations".localized
+            return Loc.relations
         case .other:
-            return "Other".localized
+            return Loc.other
         case .actions:
-            return "Actions".localized
+            return Loc.actions
         case .color:
-            return "Color".localized
+            return Loc.color
         case .background:
-            return "Background".localized
+            return Loc.background
         case .alignment:
-            return "Alignment".localized
+            return Loc.alignment
         }
     }
     
     var iconName: ObjectIconImage {
         switch self {
         case .style:
-            return .staticImage(ImageName.slashMenu.groups.style)
+            return .imageAsset(.slashMenuGroupStyle)
         case .media:
-            return .staticImage(ImageName.slashMenu.groups.media)
+            return .imageAsset(.slashMenuGroupMedia)
         case .objects:
-            return .staticImage(ImageName.slashMenu.groups.objects)
+            return .imageAsset(.slashMenuGroupObjects)
         case .relations:
-            return .staticImage(ImageName.slashMenu.groups.relation)
+            return .imageAsset(.slashMenuGroupRelation)
         case .other:
-            return .staticImage(ImageName.slashMenu.groups.other)
+            return .imageAsset(.slashMenuGroupOther)
         case .actions:
-            return .staticImage(ImageName.slashMenu.groups.actions)
+            return .imageAsset(.slashMenuGroupActions)
         case .color:
             let image = UIImage.circleImage(
                 size: .init(width: 22, height: 22),
@@ -65,7 +65,7 @@ enum SlashMenuItemType {
             )
             return .image(image)
         case .alignment:
-            return .staticImage(ImageName.slashMenu.groups.alignment)
+            return .imageAsset(.slashMenuAlignmentLeft)
         }
     }
 

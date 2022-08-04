@@ -21,95 +21,95 @@ enum SlashActionStyle: CaseIterable {
     var title: String {
         switch self {
         case .text:
-            return "Text".localized
+            return Loc.text
         case .title:
-            return "Title".localized
+            return Loc.title
         case .heading:
-            return "Heading".localized
+            return Loc.heading
         case .subheading:
-            return "Subheading".localized
+            return Loc.subheading
         case .highlighted:
-            return "Highlighted".localized
+            return Loc.highlighted
         case .callout:
-            return "Callout".localized
+            return Loc.callout
         case .checkbox:
-            return "Checkbox".localized
+            return Loc.checkbox
         case .bulleted:
-            return "Bulleted".localized
+            return Loc.bulleted
         case .numberedList:
-            return "Numbered list".localized
+            return Loc.numberedList
         case .toggle:
-            return "Toggle".localized
+            return Loc.toggle
         case .bold:
-            return "Bold".localized
+            return Loc.bold
         case .italic:
-            return "Italic".localized
+            return Loc.italic
         case .strikethrough:
-            return "Strikethrough".localized
+            return Loc.strikethrough
         case .code:
-            return "Code".localized
+            return Loc.code
         case .link:
-            return "Link".localized
+            return Loc.link
         }
     }
     
-    var iconName: String {
+    var iconAsset: ImageAsset {
         switch self {
         case .text:
-            return ImageName.slashMenu.style.text
+            return .slashMenuStyleText
         case .title:
-            return ImageName.slashMenu.style.title
+            return .slashMenuStyleTitle
         case .heading:
-            return ImageName.slashMenu.style.heading
+            return .slashMenuStyleHeading
         case .subheading:
-            return ImageName.slashMenu.style.subheading
+            return .slashMenuStyleSubheading
         case .highlighted:
-            return ImageName.slashMenu.style.highlighted
+            return .slashMenuStyleHighlighted
         case .callout:
-            return ImageName.slashMenu.style.callout
+            return .slashMenuStyleCallout
         case .checkbox:
-            return ImageName.slashMenu.style.checkbox
+            return .slashMenuStyleCheckbox
         case .bulleted:
-            return ImageName.slashMenu.style.bulleted
+            return .slashMenuStyleBulleted
         case .numberedList:
-            return ImageName.slashMenu.style.numbered
+            return .slashMenuStyleNumbered
         case .toggle:
-            return ImageName.slashMenu.style.toggle
+            return .slashMenuStyleToggle
         case .bold:
-            return ImageName.slashMenu.style.bold
+            return .slashMenuStyleBold
         case .italic:
-            return ImageName.slashMenu.style.italic
+            return .slashMenuStyleItalic
         case .strikethrough:
-            return ImageName.slashMenu.style.strikethrough
+            return .slashMenuStyleStrikethrough
         case .code:
-            return ImageName.slashMenu.style.code
+            return .slashMenuStyleCode
         case .link:
-            return ImageName.slashMenu.style.link
+            return .slashMenuStyleLink
         }
     }
     
     var subtitle: String? {
         switch self {
         case .text:
-            return "Text block subtitle".localized
+            return Loc.textBlockSubtitle
         case .title:
-            return "Title block subtitle".localized
+            return Loc.titleBlockSubtitle
         case .heading:
-            return "Heading block subtitle".localized
+            return Loc.headingBlockSubtitle
         case .subheading:
-            return "Subheading block subtitle".localized
+            return Loc.subheadingBlockSubtitle
         case .highlighted:
-            return "Spotlight, that needs special attention".localized
+            return Loc.spotlightThatNeedsSpecialAttention
         case .callout:
-            return "Bordered text with icon".localized
+            return Loc.borderedTextWithIcon
         case .checkbox:
-            return "Checkbox block subtitle".localized
+            return Loc.checkboxBlockSubtitle
         case .bulleted:
-            return "Bulleted block subtitle".localized
+            return Loc.bulletedBlockSubtitle
         case .numberedList:
-            return "Numbered block subtitle".localized
+            return Loc.numberedBlockSubtitle
         case .toggle:
-            return "Toggle block subtitle".localized
+            return Loc.toggleBlockSubtitle
         case .bold, .italic, .strikethrough, .code, .link:
             return nil
         }
