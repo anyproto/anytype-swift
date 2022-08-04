@@ -3,26 +3,20 @@ import SwiftUI
 import ProtobufMessages
 import BlocksModels
 import AnytypeCore
+import Combine
 
 final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewModelProtocol {
     weak var popup: AnytypePopupProxy?
     private let setModel: EditorSetViewModel
     private let service: DataviewServiceProtocol
     
+    var configuration: EditorSetViewSettingsConfiguration {
+        buildConfiguration(from: setModel.dataView)
+    }
+    
     init(setModel: EditorSetViewModel, service: DataviewServiceProtocol) {
         self.setModel = setModel
         self.service = service
-    }
-    
-    func onShowIconChange(_ show: Bool) {
-        let newView = setModel.activeView.updated(hideIcon: !show)
-        service.updateView(newView)
-    }
-    
-    func onRelationVisibleChange(_ relation: SetRelation, isVisible: Bool) {
-        let newOption = relation.option.updated(isVisible: isVisible)
-        let newView = setModel.activeView.updated(option: newOption)
-        service.updateView(newView)
     }
     
     func deleteRelations(indexes: IndexSet) {
@@ -71,6 +65,40 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
             }
             AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .set)
         }
+    }
+    
+    private func buildConfiguration(from dataView: BlockDataview) -> EditorSetViewSettingsConfiguration {
+        EditorSetViewSettingsConfiguration(
+            id: dataView.activeViewId,
+            settingsName: Loc.icon,
+            iconIsHidden: setModel.activeView.hideIcon,
+            relations: setModel.sortedRelations.map { relation in
+                EditorSetViewSettingsConfiguration.Relation(
+                    id: relation.id,
+                    image: relation.metadata.format.iconAsset,
+                    title: relation.metadata.name,
+                    isOn: relation.option.isVisible,
+                    isBundled: relation.metadata.isBundled,
+                    onChange: { [weak self] isVisible in
+                        self?.onRelationVisibleChange(relation, isVisible: isVisible)
+                    }
+                )
+            },
+            onSettingsChange: { [weak self] show in
+                self?.onShowIconChange(show)
+            }
+        )
+    }
+    
+    private func onRelationVisibleChange(_ relation: SetRelation, isVisible: Bool) {
+        let newOption = relation.option.updated(isVisible: isVisible)
+        let newView = setModel.activeView.updated(option: newOption)
+        service.updateView(newView)
+    }
+    
+    private func onShowIconChange(_ show: Bool) {
+        let newView = setModel.activeView.updated(hideIcon: !show)
+        service.updateView(newView)
     }
     
     // MARK: - AnytypePopupViewModelProtocol

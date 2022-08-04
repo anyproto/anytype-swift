@@ -1,5 +1,4 @@
 import SwiftUI
-import BlocksModels
 
 struct EditorSetViewSettingsView: View {
     @EnvironmentObject var setModel: EditorSetViewModel
@@ -59,8 +58,11 @@ struct EditorSetViewSettingsView: View {
             AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .textPrimary)
             Spacer.fixedHeight(12)
             
-            AnytypeToggle(title: Loc.icon, isOn: !setModel.activeView.hideIcon) {
-                model.onShowIconChange($0)
+            AnytypeToggle(
+                title: model.configuration.settingsName,
+                isOn: !model.configuration.iconIsHidden
+            ) {
+                model.configuration.onSettingsChange($0)
             }
             .padding(.bottom, 10)
             .padding(.top, 2)
@@ -76,9 +78,9 @@ struct EditorSetViewSettingsView: View {
     }
     
     private var relationsSection: some View {
-        ForEach(setModel.sortedRelations) { relation in
+        ForEach(model.configuration.relations) { relation in
             relationRow(relation)
-                .deleteDisabled(relation.metadata.isBundled)
+                .deleteDisabled(relation.isBundled)
         }
         .onDelete { indexes in
             model.deleteRelations(indexes: indexes)
@@ -88,16 +90,16 @@ struct EditorSetViewSettingsView: View {
         }
     }
     
-    private func relationRow(_ relation: SetRelation) -> some View {
+    private func relationRow(_ relation: EditorSetViewSettingsConfiguration.Relation) -> some View {
         HStack(spacing: 0) {
-            Image(asset: relation.metadata.format.iconAsset)
+            Image(asset: relation.image)
                 .frame(width: 24, height: 24)
             Spacer.fixedWidth(10)
             AnytypeToggle(
-                title: relation.metadata.name,
-                isOn: relation.option.isVisible
+                title: relation.title,
+                isOn: relation.isOn
             ) {
-                model.onRelationVisibleChange(relation, isVisible: $0)
+                relation.onChange($0)
             }
         }
         .padding(.bottom, 10)
