@@ -10,13 +10,13 @@ struct SimpleTableMenuModel {
     }
 
     let tabs: [TabModel]
-    let items: [HorizontalListItem]
+    let items: [SelectionOptionsItemViewModel]
     let onDone: () -> Void
 }
 
-final class SimpleTableMenuViewModel: ObservableObject, TypeListItemProvider {
-    var typesPublisher: AnyPublisher<[HorizontalListItem], Never> { $items.eraseToAnyPublisher() }
-    @Published var items = [HorizontalListItem]()
+final class SimpleTableMenuViewModel: ObservableObject, OptionsItemProvider {
+    var optionsPublisher: AnyPublisher<[SelectionOptionsItemViewModel], Never> { $items.eraseToAnyPublisher() }
+    @Published var items = [SelectionOptionsItemViewModel]()
     @Published var tabModels = [SimpleTableMenuModel.TabModel]()
 
     func update(with model: SimpleTableMenuModel) {

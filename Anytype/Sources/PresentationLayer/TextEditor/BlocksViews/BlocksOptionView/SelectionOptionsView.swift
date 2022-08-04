@@ -2,7 +2,7 @@ import SwiftUI
 
 // https://www.figma.com/file/TupCOWb8sC9NcjtSToWIkS/Mobile---main?node-id=5469%3A0
 struct SelectionOptionsView: View {
-    @ObservedObject var viewModel: HorizonalTypeListViewModel
+    @ObservedObject var viewModel: SelectionOptionsViewModel
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -12,7 +12,7 @@ struct SelectionOptionsView: View {
                         item.action()
                     } label: {
                         SelectionOptionsItemView(
-                            image: item.image,
+                            imageAsset: item.imageAsset,
                             title: item.title
                         )
                     }
@@ -26,15 +26,12 @@ struct SelectionOptionsView: View {
 }
 
 private struct SelectionOptionsItemView: View {
-    let image: ObjectIconImage
+    let imageAsset: ImageAsset
     let title: String
 
     var body: some View {
         VStack(spacing: 5) {
-            SwiftUIObjectIconImageView(
-                iconImage: image,
-                usecase: .editorMenu
-            )
+            Image(asset: imageAsset)
                 .frame(width: 52, height: 52)
                 .background(Color.backgroundSelected)
                 .cornerRadius(10.5)

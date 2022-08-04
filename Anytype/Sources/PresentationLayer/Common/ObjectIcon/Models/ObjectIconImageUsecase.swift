@@ -9,8 +9,6 @@ enum ObjectIconImageUsecase: Equatable {
     case editorSearch // slash menu + mention
     case editorSearchExpandedIcons
     case editorCalloutBlock
-
-    case editorMenu
     
     case dashboardList
     case dashboardProfile

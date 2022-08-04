@@ -78,7 +78,7 @@ final class EditorAssembly {
         data: EditorScreenData
     ) -> (EditorPageController, EditorRouterProtocol) {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
-        let blocksOptionViewModel = HorizonalTypeListViewModel(itemProvider: nil)
+        let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
 
         let blocksSelectionOverlayView = buildBlocksSelectionOverlayView(
             simleTableMenuViewModel: simpleTableMenuViewModel,
@@ -118,7 +118,7 @@ final class EditorAssembly {
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter,
-        blocksOptionViewModel: HorizonalTypeListViewModel,
+        blocksOptionViewModel: SelectionOptionsViewModel,
         simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         isOpenedForPreview: Bool
@@ -247,7 +247,7 @@ final class EditorAssembly {
 
     private func buildBlocksSelectionOverlayView(
         simleTableMenuViewModel: SimpleTableMenuViewModel,
-        blockOptionsViewViewModel: HorizonalTypeListViewModel
+        blockOptionsViewViewModel: SelectionOptionsViewModel
     ) -> BlocksSelectionOverlayView {
         let blocksOptionView = SelectionOptionsView(viewModel: blockOptionsViewViewModel)
         let blocksSelectionOverlayViewModel = BlocksSelectionOverlayViewModel()
