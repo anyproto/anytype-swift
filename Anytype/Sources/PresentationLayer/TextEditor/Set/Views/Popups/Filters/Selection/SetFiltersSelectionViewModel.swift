@@ -25,7 +25,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     
     private(set) var popupLayout: AnytypePopupLayoutType = .fullScreen {
         didSet {
-            popup?.updateLayout(true)
+            popup?.updateLayout(false)
         }
     }
     private weak var popup: AnytypePopupProxy?
@@ -66,10 +66,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
             },
             onKeyboardHeightChange: { [weak self] height in
                 self?.keyboardHeight = height
-                // fix simultaneous update of popup height and content
-                DispatchQueue.main.async {
-                    self?.updateLayout()
-                }
+                self?.updateLayout()
             }
         )
     }

@@ -608,7 +608,7 @@ extension EditorRouter {
             viewModel: EditorSetSettingsViewModel(setModel: setModel),
             floatingPanelStyle: true,
             configuration: .init(
-                isGrabberVisible: false,
+                isGrabberVisible: true,
                 dismissOnBackdropView: false,
                 skipThroughGestures: true
             )
