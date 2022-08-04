@@ -47,6 +47,7 @@ final class EditorNavigationBarHelper {
 
         self.fakeNavigationBarBackgroundView.backgroundColor = .backgroundPrimary
         self.fakeNavigationBarBackgroundView.alpha = 0.0
+        self.fakeNavigationBarBackgroundView.layer.zPosition = 1
         
         self.navigationBarTitleView.setAlphaForSubviews(0.0)
     }

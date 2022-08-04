@@ -301,6 +301,10 @@ extension EditorPageController: EditorPageViewInput {
 
         reloadCell(for: .block(newItem))
     }
+    
+    func dragAndDropActive(_ active: Bool) {
+        browserViewInput?.dragAndDropActive(active, target: collectionView)
+    }
 }
 
 // MARK: - Private extension
