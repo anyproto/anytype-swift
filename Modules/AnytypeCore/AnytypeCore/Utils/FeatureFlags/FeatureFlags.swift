@@ -53,7 +53,7 @@ public final class FeatureFlags {
         .floatingSetMenu: false,
         .simpleTables: true,
         .objectDuplicate: true,
-        .relationDetails: false
+        .relationDetails: true
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -126,6 +126,6 @@ public extension FeatureFlags {
     }
     
     static var relationDetails: Bool {
-        features[.relationDetails, default: false]
+        features[.relationDetails, default: true]
     }
 }
