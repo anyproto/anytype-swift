@@ -132,6 +132,6 @@ public extension FeatureFlags {
     }
     
     static var relationDetails: Bool {
-        features[.relationDetails, default: false]
+        features[.relationDetails, default: true]
     }
 }
