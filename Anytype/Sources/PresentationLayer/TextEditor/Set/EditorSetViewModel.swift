@@ -308,7 +308,8 @@ extension EditorSetViewModel {
             AnytypePopup(
                 viewModel: EditorSetViewSettingsViewModel(
                     setModel: self,
-                    service: dataviewService
+                    service: dataviewService,
+                    router: router
                 )
             )
         )

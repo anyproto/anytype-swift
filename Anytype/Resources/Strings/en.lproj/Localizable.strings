@@ -357,6 +357,9 @@
 
 // MARK: - Sets: View Settings
 "Set.View.Settings.ImageFit.Title" = "Fit image";
+"Set.View.Settings.CardSize.Title" = "Card size";
+"Set.View.Settings.CardSize.Small.Title" = "Small";
+"Set.View.Settings.CardSize.Large.Title" = "Large";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";

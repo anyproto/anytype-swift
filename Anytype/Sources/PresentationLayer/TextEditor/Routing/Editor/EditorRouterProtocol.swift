@@ -85,4 +85,6 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         selectedColor: UIColor?,
         selectedBackgroundColor: UIColor?
     )
+    
+    func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
 }

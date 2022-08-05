@@ -9,14 +9,16 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
     weak var popup: AnytypePopupProxy?
     private let setModel: EditorSetViewModel
     private let service: DataviewServiceProtocol
+    private let router: EditorRouterProtocol
     
     var configuration: EditorSetViewSettingsConfiguration {
         buildConfiguration(from: setModel.dataView)
     }
     
-    init(setModel: EditorSetViewModel, service: DataviewServiceProtocol) {
+    init(setModel: EditorSetViewModel, service: DataviewServiceProtocol, router: EditorRouterProtocol) {
         self.setModel = setModel
         self.service = service
+        self.router = router
     }
     
     func deleteRelations(indexes: IndexSet) {
@@ -69,6 +71,13 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
     
     private func buildConfiguration(from dataView: BlockDataview) -> EditorSetViewSettingsConfiguration {
         EditorSetViewSettingsConfiguration(
+            cardSizeSetting: EditorSetViewSettingsCardSize(
+                title: Loc.Set.View.Settings.CardSize.title,
+                value: setModel.activeView.cardSize.value,
+                onTap: { [weak self] in
+                    self?.showCardSizes()
+                }
+            ),
             iconSetting: EditorSetViewSettingsToggleItem(
                 title: Loc.icon,
                 isSelected: setModel.activeView.hideIcon,
@@ -113,6 +122,20 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
     private func onCoverFitChange(_ fit: Bool) {
         let newView = setModel.activeView.updated(coverFit: fit)
         service.updateView(newView)
+    }
+    
+    private func onCardSizeChange(_ size: DataviewViewSize) {
+        let newView = setModel.activeView.updated(cardSize: size)
+        service.updateView(newView)
+    }
+    
+    private func showCardSizes() {
+        router.showCardSizes(
+            size: setModel.activeView.cardSize,
+            onSelect: { [weak self] size in
+                self?.onCardSizeChange(size)
+            }
+        )
     }
     
     // MARK: - AnytypePopupViewModelProtocol

@@ -63,6 +63,7 @@ struct EditorSetViewSettingsView: View {
     private var settingsSection: some View {
         Group {
             if model.configuration.needShowAllSettings {
+                cardSizeSetting
                 iconSettings
                 coverFitSettings
             } else {
@@ -75,6 +76,24 @@ struct EditorSetViewSettingsView: View {
         AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .textPrimary)
             .frame(height: 52)
             .divider()
+    }
+    
+    private var cardSizeSetting: some View {
+        Button {
+            model.configuration.cardSizeSetting.onTap()
+        } label: {
+            HStack(spacing: 0) {
+                AnytypeText(model.configuration.cardSizeSetting.title, style: .uxBodyRegular, color: .textPrimary)
+                Spacer()
+                AnytypeText(model.configuration.cardSizeSetting.value, style: .uxBodyRegular, color: .textSecondary)
+                Spacer.fixedWidth(11)
+                Image(asset: .arrowForward)
+                    .renderingMode(.template)
+                    .foregroundColor(.textSecondary)
+            }
+        }
+        .frame(height: 52)
+        .divider()
     }
     
     private var iconSettings: some View {

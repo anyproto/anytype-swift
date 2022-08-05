@@ -37,6 +37,7 @@ public struct DataviewView: Hashable, Identifiable {
     public func updated(
         hideIcon: Bool? = nil,
         coverFit: Bool? = nil,
+        cardSize: DataviewViewSize? = nil,
         options: [DataviewRelationOption]? = nil,
         sorts: [DataviewSort]? = nil,
         filters: [DataviewFilter]? = nil
@@ -50,7 +51,7 @@ public struct DataviewView: Hashable, Identifiable {
             filters: filters ?? self.filters,
             coverRelationKey: coverRelationKey,
             hideIcon: hideIcon ?? self.hideIcon,
-            cardSize: cardSize,
+            cardSize: cardSize ?? self.cardSize,
             coverFit: coverFit ?? self.coverFit
         )
     }

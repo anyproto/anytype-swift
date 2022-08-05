@@ -635,6 +635,20 @@ extension EditorRouter {
             )
         )
     }
+    
+    func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void) {
+        let view = CheckPopupView(
+            viewModel: EditorSetViewSettingsCardSizeViewModel(
+                selectedSize: size,
+                onSelect: onSelect
+            )
+        )
+        presentSheet(
+            AnytypePopup(
+                contentView: view
+            )
+        )
+    }
 }
 
 
