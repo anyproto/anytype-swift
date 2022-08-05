@@ -16,12 +16,10 @@ extension EditorPageController: UICollectionViewDropDelegate {
         )
 
         dividerCursorController.movingMode = .none
-        dragAndDropActive(false)
     }
 
     func collectionView(_ collectionView: UICollectionView, dropSessionDidEnd session: UIDropSession) {
         dividerCursorController.movingMode = .none
-        dragAndDropActive(false)
     }
 
     func collectionView(
@@ -30,7 +28,6 @@ extension EditorPageController: UICollectionViewDropDelegate {
         withDestinationIndexPath destinationIndexPath: IndexPath?
     ) -> UICollectionViewDropProposal {
         dividerCursorController.movingMode = .dragNdrop
-        dragAndDropActive(true)
         
         let indexPath = desiredIndexPath(using: destinationIndexPath)
 

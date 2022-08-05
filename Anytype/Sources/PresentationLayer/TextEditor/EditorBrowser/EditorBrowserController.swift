@@ -12,7 +12,7 @@ protocol EditorBrowser: AnyObject {
 protocol EditorBrowserViewInputProtocol: AnyObject {
     func multiselectActive(_ active: Bool)
     func onScroll(bottom: Bool)
-    func dragAndDropActive(_ active: Bool, target: UIView?)
+    func didShow(collectionView: UICollectionView)
 }
 
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
@@ -151,8 +151,8 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         updateNavigationVisibility(animated: true)
     }
     
-    func dragAndDropActive(_ active: Bool, target: UIView?) {
-        browserView.forwardTouchesView = active ? target : nil
+    func didShow(collectionView: UICollectionView) {
+        browserView.childCollectionView = collectionView
     }
     
     private func updateNavigationVisibility(animated: Bool) {

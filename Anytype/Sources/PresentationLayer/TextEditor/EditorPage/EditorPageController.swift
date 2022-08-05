@@ -119,6 +119,7 @@ final class EditorPageController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.viewDidAppear()
+        browserViewInput?.didShow(collectionView: collectionView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -359,12 +360,7 @@ extension EditorPageController: EditorPageViewInput {
         case .header, .system:
             return
         }
-
         handleState(state: viewModel.blocksStateManager.editingState)
-    }
-    
-    func dragAndDropActive(_ active: Bool) {
-        browserViewInput?.dragAndDropActive(active, target: collectionView)
     }
 }
 
