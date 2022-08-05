@@ -522,6 +522,11 @@ private extension EditorPageController {
             } else {
                 cell.contentConfiguration = contentConfiguration
             }
+            
+            var backgroundConfiguration = UIBackgroundConfiguration.clear()
+            backgroundConfiguration.backgroundColor = .backgroundPrimary
+            
+            cell.backgroundConfiguration = backgroundConfiguration
         }
     }
     
@@ -534,6 +539,10 @@ private extension EditorPageController {
     func createSystemCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, SystemContentConfiguationProvider> {
         .init { (cell, indexPath, item) in
             cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
+            var backgroundConfiguration = UIBackgroundConfiguration.clear()
+            backgroundConfiguration.backgroundColor = .backgroundPrimary
+            cell.isUserInteractionEnabled = false
+            cell.backgroundConfiguration = backgroundConfiguration
         }
     }
     
