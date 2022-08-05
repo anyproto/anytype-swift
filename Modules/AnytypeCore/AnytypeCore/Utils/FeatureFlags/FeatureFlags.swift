@@ -7,7 +7,6 @@ public enum Feature: String, Codable {
     case uikitRelationBlocks = "UIKit relation blocks"
     case clipboard = "Clipboard"
     case objectPreview = "Object preview"
-    case deletion = "Account deletion"
     case createNewRelation = "Create new relation"
     case templates = "Show templates picker"
     case createObjectInSet = "Create object in Set"
@@ -45,7 +44,6 @@ public final class FeatureFlags {
         .clipboard: true,
         .uikitRelationBlocks: true,
         .objectPreview: false,
-        .deletion: true,
         .createNewRelation: true,
         .templates: true,
         .createObjectInSet: true,
@@ -93,10 +91,6 @@ public extension FeatureFlags {
 
     static var objectPreview: Bool {
         features[.objectPreview, default: false]
-    }
-    
-    static var deletion: Bool {
-        features[.deletion, default: true]
     }
     
     static var createNewRelation: Bool {

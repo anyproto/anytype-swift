@@ -64,11 +64,11 @@ struct SettingsAccountView: View {
     private var accountBlock: some View {
         VStack(spacing: 0) {
             section(Loc.account)
-            if FeatureFlags.deletion {
-                SettingsButton(text: Loc.deleteAccount, textColor: .textPrimary) {
-                    model.accountDeleting = true
-                }
+            
+            SettingsButton(text: Loc.deleteAccount, textColor: .textPrimary) {
+                model.accountDeleting = true
             }
+            
             SettingsButton(text: Loc.logOut, textColor: .System.red) {
                 model.loggingOut = true
             }
