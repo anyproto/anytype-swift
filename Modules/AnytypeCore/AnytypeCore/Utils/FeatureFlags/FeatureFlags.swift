@@ -55,7 +55,7 @@ public final class FeatureFlags {
         .floatingSetMenu: false,
         .simpleTables: true,
         .objectDuplicate: true,
-        .relationDetails: false
+        .relationDetails: true
     ]
     
     public static func update(key: Feature, value: Bool) {
