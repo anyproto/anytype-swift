@@ -1066,6 +1066,14 @@ internal enum Loc {
         }
       }
     }
+    internal enum View {
+      internal enum Settings {
+        internal enum ImageFit {
+          /// Fit image
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImageFit.Title")
+        }
+      }
+    }
   }
 
   internal enum SimpleTableMenu {

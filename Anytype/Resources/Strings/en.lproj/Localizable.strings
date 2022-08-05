@@ -355,6 +355,9 @@
 "Set.Bookmark.Error.Title" = "Oops - something went wrong";
 "Set.Bookmark.Error.Message" = "Please try again";
 
+// MARK: - Sets: View Settings
+"Set.View.Settings.ImageFit.Title" = "Fit image";
+
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";

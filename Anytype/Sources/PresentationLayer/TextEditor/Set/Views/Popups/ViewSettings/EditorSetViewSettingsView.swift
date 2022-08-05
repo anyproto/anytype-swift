@@ -8,7 +8,6 @@ struct EditorSetViewSettingsView: View {
     var body: some View {
         NavigationView {
             content
-                .padding(.horizontal, 20)
         }
         .background(Color.backgroundSecondary)
         .navigationViewStyle(.stack)
@@ -19,20 +18,19 @@ struct EditorSetViewSettingsView: View {
     
     private var content: some View {
         List {
-            VStack(spacing: 0) {
-                settingsSection
-                relationsHeader
+            if #available(iOS 15.0, *) {
+                listContent
+                .listRowSeparator(.hidden)
+            } else {
+                listContent
             }
-            relationsSection
         }
         .environment(\.editMode, $editMode)
         
         .navigationViewStyle(.stack)
         .navigationBarTitleDisplayMode(.inline)
         
-        .padding(.horizontal, -15) // list internal padding
         .listStyle(.plain)
-        .listRowInsets(EdgeInsets())
         .buttonStyle(BorderlessButtonStyle())
         
         .toolbar {
@@ -52,35 +50,66 @@ struct EditorSetViewSettingsView: View {
         }
     }
     
-    private var settingsSection: some View {
+    private var listContent: some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(12)
-            AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .textPrimary)
-            Spacer.fixedHeight(12)
-            
-            AnytypeToggle(
-                title: model.configuration.settingsName,
-                isOn: !model.configuration.iconIsHidden
-            ) {
-                model.configuration.onSettingsChange($0)
+            settingsHeader
+            settingsSection
+            relationsHeader
+            relationsSection
+        }
+        .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
+    }
+    
+    private var settingsSection: some View {
+        Group {
+            if model.configuration.needShowAllSettings {
+                iconSettings
+                coverFitSettings
+            } else {
+                iconSettings
             }
-            .padding(.bottom, 10)
-            .padding(.top, 2)
         }
     }
     
-    private var relationsHeader: some View {
-        VStack(spacing: 0) {
-            Spacer.fixedHeight(12)
-            AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .textPrimary)
-            Spacer.fixedHeight(12)
+    private var settingsHeader: some View {
+        AnytypeText(Loc.settings, style: .uxTitle1Semibold, color: .textPrimary)
+            .frame(height: 52)
+            .divider()
+    }
+    
+    private var iconSettings: some View {
+        AnytypeToggle(
+            title: model.configuration.iconSetting.title,
+            isOn: !model.configuration.iconSetting.isSelected
+        ) {
+            model.configuration.iconSetting.onChange($0)
         }
+        .frame(height: 52)
+        .divider()
+    }
+    
+    private var coverFitSettings: some View {
+        AnytypeToggle(
+            title: model.configuration.coverFitSetting.title,
+            isOn: model.configuration.coverFitSetting.isSelected
+        ) {
+            model.configuration.coverFitSetting.onChange($0)
+        }
+        .frame(height: 52)
+        .divider()
+    }
+    
+    private var relationsHeader: some View {
+        AnytypeText(Loc.relations, style: .uxTitle1Semibold, color: .textPrimary)
+            .frame(height: 52)
+            .divider()
     }
     
     private var relationsSection: some View {
         ForEach(model.configuration.relations) { relation in
             relationRow(relation)
                 .deleteDisabled(relation.isBundled)
+                .divider()
         }
         .onDelete { indexes in
             model.deleteRelations(indexes: indexes)
@@ -90,7 +119,7 @@ struct EditorSetViewSettingsView: View {
         }
     }
     
-    private func relationRow(_ relation: EditorSetViewSettingsConfiguration.Relation) -> some View {
+    private func relationRow(_ relation: EditorSetViewSettingsRelation) -> some View {
         HStack(spacing: 0) {
             Image(asset: relation.image)
                 .frame(width: 24, height: 24)
@@ -102,7 +131,6 @@ struct EditorSetViewSettingsView: View {
                 relation.onChange($0)
             }
         }
-        .padding(.bottom, 10)
-        .padding(.top, 2)
+        .frame(height: 52)
     }
 }

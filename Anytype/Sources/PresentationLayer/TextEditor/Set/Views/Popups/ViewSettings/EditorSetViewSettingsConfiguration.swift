@@ -1,23 +1,13 @@
-struct EditorSetViewSettingsConfiguration: Identifiable, Equatable {
-    struct Relation: Identifiable, Equatable {
-        let id: String
-        let image: ImageAsset
-        let title: String
-        let isOn: Bool
-        let isBundled: Bool
-        @EquatableNoop var onChange: (Bool) -> Void
-    }
-    let id: String
-    let settingsName: String
-    let iconIsHidden: Bool
-    let relations: [Relation]
-    @EquatableNoop var onSettingsChange: (Bool) -> Void
+struct EditorSetViewSettingsConfiguration {
+    let iconSetting: EditorSetViewSettingsToggleItem
+    let coverFitSetting: EditorSetViewSettingsToggleItem
+    let relations: [EditorSetViewSettingsRelation]
+    let needShowAllSettings: Bool
     
     static let empty: EditorSetViewSettingsConfiguration = EditorSetViewSettingsConfiguration(
-        id: "",
-        settingsName: "",
-        iconIsHidden: true,
+        iconSetting: EditorSetViewSettingsToggleItem(title: "", isSelected: false, onChange: { _ in }),
+        coverFitSetting: EditorSetViewSettingsToggleItem(title: "", isSelected: false, onChange: { _ in }),
         relations: [],
-        onSettingsChange: { _ in }
+        needShowAllSettings: false
     )
 }

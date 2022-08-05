@@ -69,11 +69,22 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
     
     private func buildConfiguration(from dataView: BlockDataview) -> EditorSetViewSettingsConfiguration {
         EditorSetViewSettingsConfiguration(
-            id: dataView.activeViewId,
-            settingsName: Loc.icon,
-            iconIsHidden: setModel.activeView.hideIcon,
+            iconSetting: EditorSetViewSettingsToggleItem(
+                title: Loc.icon,
+                isSelected: setModel.activeView.hideIcon,
+                onChange: { [weak self] show in
+                    self?.onShowIconChange(show)
+                }
+            ),
+            coverFitSetting: EditorSetViewSettingsToggleItem(
+                title: Loc.Set.View.Settings.ImageFit.title,
+                isSelected: setModel.activeView.coverFit,
+                onChange: { [weak self] fit in
+                    self?.onCoverFitChange(fit)
+                }
+            ),
             relations: setModel.sortedRelations.map { relation in
-                EditorSetViewSettingsConfiguration.Relation(
+                EditorSetViewSettingsRelation(
                     id: relation.id,
                     image: relation.metadata.format.iconAsset,
                     title: relation.metadata.name,
@@ -84,9 +95,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
                     }
                 )
             },
-            onSettingsChange: { [weak self] show in
-                self?.onShowIconChange(show)
-            }
+            needShowAllSettings: setModel.activeView.type == .gallery
         )
     }
     
@@ -98,6 +107,11 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
     
     private func onShowIconChange(_ show: Bool) {
         let newView = setModel.activeView.updated(hideIcon: !show)
+        service.updateView(newView)
+    }
+    
+    private func onCoverFitChange(_ fit: Bool) {
+        let newView = setModel.activeView.updated(coverFit: fit)
         service.updateView(newView)
     }
     
