@@ -28,7 +28,6 @@ extension EditorPageController: UICollectionViewDropDelegate {
         withDestinationIndexPath destinationIndexPath: IndexPath?
     ) -> UICollectionViewDropProposal {
         dividerCursorController.movingMode = .dragNdrop
-        
         let indexPath = desiredIndexPath(using: destinationIndexPath)
 
         guard viewModel.blocksStateManager.canPlaceDividerAtIndexPath(indexPath) else {

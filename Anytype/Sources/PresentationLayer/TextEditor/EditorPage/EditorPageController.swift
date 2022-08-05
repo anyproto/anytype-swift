@@ -360,6 +360,7 @@ extension EditorPageController: EditorPageViewInput {
         case .header, .system:
             return
         }
+
         handleState(state: viewModel.blocksStateManager.editingState)
     }
 }
