@@ -1,18 +1,23 @@
 import Foundation
-import os
 
-public struct LoggerCategory: ExpressibleByStringLiteral {
+public struct EventLoggerCategory: ExpressibleByStringLiteral {
     public let category: String
 
     public init(category: String) {
         self.category = category
     }
-    
+
     public init(stringLiteral value: String) {
         self = .init(category: value)
     }
 }
 
-public extension LoggerCategory {
+public extension EventLoggerCategory {
     static let `default`: Self = "default"
+}
+
+public extension EventLogger {
+   convenience init(category: EventLoggerCategory) {
+       self.init(category: category.category)
+    }
 }

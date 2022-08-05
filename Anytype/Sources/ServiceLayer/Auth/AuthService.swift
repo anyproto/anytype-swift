@@ -43,10 +43,6 @@ final class AuthService: AuthServiceProtocol {
             .mapError { _ in AuthServiceError.createWalletError }
             .map { $0.mnemonic }
         
-        if let mnemonic = result.getValue(domain: .authService) {
-            AnytypeLogger.create("Services.AuthService").debugPrivate("seed:", arg: mnemonic)
-        }
-        
         return result
     }
 

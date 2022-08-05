@@ -1,5 +1,6 @@
 import SwiftUI
 import AnytypeCore
+import Logger
 
 struct DebugMenu: View {
     @State private var flags = FeatureFlags.features.sorted { $0.0.rawValue < $1.0.rawValue }
@@ -64,7 +65,7 @@ struct DebugMenu: View {
         }
         .padding(.horizontal)
         .padding()
-        .sheet(isPresented: $showLogs) { EventsLogView(viewModel: .init()) }
+        .sheet(isPresented: $showLogs) { LoggerUI.makeView() }
         .sheet(isPresented: $showTypography) { TypographyExample() }
         .sheet(isPresented: $showFeedbackGenerators) {
             FeedbackGeneratorExamplesView()

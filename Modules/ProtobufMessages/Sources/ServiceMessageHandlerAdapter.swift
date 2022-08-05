@@ -4,7 +4,7 @@ import SwiftProtobuf
 
 /// Adapts interface of private framework.
 public protocol ServiceEventsHandlerProtocol: AnyObject {
-    func handle(_ data: Data?)
+    func handle(_ event: Anytype_Event)
 }
 
 /// Provides the following functionality
@@ -47,7 +47,22 @@ public class ServiceMessageHandlerAdapter: NSObject {
 
 /// Private `ServiceMessageHandlerProtocol` adoption.
 extension ServiceMessageHandlerAdapter: ServiceMessageHandlerProtocol {
-    public func handle(_ b: Data?) {
-        self.value?.handle(b)
+    public func handle(_ data: Data?) {
+        guard let data = data,
+              let event = try? Anytype_Event(serializedData: data)
+        else { return }
+
+        log(event: event)
+        self.value?.handle(event)
+    }
+    
+    private func log(event: Anytype_Event) {
+        let message = InvocationMessage(
+            name: "Callback",
+            requestJsonData: nil,
+            responseJsonData: try? event.jsonUTF8Data(),
+            responseError: nil
+        )
+        InvocationSettings.handler?.handle(message: message)
     }
 }
