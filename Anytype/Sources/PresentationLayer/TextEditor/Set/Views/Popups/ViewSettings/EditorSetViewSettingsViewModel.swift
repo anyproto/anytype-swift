@@ -3,7 +3,6 @@ import SwiftUI
 import ProtobufMessages
 import BlocksModels
 import AnytypeCore
-import Combine
 
 final class EditorSetViewSettingsViewModel: ObservableObject {
     private let setModel: EditorSetViewModel
