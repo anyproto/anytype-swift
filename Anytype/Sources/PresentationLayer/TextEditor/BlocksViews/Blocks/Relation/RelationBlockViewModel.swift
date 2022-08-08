@@ -21,17 +21,9 @@ struct RelationBlockViewModel: BlockViewModelProtocol {
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {}
 
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
-        if FeatureFlags.uikitRelationBlock {
-            return RelationBlockContentConfiguration(
-                actionOnValue: { _ in actionOnValue?() },
-                relation: RelationItemModel(relation: relation)
-            ).cellBlockConfiguration(
-                indentationSettings: .init(with: info.configurationData),
-                dragConfiguration: .init(id: info.id)
-            )
-        }
-        return DepricatedRelationBlockContentConfiguration(
-            actionOnValue: actionOnValue, relation: relation
+        return RelationBlockContentConfiguration(
+            actionOnValue: { _ in actionOnValue?() },
+            relation: RelationItemModel(relation: relation)
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),
             dragConfiguration: .init(id: info.id)
