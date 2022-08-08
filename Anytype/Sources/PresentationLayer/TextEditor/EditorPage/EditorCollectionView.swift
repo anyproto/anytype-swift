@@ -1,7 +1,15 @@
 import UIKit
 
 class EditorCollectionView: UICollectionView {
-    private(set) var indexPathsForMovingItems = Set<IndexPath>()
+    override var adjustedContentInset: UIEdgeInsets {
+        .init(
+            top: 0,
+            left: super.adjustedContentInset.left,
+            bottom: super.adjustedContentInset.bottom,
+            right: super.adjustedContentInset.right
+        )
+    }
+
     var isLocked: Bool = false {
         didSet {
             visibleCells.forEach {
@@ -9,6 +17,8 @@ class EditorCollectionView: UICollectionView {
             }
         }
     }
+
+    private(set) var indexPathsForMovingItems = Set<IndexPath>()
 
     func deselectAllMovingItems() {
         indexPathsForMovingItems.forEach { indexPath in

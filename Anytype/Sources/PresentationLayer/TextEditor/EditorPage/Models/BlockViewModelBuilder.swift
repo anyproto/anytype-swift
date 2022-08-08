@@ -50,6 +50,12 @@ final class BlockViewModelBuilder {
         return editorItems
     }
 
+    func buildShimeringItem() -> EditorItem {
+        let shimmeringViewModel = ShimmeringBlockViewModel()
+
+        return .system(shimmeringViewModel)
+    }
+
     private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
         infos.compactMap(build(info:))
     }
@@ -287,5 +293,3 @@ final class BlockViewModelBuilder {
         }
     }
 }
-
-

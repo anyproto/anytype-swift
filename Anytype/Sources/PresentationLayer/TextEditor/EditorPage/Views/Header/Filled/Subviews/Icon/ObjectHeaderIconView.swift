@@ -44,6 +44,7 @@ extension ObjectHeaderIconView: ConfigurableView {
 
     enum Model: Hashable {
         case icon(ObjectIconType)
+        case image(UIImage?)
         case basicPreview(UIImage?)
         case profilePreview(UIImage?)
     }
@@ -52,7 +53,9 @@ extension ObjectHeaderIconView: ConfigurableView {
         switch model {
         case .icon(let objectIconType):
             showObjectIconType(objectIconType)
-            
+        case .image(let uiImage):
+            guard let uiImage = uiImage else { return }
+            showImage(uiImage)
         case .basicPreview(let uIImage):
             showImagePreview(
                 image: uIImage,
@@ -66,7 +69,6 @@ extension ObjectHeaderIconView: ConfigurableView {
             )
         }
     }
-    
 }
 
 private extension ObjectHeaderIconView {
@@ -84,6 +86,22 @@ private extension ObjectHeaderIconView {
         iconImageView.isHidden = false
         previewImageView.isHidden = true
         
+        activityIndicatorView.hide()
+    }
+
+    func showImage(_ uiImage: UIImage) {
+        let model = ObjectIconImageModel(
+            iconImage: .image(uiImage),
+            usecase: .openedObject
+        )
+
+        applyImageGuideline(model.imageGuideline)
+
+        iconImageView.configure(model: model)
+
+        iconImageView.isHidden = false
+        previewImageView.isHidden = true
+
         activityIndicatorView.hide()
     }
     

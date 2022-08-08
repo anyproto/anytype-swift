@@ -217,6 +217,7 @@ internal extension ImageAsset {
     static let home = ImageAsset.bundle(name: "TextEditor/home")
     static let lockedObject = ImageAsset.bundle(name: "TextEditor/locked_object")
     static let search = ImageAsset.bundle(name: "TextEditor/search")
+    static let shimmering = ImageAsset.bundle(name: "TextEditor/shimmering")
     enum Text {
       static let checked = ImageAsset.bundle(name: "TextEditor/Text/checked")
       static let folded = ImageAsset.bundle(name: "TextEditor/Text/folded")
