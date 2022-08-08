@@ -4,17 +4,14 @@ public enum Feature: String, Codable {
     case analytics = "Analytics Amplitude (only in development)"
     case middlewareLogs = "Show middleware logs in Xcode console"
 
-    case uikitRelationBlocks = "UIKit relation blocks"
     case clipboard = "Clipboard"
     case objectPreview = "Object preview"
     case templates = "Show templates picker"
     case createObjectInSet = "Create object in Set"
     case setSorts = "Set sorts"
     case setFilters = "Set filters"
-    case tableOfContents = "Table of contents"
     case floatingSetMenu = "Floating Set menu"
     case simpleTables = "Simple tables"
-    case objectDuplicate = "Object duplicate"
     // Author: m@anytype.io
     // Release: 0.17.0
     case relationDetails = "Relation details in read only mode"
@@ -41,16 +38,13 @@ public final class FeatureFlags {
         .analytics : false,
         .middlewareLogs: false,
         .clipboard: true,
-        .uikitRelationBlocks: true,
         .objectPreview: false,
         .templates: true,
         .createObjectInSet: true,
         .setSorts: true,
         .setFilters: false,
-        .tableOfContents: true,
         .floatingSetMenu: false,
         .simpleTables: true,
-        .objectDuplicate: true,
         .relationDetails: true
     ]
     
@@ -79,10 +73,6 @@ public extension FeatureFlags {
         features[.middlewareLogs, default: false]
     }
 
-    static var uikitRelationBlock: Bool {
-        features[.uikitRelationBlocks, default: true]
-    }
-
     static var clipboard: Bool {
         features[.clipboard, default: true]
     }
@@ -107,16 +97,8 @@ public extension FeatureFlags {
         features[.setFilters, default: false]
     }
     
-    static var isTableOfContentsAvailable: Bool {
-        features[.tableOfContents, default: true]
-    }
-
     static var isSimpleTablesAvailable: Bool {
         features[.simpleTables, default: true]
-    }
-    
-    static var isObjectDuplicateAvailable: Bool {
-        features[.objectDuplicate, default: true]
     }
     
     static var relationDetails: Bool {

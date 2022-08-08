@@ -87,9 +87,6 @@ struct SlashMenuItemsBuilder {
             allOtherSlashActions = allOtherSlashActions.filter { $0 != defaultTableAction }
         }
 
-        if !FeatureFlags.isTableOfContentsAvailable {
-            allOtherSlashActions = allOtherSlashActions.filter { $0 != .tableOfContents }
-        }
         let children: [SlashAction] = allOtherSlashActions.map { .other($0) }
 
         return SlashMenuItem(type: .other, children: children)
