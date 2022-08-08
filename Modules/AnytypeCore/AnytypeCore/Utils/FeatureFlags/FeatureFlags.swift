@@ -16,6 +16,9 @@ public enum Feature: String, Codable {
     // Author: m@anytype.io
     // Release: 0.17.0
     case relationDetails = "Relation details in read only mode"
+    // Author: m@anytype.io
+    // Release: 0.17.0
+    case bookmarksFlow = "New bookmarks flow"
 }
 
 public final class FeatureFlags {
@@ -47,7 +50,8 @@ public final class FeatureFlags {
         .tableOfContents: true,
         .floatingSetMenu: false,
         .objectDuplicate: true,
-        .relationDetails: true
+        .relationDetails: true,
+        .bookmarksFlow: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -109,5 +113,9 @@ public extension FeatureFlags {
     
     static var relationDetails: Bool {
         features[.relationDetails, default: true]
+    }
+    
+    static var bookmarksFlow: Bool {
+        features[.bookmarksFlow, default: false]
     }
 }
