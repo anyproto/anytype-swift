@@ -6,9 +6,11 @@ import AnytypeCore
 
 final class DataviewService: DataviewServiceProtocol {
     private let objectId: BlockId
+    private let prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilderProtocol
     
-    init(objectId: BlockId) {
+    init(objectId: BlockId, prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilderProtocol) {
         self.objectId = objectId
+        self.prefilledFieldsBuilder = prefilledFieldsBuilder
     }
     
     func updateView( _ view: DataviewView) {
@@ -42,16 +44,17 @@ final class DataviewService: DataviewServiceProtocol {
             .getValue(domain: .dataviewService)?
             .send()
     }
-
-    func addRecord(templateId: BlockId) -> ObjectDetails? {
+    
+    func addRecord(templateId: BlockId, setFilters: [SetFilter]) -> ObjectDetails? {
+        var prefilledFields = prefilledFieldsBuilder.buildPrefilledFields(from: setFilters)
+        
         let internalFlags: [Int] = [
             Anytype_Model_InternalFlag(value: .editorSelectTemplate).value.rawValue,
             Anytype_Model_InternalFlag(value: .editorSelectType).value.rawValue
         ]
-        let protoFields: [String: Google_Protobuf_Value] = [
-            BundledRelationKey.internalFlags.rawValue: internalFlags.protobufValue
-        ]
-        let protobufStruct: Google_Protobuf_Struct = .init(fields: protoFields)
+        prefilledFields[BundledRelationKey.internalFlags.rawValue] = internalFlags.protobufValue
+       
+        let protobufStruct: Google_Protobuf_Struct = .init(fields: prefilledFields)
 
         let response = Anytype_Rpc.BlockDataviewRecord.Create.Service
             .invoke(

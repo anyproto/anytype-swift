@@ -339,7 +339,7 @@ extension EditorSetViewModel {
             templateId = ""
         }
 
-        guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
+        guard let objectDetails = dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
         
         router.showCreateObject(pageId: objectDetails.id)
     }
