@@ -119,6 +119,7 @@ final class EditorPageController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.viewDidAppear()
+        browserViewInput?.didShow(collectionView: collectionView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {

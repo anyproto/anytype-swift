@@ -419,6 +419,7 @@
 		2A90C46E285B5A9100B6B44E /* ProtobufMessages in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A90C46C285B5A9100B6B44E /* ProtobufMessages */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		2A90C470285B5AA700B6B44E /* SwiftProtobuf in Frameworks */ = {isa = PBXBuildFile; productRef = 2A90C46F285B5AA700B6B44E /* SwiftProtobuf */; };
 		2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */; };
+		2AA22F68289BF27500BBA174 /* EditorBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */; };
 		2ABA0E07283BC420008369DC /* MoveToSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA0E06283BC420008369DC /* MoveToSearchInteractor.swift */; };
 		2AD06B7C2857271D0006C255 /* TableOfContentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */; };
 		2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */; };
@@ -1541,6 +1542,7 @@
 		2A6F5045288A8F0B00ED6E2E /* ImageAssets.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageAssets.swift; sourceTree = "<group>"; };
 		2A6F5047288A9AB600ED6E2E /* Image+Create.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Image+Create.swift"; sourceTree = "<group>"; };
 		2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsContentProvider.swift; sourceTree = "<group>"; };
+		2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserView.swift; sourceTree = "<group>"; };
 		2ABA0E06283BC420008369DC /* MoveToSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToSearchInteractor.swift; sourceTree = "<group>"; };
 		2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsViewModel.swift; sourceTree = "<group>"; };
 		2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsConfiguration.swift; sourceTree = "<group>"; };
@@ -5425,6 +5427,7 @@
 				3D6E9A41270F2CC4001B0A07 /* Model */,
 				3D93D55C270AFE1400614E29 /* EditorBrowserController.swift */,
 				3D93D579270CBF7100614E29 /* BrowserNavigationManager.swift */,
+				2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */,
 			);
 			path = EditorBrowser;
 			sourceTree = "<group>";
@@ -7719,6 +7722,7 @@
 				C955AF232886A61700AF23B5 /* SimpleTableTextCellRestrictions.swift in Sources */,
 				53BC39A7261B7946004D7EB6 /* CodeBlockContentConfiguration.swift in Sources */,
 				1244794327DC8F8000581174 /* ListSectionConfiguration.swift in Sources */,
+				2AA22F68289BF27500BBA174 /* EditorBrowserView.swift in Sources */,
 				C9767C0628193E2300AEF728 /* DynamicCollectionLayoutView.swift in Sources */,
 				53EA4A7326371DAB00968B8E /* StyleColorViewController.swift in Sources */,
 				1255DF842702098300870B95 /* MediaFileUploadingOperation.swift in Sources */,

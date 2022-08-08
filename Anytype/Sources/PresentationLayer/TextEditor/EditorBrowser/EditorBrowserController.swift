@@ -12,6 +12,7 @@ protocol EditorBrowser: AnyObject {
 protocol EditorBrowserViewInputProtocol: AnyObject {
     func multiselectActive(_ active: Bool)
     func onScroll(bottom: Bool)
+    func didShow(collectionView: UICollectionView)
 }
 
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
@@ -24,11 +25,16 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     
     private let dashboardService = ServiceLocator.shared.dashboardService()
     private let stateManager = BrowserNavigationManager()
+    private let browserView = EditorBrowserView()
     
     init() {
         super.init(nibName: nil, bundle: nil)
     }
 
+    override func loadView() {
+        view = browserView
+    }
+    
     func setup() {
         childNavigation.delegate = self
         
@@ -143,6 +149,10 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         guard !isMultiselectActive, scrollDirectionBottom != bottom else { return }
         scrollDirectionBottom = bottom
         updateNavigationVisibility(animated: true)
+    }
+    
+    func didShow(collectionView: UICollectionView) {
+        browserView.childCollectionView = collectionView
     }
     
     private func updateNavigationVisibility(animated: Bool) {
