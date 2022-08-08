@@ -195,7 +195,10 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                if relation.id == BundledRelationKey.type.rawValue && !self.document.isLocked {
+                let bookmarkFilter = FeatureFlags.bookmarksFlow ?
+                    self.document.details?.type != ObjectTypeUrl.bundled(.bookmark).rawValue : true
+                
+                if relation.id == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
                     self.router.showTypesSearch(
                         onSelect: { [weak self] id in
                             self?.handler.setObjectTypeUrl(id)
