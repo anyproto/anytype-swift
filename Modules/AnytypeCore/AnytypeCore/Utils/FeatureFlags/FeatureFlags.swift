@@ -4,7 +4,6 @@ public enum Feature: String, Codable {
     case analytics = "Analytics Amplitude (only in development)"
     case middlewareLogs = "Show middleware logs in Xcode console"
 
-    case clipboard = "Clipboard"
     case objectPreview = "Object preview"
     case createObjectInSet = "Create object in Set"
     case setSorts = "Set sorts"
@@ -38,7 +37,6 @@ public final class FeatureFlags {
         .showAlertOnAssert : true,
         .analytics : false,
         .middlewareLogs: false,
-        .clipboard: true,
         .objectPreview: false,
         .createObjectInSet: true,
         .setSorts: true,
@@ -71,10 +69,6 @@ public extension FeatureFlags {
     
     static var middlewareLogs: Bool {
         features[.middlewareLogs, default: false]
-    }
-
-    static var clipboard: Bool {
-        features[.clipboard, default: true]
     }
 
     static var objectPreview: Bool {
