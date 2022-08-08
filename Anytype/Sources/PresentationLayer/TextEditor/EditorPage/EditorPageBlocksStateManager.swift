@@ -2,6 +2,7 @@ import BlocksModels
 import Combine
 import AnytypeCore
 import Foundation
+import UIKit
 
 enum EditorEditingState {
     case editing
@@ -141,6 +142,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
         if case .selecting = editingState {
             editingState = .selecting(blocks: blocksInformation.map { $0.id })
+            UISelectionFeedbackGenerator().selectionChanged()
         }
     }
 
