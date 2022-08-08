@@ -5,8 +5,7 @@ import BlocksModels
 import AnytypeCore
 import Combine
 
-final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewModelProtocol {
-    weak var popup: AnytypePopupProxy?
+final class EditorSetViewSettingsViewModel: ObservableObject {
     private let setModel: EditorSetViewModel
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
@@ -135,23 +134,6 @@ final class EditorSetViewSettingsViewModel: ObservableObject, AnytypePopupViewMo
             onSelect: { [weak self] size in
                 self?.onCardSizeChange(size)
             }
-        )
-    }
-    
-    // MARK: - AnytypePopupViewModelProtocol
-    var popupLayout: AnytypePopupLayoutType {
-        .fullScreen
-    }
-    
-    func onPopupInstall(_ popup: AnytypePopupProxy) {
-        self.popup = popup
-    }
-    
-    func makeContentView() -> UIViewController {
-        UIHostingController(
-            rootView: EditorSetViewSettingsView()
-                .environmentObject(self)
-                .environmentObject(setModel)
         )
     }
 }

@@ -6,6 +6,7 @@ struct EditorSetViewSettingsView: View {
     @State private var editMode = EditMode.inactive
     
     var body: some View {
+        DragIndicator()
         NavigationView {
             content
         }
