@@ -9,9 +9,54 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     private let setModel: EditorSetViewModel
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
+
+    var cardSizeSetting: EditorSetViewSettingsCardSize {
+        EditorSetViewSettingsCardSize(
+            title: Loc.Set.View.Settings.CardSize.title,
+            value: setModel.activeView.cardSize.value,
+            onTap: { [weak self] in
+                self?.showCardSizes()
+            }
+        )
+    }
     
-    var configuration: EditorSetViewSettingsConfiguration {
-        buildConfiguration(from: setModel.dataView)
+    var iconSetting: EditorSetViewSettingsToggleItem {
+        EditorSetViewSettingsToggleItem(
+            title: Loc.icon,
+            isSelected: !setModel.activeView.hideIcon,
+            onChange: { [weak self] show in
+                self?.onShowIconChange(show)
+            }
+        )
+    }
+    
+    var coverFitSetting: EditorSetViewSettingsToggleItem {
+        EditorSetViewSettingsToggleItem(
+            title: Loc.Set.View.Settings.ImageFit.title,
+            isSelected: setModel.activeView.coverFit,
+            onChange: { [weak self] fit in
+                self?.onCoverFitChange(fit)
+            }
+        )
+    }
+    
+    var relations: [EditorSetViewSettingsRelation] {
+        setModel.sortedRelations.map { relation in
+            EditorSetViewSettingsRelation(
+                id: relation.id,
+                image: relation.metadata.format.iconAsset,
+                title: relation.metadata.name,
+                isOn: relation.option.isVisible,
+                isBundled: relation.metadata.isBundled,
+                onChange: { [weak self] isVisible in
+                    self?.onRelationVisibleChange(relation, isVisible: isVisible)
+                }
+            )
+        }
+    }
+    
+    var needShowAllSettings: Bool {
+        setModel.activeView.type == .gallery
     }
     
     init(setModel: EditorSetViewModel, service: DataviewServiceProtocol, router: EditorRouterProtocol) {
@@ -66,45 +111,6 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
             }
             AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .set)
         }
-    }
-    
-    private func buildConfiguration(from dataView: BlockDataview) -> EditorSetViewSettingsConfiguration {
-        EditorSetViewSettingsConfiguration(
-            cardSizeSetting: EditorSetViewSettingsCardSize(
-                title: Loc.Set.View.Settings.CardSize.title,
-                value: setModel.activeView.cardSize.value,
-                onTap: { [weak self] in
-                    self?.showCardSizes()
-                }
-            ),
-            iconSetting: EditorSetViewSettingsToggleItem(
-                title: Loc.icon,
-                isSelected: setModel.activeView.hideIcon,
-                onChange: { [weak self] show in
-                    self?.onShowIconChange(show)
-                }
-            ),
-            coverFitSetting: EditorSetViewSettingsToggleItem(
-                title: Loc.Set.View.Settings.ImageFit.title,
-                isSelected: setModel.activeView.coverFit,
-                onChange: { [weak self] fit in
-                    self?.onCoverFitChange(fit)
-                }
-            ),
-            relations: setModel.sortedRelations.map { relation in
-                EditorSetViewSettingsRelation(
-                    id: relation.id,
-                    image: relation.metadata.format.iconAsset,
-                    title: relation.metadata.name,
-                    isOn: relation.option.isVisible,
-                    isBundled: relation.metadata.isBundled,
-                    onChange: { [weak self] isVisible in
-                        self?.onRelationVisibleChange(relation, isVisible: isVisible)
-                    }
-                )
-            },
-            needShowAllSettings: setModel.activeView.type == .gallery
-        )
     }
     
     private func onRelationVisibleChange(_ relation: SetRelation, isVisible: Bool) {

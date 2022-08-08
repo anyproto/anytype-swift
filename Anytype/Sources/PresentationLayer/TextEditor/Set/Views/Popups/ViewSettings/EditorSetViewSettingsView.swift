@@ -63,12 +63,12 @@ struct EditorSetViewSettingsView: View {
     
     private var settingsSection: some View {
         Group {
-            if model.configuration.needShowAllSettings {
-                cardSizeSetting
-                iconSettings
-                coverFitSettings
+            if model.needShowAllSettings {
+                cardSizeSetting(with: model.cardSizeSetting)
+                toggleSettings(with: model.iconSetting)
+                toggleSettings(with: model.coverFitSetting)
             } else {
-                iconSettings
+                toggleSettings(with: model.iconSetting)
             }
         }
     }
@@ -79,14 +79,14 @@ struct EditorSetViewSettingsView: View {
             .divider()
     }
     
-    private var cardSizeSetting: some View {
+    private func cardSizeSetting(with model: EditorSetViewSettingsCardSize) -> some View {
         Button {
-            model.configuration.cardSizeSetting.onTap()
+            model.onTap()
         } label: {
             HStack(spacing: 0) {
-                AnytypeText(model.configuration.cardSizeSetting.title, style: .uxBodyRegular, color: .textPrimary)
+                AnytypeText(model.title, style: .uxBodyRegular, color: .textPrimary)
                 Spacer()
-                AnytypeText(model.configuration.cardSizeSetting.value, style: .uxBodyRegular, color: .textSecondary)
+                AnytypeText(model.value, style: .uxBodyRegular, color: .textSecondary)
                 Spacer.fixedWidth(11)
                 Image(asset: .arrowForward)
                     .renderingMode(.template)
@@ -97,23 +97,12 @@ struct EditorSetViewSettingsView: View {
         .divider()
     }
     
-    private var iconSettings: some View {
+    private func toggleSettings(with model: EditorSetViewSettingsToggleItem) -> some View {
         AnytypeToggle(
-            title: model.configuration.iconSetting.title,
-            isOn: !model.configuration.iconSetting.isSelected
+            title: model.title,
+            isOn: model.isSelected
         ) {
-            model.configuration.iconSetting.onChange($0)
-        }
-        .frame(height: 52)
-        .divider()
-    }
-    
-    private var coverFitSettings: some View {
-        AnytypeToggle(
-            title: model.configuration.coverFitSetting.title,
-            isOn: model.configuration.coverFitSetting.isSelected
-        ) {
-            model.configuration.coverFitSetting.onChange($0)
+            model.onChange($0)
         }
         .frame(height: 52)
         .divider()
@@ -126,7 +115,7 @@ struct EditorSetViewSettingsView: View {
     }
     
     private var relationsSection: some View {
-        ForEach(model.configuration.relations) { relation in
+        ForEach(model.relations) { relation in
             relationRow(relation)
                 .deleteDisabled(relation.isBundled)
                 .divider()
