@@ -5,7 +5,6 @@ public enum Feature: String, Codable {
     case middlewareLogs = "Show middleware logs in Xcode console"
 
     case objectPreview = "Object preview"
-    case setSorts = "Set sorts"
     case setFilters = "Set filters"
     case floatingSetMenu = "Floating Set menu"
     // Author: m@anytype.io
@@ -37,7 +36,6 @@ public final class FeatureFlags {
         .analytics : false,
         .middlewareLogs: false,
         .objectPreview: false,
-        .setSorts: true,
         .setFilters: false,
         .floatingSetMenu: false,
         .relationDetails: true,
@@ -71,10 +69,6 @@ public extension FeatureFlags {
 
     static var objectPreview: Bool {
         features[.objectPreview, default: false]
-    }
-    
-    static var isSetSortsAvailable: Bool {
-        features[.setSorts, default: true]
     }
     
     static var isSetFiltersAvailable: Bool {

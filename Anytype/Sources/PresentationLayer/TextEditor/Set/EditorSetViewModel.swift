@@ -224,11 +224,6 @@ final class EditorSetViewModel: ObservableObject {
         relationMetadata.format != .unrecognized
     }
     
-    private func isFloatingSetMenuAvailable() -> Bool {
-        FeatureFlags.isSetSortsAvailable ||
-        FeatureFlags.isSetFiltersAvailable
-    }
-    
     private func isBookmarkObject() -> Bool {
         dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
     }
@@ -288,11 +283,7 @@ extension EditorSetViewModel {
     }
     
     func showSetSettings() {
-        if isFloatingSetMenuAvailable() {
-            router.showSetSettings(setModel: self)
-        } else {
-            showViewSettings()
-        }
+        router.showSetSettings(setModel: self)
     }
 
     func createObject() {
