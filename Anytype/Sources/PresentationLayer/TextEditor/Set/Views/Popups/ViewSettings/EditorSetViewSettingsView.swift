@@ -66,6 +66,7 @@ struct EditorSetViewSettingsView: View {
             if model.needShowAllSettings {
                 cardSizeSetting(with: model.cardSizeSetting)
                 toggleSettings(with: model.iconSetting)
+                toggleSettings(with: model.imagePreviewSetting)
                 toggleSettings(with: model.coverFitSetting)
             } else {
                 toggleSettings(with: model.iconSetting)

@@ -1084,6 +1084,10 @@ internal enum Loc {
           /// Fit image
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImageFit.Title")
         }
+        internal enum ImagePreview {
+          /// Image preview
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImagePreview.Title")
+        }
       }
     }
   }

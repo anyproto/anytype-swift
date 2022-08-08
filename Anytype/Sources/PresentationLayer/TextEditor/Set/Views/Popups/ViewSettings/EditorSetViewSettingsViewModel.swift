@@ -30,6 +30,16 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         )
     }
     
+    var imagePreviewSetting: EditorSetViewSettingsToggleItem {
+        EditorSetViewSettingsToggleItem(
+            title: Loc.Set.View.Settings.ImagePreview.title,
+            isSelected: setModel.activeView.coverRelationKey.isNotEmpty,
+            onChange: { [weak self] show in
+                self?.onImagePreviewChange(show)
+            }
+        )
+    }
+    
     var coverFitSetting: EditorSetViewSettingsToggleItem {
         EditorSetViewSettingsToggleItem(
             title: Loc.Set.View.Settings.ImageFit.title,
@@ -124,6 +134,12 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         service.updateView(newView)
     }
     
+    private func onImagePreviewChange(_ show: Bool) {
+        let relationKey = show ? Self.PageCoverRelationKey : ""
+        let newView = setModel.activeView.updated(coverRelationKey: relationKey)
+        service.updateView(newView)
+    }
+    
     private func onCoverFitChange(_ fit: Bool) {
         let newView = setModel.activeView.updated(coverFit: fit)
         service.updateView(newView)
@@ -142,4 +158,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
             }
         )
     }
+}
+
+extension EditorSetViewSettingsViewModel {
+    static let PageCoverRelationKey = "pageCover"
 }
