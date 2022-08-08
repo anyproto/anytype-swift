@@ -235,10 +235,6 @@ final class BlockViewModelBuilder {
             )
         case .smartblock, .layout, .dataView, .tableRow, .tableColumn: return nil
         case .table:
-            guard FeatureFlags.isSimpleTablesAvailable else {
-                fallthrough
-            }
-
             return SimpleTableBlockViewModel(
                 info: info,
                 simpleTableDependenciesBuilder: simpleTableDependenciesBuilder

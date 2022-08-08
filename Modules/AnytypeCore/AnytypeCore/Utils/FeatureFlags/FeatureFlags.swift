@@ -7,13 +7,11 @@ public enum Feature: String, Codable {
     case uikitRelationBlocks = "UIKit relation blocks"
     case clipboard = "Clipboard"
     case objectPreview = "Object preview"
-    case templates = "Show templates picker"
     case createObjectInSet = "Create object in Set"
     case setSorts = "Set sorts"
     case setFilters = "Set filters"
     case tableOfContents = "Table of contents"
     case floatingSetMenu = "Floating Set menu"
-    case simpleTables = "Simple tables"
     case objectDuplicate = "Object duplicate"
     // Author: m@anytype.io
     // Release: 0.17.0
@@ -43,13 +41,11 @@ public final class FeatureFlags {
         .clipboard: true,
         .uikitRelationBlocks: true,
         .objectPreview: false,
-        .templates: true,
         .createObjectInSet: true,
         .setSorts: true,
         .setFilters: false,
         .tableOfContents: true,
         .floatingSetMenu: false,
-        .simpleTables: true,
         .objectDuplicate: true,
         .relationDetails: true
     ]
@@ -91,10 +87,6 @@ public extension FeatureFlags {
         features[.objectPreview, default: false]
     }
 
-    static var isTemplatesAvailable: Bool {
-        features[.templates, default: true]
-    }
-
     static var isCreateObjectInSetAvailable: Bool {
         features[.createObjectInSet, default: true]
     }
@@ -111,10 +103,6 @@ public extension FeatureFlags {
         features[.tableOfContents, default: true]
     }
 
-    static var isSimpleTablesAvailable: Bool {
-        features[.simpleTables, default: true]
-    }
-    
     static var isObjectDuplicateAvailable: Bool {
         features[.objectDuplicate, default: true]
     }

@@ -80,6 +80,7 @@ final class TextBlockLeadingView: UIView {
 
         addSubview(innerView) {
             $0.pinToSuperview(excluding: [.bottom])
+            $0.bottom.equal(to: bottomAnchor, priority: .defaultLow)
         }
     }
 }

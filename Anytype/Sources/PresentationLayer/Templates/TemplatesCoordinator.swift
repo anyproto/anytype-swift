@@ -34,8 +34,6 @@ final class TemplatesCoordinator {
         document: BaseDocumentProtocol,
         templatesTypeURL: ObjectTypeUrl
     ) {
-        guard FeatureFlags.isTemplatesAvailable else { return }
-
         let isSelectTemplate = document.details?.isSelectTemplate ?? false
         guard isSelectTemplate, let availableTemplates = searchService.searchTemplates(for: templatesTypeURL) else {
             return
