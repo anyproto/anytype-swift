@@ -6,15 +6,16 @@ public enum Feature: String, Codable {
 
     case clipboard = "Clipboard"
     case objectPreview = "Object preview"
-    case templates = "Show templates picker"
     case createObjectInSet = "Create object in Set"
     case setSorts = "Set sorts"
     case setFilters = "Set filters"
     case floatingSetMenu = "Floating Set menu"
-    case simpleTables = "Simple tables"
     // Author: m@anytype.io
     // Release: 0.17.0
     case relationDetails = "Relation details in read only mode"
+    // Author: m@anytype.io
+    // Release: 0.17.0
+    case bookmarksFlow = "New bookmarks flow"
 }
 
 public final class FeatureFlags {
@@ -39,13 +40,12 @@ public final class FeatureFlags {
         .middlewareLogs: false,
         .clipboard: true,
         .objectPreview: false,
-        .templates: true,
         .createObjectInSet: true,
         .setSorts: true,
         .setFilters: false,
         .floatingSetMenu: false,
-        .simpleTables: true,
-        .relationDetails: true
+        .relationDetails: true,
+        .bookmarksFlow: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -81,10 +81,6 @@ public extension FeatureFlags {
         features[.objectPreview, default: false]
     }
 
-    static var isTemplatesAvailable: Bool {
-        features[.templates, default: true]
-    }
-
     static var isCreateObjectInSetAvailable: Bool {
         features[.createObjectInSet, default: true]
     }
@@ -96,12 +92,12 @@ public extension FeatureFlags {
     static var isSetFiltersAvailable: Bool {
         features[.setFilters, default: false]
     }
-    
-    static var isSimpleTablesAvailable: Bool {
-        features[.simpleTables, default: true]
-    }
-    
+        
     static var relationDetails: Bool {
         features[.relationDetails, default: true]
+    }
+    
+    static var bookmarksFlow: Bool {
+        features[.bookmarksFlow, default: false]
     }
 }

@@ -83,10 +83,6 @@ struct SlashMenuItemsBuilder {
         let defaultTableAction: SlashActionOther = .table(rowsCount: 3, columnsCount: 3)
         var allOtherSlashActions: [SlashActionOther] = [.lineDivider, .dotsDivider, .tableOfContents, defaultTableAction]
 
-        if !FeatureFlags.isSimpleTablesAvailable {
-            allOtherSlashActions = allOtherSlashActions.filter { $0 != defaultTableAction }
-        }
-
         let children: [SlashAction] = allOtherSlashActions.map { .other($0) }
 
         return SlashMenuItem(type: .other, children: children)
