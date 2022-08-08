@@ -12,10 +12,8 @@ struct SetHeaderSettings: View {
             Spacer()
             settingButton
 
-            if FeatureFlags.isCreateObjectInSetAvailable {
-                Spacer.fixedWidth(24)
-                createObjectButton
-            }
+            Spacer.fixedWidth(24)
+            createObjectButton
         }
         .padding(.horizontal, 20)
         .frame(height: settingsHeight)

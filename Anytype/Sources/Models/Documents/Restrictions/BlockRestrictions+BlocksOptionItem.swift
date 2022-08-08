@@ -70,12 +70,7 @@ extension Array where Element == BlockInformation {
             mergedItems.remove(.preview)
         }
 
-        if FeatureFlags.clipboard {
-            if !UIPasteboard.general.hasSlots {
-                mergedItems.remove(.paste)
-            }
-        } else {
-            mergedItems.remove(.copy)
+        if !UIPasteboard.general.hasSlots {
             mergedItems.remove(.paste)
         }
 

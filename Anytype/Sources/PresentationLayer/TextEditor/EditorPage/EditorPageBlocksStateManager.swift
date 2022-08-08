@@ -2,6 +2,7 @@ import BlocksModels
 import Combine
 import AnytypeCore
 import Foundation
+import UIKit
 
 enum EditorEditingState {
     case editing
@@ -66,7 +67,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
 
-    weak var blocksOptionViewModel: HorizonalTypeListViewModel?
+    weak var blocksOptionViewModel: SelectionOptionsViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
     weak var viewInput: EditorPageViewInput?
 
@@ -141,6 +142,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
         if case .selecting = editingState {
             editingState = .selecting(blocks: blocksInformation.map { $0.id })
+            UISelectionFeedbackGenerator().selectionChanged()
         }
     }
 
@@ -237,10 +239,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private func updateSelectionBarActions(selectedBlocks: [BlockInformation]) {
         let availableItems = selectedBlocks.blocksOptionItems
         let horizontalItems = availableItems.map { item in
-            HorizontalListItem(
+            SelectionOptionsItemViewModel(
                 id: "\(item.hashValue)",
                 title: item.title,
-                image: .imageAsset(item.imageAsset)
+                imageAsset: item.imageAsset
             ) { [weak self] in
                 self?.handleBlocksOptionItemSelection(item)
             }

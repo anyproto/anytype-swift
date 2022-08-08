@@ -131,33 +131,33 @@ final class SimpleTableStateManager: SimpleTableStateManagerProtocol, SimpleTabl
         guard let computedTable = ComputedTable(blockInformation: tableBlockInformation, infoContainer: document.infoContainer) else {
             return
         }
-        let horizontalListItems: [HorizontalListItem]
+        let horizontalListItems: [SelectionOptionsItemViewModel]
 
         switch selectedMenuTab {
         case .cell:
             horizontalListItems = SimpleTableCellMenuItem.allCases.map { item in
-                HorizontalListItem.init(
+                SelectionOptionsItemViewModel(
                     id: "\(UUID().uuidString) \(item.hashValue)", // sometimes SwiftUI view do not update items with equal hashes and action doesn't work. This class could be deinited whilte reusing cell.s
                     title: item.title,
-                    image: .imageAsset(item.imageAsset),
+                    imageAsset: item.imageAsset,
                     action: { [weak self] in self?.handleCellAction(action: item) }
                 )
             }
         case .row:
             horizontalListItems = SimpleTableRowMenuItem.allCases.map { item in
-                HorizontalListItem.init(
+                SelectionOptionsItemViewModel(
                     id: "\(UUID().uuidString) \(item.hashValue)",
                     title: item.title,
-                    image: .imageAsset(item.imageAsset),
+                    imageAsset: item.imageAsset,
                     action: { [weak self] in self?.handleRowAction(action: item) }
                 )
             }
         case .column:
             horizontalListItems = SimpleTableColumnMenuItem.allCases.map { item in
-                HorizontalListItem.init(
+                SelectionOptionsItemViewModel(
                     id: "\(UUID().uuidString) \(item.hashValue)",
                     title: item.title,
-                    image: .imageAsset(item.imageAsset),
+                    imageAsset: item.imageAsset,
                     action: { [weak self] in self?.handleColumnAction(action: item) }
                 )
             }
