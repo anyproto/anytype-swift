@@ -463,6 +463,8 @@ internal enum Loc {
   internal static let ok = Loc.tr("Localizable", "Ok")
   /// On analytics
   internal static let onAnalytics = Loc.tr("Localizable", "On analytics")
+  /// Open object
+  internal static let openObject = Loc.tr("Localizable", "Open object")
   /// or type your recovery phrase
   internal static let orTypeYourRecoveryPhrase = Loc.tr("Localizable", "or type your recovery phrase")
   /// With Anytype you can write notes and documents, manage tasks and save important content from the web.

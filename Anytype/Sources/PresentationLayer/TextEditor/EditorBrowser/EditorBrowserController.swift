@@ -176,7 +176,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             delay: 0,
             options: .curveEaseInOut,
             animations: { [weak self] in
-                self?.view.layoutIfNeeded()
+                self?.navigationView.layoutIfNeeded()
             }, completion: nil
         )
     }

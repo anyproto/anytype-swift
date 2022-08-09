@@ -216,6 +216,14 @@ final class MiddlewareEventConverter {
                         }
                     }
                     
+                    if data.hasTargetObjectID {
+                        bookmark.targetObjectID = data.targetObjectID.value
+                    }
+                    
+                    if data.hasState {
+                        bookmark.state = data.state.value.asModel
+                    }
+                    
                     return info.updated(content: .bookmark(bookmark))
 
                 default:
