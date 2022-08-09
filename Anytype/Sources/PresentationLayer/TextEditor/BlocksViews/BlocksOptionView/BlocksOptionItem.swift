@@ -6,8 +6,8 @@ enum BlocksOptionItem: CaseIterable, Comparable {
     case preview
     case style
     case download
-    case openObject
     case delete
+    case openObject
     case addBlockBelow
     case duplicate
     case turnInto
