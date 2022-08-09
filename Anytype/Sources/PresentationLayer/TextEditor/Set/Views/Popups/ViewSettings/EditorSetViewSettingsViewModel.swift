@@ -9,8 +9,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
 
-    var cardSizeSetting: EditorSetViewSettingsCardSize {
-        EditorSetViewSettingsCardSize(
+    var cardSizeSetting: EditorSetViewSettingsValueItem {
+        EditorSetViewSettingsValueItem(
             title: Loc.Set.View.Settings.CardSize.title,
             value: setModel.activeView.cardSize.value,
             onTap: { [weak self] in
@@ -29,12 +29,12 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         )
     }
     
-    var imagePreviewSetting: EditorSetViewSettingsToggleItem {
-        EditorSetViewSettingsToggleItem(
+    var imagePreviewSetting: EditorSetViewSettingsValueItem {
+        EditorSetViewSettingsValueItem(
             title: Loc.Set.View.Settings.ImagePreview.title,
-            isSelected: setModel.activeView.coverRelationKey.isNotEmpty,
-            onChange: { [weak self] show in
-                self?.onImagePreviewChange(show)
+            value: imagePreviewValue(),
+            onTap: { [weak self] in
+                self?.showCovers()
             }
         )
     }
@@ -133,9 +133,8 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         service.updateView(newView)
     }
     
-    private func onImagePreviewChange(_ show: Bool) {
-        let relationKey = show ? Self.PageCoverRelationKey : ""
-        let newView = setModel.activeView.updated(coverRelationKey: relationKey)
+    private func onImagePreviewChange(_ key: String) {
+        let newView = setModel.activeView.updated(coverRelationKey: key)
         service.updateView(newView)
     }
     
@@ -149,6 +148,24 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         service.updateView(newView)
     }
     
+    private func imagePreviewValue() -> String {
+        imagePreviewValueFromCovers() ?? imagePreviewValueFromRelations() ?? ""
+    }
+    
+    private func imagePreviewValueFromCovers() -> String? {
+        SetViewSettingsImagePreviewCover.allCases.first { [weak self] cover in
+            guard let self = self else { return false }
+            return cover.rawValue == self.setModel.activeView.coverRelationKey
+        }?.title
+    }
+    
+    private func imagePreviewValueFromRelations() -> String? {
+        setModel.dataView.relations.first { [weak self] relation in
+            guard let self = self else { return false }
+            return relation.key == self.setModel.activeView.coverRelationKey
+        }?.name
+    }
+    
     private func showCardSizes() {
         router.showCardSizes(
             size: setModel.activeView.cardSize,
@@ -157,8 +174,13 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
             }
         )
     }
-}
-
-extension EditorSetViewSettingsViewModel {
-    static let PageCoverRelationKey = "pageCover"
+    
+    private func showCovers() {
+        router.showCovers(
+            setModel: setModel,
+            onSelect: { [weak self] key in
+                self?.onImagePreviewChange(key)
+            }
+        )
+    }
 }

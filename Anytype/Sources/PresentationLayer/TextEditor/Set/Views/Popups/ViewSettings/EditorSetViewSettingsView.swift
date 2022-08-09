@@ -64,9 +64,9 @@ struct EditorSetViewSettingsView: View {
     private var settingsSection: some View {
         Group {
             if model.needShowAllSettings {
-                cardSizeSetting(with: model.cardSizeSetting)
+                valueSetting(with: model.cardSizeSetting)
                 toggleSettings(with: model.iconSetting)
-                toggleSettings(with: model.imagePreviewSetting)
+                valueSetting(with: model.imagePreviewSetting)
                 toggleSettings(with: model.coverFitSetting)
             } else {
                 toggleSettings(with: model.iconSetting)
@@ -80,7 +80,7 @@ struct EditorSetViewSettingsView: View {
             .divider()
     }
     
-    private func cardSizeSetting(with model: EditorSetViewSettingsCardSize) -> some View {
+    private func valueSetting(with model: EditorSetViewSettingsValueItem) -> some View {
         Button {
             model.onTap()
         } label: {

@@ -88,4 +88,5 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     )
     
     func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
+    func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void)
 }

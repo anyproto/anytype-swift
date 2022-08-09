@@ -652,7 +652,7 @@ extension EditorRouter {
     
     func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void) {
         let view = CheckPopupView(
-            viewModel: EditorSetViewSettingsCardSizeViewModel(
+            viewModel: SetViewSettingsCardSizeViewModel(
                 selectedSize: size,
                 onSelect: onSelect
             )
@@ -662,6 +662,19 @@ extension EditorRouter {
                 contentView: view
             )
         )
+    }
+    
+    func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void) {
+        let viewModel = SetViewSettingsImagePreviewViewModel(
+            setModel: setModel,
+            onSelect: onSelect
+        )
+        let vc = UIHostingController(
+            rootView: SetViewSettingsImagePreviewView(
+                viewModel: viewModel
+            )
+        )
+        presentSheet(vc)
     }
 }
 

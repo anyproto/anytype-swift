@@ -1,7 +1,7 @@
 import BlocksModels
 import Combine
 
-final class EditorSetViewSettingsCardSizeViewModel: CheckPopupViewViewModelProtocol {
+final class SetViewSettingsCardSizeViewModel: CheckPopupViewViewModelProtocol {
     let title: String = Loc.Set.View.Settings.CardSize.title
     @Published private(set) var items: [CheckPopupItem] = []
 

@@ -1,11 +1,5 @@
 import BlocksModels
 
-struct EditorSetViewSettingsCardSize {
-    let title: String
-    let value: String
-    @EquatableNoop var onTap: () -> Void
-}
-
 extension DataviewViewSize {
     var value: String {
         switch self {
