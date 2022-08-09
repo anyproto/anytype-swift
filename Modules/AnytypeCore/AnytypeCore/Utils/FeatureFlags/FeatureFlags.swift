@@ -13,6 +13,9 @@ public enum Feature: String, Codable {
     // Author: m@anytype.io
     // Release: 0.17.0
     case bookmarksFlow = "New bookmarks flow"
+    // Author: joe_pusya@anytype.io
+    // Release: 0.18.0
+    case setGalleryView = "Set gallery view"
 }
 
 public final class FeatureFlags {
@@ -39,7 +42,8 @@ public final class FeatureFlags {
         .setFilters: false,
         .floatingSetMenu: false,
         .relationDetails: true,
-        .bookmarksFlow: false
+        .bookmarksFlow: false,
+        .setGalleryView: false
     ]
     
     public static func update(key: Feature, value: Bool) {
@@ -81,5 +85,9 @@ public extension FeatureFlags {
     
     static var bookmarksFlow: Bool {
         features[.bookmarksFlow, default: false]
+    }
+    
+    static var setGalleryView: Bool {
+        features[.setGalleryView, default: false]
     }
 }
