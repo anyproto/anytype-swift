@@ -1,5 +1,4 @@
 import SwiftUI
-import BlocksModels
 
 struct SetViewSettingsImagePreviewView: View {
     @Environment(\.presentationMode) var presentationMode
@@ -37,16 +36,22 @@ struct SetViewSettingsImagePreviewView: View {
     }
     
     private var relationsSection: some View {
-        VStack(spacing: 0) {
-            relationsHeader
-            ForEach(viewModel.relationsRows) { item in
-                Button {
-                    presentationMode.wrappedValue.dismiss()
-                    item.onTap()
-                } label: {
-                    row(item)
+        Group {
+            if viewModel.relationsRows.isNotEmpty {
+                VStack(spacing: 0) {
+                    relationsHeader
+                    ForEach(viewModel.relationsRows) { item in
+                        Button {
+                            presentationMode.wrappedValue.dismiss()
+                            item.onTap()
+                        } label: {
+                            row(item)
+                        }
+                        .divider()
+                    }
                 }
-                .divider()
+            } else {
+                EmptyView()
             }
         }
     }

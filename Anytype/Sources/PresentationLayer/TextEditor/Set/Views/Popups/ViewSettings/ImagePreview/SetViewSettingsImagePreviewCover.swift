@@ -9,9 +9,9 @@ enum SetViewSettingsImagePreviewCover: String, CaseIterable, Identifiable {
     var title: String {
         switch self {
         case .none:
-            return "None"
+            return Loc.none
         case .pageCover:
-            return "Cover"
+            return Loc.cover
         }
     }
 }
