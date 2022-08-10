@@ -2,7 +2,8 @@ import SwiftUI
 import AnytypeCore
 
 struct DebugMenu: View {
-    @State private var flags = FeatureFlags.features.sorted { $0.0.rawValue < $1.0.rawValue }
+    @State private var flags = FeatureFlags.features.sorted { $0.title < $1.title }
+        .map { FeatureFlagViewModel(description: $0, value: FeatureFlags.value(for: $0)) }
     @State private var showLogs = false
     @State private var showTypography = false
     @State private var showFeedbackGenerators = false
@@ -73,10 +74,25 @@ struct DebugMenu: View {
     
     var toggles: some View {
         List(Array(flags.enumerated()), id:\.offset) { index, flag in
-            Toggle(
-                isOn: $flags[index].onChange(FeatureFlags.update).value
-            ) {
-                AnytypeText(flag.key.rawValue, style: .body, color: .textPrimary)
+            VStack(alignment: .leading) {
+                Toggle(
+                    isOn: $flags[index].value.onChange {
+                        FeatureFlags.update(key: flag.description, value: $0)
+                    }
+                ) {
+                    VStack(alignment: .leading) {
+                        Text(flag.description.title)
+                            .font(AnytypeFontBuilder.font(anytypeFont: .body))
+                            .foregroundColor(.textPrimary)
+                        Text(Loc.DebugMenu.toggleAuthor(flag.description.releaseVersion, flag.description.author))
+                            .font(AnytypeFontBuilder.font(anytypeFont: .callout))
+                            .foregroundColor(.textSecondary)
+                        
+                        // See AnytypeText padding comment
+//                        AnytypeText(flag.description.title, style: .body, color: .textPrimary)
+//                        AnytypeText("Release: \(flag.description.releaseVersion), \(flag.description.author)", style: .callout, color: .textSecondary)
+                    }
+                }
             }
             .padding()
         }
