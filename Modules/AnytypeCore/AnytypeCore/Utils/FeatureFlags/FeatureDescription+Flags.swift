@@ -43,13 +43,6 @@ extension FeatureDescription {
         defaultValue: false
     )
     
-    static let floatingSetMenu = FeatureDescription(
-        title: "Floating Set menu",
-        author: "db@anytype.io",
-        releaseVersion: "0.17.0",
-        defaultValue: false
-    )
-    
     static let relationDetails = FeatureDescription(
         title: "Relation details in read only mode",
         author: "m@anytype.io",

@@ -17,7 +17,6 @@ public final class FeatureFlags {
         .middlewareLogs,
         .objectPreview,
         .setFilters,
-        .floatingSetMenu,
         .relationDetails,
         .bookmarksFlow
     ]
