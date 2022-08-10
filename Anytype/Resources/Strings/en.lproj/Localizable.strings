@@ -565,3 +565,5 @@
 "SimpleTableMenu.Item.InsertBelow" = "Insert below";
 "SimpleTableMenu.Item.MoveUp" = "Move up";
 "SimpleTableMenu.Item.MoveDown" = "Move down";
+
+"DebugMenu.ToggleAuthor" = "Release: %s, %s";
