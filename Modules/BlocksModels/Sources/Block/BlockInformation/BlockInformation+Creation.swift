@@ -27,4 +27,8 @@ public extension BlockInformation {
         return BlockInformation.empty(content: content)
     }
     
+    static func bookmark(targetId: BlockId) -> BlockInformation {
+        let content: BlockContent = .bookmark(.empty(targetObjectID: targetId))
+        return BlockInformation.empty(content: content)
+    }
 }

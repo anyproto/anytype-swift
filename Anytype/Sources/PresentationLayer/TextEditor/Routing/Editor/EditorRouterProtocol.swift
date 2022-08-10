@@ -43,7 +43,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func presentUndoRedo()
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
-    func showLinkTo(onSelect: @escaping (BlockId) -> ())
+    func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
