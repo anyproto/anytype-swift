@@ -295,13 +295,9 @@ extension EditorSetViewModel {
     }
     
     func showViewSettings() {
-        router.presentFullscreen(
-            AnytypePopup(
-                viewModel: EditorSetViewSettingsViewModel(
-                    setModel: self,
-                    service: dataviewService
-                )
-            )
+        router.showViewSettings(
+            setModel: self,
+            dataviewService: dataviewService
         )
     }
     

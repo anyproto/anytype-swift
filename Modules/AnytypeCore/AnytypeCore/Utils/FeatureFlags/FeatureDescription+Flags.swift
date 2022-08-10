@@ -56,4 +56,11 @@ extension FeatureDescription {
         releaseVersion: "0.17.0",
         defaultValue: false
     )
+    
+    static let setGalleryView = FeatureDescription(
+        title: "Set gallery view",
+        author: "joe_pusya@anytype.io",
+        releaseVersion: "0.18.0",
+        defaultValue: false
+    )
 }

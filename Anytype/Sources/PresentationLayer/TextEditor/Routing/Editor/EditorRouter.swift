@@ -562,6 +562,21 @@ extension EditorRouter {
         currentSetSettingsPopup?.dismiss(animated: false)
     }
     
+    func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
+        let viewModel = EditorSetViewSettingsViewModel(
+            setModel: setModel,
+            service: dataviewService,
+            router: self
+        )
+        let vc = UIHostingController(
+            rootView: EditorSetViewSettingsView(
+                setModel: setModel,
+                model: viewModel
+            )
+        )
+        viewController?.topPresentedController.present(vc, animated: true)
+    }
+    
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol) {
         let viewModel = SetSortsListViewModel(
             setModel: setModel,
@@ -634,6 +649,33 @@ extension EditorRouter {
                 viewModel: viewModel
             )
         )
+    }
+    
+    func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void) {
+        let view = CheckPopupView(
+            viewModel: SetViewSettingsCardSizeViewModel(
+                selectedSize: size,
+                onSelect: onSelect
+            )
+        )
+        presentSheet(
+            AnytypePopup(
+                contentView: view
+            )
+        )
+    }
+    
+    func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void) {
+        let viewModel = SetViewSettingsImagePreviewViewModel(
+            setModel: setModel,
+            onSelect: onSelect
+        )
+        let vc = UIHostingController(
+            rootView: SetViewSettingsImagePreviewView(
+                viewModel: viewModel
+            )
+        )
+        presentSheet(vc)
     }
 }
 

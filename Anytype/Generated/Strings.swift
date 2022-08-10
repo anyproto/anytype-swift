@@ -1073,6 +1073,30 @@ internal enum Loc {
         }
       }
     }
+    internal enum View {
+      internal enum Settings {
+        internal enum CardSize {
+          /// Card size
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Title")
+          internal enum Large {
+            /// Large
+            internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Large.Title")
+          }
+          internal enum Small {
+            /// Small
+            internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Small.Title")
+          }
+        }
+        internal enum ImageFit {
+          /// Fit image
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImageFit.Title")
+        }
+        internal enum ImagePreview {
+          /// Image preview
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImagePreview.Title")
+        }
+      }
+    }
   }
 
   internal enum SimpleTableMenu {

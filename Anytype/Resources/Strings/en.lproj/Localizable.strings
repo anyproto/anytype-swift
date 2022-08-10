@@ -355,6 +355,13 @@
 "Set.Bookmark.Error.Title" = "Oops - something went wrong";
 "Set.Bookmark.Error.Message" = "Please try again";
 
+// MARK: - Sets: View Settings
+"Set.View.Settings.ImageFit.Title" = "Fit image";
+"Set.View.Settings.CardSize.Title" = "Card size";
+"Set.View.Settings.CardSize.Small.Title" = "Small";
+"Set.View.Settings.CardSize.Large.Title" = "Large";
+"Set.View.Settings.ImagePreview.Title" = "Image preview";
+
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";

@@ -81,7 +81,7 @@ struct SlashMenuItemsBuilder {
     
     private var otherMenuItem: SlashMenuItem {
         let defaultTableAction: SlashActionOther = .table(rowsCount: 3, columnsCount: 3)
-        var allOtherSlashActions: [SlashActionOther] = [.lineDivider, .dotsDivider, .tableOfContents, defaultTableAction]
+        let allOtherSlashActions: [SlashActionOther] = [.lineDivider, .dotsDivider, .tableOfContents, defaultTableAction]
 
         let children: [SlashAction] = allOtherSlashActions.map { .other($0) }
 
