@@ -7,6 +7,7 @@ enum BlocksOptionItem: CaseIterable, Comparable {
     case style
     case download
     case delete
+    case openObject
     case addBlockBelow
     case duplicate
     case turnInto
@@ -35,6 +36,8 @@ extension BlocksOptionItem {
             return BlockOptionImage.move
         case .download:
             return BlockOptionImage.download
+        case .openObject:
+            return BlockOptionImage.openToEdit
         case .paste:
             return BlockOptionImage.paste
         case .copy:
@@ -62,6 +65,8 @@ extension BlocksOptionItem {
             return Loc.move
         case .download:
             return Loc.download
+        case .openObject:
+            return Loc.openObject
         case .paste:
             return Loc.paste
         case .copy:

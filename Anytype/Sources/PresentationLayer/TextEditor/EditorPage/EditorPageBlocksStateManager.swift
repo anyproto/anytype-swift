@@ -356,6 +356,15 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                let url = blockFile.metadata.contentUrl {
                 router.saveFile(fileURL: url, type: blockFile.contentType)
             }
+        case .openObject:
+            anytypeAssert(
+                elements.count == 1,
+                "Number of elements should be 1",
+                domain: .editorPage
+            )
+            guard case let .bookmark(bookmark) = elements.first?.content else { return }
+            let screenData = EditorScreenData(pageId: bookmark.targetObjectID, type: .page)
+            router.showPage(data: screenData)
         case .style:
             editingState = .editing
             elements.first.map { didSelectStyleSelection(info: $0.info) }
