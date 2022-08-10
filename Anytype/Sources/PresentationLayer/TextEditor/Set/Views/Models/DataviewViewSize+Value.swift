@@ -5,7 +5,7 @@ extension DataviewViewSize {
         switch self {
         case .small:
             return Loc.Set.View.Settings.CardSize.Small.title
-        case .large:
+        case .medium, .large:
             return Loc.Set.View.Settings.CardSize.Large.title
         default:
             return ""

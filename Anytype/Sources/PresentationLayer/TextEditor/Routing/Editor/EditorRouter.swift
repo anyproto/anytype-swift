@@ -569,9 +569,10 @@ extension EditorRouter {
             router: self
         )
         let vc = UIHostingController(
-            rootView: EditorSetViewSettingsView()
-                .environmentObject(viewModel)
-                .environmentObject(setModel)
+            rootView: EditorSetViewSettingsView(
+                setModel: setModel,
+                model: viewModel
+            )
         )
         viewController?.topPresentedController.present(vc, animated: true)
     }

@@ -166,9 +166,16 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         }?.name
     }
     
+    private func mappedCardSize() -> DataviewViewSize {
+        if setModel.activeView.cardSize == .medium {
+            return .large
+        }
+        return setModel.activeView.cardSize
+    }
+    
     private func showCardSizes() {
         router.showCardSizes(
-            size: setModel.activeView.cardSize,
+            size: mappedCardSize(),
             onSelect: { [weak self] size in
                 self?.onCardSizeChange(size)
             }
