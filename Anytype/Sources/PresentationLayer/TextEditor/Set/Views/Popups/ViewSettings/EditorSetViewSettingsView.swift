@@ -49,10 +49,12 @@ struct EditorSetViewSettingsView: View {
     }
     
     private var listContent: some View {
-        VStack(spacing: 0) {
-            settingsHeader
-            settingsSection
-            relationsHeader
+        Group {
+            VStack(spacing: 0) {
+                settingsHeader
+                settingsSection
+                relationsHeader
+            }
             relationsSection
         }
         .listRowInsets(.init(top: 0, leading: 20, bottom: 0, trailing: 20))
@@ -115,8 +117,8 @@ struct EditorSetViewSettingsView: View {
     private var relationsSection: some View {
         ForEach(model.relations) { relation in
             relationRow(relation)
-                .deleteDisabled(relation.isBundled)
                 .divider()
+                .deleteDisabled(relation.isBundled)
         }
         .onDelete { indexes in
             model.deleteRelations(indexes: indexes)
