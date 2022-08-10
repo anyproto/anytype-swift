@@ -40,6 +40,7 @@ struct EditorSetViewSettingsView: View {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
                     withAnimation { editMode = .inactive }
+                    UISelectionFeedbackGenerator().selectionChanged()
                     model.showAddNewRelationView()
                 }) {
                     Image(asset: .plus)

@@ -21,6 +21,7 @@ struct SetHeaderSettings: View {
     
     private var settingButton: some View {
         Button(action: {
+            UISelectionFeedbackGenerator().selectionChanged()
             model.showSetSettings()
         }) {
             Image(asset: .setSettings)
@@ -29,6 +30,7 @@ struct SetHeaderSettings: View {
 
     private var createObjectButton: some View {
         Button(action: {
+            UISelectionFeedbackGenerator().selectionChanged()
             model.createObject()
         }) {
             Image(asset: .plus)
@@ -37,6 +39,7 @@ struct SetHeaderSettings: View {
     
     private var viewButton: some View {
         Button(action: {
+            UISelectionFeedbackGenerator().selectionChanged()
             withAnimation(.fastSpring) {
                 model.showViewPicker()
             }
