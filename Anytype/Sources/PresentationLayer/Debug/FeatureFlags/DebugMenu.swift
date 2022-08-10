@@ -84,7 +84,7 @@ struct DebugMenu: View {
                         Text(flag.description.title)
                             .font(AnytypeFontBuilder.font(anytypeFont: .body))
                             .foregroundColor(.textPrimary)
-                        Text("Release: \(flag.description.releaseVersion), \(flag.description.author)")
+                        Text(Loc.DebugMenu.toggleAuthor(flag.description.releaseVersion, flag.description.author))
                             .font(AnytypeFontBuilder.font(anytypeFont: .callout))
                             .foregroundColor(.textSecondary)
                         
