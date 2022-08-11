@@ -28,7 +28,7 @@ struct HomeTabsHeader: View {
     private var defaultTabHeader: some View {
         HStack(spacing: 0) {
             tabButton(text: Loc.favorites, tab: .favourites)
-            tabButton(text: Loc.history, tab: .history)
+            tabButton(text: Loc.recent, tab: .recent)
             tabButton(text: Loc.sets, tab: .sets)
             if AccountManager.shared.account.config.enableSpaces {
                 tabButton(text: Loc.shared, tab: .shared)
