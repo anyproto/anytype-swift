@@ -14,17 +14,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:amplitude/Amplitude-iOS.git",
       "state" : {
-        "revision" : "f07749967fb8e628f9f2c743fab2ba6600574d85",
-        "version" : "8.12.0"
-      }
-    },
-    {
-      "identity" : "analytics-connector-ios",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/amplitude/analytics-connector-ios.git",
-      "state" : {
-        "revision" : "b44981119e2efc0edd1d2e26831c3c4c0e0264e6",
-        "version" : "1.0.0"
+        "revision" : "b8a0d51fd414db206050ac83806795a8fab6f447",
+        "version" : "8.7.1"
       }
     },
     {
@@ -68,8 +59,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleDataTransport.git",
       "state" : {
-        "revision" : "5056b15c5acbb90cd214fe4d6138bdf5a740e5a8",
-        "version" : "9.2.0"
+        "revision" : "15ccdfd25ac55b9239b82809531ff26605e7556e",
+        "version" : "9.1.2"
       }
     },
     {
@@ -77,8 +68,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/GoogleUtilities.git",
       "state" : {
-        "revision" : "f4abe56ce62a779e64b525eb133c8fc2a84bbc1f",
-        "version" : "7.7.1"
+        "revision" : "b3bb0c5551fb3f80ca939829639ab5b093edd14f",
+        "version" : "7.7.0"
       }
     },
     {
@@ -95,8 +86,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/gtm-session-fetcher.git",
       "state" : {
-        "revision" : "4e9bbf2808b8fee444e84a48f5f3c12641987d3e",
-        "version" : "1.7.2"
+        "revision" : "bc6a19702ac76ac4e488b68148710eb815f9bc56",
+        "version" : "1.7.0"
       }
     },
     {
@@ -140,8 +131,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/google/promises.git",
       "state" : {
-        "revision" : "3e4e743631e86c8c70dbc6efdc7beaa6e90fd3bb",
-        "version" : "2.1.1"
+        "revision" : "611337c330350c9c1823ad6d671e7f936af5ee13",
+        "version" : "2.0.0"
       }
     },
     {
