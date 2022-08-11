@@ -1,91 +1,88 @@
 import UIKit
 import Combine
+import ShimmerSwift
 
-final class ObjectHeaderFilledContentView: UIView, UIContentView {
+final class ObjectHeaderFilledContentView: UIView, BlockContentView {
         
     // MARK: - Views
-        
-    private var headerView: ObjectHeaderView
+    private let shimmeringView = ShimmeringView(frame: .zero)
+    private var headerView = ObjectHeaderView(frame: .zero)
     
     // MARK: - Private variables
     
     private var subscription: AnyCancellable?
-    private var appliedConfiguration: ObjectHeaderFilledConfiguration!
-    
-    // MARK: - Internal variables
-    
-    var configuration: UIContentConfiguration {
-        get { self.appliedConfiguration }
-        set {
-            guard
-                let configuration = newValue as? ObjectHeaderFilledConfiguration,
-                appliedConfiguration != configuration
-            else {
-                return
-            }
-            
-            apply(configuration)
-        }
-    }
     
     // MARK: - Initializers
-    
-    init(configuration: ObjectHeaderFilledConfiguration) {
-        self.headerView = ObjectHeaderView(topAdjustedContentInset: configuration.topAdjustedContentInset)
 
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
         setupLayout()
-        apply(configuration)
-    }
-    
-    deinit {
-        subscription = nil
     }
 
-    @available(*, unavailable)
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
+        super.init(coder: coder)
 
-private extension ObjectHeaderFilledContentView  {
-    
-    func setupLayout() {
-        addSubview(headerView) {
-            $0.pinToSuperview()
-        }
+        setupLayout()
     }
-    
-    func apply(_ configuration: ObjectHeaderFilledConfiguration) {
-        isUserInteractionEnabled = !configuration.isLocked
-        appliedConfiguration = configuration
+
+    // MARK: - BlockContentView
+    func update(with configuration: ObjectHeaderFilledConfiguration) {
+        shimmeringView.isShimmering = configuration.isShimmering
         headerView.configure(
             model: ObjectHeaderView.Model(
                 state: configuration.state,
-                width: configuration.width
+                width: configuration.width,
+                isShimmering: configuration.isShimmering
             )
         )
-        
+
         guard configuration.state.hasCover else {
             subscription = nil
             return
         }
-        
+
         subscription = NotificationCenter.Publisher(
             center: .default,
             name: .editorCollectionContentOffsetChangeNotification,
             object: nil
         )
-            .compactMap { $0.object as? CGFloat }
-            .receiveOnMain()
-            .sink { self.updateCoverTransform($0) }
+        .compactMap { $0.object as? CGFloat }
+        .receiveOnMain()
+        .sink {
+            self.updateCoverTransform($0)
+        }
+
+
+
+
+        print("isShimmering \(shimmeringView.isShimmering)")
     }
+
+    func update(with state: UICellConfigurationState) {
+        isUserInteractionEnabled = !state.isLocked
+    }
+}
+
+private extension ObjectHeaderFilledContentView  {
     
-    func updateCoverTransform(_ offset: CGFloat) {
-        let offset = offset + appliedConfiguration.topAdjustedContentInset
+    func setupLayout() {
+        addSubview(shimmeringView) {
+            $0.pinToSuperview()
+        }
+
+        shimmeringView.contentView = headerView
         
+        headerView.layoutUsing.anchors {
+            $0.pinToSuperview()
+        }
+
+        shimmeringView.shimmerSpeed = 120
+    }
+
+    func updateCoverTransform(_ offset: CGFloat) {
+        let offset = offset
+
         guard offset.isLess(than: CGFloat.zero) else {
             headerView.applyCoverTransform(.identity)
             return
@@ -99,5 +96,4 @@ private extension ObjectHeaderFilledContentView  {
 
         headerView.applyCoverTransform(t)
     }
-    
 }
