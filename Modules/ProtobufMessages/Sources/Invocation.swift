@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import SwiftProtobuf
 
 enum Anytype_Middleware_Error: Error {
     case unknownError
@@ -13,11 +14,17 @@ private extension DispatchQueue {
     )
 }
 
-public struct Invocation<Response> where Response: ResultWithError, Response.Error.ErrorCode.RawValue == Int {
+public struct Invocation<Request, Response> where Request: Message,
+                                            Response: ResultWithError,
+                                            Response: Message {
     
-    private let invokeTask: () -> Response?
+    private let messageName: String
+    private let request: Request
+    private let invokeTask: (Request) -> Response?
     
-    init(invokeTask: @escaping () -> Response?) {
+    init(messageName: String, request: Request, invokeTask: @escaping (Request) -> Response?) {
+        self.messageName = messageName
+        self.request = request
         self.invokeTask = invokeTask
     }
     
@@ -53,17 +60,27 @@ public struct Invocation<Response> where Response: ResultWithError, Response.Err
     }
     
     private func result() -> Result<Response, Error> {
-        guard let result = invokeTask() else {
+        guard let result = invokeTask(request) else {
+            log(message: messageName, rquest: request, respose: nil, error: Anytype_Middleware_Error.unknownError)
             return .failure(Anytype_Middleware_Error.unknownError)
         }
         
-        if !result.error.isNull {
-            let domain = Anytype_Middleware_Error.domain
-            let code = result.error.code.rawValue
-            let description = result.error.description_p
-            return .failure(NSError(domain: domain, code: code, userInfo: [NSLocalizedDescriptionKey: description]))
+        log(message: messageName, rquest: request, respose: result, error: result.error.toSystemError())
+        
+        if let error = result.error.toSystemError() {
+            return .failure(error)
         } else {
             return .success(result)
         }
+    }
+    
+    private func log(message: String, rquest: Request, respose: Response?, error: Error?) {
+        let message = InvocationMessage(
+            name: message,
+            requestJsonData: try? request.jsonUTF8Data(),
+            responseJsonData: try? respose?.jsonUTF8Data(),
+            responseError: error
+        )
+        InvocationSettings.handler?.handle(message: message)
     }
 }

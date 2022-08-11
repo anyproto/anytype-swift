@@ -1,38 +1,31 @@
 import UIKit
 
-final class ObjectHeaderEmptyContentView: UIView, UIContentView {
-        
+final class ObjectHeaderEmptyContentView: UIView, BlockContentView {
     // MARK: - Private variables
+    private let emptyView = UIView()
+    private let tapGesture = BindableGestureRecognizer()
 
-    private var appliedConfiguration: ObjectHeaderEmptyConfiguration!
-    
-    private let tapGesture: BindableGestureRecognizer
-    
-    // MARK: - Internal variables
-    
-    var configuration: UIContentConfiguration {
-        get { self.appliedConfiguration }
-        set { return }
-    }
-    
-    // MARK: - Initializers
-    
-    init(configuration: ObjectHeaderEmptyConfiguration) {
-        appliedConfiguration = configuration
-        tapGesture = BindableGestureRecognizer { _ in configuration.data.onTap() }
-        
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
-        isUserInteractionEnabled = !configuration.isLocked
-        
         setupView()
     }
-    
-    @available(*, unavailable)
+
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+
+        setupLayout()
     }
-    
+
+    func update(with state: UICellConfigurationState) {
+        tapGesture.isEnabled = !state.isLocked
+    }
+
+    func update(with configuration: ObjectHeaderEmptyConfiguration) {
+        tapGesture.action = { _ in
+            configuration.data.onTap()
+        }
+    }
 }
 
 private extension ObjectHeaderEmptyContentView  {
@@ -43,8 +36,6 @@ private extension ObjectHeaderEmptyContentView  {
     }
     
     func setupLayout() {
-        let emptyView = UIView()
-
         addSubview(emptyView) {
             $0.pinToSuperview(excluding: [.bottom])
             $0.bottom.equal(to: bottomAnchor, priority: .init(rawValue: 999))

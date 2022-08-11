@@ -8,6 +8,7 @@ struct ObjectSearchData: SearchDataProtocol {
     let title: String
     let description: String
     let callout: String
+    let typeUrl: String
     
     let blockId: BlockId
     
@@ -18,6 +19,7 @@ struct ObjectSearchData: SearchDataProtocol {
         self.title = details.title
         self.description = details.description
         self.callout = details.objectType.name
+        self.typeUrl = details.objectType.url
         
         self.blockId = details.id
     }

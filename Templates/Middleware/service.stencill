@@ -35,9 +35,10 @@ extension {{ endpoint.type }} {
     public static func invoke({% call functionArguments endpoint.requestArguments %}) -> Result<Response, Error> {
         return invocation({% call functionCallArguments endpoint.requestArguments %}).invoke()
     }
-    public static func invocation({% call functionArguments endpoint.requestArguments %}) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init({% call functionCallArguments endpoint.requestArguments %}))
+    public static func invocation({% call functionArguments endpoint.requestArguments %}) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request({% call functionCallArguments endpoint.requestArguments %})
+        return Invocation<Request,Response>(messageName: "{{ endpoint.invocationName }}", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {

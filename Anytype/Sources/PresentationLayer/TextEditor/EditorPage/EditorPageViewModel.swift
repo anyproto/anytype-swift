@@ -70,6 +70,8 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
         self.objectActionsService = objectActionsService
         self.searchService = searchService
         self.isOpenedForPreview = isOpenedForPreview
+
+        setupLoadingState()
     }
 
     func setupSubscriptions() {
@@ -83,6 +85,15 @@ final class EditorPageViewModel: EditorPageViewModelProtocol {
             guard let headerModel = value else { return }
             self?.updateHeaderIfNeeded(headerModel: headerModel)
         }.store(in: &subscriptions)
+    }
+
+    private func setupLoadingState() {
+        let shimmeringBlockViewModel = blockBuilder.buildShimeringItem()
+
+        viewInput?.update(
+            changes: nil,
+            allModels: [shimmeringBlockViewModel]
+        )
     }
     
     private func handleUpdate(updateResult: DocumentUpdate) {

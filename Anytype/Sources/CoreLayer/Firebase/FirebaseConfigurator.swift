@@ -1,5 +1,6 @@
 import Firebase
 import AnytypeCore
+import Logger
 
 final class FirebaseConfigurator: AppConfiguratorProtocol {
     #if RELEASE
@@ -15,6 +16,6 @@ final class FirebaseConfigurator: AppConfiguratorProtocol {
         }
         FirebaseApp.configure(options: options)
         
-        AssertionLogger.shared = FirebaseNonFatalLogger()
+        AssertionLogger.shared.handler = FirebaseNonFatalLogger()
     }
 }

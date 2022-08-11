@@ -11,6 +11,7 @@ import Foundation
 final class AppConfigurator {
     
     private let configurators: [AppConfiguratorProtocol] = [
+        LoggerConfigurator(),
         FirebaseConfigurator(),
         AnalyticsConfigurator(),
         KingfisherConfigurator(),
