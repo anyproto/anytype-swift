@@ -96,6 +96,8 @@ enum AnalyticsEventsName {
     // Navigation events
     static let goBack = "HistoryBack"
     static let goForward = "HistoryForward"
+
+    static let blockAction = "BlockAction"
 }
 
 // MARK: - Home tab names

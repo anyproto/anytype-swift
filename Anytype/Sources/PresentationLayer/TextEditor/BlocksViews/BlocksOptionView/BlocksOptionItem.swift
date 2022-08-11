@@ -75,4 +75,33 @@ extension BlocksOptionItem {
             return Loc.preview
         }
     }
+
+    var analyticsEventValue: String {
+        switch self {
+        case .style:
+            return "Style"
+        case .delete:
+            return "Delete"
+        case .addBlockBelow:
+            return "AddBelow"
+        case .duplicate:
+            return "Duplicate"
+        case .turnInto:
+            return "TurnInto"
+        case .moveTo:
+            return "MoveTo"
+        case .move:
+            return "Move"
+        case .download:
+            return "Download"
+        case .openObject:
+            return "OpenObject"
+        case .paste:
+            return "Paste"
+        case .copy:
+            return "Copy"
+        case .preview:
+            return "Preview"
+        }
+    }
 }
