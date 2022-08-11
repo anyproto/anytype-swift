@@ -136,6 +136,15 @@
       }
     },
     {
+      "identity" : "pulse",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/kean/Pulse",
+      "state" : {
+        "branch" : "1.1.0",
+        "revision" : "403699c645e0872fa8986366a7015da334f0f48b"
+      }
+    },
+    {
       "identity" : "shimmerswift",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/BeauNouvelle/ShimmerSwift",
@@ -151,6 +160,15 @@
       "state" : {
         "revision" : "48254824bb4248676bf7ce56014ff57b142b77eb",
         "version" : "1.0.2"
+      }
+    },
+    {
+      "identity" : "swift-log",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/apple/swift-log.git",
+      "state" : {
+        "branch" : "1.4.2",
+        "revision" : "5d66f7ba25daf4f94100e7022febf3c75e37a6c7"
       }
     },
     {

@@ -22,13 +22,6 @@ extension FeatureDescription {
         defaultValue: false
     )
     
-    static let middlewareLogs = FeatureDescription(
-        title: "Show middleware logs in Xcode console",
-        author: "debug",
-        releaseVersion: "-",
-        defaultValue: false
-    )
-    
     static let objectPreview = FeatureDescription(
         title: "Object preview",
         author: "k@anytype.io",
