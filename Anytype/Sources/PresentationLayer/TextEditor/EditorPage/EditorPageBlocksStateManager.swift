@@ -306,6 +306,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     private func handleBlocksOptionItemSelection(_ item: BlocksOptionItem) {
         let elements = selectedBlocksIndexPaths.compactMap { modelsHolder.blockViewModel(at: $0.row) }
+        AnytypeAnalytics.instance().logEvent(
+            AnalyticsEventsName.blockAction,
+            withEventProperties: ["type": item.analyticsEventValue]
+        )
 
         switch item {
         case .delete:
