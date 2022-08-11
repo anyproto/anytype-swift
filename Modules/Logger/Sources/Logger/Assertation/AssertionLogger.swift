@@ -1,6 +1,6 @@
 import Logging
 
-public protocol AssertionLoggerHandler {
+public protocol AssertionLoggerHandler: AnyObject {
     func log(_ message: String, domain: String)
 }
 
