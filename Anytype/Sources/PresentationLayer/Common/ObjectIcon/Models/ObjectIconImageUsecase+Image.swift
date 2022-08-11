@@ -7,8 +7,8 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x112,
                 emojiImageGuideline: EmojiIconImageGuideline.x80,
                 todoImageGuideline: TodoIconImageGuideline.x28,
-                placeholderImageGuideline: nil,
-                staticImageGuideline: nil
+                placeholderImageGuideline: PlaceholderIconImageGuideline.x48,
+                staticImageGuideline: StaticImageGuideline.x80
             )
         case .openedObjectNavigationBar:
             return ObjectIconImageGuidelineSet(

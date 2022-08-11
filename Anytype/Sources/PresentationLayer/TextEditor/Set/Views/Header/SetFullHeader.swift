@@ -14,9 +14,6 @@ struct SetFullHeader: View {
     
     private var header: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Rectangle().foregroundColor(.backgroundPrimary)
-                .frame(height: minimizedHeaderHeight)
-            
             cover
             
             model.details.flatMap {
@@ -64,20 +61,20 @@ struct SetFullHeader: View {
     private var cover: some View {
         Group {
             switch model.headerModel.header {
-            case .empty(let data):
+            case .empty(let data, _):
                 Button(action: data.onTap) {
                     Color.backgroundPrimary
                         .frame(height: ObjectHeaderConstants.emptyViewHeight)
                 }
-            case .filled(let state):
+            case .filled(let state, _):
                 ObjectHeaderFilledContentSwitfUIView(
                     configuration: ObjectHeaderFilledConfiguration(
                         state: state,
-                        width: width,
-                        topAdjustedContentInset: minimizedHeaderHeight
+                        isShimmering: false,
+                        width: width
                     )
                 )
-                    .frame(height: ObjectHeaderConstants.height)
+                .frame(height: ObjectHeaderConstants.coverFullHeight)
             default:
                 EmptyView()
             }

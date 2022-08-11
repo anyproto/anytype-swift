@@ -347,8 +347,6 @@ internal enum Loc {
   internal static let highlighted = Loc.tr("Localizable", "Highlighted")
   /// Highlighted text
   internal static let highlightedText = Loc.tr("Localizable", "Highlighted text")
-  /// History
-  internal static let history = Loc.tr("Localizable", "History")
   /// Home
   internal static let home = Loc.tr("Localizable", "Home")
   /// Icon

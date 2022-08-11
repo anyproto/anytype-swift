@@ -3,11 +3,15 @@ import UIKit
 
 enum ObjectHeader: Hashable {
     
-    case filled(ObjectHeaderFilledState)
-    case empty(ObjectHeaderEmptyData)
-    
-    static var initialState: ObjectHeader {
-        .empty(.init(onTap: {}))
+    case filled(state: ObjectHeaderFilledState, isShimmering: Bool)
+    case empty(data: ObjectHeaderEmptyData, isShimmering: Bool)
+
+    static func filled(state: ObjectHeaderFilledState) -> Self {
+        .filled(state: state, isShimmering: false)
+    }
+
+    static func empty(data: ObjectHeaderEmptyData) -> Self {
+        .empty(data: data, isShimmering: false)
     }
 }
 extension ObjectHeader: ContentConfigurationProvider {
@@ -19,10 +23,16 @@ extension ObjectHeader: ContentConfigurationProvider {
     
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         switch self {
-        case .filled(let filledState):
-            return ObjectHeaderFilledConfiguration(state: filledState, width: maxWidth)
-        case .empty(let data):
-            return ObjectHeaderEmptyConfiguration(data: data)
+        case .filled(let filledState, let isShimmering):
+            return ObjectHeaderFilledConfiguration(
+                state: filledState,
+                isShimmering: isShimmering,
+                width: maxWidth
+            )
+                .cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
+        case .empty(let data, let isShimmering):
+            return ObjectHeaderEmptyConfiguration(data: data, isShimmering: isShimmering)
+                .cellBlockConfiguration(indentationSettings: nil, dragConfiguration: nil)
         }
     }
     

@@ -20,8 +20,6 @@ final class AuthService: AuthServiceProtocol {
     }
 
     func logout(removeData: Bool, onCompletion: @escaping (Bool) -> ()) {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
-        
         Anytype_Rpc.Account.Stop.Service
             .invoke(removeData: removeData, queue: .global(qos: .userInitiated))
             .receiveOnMain()

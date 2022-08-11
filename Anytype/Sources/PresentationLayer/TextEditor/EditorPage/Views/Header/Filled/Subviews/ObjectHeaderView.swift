@@ -2,14 +2,15 @@ import Foundation
 import UIKit
 import BlocksModels
 import AnytypeCore
+import ShimmerSwift
 
 final class ObjectHeaderView: UIView {
-    
+
     // MARK: - Private variables
 
     private let iconView = ObjectHeaderIconView()
     private let coverView = ObjectHeaderCoverView()
-    
+
     private var onIconTap: (() -> Void)?
     private var onCoverTap: (() -> Void)?
     
@@ -17,15 +18,16 @@ final class ObjectHeaderView: UIView {
     private var centerConstraint: NSLayoutConstraint!
     private var trailingConstraint: NSLayoutConstraint!
 
-    init(topAdjustedContentInset: CGFloat) {
-        super.init(frame: .zero)
+    override init(frame: CGRect) {
+        super.init(frame: frame)
 
-        setupView(topAdjustedContentInset: topAdjustedContentInset)
+        setupView()
     }
-    
-    @available(*, unavailable)
+
     required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+        super.init(coder: coder)
+
+        setupView()
     }
 
     override func layoutSubviews() {
@@ -47,7 +49,7 @@ final class ObjectHeaderView: UIView {
             coverView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         }
 
-        // Disable CALayer implicit animations
+//         Disable CALayer implicit animations
         CATransaction.begin()
         CATransaction.setDisableActions(true)
 
@@ -62,6 +64,7 @@ extension ObjectHeaderView: ConfigurableView {
     struct Model {
         let state: ObjectHeaderFilledState
         let width: CGFloat
+        let isShimmering: Bool
     }
     
     func configure(model: Model) {
@@ -121,7 +124,10 @@ extension ObjectHeaderView: ConfigurableView {
         }
     }
     
-    private func applyObjectHeaderCover(_ objectHeaderCover: ObjectHeaderCover, maxWidth: CGFloat) {
+    private func applyObjectHeaderCover(
+        _ objectHeaderCover: ObjectHeaderCover,
+        maxWidth: CGFloat
+    ) {
         coverView.configure(
             model: ObjectHeaderCoverView.Model(
                 objectCover: objectHeaderCover.coverType,
@@ -131,6 +137,7 @@ extension ObjectHeaderView: ConfigurableView {
                 )
             )
         )
+
         onCoverTap = objectHeaderCover.onTap
     }
     
@@ -138,11 +145,11 @@ extension ObjectHeaderView: ConfigurableView {
 
 private extension ObjectHeaderView {
     
-    func setupView(topAdjustedContentInset: CGFloat) {
+    func setupView() {
         backgroundColor = .backgroundPrimary
         setupGestureRecognizers()
         
-        setupLayout(topAdjustedContentInset: topAdjustedContentInset)
+        setupLayout()
         
         iconView.isHidden = true
         coverView.isHidden = true
@@ -162,15 +169,14 @@ private extension ObjectHeaderView {
         )
     }
     
-    func setupLayout(topAdjustedContentInset: CGFloat) {
+    func setupLayout() {
         layoutUsing.anchors {
-            $0.height.equal(to: ObjectHeaderConstants.height, priority: .defaultLow)
+            $0.height.equal(to: ObjectHeaderConstants.coverFullHeight, priority: .defaultLow)
         }
-        
+
         addSubview(coverView) {
-            $0.pinToSuperview(excluding: [.top, .bottom])
-            $0.bottom.equal(to: bottomAnchor, constant: -ObjectHeaderConstants.coverBottomInset)
-            $0.height.equal(to: ObjectHeaderConstants.coverHeight + topAdjustedContentInset)
+            $0.pinToSuperview(insets: UIEdgeInsets(top: 0, left: 0, bottom: -ObjectHeaderConstants.coverBottomInset, right: 0))
+            $0.height.equal(to: ObjectHeaderConstants.coverHeight)
         }
         
         addSubview(iconView) {
@@ -197,7 +203,6 @@ private extension ObjectHeaderView {
             )
         }
     }
-    
 }
 
 private extension ObjectHeaderView {

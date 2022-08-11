@@ -81,7 +81,7 @@ final class HomeViewModel: ObservableObject {
         selectAll(false)
         
         UserDefaultsConfig.selectedTab = tab
-        subscriptionService.stopSubscriptions(ids: [.sharedTab, .setsTab, .archiveTab, .historyTab])
+        subscriptionService.stopSubscriptions(ids: [.sharedTab, .setsTab, .archiveTab, .recentTab])
         tab.subscriptionId.flatMap { subId in
             subscriptionService.startSubscription(data: subId) { [weak self] id, update in
                 withAnimation(update.isInitialData ? nil : .spring()) {
@@ -117,7 +117,7 @@ final class HomeViewModel: ObservableObject {
     
     private func updateCollections(id: SubscriptionId, _ update: SubscriptionUpdate) {
         switch id {
-        case .historyTab:
+        case .recentTab:
             historyCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
         case .archiveTab:
             binCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)

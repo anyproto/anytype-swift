@@ -209,7 +209,7 @@ private extension ObjectHeader {
     
     var hasCover: Bool {
         switch self {
-        case .filled(let filledState):
+        case .filled(let filledState, _):
             return filledState.hasCover
         case .empty:
             return false
@@ -219,7 +219,7 @@ private extension ObjectHeader {
     var startAppearingOffset: CGFloat {
         switch self {
         case .filled:
-            return ObjectHeaderConstants.height - 100
+            return ObjectHeaderConstants.coverHeight - 100
             
         case .empty:
             return ObjectHeaderConstants.emptyViewHeight - 50
@@ -229,7 +229,7 @@ private extension ObjectHeader {
     var endAppearingOffset: CGFloat {
         switch self {
         case .filled:
-            return ObjectHeaderConstants.height
+            return ObjectHeaderConstants.coverHeight
             
         case .empty:
             return ObjectHeaderConstants.emptyViewHeight

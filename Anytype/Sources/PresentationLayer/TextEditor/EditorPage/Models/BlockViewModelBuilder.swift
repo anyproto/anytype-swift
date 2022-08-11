@@ -50,6 +50,12 @@ final class BlockViewModelBuilder {
         return editorItems
     }
 
+    func buildShimeringItem() -> EditorItem {
+        let shimmeringViewModel = ShimmeringBlockViewModel()
+
+        return .system(shimmeringViewModel)
+    }
+
     private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
         infos.compactMap(build(info:))
     }
@@ -163,9 +169,12 @@ final class BlockViewModelBuilder {
         case .divider(let content):
             return DividerBlockViewModel(content: content, info: info)
         case let .bookmark(data):
+            let newData = FeatureFlags.bookmarksFlow
+                ? ObjectDetailsStorage.shared.get(id: data.targetObjectID).map { BlockBookmark(objectDetails: $0) }
+                : nil
             return BlockBookmarkViewModel(
                 info: info,
-                bookmarkData: data,
+                bookmarkData: newData ?? data,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },
@@ -287,5 +296,3 @@ final class BlockViewModelBuilder {
         }
     }
 }
-
-
