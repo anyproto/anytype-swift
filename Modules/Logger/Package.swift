@@ -24,6 +24,8 @@ let package = Package(
         .target(
             name: "Logger",
             dependencies: [
+                // Remove for release build. SPM proposal
+                // https://github.com/apple/swift-evolution/blob/master/proposals/0273-swiftpm-conditional-target-dependencies.md
                 .product(name: "Pulse", package: "Pulse"),
                 .product(name: "PulseCore", package: "Pulse"),
                 .product(name: "PulseUI", package: "Pulse"),
