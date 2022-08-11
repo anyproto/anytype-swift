@@ -1,6 +1,7 @@
 import ProtobufMessages
 import Combine
 import BlocksModels
+import AnytypeCore
 
 protocol SearchServiceProtocol {
     func search(text: String) -> [ObjectDetails]?
@@ -50,6 +51,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             ),
             SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.set).rawValue)
         ]
+        if FeatureFlags.bookmarksFlow {
+            filters.append(SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.bookmark).rawValue))
+        }
         filteringTypeUrl.map { filters.append(SearchHelper.excludedObjectTypeUrlFilter($0)) }
 
 

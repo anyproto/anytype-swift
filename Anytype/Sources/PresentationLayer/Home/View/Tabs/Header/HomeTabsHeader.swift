@@ -15,7 +15,7 @@ struct HomeTabsHeader: View {
                         .padding(.horizontal, 20)
                 } else {
                     defaultTabHeader
-                        .padding(.leading, 20)
+                        .padding(.leading, 10)
                 }
             }
             .frame(height: 72, alignment: .center)
@@ -28,14 +28,10 @@ struct HomeTabsHeader: View {
     private var defaultTabHeader: some View {
         HStack(spacing: 0) {
             tabButton(text: Loc.favorites, tab: .favourites)
-            Spacer().frame(maxWidth: 15)
             tabButton(text: Loc.history, tab: .history)
-            Spacer().frame(maxWidth: 15)
             tabButton(text: Loc.sets, tab: .sets)
-            Spacer().frame(maxWidth: 15)
             if AccountManager.shared.account.config.enableSpaces {
                 tabButton(text: Loc.shared, tab: .shared)
-                Spacer().frame(maxWidth: 15)
             }
             tabButton(text: Loc.bin, tab: .bin)
             Spacer()
@@ -52,7 +48,9 @@ struct HomeTabsHeader: View {
         ) {
             HomeTabsHeaderText(text: text, isSelected: tabSelection == tab)
                 .frame(minWidth: 40)
-                .contentShape(Rectangle())
+                .padding(.horizontal, 10)
+                .padding(.vertical, 12)
+                
         }
     }
 }
