@@ -22,7 +22,6 @@ extension DataviewViewType {
             return FeatureFlags.setGalleryView ? .gallery : .table
         default:
             return .table
-            
         }
     }
 }
