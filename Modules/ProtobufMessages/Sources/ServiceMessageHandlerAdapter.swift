@@ -58,7 +58,7 @@ extension ServiceMessageHandlerAdapter: ServiceMessageHandlerProtocol {
     
     private func log(event: Anytype_Event) {
         let message = InvocationMessage(
-            name: "Callback",
+            name: "Event",
             requestJsonData: nil,
             responseJsonData: try? event.jsonUTF8Data(),
             responseError: nil
