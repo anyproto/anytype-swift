@@ -224,11 +224,6 @@ final class EditorSetViewModel: ObservableObject {
         relationMetadata.format != .unrecognized
     }
     
-    private func isFloatingSetMenuAvailable() -> Bool {
-        FeatureFlags.isSetSortsAvailable ||
-        FeatureFlags.isSetFiltersAvailable
-    }
-    
     private func isBookmarkObject() -> Bool {
         dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
     }
@@ -242,7 +237,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func rowTapped(_ details: ObjectDetails) {
-        if isBookmarkObject(),
+        if !FeatureFlags.bookmarksFlow && isBookmarkObject(),
            let url = url(from: details) {
             router.openUrl(url)
         } else {
@@ -288,11 +283,7 @@ extension EditorSetViewModel {
     }
     
     func showSetSettings() {
-        if isFloatingSetMenuAvailable() {
-            router.showSetSettings(setModel: self)
-        } else {
-            showViewSettings()
-        }
+        router.showSetSettings(setModel: self)
     }
 
     func createObject() {
@@ -304,13 +295,9 @@ extension EditorSetViewModel {
     }
     
     func showViewSettings() {
-        router.presentFullscreen(
-            AnytypePopup(
-                viewModel: EditorSetViewSettingsViewModel(
-                    setModel: self,
-                    service: dataviewService
-                )
-            )
+        router.showViewSettings(
+            setModel: self,
+            dataviewService: dataviewService
         )
     }
     
@@ -348,7 +335,7 @@ extension EditorSetViewModel {
             templateId = ""
         }
 
-        guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
+        guard let objectDetails = dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
         
         router.showCreateObject(pageId: objectDetails.id)
     }

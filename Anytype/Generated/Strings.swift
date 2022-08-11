@@ -463,6 +463,8 @@ internal enum Loc {
   internal static let ok = Loc.tr("Localizable", "Ok")
   /// On analytics
   internal static let onAnalytics = Loc.tr("Localizable", "On analytics")
+  /// Open object
+  internal static let openObject = Loc.tr("Localizable", "Open object")
   /// or type your recovery phrase
   internal static let orTypeYourRecoveryPhrase = Loc.tr("Localizable", "or type your recovery phrase")
   /// With Anytype you can write notes and documents, manage tasks and save important content from the web.
@@ -768,6 +770,13 @@ internal enum Loc {
     internal static let table = Loc.tr("Localizable", "DataviewType.table")
   }
 
+  internal enum DebugMenu {
+    /// Release: %s, %s
+    internal static func toggleAuthor(_ p1: UnsafePointer<CChar>, _ p2: UnsafePointer<CChar>) -> String {
+      return Loc.tr("Localizable", "DebugMenu.ToggleAuthor", p1, p2)
+    }
+  }
+
   internal enum DeletionAlert {
     /// You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently
     internal static let description = Loc.tr("Localizable", "DeletionAlert.description")
@@ -1063,6 +1072,30 @@ internal enum Loc {
         internal enum Button {
           /// Apply
           internal static let title = Loc.tr("Localizable", "Set.Filters.Search.Button.Title")
+        }
+      }
+    }
+    internal enum View {
+      internal enum Settings {
+        internal enum CardSize {
+          /// Card size
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Title")
+          internal enum Large {
+            /// Large
+            internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Large.Title")
+          }
+          internal enum Small {
+            /// Small
+            internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Small.Title")
+          }
+        }
+        internal enum ImageFit {
+          /// Fit image
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImageFit.Title")
+        }
+        internal enum ImagePreview {
+          /// Image preview
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImagePreview.Title")
         }
       }
     }
