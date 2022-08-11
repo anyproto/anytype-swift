@@ -39,6 +39,14 @@ final class EditorSetViewModel: ObservableObject {
         )
     }
     
+    var isSmallItemSize: Bool {
+        activeView.cardSize == .small
+    }
+    
+    var contentViewType: SetContentViewType {
+        activeView.type.setContentViewType
+    }
+    
     var sortedRelations: [SetRelation] {
         dataBuilder.sortedRelations(dataview: dataView, view: activeView)
     }
@@ -347,4 +355,13 @@ extension EditorSetViewModel {
 
 extension EditorSetViewModel {
     static let urlRelationKey = "url"
+}
+
+extension EditorSetViewModel {
+    static let empty = EditorSetViewModel(
+        document: BaseDocument(objectId: "objectId"),
+        dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
+        searchService: SearchService(),
+        detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService())
+    )
 }
