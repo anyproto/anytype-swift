@@ -1,45 +1,31 @@
 import SwiftUI
 
-struct SetTableView: View {
+struct SetCollectionView: View {
     @ObservedObject private(set) var model: EditorSetViewModel
     
     @Binding var tableHeaderSize: CGSize
     @Binding var offset: CGPoint
+    
     var headerMinimizedSize: CGSize
 
     var body: some View {
-        if #available(iOS 15.0, *) {
-            SingleAxisGeometryReader { fullWidth in
-                scrollView(fullWidth: fullWidth)
-            }
-        } else {
-            scrollView(fullWidth: UIApplication.shared.keyWindow!.frame.width)
-        }
-    }
-    
-    private func scrollView(fullWidth: CGFloat) -> some View {
         OffsetAwareScrollView(
-            axes: [.horizontal],
+            axes: [.vertical],
             showsIndicators: false,
-            offsetChanged: { offset.x = $0.x }
+            offsetChanged: { offset.y = $0.y }
         ) {
-            OffsetAwareScrollView(
-                axes: [.vertical],
-                showsIndicators: false,
-                offsetChanged: { offset.y = $0.y }
-            ) {
-                Spacer.fixedHeight(tableHeaderSize.height)
-                LazyVStack(
-                    alignment: .leading,
-                    spacing: 0,
-                    pinnedViews: [.sectionHeaders]
-                ) {
-                    content
-                    pagination
-                }
-                .frame(minWidth: fullWidth)
-                .padding(.top, -headerMinimizedSize.height)
+            Spacer.fixedHeight(tableHeaderSize.height)
+            LazyVGrid(
+                columns: columns(),
+                alignment: .center,
+                spacing: SetCollectionView.interCellSpacing,
+                pinnedViews: [.sectionHeaders])
+            {
+                content
             }
+            .padding(.top, -headerMinimizedSize.height)
+            .padding(.horizontal, 10)
+            pagination
         }
         .overlay(
             SetFullHeader()
@@ -55,8 +41,8 @@ struct SetTableView: View {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
-                    ForEach(model.rows) { row in
-                        SetTableViewRow(data: row, xOffset: xOffset)
+                    ForEach(model.rows) { cell in
+                        SetCollectionViewCell(configuration: cell)
                     }
                 }
             }
@@ -66,11 +52,6 @@ struct SetTableView: View {
     private var pagination: some View {
         EditorSetPaginationView()
             .frame(width: tableHeaderSize.width)
-            .offset(x: xOffset, y: 0)
-    }
-
-    private var xOffset: CGFloat {
-        max(-offset.x, 0)
     }
 
     private var compoundHeader: some View {
@@ -79,22 +60,35 @@ struct SetTableView: View {
             VStack {
                 HStack {
                     SetHeaderSettings()
-                        .offset(x: xOffset, y: 0)
                         .environmentObject(model)
                         .frame(width: tableHeaderSize.width)
+                        .offset(x: 4, y: 8)
                     Spacer()
                 }
-                SetTableViewHeader()
             }
         }
         .background(Color.backgroundPrimary)
     }
+    
+    private func columns() -> [GridItem] {
+        guard UIDevice.isPhone else {
+            return [GridItem(.adaptive(minimum: 150), spacing: SetCollectionView.interCellSpacing)]
+        }
+        
+        return model.isSmallItemSize ? [
+            GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing),
+            GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing)
+        ] : [GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing)]
+    }
 }
 
+extension SetCollectionView {
+    static let interCellSpacing: CGFloat = 11
+}
 
-struct SetTableView_Previews: PreviewProvider {
+struct SetCollectionView_Previews: PreviewProvider {
     static var previews: some View {
-        SetTableView(
+        SetCollectionView(
             model: EditorSetViewModel.empty,
             tableHeaderSize: .constant(.zero),
             offset: .constant(.zero),

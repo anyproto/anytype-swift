@@ -474,6 +474,9 @@
 		2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */; };
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
 		2E61D470286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */; };
+		2E63047728A54F1900BEF2E9 /* SetContentViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047628A54F1900BEF2E9 /* SetContentViewType.swift */; };
+		2E63047928A55D2000BEF2E9 /* SetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047828A55D2000BEF2E9 /* SetCollectionViewCell.swift */; };
+		2E63047B28A55D2A00BEF2E9 /* SetCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047A28A55D2A00BEF2E9 /* SetCollectionView.swift */; };
 		2E7C445D2891753B0062287C /* SetFiltersDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445C2891753B0062287C /* SetFiltersDateView.swift */; };
 		2E7C445F2891755A0062287C /* SetFiltersDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */; };
 		2E7C4461289184BA0062287C /* SetFiltersDateRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4460289184BA0062287C /* SetFiltersDateRowConfiguration.swift */; };
@@ -1611,6 +1614,9 @@
 		2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerContentType.swift; sourceTree = "<group>"; };
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
 		2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkStateConverter.swift; sourceTree = "<group>"; };
+		2E63047628A54F1900BEF2E9 /* SetContentViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewType.swift; sourceTree = "<group>"; };
+		2E63047828A55D2000BEF2E9 /* SetCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCollectionViewCell.swift; sourceTree = "<group>"; };
+		2E63047A28A55D2A00BEF2E9 /* SetCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCollectionView.swift; sourceTree = "<group>"; };
 		2E7C445C2891753B0062287C /* SetFiltersDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateView.swift; sourceTree = "<group>"; };
 		2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateViewModel.swift; sourceTree = "<group>"; };
 		2E7C4460289184BA0062287C /* SetFiltersDateRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateRowConfiguration.swift; sourceTree = "<group>"; };
@@ -4322,6 +4328,23 @@
 			path = ImagePreview;
 			sourceTree = "<group>";
 		};
+		2E0DAF2A28A3EFC100F43320 /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				2E63047A28A55D2A00BEF2E9 /* SetCollectionView.swift */,
+				2E0DAF3028A4027F00F43320 /* Cell */,
+			);
+			path = Collection;
+			sourceTree = "<group>";
+		};
+		2E0DAF3028A4027F00F43320 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				2E63047828A55D2000BEF2E9 /* SetCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		2E2D255328880C8D00E3DFD1 /* Selection */ = {
 			isa = PBXGroup;
 			children = (
@@ -5579,6 +5602,7 @@
 		3DA6DBCF27457D9700516E75 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				2E0DAF2A28A3EFC100F43320 /* Collection */,
 				3D30417027EA688E00FFE0EB /* Models */,
 				3D30416527EA4DC000FFE0EB /* Popups */,
 				3D7F7171279F0813003FE893 /* Pagination */,
@@ -5827,6 +5851,7 @@
 				3DC2D2C2279817B100437E04 /* Document+Dataview.swift */,
 				3D7F718527A190C6003FE893 /* EditorSetPaginationHelper.swift */,
 				3D2D4C6427BAA2EF0070A4C6 /* SetConstants.swift */,
+				2E63047628A54F1900BEF2E9 /* SetContentViewType.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -7535,6 +7560,7 @@
 				3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */,
 				3D932D4426317E3A00C7D1EA /* HomeBottomSheetView.swift in Sources */,
 				3DF80F3B26EF9B37000492F3 /* TextBlockLeftViewStyler.swift in Sources */,
+				2E63047928A55D2000BEF2E9 /* SetCollectionViewCell.swift in Sources */,
 				3D7C08272684E21500E2168D /* FileSizeConverter.swift in Sources */,
 				0A6F900E2554826700B94AED /* UnknownLabelViewModel.swift in Sources */,
 				EA3D1E5626CFCE58001A31D9 /* LinkAttributeSelectionHandler.swift in Sources */,
@@ -7567,6 +7593,7 @@
 				2E975EEF287C23DA004DE574 /* SetSortTypesListViewModel.swift in Sources */,
 				EA2640CA26C3DDF6006071BD /* NSRange+Middleware.swift in Sources */,
 				3DB3EC6B275514E9002781DA /* ProgressBarWithAnimation.swift in Sources */,
+				2E63047728A54F1900BEF2E9 /* SetContentViewType.swift in Sources */,
 				12CAF34826D64231001E56B2 /* BasicIconImageGuideline.swift in Sources */,
 				12EE02D62840EB5600223EB5 /* LifecycleStateTransitionSceneDelegate.swift in Sources */,
 				3D932D4E26317E9300C7D1EA /* StandardButtonView.swift in Sources */,
@@ -7690,6 +7717,7 @@
 				3DB3EC69275513B8002781DA /* ProgressBarStub.swift in Sources */,
 				12D15D2427F5F8CD00D22086 /* FilesOptionsSearchModuleBuilder.swift in Sources */,
 				EAE6BE252681FC5C00275788 /* LoginStateService.swift in Sources */,
+				2E63047B28A55D2A00BEF2E9 /* SetCollectionView.swift in Sources */,
 				5315D39627B99E28000F3456 /* StatusRelationViewUIKit.swift in Sources */,
 				C92DCD952729952500A03D91 /* CursorModeAccessoryViewModel.swift in Sources */,
 				3D155278264D97A100B0E976 /* View+Snackbar.swift in Sources */,
