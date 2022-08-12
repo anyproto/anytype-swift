@@ -7195,7 +7195,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "./Tools/SwiftGen/swiftgen config run --config ./Tools/SwiftGen/swiftgen.yml\n";
+			shellScript = "./Tools/SwiftGen/swiftgen config run --config ./Tools/SwiftGen/swiftgen.yml\n./Tools/SwiftGen/swiftgen config run --config ./Tools/SwiftGen/swiftgen-images.yml\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
