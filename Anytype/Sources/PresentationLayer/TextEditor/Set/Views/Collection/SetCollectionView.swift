@@ -41,8 +41,8 @@ struct SetCollectionView: View {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
-                    ForEach(model.rows) { cell in
-                        SetCollectionViewCell(configuration: cell)
+                    ForEach(model.configurations) { configuration in
+                        SetCollectionViewCell(configuration: configuration)
                     }
                 }
             }
@@ -76,9 +76,9 @@ struct SetCollectionView: View {
         }
         
         return model.isSmallItemSize ? [
-            GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing),
-            GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing)
-        ] : [GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing)]
+            GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading),
+            GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading),
+        ] : [GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading)]
     }
 }
 

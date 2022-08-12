@@ -30,7 +30,7 @@ struct TextRelationFactory {
     private static func maxLength(style: RelationStyle) -> Int? {
         switch style {
         case .regular, .set: return nil
-        case .featuredRelationBlock, .filter: return 40
+        case .featuredRelationBlock, .filter, .setGallery: return 40
         }
     }
 }

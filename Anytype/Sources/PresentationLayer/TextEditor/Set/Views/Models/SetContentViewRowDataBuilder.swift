@@ -1,7 +1,7 @@
 import BlocksModels
 import Foundation
 
-final class SetTableViewDataBuilder {
+final class SetContentViewDataBuilder {
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
@@ -18,15 +18,15 @@ final class SetTableViewDataBuilder {
         return NSOrderedSet(array: relations).array as! [SetRelation]
     }
     
-    func rowData(
+    func itemData(
         _ details: [ObjectDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
         colums: [RelationMetadata],
         isObjectLocked: Bool,
         onIconTap: @escaping (ObjectDetails) -> Void,
-        onRowTap: @escaping (ObjectDetails) -> Void
-    ) -> [SetTableViewRowData] {
+        onItemTap: @escaping (ObjectDetails) -> Void
+    ) -> [SetContentViewItemConfiguration] {
         
         let metadata = sortedRelations(dataview: dataView, view: activeView)
             .filter { $0.option.isVisible == true }
@@ -53,17 +53,18 @@ final class SetTableViewDataBuilder {
                 return relation
             }
             
-            return SetTableViewRowData(
+            return SetContentViewItemConfiguration(
                 id: details.id,
                 title: details.title,
                 icon: details.objectIconImage,
                 relations: relations,
                 showIcon: !activeView.hideIcon,
+                coverFit: activeView.coverFit,
                 onIconTap: {
                     onIconTap(details)
                 },
-                onRowTap: {
-                    onRowTap(details)
+                onItemTap: {
+                    onItemTap(details)
                 }
             )
         }

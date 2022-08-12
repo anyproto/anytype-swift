@@ -23,8 +23,8 @@ final class EditorSetViewModel: ObservableObject {
         sortedRelations.filter { $0.option.isVisible }.map(\.metadata)
     }
  
-    var rows: [SetTableViewRowData] {
-        dataBuilder.rowData(
+    var configurations: [SetContentViewItemConfiguration] {
+        dataBuilder.itemData(
             records,
             dataView: dataView,
             activeView: activeView,
@@ -33,8 +33,8 @@ final class EditorSetViewModel: ObservableObject {
             onIconTap: { [weak self] details in
                 self?.updateDetailsIfNeeded(details)
             },
-            onRowTap: { [weak self] details in
-                self?.rowTapped(details)
+            onItemTap: { [weak self] details in
+                self?.itemTapped(details)
             }
         )
     }
@@ -100,7 +100,7 @@ final class EditorSetViewModel: ObservableObject {
     let paginationHelper = EditorSetPaginationHelper()
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
-    private let dataBuilder = SetTableViewDataBuilder()
+    private let dataBuilder = SetContentViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
@@ -244,7 +244,7 @@ final class EditorSetViewModel: ObservableObject {
         )
     }
     
-    private func rowTapped(_ details: ObjectDetails) {
+    private func itemTapped(_ details: ObjectDetails) {
         if !FeatureFlags.bookmarksFlow && isBookmarkObject(),
            let url = url(from: details) {
             router.openUrl(url)

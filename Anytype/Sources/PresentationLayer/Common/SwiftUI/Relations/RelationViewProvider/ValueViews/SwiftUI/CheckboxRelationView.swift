@@ -6,7 +6,7 @@ struct CheckboxRelationView: View {
     
     var body: some View {
         switch style {
-        case .regular, .set:
+        case .regular, .set, .setGallery:
             icon
         case .featuredRelationBlock:
             featuredRelationBlockIcon
