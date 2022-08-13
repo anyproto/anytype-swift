@@ -57,6 +57,8 @@ extension UIColor {
       internal static let teal = UIColor(asset: Asset.Text.teal)
       internal static let yellow = UIColor(asset: Asset.Text.yellow)
     }
+    // MARK: - Additional
+    internal static let shimmering = UIColor(asset: Asset.shimmering)
     // MARK: - Backgound
     internal static let backgroundDashboard = UIColor(asset: Asset.backgroundDashboard)
     internal static let backgroundPrimary = UIColor(asset: Asset.backgroundPrimary)
