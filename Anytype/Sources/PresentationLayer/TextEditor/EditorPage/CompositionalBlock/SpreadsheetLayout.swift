@@ -58,6 +58,7 @@ final class SpreadsheetLayout: UICollectionViewLayout {
         in rect: CGRect
     ) -> [UICollectionViewLayoutAttributes]? {
         guard let collectionView = collectionView,
+              collectionView.numberOfSections > 0,
               let visibleRect = relativePositionProvider?.visibleRect(to: collectionView)  else {
             return nil
         }
