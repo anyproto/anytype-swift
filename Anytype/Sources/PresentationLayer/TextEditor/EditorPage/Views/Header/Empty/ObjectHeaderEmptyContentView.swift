@@ -24,6 +24,7 @@ final class ObjectHeaderEmptyContentView: UIView, UIContentView {
         super.init(frame: .zero)
 
         isUserInteractionEnabled = !configuration.isLocked
+        backgroundColor = .backgroundPrimary
         
         setupView()
     }
