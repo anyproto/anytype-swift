@@ -50,8 +50,7 @@ final class ObjectHeaderViewModel: ObservableObject {
     }
 
     func buildShimmeringHeader() -> ObjectHeader {
-        let shimmeringColor = UIColor(hexString: "#f5f4f2")
-        let image = UIImage.init(color: shimmeringColor)
+        let image = UIImage(color: .shimmering)
         return .filled(
             state: .iconAndCover(
                 icon: .init(
@@ -60,7 +59,7 @@ final class ObjectHeaderViewModel: ObservableObject {
                     onTap: {}
                 ),
                 cover: .init(
-                    coverType: .cover(.color(shimmeringColor)),
+                    coverType: .cover(.color(.shimmering)),
                     onTap: {})
             ),
             isShimmering: true
