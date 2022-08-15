@@ -2,6 +2,7 @@ import SwiftUI
 import Kingfisher
 
 struct SetCollectionViewCell: View {
+    @State private var width: CGFloat = .zero
     let configuration: SetContentViewItemConfiguration
     
     var body: some View {
@@ -11,6 +12,7 @@ struct SetCollectionViewCell: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 16).stroke(Color.strokePrimary, lineWidth: 0.5)
             )
+            .readSize { width = $0.width }
     }
     
     private var content: some View {
@@ -42,7 +44,7 @@ struct SetCollectionViewCell: View {
                 SwiftUIObjectHeaderCoverView(
                     objectCover: coverType,
                     size: CGSize(
-                        width: 100,
+                        width: width,
                         height: configuration.smallItemSize ? 112 : 188
                     ),
                     fitImage: configuration.coverFit
