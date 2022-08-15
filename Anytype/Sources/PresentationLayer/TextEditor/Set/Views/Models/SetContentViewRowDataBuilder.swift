@@ -1,5 +1,7 @@
 import BlocksModels
 import Foundation
+import AnytypeCore
+import SwiftProtobuf
 
 final class SetContentViewDataBuilder {
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
@@ -60,6 +62,8 @@ final class SetContentViewDataBuilder {
                 relations: relations,
                 showIcon: !activeView.hideIcon,
                 coverFit: activeView.coverFit,
+                smallItemSize: activeView.cardSize == .small,
+                coverType: coverType(details, dataView: dataView, activeView: activeView),
                 onIconTap: {
                     onIconTap(details)
                 },
@@ -67,6 +71,39 @@ final class SetContentViewDataBuilder {
                     onItemTap(details)
                 }
             )
+        }
+    }
+    
+    private func coverType(
+        _ details: ObjectDetails,
+        dataView: BlockDataview,
+        activeView: DataviewView) -> ObjectHeaderCoverType?
+    {
+        guard FeatureFlags.setGalleryView, activeView.type == .gallery else {
+            return nil
+        }
+        if activeView.coverRelationKey == SetViewSettingsImagePreviewCover.pageCover.rawValue,
+           let documentCover = details.documentCover {
+            return .cover(documentCover)
+        } else {
+            return relationCoverType(details, dataView: dataView, activeView: activeView)
+        }
+    }
+    
+    private func relationCoverType(
+        _ details: ObjectDetails,
+        dataView: BlockDataview,
+        activeView: DataviewView) -> ObjectHeaderCoverType?
+    {
+        let relation = dataView.relations.first { $0.format == .file && $0.key == activeView.coverRelationKey }
+        
+        guard let relation = relation else { return nil }
+        
+        if let list = details.values[relation.key] {
+            let imageId = list.unwrapedListValue.stringValue
+            return .cover(.imageId(imageId))
+        } else {
+            return nil
         }
     }
 }

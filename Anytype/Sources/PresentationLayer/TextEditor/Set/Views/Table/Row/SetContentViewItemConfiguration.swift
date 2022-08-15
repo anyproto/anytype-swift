@@ -8,6 +8,8 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     let relations: [Relation]
     let showIcon: Bool
     let coverFit: Bool
+    let smallItemSize: Bool
+    let coverType: ObjectHeaderCoverType?
     @EquatableNoop var onIconTap: () -> Void
     @EquatableNoop var onItemTap: () -> Void
     
@@ -18,6 +20,8 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         relations: [Relation],
         showIcon: Bool,
         coverFit: Bool,
+        smallItemSize: Bool,
+        coverType: ObjectHeaderCoverType?,
         onIconTap: @escaping () -> Void,
         onItemTap: @escaping () -> Void
     ) {
@@ -27,7 +31,13 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         self.relations = relations
         self.showIcon = showIcon
         self.coverFit = coverFit
+        self.smallItemSize = smallItemSize
+        self.coverType = coverType
         self.onIconTap = onIconTap
         self.onItemTap = onItemTap
+    }
+    
+    var hasCover: Bool {
+        coverType != nil
     }
 }
