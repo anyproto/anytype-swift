@@ -39,4 +39,8 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         self.onIconTap = onIconTap
         self.onItemTap = onItemTap
     }
+    
+    var leftIndentedTitle: String {
+        "      " + title
+    }
 }

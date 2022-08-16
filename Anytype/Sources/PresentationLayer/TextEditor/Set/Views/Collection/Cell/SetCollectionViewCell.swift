@@ -26,8 +26,7 @@ struct SetCollectionViewCell: View {
                 coverContent
             }
             VStack(alignment: .leading, spacing: 0) {
-                icon
-                title
+                titleWithIcon
                 Spacer.fixedHeight(4)
                 relations
             }
@@ -61,25 +60,24 @@ struct SetCollectionViewCell: View {
             .frame(width: 48, height: 48, alignment: .center)
     }
     
-    private var icon: some View {
+    private var titleWithIcon: some View {
         Group {
             if let icon = configuration.icon, configuration.showIcon {
-                Button {
-                    configuration.onIconTap()
-                } label: {
+                ZStack(alignment: .topLeading) {
+                    title(with: configuration.leftIndentedTitle)
                     SwiftUIObjectIconImageView(
                         iconImage: icon,
                         usecase: .setRow)
                     .frame(width: 18, height: 18)
+                    .padding(.top, 1)
+                    .onTapGesture {
+                        configuration.onIconTap()
+                    }
                 }
+            } else {
+                title(with: configuration.title)
             }
         }
-    }
-    
-    private var title: some View {
-        AnytypeText(configuration.title, style: .previewTitle2Medium, color: .textPrimary)
-            .lineLimit(3)
-            .multilineTextAlignment(.leading)
     }
     
     private var relations: some View {
@@ -90,6 +88,12 @@ struct SetCollectionViewCell: View {
                 }
             }
         }
+    }
+    
+    private func title(with text: String) -> some View {
+        AnytypeText(text, style: .previewTitle2Medium, color: .textPrimary)
+            .lineLimit(3)
+            .multilineTextAlignment(.leading)
     }
     
     private func row(_ relationData: Relation) -> some View {

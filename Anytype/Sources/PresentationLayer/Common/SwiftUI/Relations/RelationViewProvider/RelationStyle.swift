@@ -92,10 +92,8 @@ extension RelationStyle {
         switch self {
         case .regular, .set, .filter:
             return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 8, hSpaсingObject: 6, size: Constants.size20)
-        case .featuredRelationBlock:
+        case .featuredRelationBlock, .setGallery:
             return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: Constants.size18)
-        case .setGallery:
-            return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: Constants.size16)
         }
     }
     
