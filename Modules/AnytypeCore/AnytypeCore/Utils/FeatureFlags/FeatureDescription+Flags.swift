@@ -1,6 +1,7 @@
 import Foundation
 
 extension FeatureDescription {
+    
     static let objectPreview = FeatureDescription(
         title: "Object preview",
         author: "k@anytype.io",
@@ -33,7 +34,8 @@ extension FeatureDescription {
         title: "Set gallery view",
         author: "joe_pusya@anytype.io",
         releaseVersion: "0.18.0",
-        defaultValue: false
+        defaultValue: false,
+        debugValue: false
     )
     
     // MARK: - Debug

@@ -1,3 +1,6 @@
+import Foundation
+import Logger
+
 public enum ErrorDomain: String {
     case quickAction
     case userDefaults
@@ -92,10 +95,16 @@ public enum ErrorDomain: String {
     case objectTypeProvider
 }
 
-public protocol MessageLogger {
-    func log(_ message: String, domain: ErrorDomain)
-}
-
-public final class AssertionLogger {
-    public static var shared: MessageLogger?
+extension AssertionLogger {
+    
+    @inlinable
+    public func log(
+        _ message: String,
+        domain: ErrorDomain,
+        file: String = #file,
+        function: String = #function,
+        line: UInt = #line
+    ) {
+        log(message, domain: domain.rawValue, file: file, function: function, line: line)
+    }
 }

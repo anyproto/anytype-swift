@@ -31,4 +31,9 @@ enum StaticImageGuideline {
         size: CGSize(width: 16, height: 16),
         radius: .point(0)
     )
+
+    static let x80 = ImageGuideline(
+        size: CGSize(width: 80, height: 80),
+        radius: .point(18)
+    )
 }

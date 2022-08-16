@@ -19,7 +19,7 @@ struct SetSubsriptionData: Hashable {
 
 
 enum SubscriptionData: Hashable {
-    case historyTab
+    case recentTab
     case archiveTab
     case sharedTab
     case setsTab
@@ -29,8 +29,8 @@ enum SubscriptionData: Hashable {
     
     var identifier: SubscriptionId {
         switch self {
-        case .historyTab:
-            return .historyTab
+        case .recentTab:
+            return .recentTab
         case .archiveTab:
             return .archiveTab
         case .sharedTab:
@@ -46,7 +46,7 @@ enum SubscriptionData: Hashable {
 }
 
 enum SubscriptionId: String {
-    case historyTab = "SubscriptionId.HistoryTab"
+    case recentTab = "SubscriptionId.RecentTab"
     case archiveTab = "SubscriptionId.ArchiveTab"
     case sharedTab = "SubscriptionId.SharedTab"
     case setsTab = "SubscriptionId.SetsTab"

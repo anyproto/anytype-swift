@@ -14,7 +14,6 @@ public final class FeatureFlags {
         .rainbowViews,
         .showAlertOnAssert,
         .analytics,
-        .middlewareLogs,
         .objectPreview,
         .setFilters,
         .relationDetails,
@@ -46,10 +45,6 @@ public extension FeatureFlags {
     
     static var rainbowViews: Bool {
         value(for: .rainbowViews)
-    }
-    
-    static var middlewareLogs: Bool {
-        value(for: .middlewareLogs)
     }
 
     static var objectPreview: Bool {

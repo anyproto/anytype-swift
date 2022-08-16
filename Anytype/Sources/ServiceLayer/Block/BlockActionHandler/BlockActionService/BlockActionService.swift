@@ -1,13 +1,8 @@
 import Combine
 import BlocksModels
 import UIKit
-import AnytypeCore
+import Logger
 import ProtobufMessages
-
-
-extension LoggerCategory {
-    static let blockActionService: Self = "blockActionService"
-}
 
 final class BlockActionService: BlockActionServiceProtocol {
     private let documentId: BlockId

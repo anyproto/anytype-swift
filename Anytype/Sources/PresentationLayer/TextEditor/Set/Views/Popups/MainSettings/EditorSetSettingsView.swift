@@ -17,7 +17,10 @@ struct EditorSetSettingsView: View {
     }
     
     private func settingsButton(_ setting: EditorSetSetting) -> some View {
-        Button(action: { model.onSettingTap(setting) }) {
+        Button(action: {
+            UISelectionFeedbackGenerator().selectionChanged()
+            model.onSettingTap(setting)
+        }) {
             VStack(spacing: 0) {
                 ZStack(alignment: .center) {
                     RoundedRectangle(cornerRadius: 10)

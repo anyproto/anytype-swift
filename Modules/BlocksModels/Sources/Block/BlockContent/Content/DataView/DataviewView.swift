@@ -1,4 +1,5 @@
 import ProtobufMessages
+import AnytypeCore
 
 public struct DataviewView: Hashable, Identifiable {
     public let id: BlockId
@@ -31,7 +32,8 @@ public struct DataviewView: Hashable, Identifiable {
     }
     
     public var isSupported: Bool {
-        type == .table
+        type == .table ||
+        (FeatureFlags.setGalleryView && type == .gallery)
     }
     
     public func updated(

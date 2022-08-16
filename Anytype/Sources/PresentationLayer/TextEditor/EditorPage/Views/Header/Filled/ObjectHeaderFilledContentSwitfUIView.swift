@@ -2,11 +2,16 @@ import SwiftUI
 
 struct ObjectHeaderFilledContentSwitfUIView: UIViewRepresentable {
     let configuration: ObjectHeaderFilledConfiguration
+    
     func makeUIView(context: Context) -> ObjectHeaderFilledContentView {
-        ObjectHeaderFilledContentView(configuration: configuration)
+        let view = ObjectHeaderFilledContentView(frame: .zero)
+
+        view.update(with: configuration)
+
+        return view
     }
     
     func updateUIView(_ view: ObjectHeaderFilledContentView, context: Context) {
-        view.configuration = configuration
+        view.update(with: configuration)
     }
 }

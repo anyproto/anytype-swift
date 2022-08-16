@@ -20,8 +20,6 @@ final class AuthService: AuthServiceProtocol {
     }
 
     func logout(removeData: Bool, onCompletion: @escaping (Bool) -> ()) {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.logout)
-        
         Anytype_Rpc.Account.Stop.Service
             .invoke(removeData: removeData, queue: .global(qos: .userInitiated))
             .receiveOnMain()
@@ -42,10 +40,6 @@ final class AuthService: AuthServiceProtocol {
         let result = Anytype_Rpc.Wallet.Create.Service.invoke(rootPath: rootPath)
             .mapError { _ in AuthServiceError.createWalletError }
             .map { $0.mnemonic }
-        
-        if let mnemonic = result.getValue(domain: .authService) {
-            AnytypeLogger.create("Services.AuthService").debugPrivate("seed:", arg: mnemonic)
-        }
         
         return result
     }

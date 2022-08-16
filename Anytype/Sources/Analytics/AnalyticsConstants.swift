@@ -12,6 +12,8 @@ enum AnalyticsEventsName {
     static let createAccount = "CreateAccount"
     static let openAccount = "OpenAccount"
     static let logout = "LogOut"
+    static let deleteAccount = "DeleteAccount"
+    static let cancelDeletion = "CancelDeletion"
 
     // Block events
     static let blockCreate = "CreateBlock"
@@ -79,6 +81,8 @@ enum AnalyticsEventsName {
 
     static let homeShow = "ScreenHome"
     static let settingsShow = "ScreenSettings"
+    static let screenDeletion = "ScreenDeletion"
+
     static let wallpaperSettingsShow = "ScreenSettingsWallpaper"
     static let accountSettingsShow = "ScreenSettingsAccount"
     static let personalizationSettingsShow = "ScreenSettingsPersonalization"
@@ -96,6 +100,8 @@ enum AnalyticsEventsName {
     // Navigation events
     static let goBack = "HistoryBack"
     static let goForward = "HistoryForward"
+
+    static let blockAction = "BlockAction"
 }
 
 // MARK: - Home tab names

@@ -1,17 +1,10 @@
 import UIKit
 
-struct ObjectHeaderEmptyConfiguration: UIContentConfiguration, Hashable {
+struct ObjectHeaderEmptyConfiguration: BlockConfiguration {
+    typealias View = ObjectHeaderEmptyContentView
+    
     let data: ObjectHeaderEmptyData
-    private(set) var isLocked = false
-    
-    func makeContentView() -> UIView & UIContentView {
-        ObjectHeaderEmptyContentView(configuration: self)
-    }
-    
-    func updated(for state: UIConfigurationState) -> Self {
-        var currentState = self
-        (state as? UICellConfigurationState).map { currentState.isLocked = $0.isLocked }
-        
-        return currentState
-    }
+    let isShimmering: Bool
+
+    var contentInsets: UIEdgeInsets { .zero }
 }
