@@ -83,7 +83,7 @@ struct SetCollectionViewCell: View {
     }
     
     private var relations: some View {
-        LazyVStack(spacing: 5) {
+        LazyVStack(spacing: 4) {
             ForEach(configuration.relations) { relation in
                 if relation.hasValue {
                     row(relation)
