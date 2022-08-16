@@ -2,29 +2,17 @@ import Foundation
 import SwiftUI
 import BlocksModels
 import FloatingPanel
+import Combine
 
 final class SetFiltersListViewModel: ObservableObject {
+    @Published var rows: [SetFilterRowConfiguration] = []
     
     private let setModel: EditorSetViewModel
+    private var cancellable: Cancellable?
+    
     private let dataviewService: DataviewServiceProtocol
     private let router: EditorRouterProtocol
     private let relationFilterBuilder = RelationFilterBuilder()
-    
-    var rows: [SetFilterRowConfiguration] {
-        setModel.filters.enumerated().map { index, filter in
-            SetFilterRowConfiguration(
-                id: "\(filter.metadata.id)_\(index)",
-                title: filter.metadata.name,
-                subtitle: filter.conditionString,
-                iconAsset: filter.metadata.format.iconAsset,
-                type: type(for: filter),
-                hasValues: filter.filter.condition.hasValues,
-                onTap: { [weak self] in
-                    self?.rowTapped(filter.metadata.id, index: index)
-                }
-            )
-        }
-    }
     
     init(
         setModel: EditorSetViewModel,
@@ -34,6 +22,7 @@ final class SetFiltersListViewModel: ObservableObject {
         self.setModel = setModel
         self.dataviewService = dataviewService
         self.router = router
+        self.setup()
     }
     
 }
@@ -58,6 +47,28 @@ extension SetFiltersListViewModel {
     }
     
     // MARK: - Private methods
+    
+    private func setup() {
+        cancellable = setModel.$filters.sink { [weak self] filters in
+            self?.updateRows(with: filters)
+        }
+    }
+    
+    private func updateRows(with filters: [SetFilter]) {
+        rows = filters.enumerated().map { index, filter in
+            SetFilterRowConfiguration(
+                id: "\(filter.metadata.id)_\(index)",
+                title: filter.metadata.name,
+                subtitle: filter.conditionString,
+                iconAsset: filter.metadata.format.iconAsset,
+                type: type(for: filter),
+                hasValues: filter.filter.condition.hasValues,
+                onTap: { [weak self] in
+                    self?.rowTapped(filter.metadata.id, index: index)
+                }
+            )
+        }
+    }
     
     private func rowTapped(_ id: String, index: Int) {
         guard let filter = setModel.filters[safe: index], filter.id == id  else {

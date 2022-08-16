@@ -1,24 +1,16 @@
 import Foundation
 import SwiftUI
 import BlocksModels
-import FloatingPanel
+import Combine
 
 final class SetSortsListViewModel: ObservableObject {
+    @Published var rows: [SetSortRowConfiguration] = []
     
     private let setModel: EditorSetViewModel
+    private var cancellable: Cancellable?
+    
     private let service: DataviewServiceProtocol
     private let router: EditorRouterProtocol
-    
-    var rows: [SetSortRowConfiguration] {
-        setModel.sorts.map {
-            SetSortRowConfiguration(
-                id: $0.id,
-                title: $0.metadata.name,
-                subtitle: $0.typeTitle(),
-                iconAsset: $0.metadata.format.iconAsset
-            )
-        }
-    }
     
     init(
         setModel: EditorSetViewModel,
@@ -28,6 +20,7 @@ final class SetSortsListViewModel: ObservableObject {
         self.setModel = setModel
         self.service = service
         self.router = router
+        self.setup()
     }
     
 }
@@ -86,6 +79,23 @@ extension SetSortsListViewModel {
             )
         )
         updateView(with: dataviewSorts)
+    }
+    
+    private func setup() {
+        cancellable = setModel.$sorts.sink { [weak self] sorts in
+            self?.updateRows(with: sorts)
+        }
+    }
+    
+    private func updateRows(with sorts: [SetSort]) {
+        rows = sorts.map {
+            SetSortRowConfiguration(
+                id: $0.id,
+                title: $0.metadata.name,
+                subtitle: $0.typeTitle(),
+                iconAsset: $0.metadata.format.iconAsset
+            )
+        }
     }
     
     private func updateSorts(with setSort: SetSort) {
