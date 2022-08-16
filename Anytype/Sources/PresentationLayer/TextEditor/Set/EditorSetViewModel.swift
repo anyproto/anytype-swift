@@ -29,7 +29,7 @@ final class EditorSetViewModel: ObservableObject {
             dataView: dataView,
             activeView: activeView,
             colums: colums,
-            isObjectLocked: document.isLocked,
+            isObjectLocked: isObjectLocked,
             onIconTap: { [weak self] details in
                 self?.updateDetailsIfNeeded(details)
             },
@@ -92,6 +92,10 @@ final class EditorSetViewModel: ObservableObject {
             
             return SetFilter(metadata: metadata, filter: filter)
         }
+    }
+    
+    private var isObjectLocked: Bool {
+        document.isLocked || activeView.type == .gallery
     }
     
     let document: BaseDocument

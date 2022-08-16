@@ -7,23 +7,20 @@ struct SetCollectionViewCell: View {
     
     var body: some View {
         content
+            .background(Color.backgroundPrimary)
             .frame(maxWidth: .infinity, alignment: .topLeading)
             .cornerRadius(16)
             .overlay(
                 RoundedRectangle(cornerRadius: 16).stroke(Color.strokePrimary, lineWidth: 0.5)
             )
+            .onTapGesture {
+                UISelectionFeedbackGenerator().selectionChanged()
+                configuration.onItemTap()
+            }
             .readSize { width = $0.width }
     }
     
     private var content: some View {
-        Button {
-            configuration.onItemTap()
-        } label: {
-            buttonContent
-        }
-    }
-    
-    private var buttonContent: some View {
         VStack(alignment: .leading, spacing: 11) {
             if configuration.hasCover {
                 coverContent
@@ -101,6 +98,5 @@ struct SetCollectionViewCell: View {
                 relation: relationData),
             style: .setGallery, action: {}
         )
-        .disabled(true)
     }
 }
