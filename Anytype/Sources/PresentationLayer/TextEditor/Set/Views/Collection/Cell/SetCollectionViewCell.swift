@@ -25,7 +25,9 @@ struct SetCollectionViewCell: View {
     
     private var buttonContent: some View {
         VStack(alignment: .leading, spacing: 11) {
-            cover
+            if configuration.hasCover {
+                coverContent
+            }
             VStack(alignment: .leading, spacing: 0) {
                 icon
                 title
@@ -38,8 +40,9 @@ struct SetCollectionViewCell: View {
         }
     }
     
-    private var cover: some View {
-        Group {
+    private var coverContent: some View {
+        ZStack {
+            coverPlaceholder
             if let coverType = configuration.coverType {
                 SwiftUIObjectHeaderCoverView(
                     objectCover: coverType,
@@ -49,9 +52,16 @@ struct SetCollectionViewCell: View {
                     ),
                     fitImage: configuration.coverFit
                 )
-                .frame(height: configuration.smallItemSize ? 112 : 188)
             }
         }
+        .frame(height: configuration.smallItemSize ? 112 : 188)
+        .frame(maxWidth: .infinity)
+        .background(Color.strokeTransperent)
+    }
+    
+    private var coverPlaceholder: some View {
+        Image(asset: .setImagePlaceholder)
+            .frame(width: 48, height: 48, alignment: .center)
     }
     
     private var icon: some View {

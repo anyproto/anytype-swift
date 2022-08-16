@@ -7,8 +7,9 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     let icon: ObjectIconImage?
     let relations: [Relation]
     let showIcon: Bool
-    let coverFit: Bool
     let smallItemSize: Bool
+    let hasCover: Bool
+    let coverFit: Bool
     let coverType: ObjectHeaderCoverType?
     @EquatableNoop var onIconTap: () -> Void
     @EquatableNoop var onItemTap: () -> Void
@@ -19,8 +20,9 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         icon: ObjectIconImage?,
         relations: [Relation],
         showIcon: Bool,
-        coverFit: Bool,
         smallItemSize: Bool,
+        hasCover: Bool,
+        coverFit: Bool,
         coverType: ObjectHeaderCoverType?,
         onIconTap: @escaping () -> Void,
         onItemTap: @escaping () -> Void
@@ -30,14 +32,11 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         self.icon = icon
         self.relations = relations
         self.showIcon = showIcon
-        self.coverFit = coverFit
         self.smallItemSize = smallItemSize
+        self.hasCover = hasCover
+        self.coverFit = coverFit
         self.coverType = coverType
         self.onIconTap = onIconTap
         self.onItemTap = onItemTap
-    }
-    
-    var hasCover: Bool {
-        coverType != nil
     }
 }
