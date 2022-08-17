@@ -6,18 +6,12 @@ struct SetCollectionViewCell: View {
     let configuration: SetContentViewItemConfiguration
     
     var body: some View {
-        content
-            .background(Color.backgroundPrimary)
-            .frame(maxWidth: .infinity, alignment: .topLeading)
-            .cornerRadius(Constants.cornerRadius)
-            .overlay(
-                RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(Color.strokePrimary, lineWidth: 0.5)
-            )
-            .onTapGesture {
-                UISelectionFeedbackGenerator().selectionChanged()
-                configuration.onItemTap()
-            }
-            .readSize { width = $0.width }
+        Button {
+            configuration.onItemTap()
+        } label: {
+            content
+        }
+        .buttonStyle(LightDimmingButtonStyle())
     }
     
     private var content: some View {
@@ -33,6 +27,13 @@ struct SetCollectionViewCell: View {
             .padding(.top, configuration.hasCover ? 0 : Constants.contentPadding)
             .padding([.leading, .trailing, .bottom], Constants.contentPadding)
         }
+        .background(Color.backgroundPrimary)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .cornerRadius(Constants.cornerRadius)
+        .overlay(
+            RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(Color.strokePrimary, lineWidth: 0.5)
+        )
+        .readSize { width = $0.width }
     }
     
     private var coverContent: some View {
