@@ -5,6 +5,7 @@ import SwiftProtobuf
 
 final class SetContentViewDataBuilder {
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
+    private let storage = ObjectDetailsStorage.shared
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
         let relations: [SetRelation] = view.options
@@ -99,11 +100,22 @@ final class SetContentViewDataBuilder {
         let relation = dataView.relations.first { $0.format == .file && $0.key == activeView.coverRelationKey }
         
         guard let relation = relation,
-              let list = details.values[relation.key] else {
+              let list = details.values[relation.key],
+              case let .listValue(listValue) = list.kind else {
             return nil
         }
-        
-        let imageId = list.unwrapedListValue.stringValue
-        return imageId.isNotEmpty ? .cover(.imageId(imageId)) : nil
+        for value in listValue.values {
+            let details = storage.get(id: value.stringValue)
+            if let details = details, details.type == Constants.imageType {
+                return .cover(.imageId(details.id))
+            }
+        }
+        return nil
+    }
+}
+
+extension SetContentViewDataBuilder {
+    enum Constants {
+        static let imageType = "_otimage"
     }
 }
