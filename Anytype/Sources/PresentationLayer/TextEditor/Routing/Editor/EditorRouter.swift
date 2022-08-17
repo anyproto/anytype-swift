@@ -511,7 +511,7 @@ extension EditorRouter {
     
     func showCreateBookmarkObject() {
         let viewModel = CreateBookmarkViewModel(
-            bookmarkService: BookmarkService(),
+            bookmarkService: ServiceLocator.shared.bookmarkService(),
             closeAction: { [weak self] withError in
                 self?.viewController?.topPresentedController.dismiss(animated: true, completion: {
                     guard withError else { return }

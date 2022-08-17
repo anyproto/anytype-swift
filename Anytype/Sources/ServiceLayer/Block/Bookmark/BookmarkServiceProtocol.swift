@@ -11,4 +11,5 @@ protocol BookmarkServiceProtocol {
         url: String
     )
     func createBookmarkObject(url: String, completion: @escaping (_ withError: Bool) -> Void)
+    func fetchBookmarkContent(bookmarkId: BlockId, url: String)
 }

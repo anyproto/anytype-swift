@@ -578,3 +578,14 @@
 "LinkPaste.link" = "Paste as link";
 "LinkPaste.bookmark" = "Create bookmark";
 
+// Relation Actions
+"RelationAction.CopyPhone" = "Copy phone numbler";
+"RelationAction.CopyEmail" = "Copy email";
+"RelationAction.CopyLink" = "Copy link";
+"RelationAction.PhoneCopied" = "Phone numbler copied";
+"RelationAction.EmailCopied" = "Email copied";
+"RelationAction.LinkCopied" = "Link copied";
+"RelationAction.ReloadContent" = "Reload object content";
+"RelationAction.CallPhone" = "Call phone numbler";
+"RelationAction.SendEmail" = "Send email";
+"RelationAction.OpenLink" = "Open link";

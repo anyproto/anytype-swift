@@ -102,6 +102,12 @@ enum AnalyticsEventsName {
     static let goForward = "HistoryForward"
 
     static let blockAction = "BlockAction"
+    
+    // Relation
+    static let reloadSourceData = "ReloadSourceData"
+    static let relationUrlOpen = "RelationUrlOpen"
+    static let relationUrlCopy = "RelationUrlCopy"
+    static let relationUrlEditMobile = "RelationUrlEditMobile"
 }
 
 // MARK: - Home tab names
