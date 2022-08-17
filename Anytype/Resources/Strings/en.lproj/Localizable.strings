@@ -582,9 +582,10 @@
 "RelationAction.CopyPhone" = "Copy phone numbler";
 "RelationAction.CopyEmail" = "Copy email";
 "RelationAction.CopyLink" = "Copy link";
-"RelationAction.PhoneCopied" = "Phone numbler copied";
-"RelationAction.EmailCopied" = "Email copied";
-"RelationAction.LinkCopied" = "Link copied";
+"RelationAction.PhoneCopied" = "Phone number copied to clipboard";
+"RelationAction.EmailCopied" = "Email copied to clipboard";
+"RelationAction.LinkCopied" = "Link copied to clipboard";
+"RelationAction.ContentReloaded" = "Started reloading content";
 "RelationAction.ReloadContent" = "Reload object content";
 "RelationAction.CallPhone" = "Call phone numbler";
 "RelationAction.SendEmail" = "Send email";

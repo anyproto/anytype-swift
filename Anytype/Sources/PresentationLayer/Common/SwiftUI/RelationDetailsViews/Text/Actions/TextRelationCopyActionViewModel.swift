@@ -10,14 +10,20 @@ final class TextRelationCopyActionViewModel: TextRelationActionViewModelProtocol
     }
     
     private let type: SupportedTextType
+    private let alertOpener: AlertOpenerProtocol
     private weak var delegate: TextRelationActionButtonViewModelDelegate?
     
     var inputText: String = ""
     var title: String { type.title }
     let iconAsset = ImageAsset.relationSmallCopy
     
-    init(type: SupportedTextType, delegate: TextRelationActionButtonViewModelDelegate?) {
+    init(
+        type: SupportedTextType,
+        alertOpener: AlertOpenerProtocol,
+        delegate: TextRelationActionButtonViewModelDelegate?
+    ) {
         self.type = type
+        self.alertOpener = alertOpener
         self.delegate = delegate
     }
     
@@ -28,6 +34,7 @@ final class TextRelationCopyActionViewModel: TextRelationActionViewModelProtocol
     func performAction() {
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = inputText
+        alertOpener.showTopAlert(message: type.confirmText)
         logEvent()
     }
     

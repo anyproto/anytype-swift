@@ -1060,19 +1060,21 @@ internal enum Loc {
   internal enum RelationAction {
     /// Call phone numbler
     internal static let callPhone = Loc.tr("Localizable", "RelationAction.CallPhone")
+    /// Started reloading content
+    internal static let contentReloaded = Loc.tr("Localizable", "RelationAction.ContentReloaded")
     /// Copy email
     internal static let copyEmail = Loc.tr("Localizable", "RelationAction.CopyEmail")
     /// Copy link
     internal static let copyLink = Loc.tr("Localizable", "RelationAction.CopyLink")
     /// Copy phone numbler
     internal static let copyPhone = Loc.tr("Localizable", "RelationAction.CopyPhone")
-    /// Email copied
+    /// Email copied to clipboard
     internal static let emailCopied = Loc.tr("Localizable", "RelationAction.EmailCopied")
-    /// Link copied
+    /// Link copied to clipboard
     internal static let linkCopied = Loc.tr("Localizable", "RelationAction.LinkCopied")
     /// Open link
     internal static let openLink = Loc.tr("Localizable", "RelationAction.OpenLink")
-    /// Phone numbler copied
+    /// Phone number copied to clipboard
     internal static let phoneCopied = Loc.tr("Localizable", "RelationAction.PhoneCopied")
     /// Reload object content
     internal static let reloadContent = Loc.tr("Localizable", "RelationAction.ReloadContent")
