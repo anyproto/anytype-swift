@@ -98,13 +98,12 @@ final class SetContentViewDataBuilder {
     {
         let relation = dataView.relations.first { $0.format == .file && $0.key == activeView.coverRelationKey }
         
-        guard let relation = relation else { return nil }
-        
-        if let list = details.values[relation.key] {
-            let imageId = list.unwrapedListValue.stringValue
-            return .cover(.imageId(imageId))
-        } else {
+        guard let relation = relation,
+              let list = details.values[relation.key] else {
             return nil
         }
+        
+        let imageId = list.unwrapedListValue.stringValue
+        return imageId.isNotEmpty ? .cover(.imageId(imageId)) : nil
     }
 }
