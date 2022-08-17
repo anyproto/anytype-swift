@@ -1548,7 +1548,6 @@
 		2A03039B28ABAC92002EFC46 /* TextRelationReloadContentActionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationReloadContentActionViewModel.swift; sourceTree = "<group>"; };
 		2A03039E28ABD4BD002EFC46 /* SystemURLService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemURLService.swift; sourceTree = "<group>"; };
 		2A0303A028ABD4C9002EFC46 /* SystemURLServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemURLServiceProtocol.swift; sourceTree = "<group>"; };
-		2A0303A328ABE8D3002EFC46 /* SnackbarAdaptiveView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnackbarAdaptiveView.swift; sourceTree = "<group>"; };
 		2A143A9E284775E20034729E /* AccountInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountInfo.swift; sourceTree = "<group>"; };
 		2A150BDF28AA8E9700F2E569 /* TextRelationURLActionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextRelationURLActionViewModel.swift; sourceTree = "<group>"; };
 		2A176437283E2211002853D3 /* AnytypePopupProxy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnytypePopupProxy.swift; sourceTree = "<group>"; };
@@ -4216,14 +4215,6 @@
 			path = URL;
 			sourceTree = "<group>";
 		};
-		2A0303A228ABE89F002EFC46 /* Snackbar */ = {
-			isa = PBXGroup;
-			children = (
-				2A0303A328ABE8D3002EFC46 /* SnackbarAdaptiveView.swift */,
-			);
-			path = Snackbar;
-			sourceTree = "<group>";
-		};
 		2A2C330128928633008BC326 /* RelationValueFlow */ = {
 			isa = PBXGroup;
 			children = (
@@ -5091,7 +5082,6 @@
 		3D486C132631726400A9B625 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
-				2A0303A228ABE89F002EFC46 /* Snackbar */,
 				12E05EED2796A97F0037B667 /* AnytypePopup */,
 				C917DF0C271772AD0085185D /* ImageViewer */,
 				3DFD1B3426EA5ACE00F893FC /* ObjectIcon */,
