@@ -97,6 +97,7 @@ private extension TextRelationDetailsViewModel {
     
     func saveValue() {
         service.saveRelation(value: value, key: relation.id, textType: type)
+        logEvent()
     }
     
     func setupKeyboardListener() {
@@ -128,6 +129,15 @@ private extension TextRelationDetailsViewModel {
         actionButtonViewModel?.text = value
         for actionViewModel in actionsViewModel {
             actionViewModel.inputText = value
+        }
+    }
+    
+    private func logEvent() {
+        switch type {
+        case .url:
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.relationUrlEditMobile)
+        default:
+            break
         }
     }
 }

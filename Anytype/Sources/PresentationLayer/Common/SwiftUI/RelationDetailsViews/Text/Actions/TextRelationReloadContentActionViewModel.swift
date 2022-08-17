@@ -33,5 +33,6 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     func performAction() {
         UISelectionFeedbackGenerator().selectionChanged()
         bookmarkService.fetchBookmarkContent(bookmarkId: objectId, url: inputText)
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.reloadSourceData)
     }
 }

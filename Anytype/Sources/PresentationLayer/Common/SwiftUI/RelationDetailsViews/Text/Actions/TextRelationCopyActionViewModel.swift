@@ -28,6 +28,16 @@ final class TextRelationCopyActionViewModel: TextRelationActionViewModelProtocol
     func performAction() {
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = inputText
+        logEvent()
+    }
+    
+    private func logEvent() {
+        switch type {
+        case .phone, .email:
+            break
+        case .url:
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.relationUrlCopy)
+        }
     }
 }
 

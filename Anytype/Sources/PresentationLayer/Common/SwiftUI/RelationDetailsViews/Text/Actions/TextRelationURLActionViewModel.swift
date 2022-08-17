@@ -48,6 +48,7 @@ final class TextRelationURLActionViewModel: TextRelationActionViewModelProtocol 
         guard let url = urlToOpen else { return }
         UISelectionFeedbackGenerator().selectionChanged()
         delegate?.openUrl(url)
+        logEvent()
     }
     
     private var urlToOpen: URL? {
@@ -55,6 +56,15 @@ final class TextRelationURLActionViewModel: TextRelationActionViewModelProtocol 
         case .phone: return systemURLService.buildPhoneUrl(phone: inputText)
         case .email: return systemURLService.buildEmailUrl(to: inputText)
         case .url: return URL(string: inputText)
+        }
+    }
+    
+    private func logEvent() {
+        switch type {
+        case .phone, .email:
+            break
+        case .url:
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.relationUrlOpen)
         }
     }
 }
