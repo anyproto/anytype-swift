@@ -9,9 +9,9 @@ struct SetCollectionViewCell: View {
         content
             .background(Color.backgroundPrimary)
             .frame(maxWidth: .infinity, alignment: .topLeading)
-            .cornerRadius(16)
+            .cornerRadius(Constants.cornerRadius)
             .overlay(
-                RoundedRectangle(cornerRadius: 16).stroke(Color.strokePrimary, lineWidth: 0.5)
+                RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(Color.strokePrimary, lineWidth: 0.5)
             )
             .onTapGesture {
                 UISelectionFeedbackGenerator().selectionChanged()
@@ -30,9 +30,8 @@ struct SetCollectionViewCell: View {
                 Spacer.fixedHeight(4)
                 relations
             }
-            .padding(.top, configuration.hasCover ? 0 : 16)
-            .padding(.horizontal, 16)
-            .padding(.bottom, 16)
+            .padding(.top, configuration.hasCover ? 0 : Constants.contentPadding)
+            .padding([.leading, .trailing, .bottom], Constants.contentPadding)
         }
     }
     
@@ -44,13 +43,19 @@ struct SetCollectionViewCell: View {
                     objectCover: coverType,
                     size: CGSize(
                         width: width,
-                        height: configuration.smallItemSize ? 112 : 188
+                        height: configuration.smallItemSize ?
+                        Constants.smallItemHeight :
+                            Constants.largeItemHeight
                     ),
                     fitImage: configuration.coverFit
                 )
             }
         }
-        .frame(height: configuration.smallItemSize ? 112 : 188)
+        .frame(
+            height: configuration.smallItemSize ?
+            Constants.smallItemHeight :
+                Constants.largeItemHeight
+        )
         .frame(maxWidth: .infinity)
         .background(Color.strokeTransperent)
     }
@@ -102,5 +107,14 @@ struct SetCollectionViewCell: View {
                 relation: relationData),
             style: .setGallery, action: {}
         )
+    }
+}
+
+extension SetCollectionViewCell {
+    enum Constants {
+        static let contentPadding: CGFloat = 16
+        static let cornerRadius: CGFloat = 16
+        static let smallItemHeight: CGFloat = 112
+        static let largeItemHeight: CGFloat = 188
     }
 }

@@ -40,6 +40,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
         self.onItemTap = onItemTap
     }
     
+    // @joe_pusya: little trick :)
     var leftIndentedTitle: String {
         "      " + title
     }

@@ -20,8 +20,10 @@ extension RelationStyle {
         switch self {
         case .regular, .filter:
             return .relation1Regular
-        case .set, .setGallery, .featuredRelationBlock:
+        case .set, .featuredRelationBlock:
             return .relation2Regular
+        case .setGallery:
+            return .relation3Regular
         }
     }
 
@@ -92,8 +94,10 @@ extension RelationStyle {
         switch self {
         case .regular, .set, .filter:
             return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 8, hSpaсingObject: 6, size: Constants.size20)
-        case .featuredRelationBlock, .setGallery:
+        case .featuredRelationBlock:
             return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: Constants.size18)
+        case .setGallery:
+            return ObjectRelationView.ObjectRelationStyle(hSpaсingList: 6, hSpaсingObject: 4, size: Constants.size16)
         }
     }
     
@@ -112,8 +116,10 @@ extension RelationStyle {
         switch self {
         case .regular, .set:
             return .mention(.body)
-        case .featuredRelationBlock, .filter, .setGallery:
+        case .featuredRelationBlock, .filter:
             return .featuredRelationsBlock
+        case .setGallery:
+            return .setRow
         }
     }
     

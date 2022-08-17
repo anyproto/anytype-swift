@@ -71,14 +71,10 @@ struct SetCollectionView: View {
     }
     
     private func columns() -> [GridItem] {
-        guard UIDevice.isPhone else {
-            return [GridItem(.adaptive(minimum: 150), spacing: SetCollectionView.interCellSpacing)]
-        }
-        
-        return model.isSmallItemSize ? [
-            GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading),
-            GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading),
-        ] : [GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading)]
+        Array(
+            repeating: GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading),
+            count: model.isSmallItemSize ? 2 : 1
+        )
     }
 }
 

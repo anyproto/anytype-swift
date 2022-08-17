@@ -18,8 +18,9 @@ struct SetSubsriptionData: Hashable {
         self.coverRelationKey = view.coverRelationKey
     }
     
-    func buildKeys() -> [String] {
-        var keys = options.map { $0.key }
+    func buildKeys(with additionalKeys: [String]) -> [String] {
+        var keys = additionalKeys
+        keys.append(contentsOf: options.map { $0.key })
         keys.append(coverRelationKey)
         keys.append(contentsOf: [
             BundledRelationKey.coverId.rawValue,

@@ -19,6 +19,7 @@ enum ObjectIconImageUsecase: Equatable {
     case featuredRelationsBlock
     
     case setRow
+    case setGallery
 }
 
 extension ObjectIconImageUsecase {
