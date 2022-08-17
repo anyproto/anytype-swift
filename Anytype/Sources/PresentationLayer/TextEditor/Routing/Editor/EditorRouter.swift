@@ -70,7 +70,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
     func showLinkContextualMenu(inputParameters: TextBlockURLInputParameters) {
         let contextualMenuView = EditorContextualMenuView(
-            options: [.dismiss, .createBookmark],
+            options: [.pasteAsLink, .createBookmark, .pasteAsText],
             optionTapHandler: { [weak rootController] option in
                 rootController?.presentedViewController?.dismiss(animated: false, completion: nil)
                 inputParameters.optionHandler(option)

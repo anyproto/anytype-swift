@@ -28,7 +28,8 @@ public final class FeatureFlags {
     }
     
     public static func value(for feature: FeatureDescription) -> Bool {
-        return FeatureFlagsStorage.featureFlags[feature.title] ?? feature.defaultValue
+        let defaultValue = isRelease ? feature.defaultValue : feature.debugValue
+        return FeatureFlagsStorage.featureFlags[feature.title] ?? defaultValue
     }
 }
 

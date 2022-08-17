@@ -453,8 +453,6 @@
 "Unfavorite" = "Unfavorite";
 "Unsplash" = "Unsplash";
 "Go back" = "Go back";
-"Dismiss" = "Dismiss";
-"Create bookmark" = "Create bookmark";
 "Backed up on one node at least" = "Backed up on one node at least";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
 "Anytype node is not connected" = "Anytype node is not connected";
@@ -574,6 +572,11 @@
 "SimpleTableMenu.Item.MoveDown" = "Move down";
 
 "DebugMenu.ToggleAuthor" = "Release: %s, %s";
+
+// MARK: Link Past Actions
+"LinkPaste.text" = "Paste as text";
+"LinkPaste.link" = "Paste as link";
+"LinkPaste.bookmark" = "Create bookmark";
 
 // Relation Actions
 "RelationAction.CopyPhone" = "Copy phone numbler";
