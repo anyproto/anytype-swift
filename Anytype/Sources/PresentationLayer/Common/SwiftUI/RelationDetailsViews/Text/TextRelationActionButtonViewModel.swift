@@ -1,5 +1,6 @@
 import Foundation
 
+// Delete with bookmarksFlow toggle
 final class TextRelationActionButtonViewModel {
     
     var text: String = ""

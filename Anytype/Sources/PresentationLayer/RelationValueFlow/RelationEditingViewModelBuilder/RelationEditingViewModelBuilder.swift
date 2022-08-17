@@ -42,7 +42,15 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 type: .phone,
                 relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
-                actionButtonViewModel: TextRelationActionButtonViewModel(type: .phone, delegate: delegate)
+                actionButtonViewModel: TextRelationActionButtonViewModel(type: .phone, delegate: delegate),
+                actionsViewModel: [
+                    TextRelationURLActionViewModel(
+                        type: .phone,
+                        systemURLService: ServiceLocator.shared.systemURLService(),
+                        delegate: delegate
+                    ),
+                    TextRelationCopyActionViewModel(type: .phone, delegate: delegate)
+                ]
             )
         case .email(let email):
             return TextRelationDetailsViewModel(
@@ -50,15 +58,37 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 type: .email,
                 relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
-                actionButtonViewModel: TextRelationActionButtonViewModel(type: .email, delegate: delegate)
+                actionButtonViewModel: TextRelationActionButtonViewModel(type: .email, delegate: delegate),
+                actionsViewModel: [
+                    TextRelationURLActionViewModel(
+                        type: .email,
+                        systemURLService: ServiceLocator.shared.systemURLService(),
+                        delegate: delegate
+                    ),
+                    TextRelationCopyActionViewModel(type: .email, delegate: delegate)
+                ]
             )
         case .url(let url):
+            let actions: [TextRelationActionViewModelProtocol?] = [
+                TextRelationURLActionViewModel(
+                    type: .url,
+                    systemURLService: ServiceLocator.shared.systemURLService(),
+                    delegate: delegate
+                ),
+                TextRelationCopyActionViewModel(type: .url, delegate: delegate),
+                TextRelationReloadContentActionViewModel(
+                    objectId: objectId,
+                    relation: relation,
+                    bookmarkService: ServiceLocator.shared.bookmarkService()
+                )
+            ]
             return TextRelationDetailsViewModel(
                 value: url.value ?? "",
                 type: .url,
                 relation: relation,
                 service: TextRelationDetailsService(service: RelationsService(objectId: objectId)),
-                actionButtonViewModel: TextRelationActionButtonViewModel(type: .url, delegate: delegate)
+                actionButtonViewModel: TextRelationActionButtonViewModel(type: .url, delegate: delegate),
+                actionsViewModel: actions.compactMap { $0 }
             )
         case .date(let value):
             return DateRelationDetailsViewModel(
