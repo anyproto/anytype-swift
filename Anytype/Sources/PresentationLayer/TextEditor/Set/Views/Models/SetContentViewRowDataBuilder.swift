@@ -1,7 +1,9 @@
 import BlocksModels
 import Foundation
+import AnytypeCore
+import SwiftProtobuf
 
-final class SetTableViewDataBuilder {
+final class SetContentViewDataBuilder {
     private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
@@ -18,15 +20,15 @@ final class SetTableViewDataBuilder {
         return NSOrderedSet(array: relations).array as! [SetRelation]
     }
     
-    func rowData(
+    func itemData(
         _ details: [ObjectDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
         colums: [RelationMetadata],
         isObjectLocked: Bool,
         onIconTap: @escaping (ObjectDetails) -> Void,
-        onRowTap: @escaping (ObjectDetails) -> Void
-    ) -> [SetTableViewRowData] {
+        onItemTap: @escaping (ObjectDetails) -> Void
+    ) -> [SetContentViewItemConfiguration] {
         
         let metadata = sortedRelations(dataview: dataView, view: activeView)
             .filter { $0.option.isVisible == true }
@@ -53,19 +55,56 @@ final class SetTableViewDataBuilder {
                 return relation
             }
             
-            return SetTableViewRowData(
+            return SetContentViewItemConfiguration(
                 id: details.id,
                 title: details.title,
                 icon: details.objectIconImage,
                 relations: relations,
                 showIcon: !activeView.hideIcon,
+                smallItemSize: activeView.cardSize == .small,
+                hasCover: activeView.coverRelationKey.isNotEmpty,
+                coverFit: activeView.coverFit,
+                coverType: coverType(details, dataView: dataView, activeView: activeView),
                 onIconTap: {
                     onIconTap(details)
                 },
-                onRowTap: {
-                    onRowTap(details)
+                onItemTap: {
+                    onItemTap(details)
                 }
             )
+        }
+    }
+    
+    private func coverType(
+        _ details: ObjectDetails,
+        dataView: BlockDataview,
+        activeView: DataviewView) -> ObjectHeaderCoverType?
+    {
+        guard FeatureFlags.setGalleryView, activeView.type == .gallery else {
+            return nil
+        }
+        if activeView.coverRelationKey == SetViewSettingsImagePreviewCover.pageCover.rawValue,
+           let documentCover = details.documentCover {
+            return .cover(documentCover)
+        } else {
+            return relationCoverType(details, dataView: dataView, activeView: activeView)
+        }
+    }
+    
+    private func relationCoverType(
+        _ details: ObjectDetails,
+        dataView: BlockDataview,
+        activeView: DataviewView) -> ObjectHeaderCoverType?
+    {
+        let relation = dataView.relations.first { $0.format == .file && $0.key == activeView.coverRelationKey }
+        
+        guard let relation = relation else { return nil }
+        
+        if let list = details.values[relation.key] {
+            let imageId = list.unwrapedListValue.stringValue
+            return .cover(.imageId(imageId))
+        } else {
+            return nil
         }
     }
 }

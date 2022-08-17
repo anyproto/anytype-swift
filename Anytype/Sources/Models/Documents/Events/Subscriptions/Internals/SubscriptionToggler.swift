@@ -52,8 +52,9 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     }
     
     private func startSetSubscription(data: SetSubsriptionData) -> SubscriptionTogglerResult? {
-        var keys = data.options.map { $0.key }
-        keys.append(contentsOf: homeDetailsKeys.map { $0.rawValue} )
+        let keys = data.buildKeys(
+            with: homeDetailsKeys.map { $0.rawValue}
+        )
         
         return makeRequest(subId: .set, filters: data.filters, sorts: data.sorts, source: data.source, keys: keys, pageNumber: data.currentPage)
     }

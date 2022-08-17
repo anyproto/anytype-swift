@@ -93,6 +93,15 @@ extension ObjectIconImageUsecase {
                 placeholderImageGuideline: nil,
                 staticImageGuideline: nil
             )
+        case .setGallery:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x16,
+                profileImageGuideline: ProfileIconImageGuideline.x16,
+                emojiImageGuideline: EmojiIconImageGuideline.x16,
+                todoImageGuideline: TodoIconImageGuideline.x16,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: nil
+            )
         case .featuredRelationsBlock:
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: BasicIconImageGuideline.x18,

@@ -134,7 +134,8 @@ extension ObjectHeaderView: ConfigurableView {
                 size: CGSize(
                     width: maxWidth,
                     height: ObjectHeaderConstants.coverHeight
-                )
+                ),
+                fitImage: false
             )
         )
 

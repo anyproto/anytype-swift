@@ -128,7 +128,7 @@ extension ObjectIconImageUsecase {
             )
         case let .mention(type):
             return mentionFontGuidelineSet(for: type)
-        case .setRow, .featuredRelationsBlock:
+        case .setRow, .setGallery, .featuredRelationsBlock:
             return ObjectIconImageFontSet(
                 profileImageFont: UIKitFontBuilder.uiKitFont(
                     name: .inter,

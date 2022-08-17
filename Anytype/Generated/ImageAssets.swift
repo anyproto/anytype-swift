@@ -73,6 +73,7 @@ internal extension ImageAsset {
   static let objectSettingsLayout = ImageAsset.bundle(name: "object_settings_layout")
   static let objectSettingsRelations = ImageAsset.bundle(name: "object_settings_relations")
   static let searchTextFieldIcon = ImageAsset.bundle(name: "searchTextFieldIcon")
+  static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")
   static let setOpenToEdit = ImageAsset.bundle(name: "set_open_to_edit")
   static let setPaginationArrowBackward = ImageAsset.bundle(name: "set_pagination_arrow_backward")
   static let setPaginationArrowForward = ImageAsset.bundle(name: "set_pagination_arrow_forward")

@@ -483,6 +483,7 @@
 		2E63047728A54F1900BEF2E9 /* SetContentViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047628A54F1900BEF2E9 /* SetContentViewType.swift */; };
 		2E63047928A55D2000BEF2E9 /* SetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047828A55D2000BEF2E9 /* SetCollectionViewCell.swift */; };
 		2E63047B28A55D2A00BEF2E9 /* SetCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047A28A55D2A00BEF2E9 /* SetCollectionView.swift */; };
+		2E63047D28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047C28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift */; };
 		2E7C445D2891753B0062287C /* SetFiltersDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445C2891753B0062287C /* SetFiltersDateView.swift */; };
 		2E7C445F2891755A0062287C /* SetFiltersDateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */; };
 		2E7C4461289184BA0062287C /* SetFiltersDateRowConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C4460289184BA0062287C /* SetFiltersDateRowConfiguration.swift */; };
@@ -512,6 +513,7 @@
 		2E975F06287F00E6004DE574 /* SetFiltersTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975F05287F00E6004DE574 /* SetFiltersTextViewModel.swift */; };
 		2E9EFE62285B45C500C8E47A /* ExceptionalSetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */; };
 		2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE71285B62E500C8E47A /* SetFilter.swift */; };
+		2EE10C7428ACFCF100F41D50 /* LightDimmingButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */; };
 		3D00F1CF278D7CB700863D7C /* ObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */; };
 		3D00F1D5278D84C400863D7C /* LinkToObjectSearchData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */; };
 		3D00F1E9278ECC3000863D7C /* Array+SubscriptionUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D00F1E8278ECC3000863D7C /* Array+SubscriptionUpdate.swift */; };
@@ -545,7 +547,7 @@
 		3D1702562716D1C30079B65B /* UIButton+ImageTitleSpacing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1702552716D1C30079B65B /* UIButton+ImageTitleSpacing.swift */; };
 		3D17025C2716E4F60079B65B /* EditorBarItemState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D17025B2716E4F60079B65B /* EditorBarItemState.swift */; };
 		3D180231264E9C9F00224815 /* EditorViewRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */; };
-		3D1B5F4C274BDE5D007D97AE /* SetTableViewRowData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F4B274BDE5D007D97AE /* SetTableViewRowData.swift */; };
+		3D1B5F4C274BDE5D007D97AE /* SetContentViewItemConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F4B274BDE5D007D97AE /* SetContentViewItemConfiguration.swift */; };
 		3D1B5F66274C0CFD007D97AE /* SetTableViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F65274C0CFD007D97AE /* SetTableViewRow.swift */; };
 		3D1B5F70274CF12C007D97AE /* SetFullHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F6F274CF12C007D97AE /* SetFullHeader.swift */; };
 		3D1B5F72274CF24B007D97AE /* SetHeaderSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D1B5F71274CF24B007D97AE /* SetHeaderSettings.swift */; };
@@ -610,7 +612,7 @@
 		3D30416A27EA4DC100FFE0EB /* EditorSetViewSettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30416827EA4DC100FFE0EB /* EditorSetViewSettingsView.swift */; };
 		3D30416D27EA5E9900FFE0EB /* DataviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30416C27EA5E9900FFE0EB /* DataviewService.swift */; };
 		3D30416F27EA5EA700FFE0EB /* DataviewServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30416E27EA5EA600FFE0EB /* DataviewServiceProtocol.swift */; };
-		3D30417227EA689F00FFE0EB /* SetTableViewRowDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30417127EA689F00FFE0EB /* SetTableViewRowDataBuilder.swift */; };
+		3D30417227EA689F00FFE0EB /* SetContentViewRowDataBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30417127EA689F00FFE0EB /* SetContentViewRowDataBuilder.swift */; };
 		3D30418127EC878000FFE0EB /* SetRelation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30418027EC877F00FFE0EB /* SetRelation.swift */; };
 		3D30418527ECBBDB00FFE0EB /* AnytypeToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */; };
 		3D34F20727BE2FAB00990C49 /* PersonalizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */; };
@@ -1629,6 +1631,7 @@
 		2E63047628A54F1900BEF2E9 /* SetContentViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewType.swift; sourceTree = "<group>"; };
 		2E63047828A55D2000BEF2E9 /* SetCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCollectionViewCell.swift; sourceTree = "<group>"; };
 		2E63047A28A55D2A00BEF2E9 /* SetCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCollectionView.swift; sourceTree = "<group>"; };
+		2E63047C28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIObjectHeaderCoverView.swift; sourceTree = "<group>"; };
 		2E7C445C2891753B0062287C /* SetFiltersDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateView.swift; sourceTree = "<group>"; };
 		2E7C445E2891755A0062287C /* SetFiltersDateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateViewModel.swift; sourceTree = "<group>"; };
 		2E7C4460289184BA0062287C /* SetFiltersDateRowConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateRowConfiguration.swift; sourceTree = "<group>"; };
@@ -1658,6 +1661,7 @@
 		2E975F05287F00E6004DE574 /* SetFiltersTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersTextViewModel.swift; sourceTree = "<group>"; };
 		2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionalSetSort.swift; sourceTree = "<group>"; };
 		2E9EFE71285B62E500C8E47A /* SetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilter.swift; sourceTree = "<group>"; };
+		2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LightDimmingButtonStyle.swift; sourceTree = "<group>"; };
 		3D00F1CE278D7CB700863D7C /* ObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1D4278D84C400863D7C /* LinkToObjectSearchData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkToObjectSearchData.swift; sourceTree = "<group>"; };
 		3D00F1E8278ECC3000863D7C /* Array+SubscriptionUpdate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+SubscriptionUpdate.swift"; sourceTree = "<group>"; };
@@ -1691,7 +1695,7 @@
 		3D1702552716D1C30079B65B /* UIButton+ImageTitleSpacing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+ImageTitleSpacing.swift"; sourceTree = "<group>"; };
 		3D17025B2716E4F60079B65B /* EditorBarItemState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBarItemState.swift; sourceTree = "<group>"; };
 		3D18022A264E9C9F00224815 /* EditorViewRepresentable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorViewRepresentable.swift; sourceTree = "<group>"; };
-		3D1B5F4B274BDE5D007D97AE /* SetTableViewRowData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableViewRowData.swift; sourceTree = "<group>"; };
+		3D1B5F4B274BDE5D007D97AE /* SetContentViewItemConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewItemConfiguration.swift; sourceTree = "<group>"; };
 		3D1B5F65274C0CFD007D97AE /* SetTableViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableViewRow.swift; sourceTree = "<group>"; };
 		3D1B5F6F274CF12C007D97AE /* SetFullHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFullHeader.swift; sourceTree = "<group>"; };
 		3D1B5F71274CF24B007D97AE /* SetHeaderSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetHeaderSettings.swift; sourceTree = "<group>"; };
@@ -1756,7 +1760,7 @@
 		3D30416827EA4DC100FFE0EB /* EditorSetViewSettingsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditorSetViewSettingsView.swift; sourceTree = "<group>"; };
 		3D30416C27EA5E9900FFE0EB /* DataviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataviewService.swift; sourceTree = "<group>"; };
 		3D30416E27EA5EA600FFE0EB /* DataviewServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataviewServiceProtocol.swift; sourceTree = "<group>"; };
-		3D30417127EA689F00FFE0EB /* SetTableViewRowDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetTableViewRowDataBuilder.swift; sourceTree = "<group>"; };
+		3D30417127EA689F00FFE0EB /* SetContentViewRowDataBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewRowDataBuilder.swift; sourceTree = "<group>"; };
 		3D30418027EC877F00FFE0EB /* SetRelation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetRelation.swift; sourceTree = "<group>"; };
 		3D30418427ECBBDB00FFE0EB /* AnytypeToggle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeToggle.swift; sourceTree = "<group>"; };
 		3D34F20627BE2FAB00990C49 /* PersonalizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonalizationView.swift; sourceTree = "<group>"; };
@@ -3992,6 +3996,7 @@
 			children = (
 				123FDADC26C17CBA00F6F44B /* ObjectHeaderCover.swift */,
 				120EB4E026E8EE2E003A0C2B /* ObjectHeaderCoverView.swift */,
+				2E63047C28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift */,
 			);
 			path = Cover;
 			sourceTree = "<group>";
@@ -4654,7 +4659,7 @@
 		3D1B5F67274C0D1B007D97AE /* Row */ = {
 			isa = PBXGroup;
 			children = (
-				3D1B5F4B274BDE5D007D97AE /* SetTableViewRowData.swift */,
+				3D1B5F4B274BDE5D007D97AE /* SetContentViewItemConfiguration.swift */,
 				3D1B5F65274C0CFD007D97AE /* SetTableViewRow.swift */,
 			);
 			path = Row;
@@ -4951,7 +4956,7 @@
 			isa = PBXGroup;
 			children = (
 				2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */,
-				3D30417127EA689F00FFE0EB /* SetTableViewRowDataBuilder.swift */,
+				3D30417127EA689F00FFE0EB /* SetContentViewRowDataBuilder.swift */,
 				3D30418027EC877F00FFE0EB /* SetRelation.swift */,
 				2E412D142847B15C00C973FF /* SetSort.swift */,
 				2E9EFE71285B62E500C8E47A /* SetFilter.swift */,
@@ -5142,6 +5147,7 @@
 				3D1CEC4427F5F566000D36BA /* Clock.swift */,
 				12AB963028007E58008E32EA /* ShrinkingButtonStyle.swift */,
 				C99DCEC3283CCBF30051F99D /* GenericUIKitToSwiftUIView.swift */,
+				2EE10C7328ACFCF100F41D50 /* LightDimmingButtonStyle.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -7241,6 +7247,7 @@
 				2E7C44692892D73C0062287C /* SetFiltersDateType.swift in Sources */,
 				EA4B6E232689F07900F717D3 /* BlockFileIconBuilder.swift in Sources */,
 				3D68564226E0E1A000AA36A9 /* Spacer+FixedSize.swift in Sources */,
+				2E63047D28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift in Sources */,
 				53D408CF27F1D44F00495335 /* PasteboardCopyResult.swift in Sources */,
 				3DE0CFD626F8593D003A606A /* SlashMenuItemDisplayData.swift in Sources */,
 				3D34F20A27BE3B5300990C49 /* SettingsAppearanceView.swift in Sources */,
@@ -7546,6 +7553,7 @@
 				2E975EDE287C2325004DE574 /* SetFilterRowConfiguration.swift in Sources */,
 				3DB692A02697066500149864 /* DummyRestrictions.swift in Sources */,
 				C91FAF5D2812865B0055BC4A /* UndoRedoViewModel.swift in Sources */,
+				2EE10C7428ACFCF100F41D50 /* LightDimmingButtonStyle.swift in Sources */,
 				3D8311072705899000CA6308 /* SlashActionObject.swift in Sources */,
 				5355DFEE2701CBB7005FD730 /* CustomizableHitTestArea.swift in Sources */,
 				12DE4061264AE455007B5074 /* LayoutDimension.swift in Sources */,
@@ -7587,7 +7595,7 @@
 				1211AF7927F4A79800BACB88 /* ImageCornersGuidelineRadius.swift in Sources */,
 				120E818726A0546F006FE84E /* ObjectCoverPickerViewModel.swift in Sources */,
 				534785642743D4EC0097CA30 /* ParsedRelations.swift in Sources */,
-				3D30417227EA689F00FFE0EB /* SetTableViewRowDataBuilder.swift in Sources */,
+				3D30417227EA689F00FFE0EB /* SetContentViewRowDataBuilder.swift in Sources */,
 				53F7441727F4A09B005C9BB0 /* ObjectPreviewModel.swift in Sources */,
 				2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */,
 				3D93D575270CA3D600614E29 /* EditorPageAssembly.swift in Sources */,
@@ -7934,7 +7942,7 @@
 				2E2D255E28880C8D00E3DFD1 /* SetFiltersSelectionViewModel.swift in Sources */,
 				2A0303A128ABD4C9002EFC46 /* SystemURLServiceProtocol.swift in Sources */,
 				127EABF92739587400C731F2 /* ObjectRelationView.swift in Sources */,
-				3D1B5F4C274BDE5D007D97AE /* SetTableViewRowData.swift in Sources */,
+				3D1B5F4C274BDE5D007D97AE /* SetContentViewItemConfiguration.swift in Sources */,
 				3D44984526D53D61005A3E06 /* EditorPageViewModelProtocol.swift in Sources */,
 				3D2F9C1E271EAE8E0043C326 /* FirebaseNonFatalLogger.swift in Sources */,
 				03D1516323FB43A9004027CE /* DashboardService.swift in Sources */,

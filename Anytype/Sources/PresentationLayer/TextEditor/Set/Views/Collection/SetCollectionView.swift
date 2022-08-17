@@ -41,8 +41,8 @@ struct SetCollectionView: View {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
-                    ForEach(model.rows) { cell in
-                        SetCollectionViewCell(configuration: cell)
+                    ForEach(model.configurations) { configuration in
+                        SetCollectionViewCell(configuration: configuration)
                     }
                 }
             }
@@ -71,14 +71,10 @@ struct SetCollectionView: View {
     }
     
     private func columns() -> [GridItem] {
-        guard UIDevice.isPhone else {
-            return [GridItem(.adaptive(minimum: 150), spacing: SetCollectionView.interCellSpacing)]
-        }
-        
-        return model.isSmallItemSize ? [
-            GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing),
-            GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing)
-        ] : [GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing)]
+        Array(
+            repeating: GridItem(.flexible(), spacing: SetCollectionView.interCellSpacing, alignment: .topLeading),
+            count: model.isSmallItemSize ? 2 : 1
+        )
     }
 }
 
