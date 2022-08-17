@@ -197,8 +197,6 @@ internal enum Loc {
   internal static let create = Loc.tr("Localizable", "Create")
   /// The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code
   internal static let createAPinCodeDescription = Loc.tr("Localizable", "Create a pin code description")
-  /// Create bookmark
-  internal static let createBookmark = Loc.tr("Localizable", "Create bookmark")
   /// Create from scratch
   internal static let createFromScratch = Loc.tr("Localizable", "Create from scratch")
   /// Create new object
@@ -241,8 +239,6 @@ internal enum Loc {
   internal static let deselectAll = Loc.tr("Localizable", "Deselect all")
   /// Designed to capture thoughts quickly
   internal static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly")
-  /// Dismiss
-  internal static let dismiss = Loc.tr("Localizable", "Dismiss")
   /// Do it later
   internal static let doItLater = Loc.tr("Localizable", "Do it later")
   /// If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.
@@ -1020,6 +1016,15 @@ internal enum Loc {
       /// Object type
       internal static let title = Loc.tr("Localizable", "LinkAppearance.ObjectType.Title")
     }
+  }
+
+  internal enum LinkPaste {
+    /// Create bookmark
+    internal static let bookmark = Loc.tr("Localizable", "LinkPaste.bookmark")
+    /// Paste as link
+    internal static let link = Loc.tr("Localizable", "LinkPaste.link")
+    /// Paste as text
+    internal static let text = Loc.tr("Localizable", "LinkPaste.text")
   }
 
   internal enum ObjectType {
