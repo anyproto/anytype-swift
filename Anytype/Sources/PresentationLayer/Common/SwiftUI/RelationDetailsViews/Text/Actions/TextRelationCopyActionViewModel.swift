@@ -34,7 +34,7 @@ final class TextRelationCopyActionViewModel: TextRelationActionViewModelProtocol
     func performAction() {
         UISelectionFeedbackGenerator().selectionChanged()
         UIPasteboard.general.string = inputText
-        alertOpener.showTopAlert(message: type.confirmText)
+        alertOpener.showTopAlert(message: Loc.RelationAction.copied)
         logEvent()
     }
     
@@ -54,14 +54,6 @@ private extension TextRelationCopyActionViewModel.SupportedTextType {
         case .phone: return Loc.RelationAction.copyPhone
         case .email: return Loc.RelationAction.copyEmail
         case .url: return Loc.RelationAction.copyLink
-        }
-    }
-    
-    var confirmText: String {
-        switch self {
-        case .phone: return Loc.RelationAction.phoneCopied
-        case .email: return Loc.RelationAction.emailCopied
-        case .url: return Loc.RelationAction.linkCopied
         }
     }
 }
