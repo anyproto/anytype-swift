@@ -15,7 +15,8 @@ service ClientCommands {
     rpc WalletCreate (anytype.Rpc.Wallet.Create.Request) returns (anytype.Rpc.Wallet.Create.Response);
     rpc WalletRecover (anytype.Rpc.Wallet.Recover.Request) returns (anytype.Rpc.Wallet.Recover.Response);
     rpc WalletConvert (anytype.Rpc.Wallet.Convert.Request) returns (anytype.Rpc.Wallet.Convert.Response);
-
+    rpc WalletCreateSession (anytype.Rpc.Wallet.CreateSession.Request) returns (anytype.Rpc.Wallet.CreateSession.Response);
+    rpc WalletCloseSession (anytype.Rpc.Wallet.CloseSession.Request) returns (anytype.Rpc.Wallet.CloseSession.Response);
     // Workspace
     // ***
     rpc WorkspaceCreate (anytype.Rpc.Workspace.Create.Request) returns (anytype.Rpc.Workspace.Create.Response);
@@ -233,5 +234,5 @@ service ClientCommands {
     rpc MetricsSetParameters (anytype.Rpc.Metrics.SetParameters.Request) returns (anytype.Rpc.Metrics.SetParameters.Response);
 
     // used only for lib-server via grpc
-    rpc ListenEvents (anytype.Empty) returns (stream anytype.Event);
+    rpc ListenSessionEvents (anytype.StreamRequest) returns (stream anytype.Event);
 }

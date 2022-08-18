@@ -10,10 +10,10 @@ import SwiftProtobuf
 import Combine
 
 extension Anytype_Rpc.Account.Config {
-    public init(enableDataview: Bool = false, enableDebug: Bool = false, enableReleaseChannelSwitch: Bool = false, enableSpaces: Bool = false, extra: SwiftProtobuf.Google_Protobuf_Struct) {
+    public init(enableDataview: Bool = false, enableDebug: Bool = false, enablePrereleaseChannel: Bool = false, enableSpaces: Bool = false, extra: SwiftProtobuf.Google_Protobuf_Struct) {
         self.enableDataview = enableDataview
         self.enableDebug = enableDebug
-        self.enableReleaseChannelSwitch = enableReleaseChannelSwitch
+        self.enablePrereleaseChannel = enablePrereleaseChannel
         self.enableSpaces = enableSpaces
         self.extra = extra
     }
@@ -2372,9 +2372,9 @@ extension Anytype_Rpc.History.ShowVersion.Request {
 }
 
 extension Anytype_Rpc.History.ShowVersion.Response {
-    public init(error: Anytype_Rpc.History.ShowVersion.Response.Error, objectShow: Anytype_Event.Object.Show, version: Anytype_Rpc.History.Version, traceID: String) {
+    public init(error: Anytype_Rpc.History.ShowVersion.Response.Error, objectView: Anytype_Model_ObjectView, version: Anytype_Rpc.History.Version, traceID: String) {
         self.error = error
-        self.objectShow = objectShow
+        self.objectView = objectView
         self.version = version
         self.traceID = traceID
     }
@@ -2843,9 +2843,9 @@ extension Anytype_Rpc.Object.Open.Request {
 }
 
 extension Anytype_Rpc.Object.Open.Response {
-    public init(error: Anytype_Rpc.Object.Open.Response.Error, event: Anytype_ResponseEvent) {
+    public init(error: Anytype_Rpc.Object.Open.Response.Error, objectView: Anytype_Model_ObjectView) {
         self.error = error
-        self.event = event
+        self.objectView = objectView
     }
 }
 
@@ -2864,10 +2864,11 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs.Request {
 }
 
 extension Anytype_Rpc.Object.OpenBreadcrumbs.Response {
-    public init(error: Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error, objectID: String = String(), event: Anytype_ResponseEvent) {
+    public init(error: Anytype_Rpc.Object.OpenBreadcrumbs.Response.Error, objectID: String = String(), event: Anytype_ResponseEvent, objectView: Anytype_Model_ObjectView) {
         self.error = error
         self.objectID = objectID
         self.event = event
+        self.objectView = objectView
     }
 }
 
@@ -3160,9 +3161,9 @@ extension Anytype_Rpc.Object.Show.Request {
 }
 
 extension Anytype_Rpc.Object.Show.Response {
-    public init(error: Anytype_Rpc.Object.Show.Response.Error, event: Anytype_ResponseEvent) {
+    public init(error: Anytype_Rpc.Object.Show.Response.Error, objectView: Anytype_Model_ObjectView) {
         self.error = error
-        self.event = event
+        self.objectView = objectView
     }
 }
 
@@ -3730,6 +3731,25 @@ extension Anytype_Rpc.Unsplash.Search.Response.Picture {
     }
 }
 
+extension Anytype_Rpc.Wallet.CloseSession.Request {
+    public init(token: String = String()) {
+        self.token = token
+    }
+}
+
+extension Anytype_Rpc.Wallet.CloseSession.Response {
+    public init(error: Anytype_Rpc.Wallet.CloseSession.Response.Error) {
+        self.error = error
+    }
+}
+
+extension Anytype_Rpc.Wallet.CloseSession.Response.Error {
+    public init(code: Anytype_Rpc.Wallet.CloseSession.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
 extension Anytype_Rpc.Wallet.Convert.Request {
     public init(mnemonic: String = String(), entropy: String = String()) {
         self.mnemonic = mnemonic
@@ -3767,6 +3787,26 @@ extension Anytype_Rpc.Wallet.Create.Response {
 
 extension Anytype_Rpc.Wallet.Create.Response.Error {
     public init(code: Anytype_Rpc.Wallet.Create.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.Wallet.CreateSession.Request {
+    public init(mnemonic: String = String()) {
+        self.mnemonic = mnemonic
+    }
+}
+
+extension Anytype_Rpc.Wallet.CreateSession.Response {
+    public init(error: Anytype_Rpc.Wallet.CreateSession.Response.Error, token: String = String()) {
+        self.error = error
+        self.token = token
+    }
+}
+
+extension Anytype_Rpc.Wallet.CreateSession.Response.Error {
+    public init(code: Anytype_Rpc.Wallet.CreateSession.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
     }
@@ -3898,6 +3938,12 @@ extension Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error {
     public init(code: Anytype_Rpc.Workspace.SetIsHighlighted.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
+    }
+}
+
+extension Anytype_StreamRequest {
+    public init(token: String = String()) {
+        self.token = token
     }
 }
 

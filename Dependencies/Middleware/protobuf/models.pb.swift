@@ -1485,7 +1485,11 @@ public struct Anytype_Model_Block {
         /// Image fits container
         public var coverFit: Bool = false
 
+        /// Group view by this relationKey
         public var groupRelationKey: String = String()
+
+        /// Enable backgrounds in groups
+        public var groupBackgroundColors: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -1664,12 +1668,15 @@ public struct Anytype_Model_Block {
 
         public var type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc
 
+        public var customOrder: [SwiftProtobuf.Google_Protobuf_Value] = []
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public enum TypeEnum: SwiftProtobuf.Enum {
           public typealias RawValue = Int
           case asc // = 0
           case desc // = 1
+          case custom // = 2
           case UNRECOGNIZED(Int)
 
           public init() {
@@ -1680,6 +1687,7 @@ public struct Anytype_Model_Block {
             switch rawValue {
             case 0: self = .asc
             case 1: self = .desc
+            case 2: self = .custom
             default: self = .UNRECOGNIZED(rawValue)
             }
           }
@@ -1688,6 +1696,7 @@ public struct Anytype_Model_Block {
             switch self {
             case .asc: return 0
             case .desc: return 1
+            case .custom: return 2
             case .UNRECOGNIZED(let i): return i
             }
           }
@@ -1912,6 +1921,8 @@ public struct Anytype_Model_Block {
         public var index: Int32 = 0
 
         public var hidden: Bool = false
+
+        public var backgroundColor: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -2349,6 +2360,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: CaseIterable {
   public static var allCases: [Anytype_Model_Block.Content.Dataview.Sort.TypeEnum] = [
     .asc,
     .desc,
+    .custom,
   ]
 }
 
@@ -2603,7 +2615,7 @@ public struct Anytype_Model_Account {
 
     public var enableDebug: Bool = false
 
-    public var enableReleaseChannelSwitch: Bool = false
+    public var enablePrereleaseChannel: Bool = false
 
     public var enableSpaces: Bool = false
 
@@ -3445,6 +3457,113 @@ extension Anytype_Model_InternalFlag.Value: CaseIterable {
 
 #endif  // swift(>=4.2)
 
+///
+/// Works with a smart blocks: Page, Dashboard
+/// Dashboard opened, click on a page, Rpc.Block.open, Block.ShowFullscreen(PageBlock)
+public struct Anytype_Model_ObjectView {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  /// Root block id
+  public var rootID: String = String()
+
+  /// dependent simple blocks (descendants)
+  public var blocks: [Anytype_Model_Block] = []
+
+  /// details for the current and dependent objects
+  public var details: [Anytype_Model_ObjectView.DetailsSet] = []
+
+  public var type: Anytype_Model_SmartBlockType = .accountOld
+
+  /// objectTypes contains ONLY to get layouts for the actual and all dependent objects. Relations are currently omitted // todo: switch to other pb model
+  public var objectTypes: [Anytype_Model_ObjectType] = []
+
+  /// combined relations of object's type + extra relations. If object doesn't has some relation key in the details this means client should hide it and only suggest when adding existing one
+  public var relations: [Anytype_Model_Relation] = []
+
+  /// object restrictions
+  public var restrictions: Anytype_Model_Restrictions {
+    get {return _restrictions ?? Anytype_Model_Restrictions()}
+    set {_restrictions = newValue}
+  }
+  /// Returns true if `restrictions` has been explicitly set.
+  public var hasRestrictions: Bool {return self._restrictions != nil}
+  /// Clears the value of `restrictions`. Subsequent reads from it will return its default value.
+  public mutating func clearRestrictions() {self._restrictions = nil}
+
+  public var history: Anytype_Model_ObjectView.HistorySize {
+    get {return _history ?? Anytype_Model_ObjectView.HistorySize()}
+    set {_history = newValue}
+  }
+  /// Returns true if `history` has been explicitly set.
+  public var hasHistory: Bool {return self._history != nil}
+  /// Clears the value of `history`. Subsequent reads from it will return its default value.
+  public mutating func clearHistory() {self._history = nil}
+
+  public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  public struct DetailsSet {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    /// context objectId
+    public var id: String = String()
+
+    /// can not be a partial state. Should replace client details state
+    public var details: SwiftProtobuf.Google_Protobuf_Struct {
+      get {return _details ?? SwiftProtobuf.Google_Protobuf_Struct()}
+      set {_details = newValue}
+    }
+    /// Returns true if `details` has been explicitly set.
+    public var hasDetails: Bool {return self._details != nil}
+    /// Clears the value of `details`. Subsequent reads from it will return its default value.
+    public mutating func clearDetails() {self._details = nil}
+
+    public var subIds: [String] = []
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+
+    fileprivate var _details: SwiftProtobuf.Google_Protobuf_Struct? = nil
+  }
+
+  public struct RelationWithValuePerObject {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var objectID: String = String()
+
+    public var relations: [Anytype_Model_RelationWithValue] = []
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct HistorySize {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var undo: Int32 = 0
+
+    public var redo: Int32 = 0
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public init() {}
+
+  fileprivate var _restrictions: Anytype_Model_Restrictions? = nil
+  fileprivate var _history: Anytype_Model_ObjectView.HistorySize? = nil
+}
+
 #if swift(>=5.5) && canImport(_Concurrency)
 extension Anytype_Model_SmartBlockType: @unchecked Sendable {}
 extension Anytype_Model_RelationFormat: @unchecked Sendable {}
@@ -3537,6 +3656,10 @@ extension Anytype_Model_Relations: @unchecked Sendable {}
 extension Anytype_Model_RelationOptions: @unchecked Sendable {}
 extension Anytype_Model_InternalFlag: @unchecked Sendable {}
 extension Anytype_Model_InternalFlag.Value: @unchecked Sendable {}
+extension Anytype_Model_ObjectView: @unchecked Sendable {}
+extension Anytype_Model_ObjectView.DetailsSet: @unchecked Sendable {}
+extension Anytype_Model_ObjectView.RelationWithValuePerObject: @unchecked Sendable {}
+extension Anytype_Model_ObjectView.HistorySize: @unchecked Sendable {}
 #endif  // swift(>=5.5) && canImport(_Concurrency)
 
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
@@ -4874,6 +4997,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     9: .same(proto: "cardSize"),
     10: .same(proto: "coverFit"),
     11: .same(proto: "groupRelationKey"),
+    12: .same(proto: "groupBackgroundColors"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -4893,6 +5017,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
       case 9: try { try decoder.decodeSingularEnumField(value: &self.cardSize) }()
       case 10: try { try decoder.decodeSingularBoolField(value: &self.coverFit) }()
       case 11: try { try decoder.decodeSingularStringField(value: &self.groupRelationKey) }()
+      case 12: try { try decoder.decodeSingularBoolField(value: &self.groupBackgroundColors) }()
       default: break
       }
     }
@@ -4932,6 +5057,9 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if !self.groupRelationKey.isEmpty {
       try visitor.visitSingularStringField(value: self.groupRelationKey, fieldNumber: 11)
     }
+    if self.groupBackgroundColors != false {
+      try visitor.visitSingularBoolField(value: self.groupBackgroundColors, fieldNumber: 12)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -4947,6 +5075,7 @@ extension Anytype_Model_Block.Content.Dataview.View: SwiftProtobuf.Message, Swif
     if lhs.cardSize != rhs.cardSize {return false}
     if lhs.coverFit != rhs.coverFit {return false}
     if lhs.groupRelationKey != rhs.groupRelationKey {return false}
+    if lhs.groupBackgroundColors != rhs.groupBackgroundColors {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5053,6 +5182,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "RelationKey"),
     2: .same(proto: "type"),
+    3: .same(proto: "customOrder"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5063,6 +5193,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularStringField(value: &self.relationKey) }()
       case 2: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.customOrder) }()
       default: break
       }
     }
@@ -5075,12 +5206,16 @@ extension Anytype_Model_Block.Content.Dataview.Sort: SwiftProtobuf.Message, Swif
     if self.type != .asc {
       try visitor.visitSingularEnumField(value: self.type, fieldNumber: 2)
     }
+    if !self.customOrder.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.customOrder, fieldNumber: 3)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Model_Block.Content.Dataview.Sort, rhs: Anytype_Model_Block.Content.Dataview.Sort) -> Bool {
     if lhs.relationKey != rhs.relationKey {return false}
     if lhs.type != rhs.type {return false}
+    if lhs.customOrder != rhs.customOrder {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5090,6 +5225,7 @@ extension Anytype_Model_Block.Content.Dataview.Sort.TypeEnum: SwiftProtobuf._Pro
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     0: .same(proto: "Asc"),
     1: .same(proto: "Desc"),
+    2: .same(proto: "Custom"),
   ]
 }
 
@@ -5249,6 +5385,7 @@ extension Anytype_Model_Block.Content.Dataview.ViewGroup: SwiftProtobuf.Message,
     1: .same(proto: "groupId"),
     2: .same(proto: "index"),
     3: .same(proto: "hidden"),
+    4: .same(proto: "backgroundColor"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -5260,6 +5397,7 @@ extension Anytype_Model_Block.Content.Dataview.ViewGroup: SwiftProtobuf.Message,
       case 1: try { try decoder.decodeSingularStringField(value: &self.groupID) }()
       case 2: try { try decoder.decodeSingularInt32Field(value: &self.index) }()
       case 3: try { try decoder.decodeSingularBoolField(value: &self.hidden) }()
+      case 4: try { try decoder.decodeSingularStringField(value: &self.backgroundColor) }()
       default: break
       }
     }
@@ -5275,6 +5413,9 @@ extension Anytype_Model_Block.Content.Dataview.ViewGroup: SwiftProtobuf.Message,
     if self.hidden != false {
       try visitor.visitSingularBoolField(value: self.hidden, fieldNumber: 3)
     }
+    if !self.backgroundColor.isEmpty {
+      try visitor.visitSingularStringField(value: self.backgroundColor, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -5282,6 +5423,7 @@ extension Anytype_Model_Block.Content.Dataview.ViewGroup: SwiftProtobuf.Message,
     if lhs.groupID != rhs.groupID {return false}
     if lhs.index != rhs.index {return false}
     if lhs.hidden != rhs.hidden {return false}
+    if lhs.backgroundColor != rhs.backgroundColor {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -5978,7 +6120,7 @@ extension Anytype_Model_Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Me
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "enableDataview"),
     2: .same(proto: "enableDebug"),
-    3: .same(proto: "enableReleaseChannelSwitch"),
+    3: .same(proto: "enablePrereleaseChannel"),
     4: .same(proto: "enableSpaces"),
     100: .same(proto: "extra"),
   ]
@@ -5991,7 +6133,7 @@ extension Anytype_Model_Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Me
       switch fieldNumber {
       case 1: try { try decoder.decodeSingularBoolField(value: &self.enableDataview) }()
       case 2: try { try decoder.decodeSingularBoolField(value: &self.enableDebug) }()
-      case 3: try { try decoder.decodeSingularBoolField(value: &self.enableReleaseChannelSwitch) }()
+      case 3: try { try decoder.decodeSingularBoolField(value: &self.enablePrereleaseChannel) }()
       case 4: try { try decoder.decodeSingularBoolField(value: &self.enableSpaces) }()
       case 100: try { try decoder.decodeSingularMessageField(value: &self._extra) }()
       default: break
@@ -6010,8 +6152,8 @@ extension Anytype_Model_Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Me
     if self.enableDebug != false {
       try visitor.visitSingularBoolField(value: self.enableDebug, fieldNumber: 2)
     }
-    if self.enableReleaseChannelSwitch != false {
-      try visitor.visitSingularBoolField(value: self.enableReleaseChannelSwitch, fieldNumber: 3)
+    if self.enablePrereleaseChannel != false {
+      try visitor.visitSingularBoolField(value: self.enablePrereleaseChannel, fieldNumber: 3)
     }
     if self.enableSpaces != false {
       try visitor.visitSingularBoolField(value: self.enableSpaces, fieldNumber: 4)
@@ -6025,7 +6167,7 @@ extension Anytype_Model_Account.Config: SwiftProtobuf.Message, SwiftProtobuf._Me
   public static func ==(lhs: Anytype_Model_Account.Config, rhs: Anytype_Model_Account.Config) -> Bool {
     if lhs.enableDataview != rhs.enableDataview {return false}
     if lhs.enableDebug != rhs.enableDebug {return false}
-    if lhs.enableReleaseChannelSwitch != rhs.enableReleaseChannelSwitch {return false}
+    if lhs.enablePrereleaseChannel != rhs.enablePrereleaseChannel {return false}
     if lhs.enableSpaces != rhs.enableSpaces {return false}
     if lhs._extra != rhs._extra {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -6892,4 +7034,206 @@ extension Anytype_Model_InternalFlag.Value: SwiftProtobuf._ProtoNameProviding {
     1: .same(proto: "editorSelectType"),
     2: .same(proto: "editorSelectTemplate"),
   ]
+}
+
+extension Anytype_Model_ObjectView: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = _protobuf_package + ".ObjectView"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "rootId"),
+    2: .same(proto: "blocks"),
+    3: .same(proto: "details"),
+    4: .same(proto: "type"),
+    5: .same(proto: "objectTypes"),
+    7: .same(proto: "relations"),
+    8: .same(proto: "restrictions"),
+    9: .same(proto: "history"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.rootID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.blocks) }()
+      case 3: try { try decoder.decodeRepeatedMessageField(value: &self.details) }()
+      case 4: try { try decoder.decodeSingularEnumField(value: &self.type) }()
+      case 5: try { try decoder.decodeRepeatedMessageField(value: &self.objectTypes) }()
+      case 7: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
+      case 8: try { try decoder.decodeSingularMessageField(value: &self._restrictions) }()
+      case 9: try { try decoder.decodeSingularMessageField(value: &self._history) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.rootID.isEmpty {
+      try visitor.visitSingularStringField(value: self.rootID, fieldNumber: 1)
+    }
+    if !self.blocks.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.blocks, fieldNumber: 2)
+    }
+    if !self.details.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.details, fieldNumber: 3)
+    }
+    if self.type != .accountOld {
+      try visitor.visitSingularEnumField(value: self.type, fieldNumber: 4)
+    }
+    if !self.objectTypes.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.objectTypes, fieldNumber: 5)
+    }
+    if !self.relations.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.relations, fieldNumber: 7)
+    }
+    try { if let v = self._restrictions {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 8)
+    } }()
+    try { if let v = self._history {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 9)
+    } }()
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ObjectView, rhs: Anytype_Model_ObjectView) -> Bool {
+    if lhs.rootID != rhs.rootID {return false}
+    if lhs.blocks != rhs.blocks {return false}
+    if lhs.details != rhs.details {return false}
+    if lhs.type != rhs.type {return false}
+    if lhs.objectTypes != rhs.objectTypes {return false}
+    if lhs.relations != rhs.relations {return false}
+    if lhs._restrictions != rhs._restrictions {return false}
+    if lhs._history != rhs._history {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ObjectView.DetailsSet: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ObjectView.protoMessageName + ".DetailsSet"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "id"),
+    2: .same(proto: "details"),
+    3: .same(proto: "subIds"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.id) }()
+      case 2: try { try decoder.decodeSingularMessageField(value: &self._details) }()
+      case 3: try { try decoder.decodeRepeatedStringField(value: &self.subIds) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    // The use of inline closures is to circumvent an issue where the compiler
+    // allocates stack space for every if/case branch local when no optimizations
+    // are enabled. https://github.com/apple/swift-protobuf/issues/1034 and
+    // https://github.com/apple/swift-protobuf/issues/1182
+    if !self.id.isEmpty {
+      try visitor.visitSingularStringField(value: self.id, fieldNumber: 1)
+    }
+    try { if let v = self._details {
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 2)
+    } }()
+    if !self.subIds.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.subIds, fieldNumber: 3)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ObjectView.DetailsSet, rhs: Anytype_Model_ObjectView.DetailsSet) -> Bool {
+    if lhs.id != rhs.id {return false}
+    if lhs._details != rhs._details {return false}
+    if lhs.subIds != rhs.subIds {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ObjectView.RelationWithValuePerObject: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ObjectView.protoMessageName + ".RelationWithValuePerObject"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "objectId"),
+    2: .same(proto: "relations"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
+      case 2: try { try decoder.decodeRepeatedMessageField(value: &self.relations) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.objectID.isEmpty {
+      try visitor.visitSingularStringField(value: self.objectID, fieldNumber: 1)
+    }
+    if !self.relations.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.relations, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ObjectView.RelationWithValuePerObject, rhs: Anytype_Model_ObjectView.RelationWithValuePerObject) -> Bool {
+    if lhs.objectID != rhs.objectID {return false}
+    if lhs.relations != rhs.relations {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Model_ObjectView.HistorySize: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Model_ObjectView.protoMessageName + ".HistorySize"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "undo"),
+    2: .same(proto: "redo"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeSingularInt32Field(value: &self.undo) }()
+      case 2: try { try decoder.decodeSingularInt32Field(value: &self.redo) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.undo != 0 {
+      try visitor.visitSingularInt32Field(value: self.undo, fieldNumber: 1)
+    }
+    if self.redo != 0 {
+      try visitor.visitSingularInt32Field(value: self.redo, fieldNumber: 2)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Model_ObjectView.HistorySize, rhs: Anytype_Model_ObjectView.HistorySize) -> Bool {
+    if lhs.undo != rhs.undo {return false}
+    if lhs.redo != rhs.redo {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
 }

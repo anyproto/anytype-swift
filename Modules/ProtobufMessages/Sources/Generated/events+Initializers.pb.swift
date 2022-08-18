@@ -810,33 +810,6 @@ extension Anytype_Event.Object.Remove {
     }
 }
 
-extension Anytype_Event.Object.Show {
-    public init(rootID: String = String(), blocks: [Anytype_Model_Block] = [], details: [Anytype_Event.Object.Details.Set] = [], type: Anytype_Model_SmartBlockType = .accountOld, objectTypes: [Anytype_Model_ObjectType] = [], relations: [Anytype_Model_Relation] = [], restrictions: Anytype_Model_Restrictions, history: Anytype_Event.Object.Show.HistorySize) {
-        self.rootID = rootID
-        self.blocks = blocks
-        self.details = details
-        self.type = type
-        self.objectTypes = objectTypes
-        self.relations = relations
-        self.restrictions = restrictions
-        self.history = history
-    }
-}
-
-extension Anytype_Event.Object.Show.HistorySize {
-    public init(undo: Int32 = 0, redo: Int32 = 0) {
-        self.undo = undo
-        self.redo = redo
-    }
-}
-
-extension Anytype_Event.Object.Show.RelationWithValuePerObject {
-    public init(objectID: String = String(), relations: [Anytype_Model_RelationWithValue] = []) {
-        self.objectID = objectID
-        self.relations = relations
-    }
-}
-
 extension Anytype_Event.Object.Subscription.Add {
     public init(id: String = String(), afterID: String = String(), subID: String = String()) {
         self.id = id
