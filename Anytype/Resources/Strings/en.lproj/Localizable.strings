@@ -355,6 +355,13 @@
 "Set.Bookmark.Error.Title" = "Oops - something went wrong";
 "Set.Bookmark.Error.Message" = "Please try again";
 
+// MARK: - Sets: View Settings
+"Set.View.Settings.ImageFit.Title" = "Fit image";
+"Set.View.Settings.CardSize.Title" = "Card size";
+"Set.View.Settings.CardSize.Small.Title" = "Small";
+"Set.View.Settings.CardSize.Large.Title" = "Large";
+"Set.View.Settings.ImagePreview.Title" = "Image preview";
+
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
 "SlashMenu.LineDivider" = "Line divider";
@@ -408,7 +415,6 @@
 "Deselect all" = "Deselect all";
 "Shared" = "Shared";
 "Sets" = "Sets";
-"History" = "History";
 "Default object type" = "Default object type";
 "Personalization" = "Personalization";
 "Choose default object type" = "Choose default object type";
@@ -447,8 +453,6 @@
 "Unfavorite" = "Unfavorite";
 "Unsplash" = "Unsplash";
 "Go back" = "Go back";
-"Dismiss" = "Dismiss";
-"Create bookmark" = "Create bookmark";
 "Backed up on one node at least" = "Backed up on one node at least";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
 "Anytype node is not connected" = "Anytype node is not connected";
@@ -461,6 +465,7 @@
 "Upload audio" = "Upload audio";
 "Deleted" = "Deleted";
 "Download" = "Download";
+"Open object" = "Open object";
 "Turn into" = "Turn into";
 "Add below" = "Add below";
 "Change type" = "Change type";
@@ -565,3 +570,22 @@
 "SimpleTableMenu.Item.InsertBelow" = "Insert below";
 "SimpleTableMenu.Item.MoveUp" = "Move up";
 "SimpleTableMenu.Item.MoveDown" = "Move down";
+
+"DebugMenu.ToggleAuthor" = "Release: %s, %s";
+
+// MARK: Link Past Actions
+"LinkPaste.text" = "Paste as text";
+"LinkPaste.link" = "Paste as link";
+"LinkPaste.bookmark" = "Create bookmark";
+
+// Relation Actions
+"RelationAction.CopyPhone" = "Copy phone numbler";
+"RelationAction.CopyEmail" = "Copy email";
+"RelationAction.CopyLink" = "Copy link";
+"RelationAction.PhoneCopied" = "Phone numbler copied";
+"RelationAction.EmailCopied" = "Email copied";
+"RelationAction.LinkCopied" = "Link copied";
+"RelationAction.ReloadContent" = "Reload object content";
+"RelationAction.CallPhone" = "Call phone numbler";
+"RelationAction.SendEmail" = "Send email";
+"RelationAction.OpenLink" = "Open link";

@@ -12,10 +12,8 @@ struct SetHeaderSettings: View {
             Spacer()
             settingButton
 
-            if FeatureFlags.isCreateObjectInSetAvailable {
-                Spacer.fixedWidth(24)
-                createObjectButton
-            }
+            Spacer.fixedWidth(24)
+            createObjectButton
         }
         .padding(.horizontal, 20)
         .frame(height: settingsHeight)
@@ -23,6 +21,7 @@ struct SetHeaderSettings: View {
     
     private var settingButton: some View {
         Button(action: {
+            UISelectionFeedbackGenerator().selectionChanged()
             model.showSetSettings()
         }) {
             Image(asset: .setSettings)
@@ -31,6 +30,7 @@ struct SetHeaderSettings: View {
 
     private var createObjectButton: some View {
         Button(action: {
+            UISelectionFeedbackGenerator().selectionChanged()
             model.createObject()
         }) {
             Image(asset: .plus)
@@ -39,6 +39,7 @@ struct SetHeaderSettings: View {
     
     private var viewButton: some View {
         Button(action: {
+            UISelectionFeedbackGenerator().selectionChanged()
             withAnimation(.fastSpring) {
                 model.showViewPicker()
             }

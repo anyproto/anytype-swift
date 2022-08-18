@@ -36,8 +36,8 @@ extension ObjectHeader {
         onCoverTap: @escaping () -> ()
     ) -> ObjectHeader? {
         switch self {
-        case .filled(let filledState):
-            return .filled(
+        case .filled(let filledState, _):
+            return .filled(state:
                 filledState.modifiedByIconUploadingEventWith(
                     image: image,
                     onIconTap: onIconTap
@@ -45,7 +45,7 @@ extension ObjectHeader {
             )
             
         case .empty:
-            return .filled(
+            return .filled(state:
                 .iconOnly(
                     ObjectHeaderIconOnlyState(
                         icon: ObjectHeaderIcon(
@@ -70,18 +70,18 @@ extension ObjectHeader {
         )
         
         switch self {
-        case .filled(let filledState):
+        case .filled(let filledState, _):
             switch filledState {
             case .iconOnly(let objectHeaderIconState):
-                return .filled(.iconAndCover(icon: objectHeaderIconState.icon, cover: newCover))
+                return .filled(state: .iconAndCover(icon: objectHeaderIconState.icon, cover: newCover))
             case .coverOnly:
-                return .filled(.coverOnly(newCover))
+                return .filled(state: .coverOnly(newCover))
             case .iconAndCover(let objectHeaderIcon, _):
-                return .filled(.iconAndCover(icon: objectHeaderIcon, cover: newCover))
+                return .filled(state: .iconAndCover(icon: objectHeaderIcon, cover: newCover))
             }
             
         case .empty:
-            return .filled(.coverOnly(newCover))
+            return .filled(state: .coverOnly(newCover))
         }
     }
     
@@ -156,6 +156,12 @@ private extension ObjectHeaderIcon {
         case .profilePreview:
             return ObjectHeaderIcon(
                 icon: .profilePreview(image),
+                layoutAlignment: self.layoutAlignment,
+                onTap: self.onTap
+            )
+        case .image:
+            return ObjectHeaderIcon(
+                icon: .basicPreview(image),
                 layoutAlignment: self.layoutAlignment,
                 onTap: self.onTap
             )

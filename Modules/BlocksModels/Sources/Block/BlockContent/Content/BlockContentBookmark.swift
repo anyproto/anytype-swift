@@ -27,6 +27,10 @@ public struct BlockBookmark: Hashable {
         .init(url: "", title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown, targetObjectID: "", state: .empty)
     }
     
+    public static func empty(targetObjectID: String) -> Self {
+        .init(url: "", title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown, targetObjectID: targetObjectID, state: .empty)
+    }
+    
     // MARK: - Memberwise initializer
     public init(
         url: String,

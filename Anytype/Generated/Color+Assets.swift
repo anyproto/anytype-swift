@@ -57,6 +57,8 @@ extension Color {
       internal static let teal = Color(asset: Asset.Text.teal)
       internal static let yellow = Color(asset: Asset.Text.yellow)
     }
+    // MARK: - Additional
+    internal static let shimmering = Color(asset: Asset.shimmering)
     // MARK: - Backgound
     internal static let backgroundDashboard = Color(asset: Asset.backgroundDashboard)
     internal static let backgroundPrimary = Color(asset: Asset.backgroundPrimary)

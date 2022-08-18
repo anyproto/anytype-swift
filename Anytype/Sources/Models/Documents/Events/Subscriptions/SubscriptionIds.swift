@@ -7,6 +7,7 @@ struct SetSubsriptionData: Hashable {
     let filters: [DataviewFilter]
     let options: [DataviewRelationOption]
     let currentPage: Int64
+    let coverRelationKey: String
     
     init(dataView: BlockDataview, view: DataviewView, currentPage: Int64) {
         self.source = dataView.source
@@ -14,12 +15,27 @@ struct SetSubsriptionData: Hashable {
         self.filters = view.filters
         self.options = view.options
         self.currentPage = currentPage
+        self.coverRelationKey = view.coverRelationKey
+    }
+    
+    func buildKeys(with additionalKeys: [String]) -> [String] {
+        var keys = additionalKeys
+        keys.append(contentsOf: options.map { $0.key })
+        keys.append(coverRelationKey)
+        keys.append(contentsOf: [
+            BundledRelationKey.coverId.rawValue,
+            BundledRelationKey.coverScale.rawValue,
+            BundledRelationKey.coverType.rawValue,
+            BundledRelationKey.coverX.rawValue,
+            BundledRelationKey.coverY.rawValue
+        ])
+        return keys
     }
 }
 
 
 enum SubscriptionData: Hashable {
-    case historyTab
+    case recentTab
     case archiveTab
     case sharedTab
     case setsTab
@@ -29,8 +45,8 @@ enum SubscriptionData: Hashable {
     
     var identifier: SubscriptionId {
         switch self {
-        case .historyTab:
-            return .historyTab
+        case .recentTab:
+            return .recentTab
         case .archiveTab:
             return .archiveTab
         case .sharedTab:
@@ -46,7 +62,7 @@ enum SubscriptionData: Hashable {
 }
 
 enum SubscriptionId: String {
-    case historyTab = "SubscriptionId.HistoryTab"
+    case recentTab = "SubscriptionId.RecentTab"
     case archiveTab = "SubscriptionId.ArchiveTab"
     case sharedTab = "SubscriptionId.SharedTab"
     case setsTab = "SubscriptionId.SetsTab"

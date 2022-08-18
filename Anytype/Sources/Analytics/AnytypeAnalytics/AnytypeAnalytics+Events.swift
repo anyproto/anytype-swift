@@ -44,7 +44,7 @@ extension AnytypeAnalytics {
         switch selectedTab {
         case .favourites:
             anayliticsName = AnalyticsEventsHomeTabValue.favoritesTabSelected
-        case .history:
+        case .recent:
             anayliticsName = AnalyticsEventsHomeTabValue.recentTabSelected
         case .sets:
             anayliticsName = AnalyticsEventsHomeTabValue.setsTabSelected

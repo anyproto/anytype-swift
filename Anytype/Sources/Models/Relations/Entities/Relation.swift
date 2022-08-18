@@ -121,4 +121,21 @@ extension Relation: RelationProtocol {
         case .unknown: return false
         }
     }
+    
+    var hasValue: Bool {
+        switch self {
+        case .text(let text): return (text.value ?? "").isNotEmpty
+        case .number(let text): return (text.value ?? "").isNotEmpty
+        case .status(let status): return status.values.isNotEmpty
+        case .date(let date): return date.value != nil
+        case .object(let object): return object.selectedObjects.isNotEmpty
+        case .checkbox: return true
+        case .url(let text): return (text.value ?? "").isNotEmpty
+        case .email(let text): return (text.value ?? "").isNotEmpty
+        case .phone(let text): return (text.value ?? "").isNotEmpty
+        case .tag(let tag): return tag.selectedTags.isNotEmpty
+        case .file(let file): return file.files.isNotEmpty
+        case .unknown(let unknown): return unknown.value.isNotEmpty
+        }
+    }
 }

@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import AnytypeCore
 
 extension DataviewViewType {
     var name: String {
@@ -12,6 +13,15 @@ extension DataviewViewType {
             return Loc.DataviewType.gallery
         case .kanban:
             return Loc.DataviewType.kanban
+        }
+    }
+    
+    var setContentViewType: SetContentViewType {
+        switch self {
+        case .gallery:
+            return FeatureFlags.setGalleryView ? .gallery : .table
+        default:
+            return .table
         }
     }
 }

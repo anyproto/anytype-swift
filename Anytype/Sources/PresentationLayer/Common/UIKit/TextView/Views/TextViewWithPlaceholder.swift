@@ -103,10 +103,6 @@ final class TextViewWithPlaceholder: UITextView {
     }
 
     override func paste(_ sender: Any?) {
-        guard FeatureFlags.clipboard else {
-            return super.paste(sender)
-        }
-
         guard let customTextViewDelegate = customTextViewDelegate else {
             return super.paste(sender)
         }
@@ -117,10 +113,6 @@ final class TextViewWithPlaceholder: UITextView {
     }
 
     override func copy(_ sender: Any?) {
-        guard FeatureFlags.clipboard else {
-            return super.copy(sender)
-        }
-
         guard let customTextViewDelegate = customTextViewDelegate else {
             return super.copy(sender)
         }

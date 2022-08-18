@@ -119,6 +119,7 @@ final class EditorPageController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         viewModel.viewDidAppear()
+        browserViewInput?.didShow(collectionView: collectionView)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -511,17 +512,8 @@ private extension EditorPageController {
     }
     
     func createHeaderCellRegistration() -> UICollectionView.CellRegistration<EditorViewListCell, ObjectHeader> {
-        .init { [weak self] cell, _, item in
-            guard let self = self else { return }
-            let contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
-
-            if var objectHeaderFilledConfiguration = contentConfiguration as? ObjectHeaderFilledConfiguration {
-                let topAdjustedContentInset = self.collectionView.adjustedContentInset.top
-                objectHeaderFilledConfiguration.topAdjustedContentInset = topAdjustedContentInset
-                cell.contentConfiguration = objectHeaderFilledConfiguration
-            } else {
-                cell.contentConfiguration = contentConfiguration
-            }
+        .init { cell, _, item in
+            cell.contentConfiguration = item.makeContentConfiguration(maxWidth: cell.bounds.width)
         }
     }
     

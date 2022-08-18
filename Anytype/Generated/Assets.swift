@@ -72,6 +72,9 @@ internal enum Asset {
     static let yellow = ColorAsset(name: "Text/yellow")
   }
 
+  // MARK: - Additional
+  static let shimmering = ColorAsset(name: "shimmering")
+
   // MARK: - Backgound
   static let backgroundDashboard = ColorAsset(name: "backgroundDashboard")
   static let backgroundPrimary = ColorAsset(name: "backgroundPrimary")
