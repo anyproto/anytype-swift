@@ -30,7 +30,9 @@ enum AnalyticsEventsName {
     static let changeTextStyle = "ChangeTextStyle"
 
     static let reorderBlock = "ReorderBlock"
-
+    static let blockBookmarkOpenUrl = "BlockBookmarkOpenUrl"
+    static let openAsObject = "OpenAsObject"
+    
     // Relation events
     static let addExistingRelation = "AddExistingRelation"
     static let createRelation = "CreateRelation"
