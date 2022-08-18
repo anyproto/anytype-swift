@@ -420,29 +420,6 @@ final class MiddlewareEventConverter {
         return toggleStyleChanged ? .general : .blocks(blockIds: Set(childIds))
     }
     
-    private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: InfoContainerProtocol) {
-        
-        information.forEach { container.add($0) }
-        let roots = information.filter { $0.id == rootId }
-
-        guard roots.count != 0 else {
-            anytypeAssertionFailure("Unknown situation. We can't have zero roots.", domain: .middlewareEventConverter)
-            return
-        }
-
-        if roots.count != 1 {
-            // this situation is not possible, but, let handle it.
-            anytypeAssertionFailure(
-                "We have several roots for our rootId. Not possible, but let us handle it.",
-                domain: .middlewareEventConverter
-            )
-        }
-
-        let rootId = roots[0].id
-
-        IndentationBuilder.build(container: container, id: rootId)
-    }
-    
     private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {
         let currentStatus = AccountManager.shared.account.status
         let newStatus = AccountManager.shared.account.status
