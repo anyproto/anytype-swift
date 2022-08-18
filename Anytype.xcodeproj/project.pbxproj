@@ -407,6 +407,9 @@
 		2A2C33212892BA36008BC326 /* RelationValueViewModelOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */; };
 		2A2C33232892C63B008BC326 /* RelationValueCoordinatorOutput.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2C33222892C63B008BC326 /* RelationValueCoordinatorOutput.swift */; };
 		2A2D4A2B283CCE47005E70E4 /* HomeContextMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A2D4A2A283CCE47005E70E4 /* HomeContextMenuView.swift */; };
+		2A30734928ACEF58003673DF /* AlertOpener.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30734828ACEF58003673DF /* AlertOpener.swift */; };
+		2A30735128AD04D7003673DF /* TopAlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A30735028AD04D7003673DF /* TopAlertView.swift */; };
+		2A30735428AD17F8003673DF /* SwiftEntryKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2A30735328AD17F8003673DF /* SwiftEntryKit */; };
 		2A4FFBBE289D1B64004938DF /* LoggerConfigurator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FFBBD289D1B64004938DF /* LoggerConfigurator.swift */; };
 		2A4FFBC1289D1C7E004938DF /* Logger in Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; };
 		2A4FFBC2289D1C7E004938DF /* Logger in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 2A4FFBC0289D1C7E004938DF /* Logger */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
@@ -430,6 +433,7 @@
 		2A90C47B28605F8C00B6B44E /* TableOfContentsContentProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */; };
 		2AA22F68289BF27500BBA174 /* EditorBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */; };
 		2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */; };
+		2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */; };
 		2ABA0E07283BC420008369DC /* MoveToSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA0E06283BC420008369DC /* MoveToSearchInteractor.swift */; };
 		2AD06B7C2857271D0006C255 /* TableOfContentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */; };
 		2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */; };
@@ -1567,6 +1571,8 @@
 		2A2C33202892BA36008BC326 /* RelationValueViewModelOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueViewModelOutput.swift; sourceTree = "<group>"; };
 		2A2C33222892C63B008BC326 /* RelationValueCoordinatorOutput.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelationValueCoordinatorOutput.swift; sourceTree = "<group>"; };
 		2A2D4A2A283CCE47005E70E4 /* HomeContextMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeContextMenuView.swift; sourceTree = "<group>"; };
+		2A30734828ACEF58003673DF /* AlertOpener.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpener.swift; sourceTree = "<group>"; };
+		2A30735028AD04D7003673DF /* TopAlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TopAlertView.swift; sourceTree = "<group>"; };
 		2A4FFBBD289D1B64004938DF /* LoggerConfigurator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoggerConfigurator.swift; sourceTree = "<group>"; };
 		2A4FFBBF289D1C61004938DF /* Logger */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = Logger; path = Modules/Logger; sourceTree = "<group>"; };
 		2A4FFBC3289D4B55004938DF /* InvocationMesagesHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InvocationMesagesHandler.swift; sourceTree = "<group>"; };
@@ -1578,6 +1584,7 @@
 		2A90C47A28605F8C00B6B44E /* TableOfContentsContentProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsContentProvider.swift; sourceTree = "<group>"; };
 		2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserView.swift; sourceTree = "<group>"; };
 		2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockBookmark+Extensions.swift"; sourceTree = "<group>"; };
+		2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpenerProtocol.swift; sourceTree = "<group>"; };
 		2ABA0E06283BC420008369DC /* MoveToSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToSearchInteractor.swift; sourceTree = "<group>"; };
 		2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsViewModel.swift; sourceTree = "<group>"; };
 		2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsConfiguration.swift; sourceTree = "<group>"; };
@@ -2282,6 +2289,7 @@
 				538ABD50284F9F88000D3CCC /* DequeModule in Frameworks */,
 				12F3B83827E888C300360CA3 /* FirebaseAnalytics in Frameworks */,
 				2A6ED169285B44DB00AAA21C /* BlocksModels in Frameworks */,
+				2A30735428AD17F8003673DF /* SwiftEntryKit in Frameworks */,
 				5333421C262E249100238121 /* FloatingPanel in Frameworks */,
 				2A6ED16C285B44DB00AAA21C /* ProtobufMessages in Frameworks */,
 				2A6ED166285B44DB00AAA21C /* AnytypeCore in Frameworks */,
@@ -4282,6 +4290,16 @@
 			path = ContextMenu;
 			sourceTree = "<group>";
 		};
+		2A30734728ACEF33003673DF /* Alert */ = {
+			isa = PBXGroup;
+			children = (
+				2A30734828ACEF58003673DF /* AlertOpener.swift */,
+				2A30735028AD04D7003673DF /* TopAlertView.swift */,
+				2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */,
+			);
+			path = Alert;
+			sourceTree = "<group>";
+		};
 		2A4FFBBC289D1B64004938DF /* Logger */ = {
 			isa = PBXGroup;
 			children = (
@@ -5087,6 +5105,7 @@
 		3D486C132631726400A9B625 /* UIKit */ = {
 			isa = PBXGroup;
 			children = (
+				2A30734728ACEF33003673DF /* Alert */,
 				12E05EED2796A97F0037B667 /* AnytypePopup */,
 				C917DF0C271772AD0085185D /* ImageViewer */,
 				3DFD1B3426EA5ACE00F893FC /* ObjectIcon */,
@@ -7081,6 +7100,7 @@
 				2A6ED16F285B452600AAA21C /* SwiftProtobuf */,
 				2A4FFBC0289D1C7E004938DF /* Logger */,
 				C99A53AB28A1380300B3E5F4 /* ShimmerSwift */,
+				2A30735328AD17F8003673DF /* SwiftEntryKit */,
 			);
 			productName = Anytype;
 			productReference = 0303ECFB22D8EDAA005C552B /* Anytype.app */;
@@ -7149,6 +7169,7 @@
 				538ABD4C284F9F88000D3CCC /* XCRemoteSwiftPackageReference "swift-collections" */,
 				2A6ED16E285B452600AAA21C /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 				C9BFBA8C28A133320003D9E6 /* XCRemoteSwiftPackageReference "ShimmerSwift" */,
+				2A30735228AD17F8003673DF /* XCRemoteSwiftPackageReference "SwiftEntryKit" */,
 			);
 			productRefGroup = 0303ECFC22D8EDAA005C552B /* Products */;
 			projectDirPath = "";
@@ -7384,6 +7405,7 @@
 				12A52E3426CAA6EE000F0333 /* TouchGestureRecognizer.swift in Sources */,
 				129D787326945B6D00DA6757 /* ObjectProfileIconPicker.swift in Sources */,
 				12EE02D22840E55800223EB5 /* LifecycleStateTransition.swift in Sources */,
+				2A30735128AD04D7003673DF /* TopAlertView.swift in Sources */,
 				037AA83422E34601002CB09F /* ApplicationCoordinator.swift in Sources */,
 				3DDD3D0F26AEB55700B5673A /* BlockFile+MediaData.swift in Sources */,
 				3DB1CA0B27293156000D2779 /* MiddlewareConfiguration.swift in Sources */,
@@ -7578,6 +7600,7 @@
 				3D07ECE9261B735300C007E2 /* UINavigationController+UIGestureRecognizerDelegate.swift in Sources */,
 				535E02AD274FF0B100E1AF8C /* RelationValueView.swift in Sources */,
 				0A2ADCE62496C72A00FA135D /* ObjectActionsServiceProtocol.swift in Sources */,
+				2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */,
 				1256840427E0C606003A8251 /* NewSearchViewModel+ItemCreationMode.swift in Sources */,
 				EAADB1AE2678D5FB004B0AF2 /* NSLayoutManager+Convenience.swift in Sources */,
 				0A74E4FD23A90EB000B6C406 /* CreateNewProfileView.swift in Sources */,
@@ -7906,6 +7929,7 @@
 				3D93D570270C9E4E00614E29 /* EditorPageViewInput.swift in Sources */,
 				531629382632BD0B000D6780 /* StyleView.swift in Sources */,
 				120E8171269F31A8006FE84E /* ObjectSettingsView.swift in Sources */,
+				2A30734928ACEF58003673DF /* AlertOpener.swift in Sources */,
 				3DE0CFD826F8593D003A606A /* SlashAction.swift in Sources */,
 				0A2C0D57247144F4008ADD86 /* CustomTextView.swift in Sources */,
 				C9F0A4772805702C00FA16DD /* ObjectIconPickerViewModelProtocol.swift in Sources */,
@@ -8796,6 +8820,14 @@
 				version = 8.13.0;
 			};
 		};
+		2A30735228AD17F8003673DF /* XCRemoteSwiftPackageReference "SwiftEntryKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huri000/SwiftEntryKit.git";
+			requirement = {
+				kind = exactVersion;
+				version = 2.0.0;
+			};
+		};
 		2A6ED16E285B452600AAA21C /* XCRemoteSwiftPackageReference "swift-protobuf" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/apple/swift-protobuf.git";
@@ -8860,6 +8892,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 12F3B83627E888C300360CA3 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseCrashlytics;
+		};
+		2A30735328AD17F8003673DF /* SwiftEntryKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2A30735228AD17F8003673DF /* XCRemoteSwiftPackageReference "SwiftEntryKit" */;
+			productName = SwiftEntryKit;
 		};
 		2A4FFBC0289D1C7E004938DF /* Logger */ = {
 			isa = XCSwiftPackageProductDependency;

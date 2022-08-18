@@ -7,6 +7,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     private let objectId: BlockId
     private let relation: Relation
     private let bookmarkService: BookmarkServiceProtocol
+    private let alertOpener: AlertOpenerProtocol
     
     var inputText: String = ""
     let title: String = Loc.RelationAction.reloadContent
@@ -15,7 +16,8 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     init?(
         objectId: BlockId,
         relation: Relation,
-        bookmarkService: BookmarkServiceProtocol
+        bookmarkService: BookmarkServiceProtocol,
+        alertOpener: AlertOpenerProtocol
     ) {
         guard let objectInfo = ObjectDetailsStorage.shared.get(id: objectId),
               objectInfo.objectType.url == ObjectTypeUrl.bundled(.bookmark).rawValue,
@@ -24,6 +26,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
         self.objectId = objectId
         self.relation = relation
         self.bookmarkService = bookmarkService
+        self.alertOpener = alertOpener
     }
     
     var isActionAvailable: Bool {
@@ -33,6 +36,7 @@ final class TextRelationReloadContentActionViewModel: TextRelationActionViewMode
     func performAction() {
         UISelectionFeedbackGenerator().selectionChanged()
         bookmarkService.fetchBookmarkContent(bookmarkId: objectId, url: inputText)
+        alertOpener.showTopAlert(message: Loc.RelationAction.reloadingContent)
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.reloadSourceData)
     }
 }

@@ -49,7 +49,11 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                         systemURLService: ServiceLocator.shared.systemURLService(),
                         delegate: delegate
                     ),
-                    TextRelationCopyActionViewModel(type: .phone, delegate: delegate)
+                    TextRelationCopyActionViewModel(
+                        type: .phone,
+                        alertOpener: ServiceLocator.shared.alertOpener(),
+                        delegate: delegate
+                    )
                 ]
             )
         case .email(let email):
@@ -65,7 +69,11 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                         systemURLService: ServiceLocator.shared.systemURLService(),
                         delegate: delegate
                     ),
-                    TextRelationCopyActionViewModel(type: .email, delegate: delegate)
+                    TextRelationCopyActionViewModel(
+                        type: .email,
+                        alertOpener: ServiceLocator.shared.alertOpener(),
+                        delegate: delegate
+                    )
                 ]
             )
         case .url(let url):
@@ -75,11 +83,16 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                     systemURLService: ServiceLocator.shared.systemURLService(),
                     delegate: delegate
                 ),
-                TextRelationCopyActionViewModel(type: .url, delegate: delegate),
+                TextRelationCopyActionViewModel(
+                    type: .url,
+                    alertOpener: ServiceLocator.shared.alertOpener(),
+                    delegate: delegate
+                ),
                 TextRelationReloadContentActionViewModel(
                     objectId: objectId,
                     relation: relation,
-                    bookmarkService: ServiceLocator.shared.bookmarkService()
+                    bookmarkService: ServiceLocator.shared.bookmarkService(),
+                    alertOpener: ServiceLocator.shared.alertOpener()
                 )
             ]
             return TextRelationDetailsViewModel(

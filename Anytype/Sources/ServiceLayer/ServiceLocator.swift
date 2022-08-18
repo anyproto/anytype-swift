@@ -69,6 +69,10 @@ final class ServiceLocator {
         SystemURLService()
     }
     
+    func alertOpener() -> AlertOpenerProtocol {
+        AlertOpener()
+    }
+    
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
         SubscriptionToggler()
     }
