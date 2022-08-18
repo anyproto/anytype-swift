@@ -142,6 +142,50 @@ extension Anytype_Rpc.Wallet.Convert {
   }
 }
 
+extension Anytype_Rpc.Wallet.CreateSession {
+  public enum Service {
+    public static func invoke(mnemonic: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(mnemonic: mnemonic).invoke(on: queue)
+    }
+    public static func invoke(mnemonic: String = String()) -> Result<Response, Error> {
+        return invocation(mnemonic: mnemonic).invoke()
+    }
+    public static func invocation(mnemonic: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(mnemonic: mnemonic)
+        return Invocation<Request,Response>(messageName: "WalletCreateSession", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceWalletCreateSession(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Wallet.CloseSession {
+  public enum Service {
+    public static func invoke(token: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(token: token).invoke(on: queue)
+    }
+    public static func invoke(token: String = String()) -> Result<Response, Error> {
+        return invocation(token: token).invoke()
+    }
+    public static func invocation(token: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(token: token)
+        return Invocation<Request,Response>(messageName: "WalletCloseSession", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceWalletCloseSession(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
 extension Anytype_Rpc.Account.Create {
   public enum Service {
     public static func invoke(name: String = String(), avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar? = nil, storePath: String = String(), alphaInviteCode: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {

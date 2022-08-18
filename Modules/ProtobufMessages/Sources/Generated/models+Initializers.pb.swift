@@ -27,10 +27,10 @@ extension Anytype_Model_Account.Avatar {
 }
 
 extension Anytype_Model_Account.Config {
-    public init(enableDataview: Bool = false, enableDebug: Bool = false, enableReleaseChannelSwitch: Bool = false, enableSpaces: Bool = false, extra: SwiftProtobuf.Google_Protobuf_Struct) {
+    public init(enableDataview: Bool = false, enableDebug: Bool = false, enablePrereleaseChannel: Bool = false, enableSpaces: Bool = false, extra: SwiftProtobuf.Google_Protobuf_Struct) {
         self.enableDataview = enableDataview
         self.enableDebug = enableDebug
-        self.enableReleaseChannelSwitch = enableReleaseChannelSwitch
+        self.enablePrereleaseChannel = enablePrereleaseChannel
         self.enableSpaces = enableSpaces
         self.extra = extra
     }
@@ -146,9 +146,10 @@ extension Anytype_Model_Block.Content.Dataview.Relation {
 }
 
 extension Anytype_Model_Block.Content.Dataview.Sort {
-    public init(relationKey: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc) {
+    public init(relationKey: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc, customOrder: [SwiftProtobuf.Google_Protobuf_Value] = []) {
         self.relationKey = relationKey
         self.type = type
+        self.customOrder = customOrder
     }
 }
 
@@ -165,7 +166,7 @@ extension Anytype_Model_Block.Content.Dataview.Tag {
 }
 
 extension Anytype_Model_Block.Content.Dataview.View {
-    public init(id: String = String(), type: Anytype_Model_Block.Content.Dataview.View.TypeEnum = .table, name: String = String(), sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], relations: [Anytype_Model_Block.Content.Dataview.Relation] = [], coverRelationKey: String = String(), hideIcon: Bool = false, cardSize: Anytype_Model_Block.Content.Dataview.View.Size = .small, coverFit: Bool = false, groupRelationKey: String = String()) {
+    public init(id: String = String(), type: Anytype_Model_Block.Content.Dataview.View.TypeEnum = .table, name: String = String(), sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], relations: [Anytype_Model_Block.Content.Dataview.Relation] = [], coverRelationKey: String = String(), hideIcon: Bool = false, cardSize: Anytype_Model_Block.Content.Dataview.View.Size = .small, coverFit: Bool = false, groupRelationKey: String = String(), groupBackgroundColors: Bool = false) {
         self.id = id
         self.type = type
         self.name = name
@@ -177,14 +178,16 @@ extension Anytype_Model_Block.Content.Dataview.View {
         self.cardSize = cardSize
         self.coverFit = coverFit
         self.groupRelationKey = groupRelationKey
+        self.groupBackgroundColors = groupBackgroundColors
     }
 }
 
 extension Anytype_Model_Block.Content.Dataview.ViewGroup {
-    public init(groupID: String = String(), index: Int32 = 0, hidden: Bool = false) {
+    public init(groupID: String = String(), index: Int32 = 0, hidden: Bool = false, backgroundColor: String = String()) {
         self.groupID = groupID
         self.index = index
         self.hidden = hidden
+        self.backgroundColor = backgroundColor
     }
 }
 
@@ -329,6 +332,41 @@ extension Anytype_Model_ObjectType {
         self.readonly = readonly
         self.types = types
         self.isArchived = isArchived
+    }
+}
+
+extension Anytype_Model_ObjectView {
+    public init(rootID: String = String(), blocks: [Anytype_Model_Block] = [], details: [Anytype_Model_ObjectView.DetailsSet] = [], type: Anytype_Model_SmartBlockType = .accountOld, objectTypes: [Anytype_Model_ObjectType] = [], relations: [Anytype_Model_Relation] = [], restrictions: Anytype_Model_Restrictions, history: Anytype_Model_ObjectView.HistorySize) {
+        self.rootID = rootID
+        self.blocks = blocks
+        self.details = details
+        self.type = type
+        self.objectTypes = objectTypes
+        self.relations = relations
+        self.restrictions = restrictions
+        self.history = history
+    }
+}
+
+extension Anytype_Model_ObjectView.DetailsSet {
+    public init(id: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct, subIds: [String] = []) {
+        self.id = id
+        self.details = details
+        self.subIds = subIds
+    }
+}
+
+extension Anytype_Model_ObjectView.HistorySize {
+    public init(undo: Int32 = 0, redo: Int32 = 0) {
+        self.undo = undo
+        self.redo = redo
+    }
+}
+
+extension Anytype_Model_ObjectView.RelationWithValuePerObject {
+    public init(objectID: String = String(), relations: [Anytype_Model_RelationWithValue] = []) {
+        self.objectID = objectID
+        self.relations = relations
     }
 }
 

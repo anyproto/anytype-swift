@@ -829,6 +829,11 @@ extension Anytype_Rpc.Unsplash.Search.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Wallet.CloseSession.Response: ResultWithError {}
+extension Anytype_Rpc.Wallet.CloseSession.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Wallet.Convert.Response: ResultWithError {}
 extension Anytype_Rpc.Wallet.Convert.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -836,6 +841,11 @@ extension Anytype_Rpc.Wallet.Convert.Response.Error: ResponseError {
 
 extension Anytype_Rpc.Wallet.Create.Response: ResultWithError {}
 extension Anytype_Rpc.Wallet.Create.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Wallet.CreateSession.Response: ResultWithError {}
+extension Anytype_Rpc.Wallet.CreateSession.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 

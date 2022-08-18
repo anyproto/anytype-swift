@@ -17,7 +17,12 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         let result = try await Anytype_Rpc.Object.Open.Service
             .invocation(contextID: self.contextId, objectID: contextId)
             .invoke(errorDomain: .blockActionsService)
-        let event = EventsBunch(event: result.event)
+        let event = EventsBunch(
+            contextId: contextId,
+            localEvents: [
+                .objectShow(result.objectView)
+            ]
+        )
         event.send()
     }
 
@@ -25,7 +30,12 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
         let result = try await Anytype_Rpc.Object.Show.Service
             .invocation(contextID: contextId, objectID: contextId)
             .invoke(errorDomain: .blockActionsService)
-        let event = EventsBunch(event: result.event)
+        let event = EventsBunch(
+            contextId: contextId,
+            localEvents: [
+                .objectShow(result.objectView)
+            ]
+        )
         event.send()
     }
     

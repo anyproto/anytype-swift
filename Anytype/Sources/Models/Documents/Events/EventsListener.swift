@@ -44,6 +44,8 @@ final class EventsListener: EventsListenerProtocol {
             restrictionsContainer: restrictionsContainer
         )
         self.localConverter = LocalEventConverter(
+            relationStorage: relationStorage,
+            restrictionsContainer: restrictionsContainer,
             infoContainer: infoContainer
         )
         self.mentionMarkupEventProvider = MentionMarkupEventProvider(
