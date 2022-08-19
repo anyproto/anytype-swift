@@ -8,7 +8,7 @@ extension BundledRelationsValueProvider {
     
     var icon: ObjectIconType? {
         switch layout {
-        case .basic, .set:
+        case .basic, .set, .bookmark:
             return basicIcon
         case .profile:
             return profileIcon.flatMap { ObjectIconType.profile($0) }
@@ -92,7 +92,7 @@ extension BundledRelationsValueProvider {
     
     var editorViewType: EditorViewType {
         switch layout {
-        case .basic, .profile, .todo, .note:
+        case .basic, .profile, .todo, .note, .bookmark:
             return .page
         case .set:
             return .set
