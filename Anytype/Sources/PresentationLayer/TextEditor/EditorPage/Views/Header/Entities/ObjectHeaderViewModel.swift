@@ -1,6 +1,7 @@
 import BlocksModels
 import UIKit
 import Combine
+import AnytypeCore
 
 final class ObjectHeaderViewModel: ObservableObject {
     
@@ -143,7 +144,9 @@ final class ObjectHeaderViewModel: ObservableObject {
             return .empty(data: .init(onTap: {}))
         }
         
-        if let icon = details.icon, let cover = details.documentCover {
+        let icon = details.layout == .bookmark && FeatureFlags.bookmarksFlowP2 ? nil : details.icon
+        
+        if let icon = icon, let cover = details.documentCover {
             return .filled(state:
                 .iconAndCover(
                     icon: ObjectHeaderIcon(
@@ -159,7 +162,7 @@ final class ObjectHeaderViewModel: ObservableObject {
             )
         }
         
-        if let icon = details.icon {
+        if let icon = icon {
             return .filled(state:
                 .iconOnly(
                     ObjectHeaderIconOnlyState(
