@@ -13,7 +13,7 @@ extension FeatureDescription {
         title: "Set filters",
         author: "joe_pusya@anytype.io",
         releaseVersion: "0.17.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let relationDetails = FeatureDescription(
@@ -27,15 +27,14 @@ extension FeatureDescription {
         title: "New bookmarks flow",
         author: "m@anytype.io",
         releaseVersion: "0.17.0",
-        defaultValue: false
+        defaultValue: true
     )
     
     static let setGalleryView = FeatureDescription(
         title: "Set gallery view",
         author: "joe_pusya@anytype.io",
-        releaseVersion: "0.18.0",
-        defaultValue: false,
-        debugValue: false
+        releaseVersion: "0.17.0",
+        defaultValue: true
     )
     
     // MARK: - Debug
