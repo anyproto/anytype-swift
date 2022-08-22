@@ -94,6 +94,19 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
+    var flowRelationsViewModel: FlowRelationsViewModel {
+        FlowRelationsViewModel(
+            title: details.flatMap { $0.title },
+            description: details?.description,
+            relations: featuredRelations,
+            style: .header,
+            onRelationTap: { [weak self] relation in
+                AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+                self?.showRelationValueEditingView(key: relation.id, source: .object)
+            }
+        )
+    }
+    
     private var isObjectLocked: Bool {
         document.isLocked || activeView.type == .gallery
     }
