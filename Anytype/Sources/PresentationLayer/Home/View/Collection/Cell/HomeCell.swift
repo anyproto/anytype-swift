@@ -76,17 +76,6 @@ struct HomeCell: View {
         }
     }
     
-//    private var title: some View {
-//        Group {
-//            switch cellData.title {
-//            case let .default(title):
-//            defaultTitle(with: cellData.title, lineLimit: cellData.icon.isNil ? 4 : 1)
-//            case let .todo(title, isChecked):
-//                todoTitle(with: title, isChecked: isChecked)
-//            }
-//        }
-//    }
-    
     private func defaultTitle(with text: String, lineLimit: Int?) -> some View {
         var titleString = text.isEmpty ? Loc.untitled : text
         titleString = isRedacted ? Loc.RedactedText.pageTitle : titleString
@@ -95,16 +84,6 @@ struct HomeCell: View {
             .lineLimit(lineLimit)
             .multilineTextAlignment(.leading)
     }
-    
-//    private func todoTitle(with text: String, isChecked: Bool) -> some View {
-//        HStack(alignment: .top, spacing: 6) {
-//            SwiftUIObjectIconImageView(
-//                iconImage: .todo(isChecked),
-//                usecase: .dashboardList
-//            ).frame(width: 18, height: 18)
-//            defaultTitle(with: text, lineLimit: nil).multilineTextAlignment(.leading)
-//        }
-//    }
     
     private var type: some View {
         let type = isRedacted ? Loc.RedactedText.pageType : cellData.type
@@ -161,18 +140,6 @@ private extension HomeCell {
     }
     
 }
-
-private extension ObjectIconImage {
-    var isSmallLayout: Bool {
-        switch self {
-        case .todo, .icon(.bookmark):
-            return true
-        default:
-            return false
-        }
-    }
-}
-
 
 struct HomeCell_Previews: PreviewProvider {
     static let columns = [
