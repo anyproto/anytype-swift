@@ -3,14 +3,12 @@ import BlocksModels
 
 extension BundledRelationsValueProvider {
     
-    var pageCellTitle: HomeCellData.Title {
+    var pageCellTitle: String {
         switch layout {
         case .note:
-            return .default(title: snippet)
-        case .todo:
-            return .todo(title: name, isChecked: isDone)
+            return snippet
         default:
-            return .default(title: name)
+            return name
         }
     }
 
@@ -29,6 +27,15 @@ extension BundledRelationsValueProvider {
         }
 
         return title.isEmpty ? Loc.untitled : title
+    }
+    
+    var homeLayout: HomeCellData.TitleLayout {
+        switch objectIconImage {
+        case .todo, .icon(.bookmark):
+            return .horizontal
+        default:
+            return .vertical
+        }
     }
     
     var mentionTitle: String {

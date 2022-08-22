@@ -12,9 +12,7 @@ struct HomeCell: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            icon
-            iconSpacer
-            title
+            titleAndIcon
             Spacer(minLength: 1)
             type
         }
@@ -35,42 +33,59 @@ struct HomeCell: View {
         }
     }
     
-    private var varticalTitle: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            icon
-            iconSpacer
-            title
+    private var titleAndIcon: some View {
+        Group {
+            switch cellData.titleLayout {
+            case .horizontal:
+                horizontalTitleAndIcon
+            case .vertical:
+                verticalTitleAndIcon
+            }
         }
     }
     
-    private var horizontalTitle: some View {
+    private var verticalTitleAndIcon: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            icon
+            iconSpacer
+            defaultTitle(with: cellData.title, lineLimit: cellData.icon.isNil ? 4 : 1)
+        }
+    }
+    
+    private var horizontalTitleAndIcon: some View {
         HStack(alignment: .top, spacing: 6) {
-            SwiftUIObjectIconImageView(
-                iconImage: cellData.icon,
-                usecase: .dashboardList
-            ).frame(width: 18, height: 18)
-            defaultTitle(with: text, lineLimit: nil).multilineTextAlignment(.leading)
+            switch cellData.icon {
+            case let .some(icon):
+                SwiftUIObjectIconImageView(
+                    iconImage: icon,
+                    usecase: .dashboardList
+                ).frame(width: 18, height: 18)
+            case .none:
+                EmptyView()
+            }
+            defaultTitle(with: cellData.title, lineLimit: nil).multilineTextAlignment(.leading)
         }
     }
     
     private var padding: EdgeInsets {
-        if cellData.title.isTodo {
+        switch cellData.titleLayout {
+        case .horizontal:
             return EdgeInsets(top: 16, leading: 11, bottom: 13, trailing: 16)
-        } else {
+        case .vertical:
             return EdgeInsets(top: 16, leading: 16, bottom: 13, trailing: 16)
         }
     }
     
-    private var title: some View {
-        Group {
-            switch cellData.title {
-            case let .default(title):
-                defaultTitle(with: title, lineLimit: cellData.icon.isNil ? 4 : 1)
-            case let .todo(title, isChecked):
-                todoTitle(with: title, isChecked: isChecked)
-            }
-        }
-    }
+//    private var title: some View {
+//        Group {
+//            switch cellData.title {
+//            case let .default(title):
+//            defaultTitle(with: cellData.title, lineLimit: cellData.icon.isNil ? 4 : 1)
+//            case let .todo(title, isChecked):
+//                todoTitle(with: title, isChecked: isChecked)
+//            }
+//        }
+//    }
     
     private func defaultTitle(with text: String, lineLimit: Int?) -> some View {
         var titleString = text.isEmpty ? Loc.untitled : text
@@ -81,20 +96,20 @@ struct HomeCell: View {
             .multilineTextAlignment(.leading)
     }
     
-    private func todoTitle(with text: String, isChecked: Bool) -> some View {
-        HStack(alignment: .top, spacing: 6) {
-            SwiftUIObjectIconImageView(
-                iconImage: .todo(isChecked),
-                usecase: .dashboardList
-            ).frame(width: 18, height: 18)
-            defaultTitle(with: text, lineLimit: nil).multilineTextAlignment(.leading)
-        }
-    }
+//    private func todoTitle(with text: String, isChecked: Bool) -> some View {
+//        HStack(alignment: .top, spacing: 6) {
+//            SwiftUIObjectIconImageView(
+//                iconImage: .todo(isChecked),
+//                usecase: .dashboardList
+//            ).frame(width: 18, height: 18)
+//            defaultTitle(with: text, lineLimit: nil).multilineTextAlignment(.leading)
+//        }
+//    }
     
     private var type: some View {
         let type = isRedacted ? Loc.RedactedText.pageType : cellData.type
         return AnytypeText(type, style: .relation3Regular, color: .textSecondary)
-            .if(cellData.title.isTodo) {
+            .if(cellData.titleLayout == .horizontal) {
                 $0.padding(.leading, 5)
             }
     }
@@ -114,7 +129,7 @@ struct HomeCell: View {
                 switch cellData.icon {
                 case .some(let icon):
                     SwiftUIObjectIconImageView(
-                        iconImage: .icon(icon),
+                        iconImage: icon,
                         usecase: .dashboardList
                     ).frame(
                         width: Constants.iconSize.width,
