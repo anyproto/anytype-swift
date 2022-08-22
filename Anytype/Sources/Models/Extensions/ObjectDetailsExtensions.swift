@@ -14,7 +14,7 @@ extension BundledRelationsValueProvider {
             return profileIcon.flatMap { ObjectIconType.profile($0) }
         case .bookmark:
             if FeatureFlags.bookmarksFlowP2 {
-                return bookmarkIcom
+                return bookmarkIcon
             } else {
                 return basicIcon
             }
@@ -43,7 +43,7 @@ extension BundledRelationsValueProvider {
         return title.first.flatMap { ObjectIconType.Profile.character($0) }
     }
     
-    private var bookmarkIcom: ObjectIconType? {
+    private var bookmarkIcon: ObjectIconType? {
         return iconImageHash.map { ObjectIconType.bookmark($0.value) }
     }
     
