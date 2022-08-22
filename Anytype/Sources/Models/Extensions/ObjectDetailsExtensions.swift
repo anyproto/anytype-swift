@@ -8,10 +8,16 @@ extension BundledRelationsValueProvider {
     
     var icon: ObjectIconType? {
         switch layout {
-        case .basic, .set, .bookmark:
+        case .basic, .set:
             return basicIcon
         case .profile:
             return profileIcon.flatMap { ObjectIconType.profile($0) }
+        case .bookmark:
+            if FeatureFlags.bookmarksFlowP2 {
+                return bookmarkIcon
+            } else {
+                return basicIcon
+            }
         case .todo, .note:
             return nil
         }
@@ -35,6 +41,10 @@ extension BundledRelationsValueProvider {
         }
         
         return title.first.flatMap { ObjectIconType.Profile.character($0) }
+    }
+    
+    private var bookmarkIcon: ObjectIconType? {
+        return iconImageHash.map { ObjectIconType.bookmark($0.value) }
     }
     
     // MARK: - Cover

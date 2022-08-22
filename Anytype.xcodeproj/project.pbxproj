@@ -434,6 +434,7 @@
 		2AA22F68289BF27500BBA174 /* EditorBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */; };
 		2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */; };
 		2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */; };
+		2AB2C22628B378A5000191F8 /* BookmarkIconImageGuideline.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22528B378A5000191F8 /* BookmarkIconImageGuideline.swift */; };
 		2ABA0E07283BC420008369DC /* MoveToSearchInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ABA0E06283BC420008369DC /* MoveToSearchInteractor.swift */; };
 		2AD06B7C2857271D0006C255 /* TableOfContentsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */; };
 		2AD06B81285729890006C255 /* TableOfContentsConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */; };
@@ -1585,6 +1586,7 @@
 		2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserView.swift; sourceTree = "<group>"; };
 		2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockBookmark+Extensions.swift"; sourceTree = "<group>"; };
 		2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpenerProtocol.swift; sourceTree = "<group>"; };
+		2AB2C22528B378A5000191F8 /* BookmarkIconImageGuideline.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkIconImageGuideline.swift; sourceTree = "<group>"; };
 		2ABA0E06283BC420008369DC /* MoveToSearchInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MoveToSearchInteractor.swift; sourceTree = "<group>"; };
 		2AD06B7B2857271D0006C255 /* TableOfContentsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsViewModel.swift; sourceTree = "<group>"; };
 		2AD06B80285729890006C255 /* TableOfContentsConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableOfContentsConfiguration.swift; sourceTree = "<group>"; };
@@ -4036,6 +4038,7 @@
 				12CAF34D26D64440001E56B2 /* TodoIconImageGuideline.swift */,
 				12CAF35F26D69F31001E56B2 /* PlaceholderIconImageGuideline.swift */,
 				3DFD1B3F26EB1F8B00F893FC /* StaticImageGuideline.swift */,
+				2AB2C22528B378A5000191F8 /* BookmarkIconImageGuideline.swift */,
 			);
 			path = ObjectIconImageGuidelines;
 			sourceTree = "<group>";
@@ -7335,6 +7338,7 @@
 				EA57F41C26B99937007D4292 /* MarkupViewModel.swift in Sources */,
 				0A6F90062554546300B94AED /* BlockLayoutStyleConverter.swift in Sources */,
 				2AE4EDB92834CF5D00B61ABE /* LaunchView.swift in Sources */,
+				2AB2C22628B378A5000191F8 /* BookmarkIconImageGuideline.swift in Sources */,
 				530470F62682046900C9EE78 /* TextBlockIconView.swift in Sources */,
 				3DE296472617439C00EADB0A /* ServiceLocator.swift in Sources */,
 				53F7447227F7157A005C9BB0 /* CheckPopupView.swift in Sources */,

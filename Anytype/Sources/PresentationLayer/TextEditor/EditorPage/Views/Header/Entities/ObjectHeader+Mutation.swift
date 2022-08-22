@@ -126,42 +126,15 @@ private extension ObjectHeaderIcon {
     
     func modifiedBy(previewImage image: UIImage?) -> ObjectHeaderIcon {
         switch self.icon {
-        case .icon(let objectIconType):
-            switch objectIconType {
-            case .basic:
-                return ObjectHeaderIcon(
-                    icon: .basicPreview(image),
-                    layoutAlignment: self.layoutAlignment,
-                    onTap: self.onTap
-                )
-            case .profile:
-                return ObjectHeaderIcon(
-                    icon: .profilePreview(image),
-                    layoutAlignment: self.layoutAlignment,
-                    onTap: self.onTap
-                )
-            case .emoji:
-                return ObjectHeaderIcon(
-                    icon: .basicPreview(image),
-                    layoutAlignment: self.layoutAlignment,
-                    onTap: self.onTap
-                )
-            }
-        case .basicPreview:
+        case .icon(.basic), .icon(.emoji), .icon(.bookmark), .basicPreview, .image:
             return ObjectHeaderIcon(
                 icon: .basicPreview(image),
                 layoutAlignment: self.layoutAlignment,
                 onTap: self.onTap
             )
-        case .profilePreview:
+        case .icon(.profile), .profilePreview:
             return ObjectHeaderIcon(
                 icon: .profilePreview(image),
-                layoutAlignment: self.layoutAlignment,
-                onTap: self.onTap
-            )
-        case .image:
-            return ObjectHeaderIcon(
-                icon: .basicPreview(image),
                 layoutAlignment: self.layoutAlignment,
                 onTap: self.onTap
             )
