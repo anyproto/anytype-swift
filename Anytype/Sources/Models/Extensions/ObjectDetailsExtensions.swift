@@ -13,7 +13,11 @@ extension BundledRelationsValueProvider {
         case .profile:
             return profileIcon.flatMap { ObjectIconType.profile($0) }
         case .bookmark:
-            return bookmarkIcom
+            if FeatureFlags.bookmarksFlowP2 {
+                return bookmarkIcom
+            } else {
+                return basicIcon
+            }
         case .todo, .note:
             return nil
         }

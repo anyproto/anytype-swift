@@ -1,5 +1,6 @@
 import Foundation
 import BlocksModels
+import AnytypeCore
 
 extension BundledRelationsValueProvider {
     
@@ -30,11 +31,20 @@ extension BundledRelationsValueProvider {
     }
     
     var homeLayout: HomeCellData.TitleLayout {
-        switch objectIconImage {
-        case .todo, .icon(.bookmark):
-            return .horizontal
-        default:
-            return .vertical
+        if FeatureFlags.bookmarksFlowP2 {
+            switch objectIconImage {
+            case .todo, .icon(.bookmark):
+                return .horizontal
+            default:
+                return .vertical
+            }
+        } else {
+            switch objectIconImage {
+            case .todo:
+                return .horizontal
+            default:
+                return .vertical
+            }
         }
     }
     
