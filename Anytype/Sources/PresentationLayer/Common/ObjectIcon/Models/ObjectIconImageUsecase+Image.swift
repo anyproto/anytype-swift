@@ -39,7 +39,7 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x24,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
                 staticImageGuideline: StaticImageGuideline.x40,
-                bookmarkImageGuideline: nil
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x24
             )
         case .editorCalloutBlock:
             return ObjectIconImageGuidelineSet(
@@ -49,7 +49,7 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x20,
                 placeholderImageGuideline: PlaceholderIconImageGuideline.x40,
                 staticImageGuideline: StaticImageGuideline.x20,
-                bookmarkImageGuideline: nil
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x20
             )
         case .dashboardList:
             return ObjectIconImageGuidelineSet(
@@ -101,7 +101,7 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: nil,
-                bookmarkImageGuideline: nil
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x18
             )
         case .setGallery:
             return ObjectIconImageGuidelineSet(
@@ -111,7 +111,7 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x16,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: nil,
-                bookmarkImageGuideline: nil
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x16
             )
         case .featuredRelationsBlock:
             return ObjectIconImageGuidelineSet(
@@ -121,7 +121,7 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x18,
-                bookmarkImageGuideline: nil
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x18
             )
         }
     }
@@ -146,7 +146,7 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x24,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x24,
-                bookmarkImageGuideline: nil
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x24
             )
         case .subheading, .body:
             return ObjectIconImageGuidelineSet(
@@ -156,7 +156,7 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x20,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x20,
-                bookmarkImageGuideline: nil
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x20
             )
         case .callout:
             return ObjectIconImageGuidelineSet(
@@ -166,7 +166,7 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x18,
-                bookmarkImageGuideline: nil
+                bookmarkImageGuideline: BookmarkIconImageGuideline.x18
             )
         }
     }

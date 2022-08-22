@@ -13,7 +13,17 @@ enum BookmarkIconImageGuideline {
         radius: .point(1)
     )
     
+    static let x20 = ImageGuideline(
+        size: CGSize(width: 20, height: 20),
+        radius: .point(1)
+    )
+    
     static let x18 = ImageGuideline(
+        size: CGSize(width: 18, height: 18),
+        radius: .point(1)
+    )
+    
+    static let x16 = ImageGuideline(
         size: CGSize(width: 18, height: 18),
         radius: .point(1)
     )
