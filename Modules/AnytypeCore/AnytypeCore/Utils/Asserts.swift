@@ -14,7 +14,7 @@ public func anytypeAssertionFailure(
             showAssertionAlert(message)
         }
     #elseif DEBUG
-        assertionFailure(message, file: file, line: line)
+//        assertionFailure(message, file: file, line: line)
     #endif
 }
 

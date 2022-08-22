@@ -16,9 +16,8 @@ extension BlockLinkState {
             guard iconSize.hasIcon else { return nil }
 
             switch icon {
-            case let .basic(id):
+            case let .basic(id), let .bookmark(id):
                 return makeImageView(imageId: id, cornerRadius: 4)
-                
             case let .profile(profile):
                 return makeProfileIconView(profile)
             case let .emoji(emoji):

@@ -35,6 +35,24 @@ struct HomeCell: View {
         }
     }
     
+    private var varticalTitle: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            icon
+            iconSpacer
+            title
+        }
+    }
+    
+    private var horizontalTitle: some View {
+        HStack(alignment: .top, spacing: 6) {
+            SwiftUIObjectIconImageView(
+                iconImage: cellData.icon,
+                usecase: .dashboardList
+            ).frame(width: 18, height: 18)
+            defaultTitle(with: text, lineLimit: nil).multilineTextAlignment(.leading)
+        }
+    }
+    
     private var padding: EdgeInsets {
         if cellData.title.isTodo {
             return EdgeInsets(top: 16, leading: 11, bottom: 13, trailing: 16)
@@ -127,6 +145,17 @@ private extension HomeCell {
         static let iconCornerRadius: CGFloat = 2
     }
     
+}
+
+private extension ObjectIconImage {
+    var isSmallLayout: Bool {
+        switch self {
+        case .todo, .icon(.bookmark):
+            return true
+        default:
+            return false
+        }
+    }
 }
 
 

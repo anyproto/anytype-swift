@@ -9,6 +9,7 @@ struct HomeCellData: Identifiable, IdProvider {
     let destinationId: BlockId
     let icon: ObjectIconType?
     let title: Title
+    let titleLayout: TitleLayout
     let type: String
     let isLoading: Bool
     let isArchived: Bool
@@ -33,6 +34,11 @@ struct HomeCellData: Identifiable, IdProvider {
 }
 
 extension HomeCellData {
+    
+    enum TitleLayout {
+        case horizontal
+        case vartical
+    }
     
     enum Title {
         case `default`(title: String)
