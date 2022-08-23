@@ -1006,14 +1006,19 @@ public struct Anytype_Model_Block {
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
+      /// Deprecated. Get this data from the target object.
       public var url: String = String()
 
+      /// Deprecated. Get this data from the target object.
       public var title: String = String()
 
+      /// Deprecated. Get this data from the target object.
       public var description_p: String = String()
 
+      /// Deprecated. Get this data from the target object.
       public var imageHash: String = String()
 
+      /// Deprecated. Get this data from the target object.
       public var faviconHash: String = String()
 
       public var type: Anytype_Model_LinkPreview.TypeEnum = .unknown
