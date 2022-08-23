@@ -185,8 +185,7 @@ enum AttributedTextConverter {
             }
             return ""
         case .underscored:
-            guard let underscoredValue = attributes[.underlineStyle] as? Int,
-                  underscoredValue == NSUnderlineStyle.single.rawValue else {
+            guard let underscoredValue = attributes[.anytypeUnderline] as? Bool, underscoredValue else {
                 return nil
             }
             return ""

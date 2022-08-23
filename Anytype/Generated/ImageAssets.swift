@@ -167,6 +167,7 @@ internal extension ImageAsset {
     static let code = ImageAsset.bundle(name: "TextAttributes/code")
     static let italic = ImageAsset.bundle(name: "TextAttributes/italic")
     static let strikethrough = ImageAsset.bundle(name: "TextAttributes/strikethrough")
+    static let underline = ImageAsset.bundle(name: "TextAttributes/underline")
     static let url = ImageAsset.bundle(name: "TextAttributes/url")
   }
   enum TextEditor {
