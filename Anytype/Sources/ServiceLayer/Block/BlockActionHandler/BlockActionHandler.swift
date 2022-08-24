@@ -70,8 +70,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.setFields(blockFields: newFields, blockId: blockId)
     }
     
-    func fetch(url: URL, blockId: BlockId) {
-        service.bookmarkFetch(blockId: blockId, url: url.absoluteString)
+    func fetch(url: AnytypeURL, blockId: BlockId) {
+        service.bookmarkFetch(blockId: blockId, url: url)
     }
     
     func checkbox(selected: Bool, blockId: BlockId) {

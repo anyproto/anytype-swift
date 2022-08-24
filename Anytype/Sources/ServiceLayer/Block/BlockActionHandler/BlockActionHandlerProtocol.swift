@@ -17,7 +17,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func setBackgroundColor(_ color: BlockBackgroundColor, blockIds: [BlockId])
     func duplicate(blockId: BlockId)
     func setFields(_ fields: FieldsConvertibleProtocol, blockId: BlockId)
-    func fetch(url: URL, blockId: BlockId)
+    func fetch(url: AnytypeURL, blockId: BlockId)
     func checkbox(selected: Bool, blockId: BlockId)
     func toggle(blockId: BlockId)
     func setAlignment(_ alignment: LayoutAlignment, blockIds: [BlockId])

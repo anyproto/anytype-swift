@@ -102,14 +102,14 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         urlOpener.openUrl(url)
     }
     
-    func showBookmarkBar(completion: @escaping (URL) -> ()) {
+    func showBookmarkBar(completion: @escaping (AnytypeURL) -> ()) {
         showURLInputViewController { url in
             guard let url = url else { return }
             completion(url)
         }
     }
     
-    func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void) {
+    func showLinkMarkup(url: AnytypeURL?, completion: @escaping (AnytypeURL?) -> Void) {
         showURLInputViewController(url: url, completion: completion)
     }
     
@@ -439,8 +439,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     private func showURLInputViewController(
-        url: URL? = nil,
-        completion: @escaping(URL?) -> Void
+        url: AnytypeURL? = nil,
+        completion: @escaping(AnytypeURL?) -> Void
     ) {
         let controller = URLInputViewController(url: url, didSetURL: completion)
         controller.modalPresentationStyle = .overCurrentContext

@@ -55,7 +55,7 @@ final class TextRelationURLActionViewModel: TextRelationActionViewModelProtocol 
         switch type {
         case .phone: return systemURLService.buildPhoneUrl(phone: inputText)
         case .email: return systemURLService.buildEmailUrl(to: inputText)
-        case .url: return URL(string: inputText)
+        case .url: return AnytypeURL(string: inputText)?.url
         }
     }
     

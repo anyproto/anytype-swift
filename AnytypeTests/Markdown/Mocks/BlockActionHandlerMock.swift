@@ -50,7 +50,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
-    func fetch(url: URL, blockId: BlockId) {
+    func fetch(url: AnytypeURL, blockId: BlockId) {
         assertionFailure()
     }
     
