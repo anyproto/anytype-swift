@@ -227,7 +227,11 @@
 
 // MARK: - Link to search
 
-"Paste link or search objects" = "Paste link or search objects";
+"Editor.LinkToObject.SearchPlaceholder" = "Paste link or search objects";
+"Editor.LinkToObject.PasteFromClipboard" = "Paste from clipboard";
+"Editor.LinkToObject.LinkedTo" = "Linked to";
+"Editor.LinkToObject.CopyLink" = "Copy link";
+"Editor.LinkToObject.RemoveLink" = "Remove link";
 
 // MARK: - Main search
 "There is no object named" = "There is no object named %s";

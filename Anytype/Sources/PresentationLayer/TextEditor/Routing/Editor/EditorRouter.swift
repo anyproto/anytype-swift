@@ -203,8 +203,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         presentSwiftUIView(view: moveToView, model: nil)
     }
 
-    func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {
-        let viewModel = LinkToObjectSearchViewModel { data in
+    func showLinkToObject(
+        currentLink: Either<URL, BlockId>?,
+        onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
+    ) {
+        let viewModel = LinkToObjectSearchViewModel(currentLink: currentLink) { data in
             onSelect(data.searchKind)
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)

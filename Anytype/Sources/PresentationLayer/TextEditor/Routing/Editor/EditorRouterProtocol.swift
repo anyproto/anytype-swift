@@ -44,7 +44,10 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
-    func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
+    func showLinkToObject(
+        currentLink: Either<URL, BlockId>?,
+        onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
+    )
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
     func showObjectPreview(blockLinkAppearance: BlockLink.Appearance, onSelect: @escaping (BlockLink.Appearance) -> Void)
