@@ -3,6 +3,16 @@
     {
       "filename" : "slash_menu_style_callout.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "callout_dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

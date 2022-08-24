@@ -3,6 +3,16 @@
     {
       "filename" : "highlighted.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "highlighted_dark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {
