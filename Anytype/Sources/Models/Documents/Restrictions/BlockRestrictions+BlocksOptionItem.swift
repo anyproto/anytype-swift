@@ -40,7 +40,10 @@ extension Array where Element == BlockInformation {
                 isDownloadAvailable = false
             }
             
-            if case let .bookmark(bookmark) = element.content, bookmark.targetObjectID.isNotEmpty {
+            if case let .bookmark(bookmark) = element.content,
+                bookmark.targetObjectID.isNotEmpty,
+                let details = ObjectDetailsStorage.shared.get(id: bookmark.targetObjectID),
+                !details.isArchived, !details.isDeleted {
                 isOpenObjectAvailable = true
             }
 

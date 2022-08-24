@@ -55,8 +55,8 @@ struct SetTableView: View {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
-                    ForEach(model.rows) { row in
-                        SetTableViewRow(data: row, xOffset: xOffset)
+                    ForEach(model.configurations) { configuration in
+                        SetTableViewRow(configuration: configuration, xOffset: xOffset)
                     }
                 }
             }

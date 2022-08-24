@@ -367,6 +367,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                 domain: .editorPage
             )
             guard case let .bookmark(bookmark) = elements.first?.content else { return }
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsObject)
             let screenData = EditorScreenData(pageId: bookmark.targetObjectID, type: .page)
             router.showPage(data: screenData)
         case .style:

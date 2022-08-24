@@ -73,6 +73,8 @@ private extension DetailsLayout {
             return .layoutSettingsNote
         case .set:
             return .noImage
+        case .bookmark:
+            return .noImage
         }
     }
     
@@ -88,6 +90,8 @@ private extension DetailsLayout {
             return Loc.note
         case .set:
             return Loc.set
+        case .bookmark:
+            return ""
         }
     }
     
@@ -103,6 +107,8 @@ private extension DetailsLayout {
             return Loc.designedToCaptureThoughtsQuickly
         case .set:
             return Loc.collectionOfObjects
+        case .bookmark:
+            return ""
         }
     }
     

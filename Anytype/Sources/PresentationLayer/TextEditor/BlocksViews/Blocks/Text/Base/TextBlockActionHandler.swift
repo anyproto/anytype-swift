@@ -125,9 +125,9 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
         return true
     }
 
-    private func attributedStringWithURL(
+    private func makeAttributedString(
         attributedText: NSAttributedString,
-        replacementURL: URL,
+        replacementURL: URL?,
         replacementText: String,
         range: NSRange
     ) -> NSAttributedString {
@@ -139,8 +139,10 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
             attributedString: mutableAttributedString,
             anytypeFont: content.contentType.uiFont
         )
-
-        modifier.apply(.link(replacementURL), shouldApplyMarkup: true, range: newRange)
+        
+        if let replacementURL = replacementURL {
+            modifier.apply(.link(replacementURL), shouldApplyMarkup: true, range: newRange)
+        }
 
         return NSAttributedString(attributedString: modifier.attributedString)
     }
@@ -163,15 +165,15 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
             return false
         }
 
-        let newText = attributedStringWithURL(
+        let newTextWithLink = makeAttributedString(
             attributedText: textView.attributedText,
             replacementURL: url,
             replacementText: replacementText.trimmed,
             range: range
         )
 
-        actionHandler.changeTextForced(newText, blockId: info.id)
-        textView.attributedText = newText
+        actionHandler.changeTextForced(newTextWithLink, blockId: info.id)
+        textView.attributedText = newTextWithLink
         textView.typingAttributes = previousTypingAttributes
 
         let replacementRange = NSRange(location: range.location, length: trimmedText.count)
@@ -194,8 +196,16 @@ struct TextBlockActionHandler: TextBlockActionHandlerProtocol {
                     originalAttributedString.map {
                         actionHandler.changeTextForced($0, blockId: info.id)
                     }
-                case .dismiss:
+                case .pasteAsLink:
                     break
+                case .pasteAsText:
+                    let newText = makeAttributedString(
+                        attributedText: originalAttributedString ?? NSAttributedString(),
+                        replacementURL: nil,
+                        replacementText: replacementText.trimmed,
+                        range: range
+                    )
+                    actionHandler.changeTextForced(newText, blockId: info.id)
                 }
             }
         showURLBookmarkPopup(urlIputParameters)

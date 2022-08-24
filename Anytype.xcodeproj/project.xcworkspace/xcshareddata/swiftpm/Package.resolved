@@ -181,6 +181,15 @@
       }
     },
     {
+      "identity" : "swiftentrykit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/huri000/SwiftEntryKit.git",
+      "state" : {
+        "revision" : "5ad36cccf0c4b9fea32f4e9b17a8e38f07563ef0",
+        "version" : "2.0.0"
+      }
+    },
+    {
       "identity" : "swiftui-visual-effects",
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:lucasbrown/swiftui-visual-effects.git",

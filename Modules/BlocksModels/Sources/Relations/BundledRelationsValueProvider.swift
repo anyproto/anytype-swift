@@ -83,6 +83,11 @@ public extension BundledRelationsValueProvider {
         else {
             return .basic
         }
+        
+        if layout == .bookmark && !FeatureFlags.bookmarksFlowP2 {
+            return .basic
+        }
+        
         return layout
     }
     

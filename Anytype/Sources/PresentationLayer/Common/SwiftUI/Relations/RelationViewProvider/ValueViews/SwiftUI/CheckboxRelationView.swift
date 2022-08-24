@@ -11,7 +11,9 @@ struct CheckboxRelationView: View {
         case .featuredRelationBlock:
             featuredRelationBlockIcon
         case .filter:
-            filterText
+            filterText(lowercased: true)
+        case .setGallery:
+            filterText()
         }
     }
     
@@ -28,12 +30,13 @@ struct CheckboxRelationView: View {
         }
     }
     
-    private var filterText: some View {
+    private func filterText(lowercased: Bool = false) -> some View {
         Group {
+            let text = isChecked ? Loc.EditSet.Popup.Filter.Value.checked :
+            Loc.EditSet.Popup.Filter.Value.unchecked
             AnytypeText(
-                isChecked ? Loc.EditSet.Popup.Filter.Value.checked.lowercased() :
-                    Loc.EditSet.Popup.Filter.Value.unchecked.lowercased(),
-                style: .relation1Regular,
+                lowercased ? text.lowercased() : text,
+                style: lowercased ? .relation1Regular : style.font,
                 color: .textSecondary
             )
         }

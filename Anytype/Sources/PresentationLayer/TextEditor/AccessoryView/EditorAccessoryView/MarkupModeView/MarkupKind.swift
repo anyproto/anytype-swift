@@ -14,6 +14,7 @@ extension MarkupAccessoryViewModel {
         case bold
         case italic
         case strikethrough
+        case underscored
         case keyboard
     }
 
@@ -43,6 +44,8 @@ extension MarkupAccessoryViewModel.MarkupKind {
             return .TextAttributes.italic
         case .fontStyle(.strikethrough):
             return .TextAttributes.strikethrough
+        case .fontStyle(.underscored):
+            return .TextAttributes.underline
         case .fontStyle(.keyboard):
             return .TextAttributes.code
         case .link:
@@ -73,6 +76,8 @@ extension MarkupAccessoryViewModel.FontStyle {
             return .italic
         case .strikethrough:
             return .strikethrough
+        case .underscored:
+            return .underscored
         case .keyboard:
             return .keyboard
         }

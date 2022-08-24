@@ -58,7 +58,7 @@ extension ObjectIconAttachementLoader {
         customProcessor: ImageProcessor
     ) {
         switch type {
-        case .basic(let id):
+        case .basic(let id), .bookmark(let id):
             downloadImage(imageId: id, model: model, customProcessor: customProcessor)
         case .profile(let profile):
             switch profile {

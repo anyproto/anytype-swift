@@ -2,23 +2,100 @@ import SwiftUI
 import Kingfisher
 
 struct SetCollectionViewCell: View {
-    let configuration: SetTableViewRowData
+    @State private var width: CGFloat = .zero
+    let configuration: SetContentViewItemConfiguration
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 0) {
-            title
+        Button {
+            configuration.onItemTap()
+        } label: {
+            content
         }
-        .padding(16)
-        .frame(height: 125)
-        .frame(maxWidth: .infinity, alignment: .leading)
-        .overlay(
-            RoundedRectangle(cornerRadius: 16).stroke(Color.strokePrimary, lineWidth: 0.5)
-        )
+        .buttonStyle(LightDimmingButtonStyle())
     }
     
-    private var title: some View {
-        AnytypeText(configuration.title, style: .previewTitle2Medium, color: .textPrimary)
-            .lineLimit(3)
-            .multilineTextAlignment(.leading)
+    private var content: some View {
+        VStack(alignment: .leading, spacing: 11) {
+            if configuration.hasCover {
+                coverContent
+            }
+            VStack(alignment: .leading, spacing: 0) {
+                 TitleWithIconView(
+                    icon: configuration.icon,
+                    showIcon: configuration.showIcon,
+                    title: configuration.title,
+                    style: .gallery,
+                    onIconTap: configuration.onIconTap
+                 )
+                Spacer.fixedHeight(4)
+                relations
+            }
+            .padding(.top, configuration.hasCover ? 0 : Constants.contentPadding)
+            .padding([.leading, .trailing, .bottom], Constants.contentPadding)
+        }
+        .background(Color.backgroundPrimary)
+        .frame(maxWidth: .infinity, alignment: .topLeading)
+        .cornerRadius(Constants.cornerRadius)
+        .overlay(
+            RoundedRectangle(cornerRadius: Constants.cornerRadius).stroke(Color.strokePrimary, lineWidth: 0.5)
+        )
+        .readSize { width = $0.width }
+    }
+    
+    private var coverContent: some View {
+        ZStack {
+            coverPlaceholder
+            if let coverType = configuration.coverType {
+                SwiftUIObjectHeaderCoverView(
+                    objectCover: coverType,
+                    size: CGSize(
+                        width: width,
+                        height: configuration.smallItemSize ?
+                        Constants.smallItemHeight :
+                            Constants.largeItemHeight
+                    ),
+                    fitImage: configuration.coverFit
+                )
+            }
+        }
+        .frame(
+            height: configuration.smallItemSize ?
+            Constants.smallItemHeight :
+                Constants.largeItemHeight
+        )
+        .frame(maxWidth: .infinity)
+        .background(Color.strokeTransperent)
+    }
+    
+    private var coverPlaceholder: some View {
+        Image(asset: .setImagePlaceholder)
+            .frame(width: 48, height: 48, alignment: .center)
+    }
+    
+    private var relations: some View {
+        LazyVStack(spacing: 4) {
+            ForEach(configuration.relations) { relation in
+                if relation.hasValue {
+                    row(relation)
+                }
+            }
+        }
+    }
+    
+    private func row(_ relationData: Relation) -> some View {
+        RelationValueView(
+            relation: RelationItemModel(
+                relation: relationData),
+            style: .setGallery, action: {}
+        )
+    }
+}
+
+extension SetCollectionViewCell {
+    enum Constants {
+        static let contentPadding: CGFloat = 16
+        static let cornerRadius: CGFloat = 16
+        static let smallItemHeight: CGFloat = 112
+        static let largeItemHeight: CGFloat = 188
     }
 }

@@ -18,6 +18,7 @@ public final class FeatureFlags {
         .setFilters,
         .relationDetails,
         .bookmarksFlow,
+        .bookmarksFlowP2,
         .setGalleryView
     ]
     
@@ -28,7 +29,8 @@ public final class FeatureFlags {
     }
     
     public static func value(for feature: FeatureDescription) -> Bool {
-        return FeatureFlagsStorage.featureFlags[feature.title] ?? feature.defaultValue
+        let defaultValue = isRelease ? feature.defaultValue : feature.debugValue
+        return FeatureFlagsStorage.featureFlags[feature.title] ?? defaultValue
     }
 }
 
@@ -60,6 +62,10 @@ public extension FeatureFlags {
     
     static var bookmarksFlow: Bool {
         value(for: .bookmarksFlow)
+    }
+    
+    static var bookmarksFlowP2: Bool {
+        value(for: .bookmarksFlowP2)
     }
     
     static var setGalleryView: Bool {

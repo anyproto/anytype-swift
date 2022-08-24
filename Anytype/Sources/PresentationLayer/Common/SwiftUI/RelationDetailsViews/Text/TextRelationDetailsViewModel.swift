@@ -27,7 +27,10 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
     
     let type: TextRelationDetailsViewType
     
+    // Delete with bookmarksFlow toggle
     let actionButtonViewModel: TextRelationActionButtonViewModel?
+    
+    let actionsViewModel: [TextRelationActionViewModelProtocol]
     
     private let relation: Relation
     private let service: TextRelationDetailsServiceProtocol
@@ -43,13 +46,15 @@ final class TextRelationDetailsViewModel: ObservableObject, TextRelationDetailsV
         type: TextRelationDetailsViewType,
         relation: Relation,
         service: TextRelationDetailsServiceProtocol,
-        actionButtonViewModel: TextRelationActionButtonViewModel?
+        actionButtonViewModel: TextRelationActionButtonViewModel?,
+        actionsViewModel: [TextRelationActionViewModelProtocol] = []
     ) {
         self.value = value
         self.type = type
         self.actionButtonViewModel = actionButtonViewModel
         self.relation = relation
         self.service = service
+        self.actionsViewModel = actionsViewModel
         
         cancellable = self.$value
             .debounce(for: .seconds(0.5), scheduler: RunLoop.main)
@@ -92,6 +97,7 @@ private extension TextRelationDetailsViewModel {
     
     func saveValue() {
         service.saveRelation(value: value, key: relation.id, textType: type)
+        logEvent()
     }
     
     func setupKeyboardListener() {
@@ -121,6 +127,17 @@ private extension TextRelationDetailsViewModel {
     
     func handleValueUpdate(value: String) {
         actionButtonViewModel?.text = value
+        for actionViewModel in actionsViewModel {
+            actionViewModel.inputText = value
+        }
     }
     
+    private func logEvent() {
+        switch type {
+        case .url:
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.relationUrlEditMobile)
+        default:
+            break
+        }
+    }
 }

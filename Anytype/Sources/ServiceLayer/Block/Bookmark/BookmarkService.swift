@@ -43,4 +43,8 @@ class BookmarkService: BookmarkServiceProtocol {
             completion(true)
         }
     }
+    
+    func fetchBookmarkContent(bookmarkId: BlockId, url: String) {
+        _ = Anytype_Rpc.Object.BookmarkFetch.Service.invocation(contextID: bookmarkId, url: url).invoke()
+    }
 }

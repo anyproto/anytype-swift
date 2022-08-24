@@ -28,3 +28,7 @@ extension Array where Element == DataviewSort {
         }
     }
 }
+
+extension DataviewSort.TypeEnum {
+    static let allAvailableCases: [DataviewSort.TypeEnum] = [.asc, .desc]
+}

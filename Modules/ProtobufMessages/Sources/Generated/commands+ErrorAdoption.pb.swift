@@ -170,8 +170,10 @@ extension Anytype_Rpc.Template.CreateFromObjectType.Response.Error: Swift.Error 
 extension Anytype_Rpc.Template.ExportAll.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Unsplash.Download.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Unsplash.Search.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Wallet.CloseSession.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Convert.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Create.Response.Error: Swift.Error {}
+extension Anytype_Rpc.Wallet.CreateSession.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Wallet.Recover.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.Create.Response.Error: Swift.Error {}
 extension Anytype_Rpc.Workspace.Export.Response.Error: Swift.Error {}

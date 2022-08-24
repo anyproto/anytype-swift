@@ -103,7 +103,7 @@ extension ObjectRelationView {
     private var maxOptions: Int {
         switch style {
         case .regular, .set, .featuredRelationBlock: return 0
-        case .filter: return 1
+        case .filter, .setGallery: return 1
         }
     }
 }

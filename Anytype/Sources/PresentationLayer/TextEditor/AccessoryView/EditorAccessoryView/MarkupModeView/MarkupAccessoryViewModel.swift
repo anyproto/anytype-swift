@@ -21,13 +21,15 @@ struct MarkupItem: Identifiable, Equatable {
 final class MarkupAccessoryViewModel: ObservableObject {
     let markupItems: [MarkupItem] = MarkupItem.allItems
 
+    var onShowLinkToObject: RoutingAction<(Either<URL, BlockId>?, (LinkToObjectSearchViewModel.SearchKind) -> ())>?
+    var onShowObject: RoutingAction<BlockId>?
+    var onShowURL: RoutingAction<URL>?
+
     private(set) var restrictions: BlockRestrictions?
     private(set) var actionHandler: BlockActionHandlerProtocol
     private(set) var blockId: BlockId = ""
     private let pageService = PageService()
     private let document: BaseDocumentProtocol
-
-    private let onShowLinkToObject: RoutingAction<(LinkToObjectSearchViewModel.SearchKind) -> ()>
 
     @Published private(set) var range: NSRange = .zero
     @Published private(set) var currentText: NSAttributedString?
@@ -39,12 +41,10 @@ final class MarkupAccessoryViewModel: ObservableObject {
 
     init(
         document: BaseDocumentProtocol,
-        actionHandler: BlockActionHandlerProtocol,
-        onLinkToObject: @escaping (@escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) -> ()
+        actionHandler: BlockActionHandlerProtocol
     ) {
         self.actionHandler = actionHandler
         self.document = document
-        self.onShowLinkToObject = onLinkToObject
         self.subscribeOnBlocksChanges()
     }
 
@@ -111,7 +111,11 @@ final class MarkupAccessoryViewModel: ObservableObject {
     }
 
     private func showLinkToSearch(blockId: BlockId, range: NSRange) {
-        onShowLinkToObject { [weak self] searchKind in
+        let urlLink = currentText?.linkState(range: range)
+        let objectIdLink = currentText?.linkToObjectState(range: range)
+        let eitherLink: Either<URL, BlockId>? = urlLink.map { .left($0) } ?? objectIdLink.map { .right($0) } ?? nil
+
+        let onLinkSelection: (LinkToObjectSearchViewModel.SearchKind) -> () = { [weak self] searchKind in
             switch searchKind {
             case let .object(linkBlockId):
                 self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)
@@ -123,8 +127,25 @@ final class MarkupAccessoryViewModel: ObservableObject {
                 }
             case let .web(url):
                 self?.actionHandler.setLink(url: URL(string: url), range: range, blockId: blockId)
+            case let .openURL(url):
+                self?.onShowURL?(url)
+            case let .openObject(objectId):
+                self?.onShowObject?(objectId)
+            case .removeLink:
+                switch eitherLink {
+                case .right:
+                    self?.actionHandler.setLinkToObject(linkBlockId: nil, range: range, blockId: blockId)
+                case .left:
+                    self?.actionHandler.setLink(url: nil, range: range, blockId: blockId)
+                default:
+                    break
+                }
+            case let .copyLink(url):
+                UIPasteboard.general.string = url.absoluteString
             }
         }
+
+        onShowLinkToObject?((eitherLink, onLinkSelection))
     }
 
     private func subscribeOnBlocksChanges() {

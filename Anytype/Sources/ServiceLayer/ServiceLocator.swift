@@ -61,6 +61,18 @@ final class ServiceLocator {
         )
     }
     
+    func bookmarkService() -> BookmarkServiceProtocol {
+        BookmarkService()
+    }
+    
+    func systemURLService() -> SystemURLServiceProtocol {
+        SystemURLService()
+    }
+    
+    func alertOpener() -> AlertOpenerProtocol {
+        AlertOpener()
+    }
+    
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {
         SubscriptionToggler()
     }

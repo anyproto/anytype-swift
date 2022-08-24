@@ -4,9 +4,16 @@ import AnytypeCore
 
 final class TextRelationDetailsViewController: UIViewController {
 
+    private struct ButtonHolder {
+        let button: UIButton
+        let viewModel: TextRelationActionViewModelProtocol
+    }
+    
     private let titleLabel = makeTitleLabel()
     private let textView = makeTextView()
     private let actionButton = UIButton(type: .custom)
+    private let actionStackView = UIStackView()
+    private var actionButtons: [ButtonHolder] = []
     
     private let viewModel: TextRelationDetailsViewModelProtocol
     
@@ -71,14 +78,20 @@ extension TextRelationDetailsViewController {
 private extension TextRelationDetailsViewController {
     
     func updateActionButtonVisibility() {
-        if viewModel.actionButtonViewModel?.isActionAvailable ?? false {
-            textViewTrailingConstraint?.isActive = false
-            actionButtonLeadingConstraint?.isActive = true
-            actionButton.isHidden = false
+        if FeatureFlags.bookmarksFlow {
+            for buttonHolder in actionButtons {
+                buttonHolder.button.isEnabled = buttonHolder.viewModel.isActionAvailable
+            }
         } else {
-            textViewTrailingConstraint?.isActive = true
-            actionButtonLeadingConstraint?.isActive = false
-            actionButton.isHidden = true
+            if viewModel.actionButtonViewModel?.isActionAvailable ?? false {
+                textViewTrailingConstraint?.isActive = false
+                actionButtonLeadingConstraint?.isActive = true
+                actionButton.isHidden = false
+            } else {
+                textViewTrailingConstraint?.isActive = true
+                actionButtonLeadingConstraint?.isActive = false
+                actionButton.isHidden = true
+            }
         }
     }
 
@@ -113,7 +126,11 @@ private extension TextRelationDetailsViewController {
     func setupView() {
         titleLabel.text = viewModel.title
         setupTextView()
-        setupActionButton()
+        if FeatureFlags.bookmarksFlow {
+            setupActionButtons()
+        } else {
+            setupActionButton()
+        }
         setupLayout()
         
         if FeatureFlags.rainbowViews {
@@ -172,19 +189,33 @@ private extension TextRelationDetailsViewController {
             $0.pinToSuperview(excluding: [.bottom])
         }
         
-        view.addSubview(textView) {
-            $0.height.greaterThanOrEqual(to: Constants.textViewMinHeight)
-            $0.top.equal(to: titleLabel.bottomAnchor)
-            self.textViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: -Constants.textViewBottomInset)
-            $0.leading.equal(to: view.leadingAnchor)
-            self.textViewTrailingConstraint =  $0.trailing.equal(to: view.trailingAnchor)
-        }
-        
-        view.addSubview(actionButton) {
-            $0.centerY.equal(to: textView.centerYAnchor)
-            $0.trailing.equal(to: view.trailingAnchor, constant: -Constants.actionButtonRightInset)
-            self.actionButtonLeadingConstraint = $0.leading.equal(to: textView.trailingAnchor, activate: false)
-            $0.size(Constants.actionButtonSize)
+        if FeatureFlags.bookmarksFlow {
+            view.addSubview(actionStackView) {
+                $0.leading.equal(to: view.leadingAnchor)
+                $0.trailing.equal(to: view.trailingAnchor)
+                self.textViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: -Constants.textViewBottomInset)
+            }
+            view.addSubview(textView) {
+                $0.height.greaterThanOrEqual(to: Constants.textViewMinHeight)
+                $0.top.equal(to: titleLabel.bottomAnchor)
+                $0.bottom.equal(to: actionStackView.topAnchor, constant: -Constants.actionButtonTitleInset)
+                $0.leading.equal(to: view.leadingAnchor)
+                self.textViewTrailingConstraint =  $0.trailing.equal(to: view.trailingAnchor)
+            }
+        } else {
+            view.addSubview(textView) {
+                $0.height.greaterThanOrEqual(to: Constants.textViewMinHeight)
+                $0.top.equal(to: titleLabel.bottomAnchor)
+                self.textViewBottomConstraint = $0.bottom.equal(to: view.bottomAnchor, constant: -Constants.textViewBottomInset)
+                $0.leading.equal(to: view.leadingAnchor)
+                self.textViewTrailingConstraint =  $0.trailing.equal(to: view.trailingAnchor)
+            }
+            view.addSubview(actionButton) {
+                $0.centerY.equal(to: textView.centerYAnchor)
+                $0.trailing.equal(to: view.trailingAnchor, constant: -Constants.actionButtonRightInset)
+                self.actionButtonLeadingConstraint = $0.leading.equal(to: textView.trailingAnchor, activate: false)
+                $0.size(Constants.actionButtonSize)
+            }
         }
         
         view.layoutUsing.anchors {
@@ -192,6 +223,53 @@ private extension TextRelationDetailsViewController {
         }
     }
     
+    private func setupActionButtons() {
+        actionStackView.axis = .vertical
+        actionStackView.directionalLayoutMargins = NSDirectionalEdgeInsets(top: 0, leading: 20, bottom: 0, trailing: 20)
+        actionStackView.isLayoutMarginsRelativeArrangement = true
+        if viewModel.actionsViewModel.isNotEmpty {
+            actionStackView.addArrangedSubview(UIKitAnytypeDivider())
+        }
+        for actionViewModel in viewModel.actionsViewModel {
+            let actionButton = UIButton(type: .custom)
+            let image = UIImage(asset: actionViewModel.iconAsset)?.withRenderingMode(.alwaysTemplate)
+            actionButton.setImage(image, for: .normal)
+            actionButton.tintColor = .buttonActive
+            let text = NSAttributedString(
+                string: actionViewModel.title,
+                attributes: [
+                    .font: UIFont.bodyRegular,
+                    .foregroundColor: UIColor.textPrimary
+                ]
+            )
+            
+            let disabledText = NSAttributedString(
+                string: actionViewModel.title,
+                attributes: [
+                    .font: UIFont.bodyRegular,
+                    .foregroundColor: UIColor.textTertiary
+                ]
+            )
+            actionButton.setAttributedTitle(text, for: .normal)
+            actionButton.setAttributedTitle(disabledText, for: .disabled)
+            actionButton.contentHorizontalAlignment = .leading
+            actionButton.contentEdgeInsets = UIEdgeInsets(top: 14, left: 0, bottom: 14, right: 0)
+            actionButton.titleEdgeInsets = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 0)
+            
+            actionButton.addAction(
+                UIAction(
+                    handler: { _ in 
+                        actionViewModel.performAction()
+                    }
+                ),
+                for: .touchUpInside
+            )
+            
+            actionStackView.addArrangedSubview(actionButton)
+            actionStackView.addArrangedSubview(UIKitAnytypeDivider())
+            actionButtons.append(ButtonHolder(button: actionButton, viewModel: actionViewModel))
+        }
+    }
 }
 
 // MARK: - UITextViewDelegate
@@ -216,6 +294,7 @@ private extension TextRelationDetailsViewController {
         static let actionButtonSize: CGSize = CGSize(width: 36, height: 36)
         static let actionButtonRightInset: CGFloat = 20
         static let actionButtonTopInset: CGFloat = 6
+        static let actionButtonTitleInset: CGFloat = 8
     }
     
 }

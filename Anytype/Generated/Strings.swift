@@ -197,8 +197,6 @@ internal enum Loc {
   internal static let create = Loc.tr("Localizable", "Create")
   /// The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code
   internal static let createAPinCodeDescription = Loc.tr("Localizable", "Create a pin code description")
-  /// Create bookmark
-  internal static let createBookmark = Loc.tr("Localizable", "Create bookmark")
   /// Create from scratch
   internal static let createFromScratch = Loc.tr("Localizable", "Create from scratch")
   /// Create new object
@@ -241,8 +239,6 @@ internal enum Loc {
   internal static let deselectAll = Loc.tr("Localizable", "Deselect all")
   /// Designed to capture thoughts quickly
   internal static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly")
-  /// Dismiss
-  internal static let dismiss = Loc.tr("Localizable", "Dismiss")
   /// Do it later
   internal static let doItLater = Loc.tr("Localizable", "Do it later")
   /// If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.
@@ -475,8 +471,6 @@ internal enum Loc {
   internal static let page = Loc.tr("Localizable", "Page")
   /// Paste
   internal static let paste = Loc.tr("Localizable", "Paste")
-  /// Paste link or search objects
-  internal static let pasteLinkOrSearchObjects = Loc.tr("Localizable", "Paste link or search objects")
   /// Paste or type URL
   internal static let pasteOrTypeURL = Loc.tr("Localizable", "Paste or type URL")
   /// Paste processing...
@@ -936,6 +930,18 @@ internal enum Loc {
   }
 
   internal enum Editor {
+    internal enum LinkToObject {
+      /// Copy link
+      internal static let copyLink = Loc.tr("Localizable", "Editor.LinkToObject.CopyLink")
+      /// Linked to
+      internal static let linkedTo = Loc.tr("Localizable", "Editor.LinkToObject.LinkedTo")
+      /// Paste from clipboard
+      internal static let pasteFromClipboard = Loc.tr("Localizable", "Editor.LinkToObject.PasteFromClipboard")
+      /// Remove link
+      internal static let removeLink = Loc.tr("Localizable", "Editor.LinkToObject.RemoveLink")
+      /// Paste link or search objects
+      internal static let searchPlaceholder = Loc.tr("Localizable", "Editor.LinkToObject.SearchPlaceholder")
+    }
     internal enum MovingState {
       /// Scroll to select a place
       internal static let scrollToSelectedPlace = Loc.tr("Localizable", "Editor.MovingState.ScrollToSelectedPlace")
@@ -1022,6 +1028,15 @@ internal enum Loc {
     }
   }
 
+  internal enum LinkPaste {
+    /// Create bookmark
+    internal static let bookmark = Loc.tr("Localizable", "LinkPaste.bookmark")
+    /// Paste as link
+    internal static let link = Loc.tr("Localizable", "LinkPaste.link")
+    /// Paste as text
+    internal static let text = Loc.tr("Localizable", "LinkPaste.text")
+  }
+
   internal enum ObjectType {
     /// Blank canvas with no title
     internal static let fallbackDescription = Loc.tr("Localizable", "ObjectType.fallbackDescription")
@@ -1050,6 +1065,27 @@ internal enum Loc {
         internal static let empty = Loc.tr("Localizable", "Relation.View.Hint.Empty")
       }
     }
+  }
+
+  internal enum RelationAction {
+    /// Call phone numbler
+    internal static let callPhone = Loc.tr("Localizable", "RelationAction.CallPhone")
+    /// Copied
+    internal static let copied = Loc.tr("Localizable", "RelationAction.Copied")
+    /// Copy email
+    internal static let copyEmail = Loc.tr("Localizable", "RelationAction.CopyEmail")
+    /// Copy link
+    internal static let copyLink = Loc.tr("Localizable", "RelationAction.CopyLink")
+    /// Copy phone numbler
+    internal static let copyPhone = Loc.tr("Localizable", "RelationAction.CopyPhone")
+    /// Open link
+    internal static let openLink = Loc.tr("Localizable", "RelationAction.OpenLink")
+    /// Reload object content
+    internal static let reloadContent = Loc.tr("Localizable", "RelationAction.ReloadContent")
+    /// Reloading content
+    internal static let reloadingContent = Loc.tr("Localizable", "RelationAction.ReloadingContent")
+    /// Send email
+    internal static let sendEmail = Loc.tr("Localizable", "RelationAction.SendEmail")
   }
 
   internal enum Set {
