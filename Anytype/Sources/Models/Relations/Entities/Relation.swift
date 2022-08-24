@@ -139,7 +139,7 @@ extension Relation: RelationProtocol {
         }
     }
     
-    var isSourceRelation: Bool {
+    var isSource: Bool {
         return id == "source"
     }
 }
