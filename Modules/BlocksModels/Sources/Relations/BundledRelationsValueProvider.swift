@@ -26,7 +26,6 @@ public protocol BundledRelationsValueProvider {
     var isSelectType: Bool { get }
     var isSelectTemplate: Bool { get }
     var source: String { get }
-    var picture: String { get }
 }
 
 
@@ -131,10 +130,6 @@ public extension BundledRelationsValueProvider {
     
     var source: String {
         stringValue(with: .source)
-    }
-    
-    var picture: String {
-        stringValue(with: .picture)
     }
     
     // MARK: - Private
