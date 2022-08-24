@@ -587,9 +587,7 @@ extension EditorRouter {
             router: self
         )
         let vc = UIHostingController(
-            rootView: SetSortsListView()
-                .environmentObject(viewModel)
-                .environmentObject(setModel)
+            rootView: SetSortsListView(viewModel: viewModel)
         )
         presentSheet(vc)
     }
@@ -601,9 +599,7 @@ extension EditorRouter {
             router: self
         )
         let vc = UIHostingController(
-            rootView: SetFiltersListView()
-                .environmentObject(viewModel)
-                .environmentObject(setModel)
+            rootView: SetFiltersListView(viewModel: viewModel)
         )
         presentSheet(vc)
     }

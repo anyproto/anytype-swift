@@ -11,6 +11,9 @@ final class EditorSetViewModel: ObservableObject {
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
     
+    @Published var sorts: [SetSort] = []
+    @Published var filters: [SetFilter] = []
+    
     var isEmpty: Bool {
         dataView.views.isEmpty
     }
@@ -59,17 +62,6 @@ final class EditorSetViewModel: ObservableObject {
         document.featuredRelationsForEditor
     }
     
-    var sorts: [SetSort] {
-        activeView.sorts.uniqued().compactMap { sort in
-            let metadata = dataView.relations.first { relation in
-                sort.relationKey == relation.key
-            }
-            guard let metadata = metadata else { return nil }
-            
-            return SetSort(metadata: metadata, sort: sort)
-        }
-    }
-    
     var relations: [RelationMetadata] {
         activeView.options.compactMap { option in
             let metadata = dataView.relations.first { relation in
@@ -80,17 +72,6 @@ final class EditorSetViewModel: ObservableObject {
                   shouldAddRelationMetadata(metadata) else { return nil }
             
             return metadata
-        }
-    }
-    
-    var filters: [SetFilter] {
-        activeView.filters.compactMap { filter in
-            let metadata = dataView.relations.first { relation in
-                filter.relationKey == relation.key
-            }
-            guard let metadata = metadata else { return nil }
-            
-            return SetFilter(metadata: metadata, filter: filter)
         }
     }
     
@@ -222,6 +203,8 @@ final class EditorSetViewModel: ObservableObject {
         self.dataView = document.dataviews.first ?? .empty
         
         updateActiveViewId()
+        updateSorts()
+        updateFilters()
         setupSubscriptions()
     }
     
@@ -233,6 +216,28 @@ final class EditorSetViewModel: ObservableObject {
             }
         } else {
             dataView.activeViewId = ""
+        }
+    }
+    
+    private func updateSorts() {
+        sorts = activeView.sorts.uniqued().compactMap { sort in
+            let metadata = dataView.relations.first { relation in
+                sort.relationKey == relation.key
+            }
+            guard let metadata = metadata else { return nil }
+            
+            return SetSort(metadata: metadata, sort: sort)
+        }
+    }
+    
+    private func updateFilters() {
+        filters = activeView.filters.compactMap { filter in
+            let metadata = dataView.relations.first { relation in
+                filter.relationKey == relation.key
+            }
+            guard let metadata = metadata else { return nil }
+            
+            return SetFilter(metadata: metadata, filter: filter)
         }
     }
     
