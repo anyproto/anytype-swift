@@ -6,7 +6,8 @@ extension NSAttributedString.Key {
     static let mention = NSAttributedString.Key("Mention")
     static let emoji = NSAttributedString.Key("Emoji")
     /// Used to underline characters without sending markup to middleware, value should be Bool, only "true" will underline text
-    static let localUnderline = NSAttributedString.Key("LocalUnderline")
+    static let anytypeUnderline = NSAttributedString.Key("AnytypeUnderline")
+    static let anytypeLink = NSAttributedString.Key("AnytypeLink")
     
     /// Method can be used to validate value by key in NSAttributedString
     func checkValue(_ value: Any?) -> Bool {
@@ -51,7 +52,7 @@ extension NSAttributedString.Key {
             return value is [Int]
         case .verticalGlyphForm:
             return value is Int
-        case .localUnderline:
+        case .anytypeLink, .anytypeUnderline:
             guard let value = value as? Bool, value else {
                 return false
             }
