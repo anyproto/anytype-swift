@@ -1006,7 +1006,6 @@ public struct Anytype_Model_Block {
       // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
       // methods supported on all messages.
 
-      /// Deprecated. Get this data from the target object.
       public var url: String = String()
 
       /// Deprecated. Get this data from the target object.
