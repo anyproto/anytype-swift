@@ -72,6 +72,7 @@ internal extension ImageAsset {
   static let objectSettingsIcon = ImageAsset.bundle(name: "object_settings_icon")
   static let objectSettingsLayout = ImageAsset.bundle(name: "object_settings_layout")
   static let objectSettingsRelations = ImageAsset.bundle(name: "object_settings_relations")
+  static let webPage = ImageAsset.bundle(name: "web_page")
   static let searchTextFieldIcon = ImageAsset.bundle(name: "searchTextFieldIcon")
   static let setImagePlaceholder = ImageAsset.bundle(name: "set_image_placeholder")
   static let setOpenToEdit = ImageAsset.bundle(name: "set_open_to_edit")

@@ -15,8 +15,8 @@ struct LinkToObjectSearchData: SearchDataProtocol {
     
     let viewType: EditorViewType
 
-    init(details: ObjectDetails) {
-        self.searchKind = .object(details.id)
+    init(details: ObjectDetails, searchKind: LinkToObjectSearchViewModel.SearchKind? = nil) {
+        self.searchKind = searchKind ?? .object(details.id)
         self.title = details.title
         self.description = details.description
         self.callout = details.objectType.name
@@ -47,8 +47,8 @@ extension LinkToObjectSearchData {
     
     var shouldShowDescription: Bool {
         switch searchKind {
-        case .object: return description.isNotEmpty
-        case .web, .createObject: return false
+        case .object, .openObject: return description.isNotEmpty
+        case .web, .createObject, .removeLink, .copyLink, .openURL: return false
         }
     }
     
@@ -63,7 +63,7 @@ extension LinkToObjectSearchData {
     var shouldShowCallout: Bool {
         switch searchKind {
         case .object: return callout.isNotEmpty
-        case .web, .createObject: return false
+        case .web, .createObject, .openURL, .openObject, .removeLink, .copyLink: return false
         }
     }
     
@@ -77,8 +77,8 @@ extension LinkToObjectSearchData {
 
     var usecase: ObjectIconImageUsecase {
         switch searchKind {
-        case .object: return .dashboardSearch
-        case .web, .createObject: return .mention(.heading)
+        case .object, .openObject: return .dashboardSearch
+        case .web, .createObject, .removeLink, .openURL, .copyLink: return .mention(.heading)
         }
     }
     

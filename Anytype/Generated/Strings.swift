@@ -471,8 +471,6 @@ internal enum Loc {
   internal static let page = Loc.tr("Localizable", "Page")
   /// Paste
   internal static let paste = Loc.tr("Localizable", "Paste")
-  /// Paste link or search objects
-  internal static let pasteLinkOrSearchObjects = Loc.tr("Localizable", "Paste link or search objects")
   /// Paste or type URL
   internal static let pasteOrTypeURL = Loc.tr("Localizable", "Paste or type URL")
   /// Paste processing...
@@ -932,6 +930,18 @@ internal enum Loc {
   }
 
   internal enum Editor {
+    internal enum LinkToObject {
+      /// Copy link
+      internal static let copyLink = Loc.tr("Localizable", "Editor.LinkToObject.CopyLink")
+      /// Linked to
+      internal static let linkedTo = Loc.tr("Localizable", "Editor.LinkToObject.LinkedTo")
+      /// Paste from clipboard
+      internal static let pasteFromClipboard = Loc.tr("Localizable", "Editor.LinkToObject.PasteFromClipboard")
+      /// Remove link
+      internal static let removeLink = Loc.tr("Localizable", "Editor.LinkToObject.RemoveLink")
+      /// Paste link or search objects
+      internal static let searchPlaceholder = Loc.tr("Localizable", "Editor.LinkToObject.SearchPlaceholder")
+    }
     internal enum MovingState {
       /// Scroll to select a place
       internal static let scrollToSelectedPlace = Loc.tr("Localizable", "Editor.MovingState.ScrollToSelectedPlace")
