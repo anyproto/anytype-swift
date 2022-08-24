@@ -11,8 +11,8 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
 
     func showPage(data: EditorScreenData)
     func openUrl(_ url: URL)
-    func showBookmarkBar(completion: @escaping (URL) -> ())
-    func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void)
+    func showBookmarkBar(completion: @escaping (AnytypeURL) -> ())
+    func showLinkMarkup(url: AnytypeURL?, completion: @escaping (AnytypeURL?) -> Void)
     
     func showFilePicker(model: Picker.ViewModel)
     func showImagePicker(contentType: MediaPickerContentType, onSelect: @escaping (NSItemProvider?) -> Void)
