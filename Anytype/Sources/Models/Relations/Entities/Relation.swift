@@ -138,4 +138,8 @@ extension Relation: RelationProtocol {
         case .unknown(let unknown): return unknown.value.isNotEmpty
         }
     }
+    
+    var isSourceRelation: Bool {
+        return id == "source"
+    }
 }
