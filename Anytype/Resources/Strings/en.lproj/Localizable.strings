@@ -557,10 +557,10 @@
 "TalbeOfContents.Empty" = "Add headings to create a table of contents";
 
 // MARK: - Simple tables
-"SimpleTableMenu.Item.clearContents" = "Clear contents";
+"SimpleTableMenu.Item.clearContents" = "Clear";
 "SimpleTableMenu.Item.color" = "Color";
 "SimpleTableMenu.Item.style" = "Style";
-"SimpleTableMenu.Item.clearStyle" = "Clear style";
+"SimpleTableMenu.Item.clearStyle" = "Reset style";
 
 "SimpleTableMenu.Item.InsertLeft" = "Insert left";
 "SimpleTableMenu.Item.InsertRight" = "Insert right";

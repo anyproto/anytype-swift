@@ -6,7 +6,7 @@ struct SelectionOptionsView: View {
 
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            LazyHStack(spacing: 0) {
+            LazyHStack(spacing: 4) {
                 ForEach(viewModel.items, id: \.self) { item in
                     Button {
                         item.action()
@@ -38,5 +38,6 @@ private struct SelectionOptionsItemView: View {
             AnytypeText(title, style: .caption2Regular, color: .textSecondary)
         }
         .padding(EdgeInsets(top: 16, leading: 0, bottom: 13, trailing: 0))
+
     }
 }
