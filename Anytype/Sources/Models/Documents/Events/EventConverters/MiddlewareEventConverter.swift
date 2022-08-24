@@ -191,7 +191,7 @@ final class MiddlewareEventConverter {
                     var bookmark = bookmark
                     
                     if data.hasURL {
-                        bookmark.url = data.url.value
+                        bookmark.source = data.url.value
                     }
                     
                     if data.hasTitle {
