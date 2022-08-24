@@ -249,8 +249,12 @@ final class EditorSetViewModel: ObservableObject {
         relationMetadata.format != .unrecognized
     }
     
-    private func isBookmarkObject() -> Bool {
+    private func isBookmarksSet() -> Bool {
         dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
+    }
+    
+    private func isNotesSet() -> Bool {
+        dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.note.rawValue)
     }
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
@@ -262,12 +266,11 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func itemTapped(_ details: ObjectDetails) {
-        if !FeatureFlags.bookmarksFlow && isBookmarkObject(),
+        if !FeatureFlags.bookmarksFlow && isBookmarksSet(),
            let url = url(from: details) {
             router.openUrl(url)
         } else {
-            let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
-            router.showPage(data: screenData)
+            openObject(pageId: details.id, type: details.editorViewType)
         }
     }
     
@@ -312,7 +315,7 @@ extension EditorSetViewModel {
     }
 
     func createObject() {
-        if isBookmarkObject() {
+        if isBookmarksSet() {
             createBookmarkObject()
         } else {
             createDefaultObject()
@@ -362,7 +365,20 @@ extension EditorSetViewModel {
 
         guard let objectDetails = dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
         
-        router.showCreateObject(pageId: objectDetails.id)
+        handleCreatedObjectDetails(objectDetails)
+    }
+    
+    private func handleCreatedObjectDetails(_ objectDetails: ObjectDetails) {
+        if isNotesSet() {
+            openObject(pageId: objectDetails.id, type: objectDetails.editorViewType)
+        } else {
+            router.showCreateObject(pageId: objectDetails.id)
+        }
+    }
+    
+    private func openObject(pageId: BlockId, type: EditorViewType) {
+        let screenData = EditorScreenData(pageId: pageId, type: type)
+        router.showPage(data: screenData)
     }
     
     private func createBookmarkObject() {
