@@ -51,7 +51,7 @@ struct EditorSetView: View {
                     offset: $offset,
                     headerMinimizedSize: headerMinimizedSize
                 )
-            case .gallery:
+            case .gallery, .list:
                 SetCollectionView(
                     model: model,
                     tableHeaderSize: $tableHeaderSize,

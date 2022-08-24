@@ -20,6 +20,8 @@ extension DataviewViewType {
         switch self {
         case .gallery:
             return FeatureFlags.setGalleryView ? .gallery : .table
+        case .list:
+            return FeatureFlags.setListView ? .list : .table
         default:
             return .table
         }

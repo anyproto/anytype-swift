@@ -71,4 +71,8 @@ public extension FeatureFlags {
     static var setGalleryView: Bool {
         value(for: .setGalleryView)
     }
+    
+    static var setListView: Bool {
+        value(for: .setListView)
+    }
 }

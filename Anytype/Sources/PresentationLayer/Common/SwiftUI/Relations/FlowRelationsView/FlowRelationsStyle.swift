@@ -21,7 +21,7 @@ enum FlowRelationsStyle {
     var descriptionOffset: CGFloat {
         switch self {
         case .header: return 6
-        case .cell: return 4
+        case .cell: return 5
         }
     }
     
@@ -36,6 +36,34 @@ enum FlowRelationsStyle {
         switch self {
         case .header: return .header
         case .cell: return .list
+        }
+    }
+    
+    var relationStyle: RelationStyle {
+        switch self {
+        case .header: return .featuredRelationBlock(allowMultiLine: false)
+        case .cell: return .setCollection
+        }
+    }
+    
+    var relationSpacing: CGSize {
+        switch self {
+        case .header: return .init(width: 10, height: 10)
+        case .cell: return .init(width: 6, height: 2)
+        }
+    }
+    
+    var relationValueSpacing: CGFloat {
+        switch self {
+        case .header: return 6
+        case .cell: return 0
+        }
+    }
+    
+    var descriptionLineLimit: Int? {
+        switch self {
+        case .header: return nil
+        case .cell: return 1
         }
     }
 }

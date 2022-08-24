@@ -4,6 +4,7 @@ import AnytypeCore
 struct SetContentViewItemConfiguration: Identifiable, Hashable {
     let id: BlockId
     let title: String
+    let description: String?
     let icon: ObjectIconImage?
     let relations: [Relation]
     let showIcon: Bool
@@ -17,6 +18,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     init(
         id: BlockId,
         title: String,
+        description: String?,
         icon: ObjectIconImage?,
         relations: [Relation],
         showIcon: Bool,
@@ -29,6 +31,7 @@ struct SetContentViewItemConfiguration: Identifiable, Hashable {
     ) {
         self.id = id
         self.title = title
+        self.description = description
         self.icon = icon
         self.relations = relations
         self.showIcon = showIcon

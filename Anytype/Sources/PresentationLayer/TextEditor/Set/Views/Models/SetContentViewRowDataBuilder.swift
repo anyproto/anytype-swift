@@ -59,6 +59,7 @@ final class SetContentViewDataBuilder {
             return SetContentViewItemConfiguration(
                 id: details.id,
                 title: details.title,
+                description: details.description,
                 icon: details.objectIconImage,
                 relations: relations,
                 showIcon: !activeView.hideIcon,

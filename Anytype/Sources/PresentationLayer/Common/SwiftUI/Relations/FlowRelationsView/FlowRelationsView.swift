@@ -37,6 +37,7 @@ struct FlowRelationsView: View {
                     color: viewModel.style.descriptionColor
                 )
                     .fixedSize(horizontal: false, vertical: true)
+                    .lineLimit(viewModel.style.descriptionLineLimit)
             } else {
                 EmptyView()
             }
@@ -49,11 +50,12 @@ struct FlowRelationsView: View {
                 FlowLayout(
                     items: viewModel.relations,
                     alignment: .leading,
+                    spacing: viewModel.style.relationSpacing,
                     cell: { item, index in
-                        HStack(spacing: 6) {
+                        HStack(spacing: viewModel.style.relationValueSpacing) {
                             RelationValueView(
                                 relation: RelationItemModel(relation: item),
-                                style: .featuredRelationBlock(allowMultiLine: false))
+                                style: viewModel.style.relationStyle)
                             {
                                 viewModel.onRelationTap(item)
                             }

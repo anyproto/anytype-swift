@@ -89,7 +89,9 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private var isObjectLocked: Bool {
-        document.isLocked || activeView.type == .gallery
+        document.isLocked ||
+        (FeatureFlags.setGalleryView && activeView.type == .gallery) ||
+        (FeatureFlags.setListView && activeView.type == .list)
     }
     
     let document: BaseDocument
