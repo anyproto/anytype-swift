@@ -1127,9 +1127,9 @@ internal enum Loc {
 
   internal enum SimpleTableMenu {
     internal enum Item {
-      /// Clear contents
+      /// Clear
       internal static let clearContents = Loc.tr("Localizable", "SimpleTableMenu.Item.clearContents")
-      /// Clear style
+      /// Reset style
       internal static let clearStyle = Loc.tr("Localizable", "SimpleTableMenu.Item.clearStyle")
       /// Color
       internal static let color = Loc.tr("Localizable", "SimpleTableMenu.Item.color")
