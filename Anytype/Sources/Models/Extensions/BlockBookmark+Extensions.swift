@@ -4,7 +4,7 @@ import BlocksModels
 extension BlockBookmark {
     init(objectDetails: ObjectDetails) {
         self.init(
-            url: objectDetails.url,
+            source: objectDetails.source,
             title: objectDetails.title,
             theDescription: objectDetails.description,
             imageHash: objectDetails.picture,

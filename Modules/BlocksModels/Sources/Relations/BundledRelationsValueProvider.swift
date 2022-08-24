@@ -25,7 +25,7 @@ public protocol BundledRelationsValueProvider {
     var featuredRelations: [String] { get }
     var isSelectType: Bool { get }
     var isSelectTemplate: Bool { get }
-    var url: String { get }
+    var source: String { get }
     var picture: String { get }
 }
 
@@ -129,8 +129,8 @@ public extension BundledRelationsValueProvider {
         return internalFlag(with: .editorSelectTemplate)
     }
     
-    var url: String {
-        stringValue(with: .url)
+    var source: String {
+        stringValue(with: .source)
     }
     
     var picture: String {
