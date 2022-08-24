@@ -80,7 +80,7 @@ extension FileRelationView {
     private var maxOptions: Int {
         switch style {
         case .regular, .set, .featuredRelationBlock: return 0
-        case .filter, .setGallery: return 1
+        case .filter, .setCollection: return 1
         }
     }
 }

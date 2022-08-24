@@ -1,7 +1,7 @@
 import SwiftUI
 import Kingfisher
 
-struct SetCollectionViewCell: View {
+struct SetGalleryViewCell: View {
     @State private var width: CGFloat = .zero
     let configuration: SetContentViewItemConfiguration
     
@@ -86,12 +86,12 @@ struct SetCollectionViewCell: View {
         RelationValueView(
             relation: RelationItemModel(
                 relation: relationData),
-            style: .setGallery, action: {}
+            style: .setCollection, action: {}
         )
     }
 }
 
-extension SetCollectionViewCell {
+extension SetGalleryViewCell {
     enum Constants {
         static let contentPadding: CGFloat = 16
         static let cornerRadius: CGFloat = 16

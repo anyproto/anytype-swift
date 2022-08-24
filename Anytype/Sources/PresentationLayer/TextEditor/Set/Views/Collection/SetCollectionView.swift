@@ -15,16 +15,7 @@ struct SetCollectionView: View {
             offsetChanged: { offset.y = $0.y }
         ) {
             Spacer.fixedHeight(tableHeaderSize.height)
-            LazyVGrid(
-                columns: columns(),
-                alignment: .center,
-                spacing: SetCollectionView.interCellSpacing,
-                pinnedViews: [.sectionHeaders])
-            {
-                content
-            }
-            .padding(.top, -headerMinimizedSize.height)
-            .padding(.horizontal, 10)
+            contentTypeView
             pagination
         }
         .overlay(
@@ -35,14 +26,74 @@ struct SetCollectionView: View {
         )
     }
     
-    private var content: some View {
+    private var contentTypeView: some View {
+        Group {
+            switch model.contentViewType {
+            case .list:
+                list
+            case .gallery:
+                gallery
+            case .table:
+                EmptyView()
+            }
+        }
+    }
+    
+    // MARK: Gallery view
+    
+    private var gallery: some View {
+        LazyVGrid(
+            columns: columns(),
+            alignment: .center,
+            spacing: SetCollectionView.interCellSpacing,
+            pinnedViews: [.sectionHeaders])
+        {
+            galleryContent
+        }
+        .padding(.top, -headerMinimizedSize.height)
+        .padding(.horizontal, 10)
+    }
+    
+    private var galleryContent: some View {
         Group {
             if model.isEmpty {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
                     ForEach(model.configurations) { configuration in
-                        SetCollectionViewCell(configuration: configuration)
+                        SetGalleryViewCell(configuration: configuration)
+                    }
+                }
+            }
+        }
+    }
+    
+    // MARK: List view
+    
+    private var list: some View {
+        LazyVStack(
+            alignment: .center,
+            spacing: 0,
+            pinnedViews: [.sectionHeaders]
+        ) {
+            listContent
+        }
+        .padding(.top, -headerMinimizedSize.height)
+        .padding(.horizontal, 20)
+    }
+    
+    private var listContent: some View {
+        Group {
+            if model.isEmpty {
+                EmptyView()
+            } else {
+                Section(header: compoundHeader) {
+                    ForEach(model.configurations) { configuration in
+                        if model.configurations.first == configuration {
+                            Divider()
+                        }
+                        SetListViewCell(configuration: configuration)
+                            .divider()
                     }
                 }
             }
@@ -65,6 +116,9 @@ struct SetCollectionView: View {
                         .offset(x: 4, y: 8)
                     Spacer()
                 }
+                Spacer.fixedHeight(
+                    model.contentViewType == .list ? 16 : 6
+                )
             }
         }
         .background(Color.backgroundPrimary)

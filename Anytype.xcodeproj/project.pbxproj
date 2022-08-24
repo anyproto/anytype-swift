@@ -486,7 +486,7 @@
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
 		2E61D470286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */; };
 		2E63047728A54F1900BEF2E9 /* SetContentViewType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047628A54F1900BEF2E9 /* SetContentViewType.swift */; };
-		2E63047928A55D2000BEF2E9 /* SetCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047828A55D2000BEF2E9 /* SetCollectionViewCell.swift */; };
+		2E63047928A55D2000BEF2E9 /* SetGalleryViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047828A55D2000BEF2E9 /* SetGalleryViewCell.swift */; };
 		2E63047B28A55D2A00BEF2E9 /* SetCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047A28A55D2A00BEF2E9 /* SetCollectionView.swift */; };
 		2E63047D28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E63047C28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift */; };
 		2E7C445D2891753B0062287C /* SetFiltersDateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E7C445C2891753B0062287C /* SetFiltersDateView.swift */; };
@@ -518,6 +518,7 @@
 		2E975F06287F00E6004DE574 /* SetFiltersTextViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E975F05287F00E6004DE574 /* SetFiltersTextViewModel.swift */; };
 		2E9EFE62285B45C500C8E47A /* ExceptionalSetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */; };
 		2E9EFE72285B62E500C8E47A /* SetFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E9EFE71285B62E500C8E47A /* SetFilter.swift */; };
+		2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */; };
 		2ECD122928AFE2DA00BD464A /* FlowRelationsStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122828AFE2DA00BD464A /* FlowRelationsStyle.swift */; };
 		2ECD122B28AFE58E00BD464A /* TitleWithIconView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */; };
 		2ECD123028AFE6A900BD464A /* TitleWithIconStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */; };
@@ -1641,7 +1642,7 @@
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
 		2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkStateConverter.swift; sourceTree = "<group>"; };
 		2E63047628A54F1900BEF2E9 /* SetContentViewType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetContentViewType.swift; sourceTree = "<group>"; };
-		2E63047828A55D2000BEF2E9 /* SetCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCollectionViewCell.swift; sourceTree = "<group>"; };
+		2E63047828A55D2000BEF2E9 /* SetGalleryViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetGalleryViewCell.swift; sourceTree = "<group>"; };
 		2E63047A28A55D2A00BEF2E9 /* SetCollectionView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetCollectionView.swift; sourceTree = "<group>"; };
 		2E63047C28AA69ED00BEF2E9 /* SwiftUIObjectHeaderCoverView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwiftUIObjectHeaderCoverView.swift; sourceTree = "<group>"; };
 		2E7C445C2891753B0062287C /* SetFiltersDateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersDateView.swift; sourceTree = "<group>"; };
@@ -1673,6 +1674,7 @@
 		2E975F05287F00E6004DE574 /* SetFiltersTextViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFiltersTextViewModel.swift; sourceTree = "<group>"; };
 		2E9EFE5E285B45C500C8E47A /* ExceptionalSetSort.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExceptionalSetSort.swift; sourceTree = "<group>"; };
 		2E9EFE71285B62E500C8E47A /* SetFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetFilter.swift; sourceTree = "<group>"; };
+		2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SetListViewCell.swift; sourceTree = "<group>"; };
 		2ECD122828AFE2DA00BD464A /* FlowRelationsStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowRelationsStyle.swift; sourceTree = "<group>"; };
 		2ECD122A28AFE58E00BD464A /* TitleWithIconView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconView.swift; sourceTree = "<group>"; };
 		2ECD122F28AFE6A900BD464A /* TitleWithIconStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleWithIconStyle.swift; sourceTree = "<group>"; };
@@ -4406,7 +4408,8 @@
 		2E0DAF3028A4027F00F43320 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				2E63047828A55D2000BEF2E9 /* SetCollectionViewCell.swift */,
+				2EB97A1A28B64CDC002BBB39 /* SetListViewCell.swift */,
+				2E63047828A55D2000BEF2E9 /* SetGalleryViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -7647,7 +7650,7 @@
 				3D34F20C27BE3BE400990C49 /* UIRectCorner+Corners.swift in Sources */,
 				3D932D4426317E3A00C7D1EA /* HomeBottomSheetView.swift in Sources */,
 				3DF80F3B26EF9B37000492F3 /* TextBlockLeftViewStyler.swift in Sources */,
-				2E63047928A55D2000BEF2E9 /* SetCollectionViewCell.swift in Sources */,
+				2E63047928A55D2000BEF2E9 /* SetGalleryViewCell.swift in Sources */,
 				3D7C08272684E21500E2168D /* FileSizeConverter.swift in Sources */,
 				0A6F900E2554826700B94AED /* UnknownLabelViewModel.swift in Sources */,
 				EA3D1E5626CFCE58001A31D9 /* LinkAttributeSelectionHandler.swift in Sources */,
@@ -7900,6 +7903,7 @@
 				12A52E1B26CA88CD000F0333 /* UIEditorBarButtonItem.swift in Sources */,
 				2A2C33232892C63B008BC326 /* RelationValueCoordinatorOutput.swift in Sources */,
 				538AE50F272C57300071DB0D /* LinkToObjectSearchViewModel.swift in Sources */,
+				2EB97A1B28B64CDC002BBB39 /* SetListViewCell.swift in Sources */,
 				03990FB4230CCA2D00C82AD5 /* SettingsView.swift in Sources */,
 				5356072726E61A0F001464A4 /* UnsupportedBlockView.swift in Sources */,
 				1244793127DC575D00581174 /* ListRowConfiguration.swift in Sources */,

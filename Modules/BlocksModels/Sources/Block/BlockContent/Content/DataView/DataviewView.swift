@@ -33,7 +33,8 @@ public struct DataviewView: Hashable, Identifiable {
     
     public var isSupported: Bool {
         type == .table ||
-        (FeatureFlags.setGalleryView && type == .gallery)
+        (FeatureFlags.setGalleryView && type == .gallery) ||
+        (FeatureFlags.setListView && type == .list)
     }
     
     public func updated(
