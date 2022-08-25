@@ -103,7 +103,7 @@ extension ObjectIconImageUsecase {
                 staticImageGuideline: nil,
                 bookmarkImageGuideline: BookmarkIconImageGuideline.x18
             )
-        case .setGallery:
+        case .setCollection:
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: BasicIconImageGuideline.x16,
                 profileImageGuideline: ProfileIconImageGuideline.x16,
