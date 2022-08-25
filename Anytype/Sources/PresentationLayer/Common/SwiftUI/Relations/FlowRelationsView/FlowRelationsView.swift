@@ -57,7 +57,7 @@ struct FlowRelationsView: View {
                     alignment: .leading,
                     spacing: viewModel.style.relationSpacing,
                     cell: { item, index in
-                        HStack(spacing: viewModel.style.relationValueSpacing) {
+                        HStack(spacing: 0) {
                             RelationValueView(
                                 relation: RelationItemModel(relation: item),
                                 style: viewModel.style.relationStyle)

@@ -48,15 +48,8 @@ enum FlowRelationsStyle {
     
     var relationSpacing: CGSize {
         switch self {
-        case .header: return .init(width: 10, height: 10)
-        case .cell: return .init(width: 8, height: 2)
-        }
-    }
-    
-    var relationValueSpacing: CGFloat {
-        switch self {
-        case .header: return 6
-        case .cell: return 0
+        case .header: return .init(width: 6, height: 4)
+        case .cell: return .init(width: 6, height: 2)
         }
     }
     
