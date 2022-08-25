@@ -1,5 +1,5 @@
 
 enum MentionDisplayData: Hashable {
     case mention(MentionObject)
-    case createNewObject
+    case createNewObject(objectName: String)
 }
