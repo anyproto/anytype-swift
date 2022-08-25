@@ -7,9 +7,16 @@ struct FlowRelationsView: View {
     var body: some View {
         VStack(
             alignment: .leading,
-            spacing: viewModel.style.headerToRelationsOffset
+            spacing: viewModel.style.headerToContentOffset
         ) {
             header
+            content
+        }
+    }
+    
+    private var content: some View {
+        VStack(alignment: .leading, spacing: viewModel.style.relationsOffset) {
+            description
             flowRelations
         }
     }
@@ -23,14 +30,12 @@ struct FlowRelationsView: View {
                 style: viewModel.style.titleStyle,
                 onIconTap: viewModel.onIconTap
             )
-            description
         }
     }
     
     private var description: some View {
         Group {
             if let description = viewModel.description, description.isNotEmpty {
-                Spacer.fixedHeight(viewModel.style.descriptionOffset)
                 AnytypeText(
                     description,
                     style: viewModel.style.descriptionFont,
