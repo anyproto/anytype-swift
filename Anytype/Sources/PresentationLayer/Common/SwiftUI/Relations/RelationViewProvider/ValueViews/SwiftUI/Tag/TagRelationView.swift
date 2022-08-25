@@ -64,14 +64,7 @@ struct TagRelationView: View {
                     .background(Color.strokeTertiary)
                     .cornerRadius(3)
             case .filter, .setCollection:
-                TagView(
-                    viewModel: TagView.Model(
-                        text: leftTagsCount,
-                        textColor: .textSecondary,
-                        backgroundColor: UIColor.TagBackground.grey
-                    ),
-                    style: style
-                )
+                CountTagView(count: count, style: style)
             }
         }
     }
