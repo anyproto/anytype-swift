@@ -160,6 +160,7 @@
 "Sign up error" = "No internet connection / invalid invitation code";
 "Account recover error" = "Account recover error, try again";
 "Account recover error no internet" = "Account recover error, probably no internet connection";
+"SignUp.InvintationCode.Placeholder" = "Invitation code";
 
 
 // Auth Errors
@@ -351,6 +352,9 @@
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%s days ago";
 "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%s days from now";
 
+// MARK: - Sets: Featured relations
+"Set.FeaturedRelations.Source" = "Source";
+
 // MARK: - Sets: Filters search
 "Set.Filters.Search.Button.Title" = "Apply";
 
@@ -365,6 +369,9 @@
 "Set.View.Settings.CardSize.Small.Title" = "Small";
 "Set.View.Settings.CardSize.Large.Title" = "Large";
 "Set.View.Settings.ImagePreview.Title" = "Image preview";
+
+// MARK: - Set source type
+"Set.SourceType.SelectSource" = "Select source";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";

@@ -5,6 +5,10 @@ import Combine
 import AnytypeCore
 
 final class DataviewService: DataviewServiceProtocol {
+    enum Constants {
+        static let dataview = "dataview"
+    }
+
     private let objectId: BlockId
     private let prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilderProtocol
     
@@ -73,5 +77,16 @@ final class DataviewService: DataviewServiceProtocol {
         guard let id = idString else { return nil }
 
         return ObjectDetails(id: id, values: response.record.fields)
+    }
+
+    func setSource(typeObjectId: String) {
+        Anytype_Rpc.BlockDataview.SetSource.Service.invoke(
+            contextID: objectId,
+            blockID: Constants.dataview,
+            source: [typeObjectId]
+        )
+        .map { EventsBunch(event: $0.event) }
+        .getValue(domain: .dataviewService)?
+        .send()
     }
 }

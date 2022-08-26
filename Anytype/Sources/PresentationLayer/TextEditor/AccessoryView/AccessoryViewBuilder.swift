@@ -43,9 +43,12 @@ struct AccessoryViewBuilder {
             objectService: ServiceLocator.shared.objectActionsService(),
             document: document
         ) { [weak router, weak actionHandler] in
-            router?.showTypesSearch(onSelect: { id in
-                actionHandler?.setObjectTypeUrl(id)
-            })
+            router?.showTypesSearch(
+                title: Loc.changeType,
+                onSelect: { id in
+                    actionHandler?.setObjectTypeUrl(id)
+                }
+            )
         }
 
         let typeListViewModel = HorizonalTypeListViewModel(itemProvider: changeTypeViewModel)

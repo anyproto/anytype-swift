@@ -6,6 +6,8 @@ import AnytypeCore
 // TODO: Migrate to ServicesDI
 final class ServiceLocator {
     static let shared = ServiceLocator()
+
+    let textService = TextService()
     
     // MARK: - Services
     

@@ -29,6 +29,8 @@ protocol ObjectActionsServiceProtocol {
     ) -> BlockId?
     
     func setObjectType(objectId: BlockId, objectTypeUrl: String)
+    func setObjectSetType(objectId: BlockId) -> BlockId
+
     func applyTemplate(objectId: BlockId, templateId: BlockId)
     
     func undo(objectId: BlockId) throws

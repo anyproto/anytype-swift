@@ -10,6 +10,8 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showAlert(alertModel: AlertModel)
 
     func showPage(data: EditorScreenData)
+    func replaceCurrentPage(with data: EditorScreenData)
+    
     func openUrl(_ url: URL)
     func showBookmarkBar(completion: @escaping (AnytypeURL) -> ())
     func showLinkMarkup(url: AnytypeURL?, completion: @escaping (AnytypeURL?) -> Void)
@@ -49,7 +51,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
     )
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
-    func showTypesSearch(onSelect: @escaping (BlockId) -> ())
+    func showTypesSearch(title: String, onSelect: @escaping (BlockId) -> ())
     func showObjectPreview(blockLinkAppearance: BlockLink.Appearance, onSelect: @escaping (BlockLink.Appearance) -> Void)
     
     func showRelationValueEditingView(key: String, source: RelationSource)

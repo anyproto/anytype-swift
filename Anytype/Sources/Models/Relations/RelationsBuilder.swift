@@ -535,7 +535,9 @@ private extension RelationMetadata {
     
     func isEditable(objectLocked: Bool) -> Bool {
         guard !objectLocked else { return false }
-        
+
+        if id == BundledRelationKey.setOf.rawValue { return true }
+
         return !self.isReadOnly
     }
     

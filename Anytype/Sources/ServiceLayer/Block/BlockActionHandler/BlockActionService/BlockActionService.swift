@@ -137,6 +137,10 @@ final class BlockActionService: BlockActionServiceProtocol {
         pageService.setObjectType(objectId: documentId, objectTypeUrl: objectTypeUrl)
     }
 
+    func setObjectSetType() -> BlockId {
+        pageService.setObjectSetType(objectId: documentId)
+    }
+
     private func setFocus(model: BlockViewModelProtocol) {
         if case let .text(text) = model.info.content {
             model.set(focus: .at(text.endOfTextRangeWithMention))

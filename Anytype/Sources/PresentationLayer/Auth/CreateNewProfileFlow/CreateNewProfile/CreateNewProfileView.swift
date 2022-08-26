@@ -51,12 +51,13 @@ struct CreateNewProfileView: View {
             }
             Spacer.fixedHeight(6)
             
-            AutofocusedTextField(placeholder: "", text: $signUpData.userName)
+            AutofocusedTextField(
+                placeholder: Loc.enterYourName,
+                placeholderFont: .uxBodyRegular,
+                text: $signUpData.userName
+            )
                 .foregroundColor(.textPrimary)
                 .font(AnytypeFontBuilder.font(anytypeFont: .heading))
-                .placeholder(when: signUpData.userName.isEmpty) {
-                    AnytypeText(Loc.enterYourName, style: .heading, color: .textTertiary)
-                }
                 .disableAutocorrection(true)
                 .divider(spacing: 10)
             

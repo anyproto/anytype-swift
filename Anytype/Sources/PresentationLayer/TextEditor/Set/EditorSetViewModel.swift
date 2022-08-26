@@ -5,11 +5,13 @@ import ProtobufMessages
 import SwiftUI
 
 final class EditorSetViewModel: ObservableObject {
+    @Published var titleString: String
     @Published var dataView = BlockDataview.empty
     @Published private var records: [ObjectDetails] = []
     @Published private(set) var headerModel: ObjectHeaderViewModel!
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
+    @Published var featuredRelations = [Relation]()
     
     @Published var sorts: [SetSort] = []
     @Published var filters: [SetFilter] = []
@@ -57,11 +59,7 @@ final class EditorSetViewModel: ObservableObject {
     var details: ObjectDetails? {
         document.details
     }
-    
-    var featuredRelations: [Relation] {
-        document.featuredRelationsForEditor
-    }
-    
+
     var relations: [RelationMetadata] {
         activeView.options.compactMap { option in
             let metadata = dataView.relations.first { relation in
@@ -75,18 +73,18 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    var flowRelationsViewModel: FlowRelationsViewModel {
-        FlowRelationsViewModel(
-            title: details.flatMap { $0.title },
-            description: details?.description,
-            relations: featuredRelations,
-            style: .header,
-            onRelationTap: { [weak self] relation in
-                AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-                self?.showRelationValueEditingView(key: relation.id, source: .object)
-            }
-        )
-    }
+//    var flowRelationsViewModel: FlowRelationsViewModel {
+//        FlowRelationsViewModel(
+//            title: details.flatMap { $0.title },
+//            description: details?.description,
+//            relations: featuredRelations,
+////            style: .header,
+//            onRelationTap: { [weak self] relation in
+//                AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+//                self?.showRelationValueEditingView(key: relation.id, source: .object)
+//            }
+//        )
+//    }
     
     private var isObjectLocked: Bool {
         document.isLocked ||
@@ -98,33 +96,50 @@ final class EditorSetViewModel: ObservableObject {
     private var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
-    private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
     private let dataBuilder = SetContentViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
+    private let textService: TextServiceProtocol
+    private var subscriptions = [AnyCancellable]()
+
     
     init(
         document: BaseDocument,
         dataviewService: DataviewServiceProtocol,
         searchService: SearchServiceProtocol,
-        detailsService: DetailsServiceProtocol
+        detailsService: DetailsServiceProtocol,
+        textService: TextServiceProtocol
     ) {
         ObjectTypeProvider.shared.resetCache()
         self.document = document
         self.dataviewService = dataviewService
         self.searchService = searchService
         self.detailsService = detailsService
+        self.textService = textService
+
+        self.titleString = document.details?.title ?? ""
+        self.featuredRelations = document.featuredRelationsForEditor
     }
     
     func setup(router: EditorRouterProtocol) {
         self.router = router
         self.headerModel = ObjectHeaderViewModel(document: document, router: router, isOpenedForPreview: false)
         
-        subscription = document.updatePublisher.sink { [weak self] in
+        document.updatePublisher.sink { [weak self] in
             self?.onDataChange($0)
-        }
+        }.store(in: &subscriptions)
+
+        $titleString.sink { [weak self] newValue in
+            guard let self = self else { return }
+
+            self.textService.setText(
+                contextId: self.document.objectId,
+                blockId: "title",
+                middlewareString: .init(text: newValue, marks: .init())
+            )
+        }.store(in: &subscriptions)
         
         Task { @MainActor in
             do {
@@ -149,6 +164,11 @@ final class EditorSetViewModel: ObservableObject {
     func onDisappear() {
         subscriptionService.stopAllSubscriptions()
     }
+
+    func onRelationTap(relation: Relation) {
+        AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+        showRelationValueEditingView(key: relation.id, source: .object)
+    }
     
     func updateActiveViewId(_ id: BlockId) {
         document.infoContainer.updateDataview(blockId: SetConstants.dataviewBlockId) { dataView in
@@ -172,7 +192,7 @@ final class EditorSetViewModel: ObservableObject {
             )
         ) { [weak self] subId, update in
             guard let self = self else { return }
-            
+
             if case let .pageCount(count) = update {
                 self.updatePageCount(count)
                 return
@@ -191,6 +211,7 @@ final class EditorSetViewModel: ObservableObject {
             setupDataview()
         case .syncStatus, .blocks, .details, .dataSourceUpdate:
             objectWillChange.send()
+            setupDataview()
         case .header:
             break // handled in ObjectHeaderViewModel
         }
@@ -208,6 +229,7 @@ final class EditorSetViewModel: ObservableObject {
         updateSorts()
         updateFilters()
         setupSubscriptions()
+        featuredRelations = document.featuredRelationsForEditor
     }
     
     private func updateActiveViewId() {
@@ -294,6 +316,14 @@ final class EditorSetViewModel: ObservableObject {
 extension EditorSetViewModel {
 
     func showRelationValueEditingView(key: String, source: RelationSource) {
+        if key == BundledRelationKey.setOf.rawValue {
+            router.showTypesSearch(title: Loc.Set.SourceType.selectSource) { [weak self] typeObjectId in
+                self?.dataviewService.setSource(typeObjectId: typeObjectId)
+            }
+
+            return
+        }
+
         AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
 
         router.showRelationValueEditingView(key: key, source: source)
@@ -402,6 +432,7 @@ extension EditorSetViewModel {
         document: BaseDocument(objectId: "objectId"),
         dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
         searchService: SearchService(),
-        detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService())
+        detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService()),
+        textService: TextService()
     )
 }

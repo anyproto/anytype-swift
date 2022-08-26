@@ -1,8 +1,8 @@
 import SwiftUI
 
 struct AnytypeTextField: View {
-    var style: AnytypeFont = .uxBodyRegular
     let placeholder: String
+    let placeholderFont: AnytypeFont
     @Binding var text: String
     
     @State private var textFieldHeight: CGFloat = 0
@@ -10,11 +10,9 @@ struct AnytypeTextField: View {
     var body: some View {
         ZStack(alignment: .leading) {
             if text.isEmpty {
-                AnytypeText(placeholder, style: style, color: .buttonActive)
+                AnytypeText(placeholder, style: placeholderFont, color: .textTertiary)
             }
             TextField("", text: $text)
-                .foregroundColor(.textPrimary)
-                .font(AnytypeFontBuilder.font(anytypeFont: style))
                 .readSize {
                     textFieldHeight = $0.height
                 }
@@ -26,7 +24,7 @@ struct AnytypeTextField: View {
 struct AnytypeTextField_Previews: PreviewProvider {
     @State static var text: String = "text"
     static var previews: some View {
-        AnytypeTextField(placeholder: "place", text: $text)
+        AnytypeTextField(placeholder: "place", placeholderFont: .uxBodyRegular, text: $text)
             .background(Color.yellow)
     }
 }

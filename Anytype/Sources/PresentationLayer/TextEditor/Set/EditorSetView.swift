@@ -60,6 +60,12 @@ struct EditorSetView: View {
                 )
             }
         }
+        .overlay(
+            SetFullHeader()
+                .readSize { tableHeaderSize = $0 }
+                .offset(x: 0, y: offset.y)
+            , alignment: .topLeading
+        )
     }
     
     private var placeholder: some View {
