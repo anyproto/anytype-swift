@@ -3,7 +3,7 @@ import AnytypeCore
 enum EditorSetSetting: CaseIterable, Identifiable {
     var id: String { name }
     
-//    case view
+    case view
     case settings
     case sort
     case filter
@@ -11,8 +11,8 @@ enum EditorSetSetting: CaseIterable, Identifiable {
     
     var name: String {
         switch self {
-//        case .view:
-//            return Loc.view
+        case .view:
+            return Loc.view
         case .settings:
             return Loc.settings
         case .sort:
@@ -26,8 +26,8 @@ enum EditorSetSetting: CaseIterable, Identifiable {
     
     var imageAsset: ImageAsset {
         switch self {
-//        case .view:
-//            return .set.view
+        case .view:
+            return .setSettinsView
         case .settings:
             return .setSettingsSettings
         case .sort:
@@ -41,6 +41,10 @@ enum EditorSetSetting: CaseIterable, Identifiable {
     
     static var allCases: Self.AllCases {
         var cases: [EditorSetSetting] = [.settings, .sort]
+        
+        if FeatureFlags.setViewTypes {
+            cases.insert(.view, at: 0)
+        }
         
         if FeatureFlags.isSetFiltersAvailable {
             cases.append(.filter)

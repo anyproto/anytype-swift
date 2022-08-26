@@ -211,7 +211,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func updateActiveViewId() {
-        let activeViewId = dataView.views.first(where: { $0.isSupported })?.id ?? dataView.views.first?.id
+        let activeViewId = dataView.views.first(where: { $0.type.isSupported })?.id ?? dataView.views.first?.id
         if let activeViewId = activeViewId {
             if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
                 self.dataView.activeViewId = activeViewId
@@ -329,6 +329,15 @@ extension EditorSetViewModel {
         }
     }
     
+    func showViewTypes() {
+        router.showViewTypes(
+            setModel: self,
+            completion: { [weak self] type in
+                self?.updateView(with: type)
+            }
+        )
+    }
+    
     func showViewSettings() {
         router.showViewSettings(
             setModel: self,
@@ -390,6 +399,11 @@ extension EditorSetViewModel {
     
     private func createBookmarkObject() {
         router.showCreateBookmarkObject()
+    }
+    
+    private func updateView(with type: DataviewViewType) {
+        let newView = activeView.updated(type: type)
+        dataviewService.updateView(newView)
     }
 }
 

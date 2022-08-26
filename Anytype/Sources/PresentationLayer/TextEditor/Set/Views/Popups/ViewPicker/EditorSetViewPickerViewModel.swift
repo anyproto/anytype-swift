@@ -20,8 +20,8 @@ final class EditorSetViewPickerViewModel: ObservableObject {
             EditorSetViewRowConfiguration(
                 id: view.id,
                 name: view.name,
-                typeName: view.type.name,
-                isSupported: view.isSupported,
+                typeName: view.type.name.lowercased(),
+                isSupported: view.type.isSupported,
                 isActive: view == setModel.activeView,
                 onTap: { [weak self] in
                     self?.handleTap(with: view.id)

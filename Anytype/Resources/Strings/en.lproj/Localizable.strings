@@ -532,10 +532,10 @@
 "DeletionAlert.description" = "You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently";
 
 // MARK: - DataviewType
-"DataviewType.table" = "table";
-"DataviewType.list" = "list";
-"DataviewType.gallery" = "gallery";
-"DataviewType.kanban" = "kanban";
+"DataviewType.grid" = "Grid";
+"DataviewType.list" = "List";
+"DataviewType.gallery" = "Gallery";
+"DataviewType.kanban" = "Kanban";
 
 // MARK: - ObjectType
 "ObjectType.fallbackDescription" = "Blank canvas with no title";

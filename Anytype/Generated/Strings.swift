@@ -752,14 +752,14 @@ internal enum Loc {
   }
 
   internal enum DataviewType {
-    /// gallery
+    /// Gallery
     internal static let gallery = Loc.tr("Localizable", "DataviewType.gallery")
-    /// kanban
+    /// Grid
+    internal static let grid = Loc.tr("Localizable", "DataviewType.grid")
+    /// Kanban
     internal static let kanban = Loc.tr("Localizable", "DataviewType.kanban")
-    /// list
+    /// List
     internal static let list = Loc.tr("Localizable", "DataviewType.list")
-    /// table
-    internal static let table = Loc.tr("Localizable", "DataviewType.table")
   }
 
   internal enum DebugMenu {

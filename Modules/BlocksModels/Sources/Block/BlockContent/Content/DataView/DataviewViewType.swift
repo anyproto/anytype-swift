@@ -1,4 +1,4 @@
-public enum DataviewViewType: Hashable {
+public enum DataviewViewType: Hashable, CaseIterable {
     case table
     case list
     case gallery
