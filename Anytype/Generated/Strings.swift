@@ -1135,6 +1135,17 @@ internal enum Loc {
     }
   }
 
+  internal enum SetViewTypesPicker {
+    /// Edit view
+    internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.Title")
+    internal enum Section {
+      internal enum Types {
+        /// View as
+        internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.Section.Types.Title")
+      }
+    }
+  }
+
   internal enum SimpleTableMenu {
     internal enum Item {
       /// Clear

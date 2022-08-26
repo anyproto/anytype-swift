@@ -1,7 +1,7 @@
 public enum DataviewViewType: Hashable, CaseIterable {
     case table
-    case list
     case gallery
+    case list
     case kanban
     
     public var asMiddleware: DataviewTypeEnum {

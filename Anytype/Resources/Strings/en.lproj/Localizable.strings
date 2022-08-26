@@ -592,3 +592,7 @@
 "RelationAction.CallPhone" = "Call phone numbler";
 "RelationAction.SendEmail" = "Send email";
 "RelationAction.OpenLink" = "Open link";
+
+// MARK: Edit view type
+"SetViewTypesPicker.Title" = "Edit view";
+"SetViewTypesPicker.Section.Types.Title" = "View as";

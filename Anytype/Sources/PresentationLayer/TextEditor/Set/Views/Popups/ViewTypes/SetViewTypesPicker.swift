@@ -7,7 +7,7 @@ struct SetViewTypesPicker: View {
     var body: some View {
         VStack(spacing: 0) {
             DragIndicator()
-            TitleView(title: "Edit view")
+            TitleView(title: Loc.SetViewTypesPicker.title)
             content
             Spacer()
             button
@@ -30,7 +30,7 @@ struct SetViewTypesPicker: View {
     
     private var typesSection: some View {
         Group {
-            sectionTitle("View as")
+            sectionTitle(Loc.SetViewTypesPicker.Section.Types.title)
             ForEach(viewModel.types) {
                 viewType($0)
             }
