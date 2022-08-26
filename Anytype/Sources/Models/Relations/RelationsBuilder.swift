@@ -8,7 +8,7 @@ final class RelationsBuilder {
     private let scope: [RelationMetadata.Scope]
     private let storage: ObjectDetailsStorage
     
-    init(scope: [RelationMetadata.Scope] = [.object], storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
+    init(scope: [RelationMetadata.Scope] = [.object, .type], storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
         self.scope = scope
         self.storage = storage
     }
