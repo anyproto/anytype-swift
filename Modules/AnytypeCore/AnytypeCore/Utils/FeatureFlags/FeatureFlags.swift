@@ -19,7 +19,8 @@ public final class FeatureFlags {
         .relationDetails,
         .bookmarksFlow,
         .bookmarksFlowP2,
-        .setGalleryView
+        .setGalleryView,
+        .setListView
     ]
     
     public static func update(key feature: FeatureDescription, value: Bool) {

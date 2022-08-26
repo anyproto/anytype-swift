@@ -93,7 +93,7 @@ struct SetGalleryViewCell: View {
 
 extension SetGalleryViewCell {
     enum Constants {
-        static let contentPadding: CGFloat = 16
+        static let contentPadding: CGFloat = 12
         static let cornerRadius: CGFloat = 16
         static let smallItemHeight: CGFloat = 112
         static let largeItemHeight: CGFloat = 188

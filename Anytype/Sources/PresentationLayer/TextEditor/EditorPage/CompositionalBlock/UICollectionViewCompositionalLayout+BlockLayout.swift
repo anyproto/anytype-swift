@@ -11,9 +11,9 @@ extension UICollectionViewCompositionalLayout {
     static func flexibleView(
         widthDimension: NSCollectionLayoutDimension = .estimated(20),
         heightDimension: NSCollectionLayoutDimension = .estimated(32),
-        interItemSpacing: NSCollectionLayoutSpacing = .fixed(8),
+        interItemSpacing: NSCollectionLayoutSpacing = .fixed(6),
         groundEdgeSpacing: NSCollectionLayoutEdgeSpacing,
-        interGroupSpacing: CGFloat = 8
+        interGroupSpacing: CGFloat = 4
     ) -> UICollectionViewCompositionalLayout {
         CellCollectionViewCompositionalLayout(
             sectionProvider: {
