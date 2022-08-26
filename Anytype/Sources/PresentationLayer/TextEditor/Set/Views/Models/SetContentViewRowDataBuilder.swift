@@ -4,7 +4,7 @@ import AnytypeCore
 import SwiftProtobuf
 
 final class SetContentViewDataBuilder {
-    private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
+    private let relationsBuilder = RelationsBuilder()
     private let storage = ObjectDetailsStorage.shared
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
