@@ -122,6 +122,7 @@ private extension BlockLinkView {
                 },
                 $0.vStack(
                     $0.hStack(
+                        alignedTo: .leading,
                         titleView,
                         $0.hGap(),
                         deletedLabel
@@ -138,6 +139,8 @@ private extension BlockLinkView {
                 )
             )
         }
+        
+        deletedLabel.horizontalCompressionResistancePriority = .required
     }
 
     func setLayout(configuration: BlockLinkContentConfiguration) {

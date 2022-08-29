@@ -4,7 +4,7 @@ import UIKit
 
 // https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=106%3A745
 struct BlockBookmarkViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable { [ info ] as [AnyHashable] }
+    var hashable: AnyHashable { [ info, objectDetails ] as [AnyHashable] }
     
     let info: BlockInformation
     let bookmarkData: BlockBookmark
