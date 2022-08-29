@@ -21,7 +21,7 @@ struct SetViewTypesPicker: View {
     
     private func sectionTitle(_ title: String) -> some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(26)
+            Spacer.fixedHeight(11)
             AnytypeText(title, style: .caption1Regular, color: .textSecondary)
             Spacer.fixedHeight(8)
         }
