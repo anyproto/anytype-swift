@@ -68,23 +68,5 @@ class NonExistentBlockView: UIView, BlockContentView {
             $0.height.equal(to: Constants.iconSize)
             $0.width.equal(to: Constants.iconSize)
         }
-//
-//        let contentView = UIView()
-//        addSubview(contentView) {
-//            $0.pinToSuperview(insets: Constants.contentInsets)
-//            $0.height.equal(to: Constants.contentHeight)
-//        }
-//
-//        contentView.addSubview(icon) {
-//            $0.leading.equal(to: leadingAnchor, constant: Constants.iconLeftSpacing)
-//            $0.height.equal(to: Constants.iconSize)
-//            $0.width.equal(to: Constants.iconSize)
-//            $0.centerY.equal(to: centerYAnchor)
-//        }
-//
-//        contentView.addSubview(label) {
-//            $0.centerY.equal(to: centerYAnchor)
-//            $0.pinToSuperview(excluding: [.top, .bottom], insets: Constants.labelInsets)
-//        }
     }
 }
