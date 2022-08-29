@@ -20,6 +20,7 @@ public final class FeatureFlags {
         .bookmarksFlow,
         .bookmarksFlowP2,
         .setGalleryView,
+        .setListView,
         .setViewTypes
     ]
     

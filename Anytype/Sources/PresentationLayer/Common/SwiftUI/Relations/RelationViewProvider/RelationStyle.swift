@@ -119,7 +119,7 @@ extension RelationStyle {
         case .featuredRelationBlock, .filter:
             return .featuredRelationsBlock
         case .setCollection:
-            return .setRow
+            return .setCollection
         }
     }
     

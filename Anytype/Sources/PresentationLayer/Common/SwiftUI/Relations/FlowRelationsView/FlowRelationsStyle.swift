@@ -18,14 +18,14 @@ enum FlowRelationsStyle {
         }
     }
     
-    var descriptionOffset: CGFloat {
+    var headerToContentOffset: CGFloat {
         switch self {
         case .header: return 6
-        case .cell: return 5
+        case .cell: return 4
         }
     }
     
-    var headerToRelationsOffset: CGFloat {
+    var relationsOffset: CGFloat {
         switch self {
         case .header: return 8
         case .cell: return 2
@@ -48,15 +48,8 @@ enum FlowRelationsStyle {
     
     var relationSpacing: CGSize {
         switch self {
-        case .header: return .init(width: 10, height: 10)
+        case .header: return .init(width: 6, height: 4)
         case .cell: return .init(width: 6, height: 2)
-        }
-    }
-    
-    var relationValueSpacing: CGFloat {
-        switch self {
-        case .header: return 6
-        case .cell: return 0
         }
     }
     
