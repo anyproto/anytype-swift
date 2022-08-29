@@ -1,27 +1,22 @@
 import SwiftUI
 import BlocksModels
-import Combine
 
 final class SetViewTypesPickerViewModel: ObservableObject {
     @Published var types: [SetViewTypeConfiguration] = []
     
-    private let setModel: EditorSetViewModel
-    private var cancellable: AnyCancellable?
-    
+    private let activeView: DataviewView
     private var selectedType: DataviewViewType = .table
-    private let completion: (DataviewViewType) -> Void
+    private let dataviewService: DataviewServiceProtocol
     
-    init(setModel: EditorSetViewModel, completion: @escaping (DataviewViewType) -> Void){
-        self.setModel = setModel
-        self.selectedType = setModel.activeView.type
-        self.completion = completion
-        self.cancellable = setModel.$dataView.sink { [weak self] _ in
-            self?.updateTypes()
-        }
+    init(activeView: DataviewView, dataviewService: DataviewServiceProtocol) {
+        self.activeView = activeView
+        self.selectedType = activeView.type
+        self.dataviewService = dataviewService
+        self.updateTypes()
     }
     
-    func buttonTapped() {
-        completion(selectedType)
+    func buttonTapped(completion: () -> Void) {
+        updateView(completion: completion)
     }
     
     private func updateTypes() {
@@ -37,6 +32,12 @@ final class SetViewTypesPickerViewModel: ObservableObject {
                 }
             )
         }
+    }
+    
+    private func updateView(completion: () -> Void) {
+        let newView = activeView.updated(type: selectedType)
+        dataviewService.updateView(newView)
+        completion()
     }
     
     private func handleTap(with type: DataviewViewType) {

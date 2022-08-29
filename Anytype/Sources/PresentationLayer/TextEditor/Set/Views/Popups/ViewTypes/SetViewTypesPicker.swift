@@ -73,8 +73,9 @@ struct SetViewTypesPicker: View {
     
     private var button: some View {
         StandardButton(disabled: false, text: Loc.done, style: .primary) {
-            presentationMode.wrappedValue.dismiss()
-            viewModel.buttonTapped()
+            viewModel.buttonTapped() {
+                presentationMode.wrappedValue.dismiss()
+            }
         }
         .padding(.horizontal, 20)
     }

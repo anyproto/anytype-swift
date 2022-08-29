@@ -330,12 +330,7 @@ extension EditorSetViewModel {
     }
     
     func showViewTypes() {
-        router.showViewTypes(
-            setModel: self,
-            completion: { [weak self] type in
-                self?.updateView(with: type)
-            }
-        )
+        router.showViewTypes(activeView: activeView, dataviewService: dataviewService)
     }
     
     func showViewSettings() {
@@ -399,11 +394,6 @@ extension EditorSetViewModel {
     
     private func createBookmarkObject() {
         router.showCreateBookmarkObject()
-    }
-    
-    private func updateView(with type: DataviewViewType) {
-        let newView = activeView.updated(type: type)
-        dataviewService.updateView(newView)
     }
 }
 
