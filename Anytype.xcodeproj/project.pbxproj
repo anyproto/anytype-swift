@@ -112,7 +112,6 @@
 		120F7D58267D071400327734 /* PickerSectionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D57267D071400327734 /* PickerSectionHeaderView.swift */; };
 		120F7D5C267D0C4400327734 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D5B267D0C4400327734 /* Color+Extensions.swift */; };
 		120F7D78267F873500327734 /* BlockBookmarkView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D77267F873500327734 /* BlockBookmarkView.swift */; };
-		120F7D7E267F88FF00327734 /* BlockBookmark+State.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D7D267F88FF00327734 /* BlockBookmark+State.swift */; };
 		120F7D80267F8A2B00327734 /* BlockBookmarkState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D7F267F8A2B00327734 /* BlockBookmarkState.swift */; };
 		120F7D86267F9E8000327734 /* URLExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 120F7D85267F9E8000327734 /* URLExtensions.swift */; };
 		1211AF6627F338EC00BACB88 /* AnytypeImageDownloader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1211AF6527F338EC00BACB88 /* AnytypeImageDownloader.swift */; };
@@ -1293,7 +1292,6 @@
 		120F7D57267D071400327734 /* PickerSectionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerSectionHeaderView.swift; sourceTree = "<group>"; };
 		120F7D5B267D0C4400327734 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
 		120F7D77267F873500327734 /* BlockBookmarkView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkView.swift; sourceTree = "<group>"; };
-		120F7D7D267F88FF00327734 /* BlockBookmark+State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockBookmark+State.swift"; sourceTree = "<group>"; };
 		120F7D7F267F8A2B00327734 /* BlockBookmarkState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkState.swift; sourceTree = "<group>"; };
 		120F7D85267F9E8000327734 /* URLExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLExtensions.swift; sourceTree = "<group>"; };
 		1211AF6527F338EC00BACB88 /* AnytypeImageDownloader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnytypeImageDownloader.swift; sourceTree = "<group>"; };
@@ -5448,7 +5446,6 @@
 		3D7EA8CA268F52C700C76974 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				120F7D7D267F88FF00327734 /* BlockBookmark+State.swift */,
 				120F7D7F267F8A2B00327734 /* BlockBookmarkState.swift */,
 			);
 			path = Models;
@@ -7913,7 +7910,6 @@
 				1215E8B426A860ED0089AF7E /* AppConfiguratorProtocol.swift in Sources */,
 				3DDC6A602627071E004F5EA4 /* BlockLinkState.swift in Sources */,
 				C9614958271829A200360840 /* ImageViewerViewModel.swift in Sources */,
-				120F7D7E267F88FF00327734 /* BlockBookmark+State.swift in Sources */,
 				3D932D4026317E3A00C7D1EA /* HomeViewAssembly.swift in Sources */,
 				12A52E2C26CAA1A2000F0333 /* ViewAnimator+Scale.swift in Sources */,
 				3D1B5F78274CF567007D97AE /* SetTableViewHeader.swift in Sources */,

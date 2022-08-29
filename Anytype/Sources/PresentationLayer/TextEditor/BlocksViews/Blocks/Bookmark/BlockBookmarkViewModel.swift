@@ -8,6 +8,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     
     let info: BlockInformation
     let bookmarkData: BlockBookmark
+    let objectDetails: ObjectDetails?
     
     let showBookmarkBar: (BlockInformation) -> ()
     let openUrl: (URL) -> ()
@@ -15,7 +16,9 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
         let backgroundColor = info.backgroundColor.map(UIColor.Background.uiColor(from:)) ?? nil
 
-        switch bookmarkData.blockBookmarkState {
+        let state = BlockBookmarkState(bookmarkData: bookmarkData, objectDetails: objectDetails)
+        
+        switch state {
         case .none:
             return BlocksFileEmptyViewConfiguration(
                 imageAsset: .TextEditor.BlockFile.Empty.bookmark,

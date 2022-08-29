@@ -176,12 +176,10 @@ final class BlockViewModelBuilder {
                 return NonExistentBlockViewModel(info: info)
             }
             
-            let newData = FeatureFlags.bookmarksFlow
-                ? details.map { BlockBookmark(objectDetails: $0) }
-                : nil
             return BlockBookmarkViewModel(
                 info: info,
-                bookmarkData: newData ?? data,
+                bookmarkData: data,
+                objectDetails: details,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },

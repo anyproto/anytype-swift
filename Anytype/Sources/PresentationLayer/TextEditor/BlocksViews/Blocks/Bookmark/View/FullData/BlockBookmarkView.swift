@@ -1,7 +1,8 @@
 import Combine
 import UIKit
 import BlocksModels
-    
+import AnytypeCore
+
 final class BlockBookmarkView: UIView, BlockContentView {
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,11 +29,25 @@ final class BlockBookmarkView: UIView, BlockContentView {
     private func apply(payload: BlockBookmarkPayload) {
         backgroundView.removeAllSubviews()
         
-        guard !payload.imageHash.isEmpty else {
+        if payload.imageHash.isEmpty {
             layoutWithoutImage(payload: payload)
-            return
+        } else {
+            layoutWithImage(payload: payload)
         }
         
+        if FeatureFlags.bookmarksFlowP2 {
+            layoutArchiveLabel(payload: payload)
+        }
+    }
+    
+    private func layoutWithoutImage(payload: BlockBookmarkPayload) {
+        informationView.update(payload: payload)
+        backgroundView.addSubview(informationView) {
+            $0.pinToSuperview()
+        }
+    }
+    
+    private func layoutWithImage(payload: BlockBookmarkPayload) {
         informationView.update(payload: payload)
         imageView.update(imageId: payload.imageHash)
         
@@ -47,10 +62,11 @@ final class BlockBookmarkView: UIView, BlockContentView {
         }
     }
     
-    private func layoutWithoutImage(payload: BlockBookmarkPayload) {
-        informationView.update(payload: payload)
-        backgroundView.addSubview(informationView) {
-            $0.pinToSuperview()
+    private func layoutArchiveLabel(payload: BlockBookmarkPayload) {
+        if payload.isArchived {
+            backgroundView.addSubview(deletedLabel) {
+                $0.pinToSuperview(excluding: [.left, .bottom], insets: Layout.deletedInsets)
+            }
         }
     }
 
@@ -66,10 +82,12 @@ final class BlockBookmarkView: UIView, BlockContentView {
         view.backgroundColor = .clear
         return view
     }()
+    private let deletedLabel = DeletedLabel()
 }
 
 private extension BlockBookmarkView {
     enum Layout {
         static let backgroundViewInsets = UIEdgeInsets(top: 10, left: 0, bottom: -10, right: 0)
+        static let deletedInsets = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: -8)
     }
 }
