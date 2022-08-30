@@ -12,7 +12,7 @@ struct CheckboxRelationView: View {
             featuredRelationBlockIcon
         case .filter:
             filterText(lowercased: true)
-        case .setGallery:
+        case .setCollection:
             filterText()
         }
     }

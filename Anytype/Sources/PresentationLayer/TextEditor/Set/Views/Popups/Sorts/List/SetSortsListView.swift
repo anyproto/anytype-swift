@@ -1,8 +1,7 @@
 import SwiftUI
 
 struct SetSortsListView: View {
-    @EnvironmentObject var setModel: EditorSetViewModel
-    @EnvironmentObject var viewModel: SetSortsListViewModel
+    @ObservedObject var viewModel: SetSortsListViewModel
     
     @State private var editMode = EditMode.inactive
     

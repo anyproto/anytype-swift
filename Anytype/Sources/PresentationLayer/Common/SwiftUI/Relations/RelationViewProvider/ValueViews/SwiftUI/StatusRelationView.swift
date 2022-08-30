@@ -39,7 +39,7 @@ struct StatusRelationView: View {
             statusView(options: Array(options.prefix(maxOptions)))
 
             if moreObjectsCount > 0 {
-                countView(count: moreObjectsCount)
+                CountTagView(count: moreObjectsCount, style: style)
             }
         }
         .padding(.horizontal, 1)
@@ -50,26 +50,13 @@ struct StatusRelationView: View {
             statusView(option: option)
         }
     }
-    
-    private func countView(count: Int) -> some View {
-        let optionsCount = "+\(count)"
-
-        return TagView(
-            viewModel: TagView.Model(
-                text: optionsCount,
-                textColor: .textSecondary,
-                backgroundColor: UIColor.TagBackground.grey
-            ),
-            style: style
-        )
-    }
 }
 
 extension StatusRelationView {
     private var maxOptions: Int {
         switch style {
         case .regular, .set, .featuredRelationBlock: return 0
-        case .filter, .setGallery: return 1
+        case .filter, .setCollection: return 1
         }
     }
 }

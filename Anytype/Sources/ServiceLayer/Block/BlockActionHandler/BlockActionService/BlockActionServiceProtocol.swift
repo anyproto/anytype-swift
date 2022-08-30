@@ -24,7 +24,7 @@ protocol BlockActionServiceProtocol {
         newBlockContentType: BlockText.Style
     )
     
-    func bookmarkFetch(blockId: BlockId, url: String)
+    func bookmarkFetch(blockId: BlockId, url: AnytypeURL)
     
     func setBackgroundColor(blockIds: [BlockId], color: BlockBackgroundColor)
     func setBackgroundColor(blockIds: [BlockId], color: MiddlewareColor)

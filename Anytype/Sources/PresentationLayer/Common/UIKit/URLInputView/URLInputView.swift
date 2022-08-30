@@ -58,11 +58,11 @@ final class URLInputView: UIView {
     }
     
     private var notificationToken: NSObjectProtocol?
-    private let didSetURL: (URL?) -> Void
+    private let didSetURL: (AnytypeURL?) -> Void
     
     init(
-        url: URL? = nil,
-        didSetURL: @escaping (URL?) -> Void
+        url: AnytypeURL? = nil,
+        didSetURL: @escaping (AnytypeURL?) -> Void
     ) {
         self.didSetURL = didSetURL
         super.init(frame: .zero)
@@ -70,7 +70,7 @@ final class URLInputView: UIView {
         textField.text = url?.absoluteString
     }
     
-    func updateUrl(_ url: URL?) {
+    func updateUrl(_ url: AnytypeURL?) {
         textField.text = url?.absoluteString
     }
     
@@ -126,7 +126,7 @@ final class URLInputView: UIView {
             didSetURL(nil)
             return
         }
-        if let text = textField.text, let url = URL(string: text) {
+        if let text = textField.text, let url = AnytypeURL(string: text) {
             didSetURL(url)
         }
     }

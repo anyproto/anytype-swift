@@ -1,5 +1,3 @@
-import Foundation
-
 struct SlashMenuItemDisplayData {
     let iconData: ObjectIconImage
     let title: String

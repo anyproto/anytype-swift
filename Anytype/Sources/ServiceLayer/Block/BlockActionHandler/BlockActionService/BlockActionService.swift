@@ -154,8 +154,8 @@ private extension BlockActionService {
 // MARK: - BookmarkFetch
 
 extension BlockActionService {
-    func bookmarkFetch(blockId: BlockId, url: String) {
-        bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url)
+    func bookmarkFetch(blockId: BlockId, url: AnytypeURL) {
+        bookmarkService.fetchBookmark(contextID: self.documentId, blockID: blockId, url: url.absoluteString)
     }
 
     func createAndFetchBookmark(

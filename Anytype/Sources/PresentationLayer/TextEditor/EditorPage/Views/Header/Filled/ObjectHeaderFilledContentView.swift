@@ -52,11 +52,6 @@ final class ObjectHeaderFilledContentView: UIView, BlockContentView {
         .sink {
             self.updateCoverTransform($0)
         }
-
-
-
-
-        print("isShimmering \(shimmeringView.isShimmering)")
     }
 
     func update(with state: UICellConfigurationState) {

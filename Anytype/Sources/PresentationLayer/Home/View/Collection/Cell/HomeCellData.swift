@@ -7,8 +7,9 @@ import AnytypeCore
 struct HomeCellData: Identifiable, IdProvider {
     let id: BlockId
     let destinationId: BlockId
-    let icon: ObjectIconType?
-    let title: Title
+    let icon: ObjectIconImage?
+    let title: String
+    let titleLayout: TitleLayout
     let type: String
     let isLoading: Bool
     let isArchived: Bool
@@ -20,8 +21,9 @@ struct HomeCellData: Identifiable, IdProvider {
         HomeCellData(
             id: details.id,
             destinationId: details.id,
-            icon: details.icon,
+            icon: details.objectIconImage,
             title: details.pageCellTitle,
+            titleLayout: details.homeLayout,
             type: details.objectType.name,
             isLoading: false,
             isArchived: details.isArchived,
@@ -34,18 +36,8 @@ struct HomeCellData: Identifiable, IdProvider {
 
 extension HomeCellData {
     
-    enum Title {
-        case `default`(title: String)
-        case todo(title: String, isChecked: Bool)
-        
-        var isTodo: Bool {
-            switch self {
-            case .todo:
-                return true
-            default:
-                return false
-            }
-        }
+    enum TitleLayout {
+        case horizontal
+        case vertical
     }
-    
 }

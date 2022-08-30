@@ -6,6 +6,10 @@ extension String {
         !isEmpty && !contains { !$0.isEmoji }
     }
     
+    var leftIndented: String {
+        return "      " + self
+    }
+    
     func image(fontPointSize: CGFloat) -> UIImage? {
         let font = UIFont.systemFont(ofSize: fontPointSize)
         let actualSize = NSString(string: self).boundingRect(with:  CGSize(width: CGFloat.greatestFiniteMagnitude,

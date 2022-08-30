@@ -115,7 +115,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         return nil
     }
     
-    func bookmarkFetch(blockId: BlockId, url: String) {
+    func bookmarkFetch(blockId: BlockId, url: AnytypeURL) {
         assertionFailure()
     }
     

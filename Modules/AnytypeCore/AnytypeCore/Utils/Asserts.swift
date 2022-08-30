@@ -13,8 +13,6 @@ public func anytypeAssertionFailure(
         if FeatureFlags.showAlertOnAssert {
             showAssertionAlert(message)
         }
-    #elseif DEBUG
-        assertionFailure(message, file: file, line: line)
     #endif
 }
 

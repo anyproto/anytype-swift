@@ -41,8 +41,10 @@ enum SimpleTableColumnMenuItem: CaseIterable {
     case insertRight
     case moveLeft
     case moveRight
-    case duplicate
     case delete
+    // Paste
+    // Copy
+    case duplicate
     case clearContents
     case sort
     case color
@@ -102,10 +104,12 @@ enum SimpleTableColumnMenuItem: CaseIterable {
 enum SimpleTableRowMenuItem: CaseIterable {
     case insertAbove
     case insertBelow
-    case moveUp
     case moveDown
-    case duplicate
+    case moveUp
     case delete
+    // Paste
+    // Copy
+    case duplicate
     case clearContents
     case color
     case style

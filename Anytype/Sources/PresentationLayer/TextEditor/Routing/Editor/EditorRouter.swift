@@ -102,14 +102,14 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         urlOpener.openUrl(url)
     }
     
-    func showBookmarkBar(completion: @escaping (URL) -> ()) {
+    func showBookmarkBar(completion: @escaping (AnytypeURL) -> ()) {
         showURLInputViewController { url in
             guard let url = url else { return }
             completion(url)
         }
     }
     
-    func showLinkMarkup(url: URL?, completion: @escaping (URL?) -> Void) {
+    func showLinkMarkup(url: AnytypeURL?, completion: @escaping (AnytypeURL?) -> Void) {
         showURLInputViewController(url: url, completion: completion)
     }
     
@@ -203,8 +203,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         presentSwiftUIView(view: moveToView, model: nil)
     }
 
-    func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()) {
-        let viewModel = LinkToObjectSearchViewModel { data in
+    func showLinkToObject(
+        currentLink: Either<URL, BlockId>?,
+        onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
+    ) {
+        let viewModel = LinkToObjectSearchViewModel(currentLink: currentLink) { data in
             onSelect(data.searchKind)
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
@@ -436,8 +439,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     private func showURLInputViewController(
-        url: URL? = nil,
-        completion: @escaping(URL?) -> Void
+        url: AnytypeURL? = nil,
+        completion: @escaping(AnytypeURL?) -> Void
     ) {
         let controller = URLInputViewController(url: url, didSetURL: completion)
         controller.modalPresentationStyle = .overCurrentContext
@@ -584,9 +587,7 @@ extension EditorRouter {
             router: self
         )
         let vc = UIHostingController(
-            rootView: SetSortsListView()
-                .environmentObject(viewModel)
-                .environmentObject(setModel)
+            rootView: SetSortsListView(viewModel: viewModel)
         )
         presentSheet(vc)
     }
@@ -598,9 +599,7 @@ extension EditorRouter {
             router: self
         )
         let vc = UIHostingController(
-            rootView: SetFiltersListView()
-                .environmentObject(viewModel)
-                .environmentObject(setModel)
+            rootView: SetFiltersListView(viewModel: viewModel)
         )
         presentSheet(vc)
     }

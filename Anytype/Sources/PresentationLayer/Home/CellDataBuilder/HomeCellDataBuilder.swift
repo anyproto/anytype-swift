@@ -55,8 +55,9 @@ final class HomeCellDataBuilder {
         return HomeCellData(
             id: pageLink.blockId,
             destinationId: pageLink.targetBlockId,
-            icon: pageLink.details?.icon,
-            title: pageLink.details?.pageCellTitle ?? .default(title: ""),
+            icon: pageLink.details?.objectIconImage,
+            title: pageLink.details?.pageCellTitle ?? "",
+            titleLayout: .vertical,
             type: type,
             isLoading: pageLink.isLoading,
             isArchived: pageLink.isArchived,
@@ -70,8 +71,9 @@ final class HomeCellDataBuilder {
         return HomeCellData(
             id: oldData.id,
             destinationId: oldData.destinationId,
-            icon: newDetails.icon,
+            icon: newDetails.objectIconImage,
             title: newDetails.pageCellTitle,
+            titleLayout: newDetails.homeLayout,
             type: oldData.type,
             isLoading: false,
             isArchived: newDetails.isArchived,

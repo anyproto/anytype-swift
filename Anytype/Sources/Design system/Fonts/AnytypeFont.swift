@@ -126,12 +126,14 @@ enum AnytypeFont: CaseIterable {
             return -0.28
         case .previewTitle1Medium, .body, .uxTitle1Semibold, .uxBodyRegular, .button1Regular, .button1Semibold:
             return -0.41
-        case .previewTitle2Regular, .relation3Regular, .previewTitle2Medium, .callout, .relation1Regular, .codeBlock, .uxTitle2Regular, .uxTitle2Medium, .uxCalloutMedium, .uxCalloutRegular:
+        case .previewTitle2Regular, .previewTitle2Medium, .callout, .relation1Regular, .codeBlock, .uxTitle2Regular, .uxTitle2Medium, .uxCalloutMedium, .uxCalloutRegular:
             return -0.24
         case .caption1Medium, .relation2Regular, .caption1Regular:
             return -0.08
         case .caption2Regular, .caption2Medium:
             return -0.07
+        case .relation3Regular:
+            return 0
         }
     }
 

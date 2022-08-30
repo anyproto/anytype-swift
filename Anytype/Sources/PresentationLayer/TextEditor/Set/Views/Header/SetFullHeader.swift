@@ -15,47 +15,9 @@ struct SetFullHeader: View {
     private var header: some View {
         VStack(alignment: .leading, spacing: 0) {
             cover
-            
-            model.details.flatMap {
-                AnytypeText($0.title, style: .title, color: .textPrimary)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding(.horizontal, 20)
-            }
-            
-            description
-            
-            Spacer.fixedHeight(8)
-            
-            featuredRelations
+            flowRelationsHeader
         }
         .readSize { width = $0.width }
-    }
-    
-    private var description: some View {
-        Group {
-            if let description = model.details?.description, description.isNotEmpty {
-                Spacer.fixedHeight(6)
-                AnytypeText(description, style: .relation2Regular, color: .textPrimary)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding(.horizontal, 20)
-            } else {
-                EmptyView()
-            }
-        }
-    }
-    
-    private var featuredRelations: some View {
-        FlowRelationsView(
-            viewModel: FlowRelationsViewModel(
-                relations: model.featuredRelations,
-                onRelationTap: { relation in
-                    AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-                    
-                    model.showRelationValueEditingView(key: relation.id, source: .object)
-                }
-            )
-        )
-            .padding(.horizontal, 20)
     }
     
     private var cover: some View {
@@ -80,6 +42,11 @@ struct SetFullHeader: View {
             }
 
         }
+    }
+    
+    private var flowRelationsHeader: some View {
+        FlowRelationsView(viewModel: model.flowRelationsViewModel)
+            .padding(.horizontal, 20)
     }
 }
 

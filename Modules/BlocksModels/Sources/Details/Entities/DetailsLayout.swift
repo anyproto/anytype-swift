@@ -3,6 +3,7 @@ public enum DetailsLayout: Int, CaseIterable {
     case profile = 1
     case todo = 2
     case set = 3
+    case bookmark = 11
 //    case objectType = 4
 //    case relation = 5
 //    case file = 6

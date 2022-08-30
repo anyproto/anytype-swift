@@ -11,6 +11,9 @@ final class EditorSetViewModel: ObservableObject {
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
     
+    @Published var sorts: [SetSort] = []
+    @Published var filters: [SetFilter] = []
+    
     var isEmpty: Bool {
         dataView.views.isEmpty
     }
@@ -59,17 +62,6 @@ final class EditorSetViewModel: ObservableObject {
         document.featuredRelationsForEditor
     }
     
-    var sorts: [SetSort] {
-        activeView.sorts.uniqued().compactMap { sort in
-            let metadata = dataView.relations.first { relation in
-                sort.relationKey == relation.key
-            }
-            guard let metadata = metadata else { return nil }
-            
-            return SetSort(metadata: metadata, sort: sort)
-        }
-    }
-    
     var relations: [RelationMetadata] {
         activeView.options.compactMap { option in
             let metadata = dataView.relations.first { relation in
@@ -83,19 +75,23 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    var filters: [SetFilter] {
-        activeView.filters.compactMap { filter in
-            let metadata = dataView.relations.first { relation in
-                filter.relationKey == relation.key
+    var flowRelationsViewModel: FlowRelationsViewModel {
+        FlowRelationsViewModel(
+            title: details.flatMap { $0.title },
+            description: details?.description,
+            relations: featuredRelations,
+            style: .header,
+            onRelationTap: { [weak self] relation in
+                AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
+                self?.showRelationValueEditingView(key: relation.id, source: .object)
             }
-            guard let metadata = metadata else { return nil }
-            
-            return SetFilter(metadata: metadata, filter: filter)
-        }
+        )
     }
     
     private var isObjectLocked: Bool {
-        document.isLocked || activeView.type == .gallery
+        document.isLocked ||
+        (FeatureFlags.setGalleryView && activeView.type == .gallery) ||
+        (FeatureFlags.setListView && activeView.type == .list)
     }
     
     let document: BaseDocument
@@ -209,6 +205,8 @@ final class EditorSetViewModel: ObservableObject {
         self.dataView = document.dataviews.first ?? .empty
         
         updateActiveViewId()
+        updateSorts()
+        updateFilters()
         setupSubscriptions()
     }
     
@@ -220,6 +218,28 @@ final class EditorSetViewModel: ObservableObject {
             }
         } else {
             dataView.activeViewId = ""
+        }
+    }
+    
+    private func updateSorts() {
+        sorts = activeView.sorts.uniqued().compactMap { sort in
+            let metadata = dataView.relations.first { relation in
+                sort.relationKey == relation.key
+            }
+            guard let metadata = metadata else { return nil }
+            
+            return SetSort(metadata: metadata, sort: sort)
+        }
+    }
+    
+    private func updateFilters() {
+        filters = activeView.filters.compactMap { filter in
+            let metadata = dataView.relations.first { relation in
+                filter.relationKey == relation.key
+            }
+            guard let metadata = metadata else { return nil }
+            
+            return SetFilter(metadata: metadata, filter: filter)
         }
     }
     
@@ -236,8 +256,12 @@ final class EditorSetViewModel: ObservableObject {
         relationMetadata.format != .unrecognized
     }
     
-    private func isBookmarkObject() -> Bool {
+    private func isBookmarksSet() -> Bool {
         dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
+    }
+    
+    private func isNotesSet() -> Bool {
+        dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.note.rawValue)
     }
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {
@@ -249,12 +273,11 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func itemTapped(_ details: ObjectDetails) {
-        if !FeatureFlags.bookmarksFlow && isBookmarkObject(),
+        if !FeatureFlags.bookmarksFlow && isBookmarksSet(),
            let url = url(from: details) {
             router.openUrl(url)
         } else {
-            let screenData = EditorScreenData(pageId: details.id, type: details.editorViewType)
-            router.showPage(data: screenData)
+            openObject(pageId: details.id, type: details.editorViewType)
         }
     }
     
@@ -299,7 +322,7 @@ extension EditorSetViewModel {
     }
 
     func createObject() {
-        if isBookmarkObject() {
+        if isBookmarksSet() {
             createBookmarkObject()
         } else {
             createDefaultObject()
@@ -349,7 +372,20 @@ extension EditorSetViewModel {
 
         guard let objectDetails = dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
         
-        router.showCreateObject(pageId: objectDetails.id)
+        handleCreatedObjectDetails(objectDetails)
+    }
+    
+    private func handleCreatedObjectDetails(_ objectDetails: ObjectDetails) {
+        if isNotesSet() {
+            openObject(pageId: objectDetails.id, type: objectDetails.editorViewType)
+        } else {
+            router.showCreateObject(pageId: objectDetails.id)
+        }
+    }
+    
+    private func openObject(pageId: BlockId, type: EditorViewType) {
+        let screenData = EditorScreenData(pageId: pageId, type: type)
+        router.showPage(data: screenData)
     }
     
     private func createBookmarkObject() {
