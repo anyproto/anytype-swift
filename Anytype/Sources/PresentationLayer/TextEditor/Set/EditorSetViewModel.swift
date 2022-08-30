@@ -233,7 +233,7 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func updateActiveViewId() {
-        let activeViewId = dataView.views.first(where: { $0.isSupported })?.id ?? dataView.views.first?.id
+        let activeViewId = dataView.views.first(where: { $0.type.isSupported })?.id ?? dataView.views.first?.id
         if let activeViewId = activeViewId {
             if self.dataView.activeViewId.isEmpty || !dataView.views.contains(where: { $0.id == self.dataView.activeViewId }) {
                 self.dataView.activeViewId = activeViewId
@@ -357,6 +357,10 @@ extension EditorSetViewModel {
         } else {
             createDefaultObject()
         }
+    }
+    
+    func showViewTypes() {
+        router.showViewTypes(activeView: activeView, dataviewService: dataviewService)
     }
     
     func showViewSettings() {
