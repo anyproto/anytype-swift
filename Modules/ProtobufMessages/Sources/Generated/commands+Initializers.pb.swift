@@ -363,11 +363,12 @@ extension Anytype_Rpc.Block.ListDelete.Response.Error {
 }
 
 extension Anytype_Rpc.Block.ListDuplicate.Request {
-    public init(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none) {
+    public init(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, targetContextID: String = String()) {
         self.contextID = contextID
         self.targetID = targetID
         self.blockIds = blockIds
         self.position = position
+        self.targetContextID = targetContextID
     }
 }
 
