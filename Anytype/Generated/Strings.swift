@@ -752,14 +752,14 @@ internal enum Loc {
   }
 
   internal enum DataviewType {
-    /// gallery
+    /// Gallery
     internal static let gallery = Loc.tr("Localizable", "DataviewType.gallery")
-    /// kanban
+    /// Grid
+    internal static let grid = Loc.tr("Localizable", "DataviewType.grid")
+    /// Kanban
     internal static let kanban = Loc.tr("Localizable", "DataviewType.kanban")
-    /// list
+    /// List
     internal static let list = Loc.tr("Localizable", "DataviewType.list")
-    /// table
-    internal static let table = Loc.tr("Localizable", "DataviewType.table")
   }
 
   internal enum DebugMenu {
@@ -1131,6 +1131,17 @@ internal enum Loc {
           /// Image preview
           internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImagePreview.Title")
         }
+      }
+    }
+  }
+
+  internal enum SetViewTypesPicker {
+    /// Edit view
+    internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.Title")
+    internal enum Section {
+      internal enum Types {
+        /// View as
+        internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.Section.Types.Title")
       }
     }
   }

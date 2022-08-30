@@ -7,7 +7,7 @@ enum BlockBookmarkState: Hashable, Equatable {
 }
 
 struct BlockBookmarkPayload: Hashable, Equatable {
-    let url: String
+    let source: String
     let title: String
     let subtitle: String
     let imageHash: String

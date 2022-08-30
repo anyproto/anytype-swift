@@ -36,6 +36,7 @@ struct EditorSetViewPicker: View {
                         Spacer(minLength: 5)
                         if configuration.isActive {
                             Image(asset: .optionChecked)
+                                .foregroundColor(.buttonSelected)
                         }
                     }
                 } else {

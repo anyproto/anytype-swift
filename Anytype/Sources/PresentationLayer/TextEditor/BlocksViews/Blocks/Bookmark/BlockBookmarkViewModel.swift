@@ -47,7 +47,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     }
     
     func didSelectRowInTableView(editorEditingState: EditorEditingState) {
-        if let url = URL(string: bookmarkData.url) {
+        if let url = URL(string: bookmarkData.source) {
             openUrl(url)
 
             return

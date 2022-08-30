@@ -27,8 +27,7 @@ public enum BundledRelationKey: String {
     case addedDate
     case featuredRelations
     case internalFlags
-    case url
-    case picture
+    case source
     
     case isDeleted
     case isArchived
