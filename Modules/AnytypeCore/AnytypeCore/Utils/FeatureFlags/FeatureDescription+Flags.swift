@@ -51,6 +51,13 @@ extension FeatureDescription {
         defaultValue: false
     )
     
+    static let setViewTypes = FeatureDescription(
+        title: "Set view types",
+        author: "joe_pusya@anytype.io",
+        releaseVersion: "0.18.0",
+        defaultValue: false
+    )
+    
     // MARK: - Debug
     
     static let rainbowViews = FeatureDescription(

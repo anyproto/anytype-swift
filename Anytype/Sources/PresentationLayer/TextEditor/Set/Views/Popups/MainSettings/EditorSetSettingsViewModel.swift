@@ -11,6 +11,8 @@ final class EditorSetSettingsViewModel: ObservableObject, AnytypePopupViewModelP
     
     func onSettingTap(_ setting: EditorSetSetting) {
         switch setting {
+        case .view:
+            setModel.showViewTypes()
         case .settings:
             setModel.showViewSettings()
         case .sort:
