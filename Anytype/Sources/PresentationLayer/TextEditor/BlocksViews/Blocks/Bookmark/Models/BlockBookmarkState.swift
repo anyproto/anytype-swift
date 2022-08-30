@@ -27,12 +27,12 @@ extension BlockBookmarkState {
             payload = BlockBookmarkPayload(blockBookmark: bookmarkData)
         }
         
-        if payload.url.isEmpty {
+        if payload.source.isEmpty {
             return nil
         }
     
         if payload.title.isEmpty {
-            self = .onlyURL(payload.url)
+            self = .onlyURL(payload.source)
         }
         
         self = .fetched(payload)
@@ -41,21 +41,29 @@ extension BlockBookmarkState {
 
 extension BlockBookmarkPayload {
     
+    private enum Constants {
+        static let pictureRelationKey = "picture"
+    }
+    
     init(objectDetails: ObjectDetails) {
-        self.url = objectDetails.url
+        self.source = objectDetails.source
         self.title = objectDetails.title
         self.subtitle = objectDetails.description
-        self.imageHash = objectDetails.picture
+        self.imageHash = BlockBookmarkPayload.picture(from: objectDetails)
         self.faviconHash = objectDetails.iconImageHash?.value ?? ""
         self.isArchived = objectDetails.isArchived
     }
     
     init(blockBookmark: BlockBookmark) {
-        self.url = blockBookmark.url
+        self.source = blockBookmark.source
         self.title = blockBookmark.title
         self.subtitle = blockBookmark.theDescription
         self.imageHash = blockBookmark.imageHash
         self.faviconHash = blockBookmark.faviconHash
         self.isArchived = false
     }
+    
+    private static func picture(from details: ObjectDetails) -> String {
+         return details.values[Constants.pictureRelationKey]?.stringValue ?? ""
+     }
 }
