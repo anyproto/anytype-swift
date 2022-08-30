@@ -24,20 +24,35 @@ class BlocksFileEmptyView: UIView, BlockContentView {
             $0.pinToSuperview()
         }
         
-        contentView.layoutUsing.stack {
-            $0.edgesToSuperview(insets: Layout.contentInsets)
-        } builder: {
-            $0.hStack(
-                icon,
-                $0.hGap(fixed: Layout.labelSpacing),
-                label,
-                $0.hGap(fixed: Layout.labelSpacing),
-                activityIndicator
-            )
+        if FeatureFlags.bookmarksFlowP2 {
+            contentView.layoutUsing.stack {
+                $0.edgesToSuperview(insets: Layout.contentInsets)
+            } builder: {
+                $0.hStack(
+                    icon,
+                    $0.hGap(fixed: Layout.labelSpacing),
+                    label,
+                    $0.hGap(fixed: Layout.labelSpacing),
+                    newActivityIndicator
+                )
+            }
+        } else {
+            contentView.layoutUsing.stack {
+                $0.edgesToSuperview(insets: Layout.contentInsets)
+            } builder: {
+                $0.hStack(
+                    icon,
+                    $0.hGap(fixed: Layout.labelSpacing),
+                    label,
+                    $0.hGap(fixed: Layout.labelSpacing),
+                    activityIndicator
+                )
+            }
         }
     
         icon.layoutUsing.anchors {
             $0.width.equal(to: Layout.iconWidth)
+            
         }
     }
     
@@ -49,13 +64,19 @@ class BlocksFileEmptyView: UIView, BlockContentView {
         case .default:
             label.text = configuration.text
             activityIndicator.stopAnimating()
+            newActivityIndicator.isHidden = true
+            newActivityIndicator.stopAnimation()
         case .uploading:
             label.text = Constants.uploadingText
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
+            newActivityIndicator.isHidden = false
+            newActivityIndicator.startAnimation()
         case .error:
             label.text = Constants.errorText
             activityIndicator.stopAnimating()
+            newActivityIndicator.isHidden = true
+            newActivityIndicator.stopAnimation()
         }
     }
     
@@ -63,7 +84,7 @@ class BlocksFileEmptyView: UIView, BlockContentView {
         let view = UIView()
         view.layer.borderWidth = 0.5
         view.layer.borderColor = UIColor.strokePrimary.cgColor
-        view.layer.cornerRadius = 2
+        view.layer.cornerRadius = FeatureFlags.bookmarksFlowP2 ? 16 : 2
         view.clipsToBounds = true
         return view
     }()
@@ -87,6 +108,8 @@ class BlocksFileEmptyView: UIView, BlockContentView {
         loader.hidesWhenStopped = true
         return loader
     }()
+    
+    private let newActivityIndicator = UIAnytypeActivityIndicator()
 }
 
 
