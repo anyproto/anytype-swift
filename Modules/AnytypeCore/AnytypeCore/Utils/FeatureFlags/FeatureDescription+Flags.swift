@@ -5,8 +5,9 @@ extension FeatureDescription {
     static let objectPreview = FeatureDescription(
         title: "Object preview",
         author: "k@anytype.io",
-        releaseVersion: "?",
-        defaultValue: false
+        releaseVersion: "-",
+        defaultValue: false,
+        debugValue: false
     )
     
     static let setFilters = FeatureDescription(
