@@ -263,9 +263,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         presentSwiftUIView(view: searchView, model: viewModel)
     }
     
-    func showTypesSearch(title: String, onSelect: @escaping (BlockId) -> ()) {
+    func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
         let view = NewSearchModuleAssembly.objectTypeSearchModule(
             title: title,
+            selectedObjectId: selectedObjectId,
             excludedObjectTypeId: document.details?.type
         ) { [weak self] id in
             onSelect(id)

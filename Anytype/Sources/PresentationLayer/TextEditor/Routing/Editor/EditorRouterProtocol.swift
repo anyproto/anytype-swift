@@ -51,7 +51,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
     )
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
-    func showTypesSearch(title: String, onSelect: @escaping (BlockId) -> ())
+    func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ())
     func showObjectPreview(blockLinkAppearance: BlockLink.Appearance, onSelect: @escaping (BlockLink.Appearance) -> Void)
     
     func showRelationValueEditingView(key: String, source: RelationSource)

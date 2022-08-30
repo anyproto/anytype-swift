@@ -214,6 +214,8 @@ public struct Anytype_Model_ObjectStoreChecksums {
   /// anytypeProfile and maybe some others in the feature
   public var bundledObjects: Int32 = 0
 
+  public var filestoreKeysForceReindexCounter: Int32 = 0
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -574,6 +576,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     7: .same(proto: "fulltextRebuild"),
     8: .same(proto: "bundledTemplates"),
     9: .same(proto: "bundledObjects"),
+    10: .same(proto: "filestoreKeysForceReindexCounter"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -591,6 +594,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
       case 7: try { try decoder.decodeSingularInt32Field(value: &self.fulltextRebuild) }()
       case 8: try { try decoder.decodeSingularStringField(value: &self.bundledTemplates) }()
       case 9: try { try decoder.decodeSingularInt32Field(value: &self.bundledObjects) }()
+      case 10: try { try decoder.decodeSingularInt32Field(value: &self.filestoreKeysForceReindexCounter) }()
       default: break
       }
     }
@@ -624,6 +628,9 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if self.bundledObjects != 0 {
       try visitor.visitSingularInt32Field(value: self.bundledObjects, fieldNumber: 9)
     }
+    if self.filestoreKeysForceReindexCounter != 0 {
+      try visitor.visitSingularInt32Field(value: self.filestoreKeysForceReindexCounter, fieldNumber: 10)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -637,6 +644,7 @@ extension Anytype_Model_ObjectStoreChecksums: SwiftProtobuf.Message, SwiftProtob
     if lhs.fulltextRebuild != rhs.fulltextRebuild {return false}
     if lhs.bundledTemplates != rhs.bundledTemplates {return false}
     if lhs.bundledObjects != rhs.bundledObjects {return false}
+    if lhs.filestoreKeysForceReindexCounter != rhs.filestoreKeysForceReindexCounter {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

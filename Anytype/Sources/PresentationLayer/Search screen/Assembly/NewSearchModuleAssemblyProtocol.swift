@@ -1,4 +1,5 @@
 import Foundation
+import BlocksModels
 
 protocol NewSearchModuleAssemblyProtocol {
     
@@ -37,6 +38,7 @@ protocol NewSearchModuleAssemblyProtocol {
     static func objectTypeSearchModule(
         style: NewSearchView.Style,
         title: String,
+        selectedObjectId: BlockId?,
         excludedObjectTypeId: String?,
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView

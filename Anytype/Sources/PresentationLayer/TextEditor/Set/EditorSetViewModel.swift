@@ -317,7 +317,7 @@ extension EditorSetViewModel {
 
     func showRelationValueEditingView(key: String, source: RelationSource) {
         if key == BundledRelationKey.setOf.rawValue {
-            router.showTypesSearch(title: Loc.Set.SourceType.selectSource) { [weak self] typeObjectId in
+            router.showTypesSearch(title: Loc.Set.SourceType.selectSource, selectedObjectId: document.details?.setOf) { [weak self] typeObjectId in
                 self?.dataviewService.setSource(typeObjectId: typeObjectId)
             }
 

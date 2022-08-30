@@ -30,6 +30,7 @@ public enum BundledRelationKey: String {
     case url
     case picture
     case setOf
+    case source
     
     case isDeleted
     case isArchived

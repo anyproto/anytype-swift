@@ -4,7 +4,7 @@ import AnytypeCore
 import SwiftProtobuf
 
 final class SetContentViewDataBuilder {
-    private let relationsBuilder = RelationsBuilder(scope: [.object, .type])
+    private let relationsBuilder = RelationsBuilder()
     private let storage = ObjectDetailsStorage.shared
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
@@ -101,11 +101,20 @@ final class SetContentViewDataBuilder {
         let relation = dataView.relations.first { $0.format == .file && $0.key == activeView.coverRelationKey }
         
         guard let relation = relation,
-              let list = details.values[relation.key],
-              case let .listValue(listValue) = list.kind else {
+              let value = details.values[relation.key] else {
             return nil
         }
-        for value in listValue.values {
+        if case let .listValue(listValue) = value.kind {
+            return findCover(at: listValue.values, details)
+        } else if value.stringValue.isNotEmpty {
+            return findCover(at: [value], details)
+        } else {
+            return nil
+        }
+    }
+    
+    private func findCover(at values: [Google_Protobuf_Value], _ details: ObjectDetails) -> ObjectHeaderCoverType? {
+        for value in values {
             let details = storage.get(id: value.stringValue)
             if let details = details, details.type == Constants.imageType {
                 return .cover(.imageId(details.id))

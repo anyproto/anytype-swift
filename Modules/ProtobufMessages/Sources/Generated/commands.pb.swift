@@ -11244,6 +11244,8 @@ public struct Anytype_Rpc {
 
         public var position: Anytype_Model_Block.Position = .none
 
+        public var targetContextID: String = String()
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -38474,6 +38476,7 @@ extension Anytype_Rpc.Block.ListDuplicate.Request: SwiftProtobuf.Message, SwiftP
     2: .same(proto: "targetId"),
     3: .same(proto: "blockIds"),
     4: .same(proto: "position"),
+    5: .same(proto: "targetContextId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -38486,6 +38489,7 @@ extension Anytype_Rpc.Block.ListDuplicate.Request: SwiftProtobuf.Message, SwiftP
       case 2: try { try decoder.decodeSingularStringField(value: &self.targetID) }()
       case 3: try { try decoder.decodeRepeatedStringField(value: &self.blockIds) }()
       case 4: try { try decoder.decodeSingularEnumField(value: &self.position) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.targetContextID) }()
       default: break
       }
     }
@@ -38504,6 +38508,9 @@ extension Anytype_Rpc.Block.ListDuplicate.Request: SwiftProtobuf.Message, SwiftP
     if self.position != .none {
       try visitor.visitSingularEnumField(value: self.position, fieldNumber: 4)
     }
+    if !self.targetContextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.targetContextID, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -38512,6 +38519,7 @@ extension Anytype_Rpc.Block.ListDuplicate.Request: SwiftProtobuf.Message, SwiftP
     if lhs.targetID != rhs.targetID {return false}
     if lhs.blockIds != rhs.blockIds {return false}
     if lhs.position != rhs.position {return false}
+    if lhs.targetContextID != rhs.targetContextID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
