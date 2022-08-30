@@ -1,11 +1,6 @@
 import BlocksModels
 import AnytypeCore
 
-enum BlockBookmarkState: Hashable, Equatable {
-    case onlyURL(String)
-    case fetched(BlockBookmarkPayload)
-}
-
 struct BlockBookmarkPayload: Hashable, Equatable {
     let url: String
     let title: String
@@ -15,33 +10,19 @@ struct BlockBookmarkPayload: Hashable, Equatable {
     let isArchived: Bool
 }
 
-extension BlockBookmarkState {
-    
-    init?(bookmarkData: BlockBookmark, objectDetails: ObjectDetails?) {
-
-        let payload: BlockBookmarkPayload
-        if FeatureFlags.bookmarksFlow {
-            payload = objectDetails.map { BlockBookmarkPayload(objectDetails: $0) }
-                ?? BlockBookmarkPayload(blockBookmark: bookmarkData)
-        } else {
-            payload = BlockBookmarkPayload(blockBookmark: bookmarkData)
-        }
-        
-        if payload.url.isEmpty {
-            return nil
-        }
-    
-        if payload.title.isEmpty {
-            self = .onlyURL(payload.url)
-        }
-        
-        self = .fetched(payload)
-    }
-}
-
 extension BlockBookmarkPayload {
     
-    init(objectDetails: ObjectDetails) {
+    init(bookmarkData: BlockBookmark, objectDetails: ObjectDetails?) {
+
+        if FeatureFlags.bookmarksFlow {
+            self = objectDetails.map { BlockBookmarkPayload(objectDetails: $0, blockBookmark: bookmarkData) }
+                ?? BlockBookmarkPayload(blockBookmark: bookmarkData)
+        } else {
+            self = BlockBookmarkPayload(blockBookmark: bookmarkData)
+        }
+    }
+    
+    private init(objectDetails: ObjectDetails, blockBookmark: BlockBookmark) {
         self.url = objectDetails.url
         self.title = objectDetails.title
         self.subtitle = objectDetails.description
@@ -50,7 +31,7 @@ extension BlockBookmarkPayload {
         self.isArchived = objectDetails.isArchived
     }
     
-    init(blockBookmark: BlockBookmark) {
+    private init(blockBookmark: BlockBookmark) {
         self.url = blockBookmark.url
         self.title = blockBookmark.title
         self.subtitle = blockBookmark.theDescription
