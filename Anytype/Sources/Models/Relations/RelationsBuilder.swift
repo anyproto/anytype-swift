@@ -8,7 +8,7 @@ final class RelationsBuilder {
     private let scope: [RelationMetadata.Scope]
     private let storage: ObjectDetailsStorage
     
-    init(scope: [RelationMetadata.Scope] = [.object], storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
+    init(scope: [RelationMetadata.Scope] = [.object, .type], storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
         self.scope = scope
         self.storage = storage
     }
@@ -406,7 +406,8 @@ private extension RelationsBuilder {
                     title: name,
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
-                    isDeleted: objectDetail.isDeleted
+                    isDeleted: objectDetail.isDeleted,
+                    editorViewType: objectDetail.editorViewType
                 )
             }
             
@@ -461,10 +462,10 @@ private extension RelationsBuilder {
                     let fileName = objectDetail.values[BundledRelationKey.name.rawValue]?.stringValue
 
                     guard let fileMimeType = fileMimeType, let fileName = fileName else {
-                        return .staticImage(FileIconConstants.other)
+                        return .imageAsset(FileIconConstants.other)
                     }
                     
-                    return .staticImage(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
+                    return .imageAsset(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
                 }()
                 
                 return Relation.File.Option(

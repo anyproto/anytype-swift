@@ -13,3 +13,5 @@ public typealias MiddlewareRelation = Anytype_Model_Block.Content.Dataview.Relat
 public typealias MiddlewareTable = Anytype_Model_Block.Content.Table
 public typealias MiddlewareTableRow = Anytype_Model_Block.Content.TableRow
 public typealias MiddlewareTableColumn = Anytype_Model_Block.Content.TableColumn
+
+public typealias ObjectViewModel = Anytype_Model_ObjectView

@@ -27,7 +27,7 @@ struct HomeCell: View {
         
         .if(selected) {
             $0.overlay(
-                Image.main.selection
+                Image(asset: .selection)
                     .frame(width: 20, height: 20)
                     .padding([.trailing, .bottom], 10),
                 alignment: .bottomTrailing

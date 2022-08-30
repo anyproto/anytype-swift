@@ -23,7 +23,7 @@ final class CreateObjectView: UIView {
 
         switch viewModel.style {
         case .default:
-            button = ButtonsFactory.makeButton(image: .action.openToEdit)
+            button = ButtonsFactory.makeButton(image: UIImage(asset: .setOpenToEdit))
         case .bookmark:
             button = ButtonsFactory.makeButton(text: Loc.create, textStyle: .body)
         }

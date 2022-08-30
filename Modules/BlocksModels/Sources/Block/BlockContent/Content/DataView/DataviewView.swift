@@ -1,4 +1,5 @@
 import ProtobufMessages
+import AnytypeCore
 
 public struct DataviewView: Hashable, Identifiable {
     public let id: BlockId
@@ -31,11 +32,15 @@ public struct DataviewView: Hashable, Identifiable {
     }
     
     public var isSupported: Bool {
-        type == .table
+        type == .table ||
+        (FeatureFlags.setGalleryView && type == .gallery)
     }
     
     public func updated(
+        cardSize: DataviewViewSize? = nil,
         hideIcon: Bool? = nil,
+        coverRelationKey: String? = nil,
+        coverFit: Bool? = nil,
         options: [DataviewRelationOption]? = nil,
         sorts: [DataviewSort]? = nil,
         filters: [DataviewFilter]? = nil
@@ -47,10 +52,10 @@ public struct DataviewView: Hashable, Identifiable {
             options: options ?? self.options,
             sorts: sorts ?? self.sorts,
             filters: filters ?? self.filters,
-            coverRelationKey: coverRelationKey,
+            coverRelationKey: coverRelationKey ?? self.coverRelationKey,
             hideIcon: hideIcon ?? self.hideIcon,
-            cardSize: cardSize,
-            coverFit: coverFit
+            cardSize: cardSize ?? self.cardSize,
+            coverFit: coverFit ?? self.coverFit
         )
     }
     

@@ -12,6 +12,7 @@ protocol EditorBrowser: AnyObject {
 protocol EditorBrowserViewInputProtocol: AnyObject {
     func multiselectActive(_ active: Bool)
     func onScroll(bottom: Bool)
+    func didShow(collectionView: UICollectionView)
 }
 
 final class EditorBrowserController: UIViewController, UINavigationControllerDelegate, EditorBrowser, EditorBrowserViewInputProtocol {
@@ -24,12 +25,18 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
     
     private let dashboardService = ServiceLocator.shared.dashboardService()
     private let stateManager = BrowserNavigationManager()
+    private let browserView = EditorBrowserView()
     
     init() {
         super.init(nibName: nil, bundle: nil)
     }
 
+    override func loadView() {
+        view = browserView
+    }
+    
     func setup() {
+        view.backgroundColor = .backgroundPrimary
         childNavigation.delegate = self
         
         view.addSubview(navigationView) {
@@ -145,6 +152,10 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
         updateNavigationVisibility(animated: true)
     }
     
+    func didShow(collectionView: UICollectionView) {
+        browserView.childCollectionView = collectionView
+    }
+    
     private func updateNavigationVisibility(animated: Bool) {
         guard !isMultiselectActive else {
             setNavigationViewHidden(true, animated: animated)
@@ -166,7 +177,7 @@ final class EditorBrowserController: UIViewController, UINavigationControllerDel
             delay: 0,
             options: .curveEaseInOut,
             animations: { [weak self] in
-                self?.view.layoutIfNeeded()
+                self?.navigationView.layoutIfNeeded()
             }, completion: nil
         )
     }

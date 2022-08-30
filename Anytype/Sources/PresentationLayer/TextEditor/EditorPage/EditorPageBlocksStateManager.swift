@@ -2,6 +2,7 @@ import BlocksModels
 import Combine
 import AnytypeCore
 import Foundation
+import UIKit
 
 enum EditorEditingState {
     case editing
@@ -66,7 +67,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private let pasteboardService: PasteboardServiceProtocol
     private let router: EditorRouterProtocol
 
-    weak var blocksOptionViewModel: HorizonalTypeListViewModel?
+    weak var blocksOptionViewModel: SelectionOptionsViewModel?
     weak var blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel?
     weak var viewInput: EditorPageViewInput?
 
@@ -141,6 +142,7 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
         if case .selecting = editingState {
             editingState = .selecting(blocks: blocksInformation.map { $0.id })
+            UISelectionFeedbackGenerator().selectionChanged()
         }
     }
 
@@ -237,10 +239,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
     private func updateSelectionBarActions(selectedBlocks: [BlockInformation]) {
         let availableItems = selectedBlocks.blocksOptionItems
         let horizontalItems = availableItems.map { item in
-            HorizontalListItem(
+            SelectionOptionsItemViewModel(
                 id: "\(item.hashValue)",
                 title: item.title,
-                image: .image(item.image)
+                imageAsset: item.imageAsset
             ) { [weak self] in
                 self?.handleBlocksOptionItemSelection(item)
             }
@@ -304,6 +306,10 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
 
     private func handleBlocksOptionItemSelection(_ item: BlocksOptionItem) {
         let elements = selectedBlocksIndexPaths.compactMap { modelsHolder.blockViewModel(at: $0.row) }
+        AnytypeAnalytics.instance().logEvent(
+            AnalyticsEventsName.blockAction,
+            withEventProperties: ["type": item.analyticsEventValue]
+        )
 
         switch item {
         case .delete:
@@ -354,6 +360,16 @@ final class EditorPageBlocksStateManager: EditorPageBlocksStateManagerProtocol {
                let url = blockFile.metadata.contentUrl {
                 router.saveFile(fileURL: url, type: blockFile.contentType)
             }
+        case .openObject:
+            anytypeAssert(
+                elements.count == 1,
+                "Number of elements should be 1",
+                domain: .editorPage
+            )
+            guard case let .bookmark(bookmark) = elements.first?.content else { return }
+            AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.openAsObject)
+            let screenData = EditorScreenData(pageId: bookmark.targetObjectID, type: .page)
+            router.showPage(data: screenData)
         case .style:
             editingState = .editing
             elements.first.map { didSelectStyleSelection(info: $0.info) }

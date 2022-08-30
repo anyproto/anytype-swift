@@ -35,7 +35,7 @@ struct EditorSetViewPicker: View {
                         AnytypeText(configuration.name, style: .uxBodyRegular, color: .textPrimary)
                         Spacer(minLength: 5)
                         if configuration.isActive {
-                            Image.optionChecked
+                            Image(asset: .optionChecked)
                         }
                     }
                 } else {

@@ -9,7 +9,7 @@ enum BlocksFileEmptyViewState {
 struct BlocksFileEmptyViewConfiguration: BlockConfiguration {
     typealias View = BlocksFileEmptyView
 
-    let imageName: String
+    let imageAsset: ImageAsset
     let text: String
     let state: BlocksFileEmptyViewState
 }

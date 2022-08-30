@@ -123,18 +123,16 @@
 "Archive" = "Archive";
 "Restore" = "Restore";
 
-"Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
-"Backup recovery phrase" = "Backup recovery phrase";
-
-
 // Keychain screen
-"Recovery phrase" = "Recovery phrase";
-"Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
-"Recovery phrase copied to clipboard" = "Recovery phrase copied to clipboard";
-"Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
-"Save keychain alert part 2" = "ever access your data again";
-"Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
-"Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
+"Keychain.Recovery phrase" = "Recovery phrase";
+"Keychain.Recovery phrase copied to clipboard" = "Recovery phrase copied to clipboard";
+"Keychain.Recovery phrase description" = "You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.";
+"Keychain.Save keychain alert part 1" = "If you lose the recovery phrase and get logged out you will not be able to ";
+"Keychain.Save keychain alert part 2" = "ever access your data again";
+"Keychain.Save keychain alert part 3" = ".\nSave this recovery phrase outside of Anytype for data recovery.\nWe recommend using a secure data vault, password manager or piece of paper in the safe.";
+"Keychain.Don’t forget to save your recovery phrase" = "Don’t forget to save your recovery phrase";
+"Keychain.Show and copy phrase" = "Show and copy phrase";
+"Keychain.Have you backed up your recovery phrase?" = "Have you backed up your recovery phrase?";
 
 // Auth
 "Welcome to Anytype" = "Welcome to Anytype";
@@ -287,44 +285,67 @@
 "LinkAppearance.ObjectType.Title" = "Object type";
 
 // MARK: - Sets: Sorts
-"EditSorts.Popup.NavigationView.Title" = "Sorts";
-"EditSorts.Popup.EmptyView.Title" = "No sorts here. You can add some";
-"EditSorts.Popup.Sort.Types.Ascending" = "Ascending";
-"EditSorts.Popup.Sort.Types.Descending" = "Descending";
-"EditSorts.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
+"EditSet.Popup.Sorts.NavigationView.Title" = "Sorts";
+"EditSet.Popup.Sorts.EmptyView.Title" = "No sorts here. You can add some";
+"EditSet.Popup.Sort.Types.Ascending" = "Ascending";
+"EditSet.Popup.Sort.Types.Descending" = "Descending";
+"EditSet.Popup.Sort.Add.SearchPlaceholder" = "Сhoose a relation to sort";
 
 // MARK: - Sets: Filters
-"EditFilters.Popup.NavigationView.Title" = "Filters";
-"EditFilters.Popup.EmptyView.Title" = "No filters here. You can add some";
-"EditFilters.Popup.TextView.Placeholder" = "Value";
+"EditSet.Popup.Filters.NavigationView.Title" = "Filters";
+"EditSet.Popup.Filters.EmptyView.Title" = "No filters here. You can add some";
+"EditSet.Popup.Filters.TextView.Placeholder" = "Value";
 
 // MARK: - Sets: Filters.Conditions
-"EditSorts.Popup.Filter.Condition.Text.Equal" = "Is";
-"EditSorts.Popup.Filter.Condition.Text.NotEqual" = "Is not";
-"EditSorts.Popup.Filter.Condition.Text.Like" = "Contains";
-"EditSorts.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
+"EditSet.Popup.Filter.Condition.Text.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Text.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Text.Like" = "Contains";
+"EditSet.Popup.Filter.Condition.Text.NotLike" = "Doesn't contain";
 
-"EditSorts.Popup.Filter.Condition.Number.Equal" = "Is equal to";
-"EditSorts.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
-"EditSorts.Popup.Filter.Condition.Number.Greater" = "Is greater than";
-"EditSorts.Popup.Filter.Condition.Number.Less" = "Is less than";
-"EditSorts.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
-"EditSorts.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
+"EditSet.Popup.Filter.Condition.Number.Equal" = "Is equal to";
+"EditSet.Popup.Filter.Condition.Number.NotEqual" = "Is not equal to";
+"EditSet.Popup.Filter.Condition.Number.Greater" = "Is greater than";
+"EditSet.Popup.Filter.Condition.Number.Less" = "Is less than";
+"EditSet.Popup.Filter.Condition.Number.GreaterOrEqual" = "Is greater than or equal to";
+"EditSet.Popup.Filter.Condition.Number.LessOrEqual" = "Is less than or equal to";
 
-"EditSorts.Popup.Filter.Condition.Selected.In" = "Has any of";
-"EditSorts.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
-"EditSorts.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
-"EditSorts.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
+"EditSet.Popup.Filter.Condition.Date.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Date.After" = "Is after";
+"EditSet.Popup.Filter.Condition.Date.Before" = "Is before";
+"EditSet.Popup.Filter.Condition.Date.OnOrAfter" = "Is on or after";
+"EditSet.Popup.Filter.Condition.Date.OnOrBefore" = "Is on or before";
+"EditSet.Popup.Filter.Condition.Date.In" = "Is within";
 
-"EditSorts.Popup.Filter.Condition.Checkbox.Equal" = "Is";
-"EditSorts.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+"EditSet.Popup.Filter.Condition.Selected.In" = "Has any of";
+"EditSet.Popup.Filter.Condition.Selected.AllIn" = "Has all of";
+"EditSet.Popup.Filter.Condition.Selected.NotIn" = "Has none of";
+"EditSet.Popup.Filter.Condition.Selected.Equal" = "Is exactly";
 
-"EditSorts.Popup.Filter.Condition.General.Empty" = "Is empty";
-"EditSorts.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
-"EditSorts.Popup.Filter.Condition.General.None" = "All";
+"EditSet.Popup.Filter.Condition.Checkbox.Equal" = "Is";
+"EditSet.Popup.Filter.Condition.Checkbox.NotEqual" = "Is not";
+
+"EditSet.Popup.Filter.Condition.General.Empty" = "Is empty";
+"EditSet.Popup.Filter.Condition.General.NotEmpty" = "Is not empty";
+"EditSet.Popup.Filter.Condition.General.None" = "All";
 
 "EditSet.Popup.Filter.Value.Checked" = "Checked";
 "EditSet.Popup.Filter.Value.Unchecked" = "Unchecked";
+
+"EditSet.Popup.Filter.Date.Option.Today" = "Today";
+"EditSet.Popup.Filter.Date.Option.Yesterday" = "Yesterday";
+"EditSet.Popup.Filter.Date.Option.Tomorrow" = "Tomorrow";
+"EditSet.Popup.Filter.Date.Option.LastWeek" = "Last week";
+"EditSet.Popup.Filter.Date.Option.CurrentWeek" = "Current week";
+"EditSet.Popup.Filter.Date.Option.NextWeek" = "Next week";
+"EditSet.Popup.Filter.Date.Option.LastMonth" = "Last month";
+"EditSet.Popup.Filter.Date.Option.CurrentMonth" = "Current month";
+"EditSet.Popup.Filter.Date.Option.NextMonth" = "Next month";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo" = "Number of days ago";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow" = "Number of days from now";
+"EditSet.Popup.Filter.Date.Option.ExactDate" = "Exact date";
+
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short" = "%s days ago";
+"EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short" = "%s days from now";
 
 // MARK: - Sets: Filters search
 "Set.Filters.Search.Button.Title" = "Apply";
@@ -333,6 +354,13 @@
 "Set.Bookmark.Create.Placeholder" = "Paste link";
 "Set.Bookmark.Error.Title" = "Oops - something went wrong";
 "Set.Bookmark.Error.Message" = "Please try again";
+
+// MARK: - Sets: View Settings
+"Set.View.Settings.ImageFit.Title" = "Fit image";
+"Set.View.Settings.CardSize.Title" = "Card size";
+"Set.View.Settings.CardSize.Small.Title" = "Small";
+"Set.View.Settings.CardSize.Large.Title" = "Large";
+"Set.View.Settings.ImagePreview.Title" = "Image preview";
 
 // MARK: Slash Menu
 "SlashMenu.DotsDivider" = "Dots divider";
@@ -387,7 +415,6 @@
 "Deselect all" = "Deselect all";
 "Shared" = "Shared";
 "Sets" = "Sets";
-"History" = "History";
 "Default object type" = "Default object type";
 "Personalization" = "Personalization";
 "Choose default object type" = "Choose default object type";
@@ -426,8 +453,6 @@
 "Unfavorite" = "Unfavorite";
 "Unsplash" = "Unsplash";
 "Go back" = "Go back";
-"Dismiss" = "Dismiss";
-"Create bookmark" = "Create bookmark";
 "Backed up on one node at least" = "Backed up on one node at least";
 "Downloading or uploading data to some node" = "Downloading or uploading data to some node";
 "Anytype node is not connected" = "Anytype node is not connected";
@@ -440,6 +465,7 @@
 "Upload audio" = "Upload audio";
 "Deleted" = "Deleted";
 "Download" = "Download";
+"Open object" = "Open object";
 "Turn into" = "Turn into";
 "Add below" = "Add below";
 "Change type" = "Change type";
@@ -544,3 +570,21 @@
 "SimpleTableMenu.Item.InsertBelow" = "Insert below";
 "SimpleTableMenu.Item.MoveUp" = "Move up";
 "SimpleTableMenu.Item.MoveDown" = "Move down";
+
+"DebugMenu.ToggleAuthor" = "Release: %s, %s";
+
+// MARK: Link Past Actions
+"LinkPaste.text" = "Paste as text";
+"LinkPaste.link" = "Paste as link";
+"LinkPaste.bookmark" = "Create bookmark";
+
+// Relation Actions
+"RelationAction.CopyPhone" = "Copy phone numbler";
+"RelationAction.CopyEmail" = "Copy email";
+"RelationAction.CopyLink" = "Copy link";
+"RelationAction.Copied" = "Copied";
+"RelationAction.ReloadingContent" = "Reloading content";
+"RelationAction.ReloadContent" = "Reload object content";
+"RelationAction.CallPhone" = "Call phone numbler";
+"RelationAction.SendEmail" = "Send email";
+"RelationAction.OpenLink" = "Open link";

@@ -10,6 +10,9 @@ struct AnytypeText: View {
         textView = Self.buildText(text, style: style)
             .foregroundColor(color)
             .modifier(OptionalLineSpacingModifier(spacing: spacing))
+        // TODO: Fix
+        // For two AnytypeText in VStack in List, multiline working incorrectly when padding is small (example: 1.8).
+        // See featureToggle list in debug menu. Replace Text to AnytypeText.
             .padding(.vertical, spacing / 2)
             .eraseToAnyView()
     }

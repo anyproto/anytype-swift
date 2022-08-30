@@ -7,6 +7,7 @@ enum BlocksOptionItem: CaseIterable, Comparable {
     case style
     case download
     case delete
+    case openObject
     case addBlockBelow
     case duplicate
     case turnInto
@@ -15,12 +16,12 @@ enum BlocksOptionItem: CaseIterable, Comparable {
 }
 
 extension BlocksOptionItem {
-    private typealias BlockOptionImage = UIImage.editor.BlockOption
+    private typealias BlockOptionImage = ImageAsset.TextEditor.BlocksOption
 
-    var image: UIImage {
+    var imageAsset: ImageAsset {
         switch self {
         case .style:
-            return UIImage.edititngToolbar.style
+            return .EditingToolbar.style
         case .delete:
             return BlockOptionImage.delete
         case .addBlockBelow:
@@ -28,19 +29,21 @@ extension BlocksOptionItem {
         case .duplicate:
             return BlockOptionImage.duplicate
         case .turnInto:
-            return BlockOptionImage.turnInto
+            return BlockOptionImage.turnIntoObject
         case .moveTo:
             return BlockOptionImage.moveTo
         case .move:
             return BlockOptionImage.move
         case .download:
             return BlockOptionImage.download
+        case .openObject:
+            return BlockOptionImage.openToEdit
         case .paste:
             return BlockOptionImage.paste
         case .copy:
             return BlockOptionImage.copy
         case .preview:
-            return BlockOptionImage.preview
+            return BlockOptionImage.view
         }
     }
 
@@ -62,12 +65,43 @@ extension BlocksOptionItem {
             return Loc.move
         case .download:
             return Loc.download
+        case .openObject:
+            return Loc.openObject
         case .paste:
             return Loc.paste
         case .copy:
             return Loc.copy
         case .preview:
             return Loc.preview
+        }
+    }
+
+    var analyticsEventValue: String {
+        switch self {
+        case .style:
+            return "Style"
+        case .delete:
+            return "Delete"
+        case .addBlockBelow:
+            return "AddBelow"
+        case .duplicate:
+            return "Duplicate"
+        case .turnInto:
+            return "TurnInto"
+        case .moveTo:
+            return "MoveTo"
+        case .move:
+            return "Move"
+        case .download:
+            return "Download"
+        case .openObject:
+            return "OpenObject"
+        case .paste:
+            return "Paste"
+        case .copy:
+            return "Copy"
+        case .preview:
+            return "Preview"
         }
     }
 }

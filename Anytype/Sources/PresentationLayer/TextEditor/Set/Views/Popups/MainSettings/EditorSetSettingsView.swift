@@ -12,18 +12,20 @@ struct EditorSetSettingsView: View {
             Spacer()
         }
         .background(Color.backgroundSecondary)
-        .padding(.top, 16)
-        .padding(.bottom, 13)
+        .padding(.vertical, 13)
         .padding(.horizontal, 16)
     }
     
     private func settingsButton(_ setting: EditorSetSetting) -> some View {
-        Button(action: { model.onSettingTap(setting) }) {
+        Button(action: {
+            UISelectionFeedbackGenerator().selectionChanged()
+            model.onSettingTap(setting)
+        }) {
             VStack(spacing: 0) {
                 ZStack(alignment: .center) {
                     RoundedRectangle(cornerRadius: 10)
                         .foregroundColor(Color.backgroundSelected)
-                    setting.image
+                    Image(asset: setting.imageAsset)
                 }
                 .frame(width: 52, height: 52)
                 

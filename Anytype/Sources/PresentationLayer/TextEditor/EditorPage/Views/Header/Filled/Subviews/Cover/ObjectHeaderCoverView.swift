@@ -40,6 +40,7 @@ extension ObjectHeaderCoverView: ConfigurableView {
     struct Model {
         let objectCover: ObjectHeaderCoverType
         let size: CGSize
+        let fitImage: Bool
     }
     
     func configure(model: Model) {
@@ -47,7 +48,7 @@ extension ObjectHeaderCoverView: ConfigurableView {
 
         switch model.objectCover {
         case let .cover(cover):
-            configureCoverState(cover, model.size)
+            configureCoverState(cover, model.size, model.fitImage)
         case let .preview(previewType):
             configurePreviewState(previewType, model.size)
         }
@@ -56,12 +57,12 @@ extension ObjectHeaderCoverView: ConfigurableView {
 
 private extension ObjectHeaderCoverView {
     
-    func configureCoverState(_ cover: DocumentCover, _ size: CGSize) {
+    func configureCoverState(_ cover: DocumentCover, _ size: CGSize, _ fitImage: Bool) {
         activityIndicatorView.hide()
         
         switch cover {
         case let .imageId(imageId):
-            showImageWithId(imageId, size)
+            showImageWithId(imageId, size, fitImage)
         case let .color(color):
             showColor(color, size)
         case let .gradient(gradientColor):
@@ -69,11 +70,11 @@ private extension ObjectHeaderCoverView {
         }
     }
     
-    private func showImageWithId(_ imageId: String, _ size: CGSize) {
+    private func showImageWithId(_ imageId: String, _ size: CGSize, _ fitImage: Bool) {
         let imageGuideline = ImageGuideline(size: size)
         
         imageView.wrapper.imageGuideline(imageGuideline).scalingType(nil).setImage(id: imageId)
-        imageView.contentMode = .scaleAspectFill
+        imageView.contentMode = fitImage ? .scaleAspectFit : .scaleAspectFill
     }
     
     private func showColor(_ color: UIColor, _ size: CGSize) {

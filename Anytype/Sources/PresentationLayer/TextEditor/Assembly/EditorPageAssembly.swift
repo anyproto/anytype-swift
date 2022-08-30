@@ -3,38 +3,52 @@ import UIKit
 import AnytypeCore
 
 final class EditorAssembly {
-    private weak var browser: EditorBrowserController?
     
-    init(browser: EditorBrowserController?) {
-        self.browser = browser
+    private let serviceLocator: ServiceLocator
+    private let coordinatorsDI: CoordinatorsDIProtocol
+    
+    init(
+        serviceLocator: ServiceLocator,
+        coordinatorsDI: CoordinatorsDIProtocol
+    ) {
+        self.serviceLocator = serviceLocator
+        self.coordinatorsDI = coordinatorsDI
     }
     
     func buildEditorController(
+        browser: EditorBrowserController?,
         data: EditorScreenData,
         editorBrowserViewInput: EditorBrowserViewInputProtocol?
     ) -> UIViewController {
-        buildEditorModule(data: data, editorBrowserViewInput: editorBrowserViewInput).vc
+        buildEditorModule(browser: browser, data: data, editorBrowserViewInput: editorBrowserViewInput).vc
     }
 
     func buildEditorModule(
+        browser: EditorBrowserController?,
         data: EditorScreenData,
         editorBrowserViewInput: EditorBrowserViewInputProtocol?
     ) -> (vc: UIViewController, router: EditorRouterProtocol) {
         switch data.type {
         case .page:
-            let module = buildPageModule(data: data)
+            let module = buildPageModule(browser: browser, data: data)
             module.0.browserViewInput = editorBrowserViewInput
             return module
         case .set:
-            return buildSetModule(data: data)
+            return buildSetModule(browser: browser, data: data)
         }
     }
     
     // MARK: - Set
-    private func buildSetModule(data: EditorScreenData) -> (EditorSetHostingController, EditorRouterProtocol) {
+    private func buildSetModule(
+        browser: EditorBrowserController?,
+        data: EditorScreenData
+    ) -> (EditorSetHostingController, EditorRouterProtocol) {
         let searchService = SearchService()
         let document = BaseDocument(objectId: data.pageId)
-        let dataviewService = DataviewService(objectId: data.pageId)
+        let dataviewService = DataviewService(
+            objectId: data.pageId,
+            prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()
+        )
         let detailsService = ServiceLocator.shared.detailsService(objectId: data.pageId)
 
         let model = EditorSetViewModel(
@@ -45,17 +59,14 @@ final class EditorAssembly {
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)
 
-        
         let router = EditorRouter(
             rootController: browser,
             viewController: controller,
             document: document,
             assembly: self,
-            templatesCoordinator: TemplatesCoordinator(
-                rootViewController: controller,
-                keyboardHeightListener: .init(),
-                searchService: searchService
-            )
+            templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
+            urlOpener: URLOpener(viewController: browser),
+            relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller)
         )
         
         model.setup(router: router)
@@ -65,9 +76,12 @@ final class EditorAssembly {
     
     // MARK: - Page
     
-    private func buildPageModule(data: EditorScreenData) -> (EditorPageController, EditorRouterProtocol) {
+    private func buildPageModule(
+        browser: EditorBrowserController?,
+        data: EditorScreenData
+    ) -> (EditorPageController, EditorRouterProtocol) {
         let simpleTableMenuViewModel = SimpleTableMenuViewModel()
-        let blocksOptionViewModel = HorizonalTypeListViewModel(itemProvider: nil)
+        let blocksOptionViewModel = SelectionOptionsViewModel(itemProvider: nil)
 
         let blocksSelectionOverlayView = buildBlocksSelectionOverlayView(
             simleTableMenuViewModel: simpleTableMenuViewModel,
@@ -81,11 +95,9 @@ final class EditorAssembly {
             viewController: controller,
             document: document,
             assembly: self,
-            templatesCoordinator: TemplatesCoordinator(
-                rootViewController: controller,
-                keyboardHeightListener: .init(),
-                searchService: SearchService()
-            )
+            templatesCoordinator: coordinatorsDI.templates.make(viewController: controller),
+            urlOpener: URLOpener(viewController: browser),
+            relationValueCoordinator: coordinatorsDI.relationValue.make(viewController: controller)
         )
 
         let viewModel = buildViewModel(
@@ -109,7 +121,7 @@ final class EditorAssembly {
         viewInput: EditorPageViewInput,
         document: BaseDocumentProtocol,
         router: EditorRouter,
-        blocksOptionViewModel: HorizonalTypeListViewModel,
+        blocksOptionViewModel: SelectionOptionsViewModel,
         simpleTableMenuViewModel: SimpleTableMenuViewModel,
         blocksSelectionOverlayViewModel: BlocksSelectionOverlayViewModel,
         isOpenedForPreview: Bool
@@ -238,7 +250,7 @@ final class EditorAssembly {
 
     private func buildBlocksSelectionOverlayView(
         simleTableMenuViewModel: SimpleTableMenuViewModel,
-        blockOptionsViewViewModel: HorizonalTypeListViewModel
+        blockOptionsViewViewModel: SelectionOptionsViewModel
     ) -> BlocksSelectionOverlayView {
         let blocksOptionView = SelectionOptionsView(viewModel: blockOptionsViewViewModel)
         let blocksSelectionOverlayViewModel = BlocksSelectionOverlayViewModel()

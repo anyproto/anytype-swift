@@ -12,14 +12,17 @@ enum EditorContextualOption: Int, Identifiable {
     var id: RawValue { rawValue }
 
     case createBookmark
-    case dismiss
+    case pasteAsText
+    case pasteAsLink
 
     var localisedString: String {
         switch self {
         case .createBookmark:
-            return Loc.createBookmark
-        case .dismiss:
-            return Loc.dismiss
+            return Loc.LinkPaste.bookmark
+        case .pasteAsText:
+            return Loc.LinkPaste.text
+        case .pasteAsLink:
+            return Loc.LinkPaste.link
         }
     }
 }

@@ -16,7 +16,6 @@ final class RelationFilterBuilder {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        dateFormatter.doesRelativeDateFormatting = true
         return dateFormatter
     }()
     
@@ -49,11 +48,6 @@ final class RelationFilterBuilder {
             )
         case .status:
             return statusRelation(
-                metadata: metadata,
-                filter: filter
-            )
-        case .date:
-            return dateRelation(
                 metadata: metadata,
                 filter: filter
             )
@@ -100,6 +94,19 @@ final class RelationFilterBuilder {
             )
         }
     }
+    
+    func dateString(for filter: DataviewFilter) -> String {
+        guard filter.condition.hasValues else { return "" }
+        
+        switch filter.quickOption {
+        case .exactDate:
+            return buildExactDateString(for: filter)
+        case .numberOfDaysAgo, .numberOfDaysNow:
+            return buildNumberOfDaysDateString(for: filter, option: filter.quickOption)
+        default:
+            return filter.quickOption.title.lowercased()
+        }
+    }
 }
 
 private extension RelationFilterBuilder {
@@ -138,7 +145,8 @@ private extension RelationFilterBuilder {
                     title: name,
                     type: objectDetail.objectType.name,
                     isArchived: objectDetail.isArchived,
-                    isDeleted: objectDetail.isDeleted
+                    isDeleted: objectDetail.isDeleted,
+                    editorViewType: objectDetail.editorViewType
                 )
             }
             
@@ -350,10 +358,10 @@ private extension RelationFilterBuilder {
                     let fileName = objectDetail.values[BundledRelationKey.name.rawValue]?.stringValue
 
                     guard let fileMimeType = fileMimeType, let fileName = fileName else {
-                        return .staticImage(FileIconConstants.other)
+                        return .imageAsset(FileIconConstants.other)
                     }
                     
-                    return .staticImage(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
+                    return .imageAsset(BlockFileIconBuilder.convert(mime: fileMimeType, fileName: fileName))
                 }()
                 
                 return Relation.File.Option(
@@ -378,30 +386,6 @@ private extension RelationFilterBuilder {
         )
     }
     
-    func dateRelation(
-        metadata: RelationMetadata,
-        filter: DataviewFilter
-    ) -> Relation {
-        let value: DateRelationValue? = {
-            guard let timeInterval = filter.value.safeDoubleValue, !timeInterval.isZero
-            else { return nil }
-            
-            let date = Date(timeIntervalSince1970: timeInterval)
-            return DateRelationValue(date: date, text: dateFormatter.string(from: date))
-        }()
-        
-        return .date(
-            Relation.Date(
-                id: metadata.id,
-                name: metadata.name,
-                isFeatured: false,
-                isEditable: false,
-                isBundled: metadata.isBundled,
-                value: value
-            )
-        )
-    }
-    
     func checkboxRelation(
         metadata: RelationMetadata,
         filter: DataviewFilter
@@ -417,5 +401,21 @@ private extension RelationFilterBuilder {
                 value: filter.value.boolValue
             )
         )
+    }
+    
+    func buildExactDateString(for filter: DataviewFilter) -> String {
+        guard let timeInterval = filter.value.safeDoubleValue, !timeInterval.isZero else {
+            return Loc.Relation.View.Hint.empty
+        }
+        
+        let date = Date(timeIntervalSince1970: timeInterval)
+        return dateFormatter.string(from: date)
+    }
+    
+    func buildNumberOfDaysDateString(for filter: DataviewFilter, option: DataviewFilter.QuickOption) -> String {
+        let count = "\(filter.value.safeIntValue ?? 0)"
+        return option == .numberOfDaysAgo ?
+        Loc.EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.short(count) :
+        Loc.EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.short(count)
     }
 }

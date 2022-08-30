@@ -11,6 +11,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
             }
         }
     }
+    @Published var condition: DataviewFilter.Condition
     
     let headerViewModel: SetFiltersSelectionHeaderViewModel
     let onApply: (SetFilter) -> Void
@@ -24,7 +25,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     
     private(set) var popupLayout: AnytypePopupLayoutType = .fullScreen {
         didSet {
-            popup?.updateLayout(true)
+            popup?.updateLayout(false)
         }
     }
     private weak var popup: AnytypePopupProxy?
@@ -36,6 +37,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     ) {
         self.filter = filter
         self.router = router
+        self.condition = filter.filter.condition
         self.contentViewBuilder = SetFiltersContentViewBuilder(filter: filter)
         self.contentHandler = SetFiltersContentHandler(filter: filter, onApply: onApply)
         self.onApply = onApply
@@ -48,6 +50,8 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     @ViewBuilder
     func makeContentView() -> some View {
         contentViewBuilder.buildContentView(
+            router: router,
+            setSelectionModel: self,
             onSelect: { [contentHandler] ids in
                 contentHandler.handleSelectedIds(ids)
             },
@@ -57,12 +61,12 @@ final class SetFiltersSelectionViewModel: ObservableObject {
             onApplyCheckbox: { [contentHandler] in
                 contentHandler.handleCheckbox($0)
             },
+            onApplyDate: { [contentHandler] in
+                contentHandler.handleDate($0)
+            },
             onKeyboardHeightChange: { [weak self] height in
                 self?.keyboardHeight = height
-                // fix simultaneous update of popup height and content
-                DispatchQueue.main.async {
-                    self?.updateLayout()
-                }
+                self?.updateLayout()
             }
         )
     }
@@ -78,8 +82,9 @@ final class SetFiltersSelectionViewModel: ObservableObject {
     }
     
     private func updateState(with condition: DataviewFilter.Condition) {
-        contentHandler.updateCondition(condition)
+        self.condition = condition
         self.state = condition.hasValues ? .content : .empty
+        contentHandler.updateCondition(condition)
     }
     
     private func updateLayout() {
@@ -94,7 +99,7 @@ final class SetFiltersSelectionViewModel: ObservableObject {
                 floatingPanelStyle: false,
                 needBottomInset: false
             )
-        case .selected:
+        case .selected, .date:
             popupLayout = .fullScreen
         case .checkbox:
             popupLayout = .constantHeight(height: Constants.checkboxStateHeight, floatingPanelStyle: false)

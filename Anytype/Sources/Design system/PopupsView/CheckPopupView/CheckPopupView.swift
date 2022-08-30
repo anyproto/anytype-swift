@@ -39,8 +39,8 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
 
     private func mainSectionRow(_ item: CheckPopupItem) -> some View {
         HStack(spacing: 0) {
-            if let iconName = item.icon {
-                Image(iconName)
+            if let iconAsset = item.iconAsset {
+                Image(asset: iconAsset)
                 Spacer.fixedWidth(12)
             }
 
@@ -54,7 +54,7 @@ struct CheckPopupView<ViewModel: CheckPopupViewViewModelProtocol>: View {
             Spacer()
 
             if item.isSelected {
-                Image.optionChecked.frame(width: 24, height: 24).foregroundColor(.buttonSelected)
+                Image(asset: .optionChecked).frame(width: 24, height: 24).foregroundColor(.buttonSelected)
             }
         }
         .frame(height: 52)
@@ -69,8 +69,8 @@ struct CheckPopupView_Previews: PreviewProvider {
         }
 
         var items: [CheckPopupItem] = [
-            .init(id: "1", icon: ImageName.ObjectPreview.text, title: "Some title", subtitle: "Long subtitle", isSelected: true),
-            .init(id: "2", icon: ImageName.ObjectPreview.text, title: "Other title", subtitle: "Long subtitle", isSelected: false)
+            .init(id: "1", iconAsset: .text, title: "Some title", subtitle: "Long subtitle", isSelected: true),
+            .init(id: "2", iconAsset: .text, title: "Other title", subtitle: "Long subtitle", isSelected: false)
         ]
     }
 

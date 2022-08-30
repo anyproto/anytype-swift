@@ -22,7 +22,7 @@ struct SetSortRow: View {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color.backgroundSelected)
-                Image.createImage(configuration.iconName)
+                Image(asset: configuration.iconAsset)
             }
             .frame(width: 48, height: 48)
             
@@ -36,7 +36,7 @@ struct SetSortRow: View {
             Spacer()
             
             if editMode?.wrappedValue == .inactive {
-                Image.arrow
+                Image(asset: .arrowForward)
             }
         }
         .frame(height: 68)

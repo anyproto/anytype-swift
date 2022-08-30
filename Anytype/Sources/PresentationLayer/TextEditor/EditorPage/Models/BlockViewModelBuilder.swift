@@ -50,6 +50,12 @@ final class BlockViewModelBuilder {
         return editorItems
     }
 
+    func buildShimeringItem() -> EditorItem {
+        let shimmeringViewModel = ShimmeringBlockViewModel()
+
+        return .system(shimmeringViewModel)
+    }
+
     private func build(_ infos: [BlockInformation]) -> [BlockViewModelProtocol] {
         infos.compactMap(build(info:))
     }
@@ -163,13 +169,17 @@ final class BlockViewModelBuilder {
         case .divider(let content):
             return DividerBlockViewModel(content: content, info: info)
         case let .bookmark(data):
+            let newData = FeatureFlags.bookmarksFlow
+                ? ObjectDetailsStorage.shared.get(id: data.targetObjectID).map { BlockBookmark(objectDetails: $0) }
+                : nil
             return BlockBookmarkViewModel(
                 info: info,
-                bookmarkData: data,
+                bookmarkData: newData ?? data,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },
                 openUrl: { [weak self] url in
+                    AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockBookmarkOpenUrl)
                     self?.router.openUrl(url)
                 }
             )
@@ -195,7 +205,10 @@ final class BlockViewModelBuilder {
             ) { [weak self] relation in
                 guard let self = self else { return }
 
-                if relation.id == BundledRelationKey.type.rawValue {
+                let bookmarkFilter = FeatureFlags.bookmarksFlow ?
+                    self.document.details?.type != ObjectTypeUrl.bundled(.bookmark).rawValue : true
+                
+                if relation.id == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
                     self.router.showTypesSearch(
                         onSelect: { [weak self] id in
                             self?.handler.setObjectTypeUrl(id)
@@ -235,10 +248,6 @@ final class BlockViewModelBuilder {
             )
         case .smartblock, .layout, .dataView, .tableRow, .tableColumn: return nil
         case .table:
-            guard FeatureFlags.isSimpleTablesAvailable else {
-                fallthrough
-            }
-
             return SimpleTableBlockViewModel(
                 info: info,
                 simpleTableDependenciesBuilder: simpleTableDependenciesBuilder
@@ -288,5 +297,3 @@ final class BlockViewModelBuilder {
         }
     }
 }
-
-

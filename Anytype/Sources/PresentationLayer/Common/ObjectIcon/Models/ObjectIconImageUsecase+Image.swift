@@ -7,8 +7,8 @@ extension ObjectIconImageUsecase {
                 profileImageGuideline: ProfileIconImageGuideline.x112,
                 emojiImageGuideline: EmojiIconImageGuideline.x80,
                 todoImageGuideline: TodoIconImageGuideline.x28,
-                placeholderImageGuideline: nil,
-                staticImageGuideline: nil
+                placeholderImageGuideline: PlaceholderIconImageGuideline.x48,
+                staticImageGuideline: StaticImageGuideline.x80
             )
         case .openedObjectNavigationBar:
             return ObjectIconImageGuidelineSet(
@@ -93,6 +93,15 @@ extension ObjectIconImageUsecase {
                 placeholderImageGuideline: nil,
                 staticImageGuideline: nil
             )
+        case .setGallery:
+            return ObjectIconImageGuidelineSet(
+                basicImageGuideline: BasicIconImageGuideline.x16,
+                profileImageGuideline: ProfileIconImageGuideline.x16,
+                emojiImageGuideline: EmojiIconImageGuideline.x16,
+                todoImageGuideline: TodoIconImageGuideline.x16,
+                placeholderImageGuideline: nil,
+                staticImageGuideline: nil
+            )
         case .featuredRelationsBlock:
             return ObjectIconImageGuidelineSet(
                 basicImageGuideline: BasicIconImageGuideline.x18,
@@ -101,15 +110,6 @@ extension ObjectIconImageUsecase {
                 todoImageGuideline: TodoIconImageGuideline.x18,
                 placeholderImageGuideline: nil,
                 staticImageGuideline: StaticImageGuideline.x18
-            )
-        case .editorMenu:
-            return ObjectIconImageGuidelineSet(
-                basicImageGuideline: BasicIconImageGuideline.x40,
-                profileImageGuideline: ProfileIconImageGuideline.x40,
-                emojiImageGuideline: EmojiIconImageGuideline.x40,
-                todoImageGuideline: nil,
-                placeholderImageGuideline: nil,
-                staticImageGuideline: StaticImageGuideline.x40
             )
         }
     }

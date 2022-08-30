@@ -5,7 +5,6 @@ import AnytypeCore
 
 final class TextService: TextServiceProtocol {    
     func setText(contextId: String, blockId: String, middlewareString: MiddlewareString) {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockSetTextText)
         Anytype_Rpc.BlockText.SetText.Service.invoke(
             contextID: contextId,
             blockID: blockId,
@@ -19,7 +18,6 @@ final class TextService: TextServiceProtocol {
 
     @discardableResult
     func setTextForced(contextId: BlockId, blockId: BlockId, middlewareString: MiddlewareString) -> Bool {
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockSetTextText)
         let event = Anytype_Rpc.BlockText.SetText.Service
             .invoke(contextID: contextId, blockID: blockId, text: middlewareString.text, marks: middlewareString.marks)
             .map { EventsBunch(event: $0.event) }

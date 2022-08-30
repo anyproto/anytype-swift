@@ -8,7 +8,7 @@ struct SetFiltersSelectionHeaderView: View {
             ZStack(alignment: .center) {
                 RoundedRectangle(cornerRadius: 10)
                     .foregroundColor(Color.backgroundSelected)
-                Image.createImage(viewModel.headerConfiguration.iconName)
+                Image(asset: viewModel.headerConfiguration.iconAsset)
             }
             .frame(width: 48, height: 48)
             
@@ -20,7 +20,7 @@ struct SetFiltersSelectionHeaderView: View {
                 } label: {
                     HStack(alignment: .center, spacing: 5) {
                         AnytypeText(viewModel.headerConfiguration.condition, style: .relation1Regular, color: .textSecondary)
-                        Image.arrowDown.foregroundColor(.textSecondary).padding(.top, 2)
+                        Image(asset: .arrowDown).foregroundColor(.textSecondary).padding(.top, 2)
                     }
                 }
             }

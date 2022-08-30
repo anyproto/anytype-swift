@@ -45,8 +45,11 @@ final class HomeViewModel: ObservableObject {
     weak var editorBrowser: EditorBrowser?
     private var quickActionsSubscription: AnyCancellable?
     
-    init(homeBlockId: BlockId) {
+    private let editorBrowserAssembly: EditorBrowserAssembly
+    
+    init(homeBlockId: BlockId, editorBrowserAssembly: EditorBrowserAssembly) {
         document = BaseDocument(objectId: homeBlockId)
+        self.editorBrowserAssembly = editorBrowserAssembly
         setupSubscriptions()
         
         let data = UserDefaultsConfig.screenDataFromLastSession
@@ -78,7 +81,7 @@ final class HomeViewModel: ObservableObject {
         selectAll(false)
         
         UserDefaultsConfig.selectedTab = tab
-        subscriptionService.stopSubscriptions(ids: [.sharedTab, .setsTab, .archiveTab, .historyTab])
+        subscriptionService.stopSubscriptions(ids: [.sharedTab, .setsTab, .archiveTab, .recentTab])
         tab.subscriptionId.flatMap { subId in
             subscriptionService.startSubscription(data: subId) { [weak self] id, update in
                 withAnimation(update.isInitialData ? nil : .spring()) {
@@ -114,7 +117,7 @@ final class HomeViewModel: ObservableObject {
     
     private func updateCollections(id: SubscriptionId, _ update: SubscriptionUpdate) {
         switch id {
-        case .historyTab:
+        case .recentTab:
             historyCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
         case .archiveTab:
             binCellData.applySubscriptionUpdate(update, transform: cellDataBuilder.buildCellData)
@@ -245,7 +248,7 @@ extension HomeViewModel {
     }
     
     func createBrowser(data: EditorScreenData) -> some View {
-        EditorBrowserAssembly().editor(data: data, model: self)
+        editorBrowserAssembly.editor(data: data, model: self)
             .eraseToAnyView()
             .edgesIgnoringSafeArea(.all)
     }

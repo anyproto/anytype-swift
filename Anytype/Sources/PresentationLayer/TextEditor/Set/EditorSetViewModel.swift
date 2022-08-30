@@ -23,20 +23,28 @@ final class EditorSetViewModel: ObservableObject {
         sortedRelations.filter { $0.option.isVisible }.map(\.metadata)
     }
  
-    var rows: [SetTableViewRowData] {
-        dataBuilder.rowData(
+    var configurations: [SetContentViewItemConfiguration] {
+        dataBuilder.itemData(
             records,
             dataView: dataView,
             activeView: activeView,
             colums: colums,
-            isObjectLocked: document.isLocked,
+            isObjectLocked: isObjectLocked,
             onIconTap: { [weak self] details in
                 self?.updateDetailsIfNeeded(details)
             },
-            onRowTap: { [weak self] details in
-                self?.rowTapped(details)
+            onItemTap: { [weak self] details in
+                self?.itemTapped(details)
             }
         )
+    }
+    
+    var isSmallItemSize: Bool {
+        activeView.cardSize == .small
+    }
+    
+    var contentViewType: SetContentViewType {
+        activeView.type.setContentViewType
     }
     
     var sortedRelations: [SetRelation] {
@@ -86,13 +94,17 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
+    private var isObjectLocked: Bool {
+        document.isLocked || activeView.type == .gallery
+    }
+    
     let document: BaseDocument
     private var router: EditorRouterProtocol!
 
     let paginationHelper = EditorSetPaginationHelper()
     private var subscription: AnyCancellable?
     private let subscriptionService = ServiceLocator.shared.subscriptionService()
-    private let dataBuilder = SetTableViewDataBuilder()
+    private let dataBuilder = SetContentViewDataBuilder()
     private let dataviewService: DataviewServiceProtocol
     private let searchService: SearchServiceProtocol
     private let detailsService: DetailsServiceProtocol
@@ -224,11 +236,6 @@ final class EditorSetViewModel: ObservableObject {
         relationMetadata.format != .unrecognized
     }
     
-    private func isFloatingSetMenuAvailable() -> Bool {
-        FeatureFlags.isSetSortsAvailable ||
-        FeatureFlags.isSetFiltersAvailable
-    }
-    
     private func isBookmarkObject() -> Bool {
         dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
     }
@@ -241,8 +248,8 @@ final class EditorSetViewModel: ObservableObject {
         )
     }
     
-    private func rowTapped(_ details: ObjectDetails) {
-        if isBookmarkObject(),
+    private func itemTapped(_ details: ObjectDetails) {
+        if !FeatureFlags.bookmarksFlow && isBookmarkObject(),
            let url = url(from: details) {
             router.openUrl(url)
         } else {
@@ -288,11 +295,7 @@ extension EditorSetViewModel {
     }
     
     func showSetSettings() {
-        if isFloatingSetMenuAvailable() {
-            router.showSetSettings(setModel: self)
-        } else {
-            showViewSettings()
-        }
+        router.showSetSettings(setModel: self)
     }
 
     func createObject() {
@@ -304,13 +307,9 @@ extension EditorSetViewModel {
     }
     
     func showViewSettings() {
-        router.presentFullscreen(
-            AnytypePopup(
-                viewModel: EditorSetViewSettingsViewModel(
-                    setModel: self,
-                    service: dataviewService
-                )
-            )
+        router.showViewSettings(
+            setModel: self,
+            dataviewService: dataviewService
         )
     }
     
@@ -348,7 +347,7 @@ extension EditorSetViewModel {
             templateId = ""
         }
 
-        guard let objectDetails = dataviewService.addRecord(templateId: templateId) else { return }
+        guard let objectDetails = dataviewService.addRecord(templateId: templateId, setFilters: filters) else { return }
         
         router.showCreateObject(pageId: objectDetails.id)
     }
@@ -360,4 +359,13 @@ extension EditorSetViewModel {
 
 extension EditorSetViewModel {
     static let urlRelationKey = "url"
+}
+
+extension EditorSetViewModel {
+    static let empty = EditorSetViewModel(
+        document: BaseDocument(objectId: "objectId"),
+        dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
+        searchService: SearchService(),
+        detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService())
+    )
 }

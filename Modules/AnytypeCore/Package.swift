@@ -14,14 +14,16 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/apple/swift-protobuf", revision: "1.15.0"),
-        .package(path: "../ProtobufMessages")
+        .package(path: "../ProtobufMessages"),
+        .package(path: "../Logger")
     ],
     targets: [
         .target(
             name: "AnytypeCore",
             dependencies: [
                 .product(name: "SwiftProtobuf", package: "swift-protobuf"),
-                "ProtobufMessages"
+                "ProtobufMessages",
+                "Logger"
             ],
             path: "AnytypeCore"
         )

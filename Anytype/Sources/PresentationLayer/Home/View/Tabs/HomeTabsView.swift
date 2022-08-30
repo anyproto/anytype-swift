@@ -5,7 +5,7 @@ import AnytypeCore
 extension HomeTabsView {
     enum Tab: String, CaseIterable {
         case favourites
-        case history
+        case recent
         case sets
         case shared
         case bin
@@ -18,8 +18,8 @@ extension HomeTabsView {
                 return .setsTab
             case .shared:
                 return .sharedTab
-            case .history:
-                return .historyTab
+            case .recent:
+                return .recentTab
             case .bin:
                 return .archiveTab
             }
@@ -85,7 +85,7 @@ struct HomeTabsView: View {
                     model.showPage(id: data.destinationId, viewType: data.viewType)
                 }
             )
-            .tag(Tab.history)
+            .tag(Tab.recent)
             
             HomeCollectionView(
                 cellData: model.setsCellData,
@@ -128,16 +128,11 @@ struct HomeTabsView: View {
 
 struct HomeTabsView_Previews: PreviewProvider {
     
-    static var model: HomeViewModel {
-        let model = HomeViewModel(homeBlockId: UUID().uuidString)
-        return model
-    }
-    
     static var previews: some View {
         ZStack {
             Color.blue
             HomeTabsView(offsetChanged: { _ in }, onDrag: { _ in}, onDragEnd: { _ in })
-                .environmentObject(model)
+                .environmentObject(HomeViewModel.makeForPreview())
         }
     }
 }

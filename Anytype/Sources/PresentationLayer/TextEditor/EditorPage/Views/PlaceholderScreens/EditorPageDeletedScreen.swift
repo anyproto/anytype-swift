@@ -38,7 +38,7 @@ final class EditorPageDeletedScreen: UIView {
     }
 
     private func buildGhost() -> UIImageView {
-        let view = UIImageView(image: UIImage.editor.bigGhost)
+        let view = UIImageView(asset: .TextEditor.bigGhost)
         view.addTapGesture { [weak view] _ in
             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
             view?.spookyShake()

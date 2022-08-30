@@ -29,7 +29,8 @@ extension Array where Element == BlockInformation {
     var blocksOptionItems: [BlocksOptionItem] {
         var isDownloadAvailable = true
         var isStyleAvailable = true
-
+        var isOpenObjectAvailable = false
+        
         var restrictions = [BlockRestrictions]()
 
         forEach { element in
@@ -37,6 +38,13 @@ extension Array where Element == BlockInformation {
                 if type.state != .done { isDownloadAvailable = false }
             } else {
                 isDownloadAvailable = false
+            }
+            
+            if case let .bookmark(bookmark) = element.content,
+                bookmark.targetObjectID.isNotEmpty,
+                let details = ObjectDetailsStorage.shared.get(id: bookmark.targetObjectID),
+                !details.isArchived, !details.isDeleted {
+                isOpenObjectAvailable = true
             }
 
             if !element.content.isText {
@@ -70,13 +78,12 @@ extension Array where Element == BlockInformation {
             mergedItems.remove(.preview)
         }
 
-        if FeatureFlags.clipboard {
-            if !UIPasteboard.general.hasSlots {
-                mergedItems.remove(.paste)
-            }
-        } else {
-            mergedItems.remove(.copy)
+        if !UIPasteboard.general.hasSlots {
             mergedItems.remove(.paste)
+        }
+        
+        if !FeatureFlags.bookmarksFlow || !isOpenObjectAvailable || count > 1 {
+            mergedItems.remove(.openObject)
         }
 
         return Array<BlocksOptionItem>(mergedItems).sorted()

@@ -191,7 +191,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         let internalViewModel = SetSortsSearchViewModel(interactor: interactor)
         
         let viewModel = NewSearchViewModel(
-            searchPlaceholder: Loc.EditSorts.Popup.Sort.Add.searchPlaceholder,
+            searchPlaceholder: Loc.EditSet.Popup.Sort.Add.searchPlaceholder,
             style: style,
             itemCreationMode: .unavailable,
             internalViewModel: internalViewModel,

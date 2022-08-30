@@ -8,7 +8,7 @@
 
 struct CheckPopupItem: Identifiable, Hashable {
     let id: String
-    let icon: String?
+    let iconAsset: ImageAsset?
     let title: String
     let subtitle: String?
     let isSelected: Bool

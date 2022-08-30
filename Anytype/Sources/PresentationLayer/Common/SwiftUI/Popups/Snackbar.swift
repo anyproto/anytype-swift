@@ -62,7 +62,7 @@ struct Snackbar: View {
     
     private var snackbar: some View {
         HStack {
-            Image.checked
+            Image(asset: .TextEditor.Text.checked)
             text
                 .lineLimit(3)
         }

@@ -29,6 +29,13 @@ final class DeletedAccountViewModel: ObservableObject {
     // MARK: - Internal funcs
     
     func logOut() {
+        AnytypeAnalytics.instance().logEvent(
+            AnalyticsEventsName.logout,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: AnalyticsEventsName.screenDeletion
+            ]
+        )
+
         service.logout(removeData: true) { isSuccess in
             guard isSuccess else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
@@ -40,6 +47,7 @@ final class DeletedAccountViewModel: ObservableObject {
     }
     
     func cancel() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.cancelDeletion)
         guard let status = service.restoreAccount() else {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return

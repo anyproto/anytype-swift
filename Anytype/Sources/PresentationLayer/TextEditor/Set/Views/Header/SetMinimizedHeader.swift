@@ -53,7 +53,7 @@ struct SetMinimizedHeader: View {
     
     private var settingsButton: some View {
         EditorBarButtonItem(
-            image: .more,
+            imageAsset: .more,
             state: EditorBarItemState(
                 haveBackground: model.details?.documentCover.isNotNil ?? false,
                 opacity: opacity

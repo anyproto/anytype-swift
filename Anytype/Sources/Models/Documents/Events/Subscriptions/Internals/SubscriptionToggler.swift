@@ -12,7 +12,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     
     func startSubscription(data: SubscriptionData) -> SubscriptionTogglerResult? {
         switch data {
-        case .historyTab:
+        case .recentTab:
             return startHistoryTabSubscription()
         case .archiveTab:
             return startArchiveTabSubscription()
@@ -52,8 +52,9 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
     }
     
     private func startSetSubscription(data: SetSubsriptionData) -> SubscriptionTogglerResult? {
-        var keys = data.options.map { $0.key }
-        keys.append(contentsOf: homeDetailsKeys.map { $0.rawValue} )
+        let keys = data.buildKeys(
+            with: homeDetailsKeys.map { $0.rawValue}
+        )
         
         return makeRequest(subId: .set, filters: data.filters, sorts: data.sorts, source: data.source, keys: keys, pageNumber: data.currentPage)
     }
@@ -69,7 +70,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         )
         filters.append(SearchHelper.lastOpenedDateNotNilFilter())
         
-        return makeRequest(subId: .historyTab, filters: filters, sorts: [sort])
+        return makeRequest(subId: .recentTab, filters: filters, sorts: [sort])
     }
     
     private func startArchiveTabSubscription() -> SubscriptionTogglerResult? {

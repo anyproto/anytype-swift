@@ -23,10 +23,10 @@ final class SetSortTypesListViewModel: CheckPopupViewViewModelProtocol {
     }
     
     func buildPopupItems() -> [CheckPopupItem] {
-        DataviewSort.TypeEnum.allCases.compactMap { type in
+        DataviewSort.TypeEnum.allAvailableCases.compactMap { type in
             CheckPopupItem(
                 id: String(type.rawValue),
-                icon: nil,
+                iconAsset: nil,
                 title: sort.typeTitle(for: type),
                 subtitle: nil,
                 isSelected: type == selectedSort.type

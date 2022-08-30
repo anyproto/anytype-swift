@@ -92,12 +92,10 @@ final class MiddlewareEventConverter {
             return .details(id: details.id)
             
         case let .objectDetailsAmend(data):
-            guard
-                let newDetails = detailsStorage.amend(data: data)
-            else { return nil }
-            
             let oldDetails = detailsStorage.get(id: data.id)
             
+            guard let newDetails = detailsStorage.amend(data: data) else { return nil }
+
             guard let oldDetails = oldDetails else {
                 return .details(id: data.id)
             }
@@ -193,7 +191,7 @@ final class MiddlewareEventConverter {
                     var bookmark = bookmark
                     
                     if data.hasURL {
-                        bookmark.url = data.url.value
+                        bookmark.source = data.url.value
                     }
                     
                     if data.hasTitle {
@@ -216,6 +214,14 @@ final class MiddlewareEventConverter {
                         if let type = data.type.value.asModel {
                             bookmark.type = type
                         }
+                    }
+                    
+                    if data.hasTargetObjectID {
+                        bookmark.targetObjectID = data.targetObjectID.value
+                    }
+                    
+                    if data.hasState {
+                        bookmark.state = data.state.value.asModel
                     }
                     
                     return info.updated(content: .bookmark(bookmark))
@@ -286,32 +292,6 @@ final class MiddlewareEventConverter {
                 }
             }
             return .blocks(blockIds: [data.id])
-        
-        case .objectShow(let data):
-            guard data.rootID.isNotEmpty else {
-                anytypeAssertionFailure("Empty root id", domain: .middlewareEventConverter)
-                return nil
-            }
-
-            let parsedBlocks = data.blocks.compactMap {
-                BlockInformationConverter.convert(block: $0)
-            }
-            
-            let parsedDetails: [ObjectDetails] = data.details.compactMap {
-                ObjectDetails(id: $0.id, values: $0.details.fields)
-            }
-
-            buildBlocksTree(information: parsedBlocks, rootId: data.rootID, container: infoContainer)
-
-            parsedDetails.forEach { detailsStorage.add(details: $0) }
-    
-            relationStorage.set(
-                relations: data.relations.map { RelationMetadata(middlewareRelation: $0) }
-            )
-            let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: data.restrictions)
-
-            restrictionsContainer.restrinctions = restrinctions
-            return .general
         case .accountUpdate(let account):
             handleAccountUpdate(account)
             return nil
@@ -440,32 +420,8 @@ final class MiddlewareEventConverter {
         return toggleStyleChanged ? .general : .blocks(blockIds: Set(childIds))
     }
     
-    private func buildBlocksTree(information: [BlockInformation], rootId: BlockId, container: InfoContainerProtocol) {
-        
-        information.forEach { container.add($0) }
-        let roots = information.filter { $0.id == rootId }
-
-        guard roots.count != 0 else {
-            anytypeAssertionFailure("Unknown situation. We can't have zero roots.", domain: .middlewareEventConverter)
-            return
-        }
-
-        if roots.count != 1 {
-            // this situation is not possible, but, let handle it.
-            anytypeAssertionFailure(
-                "We have several roots for our rootId. Not possible, but let us handle it.",
-                domain: .middlewareEventConverter
-            )
-        }
-
-        let rootId = roots[0].id
-
-        IndentationBuilder.build(container: container, id: rootId)
-    }
-    
     private func handleAccountUpdate(_ update: Anytype_Event.Account.Update) {
         let currentStatus = AccountManager.shared.account.status
-        AccountManager.shared.updateAccount(update)
         let newStatus = AccountManager.shared.account.status
         guard currentStatus != newStatus else { return }
         

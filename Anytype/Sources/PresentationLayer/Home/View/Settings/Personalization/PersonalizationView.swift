@@ -30,7 +30,7 @@ struct PersonalizationView: View {
                 Spacer()
                 AnytypeText(ObjectTypeProvider.shared.defaultObjectType.name, style: .uxBodyRegular, color: .textSecondary)
                 Spacer.fixedWidth(10)
-                Image.arrow.foregroundColor(.textTertiary)
+                Image(asset: .arrowForward).foregroundColor(.textTertiary)
             }
             .padding(.vertical, 14)
             .divider()

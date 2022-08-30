@@ -29,7 +29,7 @@ final class SetFiltersSelectionHeaderViewModel: ObservableObject {
             id: filter.id,
             title: filter.metadata.name,
             condition: filter.conditionString ?? "",
-            iconName: filter.metadata.format.iconName
+            iconAsset: filter.metadata.format.iconAsset
         )
     }
     

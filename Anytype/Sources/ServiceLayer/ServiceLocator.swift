@@ -3,6 +3,7 @@ import UIKit
 import BlocksModels
 import AnytypeCore
 
+// TODO: Migrate to ServicesDI
 final class ServiceLocator {
     static let shared = ServiceLocator()
     
@@ -58,6 +59,18 @@ final class ServiceLocator {
             toggler: subscriptionToggler(),
             storage: detailsStorage()
         )
+    }
+    
+    func bookmarkService() -> BookmarkServiceProtocol {
+        BookmarkService()
+    }
+    
+    func systemURLService() -> SystemURLServiceProtocol {
+        SystemURLService()
+    }
+    
+    func alertOpener() -> AlertOpenerProtocol {
+        AlertOpener()
     }
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

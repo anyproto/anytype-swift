@@ -7,16 +7,16 @@ extension CursorModeAccessoryView {
         case style
         case actions
 
-        var image: UIImage {
+        var image: UIImage? {
             switch self {
             case .mention:
-                return UIImage.edititngToolbar.mention
+                return UIImage(asset: .EditingToolbar.mention)
             case .slash:
-                return UIImage.edititngToolbar.addNew
+                return UIImage(asset: .EditingToolbar.addNew)
             case .style:
-                return UIImage.edititngToolbar.style
+                return UIImage(asset: .EditingToolbar.style)
             case .actions:
-                return UIImage.edititngToolbar.actions
+                return UIImage(asset: .EditingToolbar.actions)
             }
         }
 

@@ -11,11 +11,12 @@ struct SetFiltersTextView: View {
             button
         }
         .padding(.horizontal, 20)
+        .animation(.easeOut.speed(1.5))
     }
     
     var textField: some View {
         AutofocusedTextField(
-            placeholder: Loc.EditFilters.Popup.TextView.placeholder,
+            placeholder: Loc.EditSet.Popup.Filters.TextView.placeholder,
             text: $viewModel.input
         )
         .keyboardType(viewModel.keyboardType)

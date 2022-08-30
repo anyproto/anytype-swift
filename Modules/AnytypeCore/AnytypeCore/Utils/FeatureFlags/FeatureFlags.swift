@@ -1,33 +1,6 @@
-public enum Feature: String, Codable {
-    case rainbowViews = "Paint editor views 🌈"
-    case showAlertOnAssert = "Show alerts on asserts\n(only in testflight dev)"
-    case analytics = "Analytics Amplitude (only in development)"
-    case middlewareLogs = "Show middleware logs in Xcode console"
-
-    case uikitRelationBlocks = "UIKit relation blocks"
-    case clipboard = "Clipboard"
-    case objectPreview = "Object preview"
-    case deletion = "Account deletion"
-    case createNewRelation = "Create new relation"
-    case templates = "Show templates picker"
-    case createObjectInSet = "Create object in Set"
-    case setSorts = "Set sorts"
-    case setFilters = "Set filters"
-    case tableOfContents = "Table of contents"
-    case floatingSetMenu = "Floating Set menu"
-    case simpleTables = "Simple tables"
-    case objectDuplicate = "Object duplicate"
-    // Author: m@anytype.io
-    // Release: 0.17.0
-    case relationDetails = "Relation details in read only mode"
-}
+import Foundation
 
 public final class FeatureFlags {
-    public typealias Features = [Feature: Bool]
-    
-    public static var features: Features {
-        FeatureFlagsStorage.featureFlags.merging(defaultValues, uniquingKeysWith: { (first, _) in first })
-    }
     
     private static var isRelease: Bool {
         #if RELEASE
@@ -37,101 +10,60 @@ public final class FeatureFlags {
         #endif
     }
     
-    private static let defaultValues: Features = [
-        .rainbowViews: false,
-        .showAlertOnAssert : true,
-        .analytics : false,
-        .middlewareLogs: false,
-        .clipboard: true,
-        .uikitRelationBlocks: true,
-        .objectPreview: false,
-        .deletion: true,
-        .createNewRelation: true,
-        .templates: true,
-        .createObjectInSet: true,
-        .setSorts: true,
-        .setFilters: false,
-        .tableOfContents: true,
-        .floatingSetMenu: false,
-        .simpleTables: true,
-        .objectDuplicate: true,
-        .relationDetails: false
+    public static let features: [FeatureDescription] = [
+        .rainbowViews,
+        .showAlertOnAssert,
+        .analytics,
+        .objectPreview,
+        .setFilters,
+        .relationDetails,
+        .bookmarksFlow,
+        .setGalleryView
     ]
     
-    public static func update(key: Feature, value: Bool) {
+    public static func update(key feature: FeatureDescription, value: Bool) {
         var updatedFeatures = FeatureFlagsStorage.featureFlags
-        updatedFeatures.updateValue(value, forKey: key)
+        updatedFeatures.updateValue(value, forKey: feature.title)
         FeatureFlagsStorage.featureFlags = updatedFeatures
+    }
+    
+    public static func value(for feature: FeatureDescription) -> Bool {
+        let defaultValue = isRelease ? feature.defaultValue : feature.debugValue
+        return FeatureFlagsStorage.featureFlags[feature.title] ?? defaultValue
     }
 }
 
 public extension FeatureFlags {
 
     static var showAlertOnAssert: Bool {
-        features[.showAlertOnAssert, default: true]
+        value(for: .showAlertOnAssert)
     }
 
     static var analytics: Bool {
-        features[.analytics, default: false]
+        value(for: .analytics)
     }
     
     static var rainbowViews: Bool {
-        features[.rainbowViews, default: false]
-    }
-    
-    static var middlewareLogs: Bool {
-        features[.middlewareLogs, default: false]
-    }
-
-    static var uikitRelationBlock: Bool {
-        features[.uikitRelationBlocks, default: true]
-    }
-
-    static var clipboard: Bool {
-        features[.clipboard, default: true]
+        value(for: .rainbowViews)
     }
 
     static var objectPreview: Bool {
-        features[.objectPreview, default: false]
-    }
-    
-    static var deletion: Bool {
-        features[.deletion, default: true]
-    }
-    
-    static var createNewRelation: Bool {
-        features[.createNewRelation, default: true]
-    }
-
-    static var isTemplatesAvailable: Bool {
-        features[.templates, default: true]
-    }
-
-    static var isCreateObjectInSetAvailable: Bool {
-        features[.createObjectInSet, default: true]
-    }
-    
-    static var isSetSortsAvailable: Bool {
-        features[.setSorts, default: true]
+        value(for: .objectPreview)
     }
     
     static var isSetFiltersAvailable: Bool {
-        features[.setFilters, default: false]
+        value(for: .setFilters)
     }
-    
-    static var isTableOfContentsAvailable: Bool {
-        features[.tableOfContents, default: true]
-    }
-
-    static var isSimpleTablesAvailable: Bool {
-        features[.simpleTables, default: true]
-    }
-    
-    static var isObjectDuplicateAvailable: Bool {
-        features[.objectDuplicate, default: true]
-    }
-    
+        
     static var relationDetails: Bool {
-        features[.relationDetails, default: false]
+        value(for: .relationDetails)
+    }
+    
+    static var bookmarksFlow: Bool {
+        value(for: .bookmarksFlow)
+    }
+    
+    static var setGalleryView: Bool {
+        value(for: .setGalleryView)
     }
 }

@@ -102,8 +102,6 @@ internal enum Loc {
   internal static let background = Loc.tr("Localizable", "Background")
   /// Background picture
   internal static let backgroundPicture = Loc.tr("Localizable", "Background picture")
-  /// Backup recovery phrase
-  internal static let backupRecoveryPhrase = Loc.tr("Localizable", "Backup recovery phrase")
   /// Basic
   internal static let basic = Loc.tr("Localizable", "Basic")
   /// Bin
@@ -199,8 +197,6 @@ internal enum Loc {
   internal static let create = Loc.tr("Localizable", "Create")
   /// The pin code will protect your secret phrase. As we do not store your secret phrase or pin code and not ask your e-mail or phone number, there is no id recovery without your pin code or secret phrase. So, please, remember your pin code
   internal static let createAPinCodeDescription = Loc.tr("Localizable", "Create a pin code description")
-  /// Create bookmark
-  internal static let createBookmark = Loc.tr("Localizable", "Create bookmark")
   /// Create from scratch
   internal static let createFromScratch = Loc.tr("Localizable", "Create from scratch")
   /// Create new object
@@ -243,16 +239,12 @@ internal enum Loc {
   internal static let deselectAll = Loc.tr("Localizable", "Deselect all")
   /// Designed to capture thoughts quickly
   internal static let designedToCaptureThoughtsQuickly = Loc.tr("Localizable", "Designed to capture thoughts quickly")
-  /// Dismiss
-  internal static let dismiss = Loc.tr("Localizable", "Dismiss")
   /// Do it later
   internal static let doItLater = Loc.tr("Localizable", "Do it later")
   /// If you don't have one just go to anytype.io and sign up to the waiting list. We are inviting people on the rolling bases.
   internal static let doNotHaveInvite = Loc.tr("Localizable", "Do not have invite")
   /// Done
   internal static let done = Loc.tr("Localizable", "Done")
-  /// Don’t forget to save your recovery phrase
-  internal static let donTForgetToSaveYourRecoveryPhrase = Loc.tr("Localizable", "Don’t forget to save your recovery phrase")
   /// Download
   internal static let download = Loc.tr("Localizable", "Download")
   /// Downloading or uploading data to some node
@@ -341,8 +333,6 @@ internal enum Loc {
   internal static let greyBackground = Loc.tr("Localizable", "Grey background")
   /// Group
   internal static let group = Loc.tr("Localizable", "Group")
-  /// Have you backed up your recovery phrase?
-  internal static let haveYouBackedUpYourRecoveryPhrase = Loc.tr("Localizable", "Have you backed up your recovery phrase?")
   /// Heading
   internal static let heading = Loc.tr("Localizable", "Heading")
   /// Medium headline
@@ -353,8 +343,6 @@ internal enum Loc {
   internal static let highlighted = Loc.tr("Localizable", "Highlighted")
   /// Highlighted text
   internal static let highlightedText = Loc.tr("Localizable", "Highlighted text")
-  /// History
-  internal static let history = Loc.tr("Localizable", "History")
   /// Home
   internal static let home = Loc.tr("Localizable", "Home")
   /// Icon
@@ -469,6 +457,8 @@ internal enum Loc {
   internal static let ok = Loc.tr("Localizable", "Ok")
   /// On analytics
   internal static let onAnalytics = Loc.tr("Localizable", "On analytics")
+  /// Open object
+  internal static let openObject = Loc.tr("Localizable", "Open object")
   /// or type your recovery phrase
   internal static let orTypeYourRecoveryPhrase = Loc.tr("Localizable", "or type your recovery phrase")
   /// With Anytype you can write notes and documents, manage tasks and save important content from the web.
@@ -523,12 +513,6 @@ internal enum Loc {
   internal static let recent = Loc.tr("Localizable", "Recent")
   /// Recovery pharse is nil
   internal static let recoveryPharseIsNil = Loc.tr("Localizable", "Recovery pharse is nil")
-  /// Recovery phrase
-  internal static let recoveryPhrase = Loc.tr("Localizable", "Recovery phrase")
-  /// Recovery phrase copied to clipboard
-  internal static let recoveryPhraseCopiedToClipboard = Loc.tr("Localizable", "Recovery phrase copied to clipboard")
-  /// You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.
-  internal static let recoveryPhraseDescription = Loc.tr("Localizable", "Recovery phrase description")
   /// Red
   internal static let red = Loc.tr("Localizable", "Red")
   /// Red background
@@ -549,14 +533,6 @@ internal enum Loc {
   internal static let restoreFromKeychain = Loc.tr("Localizable", "Restore from keychain")
   /// Restore secret phrase from keychain
   internal static let restoreSecretPhraseFromKeychain = Loc.tr("Localizable", "Restore secret phrase from keychain")
-  /// If you lose the recovery phrase and get logged out you will not be able to 
-  internal static let saveKeychainAlertPart1 = Loc.tr("Localizable", "Save keychain alert part 1")
-  /// ever access your data again
-  internal static let saveKeychainAlertPart2 = Loc.tr("Localizable", "Save keychain alert part 2")
-  /// .
-  /// Save this recovery phrase outside of Anytype for data recovery.
-  /// We recommend using a secure data vault, password manager or piece of paper in the safe.
-  internal static let saveKeychainAlertPart3 = Loc.tr("Localizable", "Save keychain alert part 3")
   /// Scan QR code
   internal static let scanQRCode = Loc.tr("Localizable", "Scan QR code")
   /// Search
@@ -788,6 +764,13 @@ internal enum Loc {
     internal static let table = Loc.tr("Localizable", "DataviewType.table")
   }
 
+  internal enum DebugMenu {
+    /// Release: %s, %s
+    internal static func toggleAuthor(_ p1: UnsafePointer<CChar>, _ p2: UnsafePointer<CChar>) -> String {
+      return Loc.tr("Localizable", "DebugMenu.ToggleAuthor", p1, p2)
+    }
+  }
+
   internal enum DeletionAlert {
     /// You will be logged out on all other devices. You will have 30 days to recover it. Afterwards it will be deleted permanently
     internal static let description = Loc.tr("Localizable", "DeletionAlert.description")
@@ -795,26 +778,113 @@ internal enum Loc {
     internal static let title = Loc.tr("Localizable", "DeletionAlert.title")
   }
 
-  internal enum EditFilters {
-    internal enum Popup {
-      internal enum EmptyView {
-        /// No filters here. You can add some
-        internal static let title = Loc.tr("Localizable", "EditFilters.Popup.EmptyView.Title")
-      }
-      internal enum NavigationView {
-        /// Filters
-        internal static let title = Loc.tr("Localizable", "EditFilters.Popup.NavigationView.Title")
-      }
-      internal enum TextView {
-        /// Value
-        internal static let placeholder = Loc.tr("Localizable", "EditFilters.Popup.TextView.Placeholder")
-      }
-    }
-  }
-
   internal enum EditSet {
     internal enum Popup {
       internal enum Filter {
+        internal enum Condition {
+          internal enum Checkbox {
+            /// Is
+            internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Checkbox.Equal")
+            /// Is not
+            internal static let notEqual = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Checkbox.NotEqual")
+          }
+          internal enum Date {
+            /// Is after
+            internal static let after = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.After")
+            /// Is before
+            internal static let before = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.Before")
+            /// Is
+            internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.Equal")
+            /// Is within
+            internal static let `in` = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.In")
+            /// Is on or after
+            internal static let onOrAfter = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.OnOrAfter")
+            /// Is on or before
+            internal static let onOrBefore = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Date.OnOrBefore")
+          }
+          internal enum General {
+            /// Is empty
+            internal static let empty = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.General.Empty")
+            /// All
+            internal static let `none` = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.General.None")
+            /// Is not empty
+            internal static let notEmpty = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.General.NotEmpty")
+          }
+          internal enum Number {
+            /// Is equal to
+            internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.Equal")
+            /// Is greater than
+            internal static let greater = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.Greater")
+            /// Is greater than or equal to
+            internal static let greaterOrEqual = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.GreaterOrEqual")
+            /// Is less than
+            internal static let less = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.Less")
+            /// Is less than or equal to
+            internal static let lessOrEqual = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.LessOrEqual")
+            /// Is not equal to
+            internal static let notEqual = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Number.NotEqual")
+          }
+          internal enum Selected {
+            /// Has all of
+            internal static let allIn = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.AllIn")
+            /// Is exactly
+            internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.Equal")
+            /// Has any of
+            internal static let `in` = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.In")
+            /// Has none of
+            internal static let notIn = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Selected.NotIn")
+          }
+          internal enum Text {
+            /// Is
+            internal static let equal = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Text.Equal")
+            /// Contains
+            internal static let like = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Text.Like")
+            /// Is not
+            internal static let notEqual = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Text.NotEqual")
+            /// Doesn't contain
+            internal static let notLike = Loc.tr("Localizable", "EditSet.Popup.Filter.Condition.Text.NotLike")
+          }
+        }
+        internal enum Date {
+          internal enum Option {
+            /// Current month
+            internal static let currentMonth = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.CurrentMonth")
+            /// Current week
+            internal static let currentWeek = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.CurrentWeek")
+            /// Exact date
+            internal static let exactDate = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.ExactDate")
+            /// Last month
+            internal static let lastMonth = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.LastMonth")
+            /// Last week
+            internal static let lastWeek = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.LastWeek")
+            /// Next month
+            internal static let nextMonth = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NextMonth")
+            /// Next week
+            internal static let nextWeek = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NextWeek")
+            /// Number of days ago
+            internal static let numberOfDaysAgo = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo")
+            /// Number of days from now
+            internal static let numberOfDaysFromNow = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow")
+            /// Today
+            internal static let today = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Today")
+            /// Tomorrow
+            internal static let tomorrow = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Tomorrow")
+            /// Yesterday
+            internal static let yesterday = Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.Yesterday")
+            internal enum NumberOfDaysAgo {
+              /// %s days ago
+              internal static func short(_ p1: UnsafePointer<CChar>) -> String {
+                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysAgo.Short", p1)
+              }
+            }
+            internal enum NumberOfDaysFromNow {
+              /// %s days from now
+              internal static func short(_ p1: UnsafePointer<CChar>) -> String {
+                return Loc.tr("Localizable", "EditSet.Popup.Filter.Date.Option.NumberOfDaysFromNow.Short", p1)
+              }
+            }
+          }
+        }
         internal enum Value {
           /// Checked
           internal static let checked = Loc.tr("Localizable", "EditSet.Popup.Filter.Value.Checked")
@@ -822,81 +892,40 @@ internal enum Loc {
           internal static let unchecked = Loc.tr("Localizable", "EditSet.Popup.Filter.Value.Unchecked")
         }
       }
-    }
-  }
-
-  internal enum EditSorts {
-    internal enum Popup {
-      internal enum EmptyView {
-        /// No sorts here. You can add some
-        internal static let title = Loc.tr("Localizable", "EditSorts.Popup.EmptyView.Title")
-      }
-      internal enum Filter {
-        internal enum Condition {
-          internal enum Checkbox {
-            /// Is
-            internal static let equal = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Checkbox.Equal")
-            /// Is not
-            internal static let notEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Checkbox.NotEqual")
-          }
-          internal enum General {
-            /// Is empty
-            internal static let empty = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.General.Empty")
-            /// All
-            internal static let `none` = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.General.None")
-            /// Is not empty
-            internal static let notEmpty = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.General.NotEmpty")
-          }
-          internal enum Number {
-            /// Is equal to
-            internal static let equal = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.Equal")
-            /// Is greater than
-            internal static let greater = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.Greater")
-            /// Is greater than or equal to
-            internal static let greaterOrEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.GreaterOrEqual")
-            /// Is less than
-            internal static let less = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.Less")
-            /// Is less than or equal to
-            internal static let lessOrEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.LessOrEqual")
-            /// Is not equal to
-            internal static let notEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Number.NotEqual")
-          }
-          internal enum Selected {
-            /// Has all of
-            internal static let allIn = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Selected.AllIn")
-            /// Is exactly
-            internal static let equal = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Selected.Equal")
-            /// Has any of
-            internal static let `in` = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Selected.In")
-            /// Has none of
-            internal static let notIn = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Selected.NotIn")
-          }
-          internal enum Text {
-            /// Is
-            internal static let equal = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.Equal")
-            /// Contains
-            internal static let like = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.Like")
-            /// Is not
-            internal static let notEqual = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.NotEqual")
-            /// Doesn't contain
-            internal static let notLike = Loc.tr("Localizable", "EditSorts.Popup.Filter.Condition.Text.NotLike")
-          }
+      internal enum Filters {
+        internal enum EmptyView {
+          /// No filters here. You can add some
+          internal static let title = Loc.tr("Localizable", "EditSet.Popup.Filters.EmptyView.Title")
         }
-      }
-      internal enum NavigationView {
-        /// Sorts
-        internal static let title = Loc.tr("Localizable", "EditSorts.Popup.NavigationView.Title")
+        internal enum NavigationView {
+          /// Filters
+          internal static let title = Loc.tr("Localizable", "EditSet.Popup.Filters.NavigationView.Title")
+        }
+        internal enum TextView {
+          /// Value
+          internal static let placeholder = Loc.tr("Localizable", "EditSet.Popup.Filters.TextView.Placeholder")
+        }
       }
       internal enum Sort {
         internal enum Add {
           /// Сhoose a relation to sort
-          internal static let searchPlaceholder = Loc.tr("Localizable", "EditSorts.Popup.Sort.Add.SearchPlaceholder")
+          internal static let searchPlaceholder = Loc.tr("Localizable", "EditSet.Popup.Sort.Add.SearchPlaceholder")
         }
         internal enum Types {
           /// Ascending
-          internal static let ascending = Loc.tr("Localizable", "EditSorts.Popup.Sort.Types.Ascending")
+          internal static let ascending = Loc.tr("Localizable", "EditSet.Popup.Sort.Types.Ascending")
           /// Descending
-          internal static let descending = Loc.tr("Localizable", "EditSorts.Popup.Sort.Types.Descending")
+          internal static let descending = Loc.tr("Localizable", "EditSet.Popup.Sort.Types.Descending")
+        }
+      }
+      internal enum Sorts {
+        internal enum EmptyView {
+          /// No sorts here. You can add some
+          internal static let title = Loc.tr("Localizable", "EditSet.Popup.Sorts.EmptyView.Title")
+        }
+        internal enum NavigationView {
+          /// Sorts
+          internal static let title = Loc.tr("Localizable", "EditSet.Popup.Sorts.NavigationView.Title")
         }
       }
     }
@@ -939,6 +968,29 @@ internal enum Loc {
     internal static let system = Loc.tr("Localizable", "InterfaceStyle.system")
   }
 
+  internal enum Keychain {
+    /// Don’t forget to save your recovery phrase
+    internal static let donTForgetToSaveYourRecoveryPhrase = Loc.tr("Localizable", "Keychain.Don’t forget to save your recovery phrase")
+    /// Have you backed up your recovery phrase?
+    internal static let haveYouBackedUpYourRecoveryPhrase = Loc.tr("Localizable", "Keychain.Have you backed up your recovery phrase?")
+    /// Recovery phrase
+    internal static let recoveryPhrase = Loc.tr("Localizable", "Keychain.Recovery phrase")
+    /// Recovery phrase copied to clipboard
+    internal static let recoveryPhraseCopiedToClipboard = Loc.tr("Localizable", "Keychain.Recovery phrase copied to clipboard")
+    /// You will need it to sign in. Keep it in a safe place. If you lose it, you can no longer access your account.
+    internal static let recoveryPhraseDescription = Loc.tr("Localizable", "Keychain.Recovery phrase description")
+    /// If you lose the recovery phrase and get logged out you will not be able to 
+    internal static let saveKeychainAlertPart1 = Loc.tr("Localizable", "Keychain.Save keychain alert part 1")
+    /// ever access your data again
+    internal static let saveKeychainAlertPart2 = Loc.tr("Localizable", "Keychain.Save keychain alert part 2")
+    /// .
+    /// Save this recovery phrase outside of Anytype for data recovery.
+    /// We recommend using a secure data vault, password manager or piece of paper in the safe.
+    internal static let saveKeychainAlertPart3 = Loc.tr("Localizable", "Keychain.Save keychain alert part 3")
+    /// Show and copy phrase
+    internal static let showAndCopyPhrase = Loc.tr("Localizable", "Keychain.Show and copy phrase")
+  }
+
   internal enum LinkAppearance {
     internal enum Description {
       internal enum Added {
@@ -964,6 +1016,15 @@ internal enum Loc {
       /// Object type
       internal static let title = Loc.tr("Localizable", "LinkAppearance.ObjectType.Title")
     }
+  }
+
+  internal enum LinkPaste {
+    /// Create bookmark
+    internal static let bookmark = Loc.tr("Localizable", "LinkPaste.bookmark")
+    /// Paste as link
+    internal static let link = Loc.tr("Localizable", "LinkPaste.link")
+    /// Paste as text
+    internal static let text = Loc.tr("Localizable", "LinkPaste.text")
   }
 
   internal enum ObjectType {
@@ -996,6 +1057,27 @@ internal enum Loc {
     }
   }
 
+  internal enum RelationAction {
+    /// Call phone numbler
+    internal static let callPhone = Loc.tr("Localizable", "RelationAction.CallPhone")
+    /// Copied
+    internal static let copied = Loc.tr("Localizable", "RelationAction.Copied")
+    /// Copy email
+    internal static let copyEmail = Loc.tr("Localizable", "RelationAction.CopyEmail")
+    /// Copy link
+    internal static let copyLink = Loc.tr("Localizable", "RelationAction.CopyLink")
+    /// Copy phone numbler
+    internal static let copyPhone = Loc.tr("Localizable", "RelationAction.CopyPhone")
+    /// Open link
+    internal static let openLink = Loc.tr("Localizable", "RelationAction.OpenLink")
+    /// Reload object content
+    internal static let reloadContent = Loc.tr("Localizable", "RelationAction.ReloadContent")
+    /// Reloading content
+    internal static let reloadingContent = Loc.tr("Localizable", "RelationAction.ReloadingContent")
+    /// Send email
+    internal static let sendEmail = Loc.tr("Localizable", "RelationAction.SendEmail")
+  }
+
   internal enum Set {
     internal enum Bookmark {
       internal enum Create {
@@ -1014,6 +1096,30 @@ internal enum Loc {
         internal enum Button {
           /// Apply
           internal static let title = Loc.tr("Localizable", "Set.Filters.Search.Button.Title")
+        }
+      }
+    }
+    internal enum View {
+      internal enum Settings {
+        internal enum CardSize {
+          /// Card size
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Title")
+          internal enum Large {
+            /// Large
+            internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Large.Title")
+          }
+          internal enum Small {
+            /// Small
+            internal static let title = Loc.tr("Localizable", "Set.View.Settings.CardSize.Small.Title")
+          }
+        }
+        internal enum ImageFit {
+          /// Fit image
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImageFit.Title")
+        }
+        internal enum ImagePreview {
+          /// Image preview
+          internal static let title = Loc.tr("Localizable", "Set.View.Settings.ImagePreview.Title")
         }
       }
     }

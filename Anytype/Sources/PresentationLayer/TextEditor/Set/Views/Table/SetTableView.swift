@@ -1,11 +1,11 @@
 import SwiftUI
 
 struct SetTableView: View {
+    @ObservedObject private(set) var model: EditorSetViewModel
+    
     @Binding var tableHeaderSize: CGSize
     @Binding var offset: CGPoint
     var headerMinimizedSize: CGSize
-
-    @EnvironmentObject private var model: EditorSetViewModel
 
     var body: some View {
         if #available(iOS 15.0, *) {
@@ -55,8 +55,8 @@ struct SetTableView: View {
                 EmptyView()
             } else {
                 Section(header: compoundHeader) {
-                    ForEach(model.rows) { row in
-                        SetTableViewRow(data: row, xOffset: xOffset)
+                    ForEach(model.configurations) { configuration in
+                        SetTableViewRow(configuration: configuration, xOffset: xOffset)
                     }
                 }
             }
@@ -95,6 +95,7 @@ struct SetTableView: View {
 struct SetTableView_Previews: PreviewProvider {
     static var previews: some View {
         SetTableView(
+            model: EditorSetViewModel.empty,
             tableHeaderSize: .constant(.zero),
             offset: .constant(.zero),
             headerMinimizedSize: .zero

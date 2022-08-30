@@ -13,9 +13,12 @@ final class SetFiltersContentViewBuilder {
     
     @ViewBuilder
     func buildContentView(
+        router: EditorRouterProtocol,
+        setSelectionModel: SetFiltersSelectionViewModel,
         onSelect: @escaping (_ ids: [String]) -> Void,
         onApplyText: @escaping (_ text: String) -> Void,
         onApplyCheckbox: @escaping (Bool) -> Void,
+        onApplyDate: @escaping (SetFiltersDate) -> Void,
         onKeyboardHeightChange: @escaping (_ height: CGFloat) -> Void
     ) -> some View {
         switch filter.conditionType {
@@ -25,6 +28,8 @@ final class SetFiltersContentViewBuilder {
             buildTextView(onApplyText: onApplyText, onKeyboardHeightChange: onKeyboardHeightChange)
         case .checkbox:
             buildCheckboxView(onApplyCheckbox: onApplyCheckbox)
+        case .date:
+            buildDateView(router: router, setSelectionModel: setSelectionModel, onApplyDate: onApplyDate)
         }
     }
     
@@ -130,6 +135,23 @@ final class SetFiltersContentViewBuilder {
             viewModel: SetFiltersCheckboxViewModel(
                 filter: filter,
                 onApplyCheckbox: onApplyCheckbox
+            )
+        )
+    }
+    
+    // MARK: - Private methods: Date
+    
+    func buildDateView(
+        router: EditorRouterProtocol,
+        setSelectionModel: SetFiltersSelectionViewModel,
+        onApplyDate: @escaping (SetFiltersDate) -> Void
+    ) -> some View {
+        SetFiltersDateView(
+            viewModel: SetFiltersDateViewModel(
+                filter: filter,
+                router: router,
+                setSelectionModel: setSelectionModel,
+                onApplyDate: onApplyDate
             )
         )
     }

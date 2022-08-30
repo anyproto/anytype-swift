@@ -40,6 +40,13 @@ final class SettingsViewModel: ObservableObject {
     }
 
     func logout(removeData: Bool) {
+        AnytypeAnalytics.instance().logEvent(
+            AnalyticsEventsName.logout,
+            withEventProperties: [
+                AnalyticsEventsPropertiesKey.route: AnalyticsEventsName.settingsShow
+            ]
+        )
+
         authService.logout(removeData: removeData) { isSuccess in
             guard isSuccess else {
                 UINotificationFeedbackGenerator().notificationOccurred(.error)
@@ -52,6 +59,7 @@ final class SettingsViewModel: ObservableObject {
     }
     
     func accountDeletionConfirm() {
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteAccount)
         guard let status = authService.deleteAccount() else {
             UINotificationFeedbackGenerator().notificationOccurred(.error)
             return

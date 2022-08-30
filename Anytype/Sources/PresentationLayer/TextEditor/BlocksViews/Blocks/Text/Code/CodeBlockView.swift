@@ -103,7 +103,7 @@ final class CodeBlockView: UIView, BlockContentView {
         let button = ButtonWithImage()
         button.label.font = .uxBodyRegular
         button.label.textColor = .darkGray
-        let image = UIImage.codeBlock.arrow
+        let image = UIImage(asset: .TextEditor.turnIntoArrow)
         button.setImage(image)
         button.setContentCompressionResistancePriority(.required, for: .vertical)
         

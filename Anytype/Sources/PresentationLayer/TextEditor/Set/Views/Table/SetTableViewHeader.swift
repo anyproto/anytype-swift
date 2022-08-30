@@ -17,7 +17,7 @@ struct SetTableViewHeader: View {
                 HStack(spacing: 0) {
                     Spacer.fixedWidth(15)
                     if data.isReadOnly {
-                        Image.Relations.lockedSmall
+                        Image(asset: .relationLockedSmall)
                         Spacer.fixedWidth(4)
                     }
                     AnytypeText(data.name, style: .relation2Regular, color: .textSecondary)

@@ -18,9 +18,10 @@ extension Anytype_Rpc.App.GetVersion {
     public static func invoke() -> Result<Response, Error> {
         return invocation().invoke()
     }
-    public static func invocation() -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init())
+    public static func invocation() -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request()
+        return Invocation<Request,Response>(messageName: "AppGetVersion", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -39,9 +40,10 @@ extension Anytype_Rpc.App.SetDeviceState {
     public static func invoke(deviceState: Anytype_Rpc.App.SetDeviceState.Request.DeviceState = .background) -> Result<Response, Error> {
         return invocation(deviceState: deviceState).invoke()
     }
-    public static func invocation(deviceState: Anytype_Rpc.App.SetDeviceState.Request.DeviceState = .background) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(deviceState: deviceState))
+    public static func invocation(deviceState: Anytype_Rpc.App.SetDeviceState.Request.DeviceState = .background) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(deviceState: deviceState)
+        return Invocation<Request,Response>(messageName: "AppSetDeviceState", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -60,9 +62,10 @@ extension Anytype_Rpc.App.Shutdown {
     public static func invoke() -> Result<Response, Error> {
         return invocation().invoke()
     }
-    public static func invocation() -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init())
+    public static func invocation() -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request()
+        return Invocation<Request,Response>(messageName: "AppShutdown", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -81,9 +84,10 @@ extension Anytype_Rpc.Wallet.Create {
     public static func invoke(rootPath: String = String()) -> Result<Response, Error> {
         return invocation(rootPath: rootPath).invoke()
     }
-    public static func invocation(rootPath: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(rootPath: rootPath))
+    public static func invocation(rootPath: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(rootPath: rootPath)
+        return Invocation<Request,Response>(messageName: "WalletCreate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -102,9 +106,10 @@ extension Anytype_Rpc.Wallet.Recover {
     public static func invoke(rootPath: String = String(), mnemonic: String = String()) -> Result<Response, Error> {
         return invocation(rootPath: rootPath, mnemonic: mnemonic).invoke()
     }
-    public static func invocation(rootPath: String = String(), mnemonic: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(rootPath: rootPath, mnemonic: mnemonic))
+    public static func invocation(rootPath: String = String(), mnemonic: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(rootPath: rootPath, mnemonic: mnemonic)
+        return Invocation<Request,Response>(messageName: "WalletRecover", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -123,13 +128,58 @@ extension Anytype_Rpc.Wallet.Convert {
     public static func invoke(mnemonic: String = String(), entropy: String = String()) -> Result<Response, Error> {
         return invocation(mnemonic: mnemonic, entropy: entropy).invoke()
     }
-    public static func invocation(mnemonic: String = String(), entropy: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(mnemonic: mnemonic, entropy: entropy))
+    public static func invocation(mnemonic: String = String(), entropy: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(mnemonic: mnemonic, entropy: entropy)
+        return Invocation<Request,Response>(messageName: "WalletConvert", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
         return Lib.ServiceWalletConvert(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Wallet.CreateSession {
+  public enum Service {
+    public static func invoke(mnemonic: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(mnemonic: mnemonic).invoke(on: queue)
+    }
+    public static func invoke(mnemonic: String = String()) -> Result<Response, Error> {
+        return invocation(mnemonic: mnemonic).invoke()
+    }
+    public static func invocation(mnemonic: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(mnemonic: mnemonic)
+        return Invocation<Request,Response>(messageName: "WalletCreateSession", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceWalletCreateSession(try? request.serializedData()).flatMap {
+            try? Response(serializedData: $0)
+        }
+    }
+  }
+}
+
+extension Anytype_Rpc.Wallet.CloseSession {
+  public enum Service {
+    public static func invoke(token: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(token: token).invoke(on: queue)
+    }
+    public static func invoke(token: String = String()) -> Result<Response, Error> {
+        return invocation(token: token).invoke()
+    }
+    public static func invocation(token: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(token: token)
+        return Invocation<Request,Response>(messageName: "WalletCloseSession", request: request) { request in
+            return self.invoke(request)
+        }
+    }
+    private static func invoke(_ request: Request) -> Response? {
+        return Lib.ServiceWalletCloseSession(try? request.serializedData()).flatMap {
             try? Response(serializedData: $0)
         }
     }
@@ -144,9 +194,10 @@ extension Anytype_Rpc.Account.Create {
     public static func invoke(name: String = String(), avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar? = nil, storePath: String = String(), alphaInviteCode: String = String()) -> Result<Response, Error> {
         return invocation(name: name, avatar: avatar, storePath: storePath, alphaInviteCode: alphaInviteCode).invoke()
     }
-    public static func invocation(name: String = String(), avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar? = nil, storePath: String = String(), alphaInviteCode: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(name: name, avatar: avatar, storePath: storePath, alphaInviteCode: alphaInviteCode))
+    public static func invocation(name: String = String(), avatar: Anytype_Rpc.Account.Create.Request.OneOf_Avatar? = nil, storePath: String = String(), alphaInviteCode: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(name: name, avatar: avatar, storePath: storePath, alphaInviteCode: alphaInviteCode)
+        return Invocation<Request,Response>(messageName: "AccountCreate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -165,9 +216,10 @@ extension Anytype_Rpc.Account.Recover {
     public static func invoke() -> Result<Response, Error> {
         return invocation().invoke()
     }
-    public static func invocation() -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init())
+    public static func invocation() -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request()
+        return Invocation<Request,Response>(messageName: "AccountRecover", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -186,9 +238,10 @@ extension Anytype_Rpc.Account.Delete {
     public static func invoke(revert: Bool = false) -> Result<Response, Error> {
         return invocation(revert: revert).invoke()
     }
-    public static func invocation(revert: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(revert: revert))
+    public static func invocation(revert: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(revert: revert)
+        return Invocation<Request,Response>(messageName: "AccountDelete", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -207,9 +260,10 @@ extension Anytype_Rpc.Account.Select {
     public static func invoke(id: String = String(), rootPath: String = String()) -> Result<Response, Error> {
         return invocation(id: id, rootPath: rootPath).invoke()
     }
-    public static func invocation(id: String = String(), rootPath: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(id: id, rootPath: rootPath))
+    public static func invocation(id: String = String(), rootPath: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(id: id, rootPath: rootPath)
+        return Invocation<Request,Response>(messageName: "AccountSelect", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -228,9 +282,10 @@ extension Anytype_Rpc.Account.Stop {
     public static func invoke(removeData: Bool = false) -> Result<Response, Error> {
         return invocation(removeData: removeData).invoke()
     }
-    public static func invocation(removeData: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(removeData: removeData))
+    public static func invocation(removeData: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(removeData: removeData)
+        return Invocation<Request,Response>(messageName: "AccountStop", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -249,9 +304,10 @@ extension Anytype_Rpc.Account.Move {
     public static func invoke(newPath: String = String()) -> Result<Response, Error> {
         return invocation(newPath: newPath).invoke()
     }
-    public static func invocation(newPath: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(newPath: newPath))
+    public static func invocation(newPath: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(newPath: newPath)
+        return Invocation<Request,Response>(messageName: "AccountMove", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -270,9 +326,10 @@ extension Anytype_Rpc.Workspace.GetCurrent {
     public static func invoke() -> Result<Response, Error> {
         return invocation().invoke()
     }
-    public static func invocation() -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init())
+    public static func invocation() -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request()
+        return Invocation<Request,Response>(messageName: "WorkspaceGetCurrent", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -291,9 +348,10 @@ extension Anytype_Rpc.Workspace.GetAll {
     public static func invoke() -> Result<Response, Error> {
         return invocation().invoke()
     }
-    public static func invocation() -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init())
+    public static func invocation() -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request()
+        return Invocation<Request,Response>(messageName: "WorkspaceGetAll", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -312,9 +370,10 @@ extension Anytype_Rpc.Workspace.Create {
     public static func invoke(name: String = String()) -> Result<Response, Error> {
         return invocation(name: name).invoke()
     }
-    public static func invocation(name: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(name: name))
+    public static func invocation(name: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(name: name)
+        return Invocation<Request,Response>(messageName: "WorkspaceCreate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -333,9 +392,10 @@ extension Anytype_Rpc.Workspace.SetIsHighlighted {
     public static func invoke(objectID: String = String(), isHighlighted: Bool = false) -> Result<Response, Error> {
         return invocation(objectID: objectID, isHighlighted: isHighlighted).invoke()
     }
-    public static func invocation(objectID: String = String(), isHighlighted: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectID: objectID, isHighlighted: isHighlighted))
+    public static func invocation(objectID: String = String(), isHighlighted: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectID: objectID, isHighlighted: isHighlighted)
+        return Invocation<Request,Response>(messageName: "WorkspaceSetIsHighlighted", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -354,9 +414,10 @@ extension Anytype_Rpc.Workspace.Select {
     public static func invoke(workspaceID: String = String()) -> Result<Response, Error> {
         return invocation(workspaceID: workspaceID).invoke()
     }
-    public static func invocation(workspaceID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(workspaceID: workspaceID))
+    public static func invocation(workspaceID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(workspaceID: workspaceID)
+        return Invocation<Request,Response>(messageName: "WorkspaceSelect", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -375,9 +436,10 @@ extension Anytype_Rpc.Workspace.Export {
     public static func invoke(path: String = String(), workspaceID: String = String()) -> Result<Response, Error> {
         return invocation(path: path, workspaceID: workspaceID).invoke()
     }
-    public static func invocation(path: String = String(), workspaceID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(path: path, workspaceID: workspaceID))
+    public static func invocation(path: String = String(), workspaceID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(path: path, workspaceID: workspaceID)
+        return Invocation<Request,Response>(messageName: "WorkspaceExport", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -396,9 +458,10 @@ extension Anytype_Rpc.Object.Open {
     public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, objectID: objectID, traceID: traceID).invoke()
     }
-    public static func invocation(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, objectID: objectID, traceID: traceID))
+    public static func invocation(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, objectID: objectID, traceID: traceID)
+        return Invocation<Request,Response>(messageName: "ObjectOpen", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -417,9 +480,10 @@ extension Anytype_Rpc.Object.Close {
     public static func invoke(contextID: String = String(), objectID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, objectID: objectID).invoke()
     }
-    public static func invocation(contextID: String = String(), objectID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, objectID: objectID))
+    public static func invocation(contextID: String = String(), objectID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, objectID: objectID)
+        return Invocation<Request,Response>(messageName: "ObjectClose", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -438,9 +502,10 @@ extension Anytype_Rpc.Object.Show {
     public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, objectID: objectID, traceID: traceID).invoke()
     }
-    public static func invocation(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, objectID: objectID, traceID: traceID))
+    public static func invocation(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, objectID: objectID, traceID: traceID)
+        return Invocation<Request,Response>(messageName: "ObjectShow", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -459,9 +524,10 @@ extension Anytype_Rpc.Object.Create {
     public static func invoke(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag] = [], templateID: String = String()) -> Result<Response, Error> {
         return invocation(details: details, internalFlags: internalFlags, templateID: templateID).invoke()
     }
-    public static func invocation(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag] = [], templateID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(details: details, internalFlags: internalFlags, templateID: templateID))
+    public static func invocation(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag] = [], templateID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(details: details, internalFlags: internalFlags, templateID: templateID)
+        return Invocation<Request,Response>(messageName: "ObjectCreate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -480,9 +546,10 @@ extension Anytype_Rpc.Object.CreateBookmark {
     public static func invoke(url: String = String()) -> Result<Response, Error> {
         return invocation(url: url).invoke()
     }
-    public static func invocation(url: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(url: url))
+    public static func invocation(url: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(url: url)
+        return Invocation<Request,Response>(messageName: "ObjectCreateBookmark", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -501,9 +568,10 @@ extension Anytype_Rpc.Object.BookmarkFetch {
     public static func invoke(contextID: String = String(), url: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, url: url).invoke()
     }
-    public static func invocation(contextID: String = String(), url: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, url: url))
+    public static func invocation(contextID: String = String(), url: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, url: url)
+        return Invocation<Request,Response>(messageName: "ObjectBookmarkFetch", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -522,9 +590,10 @@ extension Anytype_Rpc.Object.ToBookmark {
     public static func invoke(contextID: String = String(), url: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, url: url).invoke()
     }
-    public static func invocation(contextID: String = String(), url: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, url: url))
+    public static func invocation(contextID: String = String(), url: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, url: url)
+        return Invocation<Request,Response>(messageName: "ObjectToBookmark", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -543,9 +612,10 @@ extension Anytype_Rpc.Object.CreateSet {
     public static func invoke(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> Result<Response, Error> {
         return invocation(source: source, details: details, templateID: templateID, internalFlags: internalFlags).invoke()
     }
-    public static func invocation(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(source: source, details: details, templateID: templateID, internalFlags: internalFlags))
+    public static func invocation(source: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(source: source, details: details, templateID: templateID, internalFlags: internalFlags)
+        return Invocation<Request,Response>(messageName: "ObjectCreateSet", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -564,9 +634,10 @@ extension Anytype_Rpc.Object.Duplicate {
     public static func invoke(contextID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID).invoke()
     }
-    public static func invocation(contextID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID))
+    public static func invocation(contextID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID)
+        return Invocation<Request,Response>(messageName: "ObjectDuplicate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -585,9 +656,10 @@ extension Anytype_Rpc.Object.OpenBreadcrumbs {
     public static func invoke(contextID: String = String(), traceID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, traceID: traceID).invoke()
     }
-    public static func invocation(contextID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, traceID: traceID))
+    public static func invocation(contextID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, traceID: traceID)
+        return Invocation<Request,Response>(messageName: "ObjectOpenBreadcrumbs", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -606,9 +678,10 @@ extension Anytype_Rpc.Object.SetBreadcrumbs {
     public static func invoke(breadcrumbsID: String = String(), ids: [String] = []) -> Result<Response, Error> {
         return invocation(breadcrumbsID: breadcrumbsID, ids: ids).invoke()
     }
-    public static func invocation(breadcrumbsID: String = String(), ids: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(breadcrumbsID: breadcrumbsID, ids: ids))
+    public static func invocation(breadcrumbsID: String = String(), ids: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(breadcrumbsID: breadcrumbsID, ids: ids)
+        return Invocation<Request,Response>(messageName: "ObjectSetBreadcrumbs", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -627,9 +700,10 @@ extension Anytype_Rpc.Object.ImportMarkdown {
     public static func invoke(contextID: String = String(), importPath: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, importPath: importPath).invoke()
     }
-    public static func invocation(contextID: String = String(), importPath: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, importPath: importPath))
+    public static func invocation(contextID: String = String(), importPath: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, importPath: importPath)
+        return Invocation<Request,Response>(messageName: "ObjectImportMarkdown", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -648,9 +722,10 @@ extension Anytype_Rpc.Object.ShareByLink {
     public static func invoke(objectID: String = String()) -> Result<Response, Error> {
         return invocation(objectID: objectID).invoke()
     }
-    public static func invocation(objectID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectID: objectID))
+    public static func invocation(objectID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectID: objectID)
+        return Invocation<Request,Response>(messageName: "ObjectShareByLink", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -669,9 +744,10 @@ extension Anytype_Rpc.Object.AddWithObjectId {
     public static func invoke(objectID: String = String(), payload: String = String()) -> Result<Response, Error> {
         return invocation(objectID: objectID, payload: payload).invoke()
     }
-    public static func invocation(objectID: String = String(), payload: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectID: objectID, payload: payload))
+    public static func invocation(objectID: String = String(), payload: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectID: objectID, payload: payload)
+        return Invocation<Request,Response>(messageName: "ObjectAddWithObjectId", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -690,9 +766,10 @@ extension Anytype_Rpc.Object.Search {
     public static func invoke(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], fullText: String = String(), offset: Int32 = 0, limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = []) -> Result<Response, Error> {
         return invocation(filters: filters, sorts: sorts, fullText: fullText, offset: offset, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys).invoke()
     }
-    public static func invocation(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], fullText: String = String(), offset: Int32 = 0, limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(filters: filters, sorts: sorts, fullText: fullText, offset: offset, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys))
+    public static func invocation(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], fullText: String = String(), offset: Int32 = 0, limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(filters: filters, sorts: sorts, fullText: fullText, offset: offset, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys)
+        return Invocation<Request,Response>(messageName: "ObjectSearch", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -711,9 +788,10 @@ extension Anytype_Rpc.Object.Graph {
     public static func invoke(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = []) -> Result<Response, Error> {
         return invocation(filters: filters, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys).invoke()
     }
-    public static func invocation(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(filters: filters, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys))
+    public static func invocation(filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], limit: Int32 = 0, objectTypeFilter: [String] = [], keys: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(filters: filters, limit: limit, objectTypeFilter: objectTypeFilter, keys: keys)
+        return Invocation<Request,Response>(messageName: "ObjectGraph", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -732,9 +810,10 @@ extension Anytype_Rpc.Object.SearchSubscribe {
     public static func invoke(subID: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], limit: Int64 = 0, offset: Int64 = 0, keys: [String] = [], afterID: String = String(), beforeID: String = String(), source: [String] = [], ignoreWorkspace: String = String(), noDepSubscription: Bool = false) -> Result<Response, Error> {
         return invocation(subID: subID, filters: filters, sorts: sorts, limit: limit, offset: offset, keys: keys, afterID: afterID, beforeID: beforeID, source: source, ignoreWorkspace: ignoreWorkspace, noDepSubscription: noDepSubscription).invoke()
     }
-    public static func invocation(subID: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], limit: Int64 = 0, offset: Int64 = 0, keys: [String] = [], afterID: String = String(), beforeID: String = String(), source: [String] = [], ignoreWorkspace: String = String(), noDepSubscription: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(subID: subID, filters: filters, sorts: sorts, limit: limit, offset: offset, keys: keys, afterID: afterID, beforeID: beforeID, source: source, ignoreWorkspace: ignoreWorkspace, noDepSubscription: noDepSubscription))
+    public static func invocation(subID: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = [], sorts: [Anytype_Model_Block.Content.Dataview.Sort] = [], limit: Int64 = 0, offset: Int64 = 0, keys: [String] = [], afterID: String = String(), beforeID: String = String(), source: [String] = [], ignoreWorkspace: String = String(), noDepSubscription: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(subID: subID, filters: filters, sorts: sorts, limit: limit, offset: offset, keys: keys, afterID: afterID, beforeID: beforeID, source: source, ignoreWorkspace: ignoreWorkspace, noDepSubscription: noDepSubscription)
+        return Invocation<Request,Response>(messageName: "ObjectSearchSubscribe", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -753,9 +832,10 @@ extension Anytype_Rpc.Object.RelationSearchDistinct {
     public static func invoke(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = []) -> Result<Response, Error> {
         return invocation(relationKey: relationKey, filters: filters).invoke()
     }
-    public static func invocation(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(relationKey: relationKey, filters: filters))
+    public static func invocation(relationKey: String = String(), filters: [Anytype_Model_Block.Content.Dataview.Filter] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(relationKey: relationKey, filters: filters)
+        return Invocation<Request,Response>(messageName: "ObjectRelationSearchDistinct", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -774,9 +854,10 @@ extension Anytype_Rpc.Object.SubscribeIds {
     public static func invoke(subID: String = String(), ids: [String] = [], keys: [String] = [], ignoreWorkspace: String = String()) -> Result<Response, Error> {
         return invocation(subID: subID, ids: ids, keys: keys, ignoreWorkspace: ignoreWorkspace).invoke()
     }
-    public static func invocation(subID: String = String(), ids: [String] = [], keys: [String] = [], ignoreWorkspace: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(subID: subID, ids: ids, keys: keys, ignoreWorkspace: ignoreWorkspace))
+    public static func invocation(subID: String = String(), ids: [String] = [], keys: [String] = [], ignoreWorkspace: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(subID: subID, ids: ids, keys: keys, ignoreWorkspace: ignoreWorkspace)
+        return Invocation<Request,Response>(messageName: "ObjectSubscribeIds", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -795,9 +876,10 @@ extension Anytype_Rpc.Object.SearchUnsubscribe {
     public static func invoke(subIds: [String] = []) -> Result<Response, Error> {
         return invocation(subIds: subIds).invoke()
     }
-    public static func invocation(subIds: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(subIds: subIds))
+    public static func invocation(subIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(subIds: subIds)
+        return Invocation<Request,Response>(messageName: "ObjectSearchUnsubscribe", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -816,9 +898,10 @@ extension Anytype_Rpc.Object.SetLayout {
     public static func invoke(contextID: String = String(), layout: Anytype_Model_ObjectType.Layout = .basic) -> Result<Response, Error> {
         return invocation(contextID: contextID, layout: layout).invoke()
     }
-    public static func invocation(contextID: String = String(), layout: Anytype_Model_ObjectType.Layout = .basic) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, layout: layout))
+    public static func invocation(contextID: String = String(), layout: Anytype_Model_ObjectType.Layout = .basic) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, layout: layout)
+        return Invocation<Request,Response>(messageName: "ObjectSetLayout", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -837,9 +920,10 @@ extension Anytype_Rpc.Object.SetIsFavorite {
     public static func invoke(contextID: String = String(), isFavorite: Bool = false) -> Result<Response, Error> {
         return invocation(contextID: contextID, isFavorite: isFavorite).invoke()
     }
-    public static func invocation(contextID: String = String(), isFavorite: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, isFavorite: isFavorite))
+    public static func invocation(contextID: String = String(), isFavorite: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, isFavorite: isFavorite)
+        return Invocation<Request,Response>(messageName: "ObjectSetIsFavorite", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -858,9 +942,10 @@ extension Anytype_Rpc.Object.SetIsArchived {
     public static func invoke(contextID: String = String(), isArchived: Bool = false) -> Result<Response, Error> {
         return invocation(contextID: contextID, isArchived: isArchived).invoke()
     }
-    public static func invocation(contextID: String = String(), isArchived: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, isArchived: isArchived))
+    public static func invocation(contextID: String = String(), isArchived: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, isArchived: isArchived)
+        return Invocation<Request,Response>(messageName: "ObjectSetIsArchived", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -879,9 +964,10 @@ extension Anytype_Rpc.Object.SetObjectType {
     public static func invoke(contextID: String = String(), objectTypeURL: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, objectTypeURL: objectTypeURL).invoke()
     }
-    public static func invocation(contextID: String = String(), objectTypeURL: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, objectTypeURL: objectTypeURL))
+    public static func invocation(contextID: String = String(), objectTypeURL: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, objectTypeURL: objectTypeURL)
+        return Invocation<Request,Response>(messageName: "ObjectSetObjectType", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -900,9 +986,10 @@ extension Anytype_Rpc.Object.SetDetails {
     public static func invoke(contextID: String = String(), details: [Anytype_Rpc.Object.SetDetails.Detail] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, details: details).invoke()
     }
-    public static func invocation(contextID: String = String(), details: [Anytype_Rpc.Object.SetDetails.Detail] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, details: details))
+    public static func invocation(contextID: String = String(), details: [Anytype_Rpc.Object.SetDetails.Detail] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, details: details)
+        return Invocation<Request,Response>(messageName: "ObjectSetDetails", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -921,9 +1008,10 @@ extension Anytype_Rpc.Object.ToSet {
     public static func invoke(contextID: String = String(), source: [String] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, source: source).invoke()
     }
-    public static func invocation(contextID: String = String(), source: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, source: source))
+    public static func invocation(contextID: String = String(), source: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, source: source)
+        return Invocation<Request,Response>(messageName: "ObjectToSet", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -942,9 +1030,10 @@ extension Anytype_Rpc.Object.Undo {
     public static func invoke(contextID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID).invoke()
     }
-    public static func invocation(contextID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID))
+    public static func invocation(contextID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID)
+        return Invocation<Request,Response>(messageName: "ObjectUndo", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -963,9 +1052,10 @@ extension Anytype_Rpc.Object.Redo {
     public static func invoke(contextID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID).invoke()
     }
-    public static func invocation(contextID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID))
+    public static func invocation(contextID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID)
+        return Invocation<Request,Response>(messageName: "ObjectRedo", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -984,9 +1074,10 @@ extension Anytype_Rpc.Object.ListDuplicate {
     public static func invoke(objectIds: [String] = []) -> Result<Response, Error> {
         return invocation(objectIds: objectIds).invoke()
     }
-    public static func invocation(objectIds: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectIds: objectIds))
+    public static func invocation(objectIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectIds: objectIds)
+        return Invocation<Request,Response>(messageName: "ObjectListDuplicate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1005,9 +1096,10 @@ extension Anytype_Rpc.Object.ListDelete {
     public static func invoke(objectIds: [String] = []) -> Result<Response, Error> {
         return invocation(objectIds: objectIds).invoke()
     }
-    public static func invocation(objectIds: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectIds: objectIds))
+    public static func invocation(objectIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectIds: objectIds)
+        return Invocation<Request,Response>(messageName: "ObjectListDelete", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1026,9 +1118,10 @@ extension Anytype_Rpc.Object.ListSetIsArchived {
     public static func invoke(objectIds: [String] = [], isArchived: Bool = false) -> Result<Response, Error> {
         return invocation(objectIds: objectIds, isArchived: isArchived).invoke()
     }
-    public static func invocation(objectIds: [String] = [], isArchived: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectIds: objectIds, isArchived: isArchived))
+    public static func invocation(objectIds: [String] = [], isArchived: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectIds: objectIds, isArchived: isArchived)
+        return Invocation<Request,Response>(messageName: "ObjectListSetIsArchived", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1047,9 +1140,10 @@ extension Anytype_Rpc.Object.ListSetIsFavorite {
     public static func invoke(objectIds: [String] = [], isFavorite: Bool = false) -> Result<Response, Error> {
         return invocation(objectIds: objectIds, isFavorite: isFavorite).invoke()
     }
-    public static func invocation(objectIds: [String] = [], isFavorite: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectIds: objectIds, isFavorite: isFavorite))
+    public static func invocation(objectIds: [String] = [], isFavorite: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectIds: objectIds, isFavorite: isFavorite)
+        return Invocation<Request,Response>(messageName: "ObjectListSetIsFavorite", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1068,9 +1162,10 @@ extension Anytype_Rpc.Object.ApplyTemplate {
     public static func invoke(contextID: String = String(), templateID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, templateID: templateID).invoke()
     }
-    public static func invocation(contextID: String = String(), templateID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, templateID: templateID))
+    public static func invocation(contextID: String = String(), templateID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, templateID: templateID)
+        return Invocation<Request,Response>(messageName: "ObjectApplyTemplate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1089,9 +1184,10 @@ extension Anytype_Rpc.Object.ListExport {
     public static func invoke(path: String = String(), objectIds: [String] = [], format: Anytype_Rpc.Object.ListExport.Format = .markdown, zip: Bool = false, includeNested: Bool = false, includeFiles: Bool = false) -> Result<Response, Error> {
         return invocation(path: path, objectIds: objectIds, format: format, zip: zip, includeNested: includeNested, includeFiles: includeFiles).invoke()
     }
-    public static func invocation(path: String = String(), objectIds: [String] = [], format: Anytype_Rpc.Object.ListExport.Format = .markdown, zip: Bool = false, includeNested: Bool = false, includeFiles: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(path: path, objectIds: objectIds, format: format, zip: zip, includeNested: includeNested, includeFiles: includeFiles))
+    public static func invocation(path: String = String(), objectIds: [String] = [], format: Anytype_Rpc.Object.ListExport.Format = .markdown, zip: Bool = false, includeNested: Bool = false, includeFiles: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(path: path, objectIds: objectIds, format: format, zip: zip, includeNested: includeNested, includeFiles: includeFiles)
+        return Invocation<Request,Response>(messageName: "ObjectListExport", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1110,9 +1206,10 @@ extension Anytype_Rpc.ObjectRelation.Add {
     public static func invoke(contextID: String = String(), relation: Anytype_Model_Relation) -> Result<Response, Error> {
         return invocation(contextID: contextID, relation: relation).invoke()
     }
-    public static func invocation(contextID: String = String(), relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, relation: relation))
+    public static func invocation(contextID: String = String(), relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, relation: relation)
+        return Invocation<Request,Response>(messageName: "ObjectRelationAdd", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1131,9 +1228,10 @@ extension Anytype_Rpc.ObjectRelation.Update {
     public static func invoke(contextID: String, relationKey: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
         return invocation(contextID: contextID, relationKey: relationKey, relation: relation).invoke()
     }
-    public static func invocation(contextID: String, relationKey: String, relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, relationKey: relationKey, relation: relation))
+    public static func invocation(contextID: String, relationKey: String, relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, relationKey: relationKey, relation: relation)
+        return Invocation<Request,Response>(messageName: "ObjectRelationUpdate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1152,9 +1250,10 @@ extension Anytype_Rpc.ObjectRelation.Delete {
     public static func invoke(contextID: String = String(), relationKey: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, relationKey: relationKey).invoke()
     }
-    public static func invocation(contextID: String = String(), relationKey: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, relationKey: relationKey))
+    public static func invocation(contextID: String = String(), relationKey: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, relationKey: relationKey)
+        return Invocation<Request,Response>(messageName: "ObjectRelationDelete", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1173,9 +1272,10 @@ extension Anytype_Rpc.ObjectRelation.ListAvailable {
     public static func invoke(contextID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID).invoke()
     }
-    public static func invocation(contextID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID))
+    public static func invocation(contextID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID)
+        return Invocation<Request,Response>(messageName: "ObjectRelationListAvailable", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1194,9 +1294,10 @@ extension Anytype_Rpc.ObjectRelation.AddFeatured {
     public static func invoke(contextID: String = String(), relations: [String] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, relations: relations).invoke()
     }
-    public static func invocation(contextID: String = String(), relations: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, relations: relations))
+    public static func invocation(contextID: String = String(), relations: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, relations: relations)
+        return Invocation<Request,Response>(messageName: "ObjectRelationAddFeatured", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1215,9 +1316,10 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured {
     public static func invoke(contextID: String = String(), relations: [String] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, relations: relations).invoke()
     }
-    public static func invocation(contextID: String = String(), relations: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, relations: relations))
+    public static func invocation(contextID: String = String(), relations: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, relations: relations)
+        return Invocation<Request,Response>(messageName: "ObjectRelationRemoveFeatured", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1236,9 +1338,10 @@ extension Anytype_Rpc.ObjectRelationOption.Add {
     public static func invoke(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) -> Result<Response, Error> {
         return invocation(contextID: contextID, relationKey: relationKey, option: option).invoke()
     }
-    public static func invocation(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, relationKey: relationKey, option: option))
+    public static func invocation(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, relationKey: relationKey, option: option)
+        return Invocation<Request,Response>(messageName: "ObjectRelationOptionAdd", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1257,9 +1360,10 @@ extension Anytype_Rpc.ObjectRelationOption.Update {
     public static func invoke(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) -> Result<Response, Error> {
         return invocation(contextID: contextID, relationKey: relationKey, option: option).invoke()
     }
-    public static func invocation(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, relationKey: relationKey, option: option))
+    public static func invocation(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, relationKey: relationKey, option: option)
+        return Invocation<Request,Response>(messageName: "ObjectRelationOptionUpdate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1278,9 +1382,10 @@ extension Anytype_Rpc.ObjectRelationOption.Delete {
     public static func invoke(contextID: String = String(), relationKey: String = String(), optionID: String = String(), confirmRemoveAllValuesInRecords: Bool = false) -> Result<Response, Error> {
         return invocation(contextID: contextID, relationKey: relationKey, optionID: optionID, confirmRemoveAllValuesInRecords: confirmRemoveAllValuesInRecords).invoke()
     }
-    public static func invocation(contextID: String = String(), relationKey: String = String(), optionID: String = String(), confirmRemoveAllValuesInRecords: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, relationKey: relationKey, optionID: optionID, confirmRemoveAllValuesInRecords: confirmRemoveAllValuesInRecords))
+    public static func invocation(contextID: String = String(), relationKey: String = String(), optionID: String = String(), confirmRemoveAllValuesInRecords: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, relationKey: relationKey, optionID: optionID, confirmRemoveAllValuesInRecords: confirmRemoveAllValuesInRecords)
+        return Invocation<Request,Response>(messageName: "ObjectRelationOptionDelete", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1299,9 +1404,10 @@ extension Anytype_Rpc.ObjectType.List {
     public static func invoke() -> Result<Response, Error> {
         return invocation().invoke()
     }
-    public static func invocation() -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init())
+    public static func invocation() -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request()
+        return Invocation<Request,Response>(messageName: "ObjectTypeList", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1320,9 +1426,10 @@ extension Anytype_Rpc.ObjectType.Create {
     public static func invoke(objectType: Anytype_Model_ObjectType) -> Result<Response, Error> {
         return invocation(objectType: objectType).invoke()
     }
-    public static func invocation(objectType: Anytype_Model_ObjectType) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectType: objectType))
+    public static func invocation(objectType: Anytype_Model_ObjectType) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectType: objectType)
+        return Invocation<Request,Response>(messageName: "ObjectTypeCreate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1341,9 +1448,10 @@ extension Anytype_Rpc.ObjectType.Relation.Add {
     public static func invoke(objectTypeURL: String = String(), relations: [Anytype_Model_Relation] = []) -> Result<Response, Error> {
         return invocation(objectTypeURL: objectTypeURL, relations: relations).invoke()
     }
-    public static func invocation(objectTypeURL: String = String(), relations: [Anytype_Model_Relation] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectTypeURL: objectTypeURL, relations: relations))
+    public static func invocation(objectTypeURL: String = String(), relations: [Anytype_Model_Relation] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectTypeURL: objectTypeURL, relations: relations)
+        return Invocation<Request,Response>(messageName: "ObjectTypeRelationAdd", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1362,9 +1470,10 @@ extension Anytype_Rpc.ObjectType.Relation.Remove {
     public static func invoke(objectTypeURL: String = String(), relationKey: String = String()) -> Result<Response, Error> {
         return invocation(objectTypeURL: objectTypeURL, relationKey: relationKey).invoke()
     }
-    public static func invocation(objectTypeURL: String = String(), relationKey: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectTypeURL: objectTypeURL, relationKey: relationKey))
+    public static func invocation(objectTypeURL: String = String(), relationKey: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectTypeURL: objectTypeURL, relationKey: relationKey)
+        return Invocation<Request,Response>(messageName: "ObjectTypeRelationRemove", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1383,9 +1492,10 @@ extension Anytype_Rpc.ObjectType.Relation.Update {
     public static func invoke(objectTypeURL: String = String(), relation: Anytype_Model_Relation) -> Result<Response, Error> {
         return invocation(objectTypeURL: objectTypeURL, relation: relation).invoke()
     }
-    public static func invocation(objectTypeURL: String = String(), relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectTypeURL: objectTypeURL, relation: relation))
+    public static func invocation(objectTypeURL: String = String(), relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectTypeURL: objectTypeURL, relation: relation)
+        return Invocation<Request,Response>(messageName: "ObjectTypeRelationUpdate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1404,9 +1514,10 @@ extension Anytype_Rpc.ObjectType.Relation.List {
     public static func invoke(objectTypeURL: String = String(), appendRelationsFromOtherTypes: Bool = false) -> Result<Response, Error> {
         return invocation(objectTypeURL: objectTypeURL, appendRelationsFromOtherTypes: appendRelationsFromOtherTypes).invoke()
     }
-    public static func invocation(objectTypeURL: String = String(), appendRelationsFromOtherTypes: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectTypeURL: objectTypeURL, appendRelationsFromOtherTypes: appendRelationsFromOtherTypes))
+    public static func invocation(objectTypeURL: String = String(), appendRelationsFromOtherTypes: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectTypeURL: objectTypeURL, appendRelationsFromOtherTypes: appendRelationsFromOtherTypes)
+        return Invocation<Request,Response>(messageName: "ObjectTypeRelationList", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1425,9 +1536,10 @@ extension Anytype_Rpc.History.GetVersions {
     public static func invoke(pageID: String = String(), lastVersionID: String = String(), limit: Int32 = 0) -> Result<Response, Error> {
         return invocation(pageID: pageID, lastVersionID: lastVersionID, limit: limit).invoke()
     }
-    public static func invocation(pageID: String = String(), lastVersionID: String = String(), limit: Int32 = 0) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(pageID: pageID, lastVersionID: lastVersionID, limit: limit))
+    public static func invocation(pageID: String = String(), lastVersionID: String = String(), limit: Int32 = 0) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(pageID: pageID, lastVersionID: lastVersionID, limit: limit)
+        return Invocation<Request,Response>(messageName: "HistoryGetVersions", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1446,9 +1558,10 @@ extension Anytype_Rpc.History.ShowVersion {
     public static func invoke(pageID: String = String(), versionID: String = String(), traceID: String = String()) -> Result<Response, Error> {
         return invocation(pageID: pageID, versionID: versionID, traceID: traceID).invoke()
     }
-    public static func invocation(pageID: String = String(), versionID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(pageID: pageID, versionID: versionID, traceID: traceID))
+    public static func invocation(pageID: String = String(), versionID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(pageID: pageID, versionID: versionID, traceID: traceID)
+        return Invocation<Request,Response>(messageName: "HistoryShowVersion", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1467,9 +1580,10 @@ extension Anytype_Rpc.History.SetVersion {
     public static func invoke(pageID: String = String(), versionID: String = String()) -> Result<Response, Error> {
         return invocation(pageID: pageID, versionID: versionID).invoke()
     }
-    public static func invocation(pageID: String = String(), versionID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(pageID: pageID, versionID: versionID))
+    public static func invocation(pageID: String = String(), versionID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(pageID: pageID, versionID: versionID)
+        return Invocation<Request,Response>(messageName: "HistorySetVersion", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1488,9 +1602,10 @@ extension Anytype_Rpc.File.Offload {
     public static func invoke(id: String = String(), includeNotPinned: Bool = false) -> Result<Response, Error> {
         return invocation(id: id, includeNotPinned: includeNotPinned).invoke()
     }
-    public static func invocation(id: String = String(), includeNotPinned: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(id: id, includeNotPinned: includeNotPinned))
+    public static func invocation(id: String = String(), includeNotPinned: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(id: id, includeNotPinned: includeNotPinned)
+        return Invocation<Request,Response>(messageName: "FileOffload", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1509,9 +1624,10 @@ extension Anytype_Rpc.File.ListOffload {
     public static func invoke(onlyIds: [String] = [], includeNotPinned: Bool = false) -> Result<Response, Error> {
         return invocation(onlyIds: onlyIds, includeNotPinned: includeNotPinned).invoke()
     }
-    public static func invocation(onlyIds: [String] = [], includeNotPinned: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(onlyIds: onlyIds, includeNotPinned: includeNotPinned))
+    public static func invocation(onlyIds: [String] = [], includeNotPinned: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(onlyIds: onlyIds, includeNotPinned: includeNotPinned)
+        return Invocation<Request,Response>(messageName: "FileListOffload", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1530,9 +1646,10 @@ extension Anytype_Rpc.File.Upload {
     public static func invoke(url: String = String(), localPath: String = String(), type: Anytype_Model_Block.Content.File.TypeEnum = .none, disableEncryption: Bool = false, style: Anytype_Model_Block.Content.File.Style = .auto) -> Result<Response, Error> {
         return invocation(url: url, localPath: localPath, type: type, disableEncryption: disableEncryption, style: style).invoke()
     }
-    public static func invocation(url: String = String(), localPath: String = String(), type: Anytype_Model_Block.Content.File.TypeEnum = .none, disableEncryption: Bool = false, style: Anytype_Model_Block.Content.File.Style = .auto) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(url: url, localPath: localPath, type: type, disableEncryption: disableEncryption, style: style))
+    public static func invocation(url: String = String(), localPath: String = String(), type: Anytype_Model_Block.Content.File.TypeEnum = .none, disableEncryption: Bool = false, style: Anytype_Model_Block.Content.File.Style = .auto) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(url: url, localPath: localPath, type: type, disableEncryption: disableEncryption, style: style)
+        return Invocation<Request,Response>(messageName: "FileUpload", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1551,9 +1668,10 @@ extension Anytype_Rpc.File.Download {
     public static func invoke(hash: String = String(), path: String = String()) -> Result<Response, Error> {
         return invocation(hash: hash, path: path).invoke()
     }
-    public static func invocation(hash: String = String(), path: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(hash: hash, path: path))
+    public static func invocation(hash: String = String(), path: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(hash: hash, path: path)
+        return Invocation<Request,Response>(messageName: "FileDownload", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1572,9 +1690,10 @@ extension Anytype_Rpc.File.Drop {
     public static func invoke(contextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, localFilePaths: [String] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, dropTargetID: dropTargetID, position: position, localFilePaths: localFilePaths).invoke()
     }
-    public static func invocation(contextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, localFilePaths: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, dropTargetID: dropTargetID, position: position, localFilePaths: localFilePaths))
+    public static func invocation(contextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none, localFilePaths: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, dropTargetID: dropTargetID, position: position, localFilePaths: localFilePaths)
+        return Invocation<Request,Response>(messageName: "FileDrop", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1593,9 +1712,10 @@ extension Anytype_Rpc.Navigation.ListObjects {
     public static func invoke(context: Anytype_Rpc.Navigation.Context = .navigation, fullText: String = String(), limit: Int32 = 0, offset: Int32 = 0) -> Result<Response, Error> {
         return invocation(context: context, fullText: fullText, limit: limit, offset: offset).invoke()
     }
-    public static func invocation(context: Anytype_Rpc.Navigation.Context = .navigation, fullText: String = String(), limit: Int32 = 0, offset: Int32 = 0) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(context: context, fullText: fullText, limit: limit, offset: offset))
+    public static func invocation(context: Anytype_Rpc.Navigation.Context = .navigation, fullText: String = String(), limit: Int32 = 0, offset: Int32 = 0) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(context: context, fullText: fullText, limit: limit, offset: offset)
+        return Invocation<Request,Response>(messageName: "NavigationListObjects", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1614,9 +1734,10 @@ extension Anytype_Rpc.Navigation.GetObjectInfoWithLinks {
     public static func invoke(objectID: String = String(), context: Anytype_Rpc.Navigation.Context = .navigation) -> Result<Response, Error> {
         return invocation(objectID: objectID, context: context).invoke()
     }
-    public static func invocation(objectID: String = String(), context: Anytype_Rpc.Navigation.Context = .navigation) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectID: objectID, context: context))
+    public static func invocation(objectID: String = String(), context: Anytype_Rpc.Navigation.Context = .navigation) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectID: objectID, context: context)
+        return Invocation<Request,Response>(messageName: "NavigationGetObjectInfoWithLinks", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1635,9 +1756,10 @@ extension Anytype_Rpc.Template.CreateFromObject {
     public static func invoke(contextID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID).invoke()
     }
-    public static func invocation(contextID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID))
+    public static func invocation(contextID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID)
+        return Invocation<Request,Response>(messageName: "TemplateCreateFromObject", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1656,9 +1778,10 @@ extension Anytype_Rpc.Template.CreateFromObjectType {
     public static func invoke(objectType: String = String()) -> Result<Response, Error> {
         return invocation(objectType: objectType).invoke()
     }
-    public static func invocation(objectType: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectType: objectType))
+    public static func invocation(objectType: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectType: objectType)
+        return Invocation<Request,Response>(messageName: "TemplateCreateFromObjectType", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1677,9 +1800,10 @@ extension Anytype_Rpc.Template.Clone {
     public static func invoke(contextID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID).invoke()
     }
-    public static func invocation(contextID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID))
+    public static func invocation(contextID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID)
+        return Invocation<Request,Response>(messageName: "TemplateClone", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1698,9 +1822,10 @@ extension Anytype_Rpc.Template.ExportAll {
     public static func invoke(path: String = String()) -> Result<Response, Error> {
         return invocation(path: path).invoke()
     }
-    public static func invocation(path: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(path: path))
+    public static func invocation(path: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(path: path)
+        return Invocation<Request,Response>(messageName: "TemplateExportAll", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1719,9 +1844,10 @@ extension Anytype_Rpc.LinkPreview {
     public static func invoke(url: String = String()) -> Result<Response, Error> {
         return invocation(url: url).invoke()
     }
-    public static func invocation(url: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(url: url))
+    public static func invocation(url: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(url: url)
+        return Invocation<Request,Response>(messageName: "LinkPreview", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1740,9 +1866,10 @@ extension Anytype_Rpc.Unsplash.Search {
     public static func invoke(query: String = String(), limit: Int32 = 0) -> Result<Response, Error> {
         return invocation(query: query, limit: limit).invoke()
     }
-    public static func invocation(query: String = String(), limit: Int32 = 0) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(query: query, limit: limit))
+    public static func invocation(query: String = String(), limit: Int32 = 0) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(query: query, limit: limit)
+        return Invocation<Request,Response>(messageName: "UnsplashSearch", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1761,9 +1888,10 @@ extension Anytype_Rpc.Unsplash.Download {
     public static func invoke(pictureID: String = String()) -> Result<Response, Error> {
         return invocation(pictureID: pictureID).invoke()
     }
-    public static func invocation(pictureID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(pictureID: pictureID))
+    public static func invocation(pictureID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(pictureID: pictureID)
+        return Invocation<Request,Response>(messageName: "UnsplashDownload", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1782,9 +1910,10 @@ extension Anytype_Rpc.Block.Replace {
     public static func invoke(contextID: String = String(), blockID: String = String(), block: Anytype_Model_Block) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, block: block).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), block: Anytype_Model_Block) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, block: block))
+    public static func invocation(contextID: String = String(), blockID: String = String(), block: Anytype_Model_Block) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, block: block)
+        return Invocation<Request,Response>(messageName: "BlockReplace", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1803,9 +1932,10 @@ extension Anytype_Rpc.Block.Split {
     public static func invoke(contextID: String = String(), blockID: String = String(), range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style = .paragraph, mode: Anytype_Rpc.Block.Split.Request.Mode = .bottom) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style = .paragraph, mode: Anytype_Rpc.Block.Split.Request.Mode = .bottom) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode))
+    public static func invocation(contextID: String = String(), blockID: String = String(), range: Anytype_Model_Range, style: Anytype_Model_Block.Content.Text.Style = .paragraph, mode: Anytype_Rpc.Block.Split.Request.Mode = .bottom) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, range: range, style: style, mode: mode)
+        return Invocation<Request,Response>(messageName: "BlockSplit", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1824,9 +1954,10 @@ extension Anytype_Rpc.Block.Merge {
     public static func invoke(contextID: String = String(), firstBlockID: String = String(), secondBlockID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID).invoke()
     }
-    public static func invocation(contextID: String = String(), firstBlockID: String = String(), secondBlockID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID))
+    public static func invocation(contextID: String = String(), firstBlockID: String = String(), secondBlockID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, firstBlockID: firstBlockID, secondBlockID: secondBlockID)
+        return Invocation<Request,Response>(messageName: "BlockMerge", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1845,9 +1976,10 @@ extension Anytype_Rpc.Block.Copy {
     public static func invoke(contextID: String = String(), blocks: [Anytype_Model_Block] = [], selectedTextRange: Anytype_Model_Range) -> Result<Response, Error> {
         return invocation(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange).invoke()
     }
-    public static func invocation(contextID: String = String(), blocks: [Anytype_Model_Block] = [], selectedTextRange: Anytype_Model_Range) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange))
+    public static func invocation(contextID: String = String(), blocks: [Anytype_Model_Block] = [], selectedTextRange: Anytype_Model_Range) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange)
+        return Invocation<Request,Response>(messageName: "BlockCopy", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1866,9 +1998,10 @@ extension Anytype_Rpc.Block.Paste {
     public static func invoke(contextID: String = String(), focusedBlockID: String = String(), selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String] = [], isPartOfBlock: Bool = false, textSlot: String = String(), htmlSlot: String = String(), anySlot: [Anytype_Model_Block] = [], fileSlot: [Anytype_Rpc.Block.Paste.Request.File] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot, htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot).invoke()
     }
-    public static func invocation(contextID: String = String(), focusedBlockID: String = String(), selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String] = [], isPartOfBlock: Bool = false, textSlot: String = String(), htmlSlot: String = String(), anySlot: [Anytype_Model_Block] = [], fileSlot: [Anytype_Rpc.Block.Paste.Request.File] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot, htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot))
+    public static func invocation(contextID: String = String(), focusedBlockID: String = String(), selectedTextRange: Anytype_Model_Range, selectedBlockIds: [String] = [], isPartOfBlock: Bool = false, textSlot: String = String(), htmlSlot: String = String(), anySlot: [Anytype_Model_Block] = [], fileSlot: [Anytype_Rpc.Block.Paste.Request.File] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, focusedBlockID: focusedBlockID, selectedTextRange: selectedTextRange, selectedBlockIds: selectedBlockIds, isPartOfBlock: isPartOfBlock, textSlot: textSlot, htmlSlot: htmlSlot, anySlot: anySlot, fileSlot: fileSlot)
+        return Invocation<Request,Response>(messageName: "BlockPaste", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1887,9 +2020,10 @@ extension Anytype_Rpc.Block.Cut {
     public static func invoke(contextID: String = String(), blocks: [Anytype_Model_Block] = [], selectedTextRange: Anytype_Model_Range) -> Result<Response, Error> {
         return invocation(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange).invoke()
     }
-    public static func invocation(contextID: String = String(), blocks: [Anytype_Model_Block] = [], selectedTextRange: Anytype_Model_Range) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange))
+    public static func invocation(contextID: String = String(), blocks: [Anytype_Model_Block] = [], selectedTextRange: Anytype_Model_Range) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blocks: blocks, selectedTextRange: selectedTextRange)
+        return Invocation<Request,Response>(messageName: "BlockCut", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1908,9 +2042,10 @@ extension Anytype_Rpc.Block.Upload {
     public static func invoke(contextID: String = String(), blockID: String = String(), filePath: String = String(), url: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, filePath: filePath, url: url).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), filePath: String = String(), url: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, filePath: filePath, url: url))
+    public static func invocation(contextID: String = String(), blockID: String = String(), filePath: String = String(), url: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, filePath: filePath, url: url)
+        return Invocation<Request,Response>(messageName: "BlockUpload", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1929,9 +2064,10 @@ extension Anytype_Rpc.Block.Create {
     public static func invoke(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID, block: block, position: position).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID, block: block, position: position))
+    public static func invocation(contextID: String = String(), targetID: String = String(), block: Anytype_Model_Block, position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, block: block, position: position)
+        return Invocation<Request,Response>(messageName: "BlockCreate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1950,9 +2086,10 @@ extension Anytype_Rpc.Block.ListDelete {
     public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds))
+    public static func invocation(contextID: String = String(), blockIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds)
+        return Invocation<Request,Response>(messageName: "BlockListDelete", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1971,9 +2108,10 @@ extension Anytype_Rpc.Block.SetFields {
     public static func invoke(contextID: String = String(), blockID: String = String(), fields: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, fields: fields).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), fields: SwiftProtobuf.Google_Protobuf_Struct) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, fields: fields))
+    public static func invocation(contextID: String = String(), blockID: String = String(), fields: SwiftProtobuf.Google_Protobuf_Struct) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, fields: fields)
+        return Invocation<Request,Response>(messageName: "BlockSetFields", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -1992,9 +2130,10 @@ extension Anytype_Rpc.Block.ListSetAlign {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], align: Anytype_Model_Block.Align = .left) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, align: align).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], align: Anytype_Model_Block.Align = .left) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, align: align))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], align: Anytype_Model_Block.Align = .left) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, align: align)
+        return Invocation<Request,Response>(messageName: "BlockListSetAlign", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2013,9 +2152,10 @@ extension Anytype_Rpc.Block.ListSetVerticalAlign {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], verticalAlign: Anytype_Model_Block.VerticalAlign = .top) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, verticalAlign: verticalAlign).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], verticalAlign: Anytype_Model_Block.VerticalAlign = .top) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, verticalAlign: verticalAlign))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], verticalAlign: Anytype_Model_Block.VerticalAlign = .top) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, verticalAlign: verticalAlign)
+        return Invocation<Request,Response>(messageName: "BlockListSetVerticalAlign", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2034,9 +2174,10 @@ extension Anytype_Rpc.Block.ListSetFields {
     public static func invoke(contextID: String = String(), blockFields: [Anytype_Rpc.Block.ListSetFields.Request.BlockField] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockFields: blockFields).invoke()
     }
-    public static func invocation(contextID: String = String(), blockFields: [Anytype_Rpc.Block.ListSetFields.Request.BlockField] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockFields: blockFields))
+    public static func invocation(contextID: String = String(), blockFields: [Anytype_Rpc.Block.ListSetFields.Request.BlockField] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockFields: blockFields)
+        return Invocation<Request,Response>(messageName: "BlockListSetFields", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2049,15 +2190,16 @@ extension Anytype_Rpc.Block.ListSetFields {
 
 extension Anytype_Rpc.Block.ListDuplicate {
   public enum Service {
-    public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).invoke(on: queue)
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, targetContextID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position, targetContextID: targetContextID).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
-        return invocation(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).invoke()
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, targetContextID: String = String()) -> Result<Response, Error> {
+        return invocation(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position, targetContextID: targetContextID).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position))
+    public static func invocation(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, targetContextID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position, targetContextID: targetContextID)
+        return Invocation<Request,Response>(messageName: "BlockListDuplicate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2076,9 +2218,10 @@ extension Anytype_Rpc.Block.ListConvertToObjects {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], objectType: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, objectType: objectType).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], objectType: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, objectType: objectType))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], objectType: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, objectType: objectType)
+        return Invocation<Request,Response>(messageName: "BlockListConvertToObjects", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2097,9 +2240,10 @@ extension Anytype_Rpc.Block.ListMoveToExistingObject {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], targetContextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], targetContextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], targetContextID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, targetContextID: targetContextID, dropTargetID: dropTargetID, position: position)
+        return Invocation<Request,Response>(messageName: "BlockListMoveToExistingObject", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2118,9 +2262,10 @@ extension Anytype_Rpc.Block.ListMoveToNewObject {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, details: details, dropTargetID: dropTargetID, position: position).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, details: details, dropTargetID: dropTargetID, position: position))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], details: SwiftProtobuf.Google_Protobuf_Struct, dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, details: details, dropTargetID: dropTargetID, position: position)
+        return Invocation<Request,Response>(messageName: "BlockListMoveToNewObject", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2139,9 +2284,10 @@ extension Anytype_Rpc.Block.ListTurnInto {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, style: style).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, style: style))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, style: style)
+        return Invocation<Request,Response>(messageName: "BlockListTurnInto", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2160,9 +2306,10 @@ extension Anytype_Rpc.Block.ListSetBackgroundColor {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], color: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, color: color).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], color: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, color: color))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], color: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, color: color)
+        return Invocation<Request,Response>(messageName: "BlockListSetBackgroundColor", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2181,9 +2328,10 @@ extension Anytype_Rpc.Block.Export {
     public static func invoke(contextID: String = String(), blocks: [Anytype_Model_Block] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, blocks: blocks).invoke()
     }
-    public static func invocation(contextID: String = String(), blocks: [Anytype_Model_Block] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blocks: blocks))
+    public static func invocation(contextID: String = String(), blocks: [Anytype_Model_Block] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blocks: blocks)
+        return Invocation<Request,Response>(messageName: "BlockExport", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2202,9 +2350,10 @@ extension Anytype_Rpc.BlockLatex.SetText {
     public static func invoke(contextID: String = String(), blockID: String = String(), text: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, text: text).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), text: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, text: text))
+    public static func invocation(contextID: String = String(), blockID: String = String(), text: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, text: text)
+        return Invocation<Request,Response>(messageName: "BlockLatexSetText", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2223,9 +2372,10 @@ extension Anytype_Rpc.BlockText.SetText {
     public static func invoke(contextID: String = String(), blockID: String = String(), text: String = String(), marks: Anytype_Model_Block.Content.Text.Marks) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, text: text, marks: marks).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), text: String = String(), marks: Anytype_Model_Block.Content.Text.Marks) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, text: text, marks: marks))
+    public static func invocation(contextID: String = String(), blockID: String = String(), text: String = String(), marks: Anytype_Model_Block.Content.Text.Marks) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, text: text, marks: marks)
+        return Invocation<Request,Response>(messageName: "BlockTextSetText", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2244,9 +2394,10 @@ extension Anytype_Rpc.BlockText.SetColor {
     public static func invoke(contextID: String = String(), blockID: String = String(), color: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, color: color).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), color: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, color: color))
+    public static func invocation(contextID: String = String(), blockID: String = String(), color: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, color: color)
+        return Invocation<Request,Response>(messageName: "BlockTextSetColor", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2265,9 +2416,10 @@ extension Anytype_Rpc.BlockText.SetStyle {
     public static func invoke(contextID: String = String(), blockID: String = String(), style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, style: style).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, style: style))
+    public static func invocation(contextID: String = String(), blockID: String = String(), style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, style: style)
+        return Invocation<Request,Response>(messageName: "BlockTextSetStyle", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2286,9 +2438,10 @@ extension Anytype_Rpc.BlockText.SetChecked {
     public static func invoke(contextID: String = String(), blockID: String = String(), checked: Bool = false) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, checked: checked).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), checked: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, checked: checked))
+    public static func invocation(contextID: String = String(), blockID: String = String(), checked: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, checked: checked)
+        return Invocation<Request,Response>(messageName: "BlockTextSetChecked", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2307,9 +2460,10 @@ extension Anytype_Rpc.BlockText.SetIcon {
     public static func invoke(contextID: String = String(), blockID: String = String(), iconImage: String = String(), iconEmoji: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, iconImage: iconImage, iconEmoji: iconEmoji).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), iconImage: String = String(), iconEmoji: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, iconImage: iconImage, iconEmoji: iconEmoji))
+    public static func invocation(contextID: String = String(), blockID: String = String(), iconImage: String = String(), iconEmoji: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, iconImage: iconImage, iconEmoji: iconEmoji)
+        return Invocation<Request,Response>(messageName: "BlockTextSetIcon", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2328,9 +2482,10 @@ extension Anytype_Rpc.BlockText.ListSetStyle {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, style: style).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, style: style))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Text.Style = .paragraph) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, style: style)
+        return Invocation<Request,Response>(messageName: "BlockTextListSetStyle", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2349,9 +2504,10 @@ extension Anytype_Rpc.BlockText.ListSetColor {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], color: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, color: color).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], color: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, color: color))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], color: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, color: color)
+        return Invocation<Request,Response>(messageName: "BlockTextListSetColor", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2370,9 +2526,10 @@ extension Anytype_Rpc.BlockText.ListSetMark {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], mark: Anytype_Model_Block.Content.Text.Mark) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, mark: mark).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], mark: Anytype_Model_Block.Content.Text.Mark) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, mark: mark))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], mark: Anytype_Model_Block.Content.Text.Mark) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, mark: mark)
+        return Invocation<Request,Response>(messageName: "BlockTextListSetMark", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2391,9 +2548,10 @@ extension Anytype_Rpc.BlockText.ListClearStyle {
     public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds))
+    public static func invocation(contextID: String = String(), blockIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds)
+        return Invocation<Request,Response>(messageName: "BlockTextListClearStyle", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2412,9 +2570,10 @@ extension Anytype_Rpc.BlockText.ListClearContent {
     public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds))
+    public static func invocation(contextID: String = String(), blockIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds)
+        return Invocation<Request,Response>(messageName: "BlockTextListClearContent", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2433,9 +2592,10 @@ extension Anytype_Rpc.BlockTable.Create {
     public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, rows: UInt32 = 0, columns: UInt32 = 0, withHeaderRow: Bool = false) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID, position: position, rows: rows, columns: columns, withHeaderRow: withHeaderRow).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, rows: UInt32 = 0, columns: UInt32 = 0, withHeaderRow: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID, position: position, rows: rows, columns: columns, withHeaderRow: withHeaderRow))
+    public static func invocation(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, rows: UInt32 = 0, columns: UInt32 = 0, withHeaderRow: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, position: position, rows: rows, columns: columns, withHeaderRow: withHeaderRow)
+        return Invocation<Request,Response>(messageName: "BlockTableCreate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2454,9 +2614,10 @@ extension Anytype_Rpc.BlockTable.RowCreate {
     public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID, position: position).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID, position: position))
+    public static func invocation(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, position: position)
+        return Invocation<Request,Response>(messageName: "BlockTableRowCreate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2475,9 +2636,10 @@ extension Anytype_Rpc.BlockTable.RowSetHeader {
     public static func invoke(contextID: String = String(), targetID: String = String(), isHeader: Bool = false) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID, isHeader: isHeader).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), isHeader: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID, isHeader: isHeader))
+    public static func invocation(contextID: String = String(), targetID: String = String(), isHeader: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, isHeader: isHeader)
+        return Invocation<Request,Response>(messageName: "BlockTableRowSetHeader", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2496,9 +2658,10 @@ extension Anytype_Rpc.BlockTable.RowListFill {
     public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds))
+    public static func invocation(contextID: String = String(), blockIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds)
+        return Invocation<Request,Response>(messageName: "BlockTableRowListFill", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2517,9 +2680,10 @@ extension Anytype_Rpc.BlockTable.RowListClean {
     public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds))
+    public static func invocation(contextID: String = String(), blockIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds)
+        return Invocation<Request,Response>(messageName: "BlockTableRowListClean", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2538,9 +2702,10 @@ extension Anytype_Rpc.BlockTable.ColumnListFill {
     public static func invoke(contextID: String = String(), blockIds: [String] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds))
+    public static func invocation(contextID: String = String(), blockIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds)
+        return Invocation<Request,Response>(messageName: "BlockTableColumnListFill", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2559,9 +2724,10 @@ extension Anytype_Rpc.BlockTable.ColumnCreate {
     public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID, position: position).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID, position: position))
+    public static func invocation(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, position: position)
+        return Invocation<Request,Response>(messageName: "BlockTableColumnCreate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2580,9 +2746,10 @@ extension Anytype_Rpc.BlockTable.RowDelete {
     public static func invoke(contextID: String = String(), targetID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID))
+    public static func invocation(contextID: String = String(), targetID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID)
+        return Invocation<Request,Response>(messageName: "BlockTableRowDelete", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2601,9 +2768,10 @@ extension Anytype_Rpc.BlockTable.ColumnDelete {
     public static func invoke(contextID: String = String(), targetID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID))
+    public static func invocation(contextID: String = String(), targetID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID)
+        return Invocation<Request,Response>(messageName: "BlockTableColumnDelete", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2622,9 +2790,10 @@ extension Anytype_Rpc.BlockTable.ColumnMove {
     public static func invoke(contextID: String = String(), targetID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID, dropTargetID: dropTargetID, position: position).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID, dropTargetID: dropTargetID, position: position))
+    public static func invocation(contextID: String = String(), targetID: String = String(), dropTargetID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, dropTargetID: dropTargetID, position: position)
+        return Invocation<Request,Response>(messageName: "BlockTableColumnMove", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2643,9 +2812,10 @@ extension Anytype_Rpc.BlockTable.RowDuplicate {
     public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID, blockID: blockID, position: position).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID, blockID: blockID, position: position))
+    public static func invocation(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, blockID: blockID, position: position)
+        return Invocation<Request,Response>(messageName: "BlockTableRowDuplicate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2664,9 +2834,10 @@ extension Anytype_Rpc.BlockTable.ColumnDuplicate {
     public static func invoke(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID, blockID: blockID, position: position).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID, blockID: blockID, position: position))
+    public static func invocation(contextID: String = String(), targetID: String = String(), blockID: String = String(), position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, blockID: blockID, position: position)
+        return Invocation<Request,Response>(messageName: "BlockTableColumnDuplicate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2685,9 +2856,10 @@ extension Anytype_Rpc.BlockTable.Expand {
     public static func invoke(contextID: String = String(), targetID: String = String(), columns: UInt32 = 0, rows: UInt32 = 0) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID, columns: columns, rows: rows).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), columns: UInt32 = 0, rows: UInt32 = 0) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID, columns: columns, rows: rows))
+    public static func invocation(contextID: String = String(), targetID: String = String(), columns: UInt32 = 0, rows: UInt32 = 0) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, columns: columns, rows: rows)
+        return Invocation<Request,Response>(messageName: "BlockTableExpand", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2706,9 +2878,10 @@ extension Anytype_Rpc.BlockTable.Sort {
     public static func invoke(contextID: String = String(), columnID: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc) -> Result<Response, Error> {
         return invocation(contextID: contextID, columnID: columnID, type: type).invoke()
     }
-    public static func invocation(contextID: String = String(), columnID: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, columnID: columnID, type: type))
+    public static func invocation(contextID: String = String(), columnID: String = String(), type: Anytype_Model_Block.Content.Dataview.Sort.TypeEnum = .asc) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, columnID: columnID, type: type)
+        return Invocation<Request,Response>(messageName: "BlockTableSort", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2727,9 +2900,10 @@ extension Anytype_Rpc.BlockFile.SetName {
     public static func invoke(contextID: String = String(), blockID: String = String(), name: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, name: name).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), name: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, name: name))
+    public static func invocation(contextID: String = String(), blockID: String = String(), name: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, name: name)
+        return Invocation<Request,Response>(messageName: "BlockFileSetName", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2748,9 +2922,10 @@ extension Anytype_Rpc.BlockFile.CreateAndUpload {
     public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String(), localPath: String = String(), fileType: Anytype_Model_Block.Content.File.TypeEnum = .none) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID, position: position, url: url, localPath: localPath, fileType: fileType).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String(), localPath: String = String(), fileType: Anytype_Model_Block.Content.File.TypeEnum = .none) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID, position: position, url: url, localPath: localPath, fileType: fileType))
+    public static func invocation(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String(), localPath: String = String(), fileType: Anytype_Model_Block.Content.File.TypeEnum = .none) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, position: position, url: url, localPath: localPath, fileType: fileType)
+        return Invocation<Request,Response>(messageName: "BlockFileCreateAndUpload", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2769,9 +2944,10 @@ extension Anytype_Rpc.BlockFile.ListSetStyle {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.File.Style = .auto) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, style: style).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.File.Style = .auto) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, style: style))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.File.Style = .auto) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, style: style)
+        return Invocation<Request,Response>(messageName: "BlockFileListSetStyle", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2790,9 +2966,10 @@ extension Anytype_Rpc.BlockImage.SetName {
     public static func invoke(contextID: String = String(), blockID: String = String(), name: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, name: name).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), name: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, name: name))
+    public static func invocation(contextID: String = String(), blockID: String = String(), name: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, name: name)
+        return Invocation<Request,Response>(messageName: "BlockImageSetName", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2811,9 +2988,10 @@ extension Anytype_Rpc.BlockVideo.SetName {
     public static func invoke(contextID: String = String(), blockID: String = String(), name: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, name: name).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), name: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, name: name))
+    public static func invocation(contextID: String = String(), blockID: String = String(), name: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, name: name)
+        return Invocation<Request,Response>(messageName: "BlockVideoSetName", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2832,9 +3010,10 @@ extension Anytype_Rpc.BlockLink.CreateWithObject {
     public static func invoke(contextID: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], targetID: String = String(), position: Anytype_Model_Block.Position = .none, fields: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
         return invocation(contextID: contextID, details: details, templateID: templateID, internalFlags: internalFlags, targetID: targetID, position: position, fields: fields).invoke()
     }
-    public static func invocation(contextID: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], targetID: String = String(), position: Anytype_Model_Block.Position = .none, fields: SwiftProtobuf.Google_Protobuf_Struct) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, details: details, templateID: templateID, internalFlags: internalFlags, targetID: targetID, position: position, fields: fields))
+    public static func invocation(contextID: String = String(), details: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String(), internalFlags: [Anytype_Model_InternalFlag] = [], targetID: String = String(), position: Anytype_Model_Block.Position = .none, fields: SwiftProtobuf.Google_Protobuf_Struct) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, details: details, templateID: templateID, internalFlags: internalFlags, targetID: targetID, position: position, fields: fields)
+        return Invocation<Request,Response>(messageName: "BlockLinkCreateWithObject", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2853,9 +3032,10 @@ extension Anytype_Rpc.BlockLink.ListSetAppearance {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone, cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text, description_p: Anytype_Model_Block.Content.Link.Description = .none, relations: [String] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, iconSize: iconSize, cardStyle: cardStyle, description_p: description_p, relations: relations).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone, cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text, description_p: Anytype_Model_Block.Content.Link.Description = .none, relations: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, iconSize: iconSize, cardStyle: cardStyle, description_p: description_p, relations: relations))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], iconSize: Anytype_Model_Block.Content.Link.IconSize = .sizeNone, cardStyle: Anytype_Model_Block.Content.Link.CardStyle = .text, description_p: Anytype_Model_Block.Content.Link.Description = .none, relations: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, iconSize: iconSize, cardStyle: cardStyle, description_p: description_p, relations: relations)
+        return Invocation<Request,Response>(messageName: "BlockLinkListSetAppearance", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2874,9 +3054,10 @@ extension Anytype_Rpc.BlockRelation.SetKey {
     public static func invoke(contextID: String = String(), blockID: String = String(), key: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, key: key).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), key: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, key: key))
+    public static func invocation(contextID: String = String(), blockID: String = String(), key: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, key: key)
+        return Invocation<Request,Response>(messageName: "BlockRelationSetKey", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2895,9 +3076,10 @@ extension Anytype_Rpc.BlockRelation.Add {
     public static func invoke(contextID: String, blockID: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, relation: relation).invoke()
     }
-    public static func invocation(contextID: String, blockID: String, relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, relation: relation))
+    public static func invocation(contextID: String, blockID: String, relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, relation: relation)
+        return Invocation<Request,Response>(messageName: "BlockRelationAdd", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2916,9 +3098,10 @@ extension Anytype_Rpc.BlockBookmark.Fetch {
     public static func invoke(contextID: String = String(), blockID: String = String(), url: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, url: url).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), url: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, url: url))
+    public static func invocation(contextID: String = String(), blockID: String = String(), url: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, url: url)
+        return Invocation<Request,Response>(messageName: "BlockBookmarkFetch", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2937,9 +3120,10 @@ extension Anytype_Rpc.BlockBookmark.CreateAndFetch {
     public static func invoke(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, targetID: targetID, position: position, url: url).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, targetID: targetID, position: position, url: url))
+    public static func invocation(contextID: String = String(), targetID: String = String(), position: Anytype_Model_Block.Position = .none, url: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, position: position, url: url)
+        return Invocation<Request,Response>(messageName: "BlockBookmarkCreateAndFetch", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2958,9 +3142,10 @@ extension Anytype_Rpc.BlockDiv.ListSetStyle {
     public static func invoke(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Div.Style = .line) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockIds: blockIds, style: style).invoke()
     }
-    public static func invocation(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Div.Style = .line) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockIds: blockIds, style: style))
+    public static func invocation(contextID: String = String(), blockIds: [String] = [], style: Anytype_Model_Block.Content.Div.Style = .line) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockIds: blockIds, style: style)
+        return Invocation<Request,Response>(messageName: "BlockDivListSetStyle", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -2979,9 +3164,10 @@ extension Anytype_Rpc.BlockDataview.View.Create {
     public static func invoke(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, view: view).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, view: view))
+    public static func invocation(contextID: String = String(), blockID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, view: view)
+        return Invocation<Request,Response>(messageName: "BlockDataviewViewCreate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3000,9 +3186,10 @@ extension Anytype_Rpc.BlockDataview.View.Update {
     public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, viewID: viewID, view: view).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, viewID: viewID, view: view))
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), view: Anytype_Model_Block.Content.Dataview.View) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, view: view)
+        return Invocation<Request,Response>(messageName: "BlockDataviewViewUpdate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3021,9 +3208,10 @@ extension Anytype_Rpc.BlockDataview.View.Delete {
     public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, viewID: viewID).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, viewID: viewID))
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID)
+        return Invocation<Request,Response>(messageName: "BlockDataviewViewDelete", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3042,9 +3230,10 @@ extension Anytype_Rpc.BlockDataview.View.SetActive {
     public static func invoke(contextID: String = String(), blockID: String = String(), viewID: String = String(), offset: UInt32 = 0, limit: UInt32 = 0) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, viewID: viewID, offset: offset, limit: limit).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), offset: UInt32 = 0, limit: UInt32 = 0) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, viewID: viewID, offset: offset, limit: limit))
+    public static func invocation(contextID: String = String(), blockID: String = String(), viewID: String = String(), offset: UInt32 = 0, limit: UInt32 = 0) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, viewID: viewID, offset: offset, limit: limit)
+        return Invocation<Request,Response>(messageName: "BlockDataviewViewSetActive", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3063,9 +3252,10 @@ extension Anytype_Rpc.BlockDataview.Relation.Add {
     public static func invoke(contextID: String, blockID: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, relation: relation).invoke()
     }
-    public static func invocation(contextID: String, blockID: String, relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, relation: relation))
+    public static func invocation(contextID: String, blockID: String, relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, relation: relation)
+        return Invocation<Request,Response>(messageName: "BlockDataviewRelationAdd", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3084,9 +3274,10 @@ extension Anytype_Rpc.BlockDataview.Relation.Update {
     public static func invoke(contextID: String, blockID: String, relationKey: String, relation: Anytype_Model_Relation) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey, relation: relation).invoke()
     }
-    public static func invocation(contextID: String, blockID: String, relationKey: String, relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, relationKey: relationKey, relation: relation))
+    public static func invocation(contextID: String, blockID: String, relationKey: String, relation: Anytype_Model_Relation) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, relationKey: relationKey, relation: relation)
+        return Invocation<Request,Response>(messageName: "BlockDataviewRelationUpdate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3105,9 +3296,10 @@ extension Anytype_Rpc.BlockDataview.Relation.Delete {
     public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, relationKey: relationKey))
+    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, relationKey: relationKey)
+        return Invocation<Request,Response>(messageName: "BlockDataviewRelationDelete", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3126,9 +3318,10 @@ extension Anytype_Rpc.BlockDataview.Relation.ListAvailable {
     public static func invoke(contextID: String = String(), blockID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID))
+    public static func invocation(contextID: String = String(), blockID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID)
+        return Invocation<Request,Response>(messageName: "BlockDataviewRelationListAvailable", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3147,9 +3340,10 @@ extension Anytype_Rpc.BlockDataview.SetSource {
     public static func invoke(contextID: String = String(), blockID: String = String(), source: [String] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, source: source).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), source: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, source: source))
+    public static func invocation(contextID: String = String(), blockID: String = String(), source: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, source: source)
+        return Invocation<Request,Response>(messageName: "BlockDataviewSetSource", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3168,9 +3362,10 @@ extension Anytype_Rpc.BlockDataview.GroupOrder.Update {
     public static func invoke(contextID: String = String(), blockID: String = String(), groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, groupOrder: groupOrder).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, groupOrder: groupOrder))
+    public static func invocation(contextID: String = String(), blockID: String = String(), groupOrder: Anytype_Model_Block.Content.Dataview.GroupOrder) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, groupOrder: groupOrder)
+        return Invocation<Request,Response>(messageName: "BlockDataviewGroupOrderUpdate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3189,9 +3384,10 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Update {
     public static func invoke(contextID: String = String(), blockID: String = String(), objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = []) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, objectOrders: objectOrders).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, objectOrders: objectOrders))
+    public static func invocation(contextID: String = String(), blockID: String = String(), objectOrders: [Anytype_Model_Block.Content.Dataview.ObjectOrder] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, objectOrders: objectOrders)
+        return Invocation<Request,Response>(messageName: "BlockDataviewObjectOrderUpdate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3210,9 +3406,10 @@ extension Anytype_Rpc.BlockDataviewRecord.Update {
     public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, recordID: recordID, record: record).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), recordID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, recordID: recordID, record: record))
+    public static func invocation(contextID: String = String(), blockID: String = String(), recordID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, recordID: recordID, record: record)
+        return Invocation<Request,Response>(messageName: "BlockDataviewRecordUpdate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3231,9 +3428,10 @@ extension Anytype_Rpc.BlockDataviewRecord.Delete {
     public static func invoke(contextID: String = String(), blockID: String = String(), recordID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, recordID: recordID).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), recordID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, recordID: recordID))
+    public static func invocation(contextID: String = String(), blockID: String = String(), recordID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, recordID: recordID)
+        return Invocation<Request,Response>(messageName: "BlockDataviewRecordDelete", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3252,9 +3450,10 @@ extension Anytype_Rpc.BlockDataviewRecord.Create {
     public static func invoke(contextID: String = String(), blockID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, record: record, templateID: templateID).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, record: record, templateID: templateID))
+    public static func invocation(contextID: String = String(), blockID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, record: record, templateID: templateID)
+        return Invocation<Request,Response>(messageName: "BlockDataviewRecordCreate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3273,9 +3472,10 @@ extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Add {
     public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID))
+    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID)
+        return Invocation<Request,Response>(messageName: "BlockDataviewRecordRelationOptionAdd", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3294,9 +3494,10 @@ extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Update {
     public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID))
+    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, relationKey: relationKey, option: option, recordID: recordID)
+        return Invocation<Request,Response>(messageName: "BlockDataviewRecordRelationOptionUpdate", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3315,9 +3516,10 @@ extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Delete {
     public static func invoke(contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String()) -> Result<Response, Error> {
         return invocation(contextID: contextID, blockID: blockID, relationKey: relationKey, optionID: optionID, recordID: recordID).invoke()
     }
-    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(contextID: contextID, blockID: blockID, relationKey: relationKey, optionID: optionID, recordID: recordID))
+    public static func invocation(contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, blockID: blockID, relationKey: relationKey, optionID: optionID, recordID: recordID)
+        return Invocation<Request,Response>(messageName: "BlockDataviewRecordRelationOptionDelete", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3336,9 +3538,10 @@ extension Anytype_Rpc.Debug.Sync {
     public static func invoke(recordsTraverseLimit: Int32 = 0, skipEmptyLogs: Bool = false, tryToDownloadRemoteRecords: Bool = false) -> Result<Response, Error> {
         return invocation(recordsTraverseLimit: recordsTraverseLimit, skipEmptyLogs: skipEmptyLogs, tryToDownloadRemoteRecords: tryToDownloadRemoteRecords).invoke()
     }
-    public static func invocation(recordsTraverseLimit: Int32 = 0, skipEmptyLogs: Bool = false, tryToDownloadRemoteRecords: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(recordsTraverseLimit: recordsTraverseLimit, skipEmptyLogs: skipEmptyLogs, tryToDownloadRemoteRecords: tryToDownloadRemoteRecords))
+    public static func invocation(recordsTraverseLimit: Int32 = 0, skipEmptyLogs: Bool = false, tryToDownloadRemoteRecords: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(recordsTraverseLimit: recordsTraverseLimit, skipEmptyLogs: skipEmptyLogs, tryToDownloadRemoteRecords: tryToDownloadRemoteRecords)
+        return Invocation<Request,Response>(messageName: "DebugSync", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3357,9 +3560,10 @@ extension Anytype_Rpc.Debug.Thread {
     public static func invoke(threadID: String = String(), skipEmptyLogs: Bool = false, tryToDownloadRemoteRecords: Bool = false) -> Result<Response, Error> {
         return invocation(threadID: threadID, skipEmptyLogs: skipEmptyLogs, tryToDownloadRemoteRecords: tryToDownloadRemoteRecords).invoke()
     }
-    public static func invocation(threadID: String = String(), skipEmptyLogs: Bool = false, tryToDownloadRemoteRecords: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(threadID: threadID, skipEmptyLogs: skipEmptyLogs, tryToDownloadRemoteRecords: tryToDownloadRemoteRecords))
+    public static func invocation(threadID: String = String(), skipEmptyLogs: Bool = false, tryToDownloadRemoteRecords: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(threadID: threadID, skipEmptyLogs: skipEmptyLogs, tryToDownloadRemoteRecords: tryToDownloadRemoteRecords)
+        return Invocation<Request,Response>(messageName: "DebugThread", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3378,9 +3582,10 @@ extension Anytype_Rpc.Debug.Tree {
     public static func invoke(objectID: String = String(), path: String = String(), unanonymized: Bool = false, generateSvg: Bool = false) -> Result<Response, Error> {
         return invocation(objectID: objectID, path: path, unanonymized: unanonymized, generateSvg: generateSvg).invoke()
     }
-    public static func invocation(objectID: String = String(), path: String = String(), unanonymized: Bool = false, generateSvg: Bool = false) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(objectID: objectID, path: path, unanonymized: unanonymized, generateSvg: generateSvg))
+    public static func invocation(objectID: String = String(), path: String = String(), unanonymized: Bool = false, generateSvg: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(objectID: objectID, path: path, unanonymized: unanonymized, generateSvg: generateSvg)
+        return Invocation<Request,Response>(messageName: "DebugTree", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3399,9 +3604,10 @@ extension Anytype_Rpc.Debug.ExportLocalstore {
     public static func invoke(path: String = String(), docIds: [String] = []) -> Result<Response, Error> {
         return invocation(path: path, docIds: docIds).invoke()
     }
-    public static func invocation(path: String = String(), docIds: [String] = []) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(path: path, docIds: docIds))
+    public static func invocation(path: String = String(), docIds: [String] = []) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(path: path, docIds: docIds)
+        return Invocation<Request,Response>(messageName: "DebugExportLocalstore", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3420,9 +3626,10 @@ extension Anytype_Rpc.Debug.Ping {
     public static func invoke(index: Int32 = 0, numberOfEventsToSend: Int32 = 0) -> Result<Response, Error> {
         return invocation(index: index, numberOfEventsToSend: numberOfEventsToSend).invoke()
     }
-    public static func invocation(index: Int32 = 0, numberOfEventsToSend: Int32 = 0) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(index: index, numberOfEventsToSend: numberOfEventsToSend))
+    public static func invocation(index: Int32 = 0, numberOfEventsToSend: Int32 = 0) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(index: index, numberOfEventsToSend: numberOfEventsToSend)
+        return Invocation<Request,Response>(messageName: "DebugPing", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3441,9 +3648,10 @@ extension Anytype_Rpc.Metrics.SetParameters {
     public static func invoke(platform: String = String()) -> Result<Response, Error> {
         return invocation(platform: platform).invoke()
     }
-    public static func invocation(platform: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(platform: platform))
+    public static func invocation(platform: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(platform: platform)
+        return Invocation<Request,Response>(messageName: "MetricsSetParameters", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3462,9 +3670,10 @@ extension Anytype_Rpc.Log.Send {
     public static func invoke(message: String = String(), level: Anytype_Rpc.Log.Send.Request.Level = .debug) -> Result<Response, Error> {
         return invocation(message: message, level: level).invoke()
     }
-    public static func invocation(message: String = String(), level: Anytype_Rpc.Log.Send.Request.Level = .debug) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(message: message, level: level))
+    public static func invocation(message: String = String(), level: Anytype_Rpc.Log.Send.Request.Level = .debug) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(message: message, level: level)
+        return Invocation<Request,Response>(messageName: "LogSend", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {
@@ -3483,9 +3692,10 @@ extension Anytype_Rpc.Process.Cancel {
     public static func invoke(id: String = String()) -> Result<Response, Error> {
         return invocation(id: id).invoke()
     }
-    public static func invocation(id: String = String()) -> ProtobufMessages.Invocation<Response> {
-        return Invocation<Response> {
-            return self.invoke(.init(id: id))
+    public static func invocation(id: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(id: id)
+        return Invocation<Request,Response>(messageName: "ProcessCancel", request: request) { request in
+            return self.invoke(request)
         }
     }
     private static func invoke(_ request: Request) -> Response? {

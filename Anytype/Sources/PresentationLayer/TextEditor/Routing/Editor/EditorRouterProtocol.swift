@@ -43,7 +43,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func presentUndoRedo()
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
-    func showLinkTo(onSelect: @escaping (BlockId) -> ())
+    func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
     func showLinkToObject(onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ())
     func showSearch(onSelect: @escaping (EditorScreenData) -> ())
     func showTypesSearch(onSelect: @escaping (BlockId) -> ())
@@ -74,6 +74,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func showCreateBookmarkObject()
     
     func showSetSettings(setModel: EditorSetViewModel)
+    func showViewSettings(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
     func dismissSetSettingsIfNeeded()
     func showSorts(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol)
     func showRelationSearch(relations: [RelationMetadata], onSelect: @escaping (String) -> Void)
@@ -85,4 +86,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
         selectedColor: UIColor?,
         selectedBackgroundColor: UIColor?
     )
+    
+    func showCardSizes(size: DataviewViewSize, onSelect: @escaping (DataviewViewSize) -> Void)
+    func showCovers(setModel: EditorSetViewModel, onSelect: @escaping (String) -> Void)
 }

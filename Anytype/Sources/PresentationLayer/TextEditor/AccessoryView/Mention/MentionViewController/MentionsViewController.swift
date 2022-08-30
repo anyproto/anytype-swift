@@ -104,8 +104,8 @@ extension MentionsViewController: MentionsView {
         DispatchQueue.main.async {
             var snapshot = NSDiffableDataSourceSnapshot<MentionSection, MentionDisplayData>()
             snapshot.appendSections(MentionSection.allCases)
-            snapshot.appendItems([.createNewObject], toSection: .first)
-            snapshot.appendItems(list, toSection: .second)
+            snapshot.appendItems(list, toSection: .first)
+            snapshot.appendItems([.createNewObject], toSection: .second)
             self.dataSource.apply(snapshot, animatingDifferences: false)
         }
     }

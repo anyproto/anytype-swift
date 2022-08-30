@@ -16,11 +16,8 @@ final class SetFiltersListViewModel: ObservableObject {
                 id: "\(filter.metadata.id)_\(index)",
                 title: filter.metadata.name,
                 subtitle: filter.conditionString,
-                iconName: filter.metadata.format.iconName,
-                relation: relationFilterBuilder.relation(
-                    metadata: filter.metadata,
-                    filter: filter.filter
-                ),
+                iconAsset: filter.metadata.format.iconAsset,
+                type: type(for: filter),
                 hasValues: filter.filter.condition.hasValues,
                 onTap: { [weak self] in
                     self?.rowTapped(filter.metadata.id, index: index)
@@ -104,6 +101,24 @@ extension SetFiltersListViewModel {
             filters.append(updatedFilter.filter)
         }
         updateView(with: filters)
+    }
+    
+    private func type(for filter: SetFilter) -> SetFilterRowType {
+        switch filter.metadata.format {
+        case .date:
+            return .date(
+                relationFilterBuilder.dateString(
+                    for: filter.filter
+                )
+            )
+        default:
+            return .relation(
+                relationFilterBuilder.relation(
+                    metadata: filter.metadata,
+                    filter: filter.filter
+                )
+            )
+        }
     }
     
     // MARK: - Routing
