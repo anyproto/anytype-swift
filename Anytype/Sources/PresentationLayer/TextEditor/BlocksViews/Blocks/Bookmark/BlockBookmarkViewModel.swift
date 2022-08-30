@@ -4,10 +4,11 @@ import UIKit
 
 // https://www.figma.com/file/3lljgCRXYLiUeefJSxN1aC/Components?node-id=106%3A745
 struct BlockBookmarkViewModel: BlockViewModelProtocol {    
-    var hashable: AnyHashable { [ info ] as [AnyHashable] }
+    var hashable: AnyHashable { [ info, objectDetails ] as [AnyHashable] }
     
     let info: BlockInformation
     let bookmarkData: BlockBookmark
+    let objectDetails: ObjectDetails?
     
     let showBookmarkBar: (BlockInformation) -> ()
     let openUrl: (URL) -> ()
@@ -15,7 +16,9 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
         let backgroundColor = info.backgroundColor.map(UIColor.Background.uiColor(from:)) ?? nil
 
-        switch bookmarkData.blockBookmarkState {
+        let state = BlockBookmarkState(bookmarkData: bookmarkData, objectDetails: objectDetails)
+        
+        switch state {
         case .none:
             return BlocksFileEmptyViewConfiguration(
                 imageAsset: .TextEditor.BlockFile.Empty.bookmark,

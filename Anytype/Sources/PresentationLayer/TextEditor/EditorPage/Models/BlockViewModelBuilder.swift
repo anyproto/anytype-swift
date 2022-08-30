@@ -169,12 +169,17 @@ final class BlockViewModelBuilder {
         case .divider(let content):
             return DividerBlockViewModel(content: content, info: info)
         case let .bookmark(data):
-            let newData = FeatureFlags.bookmarksFlow
-                ? ObjectDetailsStorage.shared.get(id: data.targetObjectID).map { BlockBookmark(objectDetails: $0) }
-                : nil
+            
+            let details = ObjectDetailsStorage.shared.get(id: data.targetObjectID)
+            
+            if FeatureFlags.bookmarksFlowP2 && (details?.isDeleted ?? false) {
+                return NonExistentBlockViewModel(info: info)
+            }
+            
             return BlockBookmarkViewModel(
                 info: info,
-                bookmarkData: newData ?? data,
+                bookmarkData: data,
+                objectDetails: details,
                 showBookmarkBar: { [weak self] info in
                     self?.showBookmarkBar(info: info)
                 },
