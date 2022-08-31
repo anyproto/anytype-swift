@@ -41,6 +41,8 @@ protocol BlockActionServiceProtocol {
     func merge(secondBlockId: BlockId)
     
     func setObjectTypeUrl(_ objectTypeUrl: String)
+    func setObjectSetType() -> BlockId
+
     func createAndFetchBookmark(
         contextID: BlockId,
         targetID: BlockId,

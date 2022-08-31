@@ -18,7 +18,7 @@ final class EditorBrowserAssembly {
         let browser = EditorBrowserController()
 
         let (page, router) = coordinatorsDI.editor
-            .buildEditorModule(browser: browser, data: data, editorBrowserViewInput: browser)
+            .buildEditorModule(browser: browser, data: data)
         
         browser.childNavigation = navigationStack(rootPage: page)
         browser.router = router

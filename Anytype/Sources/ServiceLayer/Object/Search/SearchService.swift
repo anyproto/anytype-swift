@@ -5,7 +5,7 @@ import AnytypeCore
 
 protocol SearchServiceProtocol {
     func search(text: String) -> [ObjectDetails]?
-    func searchObjectTypes(text: String, filteringTypeUrl: String?) -> [ObjectDetails]?
+    func searchObjectTypes(text: String, filteringTypeUrl: String?, shouldIncludeSets: Bool) -> [ObjectDetails]?
     func searchFiles(text: String, excludedFileIds: [String]) -> [ObjectDetails]?
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeUrls: [String]) -> [ObjectDetails]?
     func searchTemplates(for type: ObjectTypeUrl) -> [ObjectDetails]?
@@ -39,7 +39,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         return makeRequest(filters: filters, sorts: [sort], fullText: text)
     }
     
-    func searchObjectTypes(text: String, filteringTypeUrl: String? = nil) -> [ObjectDetails]? {
+    func searchObjectTypes(
+        text: String,
+        filteringTypeUrl: String? = nil,
+        shouldIncludeSets: Bool
+    ) -> [ObjectDetails]? {
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
             type: .asc
@@ -49,8 +53,9 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.supportedObjectTypeUrlsFilter(
                 ObjectTypeProvider.shared.supportedTypeUrls
             ),
-            SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.set).rawValue)
-        ]
+            shouldIncludeSets ? nil : SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.set).rawValue)
+        ].compactMap { $0 }
+
         if FeatureFlags.bookmarksFlow {
             filters.append(SearchHelper.excludedObjectTypeUrlFilter(ObjectTypeUrl.bundled(.bookmark).rawValue))
         }
@@ -63,7 +68,8 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             by: [
                 ObjectTypeUrl.bundled(.page).rawValue,
                 ObjectTypeUrl.bundled(.note).rawValue,
-                ObjectTypeUrl.bundled(.task).rawValue
+                ObjectTypeUrl.bundled(.task).rawValue,
+                ObjectTypeUrl.bundled(.set).rawValue
             ]
         ) { $0.id }
     }

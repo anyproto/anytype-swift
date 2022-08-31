@@ -108,6 +108,10 @@ public extension BundledRelationsValueProvider {
     var type: String {
         stringValue(with: .type)
     }
+
+    var setOf: String? {
+        stringValue(with: .setOf)
+    }
     
     var isDeleted: Bool {
         boolValue(with: .isDeleted)

@@ -13,4 +13,12 @@ extension UINavigationController {
         navigationBar.barTintColor = UIColor.backgroundPrimary
         navigationBar.tintColor = UIColor.backgroundPrimary
     }
+
+    func replaceLastViewController(_ viewController: UIViewController, animated: Bool) {
+        var childViewControllers = viewControllers
+        let _ = childViewControllers.popLast()
+        childViewControllers.append(viewController)
+
+        setViewControllers(childViewControllers, animated: animated)
+    }
 }

@@ -49,6 +49,10 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func setObjectTypeUrl(_ objectTypeUrl: String) {
         service.setObjectTypeUrl(objectTypeUrl)
     }
+
+    func setObjectSetType() -> BlockId {
+        service.setObjectSetType()
+    }
     
     func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
         listService.setBlockColor(blockIds: blockIds, color: color.middleware)

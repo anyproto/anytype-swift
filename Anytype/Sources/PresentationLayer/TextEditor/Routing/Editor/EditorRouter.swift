@@ -48,10 +48,25 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         
         let controller = editorAssembly.buildEditorController(
             browser: rootController,
-            data: data,
-            editorBrowserViewInput: rootController
+            data: data
         )
         viewController?.navigationController?.pushViewController(controller, animated: true)
+    }
+
+    func replaceCurrentPage(with data: EditorScreenData) {
+        if let details = ObjectDetailsStorage.shared.get(id: data.pageId) {
+            guard ObjectTypeProvider.shared.isSupported(typeUrl: details.type) else {
+                showUnsupportedTypeAlert(typeUrl: details.type)
+                return
+            }
+        }
+
+        let controller = editorAssembly.buildEditorController(
+            browser: rootController,
+            data: data
+        )
+
+        rootController?.childNavigation?.replaceLastViewController(controller, animated: false)
     }
 
     func showAlert(alertModel: AlertModel) {
@@ -248,9 +263,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         presentSwiftUIView(view: searchView, model: viewModel)
     }
     
-    func showTypesSearch(onSelect: @escaping (BlockId) -> ()) {
+    func showTypesSearch(title: String, selectedObjectId: BlockId?, onSelect: @escaping (BlockId) -> ()) {
         let view = NewSearchModuleAssembly.objectTypeSearchModule(
-            title: Loc.changeType,
+            title: title,
+            selectedObjectId: selectedObjectId,
             excludedObjectTypeId: document.details?.type
         ) { [weak self] id in
             onSelect(id)

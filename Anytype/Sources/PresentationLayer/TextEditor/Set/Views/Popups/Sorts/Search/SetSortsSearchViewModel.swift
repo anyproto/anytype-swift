@@ -65,6 +65,7 @@ private extension SearchObjectRowView.Model {
         self.title = relation.name
         self.subtitle = nil
         self.style = .compact
+        self.isChecked = false
     }
     
 }

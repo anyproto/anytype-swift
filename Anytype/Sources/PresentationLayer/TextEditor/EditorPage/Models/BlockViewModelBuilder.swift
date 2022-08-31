@@ -215,6 +215,8 @@ final class BlockViewModelBuilder {
                 
                 if relation.id == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
                     self.router.showTypesSearch(
+                        title: Loc.changeType,
+                        selectedObjectId: self.document.details?.type,
                         onSelect: { [weak self] id in
                             self?.handler.setObjectTypeUrl(id)
                         }

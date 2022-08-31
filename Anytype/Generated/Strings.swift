@@ -1101,6 +1101,10 @@ internal enum Loc {
         internal static let title = Loc.tr("Localizable", "Set.Bookmark.Error.Title")
       }
     }
+    internal enum FeaturedRelations {
+      /// Source
+      internal static let source = Loc.tr("Localizable", "Set.FeaturedRelations.Source")
+    }
     internal enum Filters {
       internal enum Search {
         internal enum Button {
@@ -1108,6 +1112,10 @@ internal enum Loc {
           internal static let title = Loc.tr("Localizable", "Set.Filters.Search.Button.Title")
         }
       }
+    }
+    internal enum SourceType {
+      /// Select source
+      internal static let selectSource = Loc.tr("Localizable", "Set.SourceType.SelectSource")
     }
     internal enum View {
       internal enum Settings {
@@ -1143,6 +1151,13 @@ internal enum Loc {
         /// View as
         internal static let title = Loc.tr("Localizable", "SetViewTypesPicker.Section.Types.Title")
       }
+    }
+  }
+
+  internal enum SignUp {
+    internal enum InvintationCode {
+      /// Invitation code
+      internal static let placeholder = Loc.tr("Localizable", "SignUp.InvintationCode.Placeholder")
     }
   }
 

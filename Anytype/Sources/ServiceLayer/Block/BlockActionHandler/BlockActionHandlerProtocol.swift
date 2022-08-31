@@ -31,7 +31,10 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func toggleWholeBlockMarkup(_ markup: MarkupType, blockId: BlockId)
     func upload(blockId: BlockId, filePath: String)
     func createPage(targetId: BlockId, type: ObjectTypeUrl) -> BlockId?
+
     func setObjectTypeUrl(_ objectTypeUrl: String)
+    func setObjectSetType() -> BlockId
+
     func changeTextForced(_ text: NSAttributedString, blockId: BlockId)
     func changeText(_ text: NSAttributedString, info: BlockInformation)
     func handleKeyboardAction(
