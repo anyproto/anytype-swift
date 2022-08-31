@@ -12,6 +12,10 @@ struct BlockBookmarkPayload: Hashable, Equatable {
 
 extension BlockBookmarkPayload {
     
+    private enum Constants {
+        static let pictureRelationKey = "picture"
+    }
+    
     init(bookmarkData: BlockBookmark, objectDetails: ObjectDetails?) {
 
         if FeatureFlags.bookmarksFlow {
@@ -23,7 +27,7 @@ extension BlockBookmarkPayload {
     }
     
     private init(objectDetails: ObjectDetails, blockBookmark: BlockBookmark) {
-        self.url = objectDetails.url
+        self.source = objectDetails.source
         self.title = objectDetails.title
         self.subtitle = objectDetails.description
         self.imageHash = BlockBookmarkPayload.picture(from: objectDetails)
