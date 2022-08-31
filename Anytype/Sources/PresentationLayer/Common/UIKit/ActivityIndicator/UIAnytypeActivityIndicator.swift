@@ -21,6 +21,8 @@ final class UIAnytypeActivityIndicator: UIView {
     var indicatorColor: UIColor = .buttonActive {
         didSet { updateColors() }
     }
+    
+    var hidesWhenStopped = false
 
     // MARK: - Init
     
@@ -41,21 +43,24 @@ final class UIAnytypeActivityIndicator: UIView {
 
     override func layoutSubviews() {
         super.layoutSubviews()
-//        stopAnimation()
         updateLayout()
-//        reinstallAnimation()
-//        setupAnimationIfNeeded()
     }
 
     // MARK: - Public
-    
+
     func startAnimation() {
-        reinstallAnimation()
+        if hidesWhenStopped {
+            isHidden = false
+        }
+        installAnimation()
     }
-//
-//    func stopAnimation() {
-//        stopAnimation()
-//    }
+
+    func stopAnimation() {
+        if hidesWhenStopped {
+            isHidden = true
+        }
+        deleteAnimation()
+    }
     
     // MARK: - Private
     
@@ -73,25 +78,19 @@ final class UIAnytypeActivityIndicator: UIView {
 
         updateColors()
         updateLayout()
-        reinstallAnimation()
+        installAnimation()
     }
 
-    func stopAnimation() {
+    private func deleteAnimation() {
         indicatorLayer.removeAnimation(forKey: Constants.animationKey)
-
     }
 
-    private func reinstallAnimation() {
+    private func installAnimation() {
 
-//        guard indicatorLayer.animation(forKey: Constants.animationKey) == nil else { return }
-//        indicatorLayer.removeAnimation(forKey: Constants.animationKey)
+        guard indicatorLayer.animation(forKey: Constants.animationKey) == nil else { return }
         
-//        indicatorLayer.setNeedsLayout()
-//        indicatorLayer.layoutIfNeeded()
-  
-//        CATransaction.begin()
-//        CATransaction.setDisableActions(true)
-        
+        guard !isHidden else { return }
+                
         let animation = CABasicAnimation(keyPath: #keyPath(CALayer.transform))
         animation.valueFunction = CAValueFunction(name: CAValueFunctionName.rotateZ)
         animation.fromValue = 0
@@ -101,8 +100,6 @@ final class UIAnytypeActivityIndicator: UIView {
         animation.isRemovedOnCompletion = false
 
         indicatorLayer.add(animation, forKey: Constants.animationKey)
-
-//        CATransaction.commit()
     }
 
     private func updateColors() {
@@ -111,6 +108,11 @@ final class UIAnytypeActivityIndicator: UIView {
     }
 
     private func updateLayout() {
+        
+        // Drop side effects from outside animations
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        
         let squareSide = min(bounds.width, bounds.height)
         let squareBounds = CGRect(
             x: (bounds.width - squareSide) * 0.5,
@@ -127,7 +129,7 @@ final class UIAnytypeActivityIndicator: UIView {
 
         indicatorLayer.path = circleLayer.path
         indicatorLayer.frame = circleLayer.frame
-//        indicatorLayer.bounds = circleLayer.bounds
-//        indicatorLayer.position = circleLayer.position
+        
+        CATransaction.commit()
     }
 }

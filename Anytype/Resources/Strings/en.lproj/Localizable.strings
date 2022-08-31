@@ -14,7 +14,6 @@
 "Checkbox" = "Checkbox";
 "Bulleted placeholder" = "Bulleted list item";
 "Numbered placeholder" = "Numbered list item";
-"Upload a video" = "Upload a video";
 "Loading, please wait" = "Loading, please wait";
 "Untitled" = "Untitled";
 "Select or drag and drop blocks" = "Select or drag and drop blocks";
@@ -66,9 +65,7 @@
 "Picture block subtitle" = "Upload and enrich the page with image";
 "Video block subtitle" = "Upload playable video";
 "Bookmark block subtitle" = "Save your favorite link with summary";
-"Add a web bookmark" = "Add a web bookmark";
 "Code block subtitle" = "Capture code snippet";
-"Upload a picture" = "Upload a picture";
 "Align right" = "Align right";
 "Align left" = "Align left";
 "Align center" = "Align center";
@@ -466,7 +463,6 @@
 "Syncing..." = "Syncing...";
 "No connection" = "No connection";
 "Preparing..." = "Preparing...";
-"Upload audio" = "Upload audio";
 "Deleted" = "Deleted";
 "Download" = "Download";
 "Open object" = "Open object";
@@ -592,3 +588,13 @@
 "RelationAction.CallPhone" = "Call phone numbler";
 "RelationAction.SendEmail" = "Send email";
 "RelationAction.OpenLink" = "Open link";
+
+// BlockContent
+"Content.File.Upload" = "Upload a file";
+"Content.Audio.Upload" = "Upload audio";
+"Content.Video.Upload" = "Upload a video";
+"Content.Picture.Upload" = "Upload a picture";
+"Content.Common.Uploading" = "Uploading...";
+"Content.Common.Error" = "Something went wrong, try again";
+"Content.Bookmark.Add" = "Add a web bookmark";
+"Content.Bookmark.Loading" = "Loading, please wait...";

@@ -22,9 +22,9 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
         if FeatureFlags.bookmarksFlowP2 {
             switch bookmarkData.state {
             case .empty:
-                return emptyViewConfiguration(state: .default)
+                return emptyViewConfiguration(text: Loc.Content.Bookmark.add, state: .default)
             case .fetching:
-                return emptyViewConfiguration(state: .uploading)
+                return emptyViewConfiguration(text: Loc.Content.Bookmark.loading, state: .uploading)
             case .done:
                 return BlockBookmarkConfiguration(
                     payload: payload,
@@ -35,12 +35,12 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
                     dragConfiguration: .init(id: info.id)
                 )
             case .error:
-                return emptyViewConfiguration(state: .error)
+                return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
             }
         } else {
             switch bookmarkData.state {
             case .empty, .fetching, .error:
-                return emptyViewConfiguration(state: .default)
+                return emptyViewConfiguration(text: Loc.Content.Bookmark.add, state: .default)
             case .done:
                 return BlockBookmarkConfiguration(
                     payload: payload,
@@ -58,20 +58,20 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
         
         switch bookmarkData.state {
         case .empty, .error:
-            guard let url = URL(string: bookmarkData.url) else { return }
-            openUrl(url)
+            guard case .editing = editorEditingState else { return }
+            showBookmarkBar(info)
         case .fetching:
             break
         case .done:
-            guard case .editing = editorEditingState else { return }
-            showBookmarkBar(info)
+            guard let url = URL(string: bookmarkData.url) else { return }
+            openUrl(url)
         }
     }
     
-    private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
             imageAsset: .TextEditor.BlockFile.Empty.bookmark,
-            text: Loc.addAWebBookmark,
+            text: text,
             state: state
         ).cellBlockConfiguration(
                 indentationSettings: .init(with: info.configurationData),

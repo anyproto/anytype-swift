@@ -58,25 +58,39 @@ class BlocksFileEmptyView: UIView, BlockContentView {
     
     // MARK: - New configuration
     func apply(configuration: BlocksFileEmptyViewConfiguration) {
-        icon.image = UIImage(asset: configuration.imageAsset)
+        if FeatureFlags.bookmarksFlowP2 {
+            icon.image = UIImage(asset: configuration.imageAsset)?.withRenderingMode(.alwaysTemplate)
+        } else {
+            icon.image = UIImage(asset: configuration.imageAsset)
+        }
+        label.text = configuration.text
         
         switch configuration.state {
         case .default:
-            label.text = configuration.text
             activityIndicator.stopAnimating()
-            newActivityIndicator.isHidden = true
+//            newActivityIndicator.isHidden = true
             newActivityIndicator.stopAnimation()
+            if FeatureFlags.bookmarksFlowP2 {
+                label.textColor = .buttonActive
+                icon.tintColor = .buttonActive
+            }
         case .uploading:
-            label.text = Constants.uploadingText
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
-            newActivityIndicator.isHidden = false
+//            newActivityIndicator.isHidden = false
             newActivityIndicator.startAnimation()
+            if FeatureFlags.bookmarksFlowP2 {
+                label.textColor = .buttonActive
+                icon.tintColor = .buttonActive
+            }
         case .error:
-            label.text = Constants.errorText
             activityIndicator.stopAnimating()
-            newActivityIndicator.isHidden = true
+//            newActivityIndicator.isHidden = true
             newActivityIndicator.stopAnimation()
+            if FeatureFlags.bookmarksFlowP2 {
+                label.textColor = .System.red
+                icon.tintColor = .System.red
+            }
         }
     }
     
@@ -92,7 +106,9 @@ class BlocksFileEmptyView: UIView, BlockContentView {
     private let label: UILabel = {
         let label = UILabel()
         label.font = .bodyRegular
-        label.textColor = .buttonActive
+        if !FeatureFlags.bookmarksFlowP2 {
+            label.textColor = .buttonActive
+        }
         return label
     }()
     
@@ -109,7 +125,11 @@ class BlocksFileEmptyView: UIView, BlockContentView {
         return loader
     }()
     
-    private let newActivityIndicator = UIAnytypeActivityIndicator()
+    private let newActivityIndicator: UIAnytypeActivityIndicator = {
+        let loader = UIAnytypeActivityIndicator()
+        loader.hidesWhenStopped = true
+        return loader
+    }()
 }
 
 
@@ -118,10 +138,5 @@ extension BlocksFileEmptyView {
         static let contentInsets = UIEdgeInsets(top: 15, left: 16, bottom: 15, right: 18)
         static let labelSpacing: CGFloat = 10
         static let iconWidth: CGFloat =  22
-    }
-    
-    private enum Constants {
-        static let errorText = "Error, try again later"
-        static let uploadingText = "Uploading..."
     }
 }

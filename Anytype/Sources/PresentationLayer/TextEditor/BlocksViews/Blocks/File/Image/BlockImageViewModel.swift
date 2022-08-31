@@ -43,11 +43,11 @@ final class BlockImageViewModel: BlockViewModelProtocol {
     func makeContentConfiguration(maxWidth: CGFloat) -> UIContentConfiguration {
         switch fileData.state {
         case .empty:
-            return emptyViewConfiguration(state: .default)
+            return emptyViewConfiguration(text: Loc.Content.Picture.upload, state: .default)
         case .error:
-            return emptyViewConfiguration(state: .error)
+            return emptyViewConfiguration(text: Loc.Content.Common.error, state: .error)
         case .uploading:
-            return emptyViewConfiguration(state: .uploading)
+            return emptyViewConfiguration(text: Loc.Content.Common.uploading, state: .uploading)
         case .done:
             return BlockImageConfiguration(
                 fileData: fileData,
@@ -63,10 +63,10 @@ final class BlockImageViewModel: BlockViewModelProtocol {
         }
     }
         
-    private func emptyViewConfiguration(state: BlocksFileEmptyViewState) -> UIContentConfiguration {
+    private func emptyViewConfiguration(text: String, state: BlocksFileEmptyViewState) -> UIContentConfiguration {
         BlocksFileEmptyViewConfiguration(
             imageAsset: .TextEditor.BlockFile.Empty.image,
-            text: Loc.uploadAPicture,
+            text: text,
             state: state
         ).cellBlockConfiguration(
             indentationSettings: .init(with: info.configurationData),

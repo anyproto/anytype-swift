@@ -38,8 +38,6 @@ internal enum Loc {
   internal static let add = Loc.tr("Localizable", "Add")
   /// Add a description
   internal static let addADescription = Loc.tr("Localizable", "Add a description")
-  /// Add a web bookmark
-  internal static let addAWebBookmark = Loc.tr("Localizable", "Add a web bookmark")
   /// Add below
   internal static let addBelow = Loc.tr("Localizable", "Add below")
   /// Add email
@@ -688,12 +686,6 @@ internal enum Loc {
   internal static let untitled = Loc.tr("Localizable", "Untitled")
   /// Upload
   internal static let upload = Loc.tr("Localizable", "Upload")
-  /// Upload a picture
-  internal static let uploadAPicture = Loc.tr("Localizable", "Upload a picture")
-  /// Upload a video
-  internal static let uploadAVideo = Loc.tr("Localizable", "Upload a video")
-  /// Upload audio
-  internal static let uploadAudio = Loc.tr("Localizable", "Upload audio")
   /// Upload playable audio
   internal static let uploadPlayableAudio = Loc.tr("Localizable", "Upload playable audio")
   /// URL
@@ -749,6 +741,37 @@ internal enum Loc {
   internal enum Auth {
     /// Camera access required to scan QR code
     internal static let cameraPermissionTitle = Loc.tr("Localizable", "Auth.CameraPermissionTitle")
+  }
+
+  internal enum Content {
+    internal enum Audio {
+      /// Upload audio
+      internal static let upload = Loc.tr("Localizable", "Content.Audio.Upload")
+    }
+    internal enum Bookmark {
+      /// Add a web bookmark
+      internal static let add = Loc.tr("Localizable", "Content.Bookmark.Add")
+      /// Loading, please wait...
+      internal static let loading = Loc.tr("Localizable", "Content.Bookmark.Loading")
+    }
+    internal enum Common {
+      /// Something went wrong, try again
+      internal static let error = Loc.tr("Localizable", "Content.Common.Error")
+      /// Uploading...
+      internal static let uploading = Loc.tr("Localizable", "Content.Common.Uploading")
+    }
+    internal enum File {
+      /// Upload a file
+      internal static let upload = Loc.tr("Localizable", "Content.File.Upload")
+    }
+    internal enum Picture {
+      /// Upload a picture
+      internal static let upload = Loc.tr("Localizable", "Content.Picture.Upload")
+    }
+    internal enum Video {
+      /// Upload a video
+      internal static let upload = Loc.tr("Localizable", "Content.Video.Upload")
+    }
   }
 
   internal enum DataviewType {
