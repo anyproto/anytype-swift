@@ -3,7 +3,7 @@ import BlocksModels
 import UIKit
 import AnytypeCore
 
-class NonExistentBlockView: UIView, BlockContentView {
+final class NonExistentBlockView: UIView, BlockContentView {
     
     private enum Constants {
         static let contentHeight = 32.0

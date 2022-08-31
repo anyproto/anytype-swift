@@ -549,6 +549,14 @@ extension EditorRouter {
         viewController?.topPresentedController.present(vc, animated: true)
     }
     
+    func showViewTypes(activeView: DataviewView, dataviewService: DataviewServiceProtocol) {
+        let viewModel = SetViewTypesPickerViewModel(activeView: activeView, dataviewService: dataviewService)
+        let vc = UIHostingController(
+            rootView: SetViewTypesPicker(viewModel: viewModel)
+        )
+        presentSheet(vc)
+    }
+    
     func showSetSettings(setModel: EditorSetViewModel) {
         guard let currentSetSettingsPopup = currentSetSettingsPopup else {
             showSetSettingsPopup(setModel: setModel)

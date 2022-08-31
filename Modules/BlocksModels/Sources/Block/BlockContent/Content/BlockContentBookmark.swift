@@ -13,7 +13,7 @@ public struct BlockBookmark: Hashable {
         case error
     }
     
-    public var url: String
+    public var source: String
     public var title: String
     public var theDescription: String
     public var imageHash: String
@@ -24,16 +24,16 @@ public struct BlockBookmark: Hashable {
 
     // MARK: - Empty
     public static func empty() -> Self {
-        .init(url: "", title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown, targetObjectID: "", state: .empty)
+        .init(source: "", title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown, targetObjectID: "", state: .empty)
     }
     
     public static func empty(targetObjectID: String) -> Self {
-        .init(url: "", title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown, targetObjectID: targetObjectID, state: .empty)
+        .init(source: "", title: "", theDescription: "", imageHash: "", faviconHash: "", type: .unknown, targetObjectID: targetObjectID, state: .empty)
     }
     
     // MARK: - Memberwise initializer
     public init(
-        url: String,
+        source: String,
         title: String,
         theDescription: String,
         imageHash: String,
@@ -42,7 +42,7 @@ public struct BlockBookmark: Hashable {
         targetObjectID: String,
         state: State
     ) {
-        self.url = url
+        self.source = source
         self.title = title
         self.theDescription = theDescription
         self.imageHash = imageHash

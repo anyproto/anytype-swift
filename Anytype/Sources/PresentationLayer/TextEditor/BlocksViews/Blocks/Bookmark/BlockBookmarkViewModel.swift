@@ -63,7 +63,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
         case .fetching:
             break
         case .done:
-            guard let url = URL(string: bookmarkData.url) else { return }
+            guard let url = URL(string: bookmarkData.source) else { return }
             openUrl(url)
         }
     }
