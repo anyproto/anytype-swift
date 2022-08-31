@@ -1,11 +1,6 @@
 import BlocksModels
 import AnytypeCore
 
-enum BlockBookmarkState: Hashable, Equatable {
-    case onlyURL(String)
-    case fetched(BlockBookmarkPayload)
-}
-
 struct BlockBookmarkPayload: Hashable, Equatable {
     let source: String
     let title: String
@@ -15,37 +10,23 @@ struct BlockBookmarkPayload: Hashable, Equatable {
     let isArchived: Bool
 }
 
-extension BlockBookmarkState {
-    
-    init?(bookmarkData: BlockBookmark, objectDetails: ObjectDetails?) {
-
-        let payload: BlockBookmarkPayload
-        if FeatureFlags.bookmarksFlow {
-            payload = objectDetails.map { BlockBookmarkPayload(objectDetails: $0) }
-                ?? BlockBookmarkPayload(blockBookmark: bookmarkData)
-        } else {
-            payload = BlockBookmarkPayload(blockBookmark: bookmarkData)
-        }
-        
-        if payload.source.isEmpty {
-            return nil
-        }
-    
-        if payload.title.isEmpty {
-            self = .onlyURL(payload.source)
-        }
-        
-        self = .fetched(payload)
-    }
-}
-
 extension BlockBookmarkPayload {
     
     private enum Constants {
         static let pictureRelationKey = "picture"
     }
     
-    init(objectDetails: ObjectDetails) {
+    init(bookmarkData: BlockBookmark, objectDetails: ObjectDetails?) {
+
+        if FeatureFlags.bookmarksFlow {
+            self = objectDetails.map { BlockBookmarkPayload(objectDetails: $0, blockBookmark: bookmarkData) }
+                ?? BlockBookmarkPayload(blockBookmark: bookmarkData)
+        } else {
+            self = BlockBookmarkPayload(blockBookmark: bookmarkData)
+        }
+    }
+    
+    private init(objectDetails: ObjectDetails, blockBookmark: BlockBookmark) {
         self.source = objectDetails.source
         self.title = objectDetails.title
         self.subtitle = objectDetails.description
