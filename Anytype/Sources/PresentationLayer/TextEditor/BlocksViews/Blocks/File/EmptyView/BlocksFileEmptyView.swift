@@ -68,7 +68,6 @@ class BlocksFileEmptyView: UIView, BlockContentView {
         switch configuration.state {
         case .default:
             activityIndicator.stopAnimating()
-//            newActivityIndicator.isHidden = true
             newActivityIndicator.stopAnimation()
             if FeatureFlags.bookmarksFlowP2 {
                 label.textColor = .buttonActive
@@ -77,7 +76,6 @@ class BlocksFileEmptyView: UIView, BlockContentView {
         case .uploading:
             activityIndicator.isHidden = false
             activityIndicator.startAnimating()
-//            newActivityIndicator.isHidden = false
             newActivityIndicator.startAnimation()
             if FeatureFlags.bookmarksFlowP2 {
                 label.textColor = .buttonActive
@@ -85,7 +83,6 @@ class BlocksFileEmptyView: UIView, BlockContentView {
             }
         case .error:
             activityIndicator.stopAnimating()
-//            newActivityIndicator.isHidden = true
             newActivityIndicator.stopAnimation()
             if FeatureFlags.bookmarksFlowP2 {
                 label.textColor = .System.red
