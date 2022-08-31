@@ -69,6 +69,7 @@ extension SetFullHeader {
         AutofocusedTextField(
             placeholder: Loc.untitled,
             placeholderFont: .title,
+            shouldSkipFocusOnFilled: true,
             text: $model.titleString
         )
         .font(AnytypeFontBuilder.font(anytypeFont: .title))
@@ -85,6 +86,7 @@ extension SetFullHeader {
                         relation: RelationItemModel(relation: item),
                         style: .featuredRelationBlock(allowMultiLine: false)
                     ) { [weak model] in
+                        UIApplication.shared.hideKeyboard()
                         model?.onRelationTap(relation: item)
                     }
 

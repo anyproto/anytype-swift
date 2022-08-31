@@ -3,6 +3,7 @@ import Foundation
 public enum BundledRelationKey: String {
     
     case id
+    case title
     case name
     case snippet
     case iconEmoji
@@ -27,8 +28,6 @@ public enum BundledRelationKey: String {
     case addedDate
     case featuredRelations
     case internalFlags
-    case url
-    case picture
     case setOf
     case source
     

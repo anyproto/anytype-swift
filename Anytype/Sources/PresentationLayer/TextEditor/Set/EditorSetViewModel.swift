@@ -73,19 +73,6 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-//    var flowRelationsViewModel: FlowRelationsViewModel {
-//        FlowRelationsViewModel(
-//            title: details.flatMap { $0.title },
-//            description: details?.description,
-//            relations: featuredRelations,
-////            style: .header,
-//            onRelationTap: { [weak self] relation in
-//                AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-//                self?.showRelationValueEditingView(key: relation.id, source: .object)
-//            }
-//        )
-//    }
-    
     private var isObjectLocked: Bool {
         document.isLocked ||
         (FeatureFlags.setGalleryView && activeView.type == .gallery) ||
@@ -119,7 +106,7 @@ final class EditorSetViewModel: ObservableObject {
         self.detailsService = detailsService
         self.textService = textService
 
-        self.titleString = document.details?.title ?? ""
+        self.titleString = document.details?.pageCellTitle ?? ""
         self.featuredRelations = document.featuredRelationsForEditor
     }
     
@@ -136,7 +123,7 @@ final class EditorSetViewModel: ObservableObject {
 
             self.textService.setText(
                 contextId: self.document.objectId,
-                blockId: "title",
+                blockId: BundledRelationKey.title.rawValue,
                 middlewareString: .init(text: newValue, marks: .init())
             )
         }.store(in: &subscriptions)

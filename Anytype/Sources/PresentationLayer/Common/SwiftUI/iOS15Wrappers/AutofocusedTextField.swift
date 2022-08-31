@@ -3,11 +3,30 @@ import SwiftUI
 struct AutofocusedTextField: View {
     let placeholder: String
     let placeholderFont: AnytypeFont
+    let shouldSkipFocusOnFilled: Bool
+
     @Binding var text: String
+
+    init(
+        placeholder: String,
+        placeholderFont: AnytypeFont,
+        shouldSkipFocusOnFilled: Bool = false,
+        text: Binding<String>
+    ) {
+        self.placeholder = placeholder
+        self.placeholderFont = placeholderFont
+        self.shouldSkipFocusOnFilled = shouldSkipFocusOnFilled
+        _text = text
+    }
     
     var body: some View {
         if #available(iOS 15.0, *) {
-            NewAutofocusedTextField(placeholder: placeholder, placeholderFont: placeholderFont, text: $text)
+            NewAutofocusedTextField(
+                placeholder: placeholder,
+                placeholderFont: placeholderFont,
+                shouldSkipFocusOnFilled: shouldSkipFocusOnFilled,
+                text: $text
+            )
         } else {
             AnytypeTextField(placeholder: placeholder, placeholderFont: placeholderFont, text: $text)
         }
@@ -18,6 +37,7 @@ struct AutofocusedTextField: View {
 private struct NewAutofocusedTextField: View {
     let placeholder: String
     let placeholderFont: AnytypeFont
+    let shouldSkipFocusOnFilled: Bool
     @Binding var text: String
     
     @FocusState private var isFocused: Bool
@@ -27,9 +47,7 @@ private struct NewAutofocusedTextField: View {
             .focused($isFocused)
             .task {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    if text.isEmpty {
-                        isFocused = true
-                    }
+                    isFocused = text.isEmpty || !shouldSkipFocusOnFilled
                 }
             }
     }
