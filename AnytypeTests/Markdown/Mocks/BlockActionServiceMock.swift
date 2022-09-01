@@ -135,6 +135,11 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
+    func setObjectSetType() -> BlockId {
+        assertionFailure()
+        return ""
+    }
+    
     func setFields(blockFields: [BlockFields]) {
         assertionFailure()
     }
@@ -152,7 +157,7 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
         assertionFailure()
     }
     
-    func createAndFetchBookmark(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: String) {
+    func createAndFetchBookmark(contextID: BlockId, targetID: BlockId, position: BlockPosition, url: AnytypeURL) {
         assertionFailure()
     }
 

@@ -166,13 +166,13 @@ extension BlockActionService {
         contextID: BlockId,
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     ) {
         bookmarkService.createAndFetchBookmark(
             contextID: contextID,
             targetID: targetID,
             position: position,
-            url: url
+            url: url.absoluteString
         )
     }
 }
