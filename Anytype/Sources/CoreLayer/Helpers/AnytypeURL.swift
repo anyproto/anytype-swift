@@ -7,6 +7,7 @@ struct AnytypeURL {
     
     init?(string: String) {
         
+        // Encoded url from browser and valid string for URL can be different. We should remove encoding symbols and then add valid encoding symbols for url.
         // Example :
         //     Input string incorrect for url, but contains encoded symbols:
         //     https://www.figma.com/file/zXl9RNoINX07RXg2qZtfKP/Mobile-–-WebClipper-%26-Bookmarks?node-id=12395%3A1153

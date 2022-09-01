@@ -5,7 +5,7 @@ class AnytypeURLTests: XCTestCase {
     
     private enum Constants {
         
-        static let stringFromBrowser = [
+        static let stringsFromBrowser = [
             "https://www.figma.com/file/zXl9RNoINX07RXg2qZtfKP/Mobile-–-WebClipper-%26-Bookmarks?node-id=12395%3A1153",
             "https://aliexpress.ru/item/1005001632872336.html?pdp_ext_f=%7B%22ship_from%22%3A%22RU%22%2C%22sku_id%22%3A%2212000019661167164%22%7D&pdp_npi=2%40dis%21RUB%2115%C2%A0444%2C15%20руб.%2110%C2%A0810%2C91%20руб.%21%21%21%21%21%4021135c3a16612697582432384ede90%2112000019661167164%21gdf&sku_id=12000019661167167&spm=a2g0o.tm800090009.9265972970.1.670a1fa2bYJ3bO",
             "https://en.wikipedia.org/wiki/Live_–_Friday_the_13th",
@@ -32,9 +32,9 @@ class AnytypeURLTests: XCTestCase {
 
     func test_createFromString_to_String() {
         
-        let result = Constants.stringFromBrowser.map { AnytypeURL(string: $0)?.absoluteString }
+        let result = Constants.stringsFromBrowser.map { AnytypeURL(string: $0)?.absoluteString }
         
-        XCTAssertEqual(Constants.stringFromBrowser, result)
+        XCTAssertEqual(Constants.stringsFromBrowser, result)
     }
     
     func test_createFromURLString_to_String() {
@@ -46,14 +46,14 @@ class AnytypeURLTests: XCTestCase {
     
     func test_createFromString_to_URL() {
         
-        let result = Constants.stringFromBrowser.map { AnytypeURL(string: $0)?.url }
+        let result = Constants.stringsFromBrowser.map { AnytypeURL(string: $0)?.url }
         
         XCTAssertEqual(Constants.urls, result)
     }
     
     func test_createFromURLString_to_URL() {
         
-        let result = Constants.stringFromBrowser.map { AnytypeURL(string: $0)?.url }
+        let result = Constants.stringsFromBrowser.map { AnytypeURL(string: $0)?.url }
         
         XCTAssertEqual(Constants.urls, result)
     }
