@@ -77,7 +77,7 @@ final class MentionsViewController: UITableViewController {
             configuration.text = Loc.createNewObject
         } else {
             let mutableAttributedString = NSMutableAttributedString(
-                string: Loc.create,
+                string: Loc.createObject,
                 attributes: [.font: UIFont.uxTitle2Regular, .foregroundColor: UIColor.textPrimary]
             )
             let nameAttributedString = NSAttributedString(

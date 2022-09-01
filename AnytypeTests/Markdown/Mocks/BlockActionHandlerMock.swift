@@ -178,4 +178,9 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
     func createTable(blockId: BlockId, rowsCount: Int, columnsCount: Int) {
         assertionFailure()
     }
+
+    func setObjectSetType() -> BlockId {
+        assertionFailure()
+        return ""
+    }
 }
