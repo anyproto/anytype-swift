@@ -12,7 +12,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
     let objectDetails: ObjectDetails?
     
     let showBookmarkBar: (BlockInformation) -> ()
-    let openUrl: (URL) -> ()
+    let openUrl: (AnytypeURL) -> ()
     
     func makeContentConfiguration(maxWidth _: CGFloat) -> UIContentConfiguration {
         let backgroundColor = info.backgroundColor.map(UIColor.Background.uiColor(from:)) ?? nil
@@ -64,7 +64,7 @@ struct BlockBookmarkViewModel: BlockViewModelProtocol {
             break
         case .done:
             let payload = BlockBookmarkPayload(bookmarkData: bookmarkData, objectDetails: objectDetails)
-            guard let url = URL(string: payload.source) else { return }
+            guard let url = AnytypeURL(string: payload.source) else { return }
             openUrl(url)
         }
     }
