@@ -19,9 +19,7 @@ protocol SearchServiceProtocol {
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
     
-    // MARK: - Private variables
-    
-    private var subscriptions = [AnyCancellable]()
+    private let searchCommonService = SearchCommonService()
     
     // MARK: - SearchServiceProtocol
     
@@ -36,7 +34,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             typeUrls: ObjectTypeProvider.shared.supportedTypeUrls
         )
         
-        return makeRequest(filters: filters, sorts: [sort], fullText: text)
+        return searchCommonService.search(filters: filters, sorts: [sort], fullText: text)
     }
     
     func searchObjectTypes(text: String, filteringTypeUrl: String? = nil) -> [ObjectDetails]? {
@@ -57,8 +55,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         }
         filteringTypeUrl.map { filters.append(SearchHelper.excludedObjectTypeUrlFilter($0)) }
 
-
-        let result = makeRequest(filters: filters, sorts: [sort], fullText: text, limit: 0)
+        let result = searchCommonService.search(filters: filters, sorts: [sort], fullText: text, limit: 0)
         return result?.reordered(
             by: [
                 ObjectTypeUrl.bundled(.page).rawValue,
@@ -81,7 +78,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
             SearchHelper.excludedIdsFilter(excludedFileIds)
         ]
         
-        return makeRequest(filters: filters, sorts: [sort], fullText: text)
+        return searchCommonService.search(filters: filters, sorts: [sort], fullText: text)
     }
     
     func searchObjects(text: String, excludedObjectIds: [String], limitedTypeUrls: [String]) -> [ObjectDetails]? {
@@ -94,17 +91,11 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         var filters = buildFilters(isArchived: false, typeUrls: typeUrls)
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
-        return makeRequest(filters: filters, sorts: [sort], fullText: text)
+        return searchCommonService.search(filters: filters, sorts: [sort], fullText: text)
     }
 
     func searchTemplates(for type: ObjectTypeUrl) -> [ObjectDetails]? {
-        let objects = makeRequest(
-            filters: SearchHelper.templatesFilters(type: type),
-            sorts: [],
-            fullText: ""
-        )
-
-        return objects
+        return searchCommonService.search(filters: SearchHelper.templatesFilters(type: type))
     }
 	
     func searchObjects(
@@ -125,40 +116,12 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filters.append(SearchHelper.excludedTypeFilter(excludedTypeUrls))
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
-        return makeRequest(filters: filters, sorts: [sort], fullText: text)
+        return searchCommonService.search(filters: filters, sorts: [sort], fullText: text)
     }
 }
 
 private extension SearchService {
-    
-    func makeRequest(
-        filters: [DataviewFilter],
-        sorts: [DataviewSort],
-        fullText: String,
-        limit: Int32 = 100
-    ) -> [ObjectDetails]? {
-        guard let response = Anytype_Rpc.Object.Search.Service.invoke(
-            filters: filters,
-            sorts: sorts,
-            fullText: fullText,
-            offset: 0,
-            limit: limit,
-            objectTypeFilter: [],
-            keys: []
-        ).getValue(domain: .searchService) else { return nil }
-            
-        let details: [ObjectDetails] = response.records.compactMap { search in
-            let idValue = search.fields["id"]
-            let idString = idValue?.unwrapedListValue.stringValue
-            
-            guard let id = idString else { return nil }
-            
-            return ObjectDetails(id: id, values: search.fields)
-        }
-            
-        return details
-    }
-    
+        
     func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {
         [
             SearchHelper.notHiddenFilter(),
