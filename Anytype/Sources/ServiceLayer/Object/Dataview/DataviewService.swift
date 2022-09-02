@@ -26,7 +26,7 @@ final class DataviewService: DataviewServiceProtocol {
             .send()
     }
     
-    func addRelation(_ relation: RelationMetadata) -> Bool {
+    func addRelation(_ relation: RelationInfo) -> Bool {
         #warning("Fix me")
         return false
 //        let events = Anytype_Rpc.BlockDataview.Relation.Add.Service

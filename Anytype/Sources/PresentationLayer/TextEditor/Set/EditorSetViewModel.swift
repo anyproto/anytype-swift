@@ -354,7 +354,7 @@ extension EditorSetViewModel {
         router.showSettings()
     }
     
-    func showAddNewRelationView(onSelect: @escaping (RelationMetadata, _ isNew: Bool) -> Void) {
+    func showAddNewRelationView(onSelect: @escaping (RelationInfo, _ isNew: Bool) -> Void) {
         router.showAddNewRelationView(onSelect: onSelect)
     }
     

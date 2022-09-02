@@ -3,6 +3,7 @@ import ProtobufMessages
 import SwiftProtobuf
 
 public struct RelationInfo: Hashable {
+    public let id: String
     public let key: String
     public let name: String
     public let format: RelationMetadata.Format
@@ -10,6 +11,7 @@ public struct RelationInfo: Hashable {
     public let isReadOnly: Bool
 
     public init(objectDetails: ObjectDetails) {
+        self.id = objectDetails.id
         self.key = objectDetails.values["relationKey"]?.stringValue ?? ""
         self.name = objectDetails.name
         self.format = objectDetails.values["relationFormat"]?.safeIntValue.map { RelationMetadata.Format(rawValue: $0) } ?? .unrecognized

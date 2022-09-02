@@ -61,9 +61,10 @@ extension NewRelationViewModel {
             isBundled: false
         )
 
+        #warning("Fix me")
         if let relation = service.createRelation(relation: relationMetatdata) {
             UINotificationFeedbackGenerator().notificationOccurred(.success)
-            output?.didCreateRelation(relation)
+//            output?.didCreateRelation(relation)
         }
     }
     

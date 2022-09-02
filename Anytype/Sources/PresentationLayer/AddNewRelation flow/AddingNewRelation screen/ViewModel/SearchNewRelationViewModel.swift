@@ -69,10 +69,9 @@ extension SearchNewRelationViewModel {
     }
 
     func addRelation(_ relation: RelationInfo) {
-        if let createdRelation = relationService.addRelation(relation: relation) {
-            UISelectionFeedbackGenerator().selectionChanged()
-            output?.didAddRelation(createdRelation)
-        }
+        guard relationService.addRelation(relation: relation) else { return }
+        UISelectionFeedbackGenerator().selectionChanged()
+        output?.didAddRelation(relation)
     }
 
     

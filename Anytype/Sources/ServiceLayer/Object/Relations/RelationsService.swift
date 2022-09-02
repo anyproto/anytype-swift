@@ -55,9 +55,18 @@ final class RelationsService: RelationsServiceProtocol {
         addRelation(relation: relation, isNew: true)
     }
 
-    func addRelation(relation: RelationInfo) -> RelationMetadata? {
-        return nil
-//        addRelation(relation: relation, isNew: false)
+    func addRelation(relation: RelationInfo) -> Bool {
+        
+        let response = Anytype_Rpc.ObjectRelation.Add.Service
+            .invocation(contextID: objectId, relationIds: [relation.id])
+            .invoke()
+            .getValue(domain: .relationsService)
+        
+        guard let response = response else { return false }
+        
+        EventsBunch(event: response.event).send()
+        
+        return true
     }
 
     private func addRelation(relation: RelationMetadata, isNew: Bool) -> RelationMetadata? {
