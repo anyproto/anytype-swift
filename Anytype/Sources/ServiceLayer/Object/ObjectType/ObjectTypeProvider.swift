@@ -4,15 +4,19 @@ import ProtobufMessages
 
 final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         
-    static let shared = ObjectTypeProvider()
+    static let shared = ObjectTypeProvider(service: ServiceLocator.shared.objectTypeService())
     
     // MARK: - Private variables
     
-    private let service = ObjectTypesService()
+    private let service: ObjectTypesServiceProtocol
     private let supportedSmartblockTypes: Set<SmartBlockType> = [.page, .profilePage, .anytypeProfile, .set, .file]
     
     private var cachedObtainedObjectTypes: Set<ObjectType> = []
     private var cachedSupportedTypeUrls: Set<String> = []
+    
+    private init(service: ObjectTypesServiceProtocol) {
+        self.service = service
+    }
     
     // MARK: - ObjectTypeProviderProtocol
     

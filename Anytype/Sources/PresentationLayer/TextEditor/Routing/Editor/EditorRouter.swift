@@ -207,7 +207,10 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         currentLink: Either<URL, BlockId>?,
         onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
     ) {
-        let viewModel = LinkToObjectSearchViewModel(currentLink: currentLink) { data in
+        let viewModel = LinkToObjectSearchViewModel(
+            currentLink: currentLink,
+            searchService: ServiceLocator.shared.searchService()
+        ) { data in
             onSelect(data.searchKind)
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
@@ -216,7 +219,9 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
 
     func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
-        let viewModel = ObjectSearchViewModel { data in
+        let viewModel = ObjectSearchViewModel(
+            searchService: ServiceLocator.shared.searchService()
+        ) { data in
             onSelect(data.blockId, data.typeUrl)
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
@@ -240,7 +245,7 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
     }
     
     func showSearch(onSelect: @escaping (EditorScreenData) -> ()) {
-        let viewModel = ObjectSearchViewModel { data in
+        let viewModel = ObjectSearchViewModel(searchService: ServiceLocator.shared.searchService()) { data in
             onSelect(EditorScreenData(pageId: data.blockId, type: data.viewType))
         }
         let searchView = SearchView(title: nil, context: .menuSearch, viewModel: viewModel)

@@ -46,8 +46,8 @@ final class ServiceLocator {
         FileActionsService()
     }
     
-    func searchService() -> SearchService {
-        SearchService()
+    func searchService() -> SearchServiceProtocol {
+        SearchService(searchCommonService: searchCommonService())
     }
     
     func detailsService(objectId: BlockId) -> DetailsServiceProtocol {
@@ -71,6 +71,16 @@ final class ServiceLocator {
     
     func alertOpener() -> AlertOpenerProtocol {
         AlertOpener()
+    }
+    
+    func objectTypeService() -> ObjectTypesServiceProtocol {
+        ObjectTypesService(searchCommonService: searchCommonService())
+    }
+    
+    // MARK: - Private
+    
+    func searchCommonService() -> SearchCommonServiceProtocol {
+        SearchCommonService()
     }
     
     private func subscriptionToggler() -> SubscriptionTogglerProtocol {

@@ -19,7 +19,11 @@ protocol SearchServiceProtocol {
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
     
-    private let searchCommonService = SearchCommonService()
+    private let searchCommonService: SearchCommonServiceProtocol
+    
+    init(searchCommonService: SearchCommonServiceProtocol) {
+        self.searchCommonService = searchCommonService
+    }
     
     // MARK: - SearchServiceProtocol
     

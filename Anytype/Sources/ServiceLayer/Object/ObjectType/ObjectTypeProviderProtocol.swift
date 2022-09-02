@@ -9,7 +9,7 @@
 import Foundation
 import BlocksModels
 
-protocol ObjectTypeProviderProtocol {
+protocol ObjectTypeProviderProtocol: AnyObject {
     var supportedTypeUrls: [String] { get }
     var defaultObjectType: ObjectType { get }
     

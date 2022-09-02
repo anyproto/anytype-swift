@@ -39,7 +39,7 @@ struct AccessoryViewBuilder {
         let changeTypeViewModel = ChangeTypeAccessoryViewModel(
             router: router,
             handler: actionHandler,
-            searchService: SearchService(),
+            searchService: ServiceLocator.shared.searchService(),
             objectService: ServiceLocator.shared.objectActionsService(),
             document: document
         ) { [weak router, weak actionHandler] in

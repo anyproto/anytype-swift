@@ -43,7 +43,6 @@ final class EditorAssembly {
         browser: EditorBrowserController?,
         data: EditorScreenData
     ) -> (EditorSetHostingController, EditorRouterProtocol) {
-        let searchService = SearchService()
         let document = BaseDocument(objectId: data.pageId)
         let dataviewService = DataviewService(
             objectId: data.pageId,
@@ -54,7 +53,7 @@ final class EditorAssembly {
         let model = EditorSetViewModel(
             document: document,
             dataviewService: dataviewService,
-            searchService: searchService,
+            searchService: ServiceLocator.shared.searchService(),
             detailsService: detailsService
         )
         let controller = EditorSetHostingController(objectId: data.pageId, model: model)

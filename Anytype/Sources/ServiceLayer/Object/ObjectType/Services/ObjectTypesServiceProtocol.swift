@@ -9,7 +9,7 @@
 import Foundation
 import BlocksModels
 
-public protocol ObjectTypesServiceProtocol {
+public protocol ObjectTypesServiceProtocol: AnyObject {
     
     func obtainObjectTypes() -> Set<ObjectType>
     

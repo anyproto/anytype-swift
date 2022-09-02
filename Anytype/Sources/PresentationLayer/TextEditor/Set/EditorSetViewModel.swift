@@ -401,7 +401,7 @@ extension EditorSetViewModel {
     static let empty = EditorSetViewModel(
         document: BaseDocument(objectId: "objectId"),
         dataviewService: DataviewService(objectId: "objectId", prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()),
-        searchService: SearchService(),
+        searchService: ServiceLocator.shared.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService())
     )
 }

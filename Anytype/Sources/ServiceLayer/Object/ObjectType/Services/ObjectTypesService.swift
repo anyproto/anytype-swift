@@ -12,9 +12,13 @@ import BlocksModels
 
 public class ObjectTypesService: ObjectTypesServiceProtocol {
     
-    private let searchCommonService = SearchCommonService()
+    private let searchCommonService: SearchCommonServiceProtocol
     
-    public init() {}
+    init(searchCommonService: SearchCommonServiceProtocol) {
+        self.searchCommonService = searchCommonService
+    }
+    
+    // MARK: - ObjectTypesServiceProtocol
     
     public func obtainObjectTypes() -> Set<ObjectType> {
         

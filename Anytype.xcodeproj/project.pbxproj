@@ -434,6 +434,7 @@
 		2A9696E028C10E67008A4EEF /* ObjectTypesService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9696DF28C10B1F008A4EEF /* ObjectTypesService.swift */; };
 		2A9696E128C10E6A008A4EEF /* ObjectTypesServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9696DE28C10B1F008A4EEF /* ObjectTypesServiceProtocol.swift */; };
 		2A9696E428C21B05008A4EEF /* SearchCommonService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9696E328C21B05008A4EEF /* SearchCommonService.swift */; };
+		2A9696E828C2419A008A4EEF /* SearchCommonServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2A9696E728C2419A008A4EEF /* SearchCommonServiceProtocol.swift */; };
 		2AA22F68289BF27500BBA174 /* EditorBrowserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */; };
 		2AAE455828A5307C00E538C8 /* BlockBookmark+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */; };
 		2AB2C22428AD23FD000191F8 /* AlertOpenerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */; };
@@ -1596,6 +1597,7 @@
 		2A9696DE28C10B1F008A4EEF /* ObjectTypesServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesServiceProtocol.swift; sourceTree = "<group>"; };
 		2A9696DF28C10B1F008A4EEF /* ObjectTypesService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectTypesService.swift; sourceTree = "<group>"; };
 		2A9696E328C21B05008A4EEF /* SearchCommonService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCommonService.swift; sourceTree = "<group>"; };
+		2A9696E728C2419A008A4EEF /* SearchCommonServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCommonServiceProtocol.swift; sourceTree = "<group>"; };
 		2AA22F67289BF27500BBA174 /* EditorBrowserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorBrowserView.swift; sourceTree = "<group>"; };
 		2AAE455728A5307C00E538C8 /* BlockBookmark+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BlockBookmark+Extensions.swift"; sourceTree = "<group>"; };
 		2AB2C22328AD23FD000191F8 /* AlertOpenerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertOpenerProtocol.swift; sourceTree = "<group>"; };
@@ -4372,6 +4374,7 @@
 			children = (
 				3D2F9C15271EAE4D0043C326 /* SearchHelper.swift */,
 				2A9696E328C21B05008A4EEF /* SearchCommonService.swift */,
+				2A9696E728C2419A008A4EEF /* SearchCommonServiceProtocol.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -8388,6 +8391,7 @@
 				12CAF34E26D64440001E56B2 /* TodoIconImageGuideline.swift in Sources */,
 				3DB92FA6264D8B0100E83276 /* SettingsSectionItemView.swift in Sources */,
 				C9367AB7273153D2007D687A /* BlocksSelectionOverlayView.swift in Sources */,
+				2A9696E828C2419A008A4EEF /* SearchCommonServiceProtocol.swift in Sources */,
 				125683D027DF14F5003A8251 /* TagsSearchInteractor.swift in Sources */,
 				533856B0263B22B8005A06A9 /* MarkupViewController.swift in Sources */,
 				3D540C7B2625C9DE00A07BD8 /* EditorBrowserAssembly.swift in Sources */,

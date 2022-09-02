@@ -63,7 +63,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectsSearchInteractor(
-            searchService: SearchService(),
+            searchService: ServiceLocator.shared.searchService(),
             excludedObjectIds: excludedObjectIds,
             limitedObjectType: limitedObjectType
         )
@@ -86,7 +86,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = FilesSearchInteractor(
-            searchService: SearchService(),
+            searchService: ServiceLocator.shared.searchService(),
             excludedFileIds: excludedFileIds
         )
         
@@ -108,7 +108,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
-            searchService: SearchService(),
+            searchService: ServiceLocator.shared.searchService(),
             excludedObjectTypeId: excludedObjectTypeId
         )
         
@@ -132,7 +132,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> NewSearchView {
         let interactor = ObjectTypesSearchInteractor(
-            searchService: SearchService(),
+            searchService: ServiceLocator.shared.searchService(),
             excludedObjectTypeId: nil
         )
         
@@ -159,7 +159,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView {
         let interactor = MoveToSearchInteractor(
-            searchService: SearchService(),
+            searchService: ServiceLocator.shared.searchService(),
             excludedObjectIds: excludedObjectIds
         )
 

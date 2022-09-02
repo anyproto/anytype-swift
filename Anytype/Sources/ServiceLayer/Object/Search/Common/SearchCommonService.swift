@@ -2,9 +2,11 @@ import Foundation
 import BlocksModels
 import ProtobufMessages
 
-final class SearchCommonService {
+final class SearchCommonService: SearchCommonServiceProtocol {
     
     init() {}
+    
+    // MARK: - SearchCommonServiceProtocol
     
     func search(
         filters: [DataviewFilter] = [],
