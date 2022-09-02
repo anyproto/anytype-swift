@@ -47,7 +47,7 @@ protocol BlockActionServiceProtocol {
         contextID: BlockId,
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     )
 }
 

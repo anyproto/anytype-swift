@@ -49,7 +49,7 @@ protocol BlockActionHandlerProtocol: AnyObject {
     func createAndFetchBookmark(
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     )
     func setAppearance(blockId: BlockId, appearance: BlockLink.Appearance)
     func createTable(

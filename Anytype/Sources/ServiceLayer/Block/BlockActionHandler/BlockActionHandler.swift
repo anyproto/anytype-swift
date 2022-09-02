@@ -273,7 +273,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
     func createAndFetchBookmark(
         targetID: BlockId,
         position: BlockPosition,
-        url: String
+        url: AnytypeURL
     ) {
         service.createAndFetchBookmark(
             contextID: document.objectId,

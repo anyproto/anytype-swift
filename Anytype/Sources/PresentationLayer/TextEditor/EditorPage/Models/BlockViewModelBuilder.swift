@@ -185,7 +185,7 @@ final class BlockViewModelBuilder {
                 },
                 openUrl: { [weak self] url in
                     AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.blockBookmarkOpenUrl)
-                    self?.router.openUrl(url)
+                    self?.router.openUrl(url.url)
                 }
             )
         case let .link(content):            

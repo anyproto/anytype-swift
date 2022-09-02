@@ -66,6 +66,11 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
     
+    func setObjectSetType() -> BlockId {
+        assertionFailure()
+        return ""
+    }
+    
     func delete(blockIds: [BlockId]) {
         assertionFailure()
     }
@@ -163,7 +168,7 @@ final class BlockActionHandlerMock: BlockActionHandlerProtocol {
         assertionFailure()
     }
 
-    func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: String) {
+    func createAndFetchBookmark(targetID: BlockId, position: BlockPosition, url: AnytypeURL) {
         assertionFailure()
     }
 
