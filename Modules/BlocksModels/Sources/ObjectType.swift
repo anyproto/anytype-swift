@@ -58,4 +58,17 @@ extension ObjectType {
         )
     }
     
+    public init(details: ObjectDetails) {
+        self.init(
+            url: details.id,
+            name: details.name,
+            iconEmoji: Emoji(details.iconEmoji) ?? Emoji.default,
+            description: details.description,
+            hidden: details.isHidden,
+            readonly: details.isReadonly,
+            isArchived: details.isArchived,
+            smartBlockTypes: Set(details.smartblockTypes)
+        )
+    }
+    
 }

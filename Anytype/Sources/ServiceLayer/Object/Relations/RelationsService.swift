@@ -60,25 +60,28 @@ extension RelationsService: RelationsServiceProtocol {
     }
 
     private func addRelation(relation: RelationMetadata, isNew: Bool) -> RelationMetadata? {
-        let response = Anytype_Rpc.ObjectRelation.Add.Service
-            .invoke(contextID: objectId, relation: relation.asMiddleware)
-            .getValue(domain: .relationsService)
-
-        guard let response = response else { return nil }
-
-        EventsBunch(event: response.event).send()
-
-        return RelationMetadata(middlewareRelation: response.relation)
+        #warning("Fix me")
+        return nil
+//        let response = Anytype_Rpc.ObjectRelation.Add.Service
+//            .invoke(contextID: objectId, relation: relation.asMiddleware)
+//            .getValue(domain: .relationsService)
+//
+//        guard let response = response else { return nil }
+//
+//        EventsBunch(event: response.event).send()
+//
+//        return RelationMetadata(middlewareRelation: response.relation)
     }
     
     func removeRelation(relationKey: String) {
-        Anytype_Rpc.ObjectRelation.Delete.Service
-            .invoke(contextID: objectId, relationKey: relationKey)
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .relationsService)?
-            .send()
-        
-        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
+        #warning("Fix me")
+//        Anytype_Rpc.ObjectRelation.Delete.Service
+//            .invoke(contextID: objectId, relationKey: relationKey)
+//            .map { EventsBunch(event: $0.event) }
+//            .getValue(domain: .relationsService)?
+//            .send()
+//
+//        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
     }
     
     func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String? {
@@ -91,32 +94,36 @@ extension RelationsService: RelationsServiceProtocol {
         
         switch source {
         case .object:
-            let response = Anytype_Rpc.ObjectRelationOption.Add.Service.invoke(
-                contextID: objectId,
-                relationKey: relationKey,
-                option: option
-            )
-                .getValue(domain: .relationsService)
-            
-            guard let response = response else { return nil }
-            
-            EventsBunch(event: response.event).send()
-            
-            return response.option.id
+            #warning("Fix me")
+            return nil
+//            let response = Anytype_Rpc.ObjectRelationOption.Add.Service.invoke(
+//                contextID: objectId,
+//                relationKey: relationKey,
+//                option: option
+//            )
+//                .getValue(domain: .relationsService)
+//
+//            guard let response = response else { return nil }
+//
+//            EventsBunch(event: response.event).send()
+//
+//            return response.option.id
         case .dataview(let contextId):
-            let response = Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Service.invoke(
-                contextID: contextId,
-                blockID: SetConstants.dataviewBlockId,
-                relationKey: relationKey,
-                option: option,
-                recordID: objectId
-            ).getValue(domain: .relationsService)
-            
-            guard let response = response else { return nil }
-            
-            EventsBunch(event: response.event).send()
-            
-            return response.option.id
+        #warning("Fix me")
+            return nil
+//            let response = Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Service.invoke(
+//                contextID: contextId,
+//                blockID: SetConstants.dataviewBlockId,
+//                relationKey: relationKey,
+//                option: option,
+//                recordID: objectId
+//            ).getValue(domain: .relationsService)
+//
+//            guard let response = response else { return nil }
+//
+//            EventsBunch(event: response.event).send()
+//
+//            return response.option.id
         }
     }
 

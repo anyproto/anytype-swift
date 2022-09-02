@@ -832,19 +832,17 @@ extension Anytype_Rpc.BlockDataview.ObjectOrder.Update.Response.Error {
 }
 
 extension Anytype_Rpc.BlockDataview.Relation.Add.Request {
-    public init(contextID: String, blockID: String, relation: Anytype_Model_Relation) {
+    public init(contextID: String = String(), blockID: String = String(), relationID: String = String()) {
         self.contextID = contextID
         self.blockID = blockID
-        self.relation = relation
+        self.relationID = relationID
     }
 }
 
 extension Anytype_Rpc.BlockDataview.Relation.Add.Response {
-    public init(error: Anytype_Rpc.BlockDataview.Relation.Add.Response.Error, event: Anytype_ResponseEvent, relationKey: String, relation: Anytype_Model_Relation) {
+    public init(error: Anytype_Rpc.BlockDataview.Relation.Add.Response.Error, event: Anytype_ResponseEvent) {
         self.error = error
         self.event = event
-        self.relationKey = relationKey
-        self.relation = relation
     }
 }
 
@@ -856,10 +854,10 @@ extension Anytype_Rpc.BlockDataview.Relation.Add.Response.Error {
 }
 
 extension Anytype_Rpc.BlockDataview.Relation.Delete.Request {
-    public init(contextID: String = String(), blockID: String = String(), relationKey: String = String()) {
+    public init(contextID: String = String(), blockID: String = String(), relationID: String = String()) {
         self.contextID = contextID
         self.blockID = blockID
-        self.relationKey = relationKey
+        self.relationID = relationID
     }
 }
 
@@ -893,29 +891,6 @@ extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response {
 
 extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error {
     public init(code: Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.BlockDataview.Relation.Update.Request {
-    public init(contextID: String, blockID: String, relationKey: String, relation: Anytype_Model_Relation) {
-        self.contextID = contextID
-        self.blockID = blockID
-        self.relationKey = relationKey
-        self.relation = relation
-    }
-}
-
-extension Anytype_Rpc.BlockDataview.Relation.Update.Response {
-    public init(error: Anytype_Rpc.BlockDataview.Relation.Update.Response.Error, event: Anytype_ResponseEvent) {
-        self.error = error
-        self.event = event
-    }
-}
-
-extension Anytype_Rpc.BlockDataview.Relation.Update.Response.Error {
-    public init(code: Anytype_Rpc.BlockDataview.Relation.Update.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
     }
@@ -1053,146 +1028,6 @@ extension Anytype_Rpc.BlockDataview.View.Update.Response {
 
 extension Anytype_Rpc.BlockDataview.View.Update.Response.Error {
     public init(code: Anytype_Rpc.BlockDataview.View.Update.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Create.Request {
-    public init(contextID: String = String(), blockID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct, templateID: String = String()) {
-        self.contextID = contextID
-        self.blockID = blockID
-        self.record = record
-        self.templateID = templateID
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Create.Response {
-    public init(error: Anytype_Rpc.BlockDataviewRecord.Create.Response.Error, record: SwiftProtobuf.Google_Protobuf_Struct) {
-        self.error = error
-        self.record = record
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Create.Response.Error {
-    public init(code: Anytype_Rpc.BlockDataviewRecord.Create.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Delete.Request {
-    public init(contextID: String = String(), blockID: String = String(), recordID: String = String()) {
-        self.contextID = contextID
-        self.blockID = blockID
-        self.recordID = recordID
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Delete.Response {
-    public init(error: Anytype_Rpc.BlockDataviewRecord.Delete.Response.Error, event: Anytype_ResponseEvent) {
-        self.error = error
-        self.event = event
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Delete.Response.Error {
-    public init(code: Anytype_Rpc.BlockDataviewRecord.Delete.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Request {
-    public init(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) {
-        self.contextID = contextID
-        self.blockID = blockID
-        self.relationKey = relationKey
-        self.option = option
-        self.recordID = recordID
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Response {
-    public init(error: Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Response.Error, event: Anytype_ResponseEvent, option: Anytype_Model_Relation.Option) {
-        self.error = error
-        self.event = event
-        self.option = option
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Response.Error {
-    public init(code: Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Delete.Request {
-    public init(contextID: String = String(), blockID: String = String(), relationKey: String = String(), optionID: String = String(), recordID: String = String()) {
-        self.contextID = contextID
-        self.blockID = blockID
-        self.relationKey = relationKey
-        self.optionID = optionID
-        self.recordID = recordID
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Delete.Response {
-    public init(error: Anytype_Rpc.BlockDataviewRecord.RelationOption.Delete.Response.Error, event: Anytype_ResponseEvent) {
-        self.error = error
-        self.event = event
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Delete.Response.Error {
-    public init(code: Anytype_Rpc.BlockDataviewRecord.RelationOption.Delete.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Update.Request {
-    public init(contextID: String = String(), blockID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option, recordID: String = String()) {
-        self.contextID = contextID
-        self.blockID = blockID
-        self.relationKey = relationKey
-        self.option = option
-        self.recordID = recordID
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Update.Response {
-    public init(error: Anytype_Rpc.BlockDataviewRecord.RelationOption.Update.Response.Error, event: Anytype_ResponseEvent) {
-        self.error = error
-        self.event = event
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Update.Response.Error {
-    public init(code: Anytype_Rpc.BlockDataviewRecord.RelationOption.Update.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Update.Request {
-    public init(contextID: String = String(), blockID: String = String(), recordID: String = String(), record: SwiftProtobuf.Google_Protobuf_Struct) {
-        self.contextID = contextID
-        self.blockID = blockID
-        self.recordID = recordID
-        self.record = record
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Update.Response {
-    public init(error: Anytype_Rpc.BlockDataviewRecord.Update.Response.Error) {
-        self.error = error
-    }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Update.Response.Error {
-    public init(code: Anytype_Rpc.BlockDataviewRecord.Update.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
     }
@@ -1408,10 +1243,10 @@ extension Anytype_Rpc.BlockLink.ListSetAppearance.Response.Error {
 }
 
 extension Anytype_Rpc.BlockRelation.Add.Request {
-    public init(contextID: String, blockID: String, relation: Anytype_Model_Relation) {
+    public init(contextID: String = String(), blockID: String = String(), relationID: String = String()) {
         self.contextID = contextID
         self.blockID = blockID
-        self.relation = relation
+        self.relationID = relationID
     }
 }
 
@@ -2322,8 +2157,8 @@ extension Anytype_Rpc.GenericErrorResponse.Error {
 }
 
 extension Anytype_Rpc.History.GetVersions.Request {
-    public init(pageID: String = String(), lastVersionID: String = String(), limit: Int32 = 0) {
-        self.pageID = pageID
+    public init(objectID: String = String(), lastVersionID: String = String(), limit: Int32 = 0) {
+        self.objectID = objectID
         self.lastVersionID = lastVersionID
         self.limit = limit
     }
@@ -2344,8 +2179,8 @@ extension Anytype_Rpc.History.GetVersions.Response.Error {
 }
 
 extension Anytype_Rpc.History.SetVersion.Request {
-    public init(pageID: String = String(), versionID: String = String()) {
-        self.pageID = pageID
+    public init(objectID: String = String(), versionID: String = String()) {
+        self.objectID = objectID
         self.versionID = versionID
     }
 }
@@ -2364,8 +2199,8 @@ extension Anytype_Rpc.History.SetVersion.Response.Error {
 }
 
 extension Anytype_Rpc.History.ShowVersion.Request {
-    public init(pageID: String = String(), versionID: String = String(), traceID: String = String()) {
-        self.pageID = pageID
+    public init(objectID: String = String(), versionID: String = String(), traceID: String = String()) {
+        self.objectID = objectID
         self.versionID = versionID
         self.traceID = traceID
     }
@@ -2590,9 +2425,9 @@ extension Anytype_Rpc.Object.Create.Request {
 }
 
 extension Anytype_Rpc.Object.Create.Response {
-    public init(error: Anytype_Rpc.Object.Create.Response.Error, pageID: String = String(), event: Anytype_ResponseEvent) {
+    public init(error: Anytype_Rpc.Object.Create.Response.Error, objectID: String = String(), event: Anytype_ResponseEvent) {
         self.error = error
-        self.pageID = pageID
+        self.objectID = objectID
         self.event = event
     }
 }
@@ -2611,14 +2446,77 @@ extension Anytype_Rpc.Object.CreateBookmark.Request {
 }
 
 extension Anytype_Rpc.Object.CreateBookmark.Response {
-    public init(error: Anytype_Rpc.Object.CreateBookmark.Response.Error, pageID: String = String()) {
+    public init(error: Anytype_Rpc.Object.CreateBookmark.Response.Error, objectID: String = String()) {
         self.error = error
-        self.pageID = pageID
+        self.objectID = objectID
     }
 }
 
 extension Anytype_Rpc.Object.CreateBookmark.Response.Error {
     public init(code: Anytype_Rpc.Object.CreateBookmark.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.Object.CreateObjectType.Request {
+    public init(details: SwiftProtobuf.Google_Protobuf_Struct, internalFlags: [Anytype_Model_InternalFlag] = []) {
+        self.details = details
+        self.internalFlags = internalFlags
+    }
+}
+
+extension Anytype_Rpc.Object.CreateObjectType.Response {
+    public init(error: Anytype_Rpc.Object.CreateObjectType.Response.Error, newDetails: SwiftProtobuf.Google_Protobuf_Struct, objectID: String = String()) {
+        self.error = error
+        self.newDetails = newDetails
+        self.objectID = objectID
+    }
+}
+
+extension Anytype_Rpc.Object.CreateObjectType.Response.Error {
+    public init(code: Anytype_Rpc.Object.CreateObjectType.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.Object.CreateRelation.Request {
+    public init(details: SwiftProtobuf.Google_Protobuf_Struct) {
+        self.details = details
+    }
+}
+
+extension Anytype_Rpc.Object.CreateRelation.Response {
+    public init(error: Anytype_Rpc.Object.CreateRelation.Response.Error, objectID: String = String(), key: String = String()) {
+        self.error = error
+        self.objectID = objectID
+        self.key = key
+    }
+}
+
+extension Anytype_Rpc.Object.CreateRelation.Response.Error {
+    public init(code: Anytype_Rpc.Object.CreateRelation.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.Object.CreateRelationOption.Request {
+    public init(details: SwiftProtobuf.Google_Protobuf_Struct) {
+        self.details = details
+    }
+}
+
+extension Anytype_Rpc.Object.CreateRelationOption.Response {
+    public init(error: Anytype_Rpc.Object.CreateRelationOption.Response.Error, objectID: String = String()) {
+        self.error = error
+        self.objectID = objectID
+    }
+}
+
+extension Anytype_Rpc.Object.CreateRelationOption.Response.Error {
+    public init(code: Anytype_Rpc.Object.CreateRelationOption.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
     }
@@ -2634,9 +2532,9 @@ extension Anytype_Rpc.Object.CreateSet.Request {
 }
 
 extension Anytype_Rpc.Object.CreateSet.Response {
-    public init(error: Anytype_Rpc.Object.CreateSet.Response.Error, id: String = String(), event: Anytype_ResponseEvent) {
+    public init(error: Anytype_Rpc.Object.CreateSet.Response.Error, objectID: String = String(), event: Anytype_ResponseEvent) {
         self.error = error
-        self.id = id
+        self.objectID = objectID
         self.event = event
     }
 }
@@ -3270,18 +3168,16 @@ extension Anytype_Rpc.Object.UndoRedoCounter {
 }
 
 extension Anytype_Rpc.ObjectRelation.Add.Request {
-    public init(contextID: String = String(), relation: Anytype_Model_Relation) {
+    public init(contextID: String = String(), relationIds: [String] = []) {
         self.contextID = contextID
-        self.relation = relation
+        self.relationIds = relationIds
     }
 }
 
 extension Anytype_Rpc.ObjectRelation.Add.Response {
-    public init(error: Anytype_Rpc.ObjectRelation.Add.Response.Error, event: Anytype_ResponseEvent, relationKey: String, relation: Anytype_Model_Relation) {
+    public init(error: Anytype_Rpc.ObjectRelation.Add.Response.Error, event: Anytype_ResponseEvent) {
         self.error = error
         self.event = event
-        self.relationKey = relationKey
-        self.relation = relation
     }
 }
 
@@ -3314,9 +3210,9 @@ extension Anytype_Rpc.ObjectRelation.AddFeatured.Response.Error {
 }
 
 extension Anytype_Rpc.ObjectRelation.Delete.Request {
-    public init(contextID: String = String(), relationKey: String = String()) {
+    public init(contextID: String = String(), relationID: String = String()) {
         self.contextID = contextID
-        self.relationKey = relationKey
+        self.relationID = relationID
     }
 }
 
@@ -3375,134 +3271,10 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error {
     }
 }
 
-extension Anytype_Rpc.ObjectRelation.Update.Request {
-    public init(contextID: String, relationKey: String, relation: Anytype_Model_Relation) {
-        self.contextID = contextID
-        self.relationKey = relationKey
-        self.relation = relation
-    }
-}
-
-extension Anytype_Rpc.ObjectRelation.Update.Response {
-    public init(error: Anytype_Rpc.ObjectRelation.Update.Response.Error, event: Anytype_ResponseEvent) {
-        self.error = error
-        self.event = event
-    }
-}
-
-extension Anytype_Rpc.ObjectRelation.Update.Response.Error {
-    public init(code: Anytype_Rpc.ObjectRelation.Update.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Add.Request {
-    public init(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) {
-        self.contextID = contextID
-        self.relationKey = relationKey
-        self.option = option
-    }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Add.Response {
-    public init(error: Anytype_Rpc.ObjectRelationOption.Add.Response.Error, event: Anytype_ResponseEvent, option: Anytype_Model_Relation.Option) {
-        self.error = error
-        self.event = event
-        self.option = option
-    }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Add.Response.Error {
-    public init(code: Anytype_Rpc.ObjectRelationOption.Add.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Delete.Request {
-    public init(contextID: String = String(), relationKey: String = String(), optionID: String = String(), confirmRemoveAllValuesInRecords: Bool = false) {
-        self.contextID = contextID
-        self.relationKey = relationKey
-        self.optionID = optionID
-        self.confirmRemoveAllValuesInRecords = confirmRemoveAllValuesInRecords
-    }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Delete.Response {
-    public init(error: Anytype_Rpc.ObjectRelationOption.Delete.Response.Error, event: Anytype_ResponseEvent) {
-        self.error = error
-        self.event = event
-    }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Delete.Response.Error {
-    public init(code: Anytype_Rpc.ObjectRelationOption.Delete.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Update.Request {
-    public init(contextID: String = String(), relationKey: String = String(), option: Anytype_Model_Relation.Option) {
-        self.contextID = contextID
-        self.relationKey = relationKey
-        self.option = option
-    }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Update.Response {
-    public init(error: Anytype_Rpc.ObjectRelationOption.Update.Response.Error, event: Anytype_ResponseEvent) {
-        self.error = error
-        self.event = event
-    }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Update.Response.Error {
-    public init(code: Anytype_Rpc.ObjectRelationOption.Update.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.ObjectType.Create.Request {
-    public init(objectType: Anytype_Model_ObjectType) {
-        self.objectType = objectType
-    }
-}
-
-extension Anytype_Rpc.ObjectType.Create.Response {
-    public init(error: Anytype_Rpc.ObjectType.Create.Response.Error, objectType: Anytype_Model_ObjectType) {
-        self.error = error
-        self.objectType = objectType
-    }
-}
-
-extension Anytype_Rpc.ObjectType.Create.Response.Error {
-    public init(code: Anytype_Rpc.ObjectType.Create.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.ObjectType.List.Response {
-    public init(error: Anytype_Rpc.ObjectType.List.Response.Error, objectTypes: [Anytype_Model_ObjectType] = []) {
-        self.error = error
-        self.objectTypes = objectTypes
-    }
-}
-
-extension Anytype_Rpc.ObjectType.List.Response.Error {
-    public init(code: Anytype_Rpc.ObjectType.List.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
 extension Anytype_Rpc.ObjectType.Relation.Add.Request {
-    public init(objectTypeURL: String = String(), relations: [Anytype_Model_Relation] = []) {
+    public init(objectTypeURL: String = String(), relationIds: [String] = []) {
         self.objectTypeURL = objectTypeURL
-        self.relations = relations
+        self.relationIds = relationIds
     }
 }
 
@@ -3542,9 +3314,9 @@ extension Anytype_Rpc.ObjectType.Relation.List.Response.Error {
 }
 
 extension Anytype_Rpc.ObjectType.Relation.Remove.Request {
-    public init(objectTypeURL: String = String(), relationKey: String = String()) {
+    public init(objectTypeURL: String = String(), relationID: String = String()) {
         self.objectTypeURL = objectTypeURL
-        self.relationKey = relationKey
+        self.relationID = relationID
     }
 }
 
@@ -3556,26 +3328,6 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response {
 
 extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error {
     public init(code: Anytype_Rpc.ObjectType.Relation.Remove.Response.Error.Code = .null, description_p: String = String()) {
-        self.code = code
-        self.description_p = description_p
-    }
-}
-
-extension Anytype_Rpc.ObjectType.Relation.Update.Request {
-    public init(objectTypeURL: String = String(), relation: Anytype_Model_Relation) {
-        self.objectTypeURL = objectTypeURL
-        self.relation = relation
-    }
-}
-
-extension Anytype_Rpc.ObjectType.Relation.Update.Response {
-    public init(error: Anytype_Rpc.ObjectType.Relation.Update.Response.Error) {
-        self.error = error
-    }
-}
-
-extension Anytype_Rpc.ObjectType.Relation.Update.Response.Error {
-    public init(code: Anytype_Rpc.ObjectType.Relation.Update.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
     }
@@ -3595,6 +3347,45 @@ extension Anytype_Rpc.Process.Cancel.Response {
 
 extension Anytype_Rpc.Process.Cancel.Response.Error {
     public init(code: Anytype_Rpc.Process.Cancel.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.Relation.ListRemoveOption.Request {
+    public init(optionIds: [String] = []) {
+        self.optionIds = optionIds
+    }
+}
+
+extension Anytype_Rpc.Relation.ListRemoveOption.Response {
+    public init(error: Anytype_Rpc.Relation.ListRemoveOption.Response.Error) {
+        self.error = error
+    }
+}
+
+extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error {
+    public init(code: Anytype_Rpc.Relation.ListRemoveOption.Response.Error.Code = .null, description_p: String = String()) {
+        self.code = code
+        self.description_p = description_p
+    }
+}
+
+extension Anytype_Rpc.Relation.Options.Request {
+    public init(relationKey: String = String()) {
+        self.relationKey = relationKey
+    }
+}
+
+extension Anytype_Rpc.Relation.Options.Response {
+    public init(error: Anytype_Rpc.Relation.Options.Response.Error, options: Anytype_Model_RelationOptions) {
+        self.error = error
+        self.options = options
+    }
+}
+
+extension Anytype_Rpc.Relation.Options.Response.Error {
+    public init(code: Anytype_Rpc.Relation.Options.Response.Error.Code = .null, description_p: String = String()) {
         self.code = code
         self.description_p = description_p
     }

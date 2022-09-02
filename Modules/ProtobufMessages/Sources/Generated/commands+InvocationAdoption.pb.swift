@@ -200,11 +200,6 @@ extension Anytype_Rpc.BlockDataview.Relation.ListAvailable.Response.Error: Respo
     public var isNull: Bool { code == .null }
 }
 
-extension Anytype_Rpc.BlockDataview.Relation.Update.Response: ResultWithError {}
-extension Anytype_Rpc.BlockDataview.Relation.Update.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
 extension Anytype_Rpc.BlockDataview.SetSource.Response: ResultWithError {}
 extension Anytype_Rpc.BlockDataview.SetSource.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -232,36 +227,6 @@ extension Anytype_Rpc.BlockDataview.View.SetPosition.Response.Error: ResponseErr
 
 extension Anytype_Rpc.BlockDataview.View.Update.Response: ResultWithError {}
 extension Anytype_Rpc.BlockDataview.View.Update.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Create.Response: ResultWithError {}
-extension Anytype_Rpc.BlockDataviewRecord.Create.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Delete.Response: ResultWithError {}
-extension Anytype_Rpc.BlockDataviewRecord.Delete.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Response: ResultWithError {}
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Delete.Response: ResultWithError {}
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Delete.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Update.Response: ResultWithError {}
-extension Anytype_Rpc.BlockDataviewRecord.RelationOption.Update.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.BlockDataviewRecord.Update.Response: ResultWithError {}
-extension Anytype_Rpc.BlockDataviewRecord.Update.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
@@ -579,6 +544,21 @@ extension Anytype_Rpc.Object.CreateBookmark.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
+extension Anytype_Rpc.Object.CreateObjectType.Response: ResultWithError {}
+extension Anytype_Rpc.Object.CreateObjectType.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Object.CreateRelation.Response: ResultWithError {}
+extension Anytype_Rpc.Object.CreateRelation.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Object.CreateRelationOption.Response: ResultWithError {}
+extension Anytype_Rpc.Object.CreateRelationOption.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
 extension Anytype_Rpc.Object.CreateSet.Response: ResultWithError {}
 extension Anytype_Rpc.Object.CreateSet.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -744,36 +724,6 @@ extension Anytype_Rpc.ObjectRelation.RemoveFeatured.Response.Error: ResponseErro
     public var isNull: Bool { code == .null }
 }
 
-extension Anytype_Rpc.ObjectRelation.Update.Response: ResultWithError {}
-extension Anytype_Rpc.ObjectRelation.Update.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Add.Response: ResultWithError {}
-extension Anytype_Rpc.ObjectRelationOption.Add.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Delete.Response: ResultWithError {}
-extension Anytype_Rpc.ObjectRelationOption.Delete.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.ObjectRelationOption.Update.Response: ResultWithError {}
-extension Anytype_Rpc.ObjectRelationOption.Update.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.ObjectType.Create.Response: ResultWithError {}
-extension Anytype_Rpc.ObjectType.Create.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
-extension Anytype_Rpc.ObjectType.List.Response: ResultWithError {}
-extension Anytype_Rpc.ObjectType.List.Response.Error: ResponseError {
-    public var isNull: Bool { code == .null }
-}
-
 extension Anytype_Rpc.ObjectType.Relation.Add.Response: ResultWithError {}
 extension Anytype_Rpc.ObjectType.Relation.Add.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
@@ -789,13 +739,18 @@ extension Anytype_Rpc.ObjectType.Relation.Remove.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
-extension Anytype_Rpc.ObjectType.Relation.Update.Response: ResultWithError {}
-extension Anytype_Rpc.ObjectType.Relation.Update.Response.Error: ResponseError {
+extension Anytype_Rpc.Process.Cancel.Response: ResultWithError {}
+extension Anytype_Rpc.Process.Cancel.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 
-extension Anytype_Rpc.Process.Cancel.Response: ResultWithError {}
-extension Anytype_Rpc.Process.Cancel.Response.Error: ResponseError {
+extension Anytype_Rpc.Relation.ListRemoveOption.Response: ResultWithError {}
+extension Anytype_Rpc.Relation.ListRemoveOption.Response.Error: ResponseError {
+    public var isNull: Bool { code == .null }
+}
+
+extension Anytype_Rpc.Relation.Options.Response: ResultWithError {}
+extension Anytype_Rpc.Relation.Options.Response.Error: ResponseError {
     public var isNull: Bool { code == .null }
 }
 

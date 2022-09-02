@@ -17,6 +17,6 @@ final class PageService {
         }
         
         EventsBunch(event: response.event).send()
-        return response.pageID
+        return response.objectID
     }
 }

@@ -8,9 +8,11 @@ message SmartBlockSnapshotBase {
     repeated Block blocks = 1;
     google.protobuf.Struct details = 2;
     google.protobuf.Struct fileKeys = 3;
+    // deprecated
     repeated Relation extraRelations = 4;
     repeated string objectTypes = 5;
     google.protobuf.Struct collections = 6;
+    repeated RelationLink relationLinks = 7;
 }
 
 enum SmartBlockType {
@@ -41,7 +43,7 @@ enum SmartBlockType {
     Date = 0x204;
     WorkspaceOld = 0x205; // deprecated thread-based workspace
     Workspace = 0x206;
-
+    RelationOption = 0x207;
 }
 
 message Block {
@@ -301,11 +303,12 @@ message Block {
         message Dataview {
             repeated string source = 1;
             repeated View views = 2;
-            // index 3 is deprecated, was used for schemaURL in old-format sets
+            // deprecated
             repeated model.Relation relations = 4;
             string activeView = 3; // saved within a session
             repeated GroupOrder groupOrders = 12;
             repeated ObjectOrder objectOrders = 13;
+            repeated anytype.model.RelationLink relationLinks = 5;
 
             message View {
                 string id = 1;
@@ -644,6 +647,8 @@ message ObjectType {
         note = 9;
         space = 10;
         bookmark = 11;
+        relationOptionsList = 12;
+        relationOption = 13;
 
         database = 20; // to be released later
     }
@@ -662,6 +667,8 @@ message RelationWithValue {
 
 // Relation describe the human-interpreted relation type. It may be something like "Date of creation, format=date" or "Assignee, format=objectId, objectType=person"
 message Relation {
+    string id = 100;
+
     // Key under which the value is stored in the map. Must be unique for the object type.
     // It usually auto-generated bsonid, but also may be something human-readable in case of prebuilt types.
     string key = 1;
@@ -736,6 +743,11 @@ enum RelationFormat {
 
 }
 
+message RelationLink {
+    string id = 1;
+    string key = 2;
+}
+
 message Relations {
     repeated Relation relations = 1;
 }
@@ -778,8 +790,9 @@ message ObjectView {
         repeated RelationWithValue relations = 2;
     }
 
-    repeated ObjectType objectTypes = 5; // objectTypes contains ONLY to get layouts for the actual and all dependent objects. Relations are currently omitted // todo: switch to other pb model
-    repeated Relation relations = 7; // combined relations of object's type + extra relations. If object doesn't has some relation key in the details this means client should hide it and only suggest when adding existing one
+    repeated Relation relations = 7; // DEPRECATED, use relationLinks instead
+    repeated RelationLink relationLinks = 10;
+
     Restrictions restrictions = 8; // object restrictions
     HistorySize history = 9;
 

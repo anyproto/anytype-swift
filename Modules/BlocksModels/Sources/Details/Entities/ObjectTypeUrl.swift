@@ -9,6 +9,7 @@ public enum ObjectTypeUrl: RawRepresentable {
         case task = "_ottask"
         case template = "_ottemplate"
         case bookmark = "_otbookmark"
+        case objectType = "_otobjectType"
     }
 
     public init?(rawValue: String) {

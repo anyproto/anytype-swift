@@ -116,23 +116,25 @@ final class MiddlewareEventConverter {
         case let .objectDetailsUnset(data):
             guard let details = detailsStorage.unset(data: data) else { return nil }
             return .details(id: details.id)
-            
-        case .objectRelationsSet(let set):
-            relationStorage.set(
-                relations: set.relations.map { RelationMetadata(middlewareRelation: $0) }
-            )
-            
-            return .general
+            #warning("Fix me")
+//        case .objectRelationsSet(let set):
+//            relationStorage.set(
+//                relations: set.relations.map { RelationMetadata(middlewareRelation: $0) }
+//            )
+//
+//            return .general
             
         case .objectRelationsAmend(let amend):
-            relationStorage.amend(
-                relations: amend.relations.map { RelationMetadata(middlewareRelation: $0) }
-            )
+            #warning("Fix me")
+//            relationStorage.amend(
+//                relations: amend.relations.map { RelationMetadata(middlewareRelation: $0) }
+//            )
             
             return .general
             
         case .objectRelationsRemove(let remove):
-            relationStorage.remove(relationKeys: remove.keys)
+            #warning("Fix me")
+//            relationStorage.remove(relationKeys: remove.keys)
             
             return .general
             
@@ -351,32 +353,34 @@ final class MiddlewareEventConverter {
             
             return .general
         case .blockDataviewRelationDelete(let data):
-            infoContainer.updateDataview(blockId: data.id) { dataView in
-                guard let index = dataView.relations.firstIndex(where: { $0.key == data.relationKey }) else {
-                    anytypeAssertionFailure("Not found key \(data.relationKey) in dataview: \(dataView)", domain: .middlewareEventConverter)
-                    return dataView
-                }
-                
-                var newRelations = dataView.relations
-                newRelations.remove(at: index)
-                
-                return dataView.updated(relations: newRelations)
-            }
+            #warning("Fix me")
+//            infoContainer.updateDataview(blockId: data.id) { dataView in
+//                guard let index = dataView.relations.firstIndex(where: { $0.key == data.relationKey }) else {
+//                    anytypeAssertionFailure("Not found key \(data.relationKey) in dataview: \(dataView)", domain: .middlewareEventConverter)
+//                    return dataView
+//                }
+//
+//                var newRelations = dataView.relations
+//                newRelations.remove(at: index)
+//
+//                return dataView.updated(relations: newRelations)
+//            }
             
             return .general
         case .blockDataviewRelationSet(let data):
-            infoContainer.updateDataview(blockId: data.id) { dataView in
-                let relation = RelationMetadata(middlewareRelation: data.relation)
-                
-                var newRelations = dataView.relations
-                if let index = newRelations.firstIndex(where: { $0.key == relation.key }) {
-                    newRelations[index] = relation
-                } else {
-                    newRelations.append(relation)
-                }
-                
-                return dataView.updated(relations: newRelations)
-            }
+            #warning("Fix me")
+//            infoContainer.updateDataview(blockId: data.id) { dataView in
+//                let relation = RelationMetadata(middlewareRelation: data.relation)
+//
+//                var newRelations = dataView.relations
+//                if let index = newRelations.firstIndex(where: { $0.key == relation.key }) {
+//                    newRelations[index] = relation
+//                } else {
+//                    newRelations.append(relation)
+//                }
+//
+//                return dataView.updated(relations: newRelations)
+//            }
             
             return .general
         default:

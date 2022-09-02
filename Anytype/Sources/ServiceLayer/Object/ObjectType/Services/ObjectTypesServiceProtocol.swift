@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import BlocksModels
 
 public protocol ObjectTypesServiceProtocol {
     

@@ -61,6 +61,16 @@ class SearchHelper {
         return filter
     }
     
+    static func smartblockTypesFilter(types: [SmartBlockType]) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .in
+        filter.value = types.map { $0.asMiddleware.rawValue }.protobufValue
+        filter.relationKey = BundledRelationKey.smartblockTypes.rawValue
+        filter.operator = .and
+        
+        return filter
+    }
+    
     static func excludedTypeFilter(_ typeUrls: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn

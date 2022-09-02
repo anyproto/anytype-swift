@@ -29,6 +29,7 @@ public enum BundledRelationKey: String {
     case internalFlags
     case url
     case picture
+    case smartblockTypes
     
     case isDeleted
     case isArchived

@@ -46,6 +46,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         )
         var filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.typeFilter(typeUrls: [ObjectTypeUrl.bundled(.objectType).rawValue]),
             SearchHelper.supportedObjectTypeUrlsFilter(
                 ObjectTypeProvider.shared.supportedTypeUrls
             ),
@@ -57,8 +58,7 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filteringTypeUrl.map { filters.append(SearchHelper.excludedObjectTypeUrlFilter($0)) }
 
 
-        let result = makeRequest(filters: filters, sorts: [sort], fullText: text)
-        
+        let result = makeRequest(filters: filters, sorts: [sort], fullText: text, limit: 0)
         return result?.reordered(
             by: [
                 ObjectTypeUrl.bundled(.page).rawValue,
@@ -134,14 +134,15 @@ private extension SearchService {
     func makeRequest(
         filters: [DataviewFilter],
         sorts: [DataviewSort],
-        fullText: String
+        fullText: String,
+        limit: Int32 = 100
     ) -> [ObjectDetails]? {
         guard let response = Anytype_Rpc.Object.Search.Service.invoke(
             filters: filters,
             sorts: sorts,
             fullText: fullText,
             offset: 0,
-            limit: 100,
+            limit: limit,
             objectTypeFilter: [],
             keys: []
         ).getValue(domain: .searchService) else { return nil }

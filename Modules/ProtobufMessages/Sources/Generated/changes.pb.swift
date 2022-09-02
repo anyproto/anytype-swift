@@ -145,22 +145,6 @@ public struct Anytype_Change {
       set {value = .blockDuplicate(newValue)}
     }
 
-    public var detailsSet: Anytype_Change.DetailsSet {
-      get {
-        if case .detailsSet(let v)? = value {return v}
-        return Anytype_Change.DetailsSet()
-      }
-      set {value = .detailsSet(newValue)}
-    }
-
-    public var detailsUnset: Anytype_Change.DetailsUnset {
-      get {
-        if case .detailsUnset(let v)? = value {return v}
-        return Anytype_Change.DetailsUnset()
-      }
-      set {value = .detailsUnset(newValue)}
-    }
-
     public var relationAdd: Anytype_Change.RelationAdd {
       get {
         if case .relationAdd(let v)? = value {return v}
@@ -177,12 +161,45 @@ public struct Anytype_Change {
       set {value = .relationRemove(newValue)}
     }
 
-    public var relationUpdate: Anytype_Change.RelationUpdate {
+    public var detailsSet: Anytype_Change.DetailsSet {
       get {
-        if case .relationUpdate(let v)? = value {return v}
-        return Anytype_Change.RelationUpdate()
+        if case .detailsSet(let v)? = value {return v}
+        return Anytype_Change.DetailsSet()
       }
-      set {value = .relationUpdate(newValue)}
+      set {value = .detailsSet(newValue)}
+    }
+
+    public var detailsUnset: Anytype_Change.DetailsUnset {
+      get {
+        if case .detailsUnset(let v)? = value {return v}
+        return Anytype_Change.DetailsUnset()
+      }
+      set {value = .detailsUnset(newValue)}
+    }
+
+    /// deprecated
+    public var oldRelationAdd: Anytype_Change._RelationAdd {
+      get {
+        if case .oldRelationAdd(let v)? = value {return v}
+        return Anytype_Change._RelationAdd()
+      }
+      set {value = .oldRelationAdd(newValue)}
+    }
+
+    public var oldRelationRemove: Anytype_Change._RelationRemove {
+      get {
+        if case .oldRelationRemove(let v)? = value {return v}
+        return Anytype_Change._RelationRemove()
+      }
+      set {value = .oldRelationRemove(newValue)}
+    }
+
+    public var oldRelationUpdate: Anytype_Change._RelationUpdate {
+      get {
+        if case .oldRelationUpdate(let v)? = value {return v}
+        return Anytype_Change._RelationUpdate()
+      }
+      set {value = .oldRelationUpdate(newValue)}
     }
 
     public var objectTypeAdd: Anytype_Change.ObjectTypeAdd {
@@ -225,11 +242,14 @@ public struct Anytype_Change {
       case blockRemove(Anytype_Change.BlockRemove)
       case blockMove(Anytype_Change.BlockMove)
       case blockDuplicate(Anytype_Change.BlockDuplicate)
-      case detailsSet(Anytype_Change.DetailsSet)
-      case detailsUnset(Anytype_Change.DetailsUnset)
       case relationAdd(Anytype_Change.RelationAdd)
       case relationRemove(Anytype_Change.RelationRemove)
-      case relationUpdate(Anytype_Change.RelationUpdate)
+      case detailsSet(Anytype_Change.DetailsSet)
+      case detailsUnset(Anytype_Change.DetailsUnset)
+      /// deprecated
+      case oldRelationAdd(Anytype_Change._RelationAdd)
+      case oldRelationRemove(Anytype_Change._RelationRemove)
+      case oldRelationUpdate(Anytype_Change._RelationUpdate)
       case objectTypeAdd(Anytype_Change.ObjectTypeAdd)
       case objectTypeRemove(Anytype_Change.ObjectTypeRemove)
       case storeKeySet(Anytype_Change.StoreKeySet)
@@ -261,14 +281,6 @@ public struct Anytype_Change {
           guard case .blockDuplicate(let l) = lhs, case .blockDuplicate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
-        case (.detailsSet, .detailsSet): return {
-          guard case .detailsSet(let l) = lhs, case .detailsSet(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
-        case (.detailsUnset, .detailsUnset): return {
-          guard case .detailsUnset(let l) = lhs, case .detailsUnset(let r) = rhs else { preconditionFailure() }
-          return l == r
-        }()
         case (.relationAdd, .relationAdd): return {
           guard case .relationAdd(let l) = lhs, case .relationAdd(let r) = rhs else { preconditionFailure() }
           return l == r
@@ -277,8 +289,24 @@ public struct Anytype_Change {
           guard case .relationRemove(let l) = lhs, case .relationRemove(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
-        case (.relationUpdate, .relationUpdate): return {
-          guard case .relationUpdate(let l) = lhs, case .relationUpdate(let r) = rhs else { preconditionFailure() }
+        case (.detailsSet, .detailsSet): return {
+          guard case .detailsSet(let l) = lhs, case .detailsSet(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.detailsUnset, .detailsUnset): return {
+          guard case .detailsUnset(let l) = lhs, case .detailsUnset(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.oldRelationAdd, .oldRelationAdd): return {
+          guard case .oldRelationAdd(let l) = lhs, case .oldRelationAdd(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.oldRelationRemove, .oldRelationRemove): return {
+          guard case .oldRelationRemove(let l) = lhs, case .oldRelationRemove(let r) = rhs else { preconditionFailure() }
+          return l == r
+        }()
+        case (.oldRelationUpdate, .oldRelationUpdate): return {
+          guard case .oldRelationUpdate(let l) = lhs, case .oldRelationUpdate(let r) = rhs else { preconditionFailure() }
           return l == r
         }()
         case (.objectTypeAdd, .objectTypeAdd): return {
@@ -418,6 +446,30 @@ public struct Anytype_Change {
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
+    public var relationLinks: [Anytype_Model_RelationLink] = []
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct RelationRemove {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
+    public var relationID: [String] = []
+
+    public var unknownFields = SwiftProtobuf.UnknownStorage()
+
+    public init() {}
+  }
+
+  public struct _RelationAdd {
+    // SwiftProtobuf.Message conformance is added in an extension below. See the
+    // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+    // methods supported on all messages.
+
     public var relation: Anytype_Model_Relation {
       get {return _relation ?? Anytype_Model_Relation()}
       set {_relation = newValue}
@@ -434,14 +486,14 @@ public struct Anytype_Change {
     fileprivate var _relation: Anytype_Model_Relation? = nil
   }
 
-  public struct RelationUpdate {
+  public struct _RelationUpdate {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
 
     public var key: String = String()
 
-    public var value: Anytype_Change.RelationUpdate.OneOf_Value? = nil
+    public var value: Anytype_Change._RelationUpdate.OneOf_Value? = nil
 
     public var format: Anytype_Model_RelationFormat {
       get {
@@ -467,10 +519,10 @@ public struct Anytype_Change {
       set {value = .defaultValue(newValue)}
     }
 
-    public var objectTypes: Anytype_Change.RelationUpdate.ObjectTypes {
+    public var objectTypes: Anytype_Change._RelationUpdate.ObjectTypes {
       get {
         if case .objectTypes(let v)? = value {return v}
-        return Anytype_Change.RelationUpdate.ObjectTypes()
+        return Anytype_Change._RelationUpdate.ObjectTypes()
       }
       set {value = .objectTypes(newValue)}
     }
@@ -483,10 +535,10 @@ public struct Anytype_Change {
       set {value = .multi(newValue)}
     }
 
-    public var selectDict: Anytype_Change.RelationUpdate.Dict {
+    public var selectDict: Anytype_Change._RelationUpdate.Dict {
       get {
         if case .selectDict(let v)? = value {return v}
-        return Anytype_Change.RelationUpdate.Dict()
+        return Anytype_Change._RelationUpdate.Dict()
       }
       set {value = .selectDict(newValue)}
     }
@@ -497,12 +549,12 @@ public struct Anytype_Change {
       case format(Anytype_Model_RelationFormat)
       case name(String)
       case defaultValue(SwiftProtobuf.Google_Protobuf_Value)
-      case objectTypes(Anytype_Change.RelationUpdate.ObjectTypes)
+      case objectTypes(Anytype_Change._RelationUpdate.ObjectTypes)
       case multi(Bool)
-      case selectDict(Anytype_Change.RelationUpdate.Dict)
+      case selectDict(Anytype_Change._RelationUpdate.Dict)
 
     #if !swift(>=4.1)
-      public static func ==(lhs: Anytype_Change.RelationUpdate.OneOf_Value, rhs: Anytype_Change.RelationUpdate.OneOf_Value) -> Bool {
+      public static func ==(lhs: Anytype_Change._RelationUpdate.OneOf_Value, rhs: Anytype_Change._RelationUpdate.OneOf_Value) -> Bool {
         // The use of inline closures is to circumvent an issue where the compiler
         // allocates stack space for every case branch when no optimizations are
         // enabled. https://github.com/apple/swift-protobuf/issues/1034
@@ -564,7 +616,7 @@ public struct Anytype_Change {
     public init() {}
   }
 
-  public struct RelationRemove {
+  public struct _RelationRemove {
     // SwiftProtobuf.Message conformance is added in an extension below. See the
     // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
     // methods supported on all messages.
@@ -654,11 +706,13 @@ extension Anytype_Change.BlockDuplicate: @unchecked Sendable {}
 extension Anytype_Change.DetailsSet: @unchecked Sendable {}
 extension Anytype_Change.DetailsUnset: @unchecked Sendable {}
 extension Anytype_Change.RelationAdd: @unchecked Sendable {}
-extension Anytype_Change.RelationUpdate: @unchecked Sendable {}
-extension Anytype_Change.RelationUpdate.OneOf_Value: @unchecked Sendable {}
-extension Anytype_Change.RelationUpdate.Dict: @unchecked Sendable {}
-extension Anytype_Change.RelationUpdate.ObjectTypes: @unchecked Sendable {}
 extension Anytype_Change.RelationRemove: @unchecked Sendable {}
+extension Anytype_Change._RelationAdd: @unchecked Sendable {}
+extension Anytype_Change._RelationUpdate: @unchecked Sendable {}
+extension Anytype_Change._RelationUpdate.OneOf_Value: @unchecked Sendable {}
+extension Anytype_Change._RelationUpdate.Dict: @unchecked Sendable {}
+extension Anytype_Change._RelationUpdate.ObjectTypes: @unchecked Sendable {}
+extension Anytype_Change._RelationRemove: @unchecked Sendable {}
 extension Anytype_Change.ObjectTypeAdd: @unchecked Sendable {}
 extension Anytype_Change.ObjectTypeRemove: @unchecked Sendable {}
 extension Anytype_Change.StoreKeySet: @unchecked Sendable {}
@@ -835,11 +889,13 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
     3: .same(proto: "blockRemove"),
     4: .same(proto: "blockMove"),
     5: .same(proto: "blockDuplicate"),
+    50: .same(proto: "relationAdd"),
+    51: .same(proto: "relationRemove"),
     100: .same(proto: "detailsSet"),
     101: .same(proto: "detailsUnset"),
-    102: .same(proto: "relationAdd"),
-    103: .same(proto: "relationRemove"),
-    104: .same(proto: "relationUpdate"),
+    102: .standard(proto: "old_relationAdd"),
+    103: .standard(proto: "old_relationRemove"),
+    104: .standard(proto: "old_relationUpdate"),
     105: .same(proto: "objectTypeAdd"),
     106: .same(proto: "objectTypeRemove"),
     107: .same(proto: "storeKeySet"),
@@ -917,6 +973,32 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
           self.value = .blockDuplicate(v)
         }
       }()
+      case 50: try {
+        var v: Anytype_Change.RelationAdd?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .relationAdd(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .relationAdd(v)
+        }
+      }()
+      case 51: try {
+        var v: Anytype_Change.RelationRemove?
+        var hadOneofValue = false
+        if let current = self.value {
+          hadOneofValue = true
+          if case .relationRemove(let m) = current {v = m}
+        }
+        try decoder.decodeSingularMessageField(value: &v)
+        if let v = v {
+          if hadOneofValue {try decoder.handleConflictingOneOf()}
+          self.value = .relationRemove(v)
+        }
+      }()
       case 100: try {
         var v: Anytype_Change.DetailsSet?
         var hadOneofValue = false
@@ -944,42 +1026,42 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
         }
       }()
       case 102: try {
-        var v: Anytype_Change.RelationAdd?
+        var v: Anytype_Change._RelationAdd?
         var hadOneofValue = false
         if let current = self.value {
           hadOneofValue = true
-          if case .relationAdd(let m) = current {v = m}
+          if case .oldRelationAdd(let m) = current {v = m}
         }
         try decoder.decodeSingularMessageField(value: &v)
         if let v = v {
           if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .relationAdd(v)
+          self.value = .oldRelationAdd(v)
         }
       }()
       case 103: try {
-        var v: Anytype_Change.RelationRemove?
+        var v: Anytype_Change._RelationRemove?
         var hadOneofValue = false
         if let current = self.value {
           hadOneofValue = true
-          if case .relationRemove(let m) = current {v = m}
+          if case .oldRelationRemove(let m) = current {v = m}
         }
         try decoder.decodeSingularMessageField(value: &v)
         if let v = v {
           if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .relationRemove(v)
+          self.value = .oldRelationRemove(v)
         }
       }()
       case 104: try {
-        var v: Anytype_Change.RelationUpdate?
+        var v: Anytype_Change._RelationUpdate?
         var hadOneofValue = false
         if let current = self.value {
           hadOneofValue = true
-          if case .relationUpdate(let m) = current {v = m}
+          if case .oldRelationUpdate(let m) = current {v = m}
         }
         try decoder.decodeSingularMessageField(value: &v)
         if let v = v {
           if hadOneofValue {try decoder.handleConflictingOneOf()}
-          self.value = .relationUpdate(v)
+          self.value = .oldRelationUpdate(v)
         }
       }()
       case 105: try {
@@ -1065,6 +1147,14 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       guard case .blockDuplicate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 5)
     }()
+    case .relationAdd?: try {
+      guard case .relationAdd(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 50)
+    }()
+    case .relationRemove?: try {
+      guard case .relationRemove(let v)? = self.value else { preconditionFailure() }
+      try visitor.visitSingularMessageField(value: v, fieldNumber: 51)
+    }()
     case .detailsSet?: try {
       guard case .detailsSet(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 100)
@@ -1073,16 +1163,16 @@ extension Anytype_Change.Content: SwiftProtobuf.Message, SwiftProtobuf._MessageI
       guard case .detailsUnset(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 101)
     }()
-    case .relationAdd?: try {
-      guard case .relationAdd(let v)? = self.value else { preconditionFailure() }
+    case .oldRelationAdd?: try {
+      guard case .oldRelationAdd(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 102)
     }()
-    case .relationRemove?: try {
-      guard case .relationRemove(let v)? = self.value else { preconditionFailure() }
+    case .oldRelationRemove?: try {
+      guard case .oldRelationRemove(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 103)
     }()
-    case .relationUpdate?: try {
-      guard case .relationUpdate(let v)? = self.value else { preconditionFailure() }
+    case .oldRelationUpdate?: try {
+      guard case .oldRelationUpdate(let v)? = self.value else { preconditionFailure() }
       try visitor.visitSingularMessageField(value: v, fieldNumber: 104)
     }()
     case .objectTypeAdd?: try {
@@ -1386,6 +1476,70 @@ extension Anytype_Change.DetailsUnset: SwiftProtobuf.Message, SwiftProtobuf._Mes
 extension Anytype_Change.RelationAdd: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = Anytype_Change.protoMessageName + ".RelationAdd"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "relationLinks"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedMessageField(value: &self.relationLinks) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.relationLinks.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.relationLinks, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Change.RelationAdd, rhs: Anytype_Change.RelationAdd) -> Bool {
+    if lhs.relationLinks != rhs.relationLinks {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Change.RelationRemove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".RelationRemove"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "relationId"),
+  ]
+
+  public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      // The use of inline closures is to circumvent an issue where the compiler
+      // allocates stack space for every case branch when no optimizations are
+      // enabled. https://github.com/apple/swift-protobuf/issues/1034
+      switch fieldNumber {
+      case 1: try { try decoder.decodeRepeatedStringField(value: &self.relationID) }()
+      default: break
+      }
+    }
+  }
+
+  public func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.relationID.isEmpty {
+      try visitor.visitRepeatedStringField(value: self.relationID, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  public static func ==(lhs: Anytype_Change.RelationRemove, rhs: Anytype_Change.RelationRemove) -> Bool {
+    if lhs.relationID != rhs.relationID {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension Anytype_Change._RelationAdd: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + "._RelationAdd"
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     2: .same(proto: "relation"),
   ]
 
@@ -1412,15 +1566,15 @@ extension Anytype_Change.RelationAdd: SwiftProtobuf.Message, SwiftProtobuf._Mess
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Change.RelationAdd, rhs: Anytype_Change.RelationAdd) -> Bool {
+  public static func ==(lhs: Anytype_Change._RelationAdd, rhs: Anytype_Change._RelationAdd) -> Bool {
     if lhs._relation != rhs._relation {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Change.RelationUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".RelationUpdate"
+extension Anytype_Change._RelationUpdate: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + "._RelationUpdate"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "key"),
     2: .same(proto: "format"),
@@ -1468,7 +1622,7 @@ extension Anytype_Change.RelationUpdate: SwiftProtobuf.Message, SwiftProtobuf._M
         }
       }()
       case 5: try {
-        var v: Anytype_Change.RelationUpdate.ObjectTypes?
+        var v: Anytype_Change._RelationUpdate.ObjectTypes?
         var hadOneofValue = false
         if let current = self.value {
           hadOneofValue = true
@@ -1489,7 +1643,7 @@ extension Anytype_Change.RelationUpdate: SwiftProtobuf.Message, SwiftProtobuf._M
         }
       }()
       case 7: try {
-        var v: Anytype_Change.RelationUpdate.Dict?
+        var v: Anytype_Change._RelationUpdate.Dict?
         var hadOneofValue = false
         if let current = self.value {
           hadOneofValue = true
@@ -1544,7 +1698,7 @@ extension Anytype_Change.RelationUpdate: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Change.RelationUpdate, rhs: Anytype_Change.RelationUpdate) -> Bool {
+  public static func ==(lhs: Anytype_Change._RelationUpdate, rhs: Anytype_Change._RelationUpdate) -> Bool {
     if lhs.key != rhs.key {return false}
     if lhs.value != rhs.value {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
@@ -1552,8 +1706,8 @@ extension Anytype_Change.RelationUpdate: SwiftProtobuf.Message, SwiftProtobuf._M
   }
 }
 
-extension Anytype_Change.RelationUpdate.Dict: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Change.RelationUpdate.protoMessageName + ".Dict"
+extension Anytype_Change._RelationUpdate.Dict: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Change._RelationUpdate.protoMessageName + ".Dict"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     2: .same(proto: "dict"),
   ]
@@ -1577,15 +1731,15 @@ extension Anytype_Change.RelationUpdate.Dict: SwiftProtobuf.Message, SwiftProtob
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Change.RelationUpdate.Dict, rhs: Anytype_Change.RelationUpdate.Dict) -> Bool {
+  public static func ==(lhs: Anytype_Change._RelationUpdate.Dict, rhs: Anytype_Change._RelationUpdate.Dict) -> Bool {
     if lhs.dict != rhs.dict {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Change.RelationUpdate.ObjectTypes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Change.RelationUpdate.protoMessageName + ".ObjectTypes"
+extension Anytype_Change._RelationUpdate.ObjectTypes: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Change._RelationUpdate.protoMessageName + ".ObjectTypes"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "objectTypes"),
   ]
@@ -1609,15 +1763,15 @@ extension Anytype_Change.RelationUpdate.ObjectTypes: SwiftProtobuf.Message, Swif
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Change.RelationUpdate.ObjectTypes, rhs: Anytype_Change.RelationUpdate.ObjectTypes) -> Bool {
+  public static func ==(lhs: Anytype_Change._RelationUpdate.ObjectTypes, rhs: Anytype_Change._RelationUpdate.ObjectTypes) -> Bool {
     if lhs.objectTypes != rhs.objectTypes {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
 }
 
-extension Anytype_Change.RelationRemove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
-  public static let protoMessageName: String = Anytype_Change.protoMessageName + ".RelationRemove"
+extension Anytype_Change._RelationRemove: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: String = Anytype_Change.protoMessageName + "._RelationRemove"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "key"),
   ]
@@ -1641,7 +1795,7 @@ extension Anytype_Change.RelationRemove: SwiftProtobuf.Message, SwiftProtobuf._M
     try unknownFields.traverse(visitor: &visitor)
   }
 
-  public static func ==(lhs: Anytype_Change.RelationRemove, rhs: Anytype_Change.RelationRemove) -> Bool {
+  public static func ==(lhs: Anytype_Change._RelationRemove, rhs: Anytype_Change._RelationRemove) -> Bool {
     if lhs.key != rhs.key {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true

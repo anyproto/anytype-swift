@@ -89,9 +89,62 @@ extension SmartBlockType {
             self = .workspaceOld
         case .workspace:
             self = .workspace
+        // TODO: Support
+        case .relationOption:
+            self = .UNRECOGNIZED(0)
         case .UNRECOGNIZED(let int):
             self = .UNRECOGNIZED(int)
         }
     }
     
+    public var asMiddleware: Anytype_Model_SmartBlockType {
+        switch self {
+        case .accountOld:
+            return .accountOld
+        case .breadcrumbs:
+            return .breadcrumbs
+        case .page:
+            return .page
+        case .profilePage:
+            return .profilePage
+        case .home:
+            return .home
+        case .archive:
+            return .archive
+        case .database:
+            return .database
+        case .set:
+            return .set
+        case .stobjectType:
+            return .stobjectType
+        case .file:
+            return .file
+        case .template:
+            return .template
+        case .bundledTemplate:
+            return .bundledTemplate
+        case .marketplaceType:
+            return .marketplaceType
+        case .marketplaceRelation:
+            return .marketplaceRelation
+        case .marketplaceTemplate:
+            return .marketplaceTemplate
+        case .bundledRelation:
+            return .bundledRelation
+        case .indexedRelation:
+            return .indexedRelation
+        case .bundledObjectType:
+            return .bundledObjectType
+        case .anytypeProfile:
+            return .anytypeProfile
+        case .date:
+            return .date
+        case .workspaceOld:
+            return .workspaceOld
+        case .workspace:
+            return .workspace
+        case .UNRECOGNIZED(let int):
+            return .UNRECOGNIZED(int)
+        }
+    }
 }

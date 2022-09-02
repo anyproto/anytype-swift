@@ -16,6 +16,8 @@ public protocol BundledRelationsValueProvider {
     var coverType: CoverType { get }
     var isArchived: Bool { get }
     var isFavorite: Bool { get }
+    var isReadonly: Bool { get }
+    var isHidden: Bool { get }
     var description: String { get }
     var layout: DetailsLayout { get }
     var layoutAlign: LayoutAlignment { get }
@@ -27,6 +29,7 @@ public protocol BundledRelationsValueProvider {
     var isSelectTemplate: Bool { get }
     var url: String { get }
     var picture: String { get }
+    var smartblockTypes: [SmartBlockType] { get }
 }
 
 
@@ -69,6 +72,14 @@ public extension BundledRelationsValueProvider {
     
     var isFavorite: Bool {
         boolValue(with: .isFavorite)
+    }
+    
+    var isReadonly: Bool {
+        boolValue(with: .isReadonly)
+    }
+    
+    var isHidden: Bool {
+        boolValue(with: .isHidden)
     }
     
     var description: String {
@@ -140,6 +151,15 @@ public extension BundledRelationsValueProvider {
     
     var picture: String {
         stringValue(with: .picture)
+    }
+    
+    var smartblockTypes: [SmartBlockType] {
+        guard let value = values[BundledRelationKey.smartblockTypes.rawValue] else { return [] }
+        let rawValues = value.listValue.values
+        return rawValues
+            .compactMap { $0.safeIntValue }
+            .compactMap { Anytype_Model_SmartBlockType(rawValue: $0) }
+            .map { SmartBlockType(smartBlockType: $0) }
     }
     
     // MARK: - Private
