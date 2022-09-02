@@ -2,6 +2,22 @@ import Foundation
 import ProtobufMessages
 import SwiftProtobuf
 
+public struct RelationInfo: Hashable {
+    public let key: String
+    public let name: String
+    public let format: RelationMetadata.Format
+    public let isHidden: Bool
+    public let isReadOnly: Bool
+
+    public init(objectDetails: ObjectDetails) {
+        self.key = objectDetails.values["relationKey"]?.stringValue ?? ""
+        self.name = objectDetails.name
+        self.format = objectDetails.values["relationFormat"]?.safeIntValue.map { RelationMetadata.Format(rawValue: $0) } ?? .unrecognized
+        self.isHidden = objectDetails.isHidden
+        self.isReadOnly = objectDetails.isReadonly
+    }
+}
+
 public struct RelationMetadata: Hashable {
     
     public let key: String

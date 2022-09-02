@@ -14,9 +14,9 @@ protocol RelationsServiceProtocol {
     func updateRelation(relationKey: String, value: Google_Protobuf_Value)
 
     func createRelation(relation: RelationMetadata) -> RelationMetadata?
-    func addRelation(relation: RelationMetadata) -> RelationMetadata?
+    func addRelation(relation: RelationInfo) -> RelationMetadata?
 
     func removeRelation(relationKey: String)
     func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String?
-    func availableRelations() -> [RelationMetadata]?
+    func availableRelations() -> [RelationInfo]?
 }

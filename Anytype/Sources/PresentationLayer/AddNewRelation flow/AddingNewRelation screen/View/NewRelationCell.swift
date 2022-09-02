@@ -30,7 +30,7 @@ struct NewRelationCell: View {
 extension NewRelationCell {
     enum CellKind {
         case createNew(searchText: String)
-        case relation(realtionMetadata: RelationMetadata)
+        case relation(realtionMetadata: RelationInfo)
 
         var icon: Image {
             switch self {

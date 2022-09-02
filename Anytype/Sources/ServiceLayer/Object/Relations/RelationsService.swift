@@ -3,7 +3,9 @@ import ProtobufMessages
 import BlocksModels
 import SwiftProtobuf
 
-final class RelationsService {
+final class RelationsService: RelationsServiceProtocol {
+    
+    private let searchCommonService = SearchCommonService()
     
     private let objectId: String
         
@@ -11,9 +13,7 @@ final class RelationsService {
         self.objectId = objectId
     }
     
-}
-
-extension RelationsService: RelationsServiceProtocol {
+    // MARK: - RelationsServiceProtocol
     
     func addFeaturedRelation(relationKey: String) {
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.addFeatureRelation)
@@ -55,8 +55,9 @@ extension RelationsService: RelationsServiceProtocol {
         addRelation(relation: relation, isNew: true)
     }
 
-    func addRelation(relation: RelationMetadata) -> RelationMetadata? {
-        addRelation(relation: relation, isNew: false)
+    func addRelation(relation: RelationInfo) -> RelationMetadata? {
+        return nil
+//        addRelation(relation: relation, isNew: false)
     }
 
     private func addRelation(relation: RelationMetadata, isNew: Bool) -> RelationMetadata? {
@@ -127,13 +128,28 @@ extension RelationsService: RelationsServiceProtocol {
         }
     }
 
-    func availableRelations() -> [RelationMetadata]? {
-        let relations = Anytype_Rpc.ObjectRelation.ListAvailable.Service
-            .invoke(contextID: objectId)
-            .map { $0.relations }
-            .getValue(domain: .relationsService)
+    func availableRelations() -> [RelationInfo]? {
         
-        return relations?.map { RelationMetadata(middlewareRelation: $0) }
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+        let filters = [
+            SearchHelper.isArchivedFilter(isArchived: false),
+            SearchHelper.typeFilter(typeUrls: [ObjectTypeUrl.bundled(.relation).rawValue])
+        ]
+        
+        let relations = searchCommonService.search(filters: filters, sorts: [sort], fullText: "", limit: 0)
+        
+        return relations?.map { RelationInfo(objectDetails: $0) }
+        
+//        let relations = Anytype_Rpc.ObjectRelation.ListAvailable.Service
+//            .invoke(contextID: objectId)
+//            .map { $0.relations }
+//            .getValue(domain: .relationsService)
+//
+        
+//        return relations?.map { RelationMetadata(middlewareRelation: $0) }
     }
     
 }

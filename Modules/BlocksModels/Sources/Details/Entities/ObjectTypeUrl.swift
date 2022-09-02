@@ -10,6 +10,7 @@ public enum ObjectTypeUrl: RawRepresentable {
         case template = "_ottemplate"
         case bookmark = "_otbookmark"
         case objectType = "_otobjectType"
+        case relation = "_otrelation"
     }
 
     public init?(rawValue: String) {
