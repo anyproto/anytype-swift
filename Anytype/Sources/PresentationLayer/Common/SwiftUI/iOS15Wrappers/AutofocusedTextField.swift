@@ -16,7 +16,7 @@ struct AutofocusedTextField: View {
         self.placeholder = placeholder
         self.placeholderFont = placeholderFont
         self.shouldSkipFocusOnFilled = shouldSkipFocusOnFilled
-        _text = text
+        self._text = text
     }
     
     var body: some View {

@@ -15,6 +15,8 @@ final class EditorSetViewModel: ObservableObject {
     
     @Published var sorts: [SetSort] = []
     @Published var filters: [SetFilter] = []
+
+    var isUpdating = false
     
     var isEmpty: Bool {
         dataView.views.isEmpty
@@ -90,6 +92,7 @@ final class EditorSetViewModel: ObservableObject {
     private let detailsService: DetailsServiceProtocol
     private let textService: TextServiceProtocol
     private var subscriptions = [AnyCancellable]()
+    private var titleSubscription: AnyCancellable?
 
     
     init(
@@ -118,16 +121,6 @@ final class EditorSetViewModel: ObservableObject {
             self?.onDataChange($0)
         }.store(in: &subscriptions)
 
-        $titleString.sink { [weak self] newValue in
-            guard let self = self else { return }
-
-            self.textService.setText(
-                contextId: self.document.objectId,
-                blockId: BundledRelationKey.title.rawValue,
-                middlewareString: .init(text: newValue, marks: .init())
-            )
-        }.store(in: &subscriptions)
-        
         Task { @MainActor in
             do {
                 try await document.open()
@@ -205,18 +198,36 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func setupDataview() {
+        isUpdating = true
+
         anytypeAssert(document.dataviews.count < 2, "\(document.dataviews.count) dataviews in set", domain: .editorSet)
         document.dataviews.first.flatMap { dataView in
             anytypeAssert(dataView.views.isNotEmpty, "Empty views in dataview: \(dataView)", domain: .editorSet)
         }
         
         self.dataView = document.dataviews.first ?? .empty
-        
+
+        if let details = document.details {
+            titleString = details.pageCellTitle
+
+            titleSubscription = $titleString.sink { [weak self] newValue in
+                guard let self = self, !self.isUpdating else { return }
+
+                self.textService.setText(
+                    contextId: self.document.objectId,
+                    blockId: BundledRelationKey.title.rawValue,
+                    middlewareString: .init(text: newValue, marks: .init())
+                )
+            }
+        }
+
         updateActiveViewId()
         updateSorts()
         updateFilters()
         setupSubscriptions()
         featuredRelations = document.featuredRelationsForEditor
+
+        isUpdating = false
     }
     
     private func updateActiveViewId() {

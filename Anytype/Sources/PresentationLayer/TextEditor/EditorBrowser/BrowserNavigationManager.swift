@@ -73,14 +73,9 @@ final class BrowserNavigationManager {
             closeAction()
         } else if cachedChildrenCount < childernCount {
             openAction(page: page)
-        } else {
-            throw BrowserNavigationManagerError.didShow(
-                page: page,
-                openedPages: openedPages,
-                closedPages: closedPages,
-                childernCount: childernCount,
-                cachedChildrenCount: cachedChildrenCount
-            )
+        } else if cachedChildrenCount == childernCount { // Replace view controller happen
+            closeAction()
+            openAction(page: page)
         }
     }
     
