@@ -40,8 +40,14 @@ final class DataviewService: DataviewServiceProtocol {
     }
     
     #warning("Merge with relation service")
-    func deleteRelation(key: BlockId) {
-                
+    func deleteRelation(relationId: BlockId) {
+        #warning("Check me")
+        Anytype_Rpc.ObjectRelation.Delete.Service
+            .invocation(contextID: objectId, relationID: relationId)
+            .invoke()
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .relationsService)?
+            .send()
 //        Anytype_Rpc.BlockDataview.Relation.Delete.Service
 //            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationKey: key)
 //            .map { EventsBunch(event: $0.event) }

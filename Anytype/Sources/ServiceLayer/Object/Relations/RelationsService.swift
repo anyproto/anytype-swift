@@ -82,15 +82,21 @@ final class RelationsService: RelationsServiceProtocol {
 //        return RelationMetadata(middlewareRelation: response.relation)
     }
     
-    func removeRelation(relationKey: String) {
-        #warning("Fix me")
+    func removeRelation(relationId: String) {
+        #warning("Check me")
+        Anytype_Rpc.ObjectRelation.Delete.Service
+            .invocation(contextID: objectId, relationID: relationId)
+            .invoke()
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .relationsService)?
+            .send()
 //        Anytype_Rpc.ObjectRelation.Delete.Service
 //            .invoke(contextID: objectId, relationKey: relationKey)
 //            .map { EventsBunch(event: $0.event) }
 //            .getValue(domain: .relationsService)?
 //            .send()
-//
-//        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
+
+        AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
     }
     
     func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String? {

@@ -16,7 +16,7 @@ protocol RelationsServiceProtocol {
     func createRelation(relation: RelationMetadata) -> RelationMetadata?
     func addRelation(relation: RelationInfo) -> Bool
 
-    func removeRelation(relationKey: String)
+    func removeRelation(relationId: String)
     func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String?
     func availableRelations() -> [RelationInfo]?
 }
