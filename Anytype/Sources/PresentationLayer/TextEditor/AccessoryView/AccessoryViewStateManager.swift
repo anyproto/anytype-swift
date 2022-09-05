@@ -3,7 +3,7 @@ import UIKit
 
 protocol AccessoryViewStateManager {
     func willBeginEditing(data: TextBlockDelegateData)
-    func didEndEditing()
+    func didEndEditing(data: TextBlockDelegateData)
     func textDidChange(changeType: TextChangeType)
     func selectionDidChange(range: NSRange)
 }
@@ -26,8 +26,8 @@ final class AccessoryViewStateManagerImpl: AccessoryViewStateManager, CursorMode
         switcher.updateData(data: data)
     }
     
-    func didEndEditing() {
-        switcher.restoreDefaultState()
+    func didEndEditing(data: TextBlockDelegateData) {
+        switcher.clearAccessory(data: data)
     }
 
     func textDidChange(changeType: TextChangeType) {
