@@ -3,20 +3,51 @@ import ProtobufMessages
 import SwiftProtobuf
 
 public struct RelationInfo: Hashable {
+
     public let id: String
     public let key: String
     public let name: String
     public let format: RelationMetadata.Format
     public let isHidden: Bool
     public let isReadOnly: Bool
+    
+    public init(
+        id: String,
+        key: String,
+        name: String,
+        format: RelationMetadata.Format,
+        isHidden: Bool,
+        isReadOnly: Bool
+    ) {
+        self.id = id
+        self.key = key
+        self.name = name
+        self.format = format
+        self.isHidden = isHidden
+        self.isReadOnly = isReadOnly
+    }
+}
 
-    public init(objectDetails: ObjectDetails) {
+public extension RelationInfo {
+    
+    init(objectDetails: ObjectDetails) {
         self.id = objectDetails.id
         self.key = objectDetails.values["relationKey"]?.stringValue ?? ""
         self.name = objectDetails.name
         self.format = objectDetails.values["relationFormat"]?.safeIntValue.map { RelationMetadata.Format(rawValue: $0) } ?? .unrecognized
         self.isHidden = objectDetails.isHidden
         self.isReadOnly = objectDetails.isReadonly
+    }
+    
+    var asCreateMiddleware: Google_Protobuf_Struct {
+        var fields = [String: Google_Protobuf_Value]()
+        if name.isNotEmpty {
+            fields["name"] = name.protobufValue
+        }
+        if format != .unrecognized {
+            fields["relationFormat"] = format.rawValue.protobufValue
+        }
+        return Google_Protobuf_Struct(fields: fields)
     }
 }
 

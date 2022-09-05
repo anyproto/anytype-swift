@@ -48,24 +48,34 @@ extension NewRelationViewModel {
     }
     
     func didTapAddButton() {
-        let relationMetatdata = RelationMetadata(
+        #warning("Fix objectTypeIds")
+        let relationMetatdata = RelationInfo(
+            id: "",
             key: "",
             name: name,
             format: format.asRelationMetadataFormat,
             isHidden: false,
-            isReadOnly: false,
-            isMulti: format.isMulti,
-            selections: [],
-            objectTypes: objectTypeIds,
-            scope: .object,
-            isBundled: false
+            isReadOnly: false
         )
+        
+//        let relationMetatdata = RelationMetadata(
+//            key: "",
+//            name: name,
+//            format: format.asRelationMetadataFormat,
+//            isHidden: false,
+//            isReadOnly: false,
+//            isMulti: format.isMulti,
+//            selections: [],
+//            objectTypes: objectTypeIds,
+//            scope: .object,
+//            isBundled: false
+//        )
 
-        #warning("Fix me")
-        if let relation = service.createRelation(relation: relationMetatdata) {
-            UINotificationFeedbackGenerator().notificationOccurred(.success)
-//            output?.didCreateRelation(relation)
-        }
+//        #warning("Fix me")
+        
+        guard service.createRelation(relation: relationMetatdata) else { return }
+        UINotificationFeedbackGenerator().notificationOccurred(.success)
+        output?.didCreateRelation(relationMetatdata)
     }
     
 }

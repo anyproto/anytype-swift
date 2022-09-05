@@ -51,14 +51,26 @@ final class RelationsService: RelationsServiceProtocol {
             .send()
     }
 
-    func createRelation(relation: RelationMetadata) -> RelationMetadata? {
-        addRelation(relation: relation, isNew: true)
+    func createRelation(relation: RelationInfo) -> Bool {
+        #warning("Fix object limit")
+        let result = Anytype_Rpc.Object.CreateRelation.Service
+            .invocation(details: relation.asCreateMiddleware)
+            .invoke()
+            .getValue(domain: .relationsService)
+        
+        guard let result = result else { return false }
+        
+        return addRelation(relationId: result.objectID)
     }
 
     func addRelation(relation: RelationInfo) -> Bool {
+        addRelation(relationId: relation.id)
+    }
 
+    private func addRelation(relationId: String) -> Bool {
+        
         let events = Anytype_Rpc.ObjectRelation.Add.Service
-            .invocation(contextID: objectId, relationIds: [relation.id])
+            .invocation(contextID: objectId, relationIds: [relationId])
             .invoke()
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .relationsService)
@@ -66,11 +78,9 @@ final class RelationsService: RelationsServiceProtocol {
         events?.send()
         
         return events.isNotNil
-    }
-
-    private func addRelation(relation: RelationMetadata, isNew: Bool) -> RelationMetadata? {
-        #warning("Fix me")
-        return nil
+        
+//        #warning("Fix me")
+//        return nil
 //        let response = Anytype_Rpc.ObjectRelation.Add.Service
 //            .invoke(contextID: objectId, relation: relation.asMiddleware)
 //            .getValue(domain: .relationsService)
