@@ -164,9 +164,4 @@ final class BlockActionServiceMock: BlockActionServiceProtocol {
     func setFields(blockFields: BlockFields, blockId: BlockId) {
         assertionFailure()
     }
-
-    func setObjectSetType() -> BlockId {
-        assertionFailure()
-        return ""
-    }
 }
