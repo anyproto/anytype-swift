@@ -20,7 +20,7 @@ extension Array where Element: IdProvider {
             self = data.map { transform($0) }
         case .update(let data):
             let newData = transform(data)
-            guard let index = indexInCollection(blockId: newData.id, assert: false) else { return }
+            guard let index = indexInCollection(blockId: newData.id) else { return }
             self[index] = newData
         case .remove(let blockId):
             guard let index = indexInCollection(blockId: blockId) else { return }
@@ -44,11 +44,8 @@ extension Array where Element: IdProvider {
         return index + 1
     }
 
-    private func indexInCollection(blockId: BlockId, assert: Bool = true) -> Int? {
-        guard let index = self.firstIndex(where: { $0.id == blockId }) else {
-            if assert {
-                anytypeAssertionFailure("No history cell found for blockId: \(blockId)", domain: .homeView)
-            }
+    private func indexInCollection(blockId: BlockId) -> Int? {
+        guard let index = firstIndex(where: { $0.id == blockId }) else {
             return nil
         }
         
