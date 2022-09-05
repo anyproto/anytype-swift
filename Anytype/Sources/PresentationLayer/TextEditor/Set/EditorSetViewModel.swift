@@ -12,6 +12,7 @@ final class EditorSetViewModel: ObservableObject {
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
     @Published var featuredRelations = [Relation]()
+    @Published var configurations = [SetContentViewItemConfiguration]()
     
     @Published var sorts: [SetSort] = []
     @Published var filters: [SetFilter] = []
@@ -28,22 +29,6 @@ final class EditorSetViewModel: ObservableObject {
     
     var colums: [RelationMetadata] {
         sortedRelations.filter { $0.option.isVisible }.map(\.metadata)
-    }
- 
-    var configurations: [SetContentViewItemConfiguration] {
-        dataBuilder.itemData(
-            records,
-            dataView: dataView,
-            activeView: activeView,
-            colums: colums,
-            isObjectLocked: isObjectLocked,
-            onIconTap: { [weak self] details in
-                self?.updateDetailsIfNeeded(details)
-            },
-            onItemTap: { [weak self] details in
-                self?.itemTapped(details)
-            }
-        )
     }
     
     var isSmallItemSize: Bool {
@@ -93,7 +78,6 @@ final class EditorSetViewModel: ObservableObject {
     private let textService: TextServiceProtocol
     private var subscriptions = [AnyCancellable]()
     private var titleSubscription: AnyCancellable?
-
     
     init(
         document: BaseDocument,
@@ -179,6 +163,19 @@ final class EditorSetViewModel: ObservableObject {
             }
             
             self.records.applySubscriptionUpdate(update)
+            self.configurations = self.dataBuilder.itemData(
+                self.records,
+                dataView: self.dataView,
+                activeView: self.activeView,
+                colums: self.colums,
+                isObjectLocked: self.isObjectLocked,
+                onIconTap: { [weak self] details in
+                    self?.updateDetailsIfNeeded(details)
+                },
+                onItemTap: { [weak self] details in
+                    self?.itemTapped(details)
+                }
+            )
         }
     }
     
@@ -213,11 +210,22 @@ final class EditorSetViewModel: ObservableObject {
             titleSubscription = $titleString.sink { [weak self] newValue in
                 guard let self = self, !self.isUpdating else { return }
 
+                if newValue.contains(where: \.isNewline) {
+                    self.isUpdating = true
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.01) { // Return button tapped on keyboard. Waiting for iOS 15 support!!!
+                        self.titleString = newValue.trimmingCharacters(in: .newlines)
+                    }
+                    UIApplication.shared.hideKeyboard()
+                    return
+                }
+
                 self.textService.setText(
                     contextId: self.document.objectId,
                     blockId: BundledRelationKey.title.rawValue,
                     middlewareString: .init(text: newValue, marks: .init())
                 )
+
+                self.isUpdating = false
             }
         }
 

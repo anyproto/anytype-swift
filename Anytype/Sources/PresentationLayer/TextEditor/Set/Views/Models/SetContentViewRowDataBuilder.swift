@@ -6,6 +6,7 @@ import SwiftProtobuf
 final class SetContentViewDataBuilder {
     private let relationsBuilder = RelationsBuilder()
     private let storage = ObjectDetailsStorage.shared
+    private let isGalleryViewEnabled = FeatureFlags.setGalleryView
     
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
         let relations: [SetRelation] = view.options
@@ -82,7 +83,7 @@ final class SetContentViewDataBuilder {
         dataView: BlockDataview,
         activeView: DataviewView) -> ObjectHeaderCoverType?
     {
-        guard FeatureFlags.setGalleryView, activeView.type == .gallery else {
+        guard isGalleryViewEnabled, activeView.type == .gallery else {
             return nil
         }
         if activeView.coverRelationKey == SetViewSettingsImagePreviewCover.pageCover.rawValue,
