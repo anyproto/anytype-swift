@@ -26,33 +26,42 @@ final class DataviewService: DataviewServiceProtocol {
             .send()
     }
     
-    #warning("Merge with relation service")
+//    #warning("Merge with relation service")
     func addRelation(_ relation: RelationDetails) -> Bool {
-        let events = Anytype_Rpc.ObjectRelation.Add.Service
-            .invocation(contextID: objectId, relationIds: [relation.id])
-            .invoke()
+        #warning("Check me")
+        let events = Anytype_Rpc.BlockDataview.Relation.Add.Service
+            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationID: relation.id)
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .dataviewService)
-
+        
         events?.send()
-
+        
         return events.isNotNil
+//        let events = Anytype_Rpc.ObjectRelation.Add.Service
+//            .invocation(contextID: objectId, relationIds: [relation.id])
+//            .invoke()
+//            .map { EventsBunch(event: $0.event) }
+//            .getValue(domain: .dataviewService)
+//
+//        events?.send()
+//
+//        return events.isNotNil
     }
     
-    #warning("Merge with relation service")
+//    #warning("Merge with relation service")
     func deleteRelation(relationId: BlockId) {
         #warning("Check me")
-        Anytype_Rpc.ObjectRelation.Delete.Service
-            .invocation(contextID: objectId, relationID: relationId)
-            .invoke()
-            .map { EventsBunch(event: $0.event) }
-            .getValue(domain: .relationsService)?
-            .send()
-//        Anytype_Rpc.BlockDataview.Relation.Delete.Service
-//            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationKey: key)
+//        Anytype_Rpc.ObjectRelation.Delete.Service
+//            .invocation(contextID: objectId, relationID: relationId)
+//            .invoke()
 //            .map { EventsBunch(event: $0.event) }
-//            .getValue(domain: .dataviewService)?
+//            .getValue(domain: .relationsService)?
 //            .send()
+        Anytype_Rpc.BlockDataview.Relation.Delete.Service
+            .invoke(contextID: objectId, blockID: SetConstants.dataviewBlockId, relationID: relationId)
+            .map { EventsBunch(event: $0.event) }
+            .getValue(domain: .dataviewService)?
+            .send()
     }
     
     func addRecord(templateId: BlockId, setFilters: [SetFilter]) -> ObjectDetails? {

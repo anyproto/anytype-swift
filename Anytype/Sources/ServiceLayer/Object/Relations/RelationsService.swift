@@ -65,7 +65,7 @@ final class RelationsService: RelationsServiceProtocol {
 
     func addRelation(relation: RelationDetails) -> Bool {
         #warning("Check me")
-        addRelation(relationId: relation.id)
+        return addRelation(relationId: relation.id)
     }
 
     private func addRelation(relationId: String) -> Bool {
