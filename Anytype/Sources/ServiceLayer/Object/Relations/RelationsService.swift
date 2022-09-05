@@ -64,11 +64,12 @@ final class RelationsService: RelationsServiceProtocol {
     }
 
     func addRelation(relation: RelationDetails) -> Bool {
+        #warning("Check me")
         addRelation(relationId: relation.id)
     }
 
     private func addRelation(relationId: String) -> Bool {
-        
+        #warning("Check me")
         let events = Anytype_Rpc.ObjectRelation.Add.Service
             .invocation(contextID: objectId, relationIds: [relationId])
             .invoke()
