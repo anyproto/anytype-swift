@@ -3,18 +3,24 @@ import ProtobufMessages
 import AnytypeCore
 
 final class LocalEventConverter {
+    private let objectId: String
     private let infoContainer: InfoContainerProtocol
     private let blockValidator = BlockValidator()
     private let detailsStorage = ObjectDetailsStorage.shared
-    private let relationStorage: RelationsMetadataStorageProtocol
+    private let relationLinksStorage: RelationLinksStorageProtocol
+//    private let relationStorage: RelationsMetadataStorageProtocol
     private let restrictionsContainer: ObjectRestrictionsContainer
     
     init(
-        relationStorage: RelationsMetadataStorageProtocol,
+        objectId: String,
+//        relationStorage: RelationsMetadataStorageProtocol,
+        relationLinksStorage: RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
         infoContainer: InfoContainerProtocol
     ) {
-        self.relationStorage = relationStorage
+        self.objectId = objectId
+//        self.relationStorage = relationStorage
+        self.relationLinksStorage = relationLinksStorage
         self.restrictionsContainer = restrictionsContainer
         self.infoContainer = infoContainer
     }
@@ -61,12 +67,19 @@ final class LocalEventConverter {
 
             parsedDetails.forEach { detailsStorage.add(details: $0) }
     
-            relationStorage.set(
-                relations: data.relations.map { RelationMetadata(middlewareRelation: $0) }
-            )
+            #warning("Check me")
+            let relationLinks = data.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
+            relationLinksStorage.set(relationLinks: relationLinks)
+            RelationDetailsStorage.shared.subscribeForLocalEvents(contextId: objectId, links: relationLinks)
+            
+//            relationStorage.set(
+//                relations: data.relations.map { RelationMetadata(middlewareRelation: $0) }
+//            )
             let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: data.restrictions)
 
             restrictionsContainer.restrinctions = restrinctions
+            return .general
+        case .relationChanged:
             return .general
         }
     }

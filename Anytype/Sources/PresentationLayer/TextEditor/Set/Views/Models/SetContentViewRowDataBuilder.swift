@@ -35,13 +35,15 @@ final class SetContentViewDataBuilder {
             .filter { $0.option.isVisible == true }
             .map { $0.metadata }
         return details.compactMap { details in
-            let parsedRelations = relationsBuilder
-                .parsedRelations(
-                    relationMetadatas: metadata,
-                    objectId: details.id,
-                    isObjectLocked: isObjectLocked
-                )
-                .all
+            #warning("fix me")
+            let parsedRelations = ParsedRelations.empty.all
+//            let parsedRelations = relationsBuilder
+//                .parsedRelations(
+//                    relationMetadatas: metadata,
+//                    objectId: details.id,
+//                    isObjectLocked: isObjectLocked
+//                )
+//                .all
             
             let sortedRelations = colums.compactMap { colum in
                 parsedRelations.first { $0.id == colum.key }

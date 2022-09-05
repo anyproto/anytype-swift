@@ -1,5 +1,6 @@
 import Foundation
 
+#warning("Rename to relation key")
 public enum BundledRelationKey: String {
     
     case id
@@ -40,4 +41,35 @@ public enum BundledRelationKey: String {
     case workspaceId
     case fileExt
     case fileMimeType
+}
+
+
+public extension BundledRelationKey {
+    static var readonlyRelationKeys: [BundledRelationKey] {
+        [
+            .id,
+            .name,
+            .description,
+            .iconEmoji,
+            .iconImage,
+            .creator,
+            .createdDate,
+            .type,
+            .layout,
+            .layoutAlign,
+            .lastOpenedDate,
+            .lastModifiedBy,
+            .lastModifiedDate,
+            .addedDate,
+            .coverId,
+            .coverScale,
+            .coverType,
+            .coverX,
+            .coverY,
+            .featuredRelations,
+            .isHidden,
+            .isArchived,
+            .smartblockTypes
+        ]
+    }
 }

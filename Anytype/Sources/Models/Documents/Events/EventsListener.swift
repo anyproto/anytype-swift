@@ -27,7 +27,8 @@ final class EventsListener: EventsListenerProtocol {
     init(
         objectId: BlockId,
         infoContainer: InfoContainerProtocol,
-        relationStorage: RelationsMetadataStorageProtocol,
+        relationLinksStorage: RelationLinksStorageProtocol,
+//        relationStorage: RelationsMetadataStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer
     ) {
         self.objectId = objectId
@@ -38,13 +39,17 @@ final class EventsListener: EventsListenerProtocol {
             infoContainer: infoContainer
         )
         self.middlewareConverter = MiddlewareEventConverter(
+            objectId: objectId,
             infoContainer: infoContainer,
-            relationStorage: relationStorage,
+            relationLinksStorage: relationLinksStorage,
+//            relationStorage: relationStorage,
             informationCreator: informationCreator,
             restrictionsContainer: restrictionsContainer
         )
         self.localConverter = LocalEventConverter(
-            relationStorage: relationStorage,
+            objectId: objectId,
+//            relationStorage: relationStorage,
+            relationLinksStorage: relationLinksStorage,
             restrictionsContainer: restrictionsContainer,
             infoContainer: infoContainer
         )

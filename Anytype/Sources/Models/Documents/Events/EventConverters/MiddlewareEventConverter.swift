@@ -4,8 +4,10 @@ import AnytypeCore
 import SwiftProtobuf
 
 final class MiddlewareEventConverter {
+    private let objectId: String
     private let infoContainer: InfoContainerProtocol
-    private let relationStorage: RelationsMetadataStorageProtocol
+    private let relationLinksStorage: RelationLinksStorageProtocol
+//    private let relationStorage: RelationsMetadataStorageProtocol
     private let detailsStorage: ObjectDetailsStorage
     private let restrictionsContainer: ObjectRestrictionsContainer
     
@@ -13,14 +15,18 @@ final class MiddlewareEventConverter {
     
     
     init(
+        objectId: String,
         infoContainer: InfoContainerProtocol,
-        relationStorage: RelationsMetadataStorageProtocol,
+        relationLinksStorage: RelationLinksStorageProtocol,
+//        relationStorage: RelationsMetadataStorageProtocol,
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared,
         restrictionsContainer: ObjectRestrictionsContainer
     ) {
+        self.objectId = objectId
         self.infoContainer = infoContainer
-        self.relationStorage = relationStorage
+        self.relationLinksStorage = relationLinksStorage
+//        self.relationStorage = relationStorage
         self.informationCreator = informationCreator
         self.detailsStorage = detailsStorage
         self.restrictionsContainer = restrictionsContainer
@@ -126,6 +132,10 @@ final class MiddlewareEventConverter {
             
         case .objectRelationsAmend(let amend):
             #warning("Fix me")
+            relationLinksStorage.amend(
+                relationLinks: amend.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
+            )
+            RelationDetailsStorage.shared.subscribeForLocalEvents(contextId: objectId, links: relationLinksStorage.relationLinks)
 //            relationStorage.amend(
 //                relations: amend.relations.map { RelationMetadata(middlewareRelation: $0) }
 //            )
@@ -134,6 +144,8 @@ final class MiddlewareEventConverter {
             
         case .objectRelationsRemove(let remove):
             #warning("Fix me")
+            relationLinksStorage.remove(relationIds: remove.relationIds)
+            RelationDetailsStorage.shared.subscribeForLocalEvents(contextId: objectId, links: relationLinksStorage.relationLinks)
 //            relationStorage.remove(relationKeys: remove.keys)
             
             return .general

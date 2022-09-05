@@ -11,4 +11,5 @@ enum LocalEvent {
     case documentClosed(blockId: BlockId)
     case header(ObjectHeaderUpdate)
     case objectShow(ObjectViewModel)
+    case relationChanged(relationIds: [String])
 }

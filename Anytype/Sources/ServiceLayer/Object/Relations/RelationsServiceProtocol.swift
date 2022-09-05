@@ -18,5 +18,5 @@ protocol RelationsServiceProtocol {
 
     func removeRelation(relationId: String)
     func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String?
-    func availableRelations() -> [RelationDetails]?
+    func availableRelations() -> [RelationDetails]
 }

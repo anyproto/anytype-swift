@@ -61,9 +61,9 @@ extension SearchNewRelationViewModel {
     }
 
     func obtainAvailbaleRelationList() -> [SearchNewRelationSectionType] {
-        let relatonsMetadata = relationService.availableRelations()?.filter {
+        let relatonsMetadata = relationService.availableRelations().filter {
             !$0.isHidden && !usedObjectRelationsIds.contains($0.key)
-        } ?? []
+        }
         
         return [.createNewRelation, .addFromLibriry(relatonsMetadata)]
     }

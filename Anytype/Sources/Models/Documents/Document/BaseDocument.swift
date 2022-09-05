@@ -9,7 +9,8 @@ final class BaseDocument: BaseDocumentProtocol {
     private(set) var isOpened = false
 
     let infoContainer: InfoContainerProtocol = InfoContainer()
-    let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
+    let relationLinksStorage: RelationLinksStorageProtocol = RelationLinksStorage()
+//    let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
     let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
     
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }
@@ -29,10 +30,11 @@ final class BaseDocument: BaseDocumentProtocol {
     private let updateSubject = PassthroughSubject<DocumentUpdate, Never>()
     private let relationBuilder = RelationsBuilder()
     private let detailsStorage = ObjectDetailsStorage.shared
+    private let relationsDetailsStorage = RelationDetailsStorage.shared
 
     var parsedRelations: ParsedRelations {
         relationBuilder.parsedRelations(
-            relationMetadatas: relationsStorage.relations,
+            relationsDetails: relationsDetailsStorage.relations(for: relationLinksStorage.relationLinks),
             objectId: objectId,
             isObjectLocked: isLocked
         )
@@ -44,7 +46,8 @@ final class BaseDocument: BaseDocumentProtocol {
         self.eventsListener = EventsListener(
             objectId: objectId,
             infoContainer: infoContainer,
-            relationStorage: relationsStorage,
+            relationLinksStorage: relationLinksStorage,
+//            relationStorage: relationsStorage,
             restrictionsContainer: restrictionsContainer
         )
         
