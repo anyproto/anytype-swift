@@ -49,7 +49,7 @@ extension NewRelationViewModel {
     
     func didTapAddButton() {
         #warning("Fix objectTypeIds")
-        let relationMetatdata = RelationInfo(
+        let relationMetatdata = RelationDetails(
             id: "",
             key: "",
             name: name,

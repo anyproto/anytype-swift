@@ -481,7 +481,7 @@ extension EditorRouter {
         relationValueCoordinator.startFlow(objectId: objectId, source: source, relation: relation, output: self)
     }
 
-    func showAddNewRelationView(onSelect: ((RelationInfo, _ isNew: Bool) -> Void)?) {
+    func showAddNewRelationView(onSelect: ((RelationDetails, _ isNew: Bool) -> Void)?) {
         addNewRelationCoordinator.showAddNewRelationView(onCompletion: onSelect)
     }
 }

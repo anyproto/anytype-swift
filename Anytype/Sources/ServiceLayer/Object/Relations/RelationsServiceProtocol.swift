@@ -13,10 +13,10 @@ protocol RelationsServiceProtocol {
     
     func updateRelation(relationKey: String, value: Google_Protobuf_Value)
 
-    func createRelation(relation: RelationInfo) -> Bool
-    func addRelation(relation: RelationInfo) -> Bool
+    func createRelation(relation: RelationDetails) -> Bool
+    func addRelation(relation: RelationDetails) -> Bool
 
     func removeRelation(relationId: String)
     func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String?
-    func availableRelations() -> [RelationInfo]?
+    func availableRelations() -> [RelationDetails]?
 }

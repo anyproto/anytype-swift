@@ -51,7 +51,7 @@ final class RelationsService: RelationsServiceProtocol {
             .send()
     }
 
-    func createRelation(relation: RelationInfo) -> Bool {
+    func createRelation(relation: RelationDetails) -> Bool {
         #warning("Fix object limit")
         let result = Anytype_Rpc.Object.CreateRelation.Service
             .invocation(details: relation.asCreateMiddleware)
@@ -63,7 +63,7 @@ final class RelationsService: RelationsServiceProtocol {
         return addRelation(relationId: result.objectID)
     }
 
-    func addRelation(relation: RelationInfo) -> Bool {
+    func addRelation(relation: RelationDetails) -> Bool {
         addRelation(relationId: relation.id)
     }
 
@@ -152,7 +152,7 @@ final class RelationsService: RelationsServiceProtocol {
         }
     }
 
-    func availableRelations() -> [RelationInfo]? {
+    func availableRelations() -> [RelationDetails]? {
         
         let sort = SearchHelper.sort(
             relation: BundledRelationKey.name,
@@ -165,7 +165,7 @@ final class RelationsService: RelationsServiceProtocol {
         
         let relations = searchCommonService.search(filters: filters, sorts: [sort], fullText: "", limit: 0)
         
-        return relations?.map { RelationInfo(objectDetails: $0) }
+        return relations?.map { RelationDetails(objectDetails: $0) }
         
 //        let relations = Anytype_Rpc.ObjectRelation.ListAvailable.Service
 //            .invoke(contextID: objectId)

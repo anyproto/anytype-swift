@@ -8,7 +8,7 @@ final class AddNewRelationCoordinator {
     private let document: BaseDocumentProtocol
     private weak var viewController: UIViewController?
     
-    private var onCompletion: ((_ newRelation: RelationInfo, _ isNew: Bool) -> Void)?
+    private var onCompletion: ((_ newRelation: RelationDetails, _ isNew: Bool) -> Void)?
     
     private weak var newRelationModuleInput: NewRelationModuleInput?
     
@@ -26,7 +26,7 @@ final class AddNewRelationCoordinator {
 
 extension AddNewRelationCoordinator {
     
-    func showAddNewRelationView(onCompletion: ((_ newRelation: RelationInfo, _ isNew: Bool) -> Void)?) {
+    func showAddNewRelationView(onCompletion: ((_ newRelation: RelationDetails, _ isNew: Bool) -> Void)?) {
         self.onCompletion = onCompletion
         
         let relationService = RelationsService(objectId: document.objectId)
@@ -48,7 +48,7 @@ extension AddNewRelationCoordinator {
 
 extension AddNewRelationCoordinator: SearchNewRelationModuleOutput {
     
-    func didAddRelation(_ relation: RelationInfo) {
+    func didAddRelation(_ relation: RelationDetails) {
         onCompletion?(relation, false)
         viewController?.topPresentedController.dismiss(animated: true)
     }
@@ -104,7 +104,7 @@ extension AddNewRelationCoordinator: NewRelationModuleOutput {
         presentSwiftUIView(view: view)
     }
     
-    func didCreateRelation(_ relationMetadata: RelationInfo) {
+    func didCreateRelation(_ relationMetadata: RelationDetails) {
         onCompletion?(relationMetadata, true)
         viewController?.topPresentedController.dismiss(animated: true)
     }

@@ -2,7 +2,7 @@ import Foundation
 import ProtobufMessages
 import SwiftProtobuf
 
-public struct RelationInfo: Hashable {
+public struct RelationDetails: Hashable {
 
     public let id: String
     public let key: String
@@ -28,7 +28,7 @@ public struct RelationInfo: Hashable {
     }
 }
 
-public extension RelationInfo {
+public extension RelationDetails {
     
     init(objectDetails: ObjectDetails) {
         self.id = objectDetails.id
