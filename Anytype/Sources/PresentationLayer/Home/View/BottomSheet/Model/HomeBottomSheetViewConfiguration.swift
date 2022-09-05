@@ -5,10 +5,9 @@ extension HomeBottomSheetView {
     struct Configuration {
         let containerHeight: CGFloat
 
-        var maxHeight: CGFloat { containerHeight * heightRatio }
+        var maxHeight: CGFloat { (containerHeight * heightRatio).rounded() }
         var snapOffset: CGFloat { closedOffset - snapHeight }
-        var maxOffset: CGFloat { containerHeight * maxOffsetRatio }
-        var openOffset: CGFloat { containerHeight * (1 - heightRatio) }
+        var openOffset: CGFloat { (containerHeight * (1 - heightRatio)).rounded() }
         var closedOffset: CGFloat { sheetHeight + openOffset }
 
         func validatedOffset(_ offset: CGFloat, isOpen: Bool) -> CGFloat {
@@ -18,6 +17,7 @@ extension HomeBottomSheetView {
             return min(maxOffset, validatedTopEdgeOffset)
         }
         
+        private var maxOffset: CGFloat { (containerHeight * maxOffsetRatio).rounded() }
         private var minHeight: CGFloat { maxHeight * minHeightRatio }
         private var sheetHeight: CGFloat { maxHeight - minHeight }
         private var snapHeight: CGFloat { maxHeight * snapRatio }
