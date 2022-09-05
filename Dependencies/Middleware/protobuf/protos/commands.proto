@@ -1847,6 +1847,7 @@ message Rpc {
          message ListRemoveOption {
             message Request {
                 repeated string optionIds = 1;
+                bool removeInObject = 2;
             }
 
             message Response {

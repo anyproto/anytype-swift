@@ -43,7 +43,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func presentUndoRedo()
     
     func showMoveTo(onSelect: @escaping (BlockId) -> ())
-    func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ())
+    func showLinkTo(onSelect: @escaping (BlockId, _ typeId: String) -> ())
     func showLinkToObject(
         currentLink: Either<URL, BlockId>?,
         onSelect: @escaping (LinkToObjectSearchViewModel.SearchKind) -> ()
@@ -68,7 +68,7 @@ protocol EditorRouterProtocol: AnyObject, AttachmentRouterProtocol {
     func setNavigationViewHidden(_ isHidden: Bool, animated: Bool)
     func showTemplatesAvailabilityPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTypeUrl
+        templatesTypeId: ObjectTypeId
     )
     
     func showViewPicker(setModel: EditorSetViewModel)

@@ -44,7 +44,7 @@ struct AccessoryViewBuilder {
             document: document
         ) { [weak router, weak actionHandler] in
             router?.showTypesSearch(onSelect: { id in
-                actionHandler?.setObjectTypeUrl(id)
+                actionHandler?.setObjectTypeId(id)
             })
         }
 
@@ -82,11 +82,11 @@ struct AccessoryViewBuilder {
         )
 
         accessoryViewSwitcher.onDoneButton = {
-            guard let typeURL = document.details?.objectType else { return }
+            guard let type = document.details?.objectType else { return }
 
             router.showTemplatesAvailabilityPopupIfNeeded(
                 document: document,
-                templatesTypeURL: .dynamic(typeURL.url)
+                templatesTypeId: .dynamic(type.id)
             )
         }
 

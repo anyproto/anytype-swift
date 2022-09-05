@@ -28,7 +28,7 @@ public class ObjectTypesService: ObjectTypesServiceProtocol {
         )
         let filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.typeFilter(typeUrls: [ObjectTypeUrl.bundled(.objectType).rawValue])
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.objectType).rawValue])
         ]
         
         let result = searchCommonService.search(filters: filters, sorts: [sort], limit: 0)

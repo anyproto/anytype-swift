@@ -11,7 +11,7 @@ import AnytypeCore
 
 public struct ObjectType: Equatable, Hashable, Codable {
     
-    public let url: String
+    public let id: String
     public let name: String
     public let iconEmoji: Emoji
     public let description: String
@@ -23,7 +23,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
     public let smartBlockTypes: Set<SmartBlockType>
     
     public init(
-        url: String,
+        id: String,
         name: String,
         iconEmoji: Emoji,
         description: String,
@@ -32,7 +32,7 @@ public struct ObjectType: Equatable, Hashable, Codable {
         isArchived: Bool,
         smartBlockTypes: Set<SmartBlockType>
     ) {
-        self.url = url
+        self.id = id
         self.name = name
         self.iconEmoji = iconEmoji
         self.description = description
@@ -45,22 +45,22 @@ public struct ObjectType: Equatable, Hashable, Codable {
 
 extension ObjectType {
     
-    init(model: Anytype_Model_ObjectType) {
-        self.init(
-            url: model.url,
-            name: model.name,
-            iconEmoji: Emoji(model.iconEmoji) ?? Emoji.default,
-            description: model.description_p,
-            hidden: model.hidden,
-            readonly: model.readonly,
-            isArchived: model.isArchived,
-            smartBlockTypes: Set(model.types.compactMap { SmartBlockType(smartBlockType: $0) })
-        )
-    }
+//    init(model: Anytype_Model_ObjectType) {
+//        self.init(
+//            url: model.url,
+//            name: model.name,
+//            iconEmoji: Emoji(model.iconEmoji) ?? Emoji.default,
+//            description: model.description_p,
+//            hidden: model.hidden,
+//            readonly: model.readonly,
+//            isArchived: model.isArchived,
+//            smartBlockTypes: Set(model.types.compactMap { SmartBlockType(smartBlockType: $0) })
+//        )
+//    }
     
     public init(details: ObjectDetails) {
         self.init(
-            url: details.id,
+            id: details.id,
             name: details.name,
             iconEmoji: Emoji(details.iconEmoji) ?? Emoji.default,
             description: details.description,

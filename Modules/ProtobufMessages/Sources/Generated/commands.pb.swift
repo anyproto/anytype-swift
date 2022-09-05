@@ -7272,6 +7272,8 @@ public struct Anytype_Rpc {
 
         public var optionIds: [String] = []
 
+        public var removeInObject: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -31363,6 +31365,7 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Request: SwiftProtobuf.Message, 
   public static let protoMessageName: String = Anytype_Rpc.Relation.ListRemoveOption.protoMessageName + ".Request"
   public static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
     1: .same(proto: "optionIds"),
+    2: .same(proto: "removeInObject"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -31372,6 +31375,7 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Request: SwiftProtobuf.Message, 
       // enabled. https://github.com/apple/swift-protobuf/issues/1034
       switch fieldNumber {
       case 1: try { try decoder.decodeRepeatedStringField(value: &self.optionIds) }()
+      case 2: try { try decoder.decodeSingularBoolField(value: &self.removeInObject) }()
       default: break
       }
     }
@@ -31381,11 +31385,15 @@ extension Anytype_Rpc.Relation.ListRemoveOption.Request: SwiftProtobuf.Message, 
     if !self.optionIds.isEmpty {
       try visitor.visitRepeatedStringField(value: self.optionIds, fieldNumber: 1)
     }
+    if self.removeInObject != false {
+      try visitor.visitSingularBoolField(value: self.removeInObject, fieldNumber: 2)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
   public static func ==(lhs: Anytype_Rpc.Relation.ListRemoveOption.Request, rhs: Anytype_Rpc.Relation.ListRemoveOption.Request) -> Bool {
     if lhs.optionIds != rhs.optionIds {return false}
+    if lhs.removeInObject != rhs.removeInObject {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

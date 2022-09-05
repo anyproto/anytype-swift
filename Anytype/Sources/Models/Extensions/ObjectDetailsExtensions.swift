@@ -91,7 +91,7 @@ extension BundledRelationsValueProvider {
             return ObjectTypeProvider.shared.defaultObjectType
         }
         
-        let parsedType = ObjectTypeProvider.shared.objectType(url: type)
+        let parsedType = ObjectTypeProvider.shared.objectType(id: type)
         anytypeAssert(
             parsedType != nil,
             "Cannot parse type :\(String(describing: type))",

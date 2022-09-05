@@ -49,7 +49,7 @@ final class ChangeTypeAccessoryViewModel {
 
     private func fetchSupportedTypes() {
         let supportedTypes = searchService
-            .searchObjectTypes(text: "", filteringTypeUrl: nil)?
+            .searchObjectTypes(text: "", filteringTypeId: nil)?
             .map { object in
                 TypeItem(from: object, handler: { [weak self] in
                     self?.onObjectTap(object: object)
@@ -64,11 +64,11 @@ final class ChangeTypeAccessoryViewModel {
         if isSelectTemplate {
             router.showTemplatesAvailabilityPopupIfNeeded(
                 document: document,
-                templatesTypeURL: .dynamic(object.id)
+                templatesTypeId: .dynamic(object.id)
             )
         }
 
-        handler.setObjectTypeUrl(object.id)
+        handler.setObjectTypeId(object.id)
         applyDefaultTemplateIfNeeded(typeDetails: object)
     }
     

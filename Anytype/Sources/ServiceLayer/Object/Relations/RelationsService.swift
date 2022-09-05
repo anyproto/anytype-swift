@@ -56,7 +56,7 @@ final class RelationsService: RelationsServiceProtocol {
     }
 
     func addRelation(relation: RelationInfo) -> Bool {
-        
+
         let events = Anytype_Rpc.ObjectRelation.Add.Service
             .invocation(contextID: objectId, relationIds: [relation.id])
             .invoke()
@@ -150,7 +150,7 @@ final class RelationsService: RelationsServiceProtocol {
         )
         let filters = [
             SearchHelper.isArchivedFilter(isArchived: false),
-            SearchHelper.typeFilter(typeUrls: [ObjectTypeUrl.bundled(.relation).rawValue])
+            SearchHelper.typeFilter(typeIds: [ObjectTypeId.bundled(.relation).rawValue])
         ]
         
         let relations = searchCommonService.search(filters: filters, sorts: [sort], fullText: "", limit: 0)

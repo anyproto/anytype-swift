@@ -12,7 +12,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     private let supportedSmartblockTypes: Set<SmartBlockType> = [.page, .profilePage, .anytypeProfile, .set, .file]
     
     private var cachedObtainedObjectTypes: Set<ObjectType> = []
-    private var cachedSupportedTypeUrls: Set<String> = []
+    private var cachedSupportedTypeIds: Set<String> = []
     
     private init(service: ObjectTypesServiceProtocol) {
         self.service = service
@@ -20,22 +20,22 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     // MARK: - ObjectTypeProviderProtocol
     
-    var supportedTypeUrls: [String] {
-        Array(obtainedSupportedTypeUrls)
+    var supportedTypeIds: [String] {
+        Array(obtainedSupportedTypeIds)
     }
     
-    func isSupported(typeUrl: String) -> Bool {
-        obtainedSupportedTypeUrls.contains(typeUrl)
+    func isSupported(typeId: String) -> Bool {
+        obtainedSupportedTypeIds.contains(typeId)
     }
     
     var defaultObjectType: ObjectType {
         UserDefaultsConfig.defaultObjectType
     }
     
-    func objectType(url: String?) -> ObjectType? {
-        guard let url = url else { return nil }
+    func objectType(id: String?) -> ObjectType? {
+        guard let id = id else { return nil }
         
-        return obtainedObjectTypes.filter { $0.url == url }.first
+        return obtainedObjectTypes.filter { $0.id == id }.first
     }
     
     func objectTypes(smartblockTypes: Set<SmartBlockType>) -> [ObjectType] {
@@ -48,7 +48,7 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
     
     func resetCache() {
         cachedObtainedObjectTypes = []
-        cachedSupportedTypeUrls = []
+        cachedSupportedTypeIds = []
     }
     
     private var obtainedObjectTypes: Set<ObjectType> {
@@ -59,15 +59,15 @@ final class ObjectTypeProvider: ObjectTypeProviderProtocol {
         return cachedObtainedObjectTypes
     }
     
-    private var obtainedSupportedTypeUrls: Set<String> {
-        if cachedSupportedTypeUrls.isEmpty {
+    private var obtainedSupportedTypeIds: Set<String> {
+        if cachedSupportedTypeIds.isEmpty {
             let result = obtainedObjectTypes.filter {
                     $0.smartBlockTypes.intersection(supportedSmartblockTypes).isNotEmpty
-                }.map { $0.url }
-            cachedSupportedTypeUrls = Set(result)
+                }.map { $0.id }
+            cachedSupportedTypeIds = Set(result)
         }
         
-        return cachedSupportedTypeUrls
+        return cachedSupportedTypeIds
     }
     
 }

@@ -46,8 +46,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.upload(blockId: blockId, filePath: filePath)
     }
     
-    func setObjectTypeUrl(_ objectTypeUrl: String) {
-        service.setObjectTypeUrl(objectTypeUrl)
+    func setObjectTypeId(_ objectTypeId: String) {
+        service.setObjectTypeId(objectTypeId)
     }
     
     func setTextColor(_ color: BlockColor, blockIds: [BlockId]) {
@@ -99,8 +99,8 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         service.addChild(info: BlockInformation.emptyText, parentId: parentId)
     }
     
-    func addLink(targetId: BlockId, typeUrl: String, blockId: BlockId) {
-        let isBookmarkType = FeatureFlags.bookmarksFlow ? ObjectTypeUrl.bundled(.bookmark).rawValue == typeUrl : false
+    func addLink(targetId: BlockId, typeId: String, blockId: BlockId) {
+        let isBookmarkType = FeatureFlags.bookmarksFlow ? ObjectTypeId.bundled(.bookmark).rawValue == typeId : false
         service.add(
             info: isBookmarkType ? .bookmark(targetId: targetId) : .emptyLink(targetId: targetId),
             targetBlockId: blockId,
@@ -216,7 +216,7 @@ final class BlockActionHandler: BlockActionHandlerProtocol {
         upload(blockId: blockId, filePath: localPath)
     }
     
-    func createPage(targetId: BlockId, type: ObjectTypeUrl) -> BlockId? {
+    func createPage(targetId: BlockId, type: ObjectTypeId) -> BlockId? {
         guard let info = document.infoContainer.get(id: targetId) else { return nil }
         var position: BlockPosition
         if case .text(let blockText) = info.content, blockText.text.isEmpty {

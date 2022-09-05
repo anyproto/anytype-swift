@@ -81,7 +81,7 @@ extension NewRelationViewModel: NewRelationModuleInput {
     
     func updateTypesRestriction(objectTypeIds: [String]) {
         objectTypes = objectTypeIds.compactMap {
-            ObjectTypeProvider.shared.objectType(url: $0)
+            ObjectTypeProvider.shared.objectType(id: $0)
         }
     }
     
@@ -96,7 +96,7 @@ private extension NewRelationViewModel {
     }
     
     var objectTypeIds: [String] {
-        objectTypes?.map { $0.url } ?? []
+        objectTypes?.map { $0.id } ?? []
     }
     
 }
@@ -150,7 +150,7 @@ private extension Array where Element == ObjectType {
     var asViewModel: [NewRelationRestrictionsSectionView.ObjectTypeModel] {
         map {
             NewRelationRestrictionsSectionView.ObjectTypeModel(
-                id: $0.url,
+                id: $0.id,
                 emoji: $0.iconEmoji,
                 title: $0.name
             )

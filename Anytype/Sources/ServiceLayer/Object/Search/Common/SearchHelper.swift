@@ -51,10 +51,10 @@ class SearchHelper {
         return filter
     }
     
-    static func typeFilter(typeUrls: [String]) -> DataviewFilter {
+    static func typeFilter(typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
-        filter.value = typeUrls.protobufValue
+        filter.value = typeIds.protobufValue
         filter.relationKey = BundledRelationKey.type.rawValue
         filter.operator = .and
         
@@ -71,10 +71,10 @@ class SearchHelper {
         return filter
     }
     
-    static func excludedTypeFilter(_ typeUrls: [String]) -> DataviewFilter {
+    static func excludedTypeFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notIn
-        filter.value = typeUrls.protobufValue
+        filter.value = typeIds.protobufValue
         filter.relationKey = BundledRelationKey.type.rawValue
         filter.operator = .and
         
@@ -91,10 +91,10 @@ class SearchHelper {
         return filter
     }
     
-    static func supportedObjectTypeUrlsFilter(_ typeUrls: [String]) -> DataviewFilter {
+    static func supportedObjectTypeIdsFilter(_ typeIds: [String]) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .in
-        filter.value = typeUrls.protobufValue
+        filter.value = typeIds.protobufValue
         filter.relationKey = BundledRelationKey.id.rawValue
         filter.operator = .and
         
@@ -120,7 +120,7 @@ class SearchHelper {
         ]
     }
     
-    static func excludedObjectTypeUrlFilter(_ typeUrl: String) -> DataviewFilter {
+    static func excludedObjectTypeIdFilter(_ typeUrl: String) -> DataviewFilter {
         var filter = DataviewFilter()
         filter.condition = .notEqual
         filter.value = typeUrl.protobufValue
@@ -142,7 +142,7 @@ class SearchHelper {
         return filter
     }
 
-    static func templatesFilters(type: ObjectTypeUrl) -> [DataviewFilter] {
+    static func templatesFilters(type: ObjectTypeId) -> [DataviewFilter] {
         [
             isArchivedFilter(isArchived: false),
             isDeletedFilter(isDeleted: false),
@@ -164,7 +164,7 @@ class SearchHelper {
         var filter = DataviewFilter()
         filter.condition = .equal
         filter.relationKey = BundledRelationKey.type.rawValue
-        filter.value = ObjectTypeUrl.bundled(.template).rawValue.protobufValue
+        filter.value = ObjectTypeId.bundled(.template).rawValue.protobufValue
 
         return filter
     }

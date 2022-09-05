@@ -206,12 +206,12 @@ final class BlockViewModelBuilder {
                 guard let self = self else { return }
 
                 let bookmarkFilter = FeatureFlags.bookmarksFlow ?
-                    self.document.details?.type != ObjectTypeUrl.bundled(.bookmark).rawValue : true
+                    self.document.details?.type != ObjectTypeId.bundled(.bookmark).rawValue : true
                 
                 if relation.id == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
                     self.router.showTypesSearch(
                         onSelect: { [weak self] id in
-                            self?.handler.setObjectTypeUrl(id)
+                            self?.handler.setObjectTypeId(id)
                         }
                     )
                 } else {

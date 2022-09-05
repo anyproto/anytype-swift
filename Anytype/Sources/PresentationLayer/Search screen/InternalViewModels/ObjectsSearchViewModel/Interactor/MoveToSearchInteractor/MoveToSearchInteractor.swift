@@ -21,8 +21,8 @@ extension MoveToSearchInteractor: ObjectsSearchInteractorProtocol {
         let response = searchService.searchObjects(
             text: text,
             excludedObjectIds: excludedObjectIds,
-            excludedTypeUrls: [
-                ObjectTypeUrl.bundled(.set).rawValue
+            excludedTypeIds: [
+                ObjectTypeId.bundled(.set).rawValue
             ],
             sortRelationKey: .lastModifiedDate
         )

@@ -257,11 +257,11 @@ final class EditorSetViewModel: ObservableObject {
     }
     
     private func isBookmarksSet() -> Bool {
-        dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.bookmark.rawValue)
+        dataView.source.contains(ObjectTypeId.BundledTypeId.bookmark.rawValue)
     }
     
     private func isNotesSet() -> Bool {
-        dataView.source.contains(ObjectTypeUrl.BundledTypeUrl.note.rawValue)
+        dataView.source.contains(ObjectTypeId.BundledTypeId.note.rawValue)
     }
     
     private func updateDetailsIfNeeded(_ details: ObjectDetails) {

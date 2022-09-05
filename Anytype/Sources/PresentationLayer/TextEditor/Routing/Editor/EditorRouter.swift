@@ -40,8 +40,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
     func showPage(data: EditorScreenData) {
         if let details = ObjectDetailsStorage.shared.get(id: data.pageId) {
-            guard ObjectTypeProvider.shared.isSupported(typeUrl: details.type) else {
-                showUnsupportedTypeAlert(typeUrl: details.type)
+            guard ObjectTypeProvider.shared.isSupported(typeId: details.type) else {
+                showUnsupportedTypeAlert(typeId: details.type)
                 return
             }
         }
@@ -59,8 +59,8 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         viewController?.present(alertController, animated: true, completion: nil)
     }
     
-    private func showUnsupportedTypeAlert(typeUrl: String) {
-        let typeName = ObjectTypeProvider.shared.objectType(url: typeUrl)?.name ?? Loc.unknown
+    private func showUnsupportedTypeAlert(typeId: String) {
+        let typeName = ObjectTypeProvider.shared.objectType(id: typeId)?.name ?? Loc.unknown
         
         AlertHelper.showToast(
             title: "Not supported type \"\(typeName)\"",
@@ -218,11 +218,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
         presentSwiftUIView(view: linkToView, model: viewModel)
     }
 
-    func showLinkTo(onSelect: @escaping (BlockId, _ typeUrl: String) -> ()) {
+    func showLinkTo(onSelect: @escaping (BlockId, _ typeId: String) -> ()) {
         let viewModel = ObjectSearchViewModel(
             searchService: ServiceLocator.shared.searchService()
         ) { data in
-            onSelect(data.blockId, data.typeUrl)
+            onSelect(data.blockId, data.typeId)
         }
         let linkToView = SearchView(title: Loc.linkTo, context: .menuSearch, viewModel: viewModel)
         
@@ -331,11 +331,11 @@ final class EditorRouter: NSObject, EditorRouterProtocol {
 
     func showTemplatesAvailabilityPopupIfNeeded(
         document: BaseDocumentProtocol,
-        templatesTypeURL: ObjectTypeUrl
+        templatesTypeId: ObjectTypeId
     ) {
         templatesCoordinator.showTemplatesAvailabilityPopupIfNeeded(
             document: document,
-            templatesTypeURL: .dynamic(templatesTypeURL.rawValue)
+            templatesTypeId: .dynamic(templatesTypeId.rawValue)
         )
     }
     

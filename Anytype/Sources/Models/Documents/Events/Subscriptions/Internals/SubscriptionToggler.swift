@@ -66,7 +66,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         )
         var filters = buildFilters(
             isArchived: false,
-            typeUrls: ObjectTypeProvider.shared.supportedTypeUrls
+            typeIds: ObjectTypeProvider.shared.supportedTypeIds
         )
         filters.append(SearchHelper.lastOpenedDateNotNilFilter())
         
@@ -81,7 +81,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         
         let filters = buildFilters(
             isArchived: true,
-            typeUrls: ObjectTypeProvider.shared.supportedTypeUrls
+            typeIds: ObjectTypeProvider.shared.supportedTypeIds
         )
         
         return makeRequest(subId: .archiveTab, filters: filters, sorts: [sort])
@@ -92,7 +92,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
             relation: BundledRelationKey.lastModifiedDate,
             type: .desc
         )
-        var filters = buildFilters(isArchived: false, typeUrls: ObjectTypeProvider.shared.supportedTypeUrls)
+        var filters = buildFilters(isArchived: false, typeIds: ObjectTypeProvider.shared.supportedTypeIds)
         filters.append(contentsOf: SearchHelper.sharedObjectsFilters())
         
         return makeRequest(subId: .sharedTab, filters: filters, sorts: [sort])
@@ -105,7 +105,7 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         )
         let filters = buildFilters(
             isArchived: false,
-            typeUrls: ObjectTypeProvider.shared.objectTypes(smartblockTypes: [.set]).map { $0.url }
+            typeIds: ObjectTypeProvider.shared.objectTypes(smartblockTypes: [.set]).map { $0.id }
         )
         
         return makeRequest(subId: .setsTab, filters: filters, sorts: [sort])
@@ -149,13 +149,13 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         )
     }
     
-    private func buildFilters(isArchived: Bool, typeUrls: [String]) -> [DataviewFilter] {
+    private func buildFilters(isArchived: Bool, typeIds: [String]) -> [DataviewFilter] {
         [
             SearchHelper.notHiddenFilter(),
             
             SearchHelper.isArchivedFilter(isArchived: isArchived),
             
-            SearchHelper.typeFilter(typeUrls: typeUrls)
+            SearchHelper.typeFilter(typeIds: typeIds)
         ]
     }
 }

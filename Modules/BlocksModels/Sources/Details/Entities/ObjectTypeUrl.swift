@@ -1,7 +1,7 @@
 import Foundation
 
-public enum ObjectTypeUrl: RawRepresentable {
-    public enum BundledTypeUrl: String {
+public enum ObjectTypeId: RawRepresentable {
+    public enum BundledTypeId: String {
         case page = "_otpage"
         case profile = "_otprofile"
         case note = "_otnote"
@@ -14,7 +14,7 @@ public enum ObjectTypeUrl: RawRepresentable {
     }
 
     public init?(rawValue: String) {
-        if let knownType = BundledTypeUrl(rawValue: rawValue) {
+        if let knownType = BundledTypeId(rawValue: rawValue) {
             self = .bundled(knownType)
         } else {
             self = .dynamic(rawValue)
@@ -30,6 +30,6 @@ public enum ObjectTypeUrl: RawRepresentable {
         }
     }
 
-    case bundled(BundledTypeUrl)
+    case bundled(BundledTypeId)
     case dynamic(String)
 }

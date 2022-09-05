@@ -3353,8 +3353,9 @@ extension Anytype_Rpc.Process.Cancel.Response.Error {
 }
 
 extension Anytype_Rpc.Relation.ListRemoveOption.Request {
-    public init(optionIds: [String] = []) {
+    public init(optionIds: [String] = [], removeInObject: Bool = false) {
         self.optionIds = optionIds
+        self.removeInObject = removeInObject
     }
 }
 
