@@ -113,13 +113,17 @@ final class MiddlewareEventConverter {
             guard oldDetails.type == newDetails.type else {
                 return .general
             }
-
+            
+            if relationLinksStorage.contains(relationKey: newDetails.id) {
+                return .general
+            }
+            
             return .details(id: data.id)
             
         case let .objectDetailsUnset(data):
             guard let details = detailsStorage.unset(data: data) else { return nil }
             return .details(id: details.id)
-            #warning("Fix me")
+            #warning("Check me")
 //        case .objectRelationsSet(let set):
 //            relationStorage.set(
 //                relations: set.relations.map { RelationMetadata(middlewareRelation: $0) }
@@ -128,7 +132,7 @@ final class MiddlewareEventConverter {
 //            return .general
             
         case .objectRelationsAmend(let amend):
-            #warning("Fix me")
+            #warning("Check me")
             relationLinksStorage.amend(
                 relationLinks: amend.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
             )
@@ -139,7 +143,7 @@ final class MiddlewareEventConverter {
             return .general
             
         case .objectRelationsRemove(let remove):
-            #warning("Fix me")
+            #warning("Check me")
             relationLinksStorage.remove(relationIds: remove.relationIds)
 //            relationStorage.remove(relationKeys: remove.keys)
             
@@ -360,7 +364,11 @@ final class MiddlewareEventConverter {
             
             return .general
         case .blockDataviewRelationDelete(let data):
-            #warning("Fix me")
+            #warning("Check me")
+            infoContainer.updateDataview(blockId: data.id) { dataView in
+                let newRelationLinks = dataView.relationLinks.filter { !data.relationIds.contains($0.id) }
+                return dataView.updated(relationLinks: newRelationLinks)
+            }
 //            infoContainer.updateDataview(blockId: data.id) { dataView in
 //                guard let index = dataView.relations.firstIndex(where: { $0.key == data.relationKey }) else {
 //                    anytypeAssertionFailure("Not found key \(data.relationKey) in dataview: \(dataView)", domain: .middlewareEventConverter)
@@ -375,7 +383,11 @@ final class MiddlewareEventConverter {
             
             return .general
         case .blockDataviewRelationSet(let data):
-            #warning("Fix me")
+            #warning("Check me")
+            infoContainer.updateDataview(blockId: data.id) { dataView in
+                let newRelationLinks = data.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
+                return dataView.updated(relationLinks: dataView.relationLinks + newRelationLinks)
+            }
 //            infoContainer.updateDataview(blockId: data.id) { dataView in
 //                let relation = RelationMetadata(middlewareRelation: data.relation)
 //
