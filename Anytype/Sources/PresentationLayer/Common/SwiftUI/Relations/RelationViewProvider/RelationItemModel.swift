@@ -25,7 +25,7 @@ enum RelationItemModel: Hashable {
         case .date(let date):
             self = .date(
                 .init(
-                    id: date.id,
+                    key: date.key,
                     name: date.name,
                     textValue: date.value?.text,
                     isEditable: relation.isEditable
@@ -101,27 +101,27 @@ enum RelationItemModel: Hashable {
         }
     }
 
-    var id: String {
+    var key: String {
         switch self {
-        case .text(let text): return text.id
-        case .number(let text): return text.id
-        case .status(let status): return status.id
-        case .date(let date): return date.id
-        case .object(let object): return object.id
-        case .checkbox(let checkbox): return checkbox.id
-        case .url(let text): return text.id
-        case .email(let text): return text.id
-        case .phone(let text): return text.id
-        case .tag(let tag): return tag.id
-        case .file(let file): return file.id
-        case .unknown(let unknown): return unknown.id
+        case .text(let text): return text.key
+        case .number(let text): return text.key
+        case .status(let status): return status.key
+        case .date(let date): return date.key
+        case .object(let object): return object.key
+        case .checkbox(let checkbox): return checkbox.key
+        case .url(let text): return text.key
+        case .email(let text): return text.key
+        case .phone(let text): return text.key
+        case .tag(let tag): return tag.key
+        case .file(let file): return file.key
+        case .unknown(let unknown): return unknown.key
         }
     }
 }
 
 extension RelationItemModel {
     struct DateModel: Hashable {
-        let id: String
+        let key: String
         let name: String
         let textValue: String?
         let isEditable: Bool

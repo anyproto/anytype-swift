@@ -45,7 +45,7 @@ public enum BundledRelationKey: String {
 
 
 public extension BundledRelationKey {
-    static var readonlyRelationKeys: [BundledRelationKey] {
+    static var notRemovableRelationKeys: [BundledRelationKey] {
         [
             .id,
             .name,

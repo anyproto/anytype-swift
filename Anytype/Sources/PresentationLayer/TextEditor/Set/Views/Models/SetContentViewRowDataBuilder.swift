@@ -46,13 +46,13 @@ final class SetContentViewDataBuilder {
 //                .all
             
             let sortedRelations = colums.compactMap { colum in
-                parsedRelations.first { $0.id == colum.key }
+                parsedRelations.first { $0.key == colum.key }
             }
             
             let relations: [Relation] = colums.map { colum in
-                let relation = sortedRelations.first { $0.id == colum.key }
+                let relation = sortedRelations.first { $0.key == colum.key }
                 guard let relation = relation else {
-                    return .unknown(.empty(id: colum.id, name: colum.name))
+                    return .unknown(.empty(key: colum.key, name: colum.name))
                 }
                 
                 return relation

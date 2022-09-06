@@ -4,8 +4,8 @@ import UIKit
 
 extension Relation {
     
-    struct Status: RelationProtocol, Hashable, Identifiable {
-        let id: String
+    struct Status: RelationProtocol, Hashable {
+        let key: String
         let name: String
         let isFeatured: Bool
         let isEditable: Bool

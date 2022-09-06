@@ -82,9 +82,9 @@ struct RelationsListView: View {
         RelationsListRowView(editingMode: $editingMode, starButtonAvailable: !viewModel.navigationBarButtonsDisabled, relation: relation) {
             viewModel.removeRelation(id: $0)
         } onStarTap: {
-            viewModel.changeRelationFeaturedState(relationId: $0)
+            viewModel.changeRelationFeaturedState(relationKey: $0)
         } onEditTap: {
-            viewModel.handleTapOnRelation(relationId: $0)
+            viewModel.handleTapOnRelation(relationKey: $0)
         }
     }
     

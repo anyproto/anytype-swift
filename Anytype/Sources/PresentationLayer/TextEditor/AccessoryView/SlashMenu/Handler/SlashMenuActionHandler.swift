@@ -53,7 +53,7 @@ final class SlashMenuActionHandler {
                     AnytypeAnalytics.instance().logAddRelation(format: relation.format, isNew: isNew, type: .block)
                 }
             case .relation(let relation):
-                actionHandler.addBlock(.relation(key: relation.id), blockId: blockId)
+                actionHandler.addBlock(.relation(key: relation.key), blockId: blockId)
             }
         case let .other(other):
             switch other {

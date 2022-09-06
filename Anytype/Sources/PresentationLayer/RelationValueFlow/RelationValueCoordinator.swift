@@ -36,7 +36,7 @@ final class RelationValueCoordinator: RelationValueCoordinatorProtocol,
         
         if case .checkbox(let checkbox) = relation {
             let relationsService = RelationsService(objectId: objectId)
-            relationsService.updateRelation(relationKey: checkbox.id, value: (!checkbox.value).protobufValue)
+            relationsService.updateRelation(relationKey: checkbox.key, value: (!checkbox.value).protobufValue)
             return
         }
         

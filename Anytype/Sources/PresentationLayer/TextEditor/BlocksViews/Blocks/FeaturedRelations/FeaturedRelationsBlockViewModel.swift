@@ -39,7 +39,7 @@ struct FeaturedRelationsBlockViewModel: BlockViewModelProtocol {
             alignment: info.horizontalAlignment.asNSTextAlignment,
             onRelationTap: { item in
                 featuredRelations
-                    .first { $0.id == item.id }
+                    .first { $0.key == item.key }
                     .map(onRelationTap)
             },
             heightDidChanged: { blockDelegate?.textBlockSetNeedsLayout() }

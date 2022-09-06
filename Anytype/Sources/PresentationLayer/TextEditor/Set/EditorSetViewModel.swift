@@ -83,7 +83,7 @@ final class EditorSetViewModel: ObservableObject {
             style: .header,
             onRelationTap: { [weak self] relation in
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .set)
-                self?.showRelationValueEditingView(key: relation.id, source: .object)
+                self?.showRelationValueEditingView(key: relation.key, source: .object)
             }
         )
     }

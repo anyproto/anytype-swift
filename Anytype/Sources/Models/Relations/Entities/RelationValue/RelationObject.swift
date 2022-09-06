@@ -3,8 +3,8 @@ import SwiftUI
 
 extension Relation {
     
-    struct Object: RelationProtocol, Hashable, Identifiable {
-        let id: String
+    struct Object: RelationProtocol, Hashable {
+        let key: String
         let name: String
         let isFeatured: Bool
         let isEditable: Bool

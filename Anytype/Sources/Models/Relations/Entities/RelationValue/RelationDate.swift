@@ -2,8 +2,8 @@ import BlocksModels
 
 extension Relation {
     
-    struct Date: RelationProtocol, Hashable, Identifiable {
-        let id: String
+    struct Date: RelationProtocol, Hashable {
+        let key: String
         let name: String
         let isFeatured: Bool
         let isEditable: Bool

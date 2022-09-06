@@ -208,7 +208,7 @@ final class BlockViewModelBuilder {
                 let bookmarkFilter = FeatureFlags.bookmarksFlow ?
                     self.document.details?.type != ObjectTypeId.bundled(.bookmark).rawValue : true
                 
-                if relation.id == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
+                if relation.key == BundledRelationKey.type.rawValue && !self.document.isLocked && bookmarkFilter {
                     self.router.showTypesSearch(
                         onSelect: { [weak self] id in
                             self?.handler.setObjectTypeId(id)
@@ -216,12 +216,12 @@ final class BlockViewModelBuilder {
                     )
                 } else {
                     AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                    self.router.showRelationValueEditingView(key: relation.id, source: .object)
+                    self.router.showRelationValueEditingView(key: relation.key, source: .object)
                 }
             }
         case let .relation(content):
             let relation = document.parsedRelations.all.first {
-                $0.id == content.key
+                $0.key == content.key
             }
 
             guard let relation = relation else {
@@ -233,7 +233,7 @@ final class BlockViewModelBuilder {
                 relation: relation
             ) { [weak self] in
                 AnytypeAnalytics.instance().logChangeRelationValue(type: .block)
-                self?.router.showRelationValueEditingView(key: relation.id, source: .object)
+                self?.router.showRelationValueEditingView(key: relation.key, source: .object)
             }
         case .tableOfContents:
             return TableOfContentsViewModel(

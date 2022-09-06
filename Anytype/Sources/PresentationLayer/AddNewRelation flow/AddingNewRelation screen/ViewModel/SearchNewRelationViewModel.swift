@@ -11,7 +11,7 @@ final class SearchNewRelationViewModel: ObservableObject {
     // MARK: - Private variables
     
     // Used for exclude relations that already has in object
-    private let usedObjectRelationsIds: Set<String>
+    private let usedObjectRelationsKeys: Set<String>
     private let relationService: RelationsServiceProtocol
     private weak var output: SearchNewRelationModuleOutput?
     
@@ -25,7 +25,7 @@ final class SearchNewRelationViewModel: ObservableObject {
         self.relationService = relationService
         self.output = output
 
-        usedObjectRelationsIds = Set(objectRelations.all.map { $0.id })
+        usedObjectRelationsKeys = Set(objectRelations.all.map { $0.key })
     }
     
 }
@@ -62,7 +62,7 @@ extension SearchNewRelationViewModel {
 
     func obtainAvailbaleRelationList() -> [SearchNewRelationSectionType] {
         let relatonsMetadata = relationService.availableRelations().filter {
-            !$0.isHidden && !usedObjectRelationsIds.contains($0.key)
+            !$0.isHidden && !usedObjectRelationsKeys.contains($0.key)
         }
         
         return [.createNewRelation, .addFromLibriry(relatonsMetadata)]

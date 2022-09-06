@@ -84,7 +84,7 @@ final class RelationFilterBuilder {
         default:
             return .text(
                 Relation.Text(
-                    id: metadata.id,
+                    key: metadata.key,
                     name: metadata.name,
                     isFeatured: false,
                     isEditable: false,
@@ -155,7 +155,7 @@ private extension RelationFilterBuilder {
         
         return .object(
             Relation.Object(
-                id: metadata.id,
+                key: metadata.key,
                 name: metadata.name,
                 isFeatured: false,
                 isEditable: false,
@@ -173,7 +173,7 @@ private extension RelationFilterBuilder {
         guard filter.condition.hasValues else { return nil }
         return .text(
             Relation.Text(
-                id: metadata.id,
+                key: metadata.key,
                 name: metadata.name,
                 isFeatured: false,
                 isEditable: false,
@@ -196,7 +196,7 @@ private extension RelationFilterBuilder {
         }()
         return .number(
             Relation.Text(
-                id: metadata.id,
+                key: metadata.key,
                 name: metadata.name,
                 isFeatured: false,
                 isEditable: false,
@@ -213,7 +213,7 @@ private extension RelationFilterBuilder {
         guard filter.condition.hasValues else { return nil }
         return .phone(
             Relation.Text(
-                id: metadata.id,
+                key: metadata.key,
                 name: metadata.name,
                 isFeatured: false,
                 isEditable: false,
@@ -230,7 +230,7 @@ private extension RelationFilterBuilder {
         guard filter.condition.hasValues else { return nil }
         return .email(
             Relation.Text(
-                id: metadata.id,
+                key: metadata.key,
                 name: metadata.name,
                 isFeatured: false,
                 isEditable: false,
@@ -247,7 +247,7 @@ private extension RelationFilterBuilder {
         guard filter.condition.hasValues else { return nil }
         return .url(
             Relation.Text(
-                id: metadata.id,
+                key: metadata.key,
                 name: metadata.name,
                 isFeatured: false,
                 isEditable: false,
@@ -280,7 +280,7 @@ private extension RelationFilterBuilder {
         
         return .status(
             Relation.Status(
-                id: metadata.id,
+                key: metadata.key,
                 name: metadata.name,
                 isFeatured: false,
                 isEditable: false,
@@ -314,7 +314,7 @@ private extension RelationFilterBuilder {
         
         return .tag(
             Relation.Tag(
-                id: metadata.id,
+                key: metadata.key,
                 name: metadata.name,
                 isFeatured: false,
                 isEditable: false,
@@ -376,7 +376,7 @@ private extension RelationFilterBuilder {
         
         return .file(
             Relation.File(
-                id: metadata.id,
+                key: metadata.key,
                 name: metadata.name,
                 isFeatured: false,
                 isEditable: false,
@@ -393,7 +393,7 @@ private extension RelationFilterBuilder {
         guard filter.condition.hasValues else { return nil }
         return .checkbox(
             Relation.Checkbox(
-                id: metadata.id,
+                key: metadata.key,
                 name: metadata.name,
                 isFeatured: false,
                 isEditable: false,

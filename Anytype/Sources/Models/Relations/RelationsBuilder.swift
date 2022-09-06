@@ -153,7 +153,7 @@ private extension RelationsBuilder {
         case .unrecognized:
             return .text(
                 Relation.Text(
-                    id: relationDetails.id,
+                    key: relationDetails.key,
                     name: relationDetails.name,
                     isFeatured: relationDetails.isFeatured(details: details),
                     isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
@@ -171,7 +171,7 @@ private extension RelationsBuilder {
     ) -> Relation {
         .text(
             Relation.Text(
-                id: relationDetails.id,
+                key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
@@ -196,7 +196,7 @@ private extension RelationsBuilder {
         
         return .number(
             Relation.Text(
-                id: relationDetails.id,
+                key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
@@ -213,7 +213,7 @@ private extension RelationsBuilder {
     ) -> Relation {
         .phone(
             Relation.Text(
-                id: relationDetails.id,
+                key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
@@ -230,7 +230,7 @@ private extension RelationsBuilder {
     ) -> Relation {
         .email(
             Relation.Text(
-                id: relationDetails.id,
+                key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
@@ -247,7 +247,7 @@ private extension RelationsBuilder {
     ) -> Relation {
         .url(
             Relation.Text(
-                id: relationDetails.id,
+                key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
@@ -283,7 +283,7 @@ private extension RelationsBuilder {
         }
         return .status(
             Relation.Status(
-                id: relationDetails.id,
+                key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
@@ -311,7 +311,7 @@ private extension RelationsBuilder {
         
         return .date(
             Relation.Date(
-                id: relationDetails.id,
+                key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
@@ -328,7 +328,7 @@ private extension RelationsBuilder {
     ) -> Relation {
         .checkbox(
             Relation.Checkbox(
-                id: relationDetails.id,
+                key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
@@ -363,7 +363,7 @@ private extension RelationsBuilder {
         
         return .tag(
             Relation.Tag(
-                id: relationDetails.id,
+                key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
@@ -422,7 +422,7 @@ private extension RelationsBuilder {
         #warning("fix object type")
         return .object(
             Relation.Object(
-                id: relationDetails.id,
+                key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
@@ -487,7 +487,7 @@ private extension RelationsBuilder {
         
         return .file(
             Relation.File(
-                id: relationDetails.id,
+                key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: relationDetails.isFeatured(details: details),
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
@@ -562,7 +562,7 @@ private extension RelationDetails {
     
     var isBundled: Bool {
         guard let keyType = BundledRelationKey(rawValue: key) else { return false }
-        return BundledRelationKey.readonlyRelationKeys.contains(keyType)
+        return BundledRelationKey.notRemovableRelationKeys.contains(keyType)
     }
     
 }

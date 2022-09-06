@@ -53,7 +53,7 @@ extension StatusRelationDetailsViewModel {
     
     func didTapClearButton() {
         selectedStatus = nil
-        service.updateRelation(relationKey: relation.id, value: nil)
+        service.updateRelation(relationKey: relation.key, value: nil)
     }
     
     @ViewBuilder
@@ -89,7 +89,7 @@ private extension StatusRelationDetailsViewModel {
         else {
             ids.first.flatMap {
                 service.updateRelation(
-                    relationKey: relation.id,
+                    relationKey: relation.key,
                     value: $0.protobufValue
                 )
             }
@@ -98,11 +98,11 @@ private extension StatusRelationDetailsViewModel {
         }
         
         selectedStatus = newStatus
-        service.updateRelation(relationKey: relation.id, value: newStatusId.protobufValue)
+        service.updateRelation(relationKey: relation.key, value: newStatusId.protobufValue)
     }
     
     func handleCreateOption(title: String) {
-        let optionId = service.addRelationOption(source: source, relationKey: relation.id, optionText: title)
+        let optionId = service.addRelationOption(source: source, relationKey: relation.key, optionText: title)
         guard let optionId = optionId else {
             return
         }
