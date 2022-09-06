@@ -55,7 +55,8 @@ extension NewRelationViewModel {
             name: name,
             format: format.asRelationMetadataFormat,
             isHidden: false,
-            isReadOnly: false
+            isReadOnly: false,
+            isReadOnlyValue: false
         )
         
 //        let relationMetatdata = RelationMetadata(

@@ -10,6 +10,7 @@ public struct RelationDetails: Hashable {
     public let format: RelationMetadata.Format
     public let isHidden: Bool
     public let isReadOnly: Bool
+    public let isReadOnlyValue: Bool
     
     public init(
         id: String,
@@ -17,7 +18,8 @@ public struct RelationDetails: Hashable {
         name: String,
         format: RelationMetadata.Format,
         isHidden: Bool,
-        isReadOnly: Bool
+        isReadOnly: Bool,
+        isReadOnlyValue: Bool
     ) {
         self.id = id
         self.key = key
@@ -25,6 +27,7 @@ public struct RelationDetails: Hashable {
         self.format = format
         self.isHidden = isHidden
         self.isReadOnly = isReadOnly
+        self.isReadOnlyValue = isReadOnlyValue
     }
 }
 
@@ -37,6 +40,7 @@ public extension RelationDetails {
         self.format = objectDetails.values["relationFormat"]?.safeIntValue.map { RelationMetadata.Format(rawValue: $0) } ?? .unrecognized
         self.isHidden = objectDetails.isHidden
         self.isReadOnly = objectDetails.isReadonly
+        self.isReadOnlyValue = objectDetails.values["isReadOnlyValue"]?.boolValue ?? false
     }
     
     var asCreateMiddleware: Google_Protobuf_Struct {

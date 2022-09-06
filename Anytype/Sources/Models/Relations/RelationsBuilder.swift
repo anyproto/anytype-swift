@@ -557,7 +557,7 @@ private extension RelationDetails {
     func isEditable(objectLocked: Bool) -> Bool {
         guard !objectLocked else { return false }
         
-        return !self.isReadOnly
+        return !self.isReadOnlyValue
     }
     
     var isBundled: Bool {
