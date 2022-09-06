@@ -37,9 +37,11 @@ struct EditorSetViewRow: View {
     
     private var accessoryView: some View {
         Group {
-            if configuration.isSupported, configuration.isActive, editMode?.wrappedValue == .inactive {
-                Image(asset: .optionChecked)
-                    .foregroundColor(.buttonSelected)
+            if configuration.isSupported {
+                if configuration.isActive, editMode?.wrappedValue == .inactive {
+                    Image(asset: .optionChecked)
+                        .foregroundColor(.buttonSelected)
+                }
             } else {
                 AnytypeText(
                     Loc.EditorSetViewPicker.View.Available.soon(configuration.typeName),
