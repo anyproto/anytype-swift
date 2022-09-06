@@ -55,7 +55,9 @@ final class SetFiltersContentViewBuilder {
     private func buildTagsSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
-        let allTags = filter.metadata.selections.map { Relation.Tag.Option(option: $0) }
+        #warning("fix options")
+//        let allTags = filter.relationDetails.selections.map { Relation.Tag.Option(option: $0) }
+        let allTags = [Relation.Tag.Option]()
         let selectedTagIds = selectedIds(
             from: filter.filter.value,
             allOptions: allTags.map { $0.id }
@@ -84,11 +86,13 @@ final class SetFiltersContentViewBuilder {
             }()
             return values.map { $0.stringValue }
         }()
+        #warning("Fix limitedObjectType")
         return NewSearchModuleAssembly.objectsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
             excludedObjectIds: [],
-            limitedObjectType: filter.metadata.objectTypes,
+//            limitedObjectType: filter.relationDetails.objectTypes,
+            limitedObjectType: [],
             onSelect: onSelect
         )
     }
@@ -96,7 +100,9 @@ final class SetFiltersContentViewBuilder {
     private func buildStatusesSearchView(
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
-        let allStatuses = filter.metadata.selections.map { Relation.Status.Option(option: $0) }
+        #warning("Fix selections")
+//        let allStatuses = filter.relationDetails.selections.map { Relation.Status.Option(option: $0) }
+        let allStatuses = [Relation.Status.Option]()
         let selectedStatusesIds = selectedIds(
             from: filter.filter.value,
             allOptions: allStatuses.map { $0.id }

@@ -13,6 +13,7 @@ final class EditorSetViewModel: ObservableObject {
     
     @Published var sorts: [SetSort] = []
     @Published var filters: [SetFilter] = []
+//    @Published var relations: [RelationDetails] = []
     
     var isEmpty: Bool {
         dataView.views.isEmpty
@@ -22,8 +23,8 @@ final class EditorSetViewModel: ObservableObject {
         dataView.views.first { $0.id == dataView.activeViewId } ?? .empty
     }
     
-    var colums: [RelationMetadata] {
-        sortedRelations.filter { $0.option.isVisible }.map(\.metadata)
+    var colums: [RelationDetails] {
+        sortedRelations.filter { $0.option.isVisible }.map(\.relationDetails)
     }
  
     var configurations: [SetContentViewItemConfiguration] {
@@ -62,16 +63,16 @@ final class EditorSetViewModel: ObservableObject {
         document.featuredRelationsForEditor
     }
     
-    var relations: [RelationMetadata] {
+    var relations: [RelationDetails] {
         activeView.options.compactMap { option in
-            let metadata = dataView.relations.first { relation in
+            let relationDetails = dataView.relations.first { relation in
                 option.key == relation.key
             }
             
-            guard let metadata = metadata,
-                  shouldAddRelationMetadata(metadata) else { return nil }
+            guard let relationDetails = relationDetails,
+                  shouldAddRelationMetadata(relationDetails) else { return nil }
             
-            return metadata
+            return relationDetails
         }
     }
     
@@ -223,37 +224,37 @@ final class EditorSetViewModel: ObservableObject {
     
     private func updateSorts() {
         sorts = activeView.sorts.uniqued().compactMap { sort in
-            let metadata = dataView.relations.first { relation in
+            let relationDetails = dataView.relations.first { relation in
                 sort.relationKey == relation.key
             }
-            guard let metadata = metadata else { return nil }
+            guard let relationDetails = relationDetails else { return nil }
             
-            return SetSort(metadata: metadata, sort: sort)
+            return SetSort(relationDetails: relationDetails, sort: sort)
         }
     }
     
     private func updateFilters() {
         filters = activeView.filters.compactMap { filter in
-            let metadata = dataView.relations.first { relation in
+            let relationDetails = dataView.relations.first { relation in
                 filter.relationKey == relation.key
             }
-            guard let metadata = metadata else { return nil }
+            guard let relationDetails = relationDetails else { return nil }
             
-            return SetFilter(metadata: metadata, filter: filter)
+            return SetFilter(relationDetails: relationDetails, filter: filter)
         }
     }
     
-    private func shouldAddRelationMetadata(_ relationMetadata: RelationMetadata) -> Bool {
-        guard sorts.first(where: { $0.metadata.key == relationMetadata.key }) == nil else {
+    private func shouldAddRelationMetadata(_ relationDetails: RelationDetails) -> Bool {
+        guard sorts.first(where: { $0.relationDetails.key == relationDetails.key }) == nil else {
             return false
         }
-        guard relationMetadata.key != ExceptionalSetSort.name.rawValue,
-              relationMetadata.key != ExceptionalSetSort.done.rawValue else {
+        guard relationDetails.key != ExceptionalSetSort.name.rawValue,
+              relationDetails.key != ExceptionalSetSort.done.rawValue else {
             return true
         }
-        return !relationMetadata.isHidden &&
-        relationMetadata.format != .file &&
-        relationMetadata.format != .unrecognized
+        return !relationDetails.isHidden &&
+        relationDetails.format != .file &&
+        relationDetails.format != .unrecognized
     }
     
     private func isBookmarksSet() -> Bool {
@@ -404,4 +405,11 @@ extension EditorSetViewModel {
         searchService: ServiceLocator.shared.searchService(),
         detailsService: DetailsService(objectId: "objectId", service: ObjectActionsService())
     )
+}
+
+
+extension BlockDataview {
+    var relations: [RelationDetails] {
+        RelationDetailsStorage.shared.relations(for: relationLinks)
+    }
 }

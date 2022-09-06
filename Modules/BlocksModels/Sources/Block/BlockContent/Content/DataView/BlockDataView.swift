@@ -5,33 +5,32 @@ public struct BlockDataview: Hashable {
     public var activeViewId: BlockId 
     public let source: [String]
     public let views: [DataviewView]
-    public let relations: [RelationMetadata]
+    public let relationLinks: [RelationLink]
     
     public func updated(
         activeViewId: BlockId? = nil,
         source: [String]? = nil,
         views: [DataviewView]? = nil,
-        relations: [RelationMetadata]? = nil
+        relationLinks: [RelationLink]? = nil
     ) -> BlockDataview {
         BlockDataview(
             activeViewId: activeViewId ?? self.activeViewId,
             source: source ?? self.source,
             views: views ?? self.views,
-            relations: relations ?? self.relations
+            relationLinks: relationLinks ?? self.relationLinks
         )
     }
 
-
     public static var empty: BlockDataview {
-        BlockDataview(activeViewId: "", source: [], views: [], relations: [])
+        BlockDataview(activeViewId: "", source: [], views: [], relationLinks: [])
     }
 
     var asMiddleware: MiddlewareDataview {
         MiddlewareDataview(
             source: source,
             views: views.map(\.asMiddleware),
-            relations: relations.map(\.asMiddleware),
-            activeView: activeViewId
+            activeView: activeViewId,
+            relationLinks: relationLinks.map(\.asMiddleware)
         )
     }
 }
@@ -46,7 +45,7 @@ public extension MiddlewareDataview {
             activeViewId: activeView,
             source: source,
             views: views.compactMap(\.asModel),
-            relations: relations.map { RelationMetadata(middlewareRelation: $0) }
+            relationLinks: relationLinks.map { RelationLink(middlewareRelationLink: $0) }
         )
     }
 }

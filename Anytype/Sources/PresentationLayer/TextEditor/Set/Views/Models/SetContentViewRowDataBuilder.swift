@@ -10,12 +10,12 @@ final class SetContentViewDataBuilder {
     func sortedRelations(dataview: BlockDataview, view: DataviewView) -> [SetRelation] {
         let relations: [SetRelation] = view.options
             .compactMap { option in
-                let metadata = dataview.relations
+                let relationDetails = dataview.relations
                     .filter { !$0.isHidden }
                     .first { $0.key == option.key }
-                guard let metadata = metadata else { return nil }
+                guard let relationDetails = relationDetails else { return nil }
                 
-                return SetRelation(metadata: metadata, option: option)
+                return SetRelation(relationDetails: relationDetails, option: option)
             }
 
         return NSOrderedSet(array: relations).array as! [SetRelation]
@@ -25,25 +25,23 @@ final class SetContentViewDataBuilder {
         _ details: [ObjectDetails],
         dataView: BlockDataview,
         activeView: DataviewView,
-        colums: [RelationMetadata],
+        colums: [RelationDetails],
         isObjectLocked: Bool,
         onIconTap: @escaping (ObjectDetails) -> Void,
         onItemTap: @escaping (ObjectDetails) -> Void
     ) -> [SetContentViewItemConfiguration] {
         
-        let metadata = sortedRelations(dataview: dataView, view: activeView)
+        let relationDetails = sortedRelations(dataview: dataView, view: activeView)
             .filter { $0.option.isVisible == true }
-            .map { $0.metadata }
+            .map { $0.relationDetails }
         return details.compactMap { details in
-            #warning("fix me")
-            let parsedRelations = ParsedRelations.empty.all
-//            let parsedRelations = relationsBuilder
-//                .parsedRelations(
-//                    relationMetadatas: metadata,
-//                    objectId: details.id,
-//                    isObjectLocked: isObjectLocked
-//                )
-//                .all
+            let parsedRelations = relationsBuilder
+                .parsedRelations(
+                    relationsDetails: relationDetails,
+                    objectId: details.id,
+                    isObjectLocked: isObjectLocked
+                )
+                .all
             
             let sortedRelations = colums.compactMap { colum in
                 parsedRelations.first { $0.key == colum.key }

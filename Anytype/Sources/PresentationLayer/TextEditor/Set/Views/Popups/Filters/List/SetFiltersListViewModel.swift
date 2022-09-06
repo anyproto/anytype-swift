@@ -57,14 +57,14 @@ extension SetFiltersListViewModel {
     private func updateRows(with filters: [SetFilter]) {
         rows = filters.enumerated().map { index, filter in
             SetFilterRowConfiguration(
-                id: "\(filter.metadata.id)_\(index)",
-                title: filter.metadata.name,
+                id: "\(filter.relationDetails.id)_\(index)",
+                title: filter.relationDetails.name,
                 subtitle: filter.conditionString,
-                iconAsset: filter.metadata.format.iconAsset,
+                iconAsset: filter.relationDetails.format.iconAsset,
                 type: type(for: filter),
                 hasValues: filter.filter.condition.hasValues,
                 onTap: { [weak self] in
-                    self?.rowTapped(filter.metadata.id, index: index)
+                    self?.rowTapped(filter.relationDetails.id, index: index)
                 }
             )
         }
@@ -88,14 +88,14 @@ extension SetFiltersListViewModel {
     }
     
     private func makeSetFilter(with id: String) -> SetFilter? {
-        guard let metadata = setModel.relations.first(where: { $0.id == id }) else {
+        guard let relationDetails = setModel.relations.first(where: { $0.id == id }) else {
             return nil
         }
         return SetFilter(
-            metadata: metadata,
+            relationDetails: relationDetails,
             filter: DataviewFilter(
                 relationKey: id,
-                condition: SetFilter.defaultCondition(for: metadata),
+                condition: SetFilter.defaultCondition(for: relationDetails),
                 value: [String]().protobufValue
             )
         )
@@ -115,7 +115,7 @@ extension SetFiltersListViewModel {
     }
     
     private func type(for filter: SetFilter) -> SetFilterRowType {
-        switch filter.metadata.format {
+        switch filter.relationDetails.format {
         case .date:
             return .date(
                 relationFilterBuilder.dateString(
@@ -125,7 +125,7 @@ extension SetFiltersListViewModel {
         default:
             return .relation(
                 relationFilterBuilder.relation(
-                    metadata: filter.metadata,
+                    relationDetails: filter.relationDetails,
                     filter: filter.filter
                 )
             )

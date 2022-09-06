@@ -53,10 +53,10 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
         setModel.sortedRelations.map { relation in
             EditorSetViewSettingsRelation(
                 id: relation.id,
-                image: relation.metadata.format.iconAsset,
-                title: relation.metadata.name,
+                image: relation.relationDetails.format.iconAsset,
+                title: relation.relationDetails.name,
                 isOn: relation.option.isVisible,
-                isBundled: relation.metadata.isBundled,
+                isBundled: relation.relationDetails.isBundled,
                 onChange: { [weak self] isVisible in
                     self?.onRelationVisibleChange(relation, isVisible: isVisible)
                 }
@@ -80,7 +80,7 @@ final class EditorSetViewSettingsViewModel: ObservableObject {
                 anytypeAssertionFailure("No relation to delete at index: \(index)", domain: .dataviewService)
                 return
             }
-            service.deleteRelation(relationId: relation.metadata.id)
+            service.deleteRelation(relationId: relation.relationDetails.id)
         }
     }
     

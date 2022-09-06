@@ -183,7 +183,7 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     
     static func setSortsSearchModule(
         style: NewSearchView.Style = .default,
-        relations: [RelationMetadata],
+        relations: [RelationDetails],
         onSelect: @escaping (_ id: String) -> Void
     ) -> NewSearchView {
         let interactor = SetSortsSearchInteractor(relations: relations)

@@ -15,7 +15,7 @@ final class SetSortTypesListViewModel: CheckPopupViewViewModelProtocol {
         sort: SetSort,
         onSelect: @escaping (DataviewSort) -> Void
     ) {
-        self.title = sort.metadata.name
+        self.title = sort.relationDetails.name
         self.sort = sort
         self.selectedSort = sort.sort
         self.onSelect = onSelect
