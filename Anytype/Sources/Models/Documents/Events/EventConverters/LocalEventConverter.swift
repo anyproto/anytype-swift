@@ -3,7 +3,6 @@ import ProtobufMessages
 import AnytypeCore
 
 final class LocalEventConverter {
-    private let objectId: String
     private let infoContainer: InfoContainerProtocol
     private let blockValidator = BlockValidator()
     private let detailsStorage = ObjectDetailsStorage.shared
@@ -12,13 +11,11 @@ final class LocalEventConverter {
     private let restrictionsContainer: ObjectRestrictionsContainer
     
     init(
-        objectId: String,
 //        relationStorage: RelationsMetadataStorageProtocol,
         relationLinksStorage: RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
         infoContainer: InfoContainerProtocol
     ) {
-        self.objectId = objectId
 //        self.relationStorage = relationStorage
         self.relationLinksStorage = relationLinksStorage
         self.restrictionsContainer = restrictionsContainer
@@ -70,7 +67,6 @@ final class LocalEventConverter {
             #warning("Check me")
             let relationLinks = data.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
             relationLinksStorage.set(relationLinks: relationLinks)
-            RelationDetailsStorage.shared.subscribeForLocalEvents(contextId: objectId, links: relationLinks)
             
 //            relationStorage.set(
 //                relations: data.relations.map { RelationMetadata(middlewareRelation: $0) }
@@ -78,8 +74,6 @@ final class LocalEventConverter {
             let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: data.restrictions)
 
             restrictionsContainer.restrinctions = restrinctions
-            return .general
-        case .relationChanged:
             return .general
         }
     }

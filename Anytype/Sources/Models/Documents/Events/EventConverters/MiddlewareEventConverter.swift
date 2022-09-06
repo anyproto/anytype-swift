@@ -4,7 +4,6 @@ import AnytypeCore
 import SwiftProtobuf
 
 final class MiddlewareEventConverter {
-    private let objectId: String
     private let infoContainer: InfoContainerProtocol
     private let relationLinksStorage: RelationLinksStorageProtocol
 //    private let relationStorage: RelationsMetadataStorageProtocol
@@ -15,7 +14,6 @@ final class MiddlewareEventConverter {
     
     
     init(
-        objectId: String,
         infoContainer: InfoContainerProtocol,
         relationLinksStorage: RelationLinksStorageProtocol,
 //        relationStorage: RelationsMetadataStorageProtocol,
@@ -23,7 +21,6 @@ final class MiddlewareEventConverter {
         detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared,
         restrictionsContainer: ObjectRestrictionsContainer
     ) {
-        self.objectId = objectId
         self.infoContainer = infoContainer
         self.relationLinksStorage = relationLinksStorage
 //        self.relationStorage = relationStorage
@@ -135,7 +132,6 @@ final class MiddlewareEventConverter {
             relationLinksStorage.amend(
                 relationLinks: amend.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
             )
-            RelationDetailsStorage.shared.subscribeForLocalEvents(contextId: objectId, links: relationLinksStorage.relationLinks)
 //            relationStorage.amend(
 //                relations: amend.relations.map { RelationMetadata(middlewareRelation: $0) }
 //            )
@@ -145,7 +141,6 @@ final class MiddlewareEventConverter {
         case .objectRelationsRemove(let remove):
             #warning("Fix me")
             relationLinksStorage.remove(relationIds: remove.relationIds)
-            RelationDetailsStorage.shared.subscribeForLocalEvents(contextId: objectId, links: relationLinksStorage.relationLinks)
 //            relationStorage.remove(relationKeys: remove.keys)
             
             return .general

@@ -24,14 +24,6 @@ final class RelationDetailsStorage {
         return details
     }
     
-    func subscribeForLocalEvents(contextId: String, links: [RelationLink]) {
-        localSubscriptions[contextId] = links
-    }
-    
-    func unsubscribeFromLocalEvents(contextId: String) {
-        localSubscriptions.removeValue(forKey: contextId)
-    }
-    
     private func startSubscription() {
         subscriptionsService.startSubscription(data: .relation) { [weak self] subId, update in
             self?.handleEvent(update: update)
@@ -53,12 +45,7 @@ final class RelationDetailsStorage {
     }
     
     private func sendLocalEvents(relationIds: [String]) {
-        for (objectId, relationLinks) in localSubscriptions {
-            let ids = relationLinks.filter { relationIds.contains($0.id) }.map { $0.id }
-            if ids.isNotEmpty {
-                EventsBunch(contextId: objectId, localEvents: [.relationChanged(relationIds: ids)])
-                    .send()
-            }
-        }
+        RelationEventsBunch(events: [.relationChanged(relationIds: relationIds)])
+            .send()
     }
 }
