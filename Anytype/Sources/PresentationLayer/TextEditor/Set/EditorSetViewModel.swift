@@ -350,7 +350,7 @@ extension EditorSetViewModel {
     }
     
     func showViewPicker() {
-        router.showViewPicker(setModel: self)
+        router.showViewPicker(setModel: self, dataviewService: dataviewService)
     }
     
     func showSetSettings() {

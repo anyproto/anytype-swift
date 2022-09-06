@@ -82,6 +82,7 @@ internal extension ImageAsset {
   static let setOpenToEdit = ImageAsset.bundle(name: "set_open_to_edit")
   static let setPaginationArrowBackward = ImageAsset.bundle(name: "set_pagination_arrow_backward")
   static let setPaginationArrowForward = ImageAsset.bundle(name: "set_pagination_arrow_forward")
+  static let setPenEdit = ImageAsset.bundle(name: "set_pen_edit")
   static let setSettings = ImageAsset.bundle(name: "set_settings")
   static let setSettingsSettings = ImageAsset.bundle(name: "set_settings_settings")
   static let setSettinsFilter = ImageAsset.bundle(name: "set_settins_filter")

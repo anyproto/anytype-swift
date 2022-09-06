@@ -487,6 +487,7 @@
 		2E2D25732890036200E3DFD1 /* SubscriptionTogglerResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E2D25722890036100E3DFD1 /* SubscriptionTogglerResult.swift */; };
 		2E330C52286CB6A70099C7C3 /* CreateBookmarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */; };
 		2E330C54286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */; };
+		2E37F01428C768B900337BD4 /* EditorSetViewRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E37F01328C768B900337BD4 /* EditorSetViewRow.swift */; };
 		2E412CC8283BCA3E00C973FF /* MediaPickerContentType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */; };
 		2E412D152847B15C00C973FF /* SetSort.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E412D142847B15C00C973FF /* SetSort.swift */; };
 		2E61D470286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */; };
@@ -1651,6 +1652,7 @@
 		2E2D25722890036100E3DFD1 /* SubscriptionTogglerResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubscriptionTogglerResult.swift; sourceTree = "<group>"; };
 		2E330C51286CB6A70099C7C3 /* CreateBookmarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateBookmarkViewModel.swift; sourceTree = "<group>"; };
 		2E330C53286CC2BA0099C7C3 /* CreateObjectViewModelProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateObjectViewModelProtocol.swift; sourceTree = "<group>"; };
+		2E37F01328C768B900337BD4 /* EditorSetViewRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorSetViewRow.swift; sourceTree = "<group>"; };
 		2E412CC7283BCA3E00C973FF /* MediaPickerContentType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaPickerContentType.swift; sourceTree = "<group>"; };
 		2E412D142847B15C00C973FF /* SetSort.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetSort.swift; sourceTree = "<group>"; };
 		2E61D46F286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockBookmarkStateConverter.swift; sourceTree = "<group>"; };
@@ -4997,6 +4999,7 @@
 				3D513F0E27956E2B007850D5 /* EditorSetViewPicker.swift */,
 				2E975EC62874BB18004DE574 /* EditorSetViewPickerViewModel.swift */,
 				2E975EC82874BBC5004DE574 /* EditorSetViewRowConfiguration.swift */,
+				2E37F01328C768B900337BD4 /* EditorSetViewRow.swift */,
 			);
 			path = ViewPicker;
 			sourceTree = "<group>";
@@ -8103,6 +8106,7 @@
 				2E61D470286C63FC004BC2E7 /* BlockBookmarkStateConverter.swift in Sources */,
 				2A6F5048288A9AB600ED6E2E /* Image+Create.swift in Sources */,
 				12F14CD52758D0B200B976B5 /* RelationEditingViewModelBuilderProtocol.swift in Sources */,
+				2E37F01428C768B900337BD4 /* EditorSetViewRow.swift in Sources */,
 				C9A04F8D287C317D00276804 /* SelectionDecorationView.swift in Sources */,
 				12136D5A2799A2BC00262FE7 /* TextRelationDetailsViewController.swift in Sources */,
 				535FDE2027E8B63A0098DBFA /* PasteboardHelper.swift in Sources */,
