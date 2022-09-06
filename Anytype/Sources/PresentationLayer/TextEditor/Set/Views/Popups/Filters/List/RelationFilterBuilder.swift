@@ -153,7 +153,7 @@ private extension RelationFilterBuilder {
             return objectOptions
         }()
         
-        #warning("fix limit object types")
+        #warning("Check limit object types")
         return .object(
             Relation.Object(
                 key: relationDetails.key,
@@ -162,8 +162,7 @@ private extension RelationFilterBuilder {
                 isEditable: false,
                 isBundled: relationDetails.isBundled,
                 selectedObjects: objectOptions,
-                limitedObjectTypes: []
-//                limitedObjectTypes: relationDetails.objectTypes
+                limitedObjectTypes: relationDetails.objectTypes
             )
         )
     }

@@ -419,7 +419,7 @@ private extension RelationsBuilder {
             return objectOptions
         }()
         
-        #warning("fix object type")
+        #warning("Check object type")
         return .object(
             Relation.Object(
                 key: relationDetails.key,
@@ -428,8 +428,7 @@ private extension RelationsBuilder {
                 isEditable: relationDetails.isEditable(objectLocked: isObjectLocked),
                 isBundled: relationDetails.isBundled,
                 selectedObjects: objectOptions,
-//                limitedObjectTypes: relationDetails.objectTypes
-                limitedObjectTypes: []
+                limitedObjectTypes: relationDetails.objectTypes
             )
         )
     }

@@ -48,7 +48,7 @@ extension NewRelationViewModel {
     }
     
     func didTapAddButton() {
-        #warning("Fix objectTypeIds")
+        #warning("Check objectTypeIds")
         let relationMetatdata = RelationDetails(
             id: "",
             key: "",
@@ -56,7 +56,8 @@ extension NewRelationViewModel {
             format: format.asRelationMetadataFormat,
             isHidden: false,
             isReadOnly: false,
-            isReadOnlyValue: false
+            isReadOnlyValue: false,
+            objectTypes: objectTypeIds
         )
         
 //        let relationMetatdata = RelationMetadata(

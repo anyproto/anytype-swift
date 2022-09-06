@@ -11,6 +11,7 @@ public struct RelationDetails: Hashable {
     public let isHidden: Bool
     public let isReadOnly: Bool
     public let isReadOnlyValue: Bool
+    public let objectTypes: [String]
     
     public init(
         id: String,
@@ -19,7 +20,8 @@ public struct RelationDetails: Hashable {
         format: RelationMetadata.Format,
         isHidden: Bool,
         isReadOnly: Bool,
-        isReadOnlyValue: Bool
+        isReadOnlyValue: Bool,
+        objectTypes: [String]
     ) {
         self.id = id
         self.key = key
@@ -28,19 +30,23 @@ public struct RelationDetails: Hashable {
         self.isHidden = isHidden
         self.isReadOnly = isReadOnly
         self.isReadOnlyValue = isReadOnlyValue
+        self.objectTypes = objectTypes
     }
 }
 
 public extension RelationDetails {
     
     init(objectDetails: ObjectDetails) {
+        #warning("Add fields to constants")
         self.id = objectDetails.id
         self.key = objectDetails.values["relationKey"]?.stringValue ?? ""
         self.name = objectDetails.name
         self.format = objectDetails.values["relationFormat"]?.safeIntValue.map { RelationMetadata.Format(rawValue: $0) } ?? .unrecognized
         self.isHidden = objectDetails.isHidden
         self.isReadOnly = objectDetails.isReadonly
-        self.isReadOnlyValue = objectDetails.values["isReadOnlyValue"]?.boolValue ?? false
+        #warning("Check. Middleware should be add this field.")
+        self.isReadOnlyValue = objectDetails.values["readonlyValue"]?.boolValue ?? false
+        self.objectTypes = objectDetails.values["relationFormatObjectTypes"]?.listValue.values.map { $0.stringValue } ?? []
     }
     
     var asCreateMiddleware: Google_Protobuf_Struct {
@@ -51,6 +57,10 @@ public extension RelationDetails {
         if format != .unrecognized {
             fields["relationFormat"] = format.rawValue.protobufValue
         }
+        if objectTypes.isNotEmpty {
+            fields["relationFormatObjectTypes"] = objectTypes.protobufValue
+        }
+        
         return Google_Protobuf_Struct(fields: fields)
     }
 }
