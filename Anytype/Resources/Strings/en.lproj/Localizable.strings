@@ -32,6 +32,7 @@
 "Duplicate" = "Duplicate";
 "Copy" = "Copy";
 "Preview" = "Preview";
+"View" = "View";
 "Paste" = "Paste";
 "Move" = "Move";
 "Move to" = "Move to";
@@ -474,6 +475,7 @@
 "Download" = "Download";
 "Open object" = "Open object";
 "Turn into" = "Turn into";
+"Into object" = "Into object";
 "Add below" = "Add below";
 "Change type" = "Change type";
 "Link to existing object" = "Link to existing object";

@@ -25,8 +25,6 @@ protocol EditorPageMovingManagerProtocol {
 }
 
 protocol EditorPageSelectionManagerProtocol {
-    var selectedBlocksIndexPaths: [IndexPath] { get }
-
     func canSelectBlock(at indexPath: IndexPath) -> Bool
     func didLongTap(at indexPath: IndexPath)
     func didUpdateSelectedIndexPaths(_ indexPaths: [IndexPath])
