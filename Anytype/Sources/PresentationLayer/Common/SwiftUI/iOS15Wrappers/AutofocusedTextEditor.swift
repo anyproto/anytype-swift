@@ -9,7 +9,7 @@ struct AutofocusedTextEditor: View {
     init(text: Binding<String>, keyboardType: UIKeyboardType = .default, shouldSkipFocusOnFilled: Bool = false) {
         _text = text
         self.keyboardType = keyboardType
-        self.shouldSkipFocusOnFilled = false
+        self.shouldSkipFocusOnFilled = shouldSkipFocusOnFilled
     }
     
     var body: some View {
