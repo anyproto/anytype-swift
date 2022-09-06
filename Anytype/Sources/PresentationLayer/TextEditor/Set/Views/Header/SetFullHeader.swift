@@ -81,7 +81,7 @@ extension SetFullHeader {
                 shouldSkipFocusOnFilled: true
             )
             .font(AnytypeFontBuilder.font(anytypeFont: .title))
-            .frame(height: max(40, textEditorHeight))
+            .frame(height: textEditorHeight)
             .offset(x: -6.2)
             .placeholder(when: model.titleString.isEmpty) {
                 AnytypeText(Loc.untitled, style: .title, color: .textTertiary)
