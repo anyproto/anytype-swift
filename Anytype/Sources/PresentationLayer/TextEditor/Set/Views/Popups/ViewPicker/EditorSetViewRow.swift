@@ -8,7 +8,7 @@ struct EditorSetViewRow: View {
     let onTap: () -> Void
     
     var body: some View {
-        HStack(spacing: 4) {
+        HStack(spacing: 5) {
             content
             editButton
         }
@@ -37,11 +37,9 @@ struct EditorSetViewRow: View {
     
     private var accessoryView: some View {
         Group {
-            if configuration.isSupported {
-                if configuration.isActive, editMode?.wrappedValue == .inactive {
-                    Image(asset: .optionChecked)
-                        .foregroundColor(.buttonSelected)
-                }
+            if configuration.isSupported, configuration.isActive, editMode?.wrappedValue == .inactive {
+                Image(asset: .optionChecked)
+                    .foregroundColor(.buttonSelected)
             } else {
                 AnytypeText(
                     Loc.EditorSetViewPicker.View.Available.soon(configuration.typeName),
@@ -54,14 +52,12 @@ struct EditorSetViewRow: View {
     
     private var editButton: some View {
         Group {
-            if configuration.isSupported {
-                if editMode?.wrappedValue == .active {
-                    Button(action: {
-                        configuration.onEditTap()
-                    }) {
-                        Image(asset: .setPenEdit)
-                            .foregroundColor(.buttonSelected)
-                    }
+            if configuration.isSupported, editMode?.wrappedValue == .active {
+                Button(action: {
+                    configuration.onEditTap()
+                }) {
+                    Image(asset: .setPenEdit)
+                        .foregroundColor(.buttonSelected)
                 }
             }
         }
