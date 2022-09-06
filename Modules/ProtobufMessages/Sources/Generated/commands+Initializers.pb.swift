@@ -363,11 +363,12 @@ extension Anytype_Rpc.Block.ListDelete.Response.Error {
 }
 
 extension Anytype_Rpc.Block.ListDuplicate.Request {
-    public init(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none) {
+    public init(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, targetContextID: String = String()) {
         self.contextID = contextID
         self.targetID = targetID
         self.blockIds = blockIds
         self.position = position
+        self.targetContextID = targetContextID
     }
 }
 
@@ -2733,10 +2734,11 @@ extension Anytype_Rpc.Object.ListSetIsFavorite.Response.Error {
 }
 
 extension Anytype_Rpc.Object.Open.Request {
-    public init(contextID: String = String(), objectID: String = String(), traceID: String = String()) {
+    public init(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false) {
         self.contextID = contextID
         self.objectID = objectID
         self.traceID = traceID
+        self.includeRelationsAsDependentObjects = includeRelationsAsDependentObjects
     }
 }
 
@@ -3051,10 +3053,11 @@ extension Anytype_Rpc.Object.ShareByLink.Response.Error {
 }
 
 extension Anytype_Rpc.Object.Show.Request {
-    public init(contextID: String = String(), objectID: String = String(), traceID: String = String()) {
+    public init(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false) {
         self.contextID = contextID
         self.objectID = objectID
         self.traceID = traceID
+        self.includeRelationsAsDependentObjects = includeRelationsAsDependentObjects
     }
 }
 

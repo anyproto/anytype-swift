@@ -667,6 +667,8 @@ message Rpc {
                 string contextId = 1; // id of the context blo1k
                 string objectId = 2;
                 string traceId = 3;
+
+                bool includeRelationsAsDependentObjects = 4; // some clients may set this option instead if having the single subscription to all relations
             }
 
             message Response {
@@ -718,6 +720,8 @@ message Rpc {
                 string contextId = 1; // deprecated
                 string objectId = 2;
                 string traceId = 3;
+
+                bool includeRelationsAsDependentObjects = 4; // some clients may set this option instead if having the single subscription to all relations
             }
 
             message Response {
@@ -2767,6 +2771,7 @@ message Rpc {
                 string targetId = 2; // id of the closest block
                 repeated string blockIds = 3; // id of block for duplicate
                 anytype.model.Block.Position position = 4;
+                string targetContextId = 5;
             }
 
             message Response {

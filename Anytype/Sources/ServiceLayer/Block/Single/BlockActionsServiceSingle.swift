@@ -15,7 +15,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
     
     func open() async throws {
         let result = try await Anytype_Rpc.Object.Open.Service
-            .invocation(contextID: self.contextId, objectID: contextId)
+            .invocation(contextID: self.contextId, objectID: contextId, includeRelationsAsDependentObjects: true)
             .invoke(errorDomain: .blockActionsService)
         let event = EventsBunch(
             contextId: contextId,
@@ -28,7 +28,7 @@ final class BlockActionsServiceSingle: BlockActionsServiceSingleProtocol {
 
     func openForPreview() async throws {
         let result = try await Anytype_Rpc.Object.Show.Service
-            .invocation(contextID: contextId, objectID: contextId)
+            .invocation(contextID: contextId, objectID: contextId, includeRelationsAsDependentObjects: true)
             .invoke(errorDomain: .blockActionsService)
         let event = EventsBunch(
             contextId: contextId,

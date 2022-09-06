@@ -452,14 +452,14 @@ extension Anytype_Rpc.Workspace.Export {
 
 extension Anytype_Rpc.Object.Open {
   public enum Service {
-    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, objectID: objectID, traceID: traceID).invoke(on: queue)
+    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, objectID: objectID, traceID: traceID, includeRelationsAsDependentObjects: includeRelationsAsDependentObjects).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, objectID: objectID, traceID: traceID).invoke()
+    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false) -> Result<Response, Error> {
+        return invocation(contextID: contextID, objectID: objectID, traceID: traceID, includeRelationsAsDependentObjects: includeRelationsAsDependentObjects).invoke()
     }
-    public static func invocation(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, objectID: objectID, traceID: traceID)
+    public static func invocation(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, objectID: objectID, traceID: traceID, includeRelationsAsDependentObjects: includeRelationsAsDependentObjects)
         return Invocation<Request,Response>(messageName: "ObjectOpen", request: request) { request in
             return self.invoke(request)
         }
@@ -496,14 +496,14 @@ extension Anytype_Rpc.Object.Close {
 
 extension Anytype_Rpc.Object.Show {
   public enum Service {
-    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, objectID: objectID, traceID: traceID).invoke(on: queue)
+    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false, queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, objectID: objectID, traceID: traceID, includeRelationsAsDependentObjects: includeRelationsAsDependentObjects).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> Result<Response, Error> {
-        return invocation(contextID: contextID, objectID: objectID, traceID: traceID).invoke()
+    public static func invoke(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false) -> Result<Response, Error> {
+        return invocation(contextID: contextID, objectID: objectID, traceID: traceID, includeRelationsAsDependentObjects: includeRelationsAsDependentObjects).invoke()
     }
-    public static func invocation(contextID: String = String(), objectID: String = String(), traceID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, objectID: objectID, traceID: traceID)
+    public static func invocation(contextID: String = String(), objectID: String = String(), traceID: String = String(), includeRelationsAsDependentObjects: Bool = false) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, objectID: objectID, traceID: traceID, includeRelationsAsDependentObjects: includeRelationsAsDependentObjects)
         return Invocation<Request,Response>(messageName: "ObjectShow", request: request) { request in
             return self.invoke(request)
         }
@@ -2146,14 +2146,14 @@ extension Anytype_Rpc.Block.ListSetFields {
 
 extension Anytype_Rpc.Block.ListDuplicate {
   public enum Service {
-    public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, queue: DispatchQueue? = nil) -> Future<Response, Error> {
-        return invocation(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).invoke(on: queue)
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, targetContextID: String = String(), queue: DispatchQueue? = nil) -> Future<Response, Error> {
+        return invocation(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position, targetContextID: targetContextID).invoke(on: queue)
     }
-    public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none) -> Result<Response, Error> {
-        return invocation(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position).invoke()
+    public static func invoke(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, targetContextID: String = String()) -> Result<Response, Error> {
+        return invocation(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position, targetContextID: targetContextID).invoke()
     }
-    public static func invocation(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none) -> ProtobufMessages.Invocation<Request, Response> {
-        let request = Request(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position)
+    public static func invocation(contextID: String = String(), targetID: String = String(), blockIds: [String] = [], position: Anytype_Model_Block.Position = .none, targetContextID: String = String()) -> ProtobufMessages.Invocation<Request, Response> {
+        let request = Request(contextID: contextID, targetID: targetID, blockIds: blockIds, position: position, targetContextID: targetContextID)
         return Invocation<Request,Response>(messageName: "BlockListDuplicate", request: request) { request in
             return self.invoke(request)
         }

@@ -2512,6 +2512,9 @@ public struct Anytype_Rpc {
 
         public var traceID: String = String()
 
+        /// some clients may set this option instead if having the single subscription to all relations
+        public var includeRelationsAsDependentObjects: Bool = false
+
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
         public init() {}
@@ -2715,6 +2718,9 @@ public struct Anytype_Rpc {
         public var objectID: String = String()
 
         public var traceID: String = String()
+
+        /// some clients may set this option instead if having the single subscription to all relations
+        public var includeRelationsAsDependentObjects: Bool = false
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -10949,6 +10955,8 @@ public struct Anytype_Rpc {
         public var blockIds: [String] = []
 
         public var position: Anytype_Model_Block.Position = .none
+
+        public var targetContextID: String = String()
 
         public var unknownFields = SwiftProtobuf.UnknownStorage()
 
@@ -24410,6 +24418,7 @@ extension Anytype_Rpc.Object.Open.Request: SwiftProtobuf.Message, SwiftProtobuf.
     1: .same(proto: "contextId"),
     2: .same(proto: "objectId"),
     3: .same(proto: "traceId"),
+    4: .same(proto: "includeRelationsAsDependentObjects"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -24421,6 +24430,7 @@ extension Anytype_Rpc.Object.Open.Request: SwiftProtobuf.Message, SwiftProtobuf.
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.includeRelationsAsDependentObjects) }()
       default: break
       }
     }
@@ -24436,6 +24446,9 @@ extension Anytype_Rpc.Object.Open.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if !self.traceID.isEmpty {
       try visitor.visitSingularStringField(value: self.traceID, fieldNumber: 3)
     }
+    if self.includeRelationsAsDependentObjects != false {
+      try visitor.visitSingularBoolField(value: self.includeRelationsAsDependentObjects, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -24443,6 +24456,7 @@ extension Anytype_Rpc.Object.Open.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.contextID != rhs.contextID {return false}
     if lhs.objectID != rhs.objectID {return false}
     if lhs.traceID != rhs.traceID {return false}
+    if lhs.includeRelationsAsDependentObjects != rhs.includeRelationsAsDependentObjects {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -24702,6 +24716,7 @@ extension Anytype_Rpc.Object.Show.Request: SwiftProtobuf.Message, SwiftProtobuf.
     1: .same(proto: "contextId"),
     2: .same(proto: "objectId"),
     3: .same(proto: "traceId"),
+    4: .same(proto: "includeRelationsAsDependentObjects"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -24713,6 +24728,7 @@ extension Anytype_Rpc.Object.Show.Request: SwiftProtobuf.Message, SwiftProtobuf.
       case 1: try { try decoder.decodeSingularStringField(value: &self.contextID) }()
       case 2: try { try decoder.decodeSingularStringField(value: &self.objectID) }()
       case 3: try { try decoder.decodeSingularStringField(value: &self.traceID) }()
+      case 4: try { try decoder.decodeSingularBoolField(value: &self.includeRelationsAsDependentObjects) }()
       default: break
       }
     }
@@ -24728,6 +24744,9 @@ extension Anytype_Rpc.Object.Show.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if !self.traceID.isEmpty {
       try visitor.visitSingularStringField(value: self.traceID, fieldNumber: 3)
     }
+    if self.includeRelationsAsDependentObjects != false {
+      try visitor.visitSingularBoolField(value: self.includeRelationsAsDependentObjects, fieldNumber: 4)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -24735,6 +24754,7 @@ extension Anytype_Rpc.Object.Show.Request: SwiftProtobuf.Message, SwiftProtobuf.
     if lhs.contextID != rhs.contextID {return false}
     if lhs.objectID != rhs.objectID {return false}
     if lhs.traceID != rhs.traceID {return false}
+    if lhs.includeRelationsAsDependentObjects != rhs.includeRelationsAsDependentObjects {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -36770,6 +36790,7 @@ extension Anytype_Rpc.Block.ListDuplicate.Request: SwiftProtobuf.Message, SwiftP
     2: .same(proto: "targetId"),
     3: .same(proto: "blockIds"),
     4: .same(proto: "position"),
+    5: .same(proto: "targetContextId"),
   ]
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
@@ -36782,6 +36803,7 @@ extension Anytype_Rpc.Block.ListDuplicate.Request: SwiftProtobuf.Message, SwiftP
       case 2: try { try decoder.decodeSingularStringField(value: &self.targetID) }()
       case 3: try { try decoder.decodeRepeatedStringField(value: &self.blockIds) }()
       case 4: try { try decoder.decodeSingularEnumField(value: &self.position) }()
+      case 5: try { try decoder.decodeSingularStringField(value: &self.targetContextID) }()
       default: break
       }
     }
@@ -36800,6 +36822,9 @@ extension Anytype_Rpc.Block.ListDuplicate.Request: SwiftProtobuf.Message, SwiftP
     if self.position != .none {
       try visitor.visitSingularEnumField(value: self.position, fieldNumber: 4)
     }
+    if !self.targetContextID.isEmpty {
+      try visitor.visitSingularStringField(value: self.targetContextID, fieldNumber: 5)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -36808,6 +36833,7 @@ extension Anytype_Rpc.Block.ListDuplicate.Request: SwiftProtobuf.Message, SwiftP
     if lhs.targetID != rhs.targetID {return false}
     if lhs.blockIds != rhs.blockIds {return false}
     if lhs.position != rhs.position {return false}
+    if lhs.targetContextID != rhs.targetContextID {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
