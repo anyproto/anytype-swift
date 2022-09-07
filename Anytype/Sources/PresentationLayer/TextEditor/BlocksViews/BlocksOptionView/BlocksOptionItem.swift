@@ -60,7 +60,7 @@ extension BlocksOptionItem {
         case .duplicate:
             return Loc.duplicate
         case .turnInto:
-            return Loc.turnInto
+            return Loc.intoObject
         case .moveTo:
             return Loc.moveTo
         case .move:
@@ -74,7 +74,7 @@ extension BlocksOptionItem {
         case .copy:
             return Loc.copy
         case .preview:
-            return Loc.preview
+            return Loc.view
         }
     }
 

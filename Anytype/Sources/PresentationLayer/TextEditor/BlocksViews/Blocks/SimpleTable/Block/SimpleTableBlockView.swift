@@ -3,13 +3,12 @@ import BlocksModels
 import Combine
 
 final class SimpleTableBlockView: UIView, BlockContentView {
-    private lazy var dynamicLayoutView = DynamicCollectionLayoutView(frame: .zero)
-    private lazy var spreadsheetLayout = SpreadsheetLayout()
-    private lazy var dataSource = SpreadsheetViewDataSource(
-        collectionView: dynamicLayoutView.collectionView
-    )
+    lazy var dataSource = SpreadsheetViewDataSource(collectionView: dynamicLayoutView.collectionView)
+    lazy var spreadsheetLayout = SpreadsheetLayout()
+    var viewModel: SimpleTableViewModel?
 
-    private var viewModel: SimpleTableViewModel?
+    private lazy var dynamicLayoutView = DynamicCollectionLayoutView(frame: .zero)
+    private var collectionView: EditorCollectionView { dynamicLayoutView.collectionView }
     private var modelsSubscriptions = [AnyCancellable]()
     private weak var blockDelegate: BlockDelegate?
 
@@ -59,10 +58,6 @@ final class SimpleTableBlockView: UIView, BlockContentView {
         setupHandlers()
     }
 
-    override func endEditing(_ force: Bool) -> Bool {
-        super.endEditing(force)
-    }
-
     private func setupHandlers() {
         viewModel?.stateManager.editorEditingStatePublisher.sink { [unowned self] state in
             switch state {
@@ -73,7 +68,7 @@ final class SimpleTableBlockView: UIView, BlockContentView {
                 spreadsheetLayout.reselectSelectedCells()
             case .editing:
                 collectionView.isEditing = true
-                dynamicLayoutView.collectionView.isLocked = false
+                collectionView.isLocked = false
             case .moving, .loading:
                 return
             case .locked, .simpleTablesSelection:
@@ -81,28 +76,19 @@ final class SimpleTableBlockView: UIView, BlockContentView {
             }
         }.store(in: &cancellables)
 
-        viewModel?.stateManager.editorSelectedBlocks.sink { [unowned self] blockIds in
-            blockIds.forEach(selectBlock)
+        viewModel?.stateManager.selectedBlocksIndexPathsPublisher.sink { [unowned self] indexPaths in
+            collectionView.deselectAllSelectedItems()
+
+            indexPaths.forEach {
+                collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
+            }
             spreadsheetLayout.reselectSelectedCells()
+
         }.store(in: &cancellables)
 
         viewModel?.stateManager.selectedMenuTabPublisher.sink { [unowned self] _ in
-
-            collectionView.deselectAllSelectedItems()
-
-            let indexPathsForSelectedItemsNew = collectionView.indexPathsForSelectedItems ?? []
-            viewModel?.stateManager.didUpdateSelectedIndexPaths(indexPathsForSelectedItemsNew)
-
             spreadsheetLayout.reselectSelectedCells()
         }.store(in: &cancellables)
-    }
-
-    private func selectBlock(blockId: BlockId) {
-        guard let indexPath = dataSource.indexPath(for: blockId) else {
-            return
-        }
-
-        dynamicLayoutView.collectionView.selectItem(at: indexPath, animated: true, scrollPosition: [])
     }
 
     private func setupSubview() {
@@ -116,123 +102,5 @@ final class SimpleTableBlockView: UIView, BlockContentView {
             bottom: 0,
             right: 20
         )
-    }
-}
-
-
-// MARK: - UICollectionViewDelegate
-
-extension SimpleTableBlockView: UICollectionViewDelegate {
-
-    var collectionView: EditorCollectionView { dynamicLayoutView.collectionView }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didSelectItemAt indexPath: IndexPath
-    ) {
-        if collectionView.isEditing {
-            let item = dataSource.item(for: indexPath)
-            item?.didSelect(in: viewModel?.stateManager.editingState ?? .editing)
-
-            collectionView.deselectItem(at: indexPath, animated: false)
-        } else {
-            guard let selectedMenuTab = viewModel?.stateManager.selectedMenuTab else { return }
-
-            let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems ?? []
-            switch selectedMenuTab {
-            case .cell:
-                break
-            case .row:
-                if let ip = indexPathsForSelectedItems.first(where: { $0.section == indexPath.section}) {
-
-                    let allRowIndexPaths = SpreadsheetSelectionHelper.allIndexPaths(
-                        for: ip.section,
-                        rowsCount: collectionView.numberOfItems(inSection: 0)
-                    )
-
-                    allRowIndexPaths.forEach {
-                        collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
-                    }
-                }
-            case .column:
-                if let ip = indexPathsForSelectedItems.first(where: { $0.row == indexPath.row}) {
-
-                    let allColumnIndexPaths = SpreadsheetSelectionHelper.allIndexPaths(
-                        for: ip.row,
-                        sectionsCount: collectionView.numberOfSections
-                    )
-
-                    allColumnIndexPaths.forEach {
-                        collectionView.selectItem(at: $0, animated: false, scrollPosition: [])
-                    }
-                }
-            }
-
-            let indexPathsForSelectedItemsNew = collectionView.indexPathsForSelectedItems ?? []
-
-            viewModel?.stateManager.didUpdateSelectedIndexPaths(indexPathsForSelectedItemsNew)
-            spreadsheetLayout.reselectSelectedCells()
-        }
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        didDeselectItemAt indexPath: IndexPath
-    ) {
-        guard let selectedMenuTab = viewModel?.stateManager.selectedMenuTab else { return }
-
-        let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems ?? []
-        switch selectedMenuTab {
-        case .cell:
-            break
-        case .row:
-            if let ip = indexPathsForSelectedItems.first(where: { $0.section == indexPath.section}) {
-
-                let allRowIndexPaths = SpreadsheetSelectionHelper.allIndexPaths(
-                    for: ip.section,
-                    rowsCount: collectionView.numberOfItems(inSection: 0)
-                )
-
-                allRowIndexPaths.forEach {
-                    collectionView.deselectItem(at: $0, animated: false)
-                }
-            }
-        case .column:
-            if let ip = indexPathsForSelectedItems.first(where: { $0.row == indexPath.row}) {
-
-                let allColumnIndexPaths = SpreadsheetSelectionHelper.allIndexPaths(
-                    for: ip.row,
-                    sectionsCount: collectionView.numberOfSections
-                )
-
-                allColumnIndexPaths.forEach {
-                    collectionView.deselectItem(at: $0, animated: false)
-                }
-            }
-        }
-
-        if let indexPathsForSelectedItems = collectionView.indexPathsForSelectedItems {
-            viewModel?.stateManager.didUpdateSelectedIndexPaths(indexPathsForSelectedItems)
-        }
-
-        spreadsheetLayout.reselectSelectedCells()
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        shouldHighlightItemAt indexPath: IndexPath
-    ) -> Bool {
-        return true
-    }
-
-    func collectionView(
-        _ collectionView: UICollectionView,
-        shouldSelectItemAt indexPath: IndexPath
-    ) -> Bool {
-        return true
-    }
-
-    func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
-        return collectionView.isEditing
     }
 }
