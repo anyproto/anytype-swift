@@ -65,7 +65,7 @@ final class SetFiltersContentViewBuilder {
         return NewSearchModuleAssembly.tagsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedTagIds),
-            allTags: allTags,
+            relationKey: filter.relationDetails.key,
             selectedTagIds: [],
             onSelect: onSelect,
             onCreate: { _ in }

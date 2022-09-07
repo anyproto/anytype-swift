@@ -11,7 +11,9 @@ final class EditorSetViewModel: ObservableObject {
     @Published var loadingDocument = true
     @Published var pagitationData = EditorSetPaginationData.empty
     
+    #warning("Check me")
     @Published var sorts: [SetSort] = []
+    #warning("Check me")
     @Published var filters: [SetFilter] = []
 //    @Published var relations: [RelationDetails] = []
     
@@ -408,6 +410,7 @@ extension EditorSetViewModel {
 }
 
 
+#warning("Fix me. Change this logic. Save relations once.")
 extension BlockDataview {
     var relations: [RelationDetails] {
         RelationDetailsStorage.shared.relations(for: relationLinks)

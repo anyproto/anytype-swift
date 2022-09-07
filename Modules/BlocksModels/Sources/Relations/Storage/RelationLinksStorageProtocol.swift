@@ -8,5 +8,5 @@ public protocol RelationLinksStorageProtocol: AnyObject {
     func amend(relationLinks: [RelationLink])
     func remove(relationIds: [String])
     
-    func contains(relationKey: String) -> Bool
+    func contains(relationKeys: [String]) -> Bool
 }

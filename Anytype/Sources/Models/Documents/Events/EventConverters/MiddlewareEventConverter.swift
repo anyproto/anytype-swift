@@ -114,7 +114,8 @@ final class MiddlewareEventConverter {
                 return .general
             }
             
-            if relationLinksStorage.contains(relationKey: newDetails.id) {
+            let relationKeys = data.details.map { $0.key }
+            if relationLinksStorage.contains(relationKeys: relationKeys) {
                 return .general
             }
             

@@ -1,17 +1,20 @@
 import Foundation
+import BlocksModels
 
 final class TagsSearchInteractor {
     
-    private let allTags: [Relation.Tag.Option]
+    private let allTags: [Relation.Tag.Option] = []
+    private let relationKey: String
     private let selectedTagIds: [String]
     private let isPreselectModeAvailable: Bool
+    private let searchService = ServiceLocator.shared.searchService()
     
     init(
-        allTags: [Relation.Tag.Option],
+        relationKey: String,
         selectedTagIds: [String],
         isPreselectModeAvailable: Bool = false
     ) {
-        self.allTags = allTags
+        self.relationKey = relationKey
         self.selectedTagIds = selectedTagIds
         self.isPreselectModeAvailable = isPreselectModeAvailable
     }
@@ -21,44 +24,39 @@ final class TagsSearchInteractor {
 extension TagsSearchInteractor {
     
     func search(text: String) -> Result<[Relation.Tag.Option], NewSearchError> {
-        guard text.isNotEmpty else {
-            return .success(availableTags)
-        }
-
-        let filteredTags: [Relation.Tag.Option] = availableTags.filter {
-            guard $0.text.isNotEmpty else { return false }
-            
-            return $0.text.lowercased().contains(text.lowercased())
-        }
+        #warning("Check me")
+        let filteredTags = searchService.searchRelationOptions(
+            text: text,
+            relationKey: relationKey,
+            excludedObjectIds: selectedTagIds)?
+            .map { RelationMetadata.Option(details: $0) }
+            .map { Relation.Tag.Option(option: $0) } ?? []
         
-        if filteredTags.isEmpty {
-            let isSearchedTagSelected = allTags.filter { tag in
-                selectedTagIds.contains { $0 == tag.id }
-            }
-                .contains { $0.text.lowercased() == text.lowercased() }
-            
-            return isSearchedTagSelected ?
-                .failure(.alreadySelected(searchText: text)) :
-                .success(filteredTags)
-        }
+//        guard text.isNotEmpty else {
+//            return .success(availableTags)
+//        }
+//
+//        let filteredTags: [Relation.Tag.Option] = availableTags.filter {
+//            guard $0.text.isNotEmpty else { return false }
+//
+//            return $0.text.lowercased().contains(text.lowercased())
+//        }
+//
+//        if filteredTags.isEmpty {
+//            let isSearchedTagSelected = allTags.filter { tag in
+//                selectedTagIds.contains { $0 == tag.id }
+//            }
+//                .contains { $0.text.lowercased() == text.lowercased() }
+//
+//            return isSearchedTagSelected ?
+//                .failure(.alreadySelected(searchText: text)) :
+//                .success(filteredTags)
+//        }
         
         return .success(filteredTags)
     }
     
-    func isCreateButtonAvailable(searchText: String) -> Bool {
-        searchText.isNotEmpty && !allTags.contains { $0.text.lowercased() == searchText.lowercased() }
+    func isCreateButtonAvailable(searchText: String, tags: [Relation.Tag.Option]) -> Bool {
+        searchText.isNotEmpty && tags.isEmpty
     }
-    
-}
-
-private extension TagsSearchInteractor {
-    
-    var availableTags: [Relation.Tag.Option] {
-        guard selectedTagIds.isNotEmpty, !isPreselectModeAvailable else { return allTags }
-        
-        return allTags.filter { tag in
-            !selectedTagIds.contains { $0 == tag.id }
-        }
-    }
-    
 }

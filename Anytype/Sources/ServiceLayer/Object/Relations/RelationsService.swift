@@ -111,17 +111,35 @@ final class RelationsService: RelationsServiceProtocol {
     }
     
     func addRelationOption(source: RelationSource, relationKey: String, optionText: String) -> String? {
-        let option = Anytype_Model_Relation.Option(
-            id: "",
-            text: optionText,
-            color: MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue,
-            scope: .local
+        #warning("Fix scope")
+//        let option = Anytype_Model_Relation.Option(
+//            id: "",
+//            text: optionText,
+//            color: MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue,
+//            scope: .local
+//        )
+        
+        let color = MiddlewareColor.allCases.randomElement()?.rawValue ?? MiddlewareColor.default.rawValue
+        
+        let details = Google_Protobuf_Struct(
+            fields: [
+                "relationOptionText": optionText.protobufValue,
+                "relationKey": relationKey.protobufValue,
+                "relationOptionColor": color.protobufValue
+            ]
         )
         
-        switch source {
-        case .object:
-            #warning("Fix me")
-            return nil
+        #warning("Check it")
+        let optionResult = Anytype_Rpc.Object.CreateRelationOption.Service.invocation(details: details)
+            .invoke()
+            .getValue(domain: .relationsService)
+        
+        return optionResult?.objectID
+        
+//        switch source {
+//        case .object:
+//            #warning("Fix me")
+//            return nil
 //            let response = Anytype_Rpc.ObjectRelationOption.Add.Service.invoke(
 //                contextID: objectId,
 //                relationKey: relationKey,
@@ -134,9 +152,9 @@ final class RelationsService: RelationsServiceProtocol {
 //            EventsBunch(event: response.event).send()
 //
 //            return response.option.id
-        case .dataview(let contextId):
-        #warning("Fix me")
-            return nil
+//        case .dataview(let contextId):
+//        #warning("Fix me")
+//            return nil
 //            let response = Anytype_Rpc.BlockDataviewRecord.RelationOption.Add.Service.invoke(
 //                contextID: contextId,
 //                blockID: SetConstants.dataviewBlockId,
@@ -150,9 +168,10 @@ final class RelationsService: RelationsServiceProtocol {
 //            EventsBunch(event: response.event).send()
 //
 //            return response.option.id
-        }
+//        }
     }
 
+    #warning("Change this code")
     func availableRelations() -> [RelationDetails] {
         RelationDetailsStorage.shared.relations()
         

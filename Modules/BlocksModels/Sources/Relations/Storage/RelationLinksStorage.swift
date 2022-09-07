@@ -32,7 +32,7 @@ public final class RelationLinksStorage: RelationLinksStorageProtocol {
         }
     }
     
-    public func contains(relationKey: String) -> Bool {
-        storage.array.contains { $0.key == relationKey }
+    public func contains(relationKeys: [String]) -> Bool {
+        storage.array.contains { relationKeys.contains($0.key) }
     }
 }

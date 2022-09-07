@@ -1,4 +1,5 @@
 import Foundation
+import BlocksModels
 
 protocol NewSearchModuleAssemblyProtocol {
     
@@ -14,7 +15,7 @@ protocol NewSearchModuleAssemblyProtocol {
     static func tagsSearchModule(
         style: NewSearchView.Style,
         selectionMode: NewSearchViewModel.SelectionMode,
-        allTags: [Relation.Tag.Option],
+        relationKey: String,
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void

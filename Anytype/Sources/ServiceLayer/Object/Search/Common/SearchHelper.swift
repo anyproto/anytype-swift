@@ -141,6 +141,28 @@ class SearchHelper {
         
         return filter
     }
+    
+    static func relationKey(_ relationKey: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .equal
+        filter.value = relationKey.protobufValue
+        
+        filter.relationKey = "relationKey"
+        filter.operator = .and
+        
+        return filter
+    }
+    
+    static func relationOptionText(_ text: String) -> DataviewFilter {
+        var filter = DataviewFilter()
+        filter.condition = .like
+        filter.value = text.protobufValue
+        
+        filter.relationKey = "relationOptionText"
+        filter.operator = .and
+        
+        return filter
+    }
 
     static func templatesFilters(type: ObjectTypeId) -> [DataviewFilter] {
         [

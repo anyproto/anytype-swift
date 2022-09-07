@@ -15,6 +15,7 @@ protocol SearchServiceProtocol {
         excludedTypeIds: [String],
         sortRelationKey: BundledRelationKey?
     ) -> [ObjectDetails]?
+    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [ObjectDetails]?
 }
 
 final class SearchService: ObservableObject, SearchServiceProtocol {
@@ -121,6 +122,23 @@ final class SearchService: ObservableObject, SearchServiceProtocol {
         filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
         
         return searchCommonService.search(filters: filters, sorts: [sort], fullText: text)
+    }
+    
+    func searchRelationOptions(text: String, relationKey: String, excludedObjectIds: [String]) -> [ObjectDetails]? {
+        let sort = SearchHelper.sort(
+            relation: BundledRelationKey.name,
+            type: .asc
+        )
+        
+        var filters = buildFilters(
+            isArchived: false,
+            typeIds: [ObjectTypeId.bundled(.relationOption).rawValue]
+        )
+        filters.append(SearchHelper.relationKey(relationKey))
+        filters.append(SearchHelper.excludedIdsFilter(excludedObjectIds))
+        filters.append(SearchHelper.relationOptionText(text))
+        
+        return searchCommonService.search(filters: filters, sorts: [sort], fullText: "")
     }
 }
 

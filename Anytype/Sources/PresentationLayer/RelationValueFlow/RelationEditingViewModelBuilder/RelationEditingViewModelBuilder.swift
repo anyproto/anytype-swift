@@ -132,7 +132,7 @@ extension RelationEditingViewModelBuilder: RelationEditingViewModelBuilderProtoc
                 },
                 emptyOptionsPlaceholder: Constants.tagsOrFilesOptionsPlaceholder,
                 relation: relation,
-                searchModuleBuilder: TagsOptionsSearchModuleBuilder(allTags: tag.allTags),
+                searchModuleBuilder: TagsOptionsSearchModuleBuilder(relationKey: relation.key),
                 service: RelationsService(objectId: objectId)
             )
         case .object(let object):

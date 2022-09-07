@@ -32,13 +32,13 @@ final class NewSearchModuleAssembly: NewSearchModuleAssemblyProtocol {
     static func tagsSearchModule(
         style: NewSearchView.Style = .default,
         selectionMode: NewSearchViewModel.SelectionMode = .multipleItems(),
-        allTags: [Relation.Tag.Option],
+        relationKey: String,
         selectedTagIds: [String],
         onSelect: @escaping (_ ids: [String]) -> Void,
         onCreate: @escaping (_ title: String) -> Void
     ) -> NewSearchView {
         let interactor = TagsSearchInteractor(
-            allTags: allTags,
+            relationKey: relationKey,
             selectedTagIds: selectedTagIds,
             isPreselectModeAvailable: selectionMode.isPreselectModeAvailable
         )
