@@ -126,7 +126,7 @@ final class MarkupAccessoryViewModel: ObservableObject {
                     self?.actionHandler.setLinkToObject(linkBlockId: linkBlockId, range: range, blockId: blockId)
                 }
             case let .web(url):
-                self?.actionHandler.setLink(url: URL(string: url), range: range, blockId: blockId)
+                self?.actionHandler.setLink(url: url, range: range, blockId: blockId)
             case let .openURL(url):
                 self?.onShowURL?(url)
             case let .openObject(objectId):

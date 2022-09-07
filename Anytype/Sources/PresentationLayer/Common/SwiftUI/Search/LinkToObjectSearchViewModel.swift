@@ -4,7 +4,7 @@ import AnytypeCore
 
 final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
     enum SearchKind {
-        case web(String)
+        case web(URL)
         case createObject(String)
         case object(BlockId)
         case openURL(URL)
@@ -57,9 +57,9 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         }
 
         if text.isNotEmpty {
-            if text.isValidURL() {
+            if text.isValidURL(), let url = AnytypeURL(string: text) {
                 let webSearchData = LinkToObjectSearchData(
-                    searchKind: .web(text),
+                    searchKind: .web(url.url),
                     searchTitle: text,
                     iconImage: .imageAsset(.webPage))
 
@@ -75,15 +75,16 @@ final class LinkToObjectSearchViewModel: SearchViewModelProtocol {
         }
 
         if text.isEmpty {
-            if pasteboardHelper.hasValidURL {
+            if pasteboardHelper.hasValidURL,
+               let pasteboardString = pasteboardHelper.pasteboard.string,
+               let url = AnytypeURL(string: pasteboardString) {
                 let webSearchData = LinkToObjectSearchData(
-                    searchKind: .web(pasteboardHelper.pasteboard.url?.absoluteString ?? ""),
+                    searchKind: .web(url.url),
                     searchTitle: Loc.Editor.LinkToObject.pasteFromClipboard,
                     iconImage: .imageAsset(.webPage))
 
                 let webSection = SearchDataSection(searchData: [webSearchData], sectionName: Loc.webPages)
                 searchData.append(webSection)
-
             }
         }
 
