@@ -135,12 +135,12 @@ final class SubscriptionToggler: SubscriptionTogglerProtocol {
         
         let keys = [
             BundledRelationKey.id.rawValue,
-            "relationKey",
+            BundledRelationKey.relationKey.rawValue,
             BundledRelationKey.name.rawValue,
-            "relationFormat",
-            "readonlyValue",
-            "objectTypes",
-            "relationFormatObjectTypes",
+            BundledRelationKey.relationFormat.rawValue,
+            BundledRelationKey.readonlyValue.rawValue,
+            BundledRelationKey.objectTypes.rawValue,
+            BundledRelationKey.relationFormatObjectTypes.rawValue,
             BundledRelationKey.isHidden.rawValue,
             BundledRelationKey.isReadonly.rawValue
         ]

@@ -147,7 +147,7 @@ class SearchHelper {
         filter.condition = .equal
         filter.value = relationKey.protobufValue
         
-        filter.relationKey = "relationKey"
+        filter.relationKey = BundledRelationKey.relationKey.rawValue
         filter.operator = .and
         
         return filter
@@ -158,7 +158,7 @@ class SearchHelper {
         filter.condition = .like
         filter.value = text.protobufValue
         
-        filter.relationKey = "relationOptionText"
+        filter.relationKey = BundledRelationKey.relationOptionText.rawValue
         filter.operator = .and
         
         return filter

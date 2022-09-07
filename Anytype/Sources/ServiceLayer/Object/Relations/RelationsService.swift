@@ -123,9 +123,9 @@ final class RelationsService: RelationsServiceProtocol {
         
         let details = Google_Protobuf_Struct(
             fields: [
-                "relationOptionText": optionText.protobufValue,
-                "relationKey": relationKey.protobufValue,
-                "relationOptionColor": color.protobufValue
+                BundledRelationKey.relationOptionText.rawValue: optionText.protobufValue,
+                BundledRelationKey.relationKey.rawValue: relationKey.protobufValue,
+                BundledRelationKey.relationOptionColor.rawValue: color.protobufValue
             ]
         )
         

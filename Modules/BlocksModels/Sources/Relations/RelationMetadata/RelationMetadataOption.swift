@@ -17,8 +17,8 @@ extension RelationMetadata.Option {
     
     public init(details: ObjectDetails) {
         self.id = details.id
-        self.text = details.values["relationOptionText"]?.stringValue ?? ""
-        self.color = details.values["relationOptionColor"]?.stringValue ?? ""
+        self.text = details.relationOptionText
+        self.color = details.relationOptionColor
         #warning("Fix scope")
 //        self.scope = Scope(rawValue: middlewareOption.scope.rawValue)
         self.scope = .local

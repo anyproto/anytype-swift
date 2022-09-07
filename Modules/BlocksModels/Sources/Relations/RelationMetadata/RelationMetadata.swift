@@ -39,26 +39,26 @@ public extension RelationDetails {
     init(objectDetails: ObjectDetails) {
         #warning("Add fields to constants")
         self.id = objectDetails.id
-        self.key = objectDetails.values["relationKey"]?.stringValue ?? ""
+        self.key = objectDetails.relationKey
         self.name = objectDetails.name
-        self.format = objectDetails.values["relationFormat"]?.safeIntValue.map { RelationMetadata.Format(rawValue: $0) } ?? .unrecognized
+        self.format = objectDetails.relationFormat
         self.isHidden = objectDetails.isHidden
         self.isReadOnly = objectDetails.isReadonly
         #warning("Check. Middleware should be add this field.")
-        self.isReadOnlyValue = objectDetails.values["readonlyValue"]?.boolValue ?? false
-        self.objectTypes = objectDetails.values["relationFormatObjectTypes"]?.listValue.values.map { $0.stringValue } ?? []
+        self.isReadOnlyValue = objectDetails.readonlyValue
+        self.objectTypes = objectDetails.relationFormatObjectTypes
     }
     
     var asCreateMiddleware: Google_Protobuf_Struct {
         var fields = [String: Google_Protobuf_Value]()
         if name.isNotEmpty {
-            fields["name"] = name.protobufValue
+            fields[BundledRelationKey.name.rawValue] = name.protobufValue
         }
         if format != .unrecognized {
-            fields["relationFormat"] = format.rawValue.protobufValue
+            fields[BundledRelationKey.relationFormat.rawValue] = format.rawValue.protobufValue
         }
         if objectTypes.isNotEmpty {
-            fields["relationFormatObjectTypes"] = objectTypes.protobufValue
+            fields[BundledRelationKey.relationFormatObjectTypes.rawValue] = objectTypes.protobufValue
         }
         
         return Google_Protobuf_Struct(fields: fields)

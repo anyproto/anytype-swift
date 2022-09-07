@@ -41,6 +41,14 @@ public enum BundledRelationKey: String {
     case workspaceId
     case fileExt
     case fileMimeType
+    
+    case relationOptionText
+    case relationOptionColor
+    case relationKey
+    case relationFormat
+    case readonlyValue
+    case relationFormatObjectTypes
+    case objectTypes
 }
 
 
