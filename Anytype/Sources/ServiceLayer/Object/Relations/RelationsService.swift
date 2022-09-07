@@ -52,7 +52,7 @@ final class RelationsService: RelationsServiceProtocol {
     }
 
     func createRelation(relation: RelationDetails) -> Bool {
-        #warning("Fix object limit")
+        #warning("Check me")
         let result = Anytype_Rpc.Object.CreateRelation.Service
             .invocation(details: relation.asCreateMiddleware)
             .invoke()

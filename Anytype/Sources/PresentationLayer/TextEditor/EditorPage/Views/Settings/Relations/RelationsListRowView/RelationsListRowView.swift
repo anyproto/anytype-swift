@@ -6,9 +6,9 @@ struct RelationsListRowView: View {
     let starButtonAvailable: Bool
     let relation: Relation
     
-    let onRemoveTap: (_ relationKey: String) -> ()
-    let onStarTap: (_ relationKey: String) -> ()
-    let onEditTap: (_ relationKey: String) -> ()
+    let onRemoveTap: (_ relation: Relation) -> ()
+    let onStarTap: (_ relation: Relation) -> ()
+    let onEditTap: (_ relation: Relation) -> ()
     
     @State private var size: CGSize = .zero
     
@@ -66,7 +66,7 @@ struct RelationsListRowView: View {
     
     private var valueViewButton: some View {
         Button {
-            onEditTap(relation.key)
+            onEditTap(relation)
         } label: {
             valueView
         }
@@ -82,7 +82,7 @@ struct RelationsListRowView: View {
     private var removeButton: some View {
         withAnimation(.spring()) {
             Button {
-                onRemoveTap(relation.key)
+                onRemoveTap(relation)
             } label: {
                 Image(systemName: "minus.circle.fill")
                     .foregroundColor(.red)
@@ -92,7 +92,7 @@ struct RelationsListRowView: View {
     
     private var starImageView: some View {
         Button {
-            onStarTap(relation.key)
+            onStarTap(relation)
         } label: {
             relation.isFeatured ?
                 Image(asset: .relationRemoveFromFeatured) :
@@ -117,6 +117,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                 starButtonAvailable: true,
                 relation: Relation.tag(
                     Relation.Tag(
+                        id: "1",
                         key: "1",
                         name: "relation name",
                         isFeatured: false,
@@ -193,6 +194,7 @@ struct ObjectRelationRow_Previews: PreviewProvider {
                 starButtonAvailable: true,
                 relation: Relation.text(
                     Relation.Text(
+                        id: "1",
                         key: "1",
                         name: "Relation name",
                         isFeatured: false,

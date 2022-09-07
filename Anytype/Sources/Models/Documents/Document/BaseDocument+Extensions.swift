@@ -11,6 +11,7 @@ extension BaseDocumentProtocol {
         
         let objectTypeRelation: Relation = .text(
             Relation.Text(
+                id: BundledRelationKey.type.rawValue,
                 key: BundledRelationKey.type.rawValue,
                 name: "",
                 isFeatured: false,

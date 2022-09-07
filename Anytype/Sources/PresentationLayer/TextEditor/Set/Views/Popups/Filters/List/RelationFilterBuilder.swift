@@ -84,6 +84,7 @@ final class RelationFilterBuilder {
         default:
             return .text(
                 Relation.Text(
+                    id: relationDetails.id,
                     key: relationDetails.key,
                     name: relationDetails.name,
                     isFeatured: false,
@@ -156,6 +157,7 @@ private extension RelationFilterBuilder {
         #warning("Check limit object types")
         return .object(
             Relation.Object(
+                id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: false,
@@ -174,6 +176,7 @@ private extension RelationFilterBuilder {
         guard filter.condition.hasValues else { return nil }
         return .text(
             Relation.Text(
+                id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: false,
@@ -197,6 +200,7 @@ private extension RelationFilterBuilder {
         }()
         return .number(
             Relation.Text(
+                id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: false,
@@ -214,6 +218,7 @@ private extension RelationFilterBuilder {
         guard filter.condition.hasValues else { return nil }
         return .phone(
             Relation.Text(
+                id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: false,
@@ -231,6 +236,7 @@ private extension RelationFilterBuilder {
         guard filter.condition.hasValues else { return nil }
         return .email(
             Relation.Text(
+                id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: false,
@@ -248,6 +254,7 @@ private extension RelationFilterBuilder {
         guard filter.condition.hasValues else { return nil }
         return .url(
             Relation.Text(
+                id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: false,
@@ -282,6 +289,7 @@ private extension RelationFilterBuilder {
         
         return .status(
             Relation.Status(
+                id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: false,
@@ -317,6 +325,7 @@ private extension RelationFilterBuilder {
         
         return .tag(
             Relation.Tag(
+                id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: false,
@@ -379,6 +388,7 @@ private extension RelationFilterBuilder {
         
         return .file(
             Relation.File(
+                id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: false,
@@ -396,6 +406,7 @@ private extension RelationFilterBuilder {
         guard filter.condition.hasValues else { return nil }
         return .checkbox(
             Relation.Checkbox(
+                id: relationDetails.id,
                 key: relationDetails.key,
                 name: relationDetails.name,
                 isFeatured: false,

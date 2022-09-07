@@ -86,13 +86,12 @@ final class SetFiltersContentViewBuilder {
             }()
             return values.map { $0.stringValue }
         }()
-        #warning("Fix limitedObjectType")
+        #warning("Check limitedObjectType")
         return NewSearchModuleAssembly.objectsSearchModule(
             style: .embedded,
             selectionMode: .multipleItems(preselectedIds: selectedObjectsIds),
             excludedObjectIds: [],
-//            limitedObjectType: filter.relationDetails.objectTypes,
-            limitedObjectType: [],
+            limitedObjectType: filter.relationDetails.objectTypes,
             onSelect: onSelect
         )
     }

@@ -2,7 +2,8 @@ import BlocksModels
 
 extension Relation {
     
-    struct Checkbox: RelationProtocol, Hashable {
+    struct Checkbox: RelationProtocol, Hashable, Identifiable {
+        let id: String
         let key: String
         let name: String
         let isFeatured: Bool

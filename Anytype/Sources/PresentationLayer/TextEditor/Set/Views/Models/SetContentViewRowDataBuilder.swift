@@ -50,7 +50,7 @@ final class SetContentViewDataBuilder {
             let relations: [Relation] = colums.map { colum in
                 let relation = sortedRelations.first { $0.key == colum.key }
                 guard let relation = relation else {
-                    return .unknown(.empty(key: colum.key, name: colum.name))
+                    return .unknown(.empty(id: colum.id, key: colum.key, name: colum.name))
                 }
                 
                 return relation
