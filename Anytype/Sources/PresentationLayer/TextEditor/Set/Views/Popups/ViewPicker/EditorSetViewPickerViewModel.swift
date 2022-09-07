@@ -1,6 +1,7 @@
 import SwiftUI
 import BlocksModels
 import Combine
+import AnytypeCore
 
 final class EditorSetViewPickerViewModel: ObservableObject {
     @Published var rows: [EditorSetViewRowConfiguration] = []
@@ -8,13 +9,11 @@ final class EditorSetViewPickerViewModel: ObservableObject {
     private let setModel: EditorSetViewModel
     private var cancellable: AnyCancellable?
     
-    private let router: EditorRouterProtocol
-    private let dataviewService: DataviewServiceProtocol
+    private let showViewTypes: RoutingAction<DataviewView>
     
-    init(setModel: EditorSetViewModel, dataviewService: DataviewServiceProtocol, router: EditorRouterProtocol) {
-        self.dataviewService = dataviewService
-        self.router = router
+    init(setModel: EditorSetViewModel, showViewTypes: @escaping RoutingAction<DataviewView>) {
         self.setModel = setModel
+        self.showViewTypes = showViewTypes
         self.cancellable = setModel.$dataView.sink { [weak self] dataView in
             self?.updateRows(with: dataView)
         }
@@ -46,6 +45,6 @@ final class EditorSetViewPickerViewModel: ObservableObject {
         guard let activeView = setModel.dataView.views.first(where: { $0.id == id }) else {
             return
         }
-        router.showViewTypes(activeView: activeView, dataviewService: dataviewService)
+        showViewTypes(activeView)
     }
 }
