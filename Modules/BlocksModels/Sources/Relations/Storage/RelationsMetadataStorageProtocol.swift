@@ -1,5 +1,6 @@
 import Foundation
 
+#warning("Delete it")
 public protocol RelationsMetadataStorageProtocol {
     
     var relations: [RelationMetadata] { get }
