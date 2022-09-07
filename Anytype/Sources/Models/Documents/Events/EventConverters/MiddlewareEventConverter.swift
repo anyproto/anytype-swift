@@ -6,7 +6,6 @@ import SwiftProtobuf
 final class MiddlewareEventConverter {
     private let infoContainer: InfoContainerProtocol
     private let relationLinksStorage: RelationLinksStorageProtocol
-//    private let relationStorage: RelationsMetadataStorageProtocol
     private let detailsStorage: ObjectDetailsStorage
     private let restrictionsContainer: ObjectRestrictionsContainer
     
@@ -16,14 +15,12 @@ final class MiddlewareEventConverter {
     init(
         infoContainer: InfoContainerProtocol,
         relationLinksStorage: RelationLinksStorageProtocol,
-//        relationStorage: RelationsMetadataStorageProtocol,
         informationCreator: BlockInformationCreator,
         detailsStorage: ObjectDetailsStorage = ObjectDetailsStorage.shared,
         restrictionsContainer: ObjectRestrictionsContainer
     ) {
         self.infoContainer = infoContainer
         self.relationLinksStorage = relationLinksStorage
-//        self.relationStorage = relationStorage
         self.informationCreator = informationCreator
         self.detailsStorage = detailsStorage
         self.restrictionsContainer = restrictionsContainer
@@ -124,29 +121,18 @@ final class MiddlewareEventConverter {
         case let .objectDetailsUnset(data):
             guard let details = detailsStorage.unset(data: data) else { return nil }
             return .details(id: details.id)
-            #warning("Check me")
-//        case .objectRelationsSet(let set):
-//            relationStorage.set(
-//                relations: set.relations.map { RelationMetadata(middlewareRelation: $0) }
-//            )
-//
-//            return .general
             
         case .objectRelationsAmend(let amend):
             #warning("Check me")
             relationLinksStorage.amend(
                 relationLinks: amend.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
             )
-//            relationStorage.amend(
-//                relations: amend.relations.map { RelationMetadata(middlewareRelation: $0) }
-//            )
             
             return .general
             
         case .objectRelationsRemove(let remove):
             #warning("Check me")
             relationLinksStorage.remove(relationIds: remove.relationIds)
-//            relationStorage.remove(relationKeys: remove.keys)
             
             return .general
             

@@ -3,7 +3,7 @@ import BlocksModels
 
 protocol NewRelationOptionProtocol {
     
-    var scope: RelationMetadata.Option.Scope { get }
+    var scope: RelationOption.Scope { get }
     
 }
 

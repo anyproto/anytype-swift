@@ -5,10 +5,10 @@ import UIKit
 
 final class RelationsBuilder {
     
-    private let scope: [RelationMetadata.Scope]
+    private let scope: [RelationDetails.Scope]
     private let storage: ObjectDetailsStorage
     
-    init(scope: [RelationMetadata.Scope] = [.object], storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
+    init(scope: [RelationDetails.Scope] = [.object], storage: ObjectDetailsStorage = ObjectDetailsStorage.shared) {
         self.scope = scope
         self.storage = storage
     }
@@ -510,7 +510,7 @@ private extension RelationsBuilder {
     
 }
 
-extension RelationMetadata.Format {
+extension RelationFormat {
     
     var hint: String {
         switch self {
@@ -544,20 +544,6 @@ extension RelationMetadata.Format {
     }
     
 }
-
-//private extension RelationMetadata {
-//
-//    func isFeatured(details: ObjectDetails) -> Bool {
-//        details.featuredRelations.contains(self.id)
-//    }
-//
-//    func isEditable(objectLocked: Bool) -> Bool {
-//        guard !objectLocked else { return false }
-//
-//        return !self.isReadOnly
-//    }
-//
-//}
 
 private extension RelationDetails {
     

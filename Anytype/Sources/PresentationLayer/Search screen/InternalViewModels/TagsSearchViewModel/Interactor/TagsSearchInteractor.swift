@@ -29,9 +29,9 @@ extension TagsSearchInteractor {
             text: text,
             relationKey: relationKey,
             excludedObjectIds: selectedTagIds)?
-            .map { RelationMetadata.Option(details: $0) }
+            .map { RelationOption(details: $0) }
             .map { Relation.Tag.Option(option: $0) } ?? []
-        
+        #warning("Fix two maps ^^^")
 //        guard text.isNotEmpty else {
 //            return .success(availableTags)
 //        }

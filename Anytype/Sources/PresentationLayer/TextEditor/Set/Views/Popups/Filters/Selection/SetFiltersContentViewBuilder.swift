@@ -37,7 +37,7 @@ final class SetFiltersContentViewBuilder {
     
     @ViewBuilder
     private func buildSearchView(
-        with format: RelationMetadata.Format,
+        with format: RelationFormat,
         onSelect: @escaping (_ ids: [String]) -> Void
     ) -> some View {
         switch format {

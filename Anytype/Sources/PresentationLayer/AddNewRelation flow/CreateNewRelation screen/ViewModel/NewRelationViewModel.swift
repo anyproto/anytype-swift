@@ -53,7 +53,7 @@ extension NewRelationViewModel {
             id: "",
             key: "",
             name: name,
-            format: format.asRelationMetadataFormat,
+            format: format.asRelationFormat,
             isHidden: false,
             isReadOnly: false,
             isReadOnlyValue: false,
@@ -121,7 +121,7 @@ private extension SupportedRelationFormat {
         NewRelationFormatSectionView.Model(icon: self.iconAsset, title: self.title)
     }
     
-    var asRelationMetadataFormat: RelationMetadata.Format {
+    var asRelationFormat: RelationFormat {
         switch self {
         case .text: return .longText
         case .tag: return .tag

@@ -1,18 +1,19 @@
 import Foundation
 
-public extension RelationMetadata.Option {
-    
+#warning("Fix scope or delete it")
+public extension RelationOption {
+
     enum Scope: Hashable {
         case local
         case relation
         case format
         case unrecognized(Int)
     }
-    
+
 }
 
-extension RelationMetadata.Option.Scope {
-    
+extension RelationOption.Scope {
+
     init(rawValue: Int) {
         switch rawValue {
         case 0: self = .local
@@ -21,7 +22,7 @@ extension RelationMetadata.Option.Scope {
         default: self = .unrecognized(rawValue)
         }
     }
-    
+
     var rawValue: Int {
         switch self {
         case .local: return 0

@@ -79,18 +79,6 @@ final class RelationsService: RelationsServiceProtocol {
         events?.send()
         
         return events.isNotNil
-        
-//        #warning("Fix me")
-//        return nil
-//        let response = Anytype_Rpc.ObjectRelation.Add.Service
-//            .invoke(contextID: objectId, relation: relation.asMiddleware)
-//            .getValue(domain: .relationsService)
-//
-//        guard let response = response else { return nil }
-//
-//        EventsBunch(event: response.event).send()
-//
-//        return RelationMetadata(middlewareRelation: response.relation)
     }
     
     func removeRelation(relationId: String) {
@@ -101,11 +89,6 @@ final class RelationsService: RelationsServiceProtocol {
             .map { EventsBunch(event: $0.event) }
             .getValue(domain: .relationsService)?
             .send()
-//        Anytype_Rpc.ObjectRelation.Delete.Service
-//            .invoke(contextID: objectId, relationKey: relationKey)
-//            .map { EventsBunch(event: $0.event) }
-//            .getValue(domain: .relationsService)?
-//            .send()
 
         AnytypeAnalytics.instance().logEvent(AnalyticsEventsName.deleteRelation)
     }

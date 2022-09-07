@@ -26,14 +26,14 @@ extension Relation.Tag {
         let text: String
         let textColor: UIColor
         let backgroundColor: UIColor
-        let scope: RelationMetadata.Option.Scope
+        let scope: RelationOption.Scope
     }
     
 }
 
 extension Relation.Tag.Option {
     
-    init(option: RelationMetadata.Option) {
+    init(option: RelationOption) {
         self.id = option.id
         self.text = option.text
         self.textColor = MiddlewareColor(rawValue: option.color)

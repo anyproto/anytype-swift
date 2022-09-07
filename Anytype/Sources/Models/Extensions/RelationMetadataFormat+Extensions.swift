@@ -1,7 +1,7 @@
 import Foundation
 import BlocksModels
 
-extension RelationMetadata.Format {
+extension RelationFormat {
 
     var iconAsset: ImageAsset {
         switch self {

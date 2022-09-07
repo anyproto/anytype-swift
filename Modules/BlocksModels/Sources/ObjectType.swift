@@ -45,19 +45,6 @@ public struct ObjectType: Equatable, Hashable, Codable {
 
 extension ObjectType {
     
-//    init(model: Anytype_Model_ObjectType) {
-//        self.init(
-//            url: model.url,
-//            name: model.name,
-//            iconEmoji: Emoji(model.iconEmoji) ?? Emoji.default,
-//            description: model.description_p,
-//            hidden: model.hidden,
-//            readonly: model.readonly,
-//            isArchived: model.isArchived,
-//            smartBlockTypes: Set(model.types.compactMap { SmartBlockType(smartBlockType: $0) })
-//        )
-//    }
-    
     public init(details: ObjectDetails) {
         self.init(
             id: details.id,

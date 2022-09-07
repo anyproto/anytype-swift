@@ -7,16 +7,13 @@ final class LocalEventConverter {
     private let blockValidator = BlockValidator()
     private let detailsStorage = ObjectDetailsStorage.shared
     private let relationLinksStorage: RelationLinksStorageProtocol
-//    private let relationStorage: RelationsMetadataStorageProtocol
     private let restrictionsContainer: ObjectRestrictionsContainer
     
     init(
-//        relationStorage: RelationsMetadataStorageProtocol,
         relationLinksStorage: RelationLinksStorageProtocol,
         restrictionsContainer: ObjectRestrictionsContainer,
         infoContainer: InfoContainerProtocol
     ) {
-//        self.relationStorage = relationStorage
         self.relationLinksStorage = relationLinksStorage
         self.restrictionsContainer = restrictionsContainer
         self.infoContainer = infoContainer
@@ -68,9 +65,6 @@ final class LocalEventConverter {
             let relationLinks = data.relationLinks.map { RelationLink(middlewareRelationLink: $0) }
             relationLinksStorage.set(relationLinks: relationLinks)
             
-//            relationStorage.set(
-//                relations: data.relations.map { RelationMetadata(middlewareRelation: $0) }
-//            )
             let restrinctions = MiddlewareObjectRestrictionsConverter.convertObjectRestrictions(middlewareRestrictions: data.restrictions)
 
             restrictionsContainer.restrinctions = restrinctions

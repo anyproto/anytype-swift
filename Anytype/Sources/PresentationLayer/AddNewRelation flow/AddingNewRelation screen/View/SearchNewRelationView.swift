@@ -54,15 +54,15 @@ struct SearchNewRelationView: View {
                         }
                     case let .addFromLibriry(relationsMetadata):
                         Section(content: {
-                            ForEach(Array(relationsMetadata.enumerated()), id: \.element) { index, relationMetadata in
+                            ForEach(Array(relationsMetadata.enumerated()), id: \.element) { index, relationDetails in
                                 Button(
                                     action: {
-                                        viewModel.addRelation(relationMetadata)
+                                        viewModel.addRelation(relationDetails)
 
                                         AnytypeAnalytics.instance().logSearchResult(index: index + 1, length: searchText.count)
                                     }
                                 ) {
-                                    NewRelationCell(cellKind: .relation(realtionMetadata: relationMetadata))
+                                    NewRelationCell(cellKind: .relation(realtionMetadata: relationDetails))
                                         .padding([.leading, .trailing], 20)
                                 }
                                 .frame(maxWidth: .infinity)

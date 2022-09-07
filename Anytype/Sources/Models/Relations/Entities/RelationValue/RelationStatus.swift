@@ -24,14 +24,14 @@ extension Relation.Status {
         let id: String
         let text: String
         let color: UIColor
-        let scope: RelationMetadata.Option.Scope
+        let scope: RelationOption.Scope
     }
     
 }
 
 extension Relation.Status.Option {
     
-    init(option: RelationMetadata.Option) {
+    init(option: RelationOption) {
         let middlewareColor = MiddlewareColor(rawValue: option.color)
         
         self.id = option.id

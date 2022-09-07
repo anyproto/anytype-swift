@@ -72,7 +72,7 @@ final class EditorSetViewModel: ObservableObject {
             }
             
             guard let relationDetails = relationDetails,
-                  shouldAddRelationMetadata(relationDetails) else { return nil }
+                  shouldAddRelationDetails(relationDetails) else { return nil }
             
             return relationDetails
         }
@@ -246,7 +246,7 @@ final class EditorSetViewModel: ObservableObject {
         }
     }
     
-    private func shouldAddRelationMetadata(_ relationDetails: RelationDetails) -> Bool {
+    private func shouldAddRelationDetails(_ relationDetails: RelationDetails) -> Bool {
         guard sorts.first(where: { $0.relationDetails.key == relationDetails.key }) == nil else {
             return false
         }

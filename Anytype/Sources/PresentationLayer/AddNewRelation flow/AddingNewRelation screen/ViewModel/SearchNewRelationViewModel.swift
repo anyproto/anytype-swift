@@ -48,8 +48,8 @@ extension SearchNewRelationViewModel {
             guard case let .addFromLibriry(relationsMetadata) = section else { return }
             searchData.removeAll()
 
-            let filteredRelationsMetadata = relationsMetadata.filter { relationMetadata in
-                relationMetadata.name.range(of: text, options: .caseInsensitive) != nil
+            let filteredRelationsMetadata = relationsMetadata.filter { relationDetails in
+                relationDetails.name.range(of: text, options: .caseInsensitive) != nil
             }
             
             searchData.append(.createNewRelation)

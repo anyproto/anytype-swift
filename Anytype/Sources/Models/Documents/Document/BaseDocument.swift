@@ -10,7 +10,6 @@ final class BaseDocument: BaseDocumentProtocol {
 
     let infoContainer: InfoContainerProtocol = InfoContainer()
     let relationLinksStorage: RelationLinksStorageProtocol = RelationLinksStorage()
-//    let relationsStorage: RelationsMetadataStorageProtocol = RelationsMetadataStorage()
     let restrictionsContainer: ObjectRestrictionsContainer = ObjectRestrictionsContainer()
     
     var objectRestrictions: ObjectRestrictions { restrictionsContainer.restrinctions }

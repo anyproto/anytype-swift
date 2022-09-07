@@ -104,8 +104,8 @@ extension AddNewRelationCoordinator: NewRelationModuleOutput {
         presentSwiftUIView(view: view)
     }
     
-    func didCreateRelation(_ relationMetadata: RelationDetails) {
-        onCompletion?(relationMetadata, true)
+    func didCreateRelation(_ relationDetails: RelationDetails) {
+        onCompletion?(relationDetails, true)
         viewController?.topPresentedController.dismiss(animated: true)
     }
     

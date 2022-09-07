@@ -33,7 +33,7 @@ public protocol BundledRelationsValueProvider {
     var relationOptionText: String { get }
     var relationOptionColor: String { get }
     var relationKey: String { get }
-    var relationFormat: RelationMetadata.Format { get }
+    var relationFormat: RelationFormat { get }
     var readonlyValue: Bool { get }
     var relationFormatObjectTypes: [String] { get }
 }
@@ -180,9 +180,9 @@ public extension BundledRelationsValueProvider {
         stringValue(with: .relationKey)
     }
     
-    var relationFormat: RelationMetadata.Format {
+    var relationFormat: RelationFormat {
         values[BundledRelationKey.relationFormat.rawValue]?
-            .safeIntValue.map { RelationMetadata.Format(rawValue: $0) } ?? .unrecognized
+            .safeIntValue.map { RelationFormat(rawValue: $0) } ?? .unrecognized
     }
     
     var readonlyValue: Bool {

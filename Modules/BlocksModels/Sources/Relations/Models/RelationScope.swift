@@ -1,6 +1,7 @@
 import Foundation
 
-public extension RelationMetadata {
+#warning("Fix scope for relation")
+public extension RelationDetails {
     
     enum Scope: Hashable {
         /// stored within the object
@@ -18,7 +19,7 @@ public extension RelationMetadata {
     }
 }
 
-extension RelationMetadata.Scope {
+extension RelationDetails.Scope {
     
     init(rawValue: Int) {
         switch rawValue {

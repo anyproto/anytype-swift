@@ -46,7 +46,7 @@ final class SetViewSettingsImagePreviewViewModel: ObservableObject {
             return []
         }
         let fileRelations = setModel.dataView.relations.filter {
-            !$0.isHidden && $0.format == RelationMetadata.Format.file
+            !$0.isHidden && $0.format == RelationFormat.file
         }
         return fileRelations.map { relation in
             SetViewSettingsImagePreviewRowConfiguration(
