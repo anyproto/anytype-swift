@@ -30,8 +30,8 @@ extension SetSortsListViewModel {
     // MARK: - Routing
     
     func addButtonTapped() {
-        router.showRelationSearch(relations: setModel.relations) { [weak self] key in
-            self?.addNewSort(with: key)
+        router.showRelationSearch(relations: setModel.relations) { [weak self] relation in
+            self?.addNewSort(with: relation)
         }
     }
     
@@ -70,11 +70,11 @@ extension SetSortsListViewModel {
         updateView(with: sorts)
     }
     
-    func addNewSort(with key: String) {
+    func addNewSort(with relation: RelationDetails) {
         var dataviewSorts = setModel.sorts.map { $0.sort }
         dataviewSorts.append(
             DataviewSort(
-                relationKey: key,
+                relationKey: relation.key,
                 type: .asc
             )
         )

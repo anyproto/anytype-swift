@@ -534,13 +534,13 @@ extension EditorRouter {
         showCreateObject(with: viewModel)
     }
     
-    func showRelationSearch(relations: [RelationDetails], onSelect: @escaping (String) -> Void) {
+    func showRelationSearch(relations: [RelationDetails], onSelect: @escaping (RelationDetails) -> Void) {
         let vc = UIHostingController(
             rootView: NewSearchModuleAssembly.setSortsSearchModule(
                 relations: relations,
-                onSelect: { [weak self] key in
+                onSelect: { [weak self] relation in
                     self?.viewController?.topPresentedController.dismiss(animated: false) {
-                        onSelect(key)
+                        onSelect(relation)
                     }
                 }
             )
