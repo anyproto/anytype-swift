@@ -2,6 +2,7 @@ import SwiftUI
 import BlocksModels
 
 final class SetViewTypesPickerViewModel: ObservableObject {
+    @Published var name = ""
     @Published var types: [SetViewTypeConfiguration] = []
     
     private let activeView: DataviewView
@@ -9,6 +10,7 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     private let dataviewService: DataviewServiceProtocol
     
     init(activeView: DataviewView, dataviewService: DataviewServiceProtocol) {
+        self.name = activeView.name
         self.activeView = activeView
         self.selectedType = activeView.type
         self.dataviewService = dataviewService
@@ -45,9 +47,15 @@ final class SetViewTypesPickerViewModel: ObservableObject {
     }
     
     private func updateView(completion: () -> Void) {
-        let newView = activeView.updated(type: selectedType)
+        defer { completion() }
+        guard activeView.type != selectedType || activeView.name != name else {
+            return
+        }
+        let newView = activeView.updated(
+            name: name,
+            type: selectedType
+        )
         dataviewService.updateView(newView)
-        completion()
     }
     
     private func handleTap(with type: DataviewViewType) {

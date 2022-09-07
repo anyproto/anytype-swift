@@ -1,4 +1,5 @@
 import SwiftUI
+import BlocksModels
 
 struct SetViewTypesPicker: View {
     @ObservedObject var viewModel: SetViewTypesPickerViewModel
@@ -58,13 +59,31 @@ struct SetViewTypesPicker: View {
     }
     
     private var content: some View {
-        typesSection
-            .padding(.horizontal, 20)
+        ScrollView(.vertical, showsIndicators: false) {
+            nameSection
+            typesSection
+        }
+        .padding(.horizontal, 20)
     }
+    
+    private var nameSection: some View {
+        VStack(alignment: .leading, spacing: 0) {
+            Spacer.fixedHeight(11)
+            AnytypeText(Loc.name, style: .caption1Regular, color: .textSecondary)
+            Spacer.fixedHeight(6)
+            
+            TextField(Loc.untitled, text: $viewModel.name)
+                .foregroundColor(.textPrimary)
+                .font(AnytypeFontBuilder.font(anytypeFont: .heading))
+            Spacer.fixedHeight(10)
+        }
+        .divider(alignment: .leading)
+    }
+
     
     private func sectionTitle(_ title: String) -> some View {
         VStack(spacing: 0) {
-            Spacer.fixedHeight(11)
+            Spacer.fixedHeight(26)
             AnytypeText(title, style: .caption1Regular, color: .textSecondary)
             Spacer.fixedHeight(8)
         }
@@ -72,7 +91,7 @@ struct SetViewTypesPicker: View {
     }
     
     private var typesSection: some View {
-        Group {
+        VStack(spacing: 0) {
             sectionTitle(Loc.SetViewTypesPicker.Section.Types.title)
             ForEach(viewModel.types) {
                 viewType($0)
@@ -121,5 +140,19 @@ struct SetViewTypesPicker: View {
             }
         }
         .padding(.horizontal, 20)
+    }
+}
+
+struct SetViewTypesPicker_Previews: PreviewProvider {
+    static var previews: some View {
+        SetViewTypesPicker(
+            viewModel: SetViewTypesPickerViewModel(
+                activeView: DataviewView.empty,
+                dataviewService: DataviewService(
+                    objectId: "objectId",
+                    prefilledFieldsBuilder: SetFilterPrefilledFieldsBuilder()
+                )
+            )
+        )
     }
 }
