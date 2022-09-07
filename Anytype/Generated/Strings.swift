@@ -349,6 +349,8 @@ internal enum Loc {
   internal static let inThisObject = Loc.tr("Localizable", "In this object")
   /// Initializing sync
   internal static let initializingSync = Loc.tr("Localizable", "Initializing sync")
+  /// Into object
+  internal static let intoObject = Loc.tr("Localizable", "Into object")
   /// Invalid invitation code
   internal static let invalidInvitationCode = Loc.tr("Localizable", "Invalid invitation code")
   /// %s is already selected

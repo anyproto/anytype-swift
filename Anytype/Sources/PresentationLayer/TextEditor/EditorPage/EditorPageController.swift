@@ -12,9 +12,6 @@ final class EditorPageController: UIViewController {
         onBackTap: viewModel.router.goBack
     )
     private weak var firstResponderView: UIView?
-
-    private var didAppliedModelsOnce: Bool = false // https://app.clickup.com/t/295523h
-    private var didAppliedHeaderOnce: Bool = false
     
     let collectionView: EditorCollectionView = {
         var listConfiguration = UICollectionLayoutListConfiguration(appearance: .plain)
@@ -233,7 +230,7 @@ extension EditorPageController: EditorPageViewInput {
         var headerSnapshot = NSDiffableDataSourceSectionSnapshot<EditorItem>()
         headerSnapshot.append([.header(header)])
         if #available(iOS 15.0, *) {
-            dataSource.apply(headerSnapshot, to: .header, animatingDifferences: didAppliedHeaderOnce ? true : false)
+            dataSource.apply(headerSnapshot, to: .header, animatingDifferences: true)
 
         } else {
             UIView.performWithoutAnimation {
@@ -241,7 +238,6 @@ extension EditorPageController: EditorPageViewInput {
             }
         }
 
-        didAppliedHeaderOnce = true
         navigationBarHelper.configureNavigationBar(using: header, details: details)
     }
     
@@ -276,7 +272,7 @@ extension EditorPageController: EditorPageViewInput {
             }
         }
 
-        let animatingDifferences = (changes?.canPerformAnimation ?? true) && didAppliedModelsOnce
+        let animatingDifferences = changes?.canPerformAnimation ?? true
         applyBlocksSectionSnapshot(blocksSnapshot, animatingDifferences: animatingDifferences)
     }
 
@@ -556,8 +552,6 @@ private extension EditorPageController {
                 dataSource.apply(snapshot, to: .main, animatingDifferences: true)
             }
         }
-
-        didAppliedModelsOnce = true
 
         let selectedCells = collectionView.indexPathsForSelectedItems
         selectedCells?.forEach {

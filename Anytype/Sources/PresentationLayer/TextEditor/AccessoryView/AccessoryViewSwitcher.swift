@@ -98,8 +98,10 @@ final class AccessoryViewSwitcher: AccessoryViewSwitcherProtocol {
     func clearAccessory(data: TextBlockDelegateData) {
         slashMenuView.restoreDefaultState()
         data.textView.inputAccessoryView = nil
-        
-        cursorModeAccessoryView.isHidden = true
+
+        if data.textView == self.data?.textView {
+            cursorModeAccessoryView.isHidden = true
+        }
     }
     
     func restoreDefaultState() {
